@@ -1,0 +1,15 @@
+{
+  "name": "graphql-tools",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --config ./config/jest/config.json",
+    "test:watch": "yarn run test -- --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^19.2.3",
+    "jest": "^20.0.1",
+    "lerna": "^2.0.0-rc.4",
+    "ts-jest": "^20.0.3",
+    "typescript": "^2.3.2"
+  }
+}

@@ -1,0 +1,562 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validate() fragments includes fields from inline fragments 1`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from inline fragments 2`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from inline fragments 3`] = `
+Array [
+  Object {
+    "keyPath": "person.name",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from inline fragments 4`] = `
+Array [
+  Object {
+    "keyPath": "person.name",
+    "message": "should be a string but was a boolean",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from inline fragments 5`] = `Array []`;
+
+exports[`validate() fragments includes fields from inline fragments 6`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "has key 'age' not present in the query",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from separate fragments 1`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from separate fragments 2`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from separate fragments 3`] = `
+Array [
+  Object {
+    "keyPath": "person.name",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from separate fragments 4`] = `
+Array [
+  Object {
+    "keyPath": "person.name",
+    "message": "should be a string but was a boolean",
+  },
+]
+`;
+
+exports[`validate() fragments includes fields from separate fragments 5`] = `Array []`;
+
+exports[`validate() fragments includes fields from separate fragments 6`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "has key 'age' not present in the query",
+  },
+]
+`;
+
+exports[`validate() fragments treats fields on interface type spreads to be nullable 1`] = `
+Array [
+  Object {
+    "keyPath": "animals",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() fragments treats fields on interface type spreads to be nullable 2`] = `
+Array [
+  Object {
+    "keyPath": "animals",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() fragments treats fields on interface type spreads to be nullable 3`] = `Array []`;
+
+exports[`validate() fragments treats fields on interface type spreads to be nullable 4`] = `
+Array [
+  Object {
+    "keyPath": "animals[0].name",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() fragments treats fields on interface type spreads to be nullable 5`] = `Array []`;
+
+exports[`validate() fragments treats fields on interface type spreads to be nullable 6`] = `
+Array [
+  Object {
+    "keyPath": "animals[0].barks",
+    "message": "should be a boolean but was a number",
+  },
+]
+`;
+
+exports[`validate() fragments treats fields on interface type spreads to be nullable 7`] = `Array []`;
+
+exports[`validate() lists validates nested arrays 1`] = `Array []`;
+
+exports[`validate() lists validates nested arrays 2`] = `Array []`;
+
+exports[`validate() lists validates nested arrays 3`] = `Array []`;
+
+exports[`validate() lists validates nested arrays 4`] = `
+Array [
+  Object {
+    "keyPath": "sets[0]",
+    "message": "should be an array, but was a number",
+  },
+  Object {
+    "keyPath": "sets[1]",
+    "message": "should be an array, but was a number",
+  },
+  Object {
+    "keyPath": "sets[2]",
+    "message": "should be an array, but was a number",
+  },
+]
+`;
+
+exports[`validate() lists validates nested arrays 5`] = `
+Array [
+  Object {
+    "keyPath": "sets[0][2]",
+    "message": "should be non-null but was null",
+  },
+  Object {
+    "keyPath": "sets[1][0]",
+    "message": "should be an integer but was a boolean",
+  },
+  Object {
+    "keyPath": "sets[1][1]",
+    "message": "should be an integer but was a object",
+  },
+]
+`;
+
+exports[`validate() lists validates nested arrays 6`] = `
+Array [
+  Object {
+    "keyPath": "sets[0]",
+    "message": "should be non-null but was null",
+  },
+  Object {
+    "keyPath": "sets[2]",
+    "message": "should be an array, but was a boolean",
+  },
+]
+`;
+
+exports[`validate() lists validates objects nested in arrays 1`] = `
+Array [
+  Object {
+    "keyPath": "people",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() lists validates objects nested in arrays 2`] = `
+Array [
+  Object {
+    "keyPath": "people",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() lists validates objects nested in arrays 3`] = `Array []`;
+
+exports[`validate() lists validates objects nested in arrays 4`] = `
+Array [
+  Object {
+    "keyPath": "people[0]",
+    "message": "should be an object but was a number",
+  },
+]
+`;
+
+exports[`validate() lists validates objects nested in arrays 5`] = `
+Array [
+  Object {
+    "keyPath": "people[0].name",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() lists validates objects nested in arrays 6`] = `
+Array [
+  Object {
+    "keyPath": "people[0].name",
+    "message": "should be a string but was a boolean",
+  },
+]
+`;
+
+exports[`validate() lists validates objects nested in arrays 7`] = `Array []`;
+
+exports[`validate() lists validates objects nested in arrays 8`] = `
+Array [
+  Object {
+    "keyPath": "people[0]",
+    "message": "has key 'age' not present in the query",
+  },
+]
+`;
+
+exports[`validate() lists validates the types of lists 1`] = `
+Array [
+  Object {
+    "keyPath": "favoriteNumbers",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() lists validates the types of lists 2`] = `
+Array [
+  Object {
+    "keyPath": "favoriteNumbers",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() lists validates the types of lists 3`] = `Array []`;
+
+exports[`validate() lists validates the types of lists 4`] = `
+Array [
+  Object {
+    "keyPath": "favoriteNumbers",
+    "message": "should be an array, but was a object",
+  },
+]
+`;
+
+exports[`validate() lists validates the types of lists 5`] = `
+Array [
+  Object {
+    "keyPath": "favoriteNumbers[1]",
+    "message": "should be an integer but was a float",
+  },
+  Object {
+    "keyPath": "favoriteNumbers[2]",
+    "message": "should be non-null but was null",
+  },
+  Object {
+    "keyPath": "favoriteNumbers[3]",
+    "message": "should be an integer but was a boolean",
+  },
+]
+`;
+
+exports[`validate() objects creates errors for keys not present in the query 1`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "has key 'age' not present in the query",
+  },
+]
+`;
+
+exports[`validate() objects creates errors for keys not present in the query 2`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "has key 'foo' not present in the query",
+  },
+]
+`;
+
+exports[`validate() objects validates nested objects 1`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() objects validates nested objects 2`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() objects validates nested objects 3`] = `
+Array [
+  Object {
+    "keyPath": "person.address",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() objects validates nested objects 4`] = `Array []`;
+
+exports[`validate() objects validates nested objects 5`] = `
+Array [
+  Object {
+    "keyPath": "person.address.number",
+    "message": "should be an integer but was a string",
+  },
+]
+`;
+
+exports[`validate() objects validates nested objects 6`] = `
+Array [
+  Object {
+    "keyPath": "person.address.number",
+    "message": "should be an integer but was a float",
+  },
+]
+`;
+
+exports[`validate() objects validates nested objects 7`] = `Array []`;
+
+exports[`validate() objects validates nested objects 8`] = `
+Array [
+  Object {
+    "keyPath": "person.address",
+    "message": "has key 'street' not present in the query",
+  },
+]
+`;
+
+exports[`validate() objects validates that the value is actually an object 1`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() objects validates that the value is actually an object 2`] = `
+Array [
+  Object {
+    "keyPath": "person",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() objects validates that the value is actually an object 3`] = `
+Array [
+  Object {
+    "keyPath": "person.name",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() objects validates that the value is actually an object 4`] = `
+Array [
+  Object {
+    "keyPath": "person.name",
+    "message": "should be a string but was a boolean",
+  },
+]
+`;
+
+exports[`validate() objects validates that the value is actually an object 5`] = `Array []`;
+
+exports[`validate() validates booleans 1`] = `
+Array [
+  Object {
+    "keyPath": "married",
+    "message": "should be a boolean but was a string",
+  },
+]
+`;
+
+exports[`validate() validates booleans 2`] = `
+Array [
+  Object {
+    "keyPath": "married",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() validates booleans 3`] = `
+Array [
+  Object {
+    "keyPath": "married",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() validates booleans 4`] = `Array []`;
+
+exports[`validate() validates booleans 5`] = `Array []`;
+
+exports[`validate() validates booleans 6`] = `
+Array [
+  Object {
+    "keyPath": "responded",
+    "message": "should be a boolean but was a string",
+  },
+]
+`;
+
+exports[`validate() validates booleans 7`] = `Array []`;
+
+exports[`validate() validates booleans 8`] = `Array []`;
+
+exports[`validate() validates booleans 9`] = `Array []`;
+
+exports[`validate() validates booleans 10`] = `Array []`;
+
+exports[`validate() validates numbers 1`] = `
+Array [
+  Object {
+    "keyPath": "age",
+    "message": "should be an integer but was a string",
+  },
+]
+`;
+
+exports[`validate() validates numbers 2`] = `
+Array [
+  Object {
+    "keyPath": "age",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() validates numbers 3`] = `
+Array [
+  Object {
+    "keyPath": "age",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() validates numbers 4`] = `Array []`;
+
+exports[`validate() validates numbers 5`] = `
+Array [
+  Object {
+    "keyPath": "age",
+    "message": "should be an integer but was a float",
+  },
+]
+`;
+
+exports[`validate() validates numbers 6`] = `
+Array [
+  Object {
+    "keyPath": "height",
+    "message": "should be a float but was a string",
+  },
+]
+`;
+
+exports[`validate() validates numbers 7`] = `Array []`;
+
+exports[`validate() validates numbers 8`] = `Array []`;
+
+exports[`validate() validates numbers 9`] = `Array []`;
+
+exports[`validate() validates numbers 10`] = `
+Array [
+  Object {
+    "keyPath": "height",
+    "message": "should be a float but was an integer",
+  },
+]
+`;
+
+exports[`validate() validates strings 1`] = `
+Array [
+  Object {
+    "keyPath": "name",
+    "message": "should be a string but was a number",
+  },
+]
+`;
+
+exports[`validate() validates strings 2`] = `
+Array [
+  Object {
+    "keyPath": "name",
+    "message": "should be non-null but was undefined",
+  },
+]
+`;
+
+exports[`validate() validates strings 3`] = `
+Array [
+  Object {
+    "keyPath": "name",
+    "message": "should be non-null but was null",
+  },
+]
+`;
+
+exports[`validate() validates strings 4`] = `Array []`;
+
+exports[`validate() validates strings 5`] = `
+Array [
+  Object {
+    "keyPath": "address",
+    "message": "should be a string but was a number",
+  },
+]
+`;
+
+exports[`validate() validates strings 6`] = `Array []`;
+
+exports[`validate() validates strings 7`] = `Array []`;
+
+exports[`validate() validates strings 8`] = `Array []`;

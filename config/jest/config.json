@@ -1,0 +1,14 @@
+{
+  "rootDir": "../../",
+  "modulePathIgnorePatterns": [
+    "packages/.*/lib"
+  ],
+  "testRegex": ".*\\.test\\.ts$",
+  "transform": {
+    ".ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+  },
+  "moduleFileExtensions": [
+    "ts",
+    "js"
+  ]
+}

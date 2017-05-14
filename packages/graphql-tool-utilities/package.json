@@ -1,0 +1,15 @@
+{
+  "name": "graphql-tool-utilities",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^2.3.2"
+  },
+  "dependencies": {
+    "apollo-codegen": "^0.10.13"
+  }
+}
