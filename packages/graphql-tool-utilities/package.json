@@ -11,5 +11,8 @@
   },
   "dependencies": {
     "apollo-codegen": "^0.10.13"
+  },
+  "peerDependencies": {
+    "graphql": "^0.9.6"
   }
 }

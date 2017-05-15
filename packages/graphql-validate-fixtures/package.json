@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "main": "lib/index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "@types/fs-extra": "^3.0.0",
     "@types/graphql": "^0.9.1",
     "fs-extra": "^3.0.1",
     "graphql": "^0.9.6",
-    "graphql-tool-utilities": "^1.0.0"
+    "graphql-tool-utilities": "^1.0.0",
+    "glob": "^7.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^2.3.2"
   }
 }

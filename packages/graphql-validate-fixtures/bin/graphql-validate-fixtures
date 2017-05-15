@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+const yargs = require('yargs');
+const glob = require('glob');
+
+const {evaluateFixtures} = require('..');
+
+const argv = yargs
+  .usage('Usage: $0 <fixtures> [options]')
+  .option('schema', {
+    required: true,
+    normalize: true,
+    type: 'string',
+    describe: 'The path to the schema definition',
+  })
+  .option('documents', {
+    required: true,
+    normalize: true,
+    type: 'string',
+    describe: 'The glob pattern for GraphQL queries and fragments to compare against',
+  })
+  .help()
+  .argv;
+
+evaluateFixtures({
+  fixturePaths: glob.sync(argv._[0]),
+  documentPaths: glob.sync(argv.documents),
+  schemaPath: argv.schema,
+})
+  .then((result) => console.log(JSON.stringify(result, null, 2)));

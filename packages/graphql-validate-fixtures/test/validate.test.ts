@@ -4,7 +4,7 @@ import validate from '../validate';
 
 describe('validate()', () => {
   it('validates strings', () => {
-    const document = createDocument(`
+    let document = createDocument(`
       type Query { name: String! }
       schema { query: Query }
     `, 'query NameQuery { name }');
@@ -14,7 +14,7 @@ describe('validate()', () => {
     expect(validate({name: null}, document.operations.NameQuery, document)).toMatchSnapshot();
     expect(validate({name: 'Chris'}, document.operations.NameQuery, document)).toMatchSnapshot();
 
-    const document = createDocument(`
+    document = createDocument(`
       type Query { address: String }
       schema { query: Query }
     `, 'query AddressQuery { address }');
@@ -26,7 +26,7 @@ describe('validate()', () => {
   });
 
   it('validates numbers', () => {
-    const document = createDocument(`
+    let document = createDocument(`
       type Query { age: Int! }
       schema { query: Query }
     `, 'query AgeQuery { age }');
@@ -37,7 +37,7 @@ describe('validate()', () => {
     expect(validate({age: 42}, document.operations.AgeQuery, document)).toMatchSnapshot();
     expect(validate({age: 42.5}, document.operations.AgeQuery, document)).toMatchSnapshot();
 
-    const document = createDocument(`
+    document = createDocument(`
       type Query { height: Float }
       schema { query: Query }
     `, 'query HeightQuery { height }');
@@ -50,7 +50,7 @@ describe('validate()', () => {
   });
 
   it('validates booleans', () => {
-    const document = createDocument(`
+    let document = createDocument(`
       type Query { married: Boolean! }
       schema { query: Query }
     `, 'query MarriedQuery { married }');
@@ -61,7 +61,7 @@ describe('validate()', () => {
     expect(validate({married: true}, document.operations.MarriedQuery, document)).toMatchSnapshot();
     expect(validate({married: false}, document.operations.MarriedQuery, document)).toMatchSnapshot();
 
-    const document = createDocument(`
+    document = createDocument(`
       type Query { responded: Boolean }
       schema { query: Query }
     `, 'query RespondedQuery { responded }');

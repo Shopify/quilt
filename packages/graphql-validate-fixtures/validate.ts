@@ -1,3 +1,4 @@
+import {dirname, basename} from 'path';
 import {
   GraphQLType,
   GraphQLScalarType,
@@ -13,12 +14,17 @@ import {
 
 export type KeyPath = string;
 
+export interface Fixture {
+  path: string,
+  content: any,
+}
+
 export interface Error {
   keyPath: KeyPath,
   message: string,
 }
 
-export interface Document {
+export interface AST {
   operations: {[key: string]: Operation},
   fragments: {[key: string]: FragmentSpread},
 }
@@ -41,17 +47,20 @@ export interface Field {
   fragmentSpreads?: string[],
 }
 
-// const fixture = readJSONSync('./fixture.json');
-// const schema = buildClientSchema(readJSONSync('./schema.json').data);
-// const queryPath = resolve(__dirname, 'ProductsQuery.graphql');
-// const query = readFileSync(queryPath, 'utf8');
-// const queryDocument: Document = compile(schema, parse(new Source(query, queryPath)));
+const OPERATION_MARKER = '@operation';
 
-export default function validateValueAgainstQuery(value: any, {fields: [field]}: Operation, document: Document): Error[] {
-  return validateValueAgainstFieldDescription(value[field.responseName], field, '', document);
+export default function validateValueAgainstAST(fixture: Fixture, ast: AST): Error[] {
+  const queryName = basename(dirname(fixture.path));
+  const query = ast.operations[queryName] || ast.operations[fixture.content[OPERATION_MARKER]];
+  const {fields: [field]} = query;
+
+  const value = {...fixture.content};
+  delete value[OPERATION_MARKER];
+
+  return validateValueAgainstFieldDescription(value[field.responseName], field, '', ast);
 }
 
-function validateValueAgainstFieldDescription(value: any, fieldDescription: Field, parentKeyPath: string, document: Document): Error[] {
+function validateValueAgainstFieldDescription(value: any, fieldDescription: Field, parentKeyPath: string, ast: AST): Error[] {
   const {type, responseName} = fieldDescription;
   const keyPath = updateKeyPath(parentKeyPath, responseName);
   const typeErrors = validateValueAgainstType(value, type, keyPath);
@@ -61,11 +70,11 @@ function validateValueAgainstFieldDescription(value: any, fieldDescription: Fiel
   }
   
   return Array.isArray(value)
-    ? validateListAgainstFieldDescription(value, fieldDescription, fieldDescription.type, keyPath, document)
-    : validateValueAgainstObjectFieldDescription(value, fieldDescription, keyPath, document);
+    ? validateListAgainstFieldDescription(value, fieldDescription, fieldDescription.type, keyPath, ast)
+    : validateValueAgainstObjectFieldDescription(value, fieldDescription, keyPath, ast);
 }
 
-function validateValueAgainstObjectFieldDescription(value: any, fieldDescription: Field, keyPath: string, document: Document) {
+function validateValueAgainstObjectFieldDescription(value: any, fieldDescription: Field, keyPath: string, ast: AST) {
   if (typeof value !== 'object' || Array.isArray(value)) {
     return [];
   }
@@ -76,7 +85,7 @@ function validateValueAgainstObjectFieldDescription(value: any, fieldDescription
 
   if (fragmentSpreads) {
     fragmentSpreads
-      .map((spread) => document.fragments[spread])
+      .map((spread) => ast.fragments[spread])
       .forEach((fragment) => {
         fragment.fields.forEach((field) => {
           if (fields.some(({fieldName}) => fieldName === field.fieldName)) {
@@ -94,7 +103,7 @@ function validateValueAgainstObjectFieldDescription(value: any, fieldDescription
       });
   }
 
-  return validateValueAgainstFields(value, fields.concat(fragmentFields), keyPath, document);
+  return validateValueAgainstFields(value, fields.concat(fragmentFields), keyPath, ast);
 }
 
 function makeTypeNullable(type: GraphQLType) {
@@ -103,7 +112,7 @@ function makeTypeNullable(type: GraphQLType) {
     : type;
 }
 
-function validateListAgainstFieldDescription(value: any[], fieldDescription: Field, type: GraphQLType, keyPath: string, document: Document): Error[] {
+function validateListAgainstFieldDescription(value: any[], fieldDescription: Field, type: GraphQLType, keyPath: string, ast: AST): Error[] {
   const itemType = type instanceof GraphQLNonNull
       ? (type as GraphQLNonNull<GraphQLList<GraphQLType>>).ofType.ofType
       : (type as GraphQLList<GraphQLType>).ofType;
@@ -117,12 +126,12 @@ function validateListAgainstFieldDescription(value: any[], fieldDescription: Fie
     }
 
     return Array.isArray(item)
-      ? allErrors.concat(validateListAgainstFieldDescription(item, fieldDescription, itemType, itemKeyPath, document))
-      : allErrors.concat(validateValueAgainstObjectFieldDescription(item, fieldDescription, itemKeyPath, document));
+      ? allErrors.concat(validateListAgainstFieldDescription(item, fieldDescription, itemType, itemKeyPath, ast))
+      : allErrors.concat(validateValueAgainstObjectFieldDescription(item, fieldDescription, itemKeyPath, ast));
   }, []);
 }
 
-function validateValueAgainstFields(value: {[key: string]: any}, fields: Field[], keyPath: KeyPath, document: Document) {
+function validateValueAgainstFields(value: {[key: string]: any}, fields: Field[], keyPath: KeyPath, ast: AST) {
   const finalValue = value || {};
 
   const excessFields = Object
@@ -132,7 +141,7 @@ function validateValueAgainstFields(value: {[key: string]: any}, fields: Field[]
 
   return fields.reduce((allErrors, field) => {
     return allErrors.concat(
-      validateValueAgainstFieldDescription(finalValue[field.responseName], field, keyPath, document)
+      validateValueAgainstFieldDescription(finalValue[field.responseName], field, keyPath, ast)
     );
   }, excessFields);
 }
