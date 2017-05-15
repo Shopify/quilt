@@ -2,6 +2,8 @@
 
 const yargs = require('yargs');
 const glob = require('glob');
+const chalk = require('chalk');
+const {relative, dirname, basename} = require('path');
 
 const {evaluateFixtures} = require('..');
 
@@ -27,4 +29,57 @@ evaluateFixtures({
   documentPaths: glob.sync(argv.documents),
   schemaPath: argv.schema,
 })
-  .then((result) => console.log(JSON.stringify(result, null, 2)));
+  .then((evaluations) => {
+    let passed = 0;
+    let failed = 0;
+    let lastFailed = false;
+
+    console.log();
+
+    evaluations.forEach((evaluation) => {
+      const relativePath = relative(process.cwd(), evaluation.fixturePath);
+      const formattedPath = `${chalk.dim(relativePath.replace(basename(relativePath), ''))}${chalk.bold(basename(relativePath))}`;
+
+      if (evaluation.scriptError) {
+        failed += 1;
+        lastFailed = true;
+        console.log(`${chalk.inverse.bold.red(' FAIL ')} ${formattedPath}`);
+        console.log(evaluation.scriptError.message);
+        console.log(chalk.dim(evaluation.scriptError.stack.replace(evaluation.scriptError.message, '').replace(/^Error:\s*\n/, '')));
+        console.log();
+      } else if (evaluation.validation) {
+        if (evaluation.validation.errors.length === 0) {
+          passed += 1;
+          lastFailed = false;
+          console.log(`${chalk.inverse.bold.green(' PASS ')} ${formattedPath}`);
+        } else {
+          failed += 1;
+          lastFailed = true;
+
+          console.log(`${chalk.inverse.bold.red(' FAIL ')} ${formattedPath}`);
+          evaluation.validation.errors.forEach((error) => {
+            console.log(`${error.keyPath} ${chalk.red(error.message)}`);
+          });
+          console.log();
+        }
+      }
+    });
+
+    if (!lastFailed) {
+      console.log();
+    }
+
+    if (passed > 0) {
+      console.log(chalk.bold.green(`${passed} passed`));
+    }
+
+    if (failed > 0) {
+      console.log(chalk.bold.red(`${failed} failed`));
+      process.exit(1);
+    }
+  })
+  .catch((error) => {
+    console.log();
+    console.log(`${chalk.inverse.bold.red(' ERROR ')} ${error.message}`);
+    console.log(chalk.dim(error.stack.replace(error.message, '').replace(/^Error:\s*\n/, '')));
+  });

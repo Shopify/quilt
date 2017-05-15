@@ -1,18 +1,24 @@
 {
   "name": "graphql-tool-utilities",
-  "version": "1.0.0",
-  "main": "lib/index.js",
+  "description": "Common utilities for GraphQL developer tools",
+  "version": "0.1.0",
   "license": "MIT",
+  "files": [
+    "ast.js",
+    "ast.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublish": "in-publish && yarn run build || :"
   },
   "devDependencies": {
+    "in-publish": "^2.0.0",
     "typescript": "^2.3.2"
   },
   "dependencies": {
+    "@types/graphql": "^0.9.1",
     "apollo-codegen": "^0.10.13"
-  },
-  "peerDependencies": {
-    "graphql": "^0.9.6"
   }
 }

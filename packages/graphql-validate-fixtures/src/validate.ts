@@ -11,6 +11,7 @@ import {
   GraphQLFloat,
   GraphQLBoolean,
 } from 'graphql';
+import {AST, Field} from 'graphql-tool-utilities/ast';
 
 export type KeyPath = string;
 
@@ -20,44 +21,52 @@ export interface Fixture {
 }
 
 export interface Error {
-  keyPath: KeyPath,
+  keyPath?: KeyPath,
   message: string,
 }
 
-export interface AST {
-  operations: {[key: string]: Operation},
-  fragments: {[key: string]: FragmentSpread},
-}
-
-export interface Operation {
-  fields: Field[],
-}
-
-export interface FragmentSpread {
-  fields: Field[],
-  typeCondition: GraphQLType,
-  possibleTypes: GraphQLType[],
-}
-
-export interface Field {
-  responseName: string,
-  fieldName: string,
-  type: GraphQLType,
-  fields?: Field[],
-  fragmentSpreads?: string[],
+export interface Validation {
+  operationName: string,
+  operationType: 'query' | 'mutation',
+  operationPath?: string,
+  errors: Error[],
 }
 
 const OPERATION_MARKER = '@operation';
 
-export default function validateValueAgainstAST(fixture: Fixture, ast: AST): Error[] {
-  const queryName = basename(dirname(fixture.path));
-  const query = ast.operations[queryName] || ast.operations[fixture.content[OPERATION_MARKER]];
-  const {fields: [field]} = query;
+export default function validateFixtureAgainstAST(fixture: Fixture, ast: AST): Validation {
+  const fixtureDirectoryName = basename(dirname(fixture.path));
+  const operationName = fixture.content[OPERATION_MARKER] || fixtureDirectoryName;
+  const operation = ast.operations[operationName];
 
+  if (operation == null) {
+    let lookedFor = `'${fixtureDirectoryName}' based on the fixture’s directory name`
+    
+    if (fixture.content[OPERATION_MARKER]) {
+      lookedFor += `, and '${fixture.content[OPERATION_MARKER]}' based on the '${OPERATION_MARKER}' key`;
+    }
+
+    throw new Error([
+      `Could not find a matching operation (looked for ${lookedFor}).`,
+      `Make sure to put your fixture in a folder named the same as the operation, or add an '${OPERATION_MARKER}' key indicating the operation.`,
+      `Available operations: ${Object.keys(ast.operations).join(', ')}`
+    ].join(' '));
+  }
+
+  const {fields, filePath, operationType} = operation;
   const value = {...fixture.content};
   delete value[OPERATION_MARKER];
 
-  return validateValueAgainstFieldDescription(value[field.responseName], field, '', ast);
+  return {
+    operationName,
+    operationType,
+    operationPath: filePath,
+    errors: fields.reduce((allErrors: Error[], field) => {
+      return allErrors.concat(
+        validateValueAgainstFieldDescription(value[field.responseName], field, '', ast)
+      );
+    }, []),
+  };
 }
 
 function validateValueAgainstFieldDescription(value: any, fieldDescription: Field, parentKeyPath: string, ast: AST): Error[] {
@@ -199,13 +208,19 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
       : [error(keyPath, `should be a boolean but was a ${valueType}`)];
   }
 
-  if (!(type instanceof GraphQLScalarType || type instanceof GraphQLEnumType)) {
-    return [];
+  if (type instanceof GraphQLScalarType) {
+    return type.parseValue(value) != null
+      ? []
+      : [error(keyPath, `value does not match scalar ${type.name}`)];
   }
 
-  return type.parseValue(value) != null
-    ? []
-    : [error(keyPath, 'unable to parse value for type ${type.name}')];
+  if (type instanceof GraphQLEnumType) {
+    return type.parseValue(value) != null
+      ? []
+      : [error(keyPath, `value does not match enum ${type.name} (available values: ${type.getValues().map((enumValue) => enumValue.value).join(', ')})`)];
+  }
+
+  return [];
 }
 
 function updateKeyPath(keyPath: KeyPath, newKey: string | number) {

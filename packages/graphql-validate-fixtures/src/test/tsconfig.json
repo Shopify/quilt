@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "baseUrl": "src",
     "declaration": true,
-    "outDir": "lib",
     "moduleResolution": "node",
     "strict": true,
     "noUnusedLocals": true,
@@ -12,9 +9,5 @@
       "es2015",
       "es2016"
     ]
-  },
-  "exclude": [
-    "test/**",
-    "node_modules/**"
-  ]
+  }
 }

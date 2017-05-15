@@ -2,6 +2,7 @@
   "name": "graphql-tools",
   "license": "MIT",
   "scripts": {
+    "pretest": "rm -rf packages/graphql-tool-utilities/node_modules/graphql && rm -rf packages/graphql-validate-fixtures/node_modules/graphql",
     "test": "jest --config ./config/jest/config.json",
     "test:watch": "yarn run test -- --watch"
   },
@@ -14,6 +15,8 @@
     "typescript": "^2.3.2"
   },
   "dependencies": {
+    "@types/glob": "^5.0.30",
+    "chalk": "^1.1.3",
     "yargs": "^8.0.1"
   }
 }

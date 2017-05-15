@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "outDir": "lib",
     "moduleResolution": "node",
     "strict": true,
     "noUnusedLocals": true,

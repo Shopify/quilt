@@ -8,12 +8,16 @@
     "**/.DS_Store": true,
     "**/node_modules": true,
     "**/lib": true,
-    "**/yarn.lock": true
+    "**/yarn.lock": true,
+    "packages/graphql-tool-utilities/*.js": true,
+    "packages/**/*.d.ts": true
   },
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
     "**/lib": true,
-    "**/yarn.lock": true
+    "**/yarn.lock": true,
+    "packages/graphql-tool-utilities/*.js": true,
+    "packages/**/*.d.ts": true
   }
 }
