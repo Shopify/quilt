@@ -3,7 +3,7 @@
   "license": "MIT",
   "scripts": {
     "ts": "tsc --noEmit",
-    "pretest": "rm -rf packages/graphql-tool-utilities/node_modules/graphql && rm -rf packages/graphql-validate-fixtures/node_modules/graphql",
+    "pretest": "rm -rf packages/graphql-tool-utilities/node_modules/graphql && rm -rf packages/graphql-validate-fixtures/node_modules/graphql && node packages/graphql-validate-fixtures/scripts/introspection.js",
     "test": "jest --config ./config/jest/config.json",
     "test:watch": "yarn run test -- --watch",
     "check": "yarn run ts && yarn run test"

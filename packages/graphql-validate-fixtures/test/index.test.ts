@@ -18,7 +18,9 @@ describe('evaluateFixtures()', () => {
   });
 
   it('throws an error when the schema is not found', async () => {
-    await expect(evaluateFixturesForFixturePath('missing-schema')).rejects.toMatchSnapshot();
+    const details = detailsForFixture('missing-schema');
+    details.schemaPath += 'foo';
+    await expect(evaluateFixtures(details)).rejects.toMatchSnapshot();
   });
 
   it('throws an error when there are malformed GraphQL documents', async () => {

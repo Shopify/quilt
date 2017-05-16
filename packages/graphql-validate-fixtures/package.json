@@ -5,6 +5,9 @@
   "main": "lib/index.js",
   "license": "MIT",
   "bin": "./bin/graphql-validate-fixtures",
+  "tags": [
+    "graphql"
+  ],
   "scripts": {
     "build": "tsc",
     "prepublish": "in-publish && yarn run build || :"

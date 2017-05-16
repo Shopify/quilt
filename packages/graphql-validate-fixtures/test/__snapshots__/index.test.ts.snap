@@ -70,9 +70,9 @@ Array [
 `;
 
 exports[`evaluateFixtures() throws an error when the schema is not found 1`] = `
-[Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json':
+[Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.jsonfoo':
 
-ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json']
+ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.jsonfoo']
 `;
 
 exports[`evaluateFixtures() throws an error when there are malformed GraphQL documents 1`] = `
