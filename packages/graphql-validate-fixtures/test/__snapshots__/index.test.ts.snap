@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`evaluateFixtures() handles fixtures that are invalid json 1`] = `
+Array [
+  Object {
+    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json",
+    "scriptError": [SyntaxError: /Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json: Unexpected string in JSON at position 35],
+  },
+  Object {
+    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/MyQuery/fixture.json",
+    "validation": Object {
+      "errors": Array [],
+      "operationName": "MyQuery",
+      "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/queries/Query.graphql",
+      "operationType": "query",
+    },
+  },
+]
+`;
+
+exports[`evaluateFixtures() handles fixtures with errors 1`] = `
+Array [
+  Object {
+    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
+    "validation": Object {
+      "errors": Array [
+        Object {
+          "keyPath": "name",
+          "message": "should be a string but was a number",
+        },
+      ],
+      "operationName": "AnotherQuery",
+      "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Another.graphql",
+      "operationType": "query",
+    },
+  },
+  Object {
+    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
+    "validation": Object {
+      "errors": Array [],
+      "operationName": "MyQuery",
+      "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Query.graphql",
+      "operationType": "query",
+    },
+  },
+]
+`;
+
+exports[`evaluateFixtures() handles fixtures without errors 1`] = `
+Array [
+  Object {
+    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-fixture.json",
+    "validation": Object {
+      "errors": Array [],
+      "operationName": "AnotherQuery",
+      "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
+      "operationType": "query",
+    },
+  },
+  Object {
+    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/MyQuery/fixture.json",
+    "validation": Object {
+      "errors": Array [],
+      "operationName": "MyQuery",
+      "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Query.graphql",
+      "operationType": "query",
+    },
+  },
+]
+`;
+
+exports[`evaluateFixtures() throws an error when the schema is not found 1`] = `
+[Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json':
+
+ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json']
+`;
+
+exports[`evaluateFixtures() throws an error when there are malformed GraphQL documents 1`] = `
+[Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/malformed-query/queries/Another.graphql':
+
+Expected {, found Name "name"
+
+1: query AnotherQuery
+2:   name
+     ^
+3: }
+]
+`;

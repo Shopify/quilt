@@ -1,7 +1,7 @@
 import {join} from 'path';
 import {buildSchema, parse, concatAST} from 'graphql';
 import {compile, AST} from 'graphql-tool-utilities/ast';
-import validateFixtureAgainstAST from '../validate';
+import validateFixtureAgainstAST from '../src/validate';
 
 describe('validateFixtureAgainstAST()', () => {
   it('validates strings', () => {

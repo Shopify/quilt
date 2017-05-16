@@ -1,6 +1,6 @@
 import {readFile, readJSON} from 'fs-extra';
 import {isAbsolute, resolve} from 'path';
-import {GraphQLSchema, buildSchema, Source, parse, concatAST} from 'graphql';
+import {GraphQLSchema, buildClientSchema, Source, parse, concatAST} from 'graphql';
 import {compile} from 'graphql-tool-utilities/ast';
 
 import validateFixtureAgainstAST, {Validation} from './validate';
@@ -21,7 +21,8 @@ export async function evaluateFixtures({fixturePaths, documentPaths, schemaPath}
   let schema: GraphQLSchema;
 
   try {
-    schema = buildSchema(await readFile(schemaPath, 'utf8'));
+    const schemaJSON = await readJSON(schemaPath, 'utf8');
+    schema = buildClientSchema(schemaJSON.data);
   } catch (error) {
     throw new Error(`Error parsing '${schemaPath}':\n\n${error.message.replace(/Syntax Error GraphQL \(.*?\) /, '')}`);
   }

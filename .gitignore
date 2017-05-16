@@ -1,5 +1,6 @@
 node_modules
 .DS_Store
 **/lib
-packages/graphql-tool-utilities/*.js
 packages/**/*.d.ts
+packages/graphql-tool-utilities/*.js
+packages/graphql-validate-fixtures/**/schema.json
