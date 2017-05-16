@@ -7,10 +7,10 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/node_modules": true,
-    "**/lib": false,
+    "**/lib": true,
     "**/yarn.lock": true,
     "packages/graphql-tool-utilities/*.js": true,
-    "packages/**/*.d.ts": false
+    "packages/**/*.d.ts": true
   },
   "search.exclude": {
     "**/node_modules": true,

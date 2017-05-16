@@ -1,5 +1,6 @@
 {
   "name": "graphql-tools",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "ts": "tsc --noEmit",

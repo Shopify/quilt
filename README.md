@@ -1,3 +1,3 @@
 # GraphQL Tools
 
-> A collection of developer-focused GraphQL tools.
+> A collection of developer-focused GraphQL tools

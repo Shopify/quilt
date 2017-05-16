@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "bin": "./bin/graphql-validate-fixtures",
+  "repository": "https://github.com/lemonmade/graphql-tools/tree/master/packages/graphql-validate-fixtures",
   "tags": [
     "graphql"
   ],

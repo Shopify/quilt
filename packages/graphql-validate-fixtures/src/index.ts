@@ -7,7 +7,7 @@ import validateFixtureAgainstAST, {Validation} from './validate';
 
 export interface Options {
   fixturePaths: string[],
-  documentPaths: string[],
+  operationPaths: string[],
   schemaPath: string,
 }
 
@@ -17,7 +17,7 @@ export interface Evaluation {
   validation?: Validation,
 }
 
-export async function evaluateFixtures({fixturePaths, documentPaths, schemaPath}: Options): Promise<Evaluation[]>  {
+export async function evaluateFixtures({fixturePaths, operationPaths, schemaPath}: Options): Promise<Evaluation[]>  {
   let schema: GraphQLSchema;
 
   try {
@@ -28,7 +28,7 @@ export async function evaluateFixtures({fixturePaths, documentPaths, schemaPath}
   }
   
   const sources = await Promise.all(
-    documentPaths.map(async (documentPath) => new Source(await readFile(documentPath, 'utf8'), documentPath))
+    operationPaths.map(async (operationPath) => new Source(await readFile(operationPath, 'utf8'), operationPath))
   );
   const document = concatAST(sources.map((source) => {
     try {

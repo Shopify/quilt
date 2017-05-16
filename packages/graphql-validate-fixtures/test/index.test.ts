@@ -41,6 +41,6 @@ function detailsForFixture(fixture: string) {
   return {
     schemaPath,
     fixturePaths,
-    documentPaths: operationPaths,
+    operationPaths,
   };
 }

@@ -9,13 +9,15 @@ const {evaluateFixtures} = require('..');
 
 const argv = yargs
   .usage('Usage: $0 <fixtures> [options]')
-  .option('schema', {
+  .option('schema-path', {
+    alias: 's',
     required: true,
     normalize: true,
     type: 'string',
-    describe: 'The path to the schema definition',
+    describe: 'The path to the JSON file containing a schema instrospection query result',
   })
-  .option('documents', {
+  .option('operation-paths', {
+    alias: 'o',
     required: true,
     normalize: true,
     type: 'string',
@@ -26,8 +28,8 @@ const argv = yargs
 
 evaluateFixtures({
   fixturePaths: glob.sync(argv._[0]),
-  documentPaths: glob.sync(argv.documents),
-  schemaPath: argv.schema,
+  operationPaths: glob.sync(argv.operationPaths),
+  schemaPath: argv.schemaPath,
 })
   .then((evaluations) => {
     let passed = 0;
