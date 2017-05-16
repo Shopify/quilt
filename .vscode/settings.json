@@ -7,7 +7,7 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/node_modules": true,
-    "**/lib": true,
+    "**/lib": false,
     "**/yarn.lock": true,
     "packages/graphql-tool-utilities/*.js": true,
     "packages/**/*.d.ts": true

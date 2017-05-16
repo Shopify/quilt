@@ -1,276 +1,302 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`validateFixtureAgainstAST() fragments includes fields from inline fragments 1`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from inline fragments 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from inline fragments 2`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from inline fragments 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from inline fragments 3`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from inline fragments 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.name",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from inline fragments 4`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from inline fragments 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.name",
       "message": "should be a string but was a boolean",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from inline fragments 5`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from inline fragments 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "PersonQuery/fixture.json",
   "operationName": "PersonQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from inline fragments 6`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from inline fragments 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "has key 'age' not present in the query",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from separate fragments 1`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from separate fragments 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from separate fragments 2`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from separate fragments 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from separate fragments 3`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from separate fragments 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.name",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from separate fragments 4`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from separate fragments 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.name",
       "message": "should be a string but was a boolean",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from separate fragments 5`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from separate fragments 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "PersonQuery/fixture.json",
   "operationName": "PersonQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments includes fields from separate fragments 6`] = `
+exports[`validate validateFixtureAgainstAST() fragments includes fields from separate fragments 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "has key 'age' not present in the query",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 1`] = `
+exports[`validate validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "DogQuery/fixture.json",
+  "operationName": "DogQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "animals",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "DogQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 2`] = `
+exports[`validate validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "DogQuery/fixture.json",
+  "operationName": "DogQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "animals",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "DogQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 3`] = `
+exports[`validate validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 3`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "DogQuery/fixture.json",
   "operationName": "DogQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 4`] = `
+exports[`validate validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "DogQuery/fixture.json",
+  "operationName": "DogQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "animals[0].name",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "DogQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 5`] = `
+exports[`validate validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "DogQuery/fixture.json",
   "operationName": "DogQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 6`] = `
+exports[`validate validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "DogQuery/fixture.json",
+  "operationName": "DogQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "animals[0].barks",
       "message": "should be a boolean but was a number",
     },
   ],
+}
+`;
+
+exports[`validate validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 7`] = `
+Object {
+  "fixturePath": "DogQuery/fixture.json",
   "operationName": "DogQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() fragments treats fields on interface type spreads to be nullable 7`] = `
+exports[`validate validateFixtureAgainstAST() lists validates nested arrays 1`] = `
 Object {
-  "errors": Array [],
-  "operationName": "DogQuery",
-  "operationPath": undefined,
-  "operationType": "query",
-}
-`;
-
-exports[`validateFixtureAgainstAST() lists validates nested arrays 1`] = `
-Object {
-  "errors": Array [],
+  "fixturePath": "SetsQuery/fixture.json",
   "operationName": "SetsQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates nested arrays 2`] = `
+exports[`validate validateFixtureAgainstAST() lists validates nested arrays 2`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "SetsQuery/fixture.json",
   "operationName": "SetsQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates nested arrays 3`] = `
+exports[`validate validateFixtureAgainstAST() lists validates nested arrays 3`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "SetsQuery/fixture.json",
   "operationName": "SetsQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates nested arrays 4`] = `
+exports[`validate validateFixtureAgainstAST() lists validates nested arrays 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "SetsQuery/fixture.json",
+  "operationName": "SetsQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "sets[0]",
       "message": "should be an array, but was a number",
@@ -284,15 +310,16 @@ Object {
       "message": "should be an array, but was a number",
     },
   ],
-  "operationName": "SetsQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates nested arrays 5`] = `
+exports[`validate validateFixtureAgainstAST() lists validates nested arrays 5`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "SetsQuery/fixture.json",
+  "operationName": "SetsQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "sets[0][2]",
       "message": "should be non-null but was null",
@@ -306,15 +333,16 @@ Object {
       "message": "should be an integer but was a object",
     },
   ],
-  "operationName": "SetsQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates nested arrays 6`] = `
+exports[`validate validateFixtureAgainstAST() lists validates nested arrays 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "SetsQuery/fixture.json",
+  "operationName": "SetsQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "sets[0]",
       "message": "should be non-null but was null",
@@ -324,168 +352,181 @@ Object {
       "message": "should be an array, but was a boolean",
     },
   ],
-  "operationName": "SetsQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 1`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PeopleQuery/fixture.json",
+  "operationName": "PeopleQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "people",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PeopleQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 2`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PeopleQuery/fixture.json",
+  "operationName": "PeopleQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "people",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "PeopleQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 3`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 3`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "PeopleQuery/fixture.json",
   "operationName": "PeopleQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 4`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PeopleQuery/fixture.json",
+  "operationName": "PeopleQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "people[0]",
       "message": "should be an object but was a number",
     },
   ],
-  "operationName": "PeopleQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 5`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 5`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PeopleQuery/fixture.json",
+  "operationName": "PeopleQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "people[0].name",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PeopleQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 6`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PeopleQuery/fixture.json",
+  "operationName": "PeopleQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "people[0].name",
       "message": "should be a string but was a boolean",
     },
   ],
-  "operationName": "PeopleQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 7`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "PeopleQuery/fixture.json",
   "operationName": "PeopleQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates objects nested in arrays 8`] = `
+exports[`validate validateFixtureAgainstAST() lists validates objects nested in arrays 8`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PeopleQuery/fixture.json",
+  "operationName": "PeopleQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "people[0]",
       "message": "has key 'age' not present in the query",
     },
   ],
-  "operationName": "PeopleQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates the types of lists 1`] = `
+exports[`validate validateFixtureAgainstAST() lists validates the types of lists 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "FavoriteNumbersQuery/fixture.json",
+  "operationName": "FavoriteNumbersQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "favoriteNumbers",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "FavoriteNumbersQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates the types of lists 2`] = `
+exports[`validate validateFixtureAgainstAST() lists validates the types of lists 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "FavoriteNumbersQuery/fixture.json",
+  "operationName": "FavoriteNumbersQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "favoriteNumbers",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "FavoriteNumbersQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates the types of lists 3`] = `
+exports[`validate validateFixtureAgainstAST() lists validates the types of lists 3`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "FavoriteNumbersQuery/fixture.json",
   "operationName": "FavoriteNumbersQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates the types of lists 4`] = `
+exports[`validate validateFixtureAgainstAST() lists validates the types of lists 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "FavoriteNumbersQuery/fixture.json",
+  "operationName": "FavoriteNumbersQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "favoriteNumbers",
       "message": "should be an array, but was a object",
     },
   ],
-  "operationName": "FavoriteNumbersQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() lists validates the types of lists 5`] = `
+exports[`validate validateFixtureAgainstAST() lists validates the types of lists 5`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "FavoriteNumbersQuery/fixture.json",
+  "operationName": "FavoriteNumbersQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "favoriteNumbers[1]",
       "message": "should be an integer but was a float",
@@ -499,902 +540,976 @@ Object {
       "message": "should be an integer but was a boolean",
     },
   ],
-  "operationName": "FavoriteNumbersQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects creates errors for keys not present in the query 1`] = `
+exports[`validate validateFixtureAgainstAST() objects creates errors for keys not present in the query 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "has key 'age' not present in the query",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects creates errors for keys not present in the query 2`] = `
+exports[`validate validateFixtureAgainstAST() objects creates errors for keys not present in the query 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "has key 'foo' not present in the query",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 1`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 2`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 3`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.nom",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 4`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.nom",
       "message": "should be a string but was a boolean",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 5`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "PersonQuery/fixture.json",
   "operationName": "PersonQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 6`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "chris",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 7`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 7`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "chris",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 8`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 8`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "chris.nom",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 9`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 9`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "chris.nom",
       "message": "should be a string but was a boolean",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates aliases 10`] = `
+exports[`validate validateFixtureAgainstAST() objects validates aliases 10`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "PersonQuery/fixture.json",
   "operationName": "PersonQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 1`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "AddressQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 2`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "AddressQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 3`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.address",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "AddressQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 4`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 4`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "AddressQuery/fixture.json",
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 5`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 5`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.address.number",
       "message": "should be an integer but was a string",
     },
   ],
-  "operationName": "AddressQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 6`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.address.number",
       "message": "should be an integer but was a float",
     },
   ],
-  "operationName": "AddressQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 7`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "AddressQuery/fixture.json",
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates nested objects 8`] = `
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 8`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.address",
       "message": "has key 'street' not present in the query",
     },
   ],
-  "operationName": "AddressQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates that the value is actually an object 1`] = `
+exports[`validate validateFixtureAgainstAST() objects validates that the value is actually an object 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates that the value is actually an object 2`] = `
+exports[`validate validateFixtureAgainstAST() objects validates that the value is actually an object 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates that the value is actually an object 3`] = `
+exports[`validate validateFixtureAgainstAST() objects validates that the value is actually an object 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.name",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates that the value is actually an object 4`] = `
+exports[`validate validateFixtureAgainstAST() objects validates that the value is actually an object 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "PersonQuery/fixture.json",
+  "operationName": "PersonQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "person.name",
       "message": "should be a string but was a boolean",
     },
   ],
-  "operationName": "PersonQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() objects validates that the value is actually an object 5`] = `
+exports[`validate validateFixtureAgainstAST() objects validates that the value is actually an object 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "PersonQuery/fixture.json",
   "operationName": "PersonQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 1`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MarriedQuery/fixture.json",
+  "operationName": "MarriedQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "married",
       "message": "should be a boolean but was a string",
     },
   ],
-  "operationName": "MarriedQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 2`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MarriedQuery/fixture.json",
+  "operationName": "MarriedQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "married",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "MarriedQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 3`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MarriedQuery/fixture.json",
+  "operationName": "MarriedQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "married",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "MarriedQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 4`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 4`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MarriedQuery/fixture.json",
   "operationName": "MarriedQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 5`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MarriedQuery/fixture.json",
   "operationName": "MarriedQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 6`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "RespondedQuery/fixture.json",
+  "operationName": "RespondedQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "responded",
       "message": "should be a boolean but was a string",
     },
   ],
-  "operationName": "RespondedQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 7`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "RespondedQuery/fixture.json",
   "operationName": "RespondedQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 8`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 8`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "RespondedQuery/fixture.json",
   "operationName": "RespondedQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 9`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 9`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "RespondedQuery/fixture.json",
   "operationName": "RespondedQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates booleans 10`] = `
+exports[`validate validateFixtureAgainstAST() validates booleans 10`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "RespondedQuery/fixture.json",
   "operationName": "RespondedQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 1`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "GenerationQuery/fixture.json",
+  "operationName": "GenerationQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "generation",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "GenerationQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 2`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "GenerationQuery/fixture.json",
+  "operationName": "GenerationQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "generation",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "GenerationQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 3`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "GenerationQuery/fixture.json",
+  "operationName": "GenerationQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "generation",
       "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
     },
   ],
-  "operationName": "GenerationQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 4`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "GenerationQuery/fixture.json",
+  "operationName": "GenerationQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "generation",
       "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
     },
   ],
-  "operationName": "GenerationQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 5`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "GenerationQuery/fixture.json",
   "operationName": "GenerationQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 6`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 6`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "GenerationQuery/fixture.json",
   "operationName": "GenerationQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 7`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "GenerationQuery/fixture.json",
   "operationName": "GenerationQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 8`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 8`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "GenerationQuery/fixture.json",
+  "operationName": "GenerationQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "generation",
       "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
     },
   ],
-  "operationName": "GenerationQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 9`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 9`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "GenerationQuery/fixture.json",
+  "operationName": "GenerationQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "generation",
       "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
     },
   ],
-  "operationName": "GenerationQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates enums 10`] = `
+exports[`validate validateFixtureAgainstAST() validates enums 10`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "GenerationQuery/fixture.json",
   "operationName": "GenerationQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates mutations 1`] = `
+exports[`validate validateFixtureAgainstAST() validates mutations 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyMutation/fixture.json",
+  "operationName": "MyMutation",
+  "operationPath": undefined,
+  "operationType": "mutation",
+  "validationErrors": Array [
     Object {
       "keyPath": "haveBirthday",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "MyMutation",
-  "operationPath": undefined,
-  "operationType": "mutation",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates mutations 2`] = `
+exports[`validate validateFixtureAgainstAST() validates mutations 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyMutation/fixture.json",
+  "operationName": "MyMutation",
+  "operationPath": undefined,
+  "operationType": "mutation",
+  "validationErrors": Array [
     Object {
       "keyPath": "haveBirthday",
       "message": "should be an object but was a boolean",
     },
   ],
-  "operationName": "MyMutation",
-  "operationPath": undefined,
-  "operationType": "mutation",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates mutations 3`] = `
+exports[`validate validateFixtureAgainstAST() validates mutations 3`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MyMutation/fixture.json",
   "operationName": "MyMutation",
   "operationPath": undefined,
   "operationType": "mutation",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates mutations 4`] = `
+exports[`validate validateFixtureAgainstAST() validates mutations 4`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MyMutation/fixture.json",
   "operationName": "MyMutation",
   "operationPath": undefined,
   "operationType": "mutation",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates mutations 5`] = `
+exports[`validate validateFixtureAgainstAST() validates mutations 5`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyMutation/fixture.json",
+  "operationName": "MyMutation",
+  "operationPath": undefined,
+  "operationType": "mutation",
+  "validationErrors": Array [
     Object {
       "keyPath": "haveBirthday.hadFunBirthday",
       "message": "should be a boolean but was a string",
     },
   ],
-  "operationName": "MyMutation",
-  "operationPath": undefined,
-  "operationType": "mutation",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates mutations 6`] = `
+exports[`validate validateFixtureAgainstAST() validates mutations 6`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MyMutation/fixture.json",
   "operationName": "MyMutation",
   "operationPath": undefined,
   "operationType": "mutation",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates mutations 7`] = `
+exports[`validate validateFixtureAgainstAST() validates mutations 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MyMutation/fixture.json",
   "operationName": "MyMutation",
   "operationPath": undefined,
   "operationType": "mutation",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 1`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AgeQuery/fixture.json",
+  "operationName": "AgeQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "age",
       "message": "should be an integer but was a string",
     },
   ],
-  "operationName": "AgeQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 2`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AgeQuery/fixture.json",
+  "operationName": "AgeQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "age",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "AgeQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 3`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AgeQuery/fixture.json",
+  "operationName": "AgeQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "age",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "AgeQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 4`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 4`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "AgeQuery/fixture.json",
   "operationName": "AgeQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 5`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 5`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AgeQuery/fixture.json",
+  "operationName": "AgeQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "age",
       "message": "should be an integer but was a float",
     },
   ],
-  "operationName": "AgeQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 6`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 6`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "HeightQuery/fixture.json",
+  "operationName": "HeightQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "height",
       "message": "should be a float but was a string",
     },
   ],
-  "operationName": "HeightQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 7`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "HeightQuery/fixture.json",
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 8`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 8`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "HeightQuery/fixture.json",
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 9`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 9`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "HeightQuery/fixture.json",
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates numbers 10`] = `
+exports[`validate validateFixtureAgainstAST() validates numbers 10`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "HeightQuery/fixture.json",
+  "operationName": "HeightQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "height",
       "message": "should be a float but was an integer",
     },
   ],
-  "operationName": "HeightQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 1`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "NameQuery/fixture.json",
+  "operationName": "NameQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "name",
       "message": "should be a string but was a number",
     },
   ],
-  "operationName": "NameQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 2`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "NameQuery/fixture.json",
+  "operationName": "NameQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "name",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "NameQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 3`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "NameQuery/fixture.json",
+  "operationName": "NameQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "name",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "NameQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 4`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 4`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "NameQuery/fixture.json",
   "operationName": "NameQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 5`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 5`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "address",
       "message": "should be a string but was a number",
     },
   ],
-  "operationName": "AddressQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 6`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 6`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "AddressQuery/fixture.json",
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 7`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "AddressQuery/fixture.json",
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() validates strings 8`] = `
+exports[`validate validateFixtureAgainstAST() validates strings 8`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "AddressQuery/fixture.json",
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 1`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 1`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyQuery/fixture.json",
+  "operationName": "MyQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "name",
       "message": "should be a string but was a number",
     },
   ],
-  "operationName": "MyQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 2`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 2`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyQuery/fixture.json",
+  "operationName": "MyQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "name",
       "message": "should be non-null but was undefined",
     },
   ],
-  "operationName": "MyQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 3`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 3`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyQuery/fixture.json",
+  "operationName": "MyQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "name",
       "message": "should be non-null but was null",
     },
   ],
-  "operationName": "MyQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 4`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 4`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyQuery/fixture.json",
+  "operationName": "MyQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "name",
       "message": "should be non-null but was null",
@@ -1404,63 +1519,93 @@ Object {
       "message": "should be an integer but was a float",
     },
   ],
-  "operationName": "MyQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 5`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 5`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MyQuery/fixture.json",
   "operationName": "MyQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 6`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 6`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MyQuery/fixture.json",
   "operationName": "MyQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 7`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 7`] = `
 Object {
-  "errors": Array [],
+  "fixturePath": "MyQuery/fixture.json",
   "operationName": "MyQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 8`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 8`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyQuery/fixture.json",
+  "operationName": "MyQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "age",
       "message": "should be an integer but was a float",
     },
   ],
-  "operationName": "MyQuery",
-  "operationPath": undefined,
-  "operationType": "query",
 }
 `;
 
-exports[`validateFixtureAgainstAST() works with multiple top-level items 9`] = `
+exports[`validate validateFixtureAgainstAST() works with multiple top-level items 9`] = `
 Object {
-  "errors": Array [
+  "fixturePath": "MyQuery/fixture.json",
+  "operationName": "MyQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
     Object {
       "keyPath": "age",
       "message": "should be an integer but was a string",
     },
   ],
-  "operationName": "MyQuery",
-  "operationPath": undefined,
-  "operationType": "query",
+}
+`;
+
+exports[`validate validateFixtureAgainstSchema() validates fields against types from the schema 1`] = `
+Object {
+  "fixturePath": "fixture.json",
+  "validationErrors": Array [
+    Object {
+      "keyPath": "person.age",
+      "message": "should be an integer but was a float",
+    },
+    Object {
+      "keyPath": "person.silly",
+      "message": "does not exist on type Person (available fields: name, age, occupation, nickNames)",
+    },
+    Object {
+      "keyPath": "person.nickNames",
+      "message": "should be an array, but was a object",
+    },
+    Object {
+      "keyPath": "friends[0].firstName",
+      "message": "does not exist on type Person (available fields: name, age, occupation, nickNames)",
+    },
+    Object {
+      "keyPath": "friends[1].name",
+      "message": "should be non-null but was null",
+    },
+  ],
 }
 `;

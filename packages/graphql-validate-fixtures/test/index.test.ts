@@ -1,6 +1,6 @@
 import * as glob from 'glob';
 import {join} from 'path';
-import {evaluateFixtures} from '../src';
+import {evaluateFixtures, Options} from '../src';
 
 const rootFixtureDirectory = join(__dirname, 'fixtures');
 
@@ -18,18 +18,26 @@ describe('evaluateFixtures()', () => {
   });
 
   it('throws an error when the schema is not found', async () => {
-    const details = detailsForFixture('missing-schema');
-    details.schemaPath += 'foo';
-    await expect(evaluateFixtures(details)).rejects.toMatchSnapshot();
+    await expect(evaluateFixturesForFixturePath('missing-schema')).rejects.toMatchSnapshot();
   });
 
   it('throws an error when there are malformed GraphQL documents', async () => {
     await expect(evaluateFixturesForFixturePath('malformed-query')).rejects.toMatchSnapshot();
   });
+
+  describe('schemaOnly', () => {
+    it('validates against the schema only', async () => {
+      expect(await evaluateFixturesForFixturePath('fixture-errors', {schemaOnly: true})).toMatchSnapshot();
+    });
+
+    it('does not fail on malformed GraphQL documents', async () => {
+      expect(await evaluateFixturesForFixturePath('malformed-query', {schemaOnly: true})).toMatchSnapshot();
+    });
+  });
 });
 
-function evaluateFixturesForFixturePath(fixture: string) {
-  return evaluateFixtures(detailsForFixture(fixture));
+function evaluateFixturesForFixturePath(fixture: string, options?: Options) {
+  return evaluateFixtures(detailsForFixture(fixture), options);
 }
 
 function detailsForFixture(fixture: string) {

@@ -1,5 +1,6 @@
 import {dirname, basename} from 'path';
 import {
+  GraphQLSchema,
   GraphQLType,
   GraphQLScalarType,
   GraphQLEnumType,
@@ -26,15 +27,48 @@ export interface Error {
 }
 
 export interface Validation {
-  operationName: string,
-  operationType: 'query' | 'mutation',
+  fixturePath: string,
+  operationName?: string,
+  operationType?: 'query' | 'mutation',
   operationPath?: string,
-  errors: Error[],
+  validationErrors: Error[],
 }
 
 const OPERATION_MARKER = '@operation';
 
-export default function validateFixtureAgainstAST(fixture: Fixture, ast: AST): Validation {
+export function validateFixtureAgainstSchema(fixture: Fixture, schema: GraphQLSchema): Validation {
+  const queryType = schema.getQueryType();
+  const mutationType = schema.getMutationType();
+  const {content, path} = fixture;
+
+  return {
+    fixturePath: path,
+    validationErrors: Object.keys(content).reduce((allErrors: Error[], key) => {
+      let rootType: GraphQLObjectType;
+      const keyPath = key;
+      
+      if (key === OPERATION_MARKER) {
+        return allErrors;
+      }
+
+      if (objectTypeHasFieldWithName(queryType, key)) {
+        rootType = queryType;
+      } else if (objectTypeHasFieldWithName(mutationType, key)) {
+        rootType = mutationType;
+      } else {
+        return allErrors.concat([error(keyPath, 'Field does not exist on query or mutation types')]);
+      }
+
+      return allErrors.concat(validateValueAgainstType(content[key], rootType.getFields()[key].type, keyPath));
+    }, []),
+  };
+}
+
+function objectTypeHasFieldWithName(type: GraphQLObjectType, name: string) {
+  return type.getFields().hasOwnProperty(name);
+}
+
+export function validateFixtureAgainstAST(fixture: Fixture, ast: AST): Validation {
   const fixtureDirectoryName = basename(dirname(fixture.path));
   const operationName = fixture.content[OPERATION_MARKER] || fixtureDirectoryName;
   const operation = ast.operations[operationName];
@@ -58,10 +92,11 @@ export default function validateFixtureAgainstAST(fixture: Fixture, ast: AST): V
   delete value[OPERATION_MARKER];
 
   return {
+    fixturePath: fixture.path,
     operationName,
     operationType,
     operationPath: filePath,
-    errors: fields.reduce((allErrors: Error[], field) => {
+    validationErrors: fields.reduce((allErrors: Error[], field) => {
       return allErrors.concat(
         validateValueAgainstFieldDescription(value[field.responseName], field, '', ast)
       );
@@ -72,7 +107,7 @@ export default function validateFixtureAgainstAST(fixture: Fixture, ast: AST): V
 function validateValueAgainstFieldDescription(value: any, fieldDescription: Field, parentKeyPath: string, ast: AST): Error[] {
   const {type, responseName} = fieldDescription;
   const keyPath = updateKeyPath(parentKeyPath, responseName);
-  const typeErrors = validateValueAgainstType(value, type, keyPath);
+  const typeErrors = validateValueAgainstType(value, type, keyPath, {shallow: true});
 
   if (typeErrors.length > 0) {
     return typeErrors;
@@ -128,7 +163,7 @@ function validateListAgainstFieldDescription(value: any[], fieldDescription: Fie
 
   return value.reduce((allErrors, item, index) => {
     const itemKeyPath = updateKeyPath(keyPath, index);
-    const itemTypeErrors = validateValueAgainstType(item, itemType, itemKeyPath);
+    const itemTypeErrors = validateValueAgainstType(item, itemType, itemKeyPath, {shallow: true});
 
     if (itemTypeErrors.length > 0) {
       return allErrors.concat(itemTypeErrors);
@@ -155,11 +190,17 @@ function validateValueAgainstFields(value: {[key: string]: any}, fields: Field[]
   }, excessFields);
 }
 
-function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPath): Error[] {
+interface TypeValidationOptions {
+  shallow: boolean,
+}
+
+function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPath, options: TypeValidationOptions = {shallow: false}): Error[] {
+  const {shallow} = options;
+
   if (type instanceof GraphQLNonNull) {
     return value == null
       ? [error(keyPath, `should be non-null but was ${String(value)}`)]
-      : validateValueAgainstType(value, type.ofType, keyPath);
+      : validateValueAgainstType(value, type.ofType, keyPath, options);
   }
 
   if (value == null) { return []; }
@@ -167,9 +208,24 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
   const valueType = typeof value;
 
   if (type instanceof GraphQLObjectType) {
-    return valueType === 'object'
-      ? []
-      : [error(keyPath, `should be an object but was a ${valueType}`)];
+    if (valueType === 'object') {
+      if (shallow) {
+        return [];
+      } else {
+        const fields = type.getFields();
+        return Object.keys(value).reduce((fieldErrors: Error[], key) => {
+          const fieldKeyPath = updateKeyPath(keyPath, key);
+
+          if (fields.hasOwnProperty(key)) {
+            return fieldErrors.concat(validateValueAgainstType(value[key], fields[key].type, fieldKeyPath, options));
+          } else {
+            return fieldErrors.concat([error(fieldKeyPath, `does not exist on type ${type.name} (available fields: ${Object.keys(fields).join(', ')})`)]);
+          }
+        }, []);
+      }
+    } else {
+      return [error(keyPath, `should be an object but was a ${valueType}`)];
+    }
   }
 
   if (type instanceof GraphQLList) {
@@ -177,9 +233,11 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
       return [error(keyPath, `should be an array, but was a ${valueType}`)];
     }
 
-    return Array.isArray(value)
+    return shallow
       ? []
-      : [error(keyPath, `should be an array, but was a ${valueType}`)];
+      : value.reduce((allErrors: Error[], item, index) => (
+        allErrors.concat(validateValueAgainstType(item, type.ofType, updateKeyPath(keyPath, index), options))
+      ), []);
   }
 
   if (type === GraphQLString) {

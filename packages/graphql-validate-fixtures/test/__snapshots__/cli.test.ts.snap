@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli fails when there are fixture errors 1`] = `
+"Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/bin/graphql-validate-fixtures '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/**/*.json' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/schema.json' --operation-paths '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/**/*.graphql'
+"
+`;
+
+exports[`cli fails when there are syntax errors 1`] = `
+"Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/bin/graphql-validate-fixtures '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/**/*.json' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/schema.json' --operation-paths '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/queries/**/*.graphql'
+"
+`;
+
+exports[`cli fails when there are syntax errors 2`] = `
+"Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/bin/graphql-validate-fixtures '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/**/*.json' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/malformed-query/schema.json' --operation-paths '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/malformed-query/queries/**/*.graphql'
+"
+`;
+
+exports[`cli fails when there are syntax errors 3`] = `
+"Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/bin/graphql-validate-fixtures '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/fixtures/**/*.json' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json' --operation-paths '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/queries/**/*.graphql'
+"
+`;

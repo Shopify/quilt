@@ -5,6 +5,8 @@
     "declaration": true,
     "outDir": "lib",
     "moduleResolution": "node",
+    "target": "es2015",
+    "module": "commonjs",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

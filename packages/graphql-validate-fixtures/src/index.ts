@@ -3,21 +3,29 @@ import {isAbsolute, resolve} from 'path';
 import {GraphQLSchema, buildClientSchema, Source, parse, concatAST} from 'graphql';
 import {compile} from 'graphql-tool-utilities/ast';
 
-import validateFixtureAgainstAST, {Validation} from './validate';
+import {
+  validateFixtureAgainstAST,
+  validateFixtureAgainstSchema,
+  Validation,
+  Fixture,
+} from './validate';
 
-export interface Options {
+export interface Paths {
   fixturePaths: string[],
-  operationPaths: string[],
+  operationPaths?: string[],
   schemaPath: string,
 }
 
-export interface Evaluation {
-  fixturePath: string,
-  scriptError?: Error,
-  validation?: Validation,
+export interface Options {
+  schemaOnly?: boolean,
 }
 
-export async function evaluateFixtures({fixturePaths, operationPaths, schemaPath}: Options): Promise<Evaluation[]>  {
+export interface Evaluation extends Validation {
+  fixturePath: string,
+  scriptError?: Error,
+}
+
+export async function evaluateFixtures({fixturePaths, operationPaths = [], schemaPath}: Paths, {schemaOnly = false}: Options = {}): Promise<Evaluation[]>  {
   let schema: GraphQLSchema;
 
   try {
@@ -25,6 +33,10 @@ export async function evaluateFixtures({fixturePaths, operationPaths, schemaPath
     schema = buildClientSchema(schemaJSON.data);
   } catch (error) {
     throw new Error(`Error parsing '${schemaPath}':\n\n${error.message.replace(/Syntax Error GraphQL \(.*?\) /, '')}`);
+  }
+
+  if (schemaOnly) {
+    return await runForEachFixture(fixturePaths, (fixture) => validateFixtureAgainstSchema(fixture, schema));
   }
   
   const sources = await Promise.all(
@@ -36,11 +48,14 @@ export async function evaluateFixtures({fixturePaths, operationPaths, schemaPath
     } catch (error) {
       throw new Error(`Error parsing '${source.name}':\n\n${error.message.replace(/Syntax Error.*?\(.*?\) /, '')}`);
     }
-    
   }));
   const ast = compile(schema, document);
 
-  return await Promise.all(
+  return await runForEachFixture(fixturePaths, (fixture) => validateFixtureAgainstAST(fixture, ast))
+}
+
+function runForEachFixture<T extends Partial<Evaluation>>(fixturePaths: string[], runner: (fixture: Fixture) => T): Promise<Evaluation[]> {
+  return Promise.all(
     fixturePaths.map(async (fixturePath) => {
       const finalPath = isAbsolute(fixturePath) ? fixturePath : resolve(fixturePath);
       
@@ -48,12 +63,13 @@ export async function evaluateFixtures({fixturePaths, operationPaths, schemaPath
         const fixture = await readJSON(finalPath);
         return {
           fixturePath: finalPath,
-          validation: validateFixtureAgainstAST({path: finalPath, content: fixture}, ast),
+          ...(runner({path: finalPath, content: fixture}) as any),
         };
       } catch (error) {
         return {
           fixturePath: finalPath,
           scriptError: error,
+          validationErrors: [],
         }
       }
     })

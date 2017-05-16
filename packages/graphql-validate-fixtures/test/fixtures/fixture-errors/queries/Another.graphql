@@ -1,3 +1,4 @@
 query AnotherQuery {
   name
+  age
 }

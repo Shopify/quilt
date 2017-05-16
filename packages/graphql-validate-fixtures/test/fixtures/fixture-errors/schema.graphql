@@ -1,5 +1,6 @@
 type Query {
   name: String!
+  age: Int!
 }
 
 schema {

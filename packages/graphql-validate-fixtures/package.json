@@ -10,6 +10,7 @@
     "graphql"
   ],
   "scripts": {
+    "pretest": "yarn run build && node scripts/introspection.js",
     "build": "tsc",
     "prepublish": "in-publish && yarn run build || :"
   },
@@ -22,9 +23,6 @@
     "yargs": "^8.0.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^3.0.1",
-    "@types/glob": "^5.0.30",
-    "@types/graphql": "^0.9.1",
     "in-publish": "^2.0.0",
     "typescript": "^2.3.2"
   }
