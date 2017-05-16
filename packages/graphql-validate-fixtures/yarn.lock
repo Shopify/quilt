@@ -242,9 +242,9 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-graphql-tool-utilities@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/graphql-tool-utilities/-/graphql-tool-utilities-0.1.0.tgz#0b587a11126591a338ad3eacd66ea88c274e6967"
+graphql-tool-utilities@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/graphql-tool-utilities/-/graphql-tool-utilities-0.3.0.tgz#854196752163ff78580ce146103895bb65c6fae1"
   dependencies:
     "@types/graphql" "^0.9.1"
     apollo-codegen "^0.10.13"

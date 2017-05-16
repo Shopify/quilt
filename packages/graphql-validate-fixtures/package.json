@@ -18,7 +18,7 @@
     "fs-extra": "^3.0.1",
     "glob": "^7.1.1",
     "graphql": "^0.9.6",
-    "graphql-tool-utilities": "^0.1.0",
+    "graphql-tool-utilities": "^0.3.0",
     "yargs": "^8.0.1"
   },
   "devDependencies": {
