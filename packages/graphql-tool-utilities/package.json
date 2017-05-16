@@ -1,7 +1,7 @@
 {
   "name": "graphql-tool-utilities",
   "description": "Common utilities for GraphQL developer tools",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "repository": "https://github.com/lemonmade/graphql-tools/tree/master/packages/graphql-tool-utilities",
   "tags": [
