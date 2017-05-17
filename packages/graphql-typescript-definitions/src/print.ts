@@ -42,6 +42,34 @@ const builtInScalarMap = {
   [GraphQLID.name]: 'string',
 }
 
+class Context {
+  typesUsed = new Set<GraphQLInputType>();
+
+  constructor(public ast: AST) {}
+
+  addType(type: GraphQLType) {
+    const {typesUsed} = this;
+
+    if (typesUsed.has(type as GraphQLInputType)) { return; }
+
+    if (type instanceof GraphQLEnumType) {
+      typesUsed.add(type);
+    } else if (type instanceof GraphQLInputObjectType) {
+      typesUsed.add(type);
+
+      const fields = type.getFields();
+      Object
+        .keys(fields)
+        .map((fieldName) => fields[fieldName])
+        .forEach((typeField) => this.addType(typeField.type));
+    } else if (type instanceof GraphQLScalarType && !builtInScalarMap.hasOwnProperty(type.name)) {
+      typesUsed.add(type);
+    } else if (type instanceof GraphQLNonNull || type instanceof GraphQLList) {
+      this.addType(type.ofType);
+    }
+  }
+}
+
 export function printFile(
   generator: CodeGenerator,
   {operation, fragment}: File,
@@ -51,24 +79,33 @@ export function printFile(
     return '';
   }
 
+  const context = new Context(ast);
+
   generator.printOnNewline('// This file was generated and should not be edited.');
   generator.printOnNewline('// tslint-disable');
   generator.printNewline();
   generator.printOnNewline("import {DocumentNode} from 'graphql';");
   generator.printNewline();
 
+  const subGenerator = new CodeGenerator();
+
   if (operation != null) {
-    printImportsForOperation(generator, operation, ast);
-    printGraphQLInputTypesUsedByOperation(generator, operation);
-    printVariablesInterfaceFromOperation(generator, operation);
-    printInterfaceFromOperation(generator, operation, ast);
+    printImportsForDocument(subGenerator, operation, context);
+    printVariablesInterfaceFromOperation(subGenerator, operation, context);
+    printInterfaceFromOperation(subGenerator, operation, context);
   }
 
   if (fragment != null) {
-    printImportsForOperation(generator, fragment, ast);
-    printGraphQLInputTypesUsedByOperation(generator, fragment);
-    printInterfaceFromFragment(generator, fragment, ast);
+    printImportsForDocument(subGenerator, fragment, context);
+    printInterfaceFromFragment(subGenerator, fragment, context);
   }
+
+  Array.from(context.typesUsed).reverse().forEach((type) => {
+    generator.printNewline();
+    printRootGraphQLType(generator, type);
+  });
+
+  generator.printOnNewline(subGenerator.output);
 
   generator.printOnNewline('declare const document: DocumentNode;');
   generator.printOnNewline('export default document;');
@@ -79,11 +116,12 @@ export function printFile(
   return generator.output;
 }
 
-export function printImportsForOperation(
+function printImportsForDocument(
   generator: CodeGenerator,
   {fragmentsReferenced, filePath}: Operation | Fragment,
-  ast: AST,
+  context: Context,
 ) {
+  const {ast} = context;
   const fragmentImports = fragmentsReferenced.reduce((imports: ImportMap, fragmentName) => {
     const fragment = ast.fragments[fragmentName];
     const fileImports = imports[fragment.filePath] || [];
@@ -110,62 +148,19 @@ export function printImportsForOperation(
   }
 }
 
-export function printGraphQLInputTypesUsedByOperation(
-  generator: CodeGenerator,
-  {variables = [], fields}: (Operation | Fragment) & any,
-) {
-  const types = new Set();
-
-  function addFieldTypesToList({type, fields = [], inlineFragments = []}: Field) {
-    addTypeToList(type);
-    fields.forEach(addFieldTypesToList);
-    inlineFragments.forEach((fragment) => {
-      fragment.fields.forEach(addFieldTypesToList);
-    })
-  }
-
-  function addVariableTypesToList({type}: Variable) {
-    addTypeToList(type);
-  }
-
-  function addTypeToList(type: GraphQLType) {
-    if (types.has(type)) { return; }
-
-    if (type instanceof GraphQLEnumType) {
-      types.add(type);
-    } else if (type instanceof GraphQLInputObjectType) {
-      types.add(type);
-
-      const fields = type.getFields();
-      Object
-        .keys(fields)
-        .map((fieldName) => fields[fieldName])
-        .forEach((typeField) => addTypeToList(typeField.type));
-    } else if (type instanceof GraphQLScalarType && !builtInScalarMap.hasOwnProperty(type.name)) {
-      types.add(type);
-    } else if (type instanceof GraphQLNonNull || type instanceof GraphQLList) {
-      addTypeToList(type.ofType);
-    }
-  }
-
-  variables.forEach(addVariableTypesToList);
-  fields.forEach(addFieldTypesToList);
-
-  Array.from(types).reverse().forEach((type) => {
-    generator.printNewline();
-    printRootGraphQLType(generator, type);
-  });
-}
-
-export function printVariablesInterfaceFromOperation(
+function printVariablesInterfaceFromOperation(
   generator: CodeGenerator,
   {operationName, variables}: Operation,
+  context: Context,
 ) {
   printExport(generator, () => {
     printInterface(generator, {
       name: `${operationName}Variables`,
     }, () => {
-      variables.forEach((variable) => printInputGraphQLField(generator, variable.name, variable.type));
+      variables.forEach(({name, type}) => {
+        context.addType(type);
+        printInputGraphQLField(generator, name, type);
+      });
     });
   });
 
@@ -182,14 +177,15 @@ function printInputGraphQLField(
   generator.print(',');
 }
 
-export function printInputGraphQLType(
+function printInputGraphQLType(
   generator: CodeGenerator,
   type: GraphQLInputType,
-  nullable = true,
 ) {
+  let nullable = true;
+
   if (type instanceof GraphQLNonNull) {
-    printInputGraphQLType(generator, type.ofType, false);
-    return;
+    nullable = false;
+    type = type.ofType;
   }
   
   if (type instanceof GraphQLList) {
@@ -213,7 +209,7 @@ export function printInputGraphQLType(
   generator.print(nullable && ' | null');
 }
 
-export function printRootGraphQLType(
+function printRootGraphQLType(
   generator: CodeGenerator,
   type: GraphQLType,
 ) {
@@ -241,10 +237,10 @@ export function printRootGraphQLType(
   }
 }
 
-export function printInterfaceFromFragment(
+function printInterfaceFromFragment(
   generator: CodeGenerator,
   fragment: Fragment,
-  ast: AST,
+  context: Context,
 ) {
   const {
     fragmentName,
@@ -257,17 +253,17 @@ export function printInterfaceFromFragment(
       name: fragmentName,
       extend: fragmentSpreads,
     }, () => {
-      fields.forEach((field) => printField(generator, field, ast));
+      fields.forEach((field) => printField(generator, field, context));
     });
   });
 
   generator.printNewline();
 }
 
-export function printInterfaceFromOperation(
+function printInterfaceFromOperation(
   generator: CodeGenerator,
   operation: Operation,
-  ast: AST,
+  context: Context,
 ) {
   const {
     fields,
@@ -281,7 +277,7 @@ export function printInterfaceFromOperation(
       extend: fragmentSpreads,
     }, () => {
       fields.forEach((field) => {
-        printField(generator, field, ast);
+        printField(generator, field, context);
       });
     });
   });
@@ -294,7 +290,7 @@ type GraphQLPrintableType = GraphQLLeafType | GraphQLObjectType | GraphQLInterfa
 function printField(
   generator: CodeGenerator,
   {responseName, type, fields = [], fragmentSpreads = [], inlineFragments = []}: Field,
-  ast: AST,
+  context: Context,
   forceNullable = false,
 ) {
   let currentType = type;
@@ -333,9 +329,11 @@ function printField(
     if (builtInScalarMap.hasOwnProperty(finalType.name)) {
       generator.print(builtInScalarMap[finalType.name]);
     } else {
+      context.addType(finalType);
       generator.print(finalType.name);
     }
   } else if (finalType instanceof GraphQLEnumType) {
+    context.addType(finalType);
     generator.print(finalType.name);
   } else {
     if (fragmentSpreads.length) {
@@ -348,7 +346,7 @@ function printField(
 
       fields.forEach((field) => {
         seenFields.add(field.responseName);
-        printField(generator, field, ast);
+        printField(generator, field, context);
       });
 
       inlineFragments.forEach((fragment) => {
@@ -357,7 +355,7 @@ function printField(
 
           // If it's not on `fields`, there is no guaranteed match, so we need
           // to say that it can be nullable
-          printField(generator, field, ast, true);
+          printField(generator, field, context, true);
         });
       });
     });
@@ -367,50 +365,18 @@ function printField(
   generator.print(',');
 }
 
-export function printPropertyKey(generator: CodeGenerator, name: string, nullable: boolean) {
+function printPropertyKey(generator: CodeGenerator, name: string, nullable: boolean) {
   generator.printOnNewline(name);
   generator.print(nullable && '?');
   generator.print(': ');
 }
 
-export function printProperty(generator: CodeGenerator, {type, name}: Property) {
-  generator.printOnNewline(`${name}: `);
-  printType(generator, type);
-  generator.print(',');
-}
-
-export function printType(generator: CodeGenerator, {name, types, array, nullable, properties}: Type) {
-  const hasMultipleTypes = (types != null) && (types.length > 1);
-  const needsParens = (array && (hasMultipleTypes || (types != null && types.length > 0 && types[0].nullable)));
-
-  generator.print(needsParens && '(');
-
-  if (types && types.length) {
-    types.forEach((type, index) => {
-      printType(generator, type);
-      generator.print(index !== types.length - 1 && ' & ');
-    });
-  } else if (properties && properties.length) {
-    generator.withinBlock(() => {
-      properties.forEach((property) => {
-        printProperty(generator, property);
-      });
-    });
-  } else if (name) {
-    generator.print(name);
-  }
-
-  generator.print(needsParens && ')');
-  generator.print(array && '[]');
-  generator.print(nullable && ' | null');
-}
-
-export function printExport(generator: CodeGenerator, exported: Block) {
+function printExport(generator: CodeGenerator, exported: Block) {
   generator.printOnNewline('export ');
   exported();
 }
 
-export function printInterface(generator: CodeGenerator, {name, extend = []}: Interface, body: Block) {
+function printInterface(generator: CodeGenerator, {name, extend = []}: Interface, body: Block) {
   generator.print(`interface ${name} `);
 
   if (extend.length) {
