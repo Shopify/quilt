@@ -1,0 +1,22 @@
+type Address {
+  number: Int!
+  street: String!
+  unit: String
+}
+
+type Query {
+  id: ID!
+  name: String!
+  github: String
+  age: Int!
+  weight: Float!
+  married: Boolean!
+  addresses: [Address!]!
+  bestBirthdays: [Int!]!
+  childAges: [Int]!
+  petAges: [Int!]
+}
+
+schema {
+  query: Query
+}

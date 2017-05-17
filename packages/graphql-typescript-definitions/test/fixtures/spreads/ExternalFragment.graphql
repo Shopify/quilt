@@ -1,0 +1,7 @@
+#import './Fragment.graphql'
+
+query ExternalFragment {
+  addresses {
+    ...MyFragment
+  }
+}

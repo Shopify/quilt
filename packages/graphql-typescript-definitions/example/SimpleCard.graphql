@@ -1,0 +1,11 @@
+fragment SimpleCard on HomeCard {
+  title
+  id
+  message
+  dateRange
+  image {src}
+  buttons {
+    text
+    url
+  }
+}

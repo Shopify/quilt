@@ -1,0 +1,10 @@
+#import './Fragment.graphql'
+
+query ExternalAndInline {
+  addresses {
+    ...MyFragment
+    ...on Address {
+      unit
+    }
+  }
+}

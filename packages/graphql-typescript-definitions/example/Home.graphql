@@ -1,0 +1,27 @@
+# import './SimpleCard.graphql'
+
+query Home($someVariable: ProductInput, $another: Int!) {
+  shop {
+    onlineStoreChannel: channelByHandle(handle: "online_store") {
+      name
+    }
+  }
+  staffMember {
+    id
+    firstName
+    privateData {
+      simpleCards: cards(acceptLayout: SIMPLE) {
+        ...SimpleCard
+        ...on HomeCard {
+          title
+        }
+        ...on HomeContentCard {
+          category
+          image {
+            src
+          } 
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+#import './Fragment.graphql'
+
+query ExternalAndFields {
+  addresses {
+    ...MyFragment
+    unit
+  }
+}

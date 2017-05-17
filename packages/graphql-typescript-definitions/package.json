@@ -1,0 +1,22 @@
+{
+  "name": "graphql-typescript-definitions",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "author": "Chris Sauve <chrismsauve@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "pretry": "find example -type f -name '*.d.ts' -delete",
+    "try": "ts-node --disableWarnings --project example example/build.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^3.0.4",
+    "typescript": "^2.3.2"
+  },
+  "dependencies": {
+    "@types/graphql": "^0.9.1",
+    "fs-extra": "^3.0.1",
+    "glob": "^7.1.1",
+    "graphql": "^0.9.1",
+    "graphql-tool-utilities": "^0.4.0"
+  }
+}

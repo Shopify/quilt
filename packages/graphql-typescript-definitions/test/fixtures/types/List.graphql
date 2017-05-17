@@ -1,0 +1,8 @@
+query List {
+  bestBirthdays
+  childAges
+  petAges
+  addresses {
+    number
+  }
+}
