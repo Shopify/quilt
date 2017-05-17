@@ -20,7 +20,7 @@ import {
 import {Operation, Fragment, AST, Field, Variable} from 'graphql-tool-utilities/ast';
 
 import CodeGenerator from './generator';
-import {propertiesFromFields, Type, Property, Interface} from './intermediate';
+import {Type, Property, Interface} from './intermediate';
 
 type Block = () => void;
 
@@ -59,12 +59,14 @@ export function printFile(
 
   if (operation != null) {
     printImportsForOperation(generator, operation, ast);
+    printGraphQLInputTypesUsedByOperation(generator, operation);
     printVariablesInterfaceFromOperation(generator, operation);
     printInterfaceFromOperation(generator, operation, ast);
   }
 
   if (fragment != null) {
     printImportsForOperation(generator, fragment, ast);
+    printGraphQLInputTypesUsedByOperation(generator, fragment);
     printInterfaceFromFragment(generator, fragment, ast);
   }
 
@@ -108,15 +110,13 @@ export function printImportsForOperation(
   }
 }
 
-export function printVariablesInterfaceFromOperation(
+export function printGraphQLInputTypesUsedByOperation(
   generator: CodeGenerator,
-  operation: Operation,
+  {variables = [], fields}: (Operation | Fragment) & any,
 ) {
-  const {operationName, variables, fields} = operation;
-
   const types = new Set();
 
-  function addFieldTypesToList({type, fields = [], fragmentSpreads, inlineFragments = []}: Field) {
+  function addFieldTypesToList({type, fields = [], inlineFragments = []}: Field) {
     addTypeToList(type);
     fields.forEach(addFieldTypesToList);
     inlineFragments.forEach((fragment) => {
@@ -155,7 +155,12 @@ export function printVariablesInterfaceFromOperation(
     generator.printNewline();
     printRootGraphQLType(generator, type);
   });
+}
 
+export function printVariablesInterfaceFromOperation(
+  generator: CodeGenerator,
+  {operationName, variables}: Operation,
+) {
   printExport(generator, () => {
     printInterface(generator, {
       name: `${operationName}Variables`,
@@ -252,7 +257,7 @@ export function printInterfaceFromFragment(
       name: fragmentName,
       extend: fragmentSpreads,
     }, () => {
-      propertiesFromFields(ast, fields).forEach((property) => printProperty(generator, property));
+      fields.forEach((field) => printField(generator, field, ast));
     });
   });
 
@@ -299,19 +304,7 @@ function printField(
 
   printPropertyKey(generator, responseName, nullable);
 
-  if (currentType instanceof GraphQLList) {
-    currentType = currentType.ofType;
-
-    if (currentType instanceof GraphQLNonNull) {
-      printAfter.push('[]');
-      currentType = currentType.ofType;
-    } else {
-      printBefore.push('(');
-      printAfter.push(' | null)[]');
-    }
-  } else if (currentType instanceof GraphQLNonNull) {
-    currentType = currentType.ofType;
-    
+  while (currentType instanceof GraphQLList || currentType instanceof GraphQLNonNull) {
     if (currentType instanceof GraphQLList) {
       currentType = currentType.ofType;
 
@@ -322,6 +315,8 @@ function printField(
         printBefore.push('(');
         printAfter.push(' | null)[]');
       }
+    } else {
+      currentType = currentType.ofType;
     }
   }
 
