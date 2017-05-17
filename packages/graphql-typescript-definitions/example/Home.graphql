@@ -1,4 +1,5 @@
 # import './SimpleCard.graphql'
+# import './TableCard.graphql'
 
 query Home($someVariable: ProductInput, $another: Int!) {
   shop {
@@ -12,6 +13,7 @@ query Home($someVariable: ProductInput, $another: Int!) {
     privateData {
       simpleCards: cards(acceptLayout: SIMPLE) {
         ...SimpleCard
+        ...TableCard
         ...on HomeCard {
           title
         }
