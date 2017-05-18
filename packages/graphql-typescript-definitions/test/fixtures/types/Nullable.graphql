@@ -1,3 +1,0 @@
-fragment Nullable on Address {
-  unit
-}

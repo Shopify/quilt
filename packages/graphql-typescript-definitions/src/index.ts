@@ -2,7 +2,6 @@ import {writeFileSync} from 'fs-extra';
 import {Operation, Fragment, AST} from 'graphql-tool-utilities/ast';
 
 import buildAST, {Options} from './ast';
-import Generator from './generator';
 import {printFile} from './print';
 
 export default function graphQLToTypeScriptDefinitions(options: Options) {
@@ -11,9 +10,8 @@ export default function graphQLToTypeScriptDefinitions(options: Options) {
 
   Object.keys(fileMap).forEach((path) => {
     const file = fileMap[path];
-    const generator = new Generator();
 
-    const content = printFile(generator, file, ast);
+    const content = printFile(file, ast);
     if (!content) { return; }
 
     const newFile = `${file.path}.d.ts`;

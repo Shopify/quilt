@@ -93,7 +93,6 @@ class Context {
 }
 
 export function printFile(
-  generator: CodeGenerator,
   {operation, fragment}: File,
   ast: AST,
 ) {
@@ -101,6 +100,7 @@ export function printFile(
     return '';
   }
 
+  const generator = new CodeGenerator();
   const context = new Context(ast);
 
   generator.printOnNewline('// This file was generated and should not be edited.');
@@ -112,7 +112,7 @@ export function printFile(
   const subGenerator = new CodeGenerator();
 
   if (operation != null) {
-    printImportsForDocument(operation, subGenerator, context);
+    printImportsForDocument(operation, generator, context);
     printVariablesInterfaceFromOperation(operation, subGenerator, context);
     printInterfaceFromOperation(subGenerator, operation, context);
   }
@@ -123,12 +123,10 @@ export function printFile(
   }
 
   Array.from(context.specialTypesUsed).reverse().forEach((type) => {
-    generator.printNewline();
     type.print(generator);
   });
 
   Array.from(context.typesUsed).reverse().forEach((type) => {
-    generator.printNewline();
     printRootGraphQLType(type, generator);
   });
 
@@ -168,11 +166,8 @@ function printImportsForDocument(
     }
 
     generator.printOnNewline(`import {${fragmentsToImport.join(', ')}} from '${relativePath}';`);
-  });
-
-  if (Object.keys(fragmentImports).length) {
     generator.printNewline();
-  }
+  });
 }
 
 function printVariablesInterfaceFromOperation(
@@ -180,9 +175,11 @@ function printVariablesInterfaceFromOperation(
   generator: CodeGenerator,
   context: Context,
 ) {
+  if (variables.length === 0) { return; }
+
   printExport(() => {
     printInterface({
-      name: `${operationName}Variables`,
+      name: `${operationName}QueryVariables`,
     }, () => {
       variables.forEach(({name, type}) => {
         context.addType(type);
@@ -190,8 +187,6 @@ function printVariablesInterfaceFromOperation(
       });
     }, generator);
   }, generator);
-
-  generator.printNewline();
 }
 
 function printInputGraphQLField(
@@ -248,10 +243,9 @@ function printRootGraphQLType(
         printInputGraphQLField(name, field.type, generator);
       });
     }, generator);
-    generator.printNewline();
   } else if (type instanceof GraphQLEnumType) {
     const values = type.getValues();
-    generator.print(`type ${type.name} = `);
+    generator.printOnNewline(`type ${type.name} = `);
     values.forEach((value, index) => {
       generator.print(`'${value.value}'`);
       generator.print(index !== values.length - 1 && ' | ');
@@ -259,7 +253,7 @@ function printRootGraphQLType(
     generator.print(';');
     generator.printNewline();
   } else if (type instanceof GraphQLScalarType) {
-    generator.print(`type ${type.name} = string;`);
+    generator.printOnNewline(`type ${type.name} = string;`);
     generator.printNewline();
   }
 }
@@ -275,6 +269,8 @@ function printInterfaceFromFragment(
     fragmentSpreads,
   } = fragment;
 
+  generator.printNewline();
+
   printExport(() => {
     printInterface({
       name: fragmentName,
@@ -283,8 +279,6 @@ function printInterfaceFromFragment(
       fields.forEach((field) => printField(field, false, generator, context));
     }, generator);
   }, generator);
-
-  generator.printNewline();
 }
 
 function printInterfaceFromOperation(
@@ -300,7 +294,7 @@ function printInterfaceFromOperation(
 
   printExport(() => {
     printInterface({
-      name: operationName,
+      name: `${operationName}Query`,
       extend: fragmentSpreads,
     }, () => {
       fields.forEach((field) => {
@@ -308,8 +302,6 @@ function printInterfaceFromOperation(
       });
     }, generator);
   }, generator);
-
-  generator.printNewline();
 }
 
 type GraphQLPrintableType = GraphQLLeafType | GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType;
@@ -410,7 +402,8 @@ function printPropertyKey(
 }
 
 function printExport(exported: Block, generator: CodeGenerator) {
-  generator.printOnNewline('export ');
+  generator.printNewlineIfNeeded();
+  generator.printAndForceInline('export ');
   exported();
 }
 
@@ -419,11 +412,12 @@ function printInterface(
   body: Block,
   generator: CodeGenerator,
 ) {
-  generator.print(`interface ${name} `);
+  generator.printOnNewline(`interface ${name} `);
 
   if (extend.length) {
     generator.print(`extends ${extend.join(', ')} `);
   }
 
   generator.withinBlock(body);
+  generator.printNewline();
 }

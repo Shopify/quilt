@@ -1,3 +1,0 @@
-fragment MyFragment on Address {
-  street
-}

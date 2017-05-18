@@ -1,7 +1,0 @@
-query Types {
-  id
-  name
-  age
-  weight
-  married
-}
