@@ -1,7 +1,7 @@
 # import './SimpleCard.graphql'
 # import './TableCard.graphql'
 
-query Home($someVariable: ProductInput, $another: Int!) {
+query Home($someVariable: ProductInput, $another: String) {
   shop {
     onlineStoreChannel: channelByHandle(handle: "online_store") {
       name
