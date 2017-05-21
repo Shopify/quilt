@@ -2,6 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "moduleResolution": "node",
+    "target": "es2015",
+    "module": "commonjs",
     "strict": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,

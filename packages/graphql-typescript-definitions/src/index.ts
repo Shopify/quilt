@@ -5,7 +5,6 @@ import {watch} from 'chokidar';
 import * as glob from 'glob';
 import {compile, Operation, Fragment, AST} from 'graphql-tool-utilities/ast';
 
-import buildAST from './ast';
 import {printFile} from './print';
 
 export interface Options {

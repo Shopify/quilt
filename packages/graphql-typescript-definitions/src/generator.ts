@@ -4,48 +4,45 @@ export default class CodeGenerator {
   private indentWidth = 2;
   private indentLevel = 0;
   private startOfIndentLevel = true;
-  private forceInline = false;
   
   output = '';
 
   print(maybeString?: string | null | false) {
-    this.forceInline = false;
-
     if (maybeString) {
       this.output += maybeString;
     }
   }
 
-  printNewline() {
-    if (this.forceInline) {
-      this.print('');
+  printEmptyLine() {
+    if (/\n\n$/.test(this.output)) {
+      return;
+    } else if (/\n$/.test(this.output)) {
+      this.print('\n');
+    } else {
+      this.print('\n\n');
     }
+  }
 
+  printNewline() {
     if (this.output) {
       this.print('\n');
       this.startOfIndentLevel = false;
     }
   }
 
-  printNewlineIfNeeded() {
-    if (!this.startOfIndentLevel) {
-      this.printNewline();
-    }
-  }
-
   printOnNewline(maybeString?: string | null) {
     if (maybeString) {
-      if (!this.forceInline) {
+      if (!/\n$/.test(this.output)) {
         this.printNewline();
-        this.printIndent();
       }
+
+      this.printIndent();
       this.print(maybeString);
     }
   }
 
   printAndForceInline(content: string) {
     this.print(content);
-    this.forceInline = true;
   }
 
   printIndent() {
@@ -55,7 +52,6 @@ export default class CodeGenerator {
 
   withIndent(closure: Block) {
     this.indentLevel += 1;
-    this.startOfIndentLevel = true;
     closure();
     this.indentLevel -= 1;
   }
@@ -63,6 +59,7 @@ export default class CodeGenerator {
   withinBlock(closure: Block) {
     this.print('{');
     this.withIndent(closure);
+    this.output = this.output.replace(/\s*$/, '');
     this.printOnNewline('}');
   }
 }

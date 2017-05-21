@@ -174,15 +174,19 @@ exports[`printFile() object types fragment spreads prints a partial fragment typ
 
 import {DocumentNode} from 'graphql';
 
-import {EntityName} from './subfolder/MyFragment.graphql';
+import {EntityNameFragment} from './subfolder/MyFragment.graphql';
 
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
 
 export interface EntitiesQuery {
-  entities: (NullableFragment<EntityName> & {
-  })[],
+  entities: EntitiesQuery.Entity[],
+}
+
+export namespace EntitiesQuery {
+  export interface Entity extends NullableFragment<EntityNameFragment> {
+  }
 }
 
 declare const document: DocumentNode;
@@ -197,11 +201,15 @@ exports[`printFile() object types fragment spreads prints them as union types wh
 
 import {DocumentNode} from 'graphql';
 
-import {EntityName} from './subfolder/MyFragment.graphql';
+import {EntityNameFragment} from './subfolder/MyFragment.graphql';
 
 export interface EntitiesQuery {
-  entities: (EntityName & {
-  })[],
+  entities: EntitiesQuery.Entity[],
+}
+
+export namespace EntitiesQuery {
+  export interface Entity extends EntityNameFragment {
+  }
 }
 
 declare const document: DocumentNode;
@@ -217,10 +225,14 @@ exports[`printFile() object types inline fragments forces fields to be nullable 
 import {DocumentNode} from 'graphql';
 
 export interface EntitiesQuery {
-  entities: {
+  entities: EntitiesQuery.Entity[],
+}
+
+export namespace EntitiesQuery {
+  export interface Entity {
     name?: string | null,
     nickname?: string | null,
-  }[],
+  }
 }
 
 declare const document: DocumentNode;
@@ -236,10 +248,14 @@ exports[`printFile() object types inline fragments treats them as their original
 import {DocumentNode} from 'graphql';
 
 export interface EntitiesQuery {
-  entities: {
+  entities: EntitiesQuery.Entity[],
+}
+
+export namespace EntitiesQuery {
+  export interface Entity {
     name: string,
     nickname?: string | null,
-  }[],
+  }
 }
 
 declare const document: DocumentNode;
@@ -255,16 +271,24 @@ exports[`printFile() object types objects fields nests them inline in the origin
 import {DocumentNode} from 'graphql';
 
 export interface ProfileQuery {
-  person?: {
+  person?: ProfileQuery.PersonPerson | null,
+}
+
+export namespace ProfileQuery {
+  export interface Pet {
+    name: string,
+  }
+
+  export interface PersonRelativesPerson {
+    name: string,
+    favoritePet?: ProfileQuery.Pet | null,
+  }
+
+  export interface PersonPerson {
     name: string,
     age: number,
-    relatives: {
-      name: string,
-      favoritePet?: {
-        name: string,
-      } | null,
-    }[],
-  } | null,
+    relatives: ProfileQuery.PersonRelativesPerson[],
+  }
 }
 
 declare const document: DocumentNode;
@@ -454,12 +478,14 @@ interface NameInput {
   language?: Language | null,
 }
 
-export interface NameQueryVariables {
-  myInput?: NameInput | null,
-}
-
 export interface NameQuery {
   name: string,
+}
+
+export namespace NameQuery {
+  export interface Variables {
+    myInput?: NameInput | null,
+  }
 }
 
 declare const document: DocumentNode;
