@@ -21,7 +21,7 @@ GraphQLError
     at parseDefinition (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:136:16)
     at parseDocument (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:106:22)
     at Object.parse (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:43:10)
-    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:136:40)
+    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:137:40)
     at Generator.next (<anonymous>)
 
 ",
@@ -39,7 +39,7 @@ ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tool
 Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
 
 ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:125:36)
+    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:126:36)
     at Generator.throw (<anonymous>)
     at rejected (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:5:65)
 
