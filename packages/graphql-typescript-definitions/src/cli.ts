@@ -29,9 +29,7 @@ const BUILT = chalk.inverse.bold.green(' BUILT ');
 const ERROR = chalk.inverse.bold.red(' ERROR ');
 
 builder.on('start', () => {
-  if (!builder.watching) {
-    console.log();
-  }
+  console.log();
 });
 
 builder.on('build', ({documentPath, definitionPath}) => {

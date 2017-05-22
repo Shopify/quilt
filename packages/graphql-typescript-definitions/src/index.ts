@@ -53,6 +53,8 @@ export class Builder extends EventEmitter {
   }
 
   async run({watch: watchGlobs = false} = {}) {
+    this.watching = watchGlobs;
+
     const {globs} = this;
 
     const update = async (file: string) => {

@@ -3,7 +3,10 @@
   "version": "0.2.0",
   "main": "lib/index.js",
   "author": "Chris Sauve <chrismsauve@gmail.com>",
+  "description": "Generate TypeScript definition files from .graphql documents",
   "license": "MIT",
+  "bin": "./bin/graphql-typescript-definitions",
+  "repository": "https://github.com/lemonmade/graphql-tools/tree/master/packages/graphql-typescript-definitions",
   "scripts": {
     "build": "tsc",
     "pretest": "yarn run build",
