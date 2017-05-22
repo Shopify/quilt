@@ -10,7 +10,7 @@
     "graphql"
   ],
   "scripts": {
-    "pretest": "yarn run build && node scripts/introspection.js",
+    "pretest": "yarn run build",
     "build": "tsc",
     "prepublish": "in-publish && yarn run build || :"
   },

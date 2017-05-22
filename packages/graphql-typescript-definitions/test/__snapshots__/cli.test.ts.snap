@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli fails when there are syntax errors 1`] = `
+Object {
+  "error": [Error: Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/bin/graphql-typescript-definitions '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/**/*.graphql' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json'
+],
+  "stderr": "",
+  "stdout": " ERROR  Syntax Error /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/Fragment.graphql (2:3) Expected {, found Name \\"name\\"
+
+1: fragment Person on Person
+2:   name
+     ^
+3:   relatives {
+
+GraphQLError
+    at syntaxError (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/error/syntaxError.js:28:15)
+    at expect (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:966:32)
+    at many (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:1014:3)
+    at parseSelectionSet (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:250:17)
+    at parseFragmentDefinition (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:363:19)
+    at parseDefinition (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:136:16)
+    at parseDocument (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:106:22)
+    at Object.parse (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:43:10)
+    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:122:40)
+    at Generator.next (<anonymous>)
+
+",
+}
+`;
+
+exports[`cli fails when there are syntax errors 2`] = `
+Object {
+  "error": [Error: Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/bin/graphql-typescript-definitions '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/documents/**/*.graphql' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
+],
+  "stderr": "",
+  "stdout": " ERROR  Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
+
+ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
+Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
+
+ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
+    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:111:36)
+    at Generator.throw (<anonymous>)
+    at rejected (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:5:65)
+
+",
+}
+`;
+
+exports[`cli succeeds when there are no fixture errors 1`] = `
+Object {
+  "error": null,
+  "stderr": "",
+  "stdout": "
+ BUILT  /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql → /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql.d.ts
+ BUILT  /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql → /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql.d.ts
+
+",
+}
+`;

@@ -1,0 +1,6 @@
+query Query {
+  person {
+    id
+    ...Person
+  }
+}

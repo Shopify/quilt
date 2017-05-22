@@ -13,7 +13,7 @@ import {
   GraphQLScalarType,
 } from 'graphql';
 
-import CodeGenerator from '../generator';
+import CodeGenerator from './generator';
 import {printPropertyKey, printInterface} from './language';
 
 export const builtInScalarMap = {

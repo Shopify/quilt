@@ -1,4 +1,4 @@
-import CodeGenerator from '../generator';
+import CodeGenerator from './generator';
 import {printPropertyKey} from './language';
 
 export class SpecialType {

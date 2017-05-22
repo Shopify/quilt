@@ -1,0 +1,6 @@
+fragment Person on Person
+  name
+  relatives {
+    name
+  }
+}

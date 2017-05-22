@@ -354,6 +354,189 @@ describe('printFile()', () => {
       expect(print('query Name($myInput: NameInput) { name(input: $myInput) }', schema)).toMatchSnapshot();
     });
   });
+
+  describe('mutations', () => {
+    it('prints mutations', () => {
+      const schema = buildSchema(`
+        enum Kind {
+          CAT
+          DOG
+        }
+
+        type Pet {
+          name: String!
+          kind: Kind!
+        }
+
+        type Person {
+          name: String!
+          favoritePet: Pet
+          pets: [Pet!]!
+        }
+
+        type Query {
+          person: Person!
+        }
+
+        type Mutation {
+          rename(name: String!): Person!
+        }
+      `);
+
+      const document = `
+        mutation Rename($name: String!) {
+          rename(name: $name) {
+            name
+          }
+        }
+      `;
+
+      expect(print(document, schema)).toMatchSnapshot();
+    });
+  });
+
+  describe('fragments', () => {
+    const schema = buildSchema(`
+      interface Entity {
+        id: ID!
+        name: String!
+        nickname: String
+      }
+
+      enum Kind {
+        DOG
+        CAT
+      }
+    
+      type Pet implements Entity {
+        id: ID!
+        name: String!
+        nickname: String
+        kind: Kind
+      }
+
+      type Person implements Entity {
+        id: ID!
+        name: String!
+        nickname: String
+        age: Int!
+        relatives: [Person!]!
+        favoritePet: Pet
+      }
+
+      type Query {
+        person: Person
+        entities: [Entity!]!
+      }
+    `);
+
+    it('prints fragment definitions', () => {
+      const fragment = `
+        fragment Pets on Entity {
+          name
+          nickname
+        }
+      `;
+
+      expect(print(fragment, schema)).toMatchSnapshot();
+    });
+
+    it('prints fragment spreads', () => {
+      const fragment = `
+        fragment Pets on Entity {
+          ...PetKind
+          ...PersonDetails
+          ...EntityName
+          id
+        }
+      `;
+
+      expect(print(fragment, schema, {
+        'subfolder/PetKind.graphql': 'fragment PetKind on Pet { kind }',
+        'subfolder/another/PersonDetails.graphql': `
+          fragment PersonDetails on Person {
+            id
+            name
+            nickname
+            favoritePet { name }
+          }
+
+          fragment EntityName on Entity { name }
+        `,
+      })).toMatchSnapshot();
+    });
+    
+    it('prints inline fragments', () => {
+      const fragment = `
+        fragment Pets on Entity {
+          ...on Pet {
+            id
+            kind
+          }
+          ...on Person {
+            name
+            nickname
+            favoritePet { name }
+          }
+        }
+      `;
+
+      expect(print(fragment, schema)).toMatchSnapshot();
+    });
+  });
+
+  describe('multiple operations', () => {
+    const schema = buildSchema(`
+      enum Kind {
+        CAT
+        DOG
+      }
+
+      type Pet {
+        name: String!
+        kind: Kind!
+      }
+
+      type Person {
+        name: String!
+        favoritePet: Pet
+        pets: [Pet!]!
+      }
+
+      type Query {
+        person: Person!
+      }
+    `);
+
+    const document = `
+      query Person {
+        person {
+          ...FavoritePet
+        }
+      }
+
+      query Pet {
+        person {
+          pets {
+            ...PetDetails
+          }
+        }
+      }
+
+      fragment PetDetails on Pet {
+        kind
+      }
+
+      fragment FavoritePet on Person {
+        name
+        favoritePet {
+          ...PetDetails
+        }
+      }
+    `;
+
+    expect(print(document, schema)).toMatchSnapshot();
+  });
 });
 
 function print(
@@ -361,14 +544,14 @@ function print(
   schema: GraphQLSchema,
   fragments: {[key: string]: string} = {},
 ) {
-  const fileName = 'MyQuery.graphql';
+  const fileName = 'MyOperation.graphql';
   const fragmentDocuments = Object.keys(fragments).map((key) => parse(new Source(fragments[key], key)));
   const document = parse(new Source(documentString, fileName));
   const ast = compile(schema, concatAST([document, ...fragmentDocuments]));
   const file = {
     path: fileName,
-    operation: Object.keys(ast.operations).map((key) => ast.operations[key]).find((operation) => operation.filePath === fileName),
-    fragment: Object.keys(ast.fragments).map((key) => ast.fragments[key]).find((fragment) => fragment.filePath === fileName),
+    operations: Object.keys(ast.operations).map((key) => ast.operations[key]).filter((operation) => operation.filePath === fileName),
+    fragments: Object.keys(ast.fragments).map((key) => ast.fragments[key]).filter((fragment) => fragment.filePath === fileName),
   };
   return printFile(file, ast);
 }

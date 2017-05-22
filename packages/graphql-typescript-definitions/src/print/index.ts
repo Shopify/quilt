@@ -1,4 +1,5 @@
 import {relative, dirname} from 'path';
+import {pascal} from 'change-case';
 import {
   GraphQLList,
   GraphQLNonNull,
@@ -11,7 +12,7 @@ import {
 } from 'graphql';
 import {Operation, Fragment, AST, Field} from 'graphql-tool-utilities/ast';
 
-import CodeGenerator from '../generator';
+import CodeGenerator from './generator';
 import Context from './context';
 import Document, {FieldObject} from './document';
 import {printInputGraphQLField, printRootGraphQLType, builtInScalarMap} from './graphql';
@@ -26,15 +27,12 @@ import {
 
 interface File {
   path: string,
-  operation?: Operation,
-  fragment?: Fragment,
+  operations: Operation[],
+  fragments: Fragment[],
 }
 
-export function printFile(
-  {operation, fragment, path}: File,
-  ast: AST,
-) {
-  if (operation == null && fragment == null) {
+export function printFile({operations, fragments, path}: File, ast: AST) {
+  if (operations.length === 0 && fragments.length === 0) {
     return '';
   }
 
@@ -49,15 +47,17 @@ export function printFile(
 
   const subGenerator = new CodeGenerator();
 
-  if (operation != null) {
+  for (const operation of operations) {
     printOperation(operation, subGenerator, context);
   }
 
-  if (fragment != null) {
+  for (const fragment of fragments) {
     printFragment(fragment, subGenerator, context);
   }
 
   Array.from(context.importsUsed).forEach(([importPath, specifiers]) => {
+    if (importPath === path) { return; }
+
     let relativePath = relative(dirname(path), importPath);
     if (!relativePath.startsWith('.')) {
       relativePath = `./${relativePath}`;
@@ -89,6 +89,7 @@ export function printFile(
   generator.printEmptyLine();
 
   generator.printOnNewline('// tslint-enable');
+  generator.printNewline();
 
   return generator.output;
 }
@@ -140,24 +141,48 @@ function printFragment(
     fragmentName,
     fragmentSpreads,
     fragmentsReferenced,
+    inlineFragments = [],
+    typeCondition,
   } = fragment;
+  const typeConditionFieldMap = typeCondition.getFields();
+  const finalFragmentSreads = fragmentSpreads.map((spread) => {
+    const fragment = context.ast.fragments[spread];
+
+    if (fragment.typeCondition === typeCondition) {
+      return `${spread}Fragment`;
+    } else {
+      context.addUsedSpecialType(NullableFragment);
+      return `${NullableFragment.typeName}<${spread}Fragment>`;
+    }
+  });
+
   const document = new Document(`${fragmentName}Fragment`, fragment);
   context.document = document;
 
   context.addUsedExternalFragments(fragmentsReferenced);
 
-  for (const fieldObject of document.fieldObjects) {
-    printFieldObject(fieldObject, generator, context);
-  }
-
-  generator.printNewline();
-
   printExport(() => {
     printInterface({
       name: document.name,
-      extend: fragmentSpreads,
+      extend: finalFragmentSreads,
     }, () => {
-      fields.forEach((field) => printField(field, false, generator, context));
+      const seenFields = new Set<string>();
+
+      for (const field of fields) {
+        seenFields.add(field.responseName);
+        printField(field, false, generator, context);
+      }
+
+      for (const inlineFragment of inlineFragments) {
+        const {fields: fragmentFields, typeCondition: fragmentTypeCondition} = inlineFragment
+
+        for (const field of fragmentFields) {
+          if (seenFields.has(field.responseName)) { continue; }
+          seenFields.add(field.responseName);
+          const forceNullable = (typeCondition !== fragmentTypeCondition) && !typeConditionFieldMap.hasOwnProperty(field.fieldName);
+          printField(field, forceNullable, generator, context);
+        }
+      }
     }, generator);
   }, generator);
 
@@ -186,11 +211,12 @@ function printOperation(
     fields,
     variables,
     operationName,
+    operationType,
     fragmentSpreads = [],
     fragmentsReferenced,
   } = operation;
 
-  const document = new Document(`${operationName}Query`, operation);
+  const document = new Document(`${operationName}${pascal(operationType)}`, operation);
   context.document = document;
 
   context.addUsedExternalFragments(fragmentsReferenced);

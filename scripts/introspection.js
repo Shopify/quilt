@@ -4,7 +4,7 @@ const {readFile, writeFile} = require('fs-extra');
 const glob = require('glob');
 
 glob
-  .sync(resolve(__dirname, '../test/fixtures/**/schema.graphql'))
+  .sync(resolve(__dirname, '../packages/*/test/fixtures/**/schema.graphql'))
   .forEach((schemaFile) => {
     readFile(schemaFile, 'utf8')
       .then((schemaContents) => buildSchema(schemaContents))

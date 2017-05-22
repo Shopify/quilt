@@ -4,6 +4,8 @@ import {
   GraphQLType,
   GraphQLOutputType,
   GraphQLInputType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
 } from 'graphql';
 const {compileToIR} = require('apollo-codegen/lib/compilation');
 
@@ -22,10 +24,11 @@ export interface Field {
 }
 
 export interface InlineFragment {
-  typeCondition: GraphQLType,
-  possibleTypes: GraphQLType[],
+  typeCondition: GraphQLObjectType | GraphQLInterfaceType,
+  possibleTypes: (GraphQLObjectType | GraphQLInterfaceType)[],
   fields: Field[],
   fragmentSpreads: string[],
+  inlineFragments?: InlineFragment[],
 }
 
 export interface Fragment extends InlineFragment {

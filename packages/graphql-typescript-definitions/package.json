@@ -6,6 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "pretest": "yarn run build",
+    "prepublish": "in-publish && yarn run build || :",
     "pretry": "find example -type f -name '*.d.ts' -delete",
     "try": "bin/graphql-typescript-definitions 'example/**/*.graphql' --schema-path './example/schema.json'"
   },

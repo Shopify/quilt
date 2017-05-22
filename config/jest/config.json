@@ -1,7 +1,8 @@
 {
   "rootDir": "../../",
   "modulePathIgnorePatterns": [
-    "packages/.*/lib"
+    "packages/.*/lib",
+    "packages/.*/test/fixtures/.*d.ts"
   ],
   "testRegex": ".*\\.test\\.ts$",
   "transform": {

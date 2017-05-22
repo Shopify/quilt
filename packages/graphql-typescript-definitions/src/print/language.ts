@@ -1,4 +1,4 @@
-import CodeGenerator from '../generator';
+import CodeGenerator from './generator';
 
 export type Block = () => void;
 

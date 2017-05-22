@@ -19,20 +19,18 @@ export interface RunOptions {
 export interface Build {
   documentPath: string,
   definitionPath: string,
-  operation?: Operation,
-  fragment?: Fragment,
+  operations: Operation[],
+  fragments: Fragment[],
 }
 
 export class Builder extends EventEmitter {
   watching: boolean;
   private globs: string;
   private schemaPath: string;
+  private schema: GraphQLSchema;
   private documentCache = new Map<string, DocumentNode>();
 
-  constructor({
-    graphQLFiles,
-    schemaPath,
-  }: Options) {
+  constructor({graphQLFiles, schemaPath}: Options) {
     super();
     this.globs = graphQLFiles;
     this.schemaPath = schemaPath;
@@ -55,74 +53,35 @@ export class Builder extends EventEmitter {
   }
 
   async run({watch: watchGlobs = false} = {}) {
-    const {schemaPath, globs, documentCache} = this;
-    let schema: GraphQLSchema;
-
-    const generate = async () => {
-      this.emit('start');
-      let ast: AST;
-
-      try {
-        ast = compile(schema, concatAST(Array.from(documentCache.values())));
-      } catch (error) {
-        this.emit(error);
-        return;
-      }
-
-      const fileMap = groupOperationsAndFragmentsByFile(ast);
-      await Promise.all(
-        Object
-          .keys(fileMap)
-          .map(async (key) => {
-            const file = fileMap[key];
-            const definition = printFile(file, ast);
-            const definitionPath = `${file.path}.d.ts`;
-            await writeFile(definitionPath, definition);
-
-            const build = {
-              documentPath: file.path,
-              definitionPath,
-              operation: file.operation,
-              fragment: file.fragment,
-            };
-
-            this.emit('build', build);
-          })
-      );
-
-      this.emit('end');
-    };
+    const {globs} = this;
 
     const update = async (file: string) => {
       try {
         await this.updateDocumentForFile(file);
       } catch (error) {
+        this.emit('error', error);
         return;
       }
 
-      await generate();
-    };
-
-    const remove = async (file: string) => {
-      this.removeDocumentForFile(file);
-      await generate();
+      await this.generate();
     };
 
     if (watchGlobs) {
-      const watcher = watch(globs);
-      watcher.on('ready', () => {
-        watcher.on('add', update);
-        watcher.on('change', update);
-        watcher.on('unlink', remove);
+      const documentWatcher = watch(globs);
+      documentWatcher.on('ready', () => {
+        documentWatcher.on('add', update);
+        documentWatcher.on('change', update);
+        documentWatcher.on('unlink', async (file: string) => {
+          this.removeDocumentForFile(file);
+          await this.generate();
+        });
       });
     }
 
     try {
-      const schemaJSON = await readJSON(schemaPath, 'utf8');
-      schema = buildClientSchema(schemaJSON.data);
+      await this.updateSchema();
     } catch (error) {
-      const parseError = new Error(`Error parsing '${schemaPath}':\n\n${error.message.replace(/Syntax Error GraphQL \(.*?\) /, '')}`);
-      this.emit('error', parseError);
+      this.emit('error', error);
       return;
     }
 
@@ -133,23 +92,64 @@ export class Builder extends EventEmitter {
           .map(this.updateDocumentForFile.bind(this))
       );
     } catch (error) {
+      this.emit('error', error);
       return;
     }
 
-    await generate();
+    await this.generate();
+  }
+
+  private async generate() {
+    this.emit('start');
+    let ast: AST;
+
+    try {
+      ast = compile(this.schema, concatAST(Array.from(this.documentCache.values())));
+    } catch (error) {
+      this.emit(error);
+      return;
+    }
+
+    const fileMap = groupOperationsAndFragmentsByFile(ast);
+    await Promise.all(
+      Object
+        .keys(fileMap)
+        .map(async (key) => {
+          const file = fileMap[key];
+          const definition = printFile(file, ast);
+          const definitionPath = `${file.path}.d.ts`;
+          await writeFile(definitionPath, definition);
+
+          const build = {
+            documentPath: file.path,
+            definitionPath,
+            operations: file.operations,
+            fragments: file.fragments,
+          };
+
+          this.emit('build', build);
+        })
+    );
+
+    this.emit('end');
+  }
+
+  private async updateSchema() {
+    try {
+      const schemaJSON = await readJSON(this.schemaPath, 'utf8');
+      this.schema = buildClientSchema(schemaJSON.data);
+    } catch (error) {
+      const parseError = new Error(`Error parsing '${this.schemaPath}':\n\n${error.message.replace(/Syntax Error GraphQL \(.*?\) /, '')}`);
+      throw parseError;
+    }
   }
 
   private async updateDocumentForFile(file: string) {
-    try {
-      const contents = await readFile(file, 'utf8');
-      if (contents.trim().length === 0) { return; }
+    const contents = await readFile(file, 'utf8');
+    if (contents.trim().length === 0) { return; }
 
-      const document = parse(new Source(contents, file));
-      this.documentCache.set(file, document);
-    } catch (error) {
-      this.emit('error', error);
-      throw error;
-    }
+    const document = parse(new Source(contents, file));
+    this.documentCache.set(file, document);
   }
 
   private removeDocumentForFile(file: string) {
@@ -157,25 +157,10 @@ export class Builder extends EventEmitter {
   }
 }
 
-// export default function graphQLToTypeScriptDefinitions(options: Options) {
-//   const ast = buildAST(options);
-//   const fileMap = groupQueriesAndFragmentsByFile(ast);
-
-//   Object.keys(fileMap).forEach((path) => {
-//     const file = fileMap[path];
-
-//     const content = printFile(file, ast);
-//     if (!content) { return; }
-
-//     const newFile = `${file.path}.d.ts`;
-//     writeFileSync(newFile, content);
-//   });
-// }
-
 interface File {
   path: string,
-  operation?: Operation,
-  fragment?: Fragment,
+  operations: Operation[],
+  fragments: Fragment[],
 }
 
 interface FileMap {
@@ -189,20 +174,18 @@ function groupOperationsAndFragmentsByFile({operations, fragments}: AST): FileMa
     .keys(operations)
     .forEach((name) => {
       const operation = operations[name];
-      map[operation.filePath] = {
-        path: operation.filePath,
-        operation,
-      };
+      const file = map[operation.filePath] || {path: operation.filePath, operations: [], fragments: []};
+      file.operations.push(operation);
+      map[operation.filePath] = file;
     });
   
   Object
     .keys(fragments)
     .forEach((name) => {
       const fragment = fragments[name];
-      map[fragment.filePath] = {
-        path: fragment.filePath,
-        fragment,
-      };
+      const file = map[fragment.filePath] || {path: fragment.filePath, operations: [], fragments: []};
+      file.fragments.push(fragment);
+      map[fragment.filePath] = file;
     });
   
   return map;

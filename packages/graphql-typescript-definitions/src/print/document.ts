@@ -6,7 +6,7 @@ import {
   isCompositeType,
   GraphQLCompositeType,
 } from 'graphql';
-import {Field} from 'graphql-tool-utilities/ast';
+import {Field, InlineFragment} from 'graphql-tool-utilities/ast';
 
 type KeyPath = string[];
 
@@ -31,9 +31,13 @@ export default class Document {
   private typesUsed = new Map<GraphQLCompositeType, number>();
   private fieldMap = new Map<Field, FieldObject>();
 
-  constructor(public name: string, {fields}: {fields: Field[]}) {
+  constructor(public name: string, {fields, inlineFragments = []}: {fields: Field[], inlineFragments?: InlineFragment[]}) {
     for (const field of fields) {
-      this.collect(field);
+      this.collectField(field);
+    }
+
+    for (const inlineFragment of inlineFragments) {
+      this.collectFragment(inlineFragment);
     }
   }
 
@@ -45,7 +49,19 @@ export default class Document {
     return this.fieldMap.get(field) as FieldObject;
   }
 
-  private collect(field: Field, parentKeyPath: KeyPath = []) {
+  private collectFragment(fragment: InlineFragment, keyPath: KeyPath = []) {
+    const {inlineFragments = [], fields} = fragment;
+
+    for (const field of fields) {
+      this.collectField(field, keyPath);
+    }
+
+    for (const inlineFragment of inlineFragments) {
+      this.collectFragment(inlineFragment, keyPath);
+    }
+  }
+
+  private collectField(field: Field, parentKeyPath: KeyPath = []) {
     if (field.fields == null) { return; }
     const newKeyPath = [...parentKeyPath, field.responseName];
     const fieldObject = new FieldObject(field, newKeyPath, this);
@@ -55,13 +71,11 @@ export default class Document {
     this.fieldMap.set(field, fieldObject);
 
     for (const subfield of field.fields) {
-      this.collect(subfield, newKeyPath);
+      this.collectField(subfield, newKeyPath);
     }
 
     for (const inlineFragment of (field.inlineFragments || [])) {
-      for (const subfield of inlineFragment.fields) {
-        this.collect(subfield, newKeyPath);
-      }
+      this.collectFragment(inlineFragment, newKeyPath);
     }
   }
 }

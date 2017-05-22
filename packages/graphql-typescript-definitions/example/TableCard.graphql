@@ -1,3 +1,0 @@
-fragment TableCard on HomeTableCard {
-  headings
-}

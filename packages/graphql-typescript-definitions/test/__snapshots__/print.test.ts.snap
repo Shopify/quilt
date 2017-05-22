@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `
+"// This file was generated and should not be edited.
+// tslint-disable
+
+import {DocumentNode} from 'graphql';
+
+type Kind = 'CAT' | 'DOG';
+
+export interface PersonQuery {
+  person: PersonQuery.Person,
+}
+
+export namespace PersonQuery {
+  export interface Person extends FavoritePetFragment {
+  }
+}
+
+export interface PetQuery {
+  person: PetQuery.Person,
+}
+
+export namespace PetQuery {
+  export interface Pet extends PetDetailsFragment {
+  }
+
+  export interface Person {
+    pets: PetQuery.Pet[],
+  }
+}
+
+export interface PetDetailsFragment {
+  kind: Kind,
+}
+
+export interface FavoritePetFragment {
+  name: string,
+  favoritePet?: FavoritePetFragment.Pet | null,
+}
+
+export namespace FavoritePetFragment {
+  export interface Pet extends PetDetailsFragment {
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+// tslint-enable
+"
+`;
+
 exports[`printFile() custom scalars declares them as strings 1`] = `
 "// This file was generated and should not be edited.
 // tslint-disable
@@ -15,7 +66,8 @@ export interface DateQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() custom scalars declares them as strings 2`] = `
@@ -33,7 +85,8 @@ export interface DateQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() enum types prints the enum type and its type declaration 1`] = `
@@ -51,7 +104,8 @@ export interface WhichEpisodeQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() enum types prints the enum type and its type declaration 2`] = `
@@ -69,7 +123,79 @@ export interface WhichEpisodeQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
+`;
+
+exports[`printFile() fragments prints fragment definitions 1`] = `
+"// This file was generated and should not be edited.
+// tslint-disable
+
+import {DocumentNode} from 'graphql';
+
+export interface PetsFragment {
+  name: string,
+  nickname?: string | null,
+}
+
+declare const document: DocumentNode;
+export default document;
+
+// tslint-enable
+"
+`;
+
+exports[`printFile() fragments prints fragment spreads 1`] = `
+"// This file was generated and should not be edited.
+// tslint-disable
+
+import {DocumentNode} from 'graphql';
+
+import {PetKindFragment} from './subfolder/PetKind.graphql';
+import {PersonDetailsFragment, EntityNameFragment} from './subfolder/another/PersonDetails.graphql';
+
+type NullableFragment<T> = {
+  [P in keyof T]?: T[P] | null
+}
+
+export interface PetsFragment extends NullableFragment<PetKindFragment>, NullableFragment<PersonDetailsFragment>, EntityNameFragment {
+  id: string,
+}
+
+declare const document: DocumentNode;
+export default document;
+
+// tslint-enable
+"
+`;
+
+exports[`printFile() fragments prints inline fragments 1`] = `
+"// This file was generated and should not be edited.
+// tslint-disable
+
+import {DocumentNode} from 'graphql';
+
+type Kind = 'DOG' | 'CAT';
+
+export interface PetsFragment {
+  id: string,
+  kind?: Kind | null,
+  name: string,
+  nickname?: string | null,
+  favoritePet?: PetsFragment.Pet | null,
+}
+
+export namespace PetsFragment {
+  export interface Pet {
+    name: string,
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+// tslint-enable
+"
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 1`] = `
@@ -85,7 +211,8 @@ export interface NicknamesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 2`] = `
@@ -101,7 +228,8 @@ export interface NicknamesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 3`] = `
@@ -117,7 +245,8 @@ export interface NicknamesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 4`] = `
@@ -133,7 +262,8 @@ export interface NicknamesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() list types wraps nested lists 1`] = `
@@ -149,7 +279,8 @@ export interface NicknamesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() list types wraps nested lists 2`] = `
@@ -165,7 +296,35 @@ export interface NicknamesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
+`;
+
+exports[`printFile() mutations prints mutations 1`] = `
+"// This file was generated and should not be edited.
+// tslint-disable
+
+import {DocumentNode} from 'graphql';
+
+export interface RenameMutation {
+  rename: RenameMutation.Person,
+}
+
+export namespace RenameMutation {
+  export interface Variables {
+    name: string,
+  }
+
+  export interface Person {
+    name: string,
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+// tslint-enable
+"
 `;
 
 exports[`printFile() object types fragment spreads prints a partial fragment type when the type restriction is not guaranteed 1`] = `
@@ -192,7 +351,8 @@ export namespace EntitiesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() object types fragment spreads prints them as union types when the type restriction is guaranteed 1`] = `
@@ -215,7 +375,8 @@ export namespace EntitiesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() object types inline fragments forces fields to be nullable when the type restriction is not guaranteed 1`] = `
@@ -238,7 +399,8 @@ export namespace EntitiesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() object types inline fragments treats them as their original nullability when they are guaranteed 1`] = `
@@ -261,7 +423,8 @@ export namespace EntitiesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() object types objects fields nests them inline in the original object 1`] = `
@@ -294,7 +457,8 @@ export namespace ProfileQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints a boolean type 1`] = `
@@ -310,7 +474,8 @@ export interface MarriedQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints a boolean type 2`] = `
@@ -326,7 +491,8 @@ export interface MarriedQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints a float type 1`] = `
@@ -342,7 +508,8 @@ export interface AgeQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints a float type 2`] = `
@@ -358,7 +525,8 @@ export interface AgeQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints a string type 1`] = `
@@ -374,7 +542,8 @@ export interface NameQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints a string type 2`] = `
@@ -390,7 +559,8 @@ export interface NameQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints an ID type 1`] = `
@@ -406,7 +576,8 @@ export interface ProductIDQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints an ID type 2`] = `
@@ -422,7 +593,8 @@ export interface ProductIDQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints an integer type 1`] = `
@@ -438,7 +610,8 @@ export interface AgeQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() primitive types prints an integer type 2`] = `
@@ -454,7 +627,8 @@ export interface AgeQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;
 
 exports[`printFile() variables prints out a variable interface and all associated types 1`] = `
@@ -491,5 +665,6 @@ export namespace NameQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable"
+// tslint-enable
+"
 `;

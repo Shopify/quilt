@@ -42,11 +42,12 @@ builder.on('end', () => {
 
 builder.on('error', (error) => {
   console.log(`${ERROR} ${error.message}`);
-  if (error.stack) {
-    console.log(chalk.dim(error.stack));
-  }
+  if (error.stack) { console.log(chalk.dim(error.stack)); }
   console.log();
+
+  if (!builder.watching) {
+    process.exit(1);
+  }
 });
 
-builder.run({watch: argv.watch})
-  .catch((error) => console.log(error));
+builder.run({watch: argv.watch});
