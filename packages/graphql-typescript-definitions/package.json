@@ -1,6 +1,6 @@
 {
   "name": "graphql-typescript-definitions",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "lib/index.js",
   "author": "Chris Sauve <chrismsauve@gmail.com>",
   "license": "MIT",
@@ -23,6 +23,6 @@
     "fs-extra": "^3.0.1",
     "glob": "^7.1.1",
     "graphql": "^0.9.1",
-    "graphql-tool-utilities": "^0.4.0"
+    "graphql-tool-utilities": "^0.5.0"
   }
 }
