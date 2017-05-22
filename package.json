@@ -8,7 +8,7 @@
     "test": "jest --config ./config/jest/config.json",
     "test:watch": "yarn run test -- --watch",
     "check": "yarn run ts && yarn run test",
-    "publish-all": "yarn run check && yarn run lerna publish"
+    "prepublish": "yarn run check"
   },
   "devDependencies": {
     "@types/chalk": "^0.4.31",
