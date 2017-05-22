@@ -76,6 +76,18 @@ export class Builder extends EventEmitter {
           await this.generate();
         });
       });
+
+      const schemaWatcher = watch(this.schemaPath);
+      schemaWatcher.on('ready', () => {
+        schemaWatcher.on('change', async () => {
+          try {
+            await this.updateSchema();
+            await this.generate();
+          } catch (error) {
+            return;
+          }
+        });
+      });
     }
 
     try {
@@ -111,7 +123,7 @@ export class Builder extends EventEmitter {
     }
 
     const fileMap = groupOperationsAndFragmentsByFile(ast);
-    await Promise.all(
+    const buildResults = await Promise.all(
       Object
         .keys(fileMap)
         .map(async (key) => {
@@ -120,16 +132,18 @@ export class Builder extends EventEmitter {
           const definitionPath = `${file.path}.d.ts`;
           await writeFile(definitionPath, definition);
 
-          const build = {
+          return {
             documentPath: file.path,
             definitionPath,
             operations: file.operations,
             fragments: file.fragments,
           };
-
-          this.emit('build', build);
         })
     );
+
+    for (const buildResult of buildResults) {
+      this.emit('build', buildResult);
+    }
 
     this.emit('end');
   }

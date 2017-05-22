@@ -29,15 +29,13 @@ const BUILT = chalk.inverse.bold.green(' BUILT ');
 const ERROR = chalk.inverse.bold.red(' ERROR ');
 
 builder.on('start', () => {
-  console.log();
+  if (!builder.watching) {
+    console.log();
+  }
 });
 
 builder.on('build', ({documentPath, definitionPath}) => {
   console.log(`${BUILT} ${chalk.dim(documentPath)} → ${definitionPath}`);
-});
-
-builder.on('end', () => {
-  console.log();
 });
 
 builder.on('error', (error) => {
