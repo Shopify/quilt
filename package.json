@@ -7,7 +7,8 @@
     "pretest": "rm -rf packages/graphql-tool-utilities/node_modules/graphql && rm -rf packages/graphql-validate-fixtures/node_modules/graphql && rm -rf packages/graphql-typescript-definitions/node_modules/graphql && node scripts/introspection.js && lerna run pretest",
     "test": "jest --config ./config/jest/config.json",
     "test:watch": "yarn run test -- --watch",
-    "check": "yarn run ts && yarn run test"
+    "check": "yarn run ts && yarn run test",
+    "publish-all": "yarn run check && yarn run lerna publish"
   },
   "devDependencies": {
     "@types/chalk": "^0.4.31",
