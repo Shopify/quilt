@@ -71,7 +71,7 @@ This package will generate matching `.d.ts` files for each `.graphql` file you s
 ### CLI
 
 ```sh
-yarn run graphql-typescript-definitions 'src/**/*.graphql' --schema-path 'build/schema.json'
+yarn run graphql-typescript-definitions 'src/**/*.graphql' -- --schema-path 'build/schema.json'
 ```
 
 Optionally, you can pass the `--watch` flag in order to regenerate the TypeScript definition files on changes to the GraphQL files.
