@@ -40,7 +40,7 @@ export function printFile({operations, fragments, path}: File, ast: AST) {
   const context = new Context(ast);
 
   generator.printOnNewline('// This file was generated and should not be edited.');
-  generator.printOnNewline('// tslint-disable');
+  generator.printOnNewline('/* tslint:disable */');
   generator.printEmptyLine();
   generator.printOnNewline("import {DocumentNode} from 'graphql';");
   generator.printEmptyLine();
@@ -88,7 +88,7 @@ export function printFile({operations, fragments, path}: File, ast: AST) {
   generator.printOnNewline('export default document;');
   generator.printEmptyLine();
 
-  generator.printOnNewline('// tslint-enable');
+  generator.printOnNewline('/* tslint:enable */');
   generator.printNewline();
 
   return generator.output;
@@ -100,7 +100,7 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
   const spreads = fragmentSpreads.map((spread) => {
     const fragment = context.ast.fragments[spread];
       
-    let fragmentName = `${fragment.fragmentName}Fragment`;
+    let fragmentName = `${fragment.fragmentName}FragmentData`;
     if (fragment.typeCondition !== compositeType) {
       context.addUsedSpecialType(NullableFragment);
       fragmentName = `${NullableFragment.typeName}<${fragmentName}>`;
@@ -149,14 +149,14 @@ function printFragment(
     const fragment = context.ast.fragments[spread];
 
     if (fragment.typeCondition === typeCondition) {
-      return `${spread}Fragment`;
+      return `${spread}FragmentData`;
     } else {
       context.addUsedSpecialType(NullableFragment);
-      return `${NullableFragment.typeName}<${spread}Fragment>`;
+      return `${NullableFragment.typeName}<${spread}FragmentData>`;
     }
   });
 
-  const document = new Document(`${fragmentName}Fragment`, fragment);
+  const document = new Document(`${fragmentName}FragmentData`, fragment);
   context.document = document;
 
   context.addUsedExternalFragments(fragmentsReferenced);
@@ -216,7 +216,7 @@ function printOperation(
     fragmentsReferenced,
   } = operation;
 
-  const document = new Document(`${operationName}${pascal(operationType)}`, operation);
+  const document = new Document(`${operationName}${pascal(operationType)}Data`, operation);
   context.document = document;
 
   context.addUsedExternalFragments(fragmentsReferenced);
@@ -224,7 +224,7 @@ function printOperation(
   printExport(() => {
     printInterface({
       name: document.name,
-      extend: fragmentSpreads.map((spread) => `${spread}Fragment`),
+      extend: fragmentSpreads.map((spread) => `${spread}FragmentData`),
     }, () => {
       fields.forEach((field) => {
         printField(field, false, generator, context);

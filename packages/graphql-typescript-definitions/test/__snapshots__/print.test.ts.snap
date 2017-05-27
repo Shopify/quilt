@@ -2,138 +2,138 @@
 
 exports[` 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
 type Kind = 'CAT' | 'DOG';
 
-export interface PersonQuery {
-  person: PersonQuery.Person,
+export interface PersonQueryData {
+  person: PersonQueryData.Person,
 }
 
-export namespace PersonQuery {
-  export interface Person extends FavoritePetFragment {
+export namespace PersonQueryData {
+  export interface Person extends FavoritePetFragmentData {
   }
 }
 
-export interface PetQuery {
-  person: PetQuery.Person,
+export interface PetQueryData {
+  person: PetQueryData.Person,
 }
 
-export namespace PetQuery {
-  export interface Pet extends PetDetailsFragment {
+export namespace PetQueryData {
+  export interface Pet extends PetDetailsFragmentData {
   }
 
   export interface Person {
-    pets: PetQuery.Pet[],
+    pets: PetQueryData.Pet[],
   }
 }
 
-export interface PetDetailsFragment {
+export interface PetDetailsFragmentData {
   kind: Kind,
 }
 
-export interface FavoritePetFragment {
+export interface FavoritePetFragmentData {
   name: string,
-  favoritePet?: FavoritePetFragment.Pet | null,
+  favoritePet?: FavoritePetFragmentData.Pet | null,
 }
 
-export namespace FavoritePetFragment {
-  export interface Pet extends PetDetailsFragment {
+export namespace FavoritePetFragmentData {
+  export interface Pet extends PetDetailsFragmentData {
   }
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() custom scalars declares them as strings 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
 type DateTime = string;
 
-export interface DateQuery {
+export interface DateQueryData {
   date: DateTime,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() custom scalars declares them as strings 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
 type DateTime = string;
 
-export interface DateQuery {
+export interface DateQueryData {
   date?: DateTime | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() enum types prints the enum type and its type declaration 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
 type Episode = 'ONE' | 'TWO' | 'THREE';
 
-export interface WhichEpisodeQuery {
+export interface WhichEpisodeQueryData {
   episode: Episode,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() enum types prints the enum type and its type declaration 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
 type Episode = 'ONE' | 'TWO' | 'THREE';
 
-export interface WhichEpisodeQuery {
+export interface WhichEpisodeQueryData {
   episode?: Episode | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() fragments prints fragment definitions 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface PetsFragment {
+export interface PetsFragmentData {
   name: string,
   nickname?: string | null,
 }
@@ -141,13 +141,13 @@ export interface PetsFragment {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() fragments prints fragment spreads 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
@@ -158,34 +158,34 @@ type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
 
-export interface PetsFragment extends NullableFragment<PetKindFragment>, NullableFragment<PersonDetailsFragment>, EntityNameFragment {
+export interface PetsFragmentData extends NullableFragment<PetKindFragmentData>, NullableFragment<PersonDetailsFragmentData>, EntityNameFragmentData {
   id: string,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() fragments prints inline fragments 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
 type Kind = 'DOG' | 'CAT';
 
-export interface PetsFragment {
+export interface PetsFragmentData {
   id: string,
   kind?: Kind | null,
   name: string,
   nickname?: string | null,
-  favoritePet?: PetsFragment.Pet | null,
+  favoritePet?: PetsFragmentData.Pet | null,
 }
 
-export namespace PetsFragment {
+export namespace PetsFragmentData {
   export interface Pet {
     name: string,
   }
@@ -194,123 +194,123 @@ export namespace PetsFragment {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NicknamesQuery {
+export interface NicknamesQueryData {
   nicknames: string[],
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NicknamesQuery {
+export interface NicknamesQueryData {
   nicknames: (string | null)[],
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 3`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NicknamesQuery {
+export interface NicknamesQueryData {
   nicknames?: string[] | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() list types correctly wraps types that are potentially null 4`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NicknamesQuery {
+export interface NicknamesQueryData {
   nicknames?: (string | null)[] | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() list types wraps nested lists 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NicknamesQuery {
+export interface NicknamesQueryData {
   nicknames: (string[] | null)[],
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() list types wraps nested lists 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NicknamesQuery {
+export interface NicknamesQueryData {
   nicknames?: ((string | null)[] | null)[] | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() mutations prints mutations 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface RenameMutation {
-  rename: RenameMutation.Person,
+export interface RenameMutationData {
+  rename: RenameMutationData.Person,
 }
 
-export namespace RenameMutation {
+export namespace RenameMutationData {
   export interface Variables {
     name: string,
   }
@@ -323,13 +323,13 @@ export namespace RenameMutation {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() object types fragment spreads prints a partial fragment type when the type restriction is not guaranteed 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
@@ -339,57 +339,57 @@ type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
 
-export interface EntitiesQuery {
-  entities: EntitiesQuery.Entity[],
+export interface EntitiesQueryData {
+  entities: EntitiesQueryData.Entity[],
 }
 
-export namespace EntitiesQuery {
-  export interface Entity extends NullableFragment<EntityNameFragment> {
+export namespace EntitiesQueryData {
+  export interface Entity extends NullableFragment<EntityNameFragmentData> {
   }
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() object types fragment spreads prints them as union types when the type restriction is guaranteed 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
 import {EntityNameFragment} from './subfolder/MyFragment.graphql';
 
-export interface EntitiesQuery {
-  entities: EntitiesQuery.Entity[],
+export interface EntitiesQueryData {
+  entities: EntitiesQueryData.Entity[],
 }
 
-export namespace EntitiesQuery {
-  export interface Entity extends EntityNameFragment {
+export namespace EntitiesQueryData {
+  export interface Entity extends EntityNameFragmentData {
   }
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() object types inline fragments forces fields to be nullable when the type restriction is not guaranteed 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface EntitiesQuery {
-  entities: EntitiesQuery.Entity[],
+export interface EntitiesQueryData {
+  entities: EntitiesQueryData.Entity[],
 }
 
-export namespace EntitiesQuery {
+export namespace EntitiesQueryData {
   export interface Entity {
     name?: string | null,
     nickname?: string | null,
@@ -399,21 +399,21 @@ export namespace EntitiesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() object types inline fragments treats them as their original nullability when they are guaranteed 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface EntitiesQuery {
-  entities: EntitiesQuery.Entity[],
+export interface EntitiesQueryData {
+  entities: EntitiesQueryData.Entity[],
 }
 
-export namespace EntitiesQuery {
+export namespace EntitiesQueryData {
   export interface Entity {
     name: string,
     nickname?: string | null,
@@ -423,217 +423,217 @@ export namespace EntitiesQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() object types objects fields nests them inline in the original object 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface ProfileQuery {
-  person?: ProfileQuery.PersonPerson | null,
+export interface ProfileQueryData {
+  person?: ProfileQueryData.PersonPerson | null,
 }
 
-export namespace ProfileQuery {
+export namespace ProfileQueryData {
   export interface Pet {
     name: string,
   }
 
   export interface PersonRelativesPerson {
     name: string,
-    favoritePet?: ProfileQuery.Pet | null,
+    favoritePet?: ProfileQueryData.Pet | null,
   }
 
   export interface PersonPerson {
     name: string,
     age: number,
-    relatives: ProfileQuery.PersonRelativesPerson[],
+    relatives: ProfileQueryData.PersonRelativesPerson[],
   }
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints a boolean type 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface MarriedQuery {
+export interface MarriedQueryData {
   married: boolean,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints a boolean type 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface MarriedQuery {
+export interface MarriedQueryData {
   married?: boolean | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints a float type 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface AgeQuery {
+export interface AgeQueryData {
   age: number,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints a float type 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface AgeQuery {
+export interface AgeQueryData {
   age?: number | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints a string type 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NameQuery {
+export interface NameQueryData {
   name: string,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints a string type 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface NameQuery {
+export interface NameQueryData {
   name?: string | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints an ID type 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface ProductIDQuery {
+export interface ProductIDQueryData {
   id: string,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints an ID type 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface ProductIDQuery {
+export interface ProductIDQueryData {
   id?: string | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints an integer type 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface AgeQuery {
+export interface AgeQueryData {
   age: number,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() primitive types prints an integer type 2`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
-export interface AgeQuery {
+export interface AgeQueryData {
   age?: number | null,
 }
 
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
 
 exports[`printFile() variables prints out a variable interface and all associated types 1`] = `
 "// This file was generated and should not be edited.
-// tslint-disable
+/* tslint:disable */
 
 import {DocumentNode} from 'graphql';
 
@@ -652,11 +652,11 @@ interface NameInput {
   language?: Language | null,
 }
 
-export interface NameQuery {
+export interface NameQueryData {
   name: string,
 }
 
-export namespace NameQuery {
+export namespace NameQueryData {
   export interface Variables {
     myInput?: NameInput | null,
   }
@@ -665,6 +665,6 @@ export namespace NameQuery {
 declare const document: DocumentNode;
 export default document;
 
-// tslint-enable
+/* tslint:enable */
 "
 `;
