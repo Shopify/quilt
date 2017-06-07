@@ -151,8 +151,8 @@ exports[`printFile() fragments prints fragment spreads 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-import {PetKindFragment} from './subfolder/PetKind.graphql';
-import {PersonDetailsFragment, EntityNameFragment} from './subfolder/another/PersonDetails.graphql';
+import {PetKindFragmentData} from './subfolder/PetKind.graphql';
+import {PersonDetailsFragmentData, EntityNameFragmentData} from './subfolder/another/PersonDetails.graphql';
 
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
@@ -333,7 +333,7 @@ exports[`printFile() object types fragment spreads prints a partial fragment typ
 
 import {DocumentNode} from 'graphql';
 
-import {EntityNameFragment} from './subfolder/MyFragment.graphql';
+import {EntityNameFragmentData} from './subfolder/MyFragment.graphql';
 
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
@@ -361,7 +361,7 @@ exports[`printFile() object types fragment spreads prints them as union types wh
 
 import {DocumentNode} from 'graphql';
 
-import {EntityNameFragment} from './subfolder/MyFragment.graphql';
+import {EntityNameFragmentData} from './subfolder/MyFragment.graphql';
 
 export interface EntitiesQueryData {
   entities: EntitiesQueryData.Entity[],
