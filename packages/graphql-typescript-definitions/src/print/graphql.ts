@@ -80,13 +80,13 @@ export function printRootGraphQLType(
     }, generator);
   } else if (type instanceof GraphQLEnumType) {
     const values = type.getValues();
-    generator.printOnNewline(`type ${type.name} = `);
+    generator.printOnNewline(`export type ${type.name} = `);
     values.forEach((value, index) => {
       generator.print(`'${value.value}'`);
       generator.print(index !== values.length - 1 && ' | ');
     });
     generator.print(';');
   } else if (type instanceof GraphQLScalarType) {
-    generator.printOnNewline(`type ${type.name} = string;`);
+    generator.printOnNewline(`export type ${type.name} = string;`);
   }
 }

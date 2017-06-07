@@ -6,7 +6,7 @@ exports[` 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type Kind = 'CAT' | 'DOG';
+export type Kind = 'CAT' | 'DOG';
 
 export interface PersonQueryData {
   person: PersonQueryData.Person,
@@ -57,7 +57,7 @@ exports[`printFile() custom scalars declares them as strings 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type DateTime = string;
+export type DateTime = string;
 
 export interface DateQueryData {
   date: DateTime,
@@ -76,7 +76,7 @@ exports[`printFile() custom scalars declares them as strings 2`] = `
 
 import {DocumentNode} from 'graphql';
 
-type DateTime = string;
+export type DateTime = string;
 
 export interface DateQueryData {
   date?: DateTime | null,
@@ -95,7 +95,7 @@ exports[`printFile() enum types prints the enum type and its type declaration 1`
 
 import {DocumentNode} from 'graphql';
 
-type Episode = 'ONE' | 'TWO' | 'THREE';
+export type Episode = 'ONE' | 'TWO' | 'THREE';
 
 export interface WhichEpisodeQueryData {
   episode: Episode,
@@ -114,7 +114,7 @@ exports[`printFile() enum types prints the enum type and its type declaration 2`
 
 import {DocumentNode} from 'graphql';
 
-type Episode = 'ONE' | 'TWO' | 'THREE';
+export type Episode = 'ONE' | 'TWO' | 'THREE';
 
 export interface WhichEpisodeQueryData {
   episode?: Episode | null,
@@ -175,7 +175,7 @@ exports[`printFile() fragments prints inline fragments 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type Kind = 'DOG' | 'CAT';
+export type Kind = 'DOG' | 'CAT';
 
 export interface PetsFragmentData {
   id: string,
@@ -641,9 +641,9 @@ interface Language {
   code?: string | null,
 }
 
-type DateTime = string;
+export type DateTime = string;
 
-type Style = 'FULL' | 'NICK';
+export type Style = 'FULL' | 'NICK';
 
 interface NameInput {
   style: Style,
