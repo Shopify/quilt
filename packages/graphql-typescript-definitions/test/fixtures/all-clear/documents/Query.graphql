@@ -1,6 +1,6 @@
-query Query {
+query FindPerson {
   person {
     id
-    ...Person
+    ...PersonFields
   }
 }
