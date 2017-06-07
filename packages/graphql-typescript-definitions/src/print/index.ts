@@ -191,6 +191,14 @@ function printFragment(
   if (document.fieldObjects.length) {
     printExport(() => {
       printNamespace(document.name, () => {
+        Array.from(context.typesUsed).reverse().forEach((type) => {
+          if (type instanceof GraphQLEnumType) {
+            printExport(() => {
+              generator.print(`type ${type.name} = ${type.name}Enum;`);
+            }, generator);
+          }
+        });
+
         for (const fieldObject of document.fieldObjects) {
           printFieldObject(fieldObject, generator, context);
           generator.printEmptyLine();
@@ -308,7 +316,7 @@ function printField(
     }
   } else if (finalType instanceof GraphQLEnumType) {
     context.addUsedType(finalType);
-    generator.print(finalType.name);
+    generator.print(`${finalType.name}Enum`);
   } else {
     const fieldObject = context.document.fieldObjectForField(field);
     generator.print(`${context.document.name}.${fieldObject.name}`);

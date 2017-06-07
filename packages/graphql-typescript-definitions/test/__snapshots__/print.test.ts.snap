@@ -6,7 +6,7 @@ exports[` 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-export type Kind = 'CAT' | 'DOG';
+type KindEnum = 'CAT' | 'DOG';
 
 export interface PersonQueryData {
   person: PersonQueryData.Person,
@@ -31,7 +31,7 @@ export namespace PetQueryData {
 }
 
 export interface PetDetailsFragmentData {
-  kind: Kind,
+  kind: KindEnum,
 }
 
 export interface FavoritePetFragmentData {
@@ -40,6 +40,7 @@ export interface FavoritePetFragmentData {
 }
 
 export namespace FavoritePetFragmentData {
+  export type Kind = KindEnum;
   export interface Pet extends PetDetailsFragmentData {
   }
 }
@@ -57,7 +58,7 @@ exports[`printFile() custom scalars declares them as strings 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-export type DateTime = string;
+type DateTime = string;
 
 export interface DateQueryData {
   date: DateTime,
@@ -76,7 +77,7 @@ exports[`printFile() custom scalars declares them as strings 2`] = `
 
 import {DocumentNode} from 'graphql';
 
-export type DateTime = string;
+type DateTime = string;
 
 export interface DateQueryData {
   date?: DateTime | null,
@@ -95,10 +96,10 @@ exports[`printFile() enum types prints the enum type and its type declaration 1`
 
 import {DocumentNode} from 'graphql';
 
-export type Episode = 'ONE' | 'TWO' | 'THREE';
+type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
 
 export interface WhichEpisodeQueryData {
-  episode: Episode,
+  episode: EpisodeEnum,
 }
 
 declare const document: DocumentNode;
@@ -114,10 +115,10 @@ exports[`printFile() enum types prints the enum type and its type declaration 2`
 
 import {DocumentNode} from 'graphql';
 
-export type Episode = 'ONE' | 'TWO' | 'THREE';
+type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
 
 export interface WhichEpisodeQueryData {
-  episode?: Episode | null,
+  episode?: EpisodeEnum | null,
 }
 
 declare const document: DocumentNode;
@@ -175,17 +176,18 @@ exports[`printFile() fragments prints inline fragments 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-export type Kind = 'DOG' | 'CAT';
+type KindEnum = 'DOG' | 'CAT';
 
 export interface PetsFragmentData {
   id: string,
-  kind?: Kind | null,
+  kind?: KindEnum | null,
   name: string,
   nickname?: string | null,
   favoritePet?: PetsFragmentData.Pet | null,
 }
 
 export namespace PetsFragmentData {
+  export type Kind = KindEnum;
   export interface Pet {
     name: string,
   }
@@ -641,9 +643,9 @@ interface Language {
   code?: string | null,
 }
 
-export type DateTime = string;
+type DateTime = string;
 
-export type Style = 'FULL' | 'NICK';
+type StyleEnum = 'FULL' | 'NICK';
 
 interface NameInput {
   style: Style,
