@@ -73,13 +73,20 @@ export function printFile({operations, fragments, path}: File, ast: AST) {
 
   Array.from(context.specialTypesUsed).reverse().forEach((type) => {
     type.print(generator);
-    generator.printEmptyLine();
   });
 
-  Array.from(context.typesUsed).reverse().forEach((type) => {
-    printRootGraphQLType(type, generator);
+  const typesUsed = Array.from(context.typesUsed).reverse();
+  if (typesUsed.length > 0) {
+    printExport(() => {
+      printNamespace('Schema', () => {
+        Array.from(context.typesUsed).reverse().forEach((type) => {
+          printExport(() => printRootGraphQLType(type, generator), generator);
+          generator.printEmptyLine();
+        });
+      }, generator);
+    }, generator);
     generator.printEmptyLine();
-  });
+  }
 
   generator.printOnNewline(subGenerator.output);
 
@@ -312,11 +319,11 @@ function printField(
       generator.print(builtInScalarMap[finalType.name]);
     } else {
       context.addUsedType(finalType);
-      generator.print(finalType.name);
+      generator.print(`Schena.${finalType.name}`);
     }
   } else if (finalType instanceof GraphQLEnumType) {
     context.addUsedType(finalType);
-    generator.print(`${finalType.name}Enum`);
+    generator.print(`Schema.${finalType.name}`);
   } else {
     const fieldObject = context.document.fieldObjectForField(field);
     generator.print(`${context.document.name}.${fieldObject.name}`);

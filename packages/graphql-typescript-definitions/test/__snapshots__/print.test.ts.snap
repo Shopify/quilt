@@ -6,7 +6,9 @@ exports[` 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type KindEnum = 'CAT' | 'DOG';
+export namespace Schema {
+  export type KindEnum = 'CAT' | 'DOG';
+}
 
 export interface PersonQueryData {
   person: PersonQueryData.Person,
@@ -31,7 +33,7 @@ export namespace PetQueryData {
 }
 
 export interface PetDetailsFragmentData {
-  kind: KindEnum,
+  kind: Schema.Kind,
 }
 
 export interface FavoritePetFragmentData {
@@ -58,10 +60,12 @@ exports[`printFile() custom scalars declares them as strings 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type DateTime = string;
+export namespace Schema {
+  export type DateTime = string;
+}
 
 export interface DateQueryData {
-  date: DateTime,
+  date: Schena.DateTime,
 }
 
 declare const document: DocumentNode;
@@ -77,10 +81,12 @@ exports[`printFile() custom scalars declares them as strings 2`] = `
 
 import {DocumentNode} from 'graphql';
 
-type DateTime = string;
+export namespace Schema {
+  export type DateTime = string;
+}
 
 export interface DateQueryData {
-  date?: DateTime | null,
+  date?: Schena.DateTime | null,
 }
 
 declare const document: DocumentNode;
@@ -96,10 +102,12 @@ exports[`printFile() enum types prints the enum type and its type declaration 1`
 
 import {DocumentNode} from 'graphql';
 
-type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+export namespace Schema {
+  export type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+}
 
 export interface WhichEpisodeQueryData {
-  episode: EpisodeEnum,
+  episode: Schema.Episode,
 }
 
 declare const document: DocumentNode;
@@ -115,10 +123,12 @@ exports[`printFile() enum types prints the enum type and its type declaration 2`
 
 import {DocumentNode} from 'graphql';
 
-type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+export namespace Schema {
+  export type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+}
 
 export interface WhichEpisodeQueryData {
-  episode?: EpisodeEnum | null,
+  episode?: Schema.Episode | null,
 }
 
 declare const document: DocumentNode;
@@ -158,7 +168,6 @@ import {PersonDetailsFragmentData, EntityNameFragmentData} from './subfolder/ano
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
-
 export interface PetsFragmentData extends NullableFragment<PetKindFragmentData>, NullableFragment<PersonDetailsFragmentData>, EntityNameFragmentData {
   id: string,
 }
@@ -176,11 +185,13 @@ exports[`printFile() fragments prints inline fragments 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type KindEnum = 'DOG' | 'CAT';
+export namespace Schema {
+  export type KindEnum = 'DOG' | 'CAT';
+}
 
 export interface PetsFragmentData {
   id: string,
-  kind?: KindEnum | null,
+  kind?: Schema.Kind | null,
   name: string,
   nickname?: string | null,
   favoritePet?: PetsFragmentData.Pet | null,
@@ -340,7 +351,6 @@ import {EntityNameFragmentData} from './subfolder/MyFragment.graphql';
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
-
 export interface EntitiesQueryData {
   entities: EntitiesQueryData.Entity[],
 }
@@ -639,19 +649,21 @@ exports[`printFile() variables prints out a variable interface and all associate
 
 import {DocumentNode} from 'graphql';
 
-interface Language {
-  code?: string | null,
-}
+export namespace Schema {
+  export interface Language {
+    code?: string | null,
+  }
 
-type DateTime = string;
+  export type DateTime = string;
 
-type StyleEnum = 'FULL' | 'NICK';
+  export type StyleEnum = 'FULL' | 'NICK';
 
-interface NameInput {
-  style: Style,
-  date?: DateTime | null,
-  excited: boolean,
-  language?: Language | null,
+  export interface NameInput {
+    style: Style,
+    date?: DateTime | null,
+    excited: boolean,
+    language?: Language | null,
+  }
 }
 
 export interface NameQueryData {
