@@ -60,7 +60,7 @@ function printInputGraphQLType(
   } else if (builtInScalarMap.hasOwnProperty(type.name)) {
     generator.print(builtInScalarMap[type.name]);
   } else {
-    generator.print(type.name);
+    generator.print(`Schema.${type.name}`);
   }
 
   generator.print(nullable && ' | null');
@@ -80,7 +80,7 @@ export function printRootGraphQLType(
     }, generator);
   } else if (type instanceof GraphQLEnumType) {
     const values = type.getValues();
-    generator.print(`type ${type.name}Enum = `);
+    generator.print(`type ${type.name} = `);
     values.forEach((value, index) => {
       generator.print(`'${value.value}'`);
       generator.print(index !== values.length - 1 && ' | ');

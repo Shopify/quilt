@@ -7,7 +7,7 @@ exports[` 1`] = `
 import {DocumentNode} from 'graphql';
 
 export namespace Schema {
-  export type KindEnum = 'CAT' | 'DOG';
+  export type Kind = 'CAT' | 'DOG';
 }
 
 export interface PersonQueryData {
@@ -102,7 +102,7 @@ exports[`printFile() enum types prints the enum type and its type declaration 1`
 import {DocumentNode} from 'graphql';
 
 export namespace Schema {
-  export type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+  export type Episode = 'ONE' | 'TWO' | 'THREE';
 }
 
 export interface WhichEpisodeQueryData {
@@ -123,7 +123,7 @@ exports[`printFile() enum types prints the enum type and its type declaration 2`
 import {DocumentNode} from 'graphql';
 
 export namespace Schema {
-  export type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+  export type Episode = 'ONE' | 'TWO' | 'THREE';
 }
 
 export interface WhichEpisodeQueryData {
@@ -185,7 +185,7 @@ exports[`printFile() fragments prints inline fragments 1`] = `
 import {DocumentNode} from 'graphql';
 
 export namespace Schema {
-  export type KindEnum = 'DOG' | 'CAT';
+  export type Kind = 'DOG' | 'CAT';
 }
 
 export interface PetsFragmentData {
@@ -654,13 +654,13 @@ export namespace Schema {
 
   export type DateTime = string;
 
-  export type StyleEnum = 'FULL' | 'NICK';
+  export type Style = 'FULL' | 'NICK';
 
   export interface NameInput {
-    style: Style,
-    date?: DateTime | null,
+    style: Schema.Style,
+    date?: Schema.DateTime | null,
     excited: boolean,
-    language?: Language | null,
+    language?: Schema.Language | null,
   }
 }
 
@@ -670,7 +670,7 @@ export interface NameQueryData {
 
 export namespace NameQueryData {
   export interface Variables {
-    myInput?: NameInput | null,
+    myInput?: Schema.NameInput | null,
   }
 }
 
