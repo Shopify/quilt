@@ -1,6 +1,7 @@
 import {resolve} from 'path';
 import {exec} from 'child_process';
 
+import {stripFullFilePaths} from '../../../test/utilities';
 const scriptPath = resolve(__dirname, '../bin/graphql-typescript-definitions');
 const rootFixturePath = resolve(__dirname, 'fixtures');
 
@@ -18,7 +19,11 @@ describe('cli', () => {
 function execDetails(command: string) {
   return new Promise((resolve) => {
     exec(command, (error, stdout, stderr) => {
-      resolve({error, stdout, stderr});
+      resolve({
+        error: stripFullFilePaths(error),
+        stdout: stripFullFilePaths(stdout),
+        stderr: stripFullFilePaths(stderr),
+      });
     });
   });
 }

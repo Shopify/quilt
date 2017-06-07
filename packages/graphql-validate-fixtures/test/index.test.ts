@@ -1,5 +1,6 @@
 import * as glob from 'glob';
 import {join} from 'path';
+import {stripFullFilePaths} from '../../../test/utilities';
 import {evaluateFixtures, Options} from '../src';
 
 const rootFixtureDirectory = join(__dirname, 'fixtures');
@@ -36,8 +37,13 @@ describe('evaluateFixtures()', () => {
   });
 });
 
-function evaluateFixturesForFixturePath(fixture: string, options?: Options) {
-  return evaluateFixtures(detailsForFixture(fixture), options);
+async function evaluateFixturesForFixturePath(fixture: string, options?: Options) {
+  try {
+    const result = await evaluateFixtures(detailsForFixture(fixture), options);
+    return stripFullFilePaths(result);
+  } catch (error) {
+    throw stripFullFilePaths(error);
+  }
 }
 
 function detailsForFixture(fixture: string) {

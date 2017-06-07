@@ -2,10 +2,14 @@
 
 exports[`cli fails when there are syntax errors 1`] = `
 Object {
-  "error": [Error: Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/bin/graphql-typescript-definitions '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/**/*.graphql' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json'
-],
+  "error": Object {
+    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions 'packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/**/*.graphql' --schema-path 'packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json'",
+    "code": 1,
+    "killed": false,
+    "signal": null,
+  },
   "stderr": "",
-  "stdout": " ERROR  Syntax Error /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/Fragment.graphql (2:3) Expected {, found Name \\"name\\"
+  "stdout": " ERROR  Syntax Error packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/Fragment.graphql (2:3) Expected {, found Name \\"name\\"
 
 1: fragment Person on Person
 2:   name
@@ -13,15 +17,15 @@ Object {
 3:   relatives {
 
 GraphQLError
-    at syntaxError (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/error/syntaxError.js:28:15)
-    at expect (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:966:32)
-    at many (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:1014:3)
-    at parseSelectionSet (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:250:17)
-    at parseFragmentDefinition (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:363:19)
-    at parseDefinition (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:136:16)
-    at parseDocument (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:106:22)
-    at Object.parse (/Users/chrissauve/Projects/graphql-tools/node_modules/graphql/language/parser.js:43:10)
-    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:137:40)
+    at syntaxError (node_modules/graphql/error/syntaxError.js:28:15)
+    at expect (node_modules/graphql/language/parser.js:966:32)
+    at many (node_modules/graphql/language/parser.js:1014:3)
+    at parseSelectionSet (node_modules/graphql/language/parser.js:250:17)
+    at parseFragmentDefinition (node_modules/graphql/language/parser.js:363:19)
+    at parseDefinition (node_modules/graphql/language/parser.js:136:16)
+    at parseDocument (node_modules/graphql/language/parser.js:106:22)
+    at Object.parse (node_modules/graphql/language/parser.js:43:10)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:137:40)
     at Generator.next (<anonymous>)
 
 ",
@@ -30,18 +34,22 @@ GraphQLError
 
 exports[`cli fails when there are syntax errors 2`] = `
 Object {
-  "error": [Error: Command failed: /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/bin/graphql-typescript-definitions '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/documents/**/*.graphql' --schema-path '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-],
+  "error": Object {
+    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/documents/**/*.graphql' --schema-path 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'",
+    "code": 1,
+    "killed": false,
+    "signal": null,
+  },
   "stderr": "",
-  "stdout": " ERROR  Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
+  "stdout": " ERROR  Error parsing 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
 
-ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
+ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
+Error: Error parsing 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
 
-ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-    at Builder.<anonymous> (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:126:36)
+ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:126:36)
     at Generator.throw (<anonymous>)
-    at rejected (/Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/lib/index.js:5:65)
+    at rejected (packages/graphql-typescript-definitions/lib/index.js:5:65)
 
 ",
 }
@@ -52,8 +60,8 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql → /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql.d.ts
- BUILT  /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql → /Users/chrissauve/Projects/graphql-tools/packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql.d.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql.d.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql.d.ts
 ",
 }
 `;

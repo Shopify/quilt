@@ -1,24 +1,35 @@
 import {resolve} from 'path';
 import {execSync} from 'child_process';
+import {stripFullFilePaths} from '../../../test/utilities';
 
 const scriptPath = resolve(__dirname, '../bin/graphql-validate-fixtures');
 const rootFixturePath = resolve(__dirname, 'fixtures');
 
 describe('cli', () => {
   it('succeeds when there are no fixture errors', () => {
-    expect(() => execSync(cliCommandForFixtureDirectory('all-clear'))).not.toThrowError();
+    expect(() => exec(cliCommandForFixtureDirectory('all-clear'))).not.toThrowError();
   });
 
   it('fails when there are fixture errors', () => {
-    expect(() => execSync(cliCommandForFixtureDirectory('fixture-errors'))).toThrowErrorMatchingSnapshot();
+    expect(() => exec(cliCommandForFixtureDirectory('fixture-errors'))).toThrowErrorMatchingSnapshot();
   });
 
   it('fails when there are syntax errors', () => {
-    expect(() => execSync(cliCommandForFixtureDirectory('fixture-invalid'))).toThrowErrorMatchingSnapshot();
-    expect(() => execSync(cliCommandForFixtureDirectory('malformed-query'))).toThrowErrorMatchingSnapshot();
-    expect(() => execSync(cliCommandForFixtureDirectory('missing-schema'))).toThrowErrorMatchingSnapshot();
+    expect(() => exec(cliCommandForFixtureDirectory('fixture-invalid'))).toThrowErrorMatchingSnapshot();
+    expect(() => exec(cliCommandForFixtureDirectory('malformed-query'))).toThrowErrorMatchingSnapshot();
+    expect(() => exec(cliCommandForFixtureDirectory('missing-schema'))).toThrowErrorMatchingSnapshot();
   });
 });
+
+function exec(command: string) {
+  try {
+    const result = execSync(command);
+    return stripFullFilePaths(result);
+  } catch (error) {
+    error.message = stripFullFilePaths(error.message);
+    throw error;
+  }
+}
 
 function cliCommandForFixtureDirectory(fixture: string) {
   const fixtureDirectory = resolve(rootFixturePath, fixture);

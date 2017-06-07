@@ -3,14 +3,14 @@
 exports[`evaluateFixtures() handles fixtures that are invalid json 1`] = `
 Array [
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json",
-    "scriptError": [SyntaxError: /Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json: Unexpected string in JSON at position 35],
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json",
+    "scriptError": [SyntaxError: packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json: Unexpected string in JSON at position 35],
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/MyQuery/fixture.json",
     "operationName": "MyQuery",
-    "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/queries/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
@@ -20,9 +20,9 @@ Array [
 exports[`evaluateFixtures() handles fixtures with errors 1`] = `
 Array [
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
     "operationName": "AnotherQuery",
-    "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Another.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Another.graphql",
     "operationType": "query",
     "validationErrors": Array [
       Object {
@@ -36,9 +36,9 @@ Array [
     ],
   },
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
     "operationName": "MyQuery",
-    "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
@@ -48,16 +48,16 @@ Array [
 exports[`evaluateFixtures() handles fixtures without errors 1`] = `
 Array [
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-fixture.json",
     "operationName": "AnotherQuery",
-    "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/MyQuery/fixture.json",
     "operationName": "MyQuery",
-    "operationPath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
@@ -67,11 +67,11 @@ Array [
 exports[`evaluateFixtures() schemaOnly does not fail on malformed GraphQL documents 1`] = `
 Array [
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/another-fixture.json",
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/MyQuery/fixture.json",
     "validationErrors": Array [],
   },
 ]
@@ -80,7 +80,7 @@ Array [
 exports[`evaluateFixtures() schemaOnly validates against the schema only 1`] = `
 Array [
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
     "validationErrors": Array [
       Object {
         "keyPath": "name",
@@ -89,20 +89,20 @@ Array [
     ],
   },
   Object {
-    "fixturePath": "/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
     "validationErrors": Array [],
   },
 ]
 `;
 
 exports[`evaluateFixtures() throws an error when the schema is not found 1`] = `
-[Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json':
+[Error: Error parsing 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json':
 
-ENOENT: no such file or directory, open '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json']
+ENOENT: no such file or directory, open 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json']
 `;
 
 exports[`evaluateFixtures() throws an error when there are malformed GraphQL documents 1`] = `
-[Error: Error parsing '/Users/chrissauve/Projects/graphql-tools/packages/graphql-validate-fixtures/test/fixtures/malformed-query/queries/Another.graphql':
+[Error: Error parsing 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/queries/Another.graphql':
 
 Expected {, found Name "name"
 
