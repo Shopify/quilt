@@ -6,7 +6,9 @@ exports[` 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type Kind = 'CAT' | 'DOG';
+export namespace Schema {
+  export type KindEnum = 'CAT' | 'DOG';
+}
 
 export interface PersonQueryData {
   person: PersonQueryData.Person,
@@ -31,7 +33,7 @@ export namespace PetQueryData {
 }
 
 export interface PetDetailsFragmentData {
-  kind: Kind,
+  kind: Schema.Kind,
 }
 
 export interface FavoritePetFragmentData {
@@ -40,6 +42,7 @@ export interface FavoritePetFragmentData {
 }
 
 export namespace FavoritePetFragmentData {
+  export type Kind = KindEnum;
   export interface Pet extends PetDetailsFragmentData {
   }
 }
@@ -57,10 +60,12 @@ exports[`printFile() custom scalars declares them as strings 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type DateTime = string;
+export namespace Schema {
+  export type DateTime = string;
+}
 
 export interface DateQueryData {
-  date: DateTime,
+  date: Schena.DateTime,
 }
 
 declare const document: DocumentNode;
@@ -76,10 +81,12 @@ exports[`printFile() custom scalars declares them as strings 2`] = `
 
 import {DocumentNode} from 'graphql';
 
-type DateTime = string;
+export namespace Schema {
+  export type DateTime = string;
+}
 
 export interface DateQueryData {
-  date?: DateTime | null,
+  date?: Schena.DateTime | null,
 }
 
 declare const document: DocumentNode;
@@ -95,10 +102,12 @@ exports[`printFile() enum types prints the enum type and its type declaration 1`
 
 import {DocumentNode} from 'graphql';
 
-type Episode = 'ONE' | 'TWO' | 'THREE';
+export namespace Schema {
+  export type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+}
 
 export interface WhichEpisodeQueryData {
-  episode: Episode,
+  episode: Schema.Episode,
 }
 
 declare const document: DocumentNode;
@@ -114,10 +123,12 @@ exports[`printFile() enum types prints the enum type and its type declaration 2`
 
 import {DocumentNode} from 'graphql';
 
-type Episode = 'ONE' | 'TWO' | 'THREE';
+export namespace Schema {
+  export type EpisodeEnum = 'ONE' | 'TWO' | 'THREE';
+}
 
 export interface WhichEpisodeQueryData {
-  episode?: Episode | null,
+  episode?: Schema.Episode | null,
 }
 
 declare const document: DocumentNode;
@@ -151,13 +162,12 @@ exports[`printFile() fragments prints fragment spreads 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-import {PetKindFragment} from './subfolder/PetKind.graphql';
-import {PersonDetailsFragment, EntityNameFragment} from './subfolder/another/PersonDetails.graphql';
+import {PetKindFragmentData} from './subfolder/PetKind.graphql';
+import {PersonDetailsFragmentData, EntityNameFragmentData} from './subfolder/another/PersonDetails.graphql';
 
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
-
 export interface PetsFragmentData extends NullableFragment<PetKindFragmentData>, NullableFragment<PersonDetailsFragmentData>, EntityNameFragmentData {
   id: string,
 }
@@ -175,17 +185,20 @@ exports[`printFile() fragments prints inline fragments 1`] = `
 
 import {DocumentNode} from 'graphql';
 
-type Kind = 'DOG' | 'CAT';
+export namespace Schema {
+  export type KindEnum = 'DOG' | 'CAT';
+}
 
 export interface PetsFragmentData {
   id: string,
-  kind?: Kind | null,
+  kind?: Schema.Kind | null,
   name: string,
   nickname?: string | null,
   favoritePet?: PetsFragmentData.Pet | null,
 }
 
 export namespace PetsFragmentData {
+  export type Kind = KindEnum;
   export interface Pet {
     name: string,
   }
@@ -333,12 +346,11 @@ exports[`printFile() object types fragment spreads prints a partial fragment typ
 
 import {DocumentNode} from 'graphql';
 
-import {EntityNameFragment} from './subfolder/MyFragment.graphql';
+import {EntityNameFragmentData} from './subfolder/MyFragment.graphql';
 
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
-
 export interface EntitiesQueryData {
   entities: EntitiesQueryData.Entity[],
 }
@@ -361,7 +373,7 @@ exports[`printFile() object types fragment spreads prints them as union types wh
 
 import {DocumentNode} from 'graphql';
 
-import {EntityNameFragment} from './subfolder/MyFragment.graphql';
+import {EntityNameFragmentData} from './subfolder/MyFragment.graphql';
 
 export interface EntitiesQueryData {
   entities: EntitiesQueryData.Entity[],
@@ -637,19 +649,21 @@ exports[`printFile() variables prints out a variable interface and all associate
 
 import {DocumentNode} from 'graphql';
 
-interface Language {
-  code?: string | null,
-}
+export namespace Schema {
+  export interface Language {
+    code?: string | null,
+  }
 
-type DateTime = string;
+  export type DateTime = string;
 
-type Style = 'FULL' | 'NICK';
+  export type StyleEnum = 'FULL' | 'NICK';
 
-interface NameInput {
-  style: Style,
-  date?: DateTime | null,
-  excited: boolean,
-  language?: Language | null,
+  export interface NameInput {
+    style: Style,
+    date?: DateTime | null,
+    excited: boolean,
+    language?: Language | null,
+  }
 }
 
 export interface NameQueryData {

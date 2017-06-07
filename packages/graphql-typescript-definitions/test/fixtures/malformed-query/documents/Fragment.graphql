@@ -1,4 +1,4 @@
-fragment Person on Person
+fragment PersonFields on Person
   name
   relatives {
     name

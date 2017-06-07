@@ -11,7 +11,7 @@ Object {
   "stderr": "",
   "stdout": " ERROR  Syntax Error packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/Fragment.graphql (2:3) Expected {, found Name \\"name\\"
 
-1: fragment Person on Person
+1: fragment PersonFields on Person
 2:   name
      ^
 3:   relatives {

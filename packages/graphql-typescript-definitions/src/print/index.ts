@@ -64,7 +64,7 @@ export function printFile({operations, fragments, path}: File, ast: AST) {
     }
 
     printImport({
-      specifiers: Array.from(specifiers),
+      specifiers: Array.from(specifiers).map((specifier) => `${specifier}Data`),
       source: relativePath,
     }, generator);
   });
@@ -73,13 +73,20 @@ export function printFile({operations, fragments, path}: File, ast: AST) {
 
   Array.from(context.specialTypesUsed).reverse().forEach((type) => {
     type.print(generator);
-    generator.printEmptyLine();
   });
 
-  Array.from(context.typesUsed).reverse().forEach((type) => {
-    printRootGraphQLType(type, generator);
+  const typesUsed = Array.from(context.typesUsed).reverse();
+  if (typesUsed.length > 0) {
+    printExport(() => {
+      printNamespace('Schema', () => {
+        Array.from(context.typesUsed).reverse().forEach((type) => {
+          printExport(() => printRootGraphQLType(type, generator), generator);
+          generator.printEmptyLine();
+        });
+      }, generator);
+    }, generator);
     generator.printEmptyLine();
-  });
+  }
 
   generator.printOnNewline(subGenerator.output);
 
@@ -191,6 +198,14 @@ function printFragment(
   if (document.fieldObjects.length) {
     printExport(() => {
       printNamespace(document.name, () => {
+        Array.from(context.typesUsed).reverse().forEach((type) => {
+          if (type instanceof GraphQLEnumType) {
+            printExport(() => {
+              generator.print(`type ${type.name} = ${type.name}Enum;`);
+            }, generator);
+          }
+        });
+
         for (const fieldObject of document.fieldObjects) {
           printFieldObject(fieldObject, generator, context);
           generator.printEmptyLine();
@@ -304,11 +319,11 @@ function printField(
       generator.print(builtInScalarMap[finalType.name]);
     } else {
       context.addUsedType(finalType);
-      generator.print(finalType.name);
+      generator.print(`Schena.${finalType.name}`);
     }
   } else if (finalType instanceof GraphQLEnumType) {
     context.addUsedType(finalType);
-    generator.print(finalType.name);
+    generator.print(`Schema.${finalType.name}`);
   } else {
     const fieldObject = context.document.fieldObjectForField(field);
     generator.print(`${context.document.name}.${fieldObject.name}`);
