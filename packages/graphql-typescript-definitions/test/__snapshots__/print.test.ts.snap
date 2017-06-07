@@ -42,7 +42,6 @@ export interface FavoritePetFragmentData {
 }
 
 export namespace FavoritePetFragmentData {
-  export type Kind = KindEnum;
   export interface Pet extends PetDetailsFragmentData {
   }
 }
@@ -65,7 +64,7 @@ export namespace Schema {
 }
 
 export interface DateQueryData {
-  date: Schena.DateTime,
+  date: Schema.DateTime,
 }
 
 declare const document: DocumentNode;
@@ -86,7 +85,7 @@ export namespace Schema {
 }
 
 export interface DateQueryData {
-  date?: Schena.DateTime | null,
+  date?: Schema.DateTime | null,
 }
 
 declare const document: DocumentNode;
@@ -198,7 +197,6 @@ export interface PetsFragmentData {
 }
 
 export namespace PetsFragmentData {
-  export type Kind = KindEnum;
   export interface Pet {
     name: string,
   }
