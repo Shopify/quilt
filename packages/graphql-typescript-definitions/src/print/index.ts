@@ -64,7 +64,7 @@ export function printFile({operations, fragments, path}: File, ast: AST) {
     }
 
     printImport({
-      specifiers: Array.from(specifiers),
+      specifiers: Array.from(specifiers).map((specifier: String) => `${specifier}Data`),
       source: relativePath,
     }, generator);
   });
