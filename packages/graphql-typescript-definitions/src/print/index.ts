@@ -234,7 +234,7 @@ function printFragment(
         for (const field of fragmentFields) {
           if (seenFields.has(field.responseName)) { continue; }
           seenFields.add(field.responseName);
-          const forceNullable = (typeCondition !== fragmentTypeCondition) && !typeConditionFieldMap.hasOwnProperty(field.fieldName);
+          const forceNullable = (typeCondition !== fragmentTypeCondition) && typeConditionFieldMap[field.fieldName] == null;
           printField(field, forceNullable, generator, context);
         }
       }

@@ -16,15 +16,21 @@ Object {
      ^
 3:   relatives {
 
-GraphQLError
+GraphQLError: Syntax Error packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/Fragment.graphql (2:3) Expected {, found Name \\"name\\"
+
+1: fragment PersonFields on Person
+2:   name
+     ^
+3:   relatives {
+
     at syntaxError (node_modules/graphql/error/syntaxError.js:28:15)
-    at expect (node_modules/graphql/language/parser.js:966:32)
-    at many (node_modules/graphql/language/parser.js:1014:3)
-    at parseSelectionSet (node_modules/graphql/language/parser.js:250:17)
-    at parseFragmentDefinition (node_modules/graphql/language/parser.js:363:19)
-    at parseDefinition (node_modules/graphql/language/parser.js:136:16)
-    at parseDocument (node_modules/graphql/language/parser.js:106:22)
-    at Object.parse (node_modules/graphql/language/parser.js:43:10)
+    at expect (node_modules/graphql/language/parser.js:969:32)
+    at many (node_modules/graphql/language/parser.js:1017:3)
+    at parseSelectionSet (node_modules/graphql/language/parser.js:253:17)
+    at parseFragmentDefinition (node_modules/graphql/language/parser.js:366:19)
+    at parseDefinition (node_modules/graphql/language/parser.js:139:16)
+    at parseDocument (node_modules/graphql/language/parser.js:109:22)
+    at Object.parse (node_modules/graphql/language/parser.js:46:10)
     at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:148:40)
     at Generator.next (<anonymous>)
 
