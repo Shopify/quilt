@@ -48,6 +48,13 @@ Array [
 exports[`evaluateFixtures() handles fixtures without errors 1`] = `
 Array [
   Object {
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-another-fixture.json",
+    "operationName": "Another",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
+    "operationType": "query",
+    "validationErrors": Array [],
+  },
+  Object {
     "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-fixture.json",
     "operationName": "AnotherQuery",
     "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
@@ -106,7 +113,7 @@ exports[`evaluateFixtures() throws an error when there are malformed GraphQL doc
 
 Expected {, found Name "name"
 
-1: query AnotherQuery
+1: query Another
 2:   name
      ^
 3: }

@@ -1,4 +1,4 @@
-query AnotherQuery {
+query Another {
   name
   age
 }

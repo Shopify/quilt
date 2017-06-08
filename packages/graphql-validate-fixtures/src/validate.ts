@@ -65,19 +65,28 @@ export function validateFixtureAgainstSchema(fixture: Fixture, schema: GraphQLSc
 }
 
 function objectTypeHasFieldWithName(type: GraphQLObjectType, name: string) {
-  return type.getFields().hasOwnProperty(name);
+  return type.getFields()[name] != null;
+}
+
+function normalizeOperationName(operationName: string) {
+  return operationName.replace(/(Query|Mutation|Subscription)$/i, '');
 }
 
 export function validateFixtureAgainstAST(fixture: Fixture, ast: AST): Validation {
   const fixtureDirectoryName = basename(dirname(fixture.path));
-  const operationName = fixture.content[OPERATION_MARKER] || fixtureDirectoryName;
-  const operation = ast.operations[operationName];
+  const operationMarkerName = fixture.content[OPERATION_MARKER];
+  const operationName = operationMarkerName || fixtureDirectoryName;
+  const operation = ast.operations[normalizeOperationName(operationName)] || ast.operations[operationName];
 
   if (operation == null) {
-    let lookedFor = `'${fixtureDirectoryName}' based on the fixture’s directory name`
-    
-    if (fixture.content[OPERATION_MARKER]) {
-      lookedFor += `, and '${fixture.content[OPERATION_MARKER]}' based on the '${OPERATION_MARKER}' key`;
+    let lookedFor = '';
+
+    if (operationMarkerName) {
+      const normalizedOperationMarkerName = normalizeOperationName(operationMarkerName);
+      lookedFor = `'${operationMarkerName}'${operationMarkerName === normalizedOperationMarkerName ? '' : ` and '${normalizedOperationMarkerName}'`} based on the '${OPERATION_MARKER}' key`;
+    } else {
+      const normalizedDirectoryName = normalizeOperationName(fixtureDirectoryName);
+      lookedFor = `'${fixtureDirectoryName}'${fixtureDirectoryName === normalizedDirectoryName ? '' : ` and '${normalizedDirectoryName}'`} based on the fixture’s directory name`;
     }
 
     throw new Error([
@@ -95,7 +104,7 @@ export function validateFixtureAgainstAST(fixture: Fixture, ast: AST): Validatio
     fixturePath: fixture.path,
     operationName,
     operationType,
-    operationPath: filePath,
+    operationPath: filePath === 'GraphQL request' ? undefined : filePath,
     validationErrors: fields.reduce((allErrors: Error[], field) => {
       return allErrors.concat(
         validateValueAgainstFieldDescription(value[field.responseName], field, '', ast)
@@ -216,7 +225,7 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
         return Object.keys(value).reduce((fieldErrors: Error[], key) => {
           const fieldKeyPath = updateKeyPath(keyPath, key);
 
-          if (fields.hasOwnProperty(key)) {
+          if (fields[key] != null) {
             return fieldErrors.concat(validateValueAgainstType(value[key], fields[key].type, fieldKeyPath, options));
           } else {
             return fieldErrors.concat([error(fieldKeyPath, `does not exist on type ${type.name} (available fields: ${Object.keys(fields).join(', ')})`)]);
