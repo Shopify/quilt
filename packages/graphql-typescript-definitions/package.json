@@ -1,6 +1,6 @@
 {
   "name": "graphql-typescript-definitions",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "lib/index.js",
   "author": "Chris Sauve <chrismsauve@gmail.com>",
   "description": "Generate TypeScript definition files from .graphql documents",
@@ -14,18 +14,19 @@
   },
   "devDependencies": {
     "@types/chalk": "^0.4.31",
-    "ts-node": "^3.0.4",
-    "typescript": "^2.3.2"
+    "in-publish": "^2.0.0",
+    "ts-node": "^3.0.6",
+    "typescript": "^2.3.4"
   },
   "dependencies": {
-    "@types/chokidar": "^1.6.0",
+    "@types/chokidar": "^1.7.0",
     "@types/graphql": "^0.9.1",
     "chalk": "^1.1.3",
     "change-case": "^3.0.1",
     "chokidar": "^1.7.0",
     "fs-extra": "^3.0.1",
-    "glob": "^7.1.1",
-    "graphql": "^0.9.1",
-    "graphql-tool-utilities": "^0.6.0"
+    "glob": "^7.1.2",
+    "graphql": "^0.10.1",
+    "graphql-tool-utilities": "^0.6.1"
   }
 }
