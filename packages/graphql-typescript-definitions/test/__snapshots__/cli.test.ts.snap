@@ -25,7 +25,7 @@ GraphQLError
     at parseDefinition (node_modules/graphql/language/parser.js:136:16)
     at parseDocument (node_modules/graphql/language/parser.js:106:22)
     at Object.parse (node_modules/graphql/language/parser.js:43:10)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:137:40)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:148:40)
     at Generator.next (<anonymous>)
 
 ",
@@ -47,7 +47,7 @@ ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions
 Error: Error parsing 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
 
 ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:126:36)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:137:36)
     at Generator.throw (<anonymous>)
     at rejected (packages/graphql-typescript-definitions/lib/index.js:5:65)
 

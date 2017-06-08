@@ -1,7 +1,7 @@
 import {buildSchema, parse, GraphQLSchema, Source, concatAST} from 'graphql';
 import {compile} from 'graphql-tool-utilities/ast';
 
-import {printFile} from '../src/print';
+import {printFile, Options} from '../src/print';
 
 describe('printFile()', () => {
   describe('primitive types', () => {
@@ -321,8 +321,6 @@ describe('printFile()', () => {
         })).toMatchSnapshot();
       });
     });
-
-    describe('union types', () => {});
   });
 
   describe('variables', () => {
@@ -537,13 +535,102 @@ describe('printFile()', () => {
 
     expect(print(document, schema)).toMatchSnapshot();
   });
+
+  describe('__typename', () => {
+    const schema = buildSchema(`
+      interface Entity {
+        id: ID!
+        name: String!
+        nickname: String
+      }
+
+      enum Kind {
+        DOG
+        CAT
+      }
+    
+      type Pet implements Entity {
+        id: ID!
+        name: String!
+        nickname: String
+        kind: Kind
+      }
+
+      type Person implements Entity {
+        id: ID!
+        name: String!
+        nickname: String
+        age: Int!
+        relatives: [Person!]!
+        favoritePet: Pet
+      }
+
+      type Query {
+        person: Person
+        entities: [Entity!]!
+      }
+    `);
+
+    it('does not duplicate an explicit __typename field', () => {
+      expect(print(`
+        query Profile {
+          person {
+            __typename
+          }
+        }
+      `, schema)).toMatchSnapshot();
+    });
+
+    it('adds a __typename field when the responseName is unique', () => {
+      expect(print(`
+        query Profile {
+          person {
+            type: __typename
+          }
+        }
+      `, schema)).toMatchSnapshot();
+    });
+
+    it('does not add a typename when the option is set to false', () => {
+      expect(print(`
+        query Profile {
+          person {
+            name
+          }
+        }
+      `, schema, {}, {addTypename: false})).toMatchSnapshot();
+    });
+
+    it('adds an explicit typename when the option is set to false', () => {
+      expect(print(`
+        query Profile {
+          person {
+            __typename
+          }
+        }
+      `, schema, {}, {addTypename: false})).toMatchSnapshot();
+    });
+
+    it('prints a correct typename for interfaces', () => {
+      expect(print(`
+        fragment MyEntity on Entity {
+          name
+        }
+      `, schema)).toMatchSnapshot();
+    });
+  });
 });
 
 function print(
   documentString: string,
   schema: GraphQLSchema,
   fragments: {[key: string]: string} = {},
+  options: Partial<Options> = {},
 ) {
+  const finalOptions = {
+    addTypename: true,
+    ...options,
+  }
   const fileName = 'MyOperation.graphql';
   const fragmentDocuments = Object.keys(fragments).map((key) => parse(new Source(fragments[key], key)));
   const document = parse(new Source(documentString, fileName));
@@ -553,5 +640,5 @@ function print(
     operations: Object.keys(ast.operations).map((key) => ast.operations[key]).filter((operation) => operation.filePath === fileName),
     fragments: Object.keys(ast.fragments).map((key) => ast.fragments[key]).filter((fragment) => fragment.filePath === fileName),
   };
-  return printFile(file, ast);
+  return printFile(file, ast, finalOptions);
 }

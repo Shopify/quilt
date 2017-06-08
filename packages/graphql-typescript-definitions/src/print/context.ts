@@ -13,13 +13,17 @@ import Document from './document';
 import {builtInScalarMap} from './graphql';
 import {SpecialType} from './special-types';
 
+export interface Options {
+  addTypename: boolean,
+}
+
 export default class Context {
   document: Document;
   typesUsed = new Set<GraphQLInputType>();
   specialTypesUsed = new Set<SpecialType>();
   importsUsed = new Map<string, Set<string>>();
 
-  constructor(public ast: AST) {}
+  constructor(public ast: AST, public options: Options) {}
 
   addUsedExternalFragments(fragments: string[]) {
     for (const fragmentName of fragments) {

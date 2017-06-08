@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "@types/graphql": "^0.9.1",
-    "apollo-codegen": "^0.10.13"
+    "apollo-codegen": "0.12.7"
   }
 }

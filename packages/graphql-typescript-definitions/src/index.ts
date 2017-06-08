@@ -10,6 +10,7 @@ import {printFile} from './print';
 export interface Options {
   graphQLFiles: string,
   schemaPath: string,
+  addTypename: boolean,
 }
 
 export interface RunOptions {
@@ -28,12 +29,14 @@ export class Builder extends EventEmitter {
   private globs: string;
   private schemaPath: string;
   private schema: GraphQLSchema;
+  private options: Pick<Options, 'addTypename'>
   private documentCache = new Map<string, DocumentNode>();
 
-  constructor({graphQLFiles, schemaPath}: Options) {
+  constructor({graphQLFiles, schemaPath, ...options}: Options) {
     super();
     this.globs = graphQLFiles;
     this.schemaPath = schemaPath;
+    this.options = options;
   }
 
   on(event: 'error', handler: (error: Error) => void): this
@@ -130,7 +133,7 @@ export class Builder extends EventEmitter {
         .keys(fileMap)
         .map(async (key) => {
           const file = fileMap[key];
-          const definition = printFile(file, ast);
+          const definition = printFile(file, ast, this.options);
           const definitionPath = `${file.path}.d.ts`;
           await writeFile(definitionPath, definition);
 

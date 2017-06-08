@@ -15,7 +15,15 @@ export interface PersonQueryData {
 }
 
 export namespace PersonQueryData {
+  export interface Pet extends PetDetailsFragmentData {
+    __typename: 'Pet',
+    kind: Schema.Kind,
+  }
+
   export interface Person extends FavoritePetFragmentData {
+    __typename: 'Person',
+    name: string,
+    favoritePet?: PersonQueryData.Pet | null,
   }
 }
 
@@ -25,25 +33,143 @@ export interface PetQueryData {
 
 export namespace PetQueryData {
   export interface Pet extends PetDetailsFragmentData {
+    __typename: 'Pet',
+    kind: Schema.Kind,
   }
 
   export interface Person {
+    __typename: 'Person',
     pets: PetQueryData.Pet[],
   }
 }
 
 export interface PetDetailsFragmentData {
+  __typename: 'Pet',
   kind: Schema.Kind,
 }
 
 export interface FavoritePetFragmentData {
+  __typename: 'Person',
   name: string,
   favoritePet?: FavoritePetFragmentData.Pet | null,
 }
 
 export namespace FavoritePetFragmentData {
   export interface Pet extends PetDetailsFragmentData {
+    __typename: 'Pet',
+    kind: Schema.Kind,
   }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
+exports[`printFile() __typename adds a __typename field when the responseName is unique 1`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface ProfileQueryData {
+  person?: ProfileQueryData.Person | null,
+}
+
+export namespace ProfileQueryData {
+  export interface Person {
+    __typename: 'Person',
+    type: 'Person',
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
+exports[`printFile() __typename adds an explicit typename when the option is set to false 1`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface ProfileQueryData {
+  person?: ProfileQueryData.Person | null,
+}
+
+export namespace ProfileQueryData {
+  export interface Person {
+    __typename: 'Person',
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
+exports[`printFile() __typename does not add a typename when the option is set to false 1`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface ProfileQueryData {
+  person?: ProfileQueryData.Person | null,
+}
+
+export namespace ProfileQueryData {
+  export interface Person {
+    name: string,
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
+exports[`printFile() __typename does not duplicate an explicit __typename field 1`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface ProfileQueryData {
+  person?: ProfileQueryData.Person | null,
+}
+
+export namespace ProfileQueryData {
+  export interface Person {
+    __typename: 'Person',
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
+exports[`printFile() __typename prints a correct typename for interfaces 1`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface MyEntityFragmentData {
+  __typename: 'Person' | 'Pet',
+  name: string,
 }
 
 declare const document: DocumentNode;
@@ -144,6 +270,7 @@ exports[`printFile() fragments prints fragment definitions 1`] = `
 import {DocumentNode} from 'graphql';
 
 export interface PetsFragmentData {
+  __typename: 'Person' | 'Pet',
   name: string,
   nickname?: string | null,
 }
@@ -167,8 +294,24 @@ import {PersonDetailsFragmentData, EntityNameFragmentData} from './subfolder/ano
 type NullableFragment<T> = {
   [P in keyof T]?: T[P] | null
 }
+export namespace Schema {
+  export type Kind = 'DOG' | 'CAT';
+}
+
 export interface PetsFragmentData extends NullableFragment<PetKindFragmentData>, NullableFragment<PersonDetailsFragmentData>, EntityNameFragmentData {
+  __typename: 'Person' | 'Pet',
   id: string,
+  name: string,
+  kind?: Schema.Kind | null,
+  nickname?: string | null,
+  favoritePet?: PetsFragmentData.Pet | null,
+}
+
+export namespace PetsFragmentData {
+  export interface Pet {
+    __typename: 'Pet',
+    name: string,
+  }
 }
 
 declare const document: DocumentNode;
@@ -189,6 +332,7 @@ export namespace Schema {
 }
 
 export interface PetsFragmentData {
+  __typename: 'Person' | 'Pet',
   id: string,
   kind?: Schema.Kind | null,
   name: string,
@@ -198,6 +342,7 @@ export interface PetsFragmentData {
 
 export namespace PetsFragmentData {
   export interface Pet {
+    __typename: 'Pet',
     name: string,
   }
 }
@@ -327,6 +472,7 @@ export namespace RenameMutationData {
   }
 
   export interface Person {
+    __typename: 'Person',
     name: string,
   }
 }
@@ -355,6 +501,8 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity extends NullableFragment<EntityNameFragmentData> {
+    __typename: 'Entity',
+    name?: string | null,
   }
 }
 
@@ -379,6 +527,8 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity extends EntityNameFragmentData {
+    __typename: 'Entity',
+    name: string,
   }
 }
 
@@ -401,6 +551,7 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity {
+    __typename: 'Entity',
     name?: string | null,
     nickname?: string | null,
   }
@@ -425,6 +576,7 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity {
+    __typename: 'Entity',
     name: string,
     nickname?: string | null,
   }
@@ -449,15 +601,18 @@ export interface ProfileQueryData {
 
 export namespace ProfileQueryData {
   export interface Pet {
+    __typename: 'Pet',
     name: string,
   }
 
   export interface PersonRelativesPerson {
+    __typename: 'Person',
     name: string,
     favoritePet?: ProfileQueryData.Pet | null,
   }
 
   export interface PersonPerson {
+    __typename: 'Person',
     name: string,
     age: number,
     relatives: ProfileQueryData.PersonRelativesPerson[],

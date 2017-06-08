@@ -17,12 +17,19 @@ const argv = yargs
     type: 'boolean',
     describe: 'Watch the GraphQL files for changes and re-run the generation',
   })
+  .option('add-typename', {
+    required: false,
+    default: true,
+    type: 'boolean',
+    describe: 'Add a __typename field to every object type',
+  })
   .help()
   .argv;
 
 const builder = new Builder({
   graphQLFiles: argv._[0],
   schemaPath: argv.schemaPath,
+  addTypename: argv.addTypename,
 });
 
 const BUILT = chalk.inverse.bold.green(' BUILT ');

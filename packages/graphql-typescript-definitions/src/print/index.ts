@@ -9,11 +9,12 @@ import {
   GraphQLInterfaceType,
   GraphQLUnionType,
   GraphQLLeafType,
+  GraphQLType,
 } from 'graphql';
 import {Operation, Fragment, AST, Field} from 'graphql-tool-utilities/ast';
 
 import CodeGenerator from './generator';
-import Context from './context';
+import Context, {Options} from './context';
 import Document, {FieldObject} from './document';
 import {printInputGraphQLField, printRootGraphQLType, builtInScalarMap} from './graphql';
 import {NullableFragment} from './special-types';
@@ -25,19 +26,25 @@ import {
   printPropertyKey,
 } from './language';
 
-interface File {
+export interface File {
   path: string,
   operations: Operation[],
   fragments: Fragment[],
 }
 
-export function printFile({operations, fragments, path}: File, ast: AST) {
+export {Options};
+
+export function printFile(
+  {operations, fragments, path}: File,
+  ast: AST,
+  options: Options,
+) {
   if (operations.length === 0 && fragments.length === 0) {
     return '';
   }
 
   const generator = new CodeGenerator();
-  const context = new Context(ast);
+  const context = new Context(ast, options);
 
   generator.printOnNewline('// This file was generated and should not be edited.');
   generator.printOnNewline('/* tslint:disable */');
@@ -103,7 +110,7 @@ export function printFile({operations, fragments, path}: File, ast: AST) {
 
 function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, context: Context) {
   const {field, compositeType} = fieldObject;
-  const {fields = [], fragmentSpreads = [], inlineFragments = []} = field;
+  const {fields = [], fragmentSpreads = [], inlineFragments = [], type} = field;
   const spreads = fragmentSpreads.map((spread) => {
     const fragment = context.ast.fragments[spread];
       
@@ -120,10 +127,24 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
     printInterface({name: fieldObject.name, extend: spreads}, () => {
       const seenFields = new Set<string>();
 
-      fields.forEach((field) => {
-        seenFields.add(field.responseName);
+      if (context.options.addTypename) {
+        printTypenameProperty(type, '__typename', generator);
+      }
+
+      for (const field of fields) {
+        const {fieldName, responseName} = field;
+
+        if (fieldName === '__typename') {
+          if (responseName !== fieldName || !context.options.addTypename) {
+            printTypenameProperty(type, responseName, generator);
+          }
+
+          continue;
+        }
+
+        seenFields.add(responseName);
         printField(field, false, generator, context);
-      });
+      };
 
       inlineFragments.forEach((fragment) => {
         fragment.fields.forEach((field) => {
@@ -138,6 +159,18 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
   }, generator);
 }
 
+function printTypenameProperty(type: GraphQLType | GraphQLType[], key: string, generator: CodeGenerator) {
+  printPropertyKey(key, false, generator);
+
+  if (Array.isArray(type)) {
+    const types = type.map((aType) => `'${getRootGraphQLType(aType).name}'`);
+    generator.print(`${types.join(' | ')},`);
+  } else {
+    const finalType = getRootGraphQLType(type);
+    generator.print(`'${finalType.name}',`);
+  }
+}
+
 function printFragment(
   fragment: Fragment,
   generator: CodeGenerator,
@@ -150,6 +183,7 @@ function printFragment(
     fragmentsReferenced,
     inlineFragments = [],
     typeCondition,
+    possibleTypes,
   } = fragment;
   const typeConditionFieldMap = typeCondition.getFields();
   const finalFragmentSreads = fragmentSpreads.map((spread) => {
@@ -175,7 +209,21 @@ function printFragment(
     }, () => {
       const seenFields = new Set<string>();
 
+      if (context.options.addTypename) {
+        printTypenameProperty(possibleTypes, '__typename', generator);
+      }
+
       for (const field of fields) {
+        const {fieldName, responseName} = field;
+
+        if (fieldName === '__typename') {
+          if (responseName !== fieldName || !context.options.addTypename) {
+            printTypenameProperty(possibleTypes, responseName, generator);
+          }
+
+          continue;
+        }
+
         seenFields.add(field.responseName);
         printField(field, false, generator, context);
       }
@@ -323,4 +371,14 @@ function printField(
 
   generator.print(printAfter.reverse().join(''));
   generator.print(',');
+}
+
+function getRootGraphQLType(type: GraphQLType): GraphQLPrintableType {
+  let finalType = type;
+
+  while (finalType instanceof GraphQLNonNull || finalType instanceof GraphQLList) {
+    finalType = finalType.ofType;
+  }
+
+  return finalType as GraphQLPrintableType;
 }
