@@ -1,6 +1,6 @@
 {
   "name": "graphql-typescript-definitions",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "main": "lib/index.js",
   "author": "Chris Sauve <chrismsauve@gmail.com>",
   "description": "Generate TypeScript definition files from .graphql documents",
@@ -27,6 +27,6 @@
     "fs-extra": "^3.0.1",
     "glob": "^7.1.2",
     "graphql": "^0.10.1",
-    "graphql-tool-utilities": "^0.6.1"
+    "graphql-tool-utilities": "^0.6.2"
   }
 }
