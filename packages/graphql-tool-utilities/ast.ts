@@ -1,3 +1,6 @@
+// apollo-codegen uses Object.entries
+require('core-js/es7/object');
+
 import {
   GraphQLSchema,
   DocumentNode,

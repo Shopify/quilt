@@ -123,7 +123,7 @@ export class Builder extends EventEmitter {
     try {
       ast = compile(this.schema, concatAST(Array.from(this.documentCache.values())));
     } catch (error) {
-      this.emit(error);
+      this.emit('error', error);
       return;
     }
 
