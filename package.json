@@ -12,16 +12,16 @@
   },
   "devDependencies": {
     "@types/chalk": "^0.4.31",
-    "@types/fs-extra": "^3.0.1",
+    "@types/fs-extra": "^3.0.3",
     "@types/glob": "^5.0.30",
     "@types/graphql": "^0.9.1",
-    "@types/jest": "^19.2.3",
-    "@types/node": "^7.0.18",
+    "@types/jest": "^19.2.4",
+    "@types/node": "^7.0.29",
     "@types/yargs": "^6.6.0",
-    "graphql": "^0.9.6",
-    "jest": "^20.0.1",
-    "lerna": "^2.0.0-rc.4",
-    "ts-jest": "^20.0.3",
-    "typescript": "^2.3.2"
+    "graphql": "^0.10.1",
+    "jest": "^20.0.4",
+    "lerna": "^2.0.0-rc.5",
+    "ts-jest": "^20.0.5",
+    "typescript": "^2.3.4"
   }
 }
