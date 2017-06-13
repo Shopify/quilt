@@ -542,6 +542,7 @@ describe('printFile()', () => {
         id: ID!
         name: String!
         nickname: String
+        self: Entity!
       }
 
       enum Kind {
@@ -554,6 +555,7 @@ describe('printFile()', () => {
         name: String!
         nickname: String
         kind: Kind
+        self: Pet!
       }
 
       type Person implements Entity {
@@ -563,11 +565,15 @@ describe('printFile()', () => {
         age: Int!
         relatives: [Person!]!
         favoritePet: Pet
+        self: Entity!
       }
+
+      union PetOrPerson = Pet | Person
 
       type Query {
         person: Person
         entities: [Entity!]!
+        random: PetOrPerson
       }
     `);
 
@@ -615,6 +621,42 @@ describe('printFile()', () => {
       expect(print(`
         fragment MyEntity on Entity {
           name
+        }
+      `, schema)).toMatchSnapshot();
+
+      expect(print(`
+        query Profile {
+          person {
+            self {
+              __typename
+            }
+          }
+        }
+      `, schema)).toMatchSnapshot();
+
+      expect(print(`
+        query PetProfile {
+          entities {
+            ...on Pet {
+              self {
+                __typename
+              }
+            }
+          }
+        }
+      `, schema)).toMatchSnapshot();
+
+      expect(print(`
+        query RandomProfile {
+          random {
+            ...on Person {
+              name
+            }
+
+            ...on Pet {
+              name
+            }
+          }
         }
       `, schema)).toMatchSnapshot();
     });

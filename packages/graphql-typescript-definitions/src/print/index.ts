@@ -128,7 +128,7 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
       const seenFields = new Set<string>();
 
       if (context.options.addTypename) {
-        printTypenameProperty(type, '__typename', generator);
+        printTypenameProperty(type, '__typename', generator, context);
       }
 
       for (const field of fields) {
@@ -136,7 +136,7 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
 
         if (fieldName === '__typename') {
           if (responseName !== fieldName || !context.options.addTypename) {
-            printTypenameProperty(type, responseName, generator);
+            printTypenameProperty(type, responseName, generator, context);
           }
 
           continue;
@@ -149,6 +149,7 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
       inlineFragments.forEach((fragment) => {
         fragment.fields.forEach((field) => {
           if (seenFields.has(field.responseName)) { return; }
+          seenFields.add(field.responseName);
 
           // If it's not on `fields`, there is no guaranteed match, so we need
           // to say that it can be nullable
@@ -159,14 +160,28 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
   }, generator);
 }
 
-function printTypenameProperty(type: GraphQLType | GraphQLType[], key: string, generator: CodeGenerator) {
-  printPropertyKey(key, false, generator);
-
+function printTypenameProperty(
+  type: GraphQLType | GraphQLType[],
+  key: string,
+  generator: CodeGenerator,
+  context: Context,
+) {
   if (Array.isArray(type)) {
+    printPropertyKey(key, false, generator);
     const types = type.map((aType) => `'${getRootGraphQLType(aType).name}'`);
     generator.print(`${types.join(' | ')},`);
   } else {
     const finalType = getRootGraphQLType(type);
+
+    if (
+      finalType instanceof GraphQLInterfaceType ||
+      finalType instanceof GraphQLUnionType
+    ) {
+      printTypenameProperty(context.ast.schema.getPossibleTypes(finalType), key, generator, context);
+      return;
+    }
+
+    printPropertyKey(key, false, generator);
     generator.print(`'${finalType.name}',`);
   }
 }
@@ -210,7 +225,7 @@ function printFragment(
       const seenFields = new Set<string>();
 
       if (context.options.addTypename) {
-        printTypenameProperty(possibleTypes, '__typename', generator);
+        printTypenameProperty(possibleTypes, '__typename', generator, context);
       }
 
       for (const field of fields) {
@@ -218,7 +233,7 @@ function printFragment(
 
         if (fieldName === '__typename') {
           if (responseName !== fieldName || !context.options.addTypename) {
-            printTypenameProperty(possibleTypes, responseName, generator);
+            printTypenameProperty(possibleTypes, responseName, generator, context);
           }
 
           continue;

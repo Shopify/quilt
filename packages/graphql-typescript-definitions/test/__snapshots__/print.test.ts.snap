@@ -179,6 +179,86 @@ export default document;
 "
 `;
 
+exports[`printFile() __typename prints a correct typename for interfaces 2`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface ProfileQueryData {
+  person?: ProfileQueryData.Person | null,
+}
+
+export namespace ProfileQueryData {
+  export interface Entity {
+    __typename: 'Person' | 'Pet',
+  }
+
+  export interface Person {
+    __typename: 'Person',
+    self: ProfileQueryData.Entity,
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
+exports[`printFile() __typename prints a correct typename for interfaces 3`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface PetProfileQueryData {
+  entities: PetProfileQueryData.Entity[],
+}
+
+export namespace PetProfileQueryData {
+  export interface Pet {
+    __typename: 'Pet',
+  }
+
+  export interface Entity {
+    __typename: 'Person' | 'Pet',
+    self?: PetProfileQueryData.Pet | null,
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
+exports[`printFile() __typename prints a correct typename for interfaces 4`] = `
+"// This file was generated and should not be edited.
+/* tslint:disable */
+
+import {DocumentNode} from 'graphql';
+
+export interface RandomProfileQueryData {
+  random?: RandomProfileQueryData.PetOrPerson | null,
+}
+
+export namespace RandomProfileQueryData {
+  export interface PetOrPerson {
+    __typename: 'Pet' | 'Person',
+    name?: string | null,
+  }
+}
+
+declare const document: DocumentNode;
+export default document;
+
+/* tslint:enable */
+"
+`;
+
 exports[`printFile() custom scalars declares them as strings 1`] = `
 "// This file was generated and should not be edited.
 /* tslint:disable */
@@ -501,7 +581,7 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity extends NullableFragment<EntityNameFragmentData> {
-    __typename: 'Entity',
+    __typename: 'Person' | 'Pet',
     name?: string | null,
   }
 }
@@ -527,7 +607,7 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity extends EntityNameFragmentData {
-    __typename: 'Entity',
+    __typename: 'Person' | 'Pet',
     name: string,
   }
 }
@@ -551,7 +631,7 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity {
-    __typename: 'Entity',
+    __typename: 'Person' | 'Pet',
     name?: string | null,
     nickname?: string | null,
   }
@@ -576,7 +656,7 @@ export interface EntitiesQueryData {
 
 export namespace EntitiesQueryData {
   export interface Entity {
-    __typename: 'Entity',
+    __typename: 'Person' | 'Pet',
     name: string,
     nickname?: string | null,
   }
