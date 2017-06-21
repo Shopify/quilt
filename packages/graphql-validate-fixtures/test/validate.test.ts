@@ -180,6 +180,22 @@ describe('validate', () => {
         expect(validateAgainstAST({}, ast)).toMatchSnapshot();
         expect(validateAgainstAST({person: null}, ast)).toMatchSnapshot();
         expect(validateAgainstAST({person: {}}, ast)).toMatchSnapshot();
+        expect(validateAgainstAST({person: {address: null}}, ast)).toMatchSnapshot();
+        expect(validateAgainstAST({person: {address: {}}}, ast)).toMatchSnapshot();
+        expect(validateAgainstAST({person: {address: {number: '63'}}}, ast)).toMatchSnapshot();
+        expect(validateAgainstAST({person: {address: {number: 15.4}}}, ast)).toMatchSnapshot();
+        expect(validateAgainstAST({person: {address: {number: 63}}}, ast)).toMatchSnapshot();
+        expect(validateAgainstAST({person: {address: {street: 'Main st'}}}, ast)).toMatchSnapshot();
+      });
+
+      it('validates nested nullable objects', () => {
+        const ast = createAST(`
+          type Address { number: Int }
+          type Person { address: Address }
+          type Query { person: Person! }
+        `, 'query AddressQuery { person { address { number } } }');
+
+        expect(validateAgainstAST({person: {address: null}}, ast)).toMatchSnapshot();
         expect(validateAgainstAST({person: {address: {}}}, ast)).toMatchSnapshot();
         expect(validateAgainstAST({person: {address: {number: '63'}}}, ast)).toMatchSnapshot();
         expect(validateAgainstAST({person: {address: {number: 15.4}}}, ast)).toMatchSnapshot();

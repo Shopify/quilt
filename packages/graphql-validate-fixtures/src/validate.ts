@@ -11,6 +11,7 @@ import {
   GraphQLInt,
   GraphQLFloat,
   GraphQLBoolean,
+  GraphQLLeafType,
 } from 'graphql';
 import {AST, Field} from 'graphql-tool-utilities/ast';
 
@@ -128,7 +129,7 @@ function validateValueAgainstFieldDescription(value: any, fieldDescription: Fiel
 }
 
 function validateValueAgainstObjectFieldDescription(value: any, fieldDescription: Field, keyPath: string, ast: AST) {
-  if (typeof value !== 'object' || Array.isArray(value)) {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) {
     return [];
   }
 
@@ -212,9 +213,26 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
       : validateValueAgainstType(value, type.ofType, keyPath, options);
   }
 
-  if (value == null) { return []; }
+  if (value === null) { return []; }
 
   const valueType = typeof value;
+
+  if (type instanceof GraphQLList) {
+    if (!Array.isArray(value)) {
+      return [error(keyPath, `should be an array (or null), but was ${articleForType(valueType)} ${valueType}`)];
+    }
+
+    return shallow
+      ? []
+      : value.reduce((allErrors: Error[], item, index) => (
+        allErrors.concat(validateValueAgainstType(item, type.ofType, updateKeyPath(keyPath, index), options))
+      ), []);
+  }
+
+  if (value === undefined) {
+    const typeName = nameForType(type as GraphQLLeafType);
+    return [error(keyPath, `should be ${articleForType(typeName)} ${typeName} (or null), but was undefined`)];
+  }
 
   if (type instanceof GraphQLObjectType) {
     if (valueType === 'object') {
@@ -237,18 +255,6 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
     }
   }
 
-  if (type instanceof GraphQLList) {
-    if (!Array.isArray(value)) {
-      return [error(keyPath, `should be an array, but was a ${valueType}`)];
-    }
-
-    return shallow
-      ? []
-      : value.reduce((allErrors: Error[], item, index) => (
-        allErrors.concat(validateValueAgainstType(item, type.ofType, updateKeyPath(keyPath, index), options))
-      ), []);
-  }
-
   if (type === GraphQLString) {
     return valueType === 'string'
       ? []
@@ -262,12 +268,6 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
 
     return [error(keyPath, `should be an integer but was a ${valueType}`)];
   } else if (type === GraphQLFloat) {
-    if (typeof value === 'number') {
-      return Number.isInteger(value)
-        ? [error(keyPath, 'should be a float but was an integer')]
-        : [];
-    }
-
     return [error(keyPath, `should be a float but was a ${valueType}`)];
   } else if (type === GraphQLBoolean) {
     return typeof value === 'boolean'
@@ -278,16 +278,39 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
   if (type instanceof GraphQLScalarType) {
     return type.parseValue(value) != null
       ? []
-      : [error(keyPath, `value does not match scalar ${type.name}`)];
+      : [error(keyPath, `value does not match scalar ${nameForType(type)}`)];
   }
 
   if (type instanceof GraphQLEnumType) {
     return type.parseValue(value) != null
       ? []
-      : [error(keyPath, `value does not match enum ${type.name} (available values: ${type.getValues().map((enumValue) => enumValue.value).join(', ')})`)];
+      : [error(keyPath, `value does not match enum ${nameForType(type)} (available values: ${type.getValues().map((enumValue) => enumValue.value).join(', ')})`)];
   }
 
   return [];
+}
+
+const CUSTOM_NAMES = {
+  [GraphQLBoolean.name]: 'boolean',
+  [GraphQLFloat.name]: 'float',
+  [GraphQLInt.name]: 'integer',
+  [GraphQLString.name]: 'string',
+};
+
+function nameForType(type: GraphQLLeafType) {
+  return CUSTOM_NAMES.hasOwnProperty(type.name) ? CUSTOM_NAMES[type.name] : type.name;
+}
+
+const TYPES_WITH_ARTICLE_AN = [
+  'object',
+  'integer',
+  'array',
+]
+
+function articleForType(type: string) {
+  return TYPES_WITH_ARTICLE_AN.includes(type)
+    ? 'an'
+    : 'a';
 }
 
 function updateKeyPath(keyPath: KeyPath, newKey: string | number) {

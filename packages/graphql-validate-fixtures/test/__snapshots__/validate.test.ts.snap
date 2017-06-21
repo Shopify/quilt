@@ -221,6 +221,10 @@ Object {
       "keyPath": "animals[0].name",
       "message": "should be non-null but was undefined",
     },
+    Object {
+      "keyPath": "animals[0].barks",
+      "message": "should be a boolean (or null), but was undefined",
+    },
   ],
 }
 `;
@@ -231,7 +235,12 @@ Object {
   "operationName": "DogQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "animals[0].barks",
+      "message": "should be a boolean (or null), but was undefined",
+    },
+  ],
 }
 `;
 
@@ -266,7 +275,12 @@ Object {
   "operationName": "SetsQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "sets",
+      "message": "should be an array (or null), but was a undefined",
+    },
+  ],
 }
 `;
 
@@ -299,15 +313,15 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "sets[0]",
-      "message": "should be an array, but was a number",
+      "message": "should be an array (or null), but was a number",
     },
     Object {
       "keyPath": "sets[1]",
-      "message": "should be an array, but was a number",
+      "message": "should be an array (or null), but was a number",
     },
     Object {
       "keyPath": "sets[2]",
-      "message": "should be an array, but was a number",
+      "message": "should be an array (or null), but was a number",
     },
   ],
 }
@@ -349,7 +363,7 @@ Object {
     },
     Object {
       "keyPath": "sets[2]",
-      "message": "should be an array, but was a boolean",
+      "message": "should be an array (or null), but was a boolean",
     },
   ],
 }
@@ -514,7 +528,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "favoriteNumbers",
-      "message": "should be an array, but was a object",
+      "message": "should be an array (or null), but was an object",
     },
   ],
 }
@@ -713,6 +727,90 @@ Object {
 }
 `;
 
+exports[`validate validateFixtureAgainstAST() objects validates nested nullable objects 1`] = `
+Object {
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [],
+}
+`;
+
+exports[`validate validateFixtureAgainstAST() objects validates nested nullable objects 2`] = `
+Object {
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
+    Object {
+      "keyPath": "person.address.number",
+      "message": "should be an integer (or null), but was undefined",
+    },
+  ],
+}
+`;
+
+exports[`validate validateFixtureAgainstAST() objects validates nested nullable objects 3`] = `
+Object {
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
+    Object {
+      "keyPath": "person.address.number",
+      "message": "should be an integer but was a string",
+    },
+  ],
+}
+`;
+
+exports[`validate validateFixtureAgainstAST() objects validates nested nullable objects 4`] = `
+Object {
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
+    Object {
+      "keyPath": "person.address.number",
+      "message": "should be an integer but was a float",
+    },
+  ],
+}
+`;
+
+exports[`validate validateFixtureAgainstAST() objects validates nested nullable objects 5`] = `
+Object {
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [],
+}
+`;
+
+exports[`validate validateFixtureAgainstAST() objects validates nested nullable objects 6`] = `
+Object {
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
+  "validationErrors": Array [
+    Object {
+      "keyPath": "person.address",
+      "message": "has key 'street' not present in the query",
+    },
+    Object {
+      "keyPath": "person.address.number",
+      "message": "should be an integer (or null), but was undefined",
+    },
+  ],
+}
+`;
+
 exports[`validate validateFixtureAgainstAST() objects validates nested objects 1`] = `
 Object {
   "fixturePath": "AddressQuery/fixture.json",
@@ -764,7 +862,12 @@ Object {
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "person.address",
+      "message": "should be non-null but was null",
+    },
+  ],
 }
 `;
 
@@ -777,7 +880,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "person.address.number",
-      "message": "should be an integer but was a string",
+      "message": "should be an integer (or null), but was undefined",
     },
   ],
 }
@@ -792,7 +895,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "person.address.number",
-      "message": "should be an integer but was a float",
+      "message": "should be an integer but was a string",
     },
   ],
 }
@@ -804,7 +907,12 @@ Object {
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "person.address.number",
+      "message": "should be an integer but was a float",
+    },
+  ],
 }
 `;
 
@@ -814,10 +922,24 @@ Object {
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
+  "validationErrors": Array [],
+}
+`;
+
+exports[`validate validateFixtureAgainstAST() objects validates nested objects 9`] = `
+Object {
+  "fixturePath": "AddressQuery/fixture.json",
+  "operationName": "AddressQuery",
+  "operationPath": undefined,
+  "operationType": "query",
   "validationErrors": Array [
     Object {
       "keyPath": "person.address",
       "message": "has key 'street' not present in the query",
+    },
+    Object {
+      "keyPath": "person.address.number",
+      "message": "should be an integer (or null), but was undefined",
     },
   ],
 }
@@ -979,7 +1101,12 @@ Object {
   "operationName": "RespondedQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "responded",
+      "message": "should be a boolean (or null), but was undefined",
+    },
+  ],
 }
 `;
 
@@ -1089,7 +1216,12 @@ Object {
   "operationName": "GenerationQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "generation",
+      "message": "should be a Generation (or null), but was undefined",
+    },
+  ],
 }
 `;
 
@@ -1179,7 +1311,12 @@ Object {
   "operationName": "MyMutation",
   "operationPath": undefined,
   "operationType": "mutation",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "haveBirthday.hadFunBirthday",
+      "message": "should be a boolean (or null), but was undefined",
+    },
+  ],
 }
 `;
 
@@ -1319,7 +1456,12 @@ Object {
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "height",
+      "message": "should be a float (or null), but was undefined",
+    },
+  ],
 }
 `;
 
@@ -1339,7 +1481,12 @@ Object {
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "height",
+      "message": "should be a float but was a number",
+    },
+  ],
 }
 `;
 
@@ -1352,7 +1499,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "height",
-      "message": "should be a float but was an integer",
+      "message": "should be a float but was a number",
     },
   ],
 }
@@ -1434,7 +1581,12 @@ Object {
   "operationName": "AddressQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "address",
+      "message": "should be a string (or null), but was undefined",
+    },
+  ],
 }
 `;
 
@@ -1469,6 +1621,10 @@ Object {
       "keyPath": "name",
       "message": "should be a string but was a number",
     },
+    Object {
+      "keyPath": "age",
+      "message": "should be an integer (or null), but was undefined",
+    },
   ],
 }
 `;
@@ -1484,6 +1640,10 @@ Object {
       "keyPath": "name",
       "message": "should be non-null but was undefined",
     },
+    Object {
+      "keyPath": "age",
+      "message": "should be an integer (or null), but was undefined",
+    },
   ],
 }
 `;
@@ -1498,6 +1658,10 @@ Object {
     Object {
       "keyPath": "name",
       "message": "should be non-null but was null",
+    },
+    Object {
+      "keyPath": "age",
+      "message": "should be an integer (or null), but was undefined",
     },
   ],
 }
@@ -1528,7 +1692,12 @@ Object {
   "operationName": "MyQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [],
+  "validationErrors": Array [
+    Object {
+      "keyPath": "age",
+      "message": "should be an integer (or null), but was undefined",
+    },
+  ],
 }
 `;
 
@@ -1596,7 +1765,7 @@ Object {
     },
     Object {
       "keyPath": "person.nickNames",
-      "message": "should be an array, but was a object",
+      "message": "should be an array (or null), but was an object",
     },
     Object {
       "keyPath": "friends[0].firstName",
