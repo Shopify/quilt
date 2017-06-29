@@ -343,6 +343,8 @@ export default document;
 "
 `;
 
+exports[`printFile() errors throws an error when referencing a missing type 1`] = `"An invalid type was provided for key 'kind'. This probably means there is a typo in your document or that one of your input types has been renamed."`;
+
 exports[`printFile() fragments prints fragment definitions 1`] = `
 "// This file was generated and should not be edited.
 /* tslint:disable */

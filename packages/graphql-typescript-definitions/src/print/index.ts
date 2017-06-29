@@ -5,10 +5,8 @@ import {
   GraphQLNonNull,
   GraphQLEnumType,
   GraphQLScalarType,
-  GraphQLObjectType,
   GraphQLInterfaceType,
   GraphQLUnionType,
-  GraphQLLeafType,
   GraphQLType,
 } from 'graphql';
 import {Operation, Fragment, AST, Field} from 'graphql-tool-utilities/ast';
@@ -16,7 +14,13 @@ import {Operation, Fragment, AST, Field} from 'graphql-tool-utilities/ast';
 import CodeGenerator from './generator';
 import Context, {Options} from './context';
 import Document, {FieldObject} from './document';
-import {printInputGraphQLField, printRootGraphQLType, builtInScalarMap} from './graphql';
+import {
+  printInputGraphQLField,
+  printRootGraphQLType,
+  builtInScalarMap,
+  getRootGraphQLType,
+  GraphQLPrintableType,
+} from './graphql';
 import {NullableFragment} from './special-types';
 import {
   printExport,
@@ -333,8 +337,6 @@ function printOperation(
   }
 }
 
-type GraphQLPrintableType = GraphQLLeafType | GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType;
-
 function printField(
   field: Field,
   forceNullable = false,
@@ -386,14 +388,4 @@ function printField(
 
   generator.print(printAfter.reverse().join(''));
   generator.print(',');
-}
-
-function getRootGraphQLType(type: GraphQLType): GraphQLPrintableType {
-  let finalType = type;
-
-  while (finalType instanceof GraphQLNonNull || finalType instanceof GraphQLList) {
-    finalType = finalType.ofType;
-  }
-
-  return finalType as GraphQLPrintableType;
 }

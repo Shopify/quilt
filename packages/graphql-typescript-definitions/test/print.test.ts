@@ -661,6 +661,36 @@ describe('printFile()', () => {
       `, schema)).toMatchSnapshot();
     });
   });
+
+  describe('errors', () => {
+    it('throws an error when referencing a missing type', () => {
+      const schema = buildSchema(`
+        enum Kind {
+          DOG
+          CAT
+        }
+      
+        type Pet {
+          id: ID!
+          name: String!
+          nickname: String
+          kind: Kind
+        }
+
+        type Query {
+          pet(kind: Kind!): Pet
+        }
+      `);
+
+      expect(() => print(`
+        query RandomPet($kind: Kindd!) {
+          pet(kind: $kind) {
+            name
+          }
+        }
+      `, schema)).toThrowErrorMatchingSnapshot();
+    });
+  });
 });
 
 function print(

@@ -128,26 +128,39 @@ export class Builder extends EventEmitter {
     }
 
     const fileMap = groupOperationsAndFragmentsByFile(ast);
-    const buildResults = await Promise.all(
-      Object
-        .keys(fileMap)
-        .map(async (key) => {
-          const file = fileMap[key];
-          const definition = printFile(file, ast, this.options);
-          const definitionPath = `${file.path}.d.ts`;
-          await writeFile(definitionPath, definition);
 
-          return {
-            documentPath: file.path,
-            definitionPath,
-            operations: file.operations,
-            fragments: file.fragments,
-          };
-        })
-    );
+    try {
+      const buildResults = await Promise.all(
+        Object
+          .keys(fileMap)
+          .map(async (key) => {
+            const file = fileMap[key];
+            let definition: string;
+            try {
+              definition = printFile(file, ast, this.options);
+            } catch ({message}) {
+              const error = new Error(`Error in ${file.path}: ${message[0].toLowerCase()}${message.slice(1)}`);
+              this.emit('error', error);
+              throw error;
+            }
 
-    for (const buildResult of buildResults) {
-      this.emit('build', buildResult);
+            const definitionPath = `${file.path}.d.ts`;
+            await writeFile(definitionPath, definition);
+
+            return {
+              documentPath: file.path,
+              definitionPath,
+              operations: file.operations,
+              fragments: file.fragments,
+            };
+          })
+      );
+
+      for (const buildResult of buildResults) {
+        this.emit('build', buildResult);
+      }
+    } catch (error) {
+      return;
     }
 
     this.emit('end');

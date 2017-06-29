@@ -14,6 +14,10 @@ describe('cli', () => {
     expect(await execDetails(cliCommandForFixtureDirectory('malformed-query'))).toMatchSnapshot();
     expect(await execDetails(cliCommandForFixtureDirectory('missing-schema'))).toMatchSnapshot();
   });
+
+  it('fails when there are unused types', async () => {
+    expect(await execDetails(cliCommandForFixtureDirectory('missing-types'))).toMatchSnapshot();
+  });
 });
 
 function execDetails(command: string) {
