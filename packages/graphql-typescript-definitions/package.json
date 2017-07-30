@@ -1,6 +1,6 @@
 {
   "name": "graphql-typescript-definitions",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "main": "lib/index.js",
   "types": "lib",
   "author": "Chris Sauve <chrismsauve@gmail.com>",
