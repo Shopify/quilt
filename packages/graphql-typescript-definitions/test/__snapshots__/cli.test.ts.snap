@@ -31,7 +31,7 @@ GraphQLError: Syntax Error packages/graphql-typescript-definitions/test/fixtures
     at parseDefinition (node_modules/graphql/language/parser.js:139:16)
     at parseDocument (node_modules/graphql/language/parser.js:109:22)
     at Object.parse (node_modules/graphql/language/parser.js:46:10)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:161:40)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:164:40)
     at Generator.next (<anonymous>)
 
 ",
@@ -53,7 +53,7 @@ ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions
 Error: Error parsing 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
 
 ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:150:36)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:153:36)
     at Generator.throw (<anonymous>)
     at rejected (packages/graphql-typescript-definitions/lib/index.js:5:65)
 
@@ -73,13 +73,13 @@ Object {
   "stdout": "
  ERROR  Error in packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql: an invalid type was provided for key 'role'. This probably means there is a typo in your document or that one of your input types has been renamed.
 Error: Error in packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql: an invalid type was provided for key 'role'. This probably means there is a typo in your document or that one of your input types has been renamed.
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:120:39)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:123:39)
     at Generator.next (<anonymous>)
     at packages/graphql-typescript-definitions/lib/index.js:7:71
     at __awaiter (packages/graphql-typescript-definitions/lib/index.js:3:12)
-    at Promise.all.Object.keys.map (packages/graphql-typescript-definitions/lib/index.js:113:35)
+    at Promise.all.Object.keys.map (packages/graphql-typescript-definitions/lib/index.js:116:35)
     at Array.map (native)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:113:22)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:116:22)
     at Generator.next (<anonymous>)
     at packages/graphql-typescript-definitions/lib/index.js:7:71
     at __awaiter (packages/graphql-typescript-definitions/lib/index.js:3:12)
