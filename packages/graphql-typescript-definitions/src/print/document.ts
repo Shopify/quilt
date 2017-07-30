@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 import {Field, InlineFragment} from 'graphql-tool-utilities/ast';
 
-type KeyPath = string[];
+export type KeyPath = string[];
 
 export class FieldObject {
   get name() {

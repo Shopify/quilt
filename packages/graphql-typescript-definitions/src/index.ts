@@ -39,6 +39,14 @@ export class Builder extends EventEmitter {
     this.options = options;
   }
 
+  once(event: 'error', handler: (error: Error) => void): this
+  once(event: 'build', handler: (built: Build) => void): this
+  once(event: 'start', handler: () => void): this
+  once(event: 'end', handler: () => void): this
+  once(event: string, handler: (...args: any[]) => void): this {
+    return super.once(event, handler);
+  }
+
   on(event: 'error', handler: (error: Error) => void): this
   on(event: 'build', handler: (built: Build) => void): this
   on(event: 'start', handler: () => void): this
@@ -168,7 +176,7 @@ export class Builder extends EventEmitter {
 
   private async updateSchema() {
     try {
-      const schemaJSON = await readJSON(this.schemaPath, 'utf8');
+      const schemaJSON = await readJSON(this.schemaPath);
       this.schema = buildClientSchema(schemaJSON.data);
     } catch (error) {
       const parseError = new Error(`Error parsing '${this.schemaPath}':\n\n${error.message.replace(/Syntax Error GraphQL \(.*?\) /, '')}`);

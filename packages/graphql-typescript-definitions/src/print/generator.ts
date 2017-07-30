@@ -1,4 +1,4 @@
-type Block = () => void;
+export type Block = () => void;
 
 export default class CodeGenerator {
   private indentWidth = 2;
