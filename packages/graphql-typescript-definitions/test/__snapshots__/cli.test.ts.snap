@@ -56,6 +56,7 @@ ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions
     at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:153:36)
     at Generator.throw (<anonymous>)
     at rejected (packages/graphql-typescript-definitions/lib/index.js:5:65)
+    at <anonymous>
 
 ",
 }
@@ -76,13 +77,13 @@ Error: Error in packages/graphql-typescript-definitions/test/fixtures/missing-ty
     at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:123:39)
     at Generator.next (<anonymous>)
     at packages/graphql-typescript-definitions/lib/index.js:7:71
+    at new Promise (<anonymous>)
     at __awaiter (packages/graphql-typescript-definitions/lib/index.js:3:12)
     at Promise.all.Object.keys.map (packages/graphql-typescript-definitions/lib/index.js:116:35)
-    at Array.map (native)
+    at Array.map (<anonymous>)
     at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:116:22)
     at Generator.next (<anonymous>)
     at packages/graphql-typescript-definitions/lib/index.js:7:71
-    at __awaiter (packages/graphql-typescript-definitions/lib/index.js:3:12)
 
 ",
 }

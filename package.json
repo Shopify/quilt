@@ -8,7 +8,7 @@
     "test": "jest --config ./config/jest/config.json",
     "test:watch": "yarn run test -- --watch",
     "check": "yarn run ts && yarn run test",
-    "prepublish": "yarn run check"
+    "prepublish": "in-publish && yarn run check || :"
   },
   "devDependencies": {
     "@types/chalk": "^0.4.31",
@@ -19,6 +19,7 @@
     "@types/node": "^7.0.29",
     "@types/yargs": "^6.6.0",
     "graphql": "^0.10.1",
+    "in-publish": "^2.0.0",
     "jest": "^20.0.4",
     "lerna": "^2.0.0-rc.5",
     "ts-jest": "^20.0.5",

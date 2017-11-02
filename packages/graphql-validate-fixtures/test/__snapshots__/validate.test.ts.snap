@@ -1441,12 +1441,7 @@ Object {
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [
-    Object {
-      "keyPath": "height",
-      "message": "should be a float but was a string",
-    },
-  ],
+  "validationErrors": Array [],
 }
 `;
 
@@ -1481,12 +1476,7 @@ Object {
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [
-    Object {
-      "keyPath": "height",
-      "message": "should be a float but was a number",
-    },
-  ],
+  "validationErrors": Array [],
 }
 `;
 
@@ -1496,12 +1486,7 @@ Object {
   "operationName": "HeightQuery",
   "operationPath": undefined,
   "operationType": "query",
-  "validationErrors": Array [
-    Object {
-      "keyPath": "height",
-      "message": "should be a float but was a number",
-    },
-  ],
+  "validationErrors": Array [],
 }
 `;
 

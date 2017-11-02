@@ -268,7 +268,9 @@ function validateValueAgainstType(value: any, type: GraphQLType, keyPath: KeyPat
 
     return [error(keyPath, `should be an integer but was a ${valueType}`)];
   } else if (type === GraphQLFloat) {
-    return [error(keyPath, `should be a float but was a ${valueType}`)];
+    return !Number.isNaN(value)
+      ? []
+      : [error(keyPath, `should be a float but was a ${valueType}`)];
   } else if (type === GraphQLBoolean) {
     return typeof value === 'boolean'
       ? []
