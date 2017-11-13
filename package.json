@@ -18,7 +18,7 @@
     "@types/jest": "^19.2.4",
     "@types/node": "^7.0.29",
     "@types/yargs": "^6.6.0",
-    "graphql": "^0.10.1",
+    "graphql": "<1.0.0",
     "in-publish": "^2.0.0",
     "jest": "^20.0.4",
     "lerna": "^2.0.0-rc.5",
