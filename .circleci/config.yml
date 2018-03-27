@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:8.9.4
     steps:
       - checkout
-      - run: yarn
+      - run: yarn install --production=false
       - run: yarn lint
       - run: yarn build
       - run: yarn test
