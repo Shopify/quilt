@@ -1,0 +1,63 @@
+{
+  "name": "quilt",
+  "version": "1.0.0",
+  "description": "Shopify's javascript application utilities",
+  "engines": {
+    "node": ">=v8.9.4",
+    "yarn": ">=1.3.2"
+  },
+  "scripts": {
+    "publish": "lerna publish",
+    "prebuild": "yarn run clean",
+    "build": "lerna run build",
+    "lint": "yarn eslint **/*.{ts,tsx} ",
+    "pretest": "yarn build",
+    "test": "jest",
+    "check": "lerna run check",
+    "release": "lerna publish && git push --follow-tags",
+    "clean": "rimraf './packages/**/*.{js,d.ts}'",
+    "generate": "yarn plop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheMallen/lerna-tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheMallen/lerna-tests/issues"
+  },
+  "homepage": "https://github.com/TheMallen/lerna-tests#readme",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/jest": "^22.2.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-shopify": "^20.0.0",
+    "jest": "^22.4.3",
+    "lerna": "^2.9.0",
+    "plop": "^2.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^22.4.2"
+  },
+  "jest": {
+    "setupFiles": [
+      "./test/setup.js"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": ".*\\.test\\.tsx?$"
+  }
+}
