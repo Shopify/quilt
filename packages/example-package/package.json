@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "prepublish": "yarn run build"
