@@ -10,10 +10,9 @@ This package uses a monorepo approach. Links to individual packages can be found
 
 ## Packages
 
-| package           |                                                                                           |                                                                                                                                    |
-| ----------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `package-name`    | [README](https://github.com/Shopify/quilt/blob/master/packages/package-name/README.md)    | [![npm version](https://badge.fury.io/js/%40shopify%2Fpackage-name.svg)](https://badge.fury.io/js/%40shopify%2Fpackage-name)       |
-| `another-package` | [README](https://github.com/Shopify/quilt/blob/master/packages/another-package/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fanother-package.svg)](https://badge.fury.io/js/%40shopify%2Fanother-package) |
+| package          |                                                                                          |                                                                                                                                  |
+| ---------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `jest-dom-mocks` | [README](https://github.com/Shopify/quilt/blob/master/packages/jest-dom-mocks/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks) |
 
 ## Contribute
 
