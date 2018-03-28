@@ -1,5 +1,6 @@
 {
-  "name": "@shopify/{{name}}",
+  "name": "@shopify/example-package",
+  "private": true,
   "version": "1.0.0",
   "license": "MIT",
   "description": "",
@@ -9,8 +10,5 @@
     "prepublish": "yarn run build"
   },
   "author": "Shopify Inc.",
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+  "dependencies": {}
 }
