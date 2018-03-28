@@ -1,7 +1,7 @@
 export default class Timer {
-  isUsingFakeTimer = false;
+  private isUsingFakeTimer = false;
 
-  fake() {
+  mock() {
     if (this.isUsingFakeTimer) {
       throw new Error(
         'The Timer is already faked, but you tried to fake it again.',
@@ -21,6 +21,10 @@ export default class Timer {
 
     jest.useRealTimers();
     this.isUsingFakeTimer = false;
+  }
+
+  isMocked() {
+    return this.isUsingFakeTimer;
   }
 
   runAllTimers() {

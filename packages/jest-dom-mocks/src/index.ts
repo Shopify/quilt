@@ -23,25 +23,25 @@ export const sessionStorage = new Storage();
 export const timer = new Timer();
 
 export function ensureMocksReset() {
-  if (clock.isUsingFakeClock) {
+  if (clock.isMocked()) {
     throw new Error(
       'You did not reset the fake clock. Make sure to call clock.restore() after your tests have run.',
     );
   }
 
-  if (location.isUsingFakeLocation) {
+  if (location.isMocked()) {
     throw new Error(
       'You did not reset the fake location. Make sure to call location.restore after your tests have run.',
     );
   }
 
-  if (timer.isUsingFakeTimer) {
+  if (timer.isMocked()) {
     throw new Error(
       'You did not reset the fake timers. Make sure to call timer.restore() after your tests have run.',
     );
   }
 
-  if (animationFrame.isUsingFakeAnimationFrame) {
+  if (animationFrame.isMocked()) {
     throw new Error(
       'You did not reset the fake animation frame. Make sure to call animationFrame.restore() after your tests have run.',
     );

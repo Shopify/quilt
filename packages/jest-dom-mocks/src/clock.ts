@@ -1,11 +1,10 @@
 import lolex from 'lolex';
 
 export default class Clock {
-  isUsingFakeClock = false;
-
+  private isUsingFakeClock = false;
   private fakedClock?: lolex.Clock;
 
-  fake(now: number | Date = Date.now()) {
+  mock(now: number | Date = Date.now()) {
     if (this.isUsingFakeClock) {
       throw new Error(
         'The clock is already faked, but you tried to fake it again.',
@@ -29,6 +28,10 @@ export default class Clock {
       this.fakedClock.uninstall();
       delete this.fakedClock;
     }
+  }
+
+  isMocked() {
+    return this.isUsingFakeClock;
   }
 
   tick(time: number) {

@@ -5,10 +5,10 @@ export interface MediaMatching {
 }
 
 export default class MatchMedia {
-  isUsingFakeMatchMedia = false;
+  private isUsingFakeMatchMedia = false;
   originalMatchMedia: (mediaQuery: string) => MediaQueryList;
 
-  fake(media: MediaMatching = defaultMatcher) {
+  mock(media: MediaMatching = defaultMatcher) {
     this.originalMatchMedia = window.matchMedia;
     window.matchMedia = (query: string) => mediaQueryList(media(query));
     this.isUsingFakeMatchMedia = true;
@@ -17,6 +17,10 @@ export default class MatchMedia {
   restore() {
     window.matchMedia = this.originalMatchMedia;
     this.isUsingFakeMatchMedia = false;
+  }
+
+  isMocked() {
+    return this.isUsingFakeMatchMedia;
   }
 }
 

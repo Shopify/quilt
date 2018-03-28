@@ -1,35 +1,37 @@
 import Clock from '../clock';
 
 describe('Clock', () => {
-  describe('fake', () => {
-    it('sets isUsingFakeClock', () => {
+  describe('mock', () => {
+    it('sets isMocked()', () => {
       const clock = new Clock();
-      clock.fake();
+      clock.mock();
 
-      expect(clock.isUsingFakeClock).toBe(true);
+      expect(clock.isMocked()).toBe(true);
     });
 
-    it('throws if isUsingFakeClock is true', () => {
+    it('throws if it is already mocked', () => {
       const clock = new Clock();
-      clock.isUsingFakeClock = true;
+
+      clock.mock();
+
       expect(() => {
-        clock.fake();
+        clock.mock();
       }).toThrow();
     });
   });
 
   describe('restore', () => {
-    it('sets isUsingFakeClock', () => {
+    it('sets isMocked', () => {
       const clock = new Clock();
-      clock.isUsingFakeClock = true;
+      clock.mock();
       clock.restore();
 
-      expect(clock.isUsingFakeClock).toBe(false);
+      expect(clock.isMocked()).toBe(false);
     });
 
-    it('throws if isUsingFakeClock is false', () => {
+    it('throws if it has not yet been mocked', () => {
       const clock = new Clock();
-      clock.isUsingFakeClock = false;
+
       expect(() => {
         clock.restore();
       }).toThrow();
