@@ -10,9 +10,5 @@
     "prepublish": "yarn run build"
   },
   "author": "Shopify Inc.",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "typescript": "^2.5.3"
-  }
+  "dependencies": {}
 }
