@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 import AnimationFrame from './animation-frame';
 import Clock from './clock';
 import fetch from './fetch';
@@ -24,7 +22,7 @@ export const sessionStorage = new Storage();
 
 export const timer = new Timer();
 
-export function validateMockDOMBeforeTest() {
+export function ensureMocksReset() {
   if (clock.isUsingFakeClock) {
     throw new Error(
       'You did not reset the fake clock. Make sure to call clock.restore() after your tests have run.',
