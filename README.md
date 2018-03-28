@@ -10,10 +10,11 @@ This package uses a monorepo approach. Links to individual packages can be found
 
 ## Packages
 
-| package            |                                                                                            |                                                                                                                                  |
-| ------------------ | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `jest-dom-mocks`   | [README](https://github.com/Shopify/quilt/blob/master/packages/jest-dom-mocks/README.md)   | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks) |
-| `koa-shopify-auth` | [README](https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fpackage-name.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth) |
+| package            |                                                                                            |                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `jest-dom-mocks`   | [README](https://github.com/Shopify/quilt/blob/master/packages/jest-dom-mocks/README.md)   | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks)     |
+| `jest-mock-router` | [README](https://github.com/Shopify/quilt/blob/master/packages/jest-mock-router/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-mock-router.svg)](https://badge.fury.io/js/%40shopify%2Fjest-mock-router) |
+| `koa-shopify-auth` | [README](https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fpackage-name.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth)     |
 
 ## Contribute
 
