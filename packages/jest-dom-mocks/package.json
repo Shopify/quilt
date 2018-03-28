@@ -1,6 +1,5 @@
 {
-  "name": "@shopify/example-package",
-  "private": true,
+  "name": "@shopify/jest-dom-mocks",
   "version": "1.0.0",
   "license": "MIT",
   "description": "",
@@ -10,6 +9,11 @@
     "prepublish": "yarn run build"
   },
   "author": "Shopify Inc.",
+  "dependencies": {
+    "@shopify/javascript-utilities": "^2.1.0",
+    "fetch-mock": "^6.3.0",
+    "lolex": "^2.3.2"
+  },
   "devDependencies": {
     "typescript": "~2.7.2"
   }
