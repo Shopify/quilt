@@ -5,14 +5,13 @@ interface FrameCallback {
 }
 
 export default class AnimationFrame {
-  isUsingFakeAnimationFrame = false;
-
+  private isUsingFakeAnimationFrame = false;
   private queued: {[key: number]: FrameCallback} = {};
   private originalRequestAnimationFrame: any;
   private originalCancelAnimationFrame: any;
   private currentAnimationFrame = 0;
 
-  fake() {
+  mock() {
     if (this.isUsingFakeAnimationFrame) {
       throw new Error(
         'The animation frame is already faked, but you tried to fake it again.',
@@ -39,6 +38,10 @@ export default class AnimationFrame {
 
     window.requestAnimationFrame = this.originalRequestAnimationFrame;
     window.cancelAnimationFrame = this.originalCancelAnimationFrame;
+  }
+
+  isMocked() {
+    return this.isUsingFakeAnimationFrame;
   }
 
   runFrame() {

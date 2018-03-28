@@ -1,35 +1,37 @@
 import Timer from '../timer';
 
 describe('Timer', () => {
-  describe('fake', () => {
-    it('sets isUsingFakeTimer', () => {
+  describe('mock', () => {
+    it('sets isMocked()', () => {
       const timer = new Timer();
-      timer.fake();
+      timer.mock();
 
-      expect(timer.isUsingFakeTimer).toBe(true);
+      expect(timer.isMocked()).toBe(true);
     });
 
-    it('throws if isUsingFakeTimer is true', () => {
+    it('throws if it is already mocked', () => {
       const timer = new Timer();
-      timer.isUsingFakeTimer = true;
+
+      timer.mock();
+
       expect(() => {
-        timer.fake();
+        timer.mock();
       }).toThrow();
     });
   });
 
   describe('restore', () => {
-    it('sets isUsingFakeTimer', () => {
+    it('sets isMocked', () => {
       const timer = new Timer();
-      timer.isUsingFakeTimer = true;
+      timer.mock();
       timer.restore();
 
-      expect(timer.isUsingFakeTimer).toBe(false);
+      expect(timer.isMocked()).toBe(false);
     });
 
-    it('throws if isUsingFakeTimer is false', () => {
+    it('throws if it has not yet been mocked', () => {
       const timer = new Timer();
-      timer.isUsingFakeTimer = false;
+
       expect(() => {
         timer.restore();
       }).toThrow();
