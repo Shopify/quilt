@@ -13,7 +13,7 @@ export default class Clock {
     }
 
     this.isUsingFakeClock = true;
-    this.fakedClock = lolex.install(now);
+    this.fakedClock = lolex.install({now});
   }
 
   restore() {
