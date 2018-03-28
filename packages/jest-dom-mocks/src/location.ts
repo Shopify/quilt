@@ -10,13 +10,6 @@ export default class Location {
       );
     }
 
-    // required to make it possible to write to locaiton.search in tests
-    // https://github.com/facebook/jest/issues/890
-    Object.defineProperty(window.location, 'search', {
-      writable: true,
-      value: '',
-    });
-
     this.originalAssign = window.location.assign;
     this.locationMock = jest.fn();
     window.location.assign = this.locationMock;
