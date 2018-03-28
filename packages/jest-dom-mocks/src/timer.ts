@@ -4,7 +4,7 @@ export default class Timer {
   mock() {
     if (this.isUsingFakeTimer) {
       throw new Error(
-        'The Timer is already faked, but you tried to fake it again.',
+        'The Timer is already mocked, but you tried to mock it again.',
       );
     }
 
@@ -40,7 +40,7 @@ export default class Timer {
   private ensureTimerIsFake() {
     if (!this.isUsingFakeTimer) {
       throw new Error(
-        'You must call Timer.fakeTimer() before interacting with the fake Timer.',
+        'You must call Timer.mock() before interacting with the mock Timer.',
       );
     }
   }

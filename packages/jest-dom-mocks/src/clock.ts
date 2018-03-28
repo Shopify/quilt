@@ -7,7 +7,7 @@ export default class Clock {
   mock(now: number | Date = Date.now()) {
     if (this.isUsingFakeClock) {
       throw new Error(
-        'The clock is already faked, but you tried to fake it again.',
+        'The clock is already mocked, but you tried to mock it again.',
       );
     }
 

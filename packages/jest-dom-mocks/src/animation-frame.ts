@@ -14,7 +14,7 @@ export default class AnimationFrame {
   mock() {
     if (this.isUsingFakeAnimationFrame) {
       throw new Error(
-        'The animation frame is already faked, but you tried to fake it again.',
+        'The animation frame is already mocked, but you tried to mock it again.',
       );
     }
 

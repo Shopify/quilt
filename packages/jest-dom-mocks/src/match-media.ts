@@ -9,12 +9,24 @@ export default class MatchMedia {
   originalMatchMedia: (mediaQuery: string) => MediaQueryList;
 
   mock(media: MediaMatching = defaultMatcher) {
+    if (this.isUsingFakeMatchMedia) {
+      throw new Error(
+        'You tried to mock window.matchMedia when it was already mocked.',
+      );
+    }
+
     this.originalMatchMedia = window.matchMedia;
     window.matchMedia = (query: string) => mediaQueryList(media(query));
     this.isUsingFakeMatchMedia = true;
   }
 
   restore() {
+    if (!this.isUsingFakeMatchMedia) {
+      throw new Error(
+        'You tried to restore window.matchMedia when it was already restored.',
+      );
+    }
+
     window.matchMedia = this.originalMatchMedia;
     this.isUsingFakeMatchMedia = false;
   }
