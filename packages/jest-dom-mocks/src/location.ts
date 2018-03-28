@@ -6,7 +6,7 @@ export default class Location {
   mock() {
     if (this.isUsingFakeLocation) {
       throw new Error(
-        'You tried to fake window.location when it was already faked.',
+        'You tried to mock window.location when it was already mocked.',
       );
     }
 
