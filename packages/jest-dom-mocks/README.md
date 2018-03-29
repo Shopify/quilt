@@ -20,7 +20,7 @@ beforeEach(() => {
 });
 ```
 
-this will ensure that appropriate error messages are shown if a DOM object is faked without beign restored for the next test.
+this will ensure that appropriate error messages are shown if a DOM object is mocked without beign restored for the next test.
 
 ## Example Usage
 
@@ -30,8 +30,8 @@ In this example, we are testing a `NumberTransitioner` component using `Jest` an
 import { clock, animationFrame } from "@shopify/jest-dom-mocks";
 
 it("transitions to the next number after being updated", () => {
-  clock.fake();
-  animationFrame.fake();
+  clock.mock();
+  animationFrame.mock();
 
   const duration = 1000;
   const rendered = mount(

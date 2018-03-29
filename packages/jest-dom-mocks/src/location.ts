@@ -1,10 +1,10 @@
 export default class Location {
-  private isUsingFakeLocation = false;
+  private isUsingMockLocation = false;
   private originalAssign: typeof window.location.assign;
   private locationMock: jest.Mock<{}> | null;
 
   mock() {
-    if (this.isUsingFakeLocation) {
+    if (this.isUsingMockLocation) {
       throw new Error(
         'You tried to mock window.location when it was already mocked.',
       );
@@ -13,11 +13,11 @@ export default class Location {
     this.originalAssign = window.location.assign;
     this.locationMock = jest.fn();
     window.location.assign = this.locationMock;
-    this.isUsingFakeLocation = true;
+    this.isUsingMockLocation = true;
   }
 
   restore() {
-    if (!this.isUsingFakeLocation) {
+    if (!this.isUsingMockLocation) {
       throw new Error(
         'You tried to restore window.location when it was already restored.',
       );
@@ -26,10 +26,10 @@ export default class Location {
     location.search = '';
     this.locationMock = null;
     window.location.assign = this.originalAssign;
-    this.isUsingFakeLocation = false;
+    this.isUsingMockLocation = false;
   }
 
   isMocked() {
-    return this.isUsingFakeLocation;
+    return this.isUsingMockLocation;
   }
 }
