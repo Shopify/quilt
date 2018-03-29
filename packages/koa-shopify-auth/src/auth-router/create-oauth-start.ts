@@ -39,7 +39,20 @@ export default function createOAuthStart({
       <html>
         <head>
           <script type="text/javascript">
-            window.top.location.href = "${redirectTo}"
+            document.addEventListener("DOMContentLoaded", function() {
+              if (window.top == window.self) {
+                // If the current window is the 'parent', change the URL by setting location.href
+                window.top.location.href = ${redirectTo};
+              } else {
+                // If the current window is the 'child', change the parent's URL with postMessage
+                data = JSON.stringify({
+                  message: 'Shopify.API.remoteRedirect',
+                  data: { location: ${redirectTo} }
+                });
+
+                window.parent.postMessage(data, targetInfo.myshopifyUrl);
+              }
+            });
           </script>
         </head>
       </html>`;
