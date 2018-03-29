@@ -1,0 +1,5 @@
+package.json
+node_modules
+dist
+*.md
+*.svg

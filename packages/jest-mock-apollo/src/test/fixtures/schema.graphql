@@ -1,0 +1,17 @@
+schema {
+  query: QueryRoot
+}
+
+type Dog {
+  name: String!
+}
+
+type Cat {
+  name: String!
+}
+
+union Pet = Dog | Cat
+
+type QueryRoot {
+  pets: [Pet!]!
+}
