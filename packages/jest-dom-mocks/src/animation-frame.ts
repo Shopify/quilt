@@ -5,20 +5,20 @@ interface FrameCallback {
 }
 
 export default class AnimationFrame {
-  private isUsingFakeAnimationFrame = false;
+  private isUsingMockAnimationFrame = false;
   private queued: {[key: number]: FrameCallback} = {};
   private originalRequestAnimationFrame: any;
   private originalCancelAnimationFrame: any;
   private currentAnimationFrame = 0;
 
   mock() {
-    if (this.isUsingFakeAnimationFrame) {
+    if (this.isUsingMockAnimationFrame) {
       throw new Error(
         'The animation frame is already mocked, but you tried to mock it again.',
       );
     }
 
-    this.isUsingFakeAnimationFrame = true;
+    this.isUsingMockAnimationFrame = true;
 
     this.originalRequestAnimationFrame = window.requestAnimationFrame;
     window.requestAnimationFrame = this.requestAnimationFrame;
@@ -28,24 +28,24 @@ export default class AnimationFrame {
   }
 
   restore() {
-    if (!this.isUsingFakeAnimationFrame) {
+    if (!this.isUsingMockAnimationFrame) {
       throw new Error(
         'The animation frame is already real, but you tried to restore it again.',
       );
     }
 
-    this.isUsingFakeAnimationFrame = false;
+    this.isUsingMockAnimationFrame = false;
 
     window.requestAnimationFrame = this.originalRequestAnimationFrame;
     window.cancelAnimationFrame = this.originalCancelAnimationFrame;
   }
 
   isMocked() {
-    return this.isUsingFakeAnimationFrame;
+    return this.isUsingMockAnimationFrame;
   }
 
   runFrame() {
-    this.ensureAnimationFrameIsFake();
+    this.ensureAnimationFrameIsMock();
     // We need to do it this way so that frames that queue other frames
     // don't get removed
     Object.keys(this.queued).forEach((frame: any) => {
@@ -67,10 +67,10 @@ export default class AnimationFrame {
     delete this.queued[frame];
   }
 
-  private ensureAnimationFrameIsFake() {
-    if (!this.isUsingFakeAnimationFrame) {
+  private ensureAnimationFrameIsMock() {
+    if (!this.isUsingMockAnimationFrame) {
       throw new Error(
-        'You must call animationFrame.fake() before interacting with the fake request-/ cancelAnimationFrame.',
+        'You must call animationFrame.mock() before interacting with the mock request- or cancel- AnimationFrame methods.',
       );
     }
   }

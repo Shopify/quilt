@@ -5,11 +5,11 @@ export interface MediaMatching {
 }
 
 export default class MatchMedia {
-  private isUsingFakeMatchMedia = false;
+  private isUsingMockMatchMedia = false;
   originalMatchMedia: (mediaQuery: string) => MediaQueryList;
 
   mock(media: MediaMatching = defaultMatcher) {
-    if (this.isUsingFakeMatchMedia) {
+    if (this.isUsingMockMatchMedia) {
       throw new Error(
         'You tried to mock window.matchMedia when it was already mocked.',
       );
@@ -17,22 +17,22 @@ export default class MatchMedia {
 
     this.originalMatchMedia = window.matchMedia;
     window.matchMedia = (query: string) => mediaQueryList(media(query));
-    this.isUsingFakeMatchMedia = true;
+    this.isUsingMockMatchMedia = true;
   }
 
   restore() {
-    if (!this.isUsingFakeMatchMedia) {
+    if (!this.isUsingMockMatchMedia) {
       throw new Error(
         'You tried to restore window.matchMedia when it was already restored.',
       );
     }
 
     window.matchMedia = this.originalMatchMedia;
-    this.isUsingFakeMatchMedia = false;
+    this.isUsingMockMatchMedia = false;
   }
 
   isMocked() {
-    return this.isUsingFakeMatchMedia;
+    return this.isUsingMockMatchMedia;
   }
 }
 
