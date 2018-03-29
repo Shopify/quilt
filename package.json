@@ -38,7 +38,9 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-plugin-shopify": "^20.0.0",
+    "graphql-tag": "^2.8.0",
     "jest": "^22.4.3",
+    "jest-transform-graphql": "^2.1.0",
     "lerna": "^2.9.0",
     "plop": "^2.0.0",
     "react": "^16.2.0",
@@ -57,7 +59,8 @@
       "js"
     ],
     "transform": {
-      "^.+\\.tsx?$": "ts-jest"
+      "^.+\\.tsx?$": "ts-jest",
+      "\\.(gql|graphql)$": "jest-transform-graphql"
     },
     "testRegex": ".*\\.test\\.tsx?$"
   }
