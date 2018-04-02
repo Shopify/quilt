@@ -6,12 +6,16 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "prepublish": "yarn run build"
+    "prepublish": "yarn run build",
+    "test": "jest --config ../../jest.config.json",
+    "lint": "eslint **/*.{ts,tsx}"
   },
   "author": "Shopify Inc.",
   "dependencies": {
   },
   "devDependencies": {
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "eslint": "^4.19.1",
+    "jest": "^22.4.3"
   }
 }

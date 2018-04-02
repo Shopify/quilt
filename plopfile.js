@@ -22,6 +22,11 @@ module.exports = function(plop) {
       },
       {
         type: 'add',
+        path: 'packages/{{name}}/.eslintrc',
+        templateFile: 'templates/eslint.hbs.json',
+      },
+      {
+        type: 'add',
         path: 'packages/{{name}}/README.md',
         templateFile: 'templates/README.hbs.md',
       },
