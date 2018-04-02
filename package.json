@@ -46,19 +46,5 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^22.4.2",
     "typescript": "~2.7.2"
-  },
-  "jest": {
-    "setupFiles": [
-      "./test/setup.js"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": ".*\\.test\\.tsx?$"
   }
 }

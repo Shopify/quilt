@@ -1,0 +1,14 @@
+{
+  "setupFiles": [
+    "./test/setup.js"
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js"
+  ],
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "testRegex": ".*\\.test\\.tsx?$"
+}
