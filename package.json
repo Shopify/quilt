@@ -12,7 +12,7 @@
     "build": "lerna run build",
     "lint": "yarn eslint **/*.{ts,tsx} ",
     "pretest": "yarn build",
-    "test": "jest",
+    "test": "jest --config jest.config.json",
     "check": "lerna run check",
     "release": "lerna publish && git push --follow-tags",
     "clean": "rimraf './packages/**/*.{js,d.ts}'",
