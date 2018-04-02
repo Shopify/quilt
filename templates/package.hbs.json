@@ -8,7 +8,7 @@
     "build": "tsc",
     "prepublish": "yarn run build",
     "test": "jest --config ../../jest.config.json",
-    "lint": "eslint --config ../../.eslintrc**/*.{ts,tsx}"
+    "lint": "eslint **/*.{ts,tsx}"
   },
   "author": "Shopify Inc.",
   "dependencies": {
