@@ -11,8 +11,7 @@
   "author": "Shopify Inc.",
   "dependencies": {
     "@types/koa": "^2.0.44",
-    "koa": "^2.5.0",
-    "koa-router": "^7.4.0"
+    "koa": "^2.5.0"
   },
   "devDependencies": {}
 }

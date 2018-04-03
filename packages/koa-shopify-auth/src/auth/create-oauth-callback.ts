@@ -2,14 +2,14 @@ import {Context} from 'koa';
 import querystring from 'querystring';
 import crypto from 'crypto';
 
-import {AuthConfig, NextFunction} from './types';
+import {AuthConfig} from './types';
 
-export default function createOauthCallback(config: AuthConfig) {
-  return async function(ctx: Context, next: NextFunction) {
+export default function createOAuthCallback(config: AuthConfig) {
+  return async function oAuthCallback(ctx: Context) {
     const {query} = ctx;
     const {code, hmac, shop} = query;
 
-    const map = query;
+    const map = {...query};
     delete map.signature;
     delete map.hmac;
 
@@ -20,11 +20,13 @@ export default function createOauthCallback(config: AuthConfig) {
       .digest('hex');
 
     if (generatedHash !== hmac) {
-      return ctx.throw(400, 'HMAC validation failed');
+      ctx.throw(400, 'HMAC validation failed');
+      return;
     }
 
     if (shop == null) {
-      return ctx.throw(400, 'Expected a shop query parameter');
+      ctx.throw(400, 'Expected a shop query parameter');
+      return;
     }
 
     /* eslint-disable camelcase */
@@ -47,15 +49,22 @@ export default function createOauthCallback(config: AuthConfig) {
       },
     );
 
-    if (accessTokenResponse.ok) {
-      const accessTokenData = await accessTokenResponse.json();
-
-      if (ctx.session) {
-        ctx.session.shop = shop;
-        ctx.session.accessToken = accessTokenData.access_token;
-      }
+    if (!accessTokenResponse.ok) {
+      ctx.throw(401, 'Could not fetch access token');
+      return;
     }
 
-    return next();
+    const accessTokenData = await accessTokenResponse.json();
+    const {access_token: accessToken} = accessTokenData;
+
+    if (ctx.session) {
+      ctx.session.shop = shop;
+      ctx.session.accessToken = accessToken;
+    }
+
+    ctx.state.shop = shop;
+    ctx.state.accessToken = accessToken;
+
+    await config.afterAuth(ctx);
   };
 }

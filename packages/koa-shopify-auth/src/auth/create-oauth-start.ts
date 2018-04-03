@@ -1,7 +1,7 @@
 import {Context} from 'koa';
 import querystring from 'querystring';
 
-import {Options, NextFunction} from './types';
+import {Options} from './types';
 
 export default function createOAuthStart({
   scopes,
@@ -9,7 +9,7 @@ export default function createOAuthStart({
   prefix,
   accessMode,
 }: Options) {
-  return function(ctx: Context, next: NextFunction) {
+  return function oAuthStart(ctx: Context) {
     const {query, originalUrl} = ctx;
     const {shop} = query;
 
@@ -39,15 +39,15 @@ export default function createOAuthStart({
       <html>
         <head>
           <script type="text/javascript">
-            document.addEventListener("DOMContentLoaded", function() {
-              if (window.top == window.self) {
+            document.addEventListener('DOMContentLoaded', function() {
+              if (window.top === window.self) {
                 // If the current window is the 'parent', change the URL by setting location.href
-                window.top.location.href = ${redirectTo};
+                window.location.href = '${redirectTo}';
               } else {
                 // If the current window is the 'child', change the parent's URL with postMessage
                 data = JSON.stringify({
                   message: 'Shopify.API.remoteRedirect',
-                  data: { location: ${redirectTo} }
+                  data: { location: '${redirectTo}' }
                 });
 
                 window.parent.postMessage(data, targetInfo.myshopifyUrl);
@@ -56,7 +56,5 @@ export default function createOAuthStart({
           </script>
         </head>
       </html>`;
-
-    next();
   };
 }

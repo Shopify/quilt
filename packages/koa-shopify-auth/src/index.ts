@@ -1,4 +1,4 @@
-import createAuthRouter from './auth-router';
+import createAuthRouter from './auth';
 
 export default createAuthRouter;
 
