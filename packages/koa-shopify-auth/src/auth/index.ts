@@ -13,24 +13,20 @@ export default function createShopifyAuth(options: Options) {
 
   const {prefix} = options;
 
-  const OAuthStart = {
-    path: `${prefix}/auth`,
-    callback: createOAuthStart(config),
-  };
+  const oAuthStartPath = `${prefix}/auth`;
+  const oAuthStart = createOAuthStart(config);
 
-  const OAuthCallback = {
-    path: `${OAuthStart.path}/callback`,
-    callback: createOAuthCallback(config),
-  };
+  const oAuthCallbackPath = `${oAuthStartPath}/callback`;
+  const oAuthCallback = createOAuthCallback(config);
 
-  return function shopifyAuthRouter(ctx: Context) {
-    if (ctx.path === OAuthStart.path) {
-      OAuthStart.callback(ctx);
+  return async function shopifyAuth(ctx: Context) {
+    if (ctx.path === oAuthStartPath) {
+      await oAuthStart(ctx);
       return;
     }
 
-    if (ctx.path === OAuthCallback.path) {
-      OAuthCallback.callback(ctx);
+    if (ctx.path === oAuthCallbackPath) {
+      await oAuthCallback(ctx);
     }
   };
 }
