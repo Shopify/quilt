@@ -6,7 +6,7 @@ export interface Options {
 }
 
 export default function createVerifyRequest({
-  authRoute = '/auth/',
+  authRoute = '/auth',
   fallbackRoute = '/install',
 }: Options = {}) {
   return function verifyRequest(ctx: Context, next) {
