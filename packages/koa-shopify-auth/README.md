@@ -13,7 +13,7 @@ $ yarn add @shopify/koa-shopify-auth
 ```javascript
 import Koa from "koa";
 import session from "koa-session";
-import createShopifyAuthRouter, {
+import createShopifyAuth, {
   createVerifyRequest
 } from "@shopify/koa-shopify-auth";
 

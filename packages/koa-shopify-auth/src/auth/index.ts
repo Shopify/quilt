@@ -8,10 +8,11 @@ export default function createShopifyAuth(options: Options) {
   const config = {
     scopes: [],
     accessMode: 'online',
+    prefix: '',
     ...options,
   };
 
-  const {prefix} = options;
+  const {prefix} = config;
 
   const oAuthStartPath = `${prefix}/auth`;
   const oAuthStart = createOAuthStart(config);
