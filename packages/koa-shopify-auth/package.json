@@ -1,0 +1,17 @@
+{
+  "name": "@shopify/koa-shopify-auth",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn run build"
+  },
+  "author": "Shopify Inc.",
+  "dependencies": {
+    "@types/koa": "^2.0.44",
+    "koa": "^2.5.0"
+  },
+  "devDependencies": {}
+}
