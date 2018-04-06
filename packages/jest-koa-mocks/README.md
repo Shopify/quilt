@@ -28,18 +28,18 @@ This function allows you to create fully stubbable koa contexts for your tests. 
 **simple example**
 
 ```typescript
-import SillyViewCounterMiddleware from "../silly-view-counter";
-import { createContext } from "jest-mock-koa";
+import SillyViewCounterMiddleware from '../silly-view-counter';
+import {createContext} from 'jest-koa-mocks';
 
-describe("silly-view-counter", () => {
-  it("iterates and displays new ctx.state.views", async () => {
-    const ctx = createContext({ state: { views: 31 } });
+describe('silly-view-counter', () => {
+  it('iterates and displays new ctx.state.views', async () => {
+    const ctx = createContext({state: {views: 31}});
 
     await SillyViewCounterMiddleware(ctx);
 
     expect(ctx.state.views).toBe(32);
     expect(ctx.status).toBe(200);
-    expect(ctx.body).toBe({ view: 32 });
+    expect(ctx.body).toBe({view: 32});
   });
 });
 ```
