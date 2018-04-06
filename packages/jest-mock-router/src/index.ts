@@ -19,6 +19,12 @@ export interface RouterContext {
   routeDepth: number;
 }
 
+let defaultPathname = '/';
+
+export function setDefaultPathname(pathname: string) {
+  defaultPathname = pathname;
+}
+
 export function createRouter(stubs?: PartialRouter): FullRouter {
   const router = {
     makePath: jest.fn(),
@@ -51,12 +57,6 @@ export function createRouter(stubs?: PartialRouter): FullRouter {
   };
 
   return router;
-}
-
-let defaultPathname = '/';
-
-export function setDefaultPathname(pathname: string) {
-  defaultPathname = pathname;
 }
 
 export function createLocation(stubs?: Partial<FullLocation>): FullLocation {
