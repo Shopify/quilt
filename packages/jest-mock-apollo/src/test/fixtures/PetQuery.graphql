@@ -1,0 +1,7 @@
+query Pet {
+  ...CatInfo
+}
+
+fragment CatInfo on Cat {
+  name
+}
