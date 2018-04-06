@@ -53,6 +53,12 @@ export function createRouter(stubs?: PartialRouter): FullRouter {
   return router;
 }
 
+let defaultPathname = '/';
+
+export function setDefaultPathname(pathname: string) {
+  defaultPathname = pathname;
+}
+
 export function createLocation(stubs?: Partial<FullLocation>): FullLocation {
   return {
     href: '',
@@ -63,7 +69,7 @@ export function createLocation(stubs?: Partial<FullLocation>): FullLocation {
     port: '',
     protocol: '',
     search: '',
-    pathname: '/admin',
+    pathname: defaultPathname,
     query: {},
     assign: jest.fn(),
     replace: jest.fn(),
