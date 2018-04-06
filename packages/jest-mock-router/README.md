@@ -10,7 +10,7 @@ $ yarn add @shopify/jest-mock-router
 
 ## Example Usage
 
-Take a look at the test suite for examples on how to use enzyme's mock context.
+Take a look at the [test suite](src/test/index.test.tsx) for examples on how to use enzyme's mock context.
 
 ## API Reference
 
