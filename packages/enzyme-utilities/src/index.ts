@@ -3,26 +3,6 @@ import {get} from 'lodash';
 
 export type AnyWrapper = ReactWrapper<any, any> | CommonWrapper<any, any>;
 
-export function findByTestID(root: ReactWrapper<any, any>, id: string) {
-  function hasTestID(wrapper: ReactWrapper<any, any>) {
-    return wrapper.length > 0 && wrapper.prop('testID') === id;
-  }
-
-  return root.findWhere(hasTestID).first();
-}
-
-export function matchByTestID(root: ReactWrapper<any, any>, regexp: RegExp) {
-  function matchesTestID(wrapper: ReactWrapper<any, any>) {
-    if (wrapper.length === 0) {
-      return false;
-    }
-    const id = wrapper.prop('testID');
-    return typeof id === 'string' && regexp.test(id);
-  }
-
-  return root.findWhere(matchesTestID);
-}
-
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   if (wrapper.length === 0) {
     throw new Error(
