@@ -51,7 +51,7 @@
   },
   "jest": {
     "setupFiles": [
-      "./test/setup.js"
+      "./test/setup.ts"
     ],
     "moduleFileExtensions": [
       "ts",
