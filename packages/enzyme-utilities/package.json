@@ -1,0 +1,19 @@
+{
+  "name": "@shopify/enzyme-utilities",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Enzyme utilities for testing React components.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn run build"
+  },
+  "author": "Shopify Inc.",
+  "dependencies": {
+    "@shopify/javascript-utilities": "^2.1.0",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "typescript": "~2.7.2"
+  }
+}
