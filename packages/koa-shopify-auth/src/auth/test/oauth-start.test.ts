@@ -1,7 +1,21 @@
+import {createMockContext} from '@shopify/jest-koa-mocks';
+import createOAuthStart from '../create-oauth-start';
+
+const dummyConfig = {
+  apiKey: 'myapikey',
+  secret: 'mysecret',
+  scope: ['write_orders, write_products'],
+};
 describe('OAuthStart', () => {
   // pending koa mocks being merged
-  pending();
-  it('sets body to a redirect page for the given shop', async () => {});
+  it('sets body to a redirect page for the given shop', () => {
+    const oAuthStart = createOAuthStart(dummyConfig);
+    const ctx = createMockContext();
+
+    oAuthStart(ctx);
+
+    expect(ctx.body).toMatchSnapshot();
+  });
 
   it('redirect page includes per-user grant for accessMode: online', async () => {});
 

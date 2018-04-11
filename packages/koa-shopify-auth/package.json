@@ -13,6 +13,7 @@
   },
   "author": "Shopify Inc.",
   "dependencies": {
+    "@shopify/jest-koa-mocks": "^1.0.3",
     "@types/koa": "^2.0.44",
     "koa": "^2.5.0"
   }
