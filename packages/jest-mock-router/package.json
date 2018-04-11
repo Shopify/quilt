@@ -4,6 +4,9 @@
   "license": "MIT",
   "description": "Jest + Enzyme mocks for React Router 3.x.",
   "main": "dist/index.js",
+  "publishConfig": {
+    "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
+  },
   "scripts": {
     "build": "tsc",
     "prepublish": "yarn run build"
