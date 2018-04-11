@@ -1,9 +1,12 @@
 {
   "name": "@shopify/enzyme-utilities",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components.",
   "main": "dist/index.js",
+  "publishConfig": {
+    "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
+  },
   "scripts": {
     "build": "tsc",
     "prepublish": "yarn run build"
