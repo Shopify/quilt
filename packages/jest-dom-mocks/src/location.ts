@@ -1,7 +1,12 @@
+type AssignFunction = typeof window.location.assign;
+type ReloadFunction = typeof window.location.reload;
+type ReplaceFunction = typeof window.location.replace;
+
 export default class Location {
   private isUsingMockLocation = false;
-  private originalAssign: typeof window.location.assign;
-  private locationMock: jest.Mock<{}> | null;
+  private originalAssign?: AssignFunction;
+  private originalReload?: ReloadFunction;
+  private originalReplace?: ReplaceFunction;
 
   mock() {
     if (this.isUsingMockLocation) {
@@ -10,9 +15,18 @@ export default class Location {
       );
     }
 
+    // required to make it possible to write to location.search in tests
+    // https://github.com/facebook/jest/issues/890
+    Reflect.defineProperty(window.location, 'search', {
+      writable: true,
+      value: '',
+    });
+
     this.originalAssign = window.location.assign;
-    this.locationMock = jest.fn();
-    window.location.assign = this.locationMock;
+    this.originalReload = window.location.reload;
+    window.location.assign = jest.fn();
+    window.location.reload = jest.fn();
+    window.location.replace = jest.fn();
     this.isUsingMockLocation = true;
   }
 
@@ -24,8 +38,9 @@ export default class Location {
     }
 
     location.search = '';
-    this.locationMock = null;
-    window.location.assign = this.originalAssign;
+    window.location.assign = this.originalAssign as AssignFunction;
+    window.location.reload = this.originalReload as ReloadFunction;
+    window.location.replace = this.originalReplace as ReplaceFunction;
     this.isUsingMockLocation = false;
   }
 
