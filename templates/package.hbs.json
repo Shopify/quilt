@@ -8,6 +8,9 @@
     "build": "tsc",
     "prepublish": "yarn run build"
   },
+  "publishConfig": {
+    "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
+  },
   "author": "Shopify Inc.",
   "dependencies": {
   },
