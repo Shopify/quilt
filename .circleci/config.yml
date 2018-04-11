@@ -5,6 +5,7 @@ jobs:
       - image: circleci/node:8.9.4
     steps:
       - checkout
+      - run: printf "@shopify:registry=https://packages.shopify.io/shopify/node/npm/\\n//packages.shopify.io/shopify/node/npm/:_authToken=$NODEJS_PACKAGECLOUD_TOKEN" >> ~/.npmrc
       - run: yarn install --production=false
       - run: yarn lint
       - run: yarn build
