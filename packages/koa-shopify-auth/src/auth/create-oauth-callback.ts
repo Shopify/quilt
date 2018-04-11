@@ -65,6 +65,8 @@ export default function createOAuthCallback(config: AuthConfig) {
     ctx.state.shop = shop;
     ctx.state.accessToken = accessToken;
 
-    await config.afterAuth(ctx);
+    if (config.afterAuth) {
+      await config.afterAuth(ctx);
+    }
   };
 }

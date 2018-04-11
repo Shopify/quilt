@@ -2,12 +2,12 @@ import {Context} from 'koa';
 
 import createOAuthStart from './create-oauth-start';
 import createOAuthCallback from './create-oauth-callback';
-import {Options} from './types';
+import {Options, AccessMode} from './types';
 
 export default function createShopifyAuth(options: Options) {
   const config = {
     scopes: [],
-    accessMode: 'online',
+    accessMode: 'online' as AccessMode,
     prefix: '',
     ...options,
   };
