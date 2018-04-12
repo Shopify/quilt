@@ -16,8 +16,9 @@ export default class MatchMedia {
     }
 
     this.originalMatchMedia = window.matchMedia;
-    window.matchMedia = (query: string) => mediaQueryList(media(query));
     this.isUsingMockMatchMedia = true;
+
+    this.setMedia(media);
   }
 
   restore() {
@@ -33,6 +34,19 @@ export default class MatchMedia {
 
   isMocked() {
     return this.isUsingMockMatchMedia;
+  }
+
+  setMedia(media: MediaMatching = defaultMatcher) {
+    this.ensureMatchMediaIsMocked();
+    window.matchMedia = (query: string) => mediaQueryList(media(query));
+  }
+
+  private ensureMatchMediaIsMocked() {
+    if (!this.isUsingMockMatchMedia) {
+      throw new Error(
+        'You must call matchMedia.mock() before interacting with the mock matchMedia.',
+      );
+    }
   }
 }
 

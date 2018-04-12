@@ -53,6 +53,12 @@ export function ensureMocksReset() {
     );
   }
 
+  if (matchMedia.isMocked()) {
+    throw new Error(
+      'You did not reset the mocked matchMedia. Make sure to call matchMedia.restore() after your tests have run.',
+    );
+  }
+
   localStorage.restore();
   sessionStorage.restore();
 }
