@@ -20,12 +20,13 @@ export interface Options extends Dictionary<any> {
   session?: Dictionary<any>;
   headers?: Dictionary<string>;
   cookies?: Dictionary<string>;
+  encrypted?: boolean;
+  host?: string;
   [key: string]: any;
 }
 
 export default function createContext(options: Options = {}): MockContext {
   const app = new Koa();
-  app.proxy = true;
 
   const {
     url = '',
@@ -33,7 +34,9 @@ export default function createContext(options: Options = {}): MockContext {
     method,
     statusCode,
     session,
-    headers,
+    headers = {},
+    encrypted = false,
+    host = 'test.com',
     ...customFields
   } = options;
 
@@ -43,38 +46,27 @@ export default function createContext(options: Options = {}): MockContext {
     app.context[key] = extensions[key];
   });
 
-  // eslint-disable
-  const urlObject = new URL(url);
-  Object.defineProperty(app.context, 'originalUrl', {
-    value: urlObject.href,
-    writable: true,
-  });
-  Object.defineProperty(app.context, 'path', {
-    value: urlObject.pathname,
-    writable: true,
-  });
-  Object.defineProperty(app.context, 'host', {
-    value: urlObject.host,
-    writable: true,
-  });
-  Object.defineProperty(app.context, 'protocol', {
-    value: urlObject.protocol,
-    writable: true,
-  });
-
-  console.log('you for real totally have the new version');
+  const protocolFallback = encrypted ? 'https' : 'http';
+  const urlObject = new URL(url, `${protocolFallback}://${host}`);
 
   const req = httpMocks.createRequest({
-    url,
+    url: urlObject.toString(),
     method,
     statusCode,
     session,
-    headers,
+    headers: {
+      Host: urlObject.host,
+      ...headers,
+    },
   });
 
   // Some functions we call in the implementations will perform checks for `req.encrypted`, which delegates to the socket.
   // MockRequest doesn't set a fake socket itself, so we create one here.
   req.socket = new stream.Duplex() as any;
+  Object.defineProperty(req.socket, 'encrypted', {
+    writable: false,
+    value: urlObject.protocol === 'https:',
+  });
 
   const res = httpMocks.createResponse();
 
@@ -84,7 +76,6 @@ export default function createContext(options: Options = {}): MockContext {
   res.set = undefined as any;
 
   const context = app.createContext(req, res) as Context;
-
   context.cookies = createMockCookies(cookies);
 
   return context as any;
