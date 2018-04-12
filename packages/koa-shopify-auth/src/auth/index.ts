@@ -31,3 +31,5 @@ export default function createShopifyAuth(options: Options) {
     }
   };
 }
+
+export {default as validateHMAC} from './validate-hmac';
