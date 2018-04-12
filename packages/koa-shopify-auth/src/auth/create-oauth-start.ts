@@ -14,7 +14,7 @@ export default function createOAuthStart({
   return function oAuthStart(ctx: Context) {
     const {query, host, path} = ctx;
     const {shop} = query;
-    console.log(host);
+
     if (shop == null) {
       ctx.throw(400, 'Expected a shop query parameter');
       return;

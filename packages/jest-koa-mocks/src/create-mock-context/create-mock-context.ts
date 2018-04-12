@@ -55,6 +55,7 @@ export default function createContext(options: Options = {}): MockContext {
     statusCode,
     session,
     headers: {
+      // Koa determines protocol based on the `Host` header.
       Host: urlObject.host,
       ...headers,
     },

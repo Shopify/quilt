@@ -60,7 +60,7 @@ describe('OAuthStart', () => {
     });
 
     const ctx = createMockContext({
-      url: 'myapp.com/auth?shop=shop1.myshopify.io',
+      url: 'https://myapp.com/auth?shop=shop1.myshopify.io',
     });
 
     oAuthStart(ctx);
