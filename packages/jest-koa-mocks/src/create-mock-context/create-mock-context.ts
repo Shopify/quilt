@@ -1,3 +1,4 @@
+import {URL} from 'url';
 import httpMocks, {RequestMethod} from 'node-mocks-http';
 import stream from 'stream';
 import Koa, {Context} from 'koa';
@@ -27,7 +28,7 @@ export default function createContext(options: Options = {}): MockContext {
   app.proxy = true;
 
   const {
-    url,
+    url = '',
     cookies,
     method,
     statusCode,
@@ -35,11 +36,33 @@ export default function createContext(options: Options = {}): MockContext {
     headers,
     ...customFields
   } = options;
+
   const extensions = {...customFields, session};
 
   Object.keys(extensions).forEach(key => {
     app.context[key] = extensions[key];
   });
+
+  // eslint-disable
+  const urlObject = new URL(url);
+  Object.defineProperty(app.context, 'originalUrl', {
+    value: urlObject.href,
+    writable: true,
+  });
+  Object.defineProperty(app.context, 'path', {
+    value: urlObject.pathname,
+    writable: true,
+  });
+  Object.defineProperty(app.context, 'host', {
+    value: urlObject.host,
+    writable: true,
+  });
+  Object.defineProperty(app.context, 'protocol', {
+    value: urlObject.protocol,
+    writable: true,
+  });
+
+  console.log('you for real totally have the new version');
 
   const req = httpMocks.createRequest({
     url,

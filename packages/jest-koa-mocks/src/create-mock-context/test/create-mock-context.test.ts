@@ -1,9 +1,11 @@
 import createContext from '../create-mock-context';
 
+const STORE_URL = 'http://mystore.com/admin';
+
 describe('create-mock-context', () => {
   it('includes custom method and url', () => {
     const method = 'PUT';
-    const url = 'http://mystore.com/admin';
+    const url = STORE_URL;
     const context = createContext({method, url});
 
     expect(context.method).toBe(method);
@@ -15,7 +17,10 @@ describe('create-mock-context', () => {
       test: '1',
     };
 
-    const context = createContext({cookies});
+    const context = createContext({
+      url: STORE_URL,
+      cookies,
+    });
 
     expect(context.cookies.requestStore.get('test')).toBe(cookies.test);
   });
@@ -24,7 +29,11 @@ describe('create-mock-context', () => {
     const session = {
       shop: 'shop1',
     };
-    const context = createContext({session});
+
+    const context = createContext({
+      url: STORE_URL,
+      session,
+    });
 
     expect(context.session.shop).toBe(session.shop);
   });
@@ -35,6 +44,7 @@ describe('create-mock-context', () => {
     };
 
     const context = createContext({
+      url: STORE_URL,
       headers,
     });
 
@@ -47,6 +57,7 @@ describe('create-mock-context', () => {
     };
 
     const context = createContext({
+      url: STORE_URL,
       state,
     });
 
@@ -55,7 +66,10 @@ describe('create-mock-context', () => {
 
   it('supports arbitrary custom properties', () => {
     const totallyNotARegularProperty = '👌✨';
-    const context = createContext({totallyNotARegularProperty});
+    const context = createContext({
+      url: STORE_URL,
+      totallyNotARegularProperty,
+    });
 
     expect(context.totallyNotARegularProperty).toBe(totallyNotARegularProperty);
   });
