@@ -18,9 +18,9 @@ const baseConfig = {
 
 const queryData = {
   scope: 'write_orders, write_products',
-  // eslint-disable-next-line
+  // eslint-disable-next-line camelcase
   client_id: baseConfig.apiKey,
-  // eslint-disable-next-line
+  // eslint-disable-next-line camelcase
   redirect_uri: `https://${baseUrl}/callback`,
 };
 
@@ -65,7 +65,7 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    // eslint-disable-next-line
+    // eslint-disable-next-line camelcase
     const grantQuery = query({...queryData, 'grant_options[]': 'per-user'});
     expect(ctx.body).toBe(redirectionPage(`${redirectionURL}?${grantQuery}`));
   });
