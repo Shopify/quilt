@@ -94,14 +94,6 @@
     lodash "^4.17.4"
     lodash-decorators "^4.3.5"
 
-"@shopify/jest-dom-mocks@^1.1.0":
-  version "1.1.0"
-  resolved "https://packages.shopify.io/shopify/node/npm/@shopify/jest-dom-mocks/-/jest-dom-mocks-1.1.0.tgz#6f5b8c139054a253b5c19688b0a75fdda97f1062"
-  dependencies:
-    "@shopify/javascript-utilities" "^2.1.0"
-    fetch-mock "^6.3.0"
-    lolex "^2.3.2"
-
 "@shopify/react-apollo@^2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@shopify/react-apollo/-/react-apollo-2.0.7.tgz#24063768881467c721c30b8d00ed5401da37fece"
