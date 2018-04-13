@@ -22,6 +22,19 @@ export const sessionStorage = new Storage();
 
 export const timer = new Timer();
 
+export function installMockStorage() {
+  if (typeof window !== 'undefined') {
+    Object.defineProperties(window, {
+      localStorage: {
+        value: localStorage,
+      },
+      sessionStorage: {
+        value: sessionStorage,
+      },
+    });
+  }
+}
+
 const mocksToEnsureReset = {
   clock,
   location,
