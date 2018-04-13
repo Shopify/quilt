@@ -22,35 +22,22 @@ export const sessionStorage = new Storage();
 
 export const timer = new Timer();
 
+const mocksToEnsureReset = {
+  clock,
+  location,
+  timer,
+  animationFrame,
+  fetch,
+  matchMedia,
+};
+
 export function ensureMocksReset() {
-  if (clock.isMocked()) {
-    throw new Error(
-      'You did not reset the mocked clock. Make sure to call clock.restore() after your tests have run.',
-    );
-  }
-
-  if (location.isMocked()) {
-    throw new Error(
-      'You did not reset the mocked location. Make sure to call location.restore after your tests have run.',
-    );
-  }
-
-  if (timer.isMocked()) {
-    throw new Error(
-      'You did not reset the mocked timers. Make sure to call timer.restore() after your tests have run.',
-    );
-  }
-
-  if (animationFrame.isMocked()) {
-    throw new Error(
-      'You did not reset the mocked animation frame. Make sure to call animationFrame.restore() after your tests have run.',
-    );
-  }
-
-  if (fetch.isMocked()) {
-    throw new Error(
-      'You did not reset the mocked fetch. Make sure to call fetchMock.restore() after your tests have run.',
-    );
+  for (const mockName of Object.keys(mocksToEnsureReset)) {
+    if (mocksToEnsureReset[mockName].isMocked()) {
+      throw new Error(
+        `You did not reset the mocked ${mockName}. Make sure to call ${mockName}.restore() after your tests have run.`,
+      );
+    }
   }
 
   localStorage.restore();
