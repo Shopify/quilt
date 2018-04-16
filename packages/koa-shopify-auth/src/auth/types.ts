@@ -1,10 +1,12 @@
 import {Context} from 'koa';
 
+export type AccessMode = 'online' | 'offline';
+
 export interface AuthConfig {
   secret: string;
   apiKey: string;
-  accessMode: 'online' | 'offline';
-  afterAuth(ctx: Context): void;
+  accessMode?: 'online' | 'offline';
+  afterAuth?(ctx: Context): void;
 }
 
 export interface Options extends AuthConfig {

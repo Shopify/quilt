@@ -1,39 +1,34 @@
 import {Context} from 'koa';
 import querystring from 'querystring';
-import crypto from 'crypto';
 
 import {AuthConfig} from './types';
+import validateHmac from './validate-hmac';
+
+export const HMAC_INVALID = 'HMAC validation failed';
+export const FETCH_ERROR = 'Could not fetch access token';
+export const SHOP_PARAM_MISSING = 'Expected a shop query parameter';
 
 export default function createOAuthCallback(config: AuthConfig) {
   return async function oAuthCallback(ctx: Context) {
     const {query} = ctx;
     const {code, hmac, shop} = query;
+    const {apiKey, secret, afterAuth} = config;
 
-    const map = {...query};
-    delete map.signature;
-    delete map.hmac;
-
-    const message = querystring.stringify(map);
-    const generatedHash = crypto
-      .createHmac('sha256', config.secret)
-      .update(message)
-      .digest('hex');
-
-    if (generatedHash !== hmac) {
-      ctx.throw(400, 'HMAC validation failed');
+    if (shop == null) {
+      ctx.throw(400, SHOP_PARAM_MISSING);
       return;
     }
 
-    if (shop == null) {
-      ctx.throw(400, 'Expected a shop query parameter');
+    if (validateHmac(hmac, query, secret) === false) {
+      ctx.throw(400, HMAC_INVALID);
       return;
     }
 
     /* eslint-disable camelcase */
     const accessTokenQuery = querystring.stringify({
       code,
-      client_id: config.apiKey,
-      client_secret: config.secret,
+      client_id: apiKey,
+      client_secret: secret,
     });
     /* eslint-enable camelcase */
 
@@ -50,7 +45,7 @@ export default function createOAuthCallback(config: AuthConfig) {
     );
 
     if (!accessTokenResponse.ok) {
-      ctx.throw(401, 'Could not fetch access token');
+      ctx.throw(401, FETCH_ERROR);
       return;
     }
 
@@ -65,6 +60,8 @@ export default function createOAuthCallback(config: AuthConfig) {
     ctx.state.shop = shop;
     ctx.state.accessToken = accessToken;
 
-    await config.afterAuth(ctx);
+    if (afterAuth) {
+      await afterAuth(ctx);
+    }
   };
 }
