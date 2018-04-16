@@ -15,6 +15,7 @@
   "author": "Shopify Inc.",
   "dependencies": {
     "@shopify/javascript-utilities": "^2.1.0",
+    "@types/fetch-mock": "^6.0.1",
     "fetch-mock": "^6.3.0",
     "lolex": "^2.3.2"
   },
