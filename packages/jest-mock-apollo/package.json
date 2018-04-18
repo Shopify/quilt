@@ -17,7 +17,7 @@
     "apollo-cache-inmemory": "^1.1.12",
     "apollo-client": "^2.2.8",
     "apollo-link": "^1.2.1",
-    "graphql": "0.11 - 0.13",
+    "graphql": "^0.13.2",
     "graphql-tool-utilities": "^0.6.2"
   },
   "devDependencies": {
