@@ -10,10 +10,17 @@ $ yarn add @shopify/jest-dom-mocks
 
 ## Setup
 
-This package provides a method, `ensureMocksReset`, which should be called in the `beforeEach` method of the jest `each-test` setup file. For example:
+This package provides two methods that should be included in the jest setup files:
+
+* `ensureMocksReset`
+* `installMockStorage`
+
+### `ensureMocksReset`
+
+Should be called in the `beforeEach` method of the jest `each-test` setup file. For example:
 
 ```ts
-import { ensureMocksReset } from "@shopify/jest-dom-mocks";
+import {ensureMocksReset} from '@shopify/jest-dom-mocks';
 
 beforeEach(() => {
   ensureMocksReset();
@@ -22,30 +29,42 @@ beforeEach(() => {
 
 this will ensure that appropriate error messages are shown if a DOM object is mocked without beign restored for the next test.
 
+### `installMockStorage`
+
+Should be called in the jest `setup` file. For example:
+
+```ts
+import {installMockStorage} from '@shopify/jest-dom-mocks';
+
+installMockStorage();
+```
+
+this will install the `localStorage` and `sessionStorage` mocks onto the global `window` object.
+
 ## Example Usage
 
 In this example, we are testing a `NumberTransitioner` component using `Jest` and `Enzyme`. Note that parts of this file have been omitted in order to focus in on the relevant parts of the example.
 
 ```ts
-import { clock, animationFrame } from "@shopify/jest-dom-mocks";
+import {clock, animationFrame} from '@shopify/jest-dom-mocks';
 
-it("transitions to the next number after being updated", () => {
+it('transitions to the next number after being updated', () => {
   clock.mock();
   animationFrame.mock();
 
   const duration = 1000;
   const rendered = mount(
-    <NumberTransitioner duration={duration}>{100}</NumberTransitioner>
+    <NumberTransitioner duration={duration}>{100}</NumberTransitioner>,
   );
-  rendered.setProps({ children: 200 });
+  rendered.setProps({children: 200});
 
   clock.tick(duration / 4);
   animationFrame.runFrame();
-  expect(rendered.text()).toBe("125");
+  expect(rendered.text()).toBe('125');
 
   clock.tick(duration / 2);
   animationFrame.runFrame();
-  expect(rendered.text()).toBe("175");
+  expect(rendered.text()).toBe('175');
 
   clock.restore();
   animationFrame.restore();
@@ -54,4 +73,122 @@ it("transitions to the next number after being updated", () => {
 
 ## API Reference
 
-See the comments and TypeScript annotations in the code for details on the provided utilities.
+The mocks provided can be divided into 3 primary categories:
+
+* standard mocks
+* fetch mock
+* storage mocks
+
+### Standard Mocks
+
+The following standard mocks are available:
+
+* `animationFrame`
+* `clock`
+* `location`
+* `matchMedia`
+* `timer`
+
+Each of the standard mocks can be installed, for a given test, using `standardMock.mock()`, and must be restored before the end of the test using `standardMock.restore()`.
+
+For example:
+
+```ts
+import {location} from '@shopify/jest-dom-mocks';
+
+beforeEach(() => {
+  location.mock();
+});
+
+afterEach(() => {
+  location.restore();
+});
+
+it('does a thing', () => {
+  // run test code here
+});
+```
+
+Or, if you just need to mock something for a single test:
+
+```ts
+import {location} from '@shopify/jest-dom-mocks';
+
+it('does a thing', () => {
+  location.mock();
+
+  // run test code here
+
+  location.restore();
+});
+```
+
+Some of the standard mocks include additional features:
+
+#### `AnimationFrame.runFrame(): void`
+
+Executes all queued animation callbacks.
+
+#### `Clock.mock(now: number | Date): void`
+
+In addition to the usual `.mock()` functionality (with no arguments), the `Clock` object can be `mock`ed by passing in a `number` or `Date` object to use as the current system time.
+
+#### `Clock.tick(time: number): void`
+
+Ticks the mocked `Clock` ahead by `time` milliseconds.
+
+#### `Clock.setTime(time: number): void`
+
+Sets the system time to the given `time`.
+
+#### `MatchMedia.mock(media?: MediaMatching): void`
+
+In addition to the usual `.mock()` functionality (with no arguments), the `MatchMedia` object can be `mock`ed by passing in a `MediaMatching` function to use as the implementation.
+
+The `MediaMatching` function has the following interface:
+
+```ts
+interface MediaMatching {
+  (mediaQuery: string): Partial<MediaQueryList>;
+}
+```
+
+it takes a `mediaQuery` string as input and returns a partial `MediaQueryList` to use as the result of `window.matchMedia(mediaQuery)`. The partial result will be merged with the default values:
+
+```ts
+{
+  media: '',
+  addListener: noop,
+  removeListener: noop,
+  matches: false
+}
+```
+
+#### `MatchMedia.setMedia(media?: MediaMatching): void`
+
+Sets the implementation function for the mocked `MatchMedia` object. see above (`MatchMedia.mock(media?: MediaMatching): void`) for details on how `MediaMatching` works.
+
+You can also call `setMedia` with no arguments to restore the default implementation.
+
+#### `Timer.runAllTimers(): void`
+
+Runs all system timers to completion.
+
+#### `Timer.runTimersToTime(time: number): void`
+
+Runs all system timers to the given `time`.
+
+### Fetch Mock
+
+We use a version of `fetch-mock` that is augmented to ensure that it is properly unmocked after each test run. See the [API of `fetch-mock`](http://www.wheresrhys.co.uk/fetch-mock/api) for more details.
+
+### Storage mock
+
+The storage mocks are a bit different than the other mocks, because they serve primarily as a polyfill for the `localStorage` and `sessionStorage` APIs. The following standard API methods are implemented:
+
+* `getItem`
+* `setItem`
+* `removeItrem`
+* `clear`
+
+Each of these are wrapped in a jest spy, which is automatically restored at the end of the test run.
