@@ -22,6 +22,7 @@
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.0.1",
     "@types/safe-compare": "^1.1.0",
+    "nonce": "^1.0.4",
     "typescript": "~2.7.2"
   }
 }
