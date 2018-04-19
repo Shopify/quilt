@@ -13,10 +13,14 @@
   },
   "author": "Shopify Inc.",
   "dependencies": {
+    "@shopify/jest-koa-mocks": "^1.0.4",
     "@types/koa": "^2.0.44",
-    "koa": "^2.5.0"
+    "koa": "^2.5.0",
+    "safe-compare": "^1.1.2"
   },
   "devDependencies": {
+    "@shopify/jest-dom-mocks": "^2.0.0-0",
+    "@types/safe-compare": "^1.1.0",
     "typescript": "~2.7.2"
   }
 }

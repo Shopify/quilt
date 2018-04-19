@@ -29,7 +29,7 @@ This function allows you to create fully stubbable koa contexts for your tests. 
 
 ```typescript
 import SillyViewCounterMiddleware from '../silly-view-counter';
-import {createContext} from 'jest-koa-mocks';
+import {createMockContext} from '@shopify/jest-koa-mocks';
 
 describe('silly-view-counter', () => {
   it('iterates and displays new ctx.state.views', async () => {
