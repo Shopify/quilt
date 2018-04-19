@@ -10,9 +10,8 @@
     "publish": "lerna publish",
     "prebuild": "yarn run clean",
     "build": "lerna run build",
-    "lint": "yarn eslint **/*.{ts,tsx} ",
-    "pretest": "yarn build",
-    "test": "jest",
+    "lint": "yarn eslint '**/*.{ts,tsx}'",
+    "test": "jest --maxWorkers=3",
     "check": "lerna run check",
     "release": "lerna publish && git push --follow-tags",
     "clean": "rimraf './packages/**/*.{js,d.ts}'",
@@ -47,7 +46,8 @@
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.4.2",
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "isomorphic-fetch": "^2.2.1"
   },
   "jest": {
     "setupFiles": [
@@ -63,5 +63,7 @@
       "\\.(gql|graphql)$": "jest-transform-graphql"
     },
     "testRegex": ".*\\.test\\.tsx?$"
+  },
+  "dependencies": {
   }
 }
