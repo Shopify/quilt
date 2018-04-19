@@ -63,6 +63,17 @@ describe('OAuthStart', () => {
     );
   });
 
+  it('sets nonce cookie', () => {
+    const oAuthStart = createOAuthStart(baseConfig);
+    const ctx = createMockContext({
+      url: `https://${baseUrl}?${query({shop})}`,
+    });
+
+    oAuthStart(ctx);
+
+    expect(ctx.cookies.set).toBeCalledWith('nonce', fakeNonce);
+  });
+
   it('redirect page includes per-user grant for accessMode: online', () => {
     const oAuthStart = createOAuthStart({
       ...baseConfig,
