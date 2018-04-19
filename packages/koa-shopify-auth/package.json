@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "publishConfig": {
     "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
   },
