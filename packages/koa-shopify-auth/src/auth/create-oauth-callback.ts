@@ -8,10 +8,10 @@ import validateHmac from './validate-hmac';
 export default function createOAuthCallback(config: AuthConfig) {
   return async function oAuthCallback(ctx: Context) {
     const {query, cookies} = ctx;
-    const {code, hmac, shop, nonce} = query;
+    const {code, hmac, shop, state: nonce} = query;
     const {apiKey, secret, afterAuth} = config;
 
-    if (nonce == null || cookies.get('nonce') !== nonce) {
+    if (nonce == null || cookies.get('shopifyNonce') !== nonce) {
       ctx.throw(403, Error.NonceMatchFailed);
     }
 

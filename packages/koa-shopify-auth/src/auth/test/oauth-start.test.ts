@@ -24,7 +24,7 @@ const baseConfig = {
 };
 
 const queryData = {
-  nonce: fakeNonce,
+  state: fakeNonce,
   scope: 'write_orders, write_products',
   // eslint-disable-next-line camelcase
   client_id: baseConfig.apiKey,
@@ -71,7 +71,7 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    expect(ctx.cookies.set).toBeCalledWith('nonce', fakeNonce);
+    expect(ctx.cookies.set).toBeCalledWith('shopifyNonce', fakeNonce);
   });
 
   it('redirect page includes per-user grant for accessMode: online', () => {

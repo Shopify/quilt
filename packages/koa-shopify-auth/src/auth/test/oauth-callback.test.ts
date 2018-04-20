@@ -17,7 +17,7 @@ const baseConfig: AuthConfig = {
 const nonce = 'totallyrealnonce';
 
 const queryData = {
-  nonce,
+  state: nonce,
   shop: 'shop1.myshopify.io',
   hmac: 'abc',
   code: 'def',
@@ -160,7 +160,7 @@ describe('OAuthCallback', () => {
     const oAuthCallback = createOAuthCallback(baseConfig);
     const ctx = createMockContext({
       url: `${baseUrl}?${querystring.stringify(queryData)}`,
-      cookies: {nonce},
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
@@ -212,7 +212,7 @@ describe('OAuthCallback', () => {
     const ctx = createMockContext({
       url: `${baseUrl}?${querystring.stringify(queryData)}`,
       session: {},
-      cookies: {nonce},
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
@@ -233,7 +233,7 @@ describe('OAuthCallback', () => {
     const ctx = createMockContext({
       url: `${baseUrl}?${querystring.stringify(queryData)}`,
       session: {},
-      cookies: {nonce},
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
@@ -257,7 +257,7 @@ describe('OAuthCallback', () => {
 
     const ctx = createMockContext({
       url: `${baseUrl}?${querystring.stringify(queryData)}`,
-      cookies: {nonce},
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
