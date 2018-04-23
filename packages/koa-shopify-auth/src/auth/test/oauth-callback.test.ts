@@ -3,7 +3,7 @@ import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createOAuthCallback from '../create-oauth-callback';
-import {AuthConfig} from '../types';
+import {AuthConfig} from '../../types';
 import Error from '../errors';
 
 jest.mock('../validate-hmac', () => jest.fn(() => true));

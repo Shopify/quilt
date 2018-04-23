@@ -9,7 +9,11 @@ export interface AuthConfig {
   afterAuth?(ctx: Context): void;
 }
 
-export interface Options extends AuthConfig {
+export interface OAuthStartOptions extends AuthConfig {
   prefix?: string;
   scopes?: string[];
+}
+
+export interface NextFunction {
+  (): any;
 }
