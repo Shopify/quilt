@@ -17,12 +17,12 @@
     "@shopify/jest-koa-mocks": "^1.0.6",
     "@types/koa": "^2.0.44",
     "koa": "^2.5.0",
+    "nonce": "^1.0.4",
     "safe-compare": "^1.1.2"
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.0.1",
     "@types/safe-compare": "^1.1.0",
-    "nonce": "^1.0.4",
     "typescript": "~2.7.2"
   }
 }
