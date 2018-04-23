@@ -20,7 +20,7 @@ export default function createOAuthCallback(config: AuthConfig) {
       return;
     }
 
-    if (validateHmac(hmac, query, secret) === false) {
+    if (validateHmac(hmac, secret, query) === false) {
       ctx.throw(400, Error.InvalidHMAC);
       return;
     }
