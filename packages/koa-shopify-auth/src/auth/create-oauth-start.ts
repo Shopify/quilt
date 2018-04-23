@@ -1,9 +1,12 @@
 import {Context} from 'koa';
 import querystring from 'querystring';
+import nonce from 'nonce';
 
 import redirectionPage from './redirection-page';
 import {Options} from './types';
 import Error from './errors';
+
+const createNonce = nonce();
 
 export default function createOAuthStart({
   scopes = [],
@@ -11,7 +14,7 @@ export default function createOAuthStart({
   accessMode,
 }: Options) {
   return function oAuthStart(ctx: Context) {
-    const {query, host, path} = ctx;
+    const {query, host, path, cookies} = ctx;
     const {shop} = query;
 
     if (shop == null) {
@@ -19,8 +22,12 @@ export default function createOAuthStart({
       return;
     }
 
+    const requestNonce = createNonce();
+    cookies.set('shopifyNonce', requestNonce);
+
     /* eslint-disable camelcase */
     const redirectParams = {
+      state: requestNonce,
       scope: scopes.join(' '),
       client_id: apiKey,
       redirect_uri: `https://${host}${path}/callback`,

@@ -7,9 +7,13 @@ import validateHmac from './validate-hmac';
 
 export default function createOAuthCallback(config: AuthConfig) {
   return async function oAuthCallback(ctx: Context) {
-    const {query} = ctx;
-    const {code, hmac, shop} = query;
+    const {query, cookies} = ctx;
+    const {code, hmac, shop, state: nonce} = query;
     const {apiKey, secret, afterAuth} = config;
+
+    if (nonce == null || cookies.get('shopifyNonce') !== nonce) {
+      ctx.throw(403, Error.NonceMatchFailed);
+    }
 
     if (shop == null) {
       ctx.throw(400, Error.ShopParamMissing);
@@ -42,7 +46,7 @@ export default function createOAuthCallback(config: AuthConfig) {
     );
 
     if (!accessTokenResponse.ok) {
-      ctx.throw(401, Error.AccessTokenError);
+      ctx.throw(401, Error.AccessTokenFetchFailure);
       return;
     }
 

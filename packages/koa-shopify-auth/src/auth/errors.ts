@@ -1,7 +1,8 @@
 enum Error {
   ShopParamMissing = 'Expected a shop query parameter',
   InvalidHMAC = 'HMAC validation failed',
-  AccessTokenError = 'Could not fetch access token',
+  AccessTokenFetchFailure = 'Could not fetch access token',
+  NonceMatchFailed = 'Request origin could not be verified',
 }
 
 export default Error;

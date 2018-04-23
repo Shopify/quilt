@@ -5,8 +5,14 @@ import createOAuthStart from '../create-oauth-start';
 import redirectionPage from '../redirection-page';
 import Error from '../errors';
 
-const query = querystring.stringify.bind(querystring);
+jest.mock('nonce', () => {
+  const fakeFactory = jest.fn();
+  return () => fakeFactory;
+});
+const nonce = require.requireMock('nonce');
 
+const query = querystring.stringify.bind(querystring);
+const fakeNonce = 'fakenonce';
 const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
 const redirectionURL = `https://${shop}/admin/oauth/authorize`;
@@ -18,6 +24,7 @@ const baseConfig = {
 };
 
 const queryData = {
+  state: fakeNonce,
   scope: 'write_orders, write_products',
   // eslint-disable-next-line camelcase
   client_id: baseConfig.apiKey,
@@ -26,6 +33,12 @@ const queryData = {
 };
 
 describe('OAuthStart', () => {
+  beforeEach(() => {
+    const mockedNonce = nonce();
+
+    mockedNonce.mockImplementation(() => fakeNonce);
+  });
+
   it('throws a 400 when no shop query parameter is given', async () => {
     const oAuthStart = createOAuthStart(baseConfig);
     const ctx = createMockContext({
@@ -48,6 +61,17 @@ describe('OAuthStart', () => {
     expect(ctx.body).toBe(
       redirectionPage(`${redirectionURL}?${query(queryData)}`),
     );
+  });
+
+  it('sets nonce cookie', () => {
+    const oAuthStart = createOAuthStart(baseConfig);
+    const ctx = createMockContext({
+      url: `https://${baseUrl}?${query({shop})}`,
+    });
+
+    oAuthStart(ctx);
+
+    expect(ctx.cookies.set).toBeCalledWith('shopifyNonce', fakeNonce);
   });
 
   it('redirect page includes per-user grant for accessMode: online', () => {
