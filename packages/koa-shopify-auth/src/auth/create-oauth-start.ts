@@ -2,8 +2,8 @@ import {Context} from 'koa';
 import querystring from 'querystring';
 import nonce from 'nonce';
 
+import {OAuthStartOptions} from '../types';
 import redirectionPage from './redirection-page';
-import {Options} from './types';
 import Error from './errors';
 
 const createNonce = nonce();
@@ -12,7 +12,7 @@ export default function createOAuthStart({
   scopes = [],
   apiKey,
   accessMode,
-}: Options) {
+}: OAuthStartOptions) {
   return function oAuthStart(ctx: Context) {
     const {query, host, path, cookies} = ctx;
     const {shop} = query;
