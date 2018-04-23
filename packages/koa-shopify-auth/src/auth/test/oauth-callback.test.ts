@@ -14,7 +14,10 @@ const baseConfig: AuthConfig = {
   secret: 'mysecret',
 };
 
+const nonce = 'totallyrealnonce';
+
 const queryData = {
+  state: nonce,
   shop: 'shop1.myshopify.io',
   hmac: 'abc',
   code: 'def',
@@ -67,6 +70,74 @@ describe('OAuthCallback', () => {
     expect(ctx.throw).toBeCalledWith(400, Error.InvalidHMAC);
   });
 
+  it('throws a 403 if no nonce cookie is provided', () => {
+    fetchMock.mock('*', basicResponse);
+
+    const oAuthCallback = createOAuthCallback(baseConfig);
+    const ctx = createMockContext({
+      url: `${baseUrl}?${querystring.stringify(queryData)}`,
+      throw: jest.fn(),
+    });
+
+    oAuthCallback(ctx);
+
+    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
+  });
+
+  it('throws a 403 if no nonce query is present', () => {
+    fetchMock.mock('*', basicResponse);
+
+    const oAuthCallback = createOAuthCallback(baseConfig);
+
+    const query = querystring.stringify({
+      ...queryData,
+      nonce: null,
+    });
+
+    const ctx = createMockContext({
+      url: `${baseUrl}?${query}`,
+      throw: jest.fn(),
+    });
+
+    oAuthCallback(ctx);
+
+    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
+  });
+
+  it('throws a 403 if the nonce query param does not match the cookie', () => {
+    fetchMock.mock('*', basicResponse);
+
+    const oAuthCallback = createOAuthCallback(baseConfig);
+    const ctx = createMockContext({
+      url: `${baseUrl}?${querystring.stringify(queryData)}`,
+      throw: jest.fn(),
+      cookies: {
+        nonce: 'incorrect',
+      },
+    });
+
+    oAuthCallback(ctx);
+
+    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
+  });
+
+  it('throws a 403 if the nonce query param does not match the cookie', () => {
+    fetchMock.mock('*', basicResponse);
+
+    const oAuthCallback = createOAuthCallback(baseConfig);
+    const ctx = createMockContext({
+      url: `${baseUrl}?${querystring.stringify(queryData)}`,
+      throw: jest.fn(),
+      cookies: {
+        nonce: 'incorrect',
+      },
+    });
+
+    oAuthCallback(ctx);
+
+    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
+  });
+
   it('does not throw a 400 when hmac is valid and shop parameter is supplied', async () => {
     fetchMock.mock('*', basicResponse);
 
@@ -89,6 +160,7 @@ describe('OAuthCallback', () => {
     const oAuthCallback = createOAuthCallback(baseConfig);
     const ctx = createMockContext({
       url: `${baseUrl}?${querystring.stringify(queryData)}`,
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
@@ -127,7 +199,7 @@ describe('OAuthCallback', () => {
 
     await oAuthCallback(ctx);
 
-    expect(ctx.throw).toBeCalledWith(401, Error.AccessTokenError);
+    expect(ctx.throw).toBeCalledWith(401, Error.AccessTokenFetchFailure);
   });
 
   it('includes the shop and accessToken on session if the token request succeeds and session exists', async () => {
@@ -140,6 +212,7 @@ describe('OAuthCallback', () => {
     const ctx = createMockContext({
       url: `${baseUrl}?${querystring.stringify(queryData)}`,
       session: {},
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
@@ -160,6 +233,7 @@ describe('OAuthCallback', () => {
     const ctx = createMockContext({
       url: `${baseUrl}?${querystring.stringify(queryData)}`,
       session: {},
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
@@ -180,8 +254,10 @@ describe('OAuthCallback', () => {
       ...baseConfig,
       afterAuth,
     });
+
     const ctx = createMockContext({
-      url: `myapp.com/auth?shop=shop1.myshopify.io&hmac=noreal&code=nothing`,
+      url: `${baseUrl}?${querystring.stringify(queryData)}`,
+      cookies: {shopifyNonce: nonce},
     });
 
     await oAuthCallback(ctx);
