@@ -9,7 +9,7 @@ export interface Options {
 
 export default function createVerifyRequest({
   authRoute = '/auth',
-  fallbackRoute = '/install',
+  fallbackRoute = '/auth',
 }: Options = {}) {
   return async function verifyRequest(ctx: Context, next: NextFunction) {
     const {query: {shop}, session} = ctx;
