@@ -33,7 +33,7 @@ import {createMockContext} from '@shopify/jest-koa-mocks';
 
 describe('silly-view-counter', () => {
   it('iterates and displays new ctx.state.views', async () => {
-    const ctx = createContext({state: {views: 31}});
+    const ctx = createMockContext({state: {views: 31}});
 
     await SillyViewCounterMiddleware(ctx);
 
