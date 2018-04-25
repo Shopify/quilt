@@ -27,7 +27,7 @@ describe('verifyRequest', () => {
     expect(ctx.redirect).toBeCalledWith(`/auth?shop=${shop}`);
   });
 
-  it('redirects to the /install when there is no accessToken or known shop', () => {
+  it('redirects to the /auth when there is no accessToken or known shop', () => {
     const verifyRequest = createVerifyRequest();
 
     const next = jest.fn();
@@ -37,7 +37,7 @@ describe('verifyRequest', () => {
 
     verifyRequest(ctx, next);
 
-    expect(ctx.redirect).toBeCalledWith('/install');
+    expect(ctx.redirect).toBeCalledWith('/auth');
   });
 
   it('redirects to given authRoute if there is no accessToken but shop is present on query', () => {
