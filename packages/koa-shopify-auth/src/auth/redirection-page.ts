@@ -1,4 +1,5 @@
-export default function redirectionScript(redirectTo: string) {
+export default function redirectionScript({origin, path}) {
+  const redirectTo = `${origin}${path}`;
   return `
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function() {
@@ -12,7 +13,7 @@ export default function redirectionScript(redirectTo: string) {
             data: { location: '${redirectTo}' }
           });
 
-          window.parent.postMessage(data, targetInfo.myshopifyUrl);
+          window.parent.postMessage(data, '${origin}');
         }
       });
     </script>
