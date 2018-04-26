@@ -1,0 +1,23 @@
+{
+  "name": "@shopify/react-html",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn run build"
+  },
+  "publishConfig": {
+    "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
+  },
+  "author": "Shopify Inc.",
+  "dependencies": {
+    "@shopify/react-serialize": "^0.1.0",
+    "react-helmet": "^5.2.0"
+  },
+  "devDependencies": {
+    "typescript": "~2.7.2"
+  }
+}
