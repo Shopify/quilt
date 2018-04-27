@@ -1,8 +1,8 @@
 {
   "name": "@shopify/{{name}}",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "license": "MIT",
-  "description": "",
+  "description": "{{description}}",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

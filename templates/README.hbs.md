@@ -1,5 +1,7 @@
 # `@shopify/{{name}}`
 
+{{description}}
+
 ## Installation
 
 ```bash
