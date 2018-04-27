@@ -8,6 +8,11 @@ module.exports = function(plop) {
         name: 'name',
         message: "What should this package's name be? Ex. react-utilities",
       },
+      {
+        type: 'input',
+        name: 'description',
+        message: "What should this package's description be?",
+      },
     ],
     actions: [
       {
