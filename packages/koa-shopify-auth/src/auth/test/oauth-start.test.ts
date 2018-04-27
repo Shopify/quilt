@@ -15,7 +15,8 @@ const query = querystring.stringify.bind(querystring);
 const fakeNonce = 'fakenonce';
 const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
-const redirectionURL = `https://${shop}/admin/oauth/authorize`;
+const shopOrigin = 'https://shop1.myshopify.io';
+const redirectionURL = `/admin/oauth/authorize`;
 
 const baseConfig = {
   apiKey: 'myapikey',
@@ -59,7 +60,10 @@ describe('OAuthStart', () => {
     oAuthStart(ctx);
 
     expect(ctx.body).toBe(
-      redirectionPage(`${redirectionURL}?${query(queryData)}`),
+      redirectionPage({
+        path: `${redirectionURL}?${query(queryData)}`,
+        origin: shopOrigin,
+      }),
     );
   });
 
@@ -88,6 +92,11 @@ describe('OAuthStart', () => {
 
     // eslint-disable-next-line camelcase
     const grantQuery = query({...queryData, 'grant_options[]': 'per-user'});
-    expect(ctx.body).toBe(redirectionPage(`${redirectionURL}?${grantQuery}`));
+    expect(ctx.body).toBe(
+      redirectionPage({
+        path: `${redirectionURL}?${grantQuery}`,
+        origin: shopOrigin,
+      }),
+    );
   });
 });
