@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-auth",
-  "version": "1.2.1",
+  "version": "2.0.0-beta.1",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
   },
   "author": "Shopify Inc.",
   "dependencies": {
-    "@shopify/jest-koa-mocks": "^1.0.6",
+    "@shopify/jest-koa-mocks": "^2.0.0-beta.1",
     "@types/koa": "^2.0.44",
     "koa": "^2.5.0",
     "nonce": "^1.0.4",
