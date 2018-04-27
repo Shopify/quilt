@@ -1,6 +1,6 @@
 {
   "name": "@shopify/with-env",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "A utility for executing code under a specific NODE_ENV.",
   "main": "dist/index.js",
@@ -13,8 +13,6 @@
     "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
   },
   "author": "Shopify Inc.",
-  "dependencies": {
-  },
   "devDependencies": {
     "typescript": "~2.7.2"
   }
