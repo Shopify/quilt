@@ -39,8 +39,9 @@ export default function createOAuthStart({
     }
 
     const formattedQueryString = querystring.stringify(redirectParams);
-    const redirectTo = `https://${shop}/admin/oauth/authorize?${formattedQueryString}`;
-
-    ctx.body = redirectionPage(redirectTo);
+    ctx.body = redirectionPage({
+      origin: `https://${shop}`,
+      path: `/admin/oauth/authorize?${formattedQueryString}`,
+    });
   };
 }
