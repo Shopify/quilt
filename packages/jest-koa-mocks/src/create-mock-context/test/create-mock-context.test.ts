@@ -20,6 +20,30 @@ describe('create-mock-context', () => {
     expect(context.request.body).toBe(requestBody);
   });
 
+  it('supports setting throw and redirect', () => {
+    const throwFn = jest.fn();
+    const redirect = jest.fn();
+
+    const context = createContext({throw: throwFn, redirect});
+
+    expect(context.throw).toBe(throwFn);
+    expect(context.redirect).toBe(redirect);
+  });
+
+  it('defaults throw to a jest fn', () => {
+    const context = createContext();
+    context.throw();
+
+    expect(context.throw).toBeCalled();
+  });
+
+  it('defaults redirect to a jest fn', () => {
+    const context = createContext();
+    context.redirect('');
+
+    expect(context.redirect).toBeCalled();
+  });
+
   it('sets url segment aliases correctly', () => {
     const context = createContext({url: STORE_URL});
 

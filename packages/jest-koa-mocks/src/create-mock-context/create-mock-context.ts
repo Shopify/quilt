@@ -24,6 +24,8 @@ export interface Options<T extends Object> extends Dictionary<any> {
   encrypted?: boolean;
   host?: string;
   requestBody?: any;
+  throw?: Function;
+  redirect?: Function;
   customProperties?: T;
 }
 
@@ -38,14 +40,21 @@ export default function createContext<T>(
     method,
     statusCode,
     session,
+    requestBody,
+    throw: throwFn = jest.fn(),
+    redirect = jest.fn(),
     headers = {},
     encrypted = false,
     host = 'test.com',
-    requestBody,
     customProperties = {},
   } = options;
 
-  const extensions = {...customProperties, session};
+  const extensions = {
+    ...customProperties,
+    throw: throwFn,
+    session,
+    redirect,
+  };
 
   Object.assign(app.context, extensions);
 
