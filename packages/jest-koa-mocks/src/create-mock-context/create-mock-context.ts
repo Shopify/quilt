@@ -14,24 +14,31 @@ export interface MockContext extends Context {
   request: Context['Request'] & {body?: any};
 }
 
-export interface Options<T extends Object> extends Dictionary<any> {
+export interface Options<
+  CustomProperties extends Object,
+  RequestBody = undefined
+> {
   url?: string;
   method?: RequestMethod;
   statusCode?: number;
   session?: Dictionary<any>;
   headers?: Dictionary<string>;
   cookies?: Dictionary<string>;
+  state?: Dictionary<any>;
   encrypted?: boolean;
   host?: string;
-  requestBody?: any;
+  requestBody?: RequestBody;
   throw?: Function;
   redirect?: Function;
-  customProperties?: T;
+  customProperties?: CustomProperties;
 }
 
-export default function createContext<T>(
-  options: Options<T> = {},
-): MockContext & T {
+export default function createContext<
+  CustomProperties,
+  RequestBody = undefined
+>(
+  options: Options<CustomProperties, RequestBody> = {},
+): MockContext & CustomProperties {
   const app = new Koa();
 
   const {
@@ -47,6 +54,7 @@ export default function createContext<T>(
     encrypted = false,
     host = 'test.com',
     customProperties = {},
+    state = {},
   } = options;
 
   const extensions = {
@@ -54,6 +62,7 @@ export default function createContext<T>(
     throw: throwFn,
     session,
     redirect,
+    state,
   };
 
   Object.assign(app.context, extensions);
@@ -87,7 +96,7 @@ export default function createContext<T>(
   // eslint-disable-next-line no-undefined
   res.set = undefined as any;
 
-  const context = app.createContext(req, res) as MockContext & T;
+  const context = app.createContext(req, res) as MockContext & CustomProperties;
   context.cookies = createMockCookies(cookies);
 
   // ctx.request.body is a common enough custom property for middleware to add that it's handy to just support it by default
