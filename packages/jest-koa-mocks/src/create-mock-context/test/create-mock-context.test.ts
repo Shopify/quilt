@@ -1,3 +1,4 @@
+import {Context} from 'koa';
 import createContext from '../create-mock-context';
 
 const STORE_URL = 'http://mystore.com/admin';
@@ -10,6 +11,13 @@ describe('create-mock-context', () => {
 
     expect(context.method).toBe(method);
     expect(context.url).toBe(url);
+  });
+
+  it('includes requestBody on ctx.request', () => {
+    const requestBody = 'Hello I am a body';
+    const context = createContext({requestBody});
+
+    expect(context.request.body).toBe(requestBody);
   });
 
   it('sets url segment aliases correctly', () => {
@@ -136,9 +144,29 @@ describe('create-mock-context', () => {
     const totallyNotARegularProperty = '👌✨';
     const context = createContext({
       url: STORE_URL,
-      totallyNotARegularProperty,
+      customProperties: {totallyNotARegularProperty},
     });
 
     expect(context.totallyNotARegularProperty).toBe(totallyNotARegularProperty);
   });
+
+  it('works in koa middlewares even when passing arbitrary properties', async () => {
+    const foo = 'bar';
+    const context = createContext({
+      url: STORE_URL,
+      customProperties: {foo},
+    });
+    const next = jest.fn();
+
+    await helloWorldMiddleware(context, next);
+
+    expect(next).toBeCalled();
+    expect(context.body).toBe('hello world');
+    expect(context.foo).toBe(foo);
+  });
 });
+
+async function helloWorldMiddleware(ctx: Context, next: Function) {
+  ctx.body = 'hello world';
+  await next();
+}

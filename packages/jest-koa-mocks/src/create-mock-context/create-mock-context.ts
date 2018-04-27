@@ -11,9 +11,10 @@ export interface Dictionary<T> {
 
 export interface MockContext extends Context {
   cookies: MockCookies;
+  request: Context['Request'] & {body?: any};
 }
 
-export interface Options extends Dictionary<any> {
+export interface Options<T extends Object> extends Dictionary<any> {
   url?: string;
   method?: RequestMethod;
   statusCode?: number;
@@ -22,10 +23,13 @@ export interface Options extends Dictionary<any> {
   cookies?: Dictionary<string>;
   encrypted?: boolean;
   host?: string;
-  [key: string]: any;
+  requestBody?: any;
+  customProperties?: T;
 }
 
-export default function createContext(options: Options = {}): MockContext {
+export default function createContext<T>(
+  options: Options<T> = {},
+): MockContext & T {
   const app = new Koa();
 
   const {
@@ -37,14 +41,13 @@ export default function createContext(options: Options = {}): MockContext {
     headers = {},
     encrypted = false,
     host = 'test.com',
-    ...customFields
+    requestBody,
+    customProperties = {},
   } = options;
 
-  const extensions = {...customFields, session};
+  const extensions = {...customProperties, session};
 
-  Object.keys(extensions).forEach(key => {
-    app.context[key] = extensions[key];
-  });
+  Object.assign(app.context, extensions);
 
   const protocolFallback = encrypted ? 'https' : 'http';
   const urlObject = new URL(url, `${protocolFallback}://${host}`);
@@ -70,14 +73,16 @@ export default function createContext(options: Options = {}): MockContext {
   });
 
   const res = httpMocks.createResponse();
-
   // This is to get around an odd behavior in the `cookies` library, where if `res.set` is defined, it will use an internal
   // node function to set headers, which results in them being set in the wrong place.
   // eslint-disable-next-line no-undefined
   res.set = undefined as any;
 
-  const context = app.createContext(req, res) as Context;
+  const context = app.createContext(req, res) as MockContext & T;
   context.cookies = createMockCookies(cookies);
 
-  return context as any;
+  // ctx.request.body is a common enough custom property for middleware to add that it's handy to just support it by default
+  context.request.body = requestBody;
+
+  return context;
 }
