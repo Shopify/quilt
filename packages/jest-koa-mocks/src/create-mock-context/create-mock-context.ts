@@ -42,19 +42,19 @@ export default function createContext<
   const app = new Koa();
 
   const {
-    url = '',
     cookies,
     method,
     statusCode,
     session,
     requestBody,
+    url = '',
+    host = 'test.com',
+    encrypted = false,
     throw: throwFn = jest.fn(),
     redirect = jest.fn(),
     headers = {},
-    encrypted = false,
-    host = 'test.com',
-    customProperties = {},
     state = {},
+    customProperties = {},
   } = options;
 
   const extensions = {
