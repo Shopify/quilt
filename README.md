@@ -18,6 +18,7 @@ This package uses a monorepo approach. Links to individual packages can be found
 | `jest-mock-router` | [README](packages/jest-mock-router/README.md)                                            | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-mock-router.svg)](https://badge.fury.io/js/%40shopify%2Fjest-mock-router) |
 | `jest-koa-mocks`   | [README](https://github.com/Shopify/quilt/blob/master/packages/jest-koa-mocks/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks)     |
 | `koa-shopify-auth` | [README](packages/koa-shopify-auth/README.md)                                            | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth) |
+| `with-env`         | [README](packages/with-env/README.md)                                                    | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
 
 ## Contribute
 
