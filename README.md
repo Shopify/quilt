@@ -20,7 +20,7 @@ This package uses a monorepo approach. Links to individual packages can be found
 | `koa-shopify-auth` | [README](packages/koa-shopify-auth/README.md)                                            | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth) |
 | `with-env`         | [README](packages/with-env/README.md)                                                    | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env)                 |
 | `react-serialize`  | [README](packages/react-serialize/README.md)                                             | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-serialize.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize)   |
-| `react-html`       | [README](packages/react-html/README.md)                                                  | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize)        |
+| `react-html`       | [README](packages/react-html/README.md)                                                  | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)             |
 
 ## Contribute
 
