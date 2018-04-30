@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublish": "yarn run build"
+    "prepublishOnly": "yarn run build"
   },
   "author": "Shopify Inc.",
   "devDependencies": {
