@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {HelmetData} from 'react-helmet';
+import Helmet from 'react-helmet';
+import {renderToString} from 'react-dom/server';
 import {Serializer} from '@shopify/react-serialize';
 import {Script, Style} from './components';
 
@@ -25,8 +26,7 @@ export interface Browser {
 }
 
 export interface Props {
-  markup: string;
-  helmet?: HelmetData;
+  children?: React.ReactNode;
   initialApolloData?: {[key: string]: any};
   initialReduxState?: {[key: string]: any};
   requestDetails?: {[key: string]: any};
@@ -39,8 +39,7 @@ export interface Props {
 }
 
 export default function HTML({
-  markup,
-  helmet,
+  children = '',
   browser,
   initialApolloData,
   initialReduxState,
@@ -51,6 +50,9 @@ export default function HTML({
   styles = [],
   error,
 }: Props) {
+  const markup = renderToString(children);
+  const helmet = Helmet.renderStatic();
+
   const htmlAttributes = helmet.htmlAttributes.toComponent();
   const bodyAttributes = helmet.bodyAttributes.toComponent();
 

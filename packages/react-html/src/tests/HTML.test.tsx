@@ -9,11 +9,21 @@ import withEnv from '@shopify/with-env';
 import {Script, Style} from '../components';
 import HTML, {Props} from '../HTML';
 
-describe('<HTML />', () => {
-  const mockProps: Props = {
-    markup: '',
-    helmet: mockHelmet(),
+jest.mock('react-helmet', () => {
+  return {
+    renderStatic: jest.fn(),
   };
+});
+
+const helmetMock = require.requireMock('react-helmet');
+
+describe('<HTML />', () => {
+  beforeEach(() => {
+    helmetMock.renderStatic.mockReset();
+    helmetMock.renderStatic.mockImplementation(mockHelmet);
+  });
+
+  const mockProps: Props = {};
 
   it('defaults to setting the lang to "en" on the html', () => {
     const html = mount(<HTML {...mockProps} />);
@@ -41,9 +51,9 @@ describe('<HTML />', () => {
     });
   });
 
-  describe('markup', () => {
+  describe('children', () => {
     it('is used as the content of the app host node', () => {
-      const html = mount(<HTML {...mockProps} markup="hello world" />);
+      const html = mount(<HTML {...mockProps}>hello world</HTML>);
       expect(
         html
           .find('div')
@@ -106,46 +116,56 @@ describe('<HTML />', () => {
   describe('helmet', () => {
     it('includes the title component', () => {
       const title = <title>Hello world!</title>;
-      const helmet = mockHelmet({
-        title: mockHelmetData('', title),
-      });
-      const html = mount(<HTML {...mockProps} helmet={helmet} />);
+      helmetMock.renderStatic.mockImplementation(() =>
+        mockHelmet({
+          title: mockHelmetData('', title),
+        }),
+      );
+      const html = mount(<HTML {...mockProps} />);
       expect(html.find('head').contains(title)).toBe(true);
     });
 
     it('includes the meta component', () => {
       const meta = <meta content="Hello world" />;
-      const helmet = mockHelmet({
-        meta: mockHelmetData('', meta),
-      });
-      const html = mount(<HTML {...mockProps} helmet={helmet} />);
+      helmetMock.renderStatic.mockImplementation(() =>
+        mockHelmet({
+          meta: mockHelmetData('', meta),
+        }),
+      );
+      const html = mount(<HTML {...mockProps} />);
       expect(html.find('head').contains(meta)).toBe(true);
     });
 
     it('includes the link component', () => {
       const link = <link rel="hello/world" />;
-      const helmet = mockHelmet({
-        link: mockHelmetData('', link),
-      });
-      const html = mount(<HTML {...mockProps} helmet={helmet} />);
+      helmetMock.renderStatic.mockImplementation(() =>
+        mockHelmet({
+          link: mockHelmetData('', link),
+        }),
+      );
+      const html = mount(<HTML {...mockProps} />);
       expect(html.find('head').contains(link)).toBe(true);
     });
 
     it('includes the htmlAttributes', () => {
       const htmlAttributes = {className: 'hello world', 'data-baz': true};
-      const helmet = mockHelmet({
-        htmlAttributes: mockHelmetData('', htmlAttributes),
-      });
-      const html = mount(<HTML {...mockProps} helmet={helmet} />);
+      helmetMock.renderStatic.mockImplementation(() =>
+        mockHelmet({
+          htmlAttributes: mockHelmetData('', htmlAttributes),
+        }),
+      );
+      const html = mount(<HTML {...mockProps} />);
       expect(html.find('html').props()).toMatchObject(htmlAttributes);
     });
 
     it('includes the bodyAttributes', () => {
       const bodyAttributes = {className: 'hello world', 'data-baz': true};
-      const helmet = mockHelmet({
-        bodyAttributes: mockHelmetData('', bodyAttributes),
-      });
-      const html = mount(<HTML {...mockProps} helmet={helmet} />);
+      helmetMock.renderStatic.mockImplementation(() =>
+        mockHelmet({
+          bodyAttributes: mockHelmetData('', bodyAttributes),
+        }),
+      );
+      const html = mount(<HTML {...mockProps} />);
       expect(html.find('body').props()).toMatchObject(bodyAttributes);
     });
   });
