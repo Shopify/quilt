@@ -11,40 +11,61 @@ export interface Dictionary<T> {
 
 export interface MockContext extends Context {
   cookies: MockCookies;
+  request: Context['Request'] & {body?: any};
 }
 
-export interface Options extends Dictionary<any> {
+export interface Options<
+  CustomProperties extends Object,
+  RequestBody = undefined
+> {
   url?: string;
   method?: RequestMethod;
   statusCode?: number;
   session?: Dictionary<any>;
   headers?: Dictionary<string>;
   cookies?: Dictionary<string>;
+  state?: Dictionary<any>;
   encrypted?: boolean;
   host?: string;
-  [key: string]: any;
+  requestBody?: RequestBody;
+  throw?: Function;
+  redirect?: Function;
+  customProperties?: CustomProperties;
 }
 
-export default function createContext(options: Options = {}): MockContext {
+export default function createContext<
+  CustomProperties,
+  RequestBody = undefined
+>(
+  options: Options<CustomProperties, RequestBody> = {},
+): MockContext & CustomProperties {
   const app = new Koa();
 
   const {
-    url = '',
     cookies,
     method,
     statusCode,
     session,
-    headers = {},
-    encrypted = false,
+    requestBody,
+    url = '',
     host = 'test.com',
-    ...customFields
+    encrypted = false,
+    throw: throwFn = jest.fn(),
+    redirect = jest.fn(),
+    headers = {},
+    state = {},
+    customProperties = {},
   } = options;
 
-  const extensions = {...customFields, session};
+  const extensions = {
+    ...customProperties,
+    throw: throwFn,
+    session,
+    redirect,
+    state,
+  };
 
-  Object.keys(extensions).forEach(key => {
-    app.context[key] = extensions[key];
-  });
+  Object.assign(app.context, extensions);
 
   const protocolFallback = encrypted ? 'https' : 'http';
   const urlObject = new URL(url, `${protocolFallback}://${host}`);
@@ -70,14 +91,16 @@ export default function createContext(options: Options = {}): MockContext {
   });
 
   const res = httpMocks.createResponse();
-
   // This is to get around an odd behavior in the `cookies` library, where if `res.set` is defined, it will use an internal
   // node function to set headers, which results in them being set in the wrong place.
   // eslint-disable-next-line no-undefined
   res.set = undefined as any;
 
-  const context = app.createContext(req, res) as Context;
+  const context = app.createContext(req, res) as MockContext & CustomProperties;
   context.cookies = createMockCookies(cookies);
 
-  return context as any;
+  // ctx.request.body is a common enough custom property for middleware to add that it's handy to just support it by default
+  context.request.body = requestBody;
+
+  return context;
 }
