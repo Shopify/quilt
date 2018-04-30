@@ -62,7 +62,10 @@
       "^.+\\.tsx?$": "ts-jest",
       "\\.(gql|graphql)$": "jest-transform-graphql"
     },
-    "testRegex": ".*\\.test\\.tsx?$"
+    "testRegex": ".*\\.test\\.tsx?$",
+    "testEnvironmentOptions": {
+     "url": "http://localhost:3000/"
+    }
   },
   "dependencies": {
   }

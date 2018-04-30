@@ -1,0 +1,23 @@
+{
+  "name": "@shopify/react-shopify-app-route-propagator",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Shopify Inc.",
+  "peerDependencies": {
+    "react": "^16.0.0"
+  },
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "typescript": "~2.7.2"
+  }
+}
