@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {HelmetData} from 'react-helmet';
+import Helmet from 'react-helmet';
+import {renderToString} from 'react-dom/server';
 import {Serializer} from '@shopify/react-serialize';
 import {Script, Style} from './components';
 
@@ -25,32 +26,25 @@ export interface Browser {
 }
 
 export interface Props {
-  markup: string;
-  helmet?: HelmetData;
-  initialApolloData?: {[key: string]: any};
-  initialReduxState?: {[key: string]: any};
-  requestDetails?: {[key: string]: any};
-  browser?: Browser;
+  children?: React.ReactNode;
   styles?: Asset[];
-  translations?: TranslationDictionary;
   synchronousScripts?: Asset[];
   deferedScripts?: Asset[];
-  error?: ErrorLike;
+  headData?: {[id: string]: any};
+  data?: {[id: string]: any};
 }
 
 export default function HTML({
-  markup,
-  helmet,
-  browser,
-  initialApolloData,
-  initialReduxState,
-  requestDetails,
-  translations,
+  children = '',
   deferedScripts = [],
   synchronousScripts = [],
   styles = [],
-  error,
+  data = {},
+  headData = {},
 }: Props) {
+  const markup = renderToString(children);
+  const helmet = Helmet.renderStatic();
+
   const htmlAttributes = helmet.htmlAttributes.toComponent();
   const bodyAttributes = helmet.bodyAttributes.toComponent();
 
@@ -95,28 +89,13 @@ export default function HTML({
       : undefined;
   /* eslint-enable no-process-env, no-undefined */
 
-  // we need to hard-code these in the SSR response head for bugsnag
-  const requestDetailsSerializer = requestDetails ? (
-    <Serializer id="request-details" data={requestDetails} />
-  ) : null;
+  const headDataMarkup = Object.keys(headData).map(id => {
+    return <Serializer key={id} id={id} data={headData[id]} />;
+  });
 
-  const translationsSerializer = translations ? (
-    <Serializer id="translations" data={translations} />
-  ) : null;
-
-  const browserSerializer = browser ? (
-    <Serializer id="browser" data={browser} />
-  ) : null;
-
-  const initialApolloDataSerializer = initialApolloData ? (
-    <Serializer id="initial-apollo-data" data={initialApolloData} />
-  ) : null;
-
-  const initialReduxStateSerializer = initialReduxState ? (
-    <Serializer id="initial-redux-state" data={initialReduxState} />
-  ) : null;
-
-  const errorSerializer = error ? <Serializer id="error" data={error} /> : null;
+  const dataMarkup = Object.keys(data).map(id => {
+    return <Serializer key={id} id={id} data={data[id]} />;
+  });
 
   return (
     <html lang="en" {...htmlAttributes}>
@@ -125,8 +104,8 @@ export default function HTML({
         {helmet.meta.toComponent()}
         {helmet.link.toComponent()}
         {stylesMarkup}
+        {headDataMarkup}
 
-        {requestDetailsSerializer}
         {synchronousScriptsMarkup}
       </head>
 
@@ -137,11 +116,7 @@ export default function HTML({
           dangerouslySetInnerHTML={{__html: markup}}
         />
 
-        {browserSerializer}
-        {initialApolloDataSerializer}
-        {initialReduxStateSerializer}
-        {translationsSerializer}
-        {errorSerializer}
+        {dataMarkup}
 
         {deferedScriptsMarkup}
       </body>
