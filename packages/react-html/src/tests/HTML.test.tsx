@@ -170,29 +170,32 @@ describe('<HTML />', () => {
     });
   });
 
-  describe('requestDetails', () => {
-    const id = 'request-details';
-
-    it('does not have a serializer when no details are provided', () => {
+  describe('headData', () => {
+    it('does not render a serializer when no details are provided', () => {
       const html = mount(<HTML {...mockProps} />);
-      expect(html.find(Serializer).filter({id})).toHaveLength(0);
+      expect(html.find(Serializer)).toHaveLength(0);
     });
 
-    it('is included in a serializer', () => {
-      const requestDetails = {foo: true};
-      const html = mount(
-        <HTML {...mockProps} requestDetails={requestDetails} />,
-      );
-      const serializer = html.find(Serializer).filter({id});
-      expect(serializer.prop('data')).toMatchObject(requestDetails);
+    it('renders a serializer for each key', () => {
+      const data = {
+        requestDetails: {foo: 'bar'},
+        foo: {bar: 'baz'},
+      };
+
+      const html = mount(<HTML {...mockProps} headData={data} />);
+
+      Object.keys(data).forEach(id => {
+        const serializer = html.find(Serializer).filter({id});
+        expect(serializer.prop('data')).toMatchObject(data[id]);
+      });
     });
 
-    it('places the request-details serializer before the sync scripts', () => {
-      const requestDetails = {foo: true};
+    it('renders the serializers in the head before the sync scripts', () => {
+      const headData = {foo: true};
       const html = mount(
         <HTML
           {...mockProps}
-          requestDetails={requestDetails}
+          headData={headData}
           synchronousScripts={[{path: 'foo.js'}]}
         />,
       );
@@ -200,7 +203,7 @@ describe('<HTML />', () => {
 
       const serializerIndex = findIndex(
         headContents,
-        element => element.is(Serializer) && element.is({id}),
+        element => element.is(Serializer) && element.is({id: 'foo'}),
       );
 
       const scriptsIndex = findIndex(headContents, element =>
@@ -211,36 +214,39 @@ describe('<HTML />', () => {
     });
   });
 
-  describe('initialApolloData', () => {
-    const id = 'initial-apollo-data';
-
-    it('does not have a serializer when no data are provided', () => {
+  describe('data', () => {
+    it('does not render a serializer when no details are provided', () => {
       const html = mount(<HTML {...mockProps} />);
-      expect(html.find(Serializer).filter({id})).toHaveLength(0);
+      expect(html.find(Serializer)).toHaveLength(0);
     });
 
-    it('is included in a serializer', () => {
-      const initialApolloData = {foo: true};
-      const html = mount(
-        <HTML {...mockProps} initialApolloData={initialApolloData} />,
-      );
-      const serializer = html.find(Serializer).filter({id});
-      expect(serializer.prop('data')).toMatchObject(initialApolloData);
+    it('renders a serializer for each key', () => {
+      const data = {
+        bar: {
+          first: 1,
+          second: 2,
+        },
+        foo: {
+          bar: 'baz',
+        },
+      };
+      const html = mount(<HTML {...mockProps} data={data} />);
+
+      Object.keys(data).forEach(id => {
+        const serializer = html.find(Serializer).filter({id});
+        expect(serializer.prop('data')).toMatchObject(data[id]);
+      });
     });
 
-    it('places the intial-apollo-data serializer before the defered scripts', () => {
-      const initialApolloData = {foo: true};
+    it('renders the serializers in the body before the defered scripts', () => {
+      const data = {foo: {bar: 'baz'}};
       const html = mount(
-        <HTML
-          {...mockProps}
-          initialApolloData={initialApolloData}
-          deferedScripts={[{path: 'foo.js'}]}
-        />,
+        <HTML {...mockProps} data={data} deferedScripts={[{path: 'foo.js'}]} />,
       );
       const bodyContents = html.find('body').children();
       const serializerIndex = findIndex(
         bodyContents,
-        element => element.is(Serializer) && element.is({id}),
+        element => element.is(Serializer) && element.is({id: 'foo'}),
       );
 
       const scriptsIndex = findIndex(bodyContents, element =>
@@ -248,63 +254,6 @@ describe('<HTML />', () => {
       );
 
       expect(serializerIndex).toBeLessThan(scriptsIndex);
-    });
-  });
-
-  describe('initialReduxState', () => {
-    const id = 'initial-redux-state';
-
-    it('does not have a serializer when no data are provided', () => {
-      const html = mount(<HTML {...mockProps} />);
-      expect(html.find(Serializer).filter({id})).toHaveLength(0);
-    });
-
-    it('is included in a serializer', () => {
-      const initialReduxState = {foo: true};
-      const html = mount(
-        <HTML {...mockProps} initialReduxState={initialReduxState} />,
-      );
-      const serializer = html.find(Serializer).filter({id});
-      expect(serializer.prop('data')).toMatchObject(initialReduxState);
-    });
-
-    it('places the initial-redux-state serializer before the defered scripts', () => {
-      const initialReduxState = {foo: true};
-      const html = mount(
-        <HTML
-          {...mockProps}
-          initialReduxState={initialReduxState}
-          deferedScripts={[{path: 'foo.js'}]}
-        />,
-      );
-      const bodyContents = html.find('body').children();
-
-      const serializerIndex = findIndex(
-        bodyContents,
-        element => element.is(Serializer) && element.is({id}),
-      );
-
-      const scriptsIndex = findIndex(bodyContents, element =>
-        element.is(Script),
-      );
-
-      expect(serializerIndex).toBeLessThan(scriptsIndex);
-    });
-  });
-
-  describe('browser', () => {
-    const id = 'browser';
-
-    it('does not have a serializer when no details are provided', () => {
-      const html = mount(<HTML {...mockProps} />);
-      expect(html.find(Serializer).filter({id})).toHaveLength(0);
-    });
-
-    it('is included in a serializer', () => {
-      const browser = {userAgent: 'something really old', supported: false};
-      const html = mount(<HTML {...mockProps} browser={browser} />);
-      const serializer = html.find(Serializer).filter({id});
-      expect(serializer.prop('data')).toMatchObject(browser);
     });
   });
 });
