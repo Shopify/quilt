@@ -10,7 +10,7 @@
     "prepublish": "yarn run build"
   },
   "publishConfig": {
-    "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
+    "access": "public"
   },
   "author": "Shopify Inc.",
   "dependencies": {
