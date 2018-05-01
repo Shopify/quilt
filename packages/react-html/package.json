@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
   },
   "author": "Shopify Inc.",
   "dependencies": {
-    "@shopify/react-serialize": "^0.1.0",
+    "@shopify/react-serialize": "^1.0.0",
     "@types/react-helmet": "^5.0.6",
     "react-helmet": "^5.2.0"
   },
