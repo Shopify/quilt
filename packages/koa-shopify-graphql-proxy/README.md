@@ -10,11 +10,11 @@ $ yarn add @shopify/koa-shopify-graphql-proxy
 
 ## Usage
 
-The module exports a single function which returns a proxy middleware. It expects that you have other middleware set up (such as [koa-shopify-auth](https://github.com/Shopify/quilt/tree/master/packages/koa-shopify-auth)) to authenticate requests with Shopify, and have session data stored on `ctx.session`.
+The module exports a proxy middleware as it's default export. It expects that you have other middleware set up (such as [koa-shopify-auth](https://github.com/Shopify/quilt/tree/master/packages/koa-shopify-auth)) to authenticate requests with Shopify, and have session data stored on `ctx.session`.
 
 ### Basic
 
-Attaching the middleware with no arguments will proxy any requests sent to `/api/shopify` on your app to the current logged in shop found in session.
+Attaching the middleware will proxy any requests sent to `/graphql` on your app to the current logged in shop found in session.
 
 ```javascript
 // server/index.js
