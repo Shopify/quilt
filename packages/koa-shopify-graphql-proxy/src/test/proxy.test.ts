@@ -19,6 +19,7 @@ describe('koa-shopify-graphql-proxy', () => {
   it('throws when no session is provided', async () => {
     const ctx: SessionContext = createMockContext({
       url: PROXY_BASE_PATH,
+      method: 'POST',
       throw: jest.fn(),
     }) as any;
 
@@ -30,6 +31,7 @@ describe('koa-shopify-graphql-proxy', () => {
   it('throws when no accessToken is on session', async () => {
     const ctx: SessionContext = createMockContext({
       url: PROXY_BASE_PATH,
+      method: 'POST',
       throw: jest.fn(),
       session: {shop: 'shop1.myshopify.com'},
     }) as any;
@@ -42,6 +44,7 @@ describe('koa-shopify-graphql-proxy', () => {
   it('throws when no shop is on session', async () => {
     const ctx: SessionContext = createMockContext({
       url: PROXY_BASE_PATH,
+      method: 'POST',
       throw: jest.fn(),
       session: {accessToken: 'sdfasdf'},
     }) as any;
@@ -49,6 +52,21 @@ describe('koa-shopify-graphql-proxy', () => {
     await koaShopifyGraphQLProxy(ctx, jest.fn());
 
     expect(ctx.throw).toBeCalledWith(403, 'Unauthorized');
+  });
+
+  it('bails and calls next if method is not POST', async () => {
+    const ctx: SessionContext = createMockContext({
+      url: '/graphql',
+      method: 'GET',
+      throw: jest.fn(),
+      session: {accessToken: 'sdfasdf', shop: 'foobarbaz'},
+    }) as any;
+    const next = jest.fn();
+
+    await koaShopifyGraphQLProxy(ctx as any, next);
+
+    expect(next).toBeCalled();
+    expect(proxyFactory).not.toBeCalled();
   });
 
   it('bails and calls next if path does not start with the base url', async () => {
@@ -68,6 +86,7 @@ describe('koa-shopify-graphql-proxy', () => {
   it('does not bail or throw when request is for the graphql api', async () => {
     const ctx: SessionContext = createMockContext({
       url: PROXY_BASE_PATH,
+      method: 'POST',
       throw: jest.fn(),
       session: {accessToken: 'sdfasdf', shop: 'foobarbaz'},
     }) as any;
@@ -85,6 +104,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     const ctx: SessionContext = createMockContext({
       url: PROXY_BASE_PATH,
+      method: 'POST',
       throw: jest.fn(),
       session: {accessToken, shop},
     }) as any;
@@ -96,6 +116,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     expect(config).toMatchObject({
       headers: {
+        'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
       },
       https: true,
@@ -108,6 +129,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     const ctx: SessionContext = createMockContext({
       url: PROXY_BASE_PATH,
+      method: 'POST',
       throw: jest.fn(),
       session: {accessToken: 'sdfasdf', shop},
     }) as any;
@@ -116,5 +138,21 @@ describe('koa-shopify-graphql-proxy', () => {
 
     const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
     expect(proxyReqPathResolver(ctx)).toBe(`https://${shop}${GRAPHQL_PATH}`);
+  });
+
+  it('terminates middleware chain when proxying (does not call next)', async () => {
+    const shop = 'some-shop.myshopify.com';
+
+    const ctx: SessionContext = createMockContext({
+      url: PROXY_BASE_PATH,
+      method: 'POST',
+      throw: jest.fn(),
+      session: {accessToken: 'sdfasdf', shop},
+    }) as any;
+
+    const nextSpy = jest.fn();
+
+    await koaShopifyGraphQLProxy(ctx, nextSpy);
+    expect(nextSpy).not.toBeCalled();
   });
 });
