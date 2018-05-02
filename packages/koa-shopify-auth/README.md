@@ -4,7 +4,7 @@ Middleware to authenticate a [Koa](http://koajs.com/) application with [Shopify]
 
 Sister module to [`@shopify/shopify-express`](https://www.npmjs.com/package/@shopify/shopify-express), but simplified.
 
-Features you might know from the express module like the webhook middleware and proxy will be presented as their [own packages instead](https://www.npmjs.com/package/@shopify/koa-shopify-graphql-proxy).
+Features you might know from the express module like the webhook middleware and proxy will be presented as their [own packages instead](https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-graphql-proxy/README.md).
 
 ## Installation
 
