@@ -1,6 +1,6 @@
 # `@shopify/jest-koa-mocks`
 
-Utilities to easily stub Koa context and cookies. The middleware are aimed to help you write unit tests for your koa middleware without needing to set up any kind of actual server in your test environment. When test writing is easy and fun you'll want to write more tests ✨😎
+Utilities to easily stub Koa context and cookies. The utilities are designed to help you write unit tests for your koa middleware without needing to set up any kind of actual server in your test environment. When test writing is easy and fun you'll want to write more tests. ✨😎
 
 ## Installation
 
