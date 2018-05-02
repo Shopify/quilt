@@ -22,11 +22,11 @@
     "url": "git+https://github.com/TheMallen/lerna-tests.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TheMallen/lerna-tests/issues"
+    "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/TheMallen/lerna-tests#readme",
+  "homepage": "https://github.com/shopify/quilt#readme",
   "private": true,
   "workspaces": [
     "packages/*"
