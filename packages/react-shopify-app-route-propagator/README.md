@@ -1,6 +1,6 @@
 # `@shopify/react-shopify-app-route-propagator`
 
-`<EASDKRoutePropagator />` is a simple component to synchronize a Shopify embedded app's client side routing with the outer iframe host.
+`<ShopifyRoutePropagator />` is a simple component to synchronize a Shopify embedded app's client side routing with the outer iframe host.
 
 The component is quite small and can be used with any routing solution.
 
@@ -27,19 +27,19 @@ export interface Props {
 Allowing you to use it with a string
 
 ```javascript
-<EASDKRoutePropagator location="/foo/bar?thing=true" />
+<ShopifyRoutePropagator location="/foo/bar?thing=true" />
 ```
 
 Or a location object
 
 ```javascript
-<EASDKRoutePropagator location={this.props.location} />
+<ShopifyRoutePropagator location={this.props.location} />
 ```
 
 Or even with `window.location` (though then you will need to make sure it rerenders yourself)
 
 ```javascript
-<EASDKRoutePropagator location={window.location} />
+<ShopifyRoutePropagator location={window.location} />
 ```
 
 ### With React Router (withRouter)
@@ -50,9 +50,9 @@ An easy way to mount the component with minimal configuration in a [react-router
 import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
-import EASDKRoutePropagator from '@shopify/react-shopify-app-route-propagator';
+import ShopifyRoutePropagator from '@shopify/react-shopify-app-route-propagator';
 
-const Propagator = withRouter(EASDKRoutePropagator);
+const Propagator = withRouter(ShopifyRoutePropagator);
 
 export default function() {
   return (
@@ -77,7 +77,7 @@ If you prefer things more explicit you can just get the `location` value to pass
 import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
-import EASDKRoutePropagator from '@shopify/react-shopify-app-route-propagator;
+import ShopifyRoutePropagator from '@shopify/react-shopify-app-route-propagator;
 
 export default function() {
   return (
@@ -85,7 +85,7 @@ export default function() {
       <Route>
         {({location}) => {
           <React.Fragment>
-            <EASDKRoutePropagator location={location} />
+            <ShopifyRoutePropagator location={location} />
             <Switch>
               <Route exact path="/">
               { /* other routes */ }
