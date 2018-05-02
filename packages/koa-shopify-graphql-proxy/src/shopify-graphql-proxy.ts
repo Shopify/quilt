@@ -6,7 +6,7 @@ export interface SessionContext extends Context {
 }
 
 export const PROXY_BASE_PATH = '/graphql';
-export const GRAPHQL_PATH = '/admin/api/graphql';
+export const GRAPHQL_PATH = '/admin/api/graphql.json';
 
 export default async function shopifyGraphQLProxy(
   ctx: SessionContext,
@@ -15,7 +15,7 @@ export default async function shopifyGraphQLProxy(
   const {session = {}} = ctx;
   const {accessToken, shop} = session;
 
-  if (ctx.path !== PROXY_BASE_PATH) {
+  if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
     await next();
     return;
   }
@@ -31,10 +31,22 @@ export default async function shopifyGraphQLProxy(
     // Setting request header here, not response. That's why we don't use ctx.set()
     // proxy middleware will grab this request header
     headers: {
+      'Content-Type': 'application/json',
       'X-Shopify-Access-Token': accessToken,
     },
     proxyReqPathResolver() {
       return `https://${shop}${GRAPHQL_PATH}`;
     },
-  })(ctx, next);
+  })(
+    ctx,
+
+    /*
+      We want this middleware to terminate, not fall through to the next in the chain,
+      but sadly it doesn't support not passing a `next` function. To get around this we
+      just pass our own dummy `next` that resolves immediately.
+    */
+    noop,
+  );
 }
+
+async function noop() {}
