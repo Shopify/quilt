@@ -69,7 +69,7 @@ export default function() {
 }
 ```
 
-### With React Router (<Route>)
+### With React Router (`<Route>`)
 
 If you prefer things more explicit you can just get the `location` value to pass in explicitly by using `<Route>`'s children as a render prop.
 
