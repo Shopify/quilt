@@ -14,6 +14,14 @@
     "prepublishOnly": "yarn run build"
   },
   "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/shopify/quilt/packages/jest-dom-mocks/README.md",
   "dependencies": {
     "@shopify/javascript-utilities": "^2.1.0",
     "@types/fetch-mock": "^6.0.1",
