@@ -14,6 +14,14 @@ $ yarn add @shopify/koa-shopify-auth
 
 ## Usage
 
+This package exposes `createShopifyAuth` by default, and `createVerifyRequest` as a named export.
+
+```js
+import createShopifyAuth, {
+  createVerifyRequest,
+} from '@shopify/koa-shopify-auth';
+```
+
 ### createShopifyAuth
 
 Returns an authentication middleware taking up (by default) the routes `/auth` and `/auth/callback`.
@@ -43,7 +51,7 @@ createShopifyAuth({
 
 #### `/auth`
 
-This route starts the oauth process. It expects a `?shop` parameter and will error out if none is present. To install it in a store just go to `/auth?shop=myStoreSubdomain`.
+This route starts the oauth process. It expects a `?shop` parameter and will error out if one is not present. To install it in a store just go to `/auth?shop=myStoreSubdomain`.
 
 ### `/auth/callback`
 
@@ -51,7 +59,7 @@ You should never have to manually go here. This route is purely for shopify to s
 
 ### createVerifyRequest
 
-Returns a middleware to verify requests for before letting them further in the chain.
+Returns a middleware to verify requests before letting them further in the chain.
 
 ```javascript
 app.use(

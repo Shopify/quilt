@@ -1,5 +1,7 @@
 # `@shopify/jest-koa-mocks`
 
+Utilities to easily stub Koa context and cookies. The middleware are aimed to help you write unit tests for your koa middleware without needing to set up any kind of actual server in your test environment. When test writing is easy and fun you'll want to write more tests ✨😎
+
 ## Installation
 
 ```bash
@@ -8,9 +10,17 @@ $ yarn add @shopify/jest-koa-mocks
 
 ## Usage
 
+The module has two named exports, `createMockContext` and `createMockCookies`.
+
+You should usually be able to get away with most unit tests just using `createMockContext`.
+
+```js
+import {createMockContext, createMockCookies} from '@shopify/jest-koa-mocks';
+```
+
 ### createMockContext
 
-This function allows you to create fully stubbable koa contexts for your tests. Using this you can test middleware without actually having to setup an app or http mocks in your tests.
+This function allows you to create fully stubbable koa contexts for your tests.
 
 ```typescript
   export interface Options<
@@ -35,7 +45,7 @@ This function allows you to create fully stubbable koa contexts for your tests. 
   createContext(options: Options)
 ```
 
-#### simple example
+#### Simple example
 
 In the simplest case you call `createMockContext`, run your middleware passing the result in, and then assert against the context objects fields
 
@@ -56,7 +66,7 @@ describe('silly-view-counter', () => {
 });
 ```
 
-#### testing throws and redirects
+#### Testing throws and redirects
 
 `ctx.throw` and `ctx.redirect` are defaulted to `jest.fn()`s, allowing you to easily test that a request has redirected or thrown in your middleware.
 
@@ -83,9 +93,9 @@ describe('password-validator', () => {
 });
 ```
 
-#### testing cookies
+#### Testing cookies
 
-`ctx.cookies` is created using `createMockCookies`.
+`ctx.cookies` is created using [`createMockCookies`](/README.md#createmockcookies).
 
 ```typescript
 import oAuthStart from '../';
@@ -105,7 +115,7 @@ describe('oauthStart', () => {
 });
 ```
 
-#### testing apps using common koa libraries
+#### Testing apps using common koa libraries
 
 `createContext` allows you to pass a `body` and `session` key by default, so you should be able to test applications using the common body parsing or session libraries simply and quickly.
 
@@ -168,7 +178,7 @@ cookies.get('key') !== 'value';
 // => true
 ```
 
-When testing against a mock cokies instance you can either assert against the `set`/`get` functions, or you can check if the appropriate value is in the expected store.
+When testing against a mock cookies instance you can either assert against the `set`/`get` functions, or you can check if the appropriate value is in the expected store.
 
 ```javascript
 cookies.set('foo', 'bar');
