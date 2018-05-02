@@ -37,11 +37,16 @@ export default async function shopifyGraphQLProxy(
     proxyReqPathResolver() {
       return `https://${shop}${GRAPHQL_PATH}`;
     },
+  })(
+    ctx,
 
     /*
       We want this middleware to terminate, not fall through to the next in the chain,
       but sadly it doesn't support not passing a `next` function. To get around this we
       just pass our own dummy `next` that resolves immediately.
     */
-  })(ctx, () => Promise.resolve());
+    noop,
+  );
 }
+
+async function noop() {}
