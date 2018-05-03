@@ -14,6 +14,14 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/shopify/quilt/packages/react-html/README.md",
   "dependencies": {
     "@shopify/react-serialize": "^1.0.2",
     "@types/react-helmet": "^5.0.6",

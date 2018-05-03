@@ -14,6 +14,14 @@
     "prepublishOnly": "yarn run build"
   },
   "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/shopify/quilt/packages/koa-shopify-auth/README.md",
   "dependencies": {
     "@shopify/jest-koa-mocks": "^2.0.4",
     "@types/koa": "^2.0.44",

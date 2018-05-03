@@ -19,9 +19,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheMallen/lerna-tests.git"
+    "url": "git+https://github.com/Shopify/quilt.git"
   },
-  "author": "",
+  "author": "Shopify Inc.",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
