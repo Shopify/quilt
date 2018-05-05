@@ -4,26 +4,37 @@
   "version": "0.7.2",
   "main": "lib/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
   "bin": "./bin/graphql-validate-fixtures",
-  "repository": "https://github.com/lemonmade/graphql-tools/tree/master/packages/graphql-validate-fixtures",
   "tags": [
     "graphql"
   ],
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-typescript-definitions",
   "scripts": {
-    "pretest": "yarn run build",
     "build": "tsc",
-    "prepublish": "in-publish && yarn run build || :"
+    "pretest": "yarn build",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "chalk": "^1.1.3",
-    "fs-extra": "^3.0.1",
+    "chalk": "^2.4.1",
+    "fs-extra": "^6.0.0",
     "glob": "^7.1.2",
-    "graphql": "<1.0.0",
+    "graphql": "0.13.2",
     "graphql-tool-utilities": "^0.6.2",
-    "yargs": "^8.0.1"
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "in-publish": "^2.0.0",
-    "typescript": "^2.3.4"
+    "typescript": "^2.8.3"
   }
 }

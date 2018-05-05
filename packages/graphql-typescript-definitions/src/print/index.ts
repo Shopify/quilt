@@ -165,7 +165,7 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
 }
 
 function printTypenameProperty(
-  type: GraphQLType | GraphQLType[],
+  type: GraphQLType | ReadonlyArray<GraphQLType>,
   key: string,
   generator: CodeGenerator,
   context: Context,
@@ -175,7 +175,7 @@ function printTypenameProperty(
     const types = type.map((aType) => `'${getRootGraphQLType(aType).name}'`);
     generator.print(`${types.join(' | ')},`);
   } else {
-    const finalType = getRootGraphQLType(type);
+    const finalType = getRootGraphQLType(type as GraphQLType);
 
     if (
       finalType instanceof GraphQLInterfaceType ||
@@ -199,7 +199,6 @@ function printFragment(
     fields,
     fragmentName,
     fragmentSpreads,
-    fragmentsReferenced,
     inlineFragments = [],
     typeCondition,
     possibleTypes,
@@ -219,7 +218,7 @@ function printFragment(
   const document = new Document(`${fragmentName}FragmentData`, fragment);
   context.document = document;
 
-  context.addUsedExternalFragments(fragmentsReferenced);
+  context.addUsedExternalFragments(fragmentSpreads);
 
   printExport(() => {
     printInterface({

@@ -3,7 +3,19 @@
   "description": "Common utilities for GraphQL developer tools",
   "version": "0.6.2",
   "license": "MIT",
-  "repository": "https://github.com/lemonmade/graphql-tools/tree/master/packages/graphql-tool-utilities",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-typescript-definitions",
   "tags": [
     "graphql",
     "apollo"
@@ -16,15 +28,15 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepublish": "in-publish && yarn run build || :"
+    "pretest": "yarn build",
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "in-publish": "^2.0.0",
-    "typescript": "^2.3.4"
+    "typescript": "^2.8.3"
   },
   "dependencies": {
-    "@types/graphql": "^0.9.1",
-    "apollo-codegen": "0.12.7",
+    "@types/graphql": "^0.13.0",
+    "apollo-codegen": "0.19.1",
     "core-js": "^2.4.1"
   }
 }

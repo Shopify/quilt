@@ -20,26 +20,26 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "type-check": "tsc --noEmit",
-    "pretest": "rm -rf packages/graphql-tool-utilities/node_modules/graphql && rm -rf packages/graphql-validate-fixtures/node_modules/graphql && rm -rf packages/graphql-typescript-definitions/node_modules/graphql && node scripts/introspection.js && lerna run pretest",
+    "pretest": "lerna run pretest",
     "test": "jest --config ./config/jest/config.json",
-    "test:watch": "yarn test -- --watch",
+    "test:watch": "yarn test --watch",
     "lint": "",
-    "prepublish": "in-publish && yarn run check || :"
+    "prepublishOnly": "yarn type-check && yarn test"
   },
   "devDependencies": {
-    "@types/chalk": "^0.4.31",
-    "@types/fs-extra": "^3.0.3",
-    "@types/glob": "^5.0.30",
-    "@types/graphql": "^0.9.1",
-    "@types/jest": "^19.2.4",
-    "@types/node": "^7.0.29",
-    "@types/yargs": "^6.6.0",
-    "graphql": "<1.0.0",
+    "@types/fs-extra": "^5.0.2",
+    "@types/glob": "^5.0.35",
+    "@types/graphql": "^0.13.0",
+    "@types/jest": "^22.2.3",
+    "@types/node": "^10.0.4",
+    "@types/yargs": "^11.0.0",
+    "graphql": "0.13.2",
     "in-publish": "^2.0.0",
-    "jest": "^20.0.4",
-    "lerna": "^2.0.0-rc.5",
-    "ts-jest": "^20.0.5",
-    "typescript": "^2.3.4"
+    "jest": "^22.4.3",
+    "lerna": "^2.11.0",
+    "ts-jest": "^22.4.4",
+    "typescript": "^2.8.3"
   }
 }

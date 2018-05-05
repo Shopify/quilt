@@ -1,23 +1,17 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
     "baseUrl": "src",
     "declaration": true,
-    "outDir": "lib",
-    "moduleResolution": "node",
-    "target": "es2015",
-    "module": "commonjs",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "lib": [
-      "es2015",
-      "es2016"
-    ]
+    "outDir": "lib"
   },
+  "include": [
+    "./**/*.ts"
+  ],
   "exclude": [
-    "test/**",
-    "lib/**",
-    "node_modules/**"
+    "./test/**",
+    "./lib/**",
+    "./node_modules/**"
   ]
 }

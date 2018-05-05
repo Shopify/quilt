@@ -18,7 +18,7 @@ export interface Options {
 }
 
 export default class Context {
-  document: Document;
+  document!: Document;
   typesUsed = new Set<GraphQLInputType>();
   specialTypesUsed = new Set<SpecialType>();
   importsUsed = new Map<string, Set<string>>();

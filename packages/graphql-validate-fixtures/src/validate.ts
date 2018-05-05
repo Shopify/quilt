@@ -52,9 +52,9 @@ export function validateFixtureAgainstSchema(fixture: Fixture, schema: GraphQLSc
         return allErrors;
       }
 
-      if (objectTypeHasFieldWithName(queryType, key)) {
+      if (queryType && objectTypeHasFieldWithName(queryType, key)) {
         rootType = queryType;
-      } else if (objectTypeHasFieldWithName(mutationType, key)) {
+      } else if (mutationType && objectTypeHasFieldWithName(mutationType, key)) {
         rootType = mutationType;
       } else {
         return allErrors.concat([error(keyPath, 'Field does not exist on query or mutation types')]);

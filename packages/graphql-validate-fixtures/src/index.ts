@@ -29,7 +29,7 @@ export async function evaluateFixtures({fixturePaths, operationPaths = [], schem
   let schema: GraphQLSchema;
 
   try {
-    const schemaJSON = await readJSON(schemaPath, 'utf8');
+    const schemaJSON = await readJSON(schemaPath, {encoding: 'utf8'});
     schema = buildClientSchema(schemaJSON.data);
   } catch (error) {
     throw new Error(`Error parsing '${schemaPath}':\n\n${error.message.replace(/Syntax Error GraphQL \(.*?\) /, '')}`);

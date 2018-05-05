@@ -3,7 +3,6 @@ export type Block = () => void;
 export default class CodeGenerator {
   private indentWidth = 2;
   private indentLevel = 0;
-  private startOfIndentLevel = true;
   
   output = '';
 
@@ -26,7 +25,6 @@ export default class CodeGenerator {
   printNewline() {
     if (this.output) {
       this.print('\n');
-      this.startOfIndentLevel = false;
     }
   }
 

@@ -111,11 +111,5 @@ ENOENT: no such file or directory, open 'packages/graphql-validate-fixtures/test
 exports[`evaluateFixtures() throws an error when there are malformed GraphQL documents 1`] = `
 [Error: Error parsing 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/queries/Another.graphql':
 
-Expected {, found Name "name"
-
-1: query Another
-2:   name
-     ^
-3: }
-]
+Syntax Error: Expected {, found Name "name"]
 `;

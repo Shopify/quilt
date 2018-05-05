@@ -1,21 +1,28 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "declaration": true,
     "strict": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "experimentalDecorators": true,
     "target": "es2015",
     "lib": [
       "es2015",
       "es2016",
-      "es2017"
+      "es2017",
+      "esnext.asynciterable"
     ]
   },
   "include": [
-    "**/*.ts"
+    "./**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "packages/*/node_modules"
+    "./**/node_modules",
+    "./**/*.graphql.d.ts"
   ]
 }

@@ -10,7 +10,7 @@ import {
   GraphQLInterfaceType,
   GraphQLObjectType,
 } from 'graphql';
-const {compileToIR} = require('apollo-codegen/lib/compilation');
+const {compileToLegacyIR: compileToIR} = require('apollo-codegen/lib/compiler/legacyIR');
 
 export interface Variable {
   name: string,
@@ -38,7 +38,6 @@ export interface Fragment extends InlineFragment {
   filePath: string,
   fragmentName: string,
   source: string,
-  fragmentsReferenced: string[],
   fields: Field[],
 }
 

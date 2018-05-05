@@ -9,30 +9,18 @@ Object {
     "signal": null,
   },
   "stderr": "",
-  "stdout": " ERROR  Syntax Error packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/Fragment.graphql (2:3) Expected {, found Name \\"name\\"
-
-1: fragment PersonFields on Person
-2:   name
-     ^
-3:   relatives {
-
-GraphQLError: Syntax Error packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/Fragment.graphql (2:3) Expected {, found Name \\"name\\"
-
-1: fragment PersonFields on Person
-2:   name
-     ^
-3:   relatives {
-
-    at syntaxError (node_modules/graphql/error/syntaxError.js:28:15)
-    at expect (node_modules/graphql/language/parser.js:969:32)
-    at many (node_modules/graphql/language/parser.js:1017:3)
-    at parseSelectionSet (node_modules/graphql/language/parser.js:253:17)
-    at parseFragmentDefinition (node_modules/graphql/language/parser.js:366:19)
-    at parseDefinition (node_modules/graphql/language/parser.js:139:16)
-    at parseDocument (node_modules/graphql/language/parser.js:109:22)
-    at Object.parse (node_modules/graphql/language/parser.js:46:10)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:164:40)
-    at Generator.next (<anonymous>)
+  "stdout": " ERROR  Syntax Error: Expected {, found Name \\"name\\"
+GraphQLError: Syntax Error: Expected {, found Name \\"name\\"
+    at syntaxError (node_modules/graphql/error/syntaxError.js)
+    at expect (node_modules/graphql/language/parser.js)
+    at many (node_modules/graphql/language/parser.js)
+    at parseSelectionSet (node_modules/graphql/language/parser.js)
+    at parseFragmentDefinition (node_modules/graphql/language/parser.js)
+    at parseExecutableDefinition (node_modules/graphql/language/parser.js)
+    at parseDefinition (node_modules/graphql/language/parser.js)
+    at parseDocument (node_modules/graphql/language/parser.js)
+    at Object.parse (node_modules/graphql/language/parser.js)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
 
 ",
 }
@@ -53,9 +41,9 @@ ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions
 Error: Error parsing 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
 
 ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:153:36)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
     at Generator.throw (<anonymous>)
-    at rejected (packages/graphql-typescript-definitions/lib/index.js:5:65)
+    at rejected (packages/graphql-typescript-definitions/lib/index.js)
     at <anonymous>
 
 ",
@@ -74,16 +62,16 @@ Object {
   "stdout": "
  ERROR  Error in packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql: an invalid type was provided for key 'role'. This probably means there is a typo in your document or that one of your input types has been renamed.
 Error: Error in packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql: an invalid type was provided for key 'role'. This probably means there is a typo in your document or that one of your input types has been renamed.
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:123:39)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
     at Generator.next (<anonymous>)
-    at packages/graphql-typescript-definitions/lib/index.js:7:71
+    at packages/graphql-typescript-definitions/lib/index.js
     at new Promise (<anonymous>)
-    at __awaiter (packages/graphql-typescript-definitions/lib/index.js:3:12)
-    at Promise.all.Object.keys.map (packages/graphql-typescript-definitions/lib/index.js:116:35)
+    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
+    at Promise.all.Object.keys.map (packages/graphql-typescript-definitions/lib/index.js)
     at Array.map (<anonymous>)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js:116:22)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
     at Generator.next (<anonymous>)
-    at packages/graphql-typescript-definitions/lib/index.js:7:71
+    at packages/graphql-typescript-definitions/lib/index.js
 
 ",
 }

@@ -1,5 +1,5 @@
 import * as yargs from 'yargs';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 import {Builder} from '.';
 

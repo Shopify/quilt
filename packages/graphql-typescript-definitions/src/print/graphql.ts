@@ -67,10 +67,10 @@ function printInputGraphQLType(
     }
 
     generator.print('[]');
-  } else if (builtInScalarMap.hasOwnProperty(type.name)) {
-    generator.print(builtInScalarMap[type.name]);
+  } else if (builtInScalarMap.hasOwnProperty((type as any).name)) {
+    generator.print(builtInScalarMap[(type as any).name]);
   } else {
-    generator.print(`Schema.${type.name}`);
+    generator.print(`Schema.${(type as any).name}`);
   }
 
   generator.print(nullable && ' | null');

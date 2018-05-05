@@ -1,20 +1,17 @@
 {
-  "compileOnSave": false,
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "src",
     "rootDir": "src",
-    "target": "es2015",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "outDir": "lib",
-    "strict": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "declaration": true
+    "baseUrl": "src",
+    "declaration": true,
+    "outDir": "lib"
   },
   "include": [
-    "src/*"
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "./test/**",
+    "./lib/**",
+    "node_modules/**"
   ]
 }

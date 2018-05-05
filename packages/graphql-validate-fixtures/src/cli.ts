@@ -1,6 +1,6 @@
 import * as yargs from 'yargs';
 import * as glob from 'glob';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import {relative, basename} from 'path';
 
 import {evaluateFixtures} from '.';

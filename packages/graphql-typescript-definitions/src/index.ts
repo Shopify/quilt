@@ -25,10 +25,10 @@ export interface Build {
 }
 
 export class Builder extends EventEmitter {
-  watching: boolean;
+  watching = false;
   private globs: string;
   private schemaPath: string;
-  private schema: GraphQLSchema;
+  private schema!: GraphQLSchema;
   private options: Pick<Options, 'addTypename'>
   private documentCache = new Map<string, DocumentNode>();
 

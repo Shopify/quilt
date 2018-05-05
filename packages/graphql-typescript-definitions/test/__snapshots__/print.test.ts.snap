@@ -382,8 +382,8 @@ export namespace Schema {
 
 export interface PetsFragmentData extends NullableFragment<PetKindFragmentData>, NullableFragment<PersonDetailsFragmentData>, EntityNameFragmentData {
   __typename: 'Person' | 'Pet',
-  id: string,
   name: string,
+  id: string,
   kind?: Schema.Kind | null,
   nickname?: string | null,
   favoritePet?: PetsFragmentData.Pet | null,
