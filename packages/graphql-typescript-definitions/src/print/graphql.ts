@@ -20,7 +20,11 @@ import {
 import CodeGenerator from './generator';
 import {printPropertyKey, printInterface} from './language';
 
-export type GraphQLPrintableType = GraphQLLeafType | GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType;
+export type GraphQLPrintableType =
+  | GraphQLLeafType
+  | GraphQLObjectType
+  | GraphQLInterfaceType
+  | GraphQLUnionType;
 
 export const builtInScalarMap = {
   [GraphQLString.name]: 'string',
@@ -28,7 +32,7 @@ export const builtInScalarMap = {
   [GraphQLFloat.name]: 'number',
   [GraphQLBoolean.name]: 'boolean',
   [GraphQLID.name]: 'string',
-}
+};
 
 export function printInputGraphQLField(
   name: string,
@@ -36,7 +40,9 @@ export function printInputGraphQLField(
   generator: CodeGenerator,
 ) {
   if (type === undefined || getRootGraphQLType(type) === undefined) {
-    throw new Error(`An invalid type was provided for key '${name}'. This probably means there is a typo in your document or that one of your input types has been renamed.`);
+    throw new Error(
+      `An invalid type was provided for key '${name}'. This probably means there is a typo in your document or that one of your input types has been renamed.`,
+    );
   }
 
   printPropertyKey(name, !(type instanceof GraphQLNonNull), generator);
@@ -49,28 +55,29 @@ function printInputGraphQLType(
   generator: CodeGenerator,
 ) {
   let nullable = true;
+  let finalType = type;
 
   if (type instanceof GraphQLNonNull) {
     nullable = false;
-    type = type.ofType;
+    finalType = type.ofType;
   }
-  
-  if (type instanceof GraphQLList) {
-    const subType = type.ofType;
+
+  if (finalType instanceof GraphQLList) {
+    const subType = finalType.ofType;
 
     if (subType instanceof GraphQLNonNull) {
-      printInputGraphQLType(type.ofType, generator);
+      printInputGraphQLType(finalType.ofType, generator);
     } else {
       generator.print('(');
-      printInputGraphQLType(type.ofType, generator);
+      printInputGraphQLType(finalType.ofType, generator);
       generator.print(')');
     }
 
     generator.print('[]');
-  } else if (builtInScalarMap.hasOwnProperty((type as any).name)) {
-    generator.print(builtInScalarMap[(type as any).name]);
+  } else if (builtInScalarMap.hasOwnProperty((finalType as any).name)) {
+    generator.print(builtInScalarMap[(finalType as any).name]);
   } else {
-    generator.print(`Schema.${(type as any).name}`);
+    generator.print(`Schema.${(finalType as any).name}`);
   }
 
   generator.print(nullable && ' | null');
@@ -81,13 +88,17 @@ export function printRootGraphQLType(
   generator: CodeGenerator,
 ) {
   if (type instanceof GraphQLInputObjectType) {
-    printInterface({name: type.name}, () => {
-      const fields = (type as GraphQLInputObjectType).getFields();
-      Object.keys(fields).forEach((name) => {
-        const field = fields[name];
-        printInputGraphQLField(name, field.type, generator);
-      });
-    }, generator);
+    printInterface(
+      {name: type.name},
+      () => {
+        const fields = (type as GraphQLInputObjectType).getFields();
+        Object.keys(fields).forEach((name) => {
+          const field = fields[name];
+          printInputGraphQLField(name, field.type, generator);
+        });
+      },
+      generator,
+    );
   } else if (type instanceof GraphQLEnumType) {
     const values = type.getValues();
     generator.print(`type ${type.name} = `);
@@ -104,7 +115,10 @@ export function printRootGraphQLType(
 export function getRootGraphQLType(type: GraphQLType): GraphQLPrintableType {
   let finalType = type;
 
-  while (finalType instanceof GraphQLNonNull || finalType instanceof GraphQLList) {
+  while (
+    finalType instanceof GraphQLNonNull ||
+    finalType instanceof GraphQLList
+  ) {
     finalType = finalType.ofType;
   }
 

@@ -14,7 +14,7 @@ import {builtInScalarMap} from './graphql';
 import {SpecialType} from './special-types';
 
 export interface Options {
-  addTypename: boolean,
+  addTypename: boolean;
 }
 
 export default class Context {
@@ -45,7 +45,9 @@ export default class Context {
   addUsedType(type: GraphQLType) {
     const {typesUsed} = this;
 
-    if (typesUsed.has(type as GraphQLInputType)) { return; }
+    if (typesUsed.has(type as GraphQLInputType)) {
+      return;
+    }
 
     if (type instanceof GraphQLEnumType) {
       typesUsed.add(type);
@@ -53,11 +55,13 @@ export default class Context {
       typesUsed.add(type);
 
       const fields = type.getFields();
-      Object
-        .keys(fields)
+      Object.keys(fields)
         .map((fieldName) => fields[fieldName])
         .forEach((typeField) => this.addUsedType(typeField.type));
-    } else if (type instanceof GraphQLScalarType && !builtInScalarMap.hasOwnProperty(type.name)) {
+    } else if (
+      type instanceof GraphQLScalarType &&
+      !builtInScalarMap.hasOwnProperty(type.name)
+    ) {
       typesUsed.add(type);
     } else if (type instanceof GraphQLNonNull || type instanceof GraphQLList) {
       this.addUsedType(type.ofType);

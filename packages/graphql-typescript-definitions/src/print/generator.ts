@@ -1,10 +1,9 @@
 export type Block = () => void;
 
 export default class CodeGenerator {
+  output = '';
   private indentWidth = 2;
   private indentLevel = 0;
-  
-  output = '';
 
   print(maybeString?: string | null | false) {
     if (maybeString) {
@@ -15,7 +14,9 @@ export default class CodeGenerator {
   printEmptyLine() {
     if (/\n\n$/.test(this.output)) {
       return;
-    } else if (/\n$/.test(this.output)) {
+    }
+
+    if (/\n$/.test(this.output)) {
       this.print('\n');
     } else {
       this.print('\n\n');

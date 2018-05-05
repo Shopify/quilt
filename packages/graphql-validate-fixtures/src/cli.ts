@@ -1,3 +1,5 @@
+/* eslint no-console: off */
+
 import * as yargs from 'yargs';
 import * as glob from 'glob';
 import chalk from 'chalk';
@@ -11,31 +13,36 @@ const argv = yargs
     required: true,
     normalize: true,
     type: 'string',
-    describe: 'The path to the JSON file containing a schema instrospection query result',
+    describe:
+      'The path to the JSON file containing a schema instrospection query result',
   })
   .option('operation-paths', {
     required: false,
     normalize: true,
     type: 'string',
-    describe: 'The glob pattern for GraphQL queries and fragments to compare against',
+    describe:
+      'The glob pattern for GraphQL queries and fragments to compare against',
   })
   .option('schema-only', {
     type: 'boolean',
     default: false,
-    describe: 'Validate fixtures only against the GraphQL schema (and not any query or mutation documents)',
+    describe:
+      'Validate fixtures only against the GraphQL schema (and not any query or mutation documents)',
   })
-  .help()
-  .argv;
+  .help().argv;
 
 const hasOperationPaths = Boolean(argv.operationPaths);
 
-evaluateFixtures({
-  fixturePaths: glob.sync(argv._[0]),
-  operationPaths: hasOperationPaths ? glob.sync(argv.operationPaths) : [],
-  schemaPath: argv.schemaPath,
-}, {
-  schemaOnly: argv.schemaOnly || !hasOperationPaths,
-})
+evaluateFixtures(
+  {
+    fixturePaths: glob.sync(argv._[0]),
+    operationPaths: hasOperationPaths ? glob.sync(argv.operationPaths) : [],
+    schemaPath: argv.schemaPath,
+  },
+  {
+    schemaOnly: argv.schemaOnly || !hasOperationPaths,
+  },
+)
   .then((evaluations) => {
     let passed = 0;
     let failed = 0;
@@ -45,7 +52,9 @@ evaluateFixtures({
 
     evaluations.forEach((evaluation) => {
       const relativePath = relative(process.cwd(), evaluation.fixturePath);
-      const formattedPath = `${chalk.dim(relativePath.replace(basename(relativePath), ''))}${chalk.bold(basename(relativePath))}`;
+      const formattedPath = `${chalk.dim(
+        relativePath.replace(basename(relativePath), ''),
+      )}${chalk.bold(basename(relativePath))}`;
 
       if (evaluation.scriptError) {
         failed += 1;
@@ -53,7 +62,13 @@ evaluateFixtures({
         console.log(`${chalk.inverse.bold.red(' FAIL ')} ${formattedPath}`);
         console.log(evaluation.scriptError.message);
         if (evaluation.scriptError.stack) {
-          console.log(chalk.dim(evaluation.scriptError.stack.replace(evaluation.scriptError.message, '').replace(/^Error:\s*\n/, '')));
+          console.log(
+            chalk.dim(
+              evaluation.scriptError.stack
+                .replace(evaluation.scriptError.message, '')
+                .replace(/^Error:\s*\n/, ''),
+            ),
+          );
         }
         console.log();
       } else if (evaluation.validationErrors.length === 0) {
@@ -93,6 +108,10 @@ evaluateFixtures({
   .catch((error) => {
     console.log();
     console.log(`${chalk.inverse.bold.red(' ERROR ')} ${error.message}`);
-    console.log(chalk.dim(error.stack.replace(error.message, '').replace(/^Error:\s*\n/, '')));
+    console.log(
+      chalk.dim(
+        error.stack.replace(error.message, '').replace(/^Error:\s*\n/, ''),
+      ),
+    );
     process.exit(1);
   });

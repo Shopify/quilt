@@ -23,7 +23,11 @@ export class FieldObject {
     return getNestedCompositeType(this.field.type);
   }
 
-  constructor(public field: Field, private keyPath: KeyPath, private document: Document) {}
+  constructor(
+    public field: Field,
+    private keyPath: KeyPath,
+    private document: Document,
+  ) {}
 }
 
 export default class Document {
@@ -31,7 +35,13 @@ export default class Document {
   private typesUsed = new Map<GraphQLCompositeType, number>();
   private fieldMap = new Map<Field, FieldObject>();
 
-  constructor(public name: string, {fields, inlineFragments = []}: {fields: Field[], inlineFragments?: InlineFragment[]}) {
+  constructor(
+    public name: string,
+    {
+      fields,
+      inlineFragments = [],
+    }: {fields: Field[]; inlineFragments?: InlineFragment[]},
+  ) {
     for (const field of fields) {
       this.collectField(field);
     }
@@ -62,7 +72,9 @@ export default class Document {
   }
 
   private collectField(field: Field, parentKeyPath: KeyPath = []) {
-    if (field.fields == null) { return; }
+    if (field.fields == null) {
+      return;
+    }
     const newKeyPath = [...parentKeyPath, field.responseName];
     const fieldObject = new FieldObject(field, newKeyPath, this);
     const usedSoFar = this.typesUsed.get(fieldObject.compositeType) || 0;
@@ -74,7 +86,7 @@ export default class Document {
       this.collectField(subfield, newKeyPath);
     }
 
-    for (const inlineFragment of (field.inlineFragments || [])) {
+    for (const inlineFragment of field.inlineFragments || []) {
       this.collectFragment(inlineFragment, newKeyPath);
     }
   }
@@ -82,10 +94,17 @@ export default class Document {
 
 function getNestedCompositeType(type: GraphQLType): GraphQLCompositeType {
   let finalType = type;
-  while (finalType instanceof GraphQLNonNull || finalType instanceof GraphQLList) {
+  while (
+    finalType instanceof GraphQLNonNull ||
+    finalType instanceof GraphQLList
+  ) {
     finalType = finalType.ofType;
   }
 
-  if (!isCompositeType(finalType)) { throw new Error(`Expected a composite type, but received ${finalType.toString()}`); }
+  if (!isCompositeType(finalType)) {
+    throw new Error(
+      `Expected a composite type, but received ${finalType.toString()}`,
+    );
+  }
   return finalType;
 }

@@ -7,17 +7,27 @@ const rootFixturePath = resolve(__dirname, 'fixtures');
 
 describe('cli', () => {
   it('succeeds when there are no fixture errors', () => {
-    expect(() => exec(cliCommandForFixtureDirectory('all-clear'))).not.toThrowError();
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('all-clear')),
+    ).not.toThrowError();
   });
 
   it('fails when there are fixture errors', () => {
-    expect(() => exec(cliCommandForFixtureDirectory('fixture-errors'))).toThrowErrorMatchingSnapshot();
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('fixture-errors')),
+    ).toThrowErrorMatchingSnapshot();
   });
 
   it('fails when there are syntax errors', () => {
-    expect(() => exec(cliCommandForFixtureDirectory('fixture-invalid'))).toThrowErrorMatchingSnapshot();
-    expect(() => exec(cliCommandForFixtureDirectory('malformed-query'))).toThrowErrorMatchingSnapshot();
-    expect(() => exec(cliCommandForFixtureDirectory('missing-schema'))).toThrowErrorMatchingSnapshot();
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('fixture-invalid')),
+    ).toThrowErrorMatchingSnapshot();
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('malformed-query')),
+    ).toThrowErrorMatchingSnapshot();
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('missing-schema')),
+    ).toThrowErrorMatchingSnapshot();
   });
 });
 

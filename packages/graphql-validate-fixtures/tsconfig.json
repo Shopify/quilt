@@ -6,12 +6,6 @@
     "declaration": true,
     "outDir": "lib"
   },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./test/**",
-    "./lib/**",
-    "./node_modules/**"
-  ]
+  "include": ["./**/*.ts"],
+  "exclude": ["./test/**", "./lib/**", "./node_modules/**"]
 }

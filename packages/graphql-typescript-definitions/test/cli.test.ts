@@ -2,21 +2,30 @@ import {resolve} from 'path';
 import {exec} from 'child_process';
 
 import {stripFullFilePaths} from '../../../test/utilities';
+
 const scriptPath = resolve(__dirname, '../bin/graphql-typescript-definitions');
 const rootFixturePath = resolve(__dirname, 'fixtures');
 
 describe('cli', () => {
   it('succeeds when there are no fixture errors', async () => {
-    expect(await execDetails(cliCommandForFixtureDirectory('all-clear'))).toMatchSnapshot();
+    expect(
+      await execDetails(cliCommandForFixtureDirectory('all-clear')),
+    ).toMatchSnapshot();
   });
 
   it('fails when there are syntax errors', async () => {
-    expect(await execDetails(cliCommandForFixtureDirectory('malformed-query'))).toMatchSnapshot();
-    expect(await execDetails(cliCommandForFixtureDirectory('missing-schema'))).toMatchSnapshot();
+    expect(
+      await execDetails(cliCommandForFixtureDirectory('malformed-query')),
+    ).toMatchSnapshot();
+    expect(
+      await execDetails(cliCommandForFixtureDirectory('missing-schema')),
+    ).toMatchSnapshot();
   });
 
   it('fails when there are unused types', async () => {
-    expect(await execDetails(cliCommandForFixtureDirectory('missing-types'))).toMatchSnapshot();
+    expect(
+      await execDetails(cliCommandForFixtureDirectory('missing-types')),
+    ).toMatchSnapshot();
   });
 });
 

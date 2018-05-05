@@ -3,13 +3,13 @@ import CodeGenerator from './generator';
 export type Block = () => void;
 
 export interface Interface {
-  name: string,
-  extend?: string[],
+  name: string;
+  extend?: string[];
 }
 
 export interface Import {
-  specifiers: string[],
-  source: string,
+  specifiers: string[];
+  source: string;
 }
 
 export function printPropertyKey(
@@ -27,8 +27,13 @@ export function printExport(exported: Block, generator: CodeGenerator) {
   exported();
 }
 
-export function printImport({specifiers, source}: Import, generator: CodeGenerator) {
-  generator.printOnNewline(`import {${specifiers.join(', ')}} from '${source}';`);
+export function printImport(
+  {specifiers, source}: Import,
+  generator: CodeGenerator,
+) {
+  generator.printOnNewline(
+    `import {${specifiers.join(', ')}} from '${source}';`,
+  );
 }
 
 export function printInterface(
@@ -45,7 +50,11 @@ export function printInterface(
   generator.withinBlock(body);
 }
 
-export function printNamespace(name: string, body: Block, generator: CodeGenerator) {
+export function printNamespace(
+  name: string,
+  body: Block,
+  generator: CodeGenerator,
+) {
   generator.print(`namespace ${name} `);
   generator.withinBlock(body);
 }

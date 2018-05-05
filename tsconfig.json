@@ -11,18 +11,8 @@
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "target": "es2015",
-    "lib": [
-      "es2015",
-      "es2016",
-      "es2017",
-      "esnext.asynciterable"
-    ]
+    "lib": ["es2015", "es2016", "es2017", "esnext.asynciterable"]
   },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./**/node_modules",
-    "./**/*.graphql.d.ts"
-  ]
+  "include": ["./**/*.ts"],
+  "exclude": ["./**/node_modules", "./**/*.graphql.d.ts"]
 }

@@ -243,7 +243,9 @@ describe('printFile()', () => {
 
     describe('objects fields', () => {
       it('nests them inline in the original object', () => {
-        expect(print(`
+        expect(
+          print(
+            `
           query Profile {
             person {
               name
@@ -256,13 +258,18 @@ describe('printFile()', () => {
               }
             }
           }
-        `, schema)).toMatchSnapshot();
+        `,
+            schema,
+          ),
+        ).toMatchSnapshot();
       });
     });
 
     describe('inline fragments', () => {
       it('treats them as their original nullability when they are guaranteed', () => {
-        expect(print(`
+        expect(
+          print(
+            `
           query Entities {
             entities {
               ...on Entity {
@@ -271,11 +278,16 @@ describe('printFile()', () => {
               }
             }
           }
-        `, schema)).toMatchSnapshot();
+        `,
+            schema,
+          ),
+        ).toMatchSnapshot();
       });
 
       it('forces fields to be nullable when the type restriction is not guaranteed', () => {
-        expect(print(`
+        expect(
+          print(
+            `
           query Entities {
             entities {
               ...on Pet {
@@ -284,41 +296,56 @@ describe('printFile()', () => {
               }
             }
           }
-        `, schema)).toMatchSnapshot();
+        `,
+            schema,
+          ),
+        ).toMatchSnapshot();
       });
     });
 
     describe('fragment spreads', () => {
       it('prints them as union types when the type restriction is guaranteed', () => {
-        expect(print(`
+        expect(
+          print(
+            `
           query Entities {
             entities {
               ...EntityName
             }
           }
-        `, schema, {
-          'subfolder/MyFragment.graphql': `
+        `,
+            schema,
+            {
+              'subfolder/MyFragment.graphql': `
             fragment EntityName on Entity {
               name
             }
-          `
-        })).toMatchSnapshot();
+          `,
+            },
+          ),
+        ).toMatchSnapshot();
       });
 
       it('prints a partial fragment type when the type restriction is not guaranteed', () => {
-        expect(print(`
+        expect(
+          print(
+            `
           query Entities {
             entities {
               ...EntityName
             }
           }
-        `, schema, {
-          'subfolder/MyFragment.graphql': `
+        `,
+            schema,
+            {
+              'subfolder/MyFragment.graphql': `
             fragment EntityName on Person {
               name
             }
-          `
-        })).toMatchSnapshot();
+          `,
+            },
+          ),
+        ).toMatchSnapshot();
       });
     });
   });
@@ -349,7 +376,12 @@ describe('printFile()', () => {
         }
       `);
 
-      expect(print('query Name($myInput: NameInput) { name(input: $myInput) }', schema)).toMatchSnapshot();
+      expect(
+        print(
+          'query Name($myInput: NameInput) { name(input: $myInput) }',
+          schema,
+        ),
+      ).toMatchSnapshot();
     });
   });
 
@@ -449,9 +481,10 @@ describe('printFile()', () => {
         }
       `;
 
-      expect(print(fragment, schema, {
-        'subfolder/PetKind.graphql': 'fragment PetKind on Pet { kind }',
-        'subfolder/another/PersonDetails.graphql': `
+      expect(
+        print(fragment, schema, {
+          'subfolder/PetKind.graphql': 'fragment PetKind on Pet { kind }',
+          'subfolder/another/PersonDetails.graphql': `
           fragment PersonDetails on Person {
             id
             name
@@ -461,9 +494,10 @@ describe('printFile()', () => {
 
           fragment EntityName on Entity { name }
         `,
-      })).toMatchSnapshot();
+        }),
+      ).toMatchSnapshot();
     });
-    
+
     it('prints inline fragments', () => {
       const fragment = `
         fragment Pets on Entity {
@@ -578,53 +612,84 @@ describe('printFile()', () => {
     `);
 
     it('does not duplicate an explicit __typename field', () => {
-      expect(print(`
+      expect(
+        print(
+          `
         query Profile {
           person {
             __typename
           }
         }
-      `, schema)).toMatchSnapshot();
+      `,
+          schema,
+        ),
+      ).toMatchSnapshot();
     });
 
     it('adds a __typename field when the responseName is unique', () => {
-      expect(print(`
+      expect(
+        print(
+          `
         query Profile {
           person {
             type: __typename
           }
         }
-      `, schema)).toMatchSnapshot();
+      `,
+          schema,
+        ),
+      ).toMatchSnapshot();
     });
 
     it('does not add a typename when the option is set to false', () => {
-      expect(print(`
+      expect(
+        print(
+          `
         query Profile {
           person {
             name
           }
         }
-      `, schema, {}, {addTypename: false})).toMatchSnapshot();
+      `,
+          schema,
+          {},
+          {addTypename: false},
+        ),
+      ).toMatchSnapshot();
     });
 
     it('adds an explicit typename when the option is set to false', () => {
-      expect(print(`
+      expect(
+        print(
+          `
         query Profile {
           person {
             __typename
           }
         }
-      `, schema, {}, {addTypename: false})).toMatchSnapshot();
+      `,
+          schema,
+          {},
+          {addTypename: false},
+        ),
+      ).toMatchSnapshot();
     });
 
     it('prints a correct typename for interfaces', () => {
-      expect(print(`
+      expect(
+        print(
+          `
         fragment MyEntity on Entity {
           name
         }
-      `, schema)).toMatchSnapshot();
+      `,
+          schema,
+        ),
+      ).toMatchSnapshot();
 
-      expect(print(`
+      expect(
+        print(
+          `
         query Profile {
           person {
             self {
@@ -632,9 +697,14 @@ describe('printFile()', () => {
             }
           }
         }
-      `, schema)).toMatchSnapshot();
+      `,
+          schema,
+        ),
+      ).toMatchSnapshot();
 
-      expect(print(`
+      expect(
+        print(
+          `
         query PetProfile {
           entities {
             ...on Pet {
@@ -644,9 +714,14 @@ describe('printFile()', () => {
             }
           }
         }
-      `, schema)).toMatchSnapshot();
+      `,
+          schema,
+        ),
+      ).toMatchSnapshot();
 
-      expect(print(`
+      expect(
+        print(
+          `
         query RandomProfile {
           random {
             ...on Person {
@@ -658,7 +733,10 @@ describe('printFile()', () => {
             }
           }
         }
-      `, schema)).toMatchSnapshot();
+      `,
+          schema,
+        ),
+      ).toMatchSnapshot();
     });
   });
 
@@ -682,13 +760,18 @@ describe('printFile()', () => {
         }
       `);
 
-      expect(() => print(`
+      expect(() =>
+        print(
+          `
         query RandomPet($kind: Kindd!) {
           pet(kind: $kind) {
             name
           }
         }
-      `, schema)).toThrowErrorMatchingSnapshot();
+      `,
+          schema,
+        ),
+      ).toThrowErrorMatchingSnapshot();
     });
   });
 });
@@ -702,15 +785,21 @@ function print(
   const finalOptions = {
     addTypename: true,
     ...options,
-  }
+  };
   const fileName = 'MyOperation.graphql';
-  const fragmentDocuments = Object.keys(fragments).map((key) => parse(new Source(fragments[key], key)));
+  const fragmentDocuments = Object.keys(fragments).map((key) =>
+    parse(new Source(fragments[key], key)),
+  );
   const document = parse(new Source(documentString, fileName));
   const ast = compile(schema, concatAST([document, ...fragmentDocuments]));
   const file = {
     path: fileName,
-    operations: Object.keys(ast.operations).map((key) => ast.operations[key]).filter((operation) => operation.filePath === fileName),
-    fragments: Object.keys(ast.fragments).map((key) => ast.fragments[key]).filter((fragment) => fragment.filePath === fileName),
+    operations: Object.keys(ast.operations)
+      .map((key) => ast.operations[key])
+      .filter((operation) => operation.filePath === fileName),
+    fragments: Object.keys(ast.fragments)
+      .map((key) => ast.fragments[key])
+      .filter((fragment) => fragment.filePath === fileName),
   };
   return printFile(file, ast, finalOptions);
 }

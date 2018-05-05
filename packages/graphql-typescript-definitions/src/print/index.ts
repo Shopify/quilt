@@ -31,9 +31,9 @@ import {
 } from './language';
 
 export interface File {
-  path: string,
-  operations: Operation[],
-  fragments: Fragment[],
+  path: string;
+  operations: Operation[];
+  fragments: Fragment[];
 }
 
 export {Options};
@@ -50,7 +50,9 @@ export function printFile(
   const generator = new CodeGenerator();
   const context = new Context(ast, options);
 
-  generator.printOnNewline('// This file was generated and should not be edited.');
+  generator.printOnNewline(
+    '// This file was generated and should not be edited.',
+  );
   generator.printOnNewline('/* tslint:disable */');
   generator.printEmptyLine();
   generator.printOnNewline("import {DocumentNode} from 'graphql';");
@@ -67,34 +69,52 @@ export function printFile(
   }
 
   Array.from(context.importsUsed).forEach(([importPath, specifiers]) => {
-    if (importPath === path) { return; }
+    if (importPath === path) {
+      return;
+    }
 
     let relativePath = relative(dirname(path), importPath);
     if (!relativePath.startsWith('.')) {
       relativePath = `./${relativePath}`;
     }
 
-    printImport({
-      specifiers: Array.from(specifiers).map((specifier) => `${specifier}Data`),
-      source: relativePath,
-    }, generator);
+    printImport(
+      {
+        specifiers: Array.from(specifiers).map(
+          (specifier) => `${specifier}Data`,
+        ),
+        source: relativePath,
+      },
+      generator,
+    );
   });
 
   generator.printEmptyLine();
 
-  Array.from(context.specialTypesUsed).reverse().forEach((type) => {
-    type.print(generator);
-  });
+  Array.from(context.specialTypesUsed)
+    .reverse()
+    .forEach((type) => {
+      type.print(generator);
+    });
 
   const typesUsed = Array.from(context.typesUsed).reverse();
   if (typesUsed.length > 0) {
     printExport(() => {
-      printNamespace('Schema', () => {
-        Array.from(context.typesUsed).reverse().forEach((type) => {
-          printExport(() => printRootGraphQLType(type, generator), generator);
-          generator.printEmptyLine();
-        });
-      }, generator);
+      printNamespace(
+        'Schema',
+        () => {
+          Array.from(context.typesUsed)
+            .reverse()
+            .forEach((type) => {
+              printExport(
+                () => printRootGraphQLType(type, generator),
+                generator,
+              );
+              generator.printEmptyLine();
+            });
+        },
+        generator,
+      );
     }, generator);
     generator.printEmptyLine();
   }
@@ -112,12 +132,16 @@ export function printFile(
   return generator.output;
 }
 
-function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, context: Context) {
+function printFieldObject(
+  fieldObject: FieldObject,
+  generator: CodeGenerator,
+  context: Context,
+) {
   const {field, compositeType} = fieldObject;
   const {fields = [], fragmentSpreads = [], inlineFragments = [], type} = field;
   const spreads = fragmentSpreads.map((spread) => {
     const fragment = context.ast.fragments[spread];
-      
+
     let fragmentName = `${fragment.fragmentName}FragmentData`;
     if (fragment.typeCondition !== compositeType) {
       context.addUsedSpecialType(NullableFragment);
@@ -125,42 +149,48 @@ function printFieldObject(fieldObject: FieldObject, generator: CodeGenerator, co
     }
 
     return fragmentName;
-  })
+  });
 
   printExport(() => {
-    printInterface({name: fieldObject.name, extend: spreads}, () => {
-      const seenFields = new Set<string>();
+    printInterface(
+      {name: fieldObject.name, extend: spreads},
+      () => {
+        const seenFields = new Set<string>();
 
-      if (context.options.addTypename) {
-        printTypenameProperty(type, '__typename', generator, context);
-      }
-
-      for (const field of fields) {
-        const {fieldName, responseName} = field;
-
-        if (fieldName === '__typename') {
-          if (responseName !== fieldName || !context.options.addTypename) {
-            printTypenameProperty(type, responseName, generator, context);
-          }
-
-          continue;
+        if (context.options.addTypename) {
+          printTypenameProperty(type, '__typename', generator, context);
         }
 
-        seenFields.add(responseName);
-        printField(field, false, generator, context);
-      };
+        for (const field of fields) {
+          const {fieldName, responseName} = field;
 
-      inlineFragments.forEach((fragment) => {
-        fragment.fields.forEach((field) => {
-          if (seenFields.has(field.responseName)) { return; }
-          seenFields.add(field.responseName);
+          if (fieldName === '__typename') {
+            if (responseName !== fieldName || !context.options.addTypename) {
+              printTypenameProperty(type, responseName, generator, context);
+            }
 
-          // If it's not on `fields`, there is no guaranteed match, so we need
-          // to say that it can be nullable
-          printField(field, true, generator, context);
+            continue;
+          }
+
+          seenFields.add(responseName);
+          printField(field, false, generator, context);
+        }
+
+        inlineFragments.forEach((fragment) => {
+          fragment.fields.forEach((field) => {
+            if (seenFields.has(field.responseName)) {
+              return;
+            }
+            seenFields.add(field.responseName);
+
+            // If it's not on `fields`, there is no guaranteed match, so we need
+            // to say that it can be nullable
+            printField(field, true, generator, context);
+          });
         });
-      });
-    }, generator);
+      },
+      generator,
+    );
   }, generator);
 }
 
@@ -181,7 +211,12 @@ function printTypenameProperty(
       finalType instanceof GraphQLInterfaceType ||
       finalType instanceof GraphQLUnionType
     ) {
-      printTypenameProperty(context.ast.schema.getPossibleTypes(finalType), key, generator, context);
+      printTypenameProperty(
+        context.ast.schema.getPossibleTypes(finalType),
+        key,
+        generator,
+        context,
+      );
       return;
     }
 
@@ -221,54 +256,79 @@ function printFragment(
   context.addUsedExternalFragments(fragmentSpreads);
 
   printExport(() => {
-    printInterface({
-      name: document.name,
-      extend: finalFragmentSreads,
-    }, () => {
-      const seenFields = new Set<string>();
+    printInterface(
+      {
+        name: document.name,
+        extend: finalFragmentSreads,
+      },
+      () => {
+        const seenFields = new Set<string>();
 
-      if (context.options.addTypename) {
-        printTypenameProperty(possibleTypes, '__typename', generator, context);
-      }
+        if (context.options.addTypename) {
+          printTypenameProperty(
+            possibleTypes,
+            '__typename',
+            generator,
+            context,
+          );
+        }
 
-      for (const field of fields) {
-        const {fieldName, responseName} = field;
+        for (const field of fields) {
+          const {fieldName, responseName} = field;
 
-        if (fieldName === '__typename') {
-          if (responseName !== fieldName || !context.options.addTypename) {
-            printTypenameProperty(possibleTypes, responseName, generator, context);
+          if (fieldName === '__typename') {
+            if (responseName !== fieldName || !context.options.addTypename) {
+              printTypenameProperty(
+                possibleTypes,
+                responseName,
+                generator,
+                context,
+              );
+            }
+
+            continue;
           }
 
-          continue;
-        }
-
-        seenFields.add(field.responseName);
-        printField(field, false, generator, context);
-      }
-
-      for (const inlineFragment of inlineFragments) {
-        const {fields: fragmentFields, typeCondition: fragmentTypeCondition} = inlineFragment
-
-        for (const field of fragmentFields) {
-          if (seenFields.has(field.responseName)) { continue; }
           seenFields.add(field.responseName);
-          const forceNullable = (typeCondition !== fragmentTypeCondition) && typeConditionFieldMap[field.fieldName] == null;
-          printField(field, forceNullable, generator, context);
+          printField(field, false, generator, context);
         }
-      }
-    }, generator);
+
+        for (const inlineFragment of inlineFragments) {
+          const {
+            fields: fragmentFields,
+            typeCondition: fragmentTypeCondition,
+          } = inlineFragment;
+
+          for (const field of fragmentFields) {
+            if (seenFields.has(field.responseName)) {
+              continue;
+            }
+            seenFields.add(field.responseName);
+            const forceNullable =
+              typeCondition !== fragmentTypeCondition &&
+              typeConditionFieldMap[field.fieldName] == null;
+            printField(field, forceNullable, generator, context);
+          }
+        }
+      },
+      generator,
+    );
   }, generator);
 
   generator.printEmptyLine();
 
   if (document.fieldObjects.length) {
     printExport(() => {
-      printNamespace(document.name, () => {
-        for (const fieldObject of document.fieldObjects) {
-          printFieldObject(fieldObject, generator, context);
-          generator.printEmptyLine();
-        }
-      }, generator);
+      printNamespace(
+        document.name,
+        () => {
+          for (const fieldObject of document.fieldObjects) {
+            printFieldObject(fieldObject, generator, context);
+            generator.printEmptyLine();
+          }
+        },
+        generator,
+      );
     }, generator);
 
     generator.printEmptyLine();
@@ -289,47 +349,62 @@ function printOperation(
     fragmentsReferenced,
   } = operation;
 
-  const document = new Document(`${operationName}${pascal(operationType)}Data`, operation);
+  const document = new Document(
+    `${operationName}${pascal(operationType)}Data`,
+    operation,
+  );
   context.document = document;
 
   context.addUsedExternalFragments(fragmentsReferenced);
 
   printExport(() => {
-    printInterface({
-      name: document.name,
-      extend: fragmentSpreads.map((spread) => `${spread}FragmentData`),
-    }, () => {
-      fields.forEach((field) => {
-        printField(field, false, generator, context);
-      });
-    }, generator);
+    printInterface(
+      {
+        name: document.name,
+        extend: fragmentSpreads.map((spread) => `${spread}FragmentData`),
+      },
+      () => {
+        fields.forEach((field) => {
+          printField(field, false, generator, context);
+        });
+      },
+      generator,
+    );
   }, generator);
 
   generator.printEmptyLine();
 
   if (document.fieldObjects.length || variables.length) {
     printExport(() => {
-      printNamespace(document.name, () => {
-        if (variables.length) {
-          printExport(() => {
-            printInterface({
-              name: 'Variables',
-            }, () => {
-              for (const {name, type} of variables) {
-                context.addUsedType(type);
-                printInputGraphQLField(name, type, generator);
-              }
+      printNamespace(
+        document.name,
+        () => {
+          if (variables.length) {
+            printExport(() => {
+              printInterface(
+                {
+                  name: 'Variables',
+                },
+                () => {
+                  for (const {name, type} of variables) {
+                    context.addUsedType(type);
+                    printInputGraphQLField(name, type, generator);
+                  }
+                },
+                generator,
+              );
             }, generator);
-          }, generator);
 
-          generator.printEmptyLine();
-        }
+            generator.printEmptyLine();
+          }
 
-        for (const fieldObject of document.fieldObjects) {
-          printFieldObject(fieldObject, generator, context);
-          generator.printEmptyLine();
-        }
-      }, generator);
+          for (const fieldObject of document.fieldObjects) {
+            printFieldObject(fieldObject, generator, context);
+            generator.printEmptyLine();
+          }
+        },
+        generator,
+      );
     }, generator);
 
     generator.printEmptyLine();
@@ -350,7 +425,10 @@ function printField(
 
   printPropertyKey(responseName, nullable, generator);
 
-  while (currentType instanceof GraphQLList || currentType instanceof GraphQLNonNull) {
+  while (
+    currentType instanceof GraphQLList ||
+    currentType instanceof GraphQLNonNull
+  ) {
     if (currentType instanceof GraphQLList) {
       currentType = currentType.ofType;
 

@@ -1,3 +1,5 @@
+/* eslint no-console: off */
+
 import * as yargs from 'yargs';
 import chalk from 'chalk';
 
@@ -9,7 +11,8 @@ const argv = yargs
     required: true,
     normalize: true,
     type: 'string',
-    describe: 'The path to the JSON file containing a schema instrospection query result',
+    describe:
+      'The path to the JSON file containing a schema instrospection query result',
   })
   .option('watch', {
     required: false,
@@ -23,8 +26,7 @@ const argv = yargs
     type: 'boolean',
     describe: 'Add a __typename field to every object type',
   })
-  .help()
-  .argv;
+  .help().argv;
 
 const builder = new Builder({
   graphQLFiles: argv._[0],
@@ -45,7 +47,9 @@ builder.on('build', ({documentPath, definitionPath}) => {
 
 builder.on('error', (error) => {
   console.log(`${ERROR} ${error.message}`);
-  if (error.stack) { console.log(chalk.dim(error.stack)); }
+  if (error.stack) {
+    console.log(chalk.dim(error.stack));
+  }
   console.log();
 
   if (!builder.watching) {
