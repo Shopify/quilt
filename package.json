@@ -1,13 +1,30 @@
 {
   "name": "graphql-tools",
+  "description": "A collection of utilities for GraphQL used in web projects at Shopify",
   "private": true,
+  "engines": {
+    "node": ">=v8.9.4",
+    "yarn": ">=1.3.2"
+  },
+  "author": "Shopify Inc.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "ts": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "pretest": "rm -rf packages/graphql-tool-utilities/node_modules/graphql && rm -rf packages/graphql-validate-fixtures/node_modules/graphql && rm -rf packages/graphql-typescript-definitions/node_modules/graphql && node scripts/introspection.js && lerna run pretest",
     "test": "jest --config ./config/jest/config.json",
-    "test:watch": "yarn run test -- --watch",
-    "check": "yarn run ts && yarn run test",
+    "test:watch": "yarn test -- --watch",
+    "lint": "",
     "prepublish": "in-publish && yarn run check || :"
   },
   "devDependencies": {

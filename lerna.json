@@ -1,8 +1,14 @@
 {
-  "lerna": "2.0.0-rc.4",
+  "lerna": "2.9.0",
   "packages": [
     "packages/*"
   ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
   "version": "independent",
-  "npmClient": "yarn"
+  "commands": {
+    "publish": {
+      "skipNpm": true
+    }
+  }
 }
