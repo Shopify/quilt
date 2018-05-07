@@ -28,7 +28,7 @@ export default function createOAuthStart({
     /* eslint-disable camelcase */
     const redirectParams = {
       state: requestNonce,
-      scope: scopes.join(' '),
+      scope: scopes.join(', '),
       client_id: apiKey,
       redirect_uri: `https://${host}${path}/callback`,
     };
