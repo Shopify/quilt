@@ -1,0 +1,21 @@
+{
+  "name": "@shopify/koa-logger",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn run build"
+  },
+  "publishConfig": {
+    "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
+  },
+  "author": "Shopify Inc.",
+  "dependencies": {
+    "@shopify/jest-koa-mocks": "^1.0.4"
+  },
+  "devDependencies": {
+    "typescript": "~2.7.2"
+  }
+}

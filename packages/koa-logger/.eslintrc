@@ -1,0 +1,6 @@
+{
+  "extends": "../../.eslintrc",
+  "rules": {
+    "no-process-env": "off"
+  }
+}
