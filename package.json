@@ -33,11 +33,13 @@
   ],
   "devDependencies": {
     "@types/jest": "^22.2.1",
+    "codecov": "^3.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-plugin-shopify": "^20.0.0",
     "graphql-tag": "^2.8.0",
+    "isomorphic-fetch": "^2.2.1",
     "jest": "^22.4.3",
     "jest-transform-graphql": "^2.1.0",
     "lerna": "^2.9.0",
@@ -46,8 +48,7 @@
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.4.2",
-    "typescript": "~2.7.2",
-    "isomorphic-fetch": "^2.2.1"
+    "typescript": "~2.7.2"
   },
   "jest": {
     "setupFiles": [
@@ -64,9 +65,9 @@
     },
     "testRegex": ".*\\.test\\.tsx?$",
     "testEnvironmentOptions": {
-     "url": "http://localhost:3000/"
-    }
-  },
-  "dependencies": {
+      "url": "http://localhost:3000/"
+    },
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
