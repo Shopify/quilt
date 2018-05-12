@@ -77,7 +77,7 @@ If you prefer things more explicit you can just get the `location` value to pass
 import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
-import ShopifyRoutePropagator from '@shopify/react-shopify-app-route-propagator;
+import ShopifyRoutePropagator from '@shopify/react-shopify-app-route-propagator';
 
 export default function() {
   return (
