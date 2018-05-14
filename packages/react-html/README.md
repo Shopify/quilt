@@ -96,8 +96,8 @@ The `<Style />` component lets you render `<link>` tags in your document dynamic
 
 ```ts
 <Style
-  href={'./some-style.css'}
-  integrity={'some-integrity-hash'}
+  href="./some-style.css"
+  integrity="some-integrity-hash"
   crossOrigin="anonymous"
 />
 ```
@@ -108,8 +108,8 @@ The `<Script />` component lets you render `<script>` tags in your document dyna
 
 ```ts
 <Script
-  src={'./some-script.js'}
-  integrity={'some-integrity-hash'}
+  src="./some-script.js"
+  integrity="some-integrity-hash"
   crossOrigin="anonymous"
 />
 ```
