@@ -1,7 +1,11 @@
 import {ReactWrapper, CommonWrapper} from 'enzyme';
 import {get} from 'lodash';
 
-export type AnyWrapper = ReactWrapper<any, any> | CommonWrapper<any, any>;
+export type AnyWrapper =
+  | ReactWrapper<any, any>
+  | ReactWrapper<any, never>
+  | CommonWrapper<any, any>
+  | CommonWrapper<any, never>;
 
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   if (wrapper.length === 0) {
