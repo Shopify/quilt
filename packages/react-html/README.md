@@ -39,8 +39,8 @@ The component will automatically propagate any usage of the `react-helmet` modul
 export interface Props {
   children?: React.ReactNode;
   styles?: Asset[];
-  synchronousScripts?: Asset[];
-  deferedScripts?: Asset[];
+  scripts?: Asset[];
+  blockingScripts?: Asset[];
   headData?: {[id: string]: any};
   data?: {[id: string]: any};
 }
@@ -66,11 +66,11 @@ The children to be rendered inside the `#app` div.
 **styles**
 Descriptors for any style tags you want to include in the HEAD of the document.
 
-**synchronousScripts**
-Descriptors for any script tags you want to include in the HEAD of the document.
+**scripts**
+Descriptors for any script tags you want to include in your document. All scripts passed to this property will be deferred by appending them to the end of the document. We encourage this as a default, although you may use `blockingScripts` for any scripts that must be included in the HEAD of the document.
 
-**deferredScripts**
-Descriptors for any deferred script tags you want to include at the end of the document.
+**blockingScripts**
+Descriptors for any script tags you want to include in the HEAD of the document. These will block HTML parsing until they are evaluated, so use them carefully.
 
 ### Serializers
 
