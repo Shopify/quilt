@@ -36,15 +36,15 @@ describe('<HTML />', () => {
     expect(styles && styles.display).not.toBe('none');
   });
 
-  it('is not styled `display: none` on the host node when there are no deferred scripts', () => {
+  it('is not styled `display: none` on the host node when there are no scripts', () => {
     const app = withEnv('development', () => mount(<HTML {...mockProps} />));
     const styles = app.find('#app').prop('style');
     expect(styles && styles.display).not.toBe('none');
   });
 
-  it('sets the display to none on the document body in development when there are deferred scripts to prevent the flash of unstyled content', () => {
+  it('sets the display to none on the document body in development when there are scripts to prevent the flash of unstyled content', () => {
     const app = withEnv('development', () =>
-      mount(<HTML {...mockProps} deferedScripts={[{path: 'foo.js'}]} />),
+      mount(<HTML {...mockProps} blockingScripts={[{path: 'foo.js'}]} />),
     );
     expect(app.find('body').prop('style')).toMatchObject({
       display: 'none',
@@ -66,7 +66,7 @@ describe('<HTML />', () => {
   describe('deferedScripts', () => {
     it('generates a script tag in the body with the `defer` attribute', () => {
       const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
-      const html = mount(<HTML {...mockProps} deferedScripts={scripts} />);
+      const html = mount(<HTML {...mockProps} scripts={scripts} />);
       const body = html.find('body');
 
       for (const script of scripts) {
@@ -80,10 +80,10 @@ describe('<HTML />', () => {
     });
   });
 
-  describe('synchronousScripts', () => {
+  describe('blockingScripts', () => {
     it('generates a script tag in the head without the `defer` attribute', () => {
       const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
-      const html = mount(<HTML {...mockProps} synchronousScripts={scripts} />);
+      const html = mount(<HTML {...mockProps} blockingScripts={scripts} />);
       const head = html.find('head');
 
       for (const script of scripts) {
@@ -196,7 +196,7 @@ describe('<HTML />', () => {
         <HTML
           {...mockProps}
           headData={headData}
-          synchronousScripts={[{path: 'foo.js'}]}
+          blockingScripts={[{path: 'foo.js'}]}
         />,
       );
       const headContents = html.find('head').children();
@@ -241,7 +241,7 @@ describe('<HTML />', () => {
     it('renders the serializers in the body before the defered scripts', () => {
       const data = {foo: {bar: 'baz'}};
       const html = mount(
-        <HTML {...mockProps} data={data} deferedScripts={[{path: 'foo.js'}]} />,
+        <HTML {...mockProps} data={data} scripts={[{path: 'foo.js'}]} />,
       );
       const bodyContents = html.find('body').children();
       const serializerIndex = findIndex(

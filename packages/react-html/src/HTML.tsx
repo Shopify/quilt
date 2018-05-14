@@ -28,16 +28,16 @@ export interface Browser {
 export interface Props {
   children?: React.ReactNode;
   styles?: Asset[];
-  synchronousScripts?: Asset[];
-  deferedScripts?: Asset[];
+  blockingScripts?: Asset[];
+  scripts?: Asset[];
   headData?: {[id: string]: any};
   data?: {[id: string]: any};
 }
 
 export default function HTML({
   children = '',
-  deferedScripts = [],
-  synchronousScripts = [],
+  blockingScripts = [],
+  scripts = [],
   styles = [],
   data = {},
   headData = {},
@@ -59,7 +59,7 @@ export default function HTML({
     );
   });
 
-  const synchronousScriptsMarkup = synchronousScripts.map(script => {
+  const blockingScriptsMarkup = blockingScripts.map(script => {
     return (
       <Script
         key={script.path}
@@ -70,7 +70,7 @@ export default function HTML({
     );
   });
 
-  const deferedScriptsMarkup = deferedScripts.map(script => {
+  const deferredScriptsMarkup = scripts.map(script => {
     return (
       <Script
         key={script.path}
@@ -84,7 +84,7 @@ export default function HTML({
 
   /* eslint-disable no-process-env, no-undefined */
   const bodyStyles =
-    process.env.NODE_ENV === 'development' && deferedScripts.length > 0
+    process.env.NODE_ENV === 'development' && blockingScripts.length > 0
       ? {display: 'none'}
       : undefined;
   /* eslint-enable no-process-env, no-undefined */
@@ -106,7 +106,7 @@ export default function HTML({
         {stylesMarkup}
         {headDataMarkup}
 
-        {synchronousScriptsMarkup}
+        {blockingScriptsMarkup}
       </head>
 
       <body {...bodyAttributes} style={bodyStyles}>
@@ -118,7 +118,7 @@ export default function HTML({
 
         {dataMarkup}
 
-        {deferedScriptsMarkup}
+        {deferredScriptsMarkup}
       </body>
     </html>
   );
