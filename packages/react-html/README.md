@@ -14,11 +14,12 @@ The `<HTML>` component serves as a top level wrapper for a react application, al
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 
-import HTML from '@shopify/react-html';
+import HTML, {DOCTYPE} from '@shopify/react-html';
 import MyApp from '../app';
 
 export default (ctx, next) => {
-  ctx.body = renderToString(
+  // we have to prepend DOCTYPE to serve valid HTML
+  ctx.body = DOCTYPE + renderToString(
     <HTML>
       <MyApp />
     </HTML>
@@ -27,6 +28,8 @@ export default (ctx, next) => {
   await next();
 }
 ```
+
+Due to [limitations in react's implementation of HTML](https://github.com/facebook/react/issues/1035), you still need to prepend the `<!DOCTYPE html>` directive. To assist with this the module also exports a `DOCTYPE` constant.
 
 The component will automatically propagate any usage of the `react-helmet` module in your app's content to manipulate the title or other top level HTML or HEAD attributes.
 
@@ -78,3 +81,35 @@ Any serializable data that needs to be available from the DOM when the `synchron
 
 **data**
 Any serializable data that needs to be available from the DOM when the `deferredScripts` are run.
+
+## Asset Components
+
+This module also exports the asset components the `<HTML />` component uses internally for it's script and style props.
+
+```ts
+import {Style, Script} from '@shopify/react-html';
+```
+
+### Style
+
+The `<Style />` component lets you render `<link>` tags in your document dynamically as part of your react app.
+
+```ts
+<Style
+  href="./some-style.css"
+  integrity="some-integrity-hash"
+  crossOrigin="anonymous"
+/>
+```
+
+### Script
+
+The `<Script />` component lets you render `<script>` tags in your document dynamically as part of your react app.
+
+```ts
+<Script
+  src="./some-script.js"
+  integrity="some-integrity-hash"
+  crossOrigin="anonymous"
+/>
+```
