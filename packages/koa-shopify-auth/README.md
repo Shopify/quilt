@@ -14,39 +14,39 @@ $ yarn add @shopify/koa-shopify-auth
 
 ## Usage
 
-This package exposes `createShopifyAuth` by default, and `createVerifyRequest` as a named export.
+This package exposes `shopifyAuth` by default, and `verifyRequest` as a named export.
 
 ```js
-import createShopifyAuth, {
-  createVerifyRequest,
-} from '@shopify/koa-shopify-auth';
+import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth';
 ```
 
-### createShopifyAuth
+### shopifyAuth
 
 Returns an authentication middleware taking up (by default) the routes `/auth` and `/auth/callback`.
 
-```javascript
-createShopifyAuth({
-  // if specified, mounts the routes off of the given path
-  // eg. /shopify/auth, /shopify/auth/callback
-  // defaults to ''
-  prefix: '/shopify',
-  // your shopify app api key
-  apiKey: SHOPIFY_API_KEY,
-  // your shopify app secret
-  secret: SHOPIFY_SECRET,
-  // scopes to request on the merchants store
-  scopes: ['write_orders, write_products'],
-  // callback for when auth is completed
-  afterAuth(ctx) {
-    const {shop, accessToken} = ctx.session;
+```js
+app.use(
+  shopifyAuth({
+    // if specified, mounts the routes off of the given path
+    // eg. /shopify/auth, /shopify/auth/callback
+    // defaults to ''
+    prefix: '/shopify',
+    // your shopify app api key
+    apiKey: SHOPIFY_API_KEY,
+    // your shopify app secret
+    secret: SHOPIFY_SECRET,
+    // scopes to request on the merchants store
+    scopes: ['write_orders, write_products'],
+    // callback for when auth is completed
+    afterAuth(ctx) {
+      const {shop, accessToken} = ctx.session;
 
-    console.log('We did it!', accessToken);
+      console.log('We did it!', accessToken);
 
-    ctx.redirect('/');
-  },
-}),
+      ctx.redirect('/');
+    },
+  }),
+);
 ```
 
 #### `/auth`
@@ -57,13 +57,13 @@ This route starts the oauth process. It expects a `?shop` parameter and will err
 
 You should never have to manually go here. This route is purely for shopify to send data back during the oauth process.
 
-### createVerifyRequest
+### verifyRequest
 
 Returns a middleware to verify requests before letting them further in the chain.
 
 ```javascript
 app.use(
-  createVerifyRequest({
+  verifyRequest({
     // path to redirect to if verification fails
     // defaults to '/auth'
     authRoute: '/foo/auth',
@@ -81,9 +81,7 @@ import 'isomorphic-fetch';
 
 import Koa from 'koa';
 import session from 'koa-session';
-import createShopifyAuth, {
-  createVerifyRequest,
-} from '@shopify/koa-shopify-auth';
+import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth';
 
 const {SHOPIFY_API_KEY, SHOPIFY_SECRET} = process.env;
 
@@ -96,7 +94,7 @@ app
 
   // sets up shopify auth
   .use(
-    createShopifyAuth({
+    shopifyAuth({
       apiKey: SHOPIFY_API_KEY,
       secret: SHOPIFY_SECRET,
       scopes: ['write_orders, write_products'],
@@ -111,7 +109,7 @@ app
   )
 
   // everything after this point will require authentication
-  .use(createVerifyRequest())
+  .use(verifyRequest())
 
   // application code
   .use(() => {
@@ -127,4 +125,4 @@ This app uses `fetch` to make requests against shopify, and expects you to have 
 
 ### Session
 
-Though you can use `createShopifyAuth` without a session middleware configured, `createVerifyRequest` expects you to have one. If you don't want to use one and have some other solution to persist your credentials, you'll need to build your own verifiction function.
+Though you can use `shopifyAuth` without a session middleware configured, `verifyRequest` expects you to have one. If you don't want to use one and have some other solution to persist your credentials, you'll need to build your own verifiction function.
