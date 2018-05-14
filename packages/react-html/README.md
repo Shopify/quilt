@@ -29,7 +29,7 @@ export default (ctx, next) => {
 }
 ```
 
-Due to [limitations in react's implementation of HTML](https://github.com/facebook/react/issues/1035), you still need to append the `<!DOCTYPE html>` directive. To assit with this the module also exports a `DOCTYPE` constant.
+Due to [limitations in react's implementation of HTML](https://github.com/facebook/react/issues/1035), you still need to prepend the `<!DOCTYPE html>` directive. To assist with this the module also exports a `DOCTYPE` constant.
 
 The component will automatically propagate any usage of the `react-helmet` module in your app's content to manipulate the title or other top level HTML or HEAD attributes.
 
