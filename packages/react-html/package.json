@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "prepublish": "yarn run build"
+    "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
     "access": "public",
