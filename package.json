@@ -47,6 +47,7 @@
     "plop": "^2.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.4.2",
     "typescript": "~2.7.2"
