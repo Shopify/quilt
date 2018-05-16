@@ -7,11 +7,14 @@ export interface Options {
   fallbackRoute?: string;
 }
 
-export default function createVerifyRequest({
+export default function verifyRequest({
   authRoute = '/auth',
   fallbackRoute = '/auth',
 }: Options = {}) {
-  return async function verifyRequest(ctx: Context, next: NextFunction) {
+  return async function verifyRequestMiddleware(
+    ctx: Context,
+    next: NextFunction,
+  ) {
     const {query: {shop}, session} = ctx;
 
     if (session && session.accessToken) {

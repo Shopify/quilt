@@ -1,7 +1,7 @@
-import createAuthRouter from './auth';
+import shopifyAuth from './auth';
 
-export default createAuthRouter;
+export default shopifyAuth;
 
 export * from './auth';
 
-export {default as createVerifyRequest} from './verify-request';
+export {default as verifyRequest} from './verify-request';
