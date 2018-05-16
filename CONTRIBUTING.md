@@ -32,6 +32,8 @@ Add some tests and make your change. Re-run the tests with:
 yarn test
 ```
 
+_Note_ the type checking in the `test` command relies on the build files for cross-package type references. Make sure you run `yarn build` before running the test suites to avoid any false positives from `yarn test`.
+
 ## Documentation
 
 If your change affects the public API of any packages within Quilt (i.e. adding or
