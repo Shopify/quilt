@@ -1,13 +1,13 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
-import createVerifyRequest from '../create-verify-request';
+import verifyRequest from '../verify-request';
 
 describe('verifyRequest', () => {
   it('calls next if there is an accessToken on session', () => {
-    const verifyRequest = createVerifyRequest();
+    const verifyRequestMiddleware = verifyRequest();
     const ctx = createMockContext({session: {accessToken: 'test'}});
     const next = jest.fn();
 
-    verifyRequest(ctx, next);
+    verifyRequestMiddleware(ctx, next);
 
     expect(next).toBeCalled();
   });
@@ -15,27 +15,27 @@ describe('verifyRequest', () => {
   it('redirects to /auth if there is no accessToken but shop is present on query', () => {
     const shop = 'myshop.com';
 
-    const verifyRequest = createVerifyRequest();
+    const verifyRequestMiddleware = verifyRequest();
     const next = jest.fn();
     const ctx = createMockContext({
       url: `/foo?shop=${shop}`,
       redirect: jest.fn(),
     });
 
-    verifyRequest(ctx, next);
+    verifyRequestMiddleware(ctx, next);
 
     expect(ctx.redirect).toBeCalledWith(`/auth?shop=${shop}`);
   });
 
   it('redirects to the /auth when there is no accessToken or known shop', () => {
-    const verifyRequest = createVerifyRequest();
+    const verifyRequestMiddleware = verifyRequest();
 
     const next = jest.fn();
     const ctx = createMockContext({
       redirect: jest.fn(),
     });
 
-    verifyRequest(ctx, next);
+    verifyRequestMiddleware(ctx, next);
 
     expect(ctx.redirect).toBeCalledWith('/auth');
   });
@@ -44,28 +44,28 @@ describe('verifyRequest', () => {
     const shop = 'myshop.com';
     const authRoute = '/my-auth-route';
 
-    const verifyRequest = createVerifyRequest({authRoute});
+    const verifyRequestMiddleware = verifyRequest({authRoute});
     const next = jest.fn();
     const ctx = createMockContext({
       url: `/foo?shop=${shop}`,
       redirect: jest.fn(),
     });
 
-    verifyRequest(ctx, next);
+    verifyRequestMiddleware(ctx, next);
 
     expect(ctx.redirect).toBeCalledWith(`${authRoute}?shop=${shop}`);
   });
 
   it('redirects to the given fallbackRoute when there is no accessToken or known shop', () => {
     const fallbackRoute = '/somewhere-on-the-app';
-    const verifyRequest = createVerifyRequest({fallbackRoute});
+    const verifyRequestMiddleware = verifyRequest({fallbackRoute});
 
     const next = jest.fn();
     const ctx = createMockContext({
       redirect: jest.fn(),
     });
 
-    verifyRequest(ctx, next);
+    verifyRequestMiddleware(ctx, next);
 
     expect(ctx.redirect).toBeCalledWith(fallbackRoute);
   });
