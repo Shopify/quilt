@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-auth",
-  "version": "2.0.6",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
