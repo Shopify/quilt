@@ -24,6 +24,7 @@ This repository uses [lerna](https://github.com/lerna/lerna) to manage it's pack
 | `with-env`                           | [README](packages/with-env/README.md)                                                    | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env)                                   |
 | `react-serialize`                    | [README](packages/react-serialize/README.md)                                             | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-serialize.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize)                     |
 | `react-html`                         | [README](packages/react-html/README.md)                                                  | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)                               |
+| `react-compose`                      | [README](packages/react-compose/README.md)                                               | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose)                         |
 | `react-shopify-app-route-propagator` | [README](packages/react-shopify-app-route-propagator/README.md)                          | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)       |
 
 ## Contribute
