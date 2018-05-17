@@ -11,7 +11,10 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "yarn run build"
+    "prepublishOnly": "yarn run build",
+    "lint": "yarn run eslint '**/*.{ts,tsx}'",
+    "test": "cd ../.. && yarn test jest-dom-mocks",
+    "bootstrap": "cd ../.. && yarn install && yarn build"
   },
   "author": "Shopify Inc.",
   "repository": {
@@ -29,6 +32,8 @@
     "lolex": "^2.3.2"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-shopify": "^22.0.0",
     "typescript": "~2.7.2"
   }
 }

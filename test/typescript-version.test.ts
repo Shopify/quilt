@@ -20,11 +20,8 @@ describe('typescript version', () => {
         readFileSync(packageJSONPath, {encoding: 'utf8'}),
       );
 
-      expect(packageJSON).toMatchObject({
-        devDependencies: {
-          typescript: rootVersion,
-        },
-      });
+      expect(packageJSON).toHaveProperty('devDependencies');
+      expect(packageJSON.devDependencies.typescript).toBe(rootVersion);
     }
   });
 

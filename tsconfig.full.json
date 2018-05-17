@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "es5",
@@ -16,12 +17,18 @@
     "lib": [
       "dom",
       "es2015"
-    ]
+    ],
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "rootDir": "./src"
   },
   "exclude": [
-    "./node_modules",
+    "**/node_modules",
     "**/*.test.ts",
     "**/*.hbs.*",
-    "**/*.test.tsx",
+    "**/*.test.tsx"
+  ],
+  "include": [
+    "src/**/*.ts"
   ]
 }

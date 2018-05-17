@@ -21,7 +21,13 @@ _Note: replace "your-username" with your Github handle_
 Install the project's dependencies (make sure you first have [yarn](https://yarnpkg.com/) installed):
 
 ```
-yarn
+yarn install
+```
+
+Compile the typescript source so your package(s) can depend on eachother locally.
+
+```
+yarn build
 ```
 
 Write some features.
@@ -31,6 +37,14 @@ Add some tests and make your change. Re-run the tests with:
 ```
 yarn test
 ```
+
+## Creating a new package
+
+To create a new package run `yarn generate package`. The generator will prompt you for a name and description, and then create boilerplate configuration files for you.
+
+## Working scoped to a single package
+
+You can develop features scoped to a single package if you prefer. You'll just need to run `yarn bootstrap` from within a packages folder, and then any of the common commands (`test`, `build`, `lint`) will work as expected.
 
 ## Documentation
 
