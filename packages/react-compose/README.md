@@ -1,11 +1,11 @@
-# `@shopify/react-compose-enhancers`
+# `@shopify/react-compose`
 
 Cleanly compose multiple component enhancers together with minimal fuss.
 
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-compose-enhancers
+$ yarn add @shopify/react-compose
 ```
 
 ## Usage
@@ -13,14 +13,14 @@ $ yarn add @shopify/react-compose-enhancers
 This module exports a single default function `compose`.
 
 ```ts
-import compose from '@shopify/react-compose-enhancers';
+import compose from '@shopify/react-compose';
 ```
 
 This function can be called on a list of component enhancers ([Higher Order Components](https://reactjs.org/docs/higher-order-components.html)) to return a single master component enhancer that adds all of the props from all of the enhancers you gave it.
 
 ```ts
 import {withRouter} form 'react-router';
-import compose from '@shopify/react-compose-enhancers';
+import compose from '@shopify/react-compose';
 import {withMousePosition} from './mouse-position';
 
 const enhancer = compose(
