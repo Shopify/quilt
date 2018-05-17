@@ -33,7 +33,7 @@ app.use(
   }),
 );
 
-app.use(proxy);
+app.use(proxy());
 ```
 
 This allows client side scripts to query a logged in merchant's shop without needing to know the users access token.
@@ -52,7 +52,7 @@ import mount from 'koa-mount';
 
 //....
 
-app.use(mount('/shopify', proxy);
+app.use(mount('/shopify', proxy());
 ```
 
 ```javascript
