@@ -1,0 +1,36 @@
+{
+  "name": "@shopify/react-compose",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Cleanly compose multiple component enhancers together with minimal fuss",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/shopify/quilt/packages/react-compose-enhancers/README.md",
+  "dependencies": {
+    "hoist-non-react-statics": "^2.5.0"
+  },
+  "peerDependencies": {
+    "react": "^16.3.2"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.1.10",
+    "enzyme": "^3.3.0",
+    "typescript": "~2.7.2"
+  }
+}
