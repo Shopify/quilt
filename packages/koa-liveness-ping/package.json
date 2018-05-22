@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/react-html",
-  "version": "2.0.7",
+  "name": "@shopify/koa-liveness-ping",
+  "version": "0.0.0",
   "license": "MIT",
-  "description": "",
+  "description": "A package for creating a liveness ping middleware for use with koa",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,15 +21,15 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/react-html/README.md",
+  "homepage": "https://github.com/shopify/quilt/packages/koa-liveness-ping/README.md",
   "dependencies": {
-    "@shopify/react-serialize": "^1.0.3",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-helmet": "^5.2.0"
+    "koa": "^2.5.1"
   },
   "devDependencies": {
-    "@shopify/with-env": "^1.0.0",
+    "@shopify/jest-koa-mocks": "^2.0.1",
+    "@types/koa": "^2.0.45",
+    "@types/koa-mount": "^3.0.1",
+    "koa-mount": "^3.0.0",
     "typescript": "~2.7.2"
   }
 }
