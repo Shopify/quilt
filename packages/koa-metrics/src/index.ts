@@ -54,7 +54,10 @@ export default function metrics({prefix, host}: Options) {
       const ms = duration[0] * 1000 + duration[1] / 1e6;
       responseClient.timing('request_time', Math.round(ms));
 
-      responseClient.histogram('request_content_length', ctx.response.length);
+      responseClient.histogram(
+        'request_content_length',
+        ctx.response.get('Content-Length'),
+      );
 
       // @ts-ignore According to the hot-shots documentation, callback
       // is not required.

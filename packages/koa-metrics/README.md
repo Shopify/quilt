@@ -1,8 +1,6 @@
 # `@shopify/koa-metrics`
 
-Performance metrics implemented with DogStatsD (<https://docs.datadoghq.com/developers/dogstatsd/>) are used widely across services at Shopify. The standard metrics should be documented and following strong conventions.
-
-This package aims to provide standard middlewares and instrumentation tooling for metrics in Koa.
+Opinionated performance metric tracking for Koa, implemented with DogStatsD
 
 ## Installation
 
@@ -71,4 +69,4 @@ This metric is emitted when the application start processing a request. It relie
 
 ### `request_content_length`
 
-This metric is based on the response header `Content-Length`. Some responses don't provide this header (chunked encoding), in this case, this will be deduced from `ctx.body` when possible, or else `undefined`.
+This metric is based on the response header `Content-Length`. Some responses don't provide this header (chunked encoding); in those cases, this will be `undefined`.
