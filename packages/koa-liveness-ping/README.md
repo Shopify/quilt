@@ -14,7 +14,7 @@ $ yarn add @shopify/koa-liveness-ping
 
 ```typescript
 import Koa from 'koa';
-import livenessPing from '@shopify/koa-liveness-ping';
+import ping from '@shopify/koa-liveness-ping';
 
 const app = new Koa();
 
@@ -27,4 +27,4 @@ app.use(ping());
 
 This middleware can also be mounted at any path via `koa-mount` ([Learn more](https://github.com/koajs/mount#mounting-middleware)).
 
-**Note:** The `livenessPing` middleware should be the first routing-related middleware, in order to ensure it can respond quickly and reliably.
+**Note:** Mount the liveness ping middleware before all other routing-related middleware in order to ensure it can respond quickly and reliably.
