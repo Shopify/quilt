@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
