@@ -13,16 +13,24 @@ $ yarn add @shopify/jest-mock-apollo
 
 ## Setup
 
-This package provides a method, `registerSchema`, which should be called in the jest `setup` file. For example:
+This package provides a factory class, which should be instantiated in a `utilities` file for your project. For example:
 
 ```ts
-registerSchema({
-  schemaBuildPath: './fixtures/schema.graphql',
-  unionOrIntersectionTypes,
+// tests/utilities
+const schemaSrc = fs.readFileSync(
+  path.resolve(__dirname, '../build/schema.graphql'),
+);
+const graphQLClientFactory = new GraphQLClientFactory({
+  schemaSrc,
 });
+const createGraphQLClient = graphQLClientFactory.create;
+
+export {createGraphQLClient};
 ```
 
-this will ensure that more useful error messages are shown and that mocks are validated against the schema.
+you can then import `createGraphQLClient` from `tests/utilities` across your project.
+
+The factory requires a `GraphQLSchema`, either directly via `schema` or as a source string via `schemaSrc`, in order to ensure that more useful error messages are shown and that mocks are validated against the schema.
 
 ## Example Usage
 
