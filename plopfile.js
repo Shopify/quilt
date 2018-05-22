@@ -13,6 +13,11 @@ module.exports = function(plop) {
         name: 'description',
         message: "What should this package's description be?",
       },
+      {
+        type: 'confirm',
+        name: 'usedInBrowser',
+        message: 'Is this package intended for use in the browser?',
+      },
     ],
     actions: [
       {

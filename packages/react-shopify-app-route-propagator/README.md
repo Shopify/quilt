@@ -1,5 +1,8 @@
 # `@shopify/react-shopify-app-route-propagator`
 
+[![CircleCI](https://circleci.com/gh/Shopify/quilt.svg?style=svg&circle-token=8dafbec2d33dcb489dfce1e82ed37c271b26aeba)](https://circleci.com/gh/Shopify/quilt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator.svg)](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator) ![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-shopify-app-route-propagator.svg)
+
 `<ShopifyRoutePropagator />` is a simple component to synchronize a Shopify embedded app's client side routing with the outer iframe host.
 
 The component is quite small and can be used with any routing solution.
