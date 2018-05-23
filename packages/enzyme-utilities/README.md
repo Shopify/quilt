@@ -65,14 +65,7 @@ Adds an enzyme wrapper to a tracked list of mounted wrappers. These wrappers can
 
 Unmounts all wrappers previously registered via `addMountedWrapper`. This can be used in a global `afterEach` hook with the following caveat:
 
-> Usually, you can
-> rely on running this once for the entire suite after each test
-> (and its nested hooks) have been run. However, in some cases you may
-> need to run this manually. This is most commonly needed when your
-> component uses timeouts/ animation frames that you mock out for tests,
-> and waiting until after you have restored those globals will lead
-> to their stored identifiers for the timeout or animation frame to
-> be invalid.
+> Usually, you can rely on running this once for the entire suite after each test (and its nested hooks) have been run. However, in some cases you may need to run this manually. This is most commonly needed when your component uses timeouts/ animation frames that you mock out for tests, and waiting until after you have restored those globals will lead to their stored identifiers for the timeout or animation frame to be invalid.
 
 ### `function mount<P, S = any>(node: ReactElement<P>, options?: MountRendererProps | undefined): ReactWrapper<P, S>`
 

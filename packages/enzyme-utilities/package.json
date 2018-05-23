@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@shopify/javascript-utilities": "^2.1.0",
+    "@types/react": "^16.3.14",
     "enzyme": "^3.3.0",
     "react": "^16.3.2",
     "typescript": "~2.7.2"

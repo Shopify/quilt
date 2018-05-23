@@ -1,9 +1,11 @@
-import {addMountedWrapper, unmountAllWrappers} from '..';
+import {wrappers} from '..';
 
 describe('wrappers', () => {
   it('calls unmount on all wrappers', () => {
     const wrapper1 = {unmount: jest.fn()};
     const wrapper2 = {unmount: jest.fn()};
+
+    const {addMountedWrapper, unmountAllWrappers} = wrappers();
 
     addMountedWrapper(wrapper1 as any);
     addMountedWrapper(wrapper2 as any);
