@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/jest-mock-apollo/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/jest-mock-apollo/README.md",
   "dependencies": {
     "apollo-cache-inmemory": "^1.1.12",
     "apollo-client": "^2.2.8",
