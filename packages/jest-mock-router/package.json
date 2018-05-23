@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/jest-mock-router/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/jest-mock-router/README.md",
   "devDependencies": {
     "@types/react-router": "^3.0.0",
     "react": "^16.2.0",

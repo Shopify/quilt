@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/jest-dom-mocks/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/jest-dom-mocks/README.md",
   "dependencies": {
     "@shopify/javascript-utilities": "^2.1.0",
     "@types/fetch-mock": "^6.0.1",

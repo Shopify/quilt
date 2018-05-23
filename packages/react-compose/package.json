@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/react-compose-enhancers/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-compose-enhancers/README.md",
   "dependencies": {
     "hoist-non-react-statics": "^2.5.0"
   },
