@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/react-serialize/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-serialize/README.md",
   "dependencies": {
     "serialize-javascript": "^1.5.0"
   },
