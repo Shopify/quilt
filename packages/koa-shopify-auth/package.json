@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/koa-shopify-auth/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md",
   "dependencies": {
     "@shopify/jest-koa-mocks": "^2.0.6",
     "@types/koa": "^2.0.44",
