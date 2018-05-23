@@ -16,14 +16,6 @@ import metrics from '@shopify/koa-metrics';
 
 const app = new Koa();
 
-app.use(metrics(options));
-```
-
-### Options
-
-The passed in `options` object adheres to the following API:
-
-```javascript
 app.use(
   metrics({
     prefix: 'AppName',
@@ -31,6 +23,10 @@ app.use(
   }),
 );
 ```
+
+### Options
+
+The passed in `options` object adheres to the following API:
 
 #### `prefix` (required)
 
@@ -46,14 +42,14 @@ We rely on the [hot-shots](https://github.com/brightcove/hot-shots) npm package 
 
 The global StatsD metric name prefix is provided through the [options object](#options).
 
-This package automatically provides performance metrics for HTTP requests:
+This package automatically provides performance metrics for HTTP requests.
 
 ### Standard tags
 
 * `path`
 * `request_method`
 * `response_code`
-* `response_type`
+* `response_type` (eg. `2xx`, `3xx`, ...)
 
 ### Histogram metrics
 
