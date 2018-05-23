@@ -1,7 +1,7 @@
-import GraphQLClientFactory from './GraphQLClientFactory';
+import createGraphQLClientFactory from './factory';
 import MockApolloLink from './MockApolloLink';
 
 export {MockApolloLink};
 export * from './types';
 
-export default GraphQLClientFactory;
+export default createGraphQLClientFactory;
