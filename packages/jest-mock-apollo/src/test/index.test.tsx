@@ -5,20 +5,18 @@ import {mount} from 'enzyme';
 import {readFileSync} from 'fs';
 import * as path from 'path';
 
-import GraphQLClientFactory, {GraphQLMock, GraphQLClientOptions} from '..';
+import createGraphQLClientFactory from '..';
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
 import petQuery from './fixtures/PetQuery.graphql';
 
 // setup
-const graphQLClientFactory = new GraphQLClientFactory({
+const createGraphQLClient = createGraphQLClientFactory({
   schemaSrc: readFileSync(
     path.resolve(__dirname, './fixtures/schema.graphql'),
     'utf8',
   ),
   unionOrIntersectionTypes,
 });
-
-const createGraphQLClient = graphQLClientFactory.create;
 
 interface Props {
   data?: {

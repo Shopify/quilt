@@ -13,22 +13,30 @@ $ yarn add @shopify/jest-mock-apollo
 
 ## Setup
 
-This package provides a factory class, which should be instantiated in a `utilities` file for your project. For example:
+This package provides a function `createGraphQLClientFactory` that can be used to instantiate a `createGraphQLClient` function specific to your project:
 
 ```ts
-// tests/utilities
-const schemaSrc = fs.readFileSync(
-  path.resolve(__dirname, '../build/schema.graphql'),
-);
-const graphQLClientFactory = new GraphQLClientFactory({
+// tests/utilities/graphql.ts
+import createGraphQLClientFactory from '@shopify/jest-mock-apollo';
+
+// You likely want to import this from somewhere in real production code
+const schemaSrc = `
+  type Product {
+    id: Int!
+    title: String
+  }
+
+  type Query {
+    products: [Product]
+  }
+`;
+
+const createGraphQLClient = createGraphQLClientFactory({
   schemaSrc,
 });
-const createGraphQLClient = graphQLClientFactory.create;
 
 export {createGraphQLClient};
 ```
-
-you can then import `createGraphQLClient` from `tests/utilities` across your project.
 
 The factory requires a `GraphQLSchema`, either directly via `schema` or as a source string via `schemaSrc`, in order to ensure that more useful error messages are shown and that mocks are validated against the schema.
 
