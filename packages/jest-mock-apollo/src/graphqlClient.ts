@@ -1,13 +1,24 @@
-import {buildSchema} from 'graphql';
+import {GraphQLSchema} from 'graphql';
 import {GraphQLRequest, ApolloLink} from 'apollo-link';
 import {
+  ApolloReducerConfig,
   InMemoryCache,
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
-import {GraphQLMock, GraphQLClientConfig, GraphQLClientOptions} from './types';
+import {GraphQLMock} from './types';
 import MockApolloLink from './MockApolloLink';
 import Requests from './Requests';
+
+export interface GraphQLClientConfig {
+  unionOrIntersectionTypes?: any[];
+  schema: GraphQLSchema;
+  cacheOptions?: ApolloReducerConfig;
+}
+
+export interface GraphQLClientOptions {
+  ssrMode?: boolean;
+}
 
 export type MockGraphQLClient = ApolloClient<any> & {
   graphQLRequests: Requests;
@@ -21,17 +32,11 @@ function defaultGraphQLMock({operationName}: GraphQLRequest) {
   );
 }
 
-export default function createGraphQLClientFactory({
+export default function configureClient({
   unionOrIntersectionTypes = [],
-  schema: inputSchema,
-  schemaSrc,
+  schema,
   cacheOptions = {},
 }: GraphQLClientConfig) {
-  const schema = schemaSrc == null ? inputSchema : buildSchema(schemaSrc);
-  if (schema == null) {
-    throw new Error('schema or schemaSrc is required.');
-  }
-
   return function createGraphQLClient(
     mock: GraphQLMock = defaultGraphQLMock,
     {ssrMode = true}: GraphQLClientOptions = {},

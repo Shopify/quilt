@@ -3,18 +3,21 @@ import {graphql} from '@shopify/react-apollo';
 
 import {mount} from 'enzyme';
 import {readFileSync} from 'fs';
+import {buildSchema} from 'graphql';
 import * as path from 'path';
 
-import createGraphQLClientFactory from '..';
+import configureClient from '..';
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
 import petQuery from './fixtures/PetQuery.graphql';
 
 // setup
-const createGraphQLClient = createGraphQLClientFactory({
-  schemaSrc: readFileSync(
-    path.resolve(__dirname, './fixtures/schema.graphql'),
-    'utf8',
-  ),
+const schemaSrc = readFileSync(
+  path.resolve(__dirname, './fixtures/schema.graphql'),
+  'utf8',
+);
+const schema = buildSchema(schemaSrc);
+const createGraphQLClient = configureClient({
+  schema,
   unionOrIntersectionTypes,
 });
 
