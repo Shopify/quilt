@@ -2,8 +2,10 @@ import {StatsD} from 'hot-shots';
 import {Context} from 'koa';
 
 import {tagsForRequest, tagsForResponse} from './tags';
-import {initTimer} from './timing';
+import {initTimer, Timer} from './timing';
 import {instrumentContentLength} from './content';
+
+export {Tags} from './tags';
 
 export interface Options {
   prefix: string;
@@ -27,7 +29,7 @@ export default function metrics({
       globalTags: tagsForRequest(ctx),
     });
 
-    let timer;
+    let timer: Timer | undefined;
 
     if (!skipInstrumentation) {
       timer = initTimer(client, ctx);
@@ -43,7 +45,7 @@ export default function metrics({
         globalTags: tagsForResponse(ctx),
       });
 
-      if (!skipInstrumentation) {
+      if (timer && !skipInstrumentation) {
         timer.close(responseClient);
         instrumentContentLength(responseClient, ctx);
       }

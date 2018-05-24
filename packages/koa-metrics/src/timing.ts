@@ -1,7 +1,11 @@
 import {StatsD} from 'hot-shots';
 import {Context} from 'koa';
 
-export function initTimer(client: StatsD, ctx: Context) {
+export interface Timer {
+  close(responseClient?: StatsD): void;
+}
+
+export function initTimer(client: StatsD, ctx: Context): Timer {
   const startTime = process.hrtime();
 
   const requestQueuingTime = ctx.request.get('X-Request-Start');

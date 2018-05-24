@@ -1,17 +1,22 @@
 import {Context} from 'koa';
 
-/* eslint-disable camelcase */
+export enum Tags {
+  Path = 'path',
+  RequestMethod = 'request_method',
+  ResponseCode = 'response_code',
+  ResponseType = 'response_type',
+}
+
 export function tagsForRequest(ctx: Context) {
   return {
-    path: ctx.path,
-    request_method: ctx.request.method,
+    [Tags.Path]: ctx.path,
+    [Tags.RequestMethod]: ctx.request.method,
   };
 }
 
 export function tagsForResponse(ctx: Context) {
   return {
-    response_code: `${ctx.response.status}`,
-    response_type: `${Math.floor(ctx.response.status / 100)}xx`,
+    [Tags.ResponseCode]: `${ctx.response.status}`,
+    [Tags.ResponseType]: `${Math.floor(ctx.response.status / 100)}xx`,
   };
 }
-/* eslint-enable camelcase */
