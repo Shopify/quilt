@@ -9,7 +9,7 @@
     "build": "tsc",
     "prepublishOnly": "yarn run build",
     "lint": "yarn run eslint '**/*.{ts,tsx}'",
-    "test": "cd ../.. && yarn test react-html",
+    "test": "cd ../.. && yarn test",
     "bootstrap": "cd ../.. && yarn install && yarn build"
   },
   "publishConfig": {
