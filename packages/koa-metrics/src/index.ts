@@ -2,10 +2,16 @@ import {StatsD} from 'hot-shots';
 import {Context} from 'koa';
 
 import {tagsForRequest, tagsForResponse} from './tags';
-import {initTimer, Timer} from './timing';
-import {instrumentContentLength} from './content';
+import {initTimer, Timer, getQueuingTime} from './timing';
+import {getContentLength} from './content';
 
 export {Tags} from './tags';
+
+export enum Metrics {
+  ContentLength = 'request_content_length',
+  QueuingTime = 'request_queuing_time',
+  RequestDuration = 'request_time',
+}
 
 export interface Options {
   prefix: string;
@@ -32,11 +38,15 @@ export default function metrics({
     let timer: Timer | undefined;
 
     if (!skipInstrumentation) {
-      timer = initTimer(client, ctx);
+      timer = initTimer();
+      const queuingTime = getQueuingTime(ctx);
+      if (queuingTime) {
+        client.timing(Metrics.QueuingTime, queuingTime);
+      }
     }
 
     // allow later middleware to add metrics
-    ctx.state.statsd = client;
+    ctx.state.metrics = client;
 
     try {
       await next();
@@ -45,9 +55,16 @@ export default function metrics({
         globalTags: tagsForResponse(ctx),
       });
 
-      if (timer && !skipInstrumentation) {
-        timer.close(responseClient);
-        instrumentContentLength(responseClient, ctx);
+      if (!skipInstrumentation) {
+        if (timer) {
+          const duration = timer.stop();
+          responseClient.timing(Metrics.RequestDuration, duration);
+        }
+
+        const contentLength = getContentLength(ctx);
+        if (contentLength) {
+          responseClient.histogram(Metrics.ContentLength, contentLength);
+        }
       }
 
       // @ts-ignore According to the hot-shots documentation, callback
