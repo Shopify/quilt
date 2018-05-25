@@ -1,30 +1,47 @@
 import * as React from 'react';
-import {createMount} from '..';
+import {setupMount} from '..';
 import {mount as enzymeMount} from 'enzyme';
 
-jest.mock('../wrappers', () => ({
-  addMountedWrapper: jest.fn(),
-}));
-
 jest.mock('enzyme', () => ({
-  mount: jest.fn(),
+  mount: jest.fn(() => ({unmount: jest.fn()})),
 }));
 
 describe('mount', () => {
   it('calls the enzyme mount function', () => {
     const component = <p>test</p>;
-    const mount = createMount(() => {});
+    const {mount} = setupMount();
     mount(component);
 
     expect(enzymeMount).toHaveBeenCalled();
   });
 
-  it('calls addMountedWrapper', () => {
+  it('calls unmount on all mounted wrappers', () => {
     const component = <p>test</p>;
-    const onMountSpy = jest.fn();
-    const mount = createMount(onMountSpy);
-    mount(component);
+    const {mount, unmountAllWrappers} = setupMount();
 
-    expect(onMountSpy).toHaveBeenCalled();
+    const wrapper = mount(component);
+
+    unmountAllWrappers();
+    expect(wrapper.unmount).toHaveBeenCalled();
+  });
+
+  describe('custom wrappers', () => {
+    it('calls unmount on all added wrappers', () => {
+      const wrapper1 = {unmount: jest.fn()};
+      const wrapper2 = {unmount: jest.fn()};
+
+      const {addMountedWrapper, unmountAllWrappers} = setupMount();
+
+      addMountedWrapper(wrapper1 as any);
+      addMountedWrapper(wrapper2 as any);
+
+      expect(wrapper1.unmount).not.toHaveBeenCalled();
+      expect(wrapper2.unmount).not.toHaveBeenCalled();
+
+      unmountAllWrappers();
+
+      expect(wrapper1.unmount).toHaveBeenCalledTimes(1);
+      expect(wrapper2.unmount).toHaveBeenCalledTimes(1);
+    });
   });
 });
