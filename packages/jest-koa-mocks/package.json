@@ -34,6 +34,6 @@
     "@types/koa": "^2.0.44",
     "typescript": "~2.7.2",
     "eslint": "^4.19.1",
-    "eslint-plugin-shopify": "^20.0.0"
+    "eslint-plugin-shopify": "^22.0.0"
   }
 }

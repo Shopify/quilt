@@ -2166,7 +2166,7 @@ eslint-plugin-react@7.7.0:
     jsx-ast-utils "^2.0.1"
     prop-types "^15.6.0"
 
-eslint-plugin-shopify@^20.0.0:
+eslint-plugin-shopify@^22.0.0:
   version "20.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-shopify/-/eslint-plugin-shopify-20.0.0.tgz#254da8f5123a20c076187ce4d8933d9092dedf31"
   dependencies:
