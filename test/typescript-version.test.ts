@@ -2,7 +2,7 @@ import {readdirSync, readFileSync} from 'fs';
 import * as path from 'path';
 
 describe('typescript version', () => {
-  it('the version in each package matches the root version', () => {
+  it('matches the root version', () => {
     const rootPackageJSON = require('../package.json');
     const rootVersion = rootPackageJSON.devDependencies.typescript;
 
