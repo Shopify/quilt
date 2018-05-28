@@ -15,7 +15,7 @@
     "noUnusedLocals": true,
     "lib": [
       "dom",
-      "es2015"
+      "es2016"
     ]
   },
   "exclude": [
