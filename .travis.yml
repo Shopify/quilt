@@ -1,0 +1,8 @@
+language: node_js
+install:
+  - yarn install --production=false
+script:
+  - yarn lint
+  - yarn build
+  - yarn test
+  - yarn codecov
