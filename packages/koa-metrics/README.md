@@ -1,5 +1,8 @@
 # `@shopify/koa-metrics`
 
+[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-metrics.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-metrics.svg)
+
 Opinionated performance metric tracking for Koa, implemented with DogStatsD
 
 ## Installation
@@ -36,33 +39,78 @@ The global StatsD metric name prefix; should be provided in `PascalCase`.
 
 The url for the StatsD host; should be provided in the format: `hostname:port`.
 
-## Metrics
+## API
 
-We rely on the [hot-shots](https://github.com/brightcove/hot-shots) npm package to send the metrics.
+An instance of the `Metrics` object will be available on `ctx.metrics` further dfown in the middleware stack.
 
-The global StatsD metric name prefix is provided through the [options object](#options).
+### `Metrics`
+
+#### `.timing(name: string, value: number, sampleRate?: number, tags?: Tags)`
+
+Sends a timing command with the specified `value` in milliseconds.
+
+#### `.histogram(name: string, value: number, sampleRate?: number, tags?: Tags)`
+
+Sends data for histogram stats.
+
+#### `.initTimer(): Timer`
+
+Returns a new `Timer` started at the current `process.hrtime()`
+
+### `Timer`
+
+#### `.stop(): number`
+
+Returns the time, in milliseconds, since the `Timer` was created.
+
+### `Tags`
+
+tags can be a hash:
+
+```
+{
+  name: value,
+  name2: value2
+}
+```
+
+an array of keys:
+
+```
+['tag1', 'tag2']
+```
+
+or an array of key-value pairs, separated by colons:
+
+```
+['name:value', 'name2:value2']
+```
+
+## Intelligent Defaults
+
+The global metric name prefix is provided through the [options object](#options).
 
 This package automatically provides performance metrics for HTTP requests.
 
 ### Standard tags
 
-* `path`
-* `request_method`
-* `response_code`
-* `response_type` (eg. `2xx`, `3xx`, ...)
+- `path`
+- `request_method`
+- `response_code`
+- `response_type` (eg. `2xx`, `3xx`, ...)
 
-### Histogram metrics
+### Default Metrics
 
-### `request_time`
+#### `request_time`
 
 Time to complete a request, from the application perspective.
 
-### `request_queuing_time`
+#### `request_queuing_time`
 
 Time before a request actually started being processed.
 
 This metric is emitted when the application start processing a request. It relies on the presence of a header `X-Request-Start` set by the first HTTP hop.
 
-### `request_content_length`
+#### `request_content_length`
 
 This metric is based on the response header `Content-Length`. Some responses don't provide this header (chunked encoding); in those cases, this will be `undefined`.

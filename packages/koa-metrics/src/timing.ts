@@ -1,9 +1,5 @@
 import {Context} from 'koa';
 
-export interface Timer {
-  stop(): number;
-}
-
 export function getQueuingTime(ctx: Context): number | null {
   const requestQueuingTime = ctx.request.get('X-Request-Start');
   if (requestQueuingTime) {
@@ -14,17 +10,4 @@ export function getQueuingTime(ctx: Context): number | null {
     }
   }
   return null;
-}
-
-export function initTimer(): Timer {
-  const startTime = process.hrtime();
-
-  function stop() {
-    const duration = process.hrtime(startTime);
-    const [seconds, nanoseconds] = duration;
-    const milliseconds = seconds * 1000 + nanoseconds / 1e6;
-    return Math.round(milliseconds);
-  }
-
-  return {stop};
 }
