@@ -1,9 +1,21 @@
 describe('koa-metrics', () => {
-  it.skip('provides a hot-shots client as ctx.state.statsd');
+  it.skip('provides a Metrics client as ctx.metrics');
 
-  it.skip('uses the provided prefix for statsd metrics');
+  it.skip('uses the provided prefix for metrics metrics');
 
-  it.skip('uses the provided host for the statsd client');
+  it.skip('uses the provided host for the metrics client');
+
+  describe('logging', () => {
+    it.skip('uses the provided logger for the metrics client');
+
+    it.skip(
+      'uses ctx.log for the metrics client if available and no logger was provided',
+    );
+
+    it.skip(
+      'uses console.log for the metrics client if no logger was provided and ctx.log is undefined',
+    );
+  });
 
   describe('request_queuing_time', () => {
     it.skip('logs the queuing time based on the X-Request-Start header');
@@ -13,7 +25,7 @@ describe('koa-metrics', () => {
     );
 
     it.skip(
-      'emits this metric when the request processing begins (i.e. before calling next())',
+      'emits the queuing time metric when the request processing begins (i.e. before calling next())',
     );
 
     it.skip('tags the log with the path');
