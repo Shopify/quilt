@@ -30,7 +30,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "type-check": "tsc --noEmit",
-    "pretest": "lerna run pretest",
+    "pretest": "node scripts/introspection.js && lerna run pretest",
     "test": "jest --config ./config/jest/config.json",
     "test:watch": "yarn test --watch",
     "lint:scripts": "eslint './**/*.ts' --format codeframe --cache true --max-warnings 0",
