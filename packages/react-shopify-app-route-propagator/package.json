@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-shopify-app-route-propagator/README.md",
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.0.0",
+    "react-router": "^4.2.0"
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
