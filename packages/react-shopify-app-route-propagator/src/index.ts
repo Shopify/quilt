@@ -1,4 +1,5 @@
 import React from 'react';
+import {WithRouterProps} from 'react-router';
 
 import {getSelfWindow, getTopWindow, getOrigin} from './globals';
 
@@ -6,9 +7,11 @@ export type LocationOrHref =
   | string
   | {search: string; hash: string; pathname: string};
 
-export interface Props {
+export interface BaseProps {
   location: LocationOrHref;
 }
+
+export type Props = BaseProps & WithRouterProps;
 
 export const MODAL_IFRAME_NAME = 'app-modal-iframe';
 export const REPLACE_STATE_MESSAGE = 'Shopify.API.replaceState';
