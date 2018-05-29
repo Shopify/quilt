@@ -72,6 +72,14 @@ export default function() {
 }
 ```
 
+#### `react-router` typescript issues
+
+`withRouter` has a strict type definition for the component it wraps. The component is expected to require the entire WithRouterProps prop definition. If you're getting a type error on the `ShopifyRoutePropagator` component, you can cast it to `any` when passing it in to withRouter.
+
+```javascript
+const Propagator = withRouter(ShopifyRoutePropagator as any);
+```
+
 ### With React Router (`<Route>`)
 
 If you prefer things more explicit you can just get the `location` value to pass in explicitly by using `<Route>`'s children as a render prop.
