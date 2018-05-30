@@ -1,4 +1,4 @@
-import {readdirSync, readFileSync} from 'fs';
+import {readdirSync, readFileSync, existsSync} from 'fs';
 import * as path from 'path';
 
 describe('typescript version', () => {
@@ -15,6 +15,10 @@ describe('typescript version', () => {
         packageName,
         'package.json',
       );
+
+      if (!existsSync(packageJSONPath)) {
+        continue;
+      }
 
       const packageJSON = JSON.parse(
         readFileSync(packageJSONPath, {encoding: 'utf8'}),
