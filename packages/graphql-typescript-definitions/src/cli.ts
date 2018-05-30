@@ -14,6 +14,12 @@ const argv = yargs
     describe:
       'The path to the JSON file containing a schema instrospection query result',
   })
+  .option('schema-types-path', {
+    required: true,
+    normalize: true,
+    type: 'string',
+    describe: 'The path to output concrete schema types',
+  })
   .option('watch', {
     required: false,
     default: false,
@@ -31,6 +37,7 @@ const argv = yargs
 const builder = new Builder({
   graphQLFiles: argv._[0],
   schemaPath: argv.schemaPath,
+  schemaTypesPath: argv.schemaTypesPath,
   addTypename: argv.addTypename,
 });
 
@@ -39,6 +46,14 @@ const ERROR = chalk.inverse.bold.red(' ERROR ');
 
 builder.on('start', () => {
   console.log();
+});
+
+builder.on('schema:start', () => {
+  console.log();
+});
+
+builder.on('schema:end', () => {
+  console.log(`${BUILT} ${argv.schemaTypesPath}`);
 });
 
 builder.on('build', ({documentPath, definitionPath}) => {

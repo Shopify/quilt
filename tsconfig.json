@@ -13,6 +13,6 @@
     "target": "es2015",
     "lib": ["es2015", "es2016", "es2017", "esnext.asynciterable"]
   },
-  "include": ["./**/*.ts"],
+  "include": ["./test/setup.ts", "./**/*.ts"],
   "exclude": ["./**/node_modules", "./**/*.graphql.d.ts"]
 }

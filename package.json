@@ -55,9 +55,13 @@
     "graphql": "0.13.2",
     "in-publish": "^2.0.0",
     "jest": "^22.4.3",
+    "jest-extended": "^0.7.2",
     "lerna": "^2.11.0",
     "prettier": "^1.12.1",
     "ts-jest": "^22.4.4",
     "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "fs-extra": "^6.0.1"
   }
 }

@@ -1,6 +1,12 @@
+enum Generation {
+  MILLENIAL
+  GEN_X
+}
+
 type Person {
   id: ID!
   name: String!
+  generation: Generation!
   relatives: [Person!]!
 }
 

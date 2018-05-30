@@ -12,11 +12,12 @@ import {watch} from 'chokidar';
 import * as glob from 'glob';
 import {compile, Operation, Fragment, AST} from 'graphql-tool-utilities/ast';
 
-import {printFile} from './print';
+import {printDocument, printSchema} from './print';
 
 export interface Options {
   graphQLFiles: string;
   schemaPath: string;
+  schemaTypesPath: string;
   addTypename: boolean;
 }
 
@@ -27,7 +28,7 @@ export interface RunOptions {
 export interface Build {
   documentPath: string;
   definitionPath: string;
-  operations: Operation[];
+  operation?: Operation;
   fragments: Fragment[];
 }
 
@@ -36,7 +37,7 @@ export class Builder extends EventEmitter {
   private globs: string;
   private schemaPath: string;
   private schema!: GraphQLSchema;
-  private options: Pick<Options, 'addTypename'>;
+  private options: Pick<Options, 'addTypename' | 'schemaTypesPath'>;
   private documentCache = new Map<string, DocumentNode>();
 
   constructor({graphQLFiles, schemaPath, ...options}: Options) {
@@ -50,6 +51,8 @@ export class Builder extends EventEmitter {
   once(event: 'build', handler: (built: Build) => void): this;
   once(event: 'start', handler: () => void): this;
   once(event: 'end', handler: () => void): this;
+  once(event: 'schema:start', handler: () => void): this;
+  once(event: 'schema:end', handler: () => void): this;
   once(event: string, handler: (...args: any[]) => void): this {
     return super.once(event, handler);
   }
@@ -58,6 +61,8 @@ export class Builder extends EventEmitter {
   on(event: 'build', handler: (built: Build) => void): this;
   on(event: 'start', handler: () => void): this;
   on(event: 'end', handler: () => void): this;
+  on(event: 'schema:start', handler: () => void): this;
+  on(event: 'schema:end', handler: () => void): this;
   on(event: string, handler: (...args: any[]) => void): this {
     return super.on(event, handler);
   }
@@ -66,6 +71,8 @@ export class Builder extends EventEmitter {
   emit(event: 'build', built: Build): boolean;
   emit(event: 'start'): boolean;
   emit(event: 'end'): boolean;
+  emit(event: 'schema:start'): boolean;
+  emit(event: 'schema:end'): boolean;
   emit(event: string, ...args: any[]): boolean {
     return super.emit(event, ...args);
   }
@@ -83,7 +90,7 @@ export class Builder extends EventEmitter {
         return;
       }
 
-      await this.generate();
+      await this.generateDocumentTypes();
     };
 
     if (watchGlobs) {
@@ -93,7 +100,7 @@ export class Builder extends EventEmitter {
         documentWatcher.on('change', update);
         documentWatcher.on('unlink', async (file: string) => {
           this.removeDocumentForFile(file);
-          await this.generate();
+          await this.generateDocumentTypes();
         });
       });
 
@@ -102,7 +109,8 @@ export class Builder extends EventEmitter {
         schemaWatcher.on('change', async () => {
           try {
             await this.updateSchema();
-            await this.generate();
+            await this.generateSchemaTypes();
+            await this.generateDocumentTypes();
           } catch (error) {
             // intentional noop
           }
@@ -112,6 +120,7 @@ export class Builder extends EventEmitter {
 
     try {
       await this.updateSchema();
+      await this.generateSchemaTypes();
     } catch (error) {
       this.emit('error', error);
       return;
@@ -126,10 +135,17 @@ export class Builder extends EventEmitter {
       return;
     }
 
-    await this.generate();
+    await this.generateDocumentTypes();
   }
 
-  private async generate() {
+  private async generateSchemaTypes() {
+    this.emit('schema:start');
+    const definition = printSchema(this.schema);
+    await writeFile(this.options.schemaTypesPath, definition);
+    this.emit('schema:end');
+  }
+
+  private async generateDocumentTypes() {
     this.emit('start');
     let ast: AST;
 
@@ -151,7 +167,7 @@ export class Builder extends EventEmitter {
           const file = fileMap[key];
           let definition: string;
           try {
-            definition = printFile(file, ast, this.options);
+            definition = printDocument(file, ast, this.options);
           } catch ({message}) {
             const error = new Error(
               `Error in ${
@@ -168,7 +184,7 @@ export class Builder extends EventEmitter {
           return {
             documentPath: file.path,
             definitionPath,
-            operations: file.operations,
+            operation: file.operation,
             fragments: file.fragments,
           };
         }),
@@ -216,7 +232,7 @@ export class Builder extends EventEmitter {
 
 interface File {
   path: string;
-  operations: Operation[];
+  operation?: Operation;
   fragments: Fragment[];
 }
 
@@ -234,10 +250,9 @@ function groupOperationsAndFragmentsByFile({
     const operation = operations[name];
     const file = map[operation.filePath] || {
       path: operation.filePath,
-      operations: [],
+      operation,
       fragments: [],
     };
-    file.operations.push(operation);
     map[operation.filePath] = file;
   });
 
@@ -245,7 +260,7 @@ function groupOperationsAndFragmentsByFile({
     const fragment = fragments[name];
     const file = map[fragment.filePath] || {
       path: fragment.filePath,
-      operations: [],
+      operation: undefined,
       fragments: [],
     };
     file.fragments.push(fragment);

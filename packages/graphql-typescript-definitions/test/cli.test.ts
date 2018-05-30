@@ -47,5 +47,6 @@ function cliCommandForFixtureDirectory(fixture: string) {
     scriptPath,
     `'${resolve(fixtureDirectory, 'documents/**/*.graphql')}'`,
     `--schema-path '${resolve(fixtureDirectory, 'schema.json')}'`,
+    `--schema-types-path '${resolve(fixtureDirectory, 'schema.ts')}'`,
   ].join(' ');
 }

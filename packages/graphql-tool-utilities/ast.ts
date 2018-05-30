@@ -13,26 +13,47 @@ const {
   compileToLegacyIR: compileToIR,
 } = require('apollo-codegen/lib/compiler/legacyIR');
 
+export enum OperationType {
+  Query = 'query',
+  Mutation = 'mutation',
+  Subscription = 'subscription',
+}
+
 export interface Variable {
+  name: string;
+  type?: GraphQLInputType;
+}
+
+export interface TypedVariable {
   name: string;
   type: GraphQLInputType;
 }
 
-export interface Field {
+export interface Condition {
+  kind: string;
+  variableName: string;
+  inverted: boolean;
+}
+
+export interface PrintableFieldDetails {
+  fields?: Field[];
+  fragmentSpreads?: string[];
+  inlineFragments?: InlineFragment[] & {
+    [key: string]: InlineFragment | undefined;
+  };
+}
+
+export interface Field extends PrintableFieldDetails {
   responseName: string;
   fieldName: string;
   type: GraphQLOutputType;
-  fields?: Field[];
-  fragmentSpreads?: string[];
-  inlineFragments?: InlineFragment[];
+  isConditional: boolean;
+  conditions?: Condition[];
 }
 
-export interface InlineFragment {
+export interface InlineFragment extends PrintableFieldDetails {
   typeCondition: GraphQLObjectType | GraphQLInterfaceType;
   possibleTypes: (GraphQLObjectType | GraphQLInterfaceType)[];
-  fields: Field[];
-  fragmentSpreads: string[];
-  inlineFragments?: InlineFragment[];
 }
 
 export interface Fragment extends InlineFragment {
@@ -42,14 +63,13 @@ export interface Fragment extends InlineFragment {
   fields: Field[];
 }
 
-export interface Operation {
+export interface Operation extends PrintableFieldDetails {
   filePath: string;
   operationName: string;
   operationType: 'query' | 'mutation' | 'subscription';
+  rootType: GraphQLObjectType;
   variables: Variable[];
-  fields: Field[];
   fragmentsReferenced: string[];
-  fragmentSpreads?: string[];
 }
 
 export interface AST {
@@ -61,6 +81,18 @@ export interface AST {
 
 export interface Compile {
   (schema: GraphQLSchema, document: DocumentNode): AST;
+}
+
+export function isOperation(
+  operationOrFragment: Operation | Fragment,
+): operationOrFragment is Operation {
+  return (operationOrFragment as any).hasOwnProperty('operationName');
+}
+
+export function isTypedVariable(
+  variable: Variable | TypedVariable,
+): variable is TypedVariable {
+  return variable.type != null;
 }
 
 export const compile: Compile = compileToIR;

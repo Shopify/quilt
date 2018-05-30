@@ -26,10 +26,15 @@
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
+    "@types/common-tags": "^1.4.0",
+    "common-tags": "^1.7.2",
     "ts-node": "^6.0.2",
     "typescript": "^2.8.3"
   },
   "dependencies": {
+    "@babel/generator": "^7.0.0-beta.46",
+    "@babel/types": "^7.0.0-beta.46",
+    "@types/babel-generator": "^6.25.1",
     "@types/chokidar": "^1.7.0",
     "@types/graphql": "^0.13.0",
     "chalk": "^2.4.1",

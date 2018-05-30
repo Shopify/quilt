@@ -8,5 +8,6 @@
   "transform": {
     ".ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
   },
+  "setupTestFrameworkScriptFile": "<rootDir>/test/setup.ts",
   "moduleFileExtensions": ["js", "ts"]
 }

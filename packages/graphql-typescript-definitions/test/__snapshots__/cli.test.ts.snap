@@ -3,13 +3,15 @@
 exports[`cli fails when there are syntax errors 1`] = `
 Object {
   "error": Object {
-    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions 'packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/**/*.graphql' --schema-path 'packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json'",
+    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions 'packages/graphql-typescript-definitions/test/fixtures/malformed-query/documents/**/*.graphql' --schema-path 'packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json' --schema-types-path 'packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.ts'",
     "code": 1,
     "killed": false,
     "signal": null,
   },
   "stderr": "",
-  "stdout": " ERROR  Syntax Error: Expected {, found Name \\"name\\"
+  "stdout": "
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.ts
+ ERROR  Syntax Error: Expected {, found Name \\"name\\"
 GraphQLError: Syntax Error: Expected {, found Name \\"name\\"
     at syntaxError (node_modules/graphql/error/syntaxError.js)
     at expect (node_modules/graphql/language/parser.js)
@@ -29,7 +31,7 @@ GraphQLError: Syntax Error: Expected {, found Name \\"name\\"
 exports[`cli fails when there are syntax errors 2`] = `
 Object {
   "error": Object {
-    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/documents/**/*.graphql' --schema-path 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'",
+    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/documents/**/*.graphql' --schema-path 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' --schema-types-path 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.ts'",
     "code": 1,
     "killed": false,
     "signal": null,
@@ -52,27 +54,13 @@ ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions
 
 exports[`cli fails when there are unused types 1`] = `
 Object {
-  "error": Object {
-    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions 'packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/**/*.graphql' --schema-path 'packages/graphql-typescript-definitions/test/fixtures/missing-types/schema.json'",
-    "code": 1,
-    "killed": false,
-    "signal": null,
-  },
+  "error": null,
   "stderr": "",
   "stdout": "
- ERROR  Error in packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql: an invalid type was provided for key 'role'. This probably means there is a typo in your document or that one of your input types has been renamed.
-Error: Error in packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql: an invalid type was provided for key 'role'. This probably means there is a typo in your document or that one of your input types has been renamed.
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
-    at Generator.next (<anonymous>)
-    at packages/graphql-typescript-definitions/lib/index.js
-    at new Promise (<anonymous>)
-    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
-    at Promise.all.Object.keys.map (packages/graphql-typescript-definitions/lib/index.js)
-    at Array.map (<anonymous>)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
-    at Generator.next (<anonymous>)
-    at packages/graphql-typescript-definitions/lib/index.js
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/schema.ts
 
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql.d.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql.d.ts
 ",
 }
 `;
@@ -82,6 +70,8 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/schema.ts
+
  BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql.d.ts
  BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql.d.ts
 ",

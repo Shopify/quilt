@@ -34,6 +34,16 @@
     source-map "^0.5.0"
     trim-right "^1.0.1"
 
+"@babel/generator@^7.0.0-beta.46":
+  version "7.0.0-beta.46"
+  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.46.tgz#6f57159bcc28bf8c3ed6b549789355cebfa3faa7"
+  dependencies:
+    "@babel/types" "7.0.0-beta.46"
+    jsesc "^2.5.1"
+    lodash "^4.2.0"
+    source-map "^0.5.0"
+    trim-right "^1.0.1"
+
 "@babel/helper-function-name@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/helper-function-name/-/helper-function-name-7.0.0-beta.44.tgz#e18552aaae2231100a6e485e03854bc3532d44dd"
@@ -110,6 +120,24 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@babel/types@7.0.0-beta.46", "@babel/types@^7.0.0-beta.46":
+  version "7.0.0-beta.46"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.46.tgz#eb84399a699af9fcb244440cce78e1acbeb40e0c"
+  dependencies:
+    esutils "^2.0.2"
+    lodash "^4.2.0"
+    to-fast-properties "^2.0.0"
+
+"@types/babel-generator@^6.25.1":
+  version "6.25.1"
+  resolved "https://registry.yarnpkg.com/@types/babel-generator/-/babel-generator-6.25.1.tgz#f86ab3cf132b04597fe6c431d3083aaf1b76b530"
+  dependencies:
+    "@types/babel-types" "*"
+
+"@types/babel-types@*":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-7.0.1.tgz#1405e5396968c4302994b0161ce405b72b874257"
+
 "@types/chalk@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@types/chalk/-/chalk-2.2.0.tgz#b7f6e446f4511029ee8e3f43075fb5b73fbaa0ba"
@@ -123,9 +151,17 @@
     "@types/events" "*"
     "@types/node" "*"
 
+"@types/common-tags@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@types/common-tags/-/common-tags-1.4.0.tgz#28c1be61e352dde38936018984e2885caef087c1"
+
 "@types/events@*":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
+
+"@types/faker@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-4.1.2.tgz#f8ab50c9f9af68c160dd71b63f83e24b712d0df5"
 
 "@types/fs-extra@^5.0.2":
   version "5.0.2"
@@ -1118,7 +1154,7 @@ commander@^2.11.0:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
-common-tags@^1.5.1:
+common-tags@^1.5.1, common-tags@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/common-tags/-/common-tags-1.7.2.tgz#24d9768c63d253a56ecff93845b44b4df1d52771"
   dependencies:
@@ -2006,7 +2042,7 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-expect@^22.4.3:
+expect@^22.1.0, expect@^22.4.3:
   version "22.4.3"
   resolved "https://registry.yarnpkg.com/expect/-/expect-22.4.3.tgz#d5a29d0a0e1fb2153557caef2674d4547e914674"
   dependencies:
@@ -2064,6 +2100,10 @@ extglob@^2.0.4:
 extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
+
+faker@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
 
 fast-deep-equal@^1.0.0:
   version "1.1.0"
@@ -2211,6 +2251,14 @@ fs-extra@4.0.3, fs-extra@^4.0.1:
 fs-extra@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-6.0.0.tgz#0f0afb290bb3deb87978da816fcd3c7797f3a817"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
+fs-extra@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-6.0.1.tgz#8abc128f7946e310135ddc93b98bddb410e7a34b"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
@@ -3193,6 +3241,14 @@ jest-environment-node@^22.4.3:
     jest-mock "^22.4.3"
     jest-util "^22.4.3"
 
+jest-extended@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/jest-extended/-/jest-extended-0.7.2.tgz#98fdb5349f1cf950ff7cd403a908ba525a77bba0"
+  dependencies:
+    chalk "^2.3.0"
+    expect "^22.1.0"
+    jest-matcher-utils "^22.0.0"
+
 jest-get-type@^22.4.3:
   version "22.4.3"
   resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-22.4.3.tgz#e3a8504d8479342dd4420236b322869f18900ce4"
@@ -3231,7 +3287,7 @@ jest-leak-detector@^22.4.3:
   dependencies:
     pretty-format "^22.4.3"
 
-jest-matcher-utils@^22.4.3:
+jest-matcher-utils@^22.0.0, jest-matcher-utils@^22.4.3:
   version "22.4.3"
   resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-22.4.3.tgz#4632fe428ebc73ebc194d3c7b65d37b161f710ff"
   dependencies:

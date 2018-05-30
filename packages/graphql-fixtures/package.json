@@ -1,0 +1,32 @@
+{
+  "name": "graphql-fixtures",
+  "version": "0.1.0",
+  "types": "lib",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "author": "Shopify Inc.",
+  "description": "Utilities for generating fixture objects from GraphQL documents.",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-fixtures",
+  "scripts": {
+    "build": "tsc",
+    "pretest": "yarn build",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "@types/faker": "^4.1.2",
+    "faker": "^4.1.0",
+    "graphql-tool-utilities": "^0.6.2"
+  },
+  "devDependencies": {}
+}

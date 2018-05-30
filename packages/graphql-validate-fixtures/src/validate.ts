@@ -130,7 +130,7 @@ export function validateFixtureAgainstAST(
     );
   }
 
-  const {fields, filePath, operationType} = operation;
+  const {fields = [], filePath, operationType} = operation;
   const value = {...fixture.content};
   delete value[OPERATION_MARKER];
 
