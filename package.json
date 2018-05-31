@@ -35,6 +35,7 @@
     "@types/jest": "^23.1.1",
     "@types/react-helmet": "^5.0.6",
     "codecov": "^3.0.2",
+    "ejs": "^2.6.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.0.0",
@@ -48,6 +49,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
+    "remark": "^9.0.0",
+    "remark-toc": "^5.0.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.4.2",
     "typescript": "~2.9.2"

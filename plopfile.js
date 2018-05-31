@@ -1,5 +1,5 @@
 module.exports = function(plop) {
-  // controller generator
+  // package generator
   plop.setGenerator('package', {
     description: 'create a new package from scratch',
     prompts: [
@@ -46,5 +46,40 @@ module.exports = function(plop) {
         templateFile: 'templates/test.hbs.ts',
       },
     ],
+  });
+
+  // docs generator
+  plop.setGenerator('docs', {
+    description: 'Generate root repo documentation',
+    prompts: [],
+    actions(data) {
+      const {
+        readdirSync,
+        existsSync,
+        readFileSync,
+        writeFileSync,
+      } = require('fs');
+      const path = require('path');
+
+      const packagesPath = path.join(__dirname, 'packages');
+      const packageNames = readdirSync(packagesPath).filter(packageName => {
+        const packageJSONPath = path.join(
+          packagesPath,
+          packageName,
+          'package.json',
+        );
+        return existsSync(packageJSONPath);
+      });
+
+      return [
+        {
+          type: 'add',
+          path: 'README.md',
+          templateFile: 'templates/ROOT_README.hbs.md',
+          force: true,
+          data: {packageNames},
+        },
+      ];
+    },
   });
 };
