@@ -3,3 +3,5 @@ node_modules
 dist
 coverage
 *.svg
+templates/*.md
+/README.md
