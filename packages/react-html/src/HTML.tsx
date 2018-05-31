@@ -84,9 +84,9 @@ export default function HTML({
     );
   });
 
-  /* eslint-disable no-process-env, no-undefined */
+  /* eslint-disable no-undefined */
   const bodyStyles = hideForInitialLoad ? {display: 'none'} : undefined;
-  /* eslint-enable no-process-env, no-undefined */
+  /* eslint-enable no-undefined */
 
   const headDataMarkup = Object.keys(headData).map(id => {
     return <Serializer key={id} id={id} data={headData[id]} />;
