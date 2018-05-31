@@ -78,7 +78,7 @@ Descriptors for any script tags you want to include in your document. All script
 Descriptors for any script tags you want to include in the HEAD of the document. These will block HTML parsing until they are evaluated, so use them carefully.
 
 **hideForInitialLoad**
-Sets the body contents to be hidden for the initial render. Use this using Sewing Kit/ Webpack to inject styles dynamically in development in order to prevent a flash of unstyled content.
+Sets the body contents to be hidden for the initial render. Use this when injecting stylesheets dynamically in development in order to prevent a flash of unstyled content.
 
 ### Serializers
 
