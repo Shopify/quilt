@@ -4,7 +4,6 @@ import * as React from 'react';
 import {mount, CommonWrapper} from 'enzyme';
 import {HelmetData} from 'react-helmet';
 import {Serializer} from '@shopify/react-serialize';
-import withEnv from '@shopify/with-env';
 
 import {Script, Style} from '../components';
 import HTML, {Props} from '../HTML';
@@ -30,24 +29,18 @@ describe('<HTML />', () => {
     expect(html.find('html').prop('lang')).toBe('en');
   });
 
-  it('is not styled `display: none` on host node in production', () => {
-    const app = withEnv('production', () => mount(<HTML {...mockProps} />));
-    const styles = app.find('#app').prop('style');
-    expect(styles && styles.display).not.toBe('none');
-  });
+  describe('hideForInitialLoad', () => {
+    it('does not hide the contents by default', () => {
+      const app = mount(<HTML {...mockProps} />);
+      const styles = app.find('#app').prop('style') || {};
+      expect(styles).not.toHaveProperty('display');
+    });
 
-  it('is not styled `display: none` on the host node when there are no scripts', () => {
-    const app = withEnv('development', () => mount(<HTML {...mockProps} />));
-    const styles = app.find('#app').prop('style');
-    expect(styles && styles.display).not.toBe('none');
-  });
-
-  it('sets the display to none on the document body in development when there are scripts to prevent the flash of unstyled content', () => {
-    const app = withEnv('development', () =>
-      mount(<HTML {...mockProps} blockingScripts={[{path: 'foo.js'}]} />),
-    );
-    expect(app.find('body').prop('style')).toMatchObject({
-      display: 'none',
+    it('hides the contents when true', () => {
+      const app = mount(<HTML {...mockProps} hideForInitialLoad />);
+      expect(app.find('body').prop('style')).toMatchObject({
+        display: 'none',
+      });
     });
   });
 

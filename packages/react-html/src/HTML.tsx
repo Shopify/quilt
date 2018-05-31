@@ -32,6 +32,7 @@ export interface Props {
   scripts?: Asset[];
   headData?: {[id: string]: any};
   data?: {[id: string]: any};
+  hideForInitialLoad?: boolean;
 }
 
 export default function HTML({
@@ -41,6 +42,7 @@ export default function HTML({
   styles = [],
   data = {},
   headData = {},
+  hideForInitialLoad,
 }: Props) {
   const markup = renderToString(children);
   const helmet = Helmet.renderStatic();
@@ -82,12 +84,9 @@ export default function HTML({
     );
   });
 
-  /* eslint-disable no-process-env, no-undefined */
-  const bodyStyles =
-    process.env.NODE_ENV === 'development' && blockingScripts.length > 0
-      ? {display: 'none'}
-      : undefined;
-  /* eslint-enable no-process-env, no-undefined */
+  /* eslint-disable no-undefined */
+  const bodyStyles = hideForInitialLoad ? {display: 'none'} : undefined;
+  /* eslint-enable no-undefined */
 
   const headDataMarkup = Object.keys(headData).map(id => {
     return <Serializer key={id} id={id} data={headData[id]} />;
