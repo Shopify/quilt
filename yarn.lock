@@ -2503,7 +2503,7 @@ graphql-request@^1.4.0:
   dependencies:
     cross-fetch "2.0.0"
 
-graphql@0.13.2, graphql@^0.13.1:
+graphql@0.13.2, graphql@^0.13.1, graphql@^0.13.2:
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
   dependencies:

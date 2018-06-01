@@ -7,7 +7,8 @@ import {
   Source,
   concatAST,
 } from 'graphql';
-import {readJSON, readFile, writeFile} from 'fs-extra';
+import {dirname} from 'path';
+import {readJSON, readFile, writeFile, mkdirp} from 'fs-extra';
 import {watch} from 'chokidar';
 import * as glob from 'glob';
 import {compile, Operation, Fragment, AST} from 'graphql-tool-utilities/ast';
@@ -141,6 +142,7 @@ export class Builder extends EventEmitter {
   private async generateSchemaTypes() {
     this.emit('schema:start');
     const definition = printSchema(this.schema);
+    await mkdirp(dirname(this.options.schemaTypesPath));
     await writeFile(this.options.schemaTypesPath, definition);
     this.emit('schema:end');
   }

@@ -42,7 +42,8 @@
     "chokidar": "^2.0.3",
     "fs-extra": "^6.0.0",
     "glob": "^7.1.2",
-    "graphql": "0.13.2",
-    "graphql-tool-utilities": "^0.7.1"
+    "graphql": "^0.13.2",
+    "graphql-tool-utilities": "^0.7.1",
+    "graphql-typed": "^0.1.2"
   }
 }

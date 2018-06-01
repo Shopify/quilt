@@ -20,12 +20,6 @@
     "graphql",
     "apollo"
   ],
-  "files": [
-    "ast.js",
-    "ast.d.ts",
-    "README.md",
-    "LICENSE"
-  ],
   "scripts": {
     "build": "tsc",
     "pretest": "yarn build",
