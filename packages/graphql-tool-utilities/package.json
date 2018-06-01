@@ -1,7 +1,7 @@
 {
   "name": "graphql-tool-utilities",
   "description": "Common utilities for GraphQL developer tools",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
