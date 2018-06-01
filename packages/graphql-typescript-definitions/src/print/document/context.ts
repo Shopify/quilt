@@ -8,8 +8,11 @@ import {
   isOperation,
 } from 'graphql-tool-utilities/ast';
 
+import {EnumFormat} from '../../types';
+
 export interface Options {
   schemaTypesPath: string;
+  enumFormat?: EnumFormat;
   addTypename?: boolean;
 }
 

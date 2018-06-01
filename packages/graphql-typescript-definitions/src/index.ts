@@ -14,12 +14,16 @@ import * as glob from 'glob';
 import {compile, Operation, Fragment, AST} from 'graphql-tool-utilities/ast';
 
 import {printDocument, printSchema} from './print';
+import {EnumFormat} from './types';
+
+export {EnumFormat};
 
 export interface Options {
   graphQLFiles: string;
   schemaPath: string;
   schemaTypesPath: string;
   addTypename: boolean;
+  enumFormat?: EnumFormat;
 }
 
 export interface RunOptions {

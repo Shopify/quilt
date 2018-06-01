@@ -3,6 +3,7 @@
 import * as yargs from 'yargs';
 import chalk from 'chalk';
 
+import {EnumFormat} from './types';
 import {Builder} from '.';
 
 const argv = yargs
@@ -32,6 +33,18 @@ const argv = yargs
     type: 'boolean',
     describe: 'Add a __typename field to every object type',
   })
+  .option('enum-format', {
+    required: false,
+    type: 'string',
+    describe:
+      'The format in which to generate case names for enum types in the schema',
+    choices: [
+      EnumFormat.CamelCase,
+      EnumFormat.PascalCase,
+      EnumFormat.SnakeCase,
+      EnumFormat.ScreamingSnakeCase,
+    ],
+  })
   .help().argv;
 
 const builder = new Builder({
@@ -39,6 +52,7 @@ const builder = new Builder({
   schemaPath: argv.schemaPath,
   schemaTypesPath: argv.schemaTypesPath,
   addTypename: argv.addTypename,
+  enumFormat: argv.enumFormat,
 });
 
 const BUILT = chalk.inverse.bold.green(' BUILT ');

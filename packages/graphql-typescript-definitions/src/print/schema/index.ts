@@ -1,4 +1,5 @@
 import * as t from '@babel/types';
+import {pascalCase, camelCase, snakeCase} from 'change-case';
 import {
   GraphQLSchema,
   isEnumType,
@@ -12,12 +13,17 @@ import {
   isListType,
 } from 'graphql';
 import {scalarTypeMap} from '../utilities';
+import {EnumFormat} from '../../types';
 
 const generate = require('@babel/generator').default;
 
 type InputType = GraphQLEnumType | GraphQLScalarType | GraphQLInputObjectType;
 
-export function printSchema(schema: GraphQLSchema) {
+export interface Options {
+  enumFormat?: EnumFormat;
+}
+
+export function printSchema(schema: GraphQLSchema, options: Options = {}) {
   const fileBody: t.Statement[] = [];
 
   for (const type of Object.values(schema.getTypeMap())) {
@@ -29,16 +35,18 @@ export function printSchema(schema: GraphQLSchema) {
       continue;
     }
 
-    fileBody.push(t.exportNamedDeclaration(tsTypeForRootInputType(type), []));
+    fileBody.push(
+      t.exportNamedDeclaration(tsTypeForRootInputType(type, options), []),
+    );
   }
 
   const file = t.file(t.program(fileBody), [], []);
   return generate(file).code;
 }
 
-function tsTypeForRootInputType(type: InputType) {
+function tsTypeForRootInputType(type: InputType, options: Options) {
   if (isEnumType(type)) {
-    return tsEnumForType(type);
+    return tsEnumForType(type, options);
   } else if (isScalarType(type)) {
     return tsScalarForType(type);
   } else {
@@ -97,13 +105,31 @@ function tsScalarForType(type: GraphQLScalarType) {
   );
 }
 
-function tsEnumForType(type: GraphQLEnumType) {
+function tsEnumForType(type: GraphQLEnumType, {enumFormat}: Options) {
   return t.tsEnumDeclaration(
     t.identifier(type.name),
     type
       .getValues()
       .map((value) =>
-        t.tsEnumMember(t.identifier(value.name), t.stringLiteral(value.name)),
+        t.tsEnumMember(
+          t.identifier(enumMemberName(value.name, enumFormat)),
+          t.stringLiteral(value.name),
+        ),
       ),
   );
+}
+
+function enumMemberName(name: string, format?: EnumFormat) {
+  switch (format) {
+    case EnumFormat.CamelCase:
+      return camelCase(name);
+    case EnumFormat.PascalCase:
+      return pascalCase(name);
+    case EnumFormat.SnakeCase:
+      return snakeCase(name);
+    case EnumFormat.ScreamingSnakeCase:
+      return snakeCase(name).toUpperCase();
+    default:
+      return name;
+  }
 }
