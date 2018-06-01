@@ -20,7 +20,9 @@
     "**/lib": true,
     "**/yarn.lock": true,
     "packages/graphql-tool-utilities/*.js": true,
-    "packages/graphql-tool-utilities/*.d.ts": true
+    "packages/graphql-tool-utilities/*.d.ts": true,
+    "packages/graphql-typed/*.js": true,
+    "packages/graphql-typed/*.d.ts": true
   },
   "search.exclude": {
     "**/node_modules": true,
@@ -28,6 +30,7 @@
     "**/lib": true,
     "**/yarn.lock": true,
     "packages/graphql-tool-utilities/*.js": true,
+    "packages/graphql-typed/*.js": true,
     "packages/**/*.d.ts": true
   }
 }
