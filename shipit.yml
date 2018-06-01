@@ -1,3 +1,6 @@
 ci:
   require:
-    - ci/circleci
+    - continuous-integration/travis-ci/push
+dependencies:
+  post:
+    - yarn run build
