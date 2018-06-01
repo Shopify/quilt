@@ -45,7 +45,6 @@
     "format:graphql": "prettier './**/*.{graphql,gql}' --write",
     "format": "yarn format:scripts && yarn format:json && yarn format:graphql",
     "prepublishOnly": "yarn type-check && yarn lint && yarn test",
-    "prerelease": "yarn run prepublishOnly",
     "release": "lerna publish && git push --follow-tags"
   },
   "devDependencies": {
