@@ -28,6 +28,9 @@
     ]
   },
   "scripts": {
+    "clean": "rm -rf './packages/**/*.{js,d.ts}'",
+    "prebuild": "yarn run clean",
+    "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
     "type-check": "tsc --noEmit",
     "pretest": "node scripts/introspection.js && lerna run pretest",
@@ -41,7 +44,9 @@
     "format:json": "prettier './**/*.json' --write",
     "format:graphql": "prettier './**/*.{graphql,gql}' --write",
     "format": "yarn format:scripts && yarn format:json && yarn format:graphql",
-    "prepublishOnly": "yarn type-check && yarn lint && yarn test"
+    "prepublishOnly": "yarn type-check && yarn lint && yarn test",
+    "prerelease": "yarn run prepublishOnly",
+    "release": "lerna publish && git push --follow-tags"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.2",
