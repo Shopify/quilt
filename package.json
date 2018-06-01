@@ -10,6 +10,7 @@
     "publish": "lerna publish",
     "prebuild": "yarn run clean",
     "build": "lerna run build",
+    "dev": "lerna exec --parallel -- tsc --watch",
     "lint": "yarn eslint '**/*.{ts,tsx}'",
     "test": "jest --maxWorkers=3",
     "check": "lerna run check",
