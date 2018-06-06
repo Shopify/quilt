@@ -1,0 +1,35 @@
+{
+  "name": "@shopify/react-preconnect",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Reduces request latency by preconnecting hosts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-preconnect/README.md",
+  "dependencies": {
+    "react-helmet": "^5.2.0"
+  },
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "typescript": "^2.9.1"
+  },
+  "peerDependencies": {
+    "react": "^16.4.0"
+  }
+}
