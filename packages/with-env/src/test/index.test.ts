@@ -1,6 +1,7 @@
 import withEnv from '../index';
 
 function getEnv() {
+  // eslint-disable-next-line no-process-env
   return process.env.NODE_ENV;
 }
 

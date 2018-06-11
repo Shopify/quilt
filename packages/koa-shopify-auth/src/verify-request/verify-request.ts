@@ -15,7 +15,10 @@ export default function verifyRequest({
     ctx: Context,
     next: NextFunction,
   ) {
-    const {query: {shop}, session} = ctx;
+    const {
+      query: {shop},
+      session,
+    } = ctx;
 
     if (session && session.accessToken) {
       await next();

@@ -7,7 +7,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "yarn run build"
+    "prepublishOnly": "yarn run build",
+    "lint": "yarn run eslint '**/*.{ts,tsx}'",
+    "test": "cd ../.. && yarn test",
+    "bootstrap": "cd ../.. && yarn install && yarn build"
   },
   "publishConfig": {
     "access": "public",
@@ -26,6 +29,8 @@
     "koa-better-http-proxy": "^0.2.4"
   },
   "devDependencies": {
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "eslint": "^4.19.1",
+    "eslint-plugin-shopify": "^22.0.0"
   }
 }
