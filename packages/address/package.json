@@ -1,0 +1,29 @@
+{
+  "name": "@shopify/address",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Address utilities for formatting addresses.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address/README.md",
+  "devDependencies": {
+    "@shopify/jest-dom-mocks": "^2.0.7",
+    "typescript": "~2.9.2"
+  }
+}
