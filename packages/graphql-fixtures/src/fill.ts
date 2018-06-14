@@ -11,19 +11,33 @@ import {
   isScalarType,
   GraphQLScalarType,
   GraphQLCompositeType,
+  GraphQLString,
 } from 'graphql';
 import {DocumentNode} from 'graphql-typed';
 import {
   compile,
   Field,
   Operation,
-  PrintableFieldDetails,
+  InlineFragment,
 } from 'graphql-tool-utilities/ast';
 import {randomFromArray, chooseNull} from './utilities';
 
-export type Thunk<T> =
-  | T
-  | ((type: GraphQLType, parent: GraphQLObjectType) => T);
+export type FieldDetails = (Field | InlineFragment) & {
+  fieldName: string;
+  responseName: string;
+};
+
+export interface ResolveDetails {
+  type: GraphQLType;
+  parent: GraphQLObjectType;
+  field: FieldDetails;
+}
+
+export interface Resolver<T = any> {
+  (details: ResolveDetails): T;
+}
+
+export type Thunk<T> = T | Resolver<T>;
 
 export type DeepThunk<T> = {
   [P in keyof T]: Thunk<
@@ -36,8 +50,6 @@ export type DeepThunk<T> = {
           : T[P]
   >
 };
-
-export type Resolver = (type: GraphQLType, parent: GraphQLObjectType) => any;
 
 export interface Options {
   addTypename?: boolean;
@@ -87,7 +99,10 @@ export function createFiller(
     return fillObject(
       operation.rootType,
       operation.rootType,
-      operation,
+      // the root type is kind of weird, since there is no "field" that
+      // would be used in a resolver. For simplicity in the common case
+      // we just hack this type to make it conform.
+      operation as any,
       data,
       context,
     ) as Data;
@@ -97,11 +112,11 @@ export function createFiller(
 function fillObject(
   type: GraphQLObjectType,
   parent: GraphQLObjectType,
-  object: PrintableFieldDetails,
+  parentField: FieldDetails,
   partial: Thunk<{[key: string]: any}> | undefined,
   context: Context,
 ) {
-  const {fields = []} = object;
+  const {fields = []} = parentField;
 
   const starter = context.options.addTypename ? {__typename: type.name} : {};
 
@@ -111,7 +126,7 @@ function fillObject(
       [field.responseName]: fillType(
         field.type,
         field,
-        valueForField(field.responseName, partial, type, parent, context),
+        valueForField(field, partial, type, parent, parentField, context),
         type,
         context,
       ),
@@ -120,50 +135,60 @@ function fillObject(
   );
 }
 
-function unwrapThunk<T>(
-  value: Thunk<T>,
-  type: GraphQLType,
-  parent: GraphQLObjectType,
-) {
+function unwrapThunk<T>(value: Thunk<T>, details: ResolveDetails) {
+  const {type} = details;
   const unwrappedType = isNonNullType(type) ? type.ofType : type;
-  return typeof value === 'function' ? value(unwrappedType, parent) : value;
+  return typeof value === 'function'
+    ? value({...details, type: unwrappedType})
+    : value;
 }
 
 function createValue<T>(
   partialValue: Thunk<any>,
   value: Thunk<T>,
-  type: GraphQLType,
-  parent: GraphQLObjectType,
+  details: ResolveDetails,
 ) {
   if (partialValue !== undefined) {
-    return unwrapThunk(partialValue, type, parent);
+    return unwrapThunk(partialValue, details);
   }
 
-  return isNonNullType(type) || !chooseNull()
-    ? unwrapThunk(value, type, parent)
+  return isNonNullType(details.type) || !chooseNull()
+    ? unwrapThunk(value, details)
     : null;
 }
 
 function valueForField(
-  fieldname: string,
+  field: Field,
   objectPartial: any,
   type: GraphQLCompositeType,
   parent: GraphQLObjectType,
+  parentField: FieldDetails,
   {resolvers}: Context,
 ) {
+  const {responseName} = field;
   const resolver = unwrapThunk<{[key: string]: any}>(
     resolvers.get(type.name) || {},
+    {
+      type,
+      parent,
+      field: parentField,
+    },
+  );
+  const finalPartial = unwrapThunk(objectPartial || {}, {
     type,
     parent,
-  );
-  const finalPartial = unwrapThunk(objectPartial || {}, type, parent);
+    field: parentField,
+  });
 
   return unwrapThunk(
-    finalPartial[fieldname] === undefined
-      ? resolver[fieldname]
-      : finalPartial[fieldname],
-    type,
-    parent,
+    finalPartial[responseName] === undefined
+      ? resolver[responseName]
+      : finalPartial[responseName],
+    {
+      type,
+      parent,
+      field,
+    },
   );
 }
 
@@ -194,14 +219,17 @@ function fillType(
   if (field.fieldName === '__typename') {
     return parent.name;
   } else if (isEnumType(unwrappedType) || isScalarType(unwrappedType)) {
-    return createValue(
-      partial,
-      fillForPrimitiveType(unwrappedType, context),
+    return createValue(partial, fillForPrimitiveType(unwrappedType, context), {
+      type,
+      field,
+      parent,
+    });
+  } else if (isListType(unwrappedType)) {
+    const array = createValue(partial, () => [], {
       type,
       parent,
-    );
-  } else if (isListType(unwrappedType)) {
-    const array = createValue(partial, () => [], type, parent);
+      field,
+    });
     return array
       ? array.map((value: any) =>
           fillType(unwrappedType.ofType, field, value, parent, context),
@@ -210,10 +238,16 @@ function fillType(
   } else if (isAbstractType(unwrappedType)) {
     const possibleTypes = context.schema.getPossibleTypes(unwrappedType);
     const typename = valueForField(
-      '__typename',
+      {
+        responseName: '__typename',
+        fieldName: '__typename',
+        type: GraphQLString,
+        isConditional: false,
+      },
       partial,
       unwrappedType,
       parent,
+      field,
       context,
     );
 
@@ -236,19 +270,33 @@ function fillType(
       fillObject(
         resolvedType,
         parent,
-        (field.inlineFragments && field.inlineFragments[resolvedType.name]) ||
-          field,
+        {
+          fieldName: field.fieldName,
+          responseName: field.responseName,
+          isConditional: field.isConditional,
+          ...((field.inlineFragments &&
+            field.inlineFragments[resolvedType.name]) ||
+            field),
+        },
         partial,
         context,
       );
 
-    return createValue(partial ? filler : undefined, filler, type, parent);
+    return createValue(partial ? filler : undefined, filler, {
+      type,
+      parent,
+      field,
+    });
   } else {
     // eslint-disable-next-line func-style
     const filler = () =>
       fillObject(unwrappedType, parent, field, partial, context);
 
-    return createValue(partial ? filler : undefined, filler, type, parent);
+    return createValue(partial ? filler : undefined, filler, {
+      type,
+      parent,
+      field,
+    });
   }
 }
 

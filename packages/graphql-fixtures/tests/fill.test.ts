@@ -463,34 +463,35 @@ describe('createFiller()', () => {
     });
 
     describe('interfaces', () => {
+      function createInterfaceSchema() {
+        return buildSchema(`
+          interface Named {
+            name: String!
+          }
+
+          type Person implements Named {
+            name: String!
+            occupation: String!
+          }
+
+          type Dog implements Named {
+            name: String!
+            legs: Int!
+          }
+
+          type Cat implements Named {
+            name: String!
+            livesLeft: Int!
+          }
+
+          type Query {
+            named: Named!
+          }
+        `);
+      }
+
       function createFillerForInterfaceSchema(options?: Options) {
-        return createFiller(
-          buildSchema(`
-            interface Named {
-              name: String!
-            }
-
-            type Person implements Named {
-              name: String!
-              occupation: String!
-            }
-
-            type Dog implements Named {
-              name: String!
-              legs: Int!
-            }
-
-            type Cat implements Named {
-              name: String!
-              livesLeft: Int!
-            }
-
-            type Query {
-              named: Named!
-            }
-          `),
-          options,
-        );
+        return createFiller(createInterfaceSchema(), options);
       }
 
       it('picks a random implementing type', () => {
@@ -616,6 +617,37 @@ describe('createFiller()', () => {
             __typename: 'Person',
             ...person,
           },
+        });
+      });
+
+      it('calls a resolver with the field details', () => {
+        const spy = jest.fn(() => ({}));
+        const schema = createInterfaceSchema();
+        const fill = createFiller(schema, {
+          resolvers: {
+            Person: spy,
+          },
+        });
+
+        const document = createDocument(`
+          query Details {
+            namedPerson: named {
+              __typename
+              ...on Person {
+                occupation
+              }
+            }
+          }
+        `);
+
+        fill(document, {namedPerson: {__typename: 'Person'}});
+        expect(spy).toHaveBeenCalledWith({
+          type: schema.getType('Person'),
+          parent: schema.getQueryType(),
+          field: expect.objectContaining({
+            fieldName: 'named',
+            responseName: 'namedPerson',
+          }),
         });
       });
 
@@ -861,7 +893,7 @@ describe('createFiller()', () => {
         });
       });
 
-      it('calls the resolver with its type and the parent object type', () => {
+      it('calls the resolver with its type, parent object type, and field', () => {
         const personResolver = jest.fn(() => ({name: faker.name.firstName()}));
         const intResolver = jest.fn(() => 1);
 
@@ -891,21 +923,29 @@ describe('createFiller()', () => {
         const document = createDocument(`
           query Details {
             pet { legs }
-            self { name }
+            me: self { name }
           }
         `);
 
         fill(document);
 
-        expect(personResolver).toHaveBeenCalledWith(
-          schema.getType('Person'),
-          schema.getQueryType(),
-        );
+        expect(personResolver).toHaveBeenCalledWith({
+          type: schema.getType('Person'),
+          field: expect.objectContaining({
+            fieldName: 'self',
+            responseName: 'me',
+          }),
+          parent: schema.getQueryType(),
+        });
 
-        expect(intResolver).toHaveBeenCalledWith(
-          schema.getType('Int'),
-          schema.getType('Dog'),
-        );
+        expect(intResolver).toHaveBeenCalledWith({
+          type: schema.getType('Int'),
+          field: expect.objectContaining({
+            fieldName: 'legs',
+            responseName: 'legs',
+          }),
+          parent: schema.getType('Dog'),
+        });
       });
 
       it('uses partial values over resolver fields', () => {
