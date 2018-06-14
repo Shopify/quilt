@@ -10,6 +10,7 @@ import {
   GraphQLEnumType,
   isScalarType,
   GraphQLScalarType,
+  Location,
 } from 'graphql';
 import {DocumentNode} from 'graphql-typed';
 import {
@@ -89,6 +90,17 @@ export function createFiller(
     let operation = documentToOperation.get(document);
 
     if (operation == null) {
+      // The most common processor for GraphQL files in Jest does not
+      // generate loc.source.name, which is required by the `compile`
+      // step we perform next.
+      for (const definition of document.definitions) {
+        const loc: Partial<Location> = {...definition.loc};
+        (definition as any).loc = {
+          ...loc,
+          source: {name: 'GraphQL request', ...loc.source},
+        };
+      }
+
       const ast = compile(schema, document);
       operation = Object.values(ast.operations)[0];
       documentToOperation.set(document, operation);
