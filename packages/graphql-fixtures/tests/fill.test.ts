@@ -381,6 +381,81 @@ describe('createFiller()', () => {
       });
     });
 
+    it('always uses null when explicitly set', () => {
+      chooseNull.mockReturnValue(false);
+
+      const fill = createFillerForSchema(`
+        type Sister {
+          age: Int!
+        }
+
+        type Person {
+          name: String!
+          mother: Person!
+          sister: Sister
+        }
+
+        type Query {
+          self: Person!
+        }
+      `);
+
+      const document = createDocument(`
+        query Details {
+          self {
+            sister {
+              age
+            }
+          }
+        }
+      `);
+
+      expect(fill(document, {self: {sister: null}})).toEqual({
+        self: {sister: null},
+      });
+    });
+
+    it('always uses null when explicitly set in a resolver', () => {
+      chooseNull.mockReturnValue(false);
+
+      const fill = createFillerForSchema(
+        `
+        type Sister {
+          age: Int!
+        }
+
+        type Person {
+          name: String!
+          mother: Person!
+          sister: Sister
+        }
+
+        type Query {
+          self: Person!
+        }
+      `,
+        {
+          resolvers: {
+            Sister: () => null,
+          },
+        },
+      );
+
+      const document = createDocument(`
+        query Details {
+          self {
+            sister {
+              age
+            }
+          }
+        }
+      `);
+
+      expect(fill(document, {self: {sister: null}})).toEqual({
+        self: {sister: null},
+      });
+    });
+
     describe('typename', () => {
       function createFillerForBasicObjectSchema(options?: Options) {
         return createFillerForSchema(
