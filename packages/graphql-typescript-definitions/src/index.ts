@@ -42,7 +42,10 @@ export class Builder extends EventEmitter {
   private globs: string;
   private schemaPath: string;
   private schema!: GraphQLSchema;
-  private options: Pick<Options, 'addTypename' | 'schemaTypesPath'>;
+  private options: Pick<
+    Options,
+    Exclude<keyof Options, 'graphQLFiles' | 'schemaPath'>
+  >;
   private documentCache = new Map<string, DocumentNode>();
 
   constructor({graphQLFiles, schemaPath, ...options}: Options) {
@@ -145,7 +148,7 @@ export class Builder extends EventEmitter {
 
   private async generateSchemaTypes() {
     this.emit('schema:start');
-    const definition = printSchema(this.schema);
+    const definition = printSchema(this.schema, this.options);
     await mkdirp(dirname(this.options.schemaTypesPath));
     await writeFile(this.options.schemaTypesPath, definition);
     this.emit('schema:end');
