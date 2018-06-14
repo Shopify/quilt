@@ -10,8 +10,6 @@ import {
   GraphQLEnumType,
   isScalarType,
   GraphQLScalarType,
-  GraphQLCompositeType,
-  GraphQLString,
 } from 'graphql';
 import {DocumentNode} from 'graphql-typed';
 import {
