@@ -19,6 +19,7 @@ import {
   Operation,
   PrintableFieldDetails,
 } from 'graphql-tool-utilities/ast';
+import {randomFromArray, chooseNull} from './utilities';
 
 export type Thunk<T> =
   | T
@@ -128,14 +129,6 @@ function unwrapThunk<T>(
   return typeof value === 'function' ? value(unwrappedType, parent) : value;
 }
 
-function valueOrNull<T>(
-  value: Thunk<T>,
-  type: GraphQLType,
-  parent: GraphQLObjectType,
-) {
-  return Math.random() < 0.5 ? unwrapThunk(value, type, parent) : null;
-}
-
 function createValue<T>(
   partialValue: Thunk<any>,
   value: Thunk<T>,
@@ -146,9 +139,9 @@ function createValue<T>(
     return unwrapThunk(partialValue, type, parent);
   }
 
-  return isNonNullType(type)
+  return isNonNullType(type) || !chooseNull()
     ? unwrapThunk(value, type, parent)
-    : valueOrNull(value, type, parent);
+    : null;
 }
 
 function valueForField(
@@ -238,40 +231,29 @@ function fillType(
       );
     }
 
-    return createValue(
-      undefined,
-      () =>
-        fillObject(
-          resolvedType,
-          parent,
-          (field.inlineFragments && field.inlineFragments[resolvedType.name]) ||
-            field,
-          partial,
-          context,
-        ),
-      type,
-      parent,
-    );
+    // eslint-disable-next-line func-style
+    const filler = () =>
+      fillObject(
+        resolvedType,
+        parent,
+        (field.inlineFragments && field.inlineFragments[resolvedType.name]) ||
+          field,
+        partial,
+        context,
+      );
+
+    return createValue(partial ? filler : undefined, filler, type, parent);
   } else {
-    return createValue(
-      undefined,
-      () => fillObject(unwrappedType, parent, field, partial, context),
-      type,
-      parent,
-    );
+    // eslint-disable-next-line func-style
+    const filler = () =>
+      fillObject(unwrappedType, parent, field, partial, context);
+
+    return createValue(partial ? filler : undefined, filler, type, parent);
   }
 }
 
-function randomFromArray<T>(array: T[] | ReadonlyArray<T>) {
-  return array[Math.floor(Math.random() * array.length)];
-}
-
 function randomEnumValue(enumType: GraphQLEnumType) {
-  return random(enumType.getValues()).value;
-}
-
-function random<T>(array: T[]): T {
-  return array[Math.floor(Math.random() * array.length)];
+  return randomFromArray(enumType.getValues()).value;
 }
 
 export function list<T = {}>(

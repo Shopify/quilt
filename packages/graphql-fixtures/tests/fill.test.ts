@@ -1,9 +1,22 @@
 import faker from 'faker';
 import {buildSchema} from 'graphql';
 import {parse} from 'graphql-typed';
-import {createFiller, list, Options} from '../src';
+
+import {createFiller, list, Options} from '../src/fill';
+
+jest.mock('../src/utilities', () => ({
+  ...require.requireActual('../src/utilities'),
+  chooseNull: jest.fn(() => false),
+}));
+
+const chooseNull: jest.Mock = require.requireMock('../src/utilities')
+  .chooseNull;
 
 describe('createFiller()', () => {
+  beforeEach(() => {
+    chooseNull.mockReset();
+  });
+
   it('fills string fields', () => {
     const fill = createFillerForSchema(`
       type Query {
@@ -134,6 +147,26 @@ describe('createFiller()', () => {
 
     expect(fill(document)).toEqual({
       birthday: expect.any(String),
+    });
+  });
+
+  it('uses null sometimes for nullable fields', () => {
+    chooseNull.mockReturnValue(true);
+
+    const fill = createFillerForSchema(`
+      type Query {
+        name: String
+      }
+    `);
+
+    const document = createDocument(`
+      query Details {
+        name
+      }
+    `);
+
+    expect(fill(document)).toEqual({
+      name: null,
     });
   });
 
@@ -302,6 +335,47 @@ describe('createFiller()', () => {
           name: expect.any(String),
           mother: {
             name: motherName,
+          },
+        },
+      });
+    });
+
+    it('fills an object that can be null with the object even if empty', () => {
+      chooseNull.mockReturnValue(true);
+      const fill = createFillerForSchema(`
+        type Person {
+          name: String!
+          mother: Person!
+          sister: Person
+        }
+
+        type Query {
+          self: Person!
+        }
+      `);
+
+      const document = createDocument(`
+        query Details {
+          self {
+            name
+            sister {
+              name
+            }
+          }
+        }
+      `);
+
+      expect(
+        fill(document, {
+          self: {
+            sister: {},
+          },
+        }),
+      ).toEqual({
+        self: {
+          name: expect.any(String),
+          sister: {
+            name: expect.any(String),
           },
         },
       });
