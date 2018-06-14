@@ -27,5 +27,8 @@
     "@types/faker": "^4.1.2",
     "faker": "^4.1.0",
     "graphql-tool-utilities": "^0.7.2"
+  },
+  "peerDependencies": {
+    "graphql-typed": "^0.1.2"
   }
 }
