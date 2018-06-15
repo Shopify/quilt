@@ -1,1 +1,2 @@
-*.ts
+ast.ts
+polyfills.ts

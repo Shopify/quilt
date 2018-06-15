@@ -634,6 +634,30 @@ describe('printDocument()', () => {
         `);
       });
 
+      it('splits out all typenames when that is the only requested field', () => {
+        const schema = createBasicInterfaceSchema();
+
+        expect(
+          print(
+            `query Details {
+              named {
+                __typename
+              }
+            }`,
+            schema,
+          ),
+        ).toContain(stripIndent`
+          export namespace DetailsQueryData {
+            export interface Named {
+              __typename: "Person" | "Dog" | "Cat";
+            }
+          }
+          export interface DetailsQueryData {
+            named?: DetailsQueryData.Named | null;
+          }
+        `);
+      });
+
       it('collapses a type when a fragment spread is guaranteed', () => {
         const schema = createBasicInterfaceSchema();
 

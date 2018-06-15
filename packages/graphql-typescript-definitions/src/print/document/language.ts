@@ -7,8 +7,10 @@ import {
   isNonNullType,
   isScalarType,
   isListType,
+  isAbstractType,
   GraphQLType,
   GraphQLNonNull,
+  GraphQLObjectType,
   isInputObjectType,
   isInterfaceType,
   isUnionType,
@@ -162,7 +164,7 @@ function tsTypeForObjectField(
   return context.export(interfaceDeclaration);
 }
 
-function tsTypenameForGraphQLType(type: GraphQLCompositeType) {
+function tsTypenameForGraphQLType(type: GraphQLObjectType) {
   return t.tsLiteralType(t.stringLiteral(type.name));
 }
 
@@ -180,9 +182,21 @@ function tsPropertyForField(
         field.isConditional ||
         !isNonNullType(field.type));
 
-    const typename = Array.isArray(parentType)
-      ? t.tsUnionType(parentType.map(tsTypenameForGraphQLType))
-      : tsTypenameForGraphQLType(parentType);
+    const parentTypes = Array.isArray(parentType) ? parentType : [parentType];
+    const allPossibleTypes = parentTypes.reduce<GraphQLObjectType[]>(
+      (all, type) => [
+        ...all,
+        ...(isAbstractType(type)
+          ? context.ast.schema.getPossibleTypes(type)
+          : [type]),
+      ],
+      [],
+    );
+
+    const typename =
+      allPossibleTypes.length > 1
+        ? t.tsUnionType(allPossibleTypes.map(tsTypenameForGraphQLType))
+        : tsTypenameForGraphQLType(allPossibleTypes[0]);
 
     const typenameProperty = t.tsPropertySignature(
       t.identifier(field.responseName),
