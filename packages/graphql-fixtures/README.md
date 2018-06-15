@@ -18,7 +18,7 @@ yarn add graphql-fixtures --dev
 
 ### `createFiller(schema: GraphQLSchema, options?: Options): Filler`
 
-Returns a funtion that will be used to create object fixtures. This function takes the GraphQL schema (which will be used to generate the correct type of data given the document), and an optional object with the following properties:
+Returns a function that will be used to create object fixtures. This function takes the GraphQL schema (which will be used to generate the correct type of data given the document), and an optional object with the following properties:
 
 * `addTypename`: whether or not to add `__typename` fields to all object types in the generated fixture. Defaults to `false`.
 * `resolvers`: an object whose keys are names of types in the passed `schema`, and whose values are functions that return a fixture version of that type. This function can return a partial fixture; the default resolvers will then fill the remainder of the object. The function will be called with the type being filled, and the parent object type whose field has that type. You could use this to, for example, create dynamic values for a type based on the object in which it resides:
