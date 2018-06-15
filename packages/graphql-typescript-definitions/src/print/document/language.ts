@@ -37,6 +37,13 @@ export function tsInterfaceBodyForObjectField(
   context: OperationContext,
   requiresTypename = false,
 ) {
+  const {schema} = context.ast;
+  const isRootType =
+    !Array.isArray(graphQLType) &&
+    (graphQLType === schema.getQueryType() ||
+      graphQLType === schema.getMutationType() ||
+      graphQLType === schema.getSubscriptionType());
+
   const uniqueFields = fields.filter((field) => {
     if (stack.hasSeenField(field)) {
       return false;
@@ -54,7 +61,7 @@ export function tsInterfaceBodyForObjectField(
   };
 
   const typename =
-    (context.options.addTypename || requiresTypename) &&
+    ((context.options.addTypename && !isRootType) || requiresTypename) &&
     !stack.hasSeenField(typenameField)
       ? tsPropertyForField(
           typenameField,

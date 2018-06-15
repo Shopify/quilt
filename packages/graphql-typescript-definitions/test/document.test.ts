@@ -397,7 +397,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             self: DetailsQueryData.Self;
           }
         `);
@@ -415,7 +414,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             self: DetailsQueryData.Self;
           }
         `);
@@ -434,7 +432,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             self: DetailsQueryData.Self;
           }
         `);
@@ -791,7 +788,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedDog | DetailsQueryData.NamedOther | null;
           }
         `);
@@ -828,7 +824,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             named?: DetailsQueryData.NamedCat | DetailsQueryData.NamedOther | null;
           }
         `);
@@ -898,7 +893,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             named?: DetailsQueryData.NamedCat | DetailsQueryData.NamedWizard | DetailsQueryData.NamedOther | null;
           }
         `);
@@ -936,7 +930,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             named?: DetailsQueryData.NamedCat | DetailsQueryData.NamedOther | null;
           }
         `);
@@ -1186,7 +1179,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedDog | DetailsQueryData.NamedOther | null;
           }
         `);
@@ -1227,7 +1219,6 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            __typename: "Query";
             named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
           }
         `);
@@ -1443,7 +1434,7 @@ describe('printDocument()', () => {
       `);
     });
 
-    it('prints an implicit typename when the option is truthy', () => {
+    it('does not print the typename when the option is truthy', () => {
       const schema = buildSchema(`
         type Query {
           name: String!
@@ -1456,7 +1447,6 @@ describe('printDocument()', () => {
         }),
       ).toContain(stripIndent`
         export interface DetailsQueryData {
-          __typename: "Query";
           name: string;
         }
       `);
@@ -1488,7 +1478,7 @@ describe('printDocument()', () => {
         `);
     });
 
-    it('prints an implicit typename when the option is truthy', () => {
+    it('does not print the typename when the option is truthy', () => {
       const schema = buildSchema(`
         type RenamePayload {
           name: String!
@@ -1505,7 +1495,6 @@ describe('printDocument()', () => {
         }),
       ).toContain(stripIndent`
         export interface RenameMutationData {
-          __typename: "Mutation";
           rename: RenameMutationData.Rename;
         }
       `);
@@ -1528,7 +1517,7 @@ describe('printDocument()', () => {
         `);
     });
 
-    it('prints an implicit typename when the option is truthy', () => {
+    it('does not print the typename when the option is truthy', () => {
       const schema = buildSchema(`
         type Subscription {
           name: String!
@@ -1541,7 +1530,6 @@ describe('printDocument()', () => {
         }),
       ).toContain(stripIndent`
         export interface DetailsSubscriptionData {
-          __typename: "Subscription";
           name: string;
         }
       `);
@@ -1833,7 +1821,6 @@ describe('printDocument()', () => {
           }
         }
         export interface DetailsQueryPartialData {
-          __typename?: "Query" | null;
           self?: DetailsQueryPartialData.Self | null;
         }
       `);
