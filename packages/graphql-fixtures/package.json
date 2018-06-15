@@ -1,6 +1,6 @@
 {
   "name": "graphql-fixtures",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "types": "lib",
   "main": "lib/index.js",
   "license": "MIT",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@types/faker": "^4.1.2",
     "faker": "^4.1.0",
-    "graphql-tool-utilities": "^0.7.3"
+    "graphql-tool-utilities": "^0.7.4"
   },
   "peerDependencies": {
     "graphql-typed": "^0.1.2"
