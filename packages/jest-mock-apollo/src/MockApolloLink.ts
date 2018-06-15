@@ -9,6 +9,7 @@ import {
   ExecutionResult,
   Location,
   GraphQLSchema,
+  GraphQLError,
 } from 'graphql';
 import {compile, Field} from 'graphql-tool-utilities/ast';
 import {GraphQLMock} from './types';
@@ -53,7 +54,7 @@ export default class MockApolloLink extends ApolloLink {
         const error = new Error(message);
         result = error;
       } else if (response instanceof Error) {
-        result = {errors: [response]};
+        result = {errors: [new GraphQLError(response.message)]};
       } else {
         try {
           result = {
@@ -87,8 +88,8 @@ export function normalizeGraphQLResponseWithOperation(
   // which apollo-codegen depends on for top-level operations. This manually
   // adds some hacky references so that they are always at least defined.
   query.definitions.forEach(definition => {
-    definition.loc =
-      definition.loc || ({source: {name: 'GraphQL'}} as Location);
+    (definition as any).loc =
+      definition.loc || ({source: {name: 'GraphQL request'}} as Location);
   });
 
   const ast = compile(schema, query);
@@ -99,7 +100,8 @@ export function normalizeGraphQLResponseWithOperation(
       ...all,
       [key]: normalizeDataWithField(
         data[key],
-        operation.fields.find(({responseName}) => responseName === key),
+        operation.fields &&
+          operation.fields.find(({responseName}) => responseName === key),
       ),
     }),
     {},
