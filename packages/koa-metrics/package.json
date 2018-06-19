@@ -27,6 +27,8 @@
     "koa": "^2.5.1"
   },
   "devDependencies": {
+    "@shopify/jest-koa-mocks": "^2.0.7",
+    "@shopify/with-env": "^1.0.4",
     "typescript": "~2.7.2"
   }
 }

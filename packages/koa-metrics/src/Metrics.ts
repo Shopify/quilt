@@ -9,13 +9,11 @@ export interface TagsMap {
   [key: string]: string;
 }
 
-export type Tags = TagsMap | string[];
-
 export interface MetricsConfig {
   host: string;
   port: number;
   prefix: string;
-  globalTags?: Tags;
+  globalTags?: TagsMap;
 }
 
 export interface Logger {
@@ -43,13 +41,13 @@ export default class Metrics {
     this.client = this.rootClient;
   }
 
-  public timing(name: string, value: number, tags?: Tags) {
+  public timing(name: string, value: number, tags?: TagsMap) {
     this.log(MetricType.Timing, name, value, tags);
     // the any type below is to fix the improper typing on the histogram method
     this.client.timing(name, value, tags as any);
   }
 
-  public histogram(name: string, value: number, tags?: Tags) {
+  public histogram(name: string, value: number, tags?: TagsMap) {
     this.log(MetricType.Histogram, name, value, tags);
     // the any type below is to fix the improper typing on the histogram method
     this.client.histogram(name, value, tags as any);
@@ -68,7 +66,7 @@ export default class Metrics {
     return {stop};
   }
 
-  public addGlobalTags(globalTags: Tags) {
+  public addGlobalTags(globalTags: TagsMap) {
     this.client = this.client.childClient({
       globalTags,
     });
@@ -80,7 +78,7 @@ export default class Metrics {
     this.rootClient.close();
   }
 
-  private log(type: MetricType, name: string, value: number, tags?: Tags) {
+  private log(type: MetricType, name: string, value: number, tags?: TagsMap) {
     // eslint-disable-next-line no-process-env
     if (process.env.NODE_ENV !== 'development' || this.logger == null) {
       return;
