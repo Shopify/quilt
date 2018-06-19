@@ -1,0 +1,43 @@
+{
+  "name": "@shopify/async-chunks",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/async-chunks/README.md",
+  "dependencies": {
+    "@shopify/react-utilities": "^2.0.2",
+    "@types/koa": "2.0.39",
+    "koa": "^2.5.1"
+  },
+  "devDependencies": {
+    "@shopify/sewing-kit": "^0.49.1",
+    "@types/webpack": "^4.4.5",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-shopify": "^16.5.0",
+    "typescript": "~2.7.2",
+    "webpack": "^4.15.1"
+  },
+  "peerDependencies": {
+    "react": "^16.3.2"
+  }
+}
