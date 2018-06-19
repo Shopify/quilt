@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+  },
+  "include": [
+    "src/**/*.ts",
+    "package.json",
+  ]
+}
