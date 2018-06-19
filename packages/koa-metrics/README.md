@@ -113,4 +113,4 @@ This metric is emitted when the application start processing a request. It relie
 
 #### `request_content_length`
 
-This metric is based on the response header `Content-Length`. Some responses don't provide this header (chunked encoding); in those cases, this will be `undefined`.
+This metric is based on the response header `Content-Length`. Some responses don't provide this header (chunked encoding); in those cases, this will not be reported.
