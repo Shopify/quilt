@@ -43,24 +43,16 @@ export default class Metrics {
     this.client = this.rootClient;
   }
 
-  public timing(name: string, value: number);
-  public timing(name: string, value: number, sampleRate: number);
-  public timing(name: string, value: number, tags: Tags);
-  public timing(name: string, value: number, sampleRate: number, tags: Tags);
-  public timing(name: string, value: number, ...args) {
-    const [sampleRate, tags] = this.parseArgs(args);
-    this.log(MetricType.Timing, name, value, sampleRate, tags);
-    this.client.timing(name, value, sampleRate, tags);
+  public timing(name: string, value: number, tags?: Tags) {
+    this.log(MetricType.Timing, name, value, tags);
+    // the any type below is to fix the improper typing on the histogram method
+    this.client.timing(name, value, tags as any);
   }
 
-  public histogram(name: string, value: number);
-  public histogram(name: string, value: number, sampleRate: number);
-  public histogram(name: string, value: number, tags: Tags);
-  public histogram(name: string, value: number, sampleRate: number, tags: Tags);
-  public histogram(name: string, value: number, ...args) {
-    const [sampleRate, tags] = this.parseArgs(args);
-    this.log(MetricType.Histogram, name, value, sampleRate, tags);
-    this.client.histogram(name, value, sampleRate, tags);
+  public histogram(name: string, value: number, tags?: Tags) {
+    this.log(MetricType.Histogram, name, value, tags);
+    // the any type below is to fix the improper typing on the histogram method
+    this.client.histogram(name, value, tags as any);
   }
 
   public initTimer(): Timer {
@@ -88,41 +80,13 @@ export default class Metrics {
     this.rootClient.close();
   }
 
-  /* eslint-disable no-undefined */
-  private parseArgs(args: any[]): [number | undefined, Tags | undefined] {
-    if (args.length === 2) {
-      const [sampleRate, tags] = args;
-      return [sampleRate, tags];
-    }
-
-    if (args.length === 1 && typeof args[0] === 'object') {
-      return [undefined, args[0]];
-    }
-
-    if (args.length === 1) {
-      return [args[0], undefined];
-    }
-
-    return [undefined, undefined];
-  }
-  /* eslint-enable no-undefined */
-
-  private log(
-    type: MetricType,
-    name: string,
-    value: number,
-    sampleRate?: number,
-    tags?: Tags,
-  ) {
+  private log(type: MetricType, name: string, value: number, tags?: Tags) {
     // eslint-disable-next-line no-process-env
     if (process.env.NODE_ENV !== 'development' || this.logger == null) {
       return;
     }
 
     let msg = `${type} ${name}:${value}`;
-    if (sampleRate != null) {
-      msg += ` @${sampleRate}`;
-    }
     if (tags != null) {
       for (const tagName of Object.keys(tags)) {
         msg += ` #${tagName}:${tags[tagName]}`;
