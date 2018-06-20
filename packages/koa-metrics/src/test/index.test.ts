@@ -234,7 +234,7 @@ describe('koa-metrics', () => {
         };
       });
 
-      expect(MetricsMock.mock.instances[0].histogram).toHaveBeenCalledWith(
+      expect(MetricsMock.mock.instances[0].measure).toHaveBeenCalledWith(
         CustomMetrics.ContentLength,
         7500,
       );
@@ -246,12 +246,12 @@ describe('koa-metrics', () => {
 
       await metricsMiddleware(ctx, () => {});
 
-      const histogramFn = MetricsMock.mock.instances[0].histogram as jest.Mock<
-        Metrics['histogram']
+      const measureFn = MetricsMock.mock.instances[0].measure as jest.Mock<
+        Metrics['measure']
       >;
 
       expect(
-        histogramFn.mock.calls.map(([metricName]) => metricName),
+        measureFn.mock.calls.map(([metricName]) => metricName),
       ).not.toContain(CustomMetrics.ContentLength);
     });
   });
@@ -290,7 +290,7 @@ describe('koa-metrics', () => {
       });
 
       expect(MetricsMock.mock.instances[0].timing).not.toHaveBeenCalled();
-      expect(MetricsMock.mock.instances[0].histogram).not.toHaveBeenCalled();
+      expect(MetricsMock.mock.instances[0].measure).not.toHaveBeenCalled();
     });
   });
 });
