@@ -65,25 +65,13 @@ Returns the time, in milliseconds, since the `Timer` was created.
 
 ### `Tags`
 
-tags can be a hash:
+tags are an object keyed by the name of the corresponding tag. For example:
 
 ```
 {
   name: value,
   name2: value2
 }
-```
-
-an array of keys:
-
-```
-['tag1', 'tag2']
-```
-
-or an array of key-value pairs, separated by colons:
-
-```
-['name:value', 'name2:value2']
 ```
 
 ## Intelligent Defaults

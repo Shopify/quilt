@@ -14,6 +14,9 @@ describe('Metrics', () => {
     host: 'localhost',
     port: 1234,
     prefix: 'MyModule',
+    globalTags: {
+      aaa: 'A',
+    },
   };
 
   it('passes the host, port, prefix, and global tags to the statsd client', () => {
