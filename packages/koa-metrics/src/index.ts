@@ -67,7 +67,7 @@ export default function metrics({
 
         const contentLength = getContentLength(ctx);
         if (contentLength) {
-          metrics.histogram(CustomMetrics.ContentLength, contentLength);
+          metrics.measure(CustomMetrics.ContentLength, contentLength);
         }
       }
 

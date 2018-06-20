@@ -70,44 +70,44 @@ describe('Metrics', () => {
     });
   });
 
-  describe('histogram', () => {
-    it('passes histogram metrics to the statsd client', () => {
+  describe('measure', () => {
+    it('passes measure metrics to the statsd client as distribution', () => {
       const metrics = new Metrics(defaultOptions);
-      metrics.histogram('foo', 123, {tag: 'value'});
+      metrics.measure('foo', 123, {tag: 'value'});
 
       const stats = StatsDMock.mock.instances[0];
-      const histogramFn = stats.histogram;
-      expect(histogramFn).toHaveBeenCalledTimes(1);
-      expect(histogramFn).toHaveBeenCalledWith('foo', 123, {tag: 'value'});
+      const measureFn = stats.distribution;
+      expect(measureFn).toHaveBeenCalledTimes(1);
+      expect(measureFn).toHaveBeenCalledWith('foo', 123, {tag: 'value'});
     });
 
-    it('logs histogram metrics to the logger in development', () => {
+    it('logs measure metrics to the logger in development', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.histogram('foo', 123, {tag: 'value'});
+        metrics.measure('foo', 123, {tag: 'value'});
 
         expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith('histogram foo:123 #tag:value');
+        expect(logger).toHaveBeenCalledWith('measure foo:123 #tag:value');
       });
     });
 
-    it('logs tags with histogram metrics to the logger in development', () => {
+    it('logs tags with measure metrics to the logger in development', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.histogram('foo', 123, {tag: 'value'});
+        metrics.measure('foo', 123, {tag: 'value'});
 
         expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith('histogram foo:123 #tag:value');
+        expect(logger).toHaveBeenCalledWith('measure foo:123 #tag:value');
       });
     });
 
-    it('does not log histogram metrics to the logger in production', () => {
+    it('does not log measure metrics to the logger in production', () => {
       withEnv('production', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.histogram('foo', 123, {tag: 'value'});
+        metrics.measure('foo', 123, {tag: 'value'});
 
         expect(logger).not.toHaveBeenCalled();
       });

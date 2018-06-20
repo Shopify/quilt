@@ -2,7 +2,7 @@ import {StatsD} from 'hot-shots';
 
 enum MetricType {
   Timing = 'timing',
-  Histogram = 'histogram',
+  Measure = 'measure',
 }
 
 export interface TagsMap {
@@ -47,10 +47,10 @@ export default class Metrics {
     this.client.timing(name, value, tags as any);
   }
 
-  public histogram(name: string, value: number, tags?: TagsMap) {
-    this.log(MetricType.Histogram, name, value, tags);
-    // the any type below is to fix the improper typing on the histogram method
-    this.client.histogram(name, value, tags as any);
+  public measure(name: string, value: number, tags?: TagsMap) {
+    this.log(MetricType.Measure, name, value, tags);
+    // the any type below is to fix the improper typing on the distribution method
+    this.client.distribution(name, value, tags as any);
   }
 
   public initTimer(): Timer {
