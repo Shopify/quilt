@@ -19,6 +19,11 @@ describe('Metrics', () => {
     },
   };
 
+  const name = 'foo';
+  const value = 123;
+  const tagName = 'tag';
+  const tags = {[tagName]: 'value'};
+
   it('passes the host, port, prefix, and global tags to the statsd client', () => {
     const metrics = new Metrics(defaultOptions);
 
@@ -29,22 +34,22 @@ describe('Metrics', () => {
   describe('timing', () => {
     it('passes timing metrics to the statsd client', () => {
       const metrics = new Metrics(defaultOptions);
-      metrics.timing('foo', 123, {tag: 'value'});
+      metrics.timing(name, value, tags);
 
       const stats = StatsDMock.mock.instances[0];
       const timingFn = stats.timing;
       expect(timingFn).toHaveBeenCalledTimes(1);
-      expect(timingFn).toHaveBeenCalledWith('foo', 123, {tag: 'value'});
+      expect(timingFn).toHaveBeenCalledWith(name, value, tags);
     });
 
     it('logs timing metrics to the logger in development', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.timing('foo', 123);
+        metrics.timing(name, value);
 
         expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith('timing foo:123');
+        expect(logger).toHaveBeenCalledWith(`timing ${name}:${value}`);
       });
     });
 
@@ -52,10 +57,12 @@ describe('Metrics', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.timing('foo', 123, {tag: 'value'});
+        metrics.timing(name, value, tags);
 
         expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith('timing foo:123 #tag:value');
+        expect(logger).toHaveBeenCalledWith(
+          `timing ${name}:${value} #${tagName}:${tags[tagName]}`,
+        );
       });
     });
 
@@ -63,7 +70,7 @@ describe('Metrics', () => {
       withEnv('production', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.timing('foo', 123, {tag: 'value'});
+        metrics.timing(name, value, tags);
 
         expect(logger).not.toHaveBeenCalled();
       });
@@ -73,22 +80,22 @@ describe('Metrics', () => {
   describe('measure', () => {
     it('passes measure metrics to the statsd client as distribution', () => {
       const metrics = new Metrics(defaultOptions);
-      metrics.measure('foo', 123, {tag: 'value'});
+      metrics.measure(name, value, tags);
 
       const stats = StatsDMock.mock.instances[0];
       const measureFn = stats.distribution;
       expect(measureFn).toHaveBeenCalledTimes(1);
-      expect(measureFn).toHaveBeenCalledWith('foo', 123, {tag: 'value'});
+      expect(measureFn).toHaveBeenCalledWith(name, value, tags);
     });
 
     it('logs measure metrics to the logger in development', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure('foo', 123, {tag: 'value'});
+        metrics.measure(name, value);
 
         expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith('measure foo:123 #tag:value');
+        expect(logger).toHaveBeenCalledWith(`measure ${name}:${value}`);
       });
     });
 
@@ -96,10 +103,12 @@ describe('Metrics', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure('foo', 123, {tag: 'value'});
+        metrics.measure(name, value, tags);
 
         expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith('measure foo:123 #tag:value');
+        expect(logger).toHaveBeenCalledWith(
+          `measure ${name}:${value} #${tagName}:${tags[tagName]}`,
+        );
       });
     });
 
@@ -107,7 +116,7 @@ describe('Metrics', () => {
       withEnv('production', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure('foo', 123, {tag: 'value'});
+        metrics.measure(name, value, tags);
 
         expect(logger).not.toHaveBeenCalled();
       });
@@ -120,15 +129,16 @@ describe('Metrics', () => {
       const forkedClient = new Metrics(defaultOptions);
       const childFn = StatsDMock.mock.instances[0].childClient as jest.Mock;
       childFn.mockReturnValueOnce(forkedClient);
+      const supplementaryTags = {bbb: 'B'};
 
-      metrics.addGlobalTags({bbb: 'B'});
+      metrics.addGlobalTags(supplementaryTags);
 
       expect(childFn).toHaveBeenCalledTimes(1);
       expect(childFn).toHaveBeenCalledWith({
-        globalTags: {bbb: 'B'},
+        globalTags: supplementaryTags,
       });
 
-      metrics.timing('foo', 123);
+      metrics.timing(name, value);
 
       expect(StatsDMock.mock.instances[0].timing).not.toHaveBeenCalled();
       expect(StatsDMock.mock.instances[1].timing).toHaveBeenCalled();
@@ -149,15 +159,16 @@ describe('Metrics', () => {
   describe('Timer', () => {
     it('initTimer returns a Timer whose stop method returns an integer', () => {
       const originalHrTime = process.hrtime;
+      const ms = 3018;
       process.hrtime = () => {
-        return [3, 18000000];
+        return [Math.floor(ms / 1000), (ms % 1000) * 1e6];
       };
 
       const metrics = new Metrics(defaultOptions);
       const timer = metrics.initTimer();
       const elapsedTime = timer.stop();
 
-      expect(elapsedTime).toBe(3018);
+      expect(elapsedTime).toBe(ms);
 
       process.hrtime = originalHrTime;
     });
