@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-auth",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md",
   "dependencies": {
-    "@shopify/jest-koa-mocks": "^2.0.7",
+    "@shopify/jest-koa-mocks": "^2.0.8",
     "@types/koa": "^2.0.44",
     "koa": "^2.5.0",
     "nonce": "^1.0.4",
