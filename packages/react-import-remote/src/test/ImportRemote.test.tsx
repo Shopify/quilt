@@ -44,6 +44,7 @@ describe('<ImportRemote />', () => {
 
       try {
         await promise;
+        // eslint-disable-next-line no-empty
       } catch (_) {}
 
       expect(spy).not.toHaveBeenCalled();
@@ -79,6 +80,7 @@ describe('<ImportRemote />', () => {
 
       try {
         await promise;
+        // eslint-disable-next-line no-empty
       } catch (_) {}
 
       expect(spy).toHaveBeenCalledWith(error);

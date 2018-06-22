@@ -92,11 +92,13 @@ describe('load()', () => {
     script.triggerEvent('error');
     try {
       await promiseOne;
-    } catch (error) {}
+      // eslint-disable-next-line no-empty
+    } catch (_) {}
 
     try {
       await load(mockURL, spy);
-    } catch (error) {}
+      // eslint-disable-next-line no-empty
+    } catch (_) {}
 
     expect(create).toHaveBeenCalledTimes(1);
     expect(append).toHaveBeenCalledTimes(1);
@@ -121,7 +123,8 @@ describe('load()', () => {
     script.triggerEvent('error');
     try {
       await promise;
-    } catch (error) {}
+      // eslint-disable-next-line no-empty
+    } catch (_) {}
 
     for (const call of script.addEventListener.mock.calls) {
       expect(script.removeEventListener).toHaveBeenCalledWith(...call);
@@ -160,9 +163,9 @@ function fakeScript() {
       },
     ),
     triggerEvent(event: 'load' | 'error') {
-      for (const callback of events[event]) {
-        callback(event === 'load' ? {} : new Error());
-      }
+      events[event].forEach(callback =>
+        callback(event === 'load' ? {} : new Error()),
+      );
     },
   };
 }
