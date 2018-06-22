@@ -6,9 +6,11 @@ import {Tags} from '../tags';
 jest.mock('../Metrics');
 const MetricsMock = (Metrics as any) as jest.Mock<Metrics>;
 
+const defaultHost = 'localhost';
+const defaultPort = 1234;
 const defaultOptions = {
   prefix: 'TestModule',
-  host: 'localhost:1234',
+  host: `${defaultHost}:${defaultPort}`,
 };
 
 describe('koa-metrics', () => {
@@ -46,8 +48,8 @@ describe('koa-metrics', () => {
 
     await metricsMiddleware(ctx, () => {});
     expect(MetricsMock.mock.calls[0][0]).toMatchObject({
-      host: 'localhost',
-      port: 1234,
+      host: defaultHost,
+      port: defaultPort,
     });
   });
 
@@ -64,14 +66,15 @@ describe('koa-metrics', () => {
   describe('tags', () => {
     it('tags the initial metrics client with the path', async () => {
       const metricsMiddleware = metrics(defaultOptions);
+      const path = '/some/path/';
       const ctx = createMockContext({
-        url: '/some/path/',
+        url: path,
       });
 
       await metricsMiddleware(ctx, () => {});
       expect(MetricsMock.mock.calls[0][0]).toMatchObject({
         globalTags: {
-          [Tags.Path]: '/some/path/',
+          [Tags.Path]: path,
         },
       });
     });
@@ -91,9 +94,10 @@ describe('koa-metrics', () => {
     it('tags the metrics client with the response code', async () => {
       const metricsMiddleware = metrics(defaultOptions);
       const ctx = createMockContext();
+      const status = 418;
 
       await metricsMiddleware(ctx, () => {
-        ctx.response.status = 418;
+        ctx.response.status = status;
       });
       const addTagsFn = MetricsMock.mock.instances[0]
         .addGlobalTags as jest.Mock<Metrics['addGlobalTags']>;
@@ -102,16 +106,18 @@ describe('koa-metrics', () => {
         {},
       );
       expect(addedTags).toMatchObject({
-        [Tags.ResponseCode]: '418',
+        [Tags.ResponseCode]: String(status),
       });
     });
 
     it('tags the metrics client with the response type', async () => {
       const metricsMiddleware = metrics(defaultOptions);
       const ctx = createMockContext();
+      const status = 418;
+      const responseType = `${Math.floor(status / 100)}xx`;
 
       await metricsMiddleware(ctx, () => {
-        ctx.response.status = 418;
+        ctx.response.status = status;
       });
       const addTagsFn = MetricsMock.mock.instances[0]
         .addGlobalTags as jest.Mock<Metrics['addGlobalTags']>;
@@ -120,7 +126,7 @@ describe('koa-metrics', () => {
         {},
       );
       expect(addedTags).toMatchObject({
-        [Tags.ResponseType]: '4xx',
+        [Tags.ResponseType]: responseType,
       });
     });
   });
@@ -161,17 +167,18 @@ describe('koa-metrics', () => {
   describe('request_queuing_time', () => {
     it('logs the queuing time based on the X-Request-Start header before calling next', async () => {
       const metricsMiddleware = metrics(defaultOptions);
+      const queuingTime = 100;
 
       const ctx = createMockContext({
         headers: {
-          'X-Request-Start': '100',
+          'X-Request-Start': String(queuingTime),
         },
       });
 
       await metricsMiddleware(ctx, () => {
         expect(MetricsMock.mock.instances[0].timing).toHaveBeenCalledWith(
           CustomMetrics.QueuingTime,
-          100,
+          queuingTime,
         );
       });
     });
@@ -196,23 +203,24 @@ describe('koa-metrics', () => {
     it('logs the request time', async () => {
       const metricsMiddleware = metrics(defaultOptions);
       const ctx = createMockContext();
+      const requestTime = 123;
 
       MetricsMock.prototype.initTimer = () => {
         return {
           stop() {
-            return 123;
+            return requestTime;
           },
         };
       };
 
       await metricsMiddleware(ctx, () => {
         const timingFn = MetricsMock.mock.instances[0].initTimer as jest.Mock;
-        timingFn.mockReturnValueOnce({stop: () => 123});
+        timingFn.mockReturnValueOnce({stop: () => requestTime});
       });
 
       expect(MetricsMock.mock.instances[0].timing).toHaveBeenCalledWith(
         CustomMetrics.RequestDuration,
-        123,
+        requestTime,
       );
     });
   });
@@ -220,15 +228,15 @@ describe('koa-metrics', () => {
   describe('request_content_length', () => {
     it('logs the request content length based on the Content-Length header', async () => {
       const metricsMiddleware = metrics(defaultOptions);
-
       const ctx = createMockContext();
+      const length = 7500;
 
       await metricsMiddleware(ctx, () => {
-        ctx.response.length = 7500;
+        ctx.response.length = length;
         const originalGet = ctx.response.get;
         ctx.response.get = headerName => {
           if (headerName === 'Content-Length') {
-            return '7500';
+            return String(length);
           }
           return originalGet(headerName);
         };
@@ -236,7 +244,7 @@ describe('koa-metrics', () => {
 
       expect(MetricsMock.mock.instances[0].measure).toHaveBeenCalledWith(
         CustomMetrics.ContentLength,
-        7500,
+        length,
       );
     });
 
