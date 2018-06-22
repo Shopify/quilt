@@ -11,7 +11,7 @@ export interface Dictionary<T> {
 
 export interface MockContext extends Context {
   cookies: MockCookies;
-  request: Context['Request'] & {
+  request: Context['request'] & {
     body?: any;
     session?: any;
   };
