@@ -19,10 +19,12 @@ This repository uses [lerna](https://github.com/lerna/lerna) to manage it's pack
 | jest-mock-apollo | [README](packages/jest-mock-apollo/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-mock-apollo.svg)](https://badge.fury.io/js/%40shopify%2Fjest-mock-apollo) |
 | jest-mock-router | [README](packages/jest-mock-router/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-mock-router.svg)](https://badge.fury.io/js/%40shopify%2Fjest-mock-router) |
 | koa-liveness-ping | [README](packages/koa-liveness-ping/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping) |
+| koa-metrics | [README](packages/koa-metrics/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-metrics.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-metrics) |
 | koa-shopify-auth | [README](packages/koa-shopify-auth/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth) |
 | koa-shopify-graphql-proxy | [README](packages/koa-shopify-graphql-proxy/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy) |
 | react-compose | [README](packages/react-compose/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose) |
 | react-html | [README](packages/react-html/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html) |
+| react-preconnect | [README](packages/react-preconnect/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-preconnect.svg)](https://badge.fury.io/js/%40shopify%2Freact-preconnect) |
 | react-serialize | [README](packages/react-serialize/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-serialize.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize) |
 | react-shopify-app-route-propagator | [README](packages/react-shopify-app-route-propagator/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator.svg)](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator) |
 | react-shortcuts | [README](packages/react-shortcuts/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) |
@@ -34,6 +36,7 @@ Check out our [Contributing Guidelines](CONTRIBUTING.md)
 
 ## License
 
-[MIT](LICENSE.md) © Shopify Inc.
 
-[![Shopify](https://cdn.shopify.com/assets2/press/brand/shopify-logo-main-small-f029fcaf14649a054509f6790ce2ce94d1f1c037b4015b4f106c5a67ab033f5b.png)](http://www.shopify.com/)
+MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
+
+<a href="http://www.shopify.com/"><img src="https://cdn.shopify.com/assets2/press/brand/shopify-logo-main-small-f029fcaf14649a054509f6790ce2ce94d1f1c037b4015b4f106c5a67ab033f5b.png" alt="Shopify" width="200" /></a>
