@@ -1,8 +1,6 @@
 import chalk from 'chalk';
-import {info, warning} from 'log-symbols';
+import {info, warning, error} from 'log-symbols';
 import prettyMs from 'pretty-ms';
-import Youch from 'youch';
-import forTerminal from 'youch-terminal';
 
 import {LogLevel, FormatEntry, Formatter} from '../types';
 
@@ -14,33 +12,37 @@ export class ConsoleFormatter implements Formatter {
   }
 
   next(entry: FormatEntry) {
-    const {level, payload, scopes} = entry;
-
-    if (level === LogLevel.Critical) {
-      // eslint-disable-next-line promise/catch-or-return
-      new Youch(payload)
-        .toJSON()
-        // eslint-disable-next-line promise/always-return
-        .then(err => {
-          // eslint-disable-next-line no-console
-          console.error(forTerminal(err));
-        });
-      return;
-    }
-
     const timeDiff = process.hrtime(this.startTime);
     const msDiff = timeDiff[0] * 1000 + timeDiff[1] / 1000;
-    const prefix = chalk.gray(`[${scopes.join(':')}] - `);
-    const suffix = chalk.gray(` +${prettyMs(msDiff)}`);
+    const timestamp = chalk.magenta(`+${prettyMs(msDiff)}`);
+
+    const {level, payload, scopes} = entry;
+
+    let logMsg = `payload ${timestamp}`;
+
+    if (level === LogLevel.Critical) {
+      const {message, stack} = payload as Error;
+      logMsg = message;
+
+      if (stack != null) {
+        const [name, ...lines] = stack.split('\n');
+        logMsg = `${name} ${timestamp}\n${lines
+          .map(line => {
+            return chalk.gray(line);
+          })
+          .join('\n')}`;
+      }
+    }
+
+    const prefix = `[${scopes.join(':')}] `;
     const {logFn, icon, chalkColor} = configForLogLevel(level);
     logFn(
       prefix,
       icon,
       spaces(1),
       chalkColor.bold.underline(level),
-      spaces(8 - level.length + 2),
-      payload,
-      suffix,
+      spaces(8 - level.length),
+      logMsg,
     );
   }
 }
@@ -57,6 +59,13 @@ function configForLogLevel(logLevel: LogLevel) {
       logFn: console.warn,
       icon: warning,
       chalkColor: chalk.yellow,
+    };
+  } else if (logLevel === LogLevel.Critical) {
+    return {
+      // eslint-disable-next-line no-console
+      logFn: console.error,
+      icon: error,
+      chalkColor: chalk.red,
     };
   }
   return {

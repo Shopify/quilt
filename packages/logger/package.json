@@ -25,9 +25,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "log-symbols": "^2.2.0",
-    "pretty-ms": "^3.2.0",
-    "youch": "^2.0.8",
-    "youch-terminal": "^1.0.0"
+    "pretty-ms": "^3.2.0"
   },
   "devDependencies": {
     "typescript": "~2.7.2"
