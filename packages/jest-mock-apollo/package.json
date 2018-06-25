@@ -33,7 +33,7 @@
     "apollo-client": "^2.3.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "typescript": "~2.7.2"
+    "typescript": "~2.9.2"
   },
   "peerDependencies": {
     "apollo-cache-inmemory": "^1.2.4",
