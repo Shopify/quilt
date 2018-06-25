@@ -26,7 +26,7 @@ This repository uses [lerna](https://github.com/lerna/lerna) to manage it's pack
 | `react-html`                         | [README](packages/react-html/README.md)                                                  | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)                                               |
 | `react-compose`                      | [README](packages/react-compose/README.md)                                               | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose)                                         |
 | `react-shopify-app-route-propagator` | [README](packages/react-shopify-app-route-propagator/README.md)                          | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator.svg)](https://badge.fury.io/js/%40shopify%react-shopify-app-route-propagator) |
-| `react-shortcuts`                    | [README](packages/react-shortcuts/README.md)                                             | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)                                          |
+| `react-shortcuts`                    | [README](packages/react-shortcuts/README.md)                                             | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-html) [![Greenkeeper badge](https://badges.greenkeeper.io/Shopify/quilt.svg)](https://greenkeeper.io/)                                          |
 
 ## Contribute
 
