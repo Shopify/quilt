@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
-    "typescript": "~2.7.2"
+    "typescript": "~2.9.2"
   },
   "peerDependencies": {
     "react": "^16.3.2"
