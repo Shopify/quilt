@@ -23,10 +23,16 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/jest-mock-router/README.md",
   "devDependencies": {
-    "@types/react-router": "^4.0.27",
+    "@types/react-router": "^3.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-router": "^4.3.1",
+    "react-router": "^3.2.0",
     "typescript": "~2.9.2"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "react-router",
+      "@types/react-router"
+    ]
   }
 }
