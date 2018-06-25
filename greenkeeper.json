@@ -1,0 +1,25 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/enzyme-utilities/package.json",
+        "packages/jest-dom-mocks/package.json",
+        "packages/jest-koa-mocks/package.json",
+        "packages/jest-mock-apollo/package.json",
+        "packages/jest-mock-router/package.json",
+        "packages/koa-liveness-ping/package.json",
+        "packages/koa-metrics/package.json",
+        "packages/koa-shopify-auth/package.json",
+        "packages/koa-shopify-graphql-proxy/package.json",
+        "packages/react-compose/package.json",
+        "packages/react-html/package.json",
+        "packages/react-preconnect/package.json",
+        "packages/react-serialize/package.json",
+        "packages/react-shopify-app-route-propagator/package.json",
+        "packages/react-shortcuts/package.json",
+        "packages/with-env/package.json"
+      ]
+    }
+  }
+}
