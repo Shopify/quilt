@@ -1,0 +1,38 @@
+{
+  "name": "@shopify/react-form-state",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Manage react forms tersely and type-safe with no magic.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form-state/README.md",
+  "dependencies": {
+    "lodash-decorators": "^6.0.0",
+    "lodash-es": "^4.17.10"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.1.10",
+    "enzyme": "^3.3.0",
+    "faker": "^4.1.0",
+    "typescript": "~2.9.2"
+  }
+}
