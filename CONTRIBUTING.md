@@ -34,7 +34,7 @@ yarn test
 
 ## Emoji commits
 
-We have foudn that prefacing a commit message or PR title with an emoji can be a great way to improve the developer experience when browsing the repo code. Additionally, it is a terse way to convey information. Many of our contributors have found the guide at https://gitmoji.carloscuesta.me/ to be helpful in preservign this dynamic.
+We have found that prefacing a commit message or PR title with an emoji can be a great way to improve the developer experience when browsing the repo code. Additionally, it is a terse way to convey information. Many of our contributors have found the guide at https://gitmoji.carloscuesta.me/ to be helpful in preserving this dynamic.
 
 ## Documentation
 
@@ -52,9 +52,11 @@ The packages in Quilt are used in mission-critical production scenarios. As such
 TODO comments may seem like a great placeholder for work in progress. We prefer top handle this in a different way, using a combination of feature branches and github issues.
 
 ### Follow-up Github issues
-If your changes are complete in functionality, but you're not quite happy with auxilliary things liek documentation or testing, then feel free to make a github issue to track the work that needs to be done. These issues should be linked in the PRs that needa bit more work. This will allow context to be drawn from the code in a more trackable way than a TODO comment. Also, it allows the PR reviewers to see that the documentation rot esting is purposefully incompleteand that an appropriate issue exists to track the follow-up work.
+
+If your changes are complete in functionality, but you're not quite happy with auxillary things like documentation or testing, then feel free to make a github issue to track the work that needs to be done. These issues should be linked in the PRs that need a bit more work. This will allow context to be drawn from the code in a more trackable way than a TODO comment. Also, it allows the PR reviewers to see that the documentation or testing is purposefully incomplete and that an appropriate issue exists to track the follow-up work.
 
 ### Feature branches
+
 Another option, if you'd like to break work down into reviewable chunks, is to use a feature branch. This would be an initially empty branch that contains the entirety of your feature. Additional units of work can be distributed across several PRs into the feature branch, merged independently, and then the feature branch can be merged as a complete unit into the master branch, when it's ready.
 
 ## Releasing a new version
