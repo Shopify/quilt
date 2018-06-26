@@ -18,7 +18,7 @@ export class ConsoleFormatter implements Formatter {
 
     const {level, payload, scopes} = entry;
 
-    let logMsg = `payload ${timestamp}`;
+    let logMsg = `${payload} ${timestamp}`;
 
     if (level === LogLevel.Critical) {
       const {message, stack} = payload as Error;
