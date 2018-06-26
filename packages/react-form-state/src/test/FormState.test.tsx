@@ -124,6 +124,36 @@ describe('<FormState />', () => {
     });
   });
 
+  describe('reset()', () => {
+    it('resets all fields to their initial values', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+
+      const form = mount(
+        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+      );
+
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(faker.commerce.productName());
+      form.update();
+
+      const {reset} = lastCallArgs(renderPropSpy);
+      reset();
+
+      form.update();
+
+      const {fields} = lastCallArgs(renderPropSpy);
+      reset();
+      expect(fields).toMatchObject({
+        product: {
+          value: product,
+          initialValue: product,
+          dirty: false,
+        },
+      });
+    });
+  });
+
   describe('dirty', () => {
     it('defaults to false', () => {
       const renderPropSpy = jest.fn(() => null);
@@ -572,7 +602,7 @@ describe('<FormState />', () => {
       expect(submitting).toBe(true);
     });
 
-    it('when onSubmit() returns a promise, rerenders with submitting false when promise resolves', async () => {
+    it('when onSubmit() returns a promise, re-renders with submitting false when promise resolves', async () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
@@ -652,7 +682,74 @@ describe('<FormState />', () => {
       expect(descriptionError.message).toEqual(submitErrors[1].message);
     });
   });
+
+  describe('performance', () => {
+    it('does not re-render form when state after onchange is identical', () => {
+      const product = faker.commerce.productName();
+      const description = faker.lorem.words();
+
+      const renderPropSpy = jest.fn(() => null);
+
+      mount(
+        <FormState initialValues={{product, description}}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(product);
+
+      expect(renderPropSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('only renders renderProp once on mount', () => {
+      const product = faker.commerce.productName();
+      const description = faker.lorem.words();
+      const renderPropSpy = jest.fn(() => null);
+
+      mount(
+        <FormState initialValues={{product, description}}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      expect(renderPropSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not cause pureComponent re-renders when a different field is changed', () => {
+      const onRenderSpy = jest.fn();
+      const product = faker.commerce.productName();
+      const description = faker.lorem.words();
+
+      const renderPropSpy = jest.fn(({fields}) => (
+        <>
+          <PureComponent {...fields.description} onRender={onRenderSpy} />
+          <PureComponent {...fields.product} />
+        </>
+      ));
+
+      mount(
+        <FormState initialValues={{product, description}}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(faker.commerce.product());
+
+      expect(renderPropSpy).toHaveBeenCalledTimes(2);
+      expect(onRenderSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 });
+
+class PureComponent extends React.PureComponent<any, never> {
+  render() {
+    this.props.onRender && this.props.onRender();
+
+    return null;
+  }
+}
 
 function lastCallArgs(spy: jest.Mock) {
   const calls = spy.mock.calls;

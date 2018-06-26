@@ -122,13 +122,7 @@ export default class FormState<
 
     const fieldDescriptors: FieldDescriptors<Fields> = mapObject(
       fields,
-      (field, path) => {
-        return {
-          name: path,
-          ...field,
-          ...this.getHandlersForField(path),
-        };
-      },
+      this.fieldWithHandlers,
     );
 
     return fieldDescriptors;
@@ -186,50 +180,101 @@ export default class FormState<
   }
 
   @memoize()
-  private getHandlersForField(path: keyof FieldStates<Fields>) {
-    return {
-      onChange: this.updateField.bind(this, path),
-      onBlur: this.blurField.bind(this, path),
-    };
+  @bind()
+  private fieldWithHandlers<Key extends keyof Fields>(
+    field: FieldStates<Fields>[Key],
+    fieldPath: Key,
+  ) {
+    return Object.assign({}, field, {
+      onChange: this.updateField.bind(this, fieldPath),
+      onBlur: this.blurField.bind(this, fieldPath),
+    });
   }
-  private updateField<K extends keyof Fields>(fieldPath: K, value: Fields[K]) {
+
+  private updateField<Key extends keyof Fields>(
+    fieldPath: Key,
+    value: Fields[Key],
+  ) {
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
-      const {error} = field;
-
       const dirty = !isEqual(value, field.initialValue);
-      const newDirtyFields = new Set(dirtyFields);
 
-      if (dirty) {
-        newDirtyFields.add(fieldPath);
-      } else {
-        newDirtyFields.delete(fieldPath);
-      }
-
-      const newFieldData = Object.assign({}, field, {
+      const updatedField = this.getUpdatedField({
+        fieldPath,
+        field,
         value,
         dirty,
       });
 
-      /*
-        We only want to update errors as the user types if they
-        already have an error.
-        https://polaris.shopify.com/patterns/error-messages#section-form-validation
-      */
-      const shouldUpdateError = error != null;
-
-      const newError = shouldUpdateError
-        ? this.validateFieldValue(fieldPath, newFieldData)
-        : // eslint-disable-next-line no-undefined
-          undefined;
-
       return {
-        dirtyFields: [...Array.from(newDirtyFields)],
-        fields: Object.assign({}, fields, {
-          [fieldPath]: Object.assign({}, newFieldData, {error: newError}),
+        dirtyFields: this.getUpdatedDirtyFields({
+          fieldPath,
+          dirty,
+          dirtyFields,
         }),
+        fields:
+          updatedField === field
+            ? fields
+            : Object.assign({}, fields, {
+                [fieldPath]: updatedField,
+              }),
       };
     });
+  }
+
+  private getUpdatedDirtyFields<Key extends keyof Fields>({
+    fieldPath,
+    dirty,
+    dirtyFields,
+  }: {
+    fieldPath: Key;
+    dirty: boolean;
+    dirtyFields: (keyof Fields)[];
+  }) {
+    const dirtyFieldsSet = new Set(dirtyFields);
+
+    if (dirty) {
+      dirtyFieldsSet.add(fieldPath);
+    } else {
+      dirtyFieldsSet.delete(fieldPath);
+    }
+
+    const newDirtyFields = Array.from(dirtyFieldsSet);
+    return isEqual(dirtyFields, newDirtyFields) ? dirtyFields : newDirtyFields;
+  }
+
+  private getUpdatedField<Key extends keyof Fields>({
+    fieldPath,
+    field,
+    value,
+    dirty,
+  }: {
+    fieldPath: Key;
+    field: FieldStates<Fields>[Key];
+    value: Fields[Key];
+    dirty: boolean;
+  }) {
+    const newField = Object.assign({}, field, {
+      value,
+      dirty,
+    });
+
+    /*
+    We only want to update errors as the user types if they
+    already have an error.
+    https://polaris.shopify.com/patterns/error-messages#section-form-validation
+    */
+    const shouldUpdateError = field.error != null;
+    newField.error = shouldUpdateError
+      ? this.validateFieldValue(fieldPath, newField)
+      : // eslint-disable-next-line no-undefined
+        undefined;
+
+    if (value === field.value && newField.error === field.error) {
+      return field;
+    }
+
+    return newField;
   }
 
   private blurField<Key extends keyof Fields>(fieldPath: Key) {
