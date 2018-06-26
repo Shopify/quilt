@@ -5,6 +5,7 @@ A loosely related set of packages for JavaScript/Typescript projects at Shopify.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![codecov](https://codecov.io/gh/Shopify/quilt/branch/master/graph/badge.svg)](https://codecov.io/gh/Shopify/quilt)
+[![Greenkeeper badge](https://badges.greenkeeper.io/Shopify/quilt.svg)](https://greenkeeper.io/)
 
 This repository uses [lerna](https://github.com/lerna/lerna) to manage it's packages as a 'monorepo' (a repository containing many packages). Links to individual packages can be found below.
 
@@ -21,7 +22,6 @@ This repository uses [lerna](https://github.com/lerna/lerna) to manage it's pack
 Check out our [Contributing Guidelines](CONTRIBUTING.md)
 
 ## License
-
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
 
