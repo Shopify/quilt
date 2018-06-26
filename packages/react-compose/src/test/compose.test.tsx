@@ -6,9 +6,10 @@ import compose from '..';
 describe('react-compose-enhancers', () => {
   describe('when invoked on a classical component', () => {
     it('returns an enhancer that takes a component and returns a component wrapping the original', () => {
-      const Component = compose<Props>(fooEnhancer, barEnhancer)(
-        ClassicalComponent,
-      );
+      const Component = compose<Props>(
+        fooEnhancer,
+        barEnhancer,
+      )(ClassicalComponent);
 
       const result = mount(<Component baz="baz" />);
       const wrappedComponent = result.find(ClassicalComponent);
@@ -17,9 +18,10 @@ describe('react-compose-enhancers', () => {
     });
 
     it('passes props on the wrapper down to the wrapped component', () => {
-      const Component = compose<Props>(fooEnhancer, barEnhancer)(
-        ClassicalComponent,
-      );
+      const Component = compose<Props>(
+        fooEnhancer,
+        barEnhancer,
+      )(ClassicalComponent);
 
       const expectedBaz = 'test';
       const result = mount(<Component baz={expectedBaz} />);
@@ -29,9 +31,10 @@ describe('react-compose-enhancers', () => {
     });
 
     it('injects props from all enhancers passed to it to the resulting component', () => {
-      const Component = compose<Props>(fooEnhancer, barEnhancer)(
-        ClassicalComponent,
-      );
+      const Component = compose<Props>(
+        fooEnhancer,
+        barEnhancer,
+      )(ClassicalComponent);
 
       const expectedProps = {
         foo: 'foo',
@@ -45,9 +48,10 @@ describe('react-compose-enhancers', () => {
     });
 
     it('hoists static members to wrapper class', () => {
-      const Component = compose<Props>(fooEnhancer, barEnhancer)(
-        ClassicalComponent,
-      );
+      const Component = compose<Props>(
+        fooEnhancer,
+        barEnhancer,
+      )(ClassicalComponent);
 
       expect(Component.someStatic).toEqual(ClassicalComponent.someStatic);
     });
@@ -55,9 +59,10 @@ describe('react-compose-enhancers', () => {
 
   describe('when invoked on a functional component', () => {
     it('returns an enhancer that takes a component and returns a component wrapping the original', () => {
-      const Component = compose<Props>(fooEnhancer, barEnhancer)(
-        StatelessComponent,
-      );
+      const Component = compose<Props>(
+        fooEnhancer,
+        barEnhancer,
+      )(StatelessComponent);
 
       const result = mount(<Component baz="baz" />);
       const wrappedComponent = result.find(StatelessComponent);
@@ -66,9 +71,10 @@ describe('react-compose-enhancers', () => {
     });
 
     it('passes props on the wrapper down to the wrapped component', () => {
-      const Component = compose<Props>(fooEnhancer, barEnhancer)(
-        StatelessComponent,
-      );
+      const Component = compose<Props>(
+        fooEnhancer,
+        barEnhancer,
+      )(StatelessComponent);
 
       const expectedBaz = 'test';
       const result = mount(<Component baz={expectedBaz} />);
@@ -78,9 +84,10 @@ describe('react-compose-enhancers', () => {
     });
 
     it('injects props from all enhancers passed to it to the resulting component', () => {
-      const Component = compose<Props>(fooEnhancer, barEnhancer)(
-        StatelessComponent,
-      );
+      const Component = compose<Props>(
+        fooEnhancer,
+        barEnhancer,
+      )(StatelessComponent);
 
       const expectedProps = {
         foo: 'foo',
