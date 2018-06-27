@@ -11,7 +11,7 @@ describe('Logger', () => {
       const logger = new Logger({
         name: rootScope,
         formatter: {
-          next: formatSpy,
+          format: formatSpy,
         },
       });
 
@@ -27,7 +27,7 @@ describe('Logger', () => {
       const logger = new Logger({
         name: 'fred',
         formatter: {
-          next: formatSpy,
+          format: formatSpy,
         },
       });
 
@@ -46,7 +46,7 @@ describe('Logger', () => {
       const logger = new Logger({
         name: rootScope,
         formatter: {
-          next: formatSpy,
+          format: formatSpy,
         },
       });
 
@@ -62,7 +62,7 @@ describe('Logger', () => {
       const logger = new Logger({
         name: 'fred',
         formatter: {
-          next: formatSpy,
+          format: formatSpy,
         },
       });
 
@@ -81,7 +81,7 @@ describe('Logger', () => {
       const logger = new Logger({
         name: rootScope,
         formatter: {
-          next: formatSpy,
+          format: formatSpy,
         },
       });
 
@@ -97,7 +97,7 @@ describe('Logger', () => {
       const logger = new Logger({
         name: 'fred',
         formatter: {
-          next: formatSpy,
+          format: formatSpy,
         },
       });
 

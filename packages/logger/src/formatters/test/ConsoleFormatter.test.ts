@@ -6,18 +6,22 @@ describe('ConsoleFormatter', () => {
     const formatter = new ConsoleFormatter();
     const errorSpy = jest.spyOn(console, 'error');
     const errorMsg = 'foo';
+    const payload = new Error(errorMsg);
 
-    formatter.next({
+    formatter.format({
       level: LogLevel.Critical,
-      payload: new Error(errorMsg),
+      payload,
       scopes: [],
     });
 
     expect(errorSpy).toHaveBeenCalledTimes(1);
     const args = errorSpy.mock.calls[0];
 
-    expect(consoleCallInludes(args, errorMsg)).toBe(true);
-    expect(consoleCallInludes(args, LogLevel.Critical)).toBe(true);
+    expect(consoleCallIncludes(args, errorMsg)).toBe(true);
+    for (const stackLine of payload.stack.split('\n')) {
+      expect(consoleCallIncludes(args, stackLine)).toBe(true);
+    }
+    expect(consoleCallIncludes(args, LogLevel.Critical)).toBe(true);
 
     errorSpy.mockReset();
     errorSpy.mockRestore();
@@ -30,7 +34,7 @@ describe('ConsoleFormatter', () => {
     const payload = new Error(errorMsg);
     payload.stack = null;
 
-    formatter.next({
+    formatter.format({
       level: LogLevel.Critical,
       payload,
       scopes: [],
@@ -39,7 +43,7 @@ describe('ConsoleFormatter', () => {
     expect(errorSpy).toHaveBeenCalledTimes(1);
     const args = errorSpy.mock.calls[0];
 
-    expect(consoleCallInludes(args, errorMsg)).toBe(true);
+    expect(consoleCallIncludes(args, errorMsg)).toBe(true);
 
     errorSpy.mockReset();
     errorSpy.mockRestore();
@@ -50,7 +54,7 @@ describe('ConsoleFormatter', () => {
     const warnSpy = jest.spyOn(console, 'warn');
     const message = 'foo';
 
-    formatter.next({
+    formatter.format({
       level: LogLevel.Warn,
       payload: message,
       scopes: [],
@@ -59,8 +63,8 @@ describe('ConsoleFormatter', () => {
     expect(warnSpy).toHaveBeenCalledTimes(1);
     const args = warnSpy.mock.calls[0];
 
-    expect(consoleCallInludes(args, message)).toBe(true);
-    expect(consoleCallInludes(args, LogLevel.Warn)).toBe(true);
+    expect(consoleCallIncludes(args, message)).toBe(true);
+    expect(consoleCallIncludes(args, LogLevel.Warn)).toBe(true);
 
     warnSpy.mockReset();
     warnSpy.mockRestore();
@@ -71,7 +75,7 @@ describe('ConsoleFormatter', () => {
     const logSpy = jest.spyOn(console, 'log');
     const message = 'foo';
 
-    formatter.next({
+    formatter.format({
       level: LogLevel.Info,
       payload: message,
       scopes: [],
@@ -80,8 +84,8 @@ describe('ConsoleFormatter', () => {
     expect(logSpy).toHaveBeenCalledTimes(1);
     const args = logSpy.mock.calls[0];
 
-    expect(consoleCallInludes(args, message)).toBe(true);
-    expect(consoleCallInludes(args, LogLevel.Info)).toBe(true);
+    expect(consoleCallIncludes(args, message)).toBe(true);
+    expect(consoleCallIncludes(args, LogLevel.Info)).toBe(true);
 
     logSpy.mockReset();
     logSpy.mockRestore();
@@ -93,7 +97,7 @@ describe('ConsoleFormatter', () => {
     const message = 'foo';
     const scopes = ['a', 'b'];
 
-    formatter.next({
+    formatter.format({
       level: LogLevel.Info,
       payload: message,
       scopes,
@@ -102,13 +106,13 @@ describe('ConsoleFormatter', () => {
     expect(logSpy).toHaveBeenCalledTimes(1);
     const args = logSpy.mock.calls[0];
 
-    expect(consoleCallInludes(args, `[${scopes.join(':')}]`)).toBe(true);
+    expect(consoleCallIncludes(args, `[${scopes.join(':')}]`)).toBe(true);
 
     logSpy.mockReset();
     logSpy.mockRestore();
   });
 });
 
-function consoleCallInludes(args: string[], str: string) {
+function consoleCallIncludes(args: string[], str: string) {
   return args.findIndex(val => val.includes(str)) !== -1;
 }

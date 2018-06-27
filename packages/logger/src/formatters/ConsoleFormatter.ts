@@ -4,6 +4,10 @@ import prettyMs from 'pretty-ms';
 
 import {LogLevel, FormatEntry, Formatter} from '../types';
 
+const MAX_LEVEL_LENGTH = [LogLevel.Critical, LogLevel.Info, LogLevel.Warn]
+  .map(level => level.length)
+  .reduce((lenA, lenB) => (lenA > lenB ? lenA : lenB));
+
 export class ConsoleFormatter implements Formatter {
   private startTime: [number, number];
 
@@ -11,46 +15,48 @@ export class ConsoleFormatter implements Formatter {
     this.startTime = process.hrtime();
   }
 
-  next(entry: FormatEntry) {
-    const timeDiff = process.hrtime(this.startTime);
-    const msDiff = timeDiff[0] * 1000 + timeDiff[1] / 1000;
-    const timestamp = chalk.magenta(`+${prettyMs(msDiff)}`);
+  private get timestamp() {
+    const duration = process.hrtime(this.startTime);
+    const [seconds, nanoseconds] = duration;
+    const milliseconds = seconds * 1000 + nanoseconds / 1e6;
+    return prettyMs(milliseconds);
+  }
+
+  format(entry: FormatEntry) {
+    const timestamp = chalk.magenta(`+${this.timestamp}`);
 
     const {level, payload, scopes} = entry;
 
-    let logMsg = `${payload} ${timestamp}`;
+    let logMsg = '';
 
     if (level === LogLevel.Critical) {
       const {message, stack} = payload as Error;
-      logMsg = message;
+      logMsg = `${message} ${timestamp}`;
 
       if (stack != null) {
-        const [name, ...lines] = stack.split('\n');
-        logMsg = `${name} ${timestamp}\n${lines
+        const [messageLine, ...otherLines] = stack.split('\n');
+        logMsg = `${messageLine} ${timestamp}\n${otherLines
           .map(line => {
             return chalk.gray(line);
           })
           .join('\n')}`;
       }
+    } else {
+      logMsg = `${payload} ${timestamp}`;
     }
 
-    const prefix = `[${scopes.join(':')}] `;
+    const prefix = scopes.length ? `[${scopes.join(':')}] ` : '';
     const {logFn, icon, chalkColor} = configForLogLevel(level);
     logFn(
       prefix,
       icon,
-      spaces(1),
+      ' ',
       chalkColor.bold.underline(level),
-      spaces(8 - level.length),
+      ' '.repeat(MAX_LEVEL_LENGTH - level.length),
       logMsg,
     );
   }
 }
-
-function spaces(num: number) {
-  return (spaces as any).memoize[num] || new Array(num).fill(' ').join('');
-}
-(spaces as any).memoize = {};
 
 function configForLogLevel(logLevel: LogLevel) {
   if (logLevel === LogLevel.Warn) {
@@ -60,7 +66,8 @@ function configForLogLevel(logLevel: LogLevel) {
       icon: warning,
       chalkColor: chalk.yellow,
     };
-  } else if (logLevel === LogLevel.Critical) {
+  }
+  if (logLevel === LogLevel.Critical) {
     return {
       // eslint-disable-next-line no-console
       logFn: console.error,
