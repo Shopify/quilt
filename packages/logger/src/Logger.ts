@@ -1,17 +1,18 @@
 import {LogEntry, LogLevel, Value, Formatter} from './types';
+import {ConsoleFormatter} from './formatters';
 
 export interface LoggerOptions {
-  formatter: Formatter;
-  name: string;
+  formatter?: Formatter;
+  name?: string;
 }
 
 export class Logger {
   private formatter: Formatter;
   private scopes: string[];
 
-  constructor(options: LoggerOptions) {
-    this.formatter = options.formatter;
-    this.scopes = [options.name];
+  constructor(options?: LoggerOptions) {
+    this.formatter = (options && options.formatter) || new ConsoleFormatter();
+    this.scopes = options && options.name ? [options.name] : [];
   }
 
   warn(entry: Value) {
@@ -28,7 +29,7 @@ export class Logger {
 
   private log(...entries: LogEntry[]) {
     for (const entry of entries) {
-      this.formatter.next({...entry, scopes: this.scopes});
+      this.formatter.format({...entry, scopes: this.scopes});
     }
   }
 }

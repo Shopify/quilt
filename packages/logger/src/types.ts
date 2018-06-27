@@ -24,5 +24,5 @@ export interface FormatableLog {
 export type FormatEntry = LogEntry & FormatableLog;
 
 export interface Formatter {
-  next(entry: FormatEntry): any;
+  format(entry: FormatEntry): any;
 }
