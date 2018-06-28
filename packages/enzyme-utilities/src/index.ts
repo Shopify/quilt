@@ -46,3 +46,7 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
 function updateRoot(wrapper: AnyWrapper) {
   (wrapper as any).root().update();
 }
+
+export function findById(root: ReactWrapper<any, any>, id: string) {
+  return root.find({id}).first();
+}
