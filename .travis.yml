@@ -3,6 +3,7 @@ install:
 - yarn install --production=false
 script:
 - yarn lint
+- yarn ci:lint-docs
 - yarn build
 - yarn test
 - yarn codecov
