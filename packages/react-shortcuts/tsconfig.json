@@ -4,15 +4,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./src",
-    "rootDir": "./src",
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016",
-      "es2017",
-      "esnext.asynciterable",
-      "dom.iterable"
-    ]
+    "rootDir": "./src"
   },
   "include": [
     "src/**/*.ts"

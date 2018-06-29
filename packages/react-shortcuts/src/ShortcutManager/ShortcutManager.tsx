@@ -1,10 +1,11 @@
-import Key from '../keys';
+import Key, {ModifierKey} from '../keys';
 
 const ON_MATCH_DELAY = 500;
 
 export interface Data {
   node: HTMLElement | null | undefined;
   keys: Key[];
+  modifierKeys?: ModifierKey[];
   ignoreInput: boolean;
   onMatch(): void;
   allowDefault: boolean;
@@ -40,11 +41,11 @@ export default class ShortcutManager {
     this.shortcutsMatched = [];
   }
 
-  private handleKeyDown = (event: Event) => {
-    const {key} = event as KeyboardEvent;
+  private handleKeyDown = (event: KeyboardEvent) => {
+    const {key} = event;
 
     this.keysPressed.push(key as Key);
-    this.updateMatchingShortcuts();
+    this.updateMatchingShortcuts(event);
 
     switch (this.shortcutsMatched.length) {
       case 0:
@@ -60,27 +61,36 @@ export default class ShortcutManager {
     }
   };
 
-  private updateMatchingShortcuts() {
+  private updateMatchingShortcuts(event: KeyboardEvent) {
     const shortcuts =
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
-    this.shortcutsMatched = shortcuts.filter(({keys, node, ignoreInput}) => {
-      if (isFocusedInput() && !ignoreInput) {
-        return false;
-      }
+    this.shortcutsMatched = shortcuts.filter(
+      ({keys, modifierKeys, node, ignoreInput}) => {
+        if (isFocusedInput() && !ignoreInput) {
+          return false;
+        }
 
-      const partiallyMatching = arraysMatch(
-        this.keysPressed,
-        keys.slice(0, this.keysPressed.length),
-      );
+        if (
+          modifierKeys &&
+          !modifierKeys.every(key => event.getModifierState(key))
+        ) {
+          return false;
+        }
 
-      if (node) {
-        const onFocusedNode = document.activeElement === node;
-        return partiallyMatching && onFocusedNode;
-      }
+        const partiallyMatching = arraysMatch(
+          this.keysPressed,
+          keys.slice(0, this.keysPressed.length),
+        );
 
-      return partiallyMatching;
-    });
+        if (node) {
+          const onFocusedNode = document.activeElement === node;
+          return partiallyMatching && onFocusedNode;
+        }
+
+        return partiallyMatching;
+      },
+    );
   }
 
   private callMatchedShortcut(event: Event) {

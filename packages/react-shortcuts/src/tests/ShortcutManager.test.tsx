@@ -37,18 +37,17 @@ describe('ShortcutManager', () => {
 
   it('works with modifier keys', () => {
     const fooSpy = jest.fn();
-    const barSpy = jest.fn();
+    const modifierKeys: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['Control', 'Shift', 'Alt', 'Meta']} onMatch={fooSpy} />
+        <Shortcut modifierKeys={modifierKeys} keys={['/']} onMatch={fooSpy} />
       </ShortcutProvider>,
     );
 
-    keydown('Control');
-    keydown('Shift');
-    keydown('Alt');
-    keydown('Meta');
+    keydown('/', document, {
+      getModifierState: key => modifierKeys.includes(key),
+    });
 
     expect(fooSpy).toHaveBeenCalled();
   });
@@ -201,9 +200,9 @@ describe('ShortcutManager', () => {
 
     keydown('Shift');
     keydown('a');
-    keydown('\\');
+    keydown('?');
 
-    expect(spy).toHaveBeenCalledTimes(0);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('allows default event to occur', () => {
@@ -214,11 +213,11 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['Shift']} onMatch={spy} allowDefault />
+        <Shortcut keys={['a']} onMatch={spy} allowDefault />
       </ShortcutProvider>,
     );
 
-    keydown('Shift', document, event);
+    keydown('a', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).not.toBeCalled();
@@ -232,11 +231,11 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['Shift']} onMatch={spy} />
+        <Shortcut keys={['a']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
-    keydown('Shift', document, event);
+    keydown('a', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).toBeCalled();
