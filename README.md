@@ -31,6 +31,26 @@ This repository uses [lerna](https://github.com/lerna/lerna) to manage it's pack
 | react-shortcuts | [README](packages/react-shortcuts/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) |
 | with-env | [README](packages/with-env/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
 
+## Development
+
+Running a development version of a quilt package in your project:
+
+* `yarn install` to pull in dependencies
+
+* Symlink a package via `yarn link`
+
+  * eg. `cd packages/react-html && yarn link`
+
+* Navigate back to quilt root directory and run `yarn run dev`.
+
+* In another terminal tab, navigate to your project and link your local reference to the symlink
+
+  * `cd my-project && yarn link @shopify/react-html`
+
+* Code changes made in the linked quilt package should now be reflected in your project.
+  * NOTE: `yarn link` may not reflect dependency changes from the source monorepo package
+  * To revert the symlink, use `yarn unlink` or `yarn unlink [package]`
+
 ## Contribute
 
 Check out our [Contributing Guidelines](CONTRIBUTING.md)

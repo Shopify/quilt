@@ -10,6 +10,7 @@
     "publish": "lerna publish",
     "prebuild": "yarn run clean",
     "build": "lerna run build",
+    "dev": "lerna exec --parallel -- tsc --watch",
     "lint": "yarn eslint '**/*.{ts,tsx}'",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\"",
     "test": "jest --maxWorkers=3",
