@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Address utilities for formatting addresses.",
   "main": "dist/index.js",
