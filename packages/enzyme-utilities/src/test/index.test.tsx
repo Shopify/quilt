@@ -1,8 +1,10 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {trigger} from '..';
-import {Toggle} from './Toggle';
-import {ActionList, Action} from './Actions';
+
+import {trigger, findById} from '..';
+
+import {Toggle} from './fixtures/Toggle';
+import {ActionList, Action} from './fixtures/Actions';
 
 describe('enzyme-utilities', () => {
   describe('trigger', () => {
@@ -32,6 +34,33 @@ describe('enzyme-utilities', () => {
 
       await promise;
       expect(toggle.find('button').text()).toBe('inactive');
+    });
+  });
+
+  describe('findById', () => {
+    it('finds an element with a matching ID', () => {
+      const matchedNode = <div id="foo" />;
+      const found = findById(
+        mount(
+          <div>
+            {matchedNode}
+            <div id="bar" />
+          </div>,
+        ),
+        'foo',
+      );
+
+      expect(found.getElement()).toEqual(matchedNode);
+    });
+
+    it('only returns an outer component when it renders its own children with the same ID', () => {
+      function MyComponent({id}: {id: string}) {
+        return <div id={id} />;
+      }
+
+      const found = findById(mount(<MyComponent id="foo" />), 'foo');
+      expect(found).toHaveLength(1);
+      expect(found.first().is(MyComponent)).toBe(true);
     });
   });
 });
