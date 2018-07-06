@@ -1,4 +1,4 @@
-import {Key} from '../keys';
+import Key from '../keys';
 
 const ON_MATCH_DELAY = 500;
 

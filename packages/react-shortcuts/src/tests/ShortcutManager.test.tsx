@@ -2,7 +2,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {timer} from '@shopify/jest-dom-mocks';
 
-import {Key} from '../types';
+import Key, {ModifierKey} from '../keys';
 import Shortcut from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 
@@ -41,17 +41,14 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut
-          keys={['ctrlKey', 'shiftKey', 'altKey', 'metaKey']}
-          onMatch={fooSpy}
-        />
+        <Shortcut keys={['Control', 'Shift', 'Alt', 'Meta']} onMatch={fooSpy} />
       </ShortcutProvider>,
     );
 
-    keydown('ctrlKey');
-    keydown('shiftKey');
-    keydown('altKey');
-    keydown('metaKey');
+    keydown('Control');
+    keydown('Shift');
+    keydown('Alt');
+    keydown('Meta');
 
     expect(fooSpy).toHaveBeenCalled();
   });
@@ -202,11 +199,11 @@ describe('ShortcutManager', () => {
       </ShortcutProvider>,
     );
 
-    keydown('shiftKey');
+    keydown('Shift');
     keydown('a');
-    keydown('?');
+    keydown('\\');
 
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(0);
   });
 
   it('allows default event to occur', () => {
@@ -217,11 +214,11 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['shiftKey']} onMatch={spy} allowDefault />
+        <Shortcut keys={['Shift']} onMatch={spy} allowDefault />
       </ShortcutProvider>,
     );
 
-    keydown('shiftKey', document, event);
+    keydown('Shift', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).not.toBeCalled();
@@ -235,18 +232,18 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['shiftKey']} onMatch={spy} />
+        <Shortcut keys={['Shift']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
-    keydown('shiftKey', document, event);
+    keydown('Shift', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).toBeCalled();
   });
 });
 
-function keydown(key: Key, target = document, eventSpies = {}) {
+function keydown(key: Key | ModifierKey, target = document, eventSpies = {}) {
   let event = new KeyboardEvent('keydown', {
     key,
   });

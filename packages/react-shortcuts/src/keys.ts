@@ -1,6 +1,7 @@
-export type Key =
+type Key =
   | AlphabetKey
   | NumericKey
+  | SymbolKey
   | WhiteSpaceKey
   | NavigationKey
   | EditingKey
@@ -17,6 +18,8 @@ export type Key =
   | DocumentKey
   | ApplicationSelectorKey
   | BrowserControlKey;
+
+export default Key;
 
 export type AlphabetKey =
   | 'a'
@@ -99,6 +102,40 @@ export type ModifierKey =
   | 'Super'
   | 'Symbol'
   | 'SymbolLock';
+
+export type SymbolKey =
+  | '~'
+  | '`'
+  | '!'
+  | '@'
+  | '#'
+  | '$'
+  | '%'
+  | '^'
+  | '&'
+  | '*'
+  | '('
+  | ')'
+  | '-'
+  | '_'
+  | '+'
+  | '='
+  | '['
+  | ']'
+  | '{'
+  | '}'
+  | '\\'
+  | '|'
+  | ';'
+  | ':'
+  | "'"
+  | '"'
+  | ','
+  | '<'
+  | '.'
+  | '>'
+  | '/'
+  | '?';
 
 export type WhiteSpaceKey = 'Enter' | 'Tab' | ' ';
 

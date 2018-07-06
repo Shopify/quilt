@@ -9,7 +9,7 @@ export {
 
 export {default as ShortcutManager} from './ShortcutManager';
 export {
-  Key,
+  default as Key,
   AlphabetKey,
   NumericKey,
   ModifierKey,
