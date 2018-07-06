@@ -36,7 +36,7 @@ class MyComponent extends React.Component {
 
     return (
       <ImportRemote
-        preload
+        preconnect
         source="https://some-external-service.com/global.js"
         getImport={(window: WindowWithGlobal) => window.remoteGlobal}
         onError={(error: Error) => this.setState({error})}
@@ -90,7 +90,7 @@ try {
 ```ts
 interface Props<Imported = any> {
   source: string;
-  preload?: boolean;
+  preconnect?: boolean;
   onError(error: Error): void;
   getImport(window: Window): Imported;
   onImported(imported: Imported): void;
@@ -102,8 +102,8 @@ interface Props<Imported = any> {
 **source**
 Source of the script to load the global from
 
-**preload**
-Generates a preload link tag for the source’s domain using [`@shopify/react-preconnect`](https://github.com/Shopify/quilt/tree/master/packages/react-preconnect)
+**preconnect**
+Generates a preconnect link tag for the source’s domain using [`@shopify/react-preconnect`](https://github.com/Shopify/quilt/tree/master/packages/react-preconnect)
 
 **onError**
 Callback that takes in `error` is called if an error occurs

@@ -4,7 +4,7 @@ import load from './load';
 
 export interface Props<Imported = any> {
   source: string;
-  preload?: boolean;
+  preconnect?: boolean;
   onError(error: Error): void;
   getImport(window: Window): Imported;
   onImported(imported: Imported): void;
@@ -12,6 +12,29 @@ export interface Props<Imported = any> {
 
 export default class ImportRemote extends React.PureComponent<Props, never> {
   async componentDidMount() {
+    await this.loadRemote();
+  }
+
+  async componentDidUpdate({source: oldSource}: Props) {
+    const {source} = this.props;
+
+    if (oldSource !== source) {
+      await this.loadRemote();
+    }
+  }
+
+  render() {
+    const {source, preconnect} = this.props;
+
+    if (preconnect) {
+      const url = new URL(source);
+      return <Preconnect hosts={[url.hostname]} />;
+    }
+
+    return null;
+  }
+
+  async loadRemote() {
     const {source, getImport, onError, onImported} = this.props;
 
     try {
@@ -20,16 +43,5 @@ export default class ImportRemote extends React.PureComponent<Props, never> {
     } catch (error) {
       onError(error);
     }
-  }
-
-  render() {
-    const {source, preload} = this.props;
-
-    if (preload) {
-      const url = new URL(source);
-      return <Preconnect hosts={[url.hostname]} />;
-    }
-
-    return null;
   }
 }

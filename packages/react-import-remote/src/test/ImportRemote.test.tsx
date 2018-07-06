@@ -32,6 +32,16 @@ describe('<ImportRemote />', () => {
       mount(<ImportRemote {...mockProps} />);
       expect(load).toHaveBeenCalledWith(mockProps.source, mockProps.getImport);
     });
+
+    it('imports a new global if the source changes', () => {
+      const importRemote = mount(<ImportRemote {...mockProps} />);
+      expect(load).toHaveBeenCalledWith(mockProps.source, mockProps.getImport);
+
+      const newSource = 'https://bar.com/foo.js';
+
+      importRemote.setProps({source: newSource});
+      expect(load).toHaveBeenCalledWith(newSource, mockProps.getImport);
+    });
   });
 
   describe('onImported()', () => {
@@ -87,15 +97,15 @@ describe('<ImportRemote />', () => {
     });
   });
 
-  describe('preload', () => {
-    it('does not render any preload rink by default', () => {
+  describe('preconnect', () => {
+    it('does not render any preconnect link by default', () => {
       const importRemote = mount(<ImportRemote {...mockProps} />);
 
       expect(importRemote.find(Preconnect)).toHaveLength(0);
     });
 
-    it('creates a preload link with the source’s hostname when preloading is requested', () => {
-      const importRemote = mount(<ImportRemote {...mockProps} preload />);
+    it('creates a preconnect link with the source’s hostname when preconnecting is requested', () => {
+      const importRemote = mount(<ImportRemote {...mockProps} preconnect />);
 
       expect(importRemote.find(Preconnect).prop('hosts')).toEqual([
         new URL(mockProps.source).hostname,
