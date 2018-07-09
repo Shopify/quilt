@@ -1,7 +1,7 @@
 # `@shopify/react-form-state`
 
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-formwell.svg)](https://badge.fury.io/js/%40shopify%2Freact-formwell.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-formwell.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-formwell.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg)](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form-state.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form-state.svg)
 
 Manage react forms tersely and safely-typed with no magic.
 
@@ -41,7 +41,7 @@ Its only mandatory props are `initialValues` and `children`. The `initialValues`
 </FormState>
 ```
 
-For detailed explanations of how to use `<FormState />` check out [the guide](/docs/building-forms.md).
+For detailed explanations of how to use `<FormState />` check out [the guide](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/building-forms.md).
 
 ### `validators`
 
@@ -51,4 +51,4 @@ The library also makes a number of validation factory functions available out of
 import {validate, validators} from '@shopify/react-form-state';
 ```
 
-For detailed explanations of the validation uitilities, check out [the validation docs](/docs/validation.md).
+For detailed explanations of the validation utilities, check out [the validation docs](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/validation.md).
