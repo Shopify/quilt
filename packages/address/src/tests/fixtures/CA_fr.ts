@@ -5,6 +5,7 @@ const data = {
     code: 'CA',
     zoneKey: 'province',
     zipKey: 'postalCode',
+    phoneNumberPrefix: 1,
     format: {
       edit:
         '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
