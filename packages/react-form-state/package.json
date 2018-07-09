@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form-state",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "description": "Manage react forms tersely and type-safe with no magic.",
   "main": "dist/index.js",
