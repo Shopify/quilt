@@ -149,7 +149,7 @@ export default class FormState<
     return [...errors, ...fieldErrors];
   }
 
-  @bind
+  @bind()
   private async submit(event?: Event) {
     if (!this.mounted) {
       return;
@@ -180,12 +180,12 @@ export default class FormState<
     this.setState({submitting: false});
   }
 
-  @bind
+  @bind()
   private reset() {
     this.setState(createFormState(this.props.initialValues));
   }
 
-  @memoize
+  @memoize()
   private getHandlersForField(path: keyof FieldStates<Fields>) {
     return {
       onChange: this.updateField.bind(this, path),

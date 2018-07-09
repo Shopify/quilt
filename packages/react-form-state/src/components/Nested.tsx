@@ -39,8 +39,8 @@ export default class Nested<Fields> extends React.PureComponent<
     return children(innerFields);
   }
 
-  @memoize
-  @bind
+  @memoize()
+  @bind()
   private handleChange<Key extends keyof Fields>(key: Key) {
     return (newValue: Fields[Key]) => {
       const {
