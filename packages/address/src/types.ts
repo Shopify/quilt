@@ -36,6 +36,7 @@ export interface Country {
   attributes: {
     code: string;
     name: string;
+    phoneNumberPrefix: number;
     format: {
       edit: string;
       show: string;
