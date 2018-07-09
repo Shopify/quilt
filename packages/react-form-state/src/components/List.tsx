@@ -46,8 +46,8 @@ export default class List<Fields> extends React.PureComponent<
     });
   }
 
-  @memoize
-  @bind
+  @memoize()
+  @bind()
   private handleChange<Key extends keyof Fields>(index: number, key: Key) {
     return (newValue: Fields[Key]) => {
       const {
