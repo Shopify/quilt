@@ -185,10 +185,11 @@ export default class FormState<
     field: FieldStates<Fields>[Key],
     fieldPath: Key,
   ) {
-    return Object.assign({}, field, {
+    return {
+      ...(field as FieldState<Fields[Key]>),
       onChange: this.updateField.bind(this, fieldPath),
       onBlur: this.blurField.bind(this, fieldPath),
-    });
+    };
   }
 
   private updateField<Key extends keyof Fields>(
@@ -215,9 +216,12 @@ export default class FormState<
         fields:
           updatedField === field
             ? fields
-            : Object.assign({}, fields, {
+            : {
+                // FieldStates<Fields> is not spreadable due to a TS bug
+                // https://github.com/Microsoft/TypeScript/issues/13557
+                ...(fields as any),
                 [fieldPath]: updatedField,
-              }),
+              },
       };
     });
   }
@@ -286,9 +290,15 @@ export default class FormState<
     }
 
     this.setState(state => ({
-      fields: Object.assign({}, state.fields, {
-        [fieldPath]: Object.assign({}, state.fields[fieldPath], {error}),
-      }),
+      fields: {
+        // FieldStates<Fields> is not spreadable due to a TS bug
+        // https://github.com/Microsoft/TypeScript/issues/13557
+        ...(state.fields as any),
+        [fieldPath]: {
+          ...(state.fields[fieldPath] as FieldState<Fields[Key]>),
+          error,
+        },
+      },
     }));
   }
 
