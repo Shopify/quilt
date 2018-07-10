@@ -240,7 +240,10 @@ export default class FormState<
     }
 
     const newDirtyFields = Array.from(dirtyFieldsSet);
-    return isEqual(dirtyFields, newDirtyFields) ? dirtyFields : newDirtyFields;
+
+    return dirtyFields.length === newDirtyFields.length
+      ? dirtyFields
+      : newDirtyFields;
   }
 
   private getUpdatedField<Key extends keyof Fields>({
@@ -254,27 +257,23 @@ export default class FormState<
     value: Fields[Key];
     dirty: boolean;
   }) {
-    const newField = Object.assign({}, field, {
-      value,
-      dirty,
-    });
+    // We only want to update errors as the user types if they already have an error.
+    // https://polaris.shopify.com/patterns/error-messages#section-form-validation
+    const skipValidation = field.error == null;
+    const error = skipValidation
+      ? field.error
+      : this.validateFieldValue(fieldPath, {value, dirty});
 
-    /*
-    We only want to update errors as the user types if they
-    already have an error.
-    https://polaris.shopify.com/patterns/error-messages#section-form-validation
-    */
-    const shouldUpdateError = field.error != null;
-    newField.error = shouldUpdateError
-      ? this.validateFieldValue(fieldPath, newField)
-      : // eslint-disable-next-line no-undefined
-        undefined;
-
-    if (value === field.value && newField.error === field.error) {
+    if (value === field.value && error === field.error) {
       return field;
     }
 
-    return newField;
+    return {
+      ...(field as FieldState<Fields[Key]>),
+      value,
+      dirty,
+      error,
+    };
   }
 
   private blurField<Key extends keyof Fields>(fieldPath: Key) {
@@ -295,7 +294,7 @@ export default class FormState<
 
   private validateFieldValue<Key extends keyof Fields>(
     fieldPath: Key,
-    {value, dirty}: FieldState<Fields[Key]>,
+    {value, dirty}: Pick<FieldState<Fields[Key]>, 'value' | 'dirty'>,
   ) {
     if (!dirty) {
       return;
