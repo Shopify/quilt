@@ -51,4 +51,4 @@ The library also makes a number of validation factory functions available out of
 import {validate, validators} from '@shopify/react-form-state';
 ```
 
-For detailed explanations of the validation utilities, check out [the validation docs](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/validation.md).
+For detailed explanations of the validation utilities, check out [the validation docs](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/validators.md).
