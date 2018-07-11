@@ -523,7 +523,7 @@ describe('<FormState />', () => {
   });
 
   describe('field submit', () => {
-    it('calls onSubmit() with the current field state when submit() is called', () => {
+    it('calls onSubmit() with the current formDetails, other than the submit function, when submit() is called', () => {
       const renderPropSpy = jest.fn(() => null);
       const onSubmitSpy = jest.fn();
       const product = faker.commerce.productName();
@@ -534,16 +534,15 @@ describe('<FormState />', () => {
         </FormState>,
       );
 
-      const {fields, submit} = lastCallArgs(renderPropSpy);
+      const {submit, submitting, reset, ...formData} = lastCallArgs(
+        renderPropSpy,
+      );
+
       submit();
 
-      expect(lastCallArgs(onSubmitSpy)).toMatchObject({
-        product: {
-          value: fields.product.value,
-          initialValue: fields.product.initialValue,
-          dirty: false,
-        },
-      });
+      expect(onSubmitSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining(formData),
+      );
     });
 
     it('when onSubmit() returns a promise, re-renders with submitting true while waiting for it to resolve/reject', () => {
