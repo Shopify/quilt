@@ -45,6 +45,10 @@ export interface Props {
   */
   keys: Key[];
   /*
+    keys that need to be kept pressed along with `keys` to trigger `onMatch`
+  */
+  modifierKeys?: ModifierKey[];
+  /*
     a callback that will trigger when the key combination is pressed
   */
   onMatch(keys: Key[]): void;
@@ -57,7 +61,7 @@ export interface Props {
   */
   ignoreInput?: boolean;
   /*
-    a boolean that lets you opt out of swalloing the key event and let it propagate
+    a boolean that lets you opt out of swallowing the key event and let it propagate
   */
   allowDefault?: boolean;
 }
@@ -75,7 +79,7 @@ export default function MyComponent() {
   return (
     <div>
       {/* some app markup here */}
-      <Shortcut key={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
+      <Shortcut keys={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
     </div>
   );
 }
@@ -94,7 +98,8 @@ export default function MyComponent() {
     <div>
       {/* some app markup here */}
       <Shortcut
-        key={['ctrlKey', 'shiftKey', 'b']}
+        modifierKeys={['Control', 'Shift']}
+        keys={['B']}
         onMatch={() => console.log('bar!')}
       />
     </div>
@@ -122,7 +127,7 @@ class MyComponent extends React.Component {
         <button ref={node => this.setState({fooNode: node})} />
         <Shortcut
           node={fooNode}
-          key={['f', 'o', 'o']}
+          keys={['f', 'o', 'o']}
           onMatch={() => console.log('foo')}
         />
       </div>
@@ -146,7 +151,7 @@ export default function MyComponent() {
   return (
     <div>
       {/* some app markup here */}
-      <Shortcut key={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
+      <Shortcut keys={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
     </div>
   );
 }
@@ -171,7 +176,7 @@ describe('my-component', () => {
 
     const shortcut = component.find(Shortcut);
 
-    expect(shortcut.prop('key')).toEqual(['f', 'o', 'o']);
+    expect(shortcut.prop('keys')).toEqual(['f', 'o', 'o']);
   });
 });
 ```
