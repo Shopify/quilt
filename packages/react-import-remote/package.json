@@ -2,7 +2,7 @@
   "name": "@shopify/react-import-remote",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Provides a utility function and React component to asyncronously load scripts and extract the newly-added global",
+  "description": "Asynchronous script loading for React",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
   "dependencies": {
-    "@shopify/react-preconnect": "^0.1.0"
+    "@shopify/react-preconnect": "^0.1.1"
   },
   "devDependencies": {
     "@shopify/javascript-utilities": "^2.1.0",
     "enzyme": "^3.3.0",
-    "typescript": "~2.7.2"
+    "typescript": "~2.9.2"
   },
   "peerDependencies": {
-    "react": "^16.3.2"
+    "react": "^16.4.1"
   }
 }
