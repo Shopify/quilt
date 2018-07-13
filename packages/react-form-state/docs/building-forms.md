@@ -114,7 +114,7 @@ There is also nothing to stop you from using your own custom inputs.
 Forms usually need some mechanism of submission. `<FormState />` is not opinionated about how this is done, but does provide a built-in mechanism for managing loading state and updating based on errors from the submission process. Most of this is done through the `onSubmit` property.
 
 ```typescript
-  onSubmit={async (fields) => {
+  onSubmit={async ({fields}: FormData<Fields>) => {
     const result = await updateProduct(fields);
 
     if (isErrorResult(result)) {
