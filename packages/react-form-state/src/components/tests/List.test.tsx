@@ -1,17 +1,13 @@
 import React from 'react';
 import faker from 'faker';
 import {mount} from 'enzyme';
+import {trigger} from '@shopify/enzyme-utilities';
 
-import Input from './components/Input';
+import {Input} from '../../tests/components';
+import {lastCallArgs} from '../../tests/utilities';
 import FormState from '../..';
 
-const ARBITRARY_SEED = 1337;
-
 describe('<FormState.List />', () => {
-  beforeEach(() => {
-    faker.seed(ARBITRARY_SEED);
-  });
-
   it('passes form state into child function for each index of the given array', () => {
     const renderPropSpy = jest.fn(() => null);
 
@@ -45,19 +41,17 @@ describe('<FormState.List />', () => {
     });
   });
 
-  it("updates the top level FormState's array when an inner field is updated", () => {
+  it('updates the top level FormState‘s array when an inner field is updated', () => {
     const products = [{title: faker.commerce.productName()}];
     const newTitle = faker.commerce.productName();
 
     const renderPropSpy = jest.fn(({fields}: any) => {
       return (
-        <>
-          <FormState.List field={fields.products}>
-            {(fields: any) => {
-              return <Input {...fields.title} />;
-            }}
-          </FormState.List>
-        </>
+        <FormState.List field={fields.products}>
+          {(fields: any) => {
+            return <Input {...fields.title} />;
+          }}
+        </FormState.List>
       );
     });
 
@@ -65,19 +59,14 @@ describe('<FormState.List />', () => {
       <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
     );
 
-    form
-      .find(Input)
-      .props()
-      .onChange(newTitle);
-
-    form.update();
+    const input = form.find(Input);
+    trigger(input, 'onChange', newTitle);
 
     const {fields} = lastCallArgs(renderPropSpy);
-
     expect(fields.products.value[0].title).toBe(newTitle);
   });
 
-  it('tracks individual subfield dirty state', () => {
+  it('tracks individual sub-field dirty state', () => {
     const products = [{title: faker.commerce.productName()}];
     const newTitle = faker.commerce.productName();
 
@@ -99,8 +88,6 @@ describe('<FormState.List />', () => {
 
     const {title} = lastCallArgs(renderSpy);
     title.onChange(newTitle);
-
-    form.update();
 
     const updatedFields = lastCallArgs(renderSpy);
     expect(updatedFields.title.dirty).toBe(true);
@@ -147,8 +134,3 @@ describe('<FormState.List />', () => {
     });
   });
 });
-
-function lastCallArgs(spy: jest.Mock) {
-  const calls = spy.mock.calls;
-  return calls[calls.length - 1][0];
-}

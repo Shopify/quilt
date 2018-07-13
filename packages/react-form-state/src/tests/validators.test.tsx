@@ -10,7 +10,7 @@ describe('validation helpers', () => {
   }
 
   describe('validate', () => {
-    it("returns a function that returns void if matcher returns true on it's input", () => {
+    it('returns a function that returns void if matcher returns true on its input', () => {
       const error = faker.lorem.word();
       const alwaysPassValidator = validate(trueMatcher, error);
       const alwaysFailValidator = validate(falseMatcher, error);
@@ -20,7 +20,7 @@ describe('validation helpers', () => {
       expect(alwaysFailValidator(input)).not.toBeUndefined();
     });
 
-    it("returns a function that returns the errorContent when matcher returns true on it's input ", () => {
+    it('returns a function that returns the errorContent when matcher returns true on its input', () => {
       const error = faker.lorem.word();
       const alwaysPassValidator = validate(trueMatcher, error);
       const alwaysFailValidator = validate(falseMatcher, error);
@@ -30,7 +30,7 @@ describe('validation helpers', () => {
       expect(alwaysFailValidator(input)).toBe(error);
     });
 
-    it("returns a function that returns the result of errorContent(input) when matcher returns true on it's input and errorContent is a function ", () => {
+    it('returns a function that returns the result of errorContent(input) when matcher returns true on its input and errorContent is a function', () => {
       function error(input: string) {
         return `${input} error`;
       }

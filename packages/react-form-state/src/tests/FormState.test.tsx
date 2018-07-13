@@ -1,27 +1,27 @@
 import React from 'react';
 import faker from 'faker';
 import {mount} from 'enzyme';
-import FormState from '..';
 
-const ARBITRARY_SEED = 1337;
+import FormState from '..';
+import {lastCallArgs} from './utilities';
+import {Input, InputField} from './components';
 
 describe('<FormState />', () => {
-  beforeEach(() => {
-    faker.seed(ARBITRARY_SEED);
-  });
-
   it('passes form state into child function', () => {
     const renderPropSpy = jest.fn(() => null);
 
     mount(<FormState initialValues={{}}>{renderPropSpy}</FormState>);
 
-    const args = renderPropSpy.mock.calls[0][0];
-    expect(args).toHaveProperty('fields');
-    expect(args).toHaveProperty('errors');
-    expect(args).toHaveProperty('dirty');
-    expect(args).toHaveProperty('valid');
-    expect(args).toHaveProperty('submitting');
-    expect(args).toHaveProperty('submit');
+    expect(renderPropSpy).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        fields: expect.any(Object),
+        errors: [],
+        dirty: false,
+        valid: true,
+        submitting: false,
+        submit: expect.any(Function),
+      }),
+    );
   });
 
   describe('initialValues', () => {
@@ -37,6 +37,7 @@ describe('<FormState />', () => {
           value: product,
           initialValue: product,
           dirty: false,
+          name: 'product',
         },
       });
     });
@@ -51,11 +52,9 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
 
       const otherProduct = faker.commerce.productName();
       form.setProps({initialValues: {product: otherProduct}});
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields).toMatchObject({
@@ -78,10 +77,8 @@ describe('<FormState />', () => {
       const formDetails = lastCallArgs(renderPropSpy);
       const otherProduct = faker.commerce.productName();
       formDetails.fields.product.onChange(otherProduct);
-      form.update();
 
       form.setProps({validators: {}});
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields).toMatchObject({
@@ -105,15 +102,37 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
 
       const {reset} = lastCallArgs(renderPropSpy);
       reset();
 
-      form.update();
+      const {fields} = lastCallArgs(renderPropSpy);
+      expect(fields).toMatchObject({
+        product: {
+          value: product,
+          initialValue: product,
+          dirty: false,
+        },
+      });
+    });
+  });
+
+  describe('reset()', () => {
+    it('resets all fields to their initial values', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+
+      const form = mount(
+        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+      );
+
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(faker.commerce.productName());
+
+      const {reset} = lastCallArgs(renderPropSpy);
+      reset();
 
       const {fields} = lastCallArgs(renderPropSpy);
-      reset();
       expect(fields).toMatchObject({
         product: {
           value: product,
@@ -144,7 +163,7 @@ describe('<FormState />', () => {
       expect(dirty).toBe(false);
     });
 
-    it("is set to false if every field's value is equal to it's initialValue", () => {
+    it("is set to false if every field's value is equal to its initialValue", () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
       const color = faker.commerce.color();
@@ -156,17 +175,14 @@ describe('<FormState />', () => {
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
       formDetails.fields.color.onChange(faker.commerce.color());
-      form.update();
-
       formDetails.fields.product.onChange(product);
       formDetails.fields.color.onChange(color);
-      form.update();
 
       const {dirty} = lastCallArgs(renderPropSpy);
       expect(dirty).toBe(false);
     });
 
-    it("is set to true if any field's value is not equal to it's initialValue", () => {
+    it("is set to true if any field's value is not equal to its initialValue", () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
       const color = faker.commerce.color();
@@ -177,7 +193,6 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
 
       const {dirty} = lastCallArgs(renderPropSpy);
       expect(dirty).toBe(true);
@@ -196,7 +211,6 @@ describe('<FormState />', () => {
       const formDetails = lastCallArgs(renderPropSpy);
       const otherProduct = faker.commerce.productName();
       formDetails.fields.product.onChange(otherProduct);
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.value).toBe(otherProduct);
@@ -212,7 +226,6 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.initialValue).toBe(product);
@@ -228,7 +241,6 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.dirty).toBe(true);
@@ -244,7 +256,6 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(product);
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.dirty).toBe(false);
@@ -260,7 +271,6 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
 
       const {dirty} = lastCallArgs(renderPropSpy);
       expect(dirty).toBe(true);
@@ -279,7 +289,6 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(product);
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.dirty).toBe(false);
@@ -298,9 +307,7 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(product);
-      form.update();
       formDetails.fields.description.onChange(faker.lorem.words());
-      form.update();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.dirty).toBe(false);
@@ -311,11 +318,12 @@ describe('<FormState />', () => {
     it('runs validation when an onBlur() is called', () => {
       const renderPropSpy = jest.fn(() => null);
       const productValidatorSpy = jest.fn();
+      const product = faker.commerce.productName();
 
       const form = mount(
         <FormState
           initialValues={{
-            product: faker.commerce.productName(),
+            product,
           }}
           validators={{product: productValidatorSpy}}
         >
@@ -323,25 +331,24 @@ describe('<FormState />', () => {
         </FormState>,
       );
 
-      const product = faker.commerce.productName();
+      const newProduct = faker.commerce.productName();
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(product);
-      form.update();
-
+      formDetails.fields.product.onChange(newProduct);
       formDetails.fields.product.onBlur();
 
-      expect(productValidatorSpy).toBeCalledWith(product, {
+      expect(productValidatorSpy).toHaveBeenCalledTimes(1);
+      expect(productValidatorSpy).toBeCalledWith(newProduct, {
         product: {
           dirty: true,
           // eslint-disable-next-line no-undefined
           error: undefined,
-          initialValue: 'Gorgeous Rubber Keyboard',
-          value: 'Intelligent Plastic Towels',
+          initialValue: product,
+          value: newProduct,
         },
       });
     });
 
-    it("skips validation on a field when it's onBlur() is called and the form is not dirty", () => {
+    it('skips validation on a field when its onBlur() is called and the form is not dirty', () => {
       const renderPropSpy = jest.fn(() => null);
       const validatorSpy = jest.fn();
 
@@ -375,18 +382,13 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
-
       formDetails.fields.product.onBlur();
-      form.update();
-
       formDetails.fields.product.onChange(faker.commerce.productName());
-      form.update();
 
       expect(validatorSpy).toHaveBeenCalledTimes(2);
     });
 
-    it("sets field.error to the result of it's validator", () => {
+    it('sets field.error to the result of its validator', () => {
       const renderPropSpy = jest.fn(() => null);
       const error = faker.lorem.sentence();
       const validatorSpy = jest.fn(() => error);
@@ -403,7 +405,6 @@ describe('<FormState />', () => {
       const product = faker.commerce.productName();
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(product);
-      form.update();
 
       formDetails.fields.product.onBlur();
 
@@ -411,7 +412,7 @@ describe('<FormState />', () => {
       expect(updatedFormDetails.fields.product.error).toBe(error);
     });
 
-    it("sets field.error to an array of the results of all it's validators if an array is given", () => {
+    it('sets field.error to an array of the results of all its validators if an array is given', () => {
       const renderPropSpy = jest.fn(() => null);
       const error = faker.lorem.sentence();
       const otherError = faker.lorem.sentence();
@@ -430,7 +431,6 @@ describe('<FormState />', () => {
       const product = faker.commerce.productName();
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(product);
-      form.update();
 
       formDetails.fields.product.onBlur();
 
@@ -456,11 +456,9 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onBlur();
-      form.update();
 
       const otherProduct = faker.commerce.productName();
       formDetails.fields.product.onChange(otherProduct);
-      form.update();
 
       expect(validatorSpy).not.toHaveBeenCalledTimes(2);
     });
@@ -487,11 +485,9 @@ describe('<FormState />', () => {
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
       formDetails.fields.sku.onChange(faker.commerce.product());
-      form.update();
 
       formDetails.fields.product.onBlur();
       formDetails.fields.sku.onBlur();
-      form.update();
 
       const {valid} = lastCallArgs(renderPropSpy);
       expect(valid).toBe(false);
@@ -520,7 +516,6 @@ describe('<FormState />', () => {
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onBlur();
       formDetails.fields.sku.onBlur();
-      form.update();
 
       const {valid} = lastCallArgs(renderPropSpy);
       expect(valid).toBe(true);
@@ -551,7 +546,7 @@ describe('<FormState />', () => {
       });
     });
 
-    it('when onSubmit() returns a promise, rerenders with submitting true while waiting for it to resolve/reject', () => {
+    it('when onSubmit() returns a promise, re-renders with submitting true while waiting for it to resolve/reject', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
@@ -572,7 +567,7 @@ describe('<FormState />', () => {
       expect(submitting).toBe(true);
     });
 
-    it('when onSubmit() returns a promise, rerenders with submitting false when promise resolves', async () => {
+    it('when onSubmit() returns a promise, re-renders with submitting false when promise resolves', async () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
@@ -614,13 +609,12 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
       await submit();
-      form.update();
 
       const {errors} = lastCallArgs(renderPropSpy);
       expect(errors).toEqual(errors);
     });
 
-    it('converts array values for error fields to keypaths', async () => {
+    it('converts array values for error fields to key-paths', async () => {
       const renderPropSpy = jest.fn(() => null);
 
       const submitErrors = [
@@ -640,7 +634,6 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
       await submit();
-      form.update();
 
       const {
         errors: [titleError, descriptionError],
@@ -652,9 +645,86 @@ describe('<FormState />', () => {
       expect(descriptionError.message).toEqual(submitErrors[1].message);
     });
   });
-});
 
-function lastCallArgs(spy: jest.Mock) {
-  const calls = spy.mock.calls;
-  return calls[calls.length - 1][0];
-}
+  describe('performance', () => {
+    it('does not re-render form when the new state after onChange is identical', () => {
+      const product = faker.commerce.productName();
+      const description = faker.lorem.words();
+
+      const renderPropSpy = jest.fn(() => null);
+
+      mount(
+        <FormState initialValues={{product, description}}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(product);
+
+      expect(renderPropSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('only calls the children render-prop once on mount', () => {
+      const product = faker.commerce.productName();
+      const description = faker.lorem.words();
+      const renderPropSpy = jest.fn(() => null);
+
+      mount(
+        <FormState initialValues={{product, description}}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      expect(renderPropSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not cause PureComponents to re-render when splatting the field object and a different field is changed', () => {
+      const onRenderSpy = jest.fn();
+      const product = faker.commerce.productName();
+
+      const renderPropSpy = jest.fn(({fields}) => (
+        <>
+          <Input {...fields.description} onRender={onRenderSpy} />
+          <Input {...fields.product} />
+        </>
+      ));
+
+      mount(
+        <FormState initialValues={{product, description: ''}}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(faker.commerce.product());
+
+      expect(renderPropSpy).toHaveBeenCalledTimes(2);
+      expect(onRenderSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not cause PureComponents to re-render when passing down the entire field object and a different field is changed', () => {
+      const onRenderSpy = jest.fn();
+      const product = faker.commerce.productName();
+
+      const renderPropSpy = jest.fn(({fields}) => (
+        <>
+          <InputField field={fields.description} onRender={onRenderSpy} />
+          <InputField field={fields.product} />
+        </>
+      ));
+
+      mount(
+        <FormState initialValues={{product, description: ''}}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(faker.commerce.product());
+
+      expect(renderPropSpy).toHaveBeenCalledTimes(2);
+      expect(onRenderSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+});
