@@ -101,10 +101,11 @@ export default function HTML({
       <head>
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
+        {helmet.script.toComponent()}
         {helmet.link.toComponent()}
+
         {stylesMarkup}
         {headDataMarkup}
-
         {blockingScriptsMarkup}
       </head>
 

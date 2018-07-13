@@ -139,6 +139,21 @@ describe('<HTML />', () => {
       const html = mount(<HTML {...mockProps} />);
       expect(html.find('head').contains(link)).toBe(true);
     });
+    it('includes the script component', () => {
+      const script = (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{__html: 'alert("hi")'}}
+        />
+      );
+      helmetMock.renderStatic.mockImplementation(() =>
+        mockHelmet({
+          script: mockHelmetData('', script),
+        }),
+      );
+      const html = mount(<HTML {...mockProps} />);
+      expect(html.find('head').contains(script)).toBe(true);
+    });
 
     it('includes the htmlAttributes', () => {
       const htmlAttributes = {className: 'hello world', 'data-baz': true};
