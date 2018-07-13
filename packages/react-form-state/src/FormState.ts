@@ -22,7 +22,9 @@ type MaybeArray<T> = T | T[];
 type MaybePromise<T> = T | Promise<T>;
 
 interface SubmitHandler<Fields> {
-  (fields: FieldStates<Fields>): MaybePromise<FormError[]> | MaybePromise<void>;
+  (formDetails: FormData<Fields>):
+    | MaybePromise<FormError[]>
+    | MaybePromise<void>;
 }
 
 export type ValidatorDictionary<Fields> = {
@@ -35,12 +37,15 @@ interface ValidationFunction<Value, Fields> {
   (value: Value, fields: FieldStates<Fields>): any;
 }
 
-export interface FormDetails<Fields> {
+export interface FormData<Fields> {
   fields: FieldDescriptors<Fields>;
   dirty: boolean;
   valid: boolean;
-  submitting: boolean;
   errors: ClientError[];
+}
+
+export interface FormDetails<Fields> extends FormData<Fields> {
+  submitting: boolean;
   reset(): void;
   submit(): void;
 }
@@ -95,18 +100,27 @@ export default class FormState<
 
   render() {
     const {children} = this.props;
-    const {submitting, errors} = this.state;
-    const {fields, reset, submit, dirty, valid} = this;
+    const {submitting} = this.state;
+    const {submit, reset, formData} = this;
 
     return children({
+      ...formData,
       submit,
       reset,
       submitting,
+    });
+  }
+
+  private get formData() {
+    const {errors} = this.state;
+    const {fields, dirty, valid} = this;
+
+    return {
       dirty,
       valid,
       errors,
       fields,
-    });
+    };
   }
 
   private get dirty() {
@@ -145,7 +159,10 @@ export default class FormState<
 
   @bind()
   private async submit(event?: Event) {
-    if (!this.mounted) {
+    const {onSubmit} = this.props;
+    const {formData, mounted} = this;
+
+    if (!mounted) {
       return;
     }
 
@@ -153,20 +170,13 @@ export default class FormState<
       event.preventDefault();
     }
 
-    const {onSubmit} = this.props;
-    const {fields} = this.state;
-
     if (onSubmit == null) {
       return;
     }
 
-    this.setState({
-      ...createFormState(valuesFromFields(fields)),
-      submitting: true,
-    });
+    this.setState({submitting: true});
 
-    const result = await onSubmit(fields);
-
+    const result = await onSubmit(formData);
     if (result) {
       this.updateErrors(result);
     }
@@ -372,13 +382,9 @@ function createFormState<Fields>(values: Fields): State<Fields> {
   return {
     dirtyFields: [],
     errors: [],
-    fields,
     submitting: false,
+    fields,
   };
-}
-
-function valuesFromFields<Fields>(fields: FieldStates<Fields>): Fields {
-  return mapObject(fields, ({value}) => value);
 }
 
 function initialValuesFromFields<Fields>(fields: FieldStates<Fields>): Fields {
