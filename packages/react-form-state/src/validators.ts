@@ -48,27 +48,30 @@ export function validateNested<Input extends Object, Fields>(
   // eslint-disable-next-line consistent-return
   return (input: Input, fields: Fields) => {
     const errors = mapObject<Input, any>(input, (value, field) => {
-      if (validatorDictionary[field]) {
-        if (typeof validatorDictionary[field] === 'function') {
-          return validatorDictionary[field](value, fields);
-        }
-        if (!isArray(validatorDictionary[field])) {
-          // eslint-disable-next-line consistent-return
-          return;
-        }
+      const validate = validatorDictionary[field];
 
-        const errors = validatorDictionary[field]
-          .map(validator => validator(value, fields))
-          .filter(input => input != null);
-
-        if (errors.length === 0) {
-          // eslint-disable-next-line consistent-return
-          return;
-        }
-        return errors;
+      if (validate == null) {
+        return null;
       }
-      // eslint-disable-next-line
-      return;
+
+      if (typeof validate === 'function') {
+        return validate(value, fields);
+      }
+
+      if (!isArray(validate)) {
+        // eslint-disable-next-line consistent-return
+        return;
+      }
+
+      const errors = validate
+        .map(validator => validator(value, fields))
+        .filter(input => input != null);
+
+      if (errors.length === 0) {
+        // eslint-disable-next-line consistent-return
+        return;
+      }
+      return errors;
     });
 
     const anyErrors = Object.keys(errors)
