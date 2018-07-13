@@ -1,17 +1,13 @@
 import React from 'react';
 import faker from 'faker';
 import {mount} from 'enzyme';
+import {trigger} from '@shopify/enzyme-utilities';
 
-import {Input} from './components';
+import {Input} from '../../tests/components';
+import {lastCallArgs} from '../../tests/utilities';
 import FormState from '../..';
 
-const ARBITRARY_SEED = 1337;
-
 describe('<Nested />', () => {
-  beforeEach(() => {
-    faker.seed(ARBITRARY_SEED);
-  });
-
   it('passes field state into child function', () => {
     const renderPropSpy = jest.fn(() => null);
 
@@ -56,19 +52,17 @@ describe('<Nested />', () => {
     });
   });
 
-  it("updates the top level FormState's array when an inner field is updated", () => {
+  it('updates the top level FormState‘s array when an inner field is updated', () => {
     const product = {title: faker.commerce.productName()};
     const newTitle = faker.commerce.productName();
 
     const renderPropSpy = jest.fn(({fields: {product}}: any) => {
       return (
-        <>
-          <FormState.Nested field={product}>
-            {({title}: any) => {
-              return <Input label="title" {...title} />;
-            }}
-          </FormState.Nested>
-        </>
+        <FormState.Nested field={product}>
+          {({title}: any) => {
+            return <Input label="title" {...title} />;
+          }}
+        </FormState.Nested>
       );
     });
 
@@ -76,14 +70,10 @@ describe('<Nested />', () => {
       <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
     );
 
-    form
-      .find(Input)
-      .props()
-      .onChange(newTitle);
-    form.update();
+    const input = form.find(Input);
+    trigger(input, 'onChange', newTitle);
 
     const {fields} = lastCallArgs(renderPropSpy);
-
     expect(fields.product.value.title).toBe(newTitle);
   });
 
@@ -93,15 +83,13 @@ describe('<Nested />', () => {
 
     const renderSpy = jest.fn(() => null);
 
-    const form = mount(
+    mount(
       <FormState initialValues={{product}}>
         {({fields}) => {
           return (
-            <>
-              <FormState.Nested field={fields.product}>
-                {renderSpy}
-              </FormState.Nested>
-            </>
+            <FormState.Nested field={fields.product}>
+              {renderSpy}
+            </FormState.Nested>
           );
         }}
       </FormState>,
@@ -109,8 +97,6 @@ describe('<Nested />', () => {
 
     const {title} = lastCallArgs(renderSpy);
     title.onChange(newTitle);
-
-    form.update();
 
     const updatedFields = lastCallArgs(renderSpy);
     expect(updatedFields.title.dirty).toBe(true);
@@ -145,12 +131,3 @@ describe('<Nested />', () => {
     expect(renderPropArgs.department.error).toBe(field.error.department);
   });
 });
-
-function lastCallArgs(spy: jest.Mock) {
-  const calls = spy.mock.calls;
-  return calls[calls.length - 1][0];
-}
-
-function TextField({onChange, ...props}: any) {
-  return <input {...props} />;
-}
