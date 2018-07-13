@@ -139,6 +139,7 @@ describe('<HTML />', () => {
       const html = mount(<HTML {...mockProps} />);
       expect(html.find('head').contains(link)).toBe(true);
     });
+
     it('includes the script component', () => {
       const script = (
         <script
