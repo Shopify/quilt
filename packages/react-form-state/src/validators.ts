@@ -53,7 +53,8 @@ export function validateNested<Input extends Object, Fields>(
           return validatorDictionary[field](value, fields);
         }
         if (!isArray(validatorDictionary[field])) {
-          return null;
+          // eslint-disable-next-line consistent-return
+          return;
         }
 
         const errors = validatorDictionary[field]
@@ -61,11 +62,13 @@ export function validateNested<Input extends Object, Fields>(
           .filter(input => input != null);
 
         if (errors.length === 0) {
-          return null;
+          // eslint-disable-next-line consistent-return
+          return;
         }
         return errors;
       }
-      return null;
+      // eslint-disable-next-line
+      return;
     });
 
     const anyErrors = Object.keys(errors)
