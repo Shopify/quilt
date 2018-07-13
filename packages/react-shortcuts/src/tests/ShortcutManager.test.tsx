@@ -35,23 +35,6 @@ describe('ShortcutManager', () => {
     expect(fooSpy).toHaveBeenCalled();
   });
 
-  it('works with modifier keys', () => {
-    const fooSpy = jest.fn();
-    const modifierKeys: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
-
-    mount(
-      <ShortcutProvider>
-        <Shortcut modifierKeys={modifierKeys} keys={['/']} onMatch={fooSpy} />
-      </ShortcutProvider>,
-    );
-
-    keydown('/', document, {
-      getModifierState: key => modifierKeys.includes(key),
-    });
-
-    expect(fooSpy).toHaveBeenCalled();
-  });
-
   it('calls multiple shortcuts', () => {
     const fooSpy = jest.fn();
     const barSpy = jest.fn();
@@ -239,6 +222,53 @@ describe('ShortcutManager', () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).toBeCalled();
+  });
+
+  describe('modifier keys', () => {
+    it('matches shortcut when all modifier keys are pressed', () => {
+      const fooSpy = jest.fn();
+      const modifierKeys: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut modifierKeys={modifierKeys} keys={['/']} onMatch={fooSpy} />
+        </ShortcutProvider>,
+      );
+
+      keydown('/', document, {
+        getModifierState: key => modifierKeys.includes(key),
+      });
+
+      expect(fooSpy).toHaveBeenCalled();
+    });
+
+    it('doesn’t match shortcut when all all modifier keys not pressed', () => {
+      const fooSpy = jest.fn();
+      const modifierKeysToCheck: ModifierKey[] = [
+        'Control',
+        'Shift',
+        'Alt',
+        'Meta',
+      ];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut
+            modifierKeys={modifierKeysToCheck}
+            keys={['/']}
+            onMatch={fooSpy}
+          />
+        </ShortcutProvider>,
+      );
+
+      const modifierKeysPressed: ModifierKey[] = ['Control', 'Shift', 'Hyper'];
+
+      keydown('/', document, {
+        getModifierState: key => modifierKeysPressed.includes(key),
+      });
+
+      expect(fooSpy).not.toHaveBeenCalled();
+    });
   });
 });
 
