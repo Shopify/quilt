@@ -1,4 +1,4 @@
-import {toString} from 'lodash';
+import {toString, isArray} from 'lodash';
 import {mapObject} from './utilities';
 
 interface Matcher<Input> {
@@ -48,9 +48,24 @@ export function validateNested<Input extends Object, Fields>(
   // eslint-disable-next-line consistent-return
   return (input: Input, fields: Fields) => {
     const errors = mapObject<Input, any>(input, (value, field) => {
-      return (
-        validatorDictionary[field] && validatorDictionary[field](value, fields)
-      );
+      if (validatorDictionary[field]) {
+        if (typeof validatorDictionary[field] === 'function') {
+          return validatorDictionary[field](value, fields);
+        }
+        if (!isArray(validatorDictionary[field])) {
+          return null;
+        }
+
+        const errors = validatorDictionary[field]
+          .map(validator => validator(value, fields))
+          .filter(input => input != null);
+
+        if (errors.length === 0) {
+          return null;
+        }
+        return errors;
+      }
+      return null;
     });
 
     const anyErrors = Object.keys(errors)

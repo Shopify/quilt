@@ -83,6 +83,25 @@ describe('validation helpers', () => {
 
       expect(result).toBeUndefined();
     });
+
+    it('accepts arrays of validators', () => {
+      const compoundValidator = validateNested({
+        title: [alwaysPassValidator, alwaysPassValidator, alwaysPassValidator],
+        product: [alwaysPassValidator, alwaysFailValidator],
+      });
+
+      const data = {
+        title: faker.lorem.words(),
+        product: faker.commerce.product(),
+      };
+
+      const result = compoundValidator(data, {});
+
+      expect(result).toMatchObject({
+        title: alwaysPassValidator(data.title),
+        product: [alwaysFailValidator(data)],
+      });
+    });
   });
 
   describe('validateArray', () => {
