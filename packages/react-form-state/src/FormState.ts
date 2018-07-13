@@ -187,6 +187,7 @@ export default class FormState<
   ) {
     return {
       ...(field as FieldState<Fields[Key]>),
+      name: fieldPath,
       onChange: this.updateField.bind(this, fieldPath),
       onBlur: this.blurField.bind(this, fieldPath),
     };

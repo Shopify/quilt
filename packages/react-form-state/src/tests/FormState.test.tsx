@@ -37,6 +37,7 @@ describe('<FormState />', () => {
           value: product,
           initialValue: product,
           dirty: false,
+          name: 'product',
         },
       });
     });
