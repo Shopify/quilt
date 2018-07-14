@@ -1,6 +1,7 @@
 import * as React from 'react';
 import get from 'lodash/get';
-import {memoize, bind} from 'lodash-decorators';
+import memoize from 'lodash-decorators/memoize';
+import bind from 'lodash-decorators/bind';
 
 import {FieldDescriptor, FieldDescriptors} from '../types';
 import {mapObject, replace} from '../utilities';

@@ -2,7 +2,8 @@ import * as React from 'react';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import set from 'lodash/set';
-import {memoize, bind} from 'lodash-decorators';
+import memoize from 'lodash-decorators/memoize';
+import bind from 'lodash-decorators/bind';
 
 import {mapObject} from './utilities';
 import {FieldDescriptors, FieldState} from './types';
