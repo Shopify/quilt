@@ -1,7 +1,7 @@
-import React, {ComponentType} from 'react';
+import * as React from 'react';
 import hoistStatics from 'hoist-non-react-statics';
 
-export type ReactComponent<P> = ComponentType<P>;
+export type ReactComponent<P> = React.ComponentType<P>;
 export type ComponentClass = React.ComponentClass<any>;
 
 export type WrappingFunction = (
