@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-compose",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "description": "Cleanly compose multiple component enhancers together with minimal fuss",
   "main": "dist/index.js",
