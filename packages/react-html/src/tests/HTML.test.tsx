@@ -142,10 +142,7 @@ describe('<HTML />', () => {
 
     it('includes the script component', () => {
       const script = (
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{__html: 'alert("hi")'}}
-        />
+        <script dangerouslySetInnerHTML={{__html: 'alert("hi")'}} />
       );
       helmetMock.renderStatic.mockImplementation(() =>
         mockHelmet({
