@@ -1,4 +1,4 @@
-import React, {InputHTMLAttributes} from 'react';
+import * as React from 'react';
 import {FieldState} from '../../types';
 
 export interface Props {
@@ -8,7 +8,7 @@ export interface Props {
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Input extends React.PureComponent<
-  Props & InputHTMLAttributes<any>,
+  Props & React.InputHTMLAttributes<any>,
   never
 > {
   render() {
