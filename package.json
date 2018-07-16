@@ -39,7 +39,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.0.0",
-    "eslint-plugin-shopify": "^22.1.0",
+    "eslint-plugin-shopify": "^23.0.0",
     "graphql-tag": "^2.8.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^23.2.0",
