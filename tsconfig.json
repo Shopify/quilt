@@ -10,7 +10,6 @@
     "sourceMap": false,
     "noEmitOnError": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "lib": [

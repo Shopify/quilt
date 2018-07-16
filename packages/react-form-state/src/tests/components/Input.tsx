@@ -1,4 +1,4 @@
-import React, {InputHTMLAttributes} from 'react';
+import * as React from 'react';
 
 export interface Props {
   onChange?(value: string): void;
@@ -7,7 +7,7 @@ export interface Props {
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Input extends React.PureComponent<
-  Props & InputHTMLAttributes<any>,
+  Props & React.InputHTMLAttributes<any>,
   never
 > {
   render() {
