@@ -242,7 +242,7 @@ describe('ShortcutManager', () => {
       expect(fooSpy).toHaveBeenCalled();
     });
 
-    it('doesn’t match shortcut when all all modifier keys not pressed', () => {
+    it('doesn’t match shortcut when all modifier keys not pressed', () => {
       const fooSpy = jest.fn();
       const modifierKeysToCheck: ModifierKey[] = [
         'Control',
