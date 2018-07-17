@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)
 
-A component to render your react app with no static HTML.
+A component to render your React app with no static HTML.
 
 ## Installation
 
@@ -12,11 +12,11 @@ $ yarn add @shopify/react-html
 
 ## Usage
 
-The `<HTML>` component serves as a top level wrapper for a react application, allowing you to avoid needing any kind of server side template, in favour of purely using `reactDom.renderToString`.
+The `<HTML>` component serves as a top level wrapper for a react application, allowing you to avoid needing any kind of server side template, in favor of purely using `reactDom.renderToString`.
 
 ```javascript
 import * as React from 'react';
-import { renderToString } from 'react-dom/server';
+import {renderToString} from 'react-dom/server';
 
 import HTML, {DOCTYPE} from '@shopify/react-html';
 import MyApp from '../app';
@@ -33,9 +33,9 @@ export default (ctx, next) => {
 }
 ```
 
-Due to [limitations in react's implementation of HTML](https://github.com/facebook/react/issues/1035), you still need to prepend the `<!DOCTYPE html>` directive. To assist with this the module also exports a `DOCTYPE` constant.
+Due to [limitations in React’s implementation of HTML](https://github.com/facebook/react/issues/1035), you still need to prepend the `<!DOCTYPE html>` directive. To assist with this the module also exports a `DOCTYPE` constant.
 
-The component will automatically propagate any usage of the `react-helmet` module in your app's content to manipulate the title or other top level HTML or HEAD attributes.
+The component will automatically propagate any usage of the `react-helmet` module in your app’s content to manipulate the title or other top level HTML or HEAD attributes.
 
 ## Interface
 
@@ -82,7 +82,7 @@ Sets the body contents to be hidden for the initial render. Use this when inject
 
 ### Serializers
 
-These props are useful for more complex applications that want to synchronize redux, apollo, translation, or any other data across the network boundary. These props are stringified into the DOM using (`@shopify/react-serialize`)[https://github.com/Shopify/quilt/blob/master/packages/react-serialize/README.md].
+These props are useful for more complex applications that want to synchronize Redux, Apollo, translation, or any other data across the network boundary. These props are stringified into the DOM using (`@shopify/react-serialize`)[https://github.com/Shopify/quilt/blob/master/packages/react-serialize/README.md].
 
 **headData**
 Any serializable data that needs to be available from the DOM when the `synchronousScripts` are run.
@@ -92,7 +92,7 @@ Any serializable data that needs to be available from the DOM when the `deferred
 
 ## Asset Components
 
-This module also exports the asset components the `<HTML />` component uses internally for it's script and style props.
+This module also exports the asset components the `<HTML />` component uses internally for its script and style props.
 
 ```ts
 import {Style, Script} from '@shopify/react-html';
