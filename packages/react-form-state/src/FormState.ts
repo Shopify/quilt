@@ -8,7 +8,7 @@ import {mapObject} from './utilities';
 import {FieldDescriptors, FieldState} from './types';
 import {List, Nested} from './components';
 
-interface RemoteError {
+export interface RemoteError {
   field?: string[] | null;
   message: string;
 }
@@ -127,33 +127,24 @@ export default class FormState<
   }
 
   private get valid() {
-    return this.errorCount === 0;
+    const {errors, fields} = this.state;
+
+    const fieldsWithErrors = Object.keys(fields).filter(fieldPath => {
+      const {error} = fields[fieldPath];
+      return error != null;
+    });
+
+    return fieldsWithErrors.length === 0 && errors.length === 0;
   }
 
   private get fields() {
     const {fields} = this.state;
-
     const fieldDescriptors: FieldDescriptors<Fields> = mapObject(
       fields,
       this.fieldWithHandlers,
     );
 
     return fieldDescriptors;
-  }
-
-  private get errorCount(): number {
-    const {errors, fields} = this.state;
-
-    const fieldErrors = Object.keys(fields)
-      .map(field => {
-        const {error: message} = fields[field];
-        return {message, field};
-      })
-      .filter(error => {
-        return error.field != null && error.message != null;
-      });
-
-    return fieldErrors.length + errors.length;
   }
 
   @bind()
