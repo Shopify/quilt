@@ -30,7 +30,7 @@ describe('<Nested />', () => {
 
     expect(renderPropSpy).toBeCalledWith({
       title: {
-        name: 'nodejs.title',
+        name: 'product.title',
         dirty: false,
         // eslint-disable-next-line no-undefined
         error: undefined,
@@ -40,7 +40,7 @@ describe('<Nested />', () => {
         onBlur: expect.any(Function),
       },
       adjective: {
-        name: 'nodejs.adjective',
+        name: 'product.adjective',
         dirty: false,
         // eslint-disable-next-line no-undefined
         error: undefined,
