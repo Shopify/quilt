@@ -13,10 +13,6 @@ export function deepEqual(first: any, second: any, maxDepth = 2000, depth = 0) {
     return false;
   }
 
-  if (first === null || second === null) {
-    return false;
-  }
-
   if (Array.isArray(first)) {
     return arrayEqual(first, second, maxDepth, depth);
   }
@@ -25,7 +21,7 @@ export function deepEqual(first: any, second: any, maxDepth = 2000, depth = 0) {
     return objectEqual(first, second, maxDepth, depth);
   }
 
-  return first.valueOf() === second.valueOf();
+  return Object.is(first, second);
 }
 
 function arrayEqual(
@@ -34,7 +30,9 @@ function arrayEqual(
   maxDepth: number,
   depth: number,
 ) {
-  if (first.length !== second.length) return false;
+  if (first.length !== second.length) {
+    return false;
+  }
 
   return first.every((valueOfFirst, index) =>
     deepEqual(valueOfFirst, second[index], maxDepth, depth),
@@ -51,7 +49,7 @@ function objectEqual(first: any, second: any, maxDepth: number, depth: number) {
 
   return firstKeys.every(
     key =>
-      Object.prototype.hasOwnProperty.call(second, key) &&
+      second.hasOwnProperty(key) &&
       deepEqual(first[key], second[key], maxDepth, depth),
   );
 }
