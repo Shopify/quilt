@@ -1,8 +1,3 @@
-export interface ClientError {
-  field?: string;
-  message: string;
-}
-
 export interface FieldState<Value> {
   name: string;
   initialValue: Value;

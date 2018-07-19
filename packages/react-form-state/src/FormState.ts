@@ -1,18 +1,17 @@
 import * as React from 'react';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
+import set from 'lodash/set';
 import {memoize, bind} from 'lodash-decorators';
 
 import {mapObject} from './utilities';
-import {FieldDescriptors, ClientError, FieldState} from './types';
+import {FieldDescriptors, FieldState} from './types';
 import {List, Nested} from './components';
 
-interface RemoteError {
-  field: string[] | null;
+export interface RemoteError {
+  field?: string[] | null;
   message: string;
 }
-
-export type FormError = RemoteError | ClientError;
 
 export type FieldStates<Fields> = {
   [FieldPath in keyof Fields]: FieldState<Fields[FieldPath]>
@@ -23,7 +22,7 @@ type MaybePromise<T> = T | Promise<T>;
 
 interface SubmitHandler<Fields> {
   (formDetails: FormData<Fields>):
-    | MaybePromise<FormError[]>
+    | MaybePromise<RemoteError[]>
     | MaybePromise<void>;
 }
 
@@ -41,7 +40,7 @@ export interface FormData<Fields> {
   fields: FieldDescriptors<Fields>;
   dirty: boolean;
   valid: boolean;
-  errors: ClientError[];
+  errors: RemoteError[];
 }
 
 export interface FormDetails<Fields> extends FormData<Fields> {
@@ -59,9 +58,9 @@ interface Props<Fields> {
 
 interface State<Fields> {
   submitting: boolean;
-  errors: ClientError[];
-  dirtyFields: (keyof Fields)[];
   fields: FieldStates<Fields>;
+  dirtyFields: (keyof Fields)[];
+  errors: RemoteError[];
 }
 
 export default class FormState<
@@ -128,33 +127,24 @@ export default class FormState<
   }
 
   private get valid() {
-    return this.allErrors.length === 0;
+    const {errors, fields} = this.state;
+
+    const fieldsWithErrors = Object.keys(fields).filter(fieldPath => {
+      const {error} = fields[fieldPath];
+      return error != null;
+    });
+
+    return fieldsWithErrors.length === 0 && errors.length === 0;
   }
 
   private get fields() {
     const {fields} = this.state;
-
     const fieldDescriptors: FieldDescriptors<Fields> = mapObject(
       fields,
       this.fieldWithHandlers,
     );
 
     return fieldDescriptors;
-  }
-
-  private get allErrors(): ClientError[] {
-    const {errors, fields} = this.state;
-
-    const fieldErrors = Object.keys(fields)
-      .map(field => {
-        const {error: message} = fields[field];
-        return {message, field};
-      })
-      .filter(error => {
-        return error.field != null && error.message != null;
-      }) as ClientError[];
-
-    return [...errors, ...fieldErrors];
   }
 
   @bind()
@@ -178,7 +168,7 @@ export default class FormState<
 
     const result = await onSubmit(formData);
     if (result) {
-      this.updateErrors(result);
+      this.updateRemoteErrors(result);
     }
 
     this.setState({submitting: false});
@@ -346,25 +336,27 @@ export default class FormState<
     return errors;
   }
 
-  private updateErrors(newErrors: FormError[]) {
+  private updateRemoteErrors(errors: RemoteError[]) {
     this.setState(({fields}: State<Fields>) => {
-      const newFields = {...(fields as any)};
+      const errorDictionary = errors.reduce(
+        (accumulator: any, {field, message}) => {
+          if (field == null) {
+            return accumulator;
+          }
 
-      const errors: ClientError[] = newErrors.map(({message, field}) => {
-        if (field == null) {
-          return {message};
-        }
-
-        if (isArray(field)) {
-          return {message, field: field.join('.')};
-        }
-
-        return {message, field};
-      });
+          return set(accumulator, field, message);
+        },
+        {},
+      );
 
       return {
         errors,
-        fields: newFields,
+        fields: mapObject(fields, (field, path) => {
+          return {
+            ...field,
+            error: errorDictionary[path],
+          };
+        }),
       };
     });
   }
