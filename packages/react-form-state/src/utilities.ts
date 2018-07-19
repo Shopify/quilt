@@ -1,4 +1,4 @@
-export function deepEqual(first: any, second: any, maxDepth = 20, depth = 0) {
+export function deepEqual(first: any, second: any, maxDepth = 2000, depth = 0) {
   const newDepth = depth + 1;
 
   if (newDepth > maxDepth) {
@@ -18,11 +18,11 @@ export function deepEqual(first: any, second: any, maxDepth = 20, depth = 0) {
   }
 
   if (Array.isArray(first)) {
-    return arrayEqual(first, second, depth, maxDepth);
+    return arrayEqual(first, second, maxDepth, depth);
   }
 
   if (typeof first === 'object') {
-    return objectEqual(first, second, depth, maxDepth);
+    return objectEqual(first, second, maxDepth, depth);
   }
 
   return first.valueOf() === second.valueOf();
@@ -31,17 +31,17 @@ export function deepEqual(first: any, second: any, maxDepth = 20, depth = 0) {
 function arrayEqual(
   first: any[],
   second: any[],
-  depth: number,
   maxDepth: number,
+  depth: number,
 ) {
   if (first.length !== second.length) return false;
 
   return first.every((valueOfFirst, index) =>
-    deepEqual(valueOfFirst, second[index], depth, maxDepth),
+    deepEqual(valueOfFirst, second[index], maxDepth, depth),
   );
 }
 
-function objectEqual(first: any, second: any, depth, maxDepth) {
+function objectEqual(first: any, second: any, maxDepth: number, depth: number) {
   const firstKeys = Object.keys(first);
   const secondKeys = Object.keys(second);
 
@@ -52,7 +52,7 @@ function objectEqual(first: any, second: any, depth, maxDepth) {
   return firstKeys.every(
     key =>
       Object.prototype.hasOwnProperty.call(second, key) &&
-      !deepEqual(first[key], second[key], depth, maxDepth),
+      deepEqual(first[key], second[key], maxDepth, depth),
   );
 }
 
