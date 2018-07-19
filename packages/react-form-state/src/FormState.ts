@@ -1,10 +1,9 @@
 import * as React from 'react';
-import isEqual from 'lodash/isEqual';
-import isArray from 'lodash/isArray';
 import set from 'lodash/set';
+
 import {memoize, bind} from 'lodash-decorators';
 
-import {mapObject} from './utilities';
+import {mapObject, deepEqual} from './utilities';
 import {FieldDescriptors, FieldState} from './types';
 import {List, Nested} from './components';
 
@@ -77,7 +76,7 @@ export default class FormState<
     }
 
     const oldInitialValues = initialValuesFromFields(oldState.fields);
-    const shouldReinitialize = !isEqual(oldInitialValues, newInitialValues);
+    const shouldReinitialize = !deepEqual(oldInitialValues, newInitialValues);
 
     if (shouldReinitialize) {
       return createFormState(newInitialValues);
@@ -199,7 +198,7 @@ export default class FormState<
   ) {
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
-      const dirty = !isEqual(value, field.initialValue);
+      const dirty = !deepEqual(value, field.initialValue);
 
       const updatedField = this.getUpdatedField({
         fieldPath,
@@ -320,7 +319,7 @@ export default class FormState<
       return validate(value, fields);
     }
 
-    if (!isArray(validate)) {
+    if (!Array.isArray(validate)) {
       return;
     }
 
@@ -344,10 +343,19 @@ export default class FormState<
             return accumulator;
           }
 
+<<<<<<< HEAD
           return set(accumulator, field, message);
         },
         {},
       );
+=======
+        if (Array.isArray(field)) {
+          return {message, field: field.join('.')};
+        }
+
+        return {message, field};
+      });
+>>>>>>> ⚡ remove unnecessary lodash functions for tiny local implementations
 
       return {
         errors,
