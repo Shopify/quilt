@@ -4,8 +4,8 @@ const ON_MATCH_DELAY = 500;
 
 export interface Data {
   node: HTMLElement | null | undefined;
-  keys: Key[];
-  modifierKeys?: ModifierKey[];
+  ordered: Key[];
+  held?: ModifierKey[];
   ignoreInput: boolean;
   onMatch(): void;
   allowDefault: boolean;
@@ -66,21 +66,18 @@ export default class ShortcutManager {
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
     this.shortcutsMatched = shortcuts.filter(
-      ({keys, modifierKeys, node, ignoreInput}) => {
+      ({ordered, held, node, ignoreInput}) => {
         if (isFocusedInput() && !ignoreInput) {
           return false;
         }
 
-        if (
-          modifierKeys &&
-          !modifierKeys.every(key => event.getModifierState(key))
-        ) {
+        if (held && !held.every(key => event.getModifierState(key))) {
           return false;
         }
 
         const partiallyMatching = arraysMatch(
           this.keysPressed,
-          keys.slice(0, this.keysPressed.length),
+          ordered.slice(0, this.keysPressed.length),
         );
 
         if (node) {
@@ -94,8 +91,8 @@ export default class ShortcutManager {
   }
 
   private callMatchedShortcut(event: Event) {
-    const longestMatchingShortcut = this.shortcutsMatched.find(({keys}) =>
-      arraysMatch(keys, this.keysPressed),
+    const longestMatchingShortcut = this.shortcutsMatched.find(({ordered}) =>
+      arraysMatch(ordered, this.keysPressed),
     );
 
     if (!longestMatchingShortcut) {

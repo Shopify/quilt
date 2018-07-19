@@ -23,8 +23,8 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut key="foo" keys={['f', 'o', 'o']} onMatch={fooSpy} />
-        <Shortcut key="bar" keys={['b', 'a', 'r']} onMatch={barSpy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={fooSpy} />
+        <Shortcut key="bar" ordered={['b', 'a', 'r']} onMatch={barSpy} />
       </ShortcutProvider>,
     );
 
@@ -40,8 +40,8 @@ describe('ShortcutManager', () => {
     const barSpy = jest.fn();
     mount(
       <ShortcutProvider>
-        <Shortcut key="foo" keys={['f', 'o', 'o']} onMatch={fooSpy} />
-        <Shortcut key="bar" keys={['b', 'a', 'r']} onMatch={barSpy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={fooSpy} />
+        <Shortcut key="bar" ordered={['b', 'a', 'r']} onMatch={barSpy} />
       </ShortcutProvider>,
     );
 
@@ -64,9 +64,9 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['f', 'o', 'o']} onMatch={fooSpy} />
-        <Shortcut keys={['f', 'o']} onMatch={foSpy} />
-        <Shortcut keys={['f']} onMatch={fSpy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={fooSpy} />
+        <Shortcut key="fo" ordered={['f', 'o']} onMatch={foSpy} />
+        <Shortcut key="f" ordered={['f']} onMatch={fSpy} />
       </ShortcutProvider>,
     );
 
@@ -86,7 +86,7 @@ describe('ShortcutManager', () => {
     const spy = jest.fn();
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['b', 'a', 'r']} onMatch={spy} />
+        <Shortcut ordered={['b', 'a', 'r']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -105,8 +105,8 @@ describe('ShortcutManager', () => {
     const spy = jest.fn();
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
-        <Shortcut keys={['f']} onMatch={spy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="f" ordered={['f']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -136,8 +136,8 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="foo-1" ordered={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="foo-2" ordered={['f', 'o', 'o']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -154,8 +154,8 @@ describe('ShortcutManager', () => {
 
     const app = mount(
       <ShortcutProvider>
-        <Shortcut keys={['b', 'a', 'r']} onMatch={spy} />
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="bar" ordered={['b', 'a', 'r']} onMatch={spy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -177,7 +177,7 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['?']} onMatch={spy} />
+        <Shortcut ordered={['?']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -196,7 +196,7 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['a']} onMatch={spy} allowDefault />
+        <Shortcut ordered={['a']} onMatch={spy} allowDefault />
       </ShortcutProvider>,
     );
 
@@ -214,7 +214,7 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['a']} onMatch={spy} />
+        <Shortcut ordered={['a']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -227,16 +227,16 @@ describe('ShortcutManager', () => {
   describe('modifier keys', () => {
     it('matches shortcut when all modifier keys are pressed', () => {
       const fooSpy = jest.fn();
-      const modifierKeys: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
+      const held: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
 
       mount(
         <ShortcutProvider>
-          <Shortcut modifierKeys={modifierKeys} keys={['/']} onMatch={fooSpy} />
+          <Shortcut held={held} ordered={['/']} onMatch={fooSpy} />
         </ShortcutProvider>,
       );
 
       keydown('/', document, {
-        getModifierState: key => modifierKeys.includes(key),
+        getModifierState: key => held.includes(key),
       });
 
       expect(fooSpy).toHaveBeenCalled();
@@ -244,27 +244,18 @@ describe('ShortcutManager', () => {
 
     it('doesn’t match shortcut when all modifier keys not pressed', () => {
       const fooSpy = jest.fn();
-      const modifierKeysToCheck: ModifierKey[] = [
-        'Control',
-        'Shift',
-        'Alt',
-        'Meta',
-      ];
+      const heldToCheck: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
 
       mount(
         <ShortcutProvider>
-          <Shortcut
-            modifierKeys={modifierKeysToCheck}
-            keys={['/']}
-            onMatch={fooSpy}
-          />
+          <Shortcut held={heldToCheck} ordered={['/']} onMatch={fooSpy} />
         </ShortcutProvider>,
       );
 
-      const modifierKeysPressed: ModifierKey[] = ['Control', 'Shift', 'Hyper'];
+      const heldPressed: ModifierKey[] = ['Control', 'Shift', 'Hyper'];
 
       keydown('/', document, {
-        getModifierState: key => modifierKeysPressed.includes(key),
+        getModifierState: key => heldPressed.includes(key),
       });
 
       expect(fooSpy).not.toHaveBeenCalled();
