@@ -10,7 +10,7 @@ interface FormDetails<Fields> {
   dirty: boolean;
   valid: boolean;
   submitting: boolean;
-  errors: ClientError[];
+  errors: RemoteError[];
   reset(): void;
   submit(): void;
 }
@@ -123,7 +123,7 @@ Forms usually need some mechanism of submission. `<FormState />` is not opiniona
   }}
 ```
 
-When given an [async](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) function (or one that returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function), the `children` function will be rerendered with `submitting: true` until the promise resolves or rejects. Once it has returned the function will be re-rendered with `submitting: false` and `errors` either `[]` (if the promise resolved with no value), or with an array of `{field?: string, error: string}` if the promise resolved with an error list.
+When given an [async](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) function (or one that returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function), the `children` function will be rerendered with `submitting: true` until the promise resolves or rejects. Once it has returned the function will be re-rendered with `submitting: false` and `errors` either `[]` (if the promise resolved with no value), or with an array of `{field?: string | string[], error: string}` if the promise resolved with an error list. Any errors with a `field` value will also be propagated down to matching fields.
 
 ```typescript
 // api.ts

@@ -613,12 +613,15 @@ describe('<FormState />', () => {
       expect(errors).toEqual(errors);
     });
 
-    it('converts array values for error fields to key-paths', async () => {
+    it('propagates submit errors down to fields when the field array matches', async () => {
       const renderPropSpy = jest.fn(() => null);
+      const message = faker.lorem.sentences();
 
       const submitErrors = [
-        {message: faker.lorem.sentences(), field: ['title', 'foo']},
-        {message: faker.lorem.sentences(), field: ['description', 'bar']},
+        {
+          field: ['product'],
+          message,
+        },
       ];
 
       function onSubmit() {
@@ -626,7 +629,10 @@ describe('<FormState />', () => {
       }
 
       const form = mount(
-        <FormState initialValues={{}} onSubmit={onSubmit}>
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+        >
           {renderPropSpy}
         </FormState>,
       );
@@ -634,14 +640,40 @@ describe('<FormState />', () => {
       const {submit} = lastCallArgs(renderPropSpy);
       await submit();
 
-      const {
-        errors: [titleError, descriptionError],
-      } = lastCallArgs(renderPropSpy);
+      const {fields} = lastCallArgs(renderPropSpy);
+      expect(fields.product.error).toBe(message);
+    });
 
-      expect(titleError.field).toEqual(submitErrors[0].field.join('.'));
-      expect(titleError.message).toEqual(submitErrors[0].message);
-      expect(descriptionError.field).toEqual(submitErrors[1].field.join('.'));
-      expect(descriptionError.message).toEqual(submitErrors[1].message);
+    it('clears submit errors on fields when onChange is called', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const message = faker.lorem.sentences();
+
+      const submitErrors = [
+        {
+          field: ['product'],
+          message,
+        },
+      ];
+
+      function onSubmit() {
+        return Promise.resolve(submitErrors);
+      }
+
+      const form = mount(
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit, fields} = lastCallArgs(renderPropSpy);
+      await submit();
+      fields.product.onChange(faker.commerce.productName());
+
+      const {fields: updatedFields} = lastCallArgs(renderPropSpy);
+      expect(updatedFields.product.error).not.toBe(message);
     });
   });
 
