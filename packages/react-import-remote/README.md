@@ -15,10 +15,6 @@ $ yarn add @shopify/react-import-remote
 
 The provided utilities are intended only for external scripts that load globals. Other JavaScript should use the native `import()` operator for asynchronously loading code. These utilities cache results by source, so only a single `script` tag is ever added for a particular source.
 
-### `<ImportRemote />`
-
-A React component that loads the script specified in the `source` prop.
-
 ```ts
 import * as React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
@@ -47,45 +43,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-### `load()`
-
-A more primitive utility function for asynchronously loading remote scripts. Simply provide the source and a function that takes the newly-augmented window and returns the global from that script.
-
-```ts
-import {load} from '@shopify/react-import-remote';
-
-interface RemoteGlobal {}
-interface WindowWithGlobal extends Window {
-  remoteGlobal: RemoteGlobal;
-}
-
-const source = 'https://some-external-service.com/global.js';
-
-function getImport(window: WindowWithGlobal) {
-  return window.remoteGlobal;
-}
-
-// Without using async await
-load(source, getImport)
-  .then(imported => {
-    doSomething(imported);
-  })
-  .catch(error => {
-    doSomethingWithError(error);
-  });
-
-// using ES8 async await
-try {
-  const imported = await load(source, getImport);
-  doSomething(imported);
-} catch (error) {
-  doSomethingWithError(error);
-}
-```
-
-## Interfaces
-
-### `<ImportRemote />`
+## Interface
 
 ```ts
 interface Props<Imported = any> {
@@ -97,39 +55,22 @@ interface Props<Imported = any> {
 }
 ```
 
-#### Props
-
 **source**
+
 Source of the script to load the global from
 
 **preconnect**
+
 Generates a preconnect link tag for the source’s domain using [`@shopify/react-preconnect`](https://github.com/Shopify/quilt/tree/master/packages/react-preconnect)
 
 **onError**
+
 Callback that takes in `error` is called if an error occurs
 
 **getImport**
+
 Callback that takes in `window` with the added global and returns the global added to the `window` by the new script
 
 **onImported**
+
 Callback that gets called with the imported global
-
-### `load()`
-
-```ts
-interface Load<Imported = any, CustomWindow extends Window = Window> {
-  (source: string, getImport: (window: CustomWindow) => Imported): Promise<
-    Imported
-  >;
-}
-```
-
-Returns a `Promise` for the imported global.
-
-#### Arguments
-
-**source**
-Source of the script to load the global from
-
-**getImport**
-Callback that takes in `window` with the added global and returns the global added to the `window` by the new script
