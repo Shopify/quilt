@@ -16,7 +16,7 @@ export default class Nested<Fields> extends React.PureComponent<
 > {
   render() {
     const {
-      field: {value, onBlur, initialValue, error},
+      field: {name, value, onBlur, initialValue, error},
       children,
     } = this.props;
 
@@ -30,7 +30,7 @@ export default class Nested<Fields> extends React.PureComponent<
           name: `${name}.${fieldPath}`,
           initialValue: initialFieldValue,
           dirty: value !== initialFieldValue,
-          error: get(error, [fieldPath]),
+          error: get(error, fieldPath),
           onChange: this.handleChange(fieldPath),
         };
       },
