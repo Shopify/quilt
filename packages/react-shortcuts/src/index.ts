@@ -8,4 +8,25 @@ export {
 } from './ShortcutProvider';
 
 export {default as ShortcutManager} from './ShortcutManager';
-export {Key} from './types';
+export {
+  default as Key,
+  AlphabetKey,
+  NumericKey,
+  ModifierKey,
+  WhiteSpaceKey,
+  NavigationKey,
+  EditingKey,
+  UIKey,
+  DeviceKey,
+  IMEKey,
+  FunctionKey,
+  PhoneKey,
+  MultimediaKey,
+  AudioControlKey,
+  TVControlKey,
+  MediaControllerKey,
+  SpeechRecognitionKey,
+  DocumentKey,
+  ApplicationSelectorKey,
+  BrowserControlKey,
+} from './keys';
