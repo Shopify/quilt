@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {contextTypes} from '../ShortcutProvider';
-import {Key} from '../types';
+import Key from '../keys';
 
 export interface Props {
   keys: Key[];
