@@ -43,11 +43,15 @@ export interface Props {
   /*
     keys that, when pressed sequentially, will trigger `onMatch`
   */
-  keys: Key[];
+  ordered: Key[];
+  /*
+    keys that need to be kept pressed along with `keys` to trigger `onMatch`
+  */
+  held?: ModifierKey[];
   /*
     a callback that will trigger when the key combination is pressed
   */
-  onMatch(keys: Key[]): void;
+  onMatch(matched: {ordered: Key[]; held?: ModifierKey[]}): void;
   /*
     a node that, when supplied, will be used to only fire `onMatch` when it is focused
   */
@@ -57,7 +61,7 @@ export interface Props {
   */
   ignoreInput?: boolean;
   /*
-    a boolean that lets you opt out of swalloing the key event and let it propagate
+    a boolean that lets you opt out of swallowing the key event and let it propagate
   */
   allowDefault?: boolean;
 }
@@ -75,7 +79,7 @@ export default function MyComponent() {
   return (
     <div>
       {/* some app markup here */}
-      <Shortcut key={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
+      <Shortcut ordered={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
     </div>
   );
 }
@@ -94,7 +98,8 @@ export default function MyComponent() {
     <div>
       {/* some app markup here */}
       <Shortcut
-        key={['ctrlKey', 'shiftKey', 'b']}
+        held={['Control', 'Shift']}
+        ordered={['B']}
         onMatch={() => console.log('bar!')}
       />
     </div>
@@ -122,7 +127,7 @@ class MyComponent extends React.Component {
         <button ref={node => this.setState({fooNode: node})} />
         <Shortcut
           node={fooNode}
-          key={['f', 'o', 'o']}
+          ordered={['f', 'o', 'o']}
           onMatch={() => console.log('foo')}
         />
       </div>
@@ -146,7 +151,7 @@ export default function MyComponent() {
   return (
     <div>
       {/* some app markup here */}
-      <Shortcut key={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
+      <Shortcut ordered={['f', 'o', 'o']} onMatch={() => console.log('foo')} />
     </div>
   );
 }
@@ -171,7 +176,7 @@ describe('my-component', () => {
 
     const shortcut = component.find(Shortcut);
 
-    expect(shortcut.prop('key')).toEqual(['f', 'o', 'o']);
+    expect(shortcut.prop('ordered')).toEqual(['f', 'o', 'o']);
   });
 });
 ```

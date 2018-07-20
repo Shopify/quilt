@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {contextTypes} from '../ShortcutProvider';
-import Key from '../keys';
+import Key, {ModifierKey} from '../keys';
 
 export interface Props {
-  keys: Key[];
+  ordered: Key[];
+  held?: ModifierKey[];
   node?: HTMLElement | null;
   ignoreInput?: boolean;
-  onMatch(keys: Key[]): void;
+  onMatch(matched: {ordered: Key[]; held?: ModifierKey[]}): void;
   allowDefault?: boolean;
 }
 
@@ -18,7 +19,8 @@ export default class Shortcut extends React.Component<Props, never> {
   static contextTypes = contextTypes;
   public data = {
     node: this.props.node,
-    keys: this.props.keys,
+    ordered: this.props.ordered,
+    held: this.props.held,
     ignoreInput: this.props.ignoreInput || false,
     onMatch: this.props.onMatch,
     allowDefault: this.props.allowDefault,
