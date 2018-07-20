@@ -7,7 +7,7 @@ export interface Props {
   held?: ModifierKey[];
   node?: HTMLElement | null;
   ignoreInput?: boolean;
-  onMatch(keys: Key[]): void;
+  onMatch(matched: {ordered: Key[]; held?: ModifierKey[]}): void;
   allowDefault?: boolean;
 }
 

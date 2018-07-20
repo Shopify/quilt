@@ -7,7 +7,7 @@ export interface Data {
   ordered: Key[];
   held?: ModifierKey[];
   ignoreInput: boolean;
-  onMatch(): void;
+  onMatch(matched: {ordered: Key[]; held?: ModifierKey[]}): void;
   allowDefault: boolean;
 }
 
@@ -103,7 +103,10 @@ export default class ShortcutManager {
       event.preventDefault();
     }
 
-    longestMatchingShortcut.onMatch();
+    longestMatchingShortcut.onMatch({
+      ordered: longestMatchingShortcut.ordered,
+      held: longestMatchingShortcut.held,
+    });
 
     clearTimeout(this.timer);
 
