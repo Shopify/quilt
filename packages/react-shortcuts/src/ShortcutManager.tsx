@@ -1,14 +1,18 @@
-import Key, {ModifierKey} from '../keys';
+import Key, {ModifierKey} from './keys';
 
 const ON_MATCH_DELAY = 500;
 
 export interface Data {
-  node: HTMLElement | null | undefined;
+  node?: HTMLElement | null;
   ordered: Key[];
   held?: ModifierKey[];
   ignoreInput: boolean;
   onMatch(matched: {ordered: Key[]; held?: ModifierKey[]}): void;
   allowDefault: boolean;
+}
+
+export interface Subscription {
+  unsubscribe(): void;
 }
 
 export default class ShortcutManager {
@@ -21,7 +25,7 @@ export default class ShortcutManager {
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
-  subscribe(data: Data) {
+  subscribe(data: Data): Subscription {
     const {shortcuts} = this;
 
     shortcuts.push(data);
