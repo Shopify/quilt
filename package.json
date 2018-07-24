@@ -11,7 +11,7 @@
     "prebuild": "yarn run clean",
     "build": "lerna run build",
     "lint": "yarn eslint '**/*.{ts,tsx}'",
-    "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\"",
+    "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
     "test": "jest --maxWorkers=3",
     "check": "lerna run check",
     "release": "lerna publish && git push --follow-tags",

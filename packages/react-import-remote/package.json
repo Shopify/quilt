@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/react-shortcuts",
-  "version": "1.0.0",
+  "name": "@shopify/react-import-remote",
+  "version": "0.0.0",
   "license": "MIT",
-  "description": "Declaratively and efficiently match shortcut combinations in your react application",
+  "description": "Asynchronous script loading for React",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,11 +21,16 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/react-shortcuts/README.md",
-  "peerDependencies": {
-    "react": "^16.3.2"
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
+  "dependencies": {
+    "@shopify/react-preconnect": "^0.1.1"
   },
   "devDependencies": {
+    "@shopify/javascript-utilities": "^2.1.0",
+    "enzyme": "^3.3.0",
     "typescript": "~2.9.2"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1"
   }
 }
