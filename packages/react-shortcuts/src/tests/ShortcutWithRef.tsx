@@ -30,7 +30,7 @@ export default class ShortcutWithFocus extends React.Component<Props, State> {
     return (
       <div className="app">
         <button type="button" ref={this.setRef} />
-        <Shortcut keys={['z']} onMatch={spy} node={node} />
+        <Shortcut ordered={['z']} onMatch={spy} node={node} />
       </div>
     );
   }

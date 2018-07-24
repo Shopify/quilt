@@ -2,7 +2,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {timer} from '@shopify/jest-dom-mocks';
 
-import {Key} from '../types';
+import Key, {ModifierKey} from '../keys';
 import Shortcut from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 
@@ -23,8 +23,8 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut key="foo" keys={['f', 'o', 'o']} onMatch={fooSpy} />
-        <Shortcut key="bar" keys={['b', 'a', 'r']} onMatch={barSpy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={fooSpy} />
+        <Shortcut key="bar" ordered={['b', 'a', 'r']} onMatch={barSpy} />
       </ShortcutProvider>,
     );
 
@@ -35,34 +35,13 @@ describe('ShortcutManager', () => {
     expect(fooSpy).toHaveBeenCalled();
   });
 
-  it('works with modifier keys', () => {
-    const fooSpy = jest.fn();
-    const barSpy = jest.fn();
-
-    mount(
-      <ShortcutProvider>
-        <Shortcut
-          keys={['ctrlKey', 'shiftKey', 'altKey', 'metaKey']}
-          onMatch={fooSpy}
-        />
-      </ShortcutProvider>,
-    );
-
-    keydown('ctrlKey');
-    keydown('shiftKey');
-    keydown('altKey');
-    keydown('metaKey');
-
-    expect(fooSpy).toHaveBeenCalled();
-  });
-
   it('calls multiple shortcuts', () => {
     const fooSpy = jest.fn();
     const barSpy = jest.fn();
     mount(
       <ShortcutProvider>
-        <Shortcut key="foo" keys={['f', 'o', 'o']} onMatch={fooSpy} />
-        <Shortcut key="bar" keys={['b', 'a', 'r']} onMatch={barSpy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={fooSpy} />
+        <Shortcut key="bar" ordered={['b', 'a', 'r']} onMatch={barSpy} />
       </ShortcutProvider>,
     );
 
@@ -85,9 +64,9 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['f', 'o', 'o']} onMatch={fooSpy} />
-        <Shortcut keys={['f', 'o']} onMatch={foSpy} />
-        <Shortcut keys={['f']} onMatch={fSpy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={fooSpy} />
+        <Shortcut key="fo" ordered={['f', 'o']} onMatch={foSpy} />
+        <Shortcut key="f" ordered={['f']} onMatch={fSpy} />
       </ShortcutProvider>,
     );
 
@@ -107,7 +86,7 @@ describe('ShortcutManager', () => {
     const spy = jest.fn();
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['b', 'a', 'r']} onMatch={spy} />
+        <Shortcut ordered={['b', 'a', 'r']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -126,8 +105,8 @@ describe('ShortcutManager', () => {
     const spy = jest.fn();
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
-        <Shortcut keys={['f']} onMatch={spy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="f" ordered={['f']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -157,8 +136,8 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="foo-1" ordered={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="foo-2" ordered={['f', 'o', 'o']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -175,8 +154,8 @@ describe('ShortcutManager', () => {
 
     const app = mount(
       <ShortcutProvider>
-        <Shortcut keys={['b', 'a', 'r']} onMatch={spy} />
-        <Shortcut keys={['f', 'o', 'o']} onMatch={spy} />
+        <Shortcut key="bar" ordered={['b', 'a', 'r']} onMatch={spy} />
+        <Shortcut key="foo" ordered={['f', 'o', 'o']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
@@ -198,11 +177,11 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['?']} onMatch={spy} />
+        <Shortcut ordered={['?']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
-    keydown('shiftKey');
+    keydown('Shift');
     keydown('a');
     keydown('?');
 
@@ -217,11 +196,11 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['shiftKey']} onMatch={spy} allowDefault />
+        <Shortcut ordered={['a']} onMatch={spy} allowDefault />
       </ShortcutProvider>,
     );
 
-    keydown('shiftKey', document, event);
+    keydown('a', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).not.toBeCalled();
@@ -235,18 +214,56 @@ describe('ShortcutManager', () => {
 
     mount(
       <ShortcutProvider>
-        <Shortcut keys={['shiftKey']} onMatch={spy} />
+        <Shortcut ordered={['a']} onMatch={spy} />
       </ShortcutProvider>,
     );
 
-    keydown('shiftKey', document, event);
+    keydown('a', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).toBeCalled();
   });
+
+  describe('modifier keys', () => {
+    it('matches shortcut when all modifier keys are pressed', () => {
+      const fooSpy = jest.fn();
+      const held: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut held={held} ordered={['/']} onMatch={fooSpy} />
+        </ShortcutProvider>,
+      );
+
+      keydown('/', document, {
+        getModifierState: key => held.includes(key),
+      });
+
+      expect(fooSpy).toHaveBeenCalled();
+    });
+
+    it('doesn’t match shortcut when all modifier keys not pressed', () => {
+      const fooSpy = jest.fn();
+      const heldToCheck: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut held={heldToCheck} ordered={['/']} onMatch={fooSpy} />
+        </ShortcutProvider>,
+      );
+
+      const heldPressed: ModifierKey[] = ['Control', 'Shift', 'Hyper'];
+
+      keydown('/', document, {
+        getModifierState: key => heldPressed.includes(key),
+      });
+
+      expect(fooSpy).not.toHaveBeenCalled();
+    });
+  });
 });
 
-function keydown(key: Key, target = document, eventSpies = {}) {
+function keydown(key: Key | ModifierKey, target = document, eventSpies = {}) {
   let event = new KeyboardEvent('keydown', {
     key,
   });
