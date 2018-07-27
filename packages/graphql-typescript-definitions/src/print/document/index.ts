@@ -36,7 +36,7 @@ export function printDocument(
       const body = tsInterfaceBodyForObjectField(
         fragment,
         fragment.typeCondition,
-        new ObjectStack(fragment.typeCondition, []),
+        new ObjectStack(fragment.typeCondition),
         context,
       );
 
@@ -96,7 +96,7 @@ export function printDocument(
     tsInterfaceBodyForObjectField(
       operation,
       rootType,
-      new ObjectStack(rootType, []),
+      new ObjectStack(rootType),
       context,
     ),
   );
@@ -108,7 +108,7 @@ export function printDocument(
     tsInterfaceBodyForObjectField(
       operation,
       rootType,
-      new ObjectStack(rootType, []),
+      new ObjectStack(rootType),
       partialContext,
     ),
   );

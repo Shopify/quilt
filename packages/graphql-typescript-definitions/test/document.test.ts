@@ -939,18 +939,18 @@ describe('printDocument()', () => {
     describe('unions', () => {
       function createBasicUnionSchema() {
         return buildSchema(`
-          type Person implements Named {
+          type Person {
             name: String!
             occupation: String
             pets: [Pet!]!
           }
 
-          type Dog implements Named {
+          type Dog {
             name: String!
             legs: Int!
           }
 
-          type Cat implements Named {
+          type Cat {
             name: String!
             livesLeft: Int!
           }
@@ -1184,6 +1184,66 @@ describe('printDocument()', () => {
         `);
       });
 
+      it('renames nested fields to avoid naming conflicts', () => {
+        const schema = buildSchema(`
+          type Button {
+            label: String!
+          }
+
+          type Checkbox {
+            checked: Boolean!
+          }
+
+          type ButtonSetting {
+            value: Button!
+          }
+
+          type CheckboxSetting {
+            value: Checkbox!
+          }
+
+          union Setting = ButtonSetting | CheckboxSetting
+
+          type Query {
+            setting: Setting
+          }
+        `);
+
+        expect(
+          print(
+            `query Details {
+              setting {
+                ...on ButtonSetting {
+                  value { label }
+                }
+                ...on CheckboxSetting {
+                  value { checked }
+                }
+              }
+            }`,
+            schema,
+          ),
+        ).toContain(stripIndent`
+          export namespace DetailsQueryData {
+            export interface SettingButtonSettingValue {
+              label: string;
+            }
+            export interface SettingButtonSetting {
+              value: DetailsQueryData.SettingButtonSettingValue;
+            }
+            export interface SettingCheckboxSettingValue {
+              checked: boolean;
+            }
+            export interface SettingCheckboxSetting {
+              value: DetailsQueryData.SettingCheckboxSettingValue;
+            }
+          }
+          export interface DetailsQueryData {
+            setting?: DetailsQueryData.SettingButtonSetting | DetailsQueryData.SettingCheckboxSetting | null;
+          }
+        `);
+      });
+
       it('resolves union types nested within other union types', () => {
         const schema = createBasicUnionSchema();
 
@@ -1203,16 +1263,16 @@ describe('printDocument()', () => {
           ),
         ).toContain(stripIndent`
           export namespace DetailsQueryData {
-            export interface NamedPetsDog {
+            export interface NamedPersonPetsDog {
               __typename: "Dog";
               legs: number;
             }
-            export interface NamedPetsOther {
+            export interface NamedPersonPetsOther {
               __typename: "Cat";
             }
             export interface NamedPerson {
               __typename: "Person";
-              pets: (DetailsQueryData.NamedPetsDog | DetailsQueryData.NamedPetsOther)[];
+              pets: (DetailsQueryData.NamedPersonPetsDog | DetailsQueryData.NamedPersonPetsOther)[];
             }
             export interface NamedOther {
               __typename: "Dog" | "Cat";

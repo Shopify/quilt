@@ -88,7 +88,7 @@ function tsTypeForInlineFragment(
 ) {
   const {typeCondition} = inlineFragment;
   const interfaceDeclaration = t.tsInterfaceDeclaration(
-    t.identifier(`${stack.name}${typeCondition.name}`),
+    t.identifier(stack.name),
     null,
     null,
     tsInterfaceBodyForObjectField(
@@ -140,14 +140,15 @@ function tsTypeForObjectField(
     let otherType: t.TSType | null = null;
 
     if (missingPossibleTypes.length > 0) {
+      const otherStack = stack.fragment();
       const otherTypeInterface = t.tsInterfaceDeclaration(
-        t.identifier(`${stack.name}Other`),
+        t.identifier(otherStack.name),
         null,
         null,
         tsInterfaceBodyForObjectField(
           field,
           missingPossibleTypes,
-          stack,
+          otherStack,
           context,
           context.options.partial,
         ),
