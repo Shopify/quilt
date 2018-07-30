@@ -1,6 +1,6 @@
 # GraphQL Tools
 
-A loosely related set of packages for web projects using GraphQL at TypeScript. This libraries make use of the strongly typed nature of GraphQL to improve developer experience and compile-time confidence.
+A loosely related set of packages for web projects using GraphQL and TypeScript. This libraries make use of the strongly typed nature of GraphQL to improve developer experience and compile-time confidence.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
 
