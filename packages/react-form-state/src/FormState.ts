@@ -166,12 +166,19 @@ export default class FormState<
 
     this.setState({submitting: true});
 
-    const result = await onSubmit(formData);
-    if (result) {
-      this.updateRemoteErrors(result);
-    }
+    const errors = await onSubmit(formData);
 
-    this.setState({submitting: false});
+    if (errors) {
+      this.setState({submitting: false});
+      this.updateRemoteErrors(errors);
+    } else {
+      this.makeClean();
+    }
+  }
+
+  @bind
+  private makeClean() {
+    this.setState(({fields}) => createFormState(valuesFromFields(fields)));
   }
 
   @bind()
@@ -381,4 +388,8 @@ function createFormState<Fields>(values: Fields): State<Fields> {
 
 function initialValuesFromFields<Fields>(fields: FieldStates<Fields>): Fields {
   return mapObject(fields, ({initialValue}) => initialValue);
+}
+
+function valuesFromFields<Fields>(fields: FieldStates<Fields>): Fields {
+  return mapObject(fields, ({value}) => value);
 }
