@@ -176,7 +176,6 @@ export default class FormState<
     }
   }
 
-  @bind
   private makeClean() {
     this.setState(({fields}) => createFormState(valuesFromFields(fields)));
   }
