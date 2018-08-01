@@ -587,6 +587,36 @@ describe('<FormState />', () => {
       expect(submitting).toBe(false);
     });
 
+    it('when onSubmit() does not produce errors, regenerates form state with current values as initialValues', async () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      function onSubmit() {
+        return Promise.resolve();
+      }
+
+      mount(
+        <FormState
+          initialValues={{
+            product: faker.commerce.productName(),
+          }}
+          onSubmit={onSubmit}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const product = faker.commerce.productName();
+      const formDetails = lastCallArgs(renderPropSpy);
+      formDetails.fields.product.onChange(product);
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      await submit();
+
+      const {fields, dirty} = lastCallArgs(renderPropSpy);
+      expect(fields.product.initialValue).toBe(product);
+      expect(dirty).toBe(false);
+    });
+
     it('updates errors when errors are returned from onSubmit', async () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
@@ -628,7 +658,7 @@ describe('<FormState />', () => {
         return Promise.resolve(submitErrors);
       }
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           onSubmit={onSubmit}
@@ -659,7 +689,7 @@ describe('<FormState />', () => {
         return Promise.resolve(submitErrors);
       }
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           onSubmit={onSubmit}

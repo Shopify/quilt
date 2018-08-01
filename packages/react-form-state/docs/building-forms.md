@@ -523,36 +523,14 @@ import {
 } from '@shopify/polaris';
 import FormState, {
   validators,
-  validateArray,
-  validateObject,
+  validateList,
+  validateNested,
   arrayUtils,
 } from '@shopify/react-form-state';
 
 const {required, numericString, nonNumericString, lengthMoreThan} = validators;
 
-interface State {}
-
-interface Props {
-  initialValues: {
-    title: string;
-    description: string;
-    sku: string;
-    quantity: string;
-    firstVariant: string;
-      option: string;
-      value: string;
-      price: string;
-    };
-    variants: {
-      option: string;
-      value: string;
-      price: string;
-    }[];
-  },
-  productUpdate,
-}
-
-export default function Playground({initialValues, updateProduct}: Props) {
+export default function Playground({initialValues, updateProduct}) {
   return (
     <AppProvider>
       <FormState
@@ -561,11 +539,11 @@ export default function Playground({initialValues, updateProduct}: Props) {
           title: required('Required'),
           quantity: numericString('Must be a number'),
           sku: lengthMoreThan(3, 'Must  be longer than 3 characters'),
-          firstVariant: validateObject({
+          firstVariant: validateNested({
             option: required('required'),
             price: numericString('value must be numeric'),
           }),
-          variants: validateArray({
+          variants: validateList({
             option: nonNumericString('option must be nonNumeric'),
             price: numericString('value must be numeric'),
           }),
