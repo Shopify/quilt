@@ -3,7 +3,9 @@ import {mount} from 'enzyme';
 
 import {trigger, findById} from '..';
 
+// eslint-disable-next-line shopify/strict-component-boundaries
 import {Toggle} from './fixtures/Toggle';
+// eslint-disable-next-line shopify/strict-component-boundaries
 import {ActionList, Action} from './fixtures/Actions';
 
 describe('enzyme-utilities', () => {
