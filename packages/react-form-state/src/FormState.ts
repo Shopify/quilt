@@ -166,9 +166,9 @@ export default class FormState<
 
     this.setState({submitting: true});
 
-    const result = await onSubmit(formData);
-    if (result) {
-      this.updateRemoteErrors(result);
+    const errors = await onSubmit(formData);
+    if (errors && errors.length) {
+      this.updateRemoteErrors(errors);
     }
 
     this.setState({submitting: false});
