@@ -5,6 +5,7 @@ const data = {
     code: 'JP',
     zoneKey: 'prefecture',
     zipKey: 'postalCode',
+    address2Key: 'aptSuiteEtc',
     phoneNumberPrefix: 81,
     format: {
       edit:

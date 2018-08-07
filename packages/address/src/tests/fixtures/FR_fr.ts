@@ -5,6 +5,7 @@ const data = {
     code: 'FR',
     zoneKey: 'region',
     zipKey: 'postalCode',
+    address2Key: 'aptSuiteEtc',
     phoneNumberPrefix: 33,
     format: {
       edit:
