@@ -343,19 +343,10 @@ export default class FormState<
             return accumulator;
           }
 
-<<<<<<< HEAD
           return set(accumulator, field, message);
         },
         {},
       );
-=======
-        if (Array.isArray(field)) {
-          return {message, field: field.join('.')};
-        }
-
-        return {message, field};
-      });
->>>>>>> ⚡ remove unnecessary lodash functions for tiny local implementations
 
       return {
         errors,
