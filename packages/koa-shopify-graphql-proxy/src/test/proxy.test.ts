@@ -1,9 +1,5 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
-import koaShopifyGraphQLProxy, {
-  SessionContext,
-  GRAPHQL_PATH,
-  PROXY_BASE_PATH,
-} from '..';
+import koaShopifyGraphQLProxy, {GRAPHQL_PATH, PROXY_BASE_PATH} from '..';
 
 jest.mock('koa-better-http-proxy', () => {
   return jest.fn(() => jest.fn());
@@ -126,6 +122,35 @@ describe('koa-shopify-graphql-proxy', () => {
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
+      },
+      https: true,
+      parseReqBody: false,
+    });
+  });
+
+  it('configures a custom koa-better-http-proxy with private app credentials from the options', async () => {
+    const password = 'sdfghsdghsh';
+    const shop = 'i-sell-things.myshopify.com';
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      password,
+      shop,
+    });
+
+    const ctx = createMockContext({
+      url: PROXY_BASE_PATH,
+      method: 'POST',
+      throw: jest.fn(),
+    });
+
+    await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
+
+    const [host, config] = proxyFactory.mock.calls[0];
+    expect(host).toBe(shop);
+
+    expect(config).toMatchObject({
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': password,
       },
       https: true,
       parseReqBody: false,
