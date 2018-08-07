@@ -74,7 +74,34 @@ await getTranslationKey('US', 'province'); // => "state"
 await getTranslationKey('JA', 'province'); // => "prefecture"
 await getTranslationKey('CA', 'zip'); // => "postalCode"
 await getTranslationKey('US', 'zip'); // => "zipCode"
+await getTranslationKey('CA', 'address2'); // => "aptUnitNumber"
+await getTranslationKey('JA', 'address2'); // => "aptSuiteEtc"
 ```
+
+#### Translation keys
+
+The label used to designate zip code and provinces are not the same from a country to another
+
+- `zoneKey` is one of the following
+  - `county`
+  - `emirate`
+  - `governorate`
+  - `prefecture`
+  - `province`
+  - `region`
+  - `stateAndTerritory`
+  - `state`
+
+
+- `zipKey` is one of the following
+  - `postcode`
+  - `pincode`
+  - `zipCode`
+
+- `address2Key` is one of the following
+  - `aptSuiteEtc`
+  - `aptUnitNumber`
+
 
 #### Example Usage
 

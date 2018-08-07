@@ -43,6 +43,7 @@ export interface Country {
     };
     zoneKey: string;
     zipKey: string;
+    address2Key: string;
     provinces: Province[];
   };
 }
