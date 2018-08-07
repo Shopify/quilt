@@ -1,28 +1,33 @@
 import proxy from 'koa-better-http-proxy';
 import {Context} from 'koa';
 
-export interface SessionContext extends Context {
-  session?: {accessToken?: string; shop?: string};
-}
-
 export const PROXY_BASE_PATH = '/graphql';
 export const GRAPHQL_PATH = '/admin/api/graphql.json';
 
-export default function shopifyGraphQLProxy() {
+export interface ProxyOptions {
+  password: string;
+  shop: string;
+}
+
+export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
   return async function shopifyGraphQLProxyMiddleware(
-    ctx: SessionContext,
+    ctx: Context,
     next: () => Promise<any>,
   ) {
     const {session = {}} = ctx;
-    const {accessToken, shop} = session;
 
-    if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
-      await next();
-      return;
-    }
+    const shop = proxyOptions ? proxyOptions.shop : session.shop;
+    const accessToken = proxyOptions
+      ? proxyOptions.password
+      : session.accessToken;
 
     if (accessToken == null || shop == null) {
       ctx.throw(403, 'Unauthorized');
+      return;
+    }
+
+    if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
+      await next();
       return;
     }
 
