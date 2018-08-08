@@ -10,13 +10,11 @@ project (and potentially save yourself some time!).
 
 ## Getting Started
 
-To start working on the codebase, first fork the repo, then clone it:
+To start working on the codebase, first clone the repo:
 
 ```
-git clone git@github.com:your-username/quilt.git
+dev clone quilt
 ```
-
-_Note: replace "your-username" with your Github handle_
 
 Install the project's dependencies (make sure you first have [yarn](https://yarnpkg.com/) installed):
 
