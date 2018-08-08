@@ -62,3 +62,25 @@ app.use(mount('/shopify', proxy());
 // client/some-component.js
 fetch('/shopify/graphql', {credentials: 'include', body: mySerializedGraphQL});
 ```
+
+### Private app
+
+If you have a [private shopify app](https://help.shopify.com/en/manual/apps/private-apps), you can than skip over the auth step and use this library directly for setting up graphql proxy.
+
+```javascript
+// server/index.js
+import koa from 'koa';
+import session from 'koa-session';
+import proxy from '@shopify/koa-shopify-graphql-proxy';
+
+const app = koa();
+
+app.use(session());
+
+app.use(
+  proxy({
+    shop: '<my-shop-name>.myshopify.com',
+    password: '<your-app-password>',
+  }),
+);
+```
