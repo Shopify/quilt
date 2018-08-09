@@ -191,6 +191,16 @@ describe('getTranslationKey()', () => {
     expect(result).toBe('postalCode');
   });
 
+  it('translates based on the country address2 key', async () => {
+    const addressFormatter = new AddressFormatter('ja');
+    const result = await addressFormatter.getTranslationKey(
+      'JP',
+      FieldName.Address2,
+    );
+
+    expect(result).toBe('aptSuiteEtc');
+  });
+
   it('translates based on the country key', async () => {
     const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.getTranslationKey(

@@ -115,6 +115,8 @@ export default class AddressFormatter {
         return country.attributes.zoneKey;
       case FieldName.Zip:
         return country.attributes.zipKey;
+      case FieldName.Address2:
+        return country.attributes.address2Key;
       default:
         return key;
     }
