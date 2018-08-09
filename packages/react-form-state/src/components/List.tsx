@@ -32,7 +32,7 @@ export default class List<Fields> extends React.PureComponent<
             initialValue: initialFieldValue,
             dirty: value !== initialFieldValue,
             error: get(error, [index, fieldPath]),
-            onChange: this.handleChange(index, fieldPath),
+            onChange: this.handleChange({index, key: fieldPath}),
           };
         },
       );
@@ -48,7 +48,13 @@ export default class List<Fields> extends React.PureComponent<
 
   @memoize()
   @bind()
-  private handleChange<Key extends keyof Fields>(index: number, key: Key) {
+  private handleChange<Key extends keyof Fields>({
+    index,
+    key,
+  }: {
+    index: number;
+    key: any;
+  }) {
     return (newValue: Fields[Key]) => {
       const {
         field: {value, onChange},
