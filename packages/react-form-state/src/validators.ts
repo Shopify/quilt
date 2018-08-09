@@ -110,7 +110,10 @@ export function validate<Input, Fields = never>(
   return (input: Input, fields: Fields) => {
     const matches = matcher(input, fields);
 
-    // always mark empty fields valid if they are strings
+    /*
+      always mark empty fields valid to match Polaris guidelines
+      https://polaris.shopify.com/patterns/error-messages#section-form-validation
+    */
     if (isEmpty(input)) {
       return;
     }
