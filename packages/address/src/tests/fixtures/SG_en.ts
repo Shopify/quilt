@@ -5,6 +5,7 @@ const data = {
     code: 'SG',
     zoneKey: 'region',
     zipKey: 'postalCode',
+    address2Key: 'aptSuiteEtc',
     format: {
       edit:
         '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
