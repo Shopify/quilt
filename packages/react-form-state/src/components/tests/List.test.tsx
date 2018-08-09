@@ -66,6 +66,53 @@ describe('<FormState.List />', () => {
     expect(fields.products.value[0].title).toBe(newTitle);
   });
 
+  it('updates multiple sub-field properties', () => {
+    const products = [
+      {
+        title: faker.commerce.productName(),
+        price: faker.commerce.price(),
+      },
+      {
+        title: faker.commerce.productName(),
+        price: faker.commerce.price(),
+      },
+    ];
+
+    const newTitle = faker.commerce.productName();
+    const newPrice = faker.commerce.price();
+
+    const renderSpy = jest.fn(() => null);
+
+    const renderPropSpy = jest.fn(({fields}: any) => {
+      return (
+        <FormState.List field={fields.products}>
+          {(fields: any) => {
+            return (
+              <>
+                <Input {...fields.title} />
+                <Input {...fields.price} />
+              </>
+            );
+          }}
+        </FormState.List>
+      );
+    });
+
+    const form = mount(
+      <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
+    );
+
+    const titleInput = form.find(Input).first();
+    trigger(titleInput, 'onChange', newTitle);
+
+    const priceInput = form.find(Input).at(1);
+    trigger(priceInput, 'onChange', newPrice);
+
+    const {fields} = lastCallArgs(renderPropSpy);
+    expect(fields.products.value[0].title).toBe(newTitle);
+    expect(fields.products.value[0].price).toBe(newPrice);
+  });
+
   it('tracks individual sub-field dirty state', () => {
     const products = [{title: faker.commerce.productName()}];
     const newTitle = faker.commerce.productName();
