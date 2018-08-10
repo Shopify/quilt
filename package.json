@@ -44,7 +44,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jest": "^23.2.0",
     "jest-transform-graphql": "^2.1.0",
-    "lerna": "^2.9.0",
+    "lerna": "^3.0.0",
     "plop": "^2.0.0",
     "prettier": "^1.14.0",
     "react": "^16.2.0",
