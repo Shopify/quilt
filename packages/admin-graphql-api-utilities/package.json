@@ -1,0 +1,30 @@
+{
+  "name": "@shopify/admin-graphql-api-utilities",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "A set of utilities to use when consuming Shopify’s admin graphql api.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/admin-graphql-api-utilities/README.md",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "~2.9.2"
+  }
+}
