@@ -1,0 +1,28 @@
+{
+  "name": "@shopify/react-i18n",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "i18n for React",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n/README.md",
+  "devDependencies": {
+    "typescript": "~2.9.2"
+  }
+}
