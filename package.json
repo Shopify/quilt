@@ -54,6 +54,9 @@
     "ts-jest": "^23.0.0",
     "typescript": "~2.9.2"
   },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.0.1"
+  },
   "jest": {
     "setupFiles": [
       "./test/setup.ts"
