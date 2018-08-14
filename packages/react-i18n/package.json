@@ -2,7 +2,7 @@
   "name": "@shopify/react-i18n",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "i18n for React",
+  "description": "I18n library for React",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

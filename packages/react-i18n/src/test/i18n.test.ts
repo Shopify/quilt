@@ -2,7 +2,6 @@ import './matchers';
 
 import I18n from '../i18n';
 import {LanguageDirection} from '../types';
-import {MissingCurrencyCodeError, MissingTimezoneError} from '../errors';
 
 jest.mock('../utilities', () => ({
   translate: jest.fn(),
