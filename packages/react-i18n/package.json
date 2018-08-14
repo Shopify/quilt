@@ -27,5 +27,8 @@
     "intl-pluralrules": "^0.2.1",
     "react-tree-walker": "^4.3.0",
     "typescript": "~2.9.2"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.0.1"
   }
 }

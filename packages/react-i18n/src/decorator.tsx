@@ -2,8 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import hoistStatics from 'hoist-non-react-statics';
+// import * as hoistStatics from 'hoist-non-react-statics';
+
 // import {getDisplayName} from '@shopify/react-utilities/components';
 // import {ReactComponent} from '@shopify/react-utilities/types';
+// import hoistStatics = require('hoist-non-react-statics');
 
 import I18n from './i18n';
 import Connection from './connection';
