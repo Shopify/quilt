@@ -29,6 +29,21 @@ describe('cli', () => {
       exec(cliCommandForFixtureDirectory('missing-schema')),
     ).toThrowErrorMatchingSnapshot();
   });
+
+  it('hides passing fixtures by default', () => {
+    expect(
+      execSync(cliCommandForFixtureDirectory('all-clear')).toString(),
+    ).toMatchSnapshot();
+  });
+
+  it('shows passes fixtures when the show-passes flag is true', () => {
+    const showPasses = true;
+    expect(
+      execSync(
+        cliCommandForFixtureDirectory('all-clear', showPasses),
+      ).toString(),
+    ).toMatchSnapshot();
+  });
 });
 
 function exec(command: string) {
@@ -41,12 +56,15 @@ function exec(command: string) {
   }
 }
 
-function cliCommandForFixtureDirectory(fixture: string) {
+function cliCommandForFixtureDirectory(fixture: string, showPasses = false) {
   const fixtureDirectory = resolve(rootFixturePath, fixture);
   return [
     scriptPath,
     `'${resolve(fixtureDirectory, 'fixtures/**/*.json')}'`,
     `--schema-path '${resolve(fixtureDirectory, 'schema.json')}'`,
     `--operation-paths '${resolve(fixtureDirectory, 'queries/**/*.graphql')}'`,
-  ].join(' ');
+    showPasses ? `--show-passes` : '',
+  ]
+    .join(' ')
+    .trim();
 }

@@ -7,3 +7,20 @@ exports[`cli fails when there are syntax errors 1`] = `"Command failed: packages
 exports[`cli fails when there are syntax errors 2`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/**/*.json' --schema-path 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/schema.json' --operation-paths 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/queries/**/*.graphql'"`;
 
 exports[`cli fails when there are syntax errors 3`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/fixtures/**/*.json' --schema-path 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json' --operation-paths 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/queries/**/*.graphql'"`;
+
+exports[`cli hides passing fixtures by default 1`] = `
+"
+
+3 passed
+"
+`;
+
+exports[`cli shows passes fixtures when the show-passes flag is true 1`] = `
+"
+ PASS  packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-another-fixture.json
+ PASS  packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-fixture.json
+ PASS  packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/MyQuery/fixture.json
+
+3 passed
+"
+`;
