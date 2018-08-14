@@ -169,19 +169,19 @@ export default class Manager {
       }
     }
 
-    for (const [subscription, connection] of this.subscriptions.entries()) {
+    this.subscriptions.forEach((connection, subscription) => {
       subscription(this.state(connection));
-    }
+    });
   }
 
   private updateSubscribersForId(id: string) {
-    for (const [subscriber, connection] of this.subscriptions.entries()) {
+    this.subscriptions.forEach((connection, subscriber) => {
       if (
         localeIdsForConnection(connection, this.details.locale).includes(id)
       ) {
         subscriber(this.state(connection));
       }
-    }
+    });
   }
 }
 
