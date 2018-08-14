@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import hoistStatics = require('hoist-non-react-statics');
-import {getDisplayName} from '@shopify/react-utilities/components';
-import {ReactComponent} from '@shopify/react-utilities/types';
+// import {getDisplayName} from '@shopify/react-utilities/components';
+// import {ReactComponent} from '@shopify/react-utilities/types';
 
 import I18n from './i18n';
 import Connection from './connection';
@@ -11,6 +11,16 @@ import Manager, {ConnectionResult, ConnectionState} from './manager';
 import {InvalidI18nConnectionError} from './errors';
 import {TranslationDictionary} from './types';
 import {contextTypes} from './Provider';
+
+type ReactComponent<P> = React.ComponentType<P>;
+
+function getDisplayName(Component: ReactComponent<any>) {
+  return (
+    Component.displayName ||
+    (Component as React.StatelessComponent<any>).name ||
+    'Component'
+  );
+}
 
 interface Context {
   i18nManager: Manager;
