@@ -40,7 +40,6 @@ export function translate(
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
 ): any {
-  console.log('TRANSLATE AND!');
   const {scope, replacements} = options;
 
   const normalizedTranslations = Array.isArray(translations)

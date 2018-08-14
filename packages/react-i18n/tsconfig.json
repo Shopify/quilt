@@ -5,7 +5,9 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "rootDir": "./src",
+    "module": "es2015",
     "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["dom", "es2015", "es2016", "es2017", "esnext.asynciterable"]
   },
   "include": ["../../config/typescript/**/*", "src/**/*.ts", "src/**/*.tsx"]
