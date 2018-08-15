@@ -29,6 +29,12 @@ const argv = yargs
     describe:
       'Validate fixtures only against the GraphQL schema (and not any query or mutation documents)',
   })
+  .option('show-passes', {
+    type: 'boolean',
+    default: false,
+    describe:
+      'Display passing fixtures along with failures in the console output',
+  })
   .help().argv;
 
 const hasOperationPaths = Boolean(argv.operationPaths);
@@ -74,7 +80,9 @@ evaluateFixtures(
       } else if (evaluation.validationErrors.length === 0) {
         passed += 1;
         lastFailed = false;
-        console.log(`${chalk.inverse.bold.green(' PASS ')} ${formattedPath}`);
+        if (argv.showPasses) {
+          console.log(`${chalk.inverse.bold.green(' PASS ')} ${formattedPath}`);
+        }
       } else {
         failed += 1;
         lastFailed = true;
