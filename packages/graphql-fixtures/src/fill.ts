@@ -30,6 +30,7 @@ export interface ResolveDetails {
   type: GraphQLType;
   parent: GraphQLObjectType;
   field: FieldDetails;
+  parentFields: FieldDetails[];
 }
 
 export interface Resolver<T = any> {
@@ -112,7 +113,7 @@ export function createFiller(
       // the root type is kind of weird, since there is no "field" that
       // would be used in a resolver. For simplicity in the common case
       // we just hack this type to make it conform.
-      operation as any,
+      [operation as any],
       data,
       context,
     ) as Data;
@@ -122,11 +123,16 @@ export function createFiller(
 function fillObject(
   type: GraphQLObjectType,
   parent: GraphQLObjectType,
-  parentField: FieldDetails,
+  parentFields: FieldDetails[],
   partial: Thunk<{[key: string]: any} | null> | undefined | null,
   context: Context,
 ) {
-  const {fields = []} = parentField;
+  const normalizedParentFields = [...parentFields];
+  // We know there will always be at least one here, because the field for the object
+  // itself is at the end.
+  // eslint-disable-next-line typescript/no-non-null-assertion
+  const ownField = normalizedParentFields.pop()!;
+  const {fields = []} = ownField;
   const starter = context.options.addTypename ? {__typename: type.name} : {};
 
   const resolver = context.resolvers.get(type.name);
@@ -135,7 +141,8 @@ function fillObject(
     unwrapThunk(resolver, {
       type,
       parent,
-      field: parentField,
+      field: ownField,
+      parentFields: normalizedParentFields,
     });
 
   const partialObject =
@@ -143,7 +150,8 @@ function fillObject(
     unwrapThunk(partial, {
       type,
       parent,
-      field: parentField,
+      field: ownField,
+      parentFields: normalizedParentFields,
     });
 
   if (
@@ -170,8 +178,10 @@ function fillObject(
             type,
             parent,
             field,
+            parentFields: normalizedParentFields,
           }),
         type,
+        ownField.hasOwnProperty('operationType') ? [] : parentFields,
         context,
       ),
     };
@@ -186,24 +196,33 @@ function unwrapThunk<T>(value: Thunk<T>, details: ResolveDetails) {
     : value;
 }
 
+function withRandom<T>(keypath: FieldDetails[], func: () => T) {
+  faker.seed(seedFromKeypath(keypath.map(({responseName}) => responseName)));
+  const value = func();
+  faker.seed(Math.random() * 10000);
+  return value;
+}
+
 function createValue<T>(
   partialValue: Thunk<any>,
   value: Thunk<T>,
   details: ResolveDetails,
 ) {
-  if (partialValue !== undefined) {
-    return unwrapThunk(partialValue, details);
-  }
-
-  return isNonNullType(details.type) || !chooseNull()
-    ? unwrapThunk(value, details)
-    : null;
+  return withRandom(details.parentFields, () => {
+    if (partialValue === undefined) {
+      return isNonNullType(details.type) || !chooseNull()
+        ? unwrapThunk(value, details)
+        : null;
+    } else {
+      return unwrapThunk(partialValue, details);
+    }
+  });
 }
 
 function fillForPrimitiveType(
   type: GraphQLScalarType | GraphQLEnumType,
   {resolvers}: Context,
-) {
+): Resolver {
   const resolver = resolvers.get(type.name);
 
   if (resolver) {
@@ -220,6 +239,7 @@ function fillType(
   field: Field,
   partial: Thunk<any>,
   parent: GraphQLObjectType,
+  parentFields: FieldDetails[],
   context: Context,
 ): any {
   const unwrappedType = isNonNullType(type) ? type.ofType : type;
@@ -231,16 +251,25 @@ function fillType(
       type,
       field,
       parent,
+      parentFields,
     });
   } else if (isListType(unwrappedType)) {
     const array = createValue(partial, () => [], {
       type,
       parent,
       field,
+      parentFields,
     });
     return array
       ? array.map((value: any) =>
-          fillType(unwrappedType.ofType, field, value, parent, context),
+          fillType(
+            unwrappedType.ofType,
+            field,
+            value,
+            parent,
+            parentFields,
+            context,
+          ),
         )
       : array;
   } else if (isAbstractType(unwrappedType)) {
@@ -252,6 +281,7 @@ function fillType(
         type,
         parent,
         field,
+        parentFields,
       },
     );
 
@@ -259,6 +289,7 @@ function fillType(
       type,
       parent,
       field,
+      parentFields,
     });
 
     const valueFromPartial = partialObject && partialObject.__typename;
@@ -270,12 +301,15 @@ function fillType(
         type,
         parent,
         field,
+        parentFields,
       },
     );
 
     const resolvedType = typename
       ? possibleTypes.find(({name}) => name === typename)
-      : randomFromArray(context.schema.getPossibleTypes(unwrappedType));
+      : withRandom([...parentFields, field], () =>
+          randomFromArray(context.schema.getPossibleTypes(unwrappedType)),
+        );
 
     if (resolvedType == null) {
       throw new Error(
@@ -292,14 +326,17 @@ function fillType(
       fillObject(
         resolvedType,
         parent,
-        {
-          fieldName: field.fieldName,
-          responseName: field.responseName,
-          isConditional: field.isConditional,
-          ...((field.inlineFragments &&
-            field.inlineFragments[resolvedType.name]) ||
-            field),
-        },
+        [
+          ...parentFields,
+          {
+            fieldName: field.fieldName,
+            responseName: field.responseName,
+            isConditional: field.isConditional,
+            ...((field.inlineFragments &&
+              field.inlineFragments[resolvedType.name]) ||
+              field),
+          },
+        ],
         partial,
         context,
       );
@@ -308,16 +345,24 @@ function fillType(
       type,
       parent,
       field,
+      parentFields,
     });
   } else {
     // eslint-disable-next-line func-style
     const filler = () =>
-      fillObject(unwrappedType, parent, field, partial, context);
+      fillObject(
+        unwrappedType,
+        parent,
+        [...parentFields, field],
+        partial,
+        context,
+      );
 
     return createValue(partial === undefined ? undefined : filler, filler, {
       type,
       parent,
       field,
+      parentFields,
     });
   }
 }
@@ -326,11 +371,22 @@ function randomEnumValue(enumType: GraphQLEnumType) {
   return randomFromArray(enumType.getValues()).value;
 }
 
+function seedFromKeypath(keypath: string[]) {
+  return keypath.reduce<number>((sum, key) => sum + seedFromKey(key), 0);
+}
+
+function seedFromKey(key: string) {
+  return [...key].reduce<number>(
+    (sum, character) => sum + character.charCodeAt(0),
+    0,
+  );
+}
+
 export function list<T = {}>(
   size: number | [number, number],
   partial?: Thunk<T>,
 ): Thunk<T>[] {
   const finalSize =
     typeof size === 'number' ? size : size[Math.round(Math.random())];
-  return Array<T>(finalSize).fill(partial as any);
+  return Array<Thunk<T>>(finalSize).fill(partial as Thunk<T>);
 }

@@ -170,6 +170,55 @@ describe('createFiller()', () => {
     });
   });
 
+  describe('randomness', () => {
+    const fill = createFillerForSchema(`
+      scalar Date
+
+      enum PetPreference {
+        DOG
+        CAT
+      }
+
+      type Person {
+        name: String!
+        petPreference: PetPreference!
+        birthday: Date!
+      }
+
+      type Query {
+        self: Person!
+        sibling: Person
+      }
+    `);
+
+    it('uses the same value for a given keypath', () => {
+      const document = createDocument(`
+        query Details {
+          self { name, petPreference, birthday }
+          sibling { name }
+        }
+      `);
+
+      expect(fill(document)).toEqual(fill(document));
+    });
+
+    it('uses different values for different keypaths', () => {
+      const selfDocument = createDocument<{self: {name: string}}>(`
+        query Details {
+          self { name }
+        }
+      `);
+
+      const meDocument = createDocument<{me: {name: string}}>(`
+        query Details {
+          me: self { name }
+        }
+      `);
+
+      expect(fill(selfDocument).self).not.toEqual(fill(meDocument).me);
+    });
+  });
+
   describe('objects', () => {
     it('fills nested objects', () => {
       const fill = createFillerForSchema(`
@@ -610,6 +659,19 @@ describe('createFiller()', () => {
         ]);
       });
 
+      it('always picks the same implementing type', () => {
+        const fill = createFillerForInterfaceSchema();
+        const document = createDocument(`
+          query Details {
+            named {
+              __typename
+            }
+          }
+        `);
+
+        expect(fill(document)).toEqual(fill(document));
+      });
+
       it('picks an implementing type based on a static typename provided', () => {
         const fill = createFillerForInterfaceSchema();
         const document = createDocument(`
@@ -723,6 +785,7 @@ describe('createFiller()', () => {
             fieldName: 'named',
             responseName: 'namedPerson',
           }),
+          parentFields: [],
         });
       });
 
@@ -968,7 +1031,7 @@ describe('createFiller()', () => {
         });
       });
 
-      it('calls the resolver with its type, parent object type, and field', () => {
+      it('calls the resolver with its type, parent object type, field, and parent field details', () => {
         const personResolver = jest.fn(() => ({name: faker.name.firstName()}));
         const intResolver = jest.fn(() => 1);
 
@@ -1011,6 +1074,7 @@ describe('createFiller()', () => {
             responseName: 'me',
           }),
           parent: schema.getQueryType(),
+          parentFields: [],
         });
 
         expect(intResolver).toHaveBeenCalledWith({
@@ -1020,6 +1084,7 @@ describe('createFiller()', () => {
             responseName: 'legs',
           }),
           parent: schema.getType('Dog'),
+          parentFields: [expect.objectContaining({fieldName: 'pet'})],
         });
       });
 
@@ -1180,7 +1245,7 @@ describe('createFiller()', () => {
 
       expect(
         fill(document, {
-          initialList: list(2, () => list(2)),
+          initialList: list(2, () => list<string>(2)),
         }),
       ).toEqual({
         initialList: [
