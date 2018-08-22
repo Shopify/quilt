@@ -1,18 +1,6 @@
 import * as React from 'react';
 import {translate} from '../utilities';
 
-declare namespace Intl {
-  class PluralRules {
-    constructor(locale: string | string[]);
-
-    select(count: number): string;
-  }
-}
-
-if (Intl.PluralRules == null) {
-  require('intl-pluralrules');
-}
-
 const locale = 'en-us';
 
 describe('translate()', () => {
