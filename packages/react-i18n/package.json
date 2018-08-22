@@ -2,7 +2,7 @@
   "name": "@shopify/react-i18n",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "i18n utilities for React handling translations, formatting, pseudotranslation, and more.",
+  "description": "i18n utilities for React handling translations, formatting, and more.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -28,6 +28,7 @@
     "typescript": "~2.9.2"
   },
   "dependencies": {
+    "@types/hoist-non-react-statics": "^3.0.1",
     "hoist-non-react-statics": "^3.0.1",
     "react-tree-walker": "^4.3.0"
   }
