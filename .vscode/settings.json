@@ -10,6 +10,7 @@
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
+    "**/node_modules": true,
     "**/.DS_Store": true,
     ".dev": true
   },

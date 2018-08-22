@@ -59,6 +59,7 @@
     "setupFiles": [
       "./test/setup.ts"
     ],
+    "setupTestFrameworkScriptFile": "./test/each-test.ts",
     "moduleFileExtensions": [
       "ts",
       "tsx",
