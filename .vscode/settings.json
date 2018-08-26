@@ -12,6 +12,7 @@
     "**/.hg": true,
     "**/node_modules": true,
     "**/.DS_Store": true,
+    "build": true,
     ".dev": true
   },
   "files.insertFinalNewline": true,
