@@ -94,6 +94,7 @@ The label used to designate zip code and provinces are not the same from a count
 
 
 - `zipKey` is one of the following
+  - `postalCode`
   - `postcode`
   - `pincode`
   - `zipCode`
