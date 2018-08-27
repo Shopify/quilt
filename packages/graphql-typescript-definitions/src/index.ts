@@ -3,10 +3,13 @@ import {
   buildClientSchema,
   GraphQLSchema,
   DocumentNode,
+  DefinitionNode,
+  OperationDefinitionNode,
   parse,
   Source,
   concatAST,
 } from 'graphql';
+import chalk from 'chalk';
 import {dirname} from 'path';
 import {readJSON, readFile, writeFile, mkdirp} from 'fs-extra';
 import {watch} from 'chokidar';
@@ -158,6 +161,19 @@ export class Builder extends EventEmitter {
     this.emit('start');
     let ast: AST;
 
+    const duplicateOperations = getDuplicateOperations(this.documentCache);
+
+    if (duplicateOperations.length) {
+      duplicateOperations.forEach(({name, files}) => {
+        const error = new Error(
+          `GraphQL operations must have a unique name. The operation ${chalk.bold(
+            name,
+          )} is declared in:\n ${files.join('\n ')}`,
+        );
+        this.emit('error', error);
+      });
+    }
+
     try {
       ast = compile(
         this.schema,
@@ -277,4 +293,32 @@ function groupOperationsAndFragmentsByFile({
   });
 
   return map;
+}
+
+function getDuplicateOperations(documents: Map<string, DocumentNode>) {
+  const operations = new Map<string, Set<string>>();
+
+  Array.from(documents.entries()).forEach(([path, document]) => {
+    document.definitions.filter(isOperation).forEach((definition) => {
+      const {name} = definition as OperationDefinitionNode;
+      if (name && name.value) {
+        const map = operations.get(name.value);
+        if (map) {
+          map.add(path);
+        } else {
+          operations.set(name.value, new Set([path]));
+        }
+      }
+    });
+  });
+
+  return Array.from(operations.entries())
+    .filter(([, files]) => files.size > 1)
+    .map(([operation, files]) => {
+      return {name: operation, files: Array.from(files)};
+    });
+}
+
+function isOperation(definition: DefinitionNode) {
+  return definition.kind === 'OperationDefinition';
 }

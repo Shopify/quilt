@@ -27,6 +27,12 @@ describe('cli', () => {
       await execDetails(cliCommandForFixtureDirectory('missing-types')),
     ).toMatchSnapshot();
   });
+
+  it('fails when multiple queries have the same name', async () => {
+    expect(
+      await execDetails(cliCommandForFixtureDirectory('duplicate-names')),
+    ).toMatchSnapshot();
+  });
 });
 
 function execDetails(command: string) {
