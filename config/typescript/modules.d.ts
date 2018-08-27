@@ -6,11 +6,6 @@ declare module 'url' {
   export function parse(url: string): URLDetails;
 }
 
-declare module 'enzyme-adapter-react-16' {
-  class Adaptor {}
-  export = Adaptor;
-}
-
 declare module 'react-tree-walker' {
   import * as React from 'react';
 
