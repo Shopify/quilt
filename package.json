@@ -33,6 +33,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.1.1",
     "@types/react-helmet": "^5.0.6",
     "codecov": "^3.0.2",
@@ -54,10 +55,12 @@
     "ts-jest": "^23.0.0",
     "typescript": "~2.9.2"
   },
+  "dependencies": {},
   "jest": {
     "setupFiles": [
       "./test/setup.ts"
     ],
+    "setupTestFrameworkScriptFile": "./test/each-test.ts",
     "moduleFileExtensions": [
       "ts",
       "tsx",
