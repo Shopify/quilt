@@ -1,0 +1,19 @@
+name: quilt
+type: node
+up:
+  - node:
+      version: v8.10.0
+      yarn: true
+  - custom:
+      name: lerna bootstrap
+      met?: 'false'
+      meet: yarnpkg run lerna bootstrap
+
+commands:
+  __default__: start
+  build: yarnpkg build
+  check: yarnpkg check
+  lint: yarnpkg lint
+  start: echo "Running quilt is not really a concept that makes sense."
+  test: yarnpkg test
+  generate: yarnpkg generate
