@@ -1,19 +1,24 @@
 # quilt
 
-A loosely related set of packages for JavaScript/Typescript projects at Shopify. These libraries compose together to help you create performant modern JS apps that you love to develop and test. These packages are developed primarily to be used on top of the stack we like best for our JS apps; Typescript for the flavor, Koa for the server, React for UI, Apollo for data fetching, and Jest for tests. That said, you can mix and match as you like.
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![codecov](https://codecov.io/gh/Shopify/quilt/branch/master/graph/badge.svg)](https://codecov.io/gh/Shopify/quilt)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Shopify/quilt.svg)](https://greenkeeper.io/)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
-This repository uses [lerna](https://github.com/lerna/lerna) to manage it's packages as a 'monorepo' (a repository containing many packages). Links to individual packages can be found below.
+A loosely related set of packages for JavaScript/Typescript projects at Shopify. These libraries compose together to help you create performant modern JS apps that you love to develop and test. These packages are developed primarily to be used on top of the stack we like best for our JS apps; Typescript for the flavor, Koa for the server, React for UI, Apollo for data fetching, and Jest for tests. That said, you can mix and match as you like.
 
-## Packages
+## Usage
+
+The Quilt repo is managed as a monorepo that is composed of many npm packages.
+Each package has its own `README` and documentation describing usage.
+
+### Package Index
 
 | package |     |     |
 | ------- | --- | --- |
 | address | [README](packages/address/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress.svg)](https://badge.fury.io/js/%40shopify%2Faddress) |
+| admin-graphql-api-utilities | [README](packages/admin-graphql-api-utilities/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities) |
 | enzyme-utilities | [README](packages/enzyme-utilities/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities) |
 | jest-dom-mocks | [README](packages/jest-dom-mocks/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks) |
 | jest-koa-mocks | [README](packages/jest-koa-mocks/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks) |
@@ -35,9 +40,13 @@ This repository uses [lerna](https://github.com/lerna/lerna) to manage it's pack
 | react-shortcuts | [README](packages/react-shortcuts/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) |
 | with-env | [README](packages/with-env/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
 
-## Contribute
+## Want to contribute?
 
-Check out our [Contributing Guidelines](CONTRIBUTING.md)
+Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
+
+## Questions?
+
+For Shopifolk, you can reach out to us in Slack on the `#web-foundation` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via Github issues.
 
 ## License
 
