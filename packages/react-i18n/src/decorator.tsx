@@ -7,7 +7,7 @@ import I18n from './i18n';
 import Connection from './connection';
 import Manager, {ConnectionResult, ConnectionState} from './manager';
 import {InvalidI18nConnectionError} from './errors';
-import {TranslationDictionary} from './types';
+import {TranslationDictionary, MaybePromise} from './types';
 import {contextTypes} from './Provider';
 
 type ReactComponent<P> = React.ComponentType<P>;
@@ -31,7 +31,7 @@ export interface WithI18nOptions {
   renderWhileLoading?: boolean;
   translations?(
     locale: string,
-  ): TranslationDictionary | Promise<TranslationDictionary> | undefined;
+  ): MaybePromise<TranslationDictionary | undefined>;
 }
 
 export interface WithI18nProps {

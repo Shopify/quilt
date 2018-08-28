@@ -1,4 +1,4 @@
-import {I18nDetails, TranslationDictionary} from './types';
+import {I18nDetails, TranslationDictionary, MaybePromise} from './types';
 import Connection from './connection';
 
 export interface ConnectionState {
@@ -24,9 +24,7 @@ export default class Manager {
   private subscriptions = new Map<Subscriber, Connection>();
   private translations: Map<
     string,
-    | TranslationDictionary
-    | Promise<TranslationDictionary | undefined>
-    | undefined
+    MaybePromise<TranslationDictionary | undefined>
   >;
 
   constructor(
@@ -208,9 +206,9 @@ function getPossibleLocales(locale: string) {
 }
 
 function isPromise<T>(
-  possiblePromise: T | Promise<T>,
-): possiblePromise is Promise<T> {
-  return possiblePromise != null && (possiblePromise as any).then != null;
+  maybePromise: MaybePromise<T>,
+): maybePromise is Promise<T> {
+  return maybePromise != null && (maybePromise as any).then != null;
 }
 
 function filterUndefined<T>(array: (T | undefined)[]): T[] {

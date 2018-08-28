@@ -122,8 +122,7 @@ export default withI18n({
   "NotFound": {
     "heading": "Page not found",
     "action": "Back",
-    "content":
-      "The page you were looking for could not be found. Please check the web address for errors and try again."
+    "content": "The page you were looking for could not be found. Please check the web address for errors and try again."
   }
 }
 ```
@@ -224,3 +223,16 @@ export default function App() {
   );
 }
 ```
+
+## FAQ
+
+### Why another i18n library? Why not just use <[react-intl](https://github.com/yahoo/react-intl) | [react-i18next](https://github.com/i18next/react-i18next)> etc?
+
+These libraries are excellent, and we may well use parts of them under the hood for this project. However, we wanted to add a Shopify-specific layer that cleanly exposes some features we feel are non-negotiable:
+
+- Per-component management of translations, to avoid the ever-growing translation files that hurt our largest apps.
+- Asynchronous loading of translation files, so that we can scale the number of supported languages without increasing bundle sizes.
+- An API for translations that feels consistent with Rails’ default i18n utilities.
+- Exposing currency and datetime formatting utilities that automatically follow the [Polaris conventions](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses).
+
+Additional details on why we built our own package, and on specifics of parts of this package’s API, are available in the [original proposal](https://github.com/Shopify/web-foundation/pull/3).

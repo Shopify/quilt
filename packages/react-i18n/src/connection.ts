@@ -1,11 +1,8 @@
-import {TranslationDictionary} from './types';
+import {TranslationDictionary, MaybePromise} from './types';
 import {noop} from './utilities';
 
 export interface TranslationGetter {
-  (locale: string):
-    | TranslationDictionary
-    | Promise<TranslationDictionary | undefined>
-    | undefined;
+  (locale: string): MaybePromise<TranslationDictionary | undefined>;
 }
 
 export interface Options {
