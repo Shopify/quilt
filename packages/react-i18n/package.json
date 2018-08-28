@@ -1,0 +1,35 @@
+{
+  "name": "@shopify/react-i18n",
+  "version": "0.0.2",
+  "license": "MIT",
+  "description": "i18n utilities for React handling translations, formatting, and more.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn run build",
+    "test": "jest --config ./config/jest/config.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n/README.md",
+  "devDependencies": {
+    "intl-pluralrules": "^0.2.1",
+    "typescript": "~2.9.2"
+  },
+  "dependencies": {
+    "@types/hoist-non-react-statics": "^3.0.1",
+    "hoist-non-react-statics": "^3.0.1",
+    "react-tree-walker": "^4.3.0"
+  }
+}

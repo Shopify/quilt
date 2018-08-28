@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-compose-enhancers/README.md",
   "dependencies": {
-    "hoist-non-react-statics": "^2.5.0"
+    "hoist-non-react-statics": "^3.0.1"
   },
   "peerDependencies": {
     "react": "^16.3.2"
