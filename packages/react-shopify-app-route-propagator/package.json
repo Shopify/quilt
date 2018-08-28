@@ -28,5 +28,8 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "typescript": "~2.9.2"
+  },
+  "dependencies": {
+    "url-polyfill": "1.0.14"
   }
 }

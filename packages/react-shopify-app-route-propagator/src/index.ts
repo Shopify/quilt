@@ -1,3 +1,4 @@
+import 'url-polyfill';
 import * as React from 'react';
 
 import {getSelfWindow, getTopWindow, getOrigin} from './globals';
