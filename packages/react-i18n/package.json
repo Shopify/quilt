@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n/README.md",
   "devDependencies": {
     "intl-pluralrules": "^0.2.1",
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   },
   "dependencies": {
     "@types/hoist-non-react-statics": "^3.0.1",
