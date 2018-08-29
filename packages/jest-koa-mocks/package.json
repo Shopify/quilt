@@ -29,6 +29,6 @@
   "devDependencies": {
     "@types/express": "^4.11.1",
     "@types/koa": "^2.0.44",
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   }
 }

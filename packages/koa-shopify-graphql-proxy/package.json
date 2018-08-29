@@ -26,6 +26,6 @@
     "koa-better-http-proxy": "^0.2.4"
   },
   "devDependencies": {
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   }
 }
