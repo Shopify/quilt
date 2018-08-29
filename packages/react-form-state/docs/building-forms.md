@@ -523,7 +523,7 @@ import {
 } from '@shopify/polaris';
 import FormState, {
   validators,
-  validateArray,
+  validateList,
   validateObject,
   arrayUtils,
 } from '@shopify/react-form-state';
@@ -565,7 +565,7 @@ export default function Playground({initialValues, updateProduct}: Props) {
             option: required('required'),
             price: numericString('value must be numeric'),
           }),
-          variants: validateArray({
+          variants: validateList({
             option: nonNumericString('option must be nonNumeric'),
             price: numericString('value must be numeric'),
           }),
