@@ -524,7 +524,7 @@ import {
 import FormState, {
   validators,
   validateList,
-  validateObject,
+  validateNested,
   arrayUtils,
 } from '@shopify/react-form-state';
 
@@ -561,7 +561,7 @@ export default function Playground({initialValues, updateProduct}: Props) {
           title: required('Required'),
           quantity: numericString('Must be a number'),
           sku: lengthMoreThan(3, 'Must  be longer than 3 characters'),
-          firstVariant: validateObject({
+          firstVariant: validateNested({
             option: required('required'),
             price: numericString('value must be numeric'),
           }),
