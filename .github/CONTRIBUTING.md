@@ -6,7 +6,21 @@ This guide is tailored to Shopifolk, although we welcome contributions from [the
 
 Shopify has adopted a Code of Conduct that we expect Quilt contributors to adhere to. Please read the [full text](./CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
 
-## Getting Started
+## Ways to contribute
+
+There are many ways to contribute to Quilt, some of which are:
+
+- Filing [bug reports](https://github.com/Shopify/quilt/issues/new?template=BUG_REPORT.md)
+- Requesting new features or packages via [an issue](https://github.com/Shopify/quilt/issues/new/choose)
+  - Bringing up areas for enhancement
+- Hacking away on an issue from our [backlog](https://github.com/Shopify/quilt/issues)
+- Improving tests or documentation
+
+Want to contribute, but not sure how? Find us on slack in `#web-foundation`.
+
+## Development
+
+### Getting Started
 
 ```bash
 dev clone quilt
@@ -15,16 +29,15 @@ dev up
 
 **Note** In order for tests to run properly, you may need to first run `dev build`
 
-## Development
+[what is dev?](#what-is-dev)
 
 ### Getting productive
 
-We are adding documentation as we go in the [Web Foundations repo](https://github.com/Shopify/web-foundation). There you will find our [decision records](https://github.com/Shopify/web-foundation/tree/master/Decision%20records), [principles](https://github.com/Shopify/web-foundation/tree/master/Principles), [best practices](https://github.com/Shopify/web-foundation/tree/master/Best%20practices) and [styleguides](https://github.com/Shopify/web-foundation/tree/master/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundation/blob/master/Best%20practices/Testing.md) different kinds of components.
+We are adding documentation as we go in the [Web Foundation repo](https://github.com/Shopify/web-foundation). There you will find our [decision records](https://github.com/Shopify/web-foundation/tree/master/Decision%20records), [principles](https://github.com/Shopify/web-foundation/tree/master/Principles), [best practices](https://github.com/Shopify/web-foundation/tree/master/Best%20practices) and [styleguides](https://github.com/Shopify/web-foundation/tree/master/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundation/blob/master/Best%20practices/Testing.md) different kinds of components.
 
 The [documentation](../documentation) directory in this repo covers the more granular technical aspects of this project. Of particular note for new folks are the following:
 
-- [Guides](../documentation/guides): a set of guides to help you get started developing with `web`. Of particular note for developers just starting on the project are our guides to [using the hot-reloading playground mode for rapid development](../documentation/guides/playground.md), [writing a new section](../documentation/guides/writing-a-new-section.md), and our list of [legacy patterns](../documentation/guides/legacy-patterns.md) that you should seek to avoid.
-- [Architecture](../documentation/architecture): overviews of the structure of the client, server, and shared code in this repo.
+- [Guides](../documentation/guides): a set of guides to help you get started developing with `quilt`. Of particular note for developers just starting on the project is our guide to [creating a new package](../documentation/guides/creating-a-new-package.md).
 - [FAQ](../documentation/FAQ.md): common questions about the project in general, as well as some of the technical pieces within.
 - [Resources](../documentation/resources.md): good resources for understanding this project’s tech stack.
 - [Getting started](../documentation/getting-started.md): some tools we recommend for getting the most out of this project.
@@ -44,9 +57,11 @@ reflect this. Documentation is in the `README.md` files of each package. If furt
 
 The packages in Quilt are used in mission-critical production scenarios. As such, we try not to merge any untested code. The coverage doesn't strictly need to be 100% across the board, but testing should remain a primary concern.
 
+To run the full test suite, simply run `dev test`. In order for tests to run properly, you may need to first run `dev build`
+
 ### TODO Comments
 
-TODO comments may seem like a great placeholder for work in progress. We prefer top handle this in a different way, using a combination of feature branches and github issues.
+TODO comments may seem like a great placeholder for work in progress. We prefer to handle this in a different way, using a combination of feature branches and github issues.
 
 #### Follow-up Github issues
 
@@ -58,7 +73,9 @@ Another option, if you'd like to break work down into reviewable chunks, is to u
 
 ## Releasing
 
-The release process currently invovles some manual steps to complete. Please ping one of the repo owners in the `#web-foundations` slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release.
+The release process currently involves some manual steps to complete. Please ping one of the repo owners in the `#web-foundation` slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release.
+
+**Note** Version numbers in `package.json` files should never be altered manually. This will be done via scripts as part of the release process.
 
 ### For repo owners
 
@@ -67,8 +84,10 @@ The release process currently invovles some manual steps to complete. Please pin
 1. Ensure you have the latest `master` branch including all tags:
 
 ```
-git checkout master && git pull origin master
+git checkout master && git pull
 ```
+
+**Note** `git pull` should be used instead of `git pull origin master` to ensure that tags are pulled as well.
 
 2. Begin the release process:
 
@@ -78,10 +97,31 @@ yarn release
 
 3. Follow the prompts to choose a version for each package.
 
-**Note** This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+**Note** Quilt packages adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 4. Log in to [Shipit](https://shipit.shopify.io/shopify/quilt/production)
 
 5. When CI is 🍏 on the tag commit, press `Deploy` to update packages on npm.
 
 ## External Contributors
+
+### Getting started
+
+To start working on the codebase, first fork the repo, then clone it:
+
+```
+git clone git@github.com:your-username/javascript-utilities.git
+```
+
+_Note: replace "your-username" with your Github handle_
+
+Install the project's dependencies (make sure you first have [yarn](https://yarnpkg.com/) installed):
+
+```
+yarn
+yarn lerna bootstrap
+```
+
+### What is dev?
+
+`dev` is a tool to standardize a small set of common tasks across all projects at Shopify. If you're wondering how to execute the `dev <cmd>` commands as an external contributor, you can see where they are defined in this project's [`dev.yml`](../dev.yml) file, which is pretty self-explanatory.
