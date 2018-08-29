@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
@@ -22,8 +22,7 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/{{name}}/README.md",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "typescript": "~3.0.1"
   }

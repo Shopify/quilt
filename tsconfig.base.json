@@ -1,5 +1,7 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "moduleResolution": "node",
     "target": "es5",
     "downlevelIteration": true,
@@ -13,6 +15,7 @@
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
+    "composite": true,
     "lib": [
       "dom",
       "es2015",

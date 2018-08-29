@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "prepublishOnly": "yarn run build",
     "test": "jest --config ./config/jest/config.json"
   },

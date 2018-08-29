@@ -1,19 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
-  "compileOnSave": false,
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./src",
-    "rootDir": "./src",
-    "downlevelIteration": true,
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016",
-      "es2017",
-      "es2018",
-      "esnext.asynciterable"
-    ]
+    "rootDir": "./src"
   },
-  "include": ["../../config/typescript/**/*", "./src/**/*.ts", "./src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

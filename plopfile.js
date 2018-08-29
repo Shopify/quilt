@@ -48,28 +48,11 @@ module.exports = function(plop) {
     ],
   });
 
-  // docs generator
   plop.setGenerator('docs', {
     description: 'Generate root repo documentation',
     prompts: [],
     actions(data) {
-      const {
-        readdirSync,
-        existsSync,
-        readFileSync,
-        writeFileSync,
-      } = require('fs');
-      const path = require('path');
-
-      const packagesPath = path.join(__dirname, 'packages');
-      const packageNames = readdirSync(packagesPath).filter(packageName => {
-        const packageJSONPath = path.join(
-          packagesPath,
-          packageName,
-          'package.json',
-        );
-        return existsSync(packageJSONPath);
-      });
+      const packageNames = getPackageNames();
 
       return [
         {
@@ -82,4 +65,37 @@ module.exports = function(plop) {
       ];
     },
   });
+
+  plop.setGenerator('tsconfig', {
+    description: 'Generate package level tsconfig',
+    prompts: [],
+    actions(data) {
+      const packageNames = getPackageNames();
+
+      return [
+        {
+          type: 'add',
+          path: 'packages/tsconfig.json',
+          templateFile: 'templates/packages-tsconfig.hbs.json',
+          force: true,
+          data: {packageNames},
+        },
+      ];
+    },
+  });
 };
+
+function getPackageNames() {
+  const {readdirSync, existsSync, readFileSync, writeFileSync} = require('fs');
+  const path = require('path');
+
+  const packagesPath = path.join(__dirname, 'packages');
+  return readdirSync(packagesPath).filter(packageName => {
+    const packageJSONPath = path.join(
+      packagesPath,
+      packageName,
+      'package.json',
+    );
+    return existsSync(packageJSONPath);
+  });
+}
