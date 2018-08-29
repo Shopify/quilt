@@ -1,5 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
+  "files": [],
   "references": [
     {"path": "address"},
     {"path": "admin-graphql-api-utilities"},
