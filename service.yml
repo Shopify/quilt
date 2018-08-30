@@ -1,5 +1,9 @@
-director: Delaney Manders
+org_line: Shopify Core
 owners:
-  - themallen
+  - Shopify/web-foundation
   - tzvipm
+audience: partner
 classification: library
+slack_channels:
+  - library-extraction
+  - web-foundation
