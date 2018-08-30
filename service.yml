@@ -2,6 +2,7 @@ org_line: Shopify Core
 owners:
   - Shopify/web-foundation
   - tzvipm
+  - TheMallen
 audience: partner
 classification: library
 ci_url: https://travis-ci.org/Shopify/quilt
