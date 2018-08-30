@@ -10,7 +10,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "prepublishOnly": "yarn run build"
   },
   "author": "Shopify Inc.",
@@ -27,7 +27,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^3.2.0",
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   },
   "greenkeeper": {
     "ignore": [

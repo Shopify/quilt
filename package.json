@@ -8,10 +8,10 @@
   },
   "scripts": {
     "publish": "lerna publish",
-    "prebuild": "yarn run clean",
-    "build": "lerna run build",
+    "build": "tsc -b packages",
     "lint": "yarn eslint '**/*.{ts,tsx}'",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
+    "ci:lint-tsconfig": "yarn generate tsconfig && test -z \"$(git status --porcelain)\" || echo 'packages/tsconfig.json has not been updated. Run `yarn generate tsconfig` in the root of your quilt directory and try again.'",
     "test": "jest --maxWorkers=3",
     "check": "lerna run check",
     "release": "lerna publish && git push --follow-tags",
@@ -53,7 +53,7 @@
     "react-helmet": "^5.2.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.0.0",
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   },
   "dependencies": {},
   "jest": {
@@ -75,6 +75,11 @@
       "url": "http://localhost:3000/"
     },
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    }
   }
 }

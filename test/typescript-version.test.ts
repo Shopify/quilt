@@ -10,6 +10,10 @@ describe('typescript version', () => {
     const packageNames = readdirSync(packagesPath);
 
     for (const packageName of packageNames) {
+      if (packageName.includes('.')) {
+        continue;
+      }
+
       const packageJSONPath = path.join(
         packagesPath,
         packageName,

@@ -1,0 +1,28 @@
+{
+  "extends": "../tsconfig.base.json",
+  "files": [],
+  "references": [
+    {"path": "address"},
+    {"path": "admin-graphql-api-utilities"},
+    {"path": "enzyme-utilities"},
+    {"path": "jest-dom-mocks"},
+    {"path": "jest-koa-mocks"},
+    {"path": "jest-mock-apollo"},
+    {"path": "jest-mock-router"},
+    {"path": "koa-liveness-ping"},
+    {"path": "koa-metrics"},
+    {"path": "koa-shopify-auth"},
+    {"path": "koa-shopify-graphql-proxy"},
+    {"path": "logger"},
+    {"path": "react-compose"},
+    {"path": "react-form-state"},
+    {"path": "react-html"},
+    {"path": "react-i18n"},
+    {"path": "react-import-remote"},
+    {"path": "react-preconnect"},
+    {"path": "react-serialize"},
+    {"path": "react-shopify-app-route-propagator"},
+    {"path": "react-shortcuts"},
+    {"path": "with-env"}
+  ]
+}

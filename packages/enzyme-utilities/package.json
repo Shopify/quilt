@@ -10,7 +10,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "prepublishOnly": "yarn run build"
   },
   "author": "Shopify Inc.",
@@ -27,6 +27,6 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   }
 }

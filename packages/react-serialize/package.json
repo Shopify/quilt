@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   }
 }
