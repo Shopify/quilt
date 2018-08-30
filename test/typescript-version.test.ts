@@ -7,7 +7,9 @@ describe('typescript version', () => {
     const rootVersion = rootPackageJSON.devDependencies.typescript;
 
     const packagesPath = path.resolve(__dirname, '..', 'packages');
-    const packageNames = readdirSync(packagesPath);
+    const packageNames = readdirSync(packagesPath).filter(
+      file => !file.includes('.'),
+    );
 
     for (const packageName of packageNames) {
       const packageJSONPath = path.join(
