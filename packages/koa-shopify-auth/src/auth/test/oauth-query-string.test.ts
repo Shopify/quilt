@@ -1,8 +1,7 @@
 import querystring from 'querystring';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
-import createOAuthStart from '../create-oauth-start';
-import redirectionPage from '../redirection-page';
+import oAuthQueryString from '../oauth-query-string';
 import Error from '../errors';
 
 jest.mock('nonce', () => {
@@ -15,8 +14,6 @@ const query = querystring.stringify.bind(querystring);
 const fakeNonce = 'fakenonce';
 const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
-const shopOrigin = 'https://shop1.myshopify.io';
-const redirectionURL = `/admin/oauth/authorize`;
 
 const baseConfig = {
   apiKey: 'myapikey',
@@ -33,7 +30,7 @@ const queryData = {
   redirect_uri: `https://${baseUrl}/callback`,
 };
 
-describe('OAuthStart', () => {
+describe('oAuthQueryString', () => {
   beforeEach(() => {
     const mockedNonce = nonce();
 
@@ -41,62 +38,50 @@ describe('OAuthStart', () => {
   });
 
   it('throws a 400 when no shop query parameter is given', async () => {
-    const oAuthStart = createOAuthStart(baseConfig);
     const ctx = createMockContext({
       url: `https://${baseUrl}`,
       throw: jest.fn(),
     });
 
-    await oAuthStart(ctx);
+    await oAuthQueryString(ctx, baseConfig);
     expect(ctx.throw).toBeCalledWith(400, Error.ShopParamMissing);
   });
 
-  it('sets body to a redirect page for the given shop', () => {
-    const oAuthStart = createOAuthStart(baseConfig);
+  it('returns a valid query string', () => {
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
 
-    oAuthStart(ctx);
-
-    expect(ctx.body).toBe(
-      redirectionPage({
-        path: `${redirectionURL}?${query(queryData)}`,
-        origin: shopOrigin,
-      }),
+    const generatedQueryString = oAuthQueryString(
+      ctx,
+      baseConfig,
     );
+
+    expect(generatedQueryString).toBe(query(queryData));
   });
 
   it('sets nonce cookie', () => {
-    const oAuthStart = createOAuthStart(baseConfig);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
 
-    oAuthStart(ctx);
+    oAuthQueryString(ctx, baseConfig);
 
     expect(ctx.cookies.set).toBeCalledWith('shopifyNonce', fakeNonce);
   });
 
-  it('redirect page includes per-user grant for accessMode: online', () => {
-    const oAuthStart = createOAuthStart({
-      ...baseConfig,
-      accessMode: 'online',
-    });
-
+  it('query string includes per-user grant for accessMode: online', () => {
     const ctx = createMockContext({
       url: 'https://myapp.com/auth?shop=shop1.myshopify.io',
     });
 
-    oAuthStart(ctx);
+    const generatedQueryString = oAuthQueryString(
+      ctx,
+      {...baseConfig, accessMode: 'online'},
+    );
 
     // eslint-disable-next-line camelcase
     const grantQuery = query({...queryData, 'grant_options[]': 'per-user'});
-    expect(ctx.body).toBe(
-      redirectionPage({
-        path: `${redirectionURL}?${grantQuery}`,
-        origin: shopOrigin,
-      }),
-    );
+    expect(generatedQueryString).toBe(grantQuery);
   });
 });
