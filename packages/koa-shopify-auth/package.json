@@ -32,6 +32,6 @@
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.0.7",
     "@types/safe-compare": "^1.1.0",
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   }
 }

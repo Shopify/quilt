@@ -24,6 +24,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address/README.md",
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.0.7",
-    "typescript": "~2.9.2"
+    "typescript": "~3.0.1"
   }
 }
