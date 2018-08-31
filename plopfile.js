@@ -1,5 +1,9 @@
+const {readdirSync, existsSync} = require('fs');
+const path = require('path');
+
+const packageNames = getPackageNames();
+
 module.exports = function(plop) {
-  // package generator
   plop.setGenerator('package', {
     description: 'create a new package from scratch',
     prompts: [
@@ -45,41 +49,37 @@ module.exports = function(plop) {
         path: 'packages/{{name}}/src/test/index.test.ts',
         templateFile: 'templates/test.hbs.ts',
       },
+      sharedActions.docs,
     ],
   });
 
-  // docs generator
   plop.setGenerator('docs', {
     description: 'Generate root repo documentation',
     prompts: [],
-    actions(data) {
-      const {
-        readdirSync,
-        existsSync,
-        readFileSync,
-        writeFileSync,
-      } = require('fs');
-      const path = require('path');
-
-      const packagesPath = path.join(__dirname, 'packages');
-      const packageNames = readdirSync(packagesPath).filter(packageName => {
-        const packageJSONPath = path.join(
-          packagesPath,
-          packageName,
-          'package.json',
-        );
-        return existsSync(packageJSONPath);
-      });
-
-      return [
-        {
-          type: 'add',
-          path: 'README.md',
-          templateFile: 'templates/ROOT_README.hbs.md',
-          force: true,
-          data: {packageNames},
-        },
-      ];
+    actions() {
+      return [sharedActions.docs];
     },
   });
 };
+
+const sharedActions = {
+  docs: {
+    type: 'add',
+    path: 'README.md',
+    templateFile: 'templates/ROOT_README.hbs.md',
+    force: true,
+    data: {packageNames},
+  },
+};
+
+function getPackageNames() {
+  const packagesPath = path.join(__dirname, 'packages');
+  return readdirSync(packagesPath).filter(packageName => {
+    const packageJSONPath = path.join(
+      packagesPath,
+      packageName,
+      'package.json',
+    );
+    return existsSync(packageJSONPath);
+  });
+}
