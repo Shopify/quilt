@@ -4,11 +4,6 @@ up:
   - node:
       version: v8.10.0
       yarn: true
-  - custom:
-      name: lerna bootstrap
-      met?: 'false'
-      meet: yarnpkg run lerna bootstrap
-
 commands:
   __default__: start
   build: yarnpkg build
