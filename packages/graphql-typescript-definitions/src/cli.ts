@@ -4,28 +4,28 @@ import * as yargs from 'yargs';
 import chalk from 'chalk';
 
 import {EnumFormat} from './types';
-import {Builder} from '.';
+import {Builder, SchemaBuild, DocumentBuild} from '.';
 
 const argv = yargs
-  .usage('Usage: $0 <graphql-files> [options]')
-  .option('schema-path', {
-    required: true,
+  .usage('Usage: $0 [options]')
+  .option('watch', {
+    required: false,
+    default: false,
+    type: 'boolean',
+    describe: 'Watch the GraphQL files for changes and re-run the generation',
+  })
+  .option('cwd', {
+    required: false,
+    default: process.cwd(),
     normalize: true,
     type: 'string',
-    describe:
-      'The path to the JSON file containing a schema instrospection query result',
+    describe: 'Working directory to use',
   })
   .option('schema-types-path', {
     required: true,
     normalize: true,
     type: 'string',
     describe: 'The path to output concrete schema types',
-  })
-  .option('watch', {
-    required: false,
-    default: false,
-    type: 'boolean',
-    describe: 'Watch the GraphQL files for changes and re-run the generation',
   })
   .option('add-typename', {
     required: false,
@@ -48,30 +48,50 @@ const argv = yargs
   .help().argv;
 
 const builder = new Builder({
-  graphQLFiles: argv._[0],
-  schemaPath: argv.schemaPath,
+  cwd: argv.cwd,
   schemaTypesPath: argv.schemaTypesPath,
   addTypename: argv.addTypename,
   enumFormat: argv.enumFormat,
 });
 
+const schemas: SchemaBuild[] = [];
+const docs: DocumentBuild[] = [];
+
 const BUILT = chalk.inverse.bold.green(' BUILT ');
 const ERROR = chalk.inverse.bold.red(' ERROR ');
 
-builder.on('start', () => {
+builder.on('start:docs', () => {
+  docs.length = 0;
   console.log();
 });
 
-builder.on('schema:start', () => {
+builder.on('start:schema', () => {
+  schemas.length = 0;
   console.log();
 });
 
-builder.on('schema:end', () => {
-  console.log(`${BUILT} ${argv.schemaTypesPath}`);
+builder.on('build:docs', (doc) => {
+  docs.push(doc);
 });
 
-builder.on('build', ({documentPath, definitionPath}) => {
-  console.log(`${BUILT} ${chalk.dim(documentPath)} → ${definitionPath}`);
+builder.on('build:schema', (schema) => {
+  schemas.push(schema);
+});
+
+builder.on('end:docs', () => {
+  docs
+    .sort(({documentPath: a}, {documentPath: b}) => a.localeCompare(b))
+    .forEach(({documentPath, definitionPath}) => {
+      console.log(`${BUILT} ${chalk.dim(documentPath)} → ${definitionPath}`);
+    });
+});
+
+builder.on('end:schema', () => {
+  schemas
+    .sort(({schemaPath: a}, {schemaPath: b}) => a.localeCompare(b))
+    .forEach(({schemaPath, schemaTypesPath}) => {
+      console.log(`${BUILT} ${chalk.dim(schemaPath)} → ${schemaTypesPath}`);
+    });
 });
 
 builder.on('error', (error) => {
@@ -81,7 +101,7 @@ builder.on('error', (error) => {
   }
   console.log();
 
-  if (!builder.watching) {
+  if (!argv.watch) {
     process.exit(1);
   }
 });
