@@ -10,8 +10,9 @@ const createNonce = nonce();
 export default function oAuthQueryString(
   ctx: Context,
   options: OAuthStartOptions,
+  callbackPath: string,
 ) {
-  const {query, host, path, cookies} = ctx;
+  const {query, host, cookies} = ctx;
   const {shop} = query;
   const {scopes = [], apiKey, accessMode} = options;
 
@@ -28,7 +29,7 @@ export default function oAuthQueryString(
     state: requestNonce,
     scope: scopes.join(', '),
     client_id: apiKey,
-    redirect_uri: `https://${host}${path}/callback`,
+    redirect_uri: `https://${host}${callbackPath}`,
   };
   /* eslint-enable camelcase */
 

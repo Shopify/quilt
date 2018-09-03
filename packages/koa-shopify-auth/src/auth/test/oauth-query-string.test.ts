@@ -13,6 +13,7 @@ const nonce = require.requireMock('nonce');
 const query = querystring.stringify.bind(querystring);
 const fakeNonce = 'fakenonce';
 const baseUrl = 'myapp.com/auth';
+const callbackPath = '/auth/callback';
 const shop = 'shop1.myshopify.io';
 
 const baseConfig = {
@@ -43,7 +44,7 @@ describe('oAuthQueryString', () => {
       throw: jest.fn(),
     });
 
-    await oAuthQueryString(ctx, baseConfig);
+    await oAuthQueryString(ctx, baseConfig, callbackPath);
     expect(ctx.throw).toBeCalledWith(400, Error.ShopParamMissing);
   });
 
@@ -55,6 +56,7 @@ describe('oAuthQueryString', () => {
     const generatedQueryString = oAuthQueryString(
       ctx,
       baseConfig,
+      callbackPath,
     );
 
     expect(generatedQueryString).toBe(query(queryData));
@@ -65,7 +67,7 @@ describe('oAuthQueryString', () => {
       url: `https://${baseUrl}?${query({shop})}`,
     });
 
-    oAuthQueryString(ctx, baseConfig);
+    oAuthQueryString(ctx, baseConfig, callbackPath);
 
     expect(ctx.cookies.set).toBeCalledWith('shopifyNonce', fakeNonce);
   });
@@ -78,6 +80,7 @@ describe('oAuthQueryString', () => {
     const generatedQueryString = oAuthQueryString(
       ctx,
       {...baseConfig, accessMode: 'online'},
+      callbackPath,
     );
 
     // eslint-disable-next-line camelcase
