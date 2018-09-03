@@ -6,6 +6,7 @@ import createOAuthCallback from './create-oauth-callback';
 import createEnableCookies from './create-enable-cookies';
 import createTopLevelRedirect from './create-top-level-redirect';
 
+const DEFAULT_MYSHOPIFY_DOMAIN = 'myshopify.com';
 const DEFAULT_ACCESS_MODE: AccessMode = 'online';
 
 const TOP_LEVEL_OAUTH_COOKIE_NAME = 'shopifyTopLevelOAuth';
@@ -23,6 +24,7 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   const config = {
     scopes: [],
     prefix: '',
+    myShopifyDomain: DEFAULT_MYSHOPIFY_DOMAIN,
     accessMode: DEFAULT_ACCESS_MODE,
     ...options,
   };
