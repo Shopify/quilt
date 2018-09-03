@@ -1,8 +1,7 @@
 import {Context} from 'koa';
 
 import {OAuthStartOptions, AccessMode, NextFunction} from '../types';
-import createTopLevelOAuth from './create-top-level-oauth';
-import createIFrameOAuth from './create-iframe-oauth';
+import createOAuthStart from './create-oauth-start';
 import createOAuthCallback from './create-oauth-callback';
 import createEnableCookies from './create-enable-cookies';
 import createTopLevelRedirect from './create-top-level-redirect';
@@ -16,7 +15,7 @@ function hasCookieAccess({cookies}: Context) {
   return Boolean(cookies.get(TEST_COOKIE_NAME));
 }
 
-function shouldPerformIFrameOAuth({cookies}: Context) {
+function shouldPerformInlineOAuth({cookies}: Context) {
   return Boolean(cookies.get(TOP_LEVEL_OAUTH_COOKIE_NAME));
 }
 
@@ -31,11 +30,13 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   const {baseUrl, prefix} = config;
 
   const oAuthStartPath = `${prefix}/auth`;
-  const topLevelOAuth = createTopLevelOAuth(config);
-  const iFrameOAuth = createIFrameOAuth(config);
-
   const oAuthCallbackPath = `${oAuthStartPath}/callback`;
+
+  const oAuthStart = createOAuthStart(config, oAuthCallbackPath);
   const oAuthCallback = createOAuthCallback(config);
+
+  const inlineOAuthPath = `${prefix}/auth/inline`;
+  const redirectToTopLevelOAuth = createTopLevelRedirect(`${baseUrl}${inlineOAuthPath}`);
 
   const enableCookiesPath = `${oAuthStartPath}/enable_cookies`;
   const enableCookies = createEnableCookies(config);
@@ -49,14 +50,17 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
       return;
     }
 
-    if (ctx.path === oAuthStartPath && shouldPerformIFrameOAuth(ctx)) {
-      await iFrameOAuth(ctx);
+    if (
+      ctx.path === inlineOAuthPath ||
+      (ctx.path === oAuthStartPath && shouldPerformInlineOAuth(ctx))
+    ) {
+      await oAuthStart(ctx);
       return;
     }
 
     if (ctx.path === oAuthStartPath) {
       ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME, '1');
-      await topLevelOAuth(ctx);
+      await redirectToTopLevelOAuth(ctx);
       return;
     }
 

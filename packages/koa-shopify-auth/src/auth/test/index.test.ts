@@ -9,11 +9,8 @@ jest.mock('../create-top-level-redirect', () =>
   jest.fn(() => mockTopLevelRedirect),
 );
 
-const mockCreateTopLevelOAuth = jest.fn();
-jest.mock('../create-top-level-oauth', () => () => mockCreateTopLevelOAuth);
-
-const mockCreateIFrameOAuth = jest.fn();
-jest.mock('../create-iframe-oauth', () => () => mockCreateIFrameOAuth);
+const mockOAuthStart = jest.fn();
+jest.mock('../create-oauth-start', () => () => mockOAuthStart);
 
 const mockOAuthCallback = jest.fn();
 jest.mock('../create-oauth-callback', () => () => mockOAuthCallback);
@@ -48,7 +45,7 @@ describe('Index', () => {
     });
 
     describe('with a test cookie but not top-level cookie', () => {
-      it('performs top-level oauth', async () => {
+      it('redirects to /auth/inline at the top-level', async () => {
         const shopifyAuth = createShopifyAuth(baseConfig);
         const ctx = createMockContext({
           url: `https://${baseUrl}`,
@@ -57,7 +54,8 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(mockCreateTopLevelOAuth).toBeCalledWith(ctx);
+        expect(createTopLevelRedirect).toBeCalledWith('/auth/inline');
+        expect(mockTopLevelRedirect).toBeCalledWith(ctx);
       });
 
       it('sets the top-level cookie', async () => {
@@ -74,7 +72,7 @@ describe('Index', () => {
     });
 
     describe('with a test cookie and a top-level cookie', () => {
-      it('performs iframe oauth', async () => {
+      it('performs inline oauth', async () => {
         const shopifyAuth = createShopifyAuth(baseConfig);
         const ctx = createMockContext({
           url: `https://${baseUrl}`,
@@ -83,8 +81,21 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(mockCreateIFrameOAuth).toBeCalledWith(ctx);
+        expect(mockOAuthStart).toBeCalledWith(ctx);
       });
+    });
+  });
+
+  describe('with the /auth/inline path', () => {
+    it('performs inline oauth', async () => {
+      const shopifyAuth = createShopifyAuth(baseConfig);
+      const ctx = createMockContext({
+        url: `https://${baseUrl}/inline`,
+      });
+
+      await shopifyAuth(ctx, nextFunction);
+
+      expect(mockOAuthStart).toBeCalledWith(ctx);
     });
   });
 
