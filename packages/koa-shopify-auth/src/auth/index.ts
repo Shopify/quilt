@@ -29,7 +29,7 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
     ...options,
   };
 
-  const {baseUrl, prefix} = config;
+  const {prefix} = config;
 
   const oAuthStartPath = `${prefix}/auth`;
   const oAuthCallbackPath = `${oAuthStartPath}/callback`;
@@ -38,11 +38,11 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   const oAuthCallback = createOAuthCallback(config);
 
   const inlineOAuthPath = `${prefix}/auth/inline`;
-  const redirectToTopLevelOAuth = createTopLevelRedirect(`${baseUrl}${inlineOAuthPath}`);
+  const redirectToTopLevelOAuth = createTopLevelRedirect(inlineOAuthPath);
 
   const enableCookiesPath = `${oAuthStartPath}/enable_cookies`;
   const enableCookies = createEnableCookies(config);
-  const redirectToEnableCookies = createTopLevelRedirect(`${baseUrl}${enableCookiesPath}`);
+  const redirectToEnableCookies = createTopLevelRedirect(enableCookiesPath);
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
     if (ctx.path === oAuthStartPath && !hasCookieAccess(ctx)) {
