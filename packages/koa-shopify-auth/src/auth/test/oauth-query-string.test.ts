@@ -38,16 +38,6 @@ describe('oAuthQueryString', () => {
     mockedNonce.mockImplementation(() => fakeNonce);
   });
 
-  it('throws a 400 when no shop query parameter is given', async () => {
-    const ctx = createMockContext({
-      url: `https://${baseUrl}`,
-      throw: jest.fn(),
-    });
-
-    await oAuthQueryString(ctx, baseConfig, callbackPath);
-    expect(ctx.throw).toBeCalledWith(400, Error.ShopParamMissing);
-  });
-
   it('returns a valid query string', () => {
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,

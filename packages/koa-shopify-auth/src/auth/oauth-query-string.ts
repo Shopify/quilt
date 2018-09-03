@@ -2,7 +2,6 @@ import {Context} from 'koa';
 import querystring from 'querystring';
 import nonce from 'nonce';
 
-import Error from "./errors";
 import {OAuthStartOptions} from '../types';
 
 const createNonce = nonce();
@@ -12,14 +11,8 @@ export default function oAuthQueryString(
   options: OAuthStartOptions,
   callbackPath: string,
 ) {
-  const {query, host, cookies} = ctx;
-  const {shop} = query;
+  const {host, cookies} = ctx;
   const {scopes = [], apiKey, accessMode} = options;
-
-  if (shop == null) {
-    ctx.throw(400, Error.ShopParamMissing);
-    return;
-  }
 
   const requestNonce = createNonce();
   cookies.set('shopifyNonce', requestNonce);

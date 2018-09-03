@@ -1,19 +1,29 @@
 import {Context} from 'koa';
 
-import {OAuthStartOptions} from '../types';
+import Error from './errors';
 import oAuthQueryString from './oauth-query-string';
+import {OAuthStartOptions} from '../types';
 
 export default function createOAuthStart(
   options: OAuthStartOptions,
   callbackPath: string,
 ) {
   return function oAuthStart(ctx: Context) {
+    const {myShopifyDomain} = options;
     const {query} = ctx;
     const {shop} = query;
 
+    const shopRegex = new RegExp(
+      `^[a-z0-9][a-z0-9\\-]*[a-z0-9]\\.${myShopifyDomain}$`,
+    );
+
+    if (shop == null || !shopRegex.test(shop)) {
+      ctx.throw(400, Error.ShopParamMissing);
+      return;
+    }
+
     const formattedQueryString = oAuthQueryString(ctx, options, callbackPath);
 
-    // TODO: Validate that the shop is legal
     ctx.redirect(
       `https://${shop}/admin/oauth/authorize?${formattedQueryString}`,
     );
