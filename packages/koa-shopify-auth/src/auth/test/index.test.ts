@@ -83,6 +83,18 @@ describe('Index', () => {
 
         expect(mockOAuthStart).toBeCalledWith(ctx);
       });
+
+      it('clears the top-level cookie', async () => {
+        const shopifyAuth = createShopifyAuth(baseConfig);
+        const ctx = createMockContext({
+          url: `https://${baseUrl}`,
+          cookies: {shopifyTestCookie: '1', shopifyTopLevelOAuth: '1'},
+        });
+
+        await shopifyAuth(ctx, nextFunction);
+
+        expect(ctx.cookies.set).toBeCalledWith('shopifyTopLevelOAuth');
+      });
     });
   });
 
@@ -96,6 +108,18 @@ describe('Index', () => {
       await shopifyAuth(ctx, nextFunction);
 
       expect(mockOAuthStart).toBeCalledWith(ctx);
+    });
+
+    it('clears the top-level cookie', async () => {
+      const shopifyAuth = createShopifyAuth(baseConfig);
+      const ctx = createMockContext({
+        url: `https://${baseUrl}`,
+        cookies: {shopifyTestCookie: '1', shopifyTopLevelOAuth: '1'},
+      });
+
+      await shopifyAuth(ctx, nextFunction);
+
+      expect(ctx.cookies.set).toBeCalledWith('shopifyTopLevelOAuth');
     });
   });
 

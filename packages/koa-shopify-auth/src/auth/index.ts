@@ -56,6 +56,7 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
       ctx.path === inlineOAuthPath ||
       (ctx.path === oAuthStartPath && shouldPerformInlineOAuth(ctx))
     ) {
+      ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
       await oAuthStart(ctx);
       return;
     }
