@@ -1,26 +1,9 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "moduleResolution": "node",
-    "target": "es5",
-    "downlevelIteration": true,
-    "esModuleInterop": true,
-    "declaration": true,
-    "jsx": "react",
-    "strictNullChecks": true,
-    "noImplicitAny": false,
-    "sourceMap": false,
-    "noEmitOnError": true,
-    "experimentalDecorators": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016",
-      "es2017",
-      "es2018",
-      "esnext.asynciterable"
-    ]
-  },
-  "exclude": ["./node_modules", "**/*.test.ts", "**/*.test.tsx"]
+    "baseUrl": ".",
+    "paths": {
+      "@shopify/*": ["packages/*/src/index"]
+    }
+  }
 }
