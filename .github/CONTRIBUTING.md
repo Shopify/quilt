@@ -27,8 +27,6 @@ dev clone quilt
 dev up
 ```
 
-**Note** In order for tests to run properly, you may need to first run `dev build`
-
 [what is dev?](#what-is-dev)
 
 ### Getting productive
