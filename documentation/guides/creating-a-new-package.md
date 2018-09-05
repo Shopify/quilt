@@ -15,7 +15,7 @@ Quilt provides a generator for creating new packages. Simply run `dev generate p
 
 ### Naming
 
-If you need help with finding a good name for your package, feel free to reach our in `#web-foundation` on slack, or else just pick a relevant name and add a comment to the PR asking for feedback.
+If you need help with finding a good name for your package, feel free to reach our in `#quilt` on Slack, or else just pick a relevant name and add a comment to the PR asking for feedback.
 
 ## Trading in a PR
 
