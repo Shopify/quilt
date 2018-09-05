@@ -16,7 +16,7 @@ There are many ways to contribute to Quilt, some of which are:
 - Hacking away on an issue from our [backlog](https://github.com/Shopify/quilt/issues)
 - Improving tests or documentation
 
-Want to contribute, but not sure how? Find us on slack in `#web-foundation`.
+Want to contribute, but not sure how? Find us on Slack in `#quilt` and `#web-foundation-tech`.
 
 ## Development
 
@@ -71,7 +71,7 @@ Another option, if you'd like to break work down into reviewable chunks, is to u
 
 ## Releasing
 
-The release process currently involves some manual steps to complete. Please ping one of the repo owners in the `#web-foundation` slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release.
+The release process currently involves some manual steps to complete. Please ping one of the repo owners in the `#quilt` Slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release.
 
 **Note** Version numbers in `package.json` files should never be altered manually. This will be done via scripts as part of the release process.
 
