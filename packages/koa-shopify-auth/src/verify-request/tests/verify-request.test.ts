@@ -1,6 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import verifyRequest from '../verify-request';
-import {TEST_COOKIE_NAME} from '../../index';
+import {TEST_COOKIE_NAME, TOP_LEVEL_OAUTH_COOKIE_NAME} from '../../index';
 
 describe('verifyRequest', () => {
   it('calls next if there is an accessToken on session', () => {
@@ -11,6 +11,16 @@ describe('verifyRequest', () => {
     verifyRequestMiddleware(ctx, next);
 
     expect(next).toBeCalled();
+  });
+
+  it('clears the top level oauth cookie if there is an accessToken', () => {
+    const verifyRequestMiddleware = verifyRequest();
+    const ctx = createMockContext({session: {accessToken: 'test'}});
+    const next = jest.fn();
+
+    verifyRequestMiddleware(ctx, next);
+
+    expect(ctx.cookies.set).toBeCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME);
   });
 
   it('sets the test cookie if there is no accessToken', () => {
