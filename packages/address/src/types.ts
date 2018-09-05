@@ -11,6 +11,20 @@ export enum FieldName {
   Company = 'company',
 }
 
+export type ProvinceKey =
+  | 'COUNTY'
+  | 'EMIRATE'
+  | 'GOVERNORATE'
+  | 'PREFECTURE'
+  | 'PROVINCE'
+  | 'REGION'
+  | 'STATE_AND_TERRITORY'
+  | 'STATE';
+
+export type ZipKey = 'POSTAL_CODE' | 'POSTCODE' | 'PINCODE' | 'ZIP_CODE';
+
+export type Address2Key = 'APT_SUITE_ETC' | 'APT_UNIT_NUMBER';
+
 export interface Address {
   company?: string;
   firstName?: string;
@@ -29,21 +43,37 @@ export interface Province {
   code: string;
   name: string;
 }
+export interface LoadCountriesResponse {
+  data: {countries: Country[]};
+}
 
+export interface LoadCountryResponse {
+  data: {country: Country};
+}
 export interface Country {
-  id: string;
-  type: string;
-  attributes: {
-    code: string;
-    name: string;
-    phoneNumberPrefix: number;
-    format: {
-      edit: string;
-      show: string;
-    };
-    zoneKey: string;
-    zipKey: string;
-    address2Key: string;
-    provinces: Province[];
+  name: string;
+  code: string;
+  phoneNumberPrefix: number;
+  address2Key: Address2Key;
+  provinceKey: ProvinceKey;
+  zipKey: ZipKey;
+  formatting: {
+    edit: string;
+    show: string;
   };
+  provinces: Province[];
+}
+
+export interface ResponseError {
+  errors: {
+    locations: {
+      column: number;
+      line: number;
+    }[];
+    message: string;
+    problems: {
+      explanation: string;
+    }[];
+    value: any;
+  }[];
 }

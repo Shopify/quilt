@@ -4,7 +4,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Faddress.svg)](https://badge.fury.io/js/%40shopify%2Faddress)
 ![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/%40shopify/shopify%2address.svg)
 
-
 Address utilities for loading and ordering addresses.
 
 ## Installation
@@ -37,9 +36,9 @@ Loads and return data about a all countries in the given locale. Countries are o
 
 Returns how to order address fields.
 
-Eg.: 
+Eg.:
 
-``` typescript
+```typescript
 [
   ['firstName', 'lastName'],
   ['company'],
@@ -47,62 +46,56 @@ Eg.:
   ['address2'],
   ['city'],
   ['country', 'province', 'zip'],
-  ['phone']
-]
+  ['phone'],
+];
 ```
 
 #### `async .format(address: Address): string[]`
 
 Given an address, returns the address ordered for multiline show. Eg.
 
-``` typescript
-[
-  'Shopify',
-  'Lindenstraße 9-14',
-  '10969 Berlin',
-  'Germany'
-]
+```typescript
+['Shopify', 'Lindenstraße 9-14', '10969 Berlin', 'Germany'];
 ```
 
 #### `async .getTranslationKey(countryCode: string, key: FieldName): string`
 
-Get the translation key for a given field for a given country. Eg: 
+Get the translation key for a given field for a given country. Eg:
 
-``` typescript
-await getTranslationKey('CA', 'province'); // => "province"
-await getTranslationKey('US', 'province'); // => "state"
-await getTranslationKey('JA', 'province'); // => "prefecture"
-await getTranslationKey('CA', 'zip'); // => "postalCode"
-await getTranslationKey('US', 'zip'); // => "zipCode"
-await getTranslationKey('CA', 'address2'); // => "aptUnitNumber"
-await getTranslationKey('JA', 'address2'); // => "aptSuiteEtc"
+```typescript
+await getTranslationKey('CA', 'province'); // => "PROVINCE"
+await getTranslationKey('US', 'province'); // => "STATE"
+await getTranslationKey('JA', 'province'); // => "PREFECTURE"
+await getTranslationKey('CA', 'zip'); // => "POSTAL_CODE"
+await getTranslationKey('US', 'zip'); // => "ZIP_CODE"
+await getTranslationKey('CA', 'address2'); // => "APT_UNIT_NUMBER"
+await getTranslationKey('JA', 'address2'); // => "APT_SUITE_ETC"
 ```
 
 #### Translation keys
 
 The label used to designate zip code and provinces are not the same from a country to another
 
-- `zoneKey` is one of the following
-  - `county`
-  - `emirate`
-  - `governorate`
-  - `prefecture`
-  - `province`
-  - `region`
-  - `stateAndTerritory`
-  - `state`
+- `ProvinceKey` is one of the following
+  - `COUNTY`
+  - `EMIRATE`
+  - `GOVERNORATE`
+  - `PREFECTURE`
+  - `PROVINCE`
+  - `REGION`
+  - `STATE_AND_TERRITORY`
+  - `STATE`
 
+* `ZipKey` is one of the following
 
-- `zipKey` is one of the following
-  - `postalCode`
-  - `postcode`
-  - `pincode`
-  - `zipCode`
+  - `POSTAL_CODE`
+  - `POSTCODE`
+  - `PINCODE`
+  - `ZIP_CODE`
 
-- `address2Key` is one of the following
-  - `aptSuiteEtc`
-  - `aptUnitNumber`
-
+* `Address2Key` is one of the following
+  - `APT_SUITE_ETC`
+  - `APT_UNIT_NUMBER`
 
 #### Example Usage
 
@@ -122,19 +115,19 @@ const address = {
   zip: '100-8994',
   country: 'JP',
   phone: '',
-}
+};
 
-const addressFormatter = new AddressFormatter('ja')
-await addressFormatter.format(address) 
-/* => 
+const addressFormatter = new AddressFormatter('ja');
+await addressFormatter.format(address);
+/* =>
   日本
   〒100-8994東京都目黒区八重洲1-5-3
   Shopify
   田中恵子様
  */
 
-await addressFormatter.getOrderedFields('CA') 
-/* => 
+await addressFormatter.getOrderedFields('CA');
+/* =>
   [
     ['firstName', 'lastName'],
     ['company'],

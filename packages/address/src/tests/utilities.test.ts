@@ -1,5 +1,6 @@
+import {Country} from '../types';
 import {renderLineTemplate} from '../utilities';
-import {JapanJa} from './fixtures';
+import {countryJpJa} from './fixtures';
 
 const address = {
   company: 'Shopify',
@@ -17,39 +18,65 @@ const address = {
 describe('renderLineTemplate()', () => {
   it('replaces the fields by address fields for Japan', () => {
     const template = '{country} - {city} {zip} {province}';
-    expect(renderLineTemplate(JapanJa, template, address)).toEqual(
-      '日本 - 目黒区 100-8994 東京都',
-    );
+    expect(
+      renderLineTemplate(
+        countryJpJa.data.country as Country,
+        template,
+        address,
+      ),
+    ).toEqual('日本 - 目黒区 100-8994 東京都');
   });
 
   it('replaces non existing province by empty string', () => {
     const template = '{country} - {city} {zip} {province}';
     expect(
-      renderLineTemplate(JapanJa, template, {...address, province: 'lol'}),
+      renderLineTemplate(countryJpJa.data.country as Country, template, {
+        ...address,
+        province: 'lol',
+      }),
     ).toEqual('日本 - 目黒区 100-8994');
   });
 
   it('replaces unexisting field by empty if does not exist', () => {
     const template = '{country} - {city} {zip} {province} {what}';
-    expect(renderLineTemplate(JapanJa, template, address)).toEqual(
-      '日本 - 目黒区 100-8994 東京都',
-    );
+    expect(
+      renderLineTemplate(
+        countryJpJa.data.country as Country,
+        template,
+        address,
+      ),
+    ).toEqual('日本 - 目黒区 100-8994 東京都');
   });
 
   it('returns empty string if nothing is replaced', () => {
     const template = '{firstName} - {lastName}';
-    expect(renderLineTemplate(JapanJa, template, address)).toEqual('');
+    expect(
+      renderLineTemplate(
+        countryJpJa.data.country as Country,
+        template,
+        address,
+      ),
+    ).toEqual('');
   });
 
   it('returns empty string if template does not match', () => {
     const template = '[Nope]';
-    expect(renderLineTemplate(JapanJa, template, address)).toEqual('');
+    expect(
+      renderLineTemplate(
+        countryJpJa.data.country as Country,
+        template,
+        address,
+      ),
+    ).toEqual('');
   });
 
   it('returns empty string for province if country does not have provinces', () => {
     const template = '{province}';
     expect(
-      renderLineTemplate(JapanJa, template, {...address, province: 'NOPE'}),
+      renderLineTemplate(countryJpJa.data.country as Country, template, {
+        ...address,
+        province: 'NOPE',
+      }),
     ).toEqual('');
   });
 });
