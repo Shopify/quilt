@@ -4,12 +4,13 @@ import {OAuthStartOptions, AccessMode, NextFunction} from '../types';
 import createOAuthStart from './create-oauth-start';
 import createOAuthCallback from './create-oauth-callback';
 import createEnableCookies from './create-enable-cookies';
-import createTopLevelRedirect from './create-top-level-redirect';
+import createEnableCookiesRedirect from './create-enable-cookies-redirect';
+import createTopLevelOAuthRedirect from './create-top-level-oauth-redirect';
 
 const DEFAULT_MYSHOPIFY_DOMAIN = 'myshopify.com';
 const DEFAULT_ACCESS_MODE: AccessMode = 'online';
 
-const TOP_LEVEL_OAUTH_COOKIE_NAME = 'shopifyTopLevelOAuth';
+export const TOP_LEVEL_OAUTH_COOKIE_NAME = 'shopifyTopLevelOAuth';
 export const TEST_COOKIE_NAME = 'shopifyTestCookie';
 
 function hasCookieAccess({cookies}: Context) {
@@ -38,17 +39,15 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   const oAuthCallback = createOAuthCallback(config);
 
   const inlineOAuthPath = `${prefix}/auth/inline`;
-  const redirectToTopLevelOAuth = createTopLevelRedirect(inlineOAuthPath);
+  const topLevelOAuthRedirect = createTopLevelOAuthRedirect(inlineOAuthPath);
 
   const enableCookiesPath = `${oAuthStartPath}/enable_cookies`;
   const enableCookies = createEnableCookies(config);
-  const redirectToEnableCookies = createTopLevelRedirect(enableCookiesPath);
+  const enableCookiesRedirect = createEnableCookiesRedirect(enableCookiesPath);
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
     if (ctx.path === oAuthStartPath && !hasCookieAccess(ctx)) {
-      // This is to avoid a redirect loop if the app doesn't use verifyRequest or set the test cookie elsewhere.
-      ctx.cookies.set(TEST_COOKIE_NAME, '1');
-      await redirectToEnableCookies(ctx);
+      await enableCookiesRedirect(ctx);
       return;
     }
 
@@ -56,14 +55,12 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
       ctx.path === inlineOAuthPath ||
       (ctx.path === oAuthStartPath && shouldPerformInlineOAuth(ctx))
     ) {
-      ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
       await oAuthStart(ctx);
       return;
     }
 
     if (ctx.path === oAuthStartPath) {
-      ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME, '1');
-      await redirectToTopLevelOAuth(ctx);
+      await topLevelOAuthRedirect(ctx);
       return;
     }
 

@@ -2,11 +2,17 @@ import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createShopifyAuth from '../index';
 
-import createTopLevelRedirect from '../create-top-level-redirect';
+import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
+import createEnableCookiesRedirect from '../create-enable-cookies-redirect';
 
-const mockTopLevelRedirect = jest.fn();
-jest.mock('../create-top-level-redirect', () =>
-  jest.fn(() => mockTopLevelRedirect),
+const mockTopLevelOAuthRedirect = jest.fn();
+jest.mock('../create-top-level-oauth-redirect', () =>
+  jest.fn(() => mockTopLevelOAuthRedirect),
+);
+
+const mockEnableCookiesRedirect = jest.fn();
+jest.mock('../create-enable-cookies-redirect', () =>
+  jest.fn(() => mockEnableCookiesRedirect),
 );
 
 const mockOAuthStart = jest.fn();
@@ -39,8 +45,10 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(createTopLevelRedirect).toBeCalledWith('/auth/enable_cookies');
-        expect(mockTopLevelRedirect).toBeCalledWith(ctx);
+        expect(createEnableCookiesRedirect).toBeCalledWith(
+          '/auth/enable_cookies',
+        );
+        expect(mockEnableCookiesRedirect).toBeCalledWith(ctx);
       });
     });
 
@@ -54,20 +62,8 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(createTopLevelRedirect).toBeCalledWith('/auth/inline');
-        expect(mockTopLevelRedirect).toBeCalledWith(ctx);
-      });
-
-      it('sets the top-level cookie', async () => {
-        const shopifyAuth = createShopifyAuth(baseConfig);
-        const ctx = createMockContext({
-          url: `https://${baseUrl}`,
-          cookies: {shopifyTestCookie: '1'},
-        });
-
-        await shopifyAuth(ctx, nextFunction);
-
-        expect(ctx.cookies.set).toBeCalledWith('shopifyTopLevelOAuth', '1');
+        expect(createTopLevelOAuthRedirect).toBeCalledWith('/auth/inline');
+        expect(mockTopLevelOAuthRedirect).toBeCalledWith(ctx);
       });
     });
 
@@ -83,18 +79,6 @@ describe('Index', () => {
 
         expect(mockOAuthStart).toBeCalledWith(ctx);
       });
-
-      it('clears the top-level cookie', async () => {
-        const shopifyAuth = createShopifyAuth(baseConfig);
-        const ctx = createMockContext({
-          url: `https://${baseUrl}`,
-          cookies: {shopifyTestCookie: '1', shopifyTopLevelOAuth: '1'},
-        });
-
-        await shopifyAuth(ctx, nextFunction);
-
-        expect(ctx.cookies.set).toBeCalledWith('shopifyTopLevelOAuth');
-      });
     });
   });
 
@@ -108,18 +92,6 @@ describe('Index', () => {
       await shopifyAuth(ctx, nextFunction);
 
       expect(mockOAuthStart).toBeCalledWith(ctx);
-    });
-
-    it('clears the top-level cookie', async () => {
-      const shopifyAuth = createShopifyAuth(baseConfig);
-      const ctx = createMockContext({
-        url: `https://${baseUrl}`,
-        cookies: {shopifyTestCookie: '1', shopifyTopLevelOAuth: '1'},
-      });
-
-      await shopifyAuth(ctx, nextFunction);
-
-      expect(ctx.cookies.set).toBeCalledWith('shopifyTopLevelOAuth');
     });
   });
 

@@ -52,6 +52,19 @@ describe('OAuthStart', () => {
     expect(ctx.throw).toBeCalledWith(400, Error.ShopParamMissing);
   });
 
+  it('clears the top-level cookie', () => {
+    const oAuthStart = createOAuthStart(baseConfig, callbackPath);
+    const ctx = createMockContext({
+      url: `https://${baseUrl}?${query({shop})}`,
+    });
+
+    oAuthQueryString.mockReturnValue('abc=123');
+
+    oAuthStart(ctx);
+
+    expect(ctx.cookies.set).toBeCalledWith('shopifyTopLevelOAuth');
+  });
+
   it('redirects to redirectionURL with the returned query string', () => {
     const oAuthStart = createOAuthStart(baseConfig, callbackPath);
     const ctx = createMockContext({
