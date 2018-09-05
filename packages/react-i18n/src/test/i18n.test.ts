@@ -142,6 +142,56 @@ describe('I18n', () => {
         i18n.locale,
       );
     });
+
+    it('calls the translate() utility when no scope is provided', () => {
+      const mockResult = 'translated string';
+      const replacements = {name: 'Chris'};
+      translate.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const result = i18n.translate('hello', replacements);
+
+      expect(result).toBe(mockResult);
+      expect(translate).toHaveBeenCalledWith(
+        'hello',
+        {replacements},
+        defaultTranslations,
+        i18n.locale,
+      );
+    });
+
+    it('calls the translate() utility when no replacements are provided', () => {
+      const mockResult = 'translated string';
+      const scope = {scope: 'goodbye'};
+      translate.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const result = i18n.translate('hello', scope);
+
+      expect(result).toBe(mockResult);
+      expect(translate).toHaveBeenCalledWith(
+        'hello',
+        {...scope},
+        defaultTranslations,
+        i18n.locale,
+      );
+    });
+
+    it('calls the translate() utility when no replacements or scope are provided', () => {
+      const mockResult = 'translated string';
+      translate.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const result = i18n.translate('hello');
+
+      expect(result).toBe(mockResult);
+      expect(translate).toHaveBeenCalledWith(
+        'hello',
+        {},
+        defaultTranslations,
+        i18n.locale,
+      );
+    });
   });
 
   describe('#formatNumber()', () => {
