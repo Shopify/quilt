@@ -71,7 +71,7 @@ Another option, if you'd like to break work down into reviewable chunks, is to u
 
 ## Releasing
 
-The release process currently involves some manual steps to complete. Please ping one of the repo owners in the `#quilt` slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release.
+The release process currently involves some manual steps to complete. Please ping one of the repo owners in the `#quilt` Slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release.
 
 **Note** Version numbers in `package.json` files should never be altered manually. This will be done via scripts as part of the release process.
 
