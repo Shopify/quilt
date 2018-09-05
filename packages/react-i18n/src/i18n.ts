@@ -103,10 +103,17 @@ export default class I18n {
       | PrimitiveReplacementDictionary
       | ComplexReplacementDictionary,
   ): any {
-    const normalizedOptions =
-      replacements == null
-        ? optionsOrReplacements || {}
-        : {...optionsOrReplacements, replacements};
+    let normalizedOptions: RootTranslateOptions<
+      PrimitiveReplacementDictionary | ComplexReplacementDictionary
+    >;
+
+    if (optionsOrReplacements == null) {
+      normalizedOptions = {};
+    } else if (isTranslateOptions(optionsOrReplacements)) {
+      normalizedOptions = {...optionsOrReplacements, replacements};
+    } else {
+      normalizedOptions = {replacements: optionsOrReplacements};
+    }
 
     return translate(id, normalizedOptions, this.translations, this.locale);
   }
@@ -145,4 +152,13 @@ export default class I18n {
       ...options,
     }).format(date);
   }
+}
+
+function isTranslateOptions(
+  object:
+    | TranslateOptions
+    | PrimitiveReplacementDictionary
+    | ComplexReplacementDictionary,
+): object is TranslateOptions {
+  return 'scope' in object;
 }
