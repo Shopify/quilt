@@ -1,6 +1,6 @@
 {
   "name": "@shopify/admin-graphql-api-utilities",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "A set of utilities to use when consuming Shopify’s admin graphql api.",
   "main": "dist/index.js",
@@ -22,8 +22,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/admin-graphql-api-utilities/README.md",
-  "dependencies": {
-  },
   "devDependencies": {
     "typescript": "~3.0.1"
   }

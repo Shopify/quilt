@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-shopify-app-route-propagator",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
