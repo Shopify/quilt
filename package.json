@@ -55,26 +55,5 @@
     "ts-jest": "^23.0.0",
     "typescript": "~3.0.1"
   },
-  "dependencies": {},
-  "jest": {
-    "setupFiles": [
-      "./test/setup.ts"
-    ],
-    "setupTestFrameworkScriptFile": "./test/each-test.ts",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "\\.(gql|graphql)$": "jest-transform-graphql"
-    },
-    "testRegex": ".*\\.test\\.tsx?$",
-    "testEnvironmentOptions": {
-      "url": "http://localhost:3000/"
-    },
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true
-  }
+  "dependencies": {}
 }
