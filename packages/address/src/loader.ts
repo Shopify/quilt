@@ -1,39 +1,72 @@
-import {Country} from './types';
+import {
+  Country,
+  LoadCountriesResponse,
+  LoadCountryResponse,
+  ResponseError,
+} from './types';
+import query from './graphqlQuery';
 
-const API_VERSION = '1';
-const API_HEADERS = {
-  Accept: 'application/json',
+const GRAPHQL_ENDPOINT = 'https://country-service.shopifycloud.com/graphql';
+enum GRAPHAL_OPERATION_NAMES {
+  countries = 'countries',
+  country = 'country',
+}
+
+const HEADERS = {
   'Content-Type': 'application/json',
-  'API-VERSION': API_VERSION,
+  'Access-Control-Allow-Origin': '*',
 };
-const COUNTRY_SERVICE_URL = 'https://country-service.shopifycloud.com';
 
 export async function loadCountries(locale: string): Promise<Country[]> {
-  const countries = await fetch(
-    `${COUNTRY_SERVICE_URL}/countries?locale=${locale}`,
-    {
-      cache: 'force-cache',
-      headers: API_HEADERS,
-    },
-  );
+  const response = await fetch(GRAPHQL_ENDPOINT, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({
+      query,
+      operationName: GRAPHAL_OPERATION_NAMES.countries,
+      variables: {
+        locale,
+      },
+    }),
+  });
 
-  const jsonResponse = await countries.json();
-
-  return jsonResponse.data;
+  const countries:
+    | LoadCountriesResponse
+    | ResponseError = await response.json();
+  if ('errors' in countries) {
+    throw new CountryLoaderError(countries);
+  } else {
+    return countries.data.countries;
+  }
 }
 
 export async function loadCountry(
   locale: string,
   countryCode: string,
 ): Promise<Country> {
-  const country = await fetch(
-    `${COUNTRY_SERVICE_URL}/countries/${countryCode}?locale=${locale}`,
-    {
-      cache: 'force-cache',
-      headers: API_HEADERS,
-    },
-  );
+  const response = await fetch(GRAPHQL_ENDPOINT, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({
+      query,
+      operationName: GRAPHAL_OPERATION_NAMES.country,
+      variables: {
+        countryCode,
+        locale,
+      },
+    }),
+  });
+  const country: LoadCountryResponse = await response.json();
+  if ('errors' in country) {
+    throw new CountryLoaderError(country);
+  } else {
+    return country.data.country;
+  }
+}
 
-  const jsonResponse = await country.json();
-  return jsonResponse.data;
+class CountryLoaderError extends Error {
+  constructor(errors: ResponseError) {
+    const errorMessage = errors.errors.map(error => error.message).join('; ');
+    super(errorMessage);
+  }
 }
