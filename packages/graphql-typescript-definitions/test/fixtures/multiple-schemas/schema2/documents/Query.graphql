@@ -1,0 +1,6 @@
+query FindPerson2 {
+  person {
+    id
+    ...PersonFields2
+  }
+}

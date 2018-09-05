@@ -1,0 +1,7 @@
+fragment PersonFields1 on Person1 {
+  name
+  generation
+  relatives {
+    name
+  }
+}

@@ -13,6 +13,12 @@ describe('cli', () => {
     ).toMatchSnapshot();
   });
 
+  it('succeeds when there are multiple schemas', async () => {
+    expect(
+      await execDetails(cliCommandForFixtureDirectory('multiple-schemas')),
+    ).toMatchSnapshot();
+  });
+
   it('fails when there are syntax errors', async () => {
     expect(
       await execDetails(cliCommandForFixtureDirectory('malformed-query')),
@@ -51,8 +57,7 @@ function cliCommandForFixtureDirectory(fixture: string) {
   const fixtureDirectory = resolve(rootFixturePath, fixture);
   return [
     scriptPath,
-    `'${resolve(fixtureDirectory, 'documents/**/*.graphql')}'`,
-    `--schema-path '${resolve(fixtureDirectory, 'schema.json')}'`,
-    `--schema-types-path '${resolve(fixtureDirectory, 'schema.ts')}'`,
+    `--cwd '${fixtureDirectory}'`,
+    `--schema-types-path '${fixtureDirectory}'`,
   ].join(' ');
 }

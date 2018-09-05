@@ -10,11 +10,22 @@ import {
   concatAST,
 } from 'graphql';
 import chalk from 'chalk';
-import {dirname} from 'path';
+import {dirname, isAbsolute, resolve} from 'path';
 import {readJSON, readFile, writeFile, mkdirp} from 'fs-extra';
 import {watch} from 'chokidar';
 import * as glob from 'glob';
-import {compile, Operation, Fragment, AST} from 'graphql-tool-utilities/ast';
+import {
+  getGraphQLConfig,
+  GraphQLProjectConfig,
+  GraphQLConfig,
+} from 'graphql-config';
+import {
+  compile,
+  isOperation,
+  Operation,
+  Fragment,
+  AST,
+} from 'graphql-tool-utilities/ast';
 
 import {printDocument, printSchema} from './print';
 import {EnumFormat} from './types';
@@ -22,80 +33,87 @@ import {EnumFormat} from './types';
 export {EnumFormat};
 
 export interface Options {
-  graphQLFiles: string;
-  schemaPath: string;
-  schemaTypesPath: string;
   addTypename: boolean;
   enumFormat?: EnumFormat;
+  schemaTypesPath: string;
+}
+
+export interface BuilderOptions extends Options {
+  cwd?: string;
 }
 
 export interface RunOptions {
   watch?: boolean;
 }
 
-export interface Build {
+export interface SchemaBuild {
+  schemaPath: string;
+  schemaTypesPath: string;
+}
+
+export interface DocumentBuild {
   documentPath: string;
   definitionPath: string;
   operation?: Operation;
   fragments: Fragment[];
 }
 
-export class Builder extends EventEmitter {
-  watching = false;
-  private globs: string;
-  private schemaPath: string;
-  private schema!: GraphQLSchema;
-  private options: Pick<
-    Options,
-    Exclude<keyof Options, 'graphQLFiles' | 'schemaPath'>
-  >;
-  private documentCache = new Map<string, DocumentNode>();
+type GraphQLDocumentMapByProject = Map<string, Map<string, DocumentNode>>;
 
-  constructor({graphQLFiles, schemaPath, ...options}: Options) {
+export class Builder extends EventEmitter {
+  private options: Options;
+  // workspace graphql configuration
+  // see: https://github.com/prisma/graphql-config
+  private readonly config: GraphQLConfig;
+  private documentMapByProject = new Map<string, Map<string, DocumentNode>>();
+
+  constructor({cwd, ...options}: BuilderOptions) {
     super();
-    this.globs = graphQLFiles;
-    this.schemaPath = schemaPath;
     this.options = options;
+
+    this.config = getGraphQLConfig(cwd ? resolve(cwd) : undefined);
   }
 
   once(event: 'error', handler: (error: Error) => void): this;
-  once(event: 'build', handler: (built: Build) => void): this;
-  once(event: 'start', handler: () => void): this;
-  once(event: 'end', handler: () => void): this;
-  once(event: 'schema:start', handler: () => void): this;
-  once(event: 'schema:end', handler: () => void): this;
+  once(event: 'build:docs', handler: (built: DocumentBuild) => void): this;
+  once(event: 'build:schema', handler: (built: SchemaBuild) => void): this;
+  once(event: 'start:docs', handler: () => void): this;
+  once(event: 'end:docs', handler: () => void): this;
+  once(event: 'start:schema', handler: () => void): this;
+  once(event: 'end:schema', handler: () => void): this;
   once(event: string, handler: (...args: any[]) => void): this {
     return super.once(event, handler);
   }
 
   on(event: 'error', handler: (error: Error) => void): this;
-  on(event: 'build', handler: (built: Build) => void): this;
-  on(event: 'start', handler: () => void): this;
-  on(event: 'end', handler: () => void): this;
-  on(event: 'schema:start', handler: () => void): this;
-  on(event: 'schema:end', handler: () => void): this;
+  on(event: 'build:docs', handler: (built: DocumentBuild) => void): this;
+  on(event: 'build:schema', handler: (built: SchemaBuild) => void): this;
+  on(event: 'start:docs', handler: () => void): this;
+  on(event: 'end:docs', handler: () => void): this;
+  on(event: 'start:schema', handler: () => void): this;
+  on(event: 'end:schema', handler: () => void): this;
   on(event: string, handler: (...args: any[]) => void): this {
     return super.on(event, handler);
   }
 
   emit(event: 'error', error: Error): boolean;
-  emit(event: 'build', built: Build): boolean;
-  emit(event: 'start'): boolean;
-  emit(event: 'end'): boolean;
-  emit(event: 'schema:start'): boolean;
-  emit(event: 'schema:end'): boolean;
+  emit(event: 'build:docs', built: DocumentBuild): boolean;
+  emit(event: 'build:schema', built: SchemaBuild): boolean;
+  emit(event: 'start:docs'): boolean;
+  emit(event: 'end:docs'): boolean;
+  emit(event: 'start:schema'): boolean;
+  emit(event: 'end:schema'): boolean;
   emit(event: string, ...args: any[]): boolean {
     return super.emit(event, ...args);
   }
 
   async run({watch: watchGlobs = false} = {}) {
-    this.watching = watchGlobs;
+    const globs = this.getGlobs();
+    const schemaPaths = this.getSchemaPaths();
 
-    const {globs} = this;
-
-    const update = async (file: string) => {
+    const update = async (filePath: string) => {
       try {
-        await this.updateDocumentForFile(file);
+        await this.updateDocumentForFile(filePath);
       } catch (error) {
         this.emit('error', error);
         return;
@@ -109,18 +127,20 @@ export class Builder extends EventEmitter {
       documentWatcher.on('ready', () => {
         documentWatcher.on('add', update);
         documentWatcher.on('change', update);
-        documentWatcher.on('unlink', async (file: string) => {
-          this.removeDocumentForFile(file);
+        documentWatcher.on('unlink', async (filePath: string) => {
+          this.removeDocumentForFile(filePath);
           await this.generateDocumentTypes();
         });
       });
 
-      const schemaWatcher = watch(this.schemaPath);
+      const schemaWatcher = watch(schemaPaths);
       schemaWatcher.on('ready', () => {
-        schemaWatcher.on('change', async () => {
+        schemaWatcher.on('change', async (schemaPath: string) => {
           try {
-            await this.updateSchema();
-            await this.generateSchemaTypes();
+            this.emit('start:schema');
+            await this.updateSchemaAndGenerateTypes(schemaPath);
+            this.emit('end:schema');
+
             await this.generateDocumentTypes();
           } catch (error) {
             // intentional noop
@@ -130,8 +150,11 @@ export class Builder extends EventEmitter {
     }
 
     try {
-      await this.updateSchema();
-      await this.generateSchemaTypes();
+      this.emit('start:schema');
+      await Promise.all(
+        schemaPaths.map(this.updateSchemaAndGenerateTypes.bind(this)),
+      );
+      this.emit('end:schema');
     } catch (error) {
       this.emit('error', error);
       return;
@@ -139,7 +162,10 @@ export class Builder extends EventEmitter {
 
     try {
       await Promise.all(
-        glob.sync(globs).map(this.updateDocumentForFile.bind(this)),
+        globs
+          .map((pattern) => glob.sync(pattern))
+          .reduce((patterns, globbed) => patterns.concat(globbed), [])
+          .map(this.updateDocumentForFile.bind(this)),
       );
     } catch (error) {
       this.emit('error', error);
@@ -149,36 +175,63 @@ export class Builder extends EventEmitter {
     await this.generateDocumentTypes();
   }
 
-  private async generateSchemaTypes() {
-    this.emit('schema:start');
-    const definition = printSchema(this.schema, this.options);
-    await mkdirp(dirname(this.options.schemaTypesPath));
-    await writeFile(this.options.schemaTypesPath, definition);
-    this.emit('schema:end');
+  private async generateSchemaTypes(schemaPath: string, schema: GraphQLSchema) {
+    const schemaTypesPath = getSchemaTypesPath(
+      getProjectForSchemaPath(this.config, schemaPath),
+      this.options,
+    );
+    const definition = printSchema(schema, this.options);
+    await mkdirp(dirname(schemaTypesPath));
+    await writeFile(schemaTypesPath, definition);
+    this.emit('build:schema', {
+      schemaPath,
+      schemaTypesPath,
+    });
   }
 
   private async generateDocumentTypes() {
-    this.emit('start');
+    this.emit('start:docs');
+
+    getDuplicateOperations(this.documentMapByProject).forEach(
+      ({projectName, duplicates}) => {
+        if (duplicates.length) {
+          duplicates.forEach(({operationName, filePaths}) => {
+            const message = `GraphQL operations must have a unique name. The operation ${chalk.bold(
+              operationName,
+            )} is declared in:\n ${filePaths.sort().join('\n ')}${
+              projectName ? ` (${chalk.bold(projectName)})` : ''
+            }`;
+
+            this.emit('error', new Error(message));
+          });
+        }
+      },
+    );
+
+    await Promise.all(
+      Array.from(this.documentMapByProject.entries()).map(
+        ([projectName, documents]) => {
+          return this.generateDocumentTypesForProject(
+            this.config.getProjectConfig(projectName),
+            documents,
+          );
+        },
+      ),
+    );
+
+    this.emit('end:docs');
+  }
+
+  private async generateDocumentTypesForProject(
+    project: GraphQLProjectConfig,
+    documents: Map<string, DocumentNode>,
+  ) {
     let ast: AST;
 
-    const duplicateOperations = getDuplicateOperations(this.documentCache);
-
-    if (duplicateOperations.length) {
-      duplicateOperations.forEach(({name, files}) => {
-        const error = new Error(
-          `GraphQL operations must have a unique name. The operation ${chalk.bold(
-            name,
-          )} is declared in:\n ${files.join('\n ')}`,
-        );
-        this.emit('error', error);
-      });
-    }
-
     try {
-      ast = compile(
-        this.schema,
-        concatAST(Array.from(this.documentCache.values())),
-      );
+      const schema = project.getSchema();
+
+      ast = compile(schema, concatAST(Array.from(documents.values())));
     } catch (error) {
       this.emit('error', error);
       return;
@@ -188,50 +241,70 @@ export class Builder extends EventEmitter {
 
     try {
       const buildResults = await Promise.all(
-        Object.keys(fileMap).map(async (key) => {
-          const file = fileMap[key];
-          let definition: string;
-          try {
-            definition = printDocument(file, ast, this.options);
-          } catch ({message}) {
-            const error = new Error(
-              `Error in ${
-                file.path
-              }: ${message[0].toLowerCase()}${message.slice(1)}`,
-            );
-            this.emit('error', error);
-            throw error;
-          }
-
-          const definitionPath = `${file.path}.d.ts`;
-          await writeFile(definitionPath, definition);
-
-          return {
-            documentPath: file.path,
-            definitionPath,
-            operation: file.operation,
-            fragments: file.fragments,
-          };
+        Array.from(fileMap.values()).map((file) => {
+          return this.writeDocumentFile(file, ast, project);
         }),
       );
 
       for (const buildResult of buildResults) {
-        this.emit('build', buildResult);
+        this.emit('build:docs', buildResult);
       }
     } catch (error) {
-      return;
+      // intentional noop
     }
-
-    this.emit('end');
   }
 
-  private async updateSchema() {
+  private async writeDocumentFile(
+    file: File,
+    ast: AST,
+    project: GraphQLProjectConfig,
+  ) {
+    const definitionPath = `${file.path}.d.ts`;
+    const definition = this.getDocumentDefinition(file, ast, project);
+
+    await writeFile(definitionPath, definition);
+
+    return {
+      documentPath: file.path,
+      definitionPath,
+      operation: file.operation,
+      fragments: file.fragments,
+    };
+  }
+
+  private getDocumentDefinition(
+    file: File,
+    ast: AST,
+    project: GraphQLProjectConfig,
+  ) {
     try {
-      const schemaJSON = await readJSON(this.schemaPath);
-      this.schema = buildClientSchema(schemaJSON.data);
+      return printDocument(file, ast, {
+        ...this.options,
+        schemaTypesPath:
+          this.options.schemaTypesPath ||
+          getSchemaTypesPath(project, this.options),
+      });
+    } catch ({message}) {
+      const error = new Error(
+        `Error in ${file.path}: ${message[0].toLowerCase()}${message.slice(1)}`,
+      );
+      this.emit('error', error);
+      throw error;
+    }
+  }
+
+  private async updateSchemaAndGenerateTypes(schemaPath: string) {
+    const schema = await this.updateSchema(schemaPath);
+    await this.generateSchemaTypes(schemaPath, schema);
+  }
+
+  private async updateSchema(schemaPath: string) {
+    try {
+      const schemaJSON = await readJSON(schemaPath);
+      return buildClientSchema(schemaJSON.data);
     } catch (error) {
       const parseError = new Error(
-        `Error parsing '${this.schemaPath}':\n\n${error.message.replace(
+        `Error parsing '${schemaPath}':\n\n${error.message.replace(
           /Syntax Error GraphQL \(.*?\) /,
           '',
         )}`,
@@ -240,19 +313,106 @@ export class Builder extends EventEmitter {
     }
   }
 
-  private async updateDocumentForFile(file: string) {
-    const contents = await readFile(file, 'utf8');
-    if (contents.trim().length === 0) {
-      return;
+  private async updateDocumentForFile(filePath: string) {
+    const project = this.config.getConfigForFile(filePath);
+
+    if (!project) {
+      throw new Error(`No project found for file: ${filePath}`);
     }
 
-    const document = parse(new Source(contents, file));
-    this.documentCache.set(file, document);
+    const projectName = project.projectName || '';
+
+    let documents = this.documentMapByProject.get(projectName);
+
+    if (!documents) {
+      documents = new Map<string, DocumentNode>();
+      this.documentMapByProject.set(projectName, documents);
+    }
+
+    const contents = await readFile(filePath, 'utf8');
+
+    if (contents.trim().length === 0) {
+      return undefined;
+    }
+
+    const document = parse(new Source(contents, filePath));
+    documents.set(filePath, document);
+
+    return document;
   }
 
-  private removeDocumentForFile(file: string) {
-    this.documentCache.delete(file);
+  private getProjects() {
+    const projects = this.config.getProjects();
+
+    if (projects) {
+      return Object.values(projects);
+    }
+
+    return [this.config.getProjectConfig()];
   }
+
+  private getGlobs() {
+    return this.getProjects().reduce<string[]>((globs, project) => {
+      return globs.concat(
+        project.includes.map(getFilePath.bind(this, this.config.configDir)),
+      );
+    }, []);
+  }
+
+  private getSchemaPaths() {
+    return this.getProjects().reduce<string[]>((schemas, x) => {
+      if (x.schemaPath) {
+        schemas.push(getFilePath(this.config.configDir, x.schemaPath));
+      }
+      return schemas;
+    }, []);
+  }
+
+  private removeDocumentForFile(filePath: string) {
+    const project = this.config.getConfigForFile(filePath);
+
+    if (project) {
+      const projectName = project.projectName || '';
+      const documents = this.documentMapByProject.get(projectName);
+
+      if (documents) {
+        documents.delete(filePath);
+      }
+    }
+  }
+}
+
+function getFilePath(cwd: string, filePath: string) {
+  return isAbsolute(filePath) ? filePath : resolve(cwd, filePath);
+}
+
+function getProjectForSchemaPath(config: GraphQLConfig, schemaPath: string) {
+  const project =
+    Object.values(config.getProjects() || {})
+      .filter((project) => project.schemaPath === schemaPath)
+      .shift() || config.getProjectConfig();
+
+  if (!project || project.schemaPath !== schemaPath) {
+    throw new Error(
+      `No project defined in .graphqlconfig for schema ${schemaPath}`,
+    );
+  }
+
+  return project;
+}
+
+function getSchemaTypesPath(project: GraphQLProjectConfig, options: Options) {
+  if (typeof project.extensions.schemaTypesPath === 'string') {
+    return getFilePath(project.configDir, project.extensions.schemaTypesPath);
+  }
+
+  return getFilePath(
+    project.configDir,
+    resolve(
+      options.schemaTypesPath,
+      `${project.projectName ? `${project.projectName}-` : ''}types.ts`,
+    ),
+  );
 }
 
 interface File {
@@ -261,64 +421,71 @@ interface File {
   fragments: Fragment[];
 }
 
-interface FileMap {
-  [key: string]: File;
+function groupOperationsAndFragmentsByFile({operations, fragments}: AST) {
+  return (Object.values(operations) as Array<Operation | Fragment>)
+    .concat(Object.values(fragments))
+    .reduce((map, item) => {
+      let file = map.get(item.filePath);
+
+      if (!file) {
+        file = {
+          path: item.filePath,
+          operation: undefined,
+          fragments: [],
+        };
+
+        map.set(item.filePath, file);
+      }
+
+      if (isOperation(item)) {
+        file.operation = item;
+      } else {
+        file.fragments.push(item);
+      }
+
+      return map;
+    }, new Map<string, File>());
 }
 
-function groupOperationsAndFragmentsByFile({
-  operations,
-  fragments,
-}: AST): FileMap {
-  const map: FileMap = {};
-
-  Object.keys(operations).forEach((name) => {
-    const operation = operations[name];
-    const file = map[operation.filePath] || {
-      path: operation.filePath,
-      operation,
-      fragments: [],
-    };
-    map[operation.filePath] = file;
-  });
-
-  Object.keys(fragments).forEach((name) => {
-    const fragment = fragments[name];
-    const file = map[fragment.filePath] || {
-      path: fragment.filePath,
-      operation: undefined,
-      fragments: [],
-    };
-    file.fragments.push(fragment);
-    map[fragment.filePath] = file;
-  });
-
-  return map;
+function getDuplicateOperations(
+  documentsMapByProject: GraphQLDocumentMapByProject,
+) {
+  return Array.from(documentsMapByProject.entries()).map(
+    ([projectName, documents]) => {
+      return {
+        projectName,
+        duplicates: getDuplicateProjectOperations(documents),
+      };
+    },
+  );
 }
 
-function getDuplicateOperations(documents: Map<string, DocumentNode>) {
+function getDuplicateProjectOperations(documents: Map<string, DocumentNode>) {
   const operations = new Map<string, Set<string>>();
 
-  Array.from(documents.entries()).forEach(([path, document]) => {
-    document.definitions.filter(isOperation).forEach((definition) => {
-      const {name} = definition as OperationDefinitionNode;
+  Array.from(documents.entries()).forEach(([filePath, document]) => {
+    document.definitions.filter(isOperationDefinition).forEach((definition) => {
+      const {name} = definition;
       if (name && name.value) {
         const map = operations.get(name.value);
         if (map) {
-          map.add(path);
+          map.add(filePath);
         } else {
-          operations.set(name.value, new Set([path]));
+          operations.set(name.value, new Set([filePath]));
         }
       }
     });
   });
 
   return Array.from(operations.entries())
-    .filter(([, files]) => files.size > 1)
-    .map(([operation, files]) => {
-      return {name: operation, files: Array.from(files)};
+    .filter(([, filePaths]) => filePaths.size > 1)
+    .map(([operationName, filePath]) => {
+      return {operationName, filePaths: Array.from(filePath)};
     });
 }
 
-function isOperation(definition: DefinitionNode) {
+function isOperationDefinition(
+  definition: DefinitionNode,
+): definition is OperationDefinitionNode {
   return definition.kind === 'OperationDefinition';
 }
