@@ -76,6 +76,60 @@ This package will generate matching `.d.ts` files for each `.graphql` file you s
   let person: SomeoneQueryData.Person;
   ```
 
+### Configuration
+
+This tool consumes a [`.graphqlconfig`](https://github.com/prisma/graphql-config) file, typically placed in the root of the project. This configuration file is compatible with the [VSCode extension](https://github.com/prisma/vscode-graphql) to provide syntax highlighting and autocomplete suggestions. The configuration file supports a single nameless project or multiple named projects, with each project linked to a schema and a set of include and exclude globbing patterns. Upon processing a schema file, the schema’s types will be extracted to `types.ts` (or `${projectName}-types.ts`, if the project is named) and written to the `schema-types-path` (or use the `schemaTypesPath` extension as an override). Note that your config should supply include and exclude globbing patterns as _relative_ paths (relative to the location of the `.graphqlconfig`).
+
+See the [official specification documentation](https://github.com/prisma/graphql-config/blob/master/specification.md#use-cases) for more detail and examples.
+
+#### Examples
+
+A single nameless project configuration
+
+```json
+{
+  "schemaPath": "build/schema.json",
+  "includes": "app/**/*.graphql"
+}
+```
+
+A multi-project configuration
+
+```json
+{
+  "projects": {
+    "foo": {
+      "schemaPath": "build/schema/foo.json",
+      "includes": "app/foo/**/*.graphql"
+    },
+    "bar": {
+      "schemaPath": "build/schema/bar.json",
+      "includes": "app/bar/**/*.graphql"
+    }
+  }
+}
+```
+
+A project configuration with a `schemaTypesPath` override
+
+```json
+{
+  "projects": {
+    "foo": {
+      "schemaPath": "build/schema/foo.json",
+      "includes": "app/foo/**/*.graphql"
+    },
+    "bar": {
+      "schemaPath": "build/schema/bar.json",
+      "includes": "app/bar/**/*.graphql",
+      "extensions": {
+        "schemaTypesPath": "app/bar/types/graphql.ts"
+      }
+    }
+  }
+}
+```
+
 ### Type Generation
 
 #### Nullability
@@ -174,15 +228,42 @@ yarn run graphql-typescript-definitions 'src/**/*.graphql' --schema-path 'build/
 
 Optionally, you can pass the `--watch` flag in order to regenerate the TypeScript definition files on changes to the GraphQL files. You can also pass the `--add-typename` flag in order to always generate a `__typename` field for object types, and an `--enum-format` type which specifies the casing to use for enum types generated from the schema.
 
+### CLI
+
+```sh
+graphql-typescript-definitions --schema-types-path app/types
+```
+
+As noted above, the configuration of your schema and GraphQL documents is done via a `.graphqlconfig` file, as this allows configuration to shared between tools. The CLI does support a few additional options, though:
+
+* `--schema-types-path`: specifies where to write schema types (**REQUIRED**)
+* `--watch`: watches the include globbing patterns for changes and re-processes files (default = `false`)
+* `--cwd`: run tool for `.graphqlconfig` located in this directory (default = `process.cwd()`)
+* `--add-typename`: adds a `__typename` field to every object type (default = `true`)
+* `--enum-format`: specifies output format for enum types (default = `undefined`)
+  * Options: `camel-case`, `pascal-case`, `snake-case`, `screaming-snake-case`
+  * `undefined` results in using the unchanged name from the schema (verbatim)
+
+#### Examples
+
+```sh
+# run tool for .graphqlconfig in current directory, produces ./app/graphql/types.ts
+graphql-typescript-definitions --schema-types-path app/graphql
+
+# run watcher for .graphqlconfig in current directory, produces ./app/graphql/types.ts
+graphql-typescript-definitions --schema-types-path app/graphql --watch
+
+# run tool for .graphqlconfig in a child directory, produces ./src/app/graphql/types.ts
+graphql-typescript-definitions --cwd src --schema-types-path app/graphql
+```
+
 ### Node
 
 ```js
 const {Builder} = require('graphql-typescript-definitions');
 
 const builder = new Builder({
-  graphQLFiles: 'src/**/*.graphql',
-  schemaPath: 'build/schema.json',
-  schemaTypesPath: 'src/schema.ts',
+  schemaTypesPath: 'app/graphql',
 });
 
 builder.on('build', (build) => {
