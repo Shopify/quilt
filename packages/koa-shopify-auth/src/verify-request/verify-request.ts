@@ -1,6 +1,7 @@
 import {Context} from 'koa';
 
 import {NextFunction} from '../types';
+import {TEST_COOKIE_NAME, TOP_LEVEL_OAUTH_COOKIE_NAME} from '../index';
 
 export interface Options {
   authRoute?: string;
@@ -21,9 +22,12 @@ export default function verifyRequest({
     } = ctx;
 
     if (session && session.accessToken) {
+      ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
       await next();
       return;
     }
+
+    ctx.cookies.set(TEST_COOKIE_NAME, '1');
 
     if (shop) {
       ctx.redirect(`${authRoute}?shop=${shop}`);

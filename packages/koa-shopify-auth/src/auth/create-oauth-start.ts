@@ -1,47 +1,34 @@
 import {Context} from 'koa';
-import querystring from 'querystring';
-import nonce from 'nonce';
 
-import {OAuthStartOptions} from '../types';
-import redirectionPage from './redirection-page';
 import Error from './errors';
+import oAuthQueryString from './oauth-query-string';
+import {OAuthStartOptions} from '../types';
+import {TOP_LEVEL_OAUTH_COOKIE_NAME} from './index';
 
-const createNonce = nonce();
-
-export default function createOAuthStart({
-  scopes = [],
-  apiKey,
-  accessMode,
-}: OAuthStartOptions) {
+export default function createOAuthStart(
+  options: OAuthStartOptions,
+  callbackPath: string,
+) {
   return function oAuthStart(ctx: Context) {
-    const {query, host, path, cookies} = ctx;
+    const {myShopifyDomain} = options;
+    const {query} = ctx;
     const {shop} = query;
 
-    if (shop == null) {
+    const shopRegex = new RegExp(
+      `^[a-z0-9][a-z0-9\\-]*[a-z0-9]\\.${myShopifyDomain}$`,
+    );
+
+    if (shop == null || !shopRegex.test(shop)) {
       ctx.throw(400, Error.ShopParamMissing);
       return;
     }
 
-    const requestNonce = createNonce();
-    cookies.set('shopifyNonce', requestNonce);
+    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
 
-    /* eslint-disable camelcase */
-    const redirectParams = {
-      state: requestNonce,
-      scope: scopes.join(', '),
-      client_id: apiKey,
-      redirect_uri: `https://${host}${path}/callback`,
-    };
-    /* eslint-enable camelcase */
+    const formattedQueryString = oAuthQueryString(ctx, options, callbackPath);
 
-    if (accessMode === 'online') {
-      redirectParams['grant_options[]'] = 'per-user';
-    }
-
-    const formattedQueryString = querystring.stringify(redirectParams);
-    ctx.body = redirectionPage({
-      origin: `https://${shop}`,
-      path: `/admin/oauth/authorize?${formattedQueryString}`,
-    });
+    ctx.redirect(
+      `https://${shop}/admin/oauth/authorize?${formattedQueryString}`,
+    );
   };
 }
