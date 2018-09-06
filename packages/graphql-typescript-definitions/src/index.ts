@@ -280,9 +280,7 @@ export class Builder extends EventEmitter {
     try {
       return printDocument(file, ast, {
         ...this.options,
-        schemaTypesPath:
-          this.options.schemaTypesPath ||
-          getSchemaTypesPath(project, this.options),
+        schemaTypesPath: getSchemaTypesPath(project, this.options),
       });
     } catch ({message}) {
       const error = new Error(
