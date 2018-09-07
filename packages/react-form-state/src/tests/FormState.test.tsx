@@ -600,7 +600,7 @@ describe('<FormState />', () => {
         return Promise.resolve(submitErrors);
       }
 
-      const form = mount(
+      mount(
         <FormState initialValues={{product}} onSubmit={onSubmit}>
           {renderPropSpy}
         </FormState>,
@@ -628,7 +628,7 @@ describe('<FormState />', () => {
         return Promise.resolve(submitErrors);
       }
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           onSubmit={onSubmit}
@@ -659,7 +659,7 @@ describe('<FormState />', () => {
         return Promise.resolve(submitErrors);
       }
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           onSubmit={onSubmit}
@@ -674,6 +674,28 @@ describe('<FormState />', () => {
 
       const {fields: updatedFields} = lastCallArgs(renderPropSpy);
       expect(updatedFields.product.error).not.toBe(message);
+    });
+
+    it('does not error when component is unmounted before submit resolves', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const onSubmitSpy = jest.fn();
+      const product = faker.commerce.productName();
+
+      const form = mount(
+        <FormState initialValues={{product}} onSubmit={onSubmitSpy}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit, submitting, reset, ...formData} = lastCallArgs(
+        renderPropSpy,
+      );
+
+      const submissionPromise = submit();
+      form.unmount();
+      expect(async () => {
+        await submissionPromise();
+      }).not.toThrow();
     });
   });
 

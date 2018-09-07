@@ -1,5 +1,4 @@
-export default function redirectionScript({origin, path}) {
-  const redirectTo = `${origin}${path}`;
+export default function redirectionScript({origin, redirectTo}) {
   return `
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function() {
