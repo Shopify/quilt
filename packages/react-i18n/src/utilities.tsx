@@ -1,5 +1,9 @@
 import * as React from 'react';
 import {
+  pseudotranslate as pseudotranslateString,
+  PseudotranslateOptions,
+} from '@shopify/i18n';
+import {
   TranslationDictionary,
   ComplexReplacementDictionary,
   PrimitiveReplacementDictionary,
@@ -11,13 +15,21 @@ const MISSING_TRANSLATION = Symbol('Missing translation');
 const PLURALIZATION_KEY_NAME = 'count';
 const SEPARATOR = '.';
 
+export const PSEUDOTRANSLATE_OPTIONS: PseudotranslateOptions = {
+  startDelimiter: '{',
+  endDelimiter: '}',
+  prepend: '[!!',
+  append: '!!]',
+};
+
 export interface TranslateOptions<
   Replacements extends
     | PrimitiveReplacementDictionary
-    | ComplexReplacementDictionary
+    | ComplexReplacementDictionary = {}
 > {
   scope?: string | string[];
   replacements?: Replacements;
+  pseudotranslate?: boolean | string;
 }
 
 export function translate(
@@ -40,7 +52,7 @@ export function translate(
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
 ): any {
-  const {scope, replacements} = options;
+  const {scope, replacements, pseudotranslate} = options;
 
   const normalizedTranslations = Array.isArray(translations)
     ? translations
@@ -54,6 +66,7 @@ export function translate(
       translationDictionary,
       locale,
       replacements,
+      {pseudotranslate},
     );
 
     if (result !== MISSING_TRANSLATION) {
@@ -69,18 +82,21 @@ function translateWithDictionary(
   translations: TranslationDictionary,
   locale: string,
   replacements?: PrimitiveReplacementDictionary,
+  options?: Pick<TranslateOptions, 'pseudotranslate'>,
 ): string | typeof MISSING_TRANSLATION;
 function translateWithDictionary(
   id: string,
   translations: TranslationDictionary,
   locale: string,
   replacements?: ComplexReplacementDictionary,
+  options?: Pick<TranslateOptions, 'pseudotranslate'>,
 ): React.ReactElement<any> | typeof MISSING_TRANSLATION;
 function translateWithDictionary(
   id: string,
   translations: TranslationDictionary,
   locale: string,
   replacements?: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
+  {pseudotranslate = false}: Pick<TranslateOptions, 'pseudotranslate'> = {},
 ): any {
   let result: string | TranslationDictionary = translations;
 
@@ -105,8 +121,17 @@ function translateWithDictionary(
     }
   }
 
-  if (typeof result === 'string') {
-    return updateStringWithReplacements(result, replacements);
+  const processedString =
+    typeof result === 'string' && pseudotranslate
+      ? pseudotranslateString(result, {
+          ...PSEUDOTRANSLATE_OPTIONS,
+          toLocale:
+            typeof pseudotranslate === 'boolean' ? undefined : pseudotranslate,
+        })
+      : result;
+
+  if (typeof processedString === 'string') {
+    return updateStringWithReplacements(processedString, replacements);
   } else {
     return MISSING_TRANSLATION;
   }

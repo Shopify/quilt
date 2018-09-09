@@ -23,12 +23,6 @@ describe('I18n', () => {
       const i18n = new I18n(defaultTranslations, {locale});
       expect(i18n).toHaveProperty('locale', locale);
     });
-
-    it('is normalized', () => {
-      const locale = 'fr-CA';
-      const i18n = new I18n(defaultTranslations, {locale});
-      expect(i18n).toHaveProperty('locale', locale.toLowerCase());
-    });
   });
 
   describe('#language', () => {
@@ -87,11 +81,26 @@ describe('I18n', () => {
     });
   });
 
+  describe('#region', () => {
+    it('is determined from the locale', () => {
+      const locale = 'fr-ca';
+      const i18n = new I18n(defaultTranslations, {locale});
+      expect(i18n).toHaveProperty('region', 'CA');
+    });
+
+    it('is undefined when the locale does not have a country code', () => {
+      const locale = 'fr';
+      const i18n = new I18n(defaultTranslations, {locale});
+      // eslint-disable-next-line no-undefined
+      expect(i18n).toHaveProperty('region', undefined);
+    });
+  });
+
   describe('#countryCode', () => {
     it('is determined from the locale', () => {
       const locale = 'fr-ca';
       const i18n = new I18n(defaultTranslations, {locale});
-      expect(i18n).toHaveProperty('countryCode', 'ca');
+      expect(i18n).toHaveProperty('countryCode', 'CA');
     });
 
     it('is undefined when the locale does not have a country code', () => {
@@ -125,7 +134,7 @@ describe('I18n', () => {
   });
 
   describe('#translate()', () => {
-    it('calls the translate() utility with translations, key, locale, scope, and replacements', () => {
+    it('calls the translate() utility with translations, key, locale, scope, pseudotranslate, and replacements', () => {
       const mockResult = 'translated string';
       const replacements = {name: 'Chris'};
       const scope = {scope: 'goodbye'};
@@ -137,7 +146,7 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        {...scope, replacements},
+        {...scope, replacements, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
       );
@@ -154,7 +163,7 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        {replacements},
+        {replacements, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
       );
@@ -171,7 +180,7 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        {...scope},
+        {...scope, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
       );
@@ -187,7 +196,26 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        {},
+        {pseudotranslate: false},
+        defaultTranslations,
+        i18n.locale,
+      );
+    });
+
+    it('calls the translate utility with pseudotranslation', () => {
+      const mockResult = 'translated string';
+      translate.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        pseudolocalize: true,
+      });
+      const result = i18n.translate('hello');
+
+      expect(result).toBe(mockResult);
+      expect(translate).toHaveBeenCalledWith(
+        'hello',
+        {pseudotranslate: true},
         defaultTranslations,
         i18n.locale,
       );
