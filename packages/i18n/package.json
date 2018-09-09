@@ -1,6 +1,6 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "Generic i18n-related utilities.",
   "main": "dist/index.js",
@@ -22,8 +22,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/i18n/README.md",
-  "dependencies": {
-  },
   "devDependencies": {
     "typescript": "~3.0.1"
   }
