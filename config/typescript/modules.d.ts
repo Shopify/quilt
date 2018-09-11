@@ -24,8 +24,3 @@ declare module 'react-tree-walker' {
     options?: {componentWillUnmount: boolean},
   ): Promise<void>;
 }
-
-declare module '*.scss' {
-  const content: {[className: string]: string};
-  export = content;
-}
