@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel.svg)](https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-tracking-pixel.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-tracking-pixel.svg)
 
-Allows react apps to easily embed tracking pixel iframes
+Allows React apps to easily embed tracking pixel iframes
 
 ## Installation
 
@@ -13,39 +13,31 @@ $ yarn add @shopify/react-tracking-pixel
 
 ## Usage
 
-This library exports a `<TrackingPixel />` component, which allows react apps to easily embed tracking pixel iframes.
+This library exports a `<TrackingPixel />` component, which allows React apps to easily embed tracking pixel iframes.
 
 ### Basic Example
 
-```javascript
+```jsx
 import TrackingPixel from 'react-tracking-pixel';
 
-...
+// ...
 
-const myurl = "myurl";
+const myurl = 'myurl';
 
-<TrackingPixel
-    url={myurl}
-/>
+<TrackingPixel url={myurl} />;
 ```
 
 ### With Proconnected Hosts
 
-```javascript
+```jsx
 import TrackingPixel from 'react-tracking-pixel';
 
-...
+// ...
 
-const myurl = "myurl";
-const myhosts = [
-        'example.com',
-        'moreexamples.com',
-    ];
+const myurl = 'myurl';
+const myhosts = ['example.com', 'moreexamples.com'];
 
-<TrackingPixel
-    url={myurl}
-    preconnectHosts={myhosts}
-/>
+<TrackingPixel url={myurl} preconnectHosts={myhosts} />;
 ```
 
 ## Interface

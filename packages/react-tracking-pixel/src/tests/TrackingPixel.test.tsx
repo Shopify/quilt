@@ -16,6 +16,8 @@ describe('<TrackingPixel />', () => {
       height: 1,
       width: 1,
     });
+    const containerStyles = trackingPixel.find('iframe').get(0).props.style;
+    expect(containerStyles).toHaveProperty('display', 'none');
   });
 
   describe('url', () => {
