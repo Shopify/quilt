@@ -10,6 +10,7 @@ describe('koa-liveness-ping', () => {
 
     await middleware(ctx, nextFn);
 
+    expect(ctx.status).toBe(404);
     expect(nextFn).toHaveBeenCalledTimes(1);
   });
 
