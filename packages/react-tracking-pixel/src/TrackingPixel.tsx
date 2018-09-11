@@ -1,7 +1,6 @@
 import * as React from 'react';
 import isEqual from 'lodash/isEqual';
 import Preconnect from '@shopify/react-preconnect';
-import * as styles from './TrackingPixel.scss';
 
 export interface Props {
   url: string;
@@ -20,6 +19,9 @@ export default class TrackingPixel extends React.Component<Props, never> {
 
   render() {
     const {url, preconnectHosts} = this.props;
+    const styles = {
+      display: 'none',
+    };
 
     const preconnectHostsMarkup = preconnectHosts ? (
       <Preconnect hosts={preconnectHosts} />
@@ -36,7 +38,7 @@ export default class TrackingPixel extends React.Component<Props, never> {
           frameBorder={0}
           height={1}
           width={1}
-          className={styles.TrackingPixel}
+          style={styles}
         />
       </>
     );
