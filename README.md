@@ -49,7 +49,7 @@ Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
 
 ## Questions?
 
-For Shopifolk, you can reach out to us in Slack on the `#quilt` or `#web-foundation-tech` channels. For external inquiries, we welcome bug reports, enhancements, and feature requests via Github issues.
+For Shopifolk, you can reach out to us in Slack on the `#quilt` and `#web-foundation-tech` channels. For external inquiries, we welcome bug reports, enhancements, and feature requests via Github issues.
 
 ## License
 
