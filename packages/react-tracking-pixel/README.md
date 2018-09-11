@@ -12,3 +12,52 @@ $ yarn add @shopify/react-tracking-pixel
 ```
 
 ## Usage
+
+This library exports a `<TrackingPixel />` component, which allows react apps to easily embed tracking pixel iframes.
+
+### Basic Example
+
+```javascript
+import TrackingPixel from 'react-tracking-pixel';
+
+...
+
+const myurl = "myurl";
+
+<TrackingPixel
+    url={myurl}
+/>
+```
+
+### With Proconnected Hosts
+
+```javascript
+import TrackingPixel from 'react-tracking-pixel';
+
+...
+
+const myurl = "myurl";
+const myhosts = [
+        'example.com',
+        'moreexamples.com',
+    ];
+
+<TrackingPixel
+    url={myurl}
+    preconnectHosts={myhosts}
+/>
+```
+
+## Interface
+
+```typescript
+export interface Props {
+  url: string;
+
+  /**
+   * Additional hosts to preconnect to. These should be hosts that
+   * are connected to by the page that will be loaded in an iframe.
+   */
+  preconnectHosts?: string[];
+}
+```
