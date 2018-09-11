@@ -13,6 +13,12 @@ describe('create-mock-context', () => {
     expect(context.url).toBe(url);
   });
 
+  it('defaults status to 404', () => {
+    const context = createContext();
+
+    expect(context.status).toBe(404);
+  });
+
   it('includes requestBody on ctx.request', () => {
     const requestBody = 'Hello I am a body';
     const context = createContext({requestBody});
