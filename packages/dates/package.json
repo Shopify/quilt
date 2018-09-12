@@ -2,7 +2,7 @@
   "name": "@shopify/dates",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Allows React apps to easily implement date checking",
+  "description": "Lightweight date operations.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -24,9 +24,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
   "dependencies": {
     "@shopify/javascript-utilities": "^2.2.0"
-  },
-  "peerDependencies": {
-    "react": "^16.4.1"
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.0.8",
