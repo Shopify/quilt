@@ -26,27 +26,33 @@ module.exports = function(plop) {
     actions: [
       {
         type: 'add',
-        path: 'packages/{{name}}/package.json',
+        path: 'packages/{{kebabCase name}}/package.json',
         templateFile: 'templates/package.hbs.json',
       },
       {
         type: 'add',
-        path: 'packages/{{name}}/tsconfig.json',
+        path: 'packages/{{kebabCase name}}/tsconfig.json',
         templateFile: 'templates/tsconfig.hbs.json',
       },
       {
         type: 'add',
-        path: 'packages/{{name}}/README.md',
+        path: 'packages/{{kebabCase name}}/README.md',
         templateFile: 'templates/README.hbs.md',
       },
       {
         type: 'add',
-        path: 'packages/{{name}}/src/index.ts',
-        templateFile: 'templates/index.hbs.ts',
+        path: 'packages/{{kebabCase name}}/src/index.ts',
+        templateFile: 'templates/index.hbs',
       },
       {
         type: 'add',
-        path: 'packages/{{name}}/src/test/index.test.ts',
+        path: 'packages/{{kebabCase name}}/src/{{properCase name}}.ts',
+        templateFile: 'templates/my-package.hbs.ts',
+      },
+      {
+        type: 'add',
+        path:
+          'packages/{{kebabCase name}}/src/test/{{properCase name}}.test.ts',
         templateFile: 'templates/test.hbs.ts',
       },
       sharedActions.docs,

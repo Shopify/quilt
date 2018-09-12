@@ -94,6 +94,11 @@ export default function createContext<
   });
 
   const res = httpMocks.createResponse();
+
+  // Koa sets a default status code of 404, not the node default of 200
+  // https://github.com/koajs/koa/blob/master/docs/api/response.md#responsestatus
+  res.statusCode = 404;
+
   // This is to get around an odd behavior in the `cookies` library, where if `res.set` is defined, it will use an internal
   // node function to set headers, which results in them being set in the wrong place.
   // eslint-disable-next-line no-undefined
