@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
   "dependencies": {
-    "@shopify/i18n": "^0.1.0",
     "@shopify/javascript-utilities": "^2.2.0"
   },
   "peerDependencies": {

@@ -1,5 +1,5 @@
-import {formatDate} from '@shopify/i18n';
 import {memoize} from '@shopify/javascript-utilities/decorators';
+import {formatDate} from './utilities/formatDate';
 import {sanitiseDateString} from './sanitise-date-string';
 
 export function getDateTimeParts(date: Date, timeZone?: string) {
