@@ -2,6 +2,8 @@ import {memoize} from '@shopify/javascript-utilities/decorators';
 import {formatDate} from './utilities/formatDate';
 import {sanitiseDateString} from './sanitise-date-string';
 
+const TWO_DIGIT_REGEX = /(\d{2})/;
+
 export function getDateTimeParts(date: Date, timeZone?: string) {
   return {
     year: () => DateTimeParts.getYear(date, timeZone),
@@ -191,7 +193,6 @@ class DateTimeParts {
     // In Microsoft Edge, Intl.DateTimeFormat returns invisible characters around the individual numbers
     const [dirtyHour, dirtyMinute, dirtySecond] = timeString.split(':');
 
-    const TWO_DIGIT_REGEX = /(\d{2})/;
     const rawHour = new RegExp(TWO_DIGIT_REGEX).exec(dirtyHour);
     const rawMinute = new RegExp(TWO_DIGIT_REGEX).exec(dirtyMinute);
     const rawSecond = new RegExp(TWO_DIGIT_REGEX).exec(dirtySecond);
