@@ -1,0 +1,40 @@
+{
+  "name": "@shopify/dates",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Allows React apps to easily implement date checking",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
+  "dependencies": {
+    "@shopify/i18n": "^0.1.0",
+    "@shopify/javascript-utilities": "^2.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1"
+  },
+  "devDependencies": {
+    "@shopify/jest-dom-mocks": "^2.0.8",
+    "enzyme": "^3.3.0",
+    "typescript": "~3.0.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
