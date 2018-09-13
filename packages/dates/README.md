@@ -14,10 +14,11 @@ $ yarn add @shopify/dates
 ## Usage
 
 This library exports helpers that allow apps to easily work with dates and timezones.
+Optional time zone parameters that are omitted assume the UTC time zone is being used.
 
 ### `applyTimeZoneOffset`
 
-Takes in a date string and two optional time zone strings parameters. Returns a new date string with the offset between the time zones added to it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it.
 
 ```ts
 import {applyTimeZoneOffset} from '@shopify/dates';
@@ -31,7 +32,7 @@ const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2);
 
 ### `getDateTimeParts`
 
-Takes in a date string and an optional time zone parameter. Returns an object with functions to get the year, month, day, weekday, hour, minute and second of the provided date string.
+Takes in a date object and an optional time zone string parameter. Returns an object with functions to get the year, month, day, weekday, hour, minute and second of the provided date.
 
 ```ts
 import {getDateTimeParts} from '@shopify/dates';
@@ -52,7 +53,7 @@ const second = dateTimeParts.second();
 
 ### `getTimeZoneOffset`
 
-Takes in a date string and two optional time zone parameters. Returns a number representing the offset between the two provided time zones.
+Takes in a date object and two optional time zone string parameters. Returns a number representing the offset between the two provided time zones in minutes.
 
 ```ts
 import {getTimeZoneOffset} from '@shopify/dates';
@@ -66,7 +67,7 @@ const timeZoneOffset = getTimeZoneOffset(date, timeZone1, timeZone2);
 
 ### `isSameDay`
 
-Takes in two date strings and an optional time zone parameter. Returns a boolean indicating whether or not these two dates are in the same day.
+Takes in two date objects and an optional time zone string parameter. Returns a boolean indicating whether or not these two dates are in the same day.
 
 ```ts
 import {isSameDay} from '@shopify/dates';
@@ -80,7 +81,7 @@ const sameDay = isSameDay(date1, date2, timeZone);
 
 ### `isSameMonth`
 
-Takes in two date strings and an optional time zone parameter. Returns a boolean indicating whether or not these two dates are in the same month.
+Takes in two date objects and an optional time zone string parameter. Returns a boolean indicating whether or not these two dates are in the same month.
 
 ```ts
 import {isSameMonth} from '@shopify/dates';
@@ -94,7 +95,7 @@ const sameMonth = isSameMonth(date1, date2, timeZone);
 
 ### `isSameYear`
 
-Takes in two date strings and an optional time zone parameter. Returns a boolean indicating whether or not these two dates are in the same year.
+Takes in two date objects and an optional time zone string parameter. Returns a boolean indicating whether or not these two dates are in the same year.
 
 ```ts
 import {isSameYear} from '@shopify/dates';
@@ -108,7 +109,7 @@ const sameYear = isSameYear(date1, date2, timeZone);
 
 ### `isToday`
 
-Takes in a date string and an optional time zone parameter. Returns a boolean indicating whether or not this date is today.
+Takes in a date object and an optional time zone string parameter. Returns a boolean indicating whether or not this date is today.
 
 ```ts
 import {isToday} from '@shopify/dates';
@@ -121,7 +122,7 @@ const today = isToday(date, timeZone);
 
 ### `isTomorrow`
 
-Takes in a date string and an optional time zone parameter. Returns a boolean indicating whether or not this date is tomorrow.
+Takes in a date object and an optional time zone string parameter. Returns a boolean indicating whether or not this date is tomorrow.
 
 ```ts
 import {isTomorrow} from '@shopify/dates';
@@ -134,7 +135,7 @@ const tomorrow = isTomorrow(date, timeZone);
 
 ### `isYesterday`
 
-Takes in a date string and an optional time zone parameter. Returns a boolean indicating whether or not this date is yesterday.
+Takes in a date object and an optional time zone string parameter. Returns a boolean indicating whether or not this date is yesterday.
 
 ```ts
 import {isYesterday} from '@shopify/dates';
@@ -147,7 +148,7 @@ const yesterday = isYesterday(date, timeZone);
 
 ### `parseDateString`
 
-Takes in a date string and an optional time zone parameter. Returns a date string with the format '2018-05-28T12:30:00+00:00' (yyyy-mm-ddThh:mm:ss+00:00, where '+00:00' represents the time zone offset)
+Takes in a date string and an optional time zone string parameter. Returns a date object with the format '2018-05-28T12:30:00+00:00' (yyyy-mm-ddThh:mm:ss+00:00, where '+00:00' represents the time zone offset)
 
 ```ts
 import {parseDateString} from '@shopify/dates';
@@ -160,7 +161,7 @@ const parsed = parseDateString(date, timeZone);
 
 ### `unapplyTimeZoneOffset`
 
-Takes in a date string and two optional time zone strings parameters. Returns a new date string with the offset between the time zones subtracted from it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it.
 
 ```ts
 import {unapplyTimeZoneOffset} from '@shopify/dates';
