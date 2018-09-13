@@ -1,0 +1,37 @@
+{
+  "name": "@shopify/react-google-analytics",
+  "version": "0.2.5",
+  "license": "MIT",
+  "description": "Google Analytics",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-google-analytics/README.md",
+  "dependencies": {
+    "@shopify/react-import-remote": "^0.1.1"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1"
+  },
+  "devDependencies": {
+    "@shopify/enzyme-utilities": "^1.1.2",
+    "@types/enzyme": "^3.1.10",
+    "enzyme": "^3.3.0",
+    "typescript": "~3.0.1"
+  }
+}
