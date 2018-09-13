@@ -146,6 +146,17 @@ const timeZone = 'America/Toronto';
 const yesterday = isYesterday(date, timeZone);
 ```
 
+### `mapDeprecatedTimezones`
+
+Takes in a time zone string parameter. Returns a time zone string corresponding to the equivalent, non-deprecated time zone string.
+
+```ts
+import {mapDeprecatedTimezones} from '@shopify/dates';
+
+const deprecatedTimeZone = 'Cuba';
+const correctTimeZone = mapDeprecatedTimezones(deprecatedTimeZone); // In this case, returns 'America/Havana'
+```
+
 ### `parseDateString`
 
 Takes in a date string and an optional time zone string parameter. Returns a date object with the format '2018-05-28T12:30:00+00:00' (yyyy-mm-ddThh:mm:ss+00:00, where '+00:00' represents the time zone offset)
