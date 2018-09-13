@@ -14,7 +14,7 @@ $ yarn add @shopify/dates
 ## Usage
 
 This library exports helpers that allow apps to easily work with dates and timezones.
-Optional time zone parameters that are omitted assume the UTC time zone is being used.
+Optional time zone parameters that are omitted are inferred as local.
 
 ### `applyTimeZoneOffset`
 
