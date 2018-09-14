@@ -35,5 +35,6 @@
   },
   "files": [
     "dist/*"
-  ]
+  ],
+  "sideEffects": false
 }
