@@ -16,7 +16,7 @@ describe('parseDateString()', () => {
       expect(actual).toEqual(expected);
     });
 
-    it('parses yyyy-mm-ddT:hh:mm:ss+hh:mm date strings', () => {
+    it('ignores timezone parameter for dates with embedded timezones', () => {
       const actual = parseDateString('2018-05-28T12:30:00+05:30', 'UTC');
       const expected = new Date('2018-05-28T12:30:00+05:30');
 
