@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/with-env",
-  "version": "1.0.6",
+  "name": "@shopify/dates",
+  "version": "0.1.0",
   "license": "MIT",
-  "description": "A utility for executing code under a specific NODE_ENV.",
+  "description": "Lightweight date operations library.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,9 +21,16 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/with-env/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
+  "dependencies": {
+    "@shopify/javascript-utilities": "^2.2.0"
+  },
   "devDependencies": {
+    "@shopify/jest-dom-mocks": "^2.0.8",
+    "enzyme": "^3.3.0",
     "typescript": "~3.0.1"
   },
-  "sideEffects": false
+  "files": [
+    "dist/*"
+  ]
 }

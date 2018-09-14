@@ -30,5 +30,6 @@
   },
   "dependencies": {
     "prop-types": "^15.6.2"
-  }
+  },
+  "sideEffects": false
 }

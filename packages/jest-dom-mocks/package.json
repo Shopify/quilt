@@ -30,5 +30,6 @@
   },
   "devDependencies": {
     "typescript": "~3.0.1"
-  }
+  },
+  "sideEffects": false
 }
