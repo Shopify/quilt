@@ -33,5 +33,6 @@
   "devDependencies": {
     "@shopify/with-env": "^1.0.6",
     "typescript": "~3.0.1"
-  }
+  },
+  "sideEffects": false
 }
