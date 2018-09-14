@@ -34,5 +34,6 @@
       "react-router",
       "@types/react-router"
     ]
-  }
+  },
+  "sideEffects": false
 }
