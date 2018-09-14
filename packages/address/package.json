@@ -25,5 +25,6 @@
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.0.8",
     "typescript": "~3.0.1"
-  }
+  },
+  "sideEffects": false
 }
