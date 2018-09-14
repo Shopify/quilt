@@ -31,5 +31,6 @@
     "@types/hoist-non-react-statics": "^3.0.1",
     "hoist-non-react-statics": "^3.0.1",
     "react-tree-walker": "^4.3.0"
-  }
+  },
+  "sideEffects": false
 }
