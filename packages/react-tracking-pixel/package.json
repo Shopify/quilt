@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/koa-metrics",
-  "version": "0.1.4",
+  "name": "@shopify/react-tracking-pixel",
+  "version": "1.0.1",
   "license": "MIT",
-  "description": "Aims to provide standard middlewares and instrumentation tooling for metrics in Koa.",
+  "description": "Allows React apps to easily embed tracking pixel iframes",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,14 +21,19 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/blob/master/packages/koa-metrics/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-tracking-pixel/README.md",
   "dependencies": {
-    "hot-shots": "^5.4.1",
-    "koa": "^2.5.1"
+    "@shopify/react-preconnect": "^0.1.2",
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.0.11",
-    "@shopify/with-env": "^1.0.6",
+    "enzyme": "^3.3.0",
     "typescript": "~3.0.1"
-  }
+  },
+  "peerDependencies": {
+    "react": "^16.4.1"
+  },
+  "files": [
+    "dist/*"
+  ]
 }
