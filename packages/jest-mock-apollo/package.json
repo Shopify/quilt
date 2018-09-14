@@ -38,5 +38,6 @@
   "peerDependencies": {
     "apollo-cache-inmemory": "^1.2.4",
     "apollo-client": "^2.3.4"
-  }
+  },
+  "sideEffects": false
 }
