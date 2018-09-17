@@ -126,6 +126,15 @@
     lodash "^4.17.4"
     lodash-decorators "^4.3.5"
 
+"@shopify/javascript-utilities@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@shopify/javascript-utilities/-/javascript-utilities-2.2.0.tgz#948d44d4068d602136b0d72de66eed49820e2374"
+  dependencies:
+    "@types/lodash" "^4.14.65"
+    "@types/react" "^16.0.2"
+    lodash "^4.17.4"
+    lodash-decorators "^4.3.5"
+
 "@shopify/react-apollo@^2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@shopify/react-apollo/-/react-apollo-2.0.7.tgz#24063768881467c721c30b8d00ed5401da37fece"
@@ -5545,7 +5554,7 @@ prop-types@^15.5.4, prop-types@^15.6.0:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-prop-types@^15.5.6:
+prop-types@^15.5.6, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
