@@ -40,6 +40,7 @@ export interface Country {
     format: {
       edit: string;
       show: string;
+      showInline: string;
     };
     zoneKey: string;
     zipKey: string;

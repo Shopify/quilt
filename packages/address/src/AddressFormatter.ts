@@ -6,8 +6,12 @@ const FIELD_REGEXP = /({\w+})/g;
 const LINE_DELIMITER = '_';
 const DEFAULT_FORM_LAYOUT =
   '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}';
-const DEFAULT_SHOW_LAYOUT =
-  '{lastName} {firstName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}';
+const DEFAULT_SHOW_LAYOUTS = {
+  multiline:
+    '{lastName} {firstName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+  inline:
+    '{lastName} {firstName}, {company}, {address1} {address2}, {city} {province} {zip}, {country}, {phone}',
+};
 
 const ORDERED_COUNTRIES_CACHE: {
   [locale: string]: Country[];
@@ -18,6 +22,8 @@ const COUNTRIES_CACHE: {
     [countryCode: string]: Country;
   };
 } = {};
+
+type AddressShowFormat = 'multiline' | 'inline';
 
 export default class AddressFormatter {
   constructor(private locale: string) {
@@ -65,9 +71,18 @@ export default class AddressFormatter {
   *     '514 444 3333'
   *   ]
   */
-  async format(address: Address): Promise<string[]> {
+  async format(
+    address: Address,
+    format: AddressShowFormat = 'multiline',
+  ): Promise<string[]> {
     const country = await this.getCountry(address.country);
-    const layout = country.attributes.format.show || DEFAULT_SHOW_LAYOUT;
+    let layout;
+    if (format === 'multiline') {
+      layout = country.attributes.format.show || DEFAULT_SHOW_LAYOUTS.multiline;
+    } else {
+      layout =
+        country.attributes.format.showInline || DEFAULT_SHOW_LAYOUTS.inline;
+    }
 
     return layout
       .split(LINE_DELIMITER)
