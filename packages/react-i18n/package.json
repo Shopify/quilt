@@ -30,6 +30,8 @@
   "dependencies": {
     "@types/hoist-non-react-statics": "^3.0.1",
     "hoist-non-react-statics": "^3.0.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.2.0",
     "react-tree-walker": "^4.3.0"
   },
   "sideEffects": false
