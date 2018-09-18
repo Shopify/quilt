@@ -22,13 +22,11 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-liveness-ping/README.md",
-  "dependencies": {
-    "koa": "^2.5.1"
-  },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.0.12",
-    "@types/koa": "^2.0.45",
+    "@types/koa": "^2.0.44",
     "@types/koa-mount": "^3.0.1",
+    "koa": "^2.5.0",
     "koa-mount": "^3.0.0",
     "typescript": "~3.0.1"
   },
