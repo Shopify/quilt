@@ -1,9 +1,22 @@
 import * as React from 'react';
-import {translate} from '../utilities';
+import {translate, PSEUDOTRANSLATE_OPTIONS} from '../utilities';
+
+const {pseudotranslate} = require.requireMock('@shopify/i18n') as {
+  pseudotranslate: jest.Mock;
+};
 
 const locale = 'en-us';
 
+jest.mock('@shopify/i18n', () => ({
+  pseudotranslate: jest.fn(),
+}));
+
 describe('translate()', () => {
+  beforeEach(() => {
+    pseudotranslate.mockReset();
+    pseudotranslate.mockImplementation((text: string) => text);
+  });
+
   it('throws a MissingTranslationError when no translation is found', () => {
     expect(() => translate('foo', {}, {}, locale)).toThrow();
   });
@@ -122,6 +135,29 @@ describe('translate()', () => {
       expect(() =>
         translate('foo', {}, {foo: 'bar: {bar}'}, locale),
       ).toThrowError('No replacement found for key');
+    });
+  });
+
+  describe('pseudotranslate', () => {
+    it('does not call the pseudotranslate function when not set', () => {
+      translate('foo', {pseudotranslate: false}, {foo: 'bar'}, locale);
+      expect(pseudotranslate).not.toHaveBeenCalled();
+    });
+
+    it('calls the pseudotranslate function when set', () => {
+      translate('foo', {pseudotranslate: true}, {foo: 'bar'}, locale);
+      expect(pseudotranslate).toHaveBeenCalledWith(
+        'bar',
+        PSEUDOTRANSLATE_OPTIONS,
+      );
+    });
+
+    it('calls the pseudotranslate with toLocale when pseudotranslate is a string', () => {
+      translate('foo', {pseudotranslate: 'de'}, {foo: 'bar'}, locale);
+      expect(pseudotranslate).toHaveBeenCalledWith('bar', {
+        ...PSEUDOTRANSLATE_OPTIONS,
+        toLocale: 'de',
+      });
     });
   });
 });

@@ -1,3 +1,4 @@
+import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -43,12 +44,24 @@ const RTL_LANGUAGES = [
 /* eslint-enable */
 
 export default class I18n {
-  locale: string;
-  defaultCurrency?: string;
-  defaultTimezone?: string;
+  readonly locale: string;
+  readonly pseudolocalize: boolean | string;
+  readonly defaultCurrency?: string;
+  readonly defaultTimezone?: string;
 
-  get language(): string {
-    return this.locale.split('-')[0];
+  get language() {
+    return languageFromLocale(this.locale);
+  }
+
+  get region() {
+    return regionFromLocale(this.locale);
+  }
+
+  /**
+   * @deprecated Use I18n#region instead.
+   */
+  get countryCode() {
+    return regionFromLocale(this.locale);
   }
 
   get languageDirection() {
@@ -65,17 +78,14 @@ export default class I18n {
     return this.languageDirection === LanguageDirection.Ltr;
   }
 
-  get countryCode(): string | undefined {
-    return this.locale.split('-')[1];
-  }
-
   constructor(
     public translations: TranslationDictionary[],
-    {locale, currency, timezone}: I18nDetails,
+    {locale, currency, timezone, pseudolocalize = false}: I18nDetails,
   ) {
-    this.locale = locale.toLowerCase();
+    this.locale = locale;
     this.defaultCurrency = currency;
     this.defaultTimezone = timezone;
+    this.pseudolocalize = pseudolocalize;
   }
 
   translate(
@@ -103,16 +113,24 @@ export default class I18n {
       | PrimitiveReplacementDictionary
       | ComplexReplacementDictionary,
   ): any {
+    const {pseudolocalize} = this;
     let normalizedOptions: RootTranslateOptions<
       PrimitiveReplacementDictionary | ComplexReplacementDictionary
     >;
 
     if (optionsOrReplacements == null) {
-      normalizedOptions = {};
+      normalizedOptions = {pseudotranslate: pseudolocalize};
     } else if (isTranslateOptions(optionsOrReplacements)) {
-      normalizedOptions = {...optionsOrReplacements, replacements};
+      normalizedOptions = {
+        ...optionsOrReplacements,
+        replacements,
+        pseudotranslate: pseudolocalize,
+      };
     } else {
-      normalizedOptions = {replacements: optionsOrReplacements};
+      normalizedOptions = {
+        replacements: optionsOrReplacements,
+        pseudotranslate: pseudolocalize,
+      };
     }
 
     return translate(id, normalizedOptions, this.translations, this.locale);
