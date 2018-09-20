@@ -2,16 +2,16 @@ import * as React from 'react';
 import get from 'lodash/get';
 import {memoize, bind} from 'lodash-decorators';
 
-import {FieldDescriptor, FieldDescriptors} from '../types';
+import {Field, Fields} from '../types';
 import {mapObject} from '../utilities';
 
-interface Props<Fields> {
-  field: FieldDescriptor<Fields>;
-  children(fields: FieldDescriptors<Fields>): React.ReactNode;
+interface Props<FieldMap> {
+  field: Field<FieldMap>;
+  children(fields: Fields<FieldMap>): React.ReactNode;
 }
 
-export default class Nested<Fields> extends React.PureComponent<
-  Props<Fields>,
+export default class Nested<FieldMap> extends React.PureComponent<
+  Props<FieldMap>,
   never
 > {
   render() {
@@ -20,7 +20,7 @@ export default class Nested<Fields> extends React.PureComponent<
       children,
     } = this.props;
 
-    const innerFields: FieldDescriptors<Fields> = mapObject(
+    const innerFields: Fields<FieldMap> = mapObject(
       value,
       (value, fieldPath) => {
         const initialFieldValue = initialValue[fieldPath];
@@ -41,8 +41,8 @@ export default class Nested<Fields> extends React.PureComponent<
 
   @memoize()
   @bind()
-  private handleChange<Key extends keyof Fields>(key: Key) {
-    return (newValue: Fields[Key]) => {
+  private handleChange<Key extends keyof FieldMap>(key: Key) {
+    return (newValue: FieldMap[Key]) => {
       const {
         field: {value: existingItem, onChange},
       } = this.props;
