@@ -21,12 +21,12 @@ const COUNTRIES_CACHE: {
 
 export default class AddressFormatter {
   constructor(private locale: string) {
-    this.locale = locale;
+    this.locale = locale.toUpperCase();
     COUNTRIES_CACHE[this.locale] = {};
   }
 
   updateLocale(locale: string) {
-    this.locale = locale;
+    this.locale = locale.toUpperCase();
     COUNTRIES_CACHE[this.locale] = {};
   }
 
@@ -37,8 +37,7 @@ export default class AddressFormatter {
     }
 
     country = await loadCountry(this.locale, countryCode);
-    COUNTRIES_CACHE[this.locale][country.attributes.code] = country;
-
+    COUNTRIES_CACHE[this.locale][country.code] = country;
     return country;
   }
 
@@ -46,7 +45,6 @@ export default class AddressFormatter {
     if (ORDERED_COUNTRIES_CACHE[this.locale]) {
       return ORDERED_COUNTRIES_CACHE[this.locale];
     }
-
     const countries = await loadCountries(this.locale);
     ORDERED_COUNTRIES_CACHE[this.locale] = countries;
 
@@ -67,8 +65,7 @@ export default class AddressFormatter {
   */
   async format(address: Address): Promise<string[]> {
     const country = await this.getCountry(address.country);
-    const layout = country.attributes.format.show || DEFAULT_SHOW_LAYOUT;
-
+    const layout = country.formatting.show || DEFAULT_SHOW_LAYOUT;
     return layout
       .split(LINE_DELIMITER)
       .map(fields => renderLineTemplate(country, fields, address).trim());
@@ -89,9 +86,7 @@ export default class AddressFormatter {
   async getOrderedFields(countryCode: string): Promise<FieldName[][]> {
     const country = await this.getCountry(countryCode);
 
-    const format = country
-      ? country.attributes.format.edit
-      : DEFAULT_FORM_LAYOUT;
+    const format = country ? country.formatting.edit : DEFAULT_FORM_LAYOUT;
 
     return format.split(LINE_DELIMITER).map(fields => {
       const result = fields.match(FIELD_REGEXP);
@@ -112,11 +107,11 @@ export default class AddressFormatter {
 
     switch (key) {
       case FieldName.Province:
-        return country.attributes.zoneKey;
+        return country.provinceKey;
       case FieldName.Zip:
-        return country.attributes.zipKey;
+        return country.zipKey;
       case FieldName.Address2:
-        return country.attributes.address2Key;
+        return country.address2Key;
       default:
         return key;
     }
@@ -133,7 +128,7 @@ export default class AddressFormatter {
 
     if (ORDERED_COUNTRIES_CACHE[this.locale]) {
       return ORDERED_COUNTRIES_CACHE[this.locale].find(country => {
-        return country.attributes.code === countryCode;
+        return country.code === countryCode;
       });
     }
 

@@ -1,18 +1,15 @@
 import {fetch} from '@shopify/jest-dom-mocks';
 import {Address, FieldName} from '../types';
 import AddressFormatter from '..';
-import {JapanJa, FranceFr, CanadaEn, CanadaFr} from './fixtures';
+import {
+  countriesJa,
+  countriesEn,
+  countryJpJa,
+  countryJpEn,
+  countryJpFr,
+} from './fixtures';
 
-const countries = [JapanJa, CanadaFr, FranceFr];
-
-beforeEach(() => {
-  fetch.mock(
-    'https://country-service.shopifycloud.com/countries/JP?locale=ja',
-    {data: JapanJa},
-  );
-});
-
-afterEach(fetch.restore);
+const GRAPHQL_ENDPOINT = 'https://country-service.shopifycloud.com/graphql';
 
 const address: Address = {
   company: 'Shopify',
@@ -27,105 +24,154 @@ const address: Address = {
   phone: '514 xxx xxxx',
 };
 
+afterEach(fetch.restore);
+
+function mockAPICall(
+  operationName: string,
+  fixture: any,
+  locale: string = 'JA',
+) {
+  fetch.mock(
+    (url, options) => {
+      if (url !== GRAPHQL_ENDPOINT || options.method !== 'POST') {
+        return false;
+      }
+
+      if (typeof options.body === 'string') {
+        const body = JSON.parse(options.body);
+        return (
+          body.operationName === operationName &&
+          body.variables.locale === locale
+        );
+      }
+
+      return false;
+    },
+    fixture,
+    {overwriteRoutes: false},
+  );
+}
+
 describe('updateLocale()', () => {
   beforeEach(() => {
-    fetch.mock(
-      'https://country-service.shopifycloud.com/countries/CA?locale=fr',
-      {data: CanadaFr},
-    );
-
-    fetch.mock(
-      'https://country-service.shopifycloud.com/countries/CA?locale=en',
-      {data: CanadaEn},
-    );
+    mockAPICall('country', countryJpJa, 'JA');
+    mockAPICall('country', countryJpEn, 'EN');
   });
 
   it('returns the country in the correct locale', async () => {
-    const addressFormatter = new AddressFormatter('fr');
-    let country = await addressFormatter.getCountry('CA');
+    const addressFormatter = new AddressFormatter('ja');
+    let country = await addressFormatter.getCountry('JP');
 
-    expect(country).toEqual(CanadaFr);
+    expect(country).toEqual(countryJpJa.data.country);
 
     addressFormatter.updateLocale('en');
-    country = await addressFormatter.getCountry('CA');
-    expect(country).toEqual(CanadaEn);
+    country = await addressFormatter.getCountry('JP');
+
+    expect(country).toEqual(countryJpEn.data.country);
   });
 });
 
 describe('getCountry()', () => {
   it('returns a country', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    mockAPICall('country', countryJpJa);
+
+    const addressFormatter = new AddressFormatter('JA');
     const country = await addressFormatter.getCountry('JP');
-    expect(country).toEqual(JapanJa);
+
+    expect(country).toEqual(countryJpJa.data.country);
   });
 
-  it('loads country from cache if it was preloaded', async () => {
-    const addressFormatter = new AddressFormatter('ja');
-    let country = await addressFormatter.getCountry('JP');
+  it('should not call the API again for the same country if the locale is the same', async () => {
+    mockAPICall('country', countryJpJa);
 
-    expect(country).toEqual(JapanJa);
+    const addressFormatter = new AddressFormatter('JA');
+    await addressFormatter.getCountry('JP');
+    await addressFormatter.getCountry('JP');
 
-    fetch.restore();
-    fetch.mock(
-      'https://country-service.shopifycloud.com/countries/JP?locale=ja',
-      {data: 'lol'},
-    );
-
-    country = await addressFormatter.getCountry('JP');
-    expect(country).toEqual(JapanJa);
+    expect(fetch.calls()).toHaveLength(1);
   });
 
-  it('loads country from cache if all the countries were loaded', async () => {
-    fetch.restore();
-    fetch.mock('https://country-service.shopifycloud.com/countries?locale=ja', {
-      data: countries,
-    });
-    fetch.mock(
-      'https://country-service.shopifycloud.com/countries/JP?locale=ja',
-      {data: 'lol'},
-    );
+  it('should call the API again for the same country if the locale changes', async () => {
+    mockAPICall('country', countryJpJa);
+    mockAPICall('country', countryJpEn, 'EN');
 
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
+    await addressFormatter.getCountry('JP');
+
+    expect(fetch.calls()).toHaveLength(1);
+
+    addressFormatter.updateLocale('en');
+    await addressFormatter.getCountry('JP');
+
+    expect(fetch.calls()).toHaveLength(2);
+  });
+
+  it('should not call the API again for a country if all the countries have been loaded', async () => {
+    mockAPICall('countries', countriesJa);
+    mockAPICall('country', countryJpJa);
+
+    const addressFormatter = new AddressFormatter('JA');
     await addressFormatter.getCountries();
-    const country = await addressFormatter.getCountry('JP');
+    await addressFormatter.getCountry('JP');
 
-    expect(country).toEqual(JapanJa);
+    expect(fetch.calls()).toHaveLength(1);
+  });
+
+  it('should call the API again for a country in another locale even if all the countries have been loaded', async () => {
+    mockAPICall('countries', countriesEn, 'EN');
+    mockAPICall('country', countryJpFr, 'FR');
+
+    const addressFormatter = new AddressFormatter('EN');
+    await addressFormatter.getCountries();
+    addressFormatter.updateLocale('FR');
+    await addressFormatter.getCountry('JP');
+
+    expect(fetch.calls()).toHaveLength(2);
   });
 });
 
 describe('getCountries()', () => {
-  beforeEach(() => {
-    fetch.mock('https://country-service.shopifycloud.com/countries?locale=ja', {
-      data: countries,
-    });
-  });
-
   it('returns all countries', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    mockAPICall('countries', countriesJa);
+
+    const addressFormatter = new AddressFormatter('JA');
     const loadedCountries = await addressFormatter.getCountries();
-    expect(loadedCountries).toEqual(countries);
+
+    expect(loadedCountries).toEqual(countriesJa.data.countries);
   });
 
-  it('loads countries from cache', async () => {
-    const addressFormatter = new AddressFormatter('ja');
-    let loadedCountries = await addressFormatter.getCountries();
+  it('should not call the API again for the countries if the locale is the same.', async () => {
+    mockAPICall('countries', countriesEn, 'YY');
 
-    expect(loadedCountries).toEqual(countries);
+    const addressFormatter = new AddressFormatter('YY');
+    await addressFormatter.getCountries();
+    await addressFormatter.getCountries();
 
-    fetch.restore();
-    fetch.mock('https://country-service.shopifycloud.com/countries?locale=ja', {
-      data: 'lol',
-    });
+    expect(fetch.calls()).toHaveLength(1);
+  });
 
-    loadedCountries = await addressFormatter.getCountries();
-    expect(loadedCountries).toEqual(countries);
+  it('should call the API again for the countries if the locale has been updated.', async () => {
+    mockAPICall('countries', countriesEn, 'ZZ');
+    mockAPICall('countries', countriesJa, 'XX');
+
+    const addressFormatter = new AddressFormatter('ZZ');
+    await addressFormatter.getCountries();
+    addressFormatter.updateLocale('xx');
+    await addressFormatter.getCountries();
+
+    expect(fetch.calls()).toHaveLength(2);
   });
 });
 
 describe('format()', () => {
+  beforeEach(() => {
+    mockAPICall('country', countryJpJa, 'JA');
+  });
+
   it('returns an array of parts of the address', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
     const result = await addressFormatter.format(address);
+
     expect(result).toEqual([
       '日本',
       '〒100-8994東京都目黒区八重洲1-5-3',
@@ -136,7 +182,7 @@ describe('format()', () => {
   });
 
   it('does not return {province} if the address does not have it', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
     const result = await addressFormatter.format({
       ...address,
       province: '',
@@ -153,8 +199,12 @@ describe('format()', () => {
 });
 
 describe('getOrderedFields()', () => {
+  beforeEach(() => {
+    mockAPICall('country', countryJpJa, 'JA');
+  });
+
   it('return fields ordered based on the country', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
     const result = await addressFormatter.getOrderedFields('JP');
 
     expect(result).toMatchObject([
@@ -171,38 +221,42 @@ describe('getOrderedFields()', () => {
 });
 
 describe('getTranslationKey()', () => {
+  beforeEach(() => {
+    mockAPICall('country', countryJpJa, 'JA');
+  });
+
   it('translates based on the country province key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Province,
     );
 
-    expect(result).toBe('prefecture');
+    expect(result).toBe('PREFECTURE');
   });
 
   it('translates based on the country zip key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Zip,
     );
 
-    expect(result).toBe('postalCode');
+    expect(result).toBe('POSTAL_CODE');
   });
 
   it('translates based on the country address2 key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Address2,
     );
 
-    expect(result).toBe('aptSuiteEtc');
+    expect(result).toBe('APT_SUITE_ETC');
   });
 
   it('translates based on the country key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('JA');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Country,

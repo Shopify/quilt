@@ -41,13 +41,13 @@ export function renderLineTemplate(
 
     switch (addressKey) {
       case FieldName.Country:
-        line = line.replace(`{${FieldName.Country}}`, country.attributes.name);
+        line = line.replace(`{${FieldName.Country}}`, country.name);
         break;
       case FieldName.Province:
         line = line.replace(
           `{${FieldName.Province}}`,
           address.province
-            ? getProvince(country.attributes.provinces, address.province).name
+            ? getProvince(country.provinces, address.province).name
             : '',
         );
         break;

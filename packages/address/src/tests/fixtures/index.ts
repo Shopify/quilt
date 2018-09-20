@@ -1,7 +1,7 @@
-import CanadaFr from './CA_fr';
-import CanadaEn from './CA_en';
-import FranceFr from './FR_fr';
-import JapanJa from './JP_ja';
-import SingaporeEn from './SG_en';
+import countriesJa from './countries_ja';
+import countriesEn from './countries_en';
+import countryJpJa from './country_jp_ja';
+import countryJpEn from './country_jp_en';
+import countryJpFr from './country_jp_fr';
 
-export {CanadaFr, CanadaEn, JapanJa, SingaporeEn, FranceFr};
+export {countriesJa, countriesEn, countryJpJa, countryJpEn, countryJpFr};
