@@ -42,6 +42,22 @@ describe('validation helpers', () => {
       expect(alwaysPassValidator(input)).toBeUndefined();
       expect(alwaysFailValidator(input)).toBe(error(input));
     });
+
+    it('returns a function that returns void when the input is empty', () => {
+      function error(input: string) {
+        return `${input} error`;
+      }
+
+      const alwaysPassValidator = validate(trueMatcher, error);
+      const alwaysFailValidator = validate(falseMatcher, error);
+
+      expect(alwaysPassValidator('')).toBeUndefined();
+      expect(alwaysFailValidator('')).toBeUndefined();
+      expect(alwaysPassValidator(null)).toBeUndefined();
+      expect(alwaysFailValidator(null)).toBeUndefined();
+      expect(alwaysPassValidator(undefined)).toBeUndefined();
+      expect(alwaysFailValidator(undefined)).toBeUndefined();
+    });
   });
 
   describe('validateObject', () => {
@@ -170,7 +186,7 @@ describe('validation helpers', () => {
       it('returns a function that returns errorContent when input.length <= length', () => {
         const error = faker.lorem.word();
         const validator = validators.lengthMoreThan(10, error);
-        expect(validator({length: 0})).toBe(error);
+        expect(validator({length: 2})).toBe(error);
       });
     });
 
