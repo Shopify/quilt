@@ -7,11 +7,11 @@ export interface FieldState<Value> {
   error?: any;
 }
 
-export interface FieldDescriptor<Value> extends FieldState<Value> {
+export interface Field<Value> extends FieldState<Value> {
   onChange(newValue: Value): void;
   onBlur(): void;
 }
 
-export type FieldDescriptors<Fields> = {
-  [FieldPath in keyof Fields]: FieldDescriptor<Fields[FieldPath]>
+export type Fields<FieldMap> = {
+  [FieldPath in keyof FieldMap]: Field<FieldMap[FieldPath]>
 };
