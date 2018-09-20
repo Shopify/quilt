@@ -110,6 +110,14 @@ export function validate<Input, Fields = never>(
   return (input: Input, fields: Fields) => {
     const matches = matcher(input, fields);
 
+    /*
+      always mark empty fields valid to match Polaris guidelines
+      https://polaris.shopify.com/patterns/error-messages#section-form-validation
+    */
+    if (isEmpty(input)) {
+      return;
+    }
+
     if (matches) {
       return;
     }
@@ -137,16 +145,40 @@ const validators = {
     return validate(isNumericString, errorContent);
   },
 
-  requiredString(errorContent: ErrorContent) {
-    return validate(not(isEmptyString), errorContent);
-  },
-
   nonNumericString(errorContent: ErrorContent) {
     return validate(not(isNumericString), errorContent);
   },
 
+  requiredString(errorContent: ErrorContent) {
+    return (input: string) => {
+      if (not(isEmptyString)(input)) {
+        return;
+      }
+
+      if (typeof errorContent === 'function') {
+        // eslint-disable-next-line consistent-return
+        return errorContent(toString(input));
+      }
+
+      // eslint-disable-next-line consistent-return
+      return errorContent;
+    };
+  },
+
   required(errorContent: ErrorContent) {
-    return validate(not(isEmpty), errorContent);
+    return (input: any) => {
+      if (not(isEmpty)(input)) {
+        return;
+      }
+
+      if (typeof errorContent === 'function') {
+        // eslint-disable-next-line consistent-return
+        return errorContent(toString(input));
+      }
+
+      // eslint-disable-next-line consistent-return
+      return errorContent;
+    };
   },
 };
 
