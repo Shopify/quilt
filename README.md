@@ -21,6 +21,7 @@ Each package has its own `README` and documentation describing usage.
 | ------- | --- | --- |
 | address | [README](packages/address/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress.svg)](https://badge.fury.io/js/%40shopify%2Faddress) |
 | admin-graphql-api-utilities | [README](packages/admin-graphql-api-utilities/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities) |
+| dates | [README](packages/dates/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fdates.svg)](https://badge.fury.io/js/%40shopify%2Fdates) |
 | enzyme-utilities | [README](packages/enzyme-utilities/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities) |
 | i18n | [README](packages/i18n/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fi18n.svg)](https://badge.fury.io/js/%40shopify%2Fi18n) |
 | jest-dom-mocks | [README](packages/jest-dom-mocks/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks) |
@@ -34,6 +35,7 @@ Each package has its own `README` and documentation describing usage.
 | logger | [README](packages/logger/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Flogger.svg)](https://badge.fury.io/js/%40shopify%2Flogger) |
 | react-compose | [README](packages/react-compose/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose) |
 | react-form-state | [README](packages/react-form-state/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg)](https://badge.fury.io/js/%40shopify%2Freact-form-state) |
+| react-google-analytics | [README](packages/react-google-analytics/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg)](https://badge.fury.io/js/%40shopify%2Freact-google-analytics) |
 | react-html | [README](packages/react-html/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html) |
 | react-i18n | [README](packages/react-i18n/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-i18n.svg)](https://badge.fury.io/js/%40shopify%2Freact-i18n) |
 | react-import-remote | [README](packages/react-import-remote/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-import-remote.svg)](https://badge.fury.io/js/%40shopify%2Freact-import-remote) |
@@ -41,6 +43,7 @@ Each package has its own `README` and documentation describing usage.
 | react-serialize | [README](packages/react-serialize/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-serialize.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize) |
 | react-shopify-app-route-propagator | [README](packages/react-shopify-app-route-propagator/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator.svg)](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator) |
 | react-shortcuts | [README](packages/react-shortcuts/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) |
+| react-tracking-pixel | [README](packages/react-tracking-pixel/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel.svg)](https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel) |
 | with-env | [README](packages/with-env/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
 
 ## Want to contribute?
