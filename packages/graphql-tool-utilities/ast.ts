@@ -1,17 +1,15 @@
 import './polyfills';
+import {DocumentNode, GraphQLInputType, GraphQLSchema} from 'graphql';
 import {
-  GraphQLSchema,
-  DocumentNode,
-  GraphQLType,
-  GraphQLOutputType,
-  GraphQLInputType,
-  GraphQLInterfaceType,
-  GraphQLObjectType,
-} from 'graphql';
-
-const {
-  compileToLegacyIR: compileToIR,
-} = require('apollo-codegen/lib/compiler/legacyIR');
+  BooleanCondition,
+  CompilerOptions,
+  compileToLegacyIR as compileToIR,
+  LegacyCompilerContext,
+  LegacyField,
+  LegacyFragment,
+  LegacyInlineFragment,
+  LegacyOperation,
+} from 'apollo-codegen-core/lib/compiler/legacyIR';
 
 export enum OperationType {
   Query = 'query',
@@ -24,63 +22,54 @@ export interface Variable {
   type?: GraphQLInputType;
 }
 
-export interface TypedVariable {
-  name: string;
+export interface TypedVariable extends Variable {
   type: GraphQLInputType;
-}
-
-export interface Condition {
-  kind: string;
-  variableName: string;
-  inverted: boolean;
 }
 
 export interface PrintableFieldDetails {
   fields?: Field[];
   fragmentSpreads?: string[];
+  inlineFragments?: InlineFragment[];
+}
+
+export interface Condition extends BooleanCondition {
+  kind: string;
+}
+
+export interface Field extends LegacyField {
+  conditions?: Condition[];
+  fields?: Field[];
   inlineFragments?: InlineFragment[] & {
-    [key: string]: InlineFragment | undefined;
+    [typeName: string]: InlineFragment;
   };
 }
 
-export interface Field extends PrintableFieldDetails {
-  responseName: string;
-  fieldName: string;
-  type: GraphQLOutputType;
-  isConditional: boolean;
-  conditions?: Condition[];
-}
-
-export interface InlineFragment extends PrintableFieldDetails {
-  typeCondition: GraphQLObjectType | GraphQLInterfaceType;
-  possibleTypes: (GraphQLObjectType | GraphQLInterfaceType)[];
-}
-
-export interface Fragment extends InlineFragment {
-  filePath: string;
-  fragmentName: string;
-  source: string;
+export interface InlineFragment extends LegacyInlineFragment {
   fields: Field[];
 }
 
-export interface Operation extends PrintableFieldDetails {
-  filePath: string;
-  operationName: string;
-  operationType: 'query' | 'mutation' | 'subscription';
-  rootType: GraphQLObjectType;
-  variables: Variable[];
-  fragmentsReferenced: string[];
+export interface Fragment extends LegacyFragment {
+  fields: Field[];
+  inlineFragments: InlineFragment[] & {
+    [typeName: string]: InlineFragment;
+  };
 }
 
-export interface AST {
-  operations: {[key: string]: Operation};
-  fragments: {[key: string]: Fragment};
-  typesUsed: GraphQLType[];
-  schema: GraphQLSchema;
+export interface Operation extends LegacyOperation {
+  fields: Field[];
+  variables: TypedVariable[];
+  inlineFragments?: InlineFragment[] & {
+    [typeName: string]: InlineFragment;
+  };
 }
 
-export interface Compile {
-  (schema: GraphQLSchema, document: DocumentNode): AST;
+export interface AST extends LegacyCompilerContext {
+  operations: {
+    [operationName: string]: Operation;
+  };
+  fragments: {
+    [fragmentName: string]: Fragment;
+  };
 }
 
 export function isOperation(
@@ -95,4 +84,12 @@ export function isTypedVariable(
   return variable.type != null;
 }
 
-export const compile: Compile = compileToIR;
+export interface Compile {
+  (
+    schema: GraphQLSchema,
+    document: DocumentNode,
+    options?: CompilerOptions,
+  ): AST;
+}
+
+export const compile = compileToIR as Compile;

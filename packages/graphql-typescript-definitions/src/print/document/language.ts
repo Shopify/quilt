@@ -1,13 +1,13 @@
 import * as t from '@babel/types';
 import {
   GraphQLString,
-  GraphQLInputType,
   isEnumType,
   isObjectType,
   isNonNullType,
   isScalarType,
   isListType,
   isAbstractType,
+  GraphQLInputType,
   GraphQLType,
   GraphQLNonNull,
   GraphQLObjectType,
