@@ -5,7 +5,7 @@ import set from 'lodash/set';
 import {memoize, bind} from 'lodash-decorators';
 
 import {mapObject} from './utilities';
-import {Fields, FieldState} from './types';
+import {FieldDescriptors, FieldState} from './types';
 import {List, Nested} from './components';
 
 export interface RemoteError {
@@ -13,22 +13,22 @@ export interface RemoteError {
   message: string;
 }
 
-export type FieldStates<FieldMap> = {
-  [FieldPath in keyof FieldMap]: FieldState<FieldMap[FieldPath]>
+export type FieldStates<Fields> = {
+  [FieldPath in keyof Fields]: FieldState<Fields[FieldPath]>
 };
 
 type MaybeArray<T> = T | T[];
 type MaybePromise<T> = T | Promise<T>;
 
-interface SubmitHandler<FieldMap> {
-  (formDetails: FormData<FieldMap>):
+interface SubmitHandler<Fields> {
+  (formDetails: FormData<Fields>):
     | MaybePromise<RemoteError[]>
     | MaybePromise<void>;
 }
 
-export type ValidatorDictionary<FieldMap> = {
-  [FieldPath in keyof FieldMap]: MaybeArray<
-    ValidationFunction<FieldMap[FieldPath], FieldMap>
+export type ValidatorDictionary<Fields> = {
+  [FieldPath in keyof Fields]: MaybeArray<
+    ValidationFunction<Fields[FieldPath], Fields>
   >
 };
 
@@ -36,36 +36,36 @@ interface ValidationFunction<Value, Fields> {
   (value: Value, fields: FieldStates<Fields>): any;
 }
 
-export interface FormData<FieldMap> {
-  fields: Fields<FieldMap>;
+export interface FormData<Fields> {
+  fields: FieldDescriptors<Fields>;
   dirty: boolean;
   valid: boolean;
   errors: RemoteError[];
 }
 
-export interface FormDetails<FieldMap> extends FormData<FieldMap> {
+export interface FormDetails<Fields> extends FormData<Fields> {
   submitting: boolean;
   reset(): void;
   submit(): void;
 }
 
-interface Props<FieldMap> {
-  initialValues: FieldMap;
-  validators?: Partial<ValidatorDictionary<FieldMap>>;
-  onSubmit?: SubmitHandler<FieldMap>;
-  children(form: FormDetails<FieldMap>): React.ReactNode;
+interface Props<Fields> {
+  initialValues: Fields;
+  validators?: Partial<ValidatorDictionary<Fields>>;
+  onSubmit?: SubmitHandler<Fields>;
+  children(form: FormDetails<Fields>): React.ReactNode;
 }
 
-interface State<FieldMap> {
+interface State<Fields> {
   submitting: boolean;
-  fields: FieldStates<FieldMap>;
-  dirtyFields: (keyof FieldMap)[];
+  fields: FieldStates<Fields>;
+  dirtyFields: (keyof Fields)[];
   errors: RemoteError[];
 }
 
 export default class FormState<
-  FieldMap extends Object
-> extends React.PureComponent<Props<FieldMap>, State<FieldMap>> {
+  Fields extends Object
+> extends React.PureComponent<Props<Fields>, State<Fields>> {
   static List = List;
   static Nested = Nested;
 
@@ -138,13 +138,13 @@ export default class FormState<
   }
 
   private get fields() {
-    const {fields: rawFields} = this.state;
-    const fields: Fields<FieldMap> = mapObject(
-      rawFields,
+    const {fields} = this.state;
+    const fieldDescriptors: FieldDescriptors<Fields> = mapObject(
+      fields,
       this.fieldWithHandlers,
     );
 
-    return fields;
+    return fieldDescriptors;
   }
 
   @bind()
@@ -186,23 +186,23 @@ export default class FormState<
 
   @memoize()
   @bind()
-  private fieldWithHandlers<Key extends keyof FieldMap>(
-    field: FieldStates<FieldMap>[Key],
+  private fieldWithHandlers<Key extends keyof Fields>(
+    field: FieldStates<Fields>[Key],
     fieldPath: Key,
   ) {
     return {
-      ...(field as FieldState<FieldMap[Key]>),
+      ...(field as FieldState<Fields[Key]>),
       name: fieldPath,
       onChange: this.updateField.bind(this, fieldPath),
       onBlur: this.blurField.bind(this, fieldPath),
     };
   }
 
-  private updateField<Key extends keyof FieldMap>(
+  private updateField<Key extends keyof Fields>(
     fieldPath: Key,
-    value: FieldMap[Key],
+    value: Fields[Key],
   ) {
-    this.setState<any>(({fields, dirtyFields}: State<FieldMap>) => {
+    this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
       const dirty = !isEqual(value, field.initialValue);
 
@@ -232,14 +232,14 @@ export default class FormState<
     });
   }
 
-  private getUpdatedDirtyFields<Key extends keyof FieldMap>({
+  private getUpdatedDirtyFields<Key extends keyof Fields>({
     fieldPath,
     dirty,
     dirtyFields,
   }: {
     fieldPath: Key;
     dirty: boolean;
-    dirtyFields: (keyof FieldMap)[];
+    dirtyFields: (keyof Fields)[];
   }) {
     const dirtyFieldsSet = new Set(dirtyFields);
 
@@ -256,15 +256,15 @@ export default class FormState<
       : newDirtyFields;
   }
 
-  private getUpdatedField<Key extends keyof FieldMap>({
+  private getUpdatedField<Key extends keyof Fields>({
     fieldPath,
     field,
     value,
     dirty,
   }: {
     fieldPath: Key;
-    field: FieldStates<FieldMap>[Key];
-    value: FieldMap[Key];
+    field: FieldStates<Fields>[Key];
+    value: Fields[Key];
     dirty: boolean;
   }) {
     // We only want to update errors as the user types if they already have an error.
@@ -279,14 +279,14 @@ export default class FormState<
     }
 
     return {
-      ...(field as FieldState<FieldMap[Key]>),
+      ...(field as FieldState<Fields[Key]>),
       value,
       dirty,
       error,
     };
   }
 
-  private blurField<Key extends keyof FieldMap>(fieldPath: Key) {
+  private blurField<Key extends keyof Fields>(fieldPath: Key) {
     const {fields} = this.state;
     const field = fields[fieldPath];
     const error = this.validateFieldValue<Key>(fieldPath, field);
@@ -301,16 +301,16 @@ export default class FormState<
         // https://github.com/Microsoft/TypeScript/issues/13557
         ...(state.fields as any),
         [fieldPath]: {
-          ...(state.fields[fieldPath] as FieldState<FieldMap[Key]>),
+          ...(state.fields[fieldPath] as FieldState<Fields[Key]>),
           error,
         },
       },
     }));
   }
 
-  private validateFieldValue<Key extends keyof FieldMap>(
+  private validateFieldValue<Key extends keyof Fields>(
     fieldPath: Key,
-    {value, dirty}: Pick<FieldState<FieldMap[Key]>, 'value' | 'dirty'>,
+    {value, dirty}: Pick<FieldState<Fields[Key]>, 'value' | 'dirty'>,
   ) {
     if (!dirty) {
       return;
@@ -342,7 +342,7 @@ export default class FormState<
   }
 
   private updateRemoteErrors(errors: RemoteError[]) {
-    this.setState(({fields}: State<FieldMap>) => {
+    this.setState(({fields}: State<Fields>) => {
       const errorDictionary = errors.reduce(
         (accumulator: any, {field, message}) => {
           if (field == null) {
