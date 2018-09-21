@@ -355,6 +355,47 @@ function MyComponent() {
 }
 ```
 
+### validateOnSubmit
+
+You can configure `<FormState />` to run all validators on the form before executing `onSubmit` by passing it the `validateOnSubmit` prop. If any of the validators return an error, the submit is cancelled and `onSubmit` is not run.
+
+```typescript
+import {TextField, Form, Button} from '@shopify/polaris';
+import FormState, {validators} from '@shopify/react-form-state';
+
+function MyComponent() {
+  return (
+    <FormState
+      validateOnSubmit
+      initialValues={{
+        title: 'Cool title',
+      }}
+      validators={{
+        title(input) {
+          if (input.length > 10) {
+            return 'That title is too long';
+          }
+        },
+      }}
+      onSubmit={() => {
+        console.log('I will not be run if title is too long');
+      }}
+    >
+      {formDetails => {
+        const {fields, submit} = formDetails;
+
+        return (
+          <Form onSubmit={submit}>
+            <TextField label="Title" {...fields.title} />
+            <Button type="submit">Submit</Button>
+          </Form>
+        );
+      }}
+    </FormState>
+  );
+}
+```
+
 To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](validators.md).
 
 ## Compound fields
