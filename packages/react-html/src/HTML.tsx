@@ -110,11 +110,7 @@ export default function HTML({
       </head>
 
       <body {...bodyAttributes} style={bodyStyles}>
-        <div
-          id="app"
-          style={{minHeight: '100%'}}
-          dangerouslySetInnerHTML={{__html: markup}}
-        />
+        <div id="app" dangerouslySetInnerHTML={{__html: markup}} />
 
         {dataMarkup}
 
