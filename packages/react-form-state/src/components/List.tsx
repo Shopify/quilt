@@ -2,16 +2,16 @@ import * as React from 'react';
 import get from 'lodash/get';
 import {memoize, bind} from 'lodash-decorators';
 
-import {Field, Fields} from '../types';
+import {FieldDescriptor, FieldDescriptors} from '../types';
 import {mapObject, replace} from '../utilities';
 
-interface Props<FieldMap> {
-  field: Field<FieldMap[]>;
-  children(fields: Fields<FieldMap>, index: number): React.ReactNode;
+interface Props<Fields> {
+  field: FieldDescriptor<Fields[]>;
+  children(fields: FieldDescriptors<Fields>, index: number): React.ReactNode;
 }
 
-export default class List<FieldMap> extends React.PureComponent<
-  Props<FieldMap>,
+export default class List<Fields> extends React.PureComponent<
+  Props<Fields>,
   never
 > {
   render() {
@@ -21,18 +21,18 @@ export default class List<FieldMap> extends React.PureComponent<
     } = this.props;
 
     return value.map((fieldValues, index) => {
-      const innerFields: Fields<FieldMap> = mapObject(
+      const innerFields: FieldDescriptors<Fields> = mapObject(
         fieldValues,
-        (value, key: keyof FieldMap) => {
-          const initialFieldValue = get(initialValue, [index, key]);
+        (value, fieldPath) => {
+          const initialFieldValue = get(initialValue, [index, fieldPath]);
           return {
             value,
             onBlur,
-            name: `${name}.${index}.${key}`,
+            name: `${name}.${index}.${fieldPath}`,
             initialValue: initialFieldValue,
             dirty: value !== initialFieldValue,
-            error: get(error, [index, key]),
-            onChange: this.handleChange({index, key}),
+            error: get(error, [index, fieldPath]),
+            onChange: this.handleChange({index, key: fieldPath}),
           };
         },
       );
@@ -48,14 +48,14 @@ export default class List<FieldMap> extends React.PureComponent<
 
   @memoize()
   @bind()
-  private handleChange<Key extends keyof FieldMap>({
+  private handleChange<Key extends keyof Fields>({
     index,
     key,
   }: {
     index: number;
-    key: Key;
+    key: any;
   }) {
-    return (newValue: FieldMap[Key]) => {
+    return (newValue: Fields[Key]) => {
       const {
         field: {value, onChange},
       } = this.props;
