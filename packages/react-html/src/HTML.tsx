@@ -112,7 +112,7 @@ export default function HTML({
       <body {...bodyAttributes} style={bodyStyles}>
         <div
           id="app"
-          style={{height: '100%'}}
+          style={{minHeight: '100%'}}
           dangerouslySetInnerHTML={{__html: markup}}
         />
 
