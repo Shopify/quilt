@@ -423,6 +423,10 @@ function groupOperationsAndFragmentsByFile({operations, fragments}: AST) {
   return (Object.values(operations) as Array<Operation | Fragment>)
     .concat(Object.values(fragments))
     .reduce((map, item) => {
+      if (!item.filePath) {
+        return map;
+      }
+
       let file = map.get(item.filePath);
 
       if (!file) {

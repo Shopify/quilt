@@ -30,7 +30,7 @@ export interface Error {
 export interface Validation {
   fixturePath: string;
   operationName?: string;
-  operationType?: 'query' | 'mutation' | 'subscription';
+  operationType?: string;
   operationPath?: string;
   validationErrors: Error[];
 }
