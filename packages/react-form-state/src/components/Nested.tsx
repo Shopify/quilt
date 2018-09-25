@@ -10,10 +10,17 @@ interface Props<Fields> {
   children(fields: FieldDescriptors<Fields>): React.ReactNode;
 }
 
-export default class Nested<Fields> extends React.PureComponent<
+export default class Nested<Fields> extends React.Component<
   Props<Fields>,
   never
 > {
+  shouldComponentUpdate(nextProps) {
+    const {field: {updated: nextUpdated}} = nextProps;
+    const {field: {updated}} = this.props;
+
+    return nextUpdated !== updated;
+  }
+
   render() {
     const {
       field: {name, value, onBlur, initialValue, error},

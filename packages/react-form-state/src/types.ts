@@ -5,6 +5,7 @@ export interface FieldState<Value> {
   dirty: boolean;
   changed: boolean;
   error?: any;
+  updated: number,
 }
 
 export interface FieldDescriptor<Value> extends FieldState<Value> {
