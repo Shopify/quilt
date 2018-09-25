@@ -3,6 +3,8 @@ import {
   LoadCountriesResponse,
   LoadCountryResponse,
   ResponseError,
+  SupportedCountry,
+  SupportedLocale,
 } from './types';
 import query from './graphqlQuery';
 
@@ -17,7 +19,9 @@ const HEADERS = {
   'Access-Control-Allow-Origin': '*',
 };
 
-export async function loadCountries(locale: string): Promise<Country[]> {
+export async function loadCountries(
+  locale: SupportedLocale,
+): Promise<Country[]> {
   const response = await fetch(GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: HEADERS,
@@ -25,11 +29,10 @@ export async function loadCountries(locale: string): Promise<Country[]> {
       query,
       operationName: GRAPHAL_OPERATION_NAMES.countries,
       variables: {
-        locale,
+        locale: toSupportedLocale(locale),
       },
     }),
   });
-
   const countries:
     | LoadCountriesResponse
     | ResponseError = await response.json();
@@ -41,8 +44,8 @@ export async function loadCountries(locale: string): Promise<Country[]> {
 }
 
 export async function loadCountry(
-  locale: string,
-  countryCode: string,
+  locale: SupportedLocale,
+  countryCode: SupportedCountry,
 ): Promise<Country> {
   const response = await fetch(GRAPHQL_ENDPOINT, {
     method: 'POST',
@@ -52,7 +55,7 @@ export async function loadCountry(
       operationName: GRAPHAL_OPERATION_NAMES.country,
       variables: {
         countryCode,
-        locale,
+        locale: toSupportedLocale(locale),
       },
     }),
   });
@@ -69,4 +72,10 @@ class CountryLoaderError extends Error {
     const errorMessage = errors.errors.map(error => error.message).join('; ');
     super(errorMessage);
   }
+}
+
+function toSupportedLocale(locale: SupportedLocale) {
+  const supportedLocale = locale.replace(/-/, '_').toUpperCase();
+
+  return supportedLocale;
 }

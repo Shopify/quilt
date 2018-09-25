@@ -1,5 +1,5 @@
 import {fetch} from '@shopify/jest-dom-mocks';
-import {Address, FieldName} from '../types';
+import {Address, FieldName, SupportedLocale} from '../types';
 import AddressFormatter from '..';
 import {
   countriesJa,
@@ -75,7 +75,7 @@ describe('getCountry()', () => {
   it('returns a country', async () => {
     mockAPICall('country', countryJpJa);
 
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const country = await addressFormatter.getCountry('JP');
 
     expect(country).toEqual(countryJpJa.data.country);
@@ -84,7 +84,7 @@ describe('getCountry()', () => {
   it('should not call the API again for the same country if the locale is the same', async () => {
     mockAPICall('country', countryJpJa);
 
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     await addressFormatter.getCountry('JP');
     await addressFormatter.getCountry('JP');
 
@@ -95,7 +95,7 @@ describe('getCountry()', () => {
     mockAPICall('country', countryJpJa);
     mockAPICall('country', countryJpEn, 'EN');
 
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     await addressFormatter.getCountry('JP');
 
     expect(fetch.calls()).toHaveLength(1);
@@ -110,7 +110,7 @@ describe('getCountry()', () => {
     mockAPICall('countries', countriesJa);
     mockAPICall('country', countryJpJa);
 
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     await addressFormatter.getCountries();
     await addressFormatter.getCountry('JP');
 
@@ -121,9 +121,9 @@ describe('getCountry()', () => {
     mockAPICall('countries', countriesEn, 'EN');
     mockAPICall('country', countryJpFr, 'FR');
 
-    const addressFormatter = new AddressFormatter('EN');
+    const addressFormatter = new AddressFormatter('en');
     await addressFormatter.getCountries();
-    addressFormatter.updateLocale('FR');
+    addressFormatter.updateLocale('fr');
     await addressFormatter.getCountry('JP');
 
     expect(fetch.calls()).toHaveLength(2);
@@ -134,7 +134,7 @@ describe('getCountries()', () => {
   it('returns all countries', async () => {
     mockAPICall('countries', countriesJa);
 
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const loadedCountries = await addressFormatter.getCountries();
 
     expect(loadedCountries).toEqual(countriesJa.data.countries);
@@ -142,8 +142,8 @@ describe('getCountries()', () => {
 
   it('should not call the API again for the countries if the locale is the same.', async () => {
     mockAPICall('countries', countriesEn, 'YY');
-
-    const addressFormatter = new AddressFormatter('YY');
+    // Bypass the cache by using a non existant locale
+    const addressFormatter = new AddressFormatter('yy' as SupportedLocale);
     await addressFormatter.getCountries();
     await addressFormatter.getCountries();
 
@@ -154,9 +154,9 @@ describe('getCountries()', () => {
     mockAPICall('countries', countriesEn, 'ZZ');
     mockAPICall('countries', countriesJa, 'XX');
 
-    const addressFormatter = new AddressFormatter('ZZ');
+    const addressFormatter = new AddressFormatter('zz' as SupportedLocale);
     await addressFormatter.getCountries();
-    addressFormatter.updateLocale('xx');
+    addressFormatter.updateLocale('xx' as SupportedLocale);
     await addressFormatter.getCountries();
 
     expect(fetch.calls()).toHaveLength(2);
@@ -169,7 +169,7 @@ describe('format()', () => {
   });
 
   it('returns an array of parts of the address', async () => {
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.format(address);
 
     expect(result).toEqual([
@@ -182,7 +182,7 @@ describe('format()', () => {
   });
 
   it('does not return {province} if the address does not have it', async () => {
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.format({
       ...address,
       province: '',
@@ -204,7 +204,7 @@ describe('getOrderedFields()', () => {
   });
 
   it('return fields ordered based on the country', async () => {
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.getOrderedFields('JP');
 
     expect(result).toMatchObject([
@@ -226,7 +226,7 @@ describe('getTranslationKey()', () => {
   });
 
   it('translates based on the country province key', async () => {
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Province,
@@ -236,7 +236,7 @@ describe('getTranslationKey()', () => {
   });
 
   it('translates based on the country zip key', async () => {
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Zip,
@@ -246,7 +246,7 @@ describe('getTranslationKey()', () => {
   });
 
   it('translates based on the country address2 key', async () => {
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Address2,
@@ -256,12 +256,32 @@ describe('getTranslationKey()', () => {
   });
 
   it('translates based on the country key', async () => {
-    const addressFormatter = new AddressFormatter('JA');
+    const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.getTranslationKey(
       'JP',
       FieldName.Country,
     );
 
     expect(result).toBe('country');
+  });
+});
+
+describe('toSupportedLocale', () => {
+  it('changes the lowercase locale to uppercase', async () => {
+    mockAPICall('country', countryJpJa, 'ja');
+
+    const addressFormatter = new AddressFormatter('ja');
+    const result = await addressFormatter.getCountry('JP');
+
+    expect(result).toEqual(countryJpJa.data.country);
+  });
+
+  it('replaces - with _ and returns the locale in uppercase', async () => {
+    mockAPICall('country', countryJpJa, 'PT_BR');
+
+    const addressFormatter = new AddressFormatter('pt-br' as SupportedLocale);
+    const result = await addressFormatter.getCountry('JP');
+
+    expect(result).toEqual(countryJpJa.data.country);
   });
 });
