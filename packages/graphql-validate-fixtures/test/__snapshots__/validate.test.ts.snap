@@ -1735,31 +1735,3 @@ Object {
   ],
 }
 `;
-
-exports[`validate validateFixtureAgainstSchema() validates fields against types from the schema 1`] = `
-Object {
-  "fixturePath": "fixture.json",
-  "validationErrors": Array [
-    Object {
-      "keyPath": "person.age",
-      "message": "should be an integer but was a float",
-    },
-    Object {
-      "keyPath": "person.silly",
-      "message": "does not exist on type Person (available fields: name, age, occupation, nickNames)",
-    },
-    Object {
-      "keyPath": "person.nickNames",
-      "message": "should be an array (or null), but was an object",
-    },
-    Object {
-      "keyPath": "friends[0].firstName",
-      "message": "does not exist on type Person (available fields: name, age, occupation, nickNames)",
-    },
-    Object {
-      "keyPath": "friends[1].name",
-      "message": "should be non-null but was null",
-    },
-  ],
-}
-`;

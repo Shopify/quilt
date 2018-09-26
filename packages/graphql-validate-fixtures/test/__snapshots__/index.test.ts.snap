@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`evaluateFixtures() handles ambiguous operation names in multi-project fixtures with errors 1`] = `
+Array [
+  Object {
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectA/AmbiguousQuery/fixture.json",
+    "validationErrors": Array [
+      [Error: Ambiguous operation name found for 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectA/AmbiguousQuery/fixture.json' (found Ambiguous) in projects: projectA, projectB. Try renaming the operation in one of the projects listed and updating the fixture folder name or use an '@operation' key indicating the new operation name.],
+    ],
+  },
+  Object {
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectB/AmbiguousQuery/fixture.json",
+    "validationErrors": Array [
+      [Error: Ambiguous operation name found for 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectB/AmbiguousQuery/fixture.json' (found Ambiguous) in projects: projectA, projectB. Try renaming the operation in one of the projects listed and updating the fixture folder name or use an '@operation' key indicating the new operation name.],
+    ],
+  },
+]
+`;
+
 exports[`evaluateFixtures() handles fixtures that are invalid json 1`] = `
 Array [
   Object {
@@ -9,7 +26,7 @@ Array [
   },
   Object {
     "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/MyQuery/fixture.json",
-    "operationName": "MyQuery",
+    "operationName": "My",
     "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
@@ -21,7 +38,7 @@ exports[`evaluateFixtures() handles fixtures with errors 1`] = `
 Array [
   Object {
     "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
-    "operationName": "AnotherQuery",
+    "operationName": "Another",
     "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Another.graphql",
     "operationType": "query",
     "validationErrors": Array [
@@ -37,7 +54,7 @@ Array [
   },
   Object {
     "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
-    "operationName": "MyQuery",
+    "operationName": "My",
     "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
@@ -56,14 +73,14 @@ Array [
   },
   Object {
     "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-fixture.json",
-    "operationName": "AnotherQuery",
+    "operationName": "Another",
     "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
   Object {
     "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/MyQuery/fixture.json",
-    "operationName": "MyQuery",
+    "operationName": "My",
     "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
@@ -71,32 +88,38 @@ Array [
 ]
 `;
 
-exports[`evaluateFixtures() schemaOnly does not fail on malformed GraphQL documents 1`] = `
+exports[`evaluateFixtures() handles missing operation names in multi-project fixtures with errors 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/projectA/AQuery/fixture.json",
+    "operationName": "A",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/missing-operation/queries/projectA/Query.graphql",
+    "operationType": "query",
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/MyQuery/fixture.json",
-    "validationErrors": Array [],
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/projectB/Missing/fixture.json",
+    "validationErrors": Array [
+      [Error: Could not find a matching operation for 'packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/projectB/Missing/fixture.json' (looked for Missing). Make sure to put your fixture in a folder named the same as the operation, or add an '@operation' key indicating the operation. Available operations: A, B],
+    ],
   },
 ]
 `;
 
-exports[`evaluateFixtures() schemaOnly validates against the schema only 1`] = `
+exports[`evaluateFixtures() handles multi-project fixtures without errors 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
-    "validationErrors": Array [
-      Object {
-        "keyPath": "name",
-        "message": "should be a string but was a number",
-      },
-    ],
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/fixtures/projectA/AQuery/fixture.json",
+    "operationName": "A",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/queries/projectA/Query.graphql",
+    "operationType": "query",
+    "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/fixtures/projectB/BQuery/fixture.json",
+    "operationName": "B",
+    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/queries/projectB/Query.graphql",
+    "operationType": "query",
     "validationErrors": Array [],
   },
 ]

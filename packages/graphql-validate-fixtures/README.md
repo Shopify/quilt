@@ -23,13 +23,26 @@ In order to associate a fixture with a GraphQL query or mutation in your app, yo
 
 Once this is done, you can validate your fixtures using the CLI or Node.js API.
 
+### Operation
+
+On startup this tool performs the following actions:
+
+* Loads all schemas
+* Discovers all operations belonging to each schema
+* Discovers all fixtures and infers operation names as described [above](#Usage)
+* Validates fixtures against the operation with a matching name
+  * Reports operation not found error if no schema matches
+  * Reports ambiguous operation name error if more than one schema matches
+
+### Configuration
+
+This tool reads schema information from a [`.graphqlconfig`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-tool-utilities#configuration) file in the project root.
+
 ### CLI
 
 ```sh
-# Must provide a list of fixtures as the first argument, as well
-# as flags for the path to the schema (`--schema-path`) and operations
-# (`--operation-paths`, can be a glob pattern)
-yarn run graphql-validate-fixtures 'src/**/fixtures/**/*.graphql.json' --schema-path 'build/schema.json' --operation-paths 'src/**/*.graphql'
+# Must provide a list of fixtures as the first argument
+yarn run graphql-validate-fixtures 'src/**/fixtures/**/*.graphql.json'
 ```
 
 ### Node
@@ -38,12 +51,9 @@ yarn run graphql-validate-fixtures 'src/**/fixtures/**/*.graphql.json' --schema-
 const {evaluateFixtures} = require('graphql-validate-fixtures');
 evaluateFixtures({
   fixturePaths: ['test/fixtures/one.json', 'test/fixtures/two.json'],
-  schemaPath: 'build/schema.json',
-  operationPaths: ['src/Home/Home.graphql'],
-})
-  .then((results) => {
-    // See the TypeScript definition file for more details on the
-    // structure of the `results`
-    results.forEach((result) => console.log(result));
-  });
+}).then((results) => {
+  // See the TypeScript definition file for more details on the
+  // structure of the `results`
+  results.forEach((result) => console.log(result));
+});
 ```

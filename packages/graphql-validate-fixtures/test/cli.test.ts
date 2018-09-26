@@ -12,6 +12,24 @@ describe('cli', () => {
     ).not.toThrowError();
   });
 
+  it('succeeds for a multi-project when there are no fixture errors', () => {
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('multi-project')),
+    ).not.toThrowError();
+  });
+
+  it('fails when there are ambiguous fixture names', () => {
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('ambiguous-operation')),
+    ).toThrowErrorMatchingSnapshot();
+  });
+
+  it('fails when a fixture matches no operations', () => {
+    expect(() =>
+      exec(cliCommandForFixtureDirectory('missing-operation')),
+    ).toThrowErrorMatchingSnapshot();
+  });
+
   it('fails when there are fixture errors', () => {
     expect(() =>
       exec(cliCommandForFixtureDirectory('fixture-errors')),
@@ -61,8 +79,7 @@ function cliCommandForFixtureDirectory(fixture: string, showPasses = false) {
   return [
     scriptPath,
     `'${resolve(fixtureDirectory, 'fixtures/**/*.json')}'`,
-    `--schema-path '${resolve(fixtureDirectory, 'schema.json')}'`,
-    `--operation-paths '${resolve(fixtureDirectory, 'queries/**/*.graphql')}'`,
+    `--cwd '${fixtureDirectory}'`,
     showPasses ? `--show-passes` : '',
   ]
     .join(' ')

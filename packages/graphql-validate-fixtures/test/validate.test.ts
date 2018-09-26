@@ -1,9 +1,12 @@
 import {join} from 'path';
-import {GraphQLSchema, buildSchema, parse, concatAST} from 'graphql';
+import {buildSchema, parse, concatAST} from 'graphql';
+import {GraphQLProjectConfig} from 'graphql-config';
 import {compile, AST} from 'graphql-tool-utilities/ast';
 import {
-  validateFixtureAgainstAST,
-  validateFixtureAgainstSchema,
+  getOperationForFixture,
+  validateFixture,
+  GraphQLProjectAST,
+  Fixture,
 } from '../src/validate';
 
 describe('validate', () => {
@@ -495,67 +498,28 @@ describe('validate', () => {
       ).toMatchSnapshot();
     });
   });
-
-  describe('validateFixtureAgainstSchema()', () => {
-    it('validates fields against types from the schema', () => {
-      const schema = buildSchema(`
-        type Person {
-          name: String!
-          age: Int!
-          occupation: String
-          nickNames: [String!]
-        }
-
-        type Query {
-          friends: [Person!]!
-          person: Person!
-        }
-
-        type Mutation {
-          landJob(job: String!): Person!
-        }
-      `);
-
-      expect(
-        validateAgainstSchema(
-          {
-            person: {
-              name: 'Chris',
-              age: 42.2,
-              silly: true,
-              nickNames: {},
-            },
-            friends: [{firstName: 'Mica'}, {name: null}],
-            landJob: {
-              occupation: 'Code monkey',
-            },
-          },
-          schema,
-        ),
-      ).toMatchSnapshot();
-    });
-  });
 });
 
-function validateAgainstAST(fixture: any, ast: AST) {
-  const queryName = Object.keys(ast.operations)[0];
-  return validateFixtureAgainstAST(
-    {
-      path: join(queryName, 'fixture.json'),
-      content: fixture,
-    },
-    ast,
-  );
-}
+const mockGraphQLConfig = new GraphQLProjectConfig(
+  {
+    schemaPath: '.',
+  },
+  '.',
+  'test',
+);
 
-function validateAgainstSchema(fixture: any, schema: GraphQLSchema) {
-  return validateFixtureAgainstSchema(
-    {
-      path: 'fixture.json',
-      content: fixture,
-    },
-    schema,
-  );
+function validateAgainstAST(fixtureContent: any, ast: AST) {
+  const projectOperations: GraphQLProjectAST = {
+    ast,
+    config: mockGraphQLConfig,
+  };
+  const queryName = Object.keys(ast.operations)[0];
+  const fixture: Fixture = {
+    path: join(queryName, 'fixture.json'),
+    content: fixtureContent,
+  };
+  const {operation} = getOperationForFixture(fixture, [projectOperations]);
+  return validateFixture(fixture, ast, operation);
 }
 
 function createAST(schemaString: string, ...queryStrings: string[]) {

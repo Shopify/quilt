@@ -1,0 +1,9 @@
+projects:
+  projectA:
+    schemaPath: projectA-schema.graphql
+    includes:
+      - queries/projectA/**/*.graphql
+  projectB:
+    schemaPath: projectB-schema.graphql
+    includes:
+      - queries/projectB/**/*.graphql

@@ -23,14 +23,11 @@ export function getGraphQLProjects(config: GraphQLConfig) {
 }
 
 export function getGraphQLSchemaPaths(config: GraphQLConfig) {
-  return getGraphQLProjects(config).reduce<string[]>(
-    (schemas, {schemaPath}) => {
-      return schemaPath
-        ? schemas.concat(getGraphQLFilePath(config, schemaPath))
-        : schemas;
-    },
-    [],
-  );
+  return getGraphQLProjects(config).reduce<string[]>((schemas, project) => {
+    return schemas.concat(
+      getGraphQLFilePath(config, project.resolveSchemaPath()),
+    );
+  }, []);
 }
 
 export function getGraphQLProjectForSchemaPath(
@@ -38,7 +35,7 @@ export function getGraphQLProjectForSchemaPath(
   schemaPath: string,
 ) {
   const project =
-    Object.values(config.getProjects() || {})
+    getGraphQLProjects(config)
       .filter((project) => project.schemaPath === schemaPath)
       .shift() || config.getProjectConfig();
 

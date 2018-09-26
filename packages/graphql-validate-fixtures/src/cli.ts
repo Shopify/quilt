@@ -9,25 +9,12 @@ import {evaluateFixtures} from '.';
 
 const argv = yargs
   .usage('Usage: $0 <fixtures> [options]')
-  .option('schema-path', {
-    required: true,
-    normalize: true,
-    type: 'string',
-    describe:
-      'The path to the JSON file containing a schema instrospection query result',
-  })
-  .option('operation-paths', {
+  .option('cwd', {
     required: false,
+    default: process.cwd(),
     normalize: true,
     type: 'string',
-    describe:
-      'The glob pattern for GraphQL queries and fragments to compare against',
-  })
-  .option('schema-only', {
-    type: 'boolean',
-    default: false,
-    describe:
-      'Validate fixtures only against the GraphQL schema (and not any query or mutation documents)',
+    describe: 'Working directory where the .graphqlconfig is located',
   })
   .option('show-passes', {
     type: 'boolean',
@@ -37,18 +24,9 @@ const argv = yargs
   })
   .help().argv;
 
-const hasOperationPaths = Boolean(argv.operationPaths);
-
-evaluateFixtures(
-  {
-    fixturePaths: glob.sync(argv._[0]),
-    operationPaths: hasOperationPaths ? glob.sync(argv.operationPaths) : [],
-    schemaPath: argv.schemaPath,
-  },
-  {
-    schemaOnly: argv.schemaOnly || !hasOperationPaths,
-  },
-)
+evaluateFixtures(glob.sync(argv._[0]), {
+  cwd: argv.cwd,
+})
   .then((evaluations) => {
     let passed = 0;
     let failed = 0;
@@ -57,7 +35,7 @@ evaluateFixtures(
     console.log();
 
     evaluations.forEach((evaluation) => {
-      const relativePath = relative(process.cwd(), evaluation.fixturePath);
+      const relativePath = relative(argv.cwd, evaluation.fixturePath);
       const formattedPath = `${chalk.dim(
         relativePath.replace(basename(relativePath), ''),
       )}${chalk.bold(basename(relativePath))}`;
