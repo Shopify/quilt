@@ -15,8 +15,12 @@ export default class List<Fields> extends React.Component<
   never
 > {
   shouldComponentUpdate(nextProps) {
-    const {field: {updated: nextUpdated}} = nextProps;
-    const {field: {updated}} = this.props;
+    const {
+      field: {updated: nextUpdated},
+    } = nextProps;
+    const {
+      field: {updated},
+    } = this.props;
 
     return nextUpdated !== updated;
   }

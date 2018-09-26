@@ -211,7 +211,7 @@ export default class FormState<
         field,
         value,
         dirty,
-        updated
+        updated,
       });
 
       return {

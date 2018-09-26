@@ -130,4 +130,69 @@ describe('<Nested />', () => {
     expect(renderPropArgs.title.error).toBe(field.error.title);
     expect(renderPropArgs.department.error).toBe(field.error.department);
   });
+
+  it ('changes nested `updated` value when element in nested changes', () => {
+    const product = {title: faker.commerce.productName()};
+    const newTitle = faker.commerce.productName();
+
+    const renderPropSpy = jest.fn(({fields: {product}}: any) => {
+      return (
+        <FormState.Nested field={product}>
+          {({title}: any) => {
+            return <Input label="title" {...title} />;
+          }}
+        </FormState.Nested>
+      );
+    });
+
+    const form = mount(
+      <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+    );
+
+    const {fields: initialFields} = lastCallArgs(renderPropSpy);
+    expect(initialFields.product.updated).toBe(0);
+
+    const input = form.find(Input);
+    trigger(input, 'onChange', newTitle);
+
+    const {fields} = lastCallArgs(renderPropSpy);
+    expect(fields.product.updated).toBe(1);
+  });
+
+  it('Does not re-render when children have not changed', () =>{
+    const titleSpy = jest.fn(() => null);
+    const adjectiveSpy = jest.fn(({adjective}) => <Input label="adjective" {...adjective}/>);
+    const newAdjective = faker.commerce.productAdjective();
+
+    const productTitle = {
+      title: faker.commerce.productName(),
+    };
+    const productAdjective = {
+      adjective: faker.commerce.productAdjective(),
+    }
+
+    const form = mount(
+      <FormState initialValues={{productTitle, productAdjective}}>
+        {({fields}) => {
+          return (
+            <>
+              <FormState.Nested field={fields.productTitle}>
+                {titleSpy}
+              </FormState.Nested>
+
+              <FormState.Nested field={fields.productAdjective}>
+                {adjectiveSpy}
+              </FormState.Nested>
+            </>
+          );
+        }}
+      </FormState>,
+    );
+
+    const input = form.find(Input);
+    trigger(input, 'onChange', newAdjective);
+
+    expect(titleSpy).toHaveBeenCalledTimes(1);
+    expect(adjectiveSpy).toHaveBeenCalledTimes(2);
+  });
 });
