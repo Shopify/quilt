@@ -181,7 +181,7 @@ describe('<FormState.List />', () => {
     });
   });
 
-  it ('changes list `updated` value when element in list changes', () => {
+  it('changes list `updated` value when element in list changes', () => {
     const products = [{title: faker.commerce.productName()}];
     const newTitle = faker.commerce.productName();
 
@@ -209,7 +209,7 @@ describe('<FormState.List />', () => {
     expect(fields.products.updated).toBe(1);
   });
 
-  it('Does not re-render when children have not changed', () =>{
+  it('Does not re-render when children have not changed', () => {
     const products = [{title: faker.commerce.productName()}];
     const adjective = faker.commerce.productAdjective();
     const newAdjective = faker.commerce.productAdjective();
@@ -221,7 +221,7 @@ describe('<FormState.List />', () => {
         {({fields}) => {
           return (
             <>
-              <Input {...fields.adjective}/>
+              <Input {...fields.adjective} />
               <FormState.List field={fields.products}>
                 {renderSpy}
               </FormState.List>

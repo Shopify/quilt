@@ -131,7 +131,7 @@ describe('<Nested />', () => {
     expect(renderPropArgs.department.error).toBe(field.error.department);
   });
 
-  it ('changes nested `updated` value when element in nested changes', () => {
+  it('changes nested `updated` value when element in nested changes', () => {
     const product = {title: faker.commerce.productName()};
     const newTitle = faker.commerce.productName();
 
@@ -139,7 +139,7 @@ describe('<Nested />', () => {
       return (
         <FormState.Nested field={product}>
           {({title}: any) => {
-            return <Input label="title" {...title} />;
+            return <Input {...title} />;
           }}
         </FormState.Nested>
       );
@@ -159,9 +159,9 @@ describe('<Nested />', () => {
     expect(fields.product.updated).toBe(1);
   });
 
-  it('Does not re-render when children have not changed', () =>{
+  it('Does not re-render when children have not changed', () => {
     const titleSpy = jest.fn(() => null);
-    const adjectiveSpy = jest.fn(({adjective}) => <Input label="adjective" {...adjective}/>);
+    const adjectiveSpy = jest.fn(({adjective}) => <Input {...adjective} />);
     const newAdjective = faker.commerce.productAdjective();
 
     const productTitle = {
@@ -169,7 +169,7 @@ describe('<Nested />', () => {
     };
     const productAdjective = {
       adjective: faker.commerce.productAdjective(),
-    }
+    };
 
     const form = mount(
       <FormState initialValues={{productTitle, productAdjective}}>
