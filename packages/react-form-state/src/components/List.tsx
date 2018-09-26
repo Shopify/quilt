@@ -10,10 +10,17 @@ interface Props<Fields> {
   children(fields: FieldDescriptors<Fields>, index: number): React.ReactNode;
 }
 
-export default class List<Fields> extends React.PureComponent<
+export default class List<Fields> extends React.Component<
   Props<Fields>,
   never
 > {
+  shouldComponentUpdate(nextProps) {
+    const {field: {updated: nextUpdated}} = nextProps;
+    const {field: {updated}} = this.props;
+
+    return nextUpdated !== updated;
+  }
+
   render() {
     const {
       field: {value, initialValue, error, onBlur},
