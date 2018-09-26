@@ -78,7 +78,17 @@ This package will generate matching `.d.ts` files for each `.graphql` file you s
 
 ### Configuration
 
-This tool consumes a [`.graphqlconfig`](https://github.com/prisma/graphql-config) file, typically placed in the root of the project. This configuration file is compatible with the [VSCode extension](https://github.com/prisma/vscode-graphql) to provide syntax highlighting and autocomplete suggestions. The configuration file supports a single nameless project or multiple named projects, with each project linked to a schema and a set of include and exclude globbing patterns. Upon processing a schema file, the schema’s types will be extracted to `types.ts` (or `${projectName}-types.ts`, if the project is named) and written to the `schema-types-path` (or use the `schemaTypesPath` extension as an override). Note that your config should supply include and exclude globbing patterns as _relative_ paths (relative to the location of the `.graphqlconfig`).
+This tool reads schema information from a [`.graphqlconfig`](https://github.com/prisma/graphql-config) file in the project root. The configuration can contain one nameless project or many named projects. The configuration is compatible with the [vscode-graphql extension](https://github.com/prisma/vscode-graphql). This extension provides syntax highlighting and autocomplete suggestions for graphql files.
+
+Each project specifies a `schemaPath`, `include`, and `exclude` globs. Glob patterns match paths relative to the location of the configuration file. Omit `exclude` if empty.
+
+On startup this tool performs the following actions:
+
+* Loads all schemas
+* Extracts all enums, input objects, and custom scalars as schema types
+* Writes the schema types to `types.ts` (or `${projectName}-types.ts` for named projects)
+  * Written in directory provided by `--schema-types-path` argument
+  * Override `--schema-types-path` per project with the `schemaTypesPath` extension
 
 See the [official specification documentation](https://github.com/prisma/graphql-config/blob/master/specification.md#use-cases) for more detail and examples.
 
