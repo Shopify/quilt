@@ -10,7 +10,7 @@ import {
   concatAST,
 } from 'graphql';
 import chalk from 'chalk';
-import {dirname, isAbsolute, resolve} from 'path';
+import {dirname, resolve} from 'path';
 import {readJSON, readFile, writeFile, mkdirp} from 'fs-extra';
 import {watch} from 'chokidar';
 import * as glob from 'glob';
@@ -26,6 +26,12 @@ import {
   Fragment,
   AST,
 } from 'graphql-tool-utilities/ast';
+import {
+  getGraphQLFilePath,
+  getGraphQLProjectForSchemaPath,
+  getGraphQLProjects,
+  getGraphQLSchemaPaths,
+} from 'graphql-tool-utilities/config';
 
 import {printDocument, printSchema} from './print';
 import {EnumFormat} from './types';
@@ -58,14 +64,22 @@ export interface DocumentBuild {
   fragments: Fragment[];
 }
 
-type GraphQLDocumentMapByProject = Map<string, Map<string, DocumentNode>>;
+type GraphQLDocumentMapByProject = Map<
+  string | undefined,
+  Map<string, DocumentNode>
+>;
 
 export class Builder extends EventEmitter {
   private options: Options;
   // workspace graphql configuration
   // see: https://github.com/prisma/graphql-config
   private readonly config: GraphQLConfig;
-  private documentMapByProject = new Map<string, Map<string, DocumentNode>>();
+  // projectName -> {filePath -> document}
+  // NOTE: projectName can be undefined for nameless graphql-config projects
+  private documentMapByProject: GraphQLDocumentMapByProject = new Map<
+    string | undefined,
+    Map<string, DocumentNode>
+  >();
 
   constructor({cwd, ...options}: BuilderOptions) {
     super();
@@ -177,7 +191,7 @@ export class Builder extends EventEmitter {
 
   private async generateSchemaTypes(schemaPath: string, schema: GraphQLSchema) {
     const schemaTypesPath = getSchemaTypesPath(
-      getProjectForSchemaPath(this.config, schemaPath),
+      getGraphQLProjectForSchemaPath(this.config, schemaPath),
       this.options,
     );
     const definition = printSchema(schema, this.options);
@@ -318,13 +332,11 @@ export class Builder extends EventEmitter {
       throw new Error(`No project found for file: ${filePath}`);
     }
 
-    const projectName = project.projectName || '';
-
-    let documents = this.documentMapByProject.get(projectName);
+    let documents = this.documentMapByProject.get(project.projectName);
 
     if (!documents) {
       documents = new Map<string, DocumentNode>();
-      this.documentMapByProject.set(projectName, documents);
+      this.documentMapByProject.set(project.projectName, documents);
     }
 
     const contents = await readFile(filePath, 'utf8');
@@ -340,38 +352,28 @@ export class Builder extends EventEmitter {
   }
 
   private getProjects() {
-    const projects = this.config.getProjects();
-
-    if (projects) {
-      return Object.values(projects);
-    }
-
-    return [this.config.getProjectConfig()];
+    return getGraphQLProjects(this.config);
   }
 
   private getGlobs() {
     return this.getProjects().reduce<string[]>((globs, project) => {
       return globs.concat(
-        project.includes.map(getFilePath.bind(this, this.config.configDir)),
+        project.includes.map((filePath) =>
+          getGraphQLFilePath(this.config, filePath),
+        ),
       );
     }, []);
   }
 
   private getSchemaPaths() {
-    return this.getProjects().reduce<string[]>((schemas, x) => {
-      if (x.schemaPath) {
-        schemas.push(getFilePath(this.config.configDir, x.schemaPath));
-      }
-      return schemas;
-    }, []);
+    return getGraphQLSchemaPaths(this.config);
   }
 
   private removeDocumentForFile(filePath: string) {
     const project = this.config.getConfigForFile(filePath);
 
     if (project) {
-      const projectName = project.projectName || '';
-      const documents = this.documentMapByProject.get(projectName);
+      const documents = this.documentMapByProject.get(project.projectName);
 
       if (documents) {
         documents.delete(filePath);
@@ -380,32 +382,13 @@ export class Builder extends EventEmitter {
   }
 }
 
-function getFilePath(cwd: string, filePath: string) {
-  return isAbsolute(filePath) ? filePath : resolve(cwd, filePath);
-}
-
-function getProjectForSchemaPath(config: GraphQLConfig, schemaPath: string) {
-  const project =
-    Object.values(config.getProjects() || {})
-      .filter((project) => project.schemaPath === schemaPath)
-      .shift() || config.getProjectConfig();
-
-  if (!project || project.schemaPath !== schemaPath) {
-    throw new Error(
-      `No project defined in .graphqlconfig for schema ${schemaPath}`,
-    );
-  }
-
-  return project;
-}
-
 function getSchemaTypesPath(project: GraphQLProjectConfig, options: Options) {
   if (typeof project.extensions.schemaTypesPath === 'string') {
-    return getFilePath(project.configDir, project.extensions.schemaTypesPath);
+    return getGraphQLFilePath(project, project.extensions.schemaTypesPath);
   }
 
-  return getFilePath(
-    project.configDir,
+  return getGraphQLFilePath(
+    project,
     resolve(
       options.schemaTypesPath,
       `${project.projectName ? `${project.projectName}-` : ''}types.ts`,
