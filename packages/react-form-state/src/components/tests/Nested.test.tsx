@@ -131,34 +131,6 @@ describe('<Nested />', () => {
     expect(renderPropArgs.department.error).toBe(field.error.department);
   });
 
-  it('changes nested `updated` value when element in nested changes', () => {
-    const product = {title: faker.commerce.productName()};
-    const newTitle = faker.commerce.productName();
-
-    const renderPropSpy = jest.fn(({fields: {product}}: any) => {
-      return (
-        <FormState.Nested field={product}>
-          {({title}: any) => {
-            return <Input {...title} />;
-          }}
-        </FormState.Nested>
-      );
-    });
-
-    const form = mount(
-      <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-    );
-
-    const {fields: initialFields} = lastCallArgs(renderPropSpy);
-    expect(initialFields.product.updated).toBe(0);
-
-    const input = form.find(Input);
-    trigger(input, 'onChange', newTitle);
-
-    const {fields} = lastCallArgs(renderPropSpy);
-    expect(fields.product.updated).toBe(1);
-  });
-
   it('Does not re-render when children have not changed', () => {
     const titleSpy = jest.fn(() => null);
     const adjectiveSpy = jest.fn(({adjective}) => <Input {...adjective} />);

@@ -205,13 +205,12 @@ export default class FormState<
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
       const dirty = !isEqual(value, field.initialValue);
-      const {updated} = field;
+
       const updatedField = this.getUpdatedField({
         fieldPath,
         field,
         value,
         dirty,
-        updated,
       });
 
       return {
@@ -262,13 +261,11 @@ export default class FormState<
     field,
     value,
     dirty,
-    updated = 0,
   }: {
     fieldPath: Key;
     field: FieldStates<Fields>[Key];
     value: Fields[Key];
     dirty: boolean;
-    updated: number;
   }) {
     // We only want to update errors as the user types if they already have an error.
     // https://polaris.shopify.com/patterns/error-messages#section-form-validation
@@ -286,7 +283,6 @@ export default class FormState<
       value,
       dirty,
       error,
-      updated: (updated + 1) % 10,
     };
   }
 
@@ -377,7 +373,6 @@ function createFormState<Fields>(values: Fields): State<Fields> {
       value,
       initialValue: value,
       dirty: false,
-      updated: 0,
     };
   });
 

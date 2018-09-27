@@ -181,34 +181,6 @@ describe('<FormState.List />', () => {
     });
   });
 
-  it('changes list `updated` value when element in list changes', () => {
-    const products = [{title: faker.commerce.productName()}];
-    const newTitle = faker.commerce.productName();
-
-    const renderPropSpy = jest.fn(({fields: {products}}: any) => {
-      return (
-        <FormState.List field={products}>
-          {({title}: any) => {
-            return <Input {...title} />;
-          }}
-        </FormState.List>
-      );
-    });
-
-    const form = mount(
-      <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
-    );
-
-    const {fields: initialFields} = lastCallArgs(renderPropSpy);
-    expect(initialFields.products.updated).toBe(0);
-
-    const input = form.find(Input);
-    trigger(input, 'onChange', newTitle);
-
-    const {fields} = lastCallArgs(renderPropSpy);
-    expect(fields.products.updated).toBe(1);
-  });
-
   it('Does not re-render when children have not changed', () => {
     const products = [{title: faker.commerce.productName()}];
     const adjective = faker.commerce.productAdjective();
