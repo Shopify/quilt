@@ -343,7 +343,6 @@ describe('<FormState />', () => {
           // eslint-disable-next-line no-undefined
           error: undefined,
           initialValue: product,
-          updated: 1,
           value: newProduct,
         },
       });
