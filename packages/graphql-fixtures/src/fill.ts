@@ -21,10 +21,13 @@ import {
 } from 'graphql-tool-utilities';
 import {randomFromArray, chooseNull} from './utilities';
 
-export type FieldDetails = (Field | InlineFragment) & {
+export interface FieldMetadata {
+  fieldIndex?: number;
   fieldName: string;
   responseName: string;
-};
+}
+
+export type FieldDetails = (Field | InlineFragment) & FieldMetadata;
 
 export interface ResolveDetails {
   type: GraphQLType;
@@ -198,8 +201,21 @@ function unwrapThunk<T>(value: Thunk<T>, details: ResolveDetails): T {
   return isResolver(value) ? value({...details, type: unwrappedType}) : value;
 }
 
-function withRandom<T>(keypath: FieldDetails[], func: () => T) {
-  faker.seed(seedFromKeypath(keypath.map(({responseName}) => responseName)));
+function keyPathElement(responseName: string, fieldIndex: number | undefined) {
+  return fieldIndex == null ? responseName : `${responseName}[${fieldIndex}]`;
+}
+
+// we need to set a seedOffset when filling fields that are indexed leafs in the
+// graph, for indexed objects in the graph their key path will use the parent
+// field index instead.
+function withRandom<T>(keypath: FieldDetails[], func: () => T, seedOffset = 0) {
+  faker.seed(
+    seedFromKeypath(
+      keypath.map(({fieldIndex, responseName}) =>
+        keyPathElement(responseName, fieldIndex),
+      ),
+    ) + seedOffset,
+  );
   const value = func();
   faker.seed(Math.random() * 10000);
   return value;
@@ -210,15 +226,19 @@ function createValue<T>(
   value: Thunk<T>,
   details: ResolveDetails,
 ) {
-  return withRandom(details.parentFields, () => {
-    if (partialValue === undefined) {
-      return isNonNullType(details.type) || !chooseNull()
-        ? unwrapThunk(value, details)
-        : null;
-    } else {
-      return unwrapThunk(partialValue, details);
-    }
-  });
+  return withRandom(
+    details.parentFields,
+    () => {
+      if (partialValue === undefined) {
+        return isNonNullType(details.type) || !chooseNull()
+          ? unwrapThunk(value, details)
+          : null;
+      } else {
+        return unwrapThunk(partialValue, details);
+      }
+    },
+    details.field.fieldIndex,
+  );
 }
 
 function fillForPrimitiveType(
@@ -238,7 +258,7 @@ function fillForPrimitiveType(
 
 function fillType(
   type: GraphQLType,
-  field: Field,
+  field: Field & FieldMetadata,
   partial: Thunk<any>,
   parent: GraphQLObjectType,
   parentFields: FieldDetails[],
@@ -262,11 +282,11 @@ function fillType(
       field,
       parentFields,
     });
-    return array
-      ? array.map((value: any) =>
+    return Array.isArray(array)
+      ? array.map((value: any, fieldIndex) =>
           fillType(
             unwrappedType.ofType,
-            field,
+            {...field, fieldIndex},
             value,
             parent,
             parentFields,

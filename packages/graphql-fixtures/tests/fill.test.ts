@@ -183,6 +183,7 @@ describe('createFiller()', () => {
         name: String!
         petPreference: PetPreference!
         birthday: Date!
+        parents: [Person!]!
       }
 
       type Query {
@@ -216,6 +217,20 @@ describe('createFiller()', () => {
       `);
 
       expect(fill(selfDocument).self).not.toEqual(fill(meDocument).me);
+    });
+
+    it('uses different values for a list of keypaths', () => {
+      const document = createDocument<{
+        self: {parents: {name: string}[]};
+      }>(`
+      query Details {
+        self { parents { name } }
+      }
+      `);
+
+      const data = fill(document, {self: {parents: () => [{}, {}]}});
+
+      expect(data.self.parents[0].name).not.toEqual(data.self.parents[1].name);
     });
   });
 
