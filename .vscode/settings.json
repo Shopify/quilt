@@ -24,6 +24,7 @@
     "packages/graphql-typed/*.js": true,
     "packages/graphql-typed/*.d.ts": true
   },
+  "jest.pathToConfig": "config/jest/config.json",
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
