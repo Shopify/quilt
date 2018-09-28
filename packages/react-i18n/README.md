@@ -75,7 +75,7 @@ The most commonly-used feature of the `@shopify/react-i18n` library is looking u
 Translations are provided using two keys in the `withI18n` decorator:
 
 - `fallback`: a translation file to use when translation keys are not found in the locale-specific translation files. These will usually be your English translations, as they are typically the most complete.
-- `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above.
+- `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries.
 
 If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary.
 
