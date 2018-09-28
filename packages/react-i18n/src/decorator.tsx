@@ -25,13 +25,19 @@ interface Context {
   i18nConnection?: Connection;
 }
 
+type TranslationGetter = (
+  locale: string,
+) => MaybePromise<TranslationDictionary | undefined>;
+
+type TranslationMap = {
+  [key: string]: MaybePromise<TranslationDictionary | undefined>;
+};
+
 export interface WithI18nOptions {
   id?: string;
   fallback?: TranslationDictionary;
   renderWhileLoading?: boolean;
-  translations?(
-    locale: string,
-  ): MaybePromise<TranslationDictionary | undefined>;
+  translations?: TranslationGetter | TranslationMap;
 }
 
 export interface WithI18nProps {
@@ -72,7 +78,13 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
         let connection: Connection;
 
         if (translations || fallback) {
-          const connectionOptions = {id, fallback, translations};
+          const connectionOptions = {
+            id,
+            fallback,
+            translations:
+              translations && normalizeTranslationGetter(translations),
+          };
+
           connection = parentConnection
             ? parentConnection.extend(connectionOptions)
             : new Connection(connectionOptions);
@@ -128,4 +140,12 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
     );
     return FinalComponent as React.ComponentClass<any> & C;
   };
+}
+
+function normalizeTranslationGetter(
+  translations: TranslationMap | TranslationGetter,
+) {
+  return typeof translations === 'function'
+    ? translations
+    : (locale: string) => translations[locale];
 }
