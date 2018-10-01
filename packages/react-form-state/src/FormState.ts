@@ -4,7 +4,7 @@ import isArray from 'lodash/isArray';
 import set from 'lodash/set';
 import {memoize, bind} from 'lodash-decorators';
 
-import {mapObject} from './utilities';
+import {mapObject, replace} from './utilities';
 import {FieldDescriptors, FieldState} from './types';
 import {List, Nested} from './components';
 
@@ -201,15 +201,27 @@ export default class FormState<
   private updateField<Key extends keyof Fields>(
     fieldPath: Key,
     value: Fields[Key],
+    nested?: {key: string; index?: number},
   ) {
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
-      const dirty = !isEqual(value, field.initialValue);
+      let newValue = value;
+
+      if (nested && nested.key) {
+        const {value: fieldValue} = field;
+        newValue = this.getNewNestedItem({
+          nested,
+          fieldValue,
+          value,
+        });
+      }
+
+      const dirty = !isEqual(newValue, field.initialValue);
 
       const updatedField = this.getUpdatedField({
         fieldPath,
         field,
-        value,
+        value: newValue,
         dirty,
       });
 
@@ -230,6 +242,32 @@ export default class FormState<
               },
       };
     });
+  }
+
+  private getNewNestedItem<Key extends keyof Fields>({
+    nested,
+    fieldValue,
+    value,
+  }: {
+    nested: {key: string; index?: number};
+    fieldValue: Fields[Key];
+    value: Fields[Key];
+  }) {
+    // List (has index)
+    if (nested.index || nested.index === 0) {
+      const existingItem = fieldValue[nested.index];
+      const updated = {
+        ...(existingItem as any),
+        [nested.key]: value,
+      };
+      return replace(fieldValue as any, nested.index, updated);
+    }
+
+    // Nested
+    return {
+      ...(fieldValue as any),
+      [nested.key]: value,
+    };
   }
 
   private getUpdatedDirtyFields<Key extends keyof Fields>({

@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import {memoize, bind} from 'lodash-decorators';
 
 import {FieldDescriptor, FieldDescriptors} from '../types';
-import {mapObject, replace} from '../utilities';
+import {mapObject} from '../utilities';
 
 interface Props<Fields> {
   field: FieldDescriptor<Fields[]>;
@@ -57,16 +57,10 @@ export default class List<Fields> extends React.PureComponent<
   }) {
     return (newValue: Fields[Key]) => {
       const {
-        field: {value, onChange},
+        field: {onChange},
       } = this.props;
 
-      const existingItem = value[index];
-      const newItem = {
-        ...(existingItem as any),
-        [key]: newValue,
-      };
-
-      onChange(replace(value, index, newItem));
+      onChange(newValue as any, {key, index});
     };
   }
 }

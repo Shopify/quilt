@@ -8,7 +8,7 @@ export interface FieldState<Value> {
 }
 
 export interface FieldDescriptor<Value> extends FieldState<Value> {
-  onChange(newValue: Value): void;
+  onChange(newValue: Value, nested?: {key: string; index?: number}): void;
   onBlur(): void;
 }
 
