@@ -3,7 +3,6 @@ import {
   LoadCountriesResponse,
   LoadCountryResponse,
   ResponseError,
-  SupportedCountry,
 } from './types';
 import query from './graphqlQuery';
 
@@ -42,7 +41,7 @@ export async function loadCountries(locale: string): Promise<Country[]> {
 
 export async function loadCountry(
   locale: string,
-  countryCode: SupportedCountry,
+  countryCode: string,
 ): Promise<Country> {
   const response = await fetch(GRAPHQL_ENDPOINT, {
     method: 'POST',
