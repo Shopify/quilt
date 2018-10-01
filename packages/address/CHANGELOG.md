@@ -8,9 +8,13 @@ The format is based on [these versioning and changelog guidelines](https://git.i
 
 ---
 
+## 2.3.0 - 2018-10-01
+
+- Replaced `SupportedCountry` type by string. ([#322](https://github.com/Shopify/quilt/pull/322))
+
 ## 2.2.0 - 2018-10-01
 
-- Replaced `SupportedLocale` type by string. Default to english, if locale does not exist. ([#](https://github.com/Shopify/quilt/pull/xxx))
+- Replaced `SupportedLocale` type by string. Default to english, if locale does not exist. ([#321](https://github.com/Shopify/quilt/pull/321))
 
 ## 2.1.0 - 2018-09-28
 
