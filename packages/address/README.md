@@ -24,7 +24,7 @@ Instantiate the AddressFormatter by passing it a locale.
 
 Update the locale of the formatter. Following requests will be in the given locale.
 
-#### `async .getCountry(countryCode: SupportedCountry): Promise<Country>`
+#### `async .getCountry(countryCode: string): Promise<Country>`
 
 Loads and return data about a given country in the locale used for instanciation. Country and province names are localized. Province names are ordered based on the locale
 
@@ -58,7 +58,7 @@ Given an address, returns the address ordered for multiline show. Eg.
 ['Shopify', 'Lindenstraße 9-14', '10969 Berlin', 'Germany'];
 ```
 
-#### `async .getTranslationKey(countryCode: SupportedCountry, key: FieldName): string`
+#### `async .getTranslationKey(countryCode: string, key: FieldName): string`
 
 Get the translation key for a given field for a given country. Eg:
 
