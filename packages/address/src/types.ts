@@ -78,18 +78,6 @@ export interface ResponseError {
   }[];
 }
 
-export type SupportedLocale =
-  | 'da'
-  | 'de'
-  | 'en'
-  | 'es'
-  | 'fr'
-  | 'it'
-  | 'ja'
-  | 'nl'
-  | 'pt'
-  | 'pt-BR';
-
 export type SupportedCountry =
   | 'AD'
   | 'AE'

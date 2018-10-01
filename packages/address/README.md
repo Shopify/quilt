@@ -16,11 +16,11 @@ $ yarn add @shopify/address
 
 - `country` field in Address is expected to be of format ISO 3166-1 alpha-2, eg. CA / FR / JP
 
-#### `constructor(private locale: SupportedLocale)`
+#### `constructor(private locale: string)`
 
 Instantiate the AddressFormatter by passing it a locale.
 
-#### `updateLocale(locale: SupportedLocale)`
+#### `updateLocale(locale: string)`
 
 Update the locale of the formatter. Following requests will be in the given locale.
 
