@@ -40,7 +40,8 @@ export default class Clock {
       this.mockClock.tick(time);
     }
   }
-  setTime(time: number) {
+
+  setTime(time: number | Date) {
     this.ensureClockIsMocked();
     if (this.mockClock) {
       this.mockClock.setSystemTime(time);
