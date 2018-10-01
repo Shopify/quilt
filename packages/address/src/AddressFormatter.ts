@@ -1,10 +1,4 @@
-import {
-  Address,
-  FieldName,
-  Country,
-  SupportedLocale,
-  SupportedCountry,
-} from './types';
+import {Address, FieldName, Country, SupportedCountry} from './types';
 import {renderLineTemplate, FIELDS_MAPPING} from './utilities';
 import {loadCountry, loadCountries} from './loader';
 
@@ -26,12 +20,12 @@ const COUNTRIES_CACHE: {
 } = {};
 
 export default class AddressFormatter {
-  constructor(private locale: SupportedLocale) {
+  constructor(private locale: string) {
     this.locale = locale;
     COUNTRIES_CACHE[this.locale] = {};
   }
 
-  updateLocale(locale: SupportedLocale) {
+  updateLocale(locale: string) {
     this.locale = locale;
     COUNTRIES_CACHE[this.locale] = {};
   }
