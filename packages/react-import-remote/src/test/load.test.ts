@@ -3,6 +3,8 @@ import load, {clearCache} from '../load';
 
 describe('load()', () => {
   const mockURL = 'https://foo.com/bar.js';
+  const mockNonce = '1a2b3c';
+  const mockEmptyNonce = '';
 
   beforeEach(() => {
     clearCache();
@@ -14,7 +16,7 @@ describe('load()', () => {
 
   it('creates a script tag with the provided source', async () => {
     const {script, create, append} = spyOnDOM();
-    const promise = load(mockURL, noop);
+    const promise = load(mockURL, noop, mockNonce);
 
     script.triggerEvent('load');
     await promise;
@@ -24,9 +26,36 @@ describe('load()', () => {
     expect(script.setAttribute).toHaveBeenCalledWith('src', mockURL);
   });
 
+  it('does not call setAttribute with nonce when nonce is empty', async () => {
+    const {script, create, append} = spyOnDOM();
+    const promise = load(mockURL, noop, mockEmptyNonce);
+
+    script.triggerEvent('load');
+    await promise;
+
+    expect(create).toHaveBeenCalledWith('script');
+    expect(append).toHaveBeenCalledWith(script);
+    expect(script.setAttribute).not.toHaveBeenCalledWith(
+      'nonce',
+      mockEmptyNonce,
+    );
+  });
+
+  it('creates a script tag with the provided nonce', async () => {
+    const {script, create, append} = spyOnDOM();
+    const promise = load(mockURL, noop, mockNonce);
+
+    script.triggerEvent('load');
+    await promise;
+
+    expect(create).toHaveBeenCalledWith('script');
+    expect(append).toHaveBeenCalledWith(script);
+    expect(script.setAttribute).toHaveBeenCalledWith('nonce', mockNonce);
+  });
+
   it('rejects when the script errors', async () => {
     const {script} = spyOnDOM();
-    const promise = load(mockURL, noop);
+    const promise = load(mockURL, noop, mockNonce);
 
     script.triggerEvent('error');
 
@@ -36,7 +65,7 @@ describe('load()', () => {
   it('calls the getImport() parameter with the window once the script has loaded', async () => {
     const spy = jest.fn();
     const {script} = spyOnDOM();
-    const promise = load(mockURL, spy);
+    const promise = load(mockURL, spy, mockNonce);
 
     expect(spy).not.toHaveBeenCalled();
 
@@ -50,7 +79,7 @@ describe('load()', () => {
     const returnValue = 'foo';
     const spy = jest.fn(() => returnValue);
     const {script} = spyOnDOM();
-    const promise = load(mockURL, spy);
+    const promise = load(mockURL, spy, mockNonce);
 
     script.triggerEvent('load');
     expect(await promise).toBe(returnValue);
@@ -60,11 +89,11 @@ describe('load()', () => {
     const returnValue = 'foo';
     const spy = jest.fn(() => returnValue);
     const {script} = spyOnDOM();
-    const promise = load(mockURL, spy);
+    const promise = load(mockURL, spy, mockNonce);
 
     script.triggerEvent('load');
     expect(await promise).toBe(returnValue);
-    expect(await load(mockURL, spy)).toBe(returnValue);
+    expect(await load(mockURL, spy, mockNonce)).toBe(returnValue);
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
@@ -73,8 +102,8 @@ describe('load()', () => {
     const spy = jest.fn(() => returnValue);
     const {script, create, append} = spyOnDOM();
 
-    const promiseOne = load(mockURL, spy);
-    const promiseTwo = load(mockURL, spy);
+    const promiseOne = load(mockURL, spy, mockNonce);
+    const promiseTwo = load(mockURL, spy, mockNonce);
 
     script.triggerEvent('load');
     await Promise.all([promiseOne, promiseTwo]);
@@ -87,7 +116,7 @@ describe('load()', () => {
     const spy = jest.fn(() => returnValue);
     const {script, create, append} = spyOnDOM();
 
-    const promiseOne = load(mockURL, spy);
+    const promiseOne = load(mockURL, spy, mockNonce);
 
     script.triggerEvent('error');
     try {
@@ -96,7 +125,7 @@ describe('load()', () => {
     } catch (_) {}
 
     try {
-      await load(mockURL, spy);
+      await load(mockURL, spy, mockNonce);
       // eslint-disable-next-line no-empty
     } catch (_) {}
 
@@ -106,7 +135,7 @@ describe('load()', () => {
 
   it('removes listeners when the script has loaded', async () => {
     const {script} = spyOnDOM();
-    const promise = load(mockURL, noop);
+    const promise = load(mockURL, noop, mockNonce);
 
     script.triggerEvent('load');
     await promise;
@@ -118,7 +147,7 @@ describe('load()', () => {
 
   it('removes listeners when the script has errored', async () => {
     const {script} = spyOnDOM();
-    const promise = load(mockURL, noop);
+    const promise = load(mockURL, noop, mockNonce);
 
     script.triggerEvent('error');
     try {
