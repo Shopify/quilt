@@ -6,6 +6,7 @@ export default function load<
 >(
   source: string,
   getImport: (window: CustomWindow) => Imported,
+  nonce: string,
 ): Promise<Imported> {
   if (typeof window === 'undefined') {
     return Promise.reject(
@@ -19,7 +20,7 @@ export default function load<
     return cachedModule;
   }
 
-  const scriptTag = scriptTagFor(source);
+  const scriptTag = scriptTagFor(source, nonce);
   appendScriptTag(scriptTag);
 
   const promise = new Promise<Imported>((resolve, reject) => {
@@ -47,10 +48,15 @@ export function clearCache() {
   cache.clear();
 }
 
-function scriptTagFor(source: string) {
+function scriptTagFor(source: string, nonce: string) {
   const node = document.createElement('script');
   node.setAttribute('type', 'text/javascript');
   node.setAttribute('src', source);
+
+  if (nonce.length > 0) {
+    node.setAttribute('nonce', nonce);
+  }
+
   return node;
 }
 
