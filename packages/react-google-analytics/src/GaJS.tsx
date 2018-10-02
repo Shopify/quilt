@@ -7,6 +7,7 @@ import {getRootDomain, noop} from './utilities';
 export interface Props {
   account: string;
   domain: string;
+  nonce?: string;
   devId?: string;
   allowLinker?: boolean;
   allowHash?: boolean;
@@ -31,7 +32,7 @@ export default class GaJSGoogleAnalytics extends React.PureComponent<
   never
 > {
   render() {
-    const {account, disableTracking} = this.props;
+    const {account, disableTracking, nonce} = this.props;
 
     return (
       <>
@@ -46,6 +47,7 @@ export default class GaJSGoogleAnalytics extends React.PureComponent<
         <ImportRemote
           preconnect
           source={GA_JS_SCRIPT}
+          nonce={nonce}
           getImport={getLegacyAnalytics}
           onError={noop}
           onImported={this.setAnalytics}
