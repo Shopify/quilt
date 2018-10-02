@@ -29,18 +29,38 @@ describe('<ImportRemote />', () => {
 
   describe('source and getImport()', () => {
     it('uses the props as arguments for load()', () => {
+      const nonce = '';
       mount(<ImportRemote {...mockProps} />);
-      expect(load).toHaveBeenCalledWith(mockProps.source, mockProps.getImport);
+      expect(load).toHaveBeenCalledWith(
+        mockProps.source,
+        mockProps.getImport,
+        nonce,
+      );
+    });
+
+    it('uses the nonce prop as argument for load()', () => {
+      const nonce = '1a2b3c';
+      mount(<ImportRemote {...mockProps} nonce={nonce} />);
+      expect(load).toHaveBeenCalledWith(
+        mockProps.source,
+        mockProps.getImport,
+        nonce,
+      );
     });
 
     it('imports a new global if the source changes', () => {
+      const nonce = '';
       const importRemote = mount(<ImportRemote {...mockProps} />);
-      expect(load).toHaveBeenCalledWith(mockProps.source, mockProps.getImport);
+      expect(load).toHaveBeenCalledWith(
+        mockProps.source,
+        mockProps.getImport,
+        nonce,
+      );
 
       const newSource = 'https://bar.com/foo.js';
 
       importRemote.setProps({source: newSource});
-      expect(load).toHaveBeenCalledWith(newSource, mockProps.getImport);
+      expect(load).toHaveBeenCalledWith(newSource, mockProps.getImport, nonce);
     });
   });
 
