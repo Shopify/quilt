@@ -4,6 +4,7 @@ import load from './load';
 
 export interface Props<Imported = any> {
   source: string;
+  nonce?: string;
   preconnect?: boolean;
   onError(error: Error): void;
   getImport(window: Window): Imported;
@@ -35,10 +36,10 @@ export default class ImportRemote extends React.PureComponent<Props, never> {
   }
 
   async loadRemote() {
-    const {source, getImport, onError, onImported} = this.props;
+    const {source, nonce = '', getImport, onError, onImported} = this.props;
 
     try {
-      const imported = await load(source, getImport);
+      const imported = await load(source, getImport, nonce);
       onImported(imported);
     } catch (error) {
       onError(error);
