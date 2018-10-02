@@ -8,6 +8,10 @@ The format is based on [these versioning and changelog guidelines](https://git.i
 
 ---
 
+## 2.3.1 - 2018-10-01
+
+- Expose testing helpers. ([#328](https://github.com/Shopify/quilt/pull/328))
+
 ## 2.3.0 - 2018-10-01
 
 - Replaced `SupportedCountry` type by string. ([#322](https://github.com/Shopify/quilt/pull/322))
