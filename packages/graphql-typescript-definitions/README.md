@@ -76,11 +76,7 @@ This package will generate matching `.d.ts` files for each `.graphql` file you s
   let person: SomeoneQueryData.Person;
   ```
 
-### Configuration
-
-This tool reads schema information from a [`.graphqlconfig`](https://github.com/prisma/graphql-config) file in the project root. The configuration can contain one nameless project or many named projects. The configuration is compatible with the [vscode-graphql extension](https://github.com/prisma/vscode-graphql). This extension provides syntax highlighting and autocomplete suggestions for graphql files.
-
-Each project specifies a `schemaPath`, `include`, and `exclude` globs. Glob patterns match paths relative to the location of the configuration file. Omit `exclude` if empty.
+### Operation
 
 On startup this tool performs the following actions:
 
@@ -90,52 +86,20 @@ On startup this tool performs the following actions:
   * Written in directory provided by `--schema-types-path` argument
   * Override `--schema-types-path` per project with the `schemaTypesPath` extension
 
-See the [official specification documentation](https://github.com/prisma/graphql-config/blob/master/specification.md#use-cases) for more detail and examples.
+### Configuration
+
+This tool reads schema information from a [`.graphqlconfig`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-tool-utilities#configuration) file in the project root.
 
 #### Examples
-
-A single nameless project configuration
-
-```json
-{
-  "schemaPath": "build/schema.json",
-  "includes": "app/**/*.graphql"
-}
-```
-
-A multi-project configuration
-
-```json
-{
-  "projects": {
-    "foo": {
-      "schemaPath": "build/schema/foo.json",
-      "includes": "app/foo/**/*.graphql"
-    },
-    "bar": {
-      "schemaPath": "build/schema/bar.json",
-      "includes": "app/bar/**/*.graphql"
-    }
-  }
-}
-```
 
 A project configuration with a `schemaTypesPath` override
 
 ```json
 {
-  "projects": {
-    "foo": {
-      "schemaPath": "build/schema/foo.json",
-      "includes": "app/foo/**/*.graphql"
-    },
-    "bar": {
-      "schemaPath": "build/schema/bar.json",
-      "includes": "app/bar/**/*.graphql",
-      "extensions": {
-        "schemaTypesPath": "app/bar/types/graphql.ts"
-      }
-    }
+  "schemaPath": "build/schema.json",
+  "includes": "app/**/*.graphql",
+  "extensions": {
+    "schemaTypesPath": "app/bar/types/graphql.ts"
   }
 }
 ```
