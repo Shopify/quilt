@@ -40,6 +40,7 @@ export default class UniversalGoogleAnalytics extends React.PureComponent<
         <script
           id="google-analytics-universal-script"
           dangerouslySetInnerHTML={{__html: SETUP_SCRIPT}}
+          nonce={nonce}
         />
         <ImportRemote
           preconnect
