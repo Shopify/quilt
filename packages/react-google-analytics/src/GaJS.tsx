@@ -43,6 +43,7 @@ export default class GaJSGoogleAnalytics extends React.PureComponent<
               ? setupWithDebugScript(account)
               : SETUP_SCRIPT,
           }}
+          nonce={nonce}
         />
         <ImportRemote
           preconnect
