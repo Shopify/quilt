@@ -1,23 +1,8 @@
 module.exports = [
   {
     "webpack": false,
-    "path": ["packages/koa-liveness-ping/dist"],
-    "limit": "1.25KB"
-  },
-  {
-    "webpack": false,
-    "path": ["packages/jest-dom-mocks/dist"],
-    "limit": "6.27KB"
-  },
-  {
-    "webpack": false,
     "path": ["packages/admin-graphql-api-utilities/dist"],
     "limit": "600B"
-  },
-  {
-    "webpack": false,
-    "path": ["packages/koa-shopify-auth/dist"],
-    "limit": "14.1KB"
   },
   {
     "webpack": false,
@@ -33,21 +18,6 @@ module.exports = [
     "webpack": false,
     "path": ["packages/react-import-remote/dist"],
     "limit": "3.1KB"
-  },
-  {
-    "webpack": false,
-    "path": ["packages/jest-mock-apollo/dist"],
-    "limit": "4.9KB"
-  },
-  {
-    "webpack": false,
-    "path": ["packages/jest-koa-mocks/dist"],
-    "limit": "3.3KB"
-  },
-  {
-    "webpack": false,
-    "path": ["packages/jest-mock-router/dist"],
-    "limit": "1.1KB"
   },
   {
     "webpack": false,
@@ -81,18 +51,8 @@ module.exports = [
   },
   {
     "webpack": false,
-    "path": ["packages/koa-shopify-graphql-proxy/dist"],
-    "limit": "2.4KB"
-  },
-  {
-    "webpack": false,
     "path": ["packages/enzyme-utilities/dist"],
     "limit": "3.1KB"
-  },
-  {
-    "webpack": false,
-    "path": ["packages/koa-metrics/dist"],
-    "limit": "4.9KB"
   },
   {
     "webpack": false,
