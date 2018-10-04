@@ -33,6 +33,7 @@ export interface Props {
   headData?: {[id: string]: any};
   data?: {[id: string]: any};
   hideForInitialLoad?: boolean;
+  nonce?: string;
 }
 
 export default function HTML({
@@ -43,6 +44,7 @@ export default function HTML({
   data = {},
   headData = {},
   hideForInitialLoad,
+  nonce,
 }: Props) {
   const markup = renderToString(children);
   const helmet = Helmet.renderStatic();
@@ -68,6 +70,7 @@ export default function HTML({
         src={script.path}
         integrity={script.integrity}
         crossOrigin="anonymous"
+        nonce={nonce}
       />
     );
   });
@@ -80,6 +83,7 @@ export default function HTML({
         integrity={script.integrity}
         crossOrigin="anonymous"
         defer
+        nonce={nonce}
       />
     );
   });
