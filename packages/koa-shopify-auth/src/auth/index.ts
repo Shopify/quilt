@@ -50,6 +50,16 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
       await enableCookiesRedirect(ctx);
       return;
     }
+    
+    if (
+      ctx.path === oAuthStartPath &&
+      hasCookieAccess(ctx) &&
+      ctx.session.accessToken &&
+      ctx.session.shop
+    ) {
+      ctx.redirect('/');
+      return;
+    }
 
     if (
       ctx.path === inlineOAuthPath ||
