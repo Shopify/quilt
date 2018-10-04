@@ -355,7 +355,7 @@ function MyComponent() {
 }
 ```
 
-To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](/validators.md).
+To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](validators.md).
 
 ## Compound fields
 
