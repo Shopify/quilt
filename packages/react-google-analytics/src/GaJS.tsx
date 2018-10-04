@@ -41,6 +41,7 @@ export default class GaJSGoogleAnalytics extends React.PureComponent<
           dangerouslySetInnerHTML={{
             __html: debug ? setupWithDebugScript(account) : SETUP_SCRIPT,
           }}
+          nonce={nonce}
         />
         <ImportRemote
           preconnect
