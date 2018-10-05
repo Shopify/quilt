@@ -1,9 +1,9 @@
-const {readdirSync, existsSync} = require('fs');
+const { readdirSync, existsSync } = require('fs');
 const path = require('path');
 
 const packageNames = getPackageNames();
 
-module.exports = function(plop) {
+module.exports = function (plop) {
   plop.setGenerator('package', {
     description: 'create a new package from scratch',
     prompts: [
@@ -41,6 +41,11 @@ module.exports = function(plop) {
       },
       {
         type: 'add',
+        path: 'packages/{{kebabCase name}}/CHANGELOG.md',
+        templateFile: 'templates/CHANGELOG.hbs.md',
+      },
+      {
+        type: 'add',
         path: 'packages/{{kebabCase name}}/src/index.ts',
         templateFile: 'templates/index.hbs',
       },
@@ -74,7 +79,7 @@ const sharedActions = {
     path: 'README.md',
     templateFile: 'templates/ROOT_README.hbs.md',
     force: true,
-    data: {packageNames},
+    data: { packageNames },
   },
 };
 
