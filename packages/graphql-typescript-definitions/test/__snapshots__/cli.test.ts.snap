@@ -22,12 +22,12 @@ Error: GraphQL operations must have a unique name. The operation FindPerson is d
     at Array.forEach (<anonymous>)
     at getDuplicateOperations.forEach (packages/graphql-typescript-definitions/lib/index.js)
     at Array.forEach (<anonymous>)
+    at Builder.checkForDuplicateOperations (packages/graphql-typescript-definitions/lib/index.js)
     at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
     at Generator.next (<anonymous>)
     at packages/graphql-typescript-definitions/lib/index.js
     at new Promise (<anonymous>)
     at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
-    at Builder.generateDocumentTypes (packages/graphql-typescript-definitions/lib/index.js)
 
 ",
 }
@@ -55,7 +55,7 @@ GraphQLError: Syntax Error: Expected {, found Name \\"name\\"
     at parseDefinition (node_modules/graphql/language/parser.js)
     at parseDocument (node_modules/graphql/language/parser.js)
     at Object.parse (node_modules/graphql/language/parser.js)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
+    at Builder.setDocumentForFilePath (packages/graphql-typescript-definitions/lib/index.js)
 
 ",
 }
@@ -96,6 +96,18 @@ Object {
 
  BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql.d.ts
  BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql.d.ts
+",
+}
+`;
+
+exports[`cli succeeds when schemaPath is set to a graphql file 1`] = `
+Object {
+  "error": null,
+  "stderr": "",
+  "stdout": "
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/graphql-schema/schema.graphql → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/schema.ts
+
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql.d.ts
 ",
 }
 `;

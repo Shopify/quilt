@@ -19,6 +19,12 @@ describe('cli', () => {
     ).toMatchSnapshot();
   });
 
+  it('succeeds when schemaPath is set to a graphql file', async () => {
+    expect(
+      await execDetails(cliCommandForFixtureDirectory('graphql-schema')),
+    ).toMatchSnapshot();
+  });
+
   it('fails when there are syntax errors', async () => {
     expect(
       await execDetails(cliCommandForFixtureDirectory('malformed-query')),

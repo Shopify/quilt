@@ -1,7 +1,5 @@
 import {EventEmitter} from 'events';
 import {
-  buildClientSchema,
-  GraphQLSchema,
   DocumentNode,
   DefinitionNode,
   OperationDefinitionNode,
@@ -11,15 +9,15 @@ import {
 } from 'graphql';
 import chalk from 'chalk';
 import {dirname, join, resolve} from 'path';
-import {readJSON, readFile, writeFile, mkdirp} from 'fs-extra';
-import {watch} from 'chokidar';
-import * as glob from 'glob';
+import {mkdirp, readFile, writeFile} from 'fs-extra';
+import {FSWatcher, watch} from 'chokidar';
 import {
   getGraphQLConfig,
   GraphQLProjectConfig,
   GraphQLConfig,
 } from 'graphql-config';
 import {
+  getGraphQLProjectIncludedFilePaths,
   getGraphQLProjectForSchemaPath,
   getGraphQLProjects,
   getGraphQLSchemaPaths,
@@ -79,6 +77,7 @@ export class Builder extends EventEmitter {
     string | undefined,
     Map<string, DocumentNode>
   >();
+  private readonly watchers: FSWatcher[] = [];
 
   constructor({cwd, ...options}: BuilderOptions) {
     super();
@@ -121,7 +120,6 @@ export class Builder extends EventEmitter {
   }
 
   async run({watch: watchGlobs = false} = {}) {
-    const globs = this.getGlobs();
     let schemaPaths: string[];
 
     try {
@@ -131,48 +129,26 @@ export class Builder extends EventEmitter {
       return;
     }
 
-    const update = async (filePath: string) => {
-      try {
-        await this.updateDocumentForFile(filePath);
-      } catch (error) {
-        this.emit('error', error);
-        return;
-      }
-
-      await this.generateDocumentTypes();
-    };
-
     if (watchGlobs) {
-      const documentWatcher = watch(globs);
-      documentWatcher.on('ready', () => {
-        documentWatcher.on('add', update);
-        documentWatcher.on('change', update);
-        documentWatcher.on('unlink', async (filePath: string) => {
-          this.removeDocumentForFile(filePath);
-          await this.generateDocumentTypes();
-        });
-      });
+      this.watchers.push(
+        ...this.setupDocumentWatchers().concat(this.setupSchemaWatcher()),
+      );
 
-      const schemaWatcher = watch(schemaPaths);
-      schemaWatcher.on('ready', () => {
-        schemaWatcher.on('change', async (schemaPath: string) => {
-          try {
-            this.emit('start:schema');
-            await this.updateSchemaAndGenerateTypes(schemaPath);
-            this.emit('end:schema');
-
-            await this.generateDocumentTypes();
-          } catch (error) {
-            // intentional noop
-          }
-        });
-      });
+      // wait for all watchers to be ready
+      await Promise.all(
+        this.watchers.map(
+          (watcher) =>
+            new Promise<void>((resolve) =>
+              watcher.on('ready', () => resolve()),
+            ),
+        ),
+      );
     }
 
     try {
       this.emit('start:schema');
       await Promise.all(
-        schemaPaths.map(this.updateSchemaAndGenerateTypes.bind(this)),
+        schemaPaths.map((schemaPath) => this.generateSchemaTypes(schemaPath)),
       );
       this.emit('end:schema');
     } catch (error) {
@@ -182,10 +158,9 @@ export class Builder extends EventEmitter {
 
     try {
       await Promise.all(
-        globs
-          .map((pattern) => glob.sync(pattern))
-          .reduce((patterns, globbed) => patterns.concat(globbed), [])
-          .map(this.updateDocumentForFile.bind(this)),
+        getGraphQLProjects(this.config).map((projectConfig) =>
+          this.updateDocumentsForProject(projectConfig),
+        ),
       );
     } catch (error) {
       this.emit('error', error);
@@ -195,12 +170,84 @@ export class Builder extends EventEmitter {
     await this.generateDocumentTypes();
   }
 
-  private async generateSchemaTypes(schemaPath: string, schema: GraphQLSchema) {
-    const schemaTypesPath = getSchemaTypesPath(
-      getGraphQLProjectForSchemaPath(this.config, schemaPath),
-      this.options,
+  stop() {
+    this.watchers.forEach((watcher) => {
+      watcher.close();
+    });
+
+    this.watchers.length = 0;
+  }
+
+  private setupDocumentWatchers() {
+    const update = async (
+      filePath: string,
+      projectConfig: GraphQLProjectConfig,
+    ) => {
+      try {
+        await this.updateDocumentForFile(filePath, projectConfig);
+      } catch (error) {
+        this.emit('error', error);
+        return;
+      }
+
+      await this.generateDocumentTypes();
+    };
+
+    return getGraphQLProjects(this.config).map((projectConfig) => {
+      return watch(
+        projectConfig.includes.map((include) =>
+          projectConfig.resolvePathRelativeToConfig(include),
+        ),
+        {
+          ignored: projectConfig.excludes.map((exclude) =>
+            projectConfig.resolvePathRelativeToConfig(exclude),
+          ),
+          ignoreInitial: true,
+        },
+      )
+        .on('add', (filePath: string) => update(filePath, projectConfig))
+        .on('change', (filePath: string) => update(filePath, projectConfig))
+        .on('unlink', async (filePath: string) => {
+          const documents = this.documentMapByProject.get(
+            projectConfig.projectName,
+          );
+
+          if (documents) {
+            documents.delete(filePath);
+          }
+
+          await this.generateDocumentTypes();
+        });
+    });
+  }
+
+  private setupSchemaWatcher() {
+    const update = async (schemaPath: string) => {
+      try {
+        this.emit('start:schema');
+        await this.generateSchemaTypes(schemaPath);
+        this.emit('end:schema');
+
+        await this.generateDocumentTypes();
+      } catch (error) {
+        // intentional noop
+      }
+    };
+
+    return watch(getGraphQLSchemaPaths(this.config), {ignoreInitial: true}).on(
+      'change',
+      update,
     );
-    const definition = printSchema(schema, this.options);
+  }
+
+  private async generateSchemaTypes(schemaPath: string) {
+    const projectConfig = getGraphQLProjectForSchemaPath(
+      this.config,
+      schemaPath,
+    );
+
+    const schemaTypesPath = getSchemaTypesPath(projectConfig, this.options);
+    const definition = printSchema(projectConfig.getSchema(), this.options);
     await mkdirp(dirname(schemaTypesPath));
     await writeFile(schemaTypesPath, definition);
     this.emit('build:schema', {
@@ -212,6 +259,22 @@ export class Builder extends EventEmitter {
   private async generateDocumentTypes() {
     this.emit('start:docs');
 
+    this.checkForDuplicateOperations();
+
+    await Promise.all(
+      Array.from(this.documentMapByProject.entries()).map(
+        ([projectName, documents]) =>
+          this.generateDocumentTypesForProject(
+            this.config.getProjectConfig(projectName),
+            documents,
+          ),
+      ),
+    );
+
+    this.emit('end:docs');
+  }
+
+  private checkForDuplicateOperations() {
     getDuplicateOperations(this.documentMapByProject).forEach(
       ({projectName, duplicates}) => {
         if (duplicates.length) {
@@ -227,48 +290,30 @@ export class Builder extends EventEmitter {
         }
       },
     );
-
-    await Promise.all(
-      Array.from(this.documentMapByProject.entries()).map(
-        ([projectName, documents]) => {
-          return this.generateDocumentTypesForProject(
-            this.config.getProjectConfig(projectName),
-            documents,
-          );
-        },
-      ),
-    );
-
-    this.emit('end:docs');
   }
 
   private async generateDocumentTypesForProject(
-    project: GraphQLProjectConfig,
+    projectConfig: GraphQLProjectConfig,
     documents: Map<string, DocumentNode>,
   ) {
     let ast: AST;
 
     try {
-      const schema = project.getSchema();
-
-      ast = compile(schema, concatAST(Array.from(documents.values())));
+      ast = compile(
+        projectConfig.getSchema(),
+        concatAST(Array.from(documents.values())),
+      );
     } catch (error) {
       this.emit('error', error);
       return;
     }
 
-    const fileMap = groupOperationsAndFragmentsByFile(ast);
-
     try {
-      const buildResults = await Promise.all(
-        Array.from(fileMap.values()).map((file) => {
-          return this.writeDocumentFile(file, ast, project);
-        }),
+      await Promise.all(
+        Array.from(groupOperationsAndFragmentsByFile(ast).values()).map(
+          (file) => this.writeDocumentFile(file, ast, projectConfig),
+        ),
       );
-
-      for (const buildResult of buildResults) {
-        this.emit('build:docs', buildResult);
-      }
     } catch (error) {
       // intentional noop
     }
@@ -277,30 +322,32 @@ export class Builder extends EventEmitter {
   private async writeDocumentFile(
     file: File,
     ast: AST,
-    project: GraphQLProjectConfig,
+    projectConfig: GraphQLProjectConfig,
   ) {
     const definitionPath = `${file.path}.d.ts`;
-    const definition = this.getDocumentDefinition(file, ast, project);
 
-    await writeFile(definitionPath, definition);
+    await writeFile(
+      definitionPath,
+      this.getDocumentDefinition(file, ast, projectConfig),
+    );
 
-    return {
+    this.emit('build:docs', {
       documentPath: file.path,
       definitionPath,
       operation: file.operation,
       fragments: file.fragments,
-    };
+    });
   }
 
   private getDocumentDefinition(
     file: File,
     ast: AST,
-    project: GraphQLProjectConfig,
+    projectConfig: GraphQLProjectConfig,
   ) {
     try {
       return printDocument(file, ast, {
         ...this.options,
-        schemaTypesPath: getSchemaTypesPath(project, this.options),
+        schemaTypesPath: getSchemaTypesPath(projectConfig, this.options),
       });
     } catch ({message}) {
       const error = new Error(
@@ -311,41 +358,36 @@ export class Builder extends EventEmitter {
     }
   }
 
-  private async updateSchemaAndGenerateTypes(schemaPath: string) {
-    const schema = await this.updateSchema(schemaPath);
-    await this.generateSchemaTypes(schemaPath, schema);
+  private async updateDocumentsForProject(projectConfig: GraphQLProjectConfig) {
+    const filePaths = await getGraphQLProjectIncludedFilePaths(projectConfig);
+
+    return Promise.all(
+      filePaths.map((filePath) =>
+        this.updateDocumentForFile(filePath, projectConfig),
+      ),
+    );
   }
 
-  private async updateSchema(schemaPath: string) {
-    try {
-      const schemaJSON = await readJSON(schemaPath);
-      return buildClientSchema(schemaJSON.data);
-    } catch (error) {
-      const parseError = new Error(
-        `Error parsing '${schemaPath}':\n\n${error.message.replace(
-          /Syntax Error GraphQL \(.*?\) /,
-          '',
-        )}`,
-      );
-      throw parseError;
-    }
+  private async updateDocumentForFile(
+    filePath: string,
+    projectConfig: GraphQLProjectConfig,
+  ) {
+    const contents = await readFile(filePath, 'utf8');
+
+    return this.setDocumentForFilePath(filePath, projectConfig, contents);
   }
 
-  private async updateDocumentForFile(filePath: string) {
-    const project = this.config.getConfigForFile(filePath);
-
-    if (!project) {
-      throw new Error(`No project found for file: ${filePath}`);
-    }
-
-    let documents = this.documentMapByProject.get(project.projectName);
+  private setDocumentForFilePath(
+    filePath: string,
+    projectConfig: GraphQLProjectConfig,
+    contents: string,
+  ) {
+    let documents = this.documentMapByProject.get(projectConfig.projectName);
 
     if (!documents) {
       documents = new Map<string, DocumentNode>();
-      this.documentMapByProject.set(project.projectName, documents);
+      this.documentMapByProject.set(projectConfig.projectName, documents);
     }
-
-    const contents = await readFile(filePath, 'utf8');
 
     if (contents.trim().length === 0) {
       return undefined;
@@ -356,45 +398,24 @@ export class Builder extends EventEmitter {
 
     return document;
   }
-
-  private getProjects() {
-    return getGraphQLProjects(this.config);
-  }
-
-  private getGlobs() {
-    return this.getProjects().reduce<string[]>((globs, project) => {
-      return globs.concat(
-        project.includes.map((filePath) =>
-          project.resolvePathRelativeToConfig(filePath),
-        ),
-      );
-    }, []);
-  }
-
-  private removeDocumentForFile(filePath: string) {
-    const project = this.config.getConfigForFile(filePath);
-
-    if (project) {
-      const documents = this.documentMapByProject.get(project.projectName);
-
-      if (documents) {
-        documents.delete(filePath);
-      }
-    }
-  }
 }
 
-function getSchemaTypesPath(project: GraphQLProjectConfig, options: Options) {
-  if (typeof project.extensions.schemaTypesPath === 'string') {
-    return project.resolvePathRelativeToConfig(
-      project.extensions.schemaTypesPath,
+function getSchemaTypesPath(
+  projectConfig: GraphQLProjectConfig,
+  options: Options,
+) {
+  if (typeof projectConfig.extensions.schemaTypesPath === 'string') {
+    return projectConfig.resolvePathRelativeToConfig(
+      projectConfig.extensions.schemaTypesPath,
     );
   }
 
-  return project.resolvePathRelativeToConfig(
+  return projectConfig.resolvePathRelativeToConfig(
     join(
       options.schemaTypesPath,
-      `${project.projectName ? `${project.projectName}-` : ''}types.ts`,
+      `${
+        projectConfig.projectName ? `${projectConfig.projectName}-` : ''
+      }types.ts`,
     ),
   );
 }

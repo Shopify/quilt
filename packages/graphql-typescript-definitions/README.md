@@ -197,7 +197,7 @@ Input types (enums, input objects, and custom scalars) are generated once, in a 
 ### CLI
 
 ```sh
-yarn run graphql-typescript-definitions 'src/**/*.graphql' --schema-path 'build/schema.json' --schema-types-path 'src/schema.ts'
+yarn run graphql-typescript-definitions --schema-path 'build/schema.json' --schema-types-path 'src/schema.ts'
 ```
 
 Optionally, you can pass the `--watch` flag in order to regenerate the TypeScript definition files on changes to the GraphQL files. You can also pass the `--add-typename` flag in order to always generate a `__typename` field for object types, and an `--enum-format` type which specifies the casing to use for enum types generated from the schema.
