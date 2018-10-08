@@ -13,7 +13,7 @@ export default class Requests {
 
   nth(index: number) {
     return index < 0
-      ? this.requests[this.requests.length - index]
+      ? this.requests[this.requests.length - 1 + index]
       : this.requests[index];
   }
 
