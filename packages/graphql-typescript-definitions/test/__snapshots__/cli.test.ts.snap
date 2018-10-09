@@ -70,17 +70,18 @@ Object {
     "signal": null,
   },
   "stderr": "",
-  "stdout": "
- ERROR  Error parsing 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
-
-ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
-Error: Error parsing 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json':
-
-ENOENT: no such file or directory, open 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json'
+  "stdout": " ERROR  Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.
+Error: Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.
+    at GraphQLProjectConfig.resolveSchemaPath (packages/graphql-tool-utilities/augmentations.js)
+    at getGraphQLProjects.reduce (packages/graphql-tool-utilities/config.js)
+    at Array.reduce (<anonymous>)
+    at Object.getGraphQLSchemaPaths (packages/graphql-tool-utilities/config.js)
     at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
-    at Generator.throw (<anonymous>)
-    at rejected (packages/graphql-typescript-definitions/lib/index.js)
-    at <anonymous>
+    at Generator.next (<anonymous>)
+    at packages/graphql-typescript-definitions/lib/index.js
+    at new Promise (<anonymous>)
+    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
+    at Builder.run (packages/graphql-typescript-definitions/lib/index.js)
 
 ",
 }

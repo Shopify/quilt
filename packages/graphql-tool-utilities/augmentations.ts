@@ -1,3 +1,4 @@
+import {existsSync} from 'fs';
 import {GraphQLProjectConfig} from 'graphql-config/lib/GraphQLProjectConfig';
 
 declare module 'graphql-config/lib/GraphQLProjectConfig' {
@@ -27,7 +28,25 @@ function resolveSchemaPath(this: GraphQLProjectConfig) {
     );
   }
 
-  return this.schemaPath;
+  // resolve fully qualified schemaPath
+  const schemaPath = this.resolveConfigPath(this.schemaPath);
+
+  if (!existsSync(schemaPath)) {
+    const forProject = this.projectName
+      ? ` for project '${this.projectName}'`
+      : '';
+    throw new Error(
+      [
+        `Schema not found${forProject}.`,
+        `Expected to find the schema at '${schemaPath}' but the path does not exist.`,
+        `Check '${
+          this.configPath
+        }' and verify that schemaPath is configured correctly${forProject}.`,
+      ].join(' '),
+    );
+  }
+
+  return schemaPath;
 }
 
 GraphQLProjectConfig.prototype.resolveProjectName = resolveProjectName;

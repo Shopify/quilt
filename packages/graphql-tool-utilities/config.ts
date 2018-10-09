@@ -26,9 +26,7 @@ export function getGraphQLProjects(config: GraphQLConfig) {
 
 export function getGraphQLSchemaPaths(config: GraphQLConfig) {
   return getGraphQLProjects(config).reduce<string[]>((schemas, project) => {
-    return schemas.concat(
-      getGraphQLFilePath(config, project.resolveSchemaPath()),
-    );
+    return schemas.concat(project.resolveSchemaPath());
   }, []);
 }
 

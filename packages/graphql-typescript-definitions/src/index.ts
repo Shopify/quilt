@@ -123,7 +123,14 @@ export class Builder extends EventEmitter {
 
   async run({watch: watchGlobs = false} = {}) {
     const globs = this.getGlobs();
-    const schemaPaths = this.getSchemaPaths();
+    let schemaPaths: string[];
+
+    try {
+      schemaPaths = getGraphQLSchemaPaths(this.config);
+    } catch (error) {
+      this.emit('error', error);
+      return;
+    }
 
     const update = async (filePath: string) => {
       try {
@@ -363,10 +370,6 @@ export class Builder extends EventEmitter {
         ),
       );
     }, []);
-  }
-
-  private getSchemaPaths() {
-    return getGraphQLSchemaPaths(this.config);
   }
 
   private removeDocumentForFile(filePath: string) {
