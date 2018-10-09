@@ -1,4 +1,5 @@
-import {toString, isArray} from 'lodash';
+import toString from 'lodash/toString';
+import isArray from 'lodash/isArray';
 import {mapObject} from './utilities';
 
 interface Matcher<Input> {
