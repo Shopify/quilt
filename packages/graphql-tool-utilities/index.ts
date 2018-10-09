@@ -1,7 +1,6 @@
 import './augmentations';
 
 export {
-  getGraphQLFilePath,
   getGraphQLProjectForSchemaPath,
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjects,

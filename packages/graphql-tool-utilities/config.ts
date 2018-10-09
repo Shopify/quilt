@@ -1,6 +1,5 @@
 import glob from 'glob';
 import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
-import {isAbsolute, resolve} from 'path';
 import {promisify} from 'util';
 
 import './augmentations';
@@ -35,9 +34,9 @@ export async function getGraphQLProjectIncludedFilePaths(
 ) {
   return (await Promise.all(
     projectConfig.includes.map((include) =>
-      promisify(glob)(getGraphQLFilePath(projectConfig, include), {
+      promisify(glob)(projectConfig.resolvePathRelativeToConfig(include), {
         ignore: projectConfig.excludes.map((exclude) =>
-          getGraphQLFilePath(projectConfig, exclude),
+          projectConfig.resolvePathRelativeToConfig(exclude),
         ),
       }),
     ),
@@ -60,11 +59,4 @@ export function getGraphQLProjectForSchemaPath(
   }
 
   return project;
-}
-
-export function getGraphQLFilePath(
-  config: GraphQLConfig | GraphQLProjectConfig,
-  filePath: string,
-) {
-  return isAbsolute(filePath) ? filePath : resolve(config.configDir, filePath);
 }

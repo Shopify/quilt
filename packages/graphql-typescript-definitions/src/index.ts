@@ -10,7 +10,7 @@ import {
   concatAST,
 } from 'graphql';
 import chalk from 'chalk';
-import {dirname, resolve} from 'path';
+import {dirname, join, resolve} from 'path';
 import {readJSON, readFile, writeFile, mkdirp} from 'fs-extra';
 import {watch} from 'chokidar';
 import * as glob from 'glob';
@@ -20,7 +20,6 @@ import {
   GraphQLConfig,
 } from 'graphql-config';
 import {
-  getGraphQLFilePath,
   getGraphQLProjectForSchemaPath,
   getGraphQLProjects,
   getGraphQLSchemaPaths,
@@ -366,7 +365,7 @@ export class Builder extends EventEmitter {
     return this.getProjects().reduce<string[]>((globs, project) => {
       return globs.concat(
         project.includes.map((filePath) =>
-          getGraphQLFilePath(this.config, filePath),
+          project.resolvePathRelativeToConfig(filePath),
         ),
       );
     }, []);
@@ -387,12 +386,13 @@ export class Builder extends EventEmitter {
 
 function getSchemaTypesPath(project: GraphQLProjectConfig, options: Options) {
   if (typeof project.extensions.schemaTypesPath === 'string') {
-    return getGraphQLFilePath(project, project.extensions.schemaTypesPath);
+    return project.resolvePathRelativeToConfig(
+      project.extensions.schemaTypesPath,
+    );
   }
 
-  return getGraphQLFilePath(
-    project,
-    resolve(
+  return project.resolvePathRelativeToConfig(
+    join(
       options.schemaTypesPath,
       `${project.projectName ? `${project.projectName}-` : ''}types.ts`,
     ),

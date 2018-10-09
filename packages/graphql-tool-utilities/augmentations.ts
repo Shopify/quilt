@@ -3,9 +3,20 @@ import {GraphQLProjectConfig} from 'graphql-config/lib/GraphQLProjectConfig';
 
 declare module 'graphql-config/lib/GraphQLProjectConfig' {
   interface GraphQLProjectConfig {
+    resolvePathRelativeToConfig(relativePath: string): string;
     resolveProjectName(defaultName?: string): string;
     resolveSchemaPath(): string;
   }
+}
+
+// temporary augmentation until `graphql-config` supports this new function
+// see: https://github.com/prisma/graphql-config/pull/113
+function resolvePathRelativeToConfig(
+  this: GraphQLProjectConfig,
+  relativePath: string,
+) {
+  // this is just an alias to resolveConfigPath with a more meaningful name
+  return this.resolveConfigPath(relativePath);
 }
 
 function resolveProjectName(
@@ -49,5 +60,6 @@ function resolveSchemaPath(this: GraphQLProjectConfig) {
   return schemaPath;
 }
 
+GraphQLProjectConfig.prototype.resolvePathRelativeToConfig = resolvePathRelativeToConfig;
 GraphQLProjectConfig.prototype.resolveProjectName = resolveProjectName;
 GraphQLProjectConfig.prototype.resolveSchemaPath = resolveSchemaPath;
