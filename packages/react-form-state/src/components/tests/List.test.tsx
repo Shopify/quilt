@@ -180,4 +180,43 @@ describe('<FormState.List />', () => {
       expect(department.error).toBe(field.error[index].department);
     });
   });
+
+  it('Does not have race condition with multiple onChange calls', () => {
+    const products = [
+      {
+        title: faker.commerce.productName(),
+        department: faker.commerce.department(),
+      },
+    ];
+
+    const renderSpy = jest.fn(({title, department}) => {
+      return (
+        <>
+          <Input label="title" {...title} />
+          <Input label="department" {...department} />
+        </>
+      );
+    });
+
+    const renderPropSpy = jest.fn(({fields}: any) => {
+      return (
+        <FormState.List field={fields.products}>{renderSpy}</FormState.List>
+      );
+    });
+
+    mount(<FormState initialValues={{products}}>{renderPropSpy}</FormState>);
+
+    const {title, department} = lastCallArgs(renderSpy);
+
+    const newTitle = faker.commerce.productName();
+    const newDepartment = faker.commerce.department();
+
+    title.onChange(newTitle);
+    department.onChange(newDepartment);
+
+    const updatedFields = lastCallArgs(renderSpy);
+
+    expect(updatedFields.title.value).toBe(newTitle);
+    expect(updatedFields.department.value).toBe(newDepartment);
+  });
 });

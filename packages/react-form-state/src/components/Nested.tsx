@@ -44,15 +44,15 @@ export default class Nested<Fields> extends React.PureComponent<
   private handleChange<Key extends keyof Fields>(key: Key) {
     return (newValue: Fields[Key]) => {
       const {
-        field: {value: existingItem, onChange},
+        field: {onChange},
       } = this.props;
 
-      const newItem = {
-        ...(existingItem as any),
-        [key]: newValue,
-      };
-
-      onChange(newItem);
+      onChange(value => {
+        return {
+          ...(value as any),
+          [key]: newValue,
+        };
+      });
     };
   }
 }
