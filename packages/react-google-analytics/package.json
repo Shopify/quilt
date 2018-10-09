@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "Google Analytics",
   "main": "dist/index.js",
@@ -29,7 +29,7 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^1.1.2",
+    "@shopify/enzyme-utilities": "^1.1.4",
     "@types/enzyme": "^3.1.10",
     "enzyme": "^3.3.0",
     "typescript": "~3.0.1"
