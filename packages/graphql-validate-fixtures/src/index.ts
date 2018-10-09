@@ -1,11 +1,12 @@
 import {readFile, readJSON} from 'fs-extra';
 import {resolve} from 'path';
-import glob from 'glob';
 import {Source, parse, concatAST, GraphQLSchema} from 'graphql';
 import {getGraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
-import {getGraphQLFilePath, getGraphQLProjects} from 'graphql-tool-utilities';
+import {
+  getGraphQLProjectIncludedFilePaths,
+  getGraphQLProjects,
+} from 'graphql-tool-utilities';
 import {compile} from 'graphql-tool-utilities/ast';
-import {promisify} from 'util';
 
 import {
   Fixture,
@@ -43,15 +44,9 @@ export async function evaluateFixtures(
 async function getOperationsForProject(
   projectConfig: GraphQLProjectConfig,
 ): Promise<GraphQLProjectAST> {
-  const operationPaths = (await Promise.all(
-    projectConfig.includes.map((include) =>
-      promisify(glob)(getGraphQLFilePath(projectConfig, include), {
-        ignore: projectConfig.excludes.map((exclude) =>
-          getGraphQLFilePath(projectConfig, exclude),
-        ),
-      }),
-    ),
-  )).flatMap((filePaths) => filePaths);
+  const operationPaths = await getGraphQLProjectIncludedFilePaths(
+    projectConfig,
+  );
 
   const operationSources = await Promise.all(
     operationPaths.map(loadOperationSource),
