@@ -5,7 +5,7 @@ import set from 'lodash/set';
 import {memoize, bind} from 'lodash-decorators';
 
 import {mapObject} from './utilities';
-import {FieldDescriptors, FieldState, ValueMapper} from './types';
+import {FieldDescriptors, FieldState} from './types';
 import {List, Nested} from './components';
 
 export interface RemoteError {
@@ -200,19 +200,16 @@ export default class FormState<
 
   private updateField<Key extends keyof Fields>(
     fieldPath: Key,
-    value: Fields[Key] | ValueMapper<Fields[Key]>,
+    value: Fields[Key],
   ) {
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
-
-      const newValue = typeof value === 'function' ? value(field.value) : value;
-
-      const dirty = !isEqual(newValue, field.initialValue);
+      const dirty = !isEqual(value, field.initialValue);
 
       const updatedField = this.getUpdatedField({
         fieldPath,
         field,
-        value: newValue,
+        value,
         dirty,
       });
 
