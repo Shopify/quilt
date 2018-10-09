@@ -36,11 +36,6 @@ module.exports = [
   },
   {
     "webpack": false,
-    "path": ["packages/react-html/dist"],
-    "limit": "3.4KB"
-  },
-  {
-    "webpack": false,
     "path": ["packages/with-env/dist"],
     "limit": "410B"
   },
@@ -48,11 +43,6 @@ module.exports = [
     "webpack": false,
     "path": ["packages/react-shopify-app-route-propagator/dist"],
     "limit": "1.7KB"
-  },
-  {
-    "webpack": false,
-    "path": ["packages/enzyme-utilities/dist"],
-    "limit": "3.1KB"
   },
   {
     "webpack": false,
