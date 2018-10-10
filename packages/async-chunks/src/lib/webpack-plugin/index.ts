@@ -27,7 +27,7 @@ export class AsyncChunksPlugin implements webpack.Plugin {
           const outputDir = compilation.outputOptions.path;
           await mkdirp(outputDir);
 
-          const path = join(outputDir || '', 'react-loadable.json');
+          const path = join(outputDir || '', 'async-chunks.json');
           const manifest = generateManifest(compiler, compilation);
           await writeFile(path, JSON.stringify(manifest, null, 2));
         } catch (err) {

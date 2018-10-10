@@ -4,16 +4,10 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": ".",
     "baseUrl": "./src",
     "rootDir": "./src",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"]
   },
-  "include": [
-    "src/**/*.ts",
-    "package.json",
-  ]
+  "include": ["src/**/*.ts", "package.json"]
 }

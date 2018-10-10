@@ -1,1 +1,4 @@
-webpack
+/lib
+/server
+*.js
+*.d.ts

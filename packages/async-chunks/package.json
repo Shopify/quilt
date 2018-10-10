@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
+    "clean": "rm -rf lib server *.js *.d.ts",
+    "prebuild": "yarn run clean",
     "build": "tsc",
     "prepublishOnly": "yarn run build"
   },
@@ -13,6 +15,12 @@
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
   },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "lib/*",
+    "server/*"
+  ],
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
