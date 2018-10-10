@@ -5,7 +5,7 @@ declare module 'graphql-config/lib/GraphQLProjectConfig' {
   interface GraphQLProjectConfig {
     resolvePathRelativeToConfig(relativePath: string): string;
     resolveProjectName(defaultName?: string): string;
-    resolveSchemaPath(): string;
+    resolveSchemaPath(ignoreMissing?: boolean): string;
   }
 }
 
@@ -26,7 +26,7 @@ function resolveProjectName(
   return this.projectName || defaultName;
 }
 
-function resolveSchemaPath(this: GraphQLProjectConfig) {
+function resolveSchemaPath(this: GraphQLProjectConfig, ignoreMissing = false) {
   // schemaPath is nullable in graphq-config even though it cannot actually be
   // omitted. This function simplifies access ot the schemaPath without
   // requiring a type guard.
@@ -41,6 +41,10 @@ function resolveSchemaPath(this: GraphQLProjectConfig) {
 
   // resolve fully qualified schemaPath
   const schemaPath = this.resolveConfigPath(this.schemaPath);
+
+  if (ignoreMissing) {
+    return schemaPath;
+  }
 
   if (!existsSync(schemaPath)) {
     const forProject = this.projectName
