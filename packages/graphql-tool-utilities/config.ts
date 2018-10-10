@@ -1,8 +1,11 @@
-import glob from 'glob';
 import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 import {promisify} from 'util';
 
 import './augmentations';
+
+// we need to use an import/require here because it does not force consumers to
+// enable esModuleInterop in tsconfig.json
+import glob = require('glob');
 
 export function getGraphQLProjects(config: GraphQLConfig) {
   const projects = config.getProjects();
