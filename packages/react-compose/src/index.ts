@@ -11,7 +11,7 @@ export type WrappingFunction = (
 export default function compose<Props>(
   ...wrappingFunctions: WrappingFunction[]
 ) {
-  return function wrapComponent<ComposedProps, C>(
+  return function wrapComponent<ComposedProps, C = {}>(
     OriginalComponent: ReactComponent<ComposedProps> & C,
   ): ReactComponent<Props> & C {
     let result: ReactComponent<ComposedProps>;
