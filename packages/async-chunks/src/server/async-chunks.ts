@@ -28,7 +28,7 @@ export const defaultManifest = resolve(
   root,
   'build',
   'client',
-  'react-loadable.json',
+  'async-chunks.json',
 );
 
 let asyncAssetsManifest: Promise<Manifest> | null = null;

@@ -1,0 +1,19 @@
+{
+  // Place your settings in this file to overwrite default and user settings.
+  "files.exclude": {
+    "index.js": true,
+    "index.d.ts": true,
+    "babel": true,
+    "components": true,
+    "server": true,
+    "webpack-plugin": true
+  },
+  "search.exclude": {
+    "index.js": true,
+    "index.d.ts": true,
+    "babel": true,
+    "components": true,
+    "server": true,
+    "webpack-plugin": true
+  }
+}
