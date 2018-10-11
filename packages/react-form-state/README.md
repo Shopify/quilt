@@ -27,6 +27,7 @@ interface Props<Fields> {
   initialValues: Fields;
   validators?: Partial<ValidatorDictionary<Fields>>;
   onSubmit?: SubmitHandler<Fields>;
+  validateOnSubmit?: boolean;
   children(form: FormDetails<Fields>): React.ReactNode;
 }
 ```
