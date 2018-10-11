@@ -8,10 +8,14 @@ export interface FieldState<Value> {
 }
 
 export interface FieldDescriptor<Value> extends FieldState<Value> {
-  onChange(newValue: Value): void;
+  onChange(newValue: Value | ValueMapper<Value>): void;
   onBlur(): void;
 }
 
 export type FieldDescriptors<Fields> = {
   [FieldPath in keyof Fields]: FieldDescriptor<Fields[FieldPath]>
 };
+
+export interface ValueMapper<Value> {
+  (value: Value): Value;
+}

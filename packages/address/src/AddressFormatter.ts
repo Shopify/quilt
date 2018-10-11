@@ -1,10 +1,4 @@
-import {
-  Address,
-  FieldName,
-  Country,
-  SupportedLocale,
-  SupportedCountry,
-} from './types';
+import {Address, FieldName, Country} from './types';
 import {renderLineTemplate, FIELDS_MAPPING} from './utilities';
 import {loadCountry, loadCountries} from './loader';
 
@@ -26,17 +20,17 @@ const COUNTRIES_CACHE: {
 } = {};
 
 export default class AddressFormatter {
-  constructor(private locale: SupportedLocale) {
+  constructor(private locale: string) {
     this.locale = locale;
     COUNTRIES_CACHE[this.locale] = {};
   }
 
-  updateLocale(locale: SupportedLocale) {
+  updateLocale(locale: string) {
     this.locale = locale;
     COUNTRIES_CACHE[this.locale] = {};
   }
 
-  async getCountry(countryCode: SupportedCountry): Promise<Country> {
+  async getCountry(countryCode: string): Promise<Country> {
     let country = this.loadCountryFromCache(countryCode);
     if (country) {
       return country;
@@ -90,9 +84,7 @@ export default class AddressFormatter {
   *     ['phone']
   *   ]
   */
-  async getOrderedFields(
-    countryCode: SupportedCountry,
-  ): Promise<FieldName[][]> {
+  async getOrderedFields(countryCode: string): Promise<FieldName[][]> {
     const country = await this.getCountry(countryCode);
 
     const format = country ? country.formatting.edit : DEFAULT_FORM_LAYOUT;
@@ -109,7 +101,7 @@ export default class AddressFormatter {
   }
 
   async getTranslationKey(
-    countryCode: SupportedCountry,
+    countryCode: string,
     key: FieldName,
   ): Promise<string> {
     const country = await this.getCountry(countryCode);
@@ -127,7 +119,7 @@ export default class AddressFormatter {
   }
 
   private loadCountryFromCache(
-    countryCode: SupportedCountry,
+    countryCode: string,
   ): Country | undefined | null {
     const cachedCountry = COUNTRIES_CACHE[this.locale][countryCode];
 

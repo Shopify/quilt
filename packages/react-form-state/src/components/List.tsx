@@ -2,7 +2,7 @@ import * as React from 'react';
 import get from 'lodash/get';
 import {memoize, bind} from 'lodash-decorators';
 
-import {FieldDescriptor, FieldDescriptors} from '../types';
+import {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
 import {mapObject, replace} from '../utilities';
 
 interface Props<Fields> {
@@ -66,18 +66,22 @@ export default class List<Fields> extends React.Component<
     index: number;
     key: any;
   }) {
-    return (newValue: Fields[Key]) => {
+    return (newValue: Fields[Key] | ValueMapper<Fields[]>) => {
       const {
-        field: {value, onChange},
+        field: {onChange},
       } = this.props;
 
-      const existingItem = value[index];
-      const newItem = {
-        ...(existingItem as any),
-        [key]: newValue,
-      };
-
-      onChange(replace(value, index, newItem));
+      onChange(value => {
+        const existingItem = value[index];
+        const newItem = {
+          ...(existingItem as any),
+          [key]:
+            typeof newValue === 'function'
+              ? newValue(value[index][key])
+              : newValue,
+        };
+        return replace(value, index, newItem);
+      });
     };
   }
 }

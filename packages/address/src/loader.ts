@@ -3,8 +3,6 @@ import {
   LoadCountriesResponse,
   LoadCountryResponse,
   ResponseError,
-  SupportedCountry,
-  SupportedLocale,
 } from './types';
 import query from './graphqlQuery';
 
@@ -19,9 +17,7 @@ const HEADERS = {
   'Access-Control-Allow-Origin': '*',
 };
 
-export async function loadCountries(
-  locale: SupportedLocale,
-): Promise<Country[]> {
+export async function loadCountries(locale: string): Promise<Country[]> {
   const response = await fetch(GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: HEADERS,
@@ -44,8 +40,8 @@ export async function loadCountries(
 }
 
 export async function loadCountry(
-  locale: SupportedLocale,
-  countryCode: SupportedCountry,
+  locale: string,
+  countryCode: string,
 ): Promise<Country> {
   const response = await fetch(GRAPHQL_ENDPOINT, {
     method: 'POST',
@@ -74,8 +70,26 @@ class CountryLoaderError extends Error {
   }
 }
 
-function toSupportedLocale(locale: SupportedLocale) {
+const DEFAULT_LOCALE = 'EN';
+const SUPPORTED_LOCALES = [
+  'DA',
+  'DE',
+  'EN',
+  'ES',
+  'FR',
+  'IT',
+  'JA',
+  'NL',
+  'PT',
+  'PT_BR',
+];
+
+function toSupportedLocale(locale: string) {
   const supportedLocale = locale.replace(/-/, '_').toUpperCase();
 
-  return supportedLocale;
+  if (SUPPORTED_LOCALES.includes(supportedLocale)) {
+    return supportedLocale;
+  } else {
+    return DEFAULT_LOCALE;
+  }
 }
