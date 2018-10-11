@@ -523,7 +523,7 @@ describe('<FormState />', () => {
   });
 
   describe('field submit', () => {
-    it('calls onSubmit() with the current formDetails, other than the submit function, when submit() is called', () => {
+    it('calls onSubmit() with the current formDetails, other than the submit function, when submit() is called', async () => {
       const renderPropSpy = jest.fn(() => null);
       const onSubmitSpy = jest.fn();
       const product = faker.commerce.productName();
@@ -538,13 +538,12 @@ describe('<FormState />', () => {
         renderPropSpy,
       );
 
-      submit();
+      await submit();
 
       expect(onSubmitSpy).toHaveBeenLastCalledWith(
         expect.objectContaining(formData),
       );
     });
-
     it('when onSubmit() returns a promise, re-renders with submitting true while waiting for it to resolve/reject', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
@@ -687,15 +686,164 @@ describe('<FormState />', () => {
         </FormState>,
       );
 
-      const {submit, submitting, reset, ...formData} = lastCallArgs(
-        renderPropSpy,
-      );
+      const {submit} = lastCallArgs(renderPropSpy);
 
       const submissionPromise = submit();
       form.unmount();
       expect(async () => {
         await submissionPromise();
       }).not.toThrow();
+    });
+  });
+
+  describe('validateOnSubmit', () => {
+    it('calls all validators on submit when validateOnSubmit is true', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const productValidatorSpy = jest.fn();
+      const skuValidatorSpy = jest.fn();
+
+      mount(
+        <FormState
+          validateOnSubmit
+          initialValues={{
+            product: faker.commerce.productName,
+            sku: faker.commerce.sku,
+          }}
+          validators={{
+            product: productValidatorSpy,
+            sku: skuValidatorSpy,
+          }}
+          onSubmit={noop}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      await submit();
+
+      expect(productValidatorSpy).toBeCalled();
+      expect(skuValidatorSpy).toBeCalled();
+    });
+
+    it('does not call onSubmit when a validator fails and validateOnSubmit is true', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const submitSpy = jest.fn();
+
+      mount(
+        <FormState
+          validateOnSubmit
+          initialValues={{
+            product: faker.commerce.productName,
+          }}
+          validators={{
+            product() {
+              return 'product bad';
+            },
+          }}
+          onSubmit={submitSpy}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      await submit();
+
+      expect(submitSpy).not.toBeCalled();
+    });
+
+    it('does not call any validators on submit when validateOnSubmit is false', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const productValidatorSpy = jest.fn();
+      const skuValidatorSpy = jest.fn();
+
+      mount(
+        <FormState
+          validateOnSubmit={false}
+          initialValues={{
+            product: faker.commerce.productName,
+            sku: faker.commerce.sku,
+          }}
+          validators={{
+            product: productValidatorSpy,
+            sku: skuValidatorSpy,
+          }}
+          onSubmit={noop}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      await submit();
+
+      expect(productValidatorSpy).not.toBeCalled();
+      expect(skuValidatorSpy).not.toBeCalled();
+    });
+  });
+
+  describe('validateForm', () => {
+    it('calls all validators', () => {
+      const productValidatorSpy = jest.fn();
+      const skuValidatorSpy = jest.fn();
+
+      const form = mount(
+        <FormState
+          initialValues={{
+            product: faker.commerce.productName,
+            sku: faker.commerce.sku,
+          }}
+          validators={{
+            product: productValidatorSpy,
+            sku: skuValidatorSpy,
+          }}
+          onSubmit={noop}
+        >
+          {() => <div />}
+        </FormState>,
+      );
+
+      /*
+        unfortunately enzyme doesn't invoke refs so we can't access the instance the
+        way we would in real application code
+      */
+      (form.instance() as FormState<any>).validateForm();
+
+      expect(productValidatorSpy).toBeCalled();
+      expect(skuValidatorSpy).toBeCalled();
+    });
+
+    it('updates fields when a validator fails', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const error = 'bad';
+      const productValidatorSpy = jest.fn(() => error);
+
+      const form = mount(
+        <FormState
+          initialValues={{
+            product: faker.commerce.productName,
+          }}
+          validators={{
+            product: productValidatorSpy,
+          }}
+          onSubmit={noop}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      /*
+        unfortunately enzyme doesn't invoke refs so we can't access the instance the
+        way we would in real application code
+      */
+      await (form.instance() as FormState<any>).validateForm();
+
+      const {fields} = lastCallArgs(renderPropSpy);
+      expect(fields.product.error).toBe(error);
     });
   });
 
@@ -781,3 +929,5 @@ describe('<FormState />', () => {
     });
   });
 });
+
+function noop() {}
