@@ -2,7 +2,7 @@ import * as React from 'react';
 import get from 'lodash/get';
 import {memoize, bind} from 'lodash-decorators';
 
-import {FieldDescriptor, FieldDescriptors} from '../types';
+import {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
 import {mapObject} from '../utilities';
 
 interface Props<Fields> {
@@ -42,7 +42,7 @@ export default class Nested<Fields> extends React.PureComponent<
   @memoize()
   @bind()
   private handleChange<Key extends keyof Fields>(key: Key) {
-    return (newValue: Fields[Key]) => {
+    return (newValue: Fields[Key] | ValueMapper<Fields>) => {
       const {
         field: {onChange},
       } = this.props;
@@ -50,7 +50,10 @@ export default class Nested<Fields> extends React.PureComponent<
       onChange(value => {
         return {
           ...(value as any),
-          [key]: newValue,
+          [key]:
+            typeof newValue === 'function'
+              ? newValue(value[key as string])
+              : newValue,
         };
       });
     };
