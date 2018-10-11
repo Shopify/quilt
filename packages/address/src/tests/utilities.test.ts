@@ -1,6 +1,6 @@
 import {Country} from '../types';
 import {renderLineTemplate} from '../utilities';
-import {countryJpJa} from './fixtures';
+import {countryCAEn} from './fixtures';
 
 const address = {
   company: 'Shopify',
@@ -20,39 +20,39 @@ describe('renderLineTemplate()', () => {
     const template = '{country} - {city} {zip} {province}';
     expect(
       renderLineTemplate(
-        countryJpJa.data.country as Country,
+        countryCAEn.data.country as Country,
         template,
         address,
       ),
-    ).toEqual('日本 - 目黒区 100-8994 東京都');
+    ).toEqual('Canada - 目黒区 100-8994');
   });
 
   it('replaces non existing province by empty string', () => {
     const template = '{country} - {city} {zip} {province}';
     expect(
-      renderLineTemplate(countryJpJa.data.country as Country, template, {
+      renderLineTemplate(countryCAEn.data.country as Country, template, {
         ...address,
         province: 'lol',
       }),
-    ).toEqual('日本 - 目黒区 100-8994');
+    ).toEqual('Canada - 目黒区 100-8994');
   });
 
   it('replaces unexisting field by empty if does not exist', () => {
     const template = '{country} - {city} {zip} {province} {what}';
     expect(
       renderLineTemplate(
-        countryJpJa.data.country as Country,
+        countryCAEn.data.country as Country,
         template,
         address,
       ),
-    ).toEqual('日本 - 目黒区 100-8994 東京都');
+    ).toEqual('Canada - 目黒区 100-8994');
   });
 
   it('returns empty string if nothing is replaced', () => {
     const template = '{firstName} - {lastName}';
     expect(
       renderLineTemplate(
-        countryJpJa.data.country as Country,
+        countryCAEn.data.country as Country,
         template,
         address,
       ),
@@ -63,7 +63,7 @@ describe('renderLineTemplate()', () => {
     const template = '[Nope]';
     expect(
       renderLineTemplate(
-        countryJpJa.data.country as Country,
+        countryCAEn.data.country as Country,
         template,
         address,
       ),
@@ -73,7 +73,7 @@ describe('renderLineTemplate()', () => {
   it('returns empty string for province if country does not have provinces', () => {
     const template = '{province}';
     expect(
-      renderLineTemplate(countryJpJa.data.country as Country, template, {
+      renderLineTemplate(countryCAEn.data.country as Country, template, {
         ...address,
         province: 'NOPE',
       }),
