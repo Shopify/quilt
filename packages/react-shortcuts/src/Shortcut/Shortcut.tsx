@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {contextTypes} from '../ShortcutProvider';
+import {Consumer, Context} from '../ShortcutProvider';
 import Key, {ModifierKey} from '../keys';
 
 export interface Props {
@@ -15,15 +15,22 @@ export interface Subscription {
   unsubscribe(): void;
 }
 
-export default class Shortcut extends React.Component<Props, never> {
-  static contextTypes = contextTypes;
+export default function Shortcut(props: Props) {
+  return (
+    <Consumer>
+      {(context: Context) => <ShortcutConsumer {...props} {...context} />}
+    </Consumer>
+  );
+}
+
+class ShortcutConsumer extends React.Component<Props & Context, never> {
   public data = {
     node: this.props.node,
     ordered: this.props.ordered,
     held: this.props.held,
     ignoreInput: this.props.ignoreInput || false,
     onMatch: this.props.onMatch,
-    allowDefault: this.props.allowDefault,
+    allowDefault: this.props.allowDefault || false,
   };
   public subscription!: Subscription;
 
@@ -34,7 +41,10 @@ export default class Shortcut extends React.Component<Props, never> {
       return;
     }
 
-    const {shortcutManager} = this.context;
+    const {shortcutManager} = this.props;
+    if (shortcutManager == null) {
+      return;
+    }
     this.subscription = shortcutManager.subscribe(this.data);
   }
 
