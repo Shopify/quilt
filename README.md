@@ -21,6 +21,7 @@ Each package has its own `README` and documentation describing usage.
 | ------- | --- | --- |
 | address | [README](packages/address/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress.svg)](https://badge.fury.io/js/%40shopify%2Faddress) |
 | admin-graphql-api-utilities | [README](packages/admin-graphql-api-utilities/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities) |
+| csrf-token-fetcher | [README](packages/csrf-token-fetcher/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher.svg)](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher) |
 | dates | [README](packages/dates/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fdates.svg)](https://badge.fury.io/js/%40shopify%2Fdates) |
 | enzyme-utilities | [README](packages/enzyme-utilities/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities) |
 | i18n | [README](packages/i18n/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fi18n.svg)](https://badge.fury.io/js/%40shopify%2Fi18n) |
