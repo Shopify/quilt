@@ -563,6 +563,7 @@ import {
   Layout,
   ButtonGroup,
   Button,
+  Form,
 } from '@shopify/polaris';
 import FormState, {
   validators,
@@ -571,7 +572,13 @@ import FormState, {
   arrayUtils,
 } from '@shopify/react-form-state';
 
-const {required, numericString, nonNumericString, lengthMoreThan} = validators;
+const {
+  required,
+  requiredString,
+  numericString,
+  nonNumericString,
+  lengthMoreThan,
+} = validators;
 
 interface Variant {
   option: string;
@@ -596,7 +603,7 @@ function CreateProductPage({initialValues}: Props) {
       <FormState
         initialValues={initialValues}
         validators={{
-          title: required('Required'),
+          title: requiredString('Required'),
           quantity: numericString('Must be a number'),
           sku: lengthMoreThan(3, 'Must  be longer than 3 characters'),
           firstVariant: validateNested({
@@ -670,80 +677,82 @@ function CreateProductPage({initialValues}: Props) {
           }
 
           return (
-            <Page
-              title="Products"
-              primaryAction={submitAction}
-              secondaryActions={[resetAction]}
-            >
-              <Layout>
-                <Layout.Section>{errorBanner}</Layout.Section>
+            <Form onSubmit={submit}>
+              <Page
+                title="Products"
+                primaryAction={submitAction}
+                secondaryActions={[resetAction]}
+              >
+                <Layout>
+                  <Layout.Section>{errorBanner}</Layout.Section>
 
-                <Layout.Section>
-                  <Stack distribution="center">
-                    {submitting && <Spinner />}
-                  </Stack>
+                  <Layout.Section>
+                    <Stack distribution="center">
+                      {submitting && <Spinner />}
+                    </Stack>
 
-                  <Card>
-                    <Card.Section>
-                      <FormLayout>
-                        <TextField label="Title" {...title} />
-                        <TextField label="Description" {...description} />
-                        <TextField label="SKU" {...sku} />
-                        <TextField
-                          type="number"
-                          label="Quantity"
-                          {...quantity}
-                        />
-                      </FormLayout>
-                    </Card.Section>
-                  </Card>
-                </Layout.Section>
+                    <Card>
+                      <Card.Section>
+                        <FormLayout>
+                          <TextField label="Title" {...title} />
+                          <TextField label="Description" {...description} />
+                          <TextField label="SKU" {...sku} />
+                          <TextField
+                            type="number"
+                            label="Quantity"
+                            {...quantity}
+                          />
+                        </FormLayout>
+                      </Card.Section>
+                    </Card>
+                  </Layout.Section>
 
-                <Layout.Section>
-                  <Card title="Variants">
-                    <Card.Section title="Default">
-                      <FormLayout>
-                        <FormState.Nested field={firstVariant}>
-                          {({option, value, price}) => (
-                            <React.Fragment>
-                              <TextField label="option" {...option} />
-                              <TextField label="value" {...value} />
-                              <TextField label="price" {...price} />
-                            </React.Fragment>
-                          )}
-                        </FormState.Nested>
-                      </FormLayout>
-                    </Card.Section>
+                  <Layout.Section>
+                    <Card title="Variants">
+                      <Card.Section title="Default">
+                        <FormLayout>
+                          <FormState.Nested field={firstVariant}>
+                            {({option, value, price}) => (
+                              <React.Fragment>
+                                <TextField label="option" {...option} />
+                                <TextField label="value" {...value} />
+                                <TextField label="price" {...price} />
+                              </React.Fragment>
+                            )}
+                          </FormState.Nested>
+                        </FormLayout>
+                      </Card.Section>
 
-                    <Card.Section>
-                      <FormLayout>
-                        <FormState.List field={variants}>
-                          {({option, value, price}) => (
-                            <React.Fragment>
-                              <TextField label="option" {...option} />
-                              <TextField label="value" {...value} />
-                              <TextField label="price" {...price} />
-                            </React.Fragment>
-                          )}
-                        </FormState.List>
-                        <ButtonGroup>
-                          <Button onClick={addVariant} primary>
-                            Add variant
-                          </Button>
-                        </ButtonGroup>
-                      </FormLayout>
-                    </Card.Section>
-                  </Card>
-                </Layout.Section>
+                      <Card.Section>
+                        <FormLayout>
+                          <FormState.List field={variants}>
+                            {({option, value, price}) => (
+                              <React.Fragment>
+                                <TextField label="option" {...option} />
+                                <TextField label="value" {...value} />
+                                <TextField label="price" {...price} />
+                              </React.Fragment>
+                            )}
+                          </FormState.List>
+                          <ButtonGroup>
+                            <Button onClick={addVariant} primary>
+                              Add variant
+                            </Button>
+                          </ButtonGroup>
+                        </FormLayout>
+                      </Card.Section>
+                    </Card>
+                  </Layout.Section>
 
-                <Layout.Section>
-                  <PageActions
-                    primaryAction={submitAction}
-                    secondaryActions={[resetAction]}
-                  />
-                </Layout.Section>
-              </Layout>
-            </Page>
+                  <Layout.Section>
+                    <PageActions
+                      primaryAction={submitAction}
+                      secondaryActions={[resetAction]}
+                    />
+                  </Layout.Section>
+                </Layout>
+              </Page>
+            </Form>
           );
         }}
       </FormState>
