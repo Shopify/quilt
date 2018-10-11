@@ -128,6 +128,32 @@ export function validate<Input, Fields>(
   };
 }
 
+export function validateRequired<Input>(
+  matcher: Matcher<Input>,
+  errorContent: ErrorContent,
+): (input: Input) => ErrorContent | void;
+
+export function validateRequired<Input, Fields = never>(
+  matcher: Matcher<Input, Fields>,
+  errorContent: ErrorContent,
+) {
+  return (input: Input, fields: Fields) => {
+    const matches = matcher(input, fields);
+
+    if (matches) {
+      return;
+    }
+
+    if (typeof errorContent === 'function') {
+      // eslint-disable-next-line consistent-return
+      return errorContent(toString(input));
+    }
+
+    // eslint-disable-next-line consistent-return
+    return errorContent;
+  };
+}
+
 const validators = {
   lengthMoreThan(length: number, errorContent: ErrorContent) {
     return validate(lengthMoreThan(length), errorContent);
@@ -146,35 +172,11 @@ const validators = {
   },
 
   requiredString(errorContent: ErrorContent) {
-    return (input: string) => {
-      if (not(isEmptyString)(input)) {
-        return;
-      }
-
-      if (typeof errorContent === 'function') {
-        // eslint-disable-next-line consistent-return
-        return errorContent(toString(input));
-      }
-
-      // eslint-disable-next-line consistent-return
-      return errorContent;
-    };
+    return validateRequired(not(isEmptyString), errorContent);
   },
 
   required(errorContent: ErrorContent) {
-    return (input: any) => {
-      if (not(isEmpty)(input)) {
-        return;
-      }
-
-      if (typeof errorContent === 'function') {
-        // eslint-disable-next-line consistent-return
-        return errorContent(toString(input));
-      }
-
-      // eslint-disable-next-line consistent-return
-      return errorContent;
-    };
+    return validateRequired(not(isEmpty), errorContent);
   },
 };
 
