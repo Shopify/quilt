@@ -1,12 +1,9 @@
 import toString from 'lodash/toString';
 import isArray from 'lodash/isArray';
 import {mapObject} from './utilities';
+import {ValidationFunction} from './types';
 
-interface Matcher<Input> {
-  (input: Input): boolean;
-}
-
-interface Matcher<Input, Fields = never> {
+interface Matcher<Input, Fields> {
   (input: Input, fields: Fields): boolean;
 }
 
@@ -37,10 +34,8 @@ export function isEmptyString(input: string) {
   return input.trim().length < 1;
 }
 
-export function not<Input>(matcher: Matcher<Input>): Matcher<Input>;
-
-export function not<Input, Fields>(matcher: Matcher<Input, Fields>) {
-  return (input: Input, fields: Fields) => !matcher(input, fields);
+export function not<A extends Array<any>, R>(fn: (...a: A) => R) {
+  return (...args: A) => !fn(...args);
 }
 
 export function validateNested<Input extends Object, Fields>(
@@ -100,14 +95,14 @@ export function validateList<Input extends Object, Fields>(
 }
 
 export function validate<Input>(
-  matcher: Matcher<Input>,
+  matcher: Matcher<Input, any>,
   errorContent: ErrorContent,
-): (input: Input) => ErrorContent | void;
+): (input: Input) => ValidationFunction<Input, never>;
 
-export function validate<Input, Fields = never>(
+export function validate<Input, Fields>(
   matcher: Matcher<Input, Fields>,
   errorContent: ErrorContent,
-) {
+): (input: Input, fields: Fields) => ValidationFunction<Input, Fields> {
   return (input: Input, fields: Fields) => {
     const matches = matcher(input, fields);
 
