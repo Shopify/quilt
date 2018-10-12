@@ -1,0 +1,31 @@
+{
+  "name": "@shopify/address-mocks",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Address mocks for @shopify/address library.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address-mocks/README.md",
+  "devDependencies": {
+    "@shopify/jest-dom-mocks": "^2.1.0",
+    "@shopify/address": "^2.4.1",
+    "typescript": "~3.0.1"
+  },
+  "sideEffects": false
+}
