@@ -20,6 +20,7 @@ Each package has its own `README` and documentation describing usage.
 | package |     |     |
 | ------- | --- | --- |
 | address | [README](packages/address/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress.svg)](https://badge.fury.io/js/%40shopify%2Faddress) |
+| address-mocks | [README](packages/address-mocks/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress-mocks.svg)](https://badge.fury.io/js/%40shopify%2Faddress-mocks) |
 | admin-graphql-api-utilities | [README](packages/admin-graphql-api-utilities/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities) |
 | csrf-token-fetcher | [README](packages/csrf-token-fetcher/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher.svg)](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher) |
 | dates | [README](packages/dates/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2Fdates.svg)](https://badge.fury.io/js/%40shopify%2Fdates) |
