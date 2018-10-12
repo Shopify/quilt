@@ -23,7 +23,7 @@
   },
   "peerDependencies": {
     "@types/graphql": "^0.13.0",
-    "graphql": "^0.13.2"
+    "graphql": "0.13.2"
   },
   "devDependencies": {
     "typescript": "^2.8.3"
