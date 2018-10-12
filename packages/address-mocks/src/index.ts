@@ -1,44 +1,7 @@
 import {fetch} from '@shopify/jest-dom-mocks';
-import {
-  GRAPHQL_ENDPOINT,
-  SUPPORTED_LOCALES,
-  GRAPHQL_OPERATION_NAMES,
-} from '@shopify/address';
+import {GRAPHQL_ENDPOINT, SUPPORTED_LOCALES} from '@shopify/address';
 
-import {
-  countriesJa,
-  countriesEn,
-  countryCAEn,
-  countryCAFr,
-  countryCAJa,
-} from './fixtures';
-
-export const fixtures = {
-  [GRAPHQL_OPERATION_NAMES.countries]: {
-    DA: countriesEn,
-    DE: countriesEn,
-    EN: countriesEn,
-    ES: countriesEn,
-    FR: countriesEn,
-    IT: countriesEn,
-    JA: countriesJa,
-    NL: countriesEn,
-    PT: countriesEn,
-    PT_BR: countriesEn,
-  },
-  [GRAPHQL_OPERATION_NAMES.country]: {
-    DA: countryCAEn,
-    DE: countryCAEn,
-    EN: countryCAEn,
-    ES: countryCAEn,
-    FR: countryCAFr,
-    IT: countryCAEn,
-    JA: countryCAJa,
-    NL: countryCAEn,
-    PT: countryCAEn,
-    PT_BR: countryCAEn,
-  },
-};
+import {fixtures} from './fixtures';
 
 interface Options {
   method?: string;
@@ -47,7 +10,7 @@ interface Options {
 
 export function mockCountryRequests() {
   SUPPORTED_LOCALES.map(locale => {
-    Object.values(GRAPHQL_OPERATION_NAMES).map(operationName => {
+    ['countries', 'country'].map(operationName => {
       fetch.mock(
         (url: string, options: Options) => {
           if (url !== GRAPHQL_ENDPOINT || options.method !== 'POST') {
