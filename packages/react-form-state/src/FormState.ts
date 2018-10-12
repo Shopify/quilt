@@ -181,6 +181,7 @@ export default class FormState<
       await this.validateForm();
 
       if (this.hasClientErrors) {
+        this.setState({submitting: false});
         return;
       }
     }
