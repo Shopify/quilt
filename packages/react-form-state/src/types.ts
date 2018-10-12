@@ -7,6 +7,10 @@ export interface FieldState<Value> {
   error?: any;
 }
 
+export interface ValidationFunction<Value, Fields> {
+  (value: Value, fields: FieldStates<Fields>): any;
+}
+
 export interface FieldDescriptor<Value> extends FieldState<Value> {
   onChange(newValue: Value | ValueMapper<Value>): void;
   onBlur(): void;
@@ -19,3 +23,7 @@ export type FieldDescriptors<Fields> = {
 export interface ValueMapper<Value> {
   (value: Value): Value;
 }
+
+export type FieldStates<Fields> = {
+  [FieldPath in keyof Fields]: FieldState<Fields[FieldPath]>
+};

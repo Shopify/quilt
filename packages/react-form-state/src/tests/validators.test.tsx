@@ -48,8 +48,14 @@ describe('validation helpers', () => {
         return `${input} error`;
       }
 
-      const alwaysPassValidator = validate(trueMatcher, error);
-      const alwaysFailValidator = validate(falseMatcher, error);
+      const alwaysPassValidator = validate<'' | null | undefined>(
+        trueMatcher,
+        error,
+      );
+      const alwaysFailValidator = validate<'' | null | undefined>(
+        falseMatcher,
+        error,
+      );
 
       expect(alwaysPassValidator('')).toBeUndefined();
       expect(alwaysFailValidator('')).toBeUndefined();
@@ -144,7 +150,8 @@ describe('validation helpers', () => {
 
       const results = compoundValidator(data, {});
 
-      results.forEach((result, index) => {
+      // eslint-disable-next-line typescript/no-non-null-assertion
+      results!.forEach((result, index) => {
         expect(result).toMatchObject({
           title: alwaysPassValidator(data[index].title),
           product: alwaysFailValidator(data[index].product),
