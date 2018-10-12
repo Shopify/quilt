@@ -1,7 +1,6 @@
 import toString from 'lodash/toString';
 import isArray from 'lodash/isArray';
 import {mapObject} from './utilities';
-import {ValidationFunction} from './types';
 
 interface Matcher<Input, Fields> {
   (input: Input, fields: Fields): boolean;
@@ -97,12 +96,12 @@ export function validateList<Input extends Object, Fields>(
 export function validate<Input>(
   matcher: Matcher<Input, any>,
   errorContent: ErrorContent,
-): (input: Input) => ValidationFunction<Input, never>;
+): (input: Input) => ErrorContent | undefined | void;
 
 export function validate<Input, Fields>(
   matcher: Matcher<Input, Fields>,
   errorContent: ErrorContent,
-): (input: Input, fields: Fields) => ValidationFunction<Input, Fields> {
+) {
   return (input: Input, fields: Fields) => {
     const matches = matcher(input, fields);
 
@@ -129,11 +128,11 @@ export function validate<Input, Fields>(
 }
 
 export function validateRequired<Input>(
-  matcher: Matcher<Input>,
+  matcher: Matcher<Input, any>,
   errorContent: ErrorContent,
-): (input: Input) => ErrorContent | void;
+): (input: Input) => ErrorContent | undefined | void;
 
-export function validateRequired<Input, Fields = never>(
+export function validateRequired<Input, Fields>(
   matcher: Matcher<Input, Fields>,
   errorContent: ErrorContent,
 ) {
