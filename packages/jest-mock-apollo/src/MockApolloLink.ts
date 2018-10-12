@@ -11,7 +11,7 @@ import {
   GraphQLSchema,
   GraphQLError,
 } from 'graphql';
-import {compile, Field} from 'graphql-tool-utilities/ast';
+import {compile, Field} from 'graphql-tool-utilities';
 import {GraphQLMock} from './types';
 
 export default class MockApolloLink extends ApolloLink {
