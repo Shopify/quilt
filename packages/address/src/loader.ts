@@ -6,8 +6,9 @@ import {
 } from './types';
 import query from './graphqlQuery';
 
-const GRAPHQL_ENDPOINT = 'https://country-service.shopifycloud.com/graphql';
-enum GRAPHAL_OPERATION_NAMES {
+export const GRAPHQL_ENDPOINT =
+  'https://country-service.shopifycloud.com/graphql';
+export enum GRAPHQL_OPERATION_NAMES {
   countries = 'countries',
   country = 'country',
 }
@@ -23,7 +24,7 @@ export async function loadCountries(locale: string): Promise<Country[]> {
     headers: HEADERS,
     body: JSON.stringify({
       query,
-      operationName: GRAPHAL_OPERATION_NAMES.countries,
+      operationName: GRAPHQL_OPERATION_NAMES.countries,
       variables: {
         locale: toSupportedLocale(locale),
       },
@@ -48,7 +49,7 @@ export async function loadCountry(
     headers: HEADERS,
     body: JSON.stringify({
       query,
-      operationName: GRAPHAL_OPERATION_NAMES.country,
+      operationName: GRAPHQL_OPERATION_NAMES.country,
       variables: {
         countryCode,
         locale: toSupportedLocale(locale),
@@ -71,7 +72,7 @@ class CountryLoaderError extends Error {
 }
 
 const DEFAULT_LOCALE = 'EN';
-const SUPPORTED_LOCALES = [
+export const SUPPORTED_LOCALES = [
   'DA',
   'DE',
   'EN',
@@ -84,7 +85,7 @@ const SUPPORTED_LOCALES = [
   'PT_BR',
 ];
 
-function toSupportedLocale(locale: string) {
+export function toSupportedLocale(locale: string) {
   const supportedLocale = locale.replace(/-/, '_').toUpperCase();
 
   if (SUPPORTED_LOCALES.includes(supportedLocale)) {

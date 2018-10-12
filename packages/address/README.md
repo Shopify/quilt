@@ -140,3 +140,17 @@ await addressFormatter.getOrderedFields('CA');
   ]
  */
 ```
+
+## Testing
+
+If your component uses this package and you want to test it with mock API calls you can use the following
+
+```
+import {fetch} from '@shopify/jest-dom-mocks';
+import {mockCountryRequests} from '@shopify/address/tests';
+
+beforeEach(mockCountryRequests);
+afterEach(fetch.restore);
+```
+
+Note: Only FR / JA and EN are mocked.
