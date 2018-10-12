@@ -2030,7 +2030,7 @@ const data = {
             code: 'NB',
           },
           {
-            name: 'Newfoundland',
+            name: 'Newfoundland and Labrador',
             code: 'NL',
           },
           {
@@ -3568,13 +3568,13 @@ const data = {
         code: 'TH',
         phoneNumberPrefix: 66,
         address2Key: 'APT_SUITE_ETC',
-        provinceKey: 'STATE',
+        provinceKey: 'PROVINCE',
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{country}_{phone}',
         },
         provinces: [
           {
@@ -5240,7 +5240,112 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {zip}_{province}_{country}_{phone}',
         },
-        provinces: [],
+        provinces: [
+          {
+            name: 'Amazonas',
+            code: 'PE-AMA',
+          },
+          {
+            name: 'Ancash',
+            code: 'PE-ANC',
+          },
+          {
+            name: 'Apurímac',
+            code: 'PE-APU',
+          },
+          {
+            name: 'Arequipa',
+            code: 'PE-ARE',
+          },
+          {
+            name: 'Ayacucho',
+            code: 'PE-AYA',
+          },
+          {
+            name: 'Cajamarca',
+            code: 'PE-CAJ',
+          },
+          {
+            name: 'Callao',
+            code: 'PE-CAL',
+          },
+          {
+            name: 'Cuzco',
+            code: 'PE-CUS',
+          },
+          {
+            name: 'Huancavelica',
+            code: 'PE-HUV',
+          },
+          {
+            name: 'Huánuco',
+            code: 'PE-HUC',
+          },
+          {
+            name: 'Ica',
+            code: 'PE-ICA',
+          },
+          {
+            name: 'Junín',
+            code: 'PE-JUN',
+          },
+          {
+            name: 'La Libertad',
+            code: 'PE-LAL',
+          },
+          {
+            name: 'Lambayeque',
+            code: 'PE-LAM',
+          },
+          {
+            name: 'Lima (departamento)',
+            code: 'PE-LIM',
+          },
+          {
+            name: 'Lima (provincia)',
+            code: 'PE-LMA',
+          },
+          {
+            name: 'Loreto',
+            code: 'PE-LOR',
+          },
+          {
+            name: 'Madre de Dios',
+            code: 'PE-MDD',
+          },
+          {
+            name: 'Moquegua',
+            code: 'PE-MOQ',
+          },
+          {
+            name: 'Pasco',
+            code: 'PE-PAS',
+          },
+          {
+            name: 'Piura',
+            code: 'PE-PIU',
+          },
+          {
+            name: 'Puno',
+            code: 'PE-PUN',
+          },
+          {
+            name: 'San Martín',
+            code: 'PE-SAM',
+          },
+          {
+            name: 'Tacna',
+            code: 'PE-TAC',
+          },
+          {
+            name: 'Tumbes',
+            code: 'PE-TUM',
+          },
+          {
+            name: 'Ucayali',
+            code: 'PE-UCA',
+          },
+        ],
       },
       {
         name: 'ホンジュラス',
@@ -6809,11 +6914,24 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address2}_{address1}_{city}_{country}{province}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address2}_{address1}_{city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address2}_{address1}_{city}_{country}{province}_{phone}',
         },
-        provinces: [],
+        provinces: [
+          {
+            name: 'Hong Kong Island',
+            code: 'HK',
+          },
+          {
+            name: 'Kowloon',
+            code: 'KL',
+          },
+          {
+            name: 'New Territories',
+            code: 'NT',
+          },
+        ],
       },
       {
         name: '仏領ギアナ',
@@ -7052,7 +7170,7 @@ const data = {
           edit:
             '{company}_{lastName}{firstName}_{zip}_{country}_{province}{city}_{address1}_{address2}_{phone}',
           show:
-            '{country}_〒{zip}{province}{city}{address1}{address2}_{company}_{lastName}{firstName}様_{phone}',
+            '{country}_〒{zip}{province}{city}{address1}{address2}_{company}_{lastName} {firstName}様_{phone}',
         },
         provinces: [
           {
