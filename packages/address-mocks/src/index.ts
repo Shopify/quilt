@@ -3,6 +3,8 @@ import {GRAPHQL_ENDPOINT, SUPPORTED_LOCALES} from '@shopify/address';
 
 import {fixtures} from './fixtures';
 
+export * from './fixtures';
+
 interface Options {
   method?: string;
   body?: string;
