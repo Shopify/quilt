@@ -1,5 +1,11 @@
 import faker from 'faker';
-import {validate, validateNested, validateList, validators} from '..';
+import {
+  validate,
+  validateRequired,
+  validateNested,
+  validateList,
+  validators,
+} from '..';
 
 describe('validation helpers', () => {
   function trueMatcher() {
@@ -63,6 +69,54 @@ describe('validation helpers', () => {
       expect(alwaysFailValidator(null)).toBeUndefined();
       expect(alwaysPassValidator(undefined)).toBeUndefined();
       expect(alwaysFailValidator(undefined)).toBeUndefined();
+    });
+  });
+
+  describe('validateRequired', () => {
+    it('returns a function that returns void if matcher returns true on its input', () => {
+      const error = faker.lorem.word();
+      const alwaysPassValidator = validateRequired(trueMatcher, error);
+      const alwaysFailValidator = validateRequired(falseMatcher, error);
+
+      const input = faker.lorem.word();
+      expect(alwaysPassValidator(input)).toBeUndefined();
+      expect(alwaysFailValidator(input)).not.toBeUndefined();
+    });
+
+    it('returns a function that returns the errorContent when matcher returns true on its input', () => {
+      const error = faker.lorem.word();
+      const alwaysPassValidator = validateRequired(trueMatcher, error);
+      const alwaysFailValidator = validateRequired(falseMatcher, error);
+
+      const input = faker.lorem.word();
+      expect(alwaysPassValidator(input)).toBeUndefined();
+      expect(alwaysFailValidator(input)).toBe(error);
+    });
+
+    it('returns a function that returns the result of errorContent(input) when matcher returns true on its input and errorContent is a function', () => {
+      function error(input: string) {
+        return `${input} error`;
+      }
+
+      const alwaysPassValidator = validateRequired(trueMatcher, error);
+      const alwaysFailValidator = validateRequired(falseMatcher, error);
+
+      const input = faker.lorem.word();
+      expect(alwaysPassValidator(input)).toBeUndefined();
+      expect(alwaysFailValidator(input)).toBe(error(input));
+    });
+
+    it('returns a function that validates even if input is empty', () => {
+      const error = 'bad';
+      const alwaysPassValidator = validateRequired<any>(trueMatcher, error);
+      const alwaysFailValidator = validateRequired<any>(falseMatcher, error);
+
+      expect(alwaysPassValidator('')).toBeUndefined();
+      expect(alwaysFailValidator('')).toBe(error);
+      expect(alwaysPassValidator(null)).toBeUndefined();
+      expect(alwaysFailValidator(null)).toBe(error);
+      expect(alwaysPassValidator(undefined)).toBeUndefined();
+      expect(alwaysFailValidator(undefined)).toBe(error);
     });
   });
 
