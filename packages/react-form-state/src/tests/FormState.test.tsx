@@ -755,6 +755,35 @@ describe('<FormState />', () => {
       expect(submitSpy).not.toBeCalled();
     });
 
+    it('resets submitting state when validation on submit fails', async () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      mount(
+        <FormState
+          validateOnSubmit
+          initialValues={{
+            product: faker.commerce.productName,
+          }}
+          validators={{
+            product() {
+              return 'product bad';
+            },
+          }}
+          onSubmit={noop}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      await submit();
+
+      const {submitting} = lastCallArgs(renderPropSpy);
+
+      expect(submitting).toBe(false);
+    });
+
     it('does not call any validators on submit when validateOnSubmit is false', async () => {
       const renderPropSpy = jest.fn(() => null);
       const productValidatorSpy = jest.fn();
