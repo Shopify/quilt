@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-mocks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Address mocks for @shopify/address library.",
   "main": "dist/index.js",
