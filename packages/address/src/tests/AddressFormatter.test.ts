@@ -1,7 +1,7 @@
 import {fetch} from '@shopify/jest-dom-mocks';
+import {mockCountryRequests} from '../../../address-mocks/src';
 import {Address, FieldName} from '../types';
 import AddressFormatter from '..';
-import {mockCountryRequests} from './utilities';
 import {toSupportedLocale} from '../loader';
 
 const address: Address = {
@@ -23,12 +23,12 @@ afterEach(fetch.restore);
 describe('updateLocale()', () => {
   it('returns the country in the correct locale', async () => {
     const addressFormatter = new AddressFormatter('ja');
-    let country = await addressFormatter.getCountry('JP');
+    let country = await addressFormatter.getCountry('CA');
 
     expect(country.name).toEqual('カナダ');
 
     addressFormatter.updateLocale('en');
-    country = await addressFormatter.getCountry('JP');
+    country = await addressFormatter.getCountry('CA');
 
     expect(country.name).toEqual('Canada');
   });
@@ -125,7 +125,7 @@ describe('format()', () => {
       '日本',
       '〒100-8994東京都目黒区八重洲1-5-3',
       'Shopify',
-      '田中恵子様',
+      '田中 恵子様',
       '514 xxx xxxx',
     ]);
   });
@@ -141,7 +141,7 @@ describe('format()', () => {
       '日本',
       '〒100-8994目黒区八重洲1-5-3',
       'Shopify',
-      '田中恵子様',
+      '田中 恵子様',
       '514 xxx xxxx',
     ]);
   });
