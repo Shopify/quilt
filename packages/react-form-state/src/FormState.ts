@@ -5,17 +5,19 @@ import set from 'lodash/set';
 import {memoize, bind} from 'lodash-decorators';
 
 import {mapObject} from './utilities';
-import {FieldDescriptors, FieldState, ValueMapper} from './types';
+import {
+  FieldDescriptors,
+  FieldState,
+  ValueMapper,
+  FieldStates,
+  ValidationFunction,
+} from './types';
 import {List, Nested} from './components';
 
 export interface RemoteError {
   field?: string[] | null;
   message: string;
 }
-
-export type FieldStates<Fields> = {
-  [FieldPath in keyof Fields]: FieldState<Fields[FieldPath]>
-};
 
 type MaybeArray<T> = T | T[];
 type MaybePromise<T> = T | Promise<T>;
@@ -31,10 +33,6 @@ export type Validator<T, F> = MaybeArray<ValidationFunction<T, F>>;
 export type ValidatorDictionary<FieldMap> = {
   [FieldPath in keyof FieldMap]: Validator<FieldMap[FieldPath], FieldMap>
 };
-
-interface ValidationFunction<Value, Fields> {
-  (value: Value, fields: FieldStates<Fields>): any;
-}
 
 export interface FormData<Fields> {
   fields: FieldDescriptors<Fields>;
@@ -225,7 +223,10 @@ export default class FormState<
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
 
-      const newValue = typeof value === 'function' ? value(field.value) : value;
+      const newValue =
+        typeof value === 'function'
+          ? (value as ValueMapper<Fields[Key]>)(field.value)
+          : value;
 
       const dirty = !isEqual(newValue, field.initialValue);
 
