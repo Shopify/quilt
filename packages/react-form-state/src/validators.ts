@@ -1,7 +1,6 @@
 import toString from 'lodash/toString';
 import isArray from 'lodash/isArray';
 import {mapObject} from './utilities';
-import {ValidationFunction} from './types';
 
 interface Matcher<Input, Fields> {
   (input: Input, fields: Fields): boolean;
@@ -97,12 +96,12 @@ export function validateList<Input extends Object, Fields>(
 export function validate<Input>(
   matcher: Matcher<Input, any>,
   errorContent: ErrorContent,
-): (input: Input) => ValidationFunction<Input, never>;
+): (input: Input) => ErrorContent | undefined | void;
 
 export function validate<Input, Fields>(
   matcher: Matcher<Input, Fields>,
   errorContent: ErrorContent,
-): (input: Input, fields: Fields) => ValidationFunction<Input, Fields> {
+) {
   return (input: Input, fields: Fields) => {
     const matches = matcher(input, fields);
 
@@ -113,6 +112,32 @@ export function validate<Input, Fields>(
     if (isEmpty(input)) {
       return;
     }
+
+    if (matches) {
+      return;
+    }
+
+    if (typeof errorContent === 'function') {
+      // eslint-disable-next-line consistent-return
+      return errorContent(toString(input));
+    }
+
+    // eslint-disable-next-line consistent-return
+    return errorContent;
+  };
+}
+
+export function validateRequired<Input>(
+  matcher: Matcher<Input, any>,
+  errorContent: ErrorContent,
+): (input: Input) => ErrorContent | undefined | void;
+
+export function validateRequired<Input, Fields>(
+  matcher: Matcher<Input, Fields>,
+  errorContent: ErrorContent,
+) {
+  return (input: Input, fields: Fields) => {
+    const matches = matcher(input, fields);
 
     if (matches) {
       return;
@@ -146,35 +171,11 @@ const validators = {
   },
 
   requiredString(errorContent: ErrorContent) {
-    return (input: string) => {
-      if (not(isEmptyString)(input)) {
-        return;
-      }
-
-      if (typeof errorContent === 'function') {
-        // eslint-disable-next-line consistent-return
-        return errorContent(toString(input));
-      }
-
-      // eslint-disable-next-line consistent-return
-      return errorContent;
-    };
+    return validateRequired(not(isEmptyString), errorContent);
   },
 
   required(errorContent: ErrorContent) {
-    return (input: any) => {
-      if (not(isEmpty)(input)) {
-        return;
-      }
-
-      if (typeof errorContent === 'function') {
-        // eslint-disable-next-line consistent-return
-        return errorContent(toString(input));
-      }
-
-      // eslint-disable-next-line consistent-return
-      return errorContent;
-    };
+    return validateRequired(not(isEmpty), errorContent);
   },
 };
 
