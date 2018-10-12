@@ -1,11 +1,11 @@
 import {LoadCountriesResponse, LoadCountryResponse} from '@shopify/address';
 
-const countryCAFr: LoadCountryResponse = require('./country_ca_fr');
-const countryCAEn: LoadCountryResponse = require('./country_ca_en');
-const countryCAJa: LoadCountryResponse = require('./country_ca_ja');
+const countryCAFr: LoadCountryResponse = require('./country_ca_fr').default;
+const countryCAEn: LoadCountryResponse = require('./country_ca_en').default;
+const countryCAJa: LoadCountryResponse = require('./country_ca_ja').default;
 
-const countriesEn: LoadCountriesResponse = require('./countries_en');
-const countriesJa: LoadCountriesResponse = require('./countries_ja');
+const countriesEn: LoadCountriesResponse = require('./countries_en').default;
+const countriesJa: LoadCountriesResponse = require('./countries_ja').default;
 
 interface Fixtures {
   countries: {
