@@ -31,8 +31,8 @@ module.exports = function(plop) {
       },
       {
         type: 'add',
-        path: 'packages/{{kebabCase name}}/tsconfig.json',
-        templateFile: 'templates/tsconfig.hbs.json',
+        path: 'packages/{{kebabCase name}}/tsconfig.build.json',
+        templateFile: 'templates/tsconfig.build.hbs.json',
       },
       {
         type: 'add',
