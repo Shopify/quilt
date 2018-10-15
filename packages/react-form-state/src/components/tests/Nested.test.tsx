@@ -295,7 +295,7 @@ describe('<Nested />', () => {
             </>
           );
         }}
-      </FormState>
+      </FormState>,
     );
     const input = form.find(Input);
     trigger(input, 'onChange', newAdjective);
