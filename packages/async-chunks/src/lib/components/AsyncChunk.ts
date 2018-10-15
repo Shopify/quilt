@@ -108,8 +108,7 @@ function asyncChunkGenerator(
     render() {
       const {loading, error, pastDelay, timedOut, loadedChunk} = this.state;
       if (loading || error) {
-        const loading = opts.loading ? opts.loading : 'loading';
-        return React.createElement(loading as any, {
+        return React.createElement(opts.loading as any, {
           isLoading: loading,
           pastDelay,
           timedOut,
