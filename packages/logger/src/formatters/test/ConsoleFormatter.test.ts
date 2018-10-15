@@ -18,8 +18,10 @@ describe('ConsoleFormatter', () => {
     const args = errorSpy.mock.calls[0];
 
     expect(consoleCallIncludes(args, errorMsg)).toBe(true);
-    for (const stackLine of payload.stack.split('\n')) {
-      expect(consoleCallIncludes(args, stackLine)).toBe(true);
+    if (payload.stack) {
+      for (const stackLine of payload.stack.split('\n')) {
+        expect(consoleCallIncludes(args, stackLine)).toBe(true);
+      }
     }
     expect(consoleCallIncludes(args, LogLevel.Critical)).toBe(true);
 
@@ -32,7 +34,7 @@ describe('ConsoleFormatter', () => {
     const errorSpy = jest.spyOn(console, 'error');
     const errorMsg = 'foo';
     const payload = new Error(errorMsg);
-    payload.stack = null;
+    payload.stack = undefined;
 
     formatter.format({
       level: LogLevel.Critical,

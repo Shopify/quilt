@@ -81,8 +81,6 @@ describe('<FormState.List />', () => {
     const newTitle = faker.commerce.productName();
     const newPrice = faker.commerce.price();
 
-    const renderSpy = jest.fn(() => null);
-
     const renderPropSpy = jest.fn(({fields}: any) => {
       return (
         <FormState.List field={fields.products}>
@@ -119,7 +117,7 @@ describe('<FormState.List />', () => {
 
     const renderSpy = jest.fn(() => null);
 
-    const form = mount(
+    mount(
       <FormState initialValues={{products}}>
         {({fields}) => {
           return (

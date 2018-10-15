@@ -29,7 +29,7 @@
     "react": "^16.0.0"
   },
   "devDependencies": {
-    "enzyme": "^3.3.0",
+    "enzyme": "^3.6.0",
     "typescript": "~3.0.1"
   },
   "sideEffects": false

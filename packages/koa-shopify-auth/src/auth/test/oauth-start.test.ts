@@ -2,8 +2,8 @@ import querystring from 'querystring';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createOAuthStart from '../create-oauth-start';
-import redirectionPage from '../redirection-page';
 import Error from '../errors';
+import {OAuthStartOptions} from '../../types';
 
 import oAuthQueryString from '../oauth-query-string';
 
@@ -17,14 +17,14 @@ const baseUrl = 'myapp.com/auth';
 const callbackPath = '/callback';
 const shop = 'sho-p1.myshopify.io';
 const badShop = 'shop1myshopify.io';
-const shopOrigin = 'https://shop1.myshopify.io';
 const redirectionURL = `/admin/oauth/authorize`;
 
-const baseConfig = {
+const baseConfig: OAuthStartOptions = {
   apiKey: 'myapikey',
   scopes: ['write_orders, write_products'],
   accessMode: 'offline',
   myShopifyDomain: 'myshopify.io',
+  secret: '',
 };
 
 describe('OAuthStart', () => {
