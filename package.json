@@ -4,7 +4,7 @@
   "private": true,
   "engines": {
     "node": ">=v8.9.4",
-    "yarn": ">=1.3.2"
+    "yarn": ">=1.10.0"
   },
   "author": "Shopify Inc.",
   "license": "MIT",
