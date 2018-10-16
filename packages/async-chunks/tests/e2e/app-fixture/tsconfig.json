@@ -1,0 +1,38 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2015",
+      "es2016",
+      "es2017",
+      "esnext.asynciterable",
+      "scripthost"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "*": ["*", "app/*", "config/typescript/modules/*"]
+    },
+    "rootDir": ".",
+    "strict": true,
+    "target": "es2016",
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "exclude": ["**/*/node_modules/**/*"],
+  "include": [
+    "./config/typescript/**/*",
+    "./app/**/*",
+    "./client/**/*",
+    "./server/**/*",
+    "./tests/**/*"
+  ]
+}

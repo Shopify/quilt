@@ -1,0 +1,26 @@
+# Environment Configuration
+.env
+
+# Dependency directory
+node_modules
+
+# Test coverage directory
+coverage
+
+# Build output directory
+build
+
+# Built style type definitions
+*.scss.d.ts
+
+# Ignore Apple macOS Desktop Services Store
+.DS_Store
+
+# Logs
+logs
+*.log
+.sewing-kit
+
+.yalc
+
+build/
