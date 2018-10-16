@@ -18,7 +18,9 @@ const HEADERS = {
   'Access-Control-Allow-Origin': '*',
 };
 
-export async function loadCountries(locale: string): Promise<Country[]> {
+export const loadCountries: (
+  locale: string,
+) => Promise<Country[]> = memoizeAsync(async (locale: string) => {
   const response = await fetch(GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: HEADERS,
@@ -30,39 +32,45 @@ export async function loadCountries(locale: string): Promise<Country[]> {
       },
     }),
   });
+
   const countries:
     | LoadCountriesResponse
     | ResponseError = await response.json();
+
   if ('errors' in countries) {
     throw new CountryLoaderError(countries);
-  } else {
-    return countries.data.countries;
   }
-}
 
-export async function loadCountry(
+  return countries.data.countries;
+});
+
+export const loadCountry: (
   locale: string,
   countryCode: string,
-): Promise<Country> {
-  const response = await fetch(GRAPHQL_ENDPOINT, {
-    method: 'POST',
-    headers: HEADERS,
-    body: JSON.stringify({
-      query,
-      operationName: GRAPHQL_OPERATION_NAMES.country,
-      variables: {
-        countryCode,
-        locale: toSupportedLocale(locale),
-      },
-    }),
-  });
-  const country: LoadCountryResponse = await response.json();
-  if ('errors' in country) {
-    throw new CountryLoaderError(country);
-  } else {
+) => Promise<Country> = memoizeAsync(
+  async (locale: string, countryCode: string): Promise<Country> => {
+    const response = await fetch(GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      headers: HEADERS,
+      body: JSON.stringify({
+        query,
+        operationName: GRAPHQL_OPERATION_NAMES.country,
+        variables: {
+          countryCode,
+          locale: toSupportedLocale(locale),
+        },
+      }),
+    });
+
+    const country: LoadCountryResponse = await response.json();
+
+    if ('errors' in country) {
+      throw new CountryLoaderError(country);
+    }
+
     return country.data.country;
-  }
-}
+  },
+);
 
 class CountryLoaderError extends Error {
   constructor(errors: ResponseError) {
@@ -93,4 +101,21 @@ export function toSupportedLocale(locale: string) {
   } else {
     return DEFAULT_LOCALE;
   }
+}
+
+type AsyncFunc = (...args: any[]) => Promise<any>;
+interface Cache {
+  [key: string]: Promise<any>;
+}
+
+function memoizeAsync(asyncFunction: AsyncFunc) {
+  const cache: Cache = {};
+
+  return (...args: any[]) => {
+    const stringifiedArgs = JSON.stringify(args);
+    if (!cache[stringifiedArgs]) {
+      cache[stringifiedArgs] = asyncFunction.apply(this, args);
+    }
+    return cache[stringifiedArgs] as Promise<any>;
+  };
 }
