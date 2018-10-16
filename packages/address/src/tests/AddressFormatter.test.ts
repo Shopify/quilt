@@ -52,7 +52,8 @@ describe('getCountry()', () => {
   });
 
   it('should not call the API again for the same country if the locale is the same', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('pt-br');
+
     await addressFormatter.getCountry('CA');
     await addressFormatter.getCountry('CA');
 
@@ -60,12 +61,12 @@ describe('getCountry()', () => {
   });
 
   it('should call the API again for the same country if the locale changes', async () => {
-    const addressFormatter = new AddressFormatter('ja');
+    const addressFormatter = new AddressFormatter('fr');
     await addressFormatter.getCountry('CA');
 
     expect(fetch.calls()).toHaveLength(1);
 
-    addressFormatter.updateLocale('en');
+    addressFormatter.updateLocale('es');
     await addressFormatter.getCountry('CA');
 
     expect(fetch.calls()).toHaveLength(2);
