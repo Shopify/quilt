@@ -16,7 +16,7 @@ export default class List<Fields> extends React.PureComponent<
 > {
   render() {
     const {
-      field: {value, initialValue, error, onBlur},
+      field: {value, initialValue, error, name, onBlur},
       children,
     } = this.props;
 
@@ -53,9 +53,9 @@ export default class List<Fields> extends React.PureComponent<
     key,
   }: {
     index: number;
-    key: any;
+    key: Key;
   }) {
-    return (newValue: Fields[Key] | ValueMapper<Fields[]>) => {
+    return (newValue: Fields[Key] | ValueMapper<Fields[Key]>) => {
       const {
         field: {onChange},
       } = this.props;
@@ -66,7 +66,7 @@ export default class List<Fields> extends React.PureComponent<
           ...(existingItem as any),
           [key]:
             typeof newValue === 'function'
-              ? newValue(value[index][key])
+              ? (newValue as ValueMapper<Fields[Key]>)(value[index][key])
               : newValue,
         };
         return replace(value, index, newItem);
