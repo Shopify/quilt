@@ -28,7 +28,7 @@ interface Props {
 }
 
 // mock Component
-function SomePageBase({data: {loading}}: Props) {
+function SomePageBase({data: {loading} = {loading: true}}: Props) {
   return <p>{loading ? 'Loading' : 'Loaded!'}</p>;
 }
 
