@@ -3,12 +3,11 @@ import {Context} from 'koa';
 import {resolve} from 'path';
 import {readJSONSync} from 'fs-extra';
 import {renderToString} from 'react-dom/server';
-import {StaticRouter} from 'react-router-dom';
 import HTML, {DOCTYPE} from '@shopify/react-html';
 import {CaptureChunks} from '@shopify/async-chunks';
 
-import {vendorBundleUrl, cdnUrl} from '../config/server';
 import App from '../app';
+import {vendorBundleUrl, cdnUrl} from '../config/server';
 
 const assetsPath = resolve(__dirname, '../build/client/assets.json');
 
@@ -22,14 +21,10 @@ export default async function renderApp(ctx: Context) {
       ? [{path: vendorBundleUrl}, ...js]
       : js;
 
-  const context = {};
-
   const appElement = (
     // eslint-disable-next-line react/jsx-no-bind
     <CaptureChunks report={(moduleName: string) => modules.push(moduleName)}>
-      <StaticRouter location={ctx.request.url} context={context}>
-        <App />
-      </StaticRouter>
+      <App />
     </CaptureChunks>
   );
 

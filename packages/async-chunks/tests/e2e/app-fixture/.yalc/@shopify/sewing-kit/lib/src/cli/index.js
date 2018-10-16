@@ -1,0 +1,21 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const yargs = require("yargs");
+const build = require("./commands/build");
+const buildParallel = require("./commands/build-parallel");
+const check = require("./commands/check");
+const clean = require("./commands/clean");
+const dev = require("./commands/dev");
+const format = require("./commands/format");
+const generate = require("./commands/generate");
+const init = require("./commands/init");
+const lint = require("./commands/lint");
+const manifest = require("./commands/manifest");
+const optimize = require("./commands/optimize");
+const playground = require("./commands/playground");
+const start = require("./commands/start");
+const test = require("./commands/test");
+const typeCheck = require("./commands/type-check");
+const refreshGraphQL = require("./commands/refresh-graphql");
+yargs.usage('Usage: $0 <command> [options]').command(build).command(buildParallel).command(check).command(clean).command(dev).command(format).command(generate).command(init).command(lint).command(manifest).command(optimize).command(playground).command(start).command(test).command(typeCheck).command(refreshGraphQL).showHelpOnFail(false).help().argv;

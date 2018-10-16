@@ -10,11 +10,3 @@ preloadReady()
   })
   // eslint-disable-next-line no-console
   .catch((error: any) => console.log(error));
-
-if (module.hot) {
-  module.hot.accept('./index.ts');
-  module.hot.accept('../app', () => {
-    const NewApp = require('../app').default;
-    renderApp(appContainer, NewApp);
-  });
-}

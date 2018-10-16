@@ -1,0 +1,2 @@
+#!/usr/bin/env node --inspect
+require('../lib/src/cli');

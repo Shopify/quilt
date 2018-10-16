@@ -12,7 +12,7 @@ app.use(session(app));
 
 // set session ID
 app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
-  const manifest = resolve(__dirname, '../build/client/react-loadable.json');
+  const manifest = resolve(__dirname, '../build/client/async-chunks.json');
   ctx.state.asyncChunks = new AsyncChunks(manifest);
   await next();
 });

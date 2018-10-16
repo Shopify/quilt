@@ -4,23 +4,20 @@
   "license": "MIT",
   "dependencies": {
     "@shopify/async-chunks": "file:../../../",
-    "@shopify/react-compose": "^0.1.5",
     "@shopify/react-html": "^3.0.2",
     "dotenv": "^6.0.0",
     "koa": "^2.5.1",
     "koa-session": "^5.8.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react": "16.4.2",
+    "react-dom": "16.4.2"
   },
   "devDependencies": {
-    "@shopify/sewing-kit": "^0.53.1",
+    "@shopify/sewing-kit": "file:.yalc/@shopify/sewing-kit",
     "@types/fs-extra": "^5.0.3",
     "@types/koa": "^2.0.46",
     "@types/koa-session": "^5.7.4",
-    "@types/react-dom": "^16.0.6",
-    "@types/react-hot-loader": "^4.1.0",
     "fs-extra": "^6.0.1",
-    "typescript": "~2.8.1"
+    "typescript": "~3.0.1"
   },
   "eslintConfig": {
     "rules": {

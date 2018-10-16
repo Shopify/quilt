@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "@shopify/sewing-kit": {
+      "signature": "17dafe4bd54f171bcf7cf383c9b81055",
+      "file": true,
+      "replaced": "^0.53.1"
+    }
+  }
+}
