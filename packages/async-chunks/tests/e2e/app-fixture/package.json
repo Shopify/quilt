@@ -7,15 +7,12 @@
     "@shopify/react-html": "^3.0.2",
     "dotenv": "^6.0.0",
     "koa": "^2.5.1",
-    "koa-session": "^5.8.1",
     "react": "16.4.2",
     "react-dom": "16.4.2"
   },
   "devDependencies": {
     "@shopify/sewing-kit": "file:.yalc/@shopify/sewing-kit",
-    "@types/fs-extra": "^5.0.3",
     "@types/koa": "^2.0.46",
-    "@types/koa-session": "^5.7.4",
     "fs-extra": "^6.0.1",
     "typescript": "~3.0.1"
   },

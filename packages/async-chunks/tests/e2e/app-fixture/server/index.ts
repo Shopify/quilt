@@ -1,5 +1,4 @@
 import * as Koa from 'koa';
-import * as session from 'koa-session';
 import {preloadAll} from '@shopify/async-chunks';
 import {AsyncChunks} from '@shopify/async-chunks/server';
 import {resolve} from 'path';
@@ -7,8 +6,6 @@ import {ip, port} from '../config/server';
 import renderApp from './render-app';
 
 const app = new Koa();
-
-app.use(session(app));
 
 // set session ID
 app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
