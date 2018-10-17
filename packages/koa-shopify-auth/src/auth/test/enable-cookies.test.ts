@@ -10,6 +10,7 @@ const shopOrigin = 'https://shop1.myshopify.io';
 
 const baseConfig = {
   apiKey: 'myapikey',
+  secret: '',
 };
 
 describe('CreateEnableCookies', () => {
