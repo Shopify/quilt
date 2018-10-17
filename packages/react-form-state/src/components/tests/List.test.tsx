@@ -35,9 +35,12 @@ describe('<FormState.List />', () => {
     calls.forEach(([fields], index) => {
       const expectedTitle = products[index].title;
 
-      expect(fields.title.value).toBe(expectedTitle);
-      expect(fields.title.initialValue).toBe(expectedTitle);
-      expect(fields.title.dirty).toBe(false);
+      expect(fields.title).toMatchObject({
+        value: expectedTitle,
+        initialValue: expectedTitle,
+        dirty: false,
+        name: `products.${index}.title`,
+      });
     });
   });
 
