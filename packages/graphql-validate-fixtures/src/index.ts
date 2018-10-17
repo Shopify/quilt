@@ -3,10 +3,10 @@ import {resolve} from 'path';
 import {Source, parse, concatAST, GraphQLSchema} from 'graphql';
 import {getGraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 import {
+  compile,
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjects,
 } from 'graphql-tool-utilities';
-import {compile} from 'graphql-tool-utilities/ast';
 
 import {
   Fixture,

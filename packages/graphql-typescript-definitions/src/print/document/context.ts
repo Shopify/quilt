@@ -1,12 +1,7 @@
 import * as t from '@babel/types';
 import {relative, dirname} from 'path';
 import {ucFirst} from 'change-case';
-import {
-  Operation,
-  Fragment,
-  AST,
-  isOperation,
-} from 'graphql-tool-utilities/ast';
+import {AST, Fragment, isOperation, Operation} from 'graphql-tool-utilities';
 
 import {EnumFormat} from '../../types';
 

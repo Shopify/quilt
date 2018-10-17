@@ -1,7 +1,7 @@
 import {join} from 'path';
 import {buildSchema, parse, concatAST} from 'graphql';
 import {GraphQLProjectConfig} from 'graphql-config';
-import {compile, AST} from 'graphql-tool-utilities/ast';
+import {AST, compile} from 'graphql-tool-utilities';
 import {
   getOperationForFixture,
   validateFixture,

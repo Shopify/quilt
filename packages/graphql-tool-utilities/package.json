@@ -2,6 +2,8 @@
   "name": "graphql-tool-utilities",
   "description": "Common utilities for GraphQL developer tools",
   "version": "0.8.1",
+  "types": "lib",
+  "main": "lib/index.js",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
@@ -24,9 +26,6 @@
     "build": "tsc",
     "pretest": "yarn build",
     "prepublishOnly": "yarn build"
-  },
-  "devDependencies": {
-    "typescript": "^2.8.3"
   },
   "dependencies": {
     "@types/graphql": "^0.13.0",

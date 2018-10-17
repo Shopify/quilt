@@ -2,6 +2,7 @@ import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 import {promisify} from 'util';
 
 import './augmentations';
+import './polyfills';
 
 // we need to use an import/require here because it does not force consumers to
 // enable esModuleInterop in tsconfig.json
@@ -17,7 +18,7 @@ export function getGraphQLProjects(config: GraphQLConfig) {
 
   const project = config.getProjectConfig();
 
-  if (project) {
+  if (project && project.schemaPath) {
     // single project configuration, return an array of the single project
     return [project];
   }

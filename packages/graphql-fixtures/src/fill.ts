@@ -16,9 +16,9 @@ import {DocumentNode} from 'graphql-typed';
 import {
   compile,
   Field,
-  Operation,
   InlineFragment,
-} from 'graphql-tool-utilities/ast';
+  Operation,
+} from 'graphql-tool-utilities';
 import {randomFromArray, chooseNull} from './utilities';
 
 export type FieldDetails = (Field | InlineFragment) & {
@@ -188,12 +188,14 @@ function fillObject(
   }, starter);
 }
 
-function unwrapThunk<T>(value: Thunk<T>, details: ResolveDetails) {
+function isResolver<T>(value: Thunk<T>): value is Resolver<T> {
+  return typeof value === 'function';
+}
+
+function unwrapThunk<T>(value: Thunk<T>, details: ResolveDetails): T {
   const {type} = details;
   const unwrappedType = isNonNullType(type) ? type.ofType : type;
-  return typeof value === 'function'
-    ? value({...details, type: unwrappedType})
-    : value;
+  return isResolver(value) ? value({...details, type: unwrappedType}) : value;
 }
 
 function withRandom<T>(keypath: FieldDetails[], func: () => T) {

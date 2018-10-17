@@ -17,18 +17,16 @@ import {
   GraphQLConfig,
 } from 'graphql-config';
 import {
+  AST,
+  compile,
+  Fragment,
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjectForSchemaPath,
   getGraphQLProjects,
   getGraphQLSchemaPaths,
-} from 'graphql-tool-utilities';
-import {
-  compile,
   isOperation,
   Operation,
-  Fragment,
-  AST,
-} from 'graphql-tool-utilities/ast';
+} from 'graphql-tool-utilities';
 
 import {printDocument, printSchema} from './print';
 import {EnumFormat} from './types';

@@ -13,7 +13,7 @@ import {
   GraphQLLeafType,
 } from 'graphql';
 import {GraphQLProjectConfig} from 'graphql-config';
-import {AST, Field, Operation} from 'graphql-tool-utilities/ast';
+import {AST, Field, Operation} from 'graphql-tool-utilities';
 
 export type KeyPath = string;
 

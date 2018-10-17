@@ -18,12 +18,12 @@ import {
 } from 'graphql';
 import {
   Field,
-  TypedVariable,
-  isTypedVariable,
-  Variable,
   InlineFragment,
+  isTypedVariable,
   PrintableFieldDetails,
-} from 'graphql-tool-utilities/ast';
+  TypedVariable,
+  Variable,
+} from 'graphql-tool-utilities';
 
 import {scalarTypeMap} from '../utilities';
 

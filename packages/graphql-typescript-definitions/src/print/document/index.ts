@@ -2,12 +2,12 @@ import * as t from '@babel/types';
 
 import {GraphQLObjectType} from 'graphql';
 import {
-  OperationType,
-  Operation,
-  Fragment,
   AST,
+  Fragment,
   isTypedVariable,
-} from 'graphql-tool-utilities/ast';
+  Operation,
+  OperationType,
+} from 'graphql-tool-utilities';
 
 import {Options, FileContext, OperationContext} from './context';
 import {ObjectStack} from './utilities';

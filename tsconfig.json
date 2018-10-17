@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "*": ["./*/src"]
+    },
     "moduleResolution": "node",
     "esModuleInterop": true,
     "module": "commonjs",

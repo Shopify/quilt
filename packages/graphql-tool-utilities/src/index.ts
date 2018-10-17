@@ -1,4 +1,4 @@
-import './augmentations';
+export * from './ast';
 
 export {
   getGraphQLProjectForSchemaPath,

@@ -11,7 +11,7 @@ import {
   // @ts-ignore
   GraphQLUnionType,
 } from 'graphql';
-import {Field} from 'graphql-tool-utilities/ast';
+import {Field} from 'graphql-tool-utilities';
 
 export class ObjectStack {
   private seenFields = new Set<string>();

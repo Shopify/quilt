@@ -9,19 +9,11 @@ declare module 'graphql-config/lib/GraphQLProjectConfig' {
   }
 }
 
-// temporary augmentation until `graphql-config` supports this new function
-// see: https://github.com/prisma/graphql-config/pull/113
-function resolvePathRelativeToConfig(
-  this: GraphQLProjectConfig,
-  relativePath: string,
-) {
-  // this is just an alias to resolveConfigPath with a more meaningful name
-  return this.resolveConfigPath(relativePath);
-}
+export const defaultGraphQLProjectName = 'GraphQL';
 
 function resolveProjectName(
   this: GraphQLProjectConfig,
-  defaultName = 'GraphQL',
+  defaultName = defaultGraphQLProjectName,
 ) {
   return this.projectName || defaultName;
 }
@@ -64,6 +56,10 @@ function resolveSchemaPath(this: GraphQLProjectConfig, ignoreMissing = false) {
   return schemaPath;
 }
 
-GraphQLProjectConfig.prototype.resolvePathRelativeToConfig = resolvePathRelativeToConfig;
+// temporary augmentation until `graphql-config` supports this new function
+// see: https://github.com/prisma/graphql-config/pull/113
+GraphQLProjectConfig.prototype.resolvePathRelativeToConfig =
+  GraphQLProjectConfig.prototype.resolveConfigPath;
+
 GraphQLProjectConfig.prototype.resolveProjectName = resolveProjectName;
 GraphQLProjectConfig.prototype.resolveSchemaPath = resolveSchemaPath;
