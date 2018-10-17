@@ -5,6 +5,7 @@ export enum LanguageDirection {
 
 export interface I18nDetails {
   locale: string;
+  country?: string;
   currency?: string;
   timezone?: string;
   pseudolocalize?: boolean;

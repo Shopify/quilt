@@ -6,7 +6,16 @@ import {
   TranslationDictionary,
   LanguageDirection,
 } from './types';
-import {MissingCurrencyCodeError, MissingTimezoneError} from './errors';
+import {
+  DEFAULT_WEEK_START_DAY,
+  WEEK_START_DAYS,
+  RTL_LANGUAGES,
+} from './constants';
+import {
+  MissingCurrencyCodeError,
+  MissingTimezoneError,
+  MissingCountryError,
+} from './errors';
 import {translate, TranslateOptions as RootTranslateOptions} from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
@@ -18,34 +27,10 @@ export interface TranslateOptions {
   scope: RootTranslateOptions<any>['scope'];
 }
 
-/* eslint-disable line-comment-position */
-// See https://en.wikipedia.org/wiki/Right-to-left
-const RTL_LANGUAGES = [
-  'ae', // Avestan
-  'ar', // 'العربية', Arabic
-  'arc', // Aramaic
-  'bcc', // 'بلوچی مکرانی', Southern Balochi
-  'bqi', // 'بختياري', Bakthiari
-  'ckb', // 'Soranî / کوردی', Sorani
-  'dv', // Dhivehi
-  'fa', // 'فارسی', Persian
-  'glk', // 'گیلکی', Gilaki
-  'he', // 'עברית', Hebrew
-  'ku', // 'Kurdî / كوردی', Kurdish
-  'mzn', // 'مازِرونی', Mazanderani
-  'nqo', // N'Ko
-  'pnb', // 'پنجابی', Western Punjabi
-  'ps', // 'پښتو', Pashto,
-  'sd', // 'سنڌي', Sindhi
-  'ug', // 'Uyghurche / ئۇيغۇرچە', Uyghur
-  'ur', // 'اردو', Urdu
-  'yi', // 'ייִדיש', Yiddish
-];
-/* eslint-enable */
-
 export default class I18n {
   readonly locale: string;
   readonly pseudolocalize: boolean | string;
+  readonly defaultCountry?: string;
   readonly defaultCurrency?: string;
   readonly defaultTimezone?: string;
 
@@ -80,9 +65,10 @@ export default class I18n {
 
   constructor(
     public translations: TranslationDictionary[],
-    {locale, currency, timezone, pseudolocalize = false}: I18nDetails,
+    {locale, currency, timezone, country, pseudolocalize = false}: I18nDetails,
   ) {
     this.locale = locale;
+    this.defaultCountry = country;
     this.defaultCurrency = currency;
     this.defaultTimezone = timezone;
     this.pseudolocalize = pseudolocalize;
@@ -169,6 +155,18 @@ export default class I18n {
       timeZone: timezone,
       ...options,
     }).format(date);
+  }
+
+  weekStartDay(argCountry?: I18n['defaultCountry']) {
+    const country = argCountry || this.defaultCountry;
+
+    if (!country) {
+      throw new MissingCountryError(
+        `No country code provided. weekStartDay() cannot be called without a country code.`,
+      );
+    }
+
+    return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
   }
 }
 
