@@ -2,6 +2,7 @@ import './matchers';
 
 import I18n from '../i18n';
 import {LanguageDirection} from '../types';
+import {Weekdays} from '../constants';
 
 jest.mock('../utilities', () => ({
   translate: jest.fn(),
@@ -382,6 +383,34 @@ describe('I18n', () => {
       }).format(date);
 
       expect(i18n.formatDate(date, {timeZone: timezone})).toBe(expected);
+    });
+  });
+
+  describe('#weekStartDay()', () => {
+    it('uses the defaultCountry to get the week start day', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'FR'});
+
+      expect(i18n.weekStartDay()).toBe(Weekdays.Monday);
+    });
+
+    it('uses the country passed in the params instead of the defaultCountry', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'FR'});
+
+      expect(i18n.weekStartDay('CA')).toBe(Weekdays.Sunday);
+    });
+
+    it('fallsback to Sunday if country is not in the list', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'XX'});
+
+      expect(i18n.weekStartDay()).toBe(Weekdays.Sunday);
+    });
+
+    it('throws an error if no country code is passed', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(() => i18n.weekStartDay()).toThrowError(
+        'No country code provided. weekStartDay() cannot be called without a country code.',
+      );
     });
   });
 });
