@@ -1,7 +1,0 @@
-#!/usr/bin/env node --max-old-space-size=2500
-
-// Launching with more heap space works around out of memory errors in larger project builds.
-// "enterprise" is a facetious acknowledgement of how unnecessary this command should be.
-
-console.log('Launching sewing-kit with extra heap space');
-require('../lib/src/cli');
