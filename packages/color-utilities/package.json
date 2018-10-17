@@ -1,0 +1,24 @@
+{
+  "name": "@shopify/color-utilities",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Color utilities",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-google-analytics/README.md",
+  "repository": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "author": "",
+  "scripts": {
+    "build": "tsc",
+    "check": "npm-run-all lint ts test",
+    "prepublish": "in-publish && yarn run build || :"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.5.3"
+  }
+}

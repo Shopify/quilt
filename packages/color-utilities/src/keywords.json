@@ -1,0 +1,2922 @@
+{
+  "black": {
+    "hex": "#000000",
+    "rgb": {
+      "red": 0,
+      "green": 0,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 0,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0,
+      "alpha": 1
+    }
+  },
+  "silver": {
+    "hex": "#c0c0c0",
+    "rgb": {
+      "red": 192,
+      "green": 192,
+      "blue": 192
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 75,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.75,
+      "alpha": 1
+    }
+  },
+  "gray": {
+    "hex": "#808080",
+    "rgb": {
+      "red": 128,
+      "green": 128,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "white": {
+    "hex": "#ffffff",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": null,
+      "lightness": 100,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "maroon": {
+    "hex": "#800000",
+    "rgb": {
+      "red": 128,
+      "green": 0,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 100,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 1,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "red": {
+    "hex": "#ff0000",
+    "rgb": {
+      "red": 255,
+      "green": 0,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "purple": {
+    "hex": "#800080",
+    "rgb": {
+      "red": 128,
+      "green": 0,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 300,
+      "saturation": 100,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 300,
+      "saturation": 1,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "fuchsia": {
+    "hex": "#ff00ff",
+    "rgb": {
+      "red": 255,
+      "green": 0,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 300,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 300,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "green": {
+    "hex": "#008000",
+    "rgb": {
+      "red": 0,
+      "green": 128,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 100,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 1,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "lime": {
+    "hex": "#00ff00",
+    "rgb": {
+      "red": 0,
+      "green": 255,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "olive": {
+    "hex": "#808000",
+    "rgb": {
+      "red": 128,
+      "green": 128,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 100,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 60,
+      "saturation": 1,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "yellow": {
+    "hex": "#ffff00",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 60,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "navy": {
+    "hex": "#000080",
+    "rgb": {
+      "red": 0,
+      "green": 0,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 100,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 240,
+      "saturation": 1,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "blue": {
+    "hex": "#0000ff",
+    "rgb": {
+      "red": 0,
+      "green": 0,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 240,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "teal": {
+    "hex": "#008080",
+    "rgb": {
+      "red": 0,
+      "green": 128,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 100,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 1,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "aqua": {
+    "hex": "#00ffff",
+    "rgb": {
+      "red": 0,
+      "green": 255,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "orange": {
+    "hex": "#ffa500",
+    "rgb": {
+      "red": 255,
+      "green": 165,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 39,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 39,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "aliceblue": {
+    "hex": "#f0f8ff",
+    "rgb": {
+      "red": 240,
+      "green": 248,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 208,
+      "saturation": 100,
+      "lightness": 97,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 208,
+      "saturation": 0.06,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "antiquewhite": {
+    "hex": "#faebd7",
+    "rgb": {
+      "red": 250,
+      "green": 235,
+      "blue": 215
+    },
+    "hsl": {
+      "hue": 34,
+      "saturation": 78,
+      "lightness": 91,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 34,
+      "saturation": 0.14,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "aquamarine": {
+    "hex": "#7fffd4",
+    "rgb": {
+      "red": 127,
+      "green": 255,
+      "blue": 212
+    },
+    "hsl": {
+      "hue": 160,
+      "saturation": 100,
+      "lightness": 75,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 160,
+      "saturation": 0.5,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "azure": {
+    "hex": "#f0ffff",
+    "rgb": {
+      "red": 240,
+      "green": 255,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 100,
+      "lightness": 97,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 0.06,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "beige": {
+    "hex": "#f5f5dc",
+    "rgb": {
+      "red": 245,
+      "green": 245,
+      "blue": 220
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 56.00000000000001,
+      "lightness": 91,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 60,
+      "saturation": 0.1,
+      "brightness": 0.96,
+      "alpha": 1
+    }
+  },
+  "bisque": {
+    "hex": "#ffe4c4",
+    "rgb": {
+      "red": 255,
+      "green": 228,
+      "blue": 196
+    },
+    "hsl": {
+      "hue": 33,
+      "saturation": 100,
+      "lightness": 88,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 33,
+      "saturation": 0.23,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "blanchedalmond": {
+    "hex": "#ffebcd",
+    "rgb": {
+      "red": 255,
+      "green": 235,
+      "blue": 205
+    },
+    "hsl": {
+      "hue": 36,
+      "saturation": 100,
+      "lightness": 90,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 36,
+      "saturation": 0.2,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "blueviolet": {
+    "hex": "#8a2be2",
+    "rgb": {
+      "red": 138,
+      "green": 43,
+      "blue": 226
+    },
+    "hsl": {
+      "hue": 271,
+      "saturation": 76,
+      "lightness": 53,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 271,
+      "saturation": 0.81,
+      "brightness": 0.89,
+      "alpha": 1
+    }
+  },
+  "brown": {
+    "hex": "#a52a2a",
+    "rgb": {
+      "red": 165,
+      "green": 42,
+      "blue": 42
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 59,
+      "lightness": 41,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0.75,
+      "brightness": 0.65,
+      "alpha": 1
+    }
+  },
+  "burlywood": {
+    "hex": "#deb887",
+    "rgb": {
+      "red": 222,
+      "green": 184,
+      "blue": 135
+    },
+    "hsl": {
+      "hue": 34,
+      "saturation": 56.99999999999999,
+      "lightness": 70,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 34,
+      "saturation": 0.39,
+      "brightness": 0.87,
+      "alpha": 1
+    }
+  },
+  "cadetblue": {
+    "hex": "#5f9ea0",
+    "rgb": {
+      "red": 95,
+      "green": 158,
+      "blue": 160
+    },
+    "hsl": {
+      "hue": 182,
+      "saturation": 25,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 182,
+      "saturation": 0.41,
+      "brightness": 0.63,
+      "alpha": 1
+    }
+  },
+  "chartreuse": {
+    "hex": "#7fff00",
+    "rgb": {
+      "red": 127,
+      "green": 255,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 90,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 90,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "chocolate": {
+    "hex": "#d2691e",
+    "rgb": {
+      "red": 210,
+      "green": 105,
+      "blue": 30
+    },
+    "hsl": {
+      "hue": 25,
+      "saturation": 75,
+      "lightness": 47,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 25,
+      "saturation": 0.86,
+      "brightness": 0.82,
+      "alpha": 1
+    }
+  },
+  "coral": {
+    "hex": "#ff7f50",
+    "rgb": {
+      "red": 255,
+      "green": 127,
+      "blue": 80
+    },
+    "hsl": {
+      "hue": 16,
+      "saturation": 100,
+      "lightness": 66,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 16,
+      "saturation": 0.69,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "cornflowerblue": {
+    "hex": "#6495ed",
+    "rgb": {
+      "red": 100,
+      "green": 149,
+      "blue": 237
+    },
+    "hsl": {
+      "hue": 219,
+      "saturation": 79,
+      "lightness": 66,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 219,
+      "saturation": 0.58,
+      "brightness": 0.93,
+      "alpha": 1
+    }
+  },
+  "cornsilk": {
+    "hex": "#fff8dc",
+    "rgb": {
+      "red": 255,
+      "green": 248,
+      "blue": 220
+    },
+    "hsl": {
+      "hue": 48,
+      "saturation": 100,
+      "lightness": 93,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 48,
+      "saturation": 0.14,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "crimson": {
+    "hex": "#dc143c",
+    "rgb": {
+      "red": 220,
+      "green": 20,
+      "blue": 60
+    },
+    "hsl": {
+      "hue": 348,
+      "saturation": 83,
+      "lightness": 47,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 348,
+      "saturation": 0.91,
+      "brightness": 0.86,
+      "alpha": 1
+    }
+  },
+  "darkblue": {
+    "hex": "#00008b",
+    "rgb": {
+      "red": 0,
+      "green": 0,
+      "blue": 139
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 100,
+      "lightness": 27,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 240,
+      "saturation": 1,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "darkcyan": {
+    "hex": "#008b8b",
+    "rgb": {
+      "red": 0,
+      "green": 139,
+      "blue": 139
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 100,
+      "lightness": 27,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 1,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "darkgoldenrod": {
+    "hex": "#b8860b",
+    "rgb": {
+      "red": 184,
+      "green": 134,
+      "blue": 11
+    },
+    "hsl": {
+      "hue": 43,
+      "saturation": 89,
+      "lightness": 38,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 43,
+      "saturation": 0.94,
+      "brightness": 0.72,
+      "alpha": 1
+    }
+  },
+  "darkgray": {
+    "hex": "#a9a9a9",
+    "rgb": {
+      "red": 169,
+      "green": 169,
+      "blue": 169
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 66,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.66,
+      "alpha": 1
+    }
+  },
+  "darkgreen": {
+    "hex": "#006400",
+    "rgb": {
+      "red": 0,
+      "green": 100,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 100,
+      "lightness": 20,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 1,
+      "brightness": 0.39,
+      "alpha": 1
+    }
+  },
+  "darkgrey": {
+    "hex": "#a9a9a9",
+    "rgb": {
+      "red": 169,
+      "green": 169,
+      "blue": 169
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 66,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.66,
+      "alpha": 1
+    }
+  },
+  "darkkhaki": {
+    "hex": "#bdb76b",
+    "rgb": {
+      "red": 189,
+      "green": 183,
+      "blue": 107
+    },
+    "hsl": {
+      "hue": 56,
+      "saturation": 38,
+      "lightness": 57.99999999999999,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 56,
+      "saturation": 0.43,
+      "brightness": 0.74,
+      "alpha": 1
+    }
+  },
+  "darkmagenta": {
+    "hex": "#8b008b",
+    "rgb": {
+      "red": 139,
+      "green": 0,
+      "blue": 139
+    },
+    "hsl": {
+      "hue": 300,
+      "saturation": 100,
+      "lightness": 27,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 300,
+      "saturation": 1,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "darkolivegreen": {
+    "hex": "#556b2f",
+    "rgb": {
+      "red": 85,
+      "green": 107,
+      "blue": 47
+    },
+    "hsl": {
+      "hue": 82,
+      "saturation": 39,
+      "lightness": 30,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 82,
+      "saturation": 0.56,
+      "brightness": 0.42,
+      "alpha": 1
+    }
+  },
+  "darkorange": {
+    "hex": "#ff8c00",
+    "rgb": {
+      "red": 255,
+      "green": 140,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 33,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 33,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "darkorchid": {
+    "hex": "#9932cc",
+    "rgb": {
+      "red": 153,
+      "green": 50,
+      "blue": 204
+    },
+    "hsl": {
+      "hue": 280,
+      "saturation": 61,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 280,
+      "saturation": 0.75,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "darkred": {
+    "hex": "#8b0000",
+    "rgb": {
+      "red": 139,
+      "green": 0,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 100,
+      "lightness": 27,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 1,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "darksalmon": {
+    "hex": "#e9967a",
+    "rgb": {
+      "red": 233,
+      "green": 150,
+      "blue": 122
+    },
+    "hsl": {
+      "hue": 15,
+      "saturation": 72,
+      "lightness": 70,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 15,
+      "saturation": 0.48,
+      "brightness": 0.91,
+      "alpha": 1
+    }
+  },
+  "darkseagreen": {
+    "hex": "#8fbc8f",
+    "rgb": {
+      "red": 143,
+      "green": 188,
+      "blue": 143
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 25,
+      "lightness": 65,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 0.24,
+      "brightness": 0.74,
+      "alpha": 1
+    }
+  },
+  "darkslateblue": {
+    "hex": "#483d8b",
+    "rgb": {
+      "red": 72,
+      "green": 61,
+      "blue": 139
+    },
+    "hsl": {
+      "hue": 248,
+      "saturation": 39,
+      "lightness": 39,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 248,
+      "saturation": 0.56,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "darkslategray": {
+    "hex": "#2f4f4f",
+    "rgb": {
+      "red": 47,
+      "green": 79,
+      "blue": 79
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 25,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 0.41,
+      "brightness": 0.31,
+      "alpha": 1
+    }
+  },
+  "darkslategrey": {
+    "hex": "#2f4f4f",
+    "rgb": {
+      "red": 47,
+      "green": 79,
+      "blue": 79
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 25,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 0.41,
+      "brightness": 0.31,
+      "alpha": 1
+    }
+  },
+  "darkturquoise": {
+    "hex": "#00ced1",
+    "rgb": {
+      "red": 0,
+      "green": 206,
+      "blue": 209
+    },
+    "hsl": {
+      "hue": 181,
+      "saturation": 100,
+      "lightness": 41,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 181,
+      "saturation": 1,
+      "brightness": 0.82,
+      "alpha": 1
+    }
+  },
+  "darkviolet": {
+    "hex": "#9400d3",
+    "rgb": {
+      "red": 148,
+      "green": 0,
+      "blue": 211
+    },
+    "hsl": {
+      "hue": 282,
+      "saturation": 100,
+      "lightness": 41,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 282,
+      "saturation": 1,
+      "brightness": 0.83,
+      "alpha": 1
+    }
+  },
+  "deeppink": {
+    "hex": "#ff1493",
+    "rgb": {
+      "red": 255,
+      "green": 20,
+      "blue": 147
+    },
+    "hsl": {
+      "hue": 328,
+      "saturation": 100,
+      "lightness": 54,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 328,
+      "saturation": 0.92,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "deepskyblue": {
+    "hex": "#00bfff",
+    "rgb": {
+      "red": 0,
+      "green": 191,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 195,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 195,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "dimgray": {
+    "hex": "#696969",
+    "rgb": {
+      "red": 105,
+      "green": 105,
+      "blue": 105
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 41,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.41,
+      "alpha": 1
+    }
+  },
+  "dimgrey": {
+    "hex": "#696969",
+    "rgb": {
+      "red": 105,
+      "green": 105,
+      "blue": 105
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 41,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.41,
+      "alpha": 1
+    }
+  },
+  "dodgerblue": {
+    "hex": "#1e90ff",
+    "rgb": {
+      "red": 30,
+      "green": 144,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 210,
+      "saturation": 100,
+      "lightness": 56.00000000000001,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 210,
+      "saturation": 0.88,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "firebrick": {
+    "hex": "#b22222",
+    "rgb": {
+      "red": 178,
+      "green": 34,
+      "blue": 34
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 68,
+      "lightness": 42,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0.81,
+      "brightness": 0.7,
+      "alpha": 1
+    }
+  },
+  "floralwhite": {
+    "hex": "#fffaf0",
+    "rgb": {
+      "red": 255,
+      "green": 250,
+      "blue": 240
+    },
+    "hsl": {
+      "hue": 40,
+      "saturation": 100,
+      "lightness": 97,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 40,
+      "saturation": 0.06,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "forestgreen": {
+    "hex": "#228b22",
+    "rgb": {
+      "red": 34,
+      "green": 139,
+      "blue": 34
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 61,
+      "lightness": 34,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 0.76,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "gainsboro": {
+    "hex": "#dcdcdc",
+    "rgb": {
+      "red": 220,
+      "green": 220,
+      "blue": 220
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 86,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.86,
+      "alpha": 1
+    }
+  },
+  "ghostwhite": {
+    "hex": "#f8f8ff",
+    "rgb": {
+      "red": 248,
+      "green": 248,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 100,
+      "lightness": 99,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 240,
+      "saturation": 0.03,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "gold": {
+    "hex": "#ffd700",
+    "rgb": {
+      "red": 255,
+      "green": 215,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 51,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 51,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "goldenrod": {
+    "hex": "#daa520",
+    "rgb": {
+      "red": 218,
+      "green": 165,
+      "blue": 32
+    },
+    "hsl": {
+      "hue": 43,
+      "saturation": 74,
+      "lightness": 49,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 43,
+      "saturation": 0.85,
+      "brightness": 0.85,
+      "alpha": 1
+    }
+  },
+  "greenyellow": {
+    "hex": "#adff2f",
+    "rgb": {
+      "red": 173,
+      "green": 255,
+      "blue": 47
+    },
+    "hsl": {
+      "hue": 84,
+      "saturation": 100,
+      "lightness": 59,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 84,
+      "saturation": 0.82,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "grey": {
+    "hex": "#808080",
+    "rgb": {
+      "red": 128,
+      "green": 128,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.5,
+      "alpha": 1
+    }
+  },
+  "honeydew": {
+    "hex": "#f0fff0",
+    "rgb": {
+      "red": 240,
+      "green": 255,
+      "blue": 240
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 100,
+      "lightness": 97,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 0.06,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "hotpink": {
+    "hex": "#ff69b4",
+    "rgb": {
+      "red": 255,
+      "green": 105,
+      "blue": 180
+    },
+    "hsl": {
+      "hue": 330,
+      "saturation": 100,
+      "lightness": 71,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 330,
+      "saturation": 0.59,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "indianred": {
+    "hex": "#cd5c5c",
+    "rgb": {
+      "red": 205,
+      "green": 92,
+      "blue": 92
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 53,
+      "lightness": 57.99999999999999,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0.55,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "indigo": {
+    "hex": "#4b0082",
+    "rgb": {
+      "red": 75,
+      "green": 0,
+      "blue": 130
+    },
+    "hsl": {
+      "hue": 275,
+      "saturation": 100,
+      "lightness": 25,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 275,
+      "saturation": 1,
+      "brightness": 0.51,
+      "alpha": 1
+    }
+  },
+  "ivory": {
+    "hex": "#fffff0",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 240
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 100,
+      "lightness": 97,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 60,
+      "saturation": 0.06,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "khaki": {
+    "hex": "#f0e68c",
+    "rgb": {
+      "red": 240,
+      "green": 230,
+      "blue": 140
+    },
+    "hsl": {
+      "hue": 54,
+      "saturation": 77,
+      "lightness": 75,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 54,
+      "saturation": 0.42,
+      "brightness": 0.94,
+      "alpha": 1
+    }
+  },
+  "lavender": {
+    "hex": "#e6e6fa",
+    "rgb": {
+      "red": 230,
+      "green": 230,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 67,
+      "lightness": 94,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 240,
+      "saturation": 0.08,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "lavenderblush": {
+    "hex": "#fff0f5",
+    "rgb": {
+      "red": 255,
+      "green": 240,
+      "blue": 245
+    },
+    "hsl": {
+      "hue": 340,
+      "saturation": 100,
+      "lightness": 97,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 340,
+      "saturation": 0.06,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "lawngreen": {
+    "hex": "#7cfc00",
+    "rgb": {
+      "red": 124,
+      "green": 252,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 90,
+      "saturation": 100,
+      "lightness": 49,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 90,
+      "saturation": 1,
+      "brightness": 0.99,
+      "alpha": 1
+    }
+  },
+  "lemonchiffon": {
+    "hex": "#fffacd",
+    "rgb": {
+      "red": 255,
+      "green": 250,
+      "blue": 205
+    },
+    "hsl": {
+      "hue": 54,
+      "saturation": 100,
+      "lightness": 90,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 54,
+      "saturation": 0.2,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "lightblue": {
+    "hex": "#add8e6",
+    "rgb": {
+      "red": 173,
+      "green": 216,
+      "blue": 230
+    },
+    "hsl": {
+      "hue": 195,
+      "saturation": 53,
+      "lightness": 79,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 195,
+      "saturation": 0.25,
+      "brightness": 0.9,
+      "alpha": 1
+    }
+  },
+  "lightcoral": {
+    "hex": "#f08080",
+    "rgb": {
+      "red": 240,
+      "green": 128,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 79,
+      "lightness": 72,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0.47,
+      "brightness": 0.94,
+      "alpha": 1
+    }
+  },
+  "lightcyan": {
+    "hex": "#e0ffff",
+    "rgb": {
+      "red": 224,
+      "green": 255,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 100,
+      "lightness": 94,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 0.12,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "lightgoldenrodyellow": {
+    "hex": "#fafad2",
+    "rgb": {
+      "red": 250,
+      "green": 250,
+      "blue": 210
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 80,
+      "lightness": 90,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 60,
+      "saturation": 0.16,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "lightgray": {
+    "hex": "#d3d3d3",
+    "rgb": {
+      "red": 211,
+      "green": 211,
+      "blue": 211
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 83,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.83,
+      "alpha": 1
+    }
+  },
+  "lightgreen": {
+    "hex": "#90ee90",
+    "rgb": {
+      "red": 144,
+      "green": 238,
+      "blue": 144
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 73,
+      "lightness": 75,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 0.39,
+      "brightness": 0.93,
+      "alpha": 1
+    }
+  },
+  "lightgrey": {
+    "hex": "#d3d3d3",
+    "rgb": {
+      "red": 211,
+      "green": 211,
+      "blue": 211
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 83,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.83,
+      "alpha": 1
+    }
+  },
+  "lightpink": {
+    "hex": "#ffb6c1",
+    "rgb": {
+      "red": 255,
+      "green": 182,
+      "blue": 193
+    },
+    "hsl": {
+      "hue": 351,
+      "saturation": 100,
+      "lightness": 86,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 351,
+      "saturation": 0.29,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "lightsalmon": {
+    "hex": "#ffa07a",
+    "rgb": {
+      "red": 255,
+      "green": 160,
+      "blue": 122
+    },
+    "hsl": {
+      "hue": 17,
+      "saturation": 100,
+      "lightness": 74,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 17,
+      "saturation": 0.52,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "lightseagreen": {
+    "hex": "#20b2aa",
+    "rgb": {
+      "red": 32,
+      "green": 178,
+      "blue": 170
+    },
+    "hsl": {
+      "hue": 177,
+      "saturation": 70,
+      "lightness": 41,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 177,
+      "saturation": 0.82,
+      "brightness": 0.7,
+      "alpha": 1
+    }
+  },
+  "lightskyblue": {
+    "hex": "#87cefa",
+    "rgb": {
+      "red": 135,
+      "green": 206,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 203,
+      "saturation": 92,
+      "lightness": 75,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 203,
+      "saturation": 0.46,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "lightslategray": {
+    "hex": "#778899",
+    "rgb": {
+      "red": 119,
+      "green": 136,
+      "blue": 153
+    },
+    "hsl": {
+      "hue": 210,
+      "saturation": 14.000000000000002,
+      "lightness": 53,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 210,
+      "saturation": 0.22,
+      "brightness": 0.6,
+      "alpha": 1
+    }
+  },
+  "lightslategrey": {
+    "hex": "#778899",
+    "rgb": {
+      "red": 119,
+      "green": 136,
+      "blue": 153
+    },
+    "hsl": {
+      "hue": 210,
+      "saturation": 14.000000000000002,
+      "lightness": 53,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 210,
+      "saturation": 0.22,
+      "brightness": 0.6,
+      "alpha": 1
+    }
+  },
+  "lightsteelblue": {
+    "hex": "#b0c4de",
+    "rgb": {
+      "red": 176,
+      "green": 196,
+      "blue": 222
+    },
+    "hsl": {
+      "hue": 214,
+      "saturation": 41,
+      "lightness": 78,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 214,
+      "saturation": 0.21,
+      "brightness": 0.87,
+      "alpha": 1
+    }
+  },
+  "lightyellow": {
+    "hex": "#ffffe0",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 224
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 100,
+      "lightness": 94,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 60,
+      "saturation": 0.12,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "limegreen": {
+    "hex": "#32cd32",
+    "rgb": {
+      "red": 50,
+      "green": 205,
+      "blue": 50
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 61,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 0.76,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "linen": {
+    "hex": "#faf0e6",
+    "rgb": {
+      "red": 250,
+      "green": 240,
+      "blue": 230
+    },
+    "hsl": {
+      "hue": 30,
+      "saturation": 67,
+      "lightness": 94,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 30,
+      "saturation": 0.08,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "mediumaquamarine": {
+    "hex": "#66cdaa",
+    "rgb": {
+      "red": 102,
+      "green": 205,
+      "blue": 170
+    },
+    "hsl": {
+      "hue": 160,
+      "saturation": 51,
+      "lightness": 60,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 160,
+      "saturation": 0.5,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "mediumblue": {
+    "hex": "#0000cd",
+    "rgb": {
+      "red": 0,
+      "green": 0,
+      "blue": 205
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 100,
+      "lightness": 40,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 240,
+      "saturation": 1,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "mediumorchid": {
+    "hex": "#ba55d3",
+    "rgb": {
+      "red": 186,
+      "green": 85,
+      "blue": 211
+    },
+    "hsl": {
+      "hue": 288,
+      "saturation": 59,
+      "lightness": 57.99999999999999,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 288,
+      "saturation": 0.6,
+      "brightness": 0.83,
+      "alpha": 1
+    }
+  },
+  "mediumpurple": {
+    "hex": "#9370db",
+    "rgb": {
+      "red": 147,
+      "green": 112,
+      "blue": 219
+    },
+    "hsl": {
+      "hue": 260,
+      "saturation": 60,
+      "lightness": 65,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 260,
+      "saturation": 0.49,
+      "brightness": 0.86,
+      "alpha": 1
+    }
+  },
+  "mediumseagreen": {
+    "hex": "#3cb371",
+    "rgb": {
+      "red": 60,
+      "green": 179,
+      "blue": 113
+    },
+    "hsl": {
+      "hue": 147,
+      "saturation": 50,
+      "lightness": 47,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 147,
+      "saturation": 0.66,
+      "brightness": 0.7,
+      "alpha": 1
+    }
+  },
+  "mediumslateblue": {
+    "hex": "#7b68ee",
+    "rgb": {
+      "red": 123,
+      "green": 104,
+      "blue": 238
+    },
+    "hsl": {
+      "hue": 249,
+      "saturation": 80,
+      "lightness": 67,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 249,
+      "saturation": 0.56,
+      "brightness": 0.93,
+      "alpha": 1
+    }
+  },
+  "mediumspringgreen": {
+    "hex": "#00fa9a",
+    "rgb": {
+      "red": 0,
+      "green": 250,
+      "blue": 154
+    },
+    "hsl": {
+      "hue": 157,
+      "saturation": 100,
+      "lightness": 49,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 157,
+      "saturation": 1,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "mediumturquoise": {
+    "hex": "#48d1cc",
+    "rgb": {
+      "red": 72,
+      "green": 209,
+      "blue": 204
+    },
+    "hsl": {
+      "hue": 178,
+      "saturation": 60,
+      "lightness": 55.00000000000001,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 178,
+      "saturation": 0.66,
+      "brightness": 0.82,
+      "alpha": 1
+    }
+  },
+  "mediumvioletred": {
+    "hex": "#c71585",
+    "rgb": {
+      "red": 199,
+      "green": 21,
+      "blue": 133
+    },
+    "hsl": {
+      "hue": 322,
+      "saturation": 81,
+      "lightness": 43,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 322,
+      "saturation": 0.89,
+      "brightness": 0.78,
+      "alpha": 1
+    }
+  },
+  "midnightblue": {
+    "hex": "#191970",
+    "rgb": {
+      "red": 25,
+      "green": 25,
+      "blue": 112
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 64,
+      "lightness": 27,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 240,
+      "saturation": 0.78,
+      "brightness": 0.44,
+      "alpha": 1
+    }
+  },
+  "mintcream": {
+    "hex": "#f5fffa",
+    "rgb": {
+      "red": 245,
+      "green": 255,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 150,
+      "saturation": 100,
+      "lightness": 98,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 150,
+      "saturation": 0.04,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "mistyrose": {
+    "hex": "#ffe4e1",
+    "rgb": {
+      "red": 255,
+      "green": 228,
+      "blue": 225
+    },
+    "hsl": {
+      "hue": 6,
+      "saturation": 100,
+      "lightness": 94,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 6,
+      "saturation": 0.12,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "moccasin": {
+    "hex": "#ffe4b5",
+    "rgb": {
+      "red": 255,
+      "green": 228,
+      "blue": 181
+    },
+    "hsl": {
+      "hue": 38,
+      "saturation": 100,
+      "lightness": 85,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 38,
+      "saturation": 0.29,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "navajowhite": {
+    "hex": "#ffdead",
+    "rgb": {
+      "red": 255,
+      "green": 222,
+      "blue": 173
+    },
+    "hsl": {
+      "hue": 36,
+      "saturation": 100,
+      "lightness": 84,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 36,
+      "saturation": 0.32,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "oldlace": {
+    "hex": "#fdf5e6",
+    "rgb": {
+      "red": 253,
+      "green": 245,
+      "blue": 230
+    },
+    "hsl": {
+      "hue": 39,
+      "saturation": 85,
+      "lightness": 95,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 39,
+      "saturation": 0.09,
+      "brightness": 0.99,
+      "alpha": 1
+    }
+  },
+  "olivedrab": {
+    "hex": "#6b8e23",
+    "rgb": {
+      "red": 107,
+      "green": 142,
+      "blue": 35
+    },
+    "hsl": {
+      "hue": 80,
+      "saturation": 60,
+      "lightness": 35,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 80,
+      "saturation": 0.75,
+      "brightness": 0.56,
+      "alpha": 1
+    }
+  },
+  "orangered": {
+    "hex": "#ff4500",
+    "rgb": {
+      "red": 255,
+      "green": 69,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 16,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 16,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "orchid": {
+    "hex": "#da70d6",
+    "rgb": {
+      "red": 218,
+      "green": 112,
+      "blue": 214
+    },
+    "hsl": {
+      "hue": 302,
+      "saturation": 59,
+      "lightness": 65,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 302,
+      "saturation": 0.49,
+      "brightness": 0.85,
+      "alpha": 1
+    }
+  },
+  "palegoldenrod": {
+    "hex": "#eee8aa",
+    "rgb": {
+      "red": 238,
+      "green": 232,
+      "blue": 170
+    },
+    "hsl": {
+      "hue": 55,
+      "saturation": 67,
+      "lightness": 80,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 55,
+      "saturation": 0.29,
+      "brightness": 0.93,
+      "alpha": 1
+    }
+  },
+  "palegreen": {
+    "hex": "#98fb98",
+    "rgb": {
+      "red": 152,
+      "green": 251,
+      "blue": 152
+    },
+    "hsl": {
+      "hue": 120,
+      "saturation": 93,
+      "lightness": 79,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 120,
+      "saturation": 0.39,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "paleturquoise": {
+    "hex": "#afeeee",
+    "rgb": {
+      "red": 175,
+      "green": 238,
+      "blue": 238
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 65,
+      "lightness": 81,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 180,
+      "saturation": 0.26,
+      "brightness": 0.93,
+      "alpha": 1
+    }
+  },
+  "palevioletred": {
+    "hex": "#db7093",
+    "rgb": {
+      "red": 219,
+      "green": 112,
+      "blue": 147
+    },
+    "hsl": {
+      "hue": 340,
+      "saturation": 60,
+      "lightness": 65,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 340,
+      "saturation": 0.49,
+      "brightness": 0.86,
+      "alpha": 1
+    }
+  },
+  "papayawhip": {
+    "hex": "#ffefd5",
+    "rgb": {
+      "red": 255,
+      "green": 239,
+      "blue": 213
+    },
+    "hsl": {
+      "hue": 37,
+      "saturation": 100,
+      "lightness": 92,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 37,
+      "saturation": 0.16,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "peachpuff": {
+    "hex": "#ffdab9",
+    "rgb": {
+      "red": 255,
+      "green": 218,
+      "blue": 185
+    },
+    "hsl": {
+      "hue": 28,
+      "saturation": 100,
+      "lightness": 86,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 28,
+      "saturation": 0.27,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "peru": {
+    "hex": "#cd853f",
+    "rgb": {
+      "red": 205,
+      "green": 133,
+      "blue": 63
+    },
+    "hsl": {
+      "hue": 30,
+      "saturation": 59,
+      "lightness": 53,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 30,
+      "saturation": 0.69,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "pink": {
+    "hex": "#ffc0cb",
+    "rgb": {
+      "red": 255,
+      "green": 192,
+      "blue": 203
+    },
+    "hsl": {
+      "hue": 350,
+      "saturation": 100,
+      "lightness": 88,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 350,
+      "saturation": 0.25,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "plum": {
+    "hex": "#dda0dd",
+    "rgb": {
+      "red": 221,
+      "green": 160,
+      "blue": 221
+    },
+    "hsl": {
+      "hue": 300,
+      "saturation": 47,
+      "lightness": 75,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 300,
+      "saturation": 0.28,
+      "brightness": 0.87,
+      "alpha": 1
+    }
+  },
+  "powderblue": {
+    "hex": "#b0e0e6",
+    "rgb": {
+      "red": 176,
+      "green": 224,
+      "blue": 230
+    },
+    "hsl": {
+      "hue": 187,
+      "saturation": 52,
+      "lightness": 80,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 187,
+      "saturation": 0.23,
+      "brightness": 0.9,
+      "alpha": 1
+    }
+  },
+  "rosybrown": {
+    "hex": "#bc8f8f",
+    "rgb": {
+      "red": 188,
+      "green": 143,
+      "blue": 143
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 25,
+      "lightness": 65,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0.24,
+      "brightness": 0.74,
+      "alpha": 1
+    }
+  },
+  "royalblue": {
+    "hex": "#4169e1",
+    "rgb": {
+      "red": 65,
+      "green": 105,
+      "blue": 225
+    },
+    "hsl": {
+      "hue": 225,
+      "saturation": 73,
+      "lightness": 56.99999999999999,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 225,
+      "saturation": 0.71,
+      "brightness": 0.88,
+      "alpha": 1
+    }
+  },
+  "saddlebrown": {
+    "hex": "#8b4513",
+    "rgb": {
+      "red": 139,
+      "green": 69,
+      "blue": 19
+    },
+    "hsl": {
+      "hue": 25,
+      "saturation": 76,
+      "lightness": 31,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 25,
+      "saturation": 0.86,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "salmon": {
+    "hex": "#fa8072",
+    "rgb": {
+      "red": 250,
+      "green": 128,
+      "blue": 114
+    },
+    "hsl": {
+      "hue": 6,
+      "saturation": 93,
+      "lightness": 71,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 6,
+      "saturation": 0.54,
+      "brightness": 0.98,
+      "alpha": 1
+    }
+  },
+  "sandybrown": {
+    "hex": "#f4a460",
+    "rgb": {
+      "red": 244,
+      "green": 164,
+      "blue": 96
+    },
+    "hsl": {
+      "hue": 28,
+      "saturation": 87,
+      "lightness": 67,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 28,
+      "saturation": 0.61,
+      "brightness": 0.96,
+      "alpha": 1
+    }
+  },
+  "seagreen": {
+    "hex": "#2e8b57",
+    "rgb": {
+      "red": 46,
+      "green": 139,
+      "blue": 87
+    },
+    "hsl": {
+      "hue": 146,
+      "saturation": 50,
+      "lightness": 36,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 146,
+      "saturation": 0.67,
+      "brightness": 0.55,
+      "alpha": 1
+    }
+  },
+  "seashell": {
+    "hex": "#fff5ee",
+    "rgb": {
+      "red": 255,
+      "green": 245,
+      "blue": 238
+    },
+    "hsl": {
+      "hue": 25,
+      "saturation": 100,
+      "lightness": 97,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 25,
+      "saturation": 0.07,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "sienna": {
+    "hex": "#a0522d",
+    "rgb": {
+      "red": 160,
+      "green": 82,
+      "blue": 45
+    },
+    "hsl": {
+      "hue": 19,
+      "saturation": 56.00000000000001,
+      "lightness": 40,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 19,
+      "saturation": 0.72,
+      "brightness": 0.63,
+      "alpha": 1
+    }
+  },
+  "skyblue": {
+    "hex": "#87ceeb",
+    "rgb": {
+      "red": 135,
+      "green": 206,
+      "blue": 235
+    },
+    "hsl": {
+      "hue": 197,
+      "saturation": 71,
+      "lightness": 73,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 197,
+      "saturation": 0.43,
+      "brightness": 0.92,
+      "alpha": 1
+    }
+  },
+  "slateblue": {
+    "hex": "#6a5acd",
+    "rgb": {
+      "red": 106,
+      "green": 90,
+      "blue": 205
+    },
+    "hsl": {
+      "hue": 248,
+      "saturation": 53,
+      "lightness": 57.99999999999999,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 248,
+      "saturation": 0.56,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "slategray": {
+    "hex": "#708090",
+    "rgb": {
+      "red": 112,
+      "green": 128,
+      "blue": 144
+    },
+    "hsl": {
+      "hue": 210,
+      "saturation": 13,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 210,
+      "saturation": 0.22,
+      "brightness": 0.56,
+      "alpha": 1
+    }
+  },
+  "slategrey": {
+    "hex": "#708090",
+    "rgb": {
+      "red": 112,
+      "green": 128,
+      "blue": 144
+    },
+    "hsl": {
+      "hue": 210,
+      "saturation": 13,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 210,
+      "saturation": 0.22,
+      "brightness": 0.56,
+      "alpha": 1
+    }
+  },
+  "snow": {
+    "hex": "#fffafa",
+    "rgb": {
+      "red": 255,
+      "green": 250,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 100,
+      "lightness": 99,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0.02,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "springgreen": {
+    "hex": "#00ff7f",
+    "rgb": {
+      "red": 0,
+      "green": 255,
+      "blue": 127
+    },
+    "hsl": {
+      "hue": 150,
+      "saturation": 100,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 150,
+      "saturation": 1,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "steelblue": {
+    "hex": "#4682b4",
+    "rgb": {
+      "red": 70,
+      "green": 130,
+      "blue": 180
+    },
+    "hsl": {
+      "hue": 207,
+      "saturation": 44,
+      "lightness": 49,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 207,
+      "saturation": 0.61,
+      "brightness": 0.71,
+      "alpha": 1
+    }
+  },
+  "tan": {
+    "hex": "#d2b48c",
+    "rgb": {
+      "red": 210,
+      "green": 180,
+      "blue": 140
+    },
+    "hsl": {
+      "hue": 34,
+      "saturation": 44,
+      "lightness": 69,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 34,
+      "saturation": 0.33,
+      "brightness": 0.82,
+      "alpha": 1
+    }
+  },
+  "thistle": {
+    "hex": "#d8bfd8",
+    "rgb": {
+      "red": 216,
+      "green": 191,
+      "blue": 216
+    },
+    "hsl": {
+      "hue": 300,
+      "saturation": 24,
+      "lightness": 80,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 300,
+      "saturation": 0.12,
+      "brightness": 0.85,
+      "alpha": 1
+    }
+  },
+  "tomato": {
+    "hex": "#ff6347",
+    "rgb": {
+      "red": 255,
+      "green": 99,
+      "blue": 71
+    },
+    "hsl": {
+      "hue": 9,
+      "saturation": 100,
+      "lightness": 64,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 9,
+      "saturation": 0.72,
+      "brightness": 1,
+      "alpha": 1
+    }
+  },
+  "turquoise": {
+    "hex": "#40e0d0",
+    "rgb": {
+      "red": 64,
+      "green": 224,
+      "blue": 208
+    },
+    "hsl": {
+      "hue": 174,
+      "saturation": 72,
+      "lightness": 56.00000000000001,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 174,
+      "saturation": 0.71,
+      "brightness": 0.88,
+      "alpha": 1
+    }
+  },
+  "violet": {
+    "hex": "#ee82ee",
+    "rgb": {
+      "red": 238,
+      "green": 130,
+      "blue": 238
+    },
+    "hsl": {
+      "hue": 300,
+      "saturation": 76,
+      "lightness": 72,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 300,
+      "saturation": 0.45,
+      "brightness": 0.93,
+      "alpha": 1
+    }
+  },
+  "wheat": {
+    "hex": "#f5deb3",
+    "rgb": {
+      "red": 245,
+      "green": 222,
+      "blue": 179
+    },
+    "hsl": {
+      "hue": 39,
+      "saturation": 77,
+      "lightness": 83,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 39,
+      "saturation": 0.27,
+      "brightness": 0.96,
+      "alpha": 1
+    }
+  },
+  "whitesmoke": {
+    "hex": "#f5f5f5",
+    "rgb": {
+      "red": 245,
+      "green": 245,
+      "blue": 245
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 96,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 0,
+      "saturation": 0,
+      "brightness": 0.96,
+      "alpha": 1
+    }
+  },
+  "yellowgreen": {
+    "hex": "#9acd32",
+    "rgb": {
+      "red": 154,
+      "green": 205,
+      "blue": 50
+    },
+    "hsl": {
+      "hue": 80,
+      "saturation": 61,
+      "lightness": 50,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 80,
+      "saturation": 0.76,
+      "brightness": 0.8,
+      "alpha": 1
+    }
+  },
+  "rebeccapurple": {
+    "hex": "#663399",
+    "rgb": {
+      "red": 102,
+      "green": 51,
+      "blue": 153
+    },
+    "hsl": {
+      "hue": 270,
+      "saturation": 50,
+      "lightness": 40,
+      "alpha": 1
+    },
+    "hsb": {
+      "hue": 270,
+      "saturation": 0.67,
+      "brightness": 0.6,
+      "alpha": 1
+    }
+  }
+}

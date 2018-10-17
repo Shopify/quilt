@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@types": ["src/types/index"],
+      "@constants": ["src/constants/index"],
+      "@utilities": ["src/utilities/index"],
+      "@manipulation": ["src/manipulation/index"],
+      "@to-object": ["src/to-object/index"],
+      "@to-string": ["src/to-string/index"],
+      "@transforms": ["src/transforms/index"],
+      "@validation": ["src/validation/index"]
+    }
+  },
+  "include": ["../../config/typescript/**/*", "./src/**/*.ts"],
+  "exclude": ["**/*.test.ts"]
+}
