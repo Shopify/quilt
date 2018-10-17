@@ -96,9 +96,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
+      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
@@ -122,9 +120,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
+      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
@@ -168,7 +164,7 @@ describe('<FormState />', () => {
       const product = faker.commerce.productName();
       const color = faker.commerce.color();
 
-      const form = mount(
+      mount(
         <FormState initialValues={{product, color}}>{renderPropSpy}</FormState>,
       );
 
@@ -187,7 +183,7 @@ describe('<FormState />', () => {
       const product = faker.commerce.productName();
       const color = faker.commerce.color();
 
-      const form = mount(
+      mount(
         <FormState initialValues={{product, color}}>{renderPropSpy}</FormState>,
       );
 
@@ -204,9 +200,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
+      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
 
       const formDetails = lastCallArgs(renderPropSpy);
       const otherProduct = faker.commerce.productName();
@@ -220,9 +214,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
+      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
@@ -235,9 +227,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
+      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
@@ -250,9 +240,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
+      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(product);
@@ -265,9 +253,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
+      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
@@ -281,7 +267,7 @@ describe('<FormState />', () => {
       const product = faker.commerce.productName();
       const description = faker.lorem.words();
 
-      const form = mount(
+      mount(
         <FormState initialValues={{product, description}}>
           {renderPropSpy}
         </FormState>,
@@ -299,7 +285,7 @@ describe('<FormState />', () => {
       const product = faker.commerce.productName();
       const description = faker.lorem.words();
 
-      const form = mount(
+      mount(
         <FormState initialValues={{product, description}}>
           {renderPropSpy}
         </FormState>,
@@ -320,7 +306,7 @@ describe('<FormState />', () => {
       const productValidatorSpy = jest.fn();
       const product = faker.commerce.productName();
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{
             product,
@@ -371,7 +357,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const validatorSpy = jest.fn(() => faker.lorem.sentence());
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           validators={{product: validatorSpy}}
@@ -393,7 +379,7 @@ describe('<FormState />', () => {
       const error = faker.lorem.sentence();
       const validatorSpy = jest.fn(() => error);
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           validators={{product: validatorSpy}}
@@ -419,7 +405,7 @@ describe('<FormState />', () => {
       const validatorSpy = jest.fn(() => error);
       const otherValidatorSpy = jest.fn(() => otherError);
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           validators={{product: [validatorSpy, otherValidatorSpy]}}
@@ -445,7 +431,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const validatorSpy = jest.fn();
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           validators={{product: validatorSpy}}
@@ -466,7 +452,7 @@ describe('<FormState />', () => {
     it('sets valid to false when any field fails validation', () => {
       const renderPropSpy = jest.fn(() => null);
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{
             product: faker.commerce.productName(),
@@ -496,7 +482,7 @@ describe('<FormState />', () => {
     it('sets valid to true when every field passes validation', () => {
       const renderPropSpy = jest.fn(() => null);
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{
             product: faker.commerce.productName(),

@@ -26,7 +26,6 @@
     "react-helmet": "^5.2.0"
   },
   "devDependencies": {
-    "enzyme": "^3.3.0",
     "typescript": "~3.0.1"
   },
   "peerDependencies": {

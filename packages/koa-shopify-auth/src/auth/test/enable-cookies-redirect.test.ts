@@ -14,10 +14,6 @@ const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
 const path = '/auth/enable_cookies';
 
-const baseConfig = {
-  apiKey: 'myapikey',
-};
-
 describe('CreateEnableCookiesRedirect', () => {
   it('sets the test cookie', () => {
     const enableCookiesRedirect = createEnableCookiesRedirect(path);
