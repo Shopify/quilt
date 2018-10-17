@@ -35,6 +35,7 @@
     "koa": "^2.5.1"
   },
   "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
     "@types/webpack": "^4.4.13",
     "babel-core": "^6.25.0",
     "babel-jest": "^23.4.0",

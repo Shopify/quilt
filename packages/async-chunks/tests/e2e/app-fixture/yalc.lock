@@ -5,6 +5,10 @@
       "signature": "17dafe4bd54f171bcf7cf383c9b81055",
       "file": true,
       "replaced": "^0.53.1"
+    },
+    "@shopify/async-chunks": {
+      "signature": "76dc0202b167cc3a8bdfb5f0543bcc15",
+      "file": true
     }
   }
 }
