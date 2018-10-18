@@ -58,7 +58,7 @@ describe('OAuthStart', () => {
       url: `https://${baseUrl}?${query({shop})}`,
     });
 
-    oAuthQueryString.mockReturnValue('abc=123');
+    (oAuthQueryString as any).mockReturnValue('abc=123');
 
     oAuthStart(ctx);
 
@@ -71,7 +71,7 @@ describe('OAuthStart', () => {
       url: `https://${baseUrl}?${query({shop})}`,
     });
 
-    oAuthQueryString.mockReturnValue('abc=123');
+    (oAuthQueryString as any).mockReturnValue('abc=123');
 
     oAuthStart(ctx);
 
