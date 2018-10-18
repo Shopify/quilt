@@ -18,13 +18,11 @@ export default class ShortcutProvider extends React.Component<Props, never> {
     this.shortcutManager.setup();
   }
 
-  get childContext() {
-    return {
+  render() {
+    const appContext: Context = {
       shortcutManager: this.shortcutManager,
     };
-  }
 
-  render() {
-    return <Provider value={this.childContext}>{this.props.children}</Provider>;
+    return <Provider value={appContext}>{this.props.children}</Provider>;
   }
 }
