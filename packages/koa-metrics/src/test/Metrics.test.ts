@@ -27,6 +27,7 @@ describe('Metrics', () => {
   it('passes the host, port, prefix, and global tags to the statsd client', () => {
     const metrics = new Metrics(defaultOptions);
 
+    expect(metrics).toBeDefined();
     expect(StatsDMock).toHaveBeenCalledTimes(1);
     expect(StatsDMock).toHaveBeenCalledWith(defaultOptions);
   });

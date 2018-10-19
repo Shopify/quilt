@@ -4,6 +4,7 @@ import createShopifyAuth from '../index';
 
 import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
 import createEnableCookiesRedirect from '../create-enable-cookies-redirect';
+import {OAuthStartOptions} from '../../types';
 
 const mockTopLevelOAuthRedirect = jest.fn();
 jest.mock('../create-top-level-oauth-redirect', () =>
@@ -26,10 +27,11 @@ jest.mock('../create-enable-cookies', () => () => mockEnableCookies);
 
 const baseUrl = 'myapp.com/auth';
 
-const baseConfig = {
+const baseConfig: OAuthStartOptions = {
   apiKey: 'myapikey',
   scopes: ['write_orders, write_products'],
   accessMode: 'offline',
+  secret: '',
 };
 
 function nextFunction() {}

@@ -12,7 +12,7 @@ const shopOrigin = 'https://shop1.myshopify.io';
 
 describe('TopLevelRedirect', () => {
   it('redirects to the provided path with shop parameter', () => {
-    const topLevelRedirect = createTopLevelRedirect('/path');
+    const topLevelRedirect = createTopLevelRedirect(path);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
+import {noop} from '@shopify/javascript-utilities/other';
 
 import {trigger, findById} from '..';
 
@@ -36,6 +37,35 @@ describe('enzyme-utilities', () => {
 
       await promise;
       expect(toggle.find('button').text()).toBe('inactive');
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('throws an error if wrapper has no matching nodes', () => {
+      function MyComponent() {
+        return <div />;
+      }
+      const myComponent = mount(<MyComponent />);
+
+      expect(() => trigger(myComponent.find(Toggle), 'onAction')).toThrowError(
+        'You tried to trigger onAction on a React wrapper with no matching nodes. This generally happens because you have either filtered your React components incorrectly, or the component you are looking for is not rendered because of the props on your component, or there is some error during one of your component’s render methods.',
+      );
+    });
+
+    it('throws an error if no callback found', () => {
+      const action = mount(
+        <Action
+          handler={{
+            name: 'noop',
+            onAction: noop,
+          }}
+        />,
+      );
+
+      expect(() =>
+        trigger(action.find('button'), 'onNonExistantAction'),
+      ).toThrowError(
+        "No callback found at keypath 'onNonExistantAction'. Available props: type, onClick",
+      );
     });
   });
 

@@ -14,10 +14,6 @@ const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
 const path = '/auth/inline';
 
-const baseConfig = {
-  apiKey: 'myapikey',
-};
-
 describe('CreateTopLevelOAuthRedirect', () => {
   it('sets the test cookie', () => {
     const topLevelOAuthRedirect = createTopLevelOAuthRedirect(path);

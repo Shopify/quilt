@@ -2,7 +2,6 @@ import querystring from 'querystring';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import oAuthQueryString from '../oauth-query-string';
-import Error from '../errors';
 
 jest.mock('nonce', () => {
   const fakeFactory = jest.fn();

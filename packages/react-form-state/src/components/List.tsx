@@ -2,7 +2,7 @@ import * as React from 'react';
 import get from 'lodash/get';
 import {memoize, bind} from 'lodash-decorators';
 
-import {FieldDescriptor, FieldDescriptors} from '../types';
+import {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
 import {mapObject, replace} from '../utilities';
 
 interface Props<Fields> {
@@ -16,7 +16,7 @@ export default class List<Fields> extends React.PureComponent<
 > {
   render() {
     const {
-      field: {value, initialValue, error, onBlur},
+      field: {value, initialValue, error, name, onBlur},
       children,
     } = this.props;
 
@@ -53,20 +53,24 @@ export default class List<Fields> extends React.PureComponent<
     key,
   }: {
     index: number;
-    key: any;
+    key: Key;
   }) {
-    return (newValue: Fields[Key]) => {
+    return (newValue: Fields[Key] | ValueMapper<Fields[Key]>) => {
       const {
-        field: {value, onChange},
+        field: {onChange},
       } = this.props;
 
-      const existingItem = value[index];
-      const newItem = {
-        ...(existingItem as any),
-        [key]: newValue,
-      };
-
-      onChange(replace(value, index, newItem));
+      onChange(value => {
+        const existingItem = value[index];
+        const newItem = {
+          ...(existingItem as any),
+          [key]:
+            typeof newValue === 'function'
+              ? (newValue as ValueMapper<Fields[Key]>)(value[index][key])
+              : newValue,
+        };
+        return replace(value, index, newItem);
+      });
     };
   }
 }

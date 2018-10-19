@@ -13,21 +13,13 @@ const ORDERED_COUNTRIES_CACHE: {
   [locale: string]: Country[];
 } = {};
 
-const COUNTRIES_CACHE: {
-  [locale: string]: {
-    [countryCode: string]: Country;
-  };
-} = {};
-
 export default class AddressFormatter {
   constructor(private locale: string) {
     this.locale = locale;
-    COUNTRIES_CACHE[this.locale] = {};
   }
 
   updateLocale(locale: string) {
     this.locale = locale;
-    COUNTRIES_CACHE[this.locale] = {};
   }
 
   async getCountry(countryCode: string): Promise<Country> {
@@ -37,15 +29,11 @@ export default class AddressFormatter {
     }
 
     country = await loadCountry(this.locale, countryCode);
-    COUNTRIES_CACHE[this.locale][country.code] = country;
 
     return country;
   }
 
   async getCountries(): Promise<Country[]> {
-    if (ORDERED_COUNTRIES_CACHE[this.locale]) {
-      return ORDERED_COUNTRIES_CACHE[this.locale];
-    }
     const countries = await loadCountries(this.locale);
     ORDERED_COUNTRIES_CACHE[this.locale] = countries;
 
@@ -121,12 +109,6 @@ export default class AddressFormatter {
   private loadCountryFromCache(
     countryCode: string,
   ): Country | undefined | null {
-    const cachedCountry = COUNTRIES_CACHE[this.locale][countryCode];
-
-    if (cachedCountry) {
-      return cachedCountry;
-    }
-
     if (ORDERED_COUNTRIES_CACHE[this.locale]) {
       return ORDERED_COUNTRIES_CACHE[this.locale].find(country => {
         return country.code === countryCode;

@@ -11,7 +11,7 @@ import {
   GraphQLSchema,
   GraphQLError,
 } from 'graphql';
-import {compile, Field} from 'graphql-tool-utilities/ast';
+import {compile, Field} from 'graphql-tool-utilities';
 import {GraphQLMock} from './types';
 
 export default class MockApolloLink extends ApolloLink {
@@ -23,10 +23,19 @@ export default class MockApolloLink extends ApolloLink {
     return new Observable(obs => {
       const {mock} = this;
       const {operationName = ''} = operation;
-      const response =
-        typeof mock === 'function'
-          ? mock(operation)
-          : mock[operationName || ''];
+
+      let response: object | null = null;
+
+      if (typeof mock === 'function') {
+        response = mock(operation);
+      } else {
+        const mockForOperation = mock[operationName || ''];
+
+        response =
+          typeof mockForOperation === 'function'
+            ? mockForOperation(operation)
+            : mockForOperation;
+      }
 
       let result: ExecutionResult | Error;
 

@@ -355,7 +355,48 @@ function MyComponent() {
 }
 ```
 
-To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](/validators.md).
+### validateOnSubmit
+
+You can configure `<FormState />` to run all validators on the form before executing `onSubmit` by passing it the `validateOnSubmit` prop. If any of the validators return an error, the submit is cancelled and `onSubmit` is not run.
+
+```typescript
+import {TextField, Form, Button} from '@shopify/polaris';
+import FormState, {validators} from '@shopify/react-form-state';
+
+function MyComponent() {
+  return (
+    <FormState
+      validateOnSubmit
+      initialValues={{
+        title: 'Cool title',
+      }}
+      validators={{
+        title(input) {
+          if (input.length > 10) {
+            return 'That title is too long';
+          }
+        },
+      }}
+      onSubmit={() => {
+        console.log('I will not be run if title is too long');
+      }}
+    >
+      {formDetails => {
+        const {fields, submit} = formDetails;
+
+        return (
+          <Form onSubmit={submit}>
+            <TextField label="Title" {...fields.title} />
+            <Button type="submit">Submit</Button>
+          </Form>
+        );
+      }}
+    </FormState>
+  );
+}
+```
+
+To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](validators.md).
 
 ## Compound fields
 
@@ -503,7 +544,9 @@ export function ProductPage() {
 
 ## Putting it all together
 
-The following example shows how you can use everything this documentation covered to build a full [Polaris](https://polaris.shopify.com) styled page.'s
+The following example shows how you can use everything this documentation covered to build a full [Polaris](https://polaris.shopify.com) styled page.
+
+[Try it out in codesandbox](https://codesandbox.io/s/zx387x0vmx)
 
 ```typescript
 import * as React from 'react';
@@ -520,6 +563,7 @@ import {
   Layout,
   ButtonGroup,
   Button,
+  Form,
 } from '@shopify/polaris';
 import FormState, {
   validators,
@@ -528,9 +572,19 @@ import FormState, {
   arrayUtils,
 } from '@shopify/react-form-state';
 
-const {required, numericString, nonNumericString, lengthMoreThan} = validators;
+const {
+  required,
+  requiredString,
+  numericString,
+  nonNumericString,
+  lengthMoreThan,
+} = validators;
 
-interface State {}
+interface Variant {
+  option: string;
+  value: string;
+  price: string;
+}
 
 interface Props {
   initialValues: {
@@ -538,27 +592,18 @@ interface Props {
     description: string;
     sku: string;
     quantity: string;
-    firstVariant: string;
-      option: string;
-      value: string;
-      price: string;
-    };
-    variants: {
-      option: string;
-      value: string;
-      price: string;
-    }[];
-  },
-  productUpdate,
+    firstVariant: Variant;
+    variants: Variant[];
+  };
 }
 
-export default function Playground({initialValues, updateProduct}: Props) {
+function CreateProductPage({initialValues}: Props) {
   return (
     <AppProvider>
       <FormState
         initialValues={initialValues}
         validators={{
-          title: required('Required'),
+          title: requiredString('Required'),
           quantity: numericString('Must be a number'),
           sku: lengthMoreThan(3, 'Must  be longer than 3 characters'),
           firstVariant: validateNested({
@@ -570,7 +615,13 @@ export default function Playground({initialValues, updateProduct}: Props) {
             price: numericString('value must be numeric'),
           }),
         }}
-        onSubmit={updateProduct}
+        onSubmit={({fields}) => {
+          /*
+            In a real project you would make some kind of asynchronous call here
+            such as a graphQL mutation or a POST request, and return an array of errors if you encounter any.
+          */
+          return [{message: 'server error'}];
+        }}
       >
         {formDetails => {
           const {
@@ -578,7 +629,6 @@ export default function Playground({initialValues, updateProduct}: Props) {
             dirty,
             reset,
             submit,
-            valid,
             submitting,
             errors,
           } = formDetails;
@@ -627,80 +677,82 @@ export default function Playground({initialValues, updateProduct}: Props) {
           }
 
           return (
-            <Page
-              title="Products"
-              primaryAction={submitAction}
-              secondaryActions={[resetAction]}
-            >
-              <Layout>
-                <Layout.Section>{errorBanner}</Layout.Section>
+            <Form onSubmit={submit}>
+              <Page
+                title="Products"
+                primaryAction={submitAction}
+                secondaryActions={[resetAction]}
+              >
+                <Layout>
+                  <Layout.Section>{errorBanner}</Layout.Section>
 
-                <Layout.Section>
-                  <Stack distribution="center">
-                    {submitting && <Spinner />}
-                  </Stack>
+                  <Layout.Section>
+                    <Stack distribution="center">
+                      {submitting && <Spinner />}
+                    </Stack>
 
-                  <Card>
-                    <Card.Section>
-                      <FormLayout>
-                        <TextField label="Title" {...title} />
-                        <TextField label="Description" {...description} />
-                        <TextField label="SKU" {...sku} />
-                        <TextField
-                          type="number"
-                          label="Quantity"
-                          {...quantity}
-                        />
-                      </FormLayout>
-                    </Card.Section>
-                  </Card>
-                </Layout.Section>
+                    <Card>
+                      <Card.Section>
+                        <FormLayout>
+                          <TextField label="Title" {...title} />
+                          <TextField label="Description" {...description} />
+                          <TextField label="SKU" {...sku} />
+                          <TextField
+                            type="number"
+                            label="Quantity"
+                            {...quantity}
+                          />
+                        </FormLayout>
+                      </Card.Section>
+                    </Card>
+                  </Layout.Section>
 
-                <Layout.Section>
-                  <Card title="Variants">
-                    <Card.Section title="Default">
-                      <FormLayout>
-                        <FormState.Nested field={firstVariant}>
-                          {({option, value, price}) => (
-                            <>
-                              <TextField label="option" {...option} />
-                              <TextField label="value" {...value} />
-                              <TextField label="price" {...price} />
-                            </>
-                          )}
-                        </FormState.Nested>
-                      </FormLayout>
-                    </Card.Section>
+                  <Layout.Section>
+                    <Card title="Variants">
+                      <Card.Section title="Default">
+                        <FormLayout>
+                          <FormState.Nested field={firstVariant}>
+                            {({option, value, price}) => (
+                              <React.Fragment>
+                                <TextField label="option" {...option} />
+                                <TextField label="value" {...value} />
+                                <TextField label="price" {...price} />
+                              </React.Fragment>
+                            )}
+                          </FormState.Nested>
+                        </FormLayout>
+                      </Card.Section>
 
-                    <Card.Section>
-                      <FormLayout>
-                        <FormState.List field={variants}>
-                          {({option, value, price}) => (
-                            <>
-                              <TextField label="option" {...option} />
-                              <TextField label="value" {...value} />
-                              <TextField label="price" {...price} />
-                            </>
-                          )}
-                        </FormState.List>
-                        <ButtonGroup>
-                          <Button onClick={addVariant} primary>
-                            Add variant
-                          </Button>
-                        </ButtonGroup>
-                      </FormLayout>
-                    </Card.Section>
-                  </Card>
-                </Layout.Section>
+                      <Card.Section>
+                        <FormLayout>
+                          <FormState.List field={variants}>
+                            {({option, value, price}) => (
+                              <React.Fragment>
+                                <TextField label="option" {...option} />
+                                <TextField label="value" {...value} />
+                                <TextField label="price" {...price} />
+                              </React.Fragment>
+                            )}
+                          </FormState.List>
+                          <ButtonGroup>
+                            <Button onClick={addVariant} primary>
+                              Add variant
+                            </Button>
+                          </ButtonGroup>
+                        </FormLayout>
+                      </Card.Section>
+                    </Card>
+                  </Layout.Section>
 
-                <Layout.Section>
-                  <PageActions
-                    primaryAction={submitAction}
-                    secondaryActions={[resetAction]}
-                  />
-                </Layout.Section>
-              </Layout>
-            </Page>
+                  <Layout.Section>
+                    <PageActions
+                      primaryAction={submitAction}
+                      secondaryActions={[resetAction]}
+                    />
+                  </Layout.Section>
+                </Layout>
+              </Page>
+            </Form>
           );
         }}
       </FormState>

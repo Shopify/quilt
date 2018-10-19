@@ -35,9 +35,12 @@ describe('<FormState.List />', () => {
     calls.forEach(([fields], index) => {
       const expectedTitle = products[index].title;
 
-      expect(fields.title.value).toBe(expectedTitle);
-      expect(fields.title.initialValue).toBe(expectedTitle);
-      expect(fields.title.dirty).toBe(false);
+      expect(fields.title).toMatchObject({
+        value: expectedTitle,
+        initialValue: expectedTitle,
+        dirty: false,
+        name: `products.${index}.title`,
+      });
     });
   });
 
@@ -81,8 +84,6 @@ describe('<FormState.List />', () => {
     const newTitle = faker.commerce.productName();
     const newPrice = faker.commerce.price();
 
-    const renderSpy = jest.fn(() => null);
-
     const renderPropSpy = jest.fn(({fields}: any) => {
       return (
         <FormState.List field={fields.products}>
@@ -119,7 +120,7 @@ describe('<FormState.List />', () => {
 
     const renderSpy = jest.fn(() => null);
 
-    const form = mount(
+    mount(
       <FormState initialValues={{products}}>
         {({fields}) => {
           return (
@@ -179,5 +180,140 @@ describe('<FormState.List />', () => {
       expect(title.error).toBe(field.error[index].title);
       expect(department.error).toBe(field.error[index].department);
     });
+  });
+
+  it('Does not have race condition with multiple onChange calls', () => {
+    const products = [
+      {
+        title: faker.commerce.productName(),
+        department: faker.commerce.department(),
+      },
+    ];
+
+    const renderSpy = jest.fn(({title, department}) => {
+      return (
+        <>
+          <Input label="title" {...title} />
+          <Input label="department" {...department} />
+        </>
+      );
+    });
+
+    const renderPropSpy = jest.fn(({fields}: any) => {
+      return (
+        <FormState.List field={fields.products}>{renderSpy}</FormState.List>
+      );
+    });
+
+    mount(<FormState initialValues={{products}}>{renderPropSpy}</FormState>);
+
+    const {title, department} = lastCallArgs(renderSpy);
+
+    const newTitle = faker.commerce.productName();
+    const newDepartment = faker.commerce.department();
+
+    title.onChange(newTitle);
+    department.onChange(newDepartment);
+
+    const updatedFields = lastCallArgs(renderSpy);
+
+    expect(updatedFields.title.value).toBe(newTitle);
+    expect(updatedFields.department.value).toBe(newDepartment);
+  });
+
+  it('Does not have race condition with nested List components', () => {
+    const variants = [
+      {
+        products: [
+          {
+            title: faker.commerce.productName(),
+            department: faker.commerce.department(),
+          },
+        ],
+      },
+    ];
+
+    const renderSpy = jest.fn(({title, department}) => {
+      return (
+        <>
+          <Input label="title" {...title} />
+          <Input label="department" {...department} />
+        </>
+      );
+    });
+
+    mount(
+      <FormState initialValues={{variants}}>
+        {({fields}) => (
+          <FormState.List field={fields.variants}>
+            {nestedFields => (
+              <FormState.List field={nestedFields.products}>
+                {renderSpy}
+              </FormState.List>
+            )}
+          </FormState.List>
+        )}
+      </FormState>,
+    );
+
+    const {title, department} = lastCallArgs(renderSpy);
+
+    const newTitle = faker.commerce.productName();
+    const newDepartment = faker.commerce.department();
+
+    title.onChange(newTitle);
+    department.onChange(newDepartment);
+
+    const updatedFields = lastCallArgs(renderSpy);
+
+    expect(updatedFields.title.value).toBe(newTitle);
+    expect(updatedFields.department.value).toBe(newDepartment);
+  });
+
+  it('Does not have race condition when using Nested -> List', () => {
+    const variants = {
+      products: [
+        {
+          title: faker.commerce.productName(),
+          department: faker.commerce.department(),
+        },
+      ],
+    };
+
+    const renderSpy = jest.fn(({title, department}) => {
+      return (
+        <>
+          <Input label="title" {...title} />
+          <Input label="department" {...department} />
+        </>
+      );
+    });
+
+    mount(
+      <FormState initialValues={{variants}}>
+        {({fields}) => (
+          <FormState.Nested field={fields.variants}>
+            {nestedFields => (
+              <FormState.List field={nestedFields.products}>
+                {renderSpy}
+              </FormState.List>
+            )}
+          </FormState.Nested>
+        )}
+      </FormState>,
+    );
+
+    const {title, department} = lastCallArgs(renderSpy);
+
+    const newTitle = faker.commerce.productName();
+    const newDepartment = faker.commerce.department();
+
+    title.onChange(newTitle);
+    department.onChange(newDepartment);
+
+    const updatedFields = lastCallArgs(renderSpy);
+
+    expect(updatedFields.title.value).toBe(newTitle);
+    expect(updatedFields.department.value).toBe(newDepartment);
   });
 });
