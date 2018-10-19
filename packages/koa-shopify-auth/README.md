@@ -115,7 +115,7 @@ app
   .use(verifyRequest())
 
   // application code
-  .use(() => {
+  .use(ctx => {
     ctx.body = '🎉';
   });
 ```
