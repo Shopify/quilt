@@ -16,13 +16,13 @@ export default class List<Fields> extends React.Component<
 > {
   shouldComponentUpdate(nextProps) {
     const {
-      field: {value: nextValue},
+      field: {value: nextValue, error: nextError},
     } = nextProps;
     const {
-      field: {value},
+      field: {value, error},
     } = this.props;
 
-    return nextValue !== value;
+    return nextValue !== value || nextError !== error;
   }
 
   render() {
