@@ -34,7 +34,7 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
   it('sends a post message on mount', () => {
     const path = '/settings';
 
-    const propagator = mount(<RoutePropagator location={path} />);
+    mount(<RoutePropagator location={path} />);
 
     expect(topWindow.postMessage).toBeCalledWith(
       replaceStateMessage(path),
@@ -59,7 +59,7 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
     it('does not send a post message on mount', () => {
       getSelfWindow.mockImplementation(() => topWindow);
 
-      const propagator = mount(<RoutePropagator location="/settings" />);
+      mount(<RoutePropagator location="/settings" />);
 
       expect(topWindow.postMessage).not.toBeCalled();
     });
@@ -82,7 +82,7 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
       getSelfWindow.mockImplementation(() => ({
         name: MODAL_IFRAME_NAME,
       }));
-      const propagator = mount(<RoutePropagator location="/settings" />);
+      mount(<RoutePropagator location="/settings" />);
 
       expect(topWindow.postMessage).not.toBeCalled();
     });

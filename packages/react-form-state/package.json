@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form-state",
-  "version": "0.3.0",
+  "version": "0.4.3",
   "license": "MIT",
   "description": "Manage react forms tersely and type-safe with no magic.",
   "main": "dist/index.js",
@@ -32,7 +32,6 @@
   "devDependencies": {
     "@shopify/enzyme-utilities": "^1.1.4",
     "@types/enzyme": "^3.1.10",
-    "enzyme": "^3.3.0",
     "faker": "^4.1.0",
     "typescript": "~3.0.1"
   },

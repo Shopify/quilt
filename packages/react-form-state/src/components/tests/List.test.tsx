@@ -35,9 +35,12 @@ describe('<FormState.List />', () => {
     calls.forEach(([fields], index) => {
       const expectedTitle = products[index].title;
 
-      expect(fields.title.value).toBe(expectedTitle);
-      expect(fields.title.initialValue).toBe(expectedTitle);
-      expect(fields.title.dirty).toBe(false);
+      expect(fields.title).toMatchObject({
+        value: expectedTitle,
+        initialValue: expectedTitle,
+        dirty: false,
+        name: `products.${index}.title`,
+      });
     });
   });
 
@@ -81,8 +84,6 @@ describe('<FormState.List />', () => {
     const newTitle = faker.commerce.productName();
     const newPrice = faker.commerce.price();
 
-    const renderSpy = jest.fn(() => null);
-
     const renderPropSpy = jest.fn(({fields}: any) => {
       return (
         <FormState.List field={fields.products}>
@@ -119,7 +120,7 @@ describe('<FormState.List />', () => {
 
     const renderSpy = jest.fn(() => null);
 
-    const form = mount(
+    mount(
       <FormState initialValues={{products}}>
         {({fields}) => {
           return (

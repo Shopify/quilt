@@ -14,18 +14,11 @@ export default function compose<Props>(
   return function wrapComponent<ComposedProps, C>(
     OriginalComponent: ReactComponent<ComposedProps> & C,
   ): ReactComponent<Props> & C {
-    let result: ReactComponent<ComposedProps>;
-
-    if (wrappingFunctions.length === 0) {
-      result = OriginalComponent;
-    } else {
-      result = wrappingFunctions.reduce(
-        (wrappingFunctionA, wrappingFunctionB) => {
-          return (WrappingComponent: ReactComponent<any>) =>
-            wrappingFunctionA(wrappingFunctionB(WrappingComponent));
-        },
-      )(OriginalComponent);
-    }
+    const result: ReactComponent<ComposedProps> = wrappingFunctions.reduceRight(
+      (component: ReactComponent<any>, wrappingFunction: WrappingFunction) =>
+        wrappingFunction(component),
+      OriginalComponent,
+    );
 
     return hoistStatics(
       result as ComponentClass,
