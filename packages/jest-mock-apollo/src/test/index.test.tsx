@@ -6,6 +6,7 @@ import {mount} from 'enzyme';
 import {readFileSync} from 'fs';
 import {buildSchema} from 'graphql';
 import * as path from 'path';
+import PropTypes from 'prop-types';
 
 import configureClient from '..';
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
