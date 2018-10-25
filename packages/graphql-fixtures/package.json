@@ -29,6 +29,6 @@
     "graphql-tool-utilities": "^0.9.0"
   },
   "peerDependencies": {
-    "graphql-typed": "^0.1.2"
+    "graphql-typed": "^0.2.0"
   }
 }
