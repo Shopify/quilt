@@ -2,18 +2,12 @@ import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createShopifyAuth from '../index';
 
-import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
-import createEnableCookiesRedirect from '../create-enable-cookies-redirect';
-import {OAuthStartOptions} from '../../types';
+import createCookieRedirect from '../create-cookie-redirect';
+import {OAuthStartOptions, Cookies} from '../../types';
 
-const mockTopLevelOAuthRedirect = jest.fn();
-jest.mock('../create-top-level-oauth-redirect', () =>
-  jest.fn(() => mockTopLevelOAuthRedirect),
-);
-
-const mockEnableCookiesRedirect = jest.fn();
-jest.mock('../create-enable-cookies-redirect', () =>
-  jest.fn(() => mockEnableCookiesRedirect),
+const mockCookiesRedirect = jest.fn();
+jest.mock('../create-cookie-redirect', () =>
+  jest.fn(() => mockCookiesRedirect),
 );
 
 const mockOAuthStart = jest.fn();
@@ -47,10 +41,11 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(createEnableCookiesRedirect).toBeCalledWith(
+        expect(createCookieRedirect).toBeCalledWith(
           '/auth/enable_cookies',
+          Cookies.test,
         );
-        expect(mockEnableCookiesRedirect).toBeCalledWith(ctx);
+        expect(mockCookiesRedirect).toBeCalledWith(ctx);
       });
     });
 
@@ -64,8 +59,11 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(createTopLevelOAuthRedirect).toBeCalledWith('/auth/inline');
-        expect(mockTopLevelOAuthRedirect).toBeCalledWith(ctx);
+        expect(createCookieRedirect).toBeCalledWith(
+          '/auth/inline',
+          Cookies.topLevel,
+        );
+        expect(mockCookiesRedirect).toBeCalledWith(ctx);
       });
     });
 

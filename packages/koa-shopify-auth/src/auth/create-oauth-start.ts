@@ -2,8 +2,7 @@ import {Context} from 'koa';
 
 import Error from './errors';
 import oAuthQueryString from './oauth-query-string';
-import {OAuthStartOptions} from '../types';
-import {TOP_LEVEL_OAUTH_COOKIE_NAME} from './index';
+import {OAuthStartOptions, Cookies} from '../types';
 
 export default function createOAuthStart(
   options: OAuthStartOptions,
@@ -23,7 +22,7 @@ export default function createOAuthStart(
       return;
     }
 
-    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
+    ctx.cookies.set(Cookies.topLevel);
 
     const formattedQueryString = oAuthQueryString(ctx, options, callbackPath);
 

@@ -18,3 +18,8 @@ export interface OAuthStartOptions extends AuthConfig {
 export interface NextFunction {
   (): any;
 }
+
+export enum Cookies {
+  test = 'shopifyTestCookie',
+  topLevel = 'shopifyTopLevelOAuth',
+}

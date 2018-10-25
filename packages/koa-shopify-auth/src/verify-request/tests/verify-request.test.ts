@@ -1,6 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import verifyRequest from '../verify-request';
-import {TEST_COOKIE_NAME, TOP_LEVEL_OAUTH_COOKIE_NAME} from '../../index';
+import {Cookies} from '../../types';
 
 describe('verifyRequest', () => {
   it('calls next if there is an accessToken on session', () => {
@@ -20,7 +20,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.cookies.set).toBeCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME);
+    expect(ctx.cookies.set).toBeCalledWith(Cookies.topLevel);
   });
 
   it('sets the test cookie if there is no accessToken', () => {
@@ -30,7 +30,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.cookies.set).toBeCalledWith(TEST_COOKIE_NAME, '1');
+    expect(ctx.cookies.set).toBeCalledWith(Cookies.test, '1');
   });
 
   it('redirects to /auth if there is no accessToken but shop is present on query', () => {

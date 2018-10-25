@@ -1,8 +1,9 @@
 import querystring from 'querystring';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
-import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
+import createCookieRedirect from '../create-cookie-redirect';
 import createTopLevelRedirect from '../create-top-level-redirect';
+import {Cookies} from '../../types';
 
 const mockTopLevelRedirect = jest.fn();
 jest.mock('../create-top-level-redirect', () =>
@@ -16,7 +17,7 @@ const path = '/auth/inline';
 
 describe('CreateTopLevelOAuthRedirect', () => {
   it('sets the test cookie', () => {
-    const topLevelOAuthRedirect = createTopLevelOAuthRedirect(path);
+    const topLevelOAuthRedirect = createCookieRedirect(path, Cookies.topLevel);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
@@ -27,7 +28,7 @@ describe('CreateTopLevelOAuthRedirect', () => {
   });
 
   it('sets up and calls the top level redirect', () => {
-    const topLevelOAuthRedirect = createTopLevelOAuthRedirect(path);
+    const topLevelOAuthRedirect = createCookieRedirect(path, Cookies.topLevel);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });

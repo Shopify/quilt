@@ -1,24 +1,20 @@
 import {Context} from 'koa';
 
-import {OAuthStartOptions, AccessMode, NextFunction} from '../types';
+import {OAuthStartOptions, AccessMode, NextFunction, Cookies} from '../types';
 import createOAuthStart from './create-oauth-start';
 import createOAuthCallback from './create-oauth-callback';
 import createEnableCookies from './create-enable-cookies';
-import createEnableCookiesRedirect from './create-enable-cookies-redirect';
-import createTopLevelOAuthRedirect from './create-top-level-oauth-redirect';
+import createCookieRedirect from './create-cookie-redirect';
 
 const DEFAULT_MYSHOPIFY_DOMAIN = 'myshopify.com';
 const DEFAULT_ACCESS_MODE: AccessMode = 'online';
 
-export const TOP_LEVEL_OAUTH_COOKIE_NAME = 'shopifyTopLevelOAuth';
-export const TEST_COOKIE_NAME = 'shopifyTestCookie';
-
 function hasCookieAccess({cookies}: Context) {
-  return Boolean(cookies.get(TEST_COOKIE_NAME));
+  return Boolean(cookies.get(Cookies.test));
 }
 
 function shouldPerformInlineOAuth({cookies}: Context) {
-  return Boolean(cookies.get(TOP_LEVEL_OAUTH_COOKIE_NAME));
+  return Boolean(cookies.get(Cookies.topLevel));
 }
 
 export default function createShopifyAuth(options: OAuthStartOptions) {
@@ -39,11 +35,17 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   const oAuthCallback = createOAuthCallback(config);
 
   const inlineOAuthPath = `${prefix}/auth/inline`;
-  const topLevelOAuthRedirect = createTopLevelOAuthRedirect(inlineOAuthPath);
+  const topLevelOAuthRedirect = createCookieRedirect(
+    inlineOAuthPath,
+    Cookies.topLevel,
+  );
 
   const enableCookiesPath = `${oAuthStartPath}/enable_cookies`;
   const enableCookies = createEnableCookies(config);
-  const enableCookiesRedirect = createEnableCookiesRedirect(enableCookiesPath);
+  const enableCookiesRedirect = createCookieRedirect(
+    enableCookiesPath,
+    Cookies.test,
+  );
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
     if (ctx.path === oAuthStartPath && !hasCookieAccess(ctx)) {
