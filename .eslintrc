@@ -2,5 +2,8 @@
   "extends": [
     "plugin:shopify/typescript-react",
     "plugin:shopify/typescript-prettier"
-  ]
+  ],
+  "rules": {
+    "shopify/restrict-full-import": ["error", "lodash"]
+  }
 }
