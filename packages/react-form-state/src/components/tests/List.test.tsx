@@ -44,6 +44,28 @@ describe('<FormState.List />', () => {
     });
   });
 
+  it('uses getChildKey to determine keys for each item', () => {
+    const products = [{title: faker.commerce.productName()}];
+
+    const childKeySpy = jest.fn(item => item.title);
+
+    mount(
+      <FormState initialValues={{products}}>
+        {({fields}) => {
+          return (
+            <FormState.List field={fields.products} getChildKey={childKeySpy}>
+              {_ => <div />}
+            </FormState.List>
+          );
+        }}
+      </FormState>,
+    );
+
+    expect(childKeySpy).toBeCalledWith(products[0]);
+    // Enzyme still has incomplete support for fragments so we can't actually test that the key is rendered
+    // expect(wrapper.find('Fragment').key()).toBe(products[0].title);
+  });
+
   it('updates the top level FormState‘s array when an inner field is updated', () => {
     const products = [{title: faker.commerce.productName()}];
     const newTitle = faker.commerce.productName();
