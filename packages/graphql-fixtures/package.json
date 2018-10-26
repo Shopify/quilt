@@ -1,6 +1,6 @@
 {
   "name": "graphql-fixtures",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "types": "lib",
   "main": "lib/index.js",
   "license": "MIT",
