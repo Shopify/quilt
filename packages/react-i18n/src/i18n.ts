@@ -10,6 +10,7 @@ import {
   DEFAULT_WEEK_START_DAY,
   WEEK_START_DAYS,
   RTL_LANGUAGES,
+  Weekdays,
 } from './constants';
 import {
   MissingCurrencyCodeError,
@@ -157,7 +158,7 @@ export default class I18n {
     }).format(date);
   }
 
-  weekStartDay(argCountry?: I18n['defaultCountry']) {
+  weekStartDay(argCountry?: I18n['defaultCountry']): Weekdays {
     const country = argCountry || this.defaultCountry;
 
     if (!country) {
