@@ -40,6 +40,8 @@ app.use(
     secret: SHOPIFY_SECRET,
     // scopes to request on the merchants store
     scopes: ['write_orders, write_products'],
+    // set access mode, default is 'online'
+    accessMode: 'offline',
     // callback for when auth is completed
     afterAuth(ctx) {
       const {shop, accessToken} = ctx.session;
@@ -115,7 +117,7 @@ app
   .use(verifyRequest())
 
   // application code
-  .use(() => {
+  .use(ctx => {
     ctx.body = '🎉';
   });
 ```

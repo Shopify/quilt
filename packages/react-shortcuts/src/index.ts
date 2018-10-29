@@ -4,7 +4,7 @@ export {
   default as ShortcutProvider,
   Props as ProviderProps,
   Context,
-  contextTypes,
+  Provider as ContextProvider,
 } from './ShortcutProvider';
 
 export {default as ShortcutManager} from './ShortcutManager';

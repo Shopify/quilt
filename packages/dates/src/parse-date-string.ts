@@ -18,7 +18,8 @@ export function parseDateString(dateString: string, timeZone?: string) {
   }
 
   const [
-    ,
+    // @ts-ignore
+    _,
     rawYear,
     rawMonth,
     rawDay,

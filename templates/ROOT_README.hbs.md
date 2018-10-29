@@ -20,7 +20,7 @@ Each package has its own `README` and documentation describing usage.
 | package |     |     |
 | ------- | --- | --- |
 {{#each packageNames}}
-| {{this}} | [README](packages/{{this}}/README.md) | [![npm version](https://badge.fury.io/js/%40shopify%2F{{this}}.svg)](https://badge.fury.io/js/%40shopify%2F{{this}}) |
+| {{this}} | [directory](packages/{{this}}) | [![npm version](https://badge.fury.io/js/%40shopify%2F{{this}}.svg)](https://badge.fury.io/js/%40shopify%2F{{this}}) |
 {{/each}}
 
 ## Want to contribute?
