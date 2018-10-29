@@ -542,6 +542,17 @@ export function ProductPage() {
 }
 ```
 
+By default `<List />` will use the `index` of your objects in the array as React `key`s. This is problematic if your array items could be re-ordered, so it is highly recommended you provide a `getChildKey` function. Your `getChildKey` will be passed each item in your array, and expects you to return a unique value that can be used to identify that item. This could be an `id` if that exists, or something else that makes sense in your usecase.
+
+For our example above, it makes sense to assume that each combination of `option` and `value` is unique.
+
+```typescript
+<FormState.List
+  field={fields.variants}
+  getChildKey={(variant) => `${variant.option}-${variant.value}`}
+>
+```
+
 ## Putting it all together
 
 The following example shows how you can use everything this documentation covered to build a full [Polaris](https://polaris.shopify.com) styled page.
