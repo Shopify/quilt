@@ -220,4 +220,8 @@ describe('toSupportedLocale', () => {
   it('returns default locale if locale is not supported', () => {
     expect(toSupportedLocale('LOL')).toEqual('EN');
   });
+
+  it('returns most similar locale available if complex', () => {
+    expect(toSupportedLocale('fr-FR')).toEqual('FR');
+  });
 });
