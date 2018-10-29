@@ -201,7 +201,7 @@ Because of these difficulties, this package also contains some helpers for writi
 ### `validateNested()`
 
 ```typescript
-import {validateNested} form '@shopify/react-form-state';
+import {validateNested} from '@shopify/react-form-state';
 ```
 
 The validation helper companion for `<FormState.Nested />` lets you define field level validations for nested fields using the same API as you would use for flat scalar fields.
@@ -218,7 +218,7 @@ The validation helper companion for `<FormState.Nested />` lets you define field
 ### `validateList()`
 
 ```typescript
-import {validateList} form '@shopify/react-form-state';
+import {validateList} from '@shopify/react-form-state';
 ```
 
 ```typescript
