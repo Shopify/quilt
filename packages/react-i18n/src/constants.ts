@@ -33,7 +33,6 @@ export const WEEK_START_DAYS = new Map([
   ['BR', Weekdays.Sunday],
   ['CA', Weekdays.Sunday],
   ['CL', Weekdays.Sunday],
-  ['CN', Weekdays.Sunday],
   ['CO', Weekdays.Sunday],
   ['CR', Weekdays.Sunday],
   ['DO', Weekdays.Sunday],
@@ -119,6 +118,7 @@ export const WEEK_START_DAYS = new Map([
   ['UY', Weekdays.Monday],
   ['UZ', Weekdays.Monday],
   ['VN', Weekdays.Monday],
+  ['CN', Weekdays.Monday],
 ]);
 
 /* eslint-disable line-comment-position */
