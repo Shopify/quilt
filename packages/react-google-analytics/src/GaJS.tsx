@@ -12,7 +12,7 @@ export interface Props {
   allowHash?: boolean;
   set?: any[][];
   onLoad?(analytics: GaJSAnalytics): void;
-  debug?: boolean;
+  disableTracking?: boolean;
 }
 
 export const SETUP_SCRIPT = `
@@ -31,14 +31,16 @@ export default class GaJSGoogleAnalytics extends React.PureComponent<
   never
 > {
   render() {
-    const {account, debug} = this.props;
+    const {account, disableTracking} = this.props;
 
     return (
       <>
         <script
           id="google-analytics-gtag-script"
           dangerouslySetInnerHTML={{
-            __html: debug ? setupWithDebugScript(account) : SETUP_SCRIPT,
+            __html: disableTracking
+              ? setupWithDebugScript(account)
+              : SETUP_SCRIPT,
           }}
         />
         <ImportRemote

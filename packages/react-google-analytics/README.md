@@ -27,6 +27,7 @@ const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
 <Universal
   account={UNIVERSAL_GA_ACCOUNT_ID}
   domain={shopDomain}
+  disableTracking
   debug
   // NOTE: This prop will load and set the debug mode for Google Analytics
   // https://developers.google.com/analytics/devguides/collection/analyticsjs/debugging
@@ -89,7 +90,7 @@ const GA_JS_ACCOUNT_ID = 'UA-xxxx-xx';
 <GaJS
   account={GA_JS_ACCOUNT_ID}
   domain={shopDomain}
-  debug
+  disableTracking
   // NOTE: Disables the tracking snippet from sending data to Google Analytics.
   // https://developers.google.com/analytics/devguides/collection/gajs/#disable
 />;
