@@ -136,6 +136,11 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@shopify/app-bridge@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@shopify/app-bridge/-/app-bridge-0.7.3.tgz#abadfa2ef6293f630764bc5ddca31750caf00f1c"
+  integrity sha512-xDkYvVvN8Gxy3JZduoT4Ohrl6fAuW+wEfhfL+qPzysu0LuJZ7CKgVCdEazPmtcI+V4GQPQLYLzcbCn3mWFU8dg==
+
 "@shopify/javascript-utilities@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@shopify/javascript-utilities/-/javascript-utilities-2.1.0.tgz#b04b2787dd66329b8261b62ebe61bdf85790d6c7"
