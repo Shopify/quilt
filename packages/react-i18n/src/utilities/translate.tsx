@@ -7,8 +7,8 @@ import {
   TranslationDictionary,
   ComplexReplacementDictionary,
   PrimitiveReplacementDictionary,
-} from './types';
-import {MissingTranslationError, MissingReplacementError} from './errors';
+} from '../types';
+import {MissingTranslationError, MissingReplacementError} from '../errors';
 
 const REPLACE_REGEX = /{([^}]*)}/g;
 const MISSING_TRANSLATION = Symbol('Missing translation');
@@ -230,5 +230,3 @@ function normalizeIdentifier(id: string, scope?: string | string[]) {
     typeof scope === 'string' ? scope : scope.join(SEPARATOR)
   }${SEPARATOR}${id}`;
 }
-
-export function noop() {}

@@ -6,9 +6,11 @@ import {Weekdays} from '../constants';
 
 jest.mock('../utilities', () => ({
   translate: jest.fn(),
+  getCurrencySymbol: jest.fn(),
 }));
 
 const translate: jest.Mock = require('../utilities').translate;
+const getCurrencySymbol: jest.Mock = require('../utilities').getCurrencySymbol;
 
 describe('I18n', () => {
   const defaultDetails = {locale: 'en-ca'};
@@ -16,6 +18,7 @@ describe('I18n', () => {
 
   beforeEach(() => {
     translate.mockReset();
+    getCurrencySymbol.mockReset();
   });
 
   describe('#locale', () => {
@@ -411,6 +414,20 @@ describe('I18n', () => {
       expect(() => i18n.weekStartDay()).toThrowError(
         'No country code provided. weekStartDay() cannot be called without a country code.',
       );
+    });
+  });
+
+  describe('#getCurrencySymbol()', () => {
+    it('correctly returns the locale-specific currency symbol and its position', () => {
+      const mockResult = {
+        symbol: '€',
+        prefixed: true,
+      };
+      getCurrencySymbol.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.getCurrencySymbol('eur')).toEqual(mockResult);
     });
   });
 });

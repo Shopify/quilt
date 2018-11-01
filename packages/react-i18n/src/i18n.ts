@@ -1,4 +1,5 @@
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
+import {memoize, autobind} from '@shopify/javascript-utilities/decorators';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -17,7 +18,11 @@ import {
   MissingTimezoneError,
   MissingCountryError,
 } from './errors';
-import {translate, TranslateOptions as RootTranslateOptions} from './utilities';
+import {
+  getCurrencySymbol,
+  translate,
+  TranslateOptions as RootTranslateOptions,
+} from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   as?: 'number' | 'currency' | 'percent';
@@ -168,6 +173,22 @@ export default class I18n {
     }
 
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
+  }
+
+  @autobind
+  getCurrencySymbol(currencyCode?: string) {
+    const currency = currencyCode || this.defaultCurrency;
+    if (currency == null) {
+      throw new MissingCurrencyCodeError(
+        `No currency code provided. formatCurrency cannot be called without a currency code.`,
+      );
+    }
+    return this.getCurrencySymbolLocalized(this.locale, currency);
+  }
+
+  @memoize((currency: string, locale: string) => `${locale}${currency}`)
+  getCurrencySymbolLocalized(locale: string, currency: string) {
+    return getCurrencySymbol(locale, {currency});
   }
 }
 
