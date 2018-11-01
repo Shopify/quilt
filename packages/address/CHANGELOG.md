@@ -8,6 +8,10 @@ The format is based on [these versioning and changelog guidelines](https://git.i
 
 ---
 
+## 2.5.0 - 2018-10-11
+
+- Update Address type to differentiate `country` / `countryCode` and `province` / `provinceCode` ([#394](https://github.com/Shopify/quilt/pull/394))
+
 ## 2.4.0 - 2018-10-11
 
 - Expose testing helpers. ([#328](https://github.com/Shopify/quilt/pull/328))

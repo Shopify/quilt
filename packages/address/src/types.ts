@@ -26,17 +26,22 @@ export type ZipKey = 'POSTAL_CODE' | 'POSTCODE' | 'PINCODE' | 'ZIP_CODE';
 export type Address2Key = 'APT_SUITE_ETC' | 'APT_UNIT_NUMBER';
 
 export interface Address {
-  company?: string;
-  firstName?: string;
-  lastName?: string;
-  address1: string;
-  address2: string;
-  city: string;
-  province?: string;
-  zip: string;
+  company?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  address1: string | null;
+  address2: string | null;
+  city: string | null;
+  // Province name
+  province?: string | null;
+  // Province code
+  provinceCode?: string | null;
+  zip: string | null;
+  // Country name
+  country: string | null;
   // Country code ISO 3166-1 alpha-2
-  country: string;
-  phone?: string;
+  countryCode: string;
+  phone?: string | null;
 }
 
 export interface Province {

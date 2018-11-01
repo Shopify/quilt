@@ -112,9 +112,9 @@ const address = {
   address1: '八重洲1-5-3',
   address2: '',
   city: '目黒区',
-  province: 'JP-13',
+  provinceCode: 'JP-13',
   zip: '100-8994',
-  country: 'JP',
+  countryCode: 'JP',
   phone: '',
 };
 
