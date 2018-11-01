@@ -1,5 +1,9 @@
 import * as React from 'react';
-import {translate, PSEUDOTRANSLATE_OPTIONS} from '../utilities';
+import {
+  translate,
+  PSEUDOTRANSLATE_OPTIONS,
+  getCurrencySymbol,
+} from '../utilities';
 
 const {pseudotranslate} = require.requireMock('@shopify/i18n') as {
   pseudotranslate: jest.Mock;
@@ -157,6 +161,15 @@ describe('translate()', () => {
       expect(pseudotranslate).toHaveBeenCalledWith('bar', {
         ...PSEUDOTRANSLATE_OPTIONS,
         toLocale: 'de',
+      });
+    });
+  });
+
+  describe('getCurrencySymbol', () => {
+    it('correctly returns the locale-specific currency symbol and its position', () => {
+      expect(getCurrencySymbol('en', {currency: 'eur'})).toEqual({
+        symbol: '€',
+        prefixed: true,
       });
     });
   });
