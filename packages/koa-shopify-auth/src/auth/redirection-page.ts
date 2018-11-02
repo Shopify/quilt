@@ -2,6 +2,9 @@ export default function redirectionScript({origin, redirectTo, apiKey}) {
   return `
     <script src="https://unpkg.com/@shopify/app-bridge@^1"></script> <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function() {
+        sessionStorage.setItem('shopify.top_level_interaction', true);
+        document.cookie = 'shopify.top_level_oauth=true';
+
         if (window.top === window.self) {
           // If the current window is the 'parent', change the URL by setting location.href
           window.location.href = '${redirectTo}';
