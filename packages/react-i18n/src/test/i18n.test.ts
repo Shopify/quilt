@@ -330,6 +330,20 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrency()', () => {
+    const currency = 'USD';
+
+    it('formats the number as a currency', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const expected = Intl.NumberFormat(defaultDetails.locale, {
+        style: 'currency',
+        currency,
+      }).format(1);
+
+      expect(i18n.formatCurrency(1, {currency})).toBe(expected);
+    });
+  });
+
   describe('#formatDate()', () => {
     const timezone = 'Australia/Sydney';
 
