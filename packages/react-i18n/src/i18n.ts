@@ -148,6 +148,10 @@ export default class I18n {
     }).format(amount);
   }
 
+  formatCurrency(amount: number, options: Intl.NumberFormatOptions = {}) {
+    return this.formatNumber(amount, {as: 'currency', ...options});
+  }
+
   formatDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     const {locale, defaultTimezone: timezone} = this;
 
