@@ -45,9 +45,9 @@ An instance of the `Metrics` object will be available on `ctx.metrics` further d
 
 ### `Metrics`
 
-#### `.timing(name: string, value: number, sampleRate?: number, tags?: Tags)`
+#### `.distribution(name: string, value: number, sampleRate?: number, tags?: Tags)`
 
-Sends a timing command with the specified `value` in milliseconds.
+Sends a distribution command with the specified `value` in milliseconds.
 
 #### `.measure(name: string, value: number, sampleRate?: number, tags?: Tags)`
 

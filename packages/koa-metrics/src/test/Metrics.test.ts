@@ -32,46 +32,46 @@ describe('Metrics', () => {
     expect(StatsDMock).toHaveBeenCalledWith(defaultOptions);
   });
 
-  describe('timing', () => {
-    it('passes timing metrics to the statsd client', () => {
+  describe('distribution', () => {
+    it('passes distribution metrics to the statsd client', () => {
       const metrics = new Metrics(defaultOptions);
-      metrics.timing(name, value, tags);
+      metrics.distribution(name, value, tags);
 
       const stats = StatsDMock.mock.instances[0];
-      const timingFn = stats.timing;
-      expect(timingFn).toHaveBeenCalledTimes(1);
-      expect(timingFn).toHaveBeenCalledWith(name, value, tags);
+      const distributionFn = stats.distribution;
+      expect(distributionFn).toHaveBeenCalledTimes(1);
+      expect(distributionFn).toHaveBeenCalledWith(name, value, tags);
     });
 
-    it('logs timing metrics to the logger in development', () => {
+    it('logs distribution metrics to the logger in development', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.timing(name, value);
+        metrics.distribution(name, value);
 
         expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith(`timing ${name}:${value}`);
+        expect(logger).toHaveBeenCalledWith(`distribution ${name}:${value}`);
       });
     });
 
-    it('logs tags with timing metrics to the logger in development', () => {
+    it('logs tags with distribution metrics to the logger in development', () => {
       withEnv('development', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.timing(name, value, tags);
+        metrics.distribution(name, value, tags);
 
         expect(logger).toHaveBeenCalledTimes(1);
         expect(logger).toHaveBeenCalledWith(
-          `timing ${name}:${value} #${tagName}:${tags[tagName]}`,
+          `distribution ${name}:${value} #${tagName}:${tags[tagName]}`,
         );
       });
     });
 
-    it('does not log timing metrics to the logger in production', () => {
+    it('does not log distribution metrics to the logger in production', () => {
       withEnv('production', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
-        metrics.timing(name, value, tags);
+        metrics.distribution(name, value, tags);
 
         expect(logger).not.toHaveBeenCalled();
       });
@@ -139,10 +139,10 @@ describe('Metrics', () => {
         globalTags: supplementaryTags,
       });
 
-      metrics.timing(name, value);
+      metrics.distribution(name, value);
 
-      expect(StatsDMock.mock.instances[0].timing).not.toHaveBeenCalled();
-      expect(StatsDMock.mock.instances[1].timing).toHaveBeenCalled();
+      expect(StatsDMock.mock.instances[0].distribution).not.toHaveBeenCalled();
+      expect(StatsDMock.mock.instances[1].distribution).toHaveBeenCalled();
     });
   });
 
