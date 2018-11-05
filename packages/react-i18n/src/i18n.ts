@@ -152,6 +152,10 @@ export default class I18n {
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
+  formatPercentage(amount: number, options: Intl.NumberFormatOptions = {}) {
+    return this.formatNumber(amount, {as: 'percent', ...options});
+  }
+
   formatDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     const {locale, defaultTimezone: timezone} = this;
 
