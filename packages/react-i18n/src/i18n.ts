@@ -8,6 +8,8 @@ import {
   LanguageDirection,
 } from './types';
 import {
+  dateStyle,
+  DateStyle,
   DEFAULT_WEEK_START_DAY,
   WEEK_START_DAYS,
   RTL_LANGUAGES,
@@ -156,7 +158,10 @@ export default class I18n {
     return this.formatNumber(amount, {as: 'percent', ...options});
   }
 
-  formatDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+  formatDate(
+    date: Date,
+    options?: Intl.DateTimeFormatOptions & {style?: DateStyle},
+  ): string {
     const {locale, defaultTimezone: timezone} = this;
 
     if (timezone == null && (options == null || options.timeZone == null)) {
@@ -165,9 +170,17 @@ export default class I18n {
       );
     }
 
+    const {style = undefined, ...formatOptions} = options || {};
+
+    if (style) {
+      return style === DateStyle.Humanize
+        ? this.humanizeDate(date, formatOptions)
+        : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
+    }
+
     return new Intl.DateTimeFormat(locale, {
       timeZone: timezone,
-      ...options,
+      ...formatOptions,
     }).format(date);
   }
 
@@ -198,6 +211,21 @@ export default class I18n {
   getCurrencySymbolLocalized(locale: string, currency: string) {
     return getCurrencySymbol(locale, {currency});
   }
+
+  private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const today = new Date();
+
+    if (isSameDate(today, date)) {
+      return this.translate('today');
+    } else if (isYesterday(date)) {
+      return this.translate('yesterday');
+    } else {
+      return this.formatDate(date, {
+        ...options,
+        ...dateStyle[DateStyle.Humanize],
+      });
+    }
+  }
 }
 
 function isTranslateOptions(
@@ -207,4 +235,24 @@ function isTranslateOptions(
     | ComplexReplacementDictionary,
 ): object is TranslateOptions {
   return 'scope' in object;
+}
+
+function isSameMonthAndYear(source: Date, target: Date) {
+  return (
+    source.getFullYear() === target.getFullYear() &&
+    source.getMonth() === target.getMonth()
+  );
+}
+
+function isSameDate(source: Date, target: Date) {
+  return (
+    isSameMonthAndYear(source, target) && source.getDate() === target.getDate()
+  );
+}
+
+function isYesterday(date: Date) {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  return isSameDate(yesterday, date);
 }

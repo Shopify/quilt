@@ -1,3 +1,33 @@
+export enum DateStyle {
+  Long = 'Long',
+  Short = 'Short',
+  Humanize = 'Humanize',
+  Time = 'Time',
+}
+
+export const dateStyle = {
+  [DateStyle.Long]: {
+    weekday: 'long',
+    month: 'long',
+    day: '2-digit',
+    year: 'numeric',
+  },
+  [DateStyle.Short]: {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  },
+  [DateStyle.Humanize]: {
+    month: 'long',
+    day: '2-digit',
+    year: 'numeric',
+  },
+  [DateStyle.Time]: {
+    hour: '2-digit',
+    minute: '2-digit',
+  },
+};
+
 export enum Weekdays {
   Sunday = 'sunday',
   Monday = 'monday',
