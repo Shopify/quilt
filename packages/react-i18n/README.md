@@ -65,6 +65,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `Provider` component will be used where no custom currency code is passed.
 - `formatCurrency()`: formats a number as a currency according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`.
+- `formatPercentage()`: formats a number as a percentage according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `Provider` component will be used when no custom `timezone` is provided.
 - `weekStartDay()`: returns start day of the week according to the country.
 - `getCurrencySymbol()`: returns the currency symbol according to the currency code and locale.
