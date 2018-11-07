@@ -192,7 +192,7 @@ i18n.translate(key, {scope: ['MyComponent', 'option']});
 {
   "MyComponent": {
     "searchResult": {
-      "one": "One widget found",
+      "one": "{count} widget found",
       "other": "{count} widgets found"
     }
   }
@@ -202,6 +202,7 @@ i18n.translate('MyComponent.searchResult', {count: searchResults});
 ```
 
 As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill.
+We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
 
 ### Server
 
