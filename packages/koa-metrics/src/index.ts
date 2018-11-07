@@ -47,7 +47,7 @@ export default function metrics({
       timer = metrics.initTimer();
       const queuingTime = getQueuingTime(ctx);
       if (queuingTime) {
-        metrics.timing(CustomMetrics.QueuingTime, queuingTime);
+        metrics.distribution(CustomMetrics.QueuingTime, queuingTime);
       }
     }
 
@@ -62,7 +62,7 @@ export default function metrics({
       if (!skipInstrumentation) {
         if (timer) {
           const duration = timer.stop();
-          metrics.timing(CustomMetrics.RequestDuration, duration);
+          metrics.distribution(CustomMetrics.RequestDuration, duration);
         }
 
         const contentLength = getContentLength(ctx);

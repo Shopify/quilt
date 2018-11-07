@@ -176,7 +176,7 @@ describe('koa-metrics', () => {
       });
 
       await metricsMiddleware(ctx, () => {
-        expect(MetricsMock.mock.instances[0].timing).toHaveBeenCalledWith(
+        expect(MetricsMock.mock.instances[0].distribution).toHaveBeenCalledWith(
           CustomMetrics.QueuingTime,
           queuingTime,
         );
@@ -189,11 +189,10 @@ describe('koa-metrics', () => {
       const ctx = createMockContext();
 
       await metricsMiddleware(ctx, () => {
-        const timingFn = MetricsMock.mock.instances[0].timing as jest.Mock<
-          Metrics['timing']
-        >;
+        const distributionFn = MetricsMock.mock.instances[0]
+          .distribution as jest.Mock<Metrics['distribution']>;
         expect(
-          timingFn.mock.calls.map(([metricName]) => metricName),
+          distributionFn.mock.calls.map(([metricName]) => metricName),
         ).not.toContain(CustomMetrics.QueuingTime);
       });
     });
@@ -218,7 +217,7 @@ describe('koa-metrics', () => {
         timingFn.mockReturnValueOnce({stop: () => requestTime});
       });
 
-      expect(MetricsMock.mock.instances[0].timing).toHaveBeenCalledWith(
+      expect(MetricsMock.mock.instances[0].distribution).toHaveBeenCalledWith(
         CustomMetrics.RequestDuration,
         requestTime,
       );
@@ -297,7 +296,7 @@ describe('koa-metrics', () => {
         };
       });
 
-      expect(MetricsMock.mock.instances[0].timing).not.toHaveBeenCalled();
+      expect(MetricsMock.mock.instances[0].distribution).not.toHaveBeenCalled();
       expect(MetricsMock.mock.instances[0].measure).not.toHaveBeenCalled();
     });
   });
