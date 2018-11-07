@@ -202,7 +202,9 @@ function localeIdsForConnection(
 function getPossibleLocales(locale: string) {
   const normalizedLocale = locale.toLowerCase();
   const split = normalizedLocale.split('-');
-  return split.length > 1 ? [normalizedLocale, split[0]] : [normalizedLocale];
+  return split.length > 1
+    ? [`${split[0]}-${split[1].toUpperCase()}`, normalizedLocale, split[0]]
+    : [normalizedLocale];
 }
 
 function isPromise<T>(
