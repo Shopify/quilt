@@ -21,7 +21,7 @@ export const SETUP_SCRIPT = `
 
 export function setupWithDebugScript(account: String) {
   // https://developers.google.com/analytics/devguides/collection/gajs/#disable
-  return `window['ga-disable-GA_${account}'] = true;${SETUP_SCRIPT}`;
+  return `window['ga-disable-${account}'] = true;${SETUP_SCRIPT}`;
 }
 
 export const GA_JS_SCRIPT = 'https://stats.g.doubleclick.net/dc.js';
