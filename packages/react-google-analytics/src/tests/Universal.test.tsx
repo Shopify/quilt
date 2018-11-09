@@ -156,7 +156,18 @@ describe('<Universal />', () => {
         UNIVERSAL_GA_DEBUG_SCRIPT,
       );
       trigger(universal.find(ImportRemote), 'onImported', analytics);
-      expect(analytics).toHaveBeenCalledWith('set', 'sendHitTask', null);
+      expect(analytics).toHaveBeenNthCalledWith(
+        1,
+        'create',
+        mockProps.account,
+        'auto',
+        {
+          allowLinker: true,
+          cookieDomain: 'myshopify.com',
+          legacyCookieDomain: 'myshopify.com',
+        },
+      );
+      expect(analytics).toHaveBeenNthCalledWith(2, 'set', 'sendHitTask', null);
     });
 
     it('loads the GA script and does not prevent sending data to GA when debug is set to false', () => {
@@ -178,7 +189,18 @@ describe('<Universal />', () => {
         UNIVERSAL_GA_SCRIPT,
       );
       trigger(universal.find(ImportRemote), 'onImported', analytics);
-      expect(analytics).toHaveBeenCalledWith('set', 'sendHitTask', null);
+      expect(analytics).toHaveBeenNthCalledWith(
+        1,
+        'create',
+        mockProps.account,
+        'auto',
+        {
+          allowLinker: true,
+          cookieDomain: 'myshopify.com',
+          legacyCookieDomain: 'myshopify.com',
+        },
+      );
+      expect(analytics).toHaveBeenNthCalledWith(2, 'set', 'sendHitTask', null);
     });
 
     it('loads the GA script and does not prevent sending data to GA when disableTracking is set to false', () => {
