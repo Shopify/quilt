@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Google Analytics",
   "main": "dist/index.js",
