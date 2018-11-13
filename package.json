@@ -15,7 +15,7 @@
     "test": "jest --maxWorkers=3",
     "check": "lerna run check",
     "release": "lerna publish && git push --follow-tags",
-    "clean": "rimraf './packages/**/*.{js,d.ts}'",
+    "clean": "rimraf './packages/*/dist/**/*.{js,d.ts}'",
     "generate": "yarn plop"
   },
   "repository": {
