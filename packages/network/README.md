@@ -13,7 +13,7 @@ $ yarn add @shopify/network
 
 ## Usage
 
-Just import any of the enums or function in this package to get a friendly API to common network details. The following values are exposed from this library:
+Import any of the enums or functions in this package to get a friendly API to common network details. The following values are exposed from this library:
 
 - `Method`: enum for HTTP methods
 - `StatusCode`: enum for HTTP status codes (mapping from name to number)

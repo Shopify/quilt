@@ -44,6 +44,7 @@ export enum StatusCode {
   UnsupportedMediaType = 415,
   RequestedRangeNotSatisfiable = 416,
   ExpectationFailed = 417,
+  ImATeapot = 418,
   UnprocessableEntity = 422,
   TooManyRequests = 429,
   InternalServerError = 500,
