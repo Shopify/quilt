@@ -4,6 +4,7 @@
     "plugin:shopify/typescript-prettier"
   ],
   "rules": {
+    "react/jsx-no-bind": "off",
     "shopify/restrict-full-import": ["error", "lodash"]
   }
 }
