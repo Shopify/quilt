@@ -1,0 +1,130 @@
+export enum Method {
+  Get = 'GET',
+  Post = 'POST',
+  Put = 'PUT',
+  Patch = 'PATCH',
+  Delete = 'DELETE',
+  Head = 'HEAD',
+  Options = 'OPTIONS',
+  Connect = 'CONNECT',
+}
+
+export enum StatusCode {
+  Continue = 100,
+  SwitchingProtocols = 101,
+  Ok = 200,
+  Created = 201,
+  Accepted = 202,
+  NonAuthoritativeInformation = 203,
+  NoContent = 204,
+  ResetContent = 205,
+  PartialContent = 206,
+  MultipleChoices = 300,
+  MovedPermanently = 301,
+  Found = 302,
+  SeeOther = 303,
+  NotModified = 304,
+  UseProxy = 305,
+  TemporaryRedirect = 307,
+  BadRequest = 400,
+  Unauthorized = 401,
+  PaymentRequired = 402,
+  Forbidden = 403,
+  NotFound = 404,
+  MethodNotAllowed = 405,
+  NotAcceptable = 406,
+  ProxyAuthenticationRequired = 407,
+  RequestTimeout = 408,
+  Conflict = 409,
+  Gone = 410,
+  LengthRequired = 411,
+  PreconditionFailed = 412,
+  RequestEntityTooLarge = 413,
+  RequestUriTooLong = 414,
+  UnsupportedMediaType = 415,
+  RequestedRangeNotSatisfiable = 416,
+  ExpectationFailed = 417,
+  ImATeapot = 418,
+  UnprocessableEntity = 422,
+  TooManyRequests = 429,
+  InternalServerError = 500,
+  NotImplemented = 501,
+  BadGateway = 502,
+  ServiceUnavailable = 503,
+  GatewayTimeout = 504,
+  HttpVersionNotSupported = 505,
+}
+
+export enum Header {
+  Accept = 'Accept',
+  ContentType = 'Content-Type',
+  ContentDisposition = 'Content-Disposition',
+  UserAgent = 'User-Agent',
+  XhrRedirectedTo = 'X-XHR-Redirected-To',
+  XhrReferer = 'X-XHR-Referer',
+  ContentSecurityPolicy = 'Content-Security-Policy',
+  ContentSecurityPolicyReportOnly = 'Content-Security-Policy-Report-Only',
+}
+
+export enum CspDirective {
+  ChildSrc = 'child-src',
+  ConnectSrc = 'connect-src',
+  DefaultSrc = 'default-src',
+  FontSrc = 'font-src',
+  FrameSrc = 'frame-src',
+  ImgSrc = 'img-src',
+  ManifestSrc = 'manifest-src',
+  MediaSrc = 'media-src',
+  ObjectSrc = 'object-src',
+  PrefectSrc = 'prefetch-src',
+  ScriptSrc = 'script-src',
+  StyleSrc = 'style-src',
+  WebrtcSrc = 'webrtc-src',
+  WorkerSrc = 'worker-src',
+
+  Sandbox = 'sandbox',
+  ReportUri = 'report-uri',
+  FormAction = 'form-action',
+  FrameAncestors = 'frame-ancestors',
+  PluginTypes = 'plugin-types',
+}
+
+export enum CspSandboxAllow {
+  Forms = 'allow-forms',
+  SameOrigin = 'allow-same-origin',
+  Scripts = 'allow-scripts',
+  Popups = 'allow-popups',
+  Modals = 'allow-modals',
+  OrientationLock = 'allow-orientation-lock',
+  PointerLock = 'allow-pointer-lock',
+  Presentation = 'allow-presentation',
+  PopupsToEscapeSandbox = 'allow-popups-to-escape-sandbox',
+  TopNavigation = 'allow-top-navigation',
+}
+
+export enum SpecialSource {
+  Any = '*',
+  Self = "'self'",
+  UnsafeInline = "'unsafe-inline'",
+  UnsafeEval = "'unsafe-eval'",
+  None = "'none'",
+  StrictDynamic = "'strict-dynamic'",
+  ReportSample = "'report-sample'",
+  Data = 'data:',
+  Blob = 'blob:',
+  FileSystem = 'filesystem:',
+}
+
+export enum HashAlgorithm {
+  Sha256 = 'sha256',
+  Sha384 = 'sha384',
+  Sha512 = 'sha512',
+}
+
+export function nonceSource(nonce: string) {
+  return `'nonce-${nonce}'`;
+}
+
+export function hashSource(hashAlgorithm: HashAlgorithm, value: string) {
+  return `'${hashAlgorithm}-${value}'`;
+}
