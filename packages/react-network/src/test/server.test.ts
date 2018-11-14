@@ -62,6 +62,7 @@ describe('server', () => {
     it('sets the CSP header with strings, booleans, and string arrays', () => {
       const manager = new ServerManager();
       const ctx = createMockContext();
+      const spy = jest.spyOn(ctx, 'set');
 
       manager.addCspDirective(CspDirective.DefaultSrc, SpecialSource.Self);
       manager.addCspDirective(CspDirective.StyleSrc, [
@@ -72,7 +73,7 @@ describe('server', () => {
 
       applyToContext(ctx, manager);
 
-      expect(ctx.set).toHaveBeenCalledWith(
+      expect(spy).toHaveBeenCalledWith(
         Header.ContentSecurityPolicy,
         `${CspDirective.DefaultSrc} ${SpecialSource.Self}; ${
           CspDirective.StyleSrc
