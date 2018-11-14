@@ -39,7 +39,7 @@ describe('<Effect />', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('does not call perform() when extraction passes a an array of symbols to include and there is no kind on the effect', () => {
+  it('does not call perform() when extraction passes an array of symbols to include and there is no kind on the effect', () => {
     const kind = Symbol('kind');
     const spy = jest.fn();
     const effect = mount(<Effect serverOnly perform={spy} />);

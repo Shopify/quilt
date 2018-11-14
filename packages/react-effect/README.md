@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect.svg)
 
-A component and set of utilities for performing effects within a universal React app. This package gives you the tools you need to extract details from an application during server rendering using only a single pass.
+This package contains a component and set of utilities for performing multiple effects during one single pass of server rendering in a universal React application.
 
 ## Installation
 
@@ -17,7 +17,7 @@ $ yarn add @shopify/react-effect
 
 This package is largely built around a component, `Effect`. To set up an action to be performed, use the `perform` prop:
 
-```ts
+```tsx
 import {Effect} from '@shopify/react-effect';
 
 export default function MyComponent() {
@@ -49,7 +49,7 @@ You can call `extract()` on a React tree in order to perform all of the effects 
 
 This function returns a promise that resolves when the tree has been fully processed.
 
-```ts
+```tsx
 import {renderToString} from 'react-dom/server';
 import {extract} from '@shopify/react-effect/server';
 
@@ -62,6 +62,19 @@ async function app(ctx) {
 
 You may optionally pass a second argument to this function: an array of symbols representing the categories to include in your processing of the tree (matching the `kind` prop on `Extract` components).
 
+```tsx
+import {renderToString} from 'react-dom/server';
+import {EFFECT_ID as I18N_EFFECT_ID} from '@shopify/react-i18n';
+import {extract} from '@shopify/react-effect/server';
+
+async function app(ctx) {
+  const app = <App />;
+  // will only perform @shopify/react-i18n extraction
+  await extract(app, [I18N_EFFECT_ID]);
+  ctx.body = renderToString(app);
+}
+```
+
 ### Custom extractable components
 
 Usually, the `Extract` component will do what you need, but you may occasionally need your own component to directly implement the "extractable" part. This can be the case when your component must do something in `extract` that ends up calling `setState`. In these cases, you can use two additional exports from this module, `METHOD_NAME` and the `Extractable` interface, to manually implement a method that will be called during extraction:
@@ -69,9 +82,19 @@ Usually, the `Extract` component will do what you need, but you may occasionally
 ```ts
 import {METHOD_NAME, Extractable} from '@shopify/react-effect';
 
+export const EFFECT_ID = Symbol('MyComponentEffect');
+
 class MyComponent extends React.Component implements Extractable {
-  [METHOD_NAME]() {
-    this.setState({extracting: true});
+  [METHOD_NAME](include: boolean | symbol[]) {
+    // When implementing your own version of this, you should
+    // implement your own check for the effect "kind". The
+    // Effect component does this automatically.
+    if (
+      include === true ||
+      (Array.isArray(include) && include.includes(EFFECT_ID))
+    ) {
+      this.setState({extracting: true});
+    }
   }
 }
 ```
@@ -80,7 +103,7 @@ class MyComponent extends React.Component implements Extractable {
 
 A common mistake is initializing a provider entirely within your application component, and setting some details on this provider during the extraction. There is nothing implicitly wrong with this, but it will usually not have the effect you are after. When you call `renderToString()` to actually generate your HTML, the app will be reinitialized, and all of the work you did in the extraction call will be lost. To avoid this, pass any "stateful" managers/ providers into your application:
 
-```ts
+```tsx
 class StatefulManager {}
 const {Provider, Consumer} = React.createContext();
 
