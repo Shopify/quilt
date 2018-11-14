@@ -191,32 +191,34 @@ export class Builder extends EventEmitter {
       await this.generateDocumentTypes();
     };
 
-    return getGraphQLProjects(this.config).map((projectConfig) => {
-      return watch(
-        projectConfig.includes.map((include) =>
-          projectConfig.resolvePathRelativeToConfig(include),
-        ),
-        {
-          ignored: projectConfig.excludes.map((exclude) =>
-            projectConfig.resolvePathRelativeToConfig(exclude),
+    return getGraphQLProjects(this.config)
+      .filter(({includes}) => includes.length > 0)
+      .map((projectConfig) => {
+        return watch(
+          projectConfig.includes.map((include) =>
+            projectConfig.resolvePathRelativeToConfig(include),
           ),
-          ignoreInitial: true,
-        },
-      )
-        .on('add', (filePath: string) => update(filePath, projectConfig))
-        .on('change', (filePath: string) => update(filePath, projectConfig))
-        .on('unlink', async (filePath: string) => {
-          const documents = this.documentMapByProject.get(
-            projectConfig.projectName,
-          );
+          {
+            ignored: projectConfig.excludes.map((exclude) =>
+              projectConfig.resolvePathRelativeToConfig(exclude),
+            ),
+            ignoreInitial: true,
+          },
+        )
+          .on('add', (filePath: string) => update(filePath, projectConfig))
+          .on('change', (filePath: string) => update(filePath, projectConfig))
+          .on('unlink', async (filePath: string) => {
+            const documents = this.documentMapByProject.get(
+              projectConfig.projectName,
+            );
 
-          if (documents) {
-            documents.delete(filePath);
-          }
+            if (documents) {
+              documents.delete(filePath);
+            }
 
-          await this.generateDocumentTypes();
-        });
-    });
+            await this.generateDocumentTypes();
+          });
+      });
   }
 
   private setupSchemaWatcher() {
