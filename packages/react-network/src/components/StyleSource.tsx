@@ -7,7 +7,5 @@ interface Props {
 }
 
 export default function StyleSource({sources}: Props) {
-  return (
-    <SetCspDirective directive={CspDirective.StyleSrc} value={sources} />
-  );
+  return <SetCspDirective directive={CspDirective.StyleSrc} value={sources} />;
 }

@@ -7,7 +7,5 @@ interface Props {
 }
 
 export default function FrameSource({sources}: Props) {
-  return (
-    <SetCspDirective directive={CspDirective.FrameSrc} value={sources} />
-  );
+  return <SetCspDirective directive={CspDirective.FrameSrc} value={sources} />;
 }

@@ -7,7 +7,5 @@ interface Props {
 }
 
 export default function MediaSource({sources}: Props) {
-  return (
-    <SetCspDirective directive={CspDirective.MediaSrc} value={sources} />
-  );
+  return <SetCspDirective directive={CspDirective.MediaSrc} value={sources} />;
 }
