@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Added
+## [Unreleased]
 
-- `@shopify/useful-types` package
+## [1.0.0]
+
+Initial release
