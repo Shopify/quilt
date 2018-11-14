@@ -2,13 +2,9 @@ import '../test/matchers';
 
 import * as React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
-import {
-  withI18n,
-  WithI18nProps,
-  Provider,
-  Manager,
-  getTranslationsFromTree,
-} from '..';
+import {extract} from '@shopify/react-effect/server';
+
+import {withI18n, WithI18nProps, Provider, Manager} from '..';
 
 const fallbackTranslations = {MyComponent: {hello: 'Hello'}};
 const frTranslations = {MyComponent: {hello: 'Bonjour'}};
@@ -77,10 +73,12 @@ describe('server', () => {
       </Provider>
     );
 
-    const translations = await getTranslationsFromTree(element);
+    await extract(element);
     const markup = renderToStaticMarkup(element);
 
     expect(markup).toBe(`<div>${frCATranslations.MyComponent.hello}</div>`);
+
+    const translations = manager.extract();
 
     // @ts-ignore (Object.values)
     const extractedTranslations = Object.values(translations);
@@ -99,7 +97,7 @@ describe('server', () => {
       </Provider>
     );
 
-    await getTranslationsFromTree(element);
+    await extract(element);
     const markup = renderToStaticMarkup(element);
 
     expect(markup).toBe(

@@ -1,11 +1,17 @@
 const {readdirSync, existsSync} = require('fs');
 const path = require('path');
 
-const moduleNameMapper = getPackageNames().reduce((accumulator, name) => {
-  const scopedName = `@shopify/${name}`;
-  accumulator[scopedName] = `<rootDir>/packages/${name}/src/index.ts`;
-  return accumulator;
-}, {});
+const moduleNameMapper = getPackageNames().reduce(
+  (accumulator, name) => {
+    const scopedName = `@shopify/${name}`;
+    accumulator[scopedName] = `<rootDir>/packages/${name}/src/index.ts`;
+    return accumulator;
+  },
+  {
+    '@shopify/react-effect/server':
+      '<rootDir>/packages/react-effect/src/server.ts',
+  },
+);
 
 module.exports = {
   setupFiles: ['./test/setup.ts'],
