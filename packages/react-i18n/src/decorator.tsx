@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+import {Extractable, METHOD_NAME} from '@shopify/react-effect';
+
 import hoistStatics from 'hoist-non-react-statics';
 
 import I18n from './i18n';
@@ -11,6 +13,8 @@ import {TranslationDictionary, MaybePromise} from './types';
 import {contextTypes} from './Provider';
 
 type ReactComponent<P> = React.ComponentType<P>;
+
+export const EFFECT_ID = Symbol('i18n');
 
 function getDisplayName(Component: ReactComponent<any>) {
   return (
@@ -58,7 +62,8 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
   ): ReactComponent<OwnProps> & C {
     const name = id || getDisplayName(WrappedComponent);
 
-    class WithTranslation extends React.Component<OwnProps, State> {
+    class WithTranslation extends React.Component<OwnProps, State>
+      implements Extractable {
       static displayName = `withI18n(${name})`;
       static WrappedComponent = WrappedComponent;
       static contextTypes = {...contextTypes, ...childContextTypes};
@@ -110,6 +115,16 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
         this.state = {
           i18n: new I18n(connectionState.translations, manager.details),
         };
+      }
+
+      // eslint-disable-next-line consistent-return
+      [METHOD_NAME](include: symbol[] | boolean) {
+        if (
+          include === true ||
+          (Array.isArray(include) && include.includes(EFFECT_ID))
+        ) {
+          return this.managerConnection.resolve();
+        }
       }
 
       getChildContext() {
