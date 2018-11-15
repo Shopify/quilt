@@ -568,16 +568,20 @@ describe('Manager', () => {
       });
 
       const manager = new Manager({...basicDetails, locale: 'en-US'});
+
       manager.connect(
         parent,
         noop,
       );
-      manager.connect(
-        connection,
-        noop,
-      );
 
-      const translationsByID = await manager.extract();
+      await manager
+        .connect(
+          connection,
+          noop,
+        )
+        .resolve();
+
+      const translationsByID = manager.extract();
       expect(Object.keys(translationsByID)).toBeArrayOfUniqueItems();
       // @ts-ignore (Object.values)
       const translations = Object.values(translationsByID);
@@ -587,21 +591,44 @@ describe('Manager', () => {
       expect(translations).toContain(enParent);
     });
 
-    it('can use the extracted translations to make async translation resolution be synchronous', async () => {
+    it('does not provide async translations if they have not been resolved', async () => {
+      const manager = new Manager({...basicDetails, locale: 'en-US'});
       const connection = new Connection({
         id: createID(),
         translations: getTranslationAsync,
       });
-      const manager = new Manager({...basicDetails, locale: 'fr-CA'});
-      manager.connect(
+
+      // Connected, but not resolved
+      const connectionResult = manager.connect(
         connection,
         noop,
       );
 
-      const translations = await manager.extract();
+      const translationsByID = manager.extract();
+      // @ts-ignore (Object.values)
+      expect(Object.values(translationsByID)).toHaveLength(0);
+
+      // Prevents leaving a hanging promise
+      await connectionResult.resolve();
+    });
+
+    it('can use the extracted translations to make async translation resolution be synchronous', async () => {
+      const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+      const connection = new Connection({
+        id: createID(),
+        translations: getTranslationAsync,
+      });
+
+      await manager
+        .connect(
+          connection,
+          noop,
+        )
+        .resolve();
+
       const hydratedManager = new Manager(
         {...basicDetails, locale: 'fr-CA'},
-        translations,
+        manager.extract(),
       );
       hydratedManager.connect(
         connection,

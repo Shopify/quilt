@@ -12,6 +12,7 @@ export interface Subscriber {
 }
 
 export interface ConnectionResult {
+  resolve(): Promise<void>;
   disconnect(): void;
 }
 
@@ -34,24 +35,21 @@ export default class Manager {
     this.translations = new Map(Object.entries(initialTranslations));
   }
 
-  async extract(): Promise<ExtractedTranslations> {
-    const translationPairs = Array.from(this.translations.entries());
+  extract() {
     const extractedTranslations: ExtractedTranslations = {};
 
-    await Promise.all(
-      translationPairs.map(async ([id, translationDictionary]) => {
-        const resolvedTranslationDictionary = isPromise(translationDictionary)
-          ? await translationDictionary
-          : translationDictionary;
-        extractedTranslations[id] = resolvedTranslationDictionary;
-      }),
-    );
+    for (const [id, translationDictionary] of this.translations.entries()) {
+      if (!isPromise(translationDictionary)) {
+        extractedTranslations[id] = translationDictionary;
+      }
+    }
 
     return extractedTranslations;
   }
 
   connect(connection: Connection, subscriber: Subscriber): ConnectionResult {
     const possibleLocales = getPossibleLocales(this.details.locale);
+    const promises: Promise<any>[] = [];
 
     for (const locale of possibleLocales) {
       const id = localeId(connection, locale);
@@ -61,22 +59,22 @@ export default class Manager {
       }
 
       const translations = connection.translationsForLocale(locale);
-
       if (isPromise(translations)) {
-        this.translations.set(
-          id,
-          translations
-            .then(result => {
-              this.translations.set(id, result);
-              this.updateSubscribersForId(id);
-              return result;
-            })
-            .catch(() => {
-              this.translations.set(id, undefined);
-              this.updateSubscribersForId(id);
-              return undefined;
-            }),
-        );
+        const promise = translations
+          .then(result => {
+            this.translations.set(id, result);
+            this.updateSubscribersForId(id);
+            return result;
+          })
+          .catch(() => {
+            this.translations.set(id, undefined);
+            this.updateSubscribersForId(id);
+            return undefined;
+          });
+
+        promises.push(promise);
+
+        this.translations.set(id, promise);
       } else {
         this.translations.set(id, translations);
       }
@@ -85,6 +83,7 @@ export default class Manager {
     this.subscriptions.set(subscriber, connection);
 
     return {
+      resolve: () => Promise.all(promises).then(() => undefined),
       disconnect: () => this.subscriptions.delete(subscriber),
     };
   }
