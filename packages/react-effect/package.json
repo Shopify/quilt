@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-effect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "A component and set of utilities for performing effects within a universal React app",
   "main": "dist/index.js",
@@ -29,7 +29,9 @@
     "typescript": "~3.0.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "server.js",
+    "server.d.ts"
   ],
   "peerDependencies": {
     "react": ">=16.0.0"
