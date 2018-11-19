@@ -96,7 +96,11 @@ describe('Manager', () => {
 
     it('does not request translations when the fallback locale matches the locale', () => {
       const spy = jest.fn();
-      const connection = new Connection({id: createID(), translations: spy});
+      const connection = new Connection({
+        id: createID(),
+        translations: spy,
+        fallback: {},
+      });
       const manager = new Manager({
         ...basicDetails,
         fallbackLocale: 'en',

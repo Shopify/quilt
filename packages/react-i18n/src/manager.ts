@@ -70,11 +70,13 @@ export default class Manager {
         const promise = translations
           .then(result => {
             this.asyncTranslationIds.push(id);
+            this.translationPromises.delete(id);
             this.translations.set(id, result);
             this.updateSubscribersForId(id);
           })
           .catch(() => {
             this.asyncTranslationIds.push(id);
+            this.translationPromises.delete(id);
             this.translations.set(id, undefined);
             this.updateSubscribersForId(id);
           });
@@ -156,7 +158,6 @@ export default class Manager {
           connection.fallbackTranslations
         ) {
           this.translations.set(id, connection.fallbackTranslations);
-
           continue;
         }
 
@@ -168,14 +169,15 @@ export default class Manager {
             translations
               .then(result => {
                 this.asyncTranslationIds.push(id);
+                this.translationPromises.delete(id);
                 this.translations.set(id, result);
                 this.updateSubscribersForId(id);
               })
               .catch(() => {
                 this.asyncTranslationIds.push(id);
+                this.translationPromises.delete(id);
                 this.translations.set(id, undefined);
                 this.updateSubscribersForId(id);
-                return undefined;
               }),
           );
         } else {
