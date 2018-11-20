@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {mount, CommonWrapper} from 'enzyme';
 import {HelmetData} from 'react-helmet';
+import withEnv from '@shopify/with-env';
 
 import {Script, Style} from '../../../components';
 
@@ -37,7 +38,7 @@ describe('<Html />', () => {
   });
 
   it('hides the body contents in development', () => {
-    const html = mount(<Html {...mockProps} />);
+    const html = withEnv('development', () => mount(<Html {...mockProps} />));
     expect(html.find('body').prop('style')).toMatchObject({
       display: 'none',
     });
