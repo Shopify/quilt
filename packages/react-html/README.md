@@ -274,5 +274,5 @@ const data = getSerialized<string>('my-data');
 
 // after
 // has type string | undefined
-const data = getSerialized<string>('my-data);
+const data = getSerialized<string>('my-data');
 ```
