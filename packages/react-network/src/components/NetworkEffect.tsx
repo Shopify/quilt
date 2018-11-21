@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Effect} from '@shopify/react-effect';
 
 import {Consumer} from '../context';
-import {Manager} from '../Manager';
+import {Manager} from '../manager';
 
 interface Props {
   perform(manager: Manager): void;
