@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/{{name}}",
+  "name": "@shopify/react-network",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "{{description}}",
+  "description": "A collection of components that allow you to set common HTTP headers from within your React application.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
@@ -21,10 +21,16 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/{{name}}/README.md",
-  "dependencies": {},
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-network/README.md",
+  "dependencies": {
+    "@shopify/network": "^1.0.0",
+    "@shopify/react-effect": "^1.0.0",
+    "@types/koa": "^2.0.46"
+  },
   "devDependencies": {
     "typescript": "~3.0.1"
   },
-  "files": ["dist/*"]
+  "files": [
+    "dist/*"
+  ]
 }
