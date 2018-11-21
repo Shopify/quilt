@@ -64,6 +64,18 @@ export enum Header {
   XhrReferer = 'X-XHR-Referer',
   ContentSecurityPolicy = 'Content-Security-Policy',
   ContentSecurityPolicyReportOnly = 'Content-Security-Policy-Report-Only',
+  Forwarded = 'Forwarded',
+  ForwardedFor = 'X-Forwarded-For',
+  ForwardedHost = 'X-Forwarded-Host',
+  ForwardedProtocol = 'X-Forwarded-Proto',
+  AccessControlAllowCredentials = 'Access-Control-Allow-Credentials',
+  AccessControlAllowHeaders = 'Access-Control-Allow-Headers',
+  AccessControlAllowMethods = 'Access-Control-Allow-Methods',
+  AccessControlAllowOrigin = 'Access-Control-Allow-Origin',
+  AccessControlExposeHeaders = 'Access-Control-Expose-Headers',
+  AccessControlMaxAge = 'Access-Control-Max-Age',
+  AccessControlRequestHeaders = 'Access-Control-Request-Headers',
+  AccessControlRequestMethod = 'Access-Control-Request-Method',
 }
 
 export enum CspDirective {
