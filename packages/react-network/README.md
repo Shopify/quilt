@@ -15,7 +15,7 @@ $ yarn add @shopify/react-network
 
 This package uses [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/master/packages/react-effect) to allow your application to communicate various HTTP-related details to the Node server doing React rendering. It also provides a utility function for easily applying these details to a Koa context object.
 
-To start, have your app accept a `Manager` object, and pass in a `ServerManager` object in your server render (on the client rehydration, you can safely omit any manager, and the library will simply no-opt all of the components discussed below):
+To start, have your app accept a `Manager` object, and pass in a `ServerManager` object in your server render (on the client rehydration, you can safely omit any manager, and the library will simply no-op all of the components discussed below):
 
 ```tsx
 // in App.tsx
@@ -53,7 +53,7 @@ export default function render(ctx: Context) {
 }
 ```
 
-> Note: You can selectively extract _only_ the translations by using the `EFFECT_ID` exported from `@shopify/react-i18n`, and using this as the second argument to `@shopify/react-effect`’s `extract()` as detailed in its documentation. Most consumers of this package will be fine with just the example above.
+> Note: You can selectively extract _only_ the network details by using the `EFFECT_ID` exported from `@shopify/react-network`, and using this as the second argument to `@shopify/react-effect`’s `extract()` as detailed in its documentation. Most consumers of this package will be fine with just the example above.
 
 ### `<Redirect />`
 
@@ -65,7 +65,7 @@ Specifies a redirect location. `applyToContext` will call `ctx.redirect()` with 
 
 ### `<Status />`
 
-Specifies a status code. `applyToContext` will set `ctx.status` with the passed status code. If multiple status codes are set during the navigation of the tree, the highest one will be used. The example below illustrates how you can use this component to always return a 404 status code for a `NotFound` component:
+Specifies a status code. `applyToContext` will set `ctx.status` with the passed status code. If multiple status codes are set during the navigation of the tree, the most "significant" one will be used — that is, the status code that is the highest numerically. The example below illustrates how you can use this component to always return a 404 status code for a `NotFound` component:
 
 ```tsx
 import {Status, StatusCode} from '@shopify/react-network';

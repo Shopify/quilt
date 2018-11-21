@@ -6,6 +6,6 @@ interface Props {
   sources: string | string[];
 }
 
-export default function WebrtcSource({sources}: Props) {
+export default function WebRtcSource({sources}: Props) {
   return <SetCspDirective directive={CspDirective.WebrtcSrc} value={sources} />;
 }

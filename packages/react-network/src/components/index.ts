@@ -22,5 +22,5 @@ export {default as SetCspDirective} from './SetCspDirective';
 export {default as Status} from './Status';
 export {default as StyleSource} from './StyleSource';
 export {default as UpgradeInsecureRequests} from './UpgradeInsecureRequests';
-export {default as WebrtcSource} from './WebrtcSource';
+export {default as WebRtcSource} from './WebRtcSource';
 export {default as WorkerSource} from './WorkerSource';

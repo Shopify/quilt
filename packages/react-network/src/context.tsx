@@ -1,5 +1,3 @@
-// https://gist.github.com/tyscorp/24516f1fdb8974a637b075cc9167a690
-
 import * as React from 'react';
 import {Manager, NoopManager} from './manager';
 
