@@ -13,9 +13,16 @@ $ yarn add @shopify/react-i18n
 
 ## Usage
 
-### `Provider`
+### `<Provider />` and `Manager`
 
-This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `Provider` component. This component accepts a `manager` prop, which allows you to specify the locale and a few additional details, such as the default currency.
+This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `Provider` component. This component accepts a `manager` prop, which allows you to specify the following global i18n properties:
+
+- `locale`: the current locale of the app. This is the only required option.
+- `fallbackLocale`: the locale that your component’s will use in any of their fallback translations. This is used to avoid unnecessarily serializing fallback translations.
+- `country`: the default country to use for country-aware formatting.
+- `timezone`: the default timezone to use for timezone-aware formatting.
+- `currency`: the default currency to use for currency-aware formatting.
+- `pseudolocalize`: whether to perform [pseudolocalization](https://github.com/Shopify/pseudolocalization) on your translations.
 
 ```ts
 import {

@@ -9,6 +9,7 @@ export interface I18nDetails {
   currency?: string;
   timezone?: string;
   pseudolocalize?: boolean;
+  fallbackLocale?: string;
 }
 
 export interface TranslationDictionary {
