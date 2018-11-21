@@ -94,6 +94,25 @@ describe('Manager', () => {
       expect(spy).toHaveBeenCalledWith('en');
     });
 
+    it('does not request translations when the fallback locale matches the locale', () => {
+      const spy = jest.fn();
+      const connection = new Connection({
+        id: createID(),
+        translations: spy,
+        fallback: {},
+      });
+      const manager = new Manager({
+        ...basicDetails,
+        fallbackLocale: 'en',
+        locale: 'en',
+      });
+      manager.connect(
+        connection,
+        noop,
+      );
+      expect(spy).not.toHaveBeenCalled();
+    });
+
     describe('sync', () => {
       it('uses synchronously-returned translations, starting with the most specific translation', () => {
         const connection = new Connection({
@@ -556,7 +575,7 @@ describe('Manager', () => {
   describe.skip('#update()', () => {});
 
   describe('#extract()', () => {
-    it('provides an object with all async and sync translations keyed to unique IDs', async () => {
+    it('provides an object with all async translations keyed to unique IDs', async () => {
       const parent = new Connection({
         id: createID(),
         translations: getTranslationParent,
@@ -583,12 +602,10 @@ describe('Manager', () => {
 
       const translationsByID = manager.extract();
       expect(Object.keys(translationsByID)).toBeArrayOfUniqueItems();
-      // @ts-ignore (Object.values)
+
       const translations = Object.values(translationsByID);
       expect(translations).toContain(enUS);
       expect(translations).toContain(en);
-      expect(translations).toContain(enUSParent);
-      expect(translations).toContain(enParent);
     });
 
     it('does not provide async translations if they have not been resolved', async () => {
@@ -610,6 +627,26 @@ describe('Manager', () => {
 
       // Prevents leaving a hanging promise
       await connectionResult.resolve();
+    });
+
+    it('does not provide synchronous translations', async () => {
+      const manager = new Manager({...basicDetails, locale: 'en-US'});
+      const connection = new Connection({
+        id: createID(),
+        translations: getTranslation,
+      });
+
+      // Connected, but not resolved
+      await manager
+        .connect(
+          connection,
+          noop,
+        )
+        .resolve();
+
+      const translationsByID = manager.extract();
+      // @ts-ignore (Object.values)
+      expect(Object.values(translationsByID)).toHaveLength(0);
     });
 
     it('can use the extracted translations to make async translation resolution be synchronous', async () => {
