@@ -602,7 +602,7 @@ describe('Manager', () => {
 
       const translationsByID = manager.extract();
       expect(Object.keys(translationsByID)).toBeArrayOfUniqueItems();
-      // @ts-ignore (Object.values)
+
       const translations = Object.values(translationsByID);
       expect(translations).toContain(enUS);
       expect(translations).toContain(en);
