@@ -41,6 +41,7 @@ export default function createEnableCookies(
 
   <script>
     window.apiKey = "${apiKey}";
+    window.shop = "${shop}";
     window.shopOrigin = "https://${shop}";
     window.redirectUrl = "${ctx.state.authRoute}?shop=${shop}";
   </script>

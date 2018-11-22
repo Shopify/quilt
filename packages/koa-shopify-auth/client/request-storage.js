@@ -42,7 +42,7 @@
       this.setupRequestStorageAccess();
     } else {
       // If merchant has not been redirected to interact with TLD (requirement for prompting request to gain storage access)
-      this.redirectToAppTLD('/shopify/auth/top_level_interaction?shop=tb-test.myshopify.com');
+      this.redirectToAppTLD('/shopify/auth/top_level_interaction?shop=' + window.shop);
     }
   }
 
@@ -63,7 +63,7 @@
   StorageAccessHelper.prototype.redirectToAppHome = function() {
     sessionStorage.setItem('shopify.granted_storage_access', true);
     document.cookie = 'shopify.granted_storage_access=1';
-    window.location.href = '/?shop=tb-test.myshopify.com';
+    window.location.href = '/?shop=' + window.shop;
   }
 
   StorageAccessHelper.prototype.redirectToAppTLD = function(url) {
