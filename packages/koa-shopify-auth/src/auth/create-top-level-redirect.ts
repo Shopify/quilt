@@ -2,7 +2,7 @@ import querystring from 'querystring';
 
 import {Context} from 'koa';
 
-import redirectionPage from './redirection-page';
+import redirectionPage from './redirection-template';
 
 export default function createTopLevelRedirect(apiKey: string, path: string) {
   return function topLevelRedirect(ctx: Context) {

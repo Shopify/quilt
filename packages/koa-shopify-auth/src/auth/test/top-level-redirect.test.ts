@@ -3,7 +3,7 @@ import querystring from 'querystring';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createTopLevelRedirect from '../create-top-level-redirect';
-import redirectionPage from '../redirection-page';
+import redirectionPage from '../redirection-template';
 
 const query = querystring.stringify.bind(querystring);
 const baseUrl = 'myapp.com/auth';
