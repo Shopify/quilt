@@ -31,6 +31,8 @@
     "typescript": "~3.0.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "server.js",
+    "server.d.ts"
   ]
 }
