@@ -47,7 +47,9 @@ import {Manager, Provider} from '@shopify/react-html';
 function App({htmlManager}: {htmlManager: Manager}) {
   return <Provider manager={htmlManager}>Hello world!</Provider>;
 }
+```
 
+```tsx
 // Somewhere in your server
 import {extract} from '@shopify/react-effect/server';
 import {render, Html, Manager} from '@shopify/react-html/server';
