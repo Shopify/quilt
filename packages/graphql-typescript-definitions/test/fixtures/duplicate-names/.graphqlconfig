@@ -1,7 +1,4 @@
 {
   "schemaPath": "schema.json",
-  "includes": ["documents/**/*.graphql"],
-  "extensions": {
-    "schemaTypesPath": "schema.ts"
-  }
+  "includes": ["documents/**/*.graphql"]
 }

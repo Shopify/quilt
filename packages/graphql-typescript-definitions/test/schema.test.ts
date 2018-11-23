@@ -1,7 +1,7 @@
 import {buildSchema} from 'graphql';
 import {stripIndent} from 'common-tags';
 
-import {printSchema} from '../src/print/schema';
+import {generateSchemaTypes} from '../src/print/schema';
 import {EnumFormat} from '../src/types';
 
 describe('printSchema()', () => {
@@ -16,20 +16,8 @@ describe('printSchema()', () => {
       }
     `);
 
-    it('prints an enum with cases matching value names', () => {
-      expect(printSchema(schema)).toContain(stripIndent`
-        export enum Episode {
-          NEW_HOPE = "NEW_HOPE",
-          EMPIRE = "EMPIRE",
-          JEDI = "JEDI",
-          FORCE_AWAKENS = "FORCE_AWAKENS",
-          LAST_JEDI = "LAST_JEDI",
-        }
-      `);
-    });
-
-    it('prints an enum with screaming snake case names', () => {
-      expect(printSchema(schema, {enumFormat: EnumFormat.ScreamingSnakeCase}))
+    it('prints an enum file with cases matching value names', () => {
+      expect(generateSchemaTypes(schema).get('Episode.ts'))
         .toContain(stripIndent`
         export enum Episode {
           NEW_HOPE = "NEW_HOPE",
@@ -41,9 +29,28 @@ describe('printSchema()', () => {
       `);
     });
 
-    it('prints an enum with snake case names', () => {
-      expect(printSchema(schema, {enumFormat: EnumFormat.SnakeCase}))
-        .toContain(stripIndent`
+    it('prints an enum file with screaming snake case names', () => {
+      expect(
+        generateSchemaTypes(schema, {
+          enumFormat: EnumFormat.ScreamingSnakeCase,
+        }).get('Episode.ts'),
+      ).toContain(stripIndent`
+        export enum Episode {
+          NEW_HOPE = "NEW_HOPE",
+          EMPIRE = "EMPIRE",
+          JEDI = "JEDI",
+          FORCE_AWAKENS = "FORCE_AWAKENS",
+          LAST_JEDI = "LAST_JEDI",
+        }
+      `);
+    });
+
+    it('prints an enum file with snake case names', () => {
+      expect(
+        generateSchemaTypes(schema, {enumFormat: EnumFormat.SnakeCase}).get(
+          'Episode.ts',
+        ),
+      ).toContain(stripIndent`
         export enum Episode {
           new_hope = "NEW_HOPE",
           empire = "EMPIRE",
@@ -54,9 +61,12 @@ describe('printSchema()', () => {
       `);
     });
 
-    it('prints an enum with camelcase names', () => {
-      expect(printSchema(schema, {enumFormat: EnumFormat.CamelCase}))
-        .toContain(stripIndent`
+    it('prints an enum file with camelcase names', () => {
+      expect(
+        generateSchemaTypes(schema, {enumFormat: EnumFormat.CamelCase}).get(
+          'Episode.ts',
+        ),
+      ).toContain(stripIndent`
         export enum Episode {
           newHope = "NEW_HOPE",
           empire = "EMPIRE",
@@ -67,9 +77,12 @@ describe('printSchema()', () => {
       `);
     });
 
-    it('prints an enum with pascal case names', () => {
-      expect(printSchema(schema, {enumFormat: EnumFormat.PascalCase}))
-        .toContain(stripIndent`
+    it('prints an enum file with pascal case names', () => {
+      expect(
+        generateSchemaTypes(schema, {enumFormat: EnumFormat.PascalCase}).get(
+          'Episode.ts',
+        ),
+      ).toContain(stripIndent`
         export enum Episode {
           NewHope = "NEW_HOPE",
           Empire = "EMPIRE",
@@ -81,28 +94,48 @@ describe('printSchema()', () => {
     });
   });
 
-  it('prints a custom scalar', () => {
+  it('prints a custom scalar in the index file', () => {
     const schema = buildSchema('scalar Date');
-    expect(printSchema(schema)).toContain('export type Date = string;');
+    expect(generateSchemaTypes(schema).get('index.ts')).toContain(
+      'export type Date = string;',
+    );
   });
 
-  it('does not print a built-in scalar', () => {
+  it('does not print a built-in scalar in the index file', () => {
     const schema = buildSchema('scalar Date');
-    expect(printSchema(schema)).not.toContain('export type String');
+    expect(generateSchemaTypes(schema).get('index.ts')).not.toContain(
+      'export type String',
+    );
   });
 
-  it('prints an input object', () => {
+  it('prints an input object in the index file', () => {
     const schema = buildSchema(`
       input Input {
         name: String!
       }
     `);
 
-    expect(printSchema(schema)).toContain(stripIndent`
+    expect(generateSchemaTypes(schema).get('index.ts')).toContain(stripIndent`
       export interface Input {
         name: string;
       }
     `);
+  });
+
+  it('Generates files per enum', () => {
+    const schema = buildSchema(`
+      enum Gandalf {
+        WHITE
+        GREY
+      }
+
+      enum Permissions {
+        SHALL_PASS
+        SHALL_NOT_PASS
+      }
+    `);
+    expect(generateSchemaTypes(schema).has('Gandalf.ts')).toBe(true);
+    expect(generateSchemaTypes(schema).has('Permissions.ts')).toBe(true);
   });
 
   it('prints a complex schema', () => {
@@ -128,12 +161,9 @@ describe('printSchema()', () => {
       }
     `);
 
-    expect(printSchema(schema)).toContain(stripIndent`
-      export enum Episode {
-        FOUR = "FOUR",
-        FIVE = "FIVE",
-        SIX = "SIX",
-      }
+    expect(generateSchemaTypes(schema).get('index.ts')).toContain(stripIndent`
+      import { Episode } from "./Episode";
+      export { Episode };
       export type Date = string;
       export interface InputOne {
         dates: (Date | null)[];

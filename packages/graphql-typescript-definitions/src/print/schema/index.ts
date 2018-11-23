@@ -23,8 +23,12 @@ export interface Options {
   enumFormat?: EnumFormat;
 }
 
-export function printSchema(schema: GraphQLSchema, options: Options = {}) {
+export function generateSchemaTypes(
+  schema: GraphQLSchema,
+  options: Options = {},
+) {
   const fileBody: t.Statement[] = [];
+  const definitions = new Map<string, string>();
 
   for (const type of Object.values(schema.getTypeMap())) {
     if (!isInputType(type) || type.name.startsWith('__')) {
@@ -35,13 +39,34 @@ export function printSchema(schema: GraphQLSchema, options: Options = {}) {
       continue;
     }
 
-    fileBody.push(
-      t.exportNamedDeclaration(tsTypeForRootInputType(type, options), []),
-    );
+    if (isEnumType(type)) {
+      const enumType = tsEnumForType(type, options);
+      definitions.set(
+        `${enumType.id.name}.ts`,
+        generate(
+          t.file(t.program([t.exportNamedDeclaration(enumType, [])]), [], []),
+        ).code,
+      );
+      fileBody.unshift(
+        t.importDeclaration(
+          [t.importSpecifier(enumType.id, enumType.id)],
+          t.stringLiteral(`./${enumType.id.name}`),
+        ),
+        t.exportNamedDeclaration(null, [
+          t.exportSpecifier(enumType.id, enumType.id),
+        ]),
+      );
+    } else {
+      fileBody.push(
+        t.exportNamedDeclaration(tsTypeForRootInputType(type, options), []),
+      );
+    }
   }
 
-  const file = t.file(t.program(fileBody), [], []);
-  return generate(file).code;
+  return definitions.set(
+    'index.ts',
+    generate(t.file(t.program(fileBody), [], [])).code,
+  );
 }
 
 function tsTypeForRootInputType(type: InputType, options: Options) {

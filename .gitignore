@@ -6,7 +6,7 @@ packages/graphql-typed/*.js
 packages/graphql-tool-utilities/*.js
 packages/graphql-validate-fixtures/test/fixtures/**/schema.json
 packages/graphql-typescript-definitions/test/fixtures/**/schema.json
-packages/graphql-typescript-definitions/test/fixtures/**/schema.ts
+packages/graphql-typescript-definitions/test/fixtures/**/types/*.ts
 packages/graphql-typescript-definitions/test/fixtures/**/*.d.ts
 /lerna-debug.log
 yarn-error.log

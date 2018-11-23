@@ -99,7 +99,7 @@ A project configuration with a `schemaTypesPath` override
   "schemaPath": "build/schema.json",
   "includes": "app/**/*.graphql",
   "extensions": {
-    "schemaTypesPath": "app/bar/types/graphql.ts"
+    "schemaTypesPath": "app/bar/types/graphql"
   }
 }
 ```
@@ -192,12 +192,12 @@ Note that the above example assumes that you specify the `--add-typename` argume
 
 #### Schema Types
 
-Input types (enums, input objects, and custom scalars) are generated once, in a central location, and imported within each typing file. You can use this file to reference these types in other application code as well; in particular, GraphQL enums are turned into corresponding TypeScript `enum`s. This file is specified using the `--schema-types-path` argument (detailed below), and the format for the generated enums can be specified using the `--enum-format` option.
+Input types (enums, input objects, and custom scalars) are generated once, in a central location, and imported within each typing file. You can use these definitions to reference the schema types in other application code as well; in particular, GraphQL enums are turned into corresponding TypeScript `enum`s. The schema types directory is specified using the `--schema-types-path` argument (detailed below), and the format for the generated enums can be specified using the `--enum-format` option.
 
 ### CLI
 
 ```sh
-yarn run graphql-typescript-definitions --schema-path 'build/schema.json' --schema-types-path 'src/schema.ts'
+yarn run graphql-typescript-definitions --schema-path 'build/schema.json' --schema-types-path 'src/schema'
 ```
 
 Optionally, you can pass the `--watch` flag in order to regenerate the TypeScript definition files on changes to the GraphQL files. You can also pass the `--add-typename` flag in order to always generate a `__typename` field for object types, and an `--enum-format` type which specifies the casing to use for enum types generated from the schema.
@@ -210,7 +210,7 @@ graphql-typescript-definitions --schema-types-path app/types
 
 As noted above, the configuration of your schema and GraphQL documents is done via a `.graphqlconfig` file, as this allows configuration to shared between tools. The CLI does support a few additional options, though:
 
-* `--schema-types-path`: specifies where to write schema types (**REQUIRED**)
+* `--schema-types-path`: specifies a directory to write schema types (**REQUIRED**)
 * `--watch`: watches the include globbing patterns for changes and re-processes files (default = `false`)
 * `--cwd`: run tool for `.graphqlconfig` located in this directory (default = `process.cwd()`)
 * `--add-typename`: adds a `__typename` field to every object type (default = `true`)
@@ -221,14 +221,14 @@ As noted above, the configuration of your schema and GraphQL documents is done v
 #### Examples
 
 ```sh
-# run tool for .graphqlconfig in current directory, produces ./app/graphql/types.ts
-graphql-typescript-definitions --schema-types-path app/graphql
+# run tool for .graphqlconfig in current directory, produces ./app/graphql/types
+graphql-typescript-definitions --schema-types-path app/graphql/types
 
-# run watcher for .graphqlconfig in current directory, produces ./app/graphql/types.ts
-graphql-typescript-definitions --schema-types-path app/graphql --watch
+# run watcher for .graphqlconfig in current directory, produces ./app/graphql/types
+graphql-typescript-definitions --schema-types-path app/graphql/types --watch
 
-# run tool for .graphqlconfig in a child directory, produces ./src/app/graphql/types.ts
-graphql-typescript-definitions --cwd src --schema-types-path app/graphql
+# run tool for .graphqlconfig in a child directory, produces ./src/app/graphql/types
+graphql-typescript-definitions --cwd src --schema-types-path app/graphql/types
 ```
 
 ### Node
@@ -237,7 +237,7 @@ graphql-typescript-definitions --cwd src --schema-types-path app/graphql
 const {Builder} = require('graphql-typescript-definitions');
 
 const builder = new Builder({
-  schemaTypesPath: 'app/graphql',
+  schemaTypesPath: 'app/graphql/types',
 });
 
 builder.on('build', (build) => {
