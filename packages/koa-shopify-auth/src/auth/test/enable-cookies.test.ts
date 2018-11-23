@@ -16,7 +16,7 @@ const baseConfig = {
 
 describe('CreateEnableCookies', () => {
   it('sets body to the enable cookies HTML page', () => {
-    const enableCookies = createEnableCookies(baseConfig);
+    const enableCookies = createEnableCookies('CookiePartitionPrompt myapikey shop1.myshopify.io');
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });

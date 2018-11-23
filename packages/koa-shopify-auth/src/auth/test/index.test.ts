@@ -3,6 +3,7 @@ import {createMockContext} from '@shopify/jest-koa-mocks';
 import createShopifyAuth from '../index';
 import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
 import createEnableCookiesRedirect from '../create-enable-cookies-redirect';
+import createRequestStorage from '../create-request-storage';
 import {OAuthStartOptions} from '../../types';
 
 const mockTopLevelOAuthRedirect = jest.fn();
@@ -14,6 +15,9 @@ const mockEnableCookiesRedirect = jest.fn();
 jest.mock('../create-enable-cookies-redirect', () =>
   jest.fn(() => mockEnableCookiesRedirect),
 );
+
+const mockRequestStorage = jest.fn();
+jest.mock('../create-request-storage', () => jest.fn(() => mockRequestStorage));
 
 const mockOAuthStart = jest.fn();
 jest.mock('../create-oauth-start', () => () => mockOAuthStart);
@@ -35,14 +39,48 @@ const baseConfig: OAuthStartOptions = {
 
 function nextFunction() {}
 
+function createPartitionedContext(path = '', cookies = {}) {
+  return createMockContext({
+    url: `https://${baseUrl}${path}`,
+    headers: {'user-agent': 'Version/12.0.1 Safari'},
+    cookies,
+  });
+}
+
+function createNonPartitionedContext(path = '', cookies = {}) {
+  return createMockContext({
+    url: `https://${baseUrl}${path}`,
+    headers: {'user-agent': 'Version/12.1.0 Safari'},
+    cookies,
+  });
+}
+
+function createNonITPContext(path = '', cookies = {}) {
+  return createMockContext({
+    url: `https://${baseUrl}${path}`,
+    headers: {'user-agent': 'OtherBrowser'},
+    cookies,
+  });
+}
+
 describe('Index', () => {
   describe('with the /auth path', () => {
-    describe('with no test cookie', () => {
+    describe('non-itp agent with no test cookie', () => {
       it('redirects to enable cookies', async () => {
         const shopifyAuth = createShopifyAuth(baseConfig);
-        const ctx = createMockContext({
-          url: `https://${baseUrl}`,
-        });
+        const ctx = createNonITPContext();
+
+        await shopifyAuth(ctx, nextFunction);
+
+        expect(createTopLevelOAuthRedirect).toBeCalledWith('/auth/inline');
+        expect(mockTopLevelOAuthRedirect).toBeCalledWith(ctx);
+      });
+    });
+
+    describe('partitioned ITP agent with no test cookie', () => {
+      it('redirects to enable cookies', async () => {
+        const shopifyAuth = createShopifyAuth(baseConfig);
+        const ctx = createPartitionedContext();
 
         await shopifyAuth(ctx, nextFunction);
 
@@ -54,12 +92,23 @@ describe('Index', () => {
       });
     });
 
+    describe('non-partitioned ITP agent with no test cookie', () => {
+      it('redirects to enable cookies', async () => {
+        const shopifyAuth = createShopifyAuth(baseConfig);
+        const ctx = createNonPartitionedContext();
+
+        await shopifyAuth(ctx, nextFunction);
+
+        expect(createRequestStorage).toBeCalled();
+        expect(mockRequestStorage).toBeCalledWith(ctx);
+      });
+    });
+
     describe('with a test cookie but not top-level cookie', () => {
       it('redirects to /auth/inline at the top-level', async () => {
         const shopifyAuth = createShopifyAuth(baseConfig);
-        const ctx = createMockContext({
-          url: `https://${baseUrl}`,
-          cookies: {shopifyTestCookie: '1'},
+        const ctx = createPartitionedContext('', {
+          'shopify.granted_storage_access': '1',
         });
 
         await shopifyAuth(ctx, nextFunction);
@@ -75,9 +124,9 @@ describe('Index', () => {
     describe('with a test cookie and a top-level cookie', () => {
       it('performs inline oauth', async () => {
         const shopifyAuth = createShopifyAuth(baseConfig);
-        const ctx = createMockContext({
-          url: `https://${baseUrl}`,
-          cookies: {shopifyTestCookie: '1', shopifyTopLevelOAuth: '1'},
+        const ctx = createPartitionedContext('', {
+          'shopify.granted_storage_access': '1',
+          'shopify.top_level_oauth': '1',
         });
 
         await shopifyAuth(ctx, nextFunction);
@@ -87,42 +136,47 @@ describe('Index', () => {
     });
   });
 
-  describe('with the /auth/inline path', () => {
-    it('performs inline oauth', async () => {
-      const shopifyAuth = createShopifyAuth(baseConfig);
-      const ctx = createMockContext({
-        url: `https://${baseUrl}/inline`,
+  describe('OAuth routes', () => {
+    const contexts = {
+      'Non ITP': createNonITPContext,
+      'Non-Partitioned': createNonPartitionedContext,
+      'Partitioned': createPartitionedContext,
+    };
+    for (let [description, createContext] of Object.entries(contexts)) {
+      describe(`with ${description} agent`, () => {
+        describe('with the /auth/inline path', () => {
+          it('performs inline oauth', async () => {
+            const shopifyAuth = createShopifyAuth(baseConfig);
+            const ctx = createContext('/inline');
+
+            await shopifyAuth(ctx, nextFunction);
+
+            expect(mockOAuthStart).toBeCalledWith(ctx);
+          });
+        });
+
+        describe('with the /auth/callback path', () => {
+          it('performs oauth callback', async () => {
+            const shopifyAuth = createShopifyAuth(baseConfig);
+            const ctx = createContext('/callback');
+
+            await shopifyAuth(ctx, nextFunction);
+
+            expect(mockOAuthCallback).toBeCalledWith(ctx);
+          });
+        });
+
+        describe('with the /auth/enable_cookies path', () => {
+          it('renders the enable_cookies page', async () => {
+            const shopifyAuth = createShopifyAuth(baseConfig);
+            const ctx = createContext('/enable_cookies');
+
+            await shopifyAuth(ctx, nextFunction);
+
+            expect(mockEnableCookies).toBeCalledWith(ctx);
+          });
+        });
       });
-
-      await shopifyAuth(ctx, nextFunction);
-
-      expect(mockOAuthStart).toHaveBeenCalledWith(ctx);
-    });
-  });
-
-  describe('with the /auth/callback path', () => {
-    it('performs oauth callback', async () => {
-      const shopifyAuth = createShopifyAuth(baseConfig);
-      const ctx = createMockContext({
-        url: `https://${baseUrl}/callback`,
-      });
-
-      await shopifyAuth(ctx, nextFunction);
-
-      expect(mockOAuthCallback).toHaveBeenCalledWith(ctx);
-    });
-  });
-
-  describe('with the /auth/enable_cookies path', () => {
-    it('renders the enable_cookies page', async () => {
-      const shopifyAuth = createShopifyAuth(baseConfig);
-      const ctx = createMockContext({
-        url: `https://${baseUrl}/enable_cookies`,
-      });
-
-      await shopifyAuth(ctx, nextFunction);
-
-      expect(mockEnableCookies).toHaveBeenCalledWith(ctx);
-    });
+    }
   });
 });

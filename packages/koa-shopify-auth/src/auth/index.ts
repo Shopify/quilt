@@ -9,6 +9,8 @@ import createOAuthCallback from './create-oauth-callback';
 import createEnableCookies from './create-enable-cookies';
 import createEnableCookiesRedirect from './create-enable-cookies-redirect';
 import createTopLevelOAuthRedirect from './create-top-level-oauth-redirect';
+import createTopLevelCookie from './create-top-level-cookie';
+import createRequestStorage from './create-request-storage';
 
 const DEFAULT_MYSHOPIFY_DOMAIN = 'myshopify.com';
 const DEFAULT_ACCESS_MODE: AccessMode = 'online';
@@ -17,7 +19,9 @@ export const TOP_LEVEL_OAUTH_COOKIE_NAME = 'shopify.top_level_oauth';
 export const TEST_COOKIE_NAME = 'shopify.granted_storage_access';
 
 export function readTemplate(fname: string) {
-  return readFileSync(join(__dirname, '../../client', `${fname}.js`)).toString();
+  return readFileSync(
+    join(__dirname, '../../client', `${fname}.js`),
+  ).toString();
 }
 
 function hasCookieAccess({cookies}: Context) {
@@ -28,14 +32,16 @@ function shouldPerformInlineOAuth({cookies}: Context) {
   return Boolean(cookies.get(TOP_LEVEL_OAUTH_COOKIE_NAME));
 }
 
-function userAgentCanPartitionCookies(context: Context) {
-  return context.request.header['user-agent'].match(
-    /Version\/12\.0\.?\d? Safari/,
-  );
+function userAgentCanPartitionCookies({request}: Context) {
+  return request.header['user-agent'].match(/Version\/12\.0\.?\d? Safari/);
 }
 
 function shouldRequestStorage(ctx: Context) {
   if (ctx.query.top_level) {
+    return false;
+  }
+
+  if (userAgentCanPartitionCookies(ctx)) {
     return false;
   }
 
@@ -80,16 +86,10 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   );
 
   const topLevelInteractionPath = `${prefix}/auth/top_level_interaction`;
-  const topLevelInteraction = createEnableCookies(
-    config,
-    readTemplate('top-level'),
-  );
+  const topLevelInteraction = createTopLevelCookie(readTemplate('top-level'));
 
   const requestStorageAccessPath = `${prefix}/auth/request_storage`;
-  const requestStorage = createEnableCookies(
-    config,
-    readTemplate('request-storage'),
-  );
+  const requestStorage = createRequestStorage(readTemplate('request-storage'));
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
     ctx.cookies.secure = true;

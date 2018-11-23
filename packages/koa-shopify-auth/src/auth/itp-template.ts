@@ -7,13 +7,20 @@ const CSS = readFileSync(join(__dirname, '../../client/auth.css')).toString();
 export interface TemplateData {
   heading: string;
   body: string;
-  footer: string;
+  footer?: string;
   action: string;
   script: string;
   shop: string;
 }
 
 export default function itpTemplate(ctx: Context, data: TemplateData) {
+  const footerMarkup = data.footer
+    ? `
+<div class="Polaris-Card__Section Polaris-Card__Section--subdued">
+  <p>${data.footer}</p>
+</div>`
+    : '';
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +52,7 @@ export default function itpTemplate(ctx: Context, data: TemplateData) {
                   <div class="Polaris-Card__Section">
                     <p>${data.body}</p>
                   </div>
-                  <div class="Polaris-Card__Section Polaris-Card__Section--subdued">
-                    <p>${data.footer}</p>
-                  </div>
+                  ${footerMarkup}
                 </div>
               </div>
               <div class="Polaris-Stack__Item">
