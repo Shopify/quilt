@@ -1,0 +1,10 @@
+name: graphql-tools-web
+type: node
+up:
+  - node:
+      version: v8.9.4
+      yarn: true
+
+commands:
+  test: yarnpkg test
+  build: yarnpkg build
