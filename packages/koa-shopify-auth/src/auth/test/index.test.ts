@@ -63,6 +63,22 @@ function createNonITPContext(path = '', cookies = {}) {
   });
 }
 
+function createShopifyMobileContext(path = '', cookies = {}) {
+  return createMockContext({
+    url: `https://${baseUrl}${path}`,
+    headers: {'user-agent': 'Shopify Mobile/iOS'},
+    cookies,
+  });
+}
+
+function createShopifyPOSContext(path = '', cookies = {}) {
+  return createMockContext({
+    url: `https://${baseUrl}${path}`,
+    headers: {'user-agent': 'com.jadedpixel.pos'},
+    cookies,
+  });
+}
+
 describe('Index', () => {
   describe('with the /auth path', () => {
     describe('non-itp agent with no test cookie', () => {
@@ -140,9 +156,11 @@ describe('Index', () => {
     const contexts = {
       'Non ITP': createNonITPContext,
       'Non-Partitioned': createNonPartitionedContext,
-      'Partitioned': createPartitionedContext,
+      Partitioned: createPartitionedContext,
+      'Shopify Mobile': createShopifyMobileContext,
+      'Shopify POS': createShopifyPOSContext,
     };
-    for (let [description, createContext] of Object.entries(contexts)) {
+    for (const [description, createContext] of Object.entries(contexts)) {
       describe(`with ${description} agent`, () => {
         describe('with the /auth/inline path', () => {
           it('performs inline oauth', async () => {

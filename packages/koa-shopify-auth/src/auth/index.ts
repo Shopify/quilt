@@ -32,11 +32,21 @@ function shouldPerformInlineOAuth({cookies}: Context) {
   return Boolean(cookies.get(TOP_LEVEL_OAUTH_COOKIE_NAME));
 }
 
-function userAgentCanPartitionCookies({request}: Context) {
-  return request.header['user-agent'].match(/Version\/12\.0\.?\d? Safari/);
+function userAgentCanPartitionCookies(context: Context) {
+  if (isShopifyiOS(context)) {
+    return false;
+  }
+
+  return context.request.header['user-agent'].match(
+    /Version\/12\.0\.?\d? Safari/,
+  );
 }
 
 function shouldRequestStorage(ctx: Context) {
+  if (isShopifyiOS(ctx)) {
+    return false;
+  }
+
   if (ctx.query.top_level) {
     return false;
   }
@@ -146,14 +156,18 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
     await next();
   };
 }
-    // if (navigator.userAgent.indexOf('com.jadedpixel.pos') !== -1) {
-    //   return false;
-    // }
 
-    // if (navigator.userAgent.indexOf('Shopify Mobile/iOS') !== -1) {
-    //   return false;
-    // }
+function isShopifyiOS({request}: Context) {
+  if (request.header['user-agent'].match(/com.jadedpixel.pos/)) {
+    return true;
+  }
 
+  if (request.header['user-agent'].match(/Shopify Mobile\/iOS/)) {
+    return true;
+  }
+
+  return false;
+}
 
 export {default as Error} from './errors';
 export {default as validateHMAC} from './validate-hmac';
