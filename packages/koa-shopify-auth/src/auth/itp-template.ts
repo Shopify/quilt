@@ -1,0 +1,75 @@
+import {readFileSync} from 'fs';
+import {join} from 'path';
+import {Context} from 'koa';
+
+const CSS = readFileSync(join(__dirname, '../../client/auth.css')).toString();
+
+export interface TemplateData {
+  heading: string;
+  body: string;
+  footer: string;
+  action: string;
+  script: string;
+  shop: string;
+}
+
+export default function itpTemplate(ctx: Context, data: TemplateData) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <style>
+    ${CSS}
+  </style>
+  <base target="_top">
+  <title>Redirecting…</title>
+
+  <script>
+    window.apiKey = "${ctx.state.apiKey}";
+    window.shopOrigin = "https://${data.shop}";
+    window.redirectUrl = "${ctx.state.authRoute}?shop=${data.shop}";
+  </script>
+</head>
+<body>
+  <main id="CookiePartitionPrompt" class="hide">
+    <div class="Polaris-Page">
+      <div class="Polaris-Page__Content">
+        <div class="Polaris-Layout">
+          <div class="Polaris-Layout__Section">
+            <div class="Polaris-Stack Polaris-Stack--vertical">
+              <div class="Polaris-Stack__Item">
+                <div class="Polaris-Card">
+                  <div class="Polaris-Card__Header">
+                    <h1 class="Polaris-Heading">${data.heading}</h1>
+                  </div>
+                  <div class="Polaris-Card__Section">
+                    <p>${data.body}</p>
+                  </div>
+                  <div class="Polaris-Card__Section Polaris-Card__Section--subdued">
+                    <p>${data.footer}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="Polaris-Stack__Item">
+                <div class="Polaris-Stack Polaris-Stack--distributionTrailing">
+                  <div class="Polaris-Stack__Item">
+                    <button type="button" class="Polaris-Button Polaris-Button--primary" id="AcceptCookies">
+                      <span class="Polaris-Button__Content"><span>${
+                        data.action
+                      }</span></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+  ${data.script}
+  </script>
+</body>
+</html>`;
+}
