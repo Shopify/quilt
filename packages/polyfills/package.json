@@ -1,0 +1,39 @@
+{
+  "name": "@shopify/polyfills",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Blessed polyfills for web platform features.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/polyfills/README.md",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "browser-unhandled-rejection": "^1.0.2",
+    "intl-pluralrules": "^0.2.1",
+    "isomorphic-fetch": "^2.2.1",
+    "url-search-params-polyfill": "^5.0.0",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "~3.0.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
