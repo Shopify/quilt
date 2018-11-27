@@ -1,17 +1,18 @@
 {
   "name": "@shopify/polyfills",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.8",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "index.js",
+  "types": "index.d.ts",
+  "sideEffects": true,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
   "repository": {
@@ -25,15 +26,14 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "browser-unhandled-rejection": "^1.0.2",
+    "caniuse-api": "^3.0.0",
     "intl-pluralrules": "^0.2.1",
     "isomorphic-fetch": "^2.2.1",
     "url-search-params-polyfill": "^5.0.0",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "@types/caniuse-api": "^3.0.0",
     "typescript": "~3.0.1"
-  },
-  "files": [
-    "dist/*"
-  ]
+  }
 }
