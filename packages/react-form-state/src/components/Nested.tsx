@@ -16,13 +16,21 @@ export default class Nested<Fields> extends React.Component<
 > {
   shouldComponentUpdate(nextProps) {
     const {
-      field: {value: nextValue, error: nextError},
+      field: {
+        value: nextValue,
+        error: nextError,
+        initialValue: nextInitialValue,
+      },
     } = nextProps;
     const {
-      field: {value, error},
+      field: {value, error, initialValue},
     } = this.props;
 
-    return nextValue !== value || nextError !== error;
+    return (
+      nextValue !== value ||
+      nextError !== error ||
+      nextInitialValue !== initialValue
+    );
   }
 
   render() {
