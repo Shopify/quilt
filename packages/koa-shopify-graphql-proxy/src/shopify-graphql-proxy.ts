@@ -21,13 +21,13 @@ export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
       ? proxyOptions.password
       : session.accessToken;
 
-    if (accessToken == null || shop == null) {
-      ctx.throw(403, 'Unauthorized');
+    if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
+      await next();
       return;
     }
 
-    if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
-      await next();
+    if (accessToken == null || shop == null) {
+      ctx.throw(403, 'Unauthorized');
       return;
     }
 
