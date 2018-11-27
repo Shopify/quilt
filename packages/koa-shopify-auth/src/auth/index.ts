@@ -1,5 +1,3 @@
-import {readFileSync} from 'fs';
-import {join} from 'path';
 import {Context} from 'koa';
 
 import {OAuthStartOptions, AccessMode, NextFunction} from '../types';
@@ -17,12 +15,6 @@ const DEFAULT_ACCESS_MODE: AccessMode = 'online';
 
 export const TOP_LEVEL_OAUTH_COOKIE_NAME = 'shopify.top_level_oauth';
 export const TEST_COOKIE_NAME = 'shopify.granted_storage_access';
-
-export function readTemplate(fname: string) {
-  return readFileSync(
-    join(__dirname, '../../client', `${fname}.js`),
-  ).toString();
-}
 
 function hasCookieAccess({cookies}: Context) {
   return Boolean(cookies.get(TEST_COOKIE_NAME));
@@ -64,6 +56,7 @@ function shouldRequestStorage(ctx: Context) {
 
 export default function createShopifyAuth(options: OAuthStartOptions) {
   const config = {
+    appName: '',
     scopes: [],
     prefix: '',
     myShopifyDomain: DEFAULT_MYSHOPIFY_DOMAIN,
@@ -71,7 +64,7 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
     ...options,
   };
 
-  const {prefix, apiKey} = config;
+  const {prefix, apiKey, appName} = config;
 
   const oAuthStartPath = `${prefix}/auth`;
   const oAuthCallbackPath = `${oAuthStartPath}/callback`;
@@ -86,25 +79,25 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   );
 
   const enableCookiesPath = `${oAuthStartPath}/enable_cookies`;
-  const enableCookies = createEnableCookies(
-    config,
-    readTemplate('enable-cookies'),
-  );
+  const enableCookies = createEnableCookies();
   const enableCookiesRedirect = createEnableCookiesRedirect(
     config.apiKey,
     enableCookiesPath,
   );
 
   const topLevelInteractionPath = `${prefix}/auth/top_level_interaction`;
-  const topLevelInteraction = createTopLevelCookie(readTemplate('top-level'));
+  const topLevelInteraction = createTopLevelCookie();
 
   const requestStorageAccessPath = `${prefix}/auth/request_storage`;
-  const requestStorage = createRequestStorage(readTemplate('request-storage'));
+  const requestStorage = createRequestStorage();
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
     ctx.cookies.secure = true;
-    ctx.state.authRoute = oAuthStartPath;
-    ctx.state.apiKey = apiKey;
+    Object.assign(ctx.state, {
+      authRoute: oAuthStartPath,
+      apiKey,
+      appName,
+    });
 
     if (
       ctx.path === oAuthStartPath &&

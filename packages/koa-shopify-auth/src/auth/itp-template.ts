@@ -2,16 +2,20 @@ import {readFileSync} from 'fs';
 import {join} from 'path';
 import {Context} from 'koa';
 
-const CSS = readFileSync(join(__dirname, '../../client/auth.css')).toString();
-
 export interface TemplateData {
+  shop: string;
   heading: string;
   body: string;
   footer?: string;
   action: string;
   script: string;
-  shop: string;
 }
+
+export function readTemplate(fname: string) {
+  return readFileSync(join(__dirname, '../../client', fname)).toString();
+}
+
+const CSS = readTemplate('auth.css');
 
 export default function itpTemplate(ctx: Context, data: TemplateData) {
   const footerMarkup = data.footer

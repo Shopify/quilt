@@ -18,6 +18,7 @@ const shop = 'shop1.myshopify.io';
 
 const baseConfig = {
   apiKey: 'myapikey',
+  appName: 'test app',
   secret: 'mysecret',
   scopes: ['write_orders, write_products'],
 };

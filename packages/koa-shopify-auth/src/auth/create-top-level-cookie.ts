@@ -1,10 +1,12 @@
 import {Context} from 'koa';
 
 import Error from './errors';
-import itpTemplate from './itp-template';
+import itpTemplate, {readTemplate} from './itp-template';
 
-export default function createTopLevelCookie(script: string) {
-  return function enableCookies(ctx: Context) {
+const script = readTemplate('top-level.js');
+
+export default function createTopLevelCookie() {
+  return function topLevelCookie(ctx: Context) {
     const {query} = ctx;
     const {shop} = query;
 
@@ -14,9 +16,10 @@ export default function createTopLevelCookie(script: string) {
     }
 
     ctx.body = itpTemplate(ctx, {
-      heading: 'Your browser needs to authenticate <TODO appname>',
-      body:
-        'Your browser requires third-party apps like %{app} to ask you for access to cookies before Shopify can open it for you.',
+      heading: `Your browser needs to authenticate ${ctx.state.appName}`,
+      body: `Your browser requires third-party apps like ${
+        ctx.state.appName
+      } to ask you for access to cookies before Shopify can open it for you.`,
       action: 'Continue',
       script,
       shop,

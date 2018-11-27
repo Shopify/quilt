@@ -22,6 +22,7 @@ const redirectionURL = `/admin/oauth/authorize`;
 
 const baseConfig: OAuthStartOptions = {
   apiKey: 'myapikey',
+  appName: 'test app',
   scopes: ['write_orders, write_products'],
   accessMode: 'offline',
   myShopifyDomain: 'myshopify.io',

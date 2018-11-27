@@ -1,8 +1,7 @@
 import querystring from 'querystring';
-
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
-import createEnableCookies from '../create-enable-cookies';
+import createTopLevelCookie from '../create-top-level-cookie';
 import {readTemplate} from '../itp-template';
 
 const query = querystring.stringify.bind(querystring);
@@ -10,10 +9,11 @@ const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
 const shopOrigin = 'https://shop1.myshopify.io';
 const apiKey = 'myapikey';
+const appName = 'test app';
 
-describe('CreateEnableCookies', () => {
+describe('CreateRequestStorage', () => {
   it('sets body to the enable cookies HTML page', () => {
-    const enableCookies = createEnableCookies();
+    const topLevelCookie = createTopLevelCookie();
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
@@ -21,13 +21,14 @@ describe('CreateEnableCookies', () => {
     ctx.state = {
       authRoute: baseUrl,
       apiKey,
+      appName,
     };
 
-    enableCookies(ctx);
+    topLevelCookie(ctx);
 
-    expect(ctx.body).toContain('Enable cookies');
+    expect(ctx.body).toContain('Your browser needs to authenticate test app');
     expect(ctx.body).toContain(apiKey);
     expect(ctx.body).toContain(shopOrigin);
-    expect(ctx.body).toContain(readTemplate('enable-cookies.js'));
+    expect(ctx.body).toContain(readTemplate('top-level.js'));
   });
 });

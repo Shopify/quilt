@@ -1,10 +1,12 @@
 import {Context} from 'koa';
 
 import Error from './errors';
-import itpTemplate from './itp-template';
+import itpTemplate, {readTemplate} from './itp-template';
 
-export default function createRequestStorage(script: string) {
-  return function enableCookies(ctx: Context) {
+const script = readTemplate('request-storage.js');
+
+export default function createRequestStorage() {
+  return function requestStorage(ctx: Context) {
     const {query} = ctx;
     const {shop} = query;
 

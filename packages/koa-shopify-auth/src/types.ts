@@ -3,6 +3,7 @@ import {Context} from 'koa';
 export type AccessMode = 'online' | 'offline';
 
 export interface AuthConfig {
+  appName: string;
   secret: string;
   apiKey: string;
   myShopifyDomain?: string;

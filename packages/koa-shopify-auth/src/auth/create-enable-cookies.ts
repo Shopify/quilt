@@ -1,9 +1,11 @@
 import {Context} from 'koa';
 
 import Error from './errors';
-import itpTemplate from './itp-template';
+import itpTemplate, {readTemplate} from './itp-template';
 
-export default function createEnableCookies(script: string) {
+const script = readTemplate('enable-cookies.js');
+
+export default function createEnableCookies() {
   return function enableCookies(ctx: Context) {
     const {query} = ctx;
     const {shop} = query;

@@ -1,8 +1,7 @@
 import querystring from 'querystring';
-
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
-import createEnableCookies from '../create-enable-cookies';
+import createRequestStorage from '../create-request-storage';
 import {readTemplate} from '../itp-template';
 
 const query = querystring.stringify.bind(querystring);
@@ -11,9 +10,9 @@ const shop = 'shop1.myshopify.io';
 const shopOrigin = 'https://shop1.myshopify.io';
 const apiKey = 'myapikey';
 
-describe('CreateEnableCookies', () => {
+describe('CreateTopLevelCookie', () => {
   it('sets body to the enable cookies HTML page', () => {
-    const enableCookies = createEnableCookies();
+    const requestStorage = createRequestStorage();
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
@@ -23,11 +22,11 @@ describe('CreateEnableCookies', () => {
       apiKey,
     };
 
-    enableCookies(ctx);
+    requestStorage(ctx);
 
-    expect(ctx.body).toContain('Enable cookies');
+    expect(ctx.body).toContain('needs access to cookies');
     expect(ctx.body).toContain(apiKey);
     expect(ctx.body).toContain(shopOrigin);
-    expect(ctx.body).toContain(readTemplate('enable-cookies.js'));
+    expect(ctx.body).toContain(readTemplate('request-storage.js'));
   });
 });

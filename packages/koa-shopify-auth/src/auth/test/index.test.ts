@@ -32,6 +32,7 @@ const baseUrl = 'myapp.com/auth';
 
 const baseConfig: OAuthStartOptions = {
   apiKey: 'myapikey',
+  appName: 'test app',
   scopes: ['write_orders, write_products'],
   accessMode: 'offline',
   secret: '',
@@ -137,6 +138,17 @@ describe('Index', () => {
       });
     });
 
+    it('state is set', async () => {
+      const shopifyAuth = createShopifyAuth(baseConfig);
+      const ctx = createNonITPContext();
+
+      await shopifyAuth(ctx, nextFunction);
+
+      expect(ctx.state.apiKey).toEqual(baseConfig.apiKey);
+      expect(ctx.state.appName).toEqual(baseConfig.appName);
+      expect(ctx.state.authRoute).toEqual('/auth');
+    });
+
     describe('with a test cookie and a top-level cookie', () => {
       it('performs inline oauth', async () => {
         const shopifyAuth = createShopifyAuth(baseConfig);
@@ -161,6 +173,7 @@ describe('Index', () => {
       'Shopify POS': createShopifyPOSContext,
     };
     for (const [description, createContext] of Object.entries(contexts)) {
+      /* eslint-disable no-loop-func */
       describe(`with ${description} agent`, () => {
         describe('with the /auth/inline path', () => {
           it('performs inline oauth', async () => {
