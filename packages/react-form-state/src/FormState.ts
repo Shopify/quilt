@@ -159,9 +159,9 @@ export default class FormState<
   @bind()
   private async submit(event?: Event) {
     const {onSubmit, validateOnSubmit} = this.props;
-    const {formData, mounted} = this;
+    const {formData} = this;
 
-    if (!mounted) {
+    if (!this.mounted) {
       return;
     }
 
@@ -186,7 +186,7 @@ export default class FormState<
 
     const errors = await onSubmit(formData);
 
-    if (!mounted) {
+    if (!this.mounted) {
       return;
     }
 
