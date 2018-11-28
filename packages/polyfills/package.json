@@ -5,7 +5,7 @@
   "description": "Blessed polyfills for web platform features.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": true,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
     "prepublishOnly": "yarn run build"
