@@ -26,20 +26,6 @@ describe('<GaJS />', () => {
         gajs.find('script').prop('dangerouslySetInnerHTML'),
       ).toHaveProperty('__html', SETUP_SCRIPT);
     });
-
-    it('renders a script tag with the debug and setup content', () => {
-      const gajs = mount(<GaJS {...mockProps} debug />);
-      expect(
-        gajs.find('script').prop('dangerouslySetInnerHTML'),
-      ).toHaveProperty('__html', setupWithDebugScript(mockProps.account));
-    });
-
-    it('with debug set to false renders a script tag without the debug content', () => {
-      const gajs = mount(<GaJS {...mockProps} debug={false} />);
-      expect(
-        gajs.find('script').prop('dangerouslySetInnerHTML'),
-      ).toHaveProperty('__html', SETUP_SCRIPT);
-    });
   });
 
   describe('<ImportRemote />', () => {
@@ -203,6 +189,32 @@ describe('<GaJS />', () => {
           ]);
         }
       });
+    });
+  });
+
+  describe('disableTracking', () => {
+    it('loads the GA script and injects the setup script when disableTracking is not set', () => {
+      const gajs = mount(<GaJS {...mockProps} />);
+      expect(gajs.find(ImportRemote).prop('source')).toBe(GA_JS_SCRIPT);
+      expect(
+        gajs.find('script').prop('dangerouslySetInnerHTML'),
+      ).toHaveProperty('__html', SETUP_SCRIPT);
+    });
+
+    it('loads the GA script and injects the debug setup script when disableTracking is set to true', () => {
+      const gajs = mount(<GaJS {...mockProps} disableTracking />);
+      expect(gajs.find(ImportRemote).prop('source')).toBe(GA_JS_SCRIPT);
+      expect(
+        gajs.find('script').prop('dangerouslySetInnerHTML'),
+      ).toHaveProperty('__html', setupWithDebugScript(mockProps.account));
+    });
+
+    it('loads the GA script and injects the setup script when disableTracking is set to false', () => {
+      const gajs = mount(<GaJS {...mockProps} disableTracking={false} />);
+      expect(gajs.find(ImportRemote).prop('source')).toBe(GA_JS_SCRIPT);
+      expect(
+        gajs.find('script').prop('dangerouslySetInnerHTML'),
+      ).toHaveProperty('__html', SETUP_SCRIPT);
     });
   });
 

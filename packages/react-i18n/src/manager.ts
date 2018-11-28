@@ -12,6 +12,7 @@ export interface Subscriber {
 }
 
 export interface ConnectionResult {
+  resolve(): Promise<void>;
   disconnect(): void;
 }
 
@@ -22,36 +23,32 @@ export interface ExtractedTranslations {
 export default class Manager {
   public loading = false;
   private subscriptions = new Map<Subscriber, Connection>();
-  private translations: Map<
-    string,
-    MaybePromise<TranslationDictionary | undefined>
-  >;
+  private translations = new Map<string, TranslationDictionary | undefined>();
+  private asyncTranslationIds: string[] = [];
+  private translationPromises = new Map<string, Promise<void>>();
 
   constructor(
     public details: I18nDetails,
     initialTranslations: ExtractedTranslations = {},
   ) {
-    this.translations = new Map(Object.entries(initialTranslations));
+    for (const [id, translation] of Object.entries(initialTranslations)) {
+      this.translations.set(id, translation);
+    }
   }
 
-  async extract(): Promise<ExtractedTranslations> {
-    const translationPairs = Array.from(this.translations.entries());
-    const extractedTranslations: ExtractedTranslations = {};
-
-    await Promise.all(
-      translationPairs.map(async ([id, translationDictionary]) => {
-        const resolvedTranslationDictionary = isPromise(translationDictionary)
-          ? await translationDictionary
-          : translationDictionary;
-        extractedTranslations[id] = resolvedTranslationDictionary;
+  extract() {
+    return this.asyncTranslationIds.reduce<ExtractedTranslations>(
+      (extracted, id) => ({
+        ...extracted,
+        [id]: this.translations.get(id),
       }),
+      {},
     );
-
-    return extractedTranslations;
   }
 
   connect(connection: Connection, subscriber: Subscriber): ConnectionResult {
     const possibleLocales = getPossibleLocales(this.details.locale);
+    const promises: Promise<any>[] = [];
 
     for (const locale of possibleLocales) {
       const id = localeId(connection, locale);
@@ -60,23 +57,33 @@ export default class Manager {
         continue;
       }
 
-      const translations = connection.translationsForLocale(locale);
+      if (
+        locale === this.details.fallbackLocale &&
+        connection.fallbackTranslations
+      ) {
+        this.translations.set(id, connection.fallbackTranslations);
+        continue;
+      }
 
+      const translations = connection.translationsForLocale(locale);
       if (isPromise(translations)) {
-        this.translations.set(
-          id,
-          translations
-            .then(result => {
-              this.translations.set(id, result);
-              this.updateSubscribersForId(id);
-              return result;
-            })
-            .catch(() => {
-              this.translations.set(id, undefined);
-              this.updateSubscribersForId(id);
-              return undefined;
-            }),
-        );
+        const promise = translations
+          .then(result => {
+            this.asyncTranslationIds.push(id);
+            this.translationPromises.delete(id);
+            this.translations.set(id, result);
+            this.updateSubscribersForId(id);
+          })
+          .catch(() => {
+            this.asyncTranslationIds.push(id);
+            this.translationPromises.delete(id);
+            this.translations.set(id, undefined);
+            this.updateSubscribersForId(id);
+          });
+
+        promises.push(promise);
+
+        this.translationPromises.set(id, promise);
       } else {
         this.translations.set(id, translations);
       }
@@ -85,6 +92,7 @@ export default class Manager {
     this.subscriptions.set(subscriber, connection);
 
     return {
+      resolve: () => Promise.all(promises).then(() => undefined),
       disconnect: () => this.subscriptions.delete(subscriber),
     };
   }
@@ -109,11 +117,12 @@ export default class Manager {
     }
 
     const possibleLocales = getPossibleLocales(this.details.locale);
-    const translations = possibleLocales.map(locale =>
-      this.translations.get(localeId(connection, locale)),
-    );
+    const translations = possibleLocales.map(locale => {
+      const id = localeId(connection, locale);
+      return this.translations.get(id) || this.translationPromises.get(id);
+    });
 
-    if (noPromises(translations)) {
+    if (noPromises<TranslationDictionary | undefined>(translations)) {
       return {
         loading: false,
         fallbacks: allFallbacks,
@@ -144,21 +153,31 @@ export default class Manager {
           continue;
         }
 
+        if (
+          locale === this.details.fallbackLocale &&
+          connection.fallbackTranslations
+        ) {
+          this.translations.set(id, connection.fallbackTranslations);
+          continue;
+        }
+
         const translations = connection.translationsForLocale(locale);
 
         if (isPromise(translations)) {
-          this.translations.set(
+          this.translationPromises.set(
             id,
             translations
               .then(result => {
+                this.asyncTranslationIds.push(id);
+                this.translationPromises.delete(id);
                 this.translations.set(id, result);
                 this.updateSubscribersForId(id);
-                return result;
               })
               .catch(() => {
+                this.asyncTranslationIds.push(id);
+                this.translationPromises.delete(id);
                 this.translations.set(id, undefined);
                 this.updateSubscribersForId(id);
-                return undefined;
               }),
           );
         } else {
@@ -202,7 +221,9 @@ function localeIdsForConnection(
 function getPossibleLocales(locale: string) {
   const normalizedLocale = locale.toLowerCase();
   const split = normalizedLocale.split('-');
-  return split.length > 1 ? [normalizedLocale, split[0]] : [normalizedLocale];
+  return split.length > 1
+    ? [`${split[0]}-${split[1].toUpperCase()}`, normalizedLocale, split[0]]
+    : [normalizedLocale];
 }
 
 function isPromise<T>(
@@ -219,6 +240,6 @@ function localeId(connection: Connection, locale: string) {
   return `${connection.id}__${locale}`;
 }
 
-function noPromises<T>(array: (T | Promise<T>)[]): array is T[] {
+function noPromises<T>(array: (T | Promise<any>)[]): array is T[] {
   return array.every(item => !isPromise(item));
 }

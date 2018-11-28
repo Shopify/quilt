@@ -1,14 +1,18 @@
+import {clock} from '@shopify/jest-dom-mocks';
+
 import './matchers';
 
 import I18n from '../i18n';
 import {LanguageDirection} from '../types';
-import {Weekdays} from '../constants';
+import {DateStyle, Weekdays} from '../constants';
 
 jest.mock('../utilities', () => ({
   translate: jest.fn(),
+  getCurrencySymbol: jest.fn(),
 }));
 
 const translate: jest.Mock = require('../utilities').translate;
+const getCurrencySymbol: jest.Mock = require('../utilities').getCurrencySymbol;
 
 describe('I18n', () => {
   const defaultDetails = {locale: 'en-ca'};
@@ -16,6 +20,7 @@ describe('I18n', () => {
 
   beforeEach(() => {
     translate.mockReset();
+    getCurrencySymbol.mockReset();
   });
 
   describe('#locale', () => {
@@ -327,8 +332,38 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrency()', () => {
+    const currency = 'USD';
+
+    it('formats the number as a currency', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const expected = Intl.NumberFormat(defaultDetails.locale, {
+        style: 'currency',
+        currency,
+      }).format(1);
+
+      expect(i18n.formatCurrency(1, {currency})).toBe(expected);
+    });
+  });
+
+  describe('#formatPercentage()', () => {
+    it('formats the number as a percentage', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const expected = Intl.NumberFormat(defaultDetails.locale, {
+        style: 'percent',
+      }).format(50);
+      expect(i18n.formatPercentage(50)).toBe(expected);
+    });
+  });
+
   describe('#formatDate()', () => {
     const timezone = 'Australia/Sydney';
+
+    afterEach(() => {
+      if (clock.isMocked()) {
+        clock.restore();
+      }
+    });
 
     it('formats a date using Intl', () => {
       const date = new Date();
@@ -384,6 +419,88 @@ describe('I18n', () => {
 
       expect(i18n.formatDate(date, {timeZone: timezone})).toBe(expected);
     });
+
+    it('formats a date using DateStyle.Long', () => {
+      const date = new Date('2012-12-20T00:00:00-00:00');
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        timezone,
+      });
+
+      expect(i18n.formatDate(date, {style: DateStyle.Long})).toBe(
+        'Thursday, December 20, 2012',
+      );
+    });
+
+    it('formats a date using DateStyle.Short', () => {
+      const date = new Date('2012-12-20T00:00:00-00:00');
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        timezone,
+      });
+
+      expect(i18n.formatDate(date, {style: DateStyle.Short})).toBe(
+        'Dec 20, 2012',
+      );
+    });
+
+    it('formats a date using DateStyle.Humanize', () => {
+      const date = new Date('2012-12-20T00:00:00-00:00');
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        timezone,
+      });
+
+      expect(i18n.formatDate(date, {style: DateStyle.Humanize})).toBe(
+        'December 20, 2012',
+      );
+    });
+
+    it('formats a date using DateStyle.Humanize in a custom timezone', () => {
+      const date = new Date('2012-12-20T00:00:00-00:00');
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+
+      expect(
+        i18n.formatDate(date, {style: DateStyle.Humanize, timeZone: timezone}),
+      ).toBe('December 20, 2012');
+    });
+
+    it('formats today using DateStyle.Humanize', () => {
+      const today = new Date('2012-12-20T00:00:00-00:00');
+      clock.mock(today);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        timezone,
+      });
+
+      expect(i18n.formatDate(today, {style: DateStyle.Humanize})).toBe(
+        i18n.translate('today'),
+      );
+    });
+
+    it('formats yesterday using DateStyle.Humanize', () => {
+      const today = new Date('2012-12-20T00:00:00-00:00');
+      const yesterday = new Date('2012-12-19T00:00:00-00:00');
+      clock.mock(today);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        timezone,
+      });
+
+      expect(i18n.formatDate(yesterday, {style: DateStyle.Humanize})).toBe(
+        i18n.translate('yesterday'),
+      );
+    });
+
+    it('formats a date using DateStyle.Time', () => {
+      const date = new Date('2012-12-20T00:00:00-00:00');
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        timezone,
+      });
+
+      expect(i18n.formatDate(date, {style: DateStyle.Time})).toBe('11:00 AM');
+    });
   });
 
   describe('#weekStartDay()', () => {
@@ -411,6 +528,20 @@ describe('I18n', () => {
       expect(() => i18n.weekStartDay()).toThrowError(
         'No country code provided. weekStartDay() cannot be called without a country code.',
       );
+    });
+  });
+
+  describe('#getCurrencySymbol()', () => {
+    it('correctly returns the locale-specific currency symbol and its position', () => {
+      const mockResult = {
+        symbol: '€',
+        prefixed: true,
+      };
+      getCurrencySymbol.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.getCurrencySymbol('eur')).toEqual(mockResult);
     });
   });
 });

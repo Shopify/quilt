@@ -1,12 +1,12 @@
-/* eslint react/jsx-pascal-case: off */
-
 import * as React from 'react';
 import {mount, CommonWrapper} from 'enzyme';
 import {HelmetData} from 'react-helmet';
-import {Serializer} from '@shopify/react-serialize';
+import withEnv from '@shopify/with-env';
 
-import {Script, Style} from '../components';
-import HTML, {Props} from '../HTML';
+import {Script, Style} from '../../../components';
+
+import Html from '../Html';
+import Serialize from '../Serialize';
 
 jest.mock('react-helmet', () => {
   return {
@@ -14,39 +14,58 @@ jest.mock('react-helmet', () => {
   };
 });
 
+jest.mock(
+  '../Serialize',
+  () =>
+    function Serialize() {
+      return null;
+    },
+);
+
 const helmetMock = require.requireMock('react-helmet');
 
-describe('<HTML />', () => {
+describe('<Html />', () => {
   beforeEach(() => {
     helmetMock.renderStatic.mockReset();
     helmetMock.renderStatic.mockImplementation(mockHelmet);
   });
 
-  const mockProps: Props = {};
+  const mockProps = {children: <div />};
 
   it('defaults to setting the lang to "en" on the html', () => {
-    const html = mount(<HTML {...mockProps} />);
+    const html = mount(<Html {...mockProps} />);
     expect(html.find('html').prop('lang')).toBe('en');
   });
 
-  describe('hideForInitialLoad', () => {
-    it('does not hide the contents by default', () => {
-      const app = mount(<HTML {...mockProps} />);
-      const styles = app.find('#app').prop('style') || {};
-      expect(styles).not.toHaveProperty('display');
+  it('hides the body contents in development', () => {
+    const html = withEnv('development', () => mount(<Html {...mockProps} />));
+    expect(html.find('body').prop('style')).toMatchObject({
+      display: 'none',
+    });
+  });
+
+  it('does not hide the body contents in other environments', () => {
+    const html = mount(<Html {...mockProps} />);
+    const styles = html.find('#app').prop('style') || {};
+    expect(styles).not.toHaveProperty('display');
+  });
+
+  describe('locale', () => {
+    it('defaults to setting the lang to "en" on the html', () => {
+      const html = mount(<Html {...mockProps} />);
+      expect(html.find('html').prop('lang')).toBe('en');
     });
 
-    it('hides the contents when true', () => {
-      const app = mount(<HTML {...mockProps} hideForInitialLoad />);
-      expect(app.find('body').prop('style')).toMatchObject({
-        display: 'none',
-      });
+    it('sets the HTML lang to an explicitly passed locale', () => {
+      const locale = 'fr';
+      const html = mount(<Html {...mockProps} locale={locale} />);
+      expect(html.find('html').prop('lang')).toBe(locale);
     });
   });
 
   describe('children', () => {
     it('is used as the content of the app host node', () => {
-      const html = mount(<HTML {...mockProps}>hello world</HTML>);
+      const html = mount(<Html {...mockProps}>hello world</Html>);
       expect(
         html
           .find('div')
@@ -59,7 +78,7 @@ describe('<HTML />', () => {
   describe('deferedScripts', () => {
     it('generates a script tag in the body with the `defer` attribute', () => {
       const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
-      const html = mount(<HTML {...mockProps} scripts={scripts} />);
+      const html = mount(<Html {...mockProps} scripts={scripts} />);
       const body = html.find('body');
 
       for (const script of scripts) {
@@ -76,7 +95,7 @@ describe('<HTML />', () => {
   describe('blockingScripts', () => {
     it('generates a script tag in the head without the `defer` attribute', () => {
       const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
-      const html = mount(<HTML {...mockProps} blockingScripts={scripts} />);
+      const html = mount(<Html {...mockProps} blockingScripts={scripts} />);
       const head = html.find('head');
 
       for (const script of scripts) {
@@ -93,7 +112,7 @@ describe('<HTML />', () => {
   describe('styles', () => {
     it('generates a link tag in the head', () => {
       const styles = [{path: 'foo.js'}, {path: 'bar.js'}];
-      const html = mount(<HTML {...mockProps} styles={styles} />);
+      const html = mount(<Html {...mockProps} styles={styles} />);
       const head = html.find('head');
 
       for (const style of styles) {
@@ -114,7 +133,7 @@ describe('<HTML />', () => {
           title: mockHelmetData('', title),
         }),
       );
-      const html = mount(<HTML {...mockProps} />);
+      const html = mount(<Html {...mockProps} />);
       expect(html.find('head').contains(title)).toBe(true);
     });
 
@@ -125,7 +144,7 @@ describe('<HTML />', () => {
           meta: mockHelmetData('', meta),
         }),
       );
-      const html = mount(<HTML {...mockProps} />);
+      const html = mount(<Html {...mockProps} />);
       expect(html.find('head').contains(meta)).toBe(true);
     });
 
@@ -136,7 +155,7 @@ describe('<HTML />', () => {
           link: mockHelmetData('', link),
         }),
       );
-      const html = mount(<HTML {...mockProps} />);
+      const html = mount(<Html {...mockProps} />);
       expect(html.find('head').contains(link)).toBe(true);
     });
 
@@ -149,7 +168,7 @@ describe('<HTML />', () => {
           script: mockHelmetData('', script),
         }),
       );
-      const html = mount(<HTML {...mockProps} />);
+      const html = mount(<Html {...mockProps} />);
       expect(html.find('head').contains(script)).toBe(true);
     });
 
@@ -160,7 +179,7 @@ describe('<HTML />', () => {
           htmlAttributes: mockHelmetData('', htmlAttributes),
         }),
       );
-      const html = mount(<HTML {...mockProps} />);
+      const html = mount(<Html {...mockProps} />);
       expect(html.find('html').props()).toMatchObject(htmlAttributes);
     });
 
@@ -171,45 +190,25 @@ describe('<HTML />', () => {
           bodyAttributes: mockHelmetData('', bodyAttributes),
         }),
       );
-      const html = mount(<HTML {...mockProps} />);
+      const html = mount(<Html {...mockProps} />);
       expect(html.find('body').props()).toMatchObject(bodyAttributes);
     });
   });
 
-  describe('headData', () => {
-    it('does not render a serializer when no details are provided', () => {
-      const html = mount(<HTML {...mockProps} />);
-      expect(html.find(Serializer)).toHaveLength(0);
-    });
-
-    it('renders a serializer for each key', () => {
-      const data = {
-        requestDetails: {foo: 'bar'},
-        foo: {bar: 'baz'},
-      };
-
-      const html = mount(<HTML {...mockProps} headData={data} />);
-
-      Object.keys(data).forEach(id => {
-        const serializer = html.find(Serializer).filter({id});
-        expect(serializer.prop('data')).toMatchObject(data[id]);
-      });
-    });
-
-    it('renders the serializers in the head before the sync scripts', () => {
-      const headData = {foo: true};
+  describe('headMarkup', () => {
+    it('renders headMarkup in the head before the sync scripts', () => {
+      const headMarkup = <Serialize id="data" data={{}} />;
       const html = mount(
-        <HTML
+        <Html
           {...mockProps}
-          headData={headData}
+          headMarkup={headMarkup}
           blockingScripts={[{path: 'foo.js'}]}
         />,
       );
       const headContents = html.find('head').children();
 
-      const serializerIndex = findIndex(
-        headContents,
-        element => element.is(Serializer) && element.is({id: 'foo'}),
+      const serializerIndex = findIndex(headContents, element =>
+        element.is(Serialize),
       );
 
       const scriptsIndex = findIndex(headContents, element =>
@@ -220,42 +219,23 @@ describe('<HTML />', () => {
     });
   });
 
-  describe('data', () => {
-    it('does not render a serializer when no details are provided', () => {
-      const html = mount(<HTML {...mockProps} />);
-      expect(html.find(Serializer)).toHaveLength(0);
-    });
-
-    it('renders a serializer for each key', () => {
-      const data = {
-        bar: {
-          first: 1,
-          second: 2,
-        },
-        foo: {
-          bar: 'baz',
-        },
-      };
-      const html = mount(<HTML {...mockProps} data={data} />);
-
-      Object.keys(data).forEach(id => {
-        const serializer = html.find(Serializer).filter({id});
-        expect(serializer.prop('data')).toMatchObject(data[id]);
-      });
-    });
-
-    it('renders the serializers in the body before the defered scripts', () => {
-      const data = {foo: {bar: 'baz'}};
+  describe('bodyMarkup', () => {
+    it('renders bodyMarkup in the head before the deferred scripts', () => {
+      const bodyMarkup = <Serialize id="data" data={{}} />;
       const html = mount(
-        <HTML {...mockProps} data={data} scripts={[{path: 'foo.js'}]} />,
+        <Html
+          {...mockProps}
+          bodyMarkup={bodyMarkup}
+          scripts={[{path: 'foo.js'}]}
+        />,
       );
-      const bodyContents = html.find('body').children();
-      const serializerIndex = findIndex(
-        bodyContents,
-        element => element.is(Serializer) && element.is({id: 'foo'}),
+      const bodyContent = html.find('body').children();
+
+      const serializerIndex = findIndex(bodyContent, element =>
+        element.is(Serialize),
       );
 
-      const scriptsIndex = findIndex(bodyContents, element =>
+      const scriptsIndex = findIndex(bodyContent, element =>
         element.is(Script),
       );
 

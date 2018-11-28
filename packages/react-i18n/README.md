@@ -13,9 +13,16 @@ $ yarn add @shopify/react-i18n
 
 ## Usage
 
-### `Provider`
+### `<Provider />` and `Manager`
 
-This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `Provider` component. This component accepts a `manager` prop, which allows you to specify the locale and a few additional details, such as the default currency.
+This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `Provider` component. This component accepts a `manager` prop, which allows you to specify the following global i18n properties:
+
+- `locale`: the current locale of the app. This is the only required option.
+- `fallbackLocale`: the locale that your component’s will use in any of their fallback translations. This is used to avoid unnecessarily serializing fallback translations.
+- `country`: the default country to use for country-aware formatting.
+- `timezone`: the default timezone to use for timezone-aware formatting.
+- `currency`: the default currency to use for currency-aware formatting.
+- `pseudolocalize`: whether to perform [pseudolocalization](https://github.com/Shopify/pseudolocalization) on your translations.
 
 ```ts
 import {
@@ -64,8 +71,15 @@ export default withI18n()(NotFound);
 The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
 
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `Provider` component will be used where no custom currency code is passed.
-- `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `Provider` component will be used when no custom `timezone` is provided.
+- `formatCurrency()`: formats a number as a currency according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`.
+- `formatPercentage()`: formats a number as a percentage according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
+- `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
+  - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
+  - `DateStyle.Short`: e.g., `Dec 20, 2012`
+  - `DateStyle.Humanize`: e.g., `December 20, 2012`, `Today`, or `Yesterday`
+  - `DateStyle.Time`: e.g., `11:00 AM`
 - `weekStartDay()`: returns start day of the week according to the country.
+- `getCurrencySymbol()`: returns the currency symbol according to the currency code and locale.
 
 Most notably, you will frequently use `i18n`’s `translate()` method. This method looks up a key in translation files that you supply based on the provided locale. This method is discussed in detail in the next section.
 
@@ -185,7 +199,7 @@ i18n.translate(key, {scope: ['MyComponent', 'option']});
 {
   "MyComponent": {
     "searchResult": {
-      "one": "One widget found",
+      "one": "{count} widget found",
       "other": "{count} widgets found"
     }
   }
@@ -195,19 +209,34 @@ i18n.translate('MyComponent.searchResult', {count: searchResults});
 ```
 
 As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill.
+We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
 
 ### Server
 
-When rendering internationalized React apps on the server, you may wish to extract the translations and rehydrate them on the client. This is primarily needed when translations are loaded asyncronously; not doing so would cause the server and client markup to differ. You can use the `getTranslationsFromTree` function from this package to wait for all translations to load:
+When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
 
-```ts
-const element = <App />;
-const translations = await getTranslationsFromTree(element);
+This library uses the [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/master/packages/react-effect) package to allow translations to be extracted alongside other asynchronous side effects on the server. To make use of this, you will need to keep a reference to the `I18nManager` for your app. Then, import the `extract` function from `@shopify/react-effect`, and call it with your top-level component. Finally, call the manager’s `extract` method to get an opaque representation of the translations that were loaded in that tree:
+
+```tsx
+import {Manager as I18nManager} from '@shopify/react-i18n';
+import {extract} from '@shopify/react-effect/server';
+
+const i18nManager = new I18nManager({locale: 'en'});
+// This assumes your `App` component accepts this prop, and
+// appropriately uses it with a `Provider` component as
+// documented above.
+const element = <App i18nManager={i18nManager} />;
+
+await extract(element);
+
+const translations = i18nManager.extract();
 ```
+
+> Note: You can selectively extract _only_ the translations by using the `EFFECT_ID` exported from `@shopify/react-i18n`, and using this as the second argument to `@shopify/react-effect`’s `extract()` as detailed in its documentation. Most consumers of this package will be fine with just the example above.
 
 Once you have done this, serialize the result (we recommend [`@shopify/react-serialize`](https://github.com/Shopify/quilt/tree/master/packages/react-serialize)), then load it on the client and include it as part of the initialization of the i18n manager:
 
-```ts
+```tsx
 import {
   Provider as I18nProvider,
   Manager as I18nManager,
@@ -216,9 +245,10 @@ import {getSerialized} from '@shopify/react-serialize';
 
 const locale = 'en';
 const {data: translations} = getSerialized('translations');
-const i18nManager = new I18nManager({locale}, translations);
 
-export default function App() {
+export default function App({
+  i18nManager = new I18nManager({locale}, translations),
+}) {
   return (
     <I18nProvider manager={i18nManager}>{/* App contents */}</I18nProvider>
   );

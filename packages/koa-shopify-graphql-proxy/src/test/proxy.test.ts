@@ -85,6 +85,20 @@ describe('koa-shopify-graphql-proxy', () => {
     expect(proxyFactory).not.toBeCalled();
   });
 
+  it('bails and calls next if path does not start with the base url and no session', async () => {
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const ctx = createMockContext({
+      url: '/not/graphql',
+      throw: jest.fn(),
+    });
+    const nextSpy = jest.fn();
+
+    await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
+
+    expect(nextSpy).toBeCalled();
+    expect(proxyFactory).not.toBeCalled();
+  });
+
   it('does not bail or throw when request is for the graphql api', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
     const ctx = createMockContext({

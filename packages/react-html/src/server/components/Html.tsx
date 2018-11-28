@@ -1,54 +1,49 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import {renderToString} from 'react-dom/server';
-import {Serializer} from '@shopify/react-serialize';
-import {Script, Style} from './components';
 
-export interface TranslationDictionary {
-  [key: string]: string | TranslationDictionary;
-}
+import {Script, Style} from '../../components';
+import Manager from '../../manager';
 
-export interface ErrorInfo {
-  message: string;
-  stack: string | undefined;
-}
-
-export type ErrorLike = Error | ErrorInfo;
+import Serialize from './Serialize';
 
 export interface Asset {
   path: string;
   integrity?: string;
 }
 
-export interface Browser {
-  userAgent: string;
-  supported: boolean;
-}
-
 export interface Props {
-  children?: React.ReactNode;
+  manager?: Manager;
+  children: React.ReactNode;
+  locale?: string;
   styles?: Asset[];
-  blockingScripts?: Asset[];
   scripts?: Asset[];
-  headData?: {[id: string]: any};
-  data?: {[id: string]: any};
-  hideForInitialLoad?: boolean;
+  blockingScripts?: Asset[];
+  headMarkup?: React.ReactNode;
+  bodyMarkup?: React.ReactNode;
 }
 
-export default function HTML({
-  children = '',
+export default function Html({
+  manager,
+  children,
+  locale = 'en',
   blockingScripts = [],
   scripts = [],
   styles = [],
-  data = {},
-  headData = {},
-  hideForInitialLoad,
+  headMarkup = null,
+  bodyMarkup = null,
 }: Props) {
   const markup = renderToString(children);
   const helmet = Helmet.renderStatic();
 
   const htmlAttributes = helmet.htmlAttributes.toComponent();
   const bodyAttributes = helmet.bodyAttributes.toComponent();
+
+  const serializationMarkup = manager
+    ? manager
+        .extract()
+        .map(({id, data}) => <Serialize key={id} id={id} data={data} />)
+    : null;
 
   const stylesMarkup = styles.map(style => {
     return (
@@ -84,20 +79,12 @@ export default function HTML({
     );
   });
 
-  /* eslint-disable no-undefined */
-  const bodyStyles = hideForInitialLoad ? {display: 'none'} : undefined;
-  /* eslint-enable no-undefined */
-
-  const headDataMarkup = Object.keys(headData).map(id => {
-    return <Serializer key={id} id={id} data={headData[id]} />;
-  });
-
-  const dataMarkup = Object.keys(data).map(id => {
-    return <Serializer key={id} id={id} data={data[id]} />;
-  });
+  const bodyStyles =
+    // eslint-disable-next-line no-process-env
+    process.env.NODE_ENV === 'development' ? {display: 'none'} : undefined;
 
   return (
-    <html lang="en" {...htmlAttributes}>
+    <html lang={locale} {...htmlAttributes}>
       <head>
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
@@ -105,15 +92,15 @@ export default function HTML({
         {helmet.link.toComponent()}
 
         {stylesMarkup}
-        {headDataMarkup}
+        {headMarkup}
         {blockingScriptsMarkup}
       </head>
 
       <body {...bodyAttributes} style={bodyStyles}>
         <div id="app" dangerouslySetInnerHTML={{__html: markup}} />
 
-        {dataMarkup}
-
+        {bodyMarkup}
+        {serializationMarkup}
         {deferredScriptsMarkup}
       </body>
     </html>

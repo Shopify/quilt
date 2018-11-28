@@ -22,11 +22,11 @@ describe('Manager', () => {
     switch (locale) {
       case 'en':
         return enParent;
-      case 'en-us':
+      case 'en-US':
         return enUSParent;
       case 'fr':
         return frParent;
-      case 'fr-ca':
+      case 'fr-CA':
         return frCAParent;
     }
 
@@ -37,11 +37,11 @@ describe('Manager', () => {
     switch (locale) {
       case 'en':
         return en;
-      case 'en-us':
+      case 'en-US':
         return enUS;
       case 'fr':
         return fr;
-      case 'fr-ca':
+      case 'fr-CA':
         return frCA;
     }
 
@@ -81,7 +81,7 @@ describe('Manager', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('requests translations for the (lowercase) full locale and language when the country code is provided', () => {
+    it('requests translations for the full locale and language when the country code is provided', () => {
       const spy = jest.fn();
       const connection = new Connection({id: createID(), translations: spy});
       const manager = new Manager({...basicDetails, locale: 'en-US'});
@@ -89,8 +89,28 @@ describe('Manager', () => {
         connection,
         noop,
       );
-      expect(spy).toHaveBeenCalledWith('en-us');
+      expect(spy).toHaveBeenCalledWith('en-US');
+      expect(spy).toHaveBeenCalledWith('en-US');
       expect(spy).toHaveBeenCalledWith('en');
+    });
+
+    it('does not request translations when the fallback locale matches the locale', () => {
+      const spy = jest.fn();
+      const connection = new Connection({
+        id: createID(),
+        translations: spy,
+        fallback: {},
+      });
+      const manager = new Manager({
+        ...basicDetails,
+        fallbackLocale: 'en',
+        locale: 'en',
+      });
+      manager.connect(
+        connection,
+        noop,
+      );
+      expect(spy).not.toHaveBeenCalled();
     });
 
     describe('sync', () => {
@@ -224,7 +244,7 @@ describe('Manager', () => {
           id: createID(),
           fallback,
           translations(locale: string) {
-            if (locale === 'fr-ca') {
+            if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
@@ -234,7 +254,7 @@ describe('Manager', () => {
           },
         });
 
-        const manager = new Manager({...basicDetails, locale: 'fr-ca'});
+        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
 
         manager.connect(
           connection,
@@ -256,7 +276,7 @@ describe('Manager', () => {
           id: createID(),
           fallback,
           translations(locale: string) {
-            if (locale === 'fr-ca') {
+            if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
@@ -266,7 +286,7 @@ describe('Manager', () => {
           },
         });
 
-        const manager = new Manager({...basicDetails, locale: 'fr-ca'});
+        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
 
         manager.connect(
           connection,
@@ -289,7 +309,7 @@ describe('Manager', () => {
           id: createID(),
           fallback,
           translations(locale: string) {
-            if (locale === 'fr-ca') {
+            if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
@@ -299,7 +319,7 @@ describe('Manager', () => {
           },
         });
 
-        const manager = new Manager({...basicDetails, locale: 'fr-ca'});
+        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
 
         manager.connect(
           connection,
@@ -322,7 +342,7 @@ describe('Manager', () => {
           id: createID(),
           fallback,
           translations(locale: string) {
-            if (locale === 'fr-ca') {
+            if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
@@ -332,7 +352,7 @@ describe('Manager', () => {
           },
         });
 
-        const manager = new Manager({...basicDetails, locale: 'fr-ca'});
+        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
 
         manager.connect(
           connection,
@@ -355,7 +375,7 @@ describe('Manager', () => {
         const connection = new Connection({
           id: createID(),
           translations(locale: string) {
-            if (locale === 'fr-ca') {
+            if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
@@ -365,7 +385,7 @@ describe('Manager', () => {
           },
         });
 
-        const manager = new Manager({...basicDetails, locale: 'fr-ca'});
+        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
         manager.connect(
           connection,
           spy,
@@ -390,7 +410,7 @@ describe('Manager', () => {
         const connection = new Connection({
           id: createID(),
           translations(locale: string) {
-            if (locale === 'fr-ca') {
+            if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
@@ -400,7 +420,7 @@ describe('Manager', () => {
           },
         });
 
-        const manager = new Manager({...basicDetails, locale: 'fr-ca'});
+        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
         manager.connect(
           connection,
           spy,
@@ -457,7 +477,7 @@ describe('Manager', () => {
           translations: getTranslation,
         });
 
-        const manager = new Manager({...basicDetails, locale: 'en-us'});
+        const manager = new Manager({...basicDetails, locale: 'en-US'});
         manager.connect(
           parent,
           noop,
@@ -493,7 +513,7 @@ describe('Manager', () => {
           translations: getTranslationAsync,
         });
 
-        const manager = new Manager({...basicDetails, locale: 'en-us'});
+        const manager = new Manager({...basicDetails, locale: 'en-US'});
         manager.connect(
           parent,
           noop,
@@ -517,7 +537,7 @@ describe('Manager', () => {
         const parent = new Connection({
           id: createID(),
           translations(locale: string) {
-            if (locale === 'fr-ca') {
+            if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
@@ -532,7 +552,7 @@ describe('Manager', () => {
           translations: getTranslation,
         });
 
-        const manager = new Manager({...basicDetails, locale: 'fr-ca'});
+        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
         manager.connect(
           parent,
           noop,
@@ -555,7 +575,7 @@ describe('Manager', () => {
   describe.skip('#update()', () => {});
 
   describe('#extract()', () => {
-    it('provides an object with all async and sync translations keyed to unique IDs', async () => {
+    it('provides an object with all async translations keyed to unique IDs', async () => {
       const parent = new Connection({
         id: createID(),
         translations: getTranslationParent,
@@ -566,41 +586,86 @@ describe('Manager', () => {
         translations: getTranslationAsync,
       });
 
-      const manager = new Manager({...basicDetails, locale: 'en-us'});
+      const manager = new Manager({...basicDetails, locale: 'en-US'});
+
       manager.connect(
         parent,
         noop,
       );
-      manager.connect(
-        connection,
-        noop,
-      );
 
-      const translationsByID = await manager.extract();
+      await manager
+        .connect(
+          connection,
+          noop,
+        )
+        .resolve();
+
+      const translationsByID = manager.extract();
       expect(Object.keys(translationsByID)).toBeArrayOfUniqueItems();
-      // @ts-ignore (Object.values)
+
       const translations = Object.values(translationsByID);
       expect(translations).toContain(enUS);
       expect(translations).toContain(en);
-      expect(translations).toContain(enUSParent);
-      expect(translations).toContain(enParent);
     });
 
-    it('can use the extracted translations to make async translation resolution be synchronous', async () => {
+    it('does not provide async translations if they have not been resolved', async () => {
+      const manager = new Manager({...basicDetails, locale: 'en-US'});
       const connection = new Connection({
         id: createID(),
         translations: getTranslationAsync,
       });
-      const manager = new Manager({...basicDetails, locale: 'fr-ca'});
-      manager.connect(
+
+      // Connected, but not resolved
+      const connectionResult = manager.connect(
         connection,
         noop,
       );
 
-      const translations = await manager.extract();
+      const translationsByID = manager.extract();
+      // @ts-ignore (Object.values)
+      expect(Object.values(translationsByID)).toHaveLength(0);
+
+      // Prevents leaving a hanging promise
+      await connectionResult.resolve();
+    });
+
+    it('does not provide synchronous translations', async () => {
+      const manager = new Manager({...basicDetails, locale: 'en-US'});
+      const connection = new Connection({
+        id: createID(),
+        translations: getTranslation,
+      });
+
+      // Connected, but not resolved
+      await manager
+        .connect(
+          connection,
+          noop,
+        )
+        .resolve();
+
+      const translationsByID = manager.extract();
+      // @ts-ignore (Object.values)
+      expect(Object.values(translationsByID)).toHaveLength(0);
+    });
+
+    it('can use the extracted translations to make async translation resolution be synchronous', async () => {
+      const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+      const connection = new Connection({
+        id: createID(),
+        translations: getTranslationAsync,
+      });
+
+      await manager
+        .connect(
+          connection,
+          noop,
+        )
+        .resolve();
+
       const hydratedManager = new Manager(
-        {...basicDetails, locale: 'fr-ca'},
-        translations,
+        {...basicDetails, locale: 'fr-CA'},
+        manager.extract(),
       );
       hydratedManager.connect(
         connection,
