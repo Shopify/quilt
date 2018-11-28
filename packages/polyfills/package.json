@@ -26,6 +26,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "browser-unhandled-rejection": "^1.0.2",
+    "caniuse-api": "^3.0.0",
     "intl-pluralrules": "^0.2.1",
     "isomorphic-fetch": "^2.2.1",
     "url-search-params-polyfill": "^5.0.0",
