@@ -10,7 +10,7 @@ Object {
   },
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/duplicate-names/schema.json → packages/graphql-typescript-definitions/test/fixtures/duplicate-names/schema.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/duplicate-names/schema.json → packages/graphql-typescript-definitions/test/fixtures/duplicate-names/types
 
  ERROR  GraphQL operations must have a unique name. The operation FindPerson is declared in:
  packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query1/FindPersonsQuery.graphql
@@ -43,7 +43,7 @@ Object {
   },
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json → packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json → packages/graphql-typescript-definitions/test/fixtures/malformed-query/types
  ERROR  Syntax Error: Expected {, found Name \\"name\\"
 GraphQLError: Syntax Error: Expected {, found Name \\"name\\"
     at syntaxError (node_modules/graphql/error/syntaxError.js)
@@ -92,7 +92,7 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/schema.json → packages/graphql-typescript-definitions/test/fixtures/missing-types/schema.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/schema.json → packages/graphql-typescript-definitions/test/fixtures/missing-types/types
 
  BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql.d.ts
  BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql.d.ts
@@ -105,7 +105,7 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/graphql-schema/schema.graphql → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/schema.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/graphql-schema/schema.graphql → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/types
 
  BUILT  packages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql.d.ts
 ",
@@ -117,8 +117,8 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/schema.json → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/schema.ts
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/schema.json → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/schema.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/schema.json → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/types
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/schema.json → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/types
 
  BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Fragment.graphql.d.ts
  BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Query.graphql.d.ts
@@ -133,7 +133,7 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/schema.json → packages/graphql-typescript-definitions/test/fixtures/all-clear/schema.ts
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/schema.json → packages/graphql-typescript-definitions/test/fixtures/all-clear/types
 
  BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql.d.ts
  BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql.d.ts

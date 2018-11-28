@@ -8,7 +8,7 @@ import {
   concatAST,
 } from 'graphql';
 import chalk from 'chalk';
-import {dirname, join, resolve} from 'path';
+import {join, resolve} from 'path';
 import {mkdirp, readFile, writeFile} from 'fs-extra';
 import {FSWatcher, watch} from 'chokidar';
 import {
@@ -28,7 +28,7 @@ import {
   Operation,
 } from 'graphql-tool-utilities';
 
-import {printDocument, printSchema} from './print';
+import {printDocument, generateSchemaTypes} from './print';
 import {EnumFormat} from './types';
 
 export {EnumFormat};
@@ -247,9 +247,16 @@ export class Builder extends EventEmitter {
     );
 
     const schemaTypesPath = getSchemaTypesPath(projectConfig, this.options);
-    const definition = printSchema(projectConfig.getSchema(), this.options);
-    await mkdirp(dirname(schemaTypesPath));
-    await writeFile(schemaTypesPath, definition);
+    const definitions = generateSchemaTypes(
+      projectConfig.getSchema(),
+      this.options,
+    );
+    await mkdirp(schemaTypesPath);
+    await Promise.all(
+      Array.from(definitions.entries()).map(([fileName, definition]) =>
+        writeFile(join(schemaTypesPath, fileName), definition),
+      ),
+    );
     this.emit('build:schema', {
       schemaPath,
       schemaTypesPath,
@@ -415,7 +422,7 @@ function getSchemaTypesPath(
       options.schemaTypesPath,
       `${
         projectConfig.projectName ? `${projectConfig.projectName}-` : ''
-      }types.ts`,
+      }types`,
     ),
   );
 }

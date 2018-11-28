@@ -4,14 +4,14 @@
       "schemaPath": "schema1/schema.json",
       "includes": ["schema1/documents/**/*.graphql"],
       "extensions": {
-        "schemaTypesPath": "schema1/schema.ts"
+        "schemaTypesPath": "schema1/types"
       }
     },
     "test2": {
       "schemaPath": "schema2/schema.json",
       "includes": ["schema2/documents/**/*.graphql"],
       "extensions": {
-        "schemaTypesPath": "schema2/schema.ts"
+        "schemaTypesPath": "schema2/types"
       }
     }
   }
