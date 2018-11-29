@@ -79,6 +79,7 @@ export enum Header {
 }
 
 export enum CspDirective {
+  // Fetch directives
   ChildSrc = 'child-src',
   ConnectSrc = 'connect-src',
   DefaultSrc = 'default-src',
@@ -88,17 +89,28 @@ export enum CspDirective {
   ManifestSrc = 'manifest-src',
   MediaSrc = 'media-src',
   ObjectSrc = 'object-src',
-  PrefectSrc = 'prefetch-src',
+  PrefetchSrc = 'prefetch-src',
   ScriptSrc = 'script-src',
   StyleSrc = 'style-src',
   WebrtcSrc = 'webrtc-src',
   WorkerSrc = 'worker-src',
 
+  // Document directives
+  BaseUri = 'base-uri',
+  PluginTypes = 'plugin-types',
   Sandbox = 'sandbox',
-  ReportUri = 'report-uri',
+
+  // Navigation directives
   FormAction = 'form-action',
   FrameAncestors = 'frame-ancestors',
-  PluginTypes = 'plugin-types',
+
+  // Reporting directives
+  ReportUri = 'report-uri',
+
+  // Other directives
+  BlockAllMixedContent = 'block-all-mixed-content',
+  RequireSriFor = 'require-sri-for',
+  UpgradeInsecureRequests = 'upgrade-insecure-requests',
 }
 
 export enum CspSandboxAllow {
@@ -125,6 +137,11 @@ export enum SpecialSource {
   Data = 'data:',
   Blob = 'blob:',
   FileSystem = 'filesystem:',
+}
+
+export enum SriAsset {
+  Script = 'script',
+  Style = 'style',
 }
 
 export enum HashAlgorithm {
