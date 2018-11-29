@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {Consumer, Context} from '../ShortcutProvider';
-import Key, {ModifierKey} from '../keys';
+import Key, {HeldKey} from '../keys';
 
 export interface Props {
   ordered: Key[];
-  held?: ModifierKey[];
+  held?: HeldKey;
   node?: HTMLElement | null;
   ignoreInput?: boolean;
-  onMatch(matched: {ordered: Key[]; held?: ModifierKey[]}): void;
+  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault?: boolean;
 }
 
@@ -32,6 +32,7 @@ class ShortcutConsumer extends React.Component<Props & Context, never> {
     onMatch: this.props.onMatch,
     allowDefault: this.props.allowDefault || false,
   };
+
   public subscription!: Subscription;
 
   componentDidMount() {
@@ -42,9 +43,11 @@ class ShortcutConsumer extends React.Component<Props & Context, never> {
     }
 
     const {shortcutManager} = this.props;
+
     if (shortcutManager == null) {
       return;
     }
+
     this.subscription = shortcutManager.subscribe(this.data);
   }
 
