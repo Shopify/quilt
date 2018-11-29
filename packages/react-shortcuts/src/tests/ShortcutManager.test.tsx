@@ -2,7 +2,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {timer} from '@shopify/jest-dom-mocks';
 
-import Key, {ModifierKey} from '../keys';
+import Key, {HeldKey, ModifierKey} from '../keys';
 import Shortcut from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 
@@ -227,7 +227,7 @@ describe('ShortcutManager', () => {
   describe('modifier keys', () => {
     it('matches shortcut when all modifier keys are pressed', () => {
       const fooSpy = jest.fn();
-      const held: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
+      const held: HeldKey = ['Control', 'Shift', 'Alt', 'Meta'];
 
       mount(
         <ShortcutProvider>
@@ -242,9 +242,27 @@ describe('ShortcutManager', () => {
       expect(fooSpy).toHaveBeenCalled();
     });
 
+    it('matches shortcut when all modifier keys of a group are pressed', () => {
+      const fooSpy = jest.fn();
+      const heldGroup: ModifierKey[] = ['Control', 'Shift'];
+      const held: HeldKey = [[...heldGroup], ['Alt', 'Meta']];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut held={held} ordered={['/']} onMatch={fooSpy} />
+        </ShortcutProvider>,
+      );
+
+      keydown('/', document, {
+        getModifierState: key => heldGroup.includes(key),
+      });
+
+      expect(fooSpy).toHaveBeenCalled();
+    });
+
     it('doesn’t match shortcut when all modifier keys not pressed', () => {
       const fooSpy = jest.fn();
-      const heldToCheck: ModifierKey[] = ['Control', 'Shift', 'Alt', 'Meta'];
+      const heldToCheck: HeldKey = ['Control', 'Shift', 'Alt', 'Meta'];
 
       mount(
         <ShortcutProvider>
@@ -252,10 +270,28 @@ describe('ShortcutManager', () => {
         </ShortcutProvider>,
       );
 
-      const heldPressed: ModifierKey[] = ['Control', 'Shift', 'Hyper'];
+      const heldPressed: HeldKey = ['Control', 'Shift', 'Hyper'];
 
       keydown('/', document, {
         getModifierState: key => heldPressed.includes(key),
+      });
+
+      expect(fooSpy).not.toHaveBeenCalled();
+    });
+
+    it('doesn’t match shortcut when not all modifier keys of a group are pressed', () => {
+      const fooSpy = jest.fn();
+      const heldGroup: ModifierKey[] = ['Control', 'Shift'];
+      const heldToCheck: HeldKey = [[...heldGroup], ['Alt', 'Meta']];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut held={heldToCheck} ordered={['/']} onMatch={fooSpy} />
+        </ShortcutProvider>,
+      );
+
+      keydown('/', document, {
+        getModifierState: key => ['Control'].includes(key),
       });
 
       expect(fooSpy).not.toHaveBeenCalled();
