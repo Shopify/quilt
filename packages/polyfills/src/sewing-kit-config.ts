@@ -1,4 +1,4 @@
-import caniuse from 'caniuse-api';
+import {isSupported} from 'caniuse-api';
 
 export interface PolyfillDescriptor {
   node: boolean;
@@ -30,7 +30,7 @@ export function mappedPolyfillsForEnv(isServer: boolean, browser: string) {
     if (isServer) {
       mappedPolyfills[polyfill] = node ? `${polyfill}.node` : '';
     } else if (featureTest) {
-      mappedPolyfills[polyfill] = caniuse.isSupported(featureTest, browser)
+      mappedPolyfills[polyfill] = isSupported(featureTest, browser)
         ? ''
         : polyfill;
     } else {
