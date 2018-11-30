@@ -54,7 +54,16 @@ function defaultMatcher(): MediaQueryList {
   return {media: '', addListener: noop, removeListener: noop, matches: false};
 }
 
-export function mediaQueryList(values: Partial<MediaQueryList>) {
+export function mediaQueryList(
+  values: Partial<MediaQueryList>,
+): MediaQueryList {
+  // Explictly state a return type as TypeScript does not attempt to shrink the
+  // type when using Object spread. Without the explicit return type TypeScript
+  // exports a type that exposes the internals of `MediaQueryList` (which
+  // changed in TS 3.1.0).
+  // This ensures that this function can be used in projects that use any
+  // version of Typescript instead of only <3.1.0 or >= 3.1.0 depending on the
+  // version that this library was compiled using.
   return {
     ...defaultMatcher(),
     ...values,
