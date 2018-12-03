@@ -166,7 +166,6 @@ export enum CacheControl {
   MaxAge = 'max-age',
 }
 
-export function noCache() {
-  const {NoCache, NoStore, MustRevalidate, MaxAge} = CacheControl;
-  return `${NoCache}, ${NoStore}, ${MustRevalidate}, ${MaxAge}=0`;
-}
+export const noCache = `${CacheControl.NoCache},${CacheControl.NoStore},${
+  CacheControl.MustRevalidate
+},${CacheControl.MaxAge}=0`;
