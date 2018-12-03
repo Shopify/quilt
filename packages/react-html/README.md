@@ -38,7 +38,7 @@ export default function middleware(ctx) {
 }
 ```
 
-The component will automatically propagate any usage of the [`react-helmet` library](https://github.com/nfl/react-helmet) in your app’s content to manipulate the title or other top level HTML or HEAD attributes. If you want to make use of the serialization techniques [documented below](#in-your-app-code), you must also construct a `Manager` instance, pass it to a `<Provider />` component, and call `@shopify/react-effect`’s `extract` method:
+If you want to make use of the serialization techniques [documented below](#in-your-app-code), you must also construct a `Manager` instance, pass it to a `<Provider />` component, and call `@shopify/react-effect`’s `extract` method:
 
 ```tsx
 // in App.tsx
