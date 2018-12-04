@@ -27,8 +27,8 @@ export function mappedPolyfillsForEnv(browser: 'node' | string | string[]) {
   return Object.entries(polyfills).reduce(
     (mappedPolyfills, [polyfill, {supportsNode, featureTest}]) => {
       const mapFrom = `@shopify/polyfills/${polyfill}$`;
-      const mapToPrefix = `shopify-polyfills-beta`;
-      const noop = `shopify-polyfills-beta/noop`;
+      const mapToPrefix = `@shopify/polyfills`;
+      const noop = `@shopify/polyfills/noop`;
 
       if (browser === 'node') {
         mappedPolyfills[mapFrom] = supportsNode

@@ -1,10 +1,8 @@
 {
   "name": "@shopify/polyfills",
-  "version": "0.0.1-beta.8",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
-  "main": "index.js",
-  "types": "index.d.ts",
   "sideEffects": true,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
