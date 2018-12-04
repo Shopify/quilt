@@ -39,7 +39,7 @@ function mappedPolyfillsForEnv(browser) {
     Object.entries(exports.polyfills).forEach(function (_a) {
         var _b = __read(_a, 2), polyfill = _b[0], _c = _b[1], supportsNode = _c.supportsNode, featureTest = _c.featureTest;
         var mapFrom = "@shopify/polyfills/" + polyfill + "$";
-        var mapToPrefix = "shopify-polyfills-beta/dist/polyfills";
+        var mapToPrefix = "shopify-polyfills-beta";
         if (browser === 'node') {
             mappedPolyfills[mapFrom] = supportsNode
                 ? mapToPrefix + "/" + polyfill + ".node"
