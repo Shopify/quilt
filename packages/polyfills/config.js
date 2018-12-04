@@ -40,14 +40,15 @@ function mappedPolyfillsForEnv(browser) {
         var _b = __read(_a, 2), polyfill = _b[0], _c = _b[1], supportsNode = _c.supportsNode, featureTest = _c.featureTest;
         var mapFrom = "@shopify/polyfills/" + polyfill + "$";
         var mapToPrefix = "shopify-polyfills-beta";
+        var noop = "shopify-polyfills-beta/noop";
         if (browser === 'node') {
             mappedPolyfills[mapFrom] = supportsNode
                 ? mapToPrefix + "/" + polyfill + ".node"
-                : '';
+                : noop;
         }
         else if (featureTest) {
             mappedPolyfills[mapFrom] = caniuse_api_1.isSupported(featureTest, browser)
-                ? ''
+                ? noop
                 : mapToPrefix + "/" + polyfill;
         }
         else {
