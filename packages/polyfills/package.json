@@ -3,8 +3,8 @@
   "version": "0.0.1-beta.3",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "sideEffects": true,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
@@ -35,8 +35,5 @@
   "devDependencies": {
     "@types/caniuse-api": "^3.0.0",
     "typescript": "~3.0.1"
-  },
-  "files": [
-    "dist/*"
-  ]
+  }
 }
