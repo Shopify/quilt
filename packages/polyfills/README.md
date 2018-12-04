@@ -37,7 +37,7 @@ import '@shopify/polyfills/url';
 
 ## Module Bundler Configuration
 
-This module also provides a way to configure your bundler to remap polyfill imports based on the environment being built for. For example, if you are building for node, you can have your bundler remap `@shopify/polyfills/fetch` to `@shopify/polyfills/fetch.node`. This allows you to maintain only one list of polyfills in your app codebase.
+This module also provides a way to configure your bundler to remap polyfill imports based on the environment being built for. For example, if you are building for node, you can have your bundler remap `@shopify/polyfills/fetch` to `@shopify/polyfills/fetch.node`. This allows you to maintain only one list of polyfills in your app codebase. **Sewing-kit** will perform this translation for you automatically.
 
 For this example usage, we will use webpack.
 
