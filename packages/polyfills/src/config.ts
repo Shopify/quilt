@@ -29,7 +29,7 @@ export function mappedPolyfillsForEnv(browser: 'node' | string | string[]) {
   Object.entries(polyfills).forEach(
     ([polyfill, {supportsNode, featureTest}]) => {
       const mapFrom = `@shopify/polyfills/${polyfill}$`;
-      const mapToPrefix = `shopify-polyfills-beta/dist/polyfills`;
+      const mapToPrefix = `shopify-polyfills-beta/polyfills`;
 
       if (browser === 'node') {
         mappedPolyfills[mapFrom] = supportsNode
