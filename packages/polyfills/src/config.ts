@@ -24,10 +24,8 @@ export const polyfills: {[polyfill: string]: PolyfillDescriptor} = {
 };
 
 export function mappedPolyfillsForEnv(browser: 'node' | string | string[]) {
-  const mappedPolyfills = {};
-
-  Object.entries(polyfills).forEach(
-    ([polyfill, {supportsNode, featureTest}]) => {
+  return Object.entries(polyfills).reduce(
+    (mappedPolyfills, [polyfill, {supportsNode, featureTest}]) => {
       const mapFrom = `@shopify/polyfills/${polyfill}$`;
       const mapToPrefix = `shopify-polyfills-beta`;
       const noop = `shopify-polyfills-beta/noop`;
@@ -44,8 +42,9 @@ export function mappedPolyfillsForEnv(browser: 'node' | string | string[]) {
         // If there's no feature we can test for, we assume we always need to polyfill it.
         mappedPolyfills[mapFrom] = `${mapToPrefix}/${polyfill}`;
       }
-    },
-  );
 
-  return mappedPolyfills;
+      return mappedPolyfills;
+    },
+    {},
+  );
 }
