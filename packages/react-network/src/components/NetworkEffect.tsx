@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Effect} from '@shopify/react-effect';
 
-import {Consumer} from '../context';
+import {Context} from '../context';
 import {Manager} from '../manager';
 
 interface Props {
@@ -16,10 +16,10 @@ export default function NetworkEffect({perform}: Props) {
   }
 
   return (
-    <Consumer>
+    <Context.Consumer>
       {manager => (
         <Effect serverOnly kind={EFFECT_ID} perform={() => perform(manager)} />
       )}
-    </Consumer>
+    </Context.Consumer>
   );
 }

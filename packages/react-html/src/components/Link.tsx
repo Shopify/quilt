@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Effect} from '@shopify/react-effect';
-import {Consumer} from '../context';
+import {Context} from '../context';
 import {EFFECT_ID} from '../utilities';
 import Manager from '../manager';
 
@@ -17,7 +17,7 @@ export default class Link extends React.PureComponent<Props> {
 
   render() {
     return (
-      <Consumer>
+      <Context.Consumer>
         {manager => (
           <Effect
             key={JSON.stringify(this.props)}
@@ -31,7 +31,7 @@ export default class Link extends React.PureComponent<Props> {
             }}
           />
         )}
-      </Consumer>
+      </Context.Consumer>
     );
   }
 }

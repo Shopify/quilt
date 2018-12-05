@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Effect} from '@shopify/react-effect';
-import {Consumer} from '../context';
+import {Context} from '../context';
 import Manager from '../manager';
 import {EFFECT_ID} from '../utilities';
 
@@ -21,7 +21,7 @@ export default class Title extends React.PureComponent<Props> {
     const {children: title} = this.props;
 
     return (
-      <Consumer>
+      <Context.Consumer>
         {manager => (
           <Effect
             key={title}
@@ -35,7 +35,7 @@ export default class Title extends React.PureComponent<Props> {
             }}
           />
         )}
-      </Consumer>
+      </Context.Consumer>
     );
   }
 }

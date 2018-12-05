@@ -2,7 +2,7 @@ import * as React from 'react';
 import Manager, {State} from './manager';
 import {MANAGED_ATTRIBUTE} from './utilities';
 
-const {Provider, Consumer} = React.createContext<Manager>(new Manager());
+const Context = React.createContext<Manager>(new Manager());
 
 interface Props {
   manager?: Manager;
@@ -31,7 +31,7 @@ class HtmlManagerProvider extends React.Component<Props> {
     const {manager, children} = this.props;
 
     return manager ? (
-      <Provider value={manager}>{children}</Provider>
+      <Context.Provider value={manager}>{children}</Context.Provider>
     ) : (
       <>{children}</>
     );
@@ -91,4 +91,4 @@ function updateOnClient(state: State) {
   document.head.appendChild(fragment);
 }
 
-export {HtmlManagerProvider as Provider, Consumer};
+export {HtmlManagerProvider as Provider, Context};
