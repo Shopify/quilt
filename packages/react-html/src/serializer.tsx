@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Effect} from '@shopify/react-effect';
-import {Consumer} from './context';
+import {Context} from './context';
 
 export const EXTRACT_ID = Symbol('serialize');
 
@@ -15,20 +15,24 @@ interface WithSerializedProps<T> {
 export function createSerializer<T>(id: string) {
   function Serialize({data}: SerializeProps<T>) {
     return (
-      <Consumer>
+      <Context.Consumer>
         {manager => (
           <Effect
             serverOnly
             kind={EXTRACT_ID}
-            perform={() => manager.set(id, data())}
+            perform={() => manager.setSerialization(id, data())}
           />
         )}
-      </Consumer>
+      </Context.Consumer>
     );
   }
 
   function WithSerialized({children}: WithSerializedProps<T>) {
-    return <Consumer>{manager => children(manager.get(id))}</Consumer>;
+    return (
+      <Context.Consumer>
+        {manager => children(manager.getSerialization(id))}
+      </Context.Consumer>
+    );
   }
 
   return {Serialize, WithSerialized};
