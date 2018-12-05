@@ -17,9 +17,9 @@ export interface Subscription {
 
 export default function Shortcut(props: Props) {
   return (
-    <Context.Consumer>
+    <Consumer>
       {(context: Context) => <ShortcutConsumer {...props} {...context} />}
-    </Context.Consumer>
+    </Consumer>
   );
 }
 

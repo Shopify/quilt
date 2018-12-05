@@ -111,9 +111,9 @@ const {Provider, Consumer} = React.createContext();
 export default function App() {
   return (
     <Provider value={new StatefulManager()}>
-      <Context.Consumer>
+      <Consumer>
         {manager => <Effect perform={() => (manager.value = true)} />}
-      </Context.Consumer>
+      </Consumer>
     </Provider>
   );
 }
@@ -128,9 +128,9 @@ renderToString(app);
 export default function App({manager}) {
   return (
     <Provider value={manager}>
-      <Context.Consumer>
+      <Consumer>
         {manager => <Effect perform={() => (manager.value = true)} />}
-      </Context.Consumer>
+      </Consumer>
     </Provider>
   );
 }
