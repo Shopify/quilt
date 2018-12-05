@@ -40,6 +40,12 @@ The [documentation](../documentation) directory in this repo covers the more gra
 - [Resources](../documentation/resources.md): good resources for understanding this project’s tech stack.
 - [Getting started](../documentation/getting-started.md): some tools we recommend for getting the most out of this project.
 
+## Testing your changes in a local project
+
+To try out your changes in another locally cloned project, you can use `yarn tophat <package-name-without-@shopify-prefix> <relative-path-to-project>`. Using this command rather than `yarn link` will set up a watcher let you make changes without needing to rerun any commands.
+
+Example: To test my changes to `@shopify/react-form-state` in my local project named `cool-proj`, I would run `yarn tophat react-form-state ../path/to/cool-proj`.
+
 ### Emoji commits
 
 We have found that prefacing a commit message or PR title with an emoji can be a great way to improve the developer experience when browsing the repo code. Additionally, it is a terse way to convey information. Many of our contributors have found the guide at https://gitmoji.carloscuesta.me/ to be helpful in preserving this dynamic.
