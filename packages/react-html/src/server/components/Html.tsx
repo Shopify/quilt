@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Helmet from 'react-helmet';
 import {renderToString} from 'react-dom/server';
 
 import {Script, Style} from '../../components';
 import Manager from '../../manager';
+import {MANAGED_ATTRIBUTE} from '../../utilities';
 
 import Serialize from './Serialize';
 
@@ -34,15 +34,38 @@ export default function Html({
   bodyMarkup = null,
 }: Props) {
   const markup = renderToString(children);
-  const helmet = Helmet.renderStatic();
 
-  const htmlAttributes = helmet.htmlAttributes.toComponent();
-  const bodyAttributes = helmet.bodyAttributes.toComponent();
+  const extracted = manager && manager.extract();
 
-  const serializationMarkup = manager
-    ? manager
-        .extract()
-        .map(({id, data}) => <Serialize key={id} id={id} data={data} />)
+  const serializationMarkup = extracted
+    ? extracted.serializations.map(({id, data}) => (
+        <Serialize key={id} id={id} data={data} />
+      ))
+    : null;
+
+  const managedProps = {[MANAGED_ATTRIBUTE]: true};
+
+  const titleMarkup =
+    extracted && extracted.title ? (
+      <title {...managedProps}>{extracted.title}</title>
+    ) : null;
+
+  const metaMarkup = extracted
+    ? extracted.metas.map((metaProps, index) => (
+        // This is never re-rendered, since it is the initial HTML document,
+        // so index keys are acceptable.
+        // eslint-disable-next-line react/no-array-index-key
+        <meta key={index} {...managedProps} {...metaProps} />
+      ))
+    : null;
+
+  const linkMarkup = extracted
+    ? extracted.links.map((linkProps, index) => (
+        // This is never re-rendered, since it is the initial HTML document,
+        // so index keys are acceptable.
+        // eslint-disable-next-line react/no-array-index-key
+        <link key={index} {...managedProps} {...linkProps} />
+      ))
     : null;
 
   const stylesMarkup = styles.map(style => {
@@ -84,19 +107,18 @@ export default function Html({
     process.env.NODE_ENV === 'development' ? {display: 'none'} : undefined;
 
   return (
-    <html lang={locale} {...htmlAttributes}>
+    <html lang={locale}>
       <head>
-        {helmet.title.toComponent()}
-        {helmet.meta.toComponent()}
-        {helmet.script.toComponent()}
-        {helmet.link.toComponent()}
+        {titleMarkup}
+        {metaMarkup}
+        {linkMarkup}
 
         {stylesMarkup}
         {headMarkup}
         {blockingScriptsMarkup}
       </head>
 
-      <body {...bodyAttributes} style={bodyStyles}>
+      <body style={bodyStyles}>
         <div id="app" dangerouslySetInnerHTML={{__html: markup}} />
 
         {bodyMarkup}
