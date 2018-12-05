@@ -93,7 +93,7 @@ git checkout master && git pull
 yarn release
 ```
 
-3. Follow the prompts to choose a version for each package.
+3. Follow the prompts to choose a version for each package. If you are releasing a new package, we encourage you to version it `1.0.0` to start with.
 
 **Note** Quilt packages adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
