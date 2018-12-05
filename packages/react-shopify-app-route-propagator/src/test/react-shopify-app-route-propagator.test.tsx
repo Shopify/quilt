@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
+import {ClientApplication} from '@shopify/app-bridge';
+import {History as AppBridgeHistory} from '@shopify/app-bridge/actions';
 
-import RoutePropagator, {REPLACE_STATE_MESSAGE, MODAL_IFRAME_NAME} from '..';
+import RoutePropagator, {MODAL_IFRAME_NAME} from '..';
 
 jest.mock('../globals', () => {
   return {
@@ -17,94 +19,106 @@ const {getOrigin, getTopWindow, getSelfWindow} = mockUtilities;
 describe('@shopify/react-shopify-app-route-propagator', () => {
   const topWindow = {
     name: '',
-    postMessage: jest.fn(),
   };
   const selfWindow = {
     name: '',
   };
 
-  beforeEach(() => {
-    getOrigin.mockImplementation(() => 'https://test.com');
+  const mockApp = {} as ClientApplication<any>;
 
-    topWindow.postMessage.mockClear();
+  const appBridgeHistoryMock = {
+    dispatch: jest.fn(),
+  };
+  AppBridgeHistory.create = jest.fn().mockReturnValue(appBridgeHistoryMock);
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    getOrigin.mockImplementation(() => 'https://test.com');
     getTopWindow.mockImplementation(() => topWindow);
     getSelfWindow.mockImplementation(() => selfWindow);
   });
 
-  it('sends a post message on mount', () => {
+  it('dispatch a replace action on mount', () => {
     const path = '/settings';
 
-    mount(<RoutePropagator location={path} />);
+    mount(<RoutePropagator location={path} app={mockApp} />);
 
-    expect(topWindow.postMessage).toBeCalledWith(
-      replaceStateMessage(path),
-      '*',
+    expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(1);
+    expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledWith(
+      AppBridgeHistory.Action.REPLACE,
+      path,
     );
   });
 
-  it('sends a post message when the location updates', () => {
-    const propagator = mount(<RoutePropagator location="/settings" />);
+  it('dispatch a replace action when the location updates', () => {
+    const firstPath = '/settings';
+    const propagator = mount(
+      <RoutePropagator location={firstPath} app={mockApp} />,
+    );
 
-    const path = '/foo';
-    propagator.setProps({location: path});
+    const secondPath = '/foo';
+    propagator.setProps({location: secondPath});
     propagator.update();
 
-    expect(topWindow.postMessage).toBeCalledWith(
-      replaceStateMessage(path),
-      '*',
+    expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(2);
+    expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledWith(
+      AppBridgeHistory.Action.REPLACE,
+      firstPath,
+    );
+    expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledWith(
+      AppBridgeHistory.Action.REPLACE,
+      secondPath,
     );
   });
 
   describe('when window is window.top', () => {
-    it('does not send a post message on mount', () => {
+    it('does not dispatch a replace action on mount', () => {
       getSelfWindow.mockImplementation(() => topWindow);
 
-      mount(<RoutePropagator location="/settings" />);
+      mount(<RoutePropagator location="/settings" app={mockApp} />);
 
-      expect(topWindow.postMessage).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
     });
 
-    it('does not send a post message when the location updates', () => {
+    it('does not dispatch a replace action when the location updates', () => {
       getSelfWindow.mockImplementation(() => topWindow);
 
-      const propagator = mount(<RoutePropagator location="/settings" />);
+      const propagator = mount(
+        <RoutePropagator location="/settings" app={mockApp} />,
+      );
 
       const path = '/foo';
       propagator.setProps({location: path});
       propagator.update();
 
-      expect(topWindow.postMessage).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
     });
   });
 
   describe('when window is an iframe', () => {
-    it('does not send a post message on mount', () => {
+    it('does not dispatch a replace action on mount', () => {
       getSelfWindow.mockImplementation(() => ({
         name: MODAL_IFRAME_NAME,
       }));
-      mount(<RoutePropagator location="/settings" />);
+      mount(<RoutePropagator location="/settings" app={mockApp} />);
 
-      expect(topWindow.postMessage).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
     });
 
-    it('does not send a post message when the location updates', () => {
+    it('does not dispatch a replace action when the location updates', () => {
       getSelfWindow.mockImplementation(() => ({
         name: MODAL_IFRAME_NAME,
       }));
 
-      const propagator = mount(<RoutePropagator location="/settings" />);
+      const propagator = mount(
+        <RoutePropagator location="/settings" app={mockApp} />,
+      );
 
       propagator.setProps({location: '/foo'});
       propagator.update();
 
-      expect(topWindow.postMessage).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
     });
   });
 });
-
-function replaceStateMessage(location: string) {
-  return JSON.stringify({
-    message: REPLACE_STATE_MESSAGE,
-    data: {location},
-  });
-}
