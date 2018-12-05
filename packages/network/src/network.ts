@@ -76,6 +76,7 @@ export enum Header {
   AccessControlMaxAge = 'Access-Control-Max-Age',
   AccessControlRequestHeaders = 'Access-Control-Request-Headers',
   AccessControlRequestMethod = 'Access-Control-Request-Method',
+  CacheControl = 'Cache-Control',
 }
 
 export enum CspDirective {
@@ -157,3 +158,14 @@ export function nonceSource(nonce: string) {
 export function hashSource(hashAlgorithm: HashAlgorithm, value: string) {
   return `'${hashAlgorithm}-${value}'`;
 }
+
+export enum CacheControl {
+  NoCache = 'no-cache',
+  NoStore = 'no-store',
+  MustRevalidate = 'must-revalidate',
+  MaxAge = 'max-age',
+}
+
+export const noCache = `${CacheControl.NoCache},${CacheControl.NoStore},${
+  CacheControl.MustRevalidate
+},${CacheControl.MaxAge}=0`;

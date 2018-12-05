@@ -24,3 +24,8 @@ declare module 'react-tree-walker' {
     options?: {componentWillUnmount: boolean},
   ): Promise<void>;
 }
+
+declare module 'browser-unhandled-rejection' {
+  const auto: Function;
+  export {auto};
+}

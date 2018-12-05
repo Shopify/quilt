@@ -41,7 +41,7 @@ The url for the StatsD host; should be provided in the format: `hostname:port`.
 
 ## API
 
-An instance of the `Metrics` object will be available on `ctx.metrics` further dfown in the middleware stack.
+An instance of the `Metrics` object will be available on `ctx.metrics` further down in the middleware stack.
 
 ### `Metrics`
 
