@@ -199,7 +199,7 @@ export default class FormState<
 
   @bind()
   private reset() {
-    this.setState(createFormState(this.props.initialValues));
+    this.setState((state, props) => createFormState(props.initialValues));
   }
 
   @memoize()
