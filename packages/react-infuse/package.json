@@ -1,0 +1,30 @@
+{
+  "name": "@shopify/react-infuse",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Infuse your react tree with data",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-infuse/README.md",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "~3.0.1"
+  },
+  "files": ["dist/*"]
+}
