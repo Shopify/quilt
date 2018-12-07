@@ -50,6 +50,7 @@ interface Props<Fields> {
   validators?: Partial<ValidatorDictionary<Fields>>;
   onSubmit?: SubmitHandler<Fields>;
   validateOnSubmit?: boolean;
+  disableOnSubmit?: boolean;
   onInitialValuesChange?: 'reset-all' | 'reset-where-changed' | 'ignore';
   externalErrors?: RemoteError[];
 }
@@ -195,7 +196,7 @@ export default class FormState<
   }
 
   private submit = async (event?: Event) => {
-    const {onSubmit, validateOnSubmit} = this.props;
+    const {onSubmit, disableOnSubmit, validateOnSubmit} = this.props;
     const {formData} = this;
 
     if (!this.mounted) {
@@ -212,10 +213,18 @@ export default class FormState<
 
     this.setState({submitting: true});
 
+    if (disableOnSubmit) {
+      this.disableFields();
+    }
+
     if (validateOnSubmit) {
       await this.validateForm();
 
       if (this.hasClientErrors) {
+        if (disableOnSubmit) {
+          this.enableFields();
+        }
+
         this.setState({submitting: false});
         return;
       }
@@ -232,6 +241,10 @@ export default class FormState<
       this.setState({submitting: false});
     } else {
       this.setState({submitting: false, errors});
+    }
+
+    if (disableOnSubmit) {
+      this.enableFields();
     }
   };
 
@@ -390,6 +403,32 @@ export default class FormState<
       errors,
       fields: fieldsWithErrors(fields, [...errors, ...externalErrors]),
     }));
+  }
+
+  private disableFields() {
+    this.setState(({fields}: State<Fields>) => {
+      return {
+        fields: mapObject(fields, field => {
+          return {
+            ...field,
+            disabled: true,
+          };
+        }),
+      };
+    });
+  }
+
+  private enableFields() {
+    this.setState(({fields}: State<Fields>) => {
+      return {
+        fields: mapObject(fields, field => {
+          return {
+            ...field,
+            disabled: undefined,
+          };
+        }),
+      };
+    });
   }
 }
 

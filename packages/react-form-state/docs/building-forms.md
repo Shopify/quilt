@@ -398,6 +398,40 @@ function MyComponent() {
 
 To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](validators.md).
 
+### disableOnSubmit
+
+You can configure `<FormState />` to disable all fields in the form while executing `onSubmit` by passing it the `disableOnSubmit` prop.
+
+```typescript
+import {TextField, Form, Button} from '@shopify/polaris';
+import FormState, {validators} from '@shopify/react-form-state';
+
+function MyComponent() {
+  return (
+    <FormState
+      initialValues={{
+        title: 'Cool title',
+      }}
+      disableOnSubmit
+      onSubmit={() => {
+        console.log('I take a long time to run');
+      }}
+    >
+      {formDetails => {
+        const {fields, submit} = formDetails;
+
+        return (
+          <Form onSubmit={submit}>
+            <TextField label="Title" {...fields.title} />
+            <Button type="submit">Submit</Button>
+          </Form>
+        );
+      }}
+    </FormState>
+  );
+}
+```
+
 ## External errors
 
 You can use the `externalErrors` prop to supply `<FormState />` with external errors. This is useful for displaying errors that occur outside of the normal form submit flow. These errors will be available alongside regular errors via the `errors` array.
@@ -436,7 +470,6 @@ class MyComponent extends React.Component {
      </FormState>
    )
  }
-}
 ```
 
 ## Compound fields

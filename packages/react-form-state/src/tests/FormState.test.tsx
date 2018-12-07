@@ -1273,6 +1273,133 @@ describe('<FormState />', () => {
     });
   });
 
+  describe('disableOnSubmit', () => {
+    it('propagates disabled to fields when form is submitting and disableOnSubmit is true', () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      function onSubmit() {
+        return Promise.resolve();
+      }
+
+      mount(
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+          disableOnSubmit
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      submit();
+
+      const {fields: beforeSubmitFields} = lastCallArgs(renderPropSpy);
+      expect(beforeSubmitFields.product.disabled).toBeTruthy();
+    });
+
+    it('clears disabled from fields when form submit is complete and disableOnSubmit is true', async () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      function onSubmit() {
+        return Promise.resolve();
+      }
+
+      mount(
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+          disableOnSubmit
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      await submit();
+
+      const {fields: afterSubmitFields} = lastCallArgs(renderPropSpy);
+      expect(afterSubmitFields.product.disabled).toBeUndefined();
+    });
+
+    it('clears disabled from fields when form submit is complete with errors and disableOnSubmit is true', async () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      function onSubmit() {
+        return Promise.resolve();
+      }
+
+      mount(
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+          disableOnSubmit
+          validateOnSubmit
+          validators={{
+            product() {
+              return 'product bad';
+            },
+          }}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      await submit();
+
+      const {fields: afterSubmitFields} = lastCallArgs(renderPropSpy);
+      expect(afterSubmitFields.product.disabled).toBeUndefined();
+    });
+
+    it('does not call propogate disabled to fields when form is submitting and disableOnSubmit is false', () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      function onSubmit() {
+        return Promise.resolve();
+      }
+
+      mount(
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+          disableOnSubmit={false}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      submit();
+
+      const {fields: beforeSubmitFields} = lastCallArgs(renderPropSpy);
+      expect(beforeSubmitFields.product.disabled).toBeUndefined();
+    });
+
+    it('does not call propogate disabled to fields when form is submitting and disableOnSubmit is undefined', () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      function onSubmit() {
+        return Promise.resolve();
+      }
+
+      mount(
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      submit();
+
+      const {fields: beforeSubmitFields} = lastCallArgs(renderPropSpy);
+      expect(beforeSubmitFields.product.disabled).toBeUndefined();
+    });
+  });
+
   describe('validateForm', () => {
     it('calls all validators', () => {
       const productValidatorSpy = jest.fn();

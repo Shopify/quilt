@@ -204,6 +204,40 @@ describe('<FormState.List />', () => {
     });
   });
 
+  it('passes disabled down to inner fields', () => {
+    const products = [
+      {
+        title: faker.commerce.productName(),
+        department: faker.commerce.department(),
+      },
+      {
+        title: faker.commerce.productName(),
+        department: faker.commerce.department(),
+      },
+    ];
+
+    const field = {
+      name: 'products',
+      value: products,
+      initialValue: products,
+      onChange: jest.fn(),
+      onBlur: jest.fn(),
+      dirty: false,
+      changed: false,
+      disabled: true,
+    };
+
+    const renderSpy = jest.fn(() => null);
+    mount(<FormState.List field={field}>{renderSpy}</FormState.List>);
+
+    renderSpy.mock.calls.forEach(([fields]) => {
+      const {title, department} = fields;
+
+      expect(title.disabled).toBe(field.disabled);
+      expect(department.disabled).toBe(field.disabled);
+    });
+  });
+
   it('Does not have race condition with multiple onChange calls', () => {
     const products = [
       {

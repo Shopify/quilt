@@ -4,6 +4,7 @@ export interface FieldState<Value> {
   value: Value;
   dirty: boolean;
   changed: boolean;
+  disabled?: boolean;
   error?: any;
 }
 

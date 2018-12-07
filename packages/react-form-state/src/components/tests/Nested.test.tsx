@@ -131,6 +131,32 @@ describe('<Nested />', () => {
     expect(renderPropArgs.department.error).toBe(field.error.department);
   });
 
+  it('passes disabled down to inner fields', () => {
+    const product = {
+      title: faker.commerce.productName(),
+      department: faker.commerce.department(),
+    };
+
+    const field = {
+      name: 'product',
+      value: product,
+      initialValue: product,
+      onChange: jest.fn(),
+      onBlur: jest.fn(),
+      dirty: false,
+      changed: false,
+      disabled: true,
+    };
+
+    const renderSpy = jest.fn(() => null);
+    mount(<FormState.Nested field={field}>{renderSpy}</FormState.Nested>);
+
+    const renderPropArgs = lastCallArgs(renderSpy);
+
+    expect(renderPropArgs.title.disabled).toBe(field.disabled);
+    expect(renderPropArgs.department.disabled).toBe(field.disabled);
+  });
+
   it('Does not have race condition with multiple onChange calls', () => {
     const product = {
       title: faker.commerce.productName(),

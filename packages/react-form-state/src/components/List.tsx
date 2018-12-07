@@ -20,23 +20,25 @@ export default class List<Fields> extends React.Component<
       field: {
         value: nextValue,
         error: nextError,
+        disabled: nextDisabled,
         initialValue: nextInitialValue,
       },
     } = nextProps;
     const {
-      field: {value, error, initialValue},
+      field: {value, error, disabled, initialValue},
     } = this.props;
 
     return (
       nextValue !== value ||
       nextError !== error ||
+      nextDisabled !== disabled ||
       nextInitialValue !== initialValue
     );
   }
 
   render() {
     const {
-      field: {value, initialValue, error, name, onBlur},
+      field: {value, initialValue, error, disabled, name, onBlur},
       getChildKey,
       children,
     } = this.props;
@@ -53,6 +55,7 @@ export default class List<Fields> extends React.Component<
             initialValue: initialFieldValue,
             dirty: value !== initialFieldValue,
             error: error && error[index] && error[index][fieldPath],
+            disabled,
             onChange: this.handleChange({index, key: fieldPath}),
           };
         },
