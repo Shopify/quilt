@@ -17,7 +17,7 @@
     "release": "lerna publish && git push --follow-tags",
     "clean": "rimraf './packages/*/dist/**/*.{js,d.ts}'",
     "generate": "yarn plop",
-    "tophat": "node ./bin/tophat.js tophat"
+    "tophat": "node ./bin/tophat.js"
   },
   "repository": {
     "type": "git",

@@ -9,7 +9,7 @@ const messages = {
     `\n${bold.green(
       'Tip:',
     )} 🎩  your changes by specifying which package to build  e.g.:\n  ${bold(
-      'yarn tophat @shopify/react-form-state ../web',
+      'yarn tophat react-form-state ../web',
     )}\n`,
   promptForRepo: () =>
     `\n${bold.green(
@@ -46,7 +46,7 @@ process.on('unhandledRejection', error => {
 yargs
   .usage('Usage: $0 $1 <command> [options]')
   .command({
-    command: 'tophat [packageName] [destinationRepository]',
+    command: '* [packageName] [destinationRepository]',
     desc: 'Quickly verify your changes in a local repository',
     builder: {
       packageName: {
