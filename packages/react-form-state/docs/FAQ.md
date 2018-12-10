@@ -14,3 +14,30 @@ Several popular community packages sit at different places on the spectrum for t
 As such the main difference in our solution is the explicit, declarative api. Form fields are given explicit handlers generated individually for each field and made available through a [render prop](https://reactjs.org/docs/render-props.html). To reduce boilerplate we've kept the generated `field` objects as easy to use as possible. Usually you can just splat them onto your inputs. We'll go into this in more detail in the [usage guide](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/building-forms.md). Creating handlers for each field instead of having one that you share or inject using a higher order component means we are fully type safe, with editor autocomplete able to show a developer exactly what fields are available, and compilation breaking when someone tries to use a field that doesn't exist.
 
 `<FormState />` also differs in that it's validation behavior is based around the [Polaris form validation guidelines](https://polaris.shopify.com/patterns/error-messages#section-form-validation) out of the box. This allows us to provide consistent feedback across all pages that use it without developers having to think about it.
+
+## I want to invoke all my validators whenever I want, how can I do this?
+
+You can do this by setting a `ref` on your `<FormState />`, and calling `validateForm` on the instance passed in.
+
+```typescript
+// use `createRef` and validate imperatively later
+class MyComponent extends React.Component {
+  formState = React.createRef();
+
+  render() {
+    return (
+      <FormState
+        initialValues={fields}
+        ref={this.formState}
+      />
+      <button onClick={() => this.formState.current.validateForm()}>validate</button>
+    );
+  }
+}
+```
+
+If you need to do something immediately on mount you could also use old fashioned [callback refs](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs).
+
+## More questions
+
+Have a question that you think should be included in our FAQ? Please help us by creating an [issue](https://github.com/Shopify/quilt/issues/new?template=ENHANCEMENT.md) or opening a pull request.

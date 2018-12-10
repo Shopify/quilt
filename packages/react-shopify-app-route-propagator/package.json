@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-shopify-app-route-propagator",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-shopify-app-route-propagator/README.md",
   "peerDependencies": {
+    "@shopify/app-bridge": "^0.7.3",
     "react": "^16.0.0"
   },
   "devDependencies": {

@@ -4,6 +4,8 @@ import {HelmetData} from 'react-helmet';
 import withEnv from '@shopify/with-env';
 
 import {Script, Style} from '../../../components';
+import Manager from '../../../manager';
+import {MANAGED_ATTRIBUTE} from '../../../utilities';
 
 import Html from '../Html';
 import Serialize from '../Serialize';
@@ -125,76 +127,6 @@ describe('<Html />', () => {
     });
   });
 
-  describe('helmet', () => {
-    it('includes the title component', () => {
-      const title = <title>Hello world!</title>;
-      helmetMock.renderStatic.mockImplementation(() =>
-        mockHelmet({
-          title: mockHelmetData('', title),
-        }),
-      );
-      const html = mount(<Html {...mockProps} />);
-      expect(html.find('head').contains(title)).toBe(true);
-    });
-
-    it('includes the meta component', () => {
-      const meta = <meta content="Hello world" />;
-      helmetMock.renderStatic.mockImplementation(() =>
-        mockHelmet({
-          meta: mockHelmetData('', meta),
-        }),
-      );
-      const html = mount(<Html {...mockProps} />);
-      expect(html.find('head').contains(meta)).toBe(true);
-    });
-
-    it('includes the link component', () => {
-      const link = <link rel="hello/world" />;
-      helmetMock.renderStatic.mockImplementation(() =>
-        mockHelmet({
-          link: mockHelmetData('', link),
-        }),
-      );
-      const html = mount(<Html {...mockProps} />);
-      expect(html.find('head').contains(link)).toBe(true);
-    });
-
-    it('includes the script component', () => {
-      const script = (
-        <script dangerouslySetInnerHTML={{__html: 'alert("hi")'}} />
-      );
-      helmetMock.renderStatic.mockImplementation(() =>
-        mockHelmet({
-          script: mockHelmetData('', script),
-        }),
-      );
-      const html = mount(<Html {...mockProps} />);
-      expect(html.find('head').contains(script)).toBe(true);
-    });
-
-    it('includes the htmlAttributes', () => {
-      const htmlAttributes = {className: 'hello world', 'data-baz': true};
-      helmetMock.renderStatic.mockImplementation(() =>
-        mockHelmet({
-          htmlAttributes: mockHelmetData('', htmlAttributes),
-        }),
-      );
-      const html = mount(<Html {...mockProps} />);
-      expect(html.find('html').props()).toMatchObject(htmlAttributes);
-    });
-
-    it('includes the bodyAttributes', () => {
-      const bodyAttributes = {className: 'hello world', 'data-baz': true};
-      helmetMock.renderStatic.mockImplementation(() =>
-        mockHelmet({
-          bodyAttributes: mockHelmetData('', bodyAttributes),
-        }),
-      );
-      const html = mount(<Html {...mockProps} />);
-      expect(html.find('body').props()).toMatchObject(bodyAttributes);
-    });
-  });
-
   describe('headMarkup', () => {
     it('renders headMarkup in the head before the sync scripts', () => {
       const headMarkup = <Serialize id="data" data={{}} />;
@@ -240,6 +172,82 @@ describe('<Html />', () => {
       );
 
       expect(serializerIndex).toBeLessThan(scriptsIndex);
+    });
+  });
+
+  describe('manager', () => {
+    it('renders serializations', () => {
+      const id = 'MySerialization';
+      const data = {foo: 'bar'};
+      const manager = new Manager({isServer: true});
+      manager.setSerialization(id, data);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+
+      expect(html.find(Serialize).props()).toMatchObject({
+        id,
+        data,
+      });
+    });
+
+    it('renders a title', () => {
+      const title = 'Shopify';
+      const manager = new Manager();
+      manager.addTitle(title);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+
+      expect(html.find('title').prop('children')).toBe(title);
+    });
+
+    it('renders meta tags with the managed attribute', () => {
+      const metaOne = {content: 'foo'};
+      const metaTwo = {content: 'bar'};
+
+      const manager = new Manager();
+      manager.addMeta(metaOne);
+      manager.addMeta(metaTwo);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+
+      expect(
+        html
+          .find('meta')
+          .at(0)
+          .props(),
+      ).toEqual({[MANAGED_ATTRIBUTE]: true, ...metaOne});
+
+      expect(
+        html
+          .find('meta')
+          .at(1)
+          .props(),
+      ).toEqual({[MANAGED_ATTRIBUTE]: true, ...metaTwo});
+    });
+
+    it('renders link tags with the managed attribute', () => {
+      const linkOne = {src: 'foo'};
+      const linkTwo = {src: 'bar'};
+
+      const manager = new Manager();
+      manager.addLink(linkOne);
+      manager.addLink(linkTwo);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+
+      expect(
+        html
+          .find('link')
+          .at(0)
+          .props(),
+      ).toEqual({[MANAGED_ATTRIBUTE]: true, ...linkOne});
+
+      expect(
+        html
+          .find('link')
+          .at(1)
+          .props(),
+      ).toEqual({[MANAGED_ATTRIBUTE]: true, ...linkTwo});
     });
   });
 });
