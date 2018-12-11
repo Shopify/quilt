@@ -1,4 +1,5 @@
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
+import {memoize, autobind} from '@shopify/javascript-utilities/decorators';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -7,16 +8,23 @@ import {
   LanguageDirection,
 } from './types';
 import {
+  dateStyle,
+  DateStyle,
   DEFAULT_WEEK_START_DAY,
   WEEK_START_DAYS,
   RTL_LANGUAGES,
+  Weekdays,
 } from './constants';
 import {
   MissingCurrencyCodeError,
   MissingTimezoneError,
   MissingCountryError,
 } from './errors';
-import {translate, TranslateOptions as RootTranslateOptions} from './utilities';
+import {
+  getCurrencySymbol,
+  translate,
+  TranslateOptions as RootTranslateOptions,
+} from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   as?: 'number' | 'currency' | 'percent';
@@ -142,7 +150,18 @@ export default class I18n {
     }).format(amount);
   }
 
-  formatDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+  formatCurrency(amount: number, options: Intl.NumberFormatOptions = {}) {
+    return this.formatNumber(amount, {as: 'currency', ...options});
+  }
+
+  formatPercentage(amount: number, options: Intl.NumberFormatOptions = {}) {
+    return this.formatNumber(amount, {as: 'percent', ...options});
+  }
+
+  formatDate(
+    date: Date,
+    options?: Intl.DateTimeFormatOptions & {style?: DateStyle},
+  ): string {
     const {locale, defaultTimezone: timezone} = this;
 
     if (timezone == null && (options == null || options.timeZone == null)) {
@@ -151,13 +170,21 @@ export default class I18n {
       );
     }
 
+    const {style = undefined, ...formatOptions} = options || {};
+
+    if (style) {
+      return style === DateStyle.Humanize
+        ? this.humanizeDate(date, formatOptions)
+        : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
+    }
+
     return new Intl.DateTimeFormat(locale, {
       timeZone: timezone,
-      ...options,
+      ...formatOptions,
     }).format(date);
   }
 
-  weekStartDay(argCountry?: I18n['defaultCountry']) {
+  weekStartDay(argCountry?: I18n['defaultCountry']): Weekdays {
     const country = argCountry || this.defaultCountry;
 
     if (!country) {
@@ -168,6 +195,37 @@ export default class I18n {
 
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
   }
+
+  @autobind
+  getCurrencySymbol(currencyCode?: string) {
+    const currency = currencyCode || this.defaultCurrency;
+    if (currency == null) {
+      throw new MissingCurrencyCodeError(
+        `No currency code provided. formatCurrency cannot be called without a currency code.`,
+      );
+    }
+    return this.getCurrencySymbolLocalized(this.locale, currency);
+  }
+
+  @memoize((currency: string, locale: string) => `${locale}${currency}`)
+  getCurrencySymbolLocalized(locale: string, currency: string) {
+    return getCurrencySymbol(locale, {currency});
+  }
+
+  private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const today = new Date();
+
+    if (isSameDate(today, date)) {
+      return this.translate('today');
+    } else if (isYesterday(date)) {
+      return this.translate('yesterday');
+    } else {
+      return this.formatDate(date, {
+        ...options,
+        ...dateStyle[DateStyle.Humanize],
+      });
+    }
+  }
 }
 
 function isTranslateOptions(
@@ -177,4 +235,24 @@ function isTranslateOptions(
     | ComplexReplacementDictionary,
 ): object is TranslateOptions {
   return 'scope' in object;
+}
+
+function isSameMonthAndYear(source: Date, target: Date) {
+  return (
+    source.getFullYear() === target.getFullYear() &&
+    source.getMonth() === target.getMonth()
+  );
+}
+
+function isSameDate(source: Date, target: Date) {
+  return (
+    isSameMonthAndYear(source, target) && source.getDate() === target.getDate()
+  );
+}
+
+function isYesterday(date: Date) {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  return isSameDate(yesterday, date);
 }

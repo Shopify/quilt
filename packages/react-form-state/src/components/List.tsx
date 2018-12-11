@@ -8,6 +8,7 @@ import {mapObject, replace} from '../utilities';
 interface Props<Fields> {
   field: FieldDescriptor<Fields[]>;
   children(fields: FieldDescriptors<Fields>, index: number): React.ReactNode;
+  getChildKey?(item: Fields): string;
 }
 
 export default class List<Fields> extends React.Component<
@@ -36,6 +37,7 @@ export default class List<Fields> extends React.Component<
   render() {
     const {
       field: {value, initialValue, error, name, onBlur},
+      getChildKey,
       children,
     } = this.props;
 
@@ -56,9 +58,11 @@ export default class List<Fields> extends React.Component<
         },
       );
 
+      const key = getChildKey ? getChildKey(fieldValues) : index;
+
       return (
         // eslint-disable-next-line
-        <React.Fragment key={index}>
+        <React.Fragment key={key}>
           {children(innerFields, index)}
         </React.Fragment>
       );

@@ -10,6 +10,7 @@ export interface Props {
   set?: {[key: string]: any};
   onLoad?(analytics: UniversalAnalytics): void;
   debug?: boolean;
+  disableTracking?: boolean;
 }
 
 export const SETUP_SCRIPT = `
@@ -57,6 +58,7 @@ export default class UniversalGoogleAnalytics extends React.PureComponent<
       set: setVariables = {},
       onLoad,
       debug = false,
+      disableTracking = false,
     } = this.props;
 
     const normalizedDomain = getRootDomain(domain);
@@ -66,13 +68,13 @@ export default class UniversalGoogleAnalytics extends React.PureComponent<
       allowLinker: true,
     };
 
-    if (debug) {
-      // The debug version of the analytics.js library
-      // https://developers.google.com/analytics/devguides/collection/analyticsjs/debugging
+    googleAnalytics('create', account, 'auto', options);
+
+    if (debug || disableTracking) {
+      // Prevent data being sent to Google
+      // https://developers.google.com/analytics/devguides/collection/analyticsjs/debugging#testing_your_implementation_without_sending_hits
       googleAnalytics('set', 'sendHitTask', null);
     }
-
-    googleAnalytics('create', account, 'auto', options);
 
     for (const [key, value] of Object.entries(setVariables)) {
       googleAnalytics('set', key, value);

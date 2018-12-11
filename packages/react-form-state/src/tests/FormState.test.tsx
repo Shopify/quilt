@@ -680,6 +680,34 @@ describe('<FormState />', () => {
         await submissionPromise();
       }).not.toThrow();
     });
+
+    it('does not update errors when component is unmounted before submit resolves', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+
+      const submitErrors = [
+        {message: faker.lorem.sentences()},
+        {message: faker.lorem.sentences()},
+      ];
+
+      function onSubmit() {
+        return Promise.resolve(submitErrors);
+      }
+
+      const form = mount(
+        <FormState initialValues={{product}} onSubmit={onSubmit}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      form.unmount();
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      await submit();
+
+      const {errors} = lastCallArgs(renderPropSpy);
+      expect(errors).toEqual([]);
+    });
   });
 
   describe('validateOnSubmit', () => {

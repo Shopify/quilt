@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {ClientApplication} from '@shopify/app-bridge';
+import {History} from '@shopify/app-bridge/actions';
 
 import {getSelfWindow, getTopWindow, getOrigin} from './globals';
 
@@ -7,16 +9,27 @@ export type LocationOrHref =
   | {search: string; hash: string; pathname: string};
 
 export interface Props {
+  app: ClientApplication<any>;
   location: LocationOrHref;
 }
 
 export const MODAL_IFRAME_NAME = 'app-modal-iframe';
-export const REPLACE_STATE_MESSAGE = 'Shopify.API.replaceState';
 
 export default class ReactShopifyAppRoutePropagator extends React.PureComponent<
   Props,
   never
 > {
+  private historyInstance: History.History | undefined;
+
+  get history(): History.History {
+    if (!this.historyInstance) {
+      const {app} = this.props;
+      this.historyInstance = History.create(app);
+    }
+
+    return this.historyInstance;
+  }
+
   componentDidMount() {
     this.propagateLocation();
   }
@@ -46,13 +59,9 @@ export default class ReactShopifyAppRoutePropagator extends React.PureComponent<
     normalizedLocation.searchParams.delete('hmac');
 
     const {pathname, search, hash} = normalizedLocation;
+    const locationStr = `${pathname}${search}${hash}`;
 
-    const data = JSON.stringify({
-      message: REPLACE_STATE_MESSAGE,
-      data: {location: `${pathname}${search}${hash}`},
-    });
-
-    topWindow.postMessage(data, '*');
+    this.history.dispatch(History.Action.REPLACE, locationStr);
   }
 
   render() {

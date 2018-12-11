@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@shopify/react-effect/server": ["packages/react-effect/src/server"],
       "@shopify/*": ["packages/*/src/index"]
     }
   }

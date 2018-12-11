@@ -98,6 +98,8 @@ export function toSupportedLocale(locale: string) {
 
   if (SUPPORTED_LOCALES.includes(supportedLocale)) {
     return supportedLocale;
+  } else if (SUPPORTED_LOCALES.includes(supportedLocale.substring(0, 2))) {
+    return supportedLocale.substring(0, 2);
   } else {
     return DEFAULT_LOCALE;
   }

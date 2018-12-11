@@ -41,13 +41,13 @@ The url for the StatsD host; should be provided in the format: `hostname:port`.
 
 ## API
 
-An instance of the `Metrics` object will be available on `ctx.metrics` further dfown in the middleware stack.
+An instance of the `Metrics` object will be available on `ctx.metrics` further down in the middleware stack.
 
 ### `Metrics`
 
-#### `.timing(name: string, value: number, sampleRate?: number, tags?: Tags)`
+#### `.distribution(name: string, value: number, sampleRate?: number, tags?: Tags)`
 
-Sends a timing command with the specified `value` in milliseconds.
+Sends a distribution command with the specified `value` in milliseconds.
 
 #### `.measure(name: string, value: number, sampleRate?: number, tags?: Tags)`
 
