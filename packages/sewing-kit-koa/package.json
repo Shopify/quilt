@@ -1,10 +1,11 @@
 {
-  "name": "@shopify/react-form-state",
-  "version": "0.5.2",
+  "name": "@shopify/sewing-kit-koa",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "Manage react forms tersely and type-safe with no magic.",
+  "description": "Easily access Sewing Kit assets from a Koa server.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
     "prepublishOnly": "yarn run build"
@@ -21,19 +22,22 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form-state/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/sewing-kit-koa/README.md",
   "dependencies": {
-    "lodash": "^4.17.10",
-    "lodash-decorators": "^6.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.4.1"
+    "@types/koa-mount": "^3.0.1",
+    "@types/koa-static": "^4.0.0",
+    "app-root-path": "^2.1.0",
+    "fs-extra": "^7.0.1",
+    "koa-compose": "^4.1.0",
+    "koa-mount": "^4.0.0",
+    "koa-static": "^5.0.0"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^1.1.4",
-    "@types/enzyme": "^3.1.10",
-    "faker": "^4.1.0",
+    "@types/app-root-path": "^1.2.4",
+    "@types/fs-extra": "^5.0.4",
     "typescript": "~3.0.1"
   },
-  "sideEffects": false
+  "files": [
+    "dist/*"
+  ]
 }
