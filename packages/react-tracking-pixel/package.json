@@ -24,7 +24,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-tracking-pixel/README.md",
   "dependencies": {
     "@shopify/react-preconnect": "^0.1.4",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "typescript": "~3.0.1"
