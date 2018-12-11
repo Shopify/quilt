@@ -13,6 +13,7 @@ export {
   AlphabetKey,
   NumericKey,
   ModifierKey,
+  HeldKey,
   WhiteSpaceKey,
   NavigationKey,
   EditingKey,
