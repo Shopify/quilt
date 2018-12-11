@@ -30,5 +30,8 @@
     "koa-mount": "^3.0.0",
     "typescript": "~3.0.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.3"
+  }
 }

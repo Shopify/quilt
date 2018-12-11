@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-preconnect/README.md",
   "dependencies": {
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "typescript": "~3.0.1"

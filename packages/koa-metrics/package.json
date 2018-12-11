@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/shopify/quilt/blob/master/packages/koa-metrics/README.md",
   "dependencies": {
-    "hot-shots": "^5.4.1"
+    "hot-shots": "^5.4.1",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.0.12",
