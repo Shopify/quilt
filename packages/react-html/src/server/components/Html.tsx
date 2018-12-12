@@ -33,7 +33,7 @@ export default function Html({
   headMarkup = null,
   bodyMarkup = null,
 }: Props) {
-  const markup = renderToString(children);
+  const markup = renderToString(<>{children}</>);
 
   const extracted = manager && manager.extract();
 
