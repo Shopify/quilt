@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {infuse} from '..';
 
-describe('react-infuse', () => {
+describe('react-traverse-jsx', () => {
   describe('index', () => {
     it('calls the infuser', async () => {
       const tree = <div>hello</div>;

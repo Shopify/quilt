@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {extractContext, normalizeVisit} from '../utilities';
 
-describe('react-infuse', () => {
+describe('react-traverse-jsx', () => {
   describe('utilities', () => {
     describe('extractContext', () => {
       const ctx = React.createContext({foo: 'foo'});

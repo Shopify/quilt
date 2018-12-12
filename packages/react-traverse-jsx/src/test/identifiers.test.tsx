@@ -8,7 +8,7 @@ import {
   isClassComponent,
 } from '../identifiers';
 
-describe('react-infuse', () => {
+describe('react-traverse-jsx', () => {
   describe('identifiers', () => {
     function Foo() {
       return <span>test</span>;

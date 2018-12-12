@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/react-infuse",
+  "name": "@shopify/react-traverse-jsx",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Infuse your react tree with data",
+  "description": "Traverse your JSX tree",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-infuse/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-traverse-jsx/README.md",
   "dependencies": {},
   "devDependencies": {
     "typescript": "~3.0.1"
