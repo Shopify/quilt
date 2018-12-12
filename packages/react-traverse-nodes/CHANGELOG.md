@@ -9,4 +9,4 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- `@shopify/react-traverse-jsx` package
+- `@shopify/react-traverse-nodes` package

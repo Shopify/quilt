@@ -8,7 +8,7 @@ import {
   isClassComponent,
 } from '../identifiers';
 
-describe('react-traverse-jsx', () => {
+describe('react-traverse-nodes', () => {
   describe('identifiers', () => {
     function Foo() {
       return <span>test</span>;
