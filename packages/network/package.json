@@ -28,5 +28,8 @@
   },
   "files": [
     "dist/*"
-  ]
+  ],
+  "dependencies": {
+    "tslib": "^1.9.3"
+  }
 }

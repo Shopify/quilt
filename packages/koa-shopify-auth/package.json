@@ -25,7 +25,8 @@
   "dependencies": {
     "@shopify/jest-koa-mocks": "^2.0.12",
     "nonce": "^1.0.4",
-    "safe-compare": "^1.1.2"
+    "safe-compare": "^1.1.2",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.1.1",

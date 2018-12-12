@@ -30,7 +30,8 @@
     "fs-extra": "^7.0.1",
     "koa-compose": "^4.1.0",
     "koa-mount": "^4.0.0",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "@types/app-root-path": "^1.2.4",

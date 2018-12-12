@@ -32,7 +32,8 @@
     "@shopify/react-effect": "^1.0.0",
     "@types/hoist-non-react-statics": "^3.0.1",
     "hoist-non-react-statics": "^3.0.1",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "tslib": "^1.9.3"
   },
   "sideEffects": false,
   "peerDependencies": {
