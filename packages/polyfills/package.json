@@ -27,6 +27,7 @@
     "caniuse-api": "^3.0.0",
     "intl-pluralrules": "^0.2.1",
     "isomorphic-fetch": "^2.2.1",
+    "tslib": "^1.9.3",
     "url-search-params-polyfill": "^5.0.0",
     "whatwg-fetch": "^3.0.0"
   },

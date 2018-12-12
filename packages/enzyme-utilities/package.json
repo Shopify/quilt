@@ -24,7 +24,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/enzyme-utilities/README.md",
   "dependencies": {
     "@shopify/javascript-utilities": "^2.1.0",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.5",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "typescript": "~3.0.1"

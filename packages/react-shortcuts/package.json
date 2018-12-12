@@ -29,7 +29,8 @@
     "typescript": "~3.0.1"
   },
   "dependencies": {
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "tslib": "^1.9.3"
   },
   "sideEffects": false
 }
