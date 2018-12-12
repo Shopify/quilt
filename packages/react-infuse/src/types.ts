@@ -1,12 +1,12 @@
-import {ReactElement, ReactInstance} from 'react';
+import {ReactInstance, ReactNode} from 'react';
 
-export type Tree = ReactElement<any>;
+export type Tree = ReactNode;
 export type Context = any;
 export interface Infuser {
   (
-    element: ReactElement<any>,
+    element: ReactNode,
     instance: ReactInstance | null,
     context: Context,
     childContext?: Context,
-  ): Promise<any>;
+  ): any;
 }

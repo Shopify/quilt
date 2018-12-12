@@ -27,29 +27,33 @@ async function infuseReactElement(
   const {instance = null, render, childContext} = normalizeVisit(el, context);
 
   // infuse the current node
-  const infused = await infuser(el, instance, context, childContext);
+  const infuserPromise = infuser(el, instance, context, childContext);
 
-  if (infused === false) {
-    // return false to skip render traversal
-    return;
+  try {
+    const children = ensureChild(render());
+
+    if (Array.isArray(children)) {
+      await infuseIterable(children, infuser, childContext);
+      return;
+    }
+
+    await infuse(children, infuser, childContext);
+  } catch (err) {
+    // we need to wait for the current node to be infused
+    await infuserPromise;
+    const children = ensureChild(render());
+
+    if (Array.isArray(children)) {
+      await infuseIterable(children, infuser, childContext);
+      return;
+    }
+
+    await infuse(children, infuser, childContext);
   }
-
-  const children = ensureChild(render());
-
-  if (Array.isArray(children)) {
-    await infuseIterable(children, infuser, childContext);
-    return;
-  }
-
-  await infuse(children, infuser, childContext);
 }
 
 function infusePortal(portal: ReactPortal, infuser: Infuser, context: Context) {
-  return Promise.all(
-    (portal.children as ReactElement<any>).props.children.map(child =>
-      infuse(child, infuser, context),
-    ),
-  );
+  return infuse(portal.children, infuser, context);
 }
 
 export async function infuse(tree: Tree, infuser: Infuser, context: Context) {
@@ -62,24 +66,30 @@ export async function infuse(tree: Tree, infuser: Infuser, context: Context) {
     return;
   }
 
-  if (typeof tree === 'string' || typeof tree === 'number') {
+  if (
+    typeof tree === 'string' ||
+    typeof tree === 'number' ||
+    typeof tree === 'boolean'
+  ) {
     infuser(tree, null, context);
     return;
   }
 
   // Support for React.createContext
-  if (tree.hasOwnProperty('type')) {
+  if ('type' in tree) {
     const _context = extractContext(tree);
 
     if (_context != null) {
-      if ('value' in tree.props) {
+      const {props} = tree;
+
+      if ('value' in props) {
         // <Provider>
-        _context._currentValue = tree.props.value;
+        _context._currentValue = props.value;
       }
 
-      if (typeof tree.props.children === 'function') {
+      if (typeof props.children === 'function') {
         // <Consumer>
-        const el = tree.props.children(_context._currentValue) as Tree;
+        const el = props.children(_context._currentValue) as Tree;
         await infuse(el, infuser, context);
         return;
       }

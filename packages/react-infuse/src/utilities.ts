@@ -1,6 +1,7 @@
-import {ReactElement, ReactInstance, ComponentClass} from 'react';
+import {ReactElement, ReactInstance, ComponentClass, ReactNode} from 'react';
 import {
   isClassComponent,
+  isScalar,
   isForwardRef,
   providesChildContext,
 } from './identifiers';
@@ -12,9 +13,12 @@ interface Visit {
   instance?: ReactInstance;
 }
 
-export function extractContext(node: ReactElement<any>): Context {
+export function extractContext(node: ReactNode): Context {
+  if (isScalar(node)) {
+    return null;
+  }
   const {type} = node as any;
-  return type._context || (type.Provider && type.Provider._context);
+  return type.context || (type.Provider && type.Provider.context);
 }
 
 function configureClassInstance(
