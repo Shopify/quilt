@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-traverse-nodes",
-  "version": "0.1.0-beta.0",
+  "version": "0.1.0-beta.1",
   "license": "MIT",
   "description": "Traverse your ReactNode tree",
   "main": "dist/index.js",
@@ -22,9 +22,10 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-traverse-nodes/README.md",
-  "dependencies": {},
   "devDependencies": {
     "typescript": "~3.0.1"
   },
-  "files": ["dist/*"]
+  "files": [
+    "dist/*"
+  ]
 }
