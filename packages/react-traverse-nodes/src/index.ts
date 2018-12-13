@@ -29,6 +29,11 @@ async function visitReactElement(
   // visit the current node
   const visitorPromise = visitor(el, instance, context, childContext);
 
+  if (visitorPromise === false) {
+    // return false to skip subtree traversal
+    return;
+  }
+
   try {
     const children = ensureChild(render());
 
