@@ -34,5 +34,9 @@
   "devDependencies": {
     "@types/caniuse-api": "^3.0.0",
     "typescript": "~3.0.1"
-  }
+  },
+  "files": [
+    "*.js",
+    "*.d.ts"
+  ]
 }
