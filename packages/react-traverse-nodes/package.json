@@ -2,7 +2,7 @@
   "name": "@shopify/react-traverse-nodes",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Traverse your JSX tree",
+  "description": "Traverse your ReactNode tree",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,

@@ -37,9 +37,9 @@ async function visitReactElement(
       return;
     }
 
-    await visit(children, visitor, childContext);
+    await Promise.all([visit(children, visitor, childContext), visitorPromise]);
   } catch (err) {
-    // we need to wait for the current node to be visited
+    // we need to wait for the current node to be visited first
     await visitorPromise;
     const children = ensureChild(render());
 
