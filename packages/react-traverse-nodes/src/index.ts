@@ -1,68 +1,68 @@
 import {ReactElement, ReactPortal} from 'react';
-import {Tree, Context, Infuser} from './types';
+import {Tree, Context, Visitor} from './types';
 import {isPortal, isReactElement} from './identifiers';
 import {ensureChild, normalizeVisit, extractContext} from './utilities';
 
-export {Tree, Context, Infuser};
+export {Tree, Context, Visitor};
 
-async function infuseIterable(
+async function visitIterable(
   iter: Iterable<Tree>,
-  infuser: Infuser,
+  visitor: Visitor,
   context: Context,
 ) {
   const promises: Promise<any>[] = [];
 
   for (const child of iter) {
-    promises.push(infuse(child, infuser, context));
+    promises.push(visit(child, visitor, context));
   }
 
   await Promise.all(promises);
 }
 
-async function infuseReactElement(
+async function visitReactElement(
   el: ReactElement<any>,
-  infuser: Infuser,
+  visitor: Visitor,
   context: Context,
 ) {
   const {instance = null, render, childContext} = normalizeVisit(el, context);
 
-  // infuse the current node
-  const infuserPromise = infuser(el, instance, context, childContext);
+  // visit the current node
+  const visitorPromise = visitor(el, instance, context, childContext);
 
   try {
     const children = ensureChild(render());
 
     if (Array.isArray(children)) {
-      await infuseIterable(children, infuser, childContext);
+      await visitIterable(children, visitor, childContext);
       return;
     }
 
-    await infuse(children, infuser, childContext);
+    await visit(children, visitor, childContext);
   } catch (err) {
-    // we need to wait for the current node to be infused
-    await infuserPromise;
+    // we need to wait for the current node to be visited
+    await visitorPromise;
     const children = ensureChild(render());
 
     if (Array.isArray(children)) {
-      await infuseIterable(children, infuser, childContext);
+      await visitIterable(children, visitor, childContext);
       return;
     }
 
-    await infuse(children, infuser, childContext);
+    await visit(children, visitor, childContext);
   }
 }
 
-function infusePortal(portal: ReactPortal, infuser: Infuser, context: Context) {
-  return infuse(portal.children, infuser, context);
+function visitPortal(portal: ReactPortal, visitor: Visitor, context: Context) {
+  return visit(portal.children, visitor, context);
 }
 
-export async function infuse(tree: Tree, infuser: Infuser, context: Context) {
+async function visit(tree: Tree, visitor: Visitor, context: Context) {
   if (!tree) {
     return;
   }
 
   if (Array.isArray(tree)) {
-    await infuseIterable(tree, infuser, context);
+    await visitIterable(tree, visitor, context);
     return;
   }
 
@@ -71,7 +71,7 @@ export async function infuse(tree: Tree, infuser: Infuser, context: Context) {
     typeof tree === 'number' ||
     typeof tree === 'boolean'
   ) {
-    infuser(tree, null, context);
+    visitor(tree, null, context);
     return;
   }
 
@@ -90,19 +90,21 @@ export async function infuse(tree: Tree, infuser: Infuser, context: Context) {
       if (typeof props.children === 'function') {
         // <Consumer>
         const el = props.children(_context._currentValue) as Tree;
-        await infuse(el, infuser, context);
+        await visit(el, visitor, context);
         return;
       }
     }
   }
 
   if (isReactElement(tree)) {
-    await infuseReactElement(tree, infuser, context);
+    await visitReactElement(tree, visitor, context);
     return;
   }
 
   // Support for Portals
   if (isPortal(tree)) {
-    await infusePortal(tree, infuser, context);
+    await visitPortal(tree, visitor, context);
   }
 }
+
+export {visit as traverse};
