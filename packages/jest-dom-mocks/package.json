@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-dom-mocks",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",

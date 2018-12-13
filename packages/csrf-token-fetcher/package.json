@@ -1,6 +1,6 @@
 {
   "name": "@shopify/csrf-token-fetcher",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "JavaScript utility function to fetch the CSRF token required to make requests to a Rails server",
   "main": "dist/index.js",
