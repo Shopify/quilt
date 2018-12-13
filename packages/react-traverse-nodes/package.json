@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-traverse-nodes",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "license": "MIT",
   "description": "Traverse your ReactNode tree",
   "main": "dist/index.js",

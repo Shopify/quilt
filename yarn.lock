@@ -181,13 +181,6 @@
     lodash "4.17.4"
     prop-types "^15.6.0"
 
-"@shopify/react-effect@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@shopify/react-effect/-/react-effect-1.0.1.tgz#75019b7a445a3e3cce27780b270d5b54139753fa"
-  integrity sha512-dXOmNZpjGRtyC3P6XfiEQCqXQXW1Pr7k8ExZvlwDung+GRqU36QK+VhMb7JYdSGF7DAmimSIJmRukZLuSl7m8w==
-  dependencies:
-    react-tree-walker "^4.3.0"
-
 "@types/accepts@*":
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@types/accepts/-/accepts-1.3.5.tgz#c34bec115cfc746e04fe5a059df4ce7e7b391575"
@@ -6516,11 +6509,6 @@ react-test-renderer@^16.0.0-0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
     react-is "^16.3.0"
-
-react-tree-walker@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-4.3.0.tgz#b7cae498cebb490281e9e99a01bdb9c6b4926cd3"
-  integrity sha512-sO/pk+JQ2mbtPGdlKbeeo2aT4qXl5nPkGVO96yYQOdX9jYvRNXSnMWIydniLVEoiPvUbpfoc057blGbAQgMBRg==
 
 react@^16.2.0:
   version "16.3.0"
