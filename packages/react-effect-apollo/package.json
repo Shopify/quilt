@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/react-traverse-nodes",
-  "version": "0.1.0-beta.0",
+  "name": "@shopify/react-effect-apollo",
+  "version": "0.0.0",
   "license": "MIT",
-  "description": "Traverse your ReactNode tree",
+  "description": "Apollo getDataFromTree implementation for react-effect",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
@@ -11,7 +11,8 @@
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
   "repository": {
@@ -21,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-traverse-nodes/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect-apollo/README.md",
   "dependencies": {},
   "devDependencies": {
     "typescript": "~3.0.1"

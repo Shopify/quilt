@@ -43,7 +43,7 @@ interface Visitor {
 A unique approach is given to cases where a `Visitor` returns a promise:
 
 1. While the promise is resolving, attempt to continue traversal.
-2. If the traversal fails, wait for the parent's promise to resolve, then re-attempt traversal fo the children.
+2. If the traversal fails, wait for the parent's promise to resolve, then re-attempt traversal of the children.
 
 This leads to an optimal tree traversal, for example, in a data-fetching scenario.
 
@@ -73,7 +73,7 @@ Now, suppose that each component is wrapped by a decorator that requires data fe
 | `F`       | `400ms`            |
 | `G`       | `100ms`            |
 
-In a traditional traversal approach, such as the one taken by `react-apollo` or `react-tree-walker`, this would take a minimum of `1100ms` to complete:
+In a traditional traversal approach, such as the one taken by `react-tree-walker`, this would take a minimum of `1100ms` to complete:
 
 ![Regular traversal](REG_TRAVERSAL.png)
 
