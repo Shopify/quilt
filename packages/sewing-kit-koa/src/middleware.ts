@@ -5,6 +5,8 @@ import compose from 'koa-compose';
 import mount from 'koa-mount';
 import appRoot from 'app-root-path';
 
+import {Header} from '@shopify/network';
+
 import Assets, {Asset} from './assets';
 
 export {Assets, Asset};
@@ -25,6 +27,7 @@ export default function middleware({
   async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
     const assets = new Assets({
       assetHost,
+      userAgent: ctx.get(Header.UserAgent),
     });
     ctx.state.assets = assets;
     await next();

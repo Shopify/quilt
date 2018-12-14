@@ -1,4 +1,5 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
+import {Header} from '@shopify/network';
 import middleware from '../middleware';
 import Assets from '../assets';
 
@@ -26,6 +27,17 @@ describe('middleware', () => {
     const context = createMockContext();
     await middleware({serveAssets: true})(context, () => Promise.resolve());
     expect(context.state.assets).toHaveProperty('assetHost', '/assets/');
+  });
+
+  it('passes the userAgent to the asset', async () => {
+    const userAgent =
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
+    const context = createMockContext({
+      headers: {[Header.UserAgent]: userAgent},
+    });
+
+    await middleware({serveAssets: true})(context, () => Promise.resolve());
+    expect(context.state.assets).toHaveProperty('userAgent', userAgent);
   });
 
   it('calls the next middleware', async () => {
