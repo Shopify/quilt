@@ -1,13 +1,17 @@
 import {join} from 'path';
 import withEnv from '@shopify/with-env';
 import appRoot from 'app-root-path';
-import Assets, {internalOnlyClearCache} from '../assets';
+import Assets, {
+  internalOnlyClearCache,
+  Asset,
+  Entrypoint,
+  ConsolidatedManifestEntry,
+  ConsolidatedManifest,
+} from '../assets';
 
 jest.mock('fs-extra', () => ({
   ...require.requireActual('fs-extra'),
-  readJson: jest.fn(() => ({
-    entrypoints: {},
-  })),
+  readJson: jest.fn(() => []),
 }));
 
 const {readJson} = require.requireMock('fs-extra');
@@ -17,7 +21,7 @@ describe('Assets', () => {
 
   beforeEach(() => {
     readJson.mockReset();
-    readJson.mockImplementation(() => createMockAssetList());
+    readJson.mockImplementation(() => mockConsolidatedManifest());
   });
 
   afterEach(() => {
@@ -46,7 +50,15 @@ describe('Assets', () => {
       const js = '/style.js';
 
       readJson.mockImplementation(() =>
-        createMockAssetList({name: 'main', scripts: [js]}),
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(js)],
+              }),
+            }),
+          }),
+        ]),
       );
 
       const assets = new Assets(defaultOptions);
@@ -58,7 +70,15 @@ describe('Assets', () => {
       const js = '/style.js';
 
       readJson.mockImplementation(() =>
-        createMockAssetList({name: 'custom', scripts: [js]}),
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              custom: mockEntrypoint({
+                scripts: [mockAsset(js)],
+              }),
+            }),
+          }),
+        ]),
       );
 
       const assets = new Assets(defaultOptions);
@@ -78,7 +98,15 @@ describe('Assets', () => {
       const assetHost = '/sewing-kit-assets/';
 
       readJson.mockImplementation(() =>
-        createMockAssetList({name: 'custom', scripts: [js]}),
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              custom: mockEntrypoint({
+                scripts: [mockAsset(js)],
+              }),
+            }),
+          }),
+        ]),
       );
 
       const assets = new Assets({...defaultOptions, assetHost});
@@ -98,7 +126,15 @@ describe('Assets', () => {
       const css = '/style.css';
 
       readJson.mockImplementation(() =>
-        createMockAssetList({name: 'main', styles: [css]}),
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                styles: [mockAsset(css)],
+              }),
+            }),
+          }),
+        ]),
       );
 
       const assets = new Assets(defaultOptions);
@@ -110,7 +146,15 @@ describe('Assets', () => {
       const css = '/style.css';
 
       readJson.mockImplementation(() =>
-        createMockAssetList({name: 'custom', styles: [css]}),
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              custom: mockEntrypoint({
+                styles: [mockAsset(css)],
+              }),
+            }),
+          }),
+        ]),
       );
 
       const assets = new Assets(defaultOptions);
@@ -125,27 +169,122 @@ describe('Assets', () => {
       ).rejects.toBeInstanceOf(Error);
     });
   });
+
+  describe('userAgent', () => {
+    const scriptOne = 'script-one.js';
+    const scriptTwo = 'script-two.js';
+    const chrome71 =
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
+
+    it('uses the last manifest when no useragent exists', async () => {
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptOne)],
+              }),
+            }),
+          }),
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptTwo)],
+              }),
+            }),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.scripts()).toEqual([{path: scriptTwo}]);
+    });
+
+    it('uses the last manifest when no manifest matches', async () => {
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            browsers: ['firefox > 1'],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptOne)],
+              }),
+            }),
+          }),
+          mockManifestEntry({
+            browsers: ['safari > 1'],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptTwo)],
+              }),
+            }),
+          }),
+        ]),
+      );
+
+      const assets = new Assets({...defaultOptions, userAgent: chrome71});
+
+      expect(await assets.scripts()).toEqual([{path: scriptTwo}]);
+    });
+
+    it('uses the first matching manifest', async () => {
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            browsers: ['chrome > 60'],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptOne)],
+              }),
+            }),
+          }),
+          mockManifestEntry({
+            browsers: ['chrome > 1'],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptTwo)],
+              }),
+            }),
+          }),
+        ]),
+      );
+
+      const assets = new Assets({...defaultOptions, userAgent: chrome71});
+
+      expect(await assets.scripts()).toEqual([{path: scriptOne}]);
+    });
+  });
 });
 
-function createMockAssetList({
-  name = 'main',
-  styles = [],
+function mockAsset(path: string): Asset {
+  return {path};
+}
+
+function mockEntrypoint({
   scripts = [],
+  styles = [],
 }: {
-  name?: string;
-  styles?: string[];
-  scripts?: string[];
+  scripts?: Asset[];
+  styles?: Asset[];
 } = {}) {
-  return {
-    entrypoints: {
-      [name]: {
-        js: scripts.map(path => ({
-          path,
-        })),
-        css: styles.map(path => ({
-          path,
-        })),
-      },
-    },
-  };
+  return {js: scripts, css: styles};
+}
+
+function mockManifest(entrypoints: {[key: string]: Entrypoint} = {}) {
+  return {entrypoints};
+}
+
+function mockManifestEntry({
+  name = 'bundle',
+  browsers,
+  manifest = mockManifest({main: mockEntrypoint()}),
+}: Partial<ConsolidatedManifestEntry> = {}) {
+  return {name, browsers, manifest};
+}
+
+function mockConsolidatedManifest(
+  manifests: ConsolidatedManifestEntry[] = [mockManifestEntry()],
+): ConsolidatedManifest {
+  return manifests;
 }
