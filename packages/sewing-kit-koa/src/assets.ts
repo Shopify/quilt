@@ -33,7 +33,7 @@ interface Options {
 export default class Assets {
   assetHost: string;
   userAgent?: string;
-  private resolvedManifest?: Manifest;
+  private resolvedManifestEntry?: ConsolidatedManifestEntry;
 
   constructor({assetHost, userAgent}: Options) {
     this.assetHost = assetHost;
@@ -62,16 +62,12 @@ export default class Assets {
     return css;
   }
 
-  private async getResolvedManifest() {
-    if (this.resolvedManifest) {
-      return this.resolvedManifest;
+  private async getResolvedManifestEntry() {
+    if (this.resolvedManifestEntry) {
+      return this.resolvedManifestEntry;
     }
 
     const consolidatedManifest = await loadConsolidatedManifest();
-
-    if (consolidatedManifest.length === 0) {
-      throw new Error('No builds were found.');
-    }
 
     const {userAgent} = this;
     const lastManifestEntry =
@@ -88,9 +84,9 @@ export default class Assets {
     // is no browser restriction on the bundle.
     // 4. If no matching manifests are found, fall back to the last manifest.
     if (userAgent == null || consolidatedManifest.length === 1) {
-      this.resolvedManifest = lastManifestEntry.manifest;
+      this.resolvedManifestEntry = lastManifestEntry;
     } else {
-      this.resolvedManifest = (
+      this.resolvedManifestEntry =
         consolidatedManifest.find(
           ({browsers}) =>
             browsers == null ||
@@ -100,11 +96,14 @@ export default class Assets {
               ignorePatch: true,
               allowHigherVersions: true,
             }),
-        ) || lastManifestEntry
-      ).manifest;
+        ) || lastManifestEntry;
     }
 
-    return this.resolvedManifest;
+    return this.resolvedManifestEntry;
+  }
+
+  private async getResolvedManifest() {
+    return (await this.getResolvedManifestEntry()).manifest;
   }
 }
 
