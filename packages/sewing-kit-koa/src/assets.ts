@@ -74,6 +74,8 @@ export default class Assets {
     }
 
     const {userAgent} = this;
+    const lastManifestEntry =
+      consolidatedManifest[consolidatedManifest.length - 1];
 
     // We do the following to determine the correct manifest to use:
     //
@@ -85,11 +87,8 @@ export default class Assets {
     // browsers it was compiled for matches the user agent, or where there
     // is no browser restriction on the bundle.
     // 4. If no matching manifests are found, fall back to the last manifest.
-    if (userAgent == null) {
-      this.resolvedManifest =
-        consolidatedManifest[consolidatedManifest.length - 1].manifest;
-    } else if (consolidatedManifest.length === 1) {
-      this.resolvedManifest = consolidatedManifest[0].manifest;
+    if (userAgent == null || consolidatedManifest.length === 1) {
+      this.resolvedManifest = lastManifestEntry.manifest;
     } else {
       this.resolvedManifest = (
         consolidatedManifest.find(
@@ -101,7 +100,7 @@ export default class Assets {
               ignorePatch: true,
               allowHigherVersions: true,
             }),
-        ) || consolidatedManifest[consolidatedManifest.length - 1]
+        ) || lastManifestEntry
       ).manifest;
     }
 

@@ -21,7 +21,7 @@ describe('Assets', () => {
 
   beforeEach(() => {
     readJson.mockReset();
-    readJson.mockImplementation(() => createMockConsolidatedManifest());
+    readJson.mockImplementation(() => mockConsolidatedManifest());
   });
 
   afterEach(() => {
@@ -50,11 +50,11 @@ describe('Assets', () => {
       const js = '/style.js';
 
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                scripts: [createMockAsset(js)],
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(js)],
               }),
             }),
           }),
@@ -70,11 +70,11 @@ describe('Assets', () => {
       const js = '/style.js';
 
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
-            manifest: createMockManifest({
-              custom: createMockEntrypoint({
-                scripts: [createMockAsset(js)],
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              custom: mockEntrypoint({
+                scripts: [mockAsset(js)],
               }),
             }),
           }),
@@ -98,11 +98,11 @@ describe('Assets', () => {
       const assetHost = '/sewing-kit-assets/';
 
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
-            manifest: createMockManifest({
-              custom: createMockEntrypoint({
-                scripts: [createMockAsset(js)],
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              custom: mockEntrypoint({
+                scripts: [mockAsset(js)],
               }),
             }),
           }),
@@ -126,11 +126,11 @@ describe('Assets', () => {
       const css = '/style.css';
 
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                styles: [createMockAsset(css)],
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                styles: [mockAsset(css)],
               }),
             }),
           }),
@@ -146,11 +146,11 @@ describe('Assets', () => {
       const css = '/style.css';
 
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
-            manifest: createMockManifest({
-              custom: createMockEntrypoint({
-                styles: [createMockAsset(css)],
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              custom: mockEntrypoint({
+                styles: [mockAsset(css)],
               }),
             }),
           }),
@@ -178,18 +178,18 @@ describe('Assets', () => {
 
     it('uses the last manifest when no useragent exists', async () => {
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                scripts: [createMockAsset(scriptOne)],
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptOne)],
               }),
             }),
           }),
-          createMockManifestEntry({
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                scripts: [createMockAsset(scriptTwo)],
+          mockManifestEntry({
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptTwo)],
               }),
             }),
           }),
@@ -203,20 +203,20 @@ describe('Assets', () => {
 
     it('uses the last manifest when no manifest matches', async () => {
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
+        mockConsolidatedManifest([
+          mockManifestEntry({
             browsers: ['firefox > 1'],
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                scripts: [createMockAsset(scriptOne)],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptOne)],
               }),
             }),
           }),
-          createMockManifestEntry({
+          mockManifestEntry({
             browsers: ['safari > 1'],
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                scripts: [createMockAsset(scriptTwo)],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptTwo)],
               }),
             }),
           }),
@@ -230,20 +230,20 @@ describe('Assets', () => {
 
     it('uses the first matching manifest', async () => {
       readJson.mockImplementation(() =>
-        createMockConsolidatedManifest([
-          createMockManifestEntry({
+        mockConsolidatedManifest([
+          mockManifestEntry({
             browsers: ['chrome > 60'],
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                scripts: [createMockAsset(scriptOne)],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptOne)],
               }),
             }),
           }),
-          createMockManifestEntry({
+          mockManifestEntry({
             browsers: ['chrome > 1'],
-            manifest: createMockManifest({
-              main: createMockEntrypoint({
-                scripts: [createMockAsset(scriptTwo)],
+            manifest: mockManifest({
+              main: mockEntrypoint({
+                scripts: [mockAsset(scriptTwo)],
               }),
             }),
           }),
@@ -257,11 +257,11 @@ describe('Assets', () => {
   });
 });
 
-function createMockAsset(path: string): Asset {
+function mockAsset(path: string): Asset {
   return {path};
 }
 
-function createMockEntrypoint({
+function mockEntrypoint({
   scripts = [],
   styles = [],
 }: {
@@ -271,20 +271,20 @@ function createMockEntrypoint({
   return {js: scripts, css: styles};
 }
 
-function createMockManifest(entrypoints: {[key: string]: Entrypoint} = {}) {
+function mockManifest(entrypoints: {[key: string]: Entrypoint} = {}) {
   return {entrypoints};
 }
 
-function createMockManifestEntry({
+function mockManifestEntry({
   name = 'bundle',
   browsers,
-  manifest = createMockManifest({main: createMockEntrypoint()}),
+  manifest = mockManifest({main: mockEntrypoint()}),
 }: Partial<ConsolidatedManifestEntry> = {}) {
   return {name, browsers, manifest};
 }
 
-function createMockConsolidatedManifest(
-  manifests: ConsolidatedManifestEntry[] = [createMockManifestEntry()],
+function mockConsolidatedManifest(
+  manifests: ConsolidatedManifestEntry[] = [mockManifestEntry()],
 ): ConsolidatedManifest {
   return manifests;
 }
