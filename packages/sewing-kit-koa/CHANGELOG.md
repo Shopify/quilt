@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 2.0.1
+
+### Changed
+
+- Updated the internal mechanism of resolving manifests
+
 ## 2.0.0
 
 ### Changed
