@@ -5,7 +5,8 @@
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
+    "build": "yarn run clean && tsc --p tsconfig.build.json",
+    "clean": "rimraf './*.{js,d.ts}'",
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
