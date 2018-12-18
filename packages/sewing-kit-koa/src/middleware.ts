@@ -16,32 +16,32 @@ export interface State {
 }
 
 export interface Options {
-  assetHost?: string;
+  assetPrefix?: string;
   serveAssets?: boolean;
 }
 
 export default function middleware({
   serveAssets = false,
-  assetHost = defaultAssetHost(serveAssets),
+  assetPrefix = defaultAssetPrefix(serveAssets),
 }: Options = {}) {
   async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
     const assets = new Assets({
-      assetHost,
+      assetPrefix,
       userAgent: ctx.get(Header.UserAgent),
     });
     ctx.state.assets = assets;
     await next();
   }
 
-  return serveAssets && assetHost.startsWith('/')
+  return serveAssets && assetPrefix.startsWith('/')
     ? compose([
         sewingKitMiddleware,
-        mount(assetHost, serve(join(appRoot.path, 'build/client'))),
+        mount(assetPrefix, serve(join(appRoot.path, 'build/client'))),
       ])
     : sewingKitMiddleware;
 }
 
-function defaultAssetHost(serveAssets: boolean) {
+function defaultAssetPrefix(serveAssets: boolean) {
   // In development, Sewing Kit defaults to running an asset server on
   // http://localhost:8080/webpack/assets/. When running in `serveAssets`
   // mode (the application server also serves the assets), we default to

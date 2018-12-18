@@ -17,7 +17,7 @@ jest.mock('fs-extra', () => ({
 const {readJson} = require.requireMock('fs-extra');
 
 describe('Assets', () => {
-  const defaultOptions = {assetHost: '/assets/'};
+  const defaultOptions = {assetPrefix: '/assets/'};
 
   beforeEach(() => {
     readJson.mockReset();
@@ -95,7 +95,7 @@ describe('Assets', () => {
 
     it('prefixes the list with the vendor DLL in development', async () => {
       const js = '/style.js';
-      const assetHost = '/sewing-kit-assets/';
+      const assetPrefix = '/sewing-kit-assets/';
 
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
@@ -109,13 +109,13 @@ describe('Assets', () => {
         ]),
       );
 
-      const assets = new Assets({...defaultOptions, assetHost});
+      const assets = new Assets({...defaultOptions, assetPrefix});
       const scripts = await withEnv('development', () =>
         assets.scripts({name: 'custom'}),
       );
 
       expect(scripts).toEqual([
-        {path: `${assetHost}dll/vendor.js`},
+        {path: `${assetPrefix}dll/vendor.js`},
         {path: js},
       ]);
     });
