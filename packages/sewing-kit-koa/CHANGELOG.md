@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 3.0.0
+
+### Changed
+
+- The `assetHost` option has been renamed to `assetPrefix` to make it more clear that you can supply a URL or path
+
 ## 2.0.1
 
 ### Changed

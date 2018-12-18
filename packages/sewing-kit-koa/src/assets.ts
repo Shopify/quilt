@@ -26,17 +26,17 @@ export interface ConsolidatedManifestEntry {
 export type ConsolidatedManifest = ConsolidatedManifestEntry[];
 
 interface Options {
-  assetHost: string;
+  assetPrefix: string;
   userAgent?: string;
 }
 
 export default class Assets {
-  assetHost: string;
+  assetPrefix: string;
   userAgent?: string;
   private resolvedManifestEntry?: ConsolidatedManifestEntry;
 
-  constructor({assetHost, userAgent}: Options) {
-    this.assetHost = assetHost;
+  constructor({assetPrefix, userAgent}: Options) {
+    this.assetPrefix = assetPrefix;
     this.userAgent = userAgent;
   }
 
@@ -48,7 +48,7 @@ export default class Assets {
       // manifest, so we manually add it here (it only exists in dev).
       // eslint-disable-next-line no-process-env
       process.env.NODE_ENV === 'development'
-        ? [{path: `${this.assetHost}dll/vendor.js`}, ...js]
+        ? [{path: `${this.assetPrefix}dll/vendor.js`}, ...js]
         : js;
 
     return scripts;
