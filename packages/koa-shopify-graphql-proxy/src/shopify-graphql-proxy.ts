@@ -33,7 +33,7 @@ export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
 
     await proxy(shop, {
       https: true,
-      parseReqBody: false,
+      parseReqBody: true,
       // Setting request header here, not response. That's why we don't use ctx.set()
       // proxy middleware will grab this request header
       headers: {
