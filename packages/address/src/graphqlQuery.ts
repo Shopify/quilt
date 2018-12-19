@@ -3,6 +3,7 @@ query countries($locale: SupportedLocale!) {
   countries(locale: $locale) {
     name
     code
+    continent
     phoneNumberPrefix
     address2Key
     provinceKey
@@ -22,6 +23,7 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
   country(countryCode: $countryCode, locale: $locale) {
     name
     code
+    continent
     phoneNumberPrefix
     address2Key
     provinceKey

@@ -53,6 +53,7 @@ export interface LoadCountryResponse {
 export interface Country {
   name: string;
   code: string;
+  continent: string;
   phoneNumberPrefix: number;
   address2Key: Address2Key;
   provinceKey: ZoneKey;

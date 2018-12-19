@@ -11,7 +11,7 @@ const data = {
         edit:
           '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
         show:
-          '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+          '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
       },
       zones: [
         {
@@ -67,6 +67,7 @@ const data = {
           code: 'YT',
         },
       ],
+      continent: 'North America',
     },
   },
 };
