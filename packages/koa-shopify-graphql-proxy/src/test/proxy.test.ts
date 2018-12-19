@@ -138,7 +138,7 @@ describe('koa-shopify-graphql-proxy', () => {
         'X-Shopify-Access-Token': accessToken,
       },
       https: true,
-      parseReqBody: false,
+      parseReqBody: true,
     });
   });
 
@@ -167,7 +167,7 @@ describe('koa-shopify-graphql-proxy', () => {
         'X-Shopify-Access-Token': password,
       },
       https: true,
-      parseReqBody: false,
+      parseReqBody: true,
     });
   });
 
