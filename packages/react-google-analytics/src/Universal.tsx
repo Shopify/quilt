@@ -7,6 +7,7 @@ import {getRootDomain, noop} from './utilities';
 export interface Props {
   account: string;
   domain: string;
+  nonce?: string;
   set?: {[key: string]: any};
   onLoad?(analytics: UniversalAnalytics): void;
   debug?: boolean;
@@ -32,17 +33,19 @@ export default class UniversalGoogleAnalytics extends React.PureComponent<
   never
 > {
   render() {
-    const {debug} = this.props;
+    const {debug, nonce} = this.props;
 
     return (
       <>
         <script
           id="google-analytics-universal-script"
           dangerouslySetInnerHTML={{__html: SETUP_SCRIPT}}
+          nonce={nonce}
         />
         <ImportRemote
           preconnect
           source={debug ? UNIVERSAL_GA_DEBUG_SCRIPT : UNIVERSAL_GA_SCRIPT}
+          nonce={nonce}
           getImport={getUniversalAnalytics}
           onError={noop}
           onImported={this.setAnalytics}

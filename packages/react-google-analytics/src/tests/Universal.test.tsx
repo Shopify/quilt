@@ -27,6 +27,16 @@ describe('<Universal />', () => {
     });
   });
 
+  it('passes nonce prop to script tag', () => {
+    const universal = mount(<Universal {...mockProps} nonce="123" />);
+    expect(universal.find('script').prop('nonce')).toBe('123');
+  });
+
+  it('passes nonce prop to <ImportRemote />', () => {
+    const universal = mount(<Universal {...mockProps} nonce="123" />);
+    expect(universal.find(ImportRemote).prop('nonce')).toBe('123');
+  });
+
   describe('<ImportRemote />', () => {
     it('renders', () => {
       const universal = mount(<Universal {...mockProps} />);
