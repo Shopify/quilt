@@ -108,7 +108,7 @@ yarn release
 To start working on the codebase, first fork the repo, then clone it:
 
 ```
-git clone git@github.com:your-username/javascript-utilities.git
+git clone git@github.com:your-username/quilt.git
 ```
 
 _Note: replace "your-username" with your Github handle_
