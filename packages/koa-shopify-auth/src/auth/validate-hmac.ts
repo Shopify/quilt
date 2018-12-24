@@ -8,11 +8,16 @@ export default function validateHmac(
   secret: string,
   query: Context['query'],
 ) {
-  const map = {...query};
-  delete map.signature;
-  delete map.hmac;
+  const {hmac: _hmac, signature: _signature, ...map} = query;
 
-  const message = querystring.stringify(map);
+  const orderedMap = Object.keys(map)
+    .sort()
+    .reduce((accum, key) => {
+      accum[key] = map[key];
+      return accum;
+    }, {});
+
+  const message = querystring.stringify(orderedMap);
   const generatedHash = crypto
     .createHmac('sha256', secret)
     .update(message)

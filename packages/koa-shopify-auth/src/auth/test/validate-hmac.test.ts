@@ -24,7 +24,9 @@ const data = {foo: 'bar'};
 const secret = 'somehmac';
 
 describe('validateHmac', () => {
-  beforeEach(() => {});
+  beforeEach(() => {
+    safeCompare.mockClear();
+  });
 
   it('returns true when digest matches input', () => {
     const hmac = 'somehmac';
@@ -38,6 +40,7 @@ describe('validateHmac', () => {
 
   it('compares using safeCompare', () => {
     const hmac = 'some invalid hmac';
+    validateHmac(secret, secret, data);
     expect(safeCompare).toBeCalledWith('somehmac', hmac);
   });
 });
