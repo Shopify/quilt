@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 3.0.0 - 2019-01-18
+
+### Fixed
+
+- Output middleware is now typed correctly as a basic koa middleware instead of requiring a custom koa context [#453](https://github.com/Shopify/quilt/pull/453)
+
 ## 3.0.0
 
 ### Changed

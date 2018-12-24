@@ -1,5 +1,5 @@
 import {join} from 'path';
-import {Context} from 'koa';
+import {Context, Middleware} from 'koa';
 import serve from 'koa-static';
 import compose from 'koa-compose';
 import mount from 'koa-mount';
@@ -23,7 +23,7 @@ export interface Options {
 export default function middleware({
   serveAssets = false,
   assetPrefix = defaultAssetPrefix(serveAssets),
-}: Options = {}) {
+}: Options = {}): Middleware {
   async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
     const assets = new Assets({
       assetPrefix,

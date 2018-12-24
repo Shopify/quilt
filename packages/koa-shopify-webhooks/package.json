@@ -1,0 +1,41 @@
+{
+  "name": "@shopify/koa-shopify-webhooks",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Receive webhooks from Shopify with ease.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-webhooks/README.md",
+  "dependencies": {
+    "@shopify/network": "^1.0.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compose": "^4.1.0",
+    "koa-mount": "^4.0.0",
+    "safe-compare": "^1.1.3"
+  },
+  "devDependencies": {
+    "@types/koa-bodyparser": "^4.2.1",
+    "@types/koa-compose": "^3.2.2",
+    "typescript": "~3.0.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
