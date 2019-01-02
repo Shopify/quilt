@@ -595,7 +595,7 @@ describe('<FormState />', () => {
       await submit();
 
       const {errors} = lastCallArgs(renderPropSpy);
-      expect(errors).toEqual(errors);
+      expect(errors).toEqual(submitErrors);
     });
 
     it('propagates submit errors down to fields when the field array matches', async () => {
@@ -969,6 +969,79 @@ describe('<FormState />', () => {
 
       expect(renderPropSpy).toHaveBeenCalledTimes(2);
       expect(onRenderSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('externalErrors', () => {
+    it('passes externalErrors to form when externalErrors are provided', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const externalErrors = [{message: faker.lorem.sentences()}];
+      mount(
+        <FormState
+          initialValues={{
+            product: faker.commerce.productName,
+          }}
+          externalErrors={externalErrors}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {errors} = lastCallArgs(renderPropSpy);
+
+      expect(errors).toEqual(externalErrors);
+    });
+
+    it('propagates external errors down to fields when the field array matches', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const externalErrors = [
+        {message: faker.lorem.sentences(), field: ['product']},
+      ];
+      mount(
+        <FormState
+          initialValues={{
+            product: faker.commerce.productName,
+          }}
+          externalErrors={externalErrors}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {fields} = lastCallArgs(renderPropSpy);
+      expect(fields.product.error).toEqual(externalErrors[0].message);
+    });
+
+    it('returns both submit errors and external errors if submit returns an error', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+
+      const submitErrors = [
+        {message: faker.lorem.sentences()},
+        {message: faker.lorem.sentences()},
+      ];
+
+      const externalErrors = [{message: faker.lorem.sentences()}];
+
+      function onSubmit() {
+        return Promise.resolve(submitErrors);
+      }
+
+      mount(
+        <FormState
+          initialValues={{product}}
+          externalErrors={externalErrors}
+          onSubmit={onSubmit}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      await submit();
+
+      const {errors} = lastCallArgs(renderPropSpy);
+      expect(errors).toEqual([...submitErrors, ...externalErrors]);
     });
   });
 });

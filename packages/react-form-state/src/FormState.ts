@@ -52,6 +52,7 @@ interface Props<Fields> {
   validators?: Partial<ValidatorDictionary<Fields>>;
   onSubmit?: SubmitHandler<Fields>;
   validateOnSubmit?: boolean;
+  externalErrors?: RemoteError[];
   children(form: FormDetails<Fields>): React.ReactNode;
 }
 
@@ -60,6 +61,7 @@ interface State<Fields> {
   fields: FieldStates<Fields>;
   dirtyFields: (keyof Fields)[];
   errors: RemoteError[];
+  externalErrors: RemoteError[];
 }
 
 export default class FormState<
@@ -70,16 +72,31 @@ export default class FormState<
 
   static getDerivedStateFromProps<T>(newProps: Props<T>, oldState?: State<T>) {
     const newInitialValues = newProps.initialValues;
+    const newExternalErrors = newProps.externalErrors || [];
 
     if (oldState == null) {
-      return createFormState(newInitialValues);
+      return createFormState(newInitialValues, newExternalErrors);
     }
 
     const oldInitialValues = initialValuesFromFields(oldState.fields);
     const shouldReinitialize = !isEqual(oldInitialValues, newInitialValues);
+    const oldExternalErrors = oldState.externalErrors;
 
     if (shouldReinitialize) {
-      return createFormState(newInitialValues);
+      return createFormState(newInitialValues, newExternalErrors);
+    }
+
+    if (
+      newExternalErrors !== oldExternalErrors ||
+      newExternalErrors.length !== oldExternalErrors.length
+    ) {
+      return {
+        externalErrors: newExternalErrors,
+        fields: fieldsWithErrors(oldState.fields, [
+          ...newExternalErrors,
+          ...oldState.errors,
+        ]),
+      };
     }
 
     return null;
@@ -110,13 +127,13 @@ export default class FormState<
   }
 
   private get formData() {
-    const {errors} = this.state;
+    const {errors, externalErrors} = this.state;
     const {fields, dirty, valid} = this;
 
     return {
       dirty,
       valid,
-      errors,
+      errors: [...errors, ...externalErrors],
       fields,
     };
   }
@@ -132,9 +149,13 @@ export default class FormState<
   }
 
   private get valid() {
-    const {errors} = this.state;
+    const {errors, externalErrors} = this.state;
 
-    return !this.hasClientErrors && errors.length === 0;
+    return (
+      !this.hasClientErrors &&
+      errors.length === 0 &&
+      externalErrors.length === 0
+    );
   }
 
   private get hasClientErrors() {
@@ -199,7 +220,9 @@ export default class FormState<
 
   @bind()
   private reset() {
-    this.setState((_state, props) => createFormState(props.initialValues));
+    this.setState((_state, props) =>
+      createFormState(props.initialValues, props.externalErrors),
+    );
   }
 
   @memoize()
@@ -348,32 +371,40 @@ export default class FormState<
   }
 
   private updateRemoteErrors(errors: RemoteError[]) {
-    this.setState(({fields}: State<Fields>) => {
-      const errorDictionary = errors.reduce(
-        (accumulator: any, {field, message}) => {
-          if (field == null) {
-            return accumulator;
-          }
-
-          return set(accumulator, field, message);
-        },
-        {},
-      );
-
-      return {
-        errors,
-        fields: mapObject(fields, (field, path) => {
-          return {
-            ...field,
-            error: errorDictionary[path],
-          };
-        }),
-      };
-    });
+    this.setState(({fields, externalErrors}) => ({
+      errors,
+      fields: fieldsWithErrors(fields, [...errors, ...externalErrors]),
+    }));
   }
 }
 
-function createFormState<Fields>(values: Fields): State<Fields> {
+function fieldsWithErrors<Fields>(
+  fields: Fields,
+  errors: RemoteError[],
+): Fields {
+  const errorDictionary = errors.reduce(
+    (accumulator: any, {field, message}) => {
+      if (field == null) {
+        return accumulator;
+      }
+
+      return set(accumulator, field, message);
+    },
+    {},
+  );
+
+  return mapObject(fields, (field, path) => {
+    return {
+      ...field,
+      error: errorDictionary[path],
+    };
+  });
+}
+
+function createFormState<Fields>(
+  values: Fields,
+  externalErrors: RemoteError[] = [],
+): State<Fields> {
   const fields: FieldStates<Fields> = mapObject(values, value => {
     return {
       value,
@@ -385,8 +416,9 @@ function createFormState<Fields>(values: Fields): State<Fields> {
   return {
     dirtyFields: [],
     errors: [],
+    externalErrors,
     submitting: false,
-    fields,
+    fields: fieldsWithErrors(fields, externalErrors),
   };
 }
 

@@ -28,6 +28,7 @@ interface Props<Fields> {
   validators?: Partial<ValidatorDictionary<Fields>>;
   onSubmit?: SubmitHandler<Fields>;
   validateOnSubmit?: boolean;
+  externalErrors?: RemoteError[];
   children(form: FormDetails<Fields>): React.ReactNode;
 }
 ```
