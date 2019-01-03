@@ -7,7 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [Unreleased]
+### Added
+
+- Added new `DeepPartial` type. ([#456](https://github.com/Shopify/quilt/pull/456))
 
 ## [1.0.0]
 
