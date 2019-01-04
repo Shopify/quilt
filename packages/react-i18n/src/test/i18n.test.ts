@@ -389,11 +389,11 @@ describe('I18n', () => {
       expect(i18n.formatDate(date, options)).toBe(expected);
     });
 
-    it('throws an error when no timezone is given as the default or as an option', () => {
+    it('formats a date using Intl when no timezone is given as the default or as an option', () => {
+      const date = new Date();
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      expect(() => i18n.formatDate(new Date())).toThrowError(
-        'No timezone code provided.',
-      );
+      const expected = new Intl.DateTimeFormat(defaultDetails.locale, {}).format(date);
+      expect(i18n.formatDate(date)).toBe(expected);
     });
 
     it('uses the Intl number formatter with the default timezone', () => {

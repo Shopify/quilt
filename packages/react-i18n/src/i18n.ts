@@ -17,7 +17,6 @@ import {
 } from './constants';
 import {
   MissingCurrencyCodeError,
-  MissingTimezoneError,
   MissingCountryError,
 } from './errors';
 import {
@@ -163,12 +162,6 @@ export default class I18n {
     options?: Intl.DateTimeFormatOptions & {style?: DateStyle},
   ): string {
     const {locale, defaultTimezone: timezone} = this;
-
-    if (timezone == null && (options == null || options.timeZone == null)) {
-      throw new MissingTimezoneError(
-        `No timezone code provided. formatDate() cannot be called without a timezone.`,
-      );
-    }
 
     const {style = undefined, ...formatOptions} = options || {};
 
