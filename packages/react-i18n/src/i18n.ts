@@ -15,10 +15,7 @@ import {
   RTL_LANGUAGES,
   Weekdays,
 } from './constants';
-import {
-  MissingCurrencyCodeError,
-  MissingCountryError,
-} from './errors';
+import {MissingCurrencyCodeError, MissingCountryError} from './errors';
 import {
   getCurrencySymbol,
   translate,
