@@ -60,3 +60,16 @@ The following type aliases are provided by this library:
   type MyComponentProps = Props<typeof MyComponent>; // {name: string}
   type MyOtherComponentProps = Props<typeof MyOtherComponent>; // {seconds: number}
   ```
+
+- `DeepPartial<T>`: Recusively maps over all properties in a type and transforms them to be optional. Useful when you need to make optional all of the properties (and nested properties) of an existing type.
+
+  ```ts
+  interface Obj {
+    foo: string;
+    bar: {
+      baz: boolean;
+    };
+  }
+
+  type DeepPartialObj = DeepPartial<Obj>; // {foo?: string; bar?: { baz?: boolean }}
+  ```
