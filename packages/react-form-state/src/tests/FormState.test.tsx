@@ -41,76 +41,240 @@ describe('<FormState />', () => {
         },
       });
     });
-
-    it('resets field objects values to new initialValues when prop is updated', () => {
-      const renderPropSpy = jest.fn(() => null);
-      const product = faker.commerce.productName();
-
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
-
-      const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.productName());
-
-      const otherProduct = faker.commerce.productName();
-      form.setProps({initialValues: {product: otherProduct}});
-
-      const {fields} = lastCallArgs(renderPropSpy);
-      expect(fields).toMatchObject({
-        product: {
-          value: otherProduct,
-          initialValue: otherProduct,
-          dirty: false,
-        },
-      });
-    });
-
-    it('does not reset field objects values when non-initialValues props are updated', () => {
-      const renderPropSpy = jest.fn(() => null);
-      const product = faker.commerce.productName();
-
-      const form = mount(
-        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
-      );
-
-      const formDetails = lastCallArgs(renderPropSpy);
-      const otherProduct = faker.commerce.productName();
-      formDetails.fields.product.onChange(otherProduct);
-
-      form.setProps({validators: {}});
-
-      const {fields} = lastCallArgs(renderPropSpy);
-      expect(fields).toMatchObject({
-        product: {
-          value: otherProduct,
-          initialValue: product,
-          dirty: true,
-        },
-      });
-    });
   });
 
-  describe('reset()', () => {
-    it('resets all fields to their initial values', () => {
-      const renderPropSpy = jest.fn(() => null);
-      const product = faker.commerce.productName();
+  describe('onInitialValuesChange', () => {
+    describe('default', () => {
+      it('resets all field objects values to their initialValues when the prop is updated', () => {
+        const renderPropSpy = jest.fn(() => null);
+        const originalValues = {
+          product: faker.commerce.productName(),
+          price: faker.commerce.price(),
+        };
 
-      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
+        const form = mount(
+          <FormState initialValues={originalValues}>{renderPropSpy}</FormState>,
+        );
 
-      const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.productName());
+        const formDetails = lastCallArgs(renderPropSpy);
+        formDetails.fields.product.onChange(faker.commerce.productName());
+        formDetails.fields.price.onChange(faker.commerce.price());
 
-      const {reset} = lastCallArgs(renderPropSpy);
-      reset();
+        const otherProduct = faker.commerce.productName();
+        form.setProps({
+          initialValues: {price: originalValues.price, product: otherProduct},
+        });
 
-      const {fields} = lastCallArgs(renderPropSpy);
-      expect(fields).toMatchObject({
-        product: {
-          value: product,
-          initialValue: product,
+        const {fields} = lastCallArgs(renderPropSpy);
+        expect(fields).toMatchObject({
+          product: {
+            value: otherProduct,
+            initialValue: otherProduct,
+            dirty: false,
+          },
+          price: {
+            value: originalValues.price,
+            initialValue: originalValues.price,
+            dirty: false,
+          },
+        });
+      });
+
+      it('resets errors and dirty when the initialValues prop is updated', async () => {
+        const renderPropSpy = jest.fn(() => null);
+        const originalValues = {
+          product: faker.commerce.productName(),
+          price: faker.commerce.price(),
+        };
+
+        const form = mount(
+          <FormState
+            onSubmit={() => Promise.resolve([{message: 'bad'}])}
+            initialValues={originalValues}
+          >
+            {renderPropSpy}
+          </FormState>,
+        );
+
+        const formDetails = lastCallArgs(renderPropSpy);
+        formDetails.fields.price.onChange(faker.commerce.price());
+        formDetails.fields.price.onChange(faker.commerce.price());
+
+        const {submit} = lastCallArgs(renderPropSpy);
+        await submit();
+
+        const otherProduct = faker.commerce.productName();
+        form.setProps({
+          initialValues: {price: originalValues.price, product: otherProduct},
+        });
+
+        const state = lastCallArgs(renderPropSpy);
+        expect(state).toMatchObject({
+          errors: [],
           dirty: false,
-        },
+        });
+      });
+
+      it('does not reset field objects values when non-initialValues props are updated', () => {
+        const renderPropSpy = jest.fn(() => null);
+        const product = faker.commerce.productName();
+
+        const form = mount(
+          <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+        );
+
+        const formDetails = lastCallArgs(renderPropSpy);
+        const otherProduct = faker.commerce.productName();
+        formDetails.fields.product.onChange(otherProduct);
+
+        form.setProps({validators: {}});
+
+        const {fields} = lastCallArgs(renderPropSpy);
+        expect(fields).toMatchObject({
+          product: {
+            value: otherProduct,
+            initialValue: product,
+            dirty: true,
+          },
+        });
+      });
+    });
+
+    describe('reset-where-changed', () => {
+      it('resets only field objects with changed initialValues when the prop is updated', () => {
+        const renderPropSpy = jest.fn(() => null);
+        const originalValues = {
+          product: faker.commerce.productName(),
+          price: faker.commerce.price(),
+        };
+
+        const form = mount(
+          <FormState
+            initialValues={originalValues}
+            onInitialValuesChange="reset-where-changed"
+          >
+            {renderPropSpy}
+          </FormState>,
+        );
+
+        const formDetails = lastCallArgs(renderPropSpy);
+        formDetails.fields.product.onChange(faker.commerce.productName());
+        const changedPrice = faker.commerce.price();
+        formDetails.fields.price.onChange(changedPrice);
+
+        const otherProduct = faker.commerce.productName();
+        form.setProps({
+          initialValues: {price: originalValues.price, product: otherProduct},
+        });
+
+        const {fields} = lastCallArgs(renderPropSpy);
+        expect(fields).toMatchObject({
+          product: {
+            value: otherProduct,
+            initialValue: otherProduct,
+            dirty: false,
+          },
+          price: {
+            value: changedPrice,
+            initialValue: originalValues.price,
+            dirty: true,
+          },
+        });
+      });
+
+      it('does not reset errors when the initialValues prop is updated', async () => {
+        const renderPropSpy = jest.fn(() => null);
+        const originalValues = {
+          product: faker.commerce.productName(),
+          price: faker.commerce.price(),
+        };
+
+        const submitErrors = [
+          {message: faker.lorem.sentences()},
+          {message: faker.lorem.sentences()},
+        ];
+
+        function onSubmit() {
+          return Promise.resolve(submitErrors);
+        }
+
+        const form = mount(
+          <FormState
+            onSubmit={onSubmit}
+            initialValues={originalValues}
+            onInitialValuesChange="reset-where-changed"
+          >
+            {renderPropSpy}
+          </FormState>,
+        );
+
+        const formDetails = lastCallArgs(renderPropSpy);
+        formDetails.fields.price.onChange(faker.commerce.price());
+        formDetails.fields.price.onChange(faker.commerce.price());
+
+        const {submit} = lastCallArgs(renderPropSpy);
+        await submit();
+
+        const otherProduct = faker.commerce.productName();
+
+        form.setProps({
+          initialValues: {price: originalValues.price, product: otherProduct},
+        });
+
+        const state = lastCallArgs(renderPropSpy);
+        expect(state.errors).toBe(submitErrors);
+      });
+    });
+
+    describe('ignore', () => {
+      it('does not reset field objects when the initialValues prop is updated', () => {
+        const renderPropSpy = jest.fn(() => null);
+        const product = faker.commerce.productName();
+
+        const form = mount(
+          <FormState initialValues={{product}} onInitialValuesChange="ignore">
+            {renderPropSpy}
+          </FormState>,
+        );
+
+        const formDetails = lastCallArgs(renderPropSpy);
+        const changedProduct = faker.commerce.productName();
+        formDetails.fields.product.onChange(changedProduct);
+
+        form.setProps({initialValues: {product: faker.commerce.productName()}});
+
+        const {fields} = lastCallArgs(renderPropSpy);
+        expect(fields).toMatchObject({
+          product: {
+            value: changedProduct,
+            initialValue: product,
+            dirty: true,
+          },
+        });
+      });
+
+      it('does not reset field objects values when non-initialValues props are updated', () => {
+        const renderPropSpy = jest.fn(() => null);
+        const product = faker.commerce.productName();
+
+        const form = mount(
+          <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+        );
+
+        const formDetails = lastCallArgs(renderPropSpy);
+        const otherProduct = faker.commerce.productName();
+        formDetails.fields.product.onChange(otherProduct);
+
+        form.setProps({validators: {}});
+
+        const {fields} = lastCallArgs(renderPropSpy);
+        expect(fields).toMatchObject({
+          product: {
+            value: otherProduct,
+            initialValue: product,
+            dirty: true,
+          },
+        });
       });
     });
   });
@@ -530,7 +694,8 @@ describe('<FormState />', () => {
         expect.objectContaining(formData),
       );
     });
-    it('when onSubmit() returns a promise, re-renders with submitting true while waiting for it to resolve/reject', () => {
+
+    it('re-renders with submitting true while waiting for the onSubmit promise to resolve/reject', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
@@ -551,7 +716,7 @@ describe('<FormState />', () => {
       expect(submitting).toBe(true);
     });
 
-    it('when onSubmit() returns a promise, re-renders with submitting false when promise resolves', async () => {
+    it('re-renders with submitting false when onSubmit promise resolves', async () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
@@ -572,7 +737,7 @@ describe('<FormState />', () => {
       expect(submitting).toBe(false);
     });
 
-    it('updates errors when errors are returned from onSubmit', async () => {
+    it('updates errors when errors are returned from onSubmit promise', async () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
@@ -598,7 +763,7 @@ describe('<FormState />', () => {
       expect(errors).toEqual(errors);
     });
 
-    it('propagates submit errors down to fields when the field array matches', async () => {
+    it('propagates submit errors down to fields when the field array matches an existing field', async () => {
       const renderPropSpy = jest.fn(() => null);
       const message = faker.lorem.sentences();
 
@@ -627,6 +792,44 @@ describe('<FormState />', () => {
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.error).toBe(message);
+    });
+
+    it('clears submit errors when a subsequent submit is successful', async () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      const submitErrors = [
+        {
+          message: faker.lorem.sentences(),
+        },
+      ];
+
+      let shouldSucceed = false;
+      function onSubmit() {
+        if (shouldSucceed) {
+          return [];
+        }
+
+        return Promise.resolve(submitErrors);
+      }
+
+      mount(
+        <FormState
+          initialValues={{product: faker.commerce.productName()}}
+          onSubmit={onSubmit}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const failingState = lastCallArgs(renderPropSpy);
+      await failingState.submit();
+
+      shouldSucceed = true;
+      const succeedingState = lastCallArgs(renderPropSpy);
+      await succeedingState.submit();
+
+      const {errors} = lastCallArgs(renderPropSpy);
+      expect(errors).toHaveLength(0);
     });
 
     it('clears submit errors on fields when onChange is called', async () => {
