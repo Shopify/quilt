@@ -392,7 +392,10 @@ describe('I18n', () => {
     it('formats a date using Intl when no timezone is given as the default or as an option', () => {
       const date = new Date();
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      const expected = new Intl.DateTimeFormat(defaultDetails.locale, {}).format(date);
+      const expected = new Intl.DateTimeFormat(
+        defaultDetails.locale,
+        {},
+      ).format(date);
       expect(i18n.formatDate(date)).toBe(expected);
     });
 
