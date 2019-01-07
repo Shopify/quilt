@@ -17,7 +17,7 @@ As such the main difference in our solution is the explicit, declarative api. Fo
 
 ## I want to invoke all my validators whenever I want, how can I do this?
 
-You can do this by setting a `ref` on your `<FormState />`, and calling `validateForm` on the instance passed in.
+You can do this by setting a [`ref`](https://reactjs.org/docs/refs-and-the-dom.html#creating-refs) on your `<FormState />`, and calling `validateForm` on the instance passed in.
 
 ```typescript
 // use `createRef` and validate imperatively later
@@ -37,6 +37,53 @@ class MyComponent extends React.Component {
 ```
 
 If you need to do something immediately on mount you could also use old fashioned [callback refs](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs).
+
+## My form keeps resetting for no reason! / My form is resetting whenever I change an input!
+
+By default `<FormState />` resets whenever any value in your `initialValues` changes. If you are basing your initial values on existing state, this lets it update when your state changes (usually this would be the result of submitting).
+
+If this is happening on each rerender, it is likely that you are generating your `initialValues` in some way that is different each time. This can happen when you construct `Date` objects, `UUID`s, or other dynamic values inline. You can solve this by `memoize`ing your initial value creation or creating dates and other dynamic data only once outside of your component's `render` method.
+
+```typescript
+// Bad!
+function MyForm() {
+  return (
+    <FormState
+      initialValues={
+        publicationDate: new Date(),
+        text: '',
+      }
+    >
+    {({fields}) => /* markup*/ }
+    </FormState>
+  );
+}
+
+
+// Good!
+const today = new Date();
+
+function MyForm() {
+  return (
+    <FormState
+      initialValues={
+        publicationDate: today,
+        text: '',
+      }
+    >
+    {({fields}) => /* markup*/ }
+    </FormState>
+  );
+}
+```
+
+## Can I have more control over what happens when initialValues change?
+
+You can control how `<FormState />` reacts to changes in the `initialValue` prop using `onInitialValueChanged`. This prop has three options:
+
+- (default) `reset-all`: Reset the entire form when `initialValues` changes.
+- `reset-where-changed`: Reset only the changed field objects when `initialValues` changes.
+- `ignore`: Ignore changes to the `initialValues` prop. This option makes `<FormState />` behave like a [fully controlled component](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component). You will generally want to accompany this option with a [`key`](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) or [`ref`](https://reactjs.org/docs/refs-and-the-dom.html#creating-refs).
 
 ## More questions
 
