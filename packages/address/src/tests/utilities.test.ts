@@ -51,7 +51,7 @@ describe('renderLineTemplate()', () => {
     expect(renderLineTemplate(Canada, template, address)).toEqual('');
   });
 
-  it('returns empty string for province if country does not have provinces', () => {
+  it('returns empty string for province if country does not have zones', () => {
     const template = '{province}';
     expect(
       renderLineTemplate(Canada, template, {

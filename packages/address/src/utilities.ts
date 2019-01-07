@@ -9,7 +9,7 @@ export const FIELDS_MAPPING: {
   '{country}': FieldName.Country, // eslint-disable-line id-length
   '{city}': FieldName.City, // eslint-disable-line id-length
   '{zip}': FieldName.Zip, // eslint-disable-line id-length
-  '{province}': FieldName.Province, // eslint-disable-line id-length
+  '{province}': FieldName.Zone, // eslint-disable-line id-length
   '{address1}': FieldName.Address1, // eslint-disable-line id-length
   '{address2}': FieldName.Address2, // eslint-disable-line id-length
   '{phone}': FieldName.Phone, // eslint-disable-line id-length
@@ -43,12 +43,10 @@ export function renderLineTemplate(
       case FieldName.Country:
         line = line.replace(`{${FieldName.Country}}`, country.name);
         break;
-      case FieldName.Province:
+      case FieldName.Zone:
         line = line.replace(
-          `{${FieldName.Province}}`,
-          address.province
-            ? getProvince(country.provinces, address.province).name
-            : '',
+          `{${FieldName.Zone}}`,
+          address.province ? getZone(country.zones, address.province).name : '',
         );
         break;
       default:
@@ -63,9 +61,9 @@ export function renderLineTemplate(
   }
 }
 
-function getProvince(provinces: Province[], provinceCode: string): Province {
+function getZone(zones: Province[], provinceCode: string): Province {
   return (
-    provinces.find(province => province.code === provinceCode) || {
+    zones.find(zone => zone.code === provinceCode) || {
       name: '',
       code: '',
     }

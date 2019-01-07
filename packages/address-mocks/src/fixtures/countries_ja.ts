@@ -14,7 +14,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アイルランド',
@@ -29,7 +29,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Carlow',
             code: 'CW',
@@ -149,7 +149,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アフガニスタン',
@@ -164,7 +164,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アメリカ合衆国',
@@ -179,7 +179,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alabama',
             code: 'AL',
@@ -443,7 +443,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Abu Dhabi',
             code: 'AZ',
@@ -487,7 +487,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アルゼンチン',
@@ -502,7 +502,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Buenos Aires',
             code: 'B',
@@ -614,7 +614,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アルバニア',
@@ -629,7 +629,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アルメニア',
@@ -644,7 +644,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アンギラ',
@@ -659,7 +659,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アンゴラ',
@@ -674,7 +674,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アンティグア・バーブーダ',
@@ -689,7 +689,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'アンドラ',
@@ -704,7 +704,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'イエメン',
@@ -719,7 +719,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'イギリス',
@@ -734,7 +734,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'イスラエル',
@@ -749,7 +749,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'イタリア',
@@ -764,7 +764,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Agrigento',
             code: 'AG',
@@ -1220,7 +1220,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'イラン',
@@ -1235,7 +1235,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'インド',
@@ -1250,7 +1250,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Andaman and Nicobar',
             code: 'AN',
@@ -1410,7 +1410,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Aceh',
             code: 'AC',
@@ -1562,7 +1562,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ウガンダ',
@@ -1577,7 +1577,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ウクライナ',
@@ -1592,7 +1592,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ウズベキスタン',
@@ -1607,7 +1607,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ウルグアイ',
@@ -1622,7 +1622,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'エクアドル',
@@ -1637,7 +1637,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'エジプト',
@@ -1652,7 +1652,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: '6th of October',
             code: 'SU',
@@ -1784,7 +1784,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'エチオピア',
@@ -1799,7 +1799,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'エリトリア',
@@ -1814,7 +1814,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'エルサルバドル',
@@ -1829,7 +1829,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'オマーン',
@@ -1844,7 +1844,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'オランダ',
@@ -1859,7 +1859,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'オランダ領アンティル',
@@ -1874,7 +1874,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'オランダ領カリブ',
@@ -1889,7 +1889,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'オーストラリア',
@@ -1904,7 +1904,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Australian Capital Territory',
             code: 'ACT',
@@ -1952,7 +1952,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'オーランド諸島',
@@ -1967,7 +1967,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'カザフスタン',
@@ -1982,7 +1982,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'カタール',
@@ -1997,7 +1997,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'カナダ',
@@ -2012,7 +2012,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alberta',
             code: 'AB',
@@ -2080,7 +2080,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'カンボジア',
@@ -2095,7 +2095,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'カーボベルデ',
@@ -2110,7 +2110,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ガイアナ',
@@ -2125,7 +2125,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ガボン',
@@ -2140,7 +2140,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ガンビア',
@@ -2155,7 +2155,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ガーナ',
@@ -2170,7 +2170,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ガーンジー',
@@ -2185,7 +2185,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'キプロス',
@@ -2200,7 +2200,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'キュラソー',
@@ -2215,7 +2215,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'キューバ',
@@ -2230,7 +2230,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'キリバス',
@@ -2245,7 +2245,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'キルギス',
@@ -2260,7 +2260,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ギニア',
@@ -2275,7 +2275,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ギニアビサウ',
@@ -2290,7 +2290,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ギリシャ',
@@ -2305,7 +2305,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'クウェート',
@@ -2320,7 +2320,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'クック諸島',
@@ -2335,7 +2335,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'クリスマス島',
@@ -2350,7 +2350,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'クロアチア',
@@ -2365,7 +2365,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'グアテマラ',
@@ -2380,7 +2380,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alta Verapaz',
             code: 'AVE',
@@ -2484,7 +2484,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'グリーンランド',
@@ -2499,7 +2499,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'グルジア',
@@ -2514,7 +2514,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'グレナダ',
@@ -2529,7 +2529,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ケイマン諸島',
@@ -2544,7 +2544,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ケニア',
@@ -2559,7 +2559,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ココス(キーリング)諸島',
@@ -2574,7 +2574,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'コスタリカ',
@@ -2589,7 +2589,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'コソボ',
@@ -2604,7 +2604,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'コモロ',
@@ -2619,7 +2619,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'コロンビア',
@@ -2634,7 +2634,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Bogotá, D.C.',
             code: 'DC',
@@ -2782,7 +2782,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'コンゴ民主共和国(キンシャサ)',
@@ -2797,7 +2797,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'コートジボワール',
@@ -2812,7 +2812,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'サウジアラビア',
@@ -2827,7 +2827,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'サモア',
@@ -2842,7 +2842,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'サントメ・プリンシペ',
@@ -2857,7 +2857,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'サンピエール島・ミクロン島',
@@ -2872,7 +2872,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'サンマリノ',
@@ -2887,7 +2887,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'サン・バルテルミー島',
@@ -2902,7 +2902,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'サン・マルタン',
@@ -2917,7 +2917,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ザンビア',
@@ -2932,7 +2932,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'シエラレオネ',
@@ -2947,7 +2947,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'シリア',
@@ -2962,7 +2962,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'シンガポール',
@@ -2977,7 +2977,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'シント・マールテン',
@@ -2992,7 +2992,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ジブチ',
@@ -3007,7 +3007,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ジブラルタル',
@@ -3022,7 +3022,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ジャマイカ',
@@ -3037,7 +3037,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ジャージー',
@@ -3052,7 +3052,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ジンバブエ',
@@ -3067,7 +3067,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スイス',
@@ -3082,7 +3082,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スウェーデン',
@@ -3097,7 +3097,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スバールバル諸島・ヤンマイエン島',
@@ -3112,7 +3112,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スペイン',
@@ -3127,7 +3127,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'A Coruña',
             code: 'C',
@@ -3351,7 +3351,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スリランカ',
@@ -3366,7 +3366,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スロバキア',
@@ -3381,7 +3381,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スロベニア',
@@ -3396,7 +3396,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スワジランド',
@@ -3411,7 +3411,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'スーダン',
@@ -3426,7 +3426,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'セネガル',
@@ -3441,7 +3441,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'セルビア',
@@ -3456,7 +3456,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'セントクリストファー・ネイビス',
@@ -3471,7 +3471,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'セントビンセント・グレナディーン諸島',
@@ -3486,7 +3486,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'セントヘレナ',
@@ -3501,7 +3501,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'セントルシア',
@@ -3516,7 +3516,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'セーシェル',
@@ -3531,7 +3531,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ソマリア',
@@ -3546,7 +3546,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ソロモン諸島',
@@ -3561,7 +3561,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'タイ',
@@ -3576,7 +3576,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Amnat Charoen',
             code: 'TH-37',
@@ -3904,7 +3904,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'タンザニア',
@@ -3919,7 +3919,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'タークス・カイコス諸島',
@@ -3934,7 +3934,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'チェコ共和国',
@@ -3949,7 +3949,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'チャド',
@@ -3964,7 +3964,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'チュニジア',
@@ -3979,7 +3979,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'チリ',
@@ -3994,7 +3994,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ツバル',
@@ -4009,7 +4009,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'デンマーク',
@@ -4024,7 +4024,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'トケラウ',
@@ -4039,7 +4039,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'トリニダード・トバゴ',
@@ -4054,7 +4054,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'トルクメニスタン',
@@ -4069,7 +4069,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'トルコ',
@@ -4084,7 +4084,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'トンガ',
@@ -4099,7 +4099,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'トーゴ',
@@ -4114,7 +4114,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ドイツ',
@@ -4129,7 +4129,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ドミニカ共和国',
@@ -4144,7 +4144,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ドミニカ国',
@@ -4159,7 +4159,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ナイジェリア',
@@ -4174,7 +4174,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Abia',
             code: 'AB',
@@ -4338,7 +4338,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ナミビア',
@@ -4353,7 +4353,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ニウエ島',
@@ -4368,7 +4368,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ニカラグア',
@@ -4383,7 +4383,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ニジェール',
@@ -4398,7 +4398,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ニューカレドニア',
@@ -4413,7 +4413,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ニュージーランド',
@@ -4428,7 +4428,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Auckland',
             code: 'AUK',
@@ -4508,7 +4508,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ノルウェー',
@@ -4523,7 +4523,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ノーフォーク島',
@@ -4538,7 +4538,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ハイチ',
@@ -4553,7 +4553,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ハンガリー',
@@ -4568,7 +4568,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ハード島・マクドナルド諸島',
@@ -4583,7 +4583,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'バチカン市国',
@@ -4598,7 +4598,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'バヌアツ',
@@ -4613,7 +4613,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'バハマ',
@@ -4628,7 +4628,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'バミューダ',
@@ -4643,7 +4643,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'バルバドス',
@@ -4658,7 +4658,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'バングラデシュ',
@@ -4673,7 +4673,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address2}_{address1}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'バーレーン',
@@ -4688,7 +4688,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'パキスタン',
@@ -4703,7 +4703,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'パナマ',
@@ -4718,7 +4718,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Bocas del Toro',
             code: 'PA-1',
@@ -4786,7 +4786,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'パラグアイ',
@@ -4801,7 +4801,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'パレスチナ',
@@ -4816,7 +4816,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ピトケアン諸島',
@@ -4831,7 +4831,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'フィジー',
@@ -4846,7 +4846,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'フィリピン',
@@ -4861,7 +4861,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'フィンランド',
@@ -4876,7 +4876,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'フェロー諸島',
@@ -4891,7 +4891,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'フォークランド諸島',
@@ -4906,7 +4906,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'フランス',
@@ -4921,7 +4921,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ブラジル',
@@ -4936,7 +4936,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Acre',
             code: 'AC',
@@ -5060,7 +5060,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ブルキナファソ',
@@ -5075,7 +5075,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ブルネイ',
@@ -5090,7 +5090,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ブルンジ',
@@ -5105,7 +5105,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ブータン',
@@ -5120,7 +5120,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ブーベ島',
@@ -5135,7 +5135,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ベトナム',
@@ -5150,7 +5150,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ベナン',
@@ -5165,7 +5165,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ベネズエラ',
@@ -5180,7 +5180,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ベラルーシ',
@@ -5195,7 +5195,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ベリーズ',
@@ -5210,7 +5210,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ベルギー',
@@ -5225,7 +5225,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ペルー',
@@ -5240,7 +5240,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {zip}_{province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Amazonas',
             code: 'PE-AMA',
@@ -5360,7 +5360,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ボスニア・ヘルツェゴビナ',
@@ -5375,7 +5375,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ボツワナ',
@@ -5390,7 +5390,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ボリビア',
@@ -5405,7 +5405,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ポルトガル',
@@ -5420,7 +5420,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city} {province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Açores',
             code: 'PT-20',
@@ -5516,7 +5516,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マケドニア',
@@ -5531,7 +5531,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マダガスカル',
@@ -5546,7 +5546,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マヨット島',
@@ -5561,7 +5561,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マラウイ',
@@ -5576,7 +5576,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マリ',
@@ -5591,7 +5591,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マルタ',
@@ -5606,7 +5606,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マルティニーク',
@@ -5621,7 +5621,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'マレーシア',
@@ -5636,7 +5636,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Johor',
             code: 'JHR',
@@ -5716,7 +5716,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ミャンマー',
@@ -5731,7 +5731,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'メキシコ',
@@ -5746,7 +5746,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Aguascalientes',
             code: 'AGS',
@@ -5890,7 +5890,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モナコ',
@@ -5905,7 +5905,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モルディブ',
@@ -5920,7 +5920,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モルドバ',
@@ -5935,7 +5935,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モロッコ',
@@ -5950,7 +5950,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モンゴル',
@@ -5965,7 +5965,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モンテネグロ',
@@ -5980,7 +5980,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モントセラト',
@@ -5995,7 +5995,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モーリシャス',
@@ -6010,7 +6010,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'モーリタニア',
@@ -6025,7 +6025,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ヨルダン',
@@ -6040,7 +6040,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ラオス',
@@ -6055,7 +6055,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ラトビア',
@@ -6070,7 +6070,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'リトアニア',
@@ -6085,7 +6085,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'リヒテンシュタイン',
@@ -6100,7 +6100,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'リビア',
@@ -6115,7 +6115,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'リベリア',
@@ -6130,7 +6130,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ルクセンブルグ',
@@ -6145,7 +6145,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ルワンダ',
@@ -6160,7 +6160,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ルーマニア',
@@ -6175,7 +6175,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alba',
             code: 'AB',
@@ -6359,7 +6359,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'レバノン',
@@ -6374,7 +6374,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'レユニオン島',
@@ -6389,7 +6389,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'ロシア',
@@ -6404,7 +6404,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Altai Krai',
             code: 'ALT',
@@ -6748,7 +6748,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Anhui',
             code: 'AH',
@@ -6888,7 +6888,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '中華人民共和国マカオ特別行政区',
@@ -6903,7 +6903,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '中華人民共和国香港特別行政区',
@@ -6918,7 +6918,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address2}_{address1}_{city}_{country}{province}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Hong Kong Island',
             code: 'HK',
@@ -6946,7 +6946,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '仏領ポリネシア',
@@ -6961,7 +6961,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '仏領極南諸島',
@@ -6976,7 +6976,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '南アフリカ',
@@ -6991,7 +6991,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Eastern Cape',
             code: 'EC',
@@ -7043,7 +7043,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '南スーダン',
@@ -7058,7 +7058,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '台湾',
@@ -7073,7 +7073,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '大韓民国',
@@ -7088,7 +7088,7 @@ const data = {
           show:
             '{country}_{address1} {address2}_{zip}{province}{city}_{company}_{lastName}{firstName}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Busan',
             code: 'KR-26',
@@ -7172,7 +7172,7 @@ const data = {
           show:
             '{country}_〒{zip}{province}{city}{address1}{address2}_{company}_{lastName} {firstName}様_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: '北海道',
             code: 'JP-01',
@@ -7376,7 +7376,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '東ティモール',
@@ -7391,7 +7391,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '米領太平洋諸島',
@@ -7406,7 +7406,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '英領インド洋地域',
@@ -7421,7 +7421,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '英領ヴァージン諸島',
@@ -7436,7 +7436,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '西サハラ',
@@ -7451,7 +7451,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: '赤道ギニア',
@@ -7466,7 +7466,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
     ],
   },
