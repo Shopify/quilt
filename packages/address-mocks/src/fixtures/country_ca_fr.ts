@@ -4,9 +4,18 @@ const data = {
       name: 'Canada',
       code: 'CA',
       phoneNumberPrefix: 1,
-      address2Key: 'APT_UNIT_NUMBER',
-      provinceKey: 'PROVINCE',
-      zipKey: 'POSTAL_CODE',
+      labels: {
+        address1: 'Adresse',
+        address2: "N° d'appt/unité",
+        city: 'Ville',
+        company: 'Entreprise',
+        country: 'Pays',
+        firstName: 'Prénom',
+        lastName: 'Nom',
+        phone: 'Téléphone',
+        postalCode: 'Code postal',
+        zone: 'Province',
+      },
       formatting: {
         edit:
           '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
