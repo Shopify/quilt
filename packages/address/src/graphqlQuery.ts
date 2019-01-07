@@ -5,9 +5,18 @@ query countries($locale: SupportedLocale!) {
     code
     continent
     phoneNumberPrefix
-    address2Key
-    provinceKey
-    zipKey
+    labels {
+      address1
+      address2
+      city
+      company
+      country
+      firstName
+      lastName
+      phone
+      postalCode
+      zone
+    }
     formatting {
       edit
       show
@@ -25,9 +34,18 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
     code
     continent
     phoneNumberPrefix
-    address2Key
-    provinceKey
-    zipKey
+    labels {
+      address1
+      address2
+      city
+      company
+      country
+      firstName
+      lastName
+      phone
+      postalCode
+      zone
+    }
     formatting {
       edit
       show

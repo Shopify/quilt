@@ -1,6 +1,6 @@
 import {fetch} from '@shopify/jest-dom-mocks';
 import {mockCountryRequests} from '../../../address-mocks/src';
-import {Address, FieldName} from '../types';
+import {Address} from '../types';
 import AddressFormatter from '..';
 import {toSupportedLocale} from '../loader';
 
@@ -43,9 +43,7 @@ describe('getCountry()', () => {
       'name',
       'code',
       'phoneNumberPrefix',
-      'address2Key',
-      'provinceKey',
-      'zipKey',
+      'labels',
       'formatting',
       'zones',
       'continent',
@@ -141,7 +139,7 @@ describe('format()', () => {
 
     expect(result).toEqual([
       '日本',
-      '〒100-8994  目黒区 八重洲1-5-3',
+      '〒100-8994 目黒区 八重洲1-5-3',
       'Shopify',
       '田中 恵子様',
       '514 xxx xxxx',
@@ -164,48 +162,6 @@ describe('getOrderedFields()', () => {
       ['address2'],
       ['phone'],
     ]);
-  });
-});
-
-describe('getTranslationKey()', () => {
-  it('translates based on the country province key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
-    const result = await addressFormatter.getTranslationKey(
-      'JP',
-      FieldName.Zone,
-    );
-
-    expect(result).toBe('PREFECTURE');
-  });
-
-  it('translates based on the country zip key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
-    const result = await addressFormatter.getTranslationKey(
-      'JP',
-      FieldName.Zip,
-    );
-
-    expect(result).toBe('POSTAL_CODE');
-  });
-
-  it('translates based on the country address2 key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
-    const result = await addressFormatter.getTranslationKey(
-      'JP',
-      FieldName.Address2,
-    );
-
-    expect(result).toBe('APT_SUITE_ETC');
-  });
-
-  it('translates based on the country key', async () => {
-    const addressFormatter = new AddressFormatter('ja');
-    const result = await addressFormatter.getTranslationKey(
-      'JP',
-      FieldName.Country,
-    );
-
-    expect(result).toBe('country');
   });
 });
 
