@@ -109,8 +109,6 @@ export default function MyComponent() {
 
 You may also want to provide alternate groupings of `held` modifier keys. For example, “undo/redo” key combos are slightly different on Windows vs Mac OS. The below example will register `onMatch` if either `Control + z` or `Meta + z` is pressed simultaneously.
 
-> **Note**: `Meta` refers to the “Command” key on Mac keyboards.
-
 ```ts
 // MyComponent.tsx
 
@@ -130,6 +128,11 @@ export default function MyComponent() {
   );
 }
 ```
+
+**Some Gotchas**
+
+1. `Meta` refers to the “Command” key on Mac keyboards.
+2. `Fn` and `FnLock` keys are not supported because they don't produce events, as mentioned in the [spec](https://w3c.github.io/uievents-key/#key-Fn)
 
 #### On a focused node
 

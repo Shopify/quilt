@@ -92,8 +92,6 @@ export type ModifierKey =
   | 'AltGraph'
   | 'CapsLock'
   | 'Control'
-  | 'Fn'
-  | 'FnLock'
   | 'Hyper'
   | 'Meta'
   | 'NumLock'
