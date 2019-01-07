@@ -95,7 +95,7 @@ export default class AddressFormatter {
     const country = await this.getCountry(countryCode);
 
     switch (key) {
-      case FieldName.Province:
+      case FieldName.Zone:
         return country.provinceKey;
       case FieldName.Zip:
         return country.zipKey;

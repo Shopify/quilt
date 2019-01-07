@@ -30,7 +30,7 @@ Loads and return data about a given country in the locale used for instanciation
 
 #### `async .getCountries(): Promise<Country[]>`
 
-Loads and return data about a all countries in the given locale. Countries are ordered alphabetically based on the locale. Provinces are also ordered based on the locale.
+Loads and return data about a all countries in the given locale. Countries are ordered alphabetically based on the locale. Zones are also ordered based on the locale.
 
 #### `async .getOrderedFields(countryCode): FieldName[][]`
 
