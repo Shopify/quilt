@@ -4,14 +4,14 @@ export enum FieldName {
   Country = 'country',
   City = 'city',
   Zip = 'zip',
-  Province = 'province',
+  Zone = 'province',
   Address1 = 'address1',
   Address2 = 'address2',
   Phone = 'phone',
   Company = 'company',
 }
 
-export type ProvinceKey =
+export type ZoneKey =
   | 'COUNTY'
   | 'EMIRATE'
   | 'GOVERNORATE'
@@ -55,13 +55,13 @@ export interface Country {
   code: string;
   phoneNumberPrefix: number;
   address2Key: Address2Key;
-  provinceKey: ProvinceKey;
+  provinceKey: ZoneKey;
   zipKey: ZipKey;
   formatting: {
     edit: string;
     show: string;
   };
-  provinces: Province[];
+  zones: Province[];
 }
 
 export interface ResponseError {

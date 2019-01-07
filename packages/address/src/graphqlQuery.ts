@@ -11,7 +11,7 @@ query countries($locale: SupportedLocale!) {
       edit
       show
     }
-    provinces {
+    zones {
       name
       code
     }
@@ -30,7 +30,7 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
       edit
       show
     }
-    provinces {
+    zones {
       name
       code
     }
