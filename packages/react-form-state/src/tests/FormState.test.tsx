@@ -280,7 +280,7 @@ describe('<FormState />', () => {
         });
 
         const state = lastCallArgs(renderPropSpy);
-        expect(state.errors).toBe(submitErrors);
+        expect(state.errors).toEqual(submitErrors);
       });
     });
 
@@ -334,6 +334,121 @@ describe('<FormState />', () => {
           },
         });
       });
+    });
+  });
+
+  describe('externalErrors', () => {
+    it('associate external errors with field objects passed into render prop on mount', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+      const message = faker.lorem.sentences();
+      const externalErrors = [
+        {
+          field: ['product'],
+          message,
+        },
+      ];
+
+      mount(
+        <FormState initialValues={{product}} externalErrors={externalErrors}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {fields} = lastCallArgs(renderPropSpy);
+      expect(fields).toMatchObject({
+        product: {
+          error: message,
+        },
+      });
+    });
+
+    it('associate new external errors with field objects passed into render prop', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+      const message = 'Original message';
+      const externalErrors = [
+        {
+          field: ['product'],
+          message,
+        },
+      ];
+
+      const wrapper = mount(
+        <FormState initialValues={{product}} externalErrors={externalErrors}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const newMessage = 'New message';
+      const newExternalErrors = [
+        {
+          field: ['product'],
+          message: newMessage,
+        },
+      ];
+
+      wrapper.setProps({
+        externalErrors: newExternalErrors,
+      });
+
+      const {fields} = lastCallArgs(renderPropSpy);
+      expect(fields).toMatchObject({
+        product: {
+          error: newMessage,
+        },
+      });
+    });
+
+    it('passes externalErrors to form when externalErrors are provided', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const externalErrors = [{message: faker.lorem.sentences()}];
+      mount(
+        <FormState
+          initialValues={{
+            product: faker.commerce.productName,
+          }}
+          externalErrors={externalErrors}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {errors} = lastCallArgs(renderPropSpy);
+
+      expect(errors).toEqual(externalErrors);
+    });
+
+    it('returns both submit errors and external errors if submit returns an error', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+
+      const submitErrors = [
+        {message: faker.lorem.sentences()},
+        {message: faker.lorem.sentences()},
+      ];
+
+      const externalErrors = [{message: faker.lorem.sentences()}];
+
+      function onSubmit() {
+        return Promise.resolve(submitErrors);
+      }
+
+      mount(
+        <FormState
+          initialValues={{product}}
+          externalErrors={externalErrors}
+          onSubmit={onSubmit}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+      await submit();
+
+      const {errors} = lastCallArgs(renderPropSpy);
+      expect(errors).toEqual([...submitErrors, ...externalErrors]);
     });
   });
 
