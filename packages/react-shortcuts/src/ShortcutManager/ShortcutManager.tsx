@@ -1,13 +1,13 @@
-import Key, {ModifierKey} from '../keys';
+import Key, {HeldKey, ModifierKey} from '../keys';
 
 const ON_MATCH_DELAY = 500;
 
 export interface Data {
   node: HTMLElement | null | undefined;
   ordered: Key[];
-  held?: ModifierKey[];
+  held?: HeldKey;
   ignoreInput: boolean;
-  onMatch(matched: {ordered: Key[]; held?: ModifierKey[]}): void;
+  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault: boolean;
 }
 
@@ -61,6 +61,20 @@ export default class ShortcutManager {
     }
   };
 
+  private allModifiersAreHeld(heldKeys: HeldKey, event: KeyboardEvent) {
+    function hasKeyGroups(groups: HeldKey): groups is HeldKey {
+      return groups.every(key => Array.isArray(key));
+    }
+
+    function keyGroupIsHeld(keyGroup: ModifierKey[]) {
+      return keyGroup.every((key: ModifierKey) => event.getModifierState(key));
+    }
+
+    return hasKeyGroups(heldKeys)
+      ? heldKeys.some(keyGroupIsHeld)
+      : keyGroupIsHeld(heldKeys);
+  }
+
   private updateMatchingShortcuts(event: KeyboardEvent) {
     const shortcuts =
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
@@ -71,7 +85,7 @@ export default class ShortcutManager {
           return false;
         }
 
-        if (held && !held.every(key => event.getModifierState(key))) {
+        if (held && !this.allModifiersAreHeld(held, event)) {
           return false;
         }
 
@@ -116,7 +130,8 @@ export default class ShortcutManager {
 
 function isFocusedInput() {
   const target = document.activeElement;
-  if (target.tagName == null) {
+
+  if (target == null || target.tagName == null) {
     return false;
   }
 

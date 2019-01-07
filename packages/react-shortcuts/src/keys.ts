@@ -92,8 +92,6 @@ export type ModifierKey =
   | 'AltGraph'
   | 'CapsLock'
   | 'Control'
-  | 'Fn'
-  | 'FnLock'
   | 'Hyper'
   | 'Meta'
   | 'NumLock'
@@ -102,6 +100,8 @@ export type ModifierKey =
   | 'Super'
   | 'Symbol'
   | 'SymbolLock';
+
+export type HeldKey = Array<ModifierKey | ModifierKey[]>;
 
 export type SymbolKey =
   | '~'

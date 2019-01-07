@@ -14,7 +14,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Åland Islands',
@@ -29,7 +29,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Albania',
@@ -44,7 +44,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Algeria',
@@ -59,7 +59,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Andorra',
@@ -74,7 +74,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Angola',
@@ -89,7 +89,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Anguilla',
@@ -104,7 +104,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Antigua & Barbuda',
@@ -119,7 +119,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Argentina',
@@ -134,7 +134,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Buenos Aires',
             code: 'B',
@@ -246,7 +246,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Aruba',
@@ -261,7 +261,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Australia',
@@ -276,7 +276,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Australian Capital Territory',
             code: 'ACT',
@@ -324,7 +324,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Azerbaijan',
@@ -339,7 +339,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bahamas',
@@ -354,7 +354,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bahrain',
@@ -369,7 +369,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bangladesh',
@@ -384,7 +384,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address2}_{address1}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Barbados',
@@ -399,7 +399,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Belarus',
@@ -414,7 +414,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Belgium',
@@ -429,7 +429,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Belize',
@@ -444,7 +444,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Benin',
@@ -459,7 +459,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bermuda',
@@ -474,7 +474,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bhutan',
@@ -489,7 +489,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bolivia',
@@ -504,7 +504,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bosnia & Herzegovina',
@@ -519,7 +519,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Botswana',
@@ -534,7 +534,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bouvet Island',
@@ -549,7 +549,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Brazil',
@@ -564,7 +564,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Acre',
             code: 'AC',
@@ -688,7 +688,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'British Virgin Islands',
@@ -703,7 +703,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Brunei',
@@ -718,7 +718,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Bulgaria',
@@ -733,7 +733,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Burkina Faso',
@@ -748,7 +748,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Burundi',
@@ -763,7 +763,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Cambodia',
@@ -778,7 +778,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Cameroon',
@@ -793,7 +793,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Canada',
@@ -808,7 +808,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alberta',
             code: 'AB',
@@ -876,7 +876,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Caribbean Netherlands',
@@ -891,7 +891,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Cayman Islands',
@@ -906,7 +906,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Central African Republic',
@@ -921,7 +921,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Chad',
@@ -936,7 +936,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Chile',
@@ -951,7 +951,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'China',
@@ -966,7 +966,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Anhui',
             code: 'AH',
@@ -1106,7 +1106,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Cocos (Keeling) Islands',
@@ -1121,7 +1121,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Colombia',
@@ -1136,7 +1136,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Bogotá, D.C.',
             code: 'DC',
@@ -1284,7 +1284,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Congo - Brazzaville',
@@ -1299,7 +1299,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Congo - Kinshasa',
@@ -1314,7 +1314,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Cook Islands',
@@ -1329,7 +1329,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Costa Rica',
@@ -1344,7 +1344,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Croatia',
@@ -1359,7 +1359,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Cuba',
@@ -1374,7 +1374,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Curaçao',
@@ -1389,7 +1389,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Cyprus',
@@ -1404,7 +1404,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Czech Republic',
@@ -1419,7 +1419,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Côte d’Ivoire',
@@ -1434,7 +1434,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Denmark',
@@ -1449,7 +1449,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Djibouti',
@@ -1464,7 +1464,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Dominica',
@@ -1479,7 +1479,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Dominican Republic',
@@ -1494,7 +1494,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Ecuador',
@@ -1509,7 +1509,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Egypt',
@@ -1524,7 +1524,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: '6th of October',
             code: 'SU',
@@ -1656,7 +1656,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Equatorial Guinea',
@@ -1671,7 +1671,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Eritrea',
@@ -1686,7 +1686,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Estonia',
@@ -1701,7 +1701,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Ethiopia',
@@ -1716,7 +1716,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Falkland Islands',
@@ -1731,7 +1731,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Faroe Islands',
@@ -1746,7 +1746,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Fiji',
@@ -1761,7 +1761,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Finland',
@@ -1776,7 +1776,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'France',
@@ -1791,7 +1791,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'French Guiana',
@@ -1806,7 +1806,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'French Polynesia',
@@ -1821,7 +1821,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'French Southern Territories',
@@ -1836,7 +1836,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Gabon',
@@ -1851,7 +1851,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Gambia',
@@ -1866,7 +1866,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Georgia',
@@ -1881,7 +1881,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Germany',
@@ -1896,7 +1896,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Ghana',
@@ -1911,7 +1911,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Gibraltar',
@@ -1926,7 +1926,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Greece',
@@ -1941,7 +1941,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Greenland',
@@ -1956,7 +1956,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Grenada',
@@ -1971,7 +1971,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Guadeloupe',
@@ -1986,7 +1986,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Guatemala',
@@ -2001,7 +2001,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alta Verapaz',
             code: 'AVE',
@@ -2105,7 +2105,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Guinea',
@@ -2120,7 +2120,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Guinea-Bissau',
@@ -2135,7 +2135,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Guyana',
@@ -2150,7 +2150,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Haiti',
@@ -2165,7 +2165,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Heard & McDonald Islands',
@@ -2180,7 +2180,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Honduras',
@@ -2195,7 +2195,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Hong Kong SAR China',
@@ -2210,7 +2210,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address2}_{address1}_{city}_{country}{province}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Hong Kong Island',
             code: 'HK',
@@ -2238,7 +2238,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Iceland',
@@ -2253,7 +2253,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'India',
@@ -2268,7 +2268,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Andaman and Nicobar',
             code: 'AN',
@@ -2428,7 +2428,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Aceh',
             code: 'AC',
@@ -2580,7 +2580,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Iraq',
@@ -2595,7 +2595,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Ireland',
@@ -2610,7 +2610,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Carlow',
             code: 'CW',
@@ -2730,7 +2730,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Israel',
@@ -2745,7 +2745,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Italy',
@@ -2760,7 +2760,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Agrigento',
             code: 'AG',
@@ -3216,7 +3216,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Japan',
@@ -3231,7 +3231,7 @@ const data = {
           show:
             '{country}_〒{zip}{province}{city}{address1}{address2}_{company}_{lastName} {firstName}様_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Hokkaidō',
             code: 'JP-01',
@@ -3435,7 +3435,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Jordan',
@@ -3450,7 +3450,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Kazakhstan',
@@ -3465,7 +3465,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Kenya',
@@ -3480,7 +3480,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Kiribati',
@@ -3495,7 +3495,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Kosovo',
@@ -3510,7 +3510,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Kuwait',
@@ -3525,7 +3525,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Kyrgyzstan',
@@ -3540,7 +3540,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Laos',
@@ -3555,7 +3555,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Latvia',
@@ -3570,7 +3570,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Lebanon',
@@ -3585,7 +3585,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Lesotho',
@@ -3600,7 +3600,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Liberia',
@@ -3615,7 +3615,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Libya',
@@ -3630,7 +3630,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Liechtenstein',
@@ -3645,7 +3645,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Lithuania',
@@ -3660,7 +3660,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Luxembourg',
@@ -3675,7 +3675,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Macau SAR China',
@@ -3690,7 +3690,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Macedonia',
@@ -3705,7 +3705,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Madagascar',
@@ -3720,7 +3720,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Malawi',
@@ -3735,7 +3735,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Malaysia',
@@ -3750,7 +3750,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Johor',
             code: 'JHR',
@@ -3830,7 +3830,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Mali',
@@ -3845,7 +3845,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Malta',
@@ -3860,7 +3860,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Martinique',
@@ -3875,7 +3875,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Mauritania',
@@ -3890,7 +3890,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Mauritius',
@@ -3905,7 +3905,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Mayotte',
@@ -3920,7 +3920,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Mexico',
@@ -3935,7 +3935,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Aguascalientes',
             code: 'AGS',
@@ -4079,7 +4079,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Monaco',
@@ -4094,7 +4094,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Mongolia',
@@ -4109,7 +4109,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Montenegro',
@@ -4124,7 +4124,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Montserrat',
@@ -4139,7 +4139,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Morocco',
@@ -4154,7 +4154,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Mozambique',
@@ -4169,7 +4169,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Myanmar (Burma)',
@@ -4184,7 +4184,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Namibia',
@@ -4199,7 +4199,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Nauru',
@@ -4214,7 +4214,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Nepal',
@@ -4229,7 +4229,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Netherlands',
@@ -4244,7 +4244,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Netherlands Antilles',
@@ -4259,7 +4259,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'New Caledonia',
@@ -4274,7 +4274,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'New Zealand',
@@ -4289,7 +4289,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Auckland',
             code: 'AUK',
@@ -4369,7 +4369,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Niger',
@@ -4384,7 +4384,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Nigeria',
@@ -4399,7 +4399,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Abia',
             code: 'AB',
@@ -4563,7 +4563,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Norfolk Island',
@@ -4578,7 +4578,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'North Korea',
@@ -4593,7 +4593,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Norway',
@@ -4608,7 +4608,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Oman',
@@ -4623,7 +4623,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Pakistan',
@@ -4638,7 +4638,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Palestinian Territories',
@@ -4653,7 +4653,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Panama',
@@ -4668,7 +4668,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Bocas del Toro',
             code: 'PA-1',
@@ -4736,7 +4736,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Paraguay',
@@ -4751,7 +4751,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Peru',
@@ -4766,7 +4766,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {zip}_{province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Amazonas',
             code: 'PE-AMA',
@@ -4886,7 +4886,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Pitcairn Islands',
@@ -4901,7 +4901,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Poland',
@@ -4916,7 +4916,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Portugal',
@@ -4931,7 +4931,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city} {province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Açores',
             code: 'PT-20',
@@ -5027,7 +5027,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Réunion',
@@ -5042,7 +5042,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Romania',
@@ -5057,7 +5057,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alba',
             code: 'AB',
@@ -5241,7 +5241,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Altai Krai',
             code: 'ALT',
@@ -5585,7 +5585,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Saint Martin',
@@ -5600,7 +5600,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Samoa',
@@ -5615,7 +5615,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'San Marino',
@@ -5630,7 +5630,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'São Tomé & Príncipe',
@@ -5645,7 +5645,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Saudi Arabia',
@@ -5660,7 +5660,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Senegal',
@@ -5675,7 +5675,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Serbia',
@@ -5690,7 +5690,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Seychelles',
@@ -5705,7 +5705,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Sierra Leone',
@@ -5720,7 +5720,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Singapore',
@@ -5735,7 +5735,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Slovakia',
@@ -5750,7 +5750,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Slovenia',
@@ -5765,7 +5765,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Solomon Islands',
@@ -5780,7 +5780,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Somalia',
@@ -5795,7 +5795,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'South Africa',
@@ -5810,7 +5810,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Eastern Cape',
             code: 'EC',
@@ -5862,7 +5862,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'South Korea',
@@ -5877,7 +5877,7 @@ const data = {
           show:
             '{country}_{address1} {address2}_{zip}{province}{city}_{company}_{lastName}{firstName}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Busan',
             code: 'KR-26',
@@ -5961,7 +5961,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Spain',
@@ -5976,7 +5976,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'A Coruña',
             code: 'C',
@@ -6200,7 +6200,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'St. Barthélemy',
@@ -6215,7 +6215,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'St. Helena',
@@ -6230,7 +6230,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'St. Kitts & Nevis',
@@ -6245,7 +6245,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'St. Lucia',
@@ -6260,7 +6260,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'St. Martin',
@@ -6275,7 +6275,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'St. Pierre & Miquelon',
@@ -6290,7 +6290,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'St. Vincent & Grenadines',
@@ -6305,7 +6305,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Sudan',
@@ -6320,7 +6320,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Suriname',
@@ -6335,7 +6335,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Svalbard & Jan Mayen',
@@ -6350,7 +6350,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Swaziland',
@@ -6365,7 +6365,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Sweden',
@@ -6380,7 +6380,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Switzerland',
@@ -6395,7 +6395,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Syria',
@@ -6410,7 +6410,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Taiwan',
@@ -6425,7 +6425,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Tajikistan',
@@ -6440,7 +6440,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Tanzania',
@@ -6455,7 +6455,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Thailand',
@@ -6470,7 +6470,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Amnat Charoen',
             code: 'TH-37',
@@ -6798,7 +6798,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Togo',
@@ -6813,7 +6813,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Tokelau',
@@ -6828,7 +6828,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Tonga',
@@ -6843,7 +6843,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Trinidad & Tobago',
@@ -6858,7 +6858,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Tunisia',
@@ -6873,7 +6873,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Turkey',
@@ -6888,7 +6888,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Turkmenistan',
@@ -6903,7 +6903,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Turks & Caicos Islands',
@@ -6918,7 +6918,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Tuvalu',
@@ -6933,7 +6933,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'U.S. Outlying Islands',
@@ -6948,7 +6948,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Uganda',
@@ -6963,7 +6963,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Ukraine',
@@ -6978,7 +6978,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'United Arab Emirates',
@@ -6993,7 +6993,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Abu Dhabi',
             code: 'AZ',
@@ -7037,7 +7037,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'United States',
@@ -7052,7 +7052,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [
+        zones: [
           {
             name: 'Alabama',
             code: 'AL',
@@ -7316,7 +7316,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Uzbekistan',
@@ -7331,7 +7331,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Vanuatu',
@@ -7346,7 +7346,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Vatican City',
@@ -7361,7 +7361,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Venezuela',
@@ -7376,7 +7376,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Vietnam',
@@ -7391,7 +7391,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Wallis & Futuna',
@@ -7406,7 +7406,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Western Sahara',
@@ -7421,7 +7421,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Yemen',
@@ -7436,7 +7436,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Zambia',
@@ -7451,7 +7451,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
       {
         name: 'Zimbabwe',
@@ -7466,7 +7466,7 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
         },
-        provinces: [],
+        zones: [],
       },
     ],
   },

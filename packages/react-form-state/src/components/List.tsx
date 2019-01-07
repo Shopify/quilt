@@ -11,10 +11,29 @@ interface Props<Fields> {
   getChildKey?(item: Fields): string;
 }
 
-export default class List<Fields> extends React.PureComponent<
+export default class List<Fields> extends React.Component<
   Props<Fields>,
   never
 > {
+  shouldComponentUpdate(nextProps) {
+    const {
+      field: {
+        value: nextValue,
+        error: nextError,
+        initialValue: nextInitialValue,
+      },
+    } = nextProps;
+    const {
+      field: {value, error, initialValue},
+    } = this.props;
+
+    return (
+      nextValue !== value ||
+      nextError !== error ||
+      nextInitialValue !== initialValue
+    );
+  }
+
   render() {
     const {
       field: {value, initialValue, error, name, onBlur},

@@ -47,7 +47,7 @@ describe('getCountry()', () => {
       'provinceKey',
       'zipKey',
       'formatting',
-      'provinces',
+      'zones',
     ]);
   });
 
@@ -171,7 +171,7 @@ describe('getTranslationKey()', () => {
     const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.getTranslationKey(
       'JP',
-      FieldName.Province,
+      FieldName.Zone,
     );
 
     expect(result).toBe('PREFECTURE');

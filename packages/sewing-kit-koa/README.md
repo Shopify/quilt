@@ -79,9 +79,9 @@ app.use(async ctx => {
 
 The middleware accepts some optional parameters that you can use to customize how sewing kit-generated assets will be served:
 
-- `assetHost`: the prefix to use for all assets. This is used primary to decide where to mount a static file server if `serveAssets` is true (see next section for details). If not provided, `assetHost` will default to sewing kit’s default development asset server URL. If you set a [custom CDN](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/cdn.md) in your sewing kit config, you should pass that same value to this option.
+- `assetPrefix`: the path prefix to use for all assets. This is used primary to decide where to mount a static file server if `serveAssets` is true (see next section for details). If not provided, `assetPrefix` will default to sewing kit’s default development asset server URL. If you set a [custom CDN](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/cdn.md) in your sewing kit config, you should pass that same value to this option.
 
-- `serveAssets`: whether this middleware should also serve assets from within your application server. This can be useful when running the application locally, but attempting to replicate more of a production environment (and, therefore, would not be able to use the true production CDN). When this option is passed, `assetHost` must be passed with a path that can be safely mounted to for your server (this same path should be used as the custom CDN for sewing kit so that the paths sewing kit generates make sense). The middleware will then take over that endpoint for asset serving:
+- `serveAssets`: whether this middleware should also serve assets from within your application server. This can be useful when running the application locally, but attempting to replicate more of a production environment (and, therefore, would not be able to use the true production CDN). When this option is passed, `assetPrefix` must be passed with a path that can be safely mounted to for your server (this same path should be used as the custom CDN for sewing kit so that the paths sewing kit generates make sense). The middleware will then take over that endpoint for asset serving:
 
   ```ts
   // In sewing-kit.config.ts...
@@ -101,7 +101,7 @@ The middleware accepts some optional parameters that you can use to customize ho
   app.use(
     middleware({
       serveAssets: true,
-      assetHost: '/e2e-assets/',
+      assetPrefix: '/e2e-assets/',
     }),
   );
   ```

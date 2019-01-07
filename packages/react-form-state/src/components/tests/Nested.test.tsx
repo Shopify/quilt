@@ -267,4 +267,40 @@ describe('<Nested />', () => {
     expect(updatedFields.title.value).toBe(newTitle);
     expect(updatedFields.department.value).toBe(newDepartment);
   });
+
+  it('Does not re-render when children have not changed', () => {
+    const titleSpy = jest.fn(() => null);
+    const adjectiveSpy = jest.fn(({adjective}) => <Input {...adjective} />);
+    const newAdjective = faker.commerce.productAdjective();
+
+    const productTitle = {
+      title: faker.commerce.productName(),
+    };
+    const productAdjective = {
+      adjective: faker.commerce.productAdjective(),
+    };
+
+    const form = mount(
+      <FormState initialValues={{productTitle, productAdjective}}>
+        {({fields}) => {
+          return (
+            <>
+              <FormState.Nested field={fields.productTitle}>
+                {titleSpy}
+              </FormState.Nested>
+
+              <FormState.Nested field={fields.productAdjective}>
+                {adjectiveSpy}
+              </FormState.Nested>
+            </>
+          );
+        }}
+      </FormState>,
+    );
+    const input = form.find(Input);
+    trigger(input, 'onChange', newAdjective);
+
+    expect(titleSpy).toHaveBeenCalledTimes(1);
+    expect(adjectiveSpy).toHaveBeenCalledTimes(2);
+  });
 });

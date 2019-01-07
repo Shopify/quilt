@@ -13,7 +13,7 @@ const data = {
         show:
           '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
       },
-      provinces: [
+      zones: [
         {
           name: 'Alberta',
           code: 'AB',

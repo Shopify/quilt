@@ -45,9 +45,9 @@ export interface Props {
   */
   ordered: Key[];
   /*
-    keys that need to be kept pressed along with `keys` to trigger `onMatch`
+    modifier keys that need to be kept pressed along with `keys` to trigger `onMatch`
   */
-  held?: ModifierKey[];
+  held?: HeldKey;
   /*
     a callback that will trigger when the key combination is pressed
   */
@@ -106,6 +106,33 @@ export default function MyComponent() {
   );
 }
 ```
+
+You may also want to provide alternate groupings of `held` modifier keys. For example, “undo/redo” key combos are slightly different on Windows vs Mac OS. The below example will register `onMatch` if either `Control + z` or `Meta + z` is pressed simultaneously.
+
+```ts
+// MyComponent.tsx
+
+import * as React from 'react';
+import {Shortcut} from '@shopify/react-shortcuts';
+
+export default function MyComponent() {
+  return (
+    <div>
+      {/* some app markup here */}
+      <Shortcut
+        held={[['Control'], ['Meta']]}
+        ordered={['z']}
+        onMatch={() => console.log('undo!')}
+      />
+    </div>
+  );
+}
+```
+
+**Some Gotchas**
+
+1. `Meta` refers to the “Command” key on Mac keyboards.
+2. `Fn` and `FnLock` keys are not supported because they don't produce events, as mentioned in the [spec](https://w3c.github.io/uievents-key/#key-Fn)
 
 #### On a focused node
 
