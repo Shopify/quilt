@@ -10,11 +10,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'アイルランド',
@@ -25,9 +26,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}_{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -135,6 +136,7 @@ const data = {
             code: 'WW',
           },
         ],
+        continent: 'Europe',
       },
       {
         name: 'アゼルバイジャン',
@@ -145,11 +147,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'アフガニスタン',
@@ -160,11 +163,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'アメリカ合衆国',
@@ -177,7 +181,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -429,6 +433,7 @@ const data = {
             code: 'AP',
           },
         ],
+        continent: 'North America',
       },
       {
         name: 'アラブ首長国連邦',
@@ -441,7 +446,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -473,6 +478,7 @@ const data = {
             code: 'UQ',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: 'アルジェリア',
@@ -483,11 +489,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'アルゼンチン',
@@ -500,7 +507,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -600,6 +607,7 @@ const data = {
             code: 'T',
           },
         ],
+        continent: 'South America',
       },
       {
         name: 'アルバ',
@@ -610,11 +618,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'アルバニア',
@@ -625,11 +634,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'アルメニア',
@@ -640,11 +650,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'アンギラ',
@@ -655,11 +666,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'アンゴラ',
@@ -670,11 +682,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'アンティグア・バーブーダ',
@@ -685,11 +698,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'アンドラ',
@@ -700,11 +714,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'イエメン',
@@ -715,11 +730,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'イギリス',
@@ -730,11 +746,12 @@ const data = {
         zipKey: 'POSTCODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}_{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'イスラエル',
@@ -745,11 +762,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'イタリア',
@@ -762,7 +780,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -1206,6 +1224,7 @@ const data = {
             code: 'VT',
           },
         ],
+        continent: 'Europe',
       },
       {
         name: 'イラク',
@@ -1216,11 +1235,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'イラン',
@@ -1231,11 +1251,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'インド',
@@ -1248,7 +1269,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -1396,6 +1417,7 @@ const data = {
             code: 'WB',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: 'インドネシア',
@@ -1406,7 +1428,7 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
@@ -1548,6 +1570,7 @@ const data = {
             code: 'YO',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: 'ウォリス・フツナ',
@@ -1558,11 +1581,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'ウガンダ',
@@ -1573,11 +1597,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ウクライナ',
@@ -1588,11 +1613,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}_{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ウズベキスタン',
@@ -1603,11 +1629,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}_{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ウルグアイ',
@@ -1618,11 +1645,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'エクアドル',
@@ -1633,11 +1661,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{zip}_{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'エジプト',
@@ -1648,7 +1677,7 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
@@ -1770,6 +1799,7 @@ const data = {
             code: 'SUZ',
           },
         ],
+        continent: 'Africa',
       },
       {
         name: 'エストニア',
@@ -1780,11 +1810,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'エチオピア',
@@ -1795,11 +1826,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'エリトリア',
@@ -1810,11 +1842,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'エルサルバドル',
@@ -1825,11 +1858,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'オマーン',
@@ -1840,11 +1874,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{zip}_{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'オランダ',
@@ -1855,11 +1890,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'オランダ領アンティル',
@@ -1870,11 +1906,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'オランダ領カリブ',
@@ -1885,11 +1922,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'オーストラリア',
@@ -1902,7 +1940,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -1938,6 +1976,7 @@ const data = {
             code: 'WA',
           },
         ],
+        continent: 'Oceania',
       },
       {
         name: 'オーストリア',
@@ -1948,11 +1987,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'オーランド諸島',
@@ -1963,11 +2003,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'カザフスタン',
@@ -1978,11 +2019,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'カタール',
@@ -1993,11 +2035,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'カナダ',
@@ -2010,7 +2053,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -2066,6 +2109,7 @@ const data = {
             code: 'YT',
           },
         ],
+        continent: 'North America',
       },
       {
         name: 'カメルーン',
@@ -2076,11 +2120,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'カンボジア',
@@ -2091,11 +2136,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'カーボベルデ',
@@ -2106,11 +2152,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{zip}{city}_{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ガイアナ',
@@ -2121,11 +2168,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'ガボン',
@@ -2136,11 +2184,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ガンビア',
@@ -2151,11 +2200,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ガーナ',
@@ -2166,11 +2216,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ガーンジー',
@@ -2181,11 +2232,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'キプロス',
@@ -2196,11 +2248,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'キュラソー',
@@ -2211,11 +2264,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'キューバ',
@@ -2226,11 +2280,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'キリバス',
@@ -2241,11 +2296,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'キルギス',
@@ -2256,11 +2312,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{zip} {city}_{address2}_{address1}_{company}_{firstName} {lastName}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ギニア',
@@ -2271,11 +2328,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ギニアビサウ',
@@ -2286,11 +2344,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ギリシャ',
@@ -2301,11 +2360,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'クウェート',
@@ -2316,11 +2376,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'クック諸島',
@@ -2331,11 +2392,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'クリスマス島',
@@ -2346,11 +2408,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'クロアチア',
@@ -2361,11 +2424,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'グアテマラ',
@@ -2376,9 +2440,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -2470,6 +2534,7 @@ const data = {
             code: 'ZAC',
           },
         ],
+        continent: 'Central America',
       },
       {
         name: 'グアドループ',
@@ -2480,11 +2545,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'グリーンランド',
@@ -2495,11 +2561,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'グルジア',
@@ -2510,11 +2577,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'グレナダ',
@@ -2525,11 +2593,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ケイマン諸島',
@@ -2540,11 +2609,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ケニア',
@@ -2555,11 +2625,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ココス(キーリング)諸島',
@@ -2570,11 +2641,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'コスタリカ',
@@ -2585,11 +2657,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'コソボ',
@@ -2600,11 +2673,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'コモロ',
@@ -2615,11 +2689,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'コロンビア',
@@ -2632,7 +2707,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -2768,6 +2843,7 @@ const data = {
             code: 'VID',
           },
         ],
+        continent: 'South America',
       },
       {
         name: 'コンゴ共和国(ブラザビル)',
@@ -2778,11 +2854,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'コンゴ民主共和国(キンシャサ)',
@@ -2793,11 +2870,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'コートジボワール',
@@ -2808,11 +2886,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'サウジアラビア',
@@ -2823,11 +2902,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'サモア',
@@ -2838,11 +2918,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'サントメ・プリンシペ',
@@ -2853,11 +2934,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'サンピエール島・ミクロン島',
@@ -2868,11 +2950,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'サンマリノ',
@@ -2883,11 +2966,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'サン・バルテルミー島',
@@ -2898,11 +2982,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'サン・マルタン',
@@ -2913,11 +2998,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ザンビア',
@@ -2928,11 +3014,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'シエラレオネ',
@@ -2943,11 +3030,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'シリア',
@@ -2958,11 +3046,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'シンガポール',
@@ -2975,9 +3064,10 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'シント・マールテン',
@@ -2988,11 +3078,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ジブチ',
@@ -3003,11 +3094,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ジブラルタル',
@@ -3018,11 +3110,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ジャマイカ',
@@ -3033,11 +3126,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ジャージー',
@@ -3048,11 +3142,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ジンバブエ',
@@ -3063,11 +3158,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'スイス',
@@ -3078,11 +3174,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'スウェーデン',
@@ -3093,11 +3190,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'スバールバル諸島・ヤンマイエン島',
@@ -3108,11 +3206,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'スペイン',
@@ -3123,7 +3222,7 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{zip}{city}_{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
@@ -3337,6 +3436,7 @@ const data = {
             code: 'Z',
           },
         ],
+        continent: 'Europe',
       },
       {
         name: 'スリナム',
@@ -3347,11 +3447,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'スリランカ',
@@ -3362,11 +3463,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'スロバキア',
@@ -3377,11 +3479,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'スロベニア',
@@ -3392,11 +3495,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'スワジランド',
@@ -3407,11 +3511,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'スーダン',
@@ -3422,11 +3527,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{zip}_{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'セネガル',
@@ -3437,11 +3543,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'セルビア',
@@ -3452,11 +3559,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'セントクリストファー・ネイビス',
@@ -3467,11 +3575,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'セントビンセント・グレナディーン諸島',
@@ -3482,11 +3591,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'セントヘレナ',
@@ -3497,11 +3607,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'セントルシア',
@@ -3512,11 +3623,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'セーシェル',
@@ -3527,11 +3639,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ソマリア',
@@ -3542,11 +3655,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ソロモン諸島',
@@ -3557,11 +3671,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'タイ',
@@ -3574,7 +3689,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -3890,6 +4005,7 @@ const data = {
             code: 'TH-35',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: 'タジキスタン',
@@ -3900,11 +4016,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'タンザニア',
@@ -3915,11 +4032,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'タークス・カイコス諸島',
@@ -3930,11 +4048,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'チェコ共和国',
@@ -3945,11 +4064,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'チャド',
@@ -3960,11 +4080,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'チュニジア',
@@ -3975,11 +4096,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'チリ',
@@ -3990,11 +4112,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'ツバル',
@@ -4005,11 +4128,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'デンマーク',
@@ -4020,11 +4144,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'トケラウ',
@@ -4035,11 +4160,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'トリニダード・トバゴ',
@@ -4050,11 +4176,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'トルクメニスタン',
@@ -4065,11 +4192,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'トルコ',
@@ -4080,11 +4208,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'トンガ',
@@ -4095,11 +4224,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'トーゴ',
@@ -4110,11 +4240,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ドイツ',
@@ -4125,11 +4256,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ドミニカ共和国',
@@ -4140,11 +4272,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ドミニカ国',
@@ -4155,11 +4288,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ナイジェリア',
@@ -4172,7 +4306,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -4324,6 +4458,7 @@ const data = {
             code: 'ZA',
           },
         ],
+        continent: 'Africa',
       },
       {
         name: 'ナウル',
@@ -4334,11 +4469,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'ナミビア',
@@ -4349,11 +4485,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ニウエ島',
@@ -4364,11 +4501,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'ニカラグア',
@@ -4379,11 +4517,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{zip}_{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ニジェール',
@@ -4394,11 +4533,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ニューカレドニア',
@@ -4409,11 +4549,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'ニュージーランド',
@@ -4424,7 +4565,7 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
@@ -4494,6 +4635,7 @@ const data = {
             code: 'WTC',
           },
         ],
+        continent: 'Oceania',
       },
       {
         name: 'ネパール',
@@ -4504,11 +4646,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ノルウェー',
@@ -4519,11 +4662,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ノーフォーク島',
@@ -4534,11 +4678,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'ハイチ',
@@ -4549,11 +4694,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ハンガリー',
@@ -4564,11 +4710,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ハード島・マクドナルド諸島',
@@ -4579,11 +4726,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Other',
       },
       {
         name: 'バチカン市国',
@@ -4594,11 +4742,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'バヌアツ',
@@ -4609,11 +4758,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'バハマ',
@@ -4624,11 +4774,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'バミューダ',
@@ -4639,11 +4790,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'バルバドス',
@@ -4654,11 +4806,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'バングラデシュ',
@@ -4669,11 +4822,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address2}_{address1}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'バーレーン',
@@ -4684,11 +4838,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'パキスタン',
@@ -4699,11 +4854,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'パナマ',
@@ -4714,9 +4870,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{zip}{city}_{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{country}_{phone}',
         },
         zones: [
           {
@@ -4772,6 +4928,7 @@ const data = {
             code: 'PA-9',
           },
         ],
+        continent: 'Central America',
       },
       {
         name: 'パプアニューギニア',
@@ -4782,11 +4939,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'パラグアイ',
@@ -4797,11 +4955,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'パレスチナ',
@@ -4812,11 +4971,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ピトケアン諸島',
@@ -4827,11 +4987,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'フィジー',
@@ -4842,11 +5003,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: 'フィリピン',
@@ -4857,11 +5019,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'フィンランド',
@@ -4872,11 +5035,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'フェロー諸島',
@@ -4887,11 +5051,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'フォークランド諸島',
@@ -4902,11 +5067,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'フランス',
@@ -4917,11 +5083,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ブラジル',
@@ -4932,9 +5099,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -5046,6 +5213,7 @@ const data = {
             code: 'TO',
           },
         ],
+        continent: 'South America',
       },
       {
         name: 'ブルガリア',
@@ -5056,11 +5224,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ブルキナファソ',
@@ -5071,11 +5240,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ブルネイ',
@@ -5086,11 +5256,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ブルンジ',
@@ -5101,11 +5272,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ブータン',
@@ -5116,11 +5288,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ブーベ島',
@@ -5131,11 +5304,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ベトナム',
@@ -5146,11 +5320,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ベナン',
@@ -5161,11 +5336,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ベネズエラ',
@@ -5176,11 +5352,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'ベラルーシ',
@@ -5191,11 +5368,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ベリーズ',
@@ -5206,11 +5384,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ベルギー',
@@ -5221,11 +5400,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ペルー',
@@ -5236,9 +5416,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}{zip}_{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {zip}_{province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{province}_{country}_{phone}',
         },
         zones: [
           {
@@ -5246,7 +5426,7 @@ const data = {
             code: 'PE-AMA',
           },
           {
-            name: 'Ancash',
+            name: 'Áncash',
             code: 'PE-ANC',
           },
           {
@@ -5346,6 +5526,7 @@ const data = {
             code: 'PE-UCA',
           },
         ],
+        continent: 'South America',
       },
       {
         name: 'ホンジュラス',
@@ -5356,11 +5537,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'ボスニア・ヘルツェゴビナ',
@@ -5371,11 +5553,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ボツワナ',
@@ -5386,11 +5569,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ボリビア',
@@ -5401,11 +5585,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: 'ポルトガル',
@@ -5416,9 +5601,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -5502,6 +5687,7 @@ const data = {
             code: 'PT-18',
           },
         ],
+        continent: 'Europe',
       },
       {
         name: 'ポーランド',
@@ -5512,11 +5698,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}{zip}{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'マケドニア',
@@ -5527,11 +5714,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'マダガスカル',
@@ -5542,11 +5730,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'マヨット島',
@@ -5557,11 +5746,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'マラウイ',
@@ -5572,11 +5762,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'マリ',
@@ -5587,11 +5778,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'マルタ',
@@ -5602,11 +5794,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'マルティニーク',
@@ -5617,11 +5810,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'マレーシア',
@@ -5629,12 +5823,12 @@ const data = {
         phoneNumberPrefix: 60,
         address2Key: 'APT_SUITE_ETC',
         provinceKey: 'STATE_AND_TERRITORY',
-        zipKey: 'POSTAL_CODE',
+        zipKey: 'POSTCODE',
         formatting: {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -5702,6 +5896,7 @@ const data = {
             code: 'TRG',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: 'マン島',
@@ -5712,11 +5907,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ミャンマー',
@@ -5727,11 +5923,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'メキシコ',
@@ -5744,7 +5941,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -5876,6 +6073,7 @@ const data = {
             code: 'ZAC',
           },
         ],
+        continent: 'North America',
       },
       {
         name: 'モザンビーク',
@@ -5886,11 +6084,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{zip}{city}_{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'モナコ',
@@ -5901,11 +6100,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'モルディブ',
@@ -5916,11 +6116,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'モルドバ',
@@ -5931,11 +6132,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'モロッコ',
@@ -5946,11 +6148,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'モンゴル',
@@ -5961,11 +6164,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'モンテネグロ',
@@ -5976,11 +6180,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'モントセラト',
@@ -5991,11 +6196,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: 'モーリシャス',
@@ -6006,11 +6212,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{zip}_{city}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{zip}_{city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'モーリタニア',
@@ -6021,11 +6228,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ヨルダン',
@@ -6036,11 +6244,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ラオス',
@@ -6051,11 +6260,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'ラトビア',
@@ -6066,11 +6276,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'リトアニア',
@@ -6081,11 +6292,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'リヒテンシュタイン',
@@ -6096,11 +6308,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'リビア',
@@ -6111,11 +6324,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'リベリア',
@@ -6126,11 +6340,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ルクセンブルグ',
@@ -6141,11 +6356,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ルワンダ',
@@ -6156,11 +6372,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'ルーマニア',
@@ -6173,7 +6390,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -6345,6 +6562,7 @@ const data = {
             code: 'VN',
           },
         ],
+        continent: 'Europe',
       },
       {
         name: 'レソト',
@@ -6355,11 +6573,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: 'レバノン',
@@ -6370,11 +6589,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: 'レユニオン島',
@@ -6385,11 +6605,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Europe',
       },
       {
         name: 'ロシア',
@@ -6400,9 +6621,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}_{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -6734,6 +6955,7 @@ const data = {
             code: 'ZAB',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: '中国',
@@ -6746,7 +6968,7 @@ const data = {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1} {address2} {city}_{zip} {province}_{country}_{phone}',
         },
         zones: [
           {
@@ -6874,6 +7096,7 @@ const data = {
             code: 'ZJ',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: '中央アフリカ共和国',
@@ -6884,11 +7107,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: '中華人民共和国マカオ特別行政区',
@@ -6899,11 +7123,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: '中華人民共和国香港特別行政区',
@@ -6914,9 +7139,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName} {lastName}_{company}_{address2}_{address1}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address2}_{address1}_{city}_{country}{province}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {country}_{phone}',
         },
         zones: [
           {
@@ -6932,6 +7157,7 @@ const data = {
             code: 'NT',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: '仏領ギアナ',
@@ -6942,11 +7168,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'South America',
       },
       {
         name: '仏領ポリネシア',
@@ -6957,11 +7184,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: '仏領極南諸島',
@@ -6972,11 +7200,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Other',
       },
       {
         name: '南アフリカ',
@@ -6987,9 +7216,9 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{city}_{province}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city}_{province}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -7029,6 +7258,7 @@ const data = {
             code: 'WC',
           },
         ],
+        continent: 'Africa',
       },
       {
         name: '南ジョージア島・南サンドイッチ諸島',
@@ -7039,11 +7269,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Other',
       },
       {
         name: '南スーダン',
@@ -7054,11 +7285,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: '台湾',
@@ -7069,11 +7301,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: '大韓民国',
@@ -7086,7 +7319,7 @@ const data = {
           edit:
             '{company}_{lastName}{firstName}_{zip}_{country}_{province}{city}_{address1}_{address2}_{phone}',
           show:
-            '{country}_{address1} {address2}_{zip}{province}{city}_{company}_{lastName}{firstName}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {
@@ -7158,6 +7391,7 @@ const data = {
             code: 'KR-31',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: '日本',
@@ -7170,7 +7404,7 @@ const data = {
           edit:
             '{company}_{lastName}{firstName}_{zip}_{country}_{province}{city}_{address1}_{address2}_{phone}',
           show:
-            '{country}_〒{zip}{province}{city}{address1}{address2}_{company}_{lastName} {firstName}様_{phone}',
+            '{country}_〒{zip} {province} {city} {address1} {address2}_{company}_{lastName} {firstName}様_{phone}',
         },
         zones: [
           {
@@ -7362,6 +7596,7 @@ const data = {
             code: 'JP-47',
           },
         ],
+        continent: 'Asia',
       },
       {
         name: '朝鮮民主主義人民共和国',
@@ -7372,11 +7607,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: '東ティモール',
@@ -7387,11 +7623,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Oceania',
       },
       {
         name: '米領太平洋諸島',
@@ -7402,11 +7639,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: '英領インド洋地域',
@@ -7417,11 +7655,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Asia',
       },
       {
         name: '英領ヴァージン諸島',
@@ -7432,11 +7671,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{country}_{province}_{city}_{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Central America',
       },
       {
         name: '西サハラ',
@@ -7447,11 +7687,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
       {
         name: '赤道ギニア',
@@ -7462,11 +7703,12 @@ const data = {
         zipKey: 'POSTAL_CODE',
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        continent: 'Africa',
       },
     ],
   },
