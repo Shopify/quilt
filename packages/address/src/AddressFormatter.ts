@@ -88,24 +88,6 @@ export default class AddressFormatter {
     });
   }
 
-  async getTranslationKey(
-    countryCode: string,
-    key: FieldName,
-  ): Promise<string> {
-    const country = await this.getCountry(countryCode);
-
-    switch (key) {
-      case FieldName.Zone:
-        return country.provinceKey;
-      case FieldName.Zip:
-        return country.zipKey;
-      case FieldName.Address2:
-        return country.address2Key;
-      default:
-        return key;
-    }
-  }
-
   private loadCountryFromCache(
     countryCode: string,
   ): Country | undefined | null {
