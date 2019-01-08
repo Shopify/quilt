@@ -1,4 +1,4 @@
-import {Address, FieldName, Country, Province} from './types';
+import {Address, FieldName, Country, Zone} from './types';
 
 const FIELD_REGEXP = /({\w+})/g;
 export const FIELDS_MAPPING: {
@@ -8,7 +8,7 @@ export const FIELDS_MAPPING: {
   '{lastName}': FieldName.LastName, // eslint-disable-line id-length
   '{country}': FieldName.Country, // eslint-disable-line id-length
   '{city}': FieldName.City, // eslint-disable-line id-length
-  '{zip}': FieldName.Zip, // eslint-disable-line id-length
+  '{zip}': FieldName.PostalCode, // eslint-disable-line id-length
   '{province}': FieldName.Zone, // eslint-disable-line id-length
   '{address1}': FieldName.Address1, // eslint-disable-line id-length
   '{address2}': FieldName.Address2, // eslint-disable-line id-length
@@ -57,13 +57,13 @@ export function renderLineTemplate(
   if (lineIsEmpty) {
     return '';
   } else {
-    return line.trim();
+    return line.trim().replace('  ', ' ');
   }
 }
 
-function getZone(zones: Province[], provinceCode: string): Province {
+function getZone(zones: Zone[], zoneCode: string): Zone {
   return (
-    zones.find(zone => zone.code === provinceCode) || {
+    zones.find(zone => zone.code === zoneCode) || {
       name: '',
       code: '',
     }
