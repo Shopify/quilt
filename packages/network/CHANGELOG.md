@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.2.2]
+
+- Manual release
+
 ## [1.0.1]
 
 ### Added
