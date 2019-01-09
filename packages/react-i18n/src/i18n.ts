@@ -160,6 +160,17 @@ export default class I18n {
   ): string {
     const {locale, defaultTimezone: timezone} = this;
 
+    // Etc/GMT+12 is not supported in most browsers and there is no equivalent fallback
+    if (
+      options &&
+      options.timeZone != null &&
+      options.timeZone === 'Etc/GMT+12'
+    ) {
+      const adjustedDate = new Date(date.valueOf() - 12 * 60 * 60 * 1000);
+
+      return this.formatDate(adjustedDate, {...options, timeZone: 'UTC'});
+    }
+
     const {style = undefined, ...formatOptions} = options || {};
 
     if (style) {

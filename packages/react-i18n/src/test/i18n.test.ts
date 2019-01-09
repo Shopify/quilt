@@ -423,6 +423,18 @@ describe('I18n', () => {
       expect(i18n.formatDate(date, {timeZone: timezone})).toBe(expected);
     });
 
+    it('uses UTC when given a date in the Etc/GMT+12 timezone', () => {
+      const date = new Date('2018-01-01T12:34:56-12:00');
+      const timeZone = 'Etc/GMT+12';
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
+        timeZone: 'UTC',
+      }).format(new Date('2018-01-01'));
+
+      expect(i18n.formatDate(date, {timeZone})).toBe(expected);
+    });
+
     it('formats a date using DateStyle.Long', () => {
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
