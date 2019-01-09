@@ -182,6 +182,64 @@ describe('<FormState />', () => {
         });
       });
 
+      it('does not reset a field when initial value has not changed and deep comparison is required', () => {
+        const renderPropSpy = jest.fn(() => null);
+        const originalOption = 'color';
+        const originalVariant1 = faker.commerce.color();
+        const originalVariant2 = faker.commerce.color();
+        const originalValues = {
+          variants: [
+            {
+              option: originalOption,
+              values: [originalVariant1, originalVariant2],
+            },
+          ],
+        };
+
+        const form = mount(
+          <FormState
+            initialValues={originalValues}
+            onInitialValuesChange="reset-where-changed"
+          >
+            {renderPropSpy}
+          </FormState>,
+        );
+
+        const formDetails = lastCallArgs(renderPropSpy);
+        const changedVariants = [
+          {
+            option: 'material',
+            values: [
+              faker.commerce.productMaterial(),
+              faker.commerce.productMaterial(),
+            ],
+          },
+        ];
+        formDetails.fields.variants.onChange(changedVariants);
+
+        const unchangedInitialVariants = [
+          {
+            option: originalOption,
+            values: [originalVariant1, originalVariant2],
+          },
+        ];
+
+        form.setProps({
+          initialValues: {
+            variants: unchangedInitialVariants,
+          },
+        });
+
+        const {fields} = lastCallArgs(renderPropSpy);
+        expect(fields).toMatchObject({
+          variants: {
+            value: changedVariants,
+            initialValue: originalValues.variants,
+            dirty: true,
+          },
+        });
+      });
+
       it('does not reset errors when the initialValues prop is updated', async () => {
         const renderPropSpy = jest.fn(() => null);
         const originalValues = {
