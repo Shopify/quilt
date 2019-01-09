@@ -8,6 +8,12 @@ The format is based on [these versioning and changelog guidelines](https://git.i
 
 ---
 
+## 2.5.0 - 2019-01-08
+
+- Removed `address2Key`, `zoneKey` and `zipKey`
+- Expose `labels` on `Country` object that stores all translated labels needed to show a form.
+- Rename `Province to`Zone`on FieldName enum, and renamed`Province`interface to`Zone`.
+
 ## 2.4.0 - 2018-10-11
 
 - Expose testing helpers. ([#328](https://github.com/Shopify/quilt/pull/328))

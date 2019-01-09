@@ -4,16 +4,25 @@ const data = {
       name: 'Canada',
       code: 'CA',
       phoneNumberPrefix: 1,
-      address2Key: 'APT_UNIT_NUMBER',
-      provinceKey: 'PROVINCE',
-      zipKey: 'POSTAL_CODE',
+      labels: {
+        address1: 'Address',
+        address2: 'Apt./Unit No.',
+        city: 'City',
+        company: 'Company',
+        country: 'Country',
+        firstName: 'First name',
+        lastName: 'Last name',
+        phone: 'Phone',
+        postalCode: 'Postal code',
+        zone: 'Province',
+      },
       formatting: {
         edit:
           '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
         show:
-          '{firstName} {lastName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}',
+          '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
       },
-      provinces: [
+      zones: [
         {
           name: 'Alberta',
           code: 'AB',
@@ -67,6 +76,7 @@ const data = {
           code: 'YT',
         },
       ],
+      continent: 'North America',
     },
   },
 };

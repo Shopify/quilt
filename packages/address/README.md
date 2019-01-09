@@ -30,7 +30,7 @@ Loads and return data about a given country in the locale used for instanciation
 
 #### `async .getCountries(): Promise<Country[]>`
 
-Loads and return data about a all countries in the given locale. Countries are ordered alphabetically based on the locale. Provinces are also ordered based on the locale.
+Loads and return data about a all countries in the given locale. Countries are ordered alphabetically based on the locale. Zones are also ordered based on the locale.
 
 #### `async .getOrderedFields(countryCode): FieldName[][]`
 
@@ -57,46 +57,6 @@ Given an address, returns the address ordered for multiline show. Eg.
 ```typescript
 ['Shopify', 'Lindenstraße 9-14', '10969 Berlin', 'Germany'];
 ```
-
-#### `async .getTranslationKey(countryCode: string, key: FieldName): string`
-
-Get the translation key for a given field for a given country. Eg:
-
-```typescript
-await getTranslationKey('CA', 'province'); // => "PROVINCE"
-await getTranslationKey('US', 'province'); // => "STATE"
-await getTranslationKey('JA', 'province'); // => "PREFECTURE"
-await getTranslationKey('CA', 'zip'); // => "POSTAL_CODE"
-await getTranslationKey('US', 'zip'); // => "ZIP_CODE"
-await getTranslationKey('CA', 'address2'); // => "APT_UNIT_NUMBER"
-await getTranslationKey('JA', 'address2'); // => "APT_SUITE_ETC"
-```
-
-#### Translation keys
-
-The label used to designate zip code and provinces are not the same from a country to another
-
-- `ProvinceKey` is one of the following
-
-  - `COUNTY`
-  - `EMIRATE`
-  - `GOVERNORATE`
-  - `PREFECTURE`
-  - `PROVINCE`
-  - `REGION`
-  - `STATE_AND_TERRITORY`
-  - `STATE`
-
-- `ZipKey` is one of the following
-
-  - `POSTAL_CODE`
-  - `POSTCODE`
-  - `PINCODE`
-  - `ZIP_CODE`
-
-- `Address2Key` is one of the following
-  - `APT_SUITE_ETC`
-  - `APT_UNIT_NUMBER`
 
 #### Example Usage
 

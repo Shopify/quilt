@@ -389,11 +389,14 @@ describe('I18n', () => {
       expect(i18n.formatDate(date, options)).toBe(expected);
     });
 
-    it('throws an error when no timezone is given as the default or as an option', () => {
+    it('formats a date using Intl when no timezone is given as the default or as an option', () => {
+      const date = new Date();
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      expect(() => i18n.formatDate(new Date())).toThrowError(
-        'No timezone code provided.',
-      );
+      const expected = new Intl.DateTimeFormat(
+        defaultDetails.locale,
+        {},
+      ).format(date);
+      expect(i18n.formatDate(date)).toBe(expected);
     });
 
     it('uses the Intl number formatter with the default timezone', () => {
@@ -418,6 +421,18 @@ describe('I18n', () => {
       }).format(date);
 
       expect(i18n.formatDate(date, {timeZone: timezone})).toBe(expected);
+    });
+
+    it('uses UTC when given a date in the Etc/GMT+12 timezone', () => {
+      const date = new Date('2018-01-01T12:34:56-12:00');
+      const timeZone = 'Etc/GMT+12';
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
+        timeZone: 'UTC',
+      }).format(new Date('2018-01-01'));
+
+      expect(i18n.formatDate(date, {timeZone})).toBe(expected);
     });
 
     it('formats a date using DateStyle.Long', () => {

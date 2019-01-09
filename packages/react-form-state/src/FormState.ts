@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import * as React from 'react';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
@@ -52,6 +53,7 @@ interface Props<Fields> {
   validators?: Partial<ValidatorDictionary<Fields>>;
   onSubmit?: SubmitHandler<Fields>;
   validateOnSubmit?: boolean;
+  onInitialValuesChange?: 'reset-all' | 'reset-where-changed' | 'ignore';
   children(form: FormDetails<Fields>): React.ReactNode;
 }
 
@@ -68,21 +70,25 @@ export default class FormState<
   static List = List;
   static Nested = Nested;
 
-  static getDerivedStateFromProps<T>(newProps: Props<T>, oldState?: State<T>) {
-    const newInitialValues = newProps.initialValues;
+  static getDerivedStateFromProps<T>(newProps: Props<T>, oldState: State<T>) {
+    const {initialValues, onInitialValuesChange} = newProps;
 
-    if (oldState == null) {
-      return createFormState(newInitialValues);
+    switch (onInitialValuesChange) {
+      case 'ignore':
+        return null;
+      case 'reset-where-changed':
+        return reconcileFormState(initialValues, oldState);
+      case 'reset-all':
+      default:
+        const oldInitialValues = initialValuesFromFields(oldState.fields);
+        const valuesMatch = isEqual(oldInitialValues, initialValues);
+
+        if (valuesMatch) {
+          return null;
+        }
+
+        return createFormState(initialValues);
     }
-
-    const oldInitialValues = initialValuesFromFields(oldState.fields);
-    const shouldReinitialize = !isEqual(oldInitialValues, newInitialValues);
-
-    if (shouldReinitialize) {
-      return createFormState(newInitialValues);
-    }
-
-    return null;
   }
 
   state = createFormState(this.props.initialValues);
@@ -124,6 +130,16 @@ export default class FormState<
   public validateForm() {
     return new Promise(resolve => {
       this.setState(runAllValidators, () => resolve());
+    });
+  }
+
+  @bind()
+  public reset() {
+    return new Promise(resolve => {
+      this.setState(
+        (_state, props) => createFormState(props.initialValues),
+        () => resolve(),
+      );
     });
   }
 
@@ -184,22 +200,18 @@ export default class FormState<
       }
     }
 
-    const errors = await onSubmit(formData);
+    const errors = (await onSubmit(formData)) || [];
 
     if (!this.mounted) {
       return;
     }
 
-    if (errors) {
+    if (errors.length > 0) {
       this.updateRemoteErrors(errors);
+      this.setState({submitting: false});
+    } else {
+      this.setState({submitting: false, errors});
     }
-
-    this.setState({submitting: false});
-  }
-
-  @bind()
-  private reset() {
-    this.setState((_state, props) => createFormState(props.initialValues));
   }
 
   @memoize()
@@ -371,6 +383,36 @@ export default class FormState<
       };
     });
   }
+}
+
+function reconcileFormState<Fields>(
+  values: Fields,
+  oldState: State<Fields>,
+): State<Fields> {
+  const {fields: oldFields} = oldState;
+  const dirtyFields = new Set(oldState.dirtyFields);
+
+  const fields: FieldStates<Fields> = mapObject(values, (value, key) => {
+    const oldField = oldFields[key];
+
+    if (value === oldField.initialValue) {
+      return oldField;
+    }
+
+    dirtyFields.delete(key);
+
+    return {
+      value,
+      initialValue: value,
+      dirty: false,
+    };
+  });
+
+  return {
+    ...oldState,
+    dirtyFields: Array.from(dirtyFields),
+    fields,
+  };
 }
 
 function createFormState<Fields>(values: Fields): State<Fields> {
