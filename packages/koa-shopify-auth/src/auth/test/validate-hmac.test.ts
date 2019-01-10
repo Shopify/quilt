@@ -1,43 +1,33 @@
 import validateHmac from '../validate-hmac';
 
-jest.mock('crypto', () => {
-  return {
-    createHmac() {
-      return {
-        update() {
-          return this;
-        },
-        digest() {
-          return 'somehmac';
-        },
-      };
-    },
-  };
-});
-
 jest.mock('safe-compare', () => {
   return jest.fn((first: string, second: string) => first === second);
 });
 
 const safeCompare = require.requireMock('safe-compare');
-const data = {foo: 'bar'};
-const secret = 'somehmac';
+const data = {fiz: 'buzz', foo: 'bar'};
+const secret = 'some secret';
+const hmac = '7c66606415117ff9744a2a9b2be1712a15928b5ef474ab1a9ff5dc36b7dcaed8';
 
 describe('validateHmac', () => {
-  beforeEach(() => {});
+  beforeEach(() => {
+    safeCompare.mockClear();
+  });
 
   it('returns true when digest matches input', () => {
-    const hmac = 'somehmac';
     expect(validateHmac(hmac, secret, data)).toBe(true);
   });
 
   it('returns false when digests does not match input', () => {
-    const hmac = 'some invalid hmac';
-    expect(validateHmac(hmac, secret, data)).toBe(false);
+    expect(validateHmac('not actually an hmac', secret, data)).toBe(false);
   });
 
   it('compares using safeCompare', () => {
-    const hmac = 'some invalid hmac';
-    expect(safeCompare).toBeCalledWith('somehmac', hmac);
+    validateHmac(hmac, secret, data);
+    expect(safeCompare).toBeCalledWith(hmac, hmac);
+  });
+
+  it('works when the query params are ordered differently', () => {
+    expect(validateHmac(hmac, secret, {foo: 'bar', fiz: 'buzz'})).toBe(true);
   });
 });
