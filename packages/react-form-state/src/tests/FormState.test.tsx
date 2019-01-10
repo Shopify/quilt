@@ -1032,6 +1032,65 @@ describe('<FormState />', () => {
     });
   });
 
+  describe('submit event', () => {
+    it('calls preventDefault on event if it exists', async () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      mount(
+        <FormState initialValues={{}} onSubmit={noop}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      const mockEvent = {
+        preventDefault: jest.fn(),
+      };
+      await submit(mockEvent);
+
+      expect(mockEvent.preventDefault).toBeCalled();
+    });
+
+    it('does not call preventDefault on event if was prevented', async () => {
+      const renderPropSpy = jest.fn(() => null);
+
+      mount(
+        <FormState initialValues={{}} onSubmit={noop}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      const mockEvent = {
+        preventDefault: jest.fn(),
+        defaultPrevented: true,
+      };
+      await submit(mockEvent);
+
+      expect(mockEvent.preventDefault).not.toBeCalled();
+    });
+
+    it('calls onSubmit if event with no preventDefault function is provided', async () => {
+      const renderPropSpy = jest.fn(() => null);
+      const onSubmitSpy = jest.fn();
+
+      mount(
+        <FormState initialValues={{}} onSubmit={onSubmitSpy}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      const mockEvent = {};
+      await submit(mockEvent);
+
+      expect(onSubmitSpy).toBeCalled();
+    });
+  });
+
   describe('validateForm', () => {
     it('calls all validators', () => {
       const productValidatorSpy = jest.fn();

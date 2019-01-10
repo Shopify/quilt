@@ -181,7 +181,7 @@ export default class FormState<
       return;
     }
 
-    if (event && !event.defaultPrevented) {
+    if (event && event.preventDefault && !event.defaultPrevented) {
       event.preventDefault();
     }
 
