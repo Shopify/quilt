@@ -90,14 +90,15 @@ export default function Html({
     );
   });
 
-  const deferredScriptsMarkup = scripts.map(script => {
+  const preloadScriptsMarkup = scripts.map(script => {
     return (
       <Script
         key={script.path}
         src={script.path}
         integrity={script.integrity}
         crossOrigin="anonymous"
-        defer
+        rel="preload"
+        as="script"
       />
     );
   });
@@ -123,7 +124,7 @@ export default function Html({
 
         {bodyMarkup}
         {serializationMarkup}
-        {deferredScriptsMarkup}
+        {preloadScriptsMarkup}
       </body>
     </html>
   );
