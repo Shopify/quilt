@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## 3.1.11 - 2019-01-10
+
+### Fixed
+
+- HMAC validation no longer breaks when params are unsorted [#451](https://github.com/Shopify/quilt/pull/451)
+
 ## 3.1.10 - 2019-01-09
 
 - Start of Changelog
