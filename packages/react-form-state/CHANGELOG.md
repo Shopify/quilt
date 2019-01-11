@@ -4,15 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## Unreleased
+## [0.7.0] - 2019-01-11
 
 ### Added
 
-- You can now use the onInitialValueChanged prop with fields having nested properties.
+- You can now use the onInitialValueChanged prop with fields having nested properties. [#464](https://github.com/Shopify/quilt/pull/464)
 
 ### Fixed
 
-- `submit` now checks for the existence of `preventDefault` on the event passed in before calling it.
+- `submit` now checks for the existence of `preventDefault` on the event passed in before calling it. [#465](https://github.com/Shopify/quilt/pull/465)
 
 ## [0.6]
 
