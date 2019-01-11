@@ -68,8 +68,6 @@ export default function createContext<
     state,
   };
 
-  Object.assign(app.context, extensions);
-
   const protocolFallback = encrypted ? 'https' : 'http';
   const urlObject = new URL(url, `${protocolFallback}://${host}`);
 
@@ -105,6 +103,7 @@ export default function createContext<
   res.set = undefined as any;
 
   const context = app.createContext(req, res) as MockContext & CustomProperties;
+  Object.assign(context, extensions);
   context.cookies = createMockCookies(cookies);
 
   // ctx.request.body is a common enough custom property for middleware to add that it's handy to just support it by default

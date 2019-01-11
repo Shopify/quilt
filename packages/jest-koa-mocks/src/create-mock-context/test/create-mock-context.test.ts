@@ -167,7 +167,7 @@ describe('create-mock-context', () => {
       state,
     });
 
-    expect(context.state.productName).toBe(context.state.produ);
+    expect(context.state.productName).toBe(state.productName);
   });
 
   it('supports arbitrary custom properties', () => {
