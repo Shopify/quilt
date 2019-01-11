@@ -395,7 +395,7 @@ function reconcileFormState<Fields>(
   const fields: FieldStates<Fields> = mapObject(values, (value, key) => {
     const oldField = oldFields[key];
 
-    if (value === oldField.initialValue) {
+    if (isEqual(value, oldField.initialValue)) {
       return oldField;
     }
 
