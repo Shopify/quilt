@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+### Added
+
+- You can now use the onInitialValueChanged prop with fields having nested properties.
+
 ### Fixed
 
 - `submit` now checks for the existence of `preventDefault` on the event passed in before calling it.
