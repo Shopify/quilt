@@ -83,7 +83,7 @@ You can control how `<FormState />` reacts to changes in the `initialValue` prop
 
 - (default) `reset-all`: Reset the entire form when `initialValues` changes.
 - `reset-where-changed`: Reset only the changed field objects when `initialValues` changes.
-- `ignore`: Ignore changes to the `initialValues` prop. This option makes `<FormState />` behave like a [fully controlled component](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component). You will generally want to accompany this option with a [`key`](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) or [`ref`](https://reactjs.org/docs/refs-and-the-dom.html#creating-refs).
+- `ignore`: Ignore changes to the `initialValues` prop. This option makes `<FormState />` behave like a [fully uncontrolled component](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key). You will generally want to accompany this option with a [`key`](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) or [`ref`](https://reactjs.org/docs/refs-and-the-dom.html#creating-refs).
 
 ## More questions
 
