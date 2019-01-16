@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Added new `DeepPartial` type. ([#456](https://github.com/Shopify/quilt/pull/456))
+- Added new `ArrayElement` type. ([#470](https://github.com/Shopify/quilt/pull/470))
 
 ## [1.0.0]
 
