@@ -5,6 +5,7 @@ import Location from './location';
 import MatchMedia from './match-media';
 import Storage from './storage';
 import Timer from './timer';
+import UserTiming from './user-timing';
 
 export const animationFrame = new AnimationFrame();
 
@@ -21,6 +22,7 @@ export const localStorage = new Storage();
 export const sessionStorage = new Storage();
 
 export const timer = new Timer();
+export const userTiming = new UserTiming();
 
 export function installMockStorage() {
   if (typeof window !== 'undefined') {
@@ -42,6 +44,7 @@ const mocksToEnsureReset = {
   animationFrame,
   fetch,
   matchMedia,
+  userTiming,
 };
 
 export function ensureMocksReset() {
