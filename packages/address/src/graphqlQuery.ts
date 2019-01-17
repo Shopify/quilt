@@ -5,6 +5,7 @@ query countries($locale: SupportedLocale!) {
     code
     continent
     phoneNumberPrefix
+    autocompletionField
     labels {
       address1
       address2
@@ -34,6 +35,7 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
     code
     continent
     phoneNumberPrefix
+    autocompletionField
     labels {
       address1
       address2
