@@ -43,6 +43,7 @@ describe('getCountry()', () => {
       'name',
       'code',
       'phoneNumberPrefix',
+      'autocompletionField',
       'labels',
       'formatting',
       'zones',
