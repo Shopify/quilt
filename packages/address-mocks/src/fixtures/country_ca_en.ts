@@ -4,6 +4,8 @@ const data = {
       name: 'Canada',
       code: 'CA',
       phoneNumberPrefix: 1,
+      autocompletionField: 'address1',
+      continent: 'North America',
       labels: {
         address1: 'Address',
         address2: 'Apt./Unit No.',
@@ -76,7 +78,6 @@ const data = {
           code: 'YT',
         },
       ],
-      continent: 'North America',
     },
   },
 };

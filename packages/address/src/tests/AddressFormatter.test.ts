@@ -43,10 +43,11 @@ describe('getCountry()', () => {
       'name',
       'code',
       'phoneNumberPrefix',
+      'autocompletionField',
+      'continent',
       'labels',
       'formatting',
       'zones',
-      'continent',
     ]);
   });
 
