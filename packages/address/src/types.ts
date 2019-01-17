@@ -41,6 +41,7 @@ export interface Country {
   code: string;
   continent: string;
   phoneNumberPrefix: number;
+  autocompletionField: string;
   labels: {
     address1: string;
     address2: string;

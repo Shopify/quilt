@@ -4,6 +4,8 @@ const data = {
       name: 'カナダ',
       code: 'CA',
       phoneNumberPrefix: 1,
+      autocompletionField: 'address1',
+      continent: 'North America',
       labels: {
         address1: '住所',
         address2: 'アパート、ユニット番号',
@@ -12,7 +14,7 @@ const data = {
         country: '国',
         firstName: '名',
         lastName: '姓',
-        phone: 'Phone',
+        phone: '電話番号',
         postalCode: '郵便番号',
         zone: '州',
       },
@@ -76,7 +78,6 @@ const data = {
           code: 'YT',
         },
       ],
-      continent: 'North America',
     },
   },
 };
