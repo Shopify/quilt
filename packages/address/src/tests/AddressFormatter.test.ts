@@ -44,10 +44,10 @@ describe('getCountry()', () => {
       'code',
       'phoneNumberPrefix',
       'autocompletionField',
+      'continent',
       'labels',
       'formatting',
       'zones',
-      'continent',
     ]);
   });
 
