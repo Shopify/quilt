@@ -24,6 +24,10 @@ describe('extract()', () => {
     expect(extractSpy).not.toHaveBeenCalled();
 
     await resolve();
+    // Some versions of Node need one extra tick for all .then()
+    // calls on the promise to resolve
+    await new Promise(resolve => process.nextTick(resolve));
+
     expect(extractSpy).toHaveBeenCalled();
 
     await extractPromise;
