@@ -6,7 +6,5 @@ interface Props {
 }
 
 export default function Title({children: title}: Props) {
-  return (
-    <DomEffect key={title} perform={(manager) => manager.addTitle(title)} />
-  );
+  return <DomEffect key={title} perform={manager => manager.addTitle(title)} />;
 }

@@ -16,13 +16,13 @@ export function createSerializer<T>(id: string) {
   function Serialize({data}: SerializeProps<T>) {
     return (
       <Context.Consumer>
-        {(manager) => (
+        {manager => (
           <Effect
             kind={manager.effect}
             perform={() => {
               const result = data();
-              const handleResult = (result: T) =>
-                manager.setSerialization(id, result);
+
+              const handleResult = manager.setSerialization.bind(manager, id);
 
               return typeof result === 'object' && isPromise(result)
                 ? result.then(handleResult)
@@ -37,7 +37,7 @@ export function createSerializer<T>(id: string) {
   function WithSerialized({children}: WithSerializedProps<T>) {
     return (
       <Context.Consumer>
-        {(manager) => children(manager.getSerialization(id))}
+        {manager => children(manager.getSerialization(id))}
       </Context.Consumer>
     );
   }

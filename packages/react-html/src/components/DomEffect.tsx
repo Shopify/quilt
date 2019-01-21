@@ -4,13 +4,17 @@ import {Omit} from '@shopify/useful-types';
 import {Context} from '../context';
 import Manager from '../manager';
 
+interface RemoveCallback {
+  (): void;
+}
+
 interface Props {
   manager: Manager;
-  perform(manager: Manager): () => void;
+  perform(manager: Manager): RemoveCallback;
 }
 
 class ConnectedDomEffect extends React.Component<Props> {
-  private remove?: () => void;
+  private remove?: RemoveCallback;
 
   componentDidMount() {
     this.remove = this.props.perform(this.props.manager);
@@ -31,7 +35,7 @@ class ConnectedDomEffect extends React.Component<Props> {
 export default function DomEffect(props: Omit<Props, 'manager'>) {
   return (
     <Context.Consumer>
-      {(manager) => <ConnectedDomEffect manager={manager} {...props} />}
+      {manager => <ConnectedDomEffect manager={manager} {...props} />}
     </Context.Consumer>
   );
 }

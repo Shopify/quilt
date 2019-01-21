@@ -46,7 +46,7 @@ export function showPage(): Promise<void> {
   return (
     // eslint-disable-next-line no-process-env
     process.env.NODE_ENV === 'development' && typeof document !== 'undefined'
-      ? new Promise((resolve) => {
+      ? new Promise(resolve => {
           setTimeout(() => {
             document.body.style.display = '';
             resolve();

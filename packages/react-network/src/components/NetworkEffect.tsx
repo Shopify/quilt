@@ -15,7 +15,7 @@ export default function NetworkEffect({perform}: Props) {
 
   return (
     <Consumer>
-      {(manager) => (
+      {manager => (
         <Effect kind={manager.effect} perform={() => perform(manager)} />
       )}
     </Consumer>

@@ -7,7 +7,7 @@ export default function Link(props: Props) {
   return (
     <DomEffect
       key={JSON.stringify(props)}
-      perform={(manager) => manager.addLink(props)}
+      perform={manager => manager.addLink(props)}
     />
   );
 }

@@ -7,7 +7,7 @@ export default function Meta(props: Props) {
   return (
     <DomEffect
       key={JSON.stringify(props)}
-      perform={(manager) => manager.addMeta(props)}
+      perform={manager => manager.addMeta(props)}
     />
   );
 }

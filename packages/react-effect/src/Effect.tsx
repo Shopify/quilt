@@ -34,7 +34,7 @@ export default function Effect(props: Omit<Props, 'manager'>) {
 
   return (
     <EffectContext.Consumer>
-      {(manager) => <ConnectedEffect manager={manager} {...props} />}
+      {manager => <ConnectedEffect manager={manager} {...props} />}
     </EffectContext.Consumer>
   );
 }
