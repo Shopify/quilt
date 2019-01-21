@@ -4,7 +4,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./src",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "skipLibCheck": true
   },
   "include": [
     "../../config/typescript/**/*",

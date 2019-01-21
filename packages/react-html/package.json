@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-html/README.md",
   "dependencies": {
+    "@shopify/react-effect": "^1.0.3",
     "@shopify/react-serialize": "^1.0.12",
+    "@shopify/useful-types": "^1.1.0",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
