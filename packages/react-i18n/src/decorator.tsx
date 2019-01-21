@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
-import {Extractable, METHOD_NAME} from '@shopify/react-effect';
+import {Effect} from '@shopify/react-effect';
 
 import hoistStatics from 'hoist-non-react-statics';
 
@@ -13,8 +12,6 @@ import {TranslationDictionary, MaybePromise} from './types';
 import {contextTypes} from './Provider';
 
 type ReactComponent<P> = React.ComponentType<P>;
-
-export const EFFECT_ID = Symbol('i18n');
 
 function getDisplayName(Component: ReactComponent<any>) {
   return (
@@ -49,6 +46,7 @@ export interface WithI18nProps {
 }
 
 export interface State {
+  loading: boolean;
   i18n: I18n;
 }
 
@@ -62,8 +60,7 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
   ): ReactComponent<OwnProps> & C {
     const name = id || getDisplayName(WrappedComponent);
 
-    class WithTranslation extends React.Component<OwnProps, State>
-      implements Extractable {
+    class WithTranslation extends React.Component<OwnProps, State> {
       static displayName = `withI18n(${name})`;
       static WrappedComponent = WrappedComponent;
       static contextTypes = {...contextTypes, ...childContextTypes};
@@ -113,18 +110,9 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
         const connectionState = manager.state(connection);
 
         this.state = {
+          loading: connectionState.loading,
           i18n: new I18n(connectionState.translations, manager.details),
         };
-      }
-
-      // eslint-disable-next-line consistent-return
-      [METHOD_NAME](include: symbol[] | boolean) {
-        if (
-          include === true ||
-          (Array.isArray(include) && include.includes(EFFECT_ID))
-        ) {
-          return this.managerConnection.resolve();
-        }
       }
 
       getChildContext() {
@@ -136,7 +124,19 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
       }
 
       render() {
-        return <WrappedComponent {...this.props} i18n={this.state.i18n} />;
+        const effectMarkup = this.state.loading ? (
+          <Effect
+            kind={this.context.i18nManager.effect}
+            perform={() => this.managerConnection.resolve()}
+          />
+        ) : null;
+
+        return (
+          <>
+            <WrappedComponent {...this.props} i18n={this.state.i18n} />
+            {effectMarkup}
+          </>
+        );
       }
 
       private updateI18n(connectionState: ConnectionState) {
