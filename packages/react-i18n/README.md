@@ -211,6 +211,25 @@ i18n.translate('MyComponent.searchResult', {count: searchResults});
 As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill.
 We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
 
+By default, `{count}` will be automatically formatted as a number. If you want to format the variable differently, you can simply pass it in another variable.
+
+```ts
+// Assuming a dictionary like:
+{
+  "MyComponent": {
+    "searchResult": {
+      "one": "{formattedCount} widget found",
+      "other": "{formattedCount} widgets found"
+    }
+  }
+}
+
+i18n.translate('MyComponent.searchResult', {
+  count: searchResults,
+  formattedCount: i18n.formatNumber(searchResults),
+});
+```
+
 ### Server
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.

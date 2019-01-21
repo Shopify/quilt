@@ -125,14 +125,40 @@ describe('translate()', () => {
       ]);
     });
 
-    it('uses the pluralization rules of the provided locale when a replacement named `count` is passed', () => {
-      const dictionary = {foo: {one: '{count} foo', other: '{count} foos'}};
-      expect(
-        translate('foo', {replacements: {count: 1}}, dictionary, locale),
-      ).toBe('1 foo');
-      expect(
-        translate('foo', {replacements: {count: 2}}, dictionary, locale),
-      ).toBe('2 foos');
+    describe('when a replacement named `count` is passed', () => {
+      it('uses the pluralization rules of the provided locale', () => {
+        const dictionary = {foo: {one: '{count} foo', other: '{count} foos'}};
+        expect(
+          translate('foo', {replacements: {count: 1}}, dictionary, locale),
+        ).toBe('1 foo');
+        expect(
+          translate('foo', {replacements: {count: 2}}, dictionary, locale),
+        ).toBe('2 foos');
+      });
+
+      it('handles a count of zero', () => {
+        const dictionary = {
+          foo: {
+            zero: 'no foo',
+            one: '{count} foo',
+            other: '{count} foos',
+          },
+        };
+
+        expect(
+          translate('foo', {replacements: {count: 0}}, dictionary, locale),
+        ).toBe('0 foos');
+        expect(
+          translate('foo', {replacements: {count: 0}}, dictionary, 'cy'),
+        ).toBe('no foo');
+      });
+
+      it('formats the replacement `count`', () => {
+        const dictionary = {foo: {one: '{count} foo', other: '{count} foos'}};
+        expect(
+          translate('foo', {replacements: {count: 1000}}, dictionary, locale),
+        ).toBe('1,000 foos');
+      });
     });
 
     it('throws a MissingReplacementError when there is a missing replacement', () => {
