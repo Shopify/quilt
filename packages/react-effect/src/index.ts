@@ -1,2 +1,3 @@
 export {default as Effect} from './Effect';
-export {Extractable, METHOD_NAME} from './extractable';
+export {EffectManager} from './context';
+export {EffectKind} from './types';

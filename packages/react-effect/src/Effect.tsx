@@ -1,40 +1,40 @@
 import * as React from 'react';
-import {METHOD_NAME, Extractable} from './extractable';
+import {Omit} from '@shopify/useful-types';
+import {EffectContext, EffectManager} from './context';
+import {EffectKind} from './types';
 
 interface Props {
-  kind?: symbol;
-  serverOnly?: boolean;
-  clientOnly?: boolean;
-  perform(): void;
+  kind?: EffectKind;
+  manager?: EffectManager;
+  perform(): any;
 }
 
-export default class Effect extends React.PureComponent<Props>
-  implements Extractable {
-  componentDidMount() {
-    const {serverOnly} = this.props;
-    return this.perform(!serverOnly);
-  }
-
-  [METHOD_NAME](include: boolean | symbol[]) {
-    const {clientOnly} = this.props;
-    return this.perform(clientOnly ? false : include);
-  }
-
+class ConnectedEffect extends React.PureComponent<Props> {
   render() {
+    this.perform();
+
     return this.props.children || null;
   }
 
-  private perform(include: boolean | symbol[]) {
-    const {kind, perform} = this.props;
+  private perform() {
+    const {kind, manager, perform} = this.props;
 
-    if (!include) {
-      return undefined;
+    if (manager == null || (kind != null && !manager.shouldPerform(kind))) {
+      return;
     }
 
-    if (include === true || (kind != null && include.includes(kind))) {
-      return perform();
-    }
-
-    return undefined;
+    manager.add(perform(), kind);
   }
+}
+
+export default function Effect(props: Omit<Props, 'manager'>) {
+  if (typeof window !== 'undefined') {
+    return null;
+  }
+
+  return (
+    <EffectContext.Consumer>
+      {(manager) => <ConnectedEffect manager={manager} {...props} />}
+    </EffectContext.Consumer>
+  );
 }
