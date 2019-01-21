@@ -13,6 +13,7 @@ export interface MockContext extends Context {
   cookies: MockCookies;
   request: Context['request'] & {
     body?: any;
+    rawBody?: string;
     session?: any;
   };
 }
@@ -31,6 +32,7 @@ export interface Options<
   encrypted?: boolean;
   host?: string;
   requestBody?: RequestBody;
+  rawBody?: string;
   throw?: Function;
   redirect?: Function;
   customProperties?: CustomProperties;
@@ -39,9 +41,7 @@ export interface Options<
 export default function createContext<
   CustomProperties,
   RequestBody = undefined
->(
-  options: Options<CustomProperties, RequestBody> = {},
-): MockContext & CustomProperties {
+>(options: Options<CustomProperties, RequestBody> = {}) {
   const app = new Koa();
 
   const {
@@ -50,6 +50,7 @@ export default function createContext<
     statusCode,
     session,
     requestBody,
+    rawBody,
     url = '',
     host = 'test.com',
     encrypted = false,
@@ -108,6 +109,6 @@ export default function createContext<
 
   // ctx.request.body is a common enough custom property for middleware to add that it's handy to just support it by default
   context.request.body = requestBody;
-
-  return context;
+  context.request.rawBody = rawBody;
+  return context as Context;
 }
