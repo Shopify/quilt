@@ -1,5 +1,3 @@
-import toString from 'lodash/toString';
-import isArray from 'lodash/isArray';
 import {mapObject} from './utilities';
 
 interface Matcher<Input, Fields> {
@@ -53,7 +51,7 @@ export function validateNested<Input extends Object, Fields>(
         return validate(value, fields);
       }
 
-      if (!isArray(validate)) {
+      if (!Array.isArray(validate)) {
         // eslint-disable-next-line consistent-return
         return;
       }
@@ -178,5 +176,12 @@ const validators = {
     return validateRequired(not(isEmpty), errorContent);
   },
 };
+
+function toString(obj) {
+  if (obj == null) {
+    return '';
+  }
+  return obj.toString();
+}
 
 export default validators;

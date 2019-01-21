@@ -1,6 +1,4 @@
 import * as React from 'react';
-import get from 'lodash/get';
-import {memoize, bind} from 'lodash-decorators';
 
 import {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
 import {mapObject, replace} from '../utilities';
@@ -15,6 +13,8 @@ export default class List<Fields> extends React.Component<
   Props<Fields>,
   never
 > {
+  private changeHandlers = new Map<string, {(newValue: any): void}>();
+
   shouldComponentUpdate(nextProps) {
     const {
       field: {
@@ -45,14 +45,14 @@ export default class List<Fields> extends React.Component<
       const innerFields: FieldDescriptors<Fields> = mapObject(
         fieldValues,
         (value, fieldPath) => {
-          const initialFieldValue = get(initialValue, [index, fieldPath]);
+          const initialFieldValue = initialValue[index][fieldPath];
           return {
             value,
             onBlur,
             name: `${name}.${index}.${fieldPath}`,
             initialValue: initialFieldValue,
             dirty: value !== initialFieldValue,
-            error: get(error, [index, fieldPath]),
+            error: error && error[index] && error[index][fieldPath],
             onChange: this.handleChange({index, key: fieldPath}),
           };
         },
@@ -69,16 +69,18 @@ export default class List<Fields> extends React.Component<
     });
   }
 
-  @memoize()
-  @bind()
-  private handleChange<Key extends keyof Fields>({
+  private handleChange = <Key extends keyof Fields>({
     index,
     key,
   }: {
     index: number;
     key: Key;
-  }) {
-    return (newValue: Fields[Key] | ValueMapper<Fields[Key]>) => {
+  }) => {
+    const hashKey = `${index}:${key}`;
+    if (this.changeHandlers.has(hashKey)) {
+      return this.changeHandlers.get(hashKey);
+    }
+    const handler = (newValue: Fields[Key] | ValueMapper<Fields[Key]>) => {
       const {
         field: {onChange},
       } = this.props;
@@ -95,5 +97,7 @@ export default class List<Fields> extends React.Component<
         return replace(value, index, newItem);
       });
     };
-  }
+    this.changeHandlers.set(hashKey, handler);
+    return handler;
+  };
 }
