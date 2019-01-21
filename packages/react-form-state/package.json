@@ -23,8 +23,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form-state/README.md",
   "dependencies": {
-    "lodash": "^4.17.10",
-    "lodash-decorators": "^6.0.0",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
