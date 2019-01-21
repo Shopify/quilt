@@ -25,27 +25,19 @@ export default function MyComponent() {
 }
 ```
 
-By default, this callback will run in two ways:
-
-- On the client, during `componentDidMount`
-- On the server, when called using the [`extract`](#extract) function documented below
-
 This callback can return anything, but returning a promise has a special effect: it will be waited for on the server when calling `extract()`.
 
 This component accepts three additional optional properties:
 
-- `kind`: a symbol detailing the "category" of the effect. This will be used to optionally skip some categories when calling `extract()`
-- `clientOnly`: will only call the effect in `componentDidMount`, not when extracting on the server
-- `serverOnly`: will only call the effect during extraction, not in `componentDidMount`
+- `kind`: a description of the effect. This kind, if provided, must have an `id` that is a unique symbol, and can optionally have `betweenEachPass` and `afterEachPass` functions that add additional logic to the `betweenEachPass` and `afterEachPass` options for `extract()`.
 
 This component also accepts children which are rendered as-is.
 
 ### `extract()`
 
-You can call `extract()` on a React tree in order to perform all of the effects within that tree. This function uses the [`react-tree-walker`](https://github.com/ctrlplusb/react-tree-walker) package to perform the tree walk, which creates some implications for the return value of your `perform` actions:
+You can call `extract()` on a React tree in order to perform all of the effects within that tree. This function repeatedly calls a render function (by default, `react-dom`’s `renderToStaticMarkup`), collects any `Effect` promises and, if there are promises, waits on them before performing another pass. This process ends when no more promises are collected during a pass of your tree.
 
-- Returning a promise will wait on the promise before processing the rest of the tree
-- Returning `false` will prevent the rest of the tree from being processed
+> **Note**: this flow is significantly different from the previous version, which relied on a custom tree walk. Calling `extract()` no longer waits for promises collected higher in the tree before processing the rest. Instead, it relies on multiple passes, which gives application code the option to process promises at many layers of the app in parallel, rather than in sequence.
 
 This function returns a promise that resolves when the tree has been fully processed.
 
@@ -60,20 +52,49 @@ async function app(ctx) {
 }
 ```
 
-You may optionally pass a second argument to this function: an array of symbols representing the categories to include in your processing of the tree (matching the `kind` prop on `Extract` components).
+You may optionally pass an options object that contains the following keys )all of which are optional):
 
-```tsx
-import {renderToString} from 'react-dom/server';
-import {EFFECT_ID as I18N_EFFECT_ID} from '@shopify/react-i18n';
-import {extract} from '@shopify/react-effect/server';
+- `include`: an array of symbols that should be collected during tree traversal. These IDs must align with the `kind.id` field on `<Extract />` elements in your application.
 
-async function app(ctx) {
-  const app = <App />;
-  // will only perform @shopify/react-i18n extraction
-  await extract(app, [I18N_EFFECT_ID]);
-  ctx.body = renderToString(app);
-}
-```
+  ```tsx
+  import {renderToString} from 'react-dom/server';
+  import {EFFECT_ID as I18N_EFFECT_ID} from '@shopify/react-i18n';
+  import {extract} from '@shopify/react-effect/server';
+
+  async function app(ctx) {
+    const app = <App />;
+    // will only perform @shopify/react-i18n extraction
+    await extract(app, [I18N_EFFECT_ID]);
+    ctx.body = renderToString(app);
+  }
+  ```
+
+- `betweenEachPass`: a function that is called after a pass of your tree that did not "finish" (that is, there were still promises that got collected). This function can return a promise, and it will be waited on before continuing.
+
+- `afterEachPass`: a function that is called after each pass of your tree, regardless of whether traversal is "finished". This function can return a promise, and it will be waited on before continuing.
+
+- `render`: a function that takes the root React element in your tree and returns a new tree to use. You can use this to wrap your application in context providers that only your server render requires.
+
+  ```tsx
+  import {renderToString} from 'react-dom/server';
+  import {extract} from '@shopify/react-effect/server';
+  import {createApolloBridge} from '@shopify/react-effect-apollo';
+
+  async function app(ctx) {
+    const ApolloBridge = createApolloBridge();
+    const app = <App />;
+
+    await extract(app, {
+      render(element) {
+        return <ApolloBridge>{element}</ApolloBridge>;
+      },
+    });
+
+    ctx.body = renderToString(app);
+  }
+  ```
+
+- `renderFunction`: an alternative function to `renderToStaticMarkup` for traversing the tree.
 
 ### Custom extractable components
 
