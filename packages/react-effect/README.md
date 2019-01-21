@@ -96,30 +96,6 @@ You may optionally pass an options object that contains the following keys )all 
 
 - `renderFunction`: an alternative function to `renderToStaticMarkup` for traversing the tree.
 
-### Custom extractable components
-
-Usually, the `Extract` component will do what you need, but you may occasionally need your own component to directly implement the "extractable" part. This can be the case when your component must do something in `extract` that ends up calling `setState`. In these cases, you can use two additional exports from this module, `METHOD_NAME` and the `Extractable` interface, to manually implement a method that will be called during extraction:
-
-```ts
-import {METHOD_NAME, Extractable} from '@shopify/react-effect';
-
-export const EFFECT_ID = Symbol('MyComponentEffect');
-
-class MyComponent extends React.Component implements Extractable {
-  [METHOD_NAME](include: boolean | symbol[]) {
-    // When implementing your own version of this, you should
-    // implement your own check for the effect "kind". The
-    // Effect component does this automatically.
-    if (
-      include === true ||
-      (Array.isArray(include) && include.includes(EFFECT_ID))
-    ) {
-      this.setState({extracting: true});
-    }
-  }
-}
-```
-
 ## Gotchas
 
 A common mistake is initializing a provider entirely within your application component, and setting some details on this provider during the extraction. There is nothing implicitly wrong with this, but it will usually not have the effect you are after. When you call `renderToString()` to actually generate your HTML, the app will be reinitialized, and all of the work you did in the extraction call will be lost. To avoid this, pass any "stateful" managers/ providers into your application:
