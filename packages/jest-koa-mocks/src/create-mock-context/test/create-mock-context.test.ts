@@ -23,7 +23,14 @@ describe('create-mock-context', () => {
     const requestBody = 'Hello I am a body';
     const context = createContext({requestBody});
 
-    expect(context.request.body).toBe(requestBody);
+    expect((context.request as any).body).toBe(requestBody);
+  });
+
+  it('includes rawBody on ctx.request', () => {
+    const rawBody = 'Hello I am a body';
+    const context = createContext({rawBody});
+
+    expect((context.request as any).rawBody).toBe(rawBody);
   });
 
   it('supports setting throw and redirect', () => {
@@ -128,7 +135,9 @@ describe('create-mock-context', () => {
       cookies,
     });
 
-    expect(context.cookies.requestStore.get('test')).toBe(cookies.test);
+    expect((context.cookies as any).requestStore.get('test')).toBe(
+      cookies.test,
+    );
   });
 
   it('includes custom session data', () => {
