@@ -108,6 +108,8 @@ function translateWithDictionary(
     result = result[part];
   }
 
+  const additionalReplacements = {};
+
   if (
     typeof result === 'object' &&
     replacements != null &&
@@ -118,6 +120,10 @@ function translateWithDictionary(
     if (typeof count === 'number') {
       const group = new Intl.PluralRules(locale).select(count);
       result = result[group];
+
+      additionalReplacements[PLURALIZATION_KEY_NAME] = new Intl.NumberFormat(
+        locale,
+      ).format(count);
     }
   }
 
@@ -131,7 +137,10 @@ function translateWithDictionary(
       : result;
 
   if (typeof processedString === 'string') {
-    return updateStringWithReplacements(processedString, replacements);
+    return updateStringWithReplacements(processedString, {
+      ...replacements,
+      ...additionalReplacements,
+    });
   } else {
     return MISSING_TRANSLATION;
   }
