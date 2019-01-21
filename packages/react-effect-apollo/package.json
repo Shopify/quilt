@@ -1,0 +1,39 @@
+{
+  "name": "@shopify/react-effect-apollo",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "A bridging layer between react-apollo and react-effect.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect-apollo/README.md",
+  "dependencies": {
+    "@shopify/react-effect": "^1.0.3"
+  },
+  "devDependencies": {
+    "react-apollo": "^2.4.0",
+    "typescript": "~3.0.1"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "peerDependencies": {
+    "react-apollo": "^2.4.0"
+  }
+}
