@@ -6,8 +6,8 @@ interface Options {
   include?: symbol[] | boolean;
   render?(element: React.ReactElement<any>): React.ReactElement<any>;
   renderFunction?(element: React.ReactElement<{}>): string;
-  betweenEach?(): any;
-  afterEach?(): any;
+  betweenEachPass?(): any;
+  afterEachPass?(): any;
 }
 
 export function extract(
@@ -16,8 +16,8 @@ export function extract(
     include,
     render = identity,
     renderFunction = renderToStaticMarkup,
-    betweenEach,
-    afterEach,
+    betweenEachPass,
+    afterEachPass,
   }: Options = {},
 ) {
   const manager = new EffectManager({include});
@@ -31,8 +31,9 @@ export function extract(
     const result = renderFunction(element);
 
     if (manager.finished) {
-      if (afterEach) {
-        await afterEach();
+      await manager.afterEachPass();
+      if (afterEachPass) {
+        await afterEachPass();
       }
 
       return result;
@@ -40,13 +41,13 @@ export function extract(
       await manager.resolve();
 
       await manager.betweenEachPass();
-      if (betweenEach) {
-        await betweenEach();
+      if (betweenEachPass) {
+        await betweenEachPass();
       }
 
       await manager.afterEachPass();
-      if (afterEach) {
-        await afterEach();
+      if (afterEachPass) {
+        await afterEachPass();
       }
 
       return perform();

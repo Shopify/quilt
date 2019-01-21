@@ -12,7 +12,6 @@ export interface Subscriber {
 }
 
 export interface ConnectionResult {
-  readonly async: boolean;
   resolve(): Promise<void>;
   disconnect(): void;
 }
@@ -77,7 +76,7 @@ export default class Manager {
       const translations = connection.translationsForLocale(locale);
       if (isPromise(translations)) {
         const promise = translations
-          .then((result) => {
+          .then(result => {
             this.asyncTranslationIds.push(id);
             this.translationPromises.delete(id);
             this.translations.set(id, result);
@@ -101,7 +100,6 @@ export default class Manager {
     this.subscriptions.set(subscriber, connection);
 
     return {
-      async: promises.length > 0,
       resolve: () => Promise.all(promises).then(() => undefined),
       disconnect: () => this.subscriptions.delete(subscriber),
     };
@@ -127,7 +125,7 @@ export default class Manager {
     }
 
     const possibleLocales = getPossibleLocales(this.details.locale);
-    const translations = possibleLocales.map((locale) => {
+    const translations = possibleLocales.map(locale => {
       const id = localeId(connection, locale);
       return this.translations.get(id) || this.translationPromises.get(id);
     });
@@ -177,7 +175,7 @@ export default class Manager {
           this.translationPromises.set(
             id,
             translations
-              .then((result) => {
+              .then(result => {
                 this.asyncTranslationIds.push(id);
                 this.translationPromises.delete(id);
                 this.translations.set(id, result);
@@ -222,7 +220,7 @@ function localeIdsForConnection(
 
   return [
     ...parentLocaleIds,
-    ...getPossibleLocales(fullLocale).map((locale) =>
+    ...getPossibleLocales(fullLocale).map(locale =>
       localeId(connection, locale),
     ),
   ];
@@ -251,5 +249,5 @@ function localeId(connection: Connection, locale: string) {
 }
 
 function noPromises<T>(array: (T | Promise<any>)[]): array is T[] {
-  return array.every((item) => !isPromise(item));
+  return array.every(item => !isPromise(item));
 }

@@ -133,7 +133,7 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
 
         return (
           <>
-            <WrappedComponent {...this.props} i18n={this.state.i18n} />
+            <WrappedComponent {...this.props as any} i18n={this.state.i18n} />
             {effectMarkup}
           </>
         );
@@ -141,6 +141,7 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
 
       private updateI18n(connectionState: ConnectionState) {
         this.setState({
+          loading: connectionState.loading,
           i18n: new I18n(
             connectionState.translations,
             this.context.i18nManager.details,
