@@ -28,7 +28,7 @@ describe('koa-liveness-ping', () => {
     const middleware = mount('/services', ping());
     const nextFn = jest.fn();
     const ctx = createMockContext({url: '/services/ping'});
-    await middleware(ctx, nextFn);
+    await middleware(ctx as any, nextFn);
 
     expect(ctx.status).toBe(200);
     expect(nextFn).not.toHaveBeenCalled();
