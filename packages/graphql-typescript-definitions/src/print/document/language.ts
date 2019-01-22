@@ -110,6 +110,10 @@ function tsTypeForObjectField(
   context: OperationContext,
 ) {
   const {inlineFragments = []} = field;
+  const possibleTypes =
+    isInterfaceType(graphQLType) || isUnionType(graphQLType)
+      ? context.ast.schema.getPossibleTypes(graphQLType)
+      : [];
 
   if (inlineFragments.length) {
     const fragmentTypes = [...inlineFragments].map((inlineFragment) =>
@@ -128,38 +132,64 @@ function tsTypeForObjectField(
         [],
       ),
     );
-    const missingPossibleTypes =
-      isInterfaceType(graphQLType) || isUnionType(graphQLType)
-        ? context.ast.schema
-            .getPossibleTypes(graphQLType)
-            .filter((possibleType) => {
-              return !typesCoveredByInlineFragments.has(possibleType);
-            })
-        : [];
 
-    let otherType: t.TSType | null = null;
+    const missingPossibleTypes = possibleTypes.filter((possibleType) => {
+      return !typesCoveredByInlineFragments.has(possibleType);
+    });
 
-    if (missingPossibleTypes.length > 0) {
-      const otherStack = stack.fragment();
-      const otherTypeInterface = t.tsInterfaceDeclaration(
-        t.identifier(otherStack.name),
-        null,
-        null,
-        tsInterfaceBodyForObjectField(
-          field,
-          missingPossibleTypes,
-          otherStack,
-          context,
-          context.options.partial,
-        ),
-      );
-
-      otherType = context.export(otherTypeInterface);
-    }
-
-    return t.tsUnionType(
-      otherType ? [...fragmentTypes, otherType] : fragmentTypes,
+    const otherStack = stack.fragment();
+    const otherTypeInterface = t.tsInterfaceDeclaration(
+      t.identifier(otherStack.name),
+      null,
+      null,
+      tsInterfaceBodyForObjectField(
+        field,
+        missingPossibleTypes,
+        otherStack,
+        context,
+        context.options.partial,
+      ),
     );
+
+    const otherType = context.export(otherTypeInterface);
+
+    return t.tsUnionType([...fragmentTypes, otherType]);
+  } else if (possibleTypes.length === 1) {
+    // When we have an interface or union type, but no inline fragments, it
+    // means that there is only one conforming type for the union/ interface.
+    // Here, we construct a "nothing" type that stands in for future additions
+    // to the membership of the union/ interface.
+    const otherStack = stack.fragment();
+    const otherTypeInterface = t.tsInterfaceDeclaration(
+      t.identifier(otherStack.name),
+      null,
+      null,
+      tsInterfaceBodyForObjectField(
+        {fields: []},
+        [],
+        otherStack,
+        context,
+        context.options.partial,
+      ),
+    );
+
+    const interfaceStack = stack.fragment(possibleTypes[0]);
+    const interfaceDeclaration = t.tsInterfaceDeclaration(
+      t.identifier(interfaceStack.name),
+      null,
+      null,
+      tsInterfaceBodyForObjectField(
+        field,
+        graphQLType,
+        interfaceStack,
+        context,
+      ),
+    );
+
+    return t.tsUnionType([
+      context.export(interfaceDeclaration),
+      context.export(otherTypeInterface),
+    ]);
   }
 
   const interfaceDeclaration = t.tsInterfaceDeclaration(
@@ -201,10 +231,15 @@ function tsPropertyForField(
       [],
     );
 
-    const typename =
-      allPossibleTypes.length > 1
-        ? t.tsUnionType(allPossibleTypes.map(tsTypenameForGraphQLType))
-        : tsTypenameForGraphQLType(allPossibleTypes[0]);
+    let typename: t.TSType;
+
+    if (allPossibleTypes.length === 0) {
+      typename = t.tsNeverKeyword();
+    } else if (allPossibleTypes.length > 1) {
+      typename = t.tsUnionType(allPossibleTypes.map(tsTypenameForGraphQLType));
+    } else {
+      typename = tsTypenameForGraphQLType(allPossibleTypes[0]);
+    }
 
     const typenameProperty = t.tsPropertySignature(
       t.identifier(field.responseName),

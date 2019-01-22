@@ -470,23 +470,6 @@ describe('printDocument()', () => {
         `);
       }
 
-      it('collapses the type when an inline fragment is guaranteed', () => {
-        const schema = createBasicInterfaceSchema();
-
-        expect(
-          print('query Details { named { ...on Named { name } } }', schema),
-        ).toContain(stripIndent`
-          export namespace DetailsQueryData {
-            export interface Named {
-              name: string;
-            }
-          }
-          export interface DetailsQueryData {
-            named?: DetailsQueryData.Named | null;
-          }
-        `);
-      });
-
       it('splits out a catch-all type for interfaces where not all possible types are queried', () => {
         const schema = createBasicInterfaceSchema();
 
@@ -508,7 +491,7 @@ describe('printDocument()', () => {
         `);
       });
 
-      it('adds guaranteed fields to each union type field', () => {
+      it('adds guaranteed fields to each interface type field', () => {
         const schema = createBasicInterfaceSchema();
 
         expect(
@@ -539,7 +522,7 @@ describe('printDocument()', () => {
         `);
       });
 
-      it('adds explicit typename to each union type', () => {
+      it('adds explicit typename to each interface type', () => {
         const schema = createBasicInterfaceSchema();
 
         expect(
@@ -568,11 +551,14 @@ describe('printDocument()', () => {
               __typename: "Cat";
               livesLeft: number;
             }
+            export interface NamedOther {
+              __typename: never;
+            }
           }
         `);
       });
 
-      it('adds implicit typename to each union type when the option is set', () => {
+      it('adds implicit typename to each interface type when the option is set', () => {
         const schema = createBasicInterfaceSchema();
 
         expect(
@@ -601,11 +587,14 @@ describe('printDocument()', () => {
               __typename: "Cat";
               livesLeft: number;
             }
+            export interface NamedOther {
+              __typename: never;
+            }
           }
         `);
       });
 
-      it('splits other typename into the catch-all union type', () => {
+      it('splits other typename into the catch-all interface type', () => {
         const schema = createBasicInterfaceSchema();
 
         expect(
@@ -651,63 +640,6 @@ describe('printDocument()', () => {
           }
           export interface DetailsQueryData {
             named?: DetailsQueryData.Named | null;
-          }
-        `);
-      });
-
-      it('collapses a type when a fragment spread is guaranteed', () => {
-        const schema = createBasicInterfaceSchema();
-
-        expect(
-          print(
-            `query Details {
-              named {
-                ...NamedFragment
-              }
-            }
-
-            fragment NamedFragment on Named {
-              name
-            }`,
-            schema,
-          ),
-        ).toContain(stripIndent`
-          export namespace DetailsQueryData {
-            export interface Named {
-              name: string;
-            }
-          }
-          export interface DetailsQueryData {
-            named?: DetailsQueryData.Named | null;
-          }
-        `);
-      });
-
-      it('separates out the type for a non-guaranteed fragment spread', () => {
-        const schema = createBasicInterfaceSchema();
-
-        expect(
-          print(
-            `query Details {
-              named {
-                ...on Person { ...PersonFragment }
-              }
-            }
-
-            fragment PersonFragment on Person {
-              occupation
-            }`,
-            schema,
-          ),
-        ).toContain(stripIndent`
-          export namespace DetailsQueryData {
-            export interface NamedPerson {
-              occupation?: string | null;
-            }
-            export interface NamedOther {}
-          }
-          export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
           }
         `);
       });
@@ -964,27 +896,6 @@ describe('printDocument()', () => {
         `);
       }
 
-      it('splits out a catch-all type for interfaces where not all possible types are queried', () => {
-        const schema = createBasicUnionSchema();
-
-        expect(
-          print(
-            'query Details { named { ...on Person { occupation } } }',
-            schema,
-          ),
-        ).toContain(stripIndent`
-          export namespace DetailsQueryData {
-            export interface NamedPerson {
-              occupation?: string | null;
-            }
-            export interface NamedOther {}
-          }
-          export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
-          }
-        `);
-      });
-
       it('adds explicit typename to each union type', () => {
         const schema = createBasicUnionSchema();
 
@@ -1013,6 +924,9 @@ describe('printDocument()', () => {
             export interface NamedCat {
               __typename: "Cat";
               livesLeft: number;
+            }
+            export interface NamedOther {
+              __typename: never;
             }
           }
         `);
@@ -1046,6 +960,9 @@ describe('printDocument()', () => {
             export interface NamedCat {
               __typename: "Cat";
               livesLeft: number;
+            }
+            export interface NamedOther {
+              __typename: never;
             }
           }
         `);
@@ -1237,9 +1154,10 @@ describe('printDocument()', () => {
             export interface SettingCheckboxSetting {
               value: DetailsQueryData.SettingCheckboxSettingValue;
             }
+            export interface SettingOther {}
           }
           export interface DetailsQueryData {
-            setting?: DetailsQueryData.SettingButtonSetting | DetailsQueryData.SettingCheckboxSetting | null;
+            setting?: DetailsQueryData.SettingButtonSetting | DetailsQueryData.SettingCheckboxSetting | DetailsQueryData.SettingOther | null;
           }
         `);
       });
@@ -1276,6 +1194,42 @@ describe('printDocument()', () => {
             }
             export interface NamedOther {
               __typename: "Dog" | "Cat";
+            }
+          }
+          export interface DetailsQueryData {
+            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
+          }
+        `);
+      });
+
+      it('splits off an impossible type when a union has only one possible type', () => {
+        const schema = buildSchema(`
+          type Person {
+            name: String!
+            occupation: String
+          }
+
+          union Named = Person
+
+          type Query {
+            named: Named
+          }
+        `);
+
+        expect(
+          print(
+            'query Details { named { ...on Person { occupation } } }',
+            schema,
+            {printOptions: {addTypename: true}},
+          ),
+        ).toContain(stripIndent`
+          export namespace DetailsQueryData {
+            export interface NamedPerson {
+              __typename: "Person";
+              occupation?: string | null;
+            }
+            export interface NamedOther {
+              __typename: never;
             }
           }
           export interface DetailsQueryData {
