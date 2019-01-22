@@ -114,7 +114,7 @@ app.use(ctx => {
 import 'isomorphic-fetch';
 
 import Koa from 'koa';
-import router from 'koa-router;
+import router from 'koa-router';
 import session from 'koa-session';
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth';
 // Import our package
@@ -127,7 +127,7 @@ const router = new Router();
 
 app.keys = [SHOPIFY_SECRET];
 
-app.use(session(app))
+app.use(session(app));
 app.use(
   shopifyAuth({
     apiKey: SHOPIFY_API_KEY,
@@ -157,23 +157,16 @@ app.use(
 
 const webhook = receiveWebhook({secret: SHOPIFY_SECRET});
 
-router.post(
-  '/webhooks/products/create',
-  webhook,
-  () => {
-    /* handle products create */
-  },
-);
-router.post(
-  '/webhooks/products/create',
-  webhook,
-  () => {
-    /* handle orders create */
-  },
-);
+router.post('/webhooks/products/create', webhook, () => {
+  /* handle products create */
+});
+router.post('/webhooks/products/create', webhook, () => {
+  /* handle orders create */
+});
 
-
-router.get('*', verifyRequest(), () => { /* app code */ })
+router.get('*', verifyRequest(), () => {
+  /* app code */
+});
 
 app.use(router.allowedMethods());
 app.use(router.routes());
