@@ -45,6 +45,13 @@ const argv = yargs
       EnumFormat.ScreamingSnakeCase,
     ],
   })
+  .option('custom-scalars', {
+    required: false,
+    default: '{}',
+    type: 'string',
+    describe:
+      'A JSON-serialized object where the key is the name of a custom scalar, and the value is an object with the name and package from which to import the type to use for that scalar',
+  })
   .help().argv;
 
 const builder = new Builder({
@@ -52,7 +59,17 @@ const builder = new Builder({
   schemaTypesPath: argv.schemaTypesPath,
   addTypename: argv.addTypename,
   enumFormat: argv.enumFormat,
+  customScalars: normalizeCustomScalars(argv.customScalars),
 });
+
+function normalizeCustomScalars(customScalarOption: string) {
+  try {
+    const result = JSON.parse(customScalarOption);
+    return typeof result === 'object' ? result : undefined;
+  } catch (error) {
+    return undefined;
+  }
+}
 
 const schemas: SchemaBuild[] = [];
 const docs: DocumentBuild[] = [];

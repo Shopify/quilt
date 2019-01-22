@@ -108,6 +108,57 @@ describe('printSchema()', () => {
     );
   });
 
+  it('prints a custom scalar with a specified import type in the index file', () => {
+    const schema = buildSchema(`
+      scalar HtmlSafeString
+    `);
+
+    const content = generateSchemaTypes(schema, {
+      customScalars: {
+        HtmlSafeString: {
+          name: 'SafeString',
+          package: 'my-types-package',
+        },
+      },
+    }).get('index.ts');
+
+    expect(content).toContain(stripIndent`
+      export type HtmlSafeString = __HtmlSafeString__SafeString;
+    `);
+
+    expect(content).toContain(stripIndent`
+      import { SafeString as __HtmlSafeString__SafeString } from "my-types-package";
+    `);
+  });
+
+  it('uses a different name for a custom import type when it is defined for multiple scalars', () => {
+    const schema = buildSchema(`
+      scalar HtmlSafeString
+      scalar FormattedString
+    `);
+
+    const content = generateSchemaTypes(schema, {
+      customScalars: {
+        HtmlSafeString: {
+          name: 'SafeString',
+          package: 'my-types-package',
+        },
+        FormattedString: {
+          name: 'SafeString',
+          package: 'my-types-package',
+        },
+      },
+    }).get('index.ts');
+
+    expect(content).toContain(stripIndent`
+      import { SafeString as __HtmlSafeString__SafeString } from "my-types-package";
+    `);
+
+    expect(content).toContain(stripIndent`
+      import { SafeString as __FormattedString__SafeString } from "my-types-package";
+    `);
+  });
+
   it('prints an input object in the index file', () => {
     const schema = buildSchema(`
       input Input {

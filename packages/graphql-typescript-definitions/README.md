@@ -217,6 +217,7 @@ As noted above, the configuration of your schema and GraphQL documents is done v
 * `--enum-format`: specifies output format for enum types (default = `undefined`)
   * Options: `camel-case`, `pascal-case`, `snake-case`, `screaming-snake-case`
   * `undefined` results in using the unchanged name from the schema (verbatim)
+* `--custom-scalars`: specifies custom types to use in place of scalar types in your GraphQL schema. See below for details.
 
 #### Examples
 
@@ -229,6 +230,27 @@ graphql-typescript-definitions --schema-types-path app/graphql/types --watch
 
 # run tool for .graphqlconfig in a child directory, produces ./src/app/graphql/types
 graphql-typescript-definitions --cwd src --schema-types-path app/graphql/types
+```
+
+#### `--custom-scalars`
+
+By default, all custom scalars are exported as an alias for `string`. You can export a different type for these scalars by passing in a `--custom-scalars` option. This option is a JSON-serialized object that specifies what custom type to import from a package and re-export as the type for that scalar. For example, assuming the following schema:
+
+```graphql
+scalar HtmlString
+```
+
+You may want a custom TypeScript type for any field of this GraphQL type (for example, to restrict functions to use only this type, and not any arbitrary string). Assuming you have an installed npm package by the name of `my-custom-type-package`, and this package exports a named `SafeString` type, you could pass the following `--custom-scalars` option:
+
+```sh
+yarn run graphql-typescript-definitions --schema-path 'build/schema.json' --schema-types-path 'src/schema' --custom-scalars '{"HtmlString": {"name": "SafeString", package: "my-custom-type-package"}}'
+```
+
+With this configuration, your custom scalar would be exported roughly as follows:
+
+```ts
+import {SafeString} from 'my-custom-type-package';
+export type HtmlString = SafeString;
 ```
 
 ### Node
@@ -260,3 +282,4 @@ As with the CLI, you can pass options to customize the build and behavior:
 * `graphQLFiles`
 * `schemaPath`
 * `schemaTypesPath`
+* `customScalars`

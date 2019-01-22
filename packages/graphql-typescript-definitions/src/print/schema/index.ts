@@ -17,10 +17,14 @@ import {EnumFormat} from '../../types';
 
 const generate = require('@babel/generator').default;
 
-type InputType = GraphQLEnumType | GraphQLScalarType | GraphQLInputObjectType;
+export interface ScalarDefinition {
+  name: string;
+  package: string;
+}
 
 export interface Options {
   enumFormat?: EnumFormat;
+  customScalars?: {[key: string]: ScalarDefinition};
 }
 
 export function generateSchemaTypes(
@@ -41,6 +45,7 @@ export function generateSchemaTypes(
 
     if (isEnumType(type)) {
       const enumType = tsEnumForType(type, options);
+
       definitions.set(
         `${enumType.id.name}.ts`,
         generate(
@@ -56,10 +61,34 @@ export function generateSchemaTypes(
           t.exportSpecifier(enumType.id, enumType.id),
         ]),
       );
+    } else if (isScalarType(type)) {
+      const {customScalars = {}} = options;
+      const customScalarDefinition = customScalars[type.name];
+      const scalarType = tsScalarForType(type, customScalarDefinition);
+
+      if (customScalarDefinition) {
+        fileBody.unshift(
+          t.importDeclaration(
+            [
+              t.importSpecifier(
+                t.identifier(
+                  makeCustomScalarImportNameSafe(
+                    customScalarDefinition.name,
+                    type.name,
+                  ),
+                ),
+                t.identifier(customScalarDefinition.name),
+              ),
+            ],
+            t.stringLiteral(customScalarDefinition.package),
+          ),
+          t.exportNamedDeclaration(scalarType, []),
+        );
+      } else {
+        fileBody.push(t.exportNamedDeclaration(scalarType, []));
+      }
     } else {
-      fileBody.push(
-        t.exportNamedDeclaration(tsTypeForRootInputType(type, options), []),
-      );
+      fileBody.push(t.exportNamedDeclaration(tsInputObjectForType(type), []));
     }
   }
 
@@ -67,16 +96,6 @@ export function generateSchemaTypes(
     'index.ts',
     generate(t.file(t.program(fileBody), [], [])).code,
   );
-}
-
-function tsTypeForRootInputType(type: InputType, options: Options) {
-  if (isEnumType(type)) {
-    return tsEnumForType(type, options);
-  } else if (isScalarType(type)) {
-    return tsScalarForType(type);
-  } else {
-    return tsInputObjectForType(type);
-  }
 }
 
 function tsTypeForInputType(type: GraphQLInputType): t.TSType {
@@ -122,15 +141,32 @@ function tsInputObjectForType(type: GraphQLInputObjectType) {
   );
 }
 
-function tsScalarForType(type: GraphQLScalarType) {
-  return t.tsTypeAliasDeclaration(
-    t.identifier(type.name),
-    null,
-    t.tsStringKeyword(),
-  );
+function tsScalarForType(
+  type: GraphQLScalarType,
+  customScalarDefinition?: ScalarDefinition,
+) {
+  const alias = customScalarDefinition
+    ? t.tsTypeReference(
+        t.identifier(
+          makeCustomScalarImportNameSafe(
+            customScalarDefinition.name,
+            type.name,
+          ),
+        ),
+      )
+    : t.tsStringKeyword();
+
+  return t.tsTypeAliasDeclaration(t.identifier(type.name), null, alias);
 }
 
-function tsEnumForType(type: GraphQLEnumType, {enumFormat}: Options) {
+function makeCustomScalarImportNameSafe(importName: string, typeName: string) {
+  return `__${typeName}__${importName}`;
+}
+
+function tsEnumForType(
+  type: GraphQLEnumType,
+  {enumFormat}: Pick<Options, 'enumFormat'>,
+) {
   return t.tsEnumDeclaration(
     t.identifier(type.name),
     type
