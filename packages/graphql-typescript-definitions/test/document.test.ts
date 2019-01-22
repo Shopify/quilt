@@ -552,7 +552,7 @@ describe('printDocument()', () => {
               livesLeft: number;
             }
             export interface NamedOther {
-              __typename: never;
+              __typename: "";
             }
           }
         `);
@@ -588,7 +588,7 @@ describe('printDocument()', () => {
               livesLeft: number;
             }
             export interface NamedOther {
-              __typename: never;
+              __typename: "";
             }
           }
         `);
@@ -926,7 +926,7 @@ describe('printDocument()', () => {
               livesLeft: number;
             }
             export interface NamedOther {
-              __typename: never;
+              __typename: "";
             }
           }
         `);
@@ -962,7 +962,7 @@ describe('printDocument()', () => {
               livesLeft: number;
             }
             export interface NamedOther {
-              __typename: never;
+              __typename: "";
             }
           }
         `);
@@ -1229,7 +1229,7 @@ describe('printDocument()', () => {
               occupation?: string | null;
             }
             export interface NamedOther {
-              __typename: never;
+              __typename: "";
             }
           }
           export interface DetailsQueryData {

@@ -234,7 +234,7 @@ function tsPropertyForField(
     let typename: t.TSType;
 
     if (allPossibleTypes.length === 0) {
-      typename = t.tsNeverKeyword();
+      typename = t.tsLiteralType(t.stringLiteral(''));
     } else if (allPossibleTypes.length > 1) {
       typename = t.tsUnionType(allPossibleTypes.map(tsTypenameForGraphQLType));
     } else {
