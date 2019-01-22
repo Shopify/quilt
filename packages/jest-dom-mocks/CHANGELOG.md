@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- User timing mocks [#468](https://github.com/Shopify/quilt/pull/468).
+
 ## 2.1.3 - 2019-01-09
 
 - Start of Changelog
