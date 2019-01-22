@@ -32,6 +32,13 @@ The following type aliases are provided by this library:
   type Arg = FirstArgument<typeof func>; // Promise<any>
   ```
 
+- `ArrayElement<T>`: When `T` is an array, resolves to the type contained within the array.
+
+  ```ts
+  type FooArray = (string | number)[];
+  type Foo = ArrayElement<FooArray>; // string | number
+  ```
+
 - `Omit<T, K extends keyof T>`: The opposite of TypeScript’s `Pick` type. Resolves to a new type that includes all keys in the original _except_ those matching `K`.
 
   ```ts
