@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Preconnect from '@shopify/react-preconnect';
+import {Preconnect} from '@shopify/react-html';
 import load from './load';
 
 export interface Props<Imported = any> {
@@ -29,7 +29,7 @@ export default class ImportRemote extends React.PureComponent<Props, never> {
 
     if (preconnect) {
       const url = new URL(source);
-      return <Preconnect hosts={[url.hostname]} />;
+      return <Preconnect source={url.origin} />;
     }
 
     return null;
