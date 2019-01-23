@@ -226,6 +226,10 @@ This component accepts a string child, which will be used to set the title of th
 
 Renders a `<link />` tag with the necessary props to specify a favicon. Accepts a `source` property that should be the image source for the favicon.
 
+### `<Preconnect />`
+
+Renders a `<link />` tag with the necessary props to fully preconnect to the host specified by the `source` prop.
+
 ### `<Serialize />`
 
 The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `createSerializer()` method of generating serializations [documented above](#in-your-app-code).
