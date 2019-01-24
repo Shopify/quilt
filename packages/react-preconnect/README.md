@@ -1,5 +1,7 @@
 # `@shopify/react-preconnect`
 
+**Note**: This module is now deprecated. You should move to using the `<Preconnect />` component from [`@shopify/react-html`](../react-html) instead.
+
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-preconnect.svg)](https://badge.fury.io/js/%40shopify%2Freact-preconnect.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-preconnect.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-preconnect.svg)
 
