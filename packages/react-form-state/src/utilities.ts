@@ -74,7 +74,7 @@ export function isEqual(value, baseline) {
     }
     const keysInValue = Object.keys(value);
     const keysInBaseline = Object.keys(baseline);
-    if (keysInValue.length !== keysInBaseline.length) {
+    if (!isEqual(keysInValue, keysInBaseline)) {
       return false;
     }
     for (const key of keysInValue) {
