@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import Preconnect from '@shopify/react-preconnect';
+import {Preconnect} from '@shopify/react-html';
 import {noop} from '@shopify/javascript-utilities/other';
 
 import ImportRemote, {Props} from '../ImportRemote';
 
-jest.mock('react-helmet', () => ({
-  Helmet: function Helmet({children}: any) {
-    return children || null;
+jest.mock('@shopify/react-html', () => ({
+  Preconnect() {
+    return null;
   },
 }));
 
@@ -124,12 +124,12 @@ describe('<ImportRemote />', () => {
       expect(importRemote.find(Preconnect)).toHaveLength(0);
     });
 
-    it('creates a preconnect link with the source’s hostname when preconnecting is requested', () => {
+    it('creates a preconnect link with the source’s origin when preconnecting is requested', () => {
       const importRemote = mount(<ImportRemote {...mockProps} preconnect />);
 
-      expect(importRemote.find(Preconnect).prop('hosts')).toEqual([
-        new URL(mockProps.source).hostname,
-      ]);
+      expect(importRemote.find(Preconnect).prop('source')).toBe(
+        new URL(mockProps.source).origin,
+      );
     });
   });
 });
