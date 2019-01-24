@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
   "dependencies": {
-    "@shopify/react-preconnect": "^0.1.6",
+    "@shopify/react-html": "^6.0.2",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
