@@ -5,7 +5,7 @@ import Link from '../Link';
 import Preconnect from '../Preconnect';
 
 describe('<Preconnect />', () => {
-  it('renders a <Link /> with DNS prefetch and preconnect props', () => {
+  it('renders a <Link /> with with rel set to dns-prefetch and preconnect', () => {
     const preconnect = mount(<Preconnect source="" />);
     expect(preconnect.find(Link).props()).toMatchObject({
       rel: 'dns-prefetch preconnect',

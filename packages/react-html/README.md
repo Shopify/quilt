@@ -228,7 +228,7 @@ Renders a `<link />` tag with the necessary props to specify a favicon. Accepts 
 
 ### `<Preconnect />`
 
-Renders a `<link />` tag with the necessary props to fully preconnect to the host specified by the `source` prop.
+Renders a `<link />` tag that preconnects the browser to the host specified by the `source` prop. You can read more about preconnecting on [Google’s guide to resource prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization#preconnect).
 
 ### `<Serialize />`
 
