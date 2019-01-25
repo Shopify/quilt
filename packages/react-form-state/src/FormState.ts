@@ -1,11 +1,7 @@
 /* eslint-disable no-case-declarations */
 import * as React from 'react';
-import isEqual from 'lodash/isEqual';
-import isArray from 'lodash/isArray';
-import set from 'lodash/set';
-import {memoize, bind} from 'lodash-decorators';
 
-import {mapObject} from './utilities';
+import {mapObject, set, isEqual} from './utilities';
 import {
   FieldDescriptors,
   FieldState,
@@ -93,6 +89,7 @@ export default class FormState<
 
   state = createFormState(this.props.initialValues);
   private mounted = false;
+  private fieldsWithHandlers = new WeakMap();
 
   componentDidMount() {
     this.mounted = true;
@@ -133,15 +130,14 @@ export default class FormState<
     });
   }
 
-  @bind()
-  public reset() {
+  public reset = () => {
     return new Promise(resolve => {
       this.setState(
         (_state, props) => createFormState(props.initialValues),
         () => resolve(),
       );
     });
-  }
+  };
 
   private get dirty() {
     return this.state.dirtyFields.length > 0;
@@ -172,8 +168,7 @@ export default class FormState<
     return fieldDescriptors;
   }
 
-  @bind()
-  private async submit(event?: Event) {
+  private submit = async (event?: Event) => {
     const {onSubmit, validateOnSubmit} = this.props;
     const {formData} = this;
 
@@ -212,21 +207,26 @@ export default class FormState<
     } else {
       this.setState({submitting: false, errors});
     }
-  }
+  };
 
-  @memoize()
-  @bind()
-  private fieldWithHandlers<Key extends keyof Fields>(
+  private fieldWithHandlers = <Key extends keyof Fields>(
     field: FieldStates<Fields>[Key],
     fieldPath: Key,
-  ) {
-    return {
+  ) => {
+    if (this.fieldsWithHandlers.has(field)) {
+      // eslint-disable-next-line typescript/no-non-null-assertion
+      return this.fieldsWithHandlers.get(field)!;
+    }
+
+    const result = {
       ...(field as FieldState<Fields[Key]>),
-      name: fieldPath,
+      name: String(fieldPath),
       onChange: this.updateField.bind(this, fieldPath),
       onBlur: this.blurField.bind(this, fieldPath),
     };
-  }
+    this.fieldsWithHandlers.set(field, result);
+    return result;
+  };
 
   private updateField<Key extends keyof Fields>(
     fieldPath: Key,
@@ -446,7 +446,7 @@ function runValidator<T, F>(
     return validate(value, fields);
   }
 
-  if (!isArray(validate)) {
+  if (!Array.isArray(validate)) {
     // eslint-disable-next-line consistent-return
     return;
   }
