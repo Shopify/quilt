@@ -27,27 +27,30 @@ export function replace<T>(array: T[], targetIndex: number, newValue: T) {
 }
 
 export function set<InputType extends Object>(
-  lhs: InputType,
+  rootObject: InputType,
   path: string[],
   value: any,
 ) {
   if (path.length === 0) {
-    return lhs;
+    return rootObject;
   } else if (path.length === 1) {
     return {
-      ...(lhs as any),
+      ...(rootObject as any),
       [path[0]]: value,
     };
   } else {
     const [current, ...rest] = path;
     return {
-      ...(lhs as any),
-      [current]: set(lhs[current], rest, value),
+      ...(rootObject as any),
+      [current]: set(rootObject[current], rest, value),
     } as InputType;
   }
 }
 
-export function isEqual(value, baseline) {
+export function isEqual(value: any, baseline: any) {
+  if (value === baseline) {
+    return true;
+  }
   if (typeof value !== typeof baseline) {
     return false;
   }
@@ -84,5 +87,5 @@ export function isEqual(value, baseline) {
     }
     return true;
   }
-  return value === baseline;
+  return false;
 }
