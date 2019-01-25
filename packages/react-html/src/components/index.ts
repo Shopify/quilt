@@ -5,3 +5,6 @@ export {default as Preconnect} from './Preconnect';
 export {default as Script} from './Script';
 export {default as Style} from './Style';
 export {default as Title} from './Title';
+export {default as Responsive} from './Responsive';
+export {default as AppleHomeScreen} from './AppleHomeScreen';
+export {default as Baseline} from './Baseline';
