@@ -369,7 +369,8 @@ describe('<FormState />', () => {
         <FormState
           initialValues={{
             product: faker.commerce.productName(),
-            color: faker.commerce.productName(),
+            color: faker.commerce.color(),
+            date: faker.date.recent(),
           }}
         >
           {renderPropSpy}
@@ -385,16 +386,21 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
       const color = faker.commerce.color();
+      const date = faker.date.recent();
 
       mount(
-        <FormState initialValues={{product, color}}>{renderPropSpy}</FormState>,
+        <FormState initialValues={{product, color, date}}>
+          {renderPropSpy}
+        </FormState>,
       );
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
       formDetails.fields.color.onChange(faker.commerce.color());
+      formDetails.fields.date.onChange(faker.date.recent());
       formDetails.fields.product.onChange(product);
       formDetails.fields.color.onChange(color);
+      formDetails.fields.date.onChange(date);
 
       const {dirty} = lastCallArgs(renderPropSpy);
       expect(dirty).toBe(false);
@@ -404,13 +410,16 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
       const color = faker.commerce.color();
+      const date = faker.date.recent();
 
       mount(
-        <FormState initialValues={{product, color}}>{renderPropSpy}</FormState>,
+        <FormState initialValues={{product, color, date}}>
+          {renderPropSpy}
+        </FormState>,
       );
 
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.productName());
+      formDetails.fields.date.onChange(faker.date.recent());
 
       const {dirty} = lastCallArgs(renderPropSpy);
       expect(dirty).toBe(true);

@@ -1,3 +1,7 @@
+import isEqual from 'fast-deep-equal';
+
+export {isEqual};
+
 export function mapObject<Input, Output>(
   input: Input,
   mapper: (value: any, key: keyof Input) => any,
@@ -45,47 +49,4 @@ export function set<InputType extends Object>(
       [current]: set(rootObject[current], rest, value),
     } as InputType;
   }
-}
-
-export function isEqual(value: any, baseline: any) {
-  if (value === baseline) {
-    return true;
-  }
-  if (typeof value !== typeof baseline) {
-    return false;
-  }
-  if (Array.isArray(value)) {
-    if (!Array.isArray(baseline)) {
-      return false;
-    }
-    if (value.length !== baseline.length) {
-      return false;
-    }
-    for (let iter = 0; iter < value.length; iter++) {
-      if (!isEqual(value[iter], baseline[iter])) {
-        return false;
-      }
-    }
-    return true;
-  }
-  if (typeof value === 'object') {
-    if (value === null) {
-      return baseline === null;
-    }
-    if (baseline === null) {
-      return false;
-    }
-    const keysInValue = Object.keys(value);
-    const keysInBaseline = Object.keys(baseline);
-    if (!isEqual(keysInValue, keysInBaseline)) {
-      return false;
-    }
-    for (const key of keysInValue) {
-      if (!isEqual(value[key], baseline[key])) {
-        return false;
-      }
-    }
-    return true;
-  }
-  return false;
 }

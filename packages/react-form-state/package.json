@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form-state/README.md",
   "dependencies": {
+    "fast-deep-equal": "^2.0.1",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
