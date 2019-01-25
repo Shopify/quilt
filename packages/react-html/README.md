@@ -230,13 +230,9 @@ Renders a `<link />` tag with the necessary props to specify a favicon. Accepts 
 
 Renders a `<link />` tag that preconnects the browser to the host specified by the `source` prop. You can read more about preconnecting on [Google’s guide to resource prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization#preconnect).
 
-### `<Baseline />`
-
-Renders a minimal set of `<Meta />` tags to specify basic app information. Accepts a `title` property that is passed as the children of a `<Title />` component, and a `favicon` source that is passed to a `<Favicon />` component.
-
 ### `<Responsive />`
 
-Renders a `<Meta />` tag that specifies additional functionality and dimensions to mobile devices. Accepts a `coverNotch` property which allows the viewport to fill the device display, and an `allowPinchToZoom` property to the app to be zoomed-in. Both properties default to `true`.
+Renders a `<Meta />` tag that specifies additional functionality and dimensions to mobile devices. Accepts a `coverNotch` property which allows the viewport to fill the device display, and an `allowPinchToZoom` property to the allow the app to be zoomed-in. Both properties default to `true`.
 
 ### `<AppleHomeScreen />`
 
