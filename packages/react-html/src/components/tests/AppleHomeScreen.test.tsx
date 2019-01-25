@@ -3,7 +3,6 @@ import {mount} from 'enzyme';
 
 import Link from '../Link';
 import Meta from '../Meta';
-import {findMeta} from '../../tests/utilities';
 
 import AppleHomeScreen, {IconSize} from '../AppleHomeScreen';
 
@@ -12,7 +11,7 @@ describe('<AppleHomeScreen />', () => {
     const appleHomeScreen = mount(<AppleHomeScreen />);
 
     expect(
-      findMeta(appleHomeScreen.find(Meta), {
+      findMeta(appleHomeScreen, {
         name: 'apple-mobile-web-app-capable',
         content: 'yes',
       }),
@@ -23,7 +22,7 @@ describe('<AppleHomeScreen />', () => {
     const appleHomeScreen = mount(<AppleHomeScreen />);
 
     expect(
-      findMeta(appleHomeScreen.find(Meta), {
+      findMeta(appleHomeScreen, {
         name: 'apple-mobile-web-app-status-bar-style',
         content: 'black',
       }),
@@ -71,3 +70,13 @@ describe('<AppleHomeScreen />', () => {
     });
   });
 });
+
+export function findMeta(wrapper, props) {
+  return wrapper.find(Meta).findWhere(component => {
+    const propsArray = Object.keys(props);
+    return (
+      propsArray.filter(prop => component.prop(prop) === props[prop]).length ===
+      propsArray.length
+    );
+  });
+}
