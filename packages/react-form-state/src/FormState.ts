@@ -89,7 +89,7 @@ export default class FormState<
 
   state = createFormState(this.props.initialValues);
   private mounted = false;
-  private fieldsWithHandlers = new Map<string, any>();
+  private fieldsWithHandlers = new WeakMap();
 
   componentDidMount() {
     this.mounted = true;
@@ -211,26 +211,21 @@ export default class FormState<
 
   private fieldWithHandlers = <Key extends keyof Fields>(
     field: FieldStates<Fields>[Key],
-    fieldPath: string & Key,
+    fieldPath: Key,
   ) => {
-    const hashKey = `${fieldPath}:${JSON.stringify(field)}`;
-    let ret: FieldState<Fields[Key]> & {name: Key} & {
-      onChange(newValue: any): void;
-      onBlur(): void;
-    };
-    if (this.fieldsWithHandlers.has(hashKey)) {
+    if (this.fieldsWithHandlers.has(field)) {
       // eslint-disable-next-line typescript/no-non-null-assertion
-      ret = this.fieldsWithHandlers.get(hashKey)!;
-    } else {
-      ret = {
-        ...(field as FieldState<Fields[Key]>),
-        name: fieldPath,
-        onChange: this.updateField.bind(this, fieldPath),
-        onBlur: this.blurField.bind(this, fieldPath),
-      };
-      this.fieldsWithHandlers.set(hashKey, ret);
+      return this.fieldsWithHandlers.get(field)!;
     }
-    return ret;
+
+    const result = {
+      ...(field as FieldState<Fields[Key]>),
+      name: String(fieldPath),
+      onChange: this.updateField.bind(this, fieldPath),
+      onBlur: this.blurField.bind(this, fieldPath),
+    };
+    this.fieldsWithHandlers.set(field, result);
+    return result;
   };
 
   private updateField<Key extends keyof Fields>(
