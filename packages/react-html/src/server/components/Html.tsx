@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {renderToString} from 'react-dom/server';
 
-import {Script, Style} from '../../components';
+import {Script, Style, Meta, Favicon, Title} from '../../components';
 import Manager from '../../manager';
 import {MANAGED_ATTRIBUTE} from '../../utilities';
 
@@ -21,6 +21,8 @@ export interface Props {
   blockingScripts?: Asset[];
   headMarkup?: React.ReactNode;
   bodyMarkup?: React.ReactNode;
+  favicon?: string;
+  title?: string;
 }
 
 export default function Html({
@@ -32,6 +34,8 @@ export default function Html({
   styles = [],
   headMarkup = null,
   bodyMarkup = null,
+  favicon,
+  title,
 }: Props) {
   const markup = renderToString(children);
 
@@ -45,10 +49,14 @@ export default function Html({
 
   const managedProps = {[MANAGED_ATTRIBUTE]: true};
 
+  const titleFallbackMarkup = title ? <Title>{title}</Title> : null;
+
   const titleMarkup =
     extracted && extracted.title ? (
       <title {...managedProps}>{extracted.title}</title>
-    ) : null;
+    ) : (
+      titleFallbackMarkup
+    );
 
   const metaMarkup = extracted
     ? extracted.metas.map((metaProps, index) => (
@@ -106,9 +114,15 @@ export default function Html({
     // eslint-disable-next-line no-process-env
     process.env.NODE_ENV === 'development' ? {display: 'none'} : undefined;
 
+  const faviconMarkup = favicon ? <Favicon source={favicon} /> : null;
+
   return (
     <html lang={locale}>
       <head>
+        <Meta charSet="utf-8" />
+        <Meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <Meta name="referrer" content="never" />
+        {faviconMarkup}
         {titleMarkup}
         {metaMarkup}
         {linkMarkup}
