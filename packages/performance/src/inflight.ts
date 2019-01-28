@@ -1,5 +1,12 @@
 import {now} from './utilities';
-import {Event, NavigationResult, NavigationMetadata, EventType} from './types';
+import {
+  Event,
+  NavigationResult,
+  NavigationMetadata,
+  EventType,
+  ScriptDownloadEvent,
+  StyleDownloadEvent,
+} from './types';
 import {Navigation} from './navigation';
 
 interface NavigationStartOptions {
@@ -8,17 +15,32 @@ interface NavigationStartOptions {
   start?: number;
 }
 
+function replaceResourceEvent(event: Event, oldEvent: Event) {
+  if (
+    (event.type !== EventType.ScriptDownload &&
+      event.type !== EventType.StyleDownload) ||
+    (oldEvent.type !== EventType.ScriptDownload &&
+      oldEvent.type !== EventType.StyleDownload)
+  ) {
+    return false;
+  }
+
+  return (
+    event.type === oldEvent.type &&
+    (event as ScriptDownloadEvent | StyleDownloadEvent).metadata.name ===
+      (oldEvent as ScriptDownloadEvent | StyleDownloadEvent).metadata.name
+  );
+}
+
 const MATCHES_CHECK_MAP = new Map<
   Event['type'],
   (newEvent: Event, oldEvent: Event) => boolean
 >([
-  [
-    EventType.ScriptDownload,
-    (newEvent: Event, oldEvent: Event) =>
-      oldEvent.type === EventType.ScriptDownload &&
-      // eslint-disable-next-line typescript/no-non-null-assertion
-      oldEvent.metadata!.name === newEvent.metadata!.name,
-  ],
+  // In Safari, we occasionally get the same "resource" event twice.
+  // This check looks for a resource event with the same name, and replaces
+  // it if found.
+  [EventType.ScriptDownload, replaceResourceEvent],
+  [EventType.StyleDownload, replaceResourceEvent],
 ]);
 
 function defaultEqualityCheck({type}: Event, {type: otherType}: Event) {
@@ -46,6 +68,10 @@ export class InflightNavigation {
 
   event(
     event: Event,
+    // Users can either force "matching" events to be replaced, or provide
+    // a function that checks for an event that should be replaced. This may
+    // be necessary if events can be triggered multiple times because of
+    // browser inconsistencies.
     replaceExisting:
       | boolean
       | ((newEvent: Event, oldEvent: Event) => boolean) = false,
