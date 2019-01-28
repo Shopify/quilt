@@ -1,6 +1,6 @@
 {
-  "name": "@shopify/performance",
-  "version": "0.0.0",
+  "name": "lemon-performance",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "Primitives for collecting browser performance metrics.",
   "main": "dist/index.js",
@@ -27,5 +27,7 @@
   "devDependencies": {
     "typescript": "~3.0.1"
   },
-  "files": ["dist/*"]
+  "files": [
+    "dist/*"
+  ]
 }
