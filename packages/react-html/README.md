@@ -230,6 +230,14 @@ Renders a `<link />` tag with the necessary props to specify a favicon. Accepts 
 
 Renders a `<link />` tag that preconnects the browser to the host specified by the `source` prop. You can read more about preconnecting on [Google’s guide to resource prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization#preconnect).
 
+### `<Responsive />`
+
+Renders a `<Meta />` tag that specifies additional functionality and dimensions to mobile devices. Accepts a `coverNotch` property which allows the viewport to fill the device display, and an `allowPinchToZoom` property to the allow the app to be zoomed-in. Both properties default to `true`.
+
+### `<AppleHomeScreen />`
+
+Renders iOS-specific `<Meta />` tags and `<Link />` tags to specify additional visual information on how to display the app on iOS devices. Accepts an `icons` property as an array of image attributes to be used for the app‘s home screen icon. Also accepts a `startUpImage` url to render while the app is loading after being launched from the home screen.
+
 ### `<Serialize />`
 
 The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `createSerializer()` method of generating serializations [documented above](#in-your-app-code).
