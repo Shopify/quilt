@@ -14,6 +14,8 @@ import {
   WEEK_START_DAYS,
   RTL_LANGUAGES,
   Weekdays,
+  currencyDecimalPlaces,
+  DEFAULT_DECIMAL_PLACES,
 } from './constants';
 import {MissingCurrencyCodeError, MissingCountryError} from './errors';
 import {
@@ -179,10 +181,13 @@ export default class I18n {
 
     const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
     const invalidValue = normalizedValue === '' || normalizedValue === '.';
+    const decimalPlaces =
+      currencyDecimalPlaces.get[currencyCode.toUpperCase()] ||
+      DEFAULT_DECIMAL_PLACES;
 
     return invalidValue
       ? DEFAULT_VALUE
-      : parseFloat(normalizedValue).toFixed(2);
+      : parseFloat(normalizedValue).toFixed(decimalPlaces);
   }
 
   formatPercentage(amount: number, options: Intl.NumberFormatOptions = {}) {
@@ -264,16 +269,18 @@ export default class I18n {
   }
 
   private decimalSymbol(currencyCode: string) {
+    const digitOrSpace = /\s|\d/g;
     const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
-    const templatedInput = Number('1000.00');
-    const formattedInput = this.formatCurrency(templatedInput, {
-      currency: currencyCode,
-    }).replace(symbol, '');
-    const decimal = formattedInput.charAt(formattedInput.length - 3);
 
-    // Some currencies don't use decimalds (eg. JPY)
-    const digit = /\d/g;
-    return digit.test(decimal) ? DECIMAL_NOT_SUPPORTED : decimal;
+    const templatedInput = 1;
+
+    const decimal = this.formatCurrency(templatedInput, {
+      currency: currencyCode,
+    })
+      .replace(symbol, '')
+      .replace(digitOrSpace, '');
+
+    return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 }
 
