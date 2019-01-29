@@ -31,6 +31,11 @@ export interface TranslateOptions {
   scope: RootTranslateOptions<any>['scope'];
 }
 
+// Used for currecies that don't use fractional units (eg. JPY)
+const DECIMAL_NOT_SUPPORTED = 'N/A';
+const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
+const DEFAULT_VALUE = '';
+
 export default class I18n {
   readonly locale: string;
   readonly pseudolocalize: boolean | string;
@@ -150,6 +155,36 @@ export default class I18n {
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
+  unformatCurrency(input: string, currencyCode: string): string {
+    const nonDigits = /\D/g;
+    const decimal = this.decimalSymbol(currencyCode);
+    const lastDecimalIndex = input.lastIndexOf(decimal);
+
+    if (decimal === DECIMAL_NOT_SUPPORTED) {
+      const amount = input.replace(nonDigits, '');
+      return `${amount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
+    }
+
+    const integerValue = input
+      .substring(0, lastDecimalIndex)
+      .replace(nonDigits, '');
+
+    // This decimal symbol will always be '.' regardless of the locale
+    // since it's our internal representation of the string
+    const normalizedDecimal = lastDecimalIndex === -1 ? '' : '.';
+
+    const decimalValue = input
+      .substring(lastDecimalIndex + 1)
+      .replace(nonDigits, '');
+
+    const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
+    const invalidValue = normalizedValue === '' || normalizedValue === '.';
+
+    return invalidValue
+      ? DEFAULT_VALUE
+      : parseFloat(normalizedValue).toFixed(2);
+  }
+
   formatPercentage(amount: number, options: Intl.NumberFormatOptions = {}) {
     return this.formatNumber(amount, {as: 'percent', ...options});
   }
@@ -226,6 +261,19 @@ export default class I18n {
         ...dateStyle[DateStyle.Humanize],
       });
     }
+  }
+
+  private decimalSymbol(currencyCode: string) {
+    const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
+    const templatedInput = Number('1000.00');
+    const formattedInput = this.formatCurrency(templatedInput, {
+      currency: currencyCode,
+    }).replace(symbol, '');
+    const decimal = formattedInput.charAt(formattedInput.length - 3);
+
+    // Some currencies don't use decimalds (eg. JPY)
+    const digit = /\d/g;
+    return digit.test(decimal) ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 }
 

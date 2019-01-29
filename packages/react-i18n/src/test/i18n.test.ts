@@ -346,6 +346,42 @@ describe('I18n', () => {
     });
   });
 
+  describe('#unformatCurrency()', () => {
+    const currency = 'USD';
+    const mockResult = {
+      symbol: '$',
+      prefixed: true,
+    };
+
+    beforeEach(() => {
+      getCurrencySymbol.mockReset();
+    });
+
+    it('unformats formatted input', () => {
+      getCurrencySymbol.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('1,234.50', currency)).toBe('1234.50');
+      expect(i18n.unformatCurrency('1', currency)).toBe('1.00');
+    });
+
+    it('unformats formatted input to 2 digits', () => {
+      getCurrencySymbol.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('1,234.555', currency)).toBe('1234.56');
+      expect(i18n.unformatCurrency('1,234.006', currency)).toBe('1234.01');
+    });
+
+    it('unformats formatted input with symbols', () => {
+      getCurrencySymbol.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const formattedInput = '$1,234.50';
+      expect(i18n.unformatCurrency(formattedInput, currency)).toBe('1234.50');
+    });
+  });
+
   describe('#formatPercentage()', () => {
     it('formats the number as a percentage', () => {
       const i18n = new I18n(defaultTranslations, defaultDetails);
