@@ -230,7 +230,10 @@ export class Performance {
       return;
     }
 
-    this.record(this.inflightNavigation.finish(timeStamp));
+    const navigation = this.inflightNavigation.finish(timeStamp);
+
+    this.firstNavigation = this.firstNavigation || navigation;
+    this.record(navigation);
     this.inflightNavigation = undefined;
   }
 
