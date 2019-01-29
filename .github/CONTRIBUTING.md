@@ -46,6 +46,8 @@ To try out your changes in another locally cloned project, you can use `yarn top
 
 Example: To test my changes to `@shopify/react-form-state` in my local project named `cool-proj`, I would run `yarn tophat react-form-state ../path/to/cool-proj`.
 
+Note: If the package you are testing has dependencies inside Quilt itself, you will need to run `dev build` first.
+
 ### Emoji commits
 
 We have found that prefacing a commit message or PR title with an emoji can be a great way to improve the developer experience when browsing the repo code. Additionally, it is a terse way to convey information. Many of our contributors have found the guide at https://gitmoji.carloscuesta.me/ to be helpful in preserving this dynamic.
