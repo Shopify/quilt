@@ -59,7 +59,7 @@ export function withNavigation(
 export function withTiming(
   handler: (timing: typeof performance.timing) => void,
 ) {
-  if (typeof document === 'undefined') {
+  if (typeof document === 'undefined' || typeof performance === 'undefined') {
     return;
   }
 
