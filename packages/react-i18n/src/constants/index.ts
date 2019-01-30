@@ -175,3 +175,8 @@ export const RTL_LANGUAGES = [
   'yi', // 'ייִדיש', Yiddish
 ];
 /* eslint-enable */
+
+export {
+  default as currencyDecimalPlaces,
+  DEFAULT_DECIMAL_PLACES,
+} from './currecy-decimal-places';
