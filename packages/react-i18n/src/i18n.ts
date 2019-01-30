@@ -36,7 +36,6 @@ export interface TranslateOptions {
 // Used for currecies that don't use fractional units (eg. JPY)
 const DECIMAL_NOT_SUPPORTED = 'N/A';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
-const DEFAULT_VALUE = '';
 
 export default class I18n {
   readonly locale: string;
@@ -159,34 +158,34 @@ export default class I18n {
 
   unformatCurrency(input: string, currencyCode: string): string {
     const nonDigits = /\D/g;
-    const decimal = this.decimalSymbol(currencyCode);
-    const lastDecimalIndex = input.lastIndexOf(decimal);
-
-    if (decimal === DECIMAL_NOT_SUPPORTED) {
-      const amount = input.replace(nonDigits, '');
-      return `${amount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
-    }
-
-    const integerValue = input
-      .substring(0, lastDecimalIndex)
-      .replace(nonDigits, '');
 
     // This decimal symbol will always be '.' regardless of the locale
     // since it's our internal representation of the string
-    const normalizedDecimal = lastDecimalIndex === -1 ? '' : '.';
+    const symbol = this.decimalSymbol(currencyCode);
+    const decimal = symbol === DECIMAL_NOT_SUPPORTED ? '.' : symbol;
 
+    const lastDecimalIndex = input.lastIndexOf(decimal);
+    const integerValue = input
+      .substring(0, lastDecimalIndex)
+      .replace(nonDigits, '');
     const decimalValue = input
       .substring(lastDecimalIndex + 1)
       .replace(nonDigits, '');
 
+    const normalizedDecimal = lastDecimalIndex === -1 ? '' : '.';
     const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
     const invalidValue = normalizedValue === '' || normalizedValue === '.';
-    const decimalPlaces =
-      currencyDecimalPlaces.get[currencyCode.toUpperCase()] ||
-      DEFAULT_DECIMAL_PLACES;
 
+    if (symbol === DECIMAL_NOT_SUPPORTED) {
+      const roundedAmount = parseFloat(normalizedValue).toFixed(0);
+      return `${roundedAmount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
+    }
+
+    const decimalPlaces =
+      currencyDecimalPlaces.get(currencyCode.toUpperCase()) ||
+      DEFAULT_DECIMAL_PLACES;
     return invalidValue
-      ? DEFAULT_VALUE
+      ? ''
       : parseFloat(normalizedValue).toFixed(decimalPlaces);
   }
 
@@ -273,7 +272,6 @@ export default class I18n {
     const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
 
     const templatedInput = 1;
-
     const decimal = this.formatCurrency(templatedInput, {
       currency: currencyCode,
     })

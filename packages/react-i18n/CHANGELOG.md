@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Add `unformatCurrency` utility return the normalized value of a formatted money value [#486](https://github.com/Shopify/quilt/pull/486)
+- Add `unformatCurrency` utility to return the normalized value of formatted currency [#486](https://github.com/Shopify/quilt/pull/486)
 
 ## [0.7.4] - 2019-01-21
 
