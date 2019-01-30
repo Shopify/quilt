@@ -61,6 +61,32 @@ describe('Navigation', () => {
     });
   });
 
+  describe('#timeToComplete', () => {
+    it('is the duration of the navigation', () => {
+      const duration = 123;
+      expect(createNavigation({duration})).toHaveProperty(
+        'timeToComplete',
+        duration,
+      );
+    });
+  });
+
+  describe('#timeToUsable', () => {
+    it('is the time to complete when no "usable" events were triggered', () => {
+      const navigation = createNavigation();
+      expect(navigation).toHaveProperty(
+        'timeToUsable',
+        navigation.timeToComplete,
+      );
+    });
+
+    it('is the start time of the "usable" event when available', () => {
+      const event = {type: EventType.Usable, duration: 0, start: 123};
+      const navigation = createNavigation({events: [event]});
+      expect(navigation).toHaveProperty('timeToUsable', event.start);
+    });
+  });
+
   describe('#resourceEvents', () => {
     it('does not return non-resource events', () => {
       const navigation = createNavigation({events: [createGenericEvent()]});

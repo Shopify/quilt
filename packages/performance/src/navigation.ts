@@ -56,6 +56,15 @@ export class Navigation implements NavigationDefinition {
     return ranges.reduce((total, {duration}) => total + duration, 0);
   }
 
+  get timeToComplete() {
+    return this.duration;
+  }
+
+  get timeToUsable() {
+    const usableEvent = this.eventsByType(EventType.Usable)[0];
+    return usableEvent ? usableEvent.start : this.timeToComplete;
+  }
+
   get resourceEvents() {
     return [
       ...this.eventsByType(EventType.ScriptDownload),

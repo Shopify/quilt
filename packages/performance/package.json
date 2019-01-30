@@ -1,5 +1,5 @@
 {
-  "name": "lemon-performance",
+  "name": "@shopify/performance",
   "version": "0.0.1",
   "license": "MIT",
   "description": "Primitives for collecting browser performance metrics.",

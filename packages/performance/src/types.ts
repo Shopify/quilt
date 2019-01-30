@@ -5,6 +5,7 @@ export enum EventType {
   DomContentLoaded = 'dcl',
   Load = 'load',
   LongTask = 'longtask',
+  Usable = 'usable',
   // eslint-disable-next-line shopify/typescript/prefer-pascal-case-enums
   GraphQL = 'graphql',
   ScriptDownload = 'script',
@@ -62,6 +63,11 @@ export interface GraphQLEvent extends BasicEvent {
   metadata: {name: string; size?: number};
 }
 
+export interface UsableEvent extends BasicEvent {
+  type: EventType.Usable;
+  metadata?: undefined;
+}
+
 export interface CustomEvent extends BasicEvent {
   type: string;
 }
@@ -79,6 +85,7 @@ export type Event =
   | ScriptDownloadEvent
   | StyleDownloadEvent
   | GraphQLEvent
+  | UsableEvent
   | CustomEvent;
 
 export interface EventMap {
@@ -91,6 +98,7 @@ export interface EventMap {
   [EventType.StyleDownload]: StyleDownloadEvent;
   [EventType.GraphQL]: GraphQLEvent;
   [EventType.LongTask]: LongTaskEvent;
+  [EventType.Usable]: UsableEvent;
   [key: string]: CustomEvent;
 }
 

@@ -21,7 +21,7 @@ const WATCH_RESOURCE_TYPES = ['script', 'css'];
 
 interface EventMap {
   navigation: (navigation: Navigation) => void;
-  navigationStart: () => void;
+  inflightNavigation: () => void;
   lifecycleEvent: (event: LifecycleEvent) => void;
 }
 
@@ -49,7 +49,7 @@ export class Performance {
   private navigationCount = 0;
   private eventHandlers = {
     navigation: new Set<EventMap['navigation']>(),
-    navigationStart: new Set<EventMap['navigationStart']>(),
+    inflightNavigation: new Set<EventMap['inflightNavigation']>(),
     lifecycleEvent: new Set<EventMap['lifecycleEvent']>(),
   };
 
@@ -171,8 +171,8 @@ export class Performance {
 
     // If they are registered to here about new navigations, and one is in flight,
     // tell them right away.
-    if (event === 'navigationStart' && this.inflightNavigation != null) {
-      (handler as EventMap['navigationStart'])();
+    if (event === 'inflightNavigation' && this.inflightNavigation != null) {
+      (handler as EventMap['inflightNavigation'])();
     }
 
     if (event === 'lifecycleEvent') {
@@ -218,9 +218,20 @@ export class Performance {
 
     this.navigationTimeout = setTimeout(() => this.timeout.bind(this), timeout);
 
-    for (const subscriber of this.eventHandlers.navigationStart) {
+    for (const subscriber of this.eventHandlers.inflightNavigation) {
       subscriber();
     }
+  }
+
+  usable(timeStamp = now()) {
+    this.event(
+      {
+        type: EventType.Usable,
+        start: timeStamp,
+        duration: 0,
+      },
+      {replace: true},
+    );
   }
 
   finish(timeStamp = now()) {
