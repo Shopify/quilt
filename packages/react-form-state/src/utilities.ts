@@ -46,7 +46,7 @@ export function set<InputType extends Object>(
     const [current, ...rest] = path;
     return {
       ...(rootObject as any),
-      [current]: set(rootObject[current], rest, value),
+      [current]: set(rootObject[current] || {}, rest, value),
     } as InputType;
   }
 }
