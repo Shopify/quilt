@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Added
+## [1.0.1] - 2019-01-11
 
-- `@shopify/performance` package
+### Fixed
+
+- No longer fails if the browser does not have `window.performance`.
+
+## [1.0.0] - 2019-01-30
+
+First version.
