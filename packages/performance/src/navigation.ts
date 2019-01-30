@@ -64,7 +64,13 @@ export class Navigation implements NavigationDefinition {
   }
 
   get totalDownloadSize() {
-    return this.resourceEvents.reduce<number | undefined>(
+    const events = this.resourceEvents;
+
+    if (events.length === 0) {
+      return undefined;
+    }
+
+    return events.reduce<number | undefined>(
       (total, {metadata: {size}}) =>
         size == null || typeof total !== 'number' ? undefined : total + size,
       0,
@@ -87,17 +93,17 @@ export class Navigation implements NavigationDefinition {
   }
 
   toJSON({
-    stripEventMetadata = true,
-    stripLifecycleEvents = true,
+    removeEventMetadata = true,
+    removeLifecycleEvents = true,
   } = {}): NavigationDefinition {
-    const events = stripLifecycleEvents
+    const events = removeLifecycleEvents
       ? this.events.filter(
           ({type}) =>
             !LIFECYCLE_EVENTS.includes(type as LifecycleEvent['type']),
         )
       : this.events;
 
-    const processedEvents = stripEventMetadata
+    const processedEvents = removeEventMetadata
       ? events.map(({metadata, ...rest}) => rest)
       : events;
 
