@@ -5,6 +5,8 @@ import {
   NavigationResult,
   NavigationMetadata,
   LifecycleEvent,
+  ScriptDownloadEvent,
+  StyleDownloadEvent,
   EventMap,
 } from './types';
 import {getUniqueRanges} from './utilities';
@@ -65,7 +67,7 @@ export class Navigation implements NavigationDefinition {
     return usableEvent ? usableEvent.start : this.timeToComplete;
   }
 
-  get resourceEvents() {
+  get resourceEvents(): (ScriptDownloadEvent | StyleDownloadEvent)[] {
     return [
       ...this.eventsByType(EventType.ScriptDownload),
       ...this.eventsByType(EventType.StyleDownload),
