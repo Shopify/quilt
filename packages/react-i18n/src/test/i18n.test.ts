@@ -346,6 +346,171 @@ describe('I18n', () => {
     });
   });
 
+  describe('#unformatCurrency()', () => {
+    const mockSymbolResult = {
+      symbol: '$',
+      prefixed: true,
+    };
+
+    it('handles formatted USD input', () => {
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('1,234.50', 'USD')).toBe('1234.50');
+      expect(i18n.unformatCurrency('1', 'USD')).toBe('1.00');
+    });
+
+    describe('prefixed symbols', () => {
+      it('handles prefix with a space', () => {
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, defaultDetails);
+        expect(i18n.unformatCurrency('$ 1,234.50', 'USD')).toBe('1234.50');
+      });
+
+      it('handles prefix without a space', () => {
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, defaultDetails);
+        expect(i18n.unformatCurrency('$1,234.50', 'USD')).toBe('1234.50');
+      });
+    });
+
+    it('unformats formatted input to 2 digits', () => {
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('1,234.555', 'USD')).toBe('1234.56');
+      expect(i18n.unformatCurrency('1,234.006', 'USD')).toBe('1234.01');
+    });
+
+    it('unformats formatted input with symbols', () => {
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('$1,234.50', 'USD')).toBe('1234.50');
+    });
+
+    it('handles value starting with ,', () => {
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency(',12', 'USD')).toBe('12.00');
+    });
+
+    it('handles value starting with .', () => {
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('.12', 'USD')).toBe('0.12');
+    });
+
+    it('handles value starting with ', () => {
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency("'12", 'USD')).toBe('12.00');
+    });
+
+    describe('unique currencies or locales', () => {
+      let formatCurrency: jest.SpyInstance;
+
+      beforeEach(() => {
+        formatCurrency = jest.spyOn(I18n.prototype, 'formatCurrency');
+      });
+
+      afterEach(() => {
+        formatCurrency.mockReset();
+      });
+
+      it('handles locales with comma as decimal symbol', () => {
+        formatCurrency.mockImplementationOnce(() => 'US$ 1,00');
+        getCurrencySymbol.mockReturnValue({
+          symbol: 'US$',
+          prefixed: true,
+        });
+
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          locale: 'pt-BR',
+        });
+        expect(i18n.unformatCurrency('1.234,56', 'USD')).toBe('1234.56');
+      });
+
+      it('handles currencies without digits', () => {
+        formatCurrency.mockImplementationOnce(() => 'JP¥ 1');
+        getCurrencySymbol.mockReturnValue({
+          symbol: 'JP¥',
+          prefixed: true,
+        });
+
+        const i18n = new I18n(defaultTranslations, {...defaultDetails});
+        expect(i18n.unformatCurrency('8,141.23', 'JPY')).toBe('8141.00');
+      });
+
+      it('rounds currencies without digits to the greatest whole integer', () => {
+        formatCurrency.mockImplementationOnce(() => 'JP¥ 1');
+        getCurrencySymbol.mockReturnValue({
+          symbol: 'JP¥',
+          prefixed: true,
+        });
+
+        const i18n = new I18n(defaultTranslations, {...defaultDetails});
+        expect(i18n.unformatCurrency('8,141.99', 'JPY')).toBe('8142.00');
+      });
+
+      it('handles currencies with 3 decimal places', () => {
+        formatCurrency.mockImplementationOnce(() => 'JOD 1.000');
+        getCurrencySymbol.mockReturnValue({
+          symbol: 'JOD',
+          prefixed: true,
+        });
+
+        const i18n = new I18n(defaultTranslations, {...defaultDetails});
+        expect(i18n.unformatCurrency('JOD 123.34', 'JOD')).toBe('123.340');
+      });
+
+      it('rounds currencies with 3 decimal places', () => {
+        formatCurrency.mockImplementationOnce(() => 'JOD 1.000');
+        getCurrencySymbol.mockReturnValue({
+          symbol: 'JOD',
+          prefixed: true,
+        });
+
+        const i18n = new I18n(defaultTranslations, {...defaultDetails});
+        expect(i18n.unformatCurrency('123.9999', 'JOD')).toBe('124.000');
+      });
+
+      it('handles EUR currency with fr locale', () => {
+        formatCurrency.mockImplementationOnce(() => '1,00 €');
+        getCurrencySymbol.mockReturnValue({
+          symbol: '€',
+          prefixed: false,
+        });
+
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          locale: 'fr',
+        });
+        expect(i18n.unformatCurrency('1 233,45', 'EUR')).toBe('1233.45');
+      });
+
+      it('handles EUR currency with en-gb locale', () => {
+        formatCurrency.mockImplementationOnce(() => '€1.00');
+        getCurrencySymbol.mockReturnValue({
+          symbol: '€',
+          prefixed: true,
+        });
+
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          locale: 'en-gb',
+        });
+        expect(i18n.unformatCurrency('1,233.45', 'EUR')).toBe('1233.45');
+      });
+    });
+  });
+
   describe('#formatPercentage()', () => {
     it('formats the number as a percentage', () => {
       const i18n = new I18n(defaultTranslations, defaultDetails);

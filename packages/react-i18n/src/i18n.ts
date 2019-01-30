@@ -14,6 +14,8 @@ import {
   WEEK_START_DAYS,
   RTL_LANGUAGES,
   Weekdays,
+  currencyDecimalPlaces,
+  DEFAULT_DECIMAL_PLACES,
 } from './constants';
 import {MissingCurrencyCodeError, MissingCountryError} from './errors';
 import {
@@ -30,6 +32,10 @@ export interface NumberFormatOptions extends Intl.NumberFormatOptions {
 export interface TranslateOptions {
   scope: RootTranslateOptions<any>['scope'];
 }
+
+// Used for currecies that don't use fractional units (eg. JPY)
+const DECIMAL_NOT_SUPPORTED = 'N/A';
+const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 
 export default class I18n {
   readonly locale: string;
@@ -150,6 +156,39 @@ export default class I18n {
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
+  unformatCurrency(input: string, currencyCode: string): string {
+    const nonDigits = /\D/g;
+
+    // This decimal symbol will always be '.' regardless of the locale
+    // since it's our internal representation of the string
+    const symbol = this.decimalSymbol(currencyCode);
+    const decimal = symbol === DECIMAL_NOT_SUPPORTED ? '.' : symbol;
+
+    const lastDecimalIndex = input.lastIndexOf(decimal);
+    const integerValue = input
+      .substring(0, lastDecimalIndex)
+      .replace(nonDigits, '');
+    const decimalValue = input
+      .substring(lastDecimalIndex + 1)
+      .replace(nonDigits, '');
+
+    const normalizedDecimal = lastDecimalIndex === -1 ? '' : '.';
+    const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
+    const invalidValue = normalizedValue === '' || normalizedValue === '.';
+
+    if (symbol === DECIMAL_NOT_SUPPORTED) {
+      const roundedAmount = parseFloat(normalizedValue).toFixed(0);
+      return `${roundedAmount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
+    }
+
+    const decimalPlaces =
+      currencyDecimalPlaces.get(currencyCode.toUpperCase()) ||
+      DEFAULT_DECIMAL_PLACES;
+    return invalidValue
+      ? ''
+      : parseFloat(normalizedValue).toFixed(decimalPlaces);
+  }
+
   formatPercentage(amount: number, options: Intl.NumberFormatOptions = {}) {
     return this.formatNumber(amount, {as: 'percent', ...options});
   }
@@ -226,6 +265,20 @@ export default class I18n {
         ...dateStyle[DateStyle.Humanize],
       });
     }
+  }
+
+  private decimalSymbol(currencyCode: string) {
+    const digitOrSpace = /\s|\d/g;
+    const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
+
+    const templatedInput = 1;
+    const decimal = this.formatCurrency(templatedInput, {
+      currency: currencyCode,
+    })
+      .replace(symbol, '')
+      .replace(digitOrSpace, '');
+
+    return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 }
 
