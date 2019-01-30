@@ -1,6 +1,6 @@
 {
   "name": "@shopify/performance",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Primitives for collecting browser performance metrics.",
   "main": "dist/index.js",
@@ -23,7 +23,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/performance/README.md",
-  "dependencies": {},
   "devDependencies": {
     "typescript": "~3.0.1"
   },
