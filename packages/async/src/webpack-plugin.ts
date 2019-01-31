@@ -70,7 +70,11 @@ export class AsyncPlugin implements Plugin {
     compiler.plugin('emit', (compilation, callback) => {
       const manifest = buildManifest(compilation);
       const json = JSON.stringify(manifest, null, 2);
-      const outputDirectory = path.dirname(this.filename);
+      const file = path.join(
+        compilation.outputOptions.path || '',
+        this.filename,
+      );
+      const outputDirectory = path.dirname(file);
 
       try {
         fs.mkdirSync(outputDirectory);
@@ -80,7 +84,7 @@ export class AsyncPlugin implements Plugin {
         }
       }
 
-      fs.writeFileSync(this.filename, json);
+      fs.writeFileSync(file, json);
       callback();
     });
   }
