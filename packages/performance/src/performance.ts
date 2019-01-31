@@ -28,6 +28,7 @@ interface EventMap {
 const DEFAULT_TIMEOUT = 60_000;
 
 export class Performance {
+  readonly supportsObserver = hasGlobal('PerformanceObserver');
   readonly supportsMarks = hasGlobal('PerformanceMark');
   readonly supportsNavigationEntries = hasGlobal('PerformanceNavigationTiming');
   readonly supportsLongtaskEntries = hasGlobal('PerformanceLongTaskTiming');
