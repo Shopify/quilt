@@ -1,1 +1,2 @@
-export * from './dist/babel';
+export {default} from './dist/babel-plugin';
+export * from './dist/babel-plugin';

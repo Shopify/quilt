@@ -11,7 +11,7 @@ interface State {
   opts?: {packages?: {[key: string]: string[]}};
 }
 
-export = function asyncBabelPlugin({types: t}: {types: typeof Types}) {
+export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
   return {
     visitor: {
       Program(_path: NodePath<Types.Program>, state: State) {
@@ -59,7 +59,7 @@ export = function asyncBabelPlugin({types: t}: {types: typeof Types}) {
       },
     },
   };
-};
+}
 
 function processBinding(binding: Binding, t: typeof Types) {
   binding.referencePaths.forEach(refPath => {

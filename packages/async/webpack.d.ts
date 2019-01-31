@@ -1,1 +1,1 @@
-export * from './dist/webpack';
+export * from './dist/webpack-plugin';
