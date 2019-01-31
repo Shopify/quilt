@@ -27,18 +27,28 @@ export function withEntriesOfType<T extends keyof EntryMap>(
   type: T,
   handler: (entry: EntryMap[T]) => void,
 ) {
-  const initialEntries = performance.getEntriesByType(type);
+  try {
+    const initialEntries = performance.getEntriesByType(type);
+    initialEntries.forEach(entry => handler(entry));
 
-  initialEntries.forEach(entry => handler(entry));
+    if (!hasGlobal('PerformanceObserver')) {
+      return;
+    }
 
-  const observer = new PerformanceObserver(entries => {
-    entries.getEntriesByType(type).forEach(entry => handler(entry));
-  });
+    const observer = new PerformanceObserver(entries => {
+      entries.getEntriesByType(type).forEach(entry => handler(entry));
+    });
 
-  observer.observe({
-    entryTypes: [type],
-    buffered: true,
-  });
+    observer.observe({
+      entryTypes: [type],
+      buffered: true,
+    });
+  } catch (error) {
+    // Browser support here is weird. Some browsers support getting
+    // the initial entries, but don't support performance observers.
+    // Some throw errors when invalid types are passed, others don't.
+    // We're being very protective here, but I think it's the only way.
+  }
 }
 
 export function withNavigation(
