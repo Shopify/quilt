@@ -168,5 +168,9 @@ function closestHref(element: EventTarget) {
   const url =
     closestHref.getAttribute('href') || closestHref.getAttribute('data-href');
 
-  return url || undefined;
+  try {
+    return url ? new URL(url, window.location.href).pathname : undefined;
+  } catch (error) {
+    return undefined;
+  }
 }
