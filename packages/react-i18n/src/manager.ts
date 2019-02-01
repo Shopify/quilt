@@ -17,7 +17,7 @@ export interface ConnectionResult {
 }
 
 export interface ExtractedTranslations {
-  [key: string]: TranslationDictionary | undefined;
+  [key: string]: TranslationDictionary | null;
 }
 
 export default class Manager {
@@ -26,7 +26,7 @@ export default class Manager {
   }
 
   private subscriptions = new Map<Subscriber, Connection>();
-  private translations = new Map<string, TranslationDictionary | undefined>();
+  private translations = new Map<string, TranslationDictionary | null>();
   private asyncTranslationIds: string[] = [];
   private translationPromises = new Map<string, Promise<void>>();
 
@@ -48,7 +48,7 @@ export default class Manager {
     return this.asyncTranslationIds.reduce<ExtractedTranslations>(
       (extracted, id) => ({
         ...extracted,
-        [id]: this.translations.get(id),
+        [id]: this.translations.get(id) || null,
       }),
       {},
     );
@@ -79,13 +79,13 @@ export default class Manager {
           .then(result => {
             this.asyncTranslationIds.push(id);
             this.translationPromises.delete(id);
-            this.translations.set(id, result);
+            this.translations.set(id, result || null);
             this.updateSubscribersForId(id);
           })
           .catch(() => {
             this.asyncTranslationIds.push(id);
             this.translationPromises.delete(id);
-            this.translations.set(id, undefined);
+            this.translations.set(id, null);
             this.updateSubscribersForId(id);
           });
 
@@ -93,7 +93,7 @@ export default class Manager {
 
         this.translationPromises.set(id, promise);
       } else {
-        this.translations.set(id, translations);
+        this.translations.set(id, translations || null);
       }
     }
 
@@ -127,15 +127,17 @@ export default class Manager {
     const possibleLocales = getPossibleLocales(this.details.locale);
     const translations = possibleLocales.map(locale => {
       const id = localeId(connection, locale);
-      return this.translations.get(id) || this.translationPromises.get(id);
+      return (
+        this.translations.get(id) || this.translationPromises.get(id) || null
+      );
     });
 
-    if (noPromises<TranslationDictionary | undefined>(translations)) {
+    if (noPromises<TranslationDictionary | null>(translations)) {
       return {
         loading: false,
         fallbacks: allFallbacks,
         translations: [
-          ...filterUndefined(translations),
+          ...filterNull(translations),
           ...fallbackTranslations,
           ...parentState.translations,
         ],
@@ -178,18 +180,18 @@ export default class Manager {
               .then(result => {
                 this.asyncTranslationIds.push(id);
                 this.translationPromises.delete(id);
-                this.translations.set(id, result);
+                this.translations.set(id, result || null);
                 this.updateSubscribersForId(id);
               })
               .catch(() => {
                 this.asyncTranslationIds.push(id);
                 this.translationPromises.delete(id);
-                this.translations.set(id, undefined);
+                this.translations.set(id, null);
                 this.updateSubscribersForId(id);
               }),
           );
         } else {
-          this.translations.set(id, translations);
+          this.translations.set(id, translations || null);
         }
       }
     }
@@ -240,7 +242,7 @@ function isPromise<T>(
   return maybePromise != null && (maybePromise as any).then != null;
 }
 
-function filterUndefined<T>(array: (T | undefined)[]): T[] {
+function filterNull<T>(array: (T | null)[]): T[] {
   return array.filter(Boolean) as T[];
 }
 
