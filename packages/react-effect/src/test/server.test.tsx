@@ -57,11 +57,11 @@ describe('extract()', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  describe('render', () => {
+  describe('decorate', () => {
     it('is called with the app element', async () => {
       const spy = jest.fn((element: any) => element);
       const element = <div>Hello world</div>;
-      await extract(element, {render: spy});
+      await extract(element, {decorate: spy});
       expect(spy).toHaveBeenCalledWith(element);
     });
   });
