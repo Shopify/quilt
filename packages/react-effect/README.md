@@ -73,7 +73,7 @@ You may optionally pass an options object that contains the following keys )all 
 
 - `afterEachPass`: a function that is called after each pass of your tree, regardless of whether traversal is "finished". This function can return a promise, and it will be waited on before continuing.
 
-- `render`: a function that takes the root React element in your tree and returns a new tree to use. You can use this to wrap your application in context providers that only your server render requires.
+- `decorate`: a function that takes the root React element in your tree and returns a new tree to use. You can use this to wrap your application in context providers that only your server render requires.
 
   ```tsx
   import {renderToString} from 'react-dom/server';
@@ -85,7 +85,7 @@ You may optionally pass an options object that contains the following keys )all 
     const app = <App />;
 
     await extract(app, {
-      render(element) {
+      decorate(element) {
         return <ApolloBridge>{element}</ApolloBridge>;
       },
     });

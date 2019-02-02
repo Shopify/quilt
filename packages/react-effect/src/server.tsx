@@ -4,7 +4,7 @@ import {EffectContext, EffectManager} from './context';
 
 interface Options {
   include?: symbol[] | boolean;
-  render?(element: React.ReactElement<any>): React.ReactElement<any>;
+  decorate?(element: React.ReactElement<any>): React.ReactElement<any>;
   renderFunction?(element: React.ReactElement<{}>): string;
   betweenEachPass?(): any;
   afterEachPass?(): any;
@@ -14,7 +14,7 @@ export function extract(
   app: React.ReactElement<any>,
   {
     include,
-    render = identity,
+    decorate = identity,
     renderFunction = renderToStaticMarkup,
     betweenEachPass,
     afterEachPass,
@@ -23,7 +23,7 @@ export function extract(
   const manager = new EffectManager({include});
   const element = (
     <EffectContext.Provider value={manager}>
-      {render(app)}
+      {decorate(app)}
     </EffectContext.Provider>
   );
 
