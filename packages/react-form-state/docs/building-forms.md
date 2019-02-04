@@ -398,6 +398,47 @@ function MyComponent() {
 
 To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](validators.md).
 
+## External errors
+
+You can use the `externalErrors` prop to supply `<FormState />` with external errors. This is useful for displaying errors that occur outside of the normal form submit flow. These errors will be available alongside regular errors via the `errors` array.
+
+```typescript
+class MyComponent extends React.Component {
+ state = {
+   externalErrors: [{message: 'Example error', field: 'foo'}]
+ }
+  render() {
+   const {externalErrors} = this.state;
+    return (
+     <FormState
+       initialValues={{foo: ''}}
+       externalErrors={externalErrors}
+       onSubmit={async (formDetails) => {
+         const response = await submitFormMutation(formDetails);
+           if (response.errors) {
+              // we still need to clear the errors ourselves because formstate
+             // doesn't know what they represent or when to clear them
+              this.setState({externalErrors: null});
+              return response.errors;
+          }
+       }}
+     >
+       {({fields, errors}) => {
+          return (
+            <Banner>
+             {/* the externalErrors get seamlessly added to the errors array */}
+              {errors.map(error => <li>{error.message}</li>)}
+            </Banner>
+              {/* and passed down to matching fields */}
+             <TextField {...fields.foo} />
+          )
+       }}
+     </FormState>
+   )
+ }
+}
+```
+
 ## Compound fields
 
 The default API for generating handlers with `<FormState />` is very simple, but real world apps are often very complex. You will often have to represent editing many resources with one form. This can mean needing support for arrays of fields, fields that are nested objects, or both. `<FormState />` allows passing these complex values into `initialValues` and having your own special sub-components that use the handlers, but for most cases it's recommended to use the sub-components `<FormState.List />` and `<FormState.Nested />`.
