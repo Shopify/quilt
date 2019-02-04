@@ -1,6 +1,6 @@
 {
   "name": "@shopify/async",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously.",
   "main": "dist/index.js",
@@ -23,7 +23,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/async/README.md",
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -37,6 +36,5 @@
     "dist/*",
     "babel.d.ts",
     "babel.js"
-  ],
-  "peerDependencies": {}
+  ]
 }
