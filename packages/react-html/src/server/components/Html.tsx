@@ -14,7 +14,7 @@ export interface Asset {
 
 export interface Props {
   manager?: Manager;
-  children: React.ReactNode;
+  children: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];
   scripts?: Asset[];
@@ -37,7 +37,8 @@ export default function Html({
   favicon,
   title,
 }: Props) {
-  const markup = renderToString(children);
+  const markup =
+    typeof children === 'string' ? children : renderToString(children);
 
   const extracted = manager && manager.extract();
 

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import '../test/matchers';
 
 import * as React from 'react';

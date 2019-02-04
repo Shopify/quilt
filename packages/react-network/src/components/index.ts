@@ -9,7 +9,7 @@ export {default as FrameAncestors} from './FrameAncestors';
 export {default as ImageSource} from './ImageSource';
 export {default as ManifestSource} from './ManifestSource';
 export {default as MediaSource} from './MediaSource';
-export {default as NetworkEffect, EFFECT_ID} from './NetworkEffect';
+export {default as NetworkEffect} from './NetworkEffect';
 export {default as ObjectSource} from './ObjectSource';
 export {default as PluginTypes} from './PluginTypes';
 export {default as PrefetchSource} from './PrefetchSource';

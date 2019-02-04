@@ -21,7 +21,10 @@ export interface ExtractedTranslations {
 }
 
 export default class Manager {
-  public loading = false;
+  get loading() {
+    return this.translationPromises.size > 0;
+  }
+
   private subscriptions = new Map<Subscriber, Connection>();
   private translations = new Map<string, TranslationDictionary | undefined>();
   private asyncTranslationIds: string[] = [];
@@ -33,7 +36,12 @@ export default class Manager {
   ) {
     for (const [id, translation] of Object.entries(initialTranslations)) {
       this.translations.set(id, translation);
+      this.asyncTranslationIds.push(id);
     }
+  }
+
+  async resolve() {
+    await Promise.all([...this.translationPromises.values()]);
   }
 
   extract() {

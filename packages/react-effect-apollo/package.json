@@ -1,10 +1,11 @@
 {
-  "name": "@shopify/react-html",
-  "version": "6.2.0",
+  "name": "@shopify/react-effect-apollo",
+  "version": "0.0.0",
   "license": "MIT",
-  "description": "A component to render your react app with no static HTML.",
+  "description": "A bridging layer between react-apollo and react-effect.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
     "prepublishOnly": "yarn run build"
@@ -21,20 +22,18 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-html/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect-apollo/README.md",
   "dependencies": {
-    "@shopify/react-effect": "^1.0.3",
-    "@shopify/react-serialize": "^1.0.12",
-    "@shopify/useful-types": "^1.1.0",
-    "tslib": "^1.9.3"
-  },
-  "peerDependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "@shopify/react-effect": "^1.0.3"
   },
   "devDependencies": {
-    "@shopify/with-env": "^1.0.9",
+    "react-apollo": "^2.4.0",
     "typescript": "~3.0.1"
   },
-  "sideEffects": false
+  "files": [
+    "dist/*"
+  ],
+  "peerDependencies": {
+    "react-apollo": "^2.4.0"
+  }
 }
