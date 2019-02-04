@@ -52,7 +52,7 @@ async function app(ctx) {
 }
 ```
 
-You may optionally pass an options object that contains the following keys )all of which are optional):
+You may optionally pass an options object that contains the following keys (all of which are optional):
 
 - `include`: an array of symbols that should be collected during tree traversal. These IDs must align with the `kind.id` field on `<Extract />` elements in your application.
 
