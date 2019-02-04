@@ -1,11 +1,25 @@
 import {Context} from 'koa';
 import {Header, StatusCode, CspDirective} from '@shopify/network';
+import {EffectKind} from '@shopify/react-effect';
 import {Manager} from './manager';
 
+export const EFFECT_ID = Symbol('network');
+
 export class ServerManager implements Manager {
+  readonly effect: EffectKind = {
+    id: EFFECT_ID,
+    betweenEachPass: () => this.reset(),
+  };
+
   private statusCodes: StatusCode[] = [];
   private csp = new Map<CspDirective, string[] | boolean>();
   private redirectUrl?: string;
+
+  reset() {
+    this.statusCodes = [];
+    this.csp.clear();
+    this.redirectUrl = undefined;
+  }
 
   redirectTo(url: string, status = StatusCode.Found) {
     this.addStatusCode(status);
@@ -18,8 +32,13 @@ export class ServerManager implements Manager {
 
   addCspDirective(directive: CspDirective, value: string | string[] | boolean) {
     const normalizedValue = typeof value === 'string' ? [value] : value;
-    const newValue = Array.isArray(value)
-      ? [...(this.csp.get(directive) || []), ...normalizedValue]
+    const currentValue = this.csp.get(directive) || [];
+    const normalizedCurrentValue = Array.isArray(currentValue)
+      ? currentValue
+      : [String(currentValue)];
+
+    const newValue = Array.isArray(normalizedValue)
+      ? [...normalizedCurrentValue, ...normalizedValue]
       : normalizedValue;
 
     this.csp.set(directive, newValue);

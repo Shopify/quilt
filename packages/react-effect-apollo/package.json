@@ -1,10 +1,11 @@
 {
-  "name": "@shopify/react-import-remote",
-  "version": "0.4.0",
+  "name": "@shopify/react-effect-apollo",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "Asynchronous script loading for React",
+  "description": "A bridging layer between react-apollo and react-effect.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
     "prepublishOnly": "yarn run build"
@@ -21,17 +22,18 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect-apollo/README.md",
   "dependencies": {
-    "@shopify/react-html": "^7.0.0",
-    "tslib": "^1.9.3"
+    "@shopify/react-effect": "^2.0.0"
   },
   "devDependencies": {
-    "@shopify/javascript-utilities": "^2.1.0",
+    "react-apollo": "^2.4.0",
     "typescript": "~3.0.1"
   },
+  "files": [
+    "dist/*"
+  ],
   "peerDependencies": {
-    "react": "^16.4.1"
-  },
-  "sideEffects": false
+    "react-apollo": "^2.4.0"
+  }
 }
