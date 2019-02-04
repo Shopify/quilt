@@ -8,8 +8,6 @@ interface Props {
   perform(manager: Manager): void;
 }
 
-export const EFFECT_ID = Symbol('network');
-
 export default function NetworkEffect({perform}: Props) {
   if (typeof window !== 'undefined') {
     return null;
@@ -18,7 +16,7 @@ export default function NetworkEffect({perform}: Props) {
   return (
     <Consumer>
       {manager => (
-        <Effect serverOnly kind={EFFECT_ID} perform={() => perform(manager)} />
+        <Effect kind={manager.effect} perform={() => perform(manager)} />
       )}
     </Consumer>
   );
