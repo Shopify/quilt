@@ -25,13 +25,18 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/async/README.md",
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/types": "^7.3.0",
+    "@types/babel__core": "^7.0.4",
     "@types/babel__traverse": "^7.0.5",
     "@types/webpack": "^4.4.24",
     "typescript": "~3.0.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "babel.d.ts",
+    "babel.js"
   ],
   "peerDependencies": {}
 }

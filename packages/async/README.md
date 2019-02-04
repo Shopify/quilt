@@ -18,11 +18,11 @@ This package contains a few types that are useful for creating async components:
 - `Import` represents a value that could be default or non-default export
 - `LoadProps` are an interface that describe the shape of props that must be used for a function to be processed by the Babel plugin provided by this
 
-It also has two plugins that allow the module IDs that are asynchronously imported to be exposed to the application: one for Webpack, and one for Babel.
+It also includes a plugin for Babel that allows the module IDs that are asynchronously imported to be exposed to the application.
 
 ### Babel
 
-The Babel plugin is exported from the `@shopify/async/babel` entrypoint. This plugin accepts one option: `packages`, which should be an object where the keys are the names of packages, and the values are an array of functions that should be processed. This option defaults to an object containing a few Shopify-specific async packages.
+The Babel plugin is exported from the `@shopify/async/babel` entrypoint. This plugin accepts one option: `packages`, which should be an object where the keys are the names of packages, and the values are an array of functions that should be processed. This option defaults to an object containing a few Shopify-specific async packages (`createAsyncComponent` from `@shopify/react-async`, and `createAsyncQueryComponent` from `@shopify/react-graphql`).
 
 ```js
 // babel.config.js
@@ -49,21 +49,11 @@ createAsyncComponent({
 // Becomes:
 
 createAsyncComponent({
-  id: () => require.resolveWeak('../SomeComponent'),
   load: () => import('../SomeComponent'),
+  id: () => require.resolveWeak('../SomeComponent'),
 });
 ```
 
 ### Webpack
 
-The Webpack plugin is exported from the `@shopify/async/webpack` entrypoint. This plugin creates a manifest of async bundles produced by Webpack that can be easily cross-referenced with the module identifiers added by the Babel plugin. It accepts a single option, which is the filename to use for the manifest (defaults to `async-manifest.json`). This manifest will be output alongside your other files based on Webpack’s `output` options.
-
-```ts
-// webpack.config.ts
-import {AsyncPlugin} from '@shopify/async/webpack';
-
-export default {
-  // ... rest of config
-  plugins: [new AsyncPlugin({filename: 'manifest.json'})],
-};
-```
+In order to make use of the `id` property added by the Babel plugin, you will need to create a manifest of assets keyed by this ID. An example of doing so can be found in [sewing kit’s `webpac-asset-metadata-plugin` package](https://github.com/Shopify/sewing-kit/tree/master/packages/webpack-asset-metadata-plugin).

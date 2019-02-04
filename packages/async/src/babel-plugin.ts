@@ -1,14 +1,18 @@
 import * as Types from '@babel/types';
 import {NodePath, Binding} from '@babel/traverse';
 
-const DEFAULT_PROCESS_PACKAGES = {
+const DEFAULT_PACKAGES_TO_PROCESS = {
   '@shopify/react-async': ['createAsyncComponent'],
   '@shopify/react-graphql': ['createAsyncQueryComponent'],
 };
 
+export interface Options {
+  packages?: {[key: string]: string[]};
+}
+
 interface State {
   processPackages?: Map<string, string[]>;
-  opts?: {packages?: {[key: string]: string[]}};
+  opts?: Options;
 }
 
 export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
@@ -17,7 +21,7 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
       Program(_path: NodePath<Types.Program>, state: State) {
         state.processPackages = new Map(
           Object.entries(
-            (state.opts && state.opts.packages) || DEFAULT_PROCESS_PACKAGES,
+            (state.opts && state.opts.packages) || DEFAULT_PACKAGES_TO_PROCESS,
           ),
         );
       },
@@ -36,24 +40,26 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
           return;
         }
 
-        const factoryImports = path.get('specifiers').filter(specifier => {
-          return (
-            specifier.isImportSpecifier() &&
-            processImports.some(name =>
-              specifier.get('imported').isIdentifier({name}),
-            )
-          );
-        });
+        const importSpecifiersToProcess = path
+          .get('specifiers')
+          .filter(specifier => {
+            return (
+              specifier.isImportSpecifier() &&
+              processImports.some(name =>
+                specifier.get('imported').isIdentifier({name}),
+              )
+            );
+          });
 
-        if (factoryImports.length === 0) {
+        if (importSpecifiersToProcess.length === 0) {
           return;
         }
 
-        for (const factoryImport of factoryImports) {
-          const bindingName = factoryImport.node.local.name;
+        for (const importSpecifier of importSpecifiersToProcess) {
+          const bindingName = importSpecifier.node.local.name;
           const binding = path.scope.getBinding(bindingName);
           if (binding != null) {
-            processBinding(binding, t);
+            addIdOption(binding, t);
           }
         }
       },
@@ -61,7 +67,7 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
   };
 }
 
-function processBinding(binding: Binding, t: typeof Types) {
+function addIdOption(binding: Binding, t: typeof Types) {
   binding.referencePaths.forEach(refPath => {
     const callExpression = refPath.parentPath;
 
