@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {graphql} from '@shopify/react-apollo';
+import * as PropTypes from 'prop-types';
+import {graphql} from 'react-apollo';
 
 import {mount} from 'enzyme';
 import {readFileSync} from 'fs';
@@ -67,6 +68,9 @@ describe('jest-mock-apollo', () => {
       context: {
         client,
       },
+      childContextTypes: {
+        client: PropTypes.object,
+      },
     });
 
     await Promise.all(client.graphQLRequests);
@@ -86,6 +90,9 @@ describe('jest-mock-apollo', () => {
     const somePage = mount(<SomePage />, {
       context: {
         client,
+      },
+      childContextTypes: {
+        client: PropTypes.object,
       },
     });
 

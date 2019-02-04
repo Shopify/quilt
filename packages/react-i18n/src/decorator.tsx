@@ -154,7 +154,7 @@ export function withI18n({id, fallback, translations}: WithI18nOptions = {}) {
       WithTranslation,
       WrappedComponent as React.ComponentClass<any>,
     );
-    return FinalComponent as React.ComponentClass<any> & C;
+    return FinalComponent as any;
   };
 }
 

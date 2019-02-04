@@ -38,7 +38,7 @@
     "@types/enzyme": "^3.1.10",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.5",
-    "@types/react": "16.3.18",
+    "@types/react": "16.7.22",
     "@types/react-helmet": "^5.0.6",
     "codecov": "^3.0.2",
     "enzyme": "^3.6.0",
@@ -61,7 +61,7 @@
     "typescript": "~3.0.1"
   },
   "resolutions": {
-    "@types/react": "16.3.18"
+    "@types/react": "16.7.22"
   },
   "dependencies": {}
 }
