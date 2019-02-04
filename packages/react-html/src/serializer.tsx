@@ -5,7 +5,7 @@ import {Context} from './context';
 export const EXTRACT_ID = Symbol('serialize');
 
 interface SerializeProps<T> {
-  data(): T;
+  data(): T | Promise<T>;
 }
 
 interface WithSerializedProps<T> {
@@ -18,9 +18,16 @@ export function createSerializer<T>(id: string) {
       <Context.Consumer>
         {manager => (
           <Effect
-            serverOnly
-            kind={EXTRACT_ID}
-            perform={() => manager.setSerialization(id, data())}
+            kind={manager.effect}
+            perform={() => {
+              const result = data();
+
+              const handleResult = manager.setSerialization.bind(manager, id);
+
+              return typeof result === 'object' && isPromise(result)
+                ? result.then(handleResult)
+                : handleResult(result);
+            }}
           />
         )}
       </Context.Consumer>
@@ -36,4 +43,10 @@ export function createSerializer<T>(id: string) {
   }
 
   return {Serialize, WithSerialized};
+}
+
+function isPromise<T>(
+  maybePromise: T | Promise<T>,
+): maybePromise is Promise<T> {
+  return maybePromise != null && (maybePromise as any).then != null;
 }

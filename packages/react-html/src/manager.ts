@@ -1,3 +1,4 @@
+import {EffectKind} from '@shopify/react-effect';
 import {getSerializationsFromDocument} from './utilities';
 
 interface Title {
@@ -14,7 +15,14 @@ interface Subscription {
   (state: State): void;
 }
 
+export const EFFECT_ID = Symbol('html');
+
 export default class Manager {
+  effect: EffectKind = {
+    id: EFFECT_ID,
+    betweenEachPass: () => this.reset(),
+  };
+
   private isServer: boolean;
   private serializations = getSerializationsFromDocument();
   private titles: Title[] = [];
@@ -34,6 +42,17 @@ export default class Manager {
 
   constructor({isServer = typeof document === 'undefined'} = {}) {
     this.isServer = isServer;
+  }
+
+  reset({includeSerializations = false} = {}) {
+    this.titles = [];
+    this.metas = [];
+    this.links = [];
+    this.subscriptions.clear();
+
+    if (includeSerializations) {
+      this.serializations.clear();
+    }
   }
 
   subscribe(subscription: Subscription) {
