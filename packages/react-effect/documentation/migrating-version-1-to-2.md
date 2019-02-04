@@ -1,4 +1,4 @@
-# Migrating from `@shopify/react-effect@1.x` to `@shopify/react-effect@1.x`
+# Migrating from `@shopify/react-effect@1.x` to `@shopify/react-effect@2.x`
 
 ## `<Effect />`
 
