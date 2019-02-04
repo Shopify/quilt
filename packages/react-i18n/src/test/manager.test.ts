@@ -90,7 +90,7 @@ describe('Manager', () => {
         noop,
       );
       expect(spy).toHaveBeenCalledWith('en-US');
-      expect(spy).toHaveBeenCalledWith('en-US');
+      expect(spy).toHaveBeenCalledWith('en-us');
       expect(spy).toHaveBeenCalledWith('en');
     });
 
@@ -627,6 +627,29 @@ describe('Manager', () => {
 
       // Prevents leaving a hanging promise
       await connectionResult.resolve();
+    });
+
+    it('provides null for non-existent translations', async () => {
+      const connection = new Connection({
+        id: createID(),
+        translations: getTranslationAsync,
+      });
+
+      const manager = new Manager({...basicDetails, locale: 'en-XX'});
+
+      await manager
+        .connect(
+          connection,
+          noop,
+        )
+        .resolve();
+
+      const translationsByID = manager.extract();
+      expect(Object.keys(translationsByID)).toBeArrayOfUniqueItems();
+
+      const translations = Object.values(translationsByID);
+      expect(translations).toContain(null);
+      expect(translations).toContain(en);
     });
 
     it('does not provide synchronous translations', async () => {
