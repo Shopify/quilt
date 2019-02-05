@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {Manager, NoopManager} from './manager';
 
-const {Consumer, Provider} = React.createContext<Manager>(new NoopManager());
+const Context = React.createContext<Manager>(new NoopManager());
+
+const Consumer = Context.Consumer;
+const Provider = Context.Provider;
 
 interface Props {
   manager?: Manager;

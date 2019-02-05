@@ -9,7 +9,10 @@ export interface Props {
   children?: React.ReactNode;
 }
 
-export const {Provider, Consumer} = React.createContext<Context>({});
+const Context = React.createContext<Context>({});
+
+export const Provider = Context.Provider;
+export const Consumer = Context.Consumer;
 
 export default class ShortcutProvider extends React.Component<Props, never> {
   private shortcutManager = new ShortcutManager();
