@@ -81,6 +81,23 @@ describe('Manager', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
+    it('requests translations only once for async translations while resolving', () => {
+      const spy = jest.fn(() => new Promise(() => {}));
+      const id = createID();
+      const manager = new Manager(basicDetails);
+
+      manager.connect(
+        new Connection({id, translations: spy}),
+        noop,
+      );
+      manager.connect(
+        new Connection({id, translations: spy}),
+        noop,
+      );
+
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+
     it('requests translations for the full locale and language when the country code is provided', () => {
       const spy = jest.fn();
       const connection = new Connection({id: createID(), translations: spy});

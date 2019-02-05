@@ -65,6 +65,12 @@ export default class Manager {
         continue;
       }
 
+      if (this.translationPromises.has(id)) {
+        // eslint-disable-next-line typescript/no-non-null-assertion
+        promises.push(this.translationPromises.get(id)!);
+        continue;
+      }
+
       if (
         locale === this.details.fallbackLocale &&
         connection.fallbackTranslations
@@ -159,7 +165,7 @@ export default class Manager {
       for (const locale of possibleLocales) {
         const id = localeId(connection, locale);
 
-        if (this.translations.has(id)) {
+        if (this.translations.has(id) || this.translationPromises.has(id)) {
           continue;
         }
 
