@@ -195,16 +195,13 @@ export default class I18n {
 
   formatDate(
     date: Date,
-    options?: Intl.DateTimeFormatOptions & {style?: DateStyle},
+    options: Intl.DateTimeFormatOptions & {style?: DateStyle} = {},
   ): string {
-    const {locale, defaultTimezone: timezone} = this;
+    const {locale, defaultTimezone} = this;
+    const {timeZone = defaultTimezone} = options;
 
     // Etc/GMT+12 is not supported in most browsers and there is no equivalent fallback
-    if (
-      options &&
-      options.timeZone != null &&
-      options.timeZone === 'Etc/GMT+12'
-    ) {
+    if (timeZone === 'Etc/GMT+12') {
       const adjustedDate = new Date(date.valueOf() - 12 * 60 * 60 * 1000);
 
       return this.formatDate(adjustedDate, {...options, timeZone: 'UTC'});
@@ -219,7 +216,7 @@ export default class I18n {
     }
 
     return new Intl.DateTimeFormat(locale, {
-      timeZone: timezone,
+      timeZone,
       ...formatOptions,
     }).format(date);
   }
