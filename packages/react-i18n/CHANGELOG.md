@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] - -->
 
+## [0.9.1] - 2019-02-06
+
+### Fixed
+
+- Invalid `defaultTimezone: 'Etc/GMT+12'` is transformed to UTC [#496](https://github.com/Shopify/quilt/pull/496)
+
 ## [0.8.0] - 2019-01-30
 
 ### Added
