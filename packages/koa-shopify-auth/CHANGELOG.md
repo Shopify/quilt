@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## 3.1.12 - 2019-02-05
+## 3.1.14 - 2019-02-05
 
 ### Fixed
 
