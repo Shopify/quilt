@@ -450,6 +450,32 @@ describe('<FormState />', () => {
       const {errors} = lastCallArgs(renderPropSpy);
       expect(errors).toEqual([...submitErrors, ...externalErrors]);
     });
+
+    it('does not reset fields if externalErrors are not provided', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const errorMessage = faker.lorem.sentence();
+
+      mount(
+        <FormState
+          initialValues={{
+            product: faker.commerce.productName,
+          }}
+          validators={{
+            product: () => errorMessage,
+          }}
+        >
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      const {fields} = lastCallArgs(renderPropSpy);
+      fields.product.onChange(faker.commerce.productName);
+      fields.product.onBlur();
+
+      const {fields: updatedFields} = lastCallArgs(renderPropSpy);
+
+      expect(updatedFields.product.error).toEqual(errorMessage);
+    });
   });
 
   describe('reset()', () => {
