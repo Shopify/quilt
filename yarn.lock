@@ -338,6 +338,14 @@
     "@babel/parser" "^7.1.0"
     "@babel/types" "^7.0.0"
 
+"@types/babel__template@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@types/babel__template/-/babel__template-7.0.1.tgz#8de6effa729bf0b0f65eb72399b629a3998a7f10"
+  integrity sha512-LT1zwkpL0/2oBP+npLaOCYSWv47cxbdAvONutjalMdCIBfjtfzVNnT8rgllBmsr15QAdAZDOmYw1CPhLB2JCtA==
+  dependencies:
+    "@babel/parser" "^7.1.0"
+    "@babel/types" "^7.0.0"
+
 "@types/babel__traverse@^7.0.5":
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/@types/babel__traverse/-/babel__traverse-7.0.5.tgz#4c679f9d134b520a5cf855f253741cf014a5f097"
