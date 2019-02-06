@@ -75,9 +75,10 @@ export default class FormState<
       externalErrors = [],
     } = newProps;
 
-    const externalErrorsChanged =
-      externalErrors !== oldState.externalErrors ||
-      externalErrors.length !== oldState.externalErrors.length;
+    const externalErrorsChanged = !isEqual(
+      externalErrors,
+      oldState.externalErrors,
+    );
 
     const updatedExternalErrors = externalErrorsChanged
       ? {
@@ -409,6 +410,10 @@ function fieldsWithErrors<Fields>(
   );
 
   return mapObject(fields, (field, path) => {
+    if (!errorDictionary[path]) {
+      return field;
+    }
+
     return {
       ...field,
       error: errorDictionary[path],
