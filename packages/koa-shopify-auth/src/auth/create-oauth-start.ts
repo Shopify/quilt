@@ -16,6 +16,7 @@ export default function createOAuthStart(
 
     const shopRegex = new RegExp(
       `^[a-z0-9][a-z0-9\\-]*[a-z0-9]\\.${myShopifyDomain}$`,
+      'i',
     );
 
     if (shop == null || !shopRegex.test(shop)) {

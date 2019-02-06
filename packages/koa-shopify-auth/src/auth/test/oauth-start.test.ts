@@ -17,6 +17,7 @@ const baseUrl = 'myapp.com/auth';
 const callbackPath = '/callback';
 const shop = 'sho-p1.myshopify.io';
 const badShop = 'shop1myshopify.io';
+const uppercaseShop = 'SHO-P1.myshopify.io';
 const redirectionURL = `/admin/oauth/authorize`;
 
 const baseConfig: OAuthStartOptions = {
@@ -78,6 +79,21 @@ describe('OAuthStart', () => {
     expect(oAuthQueryString).toBeCalledWith(ctx, baseConfig, callbackPath);
     expect(ctx.redirect).toBeCalledWith(
       `https://${shop}${redirectionURL}?abc=123`,
+    );
+  });
+
+  it('accepts mixed-case shop parameters', () => {
+    const oAuthStart = createOAuthStart(baseConfig, callbackPath);
+    const ctx = createMockContext({
+      url: `https://${baseUrl}?${query({shop: uppercaseShop})}`,
+    });
+
+    (oAuthQueryString as any).mockReturnValueOnce('');
+
+    oAuthStart(ctx);
+
+    expect(ctx.redirect).toBeCalledWith(
+      `https://${uppercaseShop}${redirectionURL}?`,
     );
   });
 });
