@@ -1,0 +1,42 @@
+{
+  "name": "@shopify/react-graphql",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Tools for creating type-safe and asynchronous GraphQL components for React.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql/README.md",
+  "dependencies": {
+    "@shopify/async": "^1.0.0",
+    "@shopify/react-async": "^1.0.0",
+    "@shopify/useful-types": "^1.1.1",
+    "graphql-typed": "^0.2.0",
+    "react-apollo": ">=2.1.0 <3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "~3.0.1"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "peerDependencies": {
+    "react": "^16.6.0"
+  }
+}
