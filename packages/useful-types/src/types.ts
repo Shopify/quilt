@@ -12,3 +12,31 @@ export type DeepPartial<T> = {
       ? ReadonlyArray<DeepPartial<U>>
       : DeepPartial<T[P]>
 };
+
+export type IfEmptyObject<Object, If, Else = never> = keyof Object extends {
+  length: 0;
+}
+  ? If
+  : Else;
+
+export type IfAllOptionalKeys<Object, If, Else = never> = NonOptionalKeys<
+  Object
+> extends {
+  length: 0;
+}
+  ? If
+  : Else;
+
+export type IfAllNullableKeys<Object, If, Else = never> = NonNullableKeys<
+  Object
+> extends {length: 0}
+  ? If
+  : Else;
+
+export type NonOptionalKeys<T> = {
+  [K in keyof T]-?: undefined extends T[K] ? never : K
+}[keyof T];
+
+export type NonNullableKeys<T> = {
+  [K in keyof T]-?: null extends T[K] ? never : K
+}[keyof T];
