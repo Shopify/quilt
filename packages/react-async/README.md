@@ -43,7 +43,7 @@ const MyComponent = createAsyncComponent({
 <MyComponent.KeepFresh />
 ```
 
-By default, `Preload`, `Prefetch`, and `KeepFresh` all simply prefetch the bundle for the component in the background. However, you can provide additional markup to render during these phases with the `renderPreload`, `renderPrefetch`, and `renderKeepFresh` options to `createAsyncComponent`:
+By default, `Preload`, `Prefetch`, and `KeepFresh` all simply prefetch the bundle for the component in the background. However, you can provide additional markup to render in these components with the `renderPreload`, `renderPrefetch`, and `renderKeepFresh` options to `createAsyncComponent`:
 
 ```tsx
 const MyComponent = createAsyncComponent({
