@@ -11,23 +11,34 @@ import {Query, Props as QueryProps} from './Query';
 interface QueryComponentOptions<Data, Variables>
   extends LoadProps<DocumentNode<Data, Variables>> {}
 
+type VariableOptions<Variables> = IfEmptyObject<
+  Variables,
+  {variables?: never},
+  IfAllNullableKeys<Variables, {variables?: Variables}, {variables: Variables}>
+>;
+
+export interface AsyncQueryComponentType<Data, Variables> {
+  (
+    props: Omit<QueryProps<Data, Variables>, 'query' | 'variables'> &
+      VariableOptions<Variables>,
+  ): React.ReactElement<{}>;
+  Prefetch(props: VariableOptions<Variables>): React.ReactElement<{}>;
+  Preload(): React.ReactElement<{}>;
+  KeepFresh(
+    props: VariableOptions<Variables> & {pollInterval?: number},
+  ): React.ReactElement<{}>;
+}
+
 export function createAsyncQueryComponent<Data, Variables>({
   id,
   load,
-}: QueryComponentOptions<Data, Variables>) {
-  type VariableOption = IfEmptyObject<
-    Variables,
-    {variables?: never},
-    IfAllNullableKeys<
-      Variables,
-      {variables?: Variables},
-      {variables: Variables}
-    >
-  >;
-
+}: QueryComponentOptions<Data, Variables>): AsyncQueryComponentType<
+  Data,
+  Variables
+> {
   function AsyncQuery(
     props: Omit<QueryProps<Data, Variables>, 'query' | 'variables'> &
-      VariableOption,
+      VariableOptions<Variables>,
   ) {
     return (
       <Async
@@ -40,7 +51,7 @@ export function createAsyncQueryComponent<Data, Variables>({
     );
   }
 
-  function Prefetch({variables}: VariableOption) {
+  function Prefetch({variables}: VariableOptions<Variables>) {
     return (
       <Async
         defer
@@ -58,7 +69,7 @@ export function createAsyncQueryComponent<Data, Variables>({
     return <Async defer load={load} id={id} />;
   }
 
-  type KeepFreshProps = VariableOption & {
+  type KeepFreshProps = VariableOptions<Variables> & {
     pollInterval?: number;
   };
 
@@ -80,9 +91,17 @@ export function createAsyncQueryComponent<Data, Variables>({
     );
   }
 
-  AsyncQuery.Preload = Preload;
-  AsyncQuery.Prefetch = Prefetch;
-  AsyncQuery.KeepFresh = KeepFresh;
+  // Once we upgrade past TS 3.1, this will no longer be necessary,
+  // because you can statically assign values to functions and TS
+  // will know to augment its type
+  const FinalComponent: AsyncQueryComponentType<
+    Data,
+    Variables
+  > = AsyncQuery as any;
 
-  return AsyncQuery;
+  FinalComponent.Preload = Preload;
+  FinalComponent.Prefetch = Prefetch;
+  FinalComponent.KeepFresh = KeepFresh;
+
+  return FinalComponent;
 }

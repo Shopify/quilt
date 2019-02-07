@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {LoadProps} from '@shopify/async';
+import {Props as ComponentProps} from '@shopify/useful-types';
 
 import {Async} from './Async';
 
@@ -15,6 +16,18 @@ interface Options<
   renderKeepFresh?(props?: KeepFreshProps): React.ReactNode;
 }
 
+export interface AsyncComponentType<
+  Props,
+  PreloadProps,
+  PrefetchProps,
+  KeepFreshProps
+> {
+  (props: Props): React.ReactElement<ComponentProps<typeof Async>>;
+  Preload(props: PreloadProps): React.ReactElement<{}>;
+  Prefetch(props: PrefetchProps): React.ReactElement<{}>;
+  KeepFresh(props: KeepFreshProps): React.ReactElement<{}>;
+}
+
 export function createAsyncComponent<
   Props,
   PreloadProps = {},
@@ -27,7 +40,12 @@ export function createAsyncComponent<
   renderPreload = noopRender,
   renderPrefetch = noopRender,
   renderKeepFresh = noopRender,
-}: Options<Props, PreloadProps, PrefetchProps, KeepFreshProps>) {
+}: Options<
+  Props,
+  PreloadProps,
+  PrefetchProps,
+  KeepFreshProps
+>): AsyncComponentType<Props, PreloadProps, PrefetchProps, KeepFreshProps> {
   function AsyncComponent(props: Props) {
     return (
       <Async
@@ -66,11 +84,21 @@ export function createAsyncComponent<
     );
   }
 
-  AsyncComponent.Preload = Preload;
-  AsyncComponent.Prefetch = Prefetch;
-  AsyncComponent.KeepFresh = KeepFresh;
+  // Once we upgrade past TS 3.1, this will no longer be necessary,
+  // because you can statically assign values to functions and TS
+  // will know to augment its type
+  const FinalComponent: AsyncComponentType<
+    Props,
+    PreloadProps,
+    PrefetchProps,
+    KeepFreshProps
+  > = AsyncComponent as any;
 
-  return AsyncComponent;
+  FinalComponent.Preload = Preload;
+  FinalComponent.Prefetch = Prefetch;
+  FinalComponent.KeepFresh = KeepFresh;
+
+  return FinalComponent;
 }
 
 function noopRender() {

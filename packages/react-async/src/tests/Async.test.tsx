@@ -97,6 +97,17 @@ function createResolvablePromise<T>(value: T) {
     rejecter = reject;
   });
 
-  // eslint-disable-next-line typescript/no-non-null-assertion
-  return {resolve: resolver!, reject: rejecter!, promise};
+  return {
+    resolve: async () => {
+      // eslint-disable-next-line typescript/no-non-null-assertion
+      const value = await resolver!();
+      // If we just resolve, the tick that actually processes the promise
+      // has not finished yet.
+      await new Promise(resolve => process.nextTick(resolve));
+      return value;
+    },
+    // eslint-disable-next-line typescript/no-non-null-assertion
+    reject: rejecter!,
+    promise,
+  };
 }
