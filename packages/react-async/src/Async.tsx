@@ -70,7 +70,7 @@ class ConnectedAsync<Value> extends React.Component<
 export function Async<Value>(props: Omit<Props<Value>, 'manager'>) {
   return (
     <AsyncContext.Consumer>
-      {(manager) => <ConnectedAsync manager={manager} {...props} />}
+      {manager => <ConnectedAsync manager={manager} {...props} />}
     </AsyncContext.Consumer>
   );
 }
@@ -112,4 +112,6 @@ function tryRequire(id: string) {
       // Just ignore failures
     }
   }
+
+  return undefined;
 }

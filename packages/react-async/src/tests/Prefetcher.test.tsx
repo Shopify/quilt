@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {mount, ReactWrapper} from 'enzyme';
 import {clock} from '@shopify/jest-dom-mocks';
-import {EventListener} from '@shopify/polaris';
 import {trigger} from '@shopify/enzyme-utilities';
 
-import {Prefetcher, HOVER_DELAY} from '../Prefetcher';
+import {EventListener} from '../EventListener';
+import {Prefetcher, HOVER_DELAY_MS} from '../Prefetcher';
 import {createManager} from './utilities';
 
-jest.mock('@shopify/polaris', () => ({
+jest.mock('../EventListener', () => ({
   EventListener() {
     return null;
   },
@@ -44,7 +44,7 @@ describe('<Prefetch />', () => {
 
     expect(prefetcher).not.toContainReact(<MockComponent />);
 
-    clock.tick(HOVER_DELAY + 1);
+    clock.tick(HOVER_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).toContainReact(<MockComponent />);
@@ -60,7 +60,7 @@ describe('<Prefetch />', () => {
 
     expect(prefetcher).not.toContainReact(<MockComponent />);
 
-    clock.tick(HOVER_DELAY + 1);
+    clock.tick(HOVER_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).toContainReact(<MockComponent />);
@@ -89,7 +89,7 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${url}"></a>`),
     });
 
-    clock.tick(HOVER_DELAY + 1);
+    clock.tick(HOVER_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).not.toContainReact(<MockComponent />);
@@ -109,7 +109,7 @@ describe('<Prefetch />', () => {
       relatedTarget: element.firstChild,
     });
 
-    clock.tick(HOVER_DELAY + 1);
+    clock.tick(HOVER_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).toContainReact(<MockComponent />);
@@ -127,7 +127,7 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${url}"></a>`),
     });
 
-    clock.tick(HOVER_DELAY + 1);
+    clock.tick(HOVER_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).not.toContainReact(<MockComponent />);

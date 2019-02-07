@@ -34,7 +34,7 @@ export function createAsyncComponent<
         load={load}
         id={id}
         renderLoading={renderLoading}
-        render={(Component) => (Component ? <Component {...props} /> : null)}
+        render={Component => (Component ? <Component {...props} /> : null)}
       />
     );
   }

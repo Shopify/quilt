@@ -10,7 +10,7 @@ interface UrlMapperPropsNonOptional<Props> {
 }
 
 interface UrlMapperPropsOptional<Props> {
-  mapUrlToProps?(path: string): Props;
+  mapUrlToProps?(path: string): Props | void;
 }
 
 type UrlMapperProps<Props> = IfAllOptionalKeys<

@@ -15,7 +15,7 @@ $ yarn add @shopify/react-async
 
 ### `createAsyncComponent()`
 
-`createAsyncComponent` is a function for creating components that are loaded asynchronously on initial mount. However, the resulting component does more than just help you split up your application along component lines; it also supports customized rendering for loading, and creates additional components for smartly preloading or preloading the component’s bundle. Best of all, in conjunction with the Babel and Webpack plugins provided by [`@shopify/async`](https://github.com/Shopify/quilt/tree/master/packages/async), you can easily extract the bundles needed to render your application during server side rendering.
+`createAsyncComponent` is a function for creating components that are loaded asynchronously on initial mount. However, the resulting component does more than just help you split up your application along component lines; it also supports customized rendering for loading, and creates additional components for smartly preloading or preloading the component’s bundle. Best of all, in conjunction with the Babel and Webpack plugins provided by [`@shopify/async`](../async), you can easily extract the bundles needed to render your application during server side rendering.
 
 To start, import the `createAsyncComponent` function. The simplest use of this function requires just a `load` function, which returns a promise for a component:
 
@@ -78,7 +78,7 @@ const MyComponent = createAsyncComponent({
 <MyComponent.Preload priority="high" />;
 ```
 
-This system is designed to work well with our [`@shopify/react-graphql` package](https://github.com/Shopify/quilt/tree/master/packages/react-graphql). Simply create an async GraphQL query using that library, and then `Prefetch`, `Preload`, and `KeepFresh` that component alongside the React component itself:
+This system is designed to work well with our [`@shopify/react-graphql` package](../react-graphql). Simply create an async GraphQL query using that library, and then `Prefetch`, `Preload`, and `KeepFresh` that component alongside the React component itself:
 
 ```tsx
 const MyQuery = createAsyncComponent({
@@ -87,6 +87,7 @@ const MyQuery = createAsyncComponent({
 
 const MyComponent = createAsyncComponent({
   load: () => import('./MyComponent'),
+  renderLoading: () => <Loading />,
   // If you use `graphql-typescript-definitions` for generating types from your
   // GraphQL documents, you'll be warned if there are required variables you aren’t
   // providing here!
@@ -144,4 +145,4 @@ renderToString(
 const moduleIds = [...asyncManager.used];
 ```
 
-These module IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](https://github.com/Shopify/quilt/tree/master/packages/sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.
+These module IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](../sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.

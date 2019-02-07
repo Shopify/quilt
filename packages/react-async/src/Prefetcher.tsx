@@ -10,7 +10,7 @@ interface State {
   url?: string;
 }
 
-export const HOVER_DELAY = 100;
+export const HOVER_DELAY_MS = 100;
 
 export class Prefetcher extends React.PureComponent<Props, State> {
   state: State = {};
@@ -23,7 +23,9 @@ export class Prefetcher extends React.PureComponent<Props, State> {
     const preloadMarkup = url
       ? findMatches(manager.registered, url).map(
           ({url: matchUrl, mapUrlToProps, component: Component}) => {
-            const additionalProps = mapUrlToProps ? mapUrlToProps(url) : {};
+            const additionalProps = mapUrlToProps
+              ? mapUrlToProps(url) || {}
+              : {};
             const Prefetch =
               'Prefetch' in Component ? Component.Prefetch : Component;
 
@@ -133,7 +135,7 @@ export class Prefetcher extends React.PureComponent<Props, State> {
     this.timeout = setTimeout(() => {
       this.clearTimeout();
       this.setState({url});
-    }, HOVER_DELAY);
+    }, HOVER_DELAY_MS);
   };
 
   private clearTimeout() {
