@@ -87,7 +87,7 @@ describe('Assets', () => {
       expect(await assets.scripts({name: 'custom'})).toEqual([{path: js}]);
     });
 
-    fit('prefixes async assets matching the passed IDs', async () => {
+    it('prefixes async assets matching the passed IDs', async () => {
       const js = '/custom.js';
       const asyncJs = '/used.js';
 
@@ -202,7 +202,7 @@ describe('Assets', () => {
             manifest: mockManifest(
               {
                 custom: mockEntrypoint({
-                  scripts: [mockAsset(css)],
+                  styles: [mockAsset(css)],
                 }),
               },
               {
@@ -217,7 +217,7 @@ describe('Assets', () => {
       const assets = new Assets(defaultOptions);
 
       expect(
-        await assets.scripts({name: 'custom', asyncAssets: ['used']}),
+        await assets.styles({name: 'custom', asyncAssets: ['used']}),
       ).toEqual([{path: asyncCss}, {path: css}]);
     });
 

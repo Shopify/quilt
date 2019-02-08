@@ -1,4 +1,4 @@
-import {join, basename} from 'path';
+import {join} from 'path';
 import {readJson} from 'fs-extra';
 import {matchesUA} from 'browserslist-useragent';
 import appRoot from 'app-root-path';
@@ -165,8 +165,6 @@ function getAssetsFromManifest(
     throw new Error(guidance);
   }
 
-  console.log(asyncIds, asyncAssetMap);
-
   const entrypointAssets = [...entrypoints[name][kind]];
 
   const asyncAssets = asyncIds
@@ -174,9 +172,9 @@ function getAssetsFromManifest(
         .reduce((all, id) => {
           return [
             ...all,
-            ...(asyncAssetMap[id] || []).filter(({file}) => {
-              file.endsWith(`.${kind}`);
-            }),
+            ...(asyncAssetMap[id] || []).filter(({file}) =>
+              file.endsWith(`.${kind}`),
+            ),
           ];
         }, [])
         .map(({publicPath}) => ({path: publicPath}))
@@ -186,11 +184,16 @@ function getAssetsFromManifest(
     return entrypointAssets;
   }
 
+  const bundleTester = new RegExp(`\\b${name}[^\\.]*\\.${kind}`);
+
   const nonVendorEntrypointIndex = entrypointAssets.findIndex(bundle =>
-    basename(new URL(bundle.path).pathname).startsWith(name),
+    bundleTester.test(bundle.path),
   );
 
-  return nonVendorEntrypointIndex >= 0
-    ? entrypointAssets.splice(nonVendorEntrypointIndex, 0, ...asyncAssets)
-    : [...asyncAssets, ...entrypointAssets];
+  if (nonVendorEntrypointIndex) {
+    entrypointAssets.splice(nonVendorEntrypointIndex, 0, ...asyncAssets);
+    return entrypointAssets;
+  }
+
+  return [...asyncAssets, ...entrypointAssets];
 }
