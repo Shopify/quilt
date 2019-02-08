@@ -24,6 +24,11 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n/README.md",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/types": "^7.3.0",
+    "@types/babel__core": "^7.0.4",
+    "@types/babel__template": "^7.0.1",
+    "@types/babel__traverse": "^7.0.5",
     "intl-pluralrules": "^0.2.1",
     "typescript": "~3.0.1"
   },
@@ -33,6 +38,7 @@
     "@types/hoist-non-react-statics": "^3.0.1",
     "hoist-non-react-statics": "^3.0.1",
     "prop-types": "^15.6.2",
+    "string-hash": "^1.1.3",
     "tslib": "^1.9.3"
   },
   "sideEffects": false,

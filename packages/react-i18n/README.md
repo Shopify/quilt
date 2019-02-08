@@ -274,6 +274,42 @@ export default function App({
 }
 ```
 
+### Babel
+
+This package includes a plugin for Babel that auto-fills `withI18n`'s arguments from an adjacent translations folder. The Babel plugin is exported from the `@shopify/react-i18n/babel` entrypoint:
+
+```js
+// babel.config.js
+{
+  plugins: [
+    ['@shopify/react-i18n/babel'],
+  ],
+}
+```
+
+This plugin will look for an adjacent translations folder containing, at minimum, and `en.json` file (the default lcoale). It will then iterate over each reference to the `withI18n` decorator, if the reference is a call expression with no arguments, and inject the appropriate arguments.
+
+```js
+// Within MyComponent.tsx:
+
+withI18n();
+
+// Becomes:
+
+import enTranslations from './translations/en.json';
+
+withI18n({
+  id: 'MyComponent_<hash>',
+  fallback: enTranslations,
+  async translations(locale) {
+    try {
+      const dictionary = await import(/* webpackChunkName: "MyComponent_<hash>-i18n" */ `./translations/${locale}.json`);
+      return dictionary;
+    } catch (err) {}
+  },
+});
+```
+
 ## FAQ
 
 ### Why another i18n library? Why not just use <[react-intl](https://github.com/yahoo/react-intl) | [react-i18next](https://github.com/i18next/react-i18next)> etc?
