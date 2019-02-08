@@ -6,8 +6,7 @@ import path from 'path';
 import fs from 'fs';
 
 interface State {
-  lastKnownImport: NodePath<Types.ImportDeclaration>;
-  decoratorName?: string;
+  lastImport: NodePath<Types.ImportDeclaration>;
 }
 
 export default function injectWithI18nArguments({
@@ -41,14 +40,59 @@ export default function injectWithI18nArguments({
       },
     )();
   }
+  function addI18nArguments({
+    binding,
+    bindingName,
+    filename,
+    filenameRelative,
+    lastImport,
+  }) {
+    if (!hasTranslations(filename)) {
+      return;
+    }
+
+    let fallbackID;
+
+    for (const refPath of binding.referencePaths) {
+      const callExpression: NodePath = refPath.parentPath;
+
+      if (!callExpression.isCallExpression()) {
+        continue;
+      }
+
+      const args = callExpression.get('arguments');
+      if (args.length !== 0) {
+        continue;
+      }
+
+      if (fallbackID == null) {
+        fallbackID = refPath.scope.generateUidIdentifier('en').name;
+        lastImport.insertAfter(fallbackTranslationsImport({id: fallbackID}));
+      }
+
+      callExpression.replaceWith(
+        i18nParams({
+          id: generateID(filenameRelative),
+          fallbackID,
+          decoratorName: bindingName,
+        }),
+      );
+    }
+  }
 
   return {
     visitor: {
+      Program(nodePath: NodePath<Types.Program>, state: State) {
+        const lastImport = nodePath
+          .get('body')
+          .filter(subPath => subPath.isImportDeclaration())
+          .pop();
+        state.lastImport = lastImport as NodePath<Types.ImportDeclaration>;
+      },
       ImportDeclaration(
         nodePath: NodePath<Types.ImportDeclaration>,
         state: State,
       ) {
-        state.lastKnownImport = nodePath;
         if (nodePath.node.source.value !== '@shopify/react-i18n') {
           return;
         }
@@ -58,45 +102,35 @@ export default function injectWithI18nArguments({
             t.isImportSpecifier(specifier) &&
             specifier.imported.name === 'withI18n'
           ) {
-            state.decoratorName = specifier.local.name;
+            const bindingName = specifier.local.name;
+            const binding = nodePath.scope.getBinding(bindingName);
+            if (binding != null) {
+              const {filename, filenameRelative} = this.file.opts;
+              const {lastImport} = state;
+
+              addI18nArguments({
+                binding,
+                bindingName,
+                filename,
+                filenameRelative,
+                lastImport,
+              });
+            }
             break;
           }
         }
       },
-      CallExpression(nodePath: NodePath<Types.CallExpression>, state: State) {
-        const expr = nodePath.node;
-        const {callee} = expr;
-        if (
-          t.isIdentifier(callee) &&
-          callee.name === state.decoratorName &&
-          expr.arguments.length === 0
-        ) {
-          const {filename, filenameRelative} = this.file.opts;
-          const enJSONPath = path.resolve(
-            path.dirname(filename),
-            'translations',
-            'en.json',
-          );
-          if (!fs.existsSync(enJSONPath)) {
-            return;
-          }
-          const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
-          state.lastKnownImport.insertAfter(
-            fallbackTranslationsImport({
-              id: fallbackID,
-            }),
-          );
-          nodePath.replaceWith(
-            i18nParams({
-              id: generateID(filenameRelative),
-              fallbackID,
-              decoratorName: state.decoratorName,
-            }),
-          );
-        }
-      },
     },
   };
+}
+
+function hasTranslations(filename) {
+  const enJSONPath = path.resolve(
+    path.dirname(filename),
+    'translations',
+    'en.json',
+  );
+  return fs.existsSync(enJSONPath);
 }
 
 // based on postcss-modules implementation
