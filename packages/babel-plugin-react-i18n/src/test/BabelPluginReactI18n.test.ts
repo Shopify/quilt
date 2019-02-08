@@ -37,7 +37,7 @@ describe('babel-pluin-react-i18n', () => {
     expect(code).toMatchInlineSnapshot(`
 "import React from 'react';
 import { withI18n } from '@shopify/react-i18n';
-import enTranslations from './translations/en.json';
+import _en from './translations/en.json';
 
 function MyComponent({
   i18n
@@ -47,7 +47,7 @@ function MyComponent({
 
 export default withI18n({
   id: 'MyComponent_1qre7',
-  fallback: enTranslations,
+  fallback: _en,
 
   async translations(locale) {
     try {
