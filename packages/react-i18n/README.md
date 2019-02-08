@@ -296,11 +296,11 @@ withI18n();
 
 // Becomes:
 
-import enTranslations from './translations/en.json';
+import _en from './translations/en.json';
 
 withI18n({
   id: 'MyComponent_<hash>',
-  fallback: enTranslations,
+  fallback: _en,
   async translations(locale) {
     try {
       const dictionary = await import(/* webpackChunkName: "MyComponent_<hash>-i18n" */ `./translations/${locale}.json`);
