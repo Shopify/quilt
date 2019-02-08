@@ -6,10 +6,9 @@ import path from 'path';
 import fs from 'fs';
 
 interface State {
-  importer(importArg: Types.ImportDeclaration): void;
+  lastKnownImport: NodePath<Types.ImportDeclaration>;
+  decoratorName?: string;
 }
-
-const WITH_I18N_DECORATOR_NAME = 'withI18n';
 
 export default function injectWithI18nArguments({
   types: t,
@@ -18,18 +17,19 @@ export default function injectWithI18nArguments({
   types: typeof Types;
   template: TemplateBuilder<Types.ImportDeclaration | Types.ObjectExpression>;
 }) {
-  const fallbackTranslationsImport = template(
-    `import enTranslations from './translations/en.json';`,
-    {sourceType: 'module'},
-  );
-  function i18nParams({ID}) {
+  function fallbackTranslationsImport({id}) {
+    return template(`import ${id} from './translations/en.json';`, {
+      sourceType: 'module',
+    })();
+  }
+  function i18nParams({id, fallbackID, decoratorName}) {
     return template(
-      `withI18n({
-      id: '${ID}',
-      fallback: enTranslations,
+      `${decoratorName}({
+      id: '${id}',
+      fallback: ${fallbackID},
       async translations(locale) {
           try {
-            const dictionary = await import(/* webpackChunkName: '${ID}-i18n' */ \`./translations/$\{locale}.json\`);
+            const dictionary = await import(/* webpackChunkName: '${id}-i18n' */ \`./translations/$\{locale}.json\`);
             return dictionary;
           } catch (err) {}
         },
@@ -44,16 +44,23 @@ export default function injectWithI18nArguments({
 
   return {
     visitor: {
-      Program(nodePath: NodePath<Types.Program>, state: State) {
-        const lastImport = nodePath
-          .get('body')
-          .filter(subPath => subPath.isImportDeclaration())
-          .pop();
-        if (lastImport) {
-          state.importer = importDecl => lastImport.insertAfter(importDecl);
-        } else {
-          state.importer = importDecl =>
-            nodePath.get('body')[0].insertBefore(importDecl);
+      ImportDeclaration(
+        nodePath: NodePath<Types.ImportDeclaration>,
+        state: State,
+      ) {
+        state.lastKnownImport = nodePath;
+        if (nodePath.node.source.value !== '@shopify/react-i18n') {
+          return;
+        }
+        const {specifiers} = nodePath.node;
+        for (const specifier of specifiers) {
+          if (
+            t.isImportSpecifier(specifier) &&
+            specifier.imported.name === 'withI18n'
+          ) {
+            state.decoratorName = specifier.local.name;
+            break;
+          }
         }
       },
       CallExpression(nodePath: NodePath<Types.CallExpression>, state: State) {
@@ -61,7 +68,7 @@ export default function injectWithI18nArguments({
         const {callee} = expr;
         if (
           t.isIdentifier(callee) &&
-          callee.name === WITH_I18N_DECORATOR_NAME &&
+          callee.name === state.decoratorName &&
           expr.arguments.length === 0
         ) {
           const {filename, filenameRelative} = this.file.opts;
@@ -73,12 +80,19 @@ export default function injectWithI18nArguments({
           if (!fs.existsSync(enJSONPath)) {
             return;
           }
-          state.importer(
-            fallbackTranslationsImport() as Types.ImportDeclaration,
+          const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
+          state.lastKnownImport.insertAfter(
+            fallbackTranslationsImport({
+              id: fallbackID,
+            }),
           );
-          nodePath.replaceWith(i18nParams({
-            ID: generateID(filenameRelative),
-          }) as Types.ObjectExpression);
+          nodePath.replaceWith(
+            i18nParams({
+              id: generateID(filenameRelative),
+              fallbackID,
+              decoratorName: state.decoratorName,
+            }),
+          );
         }
       },
     },
@@ -92,6 +106,6 @@ function generateID(filename: string) {
     .toString(36)
     .substr(0, 5);
   const extension = path.extname(filename);
-  const legible = path.basename(filename).replace(extension, '');
+  const legible = path.basename(filename, extension);
   return `${legible}_${hash}`;
 }
