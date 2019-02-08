@@ -1,10 +1,11 @@
 {
-  "name": "@shopify/react-effect",
-  "version": "2.0.1",
+  "name": "@shopify/react-graphql",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "A component and set of utilities for performing effects within a universal React app",
+  "description": "Tools for creating type-safe and asynchronous GraphQL components for React.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
     "prepublishOnly": "yarn run build"
@@ -21,21 +22,21 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^1.1.2",
-    "tslib": "^1.9.3"
+    "@shopify/async": "^1.0.0",
+    "@shopify/react-async": "^1.0.0",
+    "@shopify/useful-types": "^1.1.1",
+    "graphql-typed": "^0.2.0",
+    "react-apollo": ">=2.1.0 <3.0.0"
   },
   "devDependencies": {
-    "@types/react-dom": "^16.0.11",
     "typescript": "~3.0.1"
   },
   "files": [
-    "dist/*",
-    "server.js",
-    "server.d.ts"
+    "dist/*"
   ],
   "peerDependencies": {
-    "react": ">=16.0.0"
+    "react": "^16.6.0"
   }
 }

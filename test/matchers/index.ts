@@ -1,3 +1,5 @@
+import 'jest-enzyme';
+
 declare global {
   namespace jest {
     interface Matchers<R> {
