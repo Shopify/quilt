@@ -84,4 +84,24 @@ function MyComponent({
 export default withI18n()(MyComponent);"
 `);
   });
+
+  it('does not make changes when no decorator is present', async () => {
+    const fixturePath = path.resolve(
+      __dirname,
+      'fixtures',
+      'withoutDecorator',
+      'MyComponent.js',
+    );
+
+    const code = await runFixture(fixturePath);
+    expect(code).toMatchInlineSnapshot(`
+"import React from 'react';
+
+function MyComponent() {
+  return 'foo';
+}
+
+export default MyComponent;"
+`);
+  });
 });
