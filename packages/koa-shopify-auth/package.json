@@ -23,13 +23,13 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md",
   "dependencies": {
-    "@shopify/jest-koa-mocks": "^2.1.0",
     "nonce": "^1.0.4",
     "safe-compare": "^1.1.2",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.2.0",
+    "@shopify/jest-koa-mocks": "^2.0.1",
     "@types/koa": "^2.0.44",
     "@types/safe-compare": "^1.1.0",
     "koa": "^2.5.0",
