@@ -1,6 +1,6 @@
 import * as path from 'path';
 import {transformFile} from '@babel/core';
-import BabelPluginReactI18n from '../BabelPluginReactI18n';
+import BabelPluginReactI18n from '../babel-plugin';
 
 function runFixture(fixturePath: string) {
   return new Promise<string>((resolve, reject) => {
