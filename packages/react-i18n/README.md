@@ -287,7 +287,7 @@ This package includes a plugin for Babel that auto-fills `withI18n`'s arguments 
 }
 ```
 
-This plugin will look for an adjacent translations folder containing, at minimum, and `en.json` file (the default lcoale). It will then iterate over each reference to the `withI18n` decorator, if the reference is a call expression with no arguments, and inject the appropriate arguments.
+This plugin will look for an adjacent translations folder containing, at minimum, an `en.json` file (the default locale). It will then iterate over each reference to the `withI18n` decorator, if the reference is a call expression with no arguments, and inject the appropriate arguments.
 
 ```js
 // Within MyComponent.tsx:
