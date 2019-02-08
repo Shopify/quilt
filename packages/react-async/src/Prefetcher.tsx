@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {Omit} from '@shopify/useful-types';
+
+import {PrefetchContext, PrefetchManager} from './context/prefetch';
 import {EventListener} from './EventListener';
-import {Manager} from './manager';
 
 interface Props {
-  manager: Manager;
+  manager: PrefetchManager;
 }
 
 interface State {
@@ -12,7 +14,7 @@ interface State {
 
 export const HOVER_DELAY_MS = 100;
 
-export class Prefetcher extends React.PureComponent<Props, State> {
+class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   state: State = {};
   private timeout?: ReturnType<typeof setTimeout>;
   private timeoutUrl?: string;
@@ -147,7 +149,17 @@ export class Prefetcher extends React.PureComponent<Props, State> {
   }
 }
 
-function findMatches(records: Manager['registered'], url: string) {
+export function Prefetcher(props: Omit<Props, 'manager'>) {
+  return (
+    <PrefetchContext.Consumer>
+      {manager =>
+        manager ? <ConnectedPrefetcher {...props} manager={manager} /> : null
+      }
+    </PrefetchContext.Consumer>
+  );
+}
+
+function findMatches(records: PrefetchManager['registered'], url: string) {
   return [...records].filter(({url: match}) => matches(url, match));
 }
 

@@ -2,9 +2,9 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 
 import {Async} from '../Async';
-import {AsyncContext} from '../context';
+import {AsyncAssetContext} from '../context/assets';
 
-import {createManager} from './utilities';
+import {createAsyncAssetManager} from './utilities';
 
 function MockComponent() {
   return null;
@@ -52,13 +52,13 @@ describe('<Async />', () => {
   it('calls manager.markAsUsed() with the result of id() when the module is actually loaded', async () => {
     const id = 'foo-bar';
     const promise = createResolvablePromise(MockComponent);
-    const manager = createManager();
+    const manager = createAsyncAssetManager();
     const spy = jest.spyOn(manager, 'markAsUsed');
 
     mount(
-      <AsyncContext.Provider value={manager}>
+      <AsyncAssetContext.Provider value={manager}>
         <Async load={() => promise.promise} id={() => id} />
-      </AsyncContext.Provider>,
+      </AsyncAssetContext.Provider>,
     );
 
     expect(spy).not.toHaveBeenCalled();

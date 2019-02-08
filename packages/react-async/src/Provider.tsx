@@ -1,24 +1,47 @@
 import * as React from 'react';
-import {AsyncManager, Manager} from './manager';
-import {Prefetcher} from './Prefetcher';
-import {AsyncContext} from './context';
+import {LoadProps} from '@shopify/async';
 
-interface Props {
+import {Async} from './Async';
+
+interface Options<Value> extends LoadProps<Value> {}
+
+interface ProviderProps {
   children?: React.ReactNode;
-  manager?: Manager;
 }
 
-export class AsyncProvider extends React.PureComponent<Props> {
-  private manager = this.props.manager || new AsyncManager();
+interface ConsumerProps<Value> {
+  children(value: Value): React.ReactNode;
+}
 
-  render() {
+export interface AsyncContextType<Value> {
+  Provider: React.ComponentType<ProviderProps>;
+  Consumer: React.ComponentType<ConsumerProps<Value>>;
+  Preload: React.ComponentType<{}>;
+}
+
+export function createAsyncContext<Value>({
+  id,
+  load,
+}: Options<Value>): AsyncContextType<Value> {
+  const Context = React.createContext<Value | null>(null);
+
+  function Provider(props: ProviderProps) {
     return (
-      <>
-        <Prefetcher manager={this.manager} />
-        <AsyncContext.Provider value={this.manager}>
-          {this.props.children}
-        </AsyncContext.Provider>
-      </>
+      <Async
+        load={load}
+        id={id}
+        render={value => <Context.Provider value={value} {...props} />}
+      />
     );
   }
+
+  function Consumer(props: ConsumerProps<Value>) {
+    return <Context.Consumer {...props} />;
+  }
+
+  function Preload() {
+    return <Async defer load={load} />;
+  }
+
+  return {Provider, Consumer, Preload};
 }
