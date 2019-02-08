@@ -44,8 +44,8 @@ export default function injectWithI18nArguments({
 
   return {
     visitor: {
-      Program(_path: NodePath<Types.Program>, state: State) {
-        const lastImport = _path
+      Program(nodePath: NodePath<Types.Program>, state: State) {
+        const lastImport = nodePath
           .get('body')
           .filter(subPath => subPath.isImportDeclaration())
           .pop();
@@ -53,15 +53,15 @@ export default function injectWithI18nArguments({
           state.importer = importDecl => lastImport.insertAfter(importDecl);
         } else {
           state.importer = importDecl =>
-            _path.get('body')[0].insertBefore(importDecl);
+            nodePath.get('body')[0].insertBefore(importDecl);
         }
       },
-      CallExpression(_path: NodePath<Types.CallExpression>, state: State) {
-        const expr = _path.node;
+      CallExpression(nodePath: NodePath<Types.CallExpression>, state: State) {
+        const expr = nodePath.node;
         const {callee} = expr;
         if (
           t.isIdentifier(callee) &&
-          (callee as Types.Identifier).name === WITH_I18N_DECORATOR_NAME &&
+          callee.name === WITH_I18N_DECORATOR_NAME &&
           expr.arguments.length === 0
         ) {
           const {filename, filenameRelative} = this.file.opts;
@@ -76,7 +76,7 @@ export default function injectWithI18nArguments({
           state.importer(
             fallbackTranslationsImport() as Types.ImportDeclaration,
           );
-          _path.replaceWith(i18nParams({
+          nodePath.replaceWith(i18nParams({
             ID: generateID(filenameRelative),
           }) as Types.ObjectExpression);
         }
