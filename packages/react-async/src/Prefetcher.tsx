@@ -12,12 +12,17 @@ interface State {
   url?: string;
 }
 
-export const HOVER_DELAY_MS = 100;
+interface NavigatorWithConnection {
+  connection: {saveData: boolean};
+}
+
+export const HOVER_DELAY_MS = 150;
 
 class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   state: State = {};
   private timeout?: ReturnType<typeof setTimeout>;
   private timeoutUrl?: string;
+  private prefetchAgressively = shouldPrefetchAggressively();
 
   render() {
     const {url} = this.state;
@@ -36,7 +41,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
         )
       : null;
 
-    return (
+    const expensiveListeners = this.prefetchAgressively ? (
       <>
         <EventListener
           passive
@@ -44,11 +49,6 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
           handler={this.handleMouseOver}
         />
         <EventListener passive event="focusin" handler={this.handleMouseOver} />
-        <EventListener
-          passive
-          event="mousedown"
-          handler={this.handleMouseDown}
-        />
         <EventListener
           passive
           event="mouseout"
@@ -59,6 +59,17 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
           event="focusout"
           handler={this.handleMouseLeave}
         />
+      </>
+    ) : null;
+
+    return (
+      <>
+        <EventListener
+          passive
+          event="mousedown"
+          handler={this.handleMouseDown}
+        />
+        {expensiveListeners}
         {preloadMarkup}
       </>
     );
@@ -156,6 +167,14 @@ export function Prefetcher(props: Omit<Props, 'manager'>) {
         manager ? <ConnectedPrefetcher {...props} manager={manager} /> : null
       }
     </PrefetchContext.Consumer>
+  );
+}
+
+function shouldPrefetchAggressively() {
+  return (
+    typeof navigator === 'undefined' ||
+    !('connection' in navigator) ||
+    !(navigator as NavigatorWithConnection).connection.saveData
   );
 }
 
