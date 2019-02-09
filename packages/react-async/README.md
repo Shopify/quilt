@@ -143,19 +143,43 @@ To make use of this feature, you will need to use [`react-effect`](../react-effe
 import {extract} from '@shopify/react-effect/server';
 import {AsyncAssetManager, AsyncAssetContext} from '@shopify/react-async';
 
-const asyncManager = new AsyncAssetManager();
+const asyncAssetmanager = new AsyncAssetManager();
 
 await extract(<App />, {
   decorate(app) {
     return (
-      <AsyncAssetContext.Provider value={asyncManager}>
+      <AsyncAssetContext.Provider value={asyncAssetmanager}>
         {app}
       </AsyncAssetContext.Provider>
     );
   },
 });
 
-const moduleIds = [...asyncManager.used];
+const moduleIds = [...asyncAssetmanager.used];
 ```
 
 These module IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](../sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.
+
+### `createAsyncContext()`
+
+Most of the time, it makes sense to split your application along component boundaries. However, you may also have a reason to split off a part of your app that is not a component. To accomplish this, `react-async` provides a `createAsyncContext()` function. This function also takes an object with a `load` property that is a promise for the value you are splitting. The returned object mimics the shape of `React.createContext()`, except that the `Provider` component does not need a value supplied:
+
+```tsx
+const ExpensiveFileContext = createAsyncContext({
+  load: () => import('./a-csv-for-some-reason.csv'),
+});
+
+// Somewhere in your app, create the provider:
+
+<ExpensiveFileContext.Provider>
+  {/* consuming code goes here */}
+</ExpensiveFileContext.Provider>;
+
+// and use the consumer to access the value:
+
+<ExpensiveFileContext.Consumer>
+  {file => (file ? <CsvViewer file={file} /> : null)}
+</ExpensiveFileContext.Consumer>;
+```
+
+The typing of the render prop for the `Consumer` component always includes `null`, which is used to represent that the async value has not yet loaded successfully.

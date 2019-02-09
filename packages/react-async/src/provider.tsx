@@ -10,10 +10,11 @@ interface ProviderProps {
 }
 
 interface ConsumerProps<Value> {
-  children(value: Value): React.ReactNode;
+  children(value: Value | null): React.ReactNode;
 }
 
 export interface AsyncContextType<Value> {
+  Context: React.Context<Value | null>;
   Provider: React.ComponentType<ProviderProps>;
   Consumer: React.ComponentType<ConsumerProps<Value>>;
   Preload: React.ComponentType<{}>;
@@ -43,5 +44,5 @@ export function createAsyncContext<Value>({
     return <Async defer load={load} />;
   }
 
-  return {Provider, Consumer, Preload};
+  return {Context, Provider, Consumer, Preload};
 }
