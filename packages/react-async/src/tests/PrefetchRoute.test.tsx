@@ -11,32 +11,27 @@ function MockComponent() {
 }
 
 const defaultProps = {
-  component: MockComponent,
-  url: '/foo/bar',
+  render: () => <MockComponent />,
+  path: '/foo/bar',
 };
 
 describe('<PrefetchRoute />', () => {
   it('registers with the manager in context on mount', () => {
     const manager = createPrefetchManager();
-    const url = '/foo/bar';
-    const mapUrlToProps = () => {};
+    const path = '/foo/bar';
+    const render = () => <MockComponent />;
     const spy = jest.spyOn(manager, 'register');
 
     mount(
       <PrefetchContext.Provider value={manager}>
-        <PrefetchRoute
-          component={MockComponent}
-          url={url}
-          mapUrlToProps={mapUrlToProps}
-        />
+        <PrefetchRoute path={path} render={render} />
       </PrefetchContext.Provider>,
     );
 
     expect(spy).toHaveBeenCalledWith(
-      MockComponent,
       expect.objectContaining({
-        url,
-        mapUrlToProps,
+        path,
+        render,
       }),
     );
   });

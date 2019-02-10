@@ -99,7 +99,7 @@ const MyComponent = createAsyncComponent({
 
 ### `PrefetchRoute` and `Prefetcher`
 
-The `PrefetchRoute` component allows you to use the asynchronous component you generated with `createAsyncComponent` and automatically render its `Prefetch` component when the user looks like they are going to navigate to a page that uses it. This component takes as its props the asynchronous component, a URL pattern to look for (a string or `RegExp` that is compared against the target pathname), and an optional function that can map the URL to a set of props for your prefetch component.
+The `PrefetchRoute` component allows you to use the asynchronous component you generated with `createAsyncComponent` and automatically render its `Prefetch` component when the user looks like they are going to navigate to a page that uses it. This component takes as its props the asynchronous component, a path pattern to look for (a string or `RegExp` that is compared against the target pathname), and an optional function that can map the URL to a set of props for your prefetch component.
 
 Consider this async component:
 
@@ -114,13 +114,10 @@ This component might be rendered when the URL matches `/products/:id`. If we wan
 
 ```tsx
 <PrefetchRoute
-  component={ProductDetails}
-  url={/^\/products\/(\d+)$/}
-  mapUrlToProps={pathname => {
-    // If you don’t pass the right types, or don’t pass mapUrlToProps()
-    // at all, you’ll get a type error.
-    const id = pathname.split('/').pop();
-    return {id};
+  path={/^\/products\/(\d+)$/}
+  render={url => {
+    const id = url.pathname.split('/').pop();
+    return <ProductDetails.Prefetch id={id} />;
   }}
 />
 ```
