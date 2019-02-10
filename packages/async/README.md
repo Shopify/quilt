@@ -22,7 +22,7 @@ It also includes a plugin for Babel that allows the module IDs that are asynchro
 
 ### Babel
 
-The Babel plugin is exported from the `@shopify/async/babel` entrypoint. This plugin accepts one option: `packages`, which should be an object where the keys are the names of packages, and the values are an array of functions that should be processed. This option defaults to an object containing a few Shopify-specific async packages (`createAsyncComponent` from `@shopify/react-async`, and `createAsyncQueryComponent` from `@shopify/react-graphql`).
+The Babel plugin is exported from the `@shopify/async/babel` entrypoint. This plugin accepts one option: `packages`, which should be an object where the keys are the names of packages, and the values are an array of functions that should be processed. This option defaults to an object containing a few Shopify-specific async packages (`createAsyncComponent` and `createAsyncContext` from `@shopify/react-async`, and `createAsyncQueryComponent` from `@shopify/react-graphql`).
 
 ```js
 // babel.config.js

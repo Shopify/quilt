@@ -13,8 +13,16 @@ export interface Entrypoint {
   css: Asset[];
 }
 
+export interface AsyncAsset {
+  id?: string;
+  file: string;
+  publicPath: string;
+  integrity?: string;
+}
+
 export interface Manifest {
   entrypoints: {[key: string]: Entrypoint};
+  asyncAssets: {[key: string]: AsyncAsset[]};
 }
 
 export interface ConsolidatedManifestEntry {
@@ -30,6 +38,16 @@ interface Options {
   userAgent?: string;
 }
 
+interface AssetOptions {
+  name?: string;
+  asyncAssets?: Iterable<string>;
+}
+
+enum AssetKind {
+  Styles = 'css',
+  Scripts = 'js',
+}
+
 export default class Assets {
   assetPrefix: string;
   userAgent?: string;
@@ -40,8 +58,11 @@ export default class Assets {
     this.userAgent = userAgent;
   }
 
-  async scripts({name = 'main'} = {}) {
-    const {js} = getAssetsForEntrypoint(name, await this.getResolvedManifest());
+  async scripts(options: AssetOptions = {}) {
+    const js = getAssetsFromManifest(
+      {...options, kind: AssetKind.Scripts},
+      await this.getResolvedManifest(),
+    );
 
     const scripts =
       // Sewing Kit does not currently include the vendor DLL in its asset
@@ -54,12 +75,11 @@ export default class Assets {
     return scripts;
   }
 
-  async styles({name = 'main'} = {}) {
-    const {css} = getAssetsForEntrypoint(
-      name,
+  async styles(options: AssetOptions = {}) {
+    return getAssetsFromManifest(
+      {...options, kind: AssetKind.Styles},
       await this.getResolvedManifest(),
     );
-    return css;
   }
 
   private async getResolvedManifestEntry() {
@@ -125,7 +145,14 @@ export function internalOnlyClearCache() {
   consolidatedManifestPromise = null;
 }
 
-function getAssetsForEntrypoint(name: string, {entrypoints}: Manifest) {
+function getAssetsFromManifest(
+  {
+    name = 'main',
+    asyncAssets: asyncIds,
+    kind,
+  }: AssetOptions & {kind: AssetKind},
+  {entrypoints, asyncAssets: asyncAssetMap}: Manifest,
+) {
   if (!entrypoints.hasOwnProperty(name)) {
     const entries = Object.keys(entrypoints);
     const guidance =
@@ -138,5 +165,35 @@ function getAssetsForEntrypoint(name: string, {entrypoints}: Manifest) {
     throw new Error(guidance);
   }
 
-  return entrypoints[name];
+  const entrypointAssets = [...entrypoints[name][kind]];
+
+  const asyncAssets = asyncIds
+    ? [...asyncIds]
+        .reduce((all, id) => {
+          return [
+            ...all,
+            ...(asyncAssetMap[id] || []).filter(({file}) =>
+              file.endsWith(`.${kind}`),
+            ),
+          ];
+        }, [])
+        .map(({publicPath}) => ({path: publicPath}))
+    : [];
+
+  if (asyncAssets.length === 0) {
+    return entrypointAssets;
+  }
+
+  const bundleTester = new RegExp(`\\b${name}[^\\.]*\\.${kind}`);
+
+  const nonVendorEntrypointIndex = entrypointAssets.findIndex(bundle =>
+    bundleTester.test(bundle.path),
+  );
+
+  if (nonVendorEntrypointIndex) {
+    entrypointAssets.splice(nonVendorEntrypointIndex, 0, ...asyncAssets);
+    return entrypointAssets;
+  }
+
+  return [...asyncAssets, ...entrypointAssets];
 }
