@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 3.1.0 - 2019-02-10
+
+### Added
+
+- `Assets#styles` and `Assets#scripts` now accept an optional `asyncAssets` option, which will be used to embed additional async bundles into the returned list
+
 ## 3.0.0 - 2019-01-18
 
 ### Fixed
