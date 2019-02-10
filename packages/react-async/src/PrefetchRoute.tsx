@@ -1,40 +1,22 @@
 import * as React from 'react';
-import {Omit, IfAllOptionalKeys} from '@shopify/useful-types';
-
-import {Prefetchable} from './shared';
+import {Omit} from '@shopify/useful-types';
 import {PrefetchContext, PrefetchManager} from './context/prefetch';
 
-interface UrlMapperPropsNonOptional<Props> {
-  mapUrlToProps(path: string): Props;
-}
-
-interface UrlMapperPropsOptional<Props> {
-  mapUrlToProps?(path: string): Props | void;
-}
-
-type UrlMapperProps<Props> = IfAllOptionalKeys<
-  Props,
-  UrlMapperPropsOptional<Props>,
-  UrlMapperPropsNonOptional<Props>
->;
-
-interface Props<PrefetchProps> {
+interface Props {
   manager: PrefetchManager;
-  url: string | RegExp;
-  component: Prefetchable<PrefetchProps>;
+  path: string | RegExp;
+  render(url: URL): React.ReactNode;
 }
 
-class ConnectedPrefetchRoute<PrefetchProps> extends React.Component<
-  Props<PrefetchProps> & UrlMapperProps<PrefetchProps>
-> {
+class ConnectedPrefetchRoute extends React.Component<Props> {
   private unregister?: ReturnType<PrefetchManager['register']>;
 
   componentDidMount() {
-    const {manager, component, url, mapUrlToProps} = this.props;
-    this.unregister = manager.register(component, {
-      url,
-      mapUrlToProps,
-    } as any);
+    const {manager, path, render} = this.props;
+    this.unregister = manager.register({
+      path,
+      render,
+    });
   }
 
   componentWillUnmount() {
@@ -48,16 +30,12 @@ class ConnectedPrefetchRoute<PrefetchProps> extends React.Component<
   }
 }
 
-export function PrefetchRoute<PrefetchProps>(
-  props: Omit<Props<PrefetchProps>, 'manager'> & UrlMapperProps<PrefetchProps>,
-) {
+export function PrefetchRoute(props: Omit<Props, 'manager'>) {
   return (
     <PrefetchContext.Consumer>
-      {manager =>
-        manager ? (
-          <ConnectedPrefetchRoute manager={manager} {...props as any} />
-        ) : null
-      }
+      {manager => (
+        <ConnectedPrefetchRoute manager={manager} {...props as any} />
+      )}
     </PrefetchContext.Consumer>
   );
 }

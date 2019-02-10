@@ -1,8 +1,8 @@
-import {PrefetchManager, Record} from '../context/prefetch';
+import {PrefetchManager, Registration} from '../context/prefetch';
 import {AsyncAssetManager} from '../context/assets';
 
 export function createPrefetchManager(
-  registered: Record<any>[] = [],
+  registered: Registration[] = [],
 ): PrefetchManager {
   return new PrefetchManager(registered);
 }

@@ -9,37 +9,32 @@ interface Props {
 }
 
 interface State {
-  url?: string;
+  url?: URL;
 }
 
 interface NavigatorWithConnection {
   connection: {saveData: boolean};
 }
 
-export const HOVER_DELAY_MS = 150;
+export const INTENTION_DELAY_MS = 150;
 
 class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   state: State = {};
   private timeout?: ReturnType<typeof setTimeout>;
-  private timeoutUrl?: string;
+  private timeoutUrl?: URL;
   private prefetchAgressively = shouldPrefetchAggressively();
 
   render() {
     const {url} = this.state;
     const {manager} = this.props;
-    const preloadMarkup = url
-      ? findMatches(manager.registered, url).map(
-          ({url: matchUrl, mapUrlToProps, component: Component}) => {
-            const additionalProps = mapUrlToProps
-              ? mapUrlToProps(url) || {}
-              : {};
-            const Prefetch =
-              'Prefetch' in Component ? Component.Prefetch : Component;
-
-            return <Prefetch {...additionalProps} key={String(matchUrl)} />;
-          },
-        )
-      : null;
+    const preloadMarkup = url ? (
+      <div style={{visibility: 'hidden'}}>
+        {findMatches(manager.registered, url).map(({render, path}, index) => {
+          // eslint-disable-next-line react/no-array-index-key
+          return <div key={`${path}${index}`}>{render(url)}</div>;
+        })}
+      </div>
+    ) : null;
 
     const expensiveListeners = this.prefetchAgressively ? (
       <>
@@ -82,7 +77,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
       return;
     }
 
-    const url = closestHref(target);
+    const url = closestUrlFromNode(target);
 
     if (url != null) {
       this.setState({url});
@@ -108,18 +103,18 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
       return;
     }
 
-    const closestUrl = closestHref(target);
-    const relatedUrl = relatedTarget && closestHref(relatedTarget);
+    const closestUrl = closestUrlFromNode(target);
+    const relatedUrl = relatedTarget && closestUrlFromNode(relatedTarget);
 
     if (
       timeout != null &&
-      closestUrl === timeoutUrl &&
-      relatedUrl !== timeoutUrl
+      urlsEqual(closestUrl, timeoutUrl) &&
+      !urlsEqual(relatedUrl, timeoutUrl)
     ) {
       this.clearTimeout();
     }
 
-    if (closestUrl === url && relatedUrl !== url) {
+    if (urlsEqual(closestUrl, url) && !urlsEqual(relatedUrl, url)) {
       this.setState({url: undefined});
     }
   };
@@ -130,14 +125,14 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     }
 
     const {timeoutUrl, timeout} = this;
-    const url = closestHref(target);
+    const url = closestUrlFromNode(target);
 
     if (url == null) {
       return;
     }
 
     if (timeout) {
-      if (url === timeoutUrl) {
+      if (urlsEqual(url, timeoutUrl)) {
         return;
       } else {
         this.clearTimeout();
@@ -148,7 +143,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     this.timeout = setTimeout(() => {
       this.clearTimeout();
       this.setState({url});
-    }, HOVER_DELAY_MS);
+    }, INTENTION_DELAY_MS);
   };
 
   private clearTimeout() {
@@ -163,9 +158,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
 export function Prefetcher(props: Omit<Props, 'manager'>) {
   return (
     <PrefetchContext.Consumer>
-      {manager =>
-        manager ? <ConnectedPrefetcher {...props} manager={manager} /> : null
-      }
+      {manager => <ConnectedPrefetcher {...props} manager={manager} />}
     </PrefetchContext.Consumer>
   );
 }
@@ -178,31 +171,40 @@ function shouldPrefetchAggressively() {
   );
 }
 
-function findMatches(records: PrefetchManager['registered'], url: string) {
-  return [...records].filter(({url: match}) => matches(url, match));
+function urlsEqual(first?: URL, second?: URL) {
+  return (
+    (first == null && first === second) ||
+    (first != null && second != null && first.href === second.href)
+  );
 }
 
-function matches(url: string, matcher: string | RegExp) {
-  return typeof matcher === 'string' ? matcher === url : matcher.test(url);
+function findMatches(records: PrefetchManager['registered'], url: URL) {
+  return [...records].filter(({path: match}) => matches(url, match));
 }
 
-function closestHref(element: EventTarget) {
+function matches(url: URL, matcher: string | RegExp) {
+  return typeof matcher === 'string'
+    ? matcher === url.pathname
+    : matcher.test(url.pathname);
+}
+
+function closestUrlFromNode(element: EventTarget) {
   if (!(element instanceof HTMLElement)) {
     return undefined;
   }
 
   // data-href is a hack for resource list doing the <a> as a sibling
-  const closestHref = element.closest('[href], [data-href]');
+  const closestUrl = element.closest('[href], [data-href]');
 
-  if (closestHref == null || !(closestHref instanceof HTMLElement)) {
+  if (closestUrl == null || !(closestUrl instanceof HTMLElement)) {
     return undefined;
   }
 
   const url =
-    closestHref.getAttribute('href') || closestHref.getAttribute('data-href');
+    closestUrl.getAttribute('href') || closestUrl.getAttribute('data-href');
 
   try {
-    return url ? new URL(url, window.location.href).pathname : undefined;
+    return url ? new URL(url, window.location.href) : undefined;
   } catch (error) {
     return undefined;
   }
