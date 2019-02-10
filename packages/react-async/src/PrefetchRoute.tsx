@@ -2,8 +2,7 @@ import * as React from 'react';
 import {Omit, IfAllOptionalKeys} from '@shopify/useful-types';
 
 import {Prefetchable} from './shared';
-import {Manager} from './manager';
-import {AsyncContext} from './context';
+import {PrefetchContext, PrefetchManager} from './context/prefetch';
 
 interface UrlMapperPropsNonOptional<Props> {
   mapUrlToProps(path: string): Props;
@@ -20,15 +19,15 @@ type UrlMapperProps<Props> = IfAllOptionalKeys<
 >;
 
 interface Props<PrefetchProps> {
-  manager: Manager;
+  manager: PrefetchManager;
   url: string | RegExp;
   component: Prefetchable<PrefetchProps>;
 }
 
-class ConnectedPrepare<PrefetchProps> extends React.Component<
+class ConnectedPrefetchRoute<PrefetchProps> extends React.Component<
   Props<PrefetchProps> & UrlMapperProps<PrefetchProps>
 > {
-  private unregister?: ReturnType<Manager['register']>;
+  private unregister?: ReturnType<PrefetchManager['register']>;
 
   componentDidMount() {
     const {manager, component, url, mapUrlToProps} = this.props;
@@ -49,12 +48,16 @@ class ConnectedPrepare<PrefetchProps> extends React.Component<
   }
 }
 
-export function Prepare<PrefetchProps>(
+export function PrefetchRoute<PrefetchProps>(
   props: Omit<Props<PrefetchProps>, 'manager'> & UrlMapperProps<PrefetchProps>,
 ) {
   return (
-    <AsyncContext.Consumer>
-      {manager => <ConnectedPrepare manager={manager} {...props as any} />}
-    </AsyncContext.Consumer>
+    <PrefetchContext.Consumer>
+      {manager =>
+        manager ? (
+          <ConnectedPrefetchRoute manager={manager} {...props as any} />
+        ) : null
+      }
+    </PrefetchContext.Consumer>
   );
 }

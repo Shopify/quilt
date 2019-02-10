@@ -1,21 +1,28 @@
 import * as React from 'react';
+import {Omit} from '@shopify/useful-types';
+
+import {PrefetchContext, PrefetchManager} from './context/prefetch';
 import {EventListener} from './EventListener';
-import {Manager} from './manager';
 
 interface Props {
-  manager: Manager;
+  manager: PrefetchManager;
 }
 
 interface State {
   url?: string;
 }
 
-export const HOVER_DELAY_MS = 100;
+interface NavigatorWithConnection {
+  connection: {saveData: boolean};
+}
 
-export class Prefetcher extends React.PureComponent<Props, State> {
+export const HOVER_DELAY_MS = 150;
+
+class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   state: State = {};
   private timeout?: ReturnType<typeof setTimeout>;
   private timeoutUrl?: string;
+  private prefetchAgressively = shouldPrefetchAggressively();
 
   render() {
     const {url} = this.state;
@@ -34,7 +41,7 @@ export class Prefetcher extends React.PureComponent<Props, State> {
         )
       : null;
 
-    return (
+    const expensiveListeners = this.prefetchAgressively ? (
       <>
         <EventListener
           passive
@@ -42,11 +49,6 @@ export class Prefetcher extends React.PureComponent<Props, State> {
           handler={this.handleMouseOver}
         />
         <EventListener passive event="focusin" handler={this.handleMouseOver} />
-        <EventListener
-          passive
-          event="mousedown"
-          handler={this.handleMouseDown}
-        />
         <EventListener
           passive
           event="mouseout"
@@ -57,6 +59,17 @@ export class Prefetcher extends React.PureComponent<Props, State> {
           event="focusout"
           handler={this.handleMouseLeave}
         />
+      </>
+    ) : null;
+
+    return (
+      <>
+        <EventListener
+          passive
+          event="mousedown"
+          handler={this.handleMouseDown}
+        />
+        {expensiveListeners}
         {preloadMarkup}
       </>
     );
@@ -147,7 +160,25 @@ export class Prefetcher extends React.PureComponent<Props, State> {
   }
 }
 
-function findMatches(records: Manager['registered'], url: string) {
+export function Prefetcher(props: Omit<Props, 'manager'>) {
+  return (
+    <PrefetchContext.Consumer>
+      {manager =>
+        manager ? <ConnectedPrefetcher {...props} manager={manager} /> : null
+      }
+    </PrefetchContext.Consumer>
+  );
+}
+
+function shouldPrefetchAggressively() {
+  return (
+    typeof navigator === 'undefined' ||
+    !('connection' in navigator) ||
+    !(navigator as NavigatorWithConnection).connection.saveData
+  );
+}
+
+function findMatches(records: PrefetchManager['registered'], url: string) {
   return [...records].filter(({url: match}) => matches(url, match));
 }
 

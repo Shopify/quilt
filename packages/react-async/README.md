@@ -15,7 +15,7 @@ $ yarn add @shopify/react-async
 
 ### `createAsyncComponent()`
 
-`createAsyncComponent` is a function for creating components that are loaded asynchronously on initial mount. However, the resulting component does more than just help you split up your application along component lines; it also supports customized rendering for loading, and creates additional components for smartly preloading or preloading the component’s bundle. Best of all, in conjunction with the Babel and Webpack plugins provided by [`@shopify/async`](../async), you can easily extract the bundles needed to render your application during server side rendering.
+`createAsyncComponent` is a function for creating components that are loaded asynchronously on initial mount. However, the resulting component does more than just help you split up your application along component lines; it also supports customized rendering for loading, and creates additional components for smartly preloading or prefetching the component’s bundle. Best of all, in conjunction with the Babel and Webpack plugins provided by [`@shopify/async`](../async), you can easily extract the bundles needed to render your application during server side rendering.
 
 To start, import the `createAsyncComponent` function. The simplest use of this function requires just a `load` function, which returns a promise for a component:
 
@@ -97,9 +97,9 @@ const MyComponent = createAsyncComponent({
 });
 ```
 
-### `Prepare`
+### `PrefetchRoute` and `Prefetcher`
 
-The `Prepare` component allows you to use the asynchronous component you generated with `createAsyncComponent` and automatically render its `Prefetch` component when the user looks like they are going to navigate to a page that uses it. This component takes as its props the asynchronous component, a URL pattern to look for (a string or `RegExp` that is compared against the target pathname), and an optional function that can map the URL to a set of props for your prefetch component.
+The `PrefetchRoute` component allows you to use the asynchronous component you generated with `createAsyncComponent` and automatically render its `Prefetch` component when the user looks like they are going to navigate to a page that uses it. This component takes as its props the asynchronous component, a URL pattern to look for (a string or `RegExp` that is compared against the target pathname), and an optional function that can map the URL to a set of props for your prefetch component.
 
 Consider this async component:
 
@@ -110,10 +110,10 @@ const ProductDetails = createAsyncComponent({
 });
 ```
 
-This component might be rendered when the URL matches `/products/:id`. If we want to prefetch this component (including its GraphQL query!) whenever the user is going to navigate to a matching URL, we would register this intent with the following `Prepare` component:
+This component might be rendered when the URL matches `/products/:id`. If we want to prefetch this component (including its GraphQL query!) whenever the user is going to navigate to a matching URL, we would register this intent with the following `PrefetchRoute` component:
 
 ```tsx
-<Prefetch
+<PrefetchRoute
   component={ProductDetails}
   url={/^\/products\/(\d+)$/}
   mapUrlToProps={pathname => {
@@ -125,24 +125,61 @@ This component might be rendered when the URL matches `/products/:id`. If we wan
 />
 ```
 
-And that’s it. While we reserve the right to change it, the basic process for determining merchant navigation intent is fairly simple. We listen for users mousing over or focusing in to elements with an `href` attribute (or, `data-href`, if you can’t use a real link) and, if the user doesn’t mouse/ focus out in some small amount of time, we prefetch all matching components. We also do the prefetch when the user begins their click on an element with an `href` attribute.
-
-### `AsyncManager` and `AsyncProvider`
-
-`AsyncManager` and `AsyncProvider` allow you to extract the asynchronous bundles that were required for your application. If you use the Babel plugin, every component created by `createAsyncComponent` will report its existence when rendered to an `AsyncManager`. So, on the server, you simply need to provide an `AsyncManager` to your app, render the app to a string, and then inspect the `AsyncManager`’s `used` property.
+To make the routes actually prefetch, you will need to add the `Prefetcher` component somewhere in your app. This component should only ever be rendered once, and will need to be somewhere that has access to all the context the prefetched components may depend on (for example, if your prefetching includes prefetching GraphQL data with Apollo, you will need to put this component below your `ApolloProvider`).
 
 ```tsx
-import {AsyncManager, AsyncProvider} from '@shopify/react-async';
+<Prefetcher />
+```
 
-const asyncManager = new AsyncManager();
+And that’s it. While we reserve the right to change it, the basic process for determining merchant navigation intent is fairly simple. We listen for users mousing over or focusing in to elements with an `href` attribute (or, `data-href`, if you can’t use a real link) and, if the user doesn’t mouse/ focus out in some small amount of time, we prefetch all matching components. We also do the prefetch when the user begins their click on an element with an `href` attribute.
 
-renderToString(
-  <AsyncProvider manager={asyncManager}>
-    <App />
-  </AsyncProvider>,
-);
+### `AsyncAssetManager` and `AsyncAssetContext`
 
-const moduleIds = [...asyncManager.used];
+`AsyncAssetManager` and `AsyncAssetContext` allow you to extract the asynchronous bundles that were required for your application. If you use the Babel plugin, every component created by `createAsyncComponent` will report its existence when rendered to an `AsyncAssetManager`.
+
+To make use of this feature, you will need to use [`react-effect`](../react-effect). It will automatically extract the information and clear extraneous bundles between tree traversals.
+
+```tsx
+import {extract} from '@shopify/react-effect/server';
+import {AsyncAssetManager, AsyncAssetContext} from '@shopify/react-async';
+
+const asyncAssetmanager = new AsyncAssetManager();
+
+await extract(<App />, {
+  decorate(app) {
+    return (
+      <AsyncAssetContext.Provider value={asyncAssetmanager}>
+        {app}
+      </AsyncAssetContext.Provider>
+    );
+  },
+});
+
+const moduleIds = [...asyncAssetmanager.used];
 ```
 
 These module IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](../sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.
+
+### `createAsyncContext()`
+
+Most of the time, it makes sense to split your application along component boundaries. However, you may also have a reason to split off a part of your app that is not a component. To accomplish this, `react-async` provides a `createAsyncContext()` function. This function also takes an object with a `load` property that is a promise for the value you are splitting. The returned object mimics the shape of `React.createContext()`, except that the `Provider` component does not need a value supplied:
+
+```tsx
+const ExpensiveFileContext = createAsyncContext({
+  load: () => import('./a-csv-for-some-reason.csv'),
+});
+
+// Somewhere in your app, create the provider:
+
+<ExpensiveFileContext.Provider>
+  {/* consuming code goes here */}
+</ExpensiveFileContext.Provider>;
+
+// and use the consumer to access the value:
+
+<ExpensiveFileContext.Consumer>
+  {file => (file ? <CsvViewer file={file} /> : null)}
+</ExpensiveFileContext.Consumer>;
+```
+
+The typing of the render prop for the `Consumer` component always includes `null`, which is used to represent that the async value has not yet loaded successfully.

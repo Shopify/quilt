@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 
-import {AsyncContext} from '../context';
-import {Prepare} from '../Prepare';
+import {PrefetchContext} from '../context/prefetch';
+import {PrefetchRoute} from '../PrefetchRoute';
 
-import {createManager} from './utilities';
+import {createPrefetchManager} from './utilities';
 
 function MockComponent() {
   return null;
@@ -15,21 +15,21 @@ const defaultProps = {
   url: '/foo/bar',
 };
 
-describe('<Prepare />', () => {
+describe('<PrefetchRoute />', () => {
   it('registers with the manager in context on mount', () => {
-    const manager = createManager();
+    const manager = createPrefetchManager();
     const url = '/foo/bar';
     const mapUrlToProps = () => {};
     const spy = jest.spyOn(manager, 'register');
 
     mount(
-      <AsyncContext.Provider value={manager}>
-        <Prepare
+      <PrefetchContext.Provider value={manager}>
+        <PrefetchRoute
           component={MockComponent}
           url={url}
           mapUrlToProps={mapUrlToProps}
         />
-      </AsyncContext.Provider>,
+      </PrefetchContext.Provider>,
     );
 
     expect(spy).toHaveBeenCalledWith(
@@ -42,14 +42,14 @@ describe('<Prepare />', () => {
   });
 
   it('unregisters on unmount', () => {
-    const manager = createManager();
+    const manager = createPrefetchManager();
     const spy = jest.fn();
     jest.spyOn(manager, 'register').mockImplementation(() => spy);
 
     const prepare = mount(
-      <AsyncContext.Provider value={manager}>
-        <Prepare {...defaultProps} />
-      </AsyncContext.Provider>,
+      <PrefetchContext.Provider value={manager}>
+        <PrefetchRoute {...defaultProps} />
+      </PrefetchContext.Provider>,
     );
 
     expect(spy).not.toHaveBeenCalled();

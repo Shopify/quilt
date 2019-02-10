@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
 
 import {Async} from '../Async';
-import {createAsyncComponent} from '../create';
+import {createAsyncComponent} from '../component';
 
 jest.mock('../Async', () => ({
   Async() {
