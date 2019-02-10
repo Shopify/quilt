@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Query, Props as QueryProps} from './Query';
+import {Query} from './Query';
+import {QueryProps} from './types';
 
 export type Props<T> = Pick<
   QueryProps<T>,
