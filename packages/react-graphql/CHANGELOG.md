@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.1.0 - 2019-02-10
+
+### Added
+
+- Added some additional generic types for extracting default from queries.
+
 ## 1.0.1 - 2019-02-10
 
 - Fixed some broken API choices
