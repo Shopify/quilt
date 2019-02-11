@@ -44,5 +44,10 @@
   "sideEffects": false,
   "peerDependencies": {
     "react": "^16.0.0"
-  }
+  },
+  "files": [
+    "dist/*",
+    "babel.d.ts",
+    "babel.js"
+  ]
 }
