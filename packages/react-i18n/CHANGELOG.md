@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] - -->
 
+## [0.10.0] - 2019-02-11
+
+### Added
+
+- Babel plugin was added to auto-generate the arguments for `withI18n` when an adjacent `translations` folder exists [#505](https://github.com/Shopify/quilt/pull/505)
+
 ## [0.9.1] - 2019-02-06
 
 ### Changed
