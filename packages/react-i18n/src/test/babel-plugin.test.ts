@@ -78,7 +78,121 @@ describe('babel-pluin-react-i18n', () => {
 
     expect(await transform(code, optionsForFile('MyComponent.tsx'))).toBe(code);
   });
+
+  it('does not transform other react-i18n imports', async () => {
+    expect(
+      await transform(
+        `import React from 'react';
+        import {withI18n, translate} from '@shopify/react-i18n';
+
+        function MyComponent({i18n}) {
+          return i18n.translate('key');
+        }
+        export const key = translate('key');
+
+        export default withI18n()(MyComponent);
+        `,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(
+      await normalize(
+        `import React from 'react';
+        import {withI18n, translate} from '@shopify/react-i18n';
+        import _en from './translations/en.json';
+
+        function MyComponent({i18n}) {
+          return i18n.translate('key');
+        }
+
+        export const key = translate('key');
+
+        export default withI18n({
+          id: 'MyComponent_${defaultHash}',
+          fallback: _en,
+          async translations(locale) {
+            try {
+              const dictionary = await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
+              return dictionary;
+            } catch (err) {}
+          },
+        })(MyComponent);
+        `,
+      ),
+    );
+  });
+
+  it('does not transform withI18n imports from other libraries', async () => {
+    const code = await normalize(`import React from 'react';
+    import {withI18n} from 'some-other-lib';
+
+    function MyComponent({i18n}) {
+      return i18n.translate('key');
+    }
+
+    export default withI18n()(MyComponent);
+    `);
+
+    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
+      code,
+    );
+  });
+
+  it('transforms withI18n when it was renamed during import', async () => {
+    expect(
+      await transform(
+        `import React from 'react';
+        import {withI18n as foo} from '@shopify/react-i18n';
+
+        function MyComponent({i18n}) {
+          return i18n.translate('key');
+        }
+
+        export default foo()(MyComponent);
+        `,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(
+      await normalize(
+        `import React from 'react';
+        import {withI18n as foo} from '@shopify/react-i18n';
+        import _en from './translations/en.json';
+
+        function MyComponent({i18n}) {
+          return i18n.translate('key');
+        }
+
+        export default foo({
+          id: 'MyComponent_${defaultHash}',
+          fallback: _en,
+          async translations(locale) {
+            try {
+              const dictionary = await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
+              return dictionary;
+            } catch (err) {}
+          },
+        })(MyComponent);
+        `,
+      ),
+    );
+  });
+
+  it('does not transform withI18n when it already has arguments', async () => {
+    const code = await normalize(`import React from 'react';
+    import {withI18n} from '@shopify/react-i18n';
+
+    function MyComponent({i18n}) {
+      return i18n.translate('key');
+    }
+
+    export default withI18n({id: 'foo'})(MyComponent);
+    `);
+
+    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
+      code,
+    );
+  });
 });
+
 async function normalize(code: string) {
   const result = await transformAsync(code, {
     plugins: ['@babel/plugin-syntax-dynamic-import'],

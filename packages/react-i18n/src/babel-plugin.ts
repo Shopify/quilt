@@ -21,7 +21,8 @@ export default function injectWithI18nArguments({
       sourceType: 'module',
     })();
   }
-  function i18nParams({id, fallbackID, decoratorName}) {
+
+  function i18nCallExpression({id, fallbackID, decoratorName}) {
     return template(
       `${decoratorName}({
       id: '${id}',
@@ -40,18 +41,16 @@ export default function injectWithI18nArguments({
       },
     )();
   }
+
   function addI18nArguments({
     binding,
     bindingName,
     filename,
     filenameRelative,
-    lastImport,
+    fallbackID,
+    insertImport,
   }) {
-    if (!hasTranslations(filename)) {
-      return;
-    }
-
-    let fallbackID;
+    let _hasTranslations;
 
     for (const refPath of binding.referencePaths) {
       const callExpression: NodePath = refPath.parentPath;
@@ -65,13 +64,19 @@ export default function injectWithI18nArguments({
         continue;
       }
 
-      if (fallbackID == null) {
-        fallbackID = refPath.scope.generateUidIdentifier('en').name;
-        lastImport.insertAfter(fallbackTranslationsImport({id: fallbackID}));
+      if (_hasTranslations == null) {
+        _hasTranslations = hasTranslations(filename);
+        if (_hasTranslations) {
+          insertImport();
+        }
+      }
+
+      if (!_hasTranslations) {
+        return;
       }
 
       callExpression.replaceWith(
-        i18nParams({
+        i18nCallExpression({
           id: generateID(filenameRelative),
           fallbackID,
           decoratorName: bindingName,
@@ -105,15 +110,23 @@ export default function injectWithI18nArguments({
             const bindingName = specifier.local.name;
             const binding = nodePath.scope.getBinding(bindingName);
             if (binding != null) {
-              const {filename, filenameRelative} = this.file.opts;
               const {lastImport} = state;
+              const fallbackID = nodePath.scope.generateUidIdentifier('en')
+                .name;
+
+              const {filename, filenameRelative} = this.file.opts;
 
               addI18nArguments({
                 binding,
                 bindingName,
                 filename,
                 filenameRelative,
-                lastImport,
+                fallbackID,
+                insertImport() {
+                  lastImport.insertAfter(
+                    fallbackTranslationsImport({id: fallbackID}),
+                  );
+                },
               });
             }
             break;
