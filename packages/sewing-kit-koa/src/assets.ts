@@ -38,9 +38,13 @@ interface Options {
   userAgent?: string;
 }
 
+interface AsyncAssetOptions {
+  id: string | RegExp | Iterable<string | RegExp>;
+}
+
 interface AssetOptions {
   name?: string;
-  asyncAssets?: Iterable<string>;
+  asyncAssets?: AsyncAssetOptions['id'];
 }
 
 enum AssetKind {
@@ -75,9 +79,34 @@ export default class Assets {
     return scripts;
   }
 
+  async asyncScripts({id}: AsyncAssetOptions) {
+    return getAsyncAssetsFromManifest(
+      {id, kind: AssetKind.Scripts},
+      await this.getResolvedManifest(),
+    );
+  }
+
   async styles(options: AssetOptions = {}) {
     return getAssetsFromManifest(
       {...options, kind: AssetKind.Styles},
+      await this.getResolvedManifest(),
+    );
+  }
+
+  async asyncStyles({id}: AsyncAssetOptions) {
+    return getAsyncAssetsFromManifest(
+      {id, kind: AssetKind.Styles},
+      await this.getResolvedManifest(),
+    );
+  }
+
+  async assets(options: AssetOptions) {
+    return getAssetsFromManifest(options, await this.getResolvedManifest());
+  }
+
+  async asyncAssets(options: AsyncAssetOptions) {
+    return getAsyncAssetsFromManifest(
+      options,
       await this.getResolvedManifest(),
     );
   }
@@ -150,9 +179,11 @@ function getAssetsFromManifest(
     name = 'main',
     asyncAssets: asyncIds,
     kind,
-  }: AssetOptions & {kind: AssetKind},
-  {entrypoints, asyncAssets: asyncAssetMap}: Manifest,
+  }: AssetOptions & {kind?: AssetKind},
+  manifest: Manifest,
 ) {
+  const {entrypoints} = manifest;
+
   if (!entrypoints.hasOwnProperty(name)) {
     const entries = Object.keys(entrypoints);
     const guidance =
@@ -165,19 +196,14 @@ function getAssetsFromManifest(
     throw new Error(guidance);
   }
 
-  const entrypointAssets = [...entrypoints[name][kind]];
+  const entrypoint = entrypoints[name];
+  const entrypointAssets =
+    kind == null
+      ? [...entrypoint[AssetKind.Styles], ...entrypoint[AssetKind.Scripts]]
+      : [...entrypoints[name][kind]];
 
   const asyncAssets = asyncIds
-    ? [...asyncIds]
-        .reduce((all, id) => {
-          return [
-            ...all,
-            ...(asyncAssetMap[id] || []).filter(({file}) =>
-              file.endsWith(`.${kind}`),
-            ),
-          ];
-        }, [])
-        .map(({publicPath}) => ({path: publicPath}))
+    ? getAsyncAssetsFromManifest({id: asyncIds, kind}, manifest)
     : [];
 
   if (asyncAssets.length === 0) {
@@ -196,4 +222,34 @@ function getAssetsFromManifest(
   }
 
   return [...asyncAssets, ...entrypointAssets];
+}
+
+function getAsyncAssetsFromManifest(
+  {id, kind}: AsyncAssetOptions & {kind?: AssetKind},
+  {asyncAssets}: Manifest,
+) {
+  const normalizedIds =
+    typeof id === 'string' || id instanceof RegExp ? [id] : id;
+
+  const asyncEntries = Object.entries(asyncAssets);
+
+  return [...normalizedIds]
+    .reduce((all, id) => {
+      const assetsMatchingId =
+        typeof id === 'string'
+          ? asyncAssets[id]
+          : asyncEntries.reduce(
+              (all, [asyncId, assets]) =>
+                id.test(asyncId) ? [...all, ...assets] : all,
+              [],
+            );
+
+      const filteredMatchingAssets =
+        kind == null
+          ? assetsMatchingId
+          : assetsMatchingId.filter(({file}) => file.endsWith(`.${kind}`));
+
+      return [...all, ...filteredMatchingAssets];
+    }, [])
+    .map(({publicPath}) => ({path: publicPath}));
 }

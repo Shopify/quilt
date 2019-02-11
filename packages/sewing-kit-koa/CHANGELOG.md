@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 3.2.0 - 2019-02-11
+
+### Added
+
+- Added methods for accessing all assets, all async assets, and only async scripts/ styles for more advanced use cases.
+
 ## 3.1.0 - 2019-02-10
 
 ### Added

@@ -92,6 +92,8 @@ app.use(async ctx => {
 });
 ```
 
+For more advanced use cases, you can pick out specific assets with the `assets()`, `asyncAssets()`, `asyncStyles()`, and `asyncScripts()` methods.
+
 ### Options
 
 The middleware accepts some optional parameters that you can use to customize how sewing kit-generated assets will be served:
