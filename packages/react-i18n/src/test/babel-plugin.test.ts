@@ -37,10 +37,7 @@ describe('babel-pluin-react-i18n', () => {
           id: 'MyComponent_${defaultHash}',
           fallback: _en,
           async translations(locale) {
-            try {
-              const dictionary = await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
-              return dictionary;
-            } catch (err) {}
+            return await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
           },
         })(MyComponent);
         `,
@@ -110,10 +107,7 @@ describe('babel-pluin-react-i18n', () => {
           id: 'MyComponent_${defaultHash}',
           fallback: _en,
           async translations(locale) {
-            try {
-              const dictionary = await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
-              return dictionary;
-            } catch (err) {}
+            return await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
           },
         })(MyComponent);
         `,
@@ -165,10 +159,7 @@ describe('babel-pluin-react-i18n', () => {
           id: 'MyComponent_${defaultHash}',
           fallback: _en,
           async translations(locale) {
-            try {
-              const dictionary = await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
-              return dictionary;
-            } catch (err) {}
+            return await import(/* webpackChunkName: 'MyComponent_${defaultHash}-i18n' */ \`./translations/$\{locale}.json\`);
           },
         })(MyComponent);
         `,
