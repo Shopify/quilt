@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - lodash is no longer used internally. [#475](https://github.com/Shopify/quilt/pull/475)
 
+### Fixed
+
+- Fixes validators for cases where `externalErrors` are not provided. [#504](https://github.com/Shopify/quilt/pull/504)
+
 ## [0.7.0]
 
 ### Added
