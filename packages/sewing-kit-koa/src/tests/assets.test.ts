@@ -229,6 +229,119 @@ describe('Assets', () => {
     });
   });
 
+  describe('assets', () => {
+    it('returns all assets for the specified bundles', async () => {
+      const css = '/style.css';
+      const asyncCss = '/mypage.css';
+      const js = '/script.js';
+      const asyncJs = 'mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(
+              {
+                custom: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              {
+                mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+              },
+            ),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(
+        await assets.assets({name: 'custom', asyncAssets: ['mypage']}),
+      ).toEqual([{path: css}, {path: asyncCss}, {path: asyncJs}, {path: js}]);
+    });
+  });
+
+  describe('asyncStyles', () => {
+    it('returns all async styles for the specified ids', async () => {
+      const asyncCss = '/mypage.css';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(undefined, {
+              other: [mockAsyncAsset('/other.css')],
+              mypage: [mockAsyncAsset(asyncCss)],
+            }),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.asyncStyles({id: ['mypage']})).toEqual([
+        {path: asyncCss},
+      ]);
+    });
+  });
+
+  describe('asyncScripts', () => {
+    it('returns all async styles for the specified ids', async () => {
+      const asyncJs = '/mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(undefined, {
+              other: [mockAsyncAsset('/other.js')],
+              mypage: [mockAsyncAsset(asyncJs)],
+            }),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.asyncScripts({id: ['mypage']})).toEqual([
+        {path: asyncJs},
+      ]);
+    });
+  });
+
+  describe('asyncAssets', () => {
+    it('returns all async assets for the specified ids', async () => {
+      const css = '/style.css';
+      const asyncCss = '/mypage.css';
+      const js = '/script.js';
+      const asyncJs = 'mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(
+              {
+                custom: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              {
+                mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+              },
+            ),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.asyncAssets({id: ['mypage']})).toEqual([
+        {path: asyncCss},
+        {path: asyncJs},
+      ]);
+    });
+  });
+
   describe('userAgent', () => {
     const scriptOne = 'script-one.js';
     const scriptTwo = 'script-two.js';
