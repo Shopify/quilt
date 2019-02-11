@@ -47,7 +47,7 @@ export default function injectWithI18nArguments({
     fallbackID,
     insertImport,
   }) {
-    let _hasTranslations;
+    let _hasTranslations: boolean | undefined;
 
     for (const refPath of binding.referencePaths) {
       const callExpression: NodePath = refPath.parentPath;
@@ -61,6 +61,8 @@ export default function injectWithI18nArguments({
         continue;
       }
 
+      // we lazily apply the hasTranslations logic to avoid
+      // expensive I/O operations unless necessary
       if (_hasTranslations == null) {
         _hasTranslations = hasTranslations(filename);
         if (_hasTranslations) {
@@ -101,33 +103,36 @@ export default function injectWithI18nArguments({
         const {specifiers} = nodePath.node;
         for (const specifier of specifiers) {
           if (
-            t.isImportSpecifier(specifier) &&
-            specifier.imported.name === 'withI18n'
+            !t.isImportSpecifier(specifier) ||
+            specifier.imported.name !== 'withI18n'
           ) {
-            const bindingName = specifier.local.name;
-            const binding = nodePath.scope.getBinding(bindingName);
-            if (binding != null) {
-              const {lastImport} = state;
-              const fallbackID = nodePath.scope.generateUidIdentifier('en')
-                .name;
-
-              const {filename, filenameRelative} = this.file.opts;
-
-              addI18nArguments({
-                binding,
-                bindingName,
-                filename,
-                filenameRelative,
-                fallbackID,
-                insertImport() {
-                  lastImport.insertAfter(
-                    fallbackTranslationsImport({id: fallbackID}),
-                  );
-                },
-              });
-            }
-            break;
+            continue;
           }
+
+          const bindingName = specifier.local.name;
+          const binding = nodePath.scope.getBinding(bindingName);
+
+          if (binding != null) {
+            const {lastImport} = state;
+            const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
+
+            const {filename, filenameRelative} = this.file.opts;
+
+            addI18nArguments({
+              binding,
+              bindingName,
+              filename,
+              filenameRelative,
+              fallbackID,
+              insertImport() {
+                lastImport.insertAfter(
+                  fallbackTranslationsImport({id: fallbackID}),
+                );
+              },
+            });
+          }
+
+          break;
         }
       },
     },
