@@ -28,11 +28,8 @@ export default function injectWithI18nArguments({
       id: '${id}',
       fallback: ${fallbackID},
       async translations(locale) {
-          try {
-            const dictionary = await import(/* webpackChunkName: '${id}-i18n' */ \`./translations/$\{locale}.json\`);
-            return dictionary;
-          } catch (err) {}
-        },
+        return await import(/* webpackChunkName: '${id}-i18n' */ \`./translations/$\{locale}.json\`);
+      },
     })`,
       {
         sourceType: 'module',
