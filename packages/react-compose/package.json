@@ -27,7 +27,7 @@
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
-    "react": "^16.3.2"
+    "react": "^16.8.1"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.10",

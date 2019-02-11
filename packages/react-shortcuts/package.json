@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/shopify/quilt/packages/react-shortcuts/README.md",
   "peerDependencies": {
-    "react": "^16.3.2"
+    "react": "^16.8.1"
   },
   "devDependencies": {
     "typescript": "~3.0.1"

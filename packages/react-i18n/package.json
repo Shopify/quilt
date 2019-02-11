@@ -37,6 +37,6 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.8.1"
   }
 }

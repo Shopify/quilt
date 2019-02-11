@@ -31,7 +31,7 @@
     "typescript": "~3.0.1"
   },
   "peerDependencies": {
-    "react": "^16.4.1"
+    "react": "^16.8.1"
   },
   "files": [
     "dist/*"

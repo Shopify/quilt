@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-shopify-app-route-propagator/README.md",
   "peerDependencies": {
     "@shopify/app-bridge": "^0.7.3",
-    "react": "^16.0.0"
+    "react": "^16.8.1"
   },
   "devDependencies": {
     "typescript": "~3.0.1"

@@ -30,9 +30,9 @@
   "devDependencies": {
     "apollo-cache-inmemory": "^1.2.4",
     "apollo-client": "^2.3.4",
-    "react": "^16.2.0",
+    "react": "^16.8.1",
     "react-apollo": "^2.4.1",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.8.1",
     "typescript": "~3.0.1"
   },
   "peerDependencies": {

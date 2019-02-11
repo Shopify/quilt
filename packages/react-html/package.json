@@ -29,8 +29,8 @@
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
   },
   "devDependencies": {
     "@shopify/with-env": "^1.0.9",
