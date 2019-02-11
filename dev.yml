@@ -2,7 +2,7 @@ name: quilt
 type: node
 up:
   - node:
-      version: v8.10.0
+      version: v10.15.1
       yarn: true
 commands:
   __default__: start

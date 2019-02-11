@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Shopify's javascript application utilities",
   "engines": {
-    "node": ">=8.10.0",
+    "node": ">=10.15.1",
     "yarn": ">=1.9.4"
   },
   "scripts": {
