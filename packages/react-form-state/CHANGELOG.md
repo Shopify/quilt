@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [0.7.0] - 2019-01-11
+## [0.8.0]
+
+### Added
+
+- You can now provide `externalErrors` to the `FormState` component to be merged into the form's `error` objects.
+
+### Changed
+
+- lodash is no longer used internally. [#475](https://github.com/Shopify/quilt/pull/475)
+
+## [0.7.0]
 
 ### Added
 
