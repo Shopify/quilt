@@ -1,11 +1,12 @@
-import {Manager, Record} from '../manager';
+import {PrefetchManager, Registration} from '../context/prefetch';
+import {AsyncAssetManager} from '../context/assets';
 
-export function createManager(registered: Record<any>[] = []): Manager {
-  return {
-    registered: new Set(registered),
-    markAsUsed() {},
-    register() {
-      return () => {};
-    },
-  };
+export function createPrefetchManager(
+  registered: Registration[] = [],
+): PrefetchManager {
+  return new PrefetchManager(registered);
+}
+
+export function createAsyncAssetManager() {
+  return new AsyncAssetManager();
 }

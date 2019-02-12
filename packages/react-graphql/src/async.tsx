@@ -2,32 +2,15 @@ import * as React from 'react';
 
 import {LoadProps} from '@shopify/async';
 import {Async} from '@shopify/react-async';
-import {Omit, IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
+import {Omit} from '@shopify/useful-types';
 import {DocumentNode} from 'graphql-typed';
 
 import {Prefetch as PrefetchQuery} from './Prefetch';
-import {Query, Props as QueryProps} from './Query';
+import {Query} from './Query';
+import {AsyncQueryComponentType, QueryProps, VariableOptions} from './types';
 
 interface QueryComponentOptions<Data, Variables>
   extends LoadProps<DocumentNode<Data, Variables>> {}
-
-type VariableOptions<Variables> = IfEmptyObject<
-  Variables,
-  {variables?: never},
-  IfAllNullableKeys<Variables, {variables?: Variables}, {variables: Variables}>
->;
-
-export interface AsyncQueryComponentType<Data, Variables> {
-  (
-    props: Omit<QueryProps<Data, Variables>, 'query' | 'variables'> &
-      VariableOptions<Variables>,
-  ): React.ReactElement<{}>;
-  Prefetch(props: VariableOptions<Variables>): React.ReactElement<{}>;
-  Preload(): React.ReactElement<{}>;
-  KeepFresh(
-    props: VariableOptions<Variables> & {pollInterval?: number},
-  ): React.ReactElement<{}>;
-}
 
 export function createAsyncQueryComponent<Data, Variables>({
   id,
@@ -36,10 +19,7 @@ export function createAsyncQueryComponent<Data, Variables>({
   Data,
   Variables
 > {
-  function AsyncQuery(
-    props: Omit<QueryProps<Data, Variables>, 'query' | 'variables'> &
-      VariableOptions<Variables>,
-  ) {
+  function AsyncQuery(props: Omit<QueryProps<Data, Variables>, 'query'>) {
     return (
       <Async
         load={load}

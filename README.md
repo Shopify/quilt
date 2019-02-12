@@ -22,9 +22,11 @@ Each package has its own `README` and documentation describing usage.
 | address | [directory](packages/address) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress.svg)](https://badge.fury.io/js/%40shopify%2Faddress) |
 | address-mocks | [directory](packages/address-mocks) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress-mocks.svg)](https://badge.fury.io/js/%40shopify%2Faddress-mocks) |
 | admin-graphql-api-utilities | [directory](packages/admin-graphql-api-utilities) | [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities) |
+| async | [directory](packages/async) | [![npm version](https://badge.fury.io/js/%40shopify%2Fasync.svg)](https://badge.fury.io/js/%40shopify%2Fasync) |
 | csrf-token-fetcher | [directory](packages/csrf-token-fetcher) | [![npm version](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher.svg)](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher) |
 | dates | [directory](packages/dates) | [![npm version](https://badge.fury.io/js/%40shopify%2Fdates.svg)](https://badge.fury.io/js/%40shopify%2Fdates) |
 | enzyme-utilities | [directory](packages/enzyme-utilities) | [![npm version](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities) |
+| graphql-testing | [directory](packages/graphql-testing) | [![npm version](https://badge.fury.io/js/%40shopify%2Fgraphql-testing.svg)](https://badge.fury.io/js/%40shopify%2Fgraphql-testing) |
 | i18n | [directory](packages/i18n) | [![npm version](https://badge.fury.io/js/%40shopify%2Fi18n.svg)](https://badge.fury.io/js/%40shopify%2Fi18n) |
 | jest-dom-mocks | [directory](packages/jest-dom-mocks) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks) |
 | jest-koa-mocks | [directory](packages/jest-koa-mocks) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks) |
@@ -45,6 +47,7 @@ Each package has its own `README` and documentation describing usage.
 | react-effect-apollo | [directory](packages/react-effect-apollo) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo) |
 | react-form-state | [directory](packages/react-form-state) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg)](https://badge.fury.io/js/%40shopify%2Freact-form-state) |
 | react-google-analytics | [directory](packages/react-google-analytics) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg)](https://badge.fury.io/js/%40shopify%2Freact-google-analytics) |
+| react-graphql | [directory](packages/react-graphql) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-graphql.svg)](https://badge.fury.io/js/%40shopify%2Freact-graphql) |
 | react-html | [directory](packages/react-html) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html) |
 | react-i18n | [directory](packages/react-i18n) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-i18n.svg)](https://badge.fury.io/js/%40shopify%2Freact-i18n) |
 | react-import-remote | [directory](packages/react-import-remote) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-import-remote.svg)](https://badge.fury.io/js/%40shopify%2Freact-import-remote) |

@@ -75,6 +75,25 @@ app.use(async ctx => {
 });
 ```
 
+You can also pass an optional `asyncAssets` to either the `scripts()` or `styles()` methods. This argument should be an iterable of strings. The middleware will then collect every async bundle and its dependencies that matches the IDs you passed in the iterable, and insert them into the returned set of bundles (**note:** requires at least `sewing-kit@73.0.0`). This process is easiest when using the `AsyncAssetManager` from [`@shopify/react-async`](../react-async):
+
+```ts
+import {AsyncAssetManager} from '@shopify/react-async';
+
+app.use(async ctx => {
+  const asyncAssetManager = new AsyncAssetManager();
+
+  /* render app */
+
+  const styles = await ctx.assets.styles({asyncAssets: asyncAssetManager.used});
+  const scripts = await ctx.assets.scripts({
+    asyncAssets: asyncAssetManager.used,
+  });
+});
+```
+
+For more advanced use cases, you can pick out specific assets with the `assets()`, `asyncAssets()`, `asyncStyles()`, and `asyncScripts()` methods.
+
 ### Options
 
 The middleware accepts some optional parameters that you can use to customize how sewing kit-generated assets will be served:

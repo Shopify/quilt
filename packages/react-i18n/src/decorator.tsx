@@ -162,6 +162,13 @@ function normalizeTranslationGetter(
   translations: TranslationMap | TranslationGetter,
 ) {
   return typeof translations === 'function'
-    ? translations
+    ? // eslint-disable-next-line consistent-return
+      (locale: string) => {
+        try {
+          const dictionary = translations(locale);
+          return dictionary;
+          // eslint-disable-next-line no-empty
+        } catch (err) {}
+      }
     : (locale: string) => translations[locale];
 }

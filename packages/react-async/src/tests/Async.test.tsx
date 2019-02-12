@@ -1,10 +1,18 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
+import {Effect} from '@shopify/react-effect';
+import {trigger} from '@shopify/enzyme-utilities';
 
 import {Async} from '../Async';
-import {AsyncContext} from '../context';
+import {AsyncAssetContext} from '../context/assets';
 
-import {createManager} from './utilities';
+import {createAsyncAssetManager} from './utilities';
+
+jest.mock('@shopify/react-effect', () => ({
+  Effect() {
+    return null;
+  },
+}));
 
 function MockComponent() {
   return null;
@@ -49,21 +57,24 @@ describe('<Async />', () => {
     expect(render).toHaveBeenCalledWith(MockComponent);
   });
 
-  it('calls manager.markAsUsed() with the result of id() when the module is actually loaded', async () => {
+  it('creates an effect that calls manager.markAsUsed() with the result of id() when the module is actually loaded', async () => {
     const id = 'foo-bar';
     const promise = createResolvablePromise(MockComponent);
-    const manager = createManager();
+    const manager = createAsyncAssetManager();
     const spy = jest.spyOn(manager, 'markAsUsed');
 
-    mount(
-      <AsyncContext.Provider value={manager}>
+    const async = mount(
+      <AsyncAssetContext.Provider value={manager}>
         <Async load={() => promise.promise} id={() => id} />
-      </AsyncContext.Provider>,
+      </AsyncAssetContext.Provider>,
     );
 
-    expect(spy).not.toHaveBeenCalled();
+    expect(async.find(Effect)).toHaveLength(0);
 
     await promise.resolve();
+    async.update();
+
+    trigger(async.find(Effect), 'perform');
 
     expect(spy).toHaveBeenCalledWith(id);
   });

@@ -4,8 +4,9 @@ import {clock} from '@shopify/jest-dom-mocks';
 import {trigger} from '@shopify/enzyme-utilities';
 
 import {EventListener} from '../EventListener';
-import {Prefetcher, HOVER_DELAY_MS} from '../Prefetcher';
-import {createManager} from './utilities';
+import {Prefetcher, INTENTION_DELAY_MS} from '../Prefetcher';
+import {createPrefetchManager} from './utilities';
+import {PrefetchContext} from '../context/prefetch';
 
 jest.mock('../EventListener', () => ({
   EventListener() {
@@ -17,7 +18,7 @@ function MockComponent(_props: {name?: string}) {
   return null;
 }
 
-const url = '/mock/url';
+const path = '/mock/path';
 
 describe('<Prefetch />', () => {
   beforeEach(() => {
@@ -29,76 +30,112 @@ describe('<Prefetch />', () => {
   });
 
   it('does not prefetch anything by default', () => {
-    const manager = createManager([{component: MockComponent, url}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
     expect(prefetcher).not.toContainReact(<MockComponent />);
   });
 
   it('prefetches a component when hovering over an element with a matching href for enough time', () => {
-    const manager = createManager([{component: MockComponent, url}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
 
     triggerListener(prefetcher, 'mouseover', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
     expect(prefetcher).not.toContainReact(<MockComponent />);
 
-    clock.tick(HOVER_DELAY_MS + 1);
+    clock.tick(INTENTION_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).toContainReact(<MockComponent />);
   });
 
   it('prefetches a component when focusing on an element with a matching href for enough time', () => {
-    const manager = createManager([{component: MockComponent, url}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
 
     triggerListener(prefetcher, 'focusin', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
     expect(prefetcher).not.toContainReact(<MockComponent />);
 
-    clock.tick(HOVER_DELAY_MS + 1);
+    clock.tick(INTENTION_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).toContainReact(<MockComponent />);
   });
 
   it('prefetches a component when clicking on an element with a matching href immediately', () => {
-    const manager = createManager([{component: MockComponent, url}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
 
     triggerListener(prefetcher, 'mousedown', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
     expect(prefetcher).toContainReact(<MockComponent />);
   });
 
   it('does not prefetch a component when mousing over, then out, of an element with a matching href', () => {
-    const manager = createManager([{component: MockComponent, url}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
 
     triggerListener(prefetcher, 'mouseover', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
     triggerListener(prefetcher, 'mouseout', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
-    clock.tick(HOVER_DELAY_MS + 1);
+    clock.tick(INTENTION_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).not.toContainReact(<MockComponent />);
   });
 
   it('still prefetches a component when mousing over, then out into a child, of an element with a matching href', () => {
-    const manager = createManager([{component: MockComponent, url}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
-    const element = mockElement(`<a href="${url}"><div></div></a>`);
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
+    const element = mockElement(`<a href="${path}"><div></div></a>`);
 
     triggerListener(prefetcher, 'mouseover', {
       target: element,
@@ -109,36 +146,48 @@ describe('<Prefetch />', () => {
       relatedTarget: element.firstChild,
     });
 
-    clock.tick(HOVER_DELAY_MS + 1);
+    clock.tick(INTENTION_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).toContainReact(<MockComponent />);
   });
 
   it('does not prefetch a component when focusing in, then out, of an element with a matching href', () => {
-    const manager = createManager([{component: MockComponent, url}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
 
     triggerListener(prefetcher, 'focusin', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
     triggerListener(prefetcher, 'focusout', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
-    clock.tick(HOVER_DELAY_MS + 1);
+    clock.tick(INTENTION_DELAY_MS + 1);
     prefetcher.update();
 
     expect(prefetcher).not.toContainReact(<MockComponent />);
   });
 
-  it('prefetches a components with matching regex URLs', () => {
-    const manager = createManager([{component: MockComponent, url: /.*/}]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+  it('prefetches a components with matching regex paths', () => {
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path: /.*/},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
 
     triggerListener(prefetcher, 'mousedown', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
     expect(prefetcher).toContainReact(<MockComponent />);
@@ -149,35 +198,22 @@ describe('<Prefetch />', () => {
       return null;
     }
 
-    const manager = createManager([
-      {component: MockComponent, url: /.*/},
-      {component: AnotherPrefetch, url},
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path: /.*/},
+      {render: () => <AnotherPrefetch />, path},
     ]);
-    const prefetcher = mount(<Prefetcher manager={manager} />);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
 
     triggerListener(prefetcher, 'mousedown', {
-      target: mockElement(`<a href="${url}"></a>`),
+      target: mockElement(`<a href="${path}"></a>`),
     });
 
     expect(prefetcher).toContainReact(<MockComponent />);
     expect(prefetcher).toContainReact(<AnotherPrefetch />);
-  });
-
-  it('maps the url to props when a prop mapper is included', () => {
-    const props = {name: 'Gord'};
-    const spy = jest.fn(() => props);
-    const manager = createManager([
-      {component: MockComponent, url: /.*/, mapUrlToProps: spy},
-    ]);
-
-    const prefetcher = mount(<Prefetcher manager={manager} />);
-
-    triggerListener(prefetcher, 'mousedown', {
-      target: mockElement(`<a href="${url}"></a>`),
-    });
-
-    expect(spy).toHaveBeenCalledWith(url);
-    expect(prefetcher).toContainReact(<MockComponent {...props} />);
   });
 });
 

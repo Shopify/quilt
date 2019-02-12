@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Added
+## 1.0.2 - 2019-02-10
 
-- `@shopify/react-async` package
+### Fixed
+
+- Fixed an issue where the `<Prefetcher />` would not watch user interactions by default.
+
+## 1.0.1 - 2019-02-10
+
+- Fixed some broken API choices
+
+## 1.0.0 - 2019-02-07
+
+- Initial release

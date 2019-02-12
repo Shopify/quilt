@@ -13,8 +13,16 @@ export interface Entrypoint {
   css: Asset[];
 }
 
+export interface AsyncAsset {
+  id?: string;
+  file: string;
+  publicPath: string;
+  integrity?: string;
+}
+
 export interface Manifest {
   entrypoints: {[key: string]: Entrypoint};
+  asyncAssets: {[key: string]: AsyncAsset[]};
 }
 
 export interface ConsolidatedManifestEntry {
@@ -30,6 +38,20 @@ interface Options {
   userAgent?: string;
 }
 
+interface AsyncAssetOptions {
+  id: string | RegExp | Iterable<string | RegExp>;
+}
+
+interface AssetOptions {
+  name?: string;
+  asyncAssets?: AsyncAssetOptions['id'];
+}
+
+enum AssetKind {
+  Styles = 'css',
+  Scripts = 'js',
+}
+
 export default class Assets {
   assetPrefix: string;
   userAgent?: string;
@@ -40,8 +62,11 @@ export default class Assets {
     this.userAgent = userAgent;
   }
 
-  async scripts({name = 'main'} = {}) {
-    const {js} = getAssetsForEntrypoint(name, await this.getResolvedManifest());
+  async scripts(options: AssetOptions = {}) {
+    const js = getAssetsFromManifest(
+      {...options, kind: AssetKind.Scripts},
+      await this.getResolvedManifest(),
+    );
 
     const scripts =
       // Sewing Kit does not currently include the vendor DLL in its asset
@@ -54,12 +79,36 @@ export default class Assets {
     return scripts;
   }
 
-  async styles({name = 'main'} = {}) {
-    const {css} = getAssetsForEntrypoint(
-      name,
+  async asyncScripts({id}: AsyncAssetOptions) {
+    return getAsyncAssetsFromManifest(
+      {id, kind: AssetKind.Scripts},
       await this.getResolvedManifest(),
     );
-    return css;
+  }
+
+  async styles(options: AssetOptions = {}) {
+    return getAssetsFromManifest(
+      {...options, kind: AssetKind.Styles},
+      await this.getResolvedManifest(),
+    );
+  }
+
+  async asyncStyles({id}: AsyncAssetOptions) {
+    return getAsyncAssetsFromManifest(
+      {id, kind: AssetKind.Styles},
+      await this.getResolvedManifest(),
+    );
+  }
+
+  async assets(options: AssetOptions) {
+    return getAssetsFromManifest(options, await this.getResolvedManifest());
+  }
+
+  async asyncAssets(options: AsyncAssetOptions) {
+    return getAsyncAssetsFromManifest(
+      options,
+      await this.getResolvedManifest(),
+    );
   }
 
   private async getResolvedManifestEntry() {
@@ -125,7 +174,16 @@ export function internalOnlyClearCache() {
   consolidatedManifestPromise = null;
 }
 
-function getAssetsForEntrypoint(name: string, {entrypoints}: Manifest) {
+function getAssetsFromManifest(
+  {
+    name = 'main',
+    asyncAssets: asyncIds,
+    kind,
+  }: AssetOptions & {kind?: AssetKind},
+  manifest: Manifest,
+) {
+  const {entrypoints} = manifest;
+
   if (!entrypoints.hasOwnProperty(name)) {
     const entries = Object.keys(entrypoints);
     const guidance =
@@ -138,5 +196,60 @@ function getAssetsForEntrypoint(name: string, {entrypoints}: Manifest) {
     throw new Error(guidance);
   }
 
-  return entrypoints[name];
+  const entrypoint = entrypoints[name];
+  const entrypointAssets =
+    kind == null
+      ? [...entrypoint[AssetKind.Styles], ...entrypoint[AssetKind.Scripts]]
+      : [...entrypoints[name][kind]];
+
+  const asyncAssets = asyncIds
+    ? getAsyncAssetsFromManifest({id: asyncIds, kind}, manifest)
+    : [];
+
+  if (asyncAssets.length === 0) {
+    return entrypointAssets;
+  }
+
+  const bundleTester = new RegExp(`\\b${name}[^\\.]*\\.${kind}`);
+
+  const nonVendorEntrypointIndex = entrypointAssets.findIndex(bundle =>
+    bundleTester.test(bundle.path),
+  );
+
+  if (nonVendorEntrypointIndex) {
+    entrypointAssets.splice(nonVendorEntrypointIndex, 0, ...asyncAssets);
+    return entrypointAssets;
+  }
+
+  return [...asyncAssets, ...entrypointAssets];
+}
+
+function getAsyncAssetsFromManifest(
+  {id, kind}: AsyncAssetOptions & {kind?: AssetKind},
+  {asyncAssets}: Manifest,
+) {
+  const normalizedIds =
+    typeof id === 'string' || id instanceof RegExp ? [id] : id;
+
+  const asyncEntries = Object.entries(asyncAssets);
+
+  return [...normalizedIds]
+    .reduce((all, id) => {
+      const assetsMatchingId =
+        typeof id === 'string'
+          ? asyncAssets[id]
+          : asyncEntries.reduce(
+              (all, [asyncId, assets]) =>
+                id.test(asyncId) ? [...all, ...assets] : all,
+              [],
+            );
+
+      const filteredMatchingAssets =
+        kind == null
+          ? assetsMatchingId
+          : assetsMatchingId.filter(({file}) => file.endsWith(`.${kind}`));
+
+      return [...all, ...filteredMatchingAssets];
+    }, [])
+    .map(({publicPath}) => ({path: publicPath}));
 }
