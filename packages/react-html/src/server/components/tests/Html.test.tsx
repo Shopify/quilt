@@ -42,14 +42,14 @@ describe('<Html />', () => {
   it('hides the body contents in development', () => {
     const html = withEnv('development', () => mount(<Html {...mockProps} />));
     expect(html.find('body').prop('style')).toMatchObject({
-      display: 'none',
+      visibility: 'hidden',
     });
   });
 
   it('does not hide the body contents in other environments', () => {
     const html = mount(<Html {...mockProps} />);
     const styles = html.find('#app').prop('style') || {};
-    expect(styles).not.toHaveProperty('display');
+    expect(styles).not.toHaveProperty('visibility');
   });
 
   describe('locale', () => {
