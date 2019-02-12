@@ -607,7 +607,7 @@ describe('I18n', () => {
     });
 
     it('uses UTC when defaultTimezone is Etc/GMT+12', () => {
-      const date = new Date();
+      const date = new Date('2018-01-01T12:34:56-12:00');
       const defaultTimezone = 'Etc/GMT+12';
 
       const i18n = new I18n(defaultTranslations, {
@@ -616,7 +616,7 @@ describe('I18n', () => {
       });
       const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
         timeZone: 'UTC',
-      }).format(date);
+      }).format(new Date('2018-01-01'));
 
       expect(
         i18n.formatDate(date, {
