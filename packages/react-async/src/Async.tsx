@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {LoadProps} from '@shopify/async';
 import {Omit} from '@shopify/useful-types';
+import {Effect} from '@shopify/react-effect';
 
-import {Manager} from './manager';
-import {AsyncContext} from './context';
+import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
 
 interface Props<Value> extends LoadProps<Value> {
   defer?: boolean;
-  manager: Manager;
+  manager?: AsyncAssetManager;
   render?(value: Value | null): React.ReactNode;
   renderLoading?(): React.ReactNode;
 }
@@ -59,19 +59,30 @@ class ConnectedAsync<Value> extends React.Component<
     } = this.props;
     const {resolved, loading} = this.state;
 
-    if (resolved != null && id != null) {
-      manager.markAsUsed(id());
-    }
+    const effect =
+      resolved != null && id != null && manager != null ? (
+        <Effect
+          kind={manager.effect}
+          perform={() => manager.markAsUsed(id())}
+        />
+      ) : null;
 
-    return loading ? renderLoading() : render(resolved);
+    const content = loading ? renderLoading() : render(resolved);
+
+    return (
+      <>
+        {effect}
+        {content}
+      </>
+    );
   }
 }
 
 export function Async<Value>(props: Omit<Props<Value>, 'manager'>) {
   return (
-    <AsyncContext.Consumer>
+    <AsyncAssetContext.Consumer>
       {manager => <ConnectedAsync manager={manager} {...props} />}
-    </AsyncContext.Consumer>
+    </AsyncAssetContext.Consumer>
   );
 }
 

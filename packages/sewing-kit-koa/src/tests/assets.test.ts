@@ -1,9 +1,10 @@
-import {join} from 'path';
+import {join, basename} from 'path';
 import withEnv from '@shopify/with-env';
 import appRoot from 'app-root-path';
 import Assets, {
   internalOnlyClearCache,
   Asset,
+  AsyncAsset,
   Entrypoint,
   ConsolidatedManifestEntry,
   ConsolidatedManifest,
@@ -86,6 +87,35 @@ describe('Assets', () => {
       expect(await assets.scripts({name: 'custom'})).toEqual([{path: js}]);
     });
 
+    it('prefixes async assets matching the passed IDs', async () => {
+      const js = '/custom.js';
+      const asyncJs = '/used.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(
+              {
+                custom: mockEntrypoint({
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              {
+                unused: [mockAsyncAsset('/unused.js')],
+                used: [mockAsyncAsset(asyncJs), mockAsyncAsset('/used.css')],
+              },
+            ),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(
+        await assets.scripts({name: 'custom', asyncAssets: ['used']}),
+      ).toEqual([{path: asyncJs}, {path: js}]);
+    });
+
     it('throws an error when no scripts exist for the passed entrypoint', async () => {
       const assets = new Assets(defaultOptions);
       await expect(
@@ -162,11 +192,153 @@ describe('Assets', () => {
       expect(await assets.styles({name: 'custom'})).toEqual([{path: css}]);
     });
 
+    it('prefixes async assets matching the passed IDs', async () => {
+      const css = '/custom.css';
+      const asyncCss = '/used.css';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(
+              {
+                custom: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                }),
+              },
+              {
+                unused: [mockAsyncAsset('/unused.js')],
+                used: [mockAsyncAsset(asyncCss), mockAsyncAsset('/used.js')],
+              },
+            ),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(
+        await assets.styles({name: 'custom', asyncAssets: ['used']}),
+      ).toEqual([{path: asyncCss}, {path: css}]);
+    });
+
     it('throws an error when no styles exist for the passed entrypoint', async () => {
       const assets = new Assets(defaultOptions);
       await expect(
         assets.styles({name: 'non-existent'}),
       ).rejects.toBeInstanceOf(Error);
+    });
+  });
+
+  describe('assets', () => {
+    it('returns all assets for the specified bundles', async () => {
+      const css = '/style.css';
+      const asyncCss = '/mypage.css';
+      const js = '/script.js';
+      const asyncJs = 'mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(
+              {
+                custom: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              {
+                mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+              },
+            ),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(
+        await assets.assets({name: 'custom', asyncAssets: ['mypage']}),
+      ).toEqual([{path: css}, {path: asyncCss}, {path: asyncJs}, {path: js}]);
+    });
+  });
+
+  describe('asyncStyles', () => {
+    it('returns all async styles for the specified ids', async () => {
+      const asyncCss = '/mypage.css';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(undefined, {
+              other: [mockAsyncAsset('/other.css')],
+              mypage: [mockAsyncAsset(asyncCss)],
+            }),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.asyncStyles({id: ['mypage']})).toEqual([
+        {path: asyncCss},
+      ]);
+    });
+  });
+
+  describe('asyncScripts', () => {
+    it('returns all async styles for the specified ids', async () => {
+      const asyncJs = '/mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(undefined, {
+              other: [mockAsyncAsset('/other.js')],
+              mypage: [mockAsyncAsset(asyncJs)],
+            }),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.asyncScripts({id: ['mypage']})).toEqual([
+        {path: asyncJs},
+      ]);
+    });
+  });
+
+  describe('asyncAssets', () => {
+    it('returns all async assets for the specified ids', async () => {
+      const css = '/style.css';
+      const asyncCss = '/mypage.css';
+      const js = '/script.js';
+      const asyncJs = 'mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(
+              {
+                custom: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              {
+                mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+              },
+            ),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.asyncAssets({id: ['mypage']})).toEqual([
+        {path: asyncCss},
+        {path: asyncJs},
+      ]);
     });
   });
 
@@ -261,6 +433,10 @@ function mockAsset(path: string): Asset {
   return {path};
 }
 
+function mockAsyncAsset(path: string): AsyncAsset {
+  return {publicPath: path, file: basename(path)};
+}
+
 function mockEntrypoint({
   scripts = [],
   styles = [],
@@ -271,8 +447,11 @@ function mockEntrypoint({
   return {js: scripts, css: styles};
 }
 
-function mockManifest(entrypoints: {[key: string]: Entrypoint} = {}) {
-  return {entrypoints};
+function mockManifest(
+  entrypoints: {[key: string]: Entrypoint} = {},
+  asyncAssets: {[key: string]: AsyncAsset[]} = {},
+) {
+  return {entrypoints, asyncAssets};
 }
 
 function mockManifestEntry({

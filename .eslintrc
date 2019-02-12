@@ -6,6 +6,7 @@
   "rules": {
     "func-style": "off",
     "react/jsx-no-bind": "off",
+    "react/display-name": "off",
     "shopify/restrict-full-import": ["error", "lodash"]
   }
 }
