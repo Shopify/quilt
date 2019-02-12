@@ -3,6 +3,7 @@ import {LoadProps} from '@shopify/async';
 import {Props as ComponentProps} from '@shopify/useful-types';
 
 import {Async} from './Async';
+import {DeferTiming} from './shared';
 
 interface Options<
   Props,
@@ -61,7 +62,7 @@ export function createAsyncComponent<
     return (
       <>
         {renderPreload(props)}
-        <Async defer load={load} />
+        <Async defer={DeferTiming.Idle} load={load} />
       </>
     );
   }
@@ -70,7 +71,7 @@ export function createAsyncComponent<
     return (
       <>
         {renderPrefetch(props)}
-        <Async defer load={load} />
+        <Async defer={DeferTiming.Mount} load={load} />
       </>
     );
   }
@@ -79,7 +80,7 @@ export function createAsyncComponent<
     return (
       <>
         {renderKeepFresh(props)}
-        <Async defer load={load} />
+        <Async defer={DeferTiming.Mount} load={load} />
       </>
     );
   }
