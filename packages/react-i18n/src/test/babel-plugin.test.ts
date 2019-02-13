@@ -209,8 +209,6 @@ function optionsForFile(filename, withTranslations = false) {
     ? path.join(__dirname, 'fixtures', 'adjacentTranslations', filename)
     : path.join(__dirname, 'fixtures', filename);
   return {
-    sourceRoot: __dirname,
     filename: dummyPath,
-    filenameRelative: path.relative(__dirname, dummyPath),
   };
 }
