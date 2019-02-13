@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] - -->
 
+## [0.10.2] - 2019-02-13
+
+### Fixed
+
+- Babel plugin now correctly works without `filenameRelative` being passed via `opts`.
+
 ## [0.10.0] - 2019-02-11
 
 ### Added
