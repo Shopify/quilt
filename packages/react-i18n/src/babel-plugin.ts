@@ -43,7 +43,6 @@ export default function injectWithI18nArguments({
     binding,
     bindingName,
     filename,
-    filenameRelative,
     fallbackID,
     insertImport,
   }) {
@@ -76,7 +75,7 @@ export default function injectWithI18nArguments({
 
       callExpression.replaceWith(
         i18nCallExpression({
-          id: generateID(filenameRelative),
+          id: generateID(filename),
           fallbackID,
           decoratorName: bindingName,
         }),
@@ -116,13 +115,12 @@ export default function injectWithI18nArguments({
             const {lastImport} = state;
             const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
 
-            const {filename, filenameRelative} = this.file.opts;
+            const {filename} = this.file.opts;
 
             addI18nArguments({
               binding,
               bindingName,
               filename,
-              filenameRelative,
               fallbackID,
               insertImport() {
                 lastImport.insertAfter(
