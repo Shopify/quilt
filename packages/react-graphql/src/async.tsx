@@ -1,17 +1,22 @@
 import * as React from 'react';
 
 import {LoadProps} from '@shopify/async';
-import {Async, DeferTiming} from '@shopify/react-async';
+import {Async, AsyncPropsRuntime, DeferTiming} from '@shopify/react-async';
 import {Omit} from '@shopify/useful-types';
 import {DocumentNode} from 'graphql-typed';
 
 import {Prefetch as PrefetchQuery} from './Prefetch';
 import {Query} from './Query';
-import {AsyncQueryComponentType, QueryProps, VariableOptions} from './types';
+import {
+  ConstantProps,
+  AsyncQueryComponentType,
+  QueryProps,
+  VariableOptions,
+} from './types';
 
 interface QueryComponentOptions<Data, Variables>
   extends LoadProps<DocumentNode<Data, Variables>> {
-  deferTiming: DeferTiming;
+  defer?: DeferTiming;
 }
 
 export function createAsyncQueryComponent<Data, Variables>({
@@ -22,46 +27,61 @@ export function createAsyncQueryComponent<Data, Variables>({
   Data,
   Variables
 > {
-  function AsyncQuery(props: Omit<QueryProps<Data, Variables>, 'query'>) {
+  function AsyncQuery(
+    props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
+  ) {
+    const [componentProps, asyncProps] = splitProps(props);
+
     return (
       <Async
-        load={load}
         id={id}
+        load={load}
         defer={defer}
         render={query =>
-          query ? <Query query={query} {...props as any} /> : null
+          query ? <Query query={query} {...componentProps as any} /> : null
         }
+        {...asyncProps}
       />
     );
   }
 
-  function Prefetch({variables}: VariableOptions<Variables>) {
+  function Prefetch(props: VariableOptions<Variables> & ConstantProps) {
+    const [componentProps, asyncProps] = splitProps(props);
+    const {variables} = componentProps;
+
     return (
       <Async
-        defer={DeferTiming.Mount}
         load={load}
+        defer={DeferTiming.Mount}
         render={query =>
           query ? (
             <PrefetchQuery ignoreCache query={query} variables={variables} />
           ) : null
         }
+        {...asyncProps}
       />
     );
   }
 
-  function Preload() {
-    return <Async defer={DeferTiming.Idle} load={load} id={id} />;
+  function Preload(props: ConstantProps) {
+    const [, asyncProps] = splitProps(props);
+    return (
+      <Async defer={DeferTiming.Idle} load={load} id={id} {...asyncProps} />
+    );
   }
 
   type KeepFreshProps = VariableOptions<Variables> & {
     pollInterval?: number;
   };
 
-  function KeepFresh({variables, pollInterval = 10_000}: KeepFreshProps) {
+  function KeepFresh(props: KeepFreshProps & ConstantProps) {
+    const [componentProps, asyncProps] = splitProps(props);
+    const {variables, pollInterval = 10_000} = componentProps;
+
     return (
       <Async
-        defer={DeferTiming.Mount}
         load={load}
+        defer={DeferTiming.Idle}
         render={query =>
           query ? (
             <PrefetchQuery
@@ -71,6 +91,7 @@ export function createAsyncQueryComponent<Data, Variables>({
             />
           ) : null
         }
+        {...asyncProps}
       />
     );
   }
@@ -88,4 +109,11 @@ export function createAsyncQueryComponent<Data, Variables>({
   FinalComponent.KeepFresh = KeepFresh;
 
   return FinalComponent;
+}
+
+function splitProps<Props>(
+  props: Props & ConstantProps,
+): [Props, AsyncPropsRuntime] {
+  const {async, ...rest} = props as any;
+  return [rest, async];
 }

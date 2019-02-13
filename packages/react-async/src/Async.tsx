@@ -6,8 +6,11 @@ import {Effect} from '@shopify/react-effect';
 import {DeferTiming} from './shared';
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
 
-interface Props<Value> extends LoadProps<Value> {
+export interface AsyncPropsRuntime {
   defer?: DeferTiming;
+}
+
+interface Props<Value> extends LoadProps<Value>, AsyncPropsRuntime {
   manager?: AsyncAssetManager;
   render?(value: Value | null): React.ReactNode;
   renderLoading?(): React.ReactNode;

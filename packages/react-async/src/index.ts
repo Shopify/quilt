@@ -1,4 +1,4 @@
-export {Async} from './Async';
+export {Async, AsyncPropsRuntime} from './Async';
 export {Prefetcher} from './Prefetcher';
 export {PrefetchRoute} from './PrefetchRoute';
 export {createAsyncComponent, AsyncComponentType} from './component';
