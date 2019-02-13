@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import gql from 'graphql-tag';
 
 import {trigger} from '@shopify/enzyme-utilities';
-import {Async} from '@shopify/react-async';
+import {Async, DeferTiming} from '@shopify/react-async';
 
 import {Query} from '../Query';
 import {Prefetch} from '../Prefetch';
@@ -58,22 +58,37 @@ describe('createAsyncQueryComponent()', () => {
     );
   });
 
+  it('creates a deferred <Async /> when specified', () => {
+    const defer = DeferTiming.Idle;
+    const AsyncComponent = createAsyncQueryComponent({
+      load: () => Promise.resolve(query),
+      defer,
+    });
+    const asyncComponent = mount(<AsyncComponent {...defaultProps} />);
+    expect(asyncComponent.find(Async)).toHaveProp('defer', defer);
+  });
+
   describe('<Preload />', () => {
-    it('renders a deferred loader', () => {
+    it('renders a deferred (to idle) loader', () => {
       const load = () => Promise.resolve(query);
       const AsyncComponent = createAsyncQueryComponent({load});
       const preload = mount(<AsyncComponent.Preload />);
-      expect(preload).toContainReact(<Async defer load={load} />);
+      expect(preload).toContainReact(
+        <Async defer={DeferTiming.Idle} load={load} />,
+      );
     });
   });
 
   describe('<Prefetch />', () => {
-    it('renders an <Async /> that then renders a prefetch query', () => {
+    it('renders a deferred (to mount) <Async /> that then renders a prefetch query', () => {
       const load = () => Promise.resolve(query);
       const AsyncComponent = createAsyncQueryComponent({load});
       const prefetch = mount(<AsyncComponent.Prefetch />);
 
-      expect(prefetch.find(Async).props()).toMatchObject({load, defer: true});
+      expect(prefetch.find(Async).props()).toMatchObject({
+        load,
+        defer: DeferTiming.Mount,
+      });
       expect(trigger(prefetch.find(Async), 'render', null)).toBeNull();
       expect(trigger(prefetch.find(Async), 'render', query)).toEqual(
         <Prefetch ignoreCache query={query} />,
