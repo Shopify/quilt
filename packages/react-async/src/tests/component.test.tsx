@@ -4,6 +4,7 @@ import {trigger} from '@shopify/enzyme-utilities';
 
 import {Async} from '../Async';
 import {createAsyncComponent} from '../component';
+import {DeferTiming} from '../shared';
 
 jest.mock('../Async', () => ({
   Async() {
@@ -42,12 +43,32 @@ describe('createAsyncComponent()', () => {
     ).toEqual(<MockComponent {...props} />);
   });
 
+  it('creates a deferred <Async /> when specified', () => {
+    const load = () => Promise.resolve(MockComponent);
+    const defer = DeferTiming.Idle;
+
+    const AsyncComponent = createAsyncComponent({load, defer});
+    const asyncComponent = mount(<AsyncComponent />);
+    expect(asyncComponent.find(Async)).toHaveProp('defer', defer);
+  });
+
+  it('allows passing custom async props', () => {
+    const load = () => Promise.resolve(MockComponent);
+    const async = {defer: DeferTiming.Idle};
+
+    const AsyncComponent = createAsyncComponent({load});
+    const asyncComponent = mount(<AsyncComponent async={async} />);
+    expect(asyncComponent.find(Async).props()).toMatchObject(async);
+  });
+
   describe('<Preload />', () => {
     it('renders a deferred loader', () => {
       const load = () => Promise.resolve(MockComponent);
       const AsyncComponent = createAsyncComponent({load});
       const preload = mount(<AsyncComponent.Preload />);
-      expect(preload).toContainReact(<Async defer load={load} />);
+      expect(preload).toContainReact(
+        <Async defer={DeferTiming.Idle} load={load} />,
+      );
     });
 
     it('renders the result of calling renderPreload()', () => {
@@ -67,6 +88,15 @@ describe('createAsyncComponent()', () => {
       );
       expect(preload).toContainReact(<Preload />);
     });
+
+    it('allows passing custom async props', () => {
+      const load = () => Promise.resolve(MockComponent);
+      const async = {defer: undefined};
+
+      const AsyncComponent = createAsyncComponent({load});
+      const preload = mount(<AsyncComponent.Preload async={async} />);
+      expect(preload.find(Async).props()).toMatchObject(async);
+    });
   });
 
   describe('<Prefetch />', () => {
@@ -74,7 +104,9 @@ describe('createAsyncComponent()', () => {
       const load = () => Promise.resolve(MockComponent);
       const AsyncComponent = createAsyncComponent({load});
       const prefetch = mount(<AsyncComponent.Prefetch />);
-      expect(prefetch).toContainReact(<Async defer load={load} />);
+      expect(prefetch).toContainReact(
+        <Async defer={DeferTiming.Mount} load={load} />,
+      );
     });
 
     it('renders the result of calling renderPrefetch()', () => {
@@ -94,6 +126,15 @@ describe('createAsyncComponent()', () => {
       );
       expect(prefetch).toContainReact(<Prefetch />);
     });
+
+    it('allows passing custom async props', () => {
+      const load = () => Promise.resolve(MockComponent);
+      const async = {defer: undefined};
+
+      const AsyncComponent = createAsyncComponent({load});
+      const prefetch = mount(<AsyncComponent.Prefetch async={async} />);
+      expect(prefetch.find(Async).props()).toMatchObject(async);
+    });
   });
 
   describe('<KeepFresh />', () => {
@@ -101,7 +142,9 @@ describe('createAsyncComponent()', () => {
       const load = () => Promise.resolve(MockComponent);
       const AsyncComponent = createAsyncComponent({load});
       const keepFresh = mount(<AsyncComponent.KeepFresh />);
-      expect(keepFresh).toContainReact(<Async defer load={load} />);
+      expect(keepFresh).toContainReact(
+        <Async defer={DeferTiming.Idle} load={load} />,
+      );
     });
 
     it('renders the result of calling renderKeepFresh()', () => {
@@ -120,6 +163,15 @@ describe('createAsyncComponent()', () => {
         </div>,
       );
       expect(keepFresh).toContainReact(<KeepFresh />);
+    });
+
+    it('allows passing custom async props', () => {
+      const load = () => Promise.resolve(MockComponent);
+      const async = {defer: undefined};
+
+      const AsyncComponent = createAsyncComponent({load});
+      const keepFresh = mount(<AsyncComponent.KeepFresh async={async} />);
+      expect(keepFresh.find(Async).props()).toMatchObject(async);
     });
   });
 });

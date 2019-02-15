@@ -3,10 +3,14 @@ import {LoadProps} from '@shopify/async';
 import {Omit} from '@shopify/useful-types';
 import {Effect} from '@shopify/react-effect';
 
+import {DeferTiming} from './shared';
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
 
-interface Props<Value> extends LoadProps<Value> {
-  defer?: boolean;
+export interface AsyncPropsRuntime {
+  defer?: DeferTiming;
+}
+
+interface Props<Value> extends LoadProps<Value>, AsyncPropsRuntime {
   manager?: AsyncAssetManager;
   render?(value: Value | null): React.ReactNode;
   renderLoading?(): React.ReactNode;
@@ -22,6 +26,25 @@ declare const __webpack_require__: (id: string) => any;
 declare const __webpack_modules__: {[key: string]: any};
 /* eslint-enable camelcase */
 
+type RequestIdleCallbackHandle = any;
+
+interface RequestIdleCallbackOptions {
+  timeout: number;
+}
+
+interface RequestIdleCallbackDeadline {
+  readonly didTimeout: boolean;
+  timeRemaining: (() => number);
+}
+
+interface WindowWithRequestIdleCallback {
+  requestIdleCallback: ((
+    callback: ((deadline: RequestIdleCallbackDeadline) => void),
+    opts?: RequestIdleCallbackOptions,
+  ) => RequestIdleCallbackHandle);
+  cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void);
+}
+
 class ConnectedAsync<Value> extends React.Component<
   Props<Value>,
   State<Value>
@@ -29,24 +52,44 @@ class ConnectedAsync<Value> extends React.Component<
   state: State<Value> = initialState(this.props);
 
   private mounted = true;
+  private idleCallbackHandle?: RequestIdleCallbackHandle;
 
   componentWillUnmount() {
     this.mounted = false;
+
+    if (this.idleCallbackHandle != null && 'cancelIdleCallback' in window) {
+      (window as WindowWithRequestIdleCallback).cancelIdleCallback(
+        this.idleCallbackHandle,
+      );
+    }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     if (this.state.resolved != null) {
       return;
     }
 
-    try {
-      const resolved = await this.props.load();
+    const load = async () => {
+      try {
+        const resolved = await this.props.load();
 
-      if (this.mounted) {
-        this.setState({resolved: normalize(resolved), loading: false});
+        if (this.mounted) {
+          this.setState({resolved: normalize(resolved), loading: false});
+        }
+      } catch (error) {
+        // Silently swallowing errors for now
       }
-    } catch (error) {
-      // Silently swallowing errors for now
+    };
+
+    if (
+      this.props.defer === DeferTiming.Idle &&
+      'requestIdleCallback' in window
+    ) {
+      this.idleCallbackHandle = (window as WindowWithRequestIdleCallback).requestIdleCallback(
+        load,
+      );
+    } else {
+      load();
     }
   }
 
@@ -87,7 +130,7 @@ export function Async<Value>(props: Omit<Props<Value>, 'manager'>) {
 }
 
 function initialState<Value>(props: Props<Value>): State<Value> {
-  const canResolve = !props.defer && props.id;
+  const canResolve = props.defer == null && props.id;
   const resolved = canResolve && props.id ? tryRequire(props.id()) : null;
 
   return {
