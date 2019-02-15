@@ -64,7 +64,7 @@ export function createAsyncQueryComponent<Data, Variables>({
   }
 
   function Preload(props: ConstantProps) {
-    const [, asyncProps] = splitProps(props);
+    const asyncProps = splitProps(props)[1];
     return (
       <Async defer={DeferTiming.Idle} load={load} id={id} {...asyncProps} />
     );
