@@ -2,7 +2,12 @@ import * as React from 'react';
 import {LoadProps} from '@shopify/async';
 import {Props as ComponentProps} from '@shopify/useful-types';
 
-import {Async} from './Async';
+import {Async, AsyncPropsRuntime} from './Async';
+import {DeferTiming} from './shared';
+
+interface ConstantProps {
+  async?: AsyncPropsRuntime;
+}
 
 interface Options<
   Props,
@@ -10,6 +15,7 @@ interface Options<
   PrefetchProps = {},
   KeepFreshProps = {}
 > extends LoadProps<React.ComponentType<Props>> {
+  defer?: DeferTiming;
   renderLoading?(): React.ReactNode;
   renderPreload?(props?: PreloadProps): React.ReactNode;
   renderPrefetch?(props?: PrefetchProps): React.ReactNode;
@@ -22,10 +28,12 @@ export interface AsyncComponentType<
   PrefetchProps,
   KeepFreshProps
 > {
-  (props: Props): React.ReactElement<ComponentProps<typeof Async>>;
-  Preload(props: PreloadProps): React.ReactElement<{}>;
-  Prefetch(props: PrefetchProps): React.ReactElement<{}>;
-  KeepFresh(props: KeepFreshProps): React.ReactElement<{}>;
+  (props: Props & ConstantProps): React.ReactElement<
+    ComponentProps<typeof Async>
+  >;
+  Preload(props: PreloadProps & ConstantProps): React.ReactElement<{}>;
+  Prefetch(props: PrefetchProps & ConstantProps): React.ReactElement<{}>;
+  KeepFresh(props: KeepFreshProps & ConstantProps): React.ReactElement<{}>;
 }
 
 export function createAsyncComponent<
@@ -34,8 +42,9 @@ export function createAsyncComponent<
   PrefetchProps = {},
   KeepFreshProps = {}
 >({
-  load,
   id,
+  load,
+  defer,
   renderLoading,
   renderPreload = noopRender,
   renderPrefetch = noopRender,
@@ -46,40 +55,54 @@ export function createAsyncComponent<
   PrefetchProps,
   KeepFreshProps
 >): AsyncComponentType<Props, PreloadProps, PrefetchProps, KeepFreshProps> {
-  function AsyncComponent(props: Props) {
+  function AsyncComponent(props: Props & ConstantProps) {
+    // Can't create a spread from union type, so opt for a function that
+    // does the dirty casting for us.
+    const [componentProps, asyncProps] = splitProps(props);
+
     return (
       <Async
         load={load}
         id={id}
+        defer={defer}
         renderLoading={renderLoading}
-        render={Component => (Component ? <Component {...props} /> : null)}
+        render={Component =>
+          Component ? <Component {...componentProps} /> : null
+        }
+        {...asyncProps}
       />
     );
   }
 
-  function Preload(props: PreloadProps) {
+  function Preload(props: PreloadProps & ConstantProps) {
+    const [componentProps, asyncProps] = splitProps(props);
+
     return (
       <>
-        {renderPreload(props)}
-        <Async defer load={load} />
+        {renderPreload(componentProps)}
+        <Async defer={DeferTiming.Idle} load={load} {...asyncProps} />
       </>
     );
   }
 
-  function Prefetch(props: PrefetchProps) {
+  function Prefetch(props: PrefetchProps & ConstantProps) {
+    const [componentProps, asyncProps] = splitProps(props);
+
     return (
       <>
-        {renderPrefetch(props)}
-        <Async defer load={load} />
+        {renderPrefetch(componentProps)}
+        <Async defer={DeferTiming.Mount} load={load} {...asyncProps} />
       </>
     );
   }
 
-  function KeepFresh(props: KeepFreshProps) {
+  function KeepFresh(props: KeepFreshProps & ConstantProps) {
+    const [componentProps, asyncProps] = splitProps(props);
+
     return (
       <>
-        {renderKeepFresh(props)}
-        <Async defer load={load} />
+        {renderKeepFresh(componentProps)}
+        <Async defer={DeferTiming.Idle} load={load} {...asyncProps} />
       </>
     );
   }
@@ -103,4 +126,11 @@ export function createAsyncComponent<
 
 function noopRender() {
   return null;
+}
+
+function splitProps<Props>(
+  props: Props & ConstantProps,
+): [Props, AsyncPropsRuntime] {
+  const {async, ...rest} = props as any;
+  return [rest, async];
 }

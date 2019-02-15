@@ -2,6 +2,7 @@ import * as React from 'react';
 import {LoadProps} from '@shopify/async';
 
 import {Async} from './Async';
+import {DeferTiming} from './shared';
 
 interface Options<Value> extends LoadProps<Value> {}
 
@@ -41,7 +42,7 @@ export function createAsyncContext<Value>({
   }
 
   function Preload() {
-    return <Async defer load={load} />;
+    return <Async defer={DeferTiming.Idle} load={load} />;
   }
 
   return {Context, Provider, Consumer, Preload};

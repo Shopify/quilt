@@ -4,6 +4,7 @@ import {trigger} from '@shopify/enzyme-utilities';
 
 import {Async} from '../Async';
 import {createAsyncContext} from '../provider';
+import {DeferTiming} from '../shared';
 
 jest.mock('../Async', () => ({
   Async() {
@@ -49,7 +50,9 @@ describe('createAsyncContext()', () => {
       const load = () => Promise.resolve(mockValue);
       const AsyncContext = createAsyncContext({load});
       const preload = mount(<AsyncContext.Preload />);
-      expect(preload).toContainReact(<Async defer load={load} />);
+      expect(preload).toContainReact(
+        <Async defer={DeferTiming.Idle} load={load} />,
+      );
     });
   });
 });

@@ -81,7 +81,7 @@ const MyComponent = createAsyncComponent({
 This system is designed to work well with our [`@shopify/react-graphql` package](../react-graphql). Simply create an async GraphQL query using that library, and then `Prefetch`, `Preload`, and `KeepFresh` that component alongside the React component itself:
 
 ```tsx
-const MyQuery = createAsyncComponent({
+const MyQuery = createAsyncQueryComponent({
   load: () => import('./graphql/MyQuery.graphql'),
 });
 
@@ -95,6 +95,62 @@ const MyComponent = createAsyncComponent({
   renderPreload: () => <MyQuery.Preload />,
   renderKeepFresh: () => <MyQuery.KeepFresh />,
 });
+```
+
+#### Deferring components
+
+By default, components are loaded as early as possible. This means that, if the library can load your component synchronously, it will try to do so. If that is not possible, it will instead load it in `componentDidMount`. In some cases, a component may not be important enough to warrant being loaded early. This library exposes a few ways of "deferring" the loading of the component to an appropriate time.
+
+If a component should always be deferred in some way, you can pass a custom `defer` option to `createAsyncComponent`. This property should be a member of the `DeferTiming` enum, which currently allows you to force deferring the component to either mount (`DeferTiming.Mount`) or until the browser is idle (`DeferTiming.Idle`; requires a polyfill for `window.requestIdleCallback`).
+
+```tsx
+import {createAsyncComponent, DeferTiming} from '@shopify/react-async';
+
+// No deferring
+const MyComponent = createAsyncComponent({
+  load: () => import('./MyComponent'),
+});
+
+// Never load synchronously, always start load in mount
+const MyComponentOnMount = createAsyncComponent({
+  load: () => import('./MyComponent'),
+  defer: DeferTiming.Mount,
+});
+
+// Never load synchronously, always start load in requestIdleCallback
+const MyComponentOnIdle = createAsyncComponent({
+  load: () => import('./MyComponent'),
+  defer: DeferTiming.Idle,
+});
+```
+
+If you need to customize the deferring behaviour at runtime, the library always allows you to pass an `async` prop with some custom options for the underlying `<Async />` loader component (**note**: this library reserves the `async` prop name, so you can’t use that name for any of your component’s own props, or for the props you specify in the `renderPreload`, `renderPrefetch`, or `renderKeepFresh` options).
+
+```tsx
+import {createAsyncComponent, DeferTiming} from '@shopify/react-async';
+
+// No deferring
+const MyComponent = createAsyncComponent({
+  load: () => import('./MyComponent'),
+});
+
+// But this instance will defer until idle anyways
+<MyComponent async={{defer: DeferTiming.Idle}} />;
+```
+
+This prop also works for the `Preload`, `Prefetch`, and `KeepFresh` components. Note that these components have default deferring behaviour that should work well for their intended use cases: `Preload` and `KeepFresh` defer until idle, and `Prefetch` defers until mount.
+
+```tsx
+const MyComponent = createAsyncComponent({
+  load: () => import('./MyComponent'),
+});
+
+// Deferring until later than usual
+<MyComponent.Prefetch async={{defer: DeferTiming.Idle}} />
+
+// Don’t defer at all
+<MyComponent.Preload async={{defer: undefined}} />
+<MyComponent.KeepFresh async={{defer: undefined}} />
 ```
 
 ### `PrefetchRoute` and `Prefetcher`

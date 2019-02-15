@@ -9,6 +9,7 @@ import {
   ApolloClient,
 } from 'apollo-client';
 import {Omit, IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
+import {AsyncPropsRuntime} from '@shopify/react-async';
 
 export type VariableOptions<Variables> = IfEmptyObject<
   Variables,
@@ -33,12 +34,20 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
   onError?: (error: ApolloError) => void;
 } & VariableOptions<Variables>;
 
+export interface ConstantProps {
+  async?: AsyncPropsRuntime;
+}
+
 export interface AsyncQueryComponentType<Data, Variables> {
-  (props: Omit<QueryProps<Data, Variables>, 'query'>): React.ReactElement<{}>;
-  Prefetch(props: VariableOptions<Variables>): React.ReactElement<{}>;
-  Preload(): React.ReactElement<{}>;
+  (
+    props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
+  ): React.ReactElement<{}>;
+  Prefetch(
+    props: VariableOptions<Variables> & ConstantProps,
+  ): React.ReactElement<{}>;
+  Preload(props: ConstantProps): React.ReactElement<{}>;
   KeepFresh(
-    props: VariableOptions<Variables> & {pollInterval?: number},
+    props: VariableOptions<Variables> & {pollInterval?: number} & ConstantProps,
   ): React.ReactElement<{}>;
 }
 
