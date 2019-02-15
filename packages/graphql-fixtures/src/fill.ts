@@ -88,16 +88,20 @@ export function createFiller(
   const context = {schema, resolvers, options: {addTypename}};
 
   return function fill<Data, PartialData>(
-    document: DocumentNode<Data, any, PartialData>,
+    document:
+      | DocumentNode<Data, any, PartialData>
+      | {document: DocumentNode<Data, any, PartialData>},
     data?: DeepThunk<PartialData>,
   ): Data {
-    let operation = documentToOperation.get(document);
+    const normalizedDocument =
+      'document' in document ? document.document : document;
+    let operation = documentToOperation.get(normalizedDocument);
 
     if (operation == null) {
       // The most common processor for GraphQL files in Jest does not
       // generate loc.source.name, which is required by the `compile`
       // step we perform next.
-      for (const definition of document.definitions) {
+      for (const definition of normalizedDocument.definitions) {
         const loc: Partial<Location> = {...definition.loc};
         (definition as any).loc = {
           ...loc,
@@ -105,9 +109,9 @@ export function createFiller(
         };
       }
 
-      const ast = compile(schema, document);
+      const ast = compile(schema, normalizedDocument);
       operation = Object.values(ast.operations)[0];
-      documentToOperation.set(document, operation);
+      documentToOperation.set(normalizedDocument, operation);
     }
 
     return fillObject(

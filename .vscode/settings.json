@@ -33,5 +33,6 @@
     "packages/graphql-tool-utilities/*.js": true,
     "packages/graphql-typed/*.js": true,
     "packages/**/*.d.ts": true
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
