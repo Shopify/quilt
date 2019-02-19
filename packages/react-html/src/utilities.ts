@@ -48,7 +48,7 @@ export function showPage(): Promise<void> {
     process.env.NODE_ENV === 'development' && typeof document !== 'undefined'
       ? new Promise(resolve => {
           setTimeout(() => {
-            document.body.style.display = '';
+            document.body.style.visibility = '';
             resolve();
           }, 0);
         })

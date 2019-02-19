@@ -111,9 +111,9 @@ export default function Html({
     );
   });
 
-  const bodyStyles =
+  const bodyStyles: {visibility: 'hidden'} | undefined =
     // eslint-disable-next-line no-process-env
-    process.env.NODE_ENV === 'development' ? {display: 'none'} : undefined;
+    process.env.NODE_ENV === 'development' ? {visibility: 'hidden'} : undefined;
 
   const faviconMarkup = favicon ? <Favicon source={favicon} /> : null;
 
