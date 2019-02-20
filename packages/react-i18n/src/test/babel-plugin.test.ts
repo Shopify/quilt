@@ -6,7 +6,7 @@ jest.mock('string-hash', () => () => {
   return Number.MAX_SAFE_INTEGER;
 });
 
-describe('babel-pluin-react-i18n', () => {
+describe('babel-plugin-react-i18n', () => {
   const defaultHash = Number.MAX_SAFE_INTEGER.toString(36).substr(0, 5);
 
   it('injects arguments when adjacent translations exist', async () => {
