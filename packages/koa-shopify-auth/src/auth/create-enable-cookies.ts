@@ -1,3 +1,4 @@
+import querystring from 'querystring';
 import {Context} from 'koa';
 
 import Error from './errors';
@@ -10,10 +11,13 @@ const FOOTER = `Cookies let the app authenticate you by temporarily storing your
 information. They expire after 30 days.`;
 const ACTION = 'Enable cookies';
 
-export default function createEnableCookies({apiKey}: OAuthStartOptions) {
+export default function createEnableCookies({apiKey, prefix}: OAuthStartOptions) {
   return function enableCookies(ctx: Context) {
-    const {query} = ctx;
+    const {host, query} = ctx;
     const {shop} = query;
+    const path = `${prefix}/auth/inline`;
+    const params = {shop};
+    const queryString = querystring.stringify(params);
 
     if (shop == null) {
       ctx.throw(400, Error.ShopParamMissing);
@@ -370,7 +374,7 @@ export default function createEnableCookies({apiKey}: OAuthStartOptions) {
     (function() {
       function setCookieAndRedirect() {
         document.cookie = "shopify.cookies_persist=true";
-        window.location.href = window.shopOrigin + "/admin/apps/" + window.apiKey;
+        window.location.href = "https://${host}${path}?${queryString}"
       }
 
       function shouldDisplayPrompt() {
