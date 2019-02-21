@@ -80,10 +80,17 @@ describe('Navigation', () => {
       );
     });
 
-    it('is the start time of the "usable" event when available', () => {
+    it('is the start time of the "usable" event when available, relative to when the navigation started', () => {
+      const navigationStart = 12;
       const event = {type: EventType.Usable, duration: 0, start: 123};
-      const navigation = createNavigation({events: [event]});
-      expect(navigation).toHaveProperty('timeToUsable', event.start);
+      const navigation = createNavigation({
+        events: [event],
+        start: navigationStart,
+      });
+      expect(navigation).toHaveProperty(
+        'timeToUsable',
+        event.start - navigationStart,
+      );
     });
   });
 

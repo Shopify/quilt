@@ -62,6 +62,12 @@ export class Performance {
     if (!this.supportsDetailedTime || !this.supportsNavigationEntries) {
       withTiming(
         ({responseStart, domContentLoadedEventStart, loadEventStart}) => {
+          // window.performance.timing uses full timestamps, while
+          // the ones coming from observing navigation entries are
+          // time from performance.timeOrigin. We just normalize these
+          // ones to be relative to "start" since things listening for
+          // events expect them to be relative to when the navigation
+          // began.
           this.lifecycleEvent({
             type: EventType.TimeToFirstByte,
             start: responseStart - this.timeOrigin,
