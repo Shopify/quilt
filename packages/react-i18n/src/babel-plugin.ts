@@ -28,7 +28,7 @@ export default function injectWithI18nArguments({
       id: '${id}',
       fallback: ${fallbackID},
       async translations(locale) {
-        return await import(/* webpackChunkName: '${id}-i18n' */ \`./translations/$\{locale}.json\`);
+        return await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
       },
     })`,
       {
