@@ -64,7 +64,7 @@ export class Navigation implements NavigationDefinition {
 
   get timeToUsable() {
     const usableEvent = this.eventsByType(EventType.Usable)[0];
-    return usableEvent ? usableEvent.start : this.timeToComplete;
+    return usableEvent ? usableEvent.start - this.start : this.timeToComplete;
   }
 
   get resourceEvents(): (ScriptDownloadEvent | StyleDownloadEvent)[] {
