@@ -10,9 +10,8 @@ import {
   GraphQLEnumType,
   isScalarType,
   GraphQLScalarType,
-  Location,
 } from 'graphql';
-import {DocumentNode} from 'graphql-typed';
+import {DocumentNode, GraphQLOperation} from 'graphql-typed';
 import {
   compile,
   Field,
@@ -55,14 +54,18 @@ export type DeepThunk<T> = {
 };
 
 export interface Options {
-  addTypename?: boolean;
   resolvers?: {[key: string]: Resolver};
 }
 
 interface Context {
   schema: GraphQLSchema;
   resolvers: Map<string, Resolver>;
-  options: {addTypename: boolean};
+}
+
+export interface GraphQLRequest<Data, Variables, PartialData> {
+  query: DocumentNode<Data, Variables, PartialData>;
+  variables?: Variables;
+  operationName?: string;
 }
 
 const defaultResolvers = {
@@ -75,9 +78,9 @@ const defaultResolvers = {
 
 export function createFiller(
   schema: GraphQLSchema,
-  {resolvers: customResolvers = {}, addTypename = false}: Options = {},
+  {resolvers: customResolvers = {}}: Options = {},
 ) {
-  const documentToOperation = new WeakMap<DocumentNode, Operation>();
+  const documentToOperation = new Map<string, Operation>();
   const resolvers = new Map(
     Object.entries({
       ...defaultResolvers,
@@ -85,45 +88,35 @@ export function createFiller(
     }),
   );
 
-  const context = {schema, resolvers, options: {addTypename}};
+  const context = {schema, resolvers};
 
-  return function fill<Data, PartialData>(
-    document:
-      | DocumentNode<Data, any, PartialData>
-      | {document: DocumentNode<Data, any, PartialData>},
+  return function fill<Data, Variables, PartialData>(
+    _document: GraphQLOperation<Data, Variables, PartialData>,
     data?: DeepThunk<PartialData>,
-  ): Data {
-    const normalizedDocument =
-      'document' in document ? document.document : document;
-    let operation = documentToOperation.get(normalizedDocument);
+  ): (request: GraphQLRequest<Data, Variables, PartialData>) => Data {
+    return ({
+      query,
+      operationName,
+    }: GraphQLRequest<Data, Variables, PartialData>) => {
+      const operation =
+        (operationName && documentToOperation.get(operationName)) ||
+        Object.values(compile(schema, query).operations)[0];
 
-    if (operation == null) {
-      // The most common processor for GraphQL files in Jest does not
-      // generate loc.source.name, which is required by the `compile`
-      // step we perform next.
-      for (const definition of normalizedDocument.definitions) {
-        const loc: Partial<Location> = {...definition.loc};
-        (definition as any).loc = {
-          ...loc,
-          source: {name: 'GraphQL request', ...loc.source},
-        };
+      if (operationName != null) {
+        documentToOperation.set(operationName, operation);
       }
 
-      const ast = compile(schema, normalizedDocument);
-      operation = Object.values(ast.operations)[0];
-      documentToOperation.set(normalizedDocument, operation);
-    }
-
-    return fillObject(
-      operation.rootType,
-      operation.rootType,
-      // the root type is kind of weird, since there is no "field" that
-      // would be used in a resolver. For simplicity in the common case
-      // we just hack this type to make it conform.
-      [operation as any],
-      data,
-      context,
-    ) as Data;
+      return fillObject(
+        operation.rootType,
+        operation.rootType,
+        // the root type is kind of weird, since there is no "field" that
+        // would be used in a resolver. For simplicity in the common case
+        // we just hack this type to make it conform.
+        [operation as any],
+        data,
+        context,
+      ) as Data;
+    };
   };
 }
 
@@ -140,7 +133,6 @@ function fillObject(
   // eslint-disable-next-line typescript/no-non-null-assertion
   const ownField = normalizedParentFields.pop()!;
   const {fields = []} = ownField;
-  const starter = context.options.addTypename ? {__typename: type.name} : {};
 
   const resolver = context.resolvers.get(type.name);
   const resolverObject =
@@ -192,7 +184,7 @@ function fillObject(
         context,
       ),
     };
-  }, starter);
+  }, {});
 }
 
 function isResolver<T>(value: Thunk<T>): value is Resolver<T> {

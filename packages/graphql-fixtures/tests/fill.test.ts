@@ -1,6 +1,6 @@
 import faker from 'faker';
 import {buildSchema} from 'graphql';
-import {parse} from 'graphql-typed';
+import {parse, DocumentNode} from 'graphql-typed';
 
 import {createFiller, list, Options} from '../src/fill';
 
@@ -557,48 +557,6 @@ describe('createFiller()', () => {
           },
         });
       });
-
-      it('does not add a typename when the option is falsy', () => {
-        const fill = createFillerForBasicObjectSchema();
-
-        const document = createDocument(`
-          query Details {
-            self {
-              name
-            }
-          }
-        `);
-
-        expect(fill(document)).not.toHaveProperty('self.__typename');
-      });
-
-      it('adds an explicit typename when the option is truthy', () => {
-        const fill = createFillerForBasicObjectSchema({addTypename: true});
-
-        const document = createDocument(`
-          query Details {
-            self {
-              name
-            }
-          }
-        `);
-
-        expect(fill(document)).toHaveProperty('self.__typename', 'Person');
-      });
-
-      it('adds an explicit typename field when it is requested with a different responseName', () => {
-        const fill = createFillerForBasicObjectSchema({addTypename: true});
-
-        const document = createDocument(`
-          query Details {
-            self {
-              type: __typename
-            }
-          }
-        `);
-
-        expect(fill(document)).toHaveProperty('self.__typename', 'Person');
-      });
     });
 
     describe('interfaces', () => {
@@ -630,7 +588,11 @@ describe('createFiller()', () => {
       }
 
       function createFillerForInterfaceSchema(options?: Options) {
-        return createFiller(createInterfaceSchema(), options);
+        const filler = createFiller(createInterfaceSchema(), options);
+        return (document: DocumentNode, data?: any) =>
+          filler(document, data)({
+            query: document,
+          });
       }
 
       it('picks a random implementing type', () => {
@@ -792,7 +754,10 @@ describe('createFiller()', () => {
           }
         `);
 
-        fill(document, {namedPerson: {__typename: 'Person'}});
+        fill(document, {namedPerson: {__typename: 'Person'}})({
+          query: document,
+        });
+
         expect(spy).toHaveBeenCalledWith({
           type: schema.getType('Person'),
           parent: schema.getQueryType(),
@@ -822,7 +787,7 @@ describe('createFiller()', () => {
 
     describe('unions', () => {
       function createFillerForUnionSchema(options?: Options) {
-        return createFiller(
+        const fill = createFiller(
           buildSchema(`
             type Person {
               name: String!
@@ -847,6 +812,9 @@ describe('createFiller()', () => {
           `),
           options,
         );
+
+        return (document: DocumentNode, data?: any) =>
+          fill(document, data)({query: document});
       }
 
       it('picks a random member type', () => {
@@ -1080,7 +1048,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        fill(document);
+        fill(document)({query: document});
 
         expect(personResolver).toHaveBeenCalledWith({
           type: schema.getType('Person'),
@@ -1304,7 +1272,14 @@ describe('createFiller()', () => {
 });
 
 function createFillerForSchema(schema: string, options?: Options) {
-  return createFiller(buildSchema(schema), options);
+  const filler = createFiller(buildSchema(schema), options);
+  return <Data, Variables, PartialData>(
+    document: DocumentNode<Data, Variables, PartialData>,
+    data?: any,
+  ) =>
+    filler<Data, Variables, PartialData>(document, data)({
+      query: document,
+    });
 }
 
 function createDocument<Data = {}, PartialData = {}>(source: string) {
