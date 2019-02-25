@@ -7,6 +7,7 @@ const DEFAULT_PACKAGES_TO_PROCESS = {
 };
 
 export interface Options {
+  webpack?: boolean;
   packages?: {[key: string]: string[]};
 }
 
@@ -59,7 +60,7 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
           const bindingName = importSpecifier.node.local.name;
           const binding = path.scope.getBinding(bindingName);
           if (binding != null) {
-            addIdOption(binding, t);
+            addIdOption(binding, t, state.opts);
           }
         }
       },
@@ -67,7 +68,11 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
   };
 }
 
-function addIdOption(binding: Binding, t: typeof Types) {
+function addIdOption(
+  binding: Binding,
+  t: typeof Types,
+  {webpack = true}: Options = {},
+) {
   binding.referencePaths.forEach(refPath => {
     const callExpression = refPath.parentPath;
 
@@ -130,20 +135,38 @@ function addIdOption(binding: Binding, t: typeof Types) {
       return;
     }
 
-    propertiesMap.load.insertAfter(
-      t.objectProperty(
-        t.identifier('id'),
-        t.arrowFunctionExpression(
-          [],
-          t.callExpression(
-            t.memberExpression(
-              t.identifier('require'),
-              t.identifier('resolveWeak'),
+    if (webpack) {
+      loadProperty.insertAfter(
+        t.objectProperty(
+          t.identifier('id'),
+          t.arrowFunctionExpression(
+            [],
+            t.callExpression(
+              t.memberExpression(
+                t.identifier('require'),
+                t.identifier('resolveWeak'),
+              ),
+              [dynamicImports[0].get('arguments')[0].node],
             ),
-            [dynamicImports[0].get('arguments')[0].node],
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      propertiesMap.load.insertAfter(
+        t.objectProperty(
+          t.identifier('id'),
+          t.arrowFunctionExpression(
+            [],
+            t.callExpression(
+              t.memberExpression(
+                t.identifier('require'),
+                t.identifier('resolve'),
+              ),
+              [dynamicImports[0].get('arguments')[0].node],
+            ),
+          ),
+        ),
+      );
+    }
   });
 }

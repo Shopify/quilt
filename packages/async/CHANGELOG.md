@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.1.0 - 2019-02-25
+
 ### Added
 
-- `@shopify/async` package
+- Added a `webpack` option to disable the Webpack-specific transform ([#530](https://github.com/Shopify/quilt/pull/530))
