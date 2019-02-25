@@ -22,22 +22,7 @@ It also includes a plugin for Babel that allows the module IDs that are asynchro
 
 ### Babel
 
-The Babel plugin is exported from the `@shopify/async/babel` entrypoint. This plugin accepts one option: `packages`, which should be an object where the keys are the names of packages, and the values are an array of functions that should be processed. This option defaults to an object containing a few Shopify-specific async packages (`createAsyncComponent` and `createAsyncContext` from `@shopify/react-async`, and `createAsyncQueryComponent` from `@shopify/react-graphql`).
-
-```js
-// babel.config.js
-{
-  plugins: [
-    ['@shopify/async/babel', {
-      packages: {
-        'my-package': ['createAsyncComponent'],
-      },
-    }],
-  ],
-}
-```
-
-This plugin will look for any functions imported from the specified packages. It will then iterate over each reference to that function and, if the reference is a call expression where the first argument is an object, and that object has a `load` function, will mark it for processing. The adjustment is simple: it simply adds an `id` method that returns a Webpack-specific identifier based on the first dynamic import in the `load` method, allowing the function to use this identifier to mark the module as used.
+The Babel plugin is exported from the `@shopify/async/babel` entrypoint. This plugin will look for any functions imported from the specified packages. It will then iterate over each reference to that function and, if the reference is a call expression where the first argument is an object, and that object has a `load` function, will mark it for processing. The adjustment is simple: it simply adds an `id` method that returns a Webpack-specific identifier based on the first dynamic import in the `load` method, allowing the function to use this identifier to mark the module as used.
 
 ```js
 import {createAsyncComponent} from 'my-package';
@@ -53,6 +38,29 @@ createAsyncComponent({
   id: () => require.resolveWeak('../SomeComponent'),
 });
 ```
+
+#### Options
+
+##### `packages`
+
+`packages` should be an object where the keys are the names of packages, and the values are an array of functions that should be processed. This option defaults to an object containing a few Shopify-specific async packages (`createAsyncComponent` and `createAsyncContext` from `@shopify/react-async`, and `createAsyncQueryComponent` from `@shopify/react-graphql`).
+
+```js
+// babel.config.js
+{
+  plugins: [
+    ['@shopify/async/babel', {
+      packages: {
+        'my-package': ['createAsyncComponent'],
+      },
+    }],
+  ],
+}
+```
+
+##### `webpack`
+
+If you are using your components in a non-Webpack environment (for example, in Jest), you can pass the `webpack: false` option to this plugin. This disables the Webpack-specific `require.resolveWeak` addition, and instead uses `require.resolve`. The resulting `id` can then be used to synchronously require the module in Node.js.
 
 ### Webpack
 

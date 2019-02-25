@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.2.0 - 2019-02-25
+
+### Changed
+
+- `Async` now attempts to resolve the `id` of the component with a bare `require` call when it is available ([#530](https://github.com/Shopify/quilt/pull/530))
+
 ## 1.1.0 - 2019-02-15
 
 ### Added
