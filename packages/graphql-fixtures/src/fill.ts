@@ -100,7 +100,7 @@ export function createFiller(
     }: GraphQLRequest<Data, Variables, PartialData>) => {
       const operation =
         (operationName && documentToOperation.get(operationName)) ||
-        Object.values(compile(schema, query).operations)[0];
+        Object.values(compile(schema, normalizeDocument(query)).operations)[0];
 
       if (operationName != null) {
         documentToOperation.set(operationName, operation);
@@ -117,6 +117,22 @@ export function createFiller(
         context,
       ) as Data;
     };
+  };
+}
+
+// The documents that come from tools like Apollo do not have all
+// the details that Apollo’s codegen utilities expect. In particular,
+// they do not include the necessary `loc` information on the top-level
+// definitions of the document. This code normalizes those issues by
+// propagating the `loc` from the query to the definitions, which is
+// usually totally fine since we stick to one operation per document.
+function normalizeDocument(document: DocumentNode<any, any, any>) {
+  return {
+    ...document,
+    definitions: document.definitions.map((definition) => ({
+      ...definition,
+      loc: definition.loc || document.loc,
+    })),
   };
 }
 
