@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.3.0 - 2019-02-25
+
+### Added
+
+- You can now import `GraphQLData` and `GraphQLVariables` to extract the data or variable types from the component returned by `createAsyncQueryComponent` ([#529](https://github.com/Shopify/quilt/pull/529))
+
+### Changed
+
+- `AsyncQueryComponentType` now conforms to `graphql-typed`’s `GraphQLOperation` interface ([#529](https://github.com/Shopify/quilt/pull/529))
+
 ## 1.2.0 - 2019-02-15
 
 ### Added
