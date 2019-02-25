@@ -6,14 +6,13 @@ import {
 } from 'graphql';
 
 // @ts-ignore
-export interface GraphQLOperation<
-  // @ts-ignore
-  Data = {},
-  // @ts-ignore
-  Variables = {},
-  // @ts-ignore
-  DeepPartial = {}
-> {}
+export interface GraphQLOperation<Data = {}, Variables = {}, DeepPartial = {}> {
+  // We need something to actually use the types, otherwise TypeScript
+  // "discards" them for inference on extending interfaces.
+  readonly __typeData?: Data;
+  readonly __typeVariables?: Variables;
+  readonly __typeDeepPartial?: DeepPartial;
+}
 
 export interface DocumentNode<Data = {}, Variables = {}, DeepPartial = {}>
   extends BaseDocumentNode,
