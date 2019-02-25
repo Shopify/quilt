@@ -1,5 +1,11 @@
 import * as React from 'react';
-import {DocumentNode} from 'graphql-typed';
+import {
+  DocumentNode,
+  GraphQLOperation,
+  GraphQLData,
+  GraphQLVariables,
+  GraphQLDeepPartial,
+} from 'graphql-typed';
 import {QueryResult} from 'react-apollo';
 import {
   FetchPolicy,
@@ -10,6 +16,8 @@ import {
 } from 'apollo-client';
 import {Omit, IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {AsyncPropsRuntime} from '@shopify/react-async';
+
+export {GraphQLData, GraphQLVariables, GraphQLDeepPartial, GraphQLOperation};
 
 export type VariableOptions<Variables> = IfEmptyObject<
   Variables,
@@ -38,7 +46,8 @@ export interface ConstantProps {
   async?: AsyncPropsRuntime;
 }
 
-export interface AsyncQueryComponentType<Data, Variables> {
+export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
+  extends GraphQLOperation<Data, Variables, DeepPartial> {
   (
     props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
   ): React.ReactElement<{}>;
@@ -50,11 +59,3 @@ export interface AsyncQueryComponentType<Data, Variables> {
     props: VariableOptions<Variables> & {pollInterval?: number} & ConstantProps,
   ): React.ReactElement<{}>;
 }
-
-export type GraphQLData<T> = T extends DocumentNode<infer Data, any>
-  ? Data
-  : T extends AsyncQueryComponentType<infer Data, any> ? Data : never;
-
-export type GraphQLVariables<T> = T extends DocumentNode<any, infer Variables>
-  ? Variables
-  : T extends AsyncQueryComponentType<any, infer Variables> ? Variables : never;
