@@ -597,10 +597,18 @@
     "@types/history" "^3"
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.8.2", "@types/react@^16.0.2", "@types/react@^16.8.1":
+"@types/react@*", "@types/react@16.8.2", "@types/react@^16.0.2":
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.2.tgz#3b7a7f7ea89d1c7d68b00849fb5de839011c077b"
   integrity sha512-6mcKsqlqkN9xADrwiUz2gm9Wg4iGnlVGciwBRYFQSMWG6MQjhOZ/AVnxn+6v8nslFgfYTV8fNdE6XwKu6va5PA==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
+
+"@types/react@>=16.4.0":
+  version "16.8.4"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.4.tgz#134307f5266e866d5e7c25e47f31f9abd5b2ea34"
+  integrity sha512-Mpz1NNMJvrjf0GcDqiK8+YeOydXfD8Mgag3UtqQ5lXYTsMnOiHcKmO48LiSWMb1rSHB9MV/jlgyNzeAVxWMZRQ==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -3852,6 +3860,11 @@ graphql-typed@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-0.2.0.tgz#626863bbc8d0f1562db08508601dc2439bf00dd7"
   integrity sha512-cBy1vxabkmx3G0IURSbav7Rww/eQesKvHrSWa0SJy866JyHhxUJehp7m4sgTJt5J1vNFsEaJeHA4xLZmICKHnw==
+
+graphql-typed@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-0.3.0.tgz#8faa89ae6eb90c05917caa6bc993ed12f5cc5193"
+  integrity sha512-b3NFHlTOJzEVn2AvwOKfK7+6OBmvozs8DQ4sLjufRDcu/5L+W2mhofR0cgGbcYBEtUJHHbkJgFnrCoCnyVG05g==
 
 graphql@0.13.2:
   version "0.13.2"

@@ -27,7 +27,7 @@
     "@shopify/async": "^1.0.1",
     "@shopify/react-async": "^1.1.0",
     "@shopify/useful-types": "^1.1.1",
-    "graphql-typed": "^0.2.0",
+    "graphql-typed": "^0.3.0",
     "react-apollo": ">=2.1.0 <3.0.0"
   },
   "devDependencies": {

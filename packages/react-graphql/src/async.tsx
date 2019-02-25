@@ -14,19 +14,20 @@ import {
   VariableOptions,
 } from './types';
 
-interface QueryComponentOptions<Data, Variables>
-  extends LoadProps<DocumentNode<Data, Variables>> {
+interface QueryComponentOptions<Data, Variables, DeepPartial>
+  extends LoadProps<DocumentNode<Data, Variables, DeepPartial>> {
   defer?: DeferTiming;
 }
 
-export function createAsyncQueryComponent<Data, Variables>({
+export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
   id,
   load,
   defer,
-}: QueryComponentOptions<Data, Variables>): AsyncQueryComponentType<
+}: QueryComponentOptions<
   Data,
-  Variables
-> {
+  Variables,
+  DeepPartial
+>): AsyncQueryComponentType<Data, Variables, DeepPartial> {
   function AsyncQuery(
     props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
   ) {
@@ -101,7 +102,8 @@ export function createAsyncQueryComponent<Data, Variables>({
   // will know to augment its type
   const FinalComponent: AsyncQueryComponentType<
     Data,
-    Variables
+    Variables,
+    DeepPartial
   > = AsyncQuery as any;
 
   FinalComponent.Preload = Preload;
