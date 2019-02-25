@@ -152,6 +152,10 @@ function normalize(module: any) {
   return value == null ? null : value;
 }
 
+// If we have an ID, we try to first use Webpack’s internal stuff
+// to resolve the module. If those don’t exist, we know we aren’t
+// inside of a Webpack bundle, so we try to use Node’s native resolution
+// (which will work in environments like Jest’s test runner).
 function tryRequire(id: string) {
   if (
     /* eslint-disable camelcase */
@@ -162,6 +166,12 @@ function tryRequire(id: string) {
   ) {
     try {
       return normalize(__webpack_require__(id));
+    } catch {
+      // Just ignore failures
+    }
+  } else if (typeof require === 'function') {
+    try {
+      return normalize(require(id));
     } catch {
       // Just ignore failures
     }

@@ -180,6 +180,27 @@ describe('asyncBabelPlugin()', () => {
     );
   });
 
+  it('adds an id prop that returns the require.resolve of the first dynamic import in load when not in webpac', async () => {
+    const code = await normalize(`
+      import {${defaultImport}} from '${defaultPackage}';
+
+      ${defaultImport}({
+        load: () => import('./Foo'),
+      });
+    `);
+
+    expect(await transform(code, {...defaultOptions, webpack: false})).toBe(
+      await normalize(`
+      import {${defaultImport}} from '${defaultPackage}';
+
+      ${defaultImport}({
+        load: () => import('./Foo'),
+        id: () => require.resolve('./Foo'),
+      });
+    `),
+    );
+  });
+
   describe('packages', () => {
     it('processes createAsyncComponent from @shopify/react-async by default', async () => {
       const code = await normalize(`
