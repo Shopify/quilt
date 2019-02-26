@@ -50,23 +50,22 @@ export interface Resolver<
 
 export type Thunk<T> = T | Resolver<T>;
 
-export type DeepThunk<T, Data, Variables, DeepPartial> = {
-  [P in keyof T]: Thunk<
-    T[P] extends Array<infer U> | null | undefined
-      ?
-          | Array<Thunk<DeepThunk<U, Data, Variables, DeepPartial>>>
-          | null
-          | undefined
-      : T[P] extends ReadonlyArray<infer U> | null | undefined
-        ?
-            | ReadonlyArray<Thunk<DeepThunk<U, Data, Variables, DeepPartial>>>
-            | null
-            | undefined
-        : T[P] extends infer U | null | undefined
-          ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
-          : T[P]
-  >
-};
+export type DeepThunk<T, Data, Variables, DeepPartial> = Thunk<
+  {
+    [P in keyof T]: Thunk<
+      T[P] extends Array<infer U> | null | undefined
+        ? Array<DeepThunk<U, Data, Variables, DeepPartial>> | null | undefined
+        : T[P] extends ReadonlyArray<infer U> | null | undefined
+          ?
+              | ReadonlyArray<DeepThunk<U, Data, Variables, DeepPartial>>
+              | null
+              | undefined
+          : T[P] extends infer U | null | undefined
+            ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
+            : T[P]
+    >
+  }
+>;
 
 export interface Options {
   resolvers?: {[key: string]: Resolver};
