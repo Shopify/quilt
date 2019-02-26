@@ -52,28 +52,42 @@ export type Thunk<T, Data, Variables, DeepPartial> =
   | T
   | Resolver<T, Data, Variables, DeepPartial>;
 
-export type DeepThunk<T, Data, Variables, DeepPartial> = Thunk<
-  {
-    [P in keyof T]: Thunk<
-      T[P] extends Array<infer U> | null | undefined
-        ? Array<DeepThunk<U, Data, Variables, DeepPartial>> | null | undefined
-        : T[P] extends ReadonlyArray<infer U> | null | undefined
+export type DeepThunk<T, Data, Variables, DeepPartial> = T extends object
+  ? {
+      [P in keyof T]: Thunk<
+        T[P] extends Array<infer U> | null | undefined
           ?
-              | ReadonlyArray<DeepThunk<U, Data, Variables, DeepPartial>>
+              | Array<
+                  Thunk<
+                    DeepThunk<U, Data, Variables, DeepPartial>,
+                    Data,
+                    Variables,
+                    DeepPartial
+                  >
+                >
               | null
               | undefined
-          : T[P] extends infer U | null | undefined
-            ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
-            : T[P],
-      Data,
-      Variables,
-      DeepPartial
-    >
-  },
-  Data,
-  Variables,
-  DeepPartial
->;
+          : T[P] extends ReadonlyArray<infer U> | null | undefined
+            ?
+                | ReadonlyArray<
+                    Thunk<
+                      DeepThunk<U, Data, Variables, DeepPartial>,
+                      Data,
+                      Variables,
+                      DeepPartial
+                    >
+                  >
+                | null
+                | undefined
+            : T[P] extends infer U | null | undefined
+              ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
+              : T[P],
+        Data,
+        Variables,
+        DeepPartial
+      >
+    }
+  : T;
 
 export interface Options {
   resolvers?: {[key: string]: Resolver};
@@ -117,7 +131,12 @@ export function createFiller(
 
   return function fill<Data, Variables, PartialData>(
     _document: GraphQLOperation<Data, Variables, PartialData>,
-    data?: DeepThunk<PartialData, Data, Variables, PartialData>,
+    data?: Thunk<
+      DeepThunk<PartialData, Data, Variables, PartialData>,
+      Data,
+      Variables,
+      PartialData
+    >,
   ): (request: GraphQLRequest<Data, Variables, PartialData>) => Data {
     return (request: GraphQLRequest<Data, Variables, PartialData>) => {
       const {operationName, query} = request;
@@ -230,7 +249,9 @@ function fillObject(
   }, {});
 }
 
-function isResolver<T>(value: Thunk<T, any, any, any>): value is Resolver<T, any, any, any> {
+function isResolver<T>(
+  value: Thunk<T, any, any, any>,
+): value is Resolver<T, any, any, any> {
   return typeof value === 'function';
 }
 
