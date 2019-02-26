@@ -45,7 +45,8 @@ export default class List<Fields> extends React.Component<
       const innerFields: FieldDescriptors<Fields> = mapObject(
         fieldValues,
         (value, fieldPath) => {
-          const initialFieldValue = initialValue[index][fieldPath];
+          const initialFieldValue =
+            initialValue[index] && initialValue[index][fieldPath];
           return {
             value,
             onBlur,
