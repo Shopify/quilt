@@ -262,4 +262,4 @@ To help in migration, this function can imperatively return the parsed value of 
 
 ## Migration
 
-- [Migrating from 4.x to 5.x](../documentation/migration-version-4-to-5.md)
+- [Migrating from 4.x to 5.x](./documentation/migration-version-4-to-5.md)
