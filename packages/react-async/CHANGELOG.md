@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.2.1 - 2019-02-26
+
+### Fixed
+
+- Fixed an issue where Webpack would complain about a dynamic `require` statement ([#533](https://github.com/Shopify/quilt/pull/533))
+
 ## 1.2.0 - 2019-02-25
 
 ### Changed
