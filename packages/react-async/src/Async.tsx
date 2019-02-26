@@ -152,6 +152,13 @@ function normalize(module: any) {
   return value == null ? null : value;
 }
 
+// Webpack does not like seeing an explicit require(someVariable) in code
+// because that is a dynamic require that it can’t resolve. This code
+// obfuscates `require()` for the purpose of fooling Webpack, which is fine
+// because we only want to use the `require()` in cases where Webpack
+// is not the module bundler.
+const nodeRequire = typeof require === 'function' ? require : undefined;
+
 // If we have an ID, we try to first use Webpack’s internal stuff
 // to resolve the module. If those don’t exist, we know we aren’t
 // inside of a Webpack bundle, so we try to use Node’s native resolution
@@ -169,9 +176,9 @@ function tryRequire(id: string) {
     } catch {
       // Just ignore failures
     }
-  } else if (typeof require === 'function') {
+  } else if (typeof nodeRequire === 'function') {
     try {
-      return normalize(require(id));
+      return normalize(nodeRequire(id));
     } catch {
       // Just ignore failures
     }
