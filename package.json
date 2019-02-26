@@ -62,7 +62,7 @@
     "jest-extended": "^0.7.2",
     "lerna": "^2.11.0",
     "prettier": "^1.12.1",
-    "ts-jest": "^22.4.4",
+    "ts-jest": "~23.10.4",
     "typescript": "3.0.1"
   },
   "dependencies": {
