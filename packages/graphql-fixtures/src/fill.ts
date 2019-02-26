@@ -18,6 +18,7 @@ import {
   InlineFragment,
   Operation,
 } from 'graphql-tool-utilities';
+import {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {randomFromArray, chooseNull} from './utilities';
 
 export interface FieldMetadata {
@@ -35,20 +36,34 @@ export interface ResolveDetails {
   parentFields: FieldDetails[];
 }
 
-export interface Resolver<T = any> {
-  (details: ResolveDetails): T;
+export interface Resolver<
+  T = any,
+  Data = {},
+  Variables = {},
+  DeepPartial = {}
+> {
+  (
+    request: GraphQLRequest<Data, Variables, DeepPartial>,
+    details: ResolveDetails,
+  ): T;
 }
 
 export type Thunk<T> = T | Resolver<T>;
 
-export type DeepThunk<T> = {
+export type DeepThunk<T, Data, Variables, DeepPartial> = {
   [P in keyof T]: Thunk<
     T[P] extends Array<infer U> | null | undefined
-      ? Array<Thunk<DeepThunk<U>>> | null | undefined
+      ?
+          | Array<Thunk<DeepThunk<U, Data, Variables, DeepPartial>>>
+          | null
+          | undefined
       : T[P] extends ReadonlyArray<infer U> | null | undefined
-        ? ReadonlyArray<Thunk<DeepThunk<U>>> | null | undefined
+        ?
+            | ReadonlyArray<Thunk<DeepThunk<U, Data, Variables, DeepPartial>>>
+            | null
+            | undefined
         : T[P] extends infer U | null | undefined
-          ? (DeepThunk<U> | null | undefined)
+          ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
           : T[P]
   >
 };
@@ -62,11 +77,14 @@ interface Context {
   resolvers: Map<string, Resolver>;
 }
 
-export interface GraphQLRequest<Data, Variables, PartialData> {
+export type GraphQLRequest<Data, Variables, PartialData> = {
   query: DocumentNode<Data, Variables, PartialData>;
-  variables?: Variables;
   operationName?: string;
-}
+} & IfEmptyObject<
+  Variables,
+  {variables?: never},
+  IfAllNullableKeys<Variables, {variables?: Variables}, {variables: Variables}>
+>;
 
 const defaultResolvers = {
   String: () => faker.random.word(),
@@ -92,12 +110,11 @@ export function createFiller(
 
   return function fill<Data, Variables, PartialData>(
     _document: GraphQLOperation<Data, Variables, PartialData>,
-    data?: DeepThunk<PartialData>,
+    data?: DeepThunk<PartialData, Data, Variables, PartialData>,
   ): (request: GraphQLRequest<Data, Variables, PartialData>) => Data {
-    return ({
-      query,
-      operationName,
-    }: GraphQLRequest<Data, Variables, PartialData>) => {
+    return (request: GraphQLRequest<Data, Variables, PartialData>) => {
+      const {operationName, query} = request;
+
       const operation =
         (operationName && documentToOperation.get(operationName)) ||
         Object.values(compile(schema, normalizeDocument(query)).operations)[0];
@@ -114,6 +131,7 @@ export function createFiller(
         // we just hack this type to make it conform.
         [operation as any],
         data,
+        request,
         context,
       ) as Data;
     };
@@ -141,6 +159,7 @@ function fillObject(
   parent: GraphQLObjectType,
   parentFields: FieldDetails[],
   partial: Thunk<{[key: string]: any} | null> | undefined | null,
+  request: GraphQLRequest<any, any, any>,
   context: Context,
 ) {
   const normalizedParentFields = [...parentFields];
@@ -153,7 +172,7 @@ function fillObject(
   const resolver = context.resolvers.get(type.name);
   const resolverObject =
     resolver &&
-    unwrapThunk(resolver, {
+    unwrapThunk(resolver, request, {
       type,
       parent,
       field: ownField,
@@ -162,7 +181,7 @@ function fillObject(
 
   const partialObject =
     partial &&
-    unwrapThunk(partial, {
+    unwrapThunk(partial, request, {
       type,
       parent,
       field: ownField,
@@ -189,7 +208,7 @@ function fillObject(
         field.type,
         field,
         valueToUse &&
-          unwrapThunk(valueToUse, {
+          unwrapThunk(valueToUse, request, {
             type,
             parent,
             field,
@@ -197,6 +216,7 @@ function fillObject(
           }),
         type,
         ownField.hasOwnProperty('operationType') ? [] : parentFields,
+        request,
         context,
       ),
     };
@@ -207,10 +227,16 @@ function isResolver<T>(value: Thunk<T>): value is Resolver<T> {
   return typeof value === 'function';
 }
 
-function unwrapThunk<T>(value: Thunk<T>, details: ResolveDetails): T {
+function unwrapThunk<T>(
+  value: Thunk<T>,
+  request: GraphQLRequest<any, any, any>,
+  details: ResolveDetails,
+): T {
   const {type} = details;
   const unwrappedType = isNonNullType(type) ? type.ofType : type;
-  return isResolver(value) ? value({...details, type: unwrappedType}) : value;
+  return isResolver(value)
+    ? value(request, {...details, type: unwrappedType})
+    : value;
 }
 
 function keyPathElement(responseName: string, fieldIndex: number | undefined) {
@@ -236,6 +262,7 @@ function withRandom<T>(keypath: FieldDetails[], func: () => T, seedOffset = 0) {
 function createValue<T>(
   partialValue: Thunk<any>,
   value: Thunk<T>,
+  request: GraphQLRequest<any, any, any>,
   details: ResolveDetails,
 ) {
   return withRandom(
@@ -243,10 +270,10 @@ function createValue<T>(
     () => {
       if (partialValue === undefined) {
         return isNonNullType(details.type) || !chooseNull()
-          ? unwrapThunk(value, details)
+          ? unwrapThunk(value, request, details)
           : null;
       } else {
-        return unwrapThunk(partialValue, details);
+        return unwrapThunk(partialValue, request, details);
       }
     },
     details.field.fieldIndex,
@@ -274,6 +301,7 @@ function fillType(
   partial: Thunk<any>,
   parent: GraphQLObjectType,
   parentFields: FieldDetails[],
+  request: GraphQLRequest<any, any, any>,
   context: Context,
 ): any {
   const unwrappedType = isNonNullType(type) ? type.ofType : type;
@@ -281,14 +309,19 @@ function fillType(
   if (field.fieldName === '__typename') {
     return parent.name;
   } else if (isEnumType(unwrappedType) || isScalarType(unwrappedType)) {
-    return createValue(partial, fillForPrimitiveType(unwrappedType, context), {
-      type,
-      field,
-      parent,
-      parentFields,
-    });
+    return createValue(
+      partial,
+      fillForPrimitiveType(unwrappedType, context),
+      request,
+      {
+        type,
+        field,
+        parent,
+        parentFields,
+      },
+    );
   } else if (isListType(unwrappedType)) {
-    const array = createValue(partial, () => [], {
+    const array = createValue(partial, () => [], request, {
       type,
       parent,
       field,
@@ -302,6 +335,7 @@ function fillType(
             value,
             parent,
             parentFields,
+            request,
             context,
           ),
         )
@@ -311,6 +345,7 @@ function fillType(
 
     const resolverObject = unwrapThunk<{[key: string]: any}>(
       context.resolvers.get(unwrappedType.name) || {},
+      request,
       {
         type,
         parent,
@@ -319,7 +354,7 @@ function fillType(
       },
     );
 
-    const partialObject = unwrapThunk(partial || {}, {
+    const partialObject = unwrapThunk(partial || {}, request, {
       type,
       parent,
       field,
@@ -331,6 +366,7 @@ function fillType(
 
     const typename = unwrapThunk(
       valueFromPartial === undefined ? valueFromResolver : valueFromPartial,
+      request,
       {
         type,
         parent,
@@ -372,15 +408,21 @@ function fillType(
           },
         ],
         partial,
+        request,
         context,
       );
 
-    return createValue(partial === undefined ? undefined : filler, filler, {
-      type,
-      parent,
-      field,
-      parentFields,
-    });
+    return createValue(
+      partial === undefined ? undefined : filler,
+      filler,
+      request,
+      {
+        type,
+        parent,
+        field,
+        parentFields,
+      },
+    );
   } else {
     // eslint-disable-next-line func-style
     const filler = () =>
@@ -389,15 +431,21 @@ function fillType(
         parent,
         [...parentFields, field],
         partial,
+        request,
         context,
       );
 
-    return createValue(partial === undefined ? undefined : filler, filler, {
-      type,
-      parent,
-      field,
-      parentFields,
-    });
+    return createValue(
+      partial === undefined ? undefined : filler,
+      filler,
+      request,
+      {
+        type,
+        parent,
+        field,
+        parentFields,
+      },
+    );
   }
 }
 

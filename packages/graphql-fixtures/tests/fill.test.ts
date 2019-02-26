@@ -734,7 +734,7 @@ describe('createFiller()', () => {
         });
       });
 
-      it('calls a resolver with the field details', () => {
+      it('calls a resolver with the request and field details', () => {
         const spy = jest.fn(() => ({}));
         const schema = createInterfaceSchema();
         const fill = createFiller(schema, {
@@ -754,11 +754,13 @@ describe('createFiller()', () => {
           }
         `);
 
-        fill(document, {namedPerson: {__typename: 'Person'}})({
+        const request = {
           query: document,
-        });
+        };
 
-        expect(spy).toHaveBeenCalledWith({
+        fill(document, {namedPerson: {__typename: 'Person'}})(request);
+
+        expect(spy).toHaveBeenCalledWith(request, {
           type: schema.getType('Person'),
           parent: schema.getQueryType(),
           field: expect.objectContaining({
@@ -1014,7 +1016,7 @@ describe('createFiller()', () => {
         });
       });
 
-      it('calls the resolver with its type, parent object type, field, and parent field details', () => {
+      it('calls the resolver with the request and its type, parent object type, field, and parent field details', () => {
         const personResolver = jest.fn(() => ({name: faker.name.firstName()}));
         const intResolver = jest.fn(() => 1);
 
@@ -1048,9 +1050,11 @@ describe('createFiller()', () => {
           }
         `);
 
-        fill(document)({query: document});
+        const request = {query: document};
 
-        expect(personResolver).toHaveBeenCalledWith({
+        fill(document)(request);
+
+        expect(personResolver).toHaveBeenCalledWith(request, {
           type: schema.getType('Person'),
           field: expect.objectContaining({
             fieldName: 'self',
@@ -1060,7 +1064,7 @@ describe('createFiller()', () => {
           parentFields: [],
         });
 
-        expect(intResolver).toHaveBeenCalledWith({
+        expect(intResolver).toHaveBeenCalledWith(request, {
           type: schema.getType('Int'),
           field: expect.objectContaining({
             fieldName: 'legs',
@@ -1273,11 +1277,11 @@ describe('createFiller()', () => {
 
 function createFillerForSchema(schema: string, options?: Options) {
   const filler = createFiller(buildSchema(schema), options);
-  return <Data, Variables, PartialData>(
-    document: DocumentNode<Data, Variables, PartialData>,
+  return <Data, PartialData>(
+    document: DocumentNode<Data, {}, PartialData>,
     data?: any,
   ) =>
-    filler<Data, Variables, PartialData>(document, data)({
+    filler<Data, {}, PartialData>(document, data)({
       query: document,
     });
 }
