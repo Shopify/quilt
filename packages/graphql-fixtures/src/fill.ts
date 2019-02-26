@@ -48,7 +48,9 @@ export interface Resolver<
   ): T;
 }
 
-export type Thunk<T> = T | Resolver<T>;
+export type Thunk<T, Data, Variables, DeepPartial> =
+  | T
+  | Resolver<T, Data, Variables, DeepPartial>;
 
 export type DeepThunk<T, Data, Variables, DeepPartial> = Thunk<
   {
@@ -62,9 +64,15 @@ export type DeepThunk<T, Data, Variables, DeepPartial> = Thunk<
               | undefined
           : T[P] extends infer U | null | undefined
             ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
-            : T[P]
+            : T[P],
+      Data,
+      Variables,
+      DeepPartial
     >
-  }
+  },
+  Data,
+  Variables,
+  DeepPartial
 >;
 
 export interface Options {
@@ -157,7 +165,7 @@ function fillObject(
   type: GraphQLObjectType,
   parent: GraphQLObjectType,
   parentFields: FieldDetails[],
-  partial: Thunk<{[key: string]: any} | null> | undefined | null,
+  partial: Thunk<{[key: string]: any} | null, any, any, any> | undefined | null,
   request: GraphQLRequest<any, any, any>,
   context: Context,
 ) {
@@ -222,12 +230,12 @@ function fillObject(
   }, {});
 }
 
-function isResolver<T>(value: Thunk<T>): value is Resolver<T> {
+function isResolver<T>(value: Thunk<T, any, any, any>): value is Resolver<T, any, any, any> {
   return typeof value === 'function';
 }
 
 function unwrapThunk<T>(
-  value: Thunk<T>,
+  value: Thunk<T, any, any, any>,
   request: GraphQLRequest<any, any, any>,
   details: ResolveDetails,
 ): T {
@@ -259,8 +267,8 @@ function withRandom<T>(keypath: FieldDetails[], func: () => T, seedOffset = 0) {
 }
 
 function createValue<T>(
-  partialValue: Thunk<any>,
-  value: Thunk<T>,
+  partialValue: Thunk<any, any, any, any>,
+  value: Thunk<T, any, any, any>,
   request: GraphQLRequest<any, any, any>,
   details: ResolveDetails,
 ) {
@@ -294,10 +302,10 @@ function fillForPrimitiveType(
   }
 }
 
-function fillType(
+function fillType<Data, Variables, DeepPartial>(
   type: GraphQLType,
   field: Field & FieldMetadata,
-  partial: Thunk<any>,
+  partial: Thunk<any, Data, Variables, DeepPartial>,
   parent: GraphQLObjectType,
   parentFields: FieldDetails[],
   request: GraphQLRequest<any, any, any>,
@@ -463,11 +471,13 @@ function seedFromKey(key: string) {
   );
 }
 
-export function list<T = {}>(
+export function list<T = {}, Data = {}, Variables = {}, DeepPartial = {}>(
   size: number | [number, number],
-  partial?: Thunk<T>,
-): Thunk<T>[] {
+  partial?: Thunk<T, Data, Variables, DeepPartial>,
+): Thunk<T, Data, Variables, DeepPartial>[] {
   const finalSize =
     typeof size === 'number' ? size : size[Math.round(Math.random())];
-  return Array<Thunk<T>>(finalSize).fill(partial as Thunk<T>);
+  return Array<Thunk<T, Data, Variables, DeepPartial>>(finalSize).fill(
+    partial as Thunk<T, Data, Variables, DeepPartial>,
+  );
 }

@@ -63,7 +63,7 @@
     "lerna": "^2.11.0",
     "prettier": "^1.12.1",
     "ts-jest": "^22.4.4",
-    "typescript": "^2.8.3"
+    "typescript": "3.0.1"
   },
   "dependencies": {
     "fs-extra": "^6.0.1"
