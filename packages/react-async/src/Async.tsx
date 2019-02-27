@@ -157,7 +157,22 @@ function normalize(module: any) {
 // obfuscates `require()` for the purpose of fooling Webpack, which is fine
 // because we only want to use the `require()` in cases where Webpack
 // is not the module bundler.
-const nodeRequire = typeof require === 'function' ? require : undefined;
+//
+// If we ever reference `require` directly, Webpack complains. So, we first
+// check global["require"], which works in Node. However, this doesn’t work
+// in Jest when the test is set to simulate a browser, as global in that case
+// in a Window object. There, we can only rely on module.require, which is
+// actually supposed to be something different but in Jest is the same as
+// the global require function.
+const requireKey = 'require';
+const nodeRequire =
+  (typeof global === 'object' &&
+    typeof global[requireKey] === 'function' &&
+    global[requireKey]) ||
+  (typeof module === 'object' &&
+    typeof module[requireKey] === 'function' &&
+    module[requireKey]) ||
+  undefined;
 
 // If we have an ID, we try to first use Webpack’s internal stuff
 // to resolve the module. If those don’t exist, we know we aren’t
