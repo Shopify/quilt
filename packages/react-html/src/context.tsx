@@ -20,8 +20,10 @@ class HtmlManagerProvider extends React.Component<Props> {
         if (this.queuedUpdate) {
           cancelAnimationFrame(this.queuedUpdate);
         }
+
         this.queuedUpdate = requestAnimationFrame(() => {
           updateOnClient(state);
+          this.queuedUpdate = undefined;
         });
       });
     }
@@ -46,19 +48,21 @@ function updateOnClient(state: State) {
     if (titleElement) {
       titleElement.remove();
     }
+  } else {
+    if (titleElement == null) {
+      titleElement = document.createElement('title');
+      document.head.appendChild(titleElement);
+    }
 
-    return;
+    titleElement.setAttribute(MANAGED_ATTRIBUTE, 'true');
+    titleElement.textContent = title;
   }
-
-  if (titleElement == null) {
-    titleElement = document.createElement('title');
-    document.head.appendChild(titleElement);
-  }
-
-  titleElement.setAttribute(MANAGED_ATTRIBUTE, 'true');
-  titleElement.textContent = title;
 
   const fragment = document.createDocumentFragment();
+
+  const oldMetas = Array.from(
+    document.head.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
+  );
 
   for (const meta of metas) {
     const element = document.createElement('meta');
@@ -68,8 +72,20 @@ function updateOnClient(state: State) {
       element.setAttribute(attribute, value);
     }
 
-    fragment.appendChild(element);
+    const matchingOldMetaIndex = oldMetas.findIndex(oldMeta =>
+      oldMeta.isEqualNode(element),
+    );
+
+    if (matchingOldMetaIndex >= 0) {
+      oldMetas.splice(matchingOldMetaIndex, 1);
+    } else {
+      fragment.appendChild(element);
+    }
   }
+
+  const oldLinks = Array.from(
+    document.head.querySelectorAll(`link[${MANAGED_ATTRIBUTE}]`),
+  );
 
   for (const link of links) {
     const element = document.createElement('link');
@@ -79,13 +95,23 @@ function updateOnClient(state: State) {
       element.setAttribute(attribute, value);
     }
 
-    fragment.appendChild(element);
+    const matchingOldLinkIndex = oldLinks.findIndex(oldLink =>
+      oldLink.isEqualNode(element),
+    );
+
+    if (matchingOldLinkIndex >= 0) {
+      oldLinks.splice(matchingOldLinkIndex, 1);
+    } else {
+      fragment.appendChild(element);
+    }
   }
 
-  for (const node of document.querySelectorAll(
-    `meta[${MANAGED_ATTRIBUTE}], link[${MANAGED_ATTRIBUTE}]`,
-  )) {
-    node.remove();
+  for (const link of oldLinks) {
+    link.remove();
+  }
+
+  for (const meta of oldMetas) {
+    meta.remove();
   }
 
   document.head.appendChild(fragment);
