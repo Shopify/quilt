@@ -98,11 +98,28 @@ import myQuery from './MyQuery.graphql';
 const fill = createFiller(schema);
 
 // will result in {self: {__typename: 'Person', name: <String>}}
-const fixtureOne = fill(myQuery);
+const fillMyQueryOne = fill(myQuery);
 
 // will result in {self: {__typename: 'Person', name: 'Chris'}}
-const fixtureTwo = fill(myQuery, {self: {name: 'Chris'}});
-const fixtureThree = fill(myQuery, {self: () => ({name: 'Chris'})});
+const fillMyQueryTwo = fill(myQuery, {self: {name: 'Chris'}});
+const fillMyQueryThree = fill(myQuery, {self: () => ({name: 'Chris'})});
+```
+
+As noted above, individual fields can be a function that takes the current GraphQL request and details about the field, and returns the partial data. You can even do this for the entire partial object, allowing you to completely switch out what partial data is used for an invocation based on things like the variables to the current query:
+
+```ts
+import {createFiller} from 'graphql-fixtures';
+import schema from './schema';
+import myQuery from './MyQuery.graphql';
+
+const fill = createFiller(schema);
+
+// Everything this library does is type-safe based on the original query.
+// If there are required variables to the query, they will appear as required
+// properties on the variables object for the request. No useless null checking!
+const fillMyQuery = fill(myQuery, ({variables: {first}}) => {
+  return {products: list(first)};
+});
 ```
 
 ### `list<T>(size: number | [number, number], fill?: T): T[]`
