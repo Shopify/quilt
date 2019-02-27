@@ -1,4 +1,3 @@
-import gql from 'gql-tag';
 import {Method, StatusCode, Header} from '@shopify/network';
 import {WebhookHeader, Topic} from './types';
 
@@ -15,18 +14,21 @@ export async function registerWebhook({
   accessToken,
   shop,
 }: Options) {
-  const response = await fetch(`https://${shop}/admin/graphql.json`, {
+  const response = await fetch(`https://${shop}/admin/api/graphql.json`, {
     method: Method.Post,
     body: buildQuery(topic, address),
     headers: {
       [WebhookHeader.AccessToken]: accessToken,
-      [Header.ContentType]: 'application/json',
+      [Header.ContentType]: 'application/graphql',
     },
   });
 
   const data = await response.json();
 
-  if (response.status === StatusCode.Created) {
+  if (
+    response.status === StatusCode.Created ||
+    response.status === StatusCode.Ok
+  ) {
     return {success: true, data};
   } else {
     return {success: false, data};
@@ -34,7 +36,7 @@ export async function registerWebhook({
 }
 
 function buildQuery(topic: string, callbackUrl: string) {
-  return gql`
+  return `
     mutation webhookSubscriptionCreate {
       webhookSubscriptionCreate(topic: ${topic}, webhookSubscription: {callbackUrl: "${callbackUrl}"}) {
         userErrors {

@@ -25,7 +25,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-webhooks/README.md",
   "dependencies": {
     "@shopify/network": "^1.0.2",
-    "gql-tag": "^1.0.1",
     "koa-bodyparser": "^4.2.1",
     "koa-compose": "^4.1.0",
     "koa-mount": "^4.0.0",
