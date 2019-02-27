@@ -36,7 +36,7 @@ function MyComponent() {
         quantity: 0,
       }}
       validators={{
-        title: validators.lengthLessThan(10, 'That title is too long')
+        title: validators.lengthLessThan(10, 'That title is too long'),
 
         quantity: [
           validators.required('Products must have a quantity'),
@@ -51,7 +51,7 @@ function MyComponent() {
           <form>
             <TextField label="Title" {...fields.title} />
             <TextField label="Description" {...fields.description} />
-            <TextField label="Quantity" {...fields.description} />
+            <TextField label="Quantity" {...fields.quantity} />
           </form>
         );
       }}
