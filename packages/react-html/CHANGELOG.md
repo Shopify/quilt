@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## Unreleased -->
 
+## 7.1.1 - 2019-02-27
+
+### Fixed
+
+- Fixed an issue where `link`/ `meta` tags that were identical to previously-added tags would be removed and re-appended to `document.head` [#536](https://github.com/Shopify/quilt/pull/536)
+
 ## 7.1.0 - 2019-02-20
 
 ### Changed
