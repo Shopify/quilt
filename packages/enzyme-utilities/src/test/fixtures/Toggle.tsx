@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {autobind} from '@shopify/javascript-utilities/decorators';
 
 export interface Props {
   onToggle: (...args: any[]) => any;
@@ -38,8 +37,7 @@ export class Toggle extends React.PureComponent<Props, State> {
     );
   }
 
-  @autobind
-  handleClick() {
+  handleClick = () => {
     if (this.props.deferred) {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -50,5 +48,5 @@ export class Toggle extends React.PureComponent<Props, State> {
     }
     this.toggleActive();
     return Promise.resolve();
-  }
+  };
 }
