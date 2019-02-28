@@ -1,6 +1,7 @@
 export * from './apply-time-zone-offset';
 export * from './get-date-time-parts';
 export * from './get-time-zone-offset';
+export * from './is-future-date';
 export * from './is-same-day';
 export * from './is-same-month';
 export * from './is-same-year';
