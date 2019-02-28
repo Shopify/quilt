@@ -16,6 +16,7 @@ const LIFECYCLE_EVENTS: LifecycleEvent['type'][] = [
   EventType.TimeToFirstPaint,
   EventType.TimeToFirstContentfulPaint,
   EventType.DomContentLoaded,
+  EventType.FirstInputDelay,
   EventType.Load,
 ];
 
