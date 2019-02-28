@@ -36,6 +36,34 @@ describe('parseDateString()', () => {
 
       expect(actual).toEqual(expected);
     });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fff date strings', () => {
+      const actual = parseDateString('2018-05-28T12:30:00.123', 'UTC');
+      const expected = new Date('2018-05-28T12:30:00.123+00:00');
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fff+hh:mm date strings', () => {
+      const actual = parseDateString('2018-05-28T12:30:00.123+05:30', 'UTC');
+      const expected = new Date('2018-05-28T12:30:00.123+05:30');
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fff-hh:mm date strings', () => {
+      const actual = parseDateString('2018-05-28T12:30:00.123-05:15', 'UTC');
+      const expected = new Date('2018-05-28T12:30:00.123-05:15');
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fffZ date strings', () => {
+      const actual = parseDateString('2018-05-28T12:30:00.123Z', 'UTC');
+      const expected = new Date('2018-05-28T12:30:00.123+00:00');
+
+      expect(actual).toEqual(expected);
+    });
   });
 
   describe('not UTC timezone', () => {
@@ -76,6 +104,46 @@ describe('parseDateString()', () => {
     it('parses yyyy-mm-ddT:hh:mm:ssZ date strings', () => {
       const actual = parseDateString('2018-05-28T12:30:00Z', 'Australia/Perth');
       const expected = new Date('2018-05-28T12:30:00+00:00');
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fff date strings', () => {
+      const actual = parseDateString(
+        '2018-05-28T12:30:00.123',
+        'Australia/Perth',
+      );
+      const expected = new Date('2018-05-28T12:30:00.123+08:00');
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fff+hh:mm date strings', () => {
+      const actual = parseDateString(
+        '2018-05-28T12:30:00.123+05:30',
+        'Australia/Perth',
+      );
+      const expected = new Date('2018-05-28T12:30:00.123+05:30');
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fff-hh:mm date strings', () => {
+      const actual = parseDateString(
+        '2018-05-28T12:30:00.123-05:15',
+        'Australia/Perth',
+      );
+      const expected = new Date('2018-05-28T12:30:00.123-05:15');
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('parses yyyy-mm-ddT:hh:mm:ss.fffZ date strings', () => {
+      const actual = parseDateString(
+        '2018-05-28T12:30:00.123Z',
+        'Australia/Perth',
+      );
+      const expected = new Date('2018-05-28T12:30:00.123+00:00');
 
       expect(actual).toEqual(expected);
     });
