@@ -12,4 +12,4 @@ declare global {
 global.URL = URL;
 global.URLSearchParams = URLSearchParams;
 
-export = null;
+export = {};

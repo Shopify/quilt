@@ -5,4 +5,4 @@ import '@shopify/polyfills/fetch';
 
 unhandledRejectionPolyfill();
 
-export = null;
+export = {};
