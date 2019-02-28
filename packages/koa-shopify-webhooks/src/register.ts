@@ -14,26 +14,39 @@ export async function registerWebhook({
   accessToken,
   shop,
 }: Options) {
-  const response = await fetch(`https://${shop}/admin/webhooks.json`, {
+  const response = await fetch(`https://${shop}/admin/api/graphql.json`, {
     method: Method.Post,
-    body: JSON.stringify({
-      webhook: {
-        topic,
-        address,
-        format: 'json',
-      },
-    }),
+    body: buildQuery(topic, address),
     headers: {
       [WebhookHeader.AccessToken]: accessToken,
-      [Header.ContentType]: 'application/json',
+      [Header.ContentType]: 'application/graphql',
     },
   });
 
   const data = await response.json();
 
-  if (response.status === StatusCode.Created) {
+  if (
+    response.status === StatusCode.Created ||
+    response.status === StatusCode.Ok
+  ) {
     return {success: true, data};
   } else {
     return {success: false, data};
   }
+}
+
+function buildQuery(topic: string, callbackUrl: string) {
+  return `
+    mutation webhookSubscriptionCreate {
+      webhookSubscriptionCreate(topic: ${topic}, webhookSubscription: {callbackUrl: "${callbackUrl}"}) {
+        userErrors {
+          field
+          message
+        }
+        webhookSubscription {
+          id
+        }
+      }
+    }
+  `;
 }
