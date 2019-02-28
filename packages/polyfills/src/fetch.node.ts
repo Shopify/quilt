@@ -1,3 +1,3 @@
 import 'isomorphic-fetch';
 
-export = null;
+export = {};
