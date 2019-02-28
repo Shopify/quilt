@@ -1,5 +1,5 @@
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
-import {memoize, autobind} from '@shopify/javascript-utilities/decorators';
+import {memoize} from '@shopify/javascript-utilities/decorators';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -233,8 +233,7 @@ export default class I18n {
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
   }
 
-  @autobind
-  getCurrencySymbol(currencyCode?: string) {
+  getCurrencySymbol = (currencyCode?: string) => {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
       throw new MissingCurrencyCodeError(
@@ -242,7 +241,7 @@ export default class I18n {
       );
     }
     return this.getCurrencySymbolLocalized(this.locale, currency);
-  }
+  };
 
   @memoize((currency: string, locale: string) => `${locale}${currency}`)
   getCurrencySymbolLocalized(locale: string, currency: string) {
