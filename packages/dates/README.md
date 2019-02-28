@@ -65,6 +65,19 @@ const timeZone2 = 'Australia/Perth';
 const timeZoneOffset = getTimeZoneOffset(date, timeZone1, timeZone2);
 ```
 
+### `isFutureDate`
+
+Takes in a date object and an optional now date object to compare against (defaulting to a new date object). Returns a boolean indicating whether or not the first date is in the future.
+
+```ts
+import {isFutureDate} from '@shopify/dates';
+
+const now = '2018-01-01Z00:00';
+const date = '2018-01-02Z23:59';
+
+const futureDay = isFutureDate(date, now);
+```
+
 ### `isSameDay`
 
 Takes in two date objects and an optional time zone string parameter. Returns a boolean indicating whether or not these two dates are in the same day.
