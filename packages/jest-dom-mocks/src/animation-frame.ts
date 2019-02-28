@@ -1,5 +1,3 @@
-import {autobind} from '@shopify/javascript-utilities/decorators';
-
 interface FrameCallback {
   (time: number): any;
 }
@@ -55,17 +53,15 @@ export default class AnimationFrame {
     });
   }
 
-  @autobind
-  private requestAnimationFrame(callback: FrameCallback): number {
+  private requestAnimationFrame = (callback: FrameCallback): number => {
     this.currentAnimationFrame += 1;
     this.queued[this.currentAnimationFrame] = callback;
     return this.currentAnimationFrame;
-  }
+  };
 
-  @autobind
-  private cancelAnimationFrame(frame: number) {
+  private cancelAnimationFrame = (frame: number) => {
     delete this.queued[frame];
-  }
+  };
 
   private ensureAnimationFrameIsMock() {
     if (!this.isUsingMockAnimationFrame) {
