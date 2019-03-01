@@ -18,7 +18,8 @@ export function HtmlProvider({manager, children}: Props) {
         return;
       }
 
-      return manager.subscribe((state) => {
+      // eslint-disable-next-line consistent-return
+      return manager.subscribe(state => {
         if (queuedUpdate.current) {
           cancelAnimationFrame(queuedUpdate.current);
         }
@@ -44,12 +45,21 @@ function updateOnClient(state: State) {
     if (titleElement) {
       titleElement.remove();
     }
+  } else {
+    if (titleElement == null) {
+      titleElement = document.createElement('title');
+      document.head.appendChild(titleElement);
+    }
 
     titleElement.setAttribute(MANAGED_ATTRIBUTE, 'true');
     titleElement.textContent = title;
   }
 
   const fragment = document.createDocumentFragment();
+
+  const oldMetas = Array.from(
+    document.head.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
+  );
 
   for (const meta of metas) {
     const element = document.createElement('meta');
@@ -59,11 +69,29 @@ function updateOnClient(state: State) {
       element.setAttribute(attribute, value);
     }
 
-  } else {
-    if (titleElement == null) {
-      titleElement = document.createElement('title');
-      document.head.appendChild(titleElement);
+    const matchingOldMetaIndex = oldMetas.findIndex(oldMeta =>
+      oldMeta.isEqualNode(element),
+    );
+
+    if (matchingOldMetaIndex >= 0) {
+      oldMetas.splice(matchingOldMetaIndex, 1);
+    } else {
+      fragment.appendChild(element);
     }
+  }
+
+  const oldLinks = Array.from(
+    document.head.querySelectorAll(`link[${MANAGED_ATTRIBUTE}]`),
+  );
+
+  for (const link of links) {
+    const element = document.createElement('link');
+    element.setAttribute(MANAGED_ATTRIBUTE, 'true');
+
+    for (const [attribute, value] of Object.entries(link)) {
+      element.setAttribute(attribute, value);
+    }
+
     const matchingOldLinkIndex = oldLinks.findIndex(oldLink =>
       oldLink.isEqualNode(element),
     );
@@ -85,5 +113,3 @@ function updateOnClient(state: State) {
 
   document.head.appendChild(fragment);
 }
-
-export {HtmlManagerProvider as Provider, Context};
