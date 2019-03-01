@@ -83,32 +83,19 @@ You do not need to create a `Manager`/ `Provider` component on the client.
 
 ### In your application code
 
-Some parts of your application code may have some form of state that must be rehydrated when the server-rendered page is rehydrated on the client. To do so, application code can use the `createSerializer` function exported from `@shopify/react-html`.
+Some parts of your application code may have some form of state that must be rehydrated when the server-rendered page is loaded on the client. To do so, application code can use the `useSerialized` hook exported from `@shopify/react-html`.
 
-`createSerializer()` accepts a single string argument for the identifier to use; this will help you find the serialized `script` tag if you need to debug later on. It also accepts a generic type argument for the type of the data that will be serialized/ available after deserialization.
+`useSerialized()` accepts a single string argument for the identifier to use; this will help you find the serialized `script` tag if you need to debug later on. It also accepts a generic type argument for the type of the data that will be serialized/ available after deserialization.
 
-The function returns a pair of components:
+The hook returns an array where the first entry is the serialized data (or `undefined`, if it was not found), and the second entry is a component that accepts a `data` prop that is a function that returns the data to serialize (or a promise for that data).
 
-```tsx
-const {Serialize, WithSerialized} = createSerializer<string>('MyData');
-
-// Would create components with the following types:
-
-function Serialize({data}: {data(): string}): null;
-function WithSerialized({
-  children,
-}: {
-  children(data: string | undefined): React.ReactNode;
-}): React.ReactNode;
-```
-
-The general pattern for using these components is to render the `WithSerialized` component as the top-most child of a component responsible for managing this state. Within the render prop, construct whatever stateful store or manager you need, using the data that was retrieved in cases where the serialization was found (on the browser, or on subsequent server renders). Finally, render the UI that depends on that stateful part, and a `Serialize` component that extracts the part that you you need to communicate between server and client.
+> **Note:** providing a promise for the `data` prop has a catch if you are using `@shopify/react-effect` to extract the serializations in server rendering: it expects that you will only provide a promise for the serialization if it can’t be returned synchronously. If you always return a promise, `@shopify/react-effect` will assume it always needs to do another render of the tree, which will lead to an infinite loop.
 
 Here is a complete example, using `@shopify/react-i18n`’s support for async translations as the data that needs to be serialized:
 
 ```tsx
-import {createSerializer} from '@shopify/react-html';
-import {Provider, Manager} from '@shopify/react-i18n';
+import {useSerialized} from '@shopify/react-html';
+import {I18nContext, Manager} from '@shopify/react-i18n';
 
 interface Props {
   locale: string;
@@ -119,28 +106,30 @@ const {Serialize, WithSerialized} = createSerializer<
   ReturnType<Manager['extract']>
 >('i18n');
 
-export default function I18n({locale, children}: Props) {
-  return (
-    <WithSerialized>
-      {data => {
-        const manager = new Manager(
-          {locale: data ? data.locale : locale},
-          data && data.translations,
-        );
+interface Data {
+  locale: string;
+  translations: ReturnType<Manager['extract']>;
+}
 
-        return (
-          <>
-            <Provider manager={manager}>{children}</Provider>
-            <Serialize
-              data={() => ({
-                locale: manager.details.locale,
-                translations: manager.extract(),
-              })}
-            />
-          </>
-        );
-      }}
-    </WithSerialized>
+export default function I18n({locale, children}: Props) {
+  const [serialized, Serialize] = useSerialized<Data>('i18n');
+  const {locale, translations} = serialized || {locale: explicitLocale};
+  const manager = new Manager({locale, fallbackLocale: 'en'}, translations);
+
+  return (
+    <>
+      <I18nContext.Provider value={manager}>{children}</I18nContext.Provider>
+      <Serialize
+        data={() => {
+          const getData = () => ({
+            locale: manager.details.locale,
+            translations: manager.extract(),
+          });
+
+          return manager.loading ? manager.resolve().then(getData) : getData();
+        }}
+      />
+    </>
   );
 }
 ```
@@ -148,6 +137,14 @@ export default function I18n({locale, children}: Props) {
 The rationale for this approach to handling serialization is available in [our original proposal](https://github.com/Shopify/web-foundation/blob/master/Proposals/02%20-%20Serialization%20in%20application%20code.md).
 
 ## API reference
+
+### `useSerialized()`
+
+See the example above for a full exploration of `useSerialized`’s API.
+
+### `createSerializer()`
+
+`createSerializer` is a legacy API that has been deprecated by `useSerialized()`. For full documentation of this API, please refer to older versions of this document. `createSerializer` will be removed in the next major version of `@shopify/react-html`.
 
 ### `<Html />`
 
@@ -240,7 +237,7 @@ Renders iOS-specific `<Meta />` tags and `<Link />` tags to specify additional v
 
 ### `<Serialize />`
 
-The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `createSerializer()` method of generating serializations [documented above](#in-your-app-code).
+The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `useSerialized()` method of generating serializations [documented above](#in-your-app-code).
 
 ### `render()`
 

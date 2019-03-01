@@ -2,42 +2,38 @@ import * as React from 'react';
 import Manager, {State} from './manager';
 import {MANAGED_ATTRIBUTE} from './utilities';
 
-const Context = React.createContext<Manager>(new Manager());
+export const HtmlContext = React.createContext<Manager | undefined>(undefined);
 
 interface Props {
   manager?: Manager;
   children: React.ReactNode;
 }
 
-class HtmlManagerProvider extends React.Component<Props> {
-  private queuedUpdate?: ReturnType<typeof requestAnimationFrame>;
+export function HtmlProvider({manager, children}: Props) {
+  const queuedUpdate = React.useRef<number | null>(null);
 
-  componentDidMount() {
-    const {manager} = this.props;
+  React.useEffect(
+    () => {
+      if (manager == null) {
+        return;
+      }
 
-    if (manager) {
-      manager.subscribe(state => {
-        if (this.queuedUpdate) {
-          cancelAnimationFrame(this.queuedUpdate);
+      return manager.subscribe((state) => {
+        if (queuedUpdate.current) {
+          cancelAnimationFrame(queuedUpdate.current);
         }
 
-        this.queuedUpdate = requestAnimationFrame(() => {
+        queuedUpdate.current = requestAnimationFrame(() => {
           updateOnClient(state);
-          this.queuedUpdate = undefined;
         });
       });
-    }
-  }
+    },
+    [manager],
+  );
 
-  render() {
-    const {manager, children} = this.props;
-
-    return manager ? (
-      <Context.Provider value={manager}>{children}</Context.Provider>
-    ) : (
-      <>{children}</>
-    );
-  }
+  return (
+    <HtmlContext.Provider value={manager}>{children}</HtmlContext.Provider>
+  );
 }
 
 function updateOnClient(state: State) {
@@ -48,21 +44,12 @@ function updateOnClient(state: State) {
     if (titleElement) {
       titleElement.remove();
     }
-  } else {
-    if (titleElement == null) {
-      titleElement = document.createElement('title');
-      document.head.appendChild(titleElement);
-    }
 
     titleElement.setAttribute(MANAGED_ATTRIBUTE, 'true');
     titleElement.textContent = title;
   }
 
   const fragment = document.createDocumentFragment();
-
-  const oldMetas = Array.from(
-    document.head.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
-  );
 
   for (const meta of metas) {
     const element = document.createElement('meta');
@@ -72,29 +59,11 @@ function updateOnClient(state: State) {
       element.setAttribute(attribute, value);
     }
 
-    const matchingOldMetaIndex = oldMetas.findIndex(oldMeta =>
-      oldMeta.isEqualNode(element),
-    );
-
-    if (matchingOldMetaIndex >= 0) {
-      oldMetas.splice(matchingOldMetaIndex, 1);
-    } else {
-      fragment.appendChild(element);
+  } else {
+    if (titleElement == null) {
+      titleElement = document.createElement('title');
+      document.head.appendChild(titleElement);
     }
-  }
-
-  const oldLinks = Array.from(
-    document.head.querySelectorAll(`link[${MANAGED_ATTRIBUTE}]`),
-  );
-
-  for (const link of links) {
-    const element = document.createElement('link');
-    element.setAttribute(MANAGED_ATTRIBUTE, 'true');
-
-    for (const [attribute, value] of Object.entries(link)) {
-      element.setAttribute(attribute, value);
-    }
-
     const matchingOldLinkIndex = oldLinks.findIndex(oldLink =>
       oldLink.isEqualNode(element),
     );

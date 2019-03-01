@@ -57,6 +57,7 @@ export default class Manager {
 
   subscribe(subscription: Subscription) {
     this.subscriptions.add(subscription);
+    return () => this.subscriptions.delete(subscription);
   }
 
   addTitle(title: string) {
