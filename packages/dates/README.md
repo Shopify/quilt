@@ -72,8 +72,8 @@ Takes in a date object and an optional now date object to compare against (defau
 ```ts
 import {isFutureDate} from '@shopify/dates';
 
-const now = '2018-01-01Z00:00';
-const date = '2018-01-02Z23:59';
+const now = new Date('2018-01-01Z00:00');
+const date = new Date('2018-01-02Z23:59');
 
 const futureDay = isFutureDate(date, now);
 ```
