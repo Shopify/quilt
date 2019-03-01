@@ -237,6 +237,7 @@ describe('Navigation', () => {
         createLifecycleEventEvent(EventType.TimeToFirstPaint),
         createLifecycleEventEvent(EventType.TimeToFirstContentfulPaint),
         createLifecycleEventEvent(EventType.DomContentLoaded),
+        createLifecycleEventEvent(EventType.FirstInputDelay),
         createLifecycleEventEvent(EventType.Load),
         nonLifecycleEvent,
       ];
@@ -253,6 +254,7 @@ describe('Navigation', () => {
         createLifecycleEventEvent(EventType.TimeToFirstPaint),
         createLifecycleEventEvent(EventType.TimeToFirstContentfulPaint),
         createLifecycleEventEvent(EventType.DomContentLoaded),
+        createLifecycleEventEvent(EventType.FirstInputDelay),
         createLifecycleEventEvent(EventType.Load),
         nonLifecycleEvent,
       ];
