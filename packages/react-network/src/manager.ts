@@ -10,9 +10,3 @@ export interface Manager {
     value: boolean | string | string[],
   ): void;
 }
-
-export class NoopManager implements Manager {
-  redirectTo() {}
-  addStatusCode() {}
-  addCspDirective() {}
-}

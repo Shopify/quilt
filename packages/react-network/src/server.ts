@@ -3,6 +3,8 @@ import {Header, StatusCode, CspDirective} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 import {Manager} from './manager';
 
+export {NetworkContext} from './context';
+
 export const EFFECT_ID = Symbol('network');
 
 export class ServerManager implements Manager {

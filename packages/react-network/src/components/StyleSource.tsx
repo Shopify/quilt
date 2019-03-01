@@ -1,11 +1,14 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useNetworkEffect} from '../hook';
 
 interface Props {
   sources: string | string[];
 }
 
 export default function StyleSource({sources}: Props) {
-  return <SetCspDirective directive={CspDirective.StyleSrc} value={sources} />;
+  useNetworkEffect((network) =>
+    network.addCspDirective(CspDirective.StyleSrc, sources),
+  );
+
+  return null;
 }

@@ -1,11 +1,14 @@
-import * as React from 'react';
 import {CspDirective, CspSandboxAllow} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useNetworkEffect} from '../hook';
 
 interface Props {
   allowed: CspSandboxAllow | CspSandboxAllow[];
 }
 
 export default function Sandbox({allowed}: Props) {
-  return <SetCspDirective directive={CspDirective.Sandbox} value={allowed} />;
+  useNetworkEffect((network) =>
+    network.addCspDirective(CspDirective.Sandbox, allowed),
+  );
+
+  return null;
 }

@@ -1,6 +1,5 @@
-import * as React from 'react';
 import {StatusCode} from '@shopify/network';
-import NetworkEffect from './NetworkEffect';
+import {useNetworkEffect} from '../hook';
 
 interface Props {
   url: string;
@@ -8,11 +7,6 @@ interface Props {
 }
 
 export default function Redirect({url, status}: Props) {
-  return (
-    <NetworkEffect
-      perform={manager => {
-        manager.redirectTo(url, status);
-      }}
-    />
-  );
+  useNetworkEffect((network) => network.redirectTo(url, status));
+  return null;
 }

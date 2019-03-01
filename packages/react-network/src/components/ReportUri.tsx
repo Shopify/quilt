@@ -1,11 +1,14 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useNetworkEffect} from '../hook';
 
 interface Props {
   uri: string;
 }
 
 export default function ReportUri({uri}: Props) {
-  return <SetCspDirective directive={CspDirective.ReportUri} value={uri} />;
+  useNetworkEffect((network) =>
+    network.addCspDirective(CspDirective.ReportUri, uri),
+  );
+
+  return null;
 }
