@@ -1,1 +1,3 @@
 import 'intl-pluralrules';
+
+export = {};
