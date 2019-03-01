@@ -13,25 +13,29 @@ $ yarn add @shopify/react-effect
 
 ## Usage
 
-### `<Effect />`
+### `useServerEffect()`
 
-This package is largely built around a component, `Effect`. To set up an action to be performed, use the `perform` prop:
+This package is largely built around a hook, `useServerEffect`. The only mandatory argument is a function, which is the "effect" you wish to perform during each pass of server rendering:
 
 ```tsx
-import {Effect} from '@shopify/react-effect';
+import {useServerEffect} from '@shopify/react-effect';
 
 export default function MyComponent() {
-  return <Effect perform={() => console.log('Doing something!')} />;
+  useServerEffect(() => console.log('Doing something!'));
+  return null;
 }
 ```
 
 This callback can return anything, but returning a promise has a special effect: it will be waited for on the server when calling `extract()`.
 
-This component accepts three additional optional properties:
+This hook also accepts a second, optional argument: the effect "kind". This should be an object that:
 
-- `kind`: a description of the effect. This kind, if provided, must have an `id` that is a unique symbol, and can optionally have `betweenEachPass` and `afterEachPass` functions that add additional logic to the `betweenEachPass` and `afterEachPass` options for `extract()`.
+- Must have an `id` that is a unique symbol
+- Optionally has `betweenEachPass` and/ or `afterEachPass` functions that add additional logic to the `betweenEachPass` and `afterEachPass` options for `extract()`
 
-This component also accepts children which are rendered as-is.
+### `<Effect />`
+
+This component is now deprecated in favour of `useServerEffect`. It will removed in the next major version of `@shopify/react-effect`.
 
 ### `extract()`
 
