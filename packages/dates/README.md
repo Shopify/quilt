@@ -183,6 +183,30 @@ const timeZone = 'UTC';
 const parsed = parseDateString(date, timeZone);
 ```
 
+### `parseDateStringParts`
+
+Takes in a date string. Returns parsed parts from that date string.
+
+```ts
+import {parseDateStringParts} from '@shopify/dates';
+
+const date = '2018-05-28T12:30:00.123+05:30';
+
+const {
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  second,
+  millisecond,
+  timeZoneOffset,
+  sign,
+  timeZoneHour,
+  timeZoneMinute,
+} = parseDateStringParts(date);
+```
+
 ### `unapplyTimeZoneOffset`
 
 Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it.
