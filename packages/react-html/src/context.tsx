@@ -2,42 +2,39 @@ import * as React from 'react';
 import Manager, {State} from './manager';
 import {MANAGED_ATTRIBUTE} from './utilities';
 
-const Context = React.createContext<Manager>(new Manager());
+export const HtmlContext = React.createContext<Manager | undefined>(undefined);
 
 interface Props {
   manager?: Manager;
   children: React.ReactNode;
 }
 
-class HtmlManagerProvider extends React.Component<Props> {
-  private queuedUpdate?: ReturnType<typeof requestAnimationFrame>;
+export function HtmlProvider({manager, children}: Props) {
+  const queuedUpdate = React.useRef<number | null>(null);
 
-  componentDidMount() {
-    const {manager} = this.props;
+  React.useEffect(
+    () => {
+      if (manager == null) {
+        return;
+      }
 
-    if (manager) {
-      manager.subscribe(state => {
-        if (this.queuedUpdate) {
-          cancelAnimationFrame(this.queuedUpdate);
+      // eslint-disable-next-line consistent-return
+      return manager.subscribe(state => {
+        if (queuedUpdate.current) {
+          cancelAnimationFrame(queuedUpdate.current);
         }
 
-        this.queuedUpdate = requestAnimationFrame(() => {
+        queuedUpdate.current = requestAnimationFrame(() => {
           updateOnClient(state);
-          this.queuedUpdate = undefined;
         });
       });
-    }
-  }
+    },
+    [manager],
+  );
 
-  render() {
-    const {manager, children} = this.props;
-
-    return manager ? (
-      <Context.Provider value={manager}>{children}</Context.Provider>
-    ) : (
-      <>{children}</>
-    );
-  }
+  return (
+    <HtmlContext.Provider value={manager}>{children}</HtmlContext.Provider>
+  );
 }
 
 function updateOnClient(state: State) {
@@ -116,5 +113,3 @@ function updateOnClient(state: State) {
 
   document.head.appendChild(fragment);
 }
-
-export {HtmlManagerProvider as Provider, Context};
