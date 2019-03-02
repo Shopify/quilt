@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## Unreleased -->
 
+## 7.1.2 - 2019-03-02
+
+### Fixed
+
+- Removed the `title` and `favicon` props from `<Html />` because they did not have any effect on the rendered markup. Developers should include `<Title />` and `<Favicon />` components themselves instead.
+
 ## 7.1.1 - 2019-02-27
 
 ### Fixed
