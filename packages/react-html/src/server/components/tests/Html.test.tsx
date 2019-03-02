@@ -52,6 +52,15 @@ describe('<Html />', () => {
     expect(styles).not.toHaveProperty('visibility');
   });
 
+  it('contains basic meta tags', () => {
+    const html = mount(<Html {...mockProps} />);
+    expect(html).toContainReact(<meta charSet="utf-8" />);
+    expect(html).toContainReact(
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />,
+    );
+    expect(html).toContainReact(<meta name="referrer" content="never" />);
+  });
+
   describe('locale', () => {
     it('defaults to setting the lang to "en" on the html', () => {
       const html = mount(<Html {...mockProps} />);
@@ -209,20 +218,21 @@ describe('<Html />', () => {
       manager.addMeta(metaTwo);
 
       const html = mount(<Html {...mockProps} manager={manager} />);
+      const metas = html
+        .find('meta')
+        .filterWhere(wrapper => wrapper.prop(MANAGED_ATTRIBUTE) === true);
 
-      expect(
-        html
-          .find('meta')
-          .at(0)
-          .props(),
-      ).toEqual({[MANAGED_ATTRIBUTE]: true, ...metaOne});
+      expect(metas).toHaveLength(2);
 
-      expect(
-        html
-          .find('meta')
-          .at(1)
-          .props(),
-      ).toEqual({[MANAGED_ATTRIBUTE]: true, ...metaTwo});
+      expect(metas.at(0).props()).toEqual({
+        [MANAGED_ATTRIBUTE]: true,
+        ...metaOne,
+      });
+
+      expect(metas.at(1).props()).toEqual({
+        [MANAGED_ATTRIBUTE]: true,
+        ...metaTwo,
+      });
     });
 
     it('renders link tags with the managed attribute', () => {
