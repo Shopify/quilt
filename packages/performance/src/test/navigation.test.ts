@@ -192,7 +192,7 @@ describe('Navigation', () => {
         createGenericEvent({type, start: 0, duration: 100}),
         createGenericEvent({type, start: 200, duration: 150}),
       ];
-      const navigation = createNavigation({events});
+      const navigation = createNavigation({events, start: 0});
       expect(navigation.totalDurationByEventType(type)).toBe(250);
     });
 
@@ -202,7 +202,7 @@ describe('Navigation', () => {
         createGenericEvent({type, start: 0, duration: 100}),
         createGenericEvent({type, start: 50, duration: 150}),
       ];
-      const navigation = createNavigation({events});
+      const navigation = createNavigation({events, start: 0});
       expect(navigation.totalDurationByEventType(type)).toBe(200);
     });
 
@@ -212,8 +212,22 @@ describe('Navigation', () => {
         createGenericEvent({type, start: 0, duration: 300}),
         createGenericEvent({type, start: 50, duration: 150}),
       ];
-      const navigation = createNavigation({events});
+      const navigation = createNavigation({events, start: 0});
       expect(navigation.totalDurationByEventType(type)).toBe(300);
+    });
+
+    it('only counts time after the navigation actually started', () => {
+      const type = 'my-type';
+      const eventStart = 50;
+      const navigationStart = 100;
+      const eventDuration = 300;
+      const events = [
+        createGenericEvent({type, start: eventStart, duration: eventDuration}),
+      ];
+      const navigation = createNavigation({events, start: navigationStart});
+      expect(navigation.totalDurationByEventType(type)).toBe(
+        eventDuration - (navigationStart - eventStart),
+      );
     });
   });
 

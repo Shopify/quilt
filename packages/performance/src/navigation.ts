@@ -50,13 +50,18 @@ export class Navigation implements NavigationDefinition {
 
   totalDurationByEventType(type: Event['type'], {countOverlaps = false} = {}) {
     const events = this.eventsByType(type);
+    const {start: navigationStart} = this;
 
     if (events.length === 0) {
       return 0;
     }
 
     const ranges = countOverlaps ? events : getUniqueRanges(events);
-    return ranges.reduce((total, {duration}) => total + duration, 0);
+    return ranges.reduce(
+      (total, {start, duration}) =>
+        total + duration - Math.max(0, navigationStart - start),
+      0,
+    );
   }
 
   get timeToComplete() {
