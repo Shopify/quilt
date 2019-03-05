@@ -42,17 +42,15 @@ export default function App() {
 
 ### Internationalized components
 
-Components must connect to the i18n context in order to get access to the many internationalization utilities this library provides. You can use the `withI18n` decorator to add an `i18n` prop to your component:
+Components must connect to the i18n context in order to get access to the many internationalization utilities this library provides. You can use the `useI18n` hook to access `i18n` in your component:
 
 ```ts
 import * as React from 'react';
 import {EmptyState} from '@shopify/polaris';
-import {withI18n, WithI18nProps} from '@shopify/react-i18n';
+import {useI18n} from '@shopify/react-i18n';
 
-export interface Props {}
-type ComposedProps = Props & WithI18nProps;
-
-function NotFound({i18n}: ComposedProps) {
+export default function NotFound() {
+  const [i18n] = useI18n();
   return (
     <EmptyState
       heading={i18n.translate('App.notFound')}
@@ -62,8 +60,6 @@ function NotFound({i18n}: ComposedProps) {
     </EmptyState>
   );
 }
-
-export default withI18n()(NotFound);
 ```
 
 #### `i18n`
@@ -101,15 +97,24 @@ Here’s the example above with component-specific translations:
 ```ts
 import * as React from 'react';
 import {EmptyState} from '@shopify/polaris';
-import {withI18n, WithI18nProps} from '@shopify/react-i18n';
+import {useI18n} from '@shopify/react-i18n';
 
 import en from './locales/en.json';
 import fr from './locales/fr.json';
 
-export interface Props {}
-type ComposedProps = Props & WithI18nProps;
+export default function NotFound() {
+  const [i18n] = useI18n({
+    id: 'NotFound',
+    fallback: en,
+    translations(locale) {
+      if (locale === 'en') {
+        return en;
+      } else if (locale === 'fr') {
+        return fr;
+      }
+    },
+  });
 
-function NotFound({i18n}: ComposedProps) {
   return (
     <EmptyState
       heading={i18n.translate('NotFound.heading')}
@@ -119,18 +124,6 @@ function NotFound({i18n}: ComposedProps) {
     </EmptyState>
   );
 }
-
-export default withI18n({
-  id: 'NotFound',
-  fallback: en,
-  translations(locale) {
-    if (locale === 'en') {
-      return en;
-    } else if (locale === 'fr') {
-      return fr;
-    }
-  },
-})(NotFound);
 ```
 
 ```json
@@ -230,6 +223,32 @@ i18n.translate('MyComponent.searchResult', {
   count: searchResults,
   formattedCount: i18n.formatNumber(searchResults),
 });
+```
+
+#### `withI18n` decorator
+
+`@shopify/react-i18n` continues to provide the `withI18n` decorator as a migration path towards the `useI18n` hook.
+
+```ts
+import * as React from 'react';
+import {EmptyState} from '@shopify/polaris';
+import {withI18n, WithI18nProps} from '@shopify/react-i18n';
+
+export interface Props {}
+type ComposedProps = Props & WithI18nProps;
+
+function NotFound({i18n}: ComposedProps) {
+  return (
+    <EmptyState
+      heading={i18n.translate('App.notFound')}
+      action={{content: i18n.translate('App.back'), url: '/'}}
+    >
+      <p>{i18n.translate('App.notFoundContent')}</p>
+    </EmptyState>
+  );
+}
+
+export default withI18n()(NotFound);
 ```
 
 ### Server
