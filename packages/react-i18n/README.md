@@ -23,6 +23,7 @@ This library requires a provider component which supplies i18n details to the re
 - `timezone`: the default timezone to use for timezone-aware formatting.
 - `currency`: the default currency to use for currency-aware formatting.
 - `pseudolocalize`: whether to perform [pseudolocalization](https://github.com/Shopify/pseudolocalization) on your translations.
+- `onError`: a callback to use when recoverable i18n-related errors happen. If not provided, these errors will be re-thrown wherever they occur. If it is provided and it does not re-throw the passed error, the translation or formatting that caused the error will return an empty string. This function will be called with the error object.
 
 ```ts
 import {
@@ -31,7 +32,12 @@ import {
 } from '@shopify/react-i18n';
 
 const locale = 'en';
-const i18nManager = new I18nManager({locale});
+const i18nManager = new I18nManager({
+  locale,
+  onError(error) {
+    Bugsnag.notify(error);
+  },
+});
 
 export default function App() {
   return (

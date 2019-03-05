@@ -201,7 +201,7 @@ function updateStringWithReplacements(
 
       if (replacement) {
         if (!replacements.hasOwnProperty(replacement)) {
-          throw new Error(
+          throw new MissingReplacementError(
             `No replacement found for key '${replacement}'. The following replacements were passed: ${Object.keys(
               replacements,
             )
