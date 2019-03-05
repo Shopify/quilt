@@ -1,3 +1,1 @@
-import 'url-search-params-polyfill';
-
-export = {};
+require('url-search-params-polyfill');
