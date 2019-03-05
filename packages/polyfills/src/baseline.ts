@@ -1,8 +1,3 @@
-import '@babel/polyfill';
-import {auto as unhandledRejectionPolyfill} from 'browser-unhandled-rejection';
-
-import '@shopify/polyfills/fetch';
-
-unhandledRejectionPolyfill();
-
-export = {};
+require('@babel/polyfill');
+require('browser-unhandled-rejection').auto();
+require('@shopify/polyfills/fetch');
