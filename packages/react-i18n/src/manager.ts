@@ -109,7 +109,9 @@ export default class Manager {
 
   subscribe(ids: string[], subscriber: Subscriber) {
     this.subscriptions.set(subscriber, ids);
-    return () => this.subscriptions.delete(subscriber);
+    return () => {
+      this.subscriptions.delete(subscriber);
+    };
   }
 
   update(details: I18nDetails) {
@@ -140,7 +142,7 @@ export default class Manager {
         this.asyncTranslationIds.add(translationId);
 
         const promise = translations
-          .then((result) => {
+          .then(result => {
             this.translationPromises.delete(promise);
             this.translations.set(translationId, result);
             this.updateSubscribersForId(id);

@@ -1,7 +1,6 @@
 import './matchers';
 
 import Manager from '../manager';
-import Connection from '../connection';
 
 describe('Manager', () => {
   const basicDetails = {locale: 'en'};
