@@ -35,7 +35,7 @@ export function useI18n({
 
   React.useEffect(
     () => {
-      return manager.subscribe(ids, (translations, details) => {
+      manager.subscribe(ids, (translations, details) => {
         setI18n(new I18n(translations, details));
       });
     },
