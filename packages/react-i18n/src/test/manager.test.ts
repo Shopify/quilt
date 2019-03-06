@@ -196,6 +196,30 @@ describe('Manager', () => {
         );
         expect(spy).not.toHaveBeenCalled();
       });
+
+      it('does not include fallback translations if they are the same language as the request', () => {
+        const connection = new Connection({
+          id: createID(),
+          fallback: en,
+          translations: () => en,
+        });
+
+        const manager = new Manager({
+          ...basicDetails,
+          locale: 'en',
+          fallbackLocale: 'en',
+        });
+
+        manager.connect(
+          connection,
+          noop,
+        );
+
+        expect(manager.state(connection)).toMatchObject({
+          loading: false,
+          translations: [en],
+        });
+      });
     });
 
     describe('async', () => {
