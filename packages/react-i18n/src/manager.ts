@@ -130,7 +130,10 @@ export default class Manager {
       };
     }
 
-    const possibleLocales = getPossibleLocales(this.details.locale);
+    const possibleLocales = getPossibleLocales(this.details.locale, {
+      exclude: this.details.fallbackLocale,
+    });
+
     const translations = possibleLocales.map(locale => {
       const id = localeId(connection, locale);
       return (
@@ -234,12 +237,24 @@ function localeIdsForConnection(
   ];
 }
 
-function getPossibleLocales(locale: string) {
+function getPossibleLocales(
+  locale: string,
+  {exclude}: {exclude?: string} = {},
+) {
   const normalizedLocale = locale.toLowerCase();
   const split = normalizedLocale.split('-');
-  return split.length > 1
-    ? [`${split[0]}-${split[1].toUpperCase()}`, normalizedLocale, split[0]]
-    : [normalizedLocale];
+
+  if (split.length > 1) {
+    const locales = [`${split[0]}-${split[1].toUpperCase()}`, normalizedLocale];
+
+    if (split[0] !== exclude) {
+      locales.push(split[0]);
+    }
+
+    return locales;
+  } else {
+    return normalizedLocale === exclude ? [] : [normalizedLocale];
+  }
 }
 
 function isPromise<T>(
