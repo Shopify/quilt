@@ -197,7 +197,7 @@ describe('Manager', () => {
         expect(spy).not.toHaveBeenCalled();
       });
 
-      fit('does not include fallback translations if they are the same language as the request', () => {
+      it('does not include fallback translations if they are the same language as the request', () => {
         const connection = new Connection({
           id: createID(),
           fallback: en,
