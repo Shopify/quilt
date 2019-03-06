@@ -17,7 +17,11 @@ import {
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
 } from './constants';
-import {MissingCurrencyCodeError, MissingCountryError} from './errors';
+import {
+  MissingCurrencyCodeError,
+  MissingCountryError,
+  I18nError,
+} from './errors';
 import {
   getCurrencySymbol,
   translate,
@@ -43,6 +47,7 @@ export default class I18n {
   readonly defaultCountry?: string;
   readonly defaultCurrency?: string;
   readonly defaultTimezone?: string;
+  readonly onError: NonNullable<I18nDetails['onError']>;
 
   get language() {
     return languageFromLocale(this.locale);
@@ -75,13 +80,21 @@ export default class I18n {
 
   constructor(
     public translations: TranslationDictionary[],
-    {locale, currency, timezone, country, pseudolocalize = false}: I18nDetails,
+    {
+      locale,
+      currency,
+      timezone,
+      country,
+      pseudolocalize = false,
+      onError,
+    }: I18nDetails,
   ) {
     this.locale = locale;
     this.defaultCountry = country;
     this.defaultCurrency = currency;
     this.defaultTimezone = timezone;
     this.pseudolocalize = pseudolocalize;
+    this.onError = onError || defaultOnError;
   }
 
   translate(
@@ -129,7 +142,12 @@ export default class I18n {
       };
     }
 
-    return translate(id, normalizedOptions, this.translations, this.locale);
+    try {
+      return translate(id, normalizedOptions, this.translations, this.locale);
+    } catch (error) {
+      this.onError(error);
+      return '';
+    }
   }
 
   formatNumber(
@@ -139,9 +157,13 @@ export default class I18n {
     const {locale, defaultCurrency: currency} = this;
 
     if (as === 'currency' && currency == null && options.currency == null) {
-      throw new MissingCurrencyCodeError(
-        `No currency code provided. formatNumber(amount, {as: 'currency'}) cannot be called without a currency code.`,
+      this.onError(
+        new MissingCurrencyCodeError(
+          `No currency code provided. formatNumber(amount, {as: 'currency'}) cannot be called without a currency code.`,
+        ),
       );
+
+      return '';
     }
 
     return new Intl.NumberFormat(locale, {
@@ -236,9 +258,13 @@ export default class I18n {
   getCurrencySymbol = (currencyCode?: string) => {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
-      throw new MissingCurrencyCodeError(
-        `No currency code provided. formatCurrency cannot be called without a currency code.`,
+      this.onError(
+        new MissingCurrencyCodeError(
+          `No currency code provided. formatCurrency cannot be called without a currency code.`,
+        ),
       );
+
+      return '';
     }
     return this.getCurrencySymbolLocalized(this.locale, currency);
   };
@@ -305,4 +331,8 @@ function isYesterday(date: Date) {
   yesterday.setDate(yesterday.getDate() - 1);
 
   return isSameDate(yesterday, date);
+}
+
+function defaultOnError(error: I18nError) {
+  throw error;
 }

@@ -1,3 +1,5 @@
+import {I18nError} from './errors';
+
 export enum LanguageDirection {
   Rtl,
   Ltr,
@@ -10,6 +12,7 @@ export interface I18nDetails {
   timezone?: string;
   pseudolocalize?: boolean;
   fallbackLocale?: string;
+  onError?(error: I18nError): void;
 }
 
 export interface TranslationDictionary {
