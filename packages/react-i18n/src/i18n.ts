@@ -258,13 +258,9 @@ export default class I18n {
   getCurrencySymbol = (currencyCode?: string) => {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
-      this.onError(
-        new MissingCurrencyCodeError(
-          `No currency code provided. formatCurrency cannot be called without a currency code.`,
-        ),
+      throw new MissingCurrencyCodeError(
+        `No currency code provided. formatCurrency cannot be called without a currency code.`,
       );
-
-      return '';
     }
     return this.getCurrencySymbolLocalized(this.locale, currency);
   };
