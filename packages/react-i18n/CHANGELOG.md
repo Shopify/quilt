@@ -8,6 +8,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] - -->
 
+## [0.11.1] - 2019-03-08
+
+### Fixed
+
+- Reverted a change that caused `I18n#getCurrencySymbol` to sometimes return an empty string
+
+## [0.11.0] - 2019-03-07
+
+### Added
+
+- Added an optional `onError` field to the options for `I18nManager`, which controls how descendant `I18n` objects will respond to some types of recoverable errors [#550](https://github.com/Shopify/quilt/pull/550)
+
+### Fixed
+
+- Fixed an issue where `I18n` instances would be created with two copies of each translation dictionary when the locale was equal to the fallback locale [#553](https://github.com/Shopify/quilt/pull/553)
+
 ## [0.10.2] - 2019-02-13
 
 ### Fixed
