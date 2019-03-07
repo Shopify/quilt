@@ -1,6 +1,6 @@
 {
   "name": "@shopify/decorators",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A set of decorators to aid your JavaScript journey.",
   "main": "dist/index.js",
@@ -23,9 +23,10 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/decorators/README.md",
-  "dependencies": {},
   "devDependencies": {
     "typescript": "~3.0.1"
   },
-  "files": ["dist/*"]
+  "files": [
+    "dist/*"
+  ]
 }
