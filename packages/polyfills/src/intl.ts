@@ -1,1 +1,1 @@
-import 'intl-pluralrules';
+require('intl-pluralrules');

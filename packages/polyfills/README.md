@@ -14,7 +14,7 @@ The following polyfills are currently exported:
 - `baseline.node` - The minimum required polyfills for a Shopify app to work in node. This includes:
   - `@babel/polyfill`
   - `fetch`
-- `fetch` (`fetch.node`): Polyfills whatwg-fetch in the browser and isomorphic-fetch in node
+- `fetch` (`fetch.node`): Polyfills whatwg-fetch in the browser and node-fetch in node
 - `url` (`url.node`): Polyfills URLSearchParams
 - `intl`: Browser only, polyfills Intl.PluralRules
 

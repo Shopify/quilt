@@ -12,31 +12,39 @@ describe('registerWebhook', () => {
     fetchMock.restore();
   });
 
-  it('sends a post request to the given shop domain with the webhook data in the body and the access token in the headers', async () => {
+  it('sends a post request to the given shop domain with the webhook data as a GraphQL query in the body and the access token in the headers', async () => {
     fetchMock.mock('*', successResponse);
     const webhook: Options = {
       address: 'myapp.com/webhooks',
-      topic: 'app/uninstalled',
+      topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
     };
 
+    const webhookQuery = `
+    mutation webhookSubscriptionCreate {
+      webhookSubscriptionCreate(topic: ${
+        webhook.topic
+      }, webhookSubscription: {callbackUrl: "${webhook.address}"}) {
+        userErrors {
+          field
+          message
+        }
+        webhookSubscription {
+          id
+        }
+      }
+    }
+  `;
+
     await registerWebhook(webhook);
 
     const [address, request] = fetchMock.lastCall();
-    expect(address).toBe(`https://${webhook.shop}/admin/webhooks.json`);
-    expect(request.body).toBe(
-      JSON.stringify({
-        webhook: {
-          topic: webhook.topic,
-          address: webhook.address,
-          format: 'json',
-        },
-      }),
-    );
+    expect(address).toBe(`https://${webhook.shop}/admin/api/graphql.json`);
+    expect(request.body).toBe(webhookQuery);
     expect(request.headers).toMatchObject({
       [WebhookHeader.AccessToken]: webhook.accessToken,
-      [Header.ContentType]: 'application/json',
+      [Header.ContentType]: 'application/graphql',
     });
   });
 
@@ -44,7 +52,7 @@ describe('registerWebhook', () => {
     fetchMock.mock('*', successResponse);
     const webhook: Options = {
       address: 'myapp.com/webhooks',
-      topic: 'app/uninstalled',
+      topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
     };
@@ -58,7 +66,7 @@ describe('registerWebhook', () => {
     fetchMock.mock('*', {...successResponse, body: data});
     const webhook: Options = {
       address: 'myapp.com/webhooks',
-      topic: 'app/uninstalled',
+      topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
     };
@@ -71,7 +79,7 @@ describe('registerWebhook', () => {
     fetchMock.mock('*', successResponse);
     const webhook: Options = {
       address: 'myapp.com/webhooks',
-      topic: 'app/uninstalled',
+      topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
     };
@@ -84,7 +92,7 @@ describe('registerWebhook', () => {
     fetchMock.mock('*', failResponse);
     const webhook: Options = {
       address: 'myapp.com/webhooks',
-      topic: 'app/uninstalled',
+      topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
     };

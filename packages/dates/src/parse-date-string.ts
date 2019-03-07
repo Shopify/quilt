@@ -1,36 +1,26 @@
 import {applyTimeZoneOffset} from './apply-time-zone-offset';
-
-/**
- * Allowed date string formats
- * yyyy-mm-dd
- * yyyy-mm-ddThh:mm:ss
- * yyyy-mm-ddThh:mm:ss+hh:mm
- * yyyy-mm-ddThh:mm:ss-hh:mm
- * yyyy-mm-ddThh:mm:ssZ
- */
-const DATE_TIME_PARTS_REGEX = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(?:(Z|(?:(\+|-)(\d{2}):(\d{2}))))?)?$/;
+import {parseDateStringParts} from './parse-date-string-parts';
 
 export function parseDateString(dateString: string, timeZone?: string) {
-  const dateTimeParts = new RegExp(DATE_TIME_PARTS_REGEX).exec(dateString);
+  const dateTimeParts = parseDateStringParts(dateString);
 
   if (dateTimeParts == null) {
     return null;
   }
 
-  const [
-    // @ts-ignore
-    _,
-    rawYear,
-    rawMonth,
-    rawDay,
-    rawHour,
-    rawMinute,
-    rawSecond,
+  const {
+    year: rawYear,
+    month: rawMonth,
+    day: rawDay,
+    hour: rawHour,
+    minute: rawMinute,
+    second: rawSecond,
+    millisecond: rawMillisecond,
     timeZoneOffset,
     sign,
-    rawTimeZoneHour,
-    rawTimeZoneMinute,
-  ] = dateTimeParts;
+    timeZoneHour: rawTimeZoneHour,
+    timeZoneMinute: rawTimeZoneMinute,
+  } = dateTimeParts;
 
   const year = parseInt(rawYear, 10);
   const month = parseInt(rawMonth, 10);
@@ -38,6 +28,7 @@ export function parseDateString(dateString: string, timeZone?: string) {
   const hour = rawHour == null ? 0 : parseInt(rawHour, 10);
   const minute = rawMinute == null ? 0 : parseInt(rawMinute, 10);
   const second = rawSecond == null ? 0 : parseInt(rawSecond, 10);
+  const millisecond = rawMillisecond == null ? 0 : parseInt(rawMillisecond, 10);
 
   const timeZoneHour =
     rawTimeZoneHour == null ? 0 : parseInt(rawTimeZoneHour, 10);
@@ -45,7 +36,7 @@ export function parseDateString(dateString: string, timeZone?: string) {
     rawTimeZoneMinute == null ? 0 : parseInt(rawTimeZoneMinute, 10);
 
   const utcDate = new Date(
-    Date.UTC(year, month - 1, day, hour, minute, second),
+    Date.UTC(year, month - 1, day, hour, minute, second, millisecond),
   );
 
   if (timeZoneOffset === 'Z') {
