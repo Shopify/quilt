@@ -7,6 +7,7 @@ interface Props<Fields> {
   field: FieldDescriptor<Fields[]>;
   children(fields: FieldDescriptors<Fields>, index: number): React.ReactNode;
   getChildKey?(item: Fields): string;
+  update?: boolean;
 }
 
 export default class List<Fields> extends React.Component<
@@ -25,12 +26,14 @@ export default class List<Fields> extends React.Component<
     } = nextProps;
     const {
       field: {value, error, initialValue},
+      update,
     } = this.props;
 
     return (
-      nextValue !== value ||
-      nextError !== error ||
-      nextInitialValue !== initialValue
+      update ||
+      (nextValue !== value ||
+        nextError !== error ||
+        nextInitialValue !== initialValue)
     );
   }
 
