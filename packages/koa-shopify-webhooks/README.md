@@ -73,7 +73,7 @@ app.use(
       const registration = await registerWebhook({
         // for local dev you probably want ngrok or something similar
         address: 'www.mycool-app.com/webhooks/products/create',
-        topic: 'products/create',
+        topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
       });
@@ -138,14 +138,14 @@ app.use(
 
       await registerWebhook({
         address: 'www.mycool-app.com/webhooks/products/create',
-        topic: 'products/create',
+        topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
       });
 
       await registerWebhook({
         address: 'www.mycool-app.com/webhooks/orders/create',
-        topic: 'orders/create',
+        topic: 'ORDERS_CREATE',
         accessToken,
         shop,
       });

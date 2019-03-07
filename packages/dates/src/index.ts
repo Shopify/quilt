@@ -1,6 +1,7 @@
 export * from './apply-time-zone-offset';
 export * from './get-date-time-parts';
 export * from './get-time-zone-offset';
+export * from './is-future-date';
 export * from './is-same-day';
 export * from './is-same-month';
 export * from './is-same-year';
@@ -8,6 +9,7 @@ export * from './is-today';
 export * from './is-yesterday';
 export * from './is-tomorrow';
 export * from './parse-date-string';
+export * from './parse-date-string-parts';
 export * from './sanitise-date-string';
 export * from './unapply-time-zone-offset';
 export * from './map-deprecated-timezones';

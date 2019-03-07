@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.2.2 - 2019-02-27
+
+### Fixed
+
+- The library now performs a more exhaustive obfuscation of `require` to reliably fool Webpack ([#537](https://github.com/Shopify/quilt/pull/537))
+
 ## 1.2.1 - 2019-02-26
 
 ### Fixed

@@ -65,6 +65,19 @@ const timeZone2 = 'Australia/Perth';
 const timeZoneOffset = getTimeZoneOffset(date, timeZone1, timeZone2);
 ```
 
+### `isFutureDate`
+
+Takes in a date object and an optional now date object to compare against (defaulting to a new date object). Returns a boolean indicating whether or not the first date is in the future.
+
+```ts
+import {isFutureDate} from '@shopify/dates';
+
+const now = new Date('2018-01-01Z00:00');
+const date = new Date('2018-01-02Z23:59');
+
+const futureDay = isFutureDate(date, now);
+```
+
 ### `isSameDay`
 
 Takes in two date objects and an optional time zone string parameter. Returns a boolean indicating whether or not these two dates are in the same day.
@@ -168,6 +181,30 @@ const date = '2018-01-01Z00:00';
 const timeZone = 'UTC';
 
 const parsed = parseDateString(date, timeZone);
+```
+
+### `parseDateStringParts`
+
+Takes in a date string. Returns parsed parts from that date string.
+
+```ts
+import {parseDateStringParts} from '@shopify/dates';
+
+const date = '2018-05-28T12:30:00.123+05:30';
+
+const {
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  second,
+  millisecond,
+  timeZoneOffset,
+  sign,
+  timeZoneHour,
+  timeZoneMinute,
+} = parseDateStringParts(date);
 ```
 
 ### `unapplyTimeZoneOffset`

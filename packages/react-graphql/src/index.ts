@@ -6,5 +6,6 @@ export {
   AsyncQueryComponentType,
   GraphQLData,
   GraphQLVariables,
+  GraphQLDeepPartial,
   QueryProps,
 } from './types';

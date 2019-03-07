@@ -5,6 +5,7 @@ import './matchers';
 import I18n from '../i18n';
 import {LanguageDirection} from '../types';
 import {DateStyle, Weekdays} from '../constants';
+import {MissingTranslationError} from '../errors';
 
 jest.mock('../utilities', () => ({
   translate: jest.fn(),
@@ -226,6 +227,46 @@ describe('I18n', () => {
         i18n.locale,
       );
     });
+
+    it('rethrows a missing translation error by default', () => {
+      const error = new MissingTranslationError();
+      translate.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(() => i18n.translate('hello')).toThrowError(error);
+    });
+
+    it('calls an onError handler', () => {
+      const spy = jest.fn();
+      const error = new MissingTranslationError();
+      translate.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: spy,
+      });
+
+      i18n.translate('hello');
+
+      expect(spy).toHaveBeenCalledWith(error);
+    });
+
+    it('returns an empty string when an onError handler does not rethrow', () => {
+      translate.mockImplementation(() => {
+        throw new MissingTranslationError();
+      });
+
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: () => {},
+      });
+
+      expect(i18n.translate('hello')).toBe('');
+    });
   });
 
   describe('#formatNumber()', () => {
@@ -272,6 +313,25 @@ describe('I18n', () => {
         expect(() => i18n.formatNumber(1, {as: 'currency'})).toThrowError(
           'No currency code provided.',
         );
+      });
+
+      it('calls the onError callback with an error when no currency code is given', () => {
+        const spy = jest.fn();
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          onError: spy,
+        });
+
+        i18n.formatNumber(1, {as: 'currency'});
+        expect(spy).toHaveBeenCalledWith(expect.any(Error));
+      });
+
+      it('returns an empty string when an error handler does not rethrow the error', () => {
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          onError: () => {},
+        });
+        expect(i18n.formatNumber(1, {as: 'currency'})).toBe('');
       });
 
       it('uses the Intl number formatter with the default currency', () => {
