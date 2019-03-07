@@ -15,9 +15,10 @@ $ yarn add @shopify/react-import-remote
 
 The provided utilities are intended only for external scripts that load globals. Other JavaScript should use the native `import()` operator for asynchronously loading code. These utilities cache results by source, so only a single `script` tag is ever added for a particular source.
 
-```ts
+```tsx
 import * as React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
+import {DeferTiming} from '@shopify/async';
 
 interface RemoteGlobal {}
 interface WindowWithGlobal extends Window {
@@ -37,6 +38,7 @@ class MyComponent extends React.Component {
         getImport={(window: WindowWithGlobal) => window.remoteGlobal}
         onError={(error: Error) => this.setState({error})}
         onImported={(remoteGlobal: RemoteGlobal) => doSomethingWithGlobal(remoteGlobal)}
+        defer={DeferTiming.Mount}
       />
     );
   }
@@ -52,6 +54,7 @@ interface Props<Imported = any> {
   onError(error: Error): void;
   getImport(window: Window): Imported;
   onImported(imported: Imported): void;
+  defer?: DeferTiming;
 }
 ```
 
@@ -74,3 +77,7 @@ Callback that takes in `window` with the added global and returns the global add
 **onImported**
 
 Callback that gets called with the imported global
+
+**defer**
+
+A member of the `DeferTiming` enum (from `@shopify/async`) allowing the import request to occur either on mount (`DeferTiming.Mount`) or until the browser is idle (`DeferTiming.Idle`; requires a polyfill for `window.requestIdleCallback`).

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
+import {DeferTiming} from '@shopify/async';
 
 import {Async} from '../Async';
 import {createAsyncComponent} from '../component';
-import {DeferTiming} from '../shared';
 
 jest.mock('../Async', () => ({
   Async() {

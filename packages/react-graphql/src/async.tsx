@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import {LoadProps} from '@shopify/async';
-import {Async, AsyncPropsRuntime, DeferTiming} from '@shopify/react-async';
+import {LoadProps, DeferTiming} from '@shopify/async';
+import {Async, AsyncPropsRuntime} from '@shopify/react-async';
 import {Omit} from '@shopify/useful-types';
 import {DocumentNode} from 'graphql-typed';
 
