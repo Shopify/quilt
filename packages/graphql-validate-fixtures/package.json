@@ -27,9 +27,11 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
+    "@types/graphql": "^14.0.0",
     "chalk": "^2.4.1",
     "fs-extra": "^6.0.0",
     "glob": "^7.1.2",
+    "graphql": "^14.0.0",
     "graphql-tool-utilities": "^0.9.2",
     "yargs": "^11.0.0"
   },

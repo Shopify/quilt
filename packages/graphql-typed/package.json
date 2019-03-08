@@ -22,8 +22,8 @@
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
-    "@types/graphql": "^0.13.0",
-    "graphql": "0.13.2"
+    "@types/graphql": "^14.0.0",
+    "graphql": "^14.0.0"
   },
   "devDependencies": {
     "typescript": "^2.8.3"

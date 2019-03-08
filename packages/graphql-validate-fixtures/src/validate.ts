@@ -1,16 +1,18 @@
 import {dirname, basename} from 'path';
 import {
   GraphQLType,
-  GraphQLScalarType,
-  GraphQLEnumType,
   GraphQLNonNull,
-  GraphQLObjectType,
   GraphQLList,
   GraphQLString,
   GraphQLInt,
   GraphQLFloat,
   GraphQLBoolean,
   GraphQLLeafType,
+  isEnumType,
+  isListType,
+  isNonNullType,
+  isObjectType,
+  isScalarType,
 } from 'graphql';
 import {GraphQLProjectConfig} from 'graphql-config';
 import {
@@ -226,7 +228,7 @@ function validateValueAgainstFieldDescription(
     ? validateListAgainstFieldDescription(
         value,
         fieldDescription,
-        fieldDescription.type,
+        type as GraphQLList<GraphQLType>,
         keyPath,
         ast,
       )
@@ -283,20 +285,19 @@ function validateValueAgainstObjectFieldDescription(
 }
 
 function makeTypeNullable(type: GraphQLType) {
-  return type instanceof GraphQLNonNull ? type.ofType : type;
+  return isNonNullType(type) ? type.ofType : type;
 }
 
 function validateListAgainstFieldDescription(
   value: any[],
   fieldDescription: Field,
-  type: GraphQLType,
+  type: GraphQLList<GraphQLType>,
   keyPath: string,
   ast: AST,
 ): Error[] {
-  const itemType =
-    type instanceof GraphQLNonNull
-      ? (type as GraphQLNonNull<GraphQLList<GraphQLType>>).ofType.ofType
-      : (type as GraphQLList<GraphQLType>).ofType;
+  const itemType = isNonNullType(type)
+    ? (type as GraphQLNonNull<GraphQLList<GraphQLType>>).ofType.ofType
+    : (type as GraphQLList<GraphQLType>).ofType;
 
   return value.reduce((allErrors, item, index) => {
     const itemKeyPath = updateKeyPath(keyPath, index);
@@ -316,7 +317,7 @@ function validateListAgainstFieldDescription(
           validateListAgainstFieldDescription(
             item,
             fieldDescription,
-            itemType,
+            itemType as GraphQLList<GraphQLType>,
             itemKeyPath,
             ast,
           ),
@@ -368,7 +369,7 @@ function validateValueAgainstType(
 ): Error[] {
   const {shallow} = options;
 
-  if (type instanceof GraphQLNonNull) {
+  if (isNonNullType(type)) {
     return value == null
       ? [error(keyPath, `should be non-null but was ${String(value)}`)]
       : validateValueAgainstType(value, type.ofType, keyPath, options);
@@ -380,7 +381,7 @@ function validateValueAgainstType(
 
   const valueType = typeof value;
 
-  if (type instanceof GraphQLList) {
+  if (isListType(type)) {
     if (!Array.isArray(value)) {
       return [
         error(
@@ -420,7 +421,7 @@ function validateValueAgainstType(
     ];
   }
 
-  if (type instanceof GraphQLObjectType) {
+  if (isObjectType(type)) {
     if (valueType === 'object') {
       if (shallow) {
         return [];
@@ -475,13 +476,13 @@ function validateValueAgainstType(
       : [error(keyPath, `should be a boolean but was a ${valueType}`)];
   }
 
-  if (type instanceof GraphQLScalarType) {
+  if (isScalarType(type)) {
     return type.parseValue(value) == null
       ? [error(keyPath, `value does not match scalar ${nameForType(type)}`)]
       : [];
   }
 
-  if (type instanceof GraphQLEnumType) {
+  if (isEnumType(type)) {
     return type.parseValue(value) == null
       ? [
           error(

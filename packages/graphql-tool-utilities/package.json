@@ -28,10 +28,10 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@types/graphql": "^0.13.0",
+    "@types/graphql": "^14.0.0",
     "apollo-codegen-core": "0.28.1",
     "core-js": "^2.5.7",
-    "graphql": "0.13.2",
-    "graphql-config": "2.1.1"
+    "graphql": "^14.0.0",
+    "graphql-config": "^2.0.0"
   }
 }

@@ -53,9 +53,9 @@ GraphQLError: Syntax Error: Expected {, found Name \\"name\\"
     at parseFragmentDefinition (node_modules/graphql/language/parser.js)
     at parseExecutableDefinition (node_modules/graphql/language/parser.js)
     at parseDefinition (node_modules/graphql/language/parser.js)
+    at many (node_modules/graphql/language/parser.js)
     at parseDocument (node_modules/graphql/language/parser.js)
     at Object.parse (node_modules/graphql/language/parser.js)
-    at Builder.setDocumentForFilePath (packages/graphql-typescript-definitions/lib/index.js)
 
 ",
 }
