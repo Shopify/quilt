@@ -6,6 +6,7 @@ import MatchMedia from './match-media';
 import Storage from './storage';
 import Timer from './timer';
 import UserTiming from './user-timing';
+import IntersectionObserver from './intersection-observer';
 
 export const animationFrame = new AnimationFrame();
 
@@ -23,6 +24,7 @@ export const sessionStorage = new Storage();
 
 export const timer = new Timer();
 export const userTiming = new UserTiming();
+export const intersectionObserver = new IntersectionObserver();
 
 export function installMockStorage() {
   if (typeof window !== 'undefined') {
@@ -45,6 +47,7 @@ const mocksToEnsureReset = {
   fetch,
   matchMedia,
   userTiming,
+  intersectionObserver,
 };
 
 export function ensureMocksReset() {
