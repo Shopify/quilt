@@ -2,8 +2,9 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import gql from 'graphql-tag';
 
+import {DeferTiming} from '@shopify/async';
 import {trigger} from '@shopify/enzyme-utilities';
-import {Async, DeferTiming} from '@shopify/react-async';
+import {Async} from '@shopify/react-async';
 
 import {Query} from '../Query';
 import {Prefetch} from '../Prefetch';
