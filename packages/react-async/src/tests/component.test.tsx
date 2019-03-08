@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {trigger, noop} from '@shopify/enzyme-utilities';
+import {trigger} from '@shopify/enzyme-utilities';
 
 import {Async} from '../Async';
 import {createAsyncComponent} from '../component';
@@ -91,7 +91,7 @@ describe('createAsyncComponent()', () => {
 
     it('allows passing custom async props', () => {
       const load = () => Promise.resolve(MockComponent);
-      const async = {defer: undefined, renderLoading: noop};
+      const async = {defer: undefined, renderLoading: () => <div />};
 
       const AsyncComponent = createAsyncComponent({load});
       const preload = mount(<AsyncComponent.Preload async={async} />);
