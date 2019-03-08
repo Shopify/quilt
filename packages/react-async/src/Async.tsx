@@ -8,6 +8,7 @@ import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
 
 export interface AsyncPropsRuntime {
   defer?: DeferTiming;
+  renderLoading?(): React.ReactNode;
 }
 
 interface Props<Value> extends LoadProps<Value>, AsyncPropsRuntime {
