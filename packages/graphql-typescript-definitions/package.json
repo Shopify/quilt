@@ -1,6 +1,6 @@
 {
   "name": "graphql-typescript-definitions",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "main": "lib/index.js",
   "types": "lib",
   "description": "Generate TypeScript definition files from .graphql documents",
@@ -41,7 +41,7 @@
     "chokidar": "^2.0.3",
     "fs-extra": "^6.0.0",
     "glob": "^7.1.2",
-    "graphql-tool-utilities": "^0.9.1"
+    "graphql-tool-utilities": "^0.9.2"
   },
   "peerDependencies": {
     "graphql-typed": "^0.2.0"
