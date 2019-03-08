@@ -26,6 +26,7 @@ import {
   getGraphQLSchemaPaths,
   isOperation,
   Operation,
+  resolvePathRelativeToConfig,
 } from 'graphql-tool-utilities';
 
 import {
@@ -200,11 +201,11 @@ export class Builder extends EventEmitter {
       .map((projectConfig) => {
         return watch(
           projectConfig.includes.map((include) =>
-            projectConfig.resolvePathRelativeToConfig(include),
+            resolvePathRelativeToConfig(projectConfig, include),
           ),
           {
             ignored: projectConfig.excludes.map((exclude) =>
-              projectConfig.resolvePathRelativeToConfig(exclude),
+              resolvePathRelativeToConfig(projectConfig, exclude),
             ),
             ignoreInitial: true,
           },
@@ -417,12 +418,14 @@ function getSchemaTypesPath(
   options: Options,
 ) {
   if (typeof projectConfig.extensions.schemaTypesPath === 'string') {
-    return projectConfig.resolvePathRelativeToConfig(
+    return resolvePathRelativeToConfig(
+      projectConfig,
       projectConfig.extensions.schemaTypesPath,
     );
   }
 
-  return projectConfig.resolvePathRelativeToConfig(
+  return resolvePathRelativeToConfig(
+    projectConfig,
     join(
       options.schemaTypesPath,
       `${

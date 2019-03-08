@@ -1,6 +1,11 @@
 import {GraphQLConfigData, GraphQLProjectConfig} from 'graphql-config';
 import {join} from 'path';
-import {defaultGraphQLProjectName} from '../src/augmentations';
+import {
+  defaultGraphQLProjectName,
+  resolvePathRelativeToConfig,
+  resolveProjectName,
+  resolveSchemaPath,
+} from '../src/utilities';
 
 jest.mock('fs', () => {
   return {
@@ -10,23 +15,15 @@ jest.mock('fs', () => {
 
 const existsSync: jest.Mock = require.requireMock('fs').existsSync;
 
-describe('GraphQLProjectConfig', () => {
+describe('utilities', () => {
   const configData: GraphQLConfigData = {schemaPath: 'test'};
   const configPath = join(__dirname, '.graphqlconfig');
 
   describe('resolvePathRelativeToConfig()', () => {
-    it('aliases foo', () => {
-      const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
-      expect(projectConfig.resolvePathRelativeToConfig).toBe(
-        projectConfig.resolveConfigPath,
-      );
-    });
-
     it('resolves a relative path', () => {
       const projectConfig = new GraphQLProjectConfig(configData, configPath);
 
-      expect(projectConfig.resolvePathRelativeToConfig('test')).toBe(
+      expect(resolvePathRelativeToConfig(projectConfig, 'test')).toBe(
         join(__dirname, 'test'),
       );
     });
@@ -34,7 +31,7 @@ describe('GraphQLProjectConfig', () => {
     it('resolves an absolute path', () => {
       const projectConfig = new GraphQLProjectConfig(configData, configPath);
 
-      expect(projectConfig.resolvePathRelativeToConfig('/test')).toBe('/test');
+      expect(resolvePathRelativeToConfig(projectConfig, '/test')).toBe('/test');
     });
   });
 
@@ -46,7 +43,7 @@ describe('GraphQLProjectConfig', () => {
         'test',
       );
 
-      expect(projectConfig.resolveProjectName()).toBe('test');
+      expect(resolveProjectName(projectConfig)).toBe('test');
     });
 
     it('ignores the provided defaultName for a named project', () => {
@@ -56,21 +53,19 @@ describe('GraphQLProjectConfig', () => {
         'test',
       );
 
-      expect(projectConfig.resolveProjectName('ignored')).toBe('test');
+      expect(resolveProjectName(projectConfig, 'ignored')).toBe('test');
     });
 
     it('uses the provided defaultName for a nameless project', () => {
       const projectConfig = new GraphQLProjectConfig(configData, configPath);
 
-      expect(projectConfig.resolveProjectName('test')).toBe('test');
+      expect(resolveProjectName(projectConfig, 'test')).toBe('test');
     });
 
     it('uses default projectName for a nameless project when defaultName is omitted', () => {
       const projectConfig = new GraphQLProjectConfig(configData, configPath);
 
-      expect(projectConfig.resolveProjectName()).toBe(
-        defaultGraphQLProjectName,
-      );
+      expect(resolveProjectName(projectConfig)).toBe(defaultGraphQLProjectName);
     });
   });
 
@@ -82,7 +77,7 @@ describe('GraphQLProjectConfig', () => {
     it('throws an error if the schemaPath is empty', () => {
       const projectConfig = new GraphQLProjectConfig({} as any, configPath);
 
-      expect(() => projectConfig.resolveSchemaPath()).toThrowError(
+      expect(() => resolveSchemaPath(projectConfig)).toThrowError(
         /Missing GraphQL schemaPath/i,
       );
     });
@@ -92,7 +87,7 @@ describe('GraphQLProjectConfig', () => {
 
       existsSync.mockImplementation(() => false);
 
-      expect(() => projectConfig.resolveSchemaPath()).toThrowError(
+      expect(() => resolveSchemaPath(projectConfig)).toThrowError(
         /Schema not found/i,
       );
     });
@@ -102,7 +97,7 @@ describe('GraphQLProjectConfig', () => {
 
       existsSync.mockImplementation(() => true);
 
-      expect(projectConfig.resolveSchemaPath()).toBe(
+      expect(resolveSchemaPath(projectConfig)).toBe(
         join(__dirname, configData.schemaPath),
       );
       expect(existsSync).toHaveBeenCalledWith(
@@ -115,7 +110,7 @@ describe('GraphQLProjectConfig', () => {
 
       existsSync.mockImplementation(() => false);
 
-      expect(projectConfig.resolveSchemaPath(true)).toBe(
+      expect(resolveSchemaPath(projectConfig, true)).toBe(
         join(__dirname, configData.schemaPath),
       );
     });

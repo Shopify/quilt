@@ -3,6 +3,7 @@ import {promisify} from 'util';
 
 import './augmentations';
 import './polyfills';
+import {resolvePathRelativeToConfig, resolveSchemaPath} from './utilities';
 
 // we need to use an import/require here because it does not force consumers to
 // enable esModuleInterop in tsconfig.json
@@ -29,7 +30,7 @@ export function getGraphQLProjects(config: GraphQLConfig) {
 
 export function getGraphQLSchemaPaths(config: GraphQLConfig) {
   return getGraphQLProjects(config).reduce<string[]>((schemas, project) => {
-    return schemas.concat(project.resolveSchemaPath());
+    return schemas.concat(resolveSchemaPath(project));
   }, []);
 }
 
@@ -38,9 +39,9 @@ export async function getGraphQLProjectIncludedFilePaths(
 ) {
   return (await Promise.all(
     projectConfig.includes.map((include) =>
-      promisify(glob)(projectConfig.resolvePathRelativeToConfig(include), {
+      promisify(glob)(resolvePathRelativeToConfig(projectConfig, include), {
         ignore: projectConfig.excludes.map((exclude) =>
-          projectConfig.resolvePathRelativeToConfig(exclude),
+          resolvePathRelativeToConfig(projectConfig, exclude),
         ),
       }),
     ),

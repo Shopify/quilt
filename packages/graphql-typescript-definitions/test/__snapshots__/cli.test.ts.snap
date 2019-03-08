@@ -72,7 +72,7 @@ Object {
   "stderr": "",
   "stdout": " ERROR  Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.
 Error: Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.
-    at GraphQLProjectConfig.resolveSchemaPath (packages/graphql-tool-utilities/lib/augmentations.js)
+    at Object.resolveSchemaPath (packages/graphql-tool-utilities/lib/utilities.js)
     at getGraphQLProjects.reduce (packages/graphql-tool-utilities/lib/config.js)
     at Array.reduce (<anonymous>)
     at Object.getGraphQLSchemaPaths (packages/graphql-tool-utilities/lib/config.js)

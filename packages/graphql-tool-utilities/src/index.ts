@@ -6,3 +6,4 @@ export {
   getGraphQLProjects,
   getGraphQLSchemaPaths,
 } from './config';
+export * from './utilities';

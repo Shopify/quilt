@@ -3,7 +3,11 @@
 All notable consumer-facing changes are documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Fixed
+
+* Using static utility functions from `graphql-tool-utilities` instead of `GraphQLProject` augmentations to prevent `TypeError: project.resolveSchemaPath is not a function` when a duplicate `graphql` packages exist in the node package dependency chain. [[#73](https://github.com/Shopify/graphql-tools-web/pull/73)]
 
 ## [0.15.0] - 2019-01-22
 
