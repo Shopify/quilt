@@ -1,9 +1,13 @@
 import * as React from 'react';
-import {LoadProps} from '@shopify/async';
+import {
+  LoadProps,
+  DeferTiming,
+  RequestIdleCallbackHandle,
+  WindowWithRequestIdleCallback,
+} from '@shopify/async';
 import {Omit} from '@shopify/useful-types';
 import {Effect} from '@shopify/react-effect';
 
-import {DeferTiming} from './shared';
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
 
 export interface AsyncPropsRuntime {
@@ -26,25 +30,6 @@ interface State<Value> {
 declare const __webpack_require__: (id: string) => any;
 declare const __webpack_modules__: {[key: string]: any};
 /* eslint-enable camelcase */
-
-type RequestIdleCallbackHandle = any;
-
-interface RequestIdleCallbackOptions {
-  timeout: number;
-}
-
-interface RequestIdleCallbackDeadline {
-  readonly didTimeout: boolean;
-  timeRemaining: (() => number);
-}
-
-interface WindowWithRequestIdleCallback {
-  requestIdleCallback: ((
-    callback: ((deadline: RequestIdleCallbackDeadline) => void),
-    opts?: RequestIdleCallbackOptions,
-  ) => RequestIdleCallbackHandle);
-  cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void);
-}
 
 class ConnectedAsync<Value> extends React.Component<
   Props<Value>,

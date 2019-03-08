@@ -17,6 +17,14 @@ This package contains a few types that are useful for creating async components:
 
 - `Import` represents a value that could be default or non-default export
 - `LoadProps` are an interface that describe the shape of props that must be used for a function to be processed by the Babel plugin provided by this
+- `DeferTiming` is an enum of defer timing values, either on component `Mount` or until the browser is `Idle`
+
+As well as the following types related to `window.requestIdleCallback`:
+
+- `RequestIdleCallbackHandle`
+- `RequestIdleCallbackOptions`
+- `RequestIdleCallbackDeadline`
+- `WindowWithRequestIdleCallback`
 
 It also includes a plugin for Babel that allows the module IDs that are asynchronously imported to be exposed to the application.
 
