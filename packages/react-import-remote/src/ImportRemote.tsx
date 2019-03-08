@@ -34,7 +34,7 @@ export default class ImportRemote extends React.PureComponent<Props, never> {
       'requestIdleCallback' in window
     ) {
       this.idleCallbackHandle = (window as WindowWithRequestIdleCallback).requestIdleCallback(
-        this.loadRemote,
+        this.loadRemote.bind(this),
       );
     } else {
       await this.loadRemote();

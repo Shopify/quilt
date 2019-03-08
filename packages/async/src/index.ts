@@ -16,6 +16,10 @@ export interface RequestIdleCallbackOptions {
   timeout: number;
 }
 
+export type RequestIdleCallbackCallback = (
+  deadline: RequestIdleCallbackDeadline,
+) => void;
+
 export interface RequestIdleCallbackDeadline {
   readonly didTimeout: boolean;
   timeRemaining: (() => number);
@@ -23,7 +27,7 @@ export interface RequestIdleCallbackDeadline {
 
 export interface WindowWithRequestIdleCallback {
   requestIdleCallback: ((
-    callback: ((deadline: RequestIdleCallbackDeadline) => void),
+    callback: RequestIdleCallbackCallback,
     opts?: RequestIdleCallbackOptions,
   ) => RequestIdleCallbackHandle);
   cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void);

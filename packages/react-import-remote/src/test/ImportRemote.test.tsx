@@ -1,6 +1,9 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {Preconnect} from '@shopify/react-html';
+import {idleCallback} from '@shopify/jest-dom-mocks';
+import {DeferTiming} from '@shopify/async';
+
 import {noop} from '@shopify/javascript-utilities/other';
 
 import ImportRemote, {Props} from '../ImportRemote';
@@ -130,6 +133,28 @@ describe('<ImportRemote />', () => {
       expect(importRemote.find(Preconnect).prop('source')).toBe(
         new URL(mockProps.source).origin,
       );
+    });
+  });
+
+  describe('defer', () => {
+    it('calls load on mount by default', () => {
+      mount(<ImportRemote {...mockProps} />);
+
+      expect(load).toHaveBeenCalled();
+    });
+
+    it('calls load later on when using DeferTiming.Idle', done => {
+      idleCallback.mock();
+
+      mount(<ImportRemote {...mockProps} defer={DeferTiming.Idle} />);
+
+      expect(load).not.toHaveBeenCalled();
+
+      setTimeout(() => {
+        expect(load).toHaveBeenCalled();
+        done();
+        idleCallback.restore();
+      }, 0);
     });
   });
 });
