@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {LoadProps} from '@shopify/async';
+import {LoadProps, DeferTiming} from '@shopify/async';
 
 import {Async} from './Async';
-import {DeferTiming} from './shared';
 
 interface Options<Value> extends LoadProps<Value> {}
 
