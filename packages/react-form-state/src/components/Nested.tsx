@@ -6,7 +6,6 @@ import {mapObject} from '../utilities';
 interface Props<Fields> {
   field: FieldDescriptor<Fields>;
   children(fields: FieldDescriptors<Fields>): React.ReactNode;
-  update?: boolean;
 }
 
 export default class Nested<Fields> extends React.Component<
@@ -25,14 +24,12 @@ export default class Nested<Fields> extends React.Component<
     } = nextProps;
     const {
       field: {value, error, initialValue},
-      update,
     } = this.props;
 
     return (
-      update ||
-      (nextValue !== value ||
-        nextError !== error ||
-        nextInitialValue !== initialValue)
+      nextValue !== value ||
+      nextError !== error ||
+      nextInitialValue !== initialValue
     );
   }
 

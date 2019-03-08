@@ -508,21 +508,6 @@ export function ProductPage() {
 }
 ```
 
-#### Performance
-
-`<FormState.Nested />` will only re-render its children if `value`, `initialValue` or `error` on `field` change for performance reasons. While this is highly recommended, there are cased in where you might want to by-pass this check. To force it to always re-render its children, you can pass `update`:
-
-```tsx
-<FormState.Nested field={fields.firstVariant} update>
-  {fields => (
-    <>
-      <TextField label="Option" {...fields.option} />
-      <TextField label="Value" {...fields.value} />
-    </>
-  )}
-</FormState.Nested>
-```
-
 ### `<FormState.List />`
 
 Sometimes your data might be best represented using an array of objects.
@@ -607,21 +592,6 @@ For our example above, it makes sense to assume that each combination of `option
   field={fields.variants}
   getChildKey={(variant) => `${variant.option}-${variant.value}`}
 >
-```
-
-#### Performance
-
-`<FormState.List />` will only re-render its children if `value`, `initialValue` or `error` on `field` change for performance reasons. While this is highly recommended, there are cased in where you might want to by-pass this check. To force it to always re-render its children, you can pass `update`:
-
-```tsx
-<FormState.List field={fields.variants} update>
-  {fields => (
-    <>
-      <TextField label="Option" {...fields.option} />
-      <TextField label="Value" {...fields.value} />
-    </>
-  )}
-</FormState.List>
 ```
 
 ## Putting it all together
