@@ -27,13 +27,13 @@
     "@shopify/react-effect": "^2.0.1"
   },
   "devDependencies": {
-    "react-apollo": "^2.4.0",
+    "react-apollo": "^2.2.3",
     "typescript": "~3.0.1"
   },
   "files": [
     "dist/*"
   ],
   "peerDependencies": {
-    "react-apollo": "^2.4.0"
+    "react-apollo": "^2.2.3"
   }
 }
