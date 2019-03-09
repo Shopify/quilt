@@ -13,17 +13,26 @@ export default function memoize<Method extends Function>(
 ): MethodDecorator {
   return function<T>(
     _target: Object,
-    _propertyKey: string | symbol,
+    propertyKey: string | symbol,
     descriptor: TypedPropertyDescriptor<T>,
   ) {
-    const method = descriptor.value;
+    const {value: method} = descriptor;
 
     if (!method || !(method instanceof Function)) {
       return descriptor;
     }
 
-    descriptor.value = memoized(method as any, resolver);
-    return descriptor;
+    return {
+      get: function get() {
+        const newDescriptor = {
+          configurable: true,
+          value: memoized(method as any, resolver),
+        };
+
+        Object.defineProperty(this, propertyKey, newDescriptor);
+        return newDescriptor.value;
+      },
+    };
   };
 }
 
