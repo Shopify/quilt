@@ -1,5 +1,5 @@
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
-import {memoize} from '@shopify/javascript-utilities/decorators';
+import {memoize, autobind} from '@shopify/javascript-utilities/decorators';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -89,16 +89,19 @@ export default class I18n {
     options: TranslateOptions,
     replacements?: PrimitiveReplacementDictionary,
   ): string;
+
   translate(
     id: string,
     options: TranslateOptions,
     replacements?: ComplexReplacementDictionary,
   ): React.ReactElement<any>;
+
   translate(id: string, replacements?: PrimitiveReplacementDictionary): string;
   translate(
     id: string,
     replacements?: ComplexReplacementDictionary,
   ): React.ReactElement<any>;
+
   translate(
     id: string,
     optionsOrReplacements?:
@@ -195,13 +198,16 @@ export default class I18n {
 
   formatDate(
     date: Date,
-    options: Intl.DateTimeFormatOptions & {style?: DateStyle} = {},
+    options?: Intl.DateTimeFormatOptions & {style?: DateStyle},
   ): string {
-    const {locale, defaultTimezone} = this;
-    const {timeZone = defaultTimezone} = options;
+    const {locale, defaultTimezone: timezone} = this;
 
     // Etc/GMT+12 is not supported in most browsers and there is no equivalent fallback
-    if (timeZone === 'Etc/GMT+12') {
+    if (
+      options &&
+      options.timeZone != null &&
+      options.timeZone === 'Etc/GMT+12'
+    ) {
       const adjustedDate = new Date(date.valueOf() - 12 * 60 * 60 * 1000);
 
       return this.formatDate(adjustedDate, {...options, timeZone: 'UTC'});
@@ -216,7 +222,7 @@ export default class I18n {
     }
 
     return new Intl.DateTimeFormat(locale, {
-      timeZone,
+      timeZone: timezone,
       ...formatOptions,
     }).format(date);
   }
@@ -233,7 +239,8 @@ export default class I18n {
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
   }
 
-  getCurrencySymbol = (currencyCode?: string) => {
+  @autobind
+  getCurrencySymbol(currencyCode?: string) {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
       throw new MissingCurrencyCodeError(
@@ -241,7 +248,7 @@ export default class I18n {
       );
     }
     return this.getCurrencySymbolLocalized(this.locale, currency);
-  };
+  }
 
   @memoize((currency: string, locale: string) => `${locale}${currency}`)
   getCurrencySymbolLocalized(locale: string, currency: string) {

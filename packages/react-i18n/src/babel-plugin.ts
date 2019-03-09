@@ -103,7 +103,8 @@ export default function injectWithI18nArguments({
         for (const specifier of specifiers) {
           if (
             !t.isImportSpecifier(specifier) ||
-            specifier.imported.name !== 'withI18n'
+            (specifier.imported.name !== 'withI18n' &&
+              specifier.imported.name !== 'useI18n')
           ) {
             continue;
           }

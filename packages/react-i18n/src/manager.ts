@@ -1,5 +1,4 @@
 import {I18nDetails, TranslationDictionary, MaybePromise} from './types';
-import Connection from './connection';
 
 export interface ConnectionState {
   loading: boolean;
@@ -7,8 +6,22 @@ export interface ConnectionState {
   translations: TranslationDictionary[];
 }
 
+type TranslationGetter = (
+  locale: string,
+) => MaybePromise<TranslationDictionary | undefined>;
+
+type TranslationMap = {
+  [key: string]: MaybePromise<TranslationDictionary | undefined>;
+};
+
+export interface RegisterOptions {
+  id: string;
+  translations?: TranslationGetter | TranslationMap;
+  fallback?: TranslationDictionary;
+}
+
 export interface Subscriber {
-  (connectionState: ConnectionState): void;
+  (translations: TranslationDictionary[], details: I18nDetails): void;
 }
 
 export interface ConnectionResult {
@@ -17,7 +30,7 @@ export interface ConnectionResult {
 }
 
 export interface ExtractedTranslations {
-  [key: string]: TranslationDictionary | null;
+  [id: string]: TranslationDictionary | undefined;
 }
 
 export default class Manager {
@@ -25,10 +38,13 @@ export default class Manager {
     return this.translationPromises.size > 0;
   }
 
-  private subscriptions = new Map<Subscriber, Connection>();
-  private translations = new Map<string, TranslationDictionary | null>();
-  private asyncTranslationIds: string[] = [];
-  private translationPromises = new Map<string, Promise<void>>();
+  private translationGetters = new Map<string, TranslationGetter>();
+  private fallbacks = new Map<string, TranslationDictionary | undefined>();
+  private translations = new Map<string, TranslationDictionary | undefined>();
+
+  private asyncTranslationIds = new Set<string>();
+  private subscriptions = new Map<Subscriber, string[]>();
+  private translationPromises = new Set<Promise<void>>();
 
   constructor(
     public details: I18nDetails,
@@ -36,202 +52,121 @@ export default class Manager {
   ) {
     for (const [id, translation] of Object.entries(initialTranslations)) {
       this.translations.set(id, translation);
-      this.asyncTranslationIds.push(id);
+      this.asyncTranslationIds.add(id);
     }
   }
 
   async resolve() {
-    await Promise.all([...this.translationPromises.values()]);
+    await Promise.all([...this.translationPromises]);
   }
 
   extract() {
-    return this.asyncTranslationIds.reduce<ExtractedTranslations>(
+    return [...this.asyncTranslationIds].reduce<ExtractedTranslations>(
       (extracted, id) => ({
         ...extracted,
-        [id]: this.translations.get(id) || null,
+        [id]: this.translations.get(id),
       }),
       {},
     );
   }
 
-  connect(connection: Connection, subscriber: Subscriber): ConnectionResult {
-    const possibleLocales = getPossibleLocales(this.details.locale);
-    const promises: Promise<any>[] = [];
-
-    for (const locale of possibleLocales) {
-      const id = localeId(connection, locale);
-
-      if (this.translations.has(id)) {
-        continue;
-      }
-
-      if (this.translationPromises.has(id)) {
-        // eslint-disable-next-line typescript/no-non-null-assertion
-        promises.push(this.translationPromises.get(id)!);
-        continue;
-      }
-
-      if (
-        locale === this.details.fallbackLocale &&
-        connection.fallbackTranslations
-      ) {
-        this.translations.set(id, connection.fallbackTranslations);
-        continue;
-      }
-
-      const translations = connection.translationsForLocale(locale);
-      if (isPromise(translations)) {
-        const promise = translations
-          .then(result => {
-            this.asyncTranslationIds.push(id);
-            this.translationPromises.delete(id);
-            this.translations.set(id, result || null);
-            this.updateSubscribersForId(id);
-          })
-          .catch(() => {
-            this.asyncTranslationIds.push(id);
-            this.translationPromises.delete(id);
-            this.translations.set(id, null);
-            this.updateSubscribersForId(id);
-          });
-
-        promises.push(promise);
-
-        this.translationPromises.set(id, promise);
-      } else {
-        this.translations.set(id, translations || null);
-      }
+  register({id, translations, fallback}: RegisterOptions) {
+    if (!this.fallbacks.has(id)) {
+      this.fallbacks.set(id, fallback);
     }
 
-    this.subscriptions.set(subscriber, connection);
+    if (this.translationGetters.has(id)) {
+      return;
+    }
 
-    return {
-      resolve: () => Promise.all(promises).then(() => undefined),
-      disconnect: () => this.subscriptions.delete(subscriber),
-    };
+    const translationGetter = translations
+      ? normalizeTranslationGetter(translations)
+      : noop;
+
+    this.setTranslations(id, translationGetter);
   }
 
-  state(connection: Connection): ConnectionState {
-    const parentState = connection.parent
-      ? this.state(connection.parent)
-      : {loading: false, translations: [], fallbacks: []};
+  state(ids: string[]) {
+    return ids.reduce<TranslationDictionary[]>((otherTranslations, id) => {
+      const translationsForId: TranslationDictionary[] = [];
 
-    const fallbackTranslations = connection.fallbackTranslations
-      ? [connection.fallbackTranslations]
-      : [];
+      for (const locale of getPossibleLocales(this.details.locale)) {
+        const translationId = getTranslationId(id, locale);
+        const translation = this.translations.get(translationId);
+        if (translation != null) {
+          translationsForId.push(translation);
+        }
+      }
 
-    const allFallbacks = [...fallbackTranslations, ...parentState.fallbacks];
+      const fallback = this.fallbacks.get(id);
+      if (fallback != null) {
+        translationsForId.push(fallback);
+      }
 
-    if (parentState.loading) {
-      return {
-        loading: true,
-        fallbacks: allFallbacks,
-        translations: allFallbacks,
-      };
-    }
+      return [...otherTranslations, ...translationsForId];
+    }, []);
+  }
 
-    const possibleLocales = getPossibleLocales(this.details.locale);
-    const translations = possibleLocales.map(locale => {
-      const id = localeId(connection, locale);
-      return (
-        this.translations.get(id) || this.translationPromises.get(id) || null
-      );
-    });
-
-    if (noPromises<TranslationDictionary | null>(translations)) {
-      return {
-        loading: false,
-        fallbacks: allFallbacks,
-        translations: [
-          ...filterNull(translations),
-          ...fallbackTranslations,
-          ...parentState.translations,
-        ],
-      };
-    } else {
-      return {
-        loading: true,
-        fallbacks: allFallbacks,
-        translations: allFallbacks,
-      };
-    }
+  subscribe(ids: string[], subscriber: Subscriber) {
+    this.subscriptions.set(subscriber, ids);
+    return () => {
+      this.subscriptions.delete(subscriber);
+    };
   }
 
   update(details: I18nDetails) {
     this.details = details;
-    const possibleLocales = getPossibleLocales(details.locale);
 
-    for (const connection of this.subscriptions.values()) {
-      for (const locale of possibleLocales) {
-        const id = localeId(connection, locale);
-
-        if (this.translations.has(id) || this.translationPromises.has(id)) {
-          continue;
-        }
-
-        if (
-          locale === this.details.fallbackLocale &&
-          connection.fallbackTranslations
-        ) {
-          this.translations.set(id, connection.fallbackTranslations);
-          continue;
-        }
-
-        const translations = connection.translationsForLocale(locale);
-
-        if (isPromise(translations)) {
-          this.translationPromises.set(
-            id,
-            translations
-              .then(result => {
-                this.asyncTranslationIds.push(id);
-                this.translationPromises.delete(id);
-                this.translations.set(id, result || null);
-                this.updateSubscribersForId(id);
-              })
-              .catch(() => {
-                this.asyncTranslationIds.push(id);
-                this.translationPromises.delete(id);
-                this.translations.set(id, null);
-                this.updateSubscribersForId(id);
-              }),
-          );
-        } else {
-          this.translations.set(id, translations || null);
-        }
-      }
+    for (const [id, translationGetter] of this.translationGetters) {
+      this.setTranslations(id, translationGetter);
     }
 
-    this.subscriptions.forEach((connection, subscription) => {
-      subscription(this.state(connection));
-    });
+    for (const [subscriber, ids] of this.subscriptions) {
+      subscriber(this.state(ids), details);
+    }
+  }
+
+  private setTranslations(id: string, translationGetter: TranslationGetter) {
+    this.translationGetters.set(id, translationGetter);
+
+    for (const locale of getPossibleLocales(this.details.locale)) {
+      const translationId = getTranslationId(id, locale);
+
+      if (this.translations.has(translationId)) {
+        continue;
+      }
+
+      const translations = translationGetter(locale);
+
+      if (isPromise(translations)) {
+        this.asyncTranslationIds.add(translationId);
+
+        const promise = translations
+          .then(result => {
+            this.translationPromises.delete(promise);
+            this.translations.set(translationId, result);
+            this.updateSubscribersForId(id);
+          })
+          .catch(() => {
+            this.translationPromises.delete(promise);
+            this.translations.set(translationId, undefined);
+            this.updateSubscribersForId(id);
+          });
+
+        this.translationPromises.add(promise);
+      } else {
+        this.translations.set(translationId, translations);
+      }
+    }
   }
 
   private updateSubscribersForId(id: string) {
-    this.subscriptions.forEach((connection, subscriber) => {
-      if (
-        localeIdsForConnection(connection, this.details.locale).includes(id)
-      ) {
-        subscriber(this.state(connection));
+    for (const [subscriber, ids] of this.subscriptions) {
+      if (ids.includes(id)) {
+        subscriber(this.state(ids), this.details);
       }
-    });
+    }
   }
-}
-
-function localeIdsForConnection(
-  connection: Connection,
-  fullLocale: string,
-): string[] {
-  const parentLocaleIds = connection.parent
-    ? localeIdsForConnection(connection.parent, fullLocale)
-    : [];
-
-  return [
-    ...parentLocaleIds,
-    ...getPossibleLocales(fullLocale).map(locale =>
-      localeId(connection, locale),
-    ),
-  ];
 }
 
 function getPossibleLocales(locale: string) {
@@ -248,14 +183,18 @@ function isPromise<T>(
   return maybePromise != null && (maybePromise as any).then != null;
 }
 
-function filterNull<T>(array: (T | null)[]): T[] {
-  return array.filter(Boolean) as T[];
+function getTranslationId(id: string, locale: string) {
+  return `${id}__${locale}`;
 }
 
-function localeId(connection: Connection, locale: string) {
-  return `${connection.id}__${locale}`;
+function noop() {
+  return undefined;
 }
 
-function noPromises<T>(array: (T | Promise<any>)[]): array is T[] {
-  return array.every(item => !isPromise(item));
+function normalizeTranslationGetter(
+  translations: TranslationMap | TranslationGetter,
+): TranslationGetter {
+  return typeof translations === 'function'
+    ? translations
+    : (locale: string) => translations[locale];
 }

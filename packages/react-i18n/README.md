@@ -13,9 +13,9 @@ $ yarn add @shopify/react-i18n
 
 ## Usage
 
-### `<Provider />` and `Manager`
+### `<I18nContext.Provider />` and `Manager`
 
-This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `Provider` component. This component accepts a `manager` prop, which allows you to specify the following global i18n properties:
+This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `I18nContext.Provider` component. This component accepts a `manager` prop, which allows you to specify the following global i18n properties:
 
 - `locale`: the current locale of the app. This is the only required option.
 - `fallbackLocale`: the locale that your component’s will use in any of their fallback translations. This is used to avoid unnecessarily serializing fallback translations.
@@ -25,34 +25,31 @@ This library requires a provider component which supplies i18n details to the re
 - `pseudolocalize`: whether to perform [pseudolocalization](https://github.com/Shopify/pseudolocalization) on your translations.
 
 ```ts
-import {
-  Provider as I18nProvider,
-  Manager as I18nManager,
-} from '@shopify/react-i18n';
+import {I18nContext, Manager as I18nManager} from '@shopify/react-i18n';
 
 const locale = 'en';
 const i18nManager = new I18nManager({locale});
 
 export default function App() {
   return (
-    <I18nProvider manager={i18nManager}>{/* App contents */}</I18nProvider>
+    <I18nContext.Provider manager={i18nManager}>
+      {/* App contents */}
+    </I18nContext.Provider>
   );
 }
 ```
 
 ### Internationalized components
 
-Components must connect to the i18n context in order to get access to the many internationalization utilities this library provides. You can use the `withI18n` decorator to add an `i18n` prop to your component:
+Components must connect to the i18n context in order to get access to the many internationalization utilities this library provides. You can use the `useI18n` hook to access `i18n` in your component:
 
 ```ts
 import * as React from 'react';
 import {EmptyState} from '@shopify/polaris';
-import {withI18n, WithI18nProps} from '@shopify/react-i18n';
+import {useI18n} from '@shopify/react-i18n';
 
-export interface Props {}
-type ComposedProps = Props & WithI18nProps;
-
-function NotFound({i18n}: ComposedProps) {
+export default function NotFound() {
+  const [i18n] = useI18n();
   return (
     <EmptyState
       heading={i18n.translate('App.notFound')}
@@ -62,18 +59,16 @@ function NotFound({i18n}: ComposedProps) {
     </EmptyState>
   );
 }
-
-export default withI18n()(NotFound);
 ```
 
 #### `i18n`
 
 The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
 
-- `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `Provider` component will be used where no custom currency code is passed.
+- `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
 - `formatCurrency()`: formats a number as a currency according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`.
 - `formatPercentage()`: formats a number as a percentage according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
-- `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
+- `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
   - `DateStyle.Short`: e.g., `Dec 20, 2012`
   - `DateStyle.Humanize`: e.g., `December 20, 2012`, `Today`, or `Yesterday`
@@ -101,15 +96,24 @@ Here’s the example above with component-specific translations:
 ```ts
 import * as React from 'react';
 import {EmptyState} from '@shopify/polaris';
-import {withI18n, WithI18nProps} from '@shopify/react-i18n';
+import {useI18n} from '@shopify/react-i18n';
 
 import en from './locales/en.json';
 import fr from './locales/fr.json';
 
-export interface Props {}
-type ComposedProps = Props & WithI18nProps;
+export default function NotFound() {
+  const [i18n] = useI18n({
+    id: 'NotFound',
+    fallback: en,
+    translations(locale) {
+      if (locale === 'en') {
+        return en;
+      } else if (locale === 'fr') {
+        return fr;
+      }
+    },
+  });
 
-function NotFound({i18n}: ComposedProps) {
   return (
     <EmptyState
       heading={i18n.translate('NotFound.heading')}
@@ -119,18 +123,6 @@ function NotFound({i18n}: ComposedProps) {
     </EmptyState>
   );
 }
-
-export default withI18n({
-  id: 'NotFound',
-  fallback: en,
-  translations(locale) {
-    if (locale === 'en') {
-      return en;
-    } else if (locale === 'fr') {
-      return fr;
-    }
-  },
-})(NotFound);
 ```
 
 ```json
@@ -232,6 +224,32 @@ i18n.translate('MyComponent.searchResult', {
 });
 ```
 
+#### `withI18n` decorator
+
+`@shopify/react-i18n` continues to provide the `withI18n` decorator as a migration path towards the `useI18n` hook.
+
+```ts
+import * as React from 'react';
+import {EmptyState} from '@shopify/polaris';
+import {withI18n, WithI18nProps} from '@shopify/react-i18n';
+
+export interface Props {}
+type ComposedProps = Props & WithI18nProps;
+
+function NotFound({i18n}: ComposedProps) {
+  return (
+    <EmptyState
+      heading={i18n.translate('App.notFound')}
+      action={{content: i18n.translate('App.back'), url: '/'}}
+    >
+      <p>{i18n.translate('App.notFoundContent')}</p>
+    </EmptyState>
+  );
+}
+
+export default withI18n()(NotFound);
+```
+
 ### Server
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
@@ -244,7 +262,7 @@ import {extract} from '@shopify/react-effect/server';
 
 const i18nManager = new I18nManager({locale: 'en'});
 // This assumes your `App` component accepts this prop, and
-// appropriately uses it with a `Provider` component as
+// appropriately uses it with a `I18nContext.Provider` component as
 // documented above.
 const element = <App i18nManager={i18nManager} />;
 
@@ -258,10 +276,7 @@ const translations = i18nManager.extract();
 Once you have done this, serialize the result (we recommend [`@shopify/react-serialize`](https://github.com/Shopify/quilt/tree/master/packages/react-serialize)), then load it on the client and include it as part of the initialization of the i18n manager:
 
 ```tsx
-import {
-  Provider as I18nProvider,
-  Manager as I18nManager,
-} from '@shopify/react-i18n';
+import {I18nContext, Manager as I18nManager} from '@shopify/react-i18n';
 import {getSerialized} from '@shopify/react-serialize';
 
 const locale = 'en';
@@ -271,14 +286,16 @@ export default function App({
   i18nManager = new I18nManager({locale}, translations),
 }) {
   return (
-    <I18nProvider manager={i18nManager}>{/* App contents */}</I18nProvider>
+    <I18nContext.Provider manager={i18nManager}>
+      {/* App contents */}
+    </I18nContext.Provider>
   );
 }
 ```
 
 ### Babel
 
-This package includes a plugin for Babel that auto-fills `withI18n`'s arguments from an adjacent translations folder. The Babel plugin is exported from the `@shopify/react-i18n/babel` entrypoint:
+This package includes a plugin for Babel that auto-fills `useI18n`'s or `withI18n`'s arguments from an adjacent translations folder. The Babel plugin is exported from the `@shopify/react-i18n/babel` entrypoint:
 
 ```js
 // babel.config.js
@@ -289,7 +306,7 @@ This package includes a plugin for Babel that auto-fills `withI18n`'s arguments 
 }
 ```
 
-This plugin will look for an adjacent translations folder containing, at minimum, an `en.json` file (the default locale). It will then iterate over each reference to the `withI18n` decorator, if the reference is a call expression with no arguments, and inject the appropriate arguments.
+This plugin will look for an adjacent translations folder containing, at minimum, an `en.json` file (the default locale). It will then iterate over each reference to the `useI18n` hook or `withI18n` decorator, if the reference is a call expression with no arguments, and inject the appropriate arguments.
 
 ```js
 // Within MyComponent.tsx:
@@ -304,7 +321,7 @@ withI18n({
   id: 'MyComponent_<hash>',
   fallback: _en,
   async translations(locale) {
-    const dictionary = await import(/* webpackChunkName: "MyComponent_<hash>-i18n" */ `./translations/${locale}.json`);
+    const dictionary = await import(/* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`);
     return dictionary;
   },
 });

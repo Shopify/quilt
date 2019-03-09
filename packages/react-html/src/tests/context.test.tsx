@@ -2,7 +2,7 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {animationFrame} from '@shopify/jest-dom-mocks';
 
-import {Provider} from '../context';
+import {HtmlProvider} from '../context';
 import Manager from '../manager';
 import {MANAGED_ATTRIBUTE} from '../utilities';
 
@@ -26,9 +26,9 @@ describe('<Provider />', () => {
     const manager = new Manager();
 
     mount(
-      <Provider manager={manager}>
+      <HtmlProvider manager={manager}>
         <div />
-      </Provider>,
+      </HtmlProvider>,
     );
 
     manager.addTitle(title);
@@ -63,9 +63,9 @@ describe('<Provider />', () => {
     const manager = new Manager();
 
     mount(
-      <Provider manager={manager}>
+      <HtmlProvider manager={manager}>
         <div />
-      </Provider>,
+      </HtmlProvider>,
     );
 
     manager.addLink(linkOne);
@@ -92,9 +92,9 @@ describe('<Provider />', () => {
     const manager = new Manager();
 
     mount(
-      <Provider manager={manager}>
+      <HtmlProvider manager={manager}>
         <div />
-      </Provider>,
+      </HtmlProvider>,
     );
 
     manager.addMeta(metaOne);
