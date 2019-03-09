@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function PrefetchSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.PrefetchSrc, sources),
   );
 

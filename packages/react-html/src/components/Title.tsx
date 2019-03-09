@@ -5,6 +5,6 @@ interface Props {
 }
 
 export default function Title({children: title}: Props) {
-  useDomEffect((manager) => manager.addTitle(title), [title]);
+  useDomEffect(manager => manager.addTitle(title), [title]);
   return null;
 }

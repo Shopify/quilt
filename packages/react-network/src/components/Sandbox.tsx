@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function Sandbox({allowed}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.Sandbox, allowed),
   );
 

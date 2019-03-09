@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function WebRtcSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.WebrtcSrc, sources),
   );
 

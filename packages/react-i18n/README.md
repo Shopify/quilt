@@ -24,7 +24,7 @@ This library requires a provider component which supplies i18n details to the re
 - `currency`: the default currency to use for currency-aware formatting.
 - `pseudolocalize`: whether to perform [pseudolocalization](https://github.com/Shopify/pseudolocalization) on your translations.
 
-```ts
+```tsx
 import {I18nContext, Manager as I18nManager} from '@shopify/react-i18n';
 
 const locale = 'en';
@@ -43,7 +43,7 @@ export default function App() {
 
 Components must connect to the i18n context in order to get access to the many internationalization utilities this library provides. You can use the `useI18n` hook to access `i18n` in your component:
 
-```ts
+```tsx
 import * as React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {useI18n} from '@shopify/react-i18n';
@@ -93,7 +93,7 @@ If you provide any of the above options, you must also provide an `id` key, whic
 
 Here’s the example above with component-specific translations:
 
-```ts
+```tsx
 import * as React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {useI18n} from '@shopify/react-i18n';
@@ -228,7 +228,7 @@ i18n.translate('MyComponent.searchResult', {
 
 `@shopify/react-i18n` continues to provide the `withI18n` decorator as a migration path towards the `useI18n` hook.
 
-```ts
+```tsx
 import * as React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {withI18n, WithI18nProps} from '@shopify/react-i18n';
@@ -306,18 +306,18 @@ This package includes a plugin for Babel that auto-fills `useI18n`'s or `withI18
 }
 ```
 
-This plugin will look for an adjacent translations folder containing, at minimum, an `en.json` file (the default locale). It will then iterate over each reference to the `useI18n` hook or `withI18n` decorator, if the reference is a call expression with no arguments, and inject the appropriate arguments.
+This plugin will look for an adjacent translations folder containing, at minimum, an `en.json` file (the default locale). It will then iterate over each reference to the `useI18n` hook or `withI18n` decorator and, if the reference is a call expression with no arguments, and inject the appropriate arguments.
 
 ```js
 // Within MyComponent.tsx:
 
-withI18n();
+useI18n();
 
 // Becomes:
 
 import _en from './translations/en.json';
 
-withI18n({
+useI18n({
   id: 'MyComponent_<hash>',
   fallback: _en,
   async translations(locale) {

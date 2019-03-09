@@ -20,8 +20,13 @@ export interface RegisterOptions {
   fallback?: TranslationDictionary;
 }
 
+interface TranslationState {
+  loading: boolean;
+  translations: TranslationDictionary[];
+}
+
 export interface Subscriber {
-  (translations: TranslationDictionary[], details: I18nDetails): void;
+  (translations: TranslationState, details: I18nDetails): void;
 }
 
 export interface ConnectionResult {
@@ -44,7 +49,7 @@ export default class Manager {
 
   private asyncTranslationIds = new Set<string>();
   private subscriptions = new Map<Subscriber, string[]>();
-  private translationPromises = new Set<Promise<void>>();
+  private translationPromises = new Map<string, Promise<void>>();
 
   constructor(
     public details: I18nDetails,
@@ -75,6 +80,14 @@ export default class Manager {
       this.fallbacks.set(id, fallback);
     }
 
+    if (this.details.fallbackLocale != null && fallback != null) {
+      const translationId = getTranslationId(id, this.details.fallbackLocale);
+
+      if (!this.translations.has(translationId)) {
+        this.translations.set(translationId, fallback);
+      }
+    }
+
     if (this.translationGetters.has(id)) {
       return;
     }
@@ -87,24 +100,42 @@ export default class Manager {
   }
 
   state(ids: string[]) {
-    return ids.reduce<TranslationDictionary[]>((otherTranslations, id) => {
-      const translationsForId: TranslationDictionary[] = [];
+    const {locale, fallbackLocale} = this.details;
+    const possibleLocales = getPossibleLocales(locale);
+    const omitFallbacks =
+      fallbackLocale != null && possibleLocales.includes(fallbackLocale);
 
-      for (const locale of getPossibleLocales(this.details.locale)) {
-        const translationId = getTranslationId(id, locale);
-        const translation = this.translations.get(translationId);
-        if (translation != null) {
-          translationsForId.push(translation);
+    let loading = false;
+
+    const translations = ids.reduce<TranslationDictionary[]>(
+      (otherTranslations, id) => {
+        const translationsForId: TranslationDictionary[] = [];
+
+        for (const locale of possibleLocales) {
+          const translationId = getTranslationId(id, locale);
+          const translation = this.translations.get(translationId);
+          if (translation == null) {
+            if (this.translationPromises.has(translationId)) {
+              loading = true;
+            }
+          } else {
+            translationsForId.push(translation);
+          }
         }
-      }
 
-      const fallback = this.fallbacks.get(id);
-      if (fallback != null) {
-        translationsForId.push(fallback);
-      }
+        if (!omitFallbacks) {
+          const fallback = this.fallbacks.get(id);
+          if (fallback != null) {
+            translationsForId.push(fallback);
+          }
+        }
 
-      return [...otherTranslations, ...translationsForId];
-    }, []);
+        return [...otherTranslations, ...translationsForId];
+      },
+      [],
+    );
+
+    return {loading, translations};
   }
 
   subscribe(ids: string[], subscriber: Subscriber) {
@@ -122,7 +153,7 @@ export default class Manager {
     }
 
     for (const [subscriber, ids] of this.subscriptions) {
-      subscriber(this.state(ids), details);
+      subscriber(this.state(ids), this.details);
     }
   }
 
@@ -139,21 +170,21 @@ export default class Manager {
       const translations = translationGetter(locale);
 
       if (isPromise(translations)) {
-        this.asyncTranslationIds.add(translationId);
-
         const promise = translations
           .then(result => {
-            this.translationPromises.delete(promise);
+            this.translationPromises.delete(translationId);
             this.translations.set(translationId, result);
+            this.asyncTranslationIds.add(translationId);
             this.updateSubscribersForId(id);
           })
           .catch(() => {
-            this.translationPromises.delete(promise);
+            this.translationPromises.delete(translationId);
             this.translations.set(translationId, undefined);
+            this.asyncTranslationIds.add(translationId);
             this.updateSubscribersForId(id);
           });
 
-        this.translationPromises.add(promise);
+        this.translationPromises.set(translationId, promise);
       } else {
         this.translations.set(translationId, translations);
       }
@@ -170,11 +201,10 @@ export default class Manager {
 }
 
 function getPossibleLocales(locale: string) {
-  const normalizedLocale = locale.toLowerCase();
-  const split = normalizedLocale.split('-');
+  const split = locale.split('-');
   return split.length > 1
-    ? [`${split[0]}-${split[1].toUpperCase()}`, normalizedLocale, split[0]]
-    : [normalizedLocale];
+    ? [`${split[0]}-${split[1].toUpperCase()}`, split[0]]
+    : [locale];
 }
 
 function isPromise<T>(

@@ -7,6 +7,6 @@ interface Props {
 }
 
 export default function Redirect({url, status}: Props) {
-  useNetworkEffect((network) => network.redirectTo(url, status));
+  useNetworkEffect(network => network.redirectTo(url, status));
   return null;
 }

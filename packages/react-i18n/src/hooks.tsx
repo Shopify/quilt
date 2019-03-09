@@ -29,13 +29,13 @@ export function useI18n({
   }
 
   const [i18n, setI18n] = React.useState(() => {
-    const translations = manager.state(ids);
+    const {translations} = manager.state(ids);
     return new I18n(translations, manager.details);
   });
 
   React.useEffect(
     () => {
-      return manager.subscribe(ids, (translations, details) => {
+      return manager.subscribe(ids, ({translations}, details) => {
         setI18n(new I18n(translations, details));
       });
     },

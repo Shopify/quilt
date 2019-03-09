@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function MediaSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.MediaSrc, sources),
   );
 

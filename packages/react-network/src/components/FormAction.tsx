@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function FormAction({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.FormAction, sources),
   );
 

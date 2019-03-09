@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function FontSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.FontSrc, sources),
   );
 

@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function WorkerSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.WorkerSrc, sources),
   );
 

@@ -1,51 +1,55 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {withI18n, WithI18nProps, Provider, Manager} from '..';
+import {useI18n, I18nContext, Manager} from '..';
 
 const enTranslations = {hello: 'Hello'};
 const frTranslations = {hello: 'Bonjour'};
 
-function SimpleComponent({i18n}: WithI18nProps & {children?: React.ReactNode}) {
-  return <div>{i18n.translate('hello')}</div>;
-}
-
 describe('translations', () => {
   it('uses a translation map', () => {
-    const WithI18nComponent = withI18n({
-      id: 'MyComponent',
-      translations: {en: enTranslations, fr: frTranslations},
-    })(SimpleComponent);
+    function WithI18nComponent() {
+      const [i18n] = useI18n({
+        id: 'MyComponent',
+        translations: {en: enTranslations, fr: frTranslations},
+      });
+
+      return <div>{i18n.translate('hello')}</div>;
+    }
 
     const manager = new Manager({locale: 'fr'});
     const component = mount(
-      <Provider manager={manager}>
+      <I18nContext.Provider value={manager}>
         <WithI18nComponent />
-      </Provider>,
+      </I18nContext.Provider>,
     );
 
     expect(component.text()).toBe(frTranslations.hello);
   });
 
   it('uses a translation getter', () => {
-    const WithI18nComponent = withI18n({
-      id: 'MyComponent',
-      translations(locale) {
-        switch (locale) {
-          case 'en':
-            return enTranslations;
-          case 'fr':
-            return frTranslations;
-        }
+    function WithI18nComponent() {
+      const [i18n] = useI18n({
+        id: 'MyComponent',
+        translations(locale) {
+          switch (locale) {
+            case 'en':
+              return enTranslations;
+            case 'fr':
+              return frTranslations;
+          }
 
-        throw new Error('No translations found');
-      },
-    })(SimpleComponent);
+          throw new Error('No translations found');
+        },
+      });
+
+      return <div>{i18n.translate('hello')}</div>;
+    }
 
     const manager = new Manager({locale: 'en'});
     const component = mount(
-      <Provider manager={manager}>
+      <I18nContext.Provider value={manager}>
         <WithI18nComponent />
-      </Provider>,
+      </I18nContext.Provider>,
     );
 
     expect(component.text()).toBe(enTranslations.hello);

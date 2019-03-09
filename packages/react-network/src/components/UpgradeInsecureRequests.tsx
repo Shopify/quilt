@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function UpgradeInsecureRequests({value = true}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.UpgradeInsecureRequests, value),
   );
 

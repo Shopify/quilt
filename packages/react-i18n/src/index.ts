@@ -6,4 +6,3 @@ export {I18nDetails} from './types';
 export {DateStyle, Weekdays} from './constants';
 export {useI18n} from './hooks';
 export {withI18n, WithI18nProps} from './decorator';
-export {Provider} from './Provider';

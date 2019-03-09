@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function FrameSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.FrameSrc, sources),
   );
 

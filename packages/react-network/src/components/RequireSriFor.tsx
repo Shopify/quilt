@@ -17,7 +17,7 @@ export default function RequireSriFor({scripts, styles}: Props) {
     value.push(SriAsset.Style);
   }
 
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.RequireSriFor, value),
   );
 

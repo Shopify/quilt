@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function ReportUri({uri}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.ReportUri, uri),
   );
 

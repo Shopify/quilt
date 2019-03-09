@@ -6,12 +6,11 @@ import {Manager} from './manager';
 
 export function useNetworkEffect(perform: (network: Manager) => void) {
   const network = useContext(NetworkContext);
-  useServerEffect(
-    () => {
-      if (network != null) {
-        return perform(network);
-      }
-    },
-    network ? network.effect : undefined,
-  );
+
+  // eslint-disable-next-line consistent-return
+  useServerEffect(() => {
+    if (network != null) {
+      return perform(network);
+    }
+  }, network ? network.effect : undefined);
 }

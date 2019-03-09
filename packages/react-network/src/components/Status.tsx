@@ -6,6 +6,6 @@ interface Props {
 }
 
 export default function Status({code}: Props) {
-  useNetworkEffect((network) => network.addStatusCode(code));
+  useNetworkEffect(network => network.addStatusCode(code));
   return null;
 }

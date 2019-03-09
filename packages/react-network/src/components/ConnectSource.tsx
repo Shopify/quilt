@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function ConnectSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.ConnectSrc, sources),
   );
 

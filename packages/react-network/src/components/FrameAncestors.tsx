@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function FrameAncestors({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.FrameAncestors, sources),
   );
 

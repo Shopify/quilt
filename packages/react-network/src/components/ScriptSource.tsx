@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function ScriptSource({sources}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.ScriptSrc, sources),
   );
 

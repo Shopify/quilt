@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function PluginTypes({types}: Props) {
-  useNetworkEffect((network) =>
+  useNetworkEffect(network =>
     network.addCspDirective(CspDirective.PluginTypes, types),
   );
 
