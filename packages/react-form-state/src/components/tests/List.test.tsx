@@ -338,32 +338,4 @@ describe('<FormState.List />', () => {
     expect(updatedFields.title.value).toBe(newTitle);
     expect(updatedFields.department.value).toBe(newDepartment);
   });
-
-  it('Does not re-render when children have not changed', () => {
-    const products = [{title: faker.commerce.productName()}];
-    const adjective = faker.commerce.productAdjective();
-    const newAdjective = faker.commerce.productAdjective();
-
-    const renderSpy = jest.fn(() => null);
-
-    const form = mount(
-      <FormState initialValues={{products, adjective}}>
-        {({fields}) => {
-          return (
-            <>
-              <Input {...fields.adjective} />
-              <FormState.List field={fields.products}>
-                {renderSpy}
-              </FormState.List>
-            </>
-          );
-        }}
-      </FormState>,
-    );
-
-    const input = form.find(Input);
-    trigger(input, 'onChange', newAdjective);
-
-    expect(renderSpy).toHaveBeenCalledTimes(1);
-  });
 });

@@ -8,30 +8,11 @@ interface Props<Fields> {
   children(fields: FieldDescriptors<Fields>): React.ReactNode;
 }
 
-export default class Nested<Fields> extends React.Component<
+export default class Nested<Fields> extends React.PureComponent<
   Props<Fields>,
   never
 > {
   private changeHandlers = new Map<keyof Fields, Function>();
-
-  shouldComponentUpdate(nextProps) {
-    const {
-      field: {
-        value: nextValue,
-        error: nextError,
-        initialValue: nextInitialValue,
-      },
-    } = nextProps;
-    const {
-      field: {value, error, initialValue},
-    } = this.props;
-
-    return (
-      nextValue !== value ||
-      nextError !== error ||
-      nextInitialValue !== initialValue
-    );
-  }
 
   render() {
     const {
