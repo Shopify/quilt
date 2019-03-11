@@ -1,6 +1,6 @@
 {
   "name": "@shopify/decorators",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "MIT",
   "description": "A set of decorators to aid your JavaScript journey.",
   "main": "dist/index.js",
