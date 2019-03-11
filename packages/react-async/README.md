@@ -124,7 +124,13 @@ const MyComponentOnIdle = createAsyncComponent({
 });
 ```
 
-If you need to customize the deferring behaviour at runtime, the library always allows you to pass an `async` prop with some custom options for the underlying `<Async />` loader component (**note**: this library reserves the `async` prop name, so you can’t use that name for any of your component’s own props, or for the props you specify in the `renderPreload`, `renderPrefetch`, or `renderKeepFresh` options).
+#### Overwriting properties
+
+The library always allows you to pass an `async` prop with some custom options for the underlying `<Async />` loader component (**note**: this library reserves the `async` prop name, so you can’t use that name for any of your component’s own props, or for the props you specify in the `renderPreload`, `renderPrefetch`, or `renderKeepFresh` options).
+
+Currenty the library allows you to overwite two properties:
+
+##### `defer?: DeferTiming`
 
 ```tsx
 import {createAsyncComponent, DeferTiming} from '@shopify/react-async';
@@ -151,6 +157,21 @@ const MyComponent = createAsyncComponent({
 // Don’t defer at all
 <MyComponent.Preload async={{defer: undefined}} />
 <MyComponent.KeepFresh async={{defer: undefined}} />
+```
+
+##### `renderLoading?(): React.ReactNode`
+
+```tsx
+import {createAsyncComponent} from '@shopify/react-async';
+import {Spinner} from '@shopify/polaris';
+
+// No loading state
+const MyComponent = createAsyncComponent({
+  load: () => import('./MyComponent'),
+});
+
+// But this instance will render <Spinner /> as its loading state
+<MyComponent async={{renderLoading: () => <Spinner />}} />;
 ```
 
 ### `PrefetchRoute` and `Prefetcher`
