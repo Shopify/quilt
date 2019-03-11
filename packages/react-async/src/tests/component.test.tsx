@@ -54,7 +54,7 @@ describe('createAsyncComponent()', () => {
 
   it('allows passing custom async props', () => {
     const load = () => Promise.resolve(MockComponent);
-    const async = {defer: DeferTiming.Idle};
+    const async = {defer: DeferTiming.Idle, renderLoading: () => <div />};
 
     const AsyncComponent = createAsyncComponent({load});
     const asyncComponent = mount(<AsyncComponent async={async} />);
@@ -91,7 +91,7 @@ describe('createAsyncComponent()', () => {
 
     it('allows passing custom async props', () => {
       const load = () => Promise.resolve(MockComponent);
-      const async = {defer: undefined};
+      const async = {defer: undefined, renderLoading: () => <div />};
 
       const AsyncComponent = createAsyncComponent({load});
       const preload = mount(<AsyncComponent.Preload async={async} />);
@@ -129,7 +129,7 @@ describe('createAsyncComponent()', () => {
 
     it('allows passing custom async props', () => {
       const load = () => Promise.resolve(MockComponent);
-      const async = {defer: undefined};
+      const async = {defer: undefined, renderLoading: () => <div />};
 
       const AsyncComponent = createAsyncComponent({load});
       const prefetch = mount(<AsyncComponent.Prefetch async={async} />);
@@ -167,7 +167,7 @@ describe('createAsyncComponent()', () => {
 
     it('allows passing custom async props', () => {
       const load = () => Promise.resolve(MockComponent);
-      const async = {defer: undefined};
+      const async = {defer: undefined, renderLoading: () => <div />};
 
       const AsyncComponent = createAsyncComponent({load});
       const keepFresh = mount(<AsyncComponent.KeepFresh async={async} />);
