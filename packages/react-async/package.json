@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-async",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components.",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-async/README.md",
   "dependencies": {
-    "@shopify/async": "^1.1.0",
+    "@shopify/async": "^1.2.1",
     "@shopify/javascript-utilities": "^2.4.0",
     "@shopify/react-effect": "^2.0.1",
     "@shopify/useful-types": "^1.1.2"
