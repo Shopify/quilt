@@ -1,15 +1,15 @@
 import {ApolloLink, Observable, Operation} from 'apollo-link';
 import {
   GraphQLType,
-  GraphQLNonNull,
-  GraphQLList,
-  GraphQLObjectType,
-  GraphQLInterfaceType,
-  GraphQLUnionType,
   ExecutionResult,
   Location,
   GraphQLSchema,
   GraphQLError,
+  isListType,
+  isInterfaceType,
+  isObjectType,
+  isNonNullType,
+  isUnionType,
 } from 'graphql';
 import {compile, Field} from 'graphql-tool-utilities';
 import {GraphQLMock} from './types';
@@ -129,9 +129,9 @@ function normalizeDataWithField(data: any, field?: Field): any {
   const finalType = rootType(field.type);
 
   if (
-    !(finalType instanceof GraphQLObjectType) &&
-    !(finalType instanceof GraphQLInterfaceType) &&
-    !(finalType instanceof GraphQLUnionType)
+    isObjectType(finalType) &&
+    isInterfaceType(finalType) &&
+    isUnionType(finalType)
   ) {
     throw new Error(
       `You provided an object fixture (${JSON.stringify(
@@ -155,10 +155,7 @@ function normalizeDataWithField(data: any, field?: Field): any {
 function rootType(type: GraphQLType) {
   let finalType = type;
 
-  while (
-    finalType instanceof GraphQLNonNull ||
-    finalType instanceof GraphQLList
-  ) {
+  while (isNonNullType(finalType) || isListType(finalType)) {
     finalType = finalType.ofType;
   }
 
