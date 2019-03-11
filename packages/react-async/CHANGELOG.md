@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.2.3 - 2019-03-11
+
+- `DeferTiming` type was moved into this package ([#561](https://github.com/Shopify/quilt/pull/561))
+
 ## 1.2.2 - 2019-02-27
 
 ### Fixed
