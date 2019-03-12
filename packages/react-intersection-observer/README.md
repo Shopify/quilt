@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-intersection-observer.svg)](https://badge.fury.io/js/%40shopify%2Freact-intersection-observer.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-intersection-observer.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-intersection-observer.svg)
 
-A simple React wrapper around the [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
+A React wrapper around the [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
 
 ## Installation
 
@@ -19,7 +19,7 @@ This package exports an `IntersectionObserver` component. This component will cr
 - `root`: a string or element that is used as the viewport for visibility testing. If a string is passed, it will be treated as a selector.
 - `rootMargin`: a string representing the margins by which to shrink the root’s bounding box before computing intersections.
 
-This component also allows you to customize the rendered markup. You can pass `children`, which will be rendered inside of the element being observed for intersections. You can also pass an `element` prop that changes the DOM node being wrapped around those children (defaults to a `div`). Regardless of the passed `element`, the `IntersectionObserver` component will always add a `display: contents` style to that element in order to reduce the styling impact of the additional nesting.
+This component also allows you to customize the rendered markup. You can pass `children`, which will be rendered inside of the node being observed for intersections. You can also pass a `wrapperComponent` prop that changes the DOM node being wrapped around those children (defaults to a `div`). Regardless of the passed `wrapperComponent`, the `IntersectionObserver` component will always add a `display: contents` style to that node in order to reduce the styling impact of the additional nesting.
 
 ```tsx
 <div ref={this.parentElement}>
@@ -35,7 +35,7 @@ This component also allows you to customize the rendered markup. You can pass `c
 
 ### Lifecycle
 
-You may change any prop on an `IntersectionObserver` component, and the component will do the minimum amount of work to unobserve/ re-observe with the new fields. The most expensive updates to make are changing `threshold`, `root`, `rootMargin`, and `element`, as these require disconnecting the old observer and recreating a new one.
+You may change any prop on an `IntersectionObserver` component, and the component will do the minimum amount of work to unobserve/ re-observe with the new fields. The most expensive updates to make are changing `threshold`, `root`, `rootMargin`, and `wrapperComponent`, as these require disconnecting the old observer and recreating a new one.
 
 When this component is unmounted, it disconnects the current observer.
 
@@ -45,5 +45,5 @@ To polyfill `IntersectionObserver`, please use the `@shopify/polyfills/intersect
 
 If you do not polyfill the feature and it is not supported in the current browser, the `IntersectionObserver` component will decide what to do based on the `unsupportedBehavior` prop. This prop should be a member of the `UnsupportedBehavior` enum (exported from this package). Currently, there are two options:
 
-- `UnsupportedBehavior.Ignore`: never calls `onIntersecting` or `onNotIntersecting`.
 - `UnsupportedBehavior.TreatAsIntersecting`: immediately calls `onIntersecting` on mount, if it is provided (this is the default).
+- `UnsupportedBehavior.Ignore`: never calls `onIntersecting` or `onNotIntersecting`.

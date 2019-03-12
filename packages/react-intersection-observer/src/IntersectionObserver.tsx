@@ -9,16 +9,16 @@ export enum UnsupportedBehavior {
 interface Props {
   root?: Element | string | null;
   rootMargin?: string;
-  element?: string;
   threshold?: number | number[];
   children?: React.ReactNode;
+  wrapperComponent?: string;
   unsupportedBehavior?: UnsupportedBehavior;
   onIntersecting?(entries: IntersectionObserverEntry): void;
   onNotIntersecting?(entries: IntersectionObserverEntry): void;
 }
 
 export default class IntersectionObserverDom extends React.Component<Props> {
-  private element = React.createRef<HTMLElement>();
+  private observed = React.createRef<HTMLElement>();
   private observer?: IntersectionObserver;
 
   componentDidMount() {
@@ -33,8 +33,8 @@ export default class IntersectionObserverDom extends React.Component<Props> {
     return (
       nextProps.root !== this.props.root ||
       nextProps.rootMargin !== this.props.rootMargin ||
-      nextProps.element !== this.props.element ||
       nextProps.children !== this.props.children ||
+      nextProps.wrapperComponent !== this.props.wrapperComponent ||
       !equalThresholds(nextProps.threshold, this.props.threshold)
     );
   }
@@ -49,11 +49,11 @@ export default class IntersectionObserverDom extends React.Component<Props> {
   }
 
   render() {
-    const {element: Element = 'div' as any, children} = this.props;
+    const {wrapperComponent: Wrapper = 'div' as any, children} = this.props;
     return (
-      <Element style={{display: 'contents'}} ref={this.element}>
+      <Wrapper style={{display: 'contents'}} ref={this.observed}>
         {children}
-      </Element>
+      </Wrapper>
     );
   }
 
@@ -67,9 +67,9 @@ export default class IntersectionObserverDom extends React.Component<Props> {
   }
 
   private observe() {
-    const {props, element} = this;
+    const {props, observed} = this;
 
-    if (element.current == null) {
+    if (observed.current == null) {
       return;
     }
 
@@ -83,7 +83,7 @@ export default class IntersectionObserverDom extends React.Component<Props> {
         unsupportedBehavior === UnsupportedBehavior.TreatAsIntersecting &&
         onIntersecting != null
       ) {
-        const boundingClientRect = element.current.getBoundingClientRect();
+        const boundingClientRect = observed.current.getBoundingClientRect();
 
         onIntersecting({
           boundingClientRect,
@@ -91,7 +91,7 @@ export default class IntersectionObserverDom extends React.Component<Props> {
           intersectionRect: boundingClientRect,
           isIntersecting: true,
           rootBounds: boundingClientRect,
-          target: element.current,
+          target: observed.current,
           time: Date.now(),
         });
       }
@@ -100,7 +100,7 @@ export default class IntersectionObserverDom extends React.Component<Props> {
     }
 
     this.observer = observe(
-      element.current,
+      observed.current,
       this.intersectionObserverCallback,
       props,
     );
