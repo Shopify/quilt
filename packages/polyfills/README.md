@@ -17,6 +17,7 @@ The following polyfills are currently exported:
 - `fetch` (`fetch.node`): Polyfills whatwg-fetch in the browser and node-fetch in node
 - `url` (`url.node`): Polyfills URLSearchParams
 - `intl`: Browser only, polyfills Intl.PluralRules
+- `intersection-observer`: Browser only, polyfills [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
 
 ## Installation
 
