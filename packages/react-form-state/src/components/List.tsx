@@ -9,30 +9,11 @@ interface Props<Fields> {
   getChildKey?(item: Fields): string;
 }
 
-export default class List<Fields> extends React.Component<
+export default class List<Fields> extends React.PureComponent<
   Props<Fields>,
   never
 > {
   private changeHandlers = new Map<string, {(newValue: any): void}>();
-
-  shouldComponentUpdate(nextProps) {
-    const {
-      field: {
-        value: nextValue,
-        error: nextError,
-        initialValue: nextInitialValue,
-      },
-    } = nextProps;
-    const {
-      field: {value, error, initialValue},
-    } = this.props;
-
-    return (
-      nextValue !== value ||
-      nextError !== error ||
-      nextInitialValue !== initialValue
-    );
-  }
 
   render() {
     const {
