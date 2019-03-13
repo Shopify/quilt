@@ -4,11 +4,20 @@
 
 import * as React from 'react';
 import {renderToString, renderToStaticMarkup} from 'react-dom/server';
+import {clock} from '@shopify/jest-dom-mocks';
 
 import Effect from '../Effect';
 import {extract} from '../server';
 
 describe('extract()', () => {
+  beforeEach(() => {
+    clock.mock();
+  });
+
+  afterEach(() => {
+    clock.restore();
+  });
+
   it('calls effects', async () => {
     const spy = jest.fn(() => undefined);
     await extract(<Effect perform={spy} />);
@@ -102,6 +111,39 @@ describe('extract()', () => {
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
+
+    it('is called with details about the pass', async () => {
+      const spy = jest.fn();
+      const renderDuration = 10;
+      const resolveDuration = 100;
+      const {resolve, resolved} = createResolvablePromise();
+
+      await extract(
+        <Effect
+          perform={() => {
+            return resolved()
+              ? undefined
+              : resolve().then(() => {
+                  clock.tick(resolveDuration);
+                });
+          }}
+        />,
+        {
+          betweenEachPass: spy,
+          renderFunction: (element: React.ReactElement<any>) => {
+            clock.tick(renderDuration);
+            return renderToString(element);
+          },
+        },
+      );
+
+      expect(spy).toHaveBeenCalledWith({
+        index: 0,
+        finished: false,
+        renderDuration,
+        resolveDuration,
+      });
+    });
   });
 
   describe('afterEachPass', () => {
@@ -124,6 +166,46 @@ describe('extract()', () => {
       );
       expect(spy).toHaveBeenCalledTimes(2);
     });
+
+    it('is called with details about the pass', async () => {
+      const spy = jest.fn();
+      const renderDuration = 10;
+      const resolveDuration = 100;
+      const {resolve, resolved} = createResolvablePromise();
+
+      await extract(
+        <Effect
+          perform={() => {
+            return resolved()
+              ? undefined
+              : resolve().then(() => {
+                  clock.tick(resolveDuration);
+                });
+          }}
+        />,
+        {
+          afterEachPass: spy,
+          renderFunction: (element: React.ReactElement<any>) => {
+            clock.tick(renderDuration);
+            return renderToString(element);
+          },
+        },
+      );
+
+      expect(spy).toHaveBeenCalledWith({
+        index: 0,
+        finished: false,
+        renderDuration,
+        resolveDuration,
+      });
+
+      expect(spy).toHaveBeenLastCalledWith({
+        index: 1,
+        finished: true,
+        renderDuration,
+        resolveDuration: 0,
+      });
+    });
   });
 
   describe('include', () => {
@@ -143,6 +225,24 @@ describe('extract()', () => {
         include: [],
       });
       expect(spy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('maxPasses', () => {
+    it('does not perform another pass when the limit is reached', async () => {
+      const spy = jest.fn();
+      const maxPasses = 2;
+      const {resolve} = createResolvablePromise();
+
+      await extract(<Effect perform={resolve} />, {
+        maxPasses,
+        afterEachPass: spy,
+      });
+
+      expect(spy).toHaveBeenCalledTimes(maxPasses);
+      expect(spy).not.toHaveBeenCalledWith({
+        finished: true,
+      });
     });
   });
 });

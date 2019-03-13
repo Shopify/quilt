@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {EffectKind} from './types';
+import {EffectKind, Pass} from './types';
 
 interface Options {
   include?: symbol[] | boolean;
@@ -34,18 +34,18 @@ export class EffectManager {
     await Promise.all(this.effects);
   }
 
-  betweenEachPass() {
+  betweenEachPass(pass: Pass) {
     for (const kind of this.kinds) {
       if (typeof kind.betweenEachPass === 'function') {
-        kind.betweenEachPass();
+        kind.betweenEachPass(pass);
       }
     }
   }
 
-  afterEachPass() {
+  afterEachPass(pass: Pass) {
     for (const kind of this.kinds) {
       if (typeof kind.afterEachPass === 'function') {
-        kind.afterEachPass();
+        kind.afterEachPass(pass);
       }
     }
 
