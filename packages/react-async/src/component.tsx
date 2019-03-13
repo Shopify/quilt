@@ -15,7 +15,7 @@ interface Options<
   KeepFreshProps = {}
 > extends LoadProps<React.ComponentType<Props>> {
   defer?: DeferTiming;
-  renderLoading?(): React.ReactNode;
+  renderLoading?(props: Props): React.ReactNode;
   renderPreload?(props?: PreloadProps): React.ReactNode;
   renderPrefetch?(props?: PrefetchProps): React.ReactNode;
   renderKeepFresh?(props?: KeepFreshProps): React.ReactNode;
@@ -64,7 +64,7 @@ export function createAsyncComponent<
         load={load}
         id={id}
         defer={defer}
-        renderLoading={renderLoading}
+        renderLoading={() => renderLoading && renderLoading(componentProps)}
         render={Component =>
           Component ? <Component {...componentProps} /> : null
         }

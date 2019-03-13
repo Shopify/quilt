@@ -27,7 +27,7 @@ describe('createAsyncComponent()', () => {
     expect(asyncComponent.find(Async).props()).toMatchObject({
       load,
       id,
-      renderLoading,
+      renderLoading: expect.any(Function),
     });
   });
 

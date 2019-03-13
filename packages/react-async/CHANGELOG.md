@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- The `renderLoading` callback now receives the component's `props` ([#573](https://github.com/Shopify/quilt/pull/573))
+
 ## 1.2.2 - 2019-02-27
 
 ### Fixed
