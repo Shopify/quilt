@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-async",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components.",
   "main": "dist/index.js",
