@@ -69,9 +69,11 @@ You may optionally pass an options object that contains the following keys (all 
   }
   ```
 
-- `betweenEachPass`: a function that is called after a pass of your tree that did not "finish" (that is, there were still promises that got collected). This function can return a promise, and it will be waited on before continuing.
+- `maxPasses`: a number that limits the number of render/ resolve cycles `extract` is allowed to perform. This option defaults to `5`.
 
-- `afterEachPass`: a function that is called after each pass of your tree, regardless of whether traversal is "finished". This function can return a promise, and it will be waited on before continuing.
+- `betweenEachPass`: a function that is called after a pass of your tree that did not "finish" (that is, there were still promises that got collected). This function can return a promise, and it will be waited on before continuing. It is called with a single argument: a `Pass` object, which contains the `index`, `finished`, `renderDuration` and `resolveDuration` of the just-completed pass.
+
+- `afterEachPass`: a function that is called after each pass of your tree, regardless of whether traversal is "finished". This function can return a promise, and it will be waited on before continuing. This function is called with the same argument as the `betweenEachPass` option.
 
 - `decorate`: a function that takes the root React element in your tree and returns a new tree to use. You can use this to wrap your application in context providers that only your server render requires.
 

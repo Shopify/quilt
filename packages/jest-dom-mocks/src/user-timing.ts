@@ -4,7 +4,7 @@ type UserTimingMock = typeof window.performance.timing;
 
 export default class Performance {
   private isUsingMockUserTiming = false;
-  private originalUserTiming?: UserTimingMock = window.performance.timing;
+  private originalUserTiming?: UserTimingMock;
 
   mock(timing: Partial<UserTimingMock> = {}) {
     if (this.isUsingMockUserTiming) {
@@ -12,6 +12,8 @@ export default class Performance {
         'You tried to mock window.performance.timing when it was already mocked.',
       );
     }
+
+    this.originalUserTiming = window.performance.timing;
 
     const mockTiming: Partial<UserTimingMock> = {
       navigationStart: 0,
