@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-effect-apollo",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "description": "A bridging layer between react-apollo and react-effect.",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect-apollo/README.md",
   "dependencies": {
-    "@shopify/react-effect": "^2.0.1"
+    "@shopify/react-effect": "^2.1.0"
   },
   "devDependencies": {
     "react-apollo": "^2.2.3",
