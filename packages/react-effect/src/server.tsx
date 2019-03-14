@@ -1,19 +1,24 @@
 import * as React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {EffectContext, EffectManager} from './context';
+import {Pass} from './types';
 
 interface Options {
   include?: symbol[] | boolean;
+  maxPasses?: number;
   decorate?(element: React.ReactElement<any>): React.ReactElement<any>;
   renderFunction?(element: React.ReactElement<{}>): string;
-  betweenEachPass?(): any;
-  afterEachPass?(): any;
+  betweenEachPass?(pass: Pass): any;
+  afterEachPass?(pass: Pass): any;
 }
+
+const DEFAULT_MAX_PASSES = 5;
 
 export function extract(
   app: React.ReactElement<any>,
   {
     include,
+    maxPasses = DEFAULT_MAX_PASSES,
     decorate = identity,
     renderFunction = renderToStaticMarkup,
     betweenEachPass,
@@ -27,30 +32,75 @@ export function extract(
     </EffectContext.Provider>
   );
 
-  return (async function perform(): Promise<string> {
+  return (async function perform(index = 0): Promise<string> {
+    const start = Date.now();
     const result = renderFunction(element);
 
     if (manager.finished) {
-      await manager.afterEachPass();
+      const duration = Date.now() - start;
+
+      await manager.afterEachPass({
+        index,
+        finished: manager.finished,
+        renderDuration: duration,
+        resolveDuration: 0,
+      });
+
       if (afterEachPass) {
-        await afterEachPass();
+        await afterEachPass({
+          index,
+          finished: manager.finished,
+          renderDuration: duration,
+          resolveDuration: 0,
+        });
       }
 
       return result;
     } else {
+      const resolveStart = Date.now();
+      const renderDuration = resolveStart - start;
+
       await manager.resolve();
 
-      await manager.betweenEachPass();
+      const resolveDuration = Date.now() - resolveStart;
+
+      await manager.betweenEachPass({
+        index,
+        finished: false,
+        renderDuration,
+        resolveDuration,
+      });
+
       if (betweenEachPass) {
-        await betweenEachPass();
+        await betweenEachPass({
+          index,
+          finished: false,
+          renderDuration,
+          resolveDuration,
+        });
       }
 
-      await manager.afterEachPass();
+      await manager.afterEachPass({
+        index,
+        finished: false,
+        renderDuration,
+        resolveDuration,
+      });
+
       if (afterEachPass) {
-        await afterEachPass();
+        await afterEachPass({
+          index,
+          finished: false,
+          renderDuration,
+          resolveDuration,
+        });
       }
 
-      return perform();
+      if (index + 1 >= maxPasses) {
+        return result;
+      }
+
+      return perform(index + 1);
     }
   })();
 }
