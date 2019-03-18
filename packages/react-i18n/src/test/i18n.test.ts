@@ -568,6 +568,36 @@ describe('I18n', () => {
         });
         expect(i18n.unformatCurrency('1,233.45', 'EUR')).toBe('1233.45');
       });
+
+      describe('fr locale', () => {
+        it('treats , as the decimal symbol', () => {
+          formatCurrency.mockImplementationOnce(() => '1,00 $');
+          getCurrencySymbol.mockReturnValue({
+            symbol: '$',
+            prefixed: false,
+          });
+
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'fr',
+          });
+          expect(i18n.unformatCurrency('1 234,50', 'CAD')).toBe('1234.50');
+        });
+
+        it('treats . as the decimal symbol if , is not used as a decimal symbol', () => {
+          formatCurrency.mockImplementationOnce(() => '1,00 $');
+          getCurrencySymbol.mockReturnValue({
+            symbol: '$',
+            prefixed: false,
+          });
+
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'fr',
+          });
+          expect(i18n.unformatCurrency('1234.50', 'CAD')).toBe('1234.50');
+        });
+      });
     });
   });
 
