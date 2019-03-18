@@ -184,9 +184,16 @@ export default class I18n {
     // This decimal symbol will always be '.' regardless of the locale
     // since it's our internal representation of the string
     const symbol = this.decimalSymbol(currencyCode);
-    const decimal = symbol === DECIMAL_NOT_SUPPORTED ? '.' : symbol;
+    const expectedDecimal = symbol === DECIMAL_NOT_SUPPORTED ? '.' : symbol;
 
-    const lastDecimalIndex = input.lastIndexOf(decimal);
+    // For locales that use non-period symbols as the decimal symbol, users may still input a period
+    // and expect it to be treated as the decimal symbol for their locale.
+    const usesExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
+    const usesPeriodAsDecimal = input.lastIndexOf('.') !== -1;
+    const usePeriodDecimal = !usesExpectedDecimalSymbol && usesPeriodAsDecimal;
+    const decimalToUse = usePeriodDecimal ? '.' : expectedDecimal;
+    const lastDecimalIndex = input.lastIndexOf(decimalToUse);
+
     const integerValue = input
       .substring(0, lastDecimalIndex)
       .replace(nonDigits, '');
