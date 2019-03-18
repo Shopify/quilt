@@ -191,8 +191,8 @@ export default class I18n {
     // and expect it to be treated as the decimal symbol for their locale.
     const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
     const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
-    const usePeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
-    const decimalSymbolToUse = usePeriodDecimal ? PERIOD : expectedDecimal;
+    const usesPeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
+    const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
     const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
 
     const integerValue = input
