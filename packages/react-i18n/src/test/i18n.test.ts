@@ -581,7 +581,7 @@ describe('I18n', () => {
             ...defaultDetails,
             locale: 'fr',
           });
-          expect(i18n.unformatCurrency('1 234,50', 'CAD')).toBe('1234.50');
+          expect(i18n.unformatCurrency('1 234,50', 'USD')).toBe('1234.50');
         });
 
         it('treats . as the decimal symbol if , is not used as a decimal symbol', () => {
@@ -595,7 +595,36 @@ describe('I18n', () => {
             ...defaultDetails,
             locale: 'fr',
           });
-          expect(i18n.unformatCurrency('1234.50', 'CAD')).toBe('1234.50');
+          expect(i18n.unformatCurrency('1234.50', 'USD')).toBe('1234.50');
+        });
+      });
+      describe('it locale', () => {
+        it('treats , as the decimal symbol', () => {
+          formatCurrency.mockImplementationOnce(() => '1,00 $');
+          getCurrencySymbol.mockReturnValue({
+            symbol: '$',
+            prefixed: false,
+          });
+
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'it',
+          });
+          expect(i18n.unformatCurrency('1.234,50', 'USD')).toBe('1234.50');
+        });
+
+        it('treats . as the decimal symbol if , is not used as a decimal symbol', () => {
+          formatCurrency.mockImplementationOnce(() => '1,00 $');
+          getCurrencySymbol.mockReturnValue({
+            symbol: '$',
+            prefixed: false,
+          });
+
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'it',
+          });
+          expect(i18n.unformatCurrency('1234.50', 'USD')).toBe('1234.50');
         });
       });
     });
