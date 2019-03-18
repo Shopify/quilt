@@ -1,4 +1,5 @@
 import AnimationFrame from './animation-frame';
+import RequestIdleCallback from './request-idle-callback';
 import Clock from './clock';
 import fetch from './fetch';
 import Location from './location';
@@ -9,6 +10,7 @@ import UserTiming from './user-timing';
 import IntersectionObserver from './intersection-observer';
 
 export const animationFrame = new AnimationFrame();
+export const requestIdleCallback = new RequestIdleCallback();
 
 export const clock = new Clock();
 

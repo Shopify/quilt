@@ -7,6 +7,10 @@ import {
 } from '@shopify/async';
 import {Omit} from '@shopify/useful-types';
 import {Effect} from '@shopify/react-effect';
+import {
+  IntersectionObserver,
+  UnsupportedBehavior,
+} from '@shopify/react-intersection-observer';
 
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
 
@@ -55,33 +59,25 @@ class ConnectedAsync<Value> extends React.Component<
       return;
     }
 
-    const load = async () => {
-      try {
-        const resolved = await this.props.load();
+    const {defer = DeferTiming.Mount} = this.props;
 
-        if (this.mounted) {
-          this.setState({resolved: normalize(resolved), loading: false});
-        }
-      } catch (error) {
-        // Silently swallowing errors for now
+    if (this.props.defer === DeferTiming.Idle) {
+      if ('requestIdleCallback' in window) {
+        this.idleCallbackHandle = (window as WindowWithRequestIdleCallback).requestIdleCallback(
+          this.load,
+        );
+      } else {
+        this.load();
       }
-    };
-
-    if (
-      this.props.defer === DeferTiming.Idle &&
-      'requestIdleCallback' in window
-    ) {
-      this.idleCallbackHandle = (window as WindowWithRequestIdleCallback).requestIdleCallback(
-        load,
-      );
-    } else {
-      load();
+    } else if (defer === DeferTiming.Mount) {
+      this.load();
     }
   }
 
   render() {
     const {
       id,
+      defer,
       manager,
       render = defaultRender,
       renderLoading = defaultRender,
@@ -98,13 +94,35 @@ class ConnectedAsync<Value> extends React.Component<
 
     const content = loading ? renderLoading() : render(resolved);
 
+    const intersectionObserver =
+      loading && defer === DeferTiming.InViewport ? (
+        <IntersectionObserver
+          threshold={0}
+          unsupportedBehavior={UnsupportedBehavior.TreatAsIntersecting}
+          onIntersecting={this.load}
+        />
+      ) : null;
+
     return (
       <>
         {effect}
         {content}
+        {intersectionObserver}
       </>
     );
   }
+
+  private load = async () => {
+    try {
+      const resolved = await this.props.load();
+
+      if (this.mounted) {
+        this.setState({resolved: normalize(resolved), loading: false});
+      }
+    } catch (error) {
+      // Silently swallowing errors for now
+    }
+  };
 }
 
 export function Async<Value>(props: Omit<Props<Value>, 'manager'>) {
@@ -121,7 +139,7 @@ function initialState<Value>(props: Props<Value>): State<Value> {
 
   return {
     resolved,
-    loading: !canResolve,
+    loading: resolved == null,
   };
 }
 

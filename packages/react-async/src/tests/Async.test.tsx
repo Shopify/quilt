@@ -2,6 +2,9 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {Effect} from '@shopify/react-effect';
 import {trigger} from '@shopify/enzyme-utilities';
+import {DeferTiming} from '@shopify/async';
+import {IntersectionObserver} from '@shopify/react-intersection-observer';
+import {requestIdleCallback} from '@shopify/jest-dom-mocks';
 
 import {Async} from '../Async';
 import {AsyncAssetContext} from '../context/assets';
@@ -14,11 +17,26 @@ jest.mock('@shopify/react-effect', () => ({
   },
 }));
 
+jest.mock('@shopify/react-intersection-observer', () => ({
+  ...require.requireActual('@shopify/react-intersection-observer'),
+  IntersectionObserver() {
+    return null;
+  },
+}));
+
 function MockComponent() {
   return null;
 }
 
 describe('<Async />', () => {
+  beforeEach(() => {
+    requestIdleCallback.mock();
+  });
+
+  afterEach(() => {
+    requestIdleCallback.restore();
+  });
+
   it('does not call render() before the resolved module is available', () => {
     const promise = createResolvablePromise(MockComponent);
     const render = jest.fn(() => null);
@@ -94,11 +112,43 @@ describe('<Async />', () => {
     expect(renderLoading).toHaveBeenCalled();
     expect(async).toContainReact(<Loading />);
   });
+
+  describe('defer', () => {
+    it('loads the module in an idle callback when defer is DeferTiming.Idle', () => {
+      const promise = createResolvablePromise({default: MockComponent});
+      const load = jest.fn(() => promise.promise);
+
+      mount(<Async defer={DeferTiming.Idle} load={load} render={() => null} />);
+      expect(load).not.toHaveBeenCalled();
+
+      requestIdleCallback.runIdleCallbacks();
+      expect(load).toHaveBeenCalled();
+    });
+
+    it('loads the module in on viewport intersection when defer is DeferTiming.InViewport', () => {
+      const promise = createResolvablePromise({default: MockComponent});
+      const load = jest.fn(() => promise.promise);
+
+      const async = mount(
+        <Async
+          defer={DeferTiming.InViewport}
+          load={load}
+          render={() => null}
+        />,
+      );
+
+      expect(load).not.toHaveBeenCalled();
+      expect(async.find(IntersectionObserver)).toHaveProp('threshold', 0);
+
+      trigger(async.find(IntersectionObserver), 'onIntersecting');
+      expect(load).toHaveBeenCalled();
+    });
+  });
 });
 
 function createResolvablePromise<T>(value: T) {
-  let resolver: () => Promise<T>;
-  let rejecter: () => void;
+  let resolver!: () => Promise<T>;
+  let rejecter!: () => void;
 
   const promise = new Promise<T>((resolve, reject) => {
     resolver = () => {
@@ -110,8 +160,7 @@ function createResolvablePromise<T>(value: T) {
 
   return {
     resolve: async () => {
-      // eslint-disable-next-line typescript/no-non-null-assertion
-      const value = await resolver!();
+      const value = await resolver();
       // If we just resolve, the tick that actually processes the promise
       // has not finished yet.
       await new Promise(resolve => process.nextTick(resolve));
