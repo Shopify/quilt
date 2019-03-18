@@ -39,6 +39,7 @@ export interface TranslateOptions {
 
 // Used for currecies that don't use fractional units (eg. JPY)
 const DECIMAL_NOT_SUPPORTED = 'N/A';
+const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 
 export default class I18n {
@@ -184,15 +185,15 @@ export default class I18n {
     // This decimal symbol will always be '.' regardless of the locale
     // since it's our internal representation of the string
     const symbol = this.decimalSymbol(currencyCode);
-    const expectedDecimal = symbol === DECIMAL_NOT_SUPPORTED ? '.' : symbol;
+    const expectedDecimal = symbol === DECIMAL_NOT_SUPPORTED ? PERIOD : symbol;
 
     // For locales that use non-period symbols as the decimal symbol, users may still input a period
     // and expect it to be treated as the decimal symbol for their locale.
-    const usesExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
-    const usesPeriodAsDecimal = input.lastIndexOf('.') !== -1;
-    const usePeriodDecimal = !usesExpectedDecimalSymbol && usesPeriodAsDecimal;
-    const decimalToUse = usePeriodDecimal ? '.' : expectedDecimal;
-    const lastDecimalIndex = input.lastIndexOf(decimalToUse);
+    const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
+    const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
+    const usePeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
+    const decimalSymbolToUse = usePeriodDecimal ? PERIOD : expectedDecimal;
+    const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
 
     const integerValue = input
       .substring(0, lastDecimalIndex)
@@ -201,9 +202,9 @@ export default class I18n {
       .substring(lastDecimalIndex + 1)
       .replace(nonDigits, '');
 
-    const normalizedDecimal = lastDecimalIndex === -1 ? '' : '.';
+    const normalizedDecimal = lastDecimalIndex === -1 ? '' : PERIOD;
     const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
-    const invalidValue = normalizedValue === '' || normalizedValue === '.';
+    const invalidValue = normalizedValue === '' || normalizedValue === PERIOD;
 
     if (symbol === DECIMAL_NOT_SUPPORTED) {
       const roundedAmount = parseFloat(normalizedValue).toFixed(0);
