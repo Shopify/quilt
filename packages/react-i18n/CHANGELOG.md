@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] - -->
 
+## [0.11.2] - 2019-03-19
+
+### Fixed
+
+- Support unexpected usage of decimal symbols in `I18n#unformatCurrency` [#577](https://github.com/Shopify/quilt/pull/577)
+
 ## [0.11.1] - 2019-03-08
 
 ### Fixed
