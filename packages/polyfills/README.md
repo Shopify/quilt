@@ -8,11 +8,9 @@ Blessed polyfills for web platform features. Exports browser and node polyfills 
 The following polyfills are currently exported:
 
 - `baseline` - The minimum required polyfills for a Shopify app to work in a legacy browser. This includes:
-  - `@babel/polyfill`
   - `unhandled-rejection`
   - `fetch`
 - `baseline.node` - The minimum required polyfills for a Shopify app to work in node. This includes:
-  - `@babel/polyfill`
   - `fetch`
 - `fetch` (`fetch.node`): Polyfills whatwg-fetch in the browser and node-fetch in node
 - `url` (`url.node`): Polyfills URLSearchParams
@@ -56,4 +54,4 @@ module.exports = {
 
 The argument for `mappedPolyfillsForEnv` can be either `'node'` or a string (or array of strings) provided by the `browserslist` module. These will then be run through `caniuse` to determine if each polyfill is required for that particular browser or combination of browsers. If it is not, imports for that polyfill will be no-op.
 
-You can use this to build two (or more) browser bundles that contain different amounts of polyfills to serve to different browsers. Note, however, that this would also required server support to serve a different built bundle based on a request's user agent.
+You can use this to build two (or more) browser bundles that contain different amounts of polyfills to serve to different browsers. Note, however, that this would also require server support to serve a different built bundle based on a request's user agent.
