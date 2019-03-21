@@ -179,4 +179,4 @@ export const RTL_LANGUAGES = [
 export {
   default as currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
-} from './currecy-decimal-places';
+} from './currency-decimal-places';
