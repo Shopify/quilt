@@ -27,6 +27,7 @@ export async function registerWebhook({
 
   if (
     result.data &&
+    result.data.webhookSubscriptionCreate &&
     result.data.webhookSubscriptionCreate.webhookSubscription
   ) {
     return {success: true, result};
