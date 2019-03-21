@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg)](https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/function-enhancers.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/function-enhancers.svg)
 
-A set of common helpers to aid your JavaScript journey.
+A set of helpers to enhance functions.
 
 ## Installation
 
@@ -16,7 +16,7 @@ $ yarn add @shopify/function-enhancers
 ### `memoize`
 
 The memoize decorator creates a function that memoizes the results of the function it is decorating.
-The cache key for storing the results are based on the first argument provided to the memoized function.
+The cache key for storing the results is based on the first argument provided to the memoized function.
 If the memoization key cannot be inferred from the first argument alone, a `resolver` should be passed in to ensure a unique key. (ex: the unique key is in the second argument, or the unique key is a combination of a few arguments)
 
 Know that memoization will be skipped on server process and the cached results have a maximum limit of 50 entries on a first in first out basis.

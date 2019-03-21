@@ -2,7 +2,7 @@
   "name": "@shopify/function-enhancers",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "A set of common helpers to aid your JavaScript journey.",
+  "description": "A set of helpers to enhance functions.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
