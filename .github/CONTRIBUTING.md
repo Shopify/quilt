@@ -107,7 +107,7 @@ yarn release
 
 4. Log in to [Shipit](https://shipit.shopify.io/shopify/quilt/production)
 
-5. When CI is 🍏 on the tag commit, press `Deploy` to update packages on npm.
+5. When CI is 🍏 on the commit titled `Publish`, press `Deploy` to update packages on npm.
 
 ## External Contributors
 
