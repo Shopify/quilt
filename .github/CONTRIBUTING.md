@@ -46,7 +46,7 @@ To try out your changes in another locally cloned project, you can use `yarn top
 
 Example: To test my changes to `@shopify/react-form-state` in my local project named `cool-proj`, I would run `yarn tophat react-form-state ../path/to/cool-proj`.
 
-Note: If the package you are testing has dependencies inside Quilt itself, you will need to run `dev build` first.
+Notes: If the package you are testing has dependencies inside Quilt itself, you will need to run `dev build` first. If you are using a build system in the consumer of the package, you may need to clear your build folder.
 
 ### Emoji commits
 
