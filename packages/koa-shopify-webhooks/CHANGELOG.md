@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## [1.1.3] - 2019-03-22
+
+- Return a GraphQL formatted topic
+
 ## [1.1.2]
 
 - Added 1.1.1 version to CHANGELOG
