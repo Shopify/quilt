@@ -4,4 +4,9 @@ export {default as I18n} from './i18n';
 export {withI18n, WithI18nProps} from './decorator';
 export {translate} from './utilities';
 export {I18nDetails, LanguageDirection, CurrencyCode} from './types';
-export {DateStyle, Weekdays} from './constants';
+export {
+  currencyDecimalPlaces,
+  DEFAULT_DECIMAL_PLACES,
+  DateStyle,
+  Weekdays,
+} from './constants';
