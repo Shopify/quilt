@@ -18,6 +18,10 @@ export function lengthLessThan(length: number) {
   return (input: {length: number}) => input.length < length;
 }
 
+export function isPositiveNumericString(input: string) {
+  return input !== '' && (input.match(/[^0-9.,]/g) || []).length === 0;
+}
+
 export function isNumericString(input: string) {
   return input !== '' && (input.match(/[^0-9.,-]/g) || []).length === 0;
 }
@@ -161,6 +165,10 @@ const validators = {
   },
 
   numericString(errorContent: ErrorContent) {
+    return validate(isNumericString, errorContent);
+  },
+
+  positiveNumericString(errorContent: ErrorContent) {
     return validate(isNumericString, errorContent);
   },
 
