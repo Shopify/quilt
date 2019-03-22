@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.1.0 - 2019-03-22
+
+### Changed
+
+- move to use the enhancer version of `memoize` ([#594](https://github.com/Shopify/quilt/pull/594))
+
 ## 1.0.1 - 2019-03-11
 
 ### Bug Fix
