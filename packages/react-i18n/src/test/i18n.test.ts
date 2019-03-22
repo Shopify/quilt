@@ -305,6 +305,36 @@ describe('I18n', () => {
       expect(i18n.formatNumber(0.12345, options)).toBe(expected);
     });
 
+    it('updates format on multiple calls', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const options: Partial<Intl.NumberFormatOptions> = {
+        currencyDisplay: 'code',
+        minimumIntegerDigits: 1,
+        maximumFractionDigits: 1,
+      };
+
+      const expected = new Intl.NumberFormat(
+        defaultDetails.locale,
+        options,
+      ).format(0.12345);
+
+      expect(i18n.formatNumber(0.12345, options)).toBe(expected);
+
+      const newOptions: Partial<Intl.NumberFormatOptions> = {
+        currencyDisplay: 'symbol',
+        minimumIntegerDigits: 1,
+        maximumFractionDigits: 1,
+      };
+      const expectedWithNewOptions = new Intl.NumberFormat(
+        defaultDetails.locale,
+        newOptions,
+      ).format(0.12345);
+
+      expect(i18n.formatNumber(0.12345, newOptions)).toBe(
+        expectedWithNewOptions,
+      );
+    });
+
     describe('currency', () => {
       const currency = 'USD';
 
@@ -827,6 +857,38 @@ describe('I18n', () => {
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Time})).toBe('11:00 AM');
+    });
+
+    it('updates format on multiple calls', () => {
+      const date = new Date('2012-12-20T00:00:00-00:00');
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        timezone: defaultTimezone,
+      });
+
+      const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
+        timeZone: defaultTimezone,
+      }).format(date);
+
+      expect(
+        i18n.formatDate(date, {
+          timeZone: defaultTimezone,
+        }),
+      ).toBe(expected);
+
+      const newTimezone = 'Asia/Shanghai';
+      const expectedWithNewTimezone = new Intl.DateTimeFormat(
+        defaultDetails.locale,
+        {
+          timeZone: newTimezone,
+        },
+      ).format(date);
+
+      expect(
+        i18n.formatDate(date, {
+          timeZone: newTimezone,
+        }),
+      ).toBe(expectedWithNewTimezone);
     });
   });
 
