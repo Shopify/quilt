@@ -28,5 +28,8 @@
   },
   "files": [
     "dist/*"
-  ]
+  ],
+  "dependencies": {
+    "@shopify/function-enhancers": "^1.0.0"
+  }
 }
