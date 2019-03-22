@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] - -->
 
+## [0.11.5] - 2019-03-22
+
+### Added
+
+- Expose `currencyDecimalPlaces` and `DEFAULT_DECIMAL_PLACES` [#590](https://github.com/Shopify/quilt/pull/590)
+
 ## [0.11.3] - 2019-03-19
 
 ### Fixed
