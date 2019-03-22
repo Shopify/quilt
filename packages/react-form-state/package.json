@@ -33,7 +33,7 @@
     "@shopify/enzyme-utilities": "^2.0.2",
     "@types/enzyme": "^3.1.10",
     "faker": "^4.1.0",
-    "typescript": "~3.1.6"
+    "typescript": "~3.2.1"
   },
   "sideEffects": false
 }
