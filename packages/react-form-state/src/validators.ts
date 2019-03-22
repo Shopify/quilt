@@ -19,7 +19,7 @@ export function lengthLessThan(length: number) {
 }
 
 export function isNumericString(input: string) {
-  return input !== '' && (input.match(/[^0-9.,]/g) || []).length === 0;
+  return input !== '' && (input.match(/[^0-9.,-]/g) || []).length === 0;
 }
 
 export function isEmpty(input: any) {
