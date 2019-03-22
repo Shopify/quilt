@@ -66,7 +66,27 @@ describe('receiveWebhook', () => {
       expect(onReceived).toBeCalledWith(context);
     });
 
-    it('adds webhook data to state', async () => {
+    it('transforms webhook topic and adds to state', async () => {
+      const onReceived = jest.fn();
+      const middleware = receiveWebhook({secret, onReceived});
+
+      const context = createMockContext({
+        rawBody,
+        headers: headers({
+          hmac: hmac(secret, rawBody),
+          topic: 'foo/bar/baz',
+          domain: 'cool-store.com',
+        }),
+      });
+
+      await middleware(context, noop);
+
+      expect(context.state.webhook).toMatchObject({
+        topic: 'FOO_BAR_BAZ',
+      });
+    });
+
+    it('adds webhook domain to state', async () => {
       const onReceived = jest.fn();
       const middleware = receiveWebhook({secret, onReceived});
 
@@ -82,7 +102,6 @@ describe('receiveWebhook', () => {
       await middleware(context, noop);
 
       expect(context.state.webhook).toMatchObject({
-        topic: 'foo',
         domain: 'cool-store.com',
       });
     });
