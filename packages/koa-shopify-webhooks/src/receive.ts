@@ -38,11 +38,13 @@ export function receiveWebhook({
       .update(rawBody, 'utf8')
       .digest('base64');
 
+    const graphqlTopic = topic.toUpperCase().replace(/\//g, '_');
+
     if (safeCompare(generatedHash, hmac)) {
       ctx.res.statusCode = StatusCode.Accepted;
 
       ctx.state.webhook = {
-        topic: topic as Topic,
+        topic: graphqlTopic as Topic,
         domain,
       };
 
