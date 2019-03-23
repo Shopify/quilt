@@ -11,7 +11,7 @@ export interface WithI18nProps {
 export function withI18n(i18nOptions?: RegisterOptions) {
   return <OwnProps, C>(
     WrappedComponent: React.ComponentType<OwnProps & WithI18nProps> & C,
-  ): React.ComponentType<OwnProps> & C => {
+  ): React.ComponentType<OwnProps> & StaticFields<typeof WrappedComponent> => {
     function WithTranslations(props: OwnProps) {
       const [i18n, ShareTranslations] = useI18n(i18nOptions);
 

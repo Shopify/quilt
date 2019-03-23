@@ -4,7 +4,7 @@ import hoistStatics from 'hoist-non-react-statics';
 export type ReactComponent<P> = React.ComponentType<P>;
 export type ComponentClass = React.ComponentClass<any>;
 
-export type StaticFields<Object> = {
+type StaticFields<Object> = {
   [Key in keyof Object]: Key extends 'prototype' ? never : Key
 }[keyof Object];
 export type Statics<Object> = Pick<Object, StaticFields<Object>>;

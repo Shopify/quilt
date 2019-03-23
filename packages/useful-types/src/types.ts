@@ -53,3 +53,8 @@ export type NonOptionalKeys<T> = {
 export type NonNullableKeys<T> = {
   [K in keyof T]-?: null extends T[K] ? never : K
 }[keyof T];
+
+type StaticFields<Object> = {
+  [Key in keyof Object]: Key extends 'prototype' ? never : Key
+}[keyof Object];
+export type Statics<Object> = Pick<Object, StaticFields<Object>>;
