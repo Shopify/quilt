@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.3.0 - 2019-03-25
+
+### Added
+
+- Support the new `DeferTiming.InViewport` strategy ([#576](https://github.com/Shopify/quilt/pull/576))
+
 ## 1.2.2 - 2019-02-27
 
 ### Fixed
