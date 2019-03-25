@@ -87,14 +87,14 @@ describe('<Html />', () => {
   });
 
   describe('deferedScripts', () => {
-    it('generates a script tag in the body with the `defer` attribute', () => {
+    it('generates a script tag in the head with the `defer` attribute', () => {
       const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
       const html = mount(<Html {...mockProps} scripts={scripts} />);
-      const body = html.find('body');
+      const head = html.find('head');
 
       for (const script of scripts) {
         expect(
-          body.findWhere(
+          head.findWhere(
             element =>
               element.is(Script) && element.prop('src') === script.path,
           ),
@@ -158,10 +158,34 @@ describe('<Html />', () => {
 
       expect(serializerIndex).toBeLessThan(scriptsIndex);
     });
+
+    it('renders sync scripts in the head before deferred scripts', () => {
+      const headMarkup = <Serialize id="data" data={{}} />;
+      const html = mount(
+        <Html
+          {...mockProps}
+          headMarkup={headMarkup}
+          blockingScripts={[{path: 'foo.js'}]}
+          scripts={[{path: 'bar.js'}]}
+        />,
+      );
+      const headContents = html.find('head').children();
+
+      const syncScriptsIndex = findIndex(headContents, element => {
+        return element.is(Script) && !element.prop('defer');
+      });
+
+      const deferredScriptsIndex = findIndex(
+        headContents,
+        element => element.is(Script) && element.prop('defer'),
+      );
+
+      expect(syncScriptsIndex).toBeLessThan(deferredScriptsIndex);
+    });
   });
 
   describe('bodyMarkup', () => {
-    it('renders bodyMarkup in the head before the deferred scripts', () => {
+    it('renders bodyMarkup in the body', () => {
       const bodyMarkup = <Serialize id="data" data={{}} />;
       const html = mount(
         <Html
@@ -170,17 +194,8 @@ describe('<Html />', () => {
           scripts={[{path: 'foo.js'}]}
         />,
       );
-      const bodyContent = html.find('body').children();
 
-      const serializerIndex = findIndex(bodyContent, element =>
-        element.is(Serialize),
-      );
-
-      const scriptsIndex = findIndex(bodyContent, element =>
-        element.is(Script),
-      );
-
-      expect(serializerIndex).toBeLessThan(scriptsIndex);
+      expect(html.find('body').find(Serialize)).toHaveLength(1);
     });
   });
 
