@@ -1,12 +1,23 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {Preconnect} from '@shopify/react-html';
+import {DeferTiming} from '@shopify/async';
+import {IntersectionObserver} from '@shopify/react-intersection-observer';
 import {noop} from '@shopify/javascript-utilities/other';
+import {requestIdleCallback} from '@shopify/jest-dom-mocks';
+import {trigger} from '@shopify/enzyme-utilities';
 
 import ImportRemote, {Props} from '../ImportRemote';
 
 jest.mock('@shopify/react-html', () => ({
   Preconnect() {
+    return null;
+  },
+}));
+
+jest.mock('@shopify/react-intersection-observer', () => ({
+  ...require.requireActual('@shopify/react-intersection-observer'),
+  IntersectionObserver() {
     return null;
   },
 }));
@@ -17,7 +28,12 @@ const load: jest.Mock = require.requireMock('../load');
 
 describe('<ImportRemote />', () => {
   beforeEach(() => {
+    requestIdleCallback.mock();
     load.mockClear();
+  });
+
+  afterEach(() => {
+    requestIdleCallback.restore();
   });
 
   const mockProps: Props = {
@@ -130,6 +146,31 @@ describe('<ImportRemote />', () => {
       expect(importRemote.find(Preconnect).prop('source')).toBe(
         new URL(mockProps.source).origin,
       );
+    });
+  });
+
+  describe('defer', () => {
+    it('does not call load until idle when defer is DeferTiming.Idle', () => {
+      mount(<ImportRemote {...mockProps} defer={DeferTiming.Idle} />);
+      expect(load).not.toHaveBeenCalled();
+      requestIdleCallback.runIdleCallbacks();
+      expect(load).toHaveBeenCalled();
+    });
+
+    it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', async () => {
+      const importRemote = mount(
+        <ImportRemote {...mockProps} defer={DeferTiming.InViewport} />,
+      );
+      expect(load).not.toHaveBeenCalled();
+
+      expect(importRemote.find(IntersectionObserver)).toHaveProp(
+        'threshold',
+        0,
+      );
+
+      await trigger(importRemote.find(IntersectionObserver), 'onIntersecting');
+      expect(importRemote.find(IntersectionObserver)).toHaveLength(0);
+      expect(load).toHaveBeenCalled();
     });
   });
 });

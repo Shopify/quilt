@@ -8,6 +8,7 @@ export interface LoadProps<T> {
 export enum DeferTiming {
   Mount,
   Idle,
+  InViewport,
 }
 
 export type RequestIdleCallbackHandle = any;
@@ -18,13 +19,17 @@ export interface RequestIdleCallbackOptions {
 
 export interface RequestIdleCallbackDeadline {
   readonly didTimeout: boolean;
-  timeRemaining: (() => number);
+  timeRemaining(): number;
 }
 
+export type RequestIdleCallback = (
+  deadline: RequestIdleCallbackDeadline,
+) => void;
+
 export interface WindowWithRequestIdleCallback {
-  requestIdleCallback: ((
-    callback: ((deadline: RequestIdleCallbackDeadline) => void),
+  requestIdleCallback(
+    callback: RequestIdleCallback,
     opts?: RequestIdleCallbackOptions,
-  ) => RequestIdleCallbackHandle);
+  ): RequestIdleCallbackHandle;
   cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void);
 }

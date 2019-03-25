@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
   "dependencies": {
     "@shopify/react-html": "^7.1.5",
+    "@shopify/react-intersection-observer": "^1.0.0",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

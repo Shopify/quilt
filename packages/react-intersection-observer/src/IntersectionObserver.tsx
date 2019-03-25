@@ -50,11 +50,7 @@ export default class IntersectionObserverDom extends React.Component<Props> {
 
   render() {
     const {wrapperComponent: Wrapper = 'div' as any, children} = this.props;
-    return (
-      <Wrapper style={{display: 'contents'}} ref={this.observed}>
-        {children}
-      </Wrapper>
-    );
+    return <Wrapper ref={this.observed}>{children}</Wrapper>;
   }
 
   private disconnect() {

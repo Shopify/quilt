@@ -80,4 +80,8 @@ Callback that gets called with the imported global
 
 **defer**
 
-A member of the `DeferTiming` enum (from `@shopify/async`) allowing the import request to occur either on mount (`DeferTiming.Mount`) or until the browser is idle (`DeferTiming.Idle`; requires a polyfill for `window.requestIdleCallback`).
+A member of the `DeferTiming` enum (from `@shopify/async`) allowing the import request to wait until:
+
+- Component mount (`DeferTiming.Mount`; this is the default)
+- Browser idle (`DeferTiming.Idle`; if `window.requestIdleCallback` is not available, it will load on mount), or
+- Component is in the viewport (`DeferTiming.InViewport`; if `IntersectionObserver` is not available, it will load on mount)
