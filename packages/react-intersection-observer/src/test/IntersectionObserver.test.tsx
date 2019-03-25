@@ -26,22 +26,19 @@ describe('<IntersectionObserver />', () => {
   });
 
   describe('wrapperComponent', () => {
-    it('uses a div with display: contents by default', () => {
+    it('uses a div by default', () => {
       const intersectionObserver = mount(<IntersectionObserver />);
       const child = intersectionObserver.childAt(0);
       expect(child.type()).toBe('div');
-      expect(child.prop('style')).toMatchObject({display: 'contents'});
     });
 
-    it('uses a custom element with display: contents by default', () => {
+    it('uses a custom element', () => {
       const wrapperComponent = 'span';
       const intersectionObserver = mount(
         <IntersectionObserver wrapperComponent={wrapperComponent} />,
       );
       const child = intersectionObserver.childAt(0);
-
       expect(child.type()).toBe(wrapperComponent);
-      expect(child.prop('style')).toMatchObject({display: 'contents'});
     });
 
     it('attaches the observer to the top-level node', () => {

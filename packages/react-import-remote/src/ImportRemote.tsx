@@ -23,10 +23,11 @@ export interface Props<Imported = any> {
 
 interface State {
   loaded: boolean;
+  loading: boolean;
 }
 
 export default class ImportRemote extends React.PureComponent<Props, State> {
-  state: State = {loaded: false};
+  state: State = {loaded: false, loading: true};
   private idleCallbackHandle?: RequestIdleCallbackHandle;
 
   componentWillUnmount() {
@@ -62,11 +63,11 @@ export default class ImportRemote extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const {loaded} = this.state;
+    const {loaded, loading} = this.state;
     const {source, preconnect, defer} = this.props;
 
     const intersectionObserver =
-      !loaded && defer === DeferTiming.InViewport ? (
+      !loaded && !loading && defer === DeferTiming.InViewport ? (
         <IntersectionObserver
           threshold={0}
           unsupportedBehavior={UnsupportedBehavior.TreatAsIntersecting}
@@ -89,7 +90,7 @@ export default class ImportRemote extends React.PureComponent<Props, State> {
 
   private loadRemote = () => {
     return new Promise(resolve => {
-      this.setState({loaded: false}, async () => {
+      this.setState({loaded: false, loading: true}, async () => {
         const {source, nonce = '', getImport, onError, onImported} = this.props;
 
         try {
@@ -98,7 +99,7 @@ export default class ImportRemote extends React.PureComponent<Props, State> {
         } catch (error) {
           onError(error);
         } finally {
-          this.setState({loaded: true}, resolve);
+          this.setState({loaded: true, loading: false}, resolve);
         }
       });
     });
