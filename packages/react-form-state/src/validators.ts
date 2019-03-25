@@ -169,7 +169,7 @@ const validators = {
   },
 
   positiveNumericString(errorContent: ErrorContent) {
-    return validate(isNumericString, errorContent);
+    return validate(isPositiveNumericString, errorContent);
   },
 
   nonNumericString(errorContent: ErrorContent) {
