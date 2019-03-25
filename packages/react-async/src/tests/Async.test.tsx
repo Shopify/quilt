@@ -125,7 +125,7 @@ describe('<Async />', () => {
       expect(load).toHaveBeenCalled();
     });
 
-    it('loads the module on viewport intersection when defer is DeferTiming.InViewport', () => {
+    it('loads the module on viewport intersection when defer is DeferTiming.InViewport', async () => {
       const promise = createResolvablePromise({default: MockComponent});
       const load = jest.fn(() => promise.promise);
 
@@ -140,7 +140,14 @@ describe('<Async />', () => {
       expect(load).not.toHaveBeenCalled();
       expect(async.find(IntersectionObserver)).toHaveProp('threshold', 0);
 
-      trigger(async.find(IntersectionObserver), 'onIntersecting');
+      const intersectingPromise = trigger(
+        async.find(IntersectionObserver),
+        'onIntersecting',
+      );
+
+      await promise.resolve();
+      await intersectingPromise;
+
       expect(async.find(IntersectionObserver)).toHaveLength(0);
       expect(load).toHaveBeenCalled();
     });

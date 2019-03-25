@@ -157,7 +157,7 @@ describe('<ImportRemote />', () => {
       expect(load).toHaveBeenCalled();
     });
 
-    it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', () => {
+    it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', async () => {
       const importRemote = mount(
         <ImportRemote {...mockProps} defer={DeferTiming.InViewport} />,
       );
@@ -168,7 +168,8 @@ describe('<ImportRemote />', () => {
         0,
       );
 
-      trigger(importRemote.find(IntersectionObserver), 'onIntersecting');
+      await trigger(importRemote.find(IntersectionObserver), 'onIntersecting');
+      expect(importRemote.find(IntersectionObserver)).toHaveLength(0);
       expect(load).toHaveBeenCalled();
     });
   });

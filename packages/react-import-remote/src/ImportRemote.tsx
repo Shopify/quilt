@@ -27,7 +27,7 @@ interface State {
 }
 
 export default class ImportRemote extends React.PureComponent<Props, State> {
-  state: State = {loaded: false, loading: true};
+  state: State = {loaded: false, loading: false};
   private idleCallbackHandle?: RequestIdleCallbackHandle;
 
   componentWillUnmount() {
