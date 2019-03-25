@@ -7,11 +7,17 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.3.0 - 2019-03-25
+
+### Added
+
+- `DeferTiming` now includes an `InViewport` strategy ([#576](https://github.com/Shopify/quilt/pull/576))
+
 ## 1.2.0 - 2019-03-11
 
 ### Added
 
-- a `defer` prop was added to `ImportRemote` that when set to Idle enum, loads the request with `requestIdelCallback`. ([#561](https://github.com/Shopify/quilt/pull/561))
+- Added a `DeferTiming` enum for shared defer strategies ([#561](https://github.com/Shopify/quilt/pull/561))
 
 ## 1.1.0 - 2019-02-25
 
