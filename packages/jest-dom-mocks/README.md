@@ -87,6 +87,7 @@ The mocks provided can be divided into 3 primary categories:
 The following standard mocks are available:
 
 - `animationFrame`
+- `requestIdleCallback`
 - `clock`
 - `location`
 - `matchMedia`
@@ -132,6 +133,18 @@ Some of the standard mocks include additional features:
 #### `AnimationFrame.runFrame(): void`
 
 Executes all queued animation callbacks.
+
+#### `RequestIdleCallback.runIdleCallbacks(timeRemaining?: number, didTimeout?: boolean): void`
+
+Runs all currently-scheduled idle callbacks. If provided, `timeRemaining`/ `didTimeout` will be used to construct the argument for these callbacks. Once called, all callbacks are removed from the queue.
+
+#### `RequestIdleCallback.cancelIdleCallbacks(): void`
+
+Cancels all currently-scheduled idle callbacks.
+
+#### `RequestIdleCallback.cancelIdleCallback(callback: any): void`
+
+Cancels the idle callback specified by the passed argument. This value should be the one returned from a call to `window.requestIdleCallback`.
 
 #### `Clock.mock(now: number | Date): void`
 

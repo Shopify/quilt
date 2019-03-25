@@ -5,6 +5,10 @@ import {
   WindowWithRequestIdleCallback,
   DeferTiming,
 } from '@shopify/async';
+import {
+  IntersectionObserver,
+  UnsupportedBehavior,
+} from '@shopify/react-intersection-observer';
 import load from './load';
 
 export interface Props<Imported = any> {
@@ -17,7 +21,13 @@ export interface Props<Imported = any> {
   defer?: DeferTiming;
 }
 
-export default class ImportRemote extends React.PureComponent<Props, never> {
+interface State {
+  loaded: boolean;
+  loading: boolean;
+}
+
+export default class ImportRemote extends React.PureComponent<Props, State> {
+  state: State = {loaded: false, loading: false};
   private idleCallbackHandle?: RequestIdleCallbackHandle;
 
   componentWillUnmount() {
@@ -29,14 +39,17 @@ export default class ImportRemote extends React.PureComponent<Props, never> {
   }
 
   async componentDidMount() {
-    if (
-      this.props.defer === DeferTiming.Idle &&
-      'requestIdleCallback' in window
-    ) {
-      this.idleCallbackHandle = (window as WindowWithRequestIdleCallback).requestIdleCallback(
-        this.loadRemote,
-      );
-    } else {
+    const {defer = DeferTiming.Mount} = this.props;
+
+    if (defer === DeferTiming.Idle) {
+      if ('requestIdleCallback' in window) {
+        this.idleCallbackHandle = (window as WindowWithRequestIdleCallback).requestIdleCallback(
+          this.loadRemote,
+        );
+      } else {
+        this.loadRemote();
+      }
+    } else if (defer === DeferTiming.Mount) {
       await this.loadRemote();
     }
   }
@@ -50,24 +63,45 @@ export default class ImportRemote extends React.PureComponent<Props, never> {
   }
 
   render() {
-    const {source, preconnect} = this.props;
+    const {loaded, loading} = this.state;
+    const {source, preconnect, defer} = this.props;
+
+    const intersectionObserver =
+      !loaded && !loading && defer === DeferTiming.InViewport ? (
+        <IntersectionObserver
+          threshold={0}
+          unsupportedBehavior={UnsupportedBehavior.TreatAsIntersecting}
+          onIntersecting={this.loadRemote}
+        />
+      ) : null;
 
     if (preconnect) {
       const url = new URL(source);
-      return <Preconnect source={url.origin} />;
+      return (
+        <>
+          <Preconnect source={url.origin} />
+          {intersectionObserver}
+        </>
+      );
     }
 
-    return null;
+    return intersectionObserver;
   }
 
-  async loadRemote() {
-    const {source, nonce = '', getImport, onError, onImported} = this.props;
+  private loadRemote = () => {
+    return new Promise(resolve => {
+      this.setState({loaded: false, loading: true}, async () => {
+        const {source, nonce = '', getImport, onError, onImported} = this.props;
 
-    try {
-      const imported = await load(source, getImport, nonce);
-      onImported(imported);
-    } catch (error) {
-      onError(error);
-    }
-  }
+        try {
+          const imported = await load(source, getImport, nonce);
+          onImported(imported);
+        } catch (error) {
+          onError(error);
+        } finally {
+          this.setState({loaded: true, loading: false}, resolve);
+        }
+      });
+    });
+  };
 }
