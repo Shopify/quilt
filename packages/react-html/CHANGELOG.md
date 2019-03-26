@@ -8,7 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Changed
+
+- Deferred scripts are now rendered in `<head>` [#605](https://github.com/Shopify/quilt/pull/605/files)
 
 ## 7.1.2 - 2019-03-02
 
