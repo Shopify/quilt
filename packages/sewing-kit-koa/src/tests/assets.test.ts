@@ -10,10 +10,11 @@ import Assets, {
   ConsolidatedManifest,
 } from '../assets';
 
-jest.mock('fs-extra', () => ({
-  ...require.requireActual('fs-extra'),
-  readJson: jest.fn(() => []),
-}));
+jest.mock('fs-extra', () =>
+  Object.assign({}, require.requireActual('fs-extra'), {
+    readJson: jest.fn(() => []),
+  }),
+);
 
 const {readJson} = require.requireMock('fs-extra');
 

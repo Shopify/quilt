@@ -17,12 +17,17 @@ jest.mock('@shopify/react-effect', () => ({
   },
 }));
 
-jest.mock('@shopify/react-intersection-observer', () => ({
-  ...require.requireActual('@shopify/react-intersection-observer'),
-  IntersectionObserver() {
-    return null;
-  },
-}));
+jest.mock('@shopify/react-intersection-observer', () =>
+  Object.assign(
+    {},
+    require.requireActual('@shopify/react-intersection-observer'),
+    {
+      IntersectionObserver() {
+        return null;
+      },
+    },
+  ),
+);
 
 function MockComponent() {
   return null;
