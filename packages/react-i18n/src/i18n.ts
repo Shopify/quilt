@@ -1,4 +1,5 @@
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
+import memoizeFn from 'lodash/memoize';
 import {memoize} from '@shopify/javascript-utilities/decorators';
 import {
   I18nDetails,
@@ -41,6 +42,16 @@ export interface TranslateOptions {
 const DECIMAL_NOT_SUPPORTED = 'N/A';
 const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
+const memoizedDateTimeFormatter = memoizeFn(
+  dateTimeFormatter,
+  (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
+const memoizedNumberFormatter = memoizeFn(
+  numberFormatter,
+  (locale: string, options: Intl.NumberFormatOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
 
 export default class I18n {
   readonly locale: string;
@@ -167,7 +178,7 @@ export default class I18n {
       return '';
     }
 
-    return new Intl.NumberFormat(locale, {
+    return memoizedNumberFormatter(locale, {
       style: as,
       maximumFractionDigits: precision,
       currency,
@@ -245,7 +256,7 @@ export default class I18n {
         : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
     }
 
-    return new Intl.DateTimeFormat(locale, {
+    return memoizedDateTimeFormatter(locale, {
       timeZone,
       ...formatOptions,
     }).format(date);
@@ -339,4 +350,18 @@ function isYesterday(date: Date) {
 
 function defaultOnError(error: I18nError) {
   throw error;
+}
+
+function dateTimeFormatter(
+  locale: string,
+  options: Intl.DateTimeFormatOptions = {},
+) {
+  return new Intl.DateTimeFormat(locale, options);
+}
+
+function numberFormatter(
+  locale: string,
+  options: Intl.NumberFormatOptions = {},
+) {
+  return new Intl.NumberFormat(locale, options);
 }
