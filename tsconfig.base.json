@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "es5",
@@ -24,6 +25,11 @@
       "esnext.asynciterable"
     ]
   },
-  "include": ["./**/*.ts", "./**/*.tsx"],
-  "exclude": ["./node_modules"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./test/**/*.ts",
+    "./test/**/*.tsx"
+  ],
+  "exclude": ["./node_modules", "../../node_modules"]
 }
