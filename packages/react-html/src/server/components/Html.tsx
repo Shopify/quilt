@@ -120,6 +120,7 @@ export default function Html({
         {stylesMarkup}
         {headMarkup}
         {blockingScriptsMarkup}
+        {deferredScriptsMarkup}
       </head>
 
       <body style={bodyStyles}>
@@ -127,7 +128,6 @@ export default function Html({
 
         {bodyMarkup}
         {serializationMarkup}
-        {deferredScriptsMarkup}
       </body>
     </html>
   );
