@@ -1,5 +1,4 @@
 import * as React from 'react';
-import isEqual from 'lodash/isEqual';
 import Preconnect from '@shopify/react-preconnect';
 
 export interface Props {
@@ -12,35 +11,29 @@ export interface Props {
   preconnectHosts?: string[];
 }
 
-export default class TrackingPixel extends React.Component<Props, never> {
-  shouldComponentUpdate(nextProps: Props) {
-    return isEqual(nextProps, this.props);
-  }
+export default React.memo(function TrackingPixel(props: Props) {
+  const {url, preconnectHosts} = props;
+  const styles = {
+    display: 'none',
+  };
 
-  render() {
-    const {url, preconnectHosts} = this.props;
-    const styles = {
-      display: 'none',
-    };
+  const preconnectHostsMarkup = preconnectHosts ? (
+    <Preconnect hosts={preconnectHosts} />
+  ) : null;
 
-    const preconnectHostsMarkup = preconnectHosts ? (
-      <Preconnect hosts={preconnectHosts} />
-    ) : null;
-
-    return (
-      <>
-        {preconnectHostsMarkup}
-        <iframe
-          src={url}
-          sandbox="allow-scripts"
-          title={url}
-          scrolling="no"
-          frameBorder={0}
-          height={1}
-          width={1}
-          style={styles}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {preconnectHostsMarkup}
+      <iframe
+        src={url}
+        sandbox="allow-scripts"
+        title={url}
+        scrolling="no"
+        frameBorder={0}
+        height={1}
+        width={1}
+        style={styles}
+      />
+    </>
+  );
+});
