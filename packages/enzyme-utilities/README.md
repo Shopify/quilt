@@ -5,6 +5,8 @@
 
 Enzyme utilities for testing React components.
 
+> **Note**: as of version 2.0, this library requires `react` and `react-dom` to be at least version 16.8.x.
+
 ## Installation
 
 ```bash
