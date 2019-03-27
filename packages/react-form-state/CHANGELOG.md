@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [0.9.1]
+
+### Changed
+
+- `isNumeric` function ReGex now matches for negative numbers. This impacts users of `isNumericString` validator function relying on its previous behaviour of only allowing positive numbers. To reintroduce that behaviour please use `isPostiveNumericString`
+
 ## [0.9.0]
 
 ### Removed
