@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Changed
+
+- when `validateOnSubmit` is enabled, validation errors are surfaced on the form's `errors`. [#601](https://github.com/Shopify/quilt/pull/601)
+
 ## [0.9.1]
 
 ### Changed
