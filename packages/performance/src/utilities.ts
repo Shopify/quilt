@@ -54,14 +54,34 @@ export function withEntriesOfType<T extends keyof EntryMap>(
 export function withNavigation(
   handler: (details?: {target?: string; timeStamp?: number}) => void,
 ) {
-  const {pushState} = window.history;
+  const {pushState, replaceState} = window.history;
+  let currentPathname: string | undefined = window.location.pathname;
+
+  const handlePushOrReplace = (url: string | null | undefined) => {
+    const pathname = url
+      ? new URL(url, window.location.href).pathname
+      : undefined;
+
+    if (pathname !== window.location.pathname) {
+      currentPathname = pathname;
+      handler({target: pathname});
+    }
+  };
 
   window.addEventListener('popstate', () => {
-    handler();
+    if (currentPathname !== window.location.pathname) {
+      currentPathname = window.location.pathname;
+      handler();
+    }
   });
 
+  history.replaceState = (...args) => {
+    handlePushOrReplace(args[2]);
+    replaceState.call(history, ...args);
+  };
+
   history.pushState = (...args) => {
-    handler({target: args[2] || undefined});
+    handlePushOrReplace(args[2]);
     pushState.call(history, ...args);
   };
 }
