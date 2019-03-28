@@ -50,3 +50,13 @@ export function set<InputType extends Object>(
     } as InputType;
   }
 }
+
+export function flatMap<T>(
+  array: any[],
+  mapper: (item: any, index?: number) => T | T[],
+): T[] {
+  return array.reduce(
+    (acc, item, index) => acc.concat(mapper(item, index)),
+    [],
+  );
+}
