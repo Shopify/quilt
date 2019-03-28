@@ -35,12 +35,13 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
 
   act(() => {
     returnValue = callback(...args);
-    updateRoot(wrapper);
   });
+
+  updateRoot(wrapper);
 
   if (returnValue instanceof Promise) {
     return returnValue.then(ret => {
-      act(() => updateRoot(wrapper));
+      updateRoot(wrapper);
       return ret;
     });
   }
