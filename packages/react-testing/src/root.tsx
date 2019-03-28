@@ -92,12 +92,18 @@ export class Root<Props> {
     return this.withRoot(root => root.prop(key));
   }
 
-  find<Type extends React.ComponentType<any> | string>(type: Type) {
-    return this.withRoot(root => root.find(type));
+  find<Type extends React.ComponentType<any> | string>(
+    type: Type,
+    props?: Partial<PropsForComponent<Type>>,
+  ) {
+    return this.withRoot(root => root.find(type, props));
   }
 
-  findAll<Type extends React.ComponentType<any> | string>(type: Type) {
-    return this.withRoot(root => root.findAll(type));
+  findAll<Type extends React.ComponentType<any> | string>(
+    type: Type,
+    props?: Partial<PropsForComponent<Type>>,
+  ) {
+    return this.withRoot(root => root.findAll(type, props));
   }
 
   findWhere(predicate: Predicate) {

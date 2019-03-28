@@ -20,9 +20,11 @@ export type DeepPartial<T> = {
       : DeepPartial<T[P]>
 };
 
-export type Props<T> = T extends string
-  ? HTMLAttributes<T>
-  : T extends ComponentType<infer Props> ? Props : never;
+export type Props<T> = T extends keyof JSX.IntrinsicElements
+  ? JSX.IntrinsicElements[T]
+  : T extends string
+    ? HTMLAttributes<T>
+    : T extends ComponentType<infer Props> ? Props : never;
 
 export type IfEmptyObject<Object, If, Else = never> = keyof Object extends {
   length: 0;

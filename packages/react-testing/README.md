@@ -184,7 +184,7 @@ function isMatch(element: Element<unknown>) {
 }
 ```
 
-#### <a name="find"></a> `find(type: Type): Element<PropsForComponent<Type>> | null`
+#### <a name="find"></a> `find(type: Type, props?: Partial<PropsForComponent<Type>>): Element<PropsForComponent<Type>> | null`
 
 Finds a descendant component that matches `type`, where `type` is either a string or React component. If no matching element is found, `null` is returned. If a match is found, the returned `Element` will have the correct prop typing, which provides excellent type safety while navigating the React tree.
 
@@ -206,7 +206,33 @@ expect(wrapper.find(MyComponent)).not.toBeNull();
 expect(wrapper.find(YourComponent)).toBe(null);
 ```
 
-#### <a name="findAll"></a> `findAll(type: Type): Element<PropsForComponent<Type>>[]`
+You can optionally pass a second argument to this function, which is a set of props that will be used to further filter the matching elements. These props will be shallow compared to the props of each element.
+
+```tsx
+function MyComponent({name}: {name: string}) {
+  return <div>Hello, {name}!</div>;
+}
+
+function YourComponent() {
+  return <div>Goodbye, friend!</div>;
+}
+
+function Wrapper() {
+  return (
+    <>
+      <MyComponent name="Michelle" />
+      <MyComponent name="Gord" />
+    </>
+  );
+}
+
+const wrapper = mount(<Wrapper />);
+expect(wrapper.find(MyComponent, {name: 'Gord'})!.props).toMatchObject({
+  name: 'Gord',
+});
+```
+
+#### <a name="findAll"></a> `findAll(type: Type, props?: Partial<PropsForComponent<Type>>): Element<PropsForComponent<Type>>[]`
 
 Like `find()`, but returns all matches as an array.
 
