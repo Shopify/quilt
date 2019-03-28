@@ -1,3 +1,4 @@
+import {act} from 'react-dom/test-utils';
 import {ReactWrapper, CommonWrapper} from 'enzyme';
 import {get} from 'lodash';
 
@@ -30,7 +31,12 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
     );
   }
 
-  const returnValue = callback(...args);
+  let returnValue: any;
+
+  act(() => {
+    returnValue = callback(...args);
+  });
+
   updateRoot(wrapper);
 
   if (returnValue instanceof Promise) {

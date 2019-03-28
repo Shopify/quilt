@@ -9,7 +9,22 @@ import {Toggle} from './fixtures/Toggle';
 // eslint-disable-next-line shopify/strict-component-boundaries
 import {ActionList, Action} from './fixtures/Actions';
 
+jest.mock('react-dom/test-utils', () => {
+  const actualTestUtilities = require.requireActual('react-dom/test-utils');
+
+  return {
+    ...actualTestUtilities,
+    act: jest.fn(actualTestUtilities.act),
+  };
+});
+
+const {act} = require.requireMock('react-dom/test-utils') as {act: jest.Mock};
+
 describe('enzyme-utilities', () => {
+  beforeEach(() => {
+    act.mockClear();
+  });
+
   describe('trigger', () => {
     it('calls functions on props with arguments', () => {
       const spy = jest.fn();
@@ -26,6 +41,20 @@ describe('enzyme-utilities', () => {
 
       trigger(actionList, 'handlers.0.onAction', 'hello', 1, 2, 3);
       expect(spy).toHaveBeenCalledWith('hello', 1, 2, 3);
+    });
+
+    it('calls the callback in an act block', () => {
+      const toggle = mount(<Toggle onToggle={() => {}} />);
+      trigger(toggle.find('button'), 'onClick');
+      expect(act).toHaveBeenCalledTimes(1);
+    });
+
+    it('avoids any React warnings for synchronous updates', () => {
+      const toggle = mount(<Toggle onToggle={() => {}} />);
+      const errors = withConsoleErrors(() =>
+        trigger(toggle.find('button'), 'onClick'),
+      );
+      expect(errors).toHaveLength(0);
     });
 
     it('updates root after asynchronous functions resolve', async () => {
@@ -96,3 +125,23 @@ describe('enzyme-utilities', () => {
     });
   });
 });
+
+function withConsoleErrors(callback: () => void): unknown[] {
+  const errors: unknown[] = [];
+  const {error} = console;
+
+  // eslint-disable-next-line no-console
+  console.error = (...args) => {
+    errors.push(...args);
+    error.call(console, ...args);
+  };
+
+  try {
+    callback();
+  } finally {
+    // eslint-disable-next-line no-console
+    console.error = error;
+  }
+
+  return errors;
+}
