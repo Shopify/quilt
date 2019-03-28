@@ -396,6 +396,8 @@ function MyComponent() {
 }
 ```
 
+In addition to being propagated down to their respective `fields`, these client-side validation errors can be accessed together at the top level via the `errors` array, in the same way as your remote errors (returned from `onSubmit`) and external errors (see below).
+
 To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](validators.md).
 
 ## External errors

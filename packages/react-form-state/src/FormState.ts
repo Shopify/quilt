@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import * as React from 'react';
 
-import {mapObject, set, isEqual} from './utilities';
+import {mapObject, set, isEqual, flatMap} from './utilities';
 import {
   FieldDescriptors,
   FieldState,
@@ -185,6 +185,12 @@ export default class FormState<
     });
   }
 
+  private get clientErrors() {
+    const {fields} = this.state;
+
+    return flatMap(Object.values(fields), ({error}) => collectErrors(error));
+  }
+
   private get fields() {
     const {fields} = this.state;
     const fieldDescriptors: FieldDescriptors<Fields> = mapObject(
@@ -216,8 +222,10 @@ export default class FormState<
     if (validateOnSubmit) {
       await this.validateForm();
 
-      if (this.hasClientErrors) {
-        this.setState({submitting: false});
+      const clientErrors = this.clientErrors;
+
+      if (clientErrors.length > 0) {
+        this.setState({submitting: false, errors: clientErrors});
         return;
       }
     }
@@ -527,4 +535,24 @@ function runAllValidators<FieldMap>(
     ...state,
     fields: updatedFields,
   } as State<FieldMap>;
+}
+
+function collectErrors(
+  message: string | any[] | {} | undefined,
+): RemoteError[] {
+  if (!message) {
+    return [];
+  }
+
+  if (typeof message === 'string') {
+    return [{message}];
+  }
+
+  if (Array.isArray(message)) {
+    return flatMap(message, itemError => collectErrors(itemError));
+  }
+
+  return flatMap(Object.values(message), nestedError =>
+    collectErrors(nestedError),
+  );
 }
