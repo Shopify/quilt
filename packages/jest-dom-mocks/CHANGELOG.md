@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 2.5.0 - 2019-03-28
+
 ### Added
 
 - Added a mock for `Promise` ([#614](https://github.com/Shopify/quilt/pull/614))
