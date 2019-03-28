@@ -1,7 +1,7 @@
 import FakePromise from 'promise';
 
 export default class Promise {
-  private OriginalPromise = global.Promise;
+  private originalPromise = global.Promise;
   private isUsingFakePromise = false;
 
   mock() {
@@ -24,7 +24,7 @@ export default class Promise {
     }
 
     jest.useRealTimers();
-    global.Promise = this.OriginalPromise;
+    global.Promise = this.originalPromise;
     this.isUsingFakePromise = false;
   }
 
