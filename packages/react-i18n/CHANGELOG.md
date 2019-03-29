@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.11.9] - 2019-03-29
+
+### Fixed
+
+- Fixed an issue where the Babel plugin would return `Module` objects instead of the actual translation dictionaries [#618](https://github.com/Shopify/quilt/pull/618)
+
 ## [0.11.7] - 2019-03-27
 
 ### Changed
