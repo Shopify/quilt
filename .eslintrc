@@ -8,5 +8,11 @@
     "react/jsx-no-bind": "off",
     "react/display-name": "off",
     "shopify/restrict-full-import": ["error", "lodash"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {"typescript/no-non-null-assertion": "off"}
+    }
+  ]
 }
