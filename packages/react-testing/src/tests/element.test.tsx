@@ -423,9 +423,7 @@ describe('Element', () => {
         divTwo,
       );
 
-      expect(
-        element.find('span', {className: span.props.className}),
-      ).toBeNull();
+      expect(element.find('div', {className: span.props.className})).toBeNull();
     });
 
     it('returns null when no match is found', () => {
@@ -512,7 +510,7 @@ describe('Element', () => {
       ]);
 
       expect(
-        element.findAll('span', {className: span.props.className}),
+        element.findAll('div', {className: span.props.className}),
       ).toHaveLength(0);
     });
 
