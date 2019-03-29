@@ -28,6 +28,9 @@ module.exports = {
   coverageDirectory: './coverage/',
   collectCoverage: true,
   moduleNameMapper,
+  globals: {
+    'ts-jest': {diagnostics: false},
+  },
 };
 
 function getPackageNames() {
