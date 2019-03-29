@@ -1,0 +1,31 @@
+{
+  "name": "@shopify/react-toast",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Show toast messages with React.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-toast/README.md",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "~3.0.1"
+  },
+  "files": ["dist/*"]
+}
