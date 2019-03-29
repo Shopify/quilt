@@ -9,7 +9,7 @@
     "strictNullChecks": true,
     "noImplicitAny": false,
     "sourceMap": false,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,

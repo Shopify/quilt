@@ -9,4 +9,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- `@shopify/react-testing` package
+- Added a `@shopify/react-testing/matchers` directory, which adds `.toHaveReactProps` and `.toContainReactComponent` assertions for Jest
+- `Element#find` and `Element#findAll` now accept a second optional argument for required props on matched elements
+
+## 1.0.0 - 2019-03-29
+
+Initial release.

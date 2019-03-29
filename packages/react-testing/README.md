@@ -9,6 +9,7 @@ A library for testing React components according to [Shopify conventions](https:
 
 1. [Installation](#installation)
 1. [Usage](#usage)
+1. [Matchers](#matchers)
 1. [FAQ](#faq)
 
 ## Installation
@@ -184,7 +185,7 @@ function isMatch(element: Element<unknown>) {
 }
 ```
 
-#### <a name="find"></a> `find(type: Type): Element<PropsForComponent<Type>> | null`
+#### <a name="find"></a> `find(type: Type, props?: Partial<PropsForComponent<Type>>): Element<PropsForComponent<Type>> | null`
 
 Finds a descendant component that matches `type`, where `type` is either a string or React component. If no matching element is found, `null` is returned. If a match is found, the returned `Element` will have the correct prop typing, which provides excellent type safety while navigating the React tree.
 
@@ -206,7 +207,33 @@ expect(wrapper.find(MyComponent)).not.toBeNull();
 expect(wrapper.find(YourComponent)).toBe(null);
 ```
 
-#### <a name="findAll"></a> `findAll(type: Type): Element<PropsForComponent<Type>>[]`
+You can optionally pass a second argument to this function, which is a set of props that will be used to further filter the matching elements. These props will be shallow compared to the props of each element.
+
+```tsx
+function MyComponent({name}: {name: string}) {
+  return <div>Hello, {name}!</div>;
+}
+
+function YourComponent() {
+  return <div>Goodbye, friend!</div>;
+}
+
+function Wrapper() {
+  return (
+    <>
+      <MyComponent name="Michelle" />
+      <MyComponent name="Gord" />
+    </>
+  );
+}
+
+const wrapper = mount(<Wrapper />);
+expect(wrapper.find(MyComponent, {name: 'Gord'})!.props).toMatchObject({
+  name: 'Gord',
+});
+```
+
+#### <a name="findAll"></a> `findAll(type: Type, props?: Partial<PropsForComponent<Type>>): Element<PropsForComponent<Type>>[]`
 
 Like `find()`, but returns all matches as an array.
 
@@ -268,6 +295,36 @@ const myComponent = mount(
 );
 myComponent.triggerKeypath('action.onAction');
 expect(spy).toHaveBeenCalled();
+```
+
+## Matchers
+
+This library ships with a few useful custom matchers for Jest. To include these matchers, import `@shopify/react-testing/matchers` in any file that is included as part of the `setupFilesAfterEnv` option passed to Jest. The following matchers are available:
+
+### `.toHaveReactProps(props: object)`
+
+Checks whether a `Root` or `Element` object has specified props (asymmetric matchers like `expect.objectContaining` are fully supported). Strict type checking is enforced, so the `props` you pass must be a valid subset of the actual props for the component.
+
+```tsx
+const myComponent = mount(<MyComponent />);
+
+expect(myComponent.find('div')).toHaveReactProps({'aria-label': 'Hello world'});
+expect(myComponent.find('div')).toHaveReactProps({
+  onClick: expect.any(Function),
+});
+```
+
+### `.toContainReactComponent(type: string | React.ComponentType, props?: object)`
+
+Asserts that at least one component matching `type` is in the descendants of the passed node. If the second argument is passed, this expectation will further filter the matches by components whose props are equal to the passed object (again, asymmetric matchers are fully supported).
+
+```tsx
+const myComponent = mount(<MyComponent />);
+
+expect(myComponent).toContainReactComponent('div', {
+  'aria-label': 'Hello world',
+  onClick: expect.any(Function),
+});
 ```
 
 ## FAQ

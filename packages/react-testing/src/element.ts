@@ -134,16 +134,23 @@ export class Element<Props> {
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
+    props?: Partial<PropsForComponent<Type>>,
   ): Element<PropsForComponent<Type>> | null {
-    return (this.elementDescendants.find(element => element.type === type) ||
-      null) as Element<PropsForComponent<Type>> | null;
+    return (this.elementDescendants.find(
+      element =>
+        element.type === type &&
+        (props == null || equalSubset(props, element.props as object)),
+    ) || null) as Element<PropsForComponent<Type>> | null;
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
+    props?: Partial<PropsForComponent<Type>>,
   ): Element<PropsForComponent<Type>>[] {
     return this.elementDescendants.filter(
-      element => element.type === type,
+      element =>
+        element.type === type &&
+        (props == null || equalSubset(props, element.props as object)),
     ) as Element<PropsForComponent<Type>>[];
   }
 
@@ -200,4 +207,23 @@ export class Element<Props> {
       return currentProp(...args);
     });
   }
+
+  toString() {
+    const {type} = this;
+
+    if (type == null) {
+      return '<Element />';
+    }
+
+    const name =
+      typeof type === 'string' ? type : type.displayName || type.name;
+
+    return `<${name} />`;
+  }
+}
+
+function equalSubset(subset: object, full: object) {
+  return Object.keys(subset).every(
+    key => key in full && full[key] === subset[key],
+  );
 }

@@ -1,22 +1,13 @@
 import * as React from 'react';
-import {FirstArgument} from '@shopify/useful-types';
 
 import {Root} from '../root';
 import {Element} from '../element';
 import {Tag} from '../types';
 import {destroyAll} from '../api';
 
-jest.mock('react-dom/test-utils', () => ({
-  act: jest.fn((callback: Function) => callback()),
-}));
-
-const {act} = require.requireMock('react-dom/test-utils') as {act: jest.Mock};
-
 describe('Root', () => {
   afterEach(() => {
     destroyAll();
-    act.mockReset();
-    act.mockImplementation((callback: Function) => callback());
   });
 
   it('delegates calls to the root element', () => {
@@ -190,28 +181,6 @@ describe('Root', () => {
 
       expect(componentWillUnmount).not.toHaveBeenCalled();
       expect(componentDidUpdate).toHaveBeenCalled();
-    });
-  });
-
-  describe('#act()', () => {
-    it('runs the callback in an act block', () => {
-      const root = new Root(<div />);
-
-      const queue = new Set<FirstArgument<Root<any>['act']>>();
-      act.mockImplementation((action: FirstArgument<Root<any>['act']>) =>
-        queue.add(action),
-      );
-
-      const action = jest.fn();
-
-      root.act(action);
-      expect(action).not.toHaveBeenCalled();
-
-      for (const queued of queue) {
-        queued();
-      }
-
-      expect(action).toHaveBeenCalled();
     });
   });
 

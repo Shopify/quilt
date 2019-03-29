@@ -26,6 +26,10 @@ export class Root<Props> {
     return this.withRoot(root => root.isDOM);
   }
 
+  get type() {
+    return this.withRoot(root => root.type);
+  }
+
   get instance() {
     return this.withRoot(root => root.instance);
   }
@@ -92,12 +96,18 @@ export class Root<Props> {
     return this.withRoot(root => root.prop(key));
   }
 
-  find<Type extends React.ComponentType<any> | string>(type: Type) {
-    return this.withRoot(root => root.find(type));
+  find<Type extends React.ComponentType<any> | string>(
+    type: Type,
+    props?: Partial<PropsForComponent<Type>>,
+  ) {
+    return this.withRoot(root => root.find(type, props));
   }
 
-  findAll<Type extends React.ComponentType<any> | string>(type: Type) {
-    return this.withRoot(root => root.findAll(type));
+  findAll<Type extends React.ComponentType<any> | string>(
+    type: Type,
+    props?: Partial<PropsForComponent<Type>>,
+  ) {
+    return this.withRoot(root => root.findAll(type, props));
   }
 
   findWhere(predicate: Predicate) {
@@ -173,6 +183,10 @@ export class Root<Props> {
   forceUpdate() {
     this.ensureRoot();
     this.act(() => this.wrapper!.forceUpdate());
+  }
+
+  toString() {
+    return this.withRoot(root => root.toString());
   }
 
   private update() {

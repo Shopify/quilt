@@ -372,6 +372,60 @@ describe('Element', () => {
       expect(element.find(DummyComponent)).toBe(componentOne);
     });
 
+    it('restricts found elements to those with shallow-matching props when props are passed', () => {
+      const divOne = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'foo'},
+          type: 'div',
+          tag: Tag.HostComponent,
+          instance: document.createElement('div'),
+        },
+        [],
+        [],
+        defaultRoot,
+      );
+
+      const divTwo = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'bar'},
+          type: 'div',
+          tag: Tag.HostComponent,
+          instance: document.createElement('div'),
+        },
+        [],
+        [],
+        defaultRoot,
+      );
+
+      const span = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'baz'},
+          type: 'span',
+          tag: Tag.HostComponent,
+          instance: document.createElement('span'),
+        },
+        [],
+        [],
+        defaultRoot,
+      );
+
+      const element = new Element(
+        defaultTree,
+        [divOne, divTwo, span],
+        [divOne, divTwo, span],
+        defaultRoot,
+      );
+
+      expect(element.find('div', {className: divTwo.props.className})).toBe(
+        divTwo,
+      );
+
+      expect(element.find('div', {className: span.props.className})).toBeNull();
+    });
+
     it('returns null when no match is found', () => {
       const element = new Element(defaultTree, [], [], defaultRoot);
       expect(element.find(DummyComponent)).toBeNull();
@@ -402,6 +456,62 @@ describe('Element', () => {
         componentOne,
         componentTwo,
       ]);
+    });
+
+    it('restricts found elements to those with shallow-matching props when props are passed', () => {
+      const divOne = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'foo'},
+          type: 'div',
+          tag: Tag.HostComponent,
+          instance: document.createElement('div'),
+        },
+        [],
+        [],
+        defaultRoot,
+      );
+
+      const divTwo = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'bar'},
+          type: 'div',
+          tag: Tag.HostComponent,
+          instance: document.createElement('div'),
+        },
+        [],
+        [],
+        defaultRoot,
+      );
+
+      const span = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'baz'},
+          type: 'span',
+          tag: Tag.HostComponent,
+          instance: document.createElement('span'),
+        },
+        [],
+        [],
+        defaultRoot,
+      );
+
+      const element = new Element(
+        defaultTree,
+        [divOne, divTwo, span],
+        [divOne, divTwo, span],
+        defaultRoot,
+      );
+
+      expect(
+        element.findAll('div', {className: divTwo.props.className}),
+      ).toEqual([divTwo]);
+
+      expect(
+        element.findAll('div', {className: span.props.className}),
+      ).toHaveLength(0);
     });
 
     it('returns an empty array when no matches are found', () => {
