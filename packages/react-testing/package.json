@@ -25,13 +25,16 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
     "@shopify/useful-types": "^1.2.0",
+    "jest-matcher-utils": "^24.5.0",
     "react-reconciler": "^0.20.2"
   },
   "devDependencies": {
     "typescript": "~3.0.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "matchers.js",
+    "matchers.d.ts"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0",

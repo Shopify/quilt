@@ -9,6 +9,7 @@ A library for testing React components according to [Shopify conventions](https:
 
 1. [Installation](#installation)
 1. [Usage](#usage)
+1. [Matchers](#matchers)
 1. [FAQ](#faq)
 
 ## Installation
@@ -294,6 +295,40 @@ const myComponent = mount(
 );
 myComponent.triggerKeypath('action.onAction');
 expect(spy).toHaveBeenCalled();
+```
+
+## Matchers
+
+This library ships with a few useful custom matchers for Jest. To include these matchers, import `@shopify/react-testing/matchers` in any file that is included as part of the `setupFilesAfterEnv` option passed to Jest. The following matchers are available:
+
+### `.toHaveReactProp(prop: string, value?: any)`
+
+Checks whether a `Root` or `Element` object has a prop with the passed name. If a value is passed, this expectation will also ensure that the value is equal to the actual prop value (asymmetric matchers like `expect.objectContaining` are fully supported). Strict type checking is enforced, so the `prop` you pass must be a valid prop name for the component you are running the expectation on, and if `value` is provided, it must be of the same type as the actual prop value.
+
+```tsx
+const myComponent = mount(<MyComponent />);
+expect(myComponent.find('div')).toHaveReactProp('aria-label', 'Hello world');
+expect(myComponent.find('div')).toHaveReactProp(
+  'onClick',
+  expect.any(Function),
+);
+```
+
+### `.toHaveReactProps(props: object)`
+
+Like `.toHaveReactProp()`, but you pass an object that matches a subset of the props for the component.
+
+### `.toContainReactComponent(type: string | React.ComponentType, props?: object)`
+
+Asserts that at least one component matching `type` is in the descendants of the passed node. If the second argument is passed, this expectation will further filter the matches by components whose props are equal to the passed object (again, asymmetric matchers are fully supported).
+
+```tsx
+const myComponent = mount(<MyComponent />);
+
+expect(myComponent).toContainReactComponent('div', {
+  'aria-label': 'Hello world',
+  onClick: expect.any(Function),
+});
 ```
 
 ## FAQ

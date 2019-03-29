@@ -26,6 +26,10 @@ export class Root<Props> {
     return this.withRoot(root => root.isDOM);
   }
 
+  get type() {
+    return this.withRoot(root => root.type);
+  }
+
   get instance() {
     return this.withRoot(root => root.instance);
   }
@@ -179,6 +183,10 @@ export class Root<Props> {
   forceUpdate() {
     this.ensureRoot();
     this.act(() => this.wrapper!.forceUpdate());
+  }
+
+  toString() {
+    return this.withRoot(root => root.toString());
   }
 
   private update() {

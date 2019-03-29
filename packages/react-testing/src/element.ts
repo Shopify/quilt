@@ -207,6 +207,19 @@ export class Element<Props> {
       return currentProp(...args);
     });
   }
+
+  toString() {
+    const {type} = this;
+
+    if (type == null) {
+      return '<Element />';
+    }
+
+    const name =
+      typeof type === 'string' ? type : type.displayName || type.name;
+
+    return `<${name} />`;
+  }
 }
 
 function equalSubset(subset: object, full: object) {
