@@ -301,22 +301,18 @@ expect(spy).toHaveBeenCalled();
 
 This library ships with a few useful custom matchers for Jest. To include these matchers, import `@shopify/react-testing/matchers` in any file that is included as part of the `setupFilesAfterEnv` option passed to Jest. The following matchers are available:
 
-### `.toHaveReactProp(prop: string, value?: any)`
+### `.toHaveReactProps(props: object)`
 
-Checks whether a `Root` or `Element` object has a prop with the passed name. If a value is passed, this expectation will also ensure that the value is equal to the actual prop value (asymmetric matchers like `expect.objectContaining` are fully supported). Strict type checking is enforced, so the `prop` you pass must be a valid prop name for the component you are running the expectation on, and if `value` is provided, it must be of the same type as the actual prop value.
+Checks whether a `Root` or `Element` object has specified props (asymmetric matchers like `expect.objectContaining` are fully supported). Strict type checking is enforced, so the `props` you pass must be a valid subset of the actual props for the component.
 
 ```tsx
 const myComponent = mount(<MyComponent />);
-expect(myComponent.find('div')).toHaveReactProp('aria-label', 'Hello world');
-expect(myComponent.find('div')).toHaveReactProp(
-  'onClick',
-  expect.any(Function),
-);
+
+expect(myComponent.find('div')).toHaveReactProps({'aria-label': 'Hello world'});
+expect(myComponent.find('div')).toHaveReactProps({
+  onClick: expect.any(Function),
+});
 ```
-
-### `.toHaveReactProps(props: object)`
-
-Like `.toHaveReactProp()`, but you pass an object that matches a subset of the props for the component.
 
 ### `.toContainReactComponent(type: string | React.ComponentType, props?: object)`
 

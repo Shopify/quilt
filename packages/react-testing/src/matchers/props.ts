@@ -7,52 +7,6 @@ import {
 import {Node} from './types';
 import {assertIsNode, diffPropsForNode} from './utilities';
 
-export function toHaveReactProp<Props>(
-  this: jest.MatcherUtils,
-  node: Node<Props>,
-  prop: keyof Props,
-  value?: unknown,
-) {
-  assertIsNode(node, {
-    expectation: 'toHaveReactProp',
-    isNot: this.isNot,
-  });
-
-  const valuePassed = arguments.length > 2;
-  const hasProp = Reflect.has(node.props as any, prop);
-  const pass = valuePassed ? this.equals(value, node.prop(prop)) : hasProp;
-
-  const message = pass
-    ? () =>
-        `${matcherHint('.not.toHaveReactProp', node.toString(), 'prop', {
-          secondArgument: valuePassed ? 'value' : undefined,
-          isNot: true,
-        })}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
-        `Not to have prop:\n  ${printExpected(prop)}\n${
-          valuePassed ? `With a value of\n  ${printExpected(value)}\n` : ''
-        }` +
-        `${
-          valuePassed
-            ? `But it does have a '${prop}' prop with that value.\n`
-            : `But it does have a '${prop}' prop.\n`
-        }`
-    : () =>
-        `${`${matcherHint('.toHaveReactProp', node.toString(), 'prop', {
-          secondArgument: valuePassed ? 'value' : undefined,
-        })}\n\n` +
-          `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
-          `To have prop:\n  ${printExpected(prop)}\n${
-            valuePassed ? `With a value of:\n  ${printExpected(value)}\n` : ''
-          }`}${
-          hasProp
-            ? `Received:\n  ${printReceived(node.prop(prop))}\n`
-            : `But it does not have a '${prop}' prop.\n`
-        }`;
-
-  return {pass, message};
-}
-
 export function toHaveReactProps<Props>(
   this: jest.MatcherUtils,
   node: Node<Props>,
