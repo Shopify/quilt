@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
+    "@shopify/useful-types": "^1.1.2",
     "react-reconciler": "^0.20.2"
   },
   "devDependencies": {
@@ -31,5 +32,9 @@
   },
   "files": [
     "dist/*"
-  ]
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0",
+    "react-dom": ">=16.8.0 <17.0.0"
+  }
 }
