@@ -505,9 +505,9 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(element.findAll('div', {className: divTwo.props.className})).toBe([
-        divTwo,
-      ]);
+      expect(
+        element.findAll('div', {className: divTwo.props.className}),
+      ).toEqual([divTwo]);
 
       expect(
         element.findAll('div', {className: span.props.className}),
