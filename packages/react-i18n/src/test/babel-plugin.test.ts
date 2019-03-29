@@ -38,7 +38,7 @@ describe('babel-pluin-react-i18n', () => {
           fallback: _en,
           async translations(locale) {
             const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-            return dictionary.default;
+            return dictionary && dictionary.default;
           },
         })(MyComponent);
         `,
@@ -109,7 +109,7 @@ describe('babel-pluin-react-i18n', () => {
           fallback: _en,
           async translations(locale) {
             const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-            return dictionary.default;
+            return dictionary && dictionary.default;
           },
         })(MyComponent);
         `,
@@ -162,7 +162,7 @@ describe('babel-pluin-react-i18n', () => {
           fallback: _en,
           async translations(locale) {
             const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-            return dictionary.default;
+            return dictionary && dictionary.default;
           },
         })(MyComponent);
         `,

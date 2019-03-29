@@ -29,7 +29,7 @@ export default function injectWithI18nArguments({
       fallback: ${fallbackID},
       async translations(locale) {
         const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-        return dictionary.default;
+        return dictionary && dictionary.default;
       },
     })`,
       {
