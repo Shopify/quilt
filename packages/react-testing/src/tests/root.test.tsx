@@ -204,7 +204,7 @@ describe('Root', () => {
 
       const action = jest.fn();
 
-      root.act(act);
+      root.act(action);
       expect(action).not.toHaveBeenCalled();
 
       for (const queued of queue) {
