@@ -43,6 +43,10 @@ export class Element<Props> {
   }
 
   get domNodes(): HTMLElement[] {
+    if (this.isDOM) {
+      return [this.instance];
+    }
+
     return this.elementChildren
       .filter(element => element.isDOM)
       .map(element => element.instance);
