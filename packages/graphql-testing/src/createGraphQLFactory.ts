@@ -16,7 +16,7 @@ export interface Options {
   cacheOptions?: ApolloReducerConfig;
 }
 
-class GraphQL extends EventEmitter {
+export class GraphQL extends EventEmitter {
   readonly client: ApolloClient<unknown>;
   readonly operations = new Operations();
 
@@ -88,7 +88,7 @@ function defaultGraphQLMock({operationName}: GraphQLRequest) {
   );
 }
 
-export default function createGraphQLFactory(options?: Options) {
+export function createGraphQLFactory(options?: Options) {
   return function createGraphQL(mock: GraphQLMock = defaultGraphQLMock) {
     return new GraphQL(mock, options);
   };

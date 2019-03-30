@@ -58,7 +58,7 @@ Note: In a typical application you will want to generalized some of this impleme
 ```ts
 import {mount} from 'enzyme';
 import {ApolloProvider} from 'react-apollo';
-import createGraphQLFactory from '@shopify/graphql-testing';
+import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 export const createGraphQL = createGraphQLFactory();
 
@@ -94,7 +94,7 @@ Below is an example of how to assert that a graphQL request was triggered.
 import {mount} from 'enzyme';
 import {ApolloProvider} from 'react-apollo';
 import {trigger} from '@shopify/enzyme-utilities';
-import createGraphQLFactory from '@shopify/graphql-testing';
+import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 export const createGraphQL = createGraphQLFactory();
 
