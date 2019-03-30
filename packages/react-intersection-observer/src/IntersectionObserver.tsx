@@ -12,7 +12,7 @@ interface Props {
   onIntersectionChange(entry: IntersectionObserverEntry): void;
 }
 
-export function IntersectionObserver({
+export const IntersectionObserver = React.memo(function IntersectionObserver({
   children,
   root,
   rootMargin,
@@ -31,4 +31,4 @@ export function IntersectionObserver({
   useValueTracking(intersection, newValue => onIntersectionChange(newValue));
 
   return <Wrapper ref={ref}>{children}</Wrapper>;
-}
+});
