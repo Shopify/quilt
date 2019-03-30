@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "2.2.11",
+  "version": "2.2.12",
   "license": "MIT",
   "description": "Google Analytics",
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-google-analytics/README.md",
   "dependencies": {
-    "@shopify/react-import-remote": "^0.5.2",
+    "@shopify/react-import-remote": "^0.5.3",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
