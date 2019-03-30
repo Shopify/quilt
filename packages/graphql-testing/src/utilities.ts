@@ -13,7 +13,7 @@ export class Operations {
 
   nth(index: number) {
     return index < 0
-      ? this.operations[this.operations.length - 1 + index]
+      ? this.operations[this.operations.length + index]
       : this.operations[index];
   }
 
