@@ -99,7 +99,7 @@ class ConnectedAsync<Value> extends React.Component<
         <IntersectionObserver
           threshold={0}
           unsupportedBehavior={UnsupportedBehavior.TreatAsIntersecting}
-          onIntersecting={this.load}
+          onIntersectionChange={this.loadIfIntersecting}
         />
       ) : null;
 
@@ -111,6 +111,10 @@ class ConnectedAsync<Value> extends React.Component<
       </>
     );
   }
+
+  private loadIfIntersecting = ({isIntersecting = true}) => {
+    return isIntersecting ? this.load() : Promise.resolve();
+  };
 
   private load = async () => {
     try {
