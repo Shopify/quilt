@@ -1,19 +1,7 @@
 import * as React from 'react';
-import {Root, mount, destroyAll} from '../api';
 
-describe('mount()', () => {
-  afterEach(() => {
-    destroyAll();
-  });
-
-  it('constructs and returns a root element', () => {
-    const root = mount(<div>Hello world</div>);
-    expect(root).toBeInstanceOf(Root);
-    expect(document.body.firstElementChild!.innerHTML).toBe(
-      '<div>Hello world</div>',
-    );
-  });
-});
+import {mount} from '../mount';
+import {destroyAll} from '../destroy';
 
 describe('destroyAll()', () => {
   afterEach(() => {

@@ -15,6 +15,8 @@ import {withIgnoredReactLogs} from './errors';
 // eslint-disable-next-line typescript/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
 
+type ResolveRoot = (element: Element<unknown>) => Element<unknown> | null;
+
 export const connected = new Set<Root<unknown>>();
 
 export class Root<Props> {
@@ -58,7 +60,10 @@ export class Root<Props> {
     return this.wrapper != null;
   }
 
-  constructor(private tree: React.ReactElement<Props>) {
+  constructor(
+    private tree: React.ReactElement<Props>,
+    private resolveRoot: ResolveRoot = defaultResolveRoot,
+  ) {
     this.mount();
   }
 
@@ -193,10 +198,12 @@ export class Root<Props> {
     if (this.wrapper == null) {
       this.root = null;
     } else {
-      this.root = flatten(
+      const topElement = flatten(
         ((this.wrapper as unknown) as ReactInstance)._reactInternalFiber,
         this,
-      )[1] as Element<Props> | null;
+      )[0];
+
+      this.root = this.resolveRoot(topElement as any) as any;
     }
   }
 
@@ -212,6 +219,10 @@ export class Root<Props> {
     this.ensureRoot();
     return withRoot(this.root!);
   }
+}
+
+function defaultResolveRoot(element: Element<unknown>) {
+  return element.children[0];
 }
 
 function flatten(
