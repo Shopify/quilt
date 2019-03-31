@@ -9,6 +9,11 @@ A library for testing React components according to [Shopify conventions](https:
 
 1. [Installation](#installation)
 1. [Usage](#usage)
+   1. [`Root`](#root)
+   1. [`Element`](#element)
+   1. [`mount()`](#mount)
+   1. [`createMount()`](#createMount)
+   1. [`destroyAll()`](#destroyAll)
 1. [Matchers](#matchers)
 1. [FAQ](#faq)
 
@@ -21,14 +26,6 @@ $ yarn add @shopify/react-testing
 ## Usage
 
 This library allows you to test React components with a focus on type safety and testing based on a component’s external API. In order to keep the API small and easy-to-use, it will generally track to only the latest minor release of React.
-
-### <a name="mount"></a> `mount(element: React.ReactElement<any>)`
-
-Mounts a component to the DOM and returns a [`Root`](#root) instance. Note that in order for this to work, you must have a simulated browser environment, such as the `jsdom` environment that Jest uses.
-
-### <a name="destroyAll"></a> `destroyAll()`
-
-All mounted components are tracked in-memory. `destroyAll()` forcibly unmounts all mounted components and removes the DOM node used to house them. You should run this after each test that mounts a component (this is often done in a global `afterEach` hook).
 
 ### <a name="root"></a> `Root<Props>`
 
@@ -296,6 +293,108 @@ const myComponent = mount(
 myComponent.triggerKeypath('action.onAction');
 expect(spy).toHaveBeenCalled();
 ```
+
+### <a name="mount"></a> `mount(element: React.ReactElement<any>)`
+
+Mounts a component to the DOM and returns a [`Root`](#root) instance. Note that in order for this to work, you must have a simulated browser environment, such as the `jsdom` environment that Jest uses.
+
+### <a name="createMount"></a> `createMount<MountOptions, Context, Async>(options: CreateMountOptions<MountOptions, Context, Async>): MountFunction`
+
+The [`mount`](#mount) function is powerful on its own, but applications will often want a more powerful version tailored to their application. A common example is app-wide context, where a set of context providers are generally assumed to be present for every component under test. It can also be useful for providing custom GraphQL infrastructure that enables easy testing of different API responses, such as the [`createGraphQL` factory from `@shopify/graphql-testing`](../graphql-testing).
+
+`createMount` enables this kind of customization by vending a custom `mount` function that will automatically wrap the component under test in an appropriate test wrapper. This custom mount function can do four things:
+
+- Allow custom options be passed as the second argument to mount, as specified by the `MountOptions` generic
+- Map passed options to an object containing all the relevant "context" (be it objects passed through React context providers, or other useful values for controlling the test harness)
+- Use the resolved context to render React components around the element under test that use the context
+- Perform some additional resolution after the component has mounted, including asynchronous behavior like resolving initial API results
+
+These features are controlled by the generic type arguments to `createMount`, and the options detailed in the section below. Note that, no matter how many context providers or test wrapper you end up rendering your element within, all of the methods on the returned [`Root`](#root) instance will still be scoped to within the tree actually under test.
+
+#### `context(options: MountOptions): Context`
+
+Takes an object of options passed by a user of your custom mount (or an empty object), and should return an object containing the context you need for the test harness. If your `Context` type has non-optional keys, you **must** provide this option.
+
+#### `render(element: ReactElement, context: Context, options: MountOptions): ReactElement`
+
+This function is called with the React element under test, the context created by `context()` (or an empty object), and the options passed by the user of your custom mount (or an empty object). This function must return a new React element, usually by wrapping the component in context providers.
+
+#### `afterMount(root: CustomRoot, options: MountOptions): Promise | void`
+
+This function allows you to perform additional logic after a component has been mounted. It gets called with a special [`Root`](#root) instance that has one additional property: `context`, the object with the context you created in `context()` (or an empty object). You can use this hook to perform some additional resolution after the component has mounted, such as resolving all GraphQL.
+
+If this option returns a `Promise`, the result of calling `mount()` will become a promise that resolves to the custom `Root` instance. Otherwise, it will synchronously return the `Root` instance. If you specify the `Async` generic argument as `true`, you **must** pass this option.
+
+#### Complete example
+
+We usually want to create a mocked version of the GraphQL infrastructure for our app to prevent relying on real API calls. We provide the [`@shopify/graphql-testing` library](../graphql-testing) to create a mock GraphQL source and Apollo client that uses it.
+
+In our example mount, we want people to be able to pass a custom GraphQL instance. We want the initial GraphQL results to resolve, unless the user of mount specifies that GraphQL should _not_ resolve until done manually. Finally, we want to expose this GraphQL instance on the returned wrapper for use to drive test results.
+
+The custom mount for this situation would be built as demonstrated below.
+
+```tsx
+import * as React from 'react';
+import {ApolloProvider} from 'react-apollo';
+import createGraphQLFactory, {GraphQL} from '@shopify/graphql-testing';
+import {createMount} from '@shopify/react-testing';
+import {promise} from '@shopify/jest-dom-mocks';
+
+// See graphql-testing docs for details
+const createGraphQL = createGraphQLFactory();
+
+// Here, we define the options a user can pass to mount. We need them to be able
+// to pass two things: an optional GraphQL instance to drive the test, and an
+// optional flag to skip initial GraphQL resolution.
+interface Options {
+  graphQL?: GraphQL;
+  skipInitialGraphQL?: boolean;
+}
+
+// Next is the context. We only want to expose one thing as "context": The GraphQL
+// instance driving the test.
+interface Context {
+  graphQL: GraphQL;
+}
+
+// Now, we can create our custom mount function! Unfortunately, due to limitations in
+// TypeScript, you usually need to pass all the generic arguments, including the last
+// one, which specifies whether your `afterMount` is async or not.
+export const mountWithGraphQL = createMount<Options, Context, true>({
+  // Step one: convert Options to Context
+  context({graphQL = createGraphQL()}) {
+    return {graphQL};
+  },
+  // Step two: use Context and Options to render the element under the test
+  // with the necessary providers
+  render(element, {graphQL}) {
+    return <ApolloProvider client={graphQL.client}>{element}</ApolloProvider>;
+  },
+  // Final step: if we need post-mount behavior, inject it in. If it returns
+  // a promise, like it does here, the final mount function will be async too.
+  async afterMount(root, {skipInitialGraphQL}) {
+    // This is a temporary hack to make GraphQL resolution behave pseudo-synchronously
+    // to avoid warnings about setting state outside of act() blocks.
+    root.graphQL.on('pre-resolve', () => {
+      if (promise.isMocked()) {
+        root.act(() => promise.runPending());
+      }
+    });
+
+    if (skipInitialGraphQL) {
+      return;
+    }
+
+    // Here's the important bit: resolve the GraphQL so our first queries are
+    // in use for the component under test
+    await root.graphQL.resolveAll();
+  },
+});
+```
+
+### <a name="destroyAll"></a> `destroyAll()`
+
+All mounted components are tracked in-memory. `destroyAll()` forcibly unmounts all mounted components and removes the DOM node used to house them. You should run this after each test that mounts a component (this is often done in a global `afterEach` hook).
 
 ## Matchers
 
