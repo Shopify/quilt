@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createPortal} from 'react-dom';
-import {mount} from '../api';
+import {mount} from '../mount';
 
 describe('e2e', () => {
   it('can test the result of triggering props', () => {
