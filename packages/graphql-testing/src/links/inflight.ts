@@ -1,16 +1,14 @@
 import {ApolloLink, Observable, Operation, NextLink} from 'apollo-link';
 
-import {MockRequest} from './types';
+import {MockRequest} from '../types';
 
-export default class MemoryApolloLink extends ApolloLink {
-  private onRequestCreatedCallback:
-    | ((request: MockRequest) => void)
-    | undefined;
-  private onRequestResolvedCallback:
-    | ((request: MockRequest) => void)
-    | undefined;
+interface Options {
+  onCreated(request: MockRequest): void;
+  onResolved(request: MockRequest): void;
+}
 
-  constructor() {
+export class InflightLink extends ApolloLink {
+  constructor(private options: Options) {
     super();
   }
 
@@ -29,14 +27,12 @@ export default class MemoryApolloLink extends ApolloLink {
       operation,
       resolve: () => {
         resolver();
-        this.onRequestResolvedCallback &&
-          this.onRequestResolvedCallback(request);
-
+        this.options.onResolved(request);
         return promise;
       },
     };
 
-    this.onRequestCreatedCallback && this.onRequestCreatedCallback(request);
+    this.options.onCreated(request);
 
     return new Observable(observer => {
       return nextLink(operation).subscribe({
@@ -54,13 +50,5 @@ export default class MemoryApolloLink extends ApolloLink {
         },
       });
     });
-  }
-
-  onRequestCreated(onRequestCreated: (request: MockRequest) => void) {
-    this.onRequestCreatedCallback = onRequestCreated;
-  }
-
-  onRequestResolved(onRequestResolved: (request: MockRequest) => void) {
-    this.onRequestResolvedCallback = onRequestResolved;
   }
 }

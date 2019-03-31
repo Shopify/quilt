@@ -1,6 +1,6 @@
 import {Operation} from 'apollo-link';
 
-export default class Operations {
+export class Operations {
   private operations: Operation[] = [];
 
   constructor(operations?: Operation[]) {
@@ -13,12 +13,12 @@ export default class Operations {
 
   nth(index: number) {
     return index < 0
-      ? this.operations[this.operations.length - 1 + index]
+      ? this.operations[this.operations.length + index]
       : this.operations[index];
   }
 
-  push(operation: Operation) {
-    this.operations.push(operation);
+  push(...operations: Operation[]) {
+    this.operations.push(...operations);
   }
 
   all(options?: {operationName?: string}): Operation[] {
