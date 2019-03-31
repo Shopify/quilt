@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Root} from '../root';
 import {Element} from '../element';
 import {Tag} from '../types';
-import {destroyAll} from '../api';
+import {destroyAll} from '../destroy';
 
 describe('Root', () => {
   afterEach(() => {
