@@ -2965,7 +2965,7 @@ eslint-plugin-react@7.13.0:
     prop-types "^15.7.2"
     resolve "^1.10.1"
 
-eslint-plugin-shopify@29.0.2:
+eslint-plugin-shopify@^29.0.2:
   version "29.0.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-shopify/-/eslint-plugin-shopify-29.0.2.tgz#84de55f4c0ea293b1505ed85bbddd021be53f966"
   integrity sha512-ahAv+49UzLba4b67OnihWm7S3xHRvkSay+EYVsPHkvRXVQCIqGijyujs5htyr78EUJKZWXuL1qoPdmEK+hVtbg==

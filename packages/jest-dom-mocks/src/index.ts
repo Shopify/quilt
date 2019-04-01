@@ -9,6 +9,7 @@ import Timer from './timer';
 import UserTiming from './user-timing';
 import IntersectionObserver from './intersection-observer';
 import Promise from './promise';
+import Dimension from './dimension';
 
 export const animationFrame = new AnimationFrame();
 export const requestIdleCallback = new RequestIdleCallback();
@@ -29,6 +30,8 @@ export const timer = new Timer();
 export const userTiming = new UserTiming();
 export const intersectionObserver = new IntersectionObserver();
 export const promise = new Promise();
+
+export const dimension = new Dimension();
 
 export function installMockStorage() {
   if (typeof window !== 'undefined') {
