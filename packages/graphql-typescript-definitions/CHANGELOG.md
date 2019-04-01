@@ -5,6 +5,10 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [0.17.0] - 2019-04-01
+
+* Added a `--config` option to allow a JSON-serialized config an an alternative to looking up a `.graphqlconfig` [[#70](https://github.com/Shopify/graphql-tools-web/pull/70), thanks to [alexkirsz](https://github.com/alexkirsz)]
+
 ## [0.16.0] - 2019-03-11
 
 ### Changed
