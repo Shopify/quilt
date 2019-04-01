@@ -1,12 +1,13 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
 import {noop} from '@shopify/javascript-utilities/other';
+import {mount} from '@shopify/react-testing';
 import {Preconnect} from '@shopify/react-html';
 import {DeferTiming} from '@shopify/async';
-import {IntersectionObserver} from '@shopify/react-intersection-observer';
-import {requestIdleCallback} from '@shopify/jest-dom-mocks';
-import {trigger} from '@shopify/enzyme-utilities';
 
+import {
+  requestIdleCallback,
+  intersectionObserver,
+} from '@shopify/jest-dom-mocks';
 import ImportRemote, {Props} from '../ImportRemote';
 
 jest.mock('@shopify/react-html', () => ({
@@ -29,18 +30,19 @@ const load: jest.Mock = require.requireMock('../load');
 describe('<ImportRemote />', () => {
   beforeEach(() => {
     requestIdleCallback.mock();
+    intersectionObserver.mock();
     load.mockClear();
   });
 
   afterEach(() => {
     requestIdleCallback.restore();
+    intersectionObserver.restore();
   });
 
   const mockProps: Props = {
     source: 'https://foo.com/bar.js',
     getImport: () => 'foo',
     onImported: noop,
-    onError: noop,
   };
 
   describe('source and getImport()', () => {
@@ -81,39 +83,20 @@ describe('<ImportRemote />', () => {
   });
 
   describe('onImported()', () => {
-    it('is not called when the script errors', async () => {
-      const spy = jest.fn();
-      const promise = Promise.reject(new Error());
-      load.mockImplementation(() => promise);
-
-      mount(<ImportRemote {...mockProps} onImported={spy} />);
-
-      try {
-        await promise;
-        // eslint-disable-next-line no-empty
-      } catch (_) {}
-
-      expect(spy).not.toHaveBeenCalled();
-    });
-
-    it('is called with a the result of loading the script', async () => {
+    it('is called with the result of loading the script when successful', async () => {
       const result = 'foo';
       const promise = Promise.resolve(result);
       const spy = jest.fn();
       load.mockImplementation(() => promise);
 
-      mount(<ImportRemote {...mockProps} onImported={spy} />);
+      const importRemote = await mount(
+        <ImportRemote {...mockProps} onImported={spy} />,
+      );
 
-      await promise;
+      importRemote.act(async () => {
+        await promise;
+      });
       expect(spy).toHaveBeenCalledWith(result);
-    });
-  });
-
-  describe('onError()', () => {
-    it('is not called when the script loads successfully', () => {
-      const spy = jest.fn();
-      mount(<ImportRemote {...mockProps} onError={spy} />);
-      expect(spy).not.toHaveBeenCalled();
     });
 
     it('is called with a script loading error', async () => {
@@ -122,12 +105,16 @@ describe('<ImportRemote />', () => {
       const spy = jest.fn();
       load.mockImplementation(() => promise);
 
-      mount(<ImportRemote {...mockProps} onError={spy} />);
+      const importRemote = await mount(
+        <ImportRemote {...mockProps} onImported={spy} />,
+      );
 
-      try {
-        await promise;
-        // eslint-disable-next-line no-empty
-      } catch (_) {}
+      importRemote.act(async () => {
+        try {
+          await promise;
+          // eslint-disable-next-line no-empty
+        } catch (_) {}
+      });
 
       expect(spy).toHaveBeenCalledWith(error);
     });
@@ -137,13 +124,13 @@ describe('<ImportRemote />', () => {
     it('does not render any preconnect link by default', () => {
       const importRemote = mount(<ImportRemote {...mockProps} />);
 
-      expect(importRemote.find(Preconnect)).toHaveLength(0);
+      expect(importRemote.findAll(Preconnect)).toHaveLength(0);
     });
 
     it('creates a preconnect link with the source’s origin when preconnecting is requested', () => {
       const importRemote = mount(<ImportRemote {...mockProps} preconnect />);
 
-      expect(importRemote.find(Preconnect).prop('source')).toBe(
+      expect(importRemote.find(Preconnect)!.prop('source')).toBe(
         new URL(mockProps.source).origin,
       );
     });
@@ -151,31 +138,71 @@ describe('<ImportRemote />', () => {
 
   describe('defer', () => {
     it('does not call load until idle when defer is DeferTiming.Idle', () => {
-      mount(<ImportRemote {...mockProps} defer={DeferTiming.Idle} />);
+      const importRemote = mount(
+        <ImportRemote {...mockProps} defer={DeferTiming.Idle} />,
+      );
+
       expect(load).not.toHaveBeenCalled();
-      requestIdleCallback.runIdleCallbacks();
+
+      importRemote.act(() => {
+        requestIdleCallback.runIdleCallbacks();
+      });
+
       expect(load).toHaveBeenCalled();
     });
 
-    it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', async () => {
+    it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', () => {
+      intersectionObserver.simulate({
+        isIntersecting: false,
+      });
+
       const importRemote = mount(
         <ImportRemote {...mockProps} defer={DeferTiming.InViewport} />,
       );
+
       expect(load).not.toHaveBeenCalled();
 
-      expect(importRemote.find(IntersectionObserver)).toHaveProp(
-        'threshold',
-        0,
-      );
+      importRemote.act(() => {
+        intersectionObserver.simulate({
+          isIntersecting: true,
+        });
+      });
 
-      await trigger(
-        importRemote.find(IntersectionObserver),
-        'onIntersectionChange',
-        {isIntersecting: true},
-      );
-
-      expect(importRemote.find(IntersectionObserver)).toHaveLength(0);
       expect(load).toHaveBeenCalled();
+    });
+
+    it('throws an error when the defer prop is changed', () => {
+      function MockComponent() {
+        const [defer, setDefer] = React.useState<DeferTiming>(
+          DeferTiming.Mount,
+        );
+
+        function handleOnClick() {
+          setDefer(DeferTiming.InViewport);
+        }
+
+        return (
+          <>
+            <button onClick={handleOnClick} type="button">
+              Set Defer
+            </button>
+            <ImportRemote {...mockProps} defer={defer} />
+          </>
+        );
+      }
+
+      const mockComponent = mount(<MockComponent />);
+
+      expect(() =>
+        mockComponent.act(() => {
+          mockComponent.find('button')!.trigger('onClick');
+        }),
+      ).toThrow(
+        [
+          'You’ve changed the defer strategy on an <ImportRemote />',
+          'component after it has mounted. This is not supported.',
+        ].join(' '),
+      );
     });
   });
 });
