@@ -42,6 +42,7 @@ export {EnumFormat};
 export interface Options extends PrintDocumentOptions, PrintSchemaOptions {
   addTypename: boolean;
   schemaTypesPath: string;
+  config?: GraphQLConfig;
 }
 
 export interface BuilderOptions extends Options {
@@ -86,7 +87,9 @@ export class Builder extends EventEmitter {
     super();
     this.options = options;
 
-    this.config = getGraphQLConfig(cwd ? resolve(cwd) : undefined);
+    this.config = options.config
+      ? options.config
+      : getGraphQLConfig(cwd ? resolve(cwd) : undefined);
   }
 
   once(event: 'error', handler: (error: Error) => void): this;

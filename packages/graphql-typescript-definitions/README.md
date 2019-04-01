@@ -275,3 +275,4 @@ As with the CLI, you can pass options to customize the build and behavior:
 * `schemaPath`
 * `schemaTypesPath`
 * `customScalars`
+* `config` (custom `GraphQLConfig` instance)
