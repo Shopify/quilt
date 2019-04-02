@@ -51,7 +51,7 @@ A `Root` object represents a mounted React tree. Most of the properties and meth
 
 This object also has a number of methods that only apply to the root of a component tree:
 
-#### <a name="mount"></a> `mount()`
+#### <a name="root-mount"></a> `mount()`
 
 Re-mounts the component to the DOM. If the component is already mounted, this method will throw an error.
 
