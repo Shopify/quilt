@@ -1,16 +1,15 @@
 import * as React from 'react';
 import ShortcutManager from '../ShortcutManager';
 
-export interface Context {
-  shortcutManager?: ShortcutManager;
-}
-
 export interface Props {
   children?: React.ReactNode;
 }
 
-export const {Provider, Consumer} = React.createContext<Context>({});
+export const ShortcutContext = React.createContext<ShortcutManager | null>(
+  null,
+);
 
+export const {Consumer, Provider} = ShortcutContext;
 export default class ShortcutProvider extends React.Component<Props, never> {
   private shortcutManager = new ShortcutManager();
 
@@ -19,10 +18,10 @@ export default class ShortcutProvider extends React.Component<Props, never> {
   }
 
   render() {
-    const context: Context = {
-      shortcutManager: this.shortcutManager,
-    };
-
-    return <Provider value={context}>{this.props.children}</Provider>;
+    return (
+      <ShortcutContext.Provider value={this.shortcutManager}>
+        {this.props.children}
+      </ShortcutContext.Provider>
+    );
   }
 }
