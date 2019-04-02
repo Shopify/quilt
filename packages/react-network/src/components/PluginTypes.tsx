@@ -1,14 +1,11 @@
 import {CspDirective} from '@shopify/network';
-import {useNetworkEffect} from '../hook';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   types: string | string[];
 }
 
 export default function PluginTypes({types}: Props) {
-  useNetworkEffect(network =>
-    network.addCspDirective(CspDirective.PluginTypes, types),
-  );
-
+  useCspDirective(CspDirective.PluginTypes, types);
   return null;
 }

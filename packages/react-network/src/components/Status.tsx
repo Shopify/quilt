@@ -1,11 +1,11 @@
 import {StatusCode} from '@shopify/network';
-import {useNetworkEffect} from '../hook';
+import {useStatus} from '../hooks';
 
 interface Props {
   code: StatusCode;
 }
 
 export default function Status({code}: Props) {
-  useNetworkEffect(network => network.addStatusCode(code));
+  useStatus(code);
   return null;
 }

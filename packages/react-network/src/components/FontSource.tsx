@@ -1,14 +1,11 @@
 import {CspDirective} from '@shopify/network';
-import {useNetworkEffect} from '../hook';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   sources: string | string[];
 }
 
 export default function FontSource({sources}: Props) {
-  useNetworkEffect(network =>
-    network.addCspDirective(CspDirective.FontSrc, sources),
-  );
-
+  useCspDirective(CspDirective.FontSrc, sources);
   return null;
 }

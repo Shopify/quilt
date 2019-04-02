@@ -1,6 +1,6 @@
 export * from '@shopify/network';
 export * from './components';
 
-export {Manager} from './manager';
+export {NetworkManager} from './manager';
 export {NetworkContext} from './context';
-export {useNetworkEffect} from './hook';
+export {useNetworkEffect, useStatus, useCspDirective} from './hooks';

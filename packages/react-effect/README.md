@@ -68,7 +68,7 @@ You may optionally pass an options object that contains the following keys (all 
   async function app(ctx) {
     const app = <App />;
     // will only perform @shopify/react-i18n extraction
-    await extract(app, [I18N_EFFECT_ID]);
+    await extract(app, {include: [I18N_EFFECT_ID]});
     ctx.body = renderToString(app);
   }
   ```

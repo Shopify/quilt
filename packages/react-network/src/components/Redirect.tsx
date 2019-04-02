@@ -1,12 +1,12 @@
 import {StatusCode} from '@shopify/network';
-import {useNetworkEffect} from '../hook';
+import {useRedirect} from '../hooks';
 
 interface Props {
   url: string;
-  status?: StatusCode;
+  code?: StatusCode;
 }
 
-export default function Redirect({url, status}: Props) {
-  useNetworkEffect(network => network.redirectTo(url, status));
+export default function Redirect({url, code}: Props) {
+  useRedirect(url, code);
   return null;
 }

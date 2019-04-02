@@ -1,5 +1,5 @@
 import {CspDirective, SriAsset} from '@shopify/network';
-import {useNetworkEffect} from '../hook';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   scripts?: boolean;
@@ -17,9 +17,7 @@ export default function RequireSriFor({scripts, styles}: Props) {
     value.push(SriAsset.Style);
   }
 
-  useNetworkEffect(network =>
-    network.addCspDirective(CspDirective.RequireSriFor, value),
-  );
+  useCspDirective(CspDirective.RequireSriFor, value);
 
   return null;
 }
