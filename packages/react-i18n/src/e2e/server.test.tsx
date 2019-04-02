@@ -6,7 +6,7 @@ import '../test/matchers';
 
 import * as React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
-import {extract} from '@shopify/react-effect/server';
+import {extract, Effect} from '@shopify/react-effect/server';
 
 import {useI18n, I18nContext, I18nManager} from '..';
 
@@ -20,7 +20,7 @@ function WithI18nComponent({children}: {children?: React.ReactNode}) {
     fallback: fallbackTranslations,
     translations(locale) {
       switch (locale) {
-        case 'fr-ca':
+        case 'fr-CA':
           return frCATranslations;
         case 'fr':
           return frTranslations;
@@ -44,7 +44,7 @@ function WithAsyncI18nComponent({children}: {children?: React.ReactNode}) {
     fallback: fallbackTranslations,
     translations(locale) {
       switch (locale) {
-        case 'fr-ca':
+        case 'fr-CA':
           return defer(frCATranslations);
         case 'fr':
           return defer(frTranslations);
@@ -75,7 +75,7 @@ function WithoutOwnI18nComponent({children}: {children?: React.ReactNode}) {
 
 describe('server', () => {
   it('allows for synchronously rendering', () => {
-    const manager = new I18nManager({locale: 'fr-ca'});
+    const manager = new I18nManager({locale: 'fr-CA'});
     const markup = renderToStaticMarkup(
       <I18nContext.Provider value={manager}>
         <WithI18nComponent />
@@ -85,10 +85,11 @@ describe('server', () => {
   });
 
   it('extracts async translations', async () => {
-    const manager = new I18nManager({locale: 'fr-ca'});
+    const manager = new I18nManager({locale: 'fr-CA'});
     const element = (
       <I18nContext.Provider value={manager}>
         <WithAsyncI18nComponent />
+        <Effect perform={() => manager.loading && manager.resolve()} />
       </I18nContext.Provider>
     );
 
@@ -113,6 +114,7 @@ describe('server', () => {
         <WithAsyncI18nComponent>
           <WithoutOwnI18nComponent />
         </WithAsyncI18nComponent>
+        <Effect perform={() => manager.loading && manager.resolve()} />
       </I18nContext.Provider>
     );
 

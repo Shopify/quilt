@@ -6,7 +6,7 @@ interface Props {
   perform(): any;
 }
 
-export default function Effect({kind, perform}: Props) {
+export function Effect({kind, perform}: Props) {
   useServerEffect(perform, kind);
   return null;
 }

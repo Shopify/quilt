@@ -832,7 +832,7 @@ describe('I18n', () => {
     });
 
     it('updates format on multiple calls', () => {
-      const defaultTimezone = 'EST';
+      const defaultTimezone = 'America/Toronto';
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,

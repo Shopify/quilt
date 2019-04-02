@@ -62,7 +62,7 @@ export class I18nManager {
   }
 
   async resolve() {
-    await Promise.all([...this.translationPromises]);
+    await Promise.all([...this.translationPromises.values()]);
   }
 
   extract() {

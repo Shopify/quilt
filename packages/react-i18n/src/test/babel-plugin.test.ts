@@ -9,7 +9,7 @@ jest.mock('string-hash', () => () => {
 describe('babel-pluin-react-i18n', () => {
   const defaultHash = Number.MAX_SAFE_INTEGER.toString(36).substr(0, 5);
 
-  it('injects arguments when adjacent translations exist', async () => {
+  it('injects arguments into withI18n when adjacent translations exist', async () => {
     expect(
       await transform(
         `import React from 'react';
@@ -46,6 +46,41 @@ describe('babel-pluin-react-i18n', () => {
     );
   });
 
+  it('injects arguments into useI18n when adjacent translations exist', async () => {
+    expect(
+      await transform(
+        `import React from 'react';
+        import {useI18n} from '@shopify/react-i18n';
+
+        export default function MyComponent() {
+          const [i18n] = useI18n();
+          return i18n.translate('key');
+        }
+        `,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(
+      await normalize(
+        `import React from 'react';
+        import {useI18n} from '@shopify/react-i18n';
+        import _en from './translations/en.json';
+
+        export default function MyComponent() {
+          const [i18n] = useI18n({
+            id: 'MyComponent_${defaultHash}',
+            fallback: _en,
+            async translations(locale) {
+              const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
+              return dictionary && dictionary.default;
+            },
+          });
+          return i18n.translate('key');
+        }
+        `,
+      ),
+    );
+  });
+
   it('does not inject arguments when no adjacent translations exist', async () => {
     const code = await normalize(
       `import * as React from 'react';
@@ -56,21 +91,6 @@ describe('babel-pluin-react-i18n', () => {
       }
 
       export default withI18n()(MyComponent);
-      `,
-    );
-
-    expect(await transform(code, optionsForFile('MyComponent.tsx'))).toBe(code);
-  });
-
-  it('does not make changes when no decorator is present', async () => {
-    const code = await normalize(
-      `import * as React from 'react';
-
-      function MyComponent() {
-        return 'some string';
-      }
-
-      export default MyComponent;
       `,
     );
 
@@ -133,6 +153,21 @@ describe('babel-pluin-react-i18n', () => {
     );
   });
 
+  it('does not transform useI18n imports from other libraries', async () => {
+    const code = await normalize(`import React from 'react';
+    import {useI18n} from 'some-other-lib';
+
+    export default function MyComponent() {
+      const [i18n] = useI18n();
+      return i18n.translate('key');
+    }
+    `);
+
+    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
+      code,
+    );
+  });
+
   it('transforms withI18n when it was renamed during import', async () => {
     expect(
       await transform(
@@ -170,15 +205,66 @@ describe('babel-pluin-react-i18n', () => {
     );
   });
 
+  it('transforms useI18n when it was renamed during import', async () => {
+    expect(
+      await transform(
+        `import React from 'react';
+        import {useI18n as useFunI18n} from '@shopify/react-i18n';
+
+        export default function MyComponent() {
+          const [i18n] = useFunI18n();
+          return i18n.translate('key');
+        }
+        `,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(
+      await normalize(
+        `import React from 'react';
+        import {useI18n as useFunI18n} from '@shopify/react-i18n';
+        import _en from './translations/en.json';
+
+        export default function MyComponent() {
+          const [i18n] = useFunI18n({
+            id: 'MyComponent_${defaultHash}',
+            fallback: _en,
+            async translations(locale) {
+              const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
+              return dictionary && dictionary.default;
+            },
+          });
+          return i18n.translate('key');
+        }
+        `,
+      ),
+    );
+  });
+
   it('does not transform withI18n when it already has arguments', async () => {
     const code = await normalize(`import React from 'react';
-    import {withI18n} from '@shopify/react-i18n';
+      import {withI18n} from '@shopify/react-i18n';
 
-    function MyComponent({i18n}) {
-      return i18n.translate('key');
-    }
+      function MyComponent({i18n}) {
+        return i18n.translate('key');
+      }
 
-    export default withI18n({id: 'foo'})(MyComponent);
+      export default withI18n({id: 'foo'})(MyComponent);
+    `);
+
+    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
+      code,
+    );
+  });
+
+  it('does not transform useI18n when it already has arguments', async () => {
+    const code = await normalize(`
+      import React from 'react';
+      import {useI18n} from '@shopify/react-i18n';
+
+      export default function MyComponent() {
+        const [i18n] = useI18n({id: 'Foo'});
+        return i18n.translate('key');
+      }
     `);
 
     expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(

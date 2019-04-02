@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
-import {EffectContext, EffectManager} from './context';
+import {EffectContext} from './context';
+import {EffectManager} from './manager';
 import {Pass} from './types';
+
+export {Effect} from './Effect';
 
 interface Options {
   include?: symbol[] | boolean;

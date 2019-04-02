@@ -116,7 +116,6 @@ export default function injectWithI18nArguments({
           if (binding != null) {
             const {lastImport} = state;
             const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
-
             const {filename} = this.file.opts;
 
             addI18nArguments({
@@ -131,8 +130,6 @@ export default function injectWithI18nArguments({
               },
             });
           }
-
-          break;
         }
       },
     },
