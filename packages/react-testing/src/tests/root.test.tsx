@@ -164,6 +164,19 @@ describe('Root', () => {
       expect(root.prop('name')).toBe('goodforonefare');
     });
 
+    it('preserves unchanged props', () => {
+      function MyComponent(_props: {name: string; handle: string}) {
+        return null;
+      }
+
+      const name = 'Gord';
+      const handle = 'goodforonefare';
+      const root = new Root(<MyComponent name={name} handle={handle} />);
+
+      root.setProps({handle: [...handle].reverse().join('')});
+      expect(root.prop('name')).toBe(name);
+    });
+
     it('does not unmount the component, but does trigger an update', () => {
       const componentWillUnmount = jest.fn();
       const componentDidUpdate = jest.fn();
