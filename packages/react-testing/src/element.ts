@@ -78,6 +78,10 @@ export class Element<Props> {
     ) as Element<unknown>[];
   }
 
+  data(key: string): unknown {
+    return this.props[key.startsWith('data-') ? key : `data-${key}`];
+  }
+
   prop<K extends keyof Props>(key: K): Props[K] {
     return this.props[key];
   }

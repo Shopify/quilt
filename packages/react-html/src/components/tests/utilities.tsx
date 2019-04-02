@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 
 import Manager from '../../manager';
 import {HtmlProvider} from '../../context';
