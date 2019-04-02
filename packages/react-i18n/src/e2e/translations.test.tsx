@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
-import {useI18n, I18nContext, Manager} from '..';
+import {useI18n, I18nContext, I18nManager} from '..';
 
 const enTranslations = {hello: 'Hello'};
 const frTranslations = {hello: 'Bonjour'};
@@ -16,7 +16,7 @@ describe('translations', () => {
       return <div>{i18n.translate('hello')}</div>;
     }
 
-    const manager = new Manager({locale: 'fr'});
+    const manager = new I18nManager({locale: 'fr'});
     const component = mount(
       <I18nContext.Provider value={manager}>
         <WithI18nComponent />
@@ -45,7 +45,7 @@ describe('translations', () => {
       return <div>{i18n.translate('hello')}</div>;
     }
 
-    const manager = new Manager({locale: 'en'});
+    const manager = new I18nManager({locale: 'en'});
     const component = mount(
       <I18nContext.Provider value={manager}>
         <WithI18nComponent />

@@ -1,8 +1,8 @@
 import './matchers';
 
-import Manager from '../manager';
+import {I18nManager} from '../manager';
 
-describe('Manager', () => {
+describe('I18nManager', () => {
   const basicDetails = {locale: 'en'};
 
   const en = {hello: 'Hello'};
@@ -54,7 +54,7 @@ describe('Manager', () => {
     it('requests translations for connections', () => {
       const spy = jest.fn();
       const locale = 'fr';
-      const manager = new Manager({...basicDetails, locale});
+      const manager = new I18nManager({...basicDetails, locale});
       manager.register({id: createID(), translations: spy});
       expect(spy).toHaveBeenCalledWith(locale);
     });
@@ -62,7 +62,7 @@ describe('Manager', () => {
     it('requests translations only once for a given connection ID', () => {
       const spy = jest.fn();
       const id = createID();
-      const manager = new Manager(basicDetails);
+      const manager = new I18nManager(basicDetails);
 
       manager.register({id, translations: spy});
       manager.register({id, translations: spy});
@@ -72,7 +72,7 @@ describe('Manager', () => {
 
     it('requests translations for the full locale and language when the country code is provided', () => {
       const spy = jest.fn();
-      const manager = new Manager({...basicDetails, locale: 'en-US'});
+      const manager = new I18nManager({...basicDetails, locale: 'en-US'});
       manager.register({id: createID(), translations: spy});
       expect(spy).toHaveBeenCalledWith('en-US');
       expect(spy).toHaveBeenCalledWith('en');
@@ -80,7 +80,7 @@ describe('Manager', () => {
 
     it('does not request translations when the fallback locale matches the locale', () => {
       const spy = jest.fn();
-      const manager = new Manager({
+      const manager = new I18nManager({
         ...basicDetails,
         fallbackLocale: 'en',
         locale: 'en',
@@ -91,7 +91,7 @@ describe('Manager', () => {
 
     describe('sync', () => {
       it('uses synchronously-returned translations, starting with the most specific translation', () => {
-        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
         const id = createID();
         manager.register({
           id,
@@ -106,7 +106,7 @@ describe('Manager', () => {
 
       it('excludes translations that are undefined', () => {
         const id = createID();
-        const manager = new Manager({...basicDetails, locale: 'en-US'});
+        const manager = new I18nManager({...basicDetails, locale: 'en-US'});
         manager.register({
           id,
           translations(locale: string) {
@@ -121,7 +121,7 @@ describe('Manager', () => {
 
       it('uses a fallback when all translations are undefined', () => {
         const id = createID();
-        const manager = new Manager({...basicDetails, locale: 'pt-BR'});
+        const manager = new I18nManager({...basicDetails, locale: 'pt-BR'});
         manager.register({
           id,
           fallback,
@@ -136,7 +136,7 @@ describe('Manager', () => {
       it('does not call the subscription when all translations are synchronous', () => {
         const id = createID();
         const spy = jest.fn();
-        const manager = new Manager(basicDetails);
+        const manager = new I18nManager(basicDetails);
         manager.register({
           id,
           translations: getTranslation,
@@ -147,24 +147,20 @@ describe('Manager', () => {
       });
 
       it('does not include fallback translations if they are the same language as the request', () => {
-        const connection = new Connection({
-          id: createID(),
-          fallback: en,
-          translations: () => en,
-        });
-
-        const manager = new Manager({
+        const id = createID();
+        const manager = new I18nManager({
           ...basicDetails,
           locale: 'en',
           fallbackLocale: 'en',
         });
 
-        manager.connect(
-          connection,
-          noop,
-        );
+        manager.register({
+          id,
+          fallback: en,
+          translations: () => en,
+        });
 
-        expect(manager.state(connection)).toMatchObject({
+        expect(manager.state([id])).toMatchObject({
           loading: false,
           translations: [en],
         });
@@ -174,7 +170,7 @@ describe('Manager', () => {
     describe('async', () => {
       it('returns an empty loading state when no translations are returned synchronously', () => {
         const id = createID();
-        const manager = new Manager(basicDetails);
+        const manager = new I18nManager(basicDetails);
         manager.register({
           id,
           translations: getTranslationAsync,
@@ -187,7 +183,7 @@ describe('Manager', () => {
 
       it('uses a fallback when all translations are async and loading', () => {
         const id = createID();
-        const manager = new Manager(basicDetails);
+        const manager = new I18nManager(basicDetails);
         manager.register({
           id,
           fallback,
@@ -203,7 +199,7 @@ describe('Manager', () => {
       it('uses a fallback when all translations resolve to be undefined', async () => {
         const id = createID();
         const promise = Promise.resolve(undefined);
-        const manager = new Manager({...basicDetails, locale: 'pt-BR'});
+        const manager = new I18nManager({...basicDetails, locale: 'pt-BR'});
 
         manager.register({
           id,
@@ -224,7 +220,7 @@ describe('Manager', () => {
         const frTranslation = createTranslationPromise(fr);
         const frCATranslation = createTranslationPromise(frCA);
 
-        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
 
         manager.register({
           id,
@@ -253,7 +249,7 @@ describe('Manager', () => {
         const frTranslation = createTranslationPromise(fr);
         const frCATranslation = createTranslationPromise(undefined);
 
-        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
 
         manager.register({
           id,
@@ -282,7 +278,7 @@ describe('Manager', () => {
         const frTranslation = createTranslationPromise(fr);
         const frCATranslation = createTranslationPromise(frCA);
 
-        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
 
         manager.register({
           id,
@@ -312,7 +308,7 @@ describe('Manager', () => {
         const frTranslation = createTranslationPromise(fr);
         const frCATranslation = createTranslationPromise(frCA);
 
-        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
 
         manager.register({
           id,
@@ -345,7 +341,7 @@ describe('Manager', () => {
         const frTranslation = createTranslationPromise(fr);
         const frCATranslation = createTranslationPromise(frCA);
 
-        const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
 
         manager.register({
           id,
@@ -375,7 +371,7 @@ describe('Manager', () => {
 
   describe('#extract()', () => {
     it('provides an object with all async translations keyed to unique IDs', async () => {
-      const manager = new Manager({...basicDetails, locale: 'en-US'});
+      const manager = new I18nManager({...basicDetails, locale: 'en-US'});
 
       manager.register({
         id: createID(),
@@ -398,7 +394,7 @@ describe('Manager', () => {
     });
 
     it('does not provide async translations if they have not been resolved', () => {
-      const manager = new Manager({...basicDetails, locale: 'en-US'});
+      const manager = new I18nManager({...basicDetails, locale: 'en-US'});
 
       manager.register({
         id: createID(),
@@ -410,7 +406,7 @@ describe('Manager', () => {
     });
 
     it('does not provide synchronous translations', async () => {
-      const manager = new Manager({...basicDetails, locale: 'en-US'});
+      const manager = new I18nManager({...basicDetails, locale: 'en-US'});
       manager.register({
         id: createID(),
         translations: getTranslation,
@@ -423,7 +419,7 @@ describe('Manager', () => {
     });
 
     it('can use the extracted translations to make async translation resolution be synchronous', async () => {
-      const manager = new Manager({...basicDetails, locale: 'fr-CA'});
+      const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
       const options = {
         id: createID(),
         translations: getTranslationAsync,
@@ -433,14 +429,14 @@ describe('Manager', () => {
 
       await manager.resolve();
 
-      const hydratedManager = new Manager(
+      const hydratedI18nManager = new I18nManager(
         {...basicDetails, locale: 'fr-CA'},
         manager.extract(),
       );
 
-      hydratedManager.register(options);
+      hydratedI18nManager.register(options);
 
-      expect(hydratedManager.state([options.id])).toMatchObject({
+      expect(hydratedI18nManager.state([options.id])).toMatchObject({
         loading: false,
         translations: [frCA, fr],
       });

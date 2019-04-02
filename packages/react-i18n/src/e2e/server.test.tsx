@@ -8,7 +8,7 @@ import * as React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {extract} from '@shopify/react-effect/server';
 
-import {useI18n, I18nContext, Manager} from '..';
+import {useI18n, I18nContext, I18nManager} from '..';
 
 const fallbackTranslations = {MyComponent: {hello: 'Hello'}};
 const frTranslations = {MyComponent: {hello: 'Bonjour'}};
@@ -75,7 +75,7 @@ function WithoutOwnI18nComponent({children}: {children?: React.ReactNode}) {
 
 describe('server', () => {
   it('allows for synchronously rendering', () => {
-    const manager = new Manager({locale: 'fr-ca'});
+    const manager = new I18nManager({locale: 'fr-ca'});
     const markup = renderToStaticMarkup(
       <I18nContext.Provider value={manager}>
         <WithI18nComponent />
@@ -85,7 +85,7 @@ describe('server', () => {
   });
 
   it('extracts async translations', async () => {
-    const manager = new Manager({locale: 'fr-ca'});
+    const manager = new I18nManager({locale: 'fr-ca'});
     const element = (
       <I18nContext.Provider value={manager}>
         <WithAsyncI18nComponent />
@@ -107,7 +107,7 @@ describe('server', () => {
   });
 
   it('handles nested translation connections', async () => {
-    const manager = new Manager({locale: 'fr'});
+    const manager = new I18nManager({locale: 'fr'});
     const element = (
       <I18nContext.Provider value={manager}>
         <WithAsyncI18nComponent>

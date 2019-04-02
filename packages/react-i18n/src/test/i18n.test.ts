@@ -2,7 +2,7 @@ import {clock} from '@shopify/jest-dom-mocks';
 
 import './matchers';
 
-import I18n from '../i18n';
+import {I18n} from '../i18n';
 import {LanguageDirection} from '../types';
 import {DateStyle, Weekdays} from '../constants';
 import {MissingTranslationError} from '../errors';
@@ -832,6 +832,7 @@ describe('I18n', () => {
     });
 
     it('updates format on multiple calls', () => {
+      const defaultTimezone = 'EST';
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,

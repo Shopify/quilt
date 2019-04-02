@@ -2,7 +2,7 @@ import React from 'react';
 import hoistStatics from 'hoist-non-react-statics';
 import {RegisterOptions} from './manager';
 import {useI18n} from './hooks';
-import I18n from './i18n';
+import {I18n} from './i18n';
 
 export interface WithI18nProps {
   i18n: I18n;

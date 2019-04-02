@@ -38,7 +38,7 @@ export interface ExtractedTranslations {
   [id: string]: TranslationDictionary | undefined;
 }
 
-export default class Manager {
+export class I18nManager {
   get loading() {
     return this.translationPromises.size > 0;
   }

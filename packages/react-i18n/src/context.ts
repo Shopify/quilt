@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Manager from './manager';
+import {I18nManager} from './manager';
 
-export const I18nContext = React.createContext<Manager | undefined>(undefined);
+export const I18nContext = React.createContext<I18nManager | null>(null);
 export const I18nParentsContext = React.createContext<string[]>([]);

@@ -1,6 +1,6 @@
-export {default as Manager, ExtractedTranslations} from './manager';
+export {I18nManager, ExtractedTranslations} from './manager';
 export {I18nContext} from './context';
-export {default as I18n} from './i18n';
+export {I18n} from './i18n';
 export {useI18n} from './hooks';
 export {withI18n, WithI18nProps} from './decorator';
 export {translate} from './utilities';

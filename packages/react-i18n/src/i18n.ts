@@ -55,7 +55,7 @@ const memoizedNumberFormatter = memoizeFn(
     `${locale}${JSON.stringify(options)}`,
 );
 
-export default class I18n {
+export class I18n {
   readonly locale: string;
   readonly pseudolocalize: boolean | string;
   readonly defaultCountry?: string;

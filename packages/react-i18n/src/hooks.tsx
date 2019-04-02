@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import I18n from './i18n';
+import {I18n} from './i18n';
 import {RegisterOptions} from './manager';
 import {I18nContext, I18nParentsContext} from './context';
 
