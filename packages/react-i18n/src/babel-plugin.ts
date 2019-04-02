@@ -22,16 +22,16 @@ export default function injectWithI18nArguments({
     })();
   }
 
-  function i18nCallExpression({id, fallbackID, decoratorName}) {
+  function i18nCallExpression({id, fallbackID, bindingName}) {
     return template(
-      `${decoratorName}({
-      id: '${id}',
-      fallback: ${fallbackID},
-      async translations(locale) {
-        const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-        return dictionary && dictionary.default;
-      },
-    })`,
+      `${bindingName}({
+        id: '${id}',
+        fallback: ${fallbackID},
+        async translations(locale) {
+          const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
+          return dictionary && dictionary.default;
+        },
+      })`,
       {
         sourceType: 'module',
         plugins: ['dynamicImport'],
@@ -78,7 +78,7 @@ export default function injectWithI18nArguments({
         i18nCallExpression({
           id: generateID(filename),
           fallbackID,
-          decoratorName: bindingName,
+          bindingName,
         }),
       );
     }
