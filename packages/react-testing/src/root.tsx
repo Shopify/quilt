@@ -55,6 +55,7 @@ export class Root<Props> {
   private wrapper: TestWrapper<Props> | null = null;
   private element = document.createElement('div');
   private root: Element<Props> | null = null;
+  private acting = false;
 
   private get mounted() {
     return this.wrapper != null;
@@ -70,6 +71,12 @@ export class Root<Props> {
   act<T>(action: () => T, {update = true} = {}): T {
     let result!: T;
 
+    if (this.acting) {
+      return action();
+    }
+
+    this.acting = true;
+
     withIgnoredReactLogs(() =>
       act(() => {
         result = action();
@@ -79,6 +86,8 @@ export class Root<Props> {
     if (update) {
       this.update();
     }
+
+    this.acting = false;
 
     return result;
   }
