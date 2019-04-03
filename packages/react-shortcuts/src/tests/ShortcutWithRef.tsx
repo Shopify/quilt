@@ -5,39 +5,24 @@ interface Props {
   spy: jest.Mock<{}>;
 }
 
-interface State {
-  node?: HTMLElement | null;
-}
+export default function ShortcutWithFocus(props: Props) {
+  const {spy} = props;
+  const node = React.useRef<HTMLButtonElement | null>(null);
 
-export default class ShortcutWithFocus extends React.Component<Props, State> {
-  state: State = {
-    node: null,
-  };
+  React.useEffect(
+    () => {
+      if (!node || !node.current) {
+        return;
+      }
 
-  componentWillUpdate() {
-    const {node} = this.state;
-
-    if (!node) {
-      return;
-    }
-
-    node.focus();
-  }
-
-  render() {
-    const {spy} = this.props;
-    const {node} = this.state;
-    return (
-      <div className="app">
-        <button type="button" ref={this.setRef} />
-        <Shortcut ordered={['z']} onMatch={spy} node={node} />
-      </div>
-    );
-  }
-
-  private setRef = (node: HTMLElement | null) => {
-    this.setState({
-      node,
-    });
-  };
+      node.current.focus();
+    },
+    [node],
+  );
+  return (
+    <div className="app">
+      <button type="button" ref={node} />
+      <Shortcut ordered={['z']} onMatch={spy} node={node.current} />
+    </div>
+  );
 }

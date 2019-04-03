@@ -1,10 +1,12 @@
-export {default as Shortcut, Props as ShortcutProps} from './Shortcut';
+export {
+  default as Shortcut,
+  Props as ShortcutProps,
+  useShortcut,
+} from './Shortcut';
 
 export {
   default as ShortcutProvider,
   Props as ProviderProps,
-  Context,
-  Provider as ContextProvider,
 } from './ShortcutProvider';
 
 export {default as ShortcutManager} from './ShortcutManager';
