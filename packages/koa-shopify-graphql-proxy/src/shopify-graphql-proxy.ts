@@ -2,12 +2,19 @@ import proxy from 'koa-better-http-proxy';
 import {Context} from 'koa';
 
 export const PROXY_BASE_PATH = '/graphql';
-export const GRAPHQL_PATH = '/admin/api/graphql.json';
+export const GRAPHQL_PATH_PREFIX = '/admin/api/';
+export const GRAPHQL_PATH_SUFFIX = 'graphql.json';
 
-export interface ProxyOptions {
+interface DefaultProxyOptions {
+  apiVersion?: string;
+}
+
+interface PrivateShopOption extends DefaultProxyOptions {
   password: string;
   shop: string;
 }
+
+type ProxyOptions = PrivateShopOption | DefaultProxyOptions;
 
 export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
   return async function shopifyGraphQLProxyMiddleware(
@@ -16,10 +23,13 @@ export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
   ) {
     const {session = {}} = ctx;
 
-    const shop = proxyOptions ? proxyOptions.shop : session.shop;
-    const accessToken = proxyOptions
+    const shop = isPrivateShopOption(proxyOptions)
+      ? proxyOptions.shop
+      : session.shop;
+    const accessToken = isPrivateShopOption(proxyOptions)
       ? proxyOptions.password
       : session.accessToken;
+    const apiVersion = proxyOptions ? proxyOptions.apiVersion : null;
 
     if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
       await next();
@@ -41,7 +51,11 @@ export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
         'X-Shopify-Access-Token': accessToken,
       },
       proxyReqPathResolver() {
-        return `https://${shop}${GRAPHQL_PATH}`;
+        if (apiVersion) {
+          return `https://${shop}${GRAPHQL_PATH_PREFIX}${apiVersion}/${GRAPHQL_PATH_SUFFIX}`;
+        }
+
+        return `https://${shop}${GRAPHQL_PATH_PREFIX}${GRAPHQL_PATH_SUFFIX}`;
       },
     })(
       ctx,
@@ -54,6 +68,16 @@ export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
       noop,
     );
   };
+}
+
+function isPrivateShopOption(
+  proxyOptions?: ProxyOptions,
+): proxyOptions is PrivateShopOption {
+  if (proxyOptions == null) {
+    return false;
+  }
+
+  return 'password' in proxyOptions && 'shop' in proxyOptions;
 }
 
 async function noop() {}

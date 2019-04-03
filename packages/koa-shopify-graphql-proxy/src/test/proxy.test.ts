@@ -1,5 +1,9 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
-import koaShopifyGraphQLProxy, {GRAPHQL_PATH, PROXY_BASE_PATH} from '..';
+import koaShopifyGraphQLProxy, {
+  PROXY_BASE_PATH,
+  GRAPHQL_PATH_PREFIX,
+  GRAPHQL_PATH_SUFFIX,
+} from '..';
 
 jest.mock('koa-better-http-proxy', () => {
   return jest.fn(() => jest.fn());
@@ -185,7 +189,31 @@ describe('koa-shopify-graphql-proxy', () => {
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
     const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
-    expect(proxyReqPathResolver(ctx)).toBe(`https://${shop}${GRAPHQL_PATH}`);
+    expect(proxyReqPathResolver(ctx)).toBe(
+      `https://${shop}${GRAPHQL_PATH_PREFIX}${GRAPHQL_PATH_SUFFIX}`,
+    );
+  });
+
+  it('passes a proxyReqPathResolver that returns full shop url with the API version', async () => {
+    const apiVersion = 'unstable';
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      apiVersion,
+    });
+    const shop = 'some-shop.myshopify.com';
+
+    const ctx = createMockContext({
+      url: PROXY_BASE_PATH,
+      method: 'POST',
+      throw: jest.fn(),
+      session: {accessToken: 'sdfasdf', shop},
+    });
+
+    await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
+
+    const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
+    expect(proxyReqPathResolver(ctx)).toBe(
+      `https://${shop}${GRAPHQL_PATH_PREFIX}${apiVersion}/${GRAPHQL_PATH_SUFFIX}`,
+    );
   });
 
   it('terminates middleware chain when proxying (does not call next)', async () => {
