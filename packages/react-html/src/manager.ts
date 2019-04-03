@@ -17,7 +17,7 @@ interface Subscription {
 
 export const EFFECT_ID = Symbol('html');
 
-export default class Manager {
+export class HtmlManager {
   effect: EffectKind = {
     id: EFFECT_ID,
     betweenEachPass: () => this.reset(),

@@ -38,33 +38,50 @@ export default function middleware(ctx) {
 }
 ```
 
-If you want to make use of the serialization techniques [documented below](#in-your-app-code), you must also construct a `Manager` instance, pass it to a `<Provider />` component, and call `@shopify/react-effect`’s `extract` method:
-
-```tsx
-// in App.tsx
-import {Manager, Provider} from '@shopify/react-html';
-
-function App({htmlManager}: {htmlManager: Manager}) {
-  return <Provider manager={htmlManager}>Hello world!</Provider>;
-}
-```
+If you want to make use of the serialization techniques [documented below](#in-your-app-code), you must also construct an `HtmlManager` instance, pass it to a `<HtmlContext.Provider />` component, and call `@shopify/react-effect`’s `extract` method:
 
 ```tsx
 // Somewhere in your server
 import {extract} from '@shopify/react-effect/server';
-import {render, Html, Manager} from '@shopify/react-html/server';
+import {
+  render,
+  Html,
+  HtmlManager,
+  HtmlContext,
+} from '@shopify/react-html/server';
 
 export default function middleware(ctx) {
-  const manager = new Manager();
-  const app = <App htmlManager={manager} />;
+  const manager = new HtmlManager();
+  const app = <App />;
 
-  await extract(app);
+  await extract(app, {
+    decorate: element => (
+      <HtmlContext.Provider value={manager}>{element}</HtmlContext.Provider>
+    ),
+  });
 
   ctx.body = render(<Html manager={manager}>{app}</Html>);
 }
 ```
 
 You can also use the `Script`, `Style`, and `Serialize` components detailed in the [API reference](#api-reference) to manually construct a variety of tags, which you will typically insert into the document with the [`Html` component’s `headMarkup` and `bodyMarkup` props](#html).
+
+### In your application
+
+In order for `link`, `meta`, and `title` tags to be updated as components are mounted and unmounted, you must render the `HeadUpdater` component somewhere in your tree:
+
+```tsx
+// Somewhere in app code
+
+function App() {
+  return (
+    <>
+      <HeadUpdater />
+      <RestOfApp />
+    </>
+  );
+}
+```
 
 ### In your client entrypoint
 

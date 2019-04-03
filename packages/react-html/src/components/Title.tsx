@@ -1,10 +1,10 @@
-import {useDomEffect} from '../hook';
+import {useTitle} from '../hooks';
 
 interface Props {
   children: string;
 }
 
-export default function Title({children: title}: Props) {
-  useDomEffect(manager => manager.addTitle(title), [title]);
+export function Title({children: title}: Props) {
+  useTitle(title);
   return null;
 }

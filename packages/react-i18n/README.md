@@ -13,9 +13,9 @@ $ yarn add @shopify/react-i18n
 
 ## Usage
 
-### `<I18nContext.Provider />` and `Manager`
+### `<I18nContext.Provider />` and `I18nManager`
 
-This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `I18nContext.Provider` component. This component accepts a `manager` prop, which allows you to specify the following global i18n properties:
+This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `I18nContext.Provider` component. This component accepts an `I18nManager` as the `value` prop, which allows you to specify the following global i18n properties:
 
 - `locale`: the current locale of the app. This is the only required option.
 - `fallbackLocale`: the locale that your component’s will use in any of their fallback translations. This is used to avoid unnecessarily serializing fallback translations.
@@ -26,7 +26,7 @@ This library requires a provider component which supplies i18n details to the re
 - `onError`: a callback to use when recoverable i18n-related errors happen. If not provided, these errors will be re-thrown wherever they occur. If it is provided and it does not re-throw the passed error, the translation or formatting that caused the error will return an empty string. This function will be called with the error object.
 
 ```tsx
-import {I18nContext, Manager as I18nManager} from '@shopify/react-i18n';
+import {I18nContext, I18nManager} from '@shopify/react-i18n';
 
 const locale = 'en';
 const i18nManager = new I18nManager({
@@ -58,13 +58,66 @@ export default function NotFound() {
   const [i18n] = useI18n();
   return (
     <EmptyState
-      heading={i18n.translate('App.notFound')}
-      action={{content: i18n.translate('App.back'), url: '/'}}
+      heading={i18n.translate('NotFound.heading')}
+      action={{content: i18n.translate('Common.back'), url: '/'}}
     >
-      <p>{i18n.translate('App.notFoundContent')}</p>
+      <p>{i18n.translate('NotFound.content')}</p>
     </EmptyState>
   );
 }
+```
+
+The hook also returns a `ShareTranslations` component. You can wrap this around a part of the subtree that should have access to this component’s translations.
+
+```tsx
+import * as React from 'react';
+import {Page} from '@shopify/polaris';
+import {useI18n} from '@shopify/react-i18n';
+
+interface Props {
+  children: React.ReactNode;
+}
+
+export default function ProductDetails({children}: Props) {
+  const [i18n, ShareTranslations] = useI18n();
+  return (
+    <Page
+      title={i18n.translate('ProductDetails.title')}
+    >
+      <ShareTranslations>
+        {children}
+      </ShareTranslations>
+    </EmptyState>
+  );
+}
+```
+
+`@shopify/react-i18n` also provides the `withI18n` decorator as a migration path towards the `useI18n` hook, or for use with class components. Unlike the hook version, components using the `withI18n` decorator always share their translations with the entire tree.
+
+```tsx
+import * as React from 'react';
+import {EmptyState} from '@shopify/polaris';
+import {withI18n, WithI18nProps} from '@shopify/react-i18n';
+
+export interface Props {}
+type ComposedProps = Props & WithI18nProps;
+
+class NorFound extends React.Component<ComposedProps> {
+  render() {
+    const {i18n} = this.props;
+
+    return (
+      <EmptyState
+        heading={i18n.translate('NotFound.heading')}
+        action={{content: i18n.translate('Common.back'), url: '/'}}
+      >
+        <p>{i18n.translate('NotFound.content')}</p>
+      </EmptyState>
+    );
+  }
+}
+
+export default withI18n()(NotFound);
 ```
 
 #### `i18n`
@@ -93,7 +146,7 @@ Translations are provided using two keys in the `withI18n` decorator:
 - `fallback`: a translation file to use when translation keys are not found in the locale-specific translation files. These will usually be your English translations, as they are typically the most complete.
 - `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. The `translations` function can also throw and `react-i18n` will handle the situation gracefully. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries.
 
-We recommend that colocate your translations files in a `./translations` directory and that you include an `en.json` file in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `withI18n` for you.
+We recommend that colocate your translations files in a `./translations` directory and that you include an `en.json` file in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
 
 If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary. If you're using the [babel plugin](#Babel), this `id` will the automatically generated based on the relative path to your component from your project's root directory.
 
@@ -228,32 +281,6 @@ i18n.translate('MyComponent.searchResult', {
   count: searchResults,
   formattedCount: i18n.formatNumber(searchResults),
 });
-```
-
-#### `withI18n` decorator
-
-`@shopify/react-i18n` continues to provide the `withI18n` decorator as a migration path towards the `useI18n` hook.
-
-```tsx
-import * as React from 'react';
-import {EmptyState} from '@shopify/polaris';
-import {withI18n, WithI18nProps} from '@shopify/react-i18n';
-
-export interface Props {}
-type ComposedProps = Props & WithI18nProps;
-
-function NotFound({i18n}: ComposedProps) {
-  return (
-    <EmptyState
-      heading={i18n.translate('App.notFound')}
-      action={{content: i18n.translate('App.back'), url: '/'}}
-    >
-      <p>{i18n.translate('App.notFoundContent')}</p>
-    </EmptyState>
-  );
-}
-
-export default withI18n()(NotFound);
 ```
 
 ### Server

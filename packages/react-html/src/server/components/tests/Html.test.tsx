@@ -3,7 +3,7 @@ import {mount} from '@shopify/react-testing';
 import withEnv from '@shopify/with-env';
 
 import {Script, Style} from '../../../components';
-import Manager from '../../../manager';
+import {HtmlManager} from '../../../manager';
 import {MANAGED_ATTRIBUTE} from '../../../utilities';
 
 import Html from '../Html';
@@ -180,7 +180,7 @@ describe('<Html />', () => {
     it('renders serializations', () => {
       const id = 'MySerialization';
       const data = {foo: 'bar'};
-      const manager = new Manager({isServer: true});
+      const manager = new HtmlManager({isServer: true});
       manager.setSerialization(id, data);
 
       const html = mount(<Html {...mockProps} manager={manager} />);
@@ -193,7 +193,7 @@ describe('<Html />', () => {
 
     it('renders a title', () => {
       const title = 'Shopify';
-      const manager = new Manager();
+      const manager = new HtmlManager();
       manager.addTitle(title);
 
       const html = mount(<Html {...mockProps} manager={manager} />);
@@ -205,7 +205,7 @@ describe('<Html />', () => {
       const metaOne = {content: 'foo'};
       const metaTwo = {content: 'bar'};
 
-      const manager = new Manager();
+      const manager = new HtmlManager();
       manager.addMeta(metaOne);
       manager.addMeta(metaTwo);
 
@@ -223,7 +223,7 @@ describe('<Html />', () => {
       const linkOne = {href: 'foo'};
       const linkTwo = {href: 'bar'};
 
-      const manager = new Manager();
+      const manager = new HtmlManager();
       manager.addLink(linkOne);
       manager.addLink(linkTwo);
 
