@@ -218,29 +218,33 @@ import {Script} from '@shopify/react-html';
 />;
 ```
 
-### `<Link />`
+### `<HeadUpdater />`
+
+The `<HeadUpdater />` component is responsible for updating the head in response to `link`, `meta`, and `title` changes. You should only render one of these in your entire app.
+
+### `useLink()` and `<Link />`
 
 Renders a `<link />` tag in the head with the specified attributes. On the server, links are recorded in the `Manager` and automatically applied to the `Html` component. On the client, the `<link />` tags are updated in a deferred callback to minimize DOM manipulations.
 
-The `<Link />` component accepts any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`<Favicon />`](#favicon) component instead.
+Both the hook and component versions accept any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`useFavicon()`/ `<Favicon />` component](#favicon) instead.
 
-### `<Meta />`
+### `useMeta()` and `<Meta />`
 
 Renders a `<meta />` tag in the head with the specified attributes. This component uses the same approach to render these tags as detailed for the `<Link />` component above.
 
-The `<Meta />` component accepts any properties you would supply to a `<meta />` tag.
+Both the hook and component versions accept any properties you would supply to a `<meta />` tag.
 
-### `<Title />`
+### `useTitle()` and `<Title />`
 
-Renders a `<title />` tag in the head with the specified attributes. If multiple `<Title />` components are rendered in your app, the last one (usually, the most deeply nested) will be applied.
+Renders a `<title />` tag in the head with the specified attributes. If multiple `<Title />` components/ `useTitle()` hooks are rendered in your app, the last one (usually, the most deeply nested) will be applied.
 
-This component accepts a string child, which will be used to set the title of the page.
+This component accepts a string child (and the hook accepts a single string argument), which will be used to set the title of the page.
 
-### `<Favicon />`
+### `useFavicon()` and `<Favicon />`
 
-Renders a `<link />` tag with the necessary props to specify a favicon. Accepts a `source` property that should be the image source for the favicon.
+Renders a `<link />` tag with the necessary props to specify a favicon. Accepts a `source` prop that should be the image source for the favicon (the hook accepts a single string argument for the source).
 
-### `<Preconnect />`
+### `usePreconnect()` and `<Preconnect />`
 
 Renders a `<link />` tag that preconnects the browser to the host specified by the `source` prop. You can read more about preconnecting on [Google’s guide to resource prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization#preconnect).
 

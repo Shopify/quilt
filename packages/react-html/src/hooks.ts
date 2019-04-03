@@ -29,6 +29,15 @@ export function useMeta(meta: React.HTMLProps<HTMLMetaElement>) {
   useDomEffect(manager => manager.addMeta(meta), [JSON.stringify(meta)]);
 }
 
+export function usePreconnect(source: string) {
+  useDomEffect(manager =>
+    manager.addLink({
+      rel: 'dns-prefetch preconnect',
+      href: source,
+    }),
+  );
+}
+
 export function useFavicon(source: string) {
   useDomEffect(manager =>
     manager.addLink({

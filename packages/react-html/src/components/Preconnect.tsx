@@ -1,10 +1,10 @@
-import {useLink} from '../hooks';
+import {usePreconnect} from '../hooks';
 
 interface Props {
   source: string;
 }
 
 export function Preconnect({source}: Props) {
-  useLink({rel: 'dns-prefetch preconnect', href: source});
+  usePreconnect(source);
   return null;
 }
