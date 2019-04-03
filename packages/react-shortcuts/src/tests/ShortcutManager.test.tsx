@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 import {timer} from '@shopify/jest-dom-mocks';
 
 import Key, {HeldKey, ModifierKey} from '../keys';
@@ -125,9 +125,10 @@ describe('ShortcutManager', () => {
         <ShortcutWithFocus spy={spy} />
       </ShortcutProvider>,
     );
-    app.update();
 
+    app.forceUpdate();
     keydown('z');
+
     expect(spy).toBeCalled();
   });
 
