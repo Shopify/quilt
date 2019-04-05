@@ -41,13 +41,13 @@ export default class Metrics {
     this.client = this.rootClient;
   }
 
-  public distribution(name: string, value: number, tags?: TagsMap) {
+  public distribution(name: string, value: number, tags: TagsMap = {}) {
     this.log(MetricType.Distribution, name, value, tags);
     // the any type below is to fix the improper typing on the histogram method
     this.client.distribution(name, value, tags as any);
   }
 
-  public measure(name: string, value: number, tags?: TagsMap) {
+  public measure(name: string, value: number, tags: TagsMap = {}) {
     this.log(MetricType.Measure, name, value, tags);
     // the any type below is to fix the improper typing on the distribution method
     this.client.distribution(name, value, tags as any);
@@ -78,7 +78,12 @@ export default class Metrics {
     this.rootClient.close();
   }
 
-  private log(type: MetricType, name: string, value: number, tags?: TagsMap) {
+  private log(
+    type: MetricType,
+    name: string,
+    value: number,
+    tags: TagsMap = {},
+  ) {
     // eslint-disable-next-line no-process-env
     if (process.env.NODE_ENV !== 'development' || this.logger == null) {
       return;
