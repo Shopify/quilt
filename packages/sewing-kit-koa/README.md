@@ -94,6 +94,10 @@ app.use(async ctx => {
 
 For more advanced use cases, you can pick out specific assets with the `assets()`, `asyncAssets()`, `asyncStyles()`, and `asyncScripts()` methods.
 
+### GraphQL
+
+Starting in version 3.3 of this library (and the associated 82.0 release of sewing kit), the `ctx.state.assets` object also has a `graphQLSource` method, which allows you to access the full source for a GraphQL document based on its ID. This is useful for doing "persisted" GraphQL queries. However, if you use [`@shopify/graphql-persisted`](../graphql-persisted), it will automatically use this feature without you needing to think about it, so calling this method directly is generally not necessary.
+
 ### Options
 
 The middleware accepts some optional parameters that you can use to customize how sewing kit-generated assets will be served:
