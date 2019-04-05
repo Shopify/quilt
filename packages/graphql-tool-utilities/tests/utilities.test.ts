@@ -1,5 +1,5 @@
-import {GraphQLConfigData, GraphQLProjectConfig} from 'graphql-config';
 import {join} from 'path';
+import {GraphQLConfigData, GraphQLProjectConfig} from 'graphql-config';
 import {
   defaultGraphQLProjectName,
   resolvePathRelativeToConfig,

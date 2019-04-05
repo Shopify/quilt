@@ -12,13 +12,13 @@ import {
   GraphQLScalarType,
 } from 'graphql';
 import {DocumentNode, GraphQLOperation} from 'graphql-typed';
+import {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {
   compile,
   Field,
   InlineFragment,
   Operation,
 } from 'graphql-tool-utilities';
-import {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {randomFromArray, chooseNull} from './utilities';
 
 export interface FieldMetadata {
@@ -68,20 +68,20 @@ export type DeepThunk<T, Data, Variables, DeepPartial> = T extends object
               | null
               | undefined
           : T[P] extends ReadonlyArray<infer U> | null | undefined
-            ?
-                | ReadonlyArray<
-                    Thunk<
-                      DeepThunk<U, Data, Variables, DeepPartial>,
-                      Data,
-                      Variables,
-                      DeepPartial
-                    >
+          ?
+              | ReadonlyArray<
+                  Thunk<
+                    DeepThunk<U, Data, Variables, DeepPartial>,
+                    Data,
+                    Variables,
+                    DeepPartial
                   >
-                | null
-                | undefined
-            : T[P] extends infer U | null | undefined
-              ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
-              : T[P],
+                >
+              | null
+              | undefined
+          : T[P] extends infer U | null | undefined
+          ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
+          : T[P],
         Data,
         Variables,
         DeepPartial

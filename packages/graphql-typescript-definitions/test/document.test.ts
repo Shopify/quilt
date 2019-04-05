@@ -486,7 +486,7 @@ describe('printDocument()', () => {
             export interface NamedOther {}
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -673,7 +673,7 @@ describe('printDocument()', () => {
             export interface NamedOther {}
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -720,7 +720,7 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedDog | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedDog | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -756,7 +756,7 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedCat | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedCat | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -825,7 +825,7 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedCat | DetailsQueryData.NamedWizard | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedCat | DetailsQueryData.NamedWizard | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -862,7 +862,7 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedCat | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedCat | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -1018,7 +1018,7 @@ describe('printDocument()', () => {
             export interface NamedOther {}
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -1052,7 +1052,7 @@ describe('printDocument()', () => {
             export interface NamedOther {}
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -1096,7 +1096,7 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedDog | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedDog | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -1157,7 +1157,7 @@ describe('printDocument()', () => {
             export interface SettingOther {}
           }
           export interface DetailsQueryData {
-            setting?: DetailsQueryData.SettingButtonSetting | DetailsQueryData.SettingCheckboxSetting | DetailsQueryData.SettingOther | null;
+            setting?: (DetailsQueryData.SettingButtonSetting | DetailsQueryData.SettingCheckboxSetting | DetailsQueryData.SettingOther) | null;
           }
         `);
       });
@@ -1197,7 +1197,7 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -1233,7 +1233,7 @@ describe('printDocument()', () => {
             }
           }
           export interface DetailsQueryData {
-            named?: DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther | null;
+            named?: (DetailsQueryData.NamedPerson | DetailsQueryData.NamedOther) | null;
           }
         `);
       });
@@ -1885,7 +1885,7 @@ describe('printDocument()', () => {
           }
         }
         export interface DetailsQueryPartialData {
-          entity?: DetailsQueryPartialData.EntityPerson | DetailsQueryPartialData.EntityOther | null;
+          entity?: (DetailsQueryPartialData.EntityPerson | DetailsQueryPartialData.EntityOther) | null;
         }
       `);
     });
@@ -1943,7 +1943,7 @@ describe('printDocument()', () => {
           }
         }
         export interface DetailsQueryPartialData {
-          named?: DetailsQueryPartialData.NamedPerson | DetailsQueryPartialData.NamedOther | null;
+          named?: (DetailsQueryPartialData.NamedPerson | DetailsQueryPartialData.NamedOther) | null;
         }
       `);
     });

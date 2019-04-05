@@ -3,7 +3,7 @@
   "description": "A collection of utilities for GraphQL used in web projects at Shopify",
   "private": true,
   "engines": {
-    "node": ">=v8.9.4",
+    "node": ">=v10.15.3",
     "yarn": ">=1.9.4"
   },
   "author": "Shopify Inc.",
@@ -25,7 +25,12 @@
       "plugin:shopify/typescript-prettier",
       "plugin:shopify/jest",
       "plugin:shopify/node"
-    ]
+    ],
+    "rules": {
+      "shopify/jest/no-snapshots": "off",
+      "shopify/jest/no-vague-titles": "off",
+      "node/no-unsupported-features/node-builtins": "off"
+    }
   },
   "scripts": {
     "clean": "rm -rf './packages/**/*.{js,d.ts}'",
@@ -36,7 +41,7 @@
     "pretest": "node scripts/introspection.js && lerna run pretest",
     "test": "jest --config ./config/jest/config.json",
     "test:watch": "yarn test --watch",
-    "lint:scripts": "eslint './**/*.ts' --format codeframe --cache true --max-warnings 0",
+    "lint:scripts": "eslint './**/*.ts' --ext .ts --format codeframe --max-warnings 0",
     "lint:json": "prettier './**/*.json' --list-different",
     "lint:graphql": "prettier './**/*.{graphql,gql}' --list-different",
     "lint": "yarn lint:scripts && yarn lint:json && yarn lint:graphql",
@@ -54,16 +59,16 @@
     "@types/jest": "^22.2.3",
     "@types/node": "^10.0.4",
     "@types/yargs": "^11.0.0",
-    "eslint": "^4.19.1",
-    "eslint-plugin-shopify": "^22.0.0",
+    "eslint": "^5.6.0",
+    "eslint-plugin-shopify": "^26.3.0",
     "graphql": "^14.0.0",
     "in-publish": "^2.0.0",
-    "jest": "^22.4.3",
-    "jest-extended": "^0.7.2",
+    "jest": "^24.7.1",
+    "jest-extended": "^0.11.1",
     "lerna": "^2.11.0",
     "prettier": "^1.12.1",
-    "ts-jest": "22.4.4",
-    "typescript": "2.8.3"
+    "ts-jest": "24.0.1",
+    "typescript": "3.4.1"
   },
   "dependencies": {
     "fs-extra": "^6.0.1"

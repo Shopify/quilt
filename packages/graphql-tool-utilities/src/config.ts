@@ -1,5 +1,5 @@
-import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 import {promisify} from 'util';
+import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 
 import './augmentations';
 import './polyfills';

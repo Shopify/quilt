@@ -1,9 +1,9 @@
 /* eslint no-console: off */
 
+import {relative, basename} from 'path';
 import * as yargs from 'yargs';
 import * as glob from 'glob';
 import chalk from 'chalk';
-import {relative, basename} from 'path';
 
 import {evaluateFixtures} from '.';
 

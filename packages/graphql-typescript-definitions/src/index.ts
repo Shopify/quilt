@@ -1,4 +1,5 @@
 import {EventEmitter} from 'events';
+import {join, resolve} from 'path';
 import {
   DocumentNode,
   DefinitionNode,
@@ -8,7 +9,6 @@ import {
   concatAST,
 } from 'graphql';
 import chalk from 'chalk';
-import {join, resolve} from 'path';
 import {mkdirp, readFile, writeFile} from 'fs-extra';
 import {FSWatcher, watch} from 'chokidar';
 import {
@@ -81,6 +81,7 @@ export class Builder extends EventEmitter {
     string | undefined,
     Map<string, DocumentNode>
   >();
+
   private readonly watchers: FSWatcher[] = [];
 
   constructor({cwd, ...options}: BuilderOptions) {

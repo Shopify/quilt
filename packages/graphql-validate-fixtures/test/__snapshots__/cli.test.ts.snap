@@ -15,16 +15,16 @@ exports[`cli fails when there are syntax errors 3`] = `"Command failed: packages
 exports[`cli hides passing fixtures by default 1`] = `
 "
 
-3 passed
+[1m[32m3 passed[39m[22m
 "
 `;
 
 exports[`cli shows passes fixtures when the show-passes flag is true 1`] = `
 "
- PASS  fixtures/another-another-fixture.json
- PASS  fixtures/another-fixture.json
- PASS  fixtures/MyQuery/fixture.json
+[7m[1m[32m PASS [39m[22m[27m [2mfixtures/[22m[1manother-another-fixture.json[22m
+[7m[1m[32m PASS [39m[22m[27m [2mfixtures/[22m[1manother-fixture.json[22m
+[7m[1m[32m PASS [39m[22m[27m [2mfixtures/MyQuery/[22m[1mfixture.json[22m
 
-3 passed
+[1m[32m3 passed[39m[22m
 "
 `;

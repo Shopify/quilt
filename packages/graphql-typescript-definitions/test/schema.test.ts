@@ -173,7 +173,7 @@ describe('printSchema()', () => {
     `);
   });
 
-  it('Generates files per enum', () => {
+  it('generates files per enum', () => {
     const schema = buildSchema(`
       enum Gandalf {
         WHITE

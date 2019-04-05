@@ -1,5 +1,5 @@
-import * as t from '@babel/types';
 import {relative, dirname} from 'path';
+import * as t from '@babel/types';
 import {ucFirst} from 'change-case';
 import {AST, Fragment, isOperation, Operation} from 'graphql-tool-utilities';
 

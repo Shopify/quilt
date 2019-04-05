@@ -1,5 +1,5 @@
-import * as glob from 'glob';
 import {join} from 'path';
+import * as glob from 'glob';
 import {stripFullFilePaths} from '../../../test/utilities';
 import {evaluateFixtures, Options} from '../src';
 

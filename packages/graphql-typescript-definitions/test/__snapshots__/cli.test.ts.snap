@@ -10,24 +10,24 @@ Object {
   },
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/duplicate-names/schema.json → packages/graphql-typescript-definitions/test/fixtures/duplicate-names/types
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/duplicate-names/schema.json[22m → packages/graphql-typescript-definitions/test/fixtures/duplicate-names/types
 
- ERROR  GraphQL operations must have a unique name. The operation FindPerson is declared in:
+[7m[1m[31m ERROR [39m[22m[27m GraphQL operations must have a unique name. The operation [1mFindPerson[22m is declared in:
  packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query1/FindPersonsQuery.graphql
  packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query2/FindPersonQuery.graphql
-Error: GraphQL operations must have a unique name. The operation FindPerson is declared in:
- packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query1/FindPersonsQuery.graphql
- packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query2/FindPersonQuery.graphql
-    at duplicates.forEach (packages/graphql-typescript-definitions/lib/index.js)
-    at Array.forEach (<anonymous>)
-    at getDuplicateOperations.forEach (packages/graphql-typescript-definitions/lib/index.js)
-    at Array.forEach (<anonymous>)
-    at Builder.checkForDuplicateOperations (packages/graphql-typescript-definitions/lib/index.js)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
-    at Generator.next (<anonymous>)
-    at packages/graphql-typescript-definitions/lib/index.js
-    at new Promise (<anonymous>)
-    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
+[2mError: GraphQL operations must have a unique name. The operation [1mFindPerson[2m is declared in:[22m
+[2m packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query1/FindPersonsQuery.graphql[22m
+[2m packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query2/FindPersonQuery.graphql[22m
+[2m    at duplicates.forEach (packages/graphql-typescript-definitions/lib/index.js)[22m
+[2m    at Array.forEach (<anonymous>)[22m
+[2m    at getDuplicateOperations.forEach (packages/graphql-typescript-definitions/lib/index.js)[22m
+[2m    at Array.forEach (<anonymous>)[22m
+[2m    at Builder.checkForDuplicateOperations (packages/graphql-typescript-definitions/lib/index.js)[22m
+[2m    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)[22m
+[2m    at Generator.next (<anonymous>)[22m
+[2m    at packages/graphql-typescript-definitions/lib/index.js[22m
+[2m    at new Promise (<anonymous>)[22m
+[2m    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)[22m
 
 ",
 }
@@ -43,19 +43,19 @@ Object {
   },
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json → packages/graphql-typescript-definitions/test/fixtures/malformed-query/types
- ERROR  Syntax Error: Expected {, found Name \\"name\\"
-GraphQLError: Syntax Error: Expected {, found Name \\"name\\"
-    at syntaxError (node_modules/graphql/error/syntaxError.js)
-    at expect (node_modules/graphql/language/parser.js)
-    at many (node_modules/graphql/language/parser.js)
-    at parseSelectionSet (node_modules/graphql/language/parser.js)
-    at parseFragmentDefinition (node_modules/graphql/language/parser.js)
-    at parseExecutableDefinition (node_modules/graphql/language/parser.js)
-    at parseDefinition (node_modules/graphql/language/parser.js)
-    at many (node_modules/graphql/language/parser.js)
-    at parseDocument (node_modules/graphql/language/parser.js)
-    at Object.parse (node_modules/graphql/language/parser.js)
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/malformed-query/schema.json[22m → packages/graphql-typescript-definitions/test/fixtures/malformed-query/types
+[7m[1m[31m ERROR [39m[22m[27m Syntax Error: Expected {, found Name \\"name\\"
+[2mGraphQLError: Syntax Error: Expected {, found Name \\"name\\"[22m
+[2m    at syntaxError (node_modules/graphql/error/syntaxError.js)[22m
+[2m    at expect (node_modules/graphql/language/parser.js)[22m
+[2m    at many (node_modules/graphql/language/parser.js)[22m
+[2m    at parseSelectionSet (node_modules/graphql/language/parser.js)[22m
+[2m    at parseFragmentDefinition (node_modules/graphql/language/parser.js)[22m
+[2m    at parseExecutableDefinition (node_modules/graphql/language/parser.js)[22m
+[2m    at parseDefinition (node_modules/graphql/language/parser.js)[22m
+[2m    at many (node_modules/graphql/language/parser.js)[22m
+[2m    at parseDocument (node_modules/graphql/language/parser.js)[22m
+[2m    at Object.parse (node_modules/graphql/language/parser.js)[22m
 
 ",
 }
@@ -70,18 +70,18 @@ Object {
     "signal": null,
   },
   "stderr": "",
-  "stdout": " ERROR  Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.
-Error: Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.
-    at Object.resolveSchemaPath (packages/graphql-tool-utilities/lib/utilities.js)
-    at getGraphQLProjects.reduce (packages/graphql-tool-utilities/lib/config.js)
-    at Array.reduce (<anonymous>)
-    at Object.getGraphQLSchemaPaths (packages/graphql-tool-utilities/lib/config.js)
-    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
-    at Generator.next (<anonymous>)
-    at packages/graphql-typescript-definitions/lib/index.js
-    at new Promise (<anonymous>)
-    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
-    at Builder.run (packages/graphql-typescript-definitions/lib/index.js)
+  "stdout": "[7m[1m[31m ERROR [39m[22m[27m Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.
+[2mError: Schema not found. Expected to find the schema at 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/schema.json' but the path does not exist. Check 'packages/graphql-typescript-definitions/test/fixtures/missing-schema/.graphqlconfig' and verify that schemaPath is configured correctly.[22m
+[2m    at Object.resolveSchemaPath (packages/graphql-tool-utilities/lib/utilities.js)[22m
+[2m    at getGraphQLProjects.reduce (packages/graphql-tool-utilities/lib/config.js)[22m
+[2m    at Array.reduce (<anonymous>)[22m
+[2m    at Object.getGraphQLSchemaPaths (packages/graphql-tool-utilities/lib/config.js)[22m
+[2m    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)[22m
+[2m    at Generator.next (<anonymous>)[22m
+[2m    at packages/graphql-typescript-definitions/lib/index.js[22m
+[2m    at new Promise (<anonymous>)[22m
+[2m    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)[22m
+[2m    at Builder.run (packages/graphql-typescript-definitions/lib/index.js)[22m
 
 ",
 }
@@ -92,10 +92,10 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/schema.json → packages/graphql-typescript-definitions/test/fixtures/missing-types/types
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/missing-types/schema.json[22m → packages/graphql-typescript-definitions/test/fixtures/missing-types/types
 
- BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql.d.ts
- BUILT  packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Fragment.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/missing-types/documents/Query.graphql.d.ts
 ",
 }
 `;
@@ -105,9 +105,9 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/graphql-schema/schema.graphql → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/types
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/graphql-schema/schema.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/types
 
- BUILT  packages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/graphql-schema/documents/Query.graphql.d.ts
 ",
 }
 `;
@@ -117,13 +117,13 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/schema.json → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/types
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/schema.json → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/types
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/schema.json[22m → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/types
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/schema.json[22m → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/types
 
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Fragment.graphql.d.ts
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Query.graphql.d.ts
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Fragment.graphql.d.ts
- BUILT  packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Query.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Fragment.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Fragment.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Query.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema1/documents/Query.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Fragment.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Fragment.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Query.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/multiple-schemas/schema2/documents/Query.graphql.d.ts
 ",
 }
 `;
@@ -133,10 +133,10 @@ Object {
   "error": null,
   "stderr": "",
   "stdout": "
- BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/schema.json → packages/graphql-typescript-definitions/test/fixtures/all-clear/types
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/all-clear/schema.json[22m → packages/graphql-typescript-definitions/test/fixtures/all-clear/types
 
- BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql.d.ts
- BUILT  packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Fragment.graphql.d.ts
+[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql[22m → packages/graphql-typescript-definitions/test/fixtures/all-clear/documents/Query.graphql.d.ts
 ",
 }
 `;

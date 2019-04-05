@@ -1,5 +1,5 @@
-import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 import {join} from 'path';
+import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 import {
   getGraphQLProjectForSchemaPath,
   getGraphQLProjectIncludedFilePaths,

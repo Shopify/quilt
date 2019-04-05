@@ -6,8 +6,8 @@
   ],
   "testRegex": ".*\\.test\\.ts$",
   "transform": {
-    ".ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    ".ts$": "ts-jest"
   },
-  "setupTestFrameworkScriptFile": "<rootDir>/test/setup.ts",
+  "setupFilesAfterEnv": ["<rootDir>/test/setup.ts"],
   "moduleFileExtensions": ["js", "ts"]
 }
