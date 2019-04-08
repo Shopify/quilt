@@ -119,10 +119,6 @@ interface Props {
   children: React.ReactNode;
 }
 
-const {Serialize, WithSerialized} = createSerializer<
-  ReturnType<Manager['extract']>
->('i18n');
-
 interface Data {
   locale: string;
   translations: ReturnType<Manager['extract']>;
