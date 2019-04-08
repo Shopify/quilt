@@ -35,7 +35,7 @@ This hook also accepts a second, optional argument: the effect "kind". This shou
 
 ### `<Effect />`
 
-This component is now deprecated in favour of `useServerEffect`. It will removed in the next major version of `@shopify/react-effect`.
+This is a component version of `useServerEffect`. Its `perform` prop will be run as a server effect, and its `kind` prop is used as the second argument to `useServerEffect`. Where possible, prefer the `useServerEffect` hook.
 
 ### `extract()`
 
