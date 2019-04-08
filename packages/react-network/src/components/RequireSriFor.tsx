@@ -1,6 +1,5 @@
-import * as React from 'react';
 import {CspDirective, SriAsset} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   scripts?: boolean;
@@ -18,7 +17,7 @@ export default function RequireSriFor({scripts, styles}: Props) {
     value.push(SriAsset.Style);
   }
 
-  return (
-    <SetCspDirective directive={CspDirective.RequireSriFor} value={value} />
-  );
+  useCspDirective(CspDirective.RequireSriFor, value);
+
+  return null;
 }

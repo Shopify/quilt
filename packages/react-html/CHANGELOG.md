@@ -10,6 +10,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 8.0.0 - 2019-04-08
+
+This is a significant update that now requires at least React 16.8. You should refer to the [detailed migration guide](./documentation/migration-version-7-to-8.md) for additional guidance.
+
+### Changed
+
+- This library now requires at least React 16.8 ([#547](https://github.com/Shopify/quilt/pull/547))
+- Removed `Provider`, exported the `HtmlContext` context object, exported a new `HeadUpdater` component for the client-side, and renamed `Manager` to `HtmlManager`.
+
+### Added
+
+- Added hook counterparts for most of the component APIs: `useSerialized`, `useTitle`, `useLink`, `useMeta`, `useFavicon`, and `usePreconnect` ([#547](https://github.com/Shopify/quilt/pull/547))
+
 ## 7.1.6 - 2019-03-27
 
 ### Changed

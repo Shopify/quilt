@@ -38,33 +38,50 @@ export default function middleware(ctx) {
 }
 ```
 
-If you want to make use of the serialization techniques [documented below](#in-your-app-code), you must also construct a `Manager` instance, pass it to a `<Provider />` component, and call `@shopify/react-effect`’s `extract` method:
-
-```tsx
-// in App.tsx
-import {Manager, Provider} from '@shopify/react-html';
-
-function App({htmlManager}: {htmlManager: Manager}) {
-  return <Provider manager={htmlManager}>Hello world!</Provider>;
-}
-```
+If you want to make use of the serialization techniques [documented below](#in-your-app-code), you must also construct an `HtmlManager` instance, pass it to a `<HtmlContext.Provider />` component, and call `@shopify/react-effect`’s `extract` method:
 
 ```tsx
 // Somewhere in your server
 import {extract} from '@shopify/react-effect/server';
-import {render, Html, Manager} from '@shopify/react-html/server';
+import {
+  render,
+  Html,
+  HtmlManager,
+  HtmlContext,
+} from '@shopify/react-html/server';
 
 export default function middleware(ctx) {
-  const manager = new Manager();
-  const app = <App htmlManager={manager} />;
+  const manager = new HtmlManager();
+  const app = <App />;
 
-  await extract(app);
+  await extract(app, {
+    decorate: element => (
+      <HtmlContext.Provider value={manager}>{element}</HtmlContext.Provider>
+    ),
+  });
 
   ctx.body = render(<Html manager={manager}>{app}</Html>);
 }
 ```
 
 You can also use the `Script`, `Style`, and `Serialize` components detailed in the [API reference](#api-reference) to manually construct a variety of tags, which you will typically insert into the document with the [`Html` component’s `headMarkup` and `bodyMarkup` props](#html).
+
+### In your application
+
+In order for `link`, `meta`, and `title` tags to be updated as components are mounted and unmounted, you must render the `HeadUpdater` component somewhere in your tree:
+
+```tsx
+// Somewhere in app code
+
+function App() {
+  return (
+    <>
+      <HeadUpdater />
+      <RestOfApp />
+    </>
+  );
+}
+```
 
 ### In your client entrypoint
 
@@ -83,32 +100,19 @@ You do not need to create a `Manager`/ `Provider` component on the client.
 
 ### In your application code
 
-Some parts of your application code may have some form of state that must be rehydrated when the server-rendered page is rehydrated on the client. To do so, application code can use the `createSerializer` function exported from `@shopify/react-html`.
+Some parts of your application code may have some form of state that must be rehydrated when the server-rendered page is loaded on the client. To do so, application code can use the `useSerialized` hook exported from `@shopify/react-html`.
 
-`createSerializer()` accepts a single string argument for the identifier to use; this will help you find the serialized `script` tag if you need to debug later on. It also accepts a generic type argument for the type of the data that will be serialized/ available after deserialization.
+`useSerialized()` accepts a single string argument for the identifier to use; this will help you find the serialized `script` tag if you need to debug later on. It also accepts a generic type argument for the type of the data that will be serialized/ available after deserialization.
 
-The function returns a pair of components:
+The hook returns an array where the first entry is the serialized data (or `undefined`, if it was not found), and the second entry is a component that accepts a `data` prop that is a function that returns the data to serialize (or a promise for that data).
 
-```tsx
-const {Serialize, WithSerialized} = createSerializer<string>('MyData');
-
-// Would create components with the following types:
-
-function Serialize({data}: {data(): string}): null;
-function WithSerialized({
-  children,
-}: {
-  children(data: string | undefined): React.ReactNode;
-}): React.ReactNode;
-```
-
-The general pattern for using these components is to render the `WithSerialized` component as the top-most child of a component responsible for managing this state. Within the render prop, construct whatever stateful store or manager you need, using the data that was retrieved in cases where the serialization was found (on the browser, or on subsequent server renders). Finally, render the UI that depends on that stateful part, and a `Serialize` component that extracts the part that you you need to communicate between server and client.
+> **Note:** providing a promise for the `data` prop has a catch if you are using `@shopify/react-effect` to extract the serializations in server rendering: it expects that you will only provide a promise for the serialization if it can’t be returned synchronously. If you always return a promise, `@shopify/react-effect` will assume it always needs to do another render of the tree, which will lead to an infinite loop.
 
 Here is a complete example, using `@shopify/react-i18n`’s support for async translations as the data that needs to be serialized:
 
 ```tsx
-import {createSerializer} from '@shopify/react-html';
-import {Provider, Manager} from '@shopify/react-i18n';
+import {useSerialized} from '@shopify/react-html';
+import {I18nContext, Manager} from '@shopify/react-i18n';
 
 interface Props {
   locale: string;
@@ -119,28 +123,30 @@ const {Serialize, WithSerialized} = createSerializer<
   ReturnType<Manager['extract']>
 >('i18n');
 
-export default function I18n({locale, children}: Props) {
-  return (
-    <WithSerialized>
-      {data => {
-        const manager = new Manager(
-          {locale: data ? data.locale : locale},
-          data && data.translations,
-        );
+interface Data {
+  locale: string;
+  translations: ReturnType<Manager['extract']>;
+}
 
-        return (
-          <>
-            <Provider manager={manager}>{children}</Provider>
-            <Serialize
-              data={() => ({
-                locale: manager.details.locale,
-                translations: manager.extract(),
-              })}
-            />
-          </>
-        );
-      }}
-    </WithSerialized>
+export default function I18n({locale, children}: Props) {
+  const [serialized, Serialize] = useSerialized<Data>('i18n');
+  const {locale, translations} = serialized || {locale: explicitLocale};
+  const manager = new Manager({locale, fallbackLocale: 'en'}, translations);
+
+  return (
+    <>
+      <I18nContext.Provider value={manager}>{children}</I18nContext.Provider>
+      <Serialize
+        data={() => {
+          const getData = () => ({
+            locale: manager.details.locale,
+            translations: manager.extract(),
+          });
+
+          return manager.loading ? manager.resolve().then(getData) : getData();
+        }}
+      />
+    </>
   );
 }
 ```
@@ -148,6 +154,14 @@ export default function I18n({locale, children}: Props) {
 The rationale for this approach to handling serialization is available in [our original proposal](https://github.com/Shopify/web-foundation/blob/master/Proposals/02%20-%20Serialization%20in%20application%20code.md).
 
 ## API reference
+
+### `useSerialized()`
+
+See the example above for a full exploration of `useSerialized`’s API.
+
+### `createSerializer()`
+
+`createSerializer` is a legacy API that has been deprecated by `useSerialized()`. For full documentation of this API, please refer to older versions of this document. `createSerializer` will be removed in the next major version of `@shopify/react-html`.
 
 ### `<Html />`
 
@@ -204,29 +218,33 @@ import {Script} from '@shopify/react-html';
 />;
 ```
 
-### `<Link />`
+### `<HeadUpdater />`
+
+The `<HeadUpdater />` component is responsible for updating the head in response to `link`, `meta`, and `title` changes. You should only render one of these in your entire app.
+
+### `useLink()` and `<Link />`
 
 Renders a `<link />` tag in the head with the specified attributes. On the server, links are recorded in the `Manager` and automatically applied to the `Html` component. On the client, the `<link />` tags are updated in a deferred callback to minimize DOM manipulations.
 
-The `<Link />` component accepts any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`<Favicon />`](#favicon) component instead.
+Both the hook and component versions accept any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`useFavicon()`/ `<Favicon />` component](#favicon) instead.
 
-### `<Meta />`
+### `useMeta()` and `<Meta />`
 
 Renders a `<meta />` tag in the head with the specified attributes. This component uses the same approach to render these tags as detailed for the `<Link />` component above.
 
-The `<Meta />` component accepts any properties you would supply to a `<meta />` tag.
+Both the hook and component versions accept any properties you would supply to a `<meta />` tag.
 
-### `<Title />`
+### `useTitle()` and `<Title />`
 
-Renders a `<title />` tag in the head with the specified attributes. If multiple `<Title />` components are rendered in your app, the last one (usually, the most deeply nested) will be applied.
+Renders a `<title />` tag in the head with the specified attributes. If multiple `<Title />` components/ `useTitle()` hooks are rendered in your app, the last one (usually, the most deeply nested) will be applied.
 
-This component accepts a string child, which will be used to set the title of the page.
+This component accepts a string child (and the hook accepts a single string argument), which will be used to set the title of the page.
 
-### `<Favicon />`
+### `useFavicon()` and `<Favicon />`
 
-Renders a `<link />` tag with the necessary props to specify a favicon. Accepts a `source` property that should be the image source for the favicon.
+Renders a `<link />` tag with the necessary props to specify a favicon. Accepts a `source` prop that should be the image source for the favicon (the hook accepts a single string argument for the source).
 
-### `<Preconnect />`
+### `usePreconnect()` and `<Preconnect />`
 
 Renders a `<link />` tag that preconnects the browser to the host specified by the `source` prop. You can read more about preconnecting on [Google’s guide to resource prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization#preconnect).
 
@@ -240,7 +258,7 @@ Renders iOS-specific `<Meta />` tags and `<Link />` tags to specify additional v
 
 ### `<Serialize />`
 
-The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `createSerializer()` method of generating serializations [documented above](#in-your-app-code).
+The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `useSerialized()` method of generating serializations [documented above](#in-your-app-code).
 
 ### `render()`
 

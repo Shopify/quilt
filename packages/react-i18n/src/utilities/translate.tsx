@@ -74,7 +74,7 @@ export function translate(
     }
   }
 
-  throw new MissingTranslationError(`Missing translation for key: ${id}`);
+  throw new MissingTranslationError();
 }
 
 function translateWithDictionary(

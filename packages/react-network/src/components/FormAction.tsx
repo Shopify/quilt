@@ -1,13 +1,11 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   sources: string | string[];
 }
 
 export default function FormAction({sources}: Props) {
-  return (
-    <SetCspDirective directive={CspDirective.FormAction} value={sources} />
-  );
+  useCspDirective(CspDirective.FormAction, sources);
+  return null;
 }

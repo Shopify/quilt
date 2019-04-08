@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {shallow} from 'enzyme';
 import serializeJavaScript from 'serialize-javascript';
+import {mount} from '@shopify/react-testing';
 
 import Serialize from '../Serialize';
 import {SERIALIZE_ATTRIBUTE} from '../../../utilities';
@@ -9,15 +9,14 @@ describe('<Serialize />', () => {
   const id = 'MyData';
 
   it('generates a script tag with a JSON content type', () => {
-    const serialize = shallow(<Serialize id={id} data={{}} />);
-    expect(serialize.find('script')).toHaveLength(1);
-    expect(serialize.find('script').prop('type')).toBe('text/json');
+    const serialize = mount(<Serialize id={id} data={{}} />);
+    expect(serialize).toContainReactComponent('script', {type: 'text/json'});
   });
 
   describe('id', () => {
     it('is used as the serialize attribute for the script', () => {
-      const serialize = shallow(<Serialize id={id} data={{}} />);
-      expect(serialize.find('script').prop(SERIALIZE_ATTRIBUTE)).toBe(id);
+      const serialize = mount(<Serialize id={id} data={{}} />);
+      expect(serialize.find('script')!.data(SERIALIZE_ATTRIBUTE)).toBe(id);
     });
   });
 
@@ -27,10 +26,11 @@ describe('<Serialize />', () => {
         foo: {bar: {baz: 'window.location = "http://dangerous.com"'}},
       };
 
-      const serialize = shallow(<Serialize id={id} data={data} />);
-      expect(
-        serialize.find('script').prop('dangerouslySetInnerHTML'),
-      ).toHaveProperty('__html', serializeJavaScript(data));
+      const serialize = mount(<Serialize id={id} data={data} />);
+
+      expect(serialize).toContainReactComponent('script', {
+        dangerouslySetInnerHTML: {__html: serializeJavaScript(data)},
+      });
     });
   });
 });

@@ -1,11 +1,11 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   uri: string;
 }
 
 export default function BaseUri({uri}: Props) {
-  return <SetCspDirective directive={CspDirective.BaseUri} value={uri} />;
+  useCspDirective(CspDirective.BaseUri, uri);
+  return null;
 }

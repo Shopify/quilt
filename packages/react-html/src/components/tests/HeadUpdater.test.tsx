@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
 import {animationFrame} from '@shopify/jest-dom-mocks';
 
-import {Provider} from '../context';
-import Manager from '../manager';
-import {MANAGED_ATTRIBUTE} from '../utilities';
+import {HeadUpdater} from '../HeadUpdater';
+import {HtmlManager} from '../../manager';
+import {MANAGED_ATTRIBUTE} from '../../utilities';
+
+import {mountWithManager} from './utilities';
 
 describe('<Provider />', () => {
   beforeEach(() => {
@@ -23,13 +24,9 @@ describe('<Provider />', () => {
     const title = 'Shopify';
     const meta = {content: 'foo'};
     const link = {src: 'bar'};
-    const manager = new Manager();
+    const manager = new HtmlManager();
 
-    mount(
-      <Provider manager={manager}>
-        <div />
-      </Provider>,
-    );
+    mountWithManager(<HeadUpdater />, manager);
 
     manager.addTitle(title);
     manager.addLink(link);
@@ -60,13 +57,9 @@ describe('<Provider />', () => {
   it('does not remove matching link elements on subsequent changes', () => {
     const linkOne = {src: 'foo'};
     const linkTwo = {src: 'bar'};
-    const manager = new Manager();
+    const manager = new HtmlManager();
 
-    mount(
-      <Provider manager={manager}>
-        <div />
-      </Provider>,
-    );
+    mountWithManager(<HeadUpdater />, manager);
 
     manager.addLink(linkOne);
     animationFrame.runFrame();
@@ -89,13 +82,9 @@ describe('<Provider />', () => {
   it('does not remove matching meta elements on subsequent changes', () => {
     const metaOne = {content: 'foo'};
     const metaTwo = {content: 'bar'};
-    const manager = new Manager();
+    const manager = new HtmlManager();
 
-    mount(
-      <Provider manager={manager}>
-        <div />
-      </Provider>,
-    );
+    mountWithManager(<HeadUpdater />, manager);
 
     manager.addMeta(metaOne);
     animationFrame.runFrame();

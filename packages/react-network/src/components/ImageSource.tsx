@@ -1,11 +1,11 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   sources: string | string[];
 }
 
 export default function ImageSource({sources}: Props) {
-  return <SetCspDirective directive={CspDirective.ImgSrc} value={sources} />;
+  useCspDirective(CspDirective.ImgSrc, sources);
+  return null;
 }

@@ -42,18 +42,20 @@ export interface TranslateOptions {
 const DECIMAL_NOT_SUPPORTED = 'N/A';
 const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
+
 const memoizedDateTimeFormatter = memoizeFn(
   dateTimeFormatter,
   (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
     `${locale}${JSON.stringify(options)}`,
 );
+
 const memoizedNumberFormatter = memoizeFn(
   numberFormatter,
   (locale: string, options: Intl.NumberFormatOptions = {}) =>
     `${locale}${JSON.stringify(options)}`,
 );
 
-export default class I18n {
+export class I18n {
   readonly locale: string;
   readonly pseudolocalize: boolean | string;
   readonly defaultCountry?: string;
@@ -114,16 +116,19 @@ export default class I18n {
     options: TranslateOptions,
     replacements?: PrimitiveReplacementDictionary,
   ): string;
+
   translate(
     id: string,
     options: TranslateOptions,
     replacements?: ComplexReplacementDictionary,
   ): React.ReactElement<any>;
+
   translate(id: string, replacements?: PrimitiveReplacementDictionary): string;
   translate(
     id: string,
     replacements?: ComplexReplacementDictionary,
   ): React.ReactElement<any>;
+
   translate(
     id: string,
     optionsOrReplacements?:

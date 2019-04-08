@@ -1,20 +1,21 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
 
-import Link from '../Link';
-import Preconnect from '../Preconnect';
+import {HtmlManager} from '../../manager';
+import {Preconnect} from '../Preconnect';
+
+import {mountWithManager} from './utilities';
 
 describe('<Preconnect />', () => {
-  it('renders a <Link /> with with rel set to dns-prefetch and preconnect', () => {
-    const preconnect = mount(<Preconnect source="" />);
-    expect(preconnect.find(Link).props()).toMatchObject({
-      rel: 'dns-prefetch preconnect',
-    });
-  });
+  it('adds a link with the required preconnect props and the href set to source', () => {
+    const source = 'image.ico';
+    const manager = new HtmlManager();
+    const spy = jest.spyOn(manager, 'addLink');
 
-  it('renders a <Link /> with the href set to the passed source', () => {
-    const source = '//my.domain.com';
-    const preconnect = mount(<Preconnect source={source} />);
-    expect(preconnect.find(Link).prop('href')).toBe(source);
+    mountWithManager(<Preconnect source={source} />, manager);
+
+    expect(spy).toHaveBeenCalledWith({
+      rel: 'dns-prefetch preconnect',
+      href: source,
+    });
   });
 });
