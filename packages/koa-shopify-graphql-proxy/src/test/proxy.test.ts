@@ -1,9 +1,10 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
+
 import koaShopifyGraphQLProxy, {
+  ApiVersion,
   PROXY_BASE_PATH,
   GRAPHQL_PATH_PREFIX,
-  GRAPHQL_PATH_SUFFIX,
-} from '..';
+} from '../shopify-graphql-proxy';
 
 jest.mock('koa-better-http-proxy', () => {
   return jest.fn(() => jest.fn());
@@ -190,12 +191,12 @@ describe('koa-shopify-graphql-proxy', () => {
 
     const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
     expect(proxyReqPathResolver(ctx)).toBe(
-      `https://${shop}${GRAPHQL_PATH_PREFIX}${GRAPHQL_PATH_SUFFIX}`,
+      `https://${shop}${GRAPHQL_PATH_PREFIX}/graphql.json`,
     );
   });
 
   it('passes a proxyReqPathResolver that returns full shop url with the API version', async () => {
-    const apiVersion = 'unstable';
+    const apiVersion = ApiVersion['2019-04'];
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
       apiVersion,
     });
@@ -212,7 +213,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
     expect(proxyReqPathResolver(ctx)).toBe(
-      `https://${shop}${GRAPHQL_PATH_PREFIX}${apiVersion}/${GRAPHQL_PATH_SUFFIX}`,
+      `https://${shop}${GRAPHQL_PATH_PREFIX}/${apiVersion}/graphql.json`,
     );
   });
 
