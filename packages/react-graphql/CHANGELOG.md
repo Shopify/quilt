@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.0.0] - 2019-04-08
+
+This library now requires React 16.8 because of changes to `@shopify/react-effect`.
+
 ## 1.3.0 - 2019-02-25
 
 ### Added

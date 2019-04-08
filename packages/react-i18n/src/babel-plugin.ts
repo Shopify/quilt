@@ -22,16 +22,16 @@ export default function injectWithI18nArguments({
     })();
   }
 
-  function i18nCallExpression({id, fallbackID, decoratorName}) {
+  function i18nCallExpression({id, fallbackID, bindingName}) {
     return template(
-      `${decoratorName}({
-      id: '${id}',
-      fallback: ${fallbackID},
-      async translations(locale) {
-        const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-        return dictionary && dictionary.default;
-      },
-    })`,
+      `${bindingName}({
+        id: '${id}',
+        fallback: ${fallbackID},
+        async translations(locale) {
+          const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
+          return dictionary && dictionary.default;
+        },
+      })`,
       {
         sourceType: 'module',
         plugins: ['dynamicImport'],
@@ -78,7 +78,7 @@ export default function injectWithI18nArguments({
         i18nCallExpression({
           id: generateID(filename),
           fallbackID,
-          decoratorName: bindingName,
+          bindingName,
         }),
       );
     }
@@ -104,7 +104,8 @@ export default function injectWithI18nArguments({
         for (const specifier of specifiers) {
           if (
             !t.isImportSpecifier(specifier) ||
-            specifier.imported.name !== 'withI18n'
+            (specifier.imported.name !== 'withI18n' &&
+              specifier.imported.name !== 'useI18n')
           ) {
             continue;
           }
@@ -115,7 +116,6 @@ export default function injectWithI18nArguments({
           if (binding != null) {
             const {lastImport} = state;
             const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
-
             const {filename} = this.file.opts;
 
             addI18nArguments({
@@ -130,8 +130,6 @@ export default function injectWithI18nArguments({
               },
             });
           }
-
-          break;
         }
       },
     },

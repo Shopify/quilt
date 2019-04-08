@@ -1,13 +1,9 @@
 import * as React from 'react';
-import DomEffect from './DomEffect';
+import {useMeta} from '../hooks';
 
 type Props = React.HTMLProps<HTMLMetaElement>;
 
-export default function Meta(props: Props) {
-  return (
-    <DomEffect
-      key={JSON.stringify(props)}
-      perform={manager => manager.addMeta(props)}
-    />
-  );
+export function Meta(props: Props) {
+  useMeta(props);
+  return null;
 }

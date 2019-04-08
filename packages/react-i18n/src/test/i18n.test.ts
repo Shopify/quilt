@@ -2,7 +2,7 @@ import {clock} from '@shopify/jest-dom-mocks';
 
 import './matchers';
 
-import I18n from '../i18n';
+import {I18n} from '../i18n';
 import {LanguageDirection} from '../types';
 import {DateStyle, Weekdays} from '../constants';
 import {MissingTranslationError} from '../errors';
@@ -671,7 +671,7 @@ describe('I18n', () => {
   });
 
   describe('#formatDate()', () => {
-    const defaultTimezone = 'Australia/Sydney';
+    const timezone = 'Australia/Sydney';
 
     afterEach(() => {
       if (clock.isMocked()) {
@@ -681,28 +681,22 @@ describe('I18n', () => {
 
     it('formats a date using Intl', () => {
       const date = new Date();
-      const i18n = new I18n(defaultTranslations, {
-        ...defaultDetails,
-        timezone: defaultTimezone,
-      });
+      const i18n = new I18n(defaultTranslations, {...defaultDetails, timezone});
       const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
-        timeZone: defaultTimezone,
+        timeZone: timezone,
       }).format(date);
       expect(i18n.formatDate(date)).toBe(expected);
     });
 
     it('passes additional options to the date formatter', () => {
       const date = new Date();
-      const i18n = new I18n(defaultTranslations, {
-        ...defaultDetails,
-        timezone: defaultTimezone,
-      });
+      const i18n = new I18n(defaultTranslations, {...defaultDetails, timezone});
       const options: Partial<Intl.DateTimeFormatOptions> = {
         era: 'narrow',
       };
 
       const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
-        timeZone: defaultTimezone,
+        timeZone: timezone,
         ...options,
       }).format(date);
 
@@ -723,11 +717,11 @@ describe('I18n', () => {
       const date = new Date();
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
-        timezone: defaultTimezone,
+        timezone,
       });
 
       const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
-        timeZone: defaultTimezone,
+        timeZone: timezone,
       }).format(date);
 
       expect(i18n.formatDate(date)).toBe(expected);
@@ -737,10 +731,10 @@ describe('I18n', () => {
       const date = new Date();
       const i18n = new I18n(defaultTranslations, defaultDetails);
       const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
-        timeZone: defaultTimezone,
+        timeZone: timezone,
       }).format(date);
 
-      expect(i18n.formatDate(date, {timeZone: defaultTimezone})).toBe(expected);
+      expect(i18n.formatDate(date, {timeZone: timezone})).toBe(expected);
     });
 
     it('uses UTC when given a date in the Etc/GMT+12 timezone', () => {
@@ -755,30 +749,11 @@ describe('I18n', () => {
       expect(i18n.formatDate(date, {timeZone})).toBe(expected);
     });
 
-    it('uses UTC when defaultTimezone is Etc/GMT+12', () => {
-      const date = new Date('2018-01-01T12:34:56-12:00');
-      const defaultTimezone = 'Etc/GMT+12';
-
-      const i18n = new I18n(defaultTranslations, {
-        ...defaultDetails,
-        timezone: defaultTimezone,
-      });
-      const expected = new Intl.DateTimeFormat(defaultDetails.locale, {
-        timeZone: 'UTC',
-      }).format(new Date('2018-01-01'));
-
-      expect(
-        i18n.formatDate(date, {
-          timeZone: defaultTimezone,
-        }),
-      ).toBe(expected);
-    });
-
     it('formats a date using DateStyle.Long', () => {
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
-        timezone: defaultTimezone,
+        timezone,
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Long})).toBe(
@@ -790,7 +765,7 @@ describe('I18n', () => {
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
-        timezone: defaultTimezone,
+        timezone,
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Short})).toBe(
@@ -802,7 +777,7 @@ describe('I18n', () => {
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
-        timezone: defaultTimezone,
+        timezone,
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Humanize})).toBe(
@@ -815,10 +790,7 @@ describe('I18n', () => {
       const i18n = new I18n(defaultTranslations, defaultDetails);
 
       expect(
-        i18n.formatDate(date, {
-          style: DateStyle.Humanize,
-          timeZone: defaultTimezone,
-        }),
+        i18n.formatDate(date, {style: DateStyle.Humanize, timeZone: timezone}),
       ).toBe('December 20, 2012');
     });
 
@@ -827,7 +799,7 @@ describe('I18n', () => {
       clock.mock(today);
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
-        timezone: defaultTimezone,
+        timezone,
       });
 
       expect(i18n.formatDate(today, {style: DateStyle.Humanize})).toBe(
@@ -841,7 +813,7 @@ describe('I18n', () => {
       clock.mock(today);
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
-        timezone: defaultTimezone,
+        timezone,
       });
 
       expect(i18n.formatDate(yesterday, {style: DateStyle.Humanize})).toBe(
@@ -853,13 +825,14 @@ describe('I18n', () => {
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
-        timezone: defaultTimezone,
+        timezone,
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Time})).toBe('11:00 AM');
     });
 
     it('updates format on multiple calls', () => {
+      const defaultTimezone = 'America/Toronto';
       const date = new Date('2012-12-20T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,

@@ -4,6 +4,6 @@ export interface Props extends React.ScriptHTMLAttributes<HTMLScriptElement> {
   src: string;
 }
 
-export default function Script(props: Props) {
+export function Script(props: Props) {
   return <script type="text/javascript" {...props} />;
 }

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import Link from '../Link';
-import Meta from '../Meta';
+import {Link} from '../Link';
+import {Meta} from '../Meta';
 
-import AppleHomeScreen, {IconSize} from '../AppleHomeScreen';
+import {AppleHomeScreen, IconSize} from '../AppleHomeScreen';
 
 describe('<AppleHomeScreen />', () => {
   it('renders a <Meta /> with `name="apple-mobile-web-app-capable" content="yes"` by default', () => {

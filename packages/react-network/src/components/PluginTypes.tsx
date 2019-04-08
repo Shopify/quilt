@@ -1,11 +1,11 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   types: string | string[];
 }
 
 export default function PluginTypes({types}: Props) {
-  return <SetCspDirective directive={CspDirective.PluginTypes} value={types} />;
+  useCspDirective(CspDirective.PluginTypes, types);
+  return null;
 }

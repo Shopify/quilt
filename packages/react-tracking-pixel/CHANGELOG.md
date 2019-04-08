@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## 1.0.5 - 2019-01-09
+## [3.0.0] - 2019-04-08
 
-- Start of Changelog
+This library now requires React 16.8.
+
+## [1.0.5] - 2019-01-09
+
+Start of changelog.

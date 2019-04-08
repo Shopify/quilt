@@ -2,7 +2,7 @@ import * as React from 'react';
 import {renderToString} from 'react-dom/server';
 
 import {Script, Style} from '../../components';
-import Manager from '../../manager';
+import {HtmlManager} from '../../manager';
 import {MANAGED_ATTRIBUTE} from '../../utilities';
 
 import Serialize from './Serialize';
@@ -13,7 +13,7 @@ export interface Asset {
 }
 
 export interface Props {
-  manager?: Manager;
+  manager?: HtmlManager;
   children: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];

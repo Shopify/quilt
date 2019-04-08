@@ -8,6 +8,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-04-08
+
+This library now requires React 16.8.
+
+### Added
+
+- Added a `useI18n` decorator as the new first-class API ([#547](https://github.com/Shopify/quilt/pull/547))
+
+### Changed
+
+- Refactored the way parent/ child translations were stored, which should slightly improve performance ([#547](https://github.com/Shopify/quilt/pull/547))
+
 ## [0.11.9] - 2019-03-29
 
 ### Fixed

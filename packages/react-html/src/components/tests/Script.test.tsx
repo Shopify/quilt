@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
-import Script from '../Script';
+import {mount} from '@shopify/react-testing';
+import {Script} from '../Script';
 
 describe('<Script />', () => {
   it('renders attributes', () => {
-    const html = mount(
+    const script = mount(
       <Script
         src="foo.js"
         integrity="00000000"
@@ -13,7 +13,7 @@ describe('<Script />', () => {
       />,
     );
 
-    expect(html.find('script').props()).toMatchObject({
+    expect(script).toContainReactComponent('script', {
       src: 'foo.js',
       type: 'text/javascript',
       integrity: '00000000',
