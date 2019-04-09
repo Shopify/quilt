@@ -241,7 +241,7 @@ describe('koa-metrics', () => {
         };
       });
 
-      expect(MetricsMock.mock.instances[0].measure).toHaveBeenCalledWith(
+      expect(MetricsMock.mock.instances[0].distribution).toHaveBeenCalledWith(
         CustomMetrics.ContentLength,
         length,
       );
@@ -253,12 +253,11 @@ describe('koa-metrics', () => {
 
       await metricsMiddleware(ctx, () => {});
 
-      const measureFn = MetricsMock.mock.instances[0].measure as jest.Mock<
-        Metrics['measure']
-      >;
+      const distributionFn = MetricsMock.mock.instances[0]
+        .distribution as jest.Mock<Metrics['distribution']>;
 
       expect(
-        measureFn.mock.calls.map(([metricName]) => metricName),
+        distributionFn.mock.calls.map(([metricName]) => metricName),
       ).not.toContain(CustomMetrics.ContentLength);
     });
   });
@@ -297,7 +296,6 @@ describe('koa-metrics', () => {
       });
 
       expect(MetricsMock.mock.instances[0].distribution).not.toHaveBeenCalled();
-      expect(MetricsMock.mock.instances[0].measure).not.toHaveBeenCalled();
     });
   });
 });

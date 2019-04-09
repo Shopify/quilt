@@ -41,13 +41,16 @@ export default function metrics({
       logger || ctx.log || console.log,
     );
 
+    const promises: Promise<void>[] = [];
     let timer: Timer | undefined;
 
     if (!skipInstrumentation) {
       timer = metrics.initTimer();
       const queuingTime = getQueuingTime(ctx);
       if (queuingTime) {
-        metrics.distribution(CustomMetrics.QueuingTime, queuingTime);
+        promises.push(
+          metrics.distribution(CustomMetrics.QueuingTime, queuingTime),
+        );
       }
     }
 
@@ -62,16 +65,21 @@ export default function metrics({
       if (!skipInstrumentation) {
         if (timer) {
           const duration = timer.stop();
-          metrics.distribution(CustomMetrics.RequestDuration, duration);
+          promises.push(
+            metrics.distribution(CustomMetrics.RequestDuration, duration),
+          );
         }
 
         const contentLength = getContentLength(ctx);
         if (contentLength) {
-          metrics.measure(CustomMetrics.ContentLength, contentLength);
+          promises.push(
+            metrics.distribution(CustomMetrics.ContentLength, contentLength),
+          );
         }
       }
 
-      metrics.closeClient();
+      await Promise.all(promises);
+      await metrics.closeClient();
     }
   };
 }
