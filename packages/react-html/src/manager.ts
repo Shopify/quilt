@@ -56,6 +56,10 @@ export class HtmlManager {
   }
 
   subscribe(subscription: Subscription) {
+    if (this.isServer) {
+      return () => {};
+    }
+
     this.subscriptions.add(subscription);
     return () => {
       this.subscriptions.delete(subscription);

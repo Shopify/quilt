@@ -6,7 +6,7 @@ import {HtmlManager} from './manager';
 
 export function useDomEffect(
   perform: (manager: HtmlManager) => (() => void),
-  inputs: any[] = [],
+  inputs: unknown[] = [],
 ) {
   const manager = useContext(HtmlContext);
   const effect = () => {
@@ -45,6 +45,20 @@ export function useFavicon(source: string) {
       type: 'image/x-icon',
       href: source,
     }),
+  );
+}
+
+export function useClientDomEffect(
+  perform: (manager: HtmlManager) => (() => void),
+  inputs: unknown[] = [],
+) {
+  const manager = useContext(HtmlContext);
+
+  useEffect(
+    () => {
+      perform(manager);
+    },
+    [manager, ...inputs],
   );
 }
 

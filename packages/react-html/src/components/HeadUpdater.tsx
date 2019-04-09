@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {State} from '../manager';
-import {useDomEffect} from '../hooks';
+import {useClientDomEffect} from '../hooks';
 import {MANAGED_ATTRIBUTE} from '../utilities';
 
 export function HeadUpdater() {
   const queuedUpdate = React.useRef<number | null>(null);
 
-  useDomEffect(manager => {
+  useClientDomEffect(manager => {
     return manager.subscribe(state => {
       if (queuedUpdate.current) {
         cancelAnimationFrame(queuedUpdate.current);
