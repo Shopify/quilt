@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 8.0.2 - 2019-04-09
+
+- Fixed an issue where `<HeadUpdater />` would attempt to access browser globals on the server.
+
 ## 8.0.0 - 2019-04-08
 
 This is a significant update that now requires at least React 16.8. You should refer to the [detailed migration guide](./documentation/migration-version-7-to-8.md) for additional guidance.
