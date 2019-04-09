@@ -173,6 +173,71 @@ function App() {
 render(<App />, document.getElementById('root'));
 ```
 
+### `useQuery`
+
+Here is an example of how to use `useQuery` with a query document.
+
+```tsx
+import React from 'react';
+import {useQuery} from '@shopify/react-graphql';
+
+import customerListQuery from './graphql/CustomerListQuery.graphql';
+
+function CustomerList() {
+  const {data, loading, refetch} = useQuery(customerListQuery);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const customers = data && data.customers ? data.customers : [];
+  return (
+    <ul>
+      {customers.map(customer => (
+        <li key={customer.id}>{customer.displayName}</li>
+      ))}
+    </ul>
+    <button onClick={async () => {
+        await refetch();
+    }}>Refetch Customers Data</button>
+  );
+}
+```
+
+You can also use `useQuery` with an async query component created from `@shopify/react-graphql`
+
+Note that because the `.graphql` document is being asynchronously loaded, `refetch` and other helper methods may not be available until the query document is loaded.
+
+```tsx
+import React from 'react';
+import {createAsyncQueryComponent, useQuery} from '@shopify/react-graphql';
+
+const CustomerListQuery = createAsyncQueryComponent({
+  load: () => import('./graphql/CustomerListQuery.graphql'),
+});
+
+function CustomerList() {
+  const {data, loading, refetch} = useQuery(CustomerListQuery);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const customers = data && data.customers ? data.customers : [];
+  return (
+    <ul>
+      {customers.map(customer => (
+        <li key={customer.id}>{customer.displayName}</li>
+      ))}
+    </ul>
+    <button onClick={async () => {
+        if (!refetch) {
+            return;
+        }
+        await refetch();
+    }}>Refetch Customers Data</button>
+  );
+}
+```
+
 ### `useMutation`
 
 This hook accepts two arguments: the mutation document, and optionally, a set of options to pass to the underlying mutation. It will return a function that will trigger the mutation when invoked.

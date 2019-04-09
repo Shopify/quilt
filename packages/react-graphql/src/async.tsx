@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import {LoadProps, DeferTiming} from '@shopify/async';
-import {Async, AsyncPropsRuntime} from '@shopify/react-async';
+import {
+  Async,
+  AsyncPropsRuntime,
+  resolve as resolver,
+} from '@shopify/react-async';
 import {Omit} from '@shopify/useful-types';
 import {DocumentNode} from 'graphql-typed';
 
@@ -28,6 +32,23 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
   Variables,
   DeepPartial
 >): AsyncQueryComponentType<Data, Variables, DeepPartial> {
+  // set it to the resolved of tryRequire
+  let resolvedDocument: DocumentNode<
+    Data,
+    Variables,
+    DeepPartial
+  > | null = null;
+
+  async function resolve() {
+    try {
+      const response = await resolver(load);
+      resolvedDocument = response;
+      return response;
+    } catch (error) {
+      throw Error('error loading Query document');
+    }
+  }
+
   function AsyncQuery(
     props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
   ) {
@@ -109,6 +130,13 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
   FinalComponent.Preload = Preload;
   FinalComponent.Prefetch = Prefetch;
   FinalComponent.KeepFresh = KeepFresh;
+  FinalComponent.resolve = resolve;
+
+  Object.defineProperty(FinalComponent, 'resolved', {
+    get: () => resolvedDocument,
+    // accessor descriptor don't need this
+    // writable: false,
+  });
 
   return FinalComponent;
 }
