@@ -9,22 +9,19 @@ export interface WithI18nProps {
 }
 
 export function withI18n(i18nOptions?: RegisterOptions) {
-  return <P extends WithI18nProps>(
-    WrappedComponent: React.ComponentType<P>,
-  ): React.ComponentType<P> => {
-    function WithTranslations(props: any) {
+  return <OwnProps, C>(
+    WrappedComponent: React.ComponentType<OwnProps & WithI18nProps> & C,
+  ): React.ComponentType<OwnProps> & C => {
+    function WithTranslations(props: OwnProps) {
       const [i18n, ShareTranslations] = useI18n(i18nOptions);
-      const {children} = props;
 
       return (
         <ShareTranslations>
-          <WrappedComponent {...props} i18n={i18n}>
-            {children}
-          </WrappedComponent>
+          <WrappedComponent {...props} i18n={i18n} />
         </ShareTranslations>
       );
     }
 
-    return hoistStatics(WithTranslations, WrappedComponent);
+    return hoistStatics(WithTranslations, WrappedComponent) as any;
   };
 }
