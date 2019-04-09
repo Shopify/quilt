@@ -44,13 +44,15 @@ export default class Metrics {
   public distribution(name: string, value: number, tags?: TagsMap) {
     this.log(MetricType.Distribution, name, value, tags);
     // the any type below is to fix the improper typing on the histogram method
-    this.client.distribution(name, value, tags as any);
-  }
+    return new Promise<void>((resolve, reject) => {
+      this.client.distribution(name, value, tags, (error?: Error) => {
+        if (error) {
+          reject(error);
+        }
 
-  public measure(name: string, value: number, tags?: TagsMap) {
-    this.log(MetricType.Measure, name, value, tags);
-    // the any type below is to fix the improper typing on the distribution method
-    this.client.distribution(name, value, tags as any);
+        resolve();
+      });
+    });
   }
 
   public initTimer(): Timer {
@@ -73,9 +75,15 @@ export default class Metrics {
   }
 
   public closeClient() {
-    // @ts-ignore According to the hot-shots documentation, callback
-    // is not required.
-    this.rootClient.close();
+    return new Promise<void>((resolve, reject) => {
+      this.rootClient.close((error?: Error) => {
+        if (error) {
+          reject(error);
+        }
+
+        resolve();
+      });
+    });
   }
 
   private log(type: MetricType, name: string, value: number, tags?: TagsMap) {

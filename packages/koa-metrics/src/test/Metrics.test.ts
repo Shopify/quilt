@@ -40,7 +40,12 @@ describe('Metrics', () => {
       const stats = StatsDMock.mock.instances[0];
       const distributionFn = stats.distribution;
       expect(distributionFn).toHaveBeenCalledTimes(1);
-      expect(distributionFn).toHaveBeenCalledWith(name, value, tags);
+      expect(distributionFn).toHaveBeenCalledWith(
+        name,
+        value,
+        tags,
+        expect.any(Function),
+      );
     });
 
     it('logs distribution metrics to the logger in development', () => {
@@ -72,52 +77,6 @@ describe('Metrics', () => {
         const logger = jest.fn();
         const metrics = new Metrics(defaultOptions, logger);
         metrics.distribution(name, value, tags);
-
-        expect(logger).not.toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe('measure', () => {
-    it('passes measure metrics to the statsd client as distribution', () => {
-      const metrics = new Metrics(defaultOptions);
-      metrics.measure(name, value, tags);
-
-      const stats = StatsDMock.mock.instances[0];
-      const measureFn = stats.distribution;
-      expect(measureFn).toHaveBeenCalledTimes(1);
-      expect(measureFn).toHaveBeenCalledWith(name, value, tags);
-    });
-
-    it('logs measure metrics to the logger in development', () => {
-      withEnv('development', () => {
-        const logger = jest.fn();
-        const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure(name, value);
-
-        expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith(`measure ${name}:${value}`);
-      });
-    });
-
-    it('logs tags with measure metrics to the logger in development', () => {
-      withEnv('development', () => {
-        const logger = jest.fn();
-        const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure(name, value, tags);
-
-        expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith(
-          `measure ${name}:${value} #${tagName}:${tags[tagName]}`,
-        );
-      });
-    });
-
-    it('does not log measure metrics to the logger in production', () => {
-      withEnv('production', () => {
-        const logger = jest.fn();
-        const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure(name, value, tags);
 
         expect(logger).not.toHaveBeenCalled();
       });

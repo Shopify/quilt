@@ -4073,10 +4073,10 @@ hosted-git-info@^2.1.4, hosted-git-info@^2.5.0:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.6.0.tgz#23235b29ab230c576aab0d4f13fc046b0b038222"
   integrity sha512-lIbgIIQA3lz5XaB6vxakj6sDHADJiZadYEJB+FgA+C4nubM1NwcuvUr9EJPmnH1skZqpqUzWborWo8EIUi0Sdw==
 
-hot-shots@^5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/hot-shots/-/hot-shots-5.4.1.tgz#60f0a11c3d824257fa35b0769f308761b406296b"
-  integrity sha512-Wffw6kQzXI1a6ZBismu8ksuf36OiCOFwwyQb07pDSDd0t1haipYp9gDT+VYEIoINvjqerX1rA/q91HNdzclVPg==
+hot-shots@^5.9.1:
+  version "5.9.2"
+  resolved "https://registry.yarnpkg.com/hot-shots/-/hot-shots-5.9.2.tgz#1cff097706f40ba2c1350d4806deebbd16a5e8c8"
+  integrity sha512-ruHZvHaxZRVUCoCleiwwCcjdr9A2/Y97C7oc9LpyMg9ae39blHvsJJQQ0QtMtxKX+i4lig/7/BqZBjUUZPUp3A==
 
 html-encoding-sniffer@^1.0.2:
   version "1.0.2"
