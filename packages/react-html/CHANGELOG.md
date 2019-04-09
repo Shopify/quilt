@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+- useServerDomEffect now returns a result ([#636](https://github.com/Shopify/quilt/pull/636))
+
 ## 8.0.3 - 2019-04-09
 
 - Fixed `useTitle`, `useLink`, `useMeta`, `usePreconnect`, and `useFavicon` not being exported.
