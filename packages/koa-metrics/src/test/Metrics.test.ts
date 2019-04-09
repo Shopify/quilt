@@ -48,6 +48,20 @@ describe('Metrics', () => {
       );
     });
 
+    it('rejects on the promise when the client returns an error', async () => {
+      const metrics = new Metrics(defaultOptions);
+      const stats = StatsDMock.mock.instances[0];
+
+      stats.distribution.mockImplementation(
+        (_name, _value, _tags, callback) => {
+          callback('Something went wrong!');
+        },
+      );
+
+      const result = metrics.distribution(name, value, tags);
+      await expect(result).rejects.toEqual('Something went wrong!');
+    });
+
     it('logs distribution metrics to the logger in development', () => {
       withEnv('development', () => {
         const logger = jest.fn();
@@ -113,6 +127,18 @@ describe('Metrics', () => {
       const stats = StatsDMock.mock.instances[0];
       const closeFn = stats.close;
       expect(closeFn).toHaveBeenCalledTimes(1);
+    });
+
+    it('rejects on the promise when the client returns an error', async () => {
+      const metrics = new Metrics(defaultOptions);
+      const stats = StatsDMock.mock.instances[0];
+
+      stats.close.mockImplementation(callback => {
+        callback('Something went wrong!');
+      });
+
+      const result = metrics.closeClient();
+      await expect(result).rejects.toEqual('Something went wrong!');
     });
   });
 
