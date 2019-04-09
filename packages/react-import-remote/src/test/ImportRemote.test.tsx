@@ -168,7 +168,12 @@ describe('<ImportRemote />', () => {
         0,
       );
 
-      await trigger(importRemote.find(IntersectionObserver), 'onIntersecting');
+      await trigger(
+        importRemote.find(IntersectionObserver),
+        'onIntersectionChange',
+        {isIntersecting: true},
+      );
+
       expect(importRemote.find(IntersectionObserver)).toHaveLength(0);
       expect(load).toHaveBeenCalled();
     });
