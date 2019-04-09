@@ -8,13 +8,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2019-04-09
+
+### Added
+
+- Added a `useSimpleI18n` hook for performantly sharing an i18n instance within a React subtree ([#639](https://github.com/Shopify/quilt/pull/639))
+
+### Fixed
+
+- Improved the typing of `withI18n` to no longer mark the `i18n` prop as required ([#639](https://github.com/Shopify/quilt/pull/639))
+
 ## [1.0.0] - 2019-04-08
 
 This library now requires React 16.8.
 
 ### Added
 
-- Added a `useI18n` decorator as the new first-class API ([#547](https://github.com/Shopify/quilt/pull/547))
+- Added a `useI18n` hook as the new first-class API ([#547](https://github.com/Shopify/quilt/pull/547))
 
 ### Changed
 
