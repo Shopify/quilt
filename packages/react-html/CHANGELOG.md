@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 8.0.3 - 2019-04-09
+
+- Fixed `useTitle`, `useLink`, `useMeta`, `usePreconnect`, and `useFavicon` not being exported.
+
 ## 8.0.2 - 2019-04-09
 
 - Fixed an issue where `<HeadUpdater />` would attempt to access browser globals on the server.
