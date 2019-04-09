@@ -17,7 +17,7 @@ $ yarn add @shopify/react-intersection-observer
 
 The `useIntersection` hook takes in `IntersectionObserver` options, and returns a tuple of:
 
-- The most recent `IntersectionObserverEntry` value, which details the most recent state of the observer.
+- The state of the observer.
 - An object that you can pass as a `ref` to the DOM element you wish to track.
 
 ```tsx
@@ -59,7 +59,7 @@ Unlike the `useIntersection` hook, this component will create its own DOM node t
 
 ### Lifecycle
 
-You may change any option on a `useIntersection` hook, or any prop on an `IntersectionObserver` component, and the minimum amount of work will be performed to unobserve/ re-observe with the new fields. The most expensive updates to make are changing `threshold`, `root`, `rootMargin`, and, in the case of the component version, `wrapperComponent`, as these require disconnecting the old observer and recreating a new one.
+When `useIntersection` is passed new options (or, when `IntersectionObserver` receives new props), this library will do the minimum amount of work to unobserve/ re-observe with the new fields. The most expensive updates to make are changing `threshold`, `root`, `rootMargin`, and, in the case of the component version, `wrapperComponent`, as these require disconnecting the old observer and recreating a new one.
 
 When a component consuming the `useIntersection` hook is unmounted, the intersection observer is disconnected. The same applies if you unmount an `IntersectionObserver` component.
 

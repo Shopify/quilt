@@ -64,15 +64,15 @@ describe('<IntersectionObserver />', () => {
 
   describe('children', () => {
     it('includes the children inside the top-level element', () => {
-      const children = <div id="HelloWorld" />;
+      const id = 'HelloWorld';
       const intersectionObserver = mount(
         <IntersectionObserver {...defaultProps}>
-          {children}
+          <div id={id} />
         </IntersectionObserver>,
       );
 
       expect(intersectionObserver.children[0]).toContainReactComponent('div', {
-        id: 'HelloWorld',
+        id,
       });
     });
   });
