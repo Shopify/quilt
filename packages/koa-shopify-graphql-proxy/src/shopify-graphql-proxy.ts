@@ -5,13 +5,13 @@ export const PROXY_BASE_PATH = '/graphql';
 export const GRAPHQL_PATH_PREFIX = '/admin/api';
 
 export enum ApiVersion {
-  '2019-04' = '2019-04',
-  '2019-09' = '2019-09',
+  April19 = '2019-04',
+  July19 = '2019-07',
   Unstable = 'unstable',
 }
 
 interface DefaultProxyOptions {
-  apiVersion: ApiVersion;
+  version: ApiVersion;
 }
 
 interface PrivateShopOption extends DefaultProxyOptions {
@@ -31,7 +31,7 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
     const shop = 'shop' in proxyOptions ? proxyOptions.shop : session.shop;
     const accessToken =
       'password' in proxyOptions ? proxyOptions.password : session.accessToken;
-    const apiVersion = proxyOptions.apiVersion;
+    const version = proxyOptions.version;
 
     if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
       await next();
@@ -53,7 +53,7 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
         'X-Shopify-Access-Token': accessToken,
       },
       proxyReqPathResolver() {
-        return `https://${shop}${GRAPHQL_PATH_PREFIX}/${apiVersion}/graphql.json`;
+        return `https://${shop}${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
       },
     })(
       ctx,

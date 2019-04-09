@@ -19,7 +19,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('throws when no session is provided', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const ctx = createMockContext({
       url: PROXY_BASE_PATH,
@@ -34,7 +34,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('throws when no accessToken is on session', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
 
     const ctx = createMockContext({
@@ -51,7 +51,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('throws when no shop is on session', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const ctx = createMockContext({
       url: PROXY_BASE_PATH,
@@ -67,7 +67,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('bails and calls next if method is not POST', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const ctx = createMockContext({
       url: '/graphql',
@@ -85,7 +85,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('bails and calls next if path does not start with the base url', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const ctx = createMockContext({
       url: '/not/graphql',
@@ -102,7 +102,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('bails and calls next if path does not start with the base url and no session', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const ctx = createMockContext({
       url: '/not/graphql',
@@ -118,7 +118,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('does not bail or throw when request is for the graphql api', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const ctx = createMockContext({
       url: PROXY_BASE_PATH,
@@ -136,7 +136,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
   it('configures a custom koa-better-http-proxy', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const accessToken = 'asdfasdf';
     const shop = 'i-sell-things.myshopify.com';
@@ -167,7 +167,7 @@ describe('koa-shopify-graphql-proxy', () => {
     const password = 'sdfghsdghsh';
     const shop = 'i-sell-things.myshopify.com';
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
       password,
       shop,
     });
@@ -194,9 +194,9 @@ describe('koa-shopify-graphql-proxy', () => {
   });
 
   it('passes a proxyReqPathResolver that returns full shop url with the API version', async () => {
-    const apiVersion = ApiVersion.Unstable;
+    const version = ApiVersion.Unstable;
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion,
+      version,
     });
     const shop = 'some-shop.myshopify.com';
 
@@ -211,13 +211,13 @@ describe('koa-shopify-graphql-proxy', () => {
 
     const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
     expect(proxyReqPathResolver(ctx)).toBe(
-      `https://${shop}${GRAPHQL_PATH_PREFIX}/${apiVersion}/graphql.json`,
+      `https://${shop}${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`,
     );
   });
 
   it('terminates middleware chain when proxying (does not call next)', async () => {
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
-      apiVersion: ApiVersion.Unstable,
+      version: ApiVersion.Unstable,
     });
     const shop = 'some-shop.myshopify.com';
 
