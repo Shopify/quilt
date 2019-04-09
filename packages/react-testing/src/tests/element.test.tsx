@@ -194,7 +194,7 @@ describe('Element', () => {
 
   describe('#domNode', () => {
     it('returns the DOM node for the element itself if it is a DOM element', () => {
-      expect(divOne.domNodes).toBe(divOne.instance);
+      expect(divOne.domNode).toBe(divOne.instance);
     });
 
     it('returns null if there is no direct child DOM node', () => {
