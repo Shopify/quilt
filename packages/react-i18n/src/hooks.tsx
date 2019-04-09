@@ -15,10 +15,13 @@ export function useI18n({
   const manager = React.useContext(I18nContext);
 
   if (manager == null) {
-    throw new Error('Missing manager');
+    throw new Error(
+      'Missing i18n manager. Make sure to use an <I18nContext.Provider /> somewhere in your React tree.',
+    );
   }
 
-  const parentIds = React.useContext(I18nParentsContext);
+  const parentI18n = React.useContext(I18nParentsContext);
+  const parentIds = parentI18n ? parentI18n.ids || [] : [];
   const ids = React.useMemo(() => (id ? [id, ...parentIds] : parentIds), [
     id,
     ...parentIds,
@@ -30,13 +33,13 @@ export function useI18n({
 
   const [i18n, setI18n] = React.useState(() => {
     const {translations} = manager.state(ids);
-    return new I18n(translations, manager.details);
+    return new I18n(translations, manager.details, ids);
   });
 
   React.useEffect(
     () => {
       return manager.subscribe(ids, ({translations}, details) => {
-        setI18n(new I18n(translations, details));
+        setI18n(new I18n(translations, details, ids));
       });
     },
     [manager],
@@ -46,7 +49,7 @@ export function useI18n({
     () =>
       function ShareTranslations({children}: {children: React.ReactNode}) {
         return (
-          <I18nParentsContext.Provider value={ids}>
+          <I18nParentsContext.Provider value={i18n}>
             {children}
           </I18nParentsContext.Provider>
         );
@@ -55,4 +58,19 @@ export function useI18n({
   );
 
   return [i18n, ShareTranslations];
+}
+
+export function useSimpleI18n() {
+  const manager = React.useContext(I18nContext);
+
+  if (manager == null) {
+    throw new Error(
+      'Missing i18n manager. Make sure to use an <I18nContext.Provider /> somewhere in your React tree.',
+    );
+  }
+
+  const i18n =
+    React.useContext(I18nParentsContext) || new I18n([], manager.details);
+
+  return i18n;
 }
