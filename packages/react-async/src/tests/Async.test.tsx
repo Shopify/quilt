@@ -142,7 +142,8 @@ describe('<Async />', () => {
 
       const intersectingPromise = trigger(
         async.find(IntersectionObserver),
-        'onIntersecting',
+        'onIntersectionChange',
+        {isIntersecting: true},
       );
 
       await promise.resolve();

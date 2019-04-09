@@ -71,7 +71,7 @@ export default class ImportRemote extends React.PureComponent<Props, State> {
         <IntersectionObserver
           threshold={0}
           unsupportedBehavior={UnsupportedBehavior.TreatAsIntersecting}
-          onIntersecting={this.loadRemote}
+          onIntersectionChange={this.loadRemoteIfIntersecting}
         />
       ) : null;
 
@@ -87,6 +87,10 @@ export default class ImportRemote extends React.PureComponent<Props, State> {
 
     return intersectionObserver;
   }
+
+  private loadRemoteIfIntersecting = ({isIntersecting = true}) => {
+    return isIntersecting ? this.loadRemote() : Promise.resolve();
+  };
 
   private loadRemote = () => {
     return new Promise(resolve => {

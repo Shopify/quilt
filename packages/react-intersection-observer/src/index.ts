@@ -1,4 +1,3 @@
-export {
-  default as IntersectionObserver,
-  UnsupportedBehavior,
-} from './IntersectionObserver';
+export {IntersectionObserver} from './IntersectionObserver';
+export {UnsupportedBehavior} from './types';
+export {useIntersection} from './hooks';

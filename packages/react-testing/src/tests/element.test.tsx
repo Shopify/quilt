@@ -154,7 +154,11 @@ describe('Element', () => {
   });
 
   describe('#domNodes', () => {
-    it('returns the instances associated with each child DOM node', () => {
+    it('returns the DOM node for the element itself if it is a DOM element', () => {
+      expect(divOne.domNodes).toEqual([divOne.instance]);
+    });
+
+    it('returns the instances associated with each child DOM element', () => {
       const element = new Element(
         defaultTree,
         [divOne, divTwo],
@@ -189,6 +193,10 @@ describe('Element', () => {
   });
 
   describe('#domNode', () => {
+    it('returns the DOM node for the element itself if it is a DOM element', () => {
+      expect(divOne.domNode).toBe(divOne.instance);
+    });
+
     it('returns null if there is no direct child DOM node', () => {
       const element = new Element(
         defaultTree,
