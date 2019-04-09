@@ -67,7 +67,5 @@ export function useServerDomEffect(
 ) {
   const manager = useContext(HtmlContext);
 
-  useServerEffect(() => {
-    perform(manager);
-  }, manager.effect);
+  useServerEffect(() => perform(manager), manager.effect);
 }
