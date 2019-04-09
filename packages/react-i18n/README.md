@@ -102,7 +102,7 @@ import {withI18n, WithI18nProps} from '@shopify/react-i18n';
 export interface Props {}
 type ComposedProps = Props & WithI18nProps;
 
-class NorFound extends React.Component<ComposedProps> {
+class NotFound extends React.Component<ComposedProps> {
   render() {
     const {i18n} = this.props;
 
@@ -118,6 +118,26 @@ class NorFound extends React.Component<ComposedProps> {
 }
 
 export default withI18n()(NotFound);
+```
+
+If you only need access to parent translations and/ or the various formatting utilities found on the `I18n` object, you can instead use the `useSimpleI18n` hook. This hook does not support providing any internationalization details for the component itself, but is a very performant way to access i18n utilities that are tied to the global locale.
+
+```tsx
+import * as React from 'react';
+import {EmptyState} from '@shopify/polaris';
+import {useSimpleI18n} from '@shopify/react-i18n';
+
+export default function NotFound() {
+  const i18n = useSimpleI18n();
+  return (
+    <EmptyState
+      heading={i18n.translate('NotFound.heading')}
+      action={{content: i18n.translate('Common.back'), url: '/'}}
+    >
+      <p>{i18n.translate('NotFound.content')}</p>
+    </EmptyState>
+  );
+}
 ```
 
 #### `i18n`
