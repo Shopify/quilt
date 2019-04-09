@@ -4,7 +4,7 @@ import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
 import {promise} from '@shopify/jest-dom-mocks';
 
-import {ApolloProvider} from '../ApolloProvider';
+import {ApolloProvider} from '../../ApolloProvider';
 
 const createGraphQL = createGraphQLFactory();
 
@@ -58,4 +58,29 @@ export function runPendingAsyncReactTasks() {
   }
 
   promise.runPending();
+}
+
+export function createResolvablePromise<T>(value: T) {
+  let resolver!: () => Promise<T>;
+  let rejecter!: () => void;
+
+  const promise = new Promise<T>((resolve, reject) => {
+    resolver = () => {
+      resolve(value);
+      return promise;
+    };
+    rejecter = reject;
+  });
+
+  return {
+    resolve: async () => {
+      const value = await resolver();
+      // If we just resolve, the tick that actually processes the promise
+      // has not finished yet.
+      await new Promise(resolve => process.nextTick(resolve));
+      return value;
+    },
+    reject: rejecter,
+    promise,
+  };
 }

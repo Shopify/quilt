@@ -1,8 +1,8 @@
 import React from 'react';
 import ApolloClient from 'apollo-client';
-import {ApolloContext} from './ApolloContext';
+import {ApolloContext} from '../ApolloContext';
 
-export function useApolloClient<CacheShape>(
+export default function useApolloClient<CacheShape>(
   overrideClient?: ApolloClient<CacheShape>,
 ): ApolloClient<CacheShape> {
   const context = React.useContext(ApolloContext);
