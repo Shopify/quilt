@@ -1,0 +1,41 @@
+{
+  "name": "graphql-mini-transforms",
+  "description": "Transformers for importing .graphql files in various build tools.",
+  "version": "0.0.0",
+  "types": "lib",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-mini-transforms",
+  "tags": [
+    "graphql",
+    "apollo",
+    "webpack",
+    "loader",
+    "webpack-loader",
+    "jest"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "pretest": "yarn build",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "@jest/transform": "^24.7.1",
+    "@types/fs-extra": "^5.0.5",
+    "@types/graphql": ">=14.0.0 <15.0.0",
+    "@types/webpack": "^4.4.27",
+    "fs-extra": "^7.0.1",
+    "graphql": ">=14.0.0 <15.0.0"
+  }
+}

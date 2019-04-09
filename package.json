@@ -29,7 +29,8 @@
     "rules": {
       "shopify/jest/no-snapshots": "off",
       "shopify/jest/no-vague-titles": "off",
-      "node/no-unsupported-features/node-builtins": "off"
+      "node/no-unsupported-features/node-builtins": "off",
+      "func-style": "off"
     }
   },
   "scripts": {
