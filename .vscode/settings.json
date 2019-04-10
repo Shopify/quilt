@@ -18,7 +18,6 @@
     "**/.DS_Store": true,
     "**/node_modules": true,
     "**/lib": true,
-    "**/yarn.lock": true,
     "packages/graphql-tool-utilities/*.js": true,
     "packages/graphql-tool-utilities/*.d.ts": true,
     "packages/graphql-typed/*.js": true,

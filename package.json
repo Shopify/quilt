@@ -3,7 +3,7 @@
   "description": "A collection of utilities for GraphQL used in web projects at Shopify",
   "private": true,
   "engines": {
-    "node": ">=v10.15.3",
+    "node": ">=v8.12.0",
     "yarn": ">=1.9.4"
   },
   "author": "Shopify Inc.",
