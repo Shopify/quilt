@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   translate,
+  getTranslationTree,
   PSEUDOTRANSLATE_OPTIONS,
   getCurrencySymbol,
 } from '../utilities';
@@ -14,6 +15,24 @@ const locale = 'en-us';
 jest.mock('@shopify/i18n', () => ({
   pseudotranslate: jest.fn(),
 }));
+
+describe('getTranslationTree()', () => {
+  it('returns the translation keys if it has nested values', () => {
+    expect(getTranslationTree('foo', {foo: {bar: 'one'}})).toMatchObject({
+      bar: 'one',
+    });
+  });
+
+  it('returns the leaf string', () => {
+    expect(getTranslationTree('foo.bar', {foo: {bar: 'one'}})).toBe('one');
+  });
+
+  it('throws a MissingTranslationError when no translation is found', () => {
+    expect(() =>
+      getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}),
+    ).toThrow();
+  });
+});
 
 describe('translate()', () => {
   beforeEach(() => {

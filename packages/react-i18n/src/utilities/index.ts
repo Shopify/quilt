@@ -4,6 +4,7 @@ import {
   PSEUDOTRANSLATE_OPTIONS,
   TranslateOptions,
   translate,
+  getTranslationTree,
 } from './translate';
 
 export {
@@ -11,5 +12,6 @@ export {
   noop,
   PSEUDOTRANSLATE_OPTIONS,
   translate,
+  getTranslationTree,
   TranslateOptions,
 };
