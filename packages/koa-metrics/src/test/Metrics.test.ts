@@ -40,7 +40,26 @@ describe('Metrics', () => {
       const stats = StatsDMock.mock.instances[0];
       const distributionFn = stats.distribution;
       expect(distributionFn).toHaveBeenCalledTimes(1);
-      expect(distributionFn).toHaveBeenCalledWith(name, value, tags);
+      expect(distributionFn).toHaveBeenCalledWith(
+        name,
+        value,
+        tags,
+        expect.any(Function),
+      );
+    });
+
+    it('rejects on the promise when the client returns an error', async () => {
+      const metrics = new Metrics(defaultOptions);
+      const stats = StatsDMock.mock.instances[0];
+
+      stats.distribution.mockImplementation(
+        (_name, _value, _tags, callback) => {
+          callback('Something went wrong!');
+        },
+      );
+
+      const result = metrics.distribution(name, value, tags);
+      await expect(result).rejects.toEqual('Something went wrong!');
     });
 
     it('logs distribution metrics to the logger in development', () => {
@@ -78,52 +97,6 @@ describe('Metrics', () => {
     });
   });
 
-  describe('measure', () => {
-    it('passes measure metrics to the statsd client as distribution', () => {
-      const metrics = new Metrics(defaultOptions);
-      metrics.measure(name, value, tags);
-
-      const stats = StatsDMock.mock.instances[0];
-      const measureFn = stats.distribution;
-      expect(measureFn).toHaveBeenCalledTimes(1);
-      expect(measureFn).toHaveBeenCalledWith(name, value, tags);
-    });
-
-    it('logs measure metrics to the logger in development', () => {
-      withEnv('development', () => {
-        const logger = jest.fn();
-        const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure(name, value);
-
-        expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith(`measure ${name}:${value}`);
-      });
-    });
-
-    it('logs tags with measure metrics to the logger in development', () => {
-      withEnv('development', () => {
-        const logger = jest.fn();
-        const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure(name, value, tags);
-
-        expect(logger).toHaveBeenCalledTimes(1);
-        expect(logger).toHaveBeenCalledWith(
-          `measure ${name}:${value} #${tagName}:${tags[tagName]}`,
-        );
-      });
-    });
-
-    it('does not log measure metrics to the logger in production', () => {
-      withEnv('production', () => {
-        const logger = jest.fn();
-        const metrics = new Metrics(defaultOptions, logger);
-        metrics.measure(name, value, tags);
-
-        expect(logger).not.toHaveBeenCalled();
-      });
-    });
-  });
-
   describe('addGlobalTags', () => {
     it('uses the passed in global tags for future requests', () => {
       const metrics = new Metrics(defaultOptions);
@@ -154,6 +127,18 @@ describe('Metrics', () => {
       const stats = StatsDMock.mock.instances[0];
       const closeFn = stats.close;
       expect(closeFn).toHaveBeenCalledTimes(1);
+    });
+
+    it('rejects on the promise when the client returns an error', async () => {
+      const metrics = new Metrics(defaultOptions);
+      const stats = StatsDMock.mock.instances[0];
+
+      stats.close.mockImplementation(callback => {
+        callback('Something went wrong!');
+      });
+
+      const result = metrics.closeClient();
+      await expect(result).rejects.toEqual('Something went wrong!');
     });
   });
 
