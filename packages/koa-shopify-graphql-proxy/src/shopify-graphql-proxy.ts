@@ -2,24 +2,36 @@ import proxy from 'koa-better-http-proxy';
 import {Context} from 'koa';
 
 export const PROXY_BASE_PATH = '/graphql';
-export const GRAPHQL_PATH = '/admin/api/graphql.json';
+export const GRAPHQL_PATH_PREFIX = '/admin/api';
 
-export interface ProxyOptions {
+export enum ApiVersion {
+  April19 = '2019-04',
+  July19 = '2019-07',
+  Unstable = 'unstable',
+}
+
+interface DefaultProxyOptions {
+  version: ApiVersion;
+}
+
+interface PrivateShopOption extends DefaultProxyOptions {
   password: string;
   shop: string;
 }
 
-export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
+type ProxyOptions = PrivateShopOption | DefaultProxyOptions;
+
+export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
   return async function shopifyGraphQLProxyMiddleware(
     ctx: Context,
     next: () => Promise<any>,
   ) {
     const {session = {}} = ctx;
 
-    const shop = proxyOptions ? proxyOptions.shop : session.shop;
-    const accessToken = proxyOptions
-      ? proxyOptions.password
-      : session.accessToken;
+    const shop = 'shop' in proxyOptions ? proxyOptions.shop : session.shop;
+    const accessToken =
+      'password' in proxyOptions ? proxyOptions.password : session.accessToken;
+    const version = proxyOptions.version;
 
     if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
       await next();
@@ -41,7 +53,7 @@ export default function shopifyGraphQLProxy(proxyOptions?: ProxyOptions) {
         'X-Shopify-Access-Token': accessToken,
       },
       proxyReqPathResolver() {
-        return `https://${shop}${GRAPHQL_PATH}`;
+        return `https://${shop}${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
       },
     })(
       ctx,
