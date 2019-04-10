@@ -38,7 +38,7 @@ const i18nManager = new I18nManager({
 
 export default function App() {
   return (
-    <I18nContext.Provider manager={i18nManager}>
+    <I18nContext.Provider value={i18nManager}>
       {/* App contents */}
     </I18nContext.Provider>
   );
@@ -339,7 +339,7 @@ export default function App({
   i18nManager = new I18nManager({locale}, translations),
 }) {
   return (
-    <I18nContext.Provider manager={i18nManager}>
+    <I18nContext.Provider value={i18nManager}>
       {/* App contents */}
     </I18nContext.Provider>
   );
