@@ -26,6 +26,7 @@ import {
 import {
   getCurrencySymbol,
   translate,
+  getTranslationTree,
   TranslateOptions as RootTranslateOptions,
 } from './utilities';
 
@@ -161,6 +162,15 @@ export class I18n {
 
     try {
       return translate(id, normalizedOptions, this.translations, this.locale);
+    } catch (error) {
+      this.onError(error);
+      return '';
+    }
+  }
+
+  getTranslationTree(id: string): string | object {
+    try {
+      return getTranslationTree(id, this.translations);
     } catch (error) {
       this.onError(error);
       return '';
