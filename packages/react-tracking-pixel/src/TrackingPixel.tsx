@@ -1,6 +1,5 @@
 import * as React from 'react';
-import isEqual from 'lodash/isEqual';
-import Preconnect from '@shopify/react-preconnect';
+import {Preconnect} from '@shopify/react-html';
 
 export interface Props {
   url: string;
@@ -12,35 +11,35 @@ export interface Props {
   preconnectHosts?: string[];
 }
 
-export default class TrackingPixel extends React.Component<Props, never> {
-  shouldComponentUpdate(nextProps: Props) {
-    return isEqual(nextProps, this.props);
-  }
+const IFRAME_STYLES = {display: 'none'};
 
-  render() {
-    const {url, preconnectHosts} = this.props;
-    const styles = {
-      display: 'none',
-    };
+function TrackingPixel({url, preconnectHosts = []}: Props) {
+  const preconnectHostsMarkup = preconnectHosts.map(preconnectHost => (
+    <Preconnect key={preconnectHost} source={preconnectHost} />
+  ));
 
-    const preconnectHostsMarkup = preconnectHosts ? (
-      <Preconnect hosts={preconnectHosts} />
-    ) : null;
-
-    return (
-      <>
-        {preconnectHostsMarkup}
-        <iframe
-          src={url}
-          sandbox="allow-scripts"
-          title={url}
-          scrolling="no"
-          frameBorder={0}
-          height={1}
-          width={1}
-          style={styles}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      {preconnectHostsMarkup}
+      <iframe
+        src={url}
+        sandbox="allow-scripts"
+        title={url}
+        scrolling="no"
+        frameBorder={0}
+        height={1}
+        width={1}
+        style={IFRAME_STYLES}
+      />
+    </>
+  );
 }
+
+export default React.memo(TrackingPixel, (oldProps: Props, newProps: Props) => {
+  const samePreconnectHosts =
+    (oldProps.preconnectHosts == null && newProps.preconnectHosts == null) ||
+    (newProps.preconnectHosts || []).join() ===
+      (oldProps.preconnectHosts || []).join();
+
+  return oldProps.url === newProps.url && samePreconnectHosts;
+});
