@@ -5,9 +5,9 @@ import {getQueuingTime} from './timing';
 import {getContentLength} from './content';
 import Metrics, {Timer, Logger} from './Metrics';
 
-export {Tags} from './tags';
+export {Tag} from './tags';
 
-export enum CustomMetrics {
+export enum CustomMetric {
   ContentLength = 'request_content_length',
   QueuingTime = 'request_queuing_time',
   RequestDuration = 'request_time',
@@ -49,7 +49,7 @@ export default function metrics({
       const queuingTime = getQueuingTime(ctx);
       if (queuingTime) {
         promises.push(
-          metrics.distribution(CustomMetrics.QueuingTime, queuingTime),
+          metrics.distribution(CustomMetric.QueuingTime, queuingTime),
         );
       }
     }
@@ -66,14 +66,14 @@ export default function metrics({
         if (timer) {
           const duration = timer.stop();
           promises.push(
-            metrics.distribution(CustomMetrics.RequestDuration, duration),
+            metrics.distribution(CustomMetric.RequestDuration, duration),
           );
         }
 
         const contentLength = getContentLength(ctx);
         if (contentLength) {
           promises.push(
-            metrics.distribution(CustomMetrics.ContentLength, contentLength),
+            metrics.distribution(CustomMetric.ContentLength, contentLength),
           );
         }
       }

@@ -14,6 +14,7 @@ export class TestWrapper<ChildProps> extends React.Component<
 > {
   state: State<ChildProps> = {};
 
+  // eslint-disable-next-line shopify/react-prefer-private-members
   setProps(props: Partial<ChildProps>) {
     this.setState({props});
   }

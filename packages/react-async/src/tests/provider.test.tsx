@@ -35,13 +35,13 @@ describe('createAsyncContext()', () => {
       const AsyncContext = createAsyncContext({load});
       const asyncContext = mount(<AsyncContext.Provider />);
 
-      expect(trigger(asyncContext.find(Async), 'render', null)).toEqual(
+      expect(trigger(asyncContext.find(Async), 'render', null)).toStrictEqual(
         <AsyncContext.Context.Provider value={null} />,
       );
 
-      expect(trigger(asyncContext.find(Async), 'render', mockValue)).toEqual(
-        <AsyncContext.Context.Provider value={mockValue} />,
-      );
+      expect(
+        trigger(asyncContext.find(Async), 'render', mockValue),
+      ).toStrictEqual(<AsyncContext.Context.Provider value={mockValue} />);
     });
   });
 

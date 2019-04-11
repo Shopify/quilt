@@ -31,10 +31,10 @@ function WithI18nComponent({children}: {children?: React.ReactNode}) {
   });
 
   return (
-    <div>
+    <>
       {i18n.translate('MyComponent.hello')}
       <ShareTranslations>{children}</ShareTranslations>
-    </div>
+    </>
   );
 }
 
@@ -55,10 +55,10 @@ function WithAsyncI18nComponent({children}: {children?: React.ReactNode}) {
   });
 
   return (
-    <div>
+    <>
       {i18n.translate('MyComponent.hello')}
       <ShareTranslations>{children}</ShareTranslations>
-    </div>
+    </>
   );
 }
 
@@ -66,10 +66,10 @@ function WithoutOwnI18nComponent({children}: {children?: React.ReactNode}) {
   const [i18n] = useI18n();
 
   return (
-    <div>
+    <>
       {i18n.translate('MyComponent.hello')}
       {children}
-    </div>
+    </>
   );
 }
 
@@ -81,7 +81,7 @@ describe('server', () => {
         <WithI18nComponent />
       </I18nContext.Provider>,
     );
-    expect(markup).toBe(`<div>${frCATranslations.MyComponent.hello}</div>`);
+    expect(markup).toBe(`${frCATranslations.MyComponent.hello}`);
   });
 
   it('extracts async translations', async () => {
@@ -96,7 +96,7 @@ describe('server', () => {
     await extract(element);
     const markup = renderToStaticMarkup(element);
 
-    expect(markup).toBe(`<div>${frCATranslations.MyComponent.hello}</div>`);
+    expect(markup).toBe(`${frCATranslations.MyComponent.hello}`);
 
     const translations = manager.extract();
 
@@ -122,9 +122,7 @@ describe('server', () => {
     const markup = renderToStaticMarkup(element);
 
     expect(markup).toBe(
-      `<div>${frTranslations.MyComponent.hello}<div>${
-        frTranslations.MyComponent.hello
-      }</div></div>`,
+      `${frTranslations.MyComponent.hello}${frTranslations.MyComponent.hello}`,
     );
   });
 });

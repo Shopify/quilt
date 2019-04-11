@@ -24,9 +24,9 @@ const baseConfig = {
 const queryData = {
   state: fakeNonce,
   scope: 'write_orders, write_products',
-  // eslint-disable-next-line camelcase
+  // eslint-disable-next-line @typescript-eslint/camelcase
   client_id: baseConfig.apiKey,
-  // eslint-disable-next-line camelcase
+  // eslint-disable-next-line @typescript-eslint/camelcase
   redirect_uri: `https://${baseUrl}/callback`,
 };
 
@@ -58,7 +58,7 @@ describe('oAuthQueryString', () => {
 
     oAuthQueryString(ctx, baseConfig, callbackPath);
 
-    expect(ctx.cookies.set).toBeCalledWith('shopifyNonce', fakeNonce);
+    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyNonce', fakeNonce);
   });
 
   it('query string includes per-user grant for accessMode: online', () => {
@@ -72,7 +72,6 @@ describe('oAuthQueryString', () => {
       callbackPath,
     );
 
-    // eslint-disable-next-line camelcase
     const grantQuery = query({...queryData, 'grant_options[]': 'per-user'});
     expect(generatedQueryString).toBe(grantQuery);
   });

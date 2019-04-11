@@ -6,7 +6,7 @@ export type FunctionKeys<T> = {
     : never
 }[keyof T];
 
-// https://github.com/facebook/react/blob/master/packages/shared/ReactWorkTags.js
+// https://github.com/facebook/react/blob/master/packages/shared/ReactWorkTag.js
 export enum Tag {
   FunctionComponent = 0,
   ClassComponent = 1,

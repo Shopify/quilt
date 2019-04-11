@@ -2,10 +2,6 @@
   "name": "quilt",
   "version": "1.0.0",
   "description": "Shopify's javascript application utilities",
-  "engines": {
-    "node": ">=8.10.0",
-    "yarn": ">=1.9.4"
-  },
   "scripts": {
     "publish": "lerna publish",
     "prebuild": "yarn run clean",
@@ -47,8 +43,8 @@
     "element-closest": "^3.0.1",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "eslint": "^5.0.0",
-    "eslint-plugin-shopify": "^23.1.0",
+    "eslint": "^5.15.0",
+    "eslint-plugin-shopify": "^27.0.1",
     "graphql": "^14.0.0",
     "graphql-tag": "^2.10.0",
     "isomorphic-fetch": "^2.2.1",

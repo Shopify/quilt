@@ -22,8 +22,10 @@ export function useI18n({
 
   const parentI18n = React.useContext(I18nParentsContext);
   const parentIds = parentI18n ? parentI18n.ids || [] : [];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const ids = React.useMemo(() => (id ? [id, ...parentIds] : parentIds), [
     id,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ...parentIds,
   ]);
 
@@ -42,7 +44,7 @@ export function useI18n({
         setI18n(new I18n(translations, details, ids));
       });
     },
-    [manager],
+    [ids, manager],
   );
 
   const ShareTranslations = React.useMemo(

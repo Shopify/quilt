@@ -34,6 +34,7 @@ export default class UniversalGoogleAnalytics extends React.PureComponent<
 > {
   render() {
     const {debug, nonce} = this.props;
+    const source = debug ? UNIVERSAL_GA_DEBUG_SCRIPT : UNIVERSAL_GA_SCRIPT;
 
     return (
       <>
@@ -44,7 +45,7 @@ export default class UniversalGoogleAnalytics extends React.PureComponent<
         />
         <ImportRemote
           preconnect
-          source={debug ? UNIVERSAL_GA_DEBUG_SCRIPT : UNIVERSAL_GA_SCRIPT}
+          source={source}
           nonce={nonce}
           getImport={getUniversalAnalytics}
           onError={noop}

@@ -63,7 +63,7 @@ interface State<Fields> {
 }
 
 export default class FormState<
-  Fields extends Object
+  Fields extends object
 > extends React.PureComponent<Props<Fields>, State<Fields>> {
   static List = List;
   static Nested = Nested;
@@ -108,7 +108,11 @@ export default class FormState<
     }
   }
 
-  state = createFormState(this.props.initialValues, this.props.externalErrors);
+  state: State<Fields> = createFormState(
+    this.props.initialValues,
+    this.props.externalErrors,
+  );
+
   private mounted = false;
   private fieldsWithHandlers = new WeakMap();
 
@@ -133,12 +137,14 @@ export default class FormState<
     });
   }
 
+  // eslint-disable-next-line shopify/react-prefer-private-members
   public validateForm() {
     return new Promise(resolve => {
       this.setState(runAllValidators, () => resolve());
     });
   }
 
+  // eslint-disable-next-line shopify/react-prefer-private-members
   public reset = () => {
     return new Promise(resolve => {
       this.setState(
@@ -249,8 +255,7 @@ export default class FormState<
     fieldPath: Key,
   ) => {
     if (this.fieldsWithHandlers.has(field)) {
-      // eslint-disable-next-line typescript/no-non-null-assertion
-      return this.fieldsWithHandlers.get(field)!;
+      return this.fieldsWithHandlers.get(field);
     }
 
     const result = {
@@ -270,10 +275,7 @@ export default class FormState<
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
 
-      const newValue =
-        typeof value === 'function'
-          ? (value as ValueMapper<Fields[Key]>)(field.value)
-          : value;
+      const newValue = typeof value === 'function' ? value(field.value) : value;
 
       const dirty = !isEqual(newValue, field.initialValue);
 
@@ -390,7 +392,6 @@ export default class FormState<
     const {validators = {}} = this.props;
     const {fields} = this.state;
 
-    // eslint-disable-next-line consistent-return
     return runValidator(validators[fieldPath], value, fields);
   }
 
@@ -491,12 +492,10 @@ function runValidator<T, F>(
   fields: FieldStates<F>,
 ) {
   if (typeof validate === 'function') {
-    // eslint-disable-next-line consistent-return
     return validate(value, fields);
   }
 
   if (!Array.isArray(validate)) {
-    // eslint-disable-next-line consistent-return
     return;
   }
 
@@ -505,11 +504,9 @@ function runValidator<T, F>(
     .filter(input => input != null);
 
   if (errors.length === 0) {
-    // eslint-disable-next-line consistent-return
     return;
   }
 
-  // eslint-disable-next-line consistent-return
   return errors;
 }
 
@@ -531,6 +528,7 @@ function runAllValidators<FieldMap>(
     };
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
   return {
     ...state,
     fields: updatedFields,

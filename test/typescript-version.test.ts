@@ -3,6 +3,7 @@ import * as path from 'path';
 
 describe('typescript version', () => {
   it('matches the root version', () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const rootPackageJSON = require('../package.json');
     const rootVersion = rootPackageJSON.devDependencies.typescript;
 
@@ -31,9 +32,10 @@ describe('typescript version', () => {
   });
 
   it('the version in the plop file matches the root version', () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const rootPackageJSON = require('../package.json');
     const rootVersion = rootPackageJSON.devDependencies.typescript;
-
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const plopPackageJSON = require('../templates/package.hbs.json');
     const plopVersion = plopPackageJSON.devDependencies.typescript;
 

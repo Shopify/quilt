@@ -1,7 +1,7 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
-import metrics, {CustomMetrics} from '..';
+import metrics, {CustomMetric} from '..';
 import Metrics from '../Metrics';
-import {Tags} from '../tags';
+import {Tag} from '../tags';
 
 jest.mock('../Metrics');
 const MetricsMock = (Metrics as any) as jest.Mock<Metrics>;
@@ -74,7 +74,7 @@ describe('koa-metrics', () => {
       await metricsMiddleware(ctx, () => {});
       expect(MetricsMock.mock.calls[0][0]).toMatchObject({
         globalTags: {
-          [Tags.Path]: path,
+          [Tag.Path]: path,
         },
       });
     });
@@ -86,7 +86,7 @@ describe('koa-metrics', () => {
       await metricsMiddleware(ctx, () => {});
       expect(MetricsMock.mock.calls[0][0]).toMatchObject({
         globalTags: {
-          [Tags.RequestMethod]: 'GET',
+          [Tag.RequestMethod]: 'GET',
         },
       });
     });
@@ -102,11 +102,11 @@ describe('koa-metrics', () => {
       const addTagsFn = MetricsMock.mock.instances[0]
         .addGlobalTags as jest.Mock<Metrics['addGlobalTags']>;
       const addedTags = addTagsFn.mock.calls.reduce(
-        (acc, call) => Object.assign({}, acc, call[0]),
+        (acc, call) => ({...acc, ...call[0]}),
         {},
       );
       expect(addedTags).toMatchObject({
-        [Tags.ResponseCode]: String(status),
+        [Tag.ResponseCode]: String(status),
       });
     });
 
@@ -122,11 +122,11 @@ describe('koa-metrics', () => {
       const addTagsFn = MetricsMock.mock.instances[0]
         .addGlobalTags as jest.Mock<Metrics['addGlobalTags']>;
       const addedTags = addTagsFn.mock.calls.reduce(
-        (acc, call) => Object.assign({}, acc, call[0]),
+        (acc, call) => ({...acc, ...call[0]}),
         {},
       );
       expect(addedTags).toMatchObject({
-        [Tags.ResponseType]: responseType,
+        [Tag.ResponseType]: responseType,
       });
     });
   });
@@ -177,7 +177,7 @@ describe('koa-metrics', () => {
 
       await metricsMiddleware(ctx, () => {
         expect(MetricsMock.mock.instances[0].distribution).toHaveBeenCalledWith(
-          CustomMetrics.QueuingTime,
+          CustomMetric.QueuingTime,
           queuingTime,
         );
       });
@@ -193,7 +193,7 @@ describe('koa-metrics', () => {
           .distribution as jest.Mock<Metrics['distribution']>;
         expect(
           distributionFn.mock.calls.map(([metricName]) => metricName),
-        ).not.toContain(CustomMetrics.QueuingTime);
+        ).not.toContain(CustomMetric.QueuingTime);
       });
     });
   });
@@ -218,7 +218,7 @@ describe('koa-metrics', () => {
       });
 
       expect(MetricsMock.mock.instances[0].distribution).toHaveBeenCalledWith(
-        CustomMetrics.RequestDuration,
+        CustomMetric.RequestDuration,
         requestTime,
       );
     });
@@ -242,7 +242,7 @@ describe('koa-metrics', () => {
       });
 
       expect(MetricsMock.mock.instances[0].distribution).toHaveBeenCalledWith(
-        CustomMetrics.ContentLength,
+        CustomMetric.ContentLength,
         length,
       );
     });
@@ -258,7 +258,7 @@ describe('koa-metrics', () => {
 
       expect(
         distributionFn.mock.calls.map(([metricName]) => metricName),
-      ).not.toContain(CustomMetrics.ContentLength);
+      ).not.toContain(CustomMetric.ContentLength);
     });
   });
 

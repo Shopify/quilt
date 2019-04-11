@@ -98,6 +98,7 @@ export function normalizeGraphQLResponseWithOperation(
   // adds some hacky references so that they are always at least defined.
   query.definitions.forEach(definition => {
     (definition as any).loc =
+      // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
       definition.loc || ({source: {name: 'GraphQL request'}} as Location);
   });
 

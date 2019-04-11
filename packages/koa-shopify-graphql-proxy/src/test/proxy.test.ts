@@ -29,7 +29,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
-    expect(ctx.throw).toBeCalledWith(403, 'Unauthorized');
+    expect(ctx.throw).toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('throws when no accessToken is on session', async () => {
@@ -46,7 +46,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
-    expect(ctx.throw).toBeCalledWith(403, 'Unauthorized');
+    expect(ctx.throw).toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('throws when no shop is on session', async () => {
@@ -62,7 +62,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
-    expect(ctx.throw).toBeCalledWith(403, 'Unauthorized');
+    expect(ctx.throw).toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('bails and calls next if method is not POST', async () => {
@@ -79,8 +79,8 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).toBeCalled();
-    expect(proxyFactory).not.toBeCalled();
+    expect(nextSpy).toHaveBeenCalled();
+    expect(proxyFactory).not.toHaveBeenCalled();
   });
 
   it('bails and calls next if path does not start with the base url', async () => {
@@ -96,8 +96,8 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).toBeCalled();
-    expect(proxyFactory).not.toBeCalled();
+    expect(nextSpy).toHaveBeenCalled();
+    expect(proxyFactory).not.toHaveBeenCalled();
   });
 
   it('bails and calls next if path does not start with the base url and no session', async () => {
@@ -112,8 +112,8 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).toBeCalled();
-    expect(proxyFactory).not.toBeCalled();
+    expect(nextSpy).toHaveBeenCalled();
+    expect(proxyFactory).not.toHaveBeenCalled();
   });
 
   it('does not bail or throw when request is for the graphql api', async () => {
@@ -130,8 +130,8 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).not.toBeCalled();
-    expect(ctx.throw).not.toBeCalledWith(403, 'Unauthorized');
+    expect(nextSpy).not.toHaveBeenCalled();
+    expect(ctx.throw).not.toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('configures a custom koa-better-http-proxy', async () => {
@@ -230,6 +230,6 @@ describe('koa-shopify-graphql-proxy', () => {
     const nextSpy = jest.fn();
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
-    expect(nextSpy).not.toBeCalled();
+    expect(nextSpy).not.toHaveBeenCalled();
   });
 });

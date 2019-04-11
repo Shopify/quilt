@@ -1,12 +1,8 @@
-type AssignFunction = typeof window.location.assign;
-type ReloadFunction = typeof window.location.reload;
-type ReplaceFunction = typeof window.location.replace;
-
 export default class Location {
   private isUsingMockLocation = false;
-  private originalAssign?: AssignFunction;
-  private originalReload?: ReloadFunction;
-  private originalReplace?: ReplaceFunction;
+  private assignSpy?: jest.SpyInstance;
+  private reloadSpy?: jest.SpyInstance;
+  private replaceSpy?: jest.SpyInstance;
 
   mock() {
     if (this.isUsingMockLocation) {
@@ -22,11 +18,9 @@ export default class Location {
       value: '',
     });
 
-    this.originalAssign = window.location.assign;
-    this.originalReload = window.location.reload;
-    window.location.assign = jest.fn();
-    window.location.reload = jest.fn();
-    window.location.replace = jest.fn();
+    this.assignSpy = jest.spyOn(window.location, 'assign');
+    this.reloadSpy = jest.spyOn(window.location, 'reload');
+    this.replaceSpy = jest.spyOn(window.location, 'replace');
     this.isUsingMockLocation = true;
   }
 
@@ -38,9 +32,9 @@ export default class Location {
     }
 
     location.search = '';
-    window.location.assign = this.originalAssign as AssignFunction;
-    window.location.reload = this.originalReload as ReloadFunction;
-    window.location.replace = this.originalReplace as ReplaceFunction;
+    this.assignSpy!.mockRestore();
+    this.reloadSpy!.mockRestore();
+    this.replaceSpy!.mockRestore();
     this.isUsingMockLocation = false;
   }
 

@@ -27,7 +27,6 @@ export function isNumericString(input: string) {
 }
 
 export function isEmpty(input: any) {
-  // eslint-disable-next-line no-undefined
   return input === null || input === undefined || input.length === 0;
 }
 
@@ -35,14 +34,13 @@ export function isEmptyString(input: string) {
   return input.trim().length < 1;
 }
 
-export function not<A extends Array<any>, R>(fn: (...a: A) => R) {
+export function not<A extends any[], R>(fn: (...xs: A) => R) {
   return (...args: A) => !fn(...args);
 }
 
-export function validateNested<Input extends Object, Fields>(
+export function validateNested<Input extends object, Fields>(
   validatorDictionary: any,
 ) {
-  // eslint-disable-next-line consistent-return
   return (input: Input, fields: Fields) => {
     const errors = mapObject<Input, any>(input, (value, field) => {
       const validate = validatorDictionary[field];
@@ -56,7 +54,6 @@ export function validateNested<Input extends Object, Fields>(
       }
 
       if (!Array.isArray(validate)) {
-        // eslint-disable-next-line consistent-return
         return;
       }
 
@@ -65,7 +62,6 @@ export function validateNested<Input extends Object, Fields>(
         .filter(input => input != null);
 
       if (errors.length === 0) {
-        // eslint-disable-next-line consistent-return
         return;
       }
       return errors;
@@ -81,11 +77,11 @@ export function validateNested<Input extends Object, Fields>(
   };
 }
 
-export function validateList<Input extends Object, Fields>(
+export function validateList<Input extends object, Fields>(
   validatorDictionary: any,
 ) {
   const validateItem = validateNested(validatorDictionary);
-  // eslint-disable-next-line consistent-return
+
   return (input: Input[], fields: Fields) => {
     const errors = input.map(item => validateItem(item, fields));
 
@@ -120,11 +116,9 @@ export function validate<Input, Fields>(
     }
 
     if (typeof errorContent === 'function') {
-      // eslint-disable-next-line consistent-return
       return errorContent(toString(input));
     }
 
-    // eslint-disable-next-line consistent-return
     return errorContent;
   };
 }
@@ -146,11 +140,9 @@ export function validateRequired<Input, Fields>(
     }
 
     if (typeof errorContent === 'function') {
-      // eslint-disable-next-line consistent-return
       return errorContent(toString(input));
     }
 
-    // eslint-disable-next-line consistent-return
     return errorContent;
   };
 }

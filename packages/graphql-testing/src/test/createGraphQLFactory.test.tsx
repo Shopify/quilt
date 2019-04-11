@@ -31,10 +31,13 @@ function SomePageBase(props: Props) {
   } = props;
   const errorMessage = error ? <p>{error.message}</p> : null;
 
+  const loadingMarkup = loading ? 'Loading' : 'Loaded!';
+  const petsMarkup = pets && pets.length ? pets[0].name : 'No pets';
+
   return (
     <>
-      <p>{loading ? 'Loading' : 'Loaded!'}</p>
-      <p>{pets && pets.length ? pets[0].name : 'No pets'}</p>
+      <p>{loadingMarkup}</p>
+      <p>{petsMarkup}</p>
       {errorMessage}
     </>
   );
@@ -66,7 +69,6 @@ describe('graphql-testing', () => {
 
     await graphQL.resolveAll();
     somePage.update();
-
     expect(
       somePage.containsMatchingElement(
         <p>

@@ -47,17 +47,17 @@ describe('create-mock-context', () => {
     const context = createContext();
     context.throw();
 
-    expect(context.throw).toBeCalled();
+    expect(context.throw).toHaveBeenCalled();
   });
 
   it('defaults redirect to a jest fn', () => {
     const context = createContext();
     context.redirect('');
 
-    expect(context.redirect).toBeCalled();
+    expect(context.redirect).toHaveBeenCalled();
   });
 
-  it('sets url segment aliases correctly', () => {
+  it('sets url segment aliases', () => {
     const context = createContext({url: STORE_URL});
 
     const {url, originalUrl, host, origin, path, protocol} = context;
@@ -79,15 +79,6 @@ describe('create-mock-context', () => {
     expect(path).toBe('/foo');
     expect(protocol).toBe('http');
     expect(origin).toBe('http://test.com');
-  });
-
-  it('determines protocol based on `encrypted`', () => {
-    const {protocol} = createContext({
-      encrypted: true,
-      url: '/foo',
-    });
-
-    expect(protocol).toBe('https');
   });
 
   it('determines protocol based on `encrypted`', () => {
@@ -199,13 +190,13 @@ describe('create-mock-context', () => {
 
     await helloWorldMiddleware(context, next);
 
-    expect(next).toBeCalled();
+    expect(next).toHaveBeenCalled();
     expect(context.body).toBe('hello world');
     expect(context.foo).toBe(foo);
   });
 });
 
-async function helloWorldMiddleware(ctx: Context, next: Function) {
+function helloWorldMiddleware(ctx: Context, next: Function) {
   ctx.body = 'hello world';
-  await next();
+  return next();
 }

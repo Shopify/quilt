@@ -155,7 +155,7 @@ describe('Element', () => {
 
   describe('#domNodes', () => {
     it('returns the DOM node for the element itself if it is a DOM element', () => {
-      expect(divOne.domNodes).toEqual([divOne.instance]);
+      expect(divOne.domNodes).toStrictEqual([divOne.instance]);
     });
 
     it('returns the instances associated with each child DOM element', () => {
@@ -166,7 +166,10 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(element.domNodes).toEqual([divOne.instance, divTwo.instance]);
+      expect(element.domNodes).toStrictEqual([
+        divOne.instance,
+        divTwo.instance,
+      ]);
     });
 
     it('does not return descendant DOM nodes', () => {
@@ -227,7 +230,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(() => element.domNode).toThrowError(/multiple HTML elements/);
+      expect(() => element.domNode).toThrow(/multiple HTML elements/);
     });
   });
 
@@ -449,7 +452,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(element.findAll('div')).toEqual([divOne, divTwo]);
+      expect(element.findAll('div')).toStrictEqual([divOne, divTwo]);
     });
 
     it('finds all matching components', () => {
@@ -460,7 +463,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(element.findAll(DummyComponent)).toEqual([
+      expect(element.findAll(DummyComponent)).toStrictEqual([
         componentOne,
         componentTwo,
       ]);
@@ -515,7 +518,7 @@ describe('Element', () => {
 
       expect(
         element.findAll('div', {className: divTwo.props.className}),
-      ).toEqual([divTwo]);
+      ).toStrictEqual([divTwo]);
 
       expect(
         element.findAll('div', {className: span.props.className}),
@@ -571,10 +574,9 @@ describe('Element', () => {
         element.findAllWhere(element => element === componentTwo),
       ).toHaveLength(0);
 
-      expect(element.findAllWhere(element => element.type === 'div')).toEqual([
-        divOne,
-        divTwo,
-      ]);
+      expect(
+        element.findAllWhere(element => element.type === 'div'),
+      ).toStrictEqual([divOne, divTwo]);
     });
   });
 
@@ -595,7 +597,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(() => element.trigger('onClick')).toThrowError(
+      expect(() => element.trigger('onClick')).toThrow(
         /Attempted to call prop onClick/,
       );
     });
@@ -673,7 +675,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(() => element.triggerKeypath('actions[1]onAction')).toThrowError(
+      expect(() => element.triggerKeypath('actions[1]onAction')).toThrow(
         /Attempted to access field keypath 'actions\.1', but it was not an object/,
       );
     });
@@ -690,7 +692,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(() => element.triggerKeypath('actions')).toThrowError(
+      expect(() => element.triggerKeypath('actions')).toThrow(
         /Value at keypath 'actions' is not a function/,
       );
     });

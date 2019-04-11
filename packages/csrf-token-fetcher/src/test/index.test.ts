@@ -9,21 +9,21 @@ describe('csrf-token-fetcher', () => {
     const rootNode = '<meta name="csrf-token" content="ACTUAL_TOKEN">';
     document.body.innerHTML = rootNode;
 
-    expect(getCSRFToken()).toEqual('ACTUAL_TOKEN');
-    expect(getCSRFToken(document)).toEqual('ACTUAL_TOKEN');
+    expect(getCSRFToken()).toStrictEqual('ACTUAL_TOKEN');
+    expect(getCSRFToken(document)).toStrictEqual('ACTUAL_TOKEN');
 
     document.body.innerHTML = originalDom;
   });
 
   it('returns empty string if meta element not found', () => {
-    expect(getCSRFToken()).toEqual('');
+    expect(getCSRFToken()).toStrictEqual('');
   });
 
   it('returns empty string if meta element has no content attribute', () => {
     const rootNode = '<meta name="csrf-token">';
     document.body.innerHTML = rootNode;
 
-    expect(getCSRFToken()).toEqual('');
+    expect(getCSRFToken()).toStrictEqual('');
 
     document.body.innerHTML = originalDom;
   });

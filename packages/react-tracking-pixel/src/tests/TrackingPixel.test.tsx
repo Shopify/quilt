@@ -34,7 +34,7 @@ describe('<TrackingPixel />', () => {
       const trackingPixel = mount(
         <TrackingPixel url={url} preconnectHosts={preconnectHosts} />,
       );
-      expect(trackingPixel.find(Preconnect).prop('hosts')).toEqual(
+      expect(trackingPixel.find(Preconnect).prop('hosts')).toStrictEqual(
         preconnectHosts,
       );
     });

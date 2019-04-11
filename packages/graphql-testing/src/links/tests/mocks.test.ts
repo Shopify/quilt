@@ -22,7 +22,7 @@ describe('MockLink', () => {
     const data = {pets: [{name: 'Spike'}]};
     const link = new MockLink({Pet: data});
     const {result} = await executeOnce(link, petQuery);
-    expect(result).toEqual({data});
+    expect(result).toStrictEqual({data});
   });
 
   it('returns a result when there is an function matching an operation', async () => {
@@ -31,7 +31,7 @@ describe('MockLink', () => {
     const link = new MockLink({Pet: spy});
     const {result} = await executeOnce(link, petQuery);
 
-    expect(result).toEqual({data});
+    expect(result).toStrictEqual({data});
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({query: petQuery}),
     );
