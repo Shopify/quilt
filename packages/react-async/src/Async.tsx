@@ -13,6 +13,7 @@ import {
 } from '@shopify/react-intersection-observer';
 
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
+import {normalize, resolve} from './utilities';
 
 export interface AsyncPropsRuntime {
   defer?: DeferTiming;
@@ -117,14 +118,9 @@ class ConnectedAsync<Value> extends React.Component<
   };
 
   private load = async () => {
-    try {
-      const resolved = await this.props.load();
-
-      if (this.mounted) {
-        this.setState({resolved: normalize(resolved), loading: false});
-      }
-    } catch (error) {
-      // Silently swallowing errors for now
+    const resolved = await resolve(this.props.load);
+    if (this.mounted) {
+      this.setState({resolved, loading: false});
     }
   };
 }
@@ -149,15 +145,6 @@ function initialState<Value>(props: Props<Value>): State<Value> {
 
 function defaultRender() {
   return null;
-}
-
-function normalize(module: any) {
-  if (module == null) {
-    return null;
-  }
-
-  const value = 'default' in module ? module.default : module;
-  return value == null ? null : value;
 }
 
 // Webpack does not like seeing an explicit require(someVariable) in code
