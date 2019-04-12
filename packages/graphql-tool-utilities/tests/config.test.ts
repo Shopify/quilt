@@ -55,9 +55,7 @@ describe('getGraphQLProjects()', () => {
   it('throws an error if no projects are defined', () => {
     const config = new GraphQLConfig({projects: {}} as any, configPath);
 
-    expect(() => getGraphQLProjects(config)).toThrowError(
-      /No projects defined/i,
-    );
+    expect(() => getGraphQLProjects(config)).toThrow(/No projects defined/i);
   });
 });
 
@@ -77,7 +75,7 @@ describe('getGraphQLSchemaPaths()', () => {
 
     existsSync.mockImplementation(() => true);
 
-    expect(getGraphQLSchemaPaths(config)).toEqual(
+    expect(getGraphQLSchemaPaths(config)).toStrictEqual(
       expect.arrayContaining([join(__dirname, 'foo'), join(__dirname, 'bar')]),
     );
   });
@@ -106,10 +104,10 @@ describe('getGraphQLProjectIncludedFilePaths()', () => {
     const filePaths = await getGraphQLProjectIncludedFilePaths(projectConfig);
 
     expect(filePaths).toHaveLength(2);
-    expect(filePaths).toEqual(expect.arrayContaining(['fileA', 'fileB']));
+    expect(filePaths).toStrictEqual(expect.arrayContaining(['fileA', 'fileB']));
 
     expect(glob).toHaveBeenCalledTimes(2);
-    expect(glob.mock.calls).toEqual(
+    expect(glob.mock.calls).toStrictEqual(
       expect.arrayContaining([
         [
           join(__dirname, 'app/A/**/*'),
@@ -131,7 +129,7 @@ describe('getGraphQLProjectIncludedFilePaths()', () => {
 });
 
 describe('getGraphQLProjectForSchemaPath()', () => {
-  it('returns the correct schema in a multi-project configuration', () => {
+  it('returns the schema in a multi-project configuration', () => {
     const config = new GraphQLConfig(
       {
         schemaPath: '',
@@ -148,7 +146,7 @@ describe('getGraphQLProjectForSchemaPath()', () => {
     expect(projectConfig.schemaPath).toBe(join(__dirname, 'foo'));
   });
 
-  it('returns the correct schema in a single project configuration', () => {
+  it('returns the schema in a single project configuration', () => {
     const config = new GraphQLConfig(
       {
         schemaPath: 'foo',
@@ -174,6 +172,6 @@ describe('getGraphQLProjectForSchemaPath()', () => {
 
     expect(() =>
       getGraphQLProjectForSchemaPath(config, join(__dirname, 'bar')),
-    ).toThrowError(/No project defined/i);
+    ).toThrow(/No project defined/i);
   });
 });

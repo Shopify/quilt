@@ -171,7 +171,6 @@ function selectionsForDefinition(
   return selectionsForSelectionSet(definition.selectionSet);
 }
 
-// eslint-disable-next-line consistent-return
 function* selectionSetsForDefinition(
   definition: DefinitionNode,
 ): IterableIterator<SelectionSetNode> {

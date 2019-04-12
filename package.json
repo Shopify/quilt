@@ -22,15 +22,18 @@
   "eslintConfig": {
     "extends": [
       "plugin:shopify/typescript",
-      "plugin:shopify/typescript-prettier",
+      "plugin:shopify/react",
       "plugin:shopify/jest",
-      "plugin:shopify/node"
+      "plugin:shopify/prettier"
     ],
+    "parserOptions": {
+      "project": "tsconfig.json"
+    },
     "rules": {
       "shopify/jest/no-snapshots": "off",
-      "shopify/jest/no-vague-titles": "off",
-      "node/no-unsupported-features/node-builtins": "off",
-      "func-style": "off"
+      "shopify/jest/no-vague-titles": ["error", {
+        "allow": "all"
+      }]
     }
   },
   "scripts": {
@@ -57,11 +60,11 @@
     "@types/fs-extra": "^5.0.2",
     "@types/glob": "^5.0.35",
     "@types/graphql": "^14.0.0",
-    "@types/jest": "^22.2.3",
+    "@types/jest": "^24.0.11",
     "@types/node": "^10.0.4",
     "@types/yargs": "^11.0.0",
-    "eslint": "^5.6.0",
-    "eslint-plugin-shopify": "^26.3.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-shopify": "^27.0.1",
     "graphql": "^14.0.0",
     "in-publish": "^2.0.0",
     "jest": "^24.7.1",

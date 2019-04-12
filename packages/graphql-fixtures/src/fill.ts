@@ -55,16 +55,14 @@ export type Thunk<T, Data, Variables, DeepPartial> =
 export type DeepThunk<T, Data, Variables, DeepPartial> = T extends object
   ? {
       [P in keyof T]: Thunk<
-        T[P] extends Array<infer U> | null | undefined
+        T[P] extends (infer U)[] | null | undefined
           ?
-              | Array<
-                  Thunk<
-                    DeepThunk<U, Data, Variables, DeepPartial>,
-                    Data,
-                    Variables,
-                    DeepPartial
-                  >
-                >
+              | Thunk<
+                  DeepThunk<U, Data, Variables, DeepPartial>,
+                  Data,
+                  Variables,
+                  DeepPartial
+                >[]
               | null
               | undefined
           : T[P] extends ReadonlyArray<infer U> | null | undefined
@@ -191,7 +189,6 @@ function fillObject(
   const normalizedParentFields = [...parentFields];
   // We know there will always be at least one here, because the field for the object
   // itself is at the end.
-  // eslint-disable-next-line typescript/no-non-null-assertion
   const ownField = normalizedParentFields.pop()!;
   const {fields = []} = ownField;
 
@@ -419,7 +416,6 @@ function fillType<Data, Variables, DeepPartial>(
       );
     }
 
-    // eslint-disable-next-line func-style
     const filler = () =>
       fillObject(
         resolvedType,
@@ -452,7 +448,6 @@ function fillType<Data, Variables, DeepPartial>(
       },
     );
   } else {
-    // eslint-disable-next-line func-style
     const filler = () =>
       fillObject(
         unwrappedType,

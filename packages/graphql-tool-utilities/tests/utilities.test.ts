@@ -77,7 +77,7 @@ describe('utilities', () => {
     it('throws an error if the schemaPath is empty', () => {
       const projectConfig = new GraphQLProjectConfig({} as any, configPath);
 
-      expect(() => resolveSchemaPath(projectConfig)).toThrowError(
+      expect(() => resolveSchemaPath(projectConfig)).toThrow(
         /Missing GraphQL schemaPath/i,
       );
     });
@@ -87,7 +87,7 @@ describe('utilities', () => {
 
       existsSync.mockImplementation(() => false);
 
-      expect(() => resolveSchemaPath(projectConfig)).toThrowError(
+      expect(() => resolveSchemaPath(projectConfig)).toThrow(
         /Schema not found/i,
       );
     });

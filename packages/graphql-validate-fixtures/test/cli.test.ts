@@ -11,13 +11,13 @@ describe.skip('cli', () => {
   it('succeeds when there are no fixture errors', () => {
     expect(() =>
       exec(cliCommandForFixtureDirectory('all-clear')),
-    ).not.toThrowError();
+    ).not.toThrow();
   });
 
   it('succeeds for a multi-project when there are no fixture errors', () => {
     expect(() =>
       exec(cliCommandForFixtureDirectory('multi-project')),
-    ).not.toThrowError();
+    ).not.toThrow();
   });
 
   it('fails when there are ambiguous fixture names', () => {

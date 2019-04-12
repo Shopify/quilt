@@ -30,7 +30,7 @@ describe('createFiller()', () => {
       }
     `);
 
-    expect(fill(document)).toEqual({
+    expect(fill(document)).toStrictEqual({
       name: expect.any(String),
     });
   });
@@ -49,7 +49,7 @@ describe('createFiller()', () => {
     `);
 
     const {age} = fill(document);
-    expect(age).toEqual(expect.any(Number));
+    expect(age).toStrictEqual(expect.any(Number));
     expect(Math.round(age)).toBe(age);
   });
 
@@ -67,7 +67,7 @@ describe('createFiller()', () => {
     `);
 
     const {age} = fill(document);
-    expect(age).toEqual(expect.any(Number));
+    expect(age).toStrictEqual(expect.any(Number));
     expect(Math.round(age)).not.toBe(age);
   });
 
@@ -84,7 +84,7 @@ describe('createFiller()', () => {
       }
     `);
 
-    expect(fill(document)).toEqual({
+    expect(fill(document)).toStrictEqual({
       happy: expect.any(Boolean),
     });
   });
@@ -102,7 +102,7 @@ describe('createFiller()', () => {
       }
     `);
 
-    expect(fill(document)).toEqual({
+    expect(fill(document)).toStrictEqual({
       id: expect.any(String),
     });
   });
@@ -125,7 +125,7 @@ describe('createFiller()', () => {
       }
     `);
 
-    expect(fill(document)).toEqual({
+    expect(fill(document)).toStrictEqual({
       petPreference: expect.stringMatching(/^(DOG|CAT)$/),
     });
   });
@@ -145,7 +145,7 @@ describe('createFiller()', () => {
       }
     `);
 
-    expect(fill(document)).toEqual({
+    expect(fill(document)).toStrictEqual({
       birthday: expect.any(String),
     });
   });
@@ -165,7 +165,7 @@ describe('createFiller()', () => {
       }
     `);
 
-    expect(fill(document)).toEqual({
+    expect(fill(document)).toStrictEqual({
       name: null,
     });
   });
@@ -200,7 +200,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document)).toEqual(fill(document));
+      expect(fill(document)).toStrictEqual(fill(document));
     });
 
     it('uses different values for different keypaths', () => {
@@ -258,7 +258,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document)).toEqual({
+      expect(fill(document)).toStrictEqual({
         self: {
           name: expect.any(String),
           mother: {
@@ -285,7 +285,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document, {name})).toEqual({
+      expect(fill(document, {name})).toStrictEqual({
         age: expect.any(Number),
         name,
       });
@@ -308,7 +308,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document, {name: () => name})).toEqual({
+      expect(fill(document, {name: () => name})).toStrictEqual({
         age: expect.any(Number),
         name,
       });
@@ -346,7 +346,9 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document, {self: {mother: {name: motherName}}})).toEqual({
+      expect(
+        fill(document, {self: {mother: {name: motherName}}}),
+      ).toStrictEqual({
         self: {
           name: expect.any(String),
           mother: {
@@ -394,7 +396,7 @@ describe('createFiller()', () => {
             mother: {name: () => motherName},
           }),
         }),
-      ).toEqual({
+      ).toStrictEqual({
         self: {
           name: expect.any(String),
           mother: {
@@ -435,7 +437,7 @@ describe('createFiller()', () => {
             sister: {},
           },
         }),
-      ).toEqual({
+      ).toStrictEqual({
         self: {
           name: expect.any(String),
           sister: {
@@ -474,7 +476,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document, {self: {sister: null}})).toEqual({
+      expect(fill(document, {self: {sister: null}})).toStrictEqual({
         self: {sister: null},
       });
     });
@@ -515,7 +517,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document, {self: {sister: null}})).toEqual({
+      expect(fill(document, {self: {sister: null}})).toStrictEqual({
         self: {sister: null},
       });
     });
@@ -549,7 +551,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document)).toEqual({
+        expect(fill(document)).toStrictEqual({
           __typename: 'Query',
           self: {
             __typename: 'Person',
@@ -646,7 +648,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document)).toEqual(fill(document));
+        expect(fill(document)).toStrictEqual(fill(document));
       });
 
       it('picks an implementing type based on a static typename provided', () => {
@@ -661,7 +663,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {named: {__typename: 'Person'}})).toEqual({
+        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
           named: {
             occupation: expect.any(String),
           },
@@ -680,7 +682,9 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {named: {__typename: () => 'Person'}})).toEqual({
+        expect(
+          fill(document, {named: {__typename: () => 'Person'}}),
+        ).toStrictEqual({
           named: {
             occupation: expect.any(String),
           },
@@ -701,7 +705,7 @@ describe('createFiller()', () => {
 
         expect(
           fill(document, {named: () => ({__typename: () => 'Person'})}),
-        ).toEqual({
+        ).toStrictEqual({
           named: {
             occupation: expect.any(String),
           },
@@ -726,7 +730,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {named: {__typename: 'Person'}})).toEqual({
+        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
           named: {
             __typename: 'Person',
             ...person,
@@ -781,9 +785,9 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(() =>
-          fill(document, {named: {__typename: 'Mule'}}),
-        ).toThrowError();
+        expect(() => fill(document, {named: {__typename: 'Mule'}})).toThrow(
+          /No type found/,
+        );
       });
     });
 
@@ -868,7 +872,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {named: {__typename: 'Person'}})).toEqual({
+        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
           named: {
             occupation: expect.any(String),
           },
@@ -887,7 +891,9 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {named: {__typename: () => 'Person'}})).toEqual({
+        expect(
+          fill(document, {named: {__typename: () => 'Person'}}),
+        ).toStrictEqual({
           named: {
             occupation: expect.any(String),
           },
@@ -908,7 +914,7 @@ describe('createFiller()', () => {
 
         expect(
           fill(document, {named: () => ({__typename: () => 'Person'})}),
-        ).toEqual({
+        ).toStrictEqual({
           named: {
             occupation: expect.any(String),
           },
@@ -933,7 +939,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {named: {__typename: 'Person'}})).toEqual({
+        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
           named: {
             __typename: 'Person',
             ...person,
@@ -951,9 +957,9 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(() =>
-          fill(document, {named: {__typename: 'Mule'}}),
-        ).toThrowError();
+        expect(() => fill(document, {named: {__typename: 'Mule'}})).toThrow(
+          /No type found/,
+        );
       });
     });
 
@@ -979,7 +985,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document)).toEqual({
+        expect(fill(document)).toStrictEqual({
           name: aString,
         });
       });
@@ -1011,7 +1017,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document)).toEqual({
+        expect(fill(document)).toStrictEqual({
           self: {name},
         });
       });
@@ -1104,7 +1110,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {self: {name}})).toEqual({
+        expect(fill(document, {self: {name}})).toStrictEqual({
           self: {name, age: expect.any(Number)},
         });
       });
@@ -1137,7 +1143,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {self: {active: false}})).toEqual({
+        expect(fill(document, {self: {active: false}})).toStrictEqual({
           self: {name: expect.any(String), active: false},
         });
       });
@@ -1170,7 +1176,7 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {self: () => ({active: false})})).toEqual({
+        expect(fill(document, {self: () => ({active: false})})).toStrictEqual({
           self: {name: expect.any(String), active: false},
         });
       });
@@ -1191,7 +1197,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document)).toEqual({initials: []});
+      expect(fill(document)).toStrictEqual({initials: []});
     });
 
     it('fills a non-empty list', () => {
@@ -1207,7 +1213,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document, {initials: list(3)})).toEqual({
+      expect(fill(document, {initials: list(3)})).toStrictEqual({
         initials: [expect.any(String), expect.any(String), expect.any(String)],
       });
     });
@@ -1234,7 +1240,7 @@ describe('createFiller()', () => {
         fill(document, {
           initialList: list(2, () => list<string>(2)),
         }),
-      ).toEqual({
+      ).toStrictEqual({
         initialList: [
           [expect.any(String), expect.any(String)],
           [expect.any(String), expect.any(String)],
@@ -1268,7 +1274,7 @@ describe('createFiller()', () => {
         fill(document, {
           people: [{}, {name: 'Chris'}],
         }),
-      ).toEqual({
+      ).toStrictEqual({
         people: [{name: expect.any(String)}, {name: 'Chris'}],
       });
     });
