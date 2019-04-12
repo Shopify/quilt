@@ -24,7 +24,7 @@ Attaching the middleware will proxy any requests sent to `/graphql` on your app 
 import koa from 'koa';
 import session from 'koa-session';
 import createShopifyAuth from '@shopify/koa-shopify-auth';
-import proxy from '@shopify/koa-shopify-graphql-proxy';
+import proxy, {ApiVersion} from '@shopify/koa-shopify-graphql-proxy';
 
 const app = koa();
 
@@ -36,7 +36,7 @@ app.use(
   }),
 );
 
-app.use(proxy());
+app.use(proxy({version: ApiVersion.Unstable}));
 ```
 
 This allows client side scripts to query a logged in merchant's shop without needing to know the users access token.
@@ -55,7 +55,7 @@ import mount from 'koa-mount';
 
 //....
 
-app.use(mount('/shopify', proxy());
+app.use(mount('/shopify', proxy({version: ApiVersion.Unstable}));
 ```
 
 ```javascript
@@ -71,7 +71,7 @@ If you have a [private shopify app](https://help.shopify.com/en/manual/apps/priv
 // server/index.js
 import koa from 'koa';
 import session from 'koa-session';
-import proxy from '@shopify/koa-shopify-graphql-proxy';
+import proxy, {ApiVersion} from '@shopify/koa-shopify-graphql-proxy';
 
 const app = koa();
 
@@ -79,6 +79,7 @@ app.use(session());
 
 app.use(
   proxy({
+    version: ApiVersion.Unstable,
     shop: '<my-shop-name>.myshopify.com',
     password: '<your-app-password>',
   }),
