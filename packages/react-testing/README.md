@@ -375,7 +375,7 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
   async afterMount(root, {skipInitialGraphQL}) {
     // This is a temporary hack to make GraphQL resolution behave pseudo-synchronously
     // to avoid warnings about setting state outside of act() blocks.
-    root.graphQL.on('pre-resolve', () => {
+    root.context.graphQL.on('pre-resolve', () => {
       if (promise.isMocked()) {
         root.act(() => promise.runPending());
       }
@@ -387,7 +387,7 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
 
     // Here's the important bit: resolve the GraphQL so our first queries are
     // in use for the component under test
-    await root.graphQL.resolveAll();
+    await root.context.graphQL.resolveAll();
   },
 });
 ```
