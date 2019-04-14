@@ -37,19 +37,16 @@ describe('<Provider />', () => {
     animationFrame.runFrame();
 
     expect(
-      // eslint-disable-next-line typescript/no-non-null-assertion
       document
         .querySelector(`meta[${MANAGED_ATTRIBUTE}]`)!
         .getAttribute('content'),
     ).toBe(meta.content);
 
     expect(
-      // eslint-disable-next-line typescript/no-non-null-assertion
       document.querySelector(`link[${MANAGED_ATTRIBUTE}]`)!.getAttribute('src'),
     ).toBe(link.src);
 
     expect(
-      // eslint-disable-next-line typescript/no-non-null-assertion
       document.querySelector(`title[${MANAGED_ATTRIBUTE}]`)!.textContent,
     ).toBe(title);
   });
@@ -64,7 +61,6 @@ describe('<Provider />', () => {
     manager.addLink(linkOne);
     animationFrame.runFrame();
 
-    // eslint-disable-next-line typescript/no-non-null-assertion
     const linkElement = document.querySelector(`link[${MANAGED_ATTRIBUTE}]`)!;
 
     manager.addLink(linkTwo);
@@ -89,7 +85,6 @@ describe('<Provider />', () => {
     manager.addMeta(metaOne);
     animationFrame.runFrame();
 
-    // eslint-disable-next-line typescript/no-non-null-assertion
     const metaElement = document.querySelector(`meta[${MANAGED_ATTRIBUTE}]`)!;
 
     manager.addMeta(metaTwo);

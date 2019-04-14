@@ -4,7 +4,7 @@ import './matchers';
 
 import {I18n} from '../i18n';
 import {LanguageDirection} from '../types';
-import {DateStyle, Weekdays} from '../constants';
+import {DateStyle, Weekday} from '../constants';
 import {MissingTranslationError} from '../errors';
 
 jest.mock('../utilities', () => ({
@@ -98,7 +98,6 @@ describe('I18n', () => {
     it('is undefined when the locale does not have a country code', () => {
       const locale = 'fr';
       const i18n = new I18n(defaultTranslations, {locale});
-      // eslint-disable-next-line no-undefined
       expect(i18n).toHaveProperty('region', undefined);
     });
   });
@@ -113,7 +112,6 @@ describe('I18n', () => {
     it('is undefined when the locale does not have a country code', () => {
       const locale = 'fr';
       const i18n = new I18n(defaultTranslations, {locale});
-      // eslint-disable-next-line no-undefined
       expect(i18n).toHaveProperty('countryCode', undefined);
     });
   });
@@ -235,7 +233,7 @@ describe('I18n', () => {
       });
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      expect(() => i18n.translate('hello')).toThrowError(error);
+      expect(() => i18n.translate('hello')).toThrow(error);
     });
 
     it('calls an onError handler', () => {
@@ -340,7 +338,7 @@ describe('I18n', () => {
 
       it('throws an error when no currency code is given as the default or as an option', () => {
         const i18n = new I18n(defaultTranslations, defaultDetails);
-        expect(() => i18n.formatNumber(1, {as: 'currency'})).toThrowError(
+        expect(() => i18n.formatNumber(1, {as: 'currency'})).toThrow(
           'No currency code provided.',
         );
       });
@@ -869,32 +867,32 @@ describe('I18n', () => {
     it('uses the defaultCountry to get the week start day', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'FR'});
 
-      expect(i18n.weekStartDay()).toBe(Weekdays.Monday);
+      expect(i18n.weekStartDay()).toBe(Weekday.Monday);
     });
 
     it('uses the country passed in the params instead of the defaultCountry', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'FR'});
 
-      expect(i18n.weekStartDay('CA')).toBe(Weekdays.Sunday);
+      expect(i18n.weekStartDay('CA')).toBe(Weekday.Sunday);
     });
 
     it('fallsback to Sunday if country is not in the list', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'XX'});
 
-      expect(i18n.weekStartDay()).toBe(Weekdays.Sunday);
+      expect(i18n.weekStartDay()).toBe(Weekday.Sunday);
     });
 
     it('throws an error if no country code is passed', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(() => i18n.weekStartDay()).toThrowError(
+      expect(() => i18n.weekStartDay()).toThrow(
         'No country code provided. weekStartDay() cannot be called without a country code.',
       );
     });
   });
 
   describe('#getCurrencySymbol()', () => {
-    it('correctly returns the locale-specific currency symbol and its position', () => {
+    it('returns the locale-specific currency symbol and its position', () => {
       const mockResult = {
         symbol: '€',
         prefixed: true,
@@ -903,7 +901,7 @@ describe('I18n', () => {
 
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.getCurrencySymbol('eur')).toEqual(mockResult);
+      expect(i18n.getCurrencySymbol('eur')).toStrictEqual(mockResult);
     });
   });
 });

@@ -47,10 +47,10 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(createEnableCookiesRedirect).toBeCalledWith(
+        expect(createEnableCookiesRedirect).toHaveBeenCalledWith(
           '/auth/enable_cookies',
         );
-        expect(mockEnableCookiesRedirect).toBeCalledWith(ctx);
+        expect(mockEnableCookiesRedirect).toHaveBeenCalledWith(ctx);
       });
     });
 
@@ -64,8 +64,10 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(createTopLevelOAuthRedirect).toBeCalledWith('/auth/inline');
-        expect(mockTopLevelOAuthRedirect).toBeCalledWith(ctx);
+        expect(createTopLevelOAuthRedirect).toHaveBeenCalledWith(
+          '/auth/inline',
+        );
+        expect(mockTopLevelOAuthRedirect).toHaveBeenCalledWith(ctx);
       });
     });
 
@@ -79,7 +81,7 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(mockOAuthStart).toBeCalledWith(ctx);
+        expect(mockOAuthStart).toHaveBeenCalledWith(ctx);
       });
     });
   });
@@ -93,7 +95,7 @@ describe('Index', () => {
 
       await shopifyAuth(ctx, nextFunction);
 
-      expect(mockOAuthStart).toBeCalledWith(ctx);
+      expect(mockOAuthStart).toHaveBeenCalledWith(ctx);
     });
   });
 
@@ -106,7 +108,7 @@ describe('Index', () => {
 
       await shopifyAuth(ctx, nextFunction);
 
-      expect(mockOAuthCallback).toBeCalledWith(ctx);
+      expect(mockOAuthCallback).toHaveBeenCalledWith(ctx);
     });
   });
 
@@ -119,7 +121,7 @@ describe('Index', () => {
 
       await shopifyAuth(ctx, nextFunction);
 
-      expect(mockEnableCookies).toBeCalledWith(ctx);
+      expect(mockEnableCookies).toHaveBeenCalledWith(ctx);
     });
   });
 });

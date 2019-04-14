@@ -10,10 +10,6 @@ export function normalize(module: any) {
 }
 
 export async function resolve<T>(load: () => Promise<Import<T>>): Promise<T> {
-  try {
-    const resolved = await load();
-    return normalize(resolved);
-  } catch (error) {
-    throw error;
-  }
+  const resolved = await load();
+  return normalize(resolved);
 }

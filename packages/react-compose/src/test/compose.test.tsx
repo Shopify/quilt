@@ -44,7 +44,7 @@ describe('react-compose-enhancers', () => {
       const result = mount(<Component baz={expectedProps.baz} />);
       const actualProps = result.find(ClassicalComponent).props();
 
-      expect(actualProps).toEqual(expectedProps);
+      expect(actualProps).toStrictEqual(expectedProps);
     });
 
     it('hoists static members to wrapper class', () => {
@@ -53,7 +53,7 @@ describe('react-compose-enhancers', () => {
         barEnhancer,
       )(ClassicalComponent);
 
-      expect(Component.someStatic).toEqual(ClassicalComponent.someStatic);
+      expect(Component.someStatic).toStrictEqual(ClassicalComponent.someStatic);
     });
   });
 
@@ -97,7 +97,7 @@ describe('react-compose-enhancers', () => {
       const result = mount(<Component baz={expectedProps.baz} />);
       const actualProps = result.find(StatelessComponent).props();
 
-      expect(actualProps).toEqual(expectedProps);
+      expect(actualProps).toStrictEqual(expectedProps);
     });
   });
 });
@@ -116,9 +116,8 @@ interface Props {
 
 type ComposedProps = FooProps & BarProps & Props;
 
-// eslint-disable-next-line
 class ClassicalComponent extends React.Component<ComposedProps, never> {
-  static someStatic = 'some static';
+  private static someStatic = 'some static';
 
   render() {
     return <div>classical component</div>;
@@ -127,20 +126,20 @@ class ClassicalComponent extends React.Component<ComposedProps, never> {
 
 function StatelessComponent({foo, bar, baz}: ComposedProps) {
   return (
-    <div>
+    <>
       stateless component {foo} {bar} {baz}
-    </div>
+    </>
   );
 }
 
 function fooEnhancer(Component) {
-  return function Wrapper(props: Object) {
+  return function Wrapper(props: object) {
     return <Component foo="foo" {...props} />;
   };
 }
 
 function barEnhancer(Component) {
-  return function Wrapper(props: Object) {
+  return function Wrapper(props: object) {
     return <Component bar="bar" {...props} />;
   };
 }

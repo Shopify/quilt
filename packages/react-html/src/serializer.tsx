@@ -38,7 +38,7 @@ export function useSerialized<T>(
 
         return null;
       },
-    [id, manager],
+    [id],
   );
 
   return [data, Serialize];

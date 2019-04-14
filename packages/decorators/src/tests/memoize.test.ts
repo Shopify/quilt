@@ -17,8 +17,8 @@ describe('memoize()', () => {
 
     const myClass = new MyClass();
 
-    expect(myClass.addOne(1)).toEqual(2);
-    expect(myClass.addOne(1)).toEqual(2);
+    expect(myClass.addOne(1)).toStrictEqual(2);
+    expect(myClass.addOne(1)).toStrictEqual(2);
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
@@ -34,9 +34,9 @@ describe('memoize()', () => {
 
     const myClass = new MyClass();
 
-    expect(myClass.getName('Lisa', '1')).toEqual('Lisa');
-    expect(myClass.getName('Lisa', '1')).toEqual('Lisa');
-    expect(spy).toBeCalledTimes(1);
+    expect(myClass.getName('Lisa', '1')).toStrictEqual('Lisa');
+    expect(myClass.getName('Lisa', '1')).toStrictEqual('Lisa');
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('does not share cache result in two instances of the same class', () => {
@@ -55,11 +55,11 @@ describe('memoize()', () => {
     }
 
     const myClass1 = new MyClass(1);
-    expect(myClass1.addExtraNumber(1)).toEqual(3);
+    expect(myClass1.addExtraNumber(1)).toStrictEqual(3);
 
     const myClass2 = new MyClass(3);
-    expect(myClass2.addExtraNumber(1)).toEqual(5);
+    expect(myClass2.addExtraNumber(1)).toStrictEqual(5);
 
-    expect(spy).toBeCalledTimes(2);
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 });

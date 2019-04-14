@@ -14,7 +14,7 @@ import {
   DEFAULT_WEEK_START_DAY,
   WEEK_START_DAYS,
   RTL_LANGUAGES,
-  Weekdays,
+  Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
 } from './constants';
@@ -268,7 +268,7 @@ export class I18n {
     }).format(date);
   }
 
-  weekStartDay(argCountry?: I18n['defaultCountry']): Weekdays {
+  weekStartDay(argCountry?: I18n['defaultCountry']): Weekday {
     const country = argCountry || this.defaultCountry;
 
     if (!country) {

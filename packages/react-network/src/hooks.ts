@@ -8,7 +8,6 @@ import {NetworkManager} from './manager';
 export function useNetworkEffect(perform: (network: NetworkManager) => void) {
   const network = useContext(NetworkContext);
 
-  // eslint-disable-next-line consistent-return
   useServerEffect(() => {
     if (network != null) {
       return perform(network);

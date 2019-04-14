@@ -8,6 +8,7 @@ type FirstInputDelayCallback = FirstArgument<PerfMetrics['onFirstInputDelay']>;
 describe('Performance', () => {
   // We are not adding all the required tests here until we have time
   // to write a useful mock for Performance/ PerformanceObserver
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('records a navigation on finish', () => {
     const performance = new Performance();
     const spy = jest.fn();
@@ -20,6 +21,7 @@ describe('Performance', () => {
   // This can unskip once mocks are available for either:
   // - `performance.timing`
   // - `PerformanceNavigationTiming` and `PerformanceObserver`
+  // eslint-disable-next-line jest/no-disabled-tests
   describe.skip('first-input-delay', () => {
     class MockPerfMetrics implements PerfMetrics {
       private _callback: FirstInputDelayCallback | null = null;
@@ -47,11 +49,9 @@ describe('Performance', () => {
       window.perfMetrics = perfMetrics;
 
       const lifecycleSpy = jest.fn();
-      // eslint-disable-next-line no-new
       const performance = new Performance();
       performance.on('lifecycleEvent', lifecycleSpy);
 
-      // eslint-disable-next-line typescript/no-non-null-assertion
       perfMetrics.callback!(1000, new Event('click'));
 
       expect(lifecycleSpy).toHaveBeenCalledWith(

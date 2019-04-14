@@ -1,11 +1,11 @@
+import {readFileSync} from 'fs';
+import * as path from 'path';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {graphql} from 'react-apollo';
 
 import {mount} from 'enzyme';
-import {readFileSync} from 'fs';
 import {buildSchema} from 'graphql';
-import * as path from 'path';
 
 import configureClient from '..';
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
@@ -40,10 +40,12 @@ function SomePageBase(props: Props) {
   } = props;
   const errorMessage = error ? <p>{error.message}</p> : null;
 
+  const loadingMarkup = loading ? 'Loading' : 'Loaded!';
+  const petsMarkup = pets && pets.length ? pets[0].name : 'No pets';
   return (
     <>
-      <p>{loading ? 'Loading' : 'Loaded!'}</p>
-      <p>{pets && pets.length ? pets[0].name : 'No pets'}</p>
+      <p>{loadingMarkup}</p>
+      <p>{petsMarkup}</p>
       {errorMessage}
     </>
   );

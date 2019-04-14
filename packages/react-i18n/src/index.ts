@@ -9,5 +9,5 @@ export {
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
   DateStyle,
-  Weekdays,
+  Weekday,
 } from './constants';

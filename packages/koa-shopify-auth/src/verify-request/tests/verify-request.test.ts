@@ -10,7 +10,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(next).toBeCalled();
+    expect(next).toHaveBeenCalled();
   });
 
   it('clears the top level oauth cookie if there is an accessToken', () => {
@@ -20,7 +20,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.cookies.set).toBeCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME);
+    expect(ctx.cookies.set).toHaveBeenCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME);
   });
 
   it('sets the test cookie if there is no accessToken', () => {
@@ -30,7 +30,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.cookies.set).toBeCalledWith(TEST_COOKIE_NAME, '1');
+    expect(ctx.cookies.set).toHaveBeenCalledWith(TEST_COOKIE_NAME, '1');
   });
 
   it('redirects to /auth if there is no accessToken but shop is present on query', () => {
@@ -45,7 +45,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.redirect).toBeCalledWith(`/auth?shop=${shop}`);
+    expect(ctx.redirect).toHaveBeenCalledWith(`/auth?shop=${shop}`);
   });
 
   it('redirects to the /auth when there is no accessToken or known shop', () => {
@@ -58,7 +58,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.redirect).toBeCalledWith('/auth');
+    expect(ctx.redirect).toHaveBeenCalledWith('/auth');
   });
 
   it('redirects to given authRoute if there is no accessToken but shop is present on query', () => {
@@ -74,7 +74,7 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.redirect).toBeCalledWith(`${authRoute}?shop=${shop}`);
+    expect(ctx.redirect).toHaveBeenCalledWith(`${authRoute}?shop=${shop}`);
   });
 
   it('redirects to the given fallbackRoute when there is no accessToken or known shop', () => {
@@ -88,6 +88,6 @@ describe('verifyRequest', () => {
 
     verifyRequestMiddleware(ctx, next);
 
-    expect(ctx.redirect).toBeCalledWith(fallbackRoute);
+    expect(ctx.redirect).toHaveBeenCalledWith(fallbackRoute);
   });
 });

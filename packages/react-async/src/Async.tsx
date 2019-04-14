@@ -31,10 +31,10 @@ interface State<Value> {
   loading: boolean;
 }
 
-/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 declare const __webpack_require__: (id: string) => any;
 declare const __webpack_modules__: {[key: string]: any};
-/* eslint-enable camelcase */
+/* eslint-enable @typescript-eslint/camelcase */
 
 class ConnectedAsync<Value> extends React.Component<
   Props<Value>,
@@ -175,11 +175,11 @@ const nodeRequire =
 // (which will work in environments like Jest’s test runner).
 function tryRequire(id: string) {
   if (
-    /* eslint-disable camelcase */
+    /* eslint-disable @typescript-eslint/camelcase */
     typeof __webpack_require__ === 'function' &&
     typeof __webpack_modules__ === 'object' &&
     __webpack_modules__[id]
-    /* eslint-enable camelcase */
+    /* eslint-enable @typescript-eslint/camelcase */
   ) {
     try {
       return normalize(__webpack_require__(id));

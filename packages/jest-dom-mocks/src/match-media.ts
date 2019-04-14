@@ -5,8 +5,8 @@ export interface MediaMatching {
 }
 
 export default class MatchMedia {
-  private isUsingMockMatchMedia = false;
   originalMatchMedia: (mediaQuery: string) => MediaQueryList;
+  private isUsingMockMatchMedia = false;
 
   mock(media: MediaMatching = defaultMatcher) {
     if (this.isUsingMockMatchMedia) {

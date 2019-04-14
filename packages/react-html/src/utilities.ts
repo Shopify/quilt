@@ -10,7 +10,6 @@ export function getSerializationsFromDocument() {
 
   for (const node of document.querySelectorAll(`[${SERIALIZE_ATTRIBUTE}]`)) {
     serializations.set(
-      // eslint-disable-next-line typescript/no-non-null-assertion
       node.getAttribute(SERIALIZE_ATTRIBUTE)!,
       getSerializedFromNode(node),
     );
@@ -43,15 +42,14 @@ export function getSerialized<Data>(id: string) {
 // flashes of unstyled content. This function will show the document
 // after the styles have loaded.
 export function showPage(): Promise<void> {
-  return (
-    // eslint-disable-next-line no-process-env
-    process.env.NODE_ENV === 'development' && typeof document !== 'undefined'
-      ? new Promise(resolve => {
-          setTimeout(() => {
-            document.body.style.visibility = '';
-            resolve();
-          }, 0);
-        })
-      : Promise.resolve()
-  );
+  // eslint-disable-next-line no-process-env
+  return process.env.NODE_ENV === 'development' &&
+    typeof document !== 'undefined'
+    ? new Promise(resolve => {
+        setTimeout(() => {
+          document.body.style.visibility = '';
+          resolve();
+        }, 0);
+      })
+    : Promise.resolve();
 }

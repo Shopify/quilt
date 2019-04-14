@@ -24,12 +24,12 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
     name: '',
   };
 
-  const mockApp = {} as ClientApplication<any>;
+  const mockApp: Partial<ClientApplication<any>> = {};
 
   const appBridgeHistoryMock = {
     dispatch: jest.fn(),
   };
-  AppBridgeHistory.create = jest.fn().mockReturnValue(appBridgeHistoryMock);
+  jest.spyOn(AppBridgeHistory, 'create').mockReturnValue(appBridgeHistoryMock);
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -42,7 +42,12 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
   it('dispatch a replace action on mount', () => {
     const path = '/settings';
 
-    mount(<RoutePropagator location={path} app={mockApp} />);
+    mount(
+      <RoutePropagator
+        location={path}
+        app={mockApp as ClientApplication<any>}
+      />,
+    );
 
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(1);
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledWith(
@@ -78,7 +83,7 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
 
       mount(<RoutePropagator location="/settings" app={mockApp} />);
 
-      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });
 
     it('does not dispatch a replace action when the location updates', () => {
@@ -92,7 +97,7 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
       propagator.setProps({location: path});
       propagator.update();
 
-      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });
   });
 
@@ -103,7 +108,7 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
       }));
       mount(<RoutePropagator location="/settings" app={mockApp} />);
 
-      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });
 
     it('does not dispatch a replace action when the location updates', () => {
@@ -118,7 +123,7 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
       propagator.setProps({location: '/foo'});
       propagator.update();
 
-      expect(appBridgeHistoryMock.dispatch).not.toBeCalled();
+      expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });
   });
 });

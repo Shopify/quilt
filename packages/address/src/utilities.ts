@@ -4,16 +4,16 @@ const FIELD_REGEXP = /({\w+})/g;
 export const FIELDS_MAPPING: {
   [key: string]: FieldName;
 } = {
-  '{firstName}': FieldName.FirstName, // eslint-disable-line id-length
-  '{lastName}': FieldName.LastName, // eslint-disable-line id-length
-  '{country}': FieldName.Country, // eslint-disable-line id-length
-  '{city}': FieldName.City, // eslint-disable-line id-length
-  '{zip}': FieldName.PostalCode, // eslint-disable-line id-length
-  '{province}': FieldName.Zone, // eslint-disable-line id-length
-  '{address1}': FieldName.Address1, // eslint-disable-line id-length
-  '{address2}': FieldName.Address2, // eslint-disable-line id-length
-  '{phone}': FieldName.Phone, // eslint-disable-line id-length
-  '{company}': FieldName.Company, // eslint-disable-line id-length
+  '{firstName}': FieldName.FirstName,
+  '{lastName}': FieldName.LastName,
+  '{country}': FieldName.Country,
+  '{city}': FieldName.City,
+  '{zip}': FieldName.PostalCode,
+  '{province}': FieldName.Zone,
+  '{address1}': FieldName.Address1,
+  '{address2}': FieldName.Address2,
+  '{phone}': FieldName.Phone,
+  '{company}': FieldName.Company,
 };
 
 /*
