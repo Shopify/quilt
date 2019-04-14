@@ -118,9 +118,8 @@ export function getUniqueRanges(ranges: Range[]) {
   const uniqueRanges = new Set<Range>();
 
   ranges.forEach(range => {
-    const overlappingRanges = [...uniqueRanges].filter(
-      // eslint-disable-next-line no-loop-func
-      otherRange => rangesOverlap(range, otherRange),
+    const overlappingRanges = [...uniqueRanges].filter(otherRange =>
+      rangesOverlap(range, otherRange),
     );
 
     for (const overlappingRange of overlappingRanges) {

@@ -73,7 +73,7 @@ describe('ShortcutManager', () => {
     keydown('f');
     keydown('o');
 
-    expect(foSpy).not.toBeCalled();
+    expect(foSpy).not.toHaveBeenCalled();
 
     timer.runAllTimers();
 
@@ -94,11 +94,11 @@ describe('ShortcutManager', () => {
     keydown('a');
     keydown('z');
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     timer.runAllTimers();
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('does not call shortcuts that only partially match', () => {
@@ -114,7 +114,7 @@ describe('ShortcutManager', () => {
     keydown('o');
     timer.runAllTimers();
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('calls shortcuts that are scoped to a specific node only when that node is focused', () => {
@@ -129,7 +129,7 @@ describe('ShortcutManager', () => {
     app.forceUpdate();
     keydown('z');
 
-    expect(spy).toBeCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('only registers a unique shortcut once', () => {
@@ -170,7 +170,7 @@ describe('ShortcutManager', () => {
     keydown('a');
     keydown('r');
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('resets keys when there are no matching shortcuts', () => {
@@ -204,7 +204,7 @@ describe('ShortcutManager', () => {
     keydown('a', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(event.preventDefault).not.toBeCalled();
+    expect(event.preventDefault).not.toHaveBeenCalled();
   });
 
   it('prevents the default event by default', () => {
@@ -222,7 +222,7 @@ describe('ShortcutManager', () => {
     keydown('a', document, event);
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(event.preventDefault).toBeCalled();
+    expect(event.preventDefault).toHaveBeenCalled();
   });
 
   describe('modifier keys', () => {

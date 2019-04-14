@@ -1,3 +1,4 @@
+import {EventEmitter} from 'events';
 import {GraphQLRequest, ApolloLink} from 'apollo-link';
 import {
   ApolloReducerConfig,
@@ -5,7 +6,6 @@ import {
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
 import {ApolloClient} from 'apollo-client';
-import {EventEmitter} from 'events';
 
 import {MockLink, InflightLink} from './links';
 import {Operations} from './utilities';

@@ -9,6 +9,7 @@ import {Node} from './types';
 type PropsFromNode<T> = T extends Node<infer U> ? U : never;
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
       toHaveReactProps(props: Partial<PropsFromNode<R>>): void;

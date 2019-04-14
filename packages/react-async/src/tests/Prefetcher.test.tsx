@@ -5,8 +5,8 @@ import {trigger} from '@shopify/enzyme-utilities';
 
 import {EventListener} from '../EventListener';
 import {Prefetcher, INTENTION_DELAY_MS} from '../Prefetcher';
-import {createPrefetchManager} from './utilities';
 import {PrefetchContext} from '../context/prefetch';
+import {createPrefetchManager} from './utilities';
 
 jest.mock('../EventListener', () => ({
   EventListener() {

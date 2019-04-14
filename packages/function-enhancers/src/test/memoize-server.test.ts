@@ -14,9 +14,9 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toEqual(2);
-      expect(addOneMemoized(2)).toEqual(3);
-      expect(spy).toBeCalledTimes(2);
+      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(addOneMemoized(2)).toStrictEqual(3);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
 
     it('recalculates the result when the first argument stay the same', () => {
@@ -27,9 +27,9 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toEqual(2);
-      expect(addOneMemoized(1)).toEqual(2);
-      expect(spy).toBeCalledTimes(2);
+      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
   });
 });

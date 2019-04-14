@@ -1,9 +1,9 @@
+import path from 'path';
+import fs from 'fs';
 import {TemplateBuilder} from '@babel/template';
 import * as Types from '@babel/types';
 import {NodePath} from '@babel/traverse';
 import stringHash from 'string-hash';
-import path from 'path';
-import fs from 'fs';
 
 interface State {
   lastImport: NodePath<Types.ImportDeclaration>;

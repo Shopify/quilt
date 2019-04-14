@@ -20,7 +20,7 @@ export const SETUP_SCRIPT = `
   window['_gaq'] = window['_gaq'] || [];
 `;
 
-export function setupWithDebugScript(account: String) {
+export function setupWithDebugScript(account: string) {
   // https://developers.google.com/analytics/devguides/collection/gajs/#disable
   return `window['ga-disable-${account}'] = true;${SETUP_SCRIPT}`;
 }

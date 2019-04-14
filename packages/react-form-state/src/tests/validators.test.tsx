@@ -204,7 +204,6 @@ describe('validation helpers', () => {
 
       const results = compoundValidator(data, {});
 
-      // eslint-disable-next-line typescript/no-non-null-assertion
       results!.forEach((result, index) => {
         expect(result).toMatchObject({
           title: alwaysPassValidator(data[index].title),
@@ -327,7 +326,6 @@ describe('validation helpers', () => {
 
       it('returns a function that returns errorContent when the input is undefined', () => {
         const validator = validators.required(error);
-        // eslint-disable-next-line no-undefined
         expect(validator(undefined)).toBe(error);
       });
 

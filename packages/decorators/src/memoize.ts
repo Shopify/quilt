@@ -6,7 +6,7 @@ export default function memoize<Method extends Function>(
   resolver?: Resolver<Method>,
 ): MethodDecorator {
   return function<T>(
-    _target: Object,
+    _target: object,
     propertyKey: string | symbol,
     descriptor: TypedPropertyDescriptor<T>,
   ) {

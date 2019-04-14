@@ -25,7 +25,7 @@ const queryData = {
 
 const baseUrl = 'myapp.com/auth/callback';
 
-// eslint-disable-next-line camelcase
+// eslint-disable-next-line @typescript-eslint/camelcase
 const basicResponse = {status: 200, body: {access_token: 'made up token'}};
 
 describe('OAuthCallback', () => {
@@ -50,7 +50,7 @@ describe('OAuthCallback', () => {
 
     oAuthCallback(ctx);
 
-    expect(ctx.throw).toBeCalledWith(400, Error.ShopParamMissing);
+    expect(ctx.throw).toHaveBeenCalledWith(400, Error.ShopParamMissing);
   });
 
   it('throws a 400 if the hmac is invalid', async () => {
@@ -66,8 +66,8 @@ describe('OAuthCallback', () => {
 
     await oAuthCallback(ctx);
 
-    expect(validateHmac).toBeCalled();
-    expect(ctx.throw).toBeCalledWith(400, Error.InvalidHMAC);
+    expect(validateHmac).toHaveBeenCalled();
+    expect(ctx.throw).toHaveBeenCalledWith(400, Error.InvalidHmac);
   });
 
   it('throws a 403 if no nonce cookie is provided', () => {
@@ -81,7 +81,7 @@ describe('OAuthCallback', () => {
 
     oAuthCallback(ctx);
 
-    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
+    expect(ctx.throw).toHaveBeenCalledWith(403, Error.NonceMatchFailed);
   });
 
   it('throws a 403 if no nonce query is present', () => {
@@ -101,7 +101,7 @@ describe('OAuthCallback', () => {
 
     oAuthCallback(ctx);
 
-    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
+    expect(ctx.throw).toHaveBeenCalledWith(403, Error.NonceMatchFailed);
   });
 
   it('throws a 403 if the nonce query param does not match the cookie', () => {
@@ -118,24 +118,7 @@ describe('OAuthCallback', () => {
 
     oAuthCallback(ctx);
 
-    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
-  });
-
-  it('throws a 403 if the nonce query param does not match the cookie', () => {
-    fetchMock.mock('*', basicResponse);
-
-    const oAuthCallback = createOAuthCallback(baseConfig);
-    const ctx = createMockContext({
-      url: `${baseUrl}?${querystring.stringify(queryData)}`,
-      throw: jest.fn(),
-      cookies: {
-        nonce: 'incorrect',
-      },
-    });
-
-    oAuthCallback(ctx);
-
-    expect(ctx.throw).toBeCalledWith(403, Error.NonceMatchFailed);
+    expect(ctx.throw).toHaveBeenCalledWith(403, Error.NonceMatchFailed);
   });
 
   it('does not throw a 400 when hmac is valid and shop parameter is supplied', async () => {
@@ -149,12 +132,12 @@ describe('OAuthCallback', () => {
 
     await oAuthCallback(ctx);
 
-    expect(ctx.throw).not.toBeCalledWith(400, Error.ShopParamMissing);
-    expect(ctx.throw).not.toBeCalledWith(400, Error.InvalidHMAC);
+    expect(ctx.throw).not.toHaveBeenCalledWith(400, Error.ShopParamMissing);
+    expect(ctx.throw).not.toHaveBeenCalledWith(400, Error.InvalidHmac);
   });
 
   it("fetches an access token with the app's credentials", async () => {
-    // eslint-disable-next-line camelcase
+    // eslint-disable-next-line @typescript-eslint/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: 'abc'}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -168,14 +151,14 @@ describe('OAuthCallback', () => {
     const {secret, apiKey} = baseConfig;
     const {code} = queryData;
 
-    expect(fetchMock.lastCall()).toEqual([
+    expect(fetchMock.lastCall()).toStrictEqual([
       'https://shop1.myshopify.io/admin/oauth/access_token',
       {
         body: querystring.stringify({
           code,
-          // eslint-disable-next-line camelcase
+          // eslint-disable-next-line @typescript-eslint/camelcase
           client_id: apiKey,
-          // eslint-disable-next-line camelcase
+          // eslint-disable-next-line @typescript-eslint/camelcase
           client_secret: secret,
         }),
         headers: {
@@ -188,7 +171,7 @@ describe('OAuthCallback', () => {
   });
 
   it('throws a 401 if the token request fails', async () => {
-    // eslint-disable-next-line camelcase
+    // eslint-disable-next-line @typescript-eslint/camelcase
     fetchMock.mock('*', {status: 401, body: {access_token: 'abc'}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -199,13 +182,13 @@ describe('OAuthCallback', () => {
 
     await oAuthCallback(ctx);
 
-    expect(ctx.throw).toBeCalledWith(401, Error.AccessTokenFetchFailure);
+    expect(ctx.throw).toHaveBeenCalledWith(401, Error.AccessTokenFetchFailure);
   });
 
   it('includes the shop and accessToken on session if the token request succeeds and session exists', async () => {
     const accessToken = 'abc';
 
-    // eslint-disable-next-line camelcase
+    // eslint-disable-next-line @typescript-eslint/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: accessToken}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -226,7 +209,7 @@ describe('OAuthCallback', () => {
   it('includes the shop and accesstoken on state if the token request succeeds', async () => {
     const accessToken = 'abc';
 
-    // eslint-disable-next-line camelcase
+    // eslint-disable-next-line @typescript-eslint/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: accessToken}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -247,7 +230,7 @@ describe('OAuthCallback', () => {
   it('calls afterAuth with ctx when the token request succeeds', async () => {
     const afterAuth = jest.fn();
 
-    // eslint-disable-next-line camelcase
+    // eslint-disable-next-line @typescript-eslint/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: 'abc'}});
 
     const oAuthCallback = createOAuthCallback({
@@ -262,6 +245,6 @@ describe('OAuthCallback', () => {
 
     await oAuthCallback(ctx);
 
-    expect(afterAuth).toBeCalledWith(ctx);
+    expect(afterAuth).toHaveBeenCalledWith(ctx);
   });
 });

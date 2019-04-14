@@ -3,6 +3,7 @@ import faker from 'faker';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
 
+// eslint-disable-next-line shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
 import {lastCallArgs} from '../../tests/utilities';
 import FormState from '../..';
@@ -28,11 +29,10 @@ describe('<Nested />', () => {
       </FormState>,
     );
 
-    expect(renderPropSpy).toBeCalledWith({
+    expect(renderPropSpy).toHaveBeenCalledWith({
       title: {
         name: 'product.title',
         dirty: false,
-        // eslint-disable-next-line no-undefined
         error: undefined,
         initialValue: product.title,
         value: product.title,
@@ -42,7 +42,6 @@ describe('<Nested />', () => {
       adjective: {
         name: 'product.adjective',
         dirty: false,
-        // eslint-disable-next-line no-undefined
         error: undefined,
         initialValue: product.adjective,
         value: product.adjective,
@@ -131,7 +130,7 @@ describe('<Nested />', () => {
     expect(renderPropArgs.department.error).toBe(field.error.department);
   });
 
-  it('Does not have race condition with multiple onChange calls', () => {
+  it('does not have race condition with multiple onChange calls', () => {
     const product = {
       title: faker.commerce.productName(),
       department: faker.commerce.department(),
@@ -172,7 +171,7 @@ describe('<Nested />', () => {
     expect(updatedFields.department.value).toBe(newDepartment);
   });
 
-  it('Does not have race condition when using Nested -> Nested', () => {
+  it('does not have race condition when using Nested -> Nested', () => {
     const product = {
       nested: {
         title: faker.commerce.productName(),
@@ -219,7 +218,7 @@ describe('<Nested />', () => {
     expect(updatedFields.department.value).toBe(newDepartment);
   });
 
-  it('Does not have race condition when using List -> Nested', () => {
+  it('does not have race condition when using List -> Nested', () => {
     const product = [
       {
         nested: {

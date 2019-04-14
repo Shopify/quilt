@@ -4,9 +4,7 @@ import {noop} from '@shopify/javascript-utilities/other';
 
 import {trigger, findById} from '..';
 
-// eslint-disable-next-line shopify/strict-component-boundaries
 import {Toggle} from './fixtures/Toggle';
-// eslint-disable-next-line shopify/strict-component-boundaries
 import {ActionList, Action} from './fixtures/Actions';
 
 jest.mock('react-dom/test-utils', () => {
@@ -75,7 +73,7 @@ describe('enzyme-utilities', () => {
       }
       const myComponent = mount(<MyComponent />);
 
-      expect(() => trigger(myComponent.find(Toggle), 'onAction')).toThrowError(
+      expect(() => trigger(myComponent.find(Toggle), 'onAction')).toThrow(
         'You tried to trigger onAction on a React wrapper with no matching nodes. This generally happens because you have either filtered your React components incorrectly, or the component you are looking for is not rendered because of the props on your component, or there is some error during one of your component’s render methods.',
       );
     });
@@ -92,7 +90,7 @@ describe('enzyme-utilities', () => {
 
       expect(() =>
         trigger(action.find('button'), 'onNonExistantAction'),
-      ).toThrowError(
+      ).toThrow(
         "No callback found at keypath 'onNonExistantAction'. Available props: type, onClick",
       );
     });
@@ -103,15 +101,15 @@ describe('enzyme-utilities', () => {
       const matchedNode = <div id="foo" />;
       const found = findById(
         mount(
-          <div>
+          <>
             {matchedNode}
             <div id="bar" />
-          </div>,
+          </>,
         ),
         'foo',
       );
 
-      expect(found.getElement()).toEqual(matchedNode);
+      expect(found.getElement()).toStrictEqual(matchedNode);
     });
 
     it('only returns an outer component when it renders its own children with the same ID', () => {

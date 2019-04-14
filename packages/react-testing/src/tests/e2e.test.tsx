@@ -32,19 +32,22 @@ describe('e2e', () => {
       const [mounted, setMounted] = React.useState(false);
       const element = React.useRef<HTMLElement | null>(null);
 
-      React.useEffect(() => {
-        if (!mounted) {
-          element.current = document.createElement('div');
-          document.body.appendChild(element.current);
-          setMounted(true);
-        }
-
-        return () => {
-          if (element.current != null) {
-            element.current.remove();
+      React.useEffect(
+        () => {
+          if (!mounted) {
+            element.current = document.createElement('div');
+            document.body.appendChild(element.current);
+            setMounted(true);
           }
-        };
-      });
+
+          return () => {
+            if (element.current != null) {
+              element.current.remove();
+            }
+          };
+        },
+        [mounted],
+      );
 
       return element.current ? createPortal(children, element.current) : null;
     }

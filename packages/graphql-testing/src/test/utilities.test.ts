@@ -66,7 +66,7 @@ describe('Operations', () => {
   it('gets all operations', () => {
     const operations = new Operations();
     operations.push(operationOne, operationTwo, operationThree);
-    expect(operations.all()).toEqual([
+    expect(operations.all()).toStrictEqual([
       operationOne,
       operationTwo,
       operationThree,
@@ -77,9 +77,9 @@ describe('Operations', () => {
     const operations = new Operations();
     operations.push(operationOne, operationTwo, operationOne);
 
-    expect(operations.all({operationName: operationOne.operationName})).toEqual(
-      [operationOne, operationOne],
-    );
+    expect(
+      operations.all({operationName: operationOne.operationName}),
+    ).toStrictEqual([operationOne, operationOne]);
   });
 
   it('gets the last operation with a matching operationName', () => {

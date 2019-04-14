@@ -30,7 +30,7 @@ export function replace<T>(array: T[], targetIndex: number, newValue: T) {
   });
 }
 
-export function set<InputType extends Object>(
+export function set<InputType extends object>(
   rootObject: InputType,
   path: string[],
   value: any,
@@ -44,6 +44,8 @@ export function set<InputType extends Object>(
     };
   } else {
     const [current, ...rest] = path;
+
+    // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
     return {
       ...(rootObject as any),
       [current]: set(rootObject[current] || {}, rest, value),

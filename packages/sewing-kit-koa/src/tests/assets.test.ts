@@ -64,7 +64,7 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.scripts()).toEqual([{path: js}]);
+      expect(await assets.scripts()).toStrictEqual([{path: js}]);
     });
 
     it('returns the scripts for a named bundle', async () => {
@@ -84,7 +84,9 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.scripts({name: 'custom'})).toEqual([{path: js}]);
+      expect(await assets.scripts({name: 'custom'})).toStrictEqual([
+        {path: js},
+      ]);
     });
 
     it('prefixes async assets matching the passed IDs', async () => {
@@ -113,7 +115,7 @@ describe('Assets', () => {
 
       expect(
         await assets.scripts({name: 'custom', asyncAssets: ['used']}),
-      ).toEqual([{path: asyncJs}, {path: js}]);
+      ).toStrictEqual([{path: asyncJs}, {path: js}]);
     });
 
     it('throws an error when no scripts exist for the passed entrypoint', async () => {
@@ -144,7 +146,7 @@ describe('Assets', () => {
         assets.scripts({name: 'custom'}),
       );
 
-      expect(scripts).toEqual([
+      expect(scripts).toStrictEqual([
         {path: `${assetPrefix}dll/vendor.js`},
         {path: js},
       ]);
@@ -169,7 +171,7 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.styles()).toEqual([{path: css}]);
+      expect(await assets.styles()).toStrictEqual([{path: css}]);
     });
 
     it('returns the styles for a named bundle', async () => {
@@ -189,7 +191,9 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.styles({name: 'custom'})).toEqual([{path: css}]);
+      expect(await assets.styles({name: 'custom'})).toStrictEqual([
+        {path: css},
+      ]);
     });
 
     it('prefixes async assets matching the passed IDs', async () => {
@@ -218,7 +222,7 @@ describe('Assets', () => {
 
       expect(
         await assets.styles({name: 'custom', asyncAssets: ['used']}),
-      ).toEqual([{path: asyncCss}, {path: css}]);
+      ).toStrictEqual([{path: asyncCss}, {path: css}]);
     });
 
     it('throws an error when no styles exist for the passed entrypoint', async () => {
@@ -258,7 +262,12 @@ describe('Assets', () => {
 
       expect(
         await assets.assets({name: 'custom', asyncAssets: ['mypage']}),
-      ).toEqual([{path: css}, {path: asyncCss}, {path: asyncJs}, {path: js}]);
+      ).toStrictEqual([
+        {path: css},
+        {path: asyncCss},
+        {path: asyncJs},
+        {path: js},
+      ]);
     });
   });
 
@@ -279,7 +288,7 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.asyncStyles({id: ['mypage']})).toEqual([
+      expect(await assets.asyncStyles({id: ['mypage']})).toStrictEqual([
         {path: asyncCss},
       ]);
     });
@@ -302,7 +311,7 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.asyncScripts({id: ['mypage']})).toEqual([
+      expect(await assets.asyncScripts({id: ['mypage']})).toStrictEqual([
         {path: asyncJs},
       ]);
     });
@@ -335,7 +344,7 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.asyncAssets({id: ['mypage']})).toEqual([
+      expect(await assets.asyncAssets({id: ['mypage']})).toStrictEqual([
         {path: asyncCss},
         {path: asyncJs},
       ]);
@@ -370,7 +379,7 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.scripts()).toEqual([{path: scriptTwo}]);
+      expect(await assets.scripts()).toStrictEqual([{path: scriptTwo}]);
     });
 
     it('uses the last manifest when no manifest matches', async () => {
@@ -397,7 +406,7 @@ describe('Assets', () => {
 
       const assets = new Assets({...defaultOptions, userAgent: chrome71});
 
-      expect(await assets.scripts()).toEqual([{path: scriptTwo}]);
+      expect(await assets.scripts()).toStrictEqual([{path: scriptTwo}]);
     });
 
     it('uses the first matching manifest', async () => {
@@ -424,7 +433,7 @@ describe('Assets', () => {
 
       const assets = new Assets({...defaultOptions, userAgent: chrome71});
 
-      expect(await assets.scripts()).toEqual([{path: scriptOne}]);
+      expect(await assets.scripts()).toStrictEqual([{path: scriptOne}]);
     });
   });
 });

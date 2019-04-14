@@ -1,7 +1,7 @@
 import {formatDate} from '../utilities/formatDate';
 
 describe('formatDate()', () => {
-  it('correctly formats dates', () => {
+  it('formats dates into YYYY-MM-DD', () => {
     const date = new Date(2018, 0, 0);
     expect(formatDate(date, 'es')).toBe('2017-12-31');
   });

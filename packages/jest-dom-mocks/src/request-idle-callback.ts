@@ -8,6 +8,7 @@ export default class RequestIdleCallback {
   private queued: {
     [key: string]: IdleCallback;
   } = {};
+
   private originalRequestIdleCallback: any;
   private originalCancelIdleCallback: any;
   private currentIdleCallback = 0;

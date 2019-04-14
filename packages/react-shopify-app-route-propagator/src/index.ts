@@ -21,7 +21,7 @@ export default class ReactShopifyAppRoutePropagator extends React.PureComponent<
 > {
   private historyInstance: History.History | undefined;
 
-  get history(): History.History {
+  private get history(): History.History {
     if (!this.historyInstance) {
       const {app} = this.props;
       this.historyInstance = History.create(app);
@@ -38,7 +38,11 @@ export default class ReactShopifyAppRoutePropagator extends React.PureComponent<
     this.propagateLocation();
   }
 
-  propagateLocation() {
+  render() {
+    return null;
+  }
+
+  private propagateLocation() {
     const {location} = this.props;
     const selfWindow = getSelfWindow();
     const topWindow = getTopWindow();
@@ -62,10 +66,6 @@ export default class ReactShopifyAppRoutePropagator extends React.PureComponent<
     const locationStr = `${pathname}${search}${hash}`;
 
     this.history.dispatch(History.Action.REPLACE, locationStr);
-  }
-
-  render() {
-    return null;
   }
 }
 

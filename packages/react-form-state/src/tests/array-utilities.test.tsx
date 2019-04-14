@@ -9,7 +9,7 @@ describe('array-utilities', () => {
       const newItem = faker.address.latitude();
       const newArray = push(array, newItem);
 
-      expect(newArray).toEqual(array.concat([newItem]));
+      expect(newArray).toStrictEqual(array.concat([newItem]));
     });
 
     it('does not mutate original array', () => {
@@ -34,7 +34,7 @@ describe('array-utilities', () => {
       const newItem = faker.address.latitude();
       const newArray = replace(array, 1, newItem);
 
-      expect(newArray).toEqual([array[0], newItem, array[2]]);
+      expect(newArray).toStrictEqual([array[0], newItem, array[2]]);
     });
 
     it('does not mutate original array', () => {
@@ -58,7 +58,7 @@ describe('array-utilities', () => {
 
       const newArray = remove(array, 1);
 
-      expect(newArray).toEqual([array[0], array[2]]);
+      expect(newArray).toStrictEqual([array[0], array[2]]);
     });
 
     it('does not mutate original array', () => {

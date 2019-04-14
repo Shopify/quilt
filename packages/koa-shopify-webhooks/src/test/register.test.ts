@@ -81,19 +81,6 @@ describe('registerWebhook', () => {
     expect(registerResponse.result.data).toMatchObject({});
   });
 
-  it('returns a result with success set to true when the server returns a webhookSubscription field', async () => {
-    fetchMock.mock('*', successResponse);
-    const webhook: Options = {
-      address: 'myapp.com/webhooks',
-      topic: 'PRODUCTS_CREATE',
-      accessToken: 'some token',
-      shop: 'shop1.myshopify.io',
-    };
-
-    const result = await registerWebhook(webhook);
-    expect(result.success).toBe(true);
-  });
-
   it('returns a result with success set to false when the server doesn’t return a webhookSubscriptionCreate field', async () => {
     fetchMock.mock('*', failResponse);
     const webhook: Options = {

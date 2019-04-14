@@ -8,9 +8,9 @@ import query from './graphqlQuery';
 
 export const GRAPHQL_ENDPOINT =
   'https://country-service.shopifycloud.com/graphql';
-export enum GRAPHQL_OPERATION_NAMES {
-  countries = 'countries',
-  country = 'country',
+export enum GraphqlOperationName {
+  Countries = 'countries',
+  Country = 'country',
 }
 
 const HEADERS = {
@@ -26,7 +26,7 @@ export const loadCountries: (
     headers: HEADERS,
     body: JSON.stringify({
       query,
-      operationName: GRAPHQL_OPERATION_NAMES.countries,
+      operationName: GraphqlOperationName.Countries,
       variables: {
         locale: toSupportedLocale(locale),
       },
@@ -54,7 +54,7 @@ export const loadCountry: (
       headers: HEADERS,
       body: JSON.stringify({
         query,
-        operationName: GRAPHQL_OPERATION_NAMES.country,
+        operationName: GraphqlOperationName.Country,
         variables: {
           countryCode,
           locale: toSupportedLocale(locale),
@@ -118,6 +118,6 @@ function memoizeAsync(asyncFunction: AsyncFunc) {
     if (!cache[stringifiedArgs]) {
       cache[stringifiedArgs] = asyncFunction.apply(this, args);
     }
-    return cache[stringifiedArgs] as Promise<any>;
+    return cache[stringifiedArgs];
   };
 }
