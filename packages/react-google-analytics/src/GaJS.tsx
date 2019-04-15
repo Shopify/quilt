@@ -27,70 +27,76 @@ export function setupWithDebugScript(account: string) {
 
 export const GA_JS_SCRIPT = 'https://stats.g.doubleclick.net/dc.js';
 
-export default class GaJSGoogleAnalytics extends React.PureComponent<
-  Props,
-  never
-> {
-  render() {
-    const {account, disableTracking, nonce} = this.props;
+export default function GaJSGoogleAnalytics({
+  account,
+  domain,
+  disableTracking,
+  nonce,
+  devId,
+  allowLinker,
+  allowHash,
+  set: setVariables = [],
+  onLoad,
+}: Props) {
+  const setAnalytics = React.useCallback(
+    (googleAnalytics: GaJSAnalytics) => {
+      googleAnalytics.push(['_setAccount', account]);
+      googleAnalytics.push(['_setDomainName', getRootDomain(domain)]);
 
-    return (
-      <>
-        <script
-          id="google-analytics-gtag-script"
-          dangerouslySetInnerHTML={{
-            __html: disableTracking
-              ? setupWithDebugScript(account)
-              : SETUP_SCRIPT,
-          }}
-          nonce={nonce}
-        />
-        <ImportRemote
-          preconnect
-          source={GA_JS_SCRIPT}
-          nonce={nonce}
-          getImport={getLegacyAnalytics}
-          onError={noop}
-          onImported={this.setAnalytics}
-        />
-      </>
-    );
-  }
+      if (devId && devId.length > 0) {
+        googleAnalytics.push(['_addDevId', devId]);
+      }
 
-  private setAnalytics = (googleAnalytics: GaJSAnalytics) => {
-    const {
+      if (allowLinker !== undefined) {
+        googleAnalytics.push(['_setAllowLinker', allowLinker]);
+      }
+
+      if (allowHash !== undefined) {
+        googleAnalytics.push(['_setAllowHash', allowHash]);
+      }
+
+      for (const variable of setVariables) {
+        googleAnalytics.push(['_setCustomVar', ...variable]);
+      }
+
+      if (onLoad) {
+        onLoad(googleAnalytics);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
       account,
       domain,
       devId,
       allowLinker,
       allowHash,
-      set: setVariables = [],
       onLoad,
-    } = this.props;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      ...setVariables.map(setArray => setArray.join()),
+    ],
+  );
 
-    googleAnalytics.push(['_setAccount', account]);
-    googleAnalytics.push(['_setDomainName', getRootDomain(domain)]);
-
-    if (devId && devId.length > 0) {
-      googleAnalytics.push(['_addDevId', devId]);
-    }
-
-    if (allowLinker !== undefined) {
-      googleAnalytics.push(['_setAllowLinker', allowLinker]);
-    }
-
-    if (allowHash !== undefined) {
-      googleAnalytics.push(['_setAllowHash', allowHash]);
-    }
-
-    for (const variable of setVariables) {
-      googleAnalytics.push(['_setCustomVar', ...variable]);
-    }
-
-    if (onLoad) {
-      onLoad(googleAnalytics);
-    }
-  };
+  return (
+    <>
+      <script
+        id="google-analytics-gtag-script"
+        dangerouslySetInnerHTML={{
+          __html: disableTracking
+            ? setupWithDebugScript(account)
+            : SETUP_SCRIPT,
+        }}
+        nonce={nonce}
+      />
+      <ImportRemote
+        preconnect
+        source={GA_JS_SCRIPT}
+        nonce={nonce}
+        getImport={getLegacyAnalytics}
+        onError={noop}
+        onImported={setAnalytics}
+      />
+    </>
+  );
 }
 
 interface WindowWithGaJSAnalytics extends Window {
