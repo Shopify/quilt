@@ -67,8 +67,8 @@ export default function UniversalGoogleAnalytics({
       account,
       debug,
       disableTracking,
-      Object.entries(setVariables).map(setVariable => setVariable.join()),
       onLoad,
+      ...Object.entries(setVariables).map(setVariable => setVariable.join()),
     ],
   );
 
