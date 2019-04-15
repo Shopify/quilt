@@ -29,7 +29,7 @@ function MyComponent({foo}: {foo: string}) {
 
 ### `useTimeout()`
 
-This hook provides a declarative version of [`setTimout()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). The first argument is a callback that will be invoked after the given delay (number of milliseconds) as the second argument.
+This hook provides a declarative version of [`setTimeout()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). The first argument is a callback that will be invoked after the given delay (number of milliseconds) as the second argument.
 
 ```
 function MyComponent() {

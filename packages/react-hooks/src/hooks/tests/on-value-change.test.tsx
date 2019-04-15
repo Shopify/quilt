@@ -28,4 +28,15 @@ describe('useOnValueChnge', () => {
 
     expect(spy).toHaveBeenCalledWith(value, initialValue);
   });
+
+  it(`doesn't call onChange handler when the initial value and the changed value changes`, () => {
+    const spy = jest.fn();
+    const initialValue = 'initial';
+
+    const wrapper = mount(<MockComponent value={initialValue} spy={spy} />);
+
+    wrapper.forceUpdate();
+
+    expect(spy).not.toHaveBeenCalled();
+  });
 });
