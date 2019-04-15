@@ -40,7 +40,3 @@ function MyComponent() {
   return <div>{foo}</div>;
 }
 ```
-
-### `useInterval()`
-
-TBD
