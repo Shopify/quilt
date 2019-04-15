@@ -10,7 +10,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
-- useServerDomEffect now returns a result ([#636](https://github.com/Shopify/quilt/pull/636))
+## 8.0.6 - 2019-04-15
+
+- The render of your app performed by the `Html` component now provides the `HtmlManager` instance, allowing it to access the serializations built up during `extract()` ([#655](https://github.com/Shopify/quilt/pull/655))
+
+## 8.0.4 - 2019-04-12
+
+- `useServerDomEffect` now returns a result ([#636](https://github.com/Shopify/quilt/pull/636))
 
 ## 8.0.3 - 2019-04-09
 
