@@ -10,18 +10,17 @@ export const ShortcutContext = React.createContext<ShortcutManager | null>(
 );
 
 export const {Consumer, Provider} = ShortcutContext;
-export default class ShortcutProvider extends React.Component<Props, never> {
-  private shortcutManager = new ShortcutManager();
 
-  componentDidMount() {
-    this.shortcutManager.setup();
-  }
+export default function ShortcutProvider({children}: Props) {
+  const shortcutManager = React.useRef(new ShortcutManager());
 
-  render() {
-    return (
-      <ShortcutContext.Provider value={this.shortcutManager}>
-        {this.props.children}
-      </ShortcutContext.Provider>
-    );
-  }
+  React.useEffect(() => {
+    shortcutManager.current.setup();
+  }, []);
+
+  return (
+    <ShortcutContext.Provider value={shortcutManager.current}>
+      {children}
+    </ShortcutContext.Provider>
+  );
 }
