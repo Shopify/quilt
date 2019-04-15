@@ -9,3 +9,5 @@ export {
   GraphQLDeepPartial,
   QueryProps,
 } from './types';
+
+export * from './hooks';
