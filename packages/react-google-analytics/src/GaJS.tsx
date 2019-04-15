@@ -63,14 +63,16 @@ export default function GaJSGoogleAnalytics({
         onLoad(googleAnalytics);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       account,
       domain,
       devId,
       allowLinker,
       allowHash,
-      ...setVariables.map(setArray => setArray.join()),
       onLoad,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      ...setVariables.map(setArray => setArray.join()),
     ],
   );
 

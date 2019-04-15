@@ -62,12 +62,14 @@ export default function UniversalGoogleAnalytics({
         onLoad(googleAnalytics);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       domain,
       account,
       debug,
       disableTracking,
       onLoad,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       ...Object.entries(setVariables).map(setVariable => setVariable.join()),
     ],
   );
