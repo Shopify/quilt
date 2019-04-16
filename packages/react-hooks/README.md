@@ -17,7 +17,7 @@ $ yarn add @shopify/react-hooks
 
 This hook will track a given value and invoke a callback when it has changed.
 
-```
+```tsx
 function MyComponent({foo}: {foo: string}) {
   useOnValueChange(foo, (newValue, oldValue) => {
     console.log(`foo changed from ${oldValue} to ${newValue}`);
@@ -31,7 +31,7 @@ function MyComponent({foo}: {foo: string}) {
 
 This hook provides a declarative version of [`setTimeout()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). The first argument is a callback that will be invoked after the given delay (number of milliseconds) as the second argument.
 
-```
+```tsx
 function MyComponent() {
   const [foo, setFoo] = React.useState('Bar');
 
