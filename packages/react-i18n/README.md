@@ -69,6 +69,8 @@ export default function NotFound() {
 
 The hook also returns a `ShareTranslations` component. You can wrap this around a part of the subtree that should have access to this component’s translations.
 
+> **Note:** `ShareTranslations` is not guaranteed to re-render when your i18n object changes. If you render `ShareTranslations` inside of a component that might block changes to children, you will likely run into issues. To prevent this, we recommend that `ShareTranslations` should be rendered as a top-level child of the component that uses `useI18n`.
+
 ```tsx
 import * as React from 'react';
 import {Page} from '@shopify/polaris';
@@ -81,13 +83,9 @@ interface Props {
 export default function ProductDetails({children}: Props) {
   const [i18n, ShareTranslations] = useI18n();
   return (
-    <Page
-      title={i18n.translate('ProductDetails.title')}
-    >
-      <ShareTranslations>
-        {children}
-      </ShareTranslations>
-    </EmptyState>
+    <ShareTranslations>
+      <Page title={i18n.translate('ProductDetails.title')}>{children}</Page>
+    </ShareTranslations>
   );
 }
 ```
