@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.1] - 2019-04-12
+
 ### Changed
 
 - `Weekdays` renamed to `Weekday` as part of `shopify/typescript/prefer-singular-enums` eslint rule ([#648](https://github.com/Shopify/quilt/pull/648))
