@@ -28,7 +28,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.1.6"
   },
   "sideEffects": false,
   "peerDependencies": {

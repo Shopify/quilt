@@ -51,7 +51,16 @@ export default class MatchMedia {
 }
 
 function defaultMatcher(): MediaQueryList {
-  return {media: '', addListener: noop, removeListener: noop, matches: false};
+  return {
+    media: '',
+    addListener: noop,
+    addEventListener: noop,
+    removeListener: noop,
+    removeEventListener: noop,
+    onchange: noop,
+    dispatchEvent: () => false,
+    matches: false,
+  };
 }
 
 export function mediaQueryList(

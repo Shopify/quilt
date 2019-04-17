@@ -29,7 +29,7 @@
     "react-reconciler": "^0.20.2"
   },
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.1.6"
   },
   "files": [
     "dist/*",
