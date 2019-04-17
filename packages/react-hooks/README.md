@@ -40,3 +40,19 @@ function MyComponent() {
   return <div>{foo}</div>;
 }
 ```
+
+### `useLazyRef()`
+
+This hook creates a ref object like React’s `useRef`, but instead of providing it the value directly, you provide a function that returns the value. The first time the hook is run, it will call the function and use the returned value as the initial `ref.current` value. Afterwards, the function is never invoked. You can use this for creating refs to values that are expensive to initialize.
+
+```tsx
+function MyComponent() {
+  const ref = useLazyRef(() => someExpensiveOperation());
+
+  React.useEffect(() => {
+    console.log('Initialized expensive ref', ref.current);
+  });
+
+  return null;
+}
+```
