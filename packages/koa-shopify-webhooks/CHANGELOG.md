@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## [1.1.4] - 2019-03-29
+
+- Check success via valid webhookSubscription field
+
 ## [1.1.3] - 2019-03-22
 
 - Return a GraphQL formatted topic

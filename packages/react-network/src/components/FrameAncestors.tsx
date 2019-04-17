@@ -1,13 +1,11 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   sources: string | string[];
 }
 
 export default function FrameAncestors({sources}: Props) {
-  return (
-    <SetCspDirective directive={CspDirective.FrameAncestors} value={sources} />
-  );
+  useCspDirective(CspDirective.FrameAncestors, sources);
+  return null;
 }

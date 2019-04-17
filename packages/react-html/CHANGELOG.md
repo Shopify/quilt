@@ -10,6 +10,35 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 8.0.6 - 2019-04-15
+
+- The render of your app performed by the `Html` component now provides the `HtmlManager` instance, allowing it to access the serializations built up during `extract()` ([#655](https://github.com/Shopify/quilt/pull/655))
+
+## 8.0.4 - 2019-04-12
+
+- `useServerDomEffect` now returns a result ([#636](https://github.com/Shopify/quilt/pull/636))
+
+## 8.0.3 - 2019-04-09
+
+- Fixed `useTitle`, `useLink`, `useMeta`, `usePreconnect`, and `useFavicon` not being exported.
+
+## 8.0.2 - 2019-04-09
+
+- Fixed an issue where `<HeadUpdater />` would attempt to access browser globals on the server.
+
+## 8.0.0 - 2019-04-08
+
+This is a significant update that now requires at least React 16.8. You should refer to the [detailed migration guide](./documentation/migration-version-7-to-8.md) for additional guidance.
+
+### Changed
+
+- This library now requires at least React 16.8 ([#547](https://github.com/Shopify/quilt/pull/547))
+- Removed `Provider`, exported the `HtmlContext` context object, exported a new `HeadUpdater` component for the client-side, and renamed `Manager` to `HtmlManager`.
+
+### Added
+
+- Added hook counterparts for most of the component APIs: `useSerialized`, `useTitle`, `useLink`, `useMeta`, `useFavicon`, and `usePreconnect` ([#547](https://github.com/Shopify/quilt/pull/547))
+
 ## 7.1.6 - 2019-03-27
 
 ### Changed

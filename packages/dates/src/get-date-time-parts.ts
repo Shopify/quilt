@@ -57,7 +57,7 @@ function getWeekdayValue(weekday: string) {
   return weekdays[weekday];
 }
 
-// eslint-disable-next-line shopify/no-fully-static-classes
+// eslint-disable-next-line shopify/no-fully-static-classes, @typescript-eslint/no-extraneous-class
 class DateTimeParts {
   @memoize(dateTimeCacheKey('year'))
   static getYear(date: Date, timeZone?: string) {

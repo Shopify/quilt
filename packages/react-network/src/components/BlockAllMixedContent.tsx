@@ -1,16 +1,11 @@
-import * as React from 'react';
 import {CspDirective} from '@shopify/network';
-import SetCspDirective from './SetCspDirective';
+import {useCspDirective} from '../hooks';
 
 interface Props {
   value?: boolean;
 }
 
 export default function BlockAllMixedContent({value = true}: Props) {
-  return (
-    <SetCspDirective
-      directive={CspDirective.BlockAllMixedContent}
-      value={value}
-    />
-  );
+  useCspDirective(CspDirective.BlockAllMixedContent, value);
+  return null;
 }

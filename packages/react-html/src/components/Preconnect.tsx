@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Link from './Link';
+import {usePreconnect} from '../hooks';
 
 interface Props {
   source: string;
 }
 
-export default function Preconnect({source}: Props) {
-  return <Link rel="dns-prefetch preconnect" href={source} />;
+export function Preconnect({source}: Props) {
+  usePreconnect(source);
+  return null;
 }

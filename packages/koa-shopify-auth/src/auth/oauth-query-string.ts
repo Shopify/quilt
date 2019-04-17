@@ -1,5 +1,5 @@
-import {Context} from 'koa';
 import querystring from 'querystring';
+import {Context} from 'koa';
 import nonce from 'nonce';
 
 import {OAuthStartOptions} from '../types';
@@ -17,14 +17,14 @@ export default function oAuthQueryString(
   const requestNonce = createNonce();
   cookies.set('shopifyNonce', requestNonce);
 
-  /* eslint-disable camelcase */
+  /* eslint-disable @typescript-eslint/camelcase */
   const redirectParams = {
     state: requestNonce,
     scope: scopes.join(', '),
     client_id: apiKey,
     redirect_uri: `https://${host}${callbackPath}`,
   };
-  /* eslint-enable camelcase */
+  /* eslint-enable @typescript-eslint/camelcase */
 
   if (accessMode === 'online') {
     redirectParams['grant_options[]'] = 'per-user';

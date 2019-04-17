@@ -13,6 +13,7 @@ import {
 } from '@shopify/react-intersection-observer';
 
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
+import {normalize, resolve} from './utilities';
 
 export interface AsyncPropsRuntime {
   defer?: DeferTiming;
@@ -30,10 +31,10 @@ interface State<Value> {
   loading: boolean;
 }
 
-/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 declare const __webpack_require__: (id: string) => any;
 declare const __webpack_modules__: {[key: string]: any};
-/* eslint-enable camelcase */
+/* eslint-enable @typescript-eslint/camelcase */
 
 class ConnectedAsync<Value> extends React.Component<
   Props<Value>,
@@ -99,7 +100,7 @@ class ConnectedAsync<Value> extends React.Component<
         <IntersectionObserver
           threshold={0}
           unsupportedBehavior={UnsupportedBehavior.TreatAsIntersecting}
-          onIntersecting={this.load}
+          onIntersectionChange={this.loadIfIntersecting}
         />
       ) : null;
 
@@ -112,15 +113,14 @@ class ConnectedAsync<Value> extends React.Component<
     );
   }
 
-  private load = async () => {
-    try {
-      const resolved = await this.props.load();
+  private loadIfIntersecting = ({isIntersecting = true}) => {
+    return isIntersecting ? this.load() : Promise.resolve();
+  };
 
-      if (this.mounted) {
-        this.setState({resolved: normalize(resolved), loading: false});
-      }
-    } catch (error) {
-      // Silently swallowing errors for now
+  private load = async () => {
+    const resolved = await resolve(this.props.load);
+    if (this.mounted) {
+      this.setState({resolved, loading: false});
     }
   };
 }
@@ -145,15 +145,6 @@ function initialState<Value>(props: Props<Value>): State<Value> {
 
 function defaultRender() {
   return null;
-}
-
-function normalize(module: any) {
-  if (module == null) {
-    return null;
-  }
-
-  const value = 'default' in module ? module.default : module;
-  return value == null ? null : value;
 }
 
 // Webpack does not like seeing an explicit require(someVariable) in code
@@ -184,11 +175,11 @@ const nodeRequire =
 // (which will work in environments like Jest’s test runner).
 function tryRequire(id: string) {
   if (
-    /* eslint-disable camelcase */
+    /* eslint-disable @typescript-eslint/camelcase */
     typeof __webpack_require__ === 'function' &&
     typeof __webpack_modules__ === 'object' &&
     __webpack_modules__[id]
-    /* eslint-enable camelcase */
+    /* eslint-enable @typescript-eslint/camelcase */
   ) {
     try {
       return normalize(__webpack_require__(id));

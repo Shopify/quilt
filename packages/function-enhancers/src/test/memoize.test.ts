@@ -14,8 +14,8 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toEqual(2);
-      expect(addOneMemoized(2)).toEqual(3);
+      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(addOneMemoized(2)).toStrictEqual(3);
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
@@ -27,8 +27,8 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toEqual(2);
-      expect(addOneMemoized(1)).toEqual(2);
+      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(addOneMemoized(1)).toStrictEqual(2);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -41,19 +41,21 @@ describe('memoize()', () => {
       const addOneMemoized = memoize(addOne);
 
       for (let i = 0; i < MAX_MAP_ENTRIES; i++) {
-        expect(addOneMemoized(i)).toEqual(i + 1);
+        expect(addOneMemoized(i)).toStrictEqual(i + 1);
       }
 
       // 0 is in the cache
-      expect(addOneMemoized(0)).toEqual(1);
-      expect(addOneMemoized(1)).toEqual(2);
+      expect(addOneMemoized(0)).toStrictEqual(1);
+      expect(addOneMemoized(1)).toStrictEqual(2);
       expect(spy).toHaveBeenCalledTimes(MAX_MAP_ENTRIES);
 
-      expect(addOneMemoized(MAX_MAP_ENTRIES)).toEqual(MAX_MAP_ENTRIES + 1);
+      expect(addOneMemoized(MAX_MAP_ENTRIES)).toStrictEqual(
+        MAX_MAP_ENTRIES + 1,
+      );
       expect(spy).toHaveBeenCalledTimes(MAX_MAP_ENTRIES + 1);
 
       // 0 is no longer in the cache
-      expect(addOneMemoized(0)).toEqual(1);
+      expect(addOneMemoized(0)).toStrictEqual(1);
       expect(spy).toHaveBeenCalledTimes(MAX_MAP_ENTRIES + 2);
     });
   });
@@ -61,46 +63,46 @@ describe('memoize()', () => {
   describe('only argument is object', () => {
     it('recalculates the result when the first argument changed', () => {
       const spy = jest.fn();
-      const getValues = (someObject: Object) => {
+      const getValues = (someObject: object) => {
         spy();
         return Object.values(someObject);
       };
       const getValuesMemoized = memoize(getValues);
 
-      expect(getValuesMemoized({one: 1, two: 2})).toEqual([1, 2]);
-      expect(getValuesMemoized({one: 3, four: 4})).toEqual([3, 4]);
-      expect(spy).toBeCalledTimes(2);
+      expect(getValuesMemoized({one: 1, two: 2})).toStrictEqual([1, 2]);
+      expect(getValuesMemoized({one: 3, four: 4})).toStrictEqual([3, 4]);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
 
     it('gets the result from cache when the first argument stay the same', () => {
       const spy = jest.fn();
-      const getValues = (someObject: Object) => {
+      const getValues = (someObject: object) => {
         spy();
         return Object.values(someObject);
       };
       const getValuesMemoized = memoize(getValues);
 
       const testObject1 = {one: 1, two: 2};
-      expect(getValuesMemoized(testObject1)).toEqual([1, 2]);
-      expect(getValuesMemoized(testObject1)).toEqual([1, 2]);
-      expect(spy).toBeCalledTimes(1);
+      expect(getValuesMemoized(testObject1)).toStrictEqual([1, 2]);
+      expect(getValuesMemoized(testObject1)).toStrictEqual([1, 2]);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('does not change the result when the argument was changed in value only', () => {
       const spy = jest.fn();
-      const getValues = (someObject: Object) => {
+      const getValues = (someObject: object) => {
         spy();
         return Object.values(someObject);
       };
       const getValuesMemoized = memoize(getValues);
 
       const testObject1 = {one: 1, two: 2};
-      expect(getValuesMemoized(testObject1)).toEqual([1, 2]);
+      expect(getValuesMemoized(testObject1)).toStrictEqual([1, 2]);
 
       testObject1.one = 2;
-      expect(getValuesMemoized(testObject1)).toEqual([1, 2]);
+      expect(getValuesMemoized(testObject1)).toStrictEqual([1, 2]);
 
-      expect(spy).toBeCalledTimes(1);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -116,9 +118,9 @@ describe('memoize()', () => {
         (_name: string, id: string) => id,
       );
 
-      expect(getNameMemoized('Lisa', '1')).toEqual('Lisa');
-      expect(getNameMemoized('Lisa', '2')).toEqual('Lisa');
-      expect(spy).toBeCalledTimes(2);
+      expect(getNameMemoized('Lisa', '1')).toStrictEqual('Lisa');
+      expect(getNameMemoized('Lisa', '2')).toStrictEqual('Lisa');
+      expect(spy).toHaveBeenCalledTimes(2);
     });
 
     it('gets the result from cache when the resolver result was not changed', () => {
@@ -132,9 +134,9 @@ describe('memoize()', () => {
         (_name: string, id: string) => id,
       );
 
-      expect(getNameMemoized('Lisa', '1')).toEqual('Lisa');
-      expect(getNameMemoized('Lisa', '1')).toEqual('Lisa');
-      expect(spy).toBeCalledTimes(1);
+      expect(getNameMemoized('Lisa', '1')).toStrictEqual('Lisa');
+      expect(getNameMemoized('Lisa', '1')).toStrictEqual('Lisa');
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });

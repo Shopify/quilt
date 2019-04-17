@@ -8,6 +8,46 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.3] - 2019-04-17
+
+### Fixed
+
+- Fixed a number of performance issues with resolving asynchronous translations ([#659](https://github.com/Shopify/quilt/pull/659))
+
+## [1.1.1] - 2019-04-12
+
+### Changed
+
+- `Weekdays` renamed to `Weekday` as part of `shopify/typescript/prefer-singular-enums` eslint rule ([#648](https://github.com/Shopify/quilt/pull/648))
+
+## [1.1.0] - 2019-04-09
+
+### Added
+
+- Added a `useSimpleI18n` hook for performantly sharing an i18n instance within a React subtree ([#639](https://github.com/Shopify/quilt/pull/639))
+
+### Fixed
+
+- Improved the typing of `withI18n` to no longer mark the `i18n` prop as required ([#639](https://github.com/Shopify/quilt/pull/639))
+
+## [1.0.0] - 2019-04-08
+
+This library now requires React 16.8.
+
+### Added
+
+- Added a `useI18n` hook as the new first-class API ([#547](https://github.com/Shopify/quilt/pull/547))
+
+### Changed
+
+- Refactored the way parent/ child translations were stored, which should slightly improve performance ([#547](https://github.com/Shopify/quilt/pull/547))
+
+## [0.11.9] - 2019-03-29
+
+### Fixed
+
+- Fixed an issue where the Babel plugin would return `Module` objects instead of the actual translation dictionaries [#618](https://github.com/Shopify/quilt/pull/618)
+
 ## [0.11.7] - 2019-03-27
 
 ### Changed

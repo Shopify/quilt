@@ -2,7 +2,8 @@ import * as React from 'react';
 import {renderToString} from 'react-dom/server';
 
 import {Script, Style} from '../../components';
-import Manager from '../../manager';
+import {HtmlManager} from '../../manager';
+import {HtmlContext} from '../../context';
 import {MANAGED_ATTRIBUTE} from '../../utilities';
 
 import Serialize from './Serialize';
@@ -13,7 +14,7 @@ export interface Asset {
 }
 
 export interface Props {
-  manager?: Manager;
+  manager?: HtmlManager;
   children: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];
@@ -34,7 +35,7 @@ export default function Html({
   bodyMarkup = null,
 }: Props) {
   const markup =
-    typeof children === 'string' ? children : renderToString(children);
+    typeof children === 'string' ? children : render(children, manager);
 
   const extracted = manager && manager.extract();
 
@@ -131,4 +132,15 @@ export default function Html({
       </body>
     </html>
   );
+}
+
+function render(app: React.ReactElement<any>, manager?: HtmlManager) {
+  const content =
+    manager == null ? (
+      app
+    ) : (
+      <HtmlContext.Provider value={manager}>{app}</HtmlContext.Provider>
+    );
+
+  return renderToString(content);
 }

@@ -5,9 +5,9 @@ import {getQueuingTime} from './timing';
 import {getContentLength} from './content';
 import Metrics, {Timer, Logger} from './Metrics';
 
-export {Tags} from './tags';
+export {Tag} from './tags';
 
-export enum CustomMetrics {
+export enum CustomMetric {
   ContentLength = 'request_content_length',
   QueuingTime = 'request_queuing_time',
   RequestDuration = 'request_time',
@@ -41,13 +41,16 @@ export default function metrics({
       logger || ctx.log || console.log,
     );
 
+    const promises: Promise<void>[] = [];
     let timer: Timer | undefined;
 
     if (!skipInstrumentation) {
       timer = metrics.initTimer();
       const queuingTime = getQueuingTime(ctx);
       if (queuingTime) {
-        metrics.distribution(CustomMetrics.QueuingTime, queuingTime);
+        promises.push(
+          metrics.distribution(CustomMetric.QueuingTime, queuingTime),
+        );
       }
     }
 
@@ -62,16 +65,21 @@ export default function metrics({
       if (!skipInstrumentation) {
         if (timer) {
           const duration = timer.stop();
-          metrics.distribution(CustomMetrics.RequestDuration, duration);
+          promises.push(
+            metrics.distribution(CustomMetric.RequestDuration, duration),
+          );
         }
 
         const contentLength = getContentLength(ctx);
         if (contentLength) {
-          metrics.measure(CustomMetrics.ContentLength, contentLength);
+          promises.push(
+            metrics.distribution(CustomMetric.ContentLength, contentLength),
+          );
         }
       }
 
-      metrics.closeClient();
+      await Promise.all(promises);
+      await metrics.closeClient();
     }
   };
 }

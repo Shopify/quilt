@@ -1,7 +1,6 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 import ImportRemote from '@shopify/react-import-remote';
-import {trigger} from '@shopify/enzyme-utilities';
 
 import Universal, {
   Props,
@@ -21,47 +20,51 @@ describe('<Universal />', () => {
   describe('setup script', () => {
     it('renders a script tag with the setup content', () => {
       const universal = mount(<Universal {...mockProps} />);
-      expect(
-        universal.find('script').prop('dangerouslySetInnerHTML'),
-      ).toHaveProperty('__html', SETUP_SCRIPT);
+      expect(universal).toContainReactComponent('script', {
+        dangerouslySetInnerHTML: {__html: SETUP_SCRIPT},
+      });
     });
   });
 
   it('passes nonce prop to script tag', () => {
-    const universal = mount(<Universal {...mockProps} nonce="123" />);
-    expect(universal.find('script').prop('nonce')).toBe('123');
+    const nonce = '123';
+    const universal = mount(<Universal {...mockProps} nonce={nonce} />);
+    expect(universal.find('script')).toHaveReactProps({nonce});
   });
 
   it('passes nonce prop to <ImportRemote />', () => {
-    const universal = mount(<Universal {...mockProps} nonce="123" />);
-    expect(universal.find(ImportRemote).prop('nonce')).toBe('123');
+    const nonce = '123';
+    const universal = mount(<Universal {...mockProps} nonce={nonce} />);
+    expect(universal.find(ImportRemote)).toHaveReactProps({nonce});
   });
 
   describe('<ImportRemote />', () => {
     it('renders', () => {
       const universal = mount(<Universal {...mockProps} />);
-      expect(universal.find(ImportRemote)).toHaveLength(1);
+      expect(universal).toContainReactComponent(ImportRemote);
     });
 
     it('loads the universal Google Analytics script', () => {
       const universal = mount(<Universal {...mockProps} />);
-      expect(universal.find(ImportRemote).prop('source')).toBe(
-        UNIVERSAL_GA_SCRIPT,
-      );
+      expect(universal.find(ImportRemote)).toHaveReactProps({
+        source: UNIVERSAL_GA_SCRIPT,
+      });
     });
 
-    it('requests preload', () => {
+    it('requests preconnect', () => {
       const universal = mount(<Universal {...mockProps} />);
-      expect(universal.find(ImportRemote).prop('preconnect')).toBe(true);
+      expect(universal.find(ImportRemote)).toHaveReactProps({preconnect: true});
     });
 
     it('extracts the global from window', () => {
       const analytics = mockAnalytics();
-      const fakeWindow = {ga: analytics};
+      const fakeWindow: Window = {ga: analytics} as any;
       const universal = mount(<Universal {...mockProps} />);
-      expect(
-        trigger(universal.find(ImportRemote), 'getImport', fakeWindow),
-      ).toBe(analytics);
+      const result = universal
+        .find(ImportRemote)!
+        .trigger('getImport', fakeWindow);
+
+      expect(result).toBe(analytics);
     });
   });
 
@@ -71,7 +74,7 @@ describe('<Universal />', () => {
     it('pushes the create action', () => {
       const analytics = mockAnalytics();
       const universal = mount(<Universal {...mockProps} account={account} />);
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
       expect(analytics).toHaveBeenCalledWith(
         'create',
         account,
@@ -87,7 +90,7 @@ describe('<Universal />', () => {
     it('sets the domain and linker options in the create action', () => {
       const analytics = mockAnalytics();
       const universal = mount(<Universal {...mockProps} domain={domain} />);
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
       expect(analytics.mock.calls[0][3]).toMatchObject({
         cookieDomain: domain,
         legacyCookieDomain: domain,
@@ -102,7 +105,7 @@ describe('<Universal />', () => {
       const universal = mount(
         <Universal {...mockProps} domain={domainWithSubs} />,
       );
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
 
       expect(analytics.mock.calls[0][3]).toMatchObject({
         cookieDomain: normalizedDomain,
@@ -116,7 +119,7 @@ describe('<Universal />', () => {
     it('sets no custom variables when none are provided', () => {
       const analytics = mockAnalytics();
       const universal = mount(<Universal {...mockProps} />);
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
       expect(analytics).not.toHaveBeenCalledWith([
         'set',
         expect.anything(),
@@ -130,7 +133,7 @@ describe('<Universal />', () => {
       const universal = mount(
         <Universal {...mockProps} set={customVariables} />,
       );
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
 
       for (const [key, value] of Object.entries(customVariables)) {
         expect(analytics).toHaveBeenCalledWith('set', key, value);
@@ -143,7 +146,7 @@ describe('<Universal />', () => {
       const onLoad = jest.fn();
       const analytics = mockAnalytics();
       const universal = mount(<Universal {...mockProps} onLoad={onLoad} />);
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
       expect(onLoad).toHaveBeenCalledWith(analytics);
     });
   });
@@ -152,41 +155,47 @@ describe('<Universal />', () => {
     it('loads the GA script without restrictions when debug is not set', () => {
       const analytics = mockAnalytics();
       const universal = mount(<Universal {...mockProps} />);
-      expect(universal.find(ImportRemote).prop('source')).toBe(
-        UNIVERSAL_GA_SCRIPT,
-      );
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+
+      expect(universal.find(ImportRemote)).toHaveReactProps({
+        source: UNIVERSAL_GA_SCRIPT,
+      });
+
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
+
       expect(analytics).not.toHaveBeenCalledWith('set', 'sendHitTask', null);
     });
 
     it('loads the GA debug script and prevent sending data to GA when debug is set to true', () => {
       const analytics = mockAnalytics();
-      const universal = mount(<Universal {...mockProps} debug />);
-      expect(universal.find(ImportRemote).prop('source')).toBe(
-        UNIVERSAL_GA_DEBUG_SCRIPT,
+      const domain = 'myshopify.com';
+      const account = 'tobi';
+      const universal = mount(
+        <Universal {...mockProps} debug domain={domain} account={account} />,
       );
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
-      expect(analytics).toHaveBeenNthCalledWith(
-        1,
-        'create',
-        mockProps.account,
-        'auto',
-        {
-          allowLinker: true,
-          cookieDomain: 'myshopify.com',
-          legacyCookieDomain: 'myshopify.com',
-        },
-      );
+
+      expect(universal.find(ImportRemote)).toHaveReactProps({
+        source: UNIVERSAL_GA_DEBUG_SCRIPT,
+      });
+
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
+
+      expect(analytics).toHaveBeenNthCalledWith(1, 'create', account, 'auto', {
+        allowLinker: true,
+        cookieDomain: domain,
+        legacyCookieDomain: domain,
+      });
       expect(analytics).toHaveBeenNthCalledWith(2, 'set', 'sendHitTask', null);
     });
 
     it('loads the GA script and does not prevent sending data to GA when debug is set to false', () => {
       const analytics = mockAnalytics();
       const universal = mount(<Universal {...mockProps} debug={false} />);
-      expect(universal.find(ImportRemote).prop('source')).toBe(
-        UNIVERSAL_GA_SCRIPT,
-      );
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+
+      expect(universal.find(ImportRemote)).toHaveReactProps({
+        source: UNIVERSAL_GA_SCRIPT,
+      });
+
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
       expect(analytics).not.toHaveBeenCalledWith('set', 'sendHitTask', null);
     });
   });
@@ -195,10 +204,13 @@ describe('<Universal />', () => {
     it('loads the GA script and prevent sending data to GA when disableTracking is set to true', () => {
       const analytics = mockAnalytics();
       const universal = mount(<Universal {...mockProps} disableTracking />);
-      expect(universal.find(ImportRemote).prop('source')).toBe(
-        UNIVERSAL_GA_SCRIPT,
-      );
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+
+      expect(universal.find(ImportRemote)).toHaveReactProps({
+        source: UNIVERSAL_GA_SCRIPT,
+      });
+
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
+
       expect(analytics).toHaveBeenNthCalledWith(
         1,
         'create',
@@ -218,10 +230,12 @@ describe('<Universal />', () => {
       const universal = mount(
         <Universal {...mockProps} disableTracking={false} />,
       );
-      expect(universal.find(ImportRemote).prop('source')).toBe(
-        UNIVERSAL_GA_SCRIPT,
-      );
-      trigger(universal.find(ImportRemote), 'onImported', analytics);
+
+      expect(universal.find(ImportRemote)).toHaveReactProps({
+        source: UNIVERSAL_GA_SCRIPT,
+      });
+
+      universal.find(ImportRemote)!.trigger('onImported', analytics);
       expect(analytics).not.toHaveBeenCalledWith('set', 'sendHitTask', null);
     });
   });

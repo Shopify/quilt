@@ -21,16 +21,16 @@ beforeEach(mockCountryRequests);
 afterEach(fetch.restore);
 
 describe('updateLocale()', () => {
-  it('returns the country in the correct locale', async () => {
+  it('returns the country information in the default locale for that country', async () => {
     const addressFormatter = new AddressFormatter('ja');
     let country = await addressFormatter.getCountry('CA');
 
-    expect(country.name).toEqual('カナダ');
+    expect(country.name).toStrictEqual('カナダ');
 
     addressFormatter.updateLocale('en');
     country = await addressFormatter.getCountry('CA');
 
-    expect(country.name).toEqual('Canada');
+    expect(country.name).toStrictEqual('Canada');
   });
 });
 
@@ -39,7 +39,7 @@ describe('getCountry()', () => {
     const addressFormatter = new AddressFormatter('ja');
     const country = await addressFormatter.getCountry('JP');
 
-    expect(Object.keys(country)).toEqual([
+    expect(Object.keys(country)).toStrictEqual([
       'name',
       'code',
       'phoneNumberPrefix',
@@ -51,7 +51,7 @@ describe('getCountry()', () => {
     ]);
   });
 
-  it('should not call the API again for the same country if the locale is the same', async () => {
+  it('does not call the API again for the same country if the locale is the same', async () => {
     const addressFormatter = new AddressFormatter('pt-br');
 
     await addressFormatter.getCountry('CA');
@@ -60,7 +60,7 @@ describe('getCountry()', () => {
     expect(fetch.calls()).toHaveLength(1);
   });
 
-  it('should call the API again for the same country if the locale changes', async () => {
+  it('does call the API again for the same country if the locale changes', async () => {
     const addressFormatter = new AddressFormatter('fr');
     await addressFormatter.getCountry('CA');
 
@@ -72,7 +72,7 @@ describe('getCountry()', () => {
     expect(fetch.calls()).toHaveLength(2);
   });
 
-  it('should not call the API again for a country if all the countries have been loaded', async () => {
+  it('does not call the API again for a country if all the countries have been loaded', async () => {
     const addressFormatter = new AddressFormatter('ja');
     await addressFormatter.getCountries();
     await addressFormatter.getCountry('JP');
@@ -80,7 +80,7 @@ describe('getCountry()', () => {
     expect(fetch.calls()).toHaveLength(1);
   });
 
-  it('should call the API again for a country in another locale even if all the countries have been loaded', async () => {
+  it('does call the API again for a country in another locale even if all the countries have been loaded', async () => {
     const addressFormatter = new AddressFormatter('en');
     await addressFormatter.getCountries();
     addressFormatter.updateLocale('fr');
@@ -98,7 +98,7 @@ describe('getCountries()', () => {
     expect(loadedCountries).toHaveLength(242);
   });
 
-  it('should not call the API again for the countries if the locale is the same.', async () => {
+  it('does not call the API again for the countries if the locale is the same.', async () => {
     // Bypass the cache by using a non existant locale
     const addressFormatter = new AddressFormatter('pt-br');
     await addressFormatter.getCountries();
@@ -107,7 +107,7 @@ describe('getCountries()', () => {
     expect(fetch.calls()).toHaveLength(1);
   });
 
-  it('should call the API again for the countries if the locale has been updated.', async () => {
+  it('does call the API again for the countries if the locale has been updated.', async () => {
     const addressFormatter = new AddressFormatter('nl');
     await addressFormatter.getCountries();
     addressFormatter.updateLocale('it');
@@ -122,7 +122,7 @@ describe('format()', () => {
     const addressFormatter = new AddressFormatter('ja');
     const result = await addressFormatter.format(address);
 
-    expect(result).toEqual([
+    expect(result).toStrictEqual([
       '日本',
       '〒100-8994 東京都 目黒区 八重洲1-5-3',
       'Shopify',
@@ -138,7 +138,7 @@ describe('format()', () => {
       province: '',
     });
 
-    expect(result).toEqual([
+    expect(result).toStrictEqual([
       '日本',
       '〒100-8994 目黒区 八重洲1-5-3',
       'Shopify',
@@ -168,18 +168,18 @@ describe('getOrderedFields()', () => {
 
 describe('toSupportedLocale', () => {
   it('changes the lowercase locale to uppercase', () => {
-    expect(toSupportedLocale('ja')).toEqual('JA');
+    expect(toSupportedLocale('ja')).toStrictEqual('JA');
   });
 
   it('replaces - with _ and returns the locale in uppercase', () => {
-    expect(toSupportedLocale('pt-br')).toEqual('PT_BR');
+    expect(toSupportedLocale('pt-br')).toStrictEqual('PT_BR');
   });
 
   it('returns default locale if locale is not supported', () => {
-    expect(toSupportedLocale('LOL')).toEqual('EN');
+    expect(toSupportedLocale('LOL')).toStrictEqual('EN');
   });
 
   it('returns most similar locale available if complex', () => {
-    expect(toSupportedLocale('fr-FR')).toEqual('FR');
+    expect(toSupportedLocale('fr-FR')).toStrictEqual('FR');
   });
 });

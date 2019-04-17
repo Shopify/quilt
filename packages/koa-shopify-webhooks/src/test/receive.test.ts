@@ -22,7 +22,7 @@ describe('receiveWebhook', () => {
     await middleware(context, next);
 
     expect(context.status).not.toBe(StatusCode.NotFound);
-    expect(next).not.toBeCalled();
+    expect(next).not.toHaveBeenCalled();
   });
 
   it('does not handle the request when it is not for the given path', async () => {
@@ -36,7 +36,7 @@ describe('receiveWebhook', () => {
     await middleware(context, next);
 
     expect(context.status).toBe(StatusCode.NotFound);
-    expect(next).toBeCalled();
+    expect(next).toHaveBeenCalled();
   });
 
   it('works without a path', async () => {
@@ -47,7 +47,7 @@ describe('receiveWebhook', () => {
     await middleware(context, next);
 
     expect(context.status).not.toBe(StatusCode.NotFound);
-    expect(next).not.toBeCalled();
+    expect(next).not.toHaveBeenCalled();
   });
 
   describe('processing a request with a valid hmac', () => {
@@ -63,7 +63,7 @@ describe('receiveWebhook', () => {
       await middleware(context, noop);
 
       expect(context.status).toBe(StatusCode.Accepted);
-      expect(onReceived).toBeCalledWith(context);
+      expect(onReceived).toHaveBeenCalledWith(context);
     });
 
     it('transforms webhook topic and adds to state', async () => {
@@ -118,7 +118,7 @@ describe('receiveWebhook', () => {
       await middleware(context, noop);
 
       expect(context.status).toBe(StatusCode.Accepted);
-      expect(onReceived).toBeCalledWith(context);
+      expect(onReceived).toHaveBeenCalledWith(context);
     });
   });
 
@@ -136,7 +136,7 @@ describe('receiveWebhook', () => {
 
       await middleware(context, noop);
 
-      expect(onReceived).not.toBeCalled();
+      expect(onReceived).not.toHaveBeenCalled();
     });
 
     it('does not add webhook data to state', async () => {
@@ -150,7 +150,7 @@ describe('receiveWebhook', () => {
 
       await middleware(context, noop);
 
-      expect(onReceived).not.toBeCalled();
+      expect(onReceived).not.toHaveBeenCalled();
     });
 
     it('returns the Forbidden status code', async () => {

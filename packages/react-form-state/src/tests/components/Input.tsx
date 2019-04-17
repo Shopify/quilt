@@ -5,7 +5,6 @@ export interface Props {
   onRender?(): void;
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
 export default class Input extends React.PureComponent<
   Props & React.InputHTMLAttributes<any>,
   never
@@ -13,13 +12,16 @@ export default class Input extends React.PureComponent<
   render() {
     const {onChange, onRender, ...inputProps} = this.props;
 
-    onRender && onRender();
+    if (onRender) {
+      onRender();
+    }
 
     return (
       <input
-        // eslint-disable-next-line react/jsx-no-bind
         onChange={({currentTarget}) => {
-          onChange && onChange(currentTarget.value);
+          if (onChange) {
+            onChange(currentTarget.value);
+          }
         }}
         {...inputProps}
       />

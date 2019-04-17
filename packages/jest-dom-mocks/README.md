@@ -92,6 +92,7 @@ The following standard mocks are available:
 - `location`
 - `matchMedia`
 - `timer`
+- `promise`
 - `intersectionObserver`
 
 Each of the standard mocks can be installed, for a given test, using `standardMock.mock()`, and must be restored before the end of the test using `standardMock.restore()`.
@@ -194,6 +195,10 @@ Runs all system timers to completion.
 #### `Timer.runTimersToTime(time: number): void`
 
 Runs all system timers to the given `time`.
+
+#### `Promise.runPending(): void`
+
+Runs all promise resolvers that have been queued.
 
 #### `IntersectionObserver.observers`
 

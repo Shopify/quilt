@@ -17,7 +17,7 @@ interface Subscription {
 
 export const EFFECT_ID = Symbol('html');
 
-export default class Manager {
+export class HtmlManager {
   effect: EffectKind = {
     id: EFFECT_ID,
     betweenEachPass: () => this.reset(),
@@ -56,7 +56,14 @@ export default class Manager {
   }
 
   subscribe(subscription: Subscription) {
+    if (this.isServer) {
+      return () => {};
+    }
+
     this.subscriptions.add(subscription);
+    return () => {
+      this.subscriptions.delete(subscription);
+    };
   }
 
   addTitle(title: string) {

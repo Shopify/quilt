@@ -1,5 +1,10 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
-import koaShopifyGraphQLProxy, {GRAPHQL_PATH, PROXY_BASE_PATH} from '..';
+
+import koaShopifyGraphQLProxy, {
+  ApiVersion,
+  PROXY_BASE_PATH,
+  GRAPHQL_PATH_PREFIX,
+} from '../shopify-graphql-proxy';
 
 jest.mock('koa-better-http-proxy', () => {
   return jest.fn(() => jest.fn());
@@ -13,7 +18,9 @@ describe('koa-shopify-graphql-proxy', () => {
   });
 
   it('throws when no session is provided', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const ctx = createMockContext({
       url: PROXY_BASE_PATH,
       method: 'POST',
@@ -22,11 +29,13 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
-    expect(ctx.throw).toBeCalledWith(403, 'Unauthorized');
+    expect(ctx.throw).toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('throws when no accessToken is on session', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
 
     const ctx = createMockContext({
       url: PROXY_BASE_PATH,
@@ -37,11 +46,13 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
-    expect(ctx.throw).toBeCalledWith(403, 'Unauthorized');
+    expect(ctx.throw).toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('throws when no shop is on session', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const ctx = createMockContext({
       url: PROXY_BASE_PATH,
       method: 'POST',
@@ -51,11 +62,13 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
-    expect(ctx.throw).toBeCalledWith(403, 'Unauthorized');
+    expect(ctx.throw).toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('bails and calls next if method is not POST', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const ctx = createMockContext({
       url: '/graphql',
       method: 'GET',
@@ -66,12 +79,14 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).toBeCalled();
-    expect(proxyFactory).not.toBeCalled();
+    expect(nextSpy).toHaveBeenCalled();
+    expect(proxyFactory).not.toHaveBeenCalled();
   });
 
   it('bails and calls next if path does not start with the base url', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const ctx = createMockContext({
       url: '/not/graphql',
       throw: jest.fn(),
@@ -81,12 +96,14 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).toBeCalled();
-    expect(proxyFactory).not.toBeCalled();
+    expect(nextSpy).toHaveBeenCalled();
+    expect(proxyFactory).not.toHaveBeenCalled();
   });
 
   it('bails and calls next if path does not start with the base url and no session', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const ctx = createMockContext({
       url: '/not/graphql',
       throw: jest.fn(),
@@ -95,12 +112,14 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).toBeCalled();
-    expect(proxyFactory).not.toBeCalled();
+    expect(nextSpy).toHaveBeenCalled();
+    expect(proxyFactory).not.toHaveBeenCalled();
   });
 
   it('does not bail or throw when request is for the graphql api', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const ctx = createMockContext({
       url: PROXY_BASE_PATH,
       method: 'POST',
@@ -111,12 +130,14 @@ describe('koa-shopify-graphql-proxy', () => {
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
 
-    expect(nextSpy).not.toBeCalled();
-    expect(ctx.throw).not.toBeCalledWith(403, 'Unauthorized');
+    expect(nextSpy).not.toHaveBeenCalled();
+    expect(ctx.throw).not.toHaveBeenCalledWith(403, 'Unauthorized');
   });
 
   it('configures a custom koa-better-http-proxy', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const accessToken = 'asdfasdf';
     const shop = 'i-sell-things.myshopify.com';
 
@@ -146,6 +167,7 @@ describe('koa-shopify-graphql-proxy', () => {
     const password = 'sdfghsdghsh';
     const shop = 'i-sell-things.myshopify.com';
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
       password,
       shop,
     });
@@ -171,8 +193,11 @@ describe('koa-shopify-graphql-proxy', () => {
     });
   });
 
-  it('passes a proxyReqPathResolver that returns full shop url', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+  it('passes a proxyReqPathResolver that returns full shop url with the API version', async () => {
+    const version = ApiVersion.Unstable;
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version,
+    });
     const shop = 'some-shop.myshopify.com';
 
     const ctx = createMockContext({
@@ -185,11 +210,15 @@ describe('koa-shopify-graphql-proxy', () => {
     await koaShopifyGraphQLProxyMiddleware(ctx, jest.fn());
 
     const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
-    expect(proxyReqPathResolver(ctx)).toBe(`https://${shop}${GRAPHQL_PATH}`);
+    expect(proxyReqPathResolver(ctx)).toBe(
+      `https://${shop}${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`,
+    );
   });
 
   it('terminates middleware chain when proxying (does not call next)', async () => {
-    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy();
+    const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
+      version: ApiVersion.Unstable,
+    });
     const shop = 'some-shop.myshopify.com';
 
     const ctx = createMockContext({
@@ -201,6 +230,6 @@ describe('koa-shopify-graphql-proxy', () => {
     const nextSpy = jest.fn();
 
     await koaShopifyGraphQLProxyMiddleware(ctx, nextSpy);
-    expect(nextSpy).not.toBeCalled();
+    expect(nextSpy).not.toHaveBeenCalled();
   });
 });

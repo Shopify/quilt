@@ -154,6 +154,7 @@ export class Performance {
             ? EventType.TimeToFirstPaint
             : EventType.TimeToFirstContentfulPaint;
 
+        // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
         this.lifecycleEvent({type, start: entry.startTime, duration: 0} as
           | TimeToFirstPaintEvent
           | TimeToFirstContentfulPaintEvent);

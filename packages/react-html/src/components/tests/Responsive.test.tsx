@@ -1,28 +1,41 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
 
-import Meta from '../Meta';
-import Responsive from '../Responsive';
+import {HtmlManager} from '../../manager';
+import {Responsive} from '../Responsive';
+
+import {mountWithManager} from './utilities';
 
 describe('<Responsive />', () => {
   it('renders a <Meta /> with the content attribute set to `width=device-width, initial-scale=1, viewport-fit=cover` by default', () => {
-    const responsive = mount(<Responsive />);
-    expect(responsive.find(Meta).props()).toMatchObject({
+    const manager = new HtmlManager();
+    const spy = jest.spyOn(manager, 'addMeta');
+    mountWithManager(<Responsive />, manager);
+
+    expect(spy).toHaveBeenCalledWith({
+      name: 'viewport',
       content: 'width=device-width, initial-scale=1, viewport-fit=cover',
     });
   });
 
   it('renders a <Meta /> without `viewport-fit=cover` in the content attribute when coverNotch is false', () => {
-    const responsive = mount(<Responsive coverNotch={false} />);
+    const manager = new HtmlManager();
+    const spy = jest.spyOn(manager, 'addMeta');
+    mountWithManager(<Responsive coverNotch={false} />, manager);
 
-    expect(responsive.find(Meta).prop('content')).not.toMatch(
-      /viewport-fit=cover/,
-    );
+    expect(spy).not.toHaveBeenCalledWith({
+      name: 'viewport',
+      content: expect.stringMatching(/viewport-fit=cover/),
+    });
   });
 
   it('renders a <Meta /> with `user-scalable=no` in the content attribute when allowPinchToZoom is false', () => {
-    const responsive = mount(<Responsive allowPinchToZoom={false} />);
+    const manager = new HtmlManager();
+    const spy = jest.spyOn(manager, 'addMeta');
+    mountWithManager(<Responsive allowPinchToZoom={false} />, manager);
 
-    expect(responsive.find(Meta).prop('content')).toMatch(/user-scalable=no/);
+    expect(spy).toHaveBeenCalledWith({
+      name: 'viewport',
+      content: expect.stringMatching(/user-scalable=no/),
+    });
   });
 });

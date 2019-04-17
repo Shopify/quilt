@@ -43,7 +43,6 @@ export default class List<Fields> extends React.PureComponent<
       const key = getChildKey ? getChildKey(fieldValues) : index;
 
       return (
-        // eslint-disable-next-line
         <React.Fragment key={key}>
           {children(innerFields, index)}
         </React.Fragment>
@@ -73,7 +72,7 @@ export default class List<Fields> extends React.PureComponent<
           ...(existingItem as any),
           [key]:
             typeof newValue === 'function'
-              ? (newValue as ValueMapper<Fields[Key]>)(value[index][key])
+              ? newValue(value[index][key])
               : newValue,
         };
         return replace(value, index, newItem);

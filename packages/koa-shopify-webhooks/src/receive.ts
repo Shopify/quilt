@@ -1,5 +1,5 @@
-import {StatusCode} from '@shopify/network';
 import {createHmac} from 'crypto';
+import {StatusCode} from '@shopify/network';
 import safeCompare from 'safe-compare';
 import bodyParser from 'koa-bodyparser';
 import mount from 'koa-mount';
