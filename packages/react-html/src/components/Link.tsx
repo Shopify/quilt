@@ -1,13 +1,9 @@
 import * as React from 'react';
-import DomEffect from './DomEffect';
+import {useLink} from '../hooks';
 
 type Props = React.HTMLProps<HTMLLinkElement>;
 
-export default function Link(props: Props) {
-  return (
-    <DomEffect
-      key={JSON.stringify(props)}
-      perform={manager => manager.addLink(props)}
-    />
-  );
+export function Link(props: Props) {
+  useLink(props);
+  return null;
 }

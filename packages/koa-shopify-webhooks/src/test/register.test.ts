@@ -1,10 +1,17 @@
-import {StatusCode, Header} from '@shopify/network';
+import {Header} from '@shopify/network';
 import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 
 import {registerWebhook, Options, WebhookHeader} from '..';
 
-const successResponse = {status: StatusCode.Created, body: {foo: 'bar'}};
-const failResponse = {status: StatusCode.UnprocessableEntity, body: {}};
+const successResponse = {
+  data: {
+    webhookSubscriptionCreate: {
+      userErrors: [],
+      webhookSubscription: {id: 'gid://shopify/WebhookSubscription/12345'},
+    },
+  },
+};
+const failResponse = {data: {}};
 
 describe('registerWebhook', () => {
   afterEach(async () => {
@@ -48,7 +55,7 @@ describe('registerWebhook', () => {
     });
   });
 
-  it('returns a result with success set to true when the server returns a status of Created', async () => {
+  it('returns a result with success set to true when the server returns a webhookSubscription field', async () => {
     fetchMock.mock('*', successResponse);
     const webhook: Options = {
       address: 'myapp.com/webhooks',
@@ -62,8 +69,7 @@ describe('registerWebhook', () => {
   });
 
   it('returns the parsed response body on result.data', async () => {
-    const data = {foo: 'bar', baz: true};
-    fetchMock.mock('*', {...successResponse, body: data});
+    fetchMock.mock('*', failResponse);
     const webhook: Options = {
       address: 'myapp.com/webhooks',
       topic: 'PRODUCTS_CREATE',
@@ -71,24 +77,11 @@ describe('registerWebhook', () => {
       shop: 'shop1.myshopify.io',
     };
 
-    const result = await registerWebhook(webhook);
-    expect(result.data).toMatchObject(data);
+    const registerResponse = await registerWebhook(webhook);
+    expect(registerResponse.result.data).toMatchObject({});
   });
 
-  it('returns a result with success set to true when the server returns a status of Created', async () => {
-    fetchMock.mock('*', successResponse);
-    const webhook: Options = {
-      address: 'myapp.com/webhooks',
-      topic: 'PRODUCTS_CREATE',
-      accessToken: 'some token',
-      shop: 'shop1.myshopify.io',
-    };
-
-    const result = await registerWebhook(webhook);
-    expect(result.success).toBe(true);
-  });
-
-  it('returns a result with success set to false when the server returns a bad status', async () => {
+  it('returns a result with success set to false when the server doesn’t return a webhookSubscriptionCreate field', async () => {
     fetchMock.mock('*', failResponse);
     const webhook: Options = {
       address: 'myapp.com/webhooks',

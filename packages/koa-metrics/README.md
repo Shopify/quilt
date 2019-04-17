@@ -49,10 +49,6 @@ An instance of the `Metrics` object will be available on `ctx.metrics` further d
 
 Sends a distribution command with the specified `value` in milliseconds.
 
-#### `.measure(name: string, value: number, sampleRate?: number, tags?: Tags)`
-
-Sends data for non-timing stats (measurements). We do this through the distributions feature in DogStatsD. You'll need to ensure that your DogStatsD server supports the distributions feature in order to make use of these metrics.
-
 #### `.initTimer(): Timer`
 
 Returns a new `Timer` started at the current `process.hrtime()`

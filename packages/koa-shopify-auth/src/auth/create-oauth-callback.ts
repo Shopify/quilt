@@ -1,5 +1,5 @@
-import {Context} from 'koa';
 import querystring from 'querystring';
+import {Context} from 'koa';
 
 import {AuthConfig} from '../types';
 import Error from './errors';
@@ -21,17 +21,17 @@ export default function createOAuthCallback(config: AuthConfig) {
     }
 
     if (validateHmac(hmac, secret, query) === false) {
-      ctx.throw(400, Error.InvalidHMAC);
+      ctx.throw(400, Error.InvalidHmac);
       return;
     }
 
-    /* eslint-disable camelcase */
+    /* eslint-disable @typescript-eslint/camelcase */
     const accessTokenQuery = querystring.stringify({
       code,
       client_id: apiKey,
       client_secret: secret,
     });
-    /* eslint-enable camelcase */
+    /* eslint-enable @typescript-eslint/camelcase */
 
     const accessTokenResponse = await fetch(
       `https://${shop}/admin/oauth/access_token`,

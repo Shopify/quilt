@@ -162,9 +162,9 @@ describe('translate()', () => {
     });
 
     it('throws a MissingReplacementError when there is a missing replacement', () => {
-      expect(() =>
-        translate('foo', {}, {foo: 'bar: {bar}'}, locale),
-      ).toThrowError('No replacement found for key');
+      expect(() => translate('foo', {}, {foo: 'bar: {bar}'}, locale)).toThrow(
+        'No replacement found for key',
+      );
     });
   });
 
@@ -192,8 +192,8 @@ describe('translate()', () => {
   });
 
   describe('getCurrencySymbol', () => {
-    it('correctly returns the locale-specific currency symbol and its position', () => {
-      expect(getCurrencySymbol('en', {currency: 'eur'})).toEqual({
+    it('returns the locale-specific currency symbol and its position', () => {
+      expect(getCurrencySymbol('en', {currency: 'eur'})).toStrictEqual({
         symbol: '€',
         prefixed: true,
       });

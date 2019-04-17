@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.0.0] - 2019-04-09
+
+This library now requires React 16.8.
+
 ### Added
 
-- `@shopify/react-intersection-observer` package
+- Added a `useIntersection` hook as the preferred API ([#622](https://github.com/Shopify/quilt/pull/622))
+
+## [1.0.0]
+
+Initial release.

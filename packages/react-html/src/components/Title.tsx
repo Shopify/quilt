@@ -1,10 +1,10 @@
-import * as React from 'react';
-import DomEffect from './DomEffect';
+import {useTitle} from '../hooks';
 
 interface Props {
   children: string;
 }
 
-export default function Title({children: title}: Props) {
-  return <DomEffect key={title} perform={manager => manager.addTitle(title)} />;
+export function Title({children: title}: Props) {
+  useTitle(title);
+  return null;
 }

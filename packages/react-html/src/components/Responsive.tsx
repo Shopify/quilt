@@ -1,12 +1,11 @@
-import * as React from 'react';
-import Meta from './Meta';
+import {useMeta} from '../hooks';
 
 interface Props {
   coverNotch?: boolean;
   allowPinchToZoom?: boolean;
 }
 
-export default function Responsive({
+export function Responsive({
   coverNotch = true,
   allowPinchToZoom = true,
 }: Props) {
@@ -20,5 +19,10 @@ export default function Responsive({
     viewportParts.push('user-scalable=no');
   }
 
-  return <Meta name="viewport" content={viewportParts.join(', ')} />;
+  useMeta({
+    name: 'viewport',
+    content: viewportParts.join(', '),
+  });
+
+  return null;
 }

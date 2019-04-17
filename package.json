@@ -2,10 +2,6 @@
   "name": "quilt",
   "version": "1.0.0",
   "description": "Shopify's javascript application utilities",
-  "engines": {
-    "node": ">=8.10.0",
-    "yarn": ">=1.9.4"
-  },
   "scripts": {
     "publish": "lerna publish",
     "prebuild": "yarn run clean",
@@ -39,6 +35,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.5",
     "@types/react": "16.8.2",
+    "@types/react-dom": "^16.8.3",
     "@types/react-helmet": "^5.0.6",
     "apollo-cache-inmemory": "^1.3.6",
     "apollo-client": "^2.3.8",
@@ -46,8 +43,8 @@
     "element-closest": "^3.0.1",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
-    "eslint": "^5.0.0",
-    "eslint-plugin-shopify": "^23.1.0",
+    "eslint": "^5.15.0",
+    "eslint-plugin-shopify": "^27.0.1",
     "graphql": "^14.0.0",
     "graphql-tag": "^2.10.0",
     "isomorphic-fetch": "^2.2.1",
@@ -57,9 +54,9 @@
     "lerna": "^2.9.0",
     "plop": "^2.0.0",
     "prettier": "^1.14.0",
-    "react": "^16.8.1",
+    "react": "^16.8.5",
     "react-apollo": "^2.2.3",
-    "react-dom": "^16.8.1",
+    "react-dom": "^16.8.5",
     "react-helmet": "^5.2.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
@@ -68,6 +65,7 @@
   },
   "dependencies": {},
   "resolutions": {
-    "@types/react": "16.8.2"
+    "@types/react": "16.8.10",
+    "@types/react-dom": "16.8.3"
   }
 }

@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.0.0] - 2019-04-08
+
+This library now requires React 16.8.
+
+### Added
+
+- Added a `useServerEffect` hook as an alternative to the `<Effect />` component ([#547](https://github.com/Shopify/quilt/pull/547))
+
 ## [2.1.0]
 
 ### Added

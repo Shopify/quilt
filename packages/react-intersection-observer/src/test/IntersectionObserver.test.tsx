@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 import {intersectionObserver as intersectionObserverMock} from '@shopify/jest-dom-mocks';
 
-import IntersectionObserver, {
-  UnsupportedBehavior,
-} from '../IntersectionObserver';
+import {IntersectionObserver} from '../IntersectionObserver';
+import {UnsupportedBehavior} from '../types';
 
 jest.mock('../utilities', () => ({
   isSupported: jest.fn(),
@@ -13,6 +12,8 @@ jest.mock('../utilities', () => ({
 const {isSupported} = require.requireMock('../utilities') as {
   isSupported: jest.Mock;
 };
+
+const defaultProps = {onIntersectionChange() {}};
 
 describe('<IntersectionObserver />', () => {
   beforeEach(() => {
@@ -27,42 +28,52 @@ describe('<IntersectionObserver />', () => {
 
   describe('wrapperComponent', () => {
     it('uses a div by default', () => {
-      const intersectionObserver = mount(<IntersectionObserver />);
-      const child = intersectionObserver.childAt(0);
-      expect(child.type()).toBe('div');
+      const intersectionObserver = mount(
+        <IntersectionObserver {...defaultProps} />,
+      );
+      const child = intersectionObserver.children[0];
+      expect(child).toHaveProperty('type', 'div');
     });
 
     it('uses a custom element', () => {
       const wrapperComponent = 'span';
       const intersectionObserver = mount(
-        <IntersectionObserver wrapperComponent={wrapperComponent} />,
+        <IntersectionObserver
+          {...defaultProps}
+          wrapperComponent={wrapperComponent}
+        />,
       );
-      const child = intersectionObserver.childAt(0);
-      expect(child.type()).toBe(wrapperComponent);
+      const child = intersectionObserver.children[0];
+      expect(child).toHaveProperty('type', wrapperComponent);
     });
 
     it('attaches the observer to the top-level node', () => {
       isSupported.mockReturnValue(true);
 
-      const intersectionObserver = mount(<IntersectionObserver />);
-      const child = intersectionObserver.childAt(0);
-      const node = child.getDOMNode();
+      const intersectionObserver = mount(
+        <IntersectionObserver {...defaultProps} />,
+      );
+      const child = intersectionObserver.children[0];
 
       expect(intersectionObserverMock.observers[0]).toHaveProperty(
         'target',
-        node,
+        child.domNode,
       );
     });
   });
 
   describe('children', () => {
     it('includes the children inside the top-level element', () => {
-      const children = <div>Hello world</div>;
+      const id = 'HelloWorld';
       const intersectionObserver = mount(
-        <IntersectionObserver>{children}</IntersectionObserver>,
+        <IntersectionObserver {...defaultProps}>
+          <div id={id} />
+        </IntersectionObserver>,
       );
 
-      expect(intersectionObserver.childAt(0).contains(children)).toBe(true);
+      expect(intersectionObserver.children[0]).toContainReactComponent('div', {
+        id,
+      });
     });
   });
 
@@ -74,7 +85,7 @@ describe('<IntersectionObserver />', () => {
     it('is used to create the IntersectionObserver', () => {
       const threshold = [0, 0.5, 1];
 
-      mount(<IntersectionObserver threshold={threshold} />);
+      mount(<IntersectionObserver {...defaultProps} threshold={threshold} />);
 
       expect(intersectionObserverMock.observers[0]).toMatchObject({
         options: {
@@ -92,7 +103,7 @@ describe('<IntersectionObserver />', () => {
     it('is used to create the IntersectionObserver', () => {
       const rootMargin = '10%';
 
-      mount(<IntersectionObserver rootMargin={rootMargin} />);
+      mount(<IntersectionObserver {...defaultProps} rootMargin={rootMargin} />);
 
       expect(intersectionObserverMock.observers[0]).toMatchObject({
         options: {
@@ -109,7 +120,7 @@ describe('<IntersectionObserver />', () => {
 
     it('uses an HTML element for the root IntersectionObserver option', () => {
       withHtmlElement(root => {
-        mount(<IntersectionObserver root={root} />);
+        mount(<IntersectionObserver {...defaultProps} root={root} />);
 
         expect(intersectionObserverMock.observers[0]).toMatchObject({
           options: {
@@ -124,7 +135,7 @@ describe('<IntersectionObserver />', () => {
         const id = 'MyRootElement';
         root.setAttribute('id', id);
 
-        mount(<IntersectionObserver root={`#${id}`} />);
+        mount(<IntersectionObserver {...defaultProps} root={`#${id}`} />);
 
         expect(intersectionObserverMock.observers[0]).toMatchObject({
           options: {
@@ -135,14 +146,15 @@ describe('<IntersectionObserver />', () => {
     });
   });
 
-  describe('onIntersecting()', () => {
+  describe('onIntersectionChange()', () => {
     it('is not called when IntersectionObserver is not supported and the unsupportedBehavior is to ignore', () => {
       isSupported.mockReturnValue(false);
       const spy = jest.fn();
 
       mount(
         <IntersectionObserver
-          onIntersecting={spy}
+          {...defaultProps}
+          onIntersectionChange={spy}
           unsupportedBehavior={UnsupportedBehavior.Ignore}
         />,
       );
@@ -154,7 +166,9 @@ describe('<IntersectionObserver />', () => {
       isSupported.mockReturnValue(false);
       const spy = jest.fn();
 
-      mount(<IntersectionObserver onIntersecting={spy} />);
+      mount(
+        <IntersectionObserver {...defaultProps} onIntersectionChange={spy} />,
+      );
 
       expect(spy).toHaveBeenCalledWith({
         boundingClientRect: expect.any(Object),
@@ -173,7 +187,8 @@ describe('<IntersectionObserver />', () => {
 
       mount(
         <IntersectionObserver
-          onIntersecting={spy}
+          {...defaultProps}
+          onIntersectionChange={spy}
           unsupportedBehavior={UnsupportedBehavior.TreatAsIntersecting}
         />,
       );
@@ -189,49 +204,19 @@ describe('<IntersectionObserver />', () => {
       });
     });
 
-    it('is called when the IntersectionObserver gets called with a non-0 intersectionRatio', () => {
+    it('is called when the IntersectionObserver is updated', () => {
       isSupported.mockReturnValue(true);
       const spy = jest.fn();
       const entry = {intersectionRatio: 0.2};
 
-      mount(<IntersectionObserver onIntersecting={spy} />);
+      const intersectionObserver = mount(
+        <IntersectionObserver {...defaultProps} onIntersectionChange={spy} />,
+      );
 
-      intersectionObserverMock.simulate(entry);
-      expect(spy).toHaveBeenCalledWith(expect.objectContaining(entry));
-    });
+      intersectionObserver.act(() => {
+        intersectionObserverMock.simulate(entry);
+      });
 
-    it('is not called when the IntersectionObserver gets called with a 0 intersectionRatio', () => {
-      isSupported.mockReturnValue(true);
-      const spy = jest.fn();
-      const entry = {intersectionRatio: 0};
-
-      mount(<IntersectionObserver onIntersecting={spy} />);
-
-      intersectionObserverMock.simulate(entry);
-      expect(spy).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('onNotIntersecting()', () => {
-    it('is not called when the IntersectionObserver gets called with a non-0 intersectionRatio', () => {
-      isSupported.mockReturnValue(true);
-      const spy = jest.fn();
-      const entry = {intersectionRatio: 0.2};
-
-      mount(<IntersectionObserver onNotIntersecting={spy} />);
-
-      intersectionObserverMock.simulate(entry);
-      expect(spy).not.toHaveBeenCalled();
-    });
-
-    it('is called when the IntersectionObserver gets called with a 0 intersectionRatio', () => {
-      isSupported.mockReturnValue(true);
-      const spy = jest.fn();
-      const entry = {intersectionRatio: 0};
-
-      mount(<IntersectionObserver onNotIntersecting={spy} />);
-
-      intersectionObserverMock.simulate(entry);
       expect(spy).toHaveBeenCalledWith(expect.objectContaining(entry));
     });
   });
@@ -242,30 +227,32 @@ describe('<IntersectionObserver />', () => {
     });
 
     it('disconnects observers when unmounting', () => {
-      const intersectionObserver = mount(<IntersectionObserver />);
+      const intersectionObserver = mount(
+        <IntersectionObserver {...defaultProps} />,
+      );
       intersectionObserver.unmount();
       expect(intersectionObserverMock.observers).toHaveLength(0);
     });
 
-    it('un-observes and re-observes when the root prop changes', () => {
+    it('un-observes and re-observes when the wrapperComponent changes', () => {
       const intersectionObserver = mount(
-        <IntersectionObserver threshold={0.5} />,
+        <IntersectionObserver {...defaultProps} wrapperComponent="div" />,
       );
 
-      const threshold = 1;
-      intersectionObserver.setProps({threshold});
+      const wrapperComponent = 'span';
+      intersectionObserver.setProps({wrapperComponent});
 
       expect(intersectionObserverMock.observers).toHaveLength(1);
       expect(intersectionObserverMock.observers[0]).toHaveProperty(
-        'options.threshold',
-        threshold,
+        'target',
+        expect.any(HTMLSpanElement),
       );
     });
 
-    it('un-observes and re-observes when the threshold changes', () => {
+    it('un-observes and re-observes when the root changes', () => {
       withHtmlElement(firstRoot => {
         const intersectionObserver = mount(
-          <IntersectionObserver root={firstRoot} />,
+          <IntersectionObserver {...defaultProps} root={firstRoot} />,
         );
 
         withHtmlElement(secondRoot => {
@@ -280,24 +267,44 @@ describe('<IntersectionObserver />', () => {
       });
     });
 
-    it('re-uses the same intersection observer when only the callbacks change', () => {
+    it('re-uses the same intersection observer when only the callback changes', () => {
       const firstSpy = jest.fn();
       const secondSpy = jest.fn();
       const intersectionObserver = mount(
-        <IntersectionObserver onIntersecting={firstSpy} />,
+        <IntersectionObserver
+          {...defaultProps}
+          onIntersectionChange={firstSpy}
+        />,
       );
 
-      intersectionObserver.setProps({onIntersecting: secondSpy});
-      intersectionObserverMock.simulate({intersectionRatio: 1});
+      intersectionObserver.setProps({onIntersectionChange: secondSpy});
+      intersectionObserver.act(() => {
+        intersectionObserverMock.simulate({intersectionRatio: 1});
+      });
 
       expect(firstSpy).not.toHaveBeenCalled();
       expect(secondSpy).toHaveBeenCalled();
     });
 
+    it('un-observes and re-observes when the threshold changes', () => {
+      const intersectionObserver = mount(
+        <IntersectionObserver {...defaultProps} threshold={0.5} />,
+      );
+
+      const threshold = 1;
+      intersectionObserver.setProps({threshold});
+
+      expect(intersectionObserverMock.observers).toHaveLength(1);
+      expect(intersectionObserverMock.observers[0]).toHaveProperty(
+        'options.threshold',
+        threshold,
+      );
+    });
+
     it('re-uses the same intersection observer when the threshold changes to a new equivalent array', () => {
       const threshold = [0, 0.5, 1];
       const intersectionObserver = mount(
-        <IntersectionObserver threshold={threshold} />,
+        <IntersectionObserver {...defaultProps} threshold={threshold} />,
       );
 
       const observer = intersectionObserverMock.observers[0];

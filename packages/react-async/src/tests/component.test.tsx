@@ -1,3 +1,5 @@
+// Enzyme doesn't know how to handle components that only return fragments.
+/* eslint-disable shopify/jsx-prefer-fragment-wrappers */
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
@@ -13,7 +15,7 @@ jest.mock('../Async', () => ({
 }));
 
 function MockComponent({name = 'Tobi'}: {name?: string}) {
-  return <div>Hello, {name}</div>;
+  return <>Hello, {name}</>;
 }
 
 describe('createAsyncComponent()', () => {
@@ -40,7 +42,7 @@ describe('createAsyncComponent()', () => {
     expect(trigger(asyncComponent.find(Async), 'render', null)).toBeNull();
     expect(
       trigger(asyncComponent.find(Async), 'render', MockComponent),
-    ).toEqual(<MockComponent {...props} />);
+    ).toStrictEqual(<MockComponent {...props} />);
   });
 
   it('creates a deferred <Async /> when specified', () => {
@@ -80,7 +82,6 @@ describe('createAsyncComponent()', () => {
       const renderPreload = () => <Preload />;
       const AsyncComponent = createAsyncComponent({load, renderPreload});
 
-      // Enzyme doesn't know how to handle components that only return fragments.
       const preload = mount(
         <div>
           <AsyncComponent.Preload />
@@ -118,7 +119,6 @@ describe('createAsyncComponent()', () => {
       const renderPrefetch = () => <Prefetch />;
       const AsyncComponent = createAsyncComponent({load, renderPrefetch});
 
-      // Enzyme doesn't know how to handle components that only return fragments.
       const prefetch = mount(
         <div>
           <AsyncComponent.Prefetch />
@@ -156,8 +156,8 @@ describe('createAsyncComponent()', () => {
       const renderKeepFresh = () => <KeepFresh />;
       const AsyncComponent = createAsyncComponent({load, renderKeepFresh});
 
-      // Enzyme doesn't know how to handle components that only return fragments.
       const keepFresh = mount(
+        // Enzyme doesn't know how to handle components that only return fragments.
         <div>
           <AsyncComponent.KeepFresh />
         </div>,
@@ -175,3 +175,4 @@ describe('createAsyncComponent()', () => {
     });
   });
 });
+/* eslint-enable shopify/jsx-prefer-fragment-wrappers */

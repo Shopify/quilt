@@ -1,6 +1,6 @@
 import {URL} from 'url';
-import httpMocks, {RequestMethod} from 'node-mocks-http';
 import stream from 'stream';
+import httpMocks, {RequestMethod} from 'node-mocks-http';
 import Koa, {Context} from 'koa';
 
 import createMockCookies, {MockCookies} from '../create-mock-cookies';
@@ -19,7 +19,7 @@ export interface MockContext extends Context {
 }
 
 export interface Options<
-  CustomProperties extends Object,
+  CustomProperties extends object,
   RequestBody = undefined
 > {
   url?: string;
@@ -39,7 +39,7 @@ export interface Options<
 }
 
 export default function createContext<
-  CustomProperties,
+  CustomProperties extends object,
   RequestBody = undefined
 >(options: Options<CustomProperties, RequestBody> = {}) {
   const app = new Koa();
@@ -100,7 +100,7 @@ export default function createContext<
 
   // This is to get around an odd behavior in the `cookies` library, where if `res.set` is defined, it will use an internal
   // node function to set headers, which results in them being set in the wrong place.
-  // eslint-disable-next-line no-undefined
+
   res.set = undefined as any;
 
   const context = app.createContext(req, res) as MockContext & CustomProperties;

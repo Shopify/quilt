@@ -357,10 +357,10 @@ function MyComponent() {
 
 ### validateOnSubmit
 
-You can configure `<FormState />` to run all validators on the form before executing `onSubmit` by passing it the `validateOnSubmit` prop. If any of the validators return an error, the submit is cancelled and `onSubmit` is not run.
+You can configure `<FormState />` to run all validators on the form before executing `onSubmit` by passing it the `validateOnSubmit` prop. If any of the validators return an error, the submit is cancelled and `onSubmit` is not run. Any errors discovered will be available on the `errors` object.
 
 ```typescript
-import {TextField, Form, Button} from '@shopify/polaris';
+import {Banner, Button, ExceptionList, Form, TextField} from '@shopify/polaris';
 import FormState, {validators} from '@shopify/react-form-state';
 
 function MyComponent() {
@@ -382,19 +382,32 @@ function MyComponent() {
       }}
     >
       {formDetails => {
-        const {fields, submit} = formDetails;
+        const {errors, fields, submit} = formDetails;
+
+        const errorBanner = Boolean(errors.length) && (
+          <Banner status="critical" title={`${errors.length} Errors`}>
+            <ExceptionList
+              items={errors.map(({message: description}) => ({description}))}
+            />
+          </Banner>
+        );
 
         return (
-          <Form onSubmit={submit}>
-            <TextField label="Title" {...fields.title} />
-            <Button type="submit">Submit</Button>
-          </Form>
+          <>
+            {errorBanner}
+            <Form onSubmit={submit}>
+              <TextField label="Title" {...fields.title} />
+              <Button type="submit">Submit</Button>
+            </Form>
+          </>
         );
       }}
     </FormState>
   );
 }
 ```
+
+In addition to being propagated down to their respective `fields`, these client-side validation errors can be accessed together at the top level via the `errors` array, in the same way as your remote errors (returned from `onSubmit`) and external errors (see below).
 
 To learn more about building validators, and the built in functions exposed by this package, check out the [validators guide](validators.md).
 

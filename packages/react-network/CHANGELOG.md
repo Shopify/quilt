@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.0.0] - 2019-04-08
+
+This library now requires React 16.8.
+
+### Added
+
+- Added hook versions of most component APIs: `useRedirect`, `useStatus`, and `useCspDirective` ([#547](https://github.com/Shopify/quilt/pull/547))
+
 ## [1.0.5]
 
 - Manual release

@@ -13,25 +13,29 @@ $ yarn add @shopify/react-effect
 
 ## Usage
 
-### `<Effect />`
+### `useServerEffect()`
 
-This package is largely built around a component, `Effect`. To set up an action to be performed, use the `perform` prop:
+This package is largely built around a hook, `useServerEffect`. The only mandatory argument is a function, which is the "effect" you wish to perform during each pass of server rendering:
 
 ```tsx
-import {Effect} from '@shopify/react-effect';
+import {useServerEffect} from '@shopify/react-effect';
 
 export default function MyComponent() {
-  return <Effect perform={() => console.log('Doing something!')} />;
+  useServerEffect(() => console.log('Doing something!'));
+  return null;
 }
 ```
 
 This callback can return anything, but returning a promise has a special effect: it will be waited for on the server when calling `extract()`.
 
-This component accepts three additional optional properties:
+This hook also accepts a second, optional argument: the effect "kind". This should be an object that:
 
-- `kind`: a description of the effect. This kind, if provided, must have an `id` that is a unique symbol, and can optionally have `betweenEachPass` and `afterEachPass` functions that add additional logic to the `betweenEachPass` and `afterEachPass` options for `extract()`.
+- Must have an `id` that is a unique symbol
+- Optionally has `betweenEachPass` and/ or `afterEachPass` functions that add additional logic to the `betweenEachPass` and `afterEachPass` options for `extract()`
 
-This component also accepts children which are rendered as-is.
+### `<Effect />`
+
+This is a component version of `useServerEffect`. Its `perform` prop will be run as a server effect, and its `kind` prop is used as the second argument to `useServerEffect`. Where possible, prefer the `useServerEffect` hook.
 
 ### `extract()`
 
@@ -64,7 +68,7 @@ You may optionally pass an options object that contains the following keys (all 
   async function app(ctx) {
     const app = <App />;
     // will only perform @shopify/react-i18n extraction
-    await extract(app, [I18N_EFFECT_ID]);
+    await extract(app, {include: [I18N_EFFECT_ID]});
     ctx.body = renderToString(app);
   }
   ```

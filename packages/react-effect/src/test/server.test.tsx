@@ -6,7 +6,7 @@ import * as React from 'react';
 import {renderToString, renderToStaticMarkup} from 'react-dom/server';
 import {clock} from '@shopify/jest-dom-mocks';
 
-import Effect from '../Effect';
+import {Effect} from '../Effect';
 import {extract} from '../server';
 
 describe('extract()', () => {

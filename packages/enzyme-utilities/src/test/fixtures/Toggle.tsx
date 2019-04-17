@@ -11,42 +11,31 @@ export interface State {
 
 const DEFERRED_TIMEOUT = 100;
 
-export class Toggle extends React.PureComponent<Props, State> {
-  state = {
-    active: true,
-  };
+export function Toggle({onToggle, deferred}: Props) {
+  const [active, setActive] = React.useState(true);
+  const statusMarkup = active ? 'active' : 'inactive';
 
-  render() {
-    const {active} = this.state;
+  const handleClick = React.useCallback(
+    () => {
+      if (deferred) {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            setActive(!active);
+            onToggle();
+            resolve();
+          }, DEFERRED_TIMEOUT);
+        });
+      }
+      setActive(!active);
+      onToggle();
+      return Promise.resolve();
+    },
+    [active, deferred, onToggle],
+  );
 
-    const statusMarkup = active ? 'active' : 'inactive';
-
-    return (
-      <button type="button" onClick={this.handleClick}>
-        {statusMarkup}
-      </button>
-    );
-  }
-
-  toggleActive() {
-    this.setState(
-      ({active}) => ({
-        active: !active,
-      }),
-      this.props.onToggle,
-    );
-  }
-
-  handleClick = () => {
-    if (this.props.deferred) {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          this.toggleActive();
-          resolve();
-        }, DEFERRED_TIMEOUT);
-      });
-    }
-    this.toggleActive();
-    return Promise.resolve();
-  };
+  return (
+    <button type="button" onClick={handleClick}>
+      {statusMarkup}
+    </button>
+  );
 }

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Link from './Link';
+import {useFavicon} from '../hooks';
 
 interface Props {
   source: string;
 }
 
-export default function Favicon({source}: Props) {
-  return <Link rel="shortcut icon" type="image/x-icon" href={source} />;
+export function Favicon({source}: Props) {
+  useFavicon(source);
+  return null;
 }
