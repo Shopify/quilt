@@ -63,7 +63,7 @@ Given an address, returns the address ordered for multiline show. Eg.
 Show an address:
 
 ```typescript
-import {AddressFormatter} from '@shopify/address';
+import AddressFormatter from '@shopify/address';
 
 const address = {
   company: 'Shopify',
