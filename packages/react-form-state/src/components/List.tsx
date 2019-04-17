@@ -72,7 +72,7 @@ export default class List<Fields> extends React.PureComponent<
           ...(existingItem as any),
           [key]:
             typeof newValue === 'function'
-              ? newValue(value[index][key])
+              ? (newValue as ValueMapper<Fields[Key]>)(value[index][key])
               : newValue,
         };
         return replace(value, index, newItem);

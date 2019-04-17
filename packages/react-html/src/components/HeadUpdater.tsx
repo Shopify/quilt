@@ -32,7 +32,7 @@ function updateOnClient(state: State) {
   } else {
     if (titleElement == null) {
       titleElement = document.createElement('title');
-      document.head.appendChild(titleElement);
+      document.head!.appendChild(titleElement);
     }
 
     titleElement.setAttribute(MANAGED_ATTRIBUTE, 'true');
@@ -42,7 +42,7 @@ function updateOnClient(state: State) {
   const fragment = document.createDocumentFragment();
 
   const oldMetas = Array.from(
-    document.head.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
+    document.head!.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
   );
 
   for (const meta of metas) {
@@ -65,7 +65,7 @@ function updateOnClient(state: State) {
   }
 
   const oldLinks = Array.from(
-    document.head.querySelectorAll(`link[${MANAGED_ATTRIBUTE}]`),
+    document.head!.querySelectorAll(`link[${MANAGED_ATTRIBUTE}]`),
   );
 
   for (const link of links) {
@@ -95,5 +95,5 @@ function updateOnClient(state: State) {
     meta.remove();
   }
 
-  document.head.appendChild(fragment);
+  document.head!.appendChild(fragment);
 }

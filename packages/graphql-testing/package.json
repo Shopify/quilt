@@ -33,7 +33,7 @@
     "@shopify/useful-types": "^1.2.2",
     "@types/graphql": "^14.0.0",
     "graphql-typed": "^0.4.0",
-    "typescript": "~3.0.1"
+    "typescript": "~3.1.6"
   },
   "files": [
     "dist/*"

@@ -1,6 +1,6 @@
 import {ApolloLink, Observable, Operation} from 'apollo-link';
 import {ExecutionResult, GraphQLError} from 'graphql';
-import {GraphQLMock} from '../types';
+import {GraphQLMock, MockGraphQLFunction} from '../types';
 
 export class MockLink extends ApolloLink {
   constructor(private mock: GraphQLMock) {
@@ -21,7 +21,7 @@ export class MockLink extends ApolloLink {
 
         response =
           typeof mockForOperation === 'function'
-            ? mockForOperation(operation)
+            ? (mockForOperation as MockGraphQLFunction)(operation)
             : mockForOperation;
       }
 
