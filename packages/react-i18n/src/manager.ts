@@ -51,6 +51,9 @@ export class I18nManager {
   private subscriptions = new Map<Subscriber, string[]>();
   private translationPromises = new Map<string, Promise<void>>();
 
+  private idsToUpdate = new Set<string>();
+  private enqueuedUpdate?: number;
+
   constructor(
     public details: I18nDetails,
     initialTranslations: ExtractedTranslations = {},
@@ -192,11 +195,29 @@ export class I18nManager {
   }
 
   private updateSubscribersForId(id: string) {
-    for (const [subscriber, ids] of this.subscriptions) {
-      if (ids.includes(id)) {
-        subscriber(this.state(ids), this.details);
-      }
+    this.idsToUpdate.add(id);
+
+    if (this.enqueuedUpdate != null) {
+      return;
     }
+
+    const isBrowser = typeof window !== 'undefined';
+    const enqueuer = isBrowser ? window.requestAnimationFrame : setImmediate;
+    const dequeuer = isBrowser ? window.cancelAnimationFrame : clearImmediate;
+
+    this.enqueuedUpdate = enqueuer(() => {
+      dequeuer(this.enqueuedUpdate!);
+
+      const {idsToUpdate} = this;
+
+      for (const [subscriber, ids] of this.subscriptions) {
+        if (ids.some(id => idsToUpdate.has(id))) {
+          subscriber(this.state(ids), this.details);
+        }
+      }
+
+      idsToUpdate.clear();
+    });
   }
 }
 

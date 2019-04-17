@@ -120,26 +120,6 @@ class NotFound extends React.Component<ComposedProps> {
 export default withI18n()(NotFound);
 ```
 
-If you only need access to parent translations and/ or the various formatting utilities found on the `I18n` object, you can instead use the `useSimpleI18n` hook. This hook does not support providing any internationalization details for the component itself, but is a very performant way to access i18n utilities that are tied to the global locale.
-
-```tsx
-import * as React from 'react';
-import {EmptyState} from '@shopify/polaris';
-import {useSimpleI18n} from '@shopify/react-i18n';
-
-export default function NotFound() {
-  const i18n = useSimpleI18n();
-  return (
-    <EmptyState
-      heading={i18n.translate('NotFound.heading')}
-      action={{content: i18n.translate('Common.back'), url: '/'}}
-    >
-      <p>{i18n.translate('NotFound.content')}</p>
-    </EmptyState>
-  );
-}
-```
-
 #### `i18n`
 
 The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
