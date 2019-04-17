@@ -102,7 +102,6 @@ export class I18n {
       pseudolocalize = false,
       onError,
     }: I18nDetails,
-    public readonly ids?: string[],
   ) {
     this.locale = locale;
     this.defaultCountry = country;

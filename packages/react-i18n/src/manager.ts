@@ -51,6 +51,9 @@ export class I18nManager {
   private subscriptions = new Map<Subscriber, string[]>();
   private translationPromises = new Map<string, Promise<void>>();
 
+  private idsToUpdate = new Set<string>();
+  private enqueuedUpdate?: number;
+
   constructor(
     public details: I18nDetails,
     initialTranslations: ExtractedTranslations = {},
@@ -106,6 +109,7 @@ export class I18nManager {
       fallbackLocale != null && possibleLocales.includes(fallbackLocale);
 
     let loading = false;
+    let hasUnresolvedTranslations = false;
 
     const translations = ids.reduce<TranslationDictionary[]>(
       (otherTranslations, id) => {
@@ -114,13 +118,18 @@ export class I18nManager {
         for (const locale of possibleLocales) {
           const translationId = getTranslationId(id, locale);
           const translation = this.translations.get(translationId);
+
           if (translation == null) {
             if (this.translationPromises.has(translationId)) {
-              loading = true;
+              hasUnresolvedTranslations = true;
             }
           } else {
             translationsForId.push(translation);
           }
+        }
+
+        if (translationsForId.length === 0 && hasUnresolvedTranslations) {
+          loading = true;
         }
 
         if (!omitFallbacks) {
@@ -175,13 +184,15 @@ export class I18nManager {
             this.translationPromises.delete(translationId);
             this.translations.set(translationId, result);
             this.asyncTranslationIds.add(translationId);
-            this.updateSubscribersForId(id);
+
+            if (result != null) {
+              this.updateSubscribersForId(id);
+            }
           })
           .catch(() => {
             this.translationPromises.delete(translationId);
             this.translations.set(translationId, undefined);
             this.asyncTranslationIds.add(translationId);
-            this.updateSubscribersForId(id);
           });
 
         this.translationPromises.set(translationId, promise);
@@ -192,11 +203,27 @@ export class I18nManager {
   }
 
   private updateSubscribersForId(id: string) {
-    for (const [subscriber, ids] of this.subscriptions) {
-      if (ids.includes(id)) {
-        subscriber(this.state(ids), this.details);
-      }
+    this.idsToUpdate.add(id);
+
+    if (this.enqueuedUpdate != null) {
+      return;
     }
+
+    const isBrowser = typeof window !== 'undefined';
+    const enqueue = isBrowser ? window.requestAnimationFrame : setImmediate;
+
+    this.enqueuedUpdate = enqueue(() => {
+      delete this.enqueuedUpdate;
+
+      const idsToUpdate = [...this.idsToUpdate];
+      this.idsToUpdate.clear();
+
+      for (const [subscriber, ids] of this.subscriptions) {
+        if (ids.some(id => idsToUpdate.includes(id))) {
+          subscriber(this.state(ids), this.details);
+        }
+      }
+    });
   }
 }
 
