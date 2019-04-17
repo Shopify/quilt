@@ -7,7 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [1.0.1] - 2019-04-17
+## [1.1.0] - 2019-04-17
+
+### Added
+
+- Added a `useLazyRef` hook ([#659](https://github.com/Shopify/quilt/pull/659))
+
+## [1.0.0] - 2019-04-12
 
 ### Added
 

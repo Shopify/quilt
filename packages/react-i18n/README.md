@@ -69,6 +69,8 @@ export default function NotFound() {
 
 The hook also returns a `ShareTranslations` component. You can wrap this around a part of the subtree that should have access to this component’s translations.
 
+> **Note:** `ShareTranslations` is not guaranteed to re-render when your i18n object changes. If you render `ShareTranslations` inside of a component that might block changes to children, you will likely run into issues. To prevent this, we recommend that `ShareTranslations` should be rendered as a top-level child of the component that uses `useI18n`.
+
 ```tsx
 import * as React from 'react';
 import {Page} from '@shopify/polaris';
@@ -81,13 +83,9 @@ interface Props {
 export default function ProductDetails({children}: Props) {
   const [i18n, ShareTranslations] = useI18n();
   return (
-    <Page
-      title={i18n.translate('ProductDetails.title')}
-    >
-      <ShareTranslations>
-        {children}
-      </ShareTranslations>
-    </EmptyState>
+    <ShareTranslations>
+      <Page title={i18n.translate('ProductDetails.title')}>{children}</Page>
+    </ShareTranslations>
   );
 }
 ```
@@ -118,26 +116,6 @@ class NotFound extends React.Component<ComposedProps> {
 }
 
 export default withI18n()(NotFound);
-```
-
-If you only need access to parent translations and/ or the various formatting utilities found on the `I18n` object, you can instead use the `useSimpleI18n` hook. This hook does not support providing any internationalization details for the component itself, but is a very performant way to access i18n utilities that are tied to the global locale.
-
-```tsx
-import * as React from 'react';
-import {EmptyState} from '@shopify/polaris';
-import {useSimpleI18n} from '@shopify/react-i18n';
-
-export default function NotFound() {
-  const i18n = useSimpleI18n();
-  return (
-    <EmptyState
-      heading={i18n.translate('NotFound.heading')}
-      action={{content: i18n.translate('Common.back'), url: '/'}}
-    >
-      <p>{i18n.translate('NotFound.content')}</p>
-    </EmptyState>
-  );
-}
 ```
 
 #### `i18n`

@@ -1,8 +1,18 @@
 import './matchers';
 
+import {animationFrame} from '@shopify/jest-dom-mocks';
+
 import {I18nManager} from '../manager';
 
 describe('I18nManager', () => {
+  beforeEach(() => {
+    animationFrame.mock();
+  });
+
+  afterEach(() => {
+    animationFrame.restore();
+  });
+
   const basicDetails = {locale: 'en'};
 
   const en = {hello: 'Hello'};
@@ -327,15 +337,17 @@ describe('I18nManager', () => {
         expect(spy).not.toHaveBeenCalled();
 
         await frCATranslation.resolve();
+        animationFrame.runFrame();
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy).toHaveBeenCalledWith(manager.state([id]), manager.details);
 
         await frTranslation.resolve();
+        animationFrame.runFrame();
         expect(spy).toHaveBeenCalledTimes(2);
         expect(spy).toHaveBeenCalledWith(manager.state([id]), manager.details);
       });
 
-      it('calls the subscription even when a translation rejects', async () => {
+      it('enqueues multiple translations resolving into the same frame', async () => {
         const id = createID();
         const spy = jest.fn();
         const frTranslation = createTranslationPromise(fr);
@@ -357,11 +369,48 @@ describe('I18nManager', () => {
         });
         manager.subscribe([id], spy);
 
+        await frCATranslation.resolve();
+        await frTranslation.resolve();
+
         expect(spy).not.toHaveBeenCalled();
 
-        await frCATranslation.reject();
+        animationFrame.runFrame();
+
         expect(spy).toHaveBeenCalledTimes(1);
-        expect(spy).toHaveBeenCalledWith(manager.state([id]), manager.details);
+      });
+
+      it('does not call the subscription when a translation resolves to undefined', async () => {
+        const id = createID();
+        const spy = jest.fn();
+        const frTranslation = createTranslationPromise(undefined);
+
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
+
+        manager.register({
+          id,
+          translations: () => frTranslation.promise,
+        });
+        manager.subscribe([id], spy);
+
+        await frTranslation.resolve();
+        expect(spy).not.toHaveBeenCalled();
+      });
+
+      it('does not call the subscription when a translation rejects', async () => {
+        const id = createID();
+        const spy = jest.fn();
+        const frTranslation = createTranslationPromise(fr);
+
+        const manager = new I18nManager({...basicDetails, locale: 'fr-CA'});
+
+        manager.register({
+          id,
+          translations: () => frTranslation.promise,
+        });
+        manager.subscribe([id], spy);
+
+        await frTranslation.reject();
+        expect(spy).not.toHaveBeenCalled();
       });
     });
   });
