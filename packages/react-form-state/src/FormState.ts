@@ -275,7 +275,10 @@ export default class FormState<
     this.setState<any>(({fields, dirtyFields}: State<Fields>) => {
       const field = fields[fieldPath];
 
-      const newValue = typeof value === 'function' ? value(field.value) : value;
+      const newValue =
+        typeof value === 'function'
+          ? (value as ValueMapper<Fields[Key]>)(field.value)
+          : value;
 
       const dirty = !isEqual(newValue, field.initialValue);
 

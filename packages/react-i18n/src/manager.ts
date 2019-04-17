@@ -212,7 +212,7 @@ export class I18nManager {
     const isBrowser = typeof window !== 'undefined';
     const enqueue = isBrowser ? window.requestAnimationFrame : setImmediate;
 
-    this.enqueuedUpdate = enqueue(() => {
+    this.enqueuedUpdate = (enqueue as (callback: () => void) => number)(() => {
       delete this.enqueuedUpdate;
 
       const idsToUpdate = [...this.idsToUpdate];

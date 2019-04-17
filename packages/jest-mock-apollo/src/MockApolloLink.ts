@@ -12,7 +12,7 @@ import {
   isUnionType,
 } from 'graphql';
 import {compile, Field} from 'graphql-tool-utilities';
-import {GraphQLMock} from './types';
+import {GraphQLMock, MockGraphQLFunction} from './types';
 
 export default class MockApolloLink extends ApolloLink {
   constructor(private mock: GraphQLMock, private schema: GraphQLSchema) {
@@ -33,7 +33,7 @@ export default class MockApolloLink extends ApolloLink {
 
         response =
           typeof mockForOperation === 'function'
-            ? mockForOperation(operation)
+            ? (mockForOperation as MockGraphQLFunction)(operation)
             : mockForOperation;
       }
 
