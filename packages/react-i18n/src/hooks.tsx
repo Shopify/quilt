@@ -25,11 +25,16 @@ export function useI18n(options?: Partial<RegisterOptions>): Result {
     );
   }
 
+  // Yes, this would usually be dangerous. But just above this line, we check to make
+  // sure that they never switch from the case where `options == null` to `options != null`,
+  // so we know that a given use of this hook will only ever hit one of these two cases.
+  /* eslint-disable react-hooks/rules-of-hooks */
   if (options == null) {
     return useSimpleI18n(manager);
   } else {
-    return useComplexI18n(options!, manager);
+    return useComplexI18n(options, manager);
   }
+  /* eslint-enable react-hooks/rules-of-hooks */
 }
 
 function useComplexI18n(
@@ -50,7 +55,7 @@ function useComplexI18n(
 
   const [i18n, setI18n] = React.useState(() => {
     const {translations} = manager.state(ids.current);
-    return new I18n(translations, manager.details, ids.current);
+    return new I18n(translations, manager.details);
   });
 
   const i18nRef = React.useRef(i18n);
@@ -58,12 +63,12 @@ function useComplexI18n(
   React.useEffect(
     () => {
       return manager.subscribe(ids.current, ({translations}, details) => {
-        const newI18n = new I18n(translations, details, ids.current);
+        const newI18n = new I18n(translations, details);
         i18nRef.current = newI18n;
         setI18n(newI18n);
       });
     },
-    [manager],
+    [ids, manager],
   );
 
   // We use refs in this component so that it never changes. If this component
@@ -74,7 +79,7 @@ function useComplexI18n(
   // this component to re-render, so no descendants will get the new ids/ i18n
   // value. Because we don't actually have any such cases, we're OK with this
   // for now.
-  const ShareTranslations = React.useMemo(
+  const shareTranslationsComponent = useLazyRef(
     () =>
       function ShareTranslations({children}: {children: React.ReactNode}) {
         return (
@@ -85,10 +90,9 @@ function useComplexI18n(
           </I18nIdsContext.Provider>
         );
       },
-    [i18nRef, ids],
   );
 
-  return [i18n, ShareTranslations];
+  return [i18n, shareTranslationsComponent.current];
 }
 
 function useSimpleI18n(manager: I18nManager): Result {
