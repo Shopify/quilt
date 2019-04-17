@@ -1,6 +1,6 @@
 {
   "name": "@shopify/enzyme-utilities",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components.",
   "main": "dist/index.js",
