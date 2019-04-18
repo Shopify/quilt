@@ -4,7 +4,7 @@ import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
-import {Tag, FunctionKeys} from './types';
+import {Tag, FunctionKeys, DeepPartialArguments} from './types';
 
 export type Predicate = (element: Element<unknown>) => boolean;
 
@@ -172,7 +172,7 @@ export class Element<Props> {
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
-    ...args: Arguments<Props[K]>
+    ...args: DeepPartialArguments<Arguments<Props[K]>>
   ): ReturnType<NonNullable<Props[K]>> {
     return this.root.act(() => {
       const propValue = this.props[prop];

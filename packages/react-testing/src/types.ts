@@ -6,6 +6,19 @@ export type FunctionKeys<T> = {
     : never
 }[keyof T];
 
+interface DeepPartialArray<T> extends Array<DeepPartial<T>> {}
+interface DeepPartialReadonlyArray<T> extends ReadonlyArray<DeepPartial<T>> {}
+type DeepPartialObject<T extends object> = {[K in keyof T]?: DeepPartial<T[K]>};
+
+type DeepPartial<T> = T extends (infer U)[]
+  ? DeepPartialArray<U>
+  : T extends ReadonlyArray<infer U>
+    ? DeepPartialReadonlyArray<U>
+    : T extends object ? DeepPartialObject<T> : T;
+
+export type DeepPartialArguments<T> = {[K in keyof T]?: DeepPartial<T[K]>} &
+  any[];
+
 // https://github.com/facebook/react/blob/master/packages/shared/ReactWorkTag.js
 export enum Tag {
   FunctionComponent = 0,

@@ -9,7 +9,13 @@ import {
 
 import {TestWrapper} from './TestWrapper';
 import {Element, Predicate} from './element';
-import {Tag, Fiber, ReactInstance, FunctionKeys} from './types';
+import {
+  Tag,
+  Fiber,
+  ReactInstance,
+  FunctionKeys,
+  DeepPartialArguments,
+} from './types';
 import {withIgnoredReactLogs} from './errors';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -134,9 +140,9 @@ export class Root<Props> {
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
-    ...args: Arguments<Props[K]>
+    ...args: DeepPartialArguments<Arguments<Props[K]>>
   ): ReturnType<NonNullable<Props[K]>> {
-    return this.withRoot(root => root.trigger(prop, ...args));
+    return this.withRoot(root => root.trigger(prop, ...(args as any)));
   }
 
   triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]) {

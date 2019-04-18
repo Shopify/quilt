@@ -246,7 +246,7 @@ Like `findWhere`, but returns all matches as an array.
 
 Simulates a function prop being called on your component. This is usually the key to effective tests: after you have mounted your component, you simulate a change in a subcomponent, and assert that the resulting React tree is in the expected shape. This method automatically uses [`Root#act`](#act) when calling the prop, so updates will automatically be applied to the root component.
 
-When you pass a key that is a prop on your component with a function type, this function will force you to provide additional arguments which will be passed to that function, and the return type will be whatever is returned by calling that prop.
+When you pass a key that is a prop on your component with a function type, this function will ensure that you pass arguments that are deeply partial versions of the types the prop expects. This allows you to, for example, pass an event object with only a few properties set to a `button`’s `onClick` prop. `trigger` returns whatever the result was of calling the prop.
 
 ```tsx
 function MyComponent({onClick}: {onClick(id: string): void}) {
