@@ -7,5 +7,5 @@
     "outDir": "lib"
   },
   "include": ["./**/*.ts"],
-  "exclude": ["./lib/**", "node_modules/**"]
+  "exclude": ["./tests/**", "./lib/**", "node_modules/**"]
 }

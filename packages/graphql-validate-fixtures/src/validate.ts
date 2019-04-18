@@ -15,12 +15,8 @@ import {
   isScalarType,
 } from 'graphql';
 import {GraphQLProjectConfig} from 'graphql-config';
-import {
-  AST,
-  Field,
-  Operation,
-  resolveProjectName,
-} from 'graphql-tool-utilities';
+import {resolveProjectName} from 'graphql-config-utilities';
+import {AST, Field, Operation} from 'graphql-tool-utilities';
 
 export type KeyPath = string;
 

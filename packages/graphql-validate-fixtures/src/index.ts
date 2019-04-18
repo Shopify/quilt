@@ -3,10 +3,10 @@ import {readFile, readJSON} from 'fs-extra';
 import {Source, parse, concatAST, GraphQLSchema} from 'graphql';
 import {getGraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 import {
-  compile,
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjects,
-} from 'graphql-tool-utilities';
+} from 'graphql-config-utilities';
+import {compile} from 'graphql-tool-utilities';
 
 import {
   Fixture,

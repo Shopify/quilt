@@ -1,7 +1,7 @@
 {
-  "name": "graphql-tool-utilities",
-  "description": "Common utilities for GraphQL developer tools",
-  "version": "0.10.1",
+  "name": "graphql-config-utilities",
+  "description": "Common utilities for graphql-config",
+  "version": "0.0.0",
   "types": "lib",
   "main": "lib/index.js",
   "license": "MIT",
@@ -17,10 +17,10 @@
   "bugs": {
     "url": "https://github.com/shopify/graphql-tools-web/issues"
   },
-  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-tool-utilities",
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-config-utilities",
   "tags": [
     "graphql",
-    "apollo"
+    "graphql-config"
   ],
   "scripts": {
     "build": "tsc",
@@ -28,9 +28,6 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@types/graphql": "^14.0.0",
-    "apollo-codegen-core": "0.28.1",
-    "core-js": "^2.0.0",
-    "graphql": "^14.0.0"
+    "graphql-config": "^2.0.0"
   }
 }

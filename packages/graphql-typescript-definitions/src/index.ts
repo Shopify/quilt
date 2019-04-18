@@ -17,16 +17,18 @@ import {
   GraphQLConfig,
 } from 'graphql-config';
 import {
-  AST,
-  compile,
-  Fragment,
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjectForSchemaPath,
   getGraphQLProjects,
   getGraphQLSchemaPaths,
+  resolvePathRelativeToConfig,
+} from 'graphql-config-utilities';
+import {
+  AST,
+  compile,
+  Fragment,
   isOperation,
   Operation,
-  resolvePathRelativeToConfig,
 } from 'graphql-tool-utilities';
 
 import {

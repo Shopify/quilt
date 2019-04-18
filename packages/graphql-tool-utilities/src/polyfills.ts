@@ -1,3 +1,3 @@
 // apollo-codegen uses Object.entries and Array.flatmap
-import 'core-js/es7/object';
-import 'core-js/es7/array';
+import 'core-js/modules/es7.object.entries';
+import 'core-js/modules/es7.array.flat-map';
