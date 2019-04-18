@@ -648,6 +648,22 @@ describe('Element', () => {
 
       expect(element.trigger('onClick')).toBe(returnValue);
     });
+
+    it('allows passing a deep partial version of the props', () => {
+      const partialEvent = {altKey: true};
+      const element = new Element<React.HTMLAttributes<HTMLDivElement>>(
+        {
+          ...defaultTree,
+          type: TriggerableComponent,
+          props: {onClick: jest.fn()},
+        },
+        [],
+        [],
+        defaultRoot,
+      );
+
+      expect(() => element.trigger('onClick', partialEvent)).not.toThrow();
+    });
   });
 
   describe('#triggerKeypath()', () => {
