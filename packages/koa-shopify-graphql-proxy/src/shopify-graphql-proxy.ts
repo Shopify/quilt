@@ -8,6 +8,7 @@ export enum ApiVersion {
   April19 = '2019-04',
   July19 = '2019-07',
   Unstable = 'unstable',
+  Unversioned = 'unversioned',
 }
 
 interface DefaultProxyOptions {
