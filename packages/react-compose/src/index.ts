@@ -1,6 +1,6 @@
 import * as React from 'react';
 import hoistStatics from 'hoist-non-react-statics';
-import {NonReactStatics} from 'packages/useful-types/src';
+import {NonReactStatics} from '@shopify/useful-types';
 
 export type ReactComponent<P> = React.ComponentType<P>;
 export type ComponentClass = React.ComponentClass<any>;
