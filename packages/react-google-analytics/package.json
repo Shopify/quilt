@@ -30,12 +30,7 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@shopify/enzyme-utilities": "^2.0.2",
-    "typescript": "~3.1.6"
-=======
-    "@shopify/enzyme-utilities": "^1.1.7",
     "typescript": "~3.2.1"
->>>>>>> Upgrade to typescript 3.2.1 and fix react-compose static fields
   }
 }
