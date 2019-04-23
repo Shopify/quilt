@@ -1,6 +1,6 @@
 {
   "name": "@shopify/logger",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "dist/index.js",
