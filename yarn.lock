@@ -2125,15 +2125,15 @@ core-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
   integrity sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY=
 
+core-js@^2.0.0, core-js@^2.5.3, core-js@^2.5.7:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
+  integrity sha512-RszJCAxg/PP6uzXVXL6BsxSXx/B05oJAQ2vkJRjyjrEcNVycaqOmNb5OTxZPE3xa5gwZduqza6L9JOCenh/Ecw==
+
 core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.4.tgz#f2c8bf181f2a80b92f360121429ce63a2f0aeae0"
   integrity sha1-8si/GB8qgLkvNgEhQpzmOi8K6uA=
-
-core-js@^2.5.3, core-js@^2.5.7:
-  version "2.5.7"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
-  integrity sha512-RszJCAxg/PP6uzXVXL6BsxSXx/B05oJAQ2vkJRjyjrEcNVycaqOmNb5OTxZPE3xa5gwZduqza6L9JOCenh/Ecw==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -3795,7 +3795,7 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
   integrity sha1-Dovf5NHduIVNZOBOp8AOKgJuVlg=
 
-graphql-config@^2.0.0, graphql-config@^2.0.1:
+graphql-config@^2.0.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-2.2.1.tgz#5fd0ec77ac7428ca5fb2026cf131be10151a0cb2"
   integrity sha512-U8+1IAhw9m6WkZRRcyj8ZarK96R6lQBQ0an4lp76Ps9FyhOXENC5YQOxOFGm5CxPrX2rD0g3Je4zG5xdNJjwzQ==
@@ -3826,16 +3826,15 @@ graphql-tag@^2.10.0:
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.1.tgz#10aa41f1cd8fae5373eaf11f1f67260a3cad5e02"
   integrity sha512-jApXqWBzNXQ8jYa/HLkZJaVw9jgwNqZkywa2zfFn16Iv1Zb7ELNHkJaXHR7Quvd5SIGsy6Ny7SUKATgnu05uEg==
 
-graphql-tool-utilities@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/graphql-tool-utilities/-/graphql-tool-utilities-0.10.0.tgz#32700558c43e1c9a1463c3493ef211673b6f00e2"
-  integrity sha512-UEfiWjGXkv++ykp5C9XpMQaRH9vbXHtRJkE2uh7oyttVKCr53XY/EXHpGY4k/bHFeXxLnJ46mQQkVF6+qnuSJA==
+graphql-tool-utilities@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-tool-utilities/-/graphql-tool-utilities-1.0.0.tgz#de71018f0a974248417c1ba5fe707075aff8a82d"
+  integrity sha512-jhQVan+vfvcXISULqdetxnu/+/PjPUJmkd6bvZZwjK4ebo+ljV8Hk6ifTD7PULw5Z7ABiZ2OP3mgz2PlC1Y2pQ==
   dependencies:
     "@types/graphql" "^14.0.0"
     apollo-codegen-core "0.28.1"
-    core-js "^2.5.7"
+    core-js "^2.0.0"
     graphql "^14.0.0"
-    graphql-config "^2.0.0"
 
 graphql-typed@^0.4.0:
   version "0.4.0"
