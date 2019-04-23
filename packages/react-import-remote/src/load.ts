@@ -61,5 +61,5 @@ function scriptTagFor(source: string, nonce: string) {
 }
 
 function appendScriptTag(scriptTag: HTMLScriptElement) {
-  document.head!.appendChild(scriptTag);
+  document.head.appendChild(scriptTag);
 }

@@ -31,7 +31,7 @@
     "@shopify/useful-types": "^1.2.3"
   },
   "devDependencies": {
-    "typescript": "~3.1.6"
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*"

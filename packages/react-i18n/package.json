@@ -30,12 +30,13 @@
     "@types/babel__template": "^7.0.1",
     "@types/babel__traverse": "^7.0.5",
     "intl-pluralrules": "^0.2.1",
-    "typescript": "~3.1.6"
+    "typescript": "~3.2.1"
   },
   "dependencies": {
     "@shopify/i18n": "^0.1.4",
     "@shopify/react-effect": "^3.0.2",
     "@shopify/react-hooks": "^1.1.1",
+    "@shopify/useful-types": "^1.2.3",
     "@types/hoist-non-react-statics": "^3.0.1",
     "hoist-non-react-statics": "^3.0.1",
     "prop-types": "^15.6.2",
