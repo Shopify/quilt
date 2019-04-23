@@ -31,7 +31,7 @@
     "@shopify/with-env": "^1.0.10",
     "@types/koa": "^2.0.44",
     "koa": "^2.5.0",
-    "typescript": "~3.1.6"
+    "typescript": "~3.2.1"
   },
   "sideEffects": false
 }

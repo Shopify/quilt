@@ -53,3 +53,15 @@ export type NonOptionalKeys<T> = {
 export type NonNullableKeys<T> = {
   [K in keyof T]-?: null extends T[K] ? never : K
 }[keyof T];
+
+// Reference https://github.com/mridgway/hoist-non-react-statics/blob/master/src/index.js#L6
+type ReactStatics =
+  | 'displayName'
+  | 'getDerivedStateFromProps'
+  | 'getDerivedStateFromErrors'
+  | 'childContextTypes'
+  | 'contextType'
+  | 'contextTypes'
+  | 'getDefaultProps'
+  | 'propTypes';
+export type NonReactStatics<T> = Pick<T, Exclude<keyof T, ReactStatics>>;

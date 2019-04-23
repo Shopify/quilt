@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/admin-graphql-api-utilities/README.md",
   "devDependencies": {
-    "typescript": "~3.1.6"
+    "typescript": "~3.2.1"
   },
   "sideEffects": false,
   "dependencies": {

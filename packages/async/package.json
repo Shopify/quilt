@@ -30,7 +30,7 @@
     "@types/babel__core": "^7.0.4",
     "@types/babel__traverse": "^7.0.5",
     "@types/webpack": "^4.4.24",
-    "typescript": "~3.1.6"
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*",
