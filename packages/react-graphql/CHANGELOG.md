@@ -7,7 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- Added `useQuery` hook ([#663](https://github.com/Shopify/quilt/pull/663))
+## [3.2.0] - 2019-04-25
+
+- Added `useQuery` and `useApolloClient` hooks ([#663](https://github.com/Shopify/quilt/pull/663))
 
 ## [3.1.0] - 2019-04-17
 
