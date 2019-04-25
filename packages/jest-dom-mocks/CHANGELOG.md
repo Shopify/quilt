@@ -8,7 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+## [2.5.4] - 2019-04-25
+
+### Fixed
+
+- Now correctly declares a dependency on `@shopify/react-async`
 
 ## 2.5.0 - 2019-03-28
 
