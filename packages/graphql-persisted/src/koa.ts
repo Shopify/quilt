@@ -7,14 +7,14 @@ import {CacheMissBehavior} from './shared';
 
 export {CacheMissBehavior};
 
-interface Cache {
+export interface Cache {
   get(
     id: string,
   ): string | undefined | null | Promise<string | undefined | null>;
   set(id: string, body: string): Promise<void>;
 }
 
-interface Options {
+export interface Options {
   cache?: Cache;
   cacheMissBehavior?: CacheMissBehavior;
 }
@@ -85,7 +85,7 @@ function createOperationAssociationMiddleware({
   };
 }
 
-export function createPersistedGraphQLMiddleware(options: Options) {
+export function createPersistedGraphQLMiddleware(options: Options = {}) {
   return compose([bodyparser(), createOperationAssociationMiddleware(options)]);
 }
 

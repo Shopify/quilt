@@ -60,6 +60,8 @@ export class PersistedLink extends ApolloLink {
               subscription.unsubscribe();
             }
 
+            delete operation.extensions.persisted;
+
             operation.setContext({
               http: {
                 includeQuery: true,
