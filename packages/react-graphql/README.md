@@ -173,6 +173,146 @@ function App() {
 render(<App />, document.getElementById('root'));
 ```
 
+### `useApolloClient`
+
+`useApolloClient` hook can be use to access apollo client that is currently in the context.
+The client returned from hook can than be use to trigger query manually.
+Read [ApolloClient class](https://www.apollographql.com/docs/react/api/apollo-client) API for the full list of actions you can perform.
+
+```tsx
+import React from 'react';
+import gql from 'graphql-tag';
+import {useApolloClient} from '@shopify/react-graphql';
+import {Button} from '@shopify/polaris';
+
+const petQuery = gql`
+  query PetQuery {
+    pets {
+      name
+    }
+  }
+`;
+
+function MyComponent() {
+  const client = useApolloClient();
+
+  async function fetchPets() {
+    try {
+      await client.query({
+        petQuery,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  return <Button onClick={fetchPets}>Fetch Pets</Button>;
+}
+```
+
+### `useQuery`
+
+This hook accepts two arguments:
+
+- first argument, a required query document or an `AsyncQueryComponent` created from [`createAsyncQueryComponent`](#createasyncquerycomponent)
+
+- second argument, a optional set of options with the following type definition.
+
+```ts
+interface QueryHookOptions<Variables = OperationVariables> {
+  ssr?: boolean;
+  variables?: Variables;
+  fetchPolicy?: FetchPolicy;
+  errorPolicy?: ErrorPolicy;
+  pollInterval?: number;
+  client?: ApolloClient<any>;
+  notifyOnNetworkStatusChange?: boolean;
+  context?: Context;
+  skip?: boolean;
+}
+```
+
+The hook result is an object with the type definition of:
+
+```ts
+interface QueryHookResult<Data, Variables> {
+  client: ApolloClient<any>;
+  data: Data | undefined;
+  error?: ApolloError;
+  loading: boolean;
+  startPolling(pollInterval: number): void;
+  stopPolling(): void;
+  subscribeToMore<SubscriptionData = Data>(
+    options: SubscribeToMoreOptions<Data, Variables, SubscriptionData>,
+  ): () => void;
+  updateQuery(
+    mapFn: (
+      previousQueryResult: Data,
+      options: UpdateQueryOptions<Variables>,
+    ) => Data,
+  ): void;
+  refetch(variables?: Variables): Promise<ApolloQueryResult<Data>>;
+  networkStatus: NetworkStatus | undefined;
+  variables: Variables | undefined;
+}
+```
+
+### Querying with a query document
+
+Below is an example of how to use `useQuery` with a query document.
+
+```tsx
+import React from 'react';
+import {useQuery} from '@shopify/react-graphql';
+
+import customerListQuery from './graphql/CustomerListQuery.graphql';
+
+function CustomerList() {
+  const {data, loading} = useQuery(customerListQuery);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const customers = data && data.customers ? data.customers : [];
+  return (
+    <ul>
+      {customers.map(customer => (
+        <li key={customer.id}>{customer.displayName}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Querying with `AsyncQueryComponent`
+
+Below is an example using `useQuery` with an `AsyncQueryComponent` created from [`createAsyncQueryComponent`](#createasyncquerycomponent).
+
+```tsx
+import React from 'react';
+import {createAsyncQueryComponent, useQuery} from '@shopify/react-graphql';
+
+const CustomerListQuery = createAsyncQueryComponent({
+  load: () => import('./graphql/CustomerListQuery.graphql'),
+});
+
+function CustomerList() {
+  const {data, loading} = useQuery(CustomerListQuery);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const customers = data && data.customers ? data.customers : [];
+  return (
+    <ul>
+      {customers.map(customer => (
+        <li key={customer.id}>{customer.displayName}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
 ### `useMutation`
 
 This hook accepts two arguments: the mutation document, and optionally, a set of options to pass to the underlying mutation. It will return a function that will trigger the mutation when invoked.
