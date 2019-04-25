@@ -57,8 +57,8 @@ const MyComponent = createAsyncComponent({
 
 While you can supply whatever markup you like for these, we recommend that you use them for the following purposes:
 
-- `Prefetch`: loading resources that will be used by the component
-- `Preload`: loading resources **and** data that will be used by the component
+- `Preload`: loading resources that will be used by the component
+- `Prefetch`: loading resources **and** data that will be used by the component
 - `KeepFresh`: loading resources and data that will be used by the component, and keeping data up to date
 
 If you want props for your `Preload`, `Prefetch`, or `KeepFresh` components, simply provide them in the `render` option for that component. The resulting components will have those prop types baked in.
