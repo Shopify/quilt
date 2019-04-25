@@ -58,4 +58,6 @@ export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
   KeepFresh(
     props: VariableOptions<Variables> & {pollInterval?: number} & ConstantProps,
   ): React.ReactElement<{}>;
+  resolve(): Promise<DocumentNode<Data, Variables, DeepPartial>>;
+  resolved: DocumentNode<Data, Variables, DeepPartial> | null;
 }

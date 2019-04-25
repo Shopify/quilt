@@ -4,7 +4,7 @@ import {DocumentNode} from 'graphql-typed';
 import {useCallback} from 'react';
 
 import {MutationHookOptions, MutationHookResult} from './types';
-import {useApolloClient} from './apollo-client';
+import useApolloClient from './apollo-client';
 
 export default function useMutation<Data = any, Variables = OperationVariables>(
   mutation: DocumentNode<Data, Variables>,

@@ -13,7 +13,7 @@ import {
 } from '@shopify/react-intersection-observer';
 
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
-import {normalize, resolve} from './utilities';
+import {trySynchronousResolve, resolve} from './utilities';
 
 export interface AsyncPropsRuntime {
   defer?: DeferTiming;
@@ -30,11 +30,6 @@ interface State<Value> {
   resolved: Value | null;
   loading: boolean;
 }
-
-/* eslint-disable @typescript-eslint/camelcase */
-declare const __webpack_require__: (id: string) => any;
-declare const __webpack_modules__: {[key: string]: any};
-/* eslint-enable @typescript-eslint/camelcase */
 
 class ConnectedAsync<Value> extends React.Component<
   Props<Value>,
@@ -134,8 +129,10 @@ export function Async<Value>(props: Omit<Props<Value>, 'manager'>) {
 }
 
 function initialState<Value>(props: Props<Value>): State<Value> {
-  const canResolve = props.defer == null && props.id;
-  const resolved = canResolve && props.id ? tryRequire(props.id()) : null;
+  const resolved = trySynchronousResolve<Value>({
+    id: props.id,
+    defer: props.defer,
+  });
 
   return {
     resolved,
@@ -145,54 +142,4 @@ function initialState<Value>(props: Props<Value>): State<Value> {
 
 function defaultRender() {
   return null;
-}
-
-// Webpack does not like seeing an explicit require(someVariable) in code
-// because that is a dynamic require that it can’t resolve. This code
-// obfuscates `require()` for the purpose of fooling Webpack, which is fine
-// because we only want to use the `require()` in cases where Webpack
-// is not the module bundler.
-//
-// If we ever reference `require` directly, Webpack complains. So, we first
-// check global["require"], which works in Node. However, this doesn’t work
-// in Jest when the test is set to simulate a browser, as global in that case
-// in a Window object. There, we can only rely on module.require, which is
-// actually supposed to be something different but in Jest is the same as
-// the global require function.
-const requireKey = 'require';
-const nodeRequire =
-  (typeof global === 'object' &&
-    typeof global[requireKey] === 'function' &&
-    global[requireKey]) ||
-  (typeof module === 'object' &&
-    typeof module[requireKey] === 'function' &&
-    module[requireKey]) ||
-  undefined;
-
-// If we have an ID, we try to first use Webpack’s internal stuff
-// to resolve the module. If those don’t exist, we know we aren’t
-// inside of a Webpack bundle, so we try to use Node’s native resolution
-// (which will work in environments like Jest’s test runner).
-function tryRequire(id: string) {
-  if (
-    /* eslint-disable @typescript-eslint/camelcase */
-    typeof __webpack_require__ === 'function' &&
-    typeof __webpack_modules__ === 'object' &&
-    __webpack_modules__[id]
-    /* eslint-enable @typescript-eslint/camelcase */
-  ) {
-    try {
-      return normalize(__webpack_require__(id));
-    } catch {
-      // Just ignore failures
-    }
-  } else if (typeof nodeRequire === 'function') {
-    try {
-      return normalize(nodeRequire(id));
-    } catch {
-      // Just ignore failures
-    }
-  }
-
-  return undefined;
 }
