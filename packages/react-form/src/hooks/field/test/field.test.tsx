@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount} from '@shopify/react-testing';
 import faker from 'faker';
+import {mount} from '@shopify/react-testing';
 import {useField, FieldConfig} from '../field';
 
 describe('useField', () => {

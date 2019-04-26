@@ -1,6 +1,6 @@
-import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import memoizeFn from 'lodash/memoize';
 import {memoize} from '@shopify/javascript-utilities/decorators';
+import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,

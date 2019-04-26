@@ -1,6 +1,6 @@
+import mount from 'koa-mount';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import ping from '..';
-import mount from 'koa-mount';
 
 describe('koa-liveness-ping', () => {
   it('calls next() when path is not `/ping`', async () => {

@@ -157,7 +157,6 @@ function reduceList<Item extends object>(
       const {index, key} = target;
       const currentItem = state.list[index];
 
-      // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
       currentItem[key] = reduceField(currentItem[key], {
         type: action.type,
         payload: value,

@@ -57,7 +57,7 @@ export default class RequestIdleCallback {
     return this.isUsingMockIdleCallback;
   }
 
-  runIdleCallbacks(timeRemaining: number = Infinity, didTimeout = false) {
+  runIdleCallbacks(timeRemaining = Infinity, didTimeout = false) {
     this.ensureIdleCallbackIsMock();
 
     // We need to do it this way so that frames that queue other frames
