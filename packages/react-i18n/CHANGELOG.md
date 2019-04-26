@@ -8,11 +8,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [1.1.3] - 2019-04-17
+## [1.2.0] - 2019-04-26
 
 ### Added
 
 - Added `getTranslationTree` to get the translation tree from a key ([#645](https://github.com/Shopify/quilt/pull/645))
+
+## [1.1.3] - 2019-04-17
 
 ### Fixed
 
