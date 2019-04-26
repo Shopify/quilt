@@ -32,6 +32,31 @@ export interface TranslateOptions<
   pseudotranslate?: boolean | string;
 }
 
+export function getTranslationTree(
+  id: string,
+  translations: TranslationDictionary | TranslationDictionary[],
+): string | object {
+  const normalizedTranslations = Array.isArray(translations)
+    ? translations
+    : [translations];
+
+  let result: string | TranslationDictionary;
+
+  for (const translationDictionary of normalizedTranslations) {
+    result = translationDictionary;
+
+    for (const part of id.split(SEPARATOR)) {
+      result = result[part];
+    }
+
+    if (result) {
+      return result;
+    }
+  }
+
+  throw new MissingTranslationError();
+}
+
 export function translate(
   id: string,
   options: TranslateOptions<PrimitiveReplacementDictionary>,
