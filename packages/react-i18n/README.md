@@ -281,6 +281,31 @@ i18n.translate('MyComponent.searchResult', {
 });
 ```
 
+##### Translation tree
+
+If you need to access the subtree of your translations, you can use `i18n.getTranslationTree` to get all subtranslations:
+
+```ts
+// Assuming a dictionary like:
+{
+  "MyComponent": {
+    "countries": {
+      "CA": "Canada",
+      "FR": "France",
+      "JP": "Japan"
+    }
+  }
+}
+
+i18n.getTranslationTree('MyComponent.countries');
+// Will return
+// {
+//   "CA": "Canada",
+//   "FR": "France",
+//   "JP": "Japan"
+// }
+```
+
 ### Server
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
