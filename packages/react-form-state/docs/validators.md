@@ -209,7 +209,10 @@ The validation helper companion for `<FormState.Nested />` lets you define field
 ```typescript
   validators={{
     firstVariant: validateNested({
-      price: validators.numericString('variant price should be a number'),
+      price: [
+        validators.numericString('variant price should be a number'),
+        nextValidator('message')
+      ],
       sku: validators.lengthLessthan(3, 'variant SKU must be shorter than 3 characters');
     });
   }}
