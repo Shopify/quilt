@@ -9,10 +9,13 @@ import {MissingTranslationError} from '../errors';
 
 jest.mock('../utilities', () => ({
   translate: jest.fn(),
+  getTranslationTree: jest.fn(),
   getCurrencySymbol: jest.fn(),
 }));
 
 const translate: jest.Mock = require('../utilities').translate;
+const getTranslationTree: jest.Mock = require('../utilities')
+  .getTranslationTree;
 const getCurrencySymbol: jest.Mock = require('../utilities').getCurrencySymbol;
 
 describe('I18n', () => {
@@ -135,6 +138,62 @@ describe('I18n', () => {
         timezone: defaultTimezone,
       });
       expect(i18n).toHaveProperty('defaultTimezone', defaultTimezone);
+    });
+  });
+
+  describe('#getTranslationTree()', () => {
+    it('calls the getTranslationTree() utility with translations, key, locale, scope, pseudotranslate, and replacements', () => {
+      const mockResult = {foo: 'bar'};
+      getTranslationTree.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const result = i18n.getTranslationTree('hello');
+
+      expect(result).toBe(mockResult);
+      expect(getTranslationTree).toHaveBeenCalledWith(
+        'hello',
+        defaultTranslations,
+      );
+    });
+
+    it('rethrows a missing translation error by default', () => {
+      const error = new MissingTranslationError();
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(() => i18n.getTranslationTree('hello')).toThrow(error);
+    });
+
+    it('calls an onError handler', () => {
+      const spy = jest.fn();
+      const error = new MissingTranslationError();
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: spy,
+      });
+
+      i18n.getTranslationTree('hello');
+
+      expect(spy).toHaveBeenCalledWith(error);
+    });
+
+    it('returns an empty string when an onError handler does not rethrow', () => {
+      getTranslationTree.mockImplementation(() => {
+        throw new MissingTranslationError();
+      });
+
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: () => {},
+      });
+
+      expect(i18n.getTranslationTree('hello')).toBe('');
     });
   });
 
