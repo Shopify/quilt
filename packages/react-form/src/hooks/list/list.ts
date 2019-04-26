@@ -1,4 +1,6 @@
 import {useMemo, useEffect, ChangeEvent} from 'react';
+import isEqual from 'fast-deep-equal';
+
 import {
   ValidationDictionary,
   Validator,
@@ -132,11 +134,14 @@ export function useList<Item extends object>(
   validationDependencies: unknown[] = [],
 ): FieldDictionary<Item>[] {
   const [state, dispatch] = useListReducer(list);
+
   useEffect(
     () => {
-      dispatch(reinitializeAction(list));
+      if (!isEqual(list, state.initial)) {
+        dispatch(reinitializeAction(list));
+      }
     },
-    [list, dispatch],
+    [list, state.initial, dispatch],
   );
 
   const validationConfigs = useMemo(

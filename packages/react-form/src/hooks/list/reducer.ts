@@ -106,11 +106,13 @@ export function updateErrorAction<Item>(
 
 export interface ListState<Item extends object> {
   list: FieldStates<Item>[];
+  initial: Item[];
 }
 
-export function useListReducer<Item extends object>(list: Item[]) {
+export function useListReducer<Item extends object>(initial: Item[]) {
   return useReducer<Reducer<ListState<Item>, ListAction<Item>>>(reduceList, {
-    list: list.map(initialListItemState),
+    list: initial.map(initialListItemState),
+    initial,
   });
 }
 
@@ -121,6 +123,7 @@ function reduceList<Item extends object>(
   switch (action.type) {
     case 'reinitialize': {
       return {
+        initial: action.payload.list,
         list: action.payload.list.map(initialListItemState),
       };
     }
@@ -136,7 +139,7 @@ function reduceList<Item extends object>(
         updateFieldError(error),
       ) as any;
 
-      return {list: [...state.list]};
+      return {...state, list: [...state.list]};
     }
     case 'reset': {
       const {
@@ -147,7 +150,7 @@ function reduceList<Item extends object>(
 
       currentItem[key] = reduceField(currentItem[key], {type: 'reset'});
 
-      return {list: [...state.list]};
+      return {...state, list: [...state.list]};
     }
     case 'update':
     case 'newDefaultValue': {
@@ -162,7 +165,7 @@ function reduceList<Item extends object>(
         payload: value,
       } as FieldAction<typeof value>);
 
-      return {list: [...state.list]};
+      return {...state, list: [...state.list]};
     }
   }
 }
