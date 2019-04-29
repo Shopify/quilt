@@ -13,29 +13,13 @@ import {
 const IMPORT_REGEX = /^#import\s+['"]([^'"]*)['"];?[\s\n]*/gm;
 const DEFAULT_NAME = 'Operation';
 
-export function cleanDocument(document: DocumentNode) {
-  const usedDefinitions = new Set<DefinitionNode>();
-  const dependencies = definitionDependencies(document.definitions);
-
-  const markAsUsed = (definition: DefinitionNode) => {
-    if (usedDefinitions.has(definition)) {
-      return;
-    }
-
-    usedDefinitions.add(definition);
-
-    for (const dependency of dependencies.get(definition) || []) {
-      markAsUsed(dependency);
-    }
-  };
-
-  for (const definition of document.definitions) {
-    if (definition.kind !== 'FragmentDefinition') {
-      markAsUsed(definition);
-    }
+export function cleanDocument(
+  document: DocumentNode,
+  {removeUnused = true} = {},
+) {
+  if (removeUnused) {
+    removeUnusedDefinitions(document);
   }
-
-  (document as any).definitions = [...usedDefinitions];
 
   for (const definition of document.definitions) {
     addTypename(definition);
@@ -81,6 +65,31 @@ export function extractImports(rawSource: string) {
   });
 
   return {imports: [...imports], source};
+}
+
+function removeUnusedDefinitions(document: DocumentNode) {
+  const usedDefinitions = new Set<DefinitionNode>();
+  const dependencies = definitionDependencies(document.definitions);
+
+  const markAsUsed = (definition: DefinitionNode) => {
+    if (usedDefinitions.has(definition)) {
+      return;
+    }
+
+    usedDefinitions.add(definition);
+
+    for (const dependency of dependencies.get(definition) || []) {
+      markAsUsed(dependency);
+    }
+  };
+
+  for (const definition of document.definitions) {
+    if (definition.kind !== 'FragmentDefinition') {
+      markAsUsed(definition);
+    }
+  }
+
+  (document as any).definitions = [...usedDefinitions];
 }
 
 function minifySource(source: string) {

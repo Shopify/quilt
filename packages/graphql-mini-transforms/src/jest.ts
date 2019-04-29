@@ -21,21 +21,23 @@ const transformer: Transformer = {
     const utilityImports = `
       var {print} = require('graphql');
       var {cleanDocument} = require(${JSON.stringify(
-        `${__dirname}/source.js`,
+        `${__dirname}/document.js`,
       )});
     `;
 
     const importSource = imports
       .map(
         (imported, index) =>
-          `var importedDocument${index} = require(${JSON.stringify(imported)})`,
+          `var importedDocument${index} = require(${JSON.stringify(
+            imported,
+          )});`,
       )
       .join('\n');
 
     const appendDefinitionsSource = imports
       .map(
         (_, index) =>
-          `document.definitions.push.apply(document.definitions, importedDocument${index}.definitions)`,
+          `document.definitions.push.apply(document.definitions, importedDocument${index}.definitions);`,
       )
       .join('\n');
 
@@ -47,7 +49,7 @@ const transformer: Transformer = {
 
       ${appendDefinitionsSource}
 
-      module.exports = cleanDocument(document);
+      module.exports = cleanDocument(document, {removeUnused: false});
     `;
   },
 };
