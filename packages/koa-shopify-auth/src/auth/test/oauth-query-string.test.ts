@@ -24,9 +24,9 @@ const baseConfig = {
 const queryData = {
   state: fakeNonce,
   scope: 'write_orders, write_products',
-  // eslint-disable-next-line @typescript-eslint/camelcase
+  // eslint-disable-next-line babel/camelcase
   client_id: baseConfig.apiKey,
-  // eslint-disable-next-line @typescript-eslint/camelcase
+  // eslint-disable-next-line babel/camelcase
   redirect_uri: `https://${baseUrl}/callback`,
 };
 

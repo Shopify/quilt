@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import {mount} from '@shopify/react-testing';
 import faker from 'faker';
+import {mount} from '@shopify/react-testing';
 import {useList, FieldListConfig} from '../list';
 import {ListValidationContext} from '../../../types';
 
