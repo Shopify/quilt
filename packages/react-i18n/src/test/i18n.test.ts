@@ -157,18 +157,33 @@ describe('I18n', () => {
     });
 
     it('rethrows a missing translation error by default', () => {
-      const error = new MissingTranslationError();
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
       getTranslationTree.mockImplementation(() => {
         throw error;
       });
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      expect(() => i18n.getTranslationTree('hello')).toThrow(error);
+      expect(() => i18n.getTranslationTree(key)).toThrow(error);
+    });
+
+    it('rethrows a missing translation error with the missing key message', () => {
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(() => i18n.getTranslationTree(key)).toThrow(
+        `Missing translation for key: ${key}`,
+      );
     });
 
     it('calls an onError handler', () => {
+      const key = 'hello';
       const spy = jest.fn();
-      const error = new MissingTranslationError();
+      const error = new MissingTranslationError(key);
       getTranslationTree.mockImplementation(() => {
         throw error;
       });
@@ -178,14 +193,15 @@ describe('I18n', () => {
         onError: spy,
       });
 
-      i18n.getTranslationTree('hello');
+      i18n.getTranslationTree(key);
 
       expect(spy).toHaveBeenCalledWith(error);
     });
 
     it('returns an empty string when an onError handler does not rethrow', () => {
+      const key = 'key';
       getTranslationTree.mockImplementation(() => {
-        throw new MissingTranslationError();
+        throw new MissingTranslationError(key);
       });
 
       const i18n = new I18n(defaultTranslations, {
@@ -193,7 +209,7 @@ describe('I18n', () => {
         onError: () => {},
       });
 
-      expect(i18n.getTranslationTree('hello')).toBe('');
+      expect(i18n.getTranslationTree(key)).toBe('');
     });
   });
 
@@ -286,18 +302,33 @@ describe('I18n', () => {
     });
 
     it('rethrows a missing translation error by default', () => {
-      const error = new MissingTranslationError();
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
       translate.mockImplementation(() => {
         throw error;
       });
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      expect(() => i18n.translate('hello')).toThrow(error);
+      expect(() => i18n.translate(key)).toThrow(error);
+    });
+
+    it('rethrows a missing translation error with the missing key message', () => {
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
+      translate.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(() => i18n.translate(key)).toThrow(
+        `Missing translation for key: ${key}`,
+      );
     });
 
     it('calls an onError handler', () => {
+      const key = 'hello';
       const spy = jest.fn();
-      const error = new MissingTranslationError();
+      const error = new MissingTranslationError(key);
       translate.mockImplementation(() => {
         throw error;
       });
@@ -307,14 +338,15 @@ describe('I18n', () => {
         onError: spy,
       });
 
-      i18n.translate('hello');
+      i18n.translate(key);
 
       expect(spy).toHaveBeenCalledWith(error);
     });
 
     it('returns an empty string when an onError handler does not rethrow', () => {
+      const key = 'hello';
       translate.mockImplementation(() => {
-        throw new MissingTranslationError();
+        throw new MissingTranslationError(key);
       });
 
       const i18n = new I18n(defaultTranslations, {
@@ -322,7 +354,7 @@ describe('I18n', () => {
         onError: () => {},
       });
 
-      expect(i18n.translate('hello')).toBe('');
+      expect(i18n.translate(key)).toBe('');
     });
   });
 
