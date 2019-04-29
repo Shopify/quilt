@@ -30,3 +30,7 @@ export interface ComplexReplacementDictionary {
 export type MaybePromise<T> = T | Promise<T>;
 
 export {CurrencyCode} from './currencyCode';
+
+export type Replacements =
+  | PrimitiveReplacementDictionary
+  | ComplexReplacementDictionary;

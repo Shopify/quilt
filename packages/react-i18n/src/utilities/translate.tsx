@@ -22,11 +22,7 @@ export const PSEUDOTRANSLATE_OPTIONS: PseudotranslateOptions = {
   append: '!!]',
 };
 
-export interface TranslateOptions<
-  Replacements extends
-    | PrimitiveReplacementDictionary
-    | ComplexReplacementDictionary = {}
-> {
+export interface TranslateOptions<Replacements = {}> {
   scope?: string | string[];
   replacements?: Replacements;
   pseudotranslate?: boolean | string;
@@ -54,7 +50,7 @@ export function getTranslationTree(
     }
   }
 
-  throw new MissingTranslationError();
+  throw new MissingTranslationError(id);
 }
 
 export function translate(
@@ -99,7 +95,7 @@ export function translate(
     }
   }
 
-  throw new MissingTranslationError();
+  throw new MissingTranslationError(id);
 }
 
 function translateWithDictionary(
@@ -195,13 +191,7 @@ function updateStringWithReplacements(
       const replacement = match.substring(1, match.length - 1);
 
       if (!replacements.hasOwnProperty(replacement)) {
-        throw new MissingReplacementError(
-          `No replacement found for key '${replacement}'. The following replacements were passed: ${Object.keys(
-            replacements,
-          )
-            .map(key => `'${key}'`)
-            .join(', ')}`,
-        );
+        throw new MissingReplacementError(replacement, replacements);
       }
 
       return replacements[replacement] as string;
@@ -226,13 +216,7 @@ function updateStringWithReplacements(
 
       if (replacement) {
         if (!replacements.hasOwnProperty(replacement)) {
-          throw new MissingReplacementError(
-            `No replacement found for key '${replacement}'. The following replacements were passed: ${Object.keys(
-              replacements,
-            )
-              .map(key => `'${key}'`)
-              .join(', ')}`,
-          );
+          throw new MissingReplacementError(replacement, replacements);
         }
 
         matchIndex += 1;
