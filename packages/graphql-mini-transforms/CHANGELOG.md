@@ -5,6 +5,10 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [1.0.2] - 2019-04-29
+
+- Fixed issues with the Webpack loader when a document had one or more imports ([#80](https://github.com/Shopify/graphql-tools-web/pull/80))
+
 ## [1.0.0] - 2019-04-09
 
 Initial release
