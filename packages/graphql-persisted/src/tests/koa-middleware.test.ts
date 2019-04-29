@@ -5,7 +5,7 @@ import {
   Cache,
   CacheMissBehavior,
   createPersistedGraphQLMiddleware,
-} from '../koa';
+} from '../koa-middleware';
 
 describe('persistedGraphQLMiddleware', () => {
   it('only calls next when the request does not look like a persisted GraphQL query', async () => {

@@ -3,8 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "Apollo and Koa integrations for using persisted GraphQL queries.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",
