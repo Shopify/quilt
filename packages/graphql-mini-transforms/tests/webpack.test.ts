@@ -136,6 +136,44 @@ describe('graphql-mini-transforms/webpack', () => {
       expect(body).toContain('fragment FooFragment on Shop');
     });
 
+    it('includes multiple imported sources', async () => {
+      const context = '/app/';
+
+      const fragmentFiles = new Map([
+        ['/app/FooFragment.graphql', 'fragment FooFragment on Shop { id }'],
+        ['/app/BarFragment.graphql', 'fragment BarFragment on Shop { name }'],
+      ]);
+
+      const loader = createLoaderContext({
+        context,
+        readFile: (file) => fragmentFiles.get(file)!,
+      });
+
+      const {
+        loc: {
+          source: {body},
+        },
+      } = await extractDocumentExport(
+        stripIndent`
+          #import './FooFragment.graphql';
+          #import './BarFragment.graphql';
+
+          query Shop {
+            shop {
+              ...FooFragment
+              ...BarFragment
+            }
+          }
+        `,
+        loader,
+      );
+
+      expect(body).toContain('...FooFragment');
+      expect(body).toContain('...BarFragment');
+      expect(body).toContain('fragment FooFragment on Shop');
+      expect(body).toContain('fragment BarFragment on Shop');
+    });
+
     it('excludes imported sources if they are not used', async () => {
       const context = '/app/';
       const loader = createLoaderContext({
@@ -183,12 +221,12 @@ function createLoaderContext({
     fs: {
       readFile(
         file: string,
-        withFile: (error: Error | null, result?: string) => void,
+        withFile: (error: Error | null, result?: string | Buffer) => void,
       ) {
         const read = readFile(file);
 
         if (typeof read === 'string') {
-          withFile(null, read);
+          withFile(null, Buffer.from(read, 'utf8'));
         } else {
           withFile(read);
         }

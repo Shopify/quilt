@@ -6,7 +6,7 @@ import {cleanDocument, extractImports} from './document';
 
 export default async function graphQLLoader(
   this: loader.LoaderContext,
-  source: string,
+  source: string | Buffer,
 ) {
   this.cacheable();
 
@@ -27,11 +27,14 @@ export default async function graphQLLoader(
 }
 
 async function loadDocument(
-  rawSource: string,
+  rawSource: string | Buffer,
   resolveContext: string,
   loader: loader.LoaderContext,
 ): Promise<DocumentNode> {
-  const {imports, source} = extractImports(rawSource);
+  const normalizedSource =
+    typeof rawSource === 'string' ? rawSource : rawSource.toString();
+
+  const {imports, source} = extractImports(normalizedSource);
   const document = parse(source);
 
   if (imports.length === 0) {

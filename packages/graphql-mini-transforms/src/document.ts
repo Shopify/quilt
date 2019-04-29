@@ -10,7 +10,7 @@ import {
   Location,
 } from 'graphql';
 
-const IMPORT_REGEX = /^#import\s+['"]([^'"]*)['"];?[\s\n]*/m;
+const IMPORT_REGEX = /^#import\s+['"]([^'"]*)['"];?[\s\n]*/gm;
 const DEFAULT_NAME = 'Operation';
 
 export function cleanDocument(document: DocumentNode) {
