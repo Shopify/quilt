@@ -25,13 +25,13 @@ export default function createOAuthCallback(config: AuthConfig) {
       return;
     }
 
-    /* eslint-disable @typescript-eslint/camelcase */
+    /* eslint-disable babel/camelcase */
     const accessTokenQuery = querystring.stringify({
       code,
       client_id: apiKey,
       client_secret: secret,
     });
-    /* eslint-enable @typescript-eslint/camelcase */
+    /* eslint-enable babel/camelcase */
 
     const accessTokenResponse = await fetch(
       `https://${shop}/admin/oauth/access_token`,

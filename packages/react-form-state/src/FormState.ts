@@ -531,7 +531,6 @@ function runAllValidators<FieldMap>(
     };
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
   return {
     ...state,
     fields: updatedFields,

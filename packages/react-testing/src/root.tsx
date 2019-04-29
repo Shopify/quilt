@@ -18,7 +18,7 @@ import {
 } from './types';
 import {withIgnoredReactLogs} from './errors';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line typescript/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
 
 type ResolveRoot = (element: Element<unknown>) => Element<unknown> | null;

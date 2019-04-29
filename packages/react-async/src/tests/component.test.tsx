@@ -1,5 +1,4 @@
 // Enzyme doesn't know how to handle components that only return fragments.
-/* eslint-disable shopify/jsx-prefer-fragment-wrappers */
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
@@ -175,4 +174,3 @@ describe('createAsyncComponent()', () => {
     });
   });
 });
-/* eslint-enable shopify/jsx-prefer-fragment-wrappers */

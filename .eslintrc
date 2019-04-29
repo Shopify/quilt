@@ -3,7 +3,6 @@
     "plugin:shopify/typescript",
     "plugin:shopify/react",
     "plugin:shopify/jest",
-    "plugin:shopify/react",
     "plugin:shopify/prettier"
   ],
   "parserOptions": {

@@ -345,7 +345,6 @@ function createStyleDownloadEvent(
 function createLifecycleEventEvent<T extends LifecycleEvent['type']>(
   type: T,
 ): EventMap[T] {
-  // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
   return {
     type,
     duration: 0,
