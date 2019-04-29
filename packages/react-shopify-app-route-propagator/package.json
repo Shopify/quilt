@@ -23,8 +23,9 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-shopify-app-route-propagator/README.md",
   "peerDependencies": {
-    "@shopify/app-bridge": "^0.7.3",
-    "react": "^16.0.0"
+    "@shopify/app-bridge": "^1.0.0",
+    "react": ">=16.8.0 <17.0.0",
+    "react-dom": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
     "typescript": "~3.2.1"
