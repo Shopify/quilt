@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/graphql-persisted/README.md",
   "dependencies": {
-    "@types/koa-bodyparser": "^4.2.2",
-    "@types/koa-compose": "^3.2.3",
+    "@types/koa-bodyparser": "*",
+    "@types/koa-compose": "*",
     "apollo-link": ">=1.0.0 <2.0.0",
     "koa-bodyparser": ">=4.0.0 <5.0.0",
     "koa-compose": ">=3.0.0 <4.0.0"

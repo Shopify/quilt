@@ -457,6 +457,13 @@
   resolved "https://registry.yarnpkg.com/@types/keygrip/-/keygrip-1.0.1.tgz#ff540462d2fb4d0a88441ceaf27d287b01c3d878"
   integrity sha1-/1QEYtL7TQqIRBzq8n0oewHD2Hg=
 
+"@types/koa-bodyparser@*":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@types/koa-bodyparser/-/koa-bodyparser-4.2.2.tgz#7066e2871fbc4f15571c34e68ca587f5acc95d28"
+  integrity sha512-liOoUnpv7V+NX46kAqYDh503t0PI0NFjALn+L8IAlS/mdwOAg9jJoso88mN22MaWt7hLdQ+Z/MMwb9RglhEAcQ==
+  dependencies:
+    "@types/koa" "*"
+
 "@types/koa-bodyparser@^4.2.1":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@types/koa-bodyparser/-/koa-bodyparser-4.2.1.tgz#e78f9ff1a21f9ebe9bf16d702e9f2a6d0c0c870d"
@@ -464,24 +471,10 @@
   dependencies:
     "@types/koa" "*"
 
-"@types/koa-bodyparser@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@types/koa-bodyparser/-/koa-bodyparser-4.2.2.tgz#7066e2871fbc4f15571c34e68ca587f5acc95d28"
-  integrity sha512-liOoUnpv7V+NX46kAqYDh503t0PI0NFjALn+L8IAlS/mdwOAg9jJoso88mN22MaWt7hLdQ+Z/MMwb9RglhEAcQ==
-  dependencies:
-    "@types/koa" "*"
-
 "@types/koa-compose@*", "@types/koa-compose@^3.2.2":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@types/koa-compose/-/koa-compose-3.2.2.tgz#dc106e000bbf92a3ac900f756df47344887ee847"
   integrity sha1-3BBuAAu/kqOskA91bfRzRIh+6Ec=
-
-"@types/koa-compose@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@types/koa-compose/-/koa-compose-3.2.3.tgz#4e2981f7bc4ce0f4797219516a91bf6ff3a70fa1"
-  integrity sha512-kXvR0DPyZ3gaFxZs4WycA8lpzlPGtFmwdbgce+NWd+TG3PycPO3o5FkePH60HoBPd8BBaSiw3vhtgM42O2kQcg==
-  dependencies:
-    "@types/koa" "*"
 
 "@types/koa-mount@^3.0.1":
   version "3.0.1"
