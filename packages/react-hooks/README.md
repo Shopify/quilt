@@ -56,3 +56,31 @@ function MyComponent() {
   return null;
 }
 ```
+
+### `useMountedRef()`
+
+This hook keep track of a component's mounted / un-mounted status and returns a ref object like React’s [`useRef`](https://reactjs.org/docs/hooks-reference.html#useref) with a boolean value representing said status. This is often use when a component contains async task that set state after the task resolved.
+
+```tsx
+import * as React from 'react';
+import {useMountedRef} from '@shopify/react-hooks';
+
+function MockComponent() {
+  const [result, setResult] = React.useState();
+  const mounted = useMountedRef();
+
+  async function handleOnClick() {
+    const result = await fetchData();
+
+    if (mounted.current) {
+      setData(result);
+    }
+  }
+
+  return (
+    <button onClick={handleOnClick} type="button">
+      Fetch Data
+    </button>
+  );
+}
+```
