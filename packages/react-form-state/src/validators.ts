@@ -1,3 +1,13 @@
+import {
+  lengthLessThan,
+  lengthMoreThan,
+  notEmpty,
+  notEmptyString,
+  isEmpty,
+  notNumericString,
+  isNumericString,
+  isPositiveNumericString,
+} from '@shopify/predicates';
 import {mapObject} from './utilities';
 
 interface Matcher<Input, Fields> {
@@ -9,34 +19,6 @@ interface StringMapper {
 }
 
 type ErrorContent = string | StringMapper;
-
-export function lengthMoreThan(length: number) {
-  return (input: {length: number}) => input.length > length;
-}
-
-export function lengthLessThan(length: number) {
-  return (input: {length: number}) => input.length < length;
-}
-
-export function isPositiveNumericString(input: string) {
-  return input !== '' && (input.match(/[^0-9.,]/g) || []).length === 0;
-}
-
-export function isNumericString(input: string) {
-  return input !== '' && (input.match(/[^0-9.,-]/g) || []).length === 0;
-}
-
-export function isEmpty(input: any) {
-  return input === null || input === undefined || input.length === 0;
-}
-
-export function isEmptyString(input: string) {
-  return input.trim().length < 1;
-}
-
-export function not<A extends any[], R>(fn: (...xs: A) => R) {
-  return (...args: A) => !fn(...args);
-}
 
 export function validateNested<Input extends object, Fields>(
   validatorDictionary: any,
@@ -165,15 +147,15 @@ const validators = {
   },
 
   nonNumericString(errorContent: ErrorContent) {
-    return validate(not(isNumericString), errorContent);
+    return validate(notNumericString, errorContent);
   },
 
   requiredString(errorContent: ErrorContent) {
-    return validateRequired(not(isEmptyString), errorContent);
+    return validateRequired(notEmptyString, errorContent);
   },
 
   required(errorContent: ErrorContent) {
-    return validateRequired(not(isEmpty), errorContent);
+    return validateRequired(notEmpty, errorContent);
   },
 };
 

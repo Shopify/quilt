@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react';
+import {useState} from 'react';
 import {
   FormMapping,
   SubmitHandler,
@@ -16,24 +16,21 @@ export function useSubmit<T extends FieldBag>(
   const [submitting, setSubmitting] = useState(false);
   const [remoteErrors, setRemoteErrors] = useState([] as FormError[]);
 
-  const submit = useCallback(
-    async (event?: React.FormEvent) => {
-      if (event && event.preventDefault && !event.defaultPrevented) {
-        event.preventDefault();
-      }
+  async function submit(event?: React.FormEvent) {
+    if (event && event.preventDefault && !event.defaultPrevented) {
+      event.preventDefault();
+    }
 
-      setSubmitting(true);
-      const result = await onSubmit(getValues(fieldBag));
-      setSubmitting(false);
+    setSubmitting(true);
+    const result = await onSubmit(getValues(fieldBag));
+    setSubmitting(false);
 
-      if (result.status === 'fail') {
-        setRemoteErrors(result.errors);
-      } else {
-        setRemoteErrors([]);
-      }
-    },
-    [fieldBag, onSubmit],
-  );
+    if (result.status === 'fail') {
+      setRemoteErrors(result.errors);
+    } else {
+      setRemoteErrors([]);
+    }
+  }
 
   return {submit, submitting, errors: remoteErrors, setErrors: setRemoteErrors};
 }

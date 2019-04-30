@@ -1,4 +1,6 @@
 import {useCallback, useEffect, useMemo, ChangeEvent} from 'react';
+import isEqual from 'fast-deep-equal';
+
 import {Validates, Field} from '../../types';
 import {normalizeValidation, isChangeEvent} from '../../utilities';
 import {
@@ -162,8 +164,12 @@ export function useField<Value = string>(
   // We want to reset the field whenever a new `value` is passed in
   useEffect(
     () => {
-      newDefaultValue(value);
+      if (!isEqual(value, state.defaultValue)) {
+        newDefaultValue(value);
+      }
     },
+    //  We actually do not want this to rerun when our `defaultValue` is updated. It can only happen independently of this callback when `newDefaultValue` is called by a user, and we don't want to undue their hard work by resetting to `value`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [value, newDefaultValue],
   );
 
@@ -188,9 +194,18 @@ export function useField<Value = string>(
 function normalizeFieldConfig<Value>(
   input: FieldConfig<Value> | Value,
 ): FieldConfig<Value> {
-  if (input == null || typeof input !== 'object') {
-    return {value: input, validates: () => undefined};
+  if (isFieldConfig(input)) {
+    return input;
   }
 
-  return input as FieldConfig<Value>;
+  return {value: input, validates: () => undefined};
+}
+
+function isFieldConfig<Value>(input: unknown): input is FieldConfig<Value> {
+  return (
+    input != null &&
+    typeof input === 'object' &&
+    Reflect.has(input as object, 'value') &&
+    Reflect.has(input as object, 'validates')
+  );
 }
