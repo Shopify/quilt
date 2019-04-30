@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- added the `notNumericString` predicate, which returns `true` when its input is not a numeric string and `false` otherwise.
+- added the `notNumericString` predicate, which returns `true` when its input is not a numeric string and `false` otherwise. [#675](https://github.com/Shopify/quilt/pull/675)
 
 ## [1.0.0]
 

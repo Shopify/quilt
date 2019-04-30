@@ -9,9 +9,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- `useList` now reinitializes based on `deepEquals` rather than reference equality
-- `useField` can better tell the difference between field config objects and regular old object literals
-- `useField` now reinitializes based on `deepEquals` rather than reference equality
+- `useList` now reinitializes based on `deepEquals` rather than reference equality [#675](https://github.com/Shopify/quilt/pull/675)
+- `useField` can better tell the difference between field config objects and regular old object literals [#675](https://github.com/Shopify/quilt/pull/675)
+- `useField` now reinitializes based on `deepEquals` rather than reference equality [#675](https://github.com/Shopify/quilt/pull/675)
 
 ## [0.0.1]
 
