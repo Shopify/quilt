@@ -20,6 +20,7 @@ $ yarn add @shopify/predicates
 - `isEmpty` Returns `true` when its input is `null`, `undefined`, or has `length` 0.
 - `isEmptyString` Returns `true` when it's input is an empty string or contains only whitespace.
 - `notEmpty` Returns `true` when its input is not `null`, `undefined` or has `length` 0.
+- `notNumericString` Returns `true` when its input is not a numeric string and `false` otherwise.
 
 ### Predicate creators
 

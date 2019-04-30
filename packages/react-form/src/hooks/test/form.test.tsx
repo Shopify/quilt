@@ -188,15 +188,17 @@ describe('useForm', () => {
       });
     });
 
-    it('validates all fields before submitting and bails out if any fail', () => {
+    it('validates all fields with their latest values before submitting and bails out if any fail', () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = {
         ...fakeProduct(),
-        title: '',
+        title: 'slorp',
       };
       const wrapper = mount(
         <ProductForm data={product} onSubmit={submitSpy} />,
       );
+
+      wrapper.find(TextField, {label: 'title'})!.trigger('onChange', '');
 
       wrapper
         .find('button', {type: 'submit'})!

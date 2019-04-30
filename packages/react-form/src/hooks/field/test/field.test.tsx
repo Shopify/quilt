@@ -4,7 +4,7 @@ import {mount} from '@shopify/react-testing';
 import {useField, FieldConfig} from '../field';
 
 describe('useField', () => {
-  function TestField({config}: {config: string | FieldConfig<any>}) {
+  function TestField({config}: {config: string | FieldConfig<string>}) {
     const field = useField(config);
 
     return (
@@ -192,6 +192,42 @@ describe('useField', () => {
 
       expect(wrapper).toContainReactComponent('input', {
         value: finalValue,
+      });
+    });
+
+    it('does not reinitialize the field when rerendered with a deeply equal value', () => {
+      function FooBarTestField({
+        config,
+      }: {
+        config: {foo: string} | FieldConfig<{foo: string}>;
+      }) {
+        const field = useField(config);
+
+        return (
+          <>
+            <label htmlFor="test-field">
+              Test field{' '}
+              <input
+                id="test-field"
+                name="test-field"
+                value={field.value.foo}
+                onChange={({target}) => field.onChange({foo: target.value})}
+                onBlur={field.onBlur}
+              />
+            </label>
+            {field.error && <p>{field.error}</p>}
+          </>
+        );
+      }
+
+      const wrapper = mount(<FooBarTestField config={{foo: 'bar'}} />);
+      const newValue = faker.commerce.product();
+
+      wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
+      wrapper.setProps({config: {foo: 'bar'}});
+
+      expect(wrapper).toContainReactComponent('input', {
+        value: newValue,
       });
     });
   });
