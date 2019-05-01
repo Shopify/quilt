@@ -111,6 +111,11 @@ export default class Assets {
     );
   }
 
+  async graphQLSource(id: string) {
+    const graphQLManifest = await loadGraphQLManifest();
+    return graphQLManifest.get(id) || null;
+  }
+
   private async getResolvedManifestEntry() {
     if (this.resolvedManifestEntry) {
       return this.resolvedManifestEntry;
@@ -157,6 +162,7 @@ export default class Assets {
 }
 
 let consolidatedManifestPromise: Promise<ConsolidatedManifest> | null = null;
+let graphQLManifestPromise: Promise<Map<string, string>> | null = null;
 
 function loadConsolidatedManifest() {
   if (consolidatedManifestPromise) {
@@ -170,8 +176,21 @@ function loadConsolidatedManifest() {
   return consolidatedManifestPromise;
 }
 
+function loadGraphQLManifest() {
+  if (graphQLManifestPromise) {
+    return graphQLManifestPromise;
+  }
+
+  graphQLManifestPromise = readJson(
+    join(appRoot.path, 'build/client/graphql.json'),
+  ).then(result => new Map<string, string>(Object.entries(result)));
+
+  return graphQLManifestPromise;
+}
+
 export function internalOnlyClearCache() {
   consolidatedManifestPromise = null;
+  graphQLManifestPromise = null;
 }
 
 function getAssetsFromManifest(

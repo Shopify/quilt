@@ -14,10 +14,10 @@ function normalize(module: any) {
   return value == null ? null : value;
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable babel/camelcase */
 declare const __webpack_require__: (id: string) => any;
 declare const __webpack_modules__: {[key: string]: any};
-/* eslint-enable @typescript-eslint/camelcase */
+/* eslint-enable babel/camelcase */
 
 // Webpack does not like seeing an explicit require(someVariable) in code
 // because that is a dynamic require that it can’t resolve. This code
@@ -47,11 +47,11 @@ const nodeRequire =
 // (which will work in environments like Jest’s test runner).
 function tryRequire(id: string) {
   if (
-    /* eslint-disable @typescript-eslint/camelcase */
+    /* eslint-disable babel/camelcase */
     typeof __webpack_require__ === 'function' &&
     typeof __webpack_modules__ === 'object' &&
     __webpack_modules__[id]
-    /* eslint-enable @typescript-eslint/camelcase */
+    /* eslint-enable babel/camelcase */
   ) {
     try {
       return normalize(__webpack_require__(id));

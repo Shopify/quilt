@@ -1,4 +1,4 @@
-import {isEmpty} from './predicates';
+import {isEmpty} from '@shopify/predicates';
 
 interface Matcher<Input> {
   (input: Input): boolean;

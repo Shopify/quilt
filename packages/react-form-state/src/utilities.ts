@@ -45,7 +45,6 @@ export function set<InputType extends object>(
   } else {
     const [current, ...rest] = path;
 
-    // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
     return {
       ...(rootObject as any),
       [current]: set(rootObject[current] || {}, rest, value),

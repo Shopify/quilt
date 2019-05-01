@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form-state",
-  "version": "0.10.3",
+  "version": "0.10.5",
   "license": "MIT",
   "description": "Manage react forms tersely and type-safe with no magic.",
   "main": "dist/index.js",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form-state/README.md",
   "dependencies": {
+    "@shopify/predicates": "^1.1.0",
     "fast-deep-equal": "^2.0.1",
     "tslib": "^1.9.3"
   },

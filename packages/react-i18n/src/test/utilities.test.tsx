@@ -180,9 +180,27 @@ describe('translate()', () => {
       });
     });
 
-    it('throws a MissingReplacementError when there is a missing replacement', () => {
+    it('throws a MissingReplacementError when there is a missing replacement and no replacements', () => {
       expect(() => translate('foo', {}, {foo: 'bar: {bar}'}, locale)).toThrow(
-        'No replacement found for key',
+        "No replacement found for key 'bar' (and no replacements were passed in).",
+      );
+    });
+
+    it('throws a MissingReplacementError when there is a missing replacement', () => {
+      expect(() =>
+        translate(
+          'foo',
+          {
+            replacements: {
+              key1: 'replacements text 1',
+              key2: 123,
+            },
+          },
+          {foo: 'bar: {bar}'},
+          locale,
+        ),
+      ).toThrow(
+        "No replacement found for key 'bar'. The following replacements were passed: 'key1', 'key2'",
       );
     });
   });
