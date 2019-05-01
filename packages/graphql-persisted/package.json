@@ -33,7 +33,11 @@
     "typescript": "~3.2.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "apollo.js",
+    "apollo.d.ts",
+    "koa.js",
+    "koa.d.ts"
   ],
   "optionalDependencies": {
     "@shopify/sewing-kit-koa": "*"
