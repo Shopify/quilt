@@ -2,7 +2,7 @@
   "name": "@shopify/graphql-persisted",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "Apollo and Koa integrations for using persisted GraphQL queries.",
+  "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "sideEffects": false,
   "scripts": {
     "build": "tsc --p tsconfig.build.json",

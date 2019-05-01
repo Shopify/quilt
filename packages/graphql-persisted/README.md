@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fgraphql-persisted.svg)](https://badge.fury.io/js/%40shopify%2Fgraphql-persisted.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/graphql-persisted.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/graphql-persisted.svg)
 
-Apollo and Koa integrations for using [persisted GraphQL queries](https://blog.apollographql.com/persisted-graphql-queries-with-apollo-client-119fd7e6bba5).
+Apollo and Koa integrations for [persisted GraphQL queries](https://blog.apollographql.com/persisted-graphql-queries-with-apollo-client-119fd7e6bba5).
 
 ## Installation
 
@@ -36,7 +36,7 @@ const client = new ApolloClient({
 
 This function accepts an optional `options` object. The following option is available:
 
-- `idFromOperation?(operation: Operation): string | undefined | null`: calculates the unique ID to use for the persisted query, which will eventually be passed to the server’s `cache#get` method to retrieve the full query body. If omitted, this option will default to pulling the `id` field off of the `operation.query` `DocumentNode`, which works well in combination with documents compiled using [`graphql-mini-transforms`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-mini-transforms) (used by default in sewing kit).
+- `idFromOperation?(operation: Operation): string | undefined | null`: calculates the unique ID to use for the persisted query, which will eventually be passed to the server’s `cache#get` method to retrieve the full query body. If omitted, this option will default to pulling the `id` field off of the `operation.query` `DocumentNode`, which works well in combination with documents compiled using [`graphql-mini-transforms`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-mini-transforms) (used by default in sewing-kit).
 
 The behavior of this link when a persisted query is not found for a particular ID depends on the `cacheMissBehavior` passed to your server middleware, which is documented below.
 
@@ -74,8 +74,8 @@ app.use(
 
 When the middleware attempts to resolve an ID to a query document, it attempts to do the following:
 
-- If `ctx.state.assets.graphQLSource` exists, call it and wait on the result. If a result is found and a cache was passed, return the result _and_ save it to the cache using `cache.set`. This step makes it automatic to get persisted queries going for apps using sewing kit and [`@shopify/sewing-kit-koa`](https://github.com/Shopify/quilt/tree/master/packages/sewing-kit-koa).
-- If a cache was passed, call `cache.get` with the ID and wait on the result.
+- If `ctx.state.assets.graphQLSource` exists, call it and wait on the result. If a result is found and a cache option was provided when creating the middleware, return the result _and_ save it to the cache using `cache.set`. This step makes it automatic to get persisted queries going for apps using sewing-kit and [`@shopify/sewing-kit-koa`](https://github.com/Shopify/quilt/tree/master/packages/sewing-kit-koa).
+- If a cache is present, call `cache.get` with the ID and wait on the result.
 
 If no value was found during this process, the GraphQL call will fail in a way determined by the `cacheMissBehavior` option:
 
@@ -83,4 +83,4 @@ If no value was found during this process, the GraphQL call will fail in a way d
 - `CacheMissBehavior.SendAndStore`: the server will respond to the client with an error that tells it to send the full query document on an immediate retry. The server will then store that value in the cache against the ID. Subsequent calls will once again only send the ID.
 - `CacheMissBehavior.Error`: the server will respond to the client with an error, and no retry will be performed.
 
-These options provide you full control over the behavior of clients sending persisted queries you do not recognize. If you use sewing kit and want to get persisted queries only for the "current" set of queries, but want to allow old queries to still work, use `SendAlways`. If you want to maximize the performance benefit of persisted queries, use `SendAndStore`. Finally, if you want to prevent queries that have not already been persisted, use `Error`.
+These options provide you full control over the behavior of clients sending persisted queries you do not recognize. If you use sewing-kit and want to get persisted queries only for the "current" set of queries, but want to allow old queries to still work, use `SendAlways`. If you want to maximize the performance benefit of persisted queries, use `SendAndStore`. Finally, if you want to prevent queries that have not already been persisted, use `Error`.

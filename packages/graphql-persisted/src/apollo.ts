@@ -47,7 +47,7 @@ export class PersistedLink extends ApolloLink {
 
       subscription = forward(operation).subscribe({
         next: response => {
-          const errors = response ? response.errors || [] : [];
+          const errors = (response && response.errors) || [];
 
           if (
             errors.some(({message}) =>

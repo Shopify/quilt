@@ -23,7 +23,7 @@ describe('persistedGraphQLMiddleware', () => {
     expect(cache.set).not.toHaveBeenCalled();
   });
 
-  it('does nothing if there is a persisted query body and explicit GraphQL query', async () => {
+  it('does not augment the body if there is a persisted query body and an explicit GraphQL query', async () => {
     const ctx = createContext({
       persisted: true,
       query: createQuery(),
@@ -74,7 +74,7 @@ describe('persistedGraphQLMiddleware', () => {
     expect(ctx.request).toHaveProperty('body.query', query);
   });
 
-  it('saves query returned by sewing-kit-koa to the cache when provided', async () => {
+  it('saves the query returned by sewing-kit-koa to the cache when provided', async () => {
     const id = faker.random.uuid();
     const query = createQuery();
     const ctx = createContext({id, persisted: true});
