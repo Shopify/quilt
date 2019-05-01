@@ -1,3 +1,4 @@
+import {useMountedRef} from '@shopify/react-hooks';
 import {useState} from 'react';
 import {
   FormMapping,
@@ -13,6 +14,7 @@ export function useSubmit<T extends FieldBag>(
   onSubmit: SubmitHandler<FormMapping<T, 'value'>> = noopSubmission,
   fieldBag: T,
 ) {
+  const mounted = useMountedRef();
   const [submitting, setSubmitting] = useState(false);
   const [remoteErrors, setRemoteErrors] = useState([] as FormError[]);
 
@@ -23,6 +25,11 @@ export function useSubmit<T extends FieldBag>(
 
     setSubmitting(true);
     const result = await onSubmit(getValues(fieldBag));
+
+    if (mounted.current === false) {
+      return;
+    }
+
     setSubmitting(false);
 
     if (result.status === 'fail') {
