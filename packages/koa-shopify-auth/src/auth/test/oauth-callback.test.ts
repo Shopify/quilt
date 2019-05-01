@@ -25,7 +25,7 @@ const queryData = {
 
 const baseUrl = 'myapp.com/auth/callback';
 
-// eslint-disable-next-line @typescript-eslint/camelcase
+// eslint-disable-next-line babel/camelcase
 const basicResponse = {status: 200, body: {access_token: 'made up token'}};
 
 describe('OAuthCallback', () => {
@@ -137,7 +137,7 @@ describe('OAuthCallback', () => {
   });
 
   it("fetches an access token with the app's credentials", async () => {
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line babel/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: 'abc'}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -156,9 +156,9 @@ describe('OAuthCallback', () => {
       {
         body: querystring.stringify({
           code,
-          // eslint-disable-next-line @typescript-eslint/camelcase
+          // eslint-disable-next-line babel/camelcase
           client_id: apiKey,
-          // eslint-disable-next-line @typescript-eslint/camelcase
+          // eslint-disable-next-line babel/camelcase
           client_secret: secret,
         }),
         headers: {
@@ -171,7 +171,7 @@ describe('OAuthCallback', () => {
   });
 
   it('throws a 401 if the token request fails', async () => {
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line babel/camelcase
     fetchMock.mock('*', {status: 401, body: {access_token: 'abc'}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -188,7 +188,7 @@ describe('OAuthCallback', () => {
   it('includes the shop and accessToken on session if the token request succeeds and session exists', async () => {
     const accessToken = 'abc';
 
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line babel/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: accessToken}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -209,7 +209,7 @@ describe('OAuthCallback', () => {
   it('includes the shop and accesstoken on state if the token request succeeds', async () => {
     const accessToken = 'abc';
 
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line babel/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: accessToken}});
 
     const oAuthCallback = createOAuthCallback(baseConfig);
@@ -230,7 +230,7 @@ describe('OAuthCallback', () => {
   it('calls afterAuth with ctx when the token request succeeds', async () => {
     const afterAuth = jest.fn();
 
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line babel/camelcase
     fetchMock.mock('*', {status: 200, body: {access_token: 'abc'}});
 
     const oAuthCallback = createOAuthCallback({

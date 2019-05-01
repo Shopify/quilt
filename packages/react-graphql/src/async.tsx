@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import {DocumentNode} from 'graphql-typed';
 import {LoadProps, DeferTiming} from '@shopify/async';
 import {
   Async,
@@ -8,7 +9,6 @@ import {
   trySynchronousResolve,
 } from '@shopify/react-async';
 import {Omit} from '@shopify/useful-types';
-import {DocumentNode} from 'graphql-typed';
 
 import {Prefetch as PrefetchQuery} from './Prefetch';
 import {Query} from './Query';

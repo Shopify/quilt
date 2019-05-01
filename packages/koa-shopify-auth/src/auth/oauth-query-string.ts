@@ -17,14 +17,14 @@ export default function oAuthQueryString(
   const requestNonce = createNonce();
   cookies.set('shopifyNonce', requestNonce);
 
-  /* eslint-disable @typescript-eslint/camelcase */
+  /* eslint-disable babel/camelcase */
   const redirectParams = {
     state: requestNonce,
     scope: scopes.join(', '),
     client_id: apiKey,
     redirect_uri: `https://${host}${callbackPath}`,
   };
-  /* eslint-enable @typescript-eslint/camelcase */
+  /* eslint-enable babel/camelcase */
 
   if (accessMode === 'online') {
     redirectParams['grant_options[]'] = 'per-user';

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-liveness-ping",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "license": "MIT",
   "description": "A package for creating a liveness ping middleware for use with koa",
   "main": "dist/index.js",

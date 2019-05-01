@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import {mount} from '@shopify/react-testing';
 import faker from 'faker';
+import {mount} from '@shopify/react-testing';
 import {useList, FieldListConfig} from '../list';
 import {ListValidationContext} from '../../../types';
 
@@ -329,7 +329,7 @@ describe('useList', () => {
   });
 
   describe('automatic reinitializiation', () => {
-    it('does not reinitialize the fields when rerendered with the same list', () => {
+    it('does not reinitialize when rerendered with the same list', () => {
       const originalPrice = '3.50';
       const variants: Variant[] = [
         {
@@ -352,11 +352,30 @@ describe('useList', () => {
       });
     });
 
-    it('does reinitialize changed fields when rerendered with a new list', () => {
+    it('does reinitialize when rerendered with a different list', () => {
       const originalPrice = '3.50';
+      const variant: Variant = {
+        price: originalPrice,
+        optionName: 'material',
+        optionValue: faker.commerce.productMaterial(),
+      };
+      const wrapper = mount(<TestList list={[variant]} />);
+      const newPrice = faker.commerce.price();
+
+      wrapper
+        .find(TextField, {name: 'price0'})!
+        .trigger('onChange', changeEvent(newPrice));
+
+      wrapper.setProps({list: [{...variant, price: '100.00'}]});
+      expect(wrapper.find(TextField, {name: 'price0'})).not.toHaveReactProps({
+        value: newPrice,
+      });
+    });
+
+    it('does not reinitialize when rerendered with a reference unequal but deeply equal list', () => {
       const variants: Variant[] = [
         {
-          price: originalPrice,
+          price: '3.50',
           optionName: 'material',
           optionValue: faker.commerce.productMaterial(),
         },
@@ -367,9 +386,10 @@ describe('useList', () => {
       wrapper
         .find(TextField, {name: 'price0'})!
         .trigger('onChange', changeEvent(newPrice));
+
       wrapper.setProps({list: [...variants]});
 
-      expect(wrapper.find(TextField, {name: 'price0'})).not.toHaveReactProps({
+      expect(wrapper.find(TextField, {name: 'price0'})).toHaveReactProps({
         value: newPrice,
       });
     });

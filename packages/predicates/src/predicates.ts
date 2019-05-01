@@ -30,6 +30,10 @@ export function notEmptyString(input: string) {
   return not(isEmptyString)(input);
 }
 
+export function notNumericString(input: string) {
+  return not(isNumericString)(input);
+}
+
 function not<A extends any[], R>(fn: (...xs: A) => R) {
   return (...args: A) => !fn(...args);
 }

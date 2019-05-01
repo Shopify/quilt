@@ -7,6 +7,7 @@ import {
   isEmptyString,
   notEmpty,
   notEmptyString,
+  notNumericString,
 } from '../predicates';
 
 describe('lengthMoreThan', () => {
@@ -87,6 +88,19 @@ describe('isNumericString', () => {
 
   it('returns false for non-numeric strings', () => {
     expect(isNumericString('lorem ipsum')).toBe(false);
+  });
+});
+
+describe('notNumericString', () => {
+  it('returns false for numeric strings', () => {
+    expect(notNumericString('25499')).toBe(false);
+    expect(notNumericString('-0.23')).toBe(false);
+    expect(notNumericString('-76')).toBe(false);
+    expect(notNumericString('12312312321.123')).toBe(false);
+  });
+
+  it('returns true for non-numeric strings', () => {
+    expect(notNumericString('lorem ipsum')).toBe(true);
   });
 });
 
