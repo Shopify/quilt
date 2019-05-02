@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.4.3] - 2019-05-02
+
 ### Fixed
 
 - `Root/Element#find` now correctly find components created by `React.memo` and `React.forwardRef` ([#682](https://github.com/Shopify/quilt/pull/682))

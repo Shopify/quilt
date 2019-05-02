@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 8.0.9 - 2019-05-02
+
+### Changed
+
+- Removed the `isServer` option from the constructor for `HtmlManager` [#682](https://github.com/Shopify/quilt/pull/682)
+
 ## 8.0.6 - 2019-04-15
 
 - The render of your app performed by the `Html` component now provides the `HtmlManager` instance, allowing it to access the serializations built up during `extract()` ([#655](https://github.com/Shopify/quilt/pull/655))
