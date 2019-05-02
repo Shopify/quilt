@@ -1,5 +1,5 @@
-import {useMountedRef} from '@shopify/react-hooks';
 import {useState} from 'react';
+import {useMountedRef} from '@shopify/react-hooks';
 import {
   FormMapping,
   SubmitHandler,
