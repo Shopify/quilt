@@ -230,7 +230,10 @@ export class Element<Props> {
   }
 }
 
-function isMatchingType(type: Tree<unknown>['type'], test: Tree<unknown>['type']) {
+function isMatchingType(
+  type: Tree<unknown>['type'],
+  test: Tree<unknown>['type'],
+) {
   if (type === test) {
     return true;
   }
@@ -239,7 +242,7 @@ function isMatchingType(type: Tree<unknown>['type'], test: Tree<unknown>['type']
     return false;
   }
 
-  return (test as React.ExoticComponent<unknown>).type != null && isMatchingType(type, (test as React.ExoticComponent<unknown>).type);
+  return (test as any).type != null && isMatchingType(type, (test as any).type);
 }
 
 function equalSubset(subset: object, full: object) {
