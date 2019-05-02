@@ -10,7 +10,7 @@ describe('useSerialized', () => {
       return <Serialize data={() => foo || Promise.resolve('foo_value')} />;
     }
 
-    const manager = new HtmlManager({isServer: true});
+    const manager = new HtmlManager();
     const app = <MockComponent />;
     await extract(app, {
       decorate: element => (

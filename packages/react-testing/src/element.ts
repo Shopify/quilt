@@ -137,7 +137,7 @@ export class Element<Props> {
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
   ): this is Element<PropsForComponent<Type>> {
-    return this.type === type;
+    return isMatchingType(this.type, type);
   }
 
   find<Type extends React.ComponentType<any> | string>(
@@ -146,7 +146,7 @@ export class Element<Props> {
   ): Element<PropsForComponent<Type>> | null {
     return (this.elementDescendants.find(
       element =>
-        element.type === type &&
+        isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) || null) as Element<PropsForComponent<Type>> | null;
   }
@@ -228,6 +228,21 @@ export class Element<Props> {
 
     return `<${name} />`;
   }
+}
+
+function isMatchingType(
+  type: Tree<unknown>['type'],
+  test: Tree<unknown>['type'],
+) {
+  if (type === test) {
+    return true;
+  }
+
+  if (test == null) {
+    return false;
+  }
+
+  return (test as any).type != null && isMatchingType(type, (test as any).type);
 }
 
 function equalSubset(subset: object, full: object) {

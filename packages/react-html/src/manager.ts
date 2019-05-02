@@ -23,7 +23,6 @@ export class HtmlManager {
     betweenEachPass: () => this.reset(),
   };
 
-  private isServer: boolean;
   private serializations = getSerializationsFromDocument();
   private titles: Title[] = [];
   private metas: React.HTMLProps<HTMLMetaElement>[] = [];
@@ -40,10 +39,6 @@ export class HtmlManager {
     };
   }
 
-  constructor({isServer = typeof document === 'undefined'} = {}) {
-    this.isServer = isServer;
-  }
-
   reset({includeSerializations = false} = {}) {
     this.titles = [];
     this.metas = [];
@@ -56,10 +51,6 @@ export class HtmlManager {
   }
 
   subscribe(subscription: Subscription) {
-    if (this.isServer) {
-      return () => {};
-    }
-
     this.subscriptions.add(subscription);
     return () => {
       this.subscriptions.delete(subscription);
@@ -86,9 +77,7 @@ export class HtmlManager {
   }
 
   setSerialization(id: string, data: unknown) {
-    if (this.isServer) {
-      this.serializations.set(id, data);
-    }
+    this.serializations.set(id, data);
   }
 
   getSerialization<T>(id: string): T | undefined {
