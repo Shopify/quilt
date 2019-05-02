@@ -29,14 +29,14 @@ export default function ImportRemote<T = unknown>({
 
   const intersectionObserver =
     defer === DeferTiming.InViewport && intersectionRef ? (
-      <div ref={intersectionRef} />
+      <div ref={intersectionRef as React.RefObject<HTMLDivElement>} />
     ) : null;
 
   React.useEffect(
     () => {
       switch (result.status) {
         case Status.Failed:
-          onImported(result.error);
+          onImported(new Error(result.error.message));
           return;
         case Status.Complete:
           onImported(result.imported);

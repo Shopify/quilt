@@ -31,7 +31,7 @@ export function useImportRemote<Imported = unknown>(
   options: Options<Imported>,
 ): {
   result: Result<Imported>;
-  intersectionRef: any;
+  intersectionRef: React.Ref<HTMLElement | null>;
 } {
   const {defer = DeferTiming.Mount, nonce = '', getImport} = options;
   const [result, setResult] = React.useState<Result>({status: Status.Initial});
