@@ -7,10 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Changed
-
-- Removed the `isServer` option from the constructor for `HtmlManager` [#682](https://github.com/Shopify/quilt/pull/682)
-
 ## 3.3.0 - 2019-05-01
 
 ### Added
