@@ -182,4 +182,23 @@ describe('e2e', () => {
     expect(myComponent.find(Message)!.text()).toBe('Hello world');
     expect(myComponent.text()).toContain(myComponent.find(Message)!.text());
   });
+
+  it('can find exotic components', () => {
+    const Message = React.memo(
+      React.forwardRef(function Message(
+        {name}: {name: string},
+        ref: React.Ref<HTMLDivElement>,
+      ) {
+        return <div ref={ref}>Hello {name}!</div>;
+      }),
+    );
+
+    function MyComponent() {
+      return <Message name="world" />;
+    }
+
+    const myComponent = mount(<MyComponent />);
+
+    expect(myComponent.find(Message)).toHaveReactProps({name: 'world'});
+  });
 });
