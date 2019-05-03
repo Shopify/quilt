@@ -211,7 +211,7 @@ describe('koa-shopify-graphql-proxy', () => {
 
     const {proxyReqPathResolver} = proxyFactory.mock.calls[0][1];
     expect(proxyReqPathResolver(ctx)).toBe(
-      `https://${shop}${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`,
+      `${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`,
     );
   });
 

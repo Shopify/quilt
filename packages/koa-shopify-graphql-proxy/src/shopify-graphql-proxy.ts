@@ -54,7 +54,7 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
         'X-Shopify-Access-Token': accessToken,
       },
       proxyReqPathResolver() {
-        return `https://${shop}${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
+        return `${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
       },
     })(
       ctx,
