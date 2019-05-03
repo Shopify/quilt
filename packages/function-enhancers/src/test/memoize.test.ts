@@ -139,4 +139,38 @@ describe('memoize()', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('customized resolver with different return type than the method', () => {
+    it('recalculates the result when the resolver result was changed', () => {
+      const spy = jest.fn();
+      const getNameSpy = (name: string, _id: string) => {
+        spy();
+        return {name};
+      };
+      const getNameMemoized = memoize(
+        getNameSpy,
+        (_name: string, id: string) => id,
+      );
+
+      expect(getNameMemoized('Lisa', '1')).toStrictEqual({name: 'Lisa'});
+      expect(getNameMemoized('Lisa', '2')).toStrictEqual({name: 'Lisa'});
+      expect(spy).toHaveBeenCalledTimes(2);
+    });
+
+    it('gets the result from cache when the resolver result was not changed', () => {
+      const spy = jest.fn();
+      const getNameSpy = (name: string, _id: string) => {
+        spy();
+        return {name};
+      };
+      const getNameMemoized = memoize(
+        getNameSpy,
+        (_name: string, id: string) => id,
+      );
+
+      expect(getNameMemoized('Lisa', '1')).toStrictEqual({name: 'Lisa'});
+      expect(getNameMemoized('Lisa', '1')).toStrictEqual({name: 'Lisa'});
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
 });
