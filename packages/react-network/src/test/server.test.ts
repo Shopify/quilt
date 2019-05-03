@@ -59,6 +59,16 @@ describe('server', () => {
   });
 
   describe('csp', () => {
+    it('does not set a CSP header if no directives were set', () => {
+      const manager = new NetworkManager();
+      const ctx = createMockContext();
+      const spy = jest.spyOn(ctx, 'set');
+
+      applyToContext(ctx, manager);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
     it('sets the CSP header with strings, booleans, and string arrays', () => {
       const manager = new NetworkManager();
       const ctx = createMockContext();

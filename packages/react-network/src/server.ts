@@ -10,23 +10,27 @@ export function applyToContext<T extends Context>(
   manager: NetworkManager,
 ) {
   const {status, csp, redirectUrl} = manager.extract();
-  const cspHeader = Object.entries(csp)
-    .map(([key, value]) => {
-      let printedValue: string;
+  const cspEntries = Object.entries(csp);
 
-      if (typeof value === 'boolean') {
-        printedValue = '';
-      } else if (typeof value === 'string') {
-        printedValue = value;
-      } else {
-        printedValue = value.join(' ');
-      }
+  if (cspEntries.length > 0) {
+    const cspHeader = cspEntries
+      .map(([key, value]) => {
+        let printedValue: string;
 
-      return `${key}${printedValue ? ' ' : ''}${printedValue}`;
-    })
-    .join('; ');
+        if (typeof value === 'boolean') {
+          printedValue = '';
+        } else if (typeof value === 'string') {
+          printedValue = value;
+        } else {
+          printedValue = value.join(' ');
+        }
 
-  ctx.set(Header.ContentSecurityPolicy, cspHeader);
+        return `${key}${printedValue ? ' ' : ''}${printedValue}`;
+      })
+      .join('; ');
+
+    ctx.set(Header.ContentSecurityPolicy, cspHeader);
+  }
 
   if (redirectUrl) {
     ctx.redirect(redirectUrl);
