@@ -6,6 +6,7 @@ export {default as DefaultSource} from './DefaultSource';
 export {default as FontSource} from './FontSource';
 export {default as FormAction} from './FormAction';
 export {default as FrameAncestors} from './FrameAncestors';
+export {default as FrameSource} from './FrameSource';
 export {default as ImageSource} from './ImageSource';
 export {default as ManifestSource} from './ManifestSource';
 export {default as MediaSource} from './MediaSource';
