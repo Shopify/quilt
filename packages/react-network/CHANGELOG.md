@@ -11,8 +11,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Fixed a missing export for the `FrameSource` component
-- Fixed the `applyToContext` helper overwriting a content security policy when no directives were set
+- Fixed a missing export for the `FrameSource` component ([#683](https://github.com/Shopify/quilt/pull/683))
+- Fixed the `applyToContext` helper overwriting a content security policy when no directives were set ([#683](https://github.com/Shopify/quilt/pull/683))
 
 ## [3.0.0] - 2019-04-08
 
