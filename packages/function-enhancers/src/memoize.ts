@@ -4,19 +4,17 @@ interface MemoizeMap<T, U> {
   set(key: T, value: U): MemoizeMap<T, U>;
 }
 
-export type Resolver<T extends Function> = T;
-
 export const MAX_MAP_ENTRIES = 50;
 
-export default function memoize<F extends Function>(
-  method: F,
-  resolver?: Resolver<F>,
-): F {
+export default function memoize<Method extends (...args: any[]) => any>(
+  method: Method,
+  resolver?: (...args: Parameters<Method>) => any,
+): Method {
   const weakMapCache = new WeakMap();
   const mapCache = new Map();
   const mapKeys: any[] = [];
 
-  return (function memoized(...args) {
+  return function memoized(...args: Parameters<Method>) {
     if (typeof window === 'undefined') {
       return method.apply(this, args);
     }
@@ -54,5 +52,5 @@ export default function memoize<F extends Function>(
     }
 
     return result;
-  } as unknown) as F;
+  } as Method;
 }
