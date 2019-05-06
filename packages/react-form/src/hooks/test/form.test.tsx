@@ -233,7 +233,7 @@ describe('useForm', () => {
     it.skip('propagates remote submission errors to matching fields', async () => {
       const errors = [
         {
-          fieldPath: ['variants', '0', 'price'],
+          field: ['variants', '0', 'price'],
           message: 'The server hates your price',
         },
       ];
@@ -282,7 +282,7 @@ describe('useForm', () => {
     it.skip('resets errors from previous submissions', async () => {
       const errors = [
         {
-          fieldPath: ['variants', '0', 'price'],
+          field: ['variants', '0', 'price'],
           message: 'The server hates your price',
         },
       ];
