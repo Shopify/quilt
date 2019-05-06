@@ -426,6 +426,24 @@ expect(myComponent).toContainReactComponent('div', {
 });
 ```
 
+### `.toContainReactText(text: string)`
+
+Asserts that the rendered output of the component contains the passed string as text content (that is, the text is included in what you would get by calling `textContent` on all root DOM nodes rendered by the component).
+
+```tsx
+const myComponent = mount(<MyComponent />);
+expect(myComponent).toContainReactText('Hello world!');
+```
+
+### `.toContainReactHtml(text: string)`
+
+Asserts that the rendered output of the component contains the passed string as HTML (that is, the text is included in what you would get by calling `outerHTML` on all root DOM nodes rendered by the component).
+
+```tsx
+const myComponent = mount(<MyComponent />);
+expect(myComponent).toContainReactText('<span>Hello world!</span>');
+```
+
 ## FAQ
 
 ### Why not use [Enzyme](https://airbnb.io/enzyme/) instead?
