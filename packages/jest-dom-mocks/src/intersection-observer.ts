@@ -47,7 +47,15 @@ export default class IntersectionObserverMock {
       (this.observers = setter(this.observers));
 
     (global as any).IntersectionObserverEntry = () => {};
-    (global as any).IntersectionObserverEntry.prototype.intersectionRatio = 0;
+    Object.defineProperty(
+      IntersectionObserverEntry.prototype,
+      'intersectionRatio',
+      {
+        get() {
+          return 0;
+        },
+      },
+    );
 
     (global as any).IntersectionObserver = class FakeIntersectionObserver {
       constructor(

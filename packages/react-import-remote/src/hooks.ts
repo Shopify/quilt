@@ -5,6 +5,7 @@ import {
   WindowWithRequestIdleCallback,
   RequestIdleCallbackHandle,
 } from '@shopify/async';
+import {useMountedRef} from '@shopify/react-hooks';
 import load from './load';
 
 interface Options<Imported> {
@@ -20,7 +21,7 @@ export enum Status {
   Loading = 'Loading',
 }
 
-type Result<Imported = any> =
+type Result<Imported = unknown> =
   | {status: Status.Initial}
   | {status: Status.Loading}
   | {status: Status.Failed; error: Error}
@@ -34,10 +35,13 @@ export function useImportRemote<Imported = unknown>(
   intersectionRef: React.Ref<HTMLElement | null>;
 } {
   const {defer = DeferTiming.Mount, nonce = '', getImport} = options;
-  const [result, setResult] = React.useState<Result>({status: Status.Initial});
+  const [result, setResult] = React.useState<Result<Imported>>({
+    status: Status.Initial,
+  });
   const idleCallbackHandle = React.useRef<RequestIdleCallbackHandle | null>(
     null,
   );
+  const mounted = useMountedRef();
 
   const deferOption = React.useRef(defer);
 
@@ -54,7 +58,7 @@ export function useImportRemote<Imported = unknown>(
   let intersectionRef: React.Ref<HTMLElement | null> = null;
 
   // Normally this would be dangerous but because we are
-  // guranteed to have thrown if the defer option changes
+  // guaranteed to have thrown if the defer option changes
   // we can be confident that a given use of this hook
   // will only ever hit one of these two cases.
   /* eslint-disable react-hooks/rules-of-hooks */
@@ -68,12 +72,17 @@ export function useImportRemote<Imported = unknown>(
       try {
         setResult({status: Status.Loading});
         const importResult = await load(source, getImport, nonce);
-        setResult({status: Status.Complete, imported: importResult});
+
+        if (mounted.current) {
+          setResult({status: Status.Complete, imported: importResult});
+        }
       } catch (error) {
-        setResult({status: Status.Failed, error});
+        if (mounted.current) {
+          setResult({status: Status.Failed, error});
+        }
       }
     },
-    [getImport, nonce, source],
+    [getImport, mounted, nonce, source],
   );
 
   React.useEffect(
@@ -107,7 +116,7 @@ export function useImportRemote<Imported = unknown>(
       return () => {
         if (
           idleCallbackHandle.current != null &&
-          typeof (window as any).cancelIdleCallback === undefined
+          typeof (window as any).cancelIdleCallback === 'function'
         ) {
           (window as any).cancelIdleCallback(idleCallbackHandle.current);
           idleCallbackHandle.current = null;

@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Changes to the props of `<ImportRemote />` mid-render will cause the import to be canceled. ([608](https://github.com/Shopify/quilt/pull/608))
+- Removed `onError` callback prop. `onImported` now receives an error in the case that an error occurs during the import. ([608](https://github.com/Shopify/quilt/pull/608))
 - Added `useImportRemote()` hook ([608](https://github.com/Shopify/quilt/pull/608))
 
 ### Added

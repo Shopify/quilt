@@ -13,7 +13,31 @@ $ yarn add @shopify/react-import-remote
 
 ## Usage
 
-The provided utilities are intended only for external scripts that load globals. Other JavaScript should use the native `import()` operator for asynchronously loading code. These utilities cache results by source, so only a single `script` tag is ever added for a particular source.
+The package provides a hook and component that are intended for loading external scripts. These utilities cache results by source, so only a single `script` tag is ever added for a particular source.
+
+### useImportRemote()
+
+```tsx
+import * as React from 'react';
+import {useImportRemote, Status} from '@shopify/react-import-remote';
+import {DeferTiming} from '@shopify/async';
+
+function MyComponent() {
+  const {result} = useImportRemote(
+    'https://some-external-service.com/global.js',
+  );
+
+  if (result.status === Status.Failed) {
+    // do something with error result
+  }
+
+  if (result.status === Status.Complete) {
+    // do something with successful result
+  }
+
+  return null;
+}
+```
 
 ### <ImportRemote />
 
@@ -46,18 +70,6 @@ function MyComponent() {
 }
 ```
 
-## Interface
-
-```ts
-interface Props<Imported = any> {
-  source: string;
-  preconnect?: boolean;
-  getImport(window: Window): Imported;
-  onImported(imported: Imported | Error): void;
-  defer?: DeferTiming;
-}
-```
-
 **source**
 
 Source of the script to load the global from
@@ -83,60 +95,3 @@ A member of the `DeferTiming` enum (from `@shopify/async`) allowing the import r
 - Component is in the viewport (`DeferTiming.InViewport`; if `IntersectionObserver` is not available, it will load on mount)
 
 Note, changing any of these values while rendering will cancel the import.
-
-### useImportRemote()
-
-The above can also be accomplished using the hook, `useImportRemote()`, that is available in this package.
-
-```tsx
-import * as React from 'react';
-import {useImportRemote, Status} from '@shopify/react-import-remote';
-import {DeferTiming} from '@shopify/async';
-
-function MyComponent() {
-  const {result} = useImportRemote(
-    'https://some-external-service.com/global.js',
-  );
-
-  if (result.status === Status.Failed) {
-    // do something with error result
-  }
-
-  if (result.status === Status.Complete) {
-    // do something with successful result
-  }
-
-  return null;
-}
-```
-
-## Interface
-
-```tsx
-useImportRemote<Imported = unknown>(
-  source: string, // source of the script to load the global from
-  options: Options<Imported>, // see Options interface below
-): {
-  result: Result<Imported>; // see Result interface below
-  intersectionRef: React.Ref<HTMLElement | null>; // with defer: DeferTiming.InViewport, a ref to identify element to observe
-}
-
-interface Options<Imported> {
-  nonce?: string; // a unique cryptographic nonce to add to the generated script tag
-  defer?: DeferTiming; // refer to the defer prop above
-  getImport(window: Window): Imported; // refer to the getImport prop above
-}
-
-export enum Status {
-  Initial = 'Initial',
-  Failed = 'Failed',
-  Complete = 'Complete',
-  Loading = 'Loading',
-}
-
-type Result<Imported = any> =
-  | {status: Status.Initial}
-  | {status: Status.Loading}
-  | {status: Status.Failed; error: Error}
-  | {status: Status.Complete; imported: Imported};
-```
