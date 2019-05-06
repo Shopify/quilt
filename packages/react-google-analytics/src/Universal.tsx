@@ -9,9 +9,9 @@ export interface Props {
   domain: string;
   nonce?: string;
   set?: {[key: string]: any};
-  onLoad?(analytics: UniversalAnalytics): void;
   debug?: boolean;
   disableTracking?: boolean;
+  onLoad?(analytics: UniversalAnalytics): void;
 }
 
 export const SETUP_SCRIPT = `
@@ -28,65 +28,71 @@ export const UNIVERSAL_GA_SCRIPT =
 export const UNIVERSAL_GA_DEBUG_SCRIPT =
   'https://www.google-analytics.com/analytics_debug.js';
 
-export default class UniversalGoogleAnalytics extends React.PureComponent<
-  Props,
-  never
-> {
-  render() {
-    const {debug, nonce} = this.props;
+export default function UniversalGoogleAnalytics({
+  account,
+  domain,
+  nonce,
+  set: setVariables = {},
+  onLoad,
+  debug,
+  disableTracking,
+}: Props) {
+  const setAnalytics = React.useCallback(
+    (googleAnalytics: UniversalAnalytics) => {
+      const normalizedDomain = getRootDomain(domain);
+      const options = {
+        cookieDomain: normalizedDomain,
+        legacyCookieDomain: normalizedDomain,
+        allowLinker: true,
+      };
 
-    return (
-      <>
-        <script
-          id="google-analytics-universal-script"
-          dangerouslySetInnerHTML={{__html: SETUP_SCRIPT}}
-          nonce={nonce}
-        />
-        <ImportRemote
-          preconnect
-          source={debug ? UNIVERSAL_GA_DEBUG_SCRIPT : UNIVERSAL_GA_SCRIPT}
-          nonce={nonce}
-          getImport={getUniversalAnalytics}
-          onError={noop}
-          onImported={this.setAnalytics}
-        />
-      </>
-    );
-  }
+      googleAnalytics('create', account, 'auto', options);
 
-  private setAnalytics = (googleAnalytics: UniversalAnalytics) => {
-    const {
-      account,
+      if (debug || disableTracking) {
+        // Prevent data being sent to Google
+        // https://developers.google.com/analytics/devguides/collection/analyticsjs/debugging#testing_your_implementation_without_sending_hits
+        googleAnalytics('set', 'sendHitTask', null);
+      }
+
+      for (const [key, value] of Object.entries(setVariables)) {
+        googleAnalytics('set', key, value);
+      }
+
+      if (onLoad) {
+        onLoad(googleAnalytics);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
       domain,
-      set: setVariables = {},
+      account,
+      debug,
+      disableTracking,
       onLoad,
-      debug = false,
-      disableTracking = false,
-    } = this.props;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      ...Object.entries(setVariables).map(setVariable => setVariable.join()),
+    ],
+  );
 
-    const normalizedDomain = getRootDomain(domain);
-    const options = {
-      cookieDomain: normalizedDomain,
-      legacyCookieDomain: normalizedDomain,
-      allowLinker: true,
-    };
+  const source = debug ? UNIVERSAL_GA_DEBUG_SCRIPT : UNIVERSAL_GA_SCRIPT;
 
-    googleAnalytics('create', account, 'auto', options);
-
-    if (debug || disableTracking) {
-      // Prevent data being sent to Google
-      // https://developers.google.com/analytics/devguides/collection/analyticsjs/debugging#testing_your_implementation_without_sending_hits
-      googleAnalytics('set', 'sendHitTask', null);
-    }
-
-    for (const [key, value] of Object.entries(setVariables)) {
-      googleAnalytics('set', key, value);
-    }
-
-    if (onLoad) {
-      onLoad(googleAnalytics);
-    }
-  };
+  return (
+    <>
+      <script
+        id="google-analytics-universal-script"
+        dangerouslySetInnerHTML={{__html: SETUP_SCRIPT}}
+        nonce={nonce}
+      />
+      <ImportRemote
+        preconnect
+        source={source}
+        nonce={nonce}
+        getImport={getUniversalAnalytics}
+        onError={noop}
+        onImported={setAnalytics}
+      />
+    </>
+  );
 }
 
 interface WindowWithUniversalAnalytics extends Window {

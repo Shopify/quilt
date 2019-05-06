@@ -58,7 +58,8 @@ export function useClientDomEffect(
     () => {
       perform(manager);
     },
-    [manager, ...inputs],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [manager, perform, ...inputs],
   );
 }
 

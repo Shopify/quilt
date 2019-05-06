@@ -105,7 +105,7 @@ describe('Navigation', () => {
       const navigation = createNavigation({
         events: [event],
       });
-      expect(navigation.resourceEvents).toEqual([event]);
+      expect(navigation.resourceEvents).toStrictEqual([event]);
     });
 
     it('returns style download events', () => {
@@ -113,7 +113,7 @@ describe('Navigation', () => {
       const navigation = createNavigation({
         events: [event],
       });
-      expect(navigation.resourceEvents).toEqual([event]);
+      expect(navigation.resourceEvents).toStrictEqual([event]);
     });
   });
 
@@ -181,7 +181,10 @@ describe('Navigation', () => {
         createGenericEvent({type}),
       ];
       const navigation = createNavigation({events});
-      expect(navigation.eventsByType(type)).toEqual([events[0], events[2]]);
+      expect(navigation.eventsByType(type)).toStrictEqual([
+        events[0],
+        events[2],
+      ]);
     });
   });
 

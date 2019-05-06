@@ -4,15 +4,18 @@ import './matchers';
 
 import {I18n} from '../i18n';
 import {LanguageDirection} from '../types';
-import {DateStyle, Weekdays} from '../constants';
+import {DateStyle, Weekday} from '../constants';
 import {MissingTranslationError} from '../errors';
 
 jest.mock('../utilities', () => ({
   translate: jest.fn(),
+  getTranslationTree: jest.fn(),
   getCurrencySymbol: jest.fn(),
 }));
 
 const translate: jest.Mock = require('../utilities').translate;
+const getTranslationTree: jest.Mock = require('../utilities')
+  .getTranslationTree;
 const getCurrencySymbol: jest.Mock = require('../utilities').getCurrencySymbol;
 
 describe('I18n', () => {
@@ -98,7 +101,6 @@ describe('I18n', () => {
     it('is undefined when the locale does not have a country code', () => {
       const locale = 'fr';
       const i18n = new I18n(defaultTranslations, {locale});
-      // eslint-disable-next-line no-undefined
       expect(i18n).toHaveProperty('region', undefined);
     });
   });
@@ -113,7 +115,6 @@ describe('I18n', () => {
     it('is undefined when the locale does not have a country code', () => {
       const locale = 'fr';
       const i18n = new I18n(defaultTranslations, {locale});
-      // eslint-disable-next-line no-undefined
       expect(i18n).toHaveProperty('countryCode', undefined);
     });
   });
@@ -137,6 +138,78 @@ describe('I18n', () => {
         timezone: defaultTimezone,
       });
       expect(i18n).toHaveProperty('defaultTimezone', defaultTimezone);
+    });
+  });
+
+  describe('#getTranslationTree()', () => {
+    it('calls the getTranslationTree() utility with translations, key, locale, scope, pseudotranslate, and replacements', () => {
+      const mockResult = {foo: 'bar'};
+      getTranslationTree.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const result = i18n.getTranslationTree('hello');
+
+      expect(result).toBe(mockResult);
+      expect(getTranslationTree).toHaveBeenCalledWith(
+        'hello',
+        defaultTranslations,
+      );
+    });
+
+    it('rethrows a missing translation error by default', () => {
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(() => i18n.getTranslationTree(key)).toThrow(error);
+    });
+
+    it('rethrows a missing translation error with the missing key message', () => {
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(() => i18n.getTranslationTree(key)).toThrow(
+        `Missing translation for key: ${key}`,
+      );
+    });
+
+    it('calls an onError handler', () => {
+      const key = 'hello';
+      const spy = jest.fn();
+      const error = new MissingTranslationError(key);
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: spy,
+      });
+
+      i18n.getTranslationTree(key);
+
+      expect(spy).toHaveBeenCalledWith(error);
+    });
+
+    it('returns an empty string when an onError handler does not rethrow', () => {
+      const key = 'key';
+      getTranslationTree.mockImplementation(() => {
+        throw new MissingTranslationError(key);
+      });
+
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: () => {},
+      });
+
+      expect(i18n.getTranslationTree(key)).toBe('');
     });
   });
 
@@ -229,18 +302,33 @@ describe('I18n', () => {
     });
 
     it('rethrows a missing translation error by default', () => {
-      const error = new MissingTranslationError();
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
       translate.mockImplementation(() => {
         throw error;
       });
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      expect(() => i18n.translate('hello')).toThrowError(error);
+      expect(() => i18n.translate(key)).toThrow(error);
+    });
+
+    it('rethrows a missing translation error with the missing key message', () => {
+      const key = 'hello';
+      const error = new MissingTranslationError(key);
+      translate.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(() => i18n.translate(key)).toThrow(
+        `Missing translation for key: ${key}`,
+      );
     });
 
     it('calls an onError handler', () => {
+      const key = 'hello';
       const spy = jest.fn();
-      const error = new MissingTranslationError();
+      const error = new MissingTranslationError(key);
       translate.mockImplementation(() => {
         throw error;
       });
@@ -250,14 +338,15 @@ describe('I18n', () => {
         onError: spy,
       });
 
-      i18n.translate('hello');
+      i18n.translate(key);
 
       expect(spy).toHaveBeenCalledWith(error);
     });
 
     it('returns an empty string when an onError handler does not rethrow', () => {
+      const key = 'hello';
       translate.mockImplementation(() => {
-        throw new MissingTranslationError();
+        throw new MissingTranslationError(key);
       });
 
       const i18n = new I18n(defaultTranslations, {
@@ -265,7 +354,7 @@ describe('I18n', () => {
         onError: () => {},
       });
 
-      expect(i18n.translate('hello')).toBe('');
+      expect(i18n.translate(key)).toBe('');
     });
   });
 
@@ -340,7 +429,7 @@ describe('I18n', () => {
 
       it('throws an error when no currency code is given as the default or as an option', () => {
         const i18n = new I18n(defaultTranslations, defaultDetails);
-        expect(() => i18n.formatNumber(1, {as: 'currency'})).toThrowError(
+        expect(() => i18n.formatNumber(1, {as: 'currency'})).toThrow(
           'No currency code provided.',
         );
       });
@@ -869,32 +958,32 @@ describe('I18n', () => {
     it('uses the defaultCountry to get the week start day', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'FR'});
 
-      expect(i18n.weekStartDay()).toBe(Weekdays.Monday);
+      expect(i18n.weekStartDay()).toBe(Weekday.Monday);
     });
 
     it('uses the country passed in the params instead of the defaultCountry', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'FR'});
 
-      expect(i18n.weekStartDay('CA')).toBe(Weekdays.Sunday);
+      expect(i18n.weekStartDay('CA')).toBe(Weekday.Sunday);
     });
 
     it('fallsback to Sunday if country is not in the list', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en', country: 'XX'});
 
-      expect(i18n.weekStartDay()).toBe(Weekdays.Sunday);
+      expect(i18n.weekStartDay()).toBe(Weekday.Sunday);
     });
 
     it('throws an error if no country code is passed', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(() => i18n.weekStartDay()).toThrowError(
+      expect(() => i18n.weekStartDay()).toThrow(
         'No country code provided. weekStartDay() cannot be called without a country code.',
       );
     });
   });
 
   describe('#getCurrencySymbol()', () => {
-    it('correctly returns the locale-specific currency symbol and its position', () => {
+    it('returns the locale-specific currency symbol and its position', () => {
       const mockResult = {
         symbol: '€',
         prefixed: true,
@@ -903,7 +992,7 @@ describe('I18n', () => {
 
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.getCurrencySymbol('eur')).toEqual(mockResult);
+      expect(i18n.getCurrencySymbol('eur')).toStrictEqual(mockResult);
     });
   });
 });

@@ -43,7 +43,6 @@ export default class List<Fields> extends React.PureComponent<
       const key = getChildKey ? getChildKey(fieldValues) : index;
 
       return (
-        // eslint-disable-next-line
         <React.Fragment key={key}>
           {children(innerFields, index)}
         </React.Fragment>

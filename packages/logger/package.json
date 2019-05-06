@@ -1,6 +1,6 @@
 {
   "name": "@shopify/logger",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "dist/index.js",
@@ -29,7 +29,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "sideEffects": false
 }

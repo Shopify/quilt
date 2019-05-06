@@ -78,7 +78,7 @@ type CustomMountResult<
   ? Promise<CustomRoot<Props, Context>>
   : CustomRoot<Props, Context>;
 
-class CustomRoot<Props, Context extends object> extends Root<Props> {
+export class CustomRoot<Props, Context extends object> extends Root<Props> {
   constructor(
     tree: React.ReactElement<Props>,
     public readonly context: Context,

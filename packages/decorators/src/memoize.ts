@@ -1,12 +1,10 @@
 import {memoize as memoizeEnhancer} from '@shopify/function-enhancers';
 
-export type Resolver<T extends Function> = T;
-
-export default function memoize<Method extends Function>(
-  resolver?: Resolver<Method>,
+export default function memoize<Method extends (...args: any[]) => any>(
+  resolver?: (...args: Parameters<Method>) => any,
 ): MethodDecorator {
   return function<T>(
-    _target: Object,
+    _target: object,
     propertyKey: string | symbol,
     descriptor: TypedPropertyDescriptor<T>,
   ) {

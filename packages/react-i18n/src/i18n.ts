@@ -1,6 +1,6 @@
-import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import memoizeFn from 'lodash/memoize';
 import {memoize} from '@shopify/javascript-utilities/decorators';
+import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -14,7 +14,7 @@ import {
   DEFAULT_WEEK_START_DAY,
   WEEK_START_DAYS,
   RTL_LANGUAGES,
-  Weekdays,
+  Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
 } from './constants';
@@ -26,6 +26,7 @@ import {
 import {
   getCurrencySymbol,
   translate,
+  getTranslationTree,
   TranslateOptions as RootTranslateOptions,
 } from './utilities';
 
@@ -102,7 +103,6 @@ export class I18n {
       pseudolocalize = false,
       onError,
     }: I18nDetails,
-    public readonly ids?: string[],
   ) {
     this.locale = locale;
     this.defaultCountry = country;
@@ -168,6 +168,15 @@ export class I18n {
     }
   }
 
+  getTranslationTree(id: string): string | object {
+    try {
+      return getTranslationTree(id, this.translations);
+    } catch (error) {
+      this.onError(error);
+      return '';
+    }
+  }
+
   formatNumber(
     amount: number,
     {as, precision, ...options}: NumberFormatOptions = {},
@@ -177,7 +186,7 @@ export class I18n {
     if (as === 'currency' && currency == null && options.currency == null) {
       this.onError(
         new MissingCurrencyCodeError(
-          `No currency code provided. formatNumber(amount, {as: 'currency'}) cannot be called without a currency code.`,
+          `formatNumber(amount, {as: 'currency'}) cannot be called without a currency code.`,
         ),
       );
 
@@ -268,12 +277,12 @@ export class I18n {
     }).format(date);
   }
 
-  weekStartDay(argCountry?: I18n['defaultCountry']): Weekdays {
+  weekStartDay(argCountry?: I18n['defaultCountry']): Weekday {
     const country = argCountry || this.defaultCountry;
 
     if (!country) {
       throw new MissingCountryError(
-        `No country code provided. weekStartDay() cannot be called without a country code.`,
+        'weekStartDay() cannot be called without a country code.',
       );
     }
 
@@ -284,7 +293,7 @@ export class I18n {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
       throw new MissingCurrencyCodeError(
-        `No currency code provided. formatCurrency cannot be called without a currency code.`,
+        'formatCurrency cannot be called without a currency code.',
       );
     }
     return this.getCurrencySymbolLocalized(this.locale, currency);

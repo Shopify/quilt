@@ -45,12 +45,12 @@ describe('jest-mock-apollo Requests', () => {
   });
 
   it('gets all operations', () => {
-    expect(requests.allOfOperation().length).toBe(3);
+    expect(requests.allOfOperation()).toHaveLength(3);
   });
 
   it('gets all operations with name', () => {
-    expect(requests.allWithOperationName('operation 1').length).toBe(1);
-    expect(requests.allWithOperationName('operation 2').length).toBe(2);
+    expect(requests.allWithOperationName('operation 1')).toHaveLength(1);
+    expect(requests.allWithOperationName('operation 2')).toHaveLength(2);
   });
 
   it('throws an error when last operation of type does not exist', () => {

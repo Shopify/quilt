@@ -32,19 +32,22 @@ describe('e2e', () => {
       const [mounted, setMounted] = React.useState(false);
       const element = React.useRef<HTMLElement | null>(null);
 
-      React.useEffect(() => {
-        if (!mounted) {
-          element.current = document.createElement('div');
-          document.body.appendChild(element.current);
-          setMounted(true);
-        }
-
-        return () => {
-          if (element.current != null) {
-            element.current.remove();
+      React.useEffect(
+        () => {
+          if (!mounted) {
+            element.current = document.createElement('div');
+            document.body.appendChild(element.current);
+            setMounted(true);
           }
-        };
-      });
+
+          return () => {
+            if (element.current != null) {
+              element.current.remove();
+            }
+          };
+        },
+        [mounted],
+      );
 
       return element.current ? createPortal(children, element.current) : null;
     }
@@ -178,5 +181,24 @@ describe('e2e', () => {
 
     expect(myComponent.find(Message)!.text()).toBe('Hello world');
     expect(myComponent.text()).toContain(myComponent.find(Message)!.text());
+  });
+
+  it('can find exotic components', () => {
+    const Message = React.memo(
+      React.forwardRef(function Message(
+        {name}: {name: string},
+        ref: React.Ref<HTMLDivElement>,
+      ) {
+        return <div ref={ref}>Hello {name}!</div>;
+      }),
+    );
+
+    function MyComponent() {
+      return <Message name="world" />;
+    }
+
+    const myComponent = mount(<MyComponent />);
+
+    expect(myComponent.find(Message)).toHaveReactProps({name: 'world'});
   });
 });

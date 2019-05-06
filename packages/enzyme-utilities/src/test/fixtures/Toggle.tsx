@@ -30,7 +30,7 @@ export function Toggle({onToggle, deferred}: Props) {
       onToggle();
       return Promise.resolve();
     },
-    [setActive],
+    [active, deferred, onToggle],
   );
 
   return (

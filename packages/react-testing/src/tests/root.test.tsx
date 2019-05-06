@@ -59,23 +59,23 @@ describe('Root', () => {
     expect(root.children).toBe(element.children);
     expect(root.descendants).toBe(element.descendants);
     expect(root.domNode).toBe(element.domNode);
-    expect(root.domNodes).toEqual(element.domNodes);
+    expect(root.domNodes).toStrictEqual(element.domNodes);
     expect(root.html()).toBe(element.html());
     expect(root.text()).toBe(element.text());
     expect(root.is('div')).toBe(element.is('div'));
     expect(root.prop('aria-label')).toBe(element.prop('aria-label'));
     expect(root.find('div')).toBe(element.find('div'));
-    expect(root.findAll('div')).toEqual(element.findAll('div'));
+    expect(root.findAll('div')).toStrictEqual(element.findAll('div'));
     expect(root.findWhere(element => element.type === 'div')).toBe(
       element.findWhere(element => element.type === 'div'),
     );
-    expect(root.findAllWhere(element => element.type === 'div')).toEqual(
+    expect(root.findAllWhere(element => element.type === 'div')).toStrictEqual(
       element.findAllWhere(element => element.type === 'div'),
     );
-    expect(root.trigger('onClick', 'Gord')).toEqual(
+    expect(root.trigger('onClick', 'Gord')).toStrictEqual(
       element.trigger('onClick', 'Gord'),
     );
-    expect(root.triggerKeypath('onClick', 'Gord')).toEqual(
+    expect(root.triggerKeypath('onClick', 'Gord')).toStrictEqual(
       element.triggerKeypath('onClick', 'Gord'),
     );
   });
@@ -83,7 +83,7 @@ describe('Root', () => {
   it('throws an error when attempting to delegate to an unmounted root', () => {
     const root = new Root(<div />);
     root.unmount();
-    expect(() => root.html()).toThrowError(
+    expect(() => root.html()).toThrow(
       /Attempted to operate on a mounted tree, but the component is no longer mounted/,
     );
   });
@@ -104,7 +104,7 @@ describe('Root', () => {
     it('throws an error if the component is already unmounted', () => {
       const root = new Root(<div>Hello world</div>);
       root.unmount();
-      expect(() => root.unmount()).toThrowError(
+      expect(() => root.unmount()).toThrow(
         /You attempted to unmount a node that was already unmounted/,
       );
     });
@@ -135,7 +135,7 @@ describe('Root', () => {
 
     it('throws an error when the component is already mounted', () => {
       const root = new Root(<div>Hello world</div>);
-      expect(() => root.mount()).toThrowError(
+      expect(() => root.mount()).toThrow(
         /Attempted to mount a node that was already mounted/,
       );
     });
@@ -203,9 +203,7 @@ describe('Root', () => {
     };
 
     it('throws an error when a mounted component throws an error', () => {
-      expect(() => new Root(<Thrower />)).toThrowError(
-        'Something bad happened',
-      );
+      expect(() => new Root(<Thrower />)).toThrow('Something bad happened');
     });
 
     it('throws an error when updating to a component that throws an error', () => {
@@ -221,9 +219,9 @@ describe('Root', () => {
 
       const root = new Root(<MyComponent />);
 
-      expect(() =>
-        root.find('button')!.trigger('onClick', {} as any),
-      ).toThrowError('Something bad happened');
+      expect(() => root.find('button')!.trigger('onClick', {} as any)).toThrow(
+        'Something bad happened',
+      );
     });
   });
 });

@@ -312,6 +312,26 @@ To run multiple functions on the same field you can also use an array of functio
   ]}}
 ```
 
+To run multiple functions on an inner field of a nested field you can use [validateNested](validators.md#validatenested).
+
+```typescript
+  validators={{
+    person: validateNested({
+      age: [
+        (input) => {
+          if (input < 16) {
+            return 'too young';
+          }
+        },
+        (input) => {
+          if (input > 200) {
+            return 'too old';
+          }
+        },
+      ]
+    })
+```
+
 `<FormState />` generates handlers that follow the [Polaris form validation guidelines](https://polaris.shopify.com/patterns/error-messages#section-form-validation). When you blur an input, or when you change it and it already has an error, any defined validators for that field will be invoked.
 
 ```typescript

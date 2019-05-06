@@ -56,9 +56,9 @@ describe('createAsyncQueryComponent()', () => {
     const asyncQueryComponent = mount(<AsyncQueryComponent {...props} />);
 
     expect(trigger(asyncQueryComponent.find(Async), 'render', null)).toBeNull();
-    expect(trigger(asyncQueryComponent.find(Async), 'render', query)).toEqual(
-      <Query query={query} {...props} />,
-    );
+    expect(
+      trigger(asyncQueryComponent.find(Async), 'render', query),
+    ).toStrictEqual(<Query query={query} {...props} />);
   });
 
   it('creates a deferred <Async /> when specified', () => {
@@ -115,6 +115,7 @@ describe('createAsyncQueryComponent()', () => {
         defer: DeferTiming.Mount,
       });
       expect(trigger(prefetch.find(Async), 'render', null)).toBeNull();
+      // eslint-disable-next-line jest/prefer-strict-equal
       expect(trigger(prefetch.find(Async), 'render', query)).toEqual(
         <Prefetch ignoreCache query={query} />,
       );
@@ -141,6 +142,7 @@ describe('createAsyncQueryComponent()', () => {
         defer: DeferTiming.Idle,
       });
       expect(trigger(keepFresh.find(Async), 'render', null)).toBeNull();
+      // eslint-disable-next-line jest/prefer-strict-equal
       expect(trigger(keepFresh.find(Async), 'render', query)).toEqual(
         <Prefetch query={query} pollInterval={expect.any(Number)} />,
       );
@@ -154,6 +156,7 @@ describe('createAsyncQueryComponent()', () => {
         <AsyncQueryComponent.KeepFresh pollInterval={pollInterval} />,
       );
 
+      // eslint-disable-next-line jest/prefer-strict-equal
       expect(trigger(keepFresh.find(Async), 'render', query)).toEqual(
         <Prefetch query={query} pollInterval={pollInterval} />,
       );

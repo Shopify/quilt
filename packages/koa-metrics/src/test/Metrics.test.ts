@@ -1,5 +1,5 @@
-import withEnv from '@shopify/with-env';
 import {StatsD} from 'hot-shots';
+import withEnv from '@shopify/with-env';
 import Metrics from '../Metrics';
 
 jest.mock('hot-shots');

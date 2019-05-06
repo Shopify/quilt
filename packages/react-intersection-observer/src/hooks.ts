@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useRef, useEffect, Ref} from 'react';
 
 import {isSupported} from './utilities';
@@ -69,7 +70,6 @@ export function useIntersection({
 
       observer.current = intersectionObserver;
 
-      // eslint-disable-next-line consistent-return
       return () => {
         intersectionObserver.disconnect();
       };
@@ -115,7 +115,6 @@ export function useIntersection({
       observer.current.observe(node.current);
     }
 
-    // eslint-disable-next-line consistent-return
     return () => {
       if (
         lastNode.current == null ||
@@ -145,3 +144,4 @@ export function useValueTracking<T>(
     onChange(value, oldValue);
   }
 }
+/* eslint-enable react-hooks/exhaustive-deps */

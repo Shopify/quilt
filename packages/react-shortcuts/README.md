@@ -163,6 +163,43 @@ class MyComponent extends React.Component {
 }
 ```
 
+### useShortcut
+
+`<Shortcut />` invokes a hook, `useShortcut()`, under the hood. This hook is also available for use from this package. It will also register a new keyboard shortcut to the `ShortcutManager` and the API is very similar.
+
+#### API
+
+```ts
+function useShortcut(
+  // All inputs are the same as the above definitions for the props to <Shortcut />
+  ordered: Key[],
+  onMatch: (matched: {ordered: Key[]; held?: HeldKey}) => void,
+  options: {
+    held?: HeldKey;
+    node?: HTMLElement | null;
+    ignoreInput?: boolean;
+    allowDefault?: boolean;
+  } = {},
+);
+```
+
+#### Basic example
+
+The below example illustrates the same basic functionality as the `<Shortcut />` example above. However, it uses the `useShortcut()` hook and the component has been removed.
+
+```ts
+// MyComponent.tsx
+
+import * as React from 'react';
+import {useShortcut} from '@shopify/react-shortcuts';
+
+export default function MyComponent() {
+  useShortcut(['f', 'o', 'o'], () => console.log('foo'));
+
+  return <div>{/* some app markup here */}</div>;
+}
+```
+
 ### ShortcutManager
 
 `ShortcutManager` is created by `ShortcutProvider` and handles the logic for calling the appropriate shortcut callbacks and avoiding conflicts. You should never need to use it directly in application code, though you may want access to it in tests.

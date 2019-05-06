@@ -1,6 +1,6 @@
 {
   "name": "@shopify/useful-types",
-  "version": "1.2.1",
+  "version": "1.2.4",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*"

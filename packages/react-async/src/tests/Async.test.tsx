@@ -175,8 +175,7 @@ function createResolvablePromise<T>(value: T) {
       await new Promise(resolve => process.nextTick(resolve));
       return value;
     },
-    // eslint-disable-next-line typescript/no-non-null-assertion
-    reject: rejecter!,
+    reject: rejecter,
     promise,
   };
 }

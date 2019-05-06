@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/{{name}}/README.md",
   "dependencies": {},
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "files": ["dist/*"]
 }

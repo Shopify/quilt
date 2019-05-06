@@ -1,6 +1,6 @@
 {
   "name": "@shopify/polyfills",
-  "version": "0.0.10",
+  "version": "0.0.14",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@types/caniuse-api": "^3.0.0",
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "files": [
     "*.js",

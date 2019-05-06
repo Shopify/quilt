@@ -1,9 +1,14 @@
 import * as React from 'react';
 
-import {LoadProps, DeferTiming} from '@shopify/async';
-import {Async, AsyncPropsRuntime} from '@shopify/react-async';
-import {Omit} from '@shopify/useful-types';
 import {DocumentNode} from 'graphql-typed';
+import {LoadProps, DeferTiming} from '@shopify/async';
+import {
+  Async,
+  AsyncPropsRuntime,
+  resolve as resolver,
+  trySynchronousResolve,
+} from '@shopify/react-async';
+import {Omit} from '@shopify/useful-types';
 
 import {Prefetch as PrefetchQuery} from './Prefetch';
 import {Query} from './Query';
@@ -28,6 +33,16 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
   Variables,
   DeepPartial
 >): AsyncQueryComponentType<Data, Variables, DeepPartial> {
+  let resolvedDocument = trySynchronousResolve<
+    DocumentNode<Data, Variables, DeepPartial>
+  >({id, defer});
+
+  async function resolve() {
+    const response = await resolver(load);
+    resolvedDocument = response;
+    return response;
+  }
+
   function AsyncQuery(
     props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
   ) {
@@ -109,6 +124,11 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
   FinalComponent.Preload = Preload;
   FinalComponent.Prefetch = Prefetch;
   FinalComponent.KeepFresh = KeepFresh;
+  FinalComponent.resolve = resolve;
+
+  Object.defineProperty(FinalComponent, 'resolved', {
+    get: () => resolvedDocument,
+  });
 
   return FinalComponent;
 }

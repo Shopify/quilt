@@ -4,7 +4,7 @@ import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
-import {Tag, FunctionKeys} from './types';
+import {Tag, FunctionKeys, DeepPartialArguments} from './types';
 
 export type Predicate = (element: Element<unknown>) => boolean;
 
@@ -137,7 +137,7 @@ export class Element<Props> {
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
   ): this is Element<PropsForComponent<Type>> {
-    return this.type === type;
+    return isMatchingType(this.type, type);
   }
 
   find<Type extends React.ComponentType<any> | string>(
@@ -146,7 +146,7 @@ export class Element<Props> {
   ): Element<PropsForComponent<Type>> | null {
     return (this.elementDescendants.find(
       element =>
-        element.type === type &&
+        isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) || null) as Element<PropsForComponent<Type>> | null;
   }
@@ -172,7 +172,7 @@ export class Element<Props> {
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
-    ...args: Arguments<Props[K]>
+    ...args: DeepPartialArguments<Arguments<Props[K]>>
   ): ReturnType<NonNullable<Props[K]>> {
     return this.root.act(() => {
       const propValue = this.props[prop];
@@ -228,6 +228,21 @@ export class Element<Props> {
 
     return `<${name} />`;
   }
+}
+
+function isMatchingType(
+  type: Tree<unknown>['type'],
+  test: Tree<unknown>['type'],
+) {
+  if (type === test) {
+    return true;
+  }
+
+  if (test == null) {
+    return false;
+  }
+
+  return (test as any).type != null && isMatchingType(type, (test as any).type);
 }
 
 function equalSubset(subset: object, full: object) {

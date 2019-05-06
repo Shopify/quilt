@@ -41,7 +41,6 @@ export default function useShortcut(
         allowDefault: allowDefault || false,
       });
 
-      // eslint-disable-next-line consistent-return
       return () => {
         if (subscription.current == null) {
           return;
@@ -50,6 +49,6 @@ export default function useShortcut(
         subscription.current.unsubscribe();
       };
     },
-    [node, ordered, onMatch, held, ignoreInput, allowDefault],
+    [node, ordered, onMatch, held, ignoreInput, allowDefault, shortcutManager],
   );
 }

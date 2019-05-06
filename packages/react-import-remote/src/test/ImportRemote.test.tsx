@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
+import {noop} from '@shopify/javascript-utilities/other';
 import {Preconnect} from '@shopify/react-html';
 import {DeferTiming} from '@shopify/async';
 import {IntersectionObserver} from '@shopify/react-intersection-observer';
-import {noop} from '@shopify/javascript-utilities/other';
 import {requestIdleCallback} from '@shopify/jest-dom-mocks';
 import {trigger} from '@shopify/enzyme-utilities';
 

@@ -3,9 +3,9 @@ import faker from 'faker';
 import {mount} from 'enzyme';
 
 import FormState, {validate, validateNested} from '..';
+import {validateList} from '../validators';
 import {lastCallArgs} from './utilities';
 import {Input, InputField} from './components';
-import {validateList} from '../validators';
 
 describe('<FormState />', () => {
   it('passes form state into child function', () => {
@@ -281,7 +281,7 @@ describe('<FormState />', () => {
         });
 
         const state = lastCallArgs(renderPropSpy);
-        expect(state.errors).toEqual(submitErrors);
+        expect(state.errors).toStrictEqual(submitErrors);
       });
     });
 
@@ -417,7 +417,7 @@ describe('<FormState />', () => {
 
       const {errors} = lastCallArgs(renderPropSpy);
 
-      expect(errors).toEqual(externalErrors);
+      expect(errors).toStrictEqual(externalErrors);
     });
 
     it('returns both submit errors and external errors if submit returns an error', async () => {
@@ -449,7 +449,7 @@ describe('<FormState />', () => {
       await submit();
 
       const {errors} = lastCallArgs(renderPropSpy);
-      expect(errors).toEqual([...submitErrors, ...externalErrors]);
+      expect(errors).toStrictEqual([...submitErrors, ...externalErrors]);
     });
 
     it('does not reset fields if externalErrors are not provided', () => {
@@ -475,7 +475,7 @@ describe('<FormState />', () => {
 
       const {fields: updatedFields} = lastCallArgs(renderPropSpy);
 
-      expect(updatedFields.product.error).toEqual(errorMessage);
+      expect(updatedFields.product.error).toStrictEqual(errorMessage);
     });
   });
 
@@ -524,7 +524,7 @@ describe('<FormState />', () => {
       expect(dirty).toBe(false);
     });
 
-    it("is set to false if every field's value is equal to its initialValue", () => {
+    it('is set to false if all field values are equal to their initialValue', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
       const color = faker.commerce.color();
@@ -696,10 +696,9 @@ describe('<FormState />', () => {
       formDetails.fields.product.onBlur();
 
       expect(productValidatorSpy).toHaveBeenCalledTimes(1);
-      expect(productValidatorSpy).toBeCalledWith(newProduct, {
+      expect(productValidatorSpy).toHaveBeenCalledWith(newProduct, {
         product: {
           dirty: true,
-          // eslint-disable-next-line no-undefined
           error: undefined,
           initialValue: product,
           value: newProduct,
@@ -723,7 +722,7 @@ describe('<FormState />', () => {
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onBlur();
 
-      expect(validatorSpy).not.toBeCalled();
+      expect(validatorSpy).not.toHaveBeenCalled();
     });
 
     it('runs validation on a field when it already has an error and onChange() is called', () => {
@@ -794,7 +793,7 @@ describe('<FormState />', () => {
       formDetails.fields.product.onBlur();
 
       const updatedFormDetails = lastCallArgs(renderPropSpy);
-      expect(updatedFormDetails.fields.product.error).toEqual([
+      expect(updatedFormDetails.fields.product.error).toStrictEqual([
         error,
         otherError,
       ]);
@@ -832,7 +831,6 @@ describe('<FormState />', () => {
             sku: faker.random.uuid(),
           }}
           validators={{
-            // eslint-disable-next-line no-undefined
             product: () => undefined,
             sku: () => faker.lorem.sentence(),
           }}
@@ -852,7 +850,7 @@ describe('<FormState />', () => {
       expect(valid).toBe(false);
     });
 
-    it('sets valid to true when every field passes validation', () => {
+    it('sets valid to true when all fields pass validation', () => {
       const renderPropSpy = jest.fn(() => null);
 
       mount(
@@ -862,9 +860,7 @@ describe('<FormState />', () => {
             sku: faker.random.uuid(),
           }}
           validators={{
-            // eslint-disable-next-line no-undefined
             product: () => undefined,
-            // eslint-disable-next-line no-undefined
             sku: () => undefined,
           }}
         >
@@ -969,7 +965,7 @@ describe('<FormState />', () => {
       await submit();
 
       const {errors} = lastCallArgs(renderPropSpy);
-      expect(errors).toEqual(errors);
+      expect(errors).toStrictEqual(errors);
     });
 
     it('propagates submit errors down to fields when the field array matches an existing field', async () => {
@@ -1118,7 +1114,7 @@ describe('<FormState />', () => {
       await submit();
 
       const {errors} = lastCallArgs(renderPropSpy);
-      expect(errors).toEqual([]);
+      expect(errors).toStrictEqual([]);
     });
   });
 
@@ -1149,8 +1145,8 @@ describe('<FormState />', () => {
 
       await submit();
 
-      expect(productValidatorSpy).toBeCalled();
-      expect(skuValidatorSpy).toBeCalled();
+      expect(productValidatorSpy).toHaveBeenCalled();
+      expect(skuValidatorSpy).toHaveBeenCalled();
     });
 
     it('does not call onSubmit when a validator fails and validateOnSubmit is true', async () => {
@@ -1178,7 +1174,7 @@ describe('<FormState />', () => {
 
       await submit();
 
-      expect(submitSpy).not.toBeCalled();
+      expect(submitSpy).not.toHaveBeenCalled();
     });
 
     it('resets submitting state when validation on submit fails', async () => {
@@ -1236,8 +1232,8 @@ describe('<FormState />', () => {
 
       await submit();
 
-      expect(productValidatorSpy).not.toBeCalled();
-      expect(skuValidatorSpy).not.toBeCalled();
+      expect(productValidatorSpy).not.toHaveBeenCalled();
+      expect(skuValidatorSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -1268,7 +1264,7 @@ describe('<FormState />', () => {
 
       const {errors} = lastCallArgs(renderPropSpy);
 
-      expect(errors).toEqual(remoteErrors);
+      expect(errors).toStrictEqual(remoteErrors);
     });
 
     it('includes client-side errors in errors on submit fails', async () => {
@@ -1296,16 +1292,16 @@ describe('<FormState />', () => {
 
       const {submit, errors} = lastCallArgs(renderPropSpy);
 
-      expect(errors).toEqual([]);
+      expect(errors).toStrictEqual([]);
 
       await submit();
 
       const {errors: updatedErrors} = lastCallArgs(renderPropSpy);
 
-      expect(updatedErrors).toEqual([clientValidationError]);
+      expect(updatedErrors).toStrictEqual([clientValidationError]);
     });
 
-    it('does not update client-side errors on inline field corrections', async () => {
+    it('does not update client-side errors when invalid fields are fixed inline', async () => {
       const renderPropSpy = jest.fn(() => null);
       const goodProductName = 'Good Product';
       const badProductName = 'Bad Product';
@@ -1343,8 +1339,8 @@ describe('<FormState />', () => {
         errors,
       } = lastCallArgs(renderPropSpy);
 
-      expect(error).toEqual(clientValidationError.message);
-      expect(errors).toEqual([clientValidationError]);
+      expect(error).toStrictEqual(clientValidationError.message);
+      expect(errors).toStrictEqual([clientValidationError]);
 
       onChange(goodProductName);
 
@@ -1356,7 +1352,7 @@ describe('<FormState />', () => {
       } = lastCallArgs(renderPropSpy);
 
       expect(updatedError).toBeUndefined();
-      expect(updatedErrors).toEqual([clientValidationError]);
+      expect(updatedErrors).toStrictEqual([clientValidationError]);
     });
 
     it('does not update client-side errors on inline field invalidations', async () => {
@@ -1393,7 +1389,7 @@ describe('<FormState />', () => {
       } = lastCallArgs(renderPropSpy);
 
       expect(error).toBeUndefined();
-      expect(errors).toEqual([]);
+      expect(errors).toStrictEqual([]);
 
       onChange(badProductName);
       onBlur();
@@ -1405,8 +1401,8 @@ describe('<FormState />', () => {
         errors: updatedErrors,
       } = lastCallArgs(renderPropSpy);
 
-      expect(updatedError).toEqual('product bad');
-      expect(updatedErrors).toEqual([]);
+      expect(updatedError).toStrictEqual('product bad');
+      expect(updatedErrors).toStrictEqual([]);
     });
 
     it('clears client-side errors when the form is submitted with no validateOnSubmit errors', async () => {
@@ -1447,17 +1443,17 @@ describe('<FormState />', () => {
 
       const {errors} = lastCallArgs(renderPropSpy);
 
-      expect(errors).toEqual([clientValidationError]);
+      expect(errors).toStrictEqual([clientValidationError]);
 
       onChange(goodProductName);
       await submit();
 
       const {errors: updatedErrors} = lastCallArgs(renderPropSpy);
 
-      expect(updatedErrors).toEqual([]);
+      expect(updatedErrors).toStrictEqual([]);
     });
 
-    it('properly returns errors for nested fields', async () => {
+    it('returns errors for nested fields', async () => {
       const renderPropSpy = jest.fn(() => null);
       const expectedSubmitErrors = [
         {message: 'Bad Product Name'},
@@ -1504,10 +1500,10 @@ describe('<FormState />', () => {
 
       const {errors} = lastCallArgs(renderPropSpy);
 
-      expect(errors).toEqual(expectedSubmitErrors);
+      expect(errors).toStrictEqual(expectedSubmitErrors);
     });
 
-    it('properly returns errors for list fields', async () => {
+    it('returns errors for list fields', async () => {
       const renderPropSpy = jest.fn(() => null);
       const expectedSubmitErrors = [
         {message: 'Bad Product Name'},
@@ -1541,10 +1537,10 @@ describe('<FormState />', () => {
 
       const {errors} = lastCallArgs(renderPropSpy);
 
-      expect(errors).toEqual(expectedSubmitErrors);
+      expect(errors).toStrictEqual(expectedSubmitErrors);
     });
 
-    it('properly returns errors for nested and list fields', async () => {
+    it('returns errors for nested and list fields', async () => {
       const renderPropSpy = jest.fn(() => null);
       const expectedSubmitErrors = [
         {message: 'single error 1'},
@@ -1601,7 +1597,7 @@ describe('<FormState />', () => {
 
       const {errors} = lastCallArgs(renderPropSpy);
 
-      expect(errors).toEqual(expectedSubmitErrors);
+      expect(errors).toStrictEqual(expectedSubmitErrors);
     });
   });
 
@@ -1622,7 +1618,7 @@ describe('<FormState />', () => {
       };
       await submit(mockEvent);
 
-      expect(mockEvent.preventDefault).toBeCalled();
+      expect(mockEvent.preventDefault).toHaveBeenCalled();
     });
 
     it('does not call preventDefault on event if was prevented', async () => {
@@ -1642,7 +1638,7 @@ describe('<FormState />', () => {
       };
       await submit(mockEvent);
 
-      expect(mockEvent.preventDefault).not.toBeCalled();
+      expect(mockEvent.preventDefault).not.toHaveBeenCalled();
     });
 
     it('calls onSubmit if event with no preventDefault function is provided', async () => {
@@ -1660,7 +1656,7 @@ describe('<FormState />', () => {
       const mockEvent = {};
       await submit(mockEvent);
 
-      expect(onSubmitSpy).toBeCalled();
+      expect(onSubmitSpy).toHaveBeenCalled();
     });
   });
 
@@ -1691,8 +1687,8 @@ describe('<FormState />', () => {
       */
       (form.instance() as FormState<any>).validateForm();
 
-      expect(productValidatorSpy).toBeCalled();
-      expect(skuValidatorSpy).toBeCalled();
+      expect(productValidatorSpy).toHaveBeenCalled();
+      expect(skuValidatorSpy).toHaveBeenCalled();
     });
 
     it('updates fields when a validator fails', async () => {

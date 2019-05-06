@@ -9,3 +9,6 @@ export {
   GraphQLDeepPartial,
   QueryProps,
 } from './types';
+
+export {ApolloProvider} from './ApolloProvider';
+export * from './hooks';

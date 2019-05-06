@@ -1,6 +1,6 @@
 {
   "name": "@shopify/enzyme-utilities",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components.",
   "main": "dist/index.js",
@@ -28,7 +28,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "sideEffects": false,
   "peerDependencies": {

@@ -8,6 +8,7 @@ export enum ApiVersion {
   April19 = '2019-04',
   July19 = '2019-07',
   Unstable = 'unstable',
+  Unversioned = 'unversioned',
 }
 
 interface DefaultProxyOptions {
@@ -53,7 +54,7 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
         'X-Shopify-Access-Token': accessToken,
       },
       proxyReqPathResolver() {
-        return `https://${shop}${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
+        return `${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
       },
     })(
       ctx,

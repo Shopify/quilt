@@ -1,6 +1,6 @@
 {
   "name": "@shopify/csrf-token-fetcher",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "license": "MIT",
   "description": "JavaScript utility function to fetch the CSRF token required to make requests to a Rails server",
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/csrf-token-fetcher/README.md",
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*"

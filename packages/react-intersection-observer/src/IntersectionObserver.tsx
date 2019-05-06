@@ -30,5 +30,5 @@ export const IntersectionObserver = React.memo(function IntersectionObserver({
 
   useValueTracking(intersection, newValue => onIntersectionChange(newValue));
 
-  return <Wrapper ref={ref}>{children}</Wrapper>;
+  return React.createElement(Wrapper, {ref}, children);
 });

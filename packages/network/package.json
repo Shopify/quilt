@@ -1,6 +1,6 @@
 {
   "name": "@shopify/network",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "license": "MIT",
   "description": "Common values related to dealing with the network",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/network/README.md",
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*"
