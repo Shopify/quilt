@@ -1,4 +1,4 @@
-import memoize from 'lodash/memoize';
+import {memoize} from '@shopify/function-enhancers';
 
 const memoizedGetDateTimeFormat = memoize(
   getDateTimeFormat,
