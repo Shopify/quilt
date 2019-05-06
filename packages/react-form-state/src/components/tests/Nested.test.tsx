@@ -3,6 +3,7 @@ import faker from 'faker';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
 
+// eslint-disable-next-line shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
 import {lastCallArgs} from '../../tests/utilities';
 import FormState from '../..';
@@ -28,11 +29,10 @@ describe('<Nested />', () => {
       </FormState>,
     );
 
-    expect(renderPropSpy).toBeCalledWith({
+    expect(renderPropSpy).toHaveBeenCalledWith({
       title: {
         name: 'product.title',
         dirty: false,
-        // eslint-disable-next-line no-undefined
         error: undefined,
         initialValue: product.title,
         value: product.title,
@@ -42,7 +42,6 @@ describe('<Nested />', () => {
       adjective: {
         name: 'product.adjective',
         dirty: false,
-        // eslint-disable-next-line no-undefined
         error: undefined,
         initialValue: product.adjective,
         value: product.adjective,
@@ -131,7 +130,7 @@ describe('<Nested />', () => {
     expect(renderPropArgs.department.error).toBe(field.error.department);
   });
 
-  it('Does not have race condition with multiple onChange calls', () => {
+  it('does not have race condition with multiple onChange calls', () => {
     const product = {
       title: faker.commerce.productName(),
       department: faker.commerce.department(),
@@ -172,7 +171,7 @@ describe('<Nested />', () => {
     expect(updatedFields.department.value).toBe(newDepartment);
   });
 
-  it('Does not have race condition when using Nested -> Nested', () => {
+  it('does not have race condition when using Nested -> Nested', () => {
     const product = {
       nested: {
         title: faker.commerce.productName(),
@@ -219,7 +218,7 @@ describe('<Nested />', () => {
     expect(updatedFields.department.value).toBe(newDepartment);
   });
 
-  it('Does not have race condition when using List -> Nested', () => {
+  it('does not have race condition when using List -> Nested', () => {
     const product = [
       {
         nested: {
@@ -266,41 +265,5 @@ describe('<Nested />', () => {
 
     expect(updatedFields.title.value).toBe(newTitle);
     expect(updatedFields.department.value).toBe(newDepartment);
-  });
-
-  it('Does not re-render when children have not changed', () => {
-    const titleSpy = jest.fn(() => null);
-    const adjectiveSpy = jest.fn(({adjective}) => <Input {...adjective} />);
-    const newAdjective = faker.commerce.productAdjective();
-
-    const productTitle = {
-      title: faker.commerce.productName(),
-    };
-    const productAdjective = {
-      adjective: faker.commerce.productAdjective(),
-    };
-
-    const form = mount(
-      <FormState initialValues={{productTitle, productAdjective}}>
-        {({fields}) => {
-          return (
-            <>
-              <FormState.Nested field={fields.productTitle}>
-                {titleSpy}
-              </FormState.Nested>
-
-              <FormState.Nested field={fields.productAdjective}>
-                {adjectiveSpy}
-              </FormState.Nested>
-            </>
-          );
-        }}
-      </FormState>,
-    );
-    const input = form.find(Input);
-    trigger(input, 'onChange', newAdjective);
-
-    expect(titleSpy).toHaveBeenCalledTimes(1);
-    expect(adjectiveSpy).toHaveBeenCalledTimes(2);
   });
 });

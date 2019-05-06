@@ -1,6 +1,6 @@
 {
   "name": "@shopify/polyfills",
-  "version": "0.0.6",
+  "version": "0.0.14",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
@@ -26,15 +26,16 @@
     "@babel/polyfill": "^7.0.0",
     "browser-unhandled-rejection": "^1.0.2",
     "caniuse-api": "^3.0.0",
+    "intersection-observer": "^0.5.1",
     "intl-pluralrules": "^0.2.1",
-    "isomorphic-fetch": "^2.2.1",
+    "node-fetch": "^2.3.0",
     "tslib": "^1.9.3",
     "url-search-params-polyfill": "^5.0.0",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@types/caniuse-api": "^3.0.0",
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "files": [
     "*.js",

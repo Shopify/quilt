@@ -159,6 +159,16 @@ export class Performance {
           | TimeToFirstContentfulPaintEvent);
       });
     }
+
+    if (typeof window !== undefined && window.perfMetrics !== undefined) {
+      window.perfMetrics.onFirstInputDelay(delay => {
+        this.lifecycleEvent({
+          type: EventType.FirstInputDelay,
+          start: now() - delay,
+          duration: delay,
+        });
+      });
+    }
   }
 
   on<T extends keyof EventMap>(event: T, handler: EventMap[T]) {

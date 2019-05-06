@@ -1,10 +1,10 @@
-import {StatusCode} from '@shopify/network';
 import {createHmac} from 'crypto';
 import safeCompare from 'safe-compare';
 import bodyParser from 'koa-bodyparser';
 import mount from 'koa-mount';
 import compose from 'koa-compose';
 import {Context, Middleware} from 'koa';
+import {StatusCode} from '@shopify/network';
 
 import {WebhookHeader, Topic} from './types';
 
@@ -38,11 +38,13 @@ export function receiveWebhook({
       .update(rawBody, 'utf8')
       .digest('base64');
 
+    const graphqlTopic = topic.toUpperCase().replace(/\//g, '_');
+
     if (safeCompare(generatedHash, hmac)) {
       ctx.res.statusCode = StatusCode.Accepted;
 
       ctx.state.webhook = {
-        topic: topic as Topic,
+        topic: graphqlTopic as Topic,
         domain,
       };
 

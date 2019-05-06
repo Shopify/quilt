@@ -21,6 +21,10 @@ export const polyfills: {[polyfill: string]: PolyfillDescriptor} = {
     supportsNode: true,
     featureTest: 'urlsearchparams',
   },
+  'intersection-observer': {
+    supportsNode: false,
+    featureTest: 'intersectionobserver',
+  },
 };
 
 export function mappedPolyfillsForEnv(browser: 'node' | string | string[]) {

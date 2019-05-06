@@ -105,7 +105,7 @@ describe('Navigation', () => {
       const navigation = createNavigation({
         events: [event],
       });
-      expect(navigation.resourceEvents).toEqual([event]);
+      expect(navigation.resourceEvents).toStrictEqual([event]);
     });
 
     it('returns style download events', () => {
@@ -113,7 +113,7 @@ describe('Navigation', () => {
       const navigation = createNavigation({
         events: [event],
       });
-      expect(navigation.resourceEvents).toEqual([event]);
+      expect(navigation.resourceEvents).toStrictEqual([event]);
     });
   });
 
@@ -181,7 +181,10 @@ describe('Navigation', () => {
         createGenericEvent({type}),
       ];
       const navigation = createNavigation({events});
-      expect(navigation.eventsByType(type)).toEqual([events[0], events[2]]);
+      expect(navigation.eventsByType(type)).toStrictEqual([
+        events[0],
+        events[2],
+      ]);
     });
   });
 
@@ -192,7 +195,7 @@ describe('Navigation', () => {
         createGenericEvent({type, start: 0, duration: 100}),
         createGenericEvent({type, start: 200, duration: 150}),
       ];
-      const navigation = createNavigation({events});
+      const navigation = createNavigation({events, start: 0});
       expect(navigation.totalDurationByEventType(type)).toBe(250);
     });
 
@@ -202,7 +205,7 @@ describe('Navigation', () => {
         createGenericEvent({type, start: 0, duration: 100}),
         createGenericEvent({type, start: 50, duration: 150}),
       ];
-      const navigation = createNavigation({events});
+      const navigation = createNavigation({events, start: 0});
       expect(navigation.totalDurationByEventType(type)).toBe(200);
     });
 
@@ -212,8 +215,22 @@ describe('Navigation', () => {
         createGenericEvent({type, start: 0, duration: 300}),
         createGenericEvent({type, start: 50, duration: 150}),
       ];
-      const navigation = createNavigation({events});
+      const navigation = createNavigation({events, start: 0});
       expect(navigation.totalDurationByEventType(type)).toBe(300);
+    });
+
+    it('only counts time after the navigation actually started', () => {
+      const type = 'my-type';
+      const eventStart = 50;
+      const navigationStart = 100;
+      const eventDuration = 300;
+      const events = [
+        createGenericEvent({type, start: eventStart, duration: eventDuration}),
+      ];
+      const navigation = createNavigation({events, start: navigationStart});
+      expect(navigation.totalDurationByEventType(type)).toBe(
+        eventDuration - (navigationStart - eventStart),
+      );
     });
   });
 
@@ -237,6 +254,7 @@ describe('Navigation', () => {
         createLifecycleEventEvent(EventType.TimeToFirstPaint),
         createLifecycleEventEvent(EventType.TimeToFirstContentfulPaint),
         createLifecycleEventEvent(EventType.DomContentLoaded),
+        createLifecycleEventEvent(EventType.FirstInputDelay),
         createLifecycleEventEvent(EventType.Load),
         nonLifecycleEvent,
       ];
@@ -253,6 +271,7 @@ describe('Navigation', () => {
         createLifecycleEventEvent(EventType.TimeToFirstPaint),
         createLifecycleEventEvent(EventType.TimeToFirstContentfulPaint),
         createLifecycleEventEvent(EventType.DomContentLoaded),
+        createLifecycleEventEvent(EventType.FirstInputDelay),
         createLifecycleEventEvent(EventType.Load),
         nonLifecycleEvent,
       ];

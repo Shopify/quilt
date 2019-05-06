@@ -1,37 +1,33 @@
-import {GraphQLRequest} from 'apollo-link';
+import {EventEmitter} from 'events';
+import {GraphQLRequest, ApolloLink} from 'apollo-link';
 import {
   ApolloReducerConfig,
   InMemoryCache,
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
-import {ApolloClientOptions} from 'apollo-client';
+import {ApolloClient} from 'apollo-client';
 
-import MemoryApolloClient from './MemoryApolloClient';
-import MockApolloLink from './MockApolloLink';
-import Operations from './Operations';
-import {GraphQLMock} from './types';
+import {MockLink, InflightLink} from './links';
+import {Operations} from './utilities';
+import {GraphQLMock, MockRequest} from './types';
 
 export interface Options {
   unionOrIntersectionTypes?: any[];
   cacheOptions?: ApolloReducerConfig;
 }
 
-function defaultGraphQLMock({operationName}: GraphQLRequest) {
-  return new Error(
-    `Can’t perform GraphQL operation '${operationName ||
-      ''}' because no mocks were set.`,
-  );
-}
+export class GraphQL extends EventEmitter {
+  readonly client: ApolloClient<unknown>;
+  readonly operations = new Operations();
 
-class GraphQL {
-  client: MemoryApolloClient;
-  readonly operations: Operations;
-  private afterResolver: (() => void) | undefined;
+  private pendingRequests = new Set<MockRequest>();
 
   constructor(
     mock: GraphQLMock,
     {unionOrIntersectionTypes = [], cacheOptions = {}}: Options = {},
   ) {
+    super();
+
     const cache = new InMemoryCache({
       fragmentMatcher: new IntrospectionFragmentMatcher({
         introspectionQueryResultData: {
@@ -43,32 +39,57 @@ class GraphQL {
       ...cacheOptions,
     });
 
-    const mockApolloClientOptions: ApolloClientOptions<unknown> = {
-      link: new MockApolloLink(mock),
+    const link = ApolloLink.from([
+      new InflightLink({
+        onCreated: this.handleCreate,
+        onResolved: this.handleResolve,
+      }),
+      new MockLink(mock),
+    ]);
+
+    this.client = new ApolloClient({
+      link,
       cache,
-    };
-
-    const memoryApolloClient = new MemoryApolloClient(mockApolloClientOptions);
-
-    this.client = memoryApolloClient;
-    this.operations = memoryApolloClient.operations;
+    });
   }
 
-  afterResolve(resolver: () => void) {
-    this.afterResolver = resolver;
+  on(event: 'pre-resolve', handler: () => void): this;
+  on(event: 'post-resolve', handler: () => void): this;
+  on(event: string, handler: (...args: any[]) => void) {
+    return super.on(event, handler);
   }
 
   async resolveAll() {
-    await this.client.resolveAll();
+    const promise = Promise.all(
+      Array.from(this.pendingRequests).map(({resolve}) => resolve()),
+    );
 
-    if (this.afterResolver) {
-      this.afterResolver();
-    }
+    this.emit('pre-resolve');
+
+    await promise;
+
+    this.emit('post-resolve');
   }
+
+  private handleCreate = (request: MockRequest) => {
+    this.pendingRequests.add(request);
+  };
+
+  private handleResolve = (request: MockRequest) => {
+    this.operations.push(request.operation);
+    this.pendingRequests.delete(request);
+  };
 }
 
-export default function createGraphQLFactory(options?: Options) {
-  return function createGraphQLClient(mock: GraphQLMock = defaultGraphQLMock) {
+function defaultGraphQLMock({operationName}: GraphQLRequest) {
+  return new Error(
+    `Can’t perform GraphQL operation '${operationName ||
+      ''}' because no mocks were set.`,
+  );
+}
+
+export function createGraphQLFactory(options?: Options) {
+  return function createGraphQL(mock: GraphQLMock = defaultGraphQLMock) {
     return new GraphQL(mock, options);
   };
 }

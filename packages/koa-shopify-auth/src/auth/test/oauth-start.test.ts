@@ -38,7 +38,7 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    expect(ctx.throw).toBeCalledWith(400, Error.ShopParamMissing);
+    expect(ctx.throw).toHaveBeenCalledWith(400, Error.ShopParamMissing);
   });
 
   it('throws a 400 when an invalid shop query parameter is given', () => {
@@ -50,7 +50,7 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    expect(ctx.throw).toBeCalledWith(400, Error.ShopParamMissing);
+    expect(ctx.throw).toHaveBeenCalledWith(400, Error.ShopParamMissing);
   });
 
   it('clears the top-level cookie', () => {
@@ -63,7 +63,7 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    expect(ctx.cookies.set).toBeCalledWith('shopifyTopLevelOAuth');
+    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyTopLevelOAuth');
   });
 
   it('redirects to redirectionURL with the returned query string', () => {
@@ -76,8 +76,12 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    expect(oAuthQueryString).toBeCalledWith(ctx, baseConfig, callbackPath);
-    expect(ctx.redirect).toBeCalledWith(
+    expect(oAuthQueryString).toHaveBeenCalledWith(
+      ctx,
+      baseConfig,
+      callbackPath,
+    );
+    expect(ctx.redirect).toHaveBeenCalledWith(
       `https://${shop}${redirectionURL}?abc=123`,
     );
   });
@@ -92,7 +96,7 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    expect(ctx.redirect).toBeCalledWith(
+    expect(ctx.redirect).toHaveBeenCalledWith(
       `https://${uppercaseShop}${redirectionURL}?`,
     );
   });

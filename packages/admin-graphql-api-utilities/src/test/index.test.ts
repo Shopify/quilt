@@ -13,19 +13,19 @@ describe('admin-graphql-api-utilities', () => {
     });
 
     it('returns the id portion of an unprefixed gid', () => {
-      ['1', '1a', v4()].forEach(id => expect(parseGid(id)).toEqual(id));
+      ['1', '1a', v4()].forEach(id => expect(parseGid(id)).toStrictEqual(id));
     });
 
     it('returns the id portion of a gid for integer ids', () => {
       const id = '12';
       const gid = `gid://shopify/Section/${id}`;
-      expect(parseGid(gid)).toEqual(id);
+      expect(parseGid(gid)).toStrictEqual(id);
     });
 
     it('returns the id portion of a gid for uuids', () => {
       const id = v4();
       const gid = `gid://shopify/Section/${id}`;
-      expect(parseGid(gid)).toEqual(id);
+      expect(parseGid(gid)).toStrictEqual(id);
     });
   });
 
@@ -33,19 +33,19 @@ describe('admin-graphql-api-utilities', () => {
     it('returns the composed Gid using key and number id', () => {
       const id = 123;
       const key = 'Section';
-      expect(composeGid(key, id)).toEqual(`gid://shopify/${key}/${id}`);
+      expect(composeGid(key, id)).toStrictEqual(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and string id', () => {
       const id = '456';
       const key = 'Section';
-      expect(composeGid(key, id)).toEqual(`gid://shopify/${key}/${id}`);
+      expect(composeGid(key, id)).toStrictEqual(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and uuid', () => {
       const id = v4();
       const key = 'Section';
-      expect(composeGid(key, id)).toEqual(`gid://shopify/${key}/${id}`);
+      expect(composeGid(key, id)).toStrictEqual(`gid://shopify/${key}/${id}`);
     });
   });
 
@@ -54,7 +54,7 @@ describe('admin-graphql-api-utilities', () => {
       const nodeOne = Symbol('Node One');
       const nodeTwo = Symbol('Node Two');
       const edges = [{node: nodeOne}, {node: nodeTwo}];
-      expect(nodesFromEdges(edges)).toEqual([nodeOne, nodeTwo]);
+      expect(nodesFromEdges(edges)).toStrictEqual([nodeOne, nodeTwo]);
     });
   });
 
@@ -63,7 +63,7 @@ describe('admin-graphql-api-utilities', () => {
       const titleOne = 'title one';
       const titleTwo = 'title two';
       const edges = [{node: {title: titleOne}}, {node: {title: titleTwo}}];
-      expect(keyFromEdges(edges, 'title')).toEqual([titleOne, titleTwo]);
+      expect(keyFromEdges(edges, 'title')).toStrictEqual([titleOne, titleTwo]);
     });
 
     it('returns the specify key from each edge, and undeinfed if not found', () => {
@@ -74,11 +74,9 @@ describe('admin-graphql-api-utilities', () => {
         {node: {}},
         {node: {title: titleThree}},
       ];
-      expect(keyFromEdges<{title?: string}, 'title'>(edges, 'title')).toEqual([
-        titleOne,
-        undefined,
-        titleThree,
-      ]);
+      expect(
+        keyFromEdges<{title?: string}, 'title'>(edges, 'title'),
+      ).toStrictEqual([titleOne, undefined, titleThree]);
     });
   });
 });

@@ -1,12 +1,14 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 
-import Manager from '../../manager';
-import {Provider} from '../../context';
+import {HtmlManager} from '../../manager';
+import {HtmlContext} from '../../context';
 
 export function mountWithManager(
   element: React.ReactElement<any>,
-  manager: Manager,
+  manager: HtmlManager,
 ) {
-  return mount(<Provider manager={manager}>{element}</Provider>);
+  return mount(
+    <HtmlContext.Provider value={manager}>{element}</HtmlContext.Provider>,
+  );
 }

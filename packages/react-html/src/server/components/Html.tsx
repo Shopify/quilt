@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {renderToString} from 'react-dom/server';
 
-import {Script, Style, Meta, Favicon, Title} from '../../components';
-import Manager from '../../manager';
+import {Script, Style} from '../../components';
+import {HtmlManager} from '../../manager';
+import {HtmlContext} from '../../context';
 import {MANAGED_ATTRIBUTE} from '../../utilities';
 
 import Serialize from './Serialize';
@@ -13,7 +14,7 @@ export interface Asset {
 }
 
 export interface Props {
-  manager?: Manager;
+  manager?: HtmlManager;
   children: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];
@@ -21,8 +22,6 @@ export interface Props {
   blockingScripts?: Asset[];
   headMarkup?: React.ReactNode;
   bodyMarkup?: React.ReactNode;
-  favicon?: string;
-  title?: string;
 }
 
 export default function Html({
@@ -34,11 +33,9 @@ export default function Html({
   styles = [],
   headMarkup = null,
   bodyMarkup = null,
-  favicon,
-  title,
 }: Props) {
   const markup =
-    typeof children === 'string' ? children : renderToString(children);
+    typeof children === 'string' ? children : render(children, manager);
 
   const extracted = manager && manager.extract();
 
@@ -50,14 +47,10 @@ export default function Html({
 
   const managedProps = {[MANAGED_ATTRIBUTE]: true};
 
-  const titleFallbackMarkup = title ? <Title>{title}</Title> : null;
-
   const titleMarkup =
     extracted && extracted.title ? (
       <title {...managedProps}>{extracted.title}</title>
-    ) : (
-      titleFallbackMarkup
-    );
+    ) : null;
 
   const metaMarkup = extracted
     ? extracted.metas.map((metaProps, index) => (
@@ -115,22 +108,20 @@ export default function Html({
     // eslint-disable-next-line no-process-env
     process.env.NODE_ENV === 'development' ? {visibility: 'hidden'} : undefined;
 
-  const faviconMarkup = favicon ? <Favicon source={favicon} /> : null;
-
   return (
     <html lang={locale}>
       <head>
-        <Meta charSet="utf-8" />
-        <Meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <Meta name="referrer" content="never" />
-        {faviconMarkup}
         {titleMarkup}
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="referrer" content="never" />
         {metaMarkup}
         {linkMarkup}
 
         {stylesMarkup}
         {headMarkup}
         {blockingScriptsMarkup}
+        {deferredScriptsMarkup}
       </head>
 
       <body style={bodyStyles}>
@@ -138,8 +129,18 @@ export default function Html({
 
         {bodyMarkup}
         {serializationMarkup}
-        {deferredScriptsMarkup}
       </body>
     </html>
   );
+}
+
+function render(app: React.ReactElement<any>, manager?: HtmlManager) {
+  const content =
+    manager == null ? (
+      app
+    ) : (
+      <HtmlContext.Provider value={manager}>{app}</HtmlContext.Provider>
+    );
+
+  return renderToString(content);
 }

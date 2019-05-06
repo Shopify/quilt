@@ -204,7 +204,6 @@ describe('validation helpers', () => {
 
       const results = compoundValidator(data, {});
 
-      // eslint-disable-next-line typescript/no-non-null-assertion
       results!.forEach((result, index) => {
         expect(result).toMatchObject({
           title: alwaysPassValidator(data[index].title),
@@ -265,6 +264,25 @@ describe('validation helpers', () => {
       });
     });
 
+    describe('positiveNumericString', () => {
+      const error = faker.lorem.word();
+
+      it('returns a function that returns undefined when the input is a positive numeric string', () => {
+        const validator = validators.positiveNumericString(error);
+        expect(validator('2')).toBeUndefined();
+      });
+
+      it('returns a function that returns errorContent when the input is a non-numeric string', () => {
+        const validator = validators.positiveNumericString(error);
+        expect(validator(faker.lorem.words())).toBe(error);
+      });
+
+      it('returns a function that returns errorContent when the input is a negative numeric string', () => {
+        const validator = validators.positiveNumericString(error);
+        expect(validator('-2')).toBe(error);
+      });
+    });
+
     describe('numericString', () => {
       const error = faker.lorem.word();
 
@@ -291,6 +309,11 @@ describe('validation helpers', () => {
         const validator = validators.numericString(error);
         expect(validator('2')).toBeUndefined();
       });
+
+      it('returns a function that returns undefined when the input is a negative numeric string', () => {
+        const validator = validators.numericString(error);
+        expect(validator('-2')).toBeUndefined();
+      });
     });
 
     describe('required', () => {
@@ -303,7 +326,6 @@ describe('validation helpers', () => {
 
       it('returns a function that returns errorContent when the input is undefined', () => {
         const validator = validators.required(error);
-        // eslint-disable-next-line no-undefined
         expect(validator(undefined)).toBe(error);
       });
 

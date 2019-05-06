@@ -23,7 +23,7 @@ describe('CreateEnableCookiesRedirect', () => {
 
     enableCookiesRedirect(ctx);
 
-    expect(ctx.cookies.set).toBeCalledWith('shopifyTestCookie', '1');
+    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyTestCookie', '1');
   });
 
   it('sets up and calls the top level redirect', () => {
@@ -34,7 +34,7 @@ describe('CreateEnableCookiesRedirect', () => {
 
     enableCookiesRedirect(ctx);
 
-    expect(createTopLevelRedirect).toBeCalledWith(path);
-    expect(mockTopLevelRedirect).toBeCalledWith(ctx);
+    expect(createTopLevelRedirect).toHaveBeenCalledWith(path);
+    expect(mockTopLevelRedirect).toHaveBeenCalledWith(ctx);
   });
 });

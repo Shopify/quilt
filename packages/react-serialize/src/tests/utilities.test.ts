@@ -20,7 +20,7 @@ describe('getSerialized()', () => {
 
   it('throws if no node is found matching the ID', () => {
     spy.mockReturnValue(null);
-    expect(() => getSerialized('MyData')).toThrowError(
+    expect(() => getSerialized('MyData')).toThrow(
       expect.objectContaining({
         message: expect.stringContaining('MyData'),
       }),
@@ -35,7 +35,7 @@ describe('getSerialized()', () => {
 
   it('returns the empty details when none were provided', () => {
     spy.mockReturnValue(createFakeSerializedNode());
-    expect(getSerialized('MyData').details).toEqual({});
+    expect(getSerialized('MyData').details).toStrictEqual({});
   });
 
   it('returns the deserialized details', () => {

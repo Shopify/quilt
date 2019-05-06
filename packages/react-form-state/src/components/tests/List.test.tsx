@@ -3,6 +3,7 @@ import faker from 'faker';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
 
+// eslint-disable-next-line shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
 import {lastCallArgs} from '../../tests/utilities';
 import FormState from '../..';
@@ -61,7 +62,7 @@ describe('<FormState.List />', () => {
       </FormState>,
     );
 
-    expect(childKeySpy).toBeCalledWith(products[0]);
+    expect(childKeySpy).toHaveBeenCalledWith(products[0]);
     // Enzyme still has incomplete support for fragments so we can't actually test that the key is rendered
     // expect(wrapper.find('Fragment').key()).toBe(products[0].title);
   });
@@ -204,7 +205,7 @@ describe('<FormState.List />', () => {
     });
   });
 
-  it('Does not have race condition with multiple onChange calls', () => {
+  it('does not have race condition with multiple onChange calls', () => {
     const products = [
       {
         title: faker.commerce.productName(),
@@ -243,7 +244,7 @@ describe('<FormState.List />', () => {
     expect(updatedFields.department.value).toBe(newDepartment);
   });
 
-  it('Does not have race condition with nested List components', () => {
+  it('does not have race condition with nested List components', () => {
     const variants = [
       {
         products: [
@@ -292,7 +293,7 @@ describe('<FormState.List />', () => {
     expect(updatedFields.department.value).toBe(newDepartment);
   });
 
-  it('Does not have race condition when using Nested -> List', () => {
+  it('does not have race condition when using Nested -> List', () => {
     const variants = {
       products: [
         {
@@ -337,33 +338,5 @@ describe('<FormState.List />', () => {
 
     expect(updatedFields.title.value).toBe(newTitle);
     expect(updatedFields.department.value).toBe(newDepartment);
-  });
-
-  it('Does not re-render when children have not changed', () => {
-    const products = [{title: faker.commerce.productName()}];
-    const adjective = faker.commerce.productAdjective();
-    const newAdjective = faker.commerce.productAdjective();
-
-    const renderSpy = jest.fn(() => null);
-
-    const form = mount(
-      <FormState initialValues={{products, adjective}}>
-        {({fields}) => {
-          return (
-            <>
-              <Input {...fields.adjective} />
-              <FormState.List field={fields.products}>
-                {renderSpy}
-              </FormState.List>
-            </>
-          );
-        }}
-      </FormState>,
-    );
-
-    const input = form.find(Input);
-    trigger(input, 'onChange', newAdjective);
-
-    expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 });

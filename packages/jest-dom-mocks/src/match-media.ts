@@ -5,8 +5,8 @@ export interface MediaMatching {
 }
 
 export default class MatchMedia {
-  private isUsingMockMatchMedia = false;
   originalMatchMedia: (mediaQuery: string) => MediaQueryList;
+  private isUsingMockMatchMedia = false;
 
   mock(media: MediaMatching = defaultMatcher) {
     if (this.isUsingMockMatchMedia) {
@@ -51,7 +51,16 @@ export default class MatchMedia {
 }
 
 function defaultMatcher(): MediaQueryList {
-  return {media: '', addListener: noop, removeListener: noop, matches: false};
+  return {
+    media: '',
+    addListener: noop,
+    addEventListener: noop,
+    removeListener: noop,
+    removeEventListener: noop,
+    onchange: noop,
+    dispatchEvent: () => false,
+    matches: false,
+  };
 }
 
 export function mediaQueryList(

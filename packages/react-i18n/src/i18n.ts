@@ -1,5 +1,6 @@
-import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
+import memoizeFn from 'lodash/memoize';
 import {memoize} from '@shopify/javascript-utilities/decorators';
+import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -13,14 +14,19 @@ import {
   DEFAULT_WEEK_START_DAY,
   WEEK_START_DAYS,
   RTL_LANGUAGES,
-  Weekdays,
+  Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
 } from './constants';
-import {MissingCurrencyCodeError, MissingCountryError} from './errors';
+import {
+  MissingCurrencyCodeError,
+  MissingCountryError,
+  I18nError,
+} from './errors';
 import {
   getCurrencySymbol,
   translate,
+  getTranslationTree,
   TranslateOptions as RootTranslateOptions,
 } from './utilities';
 
@@ -35,14 +41,28 @@ export interface TranslateOptions {
 
 // Used for currecies that don't use fractional units (eg. JPY)
 const DECIMAL_NOT_SUPPORTED = 'N/A';
+const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 
-export default class I18n {
+const memoizedDateTimeFormatter = memoizeFn(
+  dateTimeFormatter,
+  (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
+
+const memoizedNumberFormatter = memoizeFn(
+  numberFormatter,
+  (locale: string, options: Intl.NumberFormatOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
+
+export class I18n {
   readonly locale: string;
   readonly pseudolocalize: boolean | string;
   readonly defaultCountry?: string;
   readonly defaultCurrency?: string;
   readonly defaultTimezone?: string;
+  readonly onError: NonNullable<I18nDetails['onError']>;
 
   get language() {
     return languageFromLocale(this.locale);
@@ -74,14 +94,22 @@ export default class I18n {
   }
 
   constructor(
-    public translations: TranslationDictionary[],
-    {locale, currency, timezone, country, pseudolocalize = false}: I18nDetails,
+    public readonly translations: TranslationDictionary[],
+    {
+      locale,
+      currency,
+      timezone,
+      country,
+      pseudolocalize = false,
+      onError,
+    }: I18nDetails,
   ) {
     this.locale = locale;
     this.defaultCountry = country;
     this.defaultCurrency = currency;
     this.defaultTimezone = timezone;
     this.pseudolocalize = pseudolocalize;
+    this.onError = onError || defaultOnError;
   }
 
   translate(
@@ -89,16 +117,19 @@ export default class I18n {
     options: TranslateOptions,
     replacements?: PrimitiveReplacementDictionary,
   ): string;
+
   translate(
     id: string,
     options: TranslateOptions,
     replacements?: ComplexReplacementDictionary,
   ): React.ReactElement<any>;
+
   translate(id: string, replacements?: PrimitiveReplacementDictionary): string;
   translate(
     id: string,
     replacements?: ComplexReplacementDictionary,
   ): React.ReactElement<any>;
+
   translate(
     id: string,
     optionsOrReplacements?:
@@ -129,7 +160,21 @@ export default class I18n {
       };
     }
 
-    return translate(id, normalizedOptions, this.translations, this.locale);
+    try {
+      return translate(id, normalizedOptions, this.translations, this.locale);
+    } catch (error) {
+      this.onError(error);
+      return '';
+    }
+  }
+
+  getTranslationTree(id: string): string | object {
+    try {
+      return getTranslationTree(id, this.translations);
+    } catch (error) {
+      this.onError(error);
+      return '';
+    }
   }
 
   formatNumber(
@@ -139,12 +184,16 @@ export default class I18n {
     const {locale, defaultCurrency: currency} = this;
 
     if (as === 'currency' && currency == null && options.currency == null) {
-      throw new MissingCurrencyCodeError(
-        `No currency code provided. formatNumber(amount, {as: 'currency'}) cannot be called without a currency code.`,
+      this.onError(
+        new MissingCurrencyCodeError(
+          `formatNumber(amount, {as: 'currency'}) cannot be called without a currency code.`,
+        ),
       );
+
+      return '';
     }
 
-    return new Intl.NumberFormat(locale, {
+    return memoizedNumberFormatter(locale, {
       style: as,
       maximumFractionDigits: precision,
       currency,
@@ -162,9 +211,16 @@ export default class I18n {
     // This decimal symbol will always be '.' regardless of the locale
     // since it's our internal representation of the string
     const symbol = this.decimalSymbol(currencyCode);
-    const decimal = symbol === DECIMAL_NOT_SUPPORTED ? '.' : symbol;
+    const expectedDecimal = symbol === DECIMAL_NOT_SUPPORTED ? PERIOD : symbol;
 
-    const lastDecimalIndex = input.lastIndexOf(decimal);
+    // For locales that use non-period symbols as the decimal symbol, users may still input a period
+    // and expect it to be treated as the decimal symbol for their locale.
+    const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
+    const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
+    const usesPeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
+    const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
+    const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
+
     const integerValue = input
       .substring(0, lastDecimalIndex)
       .replace(nonDigits, '');
@@ -172,9 +228,9 @@ export default class I18n {
       .substring(lastDecimalIndex + 1)
       .replace(nonDigits, '');
 
-    const normalizedDecimal = lastDecimalIndex === -1 ? '' : '.';
+    const normalizedDecimal = lastDecimalIndex === -1 ? '' : PERIOD;
     const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
-    const invalidValue = normalizedValue === '' || normalizedValue === '.';
+    const invalidValue = normalizedValue === '' || normalizedValue === PERIOD;
 
     if (symbol === DECIMAL_NOT_SUPPORTED) {
       const roundedAmount = parseFloat(normalizedValue).toFixed(0);
@@ -215,18 +271,18 @@ export default class I18n {
         : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
     }
 
-    return new Intl.DateTimeFormat(locale, {
+    return memoizedDateTimeFormatter(locale, {
       timeZone,
       ...formatOptions,
     }).format(date);
   }
 
-  weekStartDay(argCountry?: I18n['defaultCountry']): Weekdays {
+  weekStartDay(argCountry?: I18n['defaultCountry']): Weekday {
     const country = argCountry || this.defaultCountry;
 
     if (!country) {
       throw new MissingCountryError(
-        `No country code provided. weekStartDay() cannot be called without a country code.`,
+        'weekStartDay() cannot be called without a country code.',
       );
     }
 
@@ -237,7 +293,7 @@ export default class I18n {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
       throw new MissingCurrencyCodeError(
-        `No currency code provided. formatCurrency cannot be called without a currency code.`,
+        'formatCurrency cannot be called without a currency code.',
       );
     }
     return this.getCurrencySymbolLocalized(this.locale, currency);
@@ -305,4 +361,22 @@ function isYesterday(date: Date) {
   yesterday.setDate(yesterday.getDate() - 1);
 
   return isSameDate(yesterday, date);
+}
+
+function defaultOnError(error: I18nError) {
+  throw error;
+}
+
+function dateTimeFormatter(
+  locale: string,
+  options: Intl.DateTimeFormatOptions = {},
+) {
+  return new Intl.DateTimeFormat(locale, options);
+}
+
+function numberFormatter(
+  locale: string,
+  options: Intl.NumberFormatOptions = {},
+) {
+  return new Intl.NumberFormat(locale, options);
 }

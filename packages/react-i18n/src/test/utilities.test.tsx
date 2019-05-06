@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   translate,
+  getTranslationTree,
   PSEUDOTRANSLATE_OPTIONS,
   getCurrencySymbol,
 } from '../utilities';
@@ -14,6 +15,24 @@ const locale = 'en-us';
 jest.mock('@shopify/i18n', () => ({
   pseudotranslate: jest.fn(),
 }));
+
+describe('getTranslationTree()', () => {
+  it('returns the translation keys if it has nested values', () => {
+    expect(getTranslationTree('foo', {foo: {bar: 'one'}})).toMatchObject({
+      bar: 'one',
+    });
+  });
+
+  it('returns the leaf string', () => {
+    expect(getTranslationTree('foo.bar', {foo: {bar: 'one'}})).toBe('one');
+  });
+
+  it('throws a MissingTranslationError when no translation is found', () => {
+    expect(() =>
+      getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}),
+    ).toThrow();
+  });
+});
 
 describe('translate()', () => {
   beforeEach(() => {
@@ -161,10 +180,28 @@ describe('translate()', () => {
       });
     });
 
+    it('throws a MissingReplacementError when there is a missing replacement and no replacements', () => {
+      expect(() => translate('foo', {}, {foo: 'bar: {bar}'}, locale)).toThrow(
+        "No replacement found for key 'bar' (and no replacements were passed in).",
+      );
+    });
+
     it('throws a MissingReplacementError when there is a missing replacement', () => {
       expect(() =>
-        translate('foo', {}, {foo: 'bar: {bar}'}, locale),
-      ).toThrowError('No replacement found for key');
+        translate(
+          'foo',
+          {
+            replacements: {
+              key1: 'replacements text 1',
+              key2: 123,
+            },
+          },
+          {foo: 'bar: {bar}'},
+          locale,
+        ),
+      ).toThrow(
+        "No replacement found for key 'bar'. The following replacements were passed: 'key1', 'key2'",
+      );
     });
   });
 
@@ -192,8 +229,8 @@ describe('translate()', () => {
   });
 
   describe('getCurrencySymbol', () => {
-    it('correctly returns the locale-specific currency symbol and its position', () => {
-      expect(getCurrencySymbol('en', {currency: 'eur'})).toEqual({
+    it('returns the locale-specific currency symbol and its position', () => {
+      expect(getCurrencySymbol('en', {currency: 'eur'})).toStrictEqual({
         symbol: '€',
         prefixed: true,
       });

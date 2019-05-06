@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-preconnect",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "license": "MIT",
   "description": "Reduces request latency by preconnecting hosts",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "peerDependencies": {
     "react": "^16.3.2"

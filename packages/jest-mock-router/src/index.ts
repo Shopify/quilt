@@ -74,9 +74,6 @@ export function createLocation(stubs?: Partial<FullLocation>): FullLocation {
     assign: jest.fn(),
     replace: jest.fn(),
     reload: jest.fn(),
-    toString() {
-      return JSON.stringify(this);
-    },
     ...stubs,
-  };
+  } as any;
 }

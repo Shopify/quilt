@@ -35,7 +35,7 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
   ssr?: boolean;
   displayName?: string;
   skip?: boolean;
-  client?: ApolloClient<Object>;
+  client?: ApolloClient<object>;
   context?: Record<string, any>;
   partialRefetch?: boolean;
   onCompleted?: (data: Data | {}) => void;
@@ -58,4 +58,6 @@ export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
   KeepFresh(
     props: VariableOptions<Variables> & {pollInterval?: number} & ConstantProps,
   ): React.ReactElement<{}>;
+  resolve(): Promise<DocumentNode<Data, Variables, DeepPartial>>;
+  resolved: DocumentNode<Data, Variables, DeepPartial> | null;
 }

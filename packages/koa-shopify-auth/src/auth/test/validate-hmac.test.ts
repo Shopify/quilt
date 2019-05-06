@@ -24,7 +24,7 @@ describe('validateHmac', () => {
 
   it('compares using safeCompare', () => {
     validateHmac(hmac, secret, data);
-    expect(safeCompare).toBeCalledWith(hmac, hmac);
+    expect(safeCompare).toHaveBeenCalledWith(hmac, hmac);
   });
 
   it('works when the query params are ordered differently', () => {

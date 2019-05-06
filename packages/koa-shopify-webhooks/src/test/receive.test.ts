@@ -22,7 +22,7 @@ describe('receiveWebhook', () => {
     await middleware(context, next);
 
     expect(context.status).not.toBe(StatusCode.NotFound);
-    expect(next).not.toBeCalled();
+    expect(next).not.toHaveBeenCalled();
   });
 
   it('does not handle the request when it is not for the given path', async () => {
@@ -36,7 +36,7 @@ describe('receiveWebhook', () => {
     await middleware(context, next);
 
     expect(context.status).toBe(StatusCode.NotFound);
-    expect(next).toBeCalled();
+    expect(next).toHaveBeenCalled();
   });
 
   it('works without a path', async () => {
@@ -47,7 +47,7 @@ describe('receiveWebhook', () => {
     await middleware(context, next);
 
     expect(context.status).not.toBe(StatusCode.NotFound);
-    expect(next).not.toBeCalled();
+    expect(next).not.toHaveBeenCalled();
   });
 
   describe('processing a request with a valid hmac', () => {
@@ -63,10 +63,30 @@ describe('receiveWebhook', () => {
       await middleware(context, noop);
 
       expect(context.status).toBe(StatusCode.Accepted);
-      expect(onReceived).toBeCalledWith(context);
+      expect(onReceived).toHaveBeenCalledWith(context);
     });
 
-    it('adds webhook data to state', async () => {
+    it('transforms webhook topic and adds to state', async () => {
+      const onReceived = jest.fn();
+      const middleware = receiveWebhook({secret, onReceived});
+
+      const context = createMockContext({
+        rawBody,
+        headers: headers({
+          hmac: hmac(secret, rawBody),
+          topic: 'foo/bar/baz',
+          domain: 'cool-store.com',
+        }),
+      });
+
+      await middleware(context, noop);
+
+      expect(context.state.webhook).toMatchObject({
+        topic: 'FOO_BAR_BAZ',
+      });
+    });
+
+    it('adds webhook domain to state', async () => {
       const onReceived = jest.fn();
       const middleware = receiveWebhook({secret, onReceived});
 
@@ -82,7 +102,6 @@ describe('receiveWebhook', () => {
       await middleware(context, noop);
 
       expect(context.state.webhook).toMatchObject({
-        topic: 'foo',
         domain: 'cool-store.com',
       });
     });
@@ -99,7 +118,7 @@ describe('receiveWebhook', () => {
       await middleware(context, noop);
 
       expect(context.status).toBe(StatusCode.Accepted);
-      expect(onReceived).toBeCalledWith(context);
+      expect(onReceived).toHaveBeenCalledWith(context);
     });
   });
 
@@ -117,7 +136,7 @@ describe('receiveWebhook', () => {
 
       await middleware(context, noop);
 
-      expect(onReceived).not.toBeCalled();
+      expect(onReceived).not.toHaveBeenCalled();
     });
 
     it('does not add webhook data to state', async () => {
@@ -131,7 +150,7 @@ describe('receiveWebhook', () => {
 
       await middleware(context, noop);
 
-      expect(onReceived).not.toBeCalled();
+      expect(onReceived).not.toHaveBeenCalled();
     });
 
     it('returns the Forbidden status code', async () => {

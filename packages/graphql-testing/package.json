@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "1.0.0",
+  "version": "3.0.4",
   "license": "MIT",
   "description": "Utilities to create mock graphql factory.",
   "main": "dist/index.js",
@@ -24,15 +24,16 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/graphql-testing/README.md",
   "dependencies": {
-    "apollo-cache-inmemory": "^1.2.4",
-    "apollo-client": "^2.3.4",
-    "apollo-link": "^1.2.3",
-    "graphql": "0.13.2"
+    "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
+    "apollo-client": ">=2.0.0 <3.0.0",
+    "apollo-link": ">=1.0.0 <2.0.0",
+    "graphql": "^14.0.0"
   },
   "devDependencies": {
-    "@shopify/useful-types": "^1.1.0",
-    "graphql-typed": "^0.2.0",
-    "typescript": "~3.0.1"
+    "@shopify/useful-types": "^1.2.4",
+    "@types/graphql": "^14.0.0",
+    "graphql-typed": "^0.4.0",
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*"

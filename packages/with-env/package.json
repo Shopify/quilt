@@ -1,6 +1,6 @@
 {
   "name": "@shopify/with-env",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "license": "MIT",
   "description": "A utility for executing code under a specific NODE_ENV.",
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/with-env/README.md",
   "devDependencies": {
-    "typescript": "~3.0.1"
+    "typescript": "~3.2.1"
   },
   "sideEffects": false,
   "dependencies": {

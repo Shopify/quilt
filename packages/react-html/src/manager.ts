@@ -17,13 +17,12 @@ interface Subscription {
 
 export const EFFECT_ID = Symbol('html');
 
-export default class Manager {
+export class HtmlManager {
   effect: EffectKind = {
     id: EFFECT_ID,
     betweenEachPass: () => this.reset(),
   };
 
-  private isServer: boolean;
   private serializations = getSerializationsFromDocument();
   private titles: Title[] = [];
   private metas: React.HTMLProps<HTMLMetaElement>[] = [];
@@ -40,10 +39,6 @@ export default class Manager {
     };
   }
 
-  constructor({isServer = typeof document === 'undefined'} = {}) {
-    this.isServer = isServer;
-  }
-
   reset({includeSerializations = false} = {}) {
     this.titles = [];
     this.metas = [];
@@ -57,6 +52,9 @@ export default class Manager {
 
   subscribe(subscription: Subscription) {
     this.subscriptions.add(subscription);
+    return () => {
+      this.subscriptions.delete(subscription);
+    };
   }
 
   addTitle(title: string) {
@@ -79,9 +77,7 @@ export default class Manager {
   }
 
   setSerialization(id: string, data: unknown) {
-    if (this.isServer) {
-      this.serializations.set(id, data);
-    }
+    this.serializations.set(id, data);
   }
 
   getSerialization<T>(id: string): T | undefined {

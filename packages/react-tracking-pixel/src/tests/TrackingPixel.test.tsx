@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
-import Preconnect from '@shopify/react-preconnect';
+import {mount} from '@shopify/react-testing';
+import {Preconnect} from '@shopify/react-html';
 
 import TrackingPixel from '../TrackingPixel';
 
@@ -9,34 +9,38 @@ describe('<TrackingPixel />', () => {
 
   it('renders a very tiny iframe', () => {
     const trackingPixel = mount(<TrackingPixel url={url} />);
-    expect(trackingPixel.find('iframe').props()).toMatchObject({
+    expect(trackingPixel).toContainReactComponent('iframe', {
       sandbox: 'allow-scripts',
       scrolling: 'no',
       frameBorder: 0,
       height: 1,
       width: 1,
+      style: {display: 'none'},
     });
-    const containerStyles = trackingPixel.find('iframe').get(0).props.style;
-    expect(containerStyles).toHaveProperty('display', 'none');
   });
 
   describe('url', () => {
     it('is used as the src of the iframe', () => {
       const trackingPixel = mount(<TrackingPixel url={url} />);
-      expect(trackingPixel.find('iframe').prop('src')).toBe(url);
+      expect(trackingPixel).toContainReactComponent('iframe', {src: url});
     });
   });
 
   describe('preconnectHosts', () => {
     const preconnectHosts = ['foo.com', 'bar.com'];
 
-    it('renders a Preconnect', () => {
+    it('renders a Preconnect for each preconnect source', () => {
       const trackingPixel = mount(
         <TrackingPixel url={url} preconnectHosts={preconnectHosts} />,
       );
-      expect(trackingPixel.find(Preconnect).prop('hosts')).toEqual(
-        preconnectHosts,
-      );
+
+      const preconnects = trackingPixel.findAll(Preconnect);
+
+      expect(preconnects).toHaveLength(preconnectHosts.length);
+
+      for (const [index, preconnectHost] of Object.entries(preconnectHosts)) {
+        expect(preconnects[index]).toHaveReactProps({source: preconnectHost});
+      }
     });
   });
 });

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
+import {DeferTiming} from '@shopify/async';
 
 import {Async} from '../Async';
 import {createAsyncContext} from '../provider';
-import {DeferTiming} from '../shared';
 
 jest.mock('../Async', () => ({
   Async() {
@@ -35,13 +35,13 @@ describe('createAsyncContext()', () => {
       const AsyncContext = createAsyncContext({load});
       const asyncContext = mount(<AsyncContext.Provider />);
 
-      expect(trigger(asyncContext.find(Async), 'render', null)).toEqual(
+      expect(trigger(asyncContext.find(Async), 'render', null)).toStrictEqual(
         <AsyncContext.Context.Provider value={null} />,
       );
 
-      expect(trigger(asyncContext.find(Async), 'render', mockValue)).toEqual(
-        <AsyncContext.Context.Provider value={mockValue} />,
-      );
+      expect(
+        trigger(asyncContext.find(Async), 'render', mockValue),
+      ).toStrictEqual(<AsyncContext.Context.Provider value={mockValue} />);
     });
   });
 

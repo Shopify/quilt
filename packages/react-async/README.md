@@ -57,8 +57,8 @@ const MyComponent = createAsyncComponent({
 
 While you can supply whatever markup you like for these, we recommend that you use them for the following purposes:
 
-- `Prefetch`: loading resources that will be used by the component
-- `Preload`: loading resources **and** data that will be used by the component
+- `Preload`: loading resources that will be used by the component
+- `Prefetch`: loading resources **and** data that will be used by the component
 - `KeepFresh`: loading resources and data that will be used by the component, and keeping data up to date
 
 If you want props for your `Preload`, `Prefetch`, or `KeepFresh` components, simply provide them in the `render` option for that component. The resulting components will have those prop types baked in.
@@ -101,7 +101,11 @@ const MyComponent = createAsyncComponent({
 
 By default, components are loaded as early as possible. This means that, if the library can load your component synchronously, it will try to do so. If that is not possible, it will instead load it in `componentDidMount`. In some cases, a component may not be important enough to warrant being loaded early. This library exposes a few ways of "deferring" the loading of the component to an appropriate time.
 
-If a component should always be deferred in some way, you can pass a custom `defer` option to `createAsyncComponent`. This property should be a member of the `DeferTiming` enum, which currently allows you to force deferring the component to either mount (`DeferTiming.Mount`) or until the browser is idle (`DeferTiming.Idle`; requires a polyfill for `window.requestIdleCallback`).
+If a component should always be deferred in some way, you can pass a custom `defer` option to `createAsyncComponent`. This property should be a member of the `DeferTiming` enum, which currently allows you to force deferring the component until:
+
+- Component mount (`DeferTiming.Mount`; this is the default)
+- Browser idle (`DeferTiming.Idle`; if `window.requestIdleCallback` is not available, it will load on mount), or
+- Component is in the viewport (`DeferTiming.InViewport`; if `IntersectionObserver` is not available, it will load on mount)
 
 ```tsx
 import {createAsyncComponent, DeferTiming} from '@shopify/react-async';
@@ -122,9 +126,22 @@ const MyComponentOnIdle = createAsyncComponent({
   load: () => import('./MyComponent'),
   defer: DeferTiming.Idle,
 });
+
+// Never load synchronously, always start load in when any part of
+// the component is intersecting the viewport
+const MyComponentOnIdle = createAsyncComponent({
+  load: () => import('./MyComponent'),
+  defer: DeferTiming.InViewport,
+});
 ```
 
-If you need to customize the deferring behaviour at runtime, the library always allows you to pass an `async` prop with some custom options for the underlying `<Async />` loader component (**note**: this library reserves the `async` prop name, so you can’t use that name for any of your component’s own props, or for the props you specify in the `renderPreload`, `renderPrefetch`, or `renderKeepFresh` options).
+#### Overwriting properties
+
+The library always allows you to pass an `async` prop with some custom options for the underlying `<Async />` loader component (**note**: this library reserves the `async` prop name, so you can’t use that name for any of your component’s own props, or for the props you specify in the `renderPreload`, `renderPrefetch`, or `renderKeepFresh` options).
+
+Currenty the library allows you to overwite two properties:
+
+##### `defer?: DeferTiming`
 
 ```tsx
 import {createAsyncComponent, DeferTiming} from '@shopify/react-async';
@@ -151,6 +168,21 @@ const MyComponent = createAsyncComponent({
 // Don’t defer at all
 <MyComponent.Preload async={{defer: undefined}} />
 <MyComponent.KeepFresh async={{defer: undefined}} />
+```
+
+##### `renderLoading?(): React.ReactNode`
+
+```tsx
+import {createAsyncComponent} from '@shopify/react-async';
+import {Spinner} from '@shopify/polaris';
+
+// No loading state
+const MyComponent = createAsyncComponent({
+  load: () => import('./MyComponent'),
+});
+
+// But this instance will render <Spinner /> as its loading state
+<MyComponent async={{renderLoading: () => <Spinner />}} />;
 ```
 
 ### `PrefetchRoute` and `Prefetcher`

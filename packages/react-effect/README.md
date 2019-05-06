@@ -13,25 +13,29 @@ $ yarn add @shopify/react-effect
 
 ## Usage
 
-### `<Effect />`
+### `useServerEffect()`
 
-This package is largely built around a component, `Effect`. To set up an action to be performed, use the `perform` prop:
+This package is largely built around a hook, `useServerEffect`. The only mandatory argument is a function, which is the "effect" you wish to perform during each pass of server rendering:
 
 ```tsx
-import {Effect} from '@shopify/react-effect';
+import {useServerEffect} from '@shopify/react-effect';
 
 export default function MyComponent() {
-  return <Effect perform={() => console.log('Doing something!')} />;
+  useServerEffect(() => console.log('Doing something!'));
+  return null;
 }
 ```
 
 This callback can return anything, but returning a promise has a special effect: it will be waited for on the server when calling `extract()`.
 
-This component accepts three additional optional properties:
+This hook also accepts a second, optional argument: the effect "kind". This should be an object that:
 
-- `kind`: a description of the effect. This kind, if provided, must have an `id` that is a unique symbol, and can optionally have `betweenEachPass` and `afterEachPass` functions that add additional logic to the `betweenEachPass` and `afterEachPass` options for `extract()`.
+- Must have an `id` that is a unique symbol
+- Optionally has `betweenEachPass` and/ or `afterEachPass` functions that add additional logic to the `betweenEachPass` and `afterEachPass` options for `extract()`
 
-This component also accepts children which are rendered as-is.
+### `<Effect />`
+
+This is a component version of `useServerEffect`. Its `perform` prop will be run as a server effect, and its `kind` prop is used as the second argument to `useServerEffect`. Where possible, prefer the `useServerEffect` hook.
 
 ### `extract()`
 
@@ -64,14 +68,16 @@ You may optionally pass an options object that contains the following keys (all 
   async function app(ctx) {
     const app = <App />;
     // will only perform @shopify/react-i18n extraction
-    await extract(app, [I18N_EFFECT_ID]);
+    await extract(app, {include: [I18N_EFFECT_ID]});
     ctx.body = renderToString(app);
   }
   ```
 
-- `betweenEachPass`: a function that is called after a pass of your tree that did not "finish" (that is, there were still promises that got collected). This function can return a promise, and it will be waited on before continuing.
+- `maxPasses`: a number that limits the number of render/ resolve cycles `extract` is allowed to perform. This option defaults to `5`.
 
-- `afterEachPass`: a function that is called after each pass of your tree, regardless of whether traversal is "finished". This function can return a promise, and it will be waited on before continuing.
+- `betweenEachPass`: a function that is called after a pass of your tree that did not "finish" (that is, there were still promises that got collected). This function can return a promise, and it will be waited on before continuing. It is called with a single argument: a `Pass` object, which contains the `index`, `finished`, `renderDuration` and `resolveDuration` of the just-completed pass.
+
+- `afterEachPass`: a function that is called after each pass of your tree, regardless of whether traversal is "finished". This function can return a promise, and it will be waited on before continuing. This function is called with the same argument as the `betweenEachPass` option.
 
 - `decorate`: a function that takes the root React element in your tree and returns a new tree to use. You can use this to wrap your application in context providers that only your server render requires.
 

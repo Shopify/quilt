@@ -8,7 +8,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+## [2.5.4] - 2019-04-25
+
+### Fixed
+
+- Now correctly declares a dependency on `@shopify/react-async`
+
+## 2.5.0 - 2019-03-28
+
+### Added
+
+- Added a mock for `Promise` ([#614](https://github.com/Shopify/quilt/pull/614))
+
+## 2.4.0
+
+### Added
+
+- Added a mock for `IntersectionObserver` and `requestIdleCallback` ([#576](https://github.com/Shopify/quilt/pull/576))
+
+## 2.2.0
 
 ### Added
 

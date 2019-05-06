@@ -6,81 +6,97 @@ import '../test/matchers';
 
 import * as React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
-import {extract} from '@shopify/react-effect/server';
+import {extract, Effect} from '@shopify/react-effect/server';
 
-import {withI18n, WithI18nProps, Provider, Manager} from '..';
+import {useI18n, I18nContext, I18nManager} from '..';
 
 const fallbackTranslations = {MyComponent: {hello: 'Hello'}};
 const frTranslations = {MyComponent: {hello: 'Bonjour'}};
 const frCATranslations = {MyComponent: {hello: 'Allo Bonjour'}};
 
-function MyComponent({
-  i18n,
-  children,
-}: WithI18nProps & {children?: React.ReactNode}) {
+function WithI18nComponent({children}: {children?: React.ReactNode}) {
+  const [i18n, ShareTranslations] = useI18n({
+    id: 'MyComponent',
+    fallback: fallbackTranslations,
+    translations(locale) {
+      switch (locale) {
+        case 'fr-CA':
+          return frCATranslations;
+        case 'fr':
+          return frTranslations;
+        default:
+          return undefined;
+      }
+    },
+  });
+
   return (
-    <div>
+    <>
       {i18n.translate('MyComponent.hello')}
-      {children}
-    </div>
+      <ShareTranslations>{children}</ShareTranslations>
+    </>
   );
 }
 
-const WithI18nComponent = withI18n({
-  id: 'MyComponent',
-  fallback: fallbackTranslations,
-  translations(locale) {
-    switch (locale) {
-      case 'fr-ca':
-        return frCATranslations;
-      case 'fr':
-        return frTranslations;
-      default:
-        return undefined;
-    }
-  },
-})(MyComponent as any);
+function WithAsyncI18nComponent({children}: {children?: React.ReactNode}) {
+  const [i18n, ShareTranslations] = useI18n({
+    id: 'MyComponent',
+    fallback: fallbackTranslations,
+    translations(locale) {
+      switch (locale) {
+        case 'fr-CA':
+          return defer(frCATranslations);
+        case 'fr':
+          return defer(frTranslations);
+        default:
+          return undefined;
+      }
+    },
+  });
 
-const WithAsyncI18nComponent = withI18n({
-  id: 'MyComponent',
-  fallback: fallbackTranslations,
-  translations(locale) {
-    switch (locale) {
-      case 'fr-ca':
-        return defer(frCATranslations);
-      case 'fr':
-        return defer(frTranslations);
-      default:
-        return undefined;
-    }
-  },
-})(MyComponent as any);
+  return (
+    <>
+      {i18n.translate('MyComponent.hello')}
+      <ShareTranslations>{children}</ShareTranslations>
+    </>
+  );
+}
 
-const WithoutOwnI18nComponent = withI18n()(MyComponent as any);
+function WithoutOwnI18nComponent({children}: {children?: React.ReactNode}) {
+  const [i18n] = useI18n();
+
+  return (
+    <>
+      {i18n.translate('MyComponent.hello')}
+      {children}
+    </>
+  );
+}
 
 describe('server', () => {
   it('allows for synchronously rendering', () => {
-    const manager = new Manager({locale: 'fr-ca'});
+    const manager = new I18nManager({locale: 'fr-CA'});
     const markup = renderToStaticMarkup(
-      <Provider manager={manager}>
+      <I18nContext.Provider value={manager}>
         <WithI18nComponent />
-      </Provider>,
+      </I18nContext.Provider>,
     );
-    expect(markup).toBe(`<div>${frCATranslations.MyComponent.hello}</div>`);
+    expect(markup).toBe(`${frCATranslations.MyComponent.hello}`);
   });
 
   it('extracts async translations', async () => {
-    const manager = new Manager({locale: 'fr-ca'});
+    const manager = new I18nManager({locale: 'fr-CA'});
     const element = (
-      <Provider manager={manager}>
+      <I18nContext.Provider value={manager}>
         <WithAsyncI18nComponent />
-      </Provider>
+        <Effect perform={() => manager.loading && manager.resolve()} />
+      </I18nContext.Provider>
     );
 
     await extract(element);
     const markup = renderToStaticMarkup(element);
 
-    expect(markup).toBe(`<div>${frCATranslations.MyComponent.hello}</div>`);
+    expect(markup).toBe(`${frCATranslations.MyComponent.hello}`);
 
     const translations = manager.extract();
 
@@ -92,22 +108,21 @@ describe('server', () => {
   });
 
   it('handles nested translation connections', async () => {
-    const manager = new Manager({locale: 'fr'});
+    const manager = new I18nManager({locale: 'fr'});
     const element = (
-      <Provider manager={manager}>
+      <I18nContext.Provider value={manager}>
         <WithAsyncI18nComponent>
           <WithoutOwnI18nComponent />
         </WithAsyncI18nComponent>
-      </Provider>
+        <Effect perform={() => manager.loading && manager.resolve()} />
+      </I18nContext.Provider>
     );
 
     await extract(element);
     const markup = renderToStaticMarkup(element);
 
     expect(markup).toBe(
-      `<div>${frTranslations.MyComponent.hello}<div>${
-        frTranslations.MyComponent.hello
-      }</div></div>`,
+      `${frTranslations.MyComponent.hello}${frTranslations.MyComponent.hello}`,
     );
   });
 });

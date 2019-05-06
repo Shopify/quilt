@@ -7,6 +7,20 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.1.0] - 2019-04-12
+
+- Small refactor to export `resolve` utility ([#649](https://github.com/Shopify/quilt/pull/649))
+
+## [2.0.0] - 2019-04-08
+
+This library now requires React 16.8 because of changes to `@shopify/react-effect`.
+
+## 1.3.0 - 2019-03-25
+
+### Added
+
+- Support the new `DeferTiming.InViewport` strategy ([#576](https://github.com/Shopify/quilt/pull/576))
+
 ## 1.2.2 - 2019-02-27
 
 ### Fixed

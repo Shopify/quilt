@@ -6,12 +6,12 @@ import {
 } from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
-import {ServerManager, applyToContext} from '../server';
+import {NetworkManager, applyToContext} from '../server';
 
 describe('server', () => {
   describe('status', () => {
     it('sets a status code', () => {
-      const manager = new ServerManager();
+      const manager = new NetworkManager();
       const ctx = createMockContext();
       const status = StatusCode.NotFound;
 
@@ -22,7 +22,7 @@ describe('server', () => {
     });
 
     it('uses the largest status code', () => {
-      const manager = new ServerManager();
+      const manager = new NetworkManager();
       const ctx = createMockContext();
       const status = StatusCode.NotFound;
 
@@ -36,7 +36,7 @@ describe('server', () => {
 
   describe('redirect', () => {
     it('redirects to the passed URL', () => {
-      const manager = new ServerManager();
+      const manager = new NetworkManager();
       const ctx = createMockContext();
       const url = 'https://snowdevil.com';
 
@@ -47,7 +47,7 @@ describe('server', () => {
     });
 
     it('sets a custom redirect status code', () => {
-      const manager = new ServerManager();
+      const manager = new NetworkManager();
       const ctx = createMockContext();
       const status = StatusCode.TemporaryRedirect;
 
@@ -59,8 +59,18 @@ describe('server', () => {
   });
 
   describe('csp', () => {
+    it('does not set a CSP header if no directives were set', () => {
+      const manager = new NetworkManager();
+      const ctx = createMockContext();
+      const spy = jest.spyOn(ctx, 'set');
+
+      applyToContext(ctx, manager);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
     it('sets the CSP header with strings, booleans, and string arrays', () => {
-      const manager = new ServerManager();
+      const manager = new NetworkManager();
       const ctx = createMockContext();
       const spy = jest.spyOn(ctx, 'set');
 

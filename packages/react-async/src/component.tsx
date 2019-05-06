@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {LoadProps} from '@shopify/async';
+import {LoadProps, DeferTiming} from '@shopify/async';
 import {Props as ComponentProps} from '@shopify/useful-types';
 
 import {Async, AsyncPropsRuntime} from './Async';
-import {DeferTiming} from './shared';
 
 interface ConstantProps {
   async?: AsyncPropsRuntime;

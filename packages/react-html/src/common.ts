@@ -1,5 +1,13 @@
 export * from './components';
-export {default as Manager, EFFECT_ID} from './manager';
-export {Provider} from './context';
+export {HtmlManager, EFFECT_ID} from './manager';
+export {HtmlContext} from './context';
 export {showPage, getSerialized} from './utilities';
-export {createSerializer} from './serializer';
+export {
+  useDomEffect,
+  useTitle,
+  usePreconnect,
+  useFavicon,
+  useLink,
+  useMeta,
+} from './hooks';
+export {createSerializer, useSerialized} from './serializer';

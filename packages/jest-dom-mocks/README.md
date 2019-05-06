@@ -15,8 +15,8 @@ $ yarn add @shopify/jest-dom-mocks
 
 This package provides two methods that should be included in the jest setup files:
 
-* `ensureMocksReset`
-* `installMockStorage`
+- `ensureMocksReset`
+- `installMockStorage`
 
 ### `ensureMocksReset`
 
@@ -78,19 +78,22 @@ it('transitions to the next number after being updated', () => {
 
 The mocks provided can be divided into 3 primary categories:
 
-* standard mocks
-* fetch mock
-* storage mocks
+- standard mocks
+- fetch mock
+- storage mocks
 
 ### Standard Mocks
 
 The following standard mocks are available:
 
-* `animationFrame`
-* `clock`
-* `location`
-* `matchMedia`
-* `timer`
+- `animationFrame`
+- `requestIdleCallback`
+- `clock`
+- `location`
+- `matchMedia`
+- `timer`
+- `promise`
+- `intersectionObserver`
 
 Each of the standard mocks can be installed, for a given test, using `standardMock.mock()`, and must be restored before the end of the test using `standardMock.restore()`.
 
@@ -131,6 +134,18 @@ Some of the standard mocks include additional features:
 #### `AnimationFrame.runFrame(): void`
 
 Executes all queued animation callbacks.
+
+#### `RequestIdleCallback.runIdleCallbacks(timeRemaining?: number, didTimeout?: boolean): void`
+
+Runs all currently-scheduled idle callbacks. If provided, `timeRemaining`/ `didTimeout` will be used to construct the argument for these callbacks. Once called, all callbacks are removed from the queue.
+
+#### `RequestIdleCallback.cancelIdleCallbacks(): void`
+
+Cancels all currently-scheduled idle callbacks.
+
+#### `RequestIdleCallback.cancelIdleCallback(callback: any): void`
+
+Cancels the idle callback specified by the passed argument. This value should be the one returned from a call to `window.requestIdleCallback`.
 
 #### `Clock.mock(now: number | Date): void`
 
@@ -181,6 +196,18 @@ Runs all system timers to completion.
 
 Runs all system timers to the given `time`.
 
+#### `Promise.runPending(): void`
+
+Runs all promise resolvers that have been queued.
+
+#### `IntersectionObserver.observers`
+
+Returns an array of records representing elements currently being observed with an `IntersectionObserver`. Each record contains a `target` (the element being observed), `callback` (the function used when constructing the observer), `options` (optional object used when constructing the observer), and a `source` (the fake `IntersectionObserver` instance that was used to observe).
+
+#### `IntersectionObserver.simulate(entry: Partial<IntersectionObserverEntry> | Partial<IntersectionObserverEntry>[]): void`
+
+Simulates a call on all matching observers. If you pass a `target` on the passed entry/ entries, only observers with a matching `target` element will be triggered. Otherwise, all observers will be triggered. If you do not provide a full `IntersectionObserverEntry` in any case, the missing fields will be filled out with sensible defaults.
+
 ### Fetch Mock
 
 We use a version of `fetch-mock` that is augmented to ensure that it is properly unmocked after each test run. See the [API of `fetch-mock`](http://www.wheresrhys.co.uk/fetch-mock/api) for more details.
@@ -189,9 +216,9 @@ We use a version of `fetch-mock` that is augmented to ensure that it is properly
 
 The storage mocks are a bit different than the other mocks, because they serve primarily as a polyfill for the `localStorage` and `sessionStorage` APIs. The following standard API methods are implemented:
 
-* `getItem`
-* `setItem`
-* `removeItrem`
-* `clear`
+- `getItem`
+- `setItem`
+- `removeItrem`
+- `clear`
 
 Each of these are wrapped in a jest spy, which is automatically restored at the end of the test run.

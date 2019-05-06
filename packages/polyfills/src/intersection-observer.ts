@@ -1,0 +1,1 @@
+require('intersection-observer');
