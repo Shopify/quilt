@@ -36,7 +36,7 @@ export default function ImportRemote<T = unknown>({
     () => {
       switch (result.status) {
         case Status.Failed:
-          onImported(new Error(result.error.message));
+          onImported(result.error);
           return;
         case Status.Complete:
           onImported(result.imported);
