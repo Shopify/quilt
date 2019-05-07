@@ -10,6 +10,8 @@ export default class IntersectionObserverMock {
 
   private isUsingMockIntersectionObserver = false;
   private originalIntersectionObserver = (global as any).IntersectionObserver;
+  private originalIntersectionObserverEntry = (global as any)
+    .IntersectionObserverEntry;
 
   simulate(
     entry:
@@ -43,6 +45,17 @@ export default class IntersectionObserverMock {
 
     const setObservers = (setter: (observers: Observer[]) => Observer[]) =>
       (this.observers = setter(this.observers));
+
+    (global as any).IntersectionObserverEntry = () => {};
+    Object.defineProperty(
+      IntersectionObserverEntry.prototype,
+      'intersectionRatio',
+      {
+        get() {
+          return 0;
+        },
+      },
+    );
 
     (global as any).IntersectionObserver = class FakeIntersectionObserver {
       constructor(
@@ -87,6 +100,8 @@ export default class IntersectionObserverMock {
     }
 
     (global as any).IntersectionObserver = this.originalIntersectionObserver;
+    (global as any).IntersectionObserverEntry = this.originalIntersectionObserverEntry;
+
     this.isUsingMockIntersectionObserver = false;
     this.observers.length = 0;
   }
