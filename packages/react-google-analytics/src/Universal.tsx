@@ -2,7 +2,7 @@ import * as React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 
 import {UniversalAnalytics} from './types';
-import {getRootDomain, noop} from './utilities';
+import {getRootDomain} from './utilities';
 
 export interface Props {
   account: string;
@@ -88,7 +88,6 @@ export default function UniversalGoogleAnalytics({
         source={source}
         nonce={nonce}
         getImport={getUniversalAnalytics}
-        onError={noop}
         onImported={setAnalytics}
       />
     </>

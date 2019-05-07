@@ -94,7 +94,7 @@ export default class RequestIdleCallback {
   private ensureIdleCallbackIsMock() {
     if (!this.isUsingMockIdleCallback) {
       throw new Error(
-        'You must call animationFrame.mock() before interacting with the mock request- or cancel- IdleCallback methods.',
+        'You must call requestIdleCallback.mock() before interacting with the mock request- or cancel- IdleCallback methods.',
       );
     }
   }

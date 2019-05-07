@@ -2,7 +2,7 @@ import * as React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 
 import {GaJSAnalytics} from './types';
-import {getRootDomain, noop} from './utilities';
+import {getRootDomain} from './utilities';
 
 export interface Props {
   account: string;
@@ -92,7 +92,6 @@ export default function GaJSGoogleAnalytics({
         source={GA_JS_SCRIPT}
         nonce={nonce}
         getImport={getLegacyAnalytics}
-        onError={noop}
         onImported={setAnalytics}
       />
     </>
