@@ -73,16 +73,11 @@ export function validateList<Input extends object, Fields>(
   };
 }
 
-export function validate<Input>(
-  matcher: Matcher<Input, any>,
-  errorContent: ErrorContent,
-): (input: Input) => ErrorContent | undefined | void;
-
 export function validate<Input, Fields>(
   matcher: Matcher<Input, Fields>,
   errorContent: ErrorContent,
 ) {
-  return (input: Input, fields: Fields) => {
+  return (input: Input, fields: Fields): ErrorContent | undefined | void => {
     const matches = matcher(input, fields);
 
     /*
