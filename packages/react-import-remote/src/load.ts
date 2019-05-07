@@ -30,10 +30,10 @@ export default function load<
       resolve(getImport(window as CustomWindow));
     }
 
-    function scriptTagOnError(error: any) {
+    function scriptTagOnError() {
       scriptTag.removeEventListener('load', scriptTagOnLoad);
       scriptTag.removeEventListener('error', scriptTagOnError);
-      reject(error);
+      reject(new Error('Script tag failed to load remote source'));
     }
 
     scriptTag.addEventListener('load', scriptTagOnLoad);
