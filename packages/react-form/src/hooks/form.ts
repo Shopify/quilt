@@ -1,9 +1,8 @@
 import {SubmitHandler, FormMapping, FieldBag, Form} from '../types';
+import {validateAll} from '../utilities';
 import {useDirty} from './dirty';
 import {useReset} from './reset';
 import {useSubmit} from './submit';
-import {useValidateAll} from './validateAll';
-import {useErrorPropagation} from './errorPropagation';
 
 /**
  * A custom hook for managing the state of an entire form. `useForm` wraps up many of the other hooks in this package in one API, and when combined with `useField` and `useList`, allows you to easily build complex forms with smart defaults for common cases.
@@ -63,24 +62,16 @@ export function useForm<T extends FieldBag>({
 }): Form<T> {
   const dirty = useDirty(fields);
   const reset = useReset(fields);
-  const validate = useValidateAll(fields);
   const {submit, submitting, errors, setErrors} = useSubmit(onSubmit, fields);
-  useErrorPropagation(fields, errors);
 
   return {
     fields,
     dirty,
     submitting,
     submitErrors: errors,
-    validate,
-    submit(event?: React.FormEvent) {
-      const clientErrors = validate();
-      if (clientErrors.length > 0) {
-        setErrors(clientErrors);
-        return;
-      }
-
-      submit(event);
+    submit,
+    validate() {
+      return validateAll(fields);
     },
     reset() {
       setErrors([]);

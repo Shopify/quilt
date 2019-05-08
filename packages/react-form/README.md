@@ -16,11 +16,9 @@ Manage react forms tersely and safely-typed with no magic using React hooks. Bui
       1. [useField](#usefield)
       1. [useList](#uselist)
       1. [useForm](#useform)
-      1. [useValidateAll](#usevalidateall)
       1. [useDirty](#usedirty)
       1. [useReset](#usereset)
       1. [useSubmit](#usesubmit)
-      1. [useErrorPropagation](#useerrorpropagation)
    1. [Validation](#validation)
       1. [inline](#validation)
       1. [multiple](#validation)
@@ -245,9 +243,6 @@ export default function MyComponent() {
 
     return {status: 'success'};
   }, fields);
-
-  // propagate submit errors back to the fields
-  useErrorPropagation(fields, errors);
 
   const contextBar = dirty && (
     <ContextualSaveBar
@@ -785,20 +780,16 @@ function MyComponent() {
 
 ##### Remarks
 
-- **Building your own:** Internally, `useForm` is a convenience wrapper over `useDirty`, `useReset`, `useValidateAll`, `useSubmit`, and `useErrorPropagation`.If you only need some of its functionality, consider building a custom hook combining a subset of them.
+- **Building your own:** Internally, `useForm` is a convenience wrapper over `useDirty`, `useReset`, `validateAll`, `useSubmit`, and `propagateErrors`.If you only need some of its functionality, consider building a custom hook combining a subset of them.
 - **Subforms:** You can have multiple `useForm`s wrapping different subsets of a group of fields. Using this you can submit subsections of the form independently and have all the error and dirty tracking logic "just work" together.
 
 #### useSubmit
-
-#### useValidateAll
 
 #### useDirty
 
 #### useReset
 
 #### useSubmit
-
-#### useErrorPropagation
 
 Docs for these standalone hooks are coming soon. For now check out the `.d.ts` files for the API.
 

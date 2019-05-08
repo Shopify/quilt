@@ -109,7 +109,11 @@ export function useField<Value = string>(
 
   const [state, dispatch] = useFieldReducer(value);
 
-  const reset = useCallback(() => dispatch(resetAction()), [dispatch]);
+  const resetActionObject = useMemo(() => resetAction(), []);
+  const reset = useCallback(() => dispatch(resetActionObject), [
+    dispatch,
+    resetActionObject,
+  ]);
   const newDefaultValue = useCallback(
     value => dispatch(newDefaultAction(value)),
     [dispatch],

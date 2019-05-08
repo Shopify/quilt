@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {useMountedRef} from '@shopify/react-hooks';
 import {
   FormMapping,
@@ -8,7 +8,7 @@ import {
   FormError,
   FieldDictionary,
 } from '../types';
-import {mapObject, isField} from '../utilities';
+import {mapObject, isField, propagateErrors, validateAll} from '../utilities';
 
 export function useSubmit<T extends FieldBag>(
   onSubmit: SubmitHandler<FormMapping<T, 'value'>> = noopSubmission,
@@ -16,11 +16,24 @@ export function useSubmit<T extends FieldBag>(
 ) {
   const mounted = useMountedRef();
   const [submitting, setSubmitting] = useState(false);
-  const [remoteErrors, setRemoteErrors] = useState([] as FormError[]);
+  const [submitErrors, setSubmitErrors] = useState([] as FormError[]);
+  const setErrors = useCallback(
+    (errors: FormError[]) => {
+      setSubmitErrors(errors);
+      propagateErrors(fieldBag, errors);
+    },
+    [fieldBag],
+  );
 
   async function submit(event?: React.FormEvent) {
     if (event && event.preventDefault && !event.defaultPrevented) {
       event.preventDefault();
+    }
+
+    const clientErrors = validateAll(fieldBag);
+    if (clientErrors.length > 0) {
+      setErrors(clientErrors);
+      return;
     }
 
     setSubmitting(true);
@@ -33,13 +46,13 @@ export function useSubmit<T extends FieldBag>(
     setSubmitting(false);
 
     if (result.status === 'fail') {
-      setRemoteErrors(result.errors);
+      setErrors(result.errors);
     } else {
-      setRemoteErrors([]);
+      setSubmitErrors([]);
     }
   }
 
-  return {submit, submitting, errors: remoteErrors, setErrors: setRemoteErrors};
+  return {submit, submitting, errors: submitErrors, setErrors};
 }
 
 function getValues<T extends FieldBag>(fieldBag: T) {
@@ -72,7 +85,7 @@ export function submitSuccess(): SubmitResult {
 
 /**
  * A convenience function for `onSubmit` callbacks returning values to `useSubmit` or `useForm`
- * @param errors - An array of errors with the user's input. These can either include both a `fieldPath` and a `message`, in which case they will be passed down to a matching field, or just a `message`.
+ * @param errors - An array of errors with the user's input. These can either include both a `field` and a `message`, in which case they will be passed down to a matching field, or just a `message`.
  * @return Returns a `SubmitResult` representing your failed form submission.
  */
 export function submitFail(errors: FormError[] = []): SubmitResult {

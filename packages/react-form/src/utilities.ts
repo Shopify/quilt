@@ -1,6 +1,15 @@
 import {ChangeEvent} from 'react';
 
-import {Validates, FieldOutput, Field, Validator} from './types';
+import get from 'get-value';
+
+import {
+  Validates,
+  Validator,
+  FieldOutput,
+  FieldDictionary,
+  Field,
+  FormError,
+} from './types';
 
 export function isField<T extends object>(
   input: FieldOutput<T>,
@@ -38,6 +47,53 @@ export function isChangeEvent(
     Reflect.has(value, 'target') &&
     Reflect.has(value.target, 'value')
   );
+}
+
+export function propagateErrors(
+  fieldBag: {[key: string]: FieldOutput<any>},
+  errors: FormError[],
+) {
+  errors.forEach(error => {
+    if (error.field == null) {
+      return;
+    }
+
+    const got = get(fieldBag, error.field);
+
+    if (isField(got)) {
+      if (got.error !== error.message) {
+        got.setError(error.message);
+      }
+    }
+  });
+}
+
+export function validateAll(fieldBag: {[key: string]: FieldOutput<any>}) {
+  const fields = Object.values(fieldBag);
+  const errors: FormError[] = [];
+
+  function validate(field: Field<unknown>) {
+    const message = field.runValidation();
+    if (message) {
+      errors.push({message});
+    }
+  }
+
+  function validateDictionary(fields: FieldDictionary<any>) {
+    Object.values(fields).forEach(validate);
+  }
+
+  for (const item of fields) {
+    if (isField(item)) {
+      validate(item);
+    } else if (Array.isArray(item)) {
+      item.map(validateDictionary);
+    } else {
+      validateDictionary(item);
+    }
+  }
+
+  return errors;
 }
 
 export function noop() {}
