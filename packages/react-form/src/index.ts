@@ -5,8 +5,6 @@ export {
   useField,
   FieldConfig,
   useList,
-  useValidateAll,
-  useErrorPropagation,
   useDirty,
   useReset,
   useSubmit,
@@ -14,3 +12,5 @@ export {
   submitFail,
   submitSuccess,
 } from './hooks';
+
+export {validateAll, propagateErrors} from './utilities';

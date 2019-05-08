@@ -68,7 +68,7 @@ export interface Form<T extends FieldBag> {
 }
 
 export interface FormError {
-  fieldPath?: string[];
+  field?: string[] | null;
   message: string;
 }
 
