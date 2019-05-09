@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.2.3] - 2019-05-09
+
+- Now exports formerly missing typings for `TranslationDictionary` ([#693](https://github.com/Shopify/quilt/pull/693))
+
 ## [1.2.0] - 2019-04-26
 
 ### Added
