@@ -29,9 +29,9 @@ The following type aliases are provided by this library:
 
   ```ts
   const func = (foo: Promise<any>, bar: string) => foo.then(() => bar);
-  type Arg1 = FirstArgument<typeof func, 0>; // Promise<any>
-  type Arg2 = FirstArgument<typeof func, 1>; // string
-  type NotAnArg = FirstArgument<string, 0>; // never
+  type Arg1 = ArgumentAtIndex<typeof func, 0>; // Promise<any>
+  type Arg2 = ArgumentAtIndex<typeof func, 1>; // string
+  type NotAnArg = ArgumentAtIndex<string, 0>; // never
   ```
 
 - `FirstArgument<T>`: Resolves to the type of the first argument to the passed function. This is shorthand for `ArgumentAtIndex<T, 0>`.
