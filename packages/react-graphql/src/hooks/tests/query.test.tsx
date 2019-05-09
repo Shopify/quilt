@@ -125,11 +125,16 @@ describe('useQuery', () => {
       const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
-      // below line should be wrapped in act once we update to `react-dom` v16.9.0-alpha.0
-      await MockQueryComponent.resolve();
-      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
-        graphQL,
-        skipInitialGraphQL: true,
+      const wrapper = await mountWithGraphQL(
+        <MockQuery>{renderPropSpy}</MockQuery>,
+        {
+          graphQL,
+          skipInitialGraphQL: true,
+        },
+      );
+
+      await wrapper.act(async () => {
+        await MockQueryComponent.resolve();
       });
 
       expect(renderPropSpy).toHaveBeenLastCalledWith(
@@ -152,10 +157,16 @@ describe('useQuery', () => {
       const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
-      // below line should be wrapped in act once we update to `react-dom` v16.9.0-alpha.0
-      await MockQueryComponent.resolve();
-      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
-        graphQL,
+      const wrapper = await mountWithGraphQL(
+        <MockQuery>{renderPropSpy}</MockQuery>,
+        {
+          graphQL,
+        },
+      );
+
+      await wrapper.act(async () => {
+        await MockQueryComponent.resolve();
+        await graphQL.resolveAll();
       });
 
       expect(renderPropSpy).toHaveBeenLastCalledWith(

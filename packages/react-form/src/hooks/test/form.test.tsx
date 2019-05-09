@@ -59,7 +59,9 @@ describe('useForm', () => {
     return (
       <form onSubmit={submit}>
         {submitting && <p>loading...</p>}
-        {submitErrors.length > 0 && <p>{submitErrors.join(', ')}</p>}
+        {submitErrors.length > 0 &&
+          submitErrors.map(({message}) => <p key={message}>{message}</p>)}
+
         <fieldset>
           <TextField label="title" {...title} />
           <TextField label="description" {...description} />
@@ -69,13 +71,15 @@ describe('useForm', () => {
           <TextField label="option" {...defaultVariant.optionName} />
           <TextField label="value" {...defaultVariant.optionValue} />
         </fieldset>
-        {variants.map(({price, optionName, optionValue, id}) => (
-          <fieldset name="default-variant" key={id.value}>
-            <TextField label="price" {...price} />
-            <TextField label="option" {...optionName} />
-            <TextField label="value" {...optionValue} />
-          </fieldset>
-        ))}
+        {variants.map(({price, optionName, optionValue, id}) => {
+          return (
+            <fieldset name="default-variant" key={id.value}>
+              <TextField label="price" {...price} />
+              <TextField label="option" {...optionName} />
+              <TextField label="value" {...optionValue} />
+            </fieldset>
+          );
+        })}
         <button type="button" disabled={!dirty} onClick={reset}>
           Reset
         </button>
@@ -156,18 +160,18 @@ describe('useForm', () => {
         .find(TextField, {label: 'title'})!
         .trigger('onChange', 'tortoritos, the chip for turtles!');
 
-      wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      wrapper.act(() => {
+        wrapper
+          .find('button', {type: 'submit'})!
+          .trigger('onClick', clickEvent());
+      });
 
       expect(wrapper).toContainReactComponent('p', {
         children: 'loading...',
       });
     });
 
-    // Async act() issues block this test https://github.com/facebook/react/issues/15379
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('sets submitting to false when submission ends', async () => {
+    it('sets submitting to false when submission ends', async () => {
       const promise = Promise.resolve(submitSuccess());
       const wrapper = mount(
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
@@ -177,11 +181,13 @@ describe('useForm', () => {
         .find(TextField, {label: 'title'})!
         .trigger('onChange', 'tortoritos, the chip for turtles!');
 
-      wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      await wrapper.act(async () => {
+        wrapper
+          .find('button', {type: 'submit'})!
+          .trigger('onClick', clickEvent());
 
-      await promise;
+        await promise;
+      });
 
       expect(wrapper).not.toContainReactComponent('p', {
         children: 'loading...',
@@ -200,9 +206,11 @@ describe('useForm', () => {
 
       wrapper.find(TextField, {label: 'title'})!.trigger('onChange', '');
 
-      wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      wrapper.act(() => {
+        wrapper
+          .find('button', {type: 'submit'})!
+          .trigger('onClick', clickEvent());
+      });
 
       expect(submitSpy).not.toHaveBeenCalled();
       expect(wrapper).toContainReactComponent('p', {
@@ -210,41 +218,48 @@ describe('useForm', () => {
       });
     });
 
-    // Async act() issues block this test https://github.com/facebook/react/issues/15379
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('returns remote submission errors', async () => {
+    it('returns remote submission errors', async () => {
       const error = {message: 'The server hates it'};
-      const submitSpy = jest.fn(() => Promise.resolve(submitFail([error])));
+      const promise = Promise.resolve(submitFail([error]));
+
       const wrapper = mount(
-        <ProductForm data={fakeProduct()} onSubmit={submitSpy} />,
+        <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      await wrapper.act(async () => {
+        wrapper
+          .find('button', {type: 'submit'})!
+          .trigger('onClick', clickEvent());
+
+        await promise;
+      });
 
       expect(wrapper).toContainReactComponent('p', {
         children: error.message,
       });
     });
 
-    // Async act() issues block this test https://github.com/facebook/react/issues/15379
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('propagates remote submission errors to matching fields', async () => {
+    it('propagates remote submission errors to matching fields', async () => {
       const errors = [
         {
           field: ['variants', '0', 'price'],
           message: 'The server hates your price',
         },
       ];
-      const submitSpy = jest.fn(() => Promise.resolve(submitFail(errors)));
+
+      const promise = Promise.resolve(submitFail(errors));
+
       const wrapper = mount(
-        <ProductForm data={fakeProduct()} onSubmit={submitSpy} />,
+        <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      await wrapper.act(async () => {
+        wrapper
+          .find('button', {type: 'submit'})!
+          .trigger('onClick', clickEvent());
+
+        await promise;
+      });
 
       expect(wrapper).toContainReactComponent(TextField, {
         error: errors[0].message,
@@ -277,27 +292,30 @@ describe('useForm', () => {
       });
     });
 
-    // Async act() issues block this test https://github.com/facebook/react/issues/15379
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('resets errors from previous submissions', async () => {
+    it('resets errors from previous submissions', async () => {
       const errors = [
         {
           field: ['variants', '0', 'price'],
           message: 'The server hates your price',
         },
       ];
-      const submitSpy = jest.fn(() => Promise.resolve(submitFail(errors)));
+
+      const promise = Promise.resolve(submitFail(errors));
+
       const wrapper = mount(
-        <ProductForm data={fakeProduct()} onSubmit={submitSpy} />,
+        <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
       await wrapper
         .find('button', {type: 'submit'})!
         .trigger('onClick', clickEvent());
 
-      await wrapper
-        .find('button', {type: 'reset'})!
-        .trigger('onClick', clickEvent());
+      await wrapper.act(async () => {
+        wrapper
+          .find('button', {type: 'button'})!
+          .trigger('onClick', clickEvent());
+        await promise;
+      });
 
       expect(wrapper).not.toContainReactComponent(TextField, {
         error: errors[0].message,
