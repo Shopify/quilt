@@ -1,4 +1,4 @@
-import {act} from 'react-dom/test-utils';
+import {act as reactAct} from 'react-dom/test-utils';
 import {ReactWrapper, CommonWrapper} from 'enzyme';
 import {get} from 'lodash';
 
@@ -7,6 +7,11 @@ export type AnyWrapper =
   | ReactWrapper<any, never>
   | CommonWrapper<any, any>
   | CommonWrapper<any, never>;
+
+// Manually casting `act()` until @types/react-dom is updated to include
+// the Promise types for async act introduced in version 16.9.0-alpha.0
+// https://github.com/Shopify/quilt/issues/692
+const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   if (wrapper.length === 0) {
@@ -33,18 +38,25 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
 
   let returnValue: any;
 
-  act(() => {
+  const promise = act(() => {
     returnValue = callback(...args);
+
+    // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
+    // This condition checks the returned value is an actual Promise and returns it
+    // to React’s `act()` call, otherwise we just want to return `undefined`
+    if (isPromise(returnValue)) {
+      return (returnValue as unknown) as Promise<void>;
+    }
   });
 
-  updateRoot(wrapper);
-
-  if (returnValue instanceof Promise) {
-    return returnValue.then(ret => {
+  if (isPromise(returnValue)) {
+    return Promise.resolve(promise as Promise<any>).then(ret => {
       updateRoot(wrapper);
       return ret;
     });
   }
+
+  updateRoot(wrapper);
 
   return returnValue;
 }
@@ -55,4 +67,10 @@ function updateRoot(wrapper: AnyWrapper) {
 
 export function findById(wrapper: ReactWrapper<any, any>, id: string) {
   return wrapper.find({id}).first();
+}
+
+function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
+  return (
+    promise != null && typeof promise === 'object' && 'then' in (promise as any)
+  );
 }

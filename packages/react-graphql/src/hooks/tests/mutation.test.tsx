@@ -40,12 +40,7 @@ const mockMutationData = {
   updatePet: {id: 'new-pet-id-123', __typename: 'Cat'},
 };
 
-// This is skip because current `act` wrapper does not support async operation
-// The test will pass if we update to `react-dom` v16.9.0-alpha.0
-// and wrap `graphQL.resolveAll()` in an `act`
-// https://github.com/facebook/react/issues/14769#issuecomment-481251431
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('useMutation', () => {
+describe('useMutation', () => {
   beforeEach(() => {
     prepareAsyncReactTasks();
   });
@@ -62,8 +57,11 @@ describe.skip('useMutation', () => {
       {graphQL},
     );
 
-    mockMutation.find('button')!.trigger('onClick', undefined as any);
-    await graphQL.resolveAll();
+    await mockMutation.act(async () => {
+      mockMutation.find('button')!.trigger('onClick', undefined as any);
+
+      await graphQL.resolveAll();
+    });
 
     expect(renderPropSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({data: mockMutationData}),

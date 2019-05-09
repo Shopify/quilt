@@ -216,6 +216,9 @@ export function useList<Item extends object>(
                 }
                 validate();
               },
+              setError(error: string) {
+                dispatch(updateErrorAction({target, error}));
+              },
             };
           },
         );

@@ -45,30 +45,51 @@ describe('<ImportRemote />', () => {
     onImported: noop,
   };
 
+  function createResolvableLoad(value?: any) {
+    const promise = Promise.resolve(value);
+    load.mockImplementationOnce(() => promise);
+
+    return () => promise;
+  }
+
   describe('source and getImport()', () => {
-    it('uses the props as arguments for load()', () => {
-      const nonce = '';
-      mount(<ImportRemote {...mockProps} />);
-      expect(load).toHaveBeenCalledWith(
-        mockProps.source,
-        mockProps.getImport,
-        nonce,
-      );
-    });
-
-    it('uses the nonce prop as argument for load()', () => {
-      const nonce = '1a2b3c';
-      mount(<ImportRemote {...mockProps} nonce={nonce} />);
-      expect(load).toHaveBeenCalledWith(
-        mockProps.source,
-        mockProps.getImport,
-        nonce,
-      );
-    });
-
-    it('imports a new global if the source changes', () => {
+    it('uses the props as arguments for load()', async () => {
+      const resolve = createResolvableLoad();
       const nonce = '';
       const importRemote = mount(<ImportRemote {...mockProps} />);
+
+      await importRemote.act(async () => {
+        await resolve();
+      });
+
+      expect(load).toHaveBeenCalledWith(
+        mockProps.source,
+        mockProps.getImport,
+        nonce,
+      );
+    });
+
+    it('uses the nonce prop as argument for load()', async () => {
+      const resolve = createResolvableLoad();
+      const nonce = '1a2b3c';
+      const importRemote = mount(<ImportRemote {...mockProps} nonce={nonce} />);
+
+      await importRemote.act(async () => {
+        await resolve();
+      });
+
+      expect(load).toHaveBeenCalledWith(
+        mockProps.source,
+        mockProps.getImport,
+        nonce,
+      );
+    });
+
+    it('imports a new global if the source changes', async () => {
+      const nonce = '';
+      const resolve = createResolvableLoad();
+      const importRemote = mount(<ImportRemote {...mockProps} />);
+
       expect(load).toHaveBeenCalledWith(
         mockProps.source,
         mockProps.getImport,
@@ -77,27 +98,29 @@ describe('<ImportRemote />', () => {
 
       const newSource = 'https://bar.com/foo.js';
 
-      importRemote.setProps({source: newSource});
+      await importRemote.act(async () => {
+        importRemote.setProps({source: newSource});
+        await resolve();
+      });
+
       expect(load).toHaveBeenCalledWith(newSource, mockProps.getImport, nonce);
     });
   });
-  // async act is available in React 16.9.0, when we have upgraded the following
-  // tests can be enabled. https://github.com/Shopify/quilt/pull/688
-  // eslint-disable-next-line jest/no-disabled-tests
-  describe.skip('onImported()', () => {
+
+  describe('onImported()', () => {
     it('is called with the result of loading the script when successful', async () => {
       const result = 'foo';
-      const promise = Promise.resolve(result);
       const spy = jest.fn();
-      load.mockImplementation(() => promise);
+      const resolve = createResolvableLoad(result);
 
-      const importRemote = await mount(
+      const importRemote = mount(
         <ImportRemote {...mockProps} onImported={spy} />,
       );
 
-      importRemote.act(async () => {
-        await promise;
+      await importRemote.act(async () => {
+        await resolve();
       });
+
       expect(spy).toHaveBeenCalledWith(result);
     });
 
@@ -107,11 +130,11 @@ describe('<ImportRemote />', () => {
       const spy = jest.fn();
       load.mockImplementation(() => promise);
 
-      const importRemote = await mount(
+      const importRemote = mount(
         <ImportRemote {...mockProps} onImported={spy} />,
       );
 
-      importRemote.act(async () => {
+      await importRemote.act(async () => {
         try {
           await promise;
           // eslint-disable-next-line no-empty
@@ -123,14 +146,24 @@ describe('<ImportRemote />', () => {
   });
 
   describe('preconnect', () => {
-    it('does not render any preconnect link by default', () => {
+    it('does not render any preconnect link by default', async () => {
+      const resolve = createResolvableLoad();
       const importRemote = mount(<ImportRemote {...mockProps} />);
+
+      await importRemote.act(async () => {
+        await resolve();
+      });
 
       expect(importRemote).not.toContainReactComponent(Preconnect);
     });
 
-    it('creates a preconnect link with the source’s origin when preconnecting is requested', () => {
+    it('creates a preconnect link with the source’s origin when preconnecting is requested', async () => {
+      const resolve = createResolvableLoad();
       const importRemote = mount(<ImportRemote {...mockProps} preconnect />);
+
+      await importRemote.act(async () => {
+        await resolve();
+      });
 
       expect(importRemote).toContainReactComponent(Preconnect, {
         source: new URL(mockProps.source).origin,
@@ -139,21 +172,27 @@ describe('<ImportRemote />', () => {
   });
 
   describe('defer', () => {
-    it('does not call load until idle when defer is DeferTiming.Idle', () => {
+    it('does not call load until idle when defer is DeferTiming.Idle', async () => {
+      const resolve = createResolvableLoad();
+
       const importRemote = mount(
         <ImportRemote {...mockProps} defer={DeferTiming.Idle} />,
       );
 
       expect(load).not.toHaveBeenCalled();
 
-      importRemote.act(() => {
+      await importRemote.act(async () => {
         requestIdleCallback.runIdleCallbacks();
+
+        await resolve();
       });
 
       expect(load).toHaveBeenCalled();
     });
 
-    it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', () => {
+    it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', async () => {
+      const resolve = createResolvableLoad();
+
       intersectionObserver.simulate({
         isIntersecting: false,
       });
@@ -164,10 +203,12 @@ describe('<ImportRemote />', () => {
 
       expect(load).not.toHaveBeenCalled();
 
-      importRemote.act(() => {
+      await importRemote.act(async () => {
         intersectionObserver.simulate({
           isIntersecting: true,
         });
+
+        await resolve();
       });
 
       expect(load).toHaveBeenCalled();
