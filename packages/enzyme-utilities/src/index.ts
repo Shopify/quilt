@@ -8,7 +8,7 @@ export type AnyWrapper =
   | CommonWrapper<any, any>
   | CommonWrapper<any, never>;
 
-// Manually casting `act()` until @types/react is updated to include
+// Manually casting `act()` until @types/react-dom is updated to include
 // the Promise types for async act introduced in version 16.9.0-alpha.0
 // https://github.com/Shopify/quilt/issues/692
 const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
