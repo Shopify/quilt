@@ -173,7 +173,7 @@ export class Element<Props> {
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Arguments<Props[K]>>
-  ): ReturnType<NonNullable<Props[K]>> {
+  ): Promise<ReturnType<NonNullable<Props[K]>>> {
     return this.root.act(() => {
       const propValue = this.props[prop];
 
@@ -187,7 +187,7 @@ export class Element<Props> {
     });
   }
 
-  triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T {
+  triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): Promise<T> {
     return this.root.act(() => {
       const {props} = this;
       const parts = keypath.split(/[.[\]]/g).filter(Boolean);

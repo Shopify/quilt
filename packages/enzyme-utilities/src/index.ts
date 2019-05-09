@@ -1,4 +1,4 @@
-import {act} from 'react-dom/test-utils';
+import {act as reactAct} from 'react-dom/test-utils';
 import {ReactWrapper, CommonWrapper} from 'enzyme';
 import {get} from 'lodash';
 
@@ -7,6 +7,8 @@ export type AnyWrapper =
   | ReactWrapper<any, never>
   | CommonWrapper<any, any>
   | CommonWrapper<any, never>;
+
+const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   if (wrapper.length === 0) {
@@ -33,18 +35,22 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
 
   let returnValue: any;
 
-  act(() => {
+  const promise = act(() => {
     returnValue = callback(...args);
+
+    if (isPromise(returnValue)) {
+      return (returnValue as unknown) as Promise<void>;
+    }
   });
 
-  updateRoot(wrapper);
-
-  if (returnValue instanceof Promise) {
-    return returnValue.then(ret => {
+  if (isPromise(returnValue)) {
+    return Promise.resolve(promise as Promise<any>).then(ret => {
       updateRoot(wrapper);
       return ret;
     });
   }
+
+  updateRoot(wrapper);
 
   return returnValue;
 }
@@ -55,4 +61,12 @@ function updateRoot(wrapper: AnyWrapper) {
 
 export function findById(wrapper: ReactWrapper<any, any>, id: string) {
   return wrapper.find({id}).first();
+}
+
+function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
+  return (
+    promise != null &&
+    typeof promise === 'object' &&
+    (promise as any).then != null
+  );
 }

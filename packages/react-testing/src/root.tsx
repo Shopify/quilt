@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {render, unmountComponentAtNode} from 'react-dom';
-import {act} from 'react-dom/test-utils';
+import {act as reactAct} from 'react-dom/test-utils';
 import {
   Arguments,
   Props as PropsForComponent,
@@ -16,7 +16,8 @@ import {
   FunctionKeys,
   DeepPartialArguments,
 } from './types';
-import {withIgnoredReactLogs} from './errors';
+
+const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 // eslint-disable-next-line typescript/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
@@ -76,26 +77,34 @@ export class Root<Props> {
 
   act<T>(action: () => T, {update = true} = {}): T {
     let result!: T;
-
     if (this.acting) {
       return action();
     }
 
     this.acting = true;
 
-    withIgnoredReactLogs(() =>
-      act(() => {
-        result = action();
-      }),
-    );
+    const afterResolve = () => {
+      if (update) {
+        this.update();
+      }
+      this.acting = false;
 
-    if (update) {
-      this.update();
+      return result;
+    };
+
+    const promise = act(() => {
+      result = action();
+
+      if (isPromise(result)) {
+        return (result as unknown) as Promise<void>;
+      }
+    });
+
+    if (isPromise(result)) {
+      return Promise.resolve(promise).then(afterResolve) as any;
     }
 
-    this.acting = false;
-
-    return result;
+    return afterResolve();
   }
 
   html() {
@@ -141,7 +150,7 @@ export class Root<Props> {
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Arguments<Props[K]>>
-  ): ReturnType<NonNullable<Props[K]>> {
+  ): Promise<ReturnType<NonNullable<Props[K]>>> {
     return this.withRoot(root => root.trigger(prop, ...(args as any)));
   }
 
@@ -286,4 +295,12 @@ function childrenToTree(fiber: Fiber | null, root: Root<unknown>) {
   }
 
   return {children, descendants};
+}
+
+function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
+  return (
+    promise != null &&
+    typeof promise === 'object' &&
+    (promise as any).then != null
+  );
 }
