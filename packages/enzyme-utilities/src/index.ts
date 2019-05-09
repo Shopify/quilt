@@ -8,6 +8,9 @@ export type AnyWrapper =
   | CommonWrapper<any, any>
   | CommonWrapper<any, never>;
 
+// Manually casting `act()` until @types/react is updated to include
+// the Promise types for async act introduced in version 16.9.0-alpha.0
+// https://github.com/Shopify/quilt/issues/692
 const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
@@ -38,6 +41,9 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   const promise = act(() => {
     returnValue = callback(...args);
 
+    // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
+    // This condition checks the returned value is an actual Promise and returns it
+    // to React’s `act()` call, otherwise we just want to return `undefined`
     if (isPromise(returnValue)) {
       return (returnValue as unknown) as Promise<void>;
     }
@@ -65,8 +71,6 @@ export function findById(wrapper: ReactWrapper<any, any>, id: string) {
 
 function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
   return (
-    promise != null &&
-    typeof promise === 'object' &&
-    (promise as any).then != null
+    promise != null && typeof promise === 'object' && 'then' in (promise as any)
   );
 }

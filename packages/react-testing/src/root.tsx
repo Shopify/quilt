@@ -17,6 +17,9 @@ import {
   DeepPartialArguments,
 } from './types';
 
+// Manually casting `act()` until @types/react is updated to include
+// the Promise types for async act introduced in version 16.9.0-alpha.0
+// https://github.com/Shopify/quilt/issues/692
 const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 // eslint-disable-next-line typescript/no-var-requires
@@ -95,6 +98,9 @@ export class Root<Props> {
     const promise = act(() => {
       result = action();
 
+      // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
+      // This condition checks the returned value is an actual Promise and returns it
+      // to React’s `act()` call, otherwise we just want to return `undefined`
       if (isPromise(result)) {
         return (result as unknown) as Promise<void>;
       }
@@ -150,7 +156,7 @@ export class Root<Props> {
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Arguments<Props[K]>>
-  ): Promise<ReturnType<NonNullable<Props[K]>>> {
+  ): ReturnType<NonNullable<Props[K]>> {
     return this.withRoot(root => root.trigger(prop, ...(args as any)));
   }
 
@@ -299,8 +305,6 @@ function childrenToTree(fiber: Fiber | null, root: Root<unknown>) {
 
 function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
   return (
-    promise != null &&
-    typeof promise === 'object' &&
-    (promise as any).then != null
+    promise != null && typeof promise === 'object' && 'then' in (promise as any)
   );
 }

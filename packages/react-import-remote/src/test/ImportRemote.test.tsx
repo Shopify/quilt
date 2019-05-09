@@ -87,6 +87,7 @@ describe('<ImportRemote />', () => {
 
     it('imports a new global if the source changes', async () => {
       const nonce = '';
+      const resolve = createResolvableLoad();
       const importRemote = mount(<ImportRemote {...mockProps} />);
 
       expect(load).toHaveBeenCalledWith(
@@ -97,11 +98,9 @@ describe('<ImportRemote />', () => {
 
       const newSource = 'https://bar.com/foo.js';
 
-      // we need to have the async here otherwise we will get
-      // a console error an `act(...)` here
-      // eslint-disable-next-line require-await
       await importRemote.act(async () => {
         importRemote.setProps({source: newSource});
+        await resolve();
       });
 
       expect(load).toHaveBeenCalledWith(newSource, mockProps.getImport, nonce);
@@ -119,7 +118,7 @@ describe('<ImportRemote />', () => {
       );
 
       await importRemote.act(async () => {
-        await resolve;
+        await resolve();
       });
 
       expect(spy).toHaveBeenCalledWith(result);
@@ -174,6 +173,8 @@ describe('<ImportRemote />', () => {
 
   describe('defer', () => {
     it('does not call load until idle when defer is DeferTiming.Idle', async () => {
+      const resolve = createResolvableLoad();
+
       const importRemote = mount(
         <ImportRemote {...mockProps} defer={DeferTiming.Idle} />,
       );
@@ -181,13 +182,17 @@ describe('<ImportRemote />', () => {
       expect(load).not.toHaveBeenCalled();
 
       await importRemote.act(async () => {
-        await requestIdleCallback.runIdleCallbacks();
+        requestIdleCallback.runIdleCallbacks();
+
+        await resolve();
       });
 
       expect(load).toHaveBeenCalled();
     });
 
     it('does not call load until the IntersectionObserver’s onIntersecting when defer is DeferTiming.InViewport', async () => {
+      const resolve = createResolvableLoad();
+
       intersectionObserver.simulate({
         isIntersecting: false,
       });
@@ -199,9 +204,11 @@ describe('<ImportRemote />', () => {
       expect(load).not.toHaveBeenCalled();
 
       await importRemote.act(async () => {
-        await intersectionObserver.simulate({
+        intersectionObserver.simulate({
           isIntersecting: true,
         });
+
+        await resolve();
       });
 
       expect(load).toHaveBeenCalled();

@@ -148,7 +148,7 @@ describe('useForm', () => {
   });
 
   describe('submit', () => {
-    it('sets submitting to true during submission', async () => {
+    it('sets submitting to true during submission', () => {
       const wrapper = mount(
         <ProductForm
           data={fakeProduct()}
@@ -160,7 +160,7 @@ describe('useForm', () => {
         .find(TextField, {label: 'title'})!
         .trigger('onChange', 'tortoritos, the chip for turtles!');
 
-      await wrapper.act(() => {
+      wrapper.act(() => {
         wrapper
           .find('button', {type: 'submit'})!
           .trigger('onClick', clickEvent());
@@ -182,9 +182,10 @@ describe('useForm', () => {
         .trigger('onChange', 'tortoritos, the chip for turtles!');
 
       await wrapper.act(async () => {
-        await wrapper
+        wrapper
           .find('button', {type: 'submit'})!
           .trigger('onClick', clickEvent());
+
         await promise;
       });
 
@@ -193,7 +194,7 @@ describe('useForm', () => {
       });
     });
 
-    it('validates all fields with their latest values before submitting and bails out if any fail', async () => {
+    it('validates all fields with their latest values before submitting and bails out if any fail', () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = {
         ...fakeProduct(),
@@ -205,7 +206,7 @@ describe('useForm', () => {
 
       wrapper.find(TextField, {label: 'title'})!.trigger('onChange', '');
 
-      await wrapper.act(() => {
+      wrapper.act(() => {
         wrapper
           .find('button', {type: 'submit'})!
           .trigger('onClick', clickEvent());
@@ -226,9 +227,11 @@ describe('useForm', () => {
       );
 
       await wrapper.act(async () => {
-        await wrapper
+        wrapper
           .find('button', {type: 'submit'})!
           .trigger('onClick', clickEvent());
+
+        await promise;
       });
 
       expect(wrapper).toContainReactComponent('p', {
@@ -236,9 +239,7 @@ describe('useForm', () => {
       });
     });
 
-    // This test goes into an infinite render loop
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('propagates remote submission errors to matching fields', async () => {
+    it('propagates remote submission errors to matching fields', async () => {
       const errors = [
         {
           field: ['variants', '0', 'price'],
@@ -310,7 +311,7 @@ describe('useForm', () => {
         .trigger('onClick', clickEvent());
 
       await wrapper.act(async () => {
-        await wrapper
+        wrapper
           .find('button', {type: 'button'})!
           .trigger('onClick', clickEvent());
         await promise;

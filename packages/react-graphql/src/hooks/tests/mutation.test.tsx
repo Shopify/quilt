@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {act} from 'react-dom/test-utils';
 import gql from 'graphql-tag';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
@@ -58,10 +57,9 @@ describe('useMutation', () => {
       {graphQL},
     );
 
-    mockMutation.find('button')!.trigger('onClick', undefined as any);
+    await mockMutation.act(async () => {
+      mockMutation.find('button')!.trigger('onClick', undefined as any);
 
-    // @ts-ignore
-    await act(async () => {
       await graphQL.resolveAll();
     });
 
