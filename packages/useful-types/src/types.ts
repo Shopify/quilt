@@ -3,7 +3,12 @@ import {ComponentType, HTMLAttributes} from 'react';
 export type ThenType<T> = T extends Promise<infer U> ? U : T;
 
 export type Arguments<T> = T extends (...args: infer U) => any ? U : never;
-export type FirstArgument<T> = T extends ((arg: infer U) => any) ? U : never;
+export type ArgumentAtIndex<
+  Func,
+  Index extends keyof Arguments<Func>
+> = Arguments<Func>[Index];
+export type FirstArgument<T> = ArgumentAtIndex<T, 0>;
+
 export type MaybeFunctionReturnType<T> = T extends (...args: any[]) => infer U
   ? U
   : never;

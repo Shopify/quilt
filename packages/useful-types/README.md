@@ -25,7 +25,16 @@ The following type aliases are provided by this library:
   type P = ThenType<typeof promise>; // string
   ```
 
-- `FirstArgument<T>`: Resolves to the type of the first argument to the passed function. Useful for cases where you wish to extract the type of arguments without actually exporting the argument types, and is a nice complement to TypeScript’s built-in `ReturnType`.
+- `ArgumentAtIndex<T, Index>`: Resolves to the type of the argument of the passed function at the passed index. Useful for cases where you wish to extract the type of arguments without actually exporting the argument types, and is a nice complement to TypeScript’s built-in `ReturnType`.
+
+  ```ts
+  const func = (foo: Promise<any>, bar: string) => foo.then(() => bar);
+  type Arg1 = ArgumentAtIndex<typeof func, 0>; // Promise<any>
+  type Arg2 = ArgumentAtIndex<typeof func, 1>; // string
+  type NotAnArg = ArgumentAtIndex<string, 0>; // never
+  ```
+
+- `FirstArgument<T>`: Resolves to the type of the first argument to the passed function. This is shorthand for `ArgumentAtIndex<T, 0>`.
 
   ```ts
   const func = (foo: Promise<any>) => foo.then(() => 'bar');
