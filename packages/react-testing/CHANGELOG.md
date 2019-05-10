@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Passing unresolved promises within `act()` blocks required additional nesting ([#697](https://github.com/Shopify/quilt/pull/697))
+
+## [1.5.0] - 2019-05-09
+
+### Changed
+
+- Upgraded React to versions 16.9.0-alpha.0 and added support for async `act()` calls ([#688](https://github.com/Shopify/quilt/pull/688))
+
 ## [1.4.3] - 2019-05-02
 
 ### Fixed
