@@ -79,7 +79,9 @@ export class Root<Props> {
   }
 
   act<T>(action: () => T, {update = true} = {}): T {
+    const updateWrapper = update ? this.update.bind(this) : noop;
     let result!: T;
+
     if (this.acting) {
       return action();
     }
@@ -87,9 +89,7 @@ export class Root<Props> {
     this.acting = true;
 
     const afterResolve = () => {
-      if (update) {
-        this.update();
-      }
+      updateWrapper();
       this.acting = false;
 
       return result;
@@ -107,6 +107,8 @@ export class Root<Props> {
     });
 
     if (isPromise(result)) {
+      updateWrapper();
+
       return Promise.resolve(promise).then(afterResolve) as any;
     }
 
@@ -308,3 +310,5 @@ function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
     promise != null && typeof promise === 'object' && 'then' in (promise as any)
   );
 }
+
+function noop() {}

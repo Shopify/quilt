@@ -160,11 +160,9 @@ describe('useForm', () => {
         .find(TextField, {label: 'title'})!
         .trigger('onChange', 'tortoritos, the chip for turtles!');
 
-      wrapper.act(() => {
-        wrapper
-          .find('button', {type: 'submit'})!
-          .trigger('onClick', clickEvent());
-      });
+      wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
 
       expect(wrapper).toContainReactComponent('p', {
         children: 'loading...',
@@ -181,11 +179,11 @@ describe('useForm', () => {
         .find(TextField, {label: 'title'})!
         .trigger('onChange', 'tortoritos, the chip for turtles!');
 
-      await wrapper.act(async () => {
-        wrapper
-          .find('button', {type: 'submit'})!
-          .trigger('onClick', clickEvent());
+      await wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
 
+      await wrapper.act(async () => {
         await promise;
       });
 
@@ -194,7 +192,7 @@ describe('useForm', () => {
       });
     });
 
-    it('validates all fields with their latest values before submitting and bails out if any fail', () => {
+    it('validates all fields with their latest values before submitting and bails out if any fail', async () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = {
         ...fakeProduct(),
@@ -206,11 +204,9 @@ describe('useForm', () => {
 
       wrapper.find(TextField, {label: 'title'})!.trigger('onChange', '');
 
-      wrapper.act(() => {
-        wrapper
-          .find('button', {type: 'submit'})!
-          .trigger('onClick', clickEvent());
-      });
+      await wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
 
       expect(submitSpy).not.toHaveBeenCalled();
       expect(wrapper).toContainReactComponent('p', {
@@ -226,11 +222,11 @@ describe('useForm', () => {
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper.act(async () => {
-        wrapper
-          .find('button', {type: 'submit'})!
-          .trigger('onClick', clickEvent());
+      await wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
 
+      await wrapper.act(async () => {
         await promise;
       });
 
@@ -253,11 +249,11 @@ describe('useForm', () => {
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper.act(async () => {
-        wrapper
-          .find('button', {type: 'submit'})!
-          .trigger('onClick', clickEvent());
+      await wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
 
+      await wrapper.act(async () => {
         await promise;
       });
 
@@ -310,10 +306,11 @@ describe('useForm', () => {
         .find('button', {type: 'submit'})!
         .trigger('onClick', clickEvent());
 
+      await wrapper
+        .find('button', {type: 'button'})!
+        .trigger('onClick', clickEvent());
+
       await wrapper.act(async () => {
-        wrapper
-          .find('button', {type: 'button'})!
-          .trigger('onClick', clickEvent());
         await promise;
       });
 
