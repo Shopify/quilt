@@ -25,9 +25,9 @@ describe('babel-pluin-react-i18n', () => {
       ),
     ).toBe(
       await normalize(
-        `import React from 'react';
+        `import _en from './translations/en.json';
+        import React from 'react';
         import {withI18n} from '@shopify/react-i18n';
-        import _en from './translations/en.json';
 
         function MyComponent({i18n}) {
           return i18n.translate('key');
@@ -61,9 +61,9 @@ describe('babel-pluin-react-i18n', () => {
       ),
     ).toBe(
       await normalize(
-        `import React from 'react';
+        `import _en from './translations/en.json';
+        import React from 'react';
         import {useI18n} from '@shopify/react-i18n';
-        import _en from './translations/en.json';
 
         export default function MyComponent() {
           const [i18n] = useI18n({
@@ -114,9 +114,9 @@ describe('babel-pluin-react-i18n', () => {
       ),
     ).toBe(
       await normalize(
-        `import React from 'react';
+        `import _en from './translations/en.json';
+        import React from 'react';
         import {withI18n, translate} from '@shopify/react-i18n';
-        import _en from './translations/en.json';
 
         function MyComponent({i18n}) {
           return i18n.translate('key');
@@ -184,9 +184,9 @@ describe('babel-pluin-react-i18n', () => {
       ),
     ).toBe(
       await normalize(
-        `import React from 'react';
+        `import _en from './translations/en.json';
+        import React from 'react';
         import {withI18n as foo} from '@shopify/react-i18n';
-        import _en from './translations/en.json';
 
         function MyComponent({i18n}) {
           return i18n.translate('key');
@@ -220,9 +220,9 @@ describe('babel-pluin-react-i18n', () => {
       ),
     ).toBe(
       await normalize(
-        `import React from 'react';
+        `import _en from './translations/en.json';
+        import React from 'react';
         import {useI18n as useFunI18n} from '@shopify/react-i18n';
-        import _en from './translations/en.json';
 
         export default function MyComponent() {
           const [i18n] = useFunI18n({
