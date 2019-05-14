@@ -1,6 +1,6 @@
 {
   "name": "@shopify/css-utilities",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A set of css styling related utilities.",
   "main": "dist/index.js",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/css-utilities/README.md",
   "dependencies": {
-    "classnames": "^2.2.6",
-    "@types/classnames": "^2.2.7"
+    "@types/classnames": "^2.2.7",
+    "classnames": "^2.2.6"
   },
   "devDependencies": {
     "typescript": "~3.2.1"
