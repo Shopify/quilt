@@ -24,10 +24,12 @@ Each package has its own `README` and documentation describing usage.
 | admin-graphql-api-utilities | [directory](packages/admin-graphql-api-utilities) | [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities) |
 | async | [directory](packages/async) | [![npm version](https://badge.fury.io/js/%40shopify%2Fasync.svg)](https://badge.fury.io/js/%40shopify%2Fasync) |
 | csrf-token-fetcher | [directory](packages/csrf-token-fetcher) | [![npm version](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher.svg)](https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher) |
+| css-utilities | [directory](packages/css-utilities) | [![npm version](https://badge.fury.io/js/%40shopify%2Fcss-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fcss-utilities) |
 | dates | [directory](packages/dates) | [![npm version](https://badge.fury.io/js/%40shopify%2Fdates.svg)](https://badge.fury.io/js/%40shopify%2Fdates) |
 | decorators | [directory](packages/decorators) | [![npm version](https://badge.fury.io/js/%40shopify%2Fdecorators.svg)](https://badge.fury.io/js/%40shopify%2Fdecorators) |
 | enzyme-utilities | [directory](packages/enzyme-utilities) | [![npm version](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fenzyme-utilities) |
 | function-enhancers | [directory](packages/function-enhancers) | [![npm version](https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg)](https://badge.fury.io/js/%40shopify%2Ffunction-enhancers) |
+| graphql-persisted | [directory](packages/graphql-persisted) | [![npm version](https://badge.fury.io/js/%40shopify%2Fgraphql-persisted.svg)](https://badge.fury.io/js/%40shopify%2Fgraphql-persisted) |
 | graphql-testing | [directory](packages/graphql-testing) | [![npm version](https://badge.fury.io/js/%40shopify%2Fgraphql-testing.svg)](https://badge.fury.io/js/%40shopify%2Fgraphql-testing) |
 | i18n | [directory](packages/i18n) | [![npm version](https://badge.fury.io/js/%40shopify%2Fi18n.svg)](https://badge.fury.io/js/%40shopify%2Fi18n) |
 | jest-dom-mocks | [directory](packages/jest-dom-mocks) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks) |
@@ -43,11 +45,12 @@ Each package has its own `README` and documentation describing usage.
 | network | [directory](packages/network) | [![npm version](https://badge.fury.io/js/%40shopify%2Fnetwork.svg)](https://badge.fury.io/js/%40shopify%2Fnetwork) |
 | performance | [directory](packages/performance) | [![npm version](https://badge.fury.io/js/%40shopify%2Fperformance.svg)](https://badge.fury.io/js/%40shopify%2Fperformance) |
 | polyfills | [directory](packages/polyfills) | [![npm version](https://badge.fury.io/js/%40shopify%2Fpolyfills.svg)](https://badge.fury.io/js/%40shopify%2Fpolyfills) |
+| predicates | [directory](packages/predicates) | [![npm version](https://badge.fury.io/js/%40shopify%2Fpredicates.svg)](https://badge.fury.io/js/%40shopify%2Fpredicates) |
 | react-async | [directory](packages/react-async) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-async.svg)](https://badge.fury.io/js/%40shopify%2Freact-async) |
 | react-compose | [directory](packages/react-compose) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose) |
 | react-effect | [directory](packages/react-effect) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect) |
 | react-effect-apollo | [directory](packages/react-effect-apollo) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo) |
-| react-form | [directory](packages/react-form) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form.svg)](https://badge.fury.io/js/%40shopify%2Freact-form.svg) |
+| react-form | [directory](packages/react-form) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form.svg)](https://badge.fury.io/js/%40shopify%2Freact-form) |
 | react-form-state | [directory](packages/react-form-state) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg)](https://badge.fury.io/js/%40shopify%2Freact-form-state) |
 | react-google-analytics | [directory](packages/react-google-analytics) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg)](https://badge.fury.io/js/%40shopify%2Freact-google-analytics) |
 | react-graphql | [directory](packages/react-graphql) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-graphql.svg)](https://badge.fury.io/js/%40shopify%2Freact-graphql) |
