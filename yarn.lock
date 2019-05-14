@@ -278,6 +278,15 @@
     lodash "^4.17.4"
     lodash-decorators "^4.3.5"
 
+"@shopify/react-import-remote@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@shopify/react-import-remote/-/react-import-remote-0.7.0.tgz#148e322c95b9224afa66c10d9d84f0e8c21860d6"
+  integrity sha512-BezBsBFJTpUwQMXvFhPoMrRwhjMmpq9hfIkytG6JYtzo0OKp4q562dfcAkkH/0GaS4UColv1WDEua+bgLFrUVQ==
+  dependencies:
+    "@shopify/react-html" "^8.0.10"
+    "@shopify/react-intersection-observer" "^2.0.3"
+    tslib "^1.9.3"
+
 "@types/accepts@*":
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@types/accepts/-/accepts-1.3.5.tgz#c34bec115cfc746e04fe5a059df4ce7e7b391575"
@@ -335,6 +344,11 @@
   version "0.22.7"
   resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.7.tgz#4a92eafedfb2b9f4437d3a4410006d81114c66ce"
   integrity sha512-+T9qBbqe/jXtTjzVddArZExahoPPmt8eq3O1ZuCKZXjBVxf/ciUYNXrIDZJEVgYvpELnv6VlPRCfLzufRxpAag==
+
+"@types/classnames@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
+  integrity sha512-rzOhiQ55WzAiFgXRtitP/ZUT8iVNyllEpylJ5zHzR4vArUvMB39GTk+Zon/uAM0JxEFAWnwsxC2gH8s+tZ3Myg==
 
 "@types/connect@*":
   version "3.4.31"
@@ -1734,6 +1748,11 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
+
+classnames@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
 
 cli-cursor@^2.1.0:
   version "2.1.0"
