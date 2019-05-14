@@ -6,7 +6,7 @@ import {NodePath} from '@babel/traverse';
 import stringHash from 'string-hash';
 
 interface State {
-  lastImport: NodePath<Types.ImportDeclaration>;
+  program: NodePath<Types.Program>;
 }
 
 export default function injectWithI18nArguments({
@@ -19,7 +19,7 @@ export default function injectWithI18nArguments({
   function fallbackTranslationsImport({id}) {
     return template(`import ${id} from './translations/en.json';`, {
       sourceType: 'module',
-    })();
+    })() as Types.ImportDeclaration;
   }
 
   function i18nCallExpression({id, fallbackID, bindingName}) {
@@ -87,11 +87,7 @@ export default function injectWithI18nArguments({
   return {
     visitor: {
       Program(nodePath: NodePath<Types.Program>, state: State) {
-        const lastImport = nodePath
-          .get('body')
-          .filter(subPath => subPath.isImportDeclaration())
-          .pop();
-        state.lastImport = lastImport as NodePath<Types.ImportDeclaration>;
+        state.program = nodePath;
       },
       ImportDeclaration(
         nodePath: NodePath<Types.ImportDeclaration>,
@@ -114,7 +110,6 @@ export default function injectWithI18nArguments({
           const binding = nodePath.scope.getBinding(bindingName);
 
           if (binding != null) {
-            const {lastImport} = state;
             const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
             const {filename} = this.file.opts;
 
@@ -124,7 +119,8 @@ export default function injectWithI18nArguments({
               filename,
               fallbackID,
               insertImport() {
-                lastImport.insertAfter(
+                const {program} = state;
+                program.node.body.unshift(
                   fallbackTranslationsImport({id: fallbackID}),
                 );
               },
