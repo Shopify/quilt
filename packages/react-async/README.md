@@ -245,6 +245,10 @@ const moduleIds = [...asyncAssetmanager.used];
 
 These module IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](../sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.
 
+#### `useAsyncAsset()`
+
+Other libraries may need to register an async asset as being used. If those libraries are implemented as components and use the `Async` component from this library, this will automatically be performed when the `id` prop is passed. However, libraries implementing their feature as hooks need to explicitly register their async asset as being used. To do so, you can use the `useAsyncAsset` hook, which accepts an optional ID and registers that ID as used.
+
 ### `createAsyncContext()`
 
 Most of the time, it makes sense to split your application along component boundaries. However, you may also have a reason to split off a part of your app that is not a component. To accomplish this, `react-async` provides a `createAsyncContext()` function. This function also takes an object with a `load` property that is a promise for the value you are splitting. The returned object mimics the shape of `React.createContext()`, except that the `Provider` component does not need a value supplied:
