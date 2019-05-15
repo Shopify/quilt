@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## Unreleased -->
 
+## [0.11.1] - 2019-05-15
+
 ### Fixed
 
 - `FormState.Nested` no longer breaks when used in a `FormState.List` and an item is added [#698](https://github.com/Shopify/quilt/pull/698)
