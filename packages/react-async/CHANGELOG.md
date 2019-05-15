@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.2.0] - 2019-05-15
+
+- Added a `useAsyncAsset` hook to register an identifier as used when not directly using the `Async` component ([#702](https://github.com/Shopify/quilt/pull/702))
+
 ## [2.1.0] - 2019-04-12
 
 - Small refactor to export `resolve` utility ([#649](https://github.com/Shopify/quilt/pull/649))

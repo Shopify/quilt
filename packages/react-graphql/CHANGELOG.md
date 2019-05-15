@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.3.1] - 2019-05-15
+
+- Fixed an issue where `useQuery` would not be performed during server renders ([#702](https://github.com/Shopify/quilt/pull/702))
+
 ## [3.2.0] - 2019-04-25
 
 - Added `useQuery` and `useApolloClient` hooks ([#663](https://github.com/Shopify/quilt/pull/663))

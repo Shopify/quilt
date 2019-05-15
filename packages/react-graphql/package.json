@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React.",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql/README.md",
   "dependencies": {
     "@shopify/async": "^1.3.2",
-    "@shopify/react-async": "^2.1.6",
+    "@shopify/react-async": "^2.2.0",
     "@shopify/react-hooks": "^1.2.1",
     "@shopify/useful-types": "^1.3.0",
     "apollo-client": "^2.3.8",
