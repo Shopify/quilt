@@ -6,7 +6,8 @@ import {trigger} from '@shopify/enzyme-utilities';
 // eslint-disable-next-line shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
 import {lastCallArgs} from '../../tests/utilities';
-import FormState from '../..';
+import FormState, {arrayUtils} from '../..';
+import {FieldDescriptor} from '../../types';
 
 describe('<FormState.List />', () => {
   it('passes form state into child function for each index of the given array', () => {
@@ -338,5 +339,50 @@ describe('<FormState.List />', () => {
 
     expect(updatedFields.title.value).toBe(newTitle);
     expect(updatedFields.department.value).toBe(newDepartment);
+  });
+
+  it('does not raise an exceptions when list items are nested', () => {
+    const variants = [
+      {
+        product: {
+          title: faker.commerce.department(),
+        },
+      },
+    ];
+
+    const renderSpy = jest.fn(({title}) => {
+      return <Input label="title" {...title} />;
+    });
+
+    let variantsRef: FieldDescriptor<any>;
+    mount(
+      <FormState initialValues={{variants}}>
+        {({fields}) => {
+          variantsRef = fields.variants;
+          return (
+            <>
+              <FormState.List field={fields.variants}>
+                {nestedFields => (
+                  <FormState.Nested field={nestedFields.product}>
+                    {renderSpy}
+                  </FormState.Nested>
+                )}
+              </FormState.List>
+            </>
+          );
+        }}
+      </FormState>,
+    );
+
+    const newVariants = arrayUtils.push(variantsRef.value, {
+      product: {
+        title: 'newProduct',
+      },
+    });
+    variantsRef.onChange(newVariants);
+    const calls = renderSpy.mock.calls;
+    const originalRenderCount = variants.length;
+    const rerenderedCount = originalRenderCount + 1;
+    expect(calls).toHaveLength(originalRenderCount + rerenderedCount);
   });
 });
