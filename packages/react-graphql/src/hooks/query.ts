@@ -1,10 +1,12 @@
+import {useEffect, useMemo, useState, useRef} from 'react';
 import {
   OperationVariables,
   ApolloError,
   WatchQueryOptions,
 } from 'apollo-client';
 import {DocumentNode} from 'graphql-typed';
-import {useEffect, useMemo, useState, useRef} from 'react';
+import {useServerEffect} from '@shopify/react-effect';
+import {useAsyncAsset} from '@shopify/react-async';
 
 import {AsyncQueryComponentType} from '../types';
 import {QueryHookOptions, QueryHookResult} from './types';
@@ -33,7 +35,9 @@ export default function useQuery<
   } = options;
 
   const client = useApolloClient(overrideClient);
-  const query = useGraphQLDocument(queryOrComponent);
+  const [query, id] = useGraphQLDocument(queryOrComponent);
+
+  useAsyncAsset(id);
 
   const watchQueryOptions = useMemo<WatchQueryOptions<Variables> | null>(
     () => {
@@ -75,6 +79,15 @@ export default function useQuery<
     },
     [client, watchQueryOptions],
   );
+
+  useServerEffect(() => {
+    if (queryObservable == null) {
+      return;
+    }
+
+    const result = queryObservable.currentResult();
+    return result.loading ? queryObservable.result() : undefined;
+  });
 
   const defaultResult = useMemo<QueryHookResult<Data, Variables>>(
     () => ({

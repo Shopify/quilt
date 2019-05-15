@@ -48,6 +48,8 @@ export interface ConstantProps {
 
 export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
   extends GraphQLOperation<Data, Variables, DeepPartial> {
+  readonly id: string | undefined;
+  readonly resolved: DocumentNode<Data, Variables, DeepPartial> | null;
   (
     props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
   ): React.ReactElement<{}>;
@@ -59,5 +61,4 @@ export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
     props: VariableOptions<Variables> & {pollInterval?: number} & ConstantProps,
   ): React.ReactElement<{}>;
   resolve(): Promise<DocumentNode<Data, Variables, DeepPartial>>;
-  resolved: DocumentNode<Data, Variables, DeepPartial> | null;
 }

@@ -3,7 +3,7 @@ import {OperationVariables} from 'apollo-client';
 import {DocumentNode} from 'graphql-typed';
 import {useMountedRef} from '@shopify/react-hooks';
 
-import {AsyncQueryComponentType} from '..';
+import {AsyncQueryComponentType} from '../types';
 
 export default function useGraphQLDocument<
   Data = any,
@@ -13,7 +13,7 @@ export default function useGraphQLDocument<
   documentOrComponent:
     | DocumentNode<Data, Variables>
     | AsyncQueryComponentType<Data, Variables, DeepPartial>,
-) {
+): [DocumentNode<Data, Variables> | null, string | undefined] {
   const [document, setDocument] = useState<DocumentNode<
     Data,
     Variables
@@ -52,7 +52,10 @@ export default function useGraphQLDocument<
     [document, loadDocument],
   );
 
-  return document;
+  return [
+    document,
+    isDocumentNode(documentOrComponent) ? undefined : documentOrComponent.id,
+  ];
 }
 
 function isDocumentNode(arg: any): arg is DocumentNode {

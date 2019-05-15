@@ -13,6 +13,8 @@ $ yarn add @shopify/react-effect-apollo
 
 ## Usage
 
+> **Note**: if you are only using the Apollo hooks provided by [`@shopify/react-graphql`](../react-graphql), you do not need to use this library. It is only necessary when using the `Query` component from `react-apollo` or `@shopify/react-graphql`.
+
 `react-apollo` exposes a function, `getDataFromTree`, which performs a sequence of tree traversals to resolve GraphQL data. This can be wasteful in situations where you are already traversing the tree for other purposes, like resolving translations in `@shopify/react-i18n`, or extracting network details in `@shopify/react-network`. This package provides a way of resolving Apollo’s data with just a single call of `@shopify/react-effect`’s `extract()` function, which will also extract all other server details from packages using `@shopify/react-effect`.
 
 To use this package, create a new "bridge" component from the exposed `createApolloBridge` function in your server code. Then, wrap this bridge around your application when calling `extract()`. That’s all there is to it!
