@@ -158,7 +158,7 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import ApolloClient from 'apollo-client';
-import {ApolloProvider} from 'react-graphql';
+import {ApolloProvider} from '@shopify/react-graphql';
 
 const client = new ApolloClient();
 
