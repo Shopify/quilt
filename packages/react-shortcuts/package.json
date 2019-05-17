@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/packages/react-shortcuts/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-shortcuts/README.md",
   "peerDependencies": {
     "react": "^16.3.2"
   },
