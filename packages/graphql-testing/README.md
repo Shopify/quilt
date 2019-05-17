@@ -16,107 +16,90 @@ $ yarn add @shopify/graphql-testing
 
 ## Usage
 
-The default utility exported by this library is `createGraphQLFactory`.
+The default utility exported by this library is `createGraphQLFactory`. This factory accepts an optional options argument that allows you to pass a `unionOrIntersectionTypes` array and/ or additional `cacheOptions` that will be used to construct an Apollo in-memory cache.
 
 ```js
-const createGraphQL = createGraphQLFactory();
+const createGraphQL = createGraphQLFactory({
+  unionOrIntersectionTypes: [],
+});
 ```
 
-This factory function can then be use to creating a mock `ApolloClient` that you will pass into your test setup with the desire mock data.
+The resulting function can then be use to create a GraphQL controller that tracks and resolves GraphQL operations according to the mocks you supply. The mock you supply should be an object where the keys are operation names, and the values are either an object to return as data for that operation, or a function that takes a `GraphQLRequest` and returns suitable data. Alternatively, the mock can simply be a function that accepts a `GraphQLRequest` and returns suitable mock data.
 
 ```js
-const graphQL = createGraphQL(mockData);
-const apolloClient = graphQL.client;
+const graphQL = createGraphQL({
+  Pet: ({variables: {id}}) => ({pet: {id, name: 'Garfield'}}),
+  Pets: () => ({pets: []}),
+});
 ```
 
-By default, this mock client will hold all the graphQL operations triggered by your application in a pending state.
+The call to `createGraphQL` creates a `GraphQL` instance, which is described in detail below.
 
-To resolve all pending graphQL operations:
+### `GraphQL`
+
+The following method and properties are available on the `GraphQL` object:
+
+#### `resolveAll()`
+
+By default, this mock client will hold all the graphQL operations triggered by your application in a pending state. To resolve all pending graphQL operations, call `graphQL.resolveAll()`, which returns a promise that resolves once all the operations have completed.
 
 ```js
 await graphQL.resolveAll();
 ```
 
-You can also access all the graphQL operations triggered by your application (pending and non-pending) using:
+#### `wrap()`
 
-```js
-graphQL.operations.all();
+The `wrap()` method allows you to wrap all GraphQL resolution in a function call. This can be useful when working with React components, which require that all operations that lead to state changes be wrapped in an `act()` call. The following example demonstrates using this with [`@shopify/react-testing`](../react-testing):
+
+```tsx
+const myComponent = mount(<MyComponent />);
+const graphQL = createGraphQL(mocks);
+
+graphQL.wrap(resolve => myComponent.act(resolve));
+
+// Before, calling this could cause warnings about state updates happening outside
+// of act(). Now, all GraphQL resolution is safely wrapped in myComponent.act().
+await graphQL.resolveAll();
 ```
 
-and only those graphQL operations with specific name using:
+#### `#operations`
 
-```js
-graphQL.operations.all({operationName: 'Pet'});
+`graphQL.operations` is a custom data structure that tracks all **completed** GraphQL operations that the GraphQL controller has performed. This object has `first()`, `last()`, `all()`, and `nth()` methods, which allow you to inspect individual operations. All of these methods also accept an optional options argument, which allows you to narrow down the operations to specific queries or mutations:
+
+```tsx
+const graphQL = createGraphQL(mocks);
+
+// the very first operation, or undefined if no operations have been performed
+graphQL.first();
+
+// the second last operation with name 'Pet'
+graphQL.nth(-2, {operationName: 'Pet'});
+
+// the last operation with this query
+graphQL.last({query: petQuery});
+
+// all mutations with this mutation
+graphQL.all({mutation: addPetMutation});
 ```
 
-### Examples
+The `query` and `mutation` options both accept either a regular `DocumentNode`, or an async GraphQL component created with [`@shopify/react-graphql`’s `createAsyncQueryComponent` function](../react-graphql).
 
-Below is an example of how to use `createGraphQLFactory` in a React component test.
+### Matchers
 
-Note: In a typical application you will want to generalized some of this implementation (ie. mouting of `ApolloProvider`) for repeated use.
+This library provides matchers for Jest. To use these matchers, you’ll need to include `@shopify/graphql-testing/matchers` in your Jest setup file. The following matcher will then be available:
 
-```ts
-import {mount} from 'enzyme';
-import {ApolloProvider} from 'react-apollo';
-import {createGraphQLFactory} from '@shopify/graphql-testing';
+#### `toHavePerformedGraphQLOperation(operation: GraphQLOperation, variables?: object)`
 
-export const createGraphQL = createGraphQLFactory();
+This assertion should be run on a `GraphQL` object. It verifies that at least one operation matching the one you passed (either a `DocumentNode` or an async query component from `@shopify/react-graphql`) was completed. If you pass variables, this assertion will also ensure that at least one operation had matching variables. You only need to provide a subset of all variables, and the assertion argument can use any of Jest’s asymmetric matchers.
 
-it('loads mock data from GraphQL', async () => {
-  const mockCustomerData = {firstName: 'Jane', lastName: 'Doe'};
-  const graphQL = createGraphQL({
-    CustomerDetails: {
-      customer: mockCustomerData,
-    },
-  });
+```tsx
+const graphQL = createGraphQL(mocks);
 
-  const customerDetails = mount(
-    <ApolloProvider client={graphQL.client}>
-      <CustomerDetails id="123" />
-    </ApolloProvider>,
-  );
+// perform something...
 
-  expect(customerDetails.find(TextField)).toHaveProp('value', '');
-
-  await graphQL.resolveAll();
-  customerDetails.update();
-
-  expect(customerDetails.find(TextField)).toHaveProp(
-    'value',
-    mockCustomerData.firstName,
-  );
-});
-```
-
-Below is an example of how to assert that a graphQL request was triggered.
-
-```ts
-import {mount} from 'enzyme';
-import {ApolloProvider} from 'react-apollo';
-import {trigger} from '@shopify/enzyme-utilities';
-import {createGraphQLFactory} from '@shopify/graphql-testing';
-
-export const createGraphQL = createGraphQLFactory();
-
-it('triggers a graphQL request when the load data button is clicked', async () => {
-  const mockCustomerData = {firstName: 'Jane', lastName: 'Doe'};
-  const graphQL = createGraphQL({
-    CustomerDetails: {
-      customer: mockCustomerData,
-    },
-  });
-
-  const customerDetails = mount(
-    <ApolloProvider client={graphQL.client}>
-      <CustomerDetails id="123" />
-    </ApolloProvider>,
-  );
-
-  expect(graphQL.operations.all()).toHaveLength(0);
-
-  trigger(customerDetails.find(LoadDataButton), 'onClick');
-
-  expect(graphQL.operations.all()).toHaveLength(1);
-  expect(graphQL.operations.last().operationName).toEqual('CustomerDetails');
+expect(graphQL).toHavePerformedGraphQLOperation(myQuery);
+expect(graphQL).toHavePerformedGraphQLOperation(MyQueryComponent, {
+  id: '123',
+  first: expect.any(Number),
 });
 ```

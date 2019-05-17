@@ -36,6 +36,8 @@
     "typescript": "~3.2.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "matchers.d.ts",
+    "matchers.js"
   ]
 }

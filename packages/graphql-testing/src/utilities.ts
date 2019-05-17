@@ -1,55 +1,33 @@
-import {Operation} from 'apollo-link';
+import {DocumentNode, OperationDefinitionNode} from 'graphql';
 
-export class Operations {
-  private operations: Operation[] = [];
+export function operationNameFromDocument(
+  document: DocumentNode | {resolved?: DocumentNode},
+) {
+  return 'resolved' in document && document.resolved != null
+    ? operationNameFromDocumentNode(document.resolved!)
+    : operationNameFromDocumentNode(document as DocumentNode);
+}
 
-  constructor(operations?: Operation[]) {
-    this.operations = operations ? [...operations] : [];
-  }
+export function operationTypeFromDocument(
+  document: DocumentNode | {resolved?: DocumentNode},
+) {
+  return 'resolved' in document && document.resolved != null
+    ? operationTypeFromDocumentNode(document.resolved!)
+    : operationTypeFromDocumentNode(document as DocumentNode);
+}
 
-  [Symbol.iterator]() {
-    return this.operations[Symbol.iterator]();
-  }
+function operationNameFromDocumentNode(document: DocumentNode) {
+  const [operation]: OperationDefinitionNode[] = document.definitions.filter(
+    ({kind}) => kind === 'OperationDefinition',
+  ) as any[];
 
-  nth(index: number) {
-    return index < 0
-      ? this.operations[this.operations.length + index]
-      : this.operations[index];
-  }
+  return operation && operation.name && operation.name.value;
+}
 
-  push(...operations: Operation[]) {
-    this.operations.push(...operations);
-  }
+function operationTypeFromDocumentNode(document: DocumentNode) {
+  const [operation]: OperationDefinitionNode[] = document.definitions.filter(
+    ({kind}) => kind === 'OperationDefinition',
+  ) as any[];
 
-  all(options?: {operationName?: string}): Operation[] {
-    const operationName = options && options.operationName;
-    if (!options || !operationName) {
-      return this.operations;
-    }
-
-    const allMatchedOperations = this.operations.filter(
-      req => req.operationName === operationName,
-    );
-
-    return allMatchedOperations;
-  }
-
-  last(options?: {operationName?: string}): Operation {
-    const operationName = options && options.operationName;
-    const lastOperation = operationName
-      ? this.operations
-          .reverse()
-          .find(req => req.operationName === operationName)
-      : this.operations[this.operations.length - 1];
-
-    if (lastOperation == null && operationName) {
-      throw new Error(
-        `no operation with operationName '${operationName}' were found.`,
-      );
-    } else if (lastOperation == null) {
-      throw new Error(`no operation were found.`);
-    }
-
-    return lastOperation;
-  }
+  return operation && operation.operation;
 }
