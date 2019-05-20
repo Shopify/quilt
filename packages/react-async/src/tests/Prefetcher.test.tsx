@@ -103,6 +103,23 @@ describe('<Prefetch />', () => {
     expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
+  it('prefetches a component when touching an element with a matching href immediately', () => {
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
+
+    triggerListener(prefetcher, 'touchstart', {
+      target: mockElement(`<a href="${path}"></a>`),
+    });
+
+    expect(prefetcher).toContainReactComponent(MockComponent);
+  });
+
   it('does not prefetch a component when mousing over, then out, of an element with a matching href', () => {
     const manager = createPrefetchManager([
       {render: () => <MockComponent />, path},
@@ -228,6 +245,7 @@ function mockElement(markup: string) {
 
 type EventName =
   | 'mousedown'
+  | 'touchstart'
   | 'mouseover'
   | 'mouseout'
   | 'focusin'
