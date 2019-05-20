@@ -1,7 +1,5 @@
-// Enzyme doesn't know how to handle components that only return fragments.
-import * as React from 'react';
-import {mount} from 'enzyme';
-import {trigger} from '@shopify/enzyme-utilities';
+import React from 'react';
+import {mount} from '@shopify/react-testing';
 import {DeferTiming} from '@shopify/async';
 
 import {Async} from '../Async';
@@ -25,7 +23,7 @@ describe('createAsyncComponent()', () => {
 
     const AsyncComponent = createAsyncComponent({load, id, renderLoading});
     const asyncComponent = mount(<AsyncComponent />);
-    expect(asyncComponent.find(Async).props()).toMatchObject({
+    expect(asyncComponent).toContainReactComponent(Async, {
       load,
       id,
       renderLoading,
@@ -38,10 +36,10 @@ describe('createAsyncComponent()', () => {
     const AsyncComponent = createAsyncComponent({load});
     const asyncComponent = mount(<AsyncComponent {...props} />);
 
-    expect(trigger(asyncComponent.find(Async), 'render', null)).toBeNull();
+    expect(asyncComponent.find(Async)!.trigger('render', null)).toBeNull();
     expect(
-      trigger(asyncComponent.find(Async), 'render', MockComponent),
-    ).toStrictEqual(<MockComponent {...props} />);
+      asyncComponent.find(Async)!.trigger('render', MockComponent),
+    ).toMatchObject(<MockComponent {...props} />);
   });
 
   it('creates a deferred <Async /> when specified', () => {
@@ -50,16 +48,16 @@ describe('createAsyncComponent()', () => {
 
     const AsyncComponent = createAsyncComponent({load, defer});
     const asyncComponent = mount(<AsyncComponent />);
-    expect(asyncComponent.find(Async)).toHaveProp('defer', defer);
+    expect(asyncComponent).toContainReactComponent(Async, {defer});
   });
 
   it('allows passing custom async props', () => {
     const load = () => Promise.resolve(MockComponent);
-    const async = {defer: DeferTiming.Idle, renderLoading: () => <div />};
+    const asyncProps = {defer: DeferTiming.Idle, renderLoading: () => <div />};
 
     const AsyncComponent = createAsyncComponent({load});
-    const asyncComponent = mount(<AsyncComponent async={async} />);
-    expect(asyncComponent.find(Async).props()).toMatchObject(async);
+    const asyncComponent = mount(<AsyncComponent async={asyncProps} />);
+    expect(asyncComponent).toContainReactComponent(Async, asyncProps);
   });
 
   describe('<Preload />', () => {
@@ -67,9 +65,10 @@ describe('createAsyncComponent()', () => {
       const load = () => Promise.resolve(MockComponent);
       const AsyncComponent = createAsyncComponent({load});
       const preload = mount(<AsyncComponent.Preload />);
-      expect(preload).toContainReact(
-        <Async defer={DeferTiming.Idle} load={load} />,
-      );
+      expect(preload).toContainReactComponent(Async, {
+        load,
+        defer: DeferTiming.Idle,
+      });
     });
 
     it('renders the result of calling renderPreload()', () => {
@@ -86,7 +85,7 @@ describe('createAsyncComponent()', () => {
           <AsyncComponent.Preload />
         </div>,
       );
-      expect(preload).toContainReact(<Preload />);
+      expect(preload).toContainReactComponent(Preload);
     });
 
     it('allows passing custom async props', () => {
@@ -95,7 +94,7 @@ describe('createAsyncComponent()', () => {
 
       const AsyncComponent = createAsyncComponent({load});
       const preload = mount(<AsyncComponent.Preload async={async} />);
-      expect(preload.find(Async).props()).toMatchObject(async);
+      expect(preload).toContainReactComponent(Async, async);
     });
   });
 
@@ -104,9 +103,10 @@ describe('createAsyncComponent()', () => {
       const load = () => Promise.resolve(MockComponent);
       const AsyncComponent = createAsyncComponent({load});
       const prefetch = mount(<AsyncComponent.Prefetch />);
-      expect(prefetch).toContainReact(
-        <Async defer={DeferTiming.Mount} load={load} />,
-      );
+      expect(prefetch).toContainReactComponent(Async, {
+        load,
+        defer: DeferTiming.Mount,
+      });
     });
 
     it('renders the result of calling renderPrefetch()', () => {
@@ -123,16 +123,16 @@ describe('createAsyncComponent()', () => {
           <AsyncComponent.Prefetch />
         </div>,
       );
-      expect(prefetch).toContainReact(<Prefetch />);
+      expect(prefetch).toContainReactComponent(Prefetch);
     });
 
     it('allows passing custom async props', () => {
       const load = () => Promise.resolve(MockComponent);
-      const async = {defer: undefined, renderLoading: () => <div />};
+      const asyncProps = {defer: undefined, renderLoading: () => <div />};
 
       const AsyncComponent = createAsyncComponent({load});
-      const prefetch = mount(<AsyncComponent.Prefetch async={async} />);
-      expect(prefetch.find(Async).props()).toMatchObject(async);
+      const prefetch = mount(<AsyncComponent.Prefetch async={asyncProps} />);
+      expect(prefetch).toContainReactComponent(Async, asyncProps);
     });
   });
 
@@ -141,9 +141,10 @@ describe('createAsyncComponent()', () => {
       const load = () => Promise.resolve(MockComponent);
       const AsyncComponent = createAsyncComponent({load});
       const keepFresh = mount(<AsyncComponent.KeepFresh />);
-      expect(keepFresh).toContainReact(
-        <Async defer={DeferTiming.Idle} load={load} />,
-      );
+      expect(keepFresh).toContainReactComponent(Async, {
+        load,
+        defer: DeferTiming.Idle,
+      });
     });
 
     it('renders the result of calling renderKeepFresh()', () => {
@@ -155,22 +156,17 @@ describe('createAsyncComponent()', () => {
       const renderKeepFresh = () => <KeepFresh />;
       const AsyncComponent = createAsyncComponent({load, renderKeepFresh});
 
-      const keepFresh = mount(
-        // Enzyme doesn't know how to handle components that only return fragments.
-        <div>
-          <AsyncComponent.KeepFresh />
-        </div>,
-      );
-      expect(keepFresh).toContainReact(<KeepFresh />);
+      const keepFresh = mount(<AsyncComponent.KeepFresh />);
+      expect(keepFresh).toContainReactComponent(KeepFresh);
     });
 
     it('allows passing custom async props', () => {
       const load = () => Promise.resolve(MockComponent);
-      const async = {defer: undefined, renderLoading: () => <div />};
+      const asyncProps = {defer: undefined, renderLoading: () => <div />};
 
       const AsyncComponent = createAsyncComponent({load});
-      const keepFresh = mount(<AsyncComponent.KeepFresh async={async} />);
-      expect(keepFresh.find(Async).props()).toMatchObject(async);
+      const keepFresh = mount(<AsyncComponent.KeepFresh async={asyncProps} />);
+      expect(keepFresh).toContainReactComponent(Async, asyncProps);
     });
   });
 });

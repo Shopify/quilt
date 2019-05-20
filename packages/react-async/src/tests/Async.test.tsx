@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
+import {mount, destroyAll} from '@shopify/react-testing';
 import {Effect} from '@shopify/react-effect';
-import {trigger} from '@shopify/enzyme-utilities';
 import {DeferTiming} from '@shopify/async';
 import {IntersectionObserver} from '@shopify/react-intersection-observer';
 import {requestIdleCallback} from '@shopify/jest-dom-mocks';
 
 import {Async} from '../Async';
+import {PreloadPriority} from '../shared';
 import {AsyncAssetContext} from '../context/assets';
 
 import {createAsyncAssetManager} from './utilities';
@@ -34,6 +34,7 @@ describe('<Async />', () => {
   });
 
   afterEach(() => {
+    destroyAll();
     requestIdleCallback.restore();
   });
 
@@ -56,11 +57,10 @@ describe('<Async />', () => {
 
     expect(render).not.toHaveBeenCalledWith(MockComponent);
 
-    await promise.resolve();
-    async.update();
+    await async.act(() => promise.resolve());
 
     expect(render).toHaveBeenCalledWith(MockComponent);
-    expect(async.find(MockComponent)).toHaveLength(1);
+    expect(async).toContainReactComponent(MockComponent);
   });
 
   it('calls render() with a default export', async () => {
@@ -69,8 +69,7 @@ describe('<Async />', () => {
 
     const async = mount(<Async load={() => promise.promise} render={render} />);
 
-    await promise.resolve();
-    async.update();
+    await async.act(() => promise.resolve());
 
     expect(render).toHaveBeenCalledWith(MockComponent);
   });
@@ -87,12 +86,11 @@ describe('<Async />', () => {
       </AsyncAssetContext.Provider>,
     );
 
-    expect(async.find(Effect)).toHaveLength(0);
+    expect(async).not.toContainReactComponent(Effect);
 
-    await promise.resolve();
-    async.update();
+    await async.act(() => promise.resolve());
 
-    trigger(async.find(Effect), 'perform');
+    async.find(Effect)!.trigger('perform');
 
     expect(spy).toHaveBeenCalledWith(id);
   });
@@ -110,7 +108,7 @@ describe('<Async />', () => {
     );
 
     expect(renderLoading).toHaveBeenCalled();
-    expect(async).toContainReact(<Loading />);
+    expect(async).toContainReactComponent(Loading);
   });
 
   describe('defer', () => {
@@ -138,18 +136,20 @@ describe('<Async />', () => {
       );
 
       expect(load).not.toHaveBeenCalled();
-      expect(async.find(IntersectionObserver)).toHaveProp('threshold', 0);
+      expect(async).toContainReactComponent(IntersectionObserver, {
+        threshold: 0,
+      });
 
-      const intersectingPromise = trigger(
-        async.find(IntersectionObserver),
-        'onIntersectionChange',
-        {isIntersecting: true},
-      );
+      const intersectingPromise = async
+        .find(IntersectionObserver)!
+        .trigger('onIntersectionChange', {isIntersecting: true});
 
-      await promise.resolve();
-      await intersectingPromise;
+      await async.act(async () => {
+        await promise.resolve();
+        await intersectingPromise;
+      });
 
-      expect(async.find(IntersectionObserver)).toHaveLength(0);
+      expect(async).not.toContainReactComponent(IntersectionObserver);
       expect(load).toHaveBeenCalled();
     });
   });
