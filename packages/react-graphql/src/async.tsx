@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {DocumentNode} from 'graphql-typed';
+import {NetworkStatus} from 'apollo-client';
 import {LoadProps, DeferTiming} from '@shopify/async';
 import {
   Async,
@@ -10,6 +11,7 @@ import {
 } from '@shopify/react-async';
 import {Omit} from '@shopify/useful-types';
 
+import {useApolloClient} from './hooks';
 import {Prefetch as PrefetchQuery} from './Prefetch';
 import {Query} from './Query';
 import {
@@ -47,6 +49,7 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
     props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
   ) {
     const [componentProps, asyncProps] = splitProps(props);
+    const client = useApolloClient();
 
     return (
       <Async
@@ -54,7 +57,23 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
         load={load}
         defer={defer}
         render={query =>
-          query ? <Query query={query} {...componentProps as any} /> : null
+          query ? (
+            <Query query={query} {...componentProps as any} />
+          ) : (
+            componentProps.children({
+              data: undefined,
+              loading: true,
+              variables: (componentProps as any).variables,
+              client,
+              networkStatus: NetworkStatus.loading,
+              refetch: noop as any,
+              fetchMore: noop as any,
+              updateQuery: noop as any,
+              startPolling: noop as any,
+              stopPolling: noop as any,
+              subscribeToMore: noop as any,
+            })
+          )
         }
         {...asyncProps}
       />
@@ -132,6 +151,8 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
 
   return FinalComponent;
 }
+
+function noop() {}
 
 function splitProps<Props>(
   props: Props & ConstantProps,
