@@ -169,6 +169,8 @@ The `<Html>` component serves as a top level wrapper for a React application, al
 - `styles`: descriptors for any style tags you want to include in the HEAD of the document.
 - `scripts`: descriptors for any script tags you want to include in your document. All scripts passed to this property will be deferred by appending them to the end of the document. We encourage this as a default because it improves the initial rendering performance of your page.
 - `blockingScripts`: descriptors for any script tags you want to include in the HEAD of the document. These will block HTML parsing until they are evaluated, so use them carefully.
+- `preloadCurrentPage`: descriptors for any assets you know will be loaded on thee current page. Every asset will get its own [`<link rel="preload" />`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content) tag.
+- `preloadNextPage`: descriptors for any assets you know will be loaded on the next page. Every asset will get its own [`<link rel="prefetch" />`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) tag.
 - `headMarkup`: additional JSX to be embedded in the head of the document (after styles, but before blocking scripts).
 - `bodyMarkup`: additional JSX to be embedded in the body of the document (before serialization markup and deferred scripts).
 
@@ -180,6 +182,7 @@ const html = (
     locale="fr"
     styles={[{path: '/style.css'}]}
     scripts={[{path: '/script.js'}]}
+    preloadNextPage={[{path: '/next-page.js'}]}
   >
     <App />
   </Html>

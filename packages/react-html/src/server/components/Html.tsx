@@ -20,6 +20,8 @@ export interface Props {
   styles?: Asset[];
   scripts?: Asset[];
   blockingScripts?: Asset[];
+  preloadCurrentPage?: Asset[];
+  preloadNextPage?: Asset[];
   headMarkup?: React.ReactNode;
   bodyMarkup?: React.ReactNode;
 }
@@ -29,6 +31,8 @@ export default function Html({
   children,
   locale = 'en',
   blockingScripts = [],
+  preloadCurrentPage = [],
+  preloadNextPage = [],
   scripts = [],
   styles = [],
   headMarkup = null,
@@ -69,6 +73,20 @@ export default function Html({
         <link key={index} {...managedProps} {...linkProps} />
       ))
     : null;
+
+  const linkPrefetchMarkup = preloadNextPage.map(asset => (
+    <link rel="prefetch" href={asset.path} key={asset.path} />
+  ));
+
+  const linkPreloadMarkup = preloadCurrentPage.map(asset => (
+    <link
+      key={asset.path}
+      rel="preload"
+      href={asset.path}
+      as={asForAsset(asset.path)}
+      crossOrigin="anonymous"
+    />
+  ));
 
   const stylesMarkup = styles.map(style => {
     return (
@@ -117,6 +135,8 @@ export default function Html({
         <meta name="referrer" content="never" />
         {metaMarkup}
         {linkMarkup}
+        {linkPrefetchMarkup}
+        {linkPreloadMarkup}
 
         {stylesMarkup}
         {headMarkup}
@@ -143,4 +163,13 @@ function render(app: React.ReactElement<any>, manager?: HtmlManager) {
     );
 
   return renderToString(content);
+}
+
+function asForAsset(asset: string) {
+  switch (asset.split('.').pop()) {
+    case 'js':
+      return 'script';
+    case 'css':
+      return 'style';
+  }
 }

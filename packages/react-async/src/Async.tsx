@@ -14,9 +14,11 @@ import {
 
 import {AsyncAssetContext, AsyncAssetManager} from './context/assets';
 import {trySynchronousResolve, resolve} from './utilities';
+import {PreloadPriority} from './shared';
 
 export interface AsyncPropsRuntime {
   defer?: DeferTiming;
+  preloadPriority?: PreloadPriority;
   renderLoading?(): React.ReactNode;
 }
 
@@ -75,6 +77,7 @@ class ConnectedAsync<Value> extends React.Component<
       id,
       defer,
       manager,
+      preloadPriority = PreloadPriority.None,
       render = defaultRender,
       renderLoading = defaultRender,
     } = this.props;
@@ -85,6 +88,17 @@ class ConnectedAsync<Value> extends React.Component<
         <Effect
           kind={manager.effect}
           perform={() => manager.markAsUsed(id())}
+        />
+      ) : null;
+
+    const preloadEffect =
+      preloadPriority !== PreloadPriority.None &&
+      id != null &&
+      manager != null &&
+      resolved == null ? (
+        <Effect
+          kind={manager.effect}
+          perform={() => manager.markAsPreload(id(), preloadPriority)}
         />
       ) : null;
 
@@ -102,6 +116,7 @@ class ConnectedAsync<Value> extends React.Component<
     return (
       <>
         {effect}
+        {preloadEffect}
         {content}
         {intersectionObserver}
       </>

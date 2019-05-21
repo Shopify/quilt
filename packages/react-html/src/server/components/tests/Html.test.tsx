@@ -98,9 +98,45 @@ describe('<Html />', () => {
     });
   });
 
+  describe('preloadCurrentPage', () => {
+    it('generates link rel=preload tags for each asset', () => {
+      const preloadCurrentPage = [{path: 'foo.js'}, {path: 'bar.js'}];
+      const html = mount(
+        <Html {...mockProps} preloadCurrentPage={preloadCurrentPage} />,
+      );
+      const head = html.find('head')!;
+
+      for (const preload of preloadCurrentPage) {
+        expect(head).toContainReactComponent('link', {
+          as: 'script',
+          rel: 'preload',
+          href: preload.path,
+          crossOrigin: 'anonymous',
+        });
+      }
+    });
+  });
+
+  describe('preloadNextPage', () => {
+    it('generates link rel=prefetch tags for each asset', () => {
+      const preloadNextPage = [{path: 'foo.css'}, {path: 'bar.css'}];
+      const html = mount(
+        <Html {...mockProps} preloadNextPage={preloadNextPage} />,
+      );
+      const head = html.find('head')!;
+
+      for (const preload of preloadNextPage) {
+        expect(head).toContainReactComponent('link', {
+          rel: 'prefetch',
+          href: preload.path,
+        });
+      }
+    });
+  });
+
   describe('styles', () => {
     it('generates a link tag in the head', () => {
-      const styles = [{path: 'foo.js'}, {path: 'bar.js'}];
+      const styles = [{path: 'foo.css'}, {path: 'bar.css'}];
       const html = mount(<Html {...mockProps} styles={styles} />);
       const head = html.find('head')!;
 
@@ -180,7 +216,7 @@ describe('<Html />', () => {
     it('renders serializations', () => {
       const id = 'MySerialization';
       const data = {foo: 'bar'};
-      const manager = new HtmlManager({isServer: true});
+      const manager = new HtmlManager();
       manager.setSerialization(id, data);
 
       const html = mount(<Html {...mockProps} manager={manager} />);

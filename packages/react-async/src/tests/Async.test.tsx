@@ -95,6 +95,52 @@ describe('<Async />', () => {
     expect(spy).toHaveBeenCalledWith(id);
   });
 
+  it('creates an effect that calls manager.markAsPreload() with the result of id() when the module is marked as preload', () => {
+    const id = 'foo-bar';
+    const preloadPriority = PreloadPriority.CurrentPage;
+    const promise = createResolvablePromise(MockComponent);
+    const manager = createAsyncAssetManager();
+    const spy = jest.spyOn(manager, 'markAsPreload');
+
+    const async = mount(
+      <AsyncAssetContext.Provider value={manager}>
+        <Async
+          id={() => id}
+          load={() => promise.promise}
+          preloadPriority={preloadPriority}
+        />
+      </AsyncAssetContext.Provider>,
+    );
+
+    expect(async).toContainReactComponent(Effect);
+
+    async.find(Effect)!.trigger('perform');
+
+    expect(spy).toHaveBeenCalledWith(id, preloadPriority);
+  });
+
+  it('does not create an effect that calls manager.markAsPreload() when the module is fully loaded', async () => {
+    const promise = createResolvablePromise(MockComponent);
+    const manager = createAsyncAssetManager();
+    const spy = jest.spyOn(manager, 'markAsPreload');
+
+    const async = mount(
+      <AsyncAssetContext.Provider value={manager}>
+        <Async
+          id={() => 'foo-bar'}
+          load={() => promise.promise}
+          preloadPriority={PreloadPriority.CurrentPage}
+        />
+      </AsyncAssetContext.Provider>,
+    );
+
+    await async.act(() => promise.resolve());
+
+    async.find(Effect)!.trigger('perform');
+
+    expect(spy).not.toHaveBeenCalled();
+  });
+
   it('calls renderLoading() before the resolved module is available', () => {
     function Loading() {
       return null;

@@ -3,6 +3,7 @@ import {LoadProps, DeferTiming} from '@shopify/async';
 import {Props as ComponentProps} from '@shopify/useful-types';
 
 import {Async, AsyncPropsRuntime} from './Async';
+import {PreloadPriority} from './shared';
 
 interface ConstantProps {
   async?: AsyncPropsRuntime;
@@ -65,6 +66,7 @@ export function createAsyncComponent<
         id={id}
         defer={defer}
         renderLoading={renderLoading}
+        preloadPriority={PreloadPriority.CurrentPage}
         render={Component =>
           Component ? <Component {...componentProps} /> : null
         }
@@ -79,7 +81,12 @@ export function createAsyncComponent<
     return (
       <>
         {renderPreload(componentProps)}
-        <Async defer={DeferTiming.Idle} load={load} {...asyncProps} />
+        <Async
+          load={load}
+          defer={DeferTiming.Idle}
+          preloadPriority={PreloadPriority.NextPage}
+          {...asyncProps}
+        />
       </>
     );
   }
@@ -90,7 +97,12 @@ export function createAsyncComponent<
     return (
       <>
         {renderPrefetch(componentProps)}
-        <Async defer={DeferTiming.Mount} load={load} {...asyncProps} />
+        <Async
+          load={load}
+          defer={DeferTiming.Mount}
+          preloadPriority={PreloadPriority.NextPage}
+          {...asyncProps}
+        />
       </>
     );
   }
@@ -101,7 +113,12 @@ export function createAsyncComponent<
     return (
       <>
         {renderKeepFresh(componentProps)}
-        <Async defer={DeferTiming.Idle} load={load} {...asyncProps} />
+        <Async
+          load={load}
+          defer={DeferTiming.Idle}
+          preloadPriority={PreloadPriority.NextPage}
+          {...asyncProps}
+        />
       </>
     );
   }

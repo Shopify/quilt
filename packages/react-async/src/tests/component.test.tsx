@@ -4,6 +4,7 @@ import {DeferTiming} from '@shopify/async';
 
 import {Async} from '../Async';
 import {createAsyncComponent} from '../component';
+import {PreloadPriority} from '../shared';
 
 jest.mock('../Async', () => ({
   Async() {
@@ -27,6 +28,7 @@ describe('createAsyncComponent()', () => {
       load,
       id,
       renderLoading,
+      preloadPriority: PreloadPriority.CurrentPage,
     });
   });
 
@@ -68,6 +70,7 @@ describe('createAsyncComponent()', () => {
       expect(preload).toContainReactComponent(Async, {
         load,
         defer: DeferTiming.Idle,
+        preloadPriority: PreloadPriority.NextPage,
       });
     });
 
@@ -80,11 +83,7 @@ describe('createAsyncComponent()', () => {
       const renderPreload = () => <Preload />;
       const AsyncComponent = createAsyncComponent({load, renderPreload});
 
-      const preload = mount(
-        <div>
-          <AsyncComponent.Preload />
-        </div>,
-      );
+      const preload = mount(<AsyncComponent.Preload />);
       expect(preload).toContainReactComponent(Preload);
     });
 
@@ -106,6 +105,7 @@ describe('createAsyncComponent()', () => {
       expect(prefetch).toContainReactComponent(Async, {
         load,
         defer: DeferTiming.Mount,
+        preloadPriority: PreloadPriority.NextPage,
       });
     });
 
@@ -118,11 +118,7 @@ describe('createAsyncComponent()', () => {
       const renderPrefetch = () => <Prefetch />;
       const AsyncComponent = createAsyncComponent({load, renderPrefetch});
 
-      const prefetch = mount(
-        <div>
-          <AsyncComponent.Prefetch />
-        </div>,
-      );
+      const prefetch = mount(<AsyncComponent.Prefetch />);
       expect(prefetch).toContainReactComponent(Prefetch);
     });
 
@@ -144,6 +140,7 @@ describe('createAsyncComponent()', () => {
       expect(keepFresh).toContainReactComponent(Async, {
         load,
         defer: DeferTiming.Idle,
+        preloadPriority: PreloadPriority.NextPage,
       });
     });
 

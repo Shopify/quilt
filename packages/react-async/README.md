@@ -240,10 +240,45 @@ await extract(<App />, {
   },
 });
 
-const moduleIds = [...asyncAssetmanager.used];
+const moduleIds = [...asyncAssetManager.used];
 ```
 
 These module IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](../sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.
+
+#### Preloaded assets
+
+Anytime a `Preload`, `Prefetch`, or `KeepFresh` component is rendered, this library defaults to assuming you would like to preload the scripts for that page. Additionally, rendering any async component that is not loaded on the server (for example, because its `defer` was set to `DeferTiming.Idle`) are considered to be candidates for preloading as well. You can access the modules for which preloading makes sense by calling `AsyncAssetManager#preloaded` with a `PreloadPriority`.
+
+```tsx
+import {extract} from '@shopify/react-effect/server';
+import {
+  AsyncAssetManager,
+  AsyncAssetContext,
+  PreloadPriority,
+} from '@shopify/react-async';
+
+const asyncAssetmanager = new AsyncAssetManager();
+
+await extract(<App />, {
+  decorate(app) {
+    return (
+      <AsyncAssetContext.Provider value={asyncAssetmanager}>
+        {app}
+      </AsyncAssetContext.Provider>
+    );
+  },
+});
+
+// Perfect for link rel=prefetch
+const preloadNextPage = [
+  ...asyncAssetManager.preloaded(PreloadPriority.NextPage),
+];
+
+// Perfect for link rel=preload
+const preloadNextPage = [
+  ...asyncAssetManager.preloaded(PreloadPriority.CurrentPage),
+];
+```
 
 #### `useAsyncAsset()`
 

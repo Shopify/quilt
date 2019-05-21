@@ -269,6 +269,31 @@ describe('Assets', () => {
         {path: js},
       ]);
     });
+
+    it('returns all assets for the specified identifiers', async () => {
+      const asyncCss = '/mypage.css';
+      const asyncJs = 'mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifestEntry({
+            manifest: mockManifest(
+              {},
+              {
+                mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+              },
+            ),
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(await assets.assets(['mypage'])).toStrictEqual([
+        {path: asyncCss},
+        {path: asyncJs},
+      ]);
+    });
   });
 
   describe('asyncStyles', () => {

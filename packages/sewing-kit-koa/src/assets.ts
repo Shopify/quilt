@@ -38,14 +38,18 @@ interface Options {
   userAgent?: string;
 }
 
+type AsyncAssetId = string | RegExp | Iterable<string | RegExp>;
+
 interface AsyncAssetOptions {
-  id: string | RegExp | Iterable<string | RegExp>;
+  id: AsyncAssetId;
 }
 
-interface AssetOptions {
-  name?: string;
-  asyncAssets?: AsyncAssetOptions['id'];
-}
+type AssetOptions =
+  | {
+      name?: string;
+      asyncAssets?: AsyncAssetId;
+    }
+  | Iterable<string | RegExp>;
 
 enum AssetKind {
   Styles = 'css',
@@ -64,8 +68,9 @@ export default class Assets {
 
   async scripts(options: AssetOptions = {}) {
     const js = getAssetsFromManifest(
-      {...options, kind: AssetKind.Scripts},
+      options,
       await this.getResolvedManifest(),
+      {kind: AssetKind.Scripts},
     );
 
     const scripts =
@@ -80,35 +85,29 @@ export default class Assets {
   }
 
   async asyncScripts({id}: AsyncAssetOptions) {
-    return getAsyncAssetsFromManifest(
-      {id, kind: AssetKind.Scripts},
-      await this.getResolvedManifest(),
-    );
+    return getAsyncAssetsFromManifest(id, await this.getResolvedManifest(), {
+      kind: AssetKind.Scripts,
+    });
   }
 
   async styles(options: AssetOptions = {}) {
-    return getAssetsFromManifest(
-      {...options, kind: AssetKind.Styles},
-      await this.getResolvedManifest(),
-    );
+    return getAssetsFromManifest(options, await this.getResolvedManifest(), {
+      kind: AssetKind.Styles,
+    });
   }
 
   async asyncStyles({id}: AsyncAssetOptions) {
-    return getAsyncAssetsFromManifest(
-      {id, kind: AssetKind.Styles},
-      await this.getResolvedManifest(),
-    );
+    return getAsyncAssetsFromManifest(id, await this.getResolvedManifest(), {
+      kind: AssetKind.Styles,
+    });
   }
 
   async assets(options: AssetOptions) {
     return getAssetsFromManifest(options, await this.getResolvedManifest());
   }
 
-  async asyncAssets(options: AsyncAssetOptions) {
-    return getAsyncAssetsFromManifest(
-      options,
-      await this.getResolvedManifest(),
-    );
+  async asyncAssets({id}: AsyncAssetOptions) {
+    return getAsyncAssetsFromManifest(id, await this.getResolvedManifest());
   }
 
   async graphQLSource(id: string) {
@@ -194,14 +193,16 @@ export function internalOnlyClearCache() {
 }
 
 function getAssetsFromManifest(
-  {
-    name = 'main',
-    asyncAssets: asyncIds,
-    kind,
-  }: AssetOptions & {kind?: AssetKind},
+  options: AssetOptions,
   manifest: Manifest,
+  {kind}: {kind?: AssetKind} = {},
 ) {
+  if (!('name' in options)) {
+    return getAsyncAssetsFromManifest(options as any, manifest, {kind});
+  }
+
   const {entrypoints} = manifest;
+  const {name = 'main', asyncAssets: asyncIds} = options;
 
   if (!entrypoints.hasOwnProperty(name)) {
     const entries = Object.keys(entrypoints);
@@ -222,7 +223,7 @@ function getAssetsFromManifest(
       : [...entrypoints[name][kind]];
 
   const asyncAssets = asyncIds
-    ? getAsyncAssetsFromManifest({id: asyncIds, kind}, manifest)
+    ? getAsyncAssetsFromManifest(asyncIds, manifest, {kind})
     : [];
 
   if (asyncAssets.length === 0) {
@@ -244,8 +245,9 @@ function getAssetsFromManifest(
 }
 
 function getAsyncAssetsFromManifest(
-  {id, kind}: AsyncAssetOptions & {kind?: AssetKind},
+  id: AsyncAssetId,
   {asyncAssets}: Manifest,
+  {kind}: {kind?: AssetKind} = {},
 ) {
   const normalizedIds =
     typeof id === 'string' || id instanceof RegExp ? [id] : id;
