@@ -5,6 +5,7 @@ import {LoadProps, DeferTiming} from '@shopify/async';
 import {
   Async,
   AsyncPropsRuntime,
+  PreloadPriority,
   resolve as resolver,
   trySynchronousResolve,
 } from '@shopify/react-async';
@@ -53,6 +54,7 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
         id={id}
         load={load}
         defer={defer}
+        preloadPriority={PreloadPriority.CurrentPage}
         render={query =>
           query ? <Query query={query} {...componentProps as any} /> : null
         }
@@ -69,6 +71,7 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
       <Async
         load={load}
         defer={DeferTiming.Mount}
+        preloadPriority={PreloadPriority.NextPage}
         render={query =>
           query ? (
             <PrefetchQuery ignoreCache query={query} variables={variables} />
@@ -82,7 +85,13 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
   function Preload(props: ConstantProps) {
     const asyncProps = splitProps(props)[1];
     return (
-      <Async defer={DeferTiming.Idle} load={load} id={id} {...asyncProps} />
+      <Async
+        id={id}
+        load={load}
+        defer={DeferTiming.Idle}
+        preloadPriority={PreloadPriority.NextPage}
+        {...asyncProps}
+      />
     );
   }
 
@@ -98,6 +107,7 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
       <Async
         load={load}
         defer={DeferTiming.Idle}
+        preloadPriority={PreloadPriority.NextPage}
         render={query =>
           query ? (
             <PrefetchQuery
