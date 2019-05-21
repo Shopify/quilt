@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {mount} from 'enzyme';
 import gql from 'graphql-tag';
 
+import {mount} from '@shopify/react-testing';
 import {DeferTiming} from '@shopify/async';
-import {trigger} from '@shopify/enzyme-utilities';
-import {Async} from '@shopify/react-async';
+import {Async, PreloadPriority} from '@shopify/react-async';
 
 import {Query} from '../Query';
 import {Prefetch} from '../Prefetch';
@@ -43,7 +42,11 @@ describe('createAsyncQueryComponent()', () => {
     const asyncQueryComponent = mount(
       <AsyncQueryComponent {...defaultProps} />,
     );
-    expect(asyncQueryComponent.find(Async).props()).toMatchObject({load, id});
+    expect(asyncQueryComponent).toContainReactComponent(Async, {
+      id,
+      load,
+      preloadPriority: PreloadPriority.CurrentPage,
+    });
   });
 
   it('renders a Query component when the query is available, and null otherwise', () => {
@@ -55,10 +58,10 @@ describe('createAsyncQueryComponent()', () => {
     const AsyncQueryComponent = createAsyncQueryComponent({load});
     const asyncQueryComponent = mount(<AsyncQueryComponent {...props} />);
 
-    expect(trigger(asyncQueryComponent.find(Async), 'render', null)).toBeNull();
+    expect(asyncQueryComponent.find(Async)!.trigger('render', null)).toBeNull();
     expect(
-      trigger(asyncQueryComponent.find(Async), 'render', query),
-    ).toStrictEqual(<Query query={query} {...props} />);
+      asyncQueryComponent.find(Async)!.trigger('render', query),
+    ).toMatchObject(<Query query={query} {...props} />);
   });
 
   it('creates a deferred <Async /> when specified', () => {
@@ -70,18 +73,18 @@ describe('createAsyncQueryComponent()', () => {
     const asyncQueryComponent = mount(
       <AsyncQueryComponent {...defaultProps} />,
     );
-    expect(asyncQueryComponent.find(Async)).toHaveProp('defer', defer);
+    expect(asyncQueryComponent).toContainReactComponent(Async, {defer});
   });
 
   it('allows passing custom async props', () => {
     const load = () => Promise.resolve(query);
-    const async = {defer: undefined};
+    const asyncProps = {defer: undefined};
 
     const AsyncQueryComponent = createAsyncQueryComponent({load});
     const asyncQueryComponent = mount(
-      <AsyncQueryComponent {...defaultProps} async={async} />,
+      <AsyncQueryComponent {...defaultProps} async={asyncProps} />,
     );
-    expect(asyncQueryComponent.find(Async).props()).toMatchObject(async);
+    expect(asyncQueryComponent).toContainReactComponent(Async, asyncProps);
   });
 
   describe('<Preload />', () => {
@@ -89,9 +92,11 @@ describe('createAsyncQueryComponent()', () => {
       const load = () => Promise.resolve(query);
       const AsyncQueryComponent = createAsyncQueryComponent({load});
       const preload = mount(<AsyncQueryComponent.Preload />);
-      expect(preload).toContainReact(
-        <Async defer={DeferTiming.Idle} load={load} />,
-      );
+      expect(preload).toContainReactComponent(Async, {
+        load,
+        defer: DeferTiming.Idle,
+        preloadPriority: PreloadPriority.NextPage,
+      });
     });
 
     it('allows passing custom async props', () => {
@@ -100,7 +105,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const AsyncQueryComponent = createAsyncQueryComponent({load});
       const preload = mount(<AsyncQueryComponent.Preload async={async} />);
-      expect(preload.find(Async).props()).toMatchObject(async);
+      expect(preload).toContainReactComponent(Async, async);
     });
   });
 
@@ -110,13 +115,13 @@ describe('createAsyncQueryComponent()', () => {
       const AsyncQueryComponent = createAsyncQueryComponent({load});
       const prefetch = mount(<AsyncQueryComponent.Prefetch />);
 
-      expect(prefetch.find(Async).props()).toMatchObject({
+      expect(prefetch).toContainReactComponent(Async, {
         load,
         defer: DeferTiming.Mount,
+        preloadPriority: PreloadPriority.NextPage,
       });
-      expect(trigger(prefetch.find(Async), 'render', null)).toBeNull();
-      // eslint-disable-next-line jest/prefer-strict-equal
-      expect(trigger(prefetch.find(Async), 'render', query)).toEqual(
+      expect(prefetch.find(Async)!.trigger('render', null)).toBeNull();
+      expect(prefetch.find(Async)!.trigger('render', query)).toMatchObject(
         <Prefetch ignoreCache query={query} />,
       );
     });
@@ -127,7 +132,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const AsyncQueryComponent = createAsyncQueryComponent({load});
       const prefetch = mount(<AsyncQueryComponent.Prefetch async={async} />);
-      expect(prefetch.find(Async).props()).toMatchObject(async);
+      expect(prefetch).toContainReactComponent(Async, async);
     });
   });
 
@@ -137,13 +142,13 @@ describe('createAsyncQueryComponent()', () => {
       const AsyncQueryComponent = createAsyncQueryComponent({load});
       const keepFresh = mount(<AsyncQueryComponent.KeepFresh />);
 
-      expect(keepFresh.find(Async).props()).toMatchObject({
+      expect(keepFresh).toContainReactComponent(Async, {
         load,
         defer: DeferTiming.Idle,
+        preloadPriority: PreloadPriority.NextPage,
       });
-      expect(trigger(keepFresh.find(Async), 'render', null)).toBeNull();
-      // eslint-disable-next-line jest/prefer-strict-equal
-      expect(trigger(keepFresh.find(Async), 'render', query)).toEqual(
+      expect(keepFresh.find(Async)!.trigger('render', null)).toBeNull();
+      expect(keepFresh.find(Async)!.trigger('render', query)).toMatchObject(
         <Prefetch query={query} pollInterval={expect.any(Number)} />,
       );
     });
@@ -156,19 +161,20 @@ describe('createAsyncQueryComponent()', () => {
         <AsyncQueryComponent.KeepFresh pollInterval={pollInterval} />,
       );
 
-      // eslint-disable-next-line jest/prefer-strict-equal
-      expect(trigger(keepFresh.find(Async), 'render', query)).toEqual(
+      expect(keepFresh.find(Async)!.trigger('render', query)).toMatchObject(
         <Prefetch query={query} pollInterval={pollInterval} />,
       );
     });
 
     it('allows passing custom async props', () => {
       const load = () => Promise.resolve(query);
-      const async = {defer: undefined};
+      const asyncProps = {defer: undefined};
 
       const AsyncQueryComponent = createAsyncQueryComponent({load});
-      const keepFresh = mount(<AsyncQueryComponent.KeepFresh async={async} />);
-      expect(keepFresh.find(Async).props()).toMatchObject(async);
+      const keepFresh = mount(
+        <AsyncQueryComponent.KeepFresh async={asyncProps} />,
+      );
+      expect(keepFresh).toContainReactComponent(Async, asyncProps);
     });
   });
 });
