@@ -1,11 +1,11 @@
 export default class Storage {
-  getItem = jest.fn(this.unmockedGetItem);
+  getItem = jest.fn<string | null>(this.unmockedGetItem);
 
-  setItem = jest.fn(this.unmockedSetItem);
+  setItem = jest.fn<undefined>(this.unmockedSetItem);
 
-  removeItem = jest.fn(this.unmockedRemoveItem);
+  removeItem = jest.fn<undefined>(this.unmockedRemoveItem);
 
-  clear = jest.fn(this.unmockedClearItem);
+  clear = jest.fn<undefined>(this.unmockedClearItem);
 
   private store: {
     [key: string]: string;
