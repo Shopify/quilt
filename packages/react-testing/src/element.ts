@@ -82,7 +82,7 @@ export class Element<Props> {
     ) as Element<unknown>[];
   }
 
-  data(key: string): unknown {
+  data(key: string): string {
     return this.props[key.startsWith('data-') ? key : `data-${key}`];
   }
 
@@ -157,7 +157,7 @@ export class Element<Props> {
   ): Element<PropsForComponent<Type>>[] {
     return this.elementDescendants.filter(
       element =>
-        element.type === type &&
+        isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) as Element<PropsForComponent<Type>>[];
   }

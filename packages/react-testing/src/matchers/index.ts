@@ -1,7 +1,7 @@
 import {ComponentType} from 'react';
 import {Props} from '@shopify/useful-types';
 
-import {toHaveReactProps} from './props';
+import {toHaveReactProps, toHaveReactDataProps} from './props';
 import {toContainReactComponent} from './components';
 import {toContainReactText, toContainReactHtml} from './strings';
 import {Node} from './types';
@@ -12,6 +12,7 @@ declare global {
   namespace jest {
     interface Matchers<R> {
       toHaveReactProps(props: Partial<PropsFromNode<R>>): void;
+      toHaveReactDataProps(data: {[key: string]: string}): void;
       toContainReactComponent<Type extends string | ComponentType<any>>(
         type: Type,
         props?: Partial<Props<Type>>,
@@ -24,6 +25,7 @@ declare global {
 
 expect.extend({
   toHaveReactProps,
+  toHaveReactDataProps,
   toContainReactComponent,
   toContainReactText,
   toContainReactHtml,

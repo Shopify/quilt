@@ -413,6 +413,18 @@ expect(myComponent.find('div')).toHaveReactProps({
 });
 ```
 
+### `.toHaveReactDataProps(data: object)`
+
+Like `.toHaveReactProps()`, but is not strictly typed. This makes it more suitable for asserting on `data-` attributes, which can’t be strongly typed.
+
+```tsx
+const myComponent = mount(<MyComponent />);
+
+expect(myComponent.find('div')).toHaveReactDataProps({
+  'data-message': 'Hello world',
+});
+```
+
 ### `.toContainReactComponent(type: string | React.ComponentType, props?: object)`
 
 Asserts that at least one component matching `type` is in the descendants of the passed node. If the second argument is passed, this expectation will further filter the matches by components whose props are equal to the passed object (again, asymmetric matchers are fully supported).
