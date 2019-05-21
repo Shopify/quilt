@@ -74,7 +74,7 @@ describe('<OnIdle />', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    it('runs perform in immediately when requestIdleCallback is not supported and unsupportedBehavior is set to animation frame', () => {
+    it('runs perform immediately when requestIdleCallback is not supported and unsupportedBehavior is set to animation frame', () => {
       const spy = jest.fn();
       mount(
         <OnIdle
@@ -90,7 +90,7 @@ describe('<OnIdle />', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    it('runs perform in immediately when requestIdleCallback is not supported and unsupportedBehavior is set to immediate', () => {
+    it('runs perform immediately when requestIdleCallback is not supported and unsupportedBehavior is set to immediate', () => {
       const spy = jest.fn();
       mount(
         <OnIdle
@@ -104,7 +104,12 @@ describe('<OnIdle />', () => {
 
     it('cancels the animation frame when the component unmounts', () => {
       const spy = jest.fn();
-      const onIdle = mount(<OnIdle perform={spy} />);
+      const onIdle = mount(
+        <OnIdle
+          perform={spy}
+          unsupportedBehavior={UnsupportedBehavior.AnimationFrame}
+        />,
+      );
 
       onIdle.unmount();
       animationFrame.runFrame();

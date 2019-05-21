@@ -13,11 +13,13 @@ $ yarn add @shopify/react-hydrate
 
 ## Usage
 
-This library is intended to assist with "progressive hydration", a pattern where you fully render an application on the server, but wait to hydrate parts of it when it reaches the client. Typically, doing different work on the server and client would result in the server markup being thrown out. This library avoids that issue by rendering a wrapping `div` around the content on the server, adding an ID to that element, and setting the `dangerouslySetInnerHTML` prop on the client to the resulting server markup in order to avoid mismatches. Once you have done whatever work on the client to load the necessary components, this hardcoded markup is removed, allowing the React tree to take over.
+This library is intended to assist with "progressive hydration", a pattern where you fully render an application on the server, but wait to hydrate parts of it when it reaches the client. Typically, doing different work on the server and client would result in the server markup being thrown out by React’s initial reconciliation.
+
+This library avoids that issue by rendering a wrapping `div` around the content on the server, adding an ID to that element, and setting the `dangerouslySetInnerHTML` prop on the client to the resulting server markup in order to avoid mismatches. Once you have done whatever work on the client to load the necessary components, this hardcoded markup is removed, allowing the React tree to take over.
 
 ### Server
 
-There are two key pieces to making this work. First, your server must render a `HydrationContext.Provider` element around your React tree (to be clear: this is only required for the server, not on the client). This element will provide a `HydrationManager` to the three, which manages the identifiers that map server markup to client markup.
+There are two key pieces to making this work. First, your server must render a `HydrationContext.Provider` element around your React tree. This element will provide a `HydrationManager` to the tree, which manages the identifiers that map server markup to client markup.
 
 ```tsx
 import React from 'react';
@@ -38,7 +40,7 @@ export async function middleware(ctx, next) {
 }
 ```
 
-Note that if you use [`@shopify/react-effect`](../react-effect), you **must** reset the manager after each rendering pass (otherwise the identifiers will not match between client and server). You must also use a new `HydrationManager` for every request to prevent identifiers leaking between different requests.
+Note that if you use [`@shopify/react-effect`](../react-effect), you **must** reset the manager after each rendering pass. If you don’t, the identifiers will continue to increment during each pass, and will not match between client and server. You must also use a new `HydrationManager` for every request to prevent identifiers leaking between different renders.
 
 ```tsx
 import React from 'react';
@@ -124,4 +126,4 @@ function MyComponent() {
 }
 ```
 
-You can optionally pass an `id` prop, which will be used to prefix the identifier used to match server and client markup (if the application behaves well, this should be unnecessary, but it can prevent any issues where multiple hydrated components of different types render in a different order across server and client).
+You can optionally pass an `id` prop to `Hydrator`, which will be used to prefix the identifier used to match server and client markup.

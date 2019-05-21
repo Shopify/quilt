@@ -27,7 +27,7 @@ const mount = createMount<
 });
 
 describe('react-hydrate', () => {
-  it('renders a wrapping element with a hydration ID by no innerHTML when there are children', () => {
+  it('renders a wrapping element with a hydration ID but no innerHTML when there are children', () => {
     const hydrator = mount(<Hydrator>{random.words()}</Hydrator>);
     const wrapper = hydrator.find('div')!;
 
