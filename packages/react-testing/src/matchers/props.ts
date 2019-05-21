@@ -54,3 +54,11 @@ export function toHaveReactProps<Props>(
 
   return {pass, message};
 }
+
+export function toHaveReactDataProps(
+  this: jest.MatcherUtils,
+  node: Node<unknown>,
+  data: {[key: string]: string},
+) {
+  return toHaveReactProps.call(this, node, data);
+}

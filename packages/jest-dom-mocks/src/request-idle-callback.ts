@@ -5,6 +5,7 @@ import {
 
 export default class RequestIdleCallback {
   private isUsingMockIdleCallback = false;
+  private isMockingUnsupported = false;
   private queued: {
     [key: string]: IdleCallback;
   } = {};
@@ -31,6 +32,25 @@ export default class RequestIdleCallback {
     windowWithIdle.cancelIdleCallback = this.cancelIdleCallback;
   }
 
+  mockAsUnsupported() {
+    if (this.isUsingMockIdleCallback) {
+      throw new Error(
+        'requestIdleCallback is already mocked, but you tried to mock it again.',
+      );
+    }
+
+    this.isUsingMockIdleCallback = true;
+    this.isMockingUnsupported = true;
+
+    const windowWithIdle: WindowWithRequestIdleCallback = window as any;
+
+    this.originalRequestIdleCallback = windowWithIdle.requestIdleCallback;
+    delete windowWithIdle.requestIdleCallback;
+
+    this.originalCancelIdleCallback = windowWithIdle.cancelIdleCallback;
+    delete windowWithIdle.cancelIdleCallback;
+  }
+
   restore() {
     if (!this.isUsingMockIdleCallback) {
       throw new Error(
@@ -48,9 +68,19 @@ export default class RequestIdleCallback {
     }
 
     this.isUsingMockIdleCallback = false;
+    this.isMockingUnsupported = false;
 
-    (window as any).requestIdleCallback = this.originalRequestIdleCallback;
-    (window as any).cancelIdleCallback = this.originalCancelIdleCallback;
+    if (this.originalRequestIdleCallback) {
+      (window as any).requestIdleCallback = this.originalRequestIdleCallback;
+    } else {
+      delete (window as any).requestIdleCallback;
+    }
+
+    if (this.originalCancelIdleCallback) {
+      (window as any).cancelIdleCallback = this.originalCancelIdleCallback;
+    } else {
+      delete (window as any).cancelIdleCallback;
+    }
   }
 
   isMocked() {
@@ -95,6 +125,12 @@ export default class RequestIdleCallback {
     if (!this.isUsingMockIdleCallback) {
       throw new Error(
         'You must call requestIdleCallback.mock() before interacting with the mock request- or cancel- IdleCallback methods.',
+      );
+    }
+
+    if (this.isMockingUnsupported) {
+      throw new Error(
+        'You have mocked requestIdleCallback as unsupported. Call requestIdleCallback.restore(), then requestIdleCallback.mock() if you want to simulate idle callbacks.',
       );
     }
   }

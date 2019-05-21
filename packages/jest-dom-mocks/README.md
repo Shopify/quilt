@@ -135,6 +135,10 @@ Some of the standard mocks include additional features:
 
 Executes all queued animation callbacks.
 
+#### `RequestIdleCallback.mockAsUnsupported(): void`
+
+Removes `window.requestIdleCallback` and `window.cancelIdleCallback`, which can be useful for testing features that should work with and without idle callbacks available.
+
 #### `RequestIdleCallback.runIdleCallbacks(timeRemaining?: number, didTimeout?: boolean): void`
 
 Runs all currently-scheduled idle callbacks. If provided, `timeRemaining`/ `didTimeout` will be used to construct the argument for these callbacks. Once called, all callbacks are removed from the queue.
