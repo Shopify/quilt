@@ -37,7 +37,7 @@ To resolve all pending graphQL operations:
 await graphQL.resolveAll();
 ```
 
-You can also access all the graphQL operations triggered by your application (pending and non-pending) using:
+You can also access all the graphQL operations that had been resolved using:
 
 ```js
 graphQL.operations.all();
