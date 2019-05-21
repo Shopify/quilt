@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - Accurate return types for `Storage` mocks
 
-## [2.5.4] - 2019-04-25
+## [2.6.1] - 2019-04-25
 
 ### Fixed
 
