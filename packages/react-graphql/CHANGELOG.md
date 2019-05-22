@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.3.3] - 2019-05-22
+
+### Fixed
+
+- Components created with `createAsyncQueryComponent` now call their `children` prop with a loading state while the query is still being fetched ([#707](https://github.com/Shopify/quilt/pull/707))
+
 ## [3.3.1] - 2019-05-15
 
 - Fixed an issue where `useQuery` would not be performed during server renders ([#702](https://github.com/Shopify/quilt/pull/702))
