@@ -50,7 +50,7 @@ import {
   HtmlContext,
 } from '@shopify/react-html/server';
 
-export default function middleware(ctx) {
+export default async function middleware(ctx) {
   const manager = new HtmlManager();
   const app = <App />;
 
