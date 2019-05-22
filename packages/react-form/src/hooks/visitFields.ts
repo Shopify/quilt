@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useRef} from 'react';
 import {FieldDictionary, FieldOutput, Field} from '../types';
 import {isField} from '../utilities';
 
@@ -10,9 +10,12 @@ export default function useVisitFields(
   fieldBag: {[key: string]: FieldOutput<any>},
   visitor: FieldVisitor,
 ) {
+  const fieldBagRef = useRef(fieldBag);
+  fieldBagRef.current = fieldBag;
+
   return useCallback(
     () => {
-      const fields = Object.values(fieldBag);
+      const fields = Object.values(fieldBagRef.current);
 
       for (const item of fields) {
         if (isField(item)) {
@@ -29,7 +32,7 @@ export default function useVisitFields(
         visit(item);
       }
     },
-    [fieldBag, visitor],
+    [visitor],
   );
 }
 

@@ -1,3 +1,4 @@
+import {useCallback, useRef} from 'react';
 import {SubmitHandler, FormMapping, FieldBag, Form} from '../types';
 import {validateAll} from '../utilities';
 import {useDirty} from './dirty';
@@ -61,21 +62,34 @@ export function useForm<T extends FieldBag>({
   onSubmit?: SubmitHandler<FormMapping<T, 'value'>>;
 }): Form<T> {
   const dirty = useDirty(fields);
-  const reset = useReset(fields);
+  const basicReset = useReset(fields);
   const {submit, submitting, errors, setErrors} = useSubmit(onSubmit, fields);
+
+  const reset = useCallback(
+    () => {
+      setErrors([]);
+      basicReset();
+    },
+    [basicReset, setErrors],
+  );
+
+  const fieldsRef = useRef(fields);
+  fieldsRef.current = fields;
+
+  const validate = useCallback(
+    () => {
+      return validateAll(fieldsRef.current);
+    },
+    [fieldsRef],
+  );
 
   return {
     fields,
     dirty,
     submitting,
-    submitErrors: errors,
     submit,
-    validate() {
-      return validateAll(fields);
-    },
-    reset() {
-      setErrors([]);
-      reset();
-    },
+    reset,
+    validate,
+    submitErrors: errors,
   };
 }
