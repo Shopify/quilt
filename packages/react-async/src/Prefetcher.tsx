@@ -41,18 +41,22 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
         <EventListener
           passive
           event="mouseover"
-          handler={this.handleMouseOver}
+          handler={this.handlePointerEnter}
         />
-        <EventListener passive event="focusin" handler={this.handleMouseOver} />
+        <EventListener
+          passive
+          event="focusin"
+          handler={this.handlePointerEnter}
+        />
         <EventListener
           passive
           event="mouseout"
-          handler={this.handleMouseLeave}
+          handler={this.handlePointerLeave}
         />
         <EventListener
           passive
           event="focusout"
-          handler={this.handleMouseLeave}
+          handler={this.handlePointerLeave}
         />
       </>
     ) : null;
@@ -62,7 +66,12 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
         <EventListener
           passive
           event="mousedown"
-          handler={this.handleMouseDown}
+          handler={this.handlePressStart}
+        />
+        <EventListener
+          passive
+          event="touchstart"
+          handler={this.handlePressStart}
         />
         {expensiveListeners}
         {preloadMarkup}
@@ -70,7 +79,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     );
   }
 
-  private handleMouseDown = ({target}: MouseEvent) => {
+  private handlePressStart = ({target}: MouseEvent) => {
     this.clearTimeout();
 
     if (target == null) {
@@ -84,7 +93,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     }
   };
 
-  private handleMouseLeave = ({
+  private handlePointerLeave = ({
     target,
     relatedTarget,
   }: MouseEvent | FocusEvent) => {
@@ -119,7 +128,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     }
   };
 
-  private handleMouseOver = ({target}: MouseEvent | FocusEvent) => {
+  private handlePointerEnter = ({target}: MouseEvent | FocusEvent) => {
     if (target == null) {
       return;
     }
