@@ -72,7 +72,7 @@ describe('Operations', () => {
     it('gets the first operation', () => {
       const operations = new Operations();
       operations.push(operationOne, operationTwo);
-      expect(operations.first()).toBe(operationTwo);
+      expect(operations.first()).toBe(operationOne);
     });
 
     it('gets the first matching operation', () => {
