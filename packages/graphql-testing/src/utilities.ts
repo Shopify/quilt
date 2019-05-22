@@ -1,55 +1,52 @@
-import {Operation} from 'apollo-link';
+import {DocumentNode, OperationDefinitionNode} from 'graphql';
+import {FindOptions} from './types';
 
-export class Operations {
-  private operations: Operation[] = [];
+export function operationNameFromFindOptions({
+  query,
+  mutation,
+  operationName,
+}: FindOptions) {
+  const passedOptions = [query, mutation, operationName].filter(Boolean);
 
-  constructor(operations?: Operation[]) {
-    this.operations = operations ? [...operations] : [];
-  }
-
-  [Symbol.iterator]() {
-    return this.operations[Symbol.iterator]();
-  }
-
-  nth(index: number) {
-    return index < 0
-      ? this.operations[this.operations.length + index]
-      : this.operations[index];
-  }
-
-  push(...operations: Operation[]) {
-    this.operations.push(...operations);
-  }
-
-  all(options?: {operationName?: string}): Operation[] {
-    const operationName = options && options.operationName;
-    if (!options || !operationName) {
-      return this.operations;
-    }
-
-    const allMatchedOperations = this.operations.filter(
-      req => req.operationName === operationName,
+  if (passedOptions.length === 0) {
+    return undefined;
+  } else if (passedOptions.length > 1) {
+    throw new Error(
+      'You can only pass one of query, mutation, or operationName when finding a GraphQL operation',
     );
-
-    return allMatchedOperations;
   }
 
-  last(options?: {operationName?: string}): Operation {
-    const operationName = options && options.operationName;
-    const lastOperation = operationName
-      ? this.operations
-          .reverse()
-          .find(req => req.operationName === operationName)
-      : this.operations[this.operations.length - 1];
+  return operationName || operationNameFromDocument((query || mutation)!);
+}
 
-    if (lastOperation == null && operationName) {
-      throw new Error(
-        `no operation with operationName '${operationName}' were found.`,
-      );
-    } else if (lastOperation == null) {
-      throw new Error(`no operation were found.`);
-    }
+export function operationNameFromDocument(
+  document: DocumentNode | {resolved?: DocumentNode},
+) {
+  return 'resolved' in document && document.resolved != null
+    ? operationNameFromDocumentNode(document.resolved!)
+    : operationNameFromDocumentNode(document as DocumentNode);
+}
 
-    return lastOperation;
-  }
+export function operationTypeFromDocument(
+  document: DocumentNode | {resolved?: DocumentNode},
+) {
+  return 'resolved' in document && document.resolved != null
+    ? operationTypeFromDocumentNode(document.resolved!)
+    : operationTypeFromDocumentNode(document as DocumentNode);
+}
+
+function operationNameFromDocumentNode(document: DocumentNode) {
+  const [operation]: OperationDefinitionNode[] = document.definitions.filter(
+    ({kind}) => kind === 'OperationDefinition',
+  ) as any[];
+
+  return operation && operation.name && operation.name.value;
+}
+
+function operationTypeFromDocumentNode(document: DocumentNode) {
+  const [operation]: OperationDefinitionNode[] = document.definitions.filter(
+    ({kind}) => kind === 'OperationDefinition',
+  ) as any[];
+
+  return operation && operation.operation;
 }
