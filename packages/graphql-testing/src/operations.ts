@@ -1,12 +1,6 @@
-import {DocumentNode} from 'graphql';
 import {Operation} from 'apollo-link';
-import {operationNameFromDocument} from './utilities';
-
-interface FindOptions {
-  operationName?: string;
-  query?: DocumentNode | {resolved?: DocumentNode};
-  mutation?: DocumentNode;
-}
+import {operationNameFromFindOptions} from './utilities';
+import {FindOptions} from './types';
 
 export class Operations {
   private operations: Operation[] = [];
@@ -40,15 +34,8 @@ export class Operations {
     return index < 0 ? found[found.length + index] : found[index];
   }
 
-  private filterWhere({query, mutation, operationName}: FindOptions = {}) {
-    if ([query, mutation, operationName].filter(Boolean).length > 1) {
-      throw new Error(
-        'You can only pass one of query, mutation, or operationName when finding a GraphQL operation',
-      );
-    }
-
-    const finalOperationName =
-      operationName || operationNameFromDocument((query || mutation)!);
+  private filterWhere(options: FindOptions = {}) {
+    const finalOperationName = operationNameFromFindOptions(options);
 
     return finalOperationName
       ? this.operations.filter(

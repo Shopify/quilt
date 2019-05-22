@@ -8,7 +8,8 @@ import {ApolloClient} from 'apollo-client';
 
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
-import {GraphQLMock, MockRequest} from './types';
+import {operationNameFromFindOptions} from './utilities';
+import {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
   unionOrIntersectionTypes?: any[];
@@ -55,15 +56,23 @@ export class GraphQL {
     });
   }
 
-  async resolveAll() {
+  async resolveAll(options: FindOptions = {}) {
+    const finalOperationName = operationNameFromFindOptions(options);
+
     await this.wrappers.reduce<() => Promise<void>>(
       (perform, wrapper) => {
         return () => wrapper(perform);
       },
       async () => {
-        await Promise.all(
-          Array.from(this.pendingRequests).map(({resolve}) => resolve()),
-        );
+        const allPendingRequests = Array.from(this.pendingRequests);
+        const matchingRequests = finalOperationName
+          ? allPendingRequests.filter(
+              ({operation: {operationName}}) =>
+                operationName === finalOperationName,
+            )
+          : allPendingRequests;
+
+        await Promise.all(matchingRequests.map(({resolve}) => resolve()));
       },
     )();
   }

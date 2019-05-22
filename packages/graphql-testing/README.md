@@ -24,7 +24,7 @@ const createGraphQL = createGraphQLFactory({
 });
 ```
 
-The resulting function can then be use to create a GraphQL controller that tracks and resolves GraphQL operations according to the mocks you supply. The mock you supply should be an object where the keys are operation names, and the values are either an object to return as data for that operation, or a function that takes a `GraphQLRequest` and returns suitable data. Alternatively, the mock can simply be a function that accepts a `GraphQLRequest` and returns suitable mock data.
+The resulting function can be used to create a GraphQL controller that tracks and resolves GraphQL operations according to the mocks you supply. The mock you provide should be an object where the keys are operation names, and the values are either an object to return as data for that operation, or a function that takes a `GraphQLRequest` and returns suitable data. Alternatively, the mock can be a function that accepts a `GraphQLRequest` and returns suitable mock data.
 
 ```js
 const graphQL = createGraphQL({
@@ -33,7 +33,7 @@ const graphQL = createGraphQL({
 });
 ```
 
-The call to `createGraphQL` creates a `GraphQL` instance, which is described in detail below.
+The call to the function returned by `createGraphQLFactory` (`createGraphQL` in the example above) creates a `GraphQL` instance, which is described in detail below.
 
 ### `GraphQL`
 
@@ -41,15 +41,23 @@ The following method and properties are available on the `GraphQL` object:
 
 #### `resolveAll()`
 
-By default, this mock client will hold all the graphQL operations triggered by your application in a pending state. To resolve all pending graphQL operations, call `graphQL.resolveAll()`, which returns a promise that resolves once all the operations have completed.
+By default, the mock client will hold all the graphQL operations triggered by your application in a pending state. To resolve all pending graphQL operations, call `graphQL.resolveAll()`, which returns a promise that resolves once all the operations have completed.
 
 ```js
 await graphQL.resolveAll();
 ```
 
+You can also pass a `query` or `mutation` option to `resolveAll`, which will filter the pending operations and only resolve the ones with a matching operation.
+
+```js
+await graphQL.resolveAll({query: petQuery});
+```
+
+Note that, until a GraphQL operation has been resolved, it does not appear in the `operations` list described below.
+
 #### `wrap()`
 
-The `wrap()` method allows you to wrap all GraphQL resolution in a function call. This can be useful when working with React components, which require that all operations that lead to state changes be wrapped in an `act()` call. The following example demonstrates using this with [`@shopify/react-testing`](../react-testing):
+The `wrap()` method allows you to wrap all GraphQL resolutions in a function call. This can be useful when working with React components, which require that all operations that lead to state changes be wrapped in an `act()` call. The following example demonstrates using this with [`@shopify/react-testing`](../react-testing):
 
 ```tsx
 const myComponent = mount(<MyComponent />);
@@ -58,13 +66,13 @@ const graphQL = createGraphQL(mocks);
 graphQL.wrap(resolve => myComponent.act(resolve));
 
 // Before, calling this could cause warnings about state updates happening outside
-// of act(). Now, all GraphQL resolution is safely wrapped in myComponent.act().
+// of act(). Now, all GraphQL resolutions are safely wrapped in myComponent.act().
 await graphQL.resolveAll();
 ```
 
 #### `#operations`
 
-`graphQL.operations` is a custom data structure that tracks all **completed** GraphQL operations that the GraphQL controller has performed. This object has `first()`, `last()`, `all()`, and `nth()` methods, which allow you to inspect individual operations. All of these methods also accept an optional options argument, which allows you to narrow down the operations to specific queries or mutations:
+`graphQL.operations` is a custom data structure that tracks all **resolved** GraphQL operations that the GraphQL controller has performed. This object has `first()`, `last()`, `all()`, and `nth()` methods, which allow you to inspect individual operations. All of these methods also accept an optional options argument, which allows you to narrow down the operations to specific queries or mutations:
 
 ```tsx
 const graphQL = createGraphQL(mocks);
@@ -72,11 +80,11 @@ const graphQL = createGraphQL(mocks);
 // the very first operation, or undefined if no operations have been performed
 graphQL.first();
 
-// the second last operation with name 'Pet'
-graphQL.nth(-2, {operationName: 'Pet'});
+// the second last operation run with petQuery
+graphQL.nth(-2, {query: petQuery});
 
-// the last operation with this query
-graphQL.last({query: petQuery});
+// the last operation of any kind
+graphQL.last();
 
 // all mutations with this mutation
 graphQL.all({mutation: addPetMutation});
@@ -86,7 +94,7 @@ The `query` and `mutation` options both accept either a regular `DocumentNode`, 
 
 ### Matchers
 
-This library provides matchers for Jest. To use these matchers, you’ll need to include `@shopify/graphql-testing/matchers` in your Jest setup file. The following matcher will then be available:
+This library provides a [Jest matcher](https://jestjs.io/docs/en/using-matchers). To use this matcher, you’ll need to include `@shopify/graphql-testing/matchers` in your Jest setup file. The following matcher will then be available:
 
 #### `toHavePerformedGraphQLOperation(operation: GraphQLOperation, variables?: object)`
 
