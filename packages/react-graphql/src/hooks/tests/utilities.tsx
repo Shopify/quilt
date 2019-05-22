@@ -21,20 +21,19 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
   context({graphQL = createGraphQL()}) {
     return {graphQL};
   },
-
   render(element, {graphQL}) {
     return <ApolloProvider client={graphQL.client}>{element}</ApolloProvider>;
   },
   async afterMount(root, {skipInitialGraphQL}) {
-    root.context.graphQL.on('pre-resolve', () => {
-      root.act(runPendingAsyncReactTasks);
-    });
+    const {graphQL} = root.context;
+
+    graphQL.wrap(perform => root.act(perform));
 
     if (skipInitialGraphQL) {
       return;
     }
 
-    await root.context.graphQL.resolveAll();
+    await graphQL.resolveAll();
   },
 });
 

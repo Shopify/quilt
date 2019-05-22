@@ -338,7 +338,6 @@ import * as React from 'react';
 import {ApolloProvider} from 'react-apollo';
 import createGraphQLFactory, {GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
-import {promise} from '@shopify/jest-dom-mocks';
 
 // See graphql-testing docs for details
 const createGraphQL = createGraphQLFactory();
@@ -373,13 +372,12 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
   // Final step: if we need post-mount behavior, inject it in. If it returns
   // a promise, like it does here, the final mount function will be async too.
   async afterMount(root, {skipInitialGraphQL}) {
-    // This is a temporary hack to make GraphQL resolution behave pseudo-synchronously
-    // to avoid warnings about setting state outside of act() blocks.
-    root.context.graphQL.on('pre-resolve', () => {
-      if (promise.isMocked()) {
-        root.act(() => promise.runPending());
-      }
-    });
+    const {graphQL} = root.context;
+
+    // This makes it so any GraphQL resolution is wrapped in
+    // an act() block, which prevents setting state outside of
+    // act().
+    graphQL.wrap(perform => root.act(perform));
 
     if (skipInitialGraphQL) {
       return;
@@ -387,7 +385,7 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
 
     // Here's the important bit: resolve the GraphQL so our first queries are
     // in use for the component under test
-    await root.context.graphQL.resolveAll();
+    await graphQL.resolveAll();
   },
 });
 ```
