@@ -1,7 +1,6 @@
 import * as React from 'react';
-import {mount, ReactWrapper} from 'enzyme';
+import {mount, Root} from '@shopify/react-testing';
 import {clock} from '@shopify/jest-dom-mocks';
-import {trigger} from '@shopify/enzyme-utilities';
 
 import {EventListener} from '../EventListener';
 import {Prefetcher, INTENTION_DELAY_MS} from '../Prefetcher';
@@ -38,7 +37,7 @@ describe('<Prefetch />', () => {
         <Prefetcher />
       </PrefetchContext.Provider>,
     );
-    expect(prefetcher).not.toContainReact(<MockComponent />);
+    expect(prefetcher).not.toContainReactComponent(MockComponent);
   });
 
   it('prefetches a component when hovering over an element with a matching href for enough time', () => {
@@ -55,12 +54,13 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${path}"></a>`),
     });
 
-    expect(prefetcher).not.toContainReact(<MockComponent />);
+    expect(prefetcher).not.toContainReactComponent(MockComponent);
 
-    clock.tick(INTENTION_DELAY_MS + 1);
-    prefetcher.update();
+    prefetcher.act(() => {
+      clock.tick(INTENTION_DELAY_MS + 1);
+    });
 
-    expect(prefetcher).toContainReact(<MockComponent />);
+    expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
   it('prefetches a component when focusing on an element with a matching href for enough time', () => {
@@ -77,12 +77,13 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${path}"></a>`),
     });
 
-    expect(prefetcher).not.toContainReact(<MockComponent />);
+    expect(prefetcher).not.toContainReactComponent(MockComponent);
 
-    clock.tick(INTENTION_DELAY_MS + 1);
-    prefetcher.update();
+    prefetcher.act(() => {
+      clock.tick(INTENTION_DELAY_MS + 1);
+    });
 
-    expect(prefetcher).toContainReact(<MockComponent />);
+    expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
   it('prefetches a component when clicking on an element with a matching href immediately', () => {
@@ -99,7 +100,24 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${path}"></a>`),
     });
 
-    expect(prefetcher).toContainReact(<MockComponent />);
+    expect(prefetcher).toContainReactComponent(MockComponent);
+  });
+
+  it('prefetches a component when touching an element with a matching href immediately', () => {
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const prefetcher = mount(
+      <PrefetchContext.Provider value={manager}>
+        <Prefetcher />
+      </PrefetchContext.Provider>,
+    );
+
+    triggerListener(prefetcher, 'touchstart', {
+      target: mockElement(`<a href="${path}"></a>`),
+    });
+
+    expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
   it('does not prefetch a component when mousing over, then out, of an element with a matching href', () => {
@@ -120,10 +138,11 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${path}"></a>`),
     });
 
-    clock.tick(INTENTION_DELAY_MS + 1);
-    prefetcher.update();
+    prefetcher.act(() => {
+      clock.tick(INTENTION_DELAY_MS + 1);
+    });
 
-    expect(prefetcher).not.toContainReact(<MockComponent />);
+    expect(prefetcher).not.toContainReactComponent(MockComponent);
   });
 
   it('still prefetches a component when mousing over, then out into a child, of an element with a matching href', () => {
@@ -143,13 +162,14 @@ describe('<Prefetch />', () => {
 
     triggerListener(prefetcher, 'mouseout', {
       target: element,
-      relatedTarget: element.firstChild,
+      relatedTarget: element.firstChild!,
     });
 
-    clock.tick(INTENTION_DELAY_MS + 1);
-    prefetcher.update();
+    prefetcher.act(() => {
+      clock.tick(INTENTION_DELAY_MS + 1);
+    });
 
-    expect(prefetcher).toContainReact(<MockComponent />);
+    expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
   it('does not prefetch a component when focusing in, then out, of an element with a matching href', () => {
@@ -170,10 +190,11 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${path}"></a>`),
     });
 
-    clock.tick(INTENTION_DELAY_MS + 1);
-    prefetcher.update();
+    prefetcher.act(() => {
+      clock.tick(INTENTION_DELAY_MS + 1);
+    });
 
-    expect(prefetcher).not.toContainReact(<MockComponent />);
+    expect(prefetcher).not.toContainReactComponent(MockComponent);
   });
 
   it('prefetches a components with matching regex paths', () => {
@@ -190,7 +211,7 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${path}"></a>`),
     });
 
-    expect(prefetcher).toContainReact(<MockComponent />);
+    expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
   it('prefetches multiple matching components', () => {
@@ -212,8 +233,8 @@ describe('<Prefetch />', () => {
       target: mockElement(`<a href="${path}"></a>`),
     });
 
-    expect(prefetcher).toContainReact(<MockComponent />);
-    expect(prefetcher).toContainReact(<AnotherPrefetch />);
+    expect(prefetcher).toContainReactComponent(MockComponent);
+    expect(prefetcher).toContainReactComponent(AnotherPrefetch);
   });
 });
 
@@ -222,17 +243,22 @@ function mockElement(markup: string) {
     .firstChild as HTMLElement;
 }
 
-type Event = 'mousedown' | 'mouseover' | 'mouseout' | 'focusin' | 'focusout';
+type EventName =
+  | 'mousedown'
+  | 'touchstart'
+  | 'mouseover'
+  | 'mouseout'
+  | 'focusin'
+  | 'focusout';
 
 function triggerListener(
-  prefetcher: ReactWrapper,
-  event: Event,
-  ...args: any[]
+  prefetcher: Root<unknown>,
+  event: EventName,
+  arg: Partial<FocusEvent>,
 ) {
-  trigger(getListener(prefetcher, event), 'handler', ...args);
-  prefetcher.update();
+  getListener(prefetcher, event)!.trigger('handler', arg);
 }
 
-function getListener(prefetcher: ReactWrapper, event: Event) {
-  return prefetcher.find(EventListener).filter({event});
+function getListener(prefetcher: Root<unknown>, event: EventName) {
+  return prefetcher.findAll(EventListener, {event})[0];
 }
