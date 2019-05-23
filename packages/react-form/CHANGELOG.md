@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.2.1]
+
+### Fixed
+
+- now keeps all imperative methods returned by `useForm` reference equal regardless of the `fieldBag` changing, preventing needless rerenders of `PureComponent`s [(716)](https://github.com/Shopify/quilt/pull/716)
+
 ## [0.2.0]
 
 ### Changed

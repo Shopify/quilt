@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, useRef} from 'react';
 import {useMountedRef} from '@shopify/react-hooks';
 import {
   FormMapping,
@@ -17,40 +17,45 @@ export function useSubmit<T extends FieldBag>(
   const mounted = useMountedRef();
   const [submitting, setSubmitting] = useState(false);
   const [submitErrors, setSubmitErrors] = useState([] as FormError[]);
-  const setErrors = useCallback(
-    (errors: FormError[]) => {
-      setSubmitErrors(errors);
-      propagateErrors(fieldBag, errors);
+
+  const fieldBagRef = useRef(fieldBag);
+  fieldBagRef.current = fieldBag;
+
+  const setErrors = useCallback((errors: FormError[]) => {
+    setSubmitErrors(errors);
+    propagateErrors(fieldBagRef.current, errors);
+  }, []);
+
+  const submit = useCallback(
+    async (event?: React.FormEvent) => {
+      const fields = fieldBagRef.current;
+      if (event && event.preventDefault && !event.defaultPrevented) {
+        event.preventDefault();
+      }
+
+      const clientErrors = validateAll(fields);
+      if (clientErrors.length > 0) {
+        setErrors(clientErrors);
+        return;
+      }
+
+      setSubmitting(true);
+      const result = await onSubmit(getValues(fields));
+
+      if (mounted.current === false) {
+        return;
+      }
+
+      setSubmitting(false);
+
+      if (result.status === 'fail') {
+        setErrors(result.errors);
+      } else {
+        setSubmitErrors([]);
+      }
     },
-    [fieldBag],
+    [mounted, onSubmit, setErrors],
   );
-
-  async function submit(event?: React.FormEvent) {
-    if (event && event.preventDefault && !event.defaultPrevented) {
-      event.preventDefault();
-    }
-
-    const clientErrors = validateAll(fieldBag);
-    if (clientErrors.length > 0) {
-      setErrors(clientErrors);
-      return;
-    }
-
-    setSubmitting(true);
-    const result = await onSubmit(getValues(fieldBag));
-
-    if (mounted.current === false) {
-      return;
-    }
-
-    setSubmitting(false);
-
-    if (result.status === 'fail') {
-      setErrors(result.errors);
-    } else {
-      setSubmitErrors([]);
-    }
-  }
 
   return {submit, submitting, errors: submitErrors, setErrors};
 }

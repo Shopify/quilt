@@ -261,6 +261,24 @@ describe('useForm', () => {
         error: errors[0].message,
       });
     });
+
+    it('does not create a new submit function on each render', () => {
+      const wrapper = mount(<ProductForm data={fakeProduct()} />);
+
+      const initialSubmitHandler = wrapper
+        .find('button', {type: 'submit'})!
+        .prop('onClick');
+
+      wrapper
+        .find(TextField, {label: 'title'})!
+        .trigger('onChange', 'tortoritos, the chip for turtles!');
+
+      const newSubmitHandler = wrapper
+        .find('button', {type: 'submit'})!
+        .prop('onClick');
+
+      expect(initialSubmitHandler).toBe(newSubmitHandler);
+    });
   });
 
   describe('reset', () => {
@@ -317,6 +335,24 @@ describe('useForm', () => {
       expect(wrapper).not.toContainReactComponent(TextField, {
         error: errors[0].message,
       });
+    });
+
+    it('does not create a new reset function on each render', () => {
+      const wrapper = mount(<ProductForm data={fakeProduct()} />);
+
+      const initialResetHandler = wrapper
+        .find('button', {type: 'button'})!
+        .prop('onClick');
+
+      wrapper
+        .find(TextField, {label: 'title'})!
+        .trigger('onChange', 'tortoritos, the chip for turtles!');
+
+      const newResetHandler = wrapper
+        .find('button', {type: 'button'})!
+        .prop('onClick');
+
+      expect(initialResetHandler).toBe(newResetHandler);
     });
   });
 });
