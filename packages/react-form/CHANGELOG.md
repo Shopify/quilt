@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- now keeps all imperative methods returned by `useForm` reference equal regardless of the `fieldBag` changing, preventing needless rerenders of `PureComponent`s
+- now keeps all imperative methods returned by `useForm` reference equal regardless of the `fieldBag` changing, preventing needless rerenders of `PureComponent`s [(716)](https://github.com/Shopify/quilt/pull/716)
 
 ## [0.2.0]
 
