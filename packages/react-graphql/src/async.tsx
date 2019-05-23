@@ -149,6 +149,10 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
     get: () => resolvedDocument,
   });
 
+  Object.defineProperty(FinalComponent, 'id', {
+    get: () => id && id(),
+  });
+
   return FinalComponent;
 }
 
