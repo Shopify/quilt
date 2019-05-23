@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.3.4]
+
+### Fixed
+
+- Fixed an issue where `useQuery` with an async query component would not cause the query’s bundle to be included in the initial HTML.
+
 ## [3.3.3] - 2019-05-22
 
 ### Fixed

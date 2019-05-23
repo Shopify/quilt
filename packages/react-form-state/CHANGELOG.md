@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## Unreleased -->
 
+## [0.11.2] - 2019-05-22
+
+### Fixed
+
+- validator signatures produced by `validate()` no longer require a `fields` param. [#714](https://github.com/Shopify/quilt/pull/714)
+
 ## [0.11.1] - 2019-05-15
 
 ### Fixed

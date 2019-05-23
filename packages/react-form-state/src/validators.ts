@@ -10,7 +10,7 @@ import {
 } from '@shopify/predicates';
 import {mapObject} from './utilities';
 
-interface Matcher<Input, Fields> {
+interface Matcher<Input, Fields = any> {
   (input: Input, fields: Fields): boolean;
 }
 
@@ -73,11 +73,26 @@ export function validateList<Input extends object, Fields>(
   };
 }
 
+export function validateWithFields<Input, Fields>(
+  matcher: Matcher<Input, Fields>,
+  errorContent: ErrorContent,
+) {
+  return validate(matcher, errorContent) as (
+    input: Input,
+    fields: Fields,
+  ) => ErrorContent | undefined | void;
+}
+
+export function validate<Input>(
+  matcher: Matcher<Input>,
+  errorContent: ErrorContent,
+): (input: Input) => ErrorContent | undefined | void;
+
 export function validate<Input, Fields>(
   matcher: Matcher<Input, Fields>,
   errorContent: ErrorContent,
 ) {
-  return (input: Input, fields: Fields): ErrorContent | undefined | void => {
+  return (input: Input, fields: Fields) => {
     const matches = matcher(input, fields);
 
     /*
@@ -101,7 +116,7 @@ export function validate<Input, Fields>(
 }
 
 export function validateRequired<Input>(
-  matcher: Matcher<Input, any>,
+  matcher: Matcher<Input>,
   errorContent: ErrorContent,
 ): (input: Input) => ErrorContent | undefined | void;
 
