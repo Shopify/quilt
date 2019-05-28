@@ -71,13 +71,13 @@ export default function useQuery<
 
   const queryObservable = useMemo(
     () => {
-      if (!watchQueryOptions) {
+      if (skip || !watchQueryOptions) {
         return;
       }
 
       return client.watchQuery(watchQueryOptions);
     },
-    [client, watchQueryOptions],
+    [client, skip, watchQueryOptions],
   );
 
   useServerEffect(() => {
