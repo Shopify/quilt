@@ -1,6 +1,8 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
-import {NetworkStatus} from 'apollo-client';
+import ApolloClient, {NetworkStatus} from 'apollo-client';
+import {ApolloLink} from 'apollo-link';
+import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';
@@ -85,6 +87,24 @@ describe('useQuery', () => {
           data: mockData,
         }),
       );
+    });
+
+    it('watchQuery is not called when skip is true', async () => {
+      const mockClient = createMockApolloClient();
+      const watchQuerySpy = jest.fn();
+      mockClient.watchQuery = watchQuerySpy;
+
+      function MockQuery() {
+        useQuery(petQuery, {client: mockClient, skip: true});
+        return null;
+      }
+
+      const graphQL = createGraphQL({PetQuery: mockData});
+      await mountWithGraphQL(<MockQuery />, {
+        graphQL,
+      });
+
+      expect(watchQuerySpy).not.toHaveBeenCalled();
     });
   });
 
@@ -177,5 +197,34 @@ describe('useQuery', () => {
         }),
       );
     });
+
+    it('watchQuery is not called when skip is true', async () => {
+      const mockClient = createMockApolloClient();
+      const watchQuerySpy = jest.fn();
+      mockClient.watchQuery = watchQuerySpy;
+
+      const MockQueryComponent = createAsyncQueryComponent({
+        load: () => Promise.resolve(petQuery),
+      });
+
+      function MockQuery() {
+        useQuery(MockQueryComponent, {client: mockClient, skip: true});
+        return null;
+      }
+
+      const graphQL = createGraphQL({PetQuery: mockData});
+      await mountWithGraphQL(<MockQuery />, {
+        graphQL,
+      });
+
+      expect(watchQuerySpy).not.toHaveBeenCalled();
+    });
   });
 });
+
+function createMockApolloClient() {
+  return new ApolloClient({
+    link: ApolloLink.empty(),
+    cache: new InMemoryCache(),
+  });
+}
