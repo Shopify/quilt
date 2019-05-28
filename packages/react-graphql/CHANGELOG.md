@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Fixed an issue where `useQuery` was watching a query even when `skip` was true.
+
 ## [3.3.4]
 
 ### Fixed
