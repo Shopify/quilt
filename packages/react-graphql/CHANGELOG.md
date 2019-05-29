@@ -7,9 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- Fixed an issue where `useQuery` was watching a query even when `skip` was true.
+## [3.3.5] - 2019-05-29
 
-## [3.3.4]
+### Fixed
+
+- Fixed an issue where `useQuery` was watching a query even when `skip` was true ([#721](https://github.com/Shopify/quilt/pull/721))
+
+## [3.3.4] - 2019-05-23
 
 ### Fixed
 
