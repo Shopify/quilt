@@ -39,6 +39,7 @@ export default function useQuery<
 
   useAsyncAsset(id);
 
+  const serializedVariables = variables && JSON.stringify(variables);
   const watchQueryOptions = useMemo<WatchQueryOptions<Variables> | null>(
     () => {
       if (!query) {
@@ -60,8 +61,7 @@ export default function useQuery<
       query,
       // eslint-disable-next-line react-hooks/exhaustive-deps
       context && JSON.stringify(context),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      variables && JSON.stringify(variables),
+      serializedVariables,
       fetchPolicy,
       errorPolicy,
       pollInterval,
@@ -116,7 +116,8 @@ export default function useQuery<
         : (noop as any),
       client,
     }),
-    [queryObservable, client, variables],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [queryObservable, client, serializedVariables],
   );
 
   const [responseId, setResponseId] = useState(0);
