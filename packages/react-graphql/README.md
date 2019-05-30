@@ -222,7 +222,7 @@ This hook accepts two arguments:
 interface QueryHookOptions<Variables = OperationVariables> {
   ssr?: boolean;
   variables?: Variables;
-  fetchPolicy?: FetchPolicy;
+  fetchPolicy?: FetchPolicy | WatchQueryFetchPolicy;
   errorPolicy?: ErrorPolicy;
   pollInterval?: number;
   client?: ApolloClient<any>;
