@@ -13,6 +13,7 @@ import {
   OperationVariables,
   ApolloError,
   ApolloClient,
+  WatchQueryFetchPolicy,
 } from 'apollo-client';
 import {Omit, IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {AsyncPropsRuntime} from '@shopify/react-async';
@@ -27,7 +28,7 @@ export type VariableOptions<Variables> = IfEmptyObject<
 
 export type QueryProps<Data = any, Variables = OperationVariables> = {
   children: (result: QueryResult<Data, Variables>) => React.ReactNode;
-  fetchPolicy?: FetchPolicy;
+  fetchPolicy?: FetchPolicy | WatchQueryFetchPolicy;
   errorPolicy?: ErrorPolicy;
   notifyOnNetworkStatusChange?: boolean;
   pollInterval?: number;
