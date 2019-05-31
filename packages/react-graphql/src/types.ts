@@ -8,7 +8,6 @@ import {
 } from 'graphql-typed';
 import {QueryResult} from 'react-apollo';
 import {
-  FetchPolicy,
   ErrorPolicy,
   OperationVariables,
   ApolloError,
@@ -28,7 +27,7 @@ export type VariableOptions<Variables> = IfEmptyObject<
 
 export type QueryProps<Data = any, Variables = OperationVariables> = {
   children: (result: QueryResult<Data, Variables>) => React.ReactNode;
-  fetchPolicy?: FetchPolicy | WatchQueryFetchPolicy;
+  fetchPolicy?: WatchQueryFetchPolicy;
   errorPolicy?: ErrorPolicy;
   notifyOnNetworkStatusChange?: boolean;
   pollInterval?: number;
