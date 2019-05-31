@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.3.6] - 2019-05-31
+
+### Fixed
+
+- Queries are no longer waited on during server render when `skip` is `true` ([#726](https://github.com/Shopify/quilt/pull/726))
+- The result of calling `useQuery` is now referentially stable when variables stay deep-equal between calls (previously, using a different object with the same values would change the result) ([#726](https://github.com/Shopify/quilt/pull/726)).
+
 ## [3.3.5] - 2019-05-29
 
 ### Fixed
