@@ -319,6 +319,8 @@ Takes an object of options passed by a user of your custom mount (or an empty ob
 
 This function is called with the React element under test, the context created by `context()` (or an empty object), and the options passed by the user of your custom mount (or an empty object). This function must return a new React element, usually by wrapping the component in context providers.
 
+> **Note:** `render` can be called multiple times for a given component. Your `render` function (and any wrapping elements you put around the element under test) should be able to re-render from calling this function, ideally without unmounting the component under test.
+
 #### `afterMount(root: CustomRoot, options: MountOptions): Promise | void`
 
 This function allows you to perform additional logic after a component has been mounted. It gets called with a special [`Root`](#root) instance that has one additional property: `context`, the object with the context you created in `context()` (or an empty object). You can use this hook to perform some additional resolution after the component has mounted, such as resolving all GraphQL.
