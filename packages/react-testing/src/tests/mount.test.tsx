@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {random} from 'faker';
 
 import {Root} from '../root';
 import {mount, createMount} from '../mount';
@@ -70,6 +71,29 @@ describe('createMount()', () => {
 
     expect(div).toHaveProperty('type', 'div');
     expect(div).not.toContainReactComponent('span', {id: 'ShouldNotBeFound'});
+  });
+
+  it('can set props on a nested element even if it is wrapped in providers', () => {
+    function TestComponent({words}: {words: string}) {
+      return <div>{words}</div>;
+    }
+
+    function Wrapper({children}: {children: React.ReactElement<any>}) {
+      return children;
+    }
+
+    const customMount = createMount({
+      render: element => <Wrapper>{element}</Wrapper>,
+    });
+
+    const originalWords = random.words();
+    const updatedWords = random.words();
+    const testComponent = customMount(<TestComponent words={originalWords} />);
+
+    testComponent.setProps({words: updatedWords});
+
+    expect(testComponent).not.toContainReactText(originalWords);
+    expect(testComponent).toContainReactText(updatedWords);
   });
 
   it('calls afterMount with the wrapper and options', () => {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IfAllOptionalKeys} from '@shopify/useful-types';
-import {Root} from './root';
+import {Root, Options as RootOptions} from './root';
 import {Element} from './element';
 
 export {Root, Element};
@@ -81,9 +81,9 @@ export class CustomRoot<Props, Context extends object> extends Root<Props> {
   constructor(
     tree: React.ReactElement<Props>,
     public readonly context: Context,
-    resolve: (element: Element<unknown>) => Element<unknown> | null,
+    options?: RootOptions,
   ) {
-    super(tree, resolve);
+    super(tree, options);
   }
 }
 
@@ -105,11 +105,11 @@ export function createMount<
     options: MountOptions = {} as any,
   ) {
     const context = createContext(options);
-    const rendered = render(element, context, options);
 
-    const wrapper = new CustomRoot(rendered, context, root =>
-      root.find(element.type),
-    );
+    const wrapper = new CustomRoot(element, context, {
+      render: element => render(element, context, options),
+      resolveRoot: root => root.find(element.type),
+    });
 
     const afterMountResult = afterMount(wrapper, options);
 

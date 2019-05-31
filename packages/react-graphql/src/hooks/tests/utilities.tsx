@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
-import {promise} from '@shopify/jest-dom-mocks';
 
 import {ApolloProvider} from '../../ApolloProvider';
 
@@ -36,28 +35,6 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
     await graphQL.resolveAll();
   },
 });
-
-export function prepareAsyncReactTasks() {
-  if (!promise.isMocked()) {
-    promise.mock();
-  }
-}
-
-export function teardownAsyncReactTasks() {
-  if (promise.isMocked()) {
-    promise.restore();
-  }
-}
-
-export function runPendingAsyncReactTasks() {
-  if (!promise.isMocked()) {
-    throw new Error(
-      'You attempted to resolve pending async React tasks, but have not yet prepared to do so. Run `prepareAsyncReactTasks()` from "tests/modern" in a `beforeEach` block and try again.',
-    );
-  }
-
-  promise.runPending();
-}
 
 export function createResolvablePromise<T>(value: T) {
   let resolver!: () => Promise<T>;
