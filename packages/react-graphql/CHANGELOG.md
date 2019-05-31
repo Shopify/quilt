@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [3.4.0] - 2019-05-31
 
 - `fetchPolicy` is now compatible with `apollo-client@2.6.0`'s `WatchQueryFetchPolicy` options ([#729](https://github.com/Shopify/quilt/pull/729))
 
