@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- `fetchPolicy` is now compatible with `apollo-client@2.6.0`'s `WatchQueryFetchPolicy` options ([#729](https://github.com/Shopify/quilt/pull/729))
+
 ## [3.3.6] - 2019-05-31
 
 ### Fixed
