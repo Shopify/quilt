@@ -7,12 +7,7 @@ import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';
 import useQuery from '../query';
-import {
-  mountWithGraphQL,
-  prepareAsyncReactTasks,
-  teardownAsyncReactTasks,
-  createResolvablePromise,
-} from './utilities';
+import {mountWithGraphQL, createResolvablePromise} from './utilities';
 
 const petQuery = gql`
   query PetQuery {
@@ -33,14 +28,6 @@ const mockData = {
 };
 
 describe('useQuery', () => {
-  beforeEach(() => {
-    prepareAsyncReactTasks();
-  });
-
-  afterEach(() => {
-    teardownAsyncReactTasks();
-  });
-
   describe('document', () => {
     it('returns loading=true and networkStatus=loading during the loading of query', async () => {
       function MockQuery({children}) {
@@ -87,6 +74,43 @@ describe('useQuery', () => {
           data: mockData,
         }),
       );
+    });
+
+    it('keeps the same data when the variables stay deep-equal', async () => {
+      function MockQuery({
+        children,
+        variables,
+      }: {
+        children: (
+          result: ReturnType<typeof useQuery>,
+        ) => React.ReactElement | null;
+        variables?: object;
+      }) {
+        const results = useQuery(petQuery, {variables});
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+      const variables = {foo: 'bar'};
+
+      const mockQuery = await mountWithGraphQL(
+        <MockQuery variables={variables}>{renderPropSpy}</MockQuery>,
+        {
+          graphQL,
+        },
+      );
+
+      mockQuery.setProps({variables: {...variables}});
+
+      expect(graphQL.operations.all()).toHaveLength(1);
+
+      // Once for initial render while loading, once for when the data loaded, and a final time
+      // when we update the props and re-render the component.
+      expect(renderPropSpy).toHaveBeenCalledTimes(3);
+
+      const [, firstLoadedCall, secondLoadedCall] = renderPropSpy.mock.calls;
+      expect(firstLoadedCall[0]).toBe(secondLoadedCall[0]);
     });
 
     it('watchQuery is not called when skip is true', async () => {

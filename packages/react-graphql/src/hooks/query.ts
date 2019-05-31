@@ -1,12 +1,15 @@
+/* eslint react-hooks/rules-of-hooks: off */
+
 import {useEffect, useMemo, useState, useRef} from 'react';
 import {
+  ApolloClient,
   OperationVariables,
   ApolloError,
   WatchQueryOptions,
+  ObservableQuery,
 } from 'apollo-client';
 import {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
-import {useAsyncAsset} from '@shopify/react-async';
 
 import {AsyncQueryComponentType} from '../types';
 import {QueryHookOptions, QueryHookResult} from './types';
@@ -33,12 +36,15 @@ export default function useQuery<
     notifyOnNetworkStatusChange,
     context,
   } = options;
-
   const client = useApolloClient(overrideClient);
-  const [query, id] = useGraphQLDocument(queryOrComponent);
 
-  useAsyncAsset(id);
+  if (typeof window === 'undefined' && skip) {
+    return createDefaultResult(client, variables);
+  }
 
+  const query = useGraphQLDocument(queryOrComponent);
+
+  const serializedVariables = variables && JSON.stringify(variables);
   const watchQueryOptions = useMemo<WatchQueryOptions<Variables> | null>(
     () => {
       if (!query) {
@@ -60,8 +66,7 @@ export default function useQuery<
       query,
       // eslint-disable-next-line react-hooks/exhaustive-deps
       context && JSON.stringify(context),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      variables && JSON.stringify(variables),
+      serializedVariables,
       fetchPolicy,
       errorPolicy,
       pollInterval,
@@ -90,33 +95,9 @@ export default function useQuery<
   });
 
   const defaultResult = useMemo<QueryHookResult<Data, Variables>>(
-    () => ({
-      data: undefined,
-      error: undefined,
-      networkStatus: undefined,
-      loading: false,
-      variables: queryObservable ? queryObservable.variables : variables,
-      refetch: queryObservable
-        ? queryObservable.refetch.bind(queryObservable)
-        : (noop as any),
-      fetchMore: queryObservable
-        ? queryObservable.fetchMore.bind(queryObservable)
-        : (noop as any),
-      updateQuery: queryObservable
-        ? queryObservable.updateQuery.bind(queryObservable)
-        : (noop as any),
-      startPolling: queryObservable
-        ? queryObservable.startPolling.bind(queryObservable)
-        : (noop as any),
-      stopPolling: queryObservable
-        ? queryObservable.stopPolling.bind(queryObservable)
-        : (noop as any),
-      subscribeToMore: queryObservable
-        ? queryObservable.subscribeToMore.bind(queryObservable)
-        : (noop as any),
-      client,
-    }),
-    [queryObservable, client, variables],
+    () => createDefaultResult(client, variables, queryObservable),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [queryObservable, client, serializedVariables],
   );
 
   const [responseId, setResponseId] = useState(0);
@@ -145,6 +126,7 @@ export default function useQuery<
   const previousData = useRef<
     QueryHookResult<Data, Variables>['data'] | undefined
   >(undefined);
+
   const currentResult = useMemo<QueryHookResult<Data, Variables>>(
     () => {
       // must of the logic below are lifted from
@@ -200,6 +182,39 @@ export default function useQuery<
   );
 
   return currentResult;
+}
+
+function createDefaultResult(
+  client: ApolloClient<unknown>,
+  variables: any,
+  queryObservable?: ObservableQuery,
+) {
+  return {
+    data: undefined,
+    error: undefined,
+    networkStatus: undefined,
+    loading: false,
+    variables: queryObservable ? queryObservable.variables : variables,
+    refetch: queryObservable
+      ? queryObservable.refetch.bind(queryObservable)
+      : noop,
+    fetchMore: queryObservable
+      ? queryObservable.fetchMore.bind(queryObservable)
+      : noop,
+    updateQuery: queryObservable
+      ? queryObservable.updateQuery.bind(queryObservable)
+      : noop,
+    startPolling: queryObservable
+      ? queryObservable.startPolling.bind(queryObservable)
+      : noop,
+    stopPolling: queryObservable
+      ? queryObservable.stopPolling.bind(queryObservable)
+      : noop,
+    subscribeToMore: queryObservable
+      ? queryObservable.subscribeToMore.bind(queryObservable)
+      : noop,
+    client,
+  };
 }
 
 function noop() {}

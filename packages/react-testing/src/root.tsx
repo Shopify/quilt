@@ -26,6 +26,14 @@ const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
 
 type ResolveRoot = (element: Element<unknown>) => Element<unknown> | null;
+type Render = (
+  element: React.ReactElement<unknown>,
+) => React.ReactElement<unknown>;
+
+export interface Options {
+  render?: Render;
+  resolveRoot?: ResolveRoot;
+}
 
 export const connected = new Set<Root<unknown>>();
 
@@ -67,14 +75,20 @@ export class Root<Props> {
   private root: Element<Props> | null = null;
   private acting = false;
 
+  private render: Render;
+  private resolveRoot: ResolveRoot;
+
   private get mounted() {
     return this.wrapper != null;
   }
 
   constructor(
     private tree: React.ReactElement<Props>,
-    private resolveRoot: ResolveRoot = defaultResolveRoot,
+    {render = defaultRender, resolveRoot = defaultResolveRoot}: Options = {},
   ) {
+    this.render = render;
+    this.resolveRoot = resolveRoot;
+
     this.mount();
   }
 
@@ -179,6 +193,7 @@ export class Root<Props> {
     this.act(() => {
       render(
         <TestWrapper<Props>
+          render={this.render}
           ref={wrapper => {
             this.wrapper = wrapper;
           }}
@@ -255,6 +270,10 @@ export class Root<Props> {
 
 function defaultResolveRoot(element: Element<unknown>) {
   return element.children[0];
+}
+
+function defaultRender(element: React.ReactElement<unknown>) {
+  return element;
 }
 
 function flatten(

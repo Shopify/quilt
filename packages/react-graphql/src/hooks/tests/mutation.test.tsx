@@ -3,11 +3,7 @@ import gql from 'graphql-tag';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import useMutation from '../mutation';
-import {
-  mountWithGraphQL,
-  prepareAsyncReactTasks,
-  teardownAsyncReactTasks,
-} from './utilities';
+import {mountWithGraphQL} from './utilities';
 
 const updatePetMutation = gql`
   mutation UpdatePetMutation($name: String!) {
@@ -41,14 +37,6 @@ const mockMutationData = {
 };
 
 describe('useMutation', () => {
-  beforeEach(() => {
-    prepareAsyncReactTasks();
-  });
-
-  afterEach(() => {
-    teardownAsyncReactTasks();
-  });
-
   it('returns result that contains the loaded data once the mutation finished running', async () => {
     const renderPropSpy = jest.fn(() => null);
     const graphQL = createGraphQL({UpdatePetMutation: mockMutationData});

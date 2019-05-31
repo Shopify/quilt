@@ -6,6 +6,7 @@ interface State<ChildProps> {
 
 interface Props {
   children: React.ReactElement<any>;
+  render(element: React.ReactElement<any>): React.ReactElement<any>;
 }
 
 export class TestWrapper<ChildProps> extends React.Component<
@@ -21,7 +22,7 @@ export class TestWrapper<ChildProps> extends React.Component<
 
   render() {
     const {props} = this.state;
-    const {children} = this.props;
-    return props ? React.cloneElement(children, props) : children;
+    const {children, render} = this.props;
+    return render(props ? React.cloneElement(children, props) : children);
   }
 }
