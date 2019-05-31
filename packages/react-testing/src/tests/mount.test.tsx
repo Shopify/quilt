@@ -73,7 +73,7 @@ describe('createMount()', () => {
     expect(div).not.toContainReactComponent('span', {id: 'ShouldNotBeFound'});
   });
 
-  it('can props on a nested element even if it is wrapped in providers', () => {
+  it('can set props on a nested element even if it is wrapped in providers', () => {
     function TestComponent({words}: {words: string}) {
       return <div>{words}</div>;
     }
