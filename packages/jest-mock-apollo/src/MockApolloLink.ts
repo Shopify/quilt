@@ -60,8 +60,7 @@ export default class MockApolloLink extends ApolloLink {
             ' (you provided a function that did not return a valid mock result)';
         }
 
-        const error = new Error(message);
-        result = error;
+        throw new Error(message);
       } else if (response instanceof Error) {
         result = {errors: [new GraphQLError(response.message)]};
       } else {
