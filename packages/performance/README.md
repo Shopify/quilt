@@ -33,7 +33,7 @@ If you want to listen for events, you can use the `on` method. There are three e
 performance.on('navigation', navigation => {});
 
 // Listen for the start of new navigations.
-performance.on('navigationStart', () => {});
+performance.on('inflightNavigation', () => {});
 
 // Listen for "lifecycle" events; that is, those that are part of the initial
 // page load and come directly from the browser. These are events like time
