@@ -21,13 +21,13 @@ export interface AsyncAsset {
 }
 
 export interface Manifest {
+  name: string;
+  browsers?: string[];
   entrypoints: {[key: string]: Entrypoint};
   asyncAssets: {[key: string]: AsyncAsset[]};
 }
 
 export interface ConsolidatedManifestEntry {
-  name: string;
-  browsers?: string[];
   manifest: Manifest;
 }
 
@@ -142,7 +142,7 @@ export default class Assets {
     } else {
       this.resolvedManifestEntry =
         consolidatedManifest.find(
-          ({browsers}) =>
+          ({manifest: {browsers}}) =>
             browsers == null ||
             matchesUA(userAgent, {
               browsers,
