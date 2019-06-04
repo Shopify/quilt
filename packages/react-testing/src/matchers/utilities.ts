@@ -62,14 +62,14 @@ export function diffs(
   props: object,
   expand?: boolean,
 ) {
-  return element.reduce<string>(
-    (diffs, element, index) =>
-      `${diffs}${index === 0 ? '' : '\n\n'}${normalizedDiff(element, props, {
-        expand,
-        showLegend: index === 0,
-      })}`,
-    '',
-  );
+  return element.reduce<string>((diffs, element, index) => {
+    const separator = index === 0 ? '' : '\n\n';
+
+    return `${diffs}${separator}${normalizedDiff(element, props, {
+      expand,
+      showLegend: index === 0,
+    })}`;
+  }, '');
 }
 
 function normalizedDiff(
@@ -93,11 +93,12 @@ export function printType(type: string | React.ComponentType<any>) {
     return `<${displayName}.${componentName} />`;
   }
 
-  return `<${
+  const displayName =
     typeof type === 'string'
       ? type
-      : type.displayName || type.name || 'Component'
-  } />`;
+      : type.displayName || type.name || 'Component';
+
+  return `<${displayName} />`;
 }
 
 export function diffPropsForNode(
