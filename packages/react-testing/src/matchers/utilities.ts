@@ -57,11 +57,50 @@ export function assertIsNode(
   }
 }
 
-export function diffPropsForNode(
-  node: Node<any>,
+export function diffs(
+  element: Element<any>[],
   props: object,
-  {expand = false},
+  expand?: boolean,
 ) {
+  return element.reduce<string>(
+    (diffs, element, index) =>
+      `${diffs}${index === 0 ? '' : '\n\n'}${normalizedDiff(element, props, {
+        expand,
+        showLegend: index === 0,
+      })}`,
+    '',
+  );
+}
+
+function normalizedDiff(
+  element: Element<any>,
+  props: object,
+  {expand = false, showLegend = false},
+) {
+  const result =
+    diffPropsForNode(element, props, {
+      expand,
+    }) || '';
+
+  return showLegend ? result : result.split('\n\n')[1];
+}
+
+export function printType(type: string | React.ComponentType<any>) {
+  if (typeof type === 'object' && '_context' in type) {
+    const context = (type as any)._context;
+    const componentName = type === context.Provider ? 'Provider' : 'Consumer';
+    const displayName = context.displayName || 'Context';
+    return `<${displayName}.${componentName} />`;
+  }
+
+  return `<${
+    typeof type === 'string'
+      ? type
+      : type.displayName || type.name || 'Component'
+  } />`;
+}
+
+function diffPropsForNode(node: Node<any>, props: object, {expand = false}) {
   return diff(props, getObjectSubset(node.props, props), {
     expand,
   });
