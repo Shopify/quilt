@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## Unreleased -->
+## [0.11.3]
+
+### Added
+
+- Extend the return type of the submit handler for `FormState` component to accept a promise of both `void` and `RemoteError[]`. [#736](https://github.com/Shopify/quilt/pull/736)
 
 ## [0.11.2] - 2019-05-22
 
