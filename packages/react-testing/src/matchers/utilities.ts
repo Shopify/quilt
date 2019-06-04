@@ -100,7 +100,11 @@ export function printType(type: string | React.ComponentType<any>) {
   } />`;
 }
 
-function diffPropsForNode(node: Node<any>, props: object, {expand = false}) {
+export function diffPropsForNode(
+  node: Node<any>,
+  props: object,
+  {expand = false},
+) {
   return diff(props, getObjectSubset(node.props, props), {
     expand,
   });
