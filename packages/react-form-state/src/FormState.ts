@@ -22,7 +22,8 @@ type MaybePromise<T> = T | Promise<T>;
 interface SubmitHandler<Fields> {
   (formDetails: FormData<Fields>):
     | MaybePromise<RemoteError[]>
-    | MaybePromise<void>;
+    | MaybePromise<void>
+    | MaybePromise<RemoteError[] | void>;
 }
 
 export type Validator<T, F> = MaybeArray<ValidationFunction<T, F>>;
