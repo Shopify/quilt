@@ -271,6 +271,29 @@ describe('babel-pluin-react-i18n', () => {
       code,
     );
   });
+
+  it('throws when multiple components in a single file request translations', async () => {
+    const code = await normalize(`
+      import React from 'react';
+      import {useI18n} from '@shopify/react-i18n';
+
+      function MyOtherComponent() {
+        const [i18n] = useI18n();
+      }
+
+      export default function MyComponent() {
+        const [i18n] = useI18n();
+        return i18n.translate('key');
+      }
+    `);
+
+    await expect(
+      transform(code, optionsForFile('MyComponent.tsx', true)),
+    ).rejects.toMatchObject({
+      message:
+        'You attempted to use useI18n 2 times in a single file. This is not supported by the Babel plugin that automatically inserts translations.',
+    });
+  });
 });
 
 async function normalize(code: string) {

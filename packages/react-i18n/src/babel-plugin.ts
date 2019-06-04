@@ -47,41 +47,38 @@ export default function injectWithI18nArguments({
     fallbackID,
     insertImport,
   }) {
-    let _hasTranslations: boolean | undefined;
+    const {referencePaths} = binding;
 
-    for (const refPath of binding.referencePaths) {
-      const callExpression: NodePath = refPath.parentPath;
+    const referencePathsToRewrite = referencePaths.filter(referencePath => {
+      const parent: NodePath = referencePath.parentPath;
+      return parent.isCallExpression() && parent.get('arguments').length === 0;
+    });
 
-      if (!callExpression.isCallExpression()) {
-        continue;
-      }
+    if (referencePathsToRewrite.length === 0) {
+      return;
+    }
 
-      const args = callExpression.get('arguments');
-      if (args.length !== 0) {
-        continue;
-      }
-
-      // we lazily apply the hasTranslations logic to avoid
-      // expensive I/O operations unless necessary
-      if (_hasTranslations == null) {
-        _hasTranslations = hasTranslations(filename);
-        if (_hasTranslations) {
-          insertImport();
-        }
-      }
-
-      if (!_hasTranslations) {
-        return;
-      }
-
-      callExpression.replaceWith(
-        i18nCallExpression({
-          id: generateID(filename),
-          fallbackID,
-          bindingName,
-        }),
+    if (referencePathsToRewrite.length > 1) {
+      throw new Error(
+        `You attempted to use ${bindingName} ${
+          referencePathsToRewrite.length
+        } times in a single file. This is not supported by the Babel plugin that automatically inserts translations.`,
       );
     }
+
+    if (!hasTranslations(filename)) {
+      return;
+    }
+
+    insertImport();
+
+    referencePathsToRewrite[0].parentPath.replaceWith(
+      i18nCallExpression({
+        id: generateID(filename),
+        fallbackID,
+        bindingName,
+      }),
+    );
   }
 
   return {
