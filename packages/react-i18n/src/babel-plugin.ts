@@ -49,6 +49,14 @@ export default function injectWithI18nArguments({
   }) {
     let _hasTranslations: boolean | undefined;
 
+    if (binding.referencePaths.length > 1) {
+      throw new Error(
+        `You attempted to use ${bindingName} ${
+          binding.referencePaths.length
+        } times in a single file. This is not supported by the Babel plugin that automatically inserts translations.`,
+      );
+    }
+
     for (const refPath of binding.referencePaths) {
       const callExpression: NodePath = refPath.parentPath;
 
