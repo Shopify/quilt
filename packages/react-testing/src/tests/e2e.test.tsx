@@ -201,4 +201,21 @@ describe('e2e', () => {
 
     expect(myComponent.find(Message)).toHaveReactProps({name: 'world'});
   });
+
+  it('can find context providers', () => {
+    const Context = React.createContext({hello: 'world'});
+    const value = {hello: 'goodbye'};
+
+    function MyComponent() {
+      return (
+        <Context.Provider value={value}>
+          <div />
+        </Context.Provider>
+      );
+    }
+
+    const myComponent = mount(<MyComponent />);
+
+    expect(myComponent).toProvideReactContext(Context, value);
+  });
 });
