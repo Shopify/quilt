@@ -7,9 +7,8 @@ import {
 } from 'jest-matcher-utils';
 import {Props} from '@shopify/useful-types';
 
-import {Element} from '../element';
 import {Node} from './types';
-import {assertIsNode, diffPropsForNode} from './utilities';
+import {assertIsNode, diffs, printType} from './utilities';
 
 export function toContainReactComponent<
   Type extends string | ComponentType<any>
@@ -66,34 +65,4 @@ export function toContainReactComponent<
         }`;
 
   return {pass, message};
-}
-
-function diffs(element: Element<any>[], props: object, expand?: boolean) {
-  return element.reduce<string>(
-    (diffs, element, index) =>
-      `${diffs}${index === 0 ? '' : '\n\n'}${normalizedDiff(element, props, {
-        expand,
-        showLegend: index === 0,
-      })}`,
-    '',
-  );
-}
-
-function normalizedDiff(
-  element: Element<any>,
-  props: object,
-  {expand = false, showLegend = false},
-) {
-  const result =
-    diffPropsForNode(element, props, {
-      expand,
-    }) || '';
-
-  return showLegend ? result : result.split('\n\n')[1];
-}
-
-function printType(type: string | React.ComponentType<any>) {
-  return `<${
-    typeof type === 'string' ? type : type.displayName || type.name
-  } />`;
 }
