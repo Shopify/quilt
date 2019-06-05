@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs';
+import glob from 'glob';
 import {TemplateBuilder} from '@babel/template';
 import * as Types from '@babel/types';
 import {NodePath} from '@babel/traverse';
@@ -22,14 +22,28 @@ export default function injectWithI18nArguments({
     })() as Types.ImportDeclaration;
   }
 
-  function i18nCallExpression({id, fallbackID, bindingName}) {
+  function i18nCallExpression({id, fallbackID, bindingName, translations}) {
     return template(
       `${bindingName}({
         id: '${id}',
         fallback: ${fallbackID},
-        async translations(locale) {
-          const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-          return dictionary && dictionary.default;
+        translations(locale) {
+          const translations = [${translations
+            .filter(locale => !locale.endsWith('en.json'))
+            .map(locale =>
+              JSON.stringify(path.basename(locale, path.extname(locale))),
+            )
+            .sort()
+            .join(', ')}];
+
+          if (translations.indexOf(locale) < 0) {
+            return;
+          }
+
+          return (async () => {
+            const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
+            return dictionary && dictionary.default;
+          })();
         },
       })`,
       {
@@ -66,7 +80,9 @@ export default function injectWithI18nArguments({
       );
     }
 
-    if (!hasTranslations(filename)) {
+    const translations = getTranslations(filename);
+
+    if (translations.length === 0) {
       return;
     }
 
@@ -77,6 +93,7 @@ export default function injectWithI18nArguments({
         id: generateID(filename),
         fallbackID,
         bindingName,
+        translations,
       }),
     );
   }
@@ -129,13 +146,13 @@ export default function injectWithI18nArguments({
   };
 }
 
-function hasTranslations(filename) {
-  const enJSONPath = path.resolve(
-    path.dirname(filename),
-    'translations',
-    'en.json',
+function getTranslations(filename: string): string[] {
+  return glob.sync(
+    path.resolve(path.dirname(filename), 'translations', '*.json'),
+    {
+      nodir: true,
+    },
   );
-  return fs.existsSync(enJSONPath);
 }
 
 // based on postcss-modules implementation
