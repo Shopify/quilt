@@ -438,6 +438,19 @@ expect(myComponent).toContainReactComponent('div', {
 });
 ```
 
+### `.toProvideReactContext<T>(context: Context<T>, value?: T)`
+
+Asserts that at least one `context.Provider` is in the descendants of the passed node. If the second argument is passed, this expectation will further filter the matches by providers whose value is equal to the passed object (again, asymmetric matchers are fully supported).
+
+```tsx
+const MyContext = React.createContext({hello: 'world'});
+const myComponent = mount(<MyComponent />);
+
+expect(myComponent).toProvideReactContext(MyContext, {
+  hello: expect.any(String),
+});
+```
+
 ### `.toContainReactText(text: string)`
 
 Asserts that the rendered output of the component contains the passed string as text content (that is, the text is included in what you would get by calling `textContent` on all root DOM nodes rendered by the component).
