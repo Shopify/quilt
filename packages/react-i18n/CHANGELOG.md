@@ -8,9 +8,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.2.6] - 2019-06-05
+
+### Changed
+
+- The Babel plugin now fails when multiple components in a single file attempt to import translations, as this can cause build issues in Webpack ([#734](https://github.com/Shopify/quilt/pull/734))
+- The Babel plugin now does not attempt to load asynchronous translations for locales do not have dedicated translation files ([#738](https://github.com/Shopify/quilt/pull/738))
+
+## [1.2.5] - 2019-05-31
+
+### Fixed
+
 - Fixes transpilation for `babel-preset-typescript` when the last import pulls in only type definitions ([#699](https://github.com/Shopify/quilt/pull/699))
 
 ## [1.2.3] - 2019-05-09
+
+### Fixed
 
 - Now exports formerly missing typings for `TranslationDictionary` ([#693](https://github.com/Shopify/quilt/pull/693))
 
