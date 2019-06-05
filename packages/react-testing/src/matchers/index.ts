@@ -1,8 +1,9 @@
-import {ComponentType} from 'react';
+import {ComponentType, Context as ReactContext} from 'react';
 import {Props} from '@shopify/useful-types';
 
 import {toHaveReactProps, toHaveReactDataProps} from './props';
 import {toContainReactComponent} from './components';
+import {toProvideReactContext} from './context';
 import {toContainReactText, toContainReactHtml} from './strings';
 import {Node} from './types';
 
@@ -17,6 +18,10 @@ declare global {
         type: Type,
         props?: Partial<Props<Type>>,
       ): void;
+      toProvideReactContext<Type>(
+        context: ReactContext<Type>,
+        value?: Type,
+      ): void;
       toContainReactText(text: string): void;
       toContainReactHtml(text: string): void;
     }
@@ -29,4 +34,5 @@ expect.extend({
   toContainReactComponent,
   toContainReactText,
   toContainReactHtml,
+  toProvideReactContext,
 });

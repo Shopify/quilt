@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs';
+import glob from 'glob';
 import {TemplateBuilder} from '@babel/template';
 import * as Types from '@babel/types';
 import {NodePath} from '@babel/traverse';
@@ -22,14 +22,28 @@ export default function injectWithI18nArguments({
     })() as Types.ImportDeclaration;
   }
 
-  function i18nCallExpression({id, fallbackID, bindingName}) {
+  function i18nCallExpression({id, fallbackID, bindingName, translations}) {
     return template(
       `${bindingName}({
         id: '${id}',
         fallback: ${fallbackID},
-        async translations(locale) {
-          const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-          return dictionary && dictionary.default;
+        translations(locale) {
+          const translations = [${translations
+            .filter(locale => !locale.endsWith('en.json'))
+            .map(locale =>
+              JSON.stringify(path.basename(locale, path.extname(locale))),
+            )
+            .sort()
+            .join(', ')}];
+
+          if (translations.indexOf(locale) < 0) {
+            return;
+          }
+
+          return (async () => {
+            const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
+            return dictionary && dictionary.default;
+          })();
         },
       })`,
       {
@@ -47,41 +61,41 @@ export default function injectWithI18nArguments({
     fallbackID,
     insertImport,
   }) {
-    let _hasTranslations: boolean | undefined;
+    const {referencePaths} = binding;
 
-    for (const refPath of binding.referencePaths) {
-      const callExpression: NodePath = refPath.parentPath;
+    const referencePathsToRewrite = referencePaths.filter(referencePath => {
+      const parent: NodePath = referencePath.parentPath;
+      return parent.isCallExpression() && parent.get('arguments').length === 0;
+    });
 
-      if (!callExpression.isCallExpression()) {
-        continue;
-      }
+    if (referencePathsToRewrite.length === 0) {
+      return;
+    }
 
-      const args = callExpression.get('arguments');
-      if (args.length !== 0) {
-        continue;
-      }
-
-      // we lazily apply the hasTranslations logic to avoid
-      // expensive I/O operations unless necessary
-      if (_hasTranslations == null) {
-        _hasTranslations = hasTranslations(filename);
-        if (_hasTranslations) {
-          insertImport();
-        }
-      }
-
-      if (!_hasTranslations) {
-        return;
-      }
-
-      callExpression.replaceWith(
-        i18nCallExpression({
-          id: generateID(filename),
-          fallbackID,
-          bindingName,
-        }),
+    if (referencePathsToRewrite.length > 1) {
+      throw new Error(
+        `You attempted to use ${bindingName} ${
+          referencePathsToRewrite.length
+        } times in a single file. This is not supported by the Babel plugin that automatically inserts translations.`,
       );
     }
+
+    const translations = getTranslations(filename);
+
+    if (translations.length === 0) {
+      return;
+    }
+
+    insertImport();
+
+    referencePathsToRewrite[0].parentPath.replaceWith(
+      i18nCallExpression({
+        id: generateID(filename),
+        fallbackID,
+        bindingName,
+        translations,
+      }),
+    );
   }
 
   return {
@@ -132,13 +146,13 @@ export default function injectWithI18nArguments({
   };
 }
 
-function hasTranslations(filename) {
-  const enJSONPath = path.resolve(
-    path.dirname(filename),
-    'translations',
-    'en.json',
+function getTranslations(filename: string): string[] {
+  return glob.sync(
+    path.resolve(path.dirname(filename), 'translations', '*.json'),
+    {
+      nodir: true,
+    },
   );
-  return fs.existsSync(enJSONPath);
 }
 
 // based on postcss-modules implementation
