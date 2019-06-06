@@ -27,11 +27,7 @@ export interface Manifest {
   asyncAssets: {[key: string]: AsyncAsset[]};
 }
 
-export interface ConsolidatedManifestEntry {
-  manifest: Manifest;
-}
-
-export type ConsolidatedManifest = ConsolidatedManifestEntry[];
+export type ConsolidatedManifest = Manifest[];
 
 interface Options {
   assetPrefix: string;
@@ -55,7 +51,7 @@ enum AssetKind {
 export default class Assets {
   assetPrefix: string;
   userAgent?: string;
-  private resolvedManifestEntry?: ConsolidatedManifestEntry;
+  private resolvedManifestEntry?: Manifest;
 
   constructor({assetPrefix, userAgent}: Options) {
     this.assetPrefix = assetPrefix;
@@ -142,7 +138,7 @@ export default class Assets {
     } else {
       this.resolvedManifestEntry =
         consolidatedManifest.find(
-          ({manifest: {browsers}}) =>
+          ({browsers}) =>
             browsers == null ||
             matchesUA(userAgent, {
               browsers,
@@ -156,8 +152,9 @@ export default class Assets {
     return this.resolvedManifestEntry;
   }
 
-  private async getResolvedManifest() {
-    return (await this.getResolvedManifestEntry()).manifest;
+  private async getResolvedManifest(): Promise<Manifest> {
+    const manifest = await this.getResolvedManifestEntry();
+    return manifest;
   }
 }
 
