@@ -5,9 +5,9 @@ import Assets, {
   internalOnlyClearCache,
   Asset,
   AsyncAsset,
-  Entrypoint,
   ConsolidatedManifestEntry,
   ConsolidatedManifest,
+  Manifest,
 } from '../assets';
 
 jest.mock('fs-extra', () => ({
@@ -54,9 +54,12 @@ describe('Assets', () => {
         mockConsolidatedManifest([
           mockManifestEntry({
             manifest: mockManifest({
-              main: mockEntrypoint({
-                scripts: [mockAsset(js)],
-              }),
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -74,9 +77,12 @@ describe('Assets', () => {
         mockConsolidatedManifest([
           mockManifestEntry({
             manifest: mockManifest({
-              custom: mockEntrypoint({
-                scripts: [mockAsset(js)],
-              }),
+              entrypoints: {
+                custom: mockEntrypoint({
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -96,17 +102,17 @@ describe('Assets', () => {
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            manifest: mockManifest(
-              {
+            manifest: mockManifest({
+              entrypoints: {
                 custom: mockEntrypoint({
                   scripts: [mockAsset(js)],
                 }),
               },
-              {
+              asyncAssets: {
                 unused: [mockAsyncAsset('/unused.js')],
                 used: [mockAsyncAsset(asyncJs), mockAsyncAsset('/used.css')],
               },
-            ),
+            }),
           }),
         ]),
       );
@@ -133,9 +139,12 @@ describe('Assets', () => {
         mockConsolidatedManifest([
           mockManifestEntry({
             manifest: mockManifest({
-              custom: mockEntrypoint({
-                scripts: [mockAsset(js)],
-              }),
+              entrypoints: {
+                custom: mockEntrypoint({
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -161,9 +170,12 @@ describe('Assets', () => {
         mockConsolidatedManifest([
           mockManifestEntry({
             manifest: mockManifest({
-              main: mockEntrypoint({
-                styles: [mockAsset(css)],
-              }),
+              entrypoints: {
+                main: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -181,9 +193,12 @@ describe('Assets', () => {
         mockConsolidatedManifest([
           mockManifestEntry({
             manifest: mockManifest({
-              custom: mockEntrypoint({
-                styles: [mockAsset(css)],
-              }),
+              entrypoints: {
+                custom: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -203,17 +218,17 @@ describe('Assets', () => {
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            manifest: mockManifest(
-              {
+            manifest: mockManifest({
+              entrypoints: {
                 custom: mockEntrypoint({
                   styles: [mockAsset(css)],
                 }),
               },
-              {
+              asyncAssets: {
                 unused: [mockAsyncAsset('/unused.js')],
                 used: [mockAsyncAsset(asyncCss), mockAsyncAsset('/used.js')],
               },
-            ),
+            }),
           }),
         ]),
       );
@@ -243,17 +258,17 @@ describe('Assets', () => {
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            manifest: mockManifest(
-              {
+            manifest: mockManifest({
+              entrypoints: {
                 custom: mockEntrypoint({
                   styles: [mockAsset(css)],
                   scripts: [mockAsset(js)],
                 }),
               },
-              {
+              asyncAssets: {
                 mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
               },
-            ),
+            }),
           }),
         ]),
       );
@@ -274,13 +289,21 @@ describe('Assets', () => {
   describe('asyncStyles', () => {
     it('returns all async styles for the specified ids', async () => {
       const asyncCss = '/mypage.css';
+      const css = '/main.css';
 
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            manifest: mockManifest(undefined, {
-              other: [mockAsyncAsset('/other.css')],
-              mypage: [mockAsyncAsset(asyncCss)],
+            manifest: mockManifest({
+              entrypoints: {
+                main: mockEntrypoint({
+                  styles: [mockAsset(css)],
+                }),
+              },
+              asyncAssets: {
+                other: [mockAsyncAsset('/other.css')],
+                mypage: [mockAsyncAsset(asyncCss)],
+              },
             }),
           }),
         ]),
@@ -297,13 +320,21 @@ describe('Assets', () => {
   describe('asyncScripts', () => {
     it('returns all async styles for the specified ids', async () => {
       const asyncJs = '/mypage.js';
+      const js = '/main.js';
 
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            manifest: mockManifest(undefined, {
-              other: [mockAsyncAsset('/other.js')],
-              mypage: [mockAsyncAsset(asyncJs)],
+            manifest: mockManifest({
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(js)],
+                }),
+              },
+              asyncAssets: {
+                other: [mockAsyncAsset('/other.js')],
+                mypage: [mockAsyncAsset(asyncJs)],
+              },
             }),
           }),
         ]),
@@ -327,17 +358,17 @@ describe('Assets', () => {
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            manifest: mockManifest(
-              {
+            manifest: mockManifest({
+              entrypoints: {
                 custom: mockEntrypoint({
                   styles: [mockAsset(css)],
                   scripts: [mockAsset(js)],
                 }),
               },
-              {
+              asyncAssets: {
                 mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
               },
-            ),
+            }),
           }),
         ]),
       );
@@ -362,16 +393,22 @@ describe('Assets', () => {
         mockConsolidatedManifest([
           mockManifestEntry({
             manifest: mockManifest({
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptOne)],
-              }),
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(scriptOne)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
           mockManifestEntry({
             manifest: mockManifest({
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptTwo)],
-              }),
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(scriptTwo)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -386,19 +423,25 @@ describe('Assets', () => {
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            browsers: ['firefox > 1'],
             manifest: mockManifest({
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptOne)],
-              }),
+              browsers: ['firefox > 1'],
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(scriptOne)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
           mockManifestEntry({
-            browsers: ['safari > 1'],
             manifest: mockManifest({
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptTwo)],
-              }),
+              browsers: ['safari > 1'],
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(scriptTwo)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -413,19 +456,25 @@ describe('Assets', () => {
       readJson.mockImplementation(() =>
         mockConsolidatedManifest([
           mockManifestEntry({
-            browsers: ['chrome > 60'],
             manifest: mockManifest({
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptOne)],
-              }),
+              browsers: ['chrome > 60'],
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(scriptOne)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
           mockManifestEntry({
-            browsers: ['chrome > 1'],
             manifest: mockManifest({
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptTwo)],
-              }),
+              browsers: ['chrome > 1'],
+              entrypoints: {
+                main: mockEntrypoint({
+                  scripts: [mockAsset(scriptTwo)],
+                }),
+              },
+              asyncAssets: {},
             }),
           }),
         ]),
@@ -456,19 +505,27 @@ function mockEntrypoint({
   return {js: scripts, css: styles};
 }
 
-function mockManifest(
-  entrypoints: {[key: string]: Entrypoint} = {},
-  asyncAssets: {[key: string]: AsyncAsset[]} = {},
-) {
-  return {entrypoints, asyncAssets};
+function mockManifest({
+  name = 'mockedManifest',
+  browsers,
+  entrypoints,
+  asyncAssets,
+}: Manifest) {
+  return {
+    name,
+    browsers,
+    entrypoints,
+    asyncAssets,
+  };
 }
 
 function mockManifestEntry({
-  name = 'bundle',
-  browsers,
-  manifest = mockManifest({main: mockEntrypoint()}),
+  manifest = mockManifest({
+    entrypoints: {main: mockEntrypoint()},
+    asyncAssets: {},
+  }),
 }: Partial<ConsolidatedManifestEntry> = {}) {
-  return {name, browsers, manifest};
+  return {manifest};
 }
 
 function mockConsolidatedManifest(

@@ -21,7 +21,7 @@ export interface AsyncAsset {
 }
 
 export interface Manifest {
-  name: string;
+  name?: string;
   browsers?: string[];
   entrypoints: {[key: string]: Entrypoint};
   asyncAssets: {[key: string]: AsyncAsset[]};
@@ -122,8 +122,8 @@ export default class Assets {
     }
 
     const consolidatedManifest = await loadConsolidatedManifest();
-
     const {userAgent} = this;
+
     const lastManifestEntry =
       consolidatedManifest[consolidatedManifest.length - 1];
 
