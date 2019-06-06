@@ -139,8 +139,12 @@ function translateWithDictionary(
     const count = replacements[PLURALIZATION_KEY_NAME];
 
     if (typeof count === 'number') {
-      const group = new Intl.PluralRules(locale).select(count);
-      result = result[group];
+      const group =
+        count === 0 && typeof result.zero === 'string'
+          ? 'zero'
+          : new Intl.PluralRules(locale).select(count);
+
+      result = result[group] || result.other;
 
       additionalReplacements[PLURALIZATION_KEY_NAME] = new Intl.NumberFormat(
         locale,

@@ -166,10 +166,26 @@ describe('translate()', () => {
 
         expect(
           translate('foo', {replacements: {count: 0}}, dictionary, locale),
-        ).toBe('0 foos');
+        ).toBe('no foo');
         expect(
           translate('foo', {replacements: {count: 0}}, dictionary, 'cy'),
         ).toBe('no foo');
+      });
+
+      it('handles a count of zero key when zero does not exist on dictionary', () => {
+        const dictionary = {
+          foo: {
+            one: '{count} foo',
+            other: '{count} foos',
+          },
+        };
+
+        expect(
+          translate('foo', {replacements: {count: 0}}, dictionary, locale),
+        ).toBe('0 foos');
+        expect(
+          translate('foo', {replacements: {count: 0}}, dictionary, 'cy'),
+        ).toBe('0 foos');
       });
 
       it('formats the replacement `count`', () => {
