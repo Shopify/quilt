@@ -1,6 +1,7 @@
 import faker from 'faker';
 import {Header} from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
+import {setAssets} from '@shopify/sewing-kit-koa';
 import {
   Cache,
   CacheMissBehavior,
@@ -63,7 +64,7 @@ describe('persistedGraphQLMiddleware', () => {
     const id = faker.random.uuid();
     const query = createQuery();
     const ctx = createContext({id, persisted: true});
-    ctx.state.assets = {graphQLSource: () => Promise.resolve(query)};
+    setAssets(ctx, {graphQLSource: () => Promise.resolve(query)});
 
     const spy = jest.fn();
     const persistedGraphQLMiddleware = createPersistedGraphQLMiddleware();
@@ -78,7 +79,7 @@ describe('persistedGraphQLMiddleware', () => {
     const id = faker.random.uuid();
     const query = createQuery();
     const ctx = createContext({id, persisted: true});
-    ctx.state.assets = {graphQLSource: () => Promise.resolve(query)};
+    setAssets(ctx, {graphQLSource: () => Promise.resolve(query)});
 
     const cache = createCache();
     const persistedGraphQLMiddleware = createPersistedGraphQLMiddleware({

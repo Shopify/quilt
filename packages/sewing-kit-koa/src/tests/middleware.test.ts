@@ -1,6 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {Header} from '@shopify/network';
-import middleware from '../middleware';
+import middleware, {getAssets} from '../middleware';
 import Assets from '../assets';
 
 describe('middleware', () => {
@@ -9,15 +9,14 @@ describe('middleware', () => {
     const context = createMockContext();
     await middleware({assetPrefix})(context, () => Promise.resolve());
 
-    expect(context.state).toHaveProperty('assets');
-    expect(context.state.assets).toBeInstanceOf(Assets);
-    expect(context.state.assets).toHaveProperty('assetPrefix', assetPrefix);
+    expect(getAssets(context)).toBeInstanceOf(Assets);
+    expect(getAssets(context)).toHaveProperty('assetPrefix', assetPrefix);
   });
 
   it('defaults the asset host to Sewing Kit’s dev server', async () => {
     const context = createMockContext();
     await middleware()(context, () => Promise.resolve());
-    expect(context.state.assets).toHaveProperty(
+    expect(getAssets(context)).toHaveProperty(
       'assetPrefix',
       'http://localhost:8080/webpack/assets/',
     );
@@ -26,7 +25,7 @@ describe('middleware', () => {
   it('defaults the asset host to /assets/ when serveAssets is true', async () => {
     const context = createMockContext();
     await middleware({serveAssets: true})(context, () => Promise.resolve());
-    expect(context.state.assets).toHaveProperty('assetPrefix', '/assets/');
+    expect(getAssets(context)).toHaveProperty('assetPrefix', '/assets/');
   });
 
   it('passes the userAgent to the asset', async () => {
@@ -37,7 +36,7 @@ describe('middleware', () => {
     });
 
     await middleware({serveAssets: true})(context, () => Promise.resolve());
-    expect(context.state.assets).toHaveProperty('userAgent', userAgent);
+    expect(getAssets(context)).toHaveProperty('userAgent', userAgent);
   });
 
   it('calls the next middleware', async () => {
