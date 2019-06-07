@@ -12,6 +12,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Breaking change
 
 - Updates middleware's manifest parsing to support manifest changes made in [`@shopify/sewing-kit`](https://github.com/Shopify/sewing-kit/pull/1265) [#740](https://github.com/Shopify/quilt/pull/740)
+  - **Requires a minimum version of `@shopify/sewing-kit@0.86.0`**
 
 ## 3.3.0 - 2019-05-01
 

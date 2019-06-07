@@ -61,7 +61,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(js)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -82,7 +81,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(js)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -140,7 +138,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(js)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -169,7 +166,6 @@ describe('Assets', () => {
                 styles: [mockAsset(css)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -190,7 +186,6 @@ describe('Assets', () => {
                 styles: [mockAsset(css)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -378,7 +373,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(scriptOne)],
               }),
             },
-            asyncAssets: {},
           }),
 
           mockManifest({
@@ -387,7 +381,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(scriptTwo)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -407,7 +400,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(scriptOne)],
               }),
             },
-            asyncAssets: {},
           }),
 
           mockManifest({
@@ -417,7 +409,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(scriptTwo)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -437,7 +428,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(scriptOne)],
               }),
             },
-            asyncAssets: {},
           }),
           mockManifest({
             browsers: ['chrome > 1'],
@@ -446,7 +436,6 @@ describe('Assets', () => {
                 scripts: [mockAsset(scriptTwo)],
               }),
             },
-            asyncAssets: {},
           }),
         ]),
       );
@@ -479,9 +468,9 @@ function mockEntrypoint({
 function mockManifest({
   name = 'mockedManifest',
   browsers,
-  entrypoints,
-  asyncAssets,
-}: Manifest) {
+  entrypoints = {},
+  asyncAssets = {},
+}: Partial<Manifest>): Manifest {
   return {
     name,
     browsers,
