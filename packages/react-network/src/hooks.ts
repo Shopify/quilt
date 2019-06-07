@@ -22,6 +22,15 @@ export function useCspDirective(
   useNetworkEffect(network => network.addCspDirective(directive, source));
 }
 
+export function useRequestHeader(header: string) {
+  const network = useContext(NetworkContext);
+  return network ? network.getHeader(header) : undefined;
+}
+
+export function useHeader(header: string, value: string) {
+  useNetworkEffect(network => network.setHeader(header, value));
+}
+
 export function useStatus(code: StatusCode) {
   useNetworkEffect(network => network.addStatusCode(code));
 }

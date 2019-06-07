@@ -58,6 +58,22 @@ describe('server', () => {
     });
   });
 
+  describe('headers', () => {
+    it('can set arbitrary headers', () => {
+      const manager = new NetworkManager();
+      const ctx = createMockContext();
+      const spy = jest.spyOn(ctx, 'set');
+
+      const header = 'X-Cool-Stuff';
+      const value = 'true';
+
+      manager.setHeader(header, value);
+      applyToContext(ctx, manager);
+
+      expect(spy).toHaveBeenCalledWith(header, value);
+    });
+  });
+
   describe('csp', () => {
     it('does not set a CSP header if no directives were set', () => {
       const manager = new NetworkManager();
