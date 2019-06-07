@@ -1,7 +1,7 @@
 import {Context} from 'koa';
 import compose from 'koa-compose';
 import bodyparser from 'koa-bodyparser';
-import {State} from '@shopify/sewing-kit-koa';
+import {getAssets} from '@shopify/sewing-kit-koa';
 
 import {CacheMissBehavior} from './shared';
 
@@ -63,7 +63,8 @@ function createOperationAssociationMiddleware({
       return;
     }
 
-    const {assets} = ctx.state as State;
+    const assets = getAssets(ctx);
+
     const operationFromManifest =
       assets != null && assets.graphQLSource != null
         ? await assets.graphQLSource(id)
