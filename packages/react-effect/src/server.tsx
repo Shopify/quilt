@@ -66,40 +66,45 @@ export function extract(
       await manager.resolve();
 
       const resolveDuration = Date.now() - resolveStart;
+      let performNextPass = true;
 
-      await manager.betweenEachPass({
-        index,
-        finished: false,
-        renderDuration,
-        resolveDuration,
-      });
+      performNextPass =
+        (await manager.betweenEachPass({
+          index,
+          finished: false,
+          renderDuration,
+          resolveDuration,
+        })) && performNextPass;
 
       if (betweenEachPass) {
-        await betweenEachPass({
+        performNextPass =
+          (await betweenEachPass({
+            index,
+            finished: false,
+            renderDuration,
+            resolveDuration,
+          })) && performNextPass;
+      }
+
+      performNextPass =
+        (await manager.afterEachPass({
           index,
           finished: false,
           renderDuration,
           resolveDuration,
-        });
-      }
-
-      await manager.afterEachPass({
-        index,
-        finished: false,
-        renderDuration,
-        resolveDuration,
-      });
+        })) && performNextPass;
 
       if (afterEachPass) {
-        await afterEachPass({
-          index,
-          finished: false,
-          renderDuration,
-          resolveDuration,
-        });
+        performNextPass =
+          (await afterEachPass({
+            index,
+            finished: false,
+            renderDuration,
+            resolveDuration,
+          })) && performNextPass;
       }
 
-      if (index + 1 >= maxPasses) {
+      if (index + 1 >= maxPasses || !performNextPass) {
         return result;
       }
 
