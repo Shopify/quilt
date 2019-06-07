@@ -1,5 +1,5 @@
-import memoizeFn from 'lodash/memoize';
-import {memoize} from '@shopify/javascript-utilities/decorators';
+import {memoize as memoizeFn} from '@shopify/function-enhancers';
+import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import {
   I18nDetails,
