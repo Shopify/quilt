@@ -11,13 +11,19 @@ import Assets, {Asset} from './assets';
 
 export {Assets, Asset};
 
-export interface State {
-  assets: Assets;
-}
-
 export interface Options {
   assetPrefix?: string;
   serveAssets?: boolean;
+}
+
+const ASSETS = Symbol('assets');
+
+export function getAssets(ctx: Context): Assets {
+  return ctx.state[ASSETS];
+}
+
+export function setAssets(ctx: Context, assets: Assets) {
+  ctx.state[ASSETS] = assets;
 }
 
 export default function middleware({
@@ -29,7 +35,9 @@ export default function middleware({
       assetPrefix,
       userAgent: ctx.get(Header.UserAgent),
     });
-    ctx.state.assets = assets;
+
+    setAssets(ctx, assets);
+
     await next();
   }
 
