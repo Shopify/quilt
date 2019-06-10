@@ -90,7 +90,7 @@ export default function useQuery<
       return;
     }
 
-    const result = queryObservable.currentResult();
+    const result = queryObservable.getCurrentResult();
     return result.loading ? queryObservable.result() : undefined;
   });
 
@@ -143,7 +143,7 @@ export default function useQuery<
         };
       }
 
-      const result = queryObservable.currentResult();
+      const result = queryObservable.getCurrentResult();
       const {fetchPolicy} = queryObservable.options;
 
       const hasError = result.errors && result.errors.length > 0;
