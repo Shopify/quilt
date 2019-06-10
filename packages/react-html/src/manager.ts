@@ -9,6 +9,8 @@ export interface State {
   title?: string;
   metas: React.HTMLProps<HTMLMetaElement>[];
   links: React.HTMLProps<HTMLLinkElement>[];
+  bodyAttributes: React.HTMLProps<HTMLBodyElement>;
+  htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>;
 }
 
 interface Subscription {
@@ -27,6 +29,8 @@ export class HtmlManager {
   private titles: Title[] = [];
   private metas: React.HTMLProps<HTMLMetaElement>[] = [];
   private links: React.HTMLProps<HTMLLinkElement>[] = [];
+  private htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>[] = [];
+  private bodyAttributes: React.HTMLProps<HTMLBodyElement>[] = [];
   private subscriptions = new Set<Subscription>();
 
   get state(): State {
@@ -36,6 +40,8 @@ export class HtmlManager {
       title: lastTitle && lastTitle.title,
       metas: this.metas,
       links: this.links,
+      bodyAttributes: Object.assign({}, ...this.bodyAttributes),
+      htmlAttributes: Object.assign({}, ...this.htmlAttributes),
     };
   }
 
@@ -74,6 +80,18 @@ export class HtmlManager {
     this.links.push(link);
     this.updateSubscriptions();
     return this.removeLink.bind(this, link);
+  }
+
+  addHtmlAttributes(attributes: React.HtmlHTMLAttributes<HTMLHtmlElement>) {
+    this.htmlAttributes.push(attributes);
+    this.updateSubscriptions();
+    return this.removeHtmlAttributes.bind(this, attributes);
+  }
+
+  addBodyAttributes(attributes: React.HTMLProps<HTMLBodyElement>) {
+    this.bodyAttributes.push(attributes);
+    this.updateSubscriptions();
+    return this.removeBodyAttributes.bind(this, attributes);
   }
 
   setSerialization(id: string, data: unknown) {
@@ -120,6 +138,26 @@ export class HtmlManager {
     const index = this.links.indexOf(link);
     if (index >= 0) {
       this.links.splice(index, 1);
+      this.updateSubscriptions();
+    }
+  }
+
+  private removeHtmlAttributes(
+    attributes: React.HtmlHTMLAttributes<HTMLHtmlElement>,
+  ) {
+    const index = this.htmlAttributes.indexOf(attributes);
+
+    if (index >= 0) {
+      this.htmlAttributes.splice(index, 1);
+      this.updateSubscriptions();
+    }
+  }
+
+  private removeBodyAttributes(attributes: React.HTMLProps<HTMLBodyElement>) {
+    const index = this.bodyAttributes.indexOf(attributes);
+
+    if (index >= 0) {
+      this.bodyAttributes.splice(index, 1);
       this.updateSubscriptions();
     }
   }

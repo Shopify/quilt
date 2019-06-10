@@ -244,6 +244,14 @@ Renders a `<link />` tag with the necessary props to specify a favicon. Accepts 
 
 Renders a `<link />` tag that preconnects the browser to the host specified by the `source` prop. You can read more about preconnecting on [Google’s guide to resource prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization#preconnect).
 
+### `useBodyAttributes()` and `<BodyAttributes />`
+
+Applies the provided props as props on the `body` element. If multiple uses of this hook/ component are present in the application, they are flattened from first to last added.
+
+### `useHtmlAttributes()` and `<HtmlAttributes />`
+
+Applies the provided props as props on the `html` element. If multiple uses of this hook/ component are present in the application, they are flattened from first to last added.
+
 ### `<Responsive />`
 
 Renders a `<Meta />` tag that specifies additional functionality and dimensions to mobile devices. Accepts a `coverNotch` property which allows the viewport to fill the device display, and an `allowPinchToZoom` property to the allow the app to be zoomed-in. Both properties default to `true`.

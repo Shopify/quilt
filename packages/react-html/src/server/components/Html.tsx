@@ -104,12 +104,20 @@ export default function Html({
     );
   });
 
-  const bodyStyles: {visibility: 'hidden'} | undefined =
-    // eslint-disable-next-line no-process-env
-    process.env.NODE_ENV === 'development' ? {visibility: 'hidden'} : undefined;
+  const htmlAttributes = extracted ? extracted.htmlAttributes : {};
+  const bodyAttributes = extracted ? extracted.bodyAttributes : {};
+
+  // eslint-disable-next-line no-process-env
+  if (process.env.NODE_ENV === 'development') {
+    if (bodyAttributes.style == null) {
+      bodyAttributes.style = {visibility: 'hidden'};
+    } else {
+      bodyAttributes.style.visibility = 'hidden';
+    }
+  }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} {...htmlAttributes}>
       <head>
         {titleMarkup}
         <meta charSet="utf-8" />
@@ -124,7 +132,7 @@ export default function Html({
         {deferredScriptsMarkup}
       </head>
 
-      <body style={bodyStyles}>
+      <body {...bodyAttributes}>
         <div id="app" dangerouslySetInnerHTML={{__html: markup}} />
 
         {bodyMarkup}
