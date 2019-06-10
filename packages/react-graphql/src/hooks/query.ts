@@ -162,7 +162,7 @@ export default function useQuery<
         fetchPolicy === 'no-cache' &&
         Object.keys(result.data).length === 0
       ) {
-        data = previousData;
+        data = previousData.current;
       } else {
         previousData.current = result.data;
       }
