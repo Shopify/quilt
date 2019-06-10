@@ -123,9 +123,9 @@ export default function useQuery<
     [skip, queryObservable],
   );
 
-  const previousData = useRef<
-    QueryHookResult<Data, Variables>['data'] | undefined
-  >(undefined);
+  const previousData = useRef<QueryHookResult<Data, Variables>['data']>(
+    undefined,
+  );
 
   const currentResult = useMemo<QueryHookResult<Data, Variables>>(
     () => {
@@ -147,7 +147,7 @@ export default function useQuery<
       const {fetchPolicy} = queryObservable.options;
 
       const hasError = result.errors && result.errors.length > 0;
-      let data = result.data;
+      let data: QueryHookResult<Data, Variables>['data'] = result.data;
       if (result.loading) {
         data =
           previousData.current || (result && result.data)
