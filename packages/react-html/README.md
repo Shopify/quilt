@@ -246,11 +246,11 @@ Renders a `<link />` tag that preconnects the browser to the host specified by t
 
 ### `useBodyAttributes()` and `<BodyAttributes />`
 
-Applies the provided props as props on the `body` element. If multiple uses of this hook/ component are present in the application, they are flattened from first to last added.
+Applies the provided props as props on the `body` element during server rendering. If multiple uses of this hook/ component are present in the application, they are flattened from first to last added.
 
 ### `useHtmlAttributes()` and `<HtmlAttributes />`
 
-Applies the provided props as props on the `html` element. If multiple uses of this hook/ component are present in the application, they are flattened from first to last added.
+Applies the provided props as props on the `html` element during server rendering. If multiple uses of this hook/ component are present in the application, they are flattened from first to last added.
 
 ### `<Responsive />`
 
