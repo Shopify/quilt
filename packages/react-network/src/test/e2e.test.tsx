@@ -17,28 +17,26 @@ import {NetworkContext, NetworkManager} from '../server';
 describe('e2e', () => {
   it('clears network details between requests', async () => {
     const networkManager = new NetworkManager();
-    const TwoPass = createMultiPassComponent(2);
+    const TwoPass = createMultiPassComponent(2, pass => {
+      // This function only adds network details on the first pass,
+      // which lets us verify that it was cleared out when the second pass
+      // has finished.
+      if (pass > 0) {
+        return;
+      }
 
-    function Network() {
       useStatus(StatusCode.NotFound);
       useCspDirective(CspDirective.ChildSrc, 'https://*');
       useHeader(Header.CacheControl, 'no-cache');
-      return null;
-    }
+    });
 
-    await extract(
-      <>
-        <TwoPass />
-        <Network />
-      </>,
-      {
-        decorate: element => (
-          <NetworkContext.Provider value={networkManager}>
-            {element}
-          </NetworkContext.Provider>
-        ),
-      },
-    );
+    await extract(<TwoPass />, {
+      decorate: element => (
+        <NetworkContext.Provider value={networkManager}>
+          {element}
+        </NetworkContext.Provider>
+      ),
+    });
 
     const extracted = networkManager.extract();
     expect(extracted).toHaveProperty('headers.size', 0);
@@ -47,36 +45,33 @@ describe('e2e', () => {
 
   it('bails out when a redirect is set', async () => {
     const networkManager = new NetworkManager();
-    const InfinitePass = createMultiPassComponent(Infinity);
     const afterEachPass = jest.fn();
 
-    function Network() {
+    const InfinitePass = createMultiPassComponent(Infinity, () => {
       useRedirect('https://example.com');
-      return null;
-    }
+    });
 
-    await extract(
-      <>
-        <InfinitePass />
-        <Network />
-      </>,
-      {
-        decorate: element => (
-          <NetworkContext.Provider value={networkManager}>
-            {element}
-          </NetworkContext.Provider>
-        ),
-      },
-    );
+    await extract(<InfinitePass />, {
+      afterEachPass,
+      decorate: element => (
+        <NetworkContext.Provider value={networkManager}>
+          {element}
+        </NetworkContext.Provider>
+      ),
+    });
 
     expect(afterEachPass).toHaveBeenCalledTimes(1);
   });
 });
 
-function createMultiPassComponent(passes: number) {
+function createMultiPassComponent(
+  passes: number,
+  hookUsage: (pass: number) => void,
+) {
   let renderCount = 0;
 
-  return function TwoPass() {
+  return function MultiPass() {
+    hookUsage(renderCount);
     useServerEffect(() => {
       renderCount += 1;
       return renderCount < passes ? Promise.resolve() : undefined;

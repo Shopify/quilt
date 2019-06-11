@@ -17,8 +17,12 @@ export class NetworkManager {
   readonly effect: EffectKind = {
     id: EFFECT_ID,
     betweenEachPass: () => {
-      this.reset();
-      return this.redirectUrl == null;
+      if (this.redirectUrl == null) {
+        this.reset();
+        return true;
+      } else {
+        return false;
+      }
     },
   };
 
