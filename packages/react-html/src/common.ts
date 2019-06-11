@@ -9,5 +9,7 @@ export {
   useFavicon,
   useLink,
   useMeta,
+  useBodyAttributes,
+  useHtmlAttributes,
 } from './hooks';
 export {createSerializer, useSerialized} from './serializer';
