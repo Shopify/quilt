@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Added missing dependency for memoize function ([#746](https://github.com/Shopify/quilt/pull/746))
+
 ## [1.2.6] - 2019-06-05
 
 ### Changed
