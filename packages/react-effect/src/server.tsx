@@ -69,39 +69,47 @@ export function extract(
       let performNextPass = true;
 
       performNextPass =
-        (await manager.betweenEachPass({
-          index,
-          finished: false,
-          renderDuration,
-          resolveDuration,
-        })) && performNextPass;
+        shouldContinue(
+          await manager.betweenEachPass({
+            index,
+            finished: false,
+            renderDuration,
+            resolveDuration,
+          }),
+        ) && performNextPass;
 
       if (betweenEachPass) {
         performNextPass =
-          (await betweenEachPass({
-            index,
-            finished: false,
-            renderDuration,
-            resolveDuration,
-          })) && performNextPass;
+          shouldContinue(
+            await betweenEachPass({
+              index,
+              finished: false,
+              renderDuration,
+              resolveDuration,
+            }),
+          ) && performNextPass;
       }
 
       performNextPass =
-        (await manager.afterEachPass({
-          index,
-          finished: false,
-          renderDuration,
-          resolveDuration,
-        })) && performNextPass;
-
-      if (afterEachPass) {
-        performNextPass =
-          (await afterEachPass({
+        shouldContinue(
+          await manager.afterEachPass({
             index,
             finished: false,
             renderDuration,
             resolveDuration,
-          })) && performNextPass;
+          }),
+        ) && performNextPass;
+
+      if (afterEachPass) {
+        performNextPass =
+          shouldContinue(
+            await afterEachPass({
+              index,
+              finished: false,
+              renderDuration,
+              resolveDuration,
+            }),
+          ) && performNextPass;
       }
 
       if (index + 1 >= maxPasses || !performNextPass) {
@@ -111,6 +119,10 @@ export function extract(
       return perform(index + 1);
     }
   })();
+}
+
+function shouldContinue(result: unknown) {
+  return result !== false;
 }
 
 function identity<T>(value: T): T {
