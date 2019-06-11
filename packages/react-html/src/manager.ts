@@ -64,34 +64,23 @@ export class HtmlManager {
   }
 
   addTitle(title: string) {
-    const titleObject = {title};
-    this.titles.push(titleObject);
-    this.updateSubscriptions();
-    return this.removeTitle.bind(this, titleObject);
+    return this.addDescriptor({title}, this.titles);
   }
 
   addMeta(meta: React.HTMLProps<HTMLMetaElement>) {
-    this.metas.push(meta);
-    this.updateSubscriptions();
-    return this.removeMeta.bind(this, meta);
+    return this.addDescriptor(meta, this.metas);
   }
 
   addLink(link: React.HTMLProps<HTMLLinkElement>) {
-    this.links.push(link);
-    this.updateSubscriptions();
-    return this.removeLink.bind(this, link);
+    return this.addDescriptor(link, this.links);
   }
 
   addHtmlAttributes(attributes: React.HtmlHTMLAttributes<HTMLHtmlElement>) {
-    this.htmlAttributes.push(attributes);
-    this.updateSubscriptions();
-    return this.removeHtmlAttributes.bind(this, attributes);
+    return this.addDescriptor(attributes, this.htmlAttributes);
   }
 
   addBodyAttributes(attributes: React.HTMLProps<HTMLBodyElement>) {
-    this.bodyAttributes.push(attributes);
-    this.updateSubscriptions();
-    return this.removeBodyAttributes.bind(this, attributes);
+    return this.addDescriptor(attributes, this.bodyAttributes);
   }
 
   setSerialization(id: string, data: unknown) {
@@ -112,53 +101,22 @@ export class HtmlManager {
     };
   }
 
+  private addDescriptor<T>(item: T, list: T[]) {
+    list.push(item);
+    this.updateSubscriptions();
+
+    return () => {
+      const index = list.indexOf(item);
+      if (index >= 0) {
+        list.splice(index, 1);
+        this.updateSubscriptions();
+      }
+    };
+  }
+
   private updateSubscriptions() {
     for (const subscription of this.subscriptions) {
       subscription(this.state);
-    }
-  }
-
-  private removeTitle(title: Title) {
-    const index = this.titles.indexOf(title);
-    if (index >= 0) {
-      this.titles.splice(index, 1);
-      this.updateSubscriptions();
-    }
-  }
-
-  private removeMeta(meta: React.HTMLProps<HTMLMetaElement>) {
-    const index = this.metas.indexOf(meta);
-    if (index >= 0) {
-      this.metas.splice(index, 1);
-      this.updateSubscriptions();
-    }
-  }
-
-  private removeLink(link: React.HTMLProps<HTMLLinkElement>) {
-    const index = this.links.indexOf(link);
-    if (index >= 0) {
-      this.links.splice(index, 1);
-      this.updateSubscriptions();
-    }
-  }
-
-  private removeHtmlAttributes(
-    attributes: React.HtmlHTMLAttributes<HTMLHtmlElement>,
-  ) {
-    const index = this.htmlAttributes.indexOf(attributes);
-
-    if (index >= 0) {
-      this.htmlAttributes.splice(index, 1);
-      this.updateSubscriptions();
-    }
-  }
-
-  private removeBodyAttributes(attributes: React.HTMLProps<HTMLBodyElement>) {
-    const index = this.bodyAttributes.indexOf(attributes);
-
-    if (index >= 0) {
-      this.bodyAttributes.splice(index, 1);
-      this.updateSubscriptions();
     }
   }
 }
