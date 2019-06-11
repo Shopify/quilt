@@ -180,7 +180,7 @@ describe('<Html />', () => {
     it('renders serializations', () => {
       const id = 'MySerialization';
       const data = {foo: 'bar'};
-      const manager = new HtmlManager({isServer: true});
+      const manager = new HtmlManager();
       manager.setSerialization(id, data);
 
       const html = mount(<Html {...mockProps} manager={manager} />);
@@ -235,6 +235,26 @@ describe('<Html />', () => {
       expect(links).toHaveLength(2);
       expect(links[0]).toHaveReactProps(linkOne);
       expect(links[1]).toHaveReactProps(linkTwo);
+    });
+
+    it('renders html attributes', () => {
+      const htmlProps = {lang: 'fr'};
+      const manager = new HtmlManager();
+      manager.addHtmlAttributes(htmlProps);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+
+      expect(html).toContainReactComponent('html', htmlProps);
+    });
+
+    it('renders body attributes', () => {
+      const bodyProps = {className: 'beautiful'};
+      const manager = new HtmlManager();
+      manager.addBodyAttributes(bodyProps);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+
+      expect(html).toContainReactComponent('body', bodyProps);
     });
   });
 });

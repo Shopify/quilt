@@ -1,5 +1,6 @@
 import {useEffect, useContext} from 'react';
 import {useServerEffect} from '@shopify/react-effect';
+import {FirstArgument} from '@shopify/useful-types';
 
 import {HtmlContext} from './context';
 import {HtmlManager} from './manager';
@@ -46,6 +47,18 @@ export function useFavicon(source: string) {
       href: source,
     }),
   );
+}
+
+export function useHtmlAttributes(
+  htmlAttributes: FirstArgument<HtmlManager['addHtmlAttributes']>,
+) {
+  useDomEffect(manager => manager.addHtmlAttributes(htmlAttributes));
+}
+
+export function useBodyAttributes(
+  bodyAttributes: FirstArgument<HtmlManager['addBodyAttributes']>,
+) {
+  useDomEffect(manager => manager.addBodyAttributes(bodyAttributes));
 }
 
 export function useClientDomEffect(
