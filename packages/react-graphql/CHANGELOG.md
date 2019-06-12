@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.4.1] - 2019-06-12
+
 ### Fixed
 
 - `useQuery` now returns `undefined` instead of an empty object `{}` when there's no data ([#751](https://github.com/Shopify/quilt/pull/751))
