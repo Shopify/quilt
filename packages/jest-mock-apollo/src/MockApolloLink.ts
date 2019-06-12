@@ -10,6 +10,7 @@ import {
   isObjectType,
   isNonNullType,
   isUnionType,
+  OperationDefinitionNode,
 } from 'graphql';
 import {compile, Field} from 'graphql-tool-utilities';
 import {GraphQLMock, MockGraphQLFunction} from './types';
@@ -60,8 +61,11 @@ export default class MockApolloLink extends ApolloLink {
             ' (you provided a function that did not return a valid mock result)';
         }
 
-        const error = new Error(message);
-        result = error;
+        if (isMutation(operation)) {
+          result = {errors: [new GraphQLError(message)]};
+        } else {
+          result = new Error(message);
+        }
       } else if (response instanceof Error) {
         result = {errors: [new GraphQLError(response.message)]};
       } else {
@@ -74,7 +78,11 @@ export default class MockApolloLink extends ApolloLink {
             ),
           };
         } catch (error) {
-          result = error;
+          if (isMutation(operation)) {
+            result = {errors: [error]};
+          } else {
+            result = error;
+          }
         }
       }
 
@@ -160,4 +168,12 @@ function rootType(type: GraphQLType) {
   }
 
   return finalType;
+}
+
+function isMutation(operation: Operation) {
+  const [definition] = operation.query.definitions;
+  return (
+    definition &&
+    (definition as OperationDefinitionNode).operation === 'mutation'
+  );
 }

@@ -15,3 +15,7 @@ union Pet = Dog | Cat
 type QueryRoot {
   pets: [Pet!]!
 }
+
+type Mutation {
+  haveBirthday(wasFun: Boolean!): Pet!
+}

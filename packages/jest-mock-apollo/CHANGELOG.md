@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## Unreleased
+
+- Unmocked mutation information now propagates to the console in Jest environments
+
 ## 2.2.5 - 2019-01-09
 
 - Start of Changelog

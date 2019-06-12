@@ -1,0 +1,5 @@
+mutation HappyPetBirthdayMutation {
+  haveBirthday(fun: true) {
+    hadFunBirthday
+  }
+}
