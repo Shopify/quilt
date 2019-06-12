@@ -90,7 +90,7 @@ export default function useQuery<
       return;
     }
 
-    const result = queryObservable.currentResult();
+    const result = queryObservable.getCurrentResult();
     return result.loading ? queryObservable.result() : undefined;
   });
 
@@ -123,9 +123,9 @@ export default function useQuery<
     [skip, queryObservable],
   );
 
-  const previousData = useRef<
-    QueryHookResult<Data, Variables>['data'] | undefined
-  >(undefined);
+  const previousData = useRef<QueryHookResult<Data, Variables>['data']>(
+    undefined,
+  );
 
   const currentResult = useMemo<QueryHookResult<Data, Variables>>(
     () => {
@@ -143,11 +143,11 @@ export default function useQuery<
         };
       }
 
-      const result = queryObservable.currentResult();
+      const result = queryObservable.getCurrentResult();
       const {fetchPolicy} = queryObservable.options;
 
       const hasError = result.errors && result.errors.length > 0;
-      let data = result.data;
+      let data: QueryHookResult<Data, Variables>['data'] = result.data;
       if (result.loading) {
         data =
           previousData.current || (result && result.data)
@@ -162,7 +162,7 @@ export default function useQuery<
         fetchPolicy === 'no-cache' &&
         Object.keys(result.data).length === 0
       ) {
-        data = previousData;
+        data = previousData.current;
       } else {
         previousData.current = result.data;
       }
