@@ -77,6 +77,7 @@ export enum Header {
   AccessControlRequestHeaders = 'Access-Control-Request-Headers',
   AccessControlRequestMethod = 'Access-Control-Request-Method',
   CacheControl = 'Cache-Control',
+  AcceptLanguage = 'Accept-Language',
 }
 
 export enum CspDirective {

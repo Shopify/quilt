@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Added 'Accept-Language' header
+
 ## [1.2.2]
 
 - Manual release
