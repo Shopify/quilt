@@ -100,14 +100,13 @@ type FieldProp<T, K extends keyof Field<any>> = T extends Field<any>
     ? {[InnerKey in keyof T]: T[InnerKey][K]}
     : T;
 
-/*
+/**
   Represents all of the values for a given key mapped out of a mixed dictionary of Field objects,
-  nested Field objects, and arrays of nested Field objects
+  nested Field objects, and arrays of nested Field objects.
+
+  This is generally only useful if you're mapping over and transforming a nested tree of fields.
 */
-export type FormMapping<
-  Bag extends {[key: string]: FieldOutput<any>},
-  FieldKey extends keyof Field<any>
-> = {
+export type FormMapping<Bag, FieldKey extends keyof Field<any>> = {
   [Key in keyof Bag]: Bag[Key] extends any[]
     ? {[Index in keyof Bag[Key]]: FieldProp<Bag[Key][Index], FieldKey>}
     : FieldProp<Bag[Key], FieldKey>
