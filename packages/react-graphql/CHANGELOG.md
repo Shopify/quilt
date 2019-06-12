@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Fixed
+
+- `useQuery` now returns `undefined` instead of an empty object `{}` when there's no data ([#751](https://github.com/Shopify/quilt/pull/751))
+- Fix re-wrapping query result under `current` key when using `no-cache` fetch policy (as a result of leaking implementation details, exposing `ref` object intead of what it is representing)
 
 ## [3.4.0] - 2019-05-31
 
