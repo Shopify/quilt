@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.1.0] - 2019-06-14
+
+### Added
+
+- You can now bail out of render passes in `extract` by returning `false` (or a promise that resolves to `false`) from `betweenEachPass`/ `afterEachPass` ([#747](https://github.com/Shopify/quilt/pull/747))
+
 ## [3.0.0] - 2019-04-08
 
 This library now requires React 16.8.
