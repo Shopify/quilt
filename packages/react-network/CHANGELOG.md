@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.1.0] - 2019-06-14
+
+### Added
+
+- Added `useHeader` and `useRequestHeader` for interacting with network headers ([#747](https://github.com/Shopify/quilt/pull/747))
+
+### Changed
+
+- This library will now bail out of render passes in `react-effect` when a redirect is set ([#747](https://github.com/Shopify/quilt/pull/747))
+
 ## [3.0.4] - 2019-05-03
 
 ### Fixed

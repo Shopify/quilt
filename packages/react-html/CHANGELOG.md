@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 8.1.1 - 2019-06-14
+
+### Fixed
+
+- The new features from 8.1.0 are now properly exported ([#753](https://github.com/Shopify/quilt/pull/753))
+
 ## 8.1.0 - 2019-06-11
 
 ### Added
