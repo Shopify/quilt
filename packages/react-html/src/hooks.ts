@@ -1,5 +1,6 @@
 import {useEffect, useContext} from 'react';
 import {useServerEffect} from '@shopify/react-effect';
+import {FirstArgument} from '@shopify/useful-types';
 
 import {HtmlContext} from './context';
 import {HtmlManager} from './manager';
@@ -30,22 +31,42 @@ export function useMeta(meta: React.HTMLProps<HTMLMetaElement>) {
 }
 
 export function usePreconnect(source: string) {
-  useDomEffect(manager =>
-    manager.addLink({
-      rel: 'dns-prefetch preconnect',
-      href: source,
-    }),
+  useDomEffect(
+    manager =>
+      manager.addLink({
+        rel: 'dns-prefetch preconnect',
+        href: source,
+      }),
+    [source],
   );
 }
 
 export function useFavicon(source: string) {
-  useDomEffect(manager =>
-    manager.addLink({
-      rel: 'shortcut icon',
-      type: 'image/x-icon',
-      href: source,
-    }),
+  useDomEffect(
+    manager =>
+      manager.addLink({
+        rel: 'shortcut icon',
+        type: 'image/x-icon',
+        href: source,
+      }),
+    [source],
   );
+}
+
+export function useHtmlAttributes(
+  htmlAttributes: FirstArgument<HtmlManager['addHtmlAttributes']>,
+) {
+  useDomEffect(manager => manager.addHtmlAttributes(htmlAttributes), [
+    JSON.stringify(htmlAttributes),
+  ]);
+}
+
+export function useBodyAttributes(
+  bodyAttributes: FirstArgument<HtmlManager['addBodyAttributes']>,
+) {
+  useDomEffect(manager => manager.addBodyAttributes(bodyAttributes), [
+    JSON.stringify(bodyAttributes),
+  ]);
 }
 
 export function useClientDomEffect(

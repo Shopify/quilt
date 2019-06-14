@@ -9,6 +9,8 @@ export interface State {
   title?: string;
   metas: React.HTMLProps<HTMLMetaElement>[];
   links: React.HTMLProps<HTMLLinkElement>[];
+  bodyAttributes: React.HTMLProps<HTMLBodyElement>;
+  htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>;
 }
 
 interface Subscription {
@@ -27,6 +29,8 @@ export class HtmlManager {
   private titles: Title[] = [];
   private metas: React.HTMLProps<HTMLMetaElement>[] = [];
   private links: React.HTMLProps<HTMLLinkElement>[] = [];
+  private htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>[] = [];
+  private bodyAttributes: React.HTMLProps<HTMLBodyElement>[] = [];
   private subscriptions = new Set<Subscription>();
 
   get state(): State {
@@ -36,6 +40,8 @@ export class HtmlManager {
       title: lastTitle && lastTitle.title,
       metas: this.metas,
       links: this.links,
+      bodyAttributes: Object.assign({}, ...this.bodyAttributes),
+      htmlAttributes: Object.assign({}, ...this.htmlAttributes),
     };
   }
 
@@ -58,22 +64,23 @@ export class HtmlManager {
   }
 
   addTitle(title: string) {
-    const titleObject = {title};
-    this.titles.push(titleObject);
-    this.updateSubscriptions();
-    return this.removeTitle.bind(this, titleObject);
+    return this.addDescriptor({title}, this.titles);
   }
 
   addMeta(meta: React.HTMLProps<HTMLMetaElement>) {
-    this.metas.push(meta);
-    this.updateSubscriptions();
-    return this.removeMeta.bind(this, meta);
+    return this.addDescriptor(meta, this.metas);
   }
 
   addLink(link: React.HTMLProps<HTMLLinkElement>) {
-    this.links.push(link);
-    this.updateSubscriptions();
-    return this.removeLink.bind(this, link);
+    return this.addDescriptor(link, this.links);
+  }
+
+  addHtmlAttributes(attributes: React.HtmlHTMLAttributes<HTMLHtmlElement>) {
+    return this.addDescriptor(attributes, this.htmlAttributes);
+  }
+
+  addBodyAttributes(attributes: React.HTMLProps<HTMLBodyElement>) {
+    return this.addDescriptor(attributes, this.bodyAttributes);
   }
 
   setSerialization(id: string, data: unknown) {
@@ -94,33 +101,22 @@ export class HtmlManager {
     };
   }
 
+  private addDescriptor<T>(item: T, list: T[]) {
+    list.push(item);
+    this.updateSubscriptions();
+
+    return () => {
+      const index = list.indexOf(item);
+      if (index >= 0) {
+        list.splice(index, 1);
+        this.updateSubscriptions();
+      }
+    };
+  }
+
   private updateSubscriptions() {
     for (const subscription of this.subscriptions) {
       subscription(this.state);
-    }
-  }
-
-  private removeTitle(title: Title) {
-    const index = this.titles.indexOf(title);
-    if (index >= 0) {
-      this.titles.splice(index, 1);
-      this.updateSubscriptions();
-    }
-  }
-
-  private removeMeta(meta: React.HTMLProps<HTMLMetaElement>) {
-    const index = this.metas.indexOf(meta);
-    if (index >= 0) {
-      this.metas.splice(index, 1);
-      this.updateSubscriptions();
-    }
-  }
-
-  private removeLink(link: React.HTMLProps<HTMLLinkElement>) {
-    const index = this.links.indexOf(link);
-    if (index >= 0) {
-      this.links.splice(index, 1);
-      this.updateSubscriptions();
     }
   }
 }
