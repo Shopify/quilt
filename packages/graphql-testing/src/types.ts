@@ -1,6 +1,8 @@
 import {DocumentNode} from 'graphql';
 import {GraphQLRequest, Operation} from 'apollo-link';
 
+export {Operation};
+
 export interface FindOptions {
   query?: DocumentNode | {resolved?: DocumentNode};
   mutation?: DocumentNode;
@@ -17,6 +19,12 @@ export type MockGraphQLFunction = (
 ) => MockGraphQLResponse;
 export type GraphQLMock =
   | {[key: string]: MockGraphQLResponse | MockGraphQLFunction}
+  | Iterable<
+      [
+        string | DocumentNode | {resolved?: DocumentNode},
+        MockGraphQLResponse | MockGraphQLFunction
+      ]
+    >
   | MockGraphQLFunction;
 
 export interface MockRequest {

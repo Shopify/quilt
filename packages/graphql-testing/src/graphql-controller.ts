@@ -1,3 +1,4 @@
+import {DocumentNode} from 'graphql';
 import {ApolloLink, GraphQLRequest} from 'apollo-link';
 import {
   ApolloReducerConfig,
@@ -5,19 +6,38 @@ import {
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
 import {ApolloClient} from 'apollo-client';
+import {Arguments} from '@shopify/useful-types';
 
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
-import {operationNameFromFindOptions} from './utilities';
-import {GraphQLMock, MockRequest, FindOptions} from './types';
+import {
+  operationNameFromFindOptions,
+  operationNameFromDocument,
+} from './utilities';
+import {
+  GraphQLMock,
+  MockRequest,
+  FindOptions,
+  Operation,
+  MockGraphQLResponse,
+  MockGraphQLFunction,
+} from './types';
+
+type OperationMatcher = (operation: Operation) => boolean;
 
 export interface Options {
   unionOrIntersectionTypes?: any[];
   cacheOptions?: ApolloReducerConfig;
+  resolveImmediately?: boolean | OperationMatcher;
 }
 
 interface Wrapper {
   (perform: () => Promise<void>): Promise<void>;
+}
+
+interface MockRecord {
+  mock: MockGraphQLResponse | MockGraphQLFunction;
+  operation?: string | DocumentNode | {resolved?: DocumentNode};
 }
 
 export class GraphQL {
@@ -26,11 +46,20 @@ export class GraphQL {
 
   private readonly pendingRequests = new Set<MockRequest>();
   private readonly wrappers: Wrapper[] = [];
+  private shouldResolveImmediately: OperationMatcher;
+  private mocks: Mocks;
 
   constructor(
     mock: GraphQLMock | undefined,
-    {unionOrIntersectionTypes = [], cacheOptions = {}}: Options = {},
+    {
+      cacheOptions = {},
+      unionOrIntersectionTypes = [],
+      resolveImmediately = () => true,
+    }: Options = {},
   ) {
+    this.mocks = new Mocks(mock);
+    this.shouldResolveImmediately = normalizeResolver(resolveImmediately);
+
     const cache = new InMemoryCache({
       fragmentMatcher: new IntrospectionFragmentMatcher({
         introspectionQueryResultData: {
@@ -77,12 +106,29 @@ export class GraphQL {
     )();
   }
 
+  resolveImmediately(
+    resolver: NonNullable<Options['resolveImmediately']> = true,
+  ) {
+    this.shouldResolveImmediately = normalizeResolver(resolver);
+    return this;
+  }
+
+  mock(...args: Arguments<Mocks['add']>) {
+    this.mocks.add(...args);
+    return this;
+  }
+
   wrap(wrapper: Wrapper) {
     this.wrappers.push(wrapper);
+    return this;
   }
 
   private handleCreate = (request: MockRequest) => {
     this.pendingRequests.add(request);
+
+    if (this.shouldResolveImmediately(request.operation)) {
+      request.resolve();
+    }
   };
 
   private handleResolve = (request: MockRequest) => {
@@ -96,4 +142,73 @@ function defaultGraphQLMock({operationName}: GraphQLRequest) {
     `Can’t perform GraphQL operation '${operationName ||
       ''}' because no mocks were set.`,
   );
+}
+
+function normalizeResolver(
+  resolver: NonNullable<Options['resolveImmediately']>,
+) {
+  return typeof resolver === 'boolean' ? () => resolver : resolver;
+}
+
+class Mocks {
+  private readonly mockRecords: MockRecord[];
+
+  constructor(mock: GraphQLMock = defaultGraphQLMock) {
+    this.mockRecords = getMockRecords(mock);
+  }
+
+  add(
+    operation: DocumentNode | {resolved?: DocumentNode} | string,
+    mock: MockGraphQLResponse | MockGraphQLFunction,
+  ) {
+    this.mockRecords.push({
+      mock,
+      operation,
+    });
+  }
+
+  get(operation: Operation): MockGraphQLResponse | MockGraphQLFunction {
+    const operationName = operationNameFromDocument(operation.query);
+
+    const matched = this.mockRecords.find(({operation}) => {
+      if (operation == null) {
+        return true;
+      }
+
+      if (typeof operation === 'string') {
+        return operation === operationName;
+      }
+
+      return operationNameFromDocument(operation) === operationName;
+    });
+
+    if (matched == null) {
+      throw new Error('');
+    }
+
+    return typeof matched.mock === 'function'
+      ? (matched.mock as any)(operation)
+      : matched.mock;
+  }
+}
+
+function getMockRecords(mock: GraphQLMock): MockRecord[] {
+  if (typeof mock === 'function') {
+    return [{mock}];
+  } else if (
+    mock[Symbol.iterator] &&
+    Array.isArray(mock[Symbol.iterator]().next().value)
+  ) {
+    return [...mock].map(([operation, mock]) => ({
+      mock,
+      operation,
+    }));
+  } else if (typeof mock === 'object') {
+    return Object.entries(mock).map(([operation, mock]) => ({
+      mock,
+      operation,
+    }));
+  }
+
+  return [];
 }
