@@ -33,23 +33,33 @@ export class EffectManager {
     await Promise.all(this.effects);
   }
 
-  betweenEachPass(pass: Pass) {
-    for (const kind of this.kinds) {
-      if (typeof kind.betweenEachPass === 'function') {
-        kind.betweenEachPass(pass);
-      }
-    }
+  async betweenEachPass(pass: Pass) {
+    const results = await Promise.all(
+      [...this.kinds].map(
+        kind =>
+          typeof kind.betweenEachPass === 'function'
+            ? kind.betweenEachPass(pass)
+            : Promise.resolve(),
+      ),
+    );
+
+    return results.every(result => result !== false);
   }
 
-  afterEachPass(pass: Pass) {
-    for (const kind of this.kinds) {
-      if (typeof kind.afterEachPass === 'function') {
-        kind.afterEachPass(pass);
-      }
-    }
+  async afterEachPass(pass: Pass) {
+    const results = await Promise.all(
+      [...this.kinds].map(
+        kind =>
+          typeof kind.afterEachPass === 'function'
+            ? kind.afterEachPass(pass)
+            : Promise.resolve(),
+      ),
+    );
 
     this.effects = [];
     this.kinds = new Set();
+
+    return results.every(result => result !== false);
   }
 
   shouldPerform(kind: EffectKind) {

@@ -87,6 +87,20 @@ export default function ContentSecurityPolicy() {
 }
 ```
 
+#### `useHeader()` and `useRequestHeader()`
+
+This library allows you to read from request headers, and set response headers. To set a header, call the `useHeader()` hook, which accepts the name of a header and the desired value. `useRequestHeader()`, on the other hand, gives you access to a specified request header.
+
+```tsx
+import {useHeader, useRequestHeader} from '@shopify/react-network';
+
+function MyComponent() {
+  useHeader('X-React', 'true');
+  const acceptsLanguages = useRequestHeader('Accepts-Languages');
+  return <div>Requested languages: {acceptsLanguages}</div>;
+}
+```
+
 ### Server
 
 To extract details from your application, render a `NetworkContext.Provider` around your app, and give it an instance of the `NetworkManager`. When using `react-effect`, this decoration can be done in the `decorate` option of `extract()`. Finally, you can use the `applyToContext` utility from this package to apply the necessary headers to the response. Your final server middleware will resemble the example below:
@@ -102,8 +116,14 @@ import {
 import App from './App';
 
 export default function render(ctx: Context) {
-  const networkManager = new NetworkManager();
+  // Accepts an optional headers argument for giving access
+  // to request headers.
+  const networkManager = new NetworkManager({
+    headers: ctx.headers,
+  });
+
   const app = <App />;
+
   await extract(app, {
     decorate: element => (
       <NetworkContext.Provider value={networkManager}>

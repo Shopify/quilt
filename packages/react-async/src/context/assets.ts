@@ -8,7 +8,9 @@ export class AsyncAssetManager {
 
   readonly effect: EffectKind = {
     id: EFFECT_ID,
-    betweenEachPass: () => this.used.clear(),
+    betweenEachPass: () => {
+      this.used.clear();
+    },
   };
 
   markAsUsed(id: string) {
