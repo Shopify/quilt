@@ -21,7 +21,9 @@ You might want to also attach some cleanup logic to the effect kind that will be
 class Manager {
   effect = {
     id: EFFECT_ID,
-    betweenEachPass: () => this.reset(),
+    betweenEachPass: () => {
+      this.reset();
+    },
   };
 
   reset() {}

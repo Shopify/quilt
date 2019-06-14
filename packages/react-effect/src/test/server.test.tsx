@@ -54,10 +54,32 @@ describe('extract()', () => {
     expect(kind.betweenEachPass).toHaveBeenCalledTimes(1);
   });
 
+  it('bails out if betweenEachPass on any kind returns false', async () => {
+    const kind = {
+      id: Symbol('id'),
+      betweenEachPass: jest.fn(() => Promise.resolve(false)),
+    };
+
+    await extract(<Effect perform={() => Promise.resolve()} kind={kind} />);
+
+    expect(kind.betweenEachPass).toHaveBeenCalledTimes(1);
+  });
+
   it('calls afterEachPass on each used kind', async () => {
     const kind = {id: Symbol('id'), afterEachPass: jest.fn()};
     await extract(<Effect perform={noop} kind={kind} />);
     expect(kind.afterEachPass).toHaveBeenCalledTimes(1);
+  });
+
+  it('bails out if afterEachPass on any kind returns false', async () => {
+    const kind = {
+      id: Symbol('id'),
+      betweenEachPass: jest.fn(() => Promise.resolve(false)),
+    };
+
+    await extract(<Effect perform={() => Promise.resolve()} kind={kind} />);
+
+    expect(kind.betweenEachPass).toHaveBeenCalledTimes(1);
   });
 
   it('does not perform effects outside of extract()', () => {
@@ -144,6 +166,14 @@ describe('extract()', () => {
         resolveDuration,
       });
     });
+
+    it('bails out if it returns false', async () => {
+      const spy = jest.fn(() => Promise.resolve(false));
+      await extract(<Effect perform={() => Promise.resolve()} />, {
+        betweenEachPass: spy,
+      });
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('afterEachPass', () => {
@@ -205,6 +235,14 @@ describe('extract()', () => {
         renderDuration,
         resolveDuration: 0,
       });
+    });
+
+    it('bails out if it returns false', async () => {
+      const spy = jest.fn(() => Promise.resolve(false));
+      await extract(<Effect perform={() => Promise.resolve()} />, {
+        afterEachPass: spy,
+      });
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 

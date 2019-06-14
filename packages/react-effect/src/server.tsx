@@ -66,46 +66,63 @@ export function extract(
       await manager.resolve();
 
       const resolveDuration = Date.now() - resolveStart;
+      let performNextPass = true;
 
-      await manager.betweenEachPass({
-        index,
-        finished: false,
-        renderDuration,
-        resolveDuration,
-      });
+      performNextPass =
+        shouldContinue(
+          await manager.betweenEachPass({
+            index,
+            finished: false,
+            renderDuration,
+            resolveDuration,
+          }),
+        ) && performNextPass;
 
       if (betweenEachPass) {
-        await betweenEachPass({
-          index,
-          finished: false,
-          renderDuration,
-          resolveDuration,
-        });
+        performNextPass =
+          shouldContinue(
+            await betweenEachPass({
+              index,
+              finished: false,
+              renderDuration,
+              resolveDuration,
+            }),
+          ) && performNextPass;
       }
 
-      await manager.afterEachPass({
-        index,
-        finished: false,
-        renderDuration,
-        resolveDuration,
-      });
+      performNextPass =
+        shouldContinue(
+          await manager.afterEachPass({
+            index,
+            finished: false,
+            renderDuration,
+            resolveDuration,
+          }),
+        ) && performNextPass;
 
       if (afterEachPass) {
-        await afterEachPass({
-          index,
-          finished: false,
-          renderDuration,
-          resolveDuration,
-        });
+        performNextPass =
+          shouldContinue(
+            await afterEachPass({
+              index,
+              finished: false,
+              renderDuration,
+              resolveDuration,
+            }),
+          ) && performNextPass;
       }
 
-      if (index + 1 >= maxPasses) {
+      if (index + 1 >= maxPasses || !performNextPass) {
         return result;
       }
 
       return perform(index + 1);
     }
   })();
+}
+
+function shouldContinue(result: unknown) {
+  return result !== false;
 }
 
 function identity<T>(value: T): T {

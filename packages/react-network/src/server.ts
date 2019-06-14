@@ -1,5 +1,4 @@
 import {Context} from 'koa';
-import {Header} from '@shopify/network';
 import {NetworkManager, EFFECT_ID} from './manager';
 
 export {NetworkContext} from './context';
@@ -9,28 +8,7 @@ export function applyToContext<T extends Context>(
   ctx: T,
   manager: NetworkManager,
 ) {
-  const {status, csp, redirectUrl} = manager.extract();
-  const cspEntries = Object.entries(csp);
-
-  if (cspEntries.length > 0) {
-    const cspHeader = cspEntries
-      .map(([key, value]) => {
-        let printedValue: string;
-
-        if (typeof value === 'boolean') {
-          printedValue = '';
-        } else if (typeof value === 'string') {
-          printedValue = value;
-        } else {
-          printedValue = value.join(' ');
-        }
-
-        return `${key}${printedValue ? ' ' : ''}${printedValue}`;
-      })
-      .join('; ');
-
-    ctx.set(Header.ContentSecurityPolicy, cspHeader);
-  }
+  const {status, redirectUrl, headers} = manager.extract();
 
   if (redirectUrl) {
     ctx.redirect(redirectUrl);
@@ -38,6 +16,10 @@ export function applyToContext<T extends Context>(
 
   if (status) {
     ctx.status = status;
+  }
+
+  for (const [header, value] of headers) {
+    ctx.set(header, value);
   }
 
   return ctx;

@@ -1,24 +1,54 @@
-import {StatusCode, CspDirective} from '@shopify/network';
+import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 
 export {NetworkContext} from './context';
 
 export const EFFECT_ID = Symbol('network');
 
+interface Headers {
+  get(header: string): string | undefined;
+}
+
+interface Options {
+  headers?: Headers;
+}
+
 export class NetworkManager {
   readonly effect: EffectKind = {
     id: EFFECT_ID,
-    betweenEachPass: () => this.reset(),
+    betweenEachPass: () => {
+      if (this.redirectUrl == null) {
+        this.reset();
+        return true;
+      } else {
+        return false;
+      }
+    },
   };
 
   private statusCodes: StatusCode[] = [];
-  private csp = new Map<CspDirective, string[] | boolean>();
   private redirectUrl?: string;
+  private readonly csp = new Map<CspDirective, string[] | boolean>();
+  private readonly headers = new Map<string, string>();
+  private readonly requestHeaders?: Headers;
+
+  constructor({headers}: Options = {}) {
+    this.requestHeaders = headers;
+  }
 
   reset() {
     this.statusCodes = [];
     this.csp.clear();
+    this.headers.clear();
     this.redirectUrl = undefined;
+  }
+
+  getHeader(header: string) {
+    return this.requestHeaders && this.requestHeaders.get(header);
+  }
+
+  setHeader(header: string, value: string) {
+    this.headers.set(header, value);
   }
 
   redirectTo(url: string, status = StatusCode.Found) {
@@ -45,14 +75,37 @@ export class NetworkManager {
   }
 
   extract() {
+    const csp =
+      this.csp.size === 0
+        ? undefined
+        : [...this.csp]
+            .map(([key, value]) => {
+              let printedValue: string;
+
+              if (typeof value === 'boolean') {
+                printedValue = '';
+              } else if (typeof value === 'string') {
+                printedValue = value;
+              } else {
+                printedValue = value.join(' ');
+              }
+
+              return `${key}${printedValue ? ' ' : ''}${printedValue}`;
+            })
+            .join('; ');
+
+    const headers = new Map(this.headers);
+
+    if (csp) {
+      headers.set(Header.ContentSecurityPolicy, csp);
+    }
+
     return {
       status:
         this.statusCodes.length > 0
           ? this.statusCodes.reduce((large, code) => Math.max(large, code), 0)
           : undefined,
-      csp: [...this.csp.entries()].reduce<{
-        [key: string]: string[] | string | boolean;
-      }>((csp, [directive, value]) => ({...csp, [directive]: value}), {}),
+      headers,
       redirectUrl: this.redirectUrl,
     };
   }
