@@ -128,7 +128,6 @@ describe('e2e', () => {
       return <div>{children}</div>;
     }
 
-    // eslint-disable-next-line react/prefer-stateless-function
     class MyComponent extends React.PureComponent {
       render() {
         return <Message>Hello world</Message>;
