@@ -511,6 +511,61 @@ describe('I18n', () => {
     });
   });
 
+  describe('#unformatNumber()', () => {
+    let formatNumber: jest.SpyInstance;
+    let i18n: I18n;
+
+    beforeAll(() => {
+      formatNumber = jest.spyOn(I18n.prototype, 'formatNumber');
+    });
+
+    beforeEach(() => {
+      i18n = new I18n(defaultTranslations, defaultDetails);
+    });
+
+    afterEach(() => {
+      formatNumber.mockClear();
+    });
+
+    afterAll(() => {
+      formatNumber.mockRestore();
+    });
+
+    const input = 123456.7891;
+
+    it('handles number with period decimal symbol', () => {
+      formatNumber.mockImplementationOnce(() => '1.1');
+
+      const formatted = '123,456.7891';
+
+      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+    });
+
+    it('handles number with comma decimal symbol', () => {
+      formatNumber.mockImplementationOnce(() => '1,1');
+
+      const formatted = '123.456,7891';
+
+      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+    });
+
+    it('handles number with unusual comma separators and period decimal symbol', () => {
+      formatNumber.mockImplementationOnce(() => '1.1');
+
+      const formatted = '1,23,456.7891';
+
+      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+    });
+
+    it('handles invalid value', () => {
+      formatNumber.mockImplementationOnce(() => '1.1');
+
+      const formatted = 'foobar';
+
+      expect(i18n.unformatNumber(formatted)).toBe('');
+    });
+  });
+
   describe('#formatCurrency()', () => {
     const currency = 'USD';
 
