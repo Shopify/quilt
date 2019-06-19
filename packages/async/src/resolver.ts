@@ -1,6 +1,43 @@
-import {Import, LoadProps, DeferTiming} from '@shopify/async';
+import {Import} from './types';
 
-export async function resolve<T>(load: () => Promise<Import<T>>): Promise<T> {
+export interface Resolver<T> {
+  readonly id?: string;
+  readonly resolved: T | null;
+  resolve(): Promise<T>;
+}
+
+export interface ResolverOptions<T> {
+  id?(): string;
+  load(): Promise<Import<T>>;
+}
+
+export function createResolver<T>({id, load}: ResolverOptions<T>): Resolver<T> {
+  let resolved: T | null = null;
+  let resolvePromise: Promise<T> | null = null;
+  let hasTriedSyncResolve = false;
+  const resolvedId = id && id();
+
+  return {
+    get id() {
+      return resolvedId;
+    },
+    get resolved() {
+      if (resolved == null && !hasTriedSyncResolve) {
+        hasTriedSyncResolve = true;
+        resolved = resolvedId ? trySynchronousResolve(resolvedId) : null;
+      }
+
+      return resolved;
+    },
+    resolve: async () => {
+      resolvePromise = resolvePromise || resolve(load);
+      resolved = await resolvePromise;
+      return resolved;
+    },
+  };
+}
+
+async function resolve<T>(load: () => Promise<Import<T>>): Promise<T> {
   const resolved = await load();
   return normalize(resolved);
 }
@@ -10,7 +47,8 @@ function normalize(module: any) {
     return null;
   }
 
-  const value = 'default' in module ? module.default : module;
+  const value =
+    typeof module === 'object' && 'default' in module ? module.default : module;
   return value == null ? null : value;
 }
 
@@ -69,14 +107,6 @@ function tryRequire(id: string) {
   return undefined;
 }
 
-interface Options<T> {
-  id?: LoadProps<T>['id'];
-  defer?: DeferTiming;
-}
-
-export function trySynchronousResolve<T>({id, defer}: Options<T>): T | null {
-  const requireId =
-    (defer == null || defer === DeferTiming.Mount) && id && id();
-  const resolved = requireId ? tryRequire(requireId) : null;
-  return resolved;
+function trySynchronousResolve<T>(id: string): T | null {
+  return tryRequire(id) || null;
 }

@@ -55,7 +55,7 @@ import myQuery from './graphql/MyQuery.graphql';
 
 Another problem with the `Query` component is that it does not work well when trying to preload GraphQL data for another page that is in a different JavaScript bundle. Because the `query` must be provided directly, there is no easy way to keep it from "leaking" into unrelated bundles.
 
-The `createAsyncQueryComponent` function is an equally strong-typed alternative to `Query` that supports asynchronously-loading GraphQL queries. The resulting component also exposes useful `Preload`, `Prefetch`, and `KeepFresh` components built from the query. Best of all, it uses [`@shopify/react-async`](https://github.com/Shopify/quilt/tree/master/packages/react-async) under the hood, so you get the same server rendering benefits described in that package.
+The `createAsyncQueryComponent` function is an equally strong-typed alternative to `Query` that supports asynchronously-loading GraphQL queries. The resulting component also exposes useful `usePreload`, `usePrefetch`, and `useKeepFresh` hooks built from the query, as well as shortcut `Preload`, `Prefetch`, and `KeepFresh` components. Best of all, it uses [`@shopify/react-async`](https://github.com/Shopify/quilt/tree/master/packages/react-async) under the hood, so you get the same server rendering benefits described in that package.
 
 This function takes an options object with a `load` property that returns a promise for a GraphQL query:
 
@@ -64,17 +64,6 @@ import {createAsyncQueryComponent} from '@shopify/react-graphql';
 
 const ProductDetailsQuery = createAsyncQueryComponent({
   load: () => import('./graphql/ProductDetailsQuery.graphql'),
-});
-```
-
-As with `@shopify/react-async`, you can also pass a `defer` prop that is a member of the `DeferTiming` enum to force the GraphQL query to resolve later on in its lifecycle:
-
-```tsx
-import {createAsyncQueryComponent, DeferTiming} from '@shopify/react-graphql';
-
-const ProductDetailsQuery = createAsyncQueryComponent({
-  load: () => import('./graphql/ProductDetailsQuery.graphql'),
-  defer: DeferTiming.Idle,
 });
 ```
 
@@ -114,33 +103,25 @@ const MyQuery = createAsyncQueryComponent({
 </MyQuery>;
 ```
 
-As with components created by `@shopify/react-async`’s `createAsyncComponent()` function, these queries also have static `Preload`, `Prefetch`, and `KeepFresh` components. `Preload` will simply load the JavaScript bundle associated with the query. `Prefetch` will load the JavaScript bundle **and** load the data (so, if there are any mandatory variables for your query, they will be required when rendering `Prefetch`). `KeepFresh` will do the same as `Prefetch`, but will also poll for the query (you can customize the interval with the `pollInterval` prop).
+As with components created by `@shopify/react-async`’s `createAsyncComponent()` function, these queries also have static `usePreload`, `usePrefetch`, and `useKeepFresh` hooks, and `Preload`, `Prefetch`, and `KeepFresh` components. "Preload" will simply load the JavaScript bundle associated with the query. "Prefetch" will load the JavaScript bundle **and** load the data (so, if there are any mandatory variables for your query, they will be required when rendering `Prefetch`/ using `usePrefetch`). "KeepFresh" will do the same as "Prefetch", but will also poll for the query.
 
 ```tsx
+import {usePrefetch} from '@shopify/react-async';
+import {createAsyncQueryComponent} from '@shopify/react-graphql';
+
 const MyQuery = createAsyncQueryComponent({
   load: () => import('./graphql/MyQuery.graphql'),
 });
 
+// Loads the query script when the browser is idle
 <MyQuery.Preload />
-<MyQuery.Prefetch />
+
+// Loads the query script when the browser is idle, and starts polling the query
 <MyQuery.KeepFresh pollInterval={20_000} />
-```
 
-All components created by this library also reserve an `async` prop (that is, you can’t have any props on these components also named `async`). This prop can be used to pass custom instructions to the underlying async loading component.
-
-Currently, this prop is an object with a `defer?: DeferTiming` property, which changes the default `defer` behaviour of the component (by default, the `Query`/ "root" component is not deferred, `Preload` and `KeepFresh` are deferred until idle, and `Prefetch` is deferred until mount).
-
-```tsx
-const MyQuery = createAsyncQueryComponent({
-  load: () => import('./graphql/MyQuery.graphql'),
-});
-
-<MyQuery async={{defer: DeferTiming.Mount}} />
-
-// This will force all of these components not to be deferred at all
-<MyQuery.Preload async={{defer: undefined}} />
-<MyQuery.Prefetch async={{defer: undefined}} />
-<MyQuery.KeepFresh pollInterval={20_000} async={{defer: undefined}} />
+// A function that will load the query script and run the query immediately
+// when called
+const prefetch = usePrefetch(MyQuery);
 ```
 
 ## Using Apollo Hooks

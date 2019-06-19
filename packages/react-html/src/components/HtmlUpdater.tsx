@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {HydrationTracker} from '@shopify/react-hydrate';
+
 import {State} from '../manager';
 import {useClientDomEffect} from '../hooks';
 import {MANAGED_ATTRIBUTE} from '../utilities';
 
-export function HeadUpdater() {
+export function HtmlUpdater() {
   const queuedUpdate = React.useRef<number | null>(null);
 
   useClientDomEffect(manager => {
@@ -18,7 +20,7 @@ export function HeadUpdater() {
     });
   });
 
-  return null;
+  return <HydrationTracker />;
 }
 
 function updateOnClient(state: State) {

@@ -268,64 +268,6 @@ describe('Assets', () => {
     });
   });
 
-  describe('asyncStyles', () => {
-    it('returns all async styles for the specified ids', async () => {
-      const asyncCss = '/mypage.css';
-      const css = '/main.css';
-
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              main: mockEntrypoint({
-                styles: [mockAsset(css)],
-              }),
-            },
-            asyncAssets: {
-              other: [mockAsyncAsset('/other.css')],
-              mypage: [mockAsyncAsset(asyncCss)],
-            },
-          }),
-        ]),
-      );
-
-      const assets = new Assets(defaultOptions);
-
-      expect(await assets.asyncStyles({id: ['mypage']})).toStrictEqual([
-        {path: asyncCss},
-      ]);
-    });
-  });
-
-  describe('asyncScripts', () => {
-    it('returns all async styles for the specified ids', async () => {
-      const asyncJs = '/mypage.js';
-      const js = '/main.js';
-
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(js)],
-              }),
-            },
-            asyncAssets: {
-              other: [mockAsyncAsset('/other.js')],
-              mypage: [mockAsyncAsset(asyncJs)],
-            },
-          }),
-        ]),
-      );
-
-      const assets = new Assets(defaultOptions);
-
-      expect(await assets.asyncScripts({id: ['mypage']})).toStrictEqual([
-        {path: asyncJs},
-      ]);
-    });
-  });
-
   describe('asyncAssets', () => {
     it('returns all async assets for the specified ids', async () => {
       const css = '/style.css';
@@ -351,10 +293,39 @@ describe('Assets', () => {
 
       const assets = new Assets(defaultOptions);
 
-      expect(await assets.asyncAssets({id: ['mypage']})).toStrictEqual([
+      expect(await assets.asyncAssets(['mypage'])).toStrictEqual([
         {path: asyncCss},
         {path: asyncJs},
       ]);
+    });
+
+    it('can omit specific types of assets on a per-id basis', async () => {
+      const css = '/style.css';
+      const asyncCss = '/mypage.css';
+      const js = '/script.js';
+      const asyncJs = 'mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifest({
+            entrypoints: {
+              custom: mockEntrypoint({
+                styles: [mockAsset(css)],
+                scripts: [mockAsset(js)],
+              }),
+            },
+            asyncAssets: {
+              mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+            },
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(
+        await assets.asyncAssets([{id: /mypage/, scripts: false}]),
+      ).toStrictEqual([{path: asyncCss}]);
     });
   });
 

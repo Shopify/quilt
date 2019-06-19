@@ -112,6 +112,17 @@ describe('<Html />', () => {
     });
   });
 
+  describe('preloadAssets', () => {
+    it('generates a link[rel=prefetch] tag', () => {
+      const asset = {path: 'foo.js'};
+      const html = mount(<Html {...mockProps} preloadAssets={[asset]} />);
+      expect(html.find('head')).toContainReactComponent('link', {
+        rel: 'prefetch',
+        href: asset.path,
+      });
+    });
+  });
+
   describe('headMarkup', () => {
     it('renders headMarkup in the head before the sync scripts', () => {
       const headMarkup = <Serialize id="data" data={{}} />;

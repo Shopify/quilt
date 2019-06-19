@@ -7,6 +7,6 @@ export {Style} from './Style';
 export {Title} from './Title';
 export {Responsive} from './Responsive';
 export {AppleHomeScreen} from './AppleHomeScreen';
-export {HeadUpdater} from './HeadUpdater';
+export {HtmlUpdater} from './HtmlUpdater';
 export {BodyAttributes} from './BodyAttributes';
 export {HtmlAttributes} from './HtmlAttributes';

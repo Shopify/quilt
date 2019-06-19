@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {animationFrame} from '@shopify/jest-dom-mocks';
+import {HydrationTracker} from '@shopify/react-hydrate';
 
-import {HeadUpdater} from '../HeadUpdater';
+import {HtmlUpdater} from '../HtmlUpdater';
 import {HtmlManager} from '../../manager';
 import {MANAGED_ATTRIBUTE} from '../../utilities';
 
@@ -20,13 +21,20 @@ describe('<Provider />', () => {
     }
   });
 
+  it('renders a hydration tracker', () => {
+    const manager = new HtmlManager();
+    expect(mountWithManager(<HtmlUpdater />, manager)).toContainReactComponent(
+      HydrationTracker,
+    );
+  });
+
   it('queues updates to HTML details', () => {
     const title = 'Shopify';
     const meta = {content: 'foo'};
     const link = {src: 'bar'};
     const manager = new HtmlManager();
 
-    mountWithManager(<HeadUpdater />, manager);
+    mountWithManager(<HtmlUpdater />, manager);
 
     manager.addTitle(title);
     manager.addLink(link);
@@ -56,7 +64,7 @@ describe('<Provider />', () => {
     const linkTwo = {src: 'bar'};
     const manager = new HtmlManager();
 
-    mountWithManager(<HeadUpdater />, manager);
+    mountWithManager(<HtmlUpdater />, manager);
 
     manager.addLink(linkOne);
     animationFrame.runFrame();
@@ -80,7 +88,7 @@ describe('<Provider />', () => {
     const metaTwo = {content: 'bar'};
     const manager = new HtmlManager();
 
-    mountWithManager(<HeadUpdater />, manager);
+    mountWithManager(<HtmlUpdater />, manager);
 
     manager.addMeta(metaOne);
     animationFrame.runFrame();
