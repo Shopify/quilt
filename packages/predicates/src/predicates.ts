@@ -19,7 +19,7 @@ export function isEmpty(input: any) {
 }
 
 export function isEmptyString(input: string) {
-  return input.trim().length < 1;
+  return input === null || input === undefined || input.trim().length < 1;
 }
 
 export function notEmpty(input: any) {
