@@ -14,7 +14,7 @@ export function notEmpty(error: ErrorContent<string>) {
 }
 
 export function notEmptyString(error: ErrorContent<string>) {
-  return validator(predicates.notEmptyString)(error);
+  return validator(predicates.notEmptyString, {skipOnEmpty: false})(error);
 }
 
 export function positiveNumericString(error: ErrorContent<string>) {
