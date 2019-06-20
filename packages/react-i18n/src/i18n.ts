@@ -201,38 +201,32 @@ export class I18n {
     }).format(amount);
   }
 
+  unformatNumber(input: string): string {
+    const decimalSymbol = this.numberDecimalSymbol();
+
+    const normalizedValue = normalizedNumber(input, decimalSymbol);
+
+    return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
+  }
+
   formatCurrency(amount: number, options: Intl.NumberFormatOptions = {}) {
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
   unformatCurrency(input: string, currencyCode: string): string {
-    const nonDigits = /\D/g;
-
     // This decimal symbol will always be '.' regardless of the locale
     // since it's our internal representation of the string
-    const symbol = this.decimalSymbol(currencyCode);
-    const expectedDecimal = symbol === DECIMAL_NOT_SUPPORTED ? PERIOD : symbol;
+    const decimalSymbol = this.currencyDecimalSymbol(currencyCode);
+    const expectedDecimalSymbol =
+      decimalSymbol === DECIMAL_NOT_SUPPORTED ? PERIOD : decimalSymbol;
 
-    // For locales that use non-period symbols as the decimal symbol, users may still input a period
-    // and expect it to be treated as the decimal symbol for their locale.
-    const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
-    const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
-    const usesPeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
-    const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
-    const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
+    const normalizedValue = normalizedNumber(input, expectedDecimalSymbol);
 
-    const integerValue = input
-      .substring(0, lastDecimalIndex)
-      .replace(nonDigits, '');
-    const decimalValue = input
-      .substring(lastDecimalIndex + 1)
-      .replace(nonDigits, '');
+    if (normalizedValue === '') {
+      return '';
+    }
 
-    const normalizedDecimal = lastDecimalIndex === -1 ? '' : PERIOD;
-    const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
-    const invalidValue = normalizedValue === '' || normalizedValue === PERIOD;
-
-    if (symbol === DECIMAL_NOT_SUPPORTED) {
+    if (decimalSymbol === DECIMAL_NOT_SUPPORTED) {
       const roundedAmount = parseFloat(normalizedValue).toFixed(0);
       return `${roundedAmount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
     }
@@ -240,9 +234,7 @@ export class I18n {
     const decimalPlaces =
       currencyDecimalPlaces.get(currencyCode.toUpperCase()) ||
       DEFAULT_DECIMAL_PLACES;
-    return invalidValue
-      ? ''
-      : parseFloat(normalizedValue).toFixed(decimalPlaces);
+    return parseFloat(normalizedValue).toFixed(decimalPlaces);
   }
 
   formatPercentage(amount: number, options: Intl.NumberFormatOptions = {}) {
@@ -319,7 +311,7 @@ export class I18n {
     }
   }
 
-  private decimalSymbol(currencyCode: string) {
+  private currencyDecimalSymbol(currencyCode: string) {
     const digitOrSpace = /\s|\d/g;
     const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
 
@@ -332,6 +324,39 @@ export class I18n {
 
     return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
+
+  private numberDecimalSymbol() {
+    return this.formatNumber(1.1, {
+      maximumFractionDigits: 1,
+      minimumFractionDigits: 1,
+    })[1];
+  }
+}
+
+function normalizedNumber(input: string, expectedDecimal: string) {
+  const nonDigits = /\D/g;
+
+  // For locales that use non-period symbols as the decimal symbol, users may still input a period
+  // and expect it to be treated as the decimal symbol for their locale.
+  const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
+  const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
+  const usesPeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
+  const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
+  const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
+
+  const integerValue = input
+    .substring(0, lastDecimalIndex)
+    .replace(nonDigits, '');
+  const decimalValue = input
+    .substring(lastDecimalIndex + 1)
+    .replace(nonDigits, '');
+
+  const normalizedDecimal = lastDecimalIndex === -1 ? '' : PERIOD;
+  const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
+
+  return normalizedValue === '' || normalizedValue === PERIOD
+    ? ''
+    : normalizedValue;
 }
 
 function isTranslateOptions(
