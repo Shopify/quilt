@@ -17,14 +17,14 @@ export function notEmptyString(error: ErrorContent<string>) {
   return validator(predicates.notEmptyString, {skipOnEmpty: false})(error);
 }
 
+export function positiveIntegerString(error: ErrorContent<string>) {
+  return validator(predicates.isPositiveIntegerString)(error);
+}
+
 export function positiveNumericString(error: ErrorContent<string>) {
-  return validator(input => {
-    return input !== '' && (input.match(/[^0-9.,]/g) || []).length === 0;
-  })(error);
+  return validator(predicates.isPositiveNumericString)(error);
 }
 
 export function numericString(error: ErrorContent<string>) {
-  return validator(input => {
-    return input !== '' && (input.match(/[^0-9.,-]/g) || []).length === 0;
-  })(error);
+  return validator(predicates.isNumericString)(error);
 }
