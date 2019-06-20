@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Added
+
+- new `positiveIntegerString` validator to validate fractionless numbers [#760](https://github.com/Shopify/quilt/pull/760)
+
 ### Fixed
 
 - `notEmptyString` now rejects empty strings, similar to `notEmpty` [#759](https://github.com/Shopify/quilt/pull/759)
