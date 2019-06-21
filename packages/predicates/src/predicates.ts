@@ -6,6 +6,10 @@ export function lengthLessThan(length: number) {
   return (input: {length: number}) => input.length < length;
 }
 
+export function isPositiveIntegerString(input: string) {
+  return input !== '' && (input.match(/[^0-9]/g) || []).length === 0;
+}
+
 export function isPositiveNumericString(input: string) {
   return input !== '' && (input.match(/[^0-9.,]/g) || []).length === 0;
 }
