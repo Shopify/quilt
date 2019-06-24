@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Added the following headers: 'X-XSS-Protection', 'X-Frame-Options', 'X-Download-Options', 'X-Content-Type-Options', 'Strict-Transport-Security', 'Referrer-Policy' ([#752](https://github.com/Shopify/quilt/pull/752))
+
 ## [1.3.0] - 2019-06-12
 
 - Added 'Accept-Language' header ([#752](https://github.com/Shopify/quilt/pull/752))
