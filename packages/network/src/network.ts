@@ -78,6 +78,12 @@ export enum Header {
   AccessControlRequestMethod = 'Access-Control-Request-Method',
   CacheControl = 'Cache-Control',
   AcceptLanguage = 'Accept-Language',
+  XssProtecton = 'X-XSS-Protection',
+  FrameOptions = 'X-Frame-Options',
+  DownloadOptions = 'X-Download-Options',
+  ContentTypeOptions = 'X-Content-Type-Options',
+  StrictTransportSecurity = 'Strict-Transport-Security',
+  ReferrerPolicy = 'Referrer-Policy',
 }
 
 export enum CspDirective {

@@ -94,6 +94,7 @@ The following standard mocks are available:
 - `timer`
 - `promise`
 - `intersectionObserver`
+- `dimension`
 
 Each of the standard mocks can be installed, for a given test, using `standardMock.mock()`, and must be restored before the end of the test using `standardMock.restore()`.
 
@@ -226,3 +227,54 @@ The storage mocks are a bit different than the other mocks, because they serve p
 - `clear`
 
 Each of these are wrapped in a jest spy, which is automatically restored at the end of the test run.
+
+### Dimension mocks
+
+The dimension mocks allow mocking the following DOM properties:
+
+- `scrollWidth`
+- `scrollHeight`
+- `offsetWidth`
+- `offsetHeight`
+
+Pass the dimension you want to mock and the value you want returned for all calls when calling `mock`:
+
+```ts
+import {dimension} from '@shopify/jest-dom-mocks';
+
+beforeEach(() => {
+  dimension.mock({
+    scrollWidth: 100,
+    offsetHeight: 200,
+  });
+});
+
+afterEach(() => dimension.restore());
+```
+
+You can also pass in a function as a mock that returns a number. The element is passed as the only argument to the function:
+
+```tsx
+beforeEach(() => {
+  dimension.mock({
+    scrollWidth(element: HTMLElement) {
+      return element.id === 'test-id' ? 200 : 0;
+    },
+  });
+});
+
+afterEach(() => dimension.restore());
+
+describe('DOM tests', () => {
+  it('returns the element width', () => {
+    function Component() {
+      return <div id="some-id" />;
+    }
+    const element = mount(<Component />);
+    const elementWidth =
+      element.domNode == null ? undefined : element.domNode.scrollWidth;
+
+    expect(elementWidth).toBe(200);
+  });
+});
+```
