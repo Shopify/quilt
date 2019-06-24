@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [2.7.0] - 2019-06-24
+
 ### Added
 
 - Accurate return types for `Storage` mocks
