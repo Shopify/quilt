@@ -1050,4 +1050,29 @@ describe('I18n', () => {
       expect(i18n.getCurrencySymbol('eur')).toStrictEqual(mockResult);
     });
   });
+
+  describe('#translationKeyExists', () => {
+    it('returns true if the translation key exists', () => {
+      const mockResult = 'translated string';
+      translate.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const result = i18n.translationKeyExists('hello');
+
+      expect(result).toBe(true);
+    });
+
+    it('returns false if the translation key does not exist', () => {
+      const key = 'foo';
+      const error = new MissingTranslationError(key);
+      translate.mockImplementation(() => {
+        throw error;
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const result = i18n.translationKeyExists(key);
+
+      expect(result).toBe(false);
+    });
+  });
 });
