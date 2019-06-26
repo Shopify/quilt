@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+import {GraphQLError} from 'graphql';
 import {MockGraphQLResponse} from '../../types';
 import {MockLink} from '../mocks';
 
@@ -69,5 +70,31 @@ describe('MockLink', () => {
         "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (you provided a function that did not return a valid mock result)",
       ),
     );
+  });
+
+  it('returns a GraphQLError when there is a GraphQLError matching an operation', async () => {
+    const error = new GraphQLError(
+      'error message',
+      undefined,
+      undefined,
+      undefined,
+      ['path1', 'path2'],
+    );
+    const link = new MockLink({
+      Pet: error,
+    });
+    const {result} = await executeOnce(link, petQuery);
+
+    expect(result).toMatchObject({errors: [error]});
+  });
+
+  it('returns a GraphQLError with the message from an Error matching an operation', async () => {
+    const error = new Error('error message');
+    const link = new MockLink({
+      Pet: error,
+    });
+    const {result} = await executeOnce(link, petQuery);
+
+    expect(result).toMatchObject({errors: [new GraphQLError(error.message)]});
   });
 });
