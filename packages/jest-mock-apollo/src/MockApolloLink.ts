@@ -62,6 +62,10 @@ export default class MockApolloLink extends ApolloLink {
 
         const error = new Error(message);
         result = error;
+      } else if (response instanceof GraphQLError) {
+        result = {
+          errors: [response],
+        };
       } else if (response instanceof Error) {
         result = {errors: [new GraphQLError(response.message)]};
       } else {
