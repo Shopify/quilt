@@ -241,6 +241,16 @@ i18n.translate(key, {scope: 'MyComponent.option'});
 i18n.translate(key, {scope: ['MyComponent', 'option']});
 ```
 
+It may be necessary to check dynamic keys. You can use the `translationKeyExists` method to do so:
+
+```ts
+const keyExists = i18n.translationKeyExists(key);
+
+if (keyExists) {
+  return i18n.translate(key, {scope: ['MyComponent', 'option']});
+}
+```
+
 ##### Pluralization
 
 `@shopify/react-i18n` handles pluralization similarly to [Rails’ default i18n utility](https://guides.rubyonrails.org/i18n.html#pluralization). The key is to provide the plural-dependent value as a `count` variable. `react-i18n` then looks up the plural form using [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules) and, within the keypath you have specified for the translation, will look up a nested translation matching the plural form:

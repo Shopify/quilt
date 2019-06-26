@@ -177,6 +177,15 @@ export class I18n {
     }
   }
 
+  translationKeyExists(id: string) {
+    try {
+      this.translate(id);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   formatNumber(
     amount: number,
     {as, precision, ...options}: NumberFormatOptions = {},
