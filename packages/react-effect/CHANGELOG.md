@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.2.0] - 2019-06-27
+
+### Fixed
+
+- Fixed an issue where `betweenEachPass` was called on the last pass before `maxPasses` was reached. In order to correct this issue, returning `false` from `betweenEachPass` no longer halts render looping (use `afterEachPass` instead). [#769](https://github.com/Shopify/quilt/pull/769)
+
 ## [3.1.0] - 2019-06-14
 
 ### Added
