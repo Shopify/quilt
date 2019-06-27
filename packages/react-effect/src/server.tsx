@@ -38,13 +38,15 @@ export function extract(
   return (async function perform(index = 0): Promise<string> {
     const start = Date.now();
     const result = renderFunction(element);
+    const cancelled = !manager.finished && index + 1 >= maxPasses;
 
-    if (manager.finished) {
+    if (manager.finished || cancelled) {
       const duration = Date.now() - start;
 
       await manager.afterEachPass({
         index,
-        finished: manager.finished,
+        finished: true,
+        cancelled,
         renderDuration: duration,
         resolveDuration: 0,
       });
@@ -52,7 +54,8 @@ export function extract(
       if (afterEachPass) {
         await afterEachPass({
           index,
-          finished: manager.finished,
+          finished: true,
+          cancelled,
           renderDuration: duration,
           resolveDuration: 0,
         });
@@ -70,31 +73,10 @@ export function extract(
 
       performNextPass =
         shouldContinue(
-          await manager.betweenEachPass({
-            index,
-            finished: false,
-            renderDuration,
-            resolveDuration,
-          }),
-        ) && performNextPass;
-
-      if (betweenEachPass) {
-        performNextPass =
-          shouldContinue(
-            await betweenEachPass({
-              index,
-              finished: false,
-              renderDuration,
-              resolveDuration,
-            }),
-          ) && performNextPass;
-      }
-
-      performNextPass =
-        shouldContinue(
           await manager.afterEachPass({
             index,
             finished: false,
+            cancelled: false,
             renderDuration,
             resolveDuration,
           }),
@@ -106,17 +88,36 @@ export function extract(
             await afterEachPass({
               index,
               finished: false,
+              cancelled: false,
               renderDuration,
               resolveDuration,
             }),
           ) && performNextPass;
       }
 
-      if (index + 1 >= maxPasses || !performNextPass) {
-        return result;
+      if (performNextPass) {
+        await manager.betweenEachPass({
+          index,
+          finished: false,
+          cancelled: false,
+          renderDuration,
+          resolveDuration,
+        });
+
+        if (betweenEachPass) {
+          await betweenEachPass({
+            index,
+            finished: false,
+            cancelled: false,
+            renderDuration,
+            resolveDuration,
+          });
+        }
       }
 
-      return perform(index + 1);
+      manager.reset();
+
+      return performNextPass ? perform(index + 1) : result;
     }
   })();
 }

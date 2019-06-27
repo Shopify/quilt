@@ -54,17 +54,6 @@ describe('extract()', () => {
     expect(kind.betweenEachPass).toHaveBeenCalledTimes(1);
   });
 
-  it('bails out if betweenEachPass on any kind returns false', async () => {
-    const kind = {
-      id: Symbol('id'),
-      betweenEachPass: jest.fn(() => Promise.resolve(false)),
-    };
-
-    await extract(<Effect perform={() => Promise.resolve()} kind={kind} />);
-
-    expect(kind.betweenEachPass).toHaveBeenCalledTimes(1);
-  });
-
   it('calls afterEachPass on each used kind', async () => {
     const kind = {id: Symbol('id'), afterEachPass: jest.fn()};
     await extract(<Effect perform={noop} kind={kind} />);
@@ -74,12 +63,24 @@ describe('extract()', () => {
   it('bails out if afterEachPass on any kind returns false', async () => {
     const kind = {
       id: Symbol('id'),
-      betweenEachPass: jest.fn(() => Promise.resolve(false)),
+      afterEachPass: jest.fn(() => Promise.resolve(false)),
     };
 
     await extract(<Effect perform={() => Promise.resolve()} kind={kind} />);
 
-    expect(kind.betweenEachPass).toHaveBeenCalledTimes(1);
+    expect(kind.afterEachPass).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not call betweenEachPass if afterEachPass bails out', async () => {
+    const kind = {
+      id: Symbol('id'),
+      afterEachPass: () => Promise.resolve(false),
+      betweenEachPass: jest.fn(),
+    };
+
+    await extract(<Effect perform={() => Promise.resolve()} kind={kind} />);
+
+    expect(kind.betweenEachPass).toHaveBeenCalledTimes(0);
   });
 
   it('does not perform effects outside of extract()', () => {
@@ -162,17 +163,10 @@ describe('extract()', () => {
       expect(spy).toHaveBeenCalledWith({
         index: 0,
         finished: false,
+        cancelled: false,
         renderDuration,
         resolveDuration,
       });
-    });
-
-    it('bails out if it returns false', async () => {
-      const spy = jest.fn(() => Promise.resolve(false));
-      await extract(<Effect perform={() => Promise.resolve()} />, {
-        betweenEachPass: spy,
-      });
-      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -225,6 +219,7 @@ describe('extract()', () => {
       expect(spy).toHaveBeenCalledWith({
         index: 0,
         finished: false,
+        cancelled: false,
         renderDuration,
         resolveDuration,
       });
@@ -232,6 +227,7 @@ describe('extract()', () => {
       expect(spy).toHaveBeenLastCalledWith({
         index: 1,
         finished: true,
+        cancelled: false,
         renderDuration,
         resolveDuration: 0,
       });
@@ -280,7 +276,33 @@ describe('extract()', () => {
       expect(spy).toHaveBeenCalledTimes(maxPasses);
       expect(spy).not.toHaveBeenCalledWith({
         finished: true,
+        cancelled: true,
       });
+    });
+
+    it('performs afterEachPasses but not betweenEachPasses when the limit is reached', async () => {
+      const maxPasses = 2;
+      const {resolve} = createResolvablePromise();
+
+      const betweenSpy = jest.fn();
+      const afterSpy = jest.fn();
+      const kind = {
+        id: Symbol('id'),
+        betweenEachPass: jest.fn(),
+        afterEachPass: jest.fn(),
+      };
+
+      await extract(<Effect perform={resolve} kind={kind} />, {
+        maxPasses,
+        afterEachPass: afterSpy,
+        betweenEachPass: betweenSpy,
+      });
+
+      expect(kind.betweenEachPass).toHaveBeenCalledTimes(maxPasses - 1);
+      expect(betweenSpy).toHaveBeenCalledTimes(maxPasses - 1);
+
+      expect(kind.afterEachPass).toHaveBeenCalledTimes(maxPasses);
+      expect(afterSpy).toHaveBeenCalledTimes(maxPasses);
     });
   });
 });
