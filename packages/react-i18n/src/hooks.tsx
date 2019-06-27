@@ -54,19 +54,23 @@ function useComplexI18n(
   }
 
   const [i18n, setI18n] = React.useState(() => {
-    const {translations} = manager.state(ids.current);
-    return new I18n(translations, manager.details);
+    const managerState = manager.state(ids.current);
+    const {translations, loading} = managerState;
+    return new I18n(translations, {...manager.details, loading});
   });
 
   const i18nRef = React.useRef(i18n);
 
   React.useEffect(
     () => {
-      return manager.subscribe(ids.current, ({translations}, details) => {
-        const newI18n = new I18n(translations, details);
-        i18nRef.current = newI18n;
-        setI18n(newI18n);
-      });
+      return manager.subscribe(
+        ids.current,
+        ({translations, loading}, details) => {
+          const newI18n = new I18n(translations, {...details, loading});
+          i18nRef.current = newI18n;
+          setI18n(newI18n);
+        },
+      );
     },
     [ids, manager],
   );
