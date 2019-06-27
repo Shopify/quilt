@@ -16,10 +16,10 @@ interface Options {
 export class NetworkManager {
   readonly effect: EffectKind = {
     id: EFFECT_ID,
-    afterEachPass() {
+    afterEachPass: () => {
       return this.redirectUrl == null;
     },
-    betweenEachPass() {
+    betweenEachPass: () => {
       this.reset();
     },
   };
