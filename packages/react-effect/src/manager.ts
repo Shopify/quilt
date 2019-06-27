@@ -17,6 +17,11 @@ export class EffectManager {
     this.include = include;
   }
 
+  reset() {
+    this.effects = [];
+    this.kinds = new Set();
+  }
+
   add(effect: any, kind?: EffectKind) {
     if (kind != null) {
       this.kinds.add(kind);
@@ -34,7 +39,7 @@ export class EffectManager {
   }
 
   async betweenEachPass(pass: Pass) {
-    const results = await Promise.all(
+    await Promise.all(
       [...this.kinds].map(
         kind =>
           typeof kind.betweenEachPass === 'function'
@@ -42,8 +47,6 @@ export class EffectManager {
             : Promise.resolve(),
       ),
     );
-
-    return results.every(result => result !== false);
   }
 
   async afterEachPass(pass: Pass) {
@@ -55,9 +58,6 @@ export class EffectManager {
             : Promise.resolve(),
       ),
     );
-
-    this.effects = [];
-    this.kinds = new Set();
 
     return results.every(result => result !== false);
   }

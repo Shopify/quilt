@@ -1,6 +1,7 @@
 export interface Pass {
   index: number;
   finished: boolean;
+  cancelled: boolean;
   renderDuration: number;
   resolveDuration: number;
 }
