@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-webhooks",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "license": "MIT",
   "description": "Receive webhooks from Shopify with ease.",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-webhooks/README.md",
   "dependencies": {
-    "@shopify/network": "^1.4.0",
+    "@shopify/network": "^1.4.1",
     "koa-bodyparser": "^4.2.1",
     "koa-compose": "^4.1.0",
     "koa-mount": "^4.0.0",
