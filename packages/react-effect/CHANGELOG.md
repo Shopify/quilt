@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [3.1.1] - 2019-06-27
+## [3.2.0] - 2019-06-27
 
 ### Fixed
 
