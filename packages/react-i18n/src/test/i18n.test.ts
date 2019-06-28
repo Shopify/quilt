@@ -35,6 +35,20 @@ describe('I18n', () => {
     });
   });
 
+  describe('#loading', () => {
+    it('is exposed publicly', () => {
+      const locale = 'en';
+      const i18n = new I18n(defaultTranslations, {locale, loading: true});
+      expect(i18n).toHaveProperty('loading', true);
+    });
+
+    it('defaults to false', () => {
+      const locale = 'en';
+      const i18n = new I18n(defaultTranslations, {locale});
+      expect(i18n).toHaveProperty('loading', false);
+    });
+  });
+
   describe('#language', () => {
     it('is determined from the locale', () => {
       const locale = 'fr-ca';
