@@ -63,6 +63,7 @@ export class I18n {
   readonly defaultCurrency?: string;
   readonly defaultTimezone?: string;
   readonly onError: NonNullable<I18nDetails['onError']>;
+  readonly loading: boolean;
 
   get language() {
     return languageFromLocale(this.locale);
@@ -102,7 +103,8 @@ export class I18n {
       country,
       pseudolocalize = false,
       onError,
-    }: I18nDetails,
+      loading,
+    }: I18nDetails & {loading?: boolean},
   ) {
     this.locale = locale;
     this.defaultCountry = country;
@@ -110,6 +112,7 @@ export class I18n {
     this.defaultTimezone = timezone;
     this.pseudolocalize = pseudolocalize;
     this.onError = onError || defaultOnError;
+    this.loading = loading || false;
   }
 
   translate(
