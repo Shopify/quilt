@@ -16,10 +16,9 @@ If this is a new package, you may disregard this section.
 Please delete options that are not relevant.
 -->
 
-- [ ] <!--Package Name--> Patch: Bug fix (non-breaking change which fixes an issue)
+- [ ] <!--Package Name--> Patch: Bug/ Documentation fix (non-breaking change which fixes an issue or adds documentation)
 - [ ] <!--Package Name--> Minor: New feature (non-breaking change which adds functionality)
 - [ ] <!--Package Name--> Major: Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] <!--Package Name--> Documenation: Only updates documentation files
 
 ## Checklist
 
