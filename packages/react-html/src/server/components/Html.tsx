@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {renderToString} from 'react-dom/server';
+import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 
 import {Script, Style} from '../../components';
 import {HtmlManager} from '../../manager';
@@ -15,27 +16,33 @@ export interface Asset {
 
 export interface Props {
   manager?: HtmlManager;
+  hydrationManager?: HydrationManager;
   children: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];
   scripts?: Asset[];
   blockingScripts?: Asset[];
+  preloadAssets?: Asset[];
   headMarkup?: React.ReactNode;
   bodyMarkup?: React.ReactNode;
 }
 
 export default function Html({
   manager,
+  hydrationManager,
   children,
   locale = 'en',
   blockingScripts = [],
   scripts = [],
   styles = [],
+  preloadAssets = [],
   headMarkup = null,
   bodyMarkup = null,
 }: Props) {
   const markup =
-    typeof children === 'string' ? children : render(children, manager);
+    typeof children === 'string'
+      ? children
+      : render(children, {htmlManager: manager, hydrationManager});
 
   const extracted = manager && manager.extract();
 
@@ -104,6 +111,10 @@ export default function Html({
     );
   });
 
+  const preloadAssetsMarkup = preloadAssets.map(asset => (
+    <link key={asset.path} rel="prefetch" href={asset.path} />
+  ));
+
   const htmlAttributes = extracted ? extracted.htmlAttributes : {};
   const bodyAttributes = extracted ? extracted.bodyAttributes : {};
 
@@ -130,6 +141,7 @@ export default function Html({
         {headMarkup}
         {blockingScriptsMarkup}
         {deferredScriptsMarkup}
+        {preloadAssetsMarkup}
       </head>
 
       <body {...bodyAttributes}>
@@ -142,12 +154,28 @@ export default function Html({
   );
 }
 
-function render(app: React.ReactElement<any>, manager?: HtmlManager) {
+function render(
+  app: React.ReactElement<any>,
+  {
+    htmlManager,
+    hydrationManager,
+  }: {htmlManager?: HtmlManager; hydrationManager?: HydrationManager},
+) {
+  const hydrationWrapped = hydrationManager ? (
+    <HydrationContext.Provider value={hydrationManager}>
+      {app}
+    </HydrationContext.Provider>
+  ) : (
+    app
+  );
+
   const content =
-    manager == null ? (
+    htmlManager == null ? (
       app
     ) : (
-      <HtmlContext.Provider value={manager}>{app}</HtmlContext.Provider>
+      <HtmlContext.Provider value={htmlManager}>
+        {hydrationWrapped}
+      </HtmlContext.Provider>
     );
 
   return renderToString(content);

@@ -4,6 +4,8 @@ const DEFAULT_HYDRATION_ID = Symbol('defaultId');
 const DEFAULT_HYDRATION_PREFIX = 'hydration';
 
 export class HydrationManager {
+  hydrated = false;
+
   private readonly ids = new Map<
     string | typeof DEFAULT_HYDRATION_ID,
     number

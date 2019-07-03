@@ -10,6 +10,8 @@ const moduleNameMapper = getPackageNames().reduce(
   {
     '@shopify/react-effect/server':
       '<rootDir>/packages/react-effect/src/server.tsx',
+    '@shopify/react-async/testing':
+      '<rootDir>/packages/react-async/src/testing.tsx',
   },
 );
 

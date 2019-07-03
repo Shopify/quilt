@@ -1,166 +1,141 @@
-import * as React from 'react';
-
+import React, {useEffect} from 'react';
 import {DocumentNode} from 'graphql-typed';
 import {NetworkStatus} from 'apollo-client';
-import {LoadProps, DeferTiming} from '@shopify/async';
-import {
-  Async,
-  AsyncPropsRuntime,
-  resolve as resolver,
-  trySynchronousResolve,
-} from '@shopify/react-async';
+
+import {createResolver, ResolverOptions} from '@shopify/async';
+import {AsyncComponentType, useAsync, AssetTiming} from '@shopify/react-async';
 import {Omit} from '@shopify/useful-types';
+import {useIdleCallback} from '@shopify/react-idle';
 
-import {useApolloClient} from './hooks';
-import {Prefetch as PrefetchQuery} from './Prefetch';
 import {Query} from './Query';
-import {
-  ConstantProps,
-  AsyncQueryComponentType,
-  QueryProps,
-  VariableOptions,
-} from './types';
+import {useBackgroundQuery, useApolloClient} from './hooks';
+import {AsyncQueryComponentType, QueryProps, VariableOptions} from './types';
 
-interface QueryComponentOptions<Data, Variables, DeepPartial>
-  extends LoadProps<DocumentNode<Data, Variables, DeepPartial>> {
-  defer?: DeferTiming;
-}
+interface Options<Data, Variables, DeepPartial>
+  extends ResolverOptions<DocumentNode<Data, Variables, DeepPartial>> {}
 
 export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
   id,
   load,
-  defer,
-}: QueryComponentOptions<
+}: Options<Data, Variables, DeepPartial>): AsyncQueryComponentType<
   Data,
   Variables,
   DeepPartial
->): AsyncQueryComponentType<Data, Variables, DeepPartial> {
-  let resolvedDocument = trySynchronousResolve<
-    DocumentNode<Data, Variables, DeepPartial>
-  >({id, defer});
+> {
+  const resolver = createResolver({id, load});
 
-  async function resolve() {
-    const response = await resolver(load);
-    resolvedDocument = response;
-    return response;
+  function AsyncQuery(props: Omit<QueryProps<Data, Variables>, 'query'>) {
+    const client = useApolloClient(props.client);
+    const {load, resolved: query} = useAsync(resolver, {
+      assets: AssetTiming.Immediate,
+    });
+
+    useEffect(
+      () => {
+        load();
+      },
+      [load],
+    );
+
+    return query ? (
+      <Query query={query} {...props as any} />
+    ) : (
+      props.children({
+        data: undefined,
+        loading: true,
+        variables: (props as any).variables,
+        client,
+        networkStatus: NetworkStatus.loading,
+        refetch: noop as any,
+        fetchMore: noop as any,
+        updateQuery: noop as any,
+        startPolling: noop as any,
+        stopPolling: noop as any,
+        subscribeToMore: noop as any,
+      })
+    );
   }
 
-  function AsyncQuery(
-    props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
+  function usePreload() {
+    return useAsync(resolver, {assets: AssetTiming.NextPage}).load;
+  }
+
+  function usePrefetch(options: VariableOptions<Variables>) {
+    const load = usePreload();
+    return useBackgroundQuery(load, options);
+  }
+
+  function useKeepFresh(
+    options: VariableOptions<Variables> & Pick<QueryProps, 'pollInterval'>,
   ) {
-    const [componentProps, asyncProps] = splitProps(props);
-    const client = useApolloClient();
-
-    return (
-      <Async
-        id={id}
-        load={load}
-        defer={defer}
-        render={query =>
-          query ? (
-            <Query query={query} {...componentProps as any} />
-          ) : (
-            componentProps.children({
-              data: undefined,
-              loading: true,
-              variables: (componentProps as any).variables,
-              client,
-              networkStatus: NetworkStatus.loading,
-              refetch: noop as any,
-              fetchMore: noop as any,
-              updateQuery: noop as any,
-              startPolling: noop as any,
-              stopPolling: noop as any,
-              subscribeToMore: noop as any,
-            })
-          )
-        }
-        {...asyncProps}
-      />
-    );
+    const load = usePreload();
+    return useBackgroundQuery(load, {pollInterval: 10_000, ...options});
   }
 
-  function Prefetch(props: VariableOptions<Variables> & ConstantProps) {
-    const [componentProps, asyncProps] = splitProps(props);
-    const {variables} = componentProps;
-
-    return (
-      <Async
-        load={load}
-        defer={DeferTiming.Mount}
-        render={query =>
-          query ? (
-            <PrefetchQuery ignoreCache query={query} variables={variables} />
-          ) : null
-        }
-        {...asyncProps}
-      />
-    );
+  function Preload() {
+    useIdleCallback(usePreload());
+    return null;
   }
 
-  function Preload(props: ConstantProps) {
-    const asyncProps = splitProps(props)[1];
-    return (
-      <Async defer={DeferTiming.Idle} load={load} id={id} {...asyncProps} />
-    );
+  function Prefetch(options: VariableOptions<Variables>) {
+    useIdleCallback(usePrefetch(options));
+    return null;
   }
 
-  type KeepFreshProps = VariableOptions<Variables> & {
-    pollInterval?: number;
-  };
-
-  function KeepFresh(props: KeepFreshProps & ConstantProps) {
-    const [componentProps, asyncProps] = splitProps(props);
-    const {variables, pollInterval = 10_000} = componentProps;
-
-    return (
-      <Async
-        load={load}
-        defer={DeferTiming.Idle}
-        render={query =>
-          query ? (
-            <PrefetchQuery
-              query={query}
-              pollInterval={pollInterval}
-              variables={variables}
-            />
-          ) : null
-        }
-        {...asyncProps}
-      />
-    );
+  function KeepFresh(
+    options: VariableOptions<Variables> & Pick<QueryProps, 'pollInterval'>,
+  ) {
+    useIdleCallback(useKeepFresh(options));
+    return null;
   }
 
   // Once we upgrade past TS 3.1, this will no longer be necessary,
   // because you can statically assign values to functions and TS
   // will know to augment its type
-  const FinalComponent: AsyncQueryComponentType<
-    Data,
-    Variables,
-    DeepPartial
+  const FinalComponent: AsyncComponentType<
+    DocumentNode<Data, Variables, DeepPartial>,
+    Omit<QueryProps<Data, Variables>, 'query'>,
+    {},
+    VariableOptions<Variables>,
+    VariableOptions<Variables> & Pick<QueryProps, 'pollInterval'>
   > = AsyncQuery as any;
 
-  FinalComponent.Preload = Preload;
-  FinalComponent.Prefetch = Prefetch;
-  FinalComponent.KeepFresh = KeepFresh;
-  FinalComponent.resolve = resolve;
-
-  Object.defineProperty(FinalComponent, 'resolved', {
-    get: () => resolvedDocument,
+  Reflect.defineProperty(FinalComponent, 'resolver', {
+    value: resolver,
+    writable: false,
   });
 
-  Object.defineProperty(FinalComponent, 'id', {
-    get: () => id && id(),
+  Reflect.defineProperty(FinalComponent, 'Preload', {
+    value: Preload,
+    writable: false,
+  });
+
+  Reflect.defineProperty(FinalComponent, 'Prefetch', {
+    value: Prefetch,
+    writable: false,
+  });
+
+  Reflect.defineProperty(FinalComponent, 'KeepFresh', {
+    value: KeepFresh,
+    writable: false,
+  });
+
+  Reflect.defineProperty(FinalComponent, 'usePreload', {
+    value: usePreload,
+    writable: false,
+  });
+
+  Reflect.defineProperty(FinalComponent, 'usePrefetch', {
+    value: usePrefetch,
+    writable: false,
+  });
+
+  Reflect.defineProperty(FinalComponent, 'useKeepFresh', {
+    value: useKeepFresh,
+    writable: false,
   });
 
   return FinalComponent;
 }
 
 function noop() {}
-
-function splitProps<Props>(
-  props: Props & ConstantProps,
-): [Props, AsyncPropsRuntime] {
-  const {async, ...rest} = props as any;
-  return [rest, async];
-}

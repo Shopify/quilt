@@ -15,7 +15,7 @@ $ yarn add @shopify/react-async
 
 ### `createAsyncComponent()`
 
-`createAsyncComponent` is a function for creating components that are loaded asynchronously on initial mount. However, the resulting component does more than just help you split up your application along component lines; it also supports customized rendering for loading, and creates additional components for smartly preloading or prefetching the component’s bundle. Best of all, in conjunction with the Babel and Webpack plugins provided by [`@shopify/async`](../async), you can easily extract the bundles needed to render your application during server side rendering.
+`createAsyncComponent` is a function for creating components that are loaded asynchronously on initial mount. However, the resulting component does more than just help you split up your application along component lines; it also supports customized rendering for loading and errors, and creates additional hooks and components for smartly preloading the component and its dependencies. Best of all, in conjunction with the Babel and Webpack plugins provided by [`@shopify/async`](../async), you can easily extract the bundles needed to render your application during server side rendering.
 
 To start, import the `createAsyncComponent` function. The simplest use of this function requires just a `load` function, which returns a promise for a component:
 
@@ -29,7 +29,9 @@ const MyComponent = createAsyncComponent({
 
 This function returns a component that accepts the same props as the original one.
 
-`createAsyncComponent` also adds a few static members that are themselves components: `Preload`, `Prefetch`, and `KeepFresh`.
+#### Preload, prefetch, and keep fresh
+
+`createAsyncComponent` also adds a few static members that are themselves components: `Preload`, `Prefetch`, and `KeepFresh`. Likewise, it provides a set of hooks, which allow for more complex preloading use-cases.
 
 ```tsx
 const MyComponent = createAsyncComponent({
@@ -38,49 +40,74 @@ const MyComponent = createAsyncComponent({
 
 // All of these are available:
 <MyComponent />
-<MyComponent.Prefetch />
+
 <MyComponent.Preload />
+<MyComponent.Prefetch />
 <MyComponent.KeepFresh />
+
+MyComponent.usePreload();
+MyComponent.usePrefetch();
+MyComponent.useKeepFresh();
 ```
 
-By default, `Preload`, `Prefetch`, and `KeepFresh` all simply prefetch the bundle for the component in the background. However, you can provide additional markup to render in these components with the `renderPreload`, `renderPrefetch`, and `renderKeepFresh` options to `createAsyncComponent`:
+By default, all of these special hooks and components will preload the assets for the asynchronously-imported components. However, you can provide additional logic to perform with the `usePreload`, `usePrefetch`, and `useKeepFresh` options to `createAsyncComponent`:
 
 ```tsx
 const MyComponent = createAsyncComponent({
   load: () => import('./MyComponent'),
-  renderPrefetch: () => <PrefetchSomethingElse />,
+  usePrefetch: () => {
+    const networkCache = useContext(MyNetworkCache);
+    return () => networkCache.preload('/component/data/endpoint');
+  },
 });
 
-// Now prefetches the component, and <PrefetchSomethingElse />!
+// Now prefetches the component assets, and performs the custom prefetch
 <MyComponent.Prefetch />;
+
+// Returns a function that will do all of the above, but allows you to run
+// it at a specific time
+const prefetch = MyComponent.usePrefetch();
 ```
 
-While you can supply whatever markup you like for these, we recommend that you use them for the following purposes:
+While you can supply whatever logic you like for these, we recommend that you use them for the following purposes:
 
 - `Preload`: loading resources that will be used by the component
 - `Prefetch`: loading resources **and** data that will be used by the component
 - `KeepFresh`: loading resources and data that will be used by the component, and keeping data up to date
 
-If you want props for your `Preload`, `Prefetch`, or `KeepFresh` components, simply provide them in the `render` option for that component. The resulting components will have those prop types baked in.
+If you want arguments for your `usePreload`, `usePrefetch`, or `useKeepFresh` hooks, simply specify them in the matching option for that component. These options must be some object type, and will then be used as expected arguments to the hook, and expected props for the component.
 
 ```tsx
 const MyComponent = createAsyncComponent({
   load: () => import('./MyComponent'),
-  renderPreload: ({priority}: {priority: 'high' | 'low'}) => (
-    <PreloadSomethingElse priority={priority} />
+  usePrefetch: ({id}: {id: string}) => (
+    const networkCache = useContext(MyNetworkCache);
+    return () => networkCache.preload(`/data/for/${id}`);
   ),
 });
 
-// This is a type error, we need a `priority` prop!
-<MyComponent.Preload />;
+// This is a type error, we need an `id` option/ prop!
+<MyComponent.Prefetch />;
+MyComponent.usePrefetch();
 
-// Ah, much better!
-<MyComponent.Preload priority="high" />;
+// Much better!
+<MyComponent.Prefetch id="123" />;
+MyComponent.usePrefetch({id: '123'});
 ```
 
-This system is designed to work well with our [`@shopify/react-graphql` package](../react-graphql). Simply create an async GraphQL query using that library, and then `Prefetch`, `Preload`, and `KeepFresh` that component alongside the React component itself:
+This system is designed to work well with our [`@shopify/react-graphql` package](../react-graphql). Simply create an async GraphQL query using that library, and then `usePrefetch`, `usePreload`, and `useKeepFresh` that component alongside the React component itself:
 
 ```tsx
+import {
+  createAsyncComponent,
+  // `usePreload`, `usePrefetch`, and `useKeepFresh` are convenience hooks
+  // that will just call `AsyncComponentType.useX`.
+  usePreload,
+  usePrefetch,
+  useKeepFresh,
+} from '@shopify/react-async';
+import {createAsyncQueryComponent} from '@shopify/react-graphql';
+
 const MyQuery = createAsyncQueryComponent({
   load: () => import('./graphql/MyQuery.graphql'),
 });
@@ -91,19 +118,19 @@ const MyComponent = createAsyncComponent({
   // If you use `graphql-typescript-definitions` for generating types from your
   // GraphQL documents, you'll be warned if there are required variables you aren’t
   // providing here!
-  renderPrefetch: () => <MyQuery.Prefetch />,
-  renderPreload: () => <MyQuery.Preload />,
-  renderKeepFresh: () => <MyQuery.KeepFresh />,
+  usePreload: () => usePreload(MyQuery),
+  usePrefetch: () => usePrefetch(MyQuery),
+  useKeepFresh: () => useKeepFresh(MyQuery),
 });
 ```
 
 #### Deferring components
 
-By default, components are loaded as early as possible. This means that, if the library can load your component synchronously, it will try to do so. If that is not possible, it will instead load it in `componentDidMount`. In some cases, a component may not be important enough to warrant being loaded early. This library exposes a few ways of "deferring" the loading of the component to an appropriate time.
+By default, components are loaded as early as possible. This means that, if the library can load your component synchronously, it will try to do so. If that is not possible, it will instead load it in after the component is mounted. In some cases, a component may not be important enough to warrant being loaded early. This library exposes a few ways of "deferring" the loading of the component to an appropriate time.
 
 If a component should always be deferred in some way, you can pass a custom `defer` option to `createAsyncComponent`. This property should be a member of the `DeferTiming` enum, which currently allows you to force deferring the component until:
 
-- Component mount (`DeferTiming.Mount`; this is the default)
+- Component mount (`DeferTiming.Mount`; note that this will defer it until mount even if the component could have been resolved synchronously),
 - Browser idle (`DeferTiming.Idle`; if `window.requestIdleCallback` is not available, it will load on mount), or
 - Component is in the viewport (`DeferTiming.InViewport`; if `IntersectionObserver` is not available, it will load on mount)
 
@@ -135,54 +162,89 @@ const MyComponentOnIdle = createAsyncComponent({
 });
 ```
 
-#### Overwriting properties
-
-The library always allows you to pass an `async` prop with some custom options for the underlying `<Async />` loader component (**note**: this library reserves the `async` prop name, so you can’t use that name for any of your component’s own props, or for the props you specify in the `renderPreload`, `renderPrefetch`, or `renderKeepFresh` options).
-
-Currenty the library allows you to overwite two properties:
-
-##### `defer?: DeferTiming`
+You can also pass a function to `defer`. This function, which will be called with the current props of the component, should return `true` when the component should begin loading. This makes it easy to implement components that have their visibility controlled by a property, like the Polaris Modal’s `open` prop:
 
 ```tsx
-import {createAsyncComponent, DeferTiming} from '@shopify/react-async';
-
-// No deferring
-const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+const MyModalComponent = createAsyncComponent({
+  load: () => import('./MyModalComponent'),
+  defer: ({open}) => open,
 });
-
-// But this instance will defer until idle anyways
-<MyComponent async={{defer: DeferTiming.Idle}} />;
 ```
 
-This prop also works for the `Preload`, `Prefetch`, and `KeepFresh` components. Note that these components have default deferring behaviour that should work well for their intended use cases: `Preload` and `KeepFresh` defer until idle, and `Prefetch` defers until mount.
+#### Progressive hydration
+
+It can sometimes be useful to server render a component, but to wait to load its assets until later in the page lifecycle. This is particularly relevant for large, mostly static components, components that are very likely to be outside the viewport on load, and expensive components that would cause significant layout shifts if only rendered on the client. This library supports this pattern through the `deferHydration` option, and with the help from the [`@shopify/react-hydrate` package](../react-hydrate).
+
+> **Note:** for progressive hydration to work, you **must** render either a `HydrationTracker` component from `@shopify/react-hydrate` or an `HtmlUpdater` from `@shopify/react-html>=9.0.0` somewhere in your app.
+
+In defining your async component, simply set the `deferHydration` option to one of the `DeferTiming` enum values (or, as noted in the previous example, a function that accepts props and returns a boolean).
 
 ```tsx
-const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+const Expensive = createAsyncComponent({
+  load: () => import('./Expensive'),
+  deferHydration: DeferTiming.InViewport,
 });
-
-// Deferring until later than usual
-<MyComponent.Prefetch async={{defer: DeferTiming.Idle}} />
-
-// Don’t defer at all
-<MyComponent.Preload async={{defer: undefined}} />
-<MyComponent.KeepFresh async={{defer: undefined}} />
 ```
 
-##### `renderLoading?(): React.ReactNode`
+The resulting component has special loading behavior that differs by environment:
+
+- On the server, the component renders synchronously, but **does not** mark assets as used.
+- On the client, when the app is undergoing hydration, the component persists its server-rendered markup, even though its assets are not yet available. When the condition specified by `deferHydration` is met, the assets will be loaded, and the component will be hydrated.
+- On the client, when the app has already undergone hydration, the component will begin loading on mount, and will show the result of calling `renderLoading`, just like any other async component.
+
+### `usePreload`, `usePrefetch`, and `useKeepFresh`
+
+These hooks are provided as conveniences for extracting functions from an async component that can be used to preload, prefetch, or keep fresh. The result is identical to calling `AsyncComponent.useX` directly, but works better with the tooling around hooks, which often does not understand the "static member as hook" pattern.
 
 ```tsx
-import {createAsyncComponent} from '@shopify/react-async';
-import {Spinner} from '@shopify/polaris';
+import {createAsyncComponent, usePreload} from '@shopify/react-async`
 
-// No loading state
-const MyComponent = createAsyncComponent({
+const Expensive = createAsyncComponent({
+  load: () => import('./Expensive'),
+  deferHydration: DeferTiming.InViewport,
+});
+
+function MyComponent({children}) {
+  const preload = usePreload(Expensive);
+  return <div onMouseEnter={preload}>{children}</div>;
+}
+```
+
+### `useAsync`
+
+The `useAsync` hook is a primitive that can be used by other libraries to create asynchronous components with different behaviors. One example is [`@shopify/react-graphql`](../react-graphql), where this hook is used to implement asynchronous GraphQL query components.
+
+This hook accepts two arguments:
+
+- `resolver`, an object matching the `Resolver` type from `@shopify/async`. This object is in charge of managing the loading of an asynchronous resource. It also controls the type of the result returned from the `useAsync` hook. The easiest way to construct one is to use the `createResolver` function from `@shopify/async`.
+- `options`, an optional object with any of the following properties:
+  - `assetTiming`: when the assets for this async asset will be used. Should be a member of the `AssetTiming` enum. This is used to register the asset as used, as documented [below](#useAsyncAsset). Defaults to `AssetTiming.Immediate`
+  - `immediate`: whether the hook should attempt to resolve the async asset synchronously (using `resolver.resolved`). Defaults to `true` if `assetTiming` is `Immediate`, and `false` otherwise.
+
+The `useAsync` hook returns an object containing details about the asynchronous asset. This object includes the following properties:
+
+- `id`: the ID of the asset, as specified by `resolver.id`.
+- `resolved`: `null` if the asset has not resolved, or had an error during resolution, and otherwise will be the unwrapped promise value returned by `resolver.resolve()`.
+- `loading`: whether the asset has been loaded yet.
+- `error`: an `Error` object, if calling `resolver.resolve()` rejected.
+- `load`: a function that can be called to begin the loading process.
+
+The following example demonstrates how to use the `useAsync` hook to implement the default `usePreload` provided to async components:
+
+```tsx
+import {createResolver} from '@shopify/async';
+import {useAsync, AssetTiming} from '@shopify/react-async';
+
+const resolver = createResolver({
+  id: () => require.resolveWeak('./MyComponent'),
   load: () => import('./MyComponent'),
 });
 
-// But this instance will render <Spinner /> as its loading state
-<MyComponent async={{renderLoading: () => <Spinner />}} />;
+function usePreload() {
+  return useAsync(resolver, {
+    assetTiming: AssetTiming.NextPage,
+  }).load;
+}
 ```
 
 ### `PrefetchRoute` and `Prefetcher`
@@ -224,6 +286,8 @@ And that’s it. While we reserve the right to change it, the basic process for 
 
 To make use of this feature, you will need to use [`react-effect`](../react-effect). It will automatically extract the information and clear extraneous bundles between tree traversals.
 
+To extract the used assets, you can call `AsyncAssetManager#used()`. This method accepts an `AssetTiming`, or an array of `AssetTiming`s, which specify which assets were actually used.
+
 ```tsx
 import {extract} from '@shopify/react-effect/server';
 import {AsyncAssetManager, AsyncAssetContext} from '@shopify/react-async';
@@ -240,14 +304,22 @@ await extract(<App />, {
   },
 });
 
-const moduleIds = [...asyncAssetmanager.used];
+const assetSelectors = [...asyncAssetmanager.used(AssetTiming.Immediate)];
 ```
 
-These module IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](../sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.
+These asset selectors indicate an `id` for the asset, and whether scripts and/ or styles should be included for the passed asset timings. The IDs can be looked up in the manifest created by `@shopify/async`’s Webpack plugin. If you are using [`sewing-kit-koa`](../sewing-kit-koa), you can follow the instructions from that package to automatically collect the required JavaScript and CSS bundles.
 
 #### `useAsyncAsset()`
 
-Other libraries may need to register an async asset as being used. If those libraries are implemented as components and use the `Async` component from this library, this will automatically be performed when the `id` prop is passed. However, libraries implementing their feature as hooks need to explicitly register their async asset as being used. To do so, you can use the `useAsyncAsset` hook, which accepts an optional ID and registers that ID as used.
+Other libraries may need to register an async asset as being used. They can do so with the `useAsyncAsset` hook, which accepts an optional string ID, and an optional object containing `styles` and `scripts` fields with `AssetTiming` values.
+
+The `AssetTiming` enum values allow you to specify how high-priority an asset is, which can be used to determine how to load that asset on the initial render:
+
+- `AssetTiming.Immediate`: load the asset as early as possible, but definitely before the initial hydration of the React application.
+- `AssetTiming.CurrentPage`: the asset is not needed before hydration, but is very likely to be used for other content on the current page (used for deferred and progressively hydrated components).
+- `AssetTiming.NextPage`: the asset is not needed for the current page, but may be needed after navigation (used for preloading, prefetching, and keeping fresh).
+
+> **Note:** `useAsync` calls `useAsyncAsset` under the hood, so you likely do not need to call it directly.
 
 ### `createAsyncContext()`
 

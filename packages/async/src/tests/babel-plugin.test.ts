@@ -202,6 +202,27 @@ describe('asyncBabelPlugin()', () => {
   });
 
   describe('packages', () => {
+    it('processes createResolver from @shopify/async by default', async () => {
+      const code = await normalize(`
+        import {createResolver} from '@shopify/async';
+
+        createResolver({
+          load: () => import('./Foo'),
+        });
+      `);
+
+      expect(await transform(code)).toBe(
+        await normalize(`
+          import {createResolver} from '@shopify/async';
+
+          createResolver({
+            load: () => import('./Foo'),
+            id: () => require.resolveWeak('./Foo'),
+          });
+        `),
+      );
+    });
+
     it('processes createAsyncComponent from @shopify/react-async by default', async () => {
       const code = await normalize(`
         import {createAsyncComponent} from '@shopify/react-async';

@@ -1,58 +1,179 @@
-import * as React from 'react';
-import {mount} from 'enzyme';
-import {trigger} from '@shopify/enzyme-utilities';
-import {DeferTiming} from '@shopify/async';
+import React from 'react';
+import {random} from 'faker';
+import {mount} from '@shopify/react-testing';
+import {requestIdleCallback} from '@shopify/jest-dom-mocks';
 
-import {Async} from '../Async';
 import {createAsyncContext} from '../provider';
+import {AssetTiming} from '../types';
 
-jest.mock('../Async', () => ({
-  Async() {
-    return null;
-  },
-}));
-
-const mockValue = Object.freeze({
-  hello: 'world',
-});
+import {getUsedAssets, createResolvablePromise} from './utilities';
 
 describe('createAsyncContext()', () => {
-  describe('<Provider />', () => {
-    it('renders an <Async /> with the provided props', () => {
-      const load = () => Promise.resolve(mockValue);
-      const id = () => 'foo';
+  beforeEach(() => {
+    requestIdleCallback.mock();
+  });
 
-      const AsyncContext = createAsyncContext({load, id});
+  afterEach(() => {
+    requestIdleCallback.restore();
+  });
+
+  describe('<Provider />', () => {
+    it('provides null when the value has not been loaded', () => {
+      const resolvable = createResolvablePromise({});
+      const AsyncContext = createAsyncContext({load: () => resolvable.promise});
       const asyncContext = mount(<AsyncContext.Provider />);
-      expect(asyncContext.find(Async).props()).toMatchObject({
-        load,
-        id,
-      });
+      expect(asyncContext).toProvideReactContext(AsyncContext.Context, null);
     });
 
-    it('renders the context provider with its intended value when available, and returns null otherwise', () => {
-      const load = () => Promise.resolve(mockValue);
-      const AsyncContext = createAsyncContext({load});
+    it('provides the resolved value once it has been loaded', async () => {
+      const value = 'hello world';
+      const resolvable = createResolvablePromise(value);
+      const AsyncContext = createAsyncContext({load: () => resolvable.promise});
       const asyncContext = mount(<AsyncContext.Provider />);
 
-      expect(trigger(asyncContext.find(Async), 'render', null)).toStrictEqual(
-        <AsyncContext.Context.Provider value={null} />,
+      await asyncContext.act(() => resolvable.resolve());
+
+      expect(asyncContext).toProvideReactContext(AsyncContext.Context, value);
+    });
+
+    it('marks the asset as used', async () => {
+      const id = random.uuid();
+      const resolvable = createResolvablePromise({});
+
+      const AsyncContext = createAsyncContext({
+        id: () => id,
+        load: () => resolvable.promise,
+      });
+
+      const asyncAssets = await getUsedAssets(
+        <AsyncContext.Provider />,
+        AssetTiming.Immediate,
       );
 
-      expect(
-        trigger(asyncContext.find(Async), 'render', mockValue),
-      ).toStrictEqual(<AsyncContext.Context.Provider value={mockValue} />);
+      expect(asyncAssets).toContainEqual({id, scripts: true, styles: true});
+    });
+  });
+
+  describe('<Consumer />', () => {
+    it('renders a real Context.Consumer', async () => {
+      const children = () => null;
+      const resolvable = createResolvablePromise({});
+      const AsyncContext = createAsyncContext({load: () => resolvable.promise});
+      const asyncContext = mount(
+        <AsyncContext.Provider>
+          <AsyncContext.Consumer>{children}</AsyncContext.Consumer>
+        </AsyncContext.Provider>,
+      );
+
+      await asyncContext.act(() => resolvable.resolve());
+
+      expect(asyncContext).toContainReactComponent(
+        AsyncContext.Context.Consumer,
+        {children},
+      );
     });
   });
 
   describe('<Preload />', () => {
-    it('renders a deferred <Async />', () => {
-      const load = () => Promise.resolve(mockValue);
+    it('loads the script in an idle callback', async () => {
+      const resolvable = createResolvablePromise({});
+      const load = jest.fn(() => resolvable.promise);
       const AsyncContext = createAsyncContext({load});
-      const preload = mount(<AsyncContext.Preload />);
-      expect(preload).toContainReact(
-        <Async defer={DeferTiming.Idle} load={load} />,
+
+      const asyncContext = mount(<AsyncContext.Preload />);
+
+      expect(load).not.toHaveBeenCalled();
+
+      await asyncContext.act(() => {
+        requestIdleCallback.runIdleCallbacks();
+      });
+
+      expect(load).toHaveBeenCalled();
+    });
+
+    it('marks the asset as used on the next page', async () => {
+      const id = random.uuid();
+      const resolvable = createResolvablePromise({});
+
+      const AsyncContext = createAsyncContext({
+        id: () => id,
+        load: () => resolvable.promise,
+      });
+
+      const asyncAssets = await getUsedAssets(
+        <AsyncContext.Preload />,
+        AssetTiming.NextPage,
       );
+
+      expect(asyncAssets).toContainEqual({id, scripts: true, styles: true});
+    });
+  });
+
+  describe('<Prefetch />', () => {
+    it('loads the script in on mount', () => {
+      const resolvable = createResolvablePromise({});
+      const load = jest.fn(() => resolvable.promise);
+      const AsyncContext = createAsyncContext({load});
+
+      mount(<AsyncContext.Prefetch />);
+
+      expect(load).toHaveBeenCalled();
+    });
+
+    it('marks the asset as used on the next page', async () => {
+      const id = random.uuid();
+      const resolvable = createResolvablePromise({});
+
+      const AsyncContext = createAsyncContext({
+        id: () => id,
+        load: () => resolvable.promise,
+      });
+
+      const asyncAssets = await getUsedAssets(
+        <AsyncContext.Prefetch />,
+        AssetTiming.NextPage,
+      );
+
+      expect(asyncAssets).toContainEqual({id, scripts: true, styles: true});
+    });
+  });
+
+  describe('<KeepFresh />', () => {
+    it('loads the script in an idle callback', async () => {
+      const resolvable = createResolvablePromise({});
+      const load = jest.fn(() => resolvable.promise);
+      const AsyncContext = createAsyncContext({load});
+
+      const asyncContext = mount(<AsyncContext.KeepFresh />);
+
+      expect(load).not.toHaveBeenCalled();
+
+      await asyncContext.act(() => {
+        requestIdleCallback.runIdleCallbacks();
+      });
+
+      expect(load).toHaveBeenCalled();
+    });
+
+    it('marks the asset as used on the next page', async () => {
+      const id = random.uuid();
+      const resolvable = createResolvablePromise({});
+
+      const AsyncContext = createAsyncContext({
+        id: () => id,
+        load: () => resolvable.promise,
+      });
+
+      const asyncAssets = await getUsedAssets(
+        <AsyncContext.KeepFresh />,
+        AssetTiming.NextPage,
+      );
+
+      expect(asyncAssets).toContainEqual({
+        id,
+        scripts: true,
+        styles: true,
+      });
     });
   });
 });

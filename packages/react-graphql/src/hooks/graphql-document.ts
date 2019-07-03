@@ -22,7 +22,7 @@ export default function useGraphQLDocument<
     if (isDocumentNode(documentOrComponent)) {
       return documentOrComponent;
     } else {
-      return documentOrComponent.resolved;
+      return documentOrComponent.resolver.resolved;
     }
   });
 
@@ -32,7 +32,7 @@ export default function useGraphQLDocument<
     async () => {
       if (!isDocumentNode(documentOrComponent)) {
         try {
-          const resolved = await documentOrComponent.resolve();
+          const resolved = await documentOrComponent.resolver.resolve();
           if (mounted.current) {
             setDocument(resolved);
           }
@@ -54,7 +54,9 @@ export default function useGraphQLDocument<
   );
 
   useAsyncAsset(
-    isDocumentNode(documentOrComponent) ? undefined : documentOrComponent.id,
+    isDocumentNode(documentOrComponent)
+      ? undefined
+      : documentOrComponent.resolver.id,
   );
 
   return document;

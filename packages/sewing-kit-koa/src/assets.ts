@@ -34,13 +34,15 @@ interface Options {
   userAgent?: string;
 }
 
-interface AsyncAssetOptions {
-  id: string | RegExp | Iterable<string | RegExp>;
+interface AssetSelector {
+  id: string | RegExp;
+  styles?: boolean;
+  scripts?: boolean;
 }
 
 interface AssetOptions {
   name?: string;
-  asyncAssets?: AsyncAssetOptions['id'];
+  asyncAssets?: Iterable<string | RegExp | AssetSelector>;
 }
 
 enum AssetKind {
@@ -75,23 +77,9 @@ export default class Assets {
     return scripts;
   }
 
-  async asyncScripts({id}: AsyncAssetOptions) {
-    return getAsyncAssetsFromManifest(
-      {id, kind: AssetKind.Scripts},
-      await this.getResolvedManifest(),
-    );
-  }
-
   async styles(options: AssetOptions = {}) {
     return getAssetsFromManifest(
       {...options, kind: AssetKind.Styles},
-      await this.getResolvedManifest(),
-    );
-  }
-
-  async asyncStyles({id}: AsyncAssetOptions) {
-    return getAsyncAssetsFromManifest(
-      {id, kind: AssetKind.Styles},
       await this.getResolvedManifest(),
     );
   }
@@ -100,11 +88,8 @@ export default class Assets {
     return getAssetsFromManifest(options, await this.getResolvedManifest());
   }
 
-  async asyncAssets(options: AsyncAssetOptions) {
-    return getAsyncAssetsFromManifest(
-      options,
-      await this.getResolvedManifest(),
-    );
+  async asyncAssets(ids: Iterable<string | RegExp | AssetSelector>) {
+    return getAsyncAssetsFromManifest(ids, await this.getResolvedManifest());
   }
 
   async graphQLSource(id: string) {
@@ -219,7 +204,7 @@ function getAssetsFromManifest(
       : [...entrypoints[name][kind]];
 
   const asyncAssets = asyncIds
-    ? getAsyncAssetsFromManifest({id: asyncIds, kind}, manifest)
+    ? getAsyncAssetsFromManifest(asyncIds, manifest, {kind})
     : [];
 
   if (asyncAssets.length === 0) {
@@ -241,31 +226,51 @@ function getAssetsFromManifest(
 }
 
 function getAsyncAssetsFromManifest(
-  {id, kind}: AsyncAssetOptions & {kind?: AssetKind},
-  {asyncAssets}: Manifest,
+  ids: Iterable<string | RegExp | AssetSelector>,
+  manifest: Manifest,
+  {kind}: {kind?: AssetKind} = {},
 ) {
-  const normalizedIds =
-    typeof id === 'string' || id instanceof RegExp ? [id] : id;
-
-  const asyncEntries = Object.entries(asyncAssets);
-
-  return [...normalizedIds]
+  return [...ids]
     .reduce((all, id) => {
-      const assetsMatchingId =
-        typeof id === 'string'
-          ? asyncAssets[id]
-          : asyncEntries.reduce(
-              (all, [asyncId, assets]) =>
-                id.test(asyncId) ? [...all, ...assets] : all,
-              [],
-            );
+      const assetsMatchingId = isAssetSelector(id)
+        ? getAsyncAssetsById(id.id, manifest)
+        : getAsyncAssetsById(id, manifest);
+
+      const normalizedKind =
+        kind || (isAssetSelector(id) && kindFromAssetSelector(id)) || null;
 
       const filteredMatchingAssets =
-        kind == null
+        normalizedKind == null
           ? assetsMatchingId
-          : assetsMatchingId.filter(({file}) => file.endsWith(`.${kind}`));
+          : assetsMatchingId.filter(({file}) =>
+              file.endsWith(`.${normalizedKind}`),
+            );
 
       return [...all, ...filteredMatchingAssets];
     }, [])
     .map(({publicPath}) => ({path: publicPath}));
+}
+
+function getAsyncAssetsById(id: string | RegExp, {asyncAssets}: Manifest) {
+  return typeof id === 'string'
+    ? asyncAssets[id]
+    : Object.entries(asyncAssets).reduce(
+        (all, [asyncId, assets]) =>
+          id.test(asyncId) ? [...all, ...assets] : all,
+        [],
+      );
+}
+
+function kindFromAssetSelector({styles = true, scripts = true}: AssetSelector) {
+  if (styles && scripts) {
+    return null;
+  } else if (styles) {
+    return AssetKind.Styles;
+  } else {
+    return AssetKind.Scripts;
+  }
+}
+
+function isAssetSelector(selector: unknown): selector is AssetSelector {
+  return typeof selector === 'object' && selector != null && 'id' in selector;
 }
