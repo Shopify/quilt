@@ -13,7 +13,8 @@ describe('createRender()', () => {
 
     await render(context);
 
-    expect(context.body).toMatch(/<div data-reactroot="">markup<\/div>/);
+    expect(context.body).toMatch(/<html lang="en" data-reactroot="">/);
+    expect(context.body).toMatch(/<div>markup<\/div>/);
   });
 });
 

@@ -8,7 +8,7 @@ describe('createServer()', () => {
     return <div>markup</div>;
   }
 
-  const port = 4444;
+  const port = 4443;
 
   let server: Server;
 
@@ -30,10 +30,8 @@ describe('createServer()', () => {
         return resp;
       });
 
-    expect(response).toMatchObject(
-      expect.objectContaining({
-        text: '<div data-reactroot="">markup</div>',
-      }),
+    expect(response.text).toBe(
+      `<html lang="en" data-reactroot=""><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
     );
   });
 });
