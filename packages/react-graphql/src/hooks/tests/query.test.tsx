@@ -178,7 +178,7 @@ describe('useQuery', () => {
       );
 
       await wrapper.act(async () => {
-        await MockQueryComponent.resolve();
+        await MockQueryComponent.resolver.resolve();
       });
 
       expect(renderPropSpy).toHaveBeenLastCalledWith(
@@ -209,7 +209,7 @@ describe('useQuery', () => {
       );
 
       await wrapper.act(async () => {
-        await MockQueryComponent.resolve();
+        await MockQueryComponent.resolver.resolve();
         await graphQL.resolveAll();
       });
 

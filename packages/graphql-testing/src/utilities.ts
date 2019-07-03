@@ -20,18 +20,18 @@ export function operationNameFromFindOptions({
 }
 
 export function operationNameFromDocument(
-  document: DocumentNode | {resolved?: DocumentNode},
+  document: DocumentNode | {resolver: {resolved?: DocumentNode}},
 ) {
-  return 'resolved' in document && document.resolved != null
-    ? operationNameFromDocumentNode(document.resolved!)
+  return 'resolver' in document && document.resolver.resolved != null
+    ? operationNameFromDocumentNode(document.resolver.resolved!)
     : operationNameFromDocumentNode(document as DocumentNode);
 }
 
 export function operationTypeFromDocument(
-  document: DocumentNode | {resolved?: DocumentNode},
+  document: DocumentNode | {resolver: {resolved?: DocumentNode}},
 ) {
-  return 'resolved' in document && document.resolved != null
-    ? operationTypeFromDocumentNode(document.resolved!)
+  return 'resolver' in document && document.resolver.resolved != null
+    ? operationTypeFromDocumentNode(document.resolver.resolved!)
     : operationTypeFromDocumentNode(document as DocumentNode);
 }
 

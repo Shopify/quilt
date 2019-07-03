@@ -15,7 +15,7 @@ import {
   WatchQueryFetchPolicy,
 } from 'apollo-client';
 import {Omit, IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
-import {AsyncPropsRuntime} from '@shopify/react-async';
+import {AsyncComponentType} from '@shopify/react-async';
 
 export {GraphQLData, GraphQLVariables, GraphQLDeepPartial, GraphQLOperation};
 
@@ -42,23 +42,12 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
   onError?: (error: ApolloError) => void;
 } & VariableOptions<Variables>;
 
-export interface ConstantProps {
-  async?: AsyncPropsRuntime;
-}
-
 export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
-  extends GraphQLOperation<Data, Variables, DeepPartial> {
-  readonly id: string | undefined;
-  readonly resolved: DocumentNode<Data, Variables, DeepPartial> | null;
-  (
-    props: Omit<QueryProps<Data, Variables>, 'query'> & ConstantProps,
-  ): React.ReactElement<{}>;
-  Prefetch(
-    props: VariableOptions<Variables> & ConstantProps,
-  ): React.ReactElement<{}>;
-  Preload(props: ConstantProps): React.ReactElement<{}>;
-  KeepFresh(
-    props: VariableOptions<Variables> & {pollInterval?: number} & ConstantProps,
-  ): React.ReactElement<{}>;
-  resolve(): Promise<DocumentNode<Data, Variables, DeepPartial>>;
-}
+  extends GraphQLOperation<Data, Variables, DeepPartial>,
+    AsyncComponentType<
+      DocumentNode<Data, Variables, DeepPartial>,
+      Omit<QueryProps<Data, Variables>, 'query'>,
+      {},
+      VariableOptions<Variables>,
+      VariableOptions<Variables> & Pick<QueryProps, 'pollInterval'>
+    > {}

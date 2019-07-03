@@ -123,13 +123,19 @@ function normalizeEntry(
   entry: Partial<IntersectionObserverEntry>,
   target: Element,
 ): IntersectionObserverEntry {
+  const isIntersecting =
+    entry.isIntersecting == null
+      ? Boolean(entry.intersectionRatio)
+      : entry.isIntersecting;
+
+  const intersectionRatio = entry.intersectionRatio || (isIntersecting ? 1 : 0);
+
   return {
     boundingClientRect:
       entry.boundingClientRect || target.getBoundingClientRect(),
-    intersectionRatio:
-      entry.intersectionRatio == null ? 1 : entry.intersectionRatio,
+    intersectionRatio,
     intersectionRect: entry.intersectionRect || target.getBoundingClientRect(),
-    isIntersecting: entry.isIntersecting == null ? true : entry.isIntersecting,
+    isIntersecting,
     rootBounds: entry.rootBounds || document.body.getBoundingClientRect(),
     target,
     time: entry.time || Date.now(),

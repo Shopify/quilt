@@ -75,7 +75,7 @@ app.use(async ctx => {
 });
 ```
 
-You can also pass an optional `asyncAssets` to either the `scripts()` or `styles()` methods. This argument should be an iterable of strings. The middleware will then collect every async bundle and its dependencies that matches the IDs you passed in the iterable, and insert them into the returned set of bundles (**note:** requires at least `sewing-kit@73.0.0`). This process is easiest when using the `AsyncAssetManager` from [`@shopify/react-async`](../react-async):
+You can also pass an optional `asyncAssets` to either the `scripts()` or `styles()` methods. This argument should be an iterable of strings IDs, regular expressions, or selectors (objects with an `id` field, and boolean `scripts`/ `styles` fields to select only a subset of assets). The middleware will then collect every async bundle and its dependencies that matches the IDs you passed in the iterable, and insert them into the returned set of bundles (**note:** requires at least `sewing-kit@73.0.0`). This process is easiest when using the `AsyncAssetManager` from [`@shopify/react-async`](../react-async):
 
 ```ts
 import {AsyncAssetManager} from '@shopify/react-async';
@@ -92,7 +92,7 @@ app.use(async ctx => {
 });
 ```
 
-For more advanced use cases, you can pick out specific assets with the `assets()`, `asyncAssets()`, `asyncStyles()`, and `asyncScripts()` methods.
+For more advanced use cases, you can pick out specific async assets with the `assets()` and `asyncAssets()` methods.
 
 ### GraphQL
 
