@@ -33,6 +33,9 @@ export function createAsyncContext<Value>({
   const resolver = createResolver({id, load});
   const Context = React.createContext<Value | null>(null);
 
+  // Just like a "normal" value returned from `createContext`, rendering
+  // the value itself is not supported. This component is just a placeholder
+  // to provide a more useful error.
   function Root() {
     throw new Error(
       'Do not attempt to render the result of calling `createAsyncContext()` directly. Render its `.Provider` component instead.',

@@ -59,6 +59,11 @@ export class AsyncAssetManager {
       });
     } else {
       this.assets.set(id, {
+        // the AssetTiming enum has values where the smallest value is
+        // the lowest importance load, and the highest value is for assets
+        // needed immediately. So, when a new asset comes in that has
+        // already been recorded, we can take the maximum value to
+        // keep only the highest priority timing for the asset.
         scripts: Math.max(scripts || current.scripts, current.styles),
         styles: Math.max(styles || current.styles, current.styles),
       });

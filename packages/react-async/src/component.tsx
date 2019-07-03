@@ -25,8 +25,26 @@ interface Options<
   displayName?: string;
   renderLoading?(props: Props): ReactNode;
   renderError?(error: Error): ReactNode;
+
+  /**
+   * Custom logic to use for the usePreload hook of the new, async
+   * component. Because this logic will be used as part of a generated
+   * custom hook, it must follow the rules of hooks.
+   */
   usePreload?(props: PreloadOptions): () => void;
+
+  /**
+   * Custom logic to use for the usePrefetch hook of the new, async
+   * component. Because this logic will be used as part of a generated
+   * custom hook, it must follow the rules of hooks.
+   */
   usePrefetch?(props: PrefetchOptions): () => void;
+
+  /**
+   * Custom logic to use for the useKeepFresh hook of the new, async
+   * component. Because this logic will be used as part of a generated
+   * custom hook, it must follow the rules of hooks.
+   */
   useKeepFresh?(props: KeepFreshOptions): () => void;
 }
 
@@ -84,9 +102,6 @@ export function createAsyncComponent<
     }
 
     let loadingMarkup: ReactNode | null = null;
-    let contentMarkup: ReactNode | null = null;
-
-    const rendered = Component ? <Component {...props} /> : null;
 
     if (progressivelyHydrated && !startedHydrated) {
       loadingMarkup = (
@@ -95,6 +110,9 @@ export function createAsyncComponent<
     } else if (loading) {
       loadingMarkup = <Loader defer={defer} load={load} props={props} />;
     }
+
+    let contentMarkup: ReactNode | null = null;
+    const rendered = Component ? <Component {...props} /> : null;
 
     if (progressivelyHydrated && !startedHydrated) {
       contentMarkup = rendered ? (
@@ -204,9 +222,6 @@ export function createAsyncComponent<
 
   KeepFresh.displayName = `Async.KeepFresh(${displayName})`;
 
-  // Once we upgrade past TS 3.1, this will no longer be necessary,
-  // because you can statically assign values to functions and TS
-  // will know to augment its type
   const FinalComponent: AsyncComponentType<
     ComponentType<Props>,
     Props,
