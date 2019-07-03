@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hydrate",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "Utilities for hydrating server-rendered React apps",
   "main": "dist/index.js",

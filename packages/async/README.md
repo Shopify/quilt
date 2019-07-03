@@ -13,10 +13,29 @@ $ yarn add @shopify/async
 
 ## Usage
 
-This package contains a few types that are useful for creating async components:
+This package provides a wrapper for asynchronous import statements that allows for synchronous resolution and cacheing. This wrapper can be created using the `createResolver` function. The resulting `Resolver` object exposes a number of methods for interacting with the loaded module.
+
+```ts
+const resolver = createResolver({
+  load: () => import('./expensive'),
+});
+
+// Access the resolved module, if available. If an `id` option is provided
+// to `createResolver`, the resolver will attempt to synchronously
+// resolve the module based on the environment and the passed identifier.
+resolver.resolved;
+
+// If you provide an `id` option to `createResolver`, it will be
+// reflected here
+resolver.id;
+
+// Force the module to resolve. Returns a promise for the resolved value.
+resolver.resolve();
+```
+
+This package also contains a few types that are useful for creating async components:
 
 - `Import` represents a value that could be default or non-default export
-- `LoadProps` are an interface that describe the shape of props that must be used for a function to be processed by the Babel plugin provided by this
 - `DeferTiming` is an enum of defer timing values; has values for component `Mount`, browser `Idle`, or element `InViewport`
 
 As well as the following types related to `window.requestIdleCallback`:
@@ -27,7 +46,7 @@ As well as the following types related to `window.requestIdleCallback`:
 - `RequestIdleCallback`
 - `WindowWithRequestIdleCallback`
 
-It also includes a plugin for Babel that allows the module IDs that are asynchronously imported to be exposed to the application.
+Finally, this package includes a plugin for Babel that allows the module IDs that are asynchronously imported to be exposed to the application.
 
 ### Babel
 

@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 6.0.0 - 2019-07-03
+
+### Changed
+
+- Removed a number of unnecessary methods from `assets`, and allowed passing identifiers for async assets that can selectively omit styles or scripts ([#762](https://github.com/Shopify/quilt/pull/762))
+
 ## 5.0.0 - 2019-06-07
 
 - **Breaking Change:** The `assets` property is now only accessible via a new function, `getAssets(ctx: Context)`, and set via `setAssets(ctx: Context, assets: Assets)`. [#743](https://github.com/Shopify/quilt/pull/743)

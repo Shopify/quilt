@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.0] - 2019-07-03
+
+### Added
+
+- Added the `HydrationTracker` component and `useHydrationManager` to support behavior that depends on whether hydration has already occurred ([#762](https://github.com/Shopify/quilt/pull/762))
+
 ### Added
 
 - `@shopify/react-hydrate` package
