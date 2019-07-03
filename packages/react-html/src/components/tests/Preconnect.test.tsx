@@ -14,7 +14,7 @@ describe('<Preconnect />', () => {
     mountWithManager(<Preconnect source={source} />, manager);
 
     expect(spy).toHaveBeenCalledWith({
-      rel: 'dns-prefetch preconnect',
+      rel: 'preconnect',
       href: source,
     });
   });

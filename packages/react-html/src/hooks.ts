@@ -34,7 +34,7 @@ export function usePreconnect(source: string) {
   useDomEffect(
     manager =>
       manager.addLink({
-        rel: 'dns-prefetch preconnect',
+        rel: 'preconnect',
         href: source,
       }),
     [source],
