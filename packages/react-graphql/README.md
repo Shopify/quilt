@@ -238,6 +238,22 @@ interface QueryHookResult<Data, Variables> {
 }
 ```
 
+### `useBackgroundQuery`
+
+This hook is similar to `useQuery`, but instead of executing the query immediately, this hook returns a function that allows you to run the query on-demand at a later time. This makes it well-suited for prefetching a query, when you do not care about the actual result.
+
+```tsx
+function MyComponent() {
+  const runQuery = useBackgroundQuery(myQuery, {variables: {first: 10}});
+
+  return (
+    <button type="button" onTouchStart={runQuery}>
+      Load
+    </button>
+  );
+}
+```
+
 ### Querying with a query document
 
 Below is an example of how to use `useQuery` with a query document.

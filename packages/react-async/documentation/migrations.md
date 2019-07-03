@@ -1,8 +1,8 @@
 # Migration guides
 
-## 1.x to 2.x
+## 2.x to 3.x
 
-The 2.x branch of `@shopify/react-async` is a significant update that brings progressive hydration, more flexible prefetching, the ability to preload assets in the server render, and more. These changes required some significant changes to the library.
+The 3.x branch of `@shopify/react-async` is a significant update that brings progressive hydration, more flexible prefetching, the ability to preload assets in the server render, and more. These changes required some significant changes to the library.
 
 ### `renderX` options become `useX`
 
@@ -74,7 +74,7 @@ If you were using the `async` prop for any other reason, you will need to drop d
 
 ### `AsyncAssetManager#used` is now a method
 
-`AsyncAssetManager#used` was a getter in the 1.x branch of `@shopify/react-async`. In order to support distinct timing for when to load assets, this getter has been turned into a method. Affected code can simply add the call expression; `AsyncAssetManager#used` without arguments will default to returning only the assets to immediately load, which was the only kind of asset before 2.x:
+`AsyncAssetManager#used` was a getter in the 1.x branch of `@shopify/react-async`. In order to support distinct timing for when to load assets, this getter has been turned into a method. Affected code can should call the `used` property as a method, instead; `AsyncAssetManager#used` without arguments will default to returning only the assets to immediately load, which was the only kind of asset before 2.x:
 
 ```diff
 import {AsyncAssetManager} from '@shopify/react-async';
@@ -93,4 +93,4 @@ As a convenience, `used` now also returns an array, rather than a string iterabl
 
 ### `Async` is no longer available
 
-Most code did not need to use it, but internally, async components were implemented using the `Async` component, which handled the loading and rendering of the component. In order to support hook-based preloading, this had to be removed. Anyone relying on the `Async` component should be able to adjust the usage to rely on `useAsync` instead. Note that, unlike `Async`, loading behavior is not automatically provided by `useAsync`, giving you the flexibility to define the exact behavior you are after manually.
+Most code did not need to use it, but internally, async components were implemented using the `Async` component. This component handled the loading and rendering of the component. In order to support hook-based preloading, this had to be removed. Anyone relying on the `Async` component should be able to adjust the usage to rely on `useAsync` instead. Note that, unlike `Async`, loading behavior is not automatically provided by `useAsync`, giving you the flexibility to define the exact behavior you are after manually.

@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 2.0.0 - 2019-07-03
+
+### Added
+
+- Moved several module resolving features to this library from `react-async` ([#762](https://github.com/Shopify/quilt/pull/762))
+
 ## 1.3.0 - 2019-03-25
 
 ### Added
