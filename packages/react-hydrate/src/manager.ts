@@ -1,10 +1,21 @@
+import {EffectKind} from '@shopify/react-effect';
 import {HYDRATION_ATTRIBUTE} from './shared';
 
 const DEFAULT_HYDRATION_ID = Symbol('defaultId');
 const DEFAULT_HYDRATION_PREFIX = 'hydration';
 
+export const EFFECT_ID = Symbol('react-hydrate');
+
 export class HydrationManager {
   hydrated = false;
+
+  readonly effect: EffectKind = {
+    id: EFFECT_ID,
+    betweenEachPass: () => {
+      this.ids.clear();
+      this.hydration.clear();
+    },
+  };
 
   private readonly ids = new Map<
     string | typeof DEFAULT_HYDRATION_ID,
