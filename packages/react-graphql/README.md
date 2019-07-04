@@ -343,7 +343,7 @@ function CustomerDetail() {
   }
 
   return (
-    <Form onSubmit={handleCreateCustomer}>
+    <Form onSubmit={handleFormSubmit}>
       <TextField label="Name" value={name} onChange={(value) => {
         setName(value);
       }}>
