@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [4.0.1] - 2019-07-04
+
+### Fixed
+
+- Fixed an issue where `useBackgroundQuery` would not unsubscribe when options change
+
 ## [4.0.0] - 2019-07-03
 
 ### Changed
