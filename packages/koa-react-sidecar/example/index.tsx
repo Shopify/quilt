@@ -1,5 +1,6 @@
 import React from 'react';
-import {createServer} from '../dist/server';
+import {ApolloProvider} from '@shopify/react-graphql';
+import {createServer} from '../src/server';
 
 function MockApp() {
   return <div>I am react</div>;
@@ -7,5 +8,16 @@ function MockApp() {
 
 createServer({
   port: 4444,
-  render: () => <MockApp />,
+  graphQLClientOptions: {},
+  render: ({graphQLClient}) => {
+    if (graphQLClient) {
+      return (
+        <ApolloProvider client={graphQLClient}>
+          <MockApp />
+        </ApolloProvider>
+      );
+    }
+
+    return <MockApp />;
+  },
 });

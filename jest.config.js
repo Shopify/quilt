@@ -16,6 +16,8 @@ const moduleNameMapper = getPackageNames().reduce(
       '<rootDir>/packages/react-html/src/server/index.ts',
     '@shopify/react-network/server':
       '<rootDir>/packages/react-network/src/server.ts',
+    '@shopify/react-effect-apollo':
+      '<rootDir>/packages/react-effect-apollo/src/index.ts',
   },
 );
 
