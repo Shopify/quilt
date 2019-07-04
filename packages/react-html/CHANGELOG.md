@@ -8,9 +8,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [3.0.1] - 2019-07-04
+
 ### Changed
 
 - The `<Preconnect />` component now works for Safari users, at the expense of IE users. ([#776](https://github.com/Shopify/quilt/pull/776))
+
+### Fixed
+
+- Fixed an issue where async components would not be immediately available during server rendering
+- Added the missing dependency for `@shopify/react-hydrate`
 
 ## 9.0.0 - 2019-07-03
 

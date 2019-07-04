@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.1] - 2019-07-04
+
+### Fixed
+
+- Made it so that serializations are automatically cleared between `react-effect` passes to prevent client/ server mismatches
+
 ## [1.1.0] - 2019-07-03
 
 ### Added

@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.0.1] - 2019-07-04
+
+### Fixed
+
+- Fixed an issue where async components would not be immediately available during server rendering
+- Added the missing dependencies for `@shopify/react-idle` and `@shopify/react-hydrate`
+
 ## [3.0.0] - 2019-07-03
 
 Complete rewrite to support progressive hydration and hook-based prefetching. Please refer to the [migration guide](./documentation/migrations.md) for details.
