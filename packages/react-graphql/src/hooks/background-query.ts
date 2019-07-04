@@ -34,6 +34,7 @@ export function useBackgroundQuery(
 
   lastClient.current = client;
   lastOptions.current = options;
+  lastSerializedOptions.current = serializedOptions;
 
   useEffect(
     () => () => {

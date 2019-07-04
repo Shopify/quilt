@@ -92,7 +92,7 @@ export function createAsyncComponent<
     const {resolved: Component, load, loading, error} = useAsync(resolver, {
       scripts: scriptTiming,
       styles: stylesTiming,
-      immediate: deferred == null,
+      immediate: !deferred,
     });
 
     const {current: startedHydrated} = useRef(useHydrationManager().hydrated);

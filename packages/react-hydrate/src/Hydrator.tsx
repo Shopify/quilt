@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
+import {useServerEffect} from '@shopify/react-effect';
 import {HydrationContext} from './context';
 import {HYDRATION_ATTRIBUTE} from './shared';
 
@@ -12,6 +13,8 @@ export const Hydrator = React.memo(function Hydrator({children, id}: Props) {
   const manager = React.useContext(HydrationContext);
   const hydrationId = useLazyRef(() => manager.hydrationId(id)).current;
   const hydrationProps = {[HYDRATION_ATTRIBUTE]: hydrationId};
+
+  useServerEffect(() => {}, manager.effect);
 
   return children ? (
     <div {...hydrationProps}>{children}</div>
