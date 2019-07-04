@@ -38,8 +38,8 @@ export default function useQuery<
   } = options;
   const client = useApolloClient(overrideClient);
 
-  if ((typeof window === 'undefined' && skip) || fetchPolicy === 'no-cache') {
-    return createDefaultResult(client, variables);
+  if (typeof window === 'undefined' && (skip || fetchPolicy === 'no-cache')) {
+    return {...createDefaultResult(client, variables), loading: !skip};
   }
 
   const query = useGraphQLDocument(queryOrComponent);
