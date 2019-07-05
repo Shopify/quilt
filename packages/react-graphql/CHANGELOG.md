@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [4.0.2] - 2019-07-05
+
+### Fixed
+
+- Using `useQuery` with `fetchPolicy` set to `no-cache` no longer runs during server renders (previously, using such a query would cause `extract` to loop indefinitely) ([#770](https://github.com/Shopify/quilt/pull/770))
+
 ## [4.0.1] - 2019-07-04
 
 ### Fixed

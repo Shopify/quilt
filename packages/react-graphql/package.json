@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React.",
   "main": "dist/index.js",
