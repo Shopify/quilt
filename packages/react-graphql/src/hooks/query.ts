@@ -38,12 +38,16 @@ export default function useQuery<
   } = options;
   const client = useApolloClient(overrideClient);
 
-  if (typeof window === 'undefined' && skip) {
-    return createDefaultResult(client, variables);
+  if (typeof window === 'undefined' && (skip || fetchPolicy === 'no-cache')) {
+    return {...createDefaultResult(client, variables), loading: !skip};
   }
 
   const query = useGraphQLDocument(queryOrComponent);
 
+  const normalizedFetchPolicy =
+    typeof window === 'undefined' && fetchPolicy === 'network-only'
+      ? 'cache-first'
+      : fetchPolicy;
   const serializedVariables = variables && JSON.stringify(variables);
   const watchQueryOptions = useMemo<WatchQueryOptions<Variables> | null>(
     () => {
@@ -55,7 +59,7 @@ export default function useQuery<
         query,
         context,
         variables,
-        fetchPolicy,
+        fetchPolicy: normalizedFetchPolicy,
         errorPolicy,
         pollInterval,
         notifyOnNetworkStatusChange,
@@ -67,7 +71,7 @@ export default function useQuery<
       // eslint-disable-next-line react-hooks/exhaustive-deps
       context && JSON.stringify(context),
       serializedVariables,
-      fetchPolicy,
+      normalizedFetchPolicy,
       errorPolicy,
       pollInterval,
       notifyOnNetworkStatusChange,
