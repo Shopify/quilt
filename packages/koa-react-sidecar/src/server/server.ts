@@ -12,12 +12,12 @@ type Options = {
 } & CreateRenderOptions;
 
 export function createServer(options: Options): Server {
-  const {port, render, graphQLClientOptions} = options;
+  const {port, render} = options;
   const app = new Koa();
 
   app.use(sewingKitMiddleware());
   app.use(createLogger());
-  app.use(createRender({graphQLClientOptions, render}));
+  app.use(createRender({render}));
 
   return app.listen(port || 3000, () => {
     logger.log(`started sidecar server on ${port}`);
