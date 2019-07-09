@@ -78,12 +78,14 @@ export function createRender(options: CreateRenderOptions) {
     }
 
     applyToContext(ctx, networkManager);
+    console.log(assets);
 
     const [styles, scripts] = await Promise.all([
       assets.styles(),
       assets.scripts(),
     ]);
 
+    console.log(styles, scripts);
     const serializedInitialApolloData = graphQLClient ? (
       <Serialize
         id="initial-apollo-data"

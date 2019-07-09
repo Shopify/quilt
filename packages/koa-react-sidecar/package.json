@@ -31,8 +31,10 @@
     "@shopify/react-network": "3.1.2",
     "@shopify/sewing-kit-koa": "^6.0.0",
     "apollo-link-http": "^1.5.15",
+    "chalk": "^2.4.2",
     "isomorphic-fetch": "^2.2.1",
-    "koa": "^2.5.0"
+    "koa": "^2.5.0",
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.44",

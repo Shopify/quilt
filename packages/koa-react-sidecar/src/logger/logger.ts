@@ -1,8 +1,9 @@
 import {Context} from 'koa';
+import chalk from 'chalk';
 import {KoaNextFunction} from '../types';
 
 const LOGGER = Symbol('logger');
-const PREFIX = `[ sidecar ]   `;
+const PREFIX = chalk`{underline sidecar} ⁓ `;
 
 export class Logger {
   private logger: Logger;
