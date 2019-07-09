@@ -8,7 +8,6 @@ function MockApp() {
 
 createServer({
   port: 4444,
-  graphQLClientOptions: {},
   render: ({graphQLClient}) => {
     if (graphQLClient) {
       return (

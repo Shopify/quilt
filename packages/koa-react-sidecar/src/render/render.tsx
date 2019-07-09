@@ -1,12 +1,17 @@
 import React from 'react';
 import {Context} from 'koa';
-import {renderToString} from 'react-dom/server';
-import {Html, HtmlManager, HtmlContext} from '@shopify/react-html/server';
+import {
+  Html,
+  HtmlManager,
+  HtmlContext,
+  render as renderMarkup,
+} from '@shopify/react-html/server';
 import {
   applyToContext,
   NetworkContext,
   NetworkManager,
 } from '@shopify/react-network/server';
+import {createApolloBridge} from '@shopify/react-effect-apollo';
 import {extract} from '@shopify/react-effect/server';
 import {AsyncAssetContext, AsyncAssetManager} from '@shopify/react-async';
 import {Header} from '@shopify/react-network';
@@ -28,7 +33,8 @@ export function createRender(options: CreateRenderOptions) {
     const networkManager = new NetworkManager();
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
-    const app = render(ctx);
+    const app = render({...ctx, server: true});
+    const ApolloBridge = createApolloBridge();
 
     try {
       await extract(app, {
@@ -37,7 +43,7 @@ export function createRender(options: CreateRenderOptions) {
             <HtmlContext.Provider value={htmlManager}>
               <AsyncAssetContext.Provider value={asyncAssetManager}>
                 <NetworkContext.Provider value={networkManager}>
-                  {app}
+                  <ApolloBridge>{app}</ApolloBridge>
                 </NetworkContext.Provider>
               </AsyncAssetContext.Provider>
             </HtmlContext.Provider>
@@ -47,8 +53,8 @@ export function createRender(options: CreateRenderOptions) {
           const pass = `Pass number ${index} ${
             finished ? ' (this was the final pass)' : ''
           }`;
-          const rendering = `Rendering ${renderDuration}ms`;
-          const resolving = `Resolving ${resolveDuration}ms`;
+          const rendering = `Rendering took ${renderDuration}ms`;
+          const resolving = `Resolving promises took ${resolveDuration}ms`;
 
           logger.log(pass);
           logger.log(rendering);
@@ -67,9 +73,9 @@ export function createRender(options: CreateRenderOptions) {
       assets.scripts(),
     ]);
 
-    const response = renderToString(
+    const response = renderMarkup(
       <Html manager={htmlManager} styles={styles} scripts={scripts}>
-        {app}
+        <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
       </Html>,
     );
 
