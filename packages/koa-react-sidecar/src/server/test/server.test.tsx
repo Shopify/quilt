@@ -2,6 +2,17 @@ import {Server} from 'http';
 import React from 'react';
 import request from 'supertest';
 import {createServer} from '../server';
+import {mockMiddleware} from '../../test/utilities';
+
+jest.mock('@shopify/sewing-kit-koa', () => ({
+  middleware: jest.fn(() => mockMiddleware),
+  getAssets() {
+    return {
+      styles: () => Promise.resolve([]),
+      scripts: () => Promise.resolve([]),
+    };
+  },
+}));
 
 describe('createServer()', () => {
   function MockApp() {
@@ -31,7 +42,7 @@ describe('createServer()', () => {
       });
 
     expect(response.text).toBe(
-      `<html lang="en" data-reactroot=""><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
+      `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
     );
   });
 });
