@@ -327,6 +327,37 @@ describe('Assets', () => {
         await assets.asyncAssets([{id: /mypage/, scripts: false}]),
       ).toStrictEqual([{path: asyncCss}]);
     });
+
+    it('includes scripts even when omitted in development', async () => {
+      const css = '/style.css';
+      const asyncCss = '/mypage.css';
+      const js = '/script.js';
+      const asyncJs = 'mypage.js';
+
+      readJson.mockImplementation(() =>
+        mockConsolidatedManifest([
+          mockManifest({
+            entrypoints: {
+              custom: mockEntrypoint({
+                styles: [mockAsset(css)],
+                scripts: [mockAsset(js)],
+              }),
+            },
+            asyncAssets: {
+              mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+            },
+          }),
+        ]),
+      );
+
+      const assets = new Assets(defaultOptions);
+
+      expect(
+        await withEnv('development', () =>
+          assets.asyncAssets([{id: /mypage/, scripts: false}]),
+        ),
+      ).toStrictEqual([{path: asyncCss}, {path: asyncJs}]);
+    });
   });
 
   describe('userAgent', () => {
