@@ -1,10 +1,11 @@
 {
   "name": "lemon-polyfills",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
-  "main": "./index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "yarn run clean && tsc --p tsconfig.build.json",
     "clean": "rimraf 'dist'",
