@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
+  "main": "./index.js",
   "scripts": {
     "build": "yarn run clean && tsc --p tsconfig.build.json",
     "clean": "rimraf './*.{js,d.ts}'",
@@ -26,8 +27,10 @@
     "@babel/polyfill": "^7.0.0",
     "browser-unhandled-rejection": "^1.0.2",
     "caniuse-api": "^3.0.0",
+    "formdata-polyfill": "^3.0.18",
     "intersection-observer": "^0.5.1",
     "intl-pluralrules": "^0.2.1",
+    "mutationobserver-shim": "^0.3.3",
     "node-fetch": "^2.3.0",
     "tslib": "^1.9.3",
     "url-search-params-polyfill": "^5.0.0",
@@ -38,7 +41,7 @@
     "typescript": "~3.2.1"
   },
   "files": [
-    "*.js",
-    "*.d.ts"
+    "**/*.js",
+    "**/*.d.ts"
   ]
 }
