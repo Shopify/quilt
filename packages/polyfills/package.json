@@ -1,13 +1,13 @@
 {
-  "name": "@shopify/polyfills",
-  "version": "0.0.14",
+  "name": "lemon-polyfills",
+  "version": "0.0.15",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
   "main": "./index.js",
   "scripts": {
     "build": "yarn run clean && tsc --p tsconfig.build.json",
-    "clean": "rimraf './*.{js,d.ts}'",
+    "clean": "rimraf 'dist'",
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
