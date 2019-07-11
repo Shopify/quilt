@@ -38,7 +38,7 @@ export default function middleware(ctx) {
 }
 ```
 
-If you want to make use of the serialization techniques [documented below](#in-your-app-code), you must also construct an `HtmlManager` instance, pass it to a `<HtmlContext.Provider />` component, and call `@shopify/react-effect`’s `extract` method:
+If you want to make use of the serialization techniques [documented below](#in-your-application-code), you must also construct an `HtmlManager` instance, pass it to a `<HtmlContext.Provider />` component, and call `@shopify/react-effect`’s `extract` method:
 
 ```tsx
 // Somewhere in your server
@@ -262,7 +262,7 @@ Renders iOS-specific `<Meta />` tags and `<Link />` tags to specify additional v
 
 ### `<Serialize />`
 
-The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `useSerialized()` method of generating serializations [documented above](#in-your-app-code).
+The Serialize component takes care of rendering a `script` tag with a serialized version of the `data` prop. It is provided for incremental adoption of the `useSerialized()` method of generating serializations [documented above](#in-your-application-code).
 
 ### `render()`
 
