@@ -11,6 +11,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added a `toContainReactComponentTimes` matcher ([781](https://github.com/Shopify/quilt/pull/781))
 - Added a `toProvideReactContext` matcher ([#735](https://github.com/Shopify/quilt/pull/735))
 
 ## [1.5.4] - 2019-05-31

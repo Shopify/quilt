@@ -8,7 +8,7 @@ import {
 import {Props} from '@shopify/useful-types';
 
 import {Node} from './types';
-import {assertIsNode, diffs, printType} from './utilities';
+import {assertIsNode, diffs, pluralize, printType} from './utilities';
 
 export function toContainReactComponent<
   Type extends string | ComponentType<any>
@@ -63,6 +63,53 @@ export function toContainReactComponent<
                 this.expand,
               )}`
         }`;
+
+  return {pass, message};
+}
+
+export function toContainReactComponentTimes<
+  Type extends string | ComponentType<any>
+>(
+  this: jest.MatcherUtils,
+  node: Node<unknown>,
+  type: Type,
+  times: number,
+  props?: Partial<Props<Type>>,
+) {
+  assertIsNode(node, {
+    expectation: 'toContainReactComponentTimes',
+    isNot: this.isNot,
+  });
+
+  const foundByType = node.findAll(type);
+  const foundByProps =
+    props == null
+      ? foundByType
+      : foundByType.filter(element =>
+          Object.keys(props).every(key =>
+            this.equals(props[key], element.props[key]),
+          ),
+        );
+
+  const pass = foundByProps.length === times;
+
+  const message = pass
+    ? () =>
+        [
+          `${matcherHint('.not.toContainReactComponentTimes')}\n`,
+          `Expected the React element:\n  ${receivedColor(node.toString())}`,
+          `Not to contain component:\n  ${expectedColor(printType(type))}`,
+          `${times} ${pluralize('time', times)}, but it did.`,
+        ].join('\n')
+    : () =>
+        [
+          `${matcherHint('.toContainReactComponentTimes')}\n`,
+          `Expected the React element:\n  ${receivedColor(node.toString())}`,
+          `To contain component:\n  ${expectedColor(printType(type))}`,
+          `${times} ${pluralize('time', times)}, but it was found ${
+            foundByProps.length
+          }.`,
+        ].join('\n');
 
   return {pass, message};
 }

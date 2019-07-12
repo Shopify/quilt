@@ -438,6 +438,18 @@ expect(myComponent).toContainReactComponent('div', {
 });
 ```
 
+### `.toContainReactComponentTimes(type: string | React.ComponentType, times: number, props?: object)`
+
+Asserts that a component matching `type` is in the descendants of the passed node a number of times. If the third argument is passed, this expectation will further filter the matches by components whose props are equal to the passed object (again, asymmetric matchers are fully supported). To assert that one component is or is not the descendant of the passed node use `.toContainReactComponent` or `.not.toContainReactComponent`.
+
+```tsx
+const myComponent = mount(<MyComponent />);
+
+expect(myComponent).toContainReactComponentTimes('div', 5, {
+  'aria-label': 'Hello world',
+});
+```
+
 ### `.toProvideReactContext<T>(context: Context<T>, value?: T)`
 
 Asserts that at least one `context.Provider` is in the descendants of the passed node. If the second argument is passed, this expectation will further filter the matches by providers whose value is equal to the passed object (again, asymmetric matchers are fully supported).
