@@ -54,7 +54,7 @@ export type CustomMountOptions<
 } & ContextOption<MountOptions, CreateContext> &
   AfterMountOption<MountOptions, Context, Async>;
 
-interface CustomMount<
+export interface CustomMount<
   MountOptions extends object,
   Context extends object,
   Async extends boolean
