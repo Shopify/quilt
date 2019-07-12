@@ -392,6 +392,53 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
 });
 ```
 
+#### Extending a custom mount function
+
+It is possible to extend a custom mount function with additional logic. This can help to provide more focused testing utilities for a section of the application that provides additional context to its subtree. Every function created by `createMount` has an `extend` method. This method has the same type parameters and options as `createMount` itself. When you create an extended mount function, your additional options are merged with the original mount’s options as follows:
+
+- The resulting `mount` function accepts the merged set of allows options.
+- The roots created by the resulting `mount` function has a `context`. property that is the merged result of calling the original context and the extended context.
+- The `context()` and `render()` options you provide to `mount.extend()` will be called with the full, merged set of options.
+- The `render()` option provided to `mount.extend()` is called **first**. The result of calling this function is then passed to the original `render()`.
+- The `afterMount()` option provided to `mount.extend()` is called **first**. If it returns a promise, the resulting post-mount process will wait for it to resolve, and will then return the result of calling the original `afterMount()`. If either the original options or the extended options return a promise from `afterMount`, the resulting mount function will be asynchronous.
+
+```tsx
+import {createMount} from '@shopify/react-testing';
+
+interface Options {
+  pathname: string;
+}
+
+interface ExtendedOptions {
+  graphQLResult: object;
+}
+
+const mount = createMount<Options, Options>({
+  context: options => options,
+  render: (element, {pathname}) => (
+    <Router pathname={pathname}>{element}</Router>
+  ),
+});
+
+const extendedMount = mount.extend<ExtendedOptions, ExtendedOptions>({
+  context: options => options,
+  render: (element, {graphQLResult}) => (
+    <GraphQLMock mock={graphQLResult}>{element}</GraphQLMock>
+  ),
+});
+
+const mounted = extendedMount(<MyComponent />, {
+  pathname: '/',
+  graphQLResult: {},
+});
+
+// The final structure of this wrapper is:
+// <Router><GraphQLMock><MyComponent /></GraphQLMock></Router>
+//
+// It also has a context field that merged the two `context()`
+// results: typeof mounted.context === {pathname: string; graphQLResult: object}
+```
+
 ### <a name="destroyAll"></a> `destroyAll()`
 
 All mounted components are tracked in-memory. `destroyAll()` forcibly unmounts all mounted components and removes the DOM node used to house them. You should run this after each test that mounts a component (this is often done in a global `afterEach` hook).
