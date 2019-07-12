@@ -1,6 +1,5 @@
 import {Root} from '../root';
 import {Element} from '../element';
+import {Node} from '../node';
 
-export {Root, Element};
-
-export type Node<Props> = Root<Props> | Element<Props>;
+export {Root, Element, Node};

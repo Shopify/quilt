@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Added `Node` type as an export ([789](https://github.com/Shopify/quilt/pull/789))
+
 ## [1.6.0] - 2019-06-04
 
 ### Added
