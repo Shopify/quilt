@@ -1,6 +1,7 @@
 import {ComponentType, Context as ReactContext} from 'react';
 import {Props} from '@shopify/useful-types';
 
+import {Node} from '../types';
 import {toHaveReactProps, toHaveReactDataProps} from './props';
 import {
   toContainReactComponent,
@@ -8,7 +9,6 @@ import {
 } from './components';
 import {toProvideReactContext} from './context';
 import {toContainReactText, toContainReactHtml} from './strings';
-import {Node} from './types';
 
 type PropsFromNode<T> = T extends Node<infer U> ? U : never;
 

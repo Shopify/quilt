@@ -8,10 +8,12 @@ import {
 } from '@shopify/useful-types';
 
 import {TestWrapper} from './TestWrapper';
-import {Element, Predicate} from './element';
+import {Element} from './element';
 import {
   Tag,
   Fiber,
+  Node,
+  Predicate,
   ReactInstance,
   FunctionKeys,
   DeepPartialArguments,
@@ -37,7 +39,7 @@ export interface Options {
 
 export const connected = new Set<Root<unknown>>();
 
-export class Root<Props> {
+export class Root<Props> implements Node<Props> {
   get props() {
     return this.withRoot(root => root.props);
   }
@@ -145,6 +147,10 @@ export class Root<Props> {
 
   prop<K extends keyof Props>(key: K) {
     return this.withRoot(root => root.prop(key));
+  }
+
+  data(key: string) {
+    return this.withRoot(root => root.data(key));
   }
 
   find<Type extends React.ComponentType<any> | string>(

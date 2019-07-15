@@ -4,9 +4,13 @@ import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
-import {Tag, FunctionKeys, DeepPartialArguments} from './types';
-
-export type Predicate = (element: Element<unknown>) => boolean;
+import {
+  Tag,
+  Node,
+  Predicate,
+  FunctionKeys,
+  DeepPartialArguments,
+} from './types';
 
 type Root = import('./root').Root<any>;
 
@@ -17,7 +21,7 @@ interface Tree<Props> {
   instance?: any;
 }
 
-export class Element<Props> {
+export class Element<Props> implements Node<Props> {
   get props(): Props {
     return this.tree.props;
   }
@@ -82,7 +86,7 @@ export class Element<Props> {
     ) as Element<unknown>[];
   }
 
-  data(key: string): string {
+  data(key: string): string | undefined {
     return this.props[key.startsWith('data-') ? key : `data-${key}`];
   }
 

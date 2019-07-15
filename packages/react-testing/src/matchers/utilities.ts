@@ -6,7 +6,10 @@ import {
   printWithType,
   printReceived,
 } from 'jest-matcher-utils';
-import {Node, Root, Element} from './types';
+
+import {Root} from '../root';
+import {Element} from '../element';
+import {Node} from '../types';
 
 export function assertIsNode(
   node: unknown,
@@ -57,11 +60,7 @@ export function assertIsNode(
   }
 }
 
-export function diffs(
-  element: Element<any>[],
-  props: object,
-  expand?: boolean,
-) {
+export function diffs(element: Node<any>[], props: object, expand?: boolean) {
   return element.reduce<string>((diffs, element, index) => {
     const separator = index === 0 ? '' : '\n\n';
 
@@ -73,7 +72,7 @@ export function diffs(
 }
 
 function normalizedDiff(
-  element: Element<any>,
+  element: Node<any>,
   props: object,
   {expand = false, showLegend = false},
 ) {
