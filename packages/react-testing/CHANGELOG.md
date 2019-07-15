@@ -7,11 +7,18 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.7.0] - 2019-07-15
+
+### Added
+
+- Added a `toContainReactComponentTimes` matcher ([#781](https://github.com/Shopify/quilt/pull/781))
+- Added the ability to extend a custom mount function with `createMount().extend()` ([#788](https://github.com/Shopify/quilt/pull/788))
+- `Root` and `Element` now both implement the newly-exported `Node` type, which can be used to request any object that satisfies the traversal and introspection APIs ([#793](https://github.com/Shopify/quilt/pull/793))
+
 ## [1.6.0] - 2019-06-04
 
 ### Added
 
-- Added a `toContainReactComponentTimes` matcher ([781](https://github.com/Shopify/quilt/pull/781))
 - Added a `toProvideReactContext` matcher ([#735](https://github.com/Shopify/quilt/pull/735))
 
 ## [1.5.4] - 2019-05-31
