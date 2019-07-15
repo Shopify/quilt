@@ -14,6 +14,7 @@ export {Assets, Asset};
 export interface Options {
   assetPrefix?: string;
   serveAssets?: boolean;
+  assetsJsonPath?: string;
 }
 
 const ASSETS = Symbol('assets');
@@ -29,11 +30,13 @@ export function setAssets(ctx: Context, assets: Assets) {
 export default function middleware({
   serveAssets = false,
   assetPrefix = defaultAssetPrefix(serveAssets),
+  assetsJsonPath,
 }: Options = {}): Middleware {
   async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
     const assets = new Assets({
       assetPrefix,
       userAgent: ctx.get(Header.UserAgent),
+      assetsJsonPath,
     });
 
     setAssets(ctx, assets);

@@ -32,6 +32,7 @@ export type ConsolidatedManifest = Manifest[];
 interface Options {
   assetPrefix: string;
   userAgent?: string;
+  assetsJsonPath?: string;
 }
 
 interface AssetSelector {
@@ -53,11 +54,13 @@ enum AssetKind {
 export default class Assets {
   assetPrefix: string;
   userAgent?: string;
+  assetsJsonPath?: string;
   private resolvedManifestEntry?: Manifest;
 
-  constructor({assetPrefix, userAgent}: Options) {
+  constructor({assetPrefix, userAgent, assetsJsonPath}: Options) {
     this.assetPrefix = assetPrefix;
     this.userAgent = userAgent;
+    this.assetsJsonPath = assetsJsonPath;
   }
 
   async scripts(options: AssetOptions = {}) {
@@ -102,7 +105,9 @@ export default class Assets {
       return this.resolvedManifestEntry;
     }
 
-    const consolidatedManifest = await loadConsolidatedManifest();
+    const consolidatedManifest = await loadConsolidatedManifest(
+      this.assetsJsonPath,
+    );
     const {userAgent} = this;
 
     const lastManifestEntry =
@@ -146,14 +151,12 @@ export default class Assets {
 let consolidatedManifestPromise: Promise<ConsolidatedManifest> | null = null;
 let graphQLManifestPromise: Promise<Map<string, string>> | null = null;
 
-function loadConsolidatedManifest() {
+function loadConsolidatedManifest(assetsJsonPath = 'build/client/assets.json') {
   if (consolidatedManifestPromise) {
     return consolidatedManifestPromise;
   }
 
-  consolidatedManifestPromise = readJson(
-    join(appRoot.path, 'build/client/assets.json'),
-  );
+  consolidatedManifestPromise = readJson(join(appRoot.path, assetsJsonPath));
 
   return consolidatedManifestPromise;
 }
