@@ -7,7 +7,7 @@ import {
 } from 'jest-matcher-utils';
 import {Props} from '@shopify/useful-types';
 
-import {Node} from './types';
+import {Node} from '../types';
 import {assertIsNode, diffs, pluralize, printType} from './utilities';
 
 export function toContainReactComponent<
