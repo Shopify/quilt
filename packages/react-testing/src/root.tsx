@@ -141,7 +141,7 @@ export class Root<Props> implements Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Element<PropsForComponent<Type>> & Root<PropsForComponent<Type>> {
+  ): this is Root<PropsForComponent<Type>> {
     return this.withRoot(root => root.is(type));
   }
 
