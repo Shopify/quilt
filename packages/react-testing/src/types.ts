@@ -67,7 +67,7 @@ export interface ReactInstance {
   _reactInternalFiber: Fiber;
 }
 
-export type Predicate = (element: Node<unknown>) => boolean;
+export type Predicate = (node: Node<unknown>) => boolean;
 
 export interface Node<Props> {
   readonly props: Props;
