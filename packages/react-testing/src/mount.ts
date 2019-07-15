@@ -42,7 +42,8 @@ type ContextOption<
 
 export type CustomMountOptions<
   MountOptions extends object = {},
-  Context extends object = {},
+  CreateContext extends object = {},
+  Context extends object = CreateContext,
   Async extends boolean = false
 > = {
   render(
@@ -50,24 +51,38 @@ export type CustomMountOptions<
     context: Context,
     options: MountOptions,
   ): React.ReactElement<any>;
-} & ContextOption<MountOptions, Context> &
+} & ContextOption<MountOptions, CreateContext> &
   AfterMountOption<MountOptions, Context, Async>;
 
-type CustomMount<
+export interface CustomMount<
   MountOptions extends object,
   Context extends object,
   Async extends boolean
-> = IfAllOptionalKeys<
-  MountOptions,
+> {
   <Props>(
-    element: React.ReactElement<any>,
-    options?: MountOptions,
-  ) => CustomMountResult<Props, Context, Async>,
-  <Props>(
-    element: React.ReactElement<any>,
-    options: MountOptions,
-  ) => CustomMountResult<Props, Context, Async>
->;
+    ...args: IfAllOptionalKeys<
+      MountOptions,
+      [React.ReactElement<any>, MountOptions?],
+      [React.ReactElement<any>, MountOptions]
+    >
+  ): CustomMountResult<Props, Context, Async>;
+  extend<
+    AdditionalMountOptions extends object = {},
+    AdditionalContext extends object = {},
+    AdditionalAsync extends boolean = false
+  >(
+    options: CustomMountOptions<
+      MountOptions & AdditionalMountOptions,
+      AdditionalContext,
+      Context & AdditionalContext,
+      AdditionalAsync
+    >,
+  ): CustomMount<
+    MountOptions & AdditionalMountOptions,
+    Context & AdditionalContext,
+    AdditionalAsync extends true ? AdditionalAsync : Async
+  >;
+}
 
 type CustomMountResult<
   Props,
@@ -95,7 +110,7 @@ export function createMount<
   render,
   context: createContext = defaultContext,
   afterMount = defaultAfterMount,
-}: CustomMountOptions<MountOptions, Context, Async>): CustomMount<
+}: CustomMountOptions<MountOptions, Context, Context, Async>): CustomMount<
   MountOptions,
   Context,
   Async
@@ -117,6 +132,32 @@ export function createMount<
       ? afterMountResult.then(() => wrapper)
       : wrapper;
   }
+
+  Reflect.defineProperty(mount, 'extend', {
+    writable: false,
+    value: ({
+      context: createAdditionalContext = defaultContext,
+      render: additionalRender,
+      afterMount: additionalAfterMount = defaultAfterMount,
+    }: CustomMountOptions<any, any, any, any>) => {
+      return createMount<any, any, any>({
+        context: options => ({
+          ...createContext(options),
+          ...createAdditionalContext(options),
+        }),
+        render: (element, context, options) =>
+          render(additionalRender(element, context, options), context, options),
+        afterMount: (wrapper, options) => {
+          const result = additionalAfterMount(wrapper, options);
+          const finalResult = () => afterMount(wrapper, options);
+
+          return result != null && 'then' in result
+            ? result.then(finalResult)
+            : finalResult();
+        },
+      });
+    },
+  });
 
   return mount as any;
 }
