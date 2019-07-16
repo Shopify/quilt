@@ -23,7 +23,7 @@ const app = new Koa();
 app.use(middleware());
 ```
 
-In subsequent middleware, you can now reference use `getAssets()`, which return and object with `style` and `script` methods for fetching asset paths asynchronously:
+In subsequent middleware, you can now use `getAssets()`, which return an object with `style` and `script` methods for fetching asset paths asynchronously:
 
 ```ts
 import {getAssets} from '@shopify/sewing-kit-koa';
