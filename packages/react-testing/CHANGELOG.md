@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- explicitly defining return type for `findWhere` and `findAllWhere` operators ([#795](https://github.com/Shopify/quilt/pull/795))
+
 ## [1.7.0] - 2019-07-15
 
 ### Added
