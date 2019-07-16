@@ -166,11 +166,11 @@ export class Element<Props> implements Node<Props> {
     ) as Element<PropsForComponent<Type>>[];
   }
 
-  findWhere(predicate: Predicate) {
+  findWhere(predicate: Predicate): Element<unknown> | null {
     return this.elementDescendants.find(element => predicate(element)) || null;
   }
 
-  findAllWhere(predicate: Predicate) {
+  findAllWhere(predicate: Predicate): Element<unknown>[] {
     return this.elementDescendants.filter(element => predicate(element));
   }
 
