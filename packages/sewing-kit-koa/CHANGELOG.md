@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 6.0.1 - 2019-07-10
+
+### Fixed
+
+- The library now loads scripts in development, even when only styles are requested. This fixes the fact that, in development, there are no explicit styles, and they are instead injected by the associated script. ([#782](https://github.com/Shopify/quilt/pull/782))
+
 ## 6.0.0 - 2019-07-03
 
 ### Changed

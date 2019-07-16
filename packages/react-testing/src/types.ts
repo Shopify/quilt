@@ -1,4 +1,9 @@
 import * as React from 'react';
+import {
+  Arguments,
+  MaybeFunctionReturnType,
+  Props as PropsForComponent,
+} from '@shopify/useful-types';
 
 export type FunctionKeys<T> = {
   [K in keyof T]-?: NonNullable<T[K]> extends ((...args: any[]) => any)
@@ -60,4 +65,46 @@ export interface Fiber {
 
 export interface ReactInstance {
   _reactInternalFiber: Fiber;
+}
+
+export type Predicate = (node: Node<unknown>) => boolean;
+
+export interface Node<Props> {
+  readonly props: Props;
+  readonly type: string | React.ComponentType<any> | null;
+  readonly isDOM: boolean;
+  readonly instance: any;
+  readonly children: Node<unknown>[];
+  readonly descendants: Node<unknown>[];
+  readonly domNodes: HTMLElement[];
+  readonly domNode: HTMLElement | null;
+
+  data(key: string): string | undefined;
+  prop<K extends keyof Props>(key: K): Props[K];
+
+  text(): string;
+  html(): string;
+
+  is<Type extends React.ComponentType<any> | string>(
+    type: Type,
+  ): this is Node<PropsForComponent<Type>>;
+
+  find<Type extends React.ComponentType<any> | string>(
+    type: Type,
+    props?: Partial<PropsForComponent<Type>>,
+  ): Node<PropsForComponent<Type>> | null;
+  findAll<Type extends React.ComponentType<any> | string>(
+    type: Type,
+    props?: Partial<PropsForComponent<Type>>,
+  ): Node<PropsForComponent<Type>>[];
+  findWhere(predicate: Predicate): Node<unknown> | null;
+  findAllWhere(predicate: Predicate): Node<unknown>[];
+
+  trigger<K extends FunctionKeys<Props>>(
+    prop: K,
+    ...args: DeepPartialArguments<Arguments<Props[K]>>
+  ): MaybeFunctionReturnType<NonNullable<Props[K]>>;
+  triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T;
+
+  toString(): string;
 }

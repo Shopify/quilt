@@ -262,7 +262,13 @@ function getAsyncAssetsById(id: string | RegExp, {asyncAssets}: Manifest) {
 }
 
 function kindFromAssetSelector({styles = true, scripts = true}: AssetSelector) {
-  if (styles && scripts) {
+  // In development, styles are included as part of the JS bundles. Asking
+  // for only styles in that environment therefore equates to asking for
+  // both.
+  // eslint-disable-next-line no-process-env
+  const forceIncludeAll = styles && process.env.NODE_ENV === 'development';
+
+  if ((styles && scripts) || forceIncludeAll) {
     return null;
   } else if (styles) {
     return AssetKind.Styles;
