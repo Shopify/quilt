@@ -23,16 +23,19 @@ const app = new Koa();
 app.use(middleware());
 ```
 
-In subsequent middleware, you can now reference `ctx.state.assets`, which has `style` and `script` methods for fetching asset paths asynchronously:
+In subsequent middleware, you can now use `getAssets()`, which return an object with `style` and `script` methods for fetching asset paths asynchronously:
 
 ```ts
+import {getAssets} from '@shopify/sewing-kit-koa';
+
 app.use(async ctx => {
+  const assets = getAssets(ctx);
   // Both `styles` and `scripts` return a Promise for an array of objects.
   // Each object has a `path` for its resolved URL, and an optional `integrity`
   // field for its integrity SHA. You can pass these arrays as-is into
   // the `Html` component from @shopify/react-html.
-  const styles = (await ctx.assets.styles()).map(({path}) => path);
-  const scripts = (await ctx.assets.scripts()).map(({path}) => path);
+  const styles = (await assets.styles()).map(({path}) => path);
+  const scripts = (await assets.scripts()).map(({path}) => path);
 
   ctx.body = `You need the following assets: ${[...styles, ...scripts].join(
     ', ',
@@ -59,12 +62,15 @@ module.exports = function sewingKitConfig(plugins) {
 
 ```ts
 // In your server...
+import {getAssets} from '@shopify/sewing-kit-koa';
 
 app.use(async ctx => {
-  const styles = (await ctx.assets.styles({name: 'error'})).map(
+  const assets = getAssets(ctx);
+  
+  const styles = (await assets.styles({name: 'error'})).map(
     ({path}) => path,
   );
-  const scripts = (await ctx.assets.scripts({name: 'error'})).map(
+  const scripts = (await assets.scripts({name: 'error'})).map(
     ({path}) => path,
   );
 
@@ -79,14 +85,16 @@ You can also pass an optional `asyncAssets` to either the `scripts()` or `styles
 
 ```ts
 import {AsyncAssetManager} from '@shopify/react-async';
+import {getAssets} from '@shopify/sewing-kit-koa';
 
 app.use(async ctx => {
+  const assets = getAssets(ctx);
   const asyncAssetManager = new AsyncAssetManager();
 
   /* render app */
 
-  const styles = await ctx.assets.styles({asyncAssets: asyncAssetManager.used});
-  const scripts = await ctx.assets.scripts({
+  const styles = await assets.styles({asyncAssets: asyncAssetManager.used});
+  const scripts = await assets.scripts({
     asyncAssets: asyncAssetManager.used,
   });
 });
