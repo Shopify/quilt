@@ -1,10 +1,28 @@
-export default function withEnv<T = any>(env: string, callback: () => T): T {
-  const previousEnv = process.env.NODE_ENV;
-  function resetEnv() {
-    process.env.NODE_ENV = previousEnv;
-  }
+import {Env} from './types';
 
-  process.env.NODE_ENV = env;
+export default function withEnv<T = any>(env: Env, callback: () => T): T {
+  const envToSet = typeof env === 'string' ? {NODE_ENV: env} : env;
+
+  const previousEnv = Object.keys(envToSet).reduce((previousEnv, key) => {
+    // only care for keys that already have an entry in `process.env`
+    // as they would otherwise end up as `{KEY: "undefined"}` inside `process.env`
+    if (typeof process.env[key] !== 'undefined') {
+      previousEnv[key] = process.env[key];
+    }
+    return previousEnv;
+  }, {});
+
+  Object.assign(process.env, envToSet);
+
+  function resetEnv() {
+    // delete all env keys that have been set by the test's `withEnv` call
+    // to ensure `process.env` does not unecessarilty end up with `{KEY: "undefined"}` entries
+    Object.keys(envToSet).forEach(key => {
+      delete process.env[key];
+    });
+
+    Object.assign(process.env, previousEnv);
+  }
 
   try {
     const result = callback();
