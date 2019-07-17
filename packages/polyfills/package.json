@@ -6,9 +6,6 @@
   "sideEffects": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "engines": {
-    "node": ">=10.0.0"
-  },
   "scripts": {
     "build": "yarn run clean && tsc --p tsconfig.build.json",
     "clean": "rimraf 'dist'",
