@@ -12,7 +12,11 @@ import {
   NetworkManager,
 } from '@shopify/react-network/server';
 import {extract} from '@shopify/react-effect/server';
-import {AsyncAssetContext, AsyncAssetManager} from '@shopify/react-async';
+import {
+  AsyncAssetContext,
+  AsyncAssetManager,
+  AssetTiming,
+} from '@shopify/react-async';
 import {Header} from '@shopify/react-network';
 import {getAssets} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
@@ -62,13 +66,14 @@ export function createRender(render: RenderFunction) {
 
     applyToContext(ctx, networkManager);
 
+    const immediateAsyncAssets = asyncAssetManager.used(AssetTiming.Immediate);
+    const [styles, scripts] = await Promise.all([
+      assets.styles({name: 'main', asyncAssets: immediateAsyncAssets}),
+      assets.scripts({name: 'main', asyncAssets: immediateAsyncAssets}),
+    ]);
+
     const response = renderMarkup(
-      <Html
-        locale="fr"
-        manager={htmlManager}
-        styles={await assets.styles({asyncAssets: asyncAssetManager.used})}
-        scripts={await assets.scripts({asyncAssets: asyncAssetManager.used})}
-      >
+      <Html locale="fr" manager={htmlManager} styles={styles} scripts={scripts}>
         <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
       </Html>,
     );
