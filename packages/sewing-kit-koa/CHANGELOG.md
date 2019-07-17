@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 6.1.0 - 2019-07-17
+
 - [Minor] Adds configurable path/to/assets.json as `manifestPath` in the middleware options ([794](https://github.com/Shopify/quilt/pull/794))
 
 ## 6.0.1 - 2019-07-10
