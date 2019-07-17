@@ -4,7 +4,11 @@
 // eslint-disable-next-line typescript/no-var-requires
 const nodeFetch = require('node-fetch');
 
-function wrappedFetch(url: string, options) {
+function wrappedFetch(url: string | Request, options) {
+  if (typeof url !== 'string') {
+    return nodeFetch.call(this, url, options);
+  }
+
   const finalURL = /^\/\//.test(url) ? `https:${url}` : url;
   return nodeFetch.call(this, finalURL, options);
 }
@@ -15,3 +19,5 @@ if (!(global as any).fetch) {
   (global as any).Headers = nodeFetch.Headers;
   (global as any).Request = nodeFetch.Request;
 }
+
+export {};
