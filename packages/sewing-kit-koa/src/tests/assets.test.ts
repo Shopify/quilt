@@ -49,6 +49,15 @@ describe('Assets', () => {
     expect(readJson).toHaveBeenCalledTimes(1);
   });
 
+  it('reads the asset cache from a custom path', async () => {
+    const manifestPath = 'path/to/manifest';
+    const assets = new Assets({...defaultOptions, manifestPath});
+
+    await assets.styles();
+
+    expect(readJson).toHaveBeenCalledWith(join(appRoot.path, manifestPath));
+  });
+
   describe('scripts', () => {
     it('returns the main scripts by default', async () => {
       const js = '/style.js';
