@@ -7,10 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Added
+## [1.0.0] - 2019-07-17
 
-- Added `@shopify/polyfills/config`
-- Added `intl`
-- Added `url`
-- Added `fetch`
-- Added `baseline`
+Initial release.
