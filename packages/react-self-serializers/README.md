@@ -67,7 +67,7 @@ A self-serializing provider for `@shopify/i18n`'s I18nManager.
 
 #### Props
 
-the component takes an object containing the React children to render and any options to use when configuring the `I18nManager` to provide to the tree.
+The component takes an object containing the React children to render and any options to use when configuring the `I18nManager` to provide to the tree.
 
 ```tsx
 interface Props {
