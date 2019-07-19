@@ -19,7 +19,7 @@ $ yarn add @shopify/react-self-serializers
 
 ## Self serializers
 
-A self-serializer is a React component that leverages the `useSerialized()` hook from `@shopify/react-html` to handle both serializing data during server rendering, and deserializing it on the client. The components often render `React.context()` providers to make whatever serialized state they handle to the rest of the app they're rendered in.
+A self-serializer is a React component that leverages the `useSerialized()` hook from `@shopify/react-html` to handle both serializing data during server rendering, and deserializing it on the client. The components often render `React.context()` providers to make their serialized state available to the rest of the app they're rendered in.
 
 ### Comparison with traditional serialization techniques
 
