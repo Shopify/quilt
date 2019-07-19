@@ -14,7 +14,7 @@ const mount = createMount<{htmlManager?: HtmlManager}>({
 });
 
 describe('<I18n />', () => {
-  it('renders an I18nContext.Provider and passes creates an I18nManager using the given data', () => {
+  it('renders an I18nContext.Provider and creates an I18nManager using the given data', () => {
     const locale = faker.random.locale();
     const currency = faker.finance.currencyCode();
     const country = faker.address.country();
