@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg)](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)
 
-A set of self-serializing providers for @shopify/react-html applications
+A set of self-serializing providers for [@shopify/react-html](../react-html) applications.
 
 ## Table of contents
 
