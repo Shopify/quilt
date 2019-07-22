@@ -38,6 +38,7 @@ Each package has its own `README` and documentation describing usage.
 | jest-mock-router | [directory](packages/jest-mock-router) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-mock-router.svg)](https://badge.fury.io/js/%40shopify%2Fjest-mock-router) |
 | koa-liveness-ping | [directory](packages/koa-liveness-ping) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping) |
 | koa-metrics | [directory](packages/koa-metrics) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-metrics.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-metrics) |
+| koa-react-sidecar | [directory](packages/koa-react-sidecar) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-react-sidecar.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-react-sidecar) |
 | koa-shopify-auth | [directory](packages/koa-shopify-auth) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth) |
 | koa-shopify-graphql-proxy | [directory](packages/koa-shopify-graphql-proxy) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy) |
 | koa-shopify-webhooks | [directory](packages/koa-shopify-webhooks) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks) |
@@ -58,6 +59,7 @@ Each package has its own `README` and documentation describing usage.
 | react-html | [directory](packages/react-html) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html) |
 | react-hydrate | [directory](packages/react-hydrate) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-hydrate.svg)](https://badge.fury.io/js/%40shopify%2Freact-hydrate) |
 | react-i18n | [directory](packages/react-i18n) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-i18n.svg)](https://badge.fury.io/js/%40shopify%2Freact-i18n) |
+| react-idle | [directory](packages/react-idle) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-idle.svg)](https://badge.fury.io/js/%40shopify%2Freact-idle) |
 | react-import-remote | [directory](packages/react-import-remote) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-import-remote.svg)](https://badge.fury.io/js/%40shopify%2Freact-import-remote) |
 | react-intersection-observer | [directory](packages/react-intersection-observer) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-intersection-observer.svg)](https://badge.fury.io/js/%40shopify%2Freact-intersection-observer) |
 | react-network | [directory](packages/react-network) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-network.svg)](https://badge.fury.io/js/%40shopify%2Freact-network) |
