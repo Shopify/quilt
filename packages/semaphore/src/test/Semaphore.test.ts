@@ -15,7 +15,10 @@ describe('Semaphore', () => {
 
       const spy = jest.fn();
 
-      semaphore.acquire().then(spy);
+      semaphore
+        .acquire()
+        .then(spy)
+        .catch(() => {});
 
       await Promise.resolve();
 
@@ -38,7 +41,10 @@ describe('Semaphore', () => {
 
       const spy = jest.fn();
 
-      semaphore.acquire().then(spy);
+      semaphore
+        .acquire()
+        .then(spy)
+        .catch(() => {});
 
       await Promise.resolve();
 
@@ -60,8 +66,14 @@ describe('Semaphore', () => {
       const spy3 = jest.fn();
       const spy4 = jest.fn();
 
-      semaphore.acquire().then(spy3);
-      semaphore.acquire().then(spy4);
+      semaphore
+        .acquire()
+        .then(spy3)
+        .catch(() => {});
+      semaphore
+        .acquire()
+        .then(spy4)
+        .catch(() => {});
 
       await Promise.resolve();
 
@@ -81,8 +93,12 @@ describe('Semaphore', () => {
 
       expect(spy4).toHaveBeenCalledWith(expect.any(Permit));
     });
+  });
+});
 
-    test('permit.release() when called a second time has no effect', async () => {
+describe('Permit', () => {
+  describe('release()', () => {
+    it('has no effect when called a second time', async () => {
       const semaphore = new Semaphore(1);
 
       const permit = await semaphore.acquire();
@@ -90,8 +106,14 @@ describe('Semaphore', () => {
       const spy2 = jest.fn();
       const spy3 = jest.fn();
 
-      semaphore.acquire().then(spy2);
-      semaphore.acquire().then(spy3);
+      semaphore
+        .acquire()
+        .then(spy2)
+        .catch(() => {});
+      semaphore
+        .acquire()
+        .then(spy3)
+        .catch(() => {});
 
       permit.release();
 
@@ -108,4 +130,3 @@ describe('Semaphore', () => {
     });
   });
 });
-
