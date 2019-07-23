@@ -1,6 +1,6 @@
 export class Permit {
   private onRelease: () => void;
-  private isReleased: boolean = false;
+  private isReleased = false;
 
   constructor(onRelease: () => void) {
     this.onRelease = onRelease;
@@ -27,7 +27,7 @@ export class Semaphore {
       this.availablePermits--;
       return Promise.resolve(this.createPermit());
     } else {
-      return new Promise((resolve) => this.deferreds.push({resolve}));
+      return new Promise(resolve => this.deferreds.push({resolve}));
     }
   }
 
