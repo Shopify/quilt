@@ -1,10 +1,13 @@
 import 'isomorphic-fetch';
 import {Server} from 'http';
+
 import Koa, {Context} from 'koa';
 import compose from 'koa-compose';
+import mount from 'koa-mount';
 import {middleware as sewingKitMiddleware} from '@shopify/sewing-kit-koa';
 import {createRender, RenderFunction} from '../render';
 import {createLogger, Verbosity} from '../logger';
+import {ping} from '../ping';
 
 const logger = console;
 
@@ -21,8 +24,15 @@ export function createServer(options: Options): Server {
   const {port, assetPrefix, render, debug, serverMiddleware, ip} = options;
   const app = new Koa();
 
-  app.use(sewingKitMiddleware({assetPrefix}));
+  const manifestPath =
+    process.env.NODE_ENV === 'development'
+      ? `tmp/sewing-kit/sewing-kit-manifest.json`
+      : `public/bundles/sewing-kit-manifest.json`;
+
+  app.use(mount('/services/ping', ping));
+
   app.use(createLogger({level: debug ? Verbosity.Debug : Verbosity.Off}));
+  app.use(sewingKitMiddleware({assetPrefix, manifestPath}));
 
   if (serverMiddleware) {
     app.use(compose(serverMiddleware));
