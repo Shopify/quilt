@@ -1,0 +1,72 @@
+# `@shopify/semaphore`
+
+[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg)](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg)  [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/semaphore.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/semaphore.svg)
+
+The Semaphore class implements a counting [semaphore](https://en.wikipedia.org/wiki/Semaphore_(programming)).
+It can be useful to control concurrent access to a pool of resources such as:
+
+1. Maintaining a pool of web workers to run background scripts
+2. Limiting the number of concurrent requests that can be made to an API endpoint
+
+In more concrete terms, if we take a semaphore with count 3 as an example, the first 3 calls to acquire a permit will resolve immediately and the 4th call will only be resolved when one of the earlier permits is released.
+
+A real-life anology is parking spots at a parking lot. If the parking lot has a capacity for 10 cars, the first 10 cars to arrive will immediately park, but an 11th car will have to wait for one of the cars to leave so that a parking spot is available.
+
+## Installation
+
+```bash
+$ yarn add @shopify/semaphore
+```
+
+## Usage
+
+### Instantiation
+
+Create a semaphore instance by calling the `Semaphore` constructor with a count argument:
+
+```typescript
+const semaphore = new Semaphore(3);
+```
+
+If you need a [lock/mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)), a semaphore with a count of 1 will effectively act as one:
+
+```typescript
+const mutex = new Semaphore(1);
+```
+
+### Acquiring permits
+
+Call `.acquire()` on a Semaphore instance to acquire a permit. The result is a promise that gets resolved with a Permit instance when a permit is available:
+
+```typescript
+const permit = semaphore.acquire();
+```
+
+### Releasing permits
+
+Call the `.release()` method on a Permit instance to release it:
+
+```typescript
+permit.release();
+```
+
+## Example
+
+```typescript
+const MAX_SIMULTANEOUS_FETCHES = 2;
+
+const fetchSemaphore = new Semaphore(MAX_SIMULTANEOUS_FETCHES);
+
+async function callApi(path) {
+  const permit = await fetchSemaphore.acquire();
+
+  return fetch(path)
+    .finally(() => permit.release());
+}
+
+callApi(apples).then(renderApples);
+callApi(oranges).then(renderOranges);
+// The next acquire call won't resolve until one of the earlier permits is released
+callApi(bananas).then(renderBananas);
+```
