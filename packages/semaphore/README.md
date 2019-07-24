@@ -51,6 +51,13 @@ Call the `.release()` method on a Permit instance to release it:
 permit.release();
 ```
 
+The `.release)()` method returns a promise that gets resolved when the permit is released and an earlier permit request that had been pending is resolved. Waiting on the resolution of the `.release()` is optional and could be useful in situations where you're having timing issues (e.g. in unit tests that utilize a Semaphore instance):
+
+```typescript
+await permit.release();
+```
+
+
 ## Example
 
 ```typescript
