@@ -65,7 +65,9 @@
     "tslib": "^1.9.3",
     "typescript": "~3.2.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@shopify/semaphore": "^1.0.0"
+  },
   "resolutions": {
     "@types/react": "16.8.10",
     "@types/react-dom": "16.8.3"
