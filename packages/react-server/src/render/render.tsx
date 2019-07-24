@@ -31,12 +31,11 @@ export function createRender(render: RenderFunction) {
     const networkManager = new NetworkManager();
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
-    const app = render({...ctx, server: true});
+    const app = render(ctx);
 
     try {
       await extract(app, {
         decorate(app) {
-          logger.log('decorating');
           return (
             <HtmlContext.Provider value={htmlManager}>
               <AsyncAssetContext.Provider value={asyncAssetManager}>
