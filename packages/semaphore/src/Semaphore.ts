@@ -1,22 +1,29 @@
+type ReleaseCallback = () => Promise<any>;
+
 export class Permit {
-  private onRelease: () => void;
+  private onRelease: ReleaseCallback;
   private isReleased = false;
 
-  constructor(onRelease: () => void) {
+  constructor(onRelease: ReleaseCallback) {
     this.onRelease = onRelease;
   }
 
-  release() {
+  async release() {
     if (!this.isReleased) {
       this.isReleased = true;
-      this.onRelease();
+      await this.onRelease();
     }
   }
 }
 
+type Deferred = {
+  resolve?(permit: Permit): void;
+  promise?: Promise<Permit>;
+};
+
 export class Semaphore {
   private availablePermits: number;
-  private deferreds: {resolve(permit: Permit): void}[] = [];
+  private deferreds: Deferred[] = [];
 
   constructor(count: number) {
     this.availablePermits = count;
@@ -27,17 +34,26 @@ export class Semaphore {
       this.availablePermits--;
       return Promise.resolve(this.createPermit());
     } else {
-      return new Promise(resolve => this.deferreds.push({resolve}));
+      const deferred: Deferred = {};
+      deferred.promise = new Promise(resolve => {
+        deferred.resolve = resolve;
+      });
+      this.deferreds.push(deferred);
+      return deferred.promise;
     }
   }
 
   private createPermit(): Permit {
-    return new Permit(() => {
-      this.availablePermits++;
+    return new Permit(
+      async (): Promise<any> => {
+        this.availablePermits++;
 
-      if (this.deferreds.length) {
-        this.deferreds.shift()!.resolve(this.createPermit());
-      }
-    });
+        if (this.deferreds.length) {
+          const deferred = this.deferreds.shift()!;
+          deferred.resolve!(this.createPermit());
+          await deferred.promise;
+        }
+      },
+    );
   }
 }
