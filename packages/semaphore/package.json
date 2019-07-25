@@ -1,6 +1,6 @@
 {
   "name": "@shopify/semaphore",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Counting semaphore",
   "main": "dist/index.js",
@@ -23,7 +23,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/semaphore/README.md",
-  "dependencies": {},
   "devDependencies": {
     "typescript": "~3.2.1"
   },
