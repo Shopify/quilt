@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import {KoaNextFunction} from '../types';
 
 const LOGGER = Symbol('logger');
-const PREFIX = chalk`{underline sidecar} ⁓ `;
+const PREFIX = chalk`{underline server} ⁓ `;
 
 interface LoggerOptions {
   level?: Verbosity;
