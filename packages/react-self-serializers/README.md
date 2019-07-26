@@ -92,3 +92,37 @@ function App({locale}: {locale?: string}) {
   return <I18n locale={locale}>{/* rest of the app */}</I18n>;
 }
 ```
+
+### GraphQL
+
+A self-serializing provider for initial GraphQL data from Apollo.
+
+#### Props
+
+The component takes an object containing the React children to render and any options to use when creating the GraphQL client.
+
+#### Example
+
+```tsx
+interface Props {
+  shop?: string;
+  server?: boolean;
+  accessToken?: string;
+  graphQLEndpoint?: string;
+  connectToDevTools?: boolean;
+  children?: React.ReactNode;
+}
+```
+
+```tsx
+// App.tsx
+import {GraphQL} from '@shopify/react-self-serializers';
+
+function App({shop, accessToken}: {shop?: string; accessToken?: string}) {
+  return (
+    <GraphQL shop={shop} accessToken={accessToken}>
+      {/* rest of the app */}
+    </GraphQL>
+  );
+}
+```
