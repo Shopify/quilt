@@ -1,6 +1,7 @@
 import 'isomorphic-fetch';
 import {Server} from 'http';
-
+import {join} from 'path';
+import {pathExistsSync} from 'fs-extra';
 import Koa, {Context} from 'koa';
 import compose from 'koa-compose';
 import mount from 'koa-mount';
@@ -23,11 +24,7 @@ type Options = {
 export function createServer(options: Options): Server {
   const {port, assetPrefix, render, debug, serverMiddleware, ip} = options;
   const app = new Koa();
-
-  const manifestPath =
-    process.env.NODE_ENV === 'development'
-      ? `tmp/sewing-kit/sewing-kit-manifest.json`
-      : `public/bundles/sewing-kit-manifest.json`;
+  const manifestPath = getManifestPath(process.cwd());
 
   app.use(mount('/services/ping', ping));
 
@@ -41,6 +38,18 @@ export function createServer(options: Options): Server {
   app.use(createRender(render));
 
   return app.listen(port || 3000, () => {
-    logger.log(`started sidecar server on ${ip}:${port}`);
+    logger.log(`started server server on ${ip}:${port}`);
   });
+}
+
+function getManifestPath(root: string) {
+  const gemFileExists = pathExistsSync(join(root, 'Gemfile'));
+  if (!gemFileExists) {
+    return;
+  }
+
+  // eslint-disable-next-line no-process-env
+  return process.env.NODE_ENV === 'development'
+    ? `tmp/sewing-kit/sewing-kit-manifest.json`
+    : `public/bundles/sewing-kit-manifest.json`;
 }
