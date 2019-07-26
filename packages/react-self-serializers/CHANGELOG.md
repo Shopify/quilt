@@ -12,3 +12,4 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - `@shopify/react-self-serializers` package
+- `<GraphQL />` Self-serializer ([810](https://github.com/Shopify/quilt/pull/810))
