@@ -39,7 +39,10 @@ export function generateSchemaTypes(
       continue;
     }
 
-    if (isScalarType(type) && scalarTypeMap.hasOwnProperty(type.name)) {
+    if (
+      isScalarType(type) &&
+      Object.prototype.hasOwnProperty.call(scalarTypeMap, type.name)
+    ) {
       continue;
     }
 

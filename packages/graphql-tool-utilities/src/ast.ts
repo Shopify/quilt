@@ -75,7 +75,10 @@ export interface AST extends LegacyCompilerContext {
 export function isOperation(
   operationOrFragment: Operation | Fragment,
 ): operationOrFragment is Operation {
-  return (operationOrFragment as any).hasOwnProperty('operationName');
+  return Object.prototype.hasOwnProperty.call(
+    operationOrFragment,
+    'operationName',
+  );
 }
 
 export function isTypedVariable(

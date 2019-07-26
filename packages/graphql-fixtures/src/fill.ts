@@ -238,7 +238,9 @@ function fillObject(
             parentFields: normalizedParentFields,
           }),
         type,
-        ownField.hasOwnProperty('operationType') ? [] : parentFields,
+        Object.prototype.hasOwnProperty.call(ownField, 'operationType')
+          ? []
+          : parentFields,
         request,
         context,
       ),

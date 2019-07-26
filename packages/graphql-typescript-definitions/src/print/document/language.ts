@@ -281,7 +281,12 @@ function tsTypeForGraphQLType(
     : graphQLType;
 
   if (isScalarType(unwrappedGraphQLType)) {
-    if (scalarTypeMap.hasOwnProperty(unwrappedGraphQLType.name)) {
+    if (
+      Object.prototype.hasOwnProperty.call(
+        scalarTypeMap,
+        unwrappedGraphQLType.name,
+      )
+    ) {
       type = scalarTypeMap[unwrappedGraphQLType.name];
     } else {
       context.file.import(unwrappedGraphQLType.name);
@@ -354,7 +359,12 @@ function tsTypeForGraphQLInputType(
     : graphQLType;
 
   if (isScalarType(unwrappedGraphQLType)) {
-    if (scalarTypeMap.hasOwnProperty(unwrappedGraphQLType.name)) {
+    if (
+      Object.prototype.hasOwnProperty.call(
+        scalarTypeMap,
+        unwrappedGraphQLType.name,
+      )
+    ) {
       type = scalarTypeMap[unwrappedGraphQLType.name];
     } else {
       context.file.import(unwrappedGraphQLType.name);

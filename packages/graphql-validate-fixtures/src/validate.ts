@@ -505,7 +505,7 @@ const CUSTOM_NAMES = {
 };
 
 function nameForType(type: GraphQLLeafType) {
-  return CUSTOM_NAMES.hasOwnProperty(type.name)
+  return Object.prototype.hasOwnProperty.call(CUSTOM_NAMES, type.name)
     ? CUSTOM_NAMES[type.name]
     : type.name;
 }
