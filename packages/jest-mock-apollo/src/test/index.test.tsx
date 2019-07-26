@@ -7,9 +7,9 @@ import {graphql} from 'react-apollo';
 import {mount} from 'enzyme';
 import {buildSchema} from 'graphql';
 
-import configureClient from '..';
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
 import petQuery from './fixtures/PetQuery.graphql';
+import configureClient from '..';
 
 // setup
 const schemaSrc = readFileSync(

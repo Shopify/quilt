@@ -15,7 +15,7 @@
     "import/no-cycle": "off",
     "jest/require-tothrow-message": "off",
     "callback-return": "off",
-    "shopify/jest/no-if": "off",
+    "jest/no-if": "off",
     "import/named": "off",
     "func-style": "off",
     "react/display-name": "off",

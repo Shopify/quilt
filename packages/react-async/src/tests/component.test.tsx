@@ -862,7 +862,7 @@ function withIgnoredReactErrorLogs(perform: () => unknown) {
       })
       .catch(error => {
         cleanup();
-        return Promise.reject(error);
+        return error;
       });
   }
 

@@ -1,6 +1,6 @@
+import {createHmac} from 'crypto';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {StatusCode} from '@shopify/network';
-import {createHmac} from 'crypto';
 import {WebhookHeader} from '../types';
 import {receiveWebhook} from '..';
 
