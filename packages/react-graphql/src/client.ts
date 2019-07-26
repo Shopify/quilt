@@ -8,7 +8,7 @@ import {
 } from 'apollo-link';
 import {NormalizedCacheObject} from 'apollo-cache-inmemory';
 
-class SsrTrackableLink extends ApolloLink {
+class SsrExtractableLink extends ApolloLink {
   private readonly operations = new Set<Promise<void>>();
 
   constructor(private readonly link: ApolloLink) {
@@ -26,7 +26,7 @@ class SsrTrackableLink extends ApolloLink {
   request(operation: Operation, nextLink?: NextLink) {
     if (nextLink != null) {
       throw new Error(
-        'Links created by createSsrTrackableLink() must be the only link in the chain.',
+        'Links created by createSsrExtractableLink() must be the only link in the chain.',
       );
     }
 
@@ -58,12 +58,12 @@ export class ApolloClient<CacheShape> extends BaseApolloClient<CacheShape> {
   constructor(options: ApolloClientOptions<CacheShape>) {
     super({
       ...options,
-      link: options.link && new SsrTrackableLink(options.link),
+      link: options.link && new SsrExtractableLink(options.link),
     });
   }
 
   resolve(): Promise<NormalizedCacheObject> | NormalizedCacheObject {
-    return this.link instanceof SsrTrackableLink
+    return this.link instanceof SsrExtractableLink
       ? this.link.resolveAll(() => this.extract())
       : (this.extract() as any);
   }
