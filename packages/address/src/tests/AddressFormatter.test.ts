@@ -1,8 +1,8 @@
 import {fetch} from '@shopify/jest-dom-mocks';
 import {mockCountryRequests} from '../../../address-mocks/src';
 import {Address} from '../types';
-import AddressFormatter from '..';
 import {toSupportedLocale} from '../loader';
+import AddressFormatter from '..';
 
 const address: Address = {
   company: 'Shopify',

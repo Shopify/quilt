@@ -15,10 +15,10 @@ export function isField<T extends object>(
   input: FieldOutput<T>,
 ): input is Field<T> {
   return (
-    input.hasOwnProperty('value') &&
-    input.hasOwnProperty('onChange') &&
-    input.hasOwnProperty('onBlur') &&
-    input.hasOwnProperty('defaultValue')
+    Object.prototype.hasOwnProperty.call(input, 'value') &&
+    Object.prototype.hasOwnProperty.call(input, 'onChange') &&
+    Object.prototype.hasOwnProperty.call(input, 'onBlur') &&
+    Object.prototype.hasOwnProperty.call(input, 'defaultValue')
   );
 }
 
