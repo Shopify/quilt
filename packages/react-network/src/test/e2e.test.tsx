@@ -2,6 +2,7 @@ import React from 'react';
 import {useServerEffect} from '@shopify/react-effect';
 import {extract} from '@shopify/react-effect/server';
 
+import {NetworkContext, NetworkManager} from '../server';
 import {
   useStatus,
   useCspDirective,
@@ -11,8 +12,6 @@ import {
   CspDirective,
   Header,
 } from '..';
-
-import {NetworkContext, NetworkManager} from '../server';
 
 describe('e2e', () => {
   it('clears network details between requests', async () => {

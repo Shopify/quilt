@@ -134,7 +134,7 @@ function translateWithDictionary(
   if (
     typeof result === 'object' &&
     replacements != null &&
-    replacements.hasOwnProperty(PLURALIZATION_KEY_NAME)
+    Object.prototype.hasOwnProperty.call(replacements, PLURALIZATION_KEY_NAME)
   ) {
     const count = replacements[PLURALIZATION_KEY_NAME];
 
@@ -190,7 +190,7 @@ function updateStringWithReplacements(
     return str.replace(REPLACE_REGEX, match => {
       const replacement = match.substring(1, match.length - 1);
 
-      if (!replacements.hasOwnProperty(replacement)) {
+      if (!Object.prototype.hasOwnProperty.call(replacements, replacement)) {
         throw new MissingReplacementError(replacement, replacements);
       }
 
@@ -215,7 +215,7 @@ function updateStringWithReplacements(
       }
 
       if (replacement) {
-        if (!replacements.hasOwnProperty(replacement)) {
+        if (!Object.prototype.hasOwnProperty.call(replacements, replacement)) {
           throw new MissingReplacementError(replacement, replacements);
         }
 

@@ -190,7 +190,7 @@ function getAssetsFromManifest(
 ) {
   const {entrypoints} = manifest;
 
-  if (!entrypoints.hasOwnProperty(name)) {
+  if (!Object.prototype.hasOwnProperty.call(entrypoints, name)) {
     const entries = Object.keys(entrypoints);
     const guidance =
       entries.length === 0
