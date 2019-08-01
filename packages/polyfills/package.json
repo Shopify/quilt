@@ -34,7 +34,7 @@
     "mutationobserver-shim": "^0.3.3",
     "node-fetch": "^2.3.0",
     "tslib": "^1.9.3",
-    "url-search-params-polyfill": "^5.0.0",
+    "url-polyfill": "^1.1.7",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
