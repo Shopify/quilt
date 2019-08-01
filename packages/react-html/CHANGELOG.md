@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
-## [3.0.1] - 2019-07-04
+## 9.0.1 - 2019-07-04
 
 ### Changed
 
@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Updated to integrate with the newest `@shopify/sewing-kit-koa` and `@shopify/react-hydrate` packages. There is a single breaking change that is documented in the [migration guide](./documentation/migration-version-8-to-9). ([#762](https://github.com/Shopify/quilt/pull/762))
+- Updated to integrate with the newest `@shopify/sewing-kit-koa` and `@shopify/react-hydrate` packages. There is a single breaking change that is documented in the [migration guide](./documentation/migration-version-8-to-9.md). ([#762](https://github.com/Shopify/quilt/pull/762))
 
 ## 8.1.1 - 2019-06-14
 
