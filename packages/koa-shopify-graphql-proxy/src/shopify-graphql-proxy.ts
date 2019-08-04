@@ -53,6 +53,10 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
       },
+      proxyReqOptDecorator(proxyReqOpts) {
+        delete proxyReqOpts.headers['cookie'];
+        return proxyReqOpts;
+      },
       proxyReqPathResolver() {
         return `${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
       },
