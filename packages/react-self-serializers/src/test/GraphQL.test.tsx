@@ -12,7 +12,7 @@ import {
   Options,
 } from '@shopify/react-graphql';
 import {mount} from '@shopify/react-testing';
-import {GraphQL} from '../GraphQL';
+import {GraphQL} from '../GraphQLComponent';
 
 jest.mock('@shopify/react-graphql', () => ({
   ...require.requireActual('@shopify/react-graphql'),
