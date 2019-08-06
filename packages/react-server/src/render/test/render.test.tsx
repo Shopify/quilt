@@ -24,15 +24,26 @@ describe('createRender()', () => {
     await render(context);
 
     expect(context.body).toBe(
+      `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
+    );
+  });
+
+  it('uses the given custom locale', async () => {
+    const context = createRenderContext({locale: 'fr'});
+    const render = createRender(() => <MockApp />);
+
+    await render(context);
+
+    expect(context.body).toBe(
       `<!DOCTYPE html><html lang="fr"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
     );
   });
 });
 
-function createRenderContext(): RenderContext {
-  const context = createMockContext();
+function createRenderContext({locale = 'en'}: Partial<RenderContext> = {}): RenderContext {
+  const context = createMockContext({customProperties: {locale}});
 
   setLogger(context, new Logger());
 
-  return context;
+  return context as RenderContext;
 }

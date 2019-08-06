@@ -21,7 +21,9 @@ import {Header} from '@shopify/react-network';
 import {getAssets} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
 
-export type RenderContext = Context;
+export type RenderContext = Context & {
+  locale: string;
+};
 export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
 
 export function createRender(render: RenderFunction) {
@@ -31,7 +33,9 @@ export function createRender(render: RenderFunction) {
     const networkManager = new NetworkManager();
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
-    const app = render(ctx);
+    const acceptsLanguages = ctx.acceptsLanguages && ctx.acceptsLanguages();
+    const locale = Array.isArray(acceptsLanguages) ? acceptsLanguages[0] : 'en';
+    const app = render({...ctx, locale});
 
     try {
       await extract(app, {
@@ -72,7 +76,7 @@ export function createRender(render: RenderFunction) {
     ]);
 
     const response = renderMarkup(
-      <Html locale="fr" manager={htmlManager} styles={styles} scripts={scripts}>
+      <Html locale={locale} manager={htmlManager} styles={styles} scripts={scripts}>
         <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
       </Html>,
     );
