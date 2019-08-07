@@ -9,4 +9,3 @@ module Dummy
     config.eager_load = false
   end
 end
-# Rails.application.initialize!
