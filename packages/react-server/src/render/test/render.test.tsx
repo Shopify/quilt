@@ -40,7 +40,9 @@ describe('createRender()', () => {
   });
 });
 
-function createRenderContext({locale = 'en'}: Partial<RenderContext> = {}): RenderContext {
+function createRenderContext({
+  locale = 'en',
+}: Partial<RenderContext> = {}): RenderContext {
   const context = createMockContext({customProperties: {locale}});
 
   setLogger(context, new Logger());
