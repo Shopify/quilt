@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version     = Quilt::VERSION
   spec.authors     = ["Mathew Allen"]
   spec.email       = ["mathew.allen@shopify.com"]
-  spec.homepage    = "http://www.google.com"
+  spec.homepage    = "https://github.com/Shopify/quilt/tree/master/gems/quilt_rails"
   spec.summary     = "A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries."
   spec.description = "A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries."
   spec.license     = "MIT"
@@ -25,7 +25,6 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 5.2.3"
   spec.add_dependency 'railties', '>= 3.2.0'
   spec.add_dependency 'rails-reverse-proxy', '~> 0.9.0'
 end

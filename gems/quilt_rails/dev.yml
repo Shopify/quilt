@@ -1,6 +1,6 @@
 name: react-server
 up:
-  - ruby: 2.3.7
+  - ruby: 2.6.3
   - bundler
   - node:
       yarn: v1.12.3
