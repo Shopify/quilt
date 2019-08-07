@@ -16,7 +16,7 @@ export const polyfills: {[polyfill: string]: PolyfillDescriptor} = {
     featureTest: 'intersectionobserver',
   },
   intl: {
-    featureTest: 'internationalization-plural-rul',
+    featureTest: 'intl-pluralrules',
   },
   'mutation-observer': {
     featureTest: 'mutationobserver',
