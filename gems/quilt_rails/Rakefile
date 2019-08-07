@@ -22,9 +22,3 @@ Rake::TestTask.new do |t|
   t.name = 'test:unit'
   t.pattern = 'test/quilt_rails/**/*_test.rb'
 end
-
-Rake::TestTask.new do |t|
-  t.libs << 'test'
-  t.name = 'test:integration'
-  t.pattern = 'test/integration/**/*_test.rb'
-end

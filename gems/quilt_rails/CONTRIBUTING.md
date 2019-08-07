@@ -11,7 +11,7 @@ cd gems/quilt_rails
 dev up
 ```
 
-For Node development, see [the Node contributors docs](/docs/CONTRIBUTING.md).
+For Node development, see [the Node contributors docs](.github/CONTRIBUTING.md).
 
 ## Changes
 
@@ -19,7 +19,7 @@ All notable changes should be included in the [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Releasing
 
-**Note:** Gem releases will _not_ publish Node packages. If the gem depends on changes in the Node library, you _must_ [publish a Node release first](/docs/contributing/release-and-deploy.md).
+**Note:** Gem releases will _not_ publish Node packages. If the gem depends on changes in the Node library, you _must_ [publish a Node release first](.github/contributing.md#releasing).
 
 1. `cd gems/quilt_rails`
 1. Update `version.rb` and `CHANGELOG.md` to your new desired version
