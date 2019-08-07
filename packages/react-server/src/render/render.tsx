@@ -76,7 +76,12 @@ export function createRender(render: RenderFunction) {
     ]);
 
     const response = renderMarkup(
-      <Html locale={locale} manager={htmlManager} styles={styles} scripts={scripts}>
+      <Html
+        locale={locale}
+        manager={htmlManager}
+        styles={styles}
+        scripts={scripts}
+      >
         <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
       </Html>,
     );
