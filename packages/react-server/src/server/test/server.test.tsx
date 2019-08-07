@@ -41,6 +41,7 @@ describe('createServer()', () => {
   it('starts a server that responds with markup', async () => {
     const response = await request(`${ip}:${port}`)
       .get('/')
+      .set({'accept-language': 'fr'})
       .then((resp: request.Response) => {
         return resp;
       });
