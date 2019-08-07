@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.5.1] - 2019-08-07
+
 ### Fixed
 
 - Fixed an issue where async translations would sometimes not be shown on the initial mount of a component ([#824](https://github.com/Shopify/quilt/pull/824))
