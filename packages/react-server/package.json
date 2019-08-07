@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "Utilities for React server-side rendering.",
   "main": "dist/index.js",
@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "@types/koa": "^2.0.44",
-    "@types/minimist": "^1.2.0",
     "@types/supertest": "^2.0.8",
     "get-port": "^5.0.0",
     "supertest": "^4.0.2",
