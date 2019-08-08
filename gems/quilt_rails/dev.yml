@@ -1,0 +1,12 @@
+name: react-server
+up:
+  - ruby: 2.6.3
+  - bundler
+  - node:
+      yarn: v1.12.3
+      version: v8.12.0
+
+commands:
+  test: bundle exec rake test
+  cop:
+    run: bundle exec rubocop -F --auto-correct
