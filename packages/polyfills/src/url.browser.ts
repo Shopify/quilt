@@ -1,1 +1,1 @@
-require('url-search-params-polyfill');
+require('url-polyfill');
