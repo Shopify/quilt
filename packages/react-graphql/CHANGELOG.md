@@ -7,7 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## Added
+### Fixed
+
+- Add missing dependencies ([832](https://github.com/Shopify/quilt/pull/832))
+
+## [4.0.3] - 2019-07-07
+
+### Added
 
 - Adds SSR extractable link to support GraphQL Self-serialization ([810](https://github.com/Shopify/quilt/pull/810))
 
