@@ -44,6 +44,7 @@ describe('getCountry()', () => {
       'code',
       'phoneNumberPrefix',
       'autocompletionField',
+      'provinceKey',
       'continent',
       'labels',
       'formatting',
