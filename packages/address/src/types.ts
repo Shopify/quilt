@@ -11,6 +11,16 @@ export enum FieldName {
   Company = 'company',
 }
 
+export type ZoneKey =
+  | 'COUNTY'
+  | 'EMIRATE'
+  | 'GOVERNORATE'
+  | 'PREFECTURE'
+  | 'PROVINCE'
+  | 'REGION'
+  | 'STATE_AND_TERRITORY'
+  | 'STATE';
+
 export interface Address {
   company?: string;
   firstName?: string;
@@ -42,6 +52,7 @@ export interface Country {
   continent: string;
   phoneNumberPrefix: number;
   autocompletionField: string;
+  provinceKey: ZoneKey;
   labels: {
     address1: string;
     address2: string;
