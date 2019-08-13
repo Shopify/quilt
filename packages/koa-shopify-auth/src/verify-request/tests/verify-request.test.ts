@@ -1,14 +1,19 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
+import {fetch} from '@shopify/jest-dom-mocks';
 import verifyRequest from '../verify-request';
 import {TEST_COOKIE_NAME, TOP_LEVEL_OAUTH_COOKIE_NAME} from '../../index';
 
 describe('verifyRequest', () => {
-  it('calls next if there is an accessToken on session', () => {
+  afterEach(fetch.restore);
+  it('calls next if there is an accessToken on session', async () => {
     const verifyRequestMiddleware = verifyRequest();
-    const ctx = createMockContext({session: {accessToken: 'test'}});
+    const ctx = createMockContext({
+      session: {accessToken: 'test', shop: 'testshop.myshopify.com'},
+    });
     const next = jest.fn();
 
-    verifyRequestMiddleware(ctx, next);
+    fetch.mock('https://testshop.myshopify.com/admin/metafields.json', 200);
+    await verifyRequestMiddleware(ctx, next);
 
     expect(next).toHaveBeenCalled();
   });
@@ -73,6 +78,24 @@ describe('verifyRequest', () => {
     });
 
     verifyRequestMiddleware(ctx, next);
+
+    expect(ctx.redirect).toHaveBeenCalledWith(`${authRoute}?shop=${shop}`);
+  });
+
+  it('redirects to given authRoute if existing token is invalid', async () => {
+    const shop = 'myshop.com';
+    const authRoute = '/my-auth-route';
+
+    const verifyRequestMiddleware = verifyRequest({authRoute});
+    const next = jest.fn();
+    const ctx = createMockContext({
+      url: `/foo?shop=${shop}`,
+      redirect: jest.fn(),
+      session: {accessToken: 'test', shop: 'testshop.myshopify.com'},
+    });
+
+    fetch.mock('https://testshop.myshopify.com/admin/metafields.json', 401);
+    await verifyRequestMiddleware(ctx, next);
 
     expect(ctx.redirect).toHaveBeenCalledWith(`${authRoute}?shop=${shop}`);
   });

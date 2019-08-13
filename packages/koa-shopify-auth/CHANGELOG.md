@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## 3.1.31 - 2019-08-13
+
+### Fixed
+
+- Installation no longer fails if accessToken is invalid [#844](https://github.com/Shopify/quilt/pull/844)
+
 ## 3.1.14 - 2019-02-05
 
 ### Fixed
