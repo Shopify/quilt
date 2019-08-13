@@ -285,7 +285,7 @@
     lodash "^4.17.4"
     lodash-decorators "^4.3.5"
 
-"@shopify/react-html@8.1.3", "@shopify/react-html@^8.0.10", "@shopify/react-html@^8.1.3":
+"@shopify/react-html@^8.0.10", "@shopify/react-html@^8.1.3":
   version "8.1.3"
   resolved "https://registry.yarnpkg.com/@shopify/react-html/-/react-html-8.1.3.tgz#1cf83190ae7e3a5cb25be5ed2ed73adf36ac0a66"
   integrity sha512-uExIf1n1BnPNJm04zYRnFQAmFCjW+sOGJ0agkhGAJAN59pyHSEqknuYj4CbzXZbBb1SRS/VO/XWmRdEu697fFA==
