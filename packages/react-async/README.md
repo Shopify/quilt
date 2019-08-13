@@ -256,7 +256,7 @@ Consider this async component:
 ```tsx
 const ProductDetails = createAsyncComponent({
   load: () => import('./ProductDetails'),
-  renderPrefetch: ({id}: {id: string}) => <PrefetchGraphQLQuery id={id} />,
+  usePrefetch: ({id}: {id: string}) => <PrefetchGraphQLQuery id={id} />,
 });
 ```
 
