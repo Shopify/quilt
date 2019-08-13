@@ -60,23 +60,6 @@ The following type aliases are provided by this library:
   type SelectiveObj = Omit<Obj, 'foo' | 'bar'>; // {baz: number}
   ```
 
-- `Props<T>`: Extracts the prop type from a React component. This allows you to access property types without having to manually export/ import the type.
-
-  ```tsx
-  function MyComponent({name}: {name: string}) {
-    return <div>Hello, {name}!</div>;
-  }
-
-  class MyOtherComponent extends React.Component<{seconds: number}> {
-    render() {
-      return <div>{this.props.seconds} seconds left!</div>;
-    }
-  }
-
-  type MyComponentProps = Props<typeof MyComponent>; // {name: string}
-  type MyOtherComponentProps = Props<typeof MyOtherComponent>; // {seconds: number}
-  ```
-
 - `DeepPartial<T>`: Recusively maps over all properties in a type and transforms them to be optional. Useful when you need to make optional all of the properties (and nested properties) of an existing type.
 
   ```ts
