@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Arguments,
   MaybeFunctionReturnType,
-  Props as PropsForComponent,
+  PropsFor,
 } from '@shopify/useful-types';
 
 export type FunctionKeys<T> = {
@@ -87,16 +87,16 @@ export interface Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Node<PropsForComponent<Type>>;
+  ): this is Node<PropsFor<Type>>;
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Node<PropsForComponent<Type>> | null;
+    props?: Partial<PropsFor<Type>>,
+  ): Node<PropsFor<Type>> | null;
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Node<PropsForComponent<Type>>[];
+    props?: Partial<PropsFor<Type>>,
+  ): Node<PropsFor<Type>>[];
   findWhere(predicate: Predicate): Node<unknown> | null;
   findAllWhere(predicate: Predicate): Node<unknown>[];
 

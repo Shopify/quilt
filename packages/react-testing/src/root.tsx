@@ -3,7 +3,7 @@ import {render, unmountComponentAtNode} from 'react-dom';
 import {act as reactAct} from 'react-dom/test-utils';
 import {
   Arguments,
-  Props as PropsForComponent,
+  PropsFor,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
 
@@ -141,7 +141,7 @@ export class Root<Props> implements Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Root<PropsForComponent<Type>> {
+  ): this is Root<PropsFor<Type>> {
     return this.withRoot(root => root.is(type));
   }
 
@@ -155,14 +155,14 @@ export class Root<Props> implements Node<Props> {
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.find(type, props));
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.findAll(type, props));
   }
