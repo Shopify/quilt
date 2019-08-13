@@ -1,5 +1,9 @@
 module QuiltRails
-  class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
+  class ReactController < ApplicationController
+    include Quilt::ReactRenderable
+
+    def index
+      render_react
+    end
   end
 end
