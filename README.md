@@ -65,6 +65,7 @@ Each package has its own `README` and documentation describing usage.
 | react-preconnect | [directory](packages/react-preconnect) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-preconnect.svg)](https://badge.fury.io/js/%40shopify%2Freact-preconnect) |
 | react-self-serializers | [directory](packages/react-self-serializers) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg)](https://badge.fury.io/js/%40shopify%2Freact-self-serializers) |
 | react-serialize | [directory](packages/react-serialize) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-serialize.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize) |
+| react-server | [directory](packages/react-server) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server.svg)](https://badge.fury.io/js/%40shopify%2Freact-server) |
 | react-shopify-app-route-propagator | [directory](packages/react-shopify-app-route-propagator) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator.svg)](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator) |
 | react-shortcuts | [directory](packages/react-shortcuts) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) |
 | react-testing | [directory](packages/react-testing) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)](https://badge.fury.io/js/%40shopify%2Freact-testing) |
