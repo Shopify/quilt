@@ -26,6 +26,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アイルランド',
@@ -157,6 +158,7 @@ const data = {
             code: 'WW',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'アゼルバイジャン',
@@ -183,6 +185,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'COUNTY',
       },
       {
         name: 'アフガニスタン',
@@ -209,6 +212,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アメリカ合衆国',
@@ -484,6 +488,7 @@ const data = {
             code: 'AP',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'アラブ首長国連邦',
@@ -539,6 +544,7 @@ const data = {
             code: 'UQ',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'アルジェリア',
@@ -565,6 +571,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'EMIRATE',
       },
       {
         name: 'アルゼンチン',
@@ -688,6 +695,7 @@ const data = {
             code: 'T',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'アルバ',
@@ -714,6 +722,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'アルバニア',
@@ -740,6 +749,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アルメニア',
@@ -766,6 +776,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンギラ',
@@ -792,6 +803,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンゴラ',
@@ -818,6 +830,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンティグア・バーブーダ',
@@ -844,6 +857,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンドラ',
@@ -870,6 +884,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イエメン',
@@ -896,6 +911,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イギリス',
@@ -922,6 +938,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イスラエル',
@@ -948,6 +965,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イタリア',
@@ -1415,6 +1433,7 @@ const data = {
             code: 'VT',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'イラク',
@@ -1441,6 +1460,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'イラン',
@@ -1467,6 +1487,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'インド',
@@ -1638,6 +1659,7 @@ const data = {
             code: 'WB',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'インドネシア',
@@ -1801,6 +1823,7 @@ const data = {
             code: 'YO',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'ウォリス・フツナ',
@@ -1827,6 +1850,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'ウガンダ',
@@ -1853,6 +1877,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ウクライナ',
@@ -1879,6 +1904,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ウズベキスタン',
@@ -1905,6 +1931,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ウルグアイ',
@@ -1931,6 +1958,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'エクアドル',
@@ -1957,6 +1985,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エジプト',
@@ -2100,6 +2129,7 @@ const data = {
             code: 'SUZ',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'エストニア',
@@ -2126,6 +2156,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'GOVERNORATE',
       },
       {
         name: 'エチオピア',
@@ -2152,6 +2183,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エリトリア',
@@ -2178,6 +2210,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エルサルバドル',
@@ -2204,6 +2237,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オマーン',
@@ -2230,6 +2264,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オランダ',
@@ -2256,6 +2291,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オランダ領アンティル',
@@ -2282,6 +2318,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オランダ領カリブ',
@@ -2308,6 +2345,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オーストラリア',
@@ -2367,6 +2405,7 @@ const data = {
             code: 'WA',
           },
         ],
+        provinceKey: 'STATE_AND_TERRITORY',
       },
       {
         name: 'オーストリア',
@@ -2393,6 +2432,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オーランド諸島',
@@ -2419,6 +2459,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カザフスタン',
@@ -2445,6 +2486,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カタール',
@@ -2471,6 +2513,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カナダ',
@@ -2550,6 +2593,7 @@ const data = {
             code: 'YT',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'カメルーン',
@@ -2576,6 +2620,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カンボジア',
@@ -2602,6 +2647,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カーボベルデ',
@@ -2628,6 +2674,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガイアナ',
@@ -2654,6 +2701,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガボン',
@@ -2680,6 +2728,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガンビア',
@@ -2706,6 +2755,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガーナ',
@@ -2732,6 +2782,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガーンジー',
@@ -2758,6 +2809,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キプロス',
@@ -2784,6 +2836,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キュラソー',
@@ -2810,6 +2863,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キューバ',
@@ -2836,6 +2890,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キリバス',
@@ -2862,6 +2917,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キルギス',
@@ -2888,6 +2944,7 @@ const data = {
             '{zip} {city}_{address2}_{address1}_{company}_{firstName} {lastName}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ギニア',
@@ -2914,6 +2971,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ギニアビサウ',
@@ -2940,6 +2998,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ギリシャ',
@@ -2966,6 +3025,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クウェート',
@@ -2992,6 +3052,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クック諸島',
@@ -3018,6 +3079,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クリスマス島',
@@ -3044,6 +3106,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クロアチア',
@@ -3070,6 +3133,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'グアテマラ',
@@ -3185,6 +3249,7 @@ const data = {
             code: 'ZAC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'グアドループ',
@@ -3211,6 +3276,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'グリーンランド',
@@ -3237,6 +3303,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'グルジア',
@@ -3263,6 +3330,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'グレナダ',
@@ -3289,6 +3357,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ケイマン諸島',
@@ -3315,6 +3384,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ケニア',
@@ -3341,6 +3411,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ココス(キーリング)諸島',
@@ -3367,6 +3438,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コスタリカ',
@@ -3393,6 +3465,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コソボ',
@@ -3419,6 +3492,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コモロ',
@@ -3445,6 +3519,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'コロンビア',
@@ -3604,6 +3679,7 @@ const data = {
             code: 'VID',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'コンゴ共和国(ブラザビル)',
@@ -3630,6 +3706,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コンゴ民主共和国(キンシャサ)',
@@ -3656,6 +3733,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コートジボワール',
@@ -3682,6 +3760,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サウジアラビア',
@@ -3708,6 +3787,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サモア',
@@ -3734,6 +3814,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サントメ・プリンシペ',
@@ -3760,6 +3841,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サンピエール島・ミクロン島',
@@ -3786,6 +3868,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サンマリノ',
@@ -3812,6 +3895,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サン・バルテルミー島',
@@ -3838,6 +3922,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サン・マルタン',
@@ -3864,6 +3949,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ザンビア',
@@ -3890,6 +3976,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シエラレオネ',
@@ -3916,6 +4003,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シリア',
@@ -3942,6 +4030,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シンガポール',
@@ -3968,6 +4057,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シント・マールテン',
@@ -3994,6 +4084,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジブチ',
@@ -4020,6 +4111,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジブラルタル',
@@ -4046,6 +4138,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジャマイカ',
@@ -4072,6 +4165,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジャージー',
@@ -4098,6 +4192,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジンバブエ',
@@ -4124,6 +4219,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スイス',
@@ -4150,6 +4246,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スウェーデン',
@@ -4176,6 +4273,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スバールバル諸島・ヤンマイエン島',
@@ -4202,6 +4300,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スペイン',
@@ -4437,6 +4536,7 @@ const data = {
             code: 'Z',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'スリナム',
@@ -4463,6 +4563,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'スリランカ',
@@ -4489,6 +4590,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スロバキア',
@@ -4515,6 +4617,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スロベニア',
@@ -4541,6 +4644,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スワジランド',
@@ -4567,6 +4671,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スーダン',
@@ -4593,6 +4698,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セネガル',
@@ -4619,6 +4725,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セルビア',
@@ -4645,6 +4752,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セントクリストファー・ネイビス',
@@ -4671,6 +4779,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セントビンセント・グレナディーン諸島',
@@ -4697,6 +4806,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セントヘレナ',
@@ -4723,6 +4833,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セントルシア',
@@ -4749,6 +4860,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セーシェル',
@@ -4775,6 +4887,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ソマリア',
@@ -4801,6 +4914,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ソロモン諸島',
@@ -4827,6 +4941,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'タイ',
@@ -5166,6 +5281,7 @@ const data = {
             code: 'TH-35',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'タジキスタン',
@@ -5192,6 +5308,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'タンザニア',
@@ -5218,6 +5335,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'タークス・カイコス諸島',
@@ -5244,6 +5362,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'チェコ共和国',
@@ -5270,6 +5389,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'チャド',
@@ -5296,6 +5416,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'チュニジア',
@@ -5322,6 +5443,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'チリ',
@@ -5348,6 +5470,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ツバル',
@@ -5374,6 +5497,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'STATE',
       },
       {
         name: 'デンマーク',
@@ -5400,6 +5524,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トケラウ',
@@ -5426,6 +5551,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トリニダード・トバゴ',
@@ -5452,6 +5578,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トルクメニスタン',
@@ -5478,6 +5605,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トルコ',
@@ -5504,6 +5632,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トンガ',
@@ -5530,6 +5659,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トーゴ',
@@ -5556,6 +5686,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ドイツ',
@@ -5582,6 +5713,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ドミニカ共和国',
@@ -5608,6 +5740,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ドミニカ国',
@@ -5634,6 +5767,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ナイジェリア',
@@ -5809,6 +5943,7 @@ const data = {
             code: 'ZA',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ナウル',
@@ -5835,6 +5970,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'STATE',
       },
       {
         name: 'ナミビア',
@@ -5861,6 +5997,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニウエ島',
@@ -5887,6 +6024,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニカラグア',
@@ -5913,6 +6051,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニジェール',
@@ -5939,6 +6078,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニューカレドニア',
@@ -5965,6 +6105,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニュージーランド',
@@ -6056,6 +6197,7 @@ const data = {
             code: 'WTC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ネパール',
@@ -6082,6 +6224,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ノルウェー',
@@ -6108,6 +6251,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ノーフォーク島',
@@ -6134,6 +6278,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ハイチ',
@@ -6160,6 +6305,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ハンガリー',
@@ -6186,6 +6332,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ハード島・マクドナルド諸島',
@@ -6212,6 +6359,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バチカン市国',
@@ -6238,6 +6386,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バヌアツ',
@@ -6264,6 +6413,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バハマ',
@@ -6290,6 +6440,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バミューダ',
@@ -6316,6 +6467,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バルバドス',
@@ -6342,6 +6494,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バングラデシュ',
@@ -6368,6 +6521,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バーレーン',
@@ -6394,6 +6548,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'パキスタン',
@@ -6420,6 +6575,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'パナマ',
@@ -6499,6 +6655,7 @@ const data = {
             code: 'PA-9',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'パプアニューギニア',
@@ -6525,6 +6682,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'パラグアイ',
@@ -6551,6 +6709,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'パレスチナ',
@@ -6577,6 +6736,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ピトケアン諸島',
@@ -6603,6 +6763,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フィジー',
@@ -6629,6 +6790,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フィリピン',
@@ -6655,6 +6817,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フィンランド',
@@ -6681,6 +6844,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フェロー諸島',
@@ -6707,6 +6871,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フォークランド諸島',
@@ -6733,6 +6898,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フランス',
@@ -6759,6 +6925,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブラジル',
@@ -6894,6 +7061,7 @@ const data = {
             code: 'TO',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブルガリア',
@@ -6920,6 +7088,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'STATE',
       },
       {
         name: 'ブルキナファソ',
@@ -6946,6 +7115,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブルネイ',
@@ -6972,6 +7142,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブルンジ',
@@ -6998,6 +7169,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブータン',
@@ -7024,6 +7196,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブーベ島',
@@ -7050,6 +7223,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベトナム',
@@ -7076,6 +7250,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベナン',
@@ -7102,6 +7277,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベネズエラ',
@@ -7128,6 +7304,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベラルーシ',
@@ -7154,6 +7331,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベリーズ',
@@ -7180,6 +7358,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'ベルギー',
@@ -7206,6 +7385,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ペルー',
@@ -7337,6 +7517,7 @@ const data = {
             code: 'PE-UCA',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ホンジュラス',
@@ -7363,6 +7544,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ボスニア・ヘルツェゴビナ',
@@ -7389,6 +7571,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ボツワナ',
@@ -7415,6 +7598,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ボリビア',
@@ -7441,6 +7625,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ポルトガル',
@@ -7548,6 +7733,7 @@ const data = {
             code: 'PT-18',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ポーランド',
@@ -7574,6 +7760,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マケドニア',
@@ -7600,6 +7787,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マダガスカル',
@@ -7626,6 +7814,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マヨット島',
@@ -7652,6 +7841,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マラウイ',
@@ -7678,6 +7868,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マリ',
@@ -7704,6 +7895,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マルタ',
@@ -7730,6 +7922,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マルティニーク',
@@ -7756,6 +7949,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マレーシア',
@@ -7847,6 +8041,7 @@ const data = {
             code: 'TRG',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'マン島',
@@ -7873,6 +8068,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'STATE_AND_TERRITORY',
       },
       {
         name: 'ミャンマー',
@@ -7899,6 +8095,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'メキシコ',
@@ -8054,6 +8251,7 @@ const data = {
             code: 'ZAC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'モザンビーク',
@@ -8080,6 +8278,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'STATE',
       },
       {
         name: 'モナコ',
@@ -8106,6 +8305,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モルディブ',
@@ -8132,6 +8332,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モルドバ',
@@ -8158,6 +8359,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モロッコ',
@@ -8184,6 +8386,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モンゴル',
@@ -8210,6 +8413,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モンテネグロ',
@@ -8236,6 +8440,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モントセラト',
@@ -8262,6 +8467,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モーリシャス',
@@ -8288,6 +8494,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モーリタニア',
@@ -8314,6 +8521,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ヨルダン',
@@ -8340,6 +8548,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ラオス',
@@ -8366,6 +8575,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ラトビア',
@@ -8392,6 +8602,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'リトアニア',
@@ -8418,6 +8629,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'リヒテンシュタイン',
@@ -8444,6 +8656,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'リビア',
@@ -8470,6 +8683,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'リベリア',
@@ -8496,6 +8710,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ルクセンブルグ',
@@ -8522,6 +8737,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ルワンダ',
@@ -8548,6 +8764,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ルーマニア',
@@ -8743,6 +8960,7 @@ const data = {
             code: 'VN',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'レソト',
@@ -8769,6 +8987,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'COUNTY',
       },
       {
         name: 'レバノン',
@@ -8795,6 +9014,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'レユニオン島',
@@ -8821,6 +9041,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ロシア',
@@ -9176,6 +9397,7 @@ const data = {
             code: 'ZAB',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: '中国',
@@ -9327,6 +9549,7 @@ const data = {
             code: 'ZJ',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: '中央アフリカ共和国',
@@ -9353,6 +9576,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: '中華人民共和国マカオ特別行政区',
@@ -9379,6 +9603,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '中華人民共和国香港特別行政区',
@@ -9418,6 +9643,7 @@ const data = {
             code: 'NT',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: '仏領ギアナ',
@@ -9444,6 +9670,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '仏領ポリネシア',
@@ -9470,6 +9697,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '仏領極南諸島',
@@ -9496,6 +9724,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '南アフリカ',
@@ -9559,6 +9788,7 @@ const data = {
             code: 'WC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: '南ジョージア島・南サンドイッチ諸島',
@@ -9585,6 +9815,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '南スーダン',
@@ -9611,6 +9842,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: '台湾',
@@ -9637,6 +9869,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '大韓民国',
@@ -9732,6 +9965,7 @@ const data = {
             code: 'KR-31',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: '日本',
@@ -9947,6 +10181,7 @@ const data = {
             code: 'JP-47',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: '朝鮮民主主義人民共和国',
@@ -9973,6 +10208,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PREFECTURE',
       },
       {
         name: '東ティモール',
@@ -9999,6 +10235,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '米領太平洋諸島',
@@ -10025,6 +10262,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '英領インド洋地域',
@@ -10051,6 +10289,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '英領ヴァージン諸島',
@@ -10077,6 +10316,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '西サハラ',
@@ -10103,6 +10343,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '赤道ギニア',
@@ -10129,6 +10370,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
     ],
   },

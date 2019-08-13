@@ -78,6 +78,7 @@ const data = {
           code: 'YT',
         },
       ],
+      provinceKey: 'PROVINCE',
     },
   },
 };
