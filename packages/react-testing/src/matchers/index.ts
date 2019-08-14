@@ -1,7 +1,6 @@
 import {ComponentType, Context as ReactContext} from 'react';
-import {Props} from '@shopify/useful-types';
 
-import {Node} from '../types';
+import {Node, PropsFor} from '../types';
 import {toHaveReactProps, toHaveReactDataProps} from './props';
 import {
   toContainReactComponent,
@@ -19,12 +18,12 @@ declare global {
       toHaveReactDataProps(data: {[key: string]: string}): void;
       toContainReactComponent<Type extends string | ComponentType<any>>(
         type: Type,
-        props?: Partial<Props<Type>>,
+        props?: Partial<PropsFor<Type>>,
       ): void;
       toContainReactComponentTimes<Type extends string | ComponentType<any>>(
         type: Type,
         times: number,
-        props?: Partial<Props<Type>>,
+        props?: Partial<PropsFor<Type>>,
       ): void;
       toProvideReactContext<Type>(
         context: ReactContext<Type>,

@@ -5,9 +5,8 @@ import {
   EXPECTED_COLOR as expectedColor,
   RECEIVED_COLOR as receivedColor,
 } from 'jest-matcher-utils';
-import {Props} from '@shopify/useful-types';
 
-import {Node} from '../types';
+import {Node, PropsFor} from '../types';
 import {assertIsNode, diffs, pluralize, printType} from './utilities';
 
 export function toContainReactComponent<
@@ -16,7 +15,7 @@ export function toContainReactComponent<
   this: jest.MatcherUtils,
   node: Node<unknown>,
   type: Type,
-  props?: Partial<Props<Type>>,
+  props?: Partial<PropsFor<Type>>,
 ) {
   assertIsNode(node, {
     expectation: 'toContainReactComponent',
@@ -74,7 +73,7 @@ export function toContainReactComponentTimes<
   node: Node<unknown>,
   type: Type,
   times: number,
-  props?: Partial<Props<Type>>,
+  props?: Partial<PropsFor<Type>>,
 ) {
   assertIsNode(node, {
     expectation: 'toContainReactComponentTimes',

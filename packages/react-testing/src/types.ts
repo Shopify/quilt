@@ -1,9 +1,13 @@
 import * as React from 'react';
-import {
-  Arguments,
-  MaybeFunctionReturnType,
-  Props as PropsForComponent,
-} from '@shopify/useful-types';
+import {Arguments, MaybeFunctionReturnType} from '@shopify/useful-types';
+
+export type PropsFor<
+  T extends string | React.ComponentType<any>
+> = T extends string
+  ? React.HTMLAttributes<T>
+  : T extends React.ComponentType<any>
+    ? React.ComponentPropsWithoutRef<T>
+    : never;
 
 export type FunctionKeys<T> = {
   [K in keyof T]-?: NonNullable<T[K]> extends ((...args: any[]) => any)
@@ -87,16 +91,16 @@ export interface Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Node<PropsForComponent<Type>>;
+  ): this is Node<PropsFor<Type>>;
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Node<PropsForComponent<Type>> | null;
+    props?: Partial<PropsFor<Type>>,
+  ): Node<PropsFor<Type>> | null;
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Node<PropsForComponent<Type>>[];
+    props?: Partial<PropsFor<Type>>,
+  ): Node<PropsFor<Type>>[];
   findWhere(predicate: Predicate): Node<unknown> | null;
   findAllWhere(predicate: Predicate): Node<unknown>[];
 
