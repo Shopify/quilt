@@ -26,6 +26,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Åland Islands',
@@ -52,6 +53,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Albania',
@@ -78,6 +80,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Algeria',
@@ -104,6 +107,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Andorra',
@@ -130,6 +134,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Angola',
@@ -156,6 +161,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Anguilla',
@@ -182,6 +188,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Antigua & Barbuda',
@@ -208,6 +215,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Argentina',
@@ -331,6 +339,7 @@ const data = {
             code: 'T',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Armenia',
@@ -357,6 +366,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Aruba',
@@ -383,6 +393,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Australia',
@@ -442,6 +453,7 @@ const data = {
             code: 'WA',
           },
         ],
+        provinceKey: 'STATE_AND_TERRITORY',
       },
       {
         name: 'Austria',
@@ -468,6 +480,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Azerbaijan',
@@ -494,6 +507,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bahamas',
@@ -520,6 +534,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bahrain',
@@ -546,6 +561,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bangladesh',
@@ -572,6 +588,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Barbados',
@@ -598,6 +615,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Belarus',
@@ -624,6 +642,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Belgium',
@@ -650,6 +669,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Belize',
@@ -676,6 +696,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Benin',
@@ -702,6 +723,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bermuda',
@@ -728,6 +750,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bhutan',
@@ -754,6 +777,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bolivia',
@@ -780,6 +804,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bosnia & Herzegovina',
@@ -806,6 +831,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Botswana',
@@ -832,6 +858,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bouvet Island',
@@ -858,6 +885,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Brazil',
@@ -993,6 +1021,7 @@ const data = {
             code: 'TO',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'British Indian Ocean Territory',
@@ -1019,6 +1048,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'British Virgin Islands',
@@ -1045,6 +1075,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Brunei',
@@ -1071,6 +1102,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Bulgaria',
@@ -1097,6 +1129,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Burkina Faso',
@@ -1123,6 +1156,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Burundi',
@@ -1149,6 +1183,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Cambodia',
@@ -1175,6 +1210,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Cameroon',
@@ -1201,6 +1237,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Canada',
@@ -1280,6 +1317,7 @@ const data = {
             code: 'YT',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Cape Verde',
@@ -1306,6 +1344,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Caribbean Netherlands',
@@ -1332,6 +1371,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Cayman Islands',
@@ -1358,6 +1398,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Central African Republic',
@@ -1384,6 +1425,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Chad',
@@ -1410,6 +1452,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Chile',
@@ -1436,6 +1479,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'STATE',
       },
       {
         name: 'China',
@@ -1587,6 +1631,7 @@ const data = {
             code: 'ZJ',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Christmas Island',
@@ -1613,6 +1658,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Cocos (Keeling) Islands',
@@ -1639,6 +1685,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Colombia',
@@ -1798,6 +1845,7 @@ const data = {
             code: 'VID',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Comoros',
@@ -1824,6 +1872,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Congo - Brazzaville',
@@ -1850,6 +1899,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Congo - Kinshasa',
@@ -1876,6 +1926,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Cook Islands',
@@ -1902,6 +1953,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Costa Rica',
@@ -1928,6 +1980,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Croatia',
@@ -1954,6 +2007,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Cuba',
@@ -1980,6 +2034,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Curaçao',
@@ -2006,6 +2061,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Cyprus',
@@ -2032,6 +2088,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Czech Republic',
@@ -2058,6 +2115,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Côte d’Ivoire',
@@ -2084,6 +2142,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Denmark',
@@ -2110,6 +2169,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Djibouti',
@@ -2136,6 +2196,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Dominica',
@@ -2162,6 +2223,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Dominican Republic',
@@ -2188,6 +2250,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Ecuador',
@@ -2214,6 +2277,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Egypt',
@@ -2357,6 +2421,7 @@ const data = {
             code: 'SUZ',
           },
         ],
+        provinceKey: 'GOVERNORATE',
       },
       {
         name: 'El Salvador',
@@ -2383,6 +2448,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Equatorial Guinea',
@@ -2409,6 +2475,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Eritrea',
@@ -2435,6 +2502,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Estonia',
@@ -2461,6 +2529,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Ethiopia',
@@ -2487,6 +2556,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Falkland Islands',
@@ -2513,6 +2583,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Faroe Islands',
@@ -2539,6 +2610,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Fiji',
@@ -2565,6 +2637,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Finland',
@@ -2591,6 +2664,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'France',
@@ -2617,6 +2691,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'French Guiana',
@@ -2643,6 +2718,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'French Polynesia',
@@ -2669,6 +2745,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'French Southern Territories',
@@ -2695,6 +2772,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Gabon',
@@ -2721,6 +2799,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Gambia',
@@ -2747,6 +2826,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Georgia',
@@ -2773,6 +2853,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Germany',
@@ -2799,6 +2880,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Ghana',
@@ -2825,6 +2907,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Gibraltar',
@@ -2851,6 +2934,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Greece',
@@ -2877,6 +2961,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Greenland',
@@ -2903,6 +2988,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Grenada',
@@ -2929,6 +3015,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Guadeloupe',
@@ -2955,6 +3042,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Guatemala',
@@ -3070,6 +3158,7 @@ const data = {
             code: 'ZAC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'Guernsey',
@@ -3096,6 +3185,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Guinea',
@@ -3122,6 +3212,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Guinea-Bissau',
@@ -3148,6 +3239,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Guyana',
@@ -3174,6 +3266,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Haiti',
@@ -3200,6 +3293,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Heard & McDonald Islands',
@@ -3226,6 +3320,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Honduras',
@@ -3252,6 +3347,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Hong Kong SAR China',
@@ -3291,6 +3387,7 @@ const data = {
             code: 'NT',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'Hungary',
@@ -3317,6 +3414,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Iceland',
@@ -3343,6 +3441,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'India',
@@ -3514,6 +3613,7 @@ const data = {
             code: 'WB',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'Indonesia',
@@ -3677,6 +3777,7 @@ const data = {
             code: 'YO',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Iran',
@@ -3703,6 +3804,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Iraq',
@@ -3729,6 +3831,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Ireland',
@@ -3860,6 +3963,7 @@ const data = {
             code: 'WW',
           },
         ],
+        provinceKey: 'COUNTY',
       },
       {
         name: 'Isle of Man',
@@ -3886,6 +3990,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Israel',
@@ -3912,6 +4017,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Italy',
@@ -4379,6 +4485,7 @@ const data = {
             code: 'VT',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Jamaica',
@@ -4405,6 +4512,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Japan',
@@ -4620,6 +4728,7 @@ const data = {
             code: 'JP-47',
           },
         ],
+        provinceKey: 'PREFECTURE',
       },
       {
         name: 'Jersey',
@@ -4646,6 +4755,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Jordan',
@@ -4672,6 +4782,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Kazakhstan',
@@ -4698,6 +4809,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Kenya',
@@ -4724,6 +4836,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Kiribati',
@@ -4750,6 +4863,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Kosovo',
@@ -4776,6 +4890,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Kuwait',
@@ -4802,6 +4917,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Kyrgyzstan',
@@ -4828,6 +4944,7 @@ const data = {
             '{zip} {city}_{address2}_{address1}_{company}_{firstName} {lastName}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Laos',
@@ -4854,6 +4971,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Latvia',
@@ -4880,6 +4998,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Lebanon',
@@ -4906,6 +5025,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Lesotho',
@@ -4932,6 +5052,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Liberia',
@@ -4958,6 +5079,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Libya',
@@ -4984,6 +5106,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Liechtenstein',
@@ -5010,6 +5133,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Lithuania',
@@ -5036,6 +5160,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Luxembourg',
@@ -5062,6 +5187,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Macau SAR China',
@@ -5088,6 +5214,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Macedonia',
@@ -5114,6 +5241,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Madagascar',
@@ -5140,6 +5268,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Malawi',
@@ -5166,6 +5295,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Malaysia',
@@ -5257,6 +5387,7 @@ const data = {
             code: 'TRG',
           },
         ],
+        provinceKey: 'STATE_AND_TERRITORY',
       },
       {
         name: 'Maldives',
@@ -5283,6 +5414,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Mali',
@@ -5309,6 +5441,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Malta',
@@ -5335,6 +5468,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Martinique',
@@ -5361,6 +5495,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Mauritania',
@@ -5387,6 +5522,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Mauritius',
@@ -5413,6 +5549,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Mayotte',
@@ -5439,6 +5576,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Mexico',
@@ -5594,6 +5732,7 @@ const data = {
             code: 'ZAC',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'Moldova',
@@ -5620,6 +5759,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Monaco',
@@ -5646,6 +5786,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Mongolia',
@@ -5672,6 +5813,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Montenegro',
@@ -5698,6 +5840,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Montserrat',
@@ -5724,6 +5867,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Morocco',
@@ -5750,6 +5894,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Mozambique',
@@ -5776,6 +5921,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Myanmar (Burma)',
@@ -5802,6 +5948,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Namibia',
@@ -5828,6 +5975,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Nauru',
@@ -5854,6 +6002,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Nepal',
@@ -5880,6 +6029,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Netherlands',
@@ -5906,6 +6056,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Netherlands Antilles',
@@ -5932,6 +6083,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'New Caledonia',
@@ -5958,6 +6110,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'New Zealand',
@@ -6049,6 +6202,7 @@ const data = {
             code: 'WTC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'Nicaragua',
@@ -6075,6 +6229,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Niger',
@@ -6101,6 +6256,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Nigeria',
@@ -6276,6 +6432,7 @@ const data = {
             code: 'ZA',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'Niue',
@@ -6302,6 +6459,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Norfolk Island',
@@ -6328,6 +6486,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'North Korea',
@@ -6354,6 +6513,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Norway',
@@ -6380,6 +6540,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Oman',
@@ -6406,6 +6567,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Pakistan',
@@ -6432,6 +6594,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Palestinian Territories',
@@ -6458,6 +6621,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Panama',
@@ -6537,6 +6701,7 @@ const data = {
             code: 'PA-9',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'Papua New Guinea',
@@ -6563,6 +6728,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Paraguay',
@@ -6589,6 +6755,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Peru',
@@ -6720,6 +6887,7 @@ const data = {
             code: 'PE-UCA',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'Philippines',
@@ -6746,6 +6914,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Pitcairn Islands',
@@ -6772,6 +6941,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Poland',
@@ -6798,6 +6968,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Portugal',
@@ -6905,6 +7076,7 @@ const data = {
             code: 'PT-18',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'Qatar',
@@ -6931,6 +7103,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Réunion',
@@ -6957,6 +7130,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Romania',
@@ -7152,6 +7326,7 @@ const data = {
             code: 'VN',
           },
         ],
+        provinceKey: 'COUNTY',
       },
       {
         name: 'Russia',
@@ -7507,6 +7682,7 @@ const data = {
             code: 'ZAB',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'Rwanda',
@@ -7533,6 +7709,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Saint Martin',
@@ -7559,6 +7736,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Samoa',
@@ -7585,6 +7763,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'San Marino',
@@ -7611,6 +7790,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'São Tomé & Príncipe',
@@ -7637,6 +7817,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Saudi Arabia',
@@ -7663,6 +7844,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Senegal',
@@ -7689,6 +7871,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Serbia',
@@ -7715,6 +7898,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Seychelles',
@@ -7741,6 +7925,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Sierra Leone',
@@ -7767,6 +7952,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Singapore',
@@ -7793,6 +7979,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Slovakia',
@@ -7819,6 +8006,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Slovenia',
@@ -7845,6 +8033,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Solomon Islands',
@@ -7871,6 +8060,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Somalia',
@@ -7897,6 +8087,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'South Africa',
@@ -7960,6 +8151,7 @@ const data = {
             code: 'WC',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'South Georgia & South Sandwich Islands',
@@ -7986,6 +8178,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'South Korea',
@@ -8081,6 +8274,7 @@ const data = {
             code: 'KR-31',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'South Sudan',
@@ -8107,6 +8301,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Spain',
@@ -8342,6 +8537,7 @@ const data = {
             code: 'Z',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Sri Lanka',
@@ -8368,6 +8564,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'St. Barthélemy',
@@ -8394,6 +8591,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'St. Helena',
@@ -8420,6 +8618,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'St. Kitts & Nevis',
@@ -8446,6 +8645,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'St. Lucia',
@@ -8472,6 +8672,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'St. Martin',
@@ -8498,6 +8699,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'St. Pierre & Miquelon',
@@ -8524,6 +8726,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'St. Vincent & Grenadines',
@@ -8550,6 +8753,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Sudan',
@@ -8576,6 +8780,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Suriname',
@@ -8602,6 +8807,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Svalbard & Jan Mayen',
@@ -8628,6 +8834,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Swaziland',
@@ -8654,6 +8861,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Sweden',
@@ -8680,6 +8888,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Switzerland',
@@ -8706,6 +8915,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Syria',
@@ -8732,6 +8942,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Taiwan',
@@ -8758,6 +8969,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Tajikistan',
@@ -8784,6 +8996,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Tanzania',
@@ -8810,6 +9023,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Thailand',
@@ -9149,6 +9363,7 @@ const data = {
             code: 'TH-35',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Timor-Leste',
@@ -9175,6 +9390,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Togo',
@@ -9201,6 +9417,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Tokelau',
@@ -9227,6 +9444,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Tonga',
@@ -9253,6 +9471,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Trinidad & Tobago',
@@ -9279,6 +9498,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Tunisia',
@@ -9305,6 +9525,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Turkey',
@@ -9331,6 +9552,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Turkmenistan',
@@ -9357,6 +9579,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Turks & Caicos Islands',
@@ -9383,6 +9606,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Tuvalu',
@@ -9409,6 +9633,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'U.S. Outlying Islands',
@@ -9435,6 +9660,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'STATE',
       },
       {
         name: 'Uganda',
@@ -9461,6 +9687,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Ukraine',
@@ -9487,6 +9714,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'United Arab Emirates',
@@ -9542,6 +9770,7 @@ const data = {
             code: 'UQ',
           },
         ],
+        provinceKey: 'EMIRATE',
       },
       {
         name: 'United Kingdom',
@@ -9568,6 +9797,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'United States',
@@ -9843,6 +10073,7 @@ const data = {
             code: 'AP',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'Uruguay',
@@ -9869,6 +10100,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Uzbekistan',
@@ -9895,6 +10127,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'Vanuatu',
@@ -9921,6 +10154,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Vatican City',
@@ -9947,6 +10181,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Venezuela',
@@ -9973,6 +10208,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Vietnam',
@@ -9999,6 +10235,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Wallis & Futuna',
@@ -10025,6 +10262,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Western Sahara',
@@ -10051,6 +10289,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Yemen',
@@ -10077,6 +10316,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Zambia',
@@ -10103,6 +10343,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'Zimbabwe',
@@ -10129,6 +10370,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
     ],
   },

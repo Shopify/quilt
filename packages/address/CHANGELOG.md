@@ -8,6 +8,10 @@ The format is based on [these versioning and changelog guidelines](https://git.i
 
 ---
 
+### Added
+
+- Added `provinceKey` to `Country` interface ([#843](https://github.com/Shopify/quilt/pull/843))
+
 ## 2.5.0 - 2019-01-08
 
 - Removed `address2Key`, `zoneKey` and `zipKey`
