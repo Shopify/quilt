@@ -1,4 +1,4 @@
-module QuiltRails
+module Quilt
   class ReactController < ApplicationController
     include Quilt::ReactRenderable
 
