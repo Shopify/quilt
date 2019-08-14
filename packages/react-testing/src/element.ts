@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Props as PropsForComponent,
   Arguments,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
@@ -10,6 +9,7 @@ import {
   Predicate,
   FunctionKeys,
   DeepPartialArguments,
+  PropsFor,
 } from './types';
 
 type Root = import('./root').Root<any>;
@@ -140,30 +140,30 @@ export class Element<Props> implements Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Element<PropsForComponent<Type>> {
+  ): this is Element<PropsFor<Type>> {
     return isMatchingType(this.type, type);
   }
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Element<PropsForComponent<Type>> | null {
+    props?: Partial<PropsFor<Type>>,
+  ): Element<PropsFor<Type>> | null {
     return (this.elementDescendants.find(
       element =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) || null) as Element<PropsForComponent<Type>> | null;
+    ) || null) as Element<PropsFor<Type>> | null;
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Element<PropsForComponent<Type>>[] {
+    props?: Partial<PropsFor<Type>>,
+  ): Element<PropsFor<Type>>[] {
     return this.elementDescendants.filter(
       element =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) as Element<PropsForComponent<Type>>[];
+    ) as Element<PropsFor<Type>>[];
   }
 
   findWhere(predicate: Predicate): Element<unknown> | null {

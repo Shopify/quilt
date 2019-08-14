@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/useful-types/README.md",
   "dependencies": {
-    "@types/react": ">=16.4.0",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
