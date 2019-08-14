@@ -64,7 +64,12 @@ export function createRender(render: RenderFunction) {
       });
     } catch (error) {
       logger.error(error);
-      throw error;
+      if (process.env.NODE_ENV === 'development') {
+        ctx.body = `Internal Server Errror: \n\n${error.message}`;
+        return;
+      } else {
+        ctx.throw(500, error);
+      }
     }
 
     applyToContext(ctx, networkManager);
