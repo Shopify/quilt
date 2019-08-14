@@ -48,6 +48,7 @@ describe('getCountry()', () => {
       'labels',
       'formatting',
       'zones',
+      'provinceKey',
     ]);
   });
 
