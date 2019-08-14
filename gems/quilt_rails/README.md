@@ -26,7 +26,25 @@ dev up
 
 sewing_kit looks for JavaScript in `app/ui/index.js`. The code in `index.js` (and any imported JS/CSS) will be built into a `main` bundle.
 
-### Setup your react controller and routes
+### Rails Setup
+
+There are 2 ways to consume this package.
+
+### Option 1: Mount the Engine
+
+Add the engine to `routes.rb`.
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  # ...
+  mount Quilt::Engine, at: '/'
+end
+```
+
+Where `at` is the path where your App will respond with the React App.
+
+### Option 2: Add your react controller and routes
 
 Create a `ReactController` to handle react requests.
 
