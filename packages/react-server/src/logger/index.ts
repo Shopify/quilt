@@ -1,1 +1,8 @@
-export {createLogger, Verbosity, setLogger, getLogger, Logger} from './logger';
+export {
+  createLogger,
+  Verbosity,
+  setLogger,
+  getLogger,
+  Logger,
+  noopLogger,
+} from './logger';
