@@ -29,6 +29,7 @@
   },
   "sideEffects": false,
   "dependencies": {
+    "@shopify/address-consts": "^0.0.1",
     "tslib": "^1.9.3"
   }
 }

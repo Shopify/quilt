@@ -1,4 +1,4 @@
-import {Address, FieldName, Country} from './types';
+import {Address, FieldName, Country} from '@shopify/address-consts';
 import {renderLineTemplate, FIELDS_MAPPING} from './utilities';
 import {loadCountry, loadCountries} from './loader';
 
