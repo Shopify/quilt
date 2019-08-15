@@ -5,8 +5,14 @@ module Quilt
     include ReverseProxy::Controller
 
     def render_react
-      host = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
-      reverse_proxy(host)
+      url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
+      Rails.logger.info("[ReactRenderable] proxying to React server at #{url}")
+
+      reverse_proxy(host) do |callbacks|
+        callbacks.on_response do |status_code, _response|
+          Rails.logger.info("[ReactRenderable] #{url} returned #{status_code}")
+        end
+      end
     end
   end
 end
