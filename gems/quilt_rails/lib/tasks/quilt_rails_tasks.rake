@@ -8,25 +8,19 @@ namespace :quilt do
 
   desc "Install @shopify/react-server with common configuration"
   task :install do
-
     log("Installing @shopify/react-server and @shopify/sewing-kit dependencies", 'info')
-    # system("yarn add @shopify/sewing-kit @shopify/react-server")
+    system("yarn add @shopify/sewing-kit @shopify/react-server")
 
     uiDir = "/app/ui"
-    fullUiPath = "#{Rails.root}#{uiDir}"
+    appPath = "#{uiDir}/index.tsx"
 
-    # assets = Rails.root.join 'vendor/assets'
+    FileUtils.mkdir("#{Rails.root}#{uiDir}") unless Dir.exists?("#{Rails.root}#{uiDir}")
 
-
-    appPath = "#{Rails.root}#{uiDir}/index.tsx"
-
-    FileUtils.mkdir(fullUiPath) unless Dir.exists?(fullUiPath)
-
-    if File.exists?(appPath)
+    if File.exists?("#{Rails.root}#{appPath}")
       log("Skipped creating React App at #{uiDir}/index.tsx. File already exists", 'info')
 
     else
-      File.open(appPath, 'w+') do |file|
+      File.open("#{Rails.root}#{appPath}", 'w+') do |file|
         file.write(
 "import React from 'react';
 
@@ -42,15 +36,14 @@ export default App;
       end
     end
 
-    routesPath = "#{Rails.root}/config/routes.rb"
-    routesContent = "mount Quilt::Engine, at: \"/\""
+    routesPath = "/config/routes.rb"
 
-    if File.exists?(routesPath)
-      cli :insert_into_file, routesPath, "  mount Quilt::Engine, at: \"/\"\n", :after => "Rails.application.routes.draw do\n"
+    if File.exists?("#{Rails.root}#{routesPath}")
+      cli :insert_into_file, "#{Rails.root}#{routesPath}", "  mount Quilt::Engine, at: \"/\"\n", :after => "Rails.application.routes.draw do\n"
 
       log("Route file exists at config/routes.rb... mounting Quilt engine within exisiting file", "wrote")
     else
-      File.open(routesPath, 'w+') do |file|
+      File.open("#{Rails.root}#{routesPath}", 'w+') do |file|
         file.write("Rails.application.routes.draw do
           mount Quilt::Engine, at: \"/\"
         end"
@@ -60,7 +53,7 @@ export default App;
       end
     end
 
-    log("Completed Quilt installation", "infor")
+    log("Completed Quilt installation", "info")
   end
 
   private
