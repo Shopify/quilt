@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [1.1.0] - 2019-08-15
+
+### Added
+
+- Added logging for the outgoing request and response status [#853](https://github.com/Shopify/quilt/pull/853)
+
 ## [1.0.0] - 2019-08-07
 
 ### Added
