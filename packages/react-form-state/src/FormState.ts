@@ -393,10 +393,16 @@ export default class FormState<
       return;
     }
 
-    const {validators = {}} = this.props;
+    const {
+      validators = {} as Partial<ValidatorDictionary<Fields>>,
+    } = this.props;
     const {fields} = this.state;
 
-    return runValidator(validators[fieldPath], value, fields);
+    return runValidator(
+      validators[fieldPath] as ValidationFunction<Fields[Key], Fields>,
+      value,
+      fields,
+    );
   }
 
   private updateRemoteErrors(errors: RemoteError[]) {

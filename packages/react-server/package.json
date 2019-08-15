@@ -43,7 +43,7 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "supertest": "^4.0.2",
-    "typescript": "~3.2.1"
+    "typescript": "~3.4.5"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0",

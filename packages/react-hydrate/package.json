@@ -28,7 +28,7 @@
     "@shopify/react-hooks": "^1.2.1"
   },
   "devDependencies": {
-    "typescript": "~3.2.1"
+    "typescript": "~3.4.5"
   },
   "peerDependencies": {
     "react": "^16.8.0"

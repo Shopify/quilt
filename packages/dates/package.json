@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.7.2",
-    "typescript": "~3.2.1"
+    "typescript": "~3.4.5"
   },
   "files": [
     "dist/*"

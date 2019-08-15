@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.10",
-    "typescript": "~3.2.1"
+    "typescript": "~3.4.5"
   },
   "sideEffects": false
 }

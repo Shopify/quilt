@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/react-idle",
-  "version": "1.0.2",
+  "name": "@shopify/address-consts",
+  "version": "0.0.1",
   "license": "MIT",
-  "description": "Utilities for working with idle callbacks in React",
+  "description": "Constants and types relating to @shopify/address",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
@@ -22,17 +22,10 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-idle/README.md",
-  "dependencies": {
-    "@shopify/async": "^2.0.1"
-  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address-consts/README.md",
+  "dependencies": {},
   "devDependencies": {
     "typescript": "~3.4.5"
   },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "files": [
-    "dist/*"
-  ]
+  "files": ["dist/*"]
 }

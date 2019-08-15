@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/koa-bodyparser": "^4.2.1",
     "@types/koa-compose": "^3.2.2",
-    "typescript": "~3.2.1"
+    "typescript": "~3.4.5"
   },
   "files": [
     "dist/*"

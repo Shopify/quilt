@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/csrf-token-fetcher/README.md",
   "devDependencies": {
-    "typescript": "~3.2.1"
+    "typescript": "~3.4.5"
   },
   "files": [
     "dist/*"

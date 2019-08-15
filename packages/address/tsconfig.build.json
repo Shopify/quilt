@@ -3,6 +3,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist",
+    "incremental": true,
+    "tsBuildInfoFile": "./buildcache",
     "baseUrl": "./src",
     "rootDir": "./src"
   },

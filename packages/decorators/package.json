@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/decorators/README.md",
   "devDependencies": {
-    "typescript": "~3.2.1"
+    "typescript": "~3.4.5"
   },
   "files": [
     "dist/*"
