@@ -17,7 +17,7 @@ import {
   AsyncAssetManager,
   AssetTiming,
 } from '@shopify/react-async';
-import {Header} from '@shopify/react-network';
+import {Header, StatusCode} from '@shopify/react-network';
 import {getAssets} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
 
@@ -35,9 +35,9 @@ export function createRender(render: RenderFunction) {
     const asyncAssetManager = new AsyncAssetManager();
     const acceptsLanguages = ctx.acceptsLanguages && ctx.acceptsLanguages();
     const locale = Array.isArray(acceptsLanguages) ? acceptsLanguages[0] : 'en';
-    const app = render({...ctx, locale});
 
     try {
+      const app = render({...ctx, locale});
       await extract(app, {
         decorate(app) {
           return (
@@ -62,33 +62,37 @@ export function createRender(render: RenderFunction) {
           logger.log(resolving);
         },
       });
+      applyToContext(ctx, networkManager);
+
+      const immediateAsyncAssets = asyncAssetManager.used(
+        AssetTiming.Immediate,
+      );
+      const [styles, scripts] = await Promise.all([
+        assets.styles({name: 'main', asyncAssets: immediateAsyncAssets}),
+        assets.scripts({name: 'main', asyncAssets: immediateAsyncAssets}),
+      ]);
+
+      const response = renderMarkup(
+        <Html
+          locale={locale}
+          manager={htmlManager}
+          styles={styles}
+          scripts={scripts}
+        >
+          <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
+        </Html>,
+      );
+
+      ctx.set(Header.ContentType, 'text/html');
+      ctx.body = response;
     } catch (error) {
       logger.error(error);
-      throw error;
+      // eslint-disable-next-line no-process-env
+      if (process.env.NODE_ENV === 'development') {
+        ctx.body = `Internal Server Error: \n\n${error.message}`;
+      } else {
+        ctx.throw(StatusCode.InternalServerError, error);
+      }
     }
-
-    applyToContext(ctx, networkManager);
-
-    const immediateAsyncAssets = asyncAssetManager.used(AssetTiming.Immediate);
-    const [styles, scripts] = await Promise.all([
-      assets.styles({name: 'main', asyncAssets: immediateAsyncAssets}),
-      assets.scripts({name: 'main', asyncAssets: immediateAsyncAssets}),
-    ]);
-
-    const response = renderMarkup(
-      <Html
-        locale={locale}
-        manager={htmlManager}
-        styles={styles}
-        scripts={scripts}
-      >
-        <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
-      </Html>,
-    );
-
-    ctx.set(Header.ContentType, 'text/html');
-    ctx.body = response;
-
-    return response;
   };
 }
