@@ -2,7 +2,7 @@ import {Context} from 'koa';
 import chalk from 'chalk';
 import {KoaNextFunction} from '../types';
 
-const LOGGER = Symbol('logger');
+export const LOGGER = Symbol('logger');
 const PREFIX = chalk`{underline sidecar} ⁓ `;
 
 interface LoggerOptions {
@@ -47,7 +47,7 @@ export function createLogger(options?: LoggerOptions) {
   };
 }
 
-const noopLogger = {
+export const noopLogger = {
   log: noop,
   error: noop,
 };
