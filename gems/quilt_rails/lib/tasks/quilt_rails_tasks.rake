@@ -56,7 +56,7 @@ export default App;
         end"
         )
 
-        log("React App at config/routes.rb", "wrote")
+        log("Route file at config/routes.rb", "wrote")
       end
     end
 
