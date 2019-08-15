@@ -8,11 +8,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.5.1] - 2019-08-07
+
+### Fixed
+
+- Fixed an issue where async translations would sometimes not be shown on the initial mount of a component ([#824](https://github.com/Shopify/quilt/pull/824))
+
 ## [1.5.0] - 2019-07-02
+
+### Added
 
 - Added `loading` property to I18n class. This helps to determine loading states when retrieving translations async on apps that are rendered client-side.
 
 ## [1.4.0] - 2019-06-27
+
+### Added
 
 - Added `translationKeyExists` method for checking dynamic keys ([#766](https://github.com/Shopify/quilt/pull/766))
 

@@ -2,10 +2,9 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {noop} from '@shopify/javascript-utilities/other';
 
-import {trigger, findById} from '..';
-
 import {Toggle} from './fixtures/Toggle';
 import {ActionList, Action} from './fixtures/Actions';
+import {trigger, findById} from '..';
 
 jest.mock('react-dom/test-utils', () => {
   const actualTestUtilities = require.requireActual('react-dom/test-utils');

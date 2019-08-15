@@ -3,18 +3,20 @@ import {render, unmountComponentAtNode} from 'react-dom';
 import {act as reactAct} from 'react-dom/test-utils';
 import {
   Arguments,
-  Props as PropsForComponent,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
 
 import {TestWrapper} from './TestWrapper';
-import {Element, Predicate} from './element';
+import {Element} from './element';
 import {
   Tag,
   Fiber,
+  Node,
+  Predicate,
   ReactInstance,
   FunctionKeys,
   DeepPartialArguments,
+  PropsFor,
 } from './types';
 
 // Manually casting `act()` until @types/react is updated to include
@@ -37,7 +39,7 @@ export interface Options {
 
 export const connected = new Set<Root<unknown>>();
 
-export class Root<Props> {
+export class Root<Props> implements Node<Props> {
   get props() {
     return this.withRoot(root => root.props);
   }
@@ -139,7 +141,7 @@ export class Root<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Root<PropsForComponent<Type>> {
+  ): this is Root<PropsFor<Type>> {
     return this.withRoot(root => root.is(type));
   }
 
@@ -147,16 +149,20 @@ export class Root<Props> {
     return this.withRoot(root => root.prop(key));
   }
 
+  data(key: string) {
+    return this.withRoot(root => root.data(key));
+  }
+
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.find(type, props));
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.findAll(type, props));
   }

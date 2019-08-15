@@ -3,19 +3,19 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fpolyfills.svg)](https://badge.fury.io/js/%40shopify%2Fpolyfills.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/polyfills.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/polyfills.svg)
 
-Blessed polyfills for web platform features. Exports browser and node polyfills where appropriate.
+Blessed polyfills for web platform features. Exports browser, node, and Jest/ JSDom polyfills where appropriate.
 
-The following polyfills are currently exported:
+The following polyfills are currently provided:
 
-- `baseline` - The minimum required polyfills for a Shopify app to work in a legacy browser. This includes:
-  - `unhandled-rejection`
-  - `fetch`
-- `baseline.node` - The minimum required polyfills for a Shopify app to work in node. This includes:
-  - `fetch`
-- `fetch` (`fetch.node`): Polyfills whatwg-fetch in the browser and node-fetch in node
-- `url` (`url.node`): Polyfills URLSearchParams
-- `intl`: Browser only, polyfills Intl.PluralRules
-- `intersection-observer`: Browser only, polyfills [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+- `base`: ensures that all necessary JavaScript language features are polyfilled, including `Map`, `Set`, async functions, `Symbol`, and more.
+- `fetch`: Ensures a global WHATWG `fetch` function is available.
+- `formdata`: Ensures `FormData` is available globally (browser/ JSDom only).
+- `idle-callback`: Ensures `requestIdleCallback` and `cancelIdleCallback` are available globally (browser/ JSDom only).
+- `intersection-observer`: Ensures [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) is available globally (browser/ JSDom only).
+- `intl`: Ensures `Intl.PluralRules` is defined.
+- `mutation-observer`: Ensures `MutationObserver` is available globally (browser/ JSDom only).
+- `unhandled-rejection`: Ensures that `unhandledRejection` events are triggered (browser only).
+- `url`: Ensures `URL` and `URLSearchParams` are available globally.
 
 ## Installation
 
@@ -25,33 +25,38 @@ $ yarn add @shopify/polyfills
 
 ## Usage
 
-**No index file is exported.** You must specify the polyfills that you actually need in your project.
-
-In a project:
+All you need to do is import the polyfills you use in your application:
 
 ```typescript
-import '@shopify/polyfills/baseline';
+import '@shopify/polyfills/base';
+import '@shopify/polyfills/fetch';
 import '@shopify/polyfills/url';
 ```
 
-## Module Bundler Configuration
+In apps rendered on the client and server, we recommend importing these polyfills only once, in your top-level app component. Because this component is likely to be imported first by both the server and client bundles, the polyfills will be available throughout the application code. However, you may also need to import these files earlier in the execution of a Node server (if your server code uses features like `fetch` outside of the application). You will also likely need to import these in your test setup files, as most tests will not import the root app component.
 
-This module also provides a way to configure your bundler to remap polyfill imports based on the environment being built for. For example, if you are building for node, you can have your bundler remap `@shopify/polyfills/fetch` to `@shopify/polyfills/fetch.node`. This allows you to maintain only one list of polyfills in your app codebase. **Sewing-kit** will perform this translation for you automatically.
+## Build configuration
 
-For this example usage, we will use webpack.
+This package also provides a way to configure your bundler to remap polyfill imports based on the environment being built. This allows you to import polyfills you need without worrying about whether they should be omitted in some cases, or omitted entirely. `sewing-kit` uses this feature automatically to ensure correct polyfills for tests, server builds, and client builds.
+
+To make use of this feature, call `mappedPolyfillsForEnv`, exported from the root of this project, and pass in the environment being targeted. The environment must be one of `node`, `jest`, or a list of supported browsers (supplied as a browserslist-compatible query).
+
+The following example shows how to use this feature to define Webpack aliases:
 
 ```typescript
-import {mappedPolyfillsForEnv} from '@shopify/polyfills/config';
+import {mappedPolyfillsForEnv} from '@shopify/polyfills';
 
+// Server
 module.exports = {
   resolve: {
-    alias: {
-      ...mappedPolyfillsForEnv(env.isServer ? 'node' : env.supportedBrowsers),
-    },
+    alias: mappedPolyfillsForEnv('node'),
+  },
+};
+
+// Client
+module.exports = {
+  resolve: {
+    alias: mappedPolyfillsForEnv(['last 2 versions']),
   },
 };
 ```
-
-The argument for `mappedPolyfillsForEnv` can be either `'node'` or a string (or array of strings) provided by the `browserslist` module. These will then be run through `caniuse` to determine if each polyfill is required for that particular browser or combination of browsers. If it is not, imports for that polyfill will be no-op.
-
-You can use this to build two (or more) browser bundles that contain different amounts of polyfills to serve to different browsers. Note, however, that this would also require server support to serve a different built bundle based on a request's user agent.

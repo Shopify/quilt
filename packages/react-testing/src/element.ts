@@ -1,12 +1,16 @@
 import * as React from 'react';
 import {
-  Props as PropsForComponent,
   Arguments,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
-import {Tag, FunctionKeys, DeepPartialArguments} from './types';
-
-export type Predicate = (element: Element<unknown>) => boolean;
+import {
+  Tag,
+  Node,
+  Predicate,
+  FunctionKeys,
+  DeepPartialArguments,
+  PropsFor,
+} from './types';
 
 type Root = import('./root').Root<any>;
 
@@ -17,7 +21,7 @@ interface Tree<Props> {
   instance?: any;
 }
 
-export class Element<Props> {
+export class Element<Props> implements Node<Props> {
   get props(): Props {
     return this.tree.props;
   }
@@ -82,7 +86,7 @@ export class Element<Props> {
     ) as Element<unknown>[];
   }
 
-  data(key: string): string {
+  data(key: string): string | undefined {
     return this.props[key.startsWith('data-') ? key : `data-${key}`];
   }
 
@@ -136,37 +140,37 @@ export class Element<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Element<PropsForComponent<Type>> {
+  ): this is Element<PropsFor<Type>> {
     return isMatchingType(this.type, type);
   }
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Element<PropsForComponent<Type>> | null {
+    props?: Partial<PropsFor<Type>>,
+  ): Element<PropsFor<Type>> | null {
     return (this.elementDescendants.find(
       element =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) || null) as Element<PropsForComponent<Type>> | null;
+    ) || null) as Element<PropsFor<Type>> | null;
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Element<PropsForComponent<Type>>[] {
+    props?: Partial<PropsFor<Type>>,
+  ): Element<PropsFor<Type>>[] {
     return this.elementDescendants.filter(
       element =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) as Element<PropsForComponent<Type>>[];
+    ) as Element<PropsFor<Type>>[];
   }
 
-  findWhere(predicate: Predicate) {
+  findWhere(predicate: Predicate): Element<unknown> | null {
     return this.elementDescendants.find(element => predicate(element)) || null;
   }
 
-  findAllWhere(predicate: Predicate) {
+  findAllWhere(predicate: Predicate): Element<unknown>[] {
     return this.elementDescendants.filter(element => predicate(element));
   }
 

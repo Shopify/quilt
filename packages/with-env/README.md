@@ -36,3 +36,15 @@ it('does another thing in production', () => {
   });
 });
 ```
+
+It also allows to change (and reset) multiple environment variables at once.
+
+```ts
+import withEnv from '@shopify/with-env';
+
+it('does one thing', () => {
+  withEnv({MY_ENV_ONE: 'test', ANOTHER_ENV: 'test-2'}, () => {
+    // your code here
+  });
+});
+```
