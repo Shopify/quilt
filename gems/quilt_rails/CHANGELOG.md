@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added logging for the outgoing request and response status [#853](https://github.com/Shopify/quilt/pull/853)
 
 - Converted `quilt_rails` to an Engine ([840](https://github.com/Shopify/quilt/pull/840))
+- Added rake task for easier installation ([840](https://github.com/Shopify/quilt/pull/840))
 
 ## [1.0.0] - 2019-08-07
 

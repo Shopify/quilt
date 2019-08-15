@@ -6,13 +6,20 @@ This document focuses on Rails integration. For details of `@shopify/react-serve
 
 ## Quick Start
 
-Create a Rails project using `dev init` then:
+### Add Ruby dependencies
+
+`bundle add sewing_kit quilt_rails`
+
+First, create a Rails project using `dev init`. Next, run `bundle exec rake quilt:install`. This will install the Node dependencies, provide a basic React app (in TypeScript) and mount the Quilt engine inside of your `config/routes.rb` file.
+
+## Manual Installation
+
+You can also perform the steps within the rake task manually by following the guide below.
 
 ### Install Dependencies
 
 ```sh
-# Add Ruby/Node dependencies
-bundle add sewing_kit quilt_rails
+# Add Node dependencies
 yarn add @shopify/sewing-kit @shopify/react-server
 
 # Optional - add Polaris and quilt libraries
