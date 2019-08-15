@@ -8,7 +8,7 @@ module Quilt
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
       ReactRenderable.log("[ReactRenderable] proxying to React server at #{url}")
 
-      reverse_proxy(host) do |callbacks|
+      reverse_proxy(url) do |callbacks|
         callbacks.on_response do |status_code, _response|
           ReactRenderable.log("[ReactRenderable] #{url} returned #{status_code}")
         end
