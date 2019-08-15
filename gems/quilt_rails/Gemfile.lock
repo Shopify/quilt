@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quilt_rails (1.0.0)
+    quilt_rails (1.1.0)
       rails-reverse-proxy (~> 0.9.0)
       railties (>= 3.2.0)
 
@@ -79,7 +79,7 @@ GEM
     mocha (1.9.0)
       metaclass (~> 0.0.1)
     nio4r (2.4.0)
-    nokogiri (1.10.3)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -106,7 +106,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.1.0)
+    rails-html-sanitizer (1.2.0)
       loofah (~> 2.2, >= 2.2.2)
     rails-reverse-proxy (0.9.1)
       addressable
@@ -146,4 +146,4 @@ DEPENDENCIES
   quilt_rails!
 
 BUNDLED WITH
-   1.17.3
+   2.0.1
