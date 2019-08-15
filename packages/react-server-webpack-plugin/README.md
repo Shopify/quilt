@@ -32,7 +32,11 @@ module.exports = function sewingKitConfig(plugins: Plugins, env: Env) {
         port,
       }),
       plugins.webpack((config: any) => {
-        config.plugins.push(new ReactServerPlugin());
+        config.plugins.push(
+          new ReactServerPlugin({
+            assetPrefix: process.env.CDN_URL || 'https://localhost:8080/webpack/assets/';
+          });
+        );
       }),
     ],
   };
@@ -46,14 +50,13 @@ In the future `@shopify/sewing-kit` will automatically configure this package fo
 First you will need to install all of the dependencies you'll need for your application
 
 ```sh
-yarn add react react-dom 
+yarn add react react-dom
 yarn add webpack @shopify/react-server @shopify/react-server-webpack-plugin @shopify/webpack-asset-metadata-plugin --dev
 ```
 
 Since `@shopify/react-server` relies on `@shopify/webpack-asset-metadata-plugin`, you will need to setup both plugins in your webpack configuration. A simple starter (not production optimized) webpack setup is as follows:
 
 ```tsx
-
 // webpack.config.js
 const {ReactServerPlugin} = require('@shopify/react-server-webpack-plugin');
 const {AssetMetadataPlugin} = require('@shopify/webpack-asset-metadata-plugin');
@@ -63,10 +66,7 @@ const universal = {
   optimization: {
     minimize: false,
   },
-  plugins: [
-    new AssetMetadataPlugin(),
-    new ReactServerPlugin(),
-  ],
+  plugins: [new AssetMetadataPlugin(), new ReactServerPlugin()],
 };
 
 const server = {
@@ -101,9 +101,7 @@ By default, this plugin expects the entrypoint to your application to be in the 
 import React from 'react';
 
 export default function App() {
-  return (
-    <div>I am an app</div>
-  )
+  return <div>I am an app</div>;
 }
 ```
 
@@ -128,14 +126,34 @@ It accepts a configuration object with the following interface:
 ```tsx
 interface Options {
   /*
-    The base-path to user for the `client.js` and `server.js` virtual entry files.
+   The base-path to use for the `client.js` and `server.js` virtual entry files,
+   this should also be where your index.tsx/jsx is.
+
+   default: '.'
   */
+
   basePath: string;
-  // The host to use when calling `createServer` from `@shopify/react-server`
+
+  /*
+   The host to use when calling `createServer` from `@shopify/react-server`,
+   this should also be where your index.tsx/jsx is.
+
+   default: process.env.REACT_SERVER_IP || "localhost"
+  */
   host: string;
-  // The port to use when calling `createServer` from `@shopify/react-server`
+
+  /*
+    The port to use when calling `createServer` from `@shopify/react-server`
+
+    default: process.env.REACT_SERVER_PORT || 8081
+  */
   port: number;
-  // The assetPrefix to use when calling `createServer` from `@shopify/react-server`
+
+  /*
+   The assetPrefix to use when calling `createServer` from `@shopify/react-server`.
+
+   default: process.env.CDN_URL || "localhost:8080/assets/webpack"
+  */
   assetPrefix: string;
 }
 ```
@@ -144,8 +162,6 @@ An example configuration for a `sewing-kit` app named `cool-app` might look like
 
 ```tsx
 new ReactServerPlugin({
-  ip: process.env.IP || 'localhost';
-  port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8081;
   assetPrefix: process.env.CDN_URL || 'https://localhost:8080/webpack/assets/';
 });
 ```

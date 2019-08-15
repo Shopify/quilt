@@ -25,24 +25,35 @@ describe('react-server-webpack-plugin', () => {
   );
 
   it(
-    'does not use the generated client module when a bespoke file is present',
+    'uses process.env to default port and host',
     async () => {
-      const [serverResults, clientResults] = await runBuild(
-        'client-entrypoint',
-      );
+      const [serverResults] = await runBuild('no-entrypoints');
 
       const serverModule = serverResults.modules.find(
         ({name}) => name === './server.js',
       );
-      const clientModule = clientResults.modules.find(
-        ({name}) => name === './client.js',
+
+      expect(serverModule.source).toMatch('ip: process.env.REACT_SERVER_IP');
+      expect(serverModule.source).toMatch(
+        'port: process.env.REACT_SERVER_PORT',
       );
-      expect(serverModule.source).toMatch(generatedFileComment);
-      expect(clientModule.source).toMatch('I am a bespoke client entry');
-      expect(clientModule.source).not.toMatch(generatedFileComment);
     },
     BUILD_TIMEOUT,
   );
+
+  it('does not use the generated client module when a bespoke file is present', async () => {
+    const [serverResults, clientResults] = await runBuild('client-entrypoint');
+
+    const serverModule = serverResults.modules.find(
+      ({name}) => name === './server.js',
+    );
+    const clientModule = clientResults.modules.find(
+      ({name}) => name === './client.js',
+    );
+    expect(serverModule.source).toMatch(generatedFileComment);
+    expect(clientModule.source).toMatch('I am a bespoke client entry');
+    expect(clientModule.source).not.toMatch(generatedFileComment);
+  });
 
   it(
     'does not use the generated server module when a bespoke file is present',
