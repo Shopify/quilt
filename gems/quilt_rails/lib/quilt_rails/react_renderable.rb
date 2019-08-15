@@ -6,12 +6,20 @@ module Quilt
 
     def render_react
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
-      Rails.logger.info("[ReactRenderable] proxying to React server at #{url}")
+      ReactRenderable.log("[ReactRenderable] proxying to React server at #{url}")
 
       reverse_proxy(host) do |callbacks|
         callbacks.on_response do |status_code, _response|
-          Rails.logger.info("[ReactRenderable] #{url} returned #{status_code}")
+          ReactRenderable.log("[ReactRenderable] #{url} returned #{status_code}")
         end
+      end
+    end
+
+    def self.log(string)
+      if Rails.logger.nil?
+        puts string
+      else
+        Rails.logger.info(string)
       end
     end
   end
