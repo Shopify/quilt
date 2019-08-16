@@ -28,7 +28,7 @@ export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
 
 export function createRender(render: RenderFunction) {
   return async function renderFunction(ctx: RenderContext) {
-    const logger = getLogger(ctx);
+    const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
     const networkManager = new NetworkManager();
     const htmlManager = new HtmlManager();
