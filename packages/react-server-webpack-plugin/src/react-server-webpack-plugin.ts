@@ -4,9 +4,9 @@ import VirtualModulesPlugin from 'webpack-virtual-modules';
 
 interface Options {
   basePath: string;
-  host: string;
-  port: number;
-  assetPrefix: string;
+  assetPrefix?: string;
+  host?: string;
+  port?: number;
 }
 
 enum Entrypoint {
@@ -23,10 +23,10 @@ export class ReactServerPlugin {
   private options: Options;
 
   constructor({
+    host,
+    port,
+    assetPrefix,
     basePath = '.',
-    host = 'localhost',
-    port = 8081,
-    assetPrefix = 'localhost:8080/assets/webpack',
   }: Partial<Options> = {}) {
     this.options = {
       basePath,
@@ -38,7 +38,7 @@ export class ReactServerPlugin {
 
   apply(compiler: Compiler) {
     const modules = this.modules(compiler);
-    const virtualModules = new VirtualModulesPlugin(modules) as Plugin;
+    const virtualModules = (new VirtualModulesPlugin(modules) as any) as Plugin;
     virtualModules.apply(compiler);
   }
 
@@ -76,9 +76,15 @@ export class ReactServerPlugin {
             });
 
           const app = createServer({
-            port: ${port},
-            ip: '${host}',
-            assetPrefix: '${assetPrefix}',
+            port: ${port ? port : 'process.env.REACT_SERVER_PORT || 8081'},
+            ip: ${
+              host ? `'${host}'` : 'process.env.REACT_SERVER_IP || "localhost"'
+            },
+            assetPrefix: '${
+              assetPrefix
+                ? assetPrefix
+                : 'process.env.CDN_URL || "localhost:8080/assets/webpack"'
+            }',
             render,
           });
           export default app;
