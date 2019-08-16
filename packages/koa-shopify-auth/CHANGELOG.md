@@ -11,7 +11,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Package no longer lists missing '@shopify/network' dependency [862](https://github.com/Shopify/quilt/pull/862)
+- Package now lists missing '@shopify/network' dependency [862](https://github.com/Shopify/quilt/pull/862)
 
 ## 3.1.31 - 2019-08-13
 
