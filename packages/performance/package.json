@@ -23,7 +23,9 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/performance/README.md",
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "~3.2.1"
+  },
   "files": [
     "dist/*"
   ]

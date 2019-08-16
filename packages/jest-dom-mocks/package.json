@@ -32,6 +32,8 @@
     "promise": "^8.0.3",
     "tslib": "^1.9.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "~3.2.1"
+  },
   "sideEffects": false
 }

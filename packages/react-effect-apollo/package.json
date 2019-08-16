@@ -27,7 +27,8 @@
     "@shopify/react-effect": "^3.2.1"
   },
   "devDependencies": {
-    "react-apollo": "^2.2.3"
+    "react-apollo": "^2.2.3",
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*"

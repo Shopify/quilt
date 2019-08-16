@@ -27,7 +27,8 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@types/react-dom": "^16.0.11"
+    "@types/react-dom": "^16.0.11",
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*",

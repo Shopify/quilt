@@ -29,7 +29,8 @@
     "koa-compose": ">=3.0.0 <4.0.0"
   },
   "devDependencies": {
-    "@shopify/sewing-kit-koa": "^6.1.1"
+    "@shopify/sewing-kit-koa": "^6.1.1",
+    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*",
