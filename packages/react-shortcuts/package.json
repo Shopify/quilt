@@ -25,9 +25,7 @@
   "peerDependencies": {
     "react": "^16.3.2"
   },
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
+  "devDependencies": {},
   "dependencies": {
     "tslib": "^1.9.3"
   },

@@ -29,8 +29,7 @@
     "@shopify/react-i18n": "^1.5.2",
     "@shopify/react-testing": "^1.7.4",
     "@types/faker": "4.1.5",
-    "faker": "^4.1.0",
-    "typescript": "~3.2.1"
+    "faker": "^4.1.0"
   },
   "peerDependencies": {
     "@shopify/react-graphql": ">=4.0.3",

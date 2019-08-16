@@ -30,8 +30,7 @@
     "@types/babel__template": "^7.0.1",
     "@types/babel__traverse": "^7.0.5",
     "@types/glob": "^7.1.1",
-    "intl-pluralrules": "^0.2.1",
-    "typescript": "~3.2.1"
+    "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
     "@shopify/decorators": "^1.1.4",
