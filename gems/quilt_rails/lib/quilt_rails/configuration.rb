@@ -4,8 +4,11 @@ module Quilt
     attr_accessor :react_server_host, :react_server_protocol
 
     def initialize
-      @react_server_host = ENV['SERVICE_URL'] || 'localhost:8081'
-      @react_server_protocol = ENV['SERVICE_PROTOCOL'] || 'http'
+      ip = ENV['REACT_SERVER_IP'] || 'localhost'
+      port = ENV['REACT_SERVER_PORT'] || 8081
+
+      @react_server_host = "#{ip}:#{port}"
+      @react_server_protocol = ENV['REACT_SERVER_PROTOCOL'] || 'http'
     end
   end
 
