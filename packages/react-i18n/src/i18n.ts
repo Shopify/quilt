@@ -1,6 +1,3 @@
-import {memoize as memoizeFn} from '@shopify/function-enhancers';
-import {memoize} from '@shopify/decorators';
-import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import {
   getDateDiff,
   isLessThanOneHourAgo,
@@ -11,6 +8,9 @@ import {
   isYesterday,
   TimeUnit,
 } from '@shopify/javascript-utilities/dates';
+import {memoize as memoizeFn} from '@shopify/function-enhancers';
+import {memoize} from '@shopify/decorators';
+import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -349,28 +349,38 @@ export class I18n {
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    if (isLessThanOneMinuteAgo(date)) {
+      return this.translate('humanize.now');
+    }
+
+    if (isLessThanOneHourAgo(date)) {
+      const minutes = getDateDiff(TimeUnit.Minute, date);
+      return this.translate('humanize.minutes', {
+        count: minutes,
+      });
+    }
+
     const time = this.formatDate(date, {
       ...options,
       style: DateStyle.Time,
     }).toLocaleLowerCase();
 
-    if (isLessThanOneMinuteAgo(date)) {
-      return this.translate('humanize.now');
-    } else if (isLessThanOneHourAgo(date)) {
-      const minutes = getDateDiff(TimeUnit.Minute, date);
-      return this.translate('humanize.minutes', {
-        count: minutes,
-      });
-    } else if (isToday(date)) {
+    if (isToday(date)) {
       return time;
-    } else if (isYesterday(date)) {
+    }
+
+    if (isYesterday(date)) {
       return this.translate('humanize.yesterday', {time});
-    } else if (isLessThanOneWeekAgo(date)) {
+    }
+
+    if (isLessThanOneWeekAgo(date)) {
       return this.translate('humanize.weekday', {
-        day: Weekdays[date.getDay()],
+        day: Weekday[date.getDay()],
         time,
       });
-    } else if (isLessThanOneYearAgo(date)) {
+    }
+
+    if (isLessThanOneYearAgo(date)) {
       const monthDay = this.formatDate(date, {
         ...options,
         month: 'short',
@@ -380,12 +390,12 @@ export class I18n {
         date: monthDay,
         time,
       });
-    } else {
-      return this.formatDate(date, {
-        ...options,
-        style: DateStyle.Short,
-      });
     }
+
+    return this.formatDate(date, {
+      ...options,
+      style: DateStyle.Short,
+    });
   }
 
   private currencyDecimalSymbol(currencyCode: string) {
@@ -443,26 +453,6 @@ function isTranslateOptions(
     | ComplexReplacementDictionary,
 ): object is TranslateOptions {
   return 'scope' in object;
-}
-
-function isSameMonthAndYear(source: Date, target: Date) {
-  return (
-    source.getFullYear() === target.getFullYear() &&
-    source.getMonth() === target.getMonth()
-  );
-}
-
-function isSameDate(source: Date, target: Date) {
-  return (
-    isSameMonthAndYear(source, target) && source.getDate() === target.getDate()
-  );
-}
-
-function isYesterday(date: Date) {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  return isSameDate(yesterday, date);
 }
 
 function defaultOnError(error: I18nError) {

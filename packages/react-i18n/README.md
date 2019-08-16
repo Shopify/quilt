@@ -129,7 +129,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
   - `DateStyle.Short`: e.g., `Dec 20, 2012`
   - `DateStyle.Humanize`: e.g., `December 20, 2012`, `Today`, or `Yesterday`
-  - `DateStyle.HumanizeWithTime`: Adheres to [Polaris guidelines for dates with times](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses), e.g., `Just now`, `3 minutes ago`, `4 hours ago`, `10:35 AM`, `Yesterday at 10:35 AM`, `Friday at 10:35 AM`, or `Dec 20 at 10:35 AM`, or `Dec 20, 2012`
+  - `DateStyle.HumanizeWithTime`: Adheres to [Polaris guidelines for dates with times](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses), e.g., `Just now`, `3 minutes ago`, `4 hours ago`, `10:35 am`, `Yesterday at 10:35 am`, `Friday at 10:35 am`, or `Dec 20 at 10:35 am`, or `Dec 20, 2012`
   - `DateStyle.Time`: e.g., `11:00 AM`
 - `weekStartDay()`: returns start day of the week according to the country.
 - `getCurrencySymbol()`: returns the currency symbol according to the currency code and locale.
