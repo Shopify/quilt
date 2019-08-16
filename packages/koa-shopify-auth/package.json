@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md",
   "dependencies": {
+    "@shopify/network": "^1.4.1",
     "nonce": "^1.0.4",
     "safe-compare": "^1.1.2",
     "tslib": "^1.9.3"
