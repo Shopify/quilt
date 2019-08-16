@@ -932,7 +932,7 @@ describe('I18n', () => {
       );
     });
 
-    describe('with DateSTyle.Humanize', () => {
+    describe.only('with DateStyle.Humanize', () => {
       it('formats a date', () => {
         const date = new Date('2012-12-20T00:00:00-00:00');
         const i18n = new I18n(defaultTranslations, {
