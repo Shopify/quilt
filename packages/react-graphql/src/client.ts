@@ -6,6 +6,7 @@ import {
   Observable,
   FetchResult,
 } from 'apollo-link';
+
 import {NormalizedCacheObject} from 'apollo-cache-inmemory';
 
 class SsrExtractableLink extends ApolloLink {
@@ -25,9 +26,7 @@ class SsrExtractableLink extends ApolloLink {
 
   request(operation: Operation, nextLink?: NextLink) {
     if (nextLink != null) {
-      throw new Error(
-        'Links created by createSsrExtractableLink() must be the only link in the chain.',
-      );
+      throw new Error('SsrExtractableLink must be the only link in the chain.');
     }
 
     let operationDone: Function;

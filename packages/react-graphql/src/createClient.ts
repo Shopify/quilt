@@ -4,20 +4,16 @@ import {Header} from '@shopify/react-network';
 import {ApolloClient} from './client';
 
 export interface Options {
-  shop?: string;
   server?: boolean;
-  accessToken?: string;
   initialData?: NormalizedCacheObject;
   graphQLEndpoint?: string;
   connectToDevTools?: boolean;
 }
 
 export function createGraphQLClient({
-  shop,
   server,
   initialData,
-  accessToken,
-  graphQLEndpoint,
+  graphQLEndpoint = '/graphql',
   connectToDevTools,
 }: Options) {
   const cache = new InMemoryCache({
@@ -29,17 +25,9 @@ export function createGraphQLClient({
     [Header.ContentType.toLowerCase()]: 'application/json',
   };
 
-  if (accessToken) {
-    headers['X-Shopify-Access-Token'] = accessToken;
-  }
-
-  const uri = graphQLEndpoint
-    ? graphQLEndpoint
-    : createGraphQLEndpointForShop(shop, accessToken);
-
   const link = createHttpLink({
     credentials: 'include',
-    uri,
+    uri: graphQLEndpoint,
     headers,
   });
 
@@ -50,8 +38,4 @@ export function createGraphQLClient({
     cache: initialData ? cache.restore(initialData) : cache,
     connectToDevTools: !server && connectToDevTools,
   });
-}
-
-function createGraphQLEndpointForShop(shop?: string, accessToken?: string) {
-  return shop && accessToken ? `https://${shop}/admin/api/graphql` : '/graphql';
 }
