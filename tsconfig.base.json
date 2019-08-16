@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "incremental": true,
     "moduleResolution": "node",
     "target": "es5",
     "downlevelIteration": true,

@@ -65,7 +65,9 @@
     "tslib": "^1.9.3",
     "typescript": "^3.5.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ts-node": "^8.3.0"
+  },
   "resolutions": {
     "@types/react": "16.8.10",
     "@types/react-dom": "16.8.3"
