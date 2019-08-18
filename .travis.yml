@@ -14,13 +14,19 @@ matrix:
         - yarn codecov
       cache: yarn
     - language: ruby
+      name: 'Gem - test and lint'
       before_install:
         - cd gems/quilt_rails
         - gem install bundler
+        - bundle config path /tmp/bundle
       install:
-        - bundle install
+        - bundle install --clean
       script:
         - bundle exec rake test
+        - bundle exec rubocop --fail-fast
+      cache:
+        directories:
+          - /tmp/bundle
 notifications:
   slack:
     on_pull_requests: false
