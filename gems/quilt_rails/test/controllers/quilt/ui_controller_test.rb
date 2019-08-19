@@ -2,7 +2,7 @@
 require 'test_helper'
 
 module Quilt
-  class ReactControllerTest < ActionController::TestCase
+  class UiControllerTest < ActionController::TestCase
     setup do
       @routes = Quilt::Engine.routes
     end

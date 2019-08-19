@@ -1,5 +1,5 @@
 module Quilt
-  class ReactController < ApplicationController
+  class UiController < ApplicationController
     include Quilt::ReactRenderable
 
     def index
