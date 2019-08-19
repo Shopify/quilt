@@ -1,24 +1,30 @@
 
 require 'test_helper'
-require 'generators/shopify_app/install/install_generator'
+require 'rails/generators'
+require 'generators/quilt/quilt_generator'
 
-class InstallGeneratorTest < Rails::Generators::TestCase
-  tests ShopifyApp::Generators::InstallGenerator
+class QuiltGeneratorTest < Rails::Generators::TestCase
+  tests QuiltGenerator
   destination File.expand_path("../tmp", File.dirname(__FILE__))
 
   setup do
     prepare_destination
-    provide_existing_gemfile
-    provide_existing_application_file
     provide_existing_routes_file
-    provide_existing_application_controller
   end
 
-  test "mounts the route file" do
+  test "creates the main React app" do
+    run_generator
+    assert_file "app/ui/index.tsx" do |app|
+      assert_match "import React from 'react';", app
+      assert_match "function App() {", app
+      assert_match "export default App;", app
+    end
+  end
+
+  test "adds engine to routes" do
     run_generator
     assert_file "config/routes.rb" do |routes|
-      puts routes
-      assert_match 'Quilt', routes
+      assert_match "mount Quilt::Engine, at: '/'", routes
     end
   end
 end
