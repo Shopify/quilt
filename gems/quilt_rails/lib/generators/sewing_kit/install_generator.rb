@@ -16,8 +16,6 @@ module SewingKit
 
         say "Sewing-kit config"
       end
-
     end
   end
 end
-
