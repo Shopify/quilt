@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added an optional replacements argument to `getTranslationTree` ([#874](https://github.com/Shopify/quilt/pull/874))
+
 ## [1.5.1] - 2019-08-07
 
 ### Fixed

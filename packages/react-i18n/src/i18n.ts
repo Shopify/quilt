@@ -171,9 +171,15 @@ export class I18n {
     }
   }
 
-  getTranslationTree(id: string): string | object {
+  getTranslationTree(
+    id: string,
+    replacements?:
+      | PrimitiveReplacementDictionary
+      | ComplexReplacementDictionary,
+  ): string | TranslationDictionary {
     try {
-      return getTranslationTree(id, this.translations);
+      if (!replacements) return getTranslationTree(id, this.translations);
+      return getTranslationTree(id, this.translations, replacements);
     } catch (error) {
       this.onError(error);
       return '';
