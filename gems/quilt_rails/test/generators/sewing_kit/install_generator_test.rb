@@ -3,7 +3,7 @@ require 'test_helper'
 require 'rails/generators'
 require 'generators/sewing_kit/install_generator'
 
-class InstallGeneratorTest < Rails::Generators::TestCase
+class SewingKitInstallGeneratorTest < Rails::Generators::TestCase
   tests SewingKit::InstallGenerator
   destination File.expand_path("./tmp", File.dirname(__FILE__))
 
