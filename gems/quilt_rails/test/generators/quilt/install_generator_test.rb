@@ -3,9 +3,9 @@ require 'test_helper'
 require 'rails/generators'
 require 'generators/quilt/install_generator'
 
-class InstallGeneratorTest < Rails::Generators::TestCase
-  tests Quilt::InstallGenerator
-  destination File.expand_path("../tmp/quilt", File.dirname(__FILE__))
+class QuiltInstallGeneratorTest < Rails::Generators::TestCase
+  tests Quilt::QuiltInstallGenerator
+  destination File.expand_path("../tmp", File.dirname(__FILE__))
 
   setup do
     prepare_destination
