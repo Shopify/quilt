@@ -2,7 +2,7 @@ Description:
     Explain the generator
 
 Example:
-    rails generate quilt Thing
+    rails generate quilt
 
     This will create:
         what/will/it/create
