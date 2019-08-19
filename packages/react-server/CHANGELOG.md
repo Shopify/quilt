@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.1.5] - 2019-08-18
+
+- logger middleware will fallback to `console` in render middleware
+
 ## 0.1.3
 
 ### Changed
