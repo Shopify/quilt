@@ -10,11 +10,11 @@ module SewingKit
       config_path = "config/sewing-kit.config.ts"
 
       if File.exist?(config_path)
-        say "Sewing-kit config already exists"
+        say "Sewing kit config already exists"
       else
         copy_file "sewing-kit.config.ts", config_path
 
-        say "Sewing-kit config"
+        say "Sewing kit config"
       end
     end
   end
