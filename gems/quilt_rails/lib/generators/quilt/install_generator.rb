@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quilt
   class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path('templates', __dir__)
@@ -10,23 +12,22 @@ module Quilt
     end
 
     def create_app_file
-      appPath = "app/ui/index.tsx"
+      app_path = "app/ui/index.tsx"
 
-      unless File.exist? appPath
-        copy_file "App.tsx", appPath
+      unless File.exist?(app_path)
+        copy_file "App.tsx", app_path
 
-        log("React App at #{appPath}", 'wrote')
+        log("React App at #{app_path}", 'wrote')
       end
-
     end
 
     def create_route_file
-      routesPath = "config/routes.rb"
+      routes_path = "config/routes.rb"
 
-      if File.exist? routesPath
+      if File.exist?(routes_path)
         route "mount Quilt::Engine, at: '/'"
       else
-        copy_file "routes.rb", routesPath
+        copy_file "routes.rb", routes_path
       end
 
       say "Added Quilt engine mount"
