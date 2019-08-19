@@ -5,7 +5,7 @@ require 'generators/sewing_kit/install_generator'
 
 class InstallGeneratorTest < Rails::Generators::TestCase
   tests SewingKit::InstallGenerator
-  destination File.expand_path("../tmp", File.dirname(__FILE__))
+  destination File.expand_path("./tmp", File.dirname(__FILE__))
 
   setup do
     prepare_destination
@@ -13,6 +13,8 @@ class InstallGeneratorTest < Rails::Generators::TestCase
 
   test "creates a sewing-kit file" do
     run_generator
-    assert_file "config/sewing-kit.config.ts"
+    assert_file "config/sewing-kit.config.ts" do |config|
+      assert_match "name: 'your-app-name'", config
+    end
   end
 end

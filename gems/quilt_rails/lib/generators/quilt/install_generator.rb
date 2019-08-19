@@ -1,12 +1,12 @@
 module Quilt
-  class QuiltInstallGenerator < Rails::Generators::Base
+  class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path('templates', __dir__)
 
     desc "This generator mounts the Quilt engine and adds a React app."
 
     def install_js_dependencies
-      log("Installing @shopify/react-server and @shopify/sewing-kit dependencies", 'info')
-      # system("yarn add @shopify/sewing-kit @shopify/react-server") unless Rails.env.test?
+      say "Installing @shopify/react-server and @shopify/sewing-kit dependencies"
+      system("yarn add @shopify/sewing-kit @shopify/react-server") unless Rails.env.test?
     end
 
     def create_app_file
@@ -29,13 +29,7 @@ module Quilt
         copy_file "routes.rb", routesPath
       end
 
-      log("Added Quilt engine mount", "info")
-    end
-
-    private
-
-    def log(message, type)
-      puts "quilt:#{type}   #{message}"
+      say "Added Quilt engine mount"
     end
   end
 end

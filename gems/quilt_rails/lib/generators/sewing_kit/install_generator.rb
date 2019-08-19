@@ -8,19 +8,14 @@ module SewingKit
       configPath = "config/sewing-kit.config.ts"
 
       if File.exist? configPath
-        log("Sewing-kit config already exists", 'info')
+        say "Sewing-kit config already exists"
       else
         copy_file "sewing-kit.config.ts", configPath
 
-        log("Sewing-kit config", 'wrote')
+        say "Sewing-kit config"
       end
 
     end
-
-    private
-
-    def log(message, type)
-      puts "sewing_kit:#{type}   #{message}"
-    end
   end
 end
+

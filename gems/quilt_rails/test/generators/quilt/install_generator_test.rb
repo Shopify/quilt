@@ -3,9 +3,9 @@ require 'test_helper'
 require 'rails/generators'
 require 'generators/quilt/install_generator'
 
-class QuiltInstallGeneratorTest < Rails::Generators::TestCase
-  tests Quilt::QuiltInstallGenerator
-  destination File.expand_path("../tmp", File.dirname(__FILE__))
+class InstallGeneratorTest < Rails::Generators::TestCase
+  tests Quilt::InstallGenerator
+  destination File.expand_path("./tmp", File.dirname(__FILE__))
 
   setup do
     prepare_destination
@@ -22,13 +22,6 @@ class QuiltInstallGeneratorTest < Rails::Generators::TestCase
   end
 
   test "adds engine to routes" do
-    run_generator
-    assert_file "config/routes.rb" do |routes|
-      assert_match "mount Quilt::Engine, at: '/'", routes
-    end
-  end
-
-  test "adds engine to routes if file already exists" do
     run_generator
     assert_file "config/routes.rb" do |routes|
       assert_match "mount Quilt::Engine, at: '/'", routes
