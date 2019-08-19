@@ -1,4 +1,6 @@
-require 'rails-reverse-proxy';
+# frozen_string_literal: true
+
+require 'rails-reverse-proxy'
 
 module Quilt
   module ReactRenderable
