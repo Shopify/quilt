@@ -145,3 +145,43 @@ function App({
   return <GraphQL createClient={}>{/* rest of the app */}</GraphQL>;
 }
 ```
+
+### `createSelfSerializer`
+
+This factor function will create a Self Serialized Provider given a React Context object.
+It is particularly useful for simple object that need to be sync up between the server and client.
+
+#### Options
+
+The function takes a unique id and a React Context object.
+
+#### Props
+
+The resulting Provider takes children and a data prop.
+
+#### Example
+
+```tsx
+interface Props {
+  data?: Data;
+  children?: React.ReactNode;
+}
+```
+
+```tsx
+//ApiKeyProvider.tsx
+import {createContext} from 'react';
+import {createSelfSerializer} from '@shopify/react-self-serializers';
+
+export const ApiKeyContext = createContext<string | null>(null);
+export const ApiKeyProvider = createSelfSerializer('api-key', ApiKeyContext);
+```
+
+```tsx
+// App.tsx
+import {ApiKeyProvider} from './ApiKeyProvider';
+
+function App({apiKey}: {apiKey?: string}) {
+  return <ApiKeyProvider data={apiKey}>{/* rest of the app */}</ApiKeyProvider>;
+}
+```
