@@ -1,8 +1,5 @@
 Description:
-    Explain the generator
+    This generator mounts the Quilt engine and adds a React app.
 
 Example:
-    rails generate quilt
-
-    This will create:
-        what/will/it/create
+    rails generate quilt:install
