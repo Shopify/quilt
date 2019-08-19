@@ -41,3 +41,4 @@ lerna-debug.log
 .DS_Store
 
 tmp
+log
