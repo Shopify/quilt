@@ -99,30 +99,49 @@ A self-serializing provider for initial GraphQL data from Apollo.
 
 #### Props
 
-The component takes an object containing the React children to render and any options to use when creating the GraphQL client.
+The component takes children and a function that can create an Apollo client. This function will be called when needed, and the resulting Apollo client will be augmented with the serialized initial data.
 
 #### Example
 
 ```tsx
 interface Props {
-  shop?: string;
-  server?: boolean;
-  accessToken?: string;
-  graphQLEndpoint?: string;
-  connectToDevTools?: boolean;
   children?: React.ReactNode;
+  createClient(): ApolloClient<any>;
 }
 ```
 
 ```tsx
 // App.tsx
+import {ApolloClient} from 'apollo-client';
+import {InMemoryCache} from 'apollo-inmemory-cache';
+import {createHttpLink} from 'apollo-link-http';
+
 import {GraphQL} from '@shopify/react-self-serializers';
 
-function App({shop, accessToken}: {shop?: string; accessToken?: string}) {
-  return (
-    <GraphQL shop={shop} accessToken={accessToken}>
-      {/* rest of the app */}
-    </GraphQL>
-  );
+function App({
+  server,
+  shop,
+  accessToken,
+}: {
+  server?: boolean;
+  shop?: string;
+  accessToken?: string;
+}) {
+  const createClient = () => {
+    const link = createHttpLink({
+      uri: `https://${shop}/admin/api/graphql`,
+      headers: {'X-Shopify-Access-Token': accessToken},
+    });
+
+    return new ApolloClient({
+      link,
+      cache: new InMemoryCache(),
+      ssrMode: server,
+      ssrForceFetchDelay: 100,
+      connectToDevTools: !server,
+    });
+  };
+
+  return <GraphQL createClient={}>{/* rest of the app */}</GraphQL>;
 }
 ```
