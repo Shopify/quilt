@@ -3,14 +3,14 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server.svg)](https://badge.fury.io/js/%40shopify%2Freact-server.svg)
 
-A simple interface for React server-side rendering using `@shopify/react-html`.
+A simple library for React server-side rendering using [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html).
 
 ## Table of contents
 
 1. [Installation](#installation)
 1. [Node usage](#node-usage)
 1. [Rails usage](#rails-usage)
-   1. [`Deployment`](#deployment)
+   1. [Deployment](#deployment)
 1. [Webpack plugin](#webpack-plugin)
 1. [API](#api)
 
