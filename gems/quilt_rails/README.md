@@ -4,6 +4,11 @@ A turn-key solution for integrating server-rendered react into your Rails app us
 
 This document focuses on Rails integration. For details of `@shopify/react-server`'s configuration and usage, see the [react-server documentation](/packages/react-server/README.md).
 
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+1. [Advanced Use](#advanced-use)
+
 ## Quick Start
 
 ### Add Ruby dependencies
@@ -114,7 +119,7 @@ function App() {
 export default App;
 ```
 
-## Rails Generators'
+## Rails Generators
 
 ### `quilt:install`
 
@@ -123,3 +128,44 @@ Installs the Node dependencies, provide a basic React app (in TypeScript) and mo
 ### `sewing-kit:install`
 
 Adds a basic `sewing-kit.config.ts` file.
+
+## Advanced use
+
+### Customizing the node server
+
+By default, sewing-kit bundles in `@shopify/react-server-webpack-plugin` for `quilt_rails` applications to get you up and running fast without needing to manually write any node server code. If you would like to customize what data your react application receives from the incoming request, you can add your own `server.js` / `server.ts` file to the app folder.
+
+```
+└── app
+   └── ui
+      └─- index.js
+      └─- server.js
+```
+
+```tsx
+// app/ui/server.tsx
+import 'isomorphic-fetch';
+import {createServer} from '@shopify/react-server';
+import {Context} from 'koa';
+import React from 'react';
+
+import App from './';
+
+// you could create your own server from scratch, but the easiest way to is using `@shopify/react-server`
+// https://github.com/Shopify/quilt/blob/master/packages/react-server/README.md#L8
+const app = createServer({
+  port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8081,
+  ip: process.env.IP,
+  assetPrefix: process.env.CDN_URL || 'localhost:8080/assets/webpack',
+  render: (ctx, {locale}) => (
+    // any headers or other data we add to the incoming request in our rails controller we can access here to pass into our component
+    <App server someCustomProp={ctx.get('some-header')} location={ctx.request.url} locale={locale} />
+  ),
+});
+
+export default app;
+```
+
+### Isomorphic state
+
+With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. With `@shopify/react-server`, the main way you will accomplish is using [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/react-html#in-your-application-code) hook to implement [self-serializers](https://github.com/Shopify/quilt/blob/master/packages/react-self-serializers/README.md#self-serializers). We offer some common ones out of the box in [`@shopify/react-self-serializers`](https://github.com/Shopify/quilt/blob/master/packages/react-self-serializers/README.md#self-serializers).
