@@ -125,7 +125,7 @@ export default App;
 
 Installs the Node dependencies, provide a basic React app (in TypeScript) and mounts the Quilt engine inside of your `config/routes.rb` file.
 
-### `sewing-kit:install`
+### `sewing_kit:install`
 
 Adds a basic `sewing-kit.config.ts` file.
 
