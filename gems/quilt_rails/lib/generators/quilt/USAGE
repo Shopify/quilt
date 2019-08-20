@@ -1,0 +1,5 @@
+Description:
+    This generator mounts the Quilt engine and adds a React app.
+
+Example:
+    rails generate quilt:install
