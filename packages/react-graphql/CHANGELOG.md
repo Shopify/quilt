@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Removed the `createGraphQLClient`/ `ApolloClient` exports, and instead export the tools to build an operation-tracking link (`createSsrExtractableLink`/ `SsrExtractableLink`). Projects using the `createGraphQLClient` utility to create a client with a `resolve` method can instead use the link and `SsrExtractableLink#resolveAll()` directly. ([#878](https://github.com/Shopify/quilt/pull/878))
+
 ## [4.0.4] - 2019-08-13
 
 ### Fixed

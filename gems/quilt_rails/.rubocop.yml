@@ -20,6 +20,8 @@ Metrics/PerceivedComplexity:
 
 CyclomaticComplexity:
   Max: 6
+  Exclude:
+    - bin/**/*
 
 Metrics/ModuleLength:
   CountComments: true
@@ -68,4 +70,20 @@ Metrics/LineLength:
     - Guardfile
     - Gemfile
     - config/**/*
+    - bin/**/*
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - bin/**/*
+
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - bin/**/*
+
+Style/PerlBackrefs:
+  Exclude:
+    - bin/**/*
+
+Style/SpecialGlobalVars:
+  Exclude:
     - bin/**/*
