@@ -8,6 +8,7 @@ export interface Options {
   initialData?: NormalizedCacheObject;
   graphQLEndpoint?: string;
   connectToDevTools?: boolean;
+  headers?: Record<string, string>;
 }
 
 export function createGraphQLClient({
@@ -15,20 +16,20 @@ export function createGraphQLClient({
   initialData,
   graphQLEndpoint = '/graphql',
   connectToDevTools,
+  headers = {},
 }: Options) {
   const cache = new InMemoryCache({
     dataIdFromObject: object => object.id,
   });
 
-  const headers = {
-    [Header.Accept.toLowerCase()]: 'application/json',
-    [Header.ContentType.toLowerCase()]: 'application/json',
-  };
-
   const link = createHttpLink({
     credentials: 'include',
     uri: graphQLEndpoint,
-    headers,
+    headers: {
+      [Header.Accept.toLowerCase()]: 'application/json',
+      [Header.ContentType.toLowerCase()]: 'application/json',
+      ...headers,
+    },
   });
 
   return new ApolloClient({
