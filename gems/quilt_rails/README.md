@@ -4,6 +4,11 @@ A turn-key solution for integrating server-rendered react into your Rails app us
 
 This document focuses on Rails integration. For details of `@shopify/react-server`'s configuration and usage, see the [react-server documentation](/packages/react-server/README.md).
 
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+1. [Advanced Use](#advanced-use)
+
 ## Quick Start
 
 ### Add Ruby dependencies
@@ -114,7 +119,7 @@ function App() {
 export default App;
 ```
 
-## Rails Generators'
+## Rails Generators
 
 ### `quilt:install`
 
@@ -123,3 +128,106 @@ Installs the Node dependencies, provide a basic React app (in TypeScript) and mo
 ### `sewing-kit:install`
 
 Adds a basic `sewing-kit.config.ts` file.
+
+## Advanced use
+
+### Interacting with the request / response in your React code
+
+React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/master/packages/react-network/src/hooks.ts#L25) for you, so most interactions with the request or response can be done from inside your React code.
+
+#### Example: getting headers
+
+```tsx
+// app/ui/index.tsx
+
+import * as React from 'react';
+import {AppProvider, Page, Card} from '@shopify/polaris';
+import {useRequestHeader} from '@shopify/react-network';
+
+function App() {
+  // get `some-header` from the request that was sent through Rails
+  const someHeaderICareAbout = useRequestHeader('some-header');
+
+  return (
+    <AppProvider>
+      <Page title="Hello">
+        {someHeaderICareAbout}
+        <Card sectioned>Hi there</Card>
+      </Page>
+    </AppProvider>
+  );
+}
+
+export default App;
+```
+
+#### Example: redirecting
+
+```tsx
+// app/ui/index.tsx
+
+import * as React from 'react';
+import {AppProvider, Page, Card} from '@shopify/polaris';
+import {useRedirect} from '@shopify/react-network';
+
+function App() {
+  // redirect to google as soon as we render
+  useRedirect('www.google.com');
+
+  return (
+    <AppProvider>
+      <Page title="Hello">
+        <Card sectioned>Hi there</Card>
+      </Page>
+    </AppProvider>
+  );
+}
+
+export default App;
+```
+
+### Customizing the node server
+
+By default, sewing-kit bundles in `@shopify/react-server-webpack-plugin` for `quilt_rails` applications to get you up and running fast without needing to manually write any node server code. If you would like to customize what data your react application receives from the incoming request, you can add your own `server.js` / `server.ts` file to the app folder.
+
+```
+└── app
+   └── ui
+      └─- app.js
+      └─- index.js
+      └─- server.js
+```
+
+```tsx
+// app/ui/server.tsx
+import '@shopify/polyfills/fetch';
+import {createServer} from '@shopify/react-server';
+import {Context} from 'koa';
+import React from 'react';
+
+import App from './app';
+
+// you could create your own server from scratch, but the easiest way to is using `@shopify/react-server`
+// https://github.com/Shopify/quilt/blob/master/packages/react-server/README.md#L8
+const app = createServer({
+  port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8081,
+  ip: process.env.IP,
+  assetPrefix: process.env.CDN_URL || 'localhost:8080/assets/webpack',
+  serverMiddleware: [(ctx, next) => {
+    // you can add your own middleware to extend the server's functionality.
+    console.log('I am a custom middleware!');
+    await next();
+  }]
+  render: (ctx, {locale}) => {
+    const whatever = /* do something special with the koa context */;
+    // any special data we add to the incoming request in our rails controller we can access here to pass into our component
+    return <App server someCustomProp={whatever} location={ctx.request.url} locale={locale} />;
+  },
+});
+
+export default app;
+```
+
+### Isomorphic state
+
+With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. With `@shopify/react-server`, the main way you will accomplish is using [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/react-html#in-your-application-code) hook to implement [self-serializers](https://github.com/Shopify/quilt/blob/master/packages/react-self-serializers/README.md#self-serializers). We offer some common ones out of the box in [`@shopify/react-self-serializers`](https://github.com/Shopify/quilt/blob/master/packages/react-self-serializers/README.md#self-serializers).
