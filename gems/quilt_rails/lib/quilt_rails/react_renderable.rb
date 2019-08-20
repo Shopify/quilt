@@ -10,10 +10,14 @@ module Quilt
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
       ReactRenderable.log("[ReactRenderable] proxying to React server at #{url}")
 
-      reverse_proxy(url) do |callbacks|
-        callbacks.on_response do |status_code, _response|
-          ReactRenderable.log("[ReactRenderable] #{url} returned #{status_code}")
+      begin
+        reverse_proxy(url) do |callbacks|
+          callbacks.on_response do |status_code, _response|
+            ReactRenderable.log("[ReactRenderable] #{url} returned #{status_code}")
+          end
         end
+      rescue Errno::ECONNREFUSED
+        raise ReactServerNoResponseError, url
       end
     end
 
@@ -22,6 +26,13 @@ module Quilt
         puts string
       else
         Rails.logger.info(string)
+      end
+    end
+
+    class ReactServerNoResponseError < StandardError
+      def initialize(url)
+        # rubocop:disable LineLength
+        super "Errno::ECONNREFUSED: Waiting for React server to boot up. If this error presists verify that @shopify/react-server is configured on #{url}"
       end
     end
   end
