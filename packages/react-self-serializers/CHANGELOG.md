@@ -15,6 +15,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - added `createSelfSerializer` factory function that can be use to create a self-serialized Provider given a React Context ([#875](https://github.com/Shopify/quilt/pull/875))
 
+- added `AppBridge` self-serializer ([#886](https://github.com/Shopify/quilt/pull/886))
+
 ## [1.0.2] - 2019-08-08
 
 ### Chore

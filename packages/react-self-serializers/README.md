@@ -185,3 +185,30 @@ function App({apiKey}: {apiKey?: string}) {
   return <ApiKeyProvider data={apiKey}>{/* rest of the app */}</ApiKeyProvider>;
 }
 ```
+
+### AppBridge
+
+A self-serializing provider for `@shopify/app-bridge-react`'s Provider.
+
+#### Props
+
+The component takes children, `apiKey`, `shop`, and `forceRedirect`. Similar to `@shopify/app-bridge-react`'s Provider.
+
+```tsx
+interface Props {
+  apiKey?: string;
+  shop?: string;
+  forceRedirect?: boolean;
+  children?: React.ReactNode;
+}
+```
+
+#### Example
+
+```tsx
+// App.tsx
+import {AppBridge} from '@shopify/react-self-serializers';
+function App({apiKey, shop}: {apiKey?: string; shop?: string}) {
+  return <AppBridge config={{apiKey, shop}}>{/* rest of the app */}</AppBridge>;
+}
+```
