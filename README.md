@@ -75,6 +75,12 @@ Each package has its own `README` and documentation describing usage.
 | useful-types | [directory](packages/useful-types) | [![npm version](https://badge.fury.io/js/%40shopify%2Fuseful-types.svg)](https://badge.fury.io/js/%40shopify%2Fuseful-types) |
 | with-env | [directory](packages/with-env) | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
 
+### Gem Index
+
+| package |     |     |
+| ------- | --- | --- |
+| quilt_rails | [directory](gems/quilt_rails) | [![Gem Version](https://badge.fury.io/rb/quilt_rails.svg)](https://badge.fury.io/rb/quilt_rails) |
+
 ## Want to contribute?
 
 Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
