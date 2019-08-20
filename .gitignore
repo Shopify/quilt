@@ -39,3 +39,6 @@ lerna-debug.log
 .idea
 
 .DS_Store
+
+tmp
+**/test.log
