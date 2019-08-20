@@ -7,9 +7,4 @@ module Quilt
     setup do
       @routes = Quilt::Engine.routes
     end
-
-    # test '#index renders react markup' do
-    #   get :index
-    # end
-  end
 end

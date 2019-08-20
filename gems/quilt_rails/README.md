@@ -10,7 +10,7 @@ This document focuses on Rails integration. For details of `@shopify/react-serve
 
 `bundle add sewing_kit quilt_rails`
 
-First, create a Rails project using `dev init`. Next, run `bundle exec rake quilt:install`. This will install the Node dependencies, provide a basic React app (in TypeScript) and mount the Quilt engine inside of your `config/routes.rb` file.
+First, create a Rails project using `dev init`. Next, run `rails generate quilt:install`. This will install the Node dependencies, provide a basic React app (in TypeScript) and mounts the Quilt engine inside of your `config/routes.rb` file.
 
 ## Manual Installation
 
@@ -49,7 +49,15 @@ Rails.application.routes.draw do
 end
 ```
 
-Where `at` is the path where your App will respond with the React App.
+Where `at` is the path where your App will respond with the React App. If you only want a sub-section of routes to respond with the React App, you can pass in the path to that sub-section here. For example:
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  # ...
+  mount Quilt::Engine, at: '/path/to/react'
+end
+```
 
 ### Option 2: Add your react controller and routes
 
@@ -105,3 +113,13 @@ function App() {
 
 export default App;
 ```
+
+## Rails Generators'
+
+### `quilt:install`
+
+Installs the Node dependencies, provide a basic React app (in TypeScript) and mounts the Quilt engine inside of your `config/routes.rb` file.
+
+### `sewing-kit:install`
+
+Adds a basic `sewing-kit.config.ts` file.
