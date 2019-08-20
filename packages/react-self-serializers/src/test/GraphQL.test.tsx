@@ -1,16 +1,12 @@
 import React from 'react';
+import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ApolloLink} from 'apollo-link';
 import {extract} from '@shopify/react-effect/server';
 
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
 
-import {
-  ApolloProvider,
-  ApolloClient,
-  createGraphQLClient,
-  Options,
-} from '@shopify/react-graphql';
+import {ApolloProvider} from '@shopify/react-graphql';
 import {mount} from '@shopify/react-testing';
 import {GraphQL} from '../GraphQLComponent';
 
@@ -23,26 +19,26 @@ jest.mock('@shopify/react-graphql', () => ({
 }));
 
 describe('<GraphQL />', () => {
-  const options: Options = {
-    shop: 'snow-devil.myshopfiy.com',
-    server: true,
-    accessToken: '12345',
-    graphQLEndpoint: 'http://snow-devil.myshopfiy.com/graphql',
-    initialData: {foo: {foo: 'bar'}},
-  };
-
-  it('renders an ApolloProvider with a client that was created from the given props', () => {
-    const graphQL = mount(<GraphQL {...options} />);
+  it('renders an ApolloProvider with a client created by the factory', () => {
+    const client = new ApolloClient({
+      cache: new InMemoryCache(),
+      link: new ApolloLink(),
+    });
+    const graphQL = mount(<GraphQL createClient={() => client} />);
 
     expect(graphQL).toContainReactComponent(ApolloProvider, {
       client: expect.any(ApolloClient),
     });
   });
 
-  it('serializes i18n details and reuses them', async () => {
+  it('serializes the apollo apollo cache and re-uses it to hydrate the cache', async () => {
     const htmlManager = new HtmlManager();
 
-    await extract(<GraphQL {...options} />, {
+    const cache = new InMemoryCache();
+    const client = new ApolloClient({cache, link: new ApolloLink()});
+
+    // Simulated server render
+    await extract(<GraphQL createClient={() => client} />, {
       decorate: (element: React.ReactNode) => (
         <HtmlContext.Provider value={htmlManager}>
           {element}
@@ -50,12 +46,17 @@ describe('<GraphQL />', () => {
       ),
     });
 
-    const graphQL = mount(<GraphQL />);
+    const initialData = client.extract();
+    const restoreSpy = jest.spyOn(cache, 'restore');
 
-    expect(createGraphQLClient).toHaveBeenCalledWith(options);
+    // Simulated client render (note: same htmlManager, which replaces the way the
+    // client would typically read serializations from the DOM on initialization).
+    mount(
+      <HtmlContext.Provider value={htmlManager}>
+        <GraphQL createClient={() => client} />
+      </HtmlContext.Provider>,
+    );
 
-    expect(graphQL).toContainReactComponent(ApolloProvider, {
-      client: expect.any(ApolloClient),
-    });
+    expect(restoreSpy).toHaveBeenCalledWith(initialData);
   });
 });

@@ -26,6 +26,10 @@ export type RenderContext = Context & {
 };
 export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
 
+/**
+ * Creates a Koa middleware for rendering an `@shopify/react-html` based React application defined by `options.render`.
+ * @param render
+ */
 export function createRender(render: RenderFunction) {
   return async function renderFunction(ctx: RenderContext) {
     const logger = getLogger(ctx) || console;

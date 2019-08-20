@@ -21,6 +21,11 @@ type Options = {
   debug?: boolean;
 };
 
+/**
+ * Create a full Koa server for server rendering an `@shopify/react-html` based React application defined by `options.render`
+ * @param options
+ * @returns a Server instance
+ */
 export function createServer(options: Options): Server {
   const {port, assetPrefix, render, debug, serverMiddleware, ip} = options;
   const app = new Koa();
