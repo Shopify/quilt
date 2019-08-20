@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.3] - 2019-08-20
+
+### Fixed
+
+- Raise a more meaningful error message when React server is ready/configured properly [#870](https://github.com/Shopify/quilt/pull/870)
+
 ## [1.3.2] - 2019-08-20
 
 - Fix rails index route typo
