@@ -1,4 +1,3 @@
-import BaseApolloClient, {ApolloClientOptions} from 'apollo-client';
 import {
   ApolloLink,
   Operation,
@@ -7,14 +6,12 @@ import {
   FetchResult,
 } from 'apollo-link';
 
-import {NormalizedCacheObject} from 'apollo-cache-inmemory';
+export function createSsrExtractableLink() {
+  return new SsrExtractableLink();
+}
 
-class SsrExtractableLink extends ApolloLink {
+export class SsrExtractableLink extends ApolloLink {
   private readonly operations = new Set<Promise<void>>();
-
-  constructor(private readonly link: ApolloLink) {
-    super();
-  }
 
   resolveAll<T>(then: () => T): Promise<T> | T {
     if (this.operations.size > 0) {
@@ -25,8 +22,10 @@ class SsrExtractableLink extends ApolloLink {
   }
 
   request(operation: Operation, nextLink?: NextLink) {
-    if (nextLink != null) {
-      throw new Error('SsrExtractableLink must be the only link in the chain.');
+    if (nextLink == null) {
+      throw new Error(
+        'SsrExtractableLink must not be the last link in the chain.',
+      );
     }
 
     let operationDone: Function;
@@ -41,7 +40,7 @@ class SsrExtractableLink extends ApolloLink {
     this.operations.add(promise);
 
     return new Observable<FetchResult>(observer => {
-      return this.link.request(operation)!.subscribe({
+      return nextLink(operation).subscribe({
         complete() {
           observer.complete();
           operationDone();
@@ -50,20 +49,5 @@ class SsrExtractableLink extends ApolloLink {
         error: observer.next.bind(observer),
       });
     });
-  }
-}
-
-export class ApolloClient<CacheShape> extends BaseApolloClient<CacheShape> {
-  constructor(options: ApolloClientOptions<CacheShape>) {
-    super({
-      ...options,
-      link: options.link && new SsrExtractableLink(options.link),
-    });
-  }
-
-  resolve(): Promise<NormalizedCacheObject> | NormalizedCacheObject {
-    return this.link instanceof SsrExtractableLink
-      ? this.link.resolveAll(() => this.extract())
-      : (this.extract() as any);
   }
 }
