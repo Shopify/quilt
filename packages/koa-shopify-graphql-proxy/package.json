@@ -1,0 +1,29 @@
+{
+  "name": "@shopify/koa-shopify-graphql-proxy",
+  "version": "3.1.1",
+  "license": "MIT",
+  "description": "A wrapper around koa-better-http-proxy which allows easy proxying of graphql requests from an embedded shopify app.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-graphql-proxy/README.md",
+  "dependencies": {
+    "koa-better-http-proxy": "^0.2.4",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "typescript": "~3.2.1"
+  },
+  "sideEffects": false
+}

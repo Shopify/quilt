@@ -4,19 +4,21 @@
     "declaration": true,
     "declarationMap": true,
     "pretty": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "target": "es5",
+    "module": "commonjs",
+    "target": "es2015",
     "downlevelIteration": true,
     "esModuleInterop": true,
     "jsx": "react",
     "strictNullChecks": true,
     "noImplicitAny": false,
     "sourceMap": false,
-    "noEmitOnError": false,
+    "noEmitOnError": true,
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "importHelpers": true,
+    "importHelpers": false,
     "lib": [
       "dom",
       "dom.iterable",
@@ -24,7 +26,10 @@
       "es2016",
       "es2017",
       "es2018",
+      "esnext",
       "esnext.asynciterable"
-    ]
-  }
+    ],
+    "typeRoots": ["../node_modules/@types"]
+  },
+  "include": ["../config/typescript/**/*.d.ts"]
 }

@@ -22,3 +22,5 @@ declare module 'browserslist-useragent' {
 
   export function matchesUA(ua: string, options?: Options): boolean;
 }
+
+declare module '@shopify/jest-koa-mocks';

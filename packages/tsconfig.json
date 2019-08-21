@@ -3,9 +3,44 @@
   "include": [],
   "references": [
     {"path": "./async"},
-    {"path": "./admin-graphql-api-utilities"},
-    {"path": "./csrf-token-fetcher"},
-    {"path": "./css-utilities"},
-    {"path": "./enzyme-utilities"}
+    {
+      "path": "./jest-koa-mocks"
+    },
+    {
+      "path": "./csrf-token-fetcher"
+    },
+    {
+      "path": "./css-utilities"
+    },
+    {
+      "path": "./enzyme-utilities"
+    },
+    {
+      "path": "./jest-mock-apollo"
+    },
+    {
+      "path": "./jest-mock-router"
+    },
+    {
+      "path": "./koa-liveness-ping"
+    },
+    {
+      "path": "./koa-metrics"
+    },
+    {
+      "path": "./koa-shopify-auth"
+    },
+    {
+      "path": "./koa-shopify-graphql-proxy"
+    },
+    {
+      "path": "./koa-shopify-webhooks"
+    },
+    {
+      "path": "./tsconfig_base.json"
+    },
+    {
+      "path": "./tsconfig.json"
+    }
   ]
 }
