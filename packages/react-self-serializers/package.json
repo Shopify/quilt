@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-self-serializers",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "A set of self-serializing providers for @shopify/react-html applications",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-self-serializers/README.md",
   "devDependencies": {
     "@shopify/app-bridge-react": "^1.6.7",
-    "@shopify/react-graphql": "^5.0.1",
+    "@shopify/react-graphql": "^5.0.2",
     "@shopify/react-html": "^8.1.3",
     "@shopify/react-i18n": "^1.5.2",
     "@shopify/react-testing": "^1.7.4",
