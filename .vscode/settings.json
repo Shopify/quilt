@@ -13,7 +13,8 @@
     "**/node_modules": true,
     "**/.DS_Store": true,
     "build": true,
-    ".dev": true
+    ".dev": true,
+    "**/tsconfig.tsbuildinfo": true
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
