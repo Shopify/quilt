@@ -15,7 +15,7 @@ module Quilt
           callbacks.on_response do |status_code, _response|
             ReactRenderable.log("[ReactRenderable] #{url} returned #{status_code}")
           end
-       end
+        end
       rescue Errno::ECONNREFUSED
         raise ReactServerNoResponseError, url
       end
