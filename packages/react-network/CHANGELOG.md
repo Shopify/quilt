@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [3.1.1] - 2019-08-20
+
+## Fixed
+
+- `useRequestHeader` now works as documented when instantiated with `ctx.headers` [#888](https://github.com/Shopify/quilt/pull/888)
 
 ## [3.1.0] - 2019-06-14
 
