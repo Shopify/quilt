@@ -1,4 +1,5 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
+// @ts-ignore
 import {fetch} from '@shopify/jest-dom-mocks';
 import verifyRequest from '../verify-request';
 import {TEST_COOKIE_NAME, TOP_LEVEL_OAUTH_COOKIE_NAME} from '../../index';

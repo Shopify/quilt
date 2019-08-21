@@ -1,4 +1,5 @@
 import {Header} from '@shopify/network';
+// @ts-ignore
 import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 
 import {registerWebhook, Options, WebhookHeader} from '..';

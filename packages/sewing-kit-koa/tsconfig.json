@@ -11,5 +11,10 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "references": [{"path": "../jest-koa-mocks"}, {"path": "../jest-dom-mocks"}]
+  "typeRoots": [
+    "../../node_modules/@types",
+    "node_modules/@types",
+    "../../config/typescript/**/*"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
 }

@@ -12,6 +12,10 @@
     {"path": "./decorators"},
     {"path": "./enzyme-utilities"},
     {"path": "./function-enhancers"},
+    {"path": "./graphql-persisted"},
+    {"path": "./graphql-testing"},
+    {"path": "./i18n"},
+    {"path": "./jest-dom-mocks"},
     {"path": "./jest-koa-mocks"},
     {"path": "./jest-mock-apollo"},
     {"path": "./jest-mock-router"},
@@ -20,5 +24,6 @@
     {"path": "./koa-shopify-auth"},
     {"path": "./koa-shopify-graphql-proxy"},
     {"path": "./koa-shopify-webhooks"}
+    {"path": "./sewing-kit-koa"}
   ]
 }

@@ -1,3 +1,4 @@
+// @ts-ignore
 import {fetch} from '@shopify/jest-dom-mocks';
 // @ts-ignore
 import {GRAPHQL_ENDPOINT, SUPPORTED_LOCALES} from '@shopify/address';
