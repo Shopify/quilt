@@ -1,4 +1,3 @@
-// @ts-ignore
 import {memoize as memoizeEnhancer} from '@shopify/function-enhancers';
 
 export default function memoize<Method extends (...args: any[]) => any>(
