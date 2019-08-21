@@ -34,7 +34,9 @@ export function createRender(render: RenderFunction) {
   return async function renderFunction(ctx: RenderContext) {
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
-    const networkManager = new NetworkManager();
+    const networkManager = new NetworkManager({
+      headers: ctx.headers,
+    });
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
     const acceptsLanguages = ctx.acceptsLanguages && ctx.acceptsLanguages();
