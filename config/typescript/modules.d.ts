@@ -24,3 +24,4 @@ declare module 'browserslist-useragent' {
 }
 
 declare module '@shopify/jest-koa-mocks';
+declare module '@shopify/function-enhancers';
