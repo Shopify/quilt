@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.1.2] - 2019-08-21
+
+## Fixed
+
+- `useRequestHeader` is now correctly case-insensitive [#889](https://github.com/Shopify/quilt/pull/8889)
+
 ## [3.1.1] - 2019-08-20
 
 ## Fixed
