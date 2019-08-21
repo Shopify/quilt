@@ -5,12 +5,8 @@ export {NetworkContext} from './context';
 
 export const EFFECT_ID = Symbol('network');
 
-interface Headers {
-  get(header: string): string | undefined;
-}
-
 interface Options {
-  headers?: Headers;
+  headers?: Record<string, string>;
 }
 
 export class NetworkManager {
@@ -28,7 +24,7 @@ export class NetworkManager {
   private redirectUrl?: string;
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
-  private readonly requestHeaders?: Headers;
+  private readonly requestHeaders?: Record<string, string>;
 
   constructor({headers}: Options = {}) {
     this.requestHeaders = headers;
@@ -42,7 +38,7 @@ export class NetworkManager {
   }
 
   getHeader(header: string) {
-    return this.requestHeaders && this.requestHeaders.get(header);
+    return this.requestHeaders && this.requestHeaders[header];
   }
 
   setHeader(header: string, value: string) {
