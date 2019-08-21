@@ -11,7 +11,7 @@ module Quilt
       ReactRenderable.log("[ReactRenderable] proxying to React server at #{url}")
 
       begin
-        reverse_proxy(url) do |callbacks|
+        reverse_proxy(url, headers: { 'X-CSRF-Token': form_authenticity_token }) do |callbacks|
           callbacks.on_response do |status_code, _response|
             ReactRenderable.log("[ReactRenderable] #{url} returned #{status_code}")
           end

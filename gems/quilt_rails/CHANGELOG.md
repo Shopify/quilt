@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Always include csrf token for quilt rails requests [#887](https://github.com/Shopify/quilt/pull/887)
+
 ## [1.3.3] - 2019-08-20
 
 ### Fixed
