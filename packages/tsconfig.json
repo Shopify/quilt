@@ -39,6 +39,26 @@
     {"path": "./react-graphql"},
     {"path": "./react-hooks"},
     {"path": "./react-html"},
-    {"path": "./sewing-kit-koa"}
+    {"path": "./react-hydrate"},
+    {"path": "./react-i18n"},
+    {"path": "./react-idle"},
+    {"path": "./react-import-remote"},
+    {"path": "./react-intersection-observer"},
+    {"path": "./react-network"},
+    {"path": "./react-preconnect"},
+    {"path": "./react-self-serializers"},
+    {"path": "./react-serialize"},
+    {"path": "./react-server"},
+    {"path": "./react-server-webpack-plugin"},
+    {"path": "./react-shopify-app-route-propagator"},
+    {"path": "./react-shortcuts"},
+    {"path": "./react-testing"},
+    {"path": "./react-tracking-pixel"},
+    {"path": "./semaphore"},
+    {"path": "./sewing-kit-koa"},
+    {"path": "./tsconfig_base.json"},
+    {"path": "./tsconfig.json"},
+    {"path": "./useful-types"},
+    {"path": "./with-env"}
   ]
 }

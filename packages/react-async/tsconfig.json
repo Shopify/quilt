@@ -12,5 +12,12 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../react-effect"}, {"path": "../react-hooks"}]
+  "references": [
+    {"path": "../react-effect"},
+    {"path": "../react-hooks"},
+    {"path": "../useful-types"},
+    {"path": "../react-idle"},
+    {"path": "../react-intersection-observer"},
+    {"path": "../react-hydrate"}
+  ]
 }

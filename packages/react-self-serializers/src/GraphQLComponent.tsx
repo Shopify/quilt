@@ -29,9 +29,14 @@ export function GraphQL({children, createClient}: Props) {
     return [client, link];
   }).current;
 
+  const apolloProvider = (
+    // @ts-ignore
+    <ApolloProvider client={client}>{children}</ApolloProvider>
+  );
+
   return (
     <>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
+      {apolloProvider}
       <Serialize data={() => link.resolveAll(() => client.extract())} />
     </>
   );

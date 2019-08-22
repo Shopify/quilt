@@ -15,5 +15,8 @@
     {
       "path": "../jest-koa-mocks"
     }
+    {
+      "path": "../with-env"
+    }
   ]
 }
