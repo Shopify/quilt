@@ -17,6 +17,7 @@ module Quilt
     end
 
     private
+
     def proxy
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
       Quilt::Logger.log("[ReactRenderable] proxying to React server at #{url}")
