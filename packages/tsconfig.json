@@ -23,7 +23,22 @@
     {"path": "./koa-metrics"},
     {"path": "./koa-shopify-auth"},
     {"path": "./koa-shopify-graphql-proxy"},
-    {"path": "./koa-shopify-webhooks"}
+    {"path": "./koa-shopify-webhooks"},
+    {"path": "./logger"},
+    {"path": "./network"},
+    {"path": "./performance"},
+    {"path": "./polyfills"},
+    {"path": "./predicates"},
+    {"path": "./react-async"},
+    {"path": "./react-compose"},
+    {"path": "./react-effect"},
+    {"path": "./react-effect-apollo"},
+    {"path": "./react-form"},
+    {"path": "./react-form-state"},
+    {"path": "./react-google-analytics"},
+    {"path": "./react-graphql"},
+    {"path": "./react-hooks"},
+    {"path": "./react-html"},
     {"path": "./sewing-kit-koa"}
   ]
 }

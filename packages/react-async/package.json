@@ -1,0 +1,41 @@
+{
+  "name": "@shopify/react-async",
+  "version": "3.0.4",
+  "license": "MIT",
+  "description": "Tools for creating powerful, asynchronously-loaded React components.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-async/README.md",
+  "dependencies": {
+    "@shopify/async": "^2.0.1",
+    "@shopify/javascript-utilities": "^2.4.0",
+    "@shopify/react-effect": "^3.2.1",
+    "@shopify/react-hydrate": "^1.1.2",
+    "@shopify/react-idle": "^1.0.2",
+    "@shopify/react-intersection-observer": "^2.0.3",
+    "@shopify/useful-types": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "~3.2.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}

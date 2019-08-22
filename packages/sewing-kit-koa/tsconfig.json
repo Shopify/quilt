@@ -16,5 +16,6 @@
     "node_modules/@types",
     "../../config/typescript/**/*"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [{"path": "../network"}]
 }

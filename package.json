@@ -11,7 +11,7 @@
     "test": "jest --maxWorkers=3 --coverage=false",
     "check": "lerna run check",
     "release": "lerna publish",
-    "clean": "rimraf './packages/*/dist' './packages/*/*.tsbuildinfo'",
+    "clean": "rimraf './packages/*/dist' './packages/*/*.tsbuildinfo' './packages/*.tsbuildinfo'",
     "generate": "yarn plop",
     "tophat": "node ./bin/tophat.js"
   },
