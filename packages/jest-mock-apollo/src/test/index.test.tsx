@@ -7,9 +7,7 @@ import {graphql} from 'react-apollo';
 import {mount} from 'enzyme';
 import {buildSchema} from 'graphql';
 
-// @ts-ignore
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
-// @ts-ignore
 import petQuery from './fixtures/PetQuery.graphql';
 import configureClient from '..';
 

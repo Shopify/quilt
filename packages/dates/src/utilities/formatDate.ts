@@ -1,3 +1,4 @@
+// @ts-ignore
 import {memoize} from '@shopify/function-enhancers';
 
 const memoizedGetDateTimeFormat = memoize(

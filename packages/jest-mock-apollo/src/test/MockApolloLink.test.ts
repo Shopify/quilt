@@ -5,7 +5,6 @@ import {buildSchema, GraphQLError} from 'graphql';
 import MockApolloLink from '../MockApolloLink';
 import {MockGraphQLResponse} from '../types';
 
-// @ts-ignore
 import petQuery from './fixtures/PetQuery.graphql';
 
 const schemaSrc = readFileSync(
