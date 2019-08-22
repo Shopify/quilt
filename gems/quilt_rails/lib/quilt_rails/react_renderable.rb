@@ -7,25 +7,29 @@ module Quilt
     include ReverseProxy::Controller
 
     def render_react
+      if defined? ShopifySecurityBase
+        ShopifySecurityBase::HTTPHostRestriction.whitelist([Quilt.configuration.react_server_host]) do
+          proxy
+        end
+      else
+        proxy
+      end
+    end
+
+    private
+
+    def proxy
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
-      ReactRenderable.log("[ReactRenderable] proxying to React server at #{url}")
+      Quilt::Logger.log("[ReactRenderable] proxying to React server at #{url}")
 
       begin
         reverse_proxy(url, headers: { 'X-CSRF-Token': form_authenticity_token }) do |callbacks|
           callbacks.on_response do |status_code, _response|
-            ReactRenderable.log("[ReactRenderable] #{url} returned #{status_code}")
+            Quilt::Logger.log("[ReactRenderable] #{url} returned #{status_code}")
           end
         end
       rescue Errno::ECONNREFUSED
         raise ReactServerNoResponseError, url
-      end
-    end
-
-    def self.log(string)
-      if Rails.logger.nil?
-        puts string
-      else
-        Rails.logger.info(string)
       end
     end
 
