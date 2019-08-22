@@ -41,6 +41,14 @@
     "react": ">=16.8.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "AppBridge.js",
+    "AppBridge.d.ts",
+    "create-self-serializer.js",
+    "create-self-serializer.d.ts",
+    "GraphQL.js",
+    "GraphQL.d.ts",
+    "I18n.js",
+    "I18n.d.ts"
   ]
 }
