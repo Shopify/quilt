@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quilt
   module Logger
     def self.log(string)
