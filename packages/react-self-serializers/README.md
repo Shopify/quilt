@@ -86,7 +86,7 @@ interface Props {
 
 ```tsx
 // App.tsx
-import {I18n} from '@shopify/react-self-serializers';
+import {I18n} from '@shopify/react-self-serializers/I18n';
 
 function App({locale}: {locale?: string}) {
   return <I18n locale={locale}>{/* rest of the app */}</I18n>;
@@ -116,7 +116,7 @@ import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-inmemory-cache';
 import {createHttpLink} from 'apollo-link-http';
 
-import {GraphQL} from '@shopify/react-self-serializers';
+import {GraphQL} from '@shopify/react-self-serializers/GraphQL';
 
 function App({
   server,
@@ -171,7 +171,7 @@ interface Props {
 ```tsx
 //ApiKeyProvider.tsx
 import {createContext} from 'react';
-import {createSelfSerializer} from '@shopify/react-self-serializers';
+import {createSelfSerializer} from '@shopify/react-self-serializers/create-self-serializer';
 
 export const ApiKeyContext = createContext<string | null>(null);
 export const ApiKeyProvider = createSelfSerializer('api-key', ApiKeyContext);
@@ -207,7 +207,7 @@ interface Props {
 
 ```tsx
 // App.tsx
-import {AppBridge} from '@shopify/react-self-serializers';
+import {AppBridge} from '@shopify/react-self-serializers/AppBridge';
 function App({apiKey, shop}: {apiKey?: string; shop?: string}) {
   return <AppBridge config={{apiKey, shop}}>{/* rest of the app */}</AppBridge>;
 }

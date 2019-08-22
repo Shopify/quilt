@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+### Changed
+
+- Added entry point for each of the component. This is because importing from the main entry point will bring in all the components even if it is not being use. Importing from individual entry point will solve this. ([#895](https://github.com/Shopify/quilt/pull/895))
+
 ## [1.1.0] - 2019-08-20
 
 ### Changed
