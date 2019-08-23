@@ -13,12 +13,6 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
   },
 }));
 
-const meaningfulErrorMessage =
-  'Look, it broken. This is some meaningful error messsage.';
-const BrokenApp = function() {
-  throw new Error(meaningfulErrorMessage);
-};
-
 describe('createRender', () => {
   it('response contains "My cool app"', async () => {
     const myCoolApp = 'My cool app';
@@ -40,29 +34,38 @@ describe('createRender', () => {
     expect(await readStream(ctx.body)).toContain(headerValue);
   });
 
-  it('in development the body contains a meaningful error messages', () => {
-    withEnv('development', async () => {
-      const ctx = createMockContext();
+  describe('error handling', () => {
+    const error = new Error(
+      'Look, it broken. This is some meaningful error messsage.',
+    );
+    const BrokenApp = function() {
+      throw error;
+    };
 
-      const renderFunction = createRender(() => <BrokenApp />);
-      await renderFunction(ctx);
+    it('returns a body with a meaningful error message in development', () => {
+      withEnv('development', async () => {
+        const ctx = {...createMockContext(), locale: ''};
 
-      expect(ctx.body).toContain(meaningfulErrorMessage);
+        const renderFunction = createRender(() => <BrokenApp />);
+        await renderFunction(ctx);
+
+        expect(await readStream(ctx.body)).toContain(error.message);
+        expect(await readStream(ctx.body)).toContain(error.stack);
+      });
     });
-  });
 
-  it('in production it throws a 500 with a meaninful error message', () => {
-    withEnv('production', async () => {
-      const ctx = createMockContext();
-      const throwSpy = jest.spyOn(ctx, 'throw').mockImplementation(() => null);
+    it('throws a 500 with a meaningful error message in production', () => {
+      withEnv('production', async () => {
+        const ctx = {...createMockContext(), locale: ''};
+        const throwSpy = jest
+          .spyOn(ctx, 'throw')
+          .mockImplementation(() => null);
 
-      const renderFunction = createRender(() => <BrokenApp />);
-      await renderFunction(ctx);
+        const renderFunction = createRender(() => <BrokenApp />);
+        await renderFunction(ctx);
 
-      expect(throwSpy).toHaveBeenCalledWith(
-        500,
-        new Error(meaningfulErrorMessage),
-      );
+        expect(throwSpy).toHaveBeenCalledWith(500, new Error(error.message));
+      });
     });
   });
 
