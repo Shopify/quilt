@@ -31,7 +31,8 @@ export interface TranslateOptions<Replacements = {}> {
 export function getTranslationTree(
   id: string,
   translations: TranslationDictionary | TranslationDictionary[],
-): string | object {
+  replacements?: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
+): string | TranslationDictionary {
   const normalizedTranslations = Array.isArray(translations)
     ? translations
     : [translations];
@@ -46,6 +47,12 @@ export function getTranslationTree(
     }
 
     if (result) {
+      if (replacements) {
+        return typeof result === 'string'
+          ? updateStringWithReplacements(result, replacements)
+          : updateTreeWithReplacements(result, replacements);
+      }
+
       return result;
     }
   }
@@ -247,4 +254,26 @@ function normalizeIdentifier(id: string, scope?: string | string[]) {
   return `${
     typeof scope === 'string' ? scope : scope.join(SEPARATOR)
   }${SEPARATOR}${id}`;
+}
+
+function updateTreeWithReplacements(
+  translationTree: TranslationDictionary,
+  replacements: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
+) {
+  return Object.keys(translationTree).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]:
+        typeof translationTree[key] === 'string'
+          ? updateStringWithReplacements(
+              translationTree[key] as string,
+              replacements,
+            )
+          : updateTreeWithReplacements(
+              translationTree[key] as TranslationDictionary,
+              replacements,
+            ),
+    }),
+    {},
+  );
 }

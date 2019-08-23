@@ -23,8 +23,30 @@ describe('getTranslationTree()', () => {
     });
   });
 
+  it('returns the translation keys with replacements if it has nested values', () => {
+    expect(
+      getTranslationTree(
+        'foo',
+        {foo: {bar: '{replacement}'}},
+        {replacement: 'bar'},
+      ),
+    ).toMatchObject({
+      bar: 'bar',
+    });
+  });
+
   it('returns the leaf string', () => {
     expect(getTranslationTree('foo.bar', {foo: {bar: 'one'}})).toBe('one');
+  });
+
+  it('returns the leaf string with replacements', () => {
+    expect(
+      getTranslationTree(
+        'foo.bar',
+        {foo: {bar: '{replacement}'}},
+        {replacement: 'bar'},
+      ),
+    ).toBe('bar');
   });
 
   it('throws a MissingTranslationError when no translation is found', () => {
