@@ -338,7 +338,7 @@ The custom mount for this situation would be built as demonstrated below.
 ```tsx
 import * as React from 'react';
 import {ApolloProvider} from 'react-apollo';
-import createGraphQLFactory, {GraphQL} from '@shopify/graphql-testing';
+import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
 
 // See graphql-testing docs for details
