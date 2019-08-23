@@ -8,5 +8,7 @@ up:
 
 commands:
   test: bundle exec rake test
+  lint: bundle exec rubocop --fail-fast
+  format: bundle exec rubocop --auto-correct
   cop:
     run: bundle exec rubocop -F --auto-correct
