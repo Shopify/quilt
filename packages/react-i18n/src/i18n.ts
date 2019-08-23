@@ -7,6 +7,7 @@ import {
   isToday,
   isYesterday,
   TimeUnit,
+  Weekdays,
 } from '@shopify/javascript-utilities/dates';
 import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
@@ -375,7 +376,7 @@ export class I18n {
 
     if (isLessThanOneWeekAgo(date)) {
       return this.translate('humanize.weekday', {
-        day: Weekday[date.getDay()],
+        day: Weekdays[date.getDay()],
         time,
       });
     }

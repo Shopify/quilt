@@ -932,7 +932,7 @@ describe('I18n', () => {
       );
     });
 
-    describe.only('with DateStyle.Humanize', () => {
+    describe('with DateStyle.Humanize', () => {
       it('formats a date', () => {
         const date = new Date('2012-12-20T00:00:00-00:00');
         const i18n = new I18n(defaultTranslations, {
@@ -1049,7 +1049,10 @@ describe('I18n', () => {
         });
         expect(translate).toHaveBeenCalledWith(
           'humanize.weekday',
-          {pseudotranslate: false, replacements: {time: '11:00 am'}},
+          {
+            pseudotranslate: false,
+            replacements: {day: 'Saturday', time: '11:00 am'},
+          },
           defaultTranslations,
           i18n.locale,
         );
@@ -1073,10 +1076,25 @@ describe('I18n', () => {
           'humanize.date',
           {
             pseudotranslate: false,
-            replacements: {date: 'Jul 20', time: '9:00 am'},
+            replacements: {date: 'Jul 20', time: '10:00 am'},
           },
           defaultTranslations,
           i18n.locale,
+        );
+      });
+
+      it('formats a future date', () => {
+        const today = new Date('2012-12-20T00:00:00-00:00');
+        const futureDate = new Date(today.getTime());
+        futureDate.setFullYear(today.getFullYear() + 1);
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
+          'Dec 20, 2013',
         );
       });
     });
