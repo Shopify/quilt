@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- Fixed `find` and `findAll` not returning the correct type when being passed a string that matches `JSX.IntrinsicElements` ([#906](https://github.com/Shopify/quilt/pull/906))
+
 ## [1.7.1] - 2019-07-16
 
 ### Fixed
