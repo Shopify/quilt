@@ -53,6 +53,10 @@ export function useFavicon(source: string) {
   );
 }
 
+export function useLocale(locale: string) {
+  useDomEffect(manager => manager.addHtmlAttributes({lang: locale}), [locale]);
+}
+
 export function useHtmlAttributes(
   htmlAttributes: FirstArgument<HtmlManager['addHtmlAttributes']>,
 ) {
