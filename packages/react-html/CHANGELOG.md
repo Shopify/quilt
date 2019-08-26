@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+### Added
+
+- New `stream` function for returning a streamed HTML response from a React tree ([904](https://github.com/Shopify/quilt/pull/904))
+
 ## 9.0.1 - 2019-07-04
 
 ### Changed
