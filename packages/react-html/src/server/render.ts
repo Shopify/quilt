@@ -1,6 +1,6 @@
-import * as React from 'react';
+import {ReactElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 
-export function render(tree: React.ReactElement<unknown>) {
+export default function render(tree: ReactElement<unknown>) {
   return `<!DOCTYPE html>${renderToStaticMarkup(tree)}`;
 }
