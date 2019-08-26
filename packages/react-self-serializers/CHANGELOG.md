@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2019-08-??
+
+### Changed
+
+- **Breaking Change** - Remove the index entry point, and rename all the entry point to be kebab-case ([#905](https://github.com/Shopify/quilt/pull/905))
+
 ## [1.3.1] - 2019-08-22
 
 ### Fixed
