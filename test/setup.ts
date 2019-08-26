@@ -1,7 +1,7 @@
 import './console-wrapper';
 import 'isomorphic-fetch';
 import * as Enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import Adapter from 'enzyme-adapter-react-16';
 
 if (Intl.PluralRules == null) {
   require('intl-pluralrules');

@@ -189,6 +189,7 @@ describe('koa-metrics', () => {
       const ctx = createMockContext();
 
       await metricsMiddleware(ctx, () => {
+        // @ts-ignore
         const distributionFn = MetricsMock.mock.instances[0]
           .distribution as jest.Mock<Metrics['distribution']>;
         expect(
@@ -253,6 +254,7 @@ describe('koa-metrics', () => {
 
       await metricsMiddleware(ctx, () => {});
 
+      // @ts-ignore
       const distributionFn = MetricsMock.mock.instances[0]
         .distribution as jest.Mock<Metrics['distribution']>;
 
