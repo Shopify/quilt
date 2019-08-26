@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 9.2.0 - 2019-08-26
+
 - New `useLocale` hook for setting the `lang` attribute on HTML
 
 ## 9.1.0 - 2019-08-26
