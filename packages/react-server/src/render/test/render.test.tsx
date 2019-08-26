@@ -26,7 +26,7 @@ describe('createRender', () => {
     const renderFunction = createRender(() => <>{myCoolApp}</>);
     await renderFunction(ctx as RenderContext);
 
-    expect(ctx.body).toContain(myCoolApp);
+    expect(await readStream(ctx.body)).toContain(myCoolApp);
   });
 
   it('in development the body contains a meaningful error messages', () => {
@@ -55,3 +55,12 @@ describe('createRender', () => {
     });
   });
 });
+
+function readStream(stream: NodeJS.ReadableStream) {
+  return new Promise<string>(resolve => {
+    let response: string;
+
+    stream.on('data', data => (response += data));
+    stream.on('end', () => resolve(response));
+  });
+}
