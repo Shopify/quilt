@@ -4,7 +4,7 @@ import {
   Html,
   HtmlManager,
   HtmlContext,
-  render as renderMarkup,
+  stream,
 } from '@shopify/react-html/server';
 import {
   applyToContext,
@@ -78,7 +78,7 @@ export function createRender(render: RenderFunction) {
         assets.scripts({name: 'main', asyncAssets: immediateAsyncAssets}),
       ]);
 
-      const response = renderMarkup(
+      const response = stream(
         <Html
           locale={locale}
           manager={htmlManager}
