@@ -4,6 +4,7 @@ import {EffectContext} from './context';
 import {EffectManager} from './manager';
 import {Pass} from './types';
 
+export {Pass};
 export {Effect} from './Effect';
 
 interface Options {

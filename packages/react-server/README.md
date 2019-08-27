@@ -87,16 +87,14 @@ Creates a Koa middleware which renders an `@shopify/react-html` application.
 import {createRender} from '@shopify/react-server';
 ```
 
-The `createRender` function takes a subset of the `Options` object used by `createServer`.
+The `createRender` function takes two arguments. The first is a render function that should return the main component at the top of the application tree in JSX. This function receives the full [Koa](https://github.com/koajs/koa/) server context which can be used to derive any necessary props to feed into the main component.
 
-```tsx
-interface Options {
-  port?: number;
-  ip?: string;
-  assetPrefix?: string;
-  debug?: boolean;
-  render: RenderFunction;
-}
-```
+The second argument is a subset of [`@shopify/react-effect#extract`](../react-effect/README.md#extract)'s options which are simply delegated to the `extract` call within the `createRender` middleware.
+
+#### Options
+
+- `afterEachPass?(pass: Pass): any` see [`@shopify/react-effect#extract`](../react-effect/README.md#extract)
+
+- `betweenEachPass?(pass: Pass): any` see [`@shopify/react-effect#extract`](../react-effect/README.md#extract)
 
 It returns a [Koa](https://github.com/koajs/koa/) middleware.

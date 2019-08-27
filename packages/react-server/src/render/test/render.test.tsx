@@ -1,6 +1,7 @@
 import React from 'react';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
+import {Effect} from '@shopify/react-effect/server';
 import {createRender, RenderContext} from '../render';
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
@@ -52,6 +53,41 @@ describe('createRender', () => {
         500,
         new Error(meaningfulErrorMessage),
       );
+    });
+  });
+
+  describe('afterEachPass()', () => {
+    it('is called with the current pass object', async () => {
+      const ctx = createMockContext();
+      const afterEachPass = jest.fn();
+      const renderFunction = createRender(() => <>Markup</>, {afterEachPass});
+
+      await renderFunction(ctx);
+
+      expect(afterEachPass).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('betweenEachPass()', () => {
+    it('is called for each pass with current pass object', async () => {
+      const ctx = createMockContext();
+      const betweenEachPass = jest.fn();
+      const renderFunction = createRender(
+        () => (
+          <>
+            <Effect perform={() => Promise.resolve()} />
+          </>
+        ),
+        {
+          betweenEachPass,
+        },
+      );
+
+      await renderFunction(ctx);
+
+      // 4 is used here because the default maxPasses
+      // is 5 which allows 4 `betweenEachPass()` calls
+      expect(betweenEachPass).toHaveBeenCalledTimes(4);
     });
   });
 });
