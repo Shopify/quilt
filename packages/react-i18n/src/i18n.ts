@@ -272,9 +272,9 @@ export class I18n {
   ): string {
     const {locale} = this;
     const sym = this.getBareCurrencySymbol(options.currency);
-    adjustedPrecision = precision;
+    let adjustedPrecision = precision;
     if (adjustedPrecision === undefined) {
-      currency = options.currency || this.defaultCurrency || '';
+      const currency = options.currency || this.defaultCurrency || '';
       adjustedPrecision = CURRENCY_DIGITS[currency];
     }
     const formattedAmount = memoizedNumberFormatter(locale, {
