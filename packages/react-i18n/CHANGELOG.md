@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+- Added `formatCurrencyShort()` and `formatCurrencyExplicit()` to `I18n` ([#916](https://github.com/Shopify/quilt/pull/916))
+
 ## [1.6.0] - 2019-08-23
 
 ### Added

@@ -44,6 +44,29 @@ const DECIMAL_NOT_SUPPORTED = 'N/A';
 const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 
+// Specifies the number of fractional digits for those currencies that don't use two digits.
+const CURRENCY_DIGITS = {
+  BYR: 0,
+  CLP: 0,
+  ISK: 0,
+  JPY: 0,
+  KRW: 0,
+  PYG: 0,
+  RWF: 0,
+  UGX: 0,
+  VND: 0,
+  XAF: 0,
+  XOF: 0,
+  XPF: 0,
+
+  BHD: 3,
+  IQD: 3,
+  JOD: 3,
+  KWD: 3,
+  OMR: 3,
+  TND: 3,
+};
+
 const memoizedDateTimeFormatter = memoizeFn(
   dateTimeFormatter,
   (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
@@ -231,6 +254,43 @@ export class I18n {
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
+  formatCurrencyExplicit(
+    amount: number,
+    options: Intl.NumberFormatOptions = {},
+  ): string {
+    const value = this.formatCurrencyShort(amount, options);
+    const isoCode = options.currency || this.defaultCurrency || '';
+    if (value.includes(isoCode)) {
+      return value;
+    }
+    return `${value} ${isoCode}`;
+  }
+
+  formatCurrencyShort(
+    amount: number,
+    {precision, ...options}: NumberFormatOptions = {},
+  ): string {
+    const {locale} = this;
+    const sym = this.getBareCurrencySymbol(options.currency);
+    adjustedPrecision = precision;
+    if (adjustedPrecision === undefined) {
+      currency = options.currency || this.defaultCurrency || '';
+      adjustedPrecision = CURRENCY_DIGITS[currency];
+    }
+    const formattedAmount = memoizedNumberFormatter(locale, {
+      style: 'decimal',
+      minimumFractionDigits: adjustedPrecision,
+      maximumFractionDigits: adjustedPrecision,
+      ...options,
+    }).format(amount);
+
+    if (sym.prefixed) {
+      return sym.symbol + formattedAmount;
+    } else {
+      return formattedAmount + sym.symbol;
+    }
+  }
+
   unformatCurrency(input: string, currencyCode: string): string {
     // This decimal symbol will always be '.' regardless of the locale
     // since it's our internal representation of the string
@@ -297,6 +357,26 @@ export class I18n {
     }
 
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
+  }
+
+  // Return just the symbol (e.g. '$') instead of the localized symbol (e.g. 'US$').
+  // If the currency has no symbol, then the ISO code is returned.
+  getBareCurrencySymbol(currencyCode?: string) {
+    const currency = currencyCode || this.defaultCurrency || '';
+    const countryCode = currency.substring(0, 2);
+    const info = this.getCurrencySymbol(currency);
+    const bareSymbol = info.symbol.replace(countryCode, '');
+
+    if (bareSymbol.match(/[A-Z]/)) {
+      // It looks like we have an ISO-code, not a symbol.  Return the full code.
+      return info;
+    } else {
+      // It looks like we have a symbol.  Strip the country code (if present), and return what's left.
+      return {
+        symbol: bareSymbol,
+        prefixed: info.prefixed,
+      };
+    }
   }
 
   getCurrencySymbol = (currencyCode?: string) => {
