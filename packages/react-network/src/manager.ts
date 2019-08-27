@@ -27,7 +27,7 @@ export class NetworkManager {
   private readonly requestHeaders?: Record<string, string>;
 
   constructor({headers}: Options = {}) {
-    this.requestHeaders = headers;
+    this.requestHeaders = headers && normalizeHeaders(headers);
   }
 
   reset() {
@@ -103,4 +103,11 @@ export class NetworkManager {
       redirectUrl: this.redirectUrl,
     };
   }
+}
+
+function normalizeHeaders(headers: Record<string, string>) {
+  return Object.keys(headers).reduce(function(accumulator, key) {
+    accumulator[key.toLowerCase()] = headers[key];
+    return accumulator;
+  }, {});
 }
