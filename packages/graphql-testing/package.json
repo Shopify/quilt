@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/graphql-testing/README.md",
   "dependencies": {
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
-    "apollo-client": "^2.3.8",
+    "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
     "graphql": "^14.0.0"
   },
