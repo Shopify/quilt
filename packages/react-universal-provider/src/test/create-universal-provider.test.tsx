@@ -47,7 +47,7 @@ describe('createUniversalProvider()', () => {
     );
   });
 
-  it('renders a RandomContext.Provider with value from the serializes value when value are provided on both server and client', async () => {
+  it('renders a RandomContext.Provider with value from server when value are provided on both server and client', async () => {
     const htmlManager = new HtmlManager();
     const serverRandomValue = faker.lorem.word();
     const clientRandomValue = faker.lorem.word();
