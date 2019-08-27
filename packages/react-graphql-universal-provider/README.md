@@ -100,10 +100,8 @@ import {InMemoryCache} from 'apollo-inmemory-cache';
 import {createHttpLink} from 'apollo-link-http';
 
 import {useRequestHeader} from '@shopify/react-network';
-import {
-  GraphQLUniversalProvider,
-  useCsrfToken,
-} from '@shopify/react-graphql-universal-provider';
+import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
+import {useCsrfToken} from '@shopify/react-csrf';
 
 function GraphQL({
   server,
