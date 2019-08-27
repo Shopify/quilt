@@ -594,6 +594,75 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrencyExplicit()', () => {
+    const amount = 1234.56;
+    const data = [
+      ['de-AT', 'EUR', '€ ', true, '€ 1 234,56 EUR'],
+      ['de-AT', 'JPY', '¥ ', true, '¥ 1 235 JPY'],
+      ['de-AT', 'OMR', 'OMR ', true, 'OMR 1 234,560'],
+      ['de-AT', 'USD', '$ ', true, '$ 1 234,56 USD'],
+
+      ['en-US', 'EUR', '€ ', true, '€ 1,234.56 EUR'],
+      ['en-US', 'JPY', '¥ ', true, '¥ 1,235 JPY'],
+      ['en-US', 'OMR', 'OMR ', true, 'OMR 1,234.560'],
+      ['en-US', 'USD', '$ ', true, '$ 1,234.56 USD'],
+
+      ['fr-FR', 'EUR', ' €', false, '1 234,56 € EUR'],
+      ['fr-FR', 'JPY', ' JPY', false, '1 235 JPY'],
+      ['fr-FR', 'OMR', ' OMR', false, '1 234,560 OMR'],
+      ['fr-FR', 'USD', ' $US', false, '1 234,56 $ USD'],
+    ];
+
+    for (const datum of data) {
+      const locale = datum[0];
+      const currency = datum[1];
+      const mockSymbolResult = {
+        symbol: datum[2],
+        prefixed: datum[3],
+      };
+      const expected = datum[4];
+
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, {locale});
+      expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+    }
+  });
+
+  describe('#formatCurrencyShort()', () => {
+    const amount = 1234.56;
+    const data = [
+      ['de-AT', 'EUR', '€ ', true, '€ 1 234,56'],
+      ['de-AT', 'JPY', '¥ ', true, '¥ 1 235'],
+      ['de-AT', 'OMR', 'OMR ', true, 'OMR 1 234,560'],
+      ['de-AT', 'USD', '$ ', true, '$ 1 234,56'],
+
+      ['en-US', 'EUR', '€ ', true, '€ 1,234.56'],
+      ['en-US', 'JPY', '¥ ', true, '¥ 1,235'],
+      ['en-US', 'OMR', 'OMR ', true, 'OMR 1,234.560'],
+      ['en-US', 'USD', '$ ', true, '$ 1,234.56'],
+
+      ['fr-FR', 'EUR', ' €', false, '1 234,56 €'],
+      ['fr-FR', 'JPY', ' JPY', false, '1 235 JPY'],
+      ['fr-FR', 'OMR', ' OMR', false, '1 234,560 OMR'],
+      ['fr-FR', 'USD', ' $US', false, '1 234,56 $'],
+    ];
+
+    for (const datum of data) {
+      const locale = datum[0];
+      const currency = datum[1];
+      const mockSymbolResult = {
+        symbol: datum[2],
+        prefixed: datum[3],
+      };
+      const expected = datum[4];
+
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, {locale});
+      expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+    }
+  });
   describe('#unformatCurrency()', () => {
     const mockSymbolResult = {
       symbol: '$',
@@ -927,7 +996,7 @@ describe('I18n', () => {
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Short})).toBe(
-        'Dec 20, 2012',
+        'Dec. 20, 2012',
       );
     });
 
@@ -986,7 +1055,7 @@ describe('I18n', () => {
         timezone,
       });
 
-      expect(i18n.formatDate(date, {style: DateStyle.Time})).toBe('11:00 AM');
+      expect(i18n.formatDate(date, {style: DateStyle.Time})).toBe('11:00 a.m.');
     });
 
     it('updates format on multiple calls', () => {

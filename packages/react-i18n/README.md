@@ -123,7 +123,9 @@ export default withI18n()(NotFound);
 The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
 
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
-- `formatCurrency()`: formats a number as a currency according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`.
+- `formatCurrency()`: formats a number as a currency according to the locale. Convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`.
+- `formatCurrencyExplicit()`: formats a number as currency according to the locale. The currency's ISO code is included to disambiguate the displayed amount.  Examples:  `CHF 1,25`, `€ 1,25 EUR`, `OMR 1.250`, `$ 1.25 USD`
+- `formatCurrencyShort()`: formats a number as currency according to the locale. If the currency has a symbol, then that symbol is used and the currency's ISO code is omitted.  Examples:  `CHF 1,25`, `€ 1,25`, `OMR 1.250`, `$ 1.25`
 - `formatPercentage()`: formats a number as a percentage according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
