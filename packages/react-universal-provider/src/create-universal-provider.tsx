@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSerialized} from '@shopify/react-html';
 
-interface Props<Value> {
+export interface UniversalProviderProps<Value> {
   value?: Value;
   children?: React.ReactNode;
 }
@@ -11,7 +11,7 @@ export function createUniversalProvider<Value>(
   Context: React.Context<Value | null>,
 ) {
   const UniversalProvider = React.memo(
-    ({value: explicitValue, children}: Props<Value>) => {
+    ({value: explicitValue, children}: UniversalProviderProps<Value>) => {
       const [value = explicitValue, Serialize] = useSerialized<Value>(id);
 
       if (!value) {
