@@ -55,6 +55,7 @@ Each package has its own `README` and documentation describing usage.
 | react-form-state | [directory](packages/react-form-state) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg)](https://badge.fury.io/js/%40shopify%2Freact-form-state) |
 | react-google-analytics | [directory](packages/react-google-analytics) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg)](https://badge.fury.io/js/%40shopify%2Freact-google-analytics) |
 | react-graphql | [directory](packages/react-graphql) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-graphql.svg)](https://badge.fury.io/js/%40shopify%2Freact-graphql) |
+| react-graphql-universal-provider | [directory](packages/react-graphql-universal-provider) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-graphql-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-graphql-universal-provider) |
 | react-hooks | [directory](packages/react-hooks) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-hooks.svg)](https://badge.fury.io/js/%40shopify%2Freact-hooks) |
 | react-html | [directory](packages/react-html) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html) |
 | react-hydrate | [directory](packages/react-hydrate) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-hydrate.svg)](https://badge.fury.io/js/%40shopify%2Freact-hydrate) |
