@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Arguments, MaybeFunctionReturnType} from '@shopify/useful-types';
 
 export type PropsFor<

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {HydrationTracker} from '@shopify/react-hydrate';
 
 import {State} from '../manager';

@@ -71,7 +71,7 @@ This example assume the consuming app uses both
 ```typescript
 import React from 'react';
 import {AppProvider} from '@shopify/polaris';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default function MyApp() {
   return (
@@ -90,7 +90,7 @@ export default function MyApp() {
 ```typescript
 import React from 'react';
 import {RoutePropagator} from '@shopify/react-shopify-app-route-propagator';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class Routes extends React.Component {
   // This line is very important! It tells React to attach the `polaris`
