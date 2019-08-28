@@ -106,7 +106,7 @@ export class NetworkManager {
 }
 
 function normalizeHeaders(headers: Record<string, string>) {
-  return Object.keys(headers).reduce(function(accumulator, key) {
+  return Object.keys(headers).reduce((accumulator, key) => {
     accumulator[key.toLowerCase()] = headers[key];
     return accumulator;
   }, {});
