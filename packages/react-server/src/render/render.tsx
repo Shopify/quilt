@@ -11,6 +11,7 @@ import {
   NetworkContext,
   NetworkManager,
 } from '@shopify/react-network/server';
+import {ArgumentAtIndex} from '@shopify/useful-types';
 import {extract} from '@shopify/react-effect/server';
 import {
   AsyncAssetContext,
@@ -26,12 +27,17 @@ export type RenderContext = Context & {
 };
 export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
 
+type Options = Pick<
+  NonNullable<ArgumentAtIndex<typeof extract, 1>>,
+  'afterEachPass' | 'betweenEachPass'
+>;
+
 /**
  * Creates a Koa middleware for rendering an `@shopify/react-html` based React application defined by `options.render`.
  * @param render
  */
-export function createRender(render: RenderFunction) {
-  return async function renderFunction(ctx: RenderContext) {
+export function createRender(render: RenderFunction, options: Options = {}) {
+  return async function renderFunction(ctx: Context) {
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
     const networkManager = new NetworkManager({
@@ -67,6 +73,7 @@ export function createRender(render: RenderFunction) {
           logger.log(rendering);
           logger.log(resolving);
         },
+        ...options,
       });
       applyToContext(ctx, networkManager);
 

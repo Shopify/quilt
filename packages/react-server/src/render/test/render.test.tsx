@@ -1,6 +1,7 @@
 import React from 'react';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
+import {Effect} from '@shopify/react-effect/server';
 import {createRender, RenderContext} from '../render';
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
@@ -52,6 +53,39 @@ describe('createRender', () => {
         500,
         new Error(meaningfulErrorMessage),
       );
+    });
+  });
+
+  describe('afterEachPass()', () => {
+    it('is called in the render middleware', async () => {
+      const ctx = createMockContext();
+      const afterEachPass = jest.fn();
+      const renderFunction = createRender(() => <>Markup</>, {afterEachPass});
+
+      await renderFunction(ctx);
+
+      expect(afterEachPass).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('betweenEachPass()', () => {
+    it('is called in the render middleware', async () => {
+      const ctx = createMockContext();
+      const betweenEachPass = jest.fn();
+      const renderFunction = createRender(
+        () => (
+          <>
+            <Effect perform={() => Promise.resolve()} />
+          </>
+        ),
+        {
+          betweenEachPass,
+        },
+      );
+
+      await renderFunction(ctx);
+
+      expect(betweenEachPass.mock.calls.length).toBeGreaterThanOrEqual(1);
     });
   });
 });
