@@ -1,5 +1,5 @@
 import {readdirSync, readFileSync, existsSync} from 'fs';
-import * as path from 'path';
+import path from 'path';
 
 describe('package name', () => {
   it('matches the path name', () => {

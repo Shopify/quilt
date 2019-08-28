@@ -1,7 +1,7 @@
 import {readFileSync} from 'fs';
-import * as path from 'path';
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import path from 'path';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {graphql} from 'react-apollo';
 
 import {mount} from 'enzyme';

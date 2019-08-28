@@ -22,7 +22,7 @@ Wrapping your application in a `<ShortcutProvider />` allows you to use `<Shortc
 ```ts
 // App.ts
 
-import * as React from 'react';
+import React from 'react';
 import {ShortcutProvider} from '@shopify/react-shortcuts';
 
 export default function App() {
@@ -72,7 +72,7 @@ export interface Props {
 ```ts
 // MyComponent.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {Shortcut} from '@shopify/react-shortcuts';
 
 export default function MyComponent() {
@@ -90,7 +90,7 @@ export default function MyComponent() {
 ```ts
 // MyComponent.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {Shortcut} from '@shopify/react-shortcuts';
 
 export default function MyComponent() {
@@ -112,7 +112,7 @@ You may also want to provide alternate groupings of `held` modifier keys. For ex
 ```ts
 // MyComponent.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {Shortcut} from '@shopify/react-shortcuts';
 
 export default function MyComponent() {
@@ -141,7 +141,7 @@ Provide a node in the form of a `ref`. `<Shortcut />` will automatically subscri
 ```ts
 // MyComponent.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {Shortcut} from '@shopify/react-shortcuts';
 
 class MyComponent extends React.Component {
@@ -190,7 +190,7 @@ The below example illustrates the same basic functionality as the `<Shortcut />`
 ```ts
 // MyComponent.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {useShortcut} from '@shopify/react-shortcuts';
 
 export default function MyComponent() {
@@ -226,7 +226,7 @@ you might want to add a `ShortcutManager` to it's context in an enzyme test to p
 ```ts
 // MyComponent.test.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {mount} from 'enzyme';
 import {ShortcutManager, Shortcut} from '@shopify/react-shortcuts';
 
