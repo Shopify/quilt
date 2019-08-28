@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-08-28
+
 ### Added
 
 - `@shopify/react-app-bridge-universal-provider` package
