@@ -1,5 +1,12 @@
 # `@shopify/react-self-serializers`
 
+**Note**: This module is now deprecated. Use the following packages instead.
+
+[@shopify/react-app-bridge-universal-provider](../react-app-bridge-universal-provider)
+[@shopify/react-graphql-universal-provider`](../react-graphql-universal-provider)
+[@shopify/react-i18n-universal-provider](../react-i18n-universal-provider)
+[@shopify/react-universal-provider](../react-universal-provider)
+
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg)](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)
 
