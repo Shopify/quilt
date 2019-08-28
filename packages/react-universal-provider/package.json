@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/react-network",
-  "version": "3.1.7",
+  "name": "@shopify/react-universal-provider",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "A collection of components that allow you to set common HTTP headers from within your React application.",
+  "description": "Factory function and utilities to create self-serializing/deserializing provider that works for isomorphic applications.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
@@ -22,19 +22,19 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-network/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-universal-providers/README.md",
   "dependencies": {
-    "@shopify/network": "^1.4.1",
-    "@shopify/react-effect": "^3.2.1",
-    "@types/koa": "^2.0.46",
-    "tslib": "^1.9.3"
+    "@shopify/react-html": ">=8.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
+    "@shopify/react-testing": "^1.7.5",
+    "faker": "^4.1.0",
     "typescript": "~3.2.1"
   },
   "files": [
-    "dist/*",
-    "server.js",
-    "server.d.ts"
+    "dist/*"
   ]
 }
