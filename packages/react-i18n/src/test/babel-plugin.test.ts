@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 import {transformAsync, TransformOptions} from '@babel/core';
 import i18nBabelPlugin from '../babel-plugin';
 
@@ -91,7 +91,7 @@ describe('babel-pluin-react-i18n', () => {
 
   it('does not inject arguments when no adjacent translations exist', async () => {
     const code = await normalize(
-      `import * as React from 'react';
+      `import React from 'react';
       import {withI18n} from '@shopify/react-i18n';
 
       function MyComponent({i18n}) {

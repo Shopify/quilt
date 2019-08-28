@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {mount} from '@shopify/react-testing';
 import {Script} from '../Script';
 
