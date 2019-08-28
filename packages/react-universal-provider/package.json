@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-universal-provider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Factory function and utilities to create self-serializing/deserializing provider that works for isomorphic applications.",
   "main": "dist/index.js",
@@ -24,13 +24,13 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-universal-providers/README.md",
   "dependencies": {
-    "@shopify/react-html": ">=8.0.0"
+    "@shopify/react-html": "^9.2.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^1.7.5",
+    "@shopify/react-testing": "^1.7.7",
     "faker": "^4.1.0",
     "typescript": "~3.2.1"
   },
