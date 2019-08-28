@@ -27,8 +27,9 @@ export type RenderContext = Context & {
 };
 export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
 
-type Options = Partial<
-  Pick<ArgumentAtIndex<typeof extract, 1>, 'afterEachPass' | 'betweenEachPass'>
+type Options = Pick<
+  NonNullable<ArgumentAtIndex<typeof extract, 1>>,
+  'afterEachPass' | 'betweenEachPass'
 >;
 
 /**
