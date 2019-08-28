@@ -268,11 +268,11 @@ export class I18n {
 
   formatCurrencyShort(
     amount: number,
-    {precision, ...options}: NumberFormatOptions = {},
+    options: NumberFormatOptions = {},
   ): string {
     const {locale} = this;
     const sym = this.getBareCurrencySymbol(options.currency);
-    let adjustedPrecision = precision;
+    let adjustedPrecision = options.precision;
     if (adjustedPrecision === undefined) {
       const currency = options.currency || this.defaultCurrency || '';
       adjustedPrecision = CURRENCY_DIGITS[currency];
