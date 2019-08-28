@@ -46,6 +46,7 @@ Each package has its own `README` and documentation describing usage.
 | performance | [directory](packages/performance) | [![npm version](https://badge.fury.io/js/%40shopify%2Fperformance.svg)](https://badge.fury.io/js/%40shopify%2Fperformance) |
 | polyfills | [directory](packages/polyfills) | [![npm version](https://badge.fury.io/js/%40shopify%2Fpolyfills.svg)](https://badge.fury.io/js/%40shopify%2Fpolyfills) |
 | predicates | [directory](packages/predicates) | [![npm version](https://badge.fury.io/js/%40shopify%2Fpredicates.svg)](https://badge.fury.io/js/%40shopify%2Fpredicates) |
+| react-app-bridge-universal-provider | [directory](packages/react-app-bridge-universal-provider) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-app-bridge-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-app-bridge-universal-provider) |
 | react-async | [directory](packages/react-async) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-async.svg)](https://badge.fury.io/js/%40shopify%2Freact-async) |
 | react-compose | [directory](packages/react-compose) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose) |
 | react-csrf | [directory](packages/react-csrf) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-csrf.svg)](https://badge.fury.io/js/%40shopify%2Freact-csrf) |
