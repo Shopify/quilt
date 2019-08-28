@@ -42,4 +42,4 @@ Please make sure you update `CHANGELOG.md` with a high-level description of any 
 
 ## Releasing a new version
 
-The `yarn version` command can be used to create a new version. This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+The `yarn release` command can be used to create a new version. This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
