@@ -1,7 +1,8 @@
-import {resolve, join} from 'path';
-import {existsSync, mkdir} from 'fs-extra';
-import {Compiler, Plugin} from 'webpack';
+import {join, resolve} from 'path';
+import {existsSync} from 'fs-extra';
+import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
+import glob from 'glob';
 
 interface Options {
   basePath: string;
@@ -9,10 +10,6 @@ interface Options {
   host?: string;
   port?: number;
   rails?: boolean;
-}
-
-enum Section {
-  App = 'app',
 }
 
 enum Entrypoint {
@@ -50,117 +47,89 @@ export class ReactServerPlugin {
 
   apply(compiler: Compiler) {
     const modules = this.modules(compiler);
-    const virtualModules = (new VirtualModulesPlugin(modules) as any) as Plugin;
-    virtualModules.apply(compiler);
+    const virtualModules = new VirtualModulesPlugin(modules);
+    (virtualModules as any).apply(compiler);
   }
 
   private modules(compiler: Compiler) {
-    const {basePath, rails} = this.options;
+    const {basePath} = this.options;
     const modules: Record<string, string> = {};
 
-    if (!rails && this.noSourceExists(Section.App, compiler)) {
-      modules[`${join(basePath, Section.App, 'index')}.js`] = appSource();
+    if (noSourceExists(Entrypoint.Client, this.options, compiler)) {
+      const file = join(basePath, `${Entrypoint.Client}.js`);
+      modules[file] = clientSource();
     }
 
-    if (this.noSourceExists(Entrypoint.Client, compiler)) {
-      const file = join(basePath, Entrypoint.Client, rails ? '' : 'index');
-      modules[`${file}.js`] = this.clientSource();
-    }
-
-    if (this.noSourceExists(Entrypoint.Server, compiler)) {
-      const file = join(basePath, Entrypoint.Server, rails ? '' : 'index');
-      modules[`${file}.js`] = this.serverSource();
+    if (noSourceExists(Entrypoint.Server, this.options, compiler)) {
+      const file = join(basePath, `${Entrypoint.Server}.js`);
+      modules[file] = serverSource(this.options);
     }
 
     return modules;
   }
-
-  private serverSource() {
-    const {rails, port, host, assetPrefix} = this.options;
-    const appImport = rails ? "'./index'" : "'../app'";
-    const serverPort = port ? port : 'process.env.REACT_SERVER_PORT || 8081';
-
-    const serverIp = host
-      ? `'${host}'`
-      : 'process.env.REACT_SERVER_IP || "localhost"';
-
-    const serverAssetPrefix = assetPrefix
-      ? assetPrefix
-      : 'process.env.CDN_URL || "localhost:8080/assets/webpack"';
-
-    return `
-      ${HEADER}
-      import 'isomorphic-fetch';
-      import React from 'react';
-      import {createServer} from '@shopify/react-server';
-      import App from ${appImport};
-      const render = (ctx) =>
-      React.createElement(App, {
-        server: true,
-        location: ctx.request.url,
-      });
-      
-      const app = createServer({
-        port: ${serverPort},
-        ip: ${serverIp},
-        assetPrefix: '${serverAssetPrefix}',
-        render,
-      });
-      export default app;
-    `;
-  }
-
-  private clientSource() {
-    const appImport = this.options.rails ? "'./index'" : "'../app'";
-
-    return `
-      ${HEADER}
-      import React from 'react';
-      import ReactDOM from 'react-dom';
-      import {showPage} from '@shopify/react-html';
-      import App from ${appImport};
-  
-      const appContainer = document.getElementById('app');
-      ReactDOM.hydrate(React.createElement(App), appContainer);
-      showPage();
-    `;
-  }
-
-  private noSourceExists(
-    entry: Entrypoint | Section,
-    {inputFileSystem, options: {context = ''}}: Compiler,
-  ) {
-    const {basePath: path, rails} = this.options;
-    const basePath = resolve(context, path);
-    const resolvedPath = rails ? `${basePath}` : `${basePath}/${entry}`;
-
-    if (!rails) {
-      if (!existsSync(resolvedPath)) {
-        // In node projects, if /client, /server or /app dirs dont exist, create them so VirtualModulesPlugin can resolve the modules paths
-        mkdir(resolvedPath);
-        return true;
-      }
-    }
-
-    const matcher = rails ? entry : 'index';
-    const filenameRegex = new RegExp(`^${matcher}.[jt]sx?$`);
-
-    const dirFiles = (inputFileSystem as any).readdirSync(resolvedPath);
-    const exists = dirFiles.find(file => filenameRegex.test(file)) == null;
-    return exists;
-  }
 }
 
-function appSource() {
+function serverSource(options: Options) {
+  const {port, host, assetPrefix} = options;
+  const serverPort = port ? port : 'process.env.REACT_SERVER_PORT || 8081';
+
+  const serverIp = host
+    ? JSON.stringify(host)
+    : 'process.env.REACT_SERVER_IP || "localhost"';
+
+  const serverAssetPrefix = assetPrefix
+    ? JSON.stringify(assetPrefix)
+    : 'process.env.CDN_URL || "localhost:8080/assets/webpack"';
+
   return `
     ${HEADER}
-    import React from 'react';  
-    export default function App() {
-      return React.createElement(
-        'p', 
-        {}, 
-        "This is a boilerplate component provided by @shopify/react-server. To get started with a real component, export a component from './app/index.{js,ts}"
-      );
-    }
+    import React from 'react';
+    import {createServer} from '@shopify/react-server';
+    import App from 'index';
+
+    const render = (ctx) =>
+    React.createElement(App, {
+      server: true,
+      location: ctx.request.url,
+    });
+
+    const app = createServer({
+      port: ${serverPort},
+      ip: ${serverIp},
+      assetPrefix: ${serverAssetPrefix},
+      render,
+    });
+    export default app;
   `;
+}
+
+function clientSource() {
+  return `
+    ${HEADER}
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import {showPage} from '@shopify/react-html';
+    import App from 'index';
+
+    const appContainer = document.getElementById('app');
+    ReactDOM.hydrate(React.createElement(App), appContainer);
+    showPage();
+  `;
+}
+
+function noSourceExists(
+  entry: Entrypoint,
+  options: Options,
+  {options: {context = ''}}: Compiler,
+) {
+  const {basePath: path, rails} = options;
+  const basePath = resolve(context, path);
+
+  if (!rails && existsSync(`${basePath}/${entry}`)) {
+    // In node, we assume the user knows what they're doing if the folder exists
+    return false;
+  }
+
+  const dirFiles = glob.sync(`${basePath}/${entry}.{ts,js,tsx,jsx}`);
+  return dirFiles.length === 0;
 }

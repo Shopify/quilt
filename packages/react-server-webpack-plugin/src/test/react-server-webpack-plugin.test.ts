@@ -7,44 +7,23 @@ const BUILD_TIMEOUT = 10000;
 describe('react-server-webpack-plugin', () => {
   describe('node', () => {
     it(
-      'generates the client entrypoint with a client module and app module when they do not exist',
+      'generates the server and client entrypoints when they do not exist',
       async () => {
-        const [_, clientResults] = await runBuild('no-entrypoints', true);
-
-        const clientModules = clientResults.modules.find(({name}) =>
-          name.includes('./client/index.js'),
+        const [serverResults, clientResults] = await runBuild(
+          'no-entrypoints',
+          true,
         );
 
-        const clientModule = clientModules.modules.find(
-          ({name}) => name === './client/index.js',
+        const clientModule = clientResults.modules.find(({name}) =>
+          name.includes('./client.js'),
         );
-        const appModule = clientModules.modules.find(
-          ({name}) => name === './app/index.js',
+
+        const serverModule = serverResults.modules.find(({name}) =>
+          name.includes('./server.js'),
         );
+
         expect(clientModule.source).toMatch(HEADER);
-        expect(appModule.source).toMatch(HEADER);
-      },
-      BUILD_TIMEOUT,
-    );
-
-    it(
-      'generates the server entrypoint with a server module and app module when they do not exist',
-      async () => {
-        const [serverResults, _] = await runBuild('no-entrypoints', true);
-
-        const serverModules = serverResults.modules.find(({name}) =>
-          name.includes('./server/index.js'),
-        );
-
-        const serverModule = serverModules.modules.find(
-          ({name}) => name === './server/index.js',
-        );
-        const appModule = serverModules.modules.find(
-          ({name}) => name === './app/index.js',
-        );
-
         expect(serverModule.source).toMatch(HEADER);
-        expect(appModule.source).toMatch(HEADER);
       },
       BUILD_TIMEOUT,
     );
@@ -72,7 +51,6 @@ describe('react-server-webpack-plugin', () => {
       'uses process.env to default port and host',
       async () => {
         const [serverResults] = await runBuild('no-entrypoints');
-
         const serverModule = serverResults.modules.find(
           ({name}) => name === './server.js',
         );
@@ -145,15 +123,14 @@ describe('react-server-webpack-plugin', () => {
       'uses the given server configuration options',
       async () => {
         const [serverResults] = await runBuild('custom-server-config');
-
         const serverModule = serverResults.modules.find(
           ({name}) => name === './server.js',
         );
 
         expect(serverModule.source).toMatch('port: 3000');
-        expect(serverModule.source).toMatch("ip: '127.0.0.1'");
+        expect(serverModule.source).toMatch('ip: "127.0.0.1"');
         expect(serverModule.source).toMatch(
-          "assetPrefix: 'https://localhost/webpack/assets'",
+          'assetPrefix: "https://localhost/webpack/assets"',
         );
       },
       BUILD_TIMEOUT,
@@ -161,16 +138,15 @@ describe('react-server-webpack-plugin', () => {
   });
 });
 
-function runBuild(configPath: string, useNodeConfig?: boolean): Promise<any[]> {
+function runBuild(configPath: string, useNodeConfig = false): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
       './packages/react-server-webpack-plugin/src/test/fixtures',
       configPath,
     );
 
-    const fileName = useNodeConfig ? 'node.webpack' : 'webpack';
-    // eslint-disable-next-line typescript/no-var-requires
-    const config = require(`${pathFromRoot}/${fileName}.config.js`);
+    const config = require(`${pathFromRoot}/webpack.config.js`)(useNodeConfig);
+
     const contextConfig = Array.isArray(config)
       ? config.map(config => ({
           ...config,
