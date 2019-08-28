@@ -597,6 +597,8 @@ describe('I18n', () => {
   describe('#formatCurrencyExplicit()', () => {
     const amount = 1234.56;
     const data = [
+      ['cs-CZ', 'CZK', ' Kč', false, '1 234,56 Kč CZK'],
+
       ['de-AT', 'EUR', '€ ', true, '€ 1 234,56 EUR'],
       ['de-AT', 'JPY', '¥ ', true, '¥ 1 235 JPY'],
       ['de-AT', 'OMR', 'OMR ', true, 'OMR 1 234,560'],
@@ -613,25 +615,29 @@ describe('I18n', () => {
       ['fr-FR', 'USD', ' $US', false, '1 234,56 $ USD'],
     ];
 
-    for (const datum of data) {
-      const locale = datum[0];
-      const currency = datum[1];
-      const mockSymbolResult = {
-        symbol: datum[2],
-        prefixed: datum[3],
-      };
-      const expected = datum[4];
+    it('formats as expected in several locales', () => {
+      for (const datum of data) {
+        const locale = datum[0];
+        const currency = datum[1];
+        const mockSymbolResult = {
+          symbol: datum[2],
+          prefixed: datum[3],
+        };
+        const expected = datum[4];
 
-      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
-      const i18n = new I18n(defaultTranslations, {locale});
-      expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
-    }
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+      }
+    });
   });
 
   describe('#formatCurrencyShort()', () => {
     const amount = 1234.56;
     const data = [
+      ['cs-CZ', 'CZK', ' Kč', false, '1 234,56 Kč'],
+
       ['de-AT', 'EUR', '€ ', true, '€ 1 234,56'],
       ['de-AT', 'JPY', '¥ ', true, '¥ 1 235'],
       ['de-AT', 'OMR', 'OMR ', true, 'OMR 1 234,560'],
@@ -648,20 +654,22 @@ describe('I18n', () => {
       ['fr-FR', 'USD', ' $US', false, '1 234,56 $'],
     ];
 
-    for (const datum of data) {
-      const locale = datum[0];
-      const currency = datum[1];
-      const mockSymbolResult = {
-        symbol: datum[2],
-        prefixed: datum[3],
-      };
-      const expected = datum[4];
+    it('formats as expected in several locales', () => {
+      for (const datum of data) {
+        const locale = datum[0];
+        const currency = datum[1];
+        const mockSymbolResult = {
+          symbol: datum[2],
+          prefixed: datum[3],
+        };
+        const expected = datum[4];
 
-      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
-      const i18n = new I18n(defaultTranslations, {locale});
-      expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
-    }
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+      }
+    });
   });
   describe('#unformatCurrency()', () => {
     const mockSymbolResult = {
