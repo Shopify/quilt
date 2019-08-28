@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix SSR when using `cache-and-network` fetch policy with `useQuery` ([#928](https://github.com/Shopify/quilt/pull/928))
+
 ## [5.0.0] - 2019-08-20
 
 ### Changed
