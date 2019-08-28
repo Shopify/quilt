@@ -1,15 +1,39 @@
+const path = require('path');
 const {ReactServerPlugin} = require('../../../react-server-webpack-plugin');
-const {serverConfig, clientConfig} = require('../webpack-utilities');
 
-const universal = {
-  plugins: [new ReactServerPlugin({basePath: './app/ui'})],
-};
+module.exports = function config() {
+  const universal = {
+    mode: 'production',
+    optimization: {
+      minimize: false,
+    },
+    plugins: [new ReactServerPlugin({basePath: './app/ui'})],
+    resolve: {
+      modules: ['node_modules', path.resolve(__dirname, 'app', 'ui')],
+    },
+  };
 
-module.exports = [
-  serverConfig(universal, {
+  const server = {
+    ...universal,
+    name: 'server',
+    target: 'node',
     entry: './app/ui/server',
-  }),
-  clientConfig(universal, {
+    externals: [
+      (context, request, callback) => {
+        if (/node_modules/.test(context)) {
+          return callback(null, `commonjs ${request}`);
+        }
+        callback();
+      },
+    ],
+  };
+
+  const client = {
+    ...universal,
+    name: 'client',
+    target: 'web',
     entry: './app/ui/client',
-  }),
-];
+  };
+
+  return [server, client];
+};
