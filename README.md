@@ -48,6 +48,7 @@ Each package has its own `README` and documentation describing usage.
 | predicates | [directory](packages/predicates) | [![npm version](https://badge.fury.io/js/%40shopify%2Fpredicates.svg)](https://badge.fury.io/js/%40shopify%2Fpredicates) |
 | react-async | [directory](packages/react-async) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-async.svg)](https://badge.fury.io/js/%40shopify%2Freact-async) |
 | react-compose | [directory](packages/react-compose) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose) |
+| react-csrf | [directory](packages/react-csrf) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-csrf.svg)](https://badge.fury.io/js/%40shopify%2Freact-csrf) |
 | react-effect | [directory](packages/react-effect) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect) |
 | react-effect-apollo | [directory](packages/react-effect-apollo) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo) |
 | react-form | [directory](packages/react-form) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form.svg)](https://badge.fury.io/js/%40shopify%2Freact-form) |
@@ -66,6 +67,7 @@ Each package has its own `README` and documentation describing usage.
 | react-self-serializers | [directory](packages/react-self-serializers) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg)](https://badge.fury.io/js/%40shopify%2Freact-self-serializers) |
 | react-serialize | [directory](packages/react-serialize) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-serialize.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize) |
 | react-server | [directory](packages/react-server) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server.svg)](https://badge.fury.io/js/%40shopify%2Freact-server) |
+| react-server-webpack-plugin | [directory](packages/react-server-webpack-plugin) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin) |
 | react-shopify-app-route-propagator | [directory](packages/react-shopify-app-route-propagator) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator.svg)](https://badge.fury.io/js/%40shopify%2Freact-shopify-app-route-propagator) |
 | react-shortcuts | [directory](packages/react-shortcuts) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) |
 | react-testing | [directory](packages/react-testing) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)](https://badge.fury.io/js/%40shopify%2Freact-testing) |
