@@ -24,10 +24,10 @@ export class NetworkManager {
   private redirectUrl?: string;
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
-  private readonly requestHeaders?: Record<string, string>;
+  private readonly requestHeaders: Record<string, string>;
 
   constructor({headers}: Options = {}) {
-    this.requestHeaders = headers && normalizeHeaders(headers);
+    this.requestHeaders = normalizeHeaders(headers);
   }
 
   reset() {
@@ -105,9 +105,13 @@ export class NetworkManager {
   }
 }
 
-function normalizeHeaders(headers: Record<string, string>) {
-  return Object.keys(headers).reduce((accumulator, key) => {
-    accumulator[key.toLowerCase()] = headers[key];
+function normalizeHeaders(headers: undefined | Record<string, string>) {
+  if (!headers) {
+    return {};
+  }
+
+  return Object.entries(headers).reduce((accumulator, [key, value]) => {
+    accumulator[key.toLowerCase()] = value;
     return accumulator;
   }, {});
 }

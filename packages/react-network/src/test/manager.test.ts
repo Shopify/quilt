@@ -2,6 +2,12 @@ import {NetworkManager} from '../manager';
 
 describe('NetworkManager', () => {
   describe('getHeader', () => {
+    it('returns undefined when getting a header that does not exist', () => {
+      const manager = new NetworkManager();
+
+      expect(manager.getHeader('foo')).toBeUndefined();
+    });
+
     it('returns headers from the provided dictionary', () => {
       const headers = {
         foo: 'bar',
