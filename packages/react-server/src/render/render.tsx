@@ -11,7 +11,8 @@ import {
   NetworkContext,
   NetworkManager,
 } from '@shopify/react-network/server';
-import {extract, Pass} from '@shopify/react-effect/server';
+import {ArgumentAtIndex} from '@shopify/useful-types';
+import {extract} from '@shopify/react-effect/server';
 import {
   AsyncAssetContext,
   AsyncAssetManager,
@@ -26,10 +27,9 @@ export type RenderContext = Context & {
 };
 export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
 
-export interface Options {
-  afterEachPass?(pass: Pass): any;
-  betweenEachPass?(pass: Pass): any;
-}
+type Options = Partial<
+  Pick<ArgumentAtIndex<typeof extract, 1>, 'afterEachPass' | 'betweenEachPass'>
+>;
 
 /**
  * Creates a Koa middleware for rendering an `@shopify/react-html` based React application defined by `options.render`.
