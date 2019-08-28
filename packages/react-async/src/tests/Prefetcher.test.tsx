@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {mount, Root} from '@shopify/react-testing';
 import {clock} from '@shopify/jest-dom-mocks';
 

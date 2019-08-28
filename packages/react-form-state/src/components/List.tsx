@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
 import {mapObject, replace} from '../utilities';
