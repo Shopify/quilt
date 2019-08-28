@@ -1,5 +1,5 @@
 import {readdirSync, readFileSync} from 'fs';
-import * as path from 'path';
+import path from 'path';
 
 describe('typescript version', () => {
   it('matches the root version', () => {

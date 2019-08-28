@@ -634,7 +634,7 @@ The following example shows how you can use everything this documentation covere
 [Try it out in codesandbox](https://codesandbox.io/s/zx387x0vmx)
 
 ```typescript
-import * as React from 'react';
+import React from 'react';
 import {
   AppProvider,
   Page,
