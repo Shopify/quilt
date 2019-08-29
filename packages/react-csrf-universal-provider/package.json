@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-csrf-universal-provider/README.md",
   "dependencies": {
-    "@shopify/react-csrf": "^1.0.0",
+    "@shopify/react-csrf": ">=1.0.0",
     "@shopify/react-html": ">=8.0.0",
-    "@shopify/react-universal-provider": "^1.0.3"
+    "@shopify/react-universal-provider": ">=1.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-universal-provider/README.md",
   "dependencies": {
-    "@shopify/react-html": "^9.2.1"
+    "@shopify/react-html": ">=8.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
