@@ -26,12 +26,11 @@ To begin using this package, Node apps only require a server entry point that ca
 
 ```tsx
 import React from 'react';
-import {createServer, RenderContext} from '@shopify/react-server';
-
+import {createServer} from '@shopify/react-server';
 import App from '../app';
 
 const app = createServer({
-  render: (ctx: RenderContext) => <App location={ctx.request.url} />,
+  render: ctx => <App location={ctx.request.url} />,
 });
 ```
 
@@ -71,7 +70,7 @@ interface Options {
   assetPrefix?: string;
   // any additional Koa middleware to mount on the server
   serverMiddleware?: compose.Middleware<Context>[];
-  // a function of `(ctx: Koa.Context) => React.ReactNode`
+  // a function of `(ctx: Context, data: {locale: string}): React.ReactElement<any>`
   render: RenderFunction;
   // whether to run in debug mode
   debug?: boolean;
