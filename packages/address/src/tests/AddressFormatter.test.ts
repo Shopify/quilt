@@ -1,6 +1,6 @@
 import {fetch} from '@shopify/jest-dom-mocks';
+import {Address} from '@shopify/address-consts';
 import {mockCountryRequests} from '../../../address-mocks/src';
-import {Address} from '../types';
 import {toSupportedLocale} from '../loader';
 import AddressFormatter from '..';
 
@@ -17,8 +17,8 @@ const address: Address = {
   phone: '514 xxx xxxx',
 };
 
-beforeEach(mockCountryRequests);
-afterEach(fetch.restore);
+beforeEach(() => mockCountryRequests());
+afterEach(() => fetch.restore());
 
 describe('updateLocale()', () => {
   it('returns the country information in the default locale for that country', async () => {

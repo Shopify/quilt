@@ -16,11 +16,11 @@ matrix:
       name: 'Node - build, type-check, and end-to-end tests'
       script:
         - yarn build
-        - yarn test --testPathPattern react-server-webpack-plugin
+        - yarn test --testPathPattern react-server-webpack-plugin address
     - <<: *node_container
       name: 'Node - unit tests'
       script:
-        - yarn test --testPathIgnorePatterns react-server-webpack-plugin
+        - yarn test --testPathIgnorePatterns react-server-webpack-plugin address
         - yarn codecov
     - <<: *node_container
       name: 'Node - lint'
