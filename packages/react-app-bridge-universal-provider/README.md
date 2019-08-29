@@ -21,6 +21,7 @@ The component takes children, `apiKey`, `shopOrigin`, and `forceRedirect`. Simil
 
 ```tsx
 // App.tsx
+
 import {AppBridgeUniversalProvider} from '@shopify/react-app-bridge-universal-provider';
 
 function App({apiKey, shopOrigin}: {apiKey?: string; shopOrigin?: string}) {
