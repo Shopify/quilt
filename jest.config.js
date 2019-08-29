@@ -22,7 +22,7 @@ const moduleNameMapper = getPackageNames().reduce(
 module.exports = {
   setupFiles: ['./test/setup.ts'],
   setupFilesAfterEnv: ['./test/each-test.ts'],
-  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',
     '\\.(gql|graphql)$': 'jest-transform-graphql',
