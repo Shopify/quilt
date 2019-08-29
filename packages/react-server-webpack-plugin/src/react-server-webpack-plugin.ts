@@ -69,11 +69,10 @@ export class ReactServerPlugin {
           import {createServer} from '@shopify/react-server';
           import App from './index';
           const render = (ctx) =>
-            React.createElement(App, {
-              server: true,
-              locale: ctx.locale,
-              location: ctx.request.url,
-            });
+          React.createElement(App, {
+            server: true,
+            location: ctx.request.url,
+          });
 
           const app = createServer({
             port: ${port ? port : 'process.env.REACT_SERVER_PORT || 8081'},

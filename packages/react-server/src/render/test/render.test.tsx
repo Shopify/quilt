@@ -2,7 +2,7 @@ import React from 'react';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
 import {Effect} from '@shopify/react-effect/server';
-import {createRender, RenderContext} from '../render';
+import {createRender} from '../render';
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
   getAssets() {
@@ -25,9 +25,19 @@ describe('createRender', () => {
     const ctx = createMockContext();
 
     const renderFunction = createRender(() => <>{myCoolApp}</>);
-    await renderFunction(ctx as RenderContext);
+    await renderFunction(ctx);
 
     expect(await readStream(ctx.body)).toContain(myCoolApp);
+  });
+
+  it('does not clobber proxies in the context object', async () => {
+    const headerValue = 'some-value';
+    const ctx = createMockContext({headers: {'some-header': headerValue}});
+
+    const renderFunction = createRender(ctx => <>{ctx.get('some-header')}</>);
+    await renderFunction(ctx);
+
+    expect(ctx.body).toContain(headerValue);
   });
 
   it('in development the body contains a meaningful error messages', () => {

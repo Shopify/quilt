@@ -11,6 +11,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Added `Options` object as the second argument to `createRender()` allowing passed in values for `afterEachPass` and `betweenEachPass` [#911](https://github.com/Shopify/quilt/pull/911)
 
+## 0.2.0
+
+### Changed
+
+- `createRender` now passses the unchanged `Koa.Context` object.
+
 ## [0.1.6] - 2019-08-20
 
 - actually passes in the headers from koa context into `NetworkManager`
