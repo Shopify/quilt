@@ -35,4 +35,20 @@ describe('NetworkManager', () => {
       expect(manager.getHeader('FoO')).toBe(headers.Foo);
     });
   });
+
+  describe('cookies', () => {
+    it('returns undefined when getting a cookie that does not exist', () => {
+      const manager = new NetworkManager();
+
+      expect(manager.getCookie('foo')).toBeUndefined();
+    });
+
+    it('returns cookies after they are set', () => {
+      const manager = new NetworkManager();
+
+      manager.setCookie('foo', 'bar');
+
+      expect(manager.getCookie('foo')).toBe('bar');
+    });
+  });
 });

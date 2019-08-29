@@ -48,3 +48,18 @@ export function useAcceptLanguage(
 
   return locales;
 }
+
+export function useCookie(cookie: string) {
+  const network = useContext(NetworkContext);
+  const initialValue = network ? network.getCookie(cookie) : undefined;
+
+  const set = value => {
+    if (!network) {
+      return;
+    }
+
+    network.setCookie(cookie, value);
+  };
+
+  return [initialValue, set];
+}

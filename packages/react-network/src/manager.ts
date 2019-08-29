@@ -25,15 +25,17 @@ export class NetworkManager {
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
   private readonly requestHeaders: Record<string, string>;
+  private readonly cookies = new Map<string, string>();
 
   constructor({headers}: Options = {}) {
-    this.requestHeaders = normalizeHeaders(headers);
+    this.requestHeaders = lowercaseEntries(headers);
   }
 
   reset() {
     this.statusCodes = [];
     this.csp.clear();
     this.headers.clear();
+    this.cookies.clear();
     this.redirectUrl = undefined;
   }
 
@@ -43,6 +45,14 @@ export class NetworkManager {
 
   setHeader(header: string, value: string) {
     this.headers.set(header, value);
+  }
+
+  getCookie(cookie: string) {
+    return this.cookies[cookie.toLowerCase()];
+  }
+
+  setCookie(cookie: string, value: string) {
+    this.cookies.set(cookie, value);
   }
 
   redirectTo(url: string, status = StatusCode.Found) {
@@ -89,6 +99,7 @@ export class NetworkManager {
             .join('; ');
 
     const headers = new Map(this.headers);
+    const cookies = new Map(this.cookies);
 
     if (csp) {
       headers.set(Header.ContentSecurityPolicy, csp);
@@ -100,17 +111,18 @@ export class NetworkManager {
           ? this.statusCodes.reduce((large, code) => Math.max(large, code), 0)
           : undefined,
       headers,
+      cookies,
       redirectUrl: this.redirectUrl,
     };
   }
 }
 
-function normalizeHeaders(headers: undefined | Record<string, string>) {
-  if (!headers) {
+function lowercaseEntries(entries: undefined | Record<string, string>) {
+  if (!entries) {
     return {};
   }
 
-  return Object.entries(headers).reduce((accumulator, [key, value]) => {
+  return Object.entries(entries).reduce((accumulator, [key, value]) => {
     accumulator[key.toLowerCase()] = value;
     return accumulator;
   }, {});
