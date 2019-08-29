@@ -1,4 +1,4 @@
-import {Address, FieldName, Country, Zone} from './types';
+import {Address, FieldName, Country, Zone} from '@shopify/address-consts';
 
 const FIELD_REGEXP = /({\w+})/g;
 export const FIELDS_MAPPING: {

@@ -85,3 +85,28 @@ export interface ResponseError {
     value: any;
   }[];
 }
+
+export const GRAPHQL_ENDPOINT =
+  'https://country-service.shopifycloud.com/graphql';
+export enum GraphqlOperationName {
+  Countries = 'countries',
+  Country = 'country',
+}
+
+export const HEADERS = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+};
+
+export const SUPPORTED_LOCALES = [
+  'DA',
+  'DE',
+  'EN',
+  'ES',
+  'FR',
+  'IT',
+  'JA',
+  'NL',
+  'PT',
+  'PT_BR',
+];
