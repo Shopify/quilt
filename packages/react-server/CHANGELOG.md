@@ -5,12 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [0.3.1] - 2019-08-29
+
+### Fixed
+
+- Now includes the full error stack as well as the error message when presenting SSR errors in development [#901](https://github.com/Shopify/quilt/pull/901)
+
+## [0.3.0] - 2019-08-28
 
 ### Added
 
 - Added `Options` object as the second argument to `createRender()` allowing passed in values for `afterEachPass` and `betweenEachPass` [#911](https://github.com/Shopify/quilt/pull/911)
-- Now includes the full error stack when presenting SSR errors in development
 
 ## 0.2.0
 
