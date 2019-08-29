@@ -1,0 +1,40 @@
+{
+  "name": "@shopify/react-i18n-universal-provider",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "A self-serializing/deserializing i18n provider that works for isomorphic applications.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n-universal-provider/README.md",
+  "dependencies": {
+    "@shopify/react-html": ">=8.0.0",
+    "@shopify/react-i18n": ">=1.2.6"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0"
+  },
+  "devDependencies": {
+    "@shopify/react-effect": "^3.2.1",
+    "@shopify/react-testing": "^1.7.5",
+    "faker": "^4.1.0",
+    "typescript": "~3.2.1"
+  },
+  "files": ["dist/*"]
+}
