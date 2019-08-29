@@ -95,7 +95,9 @@ export function createRender(render: RenderFunction, options: Options = {}) {
       logger.error(error);
       // eslint-disable-next-line no-process-env
       if (process.env.NODE_ENV === 'development') {
-        ctx.body = `Internal Server Error: \n\n${error.message}`;
+        ctx.body = `Internal Server Error: \n\n${error.message} \n\n ${
+          error.stack
+        }`;
       } else {
         ctx.throw(StatusCode.InternalServerError, error);
       }
