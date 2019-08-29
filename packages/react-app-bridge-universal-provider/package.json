@@ -28,7 +28,7 @@
     "@shopify/react-html": ">=8.0.0"
   },
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
     "@shopify/react-effect": "^3.2.1",
