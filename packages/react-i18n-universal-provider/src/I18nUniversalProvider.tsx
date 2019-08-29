@@ -16,7 +16,7 @@ interface Serialized extends Partial<I18nDetails> {
  * A self-serializing provider for `@shopify/i18n`'s I18nManager.
  * On the server it serializes its props to the DOM; on the client it retrieves the serialized props and rehydrates them.
  *
- * @param props an object containing the React children to render and any options to use when configuring the `I18nManager` to provide to the tree
+ * @param props an object containing the React children to render and any options to use when configuring the tree's `I18nManager`
  * @returns JSX wrapping the given children in an `<I18nContext.Provider>` and a `<Serialize />` component.
  */
 export function I18nUniversalProvider({
