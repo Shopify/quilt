@@ -15,6 +15,7 @@ $ yarn add @shopify/react-csrf-universal-provider
 
 ```tsx
 // App.tsx
+
 import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
 
 function App({token}: {token?: string}) {
