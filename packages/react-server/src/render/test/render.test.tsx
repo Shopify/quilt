@@ -37,12 +37,12 @@ describe('createRender', () => {
     const renderFunction = createRender(ctx => <>{ctx.get('some-header')}</>);
     await renderFunction(ctx);
 
-    expect(ctx.body).toContain(headerValue);
+    expect(await readStream(ctx.body)).toContain(headerValue);
   });
 
   it('in development the body contains a meaningful error messages', () => {
     withEnv('development', async () => {
-      const ctx = {...createMockContext(), locale: ''};
+      const ctx = createMockContext();
 
       const renderFunction = createRender(() => <BrokenApp />);
       await renderFunction(ctx);
@@ -53,7 +53,7 @@ describe('createRender', () => {
 
   it('in production it throws a 500 with a meaninful error message', () => {
     withEnv('production', async () => {
-      const ctx = {...createMockContext(), locale: ''};
+      const ctx = createMockContext();
       const throwSpy = jest.spyOn(ctx, 'throw').mockImplementation(() => null);
 
       const renderFunction = createRender(() => <BrokenApp />);
