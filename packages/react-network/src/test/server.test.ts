@@ -74,6 +74,23 @@ describe('server', () => {
     });
   });
 
+  describe('cookies', () => {
+    it('can set cookies', () => {
+      const manager = new NetworkManager();
+      const ctx = createMockContext();
+      const spy = jest.spyOn(ctx.cookies, 'set');
+
+      const cookie = 'Cooookie';
+      const value = 'Crisp';
+      const options = {maxAge: 123456789};
+
+      manager.setCookie(cookie, value, options);
+      applyToContext(ctx, manager);
+
+      expect(spy).toHaveBeenCalledWith(cookie, value, options);
+    });
+  });
+
   describe('csp', () => {
     it('does not set a CSP header if no directives were set', () => {
       const manager = new NetworkManager();
