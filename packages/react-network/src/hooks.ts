@@ -38,3 +38,18 @@ export function useStatus(code: StatusCode) {
 export function useRedirect(url: string, status?: StatusCode) {
   useNetworkEffect(network => network.redirectTo(url, status));
 }
+
+export function useCookie(cookie: string) {
+  const network = useContext(NetworkContext);
+  const initialValue = network ? network.getCookie(cookie) : undefined;
+
+  const set = value => {
+    if (!network) {
+      return;
+    }
+
+    network.setCookie(cookie, value);
+  };
+
+  return [initialValue, set];
+}

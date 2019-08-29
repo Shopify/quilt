@@ -8,7 +8,7 @@ export function applyToContext<T extends Context>(
   ctx: T,
   manager: NetworkManager,
 ) {
-  const {status, redirectUrl, headers} = manager.extract();
+  const {status, redirectUrl, headers, cookies} = manager.extract();
 
   if (redirectUrl) {
     ctx.redirect(redirectUrl);
@@ -20,6 +20,11 @@ export function applyToContext<T extends Context>(
 
   for (const [header, value] of headers) {
     ctx.set(header, value);
+  }
+
+  for (const [cookie, value] of cookies) {
+    console.log(cookie, value);
+    ctx.cookies.set(cookie, value);
   }
 
   return ctx;
