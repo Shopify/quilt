@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Preconnect} from '@shopify/react-html';
 import {DeferTiming} from '@shopify/async';
 

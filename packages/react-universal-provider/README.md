@@ -1,7 +1,7 @@
 # `@shopify/react-universal-provider`
 
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-universal-providers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-universal-provider.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-universal-provider.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-universal-provider.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-universal-provider.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-universal-provider.svg)
 
 Factory function and utilities to create self-serializing/deserializing provider that works for isomorphic applications.
 
@@ -91,12 +91,15 @@ interface Props<Value> {
 #### Example
 
 ```tsx
-//ApiKeyProvider.tsx
+//ApiKeyUniversalProvider.tsx
 import {createContext} from 'react';
 import {createUniversalProvider} from '@shopify/react-universal-provider';
 
 export const ApiKeyContext = createContext<string | null>(null);
-export const ApiKeyProvider = createUniversalProvider('api-key', ApiKeyContext);
+export const ApiKeyUniversalProvider = createUniversalProvider(
+  'api-key',
+  ApiKeyContext,
+);
 ```
 
 ```tsx

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import faker from 'faker';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';

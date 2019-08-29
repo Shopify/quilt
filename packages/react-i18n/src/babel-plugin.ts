@@ -1,7 +1,7 @@
 import path from 'path';
 import glob from 'glob';
 import {TemplateBuilder} from '@babel/template';
-import * as Types from '@babel/types';
+import Types from '@babel/types';
 import {NodePath} from '@babel/traverse';
 import stringHash from 'string-hash';
 

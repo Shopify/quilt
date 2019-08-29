@@ -4,7 +4,7 @@
 
 import '../test/matchers';
 
-import * as React from 'react';
+import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {extract, Effect} from '@shopify/react-effect/server';
 

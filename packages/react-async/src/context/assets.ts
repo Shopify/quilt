@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {EffectKind} from '@shopify/react-effect';
 import {AssetTiming} from '../types';
 

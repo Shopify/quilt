@@ -27,6 +27,7 @@ To begin using this package, Node apps only require a server entry point that ca
 ```tsx
 import React from 'react';
 import {createServer, RenderContext} from '@shopify/react-server';
+
 import App from '../app';
 
 const app = createServer({

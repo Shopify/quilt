@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-import * as React from 'react';
+import React from 'react';
 import {renderToString, renderToStaticMarkup} from 'react-dom/server';
 import {clock} from '@shopify/jest-dom-mocks';
 

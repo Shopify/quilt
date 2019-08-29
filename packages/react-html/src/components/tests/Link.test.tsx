@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {HtmlManager} from '../../manager';
 import {Link} from '../Link';
