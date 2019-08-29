@@ -22,10 +22,10 @@ import {Header, StatusCode} from '@shopify/react-network';
 import {getAssets} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
 
-export type RenderContext = Context & {
-  locale: string;
-};
-export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
+export {Context};
+export interface RenderFunction {
+  (ctx: Context): React.ReactElement<any>;
+}
 
 type Options = Pick<
   NonNullable<ArgumentAtIndex<typeof extract, 1>>,
@@ -45,11 +45,9 @@ export function createRender(render: RenderFunction, options: Options = {}) {
     });
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
-    const acceptsLanguages = ctx.acceptsLanguages && ctx.acceptsLanguages();
-    const locale = Array.isArray(acceptsLanguages) ? acceptsLanguages[0] : 'en';
 
     try {
-      const app = render({...ctx, locale});
+      const app = render(ctx);
       await extract(app, {
         decorate(app) {
           return (
@@ -86,12 +84,7 @@ export function createRender(render: RenderFunction, options: Options = {}) {
       ]);
 
       const response = stream(
-        <Html
-          locale={locale}
-          manager={htmlManager}
-          styles={styles}
-          scripts={scripts}
-        >
+        <Html manager={htmlManager} styles={styles} scripts={scripts}>
           <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
         </Html>,
       );

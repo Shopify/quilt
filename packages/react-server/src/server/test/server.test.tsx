@@ -41,13 +41,12 @@ describe('createServer()', () => {
   it('starts a server that responds with markup', async () => {
     const response = await request(`${ip}:${port}`)
       .get('/')
-      .set({'accept-language': 'fr'})
       .then((resp: request.Response) => {
         return resp;
       });
 
     expect(response.text).toBe(
-      `<!DOCTYPE html><html lang="fr"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
+      `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
     );
   });
 });
