@@ -1,6 +1,7 @@
 import React from 'react';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
+import {Effect} from '@shopify/react-effect/server';
 import {createRender, RenderContext} from '../render';
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
@@ -26,7 +27,7 @@ describe('createRender', () => {
     const renderFunction = createRender(() => <>{myCoolApp}</>);
     await renderFunction(ctx as RenderContext);
 
-    expect(ctx.body).toContain(myCoolApp);
+    expect(await readStream(ctx.body)).toContain(myCoolApp);
   });
 
   it('in development the body contains a meaningful error messages', () => {
@@ -54,4 +55,46 @@ describe('createRender', () => {
       );
     });
   });
+
+  describe('afterEachPass()', () => {
+    it('is called in the render middleware', async () => {
+      const ctx = createMockContext();
+      const afterEachPass = jest.fn();
+      const renderFunction = createRender(() => <>Markup</>, {afterEachPass});
+
+      await renderFunction(ctx);
+
+      expect(afterEachPass).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('betweenEachPass()', () => {
+    it('is called in the render middleware', async () => {
+      const ctx = createMockContext();
+      const betweenEachPass = jest.fn();
+      const renderFunction = createRender(
+        () => (
+          <>
+            <Effect perform={() => Promise.resolve()} />
+          </>
+        ),
+        {
+          betweenEachPass,
+        },
+      );
+
+      await renderFunction(ctx);
+
+      expect(betweenEachPass.mock.calls.length).toBeGreaterThanOrEqual(1);
+    });
+  });
 });
+
+function readStream(stream: NodeJS.ReadableStream) {
+  return new Promise<string>(resolve => {
+    let response: string;
+
+    stream.on('data', data => (response += data));
+    stream.on('end', () => resolve(response));
+  });
+}

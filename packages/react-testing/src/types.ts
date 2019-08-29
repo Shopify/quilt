@@ -1,10 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import {Arguments, MaybeFunctionReturnType} from '@shopify/useful-types';
 
 export type PropsFor<
   T extends string | React.ComponentType<any>
 > = T extends string
-  ? React.HTMLAttributes<T>
+  ? T extends keyof JSX.IntrinsicElements
+    ? JSX.IntrinsicElements[T]
+    : React.HTMLAttributes<T>
   : T extends React.ComponentType<any>
     ? React.ComponentPropsWithoutRef<T>
     : never;

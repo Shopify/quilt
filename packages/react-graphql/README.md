@@ -24,6 +24,7 @@ import {Query} from '@shopify/react-graphql';
 import myQuery from './graphql/MyQuery.graphql';
 
 // Assuming the following GraphQL API:
+
 //
 // type Shop = {
 //   id: String!

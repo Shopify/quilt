@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {RenderPromises as ApolloRenderPromises, Query} from 'react-apollo';
 import {Effect} from '@shopify/react-effect';
 

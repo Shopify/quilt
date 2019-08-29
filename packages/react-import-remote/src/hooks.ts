@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {useIntersection} from '@shopify/react-intersection-observer';
 import {
   DeferTiming,

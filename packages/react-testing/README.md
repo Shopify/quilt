@@ -336,7 +336,7 @@ In our example mount, we want people to be able to pass a custom GraphQL instanc
 The custom mount for this situation would be built as demonstrated below.
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {ApolloProvider} from 'react-apollo';
 import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
