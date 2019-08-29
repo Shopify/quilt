@@ -30,7 +30,6 @@ function MyComponent() {
   useRedirect('/login', StatusCode.SeeOther);
 
   // or
-
   return <Redirect url="/login" code={StatusCode.SeeOther} />;
 }
 ```

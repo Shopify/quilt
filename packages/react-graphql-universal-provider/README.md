@@ -21,6 +21,7 @@ The component takes children and a function that can create an Apollo client. Th
 
 ```tsx
 // App.tsx
+
 import {GraphQL} from '../GraphQL';
 
 function App({server}: {server?: boolean}) {
@@ -30,6 +31,7 @@ function App({server}: {server?: boolean}) {
 
 ```tsx
 // GraphQL.tsx
+
 import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-inmemory-cache';
 import {createHttpLink} from 'apollo-link-http';
@@ -74,6 +76,7 @@ This example will also show getting the csrf token and cookie using `@shopify/re
 
 ```tsx
 // App.tsx
+
 import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
 import {useRequestHeader} from '@shopify/react-network';
 import {GraphQL} from '../GraphQL';
@@ -91,6 +94,7 @@ function App({server}: {server?: boolean}) {
 
 ```tsx
 // GraphQL.tsx
+
 import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-inmemory-cache';
 import {createHttpLink} from 'apollo-link-http';
