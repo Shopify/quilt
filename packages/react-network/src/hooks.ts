@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {CspDirective, StatusCode} from '@shopify/network';
+import {CspDirective, StatusCode, Header} from '@shopify/network';
 import {useServerEffect} from '@shopify/react-effect';
 
 import {NetworkContext} from './context';
@@ -37,4 +37,11 @@ export function useStatus(code: StatusCode) {
 
 export function useRedirect(url: string, status?: StatusCode) {
   useNetworkEffect(network => network.redirectTo(url, status));
+}
+
+export function useAcceptLanguages(fallback = 'en') {
+  const acceptsLanguages = useRequestHeader(Header.AcceptLanguage);
+  const locales = acceptsLanguages ? acceptsLanguages.split(',') : [fallback];
+
+  return [locales[0]];
 }
