@@ -1,4 +1,4 @@
-import {fixtures} from '../../../address-mocks';
+import {fixtures} from '../../../address-mocks/src/fixtures';
 import {renderLineTemplate} from '../utilities';
 
 const Canada = fixtures.country.EN.data.country;

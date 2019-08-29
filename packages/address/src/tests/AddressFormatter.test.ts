@@ -1,6 +1,6 @@
 import {fetch} from '@shopify/jest-dom-mocks';
 import {Address} from '@shopify/address-consts';
-import {mockCountryRequests} from '../../../address-mocks';
+import {mockCountryRequests} from '../../../address-mocks/src';
 import {toSupportedLocale} from '../loader';
 import AddressFormatter from '..';
 
