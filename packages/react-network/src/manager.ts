@@ -1,3 +1,4 @@
+import Cookies from 'cookies';
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 
@@ -25,7 +26,12 @@ export class NetworkManager {
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
   private readonly requestHeaders: Record<string, string>;
-  private readonly cookies = new Map<string, string>();
+  private readonly cookies = new Map<
+    string,
+    {
+      value: string;
+    } & Cookies.SetOption
+  >();
 
   constructor({headers}: Options = {}) {
     this.requestHeaders = lowercaseEntries(headers);
@@ -48,11 +54,12 @@ export class NetworkManager {
   }
 
   getCookie(cookie: string) {
-    return this.cookies[cookie.toLowerCase()];
+    const value = this.cookies.get(cookie.toLowerCase());
+    return value && value.value;
   }
 
-  setCookie(cookie: string, value: string) {
-    this.cookies.set(cookie, value);
+  setCookie(cookie: string, value: string, options: Cookies.SetOption = {}) {
+    this.cookies.set(cookie, {value, ...options});
   }
 
   redirectTo(url: string, status = StatusCode.Found) {

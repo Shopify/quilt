@@ -8,6 +8,7 @@ import {
   useCspDirective,
   useRedirect,
   useHeader,
+  useCookie,
   StatusCode,
   CspDirective,
   Header,
@@ -23,10 +24,12 @@ describe('e2e', () => {
       if (pass > 0) {
         return;
       }
+      const [, setFooCookie] = useCookie('foo');
 
       useStatus(StatusCode.NotFound);
       useCspDirective(CspDirective.ChildSrc, 'https://*');
       useHeader(Header.CacheControl, 'no-cache');
+      setFooCookie('bar');
     });
 
     await extract(<TwoPass />, {
@@ -40,6 +43,7 @@ describe('e2e', () => {
     const extracted = networkManager.extract();
     expect(extracted).toHaveProperty('headers.size', 0);
     expect(extracted).toHaveProperty('status', undefined);
+    expect(extracted).toHaveProperty('cookies.size', 0);
   });
 
   it('bails out when a redirect is set', async () => {

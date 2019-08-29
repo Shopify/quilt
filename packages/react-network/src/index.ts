@@ -11,4 +11,5 @@ export {
   useRequestHeader,
   useRedirect,
   useAcceptLanguage,
+  useCookie,
 } from './hooks';

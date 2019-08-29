@@ -1,6 +1,7 @@
 import {useContext} from 'react';
 import {parse, Language} from 'accept-language-parser';
 import {CspDirective, StatusCode, Header} from '@shopify/network';
+import Cookies from 'cookies';
 import {useServerEffect} from '@shopify/react-effect';
 
 import {NetworkContext} from './context';
@@ -49,17 +50,19 @@ export function useAcceptLanguage(
   return locales;
 }
 
-export function useCookie(cookie: string) {
+export function useCookie(
+  cookie: string,
+): [string | undefined, (value: string, options?: Cookies.SetOption) => void] {
   const network = useContext(NetworkContext);
   const initialValue = network ? network.getCookie(cookie) : undefined;
 
-  const set = value => {
+  const setCookie = (value: string, options?: Cookies.SetOption) => {
     if (!network) {
       return;
     }
 
-    network.setCookie(cookie, value);
+    network.setCookie(cookie, value, options);
   };
 
-  return [initialValue, set];
+  return [initialValue, setCookie];
 }
