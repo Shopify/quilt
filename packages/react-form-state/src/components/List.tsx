@@ -27,7 +27,9 @@ export default class List<Fields> extends React.PureComponent<
         fieldValues,
         (value, fieldPath) => {
           const initialFieldValue =
-            initialValue[index] && initialValue[index][fieldPath];
+            initialValue &&
+            initialValue[index] &&
+            initialValue[index][fieldPath];
           return {
             value,
             onBlur,
