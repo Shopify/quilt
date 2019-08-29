@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-app-bridge-universal-provider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "A self-serializing/deserializing app-bridge-react provider that works for isomorphic applications.",
   "main": "dist/index.js",
