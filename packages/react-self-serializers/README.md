@@ -93,6 +93,7 @@ interface Props {
 
 ```tsx
 // App.tsx
+
 import {I18n} from '@shopify/react-self-serializers/I18n';
 
 function App({locale}: {locale?: string}) {

@@ -91,12 +91,15 @@ interface Props<Value> {
 #### Example
 
 ```tsx
-//ApiKeyProvider.tsx
+//ApiKeyUniversalProvider.tsx
 import {createContext} from 'react';
 import {createUniversalProvider} from '@shopify/react-universal-provider';
 
 export const ApiKeyContext = createContext<string | null>(null);
-export const ApiKeyProvider = createUniversalProvider('api-key', ApiKeyContext);
+export const ApiKeyUniversalProvider = createUniversalProvider(
+  'api-key',
+  ApiKeyContext,
+);
 ```
 
 ```tsx
