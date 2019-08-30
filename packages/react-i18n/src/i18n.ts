@@ -363,7 +363,7 @@ export class I18n {
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
   }
 
-  // Intl.NumberFormat sometimes annotates the "curerncy symbol" with a country code.
+  // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
   // For example, in locale 'fr-FR', 'USD' is given the "symbol" of " $US".
   // This method strips out the country-code annotation, if there is one.
   // (So, for 'fr-FR' and 'USD', the return value would be " $").
