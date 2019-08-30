@@ -1,5 +1,5 @@
-import {useContext} from 'react';
-import Cookies from 'cookies';
+import {useContext, useState} from 'react';
+import {CookieSerializeOptions} from 'cookie';
 import {CspDirective, StatusCode} from '@shopify/network';
 import {useServerEffect} from '@shopify/react-effect';
 
@@ -41,18 +41,24 @@ export function useRedirect(url: string, status?: StatusCode) {
 }
 
 export function useCookie(
-  cookie: string,
-): [string | undefined, (value: string, options?: Cookies.SetOption) => void] {
+  key: string,
+): [
+  string | undefined,
+  (value: string, options?: CookieSerializeOptions) => void
+] {
   const network = useContext(NetworkContext);
-  const initialValue = network ? network.getCookie(cookie) : undefined;
+  const [cookie, setCookieValue] = useState(() => {
+    return network ? network.getCookie(key) : undefined;
+  });
 
-  const setCookie = (value: string, options?: Cookies.SetOption) => {
+  const setCookie = (value: string, options?: CookieSerializeOptions) => {
     if (!network) {
       return;
     }
 
-    network.setCookie(cookie, value, options);
+    setCookieValue(value);
+    network.setCookie(key, value, options);
   };
 
-  return [initialValue, setCookie];
+  return [cookie, setCookie];
 }

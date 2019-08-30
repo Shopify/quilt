@@ -43,12 +43,34 @@ describe('NetworkManager', () => {
       expect(manager.getCookie('foo')).toBeUndefined();
     });
 
+    it('sets initial cookies when coming the request as a string', () => {
+      const manager = new NetworkManager({cookies: 'foo=bar'});
+
+      expect(manager.getCookie('foo')).toBe('bar');
+    });
+
+    it('sets initial cookies when manually set as an object', () => {
+      const manager = new NetworkManager({cookies: {foo: 'bar'}});
+
+      expect(manager.getCookie('foo')).toBe('bar');
+    });
+
     it('returns cookies after they are set', () => {
       const manager = new NetworkManager();
 
       manager.setCookie('foo', 'bar');
 
       expect(manager.getCookie('foo')).toBe('bar');
+    });
+
+    it('removes cookies after they are set', () => {
+      const manager = new NetworkManager({cookies: {foo: 'bar'}});
+
+      expect(manager.getCookie('foo')).toBe('bar');
+
+      manager.removeCookie('foo');
+
+      expect(manager.getCookie('foo')).toBeUndefined();
     });
   });
 });

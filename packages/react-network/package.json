@@ -26,9 +26,10 @@
   "dependencies": {
     "@shopify/network": "^1.4.1",
     "@shopify/react-effect": "^3.2.2",
+    "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.46",
-    "tslib": "^1.9.3",
-    "cookies": "0.7.3"
+    "cookie": "^0.4.0",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "typescript": "~3.2.1"
