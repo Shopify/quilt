@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "5.0.9",
+  "version": "5.0.10",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React.",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
     "@shopify/async": "^2.0.2",
     "@shopify/react-async": "^3.0.5",
     "@shopify/react-hooks": "^1.2.2",
-    "@shopify/react-network": "^3.1.10",
+    "@shopify/react-network": "^3.2.0",
     "@shopify/useful-types": "^2.0.0",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.0",
