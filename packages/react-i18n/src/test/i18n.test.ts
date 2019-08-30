@@ -595,82 +595,65 @@ describe('I18n', () => {
   });
 
   describe('#formatCurrencyExplicit()', () => {
-    const amount = 1234.56;
-    const data = [
-      ['cs-CZ', 'CZK', ' Kč', false, '1 234,56 Kč CZK'],
-
-      ['de-AT', 'EUR', '€ ', true, '€ 1 234,56 EUR'],
-      ['de-AT', 'JPY', '¥ ', true, '¥ 1 235 JPY'],
-      ['de-AT', 'OMR', 'OMR ', true, 'OMR 1 234,560'],
-      ['de-AT', 'USD', '$ ', true, '$ 1 234,56 USD'],
-
-      ['en-US', 'EUR', '€ ', true, '€ 1,234.56 EUR'],
-      ['en-US', 'JPY', '¥ ', true, '¥ 1,235 JPY'],
-      ['en-US', 'OMR', 'OMR ', true, 'OMR 1,234.560'],
-      ['en-US', 'USD', '$ ', true, '$ 1,234.56 USD'],
-
-      ['fr-FR', 'EUR', ' €', false, '1 234,56 € EUR'],
-      ['fr-FR', 'JPY', ' JPY', false, '1 235 JPY'],
-      ['fr-FR', 'OMR', ' OMR', false, '1 234,560 OMR'],
-      ['fr-FR', 'USD', ' $US', false, '1 234,56 $ USD'],
-    ];
-
-    it('formats as expected in several locales', () => {
-      for (const datum of data) {
-        const locale = datum[0];
-        const currency = datum[1];
-        const mockSymbolResult = {
-          symbol: datum[2],
-          prefixed: datum[3],
-        };
-        const expected = datum[4];
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč CZK'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1 234,56 EUR'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1 235 JPY'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1 234,56 USD'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1,234.56 EUR'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235 JPY'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56 USD'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $ USD'}
+    `(
+      'formats 1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = 1234.56;
+        const mockSymbolResult = {symbol, prefixed};
 
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
         expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
-      }
-    });
+      },
+    );
   });
 
   describe('#formatCurrencyShort()', () => {
-    const amount = 1234.56;
-    const data = [
-      ['cs-CZ', 'CZK', ' Kč', false, '1 234,56 Kč'],
-
-      ['de-AT', 'EUR', '€ ', true, '€ 1 234,56'],
-      ['de-AT', 'JPY', '¥ ', true, '¥ 1 235'],
-      ['de-AT', 'OMR', 'OMR ', true, 'OMR 1 234,560'],
-      ['de-AT', 'USD', '$ ', true, '$ 1 234,56'],
-
-      ['en-US', 'EUR', '€ ', true, '€ 1,234.56'],
-      ['en-US', 'JPY', '¥ ', true, '¥ 1,235'],
-      ['en-US', 'OMR', 'OMR ', true, 'OMR 1,234.560'],
-      ['en-US', 'USD', '$ ', true, '$ 1,234.56'],
-
-      ['fr-FR', 'EUR', ' €', false, '1 234,56 €'],
-      ['fr-FR', 'JPY', ' JPY', false, '1 235 JPY'],
-      ['fr-FR', 'OMR', ' OMR', false, '1 234,560 OMR'],
-      ['fr-FR', 'USD', ' $US', false, '1 234,56 $'],
-    ];
-
-    it('formats as expected in several locales', () => {
-      for (const datum of data) {
-        const locale = datum[0];
-        const currency = datum[1];
-        const mockSymbolResult = {
-          symbol: datum[2],
-          prefixed: datum[3],
-        };
-        const expected = datum[4];
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1 234,56'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1 235'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1 234,56'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1,234.56'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 €'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $'}
+    `(
+      'formats 1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = 1234.56;
+        const mockSymbolResult = {symbol, prefixed};
 
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
         expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
-      }
-    });
+      },
+    );
   });
+
   describe('#unformatCurrency()', () => {
     const mockSymbolResult = {
       symbol: '$',
@@ -1126,6 +1109,28 @@ describe('I18n', () => {
         'No country code provided. weekStartDay() cannot be called without a country code.',
       );
     });
+  });
+
+  describe('#getShortCurrencySymbol()', () => {
+    it.each`
+      currency | locale     | symbol    | prefixed | shortSymbol
+      ${'CZK'} | ${'cs-CZ'} | ${' Kč'}  | ${false} | ${' Kč'}
+      ${'USD'} | ${'en-CA'} | ${'US$'}  | ${true}  | ${'$'}
+      ${'USD'} | ${'en-US'} | ${'$'}    | ${true}  | ${'$'}
+      ${'USD'} | ${'fr-FR'} | ${' $US'} | ${false} | ${' $'}
+      ${'OMR'} | ${'en-US'} | ${'OMR '} | ${true}  | ${'OMR '}
+    `(
+      'returns $shortSymbol for $currency in $locale',
+      ({currency, locale, symbol, prefixed, shortSymbol}) => {
+        const mockResult = {symbol, prefixed};
+        getCurrencySymbol.mockReturnValue(mockResult);
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.getShortCurrencySymbol(currency)).toStrictEqual({
+          prefixed,
+          symbol: shortSymbol,
+        });
+      },
+    );
   });
 
   describe('#getCurrencySymbol()', () => {

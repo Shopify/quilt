@@ -44,29 +44,6 @@ const DECIMAL_NOT_SUPPORTED = 'N/A';
 const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 
-// Specifies the number of fractional digits for those currencies that don't use two digits.
-const CURRENCY_DIGITS = {
-  BYR: 0,
-  CLP: 0,
-  ISK: 0,
-  JPY: 0,
-  KRW: 0,
-  PYG: 0,
-  RWF: 0,
-  UGX: 0,
-  VND: 0,
-  XAF: 0,
-  XOF: 0,
-  XPF: 0,
-
-  BHD: 3,
-  IQD: 3,
-  JOD: 3,
-  KWD: 3,
-  OMR: 3,
-  TND: 3,
-};
-
 const memoizedDateTimeFormatter = memoizeFn(
   dateTimeFormatter,
   (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
@@ -271,15 +248,11 @@ export class I18n {
     options: NumberFormatOptions = {},
   ): string {
     const {locale} = this;
-    const sym = this.getShortCurrencySymbol(options.currency);
+    const shortSymbol = this.getShortCurrencySymbol(options.currency);
     let adjustedPrecision = options.precision;
     if (adjustedPrecision === undefined) {
       const currency = options.currency || this.defaultCurrency || '';
-      if (currency in CURRENCY_DIGITS) {
-        adjustedPrecision = CURRENCY_DIGITS[currency];
-      } else {
-        adjustedPrecision = 2;
-      }
+      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
     }
     const formattedAmount = memoizedNumberFormatter(locale, {
       style: 'decimal',
@@ -288,11 +261,9 @@ export class I18n {
       ...options,
     }).format(amount);
 
-    if (sym.prefixed) {
-      return sym.symbol + formattedAmount;
-    } else {
-      return formattedAmount + sym.symbol;
-    }
+    return shortSymbol.prefixed
+      ? `${shortSymbol.symbol}${formattedAmount}`
+      : `${formattedAmount}${shortSymbol.symbol}`;
   }
 
   unformatCurrency(input: string, currencyCode: string): string {
@@ -363,31 +334,6 @@ export class I18n {
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
   }
 
-  // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
-  // For example, in locale 'fr-FR', 'USD' is given the "symbol" of " $US".
-  // This method strips out the country-code annotation, if there is one.
-  // (So, for 'fr-FR' and 'USD', the return value would be " $").
-  //
-  // For other currencies, e.g. CHF and OMR, the "symbol" is the ISO currency code.
-  // In those cases, we return the full currency code without stripping the country.
-  getShortCurrencySymbol(currencyCode?: string) {
-    const currency = currencyCode || this.defaultCurrency || '';
-    const regionCode = currency.substring(0, 2);
-    const info = this.getCurrencySymbol(currency);
-    const shortSymbol = info.symbol.replace(regionCode, '');
-
-    if (shortSymbol.match(/[A-Z]/)) {
-      // It looks like we have an alphabetic code, not a symbol.  Return the full code.
-      return info;
-    } else {
-      // It looks like we have a symbol.  Strip the country code (if present), and return what's left.
-      return {
-        symbol: shortSymbol,
-        prefixed: info.prefixed,
-      };
-    }
-  }
-
   getCurrencySymbol = (currencyCode?: string) => {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
@@ -401,6 +347,25 @@ export class I18n {
   @memoize((currency: string, locale: string) => `${locale}${currency}`)
   getCurrencySymbolLocalized(locale: string, currency: string) {
     return getCurrencySymbol(locale, {currency});
+  }
+
+  // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
+  // For example, in locale 'fr-FR', 'USD' is given the "symbol" of " $US".
+  // This method strips out the country-code annotation, if there is one.
+  // (So, for 'fr-FR' and 'USD', the return value would be " $").
+  //
+  // For other currencies, e.g. CHF and OMR, the "symbol" is the ISO currency code.
+  // In those cases, we return the full currency code without stripping the country.
+  private getShortCurrencySymbol(currencyCode = this.defaultCurrency || '') {
+    const currency = currencyCode || this.defaultCurrency || '';
+    const regionCode = currency.substring(0, 2);
+    const info = this.getCurrencySymbol(currency);
+    const shortSymbol = info.symbol.replace(regionCode, '');
+    const alphabeticCharacters = /[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḂ-ỳ]/;
+
+    return shortSymbol.match(alphabeticCharacters)
+      ? info
+      : {symbol: shortSymbol, prefixed: info.prefixed};
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
