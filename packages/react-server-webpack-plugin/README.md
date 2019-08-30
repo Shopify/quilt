@@ -58,6 +58,7 @@ Since `@shopify/react-server` relies on `@shopify/webpack-asset-metadata-plugin`
 
 ```tsx
 // webpack.config.js
+
 const {ReactServerPlugin} = require('@shopify/react-server-webpack-plugin');
 const {AssetMetadataPlugin} = require('@shopify/webpack-asset-metadata-plugin');
 

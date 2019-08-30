@@ -103,7 +103,7 @@ Have your routes wired up to default to your react controller.
 ```tsx
 // app/ui/index.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {AppProvider, Page, Card} from '@shopify/polaris';
 
 function App() {
@@ -140,7 +140,7 @@ React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/b
 ```tsx
 // app/ui/index.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {AppProvider, Page, Card} from '@shopify/polaris';
 import {useRequestHeader} from '@shopify/react-network';
 
@@ -166,7 +166,7 @@ export default App;
 ```tsx
 // app/ui/index.tsx
 
-import * as React from 'react';
+import React from 'react';
 import {AppProvider, Page, Card} from '@shopify/polaris';
 import {useRedirect} from '@shopify/react-network';
 

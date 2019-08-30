@@ -38,7 +38,7 @@ export class NetworkManager {
   }
 
   getHeader(header: string) {
-    return this.requestHeaders && this.requestHeaders[header.toLowerCase()];
+    return this.requestHeaders[header.toLowerCase()];
   }
 
   setHeader(header: string, value: string) {

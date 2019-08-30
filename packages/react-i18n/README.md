@@ -50,7 +50,7 @@ export default function App() {
 Components must connect to the i18n context in order to get access to the many internationalization utilities this library provides. You can use the `useI18n` hook to access `i18n` in your component:
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {useI18n} from '@shopify/react-i18n';
 
@@ -72,7 +72,7 @@ The hook also returns a `ShareTranslations` component. You can wrap this around 
 > **Note:** `ShareTranslations` is not guaranteed to re-render when your i18n object changes. If you render `ShareTranslations` inside of a component that might block changes to children, you will likely run into issues. To prevent this, we recommend that `ShareTranslations` should be rendered as a top-level child of the component that uses `useI18n`.
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {Page} from '@shopify/polaris';
 import {useI18n} from '@shopify/react-i18n';
 
@@ -93,7 +93,7 @@ export default function ProductDetails({children}: Props) {
 `@shopify/react-i18n` also provides the `withI18n` decorator as a migration path towards the `useI18n` hook, or for use with class components. Unlike the hook version, components using the `withI18n` decorator always share their translations with the entire tree.
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {withI18n, WithI18nProps} from '@shopify/react-i18n';
 
@@ -153,7 +153,7 @@ If you provide any of the above options, you must also provide an `id` key, whic
 Here’s the example above with component-specific translations:
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {useI18n} from '@shopify/react-i18n';
 

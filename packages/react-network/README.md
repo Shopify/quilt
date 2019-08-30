@@ -30,7 +30,6 @@ function MyComponent() {
   useRedirect('/login', StatusCode.SeeOther);
 
   // or
-
   return <Redirect url="/login" code={StatusCode.SeeOther} />;
 }
 ```
@@ -101,9 +100,28 @@ function MyComponent() {
 }
 ```
 
+#### `useAcceptLanguage()`
+
+This hook will read and parse the value of the `Accept-Language` header and return the result in a array of `Language` objects. It takes one argument as the fallback `Language` incase the header is not present.
+
+```tsx
+import {useAcceptLanguage} from '@shopify/react-network';
+
+function MyComponent() {
+  const fallback = {code: 'en', quality: 1.0};
+  const locales = useAcceptLanguage(fallback);
+
+  const languages = locales.map(({code, quality, region}) => {
+    return `code: ${code}, quality: ${quality}, region: ${region}`;
+  });
+
+  return <div>Requested languages: {languages}</div>;
+}
+```
+
 ### Server
 
-To extract details from your application, render a `NetworkContext.Provider` around your app, and give it an instance of the `NetworkManager`. When using `react-effect`, this decoration can be done in the `decorate` option of `extract()`. Finally, you can use the `applyToContext` utility from this package to apply the necessary headers to the response. Your final server middleware will resemble the example below:
+To extract details from your application, render a `NetworkContext.Provider` around your app, and give it an instance of the `NetworkManager`. When using `react-effect`, this decoration can be done in the `decorate` option of `extract()`. Finally, you can use the `applyToContext` utility from this package to apply the necessary headers to the response. Your final server middleware will resemble th e example below:
 
 ```tsx
 import {renderToString} from 'react-dom/server';

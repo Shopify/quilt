@@ -11,6 +11,7 @@ import {
   NetworkContext,
   NetworkManager,
 } from '@shopify/react-network/server';
+import {ArgumentAtIndex} from '@shopify/useful-types';
 import {extract} from '@shopify/react-effect/server';
 import {
   AsyncAssetContext,
@@ -21,17 +22,22 @@ import {Header, StatusCode} from '@shopify/react-network';
 import {getAssets} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
 
-export type RenderContext = Context & {
-  locale: string;
-};
-export type RenderFunction = (ctx: RenderContext) => React.ReactElement<any>;
+export {Context};
+export interface RenderFunction {
+  (ctx: Context): React.ReactElement<any>;
+}
+
+type Options = Pick<
+  NonNullable<ArgumentAtIndex<typeof extract, 1>>,
+  'afterEachPass' | 'betweenEachPass'
+>;
 
 /**
  * Creates a Koa middleware for rendering an `@shopify/react-html` based React application defined by `options.render`.
  * @param render
  */
-export function createRender(render: RenderFunction) {
-  return async function renderFunction(ctx: RenderContext) {
+export function createRender(render: RenderFunction, options: Options = {}) {
+  return async function renderFunction(ctx: Context) {
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
     const networkManager = new NetworkManager({
@@ -39,11 +45,9 @@ export function createRender(render: RenderFunction) {
     });
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
-    const acceptsLanguages = ctx.acceptsLanguages && ctx.acceptsLanguages();
-    const locale = Array.isArray(acceptsLanguages) ? acceptsLanguages[0] : 'en';
 
     try {
-      const app = render({...ctx, locale});
+      const app = render(ctx);
       await extract(app, {
         decorate(app) {
           return (
@@ -67,6 +71,7 @@ export function createRender(render: RenderFunction) {
           logger.log(rendering);
           logger.log(resolving);
         },
+        ...options,
       });
       applyToContext(ctx, networkManager);
 
@@ -79,12 +84,7 @@ export function createRender(render: RenderFunction) {
       ]);
 
       const response = stream(
-        <Html
-          locale={locale}
-          manager={htmlManager}
-          styles={styles}
-          scripts={scripts}
-        >
+        <Html manager={htmlManager} styles={styles} scripts={scripts}>
           <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
         </Html>,
       );
@@ -95,7 +95,9 @@ export function createRender(render: RenderFunction) {
       logger.error(error);
       // eslint-disable-next-line no-process-env
       if (process.env.NODE_ENV === 'development') {
-        ctx.body = `Internal Server Error: \n\n${error.message}`;
+        ctx.body = `Internal Server Error: \n\n${error.message} \n\n ${
+          error.stack
+        }`;
       } else {
         ctx.throw(StatusCode.InternalServerError, error);
       }

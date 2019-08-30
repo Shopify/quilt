@@ -45,7 +45,8 @@ export default function useQuery<
   const query = useGraphQLDocument(queryOrComponent);
 
   const normalizedFetchPolicy =
-    typeof window === 'undefined' && fetchPolicy === 'network-only'
+    typeof window === 'undefined' &&
+    (fetchPolicy === 'network-only' || fetchPolicy === 'cache-and-network')
       ? 'cache-first'
       : fetchPolicy;
   const serializedVariables = variables && JSON.stringify(variables);
