@@ -1,0 +1,2 @@
+export {Route, Switch} from 'react-router-dom';
+export {default as Router} from './Router';
