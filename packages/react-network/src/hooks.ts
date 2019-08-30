@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 import {useContext, useState} from 'react';
 import {CookieSerializeOptions} from 'cookie';
+=======
+import {useContext} from 'react';
+import {CookieSetOptions} from 'universal-cookie';
+>>>>>>> Stashed changes
 import {CspDirective, StatusCode} from '@shopify/network';
 import {useServerEffect} from '@shopify/react-effect';
 
@@ -41,17 +46,26 @@ export function useRedirect(url: string, status?: StatusCode) {
 }
 
 export function useCookie(
+<<<<<<< Updated upstream
   key: string,
 ): [
   string | undefined,
   (value: string, options?: CookieSerializeOptions) => void
 ] {
+=======
+  cookie: string,
+): [string | undefined, (value: string, options?: CookieSetOptions) => void] {
+>>>>>>> Stashed changes
   const network = useContext(NetworkContext);
   const [cookie, setCookieValue] = useState(() => {
     return network ? network.getCookie(key) : undefined;
   });
 
+<<<<<<< Updated upstream
   const setCookie = (value: string, options?: CookieSerializeOptions) => {
+=======
+  const setCookie = (value: string, options?: CookieSetOptions) => {
+>>>>>>> Stashed changes
     if (!network) {
       return;
     }

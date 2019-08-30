@@ -78,7 +78,6 @@ describe('server', () => {
     it('can set cookies', () => {
       const manager = new NetworkManager();
       const ctx = createMockContext();
-      const spy = jest.spyOn(ctx.cookies, 'set');
 
       const cookie = 'foo';
       const value = 'bar';
@@ -87,7 +86,7 @@ describe('server', () => {
       manager.setCookie(cookie, value, options);
       applyToContext(ctx, manager);
 
-      expect(spy).toHaveBeenCalledWith(cookie, value, options);
+      expect((ctx.request as any).universalCookies.get(cookie)).toBe(value);
     });
   });
 

@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 import cookie, {CookieSerializeOptions} from 'cookie';
+=======
+import * as cookie from 'cookie';
+import {CookieSetOptions} from 'universal-cookie';
+>>>>>>> Stashed changes
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 
@@ -8,7 +13,11 @@ export const EFFECT_ID = Symbol('network');
 
 interface Options {
   headers?: Record<string, string>;
+<<<<<<< Updated upstream
   cookies?: string | object | null;
+=======
+  cookies?: Record<string, string>;
+>>>>>>> Stashed changes
 }
 
 export class NetworkManager {
@@ -31,7 +40,11 @@ export class NetworkManager {
     string,
     {
       value: string;
+<<<<<<< Updated upstream
     } & CookieSerializeOptions
+=======
+    } & CookieSetOptions
+>>>>>>> Stashed changes
   >();
 
   constructor({headers, cookies}: Options = {}) {
@@ -53,8 +66,8 @@ export class NetworkManager {
     this.statusCodes = [];
     this.csp.clear();
     this.headers.clear();
-    this.cookies.clear();
     this.redirectUrl = undefined;
+    this.cookies.clear();
   }
 
   getHeader(header: string) {
@@ -70,11 +83,15 @@ export class NetworkManager {
     return value && value.value;
   }
 
+<<<<<<< Updated upstream
   setCookie(
     cookie: string,
     value: string,
     options: CookieSerializeOptions = {},
   ) {
+=======
+  setCookie(cookie: string, value: string, options: CookieSetOptions = {}) {
+>>>>>>> Stashed changes
     this.cookies.set(cookie, {value, ...options});
     this.setBrowserCookie(cookie, value, options);
   }
@@ -128,7 +145,6 @@ export class NetworkManager {
             .join('; ');
 
     const headers = new Map(this.headers);
-    const cookies = new Map(this.cookies);
 
     if (csp) {
       headers.set(Header.ContentSecurityPolicy, csp);
@@ -140,7 +156,7 @@ export class NetworkManager {
           ? this.statusCodes.reduce((large, code) => Math.max(large, code), 0)
           : undefined,
       headers,
-      cookies,
+      cookies: this.cookies,
       redirectUrl: this.redirectUrl,
     };
   }

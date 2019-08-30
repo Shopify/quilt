@@ -28,8 +28,15 @@
     "@shopify/react-effect": "^3.2.2",
     "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.46",
+<<<<<<< Updated upstream
     "cookie": "^0.4.0",
     "tslib": "^1.9.3"
+=======
+    "tslib": "^1.9.3",
+    "cookie": "0.4.0",
+    "universal-cookie": "4.0.2",
+    "@types/universal-cookie": "2.2.0"
+>>>>>>> Stashed changes
   },
   "devDependencies": {
     "typescript": "~3.2.1"
