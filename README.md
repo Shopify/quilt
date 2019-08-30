@@ -20,7 +20,6 @@ Each package has its own `README` and documentation describing usage.
 | package |     |     |
 | ------- | --- | --- |
 | address | [directory](packages/address) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress.svg)](https://badge.fury.io/js/%40shopify%2Faddress) |
-| address-consts | [directory](packages/address-consts) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress-consts.svg)](https://badge.fury.io/js/%40shopify%2Faddress-consts) |
 | address-mocks | [directory](packages/address-mocks) | [![npm version](https://badge.fury.io/js/%40shopify%2Faddress-mocks.svg)](https://badge.fury.io/js/%40shopify%2Faddress-mocks) |
 | admin-graphql-api-utilities | [directory](packages/admin-graphql-api-utilities) | [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities) |
 | async | [directory](packages/async) | [![npm version](https://badge.fury.io/js/%40shopify%2Fasync.svg)](https://badge.fury.io/js/%40shopify%2Fasync) |
@@ -82,6 +81,12 @@ Each package has its own `README` and documentation describing usage.
 | sewing-kit-koa | [directory](packages/sewing-kit-koa) | [![npm version](https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa.svg)](https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa) |
 | useful-types | [directory](packages/useful-types) | [![npm version](https://badge.fury.io/js/%40shopify%2Fuseful-types.svg)](https://badge.fury.io/js/%40shopify%2Fuseful-types) |
 | with-env | [directory](packages/with-env) | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
+
+### Gem Index
+
+| package |     |     |
+| ------- | --- | --- |
+| quilt_rails | [directory](gems/quilt_rails) | [![Gem Version](https://badge.fury.io/rb/quilt_rails.svg)](https://badge.fury.io/rb/quilt_rails) |
 
 ## Want to contribute?
 
