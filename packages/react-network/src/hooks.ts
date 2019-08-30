@@ -40,7 +40,7 @@ export function useRedirect(url: string, status?: StatusCode) {
   useNetworkEffect(network => network.redirectTo(url, status));
 }
 
-export function useAcceptLanguages(
+export function useAcceptLanguage(
   fallback: Language = {code: 'en', quality: 1.0},
 ) {
   const acceptsLanguages = useRequestHeader(Header.AcceptLanguage);

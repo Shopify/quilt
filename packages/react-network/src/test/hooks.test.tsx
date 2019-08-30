@@ -4,15 +4,15 @@ import {Header} from '@shopify/network';
 import {FirstArgument} from '@shopify/useful-types';
 import {NetworkManager} from '../manager';
 import {NetworkContext} from '../context';
-import {useAcceptLanguages} from '../hooks';
+import {useAcceptLanguage} from '../hooks';
 
-describe('useAcceptLanguages()', () => {
+describe('useAcceptLanguage()', () => {
   function MockComponent({
     fallback,
   }: {
-    fallback?: FirstArgument<typeof useAcceptLanguages>;
+    fallback?: FirstArgument<typeof useAcceptLanguage>;
   }) {
-    const locales = useAcceptLanguages(fallback);
+    const locales = useAcceptLanguage(fallback);
 
     const localeCodes = locales.map(local => local.code).join(' ');
     return <>{localeCodes}</>;
