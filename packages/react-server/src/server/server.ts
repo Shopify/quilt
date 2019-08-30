@@ -5,6 +5,7 @@ import {pathExistsSync} from 'fs-extra';
 import Koa, {Context} from 'koa';
 import compose from 'koa-compose';
 import mount from 'koa-mount';
+import cookieMiddleware from 'universal-cookie-koa';
 import {middleware as sewingKitMiddleware} from '@shopify/sewing-kit-koa';
 import {createRender, RenderFunction} from '../render';
 import {createLogger, Verbosity} from '../logger';
@@ -35,6 +36,7 @@ export function createServer(options: Options): Server {
 
   app.use(createLogger({level: debug ? Verbosity.Debug : Verbosity.Off}));
   app.use(sewingKitMiddleware({assetPrefix, manifestPath}));
+  app.use(cookieMiddleware());
 
   if (serverMiddleware) {
     app.use(compose(serverMiddleware));

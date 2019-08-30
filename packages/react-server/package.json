@@ -33,7 +33,8 @@
     "chalk": "^2.4.2",
     "koa": "^2.5.0",
     "koa-compose": "^4.1.0",
-    "koa-mount": "^4.0.0"
+    "koa-mount": "^4.0.0",
+    "universal-cookie-koa": "4.0.1"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.1.4",
