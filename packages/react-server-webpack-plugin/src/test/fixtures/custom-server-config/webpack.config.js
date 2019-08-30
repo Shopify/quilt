@@ -1,3 +1,4 @@
+const path = require('path');
 const {ReactServerPlugin} = require('../../../react-server-webpack-plugin');
 
 const universal = {
@@ -5,11 +6,16 @@ const universal = {
   optimization: {
     minimize: false,
   },
-  plugins: [new ReactServerPlugin({
-    port: 3000,
-    host: '127.0.0.1',
-    assetPrefix: 'https://localhost/webpack/assets',
-  })],
+  plugins: [
+    new ReactServerPlugin({
+      port: 3000,
+      host: '127.0.0.1',
+      assetPrefix: 'https://localhost/webpack/assets',
+    }),
+  ],
+  resolve: {
+    modules: ['node_modules', path.resolve(__dirname)],
+  },
 };
 
 const server = {
