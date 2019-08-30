@@ -8,6 +8,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## Unreleased
 
 - Added support for Node projects [#917](https://github.com/Shopify/quilt/pull/917)
+  - _Note:_ For Node apps the plugin relies on `app` being included in your webpack config's `resolve.modules`. For Rails apps, it relies on `app/ui`.
 
 ## [2.0.0] - 2019-08-16
 

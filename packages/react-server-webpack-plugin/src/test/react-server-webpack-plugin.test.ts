@@ -7,12 +7,9 @@ const BUILD_TIMEOUT = 10000;
 describe('react-server-webpack-plugin', () => {
   describe('node', () => {
     it(
-      'generates the server and client entrypoints when they do not exist',
+      'generates the server and client entrypoints when the virtual server & client modules are present',
       async () => {
-        const [serverResults, clientResults] = await runBuild(
-          'no-entrypoints',
-          true,
-        );
+        const [serverResults, clientResults] = await runBuild('no-entrypoints');
 
         const clientModule = clientResults.modules.find(({name}) =>
           name.includes('./client.js'),
@@ -22,7 +19,10 @@ describe('react-server-webpack-plugin', () => {
           name.includes('./server.js'),
         );
 
+        expect(clientModule).toBeDefined();
         expect(clientModule.source).toMatch(HEADER);
+
+        expect(serverResults).toBeDefined();
         expect(serverModule.source).toMatch(HEADER);
       },
       BUILD_TIMEOUT,
@@ -138,15 +138,15 @@ describe('react-server-webpack-plugin', () => {
   });
 });
 
-function runBuild(configPath: string, useNodeConfig = false): Promise<any[]> {
+function runBuild(configPath: string): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
       './packages/react-server-webpack-plugin/src/test/fixtures',
       configPath,
     );
 
-    const config = require(`${pathFromRoot}/webpack.config.js`)(useNodeConfig);
-
+    // eslint-disable-next-line typescript/no-var-requires
+    const config = require(`${pathFromRoot}/webpack.config.js`);
     const contextConfig = Array.isArray(config)
       ? config.map(config => ({
           ...config,
