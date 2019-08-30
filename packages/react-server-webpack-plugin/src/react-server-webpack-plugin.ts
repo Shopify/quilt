@@ -1,15 +1,12 @@
 import {join, resolve} from 'path';
-import {existsSync} from 'fs-extra';
 import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
-import glob from 'glob';
 
 interface Options {
   basePath: string;
   assetPrefix?: string;
   host?: string;
   port?: number;
-  rails?: boolean;
 }
 
 enum Entrypoint {
@@ -34,14 +31,12 @@ export class ReactServerPlugin {
     port,
     assetPrefix,
     basePath = '.',
-    rails = true,
   }: Partial<Options> = {}) {
     this.options = {
       basePath,
       host,
       port,
       assetPrefix,
-      rails,
     };
   }
 
@@ -120,16 +115,20 @@ function clientSource() {
 function noSourceExists(
   entry: Entrypoint,
   options: Options,
-  {options: {context = ''}}: Compiler,
+  {inputFileSystem, options: {context = ''}}: Compiler,
 ) {
-  const {basePath: path, rails} = options;
+  const {basePath: path} = options;
   const basePath = resolve(context, path);
 
-  if (!rails && existsSync(`${basePath}/${entry}`)) {
-    // In node, we assume the user knows what they're doing if the folder exists
+  // readdirSync is not on the type for this
+  const dirFiles = (inputFileSystem as any).readdirSync(basePath);
+
+  // We assume the user knows what they're doing if the folder exists
+  const isEntryFolder = path => path.includes(`${basePath}/${entry}/`);
+  if (dirFiles.find(isEntryFolder)) {
     return false;
   }
 
-  const dirFiles = glob.sync(`${basePath}/${entry}.{ts,js,tsx,jsx}`);
-  return dirFiles.length === 0;
+  const filenameRegex = new RegExp(`^${entry}.[jt]sx?$`);
+  return dirFiles.find(file => filenameRegex.test(file)) == null;
 }
