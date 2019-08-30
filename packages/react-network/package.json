@@ -27,7 +27,9 @@
     "@shopify/network": "^1.4.1",
     "@shopify/react-effect": "^3.2.2",
     "@types/koa": "^2.0.46",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "accept-language-parser": "1.5.0",
+    "@types/accept-language-parser": "1.5.0"
   },
   "devDependencies": {
     "typescript": "~3.2.1"

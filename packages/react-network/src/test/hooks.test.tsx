@@ -1,62 +1,67 @@
 import React from 'react';
-import {mount} from '@shopify/react-testing';
+import {createMount} from '@shopify/react-testing';
 import {Header} from '@shopify/network';
+import {FirstArgument} from '@shopify/useful-types';
 import {NetworkManager} from '../manager';
 import {NetworkContext} from '../context';
 import {useAcceptLanguages} from '../hooks';
 
 describe('useAcceptLanguages()', () => {
-  function MockComponent({fallback}: {fallback?: string}) {
-    const [local] = useAcceptLanguages(fallback);
+  function MockComponent({
+    fallback,
+  }: {
+    fallback?: FirstArgument<typeof useAcceptLanguages>;
+  }) {
+    const locales = useAcceptLanguages(fallback);
 
-    return <>{local}</>;
+    const localeCodes = locales.map(local => local.code).join(' ');
+    return <>{localeCodes}</>;
   }
 
   it('returns the locale from the language header', async () => {
-    const lang = 'it';
-    const wrapper = await mountWithLanguageHeader(<MockComponent />, lang);
+    const language = 'it';
+    const wrapper = await mount(<MockComponent />, {language});
 
-    expect(wrapper.find(MockComponent)).toContainReactText(lang);
+    expect(wrapper).toContainReactText(language);
   });
 
-  it('returns the first locale from the language header with multiple languages', async () => {
-    const lang = 'it, fr, en-US';
-    const wrapper = await mountWithLanguageHeader(<MockComponent />, lang);
+  it('parses codes from multiple languages in various formats', async () => {
+    const language = 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5';
+    const wrapper = await mount(<MockComponent />, {language});
 
-    expect(wrapper.find(MockComponent)).toContainReactText('it');
+    expect(wrapper).toContainReactText('fr fr en de *');
   });
 
   it('returns a fallback when no language header exists', async () => {
     const fallback = 'fr';
-    const wrapper = await mountWithLanguageHeader(
-      <MockComponent fallback={fallback} />,
+    const wrapper = await mount(
+      <MockComponent fallback={{code: fallback, quality: 1.0}} />,
     );
 
-    expect(wrapper.find(MockComponent)).toContainReactText(fallback);
+    expect(wrapper).toContainReactText(fallback);
   });
 
   it('returns `en` if no fallback is set and no language header exists', async () => {
-    const wrapper = await mountWithLanguageHeader(<MockComponent />);
+    const wrapper = await mount(<MockComponent />);
 
-    expect(wrapper.find(MockComponent)).toContainReactText('en');
+    expect(wrapper).toContainReactText('en');
   });
 });
 
-function mountWithLanguageHeader(
-  component: React.ReactElement,
-  local?: string,
-) {
-  const headers = {};
+const mount = createMount<{language?: string}>({
+  render: (element, _, {language}) => {
+    const headers = {};
 
-  if (local) {
-    headers[Header.AcceptLanguage] = local;
-  }
+    if (language) {
+      headers[Header.AcceptLanguage] = language;
+    }
 
-  const manager = new NetworkManager({headers});
+    const manager = new NetworkManager({headers});
 
-  return mount(
-    <NetworkContext.Provider value={manager}>
-      {component}
-    </NetworkContext.Provider>,
-  );
-}
+    return (
+      <NetworkContext.Provider value={manager}>
+        {element}
+      </NetworkContext.Provider>
+    );
+  },
+});

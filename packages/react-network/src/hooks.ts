@@ -1,4 +1,5 @@
 import {useContext} from 'react';
+import {parse, Language} from 'accept-language-parser';
 import {CspDirective, StatusCode, Header} from '@shopify/network';
 import {useServerEffect} from '@shopify/react-effect';
 
@@ -39,9 +40,11 @@ export function useRedirect(url: string, status?: StatusCode) {
   useNetworkEffect(network => network.redirectTo(url, status));
 }
 
-export function useAcceptLanguages(fallback = 'en') {
+export function useAcceptLanguages(
+  fallback: Language = {code: 'en', quality: 1.0},
+) {
   const acceptsLanguages = useRequestHeader(Header.AcceptLanguage);
-  const locales = acceptsLanguages ? acceptsLanguages.split(',') : [fallback];
+  const locales = acceptsLanguages ? parse(acceptsLanguages) : [fallback];
 
-  return [locales[0]];
+  return locales;
 }
