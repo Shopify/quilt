@@ -80,8 +80,8 @@ describe('server', () => {
       const ctx = createMockContext();
       const spy = jest.spyOn(ctx.cookies, 'set');
 
-      const cookie = 'Cooookie';
-      const value = 'Crisp';
+      const cookie = 'foo';
+      const value = 'bar';
       const options = {maxAge: 123456789};
 
       manager.setCookie(cookie, value, options);

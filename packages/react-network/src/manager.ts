@@ -1,4 +1,4 @@
-import Cookies from 'cookies';
+import cookie, {CookieSerializeOptions} from 'cookie';
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 
@@ -8,6 +8,7 @@ export const EFFECT_ID = Symbol('network');
 
 interface Options {
   headers?: Record<string, string>;
+  cookies?: string | object | null;
 }
 
 export class NetworkManager {
@@ -30,11 +31,40 @@ export class NetworkManager {
     string,
     {
       value: string;
-    } & Cookies.SetOption
+    } & CookieSerializeOptions
   >();
 
-  constructor({headers}: Options = {}) {
+  private get browser() {
+    return Boolean(
+      typeof document === 'object' && typeof document.cookie === 'string',
+    );
+  }
+
+  private setBrowserCookie(
+    name: string,
+    value: string,
+    options?: CookieSerializeOptions,
+  ) {
+    if (!this.browser) {
+      return;
+    }
+
+    document.cookie = cookie.serialize(name, value, options);
+  }
+
+  constructor({headers, cookies}: Options = {}) {
     this.requestHeaders = lowercaseEntries(headers);
+
+    if (!cookies) {
+      return;
+    }
+
+    const parsedCookies =
+      typeof cookies === 'string' ? cookie.parse(cookies) : cookies;
+
+    Object.entries(parsedCookies).forEach(([key, value]) => {
+      this.cookies.set(key.toLowerCase(), {value});
+    });
   }
 
   reset() {
@@ -58,8 +88,18 @@ export class NetworkManager {
     return value && value.value;
   }
 
-  setCookie(cookie: string, value: string, options: Cookies.SetOption = {}) {
+  setCookie(
+    cookie: string,
+    value: string,
+    options: CookieSerializeOptions = {},
+  ) {
     this.cookies.set(cookie, {value, ...options});
+    this.setBrowserCookie(cookie, value, options);
+  }
+
+  removeCookie(cookie: string) {
+    this.cookies.delete(cookie);
+    this.setBrowserCookie(cookie, '');
   }
 
   redirectTo(url: string, status = StatusCode.Found) {

@@ -4,47 +4,95 @@ import {Header} from '@shopify/network';
 import {FirstArgument} from '@shopify/useful-types';
 import {NetworkManager} from '../manager';
 import {NetworkContext} from '../context';
-import {useAcceptLanguage} from '../hooks';
+import {useCookie, useAcceptLanguage} from '../hooks';
 
-describe('useAcceptLanguage()', () => {
-  function MockComponent({
-    fallback,
-  }: {
-    fallback?: FirstArgument<typeof useAcceptLanguage>;
-  }) {
-    const locales = useAcceptLanguage(fallback);
+describe('hooks', () => {
+  describe('useAcceptLanguage()', () => {
+    function MockComponent({
+      fallback,
+    }: {
+      fallback?: FirstArgument<typeof useAcceptLanguage>;
+    }) {
+      const locales = useAcceptLanguage(fallback);
 
-    const localeCodes = locales.map(local => local.code).join(' ');
-    return <>{localeCodes}</>;
-  }
+      const localeCodes = locales.map(local => local.code).join(' ');
+      return <>{localeCodes}</>;
+    }
 
-  it('returns the locale from the language header', async () => {
-    const language = 'it';
-    const wrapper = await mount(<MockComponent />, {language});
+    it('returns the locale from the language header', async () => {
+      const language = 'it';
+      const wrapper = await mount(<MockComponent />, {language});
 
-    expect(wrapper).toContainReactText(language);
+      expect(wrapper).toContainReactText(language);
+    });
+
+    it('parses codes from multiple languages in various formats', async () => {
+      const language = 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5';
+      const wrapper = await mount(<MockComponent />, {language});
+
+      expect(wrapper).toContainReactText('fr fr en de *');
+    });
+
+    it('returns a fallback when no language header exists', async () => {
+      const fallback = 'fr';
+      const wrapper = await mount(
+        <MockComponent fallback={{code: fallback, quality: 1.0}} />,
+      );
+
+      expect(wrapper).toContainReactText(fallback);
+    });
+
+    it('returns `en` if no fallback is set and no language header exists', async () => {
+      const wrapper = await mount(<MockComponent />);
+
+      expect(wrapper).toContainReactText('en');
+    });
   });
 
-  it('parses codes from multiple languages in various formats', async () => {
-    const language = 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5';
-    const wrapper = await mount(<MockComponent />, {language});
+  describe('useCookie', () => {
+    function MockComponent({cookie}: {cookie: string}) {
+      const [value, setCookie] = useCookie(cookie);
 
-    expect(wrapper).toContainReactText('fr fr en de *');
-  });
+      return (
+        <>
+          <button type="button" onClick={() => setCookie('baz')}>
+            Set Cookie
+          </button>
+          {value}
+        </>
+      );
+    }
 
-  it('returns a fallback when no language header exists', async () => {
-    const fallback = 'fr';
-    const wrapper = await mount(
-      <MockComponent fallback={{code: fallback, quality: 1.0}} />,
-    );
+    it('gets a cookie', async () => {
+      const key = 'foo';
+      const value = 'bar';
+      const cookie = {[key]: value};
 
-    expect(wrapper).toContainReactText(fallback);
-  });
+      const wrapper = await mountWithCookies(
+        <MockComponent cookie={key} />,
+        cookie,
+      );
 
-  it('returns `en` if no fallback is set and no language header exists', async () => {
-    const wrapper = await mount(<MockComponent />);
+      expect(wrapper.find(MockComponent)).toContainReactText(value);
+    });
 
-    expect(wrapper).toContainReactText('en');
+    it('sets a cookie', async () => {
+      const key = 'foo';
+      const value = 'bar';
+      const cookie = {[key]: value};
+
+      const wrapper = await mountWithCookies(
+        <MockComponent cookie={key} />,
+        cookie,
+      );
+
+      wrapper
+        .find(MockComponent)!
+        .find('button')!
+        .trigger('onClick');
+
+      expect(wrapper.find(MockComponent)).toContainReactText(`baz`);
+    });
   });
 });
 
@@ -65,3 +113,16 @@ const mount = createMount<{language?: string}>({
     );
   },
 });
+
+function mountWithCookies(
+  component: React.ReactElement,
+  cookies: Record<string, string>,
+) {
+  const manager = new NetworkManager({cookies});
+
+  return mount(
+    <NetworkContext.Provider value={manager}>
+      {component}
+    </NetworkContext.Provider>,
+  );
+}
