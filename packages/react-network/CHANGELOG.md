@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [3.2.0]
+
+- Added `useAcceptLanguage()` hook [#909](https://github.com/Shopify/quilt/pull/909)
+
+## [3.1.10]
+
 ## Fixed
 
 - Store network headers in lowercase [#915](https://github.com/Shopify/quilt/pull/915)
