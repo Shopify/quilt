@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import {withRouter, RouteComponentProps} from 'react-router';
 import {Redirect as NetworkRedirect} from '@shopify/react-network';
 
@@ -8,14 +8,10 @@ interface Props {
 
 type ComposedProps = Props & RouteComponentProps<{}, {}>;
 
-class Redirect extends React.Component<ComposedProps> {
-  componentDidMount() {
-    this.props.router.push(this.props.url);
-  }
-
-  render() {
-    return <NetworkRedirect url={this.props.url} />;
-  }
+function Redirect(props: ComposedProps) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => props.router.push(props.url), []);
+  return <NetworkRedirect url={props.url} />;
 }
 
 export default withRouter(Redirect);

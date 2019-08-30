@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {StaticRouter, BrowserRouter} from 'react-router-dom';
 import {isServer} from './utilities';
 
