@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from '@shopify/react-testing';
+import {createMount} from '@shopify/react-testing';
 import {NetworkManager} from '../manager';
 import {NetworkContext} from '../context';
 import {useCookie} from '../hooks';
@@ -22,45 +22,40 @@ describe('hooks', () => {
     it('gets a cookie', async () => {
       const key = 'foo';
       const value = 'bar';
-      const cookie = {[key]: value};
+      const cookies = {[key]: value};
 
-      const wrapper = await mountWithCookies(
-        <MockComponent cookie={key} />,
-        cookie,
-      );
+      const wrapper = await mount(<MockComponent cookie={key} />, {
+        manager: new NetworkManager({cookies}),
+      });
 
-      expect(wrapper.find(MockComponent)).toContainReactText(value);
+      expect(wrapper).toContainReactText(value);
     });
 
     it('sets a cookie', async () => {
       const key = 'foo';
       const value = 'bar';
-      const cookie = {[key]: value};
+      const cookies = {[key]: value};
 
-      const wrapper = await mountWithCookies(
-        <MockComponent cookie={key} />,
-        cookie,
-      );
+      const wrapper = await mount(<MockComponent cookie={key} />, {
+        manager: new NetworkManager({cookies}),
+      });
 
       wrapper
         .find(MockComponent)!
         .find('button')!
         .trigger('onClick');
 
-      expect(wrapper.find(MockComponent)).toContainReactText(`baz`);
+      expect(wrapper).toContainReactText(`baz`);
     });
   });
 });
 
-function mountWithCookies(
-  component: React.ReactElement,
-  cookies: Record<string, string>,
-) {
-  const manager = new NetworkManager({cookies});
-
-  return mount(
-    <NetworkContext.Provider value={manager}>
-      {component}
-    </NetworkContext.Provider>,
-  );
-}
+const mount = createMount<{manager?: NetworkManager}>({
+  render: (element, _, {manager = new NetworkManager()}) => {
+    return (
+      <NetworkContext.Provider value={manager}>
+        {element}
+      </NetworkContext.Provider>
+    );
+  },
+});

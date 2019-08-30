@@ -24,8 +24,12 @@ export function applyToContext<T extends Context>(
 
   for (const [cookie, options] of cookies) {
     const {value, ...rest} = options;
-    ctx.cookies.set(cookie, value, rest as any);
+    ctx.cookies.set(cookie, value, rest);
   }
+
+  // eslint-disable-next-line no-warning-comments
+  // TODO: Add a watcher function that reapplies the cookies
+  // to context when they change
 
   return ctx;
 }
