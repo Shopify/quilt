@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {useServerEffect} from '@shopify/react-effect';
 import {HtmlContext} from './context';
 import {useServerDomEffect} from './hooks';

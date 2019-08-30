@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
 import {mapObject, replace} from '../utilities';
@@ -27,7 +27,9 @@ export default class List<Fields> extends React.PureComponent<
         fieldValues,
         (value, fieldPath) => {
           const initialFieldValue =
-            initialValue[index] && initialValue[index][fieldPath];
+            initialValue &&
+            initialValue[index] &&
+            initialValue[index][fieldPath];
           return {
             value,
             onBlur,

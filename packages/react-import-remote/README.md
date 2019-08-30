@@ -18,7 +18,7 @@ The package provides a hook and component that are intended for loading external
 ### useImportRemote()
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {useImportRemote, Status} from '@shopify/react-import-remote';
 import {DeferTiming} from '@shopify/async';
 
@@ -42,7 +42,7 @@ function MyComponent() {
 ### <ImportRemote />
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 import {DeferTiming} from '@shopify/async';
 

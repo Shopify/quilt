@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {useLink} from '../hooks';
 
 type Props = React.HTMLProps<HTMLLinkElement>;

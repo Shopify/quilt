@@ -1,4 +1,7 @@
-import {LoadCountriesResponse, LoadCountryResponse} from '@shopify/address';
+import {
+  LoadCountriesResponse,
+  LoadCountryResponse,
+} from '@shopify/address-consts';
 
 const countryCAFr: LoadCountryResponse = require('./country_ca_fr').default;
 const countryCAEn: LoadCountryResponse = require('./country_ca_en').default;

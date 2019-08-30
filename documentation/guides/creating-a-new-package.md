@@ -45,4 +45,4 @@ Now's a good time to consider the completeness of the package you've created. Ev
 
 ## Releasing
 
-Our release process is documented in our [Contributing guide](../../.github/CONTRIBUTING.md#releasing)
+Our release process is documented in our [release and deploy guide](./release-and-deploy.md)

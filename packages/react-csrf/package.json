@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-csrf",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Share csrf token throughout a react application.",
   "main": "dist/index.js",
@@ -23,12 +23,11 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-csrf/README.md",
-  "dependencies": {},
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^1.7.5",
+    "@shopify/react-testing": "^1.7.7",
     "typescript": "~3.2.1"
   },
   "files": [

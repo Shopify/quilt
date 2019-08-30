@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';

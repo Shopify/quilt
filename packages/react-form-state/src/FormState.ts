@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import * as React from 'react';
+import React from 'react';
 
 import {mapObject, set, isEqual, flatMap} from './utilities';
 import {
