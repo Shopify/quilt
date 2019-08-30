@@ -26,12 +26,14 @@
     "@shopify/network": "^1.4.1",
     "nonce": "^1.0.4",
     "safe-compare": "^1.1.2",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "koa-compose": ">=3.0.0 <4.0.0"
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.7.3",
     "@shopify/jest-koa-mocks": "^2.1.4",
     "@types/koa": "^2.0.44",
+    "@types/koa-compose": "*",
     "@types/safe-compare": "^1.1.0",
     "koa": "^2.5.0",
     "typescript": "~3.2.1"
