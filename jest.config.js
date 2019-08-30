@@ -21,10 +21,10 @@ const moduleNameMapper = getPackageNames().reduce(
 
 module.exports = {
   setupFiles: ['./test/setup.ts'],
-  setupTestFrameworkScriptFile: './test/each-test.ts',
+  setupFilesAfterEnv: ['./test/each-test.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.[t|j]sx?$': 'babel-jest',
     '\\.(gql|graphql)$': 'jest-transform-graphql',
   },
   testRegex: '.*\\.test\\.tsx?$',
@@ -34,9 +34,6 @@ module.exports = {
   coverageDirectory: './coverage/',
   collectCoverage: true,
   moduleNameMapper,
-  globals: {
-    'ts-jest': {diagnostics: false},
-  },
 };
 
 function getPackageNames() {
