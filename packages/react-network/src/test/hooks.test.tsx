@@ -11,7 +11,9 @@ describe('hooks', () => {
 
       return (
         <>
-          <button onClick={() => setCookie('baz')}>Set Cookie</button>
+          <button type="button" onClick={() => setCookie('baz')}>
+            Set Cookie
+          </button>
           {value}
         </>
       );

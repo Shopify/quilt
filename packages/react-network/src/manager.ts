@@ -34,24 +34,6 @@ export class NetworkManager {
     } & CookieSerializeOptions
   >();
 
-  private get browser() {
-    return Boolean(
-      typeof document === 'object' && typeof document.cookie === 'string',
-    );
-  }
-
-  private setBrowserCookie(
-    name: string,
-    value: string,
-    options?: CookieSerializeOptions,
-  ) {
-    if (!this.browser) {
-      return;
-    }
-
-    document.cookie = cookie.serialize(name, value, options);
-  }
-
   constructor({headers, cookies}: Options = {}) {
     this.requestHeaders = lowercaseEntries(headers);
 
@@ -161,6 +143,24 @@ export class NetworkManager {
       cookies,
       redirectUrl: this.redirectUrl,
     };
+  }
+
+  private get browser() {
+    return Boolean(
+      typeof document === 'object' && typeof document.cookie === 'string',
+    );
+  }
+
+  private setBrowserCookie(
+    name: string,
+    value: string,
+    options?: CookieSerializeOptions,
+  ) {
+    if (!this.browser) {
+      return;
+    }
+
+    document.cookie = cookie.serialize(name, value, options);
   }
 }
 
