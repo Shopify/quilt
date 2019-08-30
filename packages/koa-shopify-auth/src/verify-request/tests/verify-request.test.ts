@@ -1,116 +1,170 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {fetch} from '@shopify/jest-dom-mocks';
+import {StatusCode} from '@shopify/network';
 import verifyRequest from '../verify-request';
 import {TEST_COOKIE_NAME, TOP_LEVEL_OAUTH_COOKIE_NAME} from '../../index';
 
+const TEST_SHOP = 'testshop.myshopify.com';
+
 describe('verifyRequest', () => {
   afterEach(fetch.restore);
-  it('calls next if there is an accessToken on session', async () => {
-    const verifyRequestMiddleware = verifyRequest();
-    const ctx = createMockContext({
-      session: {accessToken: 'test', shop: 'testshop.myshopify.com'},
-    });
-    const next = jest.fn();
 
-    fetch.mock('https://testshop.myshopify.com/admin/metafields.json', 200);
-    await verifyRequestMiddleware(ctx, next);
+  describe('when there is an accessToken and shop in session', () => {
+    it('calls next', async () => {
+      const verifyRequestMiddleware = verifyRequest();
+      const ctx = createMockContext({
+        url: appUrl(TEST_SHOP),
+        session: {accessToken: 'test', shop: TEST_SHOP},
+      });
+      const next = jest.fn();
 
-    expect(next).toHaveBeenCalled();
-  });
+      fetch.mock(metaFieldsUrl(TEST_SHOP), StatusCode.Ok);
+      await verifyRequestMiddleware(ctx, next);
 
-  it('clears the top level oauth cookie if there is an accessToken', () => {
-    const verifyRequestMiddleware = verifyRequest();
-    const ctx = createMockContext({session: {accessToken: 'test'}});
-    const next = jest.fn();
-
-    verifyRequestMiddleware(ctx, next);
-
-    expect(ctx.cookies.set).toHaveBeenCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME);
-  });
-
-  it('sets the test cookie if there is no accessToken', () => {
-    const verifyRequestMiddleware = verifyRequest();
-    const ctx = createMockContext();
-    const next = jest.fn();
-
-    verifyRequestMiddleware(ctx, next);
-
-    expect(ctx.cookies.set).toHaveBeenCalledWith(TEST_COOKIE_NAME, '1');
-  });
-
-  it('redirects to /auth if there is no accessToken but shop is present on query', () => {
-    const shop = 'myshop.com';
-
-    const verifyRequestMiddleware = verifyRequest();
-    const next = jest.fn();
-    const ctx = createMockContext({
-      url: `/foo?shop=${shop}`,
-      redirect: jest.fn(),
+      expect(next).toHaveBeenCalled();
     });
 
-    verifyRequestMiddleware(ctx, next);
+    it('calls next when there is no shop in the query', async () => {
+      const verifyRequestMiddleware = verifyRequest();
+      const ctx = createMockContext({
+        url: appUrl(),
+        session: {accessToken: 'test', shop: TEST_SHOP},
+      });
+      const next = jest.fn();
 
-    expect(ctx.redirect).toHaveBeenCalledWith(`/auth?shop=${shop}`);
-  });
+      fetch.mock(metaFieldsUrl(TEST_SHOP), StatusCode.Ok);
+      await verifyRequestMiddleware(ctx, next);
 
-  it('redirects to the /auth when there is no accessToken or known shop', () => {
-    const verifyRequestMiddleware = verifyRequest();
-
-    const next = jest.fn();
-    const ctx = createMockContext({
-      redirect: jest.fn(),
+      expect(next).toHaveBeenCalled();
     });
 
-    verifyRequestMiddleware(ctx, next);
+    it('clears the top level oauth cookie', () => {
+      const verifyRequestMiddleware = verifyRequest();
+      const ctx = createMockContext({
+        url: appUrl(TEST_SHOP),
+        session: {shop: TEST_SHOP, accessToken: 'test'},
+      });
+      const next = jest.fn();
 
-    expect(ctx.redirect).toHaveBeenCalledWith('/auth');
-  });
+      verifyRequestMiddleware(ctx, next);
 
-  it('redirects to given authRoute if there is no accessToken but shop is present on query', () => {
-    const shop = 'myshop.com';
-    const authRoute = '/my-auth-route';
-
-    const verifyRequestMiddleware = verifyRequest({authRoute});
-    const next = jest.fn();
-    const ctx = createMockContext({
-      url: `/foo?shop=${shop}`,
-      redirect: jest.fn(),
+      expect(ctx.cookies.set).toHaveBeenCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME);
     });
 
-    verifyRequestMiddleware(ctx, next);
+    it('redirects to the given authRoute if the token is invalid', async () => {
+      const authRoute = '/my-auth-route';
 
-    expect(ctx.redirect).toHaveBeenCalledWith(`${authRoute}?shop=${shop}`);
-  });
+      const verifyRequestMiddleware = verifyRequest({authRoute});
+      const next = jest.fn();
+      const ctx = createMockContext({
+        url: appUrl(TEST_SHOP),
+        redirect: jest.fn(),
+        session: {accessToken: 'test', shop: TEST_SHOP},
+      });
 
-  it('redirects to given authRoute if existing token is invalid', async () => {
-    const shop = 'myshop.com';
-    const authRoute = '/my-auth-route';
+      fetch.mock(metaFieldsUrl(TEST_SHOP), StatusCode.Unauthorized);
+      await verifyRequestMiddleware(ctx, next);
 
-    const verifyRequestMiddleware = verifyRequest({authRoute});
-    const next = jest.fn();
-    const ctx = createMockContext({
-      url: `/foo?shop=${shop}`,
-      redirect: jest.fn(),
-      session: {accessToken: 'test', shop: 'testshop.myshopify.com'},
+      expect(ctx.redirect).toHaveBeenCalledWith(
+        `${authRoute}?shop=${TEST_SHOP}`,
+      );
     });
 
-    fetch.mock('https://testshop.myshopify.com/admin/metafields.json', 401);
-    await verifyRequestMiddleware(ctx, next);
+    it('redirects to the given authRoute if the shop in session does not match the one in the query param', async () => {
+      const authRoute = '/my-auth-route';
 
-    expect(ctx.redirect).toHaveBeenCalledWith(`${authRoute}?shop=${shop}`);
+      const verifyRequestMiddleware = verifyRequest({authRoute});
+      const next = jest.fn();
+      const ctx = createMockContext({
+        url: appUrl(TEST_SHOP),
+        redirect: jest.fn(),
+        session: {accessToken: 'test', shop: 'some-other-shop.com'},
+      });
+
+      fetch.mock(metaFieldsUrl(TEST_SHOP), StatusCode.Ok);
+      await verifyRequestMiddleware(ctx, next);
+
+      expect(ctx.redirect).toHaveBeenCalledWith(
+        `${authRoute}?shop=${TEST_SHOP}`,
+      );
+    });
   });
 
-  it('redirects to the given fallbackRoute when there is no accessToken or known shop', () => {
-    const fallbackRoute = '/somewhere-on-the-app';
-    const verifyRequestMiddleware = verifyRequest({fallbackRoute});
+  describe('when there is no session', () => {
+    it('sets the test cookie', () => {
+      const verifyRequestMiddleware = verifyRequest();
+      const ctx = createMockContext({});
+      const next = jest.fn();
 
-    const next = jest.fn();
-    const ctx = createMockContext({
-      redirect: jest.fn(),
+      verifyRequestMiddleware(ctx, next);
+
+      expect(ctx.cookies.set).toHaveBeenCalledWith(TEST_COOKIE_NAME, '1');
     });
 
-    verifyRequestMiddleware(ctx, next);
+    it('redirects to /auth if shop is present on query', () => {
+      const shop = 'myshop.com';
 
-    expect(ctx.redirect).toHaveBeenCalledWith(fallbackRoute);
+      const verifyRequestMiddleware = verifyRequest();
+      const next = jest.fn();
+      const ctx = createMockContext({
+        url: appUrl(shop),
+        redirect: jest.fn(),
+      });
+
+      verifyRequestMiddleware(ctx, next);
+
+      expect(ctx.redirect).toHaveBeenCalledWith(`/auth?shop=${shop}`);
+    });
+
+    it('redirects to /auth if shop is not present on query', () => {
+      const verifyRequestMiddleware = verifyRequest();
+      const next = jest.fn();
+      const ctx = createMockContext({
+        url: appUrl(),
+        redirect: jest.fn(),
+      });
+
+      verifyRequestMiddleware(ctx, next);
+
+      expect(ctx.redirect).toHaveBeenCalledWith(`/auth`);
+    });
+
+    it('redirects to the given authRoute if shop is present on query', () => {
+      const shop = 'myshop.com';
+      const authRoute = '/my-auth-route';
+
+      const verifyRequestMiddleware = verifyRequest({authRoute});
+      const next = jest.fn();
+      const ctx = createMockContext({
+        url: appUrl(shop),
+        redirect: jest.fn(),
+      });
+
+      verifyRequestMiddleware(ctx, next);
+
+      expect(ctx.redirect).toHaveBeenCalledWith(`${authRoute}?shop=${shop}`);
+    });
+
+    it('redirects to the given fallbackRoute if shop is not present on query', () => {
+      const fallbackRoute = '/somewhere-on-the-app';
+      const verifyRequestMiddleware = verifyRequest({fallbackRoute});
+
+      const next = jest.fn();
+      const ctx = createMockContext({
+        redirect: jest.fn(),
+      });
+
+      verifyRequestMiddleware(ctx, next);
+
+      expect(ctx.redirect).toHaveBeenCalledWith(fallbackRoute);
+    });
   });
 });
+
+function metaFieldsUrl(shop: string) {
+  return `https://${shop}/admin/metafields.json`;
+}
+
+function appUrl(shop?: string) {
+  return shop == null ? '/foo' : `/foo?shop=${shop}`;
+}
