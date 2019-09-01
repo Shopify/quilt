@@ -39,8 +39,8 @@
     "@types/react-helmet": "^5.0.6",
     "apollo-cache-inmemory": "^1.3.6",
     "apollo-client": "^2.3.8",
-		"codecov": "^3.0.2",
-		"create-shopify": "^0.4.24",
+    "codecov": "^3.0.2",
+    "create-shopify": "0.4.25",
     "element-closest": "^3.0.1",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
@@ -65,8 +65,7 @@
     "tslib": "^1.9.3",
     "typescript": "~3.2.1"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "resolutions": {
     "@types/react": "16.8.10",
     "@types/react-dom": "16.8.3"
