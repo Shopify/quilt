@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-router",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "A universal router for React.",
   "main": "dist/index.js",
@@ -24,12 +24,14 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-router/README.md",
   "dependencies": {
-    "react-router-dom": "^5.0.1",
-    "@shopify/react-network": "^3.2.0"
+    "@shopify/react-network": "^3.2.0",
+    "react-router-dom": "^5.0.1"
   },
   "devDependencies": {
-    "typescript": "~3.2.1",
-    "@types/react-router-dom": "^4.3.5"
+    "@types/react-router-dom": "^4.3.5",
+    "typescript": "~3.2.1"
   },
-  "files": ["dist/*"]
+  "files": [
+    "dist/*"
+  ]
 }
