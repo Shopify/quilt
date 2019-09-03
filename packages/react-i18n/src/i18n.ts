@@ -17,6 +17,7 @@ import {
   Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
+  CUSTOM_NAME_FORMATTERS,
 } from './constants';
 import {
   MissingCurrencyCodeError,
@@ -312,6 +313,29 @@ export class I18n {
   @memoize((currency: string, locale: string) => `${locale}${currency}`)
   getCurrencySymbolLocalized(locale: string, currency: string) {
     return getCurrencySymbol(locale, {currency});
+  }
+
+  formatName(firstName: string, lastName?: string, options?: {full?: boolean}) {
+    if (!firstName) {
+      return lastName || '';
+    }
+    if (!lastName) {
+      return firstName;
+    }
+
+    const isFullName = Boolean(options && options.full);
+
+    const customNameFormatter =
+      CUSTOM_NAME_FORMATTERS.get(this.locale) ||
+      CUSTOM_NAME_FORMATTERS.get(this.language);
+
+    if (customNameFormatter) {
+      return customNameFormatter(firstName, lastName, isFullName);
+    }
+    if (isFullName) {
+      return `${firstName} ${lastName}`;
+    }
+    return firstName;
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {

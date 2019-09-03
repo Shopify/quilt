@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- Added `formatName` method to I18n class to format a first name and/or last name based on the locale used. ([#834](https://github.com/Shopify/quilt/pull/834))
+
 ## [1.6.0] - 2019-08-23
 
 ### Added
