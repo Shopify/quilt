@@ -1,4 +1,4 @@
-import {memoize} from '@shopify/javascript-utilities/decorators';
+import {memoize} from '@shopify/decorators';
 import {formatDate} from './utilities/formatDate';
 import {sanitiseDateString} from './sanitise-date-string';
 
