@@ -2865,6 +2865,11 @@ create-react-class@^15.5.1:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
+create-shopify@0.4.25:
+  version "0.4.25"
+  resolved "https://registry.yarnpkg.com/create-shopify/-/create-shopify-0.4.25.tgz#ad6a69941efe7d549b45b8314793f7a10f899109"
+  integrity sha512-lwaEkBvGN7wuIFH498eVlvoxjzmtIXMKOaxPVQYKwj5lxHsD7D7TfoRmJG80HGDArUfKnaMuBEDZC6C96M5zxg==
+
 cross-fetch@2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-2.2.2.tgz#a47ff4f7fc712daba8f6a695a11c948440d45723"
