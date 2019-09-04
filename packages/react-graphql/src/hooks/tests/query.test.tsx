@@ -51,6 +51,28 @@ describe('useQuery', () => {
       );
     });
 
+    it('returns loading=true and networkStatus=loading during the loading of query when ssr option is false', async () => {
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {ssr: false});
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+        skipInitialGraphQL: true,
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          loading: true,
+          networkStatus: NetworkStatus.loading,
+        }),
+      );
+    });
+
     it('return loading=false, networkStatus and the data once the query resolved', async () => {
       function MockQuery({children}) {
         const results = useQuery(petQuery);
@@ -164,6 +186,38 @@ describe('useQuery', () => {
 
       function MockQuery({children}) {
         const results = useQuery(MockQueryComponent);
+        return children(results);
+      }
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+
+      const wrapper = await mountWithGraphQL(
+        <MockQuery>{renderPropSpy}</MockQuery>,
+        {
+          graphQL,
+          skipInitialGraphQL: true,
+        },
+      );
+
+      await wrapper.act(async () => {
+        await MockQueryComponent.resolver.resolve();
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          loading: true,
+          networkStatus: NetworkStatus.loading,
+        }),
+      );
+    });
+
+    it('returns loading=true and networkStatus=loading after the query document had been loaded when ssr option is false', async () => {
+      const MockQueryComponent = createAsyncQueryComponent({
+        load: () => Promise.resolve(petQuery),
+      });
+
+      function MockQuery({children}) {
+        const results = useQuery(MockQueryComponent, {ssr: false});
         return children(results);
       }
       const graphQL = createGraphQL({PetQuery: mockData});
