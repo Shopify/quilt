@@ -24,6 +24,7 @@ describe('react-server-webpack-plugin', () => {
 
         expect(serverResults).toBeDefined();
         expect(serverModule.source).toMatch(HEADER);
+        expect(serverModule.source).toMatch('port: ');
       },
       BUILD_TIMEOUT,
     );
