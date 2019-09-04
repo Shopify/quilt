@@ -6,5 +6,6 @@
       "@shopify/react-effect/server": ["packages/react-effect/src/server"],
       "@shopify/*": ["packages/*/src/index"]
     }
-  }
+  },
+  "exclude": ["**/templates/*"]
 }
