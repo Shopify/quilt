@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-- Added `formatCurrencyShort()` and `formatCurrencyExplicit()` to `I18n` ([#916](https://github.com/Shopify/quilt/pull/916))
+- Added `form:` option (one of `short` | `explicit`) to `formatCurrency()` ([#916](https://github.com/Shopify/quilt/pull/916))
 
 ## [1.7.0] - 2019-09-03
 
