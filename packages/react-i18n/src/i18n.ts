@@ -360,7 +360,7 @@ export class I18n {
     }
     return firstName;
   }
-  
+
   private formatCurrencyExplicit(
     amount: number,
     options: Intl.NumberFormatOptions = {},
