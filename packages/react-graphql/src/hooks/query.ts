@@ -35,11 +35,15 @@ export default function useQuery<
     client: overrideClient,
     notifyOnNetworkStatusChange,
     context,
+    ssr = true,
   } = options;
   const client = useApolloClient(overrideClient);
 
-  if (typeof window === 'undefined' && (skip || fetchPolicy === 'no-cache')) {
-    return {...createDefaultResult(client, variables), loading: !skip};
+  if (
+    typeof window === 'undefined' &&
+    (skip || fetchPolicy === 'no-cache' || !ssr)
+  ) {
+    return createDefaultResult(client, variables);
   }
 
   const query = useGraphQLDocument(queryOrComponent);

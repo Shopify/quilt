@@ -8,6 +8,7 @@ import {DateStyle, Weekday} from '../constants';
 import {MissingTranslationError} from '../errors';
 
 jest.mock('../utilities', () => ({
+  ...require.requireActual('../utilities'),
   translate: jest.fn(),
   getTranslationTree: jest.fn(),
   getCurrencySymbol: jest.fn(),
@@ -991,52 +992,171 @@ describe('I18n', () => {
       );
     });
 
-    it('formats a date using DateStyle.Humanize', () => {
-      const date = new Date('2012-12-20T00:00:00-00:00');
-      const i18n = new I18n(defaultTranslations, {
-        ...defaultDetails,
-        timezone,
+    describe('with DateStyle.Humanize', () => {
+      it('formats a date', () => {
+        const date = new Date('2012-12-20T00:00:00-00:00');
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        expect(i18n.formatDate(date, {style: DateStyle.Humanize})).toBe(
+          'Dec 20, 2012',
+        );
       });
 
-      expect(i18n.formatDate(date, {style: DateStyle.Humanize})).toBe(
-        'December 20, 2012',
-      );
-    });
+      it('formats a date in a custom timezone', () => {
+        const date = new Date('2012-12-20T00:00:00-00:00');
+        const i18n = new I18n(defaultTranslations, defaultDetails);
 
-    it('formats a date using DateStyle.Humanize in a custom timezone', () => {
-      const date = new Date('2012-12-20T00:00:00-00:00');
-      const i18n = new I18n(defaultTranslations, defaultDetails);
-
-      expect(
-        i18n.formatDate(date, {style: DateStyle.Humanize, timeZone: timezone}),
-      ).toBe('December 20, 2012');
-    });
-
-    it('formats today using DateStyle.Humanize', () => {
-      const today = new Date('2012-12-20T00:00:00-00:00');
-      clock.mock(today);
-      const i18n = new I18n(defaultTranslations, {
-        ...defaultDetails,
-        timezone,
+        expect(
+          i18n.formatDate(date, {
+            style: DateStyle.Humanize,
+            timeZone: timezone,
+          }),
+        ).toBe('Dec 20, 2012');
       });
 
-      expect(i18n.formatDate(today, {style: DateStyle.Humanize})).toBe(
-        i18n.translate('today'),
-      );
-    });
+      it('formats a date less than one minute ago', () => {
+        const today = new Date('2012-12-20T00:00:00-00:00');
+        const lessThanOneMinuteAgo = new Date(today.getTime());
+        lessThanOneMinuteAgo.setSeconds(-5);
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
 
-    it('formats yesterday using DateStyle.Humanize', () => {
-      const today = new Date('2012-12-20T00:00:00-00:00');
-      const yesterday = new Date('2012-12-19T00:00:00-00:00');
-      clock.mock(today);
-      const i18n = new I18n(defaultTranslations, {
-        ...defaultDetails,
-        timezone,
+        i18n.formatDate(lessThanOneMinuteAgo, {
+          style: DateStyle.Humanize,
+        });
+        expect(translate).toHaveBeenCalledWith(
+          'humanize.now',
+          {pseudotranslate: false},
+          defaultTranslations,
+          i18n.locale,
+        );
       });
 
-      expect(i18n.formatDate(yesterday, {style: DateStyle.Humanize})).toBe(
-        i18n.translate('yesterday'),
-      );
+      it('formats a date less than one hour ago', () => {
+        const today = new Date('2012-12-20T00:00:00-00:00');
+        const lessThanOneHourAgo = new Date(today.getTime());
+        const minutesAgo = 5;
+        lessThanOneHourAgo.setMinutes(-minutesAgo);
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        i18n.formatDate(lessThanOneHourAgo, {
+          style: DateStyle.Humanize,
+        });
+        expect(translate).toHaveBeenCalledWith(
+          'humanize.minutes',
+          {pseudotranslate: false, replacements: {count: minutesAgo}},
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a date from today', () => {
+        const today = new Date('2012-12-20T23:00:00-00:00');
+        const moreThanOneHourAgo = new Date(today.getTime());
+        const hoursAgo = 5;
+        moreThanOneHourAgo.setHours(today.getHours() - hoursAgo);
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        expect(
+          i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
+        ).toBe('5:00 am');
+      });
+
+      it('formats a date from yesterday', () => {
+        const today = new Date('2012-12-20T00:00:00-00:00');
+        const yesterday = new Date('2012-12-19T00:00:00-00:00');
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        i18n.formatDate(yesterday, {style: DateStyle.Humanize});
+        expect(translate).toHaveBeenCalledWith(
+          'humanize.yesterday',
+          {pseudotranslate: false, replacements: {time: '11:00 am'}},
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a date less than one week ago', () => {
+        const today = new Date('2012-12-20T00:00:00-00:00');
+        const lessThanOneWeekAgo = new Date(today.getTime());
+        lessThanOneWeekAgo.setDate(today.getDate() - 5);
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        i18n.formatDate(lessThanOneWeekAgo, {
+          style: DateStyle.Humanize,
+        });
+        expect(translate).toHaveBeenCalledWith(
+          'humanize.weekday',
+          {
+            pseudotranslate: false,
+            replacements: {day: 'Saturday', time: '11:00 am'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a date less than one year ago', () => {
+        const today = new Date('2012-12-20T00:00:00-00:00');
+        const lessThanOneYearAgo = new Date(today.getTime());
+        lessThanOneYearAgo.setMonth(today.getMonth() - 5);
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        i18n.formatDate(lessThanOneYearAgo, {
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'humanize.date',
+          {
+            pseudotranslate: false,
+            replacements: {date: 'Jul 20', time: '10:00 am'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a future date', () => {
+        const today = new Date('2012-12-20T00:00:00-00:00');
+        const futureDate = new Date(today.getTime());
+        futureDate.setFullYear(today.getFullYear() + 1);
+        clock.mock(today);
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone,
+        });
+
+        expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
+          'Dec 20, 2013',
+        );
+      });
     });
 
     it('formats a date using DateStyle.Time', () => {
@@ -1144,6 +1264,126 @@ describe('I18n', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
       expect(i18n.getCurrencySymbol('eur')).toStrictEqual(mockResult);
+    });
+  });
+
+  describe('#formatName()', () => {
+    it('returns only the firstName when lastName is missing', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName('first')).toStrictEqual('first');
+      expect(i18n.formatName('first', '')).toStrictEqual('first');
+    });
+
+    it('returns only the lastName when firstName is missing', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName('', 'last')).toStrictEqual('last');
+    });
+
+    it('defaults to firstName for unknown locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'unknown'});
+
+      expect(i18n.formatName('first', 'last')).toStrictEqual('first');
+    });
+
+    it('uses fallback locale value for locale without custom formatter', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'fr-CA'});
+
+      expect(i18n.formatName('first', 'last')).toStrictEqual('first');
+    });
+
+    it('returns firstName for English', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName('first', 'last')).toStrictEqual('first');
+    });
+
+    it('returns custom name for Japanese', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'ja'});
+
+      expect(i18n.formatName('first', 'last')).toStrictEqual('last様');
+    });
+
+    it('returns lastName only, for zh-CN', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'zh-CN'});
+
+      expect(i18n.formatName('first', 'last')).toStrictEqual('last');
+    });
+
+    it('returns lastName only, for zh-TW', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'zh-TW'});
+
+      expect(i18n.formatName('first', 'last')).toStrictEqual('last');
+    });
+
+    it('returns only the firstName when lastName is missing using full', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName('first', '', {full: true})).toStrictEqual('first');
+      expect(i18n.formatName('first', undefined, {full: true})).toStrictEqual(
+        'first',
+      );
+    });
+
+    it('returns only the lastName when firstName is missing using full', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName('', 'last', {full: true})).toStrictEqual('last');
+    });
+
+    it('returns a string when firstName and lastName are missing using full', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName('', undefined, {full: true})).toStrictEqual('');
+    });
+
+    it('defaults to firstName lastName for unknown locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'unknown'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'first last',
+      );
+    });
+
+    it('uses fallback locale value for locale without custom formatter using full', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'fr-CA'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'first last',
+      );
+    });
+
+    it('returns firstName first for English', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'first last',
+      );
+    });
+
+    it('returns lastName first and no space for Japanese', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'ja'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'lastfirst',
+      );
+    });
+
+    it('returns lastName first and no space for zh-CN', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'zh-CN'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'lastfirst',
+      );
+    });
+
+    it('returns lastName first and no space for zh-TW', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'zh-TW'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'lastfirst',
+      );
     });
   });
 

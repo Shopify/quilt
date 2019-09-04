@@ -126,14 +126,18 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatCurrency()`: formats a number as a currency according to the locale. Convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`.
 - `formatCurrencyExplicit()`: formats a number as currency according to the locale. The currency's ISO code is included to disambiguate the displayed amount.  Examples:  `CHF 1,25`, `€ 1,25 EUR`, `OMR 1.250`, `$ 1.25 USD`
 - `formatCurrencyShort()`: formats a number as currency according to the locale. If the currency has a symbol, then that symbol is used and the currency's ISO code is omitted.  Examples:  `CHF 1,25`, `€ 1,25`, `OMR 1.250`, `$ 1.25`
-- `formatPercentage()`: formats a number as a percentage according ot the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
+- `formatPercentage()`: formats a number as a percentage according to the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
   - `DateStyle.Short`: e.g., `Dec 20, 2012`
   - `DateStyle.Humanize`: e.g., `December 20, 2012`, `Today`, or `Yesterday`
+  - `DateStyle.HumanizeWithTime`: Adheres to [Polaris guidelines for dates with times](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses), e.g., `Just now`, `3 minutes ago`, `4 hours ago`, `10:35 am`, `Yesterday at 10:35 am`, `Friday at 10:35 am`, or `Dec 20 at 10:35 am`, or `Dec 20, 2012`
   - `DateStyle.Time`: e.g., `11:00 AM`
 - `weekStartDay()`: returns start day of the week according to the country.
 - `getCurrencySymbol()`: returns the currency symbol according to the currency code and locale.
+- `formatName()`: formats a name (first name and/or last name) according to the locale. e,g
+  - `formatName('John', 'Smith')` will return `John` in Germany and `Smith様` in Japan
+  - `formatName('John', 'Smith', {full: true})` will return `John Smith` in Germany and `SmithJohn` in Japan
 
 Most notably, you will frequently use `i18n`’s `translate()` method. This method looks up a key in translation files that you supply based on the provided locale. This method is discussed in detail in the next section.
 
