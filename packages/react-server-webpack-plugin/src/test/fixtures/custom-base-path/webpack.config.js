@@ -1,3 +1,4 @@
+const path = require('path');
 const {ReactServerPlugin} = require('../../../react-server-webpack-plugin');
 
 const universal = {
@@ -6,6 +7,9 @@ const universal = {
     minimize: false,
   },
   plugins: [new ReactServerPlugin({basePath: './app/ui'})],
+  resolve: {
+    modules: ['node_modules', path.resolve(__dirname, 'app', 'ui')],
+  },
 };
 
 const server = {

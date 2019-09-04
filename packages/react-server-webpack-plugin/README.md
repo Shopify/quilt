@@ -13,39 +13,13 @@ $ yarn add @shopify/react-server-webpack-plugin
 
 ## Usage
 
-### With Sewing Kit and Rails
+### With sewing-kit
 
-To add this to your existing `sewing_kit` project import it into your `sewing-kit.config.ts` and add it to your `plugins` array inside the `webpack` plugin.
+As of version [0.102.0](https://github.com/Shopify/sewing-kit/blob/big-docs-update/CHANGELOG.md#L35) `sewing-kit` consumes this plugin by default if you have `@shopify/react-server` in your `package.json`. 
 
-#### Example sewing-kit config
+For detailed instructions on usage with Rails and sewing-kit see the documentation for [quilt_rails](/gems/quilt_rails/README.md).
 
-```tsx
-import {Plugins} from '@shopify/sewing-kit';
-import {ReactServerPlugin} from '@shopify/react-server-webpack-plugin';
-
-module.exports = function sewingKitConfig(plugins: Plugins, env: Env) {
-  return {
-    name: 'your-app-name',
-    plugins: [
-      plugins.devServer({
-        ip,
-        port,
-      }),
-      plugins.webpack((config: any) => {
-        config.plugins.push(
-          new ReactServerPlugin({
-            assetPrefix: process.env.CDN_URL || 'https://localhost:8080/webpack/assets/';
-          });
-        );
-      }),
-    ],
-  };
-};
-```
-
-In the future `@shopify/sewing-kit` will automatically configure this package for you if you are using `@shopify/react-server`.
-
-### Without Sewing-Kit
+### Without sewing-kit
 
 First you will need to install all of the dependencies you'll need for your application
 

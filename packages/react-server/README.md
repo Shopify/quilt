@@ -20,9 +20,13 @@ A simple library for React server-side rendering using [`@shopify/react-html`](h
 $ yarn add @shopify/react-server
 ```
 
+## Rails Usage
+
+We provide a [gem](https://github.com/Shopify/quilt/blob/master/gems/quilt_rails/README.md#L2) to automagically setup a proxy controller for react-server.
+
 ## Node Usage
 
-To begin using this package, Node apps only require a server entry point that calls the `createServer` function. At the minimum, this function requires a `render` function that renders the main `<App />` component.
+Node apps require a server entry point that calls the `createServer` function. At the minimum, this function requires a `render` function that renders the main `<App />` component.
 
 ```tsx
 import React from 'react';
@@ -36,17 +40,14 @@ const app = createServer({
 
 If you already have an exisiting node server, you can opt in to using only the render middleware provided by this package. See `createRender()`.
 
-## Rails Usage
+## Webpack Plugin
 
-We provide a [gem](https://github.com/Shopify/quilt/blob/master/gems/quilt_rails/README.md#L2) to automagically setup a proxy controller for to react-server.
+We also provide a [webpack plugin](https://github.com/Shopify/quilt/blob/master/packages/react-server-webpack-plugin) to automatically generate the server and client entries for an application.
+
 
 ### Deployment (Shopify specific)
 
 For Shopifolk, we have a [walkthrough](https://docs.shopifycloud.com/getting_started/rails-with-node-walkthrough) for getting an app ready to deploy.
-
-## Webpack Plugin
-
-We provide a [webpack plugin](https://github.com/Shopify/quilt/tree/flesh-out-quilt_rails-readme/packages/react-server-webpack-plugin) to automatically generate entrypoints using this package.
 
 ## API
 
