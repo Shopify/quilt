@@ -79,14 +79,15 @@ function serverSource(options: Options) {
   return `
     ${HEADER}
     import React from 'react';
+    import CookieProvider from 'react-cookie';
     import {createServer} from '@shopify/react-server';
     import App from 'index';
 
     const render = (ctx) =>
-    React.createElement(App, {
+    React.createElement(CookieProvider, null, React.createElement(App, {
       server: true,
       location: ctx.request.url,
-    });
+    }));
 
     const app = createServer({
       port: ${serverPort},
