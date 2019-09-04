@@ -2875,10 +2875,10 @@ create-react-class@^15.5.1:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-create-shopify@0.4.25:
-  version "0.4.25"
-  resolved "https://registry.yarnpkg.com/create-shopify/-/create-shopify-0.4.25.tgz#ad6a69941efe7d549b45b8314793f7a10f899109"
-  integrity sha512-lwaEkBvGN7wuIFH498eVlvoxjzmtIXMKOaxPVQYKwj5lxHsD7D7TfoRmJG80HGDArUfKnaMuBEDZC6C96M5zxg==
+create-shopify@0.4.26:
+  version "0.4.26"
+  resolved "https://registry.yarnpkg.com/create-shopify/-/create-shopify-0.4.26.tgz#f8403cc3ec6fda70908586e134806104bd0b76b7"
+  integrity sha512-PzTVtZvM3BaEjGUvu7F4zzhfRt5+1iN6tstp/WmSk/YPH3IX2vPaH4EDGwEKSw/U4fYUxnZpXfV7O7voWikk3Q==
 
 cross-fetch@2.2.2:
   version "2.2.2"
