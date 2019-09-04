@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "license": "MIT",
   "description": "Utilities for React server-side rendering.",
   "main": "dist/index.js",
