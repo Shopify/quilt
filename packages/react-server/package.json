@@ -30,6 +30,8 @@
     "@shopify/react-html": "^9.2.1",
     "@shopify/react-network": "^3.2.0",
     "@shopify/sewing-kit-koa": "^6.1.1",
+    "react-cookie": "4.0.1",
+    "@shopify/react-csrf-universal-provider": "1.0.2",
     "chalk": "^2.4.2",
     "koa": "^2.5.0",
     "koa-compose": "^4.1.0",

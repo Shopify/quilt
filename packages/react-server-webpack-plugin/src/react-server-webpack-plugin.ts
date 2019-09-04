@@ -79,12 +79,11 @@ function serverSource(options: Options) {
   return `
     ${HEADER}
     import React from 'react';
-    import CookieProvider from 'react-cookie';
-    import {createServer} from '@shopify/react-server';
+    import {createServer, DefaultProvider} from '@shopify/react-server';
     import App from 'index';
 
     const render = (ctx) =>
-    React.createElement(CookieProvider, null, React.createElement(App, {
+    React.createElement(DefaultProvider, null, React.createElement(App, {
       server: true,
       location: ctx.request.url,
     }));

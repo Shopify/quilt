@@ -1,1 +1,1 @@
-export {DefaultProvider, createProvider} from './providers';
+export {DefaultProvider, createCombinedProvider} from './providers';

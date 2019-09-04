@@ -5,8 +5,8 @@ import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
 import {ConditionalProvider} from './ConditionalProvider';
 
 interface Options {
-  cookies: boolean;
-  csrf: boolean;
+  cookies?: boolean;
+  csrf?: boolean;
 }
 
 interface Props {
@@ -15,6 +15,7 @@ interface Props {
 
 export function createCombinedProvider(options?: Options) {
   const {cookies = true, csrf = true} = options || {};
+
   return function CombinedProvider({children}: Props) {
     const csrfToken = useRequestHeader('x-csrf-token');
 
