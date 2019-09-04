@@ -19,19 +19,19 @@ $ yarn add @shopify/ast-utilities
 
 ### `transform(code, ...transforms)`
 
-This utility applies any number of transforms onto a given block of code and returns the resulting string.
+This utility applies any number of transforms onto a given block of code and returns the resulting string. See [Transforms](#transforms) examples below.
 
 ### `astFrom(code)`
 
 This utility provides a simple way to parse a string into an AST statement.
 
 ```
-import {fromAst} from '@shopify/ast-utilities';
+import {astFrom} from '@shopify/ast-utilities';
 
 const module = '@shopify/ast-utilities';
 const util = 'compose';
 
-const ast = fromAst`
+const ast = astFrom`
   const {${util}} = require("${module}");
 `;
 ```
