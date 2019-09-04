@@ -35,6 +35,10 @@ export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   precision?: number;
 }
 
+export interface CurrencyFormatOptions extends NumberFormatOptions {
+  form?: 'short' | 'explicit';
+}
+
 export interface TranslateOptions {
   scope: RootTranslateOptions<any>['scope'];
 }
@@ -227,43 +231,16 @@ export class I18n {
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
   }
 
-  formatCurrency(amount: number, options: Intl.NumberFormatOptions = {}) {
+  formatCurrency(
+    amount: number,
+    {form, ...options}: CurrencyFormatOptions = {},
+  ) {
+    if (form === 'explicit') {
+      return this.formatCurrencyExplicit(amount, options);
+    } else if (form === 'short') {
+      return this.formatCurrencyShort(amount, options);
+    }
     return this.formatNumber(amount, {as: 'currency', ...options});
-  }
-
-  formatCurrencyExplicit(
-    amount: number,
-    options: Intl.NumberFormatOptions = {},
-  ): string {
-    const value = this.formatCurrencyShort(amount, options);
-    const isoCode = options.currency || this.defaultCurrency || '';
-    if (value.includes(isoCode)) {
-      return value;
-    }
-    return `${value} ${isoCode}`;
-  }
-
-  formatCurrencyShort(
-    amount: number,
-    options: NumberFormatOptions = {},
-  ): string {
-    const {locale} = this;
-    const shortSymbol = this.getShortCurrencySymbol(options.currency);
-    let adjustedPrecision = options.precision;
-    if (adjustedPrecision === undefined) {
-      const currency = options.currency || this.defaultCurrency || '';
-      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
-    }
-    const formattedAmount = memoizedNumberFormatter(locale, {
-      style: 'decimal',
-      minimumFractionDigits: adjustedPrecision,
-      maximumFractionDigits: adjustedPrecision,
-      ...options,
-    }).format(amount);
-
-    return shortSymbol.prefixed
-      ? `${shortSymbol.symbol}${formattedAmount}`
-      : `${formattedAmount}${shortSymbol.symbol}`;
   }
 
   unformatCurrency(input: string, currencyCode: string): string {
@@ -347,6 +324,41 @@ export class I18n {
   @memoize((currency: string, locale: string) => `${locale}${currency}`)
   getCurrencySymbolLocalized(locale: string, currency: string) {
     return getCurrencySymbol(locale, {currency});
+  }
+
+  private formatCurrencyExplicit(
+    amount: number,
+    options: Intl.NumberFormatOptions = {},
+  ): string {
+    const value = this.formatCurrencyShort(amount, options);
+    const isoCode = options.currency || this.defaultCurrency || '';
+    if (value.includes(isoCode)) {
+      return value;
+    }
+    return `${value} ${isoCode}`;
+  }
+
+  private formatCurrencyShort(
+    amount: number,
+    options: NumberFormatOptions = {},
+  ): string {
+    const {locale} = this;
+    const shortSymbol = this.getShortCurrencySymbol(options.currency);
+    let adjustedPrecision = options.precision;
+    if (adjustedPrecision === undefined) {
+      const currency = options.currency || this.defaultCurrency || '';
+      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
+    }
+    const formattedAmount = memoizedNumberFormatter(locale, {
+      style: 'decimal',
+      minimumFractionDigits: adjustedPrecision,
+      maximumFractionDigits: adjustedPrecision,
+      ...options,
+    }).format(amount);
+
+    return shortSymbol.prefixed
+      ? `${shortSymbol.symbol}${formattedAmount}`
+      : `${formattedAmount}${shortSymbol.symbol}`;
   }
 
   // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
