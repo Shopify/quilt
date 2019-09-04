@@ -19,7 +19,7 @@ export const dateStyle = {
   },
   [DateStyle.Humanize]: {
     month: 'long',
-    day: '2-digit',
+    day: 'numeric',
     year: 'numeric',
   },
   [DateStyle.Time]: {
