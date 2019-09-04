@@ -2,7 +2,7 @@ import * as t from '@babel/types';
 
 export function fillCallExpressionOptions(
   name: string,
-  options: Record<string, string>,
+  options: Record<string, string | number>,
 ) {
   return {
     CallExpression(path) {
