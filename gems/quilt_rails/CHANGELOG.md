@@ -5,17 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+<!-- ## Unreleased -->
+
+## [1.5.0] - 2019-09-04
 
 ### Added
 
-- Now fails fast with an improved error message suggesting proper testing practice when used in a test, rather than giving a confusing error aimed at development flows
+- Now fails fast with an improved error message suggesting proper testing practices when used in a test, rather than giving a confusing error aimed at development flows [#944](https://github.com/Shopify/quilt/pull/944)
 
 ## [1.4.1] - 2019-08-22
 
 ### Fixed
 
-- No longer breaks when used with `ShopifySecurityBase`
+- No longer breaks when used with `ShopifySecurityBase` [#896](https://github.com/Shopify/quilt/pull/896)
 
 ## [1.4.0] - 2019-08-21
 
