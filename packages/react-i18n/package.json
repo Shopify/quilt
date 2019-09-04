@@ -26,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/types": "^7.3.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@types/babel__core": "^7.0.4",
     "@types/babel__template": "^7.0.1",
     "@types/babel__traverse": "^7.0.5",
