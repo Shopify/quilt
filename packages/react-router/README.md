@@ -30,3 +30,11 @@ See [`react-router` docs](https://reacttraining.com/react-router/web/api/Switch)
 ### `<Redirect />`
 
 _TBD_
+
+### `<Link />`
+
+_TBD_
+
+### `withRouter()`
+
+See [`react-router` docs](https://reacttraining.com/react-router/web/api/Switch)
