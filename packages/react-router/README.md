@@ -37,4 +37,4 @@ _TBD_
 
 ### `withRouter()`
 
-See [`react-router` docs](https://reacttraining.com/react-router/web/api/Switch)
+See [`react-router` docs](https://reacttraining.com/react-router/core/api/withRouter)
