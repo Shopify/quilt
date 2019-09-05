@@ -8,7 +8,7 @@ export class MockLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation) {
+  request(operation: Operation): Observable<any> {
     return new Observable(obs => {
       const {mock} = this;
       const {operationName = ''} = operation;

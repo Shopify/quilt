@@ -9,10 +9,6 @@
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
   },
-  "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
-  },
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",

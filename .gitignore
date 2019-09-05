@@ -42,3 +42,5 @@ lerna-debug.log
 
 tmp
 **/test.log
+
+*.tsbuildinfo
