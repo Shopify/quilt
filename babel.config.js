@@ -4,5 +4,4 @@ module.exports = {
     'babel-preset-shopify/react',
   ],
   sourceMaps: 'inline',
-  babelrcRoots: ['./packages/*'],
 };

@@ -3,7 +3,7 @@ const path = require('path');
 
 const moduleNameMapper = getPackageNames().reduce(
   (accumulator, name) => {
-    const scopedName = `@shopify/${name}`;
+    const scopedName = `@shopify/${name}$`;
     accumulator[scopedName] = `<rootDir>/packages/${name}/src/index.ts`;
     return accumulator;
   },
