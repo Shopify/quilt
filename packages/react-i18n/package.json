@@ -5,11 +5,6 @@
   "description": "i18n utilities for React handling translations, formatting, and more.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build",
-    "test": "jest --config ./config/jest/config.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"

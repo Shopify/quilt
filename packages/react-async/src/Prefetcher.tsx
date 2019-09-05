@@ -118,11 +118,13 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     if (
       timeout != null &&
       urlsEqual(closestUrl, timeoutUrl) &&
+      // @ts-ignore
       !urlsEqual(relatedUrl, timeoutUrl)
     ) {
       this.clearTimeout();
     }
 
+    // @ts-ignore
     if (urlsEqual(closestUrl, url) && !urlsEqual(relatedUrl, url)) {
       this.setState({url: undefined});
     }

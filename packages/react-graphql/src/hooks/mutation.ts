@@ -59,5 +59,6 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
     ],
   );
 
+  // @ts-ignore
   return runMutation;
 }

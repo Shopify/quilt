@@ -29,6 +29,7 @@ function fallbackQueueingFunction(cb: IdleCallback) {
   });
 }
 
+// @ts-ignore
 const extendedWindow = window as PolyfilledWindow;
 
 extendedWindow.requestIdleCallback =
