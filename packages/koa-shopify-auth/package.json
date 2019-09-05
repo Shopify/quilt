@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-auth",
-  "version": "3.1.36",
+  "version": "3.1.37",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
@@ -30,7 +30,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.7.3",
+    "@shopify/jest-dom-mocks": "^2.7.4",
     "@shopify/jest-koa-mocks": "^2.1.4",
     "@types/koa": "^2.0.44",
     "@types/koa-compose": "*",
