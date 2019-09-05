@@ -67,6 +67,7 @@ export default function configureClient({
     });
 
     const client = new ApolloClient({
+      // @ts-ignore
       link: memoryLink.concat(mockLink),
       cache,
     }) as MockGraphQLClient;
