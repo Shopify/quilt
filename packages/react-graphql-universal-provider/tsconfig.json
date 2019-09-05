@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig_base.json",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "rootDir": "./src"
+  },
+  "include": [
+    "../../config/typescript/**/*",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [
+    {"path": "../react-html"},
+    {"path": "../react-graphql"},
+    {"path": "../react-hooks"}
+  ]
+}

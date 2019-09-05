@@ -50,7 +50,10 @@ export class SimpleLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation, nextLink?: NextLink) {
+  request(
+    operation: Operation,
+    nextLink?: NextLink,
+  ): Observable<FetchResult> | null {
     this.beforeResult(operation);
 
     if (nextLink != null) {

@@ -6,11 +6,6 @@
   "sideEffects": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "yarn run clean && tsc --p tsconfig.build.json",
-    "clean": "rimraf 'dist'",
-    "prepublishOnly": "yarn run build"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
