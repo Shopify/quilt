@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [5.1.0] - 2019-09-05
+
 ### Added
 
 - Adds support for `ssr=false` in `useQuery` ([951](https://github.com/Shopify/quilt/pull/951))
