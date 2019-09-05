@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.4.0] - 2019-09-??
+
+### Fixed
+
+- Server rendering no longer fails with erroneous errors about missing AsyncAssetContext / NetworkContext values [#969](https://github.com/Shopify/quilt/pull/969)
+
+### Added
+
+- Add rendering of `HydrationContext` by default [#969](https://github.com/Shopify/quilt/pull/969)
+
 ## [0.3.1] - 2019-08-29
 
 ### Fixed
