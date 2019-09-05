@@ -27,6 +27,7 @@ export default function load<
     function scriptTagOnLoad() {
       scriptTag.removeEventListener('load', scriptTagOnLoad);
       scriptTag.removeEventListener('error', scriptTagOnError);
+      // @ts-ignore
       resolve(getImport(window as CustomWindow));
     }
 

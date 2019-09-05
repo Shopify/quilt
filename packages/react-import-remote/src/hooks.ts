@@ -103,6 +103,7 @@ export function useImportRemote<Imported = unknown>(
     () => {
       if (defer === DeferTiming.Idle) {
         if ('requestIdleCallback' in window) {
+          // @ts-ignore
           idleCallbackHandle.current = (window as WindowWithRequestIdleCallback).requestIdleCallback(
             loadRemote,
           );

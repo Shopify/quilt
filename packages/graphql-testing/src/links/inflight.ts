@@ -1,4 +1,10 @@
-import {ApolloLink, Observable, Operation, NextLink} from 'apollo-link';
+import {
+  ApolloLink,
+  Observable,
+  Operation,
+  NextLink,
+  FetchResult,
+} from 'apollo-link';
 
 import {MockRequest} from '../types';
 
@@ -12,7 +18,10 @@ export class InflightLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation, nextLink?: NextLink) {
+  request(
+    operation: Operation,
+    nextLink?: NextLink,
+  ): Observable<FetchResult> | null {
     if (nextLink == null || !nextLink) {
       throw new Error('The memory link must not be a terminating link');
     }

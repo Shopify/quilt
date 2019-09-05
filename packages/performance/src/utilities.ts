@@ -29,6 +29,7 @@ export function withEntriesOfType<T extends keyof EntryMap>(
 ) {
   try {
     const initialEntries = performance.getEntriesByType(type);
+    // @ts-ignore
     initialEntries.forEach(entry => handler(entry));
 
     if (!hasGlobal('PerformanceObserver')) {
@@ -36,6 +37,7 @@ export function withEntriesOfType<T extends keyof EntryMap>(
     }
 
     const observer = new PerformanceObserver(entries => {
+      // @ts-ignore
       entries.getEntriesByType(type).forEach(entry => handler(entry));
     });
 

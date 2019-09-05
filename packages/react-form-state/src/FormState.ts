@@ -396,6 +396,7 @@ export default class FormState<
     const {validators = {}} = this.props;
     const {fields} = this.state;
 
+    // @ts-ignore
     return runValidator(validators[fieldPath], value, fields);
   }
 

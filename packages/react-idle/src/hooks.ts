@@ -14,6 +14,7 @@ export function useIdleCallback(
   useEffect(
     () => {
       if ('requestIdleCallback' in window) {
+        // @ts-ignore
         handle.current = (window as WindowWithRequestIdleCallback).requestIdleCallback(
           () => callback(),
         );
@@ -34,6 +35,7 @@ export function useIdleCallback(
         }
 
         if ('cancelIdleCallback' in window) {
+          // @ts-ignore
           (window as WindowWithRequestIdleCallback).cancelIdleCallback(
             currentHandle,
           );
