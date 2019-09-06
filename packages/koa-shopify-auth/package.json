@@ -35,8 +35,7 @@
     "@types/koa": "^2.0.44",
     "@types/koa-compose": "*",
     "@types/safe-compare": "^1.1.0",
-    "koa": "^2.5.0",
-    "typescript": "~3.2.1"
+    "koa": "^2.5.0"
   },
   "sideEffects": false
 }
