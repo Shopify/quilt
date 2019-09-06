@@ -26,8 +26,7 @@
     "@types/react-router": "^3.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "react-router": "^3.2.0",
-    "typescript": "~3.2.1"
+    "react-router": "^3.2.0"
   },
   "greenkeeper": {
     "ignore": [

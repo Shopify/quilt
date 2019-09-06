@@ -28,7 +28,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "typescript": "~3.2.1"
+    "@shopify/javascript-utilities": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^16.4.1"

@@ -30,7 +30,6 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^2.1.3",
-    "typescript": "~3.2.1"
+    "@shopify/enzyme-utilities": "^2.1.2"
   }
 }

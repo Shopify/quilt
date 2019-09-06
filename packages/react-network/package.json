@@ -31,9 +31,7 @@
     "accept-language-parser": "1.5.0",
     "tslib": "^1.9.3"
   },
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
+  "devDependencies": {},
   "files": [
     "dist/*",
     "server.js",

@@ -23,9 +23,7 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hooks/README.md",
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
+  "devDependencies": {},
   "files": [
     "dist/*"
   ]

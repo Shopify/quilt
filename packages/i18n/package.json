@@ -22,9 +22,7 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/i18n/README.md",
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
+  "devDependencies": {},
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.3"
