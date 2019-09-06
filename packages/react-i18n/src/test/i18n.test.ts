@@ -1001,7 +1001,7 @@ describe('I18n', () => {
         });
 
         expect(i18n.formatDate(date, {style: DateStyle.Humanize})).toBe(
-          'Dec 20, 2012',
+          'Dec. 20, 2012',
         );
       });
 
@@ -1014,7 +1014,7 @@ describe('I18n', () => {
             style: DateStyle.Humanize,
             timeZone: timezone,
           }),
-        ).toBe('Dec 20, 2012');
+        ).toBe('Dec. 20, 2012');
       });
 
       it('formats a date less than one minute ago', () => {
@@ -1073,7 +1073,7 @@ describe('I18n', () => {
 
         expect(
           i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
-        ).toBe('5:00 am');
+        ).toBe('5:00 a.m.');
       });
 
       it('formats a date from yesterday', () => {
@@ -1088,16 +1088,18 @@ describe('I18n', () => {
         i18n.formatDate(yesterday, {style: DateStyle.Humanize});
         expect(translate).toHaveBeenCalledWith(
           'humanize.yesterday',
-          {pseudotranslate: false, replacements: {time: '11:00 am'}},
+          {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
           defaultTranslations,
           i18n.locale,
         );
       });
 
       it('formats a date less than one week ago', () => {
+        const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
         const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneWeekAgo = new Date(today.getTime());
-        lessThanOneWeekAgo.setDate(today.getDate() - 5);
+        const lessThanOneWeekAgo = new Date(
+          today.getTime() - fiveDaysInMilliseconds,
+        );
         clock.mock(today);
         const i18n = new I18n(defaultTranslations, {
           ...defaultDetails,
@@ -1111,7 +1113,7 @@ describe('I18n', () => {
           'humanize.weekday',
           {
             pseudotranslate: false,
-            replacements: {day: 'Saturday', time: '11:00 am'},
+            replacements: {day: 'Friday', time: '11:00 a.m.'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1119,16 +1121,21 @@ describe('I18n', () => {
       });
 
       it('formats a date less than one year ago', () => {
+        // Offset from 2012-12-20 to 2012-07-20
+        const fiveMonthsInMilliseconds =
+          (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
+
         const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneYearAgo = new Date(today.getTime());
-        lessThanOneYearAgo.setMonth(today.getMonth() - 5);
+        const lessThanOneYearAgo = new Date(
+          today.getTime() - fiveMonthsInMilliseconds,
+        );
         clock.mock(today);
         const i18n = new I18n(defaultTranslations, {
           ...defaultDetails,
           timezone,
         });
 
-        i18n.formatDate(lessThanOneYearAgo, {
+        const formatted = i18n.formatDate(lessThanOneYearAgo, {
           style: DateStyle.Humanize,
         });
 
@@ -1136,7 +1143,7 @@ describe('I18n', () => {
           'humanize.date',
           {
             pseudotranslate: false,
-            replacements: {date: 'Jul 20', time: '10:00 am'},
+            replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1154,7 +1161,7 @@ describe('I18n', () => {
         });
 
         expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
-          'Dec 20, 2013',
+          'Dec. 20, 2013',
         );
       });
     });
