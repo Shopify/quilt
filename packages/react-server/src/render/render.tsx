@@ -11,6 +11,7 @@ import {
   NetworkContext,
   NetworkManager,
 } from '@shopify/react-network/server';
+import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 import {ArgumentAtIndex} from '@shopify/useful-types';
 import {extract} from '@shopify/react-effect/server';
 import {
@@ -45,18 +46,27 @@ export function createRender(render: RenderFunction, options: Options = {}) {
     });
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
+    const hydrationManager = new HydrationManager();
+
+    function Providers({children}: {children: React.ReactElement<any>}) {
+      return (
+        <AsyncAssetContext.Provider value={asyncAssetManager}>
+          <HydrationContext.Provider value={hydrationManager}>
+            <NetworkContext.Provider value={networkManager}>
+              {children}
+            </NetworkContext.Provider>
+          </HydrationContext.Provider>
+        </AsyncAssetContext.Provider>
+      );
+    }
 
     try {
       const app = render(ctx);
       await extract(app, {
-        decorate(app) {
+        decorate(element) {
           return (
             <HtmlContext.Provider value={htmlManager}>
-              <AsyncAssetContext.Provider value={asyncAssetManager}>
-                <NetworkContext.Provider value={networkManager}>
-                  {app}
-                </NetworkContext.Provider>
-              </AsyncAssetContext.Provider>
+              <Providers>{element}</Providers>
             </HtmlContext.Provider>
           );
         },
@@ -85,7 +95,7 @@ export function createRender(render: RenderFunction, options: Options = {}) {
 
       const response = stream(
         <Html manager={htmlManager} styles={styles} scripts={scripts}>
-          <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
+          <Providers>{app}</Providers>
         </Html>,
       );
 
