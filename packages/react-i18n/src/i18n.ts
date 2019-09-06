@@ -9,6 +9,7 @@ import {
   TimeUnit,
   Weekdays,
 } from '@shopify/javascript-utilities/dates';
+import {applyTimeZoneOffset} from '@shopify/dates';
 import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
@@ -416,6 +417,10 @@ export class I18n {
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const {defaultTimezone} = this;
+    const timeZone =
+      options && options.timeZone ? options.timeZone : defaultTimezone;
+
     if (isLessThanOneMinuteAgo(date)) {
       return this.translate('humanize.now');
     }
@@ -441,8 +446,15 @@ export class I18n {
     }
 
     if (isLessThanOneWeekAgo(date)) {
+      const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      const dateInTimeZone =
+        timeZone === undefined
+          ? date
+          : applyTimeZoneOffset(date, timeZone, localTimeZone);
+
       return this.translate('humanize.weekday', {
-        day: Weekdays[date.getDay()],
+        day: Weekdays[dateInTimeZone.getDay()],
         time,
       });
     }
