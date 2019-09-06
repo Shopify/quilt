@@ -7,7 +7,7 @@
   "commands": {
     "publish": {
       "skipNpm": true,
-      "ignoreChanges": ["**/*.md", "**/tests/**", "**/test/**"]
+      "ignore": ["**/*.md", "**/tests/**", "**/test/**"]
     }
   }
 }
