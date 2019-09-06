@@ -1,4 +1,4 @@
-import {memoize} from '@shopify/javascript-utilities/decorators';
+import {memoize} from '@shopify/decorators';
 
 enum SupportedDimension {
   OffsetWidth = 'offsetWidth',
