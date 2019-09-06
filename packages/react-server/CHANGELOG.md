@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Changed
+
+- Widen the range of dependencies react-server will accept. This will decrease the change of a repo getting context value missing cause by having 2 version of the same share context library. (ie. `react-html`, `react-network`, `@shopify/react-effect`, `@shopify/react-async`, and `@shopify/react-hydrate` are all in this category.) [#969](https://github.com/Shopify/quilt/pull/969)
+
 ## [0.4.0] - 2019-09-??
 
 ### Fixed
