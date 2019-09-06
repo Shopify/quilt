@@ -43,7 +43,7 @@ describe('NetworkManager', () => {
       expect(manager.getCookie('foo')).toBeUndefined();
     });
 
-    it('sets initial cookies when coming the request as a string', () => {
+    it('sets initial cookies when set as a string', () => {
       const manager = new NetworkManager({cookies: 'foo=bar'});
 
       expect(manager.getCookie('foo')).toBe('bar');
