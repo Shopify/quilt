@@ -10,13 +10,21 @@ import {ApolloProvider} from '@shopify/react-graphql';
 import {mount} from '@shopify/react-testing';
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 
-jest.mock('@shopify/react-graphql', () => ({
-  ...require.requireActual('@shopify/react-graphql'),
-  createGraphQLClient: jest.fn(
-    () =>
-      new ApolloClient({cache: new InMemoryCache(), link: new ApolloLink()}),
-  ),
-}));
+jest.mock('@shopify/react-graphql', () => {
+  /* eslint-disable typescript/no-var-requires */
+  const ApolloClient = require('apollo-client');
+  const InMemoryCache = require('apollo-cache-inmemory');
+  const ApolloLink = require('apollo-link');
+  /* eslint-enable typescript/no-var-requires */
+
+  return {
+    ...require.requireActual('@shopify/react-graphql'),
+    createGraphQLClient: jest.fn(
+      () =>
+        new ApolloClient({cache: new InMemoryCache(), link: new ApolloLink()}),
+    ),
+  };
+});
 
 describe('<GraphQLUniversalProvider />', () => {
   it('renders an ApolloProvider with a client created by the factory', () => {
