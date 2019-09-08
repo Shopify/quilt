@@ -46,7 +46,7 @@ export default class IntersectionObserverMock {
     const setObservers = (setter: (observers: Observer[]) => Observer[]) =>
       (this.observers = setter(this.observers));
 
-    (global as any).IntersectionObserverEntry = () => {};
+    (global as any).IntersectionObserverEntry = class IntersectionObserverEntry {};
     Object.defineProperty(
       IntersectionObserverEntry.prototype,
       'intersectionRatio',

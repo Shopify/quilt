@@ -1,5 +1,4 @@
 import React from 'react';
-import {noop} from '@shopify/javascript-utilities/other';
 import {mount} from '@shopify/react-testing';
 import {Preconnect} from '@shopify/react-html';
 import {DeferTiming} from '@shopify/async';
@@ -9,6 +8,8 @@ import {
   intersectionObserver,
 } from '@shopify/jest-dom-mocks';
 import ImportRemote, {Props} from '../ImportRemote';
+
+function noop() {}
 
 jest.mock('@shopify/react-html', () => ({
   Preconnect() {

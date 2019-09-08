@@ -303,6 +303,7 @@ describe('asyncBabelPlugin()', () => {
 async function normalize(code: string) {
   const result = await transformAsync(code, {
     plugins: ['@babel/plugin-syntax-dynamic-import'],
+    configFile: false,
   });
 
   return (result && result.code) || '';
@@ -314,6 +315,7 @@ async function transform(code: string, options: Partial<Options> = {}) {
       '@babel/plugin-syntax-dynamic-import',
       [asyncBabelPlugin, options],
     ],
+    configFile: false,
   });
 
   return (result && result.code) || '';
