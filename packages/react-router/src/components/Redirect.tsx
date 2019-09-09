@@ -14,4 +14,4 @@ function Redirect(props: ComposedProps) {
   return <NetworkRedirect url={props.url} />;
 }
 
-export default withRouter(Redirect);
+export default withRouter<Props>(Redirect);

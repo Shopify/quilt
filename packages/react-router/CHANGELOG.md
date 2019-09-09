@@ -7,6 +7,18 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.4] - 2019-09-05
+
+- Move the types to depenedencies
+
+## [0.0.3] - 2019-08-05
+
+- Add more stock `react-router` components
+
+## [0.0.2] - 2019-08-29
+
+- Fix type error in consuming projects with the props of `<Redirect />`
+
 ### Added
 
 - `@shopify/react-router` package

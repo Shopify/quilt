@@ -24,7 +24,7 @@ There are two key pieces to making this work. First, your server must render a `
 ```tsx
 import React from 'react';
 import {render} from 'react-dom';
-import {HydrationContext, HydrationManager} from '@shopify/react-hydration';
+import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 import App from '../app';
 
 export async function middleware(ctx, next) {
@@ -44,9 +44,9 @@ Note that if you use [`@shopify/react-effect`](../react-effect), you **must** re
 
 ```tsx
 import React from 'react';
-import {render} from 'react-dom';
+import {render} from '@shopify/react-html/server';
 import {extract} from '@shopify/react-effect';
-import {HydrationContext, HydrationManager} from '@shopify/react-hydration';
+import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 import App from '../app';
 
 export async function middleware(ctx, next) {

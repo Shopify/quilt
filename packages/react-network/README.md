@@ -124,7 +124,8 @@ function MyComponent() {
 To extract details from your application, render a `NetworkContext.Provider` around your app, and give it an instance of the `NetworkManager`. When using `react-effect`, this decoration can be done in the `decorate` option of `extract()`. Finally, you can use the `applyToContext` utility from this package to apply the necessary headers to the response. Your final server middleware will resemble th e example below:
 
 ```tsx
-import {renderToString} from 'react-dom/server';
+import React from 'react';
+import {render} from '@shopify/react-html/server';
 import {extract} from '@shopify/react-effect/server';
 import {
   NetworkManager,
@@ -133,7 +134,7 @@ import {
 } from '@shopify/react-network/server';
 import App from './App';
 
-export default function render(ctx: Context) {
+export default function renderApp(ctx: Context) {
   // Accepts an optional headers argument for giving access
   // to request headers.
   const networkManager = new NetworkManager({
@@ -151,7 +152,11 @@ export default function render(ctx: Context) {
   });
 
   applyToContext(ctx, networkManager);
-  ctx.body = renderToString(app);
+  ctx.body = render(
+    <NetworkContext.Provider value={networkManager}>
+      {app}
+    </NetworkContext.Provider>,
+  );
 }
 ```
 
