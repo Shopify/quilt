@@ -1,5 +1,6 @@
-import {noop} from '@shopify/javascript-utilities/other';
 import load, {clearCache} from '../load';
+
+function noop() {}
 
 describe('load()', () => {
   const mockURL = 'https://foo.com/bar.js';
