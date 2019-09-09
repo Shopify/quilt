@@ -21,7 +21,6 @@ import {
 } from '@shopify/react-async';
 import {Header, StatusCode} from '@shopify/react-network';
 import {getAssets} from '@shopify/sewing-kit-koa';
-import {getLogger} from '../logger';
 
 export {Context};
 export interface RenderFunction {
@@ -39,7 +38,7 @@ type Options = Pick<
  */
 export function createRender(render: RenderFunction, options: Options = {}) {
   return async function renderFunction(ctx: Context) {
-    const logger = getLogger(ctx) || console;
+    const logger = ctx.state.logger || console;
     const assets = getAssets(ctx);
     const networkManager = new NetworkManager({
       headers: ctx.headers,
@@ -102,12 +101,14 @@ export function createRender(render: RenderFunction, options: Options = {}) {
       ctx.set(Header.ContentType, 'text/html');
       ctx.body = response;
     } catch (error) {
-      logger.error(error);
+      const errorMessage = `React SSR Error:\n${error.stack || error.message}`;
+
+      logger.log(errorMessage);
+      ctx.status = StatusCode.InternalServerError;
+
       // eslint-disable-next-line no-process-env
       if (process.env.NODE_ENV === 'development') {
-        ctx.body = `Internal Server Error: \n\n${error.message} \n\n ${
-          error.stack
-        }`;
+        ctx.body = errorMessage;
       } else {
         ctx.throw(StatusCode.InternalServerError, error);
       }
