@@ -27,9 +27,6 @@
     "@types/classnames": "^2.2.7",
     "classnames": "^2.2.6"
   },
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
   "files": [
     "dist/*"
   ]

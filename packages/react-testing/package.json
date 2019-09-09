@@ -28,9 +28,6 @@
     "jest-matcher-utils": "^24.5.0",
     "react-reconciler": "^0.20.2"
   },
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
   "files": [
     "dist/*",
     "matchers.js",

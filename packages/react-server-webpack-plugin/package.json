@@ -29,7 +29,6 @@
   "devDependencies": {
     "@shopify/react-server": "^0.4.0",
     "@types/webpack-virtual-modules": "^0.1.0",
-    "typescript": "~3.2.1",
     "webpack": "^4.39.1"
   },
   "files": [

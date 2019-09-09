@@ -30,8 +30,7 @@
     "@shopify/jest-koa-mocks": "^2.1.4",
     "@shopify/with-env": "^1.1.0",
     "@types/koa": "^2.0.44",
-    "koa": "^2.5.0",
-    "typescript": "~3.2.1"
+    "koa": "^2.5.0"
   },
   "sideEffects": false
 }
