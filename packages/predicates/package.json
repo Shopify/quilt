@@ -23,7 +23,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/predicates/README.md",
-  "devDependencies": {},
   "files": [
     "dist/*"
   ]

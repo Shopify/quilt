@@ -26,7 +26,6 @@
   "dependencies": {
     "@shopify/async": "^2.0.3"
   },
-  "devDependencies": {},
   "peerDependencies": {
     "react": "^16.8.0"
   },

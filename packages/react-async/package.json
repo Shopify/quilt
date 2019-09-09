@@ -32,7 +32,6 @@
     "@shopify/react-intersection-observer": "^2.0.4",
     "@shopify/useful-types": "^2.0.0"
   },
-  "devDependencies": {},
   "files": [
     "dist/*"
   ]
