@@ -28,9 +28,6 @@
     "@types/react-router-dom": "^4.3.5",
     "react-router-dom": "^5.0.1"
   },
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
   "files": [
     "dist/*"
   ]

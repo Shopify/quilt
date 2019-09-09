@@ -32,8 +32,7 @@
   "devDependencies": {
     "@shopify/useful-types": "^2.0.0",
     "@types/graphql": "^14.0.0",
-    "graphql-typed": "^0.4.0",
-    "typescript": "~3.2.1"
+    "graphql-typed": "^0.4.0"
   },
   "files": [
     "dist/*",

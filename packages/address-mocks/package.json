@@ -23,9 +23,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address-mocks/README.md",
   "devDependencies": {
-    "@shopify/address": "^2.7.4",
-    "@shopify/jest-dom-mocks": "^2.7.5",
-    "typescript": "~3.2.1"
+    "@shopify/address": "^2.7.2",
+    "@shopify/jest-dom-mocks": "^2.7.3"
   },
   "sideEffects": false,
   "dependencies": {

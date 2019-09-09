@@ -27,8 +27,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.7.5",
-    "typescript": "~3.2.1"
+    "@shopify/jest-dom-mocks": "^2.7.3"
   },
   "files": [
     "dist/*"

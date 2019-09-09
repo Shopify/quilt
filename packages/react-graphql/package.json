@@ -36,8 +36,7 @@
     "react-apollo": ">=2.2.3 <3.0.0"
   },
   "devDependencies": {
-    "@types/graphql": "^14.0.0",
-    "typescript": "~3.2.1"
+    "@types/graphql": "^14.0.0"
   },
   "files": [
     "dist/*"

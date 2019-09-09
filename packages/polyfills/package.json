@@ -38,8 +38,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@types/caniuse-api": "^3.0.0",
-    "typescript": "~3.2.1"
+    "@types/caniuse-api": "^3.0.0"
   },
   "files": [
     "**/*.js",
