@@ -27,7 +27,6 @@
     "react": ">=16.8.0 <17.0.0",
     "react-dom": ">=16.8.0 <17.0.0"
   },
-  "devDependencies": {},
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.3"

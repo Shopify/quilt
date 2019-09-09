@@ -27,7 +27,6 @@
     "@types/classnames": "^2.2.7",
     "classnames": "^2.2.6"
   },
-  "devDependencies": {},
   "files": [
     "dist/*"
   ]
