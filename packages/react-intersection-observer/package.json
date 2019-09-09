@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-intersection-observer",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "license": "MIT",
   "description": "A React wrapper around the IntersectionObserver API",
   "main": "dist/index.js",
