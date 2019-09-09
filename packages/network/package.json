@@ -1,6 +1,6 @@
 {
   "name": "@shopify/network",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "license": "MIT",
   "description": "Common values related to dealing with the network",
   "main": "dist/index.js",
