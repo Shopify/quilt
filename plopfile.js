@@ -61,27 +61,22 @@ module.exports = function(plop) {
           'packages/{{kebabCase name}}/src/test/{{properCase name}}.test.ts',
         templateFile: 'templates/test.hbs.ts',
       },
-      sharedActions.docs,
     ],
   });
 
   plop.setGenerator('docs', {
     description: 'Generate root repo documentation',
     prompts: [],
-    actions() {
-      return [sharedActions.docs];
-    },
+    actions: [
+      {
+        type: 'add',
+        path: 'README.md',
+        templateFile: 'templates/ROOT_README.hbs.md',
+        force: true,
+        data: {jsPackageNames, gemNames},
+      },
+    ],
   });
-};
-
-const sharedActions = {
-  docs: {
-    type: 'add',
-    path: 'README.md',
-    templateFile: 'templates/ROOT_README.hbs.md',
-    force: true,
-    data: {jsPackageNames, gemNames},
-  },
 };
 
 function getPackageNames(type = 'js') {

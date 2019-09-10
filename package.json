@@ -12,7 +12,8 @@
     "check": "lerna run check",
     "release": "lerna publish",
     "clean": "rimraf './packages/*/dist/**/*.{js,d.ts}'",
-    "generate": "yarn plop"
+    "generate": "yarn plop",
+    "generate:package": "yarn plop package && yarn plop docs"
   },
   "repository": {
     "type": "git",
