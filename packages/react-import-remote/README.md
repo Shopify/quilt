@@ -76,7 +76,7 @@ Source of the script to load the global from
 
 **preconnect**
 
-Generates a preconnect link tag for the source’s domain using [`@shopify/react-preconnect`](https://github.com/Shopify/quilt/tree/master/packages/react-preconnect)
+Generates a preconnect link tag for the source’s domain using `<Preconnect />` component from [`@shopify/react-html`](../react-html)
 
 **getImport**
 
