@@ -1,6 +1,6 @@
 {
   "name": "@shopify/useful-types",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "dist/index.js",
@@ -24,9 +24,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/useful-types/README.md",
   "dependencies": {
     "tslib": "^1.9.3"
-  },
-  "devDependencies": {
-    "typescript": "~3.2.1"
   },
   "files": [
     "dist/*"

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-consts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Constants and types relating to @shopify/address",
   "main": "dist/index.js",
@@ -23,9 +23,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address-consts/README.md",
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
   "files": [
     "dist/*"
   ]

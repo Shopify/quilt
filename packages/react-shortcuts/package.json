@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-shortcuts",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "license": "MIT",
   "description": "Declaratively and efficiently match shortcut combinations in your react application",
   "main": "dist/index.js",
@@ -24,9 +24,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-shortcuts/README.md",
   "peerDependencies": {
     "react": "^16.3.2"
-  },
-  "devDependencies": {
-    "typescript": "~3.2.1"
   },
   "dependencies": {
     "tslib": "^1.9.3"
