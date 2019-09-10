@@ -595,6 +595,66 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrencyExplicit()', () => {
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč CZK'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1 234,56 EUR'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1 235 JPY'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1 234,56 USD'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1,234.56 EUR'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235 JPY'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56 USD'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $ USD'}
+    `(
+      'formats 1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = 1234.56;
+        const mockSymbolResult = {symbol, prefixed};
+
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+      },
+    );
+  });
+
+  describe('#formatCurrencyShort()', () => {
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1 234,56'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1 235'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1 234,56'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'€ 1,234.56'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 €'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $'}
+    `(
+      'formats 1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = 1234.56;
+        const mockSymbolResult = {symbol, prefixed};
+
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+      },
+    );
+  });
+
   describe('#unformatCurrency()', () => {
     const mockSymbolResult = {
       symbol: '$',
@@ -928,7 +988,7 @@ describe('I18n', () => {
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Short})).toBe(
-        'Dec 20, 2012',
+        'Dec. 20, 2012',
       );
     });
 
@@ -941,7 +1001,7 @@ describe('I18n', () => {
         });
 
         expect(i18n.formatDate(date, {style: DateStyle.Humanize})).toBe(
-          'Dec 20, 2012',
+          'Dec. 20, 2012',
         );
       });
 
@@ -954,7 +1014,7 @@ describe('I18n', () => {
             style: DateStyle.Humanize,
             timeZone: timezone,
           }),
-        ).toBe('Dec 20, 2012');
+        ).toBe('Dec. 20, 2012');
       });
 
       it('formats a date less than one minute ago', () => {
@@ -1013,7 +1073,7 @@ describe('I18n', () => {
 
         expect(
           i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
-        ).toBe('5:00 am');
+        ).toBe('5:00 a.m.');
       });
 
       it('formats a date from yesterday', () => {
@@ -1028,16 +1088,18 @@ describe('I18n', () => {
         i18n.formatDate(yesterday, {style: DateStyle.Humanize});
         expect(translate).toHaveBeenCalledWith(
           'humanize.yesterday',
-          {pseudotranslate: false, replacements: {time: '11:00 am'}},
+          {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
           defaultTranslations,
           i18n.locale,
         );
       });
 
       it('formats a date less than one week ago', () => {
+        const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
         const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneWeekAgo = new Date(today.getTime());
-        lessThanOneWeekAgo.setDate(today.getDate() - 5);
+        const lessThanOneWeekAgo = new Date(
+          today.getTime() - fiveDaysInMilliseconds,
+        );
         clock.mock(today);
         const i18n = new I18n(defaultTranslations, {
           ...defaultDetails,
@@ -1051,7 +1113,7 @@ describe('I18n', () => {
           'humanize.weekday',
           {
             pseudotranslate: false,
-            replacements: {day: 'Saturday', time: '11:00 am'},
+            replacements: {day: 'Friday', time: '11:00 a.m.'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1059,16 +1121,21 @@ describe('I18n', () => {
       });
 
       it('formats a date less than one year ago', () => {
+        // Offset from 2012-12-20 to 2012-07-20
+        const fiveMonthsInMilliseconds =
+          (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
+
         const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneYearAgo = new Date(today.getTime());
-        lessThanOneYearAgo.setMonth(today.getMonth() - 5);
+        const lessThanOneYearAgo = new Date(
+          today.getTime() - fiveMonthsInMilliseconds,
+        );
         clock.mock(today);
         const i18n = new I18n(defaultTranslations, {
           ...defaultDetails,
           timezone,
         });
 
-        i18n.formatDate(lessThanOneYearAgo, {
+        const formatted = i18n.formatDate(lessThanOneYearAgo, {
           style: DateStyle.Humanize,
         });
 
@@ -1076,7 +1143,7 @@ describe('I18n', () => {
           'humanize.date',
           {
             pseudotranslate: false,
-            replacements: {date: 'Jul 20', time: '10:00 am'},
+            replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1094,7 +1161,7 @@ describe('I18n', () => {
         });
 
         expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
-          'Dec 20, 2013',
+          'Dec. 20, 2013',
         );
       });
     });
@@ -1106,7 +1173,7 @@ describe('I18n', () => {
         timezone,
       });
 
-      expect(i18n.formatDate(date, {style: DateStyle.Time})).toBe('11:00 AM');
+      expect(i18n.formatDate(date, {style: DateStyle.Time})).toBe('11:00 a.m.');
     });
 
     it('updates format on multiple calls', () => {
@@ -1169,6 +1236,28 @@ describe('I18n', () => {
         'No country code provided. weekStartDay() cannot be called without a country code.',
       );
     });
+  });
+
+  describe('#getShortCurrencySymbol()', () => {
+    it.each`
+      currency | locale     | symbol    | prefixed | shortSymbol
+      ${'CZK'} | ${'cs-CZ'} | ${' Kč'}  | ${false} | ${' Kč'}
+      ${'USD'} | ${'en-CA'} | ${'US$'}  | ${true}  | ${'$'}
+      ${'USD'} | ${'en-US'} | ${'$'}    | ${true}  | ${'$'}
+      ${'USD'} | ${'fr-FR'} | ${' $US'} | ${false} | ${' $'}
+      ${'OMR'} | ${'en-US'} | ${'OMR '} | ${true}  | ${'OMR '}
+    `(
+      'returns $shortSymbol for $currency in $locale',
+      ({currency, locale, symbol, prefixed, shortSymbol}) => {
+        const mockResult = {symbol, prefixed};
+        getCurrencySymbol.mockReturnValue(mockResult);
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.getShortCurrencySymbol(currency)).toStrictEqual({
+          prefixed,
+          symbol: shortSymbol,
+        });
+      },
+    );
   });
 
   describe('#getCurrencySymbol()', () => {
