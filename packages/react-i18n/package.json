@@ -34,6 +34,7 @@
     "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
+    "@shopify/dates": "^0.1.25",
     "@shopify/decorators": "^1.1.5",
     "@shopify/function-enhancers": "^1.0.5",
     "@shopify/i18n": "^0.1.6",

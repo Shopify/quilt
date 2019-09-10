@@ -9,6 +9,7 @@ import {
   TimeUnit,
   Weekdays,
 } from '@shopify/javascript-utilities/dates';
+import {applyTimeZoneOffset} from '@shopify/dates';
 import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
@@ -45,6 +46,10 @@ import {
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   as?: 'number' | 'currency' | 'percent';
   precision?: number;
+}
+
+export interface CurrencyFormatOptions extends NumberFormatOptions {
+  form?: 'short' | 'explicit';
 }
 
 export interface TranslateOptions {
@@ -239,7 +244,15 @@ export class I18n {
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
   }
 
-  formatCurrency(amount: number, options: Intl.NumberFormatOptions = {}) {
+  formatCurrency(
+    amount: number,
+    {form, ...options}: CurrencyFormatOptions = {},
+  ) {
+    if (form === 'explicit') {
+      return this.formatCurrencyExplicit(amount, options);
+    } else if (form === 'short') {
+      return this.formatCurrencyShort(amount, options);
+    }
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
@@ -349,7 +362,65 @@ export class I18n {
     return firstName;
   }
 
+  private formatCurrencyExplicit(
+    amount: number,
+    options: Intl.NumberFormatOptions = {},
+  ): string {
+    const value = this.formatCurrencyShort(amount, options);
+    const isoCode = options.currency || this.defaultCurrency || '';
+    if (value.includes(isoCode)) {
+      return value;
+    }
+    return `${value} ${isoCode}`;
+  }
+
+  private formatCurrencyShort(
+    amount: number,
+    options: NumberFormatOptions = {},
+  ): string {
+    const {locale} = this;
+    const shortSymbol = this.getShortCurrencySymbol(options.currency);
+    let adjustedPrecision = options.precision;
+    if (adjustedPrecision === undefined) {
+      const currency = options.currency || this.defaultCurrency || '';
+      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
+    }
+    const formattedAmount = memoizedNumberFormatter(locale, {
+      style: 'decimal',
+      minimumFractionDigits: adjustedPrecision,
+      maximumFractionDigits: adjustedPrecision,
+      ...options,
+    }).format(amount);
+
+    return shortSymbol.prefixed
+      ? `${shortSymbol.symbol}${formattedAmount}`
+      : `${formattedAmount}${shortSymbol.symbol}`;
+  }
+
+  // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
+  // For example, in locale 'fr-FR', 'USD' is given the "symbol" of " $US".
+  // This method strips out the country-code annotation, if there is one.
+  // (So, for 'fr-FR' and 'USD', the return value would be " $").
+  //
+  // For other currencies, e.g. CHF and OMR, the "symbol" is the ISO currency code.
+  // In those cases, we return the full currency code without stripping the country.
+  private getShortCurrencySymbol(currencyCode = this.defaultCurrency || '') {
+    const currency = currencyCode || this.defaultCurrency || '';
+    const regionCode = currency.substring(0, 2);
+    const info = this.getCurrencySymbol(currency);
+    const shortSymbol = info.symbol.replace(regionCode, '');
+    const alphabeticCharacters = /[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḂ-ỳ]/;
+
+    return shortSymbol.match(alphabeticCharacters)
+      ? info
+      : {symbol: shortSymbol, prefixed: info.prefixed};
+  }
+
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const {defaultTimezone} = this;
+    const timeZone =
+      options && options.timeZone ? options.timeZone : defaultTimezone;
+
     if (isLessThanOneMinuteAgo(date)) {
       return this.translate('humanize.now');
     }
@@ -375,8 +446,15 @@ export class I18n {
     }
 
     if (isLessThanOneWeekAgo(date)) {
+      const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      const dateInTimeZone =
+        timeZone === undefined
+          ? date
+          : applyTimeZoneOffset(date, timeZone, localTimeZone);
+
       return this.translate('humanize.weekday', {
-        day: Weekdays[date.getDay()],
+        day: Weekdays[dateInTimeZone.getDay()],
         time,
       });
     }
