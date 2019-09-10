@@ -1,7 +1,8 @@
 const {readdirSync, existsSync} = require('fs');
 const path = require('path');
 
-const packageNames = getPackageNames();
+const jsPackageNames = getPackageNames('js');
+const gemNames = getPackageNames('ruby');
 
 module.exports = function(plop) {
   plop.setGenerator('package', {
@@ -79,12 +80,15 @@ const sharedActions = {
     path: 'README.md',
     templateFile: 'templates/ROOT_README.hbs.md',
     force: true,
-    data: {packageNames},
+    data: {jsPackageNames, gemNames},
   },
 };
 
-function getPackageNames() {
-  const packagesPath = path.join(__dirname, 'packages');
+function getPackageNames(type = 'js') {
+  const packagesPath = path.join(
+    __dirname,
+    type === 'js' ? 'packages' : 'gems',
+  );
   return readdirSync(packagesPath).filter(packageName => {
     const packageJSONPath = path.join(
       packagesPath,
