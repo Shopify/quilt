@@ -16,7 +16,7 @@ interface Options {
 
 // It is important to understand React Apollo’s server rendering logic
 // before diving in to this code. You can read about it here:
-// https://github.com/apollographql/react-apollo/blob/master/src/getDataFromTree.ts
+// https://github.com/apollographql/react-apollo/blob/master/packages/ssr/src/getDataFromTree.ts
 
 class RenderPromises extends ApolloRenderPromises {
   private inflightQueryBehavior: InflightQueryBehavior;
