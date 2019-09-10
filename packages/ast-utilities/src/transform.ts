@@ -16,6 +16,7 @@ export async function transform(
 
   const output = await babel.transformFromAstAsync(ast, code, {
     plugins: compose(...transforms),
+    configFile: false,
     generatorOpts: {
       retainLines: true,
     },
@@ -38,6 +39,7 @@ export function transformSync(
 
   const output = babel.transformFromAstSync(ast, code, {
     plugins: compose(...transforms),
+    configFile: false,
     generatorOpts: {
       retainLines: true,
     },
