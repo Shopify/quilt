@@ -278,7 +278,7 @@ describe('babel-pluin-react-i18n', () => {
 
 async function normalize(code: string) {
   const result = await transformAsync(code, {
-    plugins: ['@babel/plugin-syntax-dynamic-import'],
+    plugins: [require('@babel/plugin-syntax-dynamic-import')],
     configFile: false,
   });
 
