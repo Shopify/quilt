@@ -23,6 +23,12 @@ Each package has its own `README` and documentation describing usage.
 | {{this}} | [directory](packages/{{this}}) | [![npm version](https://badge.fury.io/js/%40shopify%2F{{this}}.svg)](https://badge.fury.io/js/%40shopify%2F{{this}}) |
 {{/each}}
 
+### Gem Index
+
+| package |     |     |
+| ------- | --- | --- |
+| quilt_rails | [directory](gems/quilt_rails) | [![Gem Version](https://badge.fury.io/rb/quilt_rails.svg)](https://badge.fury.io/rb/quilt_rails) |
+
 ## Want to contribute?
 
 Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
