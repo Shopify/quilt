@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "license": "MIT",
   "description": "Utilities for React server-side rendering.",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-server/README.md",
   "dependencies": {
     "@shopify/network": "^1.4.2",
-    "@shopify/react-async": "^3.0.7",
+    "@shopify/react-async": "^3.0.8",
     "@shopify/react-effect": "^3.2.3",
     "@shopify/react-html": "^9.2.3",
     "@shopify/react-hydrate": "^1.1.4",
