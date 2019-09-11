@@ -1,7 +1,5 @@
 # [Unreleased]
 
-## [0.1.15] - 2019-04-17
+## Enhancements
 
-### Changed
-
-- Improve performance of `formatDate` to use memoized `DateTimeFormat`. ([#643](https://github.com/Shopify/quilt/pull/643))
+- Add `isLessThanOneMinute`, `isLessThanOneHour`, `isLessThanOneDay`, `isLessThanOneWeek`, and `isLessThanOneYear` functions ([#989](https://github.com/Shopify/quilt/pull/989))

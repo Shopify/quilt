@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## 0.1.7 - 2019-01-09
+## [0.1.15] - 2019-04-17
+
+### Changed
+
+- Improve performance of `formatDate` to use memoized `DateTimeFormat`. ([#643](https://github.com/Shopify/quilt/pull/643))
+
+## [0.1.7] - 2019-01-09
 
 - Start of Changelog
