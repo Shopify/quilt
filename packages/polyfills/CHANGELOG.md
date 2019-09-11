@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Replace deprecated `babel-polyfills` in favor of `core-js` and `regenerator-runtime`.
+
 ## [1.1.0] - 2019-08-08
 
 - Use `url-polyfill` instead of `url-search-params-polyfill` as it polyfills `URL` as well, including `URL.searchParams`.
