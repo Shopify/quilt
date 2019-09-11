@@ -1,22 +1,21 @@
 import React from 'react';
 
-interface Props<T extends React.ComponentType<any>> {
+interface Props<ContextType> {
   condition: boolean;
-  provider: T;
-  // props: React.ComponentPropsWithoutRef<T>;
-  props?: any;
-  children: any;
+  provider: React.Provider<ContextType>;
+  props: React.ProviderProps<ContextType>;
+  children: React.ReactElement<ContextType>;
 }
 
-export function ConditionalProvider<T extends React.ComponentType<any>>({
+export function ConditionalProvider<ContextType>({
   condition,
   provider: Provider,
   props,
   children,
-}: Props<T>) {
+}: Props<ContextType>) {
   if (condition) {
     return <Provider {...props}>{children}</Provider>;
   }
 
-  return children;
+  return children || null;
 }
