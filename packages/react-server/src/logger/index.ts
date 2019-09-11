@@ -1,1 +1,1 @@
-export {requestLogger, Logger, noopLogger} from './logger';
+export {requestLogger, Logger, getLogger} from './logger';

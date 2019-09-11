@@ -4,10 +4,10 @@ import chalk from 'chalk';
 import {KoaNextFunction} from '../types';
 
 export const LOGGER = Symbol('logger');
-const PREFIX = chalk`{underline [React Server]}  `;
+const PREFIX = chalk.underline('[React Server]');
 
 export class Logger {
-  private buffer = '';
+  buffer = '';
   private logger = console;
 
   log(message: string) {
@@ -19,9 +19,17 @@ export class Logger {
   }
 }
 
+export function setLogger(ctx: Context, logger: Logger) {
+  ctx.state[LOGGER] = logger;
+}
+
+export function getLogger(ctx: Context): Logger {
+  return ctx.state[LOGGER];
+}
+
 function initialRequestMessage(request: Request): string {
   const requestMethod = `${request.method.toUpperCase()} "${request.url}"`;
-  return `Started ${requestMethod} for at ${new Date().toISOString()}`;
+  return `Started ${requestMethod} at ${new Date().toISOString()}`;
 }
 
 function endRequestMessage(ctx: Context, requestDuration: number): string {
@@ -32,7 +40,8 @@ function endRequestMessage(ctx: Context, requestDuration: number): string {
 }
 
 function endRequest(ctx: Context, requestDuration: number) {
-  ctx.state.logger.log(endRequestMessage(ctx, requestDuration));
+  const logger = getLogger(ctx);
+  logger.log(endRequestMessage(ctx, requestDuration));
 
   if (process.env.NODE_ENV === 'development') {
     return;
@@ -46,7 +55,7 @@ function endRequest(ctx: Context, requestDuration: number) {
     http_status: ctx.status,
     uri: ctx.originalUrl,
     user_agent: ctx.header['User-Agent'],
-    payload: ctx.state.logger.buffer,
+    payload: logger.buffer,
   };
   /* eslint-enable babel/camelcase */
 
@@ -68,25 +77,19 @@ function requestDuration(requestStartTime: [number, number]) {
 
 export async function requestLogger(ctx: Context, next: KoaNextFunction) {
   const requestStartTime = process.hrtime();
+  setLogger(ctx, new Logger());
 
-  ctx.state.logger = new Logger();
-  ctx.state.logger.log(initialRequestMessage(ctx.request));
+  const logger = getLogger(ctx);
+  logger.log(initialRequestMessage(ctx.request));
 
   try {
     await next();
   } catch (error) {
-    ctx.state.logger.log('Error during server execution, see details below.');
-    ctx.state.logger.log(
+    logger.log('Error during server execution, see details below.');
+    logger.log(
       `${error.stack || error.message || 'No stack trace was present'}`,
     );
   } finally {
     endRequest(ctx, requestDuration(requestStartTime));
   }
 }
-
-export const noopLogger = {
-  log: noop,
-  error: noop,
-};
-
-function noop(_: any) {}
