@@ -8,6 +8,7 @@ import mount from 'koa-mount';
 import {middleware as sewingKitMiddleware} from '@shopify/sewing-kit-koa';
 import {createRender, RenderFunction} from '../render';
 import {requestLogger} from '../logger';
+import {metricsMiddleware as metrics} from '../metrics';
 import {ping} from '../ping';
 
 const logger = console;
@@ -33,6 +34,7 @@ export function createServer(options: Options): Server {
   app.use(mount('/services/ping', ping));
 
   app.use(requestLogger);
+  app.use(metrics);
   app.use(sewingKitMiddleware({assetPrefix, manifestPath}));
 
   if (serverMiddleware) {
