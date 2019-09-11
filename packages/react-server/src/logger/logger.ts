@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import {KoaNextFunction} from '../types';
 
 export const LOGGER = Symbol('logger');
-const PREFIX = chalk.underline('[React Server]');
+const PREFIX = chalk.underline('[React Server] ');
 
 export class Logger {
   buffer = '';
