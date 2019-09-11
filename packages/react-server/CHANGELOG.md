@@ -16,6 +16,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Improved logger to provide more readable production logs in Splunk [#978](https://github.com/Shopify/quilt/pull/978)
+- App is now wrapped with a set of default providers
 
 ## [0.4.0] - 2019-09-06
 

@@ -10,14 +10,8 @@ describe('react-server-webpack-plugin', () => {
       'generates the server and client entrypoints when the virtual server & client modules are present',
       async () => {
         const [serverResults, clientResults] = await runBuild('no-entrypoints');
-
-        const clientModule = clientResults.modules.find(({name}) =>
-          name.includes('./client.js'),
-        );
-
-        const serverModule = serverResults.modules.find(({name}) =>
-          name.includes('./server.js'),
-        );
+        const clientModule = getModule(clientResults, 'client');
+        const serverModule = getModule(serverResults, 'server');
 
         expect(clientModule).toBeDefined();
         expect(clientModule.source).toMatch(HEADER);
@@ -35,13 +29,9 @@ describe('react-server-webpack-plugin', () => {
       'generates the server and client entrypoints when they do not exist',
       async () => {
         const [serverResults, clientResults] = await runBuild('no-entrypoints');
+        const clientModule = getModule(clientResults, 'client');
+        const serverModule = getModule(serverResults, 'server');
 
-        const serverModule = serverResults.modules.find(
-          ({name}) => name === './server.js',
-        );
-        const clientModule = clientResults.modules.find(
-          ({name}) => name === './client.js',
-        );
         expect(serverModule.source).toMatch(HEADER);
         expect(clientModule.source).toMatch(HEADER);
       },
@@ -52,9 +42,7 @@ describe('react-server-webpack-plugin', () => {
       'uses process.env to default port and host',
       async () => {
         const [serverResults] = await runBuild('no-entrypoints');
-        const serverModule = serverResults.modules.find(
-          ({name}) => name === './server.js',
-        );
+        const serverModule = getModule(serverResults, 'server');
 
         expect(serverModule.source).toMatch('ip: process.env.REACT_SERVER_IP');
         expect(serverModule.source).toMatch(
@@ -68,13 +56,9 @@ describe('react-server-webpack-plugin', () => {
       const [serverResults, clientResults] = await runBuild(
         'client-entrypoint',
       );
+      const clientModule = getModule(clientResults, 'client');
+      const serverModule = getModule(serverResults, 'server');
 
-      const serverModule = serverResults.modules.find(
-        ({name}) => name === './server.js',
-      );
-      const clientModule = clientResults.modules.find(
-        ({name}) => name === './client.js',
-      );
       expect(serverModule.source).toMatch(HEADER);
       expect(clientModule.source).toMatch('I am a bespoke client entry');
       expect(clientModule.source).not.toMatch(HEADER);
@@ -86,13 +70,9 @@ describe('react-server-webpack-plugin', () => {
         const [serverResults, clientResults] = await runBuild(
           'server-entrypoint',
         );
+        const clientModule = getModule(clientResults, 'client');
+        const serverModule = getModule(serverResults, 'server');
 
-        const serverModule = serverResults.modules.find(
-          ({name}) => name === './server.js',
-        );
-        const clientModule = clientResults.modules.find(
-          ({name}) => name === './client.js',
-        );
         expect(serverModule.source).not.toMatch(HEADER);
         expect(serverModule.source).toMatch('I am a bespoke server entry');
         expect(clientModule.source).toMatch(HEADER);
@@ -107,12 +87,8 @@ describe('react-server-webpack-plugin', () => {
           'custom-base-path',
         );
 
-        const serverModule = serverResults.modules.find(
-          ({name}) => name === './app/ui/server.js',
-        );
-        const clientModule = clientResults.modules.find(
-          ({name}) => name === './app/ui/client.js',
-        );
+        const serverModule = getModule(serverResults, 'app/ui/server');
+        const clientModule = getModule(clientResults, 'app/ui/client');
 
         expect(serverModule.source).toMatch(HEADER);
         expect(clientModule.source).toMatch(HEADER);
@@ -124,9 +100,7 @@ describe('react-server-webpack-plugin', () => {
       'uses the given server configuration options',
       async () => {
         const [serverResults] = await runBuild('custom-server-config');
-        const serverModule = serverResults.modules.find(
-          ({name}) => name === './server.js',
-        );
+        const serverModule = getModule(serverResults, 'server');
 
         expect(serverModule.source).toMatch('port: 3000');
         expect(serverModule.source).toMatch('ip: "127.0.0.1"');
@@ -180,4 +154,16 @@ function runBuild(configPath: string): Promise<any[]> {
       resolve(statsObject.children);
     });
   });
+}
+
+function getModule(results: any, basePath: string) {
+  const newResults = results.modules.find(({name}) =>
+    name.includes(`./${basePath}.js`),
+  );
+
+  if (newResults.source) {
+    return newResults;
+  }
+
+  return getModule(newResults, basePath);
 }
