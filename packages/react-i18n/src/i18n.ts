@@ -195,8 +195,15 @@ export class I18n {
       | ComplexReplacementDictionary,
   ): string | TranslationDictionary {
     try {
-      if (!replacements) return getTranslationTree(id, this.translations);
-      return getTranslationTree(id, this.translations, replacements);
+      if (!replacements) {
+        return getTranslationTree(id, this.translations, this.locale);
+      }
+      return getTranslationTree(
+        id,
+        this.translations,
+        this.locale,
+        replacements,
+      );
     } catch (error) {
       this.onError(error);
       return '';

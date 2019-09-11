@@ -168,6 +168,7 @@ describe('I18n', () => {
       expect(getTranslationTree).toHaveBeenCalledWith(
         'hello',
         defaultTranslations,
+        i18n.locale,
       );
     });
 

@@ -18,40 +18,96 @@ jest.mock('@shopify/i18n', () => ({
 
 describe('getTranslationTree()', () => {
   it('returns the translation keys if it has nested values', () => {
-    expect(getTranslationTree('foo', {foo: {bar: 'one'}})).toMatchObject({
+    expect(
+      getTranslationTree('foo', {foo: {bar: 'one'}}, locale),
+    ).toMatchObject({
       bar: 'one',
     });
   });
 
   it('returns the translation keys with replacements if it has nested values', () => {
     expect(
-      getTranslationTree(
-        'foo',
-        {foo: {bar: '{replacement}'}},
-        {replacement: 'bar'},
-      ),
+      getTranslationTree('foo', {foo: {bar: '{replacement}'}}, locale, {
+        replacement: 'bar',
+      }),
     ).toMatchObject({
       bar: 'bar',
     });
   });
 
+  it('returns the singular translation keys if it has nested values', () => {
+    expect(
+      getTranslationTree(
+        'foo',
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 1,
+        },
+      ),
+    ).toMatchObject({
+      bar: 'one',
+    });
+  });
+
+  it('returns the pluralized translation keys if it has nested values', () => {
+    expect(
+      getTranslationTree(
+        'foo',
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 2,
+        },
+      ),
+    ).toMatchObject({
+      bar: 'other',
+    });
+  });
+
   it('returns the leaf string', () => {
-    expect(getTranslationTree('foo.bar', {foo: {bar: 'one'}})).toBe('one');
+    expect(getTranslationTree('foo.bar', {foo: {bar: 'one'}}, locale)).toBe(
+      'one',
+    );
   });
 
   it('returns the leaf string with replacements', () => {
     expect(
+      getTranslationTree('foo.bar', {foo: {bar: '{replacement}'}}, locale, {
+        replacement: 'bar',
+      }),
+    ).toBe('bar');
+  });
+
+  it('returns the singular leaf string', () => {
+    expect(
       getTranslationTree(
         'foo.bar',
-        {foo: {bar: '{replacement}'}},
-        {replacement: 'bar'},
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 1,
+        },
       ),
-    ).toBe('bar');
+    ).toBe('one');
+  });
+
+  it('returns the pluralized leaf string', () => {
+    expect(
+      getTranslationTree(
+        'foo.bar',
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 2,
+        },
+      ),
+    ).toBe('other');
   });
 
   it('throws a MissingTranslationError when no translation is found', () => {
     expect(() =>
-      getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}),
+      getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}, locale),
     ).toThrow();
   });
 });
