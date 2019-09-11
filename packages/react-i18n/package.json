@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more.",
   "main": "dist/index.js",
@@ -25,8 +25,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n/README.md",
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/types": "^7.3.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/types": "^7.3.0",
     "@types/babel__core": "^7.0.4",
     "@types/babel__template": "^7.0.1",
     "@types/babel__traverse": "^7.0.5",
@@ -34,7 +34,7 @@
     "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
-    "@shopify/dates": "^0.1.25",
+    "@shopify/dates": "^0.1.29",
     "@shopify/decorators": "^1.1.5",
     "@shopify/function-enhancers": "^1.0.5",
     "@shopify/i18n": "^0.1.6",

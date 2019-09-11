@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-effect-apollo",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "license": "MIT",
   "description": "A bridging layer between react-apollo and react-effect.",
   "main": "dist/index.js",
