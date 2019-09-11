@@ -8,7 +8,6 @@ interface CallbackParams {
   didTimeout: boolean;
   timeRemaining(): number;
 }
-
 interface PolyfilledWindow extends Window {
   requestIdleCallback(cb: IdleCallback): any;
   cancelIdleCallback(): any;
@@ -29,8 +28,7 @@ function fallbackQueueingFunction(cb: IdleCallback) {
   });
 }
 
-// @ts-ignore
-const extendedWindow = window as PolyfilledWindow;
+const extendedWindow = window as PolyfilledWindow & typeof globalThis;
 
 extendedWindow.requestIdleCallback =
   extendedWindow.requestIdleCallback || fallbackQueueingFunction;

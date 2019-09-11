@@ -30,8 +30,7 @@ function fallbackQueueingFunction(cb: IdleCallback) {
 }
 
 if (typeof window !== 'undefined') {
-  // @ts-ignore
-  const extendedWindow = window as PolyfilledWindow;
+  const extendedWindow = window as PolyfilledWindow & typeof globalThis;
 
   extendedWindow.requestIdleCallback =
     extendedWindow.requestIdleCallback || fallbackQueueingFunction;
