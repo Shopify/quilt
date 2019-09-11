@@ -1,11 +1,11 @@
 import {parse, Language} from 'accept-language-parser';
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 import {CookieSerializeOptions} from 'cookie';
 import {CspDirective, StatusCode, Header} from '@shopify/network';
 import {useServerEffect} from '@shopify/react-effect';
 
 import {NetworkContext} from './context';
-import {NetworkManager} from './manager';
+import {NetworkManager, setBrowserCookie} from './manager';
 
 export function useNetworkEffect(perform: (network: NetworkManager) => void) {
   const network = useContext(NetworkContext);
@@ -50,6 +50,16 @@ export function useAcceptLanguage(
   return locales;
 }
 
+export function useServerCookie(key: string) {
+  console.log('using server cookie', key);
+  useNetworkEffect(network => {
+    console.log(network);
+    const cookie = network.getCookie(key);
+    console.log(cookie, key);
+    return cookie;
+  });
+}
+
 export function useCookie(
   key: string,
 ): [
@@ -58,15 +68,25 @@ export function useCookie(
 ] {
   const network = useContext(NetworkContext);
   const [cookie, setCookieValue] = useState(() => {
+    console.log('the network is', network);
     return network ? network.getCookie(key) : undefined;
   });
 
+  useEffect(
+    () => {
+      console.log('the network is', network);
+    },
+    [network],
+  );
+
   const setCookie = (value: string, options?: CookieSerializeOptions) => {
+    setCookieValue(value);
+
     if (!network) {
+      setBrowserCookie(key, value, options);
       return;
     }
 
-    setCookieValue(value);
     network.setCookie(key, value, options);
   };
 

@@ -1,3 +1,4 @@
+import {Context} from 'koa';
 import cookie, {CookieSerializeOptions} from 'cookie';
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
@@ -5,11 +6,6 @@ import {EffectKind} from '@shopify/react-effect';
 export {NetworkContext} from './context';
 
 export const EFFECT_ID = Symbol('network');
-
-interface Options {
-  headers?: Record<string, string>;
-  cookies?: string | object | null;
-}
 
 export class NetworkManager {
   readonly effect: EffectKind = {
@@ -34,18 +30,16 @@ export class NetworkManager {
     } & CookieSerializeOptions
   >();
 
-  constructor({headers, cookies}: Options = {}) {
-    this.requestHeaders = lowercaseEntries(headers);
+  constructor(ctx: Context) {
+    this.requestHeaders = lowercaseEntries(ctx.headers);
+    const cookies = ctx.request.headers.cookie || '';
 
-    if (!cookies) {
-      return;
-    }
-
-    const parsedCookies =
+    const parsedCookies: object =
       typeof cookies === 'string' ? cookie.parse(cookies) : cookies;
 
     Object.entries(parsedCookies).forEach(([key, value]) => {
-      this.cookies.set(key.toLowerCase(), {value});
+      console.log(key, value);
+      this.cookies.set(key, {value});
     });
   }
 
@@ -53,7 +47,6 @@ export class NetworkManager {
     this.statusCodes = [];
     this.csp.clear();
     this.headers.clear();
-    this.cookies.clear();
     this.redirectUrl = undefined;
   }
 
@@ -76,12 +69,13 @@ export class NetworkManager {
     options: CookieSerializeOptions = {},
   ) {
     this.cookies.set(cookie, {value, ...options});
-    this.setBrowserCookie(cookie, value, options);
+    // sync server cookie
+    setBrowserCookie(cookie, value, options);
   }
 
   removeCookie(cookie: string) {
     this.cookies.delete(cookie);
-    this.setBrowserCookie(cookie, '');
+    setBrowserCookie(cookie, '');
   }
 
   redirectTo(url: string, status = StatusCode.Found) {
@@ -144,24 +138,6 @@ export class NetworkManager {
       redirectUrl: this.redirectUrl,
     };
   }
-
-  private get browser() {
-    return Boolean(
-      typeof document === 'object' && typeof document.cookie === 'string',
-    );
-  }
-
-  private setBrowserCookie(
-    name: string,
-    value: string,
-    options?: CookieSerializeOptions,
-  ) {
-    if (!this.browser) {
-      return;
-    }
-
-    document.cookie = cookie.serialize(name, value, options);
-  }
 }
 
 function lowercaseEntries(entries: undefined | Record<string, string>) {
@@ -173,4 +149,22 @@ function lowercaseEntries(entries: undefined | Record<string, string>) {
     accumulator[key.toLowerCase()] = value;
     return accumulator;
   }, {});
+}
+
+function isBrowser() {
+  return Boolean(
+    typeof document === 'object' && typeof document.cookie === 'string',
+  );
+}
+
+export function setBrowserCookie(
+  name: string,
+  value: string,
+  options?: CookieSerializeOptions,
+) {
+  if (!isBrowser()) {
+    return;
+  }
+
+  document.cookie = cookie.serialize(name, value, options);
 }

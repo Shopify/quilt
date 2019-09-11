@@ -24,6 +24,7 @@ export function applyToContext<T extends Context>(
 
   for (const [cookie, options] of cookies) {
     const {value, ...rest} = options;
+    console.log('setting server ', cookie, value);
     ctx.cookies.set(cookie, value, rest as any);
   }
 
