@@ -1,1 +1,1 @@
-export {metricsMiddleware, getMetrics} from './metrics';
+export {metricsMiddleware} from './metrics';

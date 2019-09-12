@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- Sets a response header, `X-React-Server-Request-Time`, with the duration of a request [#990](https://github.com/Shopify/quilt/pull/990)
+- Sets a `Server-Timing` response header with the duration of a request [#990](https://github.com/Shopify/quilt/pull/990)
 
 ## [0.6.1] - 2019-09-11
 
