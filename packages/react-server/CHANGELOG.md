@@ -7,6 +7,18 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.6.1] - 2019-09-11
+
+- New Providers utlities:
+
+### `createDefaultProvider()`
+
+This function return a set of providers based on a given the of options.
+
+### `<DefaultProvider />`
+
+A single component that renders all of the providers required within a typical React application.
+
 ## [0.5.1] - 2019-09-11
 
 - Add spacing between "[React Server]" prefix and logs [#984](https://github.com/Shopify/quilt/pull/984)

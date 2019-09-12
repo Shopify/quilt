@@ -44,7 +44,6 @@ If you already have an exisiting node server, you can opt in to using only the r
 
 We also provide a [webpack plugin](https://github.com/Shopify/quilt/blob/master/packages/react-server-webpack-plugin) to automatically generate the server and client entries for an application.
 
-
 ### Deployment (Shopify specific)
 
 For Shopifolk, we have a [walkthrough](https://docs.shopifycloud.com/getting_started/rails-with-node-walkthrough) for getting an app ready to deploy.
@@ -99,3 +98,11 @@ The second argument is a subset of [`@shopify/react-effect#extract`](../react-ef
 - `betweenEachPass?(pass: Pass): any` see [`@shopify/react-effect#extract`](../react-effect/README.md#extract)
 
 It returns a [Koa](https://github.com/koajs/koa/) middleware.
+
+### `createDefaultProvider()`
+
+This function return a set of providers based on a given the of options.
+
+### `<DefaultProvider />`
+
+A single component that renders all of the providers required within a typical React application.
