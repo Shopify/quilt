@@ -1,12 +1,10 @@
-export default app;
-
 import React from 'react';
-import {createServer, DefaultProvider} from '@shopify/react-server';
+import {createServer, DefaultProviders} from '@shopify/react-server';
 import App from 'index';
 
 const render = ctx =>
   React.createElement(
-    DefaultProvider,
+    DefaultProviders,
     null,
     React.createElement(App, {
       server: true,
@@ -17,4 +15,5 @@ const render = ctx =>
 const app = createServer({
   render,
 });
+
 export default app;
