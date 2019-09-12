@@ -31,9 +31,16 @@
     "@babel/types": "7.5.5",
     "@types/babel__core": "7.1.2",
     "@types/babel__traverse": "^7.0.7",
-    "typescript": "~3.2.1"
+    "typescript": "~3.2.1",
+    "@types/unist": "^2.0.3"
   },
   "files": [
     "dist/*"
-  ]
+  ],
+  "dependencies": {
+    "remark-parse": "^7.0.1",
+    "remark-stringify": "^7.0.3",
+    "unified": "^8.4.0",
+    "unist-builder": "^1.0.4"
+  }
 }
