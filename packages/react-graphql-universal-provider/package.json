@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql-universal-provider/README.md",
   "dependencies": {
+    "@shopify/react-effect-apollo": "^3.0.11",
     "@shopify/react-graphql": "^5.1.4",
     "@shopify/react-hooks": "^1.2.3",
     "@shopify/react-html": "^9.2.3"

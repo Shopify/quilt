@@ -2,12 +2,13 @@ import React from 'react';
 import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ApolloLink} from 'apollo-link';
+
 import {extract} from '@shopify/react-effect/server';
-
+import {Effect} from '@shopify/react-effect';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
-
 import {ApolloProvider} from '@shopify/react-graphql';
 import {mount} from '@shopify/react-testing';
+
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 
 jest.mock('@shopify/react-graphql', () => {
@@ -68,5 +69,17 @@ describe('<GraphQLUniversalProvider />', () => {
     );
 
     expect(restoreSpy).toHaveBeenCalledWith(initialData);
+  });
+
+  it('renders an <Effect/> from ApolloBridge', () => {
+    const client = new ApolloClient({
+      cache: new InMemoryCache(),
+      link: new ApolloLink(),
+    });
+    const graphQL = mount(
+      <GraphQLUniversalProvider createClient={() => client} />,
+    );
+
+    expect(graphQL).toContainReactComponent(Effect);
   });
 });
