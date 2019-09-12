@@ -12,6 +12,9 @@ interface Props {
 export function GraphQLUniversalProvider({children, createClient}: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
 
+  // Pair on
+  const setServerState = useServerState();
+
   const [client, link] = useLazyRef<
     [
       import('apollo-client').ApolloClient<any>,
@@ -20,7 +23,14 @@ export function GraphQLUniversalProvider({children, createClient}: Props) {
   >(() => {
     const link = createSsrExtractableLink();
     const client = createClient();
-    client.link = link.concat(client.link);
+    client.link = link.concat(
+      client.link,
+      createOperationsDetailLink({
+        onOperation() {
+          setServerState('florp', bar);
+        },
+      }),
+    );
 
     if (initialData) {
       client.cache = client.cache.restore(initialData);
@@ -36,3 +46,11 @@ export function GraphQLUniversalProvider({children, createClient}: Props) {
     </>
   );
 }
+
+// react-network/manager.ts
+
+// add a useState hook and a state object to the manager
+
+// react-network/server.ts
+
+//

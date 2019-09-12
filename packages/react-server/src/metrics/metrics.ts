@@ -2,6 +2,7 @@ import {Context} from 'koa';
 import compose from 'koa-compose';
 
 import {KoaNextFunction} from '../types';
+import {getState} from '@shopify/react-network';
 
 const MILLIS_PER_SECOND = 1000;
 const NANOS_PER_MILLIS = 1e6;
@@ -16,6 +17,7 @@ async function middleware(ctx: Context, next: KoaNextFunction) {
   try {
     await next();
   } finally {
+    console.log(ctx.state[getState()])
     const [seconds, nanoseconds] = process.hrtime(
       ctx.state[START_TIME_STATE_KEY],
     );

@@ -1,7 +1,7 @@
 export * from '@shopify/network';
 export * from './components';
 
-export {NetworkManager} from './manager';
+export {NetworkManager, STATE_ID} from './manager';
 export {NetworkContext} from './context';
 export {
   useNetworkEffect,
