@@ -31,6 +31,7 @@ export interface TranslateOptions<Replacements = {}> {
 export function getTranslationTree(
   id: string,
   translations: TranslationDictionary | TranslationDictionary[],
+  locale: string,
   replacements?: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
 ): string | TranslationDictionary {
   const normalizedTranslations = Array.isArray(translations)
@@ -50,7 +51,7 @@ export function getTranslationTree(
       if (replacements) {
         return typeof result === 'string'
           ? updateStringWithReplacements(result, replacements)
-          : updateTreeWithReplacements(result, replacements);
+          : updateTreeWithReplacements(result, locale, replacements);
       }
 
       return result;
@@ -258,8 +259,25 @@ function normalizeIdentifier(id: string, scope?: string | string[]) {
 
 function updateTreeWithReplacements(
   translationTree: TranslationDictionary,
+  locale: string,
   replacements: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
 ) {
+  if (
+    Object.prototype.hasOwnProperty.call(replacements, PLURALIZATION_KEY_NAME)
+  ) {
+    const count = replacements[PLURALIZATION_KEY_NAME];
+
+    if (typeof count === 'number') {
+      const group = new Intl.PluralRules(locale).select(count);
+      if (typeof translationTree[group] === 'string') {
+        return updateStringWithReplacements(translationTree[group] as string, {
+          ...replacements,
+          PLURALIZATION_KEY_NAME: new Intl.NumberFormat(locale).format(count),
+        });
+      }
+    }
+  }
+
   return Object.keys(translationTree).reduce(
     (acc, key) => ({
       ...acc,
@@ -271,6 +289,7 @@ function updateTreeWithReplacements(
             )
           : updateTreeWithReplacements(
               translationTree[key] as TranslationDictionary,
+              locale,
               replacements,
             ),
     }),
