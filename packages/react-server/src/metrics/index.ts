@@ -1,0 +1,1 @@
+export {metricsMiddleware} from './metrics';
