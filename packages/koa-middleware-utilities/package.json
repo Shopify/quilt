@@ -1,0 +1,38 @@
+{
+  "name": "@shopify/koa-middleware-utilities",
+  "version": "0.0.1-beta.1",
+  "license": "MIT",
+  "description": "A set of common utilties and type definitions for creating koa middlewares",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-middleware-utilities/README.md",
+  "dependencies": {
+    "@shopify/jest-koa-mocks": "^2.1.5",
+    "@shopify/network": "^1.4.2",
+    "koa": "^2.8.1",
+    "koa-compose": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "~3.2.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
