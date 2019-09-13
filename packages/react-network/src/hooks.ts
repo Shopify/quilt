@@ -32,6 +32,11 @@ export function useHeader(header: string, value: string) {
   useNetworkEffect(network => network.setHeader(header, value));
 }
 
+// TODO: type this state
+export function useServerState(newState: any) {
+  useNetworkEffect(network => network.setState(newState));
+}
+
 export function useStatus(code: StatusCode) {
   useNetworkEffect(network => network.addStatusCode(code));
 }

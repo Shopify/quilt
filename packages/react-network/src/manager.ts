@@ -4,6 +4,7 @@ import {EffectKind} from '@shopify/react-effect';
 export {NetworkContext} from './context';
 
 export const EFFECT_ID = Symbol('network');
+export const STATE_ID = Symbol('network-state');
 
 interface Options {
   headers?: Record<string, string>;
@@ -22,6 +23,8 @@ export class NetworkManager {
 
   private statusCodes: StatusCode[] = [];
   private redirectUrl?: string;
+  // TODO: type this state
+  private state: any;
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
   private readonly requestHeaders: Record<string, string>;
@@ -35,6 +38,10 @@ export class NetworkManager {
     this.csp.clear();
     this.headers.clear();
     this.redirectUrl = undefined;
+  }
+
+  setState(newState: any) {
+    this.state = newState;
   }
 
   getHeader(header: string) {
@@ -101,6 +108,7 @@ export class NetworkManager {
           : undefined,
       headers,
       redirectUrl: this.redirectUrl,
+      state: this.state,
     };
   }
 }
