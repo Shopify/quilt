@@ -70,7 +70,10 @@
     "tslib": "^1.9.3",
     "typescript": "~3.2.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "grep": "^0.1.0",
+    "simple-grep": "^0.0.1"
+  },
   "resolutions": {
     "@types/react": "16.8.10",
     "@types/react-dom": "16.8.3"

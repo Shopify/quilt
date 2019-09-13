@@ -5629,6 +5629,11 @@ graphql@^14.0.0:
   dependencies:
     iterall "^1.2.2"
 
+grep@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/grep/-/grep-0.1.0.tgz#b08f2d262e1b55561f763a95fd35ca949a45669e"
+  integrity sha1-sI8tJi4bVVYfdjqV/TXKlJpFZp4=
+
 growly@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
@@ -10260,6 +10265,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+
+simple-grep@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/simple-grep/-/simple-grep-0.0.1.tgz#50322990de749190d82ee0037fe108565e9260c5"
+  integrity sha1-UDIpkN50kZDYLuADf+EIVl6SYMU=
 
 sisteransi@^1.0.3:
   version "1.0.3"
