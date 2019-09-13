@@ -316,6 +316,14 @@ export class I18n {
     }).format(date);
   }
 
+  ordinal(amount: number) {
+    const {locale} = this;
+    const group = new Intl.PluralRules(locale, {type: 'ordinal'}).select(
+      amount,
+    );
+    return this.translate(group, {scope: 'ordinal'}, {amount});
+  }
+
   weekStartDay(argCountry?: I18n['defaultCountry']): Weekday {
     const country = argCountry || this.defaultCountry;
 
