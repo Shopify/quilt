@@ -7,7 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [1.0.0] - 2019-08-28
+## 1.1.0 - 2019-??-??
+
+### Changed
+
+- Move `@shopify/app-bridge-react` to be a `peerDependencies` to ensure the same context will be use throughout the application. [#997](https://github.com/Shopify/quilt/pull/997)
+
+## 1.0.0 - 2019-08-28
 
 ### Added
 
