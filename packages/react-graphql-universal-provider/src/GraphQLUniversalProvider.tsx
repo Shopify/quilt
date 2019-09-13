@@ -1,7 +1,11 @@
 import React from 'react';
 
 import {useSerialized} from '@shopify/react-html';
-import {ApolloProvider, createSsrExtractableLink} from '@shopify/react-graphql';
+import {
+  ApolloProvider,
+  createSsrExtractableLink,
+  createOperationDetailsLink,
+} from '@shopify/react-graphql';
 import {useLazyRef} from '@shopify/react-hooks';
 
 interface Props {
@@ -20,7 +24,14 @@ export function GraphQLUniversalProvider({children, createClient}: Props) {
   >(() => {
     const link = createSsrExtractableLink();
     const client = createClient();
-    client.link = link.concat(client.link);
+    client.link = link.concat(client.link).concat(
+      createOperationDetailsLink({
+        onOperation(operation) {
+          // Log the operation for now. Later we'll update state
+          console.log('~~~~~~ Calling onOperation: ', operation);
+        },
+      }),
+    );
 
     if (initialData) {
       client.cache = client.cache.restore(initialData);
