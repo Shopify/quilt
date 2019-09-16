@@ -434,3 +434,28 @@ const app = createServer({
 
 export default app;
 ```
+
+### Fixing rejected CSRF tokens for new user sessions
+
+If a React component calls back to a Rails endpoint (e.g., `/graphql`), Rails may throw a `Can't verify CSRF token authenticity` exception. This stems from the Rails CSRF tokens not persisting until after the first `UiController` call ends.
+
+To fix this:
+
+- Add an `X-Shopify-Server-Side-Rendered: 1` header to all server-side GraphQL requests
+- Add a `protect_from_forgery with: Quilt::TrustedUiServerCsrfStrategy` override to Node-accessed controllers
+
+e.g.:
+
+```rb
+class GraphqlController < ApplicationController
+  protect_from_forgery with: Quilt::TrustedUiServerCsrfStrategy
+
+  def execute
+    # Get GraphQL query, etc
+
+    result = MySchema.execute(query, operation_name: operation_name, variables: variables, context: context)
+
+    render(json: result)
+  end
+end
+```
