@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Changed
+
+- Replaced `@shopify/javascript-utilities/dates` functions with those from `@shopify/dates`.
+- Removed `@shopify/javascript-utilities/dates` dependency.
+
+### Fixed
+
+- Fixed translation of weekday in `humanizeDate` for dates less than one week old.
 
 ## [1.9.0] - 2019-09-12
 

@@ -124,15 +124,14 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
-  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency.  Examples:  `CHF 1,25`, `€ 1,25 EUR`, `OMR 1.250`, `$ 1.25 USD`
+  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1,25`, `€ 1,25 EUR`, `OMR 1.250`, `$ 1.25 USD`
   - if `form: 'explicit'` is given, then the result will be the same as for `short`, but will append the ISO 4217 code if it is not already present
-  - if `form:` is not given, then behaviour reverts to the legacy (deprecated) `formatCurrency()`, which is a convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`.  Note that this will resemble `form: 'short'`, but will sometimes extend the symbol with extra information depending on the browser's implementation of `Intl.NumberFormat` and the locale in use.  For example, `formatCurrency(1.25, {currency: 'CAD'})` may return `$ 1.25`, or it might return `CA$ 1.25`.
+  - if `form:` is not given, then behaviour reverts to the legacy (deprecated) `formatCurrency()`, which is a convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`. Note that this will resemble `form: 'short'`, but will sometimes extend the symbol with extra information depending on the browser's implementation of `Intl.NumberFormat` and the locale in use. For example, `formatCurrency(1.25, {currency: 'CAD'})` may return `$ 1.25`, or it might return `CA$ 1.25`.
 - `formatPercentage()`: formats a number as a percentage according to the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
   - `DateStyle.Short`: e.g., `Dec 20, 2012`
-  - `DateStyle.Humanize`: e.g., `December 20, 2012`, `Today`, or `Yesterday`
-  - `DateStyle.HumanizeWithTime`: Adheres to [Polaris guidelines for dates with times](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses), e.g., `Just now`, `3 minutes ago`, `4 hours ago`, `10:35 am`, `Yesterday at 10:35 am`, `Friday at 10:35 am`, or `Dec 20 at 10:35 am`, or `Dec 20, 2012`
+  - `DateStyle.Humanize`: Adheres to [Polaris guidelines for dates with times](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses), e.g., `Just now`, `3 minutes ago`, `4 hours ago`, `10:35 am`, `Yesterday at 10:35 am`, `Friday at 10:35 am`, or `Dec 20 at 10:35 am`, or `Dec 20, 2012`
   - `DateStyle.Time`: e.g., `11:00 AM`
 - `weekStartDay()`: returns start day of the week according to the country.
 - `getCurrencySymbol()`: returns the currency symbol according to the currency code and locale.

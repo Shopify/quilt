@@ -1114,7 +1114,7 @@ describe('I18n', () => {
           'humanize.weekday',
           {
             pseudotranslate: false,
-            replacements: {day: 'Friday', time: '11:00 a.m.'},
+            replacements: {day: 'Saturday', time: '11:00 a.m.'},
           },
           defaultTranslations,
           i18n.locale,
