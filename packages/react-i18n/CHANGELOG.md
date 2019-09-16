@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [1.9.2] - 2019-09-17
 
+### Added
+
+- Added `ordinal` method to I18n class to translate ordinal numbers ([#1003](https://github.com/Shopify/quilt/pull/1003))
+
 ### Changed
 
 - Replaced `@shopify/javascript-utilities/dates` functions with those from `@shopify/dates`.
