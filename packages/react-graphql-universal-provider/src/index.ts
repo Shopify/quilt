@@ -1,1 +1,1 @@
-export {GraphQLUniversalProvider} from './GraphQLUniversalProvider';
+export * from './GraphQLUniversalProvider';
