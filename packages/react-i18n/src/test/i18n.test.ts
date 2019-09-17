@@ -230,7 +230,7 @@ describe('I18n', () => {
   });
 
   describe('#ordinal()', () => {
-    it('calls translate() utility wth ordinal scope and replacement amount', () => {
+    it('calls translate() utility with ordinal scope and replacement amount', () => {
       const defaultTranslations = [{hello: 'Hello, {name}!'}];
       const i18n = new I18n(defaultTranslations, defaultDetails);
 
