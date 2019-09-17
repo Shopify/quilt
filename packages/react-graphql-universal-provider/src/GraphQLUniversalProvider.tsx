@@ -13,10 +13,13 @@ export type GraphQLClientOptions = ApolloClientOptions<any>;
 
 interface Props {
   children?: React.ReactNode;
-  clientOptions: ApolloClientOptions<any>;
+  createClientOptions(): ApolloClientOptions<any>;
 }
 
-export function GraphQLUniversalProvider({children, clientOptions}: Props) {
+export function GraphQLUniversalProvider({
+  children,
+  createClientOptions,
+}: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
   const [client, link] = useLazyRef<
     [
@@ -24,6 +27,7 @@ export function GraphQLUniversalProvider({children, clientOptions}: Props) {
       ReturnType<typeof createSsrExtractableLink>
     ]
   >(() => {
+    const clientOptions = createClientOptions();
     const link = createSsrExtractableLink();
 
     if (clientOptions.link) {
