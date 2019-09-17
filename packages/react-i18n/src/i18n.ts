@@ -78,6 +78,7 @@ export class I18n {
   readonly defaultTimezone?: string;
   readonly onError: NonNullable<I18nDetails['onError']>;
   readonly loading: boolean;
+  readonly ordinalPluralRules: Intl.PluralRules;
 
   get language() {
     return languageFromLocale(this.locale);
@@ -127,6 +128,7 @@ export class I18n {
     this.pseudolocalize = pseudolocalize;
     this.onError = onError || defaultOnError;
     this.loading = loading || false;
+    this.ordinalPluralRules = new Intl.PluralRules(locale, {type: 'ordinal'});
   }
 
   translate(
@@ -317,10 +319,7 @@ export class I18n {
   }
 
   ordinal(amount: number) {
-    const {locale} = this;
-    const group = new Intl.PluralRules(locale, {type: 'ordinal'}).select(
-      amount,
-    );
+    const group = this.ordinalPluralRules.select(amount);
     return this.translate(group, {scope: 'ordinal'}, {amount});
   }
 
