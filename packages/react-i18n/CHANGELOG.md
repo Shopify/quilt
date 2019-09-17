@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [1.9.2] - 2019-09-17
 
 ### Changed
 
@@ -16,6 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed translation of weekday in `humanizeDate` for dates less than one week old.
+
+## [1.9.1] - 2019-09-13
+
+## Changed
+
+- Updated to `@shopify/dates@^0.2.0`
 
 ## [1.9.0] - 2019-09-12
 
