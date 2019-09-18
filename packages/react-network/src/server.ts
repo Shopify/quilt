@@ -27,6 +27,6 @@ export function applyToContext<T extends Context>(
   return ctx;
 }
 
-export function getState<T extends Context>(ctx: T) {
+export function getServerState<T extends Context>(ctx: T) {
   return ctx.state[STATE_ID];
 }

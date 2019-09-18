@@ -41,11 +41,11 @@ export class NetworkManager {
     this.redirectUrl = undefined;
   }
 
-  getState() {
+  getServerState() {
     return this.state || {};
   }
 
-  setState(newState: any) {
+  setServerState(newState: any) {
     this.state = newState;
   }
 

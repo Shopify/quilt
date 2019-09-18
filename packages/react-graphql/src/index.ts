@@ -14,3 +14,4 @@ export {ApolloProvider} from './ApolloProvider';
 
 export * from './links';
 export * from './hooks';
+export * from './utilities';

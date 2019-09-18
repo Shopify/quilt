@@ -6,12 +6,13 @@ import {
   ApolloProvider,
   createSsrExtractableLink,
   createOperationDetailsLink,
+  GraphQLOperationDetails,
 } from '@shopify/react-graphql';
 import {useLazyRef} from '@shopify/react-hooks';
 import {useNetworkManager} from '@shopify/react-network';
 
 export type GraphQLClientOptions = ApolloClientOptions<any>;
-const GRAPHQL_OPERATIONS = Symbol('graphQLOperations');
+export const GRAPHQL_OPERATIONS = Symbol('graphQLOperations');
 
 interface Props {
   children?: React.ReactNode;
@@ -40,11 +41,11 @@ export function GraphQLUniversalProvider({
           createOperationDetailsLink({
             onOperation(operation) {
               if (network) {
-                const serverState = network.getState();
-                const operations = serverState[GRAPHQL_OPERATIONS] || [];
-                const newState = {...serverState};
-                newState[GRAPHQL_OPERATIONS] = operations.concat(operation);
-                network.setState(newState);
+                const newServerState = addOperationToServerState(
+                  network.getServerState(),
+                  operation,
+                );
+                network.setServerState(newServerState);
               }
             },
           }),
@@ -65,4 +66,14 @@ export function GraphQLUniversalProvider({
       <Serialize data={() => link.resolveAll(() => client.extract())} />
     </>
   );
+}
+
+function addOperationToServerState(
+  serverState: any,
+  operation: GraphQLOperationDetails,
+) {
+  const operations = serverState[GRAPHQL_OPERATIONS] || [];
+  const newState = {...serverState};
+  newState[GRAPHQL_OPERATIONS] = operations.concat(operation);
+  return newState;
 }
