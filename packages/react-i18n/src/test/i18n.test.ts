@@ -229,6 +229,61 @@ describe('I18n', () => {
     });
   });
 
+  describe('#ordinal()', () => {
+    it('calls translate() utility with ordinal scope and replacement amount', () => {
+      const defaultTranslations = [{hello: 'Hello, {name}!'}];
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+
+      i18n.ordinal(0);
+      expect(translate).toHaveBeenCalledWith(
+        'other',
+        {scope: 'ordinal', replacements: {amount: 0}, pseudotranslate: false},
+        defaultTranslations,
+        i18n.locale,
+      );
+
+      i18n.ordinal(1);
+      expect(translate).toHaveBeenCalledWith(
+        'one',
+        {scope: 'ordinal', replacements: {amount: 1}, pseudotranslate: false},
+        defaultTranslations,
+        i18n.locale,
+      );
+
+      i18n.ordinal(2);
+      expect(translate).toHaveBeenCalledWith(
+        'two',
+        {scope: 'ordinal', replacements: {amount: 2}, pseudotranslate: false},
+        defaultTranslations,
+        i18n.locale,
+      );
+
+      i18n.ordinal(3);
+      expect(translate).toHaveBeenCalledWith(
+        'few',
+        {scope: 'ordinal', replacements: {amount: 3}, pseudotranslate: false},
+        defaultTranslations,
+        i18n.locale,
+      );
+
+      i18n.ordinal(4);
+      expect(translate).toHaveBeenCalledWith(
+        'other',
+        {scope: 'ordinal', replacements: {amount: 4}, pseudotranslate: false},
+        defaultTranslations,
+        i18n.locale,
+      );
+
+      i18n.ordinal(42);
+      expect(translate).toHaveBeenCalledWith(
+        'two',
+        {scope: 'ordinal', replacements: {amount: 42}, pseudotranslate: false},
+        defaultTranslations,
+        i18n.locale,
+      );
+    });
+  });
+
   describe('#translate()', () => {
     it('calls the translate() utility with translations, key, locale, scope, pseudotranslate, and replacements', () => {
       const mockResult = 'translated string';
@@ -1136,10 +1191,9 @@ describe('I18n', () => {
           timezone,
         });
 
-        const formatted = i18n.formatDate(lessThanOneYearAgo, {
+        i18n.formatDate(lessThanOneYearAgo, {
           style: DateStyle.Humanize,
         });
-
         expect(translate).toHaveBeenCalledWith(
           'humanize.date',
           {
