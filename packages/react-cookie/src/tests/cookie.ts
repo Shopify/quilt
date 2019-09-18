@@ -5,4 +5,11 @@ export default class Cookie {
       value,
     });
   }
+
+  restore() {
+    Reflect.defineProperty(window.document, 'cookie', {
+      writable: true,
+      value: null,
+    });
+  }
 }

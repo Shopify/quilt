@@ -1,17 +1,25 @@
 import React from 'react';
-import {createMount} from '@shopify/react-testing';
-import {CookieManager} from '../manager';
-import {CookiesUniversalProvider} from '../CookiesUniversalProvider';
+import {mount} from '@shopify/react-testing';
+import {CookieUniversalProvider} from '../CookieUniversalProvider';
 import {useCookie, useCookies} from '../hooks';
+import CookieMock from './cookie';
+
+const cookie = new CookieMock();
 
 describe('hooks', () => {
   describe('useCookie', () => {
-    function MockComponent({cookie}: {cookie: string}) {
+    function MockComponent({
+      cookie,
+      setValue,
+    }: {
+      cookie: string;
+      setValue?: string;
+    }) {
       const [value, setCookie] = useCookie(cookie);
 
       return (
         <>
-          <button type="button" onClick={() => setCookie('baz')}>
+          <button type="button" onClick={() => setCookie(setValue)}>
             Set Cookie
           </button>
           {value}
@@ -19,33 +27,41 @@ describe('hooks', () => {
       );
     }
 
+    beforeEach(() => {
+      cookie.restore();
+    });
+
     it('gets a cookie', () => {
       const key = 'foo';
       const value = 'bar';
-      const cookies = {[key]: value};
+      const cookies = `${key}=${value};`;
 
-      const wrapper = mount(<MockComponent cookie={key} />, {
-        manager: new CookieManager({...cookies}),
-      });
+      cookie.mock(cookies);
+
+      const wrapper = mount(
+        <CookieUniversalProvider>
+          <MockComponent cookie={key} />
+        </CookieUniversalProvider>,
+      );
 
       expect(wrapper).toContainReactText(value);
     });
 
-    it('sets a cookie', () => {
-      const key = 'foo';
-      const value = 'bar';
-      const cookies = {[key]: value};
+    it('sets a cookie', async () => {
+      const setValue = 'bar';
 
-      const wrapper = mount(<MockComponent cookie={key} />, {
-        manager: new CookieManager({...cookies}),
-      });
+      const wrapper = await mount(
+        <CookieUniversalProvider>
+          <MockComponent cookie="foo" setValue={setValue} />
+        </CookieUniversalProvider>,
+      );
 
       wrapper
         .find(MockComponent)!
         .find('button')!
         .trigger('onClick');
 
-      expect(wrapper).toContainReactText(`baz`);
+      expect(wrapper).toContainReactText(setValue);
     });
   });
 
@@ -60,24 +76,22 @@ describe('hooks', () => {
       return <>{cookiesToRender}</>;
     }
 
-    it('gets cookies', () => {
-      const cookies = {
-        foo: 'bar',
-        baz: 'qux',
-      };
+    it('gets all cookies', () => {
+      const key1 = 'foo';
+      const value1 = 'bar';
+      const key2 = 'baz';
+      const value2 = 'qux';
 
-      const wrapper = mount(<MockComponent />, {
-        manager: new CookieManager({...cookies}),
-      });
+      cookie.mock(`${key1}=${value1};${key2}=${value2}`);
 
-      expect(wrapper).toContainReactText(cookies.foo);
-      expect(wrapper).toContainReactText(cookies.baz);
+      const wrapper = mount(
+        <CookieUniversalProvider>
+          <MockComponent />
+        </CookieUniversalProvider>,
+      );
+
+      expect(wrapper).toContainReactText(value1);
+      expect(wrapper).toContainReactText(value2);
     });
   });
-});
-
-const mount = createMount<{manager?: CookieManager}>({
-  render: element => {
-    return <CookiesUniversalProvider>{element}</CookiesUniversalProvider>;
-  },
 });

@@ -13,12 +13,12 @@ $ yarn add @shopify/react-cookie
 
 ## Usage
 
-To use the hooks provided by this library you must first wrap your application tree in the `<Cookie />` component.
+To use the hooks provided by this library you must first wrap your application tree in the `<CookieUniversalProvider />` component.
 
 ```tsx
 // App.tsx
 
-import {Cookie} from '@shopify/react-cookie';
+import {CookieUniversalProvider} from '@shopify/react-cookie';
 import {SomeComponent} from './someComponent';
 
 function App() {
@@ -52,7 +52,7 @@ function SomeComponent() {
 
 #### `useCookies()`
 
-This hook returns a single-item array that is an object of all the current cookies.
+This hook returns a single-item array with an object of all the current cookies.
 
 ```tsx
 function MyComponent() {
@@ -68,7 +68,7 @@ function MyComponent() {
 
 #### `useCookie(name: string)`
 
-This hook is called with the name of a given cookie and returns the current value of the cookie and a way to set the value of the cookie.
+This hook is called with the name of a given cookie and returns the current value and a setter for that cookie.
 
 ```tsx
 function MyComponent({cookie}: {cookie: string}) {

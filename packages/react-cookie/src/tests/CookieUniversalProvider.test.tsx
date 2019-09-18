@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
-import {CookiesUniversalProvider} from '../CookiesUniversalProvider';
+import {CookieUniversalProvider} from '../CookieUniversalProvider';
 import {CookieManager} from '../manager';
 import CookieMock from './cookie';
 
@@ -40,9 +40,9 @@ describe('<Cookie />', () => {
     useRequestHeader.mockReturnValue(someServerCookie);
 
     mount(
-      <CookiesUniversalProvider>
+      <CookieUniversalProvider>
         <App />
-      </CookiesUniversalProvider>,
+      </CookieUniversalProvider>,
     );
 
     expect(CookieManager).toHaveBeenCalledWith(someServerCookie);
@@ -55,9 +55,9 @@ describe('<Cookie />', () => {
     cookie.mock(someClientCookie);
 
     mount(
-      <CookiesUniversalProvider>
+      <CookieUniversalProvider>
         <App />
-      </CookiesUniversalProvider>,
+      </CookieUniversalProvider>,
     );
 
     expect(CookieManager).toHaveBeenCalledWith(someClientCookie);
