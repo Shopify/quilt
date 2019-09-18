@@ -13,7 +13,7 @@ $ yarn add @shopify/react-cookie
 
 ## Usage
 
-To use the hooks provided by this library you must first wrap your application tree in a the `<Cookie />` component.
+To use the hooks provided by this library you must first wrap your application tree in the `<Cookie />` component.
 
 ```tsx
 // App.tsx
