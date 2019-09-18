@@ -2,7 +2,7 @@ import {join, resolve} from 'path';
 import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 import {readFileSync} from 'fs-extra';
-import {transformSync} from '@shopify/ast-utilities';
+import {transformSync} from '@shopify/ast-utilities/javascript';
 import {fillCallExpressionOptions} from './transforms';
 
 interface Options {

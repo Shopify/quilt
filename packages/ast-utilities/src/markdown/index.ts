@@ -1,2 +1,2 @@
 export {transform} from './transform';
-export {updateChangelog} from './transforms';
+export {addReleaseToChangelog} from './transforms';

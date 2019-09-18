@@ -1,1 +1,1 @@
-export {default as updateChangelog} from './updateChangelog';
+export {default as addReleaseToChangelog} from './addReleaseToChangelog';
