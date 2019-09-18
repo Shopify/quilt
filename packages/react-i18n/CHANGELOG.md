@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.10.0] - 2019-09-17
+
 ### Added
 
 - Added `ordinal` method to I18n class to translate ordinal numbers ([#1003](https://github.com/Shopify/quilt/pull/1003))
