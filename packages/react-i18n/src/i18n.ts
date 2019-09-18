@@ -429,7 +429,7 @@ export class I18n {
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     if (isLessThanOneMinuteAgo(date)) {
-      return this.translate('humanize.now');
+      return this.translate('date.humanize.lessThanOneMinuteAgo');
     }
 
     if (isLessThanOneHourAgo(date)) {
@@ -437,7 +437,7 @@ export class I18n {
       const minutes = Math.floor(
         (now.getTime() - date.getTime()) / TimeUnit.Minute,
       );
-      return this.translate('humanize.minutes', {
+      return this.translate('date.humanize.lessThanOneHourAgo', {
         count: minutes,
       });
     }
@@ -452,7 +452,7 @@ export class I18n {
     }
 
     if (isYesterday(date)) {
-      return this.translate('humanize.yesterday', {time});
+      return this.translate('date.humanize.yesterday', {time});
     }
 
     if (isLessThanOneWeekAgo(date)) {
@@ -460,8 +460,8 @@ export class I18n {
         ...options,
         weekday: 'long',
       });
-      return this.translate('humanize.weekday', {
-        day: weekday,
+      return this.translate('date.humanize.lessThanOneWeekAgo', {
+        weekday,
         time,
       });
     }
@@ -472,7 +472,7 @@ export class I18n {
         month: 'short',
         day: 'numeric',
       });
-      return this.translate('humanize.date', {
+      return this.translate('date.humanize.lessThanOneYearAgo', {
         date: monthDay,
         time,
       });

@@ -1087,7 +1087,7 @@ describe('I18n', () => {
           style: DateStyle.Humanize,
         });
         expect(translate).toHaveBeenCalledWith(
-          'humanize.now',
+          'date.humanize.lessThanOneMinuteAgo',
           {pseudotranslate: false},
           defaultTranslations,
           i18n.locale,
@@ -1109,7 +1109,7 @@ describe('I18n', () => {
           style: DateStyle.Humanize,
         });
         expect(translate).toHaveBeenCalledWith(
-          'humanize.minutes',
+          'date.humanize.lessThanOneHourAgo',
           {pseudotranslate: false, replacements: {count: minutesAgo}},
           defaultTranslations,
           i18n.locale,
@@ -1143,7 +1143,7 @@ describe('I18n', () => {
 
         i18n.formatDate(yesterday, {style: DateStyle.Humanize});
         expect(translate).toHaveBeenCalledWith(
-          'humanize.yesterday',
+          'date.humanize.yesterday',
           {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
           defaultTranslations,
           i18n.locale,
@@ -1166,10 +1166,10 @@ describe('I18n', () => {
           style: DateStyle.Humanize,
         });
         expect(translate).toHaveBeenCalledWith(
-          'humanize.weekday',
+          'date.humanize.lessThanOneWeekAgo',
           {
             pseudotranslate: false,
-            replacements: {day: 'Saturday', time: '11:00 a.m.'},
+            replacements: {weekday: 'Saturday', time: '11:00 a.m.'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1195,7 +1195,7 @@ describe('I18n', () => {
           style: DateStyle.Humanize,
         });
         expect(translate).toHaveBeenCalledWith(
-          'humanize.date',
+          'date.humanize.lessThanOneYearAgo',
           {
             pseudotranslate: false,
             replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
