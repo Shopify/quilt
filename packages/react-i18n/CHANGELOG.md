@@ -6,13 +6,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-<!-- ## [Unreleased] -->
-
-## [1.9.2] - 2019-09-17
+## [Unreleased]
 
 ### Added
 
 - Added `ordinal` method to I18n class to translate ordinal numbers ([#1003](https://github.com/Shopify/quilt/pull/1003))
+
+  Consumers will need to add the following translation keys for proper ordinal translation. _Note: values are English examples._
+
+  ```json
+  {
+    "ordinal": {
+      "one": "{number}st",
+      "two": "{number}nd",
+      "few": "{number}rd",
+      "other": "{number}th"
+    }
+  }
+  ```
+
+## [1.9.2] - 2019-09-17
 
 ### Changed
 
