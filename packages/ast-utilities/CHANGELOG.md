@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.0.3 - 2019-09-18
+
+- Added support for various `unreleased` heading formatting in `addReleaseToChangelog`
+
 ## 0.0.2 - 2019-09-18
 
 - Added markdown utils starting with `addReleaseToChangelog`
