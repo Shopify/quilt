@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## [2.1.1] - 2019-09-17
+
+- Fixes an error regrding missing templates [#1006](https://github.com/Shopify/quilt/pull/1006)
+
 ## [2.1.0] - 2019-08-16
 
 - Added support for Node projects [#917](https://github.com/Shopify/quilt/pull/917)
