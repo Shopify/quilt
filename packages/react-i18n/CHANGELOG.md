@@ -27,6 +27,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
   }
   ```
 
+### Changed
+
+- Modified translation keys used by `I18n#humanizeDate` method ([#1011](https://github.com/Shopify/quilt/pull/1011))
+
 ## [1.9.2] - 2019-09-17
 
 ### Changed
