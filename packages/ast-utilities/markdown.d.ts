@@ -1,1 +1,1 @@
-// export * from './dist/markdown';
+export * from './dist/markdown';

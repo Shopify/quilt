@@ -7,7 +7,13 @@ export async function transform(initial: string, ...transforms: any[]) {
     .use(parse)
     .use({
       plugins: [...transforms],
-      settings: {bullet: '-', emphasis: '*', fences: true, position: false},
+      settings: {
+        bullet: '-',
+        emphasis: '*',
+        listItemIndent: '1',
+        fences: true,
+        position: false,
+      },
     })
     .use(stringify)
     .process(initial);
