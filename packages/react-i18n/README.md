@@ -138,6 +138,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatName()`: formats a name (first name and/or last name) according to the locale. e,g
   - `formatName('John', 'Smith')` will return `John` in Germany and `Smith様` in Japan
   - `formatName('John', 'Smith', {full: true})` will return `John Smith` in Germany and `SmithJohn` in Japan
+- `ordinal()`: formats a number as an ordinal according to the locale, e.g. `1st`, `2nd`, `3rd`, `4th`
 
 Most notably, you will frequently use `i18n`’s `translate()` method. This method looks up a key in translation files that you supply based on the provided locale. This method is discussed in detail in the next section.
 
