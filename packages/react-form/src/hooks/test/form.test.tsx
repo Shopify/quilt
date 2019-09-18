@@ -262,6 +262,37 @@ describe('useForm', () => {
       });
     });
 
+    it('ignores invalid field path when propagating remote submission errors', async () => {
+      const errors = [
+        {
+          field: ['invalid'],
+          message: 'The server hates your price',
+        },
+      ];
+
+      const promise = Promise.resolve(submitFail(errors));
+
+      const wrapper = mount(
+        <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
+      );
+
+      await wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
+
+      await wrapper.act(async () => {
+        await promise;
+      });
+
+      expect(wrapper).toContainReactComponent('p', {
+        children: errors[0].message,
+      });
+
+      expect(wrapper).not.toContainReactComponent(TextField, {
+        error: errors[0].message,
+      });
+    });
+
     it('does not create a new submit function on each render', () => {
       const wrapper = mount(<ProductForm data={fakeProduct()} />);
 
