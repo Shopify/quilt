@@ -11,7 +11,7 @@ export interface Props {
   children?: React.ReactNode;
 }
 
-export function Cookie({children}: Props) {
+export function CookiesUniversalProvider({children}: Props) {
   const [initialCookies, Serialize] = useSerialized<Cookies>('cookies');
   const serverCookieHeader = useRequestHeader('cookie');
 

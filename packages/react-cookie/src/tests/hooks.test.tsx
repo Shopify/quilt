@@ -1,7 +1,7 @@
 import React from 'react';
 import {createMount} from '@shopify/react-testing';
 import {CookieManager} from '../manager';
-import {Cookie} from '../Cookie';
+import {CookiesUniversalProvider} from '../CookiesUniversalProvider';
 import {useCookie, useCookies} from '../hooks';
 
 describe('hooks', () => {
@@ -78,6 +78,6 @@ describe('hooks', () => {
 
 const mount = createMount<{manager?: CookieManager}>({
   render: element => {
-    return <Cookie>{element}</Cookie>;
+    return <CookiesUniversalProvider>{element}</CookiesUniversalProvider>;
   },
 });

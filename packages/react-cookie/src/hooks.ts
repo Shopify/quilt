@@ -25,10 +25,6 @@ export function useCookie(
   );
 
   const setCookie = (value?: string, options?: CookieSerializeOptions) => {
-    if (!manager) {
-      return;
-    }
-
     if (!value) {
       setCookieValue('');
       manager.removeCookie(key);
@@ -37,7 +33,7 @@ export function useCookie(
     }
 
     setCookieValue(value);
-    manager.setCookie(key, value, options);
+    manager.setCookie(key, {value, ...options});
   };
 
   return [cookie, setCookie];
