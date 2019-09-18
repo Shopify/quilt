@@ -7,7 +7,8 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
+    "build:templates": "cpx src/templates/**/* dist/templates",
+    "build": "tsc --p tsconfig.build.json && yarn run build:templates",
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@shopify/react-server": "^0.6.0",
     "@types/webpack-virtual-modules": "^0.1.0",
+    "cpx": "1.5.0",
     "webpack": "^4.39.1"
   },
   "files": [
