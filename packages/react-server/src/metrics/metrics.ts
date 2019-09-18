@@ -17,8 +17,7 @@ async function middleware(ctx: Context, next: KoaNextFunction) {
   try {
     await next();
   } finally {
-    console.log('~~~~~~~~~~~~~~~', ctx.state[getState(ctx)]);
-
+    console.log('~~~~~~~~~~~~~~~ server state: ', getState(ctx));
     const [seconds, nanoseconds] = process.hrtime(
       ctx.state[START_TIME_STATE_KEY],
     );

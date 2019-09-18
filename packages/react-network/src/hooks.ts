@@ -6,6 +6,10 @@ import {useServerEffect} from '@shopify/react-effect';
 import {NetworkContext} from './context';
 import {NetworkManager} from './manager';
 
+export function useNetworkManager() {
+  return useContext(NetworkContext);
+}
+
 export function useNetworkEffect(perform: (network: NetworkManager) => void) {
   const network = useContext(NetworkContext);
 
@@ -30,11 +34,6 @@ export function useRequestHeader(header: string) {
 
 export function useHeader(header: string, value: string) {
   useNetworkEffect(network => network.setHeader(header, value));
-}
-
-// TODO: type this state
-export function useServerState(newState: any) {
-  useNetworkEffect(network => network.setState(newState));
 }
 
 export function useStatus(code: StatusCode) {

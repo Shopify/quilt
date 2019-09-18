@@ -1,15 +1,17 @@
 import React from 'react';
 
+import ApolloClient, {ApolloClientOptions} from 'apollo-client';
 import {useSerialized} from '@shopify/react-html';
 import {
   ApolloProvider,
   createSsrExtractableLink,
   createOperationDetailsLink,
 } from '@shopify/react-graphql';
-import ApolloClient, {ApolloClientOptions} from 'apollo-client';
 import {useLazyRef} from '@shopify/react-hooks';
+import {useNetworkManager} from '@shopify/react-network';
 
 export type GraphQLClientOptions = ApolloClientOptions<any>;
+const GRAPHQL_OPERATIONS = Symbol('graphQLOperations');
 
 interface Props {
   children?: React.ReactNode;
@@ -21,6 +23,8 @@ export function GraphQLUniversalProvider({
   createClientOptions,
 }: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
+  const network = useNetworkManager();
+
   const [client, link] = useLazyRef<
     [
       import('apollo-client').ApolloClient<any>,
@@ -35,8 +39,13 @@ export function GraphQLUniversalProvider({
         .concat(
           createOperationDetailsLink({
             onOperation(operation) {
-              // Log the operation for now. Later we'll update state
-              console.log('~~~~~~ Calling onOperation: ', operation);
+              if (network) {
+                const serverState = network.getState();
+                const operations = serverState[GRAPHQL_OPERATIONS] || [];
+                const newState = {...serverState};
+                newState[GRAPHQL_OPERATIONS] = operations.concat(operation);
+                network.setState(newState);
+              }
             },
           }),
         )

@@ -35,9 +35,14 @@ export class NetworkManager {
 
   reset() {
     this.statusCodes = [];
+    this.state = {};
     this.csp.clear();
     this.headers.clear();
     this.redirectUrl = undefined;
+  }
+
+  getState() {
+    return this.state || {};
   }
 
   setState(newState: any) {

@@ -4,6 +4,7 @@ export * from './components';
 export {NetworkManager, STATE_ID} from './manager';
 export {NetworkContext} from './context';
 export {
+  useNetworkManager,
   useNetworkEffect,
   useStatus,
   useCspDirective,
