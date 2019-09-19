@@ -26,8 +26,9 @@ module Quilt
 
       begin
         reverse_proxy(url, headers: { 'X-CSRF-Token': form_authenticity_token }) do |callbacks|
-          callbacks.on_response do |status_code, _response|
+          callbacks.on_response do |status_code, response|
             Quilt::Logger.log("[ReactRenderable] #{url} returned #{status_code}")
+            puts "\n\n********************~~~Headers: #{response.to_hash.inspect}"
           end
         end
       rescue Errno::ECONNREFUSED
