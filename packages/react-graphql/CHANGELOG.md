@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [5.2.0] - 2019-09-20
+
+### Added
+
+- Add `createOperationDetailsLink` Apollo link to expose graphql operation details [#1015](https://github.com/Shopify/quilt/pull/1015)
+- Add a `totalGraphQLTime` utiltiy to determine the duration of graphql operations [#1015](https://github.com/Shopify/quilt/pull/1015)
+
 ## [5.1.0] - 2019-09-05
 
 ### Added
