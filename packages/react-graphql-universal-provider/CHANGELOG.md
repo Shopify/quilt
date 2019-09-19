@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 2.0.0 - 2019-09-13
+- 🛑Breaking change: `GraphQLUniversalProvider` expects a `createClientOptions` and will create ApolloClient using the options provided [#1018](https://github.com/Shopify/quilt/pull/1018) 
+- Add `createOperationDetailsLink` to `ApolloClient` and use it to track GraphQL operations using the NetworkManager [#1018](https://github.com/Shopify/quilt/pull/1018)
+
 ## 1.1.0 - 2019-09-13
 
 ### Added

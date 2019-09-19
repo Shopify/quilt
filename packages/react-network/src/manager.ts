@@ -49,7 +49,7 @@ export class NetworkManager {
     return this.serverState || {};
   }
 
-  setServerState(newState: any) {
+  setServerState(newState: Context['state']) {
     this.serverState = newState;
   }
 

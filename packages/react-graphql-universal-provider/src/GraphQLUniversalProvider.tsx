@@ -69,7 +69,7 @@ export function GraphQLUniversalProvider({
 }
 
 function addOperationToServerState(
-  serverState: any,
+  serverState: {},
   operation: GraphQLOperationDetails,
 ) {
   const operations = serverState[GRAPHQL_OPERATIONS] || [];
