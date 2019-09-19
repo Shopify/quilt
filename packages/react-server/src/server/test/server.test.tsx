@@ -33,9 +33,9 @@ describe('createServer()', () => {
     const wrapper = await rack.mount(({ip, port}) =>
       createServer({port, ip, render: () => <MockApp />}),
     );
-    const {text} = await wrapper.request('/');
+    const response = await wrapper.request();
 
-    expect(text).toBe(
+    expect(await response.text()).toStrictEqual(
       `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
     );
   });
@@ -51,9 +51,9 @@ describe('createServer()', () => {
     const wrapper = await rack.mount(({ip, port}) =>
       createServer({port, ip, render: () => <MockApp />}),
     );
-    const {text} = await wrapper.request('/');
+    const response = await wrapper.request();
 
-    expect(text).toStrictEqual(
+    expect(await response.text()).toStrictEqual(
       expect.stringContaining(
         `<title data-react-html="true">${myTitle}</title>`,
       ),

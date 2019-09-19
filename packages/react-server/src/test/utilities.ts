@@ -1,11 +1,12 @@
 import {Server} from 'http';
 import {Context} from 'koa';
-import request from 'supertest';
 import getPort from 'get-port';
+
 import {KoaNextFunction} from '../types';
 
 export class TestRack {
   private servers: Server[] = [];
+
   unmountAll() {
     this.servers.forEach(server => server.close());
   }
@@ -18,7 +19,7 @@ export class TestRack {
     this.servers.push(server);
 
     return {
-      request: (url: string) => request(`${ip}:${port}`).get(url),
+      request: () => fetch(`${ip}:${port}`).then(response => response),
     };
   }
 }
