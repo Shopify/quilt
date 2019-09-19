@@ -1,5 +1,8 @@
+import cookie from 'cookie';
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
+import {Cookies, CookieValue} from './types';
+import {hasDocumentCookie} from './utilities';
 
 export {NetworkContext} from './context';
 
@@ -7,6 +10,7 @@ export const EFFECT_ID = Symbol('network');
 
 interface Options {
   headers?: Record<string, string>;
+  cookies?: Cookies | string;
 }
 
 export class NetworkManager {
@@ -25,9 +29,16 @@ export class NetworkManager {
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
   private readonly requestHeaders: Record<string, string>;
+  private readonly cookies = new Map<string, CookieValue>();
 
-  constructor({headers}: Options = {}) {
+  constructor({headers, cookies}: Options = {}) {
     this.requestHeaders = normalizeHeaders(headers);
+    const parsedCookies =
+      typeof cookies === 'string' ? cookie.parse(cookies) : cookies;
+
+    Object.entries(parsedCookies).forEach(([key, value]) => {
+      this.setCookie(key, value);
+    });
   }
 
   reset() {
@@ -68,6 +79,30 @@ export class NetworkManager {
     this.csp.set(directive, newValue);
   }
 
+  getCookie(name: string) {
+    const cookie = this.cookies.get(name);
+
+    return cookie && cookie.value;
+  }
+
+  getCookies() {
+    const cookies: Cookies = {};
+
+    for (const [key, value] of this.cookies) {
+      cookies[key] = value;
+    }
+
+    return {
+      ...cookies,
+    };
+  }
+
+  setCookie(name: string, value: string | CookieValue) {
+    const fullCookie = typeof value === 'string' ? {value} : value;
+
+    this.cookies.set(name, fullCookie);
+  }
+
   extract() {
     const csp =
       this.csp.size === 0
@@ -100,6 +135,7 @@ export class NetworkManager {
           ? this.statusCodes.reduce((large, code) => Math.max(large, code), 0)
           : undefined,
       headers,
+      cookies: this.cookies,
       redirectUrl: this.redirectUrl,
     };
   }
