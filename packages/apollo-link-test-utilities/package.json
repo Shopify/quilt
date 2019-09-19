@@ -1,6 +1,6 @@
 {
   "name": "@shopify/apollo-link-test-utilities",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.1",
   "license": "MIT",
   "description": "Test utilities for testing Apollo Links",
   "main": "dist/index.js",
