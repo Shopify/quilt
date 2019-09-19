@@ -1,42 +1,26 @@
 import {Server} from 'http';
 import {Context} from 'koa';
-import React from 'react';
-import getPort from 'get-port';
 import request from 'supertest';
+import getPort from 'get-port';
 import {KoaNextFunction} from '../types';
-import {createServer} from '../server';
 
-interface Options {
-  port?: number;
-  ip?: string;
-}
+export class TestRack {
+  private servers: Server[] = [];
+  unmountAll() {
+    this.servers.forEach(server => server.close());
+  }
 
-const servers: Server[] = [];
+  async mount(mountFunction: ({port: number, ip: string}) => Server) {
+    const port = await getPort();
+    const ip = 'http://localhost';
+    const server = mountFunction({port, ip});
 
-export async function mountAppWithServer(
-  app: React.ReactElement<any>,
-  options: Options = {},
-) {
-  const {port = await getPort(), ip = 'http://localhost'} = options;
-  const url = `${ip}:${port}`;
+    this.servers.push(server);
 
-  const server = await createServer({
-    port,
-    ip,
-    render: () => app,
-  });
-
-  servers.push(server);
-
-  return request(url)
-    .get('/')
-    .then((resp: request.Response) => {
-      return resp;
-    });
-}
-
-export function stopServers() {
-  servers.forEach(server => server.close());
+    return {
+      request: (url: string) => request(`${ip}:${port}`).get(url),
+    };
+  }
 }
 
 export async function mockMiddleware(_: Context, next: KoaNextFunction) {

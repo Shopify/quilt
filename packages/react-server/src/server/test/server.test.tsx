@@ -1,11 +1,14 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
-
+import {createServer} from '../server';
 import {
   mockMiddleware,
   stopServers,
   mountAppWithServer,
+  TestRack,
 } from '../../test/utilities';
+
+const rack = new TestRack();
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
   middleware: jest.fn(() => mockMiddleware),
@@ -19,7 +22,7 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
 
 describe('createServer()', () => {
   afterAll(() => {
-    stopServers();
+    rack.unmountAll();
   });
 
   it('starts a server that responds with markup', async () => {
@@ -27,9 +30,12 @@ describe('createServer()', () => {
       return <div>markup</div>;
     }
 
-    const response = await mountAppWithServer(<MockApp />);
+    const wrapper = await rack.mount(({ip, port}) =>
+      createServer({port, ip, render: () => <MockApp />}),
+    );
+    const {text} = await wrapper.request('/');
 
-    expect(response.text).toBe(
+    expect(text).toBe(
       `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div></body></html>`,
     );
   });
@@ -42,7 +48,10 @@ describe('createServer()', () => {
       return null;
     }
 
-    const {text} = await mountAppWithServer(<MockApp />);
+    const wrapper = await rack.mount(({ip, port}) =>
+      createServer({port, ip, render: () => <MockApp />}),
+    );
+    const {text} = await wrapper.request('/');
 
     expect(text).toStrictEqual(
       expect.stringContaining(
