@@ -25,6 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql/README.md",
   "dependencies": {
     "@shopify/async": "^2.0.5",
+    "@shopify/performance": "^1.1.8",
     "@shopify/react-async": "^3.0.8",
     "@shopify/react-hooks": "^1.2.3",
     "@shopify/react-network": "^3.2.2",
@@ -36,6 +37,7 @@
     "react-apollo": ">=2.2.3 <3.0.0"
   },
   "devDependencies": {
+    "@shopify/apollo-link-test-utilities": "^0.0.1-beta.1",
     "@types/graphql": "^14.0.0"
   },
   "files": [
