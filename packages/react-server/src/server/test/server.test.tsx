@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
-import {useAcceptLanguage} from '@shopify/react-network';
+
 import {
   mockMiddleware,
   stopServers,
@@ -42,28 +42,12 @@ describe('createServer()', () => {
       return null;
     }
 
-    const response = await mountAppWithServer(<MockApp />);
+    const {text} = await mountAppWithServer(<MockApp />);
 
-    expect(response.text).toStrictEqual(
+    expect(text).toStrictEqual(
       expect.stringContaining(
         `<title data-react-html="true">${myTitle}</title>`,
       ),
-    );
-  });
-
-  it('supports setting a custom locale', async () => {
-    const language = 'it';
-
-    function MockApp() {
-      const [lang] = useAcceptLanguage({code: language, quality: 1});
-      const markup = `The accept language header is ${lang.code}`;
-      return <div>{markup}</div>;
-    }
-
-    const response = await mountAppWithServer(<MockApp />);
-
-    expect(response.text).toStrictEqual(
-      expect.stringContaining(`The accept language header is ${language}`),
     );
   });
 });
