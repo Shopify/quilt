@@ -1027,6 +1027,17 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@shopify/apollo-link-test-utilities@^0.0.1-beta.1":
+  version "0.0.1-beta.1"
+  resolved "https://registry.yarnpkg.com/@shopify/apollo-link-test-utilities/-/apollo-link-test-utilities-0.0.1-beta.1.tgz#62c6a5eb0eb65d8df1d2455c15b34cef56bdaf7c"
+  integrity sha512-Jg9VSNlC0gYDScu5D4xEIToB+kqvlCGoXfmH3iiVUlUmxepw24HyZEs/2l5ZnVd2ux6ZhNdoYUOi8GgHtvGP8w==
+  dependencies:
+    "@shopify/javascript-utilities" "^2.4.1"
+    "@shopify/network" "^1.4.2"
+    gql "^1.1.2"
+    graphql "^14.5.6"
+    graphql-typed "^0.4.1"
+
 "@shopify/app-bridge-react@>=1.5.0":
   version "1.6.7"
   resolved "https://registry.yarnpkg.com/@shopify/app-bridge-react/-/app-bridge-react-1.6.7.tgz#d94a5510a1f88a46b10f8e231f6f2d23e5ba0c20"
@@ -1048,6 +1059,16 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@shopify/javascript-utilities/-/javascript-utilities-2.4.0.tgz#2ffd528b0632af0392b860f33b4c5ed5c72cdafa"
   integrity sha512-ZfQo1i87iKsSR7mkJOk3/7aPgfuXPrTTbM0dUJTlzdyf13ftJ2Val/WdMicaCVFu2r60uSsqoq/QpF0fLFVlcQ==
+  dependencies:
+    "@types/lodash" "^4.14.65"
+    "@types/react" "^16.0.2"
+    lodash "^4.17.4"
+    lodash-decorators "^4.3.5"
+
+"@shopify/javascript-utilities@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@shopify/javascript-utilities/-/javascript-utilities-2.4.1.tgz#99e1994381fc33a2609f7792b6812feee32362fa"
+  integrity sha512-CDp4nWHjVXTr+rYV5RMBs8aJ5PbXUdbz47jnKisBWa9GFwJktZFj2PxefXqfLd51KpIuQpFnA/NMvq4M5tdTlw==
   dependencies:
     "@types/lodash" "^4.14.65"
     "@types/react" "^16.0.2"
@@ -1471,7 +1492,7 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
   integrity sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==
 
-"@types/react-dom@16.8.3", "@types/react-dom@^16.0.11", "@types/react-dom@^16.8.3":
+"@types/react-dom@^16.0.11", "@types/react-dom@^16.8.3":
   version "16.8.3"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.3.tgz#6131b7b6158bc7ed1925a3374b88b7c00481f0cb"
   integrity sha512-HF5hD5YR3z9Mn6kXcW1VKe4AQ04ZlZj1EdLBae61hzQ3eEWWxMgNLUbIxeZp40BnSxqY1eAYLsH9QopQcxzScA==
@@ -5596,6 +5617,11 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
+gql@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/gql/-/gql-1.1.2.tgz#355cb814f11a6d6e49e3393425628911ee100f63"
+  integrity sha1-NVy4FPEabW5J4zk0JWKJEe4QD2M=
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
@@ -5652,10 +5678,22 @@ graphql-typed@^0.4.0:
   resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-0.4.0.tgz#5540f28683196942834eb096d2f541df1aae1faf"
   integrity sha512-LxhUbzFlTx2COyVg6kYj2fE3zLrIvN/EMivHfK9eVZtSofwtcrOhweRfutyhWjyUhfqLC9rfpBahYHC8qHOWig==
 
+graphql-typed@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-0.4.1.tgz#d612f1a8215fc5b14b51d5a88b06c0174d6a6e47"
+  integrity sha512-6a4BHG/uXMkxY+UeqmsTrwCvTy3BbFAYlKsVC2MzvAISXh+FcbBaJEfXsbcZKrydCFnVD3Xlg74Esip5O3LyLA==
+
 graphql@^14.0.0:
   version "14.1.1"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.1.1.tgz#d5d77df4b19ef41538d7215d1e7a28834619fac0"
   integrity sha512-C5zDzLqvfPAgTtP8AUPIt9keDabrdRAqSWjj2OPRKrKxI9Fb65I36s1uCs1UUBFnSWTdO7hyHi7z1ZbwKMKF6Q==
+  dependencies:
+    iterall "^1.2.2"
+
+graphql@^14.5.6:
+  version "14.5.6"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.6.tgz#3fa12173b50e6ccdef953c31c82f37c50ef58bec"
+  integrity sha512-zJ6Oz8P1yptV4O4DYXdArSwvmirPetDOBnGFRBl0zQEC68vNW3Ny8qo8VzMgfr+iC8PKiRYJ+f2wub41oDCoQg==
   dependencies:
     iterall "^1.2.2"
 

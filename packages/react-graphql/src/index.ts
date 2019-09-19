@@ -11,6 +11,7 @@ export {
 } from './types';
 
 export {ApolloProvider} from './ApolloProvider';
-export {createSsrExtractableLink, SsrExtractableLink} from './links';
 
 export * from './hooks';
+export * from './links/ssr-extractable-link';
+export * from './utilities';
