@@ -6,6 +6,10 @@ import {useServerEffect} from '@shopify/react-effect';
 import {NetworkContext} from './context';
 import {NetworkManager} from './manager';
 
+export function useNetworkManager() {
+  return useContext(NetworkContext);
+}
+
 export function useNetworkEffect(perform: (network: NetworkManager) => void) {
   const network = useContext(NetworkContext);
 
