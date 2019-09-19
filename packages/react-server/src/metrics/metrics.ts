@@ -1,6 +1,9 @@
 import {Context} from 'koa';
 import compose from 'koa-compose';
 
+import {getServerState} from '@shopify/react-network/server';
+import {GRAPHQL_OPERATIONS} from '@shopify/react-graphql-universal-provider';
+import {totalGraphQLTime} from '@shopify/react-graphql';
 import {KoaNextFunction} from '../types';
 
 const MILLIS_PER_SECOND = 1000;
@@ -16,13 +19,27 @@ async function middleware(ctx: Context, next: KoaNextFunction) {
   try {
     await next();
   } finally {
+    const reactNetworkServerState = getServerState(ctx);
+
+    const graphQLOperations = reactNetworkServerState[GRAPHQL_OPERATIONS];
+    const graphQLTime = graphQLOperations
+      ? totalGraphQLTime(graphQLOperations)
+      : 0;
+
     const [seconds, nanoseconds] = process.hrtime(
       ctx.state[START_TIME_STATE_KEY],
     );
     const ms = seconds * MILLIS_PER_SECOND + nanoseconds / NANOS_PER_MILLIS;
     const requestTime = Math.round(ms);
+    const reactRenderTime = requestTime - graphQLTime;
 
-    const uiMetrics = `ui;request_time=${requestTime}`;
+    const metrics = [
+      `ui;request_time=${requestTime}`,
+      `ui;graphql_time=${graphQLTime}`,
+      `ui;react_rendering=${reactRenderTime}`,
+    ];
+
+    const uiMetrics = `${metrics.join(',')}`;
     ctx.set('Server-Timing', uiMetrics);
   }
 }
