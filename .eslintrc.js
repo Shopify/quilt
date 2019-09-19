@@ -39,16 +39,11 @@ module.exports = {
     {
       files: ['packages/react-server-webpack-plugin/**/*'],
       rules: {
-        'import/no-extraneous-dependencies': [
-          'error',
-          {
-            devDependencies: true,
-            optionalDependencies: true,
-            peerDependencies: true,
-            packageDir: ['./packages/react-server-webpack-plugin'],
-          },
-        ],
+        'import/no-extraneous-dependencies': ['error'],
       },
     },
   ],
+  settings: {
+    'import/external-module-folders': ['node_modules', 'packages'],
+  },
 };
