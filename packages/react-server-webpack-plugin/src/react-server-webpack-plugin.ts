@@ -1,9 +1,6 @@
 import {join, resolve} from 'path';
 import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
-import {readFileSync} from 'fs-extra';
-import {transformSync} from '@shopify/ast-utilities/javascript';
-import {fillCallExpressionOptions} from './transforms';
 
 interface Options {
   basePath: string;
@@ -79,28 +76,36 @@ function serverSource(options: Options) {
     ? JSON.stringify(assetPrefix)
     : 'process.env.CDN_URL || "localhost:8080/assets/webpack"';
 
-  const initial = readFileSync(resolve(__dirname, './templates/server.ts'));
-  const source = transformSync(
-    initial.toString(),
-    fillCallExpressionOptions('createServer', {
-      port: serverPort,
-      ip: serverIp,
-      assetPrefix: serverAssetPrefix,
-    }),
-  );
-
   return `
     ${HEADER}
-    ${source}
+    import React from 'react';
+    import {createServer} from '@shopify/react-server';
+    import App from 'index';
+    const render = (ctx) =>
+    React.createElement(App, {
+      server: true,
+      location: ctx.request.url,
+    });
+    const app = createServer({
+      port: ${serverPort},
+      ip: ${serverIp},
+      assetPrefix: ${serverAssetPrefix},
+      render,
+    });
+    export default app;
   `;
 }
 
 function clientSource() {
-  const source = readFileSync(resolve(__dirname, './templates/client.ts'));
-
   return `
     ${HEADER}
-    ${source}
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import {showPage} from '@shopify/react-html';
+    import App from 'index';
+    const appContainer = document.getElementById('app');
+    ReactDOM.hydrate(React.createElement(App), appContainer);
+    showPage();
   `;
 }
 
