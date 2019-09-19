@@ -35,4 +35,10 @@ describe('NetworkManager', () => {
       expect(manager.getHeader('FoO')).toBe(headers.Foo);
     });
   });
+  describe('getServerState', () => {
+    it('returns an empty object when there is no server state', () => {
+      const manager = new NetworkManager();
+      expect(manager.getServerState()).toStrictEqual({});
+    });
+  });
 });
