@@ -6,11 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [2.0.0] - 2019-09-19
 
 ### Changed
 
-- Modified translation keys used by `I18n#humanizeDate` method ([#1011](https://github.com/Shopify/quilt/pull/1011))
+- Modified translation keys used by `I18n#humanizeDate` method ([#1011](https://github.com/Shopify/quilt/pull/1011)).
+
+  Please see the [migration guide](./migration-guide.md) for more information.
 
 ## [1.10.0] - 2019-09-18
 
