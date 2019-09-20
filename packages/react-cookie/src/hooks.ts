@@ -39,14 +39,14 @@ export function useCookie(
   return [cookie, setCookie];
 }
 
-export function useCookies(): [{[key: string]: {value: string}}] {
+export function useCookies() {
   const manager = useContext(CookieContext);
 
   if (!manager) {
     throw new Error(NO_MANAGER_ERROR);
   }
 
-  const allCookies = manager.getCookies();
+  const allCookies = manager.getCookies() || {};
 
-  return [allCookies];
+  return allCookies;
 }

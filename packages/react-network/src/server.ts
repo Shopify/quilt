@@ -22,11 +22,7 @@ export function applyToContext<T extends Context>(
     ctx.set(header, value);
   }
 
-  for (const [cookie, options] of cookies) {
-    const {value, ...cookieOptions} = options;
-
-    ctx.cookies.set(cookie, value, cookieOptions as any);
-  }
+  cookies.applyToContext(ctx);
 
   return ctx;
 }

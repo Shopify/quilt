@@ -11,4 +11,5 @@ export {
   useRequestHeader,
   useRedirect,
   useAcceptLanguage,
+  useNetworkManager,
 } from './hooks';

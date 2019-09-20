@@ -1,5 +1,5 @@
 import React from 'react';
-import {useRequestHeader} from '@shopify/react-network';
+import {useNetworkManager} from '@shopify/react-network';
 import {useLazyRef} from '@shopify/react-hooks';
 import {CookieManager} from './manager';
 import {CookieContext} from './context';
@@ -10,15 +10,17 @@ export interface Props {
 }
 
 export function CookieUniversalProvider({children}: Props) {
-  const serverCookieHeader = useRequestHeader('cookie');
+  const manager = useNetworkManager();
 
-  const manager = useLazyRef(() => {
-    const cookies = hasDocumentCookie() ? document.cookie : serverCookieHeader;
-
-    return new CookieManager(cookies);
+  const cookieManager = useLazyRef(() => {
+    return !hasDocumentCookie() && manager
+      ? manager.cookies
+      : new CookieManager();
   }).current;
 
   return (
-    <CookieContext.Provider value={manager}>{children}</CookieContext.Provider>
+    <CookieContext.Provider value={cookieManager}>
+      {children}
+    </CookieContext.Provider>
   );
 }
