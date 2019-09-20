@@ -9,6 +9,7 @@ import {
   GraphQLOperationDetails,
 } from '@shopify/react-graphql';
 import {useLazyRef} from '@shopify/react-hooks';
+import {createApolloBridge} from '@shopify/react-effect-apollo';
 import {useNetworkManager} from '@shopify/react-network';
 
 export type GraphQLClientOptions = ApolloClientOptions<any>;
@@ -60,11 +61,13 @@ export function GraphQLUniversalProvider({
     return [new ApolloClient(clientOptions), link];
   }).current;
 
+  const ApolloBridge = createApolloBridge();
+
   return (
-    <>
+    <ApolloBridge>
       <ApolloProvider client={client}>{children}</ApolloProvider>
       <Serialize data={() => link.resolveAll(() => client.extract())} />
-    </>
+    </ApolloBridge>
   );
 }
 

@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.7.0] - 2019-09-20
 
-- Add graphql_time react_rendering metrics to react-server Server-Timing response header [#1018](https://github.com/Shopify/quilt/pull/1018)
+- Add `graphql_time`, `react_rendering` metrics to react-server Server-Timing response header [#1018](https://github.com/Shopify/quilt/pull/1018)
 
 ## [0.6.0] - 2019-09-12
 

@@ -40,7 +40,7 @@ describe('e2e', () => {
     const extracted = networkManager.extract();
     expect(extracted).toHaveProperty('headers.size', 0);
     expect(extracted).toHaveProperty('status', undefined);
-    expect(extracted).toHaveProperty('state', {});
+    expect(extracted).toHaveProperty('serverState', {});
   });
 
   it('bails out when a redirect is set', async () => {
@@ -77,8 +77,8 @@ describe('e2e', () => {
 
     networkManager.setServerState({foo: '123'});
 
-    const {state} = networkManager.extract();
-    expect(state).toHaveProperty('foo', '123');
+    const {serverState} = networkManager.extract();
+    expect(serverState).toHaveProperty('foo', '123');
   });
 });
 
