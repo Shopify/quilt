@@ -23,7 +23,6 @@ export function I18n({children, ...givenI18nDetails}: Props) {
   const [serialized, Serialize] = useSerialized<Serialized>('i18n');
 
   const i18nDetails: I18nDetails = {
-    // @ts-ignore
     locale: givenI18nDetails.fallbackLocale || 'en',
     ...givenI18nDetails,
     ...(serialized ? serialized.i18nDetails : {}),

@@ -25,7 +25,6 @@ export function I18nUniversalProvider({
   const [serialized, Serialize] = useSerialized<Serialized>('i18n');
 
   const i18nDetails: I18nDetails = {
-    // @ts-ignore
     locale: explicitI18nDetails.fallbackLocale || 'en',
     ...(serialized ? serialized : {}),
     ...explicitI18nDetails,
