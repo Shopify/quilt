@@ -39,11 +39,19 @@ module.exports = {
     {
       files: ['packages/@shopify/react-server-webpack-plugin/**/*'],
       rules: {
-        'import/no-extraneous-dependencies': ['error'],
+        'import/no-extraneous-dependencies': [
+          'error',
+          {
+            devDependencies: true,
+            optionalDependencies: true,
+            peerDependencies: true,
+            packageDir: ['./packages/@shopify/react-server-webpack-plugin/'],
+          },
+        ],
       },
     },
   ],
   settings: {
-    'import/external-module-folders': ['node_modules', 'packages/@shopify'],
+    'import/external-module-folders': ['packages', 'node_modules'],
   },
 };
