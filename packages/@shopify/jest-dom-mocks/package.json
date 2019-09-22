@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/jest-dom-mocks/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/jest-dom-mocks/README.md",
   "dependencies": {
     "@shopify/async": "^2.0.5",
     "@shopify/decorators": "^1.1.5",

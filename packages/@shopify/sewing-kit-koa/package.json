@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/sewing-kit-koa/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/sewing-kit-koa/README.md",
   "dependencies": {
     "@shopify/network": "^1.4.2",
     "@types/koa-mount": "^3.0.1",

@@ -264,7 +264,7 @@ For fast tests with consistent results, test front-end components using the tool
 
 Use [`sewing-kit test`](https://github.com/Shopify/sewing-kit/blob/master/docs/commands/test.md#L3) to run all `.test.{js|ts}x` files in the `app/ui` directory. [Jest](https://jestjs.io/) is used as a test runner, with customization available via [its sewing-kit plugin](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md).
 
-For testing React applications we provide and support [`@shopify/react-testing`](https://github.com/Shopify/quilt/tree/master/packages/react-testing).
+For testing React applications we provide and support [`@shopify/react-testing`](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-testing).
 
 #### Example
 
@@ -339,7 +339,7 @@ For more complete documentation of the jest plugin see [it's documentation](http
 
 ### Interacting with the request and response in React code
 
-React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/master/packages/react-network/src/hooks.ts#L25) automatically, so most interactions with the request or response can be done from inside the React app.
+React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-network/src/hooks.ts#L25) automatically, so most interactions with the request or response can be done from inside the React app.
 
 #### Example: getting headers
 
@@ -394,9 +394,9 @@ export default App;
 
 ### Isomorphic state
 
-With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. When using `@shopify/react-server`, the best tool for this job is [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/react-html#in-your-application-code) hook.
+With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. When using `@shopify/react-server`, the best tool for this job is [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-html#in-your-application-code) hook.
 
-`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [CSRF](https://github.com/Shopify/quilt/tree/master/packages/react-csrf-universal-provider), [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/react-graphql-universal-provider), [I18n](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider), and the [Shopify App Bridge](https://github.com/Shopify/quilt/tree/master/packages/react-app-bridge-universal-provider).
+`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [CSRF](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-csrf-universal-provider), [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-graphql-universal-provider), [I18n](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-i18n-universal-provider), and the [Shopify App Bridge](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-app-bridge-universal-provider).
 
 ### Customizing the node server
 
@@ -420,7 +420,7 @@ import React from 'react';
 import App from './app';
 
 // The simplest way to build a custom server that will work with this library is to use the APIs provided by @shopify/react-server.
-// https://github.com/Shopify/quilt/blob/master/packages/react-server/README.md#L8
+// https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-server/README.md#L8
 const app = createServer({
   port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8081,
   ip: process.env.IP,

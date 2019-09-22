@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/async/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/async/README.md",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",

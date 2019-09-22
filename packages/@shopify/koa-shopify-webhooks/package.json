@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-webhooks/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/koa-shopify-webhooks/README.md",
   "dependencies": {
     "@shopify/network": "^1.4.2",
     "koa-bodyparser": "^4.2.1",

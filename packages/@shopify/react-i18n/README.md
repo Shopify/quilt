@@ -120,7 +120,7 @@ export default withI18n()(NotFound);
 
 #### `i18n`
 
-The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
+The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-i18n/src/i18n.ts), but you will commonly need the following:
 
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
@@ -326,7 +326,7 @@ i18n.getTranslationTree('MyComponent.countries');
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
 
-This library uses the [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/master/packages/react-effect) package to allow translations to be extracted alongside other asynchronous side effects on the server. To make use of this, you will need to keep a reference to the `I18nManager` for your app. Then, import the `extract` function from `@shopify/react-effect`, and call it with your top-level component. Finally, call the manager’s `extract` method to get an opaque representation of the translations that were loaded in that tree:
+This library uses the [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-effect) package to allow translations to be extracted alongside other asynchronous side effects on the server. To make use of this, you will need to keep a reference to the `I18nManager` for your app. Then, import the `extract` function from `@shopify/react-effect`, and call it with your top-level component. Finally, call the manager’s `extract` method to get an opaque representation of the translations that were loaded in that tree:
 
 ```tsx
 import {I18nManager} from '@shopify/react-i18n';
@@ -345,7 +345,7 @@ const translations = i18nManager.extract();
 
 > Note: You can selectively extract _only_ the translations by using the `EFFECT_ID` exported from `@shopify/react-i18n`, and using this as the second argument to `@shopify/react-effect`’s `extract()` as detailed in its documentation. Most consumers of this package will be fine with just the example above.
 
-Once you have done this, serialize the result (we recommend [`@shopify/react-serialize`](https://github.com/Shopify/quilt/tree/master/packages/react-serialize)), then load it on the client and include it as part of the initialization of the i18n manager:
+Once you have done this, serialize the result (we recommend [`@shopify/react-serialize`](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-serialize)), then load it on the client and include it as part of the initialization of the i18n manager:
 
 ```tsx
 import {I18nContext, I18nManager} from '@shopify/react-i18n';

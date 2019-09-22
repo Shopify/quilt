@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-server-webpack-plugin/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-server-webpack-plugin/README.md",
   "dependencies": {
     "webpack-virtual-modules": "^0.1.11",
     "fs-extra": "8.1.0",

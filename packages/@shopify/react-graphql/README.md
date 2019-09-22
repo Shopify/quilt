@@ -13,7 +13,7 @@ $ yarn add @shopify/react-graphql
 
 ## Usage
 
-This library builds on top of [react-apollo](https://github.com/apollographql/react-apollo) to provide asynchronously-loaded query components and more strongly-typed queries when used with [`graphql-typescript-definitions`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-typescript-definitions).
+This library builds on top of [react-apollo](https://github.com/apollographql/react-apollo) to provide asynchronously-loaded query components and more strongly-typed queries when used with [`graphql-typescript-definitions`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/@shopify/graphql-typescript-definitions).
 
 ### `Query`
 
@@ -56,7 +56,7 @@ import myQuery from './graphql/MyQuery.graphql';
 
 Another problem with the `Query` component is that it does not work well when trying to preload GraphQL data for another page that is in a different JavaScript bundle. Because the `query` must be provided directly, there is no easy way to keep it from "leaking" into unrelated bundles.
 
-The `createAsyncQueryComponent` function is an equally strong-typed alternative to `Query` that supports asynchronously-loading GraphQL queries. The resulting component also exposes useful `usePreload`, `usePrefetch`, and `useKeepFresh` hooks built from the query, as well as shortcut `Preload`, `Prefetch`, and `KeepFresh` components. Best of all, it uses [`@shopify/react-async`](https://github.com/Shopify/quilt/tree/master/packages/react-async) under the hood, so you get the same server rendering benefits described in that package.
+The `createAsyncQueryComponent` function is an equally strong-typed alternative to `Query` that supports asynchronously-loading GraphQL queries. The resulting component also exposes useful `usePreload`, `usePrefetch`, and `useKeepFresh` hooks built from the query, as well as shortcut `Preload`, `Prefetch`, and `KeepFresh` components. Best of all, it uses [`@shopify/react-async`](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-async) under the hood, so you get the same server rendering benefits described in that package.
 
 This function takes an options object with a `load` property that returns a promise for a GraphQL query:
 

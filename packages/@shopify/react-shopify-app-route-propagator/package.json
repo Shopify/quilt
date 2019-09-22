@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-shopify-app-route-propagator/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-shopify-app-route-propagator/README.md",
   "peerDependencies": {
     "@shopify/app-bridge": "^1.0.0",
     "react": ">=16.8.0 <17.0.0",

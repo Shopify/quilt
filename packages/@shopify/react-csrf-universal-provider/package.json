@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-csrf-universal-provider/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-csrf-universal-provider/README.md",
   "dependencies": {
     "@shopify/react-csrf": "^1.0.2",
     "@shopify/react-html": "^9.2.3",

@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql-universal-provider/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-graphql-universal-provider/README.md",
   "dependencies": {
     "@shopify/react-effect-apollo": "^3.0.11",
     "@shopify/react-graphql": "^5.1.4",

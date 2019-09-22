@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server.svg)](https://badge.fury.io/js/%40shopify%2Freact-server.svg)
 
-A simple library for React server-side rendering using [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html).
+A simple library for React server-side rendering using [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-html).
 
 ## Table of contents
 
@@ -42,7 +42,7 @@ If you already have an exisiting node server, you can opt in to using only the r
 
 ## Webpack Plugin
 
-We also provide a [webpack plugin](https://github.com/Shopify/quilt/blob/master/packages/react-server-webpack-plugin) to automatically generate the server and client entries for an application.
+We also provide a [webpack plugin](https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-server-webpack-plugin) to automatically generate the server and client entries for an application.
 
 ### Deployment (Shopify specific)
 

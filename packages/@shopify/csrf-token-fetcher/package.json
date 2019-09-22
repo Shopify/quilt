@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/csrf-token-fetcher/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/csrf-token-fetcher/README.md",
   "files": [
     "dist/*"
   ],

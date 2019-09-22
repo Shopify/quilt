@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-import-remote/README.md",
   "dependencies": {
     "@shopify/react-html": "^9.2.3",
     "@shopify/react-intersection-observer": "^2.0.5",

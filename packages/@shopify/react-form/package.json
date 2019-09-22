@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/@shopify/react-form/README.md",
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },

@@ -42,7 +42,7 @@ Its only mandatory props are `initialValues` and `children`. The `initialValues`
 </FormState>
 ```
 
-For detailed explanations of how to use `<FormState />` check out [the guide](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/building-forms.md).
+For detailed explanations of how to use `<FormState />` check out [the guide](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-form-state/docs/building-forms.md).
 
 ### `validators`
 
@@ -52,4 +52,4 @@ The library also makes a number of validation factory functions available out of
 import {validate, validators} from '@shopify/react-form-state';
 ```
 
-For detailed explanations of the validation utilities, check out [the validation docs](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/validators.md).
+For detailed explanations of the validation utilities, check out [the validation docs](https://github.com/Shopify/quilt/tree/master/packages/@shopify/react-form-state/docs/validators.md).
