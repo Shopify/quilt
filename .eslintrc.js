@@ -37,13 +37,13 @@ module.exports = {
       },
     },
     {
-      files: ['packages/react-server-webpack-plugin/**/*'],
+      files: ['packages/@shopify/react-server-webpack-plugin/**/*'],
       rules: {
         'import/no-extraneous-dependencies': ['error'],
       },
     },
   ],
   settings: {
-    'import/external-module-folders': ['node_modules', 'packages'],
+    'import/external-module-folders': ['node_modules', 'packages/@shopify'],
   },
 };

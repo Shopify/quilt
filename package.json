@@ -27,7 +27,7 @@
   "homepage": "https://github.com/shopify/quilt#readme",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/@shopify/*"
   ],
   "devDependencies": {
     "@babel/core": "^7.5.5",

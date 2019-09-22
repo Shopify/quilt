@@ -116,7 +116,7 @@ describe('react-server-webpack-plugin', () => {
 function runBuild(configPath: string): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
-      './packages/react-server-webpack-plugin/src/test/fixtures',
+      './packages/@shopify/react-server-webpack-plugin/src/test/fixtures',
       configPath,
     );
 
