@@ -3,8 +3,10 @@ const {readdirSync, lstatSync} = require('fs-extra');
 
 const PACKAGE_DIR = 'packages/@shopify/';
 
-// Sdapted from: https://github.com/benmosher/eslint-plugin-import/issues/1174#issuecomment-509965883
-const noExtraneousOverrides = readdirSync(resolve(__dirname, PACKAGE_DIR))
+// Adapted from: https://github.com/benmosher/eslint-plugin-import/issues/1174#issuecomment-509965883
+const importNoExtraneousDependenciesOverrides = readdirSync(
+  resolve(__dirname, PACKAGE_DIR),
+)
   .filter(
     entry =>
       entry.substr(0, 1) !== '.' &&
@@ -63,7 +65,7 @@ module.exports = {
         rules: {'shopify/jsx-no-hardcoded-content': 'off'},
       },
     },
-    ...noExtraneousOverrides,
+    ...importNoExtraneousDependenciesOverrides,
   ],
   settings: {
     'import/external-module-folders': ['packages', 'node_modules'],

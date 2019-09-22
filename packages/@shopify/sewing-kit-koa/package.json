@@ -37,7 +37,10 @@
   },
   "devDependencies": {
     "@types/app-root-path": "^1.2.4",
-    "@types/fs-extra": "^5.0.4"
+    "@types/fs-extra": "^5.0.4",
+    "@shopify/jest-koa-mocks": "^2.1.5",
+    "@shopify/with-env": "^1.1.1",
+    "koa": "^2.8.1"
   },
   "files": [
     "dist/*"
