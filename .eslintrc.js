@@ -1,3 +1,30 @@
+const {resolve, relative, join} = require('path');
+const {readdirSync, lstatSync} = require('fs-extra');
+
+const PACKAGE_DIR = 'packages/@shopify/';
+
+// Sdapted from: https://github.com/benmosher/eslint-plugin-import/issues/1174#issuecomment-509965883
+const noExtraneousOverrides = readdirSync(resolve(__dirname, PACKAGE_DIR))
+  .filter(
+    entry =>
+      entry.substr(0, 1) !== '.' &&
+      lstatSync(resolve(__dirname, PACKAGE_DIR, entry)).isDirectory(),
+  )
+  .map(entry => ({
+    files: [`${PACKAGE_DIR}${entry}/**/*`],
+    rules: {
+      'import/no-extraneous-dependencies': [
+        'error',
+        {
+          devDependencies: true,
+          optionalDependencies: false,
+          peerDependencies: true,
+          packageDir: [relative(__dirname, join(PACKAGE_DIR, entry))],
+        },
+      ],
+    },
+  }));
+
 module.exports = {
   extends: [
     'plugin:shopify/typescript',
@@ -36,20 +63,7 @@ module.exports = {
         rules: {'shopify/jsx-no-hardcoded-content': 'off'},
       },
     },
-    {
-      files: ['packages/@shopify/react-server-webpack-plugin/**/*'],
-      rules: {
-        'import/no-extraneous-dependencies': [
-          'error',
-          {
-            devDependencies: true,
-            optionalDependencies: true,
-            peerDependencies: true,
-            packageDir: ['./packages/@shopify/react-server-webpack-plugin/'],
-          },
-        ],
-      },
-    },
+    ...noExtraneousOverrides,
   ],
   settings: {
     'import/external-module-folders': ['packages', 'node_modules'],
