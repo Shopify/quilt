@@ -4,18 +4,22 @@ const path = require('path');
 const moduleNameMapper = getPackageNames().reduce(
   (accumulator, name) => {
     const scopedName = `@shopify/${name}$`;
-    accumulator[scopedName] = `<rootDir>/packages/${name}/src/index.ts`;
+    accumulator[
+      scopedName
+    ] = `<rootDir>/packages/@shopify/${name}/src/index.ts`;
     return accumulator;
   },
   {
     '@shopify/react-effect/server':
-      '<rootDir>/packages/react-effect/src/server.tsx',
+      '<rootDir>/packages/@shopify/react-effect/src/server.tsx',
+    '@shopify/react-effect/server':
+      '<rootDir>/packages/@shopify/react-effect/src/server.tsx',
     '@shopify/react-async/testing':
-      '<rootDir>/packages/react-async/src/testing.tsx',
+      '<rootDir>/packages/@shopify/react-async/src/testing.tsx',
     '@shopify/react-html/server':
-      '<rootDir>/packages/react-html/src/server/index.ts',
+      '<rootDir>/packages/@shopify/react-html/src/server/index.ts',
     '@shopify/react-network/server':
-      '<rootDir>/packages/react-network/src/server.ts',
+      '<rootDir>/packages/@shopify/react-network/src/server.ts',
   },
 );
 
@@ -37,7 +41,7 @@ module.exports = {
 };
 
 function getPackageNames() {
-  const packagesPath = path.join(__dirname, 'packages');
+  const packagesPath = path.join(__dirname, 'packages', '@shopify');
   return readdirSync(packagesPath).filter(packageName => {
     const packageJSONPath = path.join(
       packagesPath,

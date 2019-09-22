@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@shopify/react-server": "^0.1.0",
+    "@shopify/react-html": "9.2.3",
     "typescript": "~3.2.1",
     "webpack": "^4.39.1"
   },

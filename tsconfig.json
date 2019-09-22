@@ -9,7 +9,9 @@
       "@shopify/ast-utilities/javascript": [
         "packages/@shopify/ast-utilities/src/javascript"
       ],
-      "@shopify/react-effect/server": ["packages/react-effect/src/server"],
+      "@shopify/react-effect/server": [
+        "packages/@shopify/react-effect/src/server"
+      ],
       "@shopify/*": ["packages/@shopify/*/src/index"]
     }
   }

@@ -31,10 +31,10 @@
     "@shopify/react-idle": "^1.0.6",
     "@shopify/react-intersection-observer": "^2.0.5",
     "@shopify/useful-types": "^2.0.1"
-	},
-	"devDependencies": {
-		"@shopify/react-testing": "1.7.3"
-	},
+  },
+  "devDependencies": {
+    "@shopify/react-testing": "1.7.3"
+  },
   "files": [
     "dist/*"
   ]
