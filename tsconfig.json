@@ -3,8 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@shopify/ast-utilities/markdown": [
+        "packages/@shopify/ast-utilities/src/markdown"
+      ],
+      "@shopify/ast-utilities/javascript": [
+        "packages/@shopify/ast-utilities/src/javascript"
+      ],
       "@shopify/react-effect/server": ["packages/react-effect/src/server"],
-      "@shopify/*": ["packages/*/src/index"]
+      "@shopify/*": ["packages/@shopify/*/src/index"]
     }
   }
 }

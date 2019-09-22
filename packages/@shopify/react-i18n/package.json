@@ -31,7 +31,8 @@
     "@types/babel__template": "^7.0.1",
     "@types/babel__traverse": "^7.0.5",
     "@types/glob": "^7.1.1",
-    "intl-pluralrules": "^0.2.1"
+		"intl-pluralrules": "^0.2.1",
+		"@shopify/jest-dom-mocks": "2.7.1"
   },
   "dependencies": {
     "@shopify/dates": "^0.2.0",
