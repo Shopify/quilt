@@ -278,3 +278,23 @@ describe('DOM tests', () => {
   });
 });
 ```
+
+### Cookie mock
+
+The cookie mock makes setting `document.cookie` mirrors the actual [browser behavior](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie#Syntax). Once mocked by calling the `mock()`, set `document.cookie` as you normally would in your tests to set a cookie. Reading from `document.cookie` will return all cookies that have been set
+
+```tsx
+beforeEach(() => {
+  cookie.mock();
+});
+```
+
+Subsequently calling `restore()` will return `document.cookie` to its original value.
+
+```tsx
+afterEach(() => {
+  cookie.restore();
+});
+```
+
+How is this different than just setting `document.cookie` though?

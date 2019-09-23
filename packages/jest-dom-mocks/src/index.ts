@@ -10,11 +10,14 @@ import UserTiming from './user-timing';
 import IntersectionObserver from './intersection-observer';
 import Promise from './promise';
 import Dimension from './dimension';
+import DocumentCookie from './document-cookie';
 
 export const animationFrame = new AnimationFrame();
 export const requestIdleCallback = new RequestIdleCallback();
 
 export const clock = new Clock();
+
+export const cookie = new DocumentCookie();
 
 export {fetch};
 
