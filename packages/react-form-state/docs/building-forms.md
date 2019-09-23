@@ -650,6 +650,7 @@ import {
   Button,
   Form,
 } from '@shopify/polaris';
+import enTranslations from '@shopify/polaris/locales/en.json';
 import FormState, {
   validators,
   validateList,
@@ -684,7 +685,7 @@ interface Props {
 
 function CreateProductPage({initialValues}: Props) {
   return (
-    <AppProvider>
+    <AppProvider i18n={enTranslations}>
       <FormState
         initialValues={initialValues}
         validators={{

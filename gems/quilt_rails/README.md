@@ -128,10 +128,11 @@ We will add a basic entrypoint using React with Polaris components.
 
 import React from 'react';
 import {AppProvider, Page, Card} from '@shopify/polaris';
+import enTranslations from '@shopify/polaris/locales/en.json';
 
 function App() {
   return (
-    <AppProvider>
+    <AppProvider i18n={enTranslations}>
       <Page title="Hello">
         <Card sectioned>Hi there</Card>
       </Page>
@@ -348,6 +349,7 @@ React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/b
 
 import React from 'react';
 import {AppProvider, Page, Card} from '@shopify/polaris';
+import enTranslations from '@shopify/polaris/locales/en.json';
 import {useRequestHeader} from '@shopify/react-network';
 
 function App() {
@@ -355,7 +357,7 @@ function App() {
   const someHeaderICareAbout = useRequestHeader('some-header');
 
   return (
-    <AppProvider>
+    <AppProvider i18n={enTranslations}>
       <Page title="Hello">
         {someHeaderICareAbout}
         <Card sectioned>Hi there</Card>
@@ -374,6 +376,7 @@ export default App;
 
 import React from 'react';
 import {AppProvider, Page, Card} from '@shopify/polaris';
+import enTranslations from '@shopify/polaris/locales/en.json';
 import {useRedirect} from '@shopify/react-network';
 
 function App() {
@@ -381,7 +384,7 @@ function App() {
   useRedirect('www.google.com');
 
   return (
-    <AppProvider>
+    <AppProvider i18n={enTranslations}>
       <Page title="Hello">
         <Card sectioned>Hi there</Card>
       </Page>
