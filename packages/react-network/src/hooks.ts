@@ -32,6 +32,10 @@ export function useHeader(header: string, value: string) {
   useNetworkEffect(network => network.setHeader(header, value));
 }
 
+export function useNetworkManager() {
+  return useContext(NetworkContext);
+}
+
 export function useStatus(code: StatusCode) {
   useNetworkEffect(network => network.addStatusCode(code));
 }
