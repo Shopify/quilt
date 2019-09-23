@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@shopify/react-cookie/server": ["packages/react-cookie/src/server"],
       "@shopify/react-effect/server": ["packages/react-effect/src/server"],
       "@shopify/*": ["packages/*/src/index"]
     }
