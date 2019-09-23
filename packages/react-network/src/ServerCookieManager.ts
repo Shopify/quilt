@@ -8,6 +8,7 @@ export type Cookie = {[key: string]: CookieValue};
 
 export class ServerCookieManager {
   private readonly cookies = new Map<string, CookieValue>();
+
   constructor(cookies: Cookie | string = {}) {
     const parsedCookies =
       typeof cookies === 'string' ? cookie.parse(cookies) : cookies;

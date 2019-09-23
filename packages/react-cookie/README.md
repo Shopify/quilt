@@ -13,7 +13,52 @@ $ yarn add @shopify/react-cookie
 
 ## Usage
 
-To use the hooks provided by this library you must first wrap your application tree in the `<CookieUniversalProvider />` component.
+### Server
+
+To extract cookies during the server-side render of your application, your component needs to have access to the `NetworkManager` from `@shopify/react-network`. You can pass the initial server cookie value when the manager is instantiated within your server-side middleware.
+
+For full details on setting up `@shopify/react-server`, [see the readme for that package](https://github.com/Shopify/quilt/tree/master/packages/react-network#server).
+
+```tsx
+import React from 'react';
+import {render} from '@shopify/react-html/server';
+import {extract} from '@shopify/react-effect/server';
+import {
+  NetworkManager,
+  NetworkContext,
+  applyToContext,
+} from '@shopify/react-network/server';
+import App from './App';
+
+export default function renderApp(ctx: Context) {
+  const networkManager = new NetworkManager({
+    // Here we provide the server cookies
+    cookies: ctx.request.headers.cookie || '',
+  });
+
+  const app = <App />;
+
+  await extract(app, {
+    decorate: element => (
+      <NetworkContext.Provider value={networkManager}>
+        {element}
+      </NetworkContext.Provider>
+    ),
+  });
+
+  applyToContext(ctx, networkManager);
+
+  ctx.body = render(
+    <NetworkContext.Provider value={networkManager}>
+      {app}
+    </NetworkContext.Provider>,
+  );
+}
+```
+
+### Client
+
+To use the hooks provided by this library you must first wrap your client-side application tree in the `<CookieUniversalProvider />` component.
 
 ```tsx
 // App.tsx
@@ -22,12 +67,14 @@ import {CookieUniversalProvider} from '@shopify/react-cookie';
 import {SomeComponent} from './someComponent';
 
 function App() {
-  <Cookie>
+  <CookieUniversalProvider>
     // rest of your tree
     <SomeComponent />
-  </Cookie>;
+  </CookieUniversalProvider>;
 }
 ```
+
+You can then use the [hooks](#hooks) provided by this package.
 
 ```tsx
 // SomeComponent.tsx
@@ -52,11 +99,11 @@ function SomeComponent() {
 
 #### `useCookies()`
 
-This hook returns a single-item array with an object of all the current cookies.
+This hook returns an object of all the current cookies.
 
 ```tsx
 function MyComponent() {
-  const [allCookies] = useCookies();
+  const allCookies = useCookies();
 
   const cookiesMarkup = Object.keys(allCookies).map(key => (
     <p key={key}>{allCookies[key].value}</p>
