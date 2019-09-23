@@ -3,6 +3,7 @@ export * from './components';
 
 export {NetworkManager} from './manager';
 export {NetworkContext} from './context';
+export {ServerCookieManager} from './ServerCookieManager';
 export {
   useNetworkEffect,
   useStatus,
@@ -11,4 +12,5 @@ export {
   useRequestHeader,
   useRedirect,
   useAcceptLanguage,
+  useNetworkManager,
 } from './hooks';

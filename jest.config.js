@@ -8,6 +8,8 @@ const moduleNameMapper = getPackageNames().reduce(
     return accumulator;
   },
   {
+    '@shopify/react-cookie/server':
+      '<rootDir>/packages/react-cookie/src/server.ts',
     '@shopify/react-effect/server':
       '<rootDir>/packages/react-effect/src/server.tsx',
     '@shopify/react-async/testing':

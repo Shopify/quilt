@@ -51,6 +51,7 @@ Each package has its own `README` and documentation describing usage.
 | react-app-bridge-universal-provider | [directory](packages/react-app-bridge-universal-provider) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-app-bridge-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-app-bridge-universal-provider) |
 | react-async | [directory](packages/react-async) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-async.svg)](https://badge.fury.io/js/%40shopify%2Freact-async) |
 | react-compose | [directory](packages/react-compose) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-compose.svg)](https://badge.fury.io/js/%40shopify%2Freact-compose) |
+| react-cookie | [directory](packages/react-cookie) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-cookie.svg)](https://badge.fury.io/js/%40shopify%2Freact-cookie) |
 | react-csrf | [directory](packages/react-csrf) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-csrf.svg)](https://badge.fury.io/js/%40shopify%2Freact-csrf) |
 | react-csrf-universal-provider | [directory](packages/react-csrf-universal-provider) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-csrf-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-csrf-universal-provider) |
 | react-effect | [directory](packages/react-effect) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect) |
