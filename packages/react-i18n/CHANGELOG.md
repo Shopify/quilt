@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+### Changed
+
+- Fixed babel plugin incompatiblity with jest code coverage
+
 ## [2.0.0] - 2019-09-19
 
 ### Changed
