@@ -42,11 +42,9 @@ export function GraphQLUniversalProvider({
           createOperationDetailsLink({
             onOperation(operation) {
               if (network) {
-                const newServerState = addOperationToServerState(
-                  network.getServerState(),
-                  operation,
+                network.setServerState(currentState =>
+                  addOperationToServerState(currentState, operation),
                 );
-                network.setServerState(newServerState);
               }
             },
           }),
@@ -54,11 +52,13 @@ export function GraphQLUniversalProvider({
         .concat(clientOptions.link);
     }
 
+    const apolloClient = new ApolloClient(clientOptions);
+
     if (initialData) {
-      clientOptions.cache = clientOptions.cache.restore(initialData);
+      apolloClient.cache = apolloClient.cache.restore(initialData);
     }
 
-    return [new ApolloClient(clientOptions), link];
+    return [apolloClient, link];
   }).current;
 
   const ApolloBridge = createApolloBridge();
@@ -72,11 +72,10 @@ export function GraphQLUniversalProvider({
 }
 
 function addOperationToServerState(
-  serverState: {},
+  state: {},
   operation: GraphQLOperationDetails,
 ) {
-  const operations = serverState[GRAPHQL_OPERATIONS] || [];
-  const newState = {...serverState};
-  newState[GRAPHQL_OPERATIONS] = operations.concat(operation);
-  return newState;
+  const operations = state[GRAPHQL_OPERATIONS] || [];
+  state[GRAPHQL_OPERATIONS] = operations.concat(operation);
+  return state;
 }

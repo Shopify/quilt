@@ -80,6 +80,7 @@ export enum Header {
   AcceptLanguage = 'Accept-Language',
   XssProtecton = 'X-XSS-Protection',
   FrameOptions = 'X-Frame-Options',
+  RequestId = 'X-Request-ID',
   DownloadOptions = 'X-Download-Options',
   ContentTypeOptions = 'X-Content-Type-Options',
   StrictTransportSecurity = 'Strict-Transport-Security',

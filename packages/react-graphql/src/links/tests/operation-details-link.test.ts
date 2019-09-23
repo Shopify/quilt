@@ -1,6 +1,5 @@
 import {GraphQLError} from 'graphql';
 import faker from 'faker';
-import {noop} from '@shopify/javascript-utilities/other';
 import {
   executeOnce,
   SimpleHttpLink,
@@ -8,14 +7,14 @@ import {
   NetworkErrorLink,
   GraphQLErrorLink,
 } from '@shopify/apollo-link-test-utilities';
-import {StatusCode} from '@shopify/network';
+import {StatusCode, Header} from '@shopify/network';
 import {clock} from '@shopify/jest-dom-mocks';
 
 import {createOperationDetailsLink, Options} from '../operations-details-link';
 
 import testQuery from './fixtures/TestQuery.graphql';
 
-const AppHeaderID = 'X-Request-ID';
+const noop = () => {};
 
 jest.mock('@shopify/performance', () => ({
   ...jest.requireActual('@shopify/performance'),
@@ -130,12 +129,11 @@ describe('createOperationDetailsLink()', () => {
       const spy = jest.fn();
       const link = createOperationDetailsLink({
         ...defaultOptions,
-        requestIdHeader: AppHeaderID,
         onOperation: spy,
       });
 
       const requestId = faker.random.uuid();
-      const headers = {[AppHeaderID]: requestId};
+      const headers = {[Header.RequestId]: requestId};
 
       await executeOnce(
         link.concat(new SimpleHttpLink(new Response('', {headers}))),

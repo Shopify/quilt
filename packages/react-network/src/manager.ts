@@ -24,7 +24,7 @@ export class NetworkManager {
 
   private statusCodes: StatusCode[] = [];
   private redirectUrl?: string;
-  private serverState: Context['state'];
+  private serverState: Context['state'] = {};
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
   private readonly requestHeaders: Record<string, string>;
@@ -46,11 +46,16 @@ export class NetworkManager {
   }
 
   getServerState(): Context['state'] {
-    return this.serverState || {};
+    return this.serverState;
   }
 
-  setServerState(newState: Context['state']) {
-    this.serverState = newState;
+  setServerState(newState: Context['state']);
+  setServerState(newState: (currentState) => Context['state']) {
+    if (typeof newState === 'function') {
+      this.serverState = newState(this.serverState);
+    } else {
+      this.serverState = newState;
+    }
   }
 
   setHeader(header: string, value: string) {

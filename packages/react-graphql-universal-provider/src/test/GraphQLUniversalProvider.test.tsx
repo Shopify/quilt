@@ -42,6 +42,43 @@ describe('<GraphQLUniversalProvider />', () => {
     });
   });
 
+  it('serializes the apollo apollo cache and re-uses it to hydrate the cache', async () => {
+    const htmlManager = new HtmlManager();
+
+    const cache = new InMemoryCache();
+    const clientOption = {cache, link: new ApolloLink()};
+
+    const graphQLProvider = (
+      <GraphQLUniversalProvider createClientOptions={() => clientOption} />
+    );
+
+    const client = mount(graphQLProvider)
+      .find(ApolloProvider)!
+      .prop('client');
+
+    // Simulated server render
+    await extract(graphQLProvider, {
+      decorate: (element: React.ReactNode) => (
+        <HtmlContext.Provider value={htmlManager}>
+          {element}
+        </HtmlContext.Provider>
+      ),
+    });
+
+    const initialData = client.extract();
+    const restoreSpy = jest.spyOn(cache, 'restore');
+
+    // Simulated client render (note: same htmlManager, which replaces the way the
+    // client would typically read serializations from the DOM on initialization).
+    mount(
+      <HtmlContext.Provider value={htmlManager}>
+        {graphQLProvider}
+      </HtmlContext.Provider>,
+    );
+
+    expect(restoreSpy).toHaveBeenCalledWith(initialData);
+  });
+
   it('renders an <Effect/> from ApolloBridge', () => {
     const clientOptions = {
       cache: new InMemoryCache(),

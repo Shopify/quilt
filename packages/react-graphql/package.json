@@ -28,7 +28,6 @@
     "@shopify/performance": "^1.1.8",
     "@shopify/react-async": "^3.0.8",
     "@shopify/react-hooks": "^1.2.3",
-    "@shopify/react-network": "^3.2.2",
     "@shopify/useful-types": "^2.0.1",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.0",
