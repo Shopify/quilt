@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Fixed
+
+- The Node server calling Rails controllers no longer blocks first page load [#1020](https://github.com/Shopify/quilt/pull/1020)
+- The Node server calling Rails controllers no longer blocks page loads after changing an `.rb` file [#1020](https://github.com/Shopify/quilt/pull/1020)
 
 ## [1.6.0] - 2019-09-18
 

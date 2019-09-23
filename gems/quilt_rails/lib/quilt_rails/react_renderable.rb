@@ -9,6 +9,16 @@ module Quilt
     def render_react
       raise DoNotIntegrationTestError if Rails.env.test?
 
+      # Allow concurrent loading to prevent this thread from blocking class
+      # loading in controllers called by the Node server.
+      ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+        call_proxy
+      end
+    end
+
+    private
+
+    def call_proxy
       if defined? ShopifySecurityBase
         ShopifySecurityBase::HTTPHostRestriction.whitelist([Quilt.configuration.react_server_host]) do
           proxy
@@ -17,8 +27,6 @@ module Quilt
         proxy
       end
     end
-
-    private
 
     def proxy
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
