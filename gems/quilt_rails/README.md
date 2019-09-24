@@ -288,7 +288,7 @@ describe('MyComponent', () => {
 
 #### Customizing the test environment
 
-By default, sewing-kit will look for [test setup files under `/app/ui/tests`](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md#test-setup-files-using-default-pathing).
+By default, sewing-kit will look for [test setup files under `/app/ui/tests`](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md#smart-defaults).
 
 ### Interacting with the request and response in React code
 
