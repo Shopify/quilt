@@ -127,16 +127,9 @@ We will add a basic entrypoint using React with Polaris components.
 // app/ui/index.tsx
 
 import React from 'react';
-import {AppProvider, Page, Card} from '@shopify/polaris';
 
 function App() {
-  return (
-    <AppProvider>
-      <Page title="Hello">
-        <Card sectioned>Hi there</Card>
-      </Page>
-    </AppProvider>
-  );
+  return <h1>My application ❤️</h1>;
 }
 
 export default App;
