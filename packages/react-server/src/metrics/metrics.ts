@@ -1,9 +1,7 @@
 import {Context} from 'koa';
 import compose from 'koa-compose';
 
-import {getServerState} from '@shopify/react-network/server';
-import {GRAPHQL_OPERATIONS} from '@shopify/react-graphql-universal-provider';
-import {totalGraphQLTime} from '@shopify/react-graphql';
+import {totalGraphQLTime, GRAPHQL_OPERATIONS} from '@shopify/react-graphql';
 import {KoaNextFunction} from '../types';
 
 const MILLIS_PER_SECOND = 1000;
@@ -19,9 +17,7 @@ async function middleware(ctx: Context, next: KoaNextFunction) {
   try {
     await next();
   } finally {
-    const reactNetworkServerState = getServerState(ctx);
-
-    const graphQLOperations = reactNetworkServerState[GRAPHQL_OPERATIONS];
+    const graphQLOperations = ctx.state[GRAPHQL_OPERATIONS];
     const graphQLTime = graphQLOperations
       ? totalGraphQLTime(graphQLOperations)
       : 0;

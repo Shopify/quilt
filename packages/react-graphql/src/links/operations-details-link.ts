@@ -1,21 +1,10 @@
 import {ApolloLink, Observable, FetchResult} from 'apollo-link';
 import {now} from '@shopify/performance';
 import {Header} from '@shopify/network';
-
-export interface GraphQLOperation {
-  name: string;
-  duration: number;
-  start: number;
-  end: number;
-  success: boolean;
-  errors?: {message: string; path?: string}[];
-  url?: string;
-  status?: number;
-  requestId?: string;
-}
+import {GraphQLOperationDetails} from '../types';
 
 export interface Options {
-  onOperation(operation: GraphQLOperation): void;
+  onOperation(operation: GraphQLOperationDetails): void;
 }
 
 export function createOperationDetailsLink({onOperation}: Options) {

@@ -1,10 +1,9 @@
 export * from '@shopify/network';
 export * from './components';
 
-export {NetworkManager, STATE_ID} from './manager';
+export {NetworkManager} from './manager';
 export {NetworkContext} from './context';
 export {
-  useNetworkManager,
   useNetworkEffect,
   useStatus,
   useCspDirective,

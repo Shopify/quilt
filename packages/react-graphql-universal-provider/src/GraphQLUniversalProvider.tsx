@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import ApolloClient, {ApolloClientOptions} from 'apollo-client';
 import {useSerialized} from '@shopify/react-html';
@@ -7,13 +7,12 @@ import {
   createSsrExtractableLink,
   createOperationDetailsLink,
   GraphQLOperationDetails,
+  GraphQLOperationsContext,
 } from '@shopify/react-graphql';
 import {useLazyRef} from '@shopify/react-hooks';
 import {createApolloBridge} from '@shopify/react-effect-apollo';
-import {useNetworkManager} from '@shopify/react-network';
 
 export type GraphQLClientOptions = ApolloClientOptions<any>;
-export const GRAPHQL_OPERATIONS = Symbol('graphQLOperations');
 
 interface Props {
   children?: React.ReactNode;
@@ -25,7 +24,9 @@ export function GraphQLUniversalProvider({
   createClientOptions,
 }: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
-  const network = useNetworkManager();
+  const graphQLOperations: GraphQLOperationDetails[] = useContext(
+    GraphQLOperationsContext,
+  );
 
   const [client, link] = useLazyRef<
     [
@@ -40,13 +41,7 @@ export function GraphQLUniversalProvider({
       clientOptions.link = link
         .concat(
           createOperationDetailsLink({
-            onOperation(operation) {
-              if (network) {
-                network.setServerState(currentState =>
-                  addOperationToServerState(currentState, operation),
-                );
-              }
-            },
+            onOperation: operation => graphQLOperations.push(operation),
           }),
         )
         .concat(clientOptions.link);
@@ -69,13 +64,4 @@ export function GraphQLUniversalProvider({
       <Serialize data={() => link.resolveAll(() => client.extract())} />
     </ApolloBridge>
   );
-}
-
-function addOperationToServerState(
-  state: {},
-  operation: GraphQLOperationDetails,
-) {
-  const operations = state[GRAPHQL_OPERATIONS] || [];
-  state[GRAPHQL_OPERATIONS] = operations.concat(operation);
-  return state;
 }

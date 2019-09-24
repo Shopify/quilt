@@ -7,11 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-## [3.3.0]
-
-- Add `useNetworkManager` hook [#1018](https://github.com/Shopify/quilt/pull/1018)
-- Add server state management to `NetworkManager` and update `applyToContext` to support server state [#1018](https://github.com/Shopify/quilt/pull/1018)
-
 ## [3.2.0]
 
 - Added `useAcceptLanguage()` hook [#909](https://github.com/Shopify/quilt/pull/909)

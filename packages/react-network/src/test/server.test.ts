@@ -6,7 +6,7 @@ import {
 } from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
-import {NetworkManager, applyToContext, getServerState} from '../server';
+import {NetworkManager, applyToContext} from '../server';
 
 describe('server', () => {
   describe('status', () => {
@@ -107,18 +107,6 @@ describe('server', () => {
           CspDirective.BlockAllMixedContent
         }`,
       );
-    });
-  });
-
-  describe('state', () => {
-    it('applies the serverState to the context state', () => {
-      const manager = new NetworkManager();
-      const ctx = createMockContext();
-
-      manager.setServerState({foo: '1234'});
-      applyToContext(ctx, manager);
-
-      expect(getServerState(ctx)).toStrictEqual({foo: '1234'});
     });
   });
 });

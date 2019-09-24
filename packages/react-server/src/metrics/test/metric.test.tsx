@@ -16,13 +16,6 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
   },
 }));
 
-jest.mock('@shopify/react-network/server', () => ({
-  ...require.requireActual('@shopify/react-network/server'),
-  getServerState() {
-    return {};
-  },
-}));
-
 describe('createServer()', () => {
   let server: Server;
   let port: number;

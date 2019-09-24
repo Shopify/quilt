@@ -127,7 +127,7 @@ const prefetch = usePrefetch(MyQuery);
 
 ## Using Apollo Hooks
 
-Using Apollo Hooks assume the usage of [`react-apollo`](https://github.com/apollographql/react-apollo))
+Using Apollo Hooks assume the usage of [`react-apollo`](https://github.com/apollographql/react-apollo)
 
 ### `ApolloProvider`
 
@@ -354,4 +354,25 @@ function CustomerDetail() {
     </Form>
   );
 }
+```
+
+## `createOperationDetailsLink` Apollo Link
+
+This library also provides a custom Apollo Link, `createOperationDetailsLink`. This link takes in an `onOperation` function callback which called with a GraphQL operation of type `GraphQLOperation`.
+
+```tsx
+import import {
+  createOperationDetailsLink,
+  GraphQLOperationDetails,
+} from '@shopify/react-graphql';
+
+
+
+const link = createOperationDetailsLink({
+  onOperation(operation: GraphQLOperationDetails) {
+    console.log('Look, a GraphQL operation: ', operation);
+  },
+});
+
+// create ApolloClient using this link
 ```

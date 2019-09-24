@@ -1,18 +1,8 @@
+import {GraphQLOperationDetails} from '../types';
+
 interface Range {
   start: number;
   end: number;
-}
-
-export interface GraphQLOperationDetails {
-  name: string;
-  duration: number;
-  start: number;
-  end: number;
-  success: boolean;
-  errors?: {message: string; path?: string}[];
-  url?: string;
-  status?: number;
-  requestId?: string;
 }
 
 export function totalGraphQLTime(operations: GraphQLOperationDetails[]) {

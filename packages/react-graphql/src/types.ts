@@ -51,3 +51,15 @@ export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
       VariableOptions<Variables>,
       VariableOptions<Variables> & Pick<QueryProps, 'pollInterval'>
     > {}
+
+export interface GraphQLOperationDetails {
+  name: string;
+  duration: number;
+  start: number;
+  end: number;
+  success: boolean;
+  errors?: {message: string; path?: string}[];
+  url?: string;
+  status?: number;
+  requestId?: string;
+}

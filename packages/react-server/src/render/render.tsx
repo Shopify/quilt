@@ -19,6 +19,10 @@ import {
   AsyncAssetManager,
   AssetTiming,
 } from '@shopify/react-async';
+import {
+  GraphQLOperationsContext,
+  GRAPHQL_OPERATIONS,
+} from '@shopify/react-graphql';
 import {Header, StatusCode} from '@shopify/react-network';
 import {getAssets} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
@@ -47,13 +51,16 @@ export function createRender(render: RenderFunction, options: Options = {}) {
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
     const hydrationManager = new HydrationManager();
+    const grapqhlOperations = [];
 
     function Providers({children}: {children: React.ReactElement<any>}) {
       return (
         <AsyncAssetContext.Provider value={asyncAssetManager}>
           <HydrationContext.Provider value={hydrationManager}>
             <NetworkContext.Provider value={networkManager}>
-              {children}
+              <GraphQLOperationsContext.Provider value={grapqhlOperations}>
+                {children}
+              </GraphQLOperationsContext.Provider>
             </NetworkContext.Provider>
           </HydrationContext.Provider>
         </AsyncAssetContext.Provider>
@@ -98,6 +105,8 @@ export function createRender(render: RenderFunction, options: Options = {}) {
           <Providers>{app}</Providers>
         </Html>,
       );
+
+      ctx.state[GRAPHQL_OPERATIONS] = grapqhlOperations;
 
       ctx.set(Header.ContentType, 'text/html');
       ctx.body = response;

@@ -1,7 +1,7 @@
 import {clock} from '@shopify/jest-dom-mocks';
 import {StatusCode} from '@shopify/network';
 
-import {GraphQLOperation} from '../graphql-operations';
+import {GraphQLOperationDetails} from '../../types';
 import {totalGraphQLTime} from '../total-graphql-time';
 
 describe('totalGraphQLTime()', () => {
@@ -67,7 +67,7 @@ describe('totalGraphQLTime()', () => {
 function createGraphQLOperationWithTiming(
   duration: number,
   startOffset = duration,
-): GraphQLOperation {
+): GraphQLOperationDetails {
   const now = Date.now();
 
   return {

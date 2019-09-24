@@ -1,11 +1,9 @@
-import {Context} from 'koa';
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 
 export {NetworkContext} from './context';
 
 export const EFFECT_ID = Symbol('network');
-export const STATE_ID = Symbol('network-state');
 
 interface Options {
   headers?: Record<string, string>;
@@ -24,7 +22,6 @@ export class NetworkManager {
 
   private statusCodes: StatusCode[] = [];
   private redirectUrl?: string;
-  private serverState: Context['state'] = {};
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
   private readonly requestHeaders: Record<string, string>;
@@ -38,24 +35,10 @@ export class NetworkManager {
     this.csp.clear();
     this.headers.clear();
     this.redirectUrl = undefined;
-    this.serverState = {};
   }
 
   getHeader(header: string) {
     return this.requestHeaders[header.toLowerCase()];
-  }
-
-  getServerState(): Context['state'] {
-    return this.serverState;
-  }
-
-  setServerState(newState: Context['state']);
-  setServerState(newState: (currentState) => Context['state']) {
-    if (typeof newState === 'function') {
-      this.serverState = newState(this.serverState);
-    } else {
-      this.serverState = newState;
-    }
   }
 
   setHeader(header: string, value: string) {
@@ -118,7 +101,6 @@ export class NetworkManager {
           : undefined,
       headers,
       redirectUrl: this.redirectUrl,
-      serverState: this.serverState,
     };
   }
 }

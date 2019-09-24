@@ -35,38 +35,4 @@ describe('NetworkManager', () => {
       expect(manager.getHeader('FoO')).toBe(headers.Foo);
     });
   });
-
-  describe('getServerState', () => {
-    it('returns an empty object when there is no server state', () => {
-      const manager = new NetworkManager();
-      expect(manager.getServerState()).toStrictEqual({});
-    });
-  });
-
-  describe('setServerState', () => {
-    it('set the server state using the provided object', () => {
-      const manager = new NetworkManager();
-      const state = {foo: 'foo123'};
-
-      expect(manager.getServerState()).toStrictEqual({});
-      manager.setServerState(state);
-      expect(manager.getServerState()).toStrictEqual(state);
-    });
-
-    it('sets the server state using the provided function', () => {
-      const manager = new NetworkManager();
-      const state = {foo: 'foo123'};
-
-      manager.setServerState(state);
-      manager.setServerState(currentState => {
-        currentState.bar = 'bar123';
-        return currentState;
-      });
-
-      expect(manager.getServerState()).toStrictEqual({
-        foo: 'foo123',
-        bar: 'bar123',
-      });
-    });
-  });
 });
