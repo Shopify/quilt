@@ -1,6 +1,6 @@
 export {BrowserCookieManager} from './BrowserCookieManager';
 export {CookieContext} from './context';
-export {useCookie, useCookies} from './hooks';
+export {useCookie} from './hooks';
 export {CookieUniversalProvider} from './CookieUniversalProvider';
 export {
   Cookie,
@@ -9,4 +9,4 @@ export {
   CookieSerializeOptions,
 } from './types';
 
-export {clearCookies} from 'tests/utilities';
+export {clearCookies} from './tests/utilities';
