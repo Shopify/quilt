@@ -28,7 +28,7 @@ describe('CookieUniversalProvider', () => {
     return null;
   }
 
-  it('povides a universal cookie manager for the server', () => {
+  it('provides a universal cookie manager for the server', () => {
     hasDocumentCookie.mockImplementation(false);
     const wrapper = mount(
       <CookieUniversalProvider>
@@ -40,7 +40,7 @@ describe('CookieUniversalProvider', () => {
     expect(manager).toBeInstanceOf(ServerCookieManager);
   });
 
-  it('povides a browser cookie manager when on the client', () => {
+  it('provides a browser cookie manager when on the client', () => {
     const wrapper = mount(
       <CookieUniversalProvider>
         <MockApp />

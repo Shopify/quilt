@@ -40,6 +40,7 @@ export class NetworkManager {
     this.statusCodes = [];
     this.csp.clear();
     this.headers.clear();
+    this.cookies.clear();
     this.redirectUrl = undefined;
   }
 
@@ -106,7 +107,7 @@ export class NetworkManager {
           ? this.statusCodes.reduce((large, code) => Math.max(large, code), 0)
           : undefined,
       headers,
-      cookies: this.cookies,
+      cookies: this.cookies.getCookies(),
       redirectUrl: this.redirectUrl,
     };
   }

@@ -1,6 +1,6 @@
 import {ServerCookieManager} from '../ServerCookieManager';
 
-describe('NetworkManager', () => {
+describe('ServerCookieManager', () => {
   it('returns all cookies as an object', () => {
     const cookies = 'foo=bar;baz=qux';
     const manager = new ServerCookieManager(cookies);
@@ -20,6 +20,7 @@ describe('NetworkManager', () => {
     const manager = new ServerCookieManager(cookies);
 
     manager.setCookie('quux', 'quuz');
+
     expect(manager.getCookies()).toStrictEqual({
       baz: {
         value: 'qux',
@@ -33,7 +34,7 @@ describe('NetworkManager', () => {
     });
   });
 
-  it('returns an individual cookie value from a given key', () => {
+  it('returns an individual cookie values from a given name', () => {
     const cookies = 'foo=bar;baz=qux';
     const manager = new ServerCookieManager(cookies);
 
@@ -41,9 +42,10 @@ describe('NetworkManager', () => {
     expect(manager.getCookie('baz')).toBe('qux');
   });
 
-  it('removes an individual cookie from a given key', () => {
+  it('removes an individual cookie by name', () => {
     const cookies = 'foo=bar;baz=qux';
     const manager = new ServerCookieManager(cookies);
+
     manager.removeCookie('foo');
 
     expect(manager.getCookies().foo).toMatchObject({
