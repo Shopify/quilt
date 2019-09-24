@@ -288,7 +288,9 @@ describe('MyComponent', () => {
 
 #### Customizing the test environment
 
-By default, sewing-kit will look for [test setup files under `/app/ui/tests`](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md#smart-defaults).
+Often you will want to hook up custom polyfills, global mocks, or other logic that needs to run either before the initialization of the test environment, or once for each test suite.
+
+By default, sewing-kit will look for such test setup files under `/app/ui/tests`. Check out the [documentation](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md#smart-defaults) for more details.
 
 ### Interacting with the request and response in React code
 
