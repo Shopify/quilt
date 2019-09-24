@@ -63,8 +63,8 @@ An application can also be setup manually using the following steps.
 # Add core Node dependencies
 yarn add @shopify/sewing-kit @shopify/react-server
 
-# Add Polaris and React
-yarn add @shopify/polaris react react-dom
+# Add React
+yarn add react react-dom
 
 yarn
 dev up
@@ -121,7 +121,7 @@ Add routes to default to the `ReactController`.
 
 `sewing_kit` looks for the top level component of your React app in `app/ui/index`. The component exported from this component (and any imported JS/CSS) will be built into a `main` bundle, and used to render the initial server-rendered markup.
 
-We will add a basic entrypoint using React with Polaris components.
+We will add a basic entrypoint using React with some HTML.
 
 ```tsx
 // app/ui/index.tsx
@@ -158,7 +158,7 @@ The basic layout for an app using `quilt_rails` and friends will have a `ui` fol
        └─- react_controller.rb (see above)
 ```
 
-### Rails, Polaris, and React
+### Rails and React
 
 A more complex application will want a more complex layout. The following shows scalable locations for:
 
@@ -174,7 +174,7 @@ A more complex application will want a more complex layout. The following shows 
     └── ui
         ├─- index.{js|ts} (exports a React component)
         ├── styles (optional)
-        │   └── settings.scss (global vars and @polaris overrides)
+        └── shared.scss (common functions/mixins you want available in every scss file. Requires configuring `plugin.sass`'s `autoInclude` option in `sewing-kit.config.js`)
         │
         └── tests (optional)
         │   └── each-test.{js|ts}
@@ -340,7 +340,6 @@ React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/b
 // app/ui/index.tsx
 
 import React from 'react';
-import {AppProvider, Page, Card} from '@shopify/polaris';
 import {useRequestHeader} from '@shopify/react-network';
 
 function App() {
@@ -348,12 +347,10 @@ function App() {
   const someHeaderICareAbout = useRequestHeader('some-header');
 
   return (
-    <AppProvider>
-      <Page title="Hello">
-        {someHeaderICareAbout}
-        <Card sectioned>Hi there</Card>
-      </Page>
-    </AppProvider>
+    <>
+      <h1>My application ❤️</h1>
+      <div>{someHeaderICareAbout}</div>
+    </>
   );
 }
 
@@ -366,20 +363,13 @@ export default App;
 // app/ui/index.tsx
 
 import React from 'react';
-import {AppProvider, Page, Card} from '@shopify/polaris';
 import {useRedirect} from '@shopify/react-network';
 
 function App() {
   // redirect to google as soon as we render
   useRedirect('www.google.com');
 
-  return (
-    <AppProvider>
-      <Page title="Hello">
-        <Card sectioned>Hi there</Card>
-      </Page>
-    </AppProvider>
-  );
+  return <h1>My application ❤️</h1>;
 }
 
 export default App;
