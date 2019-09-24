@@ -1,13 +1,16 @@
-import {ApolloLink, Observable, FetchResult} from 'apollo-link';
+import {ApolloLink, Observable, FetchResult, Operation} from 'apollo-link';
 import {now} from '@shopify/performance';
-import {Header} from '@shopify/network';
 import {GraphQLOperationDetails} from '../types';
 
 export interface Options {
   onOperation(operation: GraphQLOperationDetails): void;
+  additionalFields?: (operation: Operation) => {};
 }
 
-export function createOperationDetailsLink({onOperation}: Options) {
+export function createOperationDetailsLink({
+  onOperation,
+  additionalFields,
+}: Options) {
   return new ApolloLink((operation, forward) => {
     if (forward == null) {
       return null;
@@ -29,26 +32,14 @@ export function createOperationDetailsLink({onOperation}: Options) {
             }))
           : undefined;
 
-      const {response} = operation.getContext();
-
-      const requestId =
-        response instanceof Response
-          ? response.headers.get(Header.RequestId) || undefined
-          : undefined;
-
-      const status = response instanceof Response ? response.status : undefined;
-      const url = response instanceof Response ? response.url : undefined;
-
       onOperation({
         name: operation.operationName,
-        url,
-        status,
         success,
         errors,
-        requestId,
         duration,
         start,
         end,
+        ...(additionalFields ? additionalFields(operation) : {}),
       });
     }
 

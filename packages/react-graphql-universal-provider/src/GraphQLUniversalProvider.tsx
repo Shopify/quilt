@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 
 import ApolloClient, {ApolloClientOptions} from 'apollo-client';
+import {Operation} from 'apollo-link';
 import {useSerialized} from '@shopify/react-html';
 import {
   ApolloProvider,
@@ -17,11 +18,13 @@ export type GraphQLClientOptions = ApolloClientOptions<any>;
 interface Props {
   children?: React.ReactNode;
   createClientOptions(): ApolloClientOptions<any>;
+  additionalGraphQLFields?: (operation: Operation) => {};
 }
 
 export function GraphQLUniversalProvider({
   children,
   createClientOptions,
+  additionalGraphQLFields,
 }: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
   const graphQLOperations: GraphQLOperationDetails[] = useContext(
@@ -38,10 +41,12 @@ export function GraphQLUniversalProvider({
     const link = createSsrExtractableLink();
 
     if (clientOptions.link) {
+      const fields = additionalGraphQLFields ? {additionalGraphQLFields} : {};
       clientOptions.link = link
         .concat(
           createOperationDetailsLink({
             onOperation: operation => graphQLOperations.push(operation),
+            ...fields,
           }),
         )
         .concat(clientOptions.link);
