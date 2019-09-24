@@ -100,7 +100,6 @@ import React from 'react';
 import {useField, useForm, notEmpty, lengthMoreThan} from '@shopify/react-form';
 
 import {
-  AppProvider,
   Page,
   Layout,
   FormLayout,
@@ -205,7 +204,6 @@ import {
 } from '@shopify/react-form';
 
 import {
-  AppProvider,
   Page,
   Layout,
   FormLayout,

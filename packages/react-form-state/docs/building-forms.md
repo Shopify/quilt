@@ -636,7 +636,6 @@ The following example shows how you can use everything this documentation covere
 ```typescript
 import React from 'react';
 import {
-  AppProvider,
   Page,
   TextField,
   FormLayout,
@@ -684,164 +683,153 @@ interface Props {
 
 function CreateProductPage({initialValues}: Props) {
   return (
-    <AppProvider>
-      <FormState
-        initialValues={initialValues}
-        validators={{
-          title: requiredString('Required'),
-          quantity: numericString('Must be a number'),
-          sku: lengthMoreThan(3, 'Must  be longer than 3 characters'),
-          firstVariant: validateNested({
-            option: required('required'),
-            price: numericString('value must be numeric'),
-          }),
-          variants: validateList({
-            option: nonNumericString('option must be nonNumeric'),
-            price: numericString('value must be numeric'),
-          }),
-        }}
-        onSubmit={({fields}) => {
-          /*
-            In a real project you would make some kind of asynchronous call here
-            such as a graphQL mutation or a POST request, and return an array of errors if you encounter any.
-          */
-          return [{message: 'server error'}];
-        }}
-      >
-        {formDetails => {
-          const {
-            fields,
-            dirty,
-            reset,
-            submit,
-            submitting,
-            errors,
-          } = formDetails;
-          const {
-            title,
-            description,
-            sku,
-            quantity,
-            variants,
-            firstVariant,
-          } = fields;
+    <FormState
+      initialValues={initialValues}
+      validators={{
+        title: requiredString('Required'),
+        quantity: numericString('Must be a number'),
+        sku: lengthMoreThan(3, 'Must  be longer than 3 characters'),
+        firstVariant: validateNested({
+          option: required('required'),
+          price: numericString('value must be numeric'),
+        }),
+        variants: validateList({
+          option: nonNumericString('option must be nonNumeric'),
+          price: numericString('value must be numeric'),
+        }),
+      }}
+      onSubmit={({fields}) => {
+        /*
+          In a real project you would make some kind of asynchronous call here
+          such as a graphQL mutation or a POST request, and return an array of errors if you encounter any.
+        */
+        return [{message: 'server error'}];
+      }}
+    >
+      {formDetails => {
+        const {fields, dirty, reset, submit, submitting, errors} = formDetails;
+        const {
+          title,
+          description,
+          sku,
+          quantity,
+          variants,
+          firstVariant,
+        } = fields;
 
-          const submitAction = {
-            content: 'Save',
-            onAction: submit,
-            disabled: !dirty || submitting,
-            loading: submitting,
-          };
+        const submitAction = {
+          content: 'Save',
+          onAction: submit,
+          disabled: !dirty || submitting,
+          loading: submitting,
+        };
 
-          const resetAction = {
-            content: 'Reset',
-            onAction: reset,
-            disabled: !dirty || submitting,
-          };
+        const resetAction = {
+          content: 'Reset',
+          onAction: reset,
+          disabled: !dirty || submitting,
+        };
 
-          const errorBanner = errors.length > 0 && (
-            <Banner status="critical">
-              <ul>
-                {errors.map(error => (
-                  <li key={`${error.message}${error.field}`}>
-                    {error.message}
-                  </li>
-                ))}
-              </ul>
-            </Banner>
+        const errorBanner = errors.length > 0 && (
+          <Banner status="critical">
+            <ul>
+              {errors.map(error => (
+                <li key={`${error.message}${error.field}`}>{error.message}</li>
+              ))}
+            </ul>
+          </Banner>
+        );
+
+        function addVariant() {
+          variants.onChange(
+            arrayUtils.push(variants.value, {
+              option: '',
+              value: '',
+              price: '0',
+            }),
           );
+        }
 
-          function addVariant() {
-            variants.onChange(
-              arrayUtils.push(variants.value, {
-                option: '',
-                value: '',
-                price: '0',
-              }),
-            );
-          }
+        return (
+          <Form onSubmit={submit}>
+            <Page
+              title="Products"
+              primaryAction={submitAction}
+              secondaryActions={[resetAction]}
+            >
+              <Layout>
+                <Layout.Section>{errorBanner}</Layout.Section>
 
-          return (
-            <Form onSubmit={submit}>
-              <Page
-                title="Products"
-                primaryAction={submitAction}
-                secondaryActions={[resetAction]}
-              >
-                <Layout>
-                  <Layout.Section>{errorBanner}</Layout.Section>
+                <Layout.Section>
+                  <Stack distribution="center">
+                    {submitting && <Spinner />}
+                  </Stack>
 
-                  <Layout.Section>
-                    <Stack distribution="center">
-                      {submitting && <Spinner />}
-                    </Stack>
+                  <Card>
+                    <Card.Section>
+                      <FormLayout>
+                        <TextField label="Title" {...title} />
+                        <TextField label="Description" {...description} />
+                        <TextField label="SKU" {...sku} />
+                        <TextField
+                          type="number"
+                          label="Quantity"
+                          {...quantity}
+                        />
+                      </FormLayout>
+                    </Card.Section>
+                  </Card>
+                </Layout.Section>
 
-                    <Card>
-                      <Card.Section>
-                        <FormLayout>
-                          <TextField label="Title" {...title} />
-                          <TextField label="Description" {...description} />
-                          <TextField label="SKU" {...sku} />
-                          <TextField
-                            type="number"
-                            label="Quantity"
-                            {...quantity}
-                          />
-                        </FormLayout>
-                      </Card.Section>
-                    </Card>
-                  </Layout.Section>
+                <Layout.Section>
+                  <Card title="Variants">
+                    <Card.Section title="Default">
+                      <FormLayout>
+                        <FormState.Nested field={firstVariant}>
+                          {({option, value, price}) => (
+                            <React.Fragment>
+                              <TextField label="option" {...option} />
+                              <TextField label="value" {...value} />
+                              <TextField label="price" {...price} />
+                            </React.Fragment>
+                          )}
+                        </FormState.Nested>
+                      </FormLayout>
+                    </Card.Section>
 
-                  <Layout.Section>
-                    <Card title="Variants">
-                      <Card.Section title="Default">
-                        <FormLayout>
-                          <FormState.Nested field={firstVariant}>
-                            {({option, value, price}) => (
-                              <React.Fragment>
-                                <TextField label="option" {...option} />
-                                <TextField label="value" {...value} />
-                                <TextField label="price" {...price} />
-                              </React.Fragment>
-                            )}
-                          </FormState.Nested>
-                        </FormLayout>
-                      </Card.Section>
+                    <Card.Section>
+                      <FormLayout>
+                        <FormState.List field={variants}>
+                          {({option, value, price}) => (
+                            <React.Fragment>
+                              <TextField label="option" {...option} />
+                              <TextField label="value" {...value} />
+                              <TextField label="price" {...price} />
+                            </React.Fragment>
+                          )}
+                        </FormState.List>
+                        <ButtonGroup>
+                          <Button onClick={addVariant} primary>
+                            Add variant
+                          </Button>
+                        </ButtonGroup>
+                      </FormLayout>
+                    </Card.Section>
+                  </Card>
+                </Layout.Section>
 
-                      <Card.Section>
-                        <FormLayout>
-                          <FormState.List field={variants}>
-                            {({option, value, price}) => (
-                              <React.Fragment>
-                                <TextField label="option" {...option} />
-                                <TextField label="value" {...value} />
-                                <TextField label="price" {...price} />
-                              </React.Fragment>
-                            )}
-                          </FormState.List>
-                          <ButtonGroup>
-                            <Button onClick={addVariant} primary>
-                              Add variant
-                            </Button>
-                          </ButtonGroup>
-                        </FormLayout>
-                      </Card.Section>
-                    </Card>
-                  </Layout.Section>
-
-                  <Layout.Section>
-                    <PageActions
-                      primaryAction={submitAction}
-                      secondaryActions={[resetAction]}
-                    />
-                  </Layout.Section>
-                </Layout>
-              </Page>
-            </Form>
-          );
-        }}
-      </FormState>
-    </AppProvider>
+                <Layout.Section>
+                  <PageActions
+                    primaryAction={submitAction}
+                    secondaryActions={[resetAction]}
+                  />
+                </Layout.Section>
+              </Layout>
+            </Page>
+          </Form>
+        );
+      }}
+    </FormState>
   );
 }
 ```
