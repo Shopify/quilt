@@ -9,18 +9,30 @@ export default class DocumentCookies {
   private isUsingMockCookie = false;
   private originalCookie = document.cookie;
 
-  mock() {
+  mock(initialCookies: {[key: string]: string} = {}) {
     if (this.isUsingMockCookie) {
       throw new Error(
         'cookie is already mocked, but you tried to mock it again.',
       );
     }
 
+    for (const [key, value] of Object.entries(initialCookies)) {
+      this.cookies.set(key, value);
+    }
+
     Object.defineProperty(document, 'cookie', {
       get: () =>
-        Array.from(this.cookies.entries()).reduce((accumulator, value) => {
-          return `${accumulator}${cookie.serialize(value[0], value[1])};`;
-        }, ''),
+        Array.from(this.cookies.entries()).reduce(
+          (accumulator, value, index, array) => {
+            const newValue =
+              index === array.length - 1
+                ? cookie.serialize(value[0], value[1])
+                : `${cookie.serialize(value[0], value[1])}; `;
+
+            return `${accumulator}${newValue}`;
+          },
+          '',
+        ),
 
       set: (...args) => {
         Object.entries(cookie.parse(args[0])).forEach(
@@ -33,6 +45,10 @@ export default class DocumentCookies {
     });
 
     this.isUsingMockCookie = true;
+  }
+
+  reset() {
+    this.cookies.clear();
   }
 
   restore() {
