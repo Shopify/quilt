@@ -15,7 +15,7 @@ class SewingKitInstallGeneratorTest < Rails::Generators::TestCase
   test "creates a sewing-kit file" do
     run_generator
     assert_file "config/sewing-kit.config.ts" do |config|
-      assert_match "name: 'your-app-name'", config
+      assert_match "export default function sewingKitConfig(_plugins: Plugins, _env: Env)", config
     end
   end
 end

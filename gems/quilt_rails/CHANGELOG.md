@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Fixed
+
+- Quilt generator now adds `typescript`, `react`, `react-dom`, and types as project dependencies [#1038](https://github.com/Shopify/quilt/pull/1038)
+- Quilt generator now adds a `tsconfig.json` [#1038](https://github.com/Shopify/quilt/pull/1038)
+- Quilt generator now avoids warnings about `--isolated-modules` by using ES export syntax [#1038](https://github.com/Shopify/quilt/pull/1038)
+- Quilt generated apps no longer start up with exceptions about `app/ui/App.tsx` being uncompilable [#1038](https://github.com/Shopify/quilt/pull/1038)
 
 ## [1.7.0] - 2019-09-23
 
