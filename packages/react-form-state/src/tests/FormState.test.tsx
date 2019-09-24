@@ -364,6 +364,32 @@ describe('<FormState />', () => {
       });
     });
 
+    it('cleans the error when externalErrors resets', () => {
+      const renderPropSpy = jest.fn(() => null);
+      const product = faker.commerce.productName();
+      const message = faker.lorem.sentences();
+      const externalErrors = [
+        {
+          field: ['product'],
+          message,
+        },
+      ];
+
+      const formState = mount(
+        <FormState initialValues={{product}} externalErrors={externalErrors}>
+          {renderPropSpy}
+        </FormState>,
+      );
+
+      formState.setProps({externalErrors: []});
+      const {fields} = lastCallArgs(renderPropSpy);
+      expect(fields).toMatchObject({
+        product: {
+          error: null,
+        },
+      });
+    });
+
     it('associate new external errors with field objects passed into render prop', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
