@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ApolloClient, {ApolloClientOptions} from 'apollo-client';
 import {useSerialized} from '@shopify/react-html';
 import {ApolloProvider, createSsrExtractableLink} from '@shopify/react-graphql';
 import {useLazyRef} from '@shopify/react-hooks';
@@ -7,10 +8,13 @@ import {createApolloBridge} from '@shopify/react-effect-apollo';
 
 interface Props {
   children?: React.ReactNode;
-  createClient(): import('apollo-client').ApolloClient<any>;
+  createClientOptions(): ApolloClientOptions<any>;
 }
 
-export function GraphQLUniversalProvider({children, createClient}: Props) {
+export function GraphQLUniversalProvider({
+  children,
+  createClientOptions,
+}: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
 
   const [client, link] = useLazyRef<
@@ -19,15 +23,18 @@ export function GraphQLUniversalProvider({children, createClient}: Props) {
       ReturnType<typeof createSsrExtractableLink>
     ]
   >(() => {
+    const clientOptions = createClientOptions();
     const link = createSsrExtractableLink();
-    const client = createClient();
-    client.link = link.concat(client.link);
 
-    if (initialData) {
-      client.cache = client.cache.restore(initialData);
-    }
+    const apolloClient = new ApolloClient({
+      ...clientOptions,
+      link: clientOptions.link ? link.concat(clientOptions.link) : link,
+      cache: initialData
+        ? clientOptions.cache.restore(initialData)
+        : clientOptions.cache,
+    });
 
-    return [client, link];
+    return [apolloClient, link];
   }).current;
 
   const ApolloBridge = createApolloBridge();
