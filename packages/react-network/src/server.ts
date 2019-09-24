@@ -1,5 +1,4 @@
 import {Context} from 'koa';
-import {applyCookieToContext} from '@shopify/react-cookie/server';
 import {NetworkManager, EFFECT_ID} from './manager';
 
 export {NetworkContext} from './context';
@@ -23,6 +22,11 @@ export function applyToContext<T extends Context>(
     ctx.set(header, value);
   }
 
-  applyCookieToContext(cookies)(ctx);
+  Object.entries(cookies).forEach(([cookie, options]) => {
+    const {value, ...cookieOptions} = options;
+
+    ctx.cookies.set(cookie, value, cookieOptions);
+  });
+
   return ctx;
 }

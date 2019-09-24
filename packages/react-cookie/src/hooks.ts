@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useState, useCallback} from 'react';
 import {CookieSerializeOptions} from 'cookie';
 import {CookieContext} from './context';
 
@@ -24,29 +24,20 @@ export function useCookie(
     () => (manager ? manager.getCookie(key) : undefined),
   );
 
-  const setCookie = (value?: string, options?: CookieSerializeOptions) => {
-    if (!value) {
-      setCookieValue('');
-      manager.removeCookie(key);
+  const setCookie = useCallback(
+    (value?: string, options?: CookieSerializeOptions) => {
+      if (!value) {
+        setCookieValue('');
+        manager.removeCookie(key);
 
-      return;
-    }
+        return;
+      }
 
-    setCookieValue(value);
-    manager.setCookie(key, {value, ...options});
-  };
+      setCookieValue(value);
+      manager.setCookie(key, {value, ...options});
+    },
+    [key, manager],
+  );
 
   return [cookie, setCookie];
-}
-
-export function useCookies() {
-  const manager = useContext(CookieContext);
-
-  if (!manager) {
-    throw new Error(NO_MANAGER_ERROR);
-  }
-
-  const allCookies = manager.getCookies() || {};
-
-  return allCookies;
 }

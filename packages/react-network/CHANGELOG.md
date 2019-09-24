@@ -9,7 +9,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Added
 
-- The NetworkManager now accepts a `cookies` property in its constructor. This value is used to create `ServerCookieManager` on that is accessible via `manager.cookies`. [#1002](https://github.com/Shopify/quilt/pull/1002)
+- The NetworkManager now accepts a `cookies` property in its constructor. This value is used to create a `ServerCookieManager` that can be accessed on the NetworkManger class instance. [#1002](https://github.com/Shopify/quilt/pull/1002)
+- Added a new hook `useNetworkManager()` that returns the network manager. [#1002](https://github.com/Shopify/quilt/pull/1002)
 
 ## [3.2.0]
 
