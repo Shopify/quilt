@@ -8,3 +8,5 @@ export {
   CookieValue,
   CookieSerializeOptions,
 } from './types';
+
+export {clearCookies} from 'tests/utilities';

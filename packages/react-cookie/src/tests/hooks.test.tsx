@@ -2,7 +2,8 @@ import React from 'react';
 import {NetworkManager, NetworkContext} from '@shopify/react-network';
 import {createMount} from '@shopify/react-testing';
 import {CookieUniversalProvider} from '../CookieUniversalProvider';
-import {useCookie, useCookies} from '../hooks';
+import {useCookie} from '../hooks';
+import {clearCookies} from './utilities';
 
 const {hasDocumentCookie} = require.requireMock('../utilities');
 
@@ -17,6 +18,7 @@ describe('hooks', () => {
 
   afterEach(() => {
     hasDocumentCookie.mockClear();
+    clearCookies();
   });
 
   describe('useCookie', () => {
@@ -31,7 +33,16 @@ describe('hooks', () => {
 
       return (
         <>
-          <button type="button" onClick={() => setCookie(setValue)}>
+          <button
+            type="button"
+            onClick={() => {
+              if (value) {
+                setCookie();
+                return;
+              }
+              setCookie(setValue);
+            }}
+          >
             Set Cookie
           </button>
           {value}
@@ -76,32 +87,21 @@ describe('hooks', () => {
 
       expect(wrapper).toContainReactText(setValue);
     });
-  });
 
-  describe('useCookies', () => {
-    function MockComponent() {
-      const allCookies = useCookies();
+    it('removes a cookie', async () => {
+      const setValue = 'bar';
 
-      const cookiesToRender = Object.keys(allCookies).map(key => (
-        <p key={key}>{allCookies[key].value}</p>
-      ));
+      const wrapper = await mount(
+        <MockComponent cookie="foo" setValue={setValue} />,
+      );
 
-      return <>{cookiesToRender}</>;
-    }
+      wrapper.find('button')!.trigger('onClick');
 
-    it('gets all cookies', () => {
-      const key1 = 'foo';
-      const value1 = 'bar';
-      const key2 = 'baz';
-      const value2 = 'qux';
+      expect(wrapper).toContainReactText(setValue);
 
-      document.cookie = `${key1}=${value1};`;
-      document.cookie = `${key2}=${value2};`;
+      wrapper.find('button')!.trigger('onClick');
 
-      const wrapper = mount(<MockComponent />);
-
-      expect(wrapper).toContainReactText(value1);
-      expect(wrapper).toContainReactText(value2);
+      expect(wrapper).not.toContainReactText(setValue);
     });
   });
 });

@@ -12,6 +12,7 @@ export class ServerCookieManager {
   constructor(cookies: Cookie | string = {}) {
     const parsedCookies =
       typeof cookies === 'string' ? cookie.parse(cookies) : cookies;
+
     Object.entries(parsedCookies).forEach(([key, value]) => {
       this.setCookie(key, value);
     });
@@ -38,6 +39,9 @@ export class ServerCookieManager {
   }
 
   removeCookie(name: string) {
-    this.cookies.delete(name);
+    this.cookies.set(name, {
+      value: '',
+      expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+    });
   }
 }
