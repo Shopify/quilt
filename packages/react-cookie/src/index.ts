@@ -9,4 +9,4 @@ export {
   CookieSerializeOptions,
 } from './types';
 
-export {clearCookies} from './tests/utilities';
+export {clearCookies, createCookies} from './tests/utilities';

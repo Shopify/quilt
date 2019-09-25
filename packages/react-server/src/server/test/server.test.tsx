@@ -1,7 +1,12 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
-import {useRequestHeader, Header} from '@shopify/react-network';
+import {
+  useCookie,
+  createCookies,
+  CookieUniversalProvider,
+} from '@shopify/react-cookie';
 import {createServer} from '../server';
+
 import {mockMiddleware, TestRack} from '../../test/utilities';
 
 const rack = new TestRack();
@@ -56,19 +61,34 @@ describe('createServer()', () => {
     );
   });
 
-  it('supports getting headers', async () => {
+  it('supports getting cookies', async () => {
+    const cookie = 'foo';
+    const value = 'bar';
+
     function MockApp() {
-      const header = useRequestHeader(Header.UserAgent);
-      return <div>{header}</div>;
+      const [cookieValue] = useCookie(cookie);
+
+      return <>{cookieValue}</>;
     }
 
+    createCookies({foo: {value: 'bar'}});
+
     const wrapper = await rack.mount(({ip, port}) =>
-      createServer({port, ip, render: () => <MockApp />}),
+      createServer({
+        port,
+        ip,
+        render: () => (
+          <CookieUniversalProvider>
+            <MockApp />
+          </CookieUniversalProvider>
+        ),
+      }),
     );
+
     const response = await wrapper.request();
 
     expect(await response.text()).toStrictEqual(
-      expect.stringContaining(`node-fetch`),
+      expect.stringContaining(`<div id="app">${value}</div>`),
     );
   });
 });
