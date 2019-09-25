@@ -8,7 +8,24 @@ module Quilt
 
     def install_js_dependencies
       say "Installing @shopify/react-server and @shopify/sewing-kit dependencies"
-      system("yarn add @shopify/sewing-kit @shopify/react-server") unless Rails.env.test?
+      system("yarn add "\
+        "@shopify/sewing-kit "\
+        "@shopify/react-server "\
+        "typescript "\
+        "react "\
+        "react-dom "\
+        "@types/react "\
+        "@types/react-dom") unless Rails.env.test?
+    end
+
+    def create_tsconfig
+      tsconfig_path = "tsconfig.json"
+
+      unless File.exist?(tsconfig_path)
+        copy_file "tsconfig.json", tsconfig_path
+
+        log(tsconfig_path, 'wrote')
+      end
     end
 
     def create_app_file

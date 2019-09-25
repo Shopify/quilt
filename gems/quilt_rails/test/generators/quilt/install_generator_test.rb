@@ -13,6 +13,13 @@ class QuiltInstallGeneratorTest < Rails::Generators::TestCase
     provide_existing_routes_file
   end
 
+  test "creates tsconfig.json" do
+    run_generator
+    assert_file "tsconfig.json" do |tsconfig|
+      assert_match '"extends": "@shopify/typescript-configs/application.json"', tsconfig
+    end
+  end
+
   test "creates the main React app" do
     run_generator
     assert_file "app/ui/index.tsx" do |app|
