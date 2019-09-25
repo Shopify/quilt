@@ -1,6 +1,7 @@
 import React from 'react';
 import {useRequestHeader} from '@shopify/react-network';
 import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
+import {CookieUniversalProvider} from '@shopify/react-cookie';
 import {ConditionalProvider} from './ConditionalProvider';
 
 interface Options {
@@ -18,13 +19,15 @@ export function createCombinedProvider(options?: Options) {
     const csrfToken = useRequestHeader('x-csrf-token') || '';
 
     return (
-      <ConditionalProvider
-        provider={CsrfUniversalProvider}
-        condition={csrf}
-        props={{value: csrfToken}}
-      >
-        {children}
-      </ConditionalProvider>
+      <CookieUniversalProvider>
+        <ConditionalProvider
+          provider={CsrfUniversalProvider}
+          condition={csrf}
+          props={{value: csrfToken}}
+        >
+          {children}
+        </ConditionalProvider>
+      </CookieUniversalProvider>
     );
   };
 }
