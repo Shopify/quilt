@@ -286,53 +286,15 @@ describe('MyComponent', () => {
 });
 ```
 
-### Test setup files
+#### Customizing the test environment
 
-By default, the jest plugin will look for test setup files under `/app/ui/tests`.
+Often you will want to hook up custom polyfills, global mocks, or other logic that needs to run either before the initialization of the test environment, or once for each test suite.
 
-`setup` can be used to add any custom polyfills needed for the testing environment.
-
-```tsx
-// app/ui/tests/setup.ts
-
-import 'isomorphic-fetch';
-import 'raf/polyfill';
-import {URL, URLSearchParams} from 'url';
-
-(global as any).URL = URL;
-(global as any).URLSearchParams = URLSearchParams;
-```
-
-`each-test` can be used for any logic that needs to run for each individual test suite. Any setup logic that needs to happen with `jest` globals in scope, such as importing custom matchers, should also be done here.
-
-```tsx
-// app/ui/tests/each-test.ts
-
-// we cannot import these in `setup` because `expect` will not be defined
-import '@shopify/react-testing/matchers';
-
-beforeAll(() => {
-  console.log('I will run before every test suite');
-});
-
-beforeEach(() => {
-  console.log('I will run before every test case');
-});
-
-afterEach(() => {
-  console.log('I will run after every test case');
-});
-
-afterAll(() => {
-  console.log('I will run after every test suite');
-});
-```
-
-For more complete documentation of the jest plugin see [it's documentation](https://github.com/Shopify/sewing-kit/tree/master/docs/plugins/jest.md).
+By default, sewing-kit will look for such test setup files under `/app/ui/tests`. Check out the [documentation](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md#smart-defaults) for more details.
 
 ### Interacting with the request and response in React code
 
-React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/master/packages/react-network/src/hooks.ts#L25) automatically, so most interactions with the request or response can be done from inside the React app.
+React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/master/packages/react-network) automatically, so most interactions with the request or response can be done from inside the React app.
 
 #### Example: getting headers
 
