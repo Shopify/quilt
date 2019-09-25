@@ -101,4 +101,4 @@ For Shopifolk, you can reach out to us in Slack on the `#quilt` and `#web-founda
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
 
-<a href="http://www.shopify.com/"><img src="/images/shopify.png" alt="Shopify" width="200" /></a>
+<a href="http://www.shopify.com/"><img src="./images/shopify.png" alt="Shopify" width="200" /></a>
