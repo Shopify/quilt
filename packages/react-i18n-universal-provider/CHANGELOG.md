@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.0.12] - 2019-09-25
+
+### Changed
+
+- Updated dependency: `@shopify/react-i18n@2.0.1`
+
 ## [1.0.11] - 2019-09-19
 
 ### Changed
