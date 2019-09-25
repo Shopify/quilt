@@ -1,7 +1,8 @@
 import {Context} from 'koa';
 import compose from 'koa-compose';
 
-import {totalGraphQLTime, GRAPHQL_OPERATIONS} from '@shopify/react-graphql';
+import {totalGraphQLTime} from '@shopify/react-graphql';
+import {GRAPHQL_OPERATIONS} from '../render';
 import {KoaNextFunction} from '../types';
 
 const MILLIS_PER_SECOND = 1000;

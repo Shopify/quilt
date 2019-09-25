@@ -19,11 +19,12 @@ import {
   AsyncAssetManager,
   AssetTiming,
 } from '@shopify/react-async';
-import {
-  GraphQLOperationsContext,
-  GRAPHQL_OPERATIONS,
-} from '@shopify/react-graphql';
+
 import {Header, StatusCode} from '@shopify/react-network';
+import {
+  InstrumentContext,
+  InstrumentManager,
+} from '@shopify/react-instrumentation';
 import {getAssets} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
 
@@ -36,6 +37,9 @@ type Options = Pick<
   NonNullable<ArgumentAtIndex<typeof extract, 1>>,
   'afterEachPass' | 'betweenEachPass'
 >;
+
+export const GRAPHQL_OPERATIONS = Symbol('graphQLOperations');
+export const ADDITION_LOG_FIELDS = Symbol('logs');
 
 /**
  * Creates a Koa middleware for rendering an `@shopify/react-html` based React application defined by `options.render`.
@@ -51,16 +55,16 @@ export function createRender(render: RenderFunction, options: Options = {}) {
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
     const hydrationManager = new HydrationManager();
-    const grapqhlOperations = [];
+    const instrumentManager = new InstrumentManager();
 
     function Providers({children}: {children: React.ReactElement<any>}) {
       return (
         <AsyncAssetContext.Provider value={asyncAssetManager}>
           <HydrationContext.Provider value={hydrationManager}>
             <NetworkContext.Provider value={networkManager}>
-              <GraphQLOperationsContext.Provider value={grapqhlOperations}>
+              <InstrumentContext.Provider value={instrumentManager}>
                 {children}
-              </GraphQLOperationsContext.Provider>
+              </InstrumentContext.Provider>
             </NetworkContext.Provider>
           </HydrationContext.Provider>
         </AsyncAssetContext.Provider>
@@ -106,7 +110,13 @@ export function createRender(render: RenderFunction, options: Options = {}) {
         </Html>,
       );
 
-      ctx.state[GRAPHQL_OPERATIONS] = grapqhlOperations;
+      console.log(
+        '******************** GraphQL Operations',
+        instrumentManager.getGraphQLOperations(),
+      );
+
+      ctx.state[GRAPHQL_OPERATIONS] = instrumentManager.getGraphQLOperations();
+      ctx.state[ADDITION_LOG_FIELDS] = instrumentManager.getLogs();
 
       ctx.set(Header.ContentType, 'text/html');
       ctx.body = response;

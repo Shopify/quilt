@@ -7,9 +7,8 @@ import {
   ApolloProvider,
   createSsrExtractableLink,
   createOperationDetailsLink,
-  GraphQLOperationDetails,
-  GraphQLOperationsContext,
 } from '@shopify/react-graphql';
+import {InstrumentContext} from '@shopify/react-instrumentation';
 import {useLazyRef} from '@shopify/react-hooks';
 import {createApolloBridge} from '@shopify/react-effect-apollo';
 
@@ -27,9 +26,7 @@ export function GraphQLUniversalProvider({
   additionalGraphQLFields,
 }: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
-  const graphQLOperations: GraphQLOperationDetails[] = useContext(
-    GraphQLOperationsContext,
-  );
+  const instrumentManager = useContext(InstrumentContext);
 
   const [client, link] = useLazyRef<
     [
@@ -40,12 +37,13 @@ export function GraphQLUniversalProvider({
     const clientOptions = createClientOptions();
     const link = createSsrExtractableLink();
 
-    if (clientOptions.link) {
+    if (clientOptions.link && instrumentManager) {
       const fields = additionalGraphQLFields ? {additionalGraphQLFields} : {};
       clientOptions.link = link
         .concat(
           createOperationDetailsLink({
-            onOperation: operation => graphQLOperations.push(operation),
+            onOperation: operation =>
+              instrumentManager.addGraphQLOperation(operation),
             ...fields,
           }),
         )

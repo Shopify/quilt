@@ -43,9 +43,9 @@ function endRequest(ctx: Context, requestDuration: number) {
   const logger = getLogger(ctx);
   logger.log(endRequestMessage(ctx, requestDuration));
 
-  if (process.env.NODE_ENV === 'development') {
-    return;
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   return;
+  // }
 
   /* eslint-disable babel/camelcase */
   const logObject: any = {
@@ -61,6 +61,7 @@ function endRequest(ctx: Context, requestDuration: number) {
 
   // eslint-disable-next-line no-console
   console.log(
+    '** splunk log: ',
     JSON.stringify(
       logObject,
       undefined,

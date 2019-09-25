@@ -31,6 +31,7 @@
     "@shopify/react-graphql": "^5.1.4",
     "@shopify/react-html": "^9.2.3",
     "@shopify/react-hydrate": "^1.1.4",
+    "@shopify/react-instrumentation": "file:packages/react-instrumentation",
     "@shopify/react-network": "^3.2.2",
     "@shopify/sewing-kit-koa": "^6.1.2",
     "chalk": "^2.4.2",
