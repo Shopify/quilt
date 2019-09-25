@@ -25,7 +25,9 @@ export function applyToContext<T extends Context>(
   Object.entries(cookies).forEach(([cookie, options]) => {
     const {value, ...cookieOptions} = options;
 
-    ctx.cookies.set(cookie, value, cookieOptions);
+    // missing 'none` in `sameSite`
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/cookies/index.d.ts#L91
+    ctx.cookies.set(cookie, value, cookieOptions as any);
   });
 
   return ctx;
