@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, useCallback} from 'react';
 import {parse, Language} from 'accept-language-parser';
 import {CspDirective, StatusCode, Header} from '@shopify/network';
 import {useServerEffect} from '@shopify/react-effect';
@@ -34,6 +34,23 @@ export function useHeader(header: string, value: string) {
 
 export function useNetworkManager() {
   return useContext(NetworkContext);
+}
+
+export function useServerCookie(key: string) {
+  const network = useContext(NetworkContext);
+
+  const value = network ? network.cookies.getCookie(key) : undefined;
+
+  const setServerCookie = useCallback(
+    newValue => {
+      useNetworkEffect(network => {
+        network.cookies.setCookie(key, newValue);
+      });
+    },
+    [key],
+  );
+
+  return [value, setServerCookie];
 }
 
 export function useStatus(code: StatusCode) {
