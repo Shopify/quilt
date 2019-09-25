@@ -4,7 +4,7 @@ import {CookieContext} from './context';
 
 const NO_MANAGER_ERROR = [
   'Could not find react-cookie context.',
-  'You might be missing the <Cookie />',
+  'You might be missing the <CookieUniversalProvider />',
   'component in your application component tree.',
 ].join(' ');
 
