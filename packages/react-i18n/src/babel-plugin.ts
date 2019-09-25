@@ -2,7 +2,7 @@ import path from 'path';
 import glob from 'glob';
 import {TemplateBuilder} from '@babel/template';
 import Types from '@babel/types';
-import {NodePath} from '@babel/traverse';
+import {Node, NodePath} from '@babel/traverse';
 import stringHash from 'string-hash';
 
 interface State {
@@ -64,8 +64,11 @@ export default function injectWithI18nArguments({
     const {referencePaths} = binding;
 
     const referencePathsToRewrite = referencePaths.filter(referencePath => {
-      const parent: NodePath = referencePath.parentPath;
-      return parent.isCallExpression() && parent.get('arguments').length === 0;
+      const parent: Node = referencePath.parent;
+      return (
+        parent.type === 'CallExpression' &&
+        (!parent.arguments || parent.arguments.length === 0)
+      );
     });
 
     if (referencePathsToRewrite.length === 0) {
