@@ -1,5 +1,5 @@
-import {ApolloLink, Observable, Operation} from 'apollo-link';
-import {ExecutionResult, GraphQLError} from 'graphql';
+import {ApolloLink, Observable, Operation, FetchResult} from 'apollo-link';
+import {GraphQLError} from 'graphql';
 import {GraphQLMock, MockGraphQLFunction} from '../types';
 
 export class MockLink extends ApolloLink {
@@ -7,7 +7,7 @@ export class MockLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation): Observable<any> {
+  request(operation: Operation): Observable<FetchResult> | null {
     return new Observable(obs => {
       const {mock} = this;
       const {operationName = ''} = operation;
@@ -24,8 +24,6 @@ export class MockLink extends ApolloLink {
             ? (mockForOperation as MockGraphQLFunction)(operation)
             : mockForOperation;
       }
-
-      let result: ExecutionResult | Error;
 
       if (response == null) {
         let message = `Can’t perform GraphQL operation '${operationName}' because no valid mocks were found`;
@@ -48,22 +46,18 @@ export class MockLink extends ApolloLink {
             ' (you provided a function that did not return a valid mock result)';
         }
 
-        const error = new Error(message);
-        result = error;
-      } else if (response instanceof GraphQLError) {
-        result = {
-          errors: [response],
-        };
-      } else if (response instanceof Error) {
-        result = {errors: [new GraphQLError(response.message)]};
+        obs.error(new Error(message));
+      } else if (
+        response instanceof GraphQLError ||
+        response instanceof Error
+      ) {
+        obs.error(response);
       } else {
-        result = {
+        obs.next({
           data: response,
-        };
+        });
+        obs.complete();
       }
-
-      obs.next(result);
-      obs.complete();
     });
   }
 }

@@ -41,12 +41,11 @@ export function executeOnce(link: ApolloLink, query: DocumentNode) {
 }
 
 type BeforeResult = ((operation: Operation) => void);
-type Result = {data: object} | {errors: {message: string}[]} | Error;
 type MultiResult =
-  | Result
-  | Promise<Result>
-  | Result[]
-  | ((index: number) => Result);
+  | FetchResult
+  | Promise<FetchResult>
+  | FetchResult[]
+  | ((index: number) => FetchResult);
 
 export class SimpleLink extends ApolloLink {
   private resultIndex = 0;
@@ -60,7 +59,10 @@ export class SimpleLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation, nextLink?: NextLink): Observable<any> {
+  request(
+    operation: Operation,
+    nextLink?: NextLink,
+  ): Observable<FetchResult> | null {
     this.beforeResult(operation);
 
     if (nextLink != null) {
@@ -68,7 +70,7 @@ export class SimpleLink extends ApolloLink {
     }
 
     return new Observable(obs => {
-      const handleResult = (result: Result) => {
+      const handleResult = (result: FetchResult) => {
         this.resultIndex += 1;
 
         if (result instanceof Error) {

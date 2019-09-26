@@ -1,8 +1,13 @@
-import {ApolloLink, Observable, Operation, NextLink} from 'apollo-link';
+import {
+  ApolloLink,
+  Observable,
+  Operation,
+  NextLink,
+  FetchResult,
+} from 'apollo-link';
 
 import {
   GraphQLType,
-  ExecutionResult,
   Location,
   GraphQLSchema,
   GraphQLError,
@@ -20,7 +25,10 @@ export default class MockApolloLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation, _forward?: NextLink): Observable<any> {
+  request(
+    operation: Operation,
+    _forward?: NextLink,
+  ): Observable<FetchResult> | null {
     return new Observable(obs => {
       const {mock} = this;
       const {operationName = ''} = operation;
@@ -38,7 +46,7 @@ export default class MockApolloLink extends ApolloLink {
             : mockForOperation;
       }
 
-      let result: ExecutionResult | Error;
+      // let result: FetchResult | Error;
 
       if (response == null) {
         let message = `Can’t perform GraphQL operation '${operationName}' because no valid mocks were found`;
@@ -61,30 +69,26 @@ export default class MockApolloLink extends ApolloLink {
             ' (you provided a function that did not return a valid mock result)';
         }
 
-        const error = new Error(message);
-        result = error;
+        obs.error(new Error(message));
       } else if (response instanceof GraphQLError) {
-        result = {
-          errors: [response],
-        };
+        obs.error(response);
       } else if (response instanceof Error) {
-        result = {errors: [new GraphQLError(response.message)]};
+        obs.error(new GraphQLError(response.message));
       } else {
         try {
-          result = {
+          obs.next({
             data: normalizeGraphQLResponseWithOperation(
               response,
               operation,
               this.schema,
             ),
-          };
+          });
         } catch (error) {
-          result = error;
+          obs.error(error);
+        } finally {
+          obs.complete();
         }
       }
-
-      obs.next(result);
-      obs.complete();
     });
   }
 }
