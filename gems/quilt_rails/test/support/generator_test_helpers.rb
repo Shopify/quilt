@@ -7,6 +7,10 @@ module GeneratorTestHelpers
     copy_to_generator_root("config", "routes.rb")
   end
 
+  def provide_existing_gitignore_file
+    copy_to_generator_root("/", ".gitignore")
+  end
+
   private
 
   def copy_to_generator_root(destination, template)

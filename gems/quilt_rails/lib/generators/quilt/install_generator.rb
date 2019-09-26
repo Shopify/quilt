@@ -49,5 +49,15 @@ module Quilt
 
       say "Added Quilt engine mount"
     end
+
+    def create_gitignore
+      if File.exist?('.gitignore')
+        gsub_file '.gitignore', '\/.bundle', 'build'
+      else
+        create_file ".gitignore", "build\n"
+      end
+
+      say "Added 'build' directory to .gitignore"
+    end
   end
 end

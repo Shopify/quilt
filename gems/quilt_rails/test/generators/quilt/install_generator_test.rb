@@ -35,4 +35,19 @@ class QuiltInstallGeneratorTest < Rails::Generators::TestCase
       assert_match "mount Quilt::Engine, at: '/'", routes
     end
   end
+
+  test "adds 'build' directory to a new .gitignore file" do
+    run_generator
+    assert_file ".gitignore" do |gitignore|
+      assert_match "build", gitignore
+    end
+  end
+
+  test "adds 'build' directory to a new .gitignore file" do
+    provide_existing_gitignore_file
+    run_generator
+    assert_file ".gitignore" do |gitignore|
+      assert_match "build", gitignore
+    end
+  end
 end
