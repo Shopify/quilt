@@ -88,6 +88,13 @@ function serverSource(options: Options) {
       console.log(\`React Server failed to start.\n\${errorLog}\`);
       process.exit(1);
     }
+    function breakThings(please: boolean) {
+      if (please) {
+        throw new Error(
+          'Test error, find me in splunk! I am an uncaught exception thrown in the server',
+        );
+      }
+    }
     const render = (ctx) =>
     React.createElement(App, {
       server: true,
@@ -99,6 +106,7 @@ function serverSource(options: Options) {
       assetPrefix: ${serverAssetPrefix},
       render,
     });
+    breakThings(true);
     export default app;
   `;
 }
