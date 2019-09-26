@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "composite": true,
     "declaration": true,
@@ -8,7 +9,6 @@
     "target": "es5",
     "downlevelIteration": true,
     "esModuleInterop": true,
-    "declaration": true,
     "jsx": "react",
     "strictNullChecks": true,
     "noImplicitAny": false,
@@ -28,11 +28,5 @@
       "esnext.asynciterable"
     ],
     "typeRoots": ["../node_modules/@types"]
-  },
-<<<<<<< HEAD:tsconfig.base.json
-  "include": ["./config/typescript/**/*.d.ts", "./**/*.ts", "./**/*.tsx"],
-  "exclude": ["./node_modules"]
-=======
-  "include": ["../config/typescript/**/*.d.ts"]
->>>>>>> Migrate codebase to use Typescript project references & incremental builds:packages/tsconfig_base.json
+  }
 }
