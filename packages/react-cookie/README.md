@@ -17,7 +17,7 @@ $ yarn add @shopify/react-cookie
 
 To extract cookies during the server-side render of your application, your component needs to have access to the `NetworkManager` from `@shopify/react-network`. You can pass the initial server cookie value when the manager is instantiated within your server-side middleware.
 
-For full details on setting up `@shopify/react-server`, [see the readme for that package](https://github.com/Shopify/quilt/tree/master/packages/react-network#server).
+For full details on setting up `@shopify/react-network`, [see the readme for that package](https://github.com/Shopify/quilt/tree/master/packages/react-network#server).
 
 _Koa Server Example_
 
@@ -108,3 +108,13 @@ function SomeComponent() {
   );
 }
 ```
+
+### Utilities
+
+#### createCookies()
+
+This utility can be used to create an initial set of cookies in the `document.cookie`. This can be useful in test set up.
+
+#### clearCookies()
+
+This utility can be used to clear a set of cookies from the `document.cookie`. This can be useful when you need to clear the cookies between tests, such as in an `afterEach` block.
