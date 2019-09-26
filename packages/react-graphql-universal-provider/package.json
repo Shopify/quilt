@@ -27,7 +27,8 @@
     "@shopify/react-effect-apollo": "^3.0.11",
     "@shopify/react-graphql": "^5.1.4",
     "@shopify/react-hooks": "^1.2.3",
-    "@shopify/react-html": "^9.2.3"
+    "@shopify/react-html": "^9.2.3",
+    "apollo-client": "^2.3.8"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
@@ -36,7 +37,6 @@
     "@shopify/react-effect": "^3.2.3",
     "@shopify/react-testing": "^1.7.8",
     "apollo-cache-inmemory": "^1.3.6",
-    "apollo-client": "^2.3.8",
     "apollo-link": "^1.2.3"
   },
   "files": [

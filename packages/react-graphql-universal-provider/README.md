@@ -45,23 +45,23 @@ function GraphQL({
   server?: boolean;
   children?: React.ReactNode;
 }) {
-  const createClient = () => {
+  const createClientOptions = () => {
     const link = createHttpLink({
       // make sure to use absolute URL on the server
       uri: `https://your-api-end-point/api/graphql`,
     });
 
-    return new ApolloClient({
+    return {
       link,
       cache: new InMemoryCache(),
       ssrMode: server,
       ssrForceFetchDelay: 100,
       connectToDevTools: !server,
-    });
+    };
   };
 
   return (
-    <GraphQLUniversalProvider createClient={createClient}>
+    <GraphQLUniversalProvider createClientOptions={createClientOptions}>
       {children}
     </GraphQLUniversalProvider>
   );
@@ -113,7 +113,7 @@ function GraphQL({
   const cookie = useRequestHeader('cookie');
   const csrfToken = useCsrfToken();
 
-  const createClient = () => {
+  const createClientOptions = () => {
     const link = createHttpLink({
       // make sure to use absolute URL on the server
       uri: `https://your-api-end-point/api/graphql`,
@@ -123,17 +123,17 @@ function GraphQL({
       },
     });
 
-    return new ApolloClient({
+    return {
       link,
       cache: new InMemoryCache(),
       ssrMode: server,
       ssrForceFetchDelay: 100,
       connectToDevTools: !server,
-    });
+    };
   };
 
   return (
-    <GraphQLUniversalProvider createClient={createClient}>
+    <GraphQLUniversalProvider createClientOptions={createClientOptions}>
       {children}
     </GraphQLUniversalProvider>
   );
