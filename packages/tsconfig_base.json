@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "composite": true,
     "declaration": true,
@@ -8,7 +9,6 @@
     "target": "es5",
     "downlevelIteration": true,
     "esModuleInterop": true,
-    "declaration": true,
     "jsx": "react",
     "strictNullChecks": true,
     "noImplicitAny": false,
@@ -28,6 +28,5 @@
       "esnext.asynciterable"
     ],
     "typeRoots": ["../node_modules/@types"]
-  },
-  "include": ["../config/typescript/**/*.d.ts"]
+  }
 }
