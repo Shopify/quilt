@@ -81,6 +81,13 @@ function serverSource(options: Options) {
     import React from 'react';
     import {createServer} from '@shopify/react-server';
     import App from 'index';
+    process.on('uncaughtException', logError);
+    process.on('unhandledRejection', logError);
+    function logError(error) {
+      const errorLog = \`\${error.stack || error.message || 'No stack trace was present'}\`;
+      console.log(\`React Server failed to start.\n\${errorLog}\`);
+      process.exit(1);
+    }
     const render = (ctx) =>
     React.createElement(App, {
       server: true,
