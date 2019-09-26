@@ -1,12 +1,8 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
+import {useRequestHeader, Header} from '@shopify/react-network';
 import {createServer} from '../server';
-import {
-  mockMiddleware,
-  stopServers,
-  mountAppWithServer,
-  TestRack,
-} from '../../test/utilities';
+import {mockMiddleware, TestRack} from '../../test/utilities';
 
 const rack = new TestRack();
 
@@ -57,6 +53,22 @@ describe('createServer()', () => {
       expect.stringContaining(
         `<title data-react-html="true">${myTitle}</title>`,
       ),
+    );
+  });
+
+  it('supports getting headers', async () => {
+    function MockApp() {
+      const header = useRequestHeader(Header.UserAgent);
+      return <div>{header}</div>;
+    }
+
+    const wrapper = await rack.mount(({ip, port}) =>
+      createServer({port, ip, render: () => <MockApp />}),
+    );
+    const response = await wrapper.request();
+
+    expect(await response.text()).toStrictEqual(
+      expect.stringContaining(`node-fetch`),
     );
   });
 });
