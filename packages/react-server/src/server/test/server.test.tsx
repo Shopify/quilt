@@ -1,10 +1,6 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
-import {
-  useCookie,
-  createCookies,
-  CookieUniversalProvider,
-} from '@shopify/react-cookie';
+import {useCookie, CookieUniversalProvider} from '@shopify/react-cookie';
 import {createServer} from '../server';
 
 import {mockMiddleware, TestRack} from '../../test/utilities';
@@ -71,18 +67,22 @@ describe('createServer()', () => {
       return <>{cookieValue}</>;
     }
 
-    createCookies({foo: {value: 'bar'}});
-
-    const wrapper = await rack.mount(({ip, port}) =>
-      createServer({
-        port,
-        ip,
-        render: () => (
-          <CookieUniversalProvider>
-            <MockApp />
-          </CookieUniversalProvider>
-        ),
-      }),
+    const wrapper = await rack.mount(
+      ({ip, port}) =>
+        createServer({
+          port,
+          ip,
+          render: () => (
+            <CookieUniversalProvider server>
+              <MockApp />
+            </CookieUniversalProvider>
+          ),
+        }),
+      {
+        headers: {
+          cookie: `${cookie}=${value}`,
+        },
+      },
     );
 
     const response = await wrapper.request();

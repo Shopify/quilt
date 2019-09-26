@@ -10,3 +10,4 @@ export {
 } from './types';
 
 export {clearCookies, createCookies} from './tests/utilities';
+export {hasDocumentCookie} from './utilities';

@@ -13,13 +13,14 @@ const NO_MANAGER_ERROR = [
 
 export interface Props {
   children?: React.ReactNode;
+  server?: boolean;
 }
 
-export function CookieUniversalProvider({children}: Props) {
+export function CookieUniversalProvider({server, children}: Props) {
   const manager = useNetworkManager();
 
   const cookieManager = useLazyRef(() => {
-    if (hasDocumentCookie()) {
+    if (!server && hasDocumentCookie()) {
       return new BrowserCookieManager();
     }
 
