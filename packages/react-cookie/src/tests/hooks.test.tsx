@@ -90,17 +90,14 @@ describe('hooks', () => {
 
     it('removes a cookie', async () => {
       const setValue = 'bar';
-
       const wrapper = await mount(
         <MockComponent cookie="foo" setValue={setValue} />,
       );
 
       wrapper.find('button')!.trigger('onClick');
-
       expect(wrapper).toContainReactText(setValue);
 
       wrapper.find('button')!.trigger('onClick');
-
       expect(wrapper).not.toContainReactText(setValue);
     });
   });

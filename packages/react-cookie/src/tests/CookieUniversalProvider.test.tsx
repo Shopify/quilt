@@ -29,7 +29,10 @@ describe('CookieUniversalProvider', () => {
   }
 
   it('provides a universal cookie manager for the server', () => {
+    // Jest always has a document.cookie defined so mocking
+    // is needed to test the server implementation
     hasDocumentCookie.mockImplementation(false);
+
     const wrapper = mount(
       <CookieUniversalProvider>
         <MockApp />
