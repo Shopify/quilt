@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## [2.0.0] - 2019-09-26
+
+*Breaking change*
+- Added API version to GraphQL endpoint.
 ## [1.1.4] - 2019-03-29
 
 - Check success via valid webhookSubscription field
