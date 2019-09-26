@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## [2.2.0] - 2019-09-26
+
+- Log errors on `uncaughtException` `unhandledRejection` events [#1006](https://github.com/Shopify/quilt/pull/1006)
+
 ## [2.1.1] - 2019-09-17
 
 - Fixes an error regrding missing templates [#1006](https://github.com/Shopify/quilt/pull/1006)
