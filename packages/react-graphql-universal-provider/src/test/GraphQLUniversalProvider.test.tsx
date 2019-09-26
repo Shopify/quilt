@@ -96,12 +96,12 @@ describe('<GraphQLUniversalProvider />', () => {
       cache: new InMemoryCache(),
     };
 
-    const client = mount(
+    const graphQL = mount(
       <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
-    )
-      .find(ApolloProvider)!
-      .prop('client');
+    );
 
-    expect(client.link instanceof SsrExtractableLink).toBe(true);
+    expect(graphQL).toContainReactComponent(ApolloProvider, {
+      client: expect.objectContaining({link: expect.any(SsrExtractableLink)}),
+    });
   });
 });
