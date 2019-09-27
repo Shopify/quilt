@@ -24,6 +24,10 @@ export function withI18n(i18nOptions?: RegisterOptions) {
       );
     }
 
+    const wrappedComponentName =
+      WrappedComponent.displayName || WrappedComponent.name || 'Component';
+    WithTranslations.displayName = `withI18n(${wrappedComponentName})`;
+
     return hoistStatics(WithTranslations, WrappedComponent) as any;
   };
 }
