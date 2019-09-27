@@ -41,8 +41,10 @@ export function createRender(render: RenderFunction, options: Options = {}) {
   return async function renderFunction(ctx: Context) {
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
+
     const networkManager = new NetworkManager({
       headers: ctx.headers,
+      cookies: ctx.request.headers.cookie || '',
     });
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();

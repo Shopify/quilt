@@ -1,12 +1,15 @@
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 
+import {ServerCookieManager, Cookie} from './ServerCookieManager';
+
 export {NetworkContext} from './context';
 
 export const EFFECT_ID = Symbol('network');
 
 interface Options {
   headers?: Record<string, string>;
+  cookies?: Cookie | string;
 }
 
 export class NetworkManager {
@@ -20,20 +23,24 @@ export class NetworkManager {
     },
   };
 
+  cookies: ServerCookieManager;
+
   private statusCodes: StatusCode[] = [];
   private redirectUrl?: string;
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
   private readonly requestHeaders: Record<string, string>;
 
-  constructor({headers}: Options = {}) {
+  constructor({headers, cookies}: Options = {}) {
     this.requestHeaders = normalizeHeaders(headers);
+    this.cookies = new ServerCookieManager(cookies);
   }
 
   reset() {
     this.statusCodes = [];
     this.csp.clear();
     this.headers.clear();
+    this.cookies.clear();
     this.redirectUrl = undefined;
   }
 
@@ -100,6 +107,7 @@ export class NetworkManager {
           ? this.statusCodes.reduce((large, code) => Math.max(large, code), 0)
           : undefined,
       headers,
+      cookies: this.cookies.getCookies(),
       redirectUrl: this.redirectUrl,
     };
   }
