@@ -46,8 +46,6 @@ export default class MockApolloLink extends ApolloLink {
             : mockForOperation;
       }
 
-      // let result: FetchResult | Error;
-
       if (response == null) {
         let message = `Can’t perform GraphQL operation '${operationName}' because no valid mocks were found`;
 

@@ -47,11 +47,10 @@ export class MockLink extends ApolloLink {
         }
 
         obs.error(new Error(message));
-      } else if (
-        response instanceof GraphQLError ||
-        response instanceof Error
-      ) {
-        obs.error(response);
+      } else if (response instanceof GraphQLError) {
+        obs.error(response.message);
+      } else if (response instanceof Error) {
+        obs.error(new GraphQLError(response.message));
       } else {
         obs.next({
           data: response,
