@@ -1,12 +1,9 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
+import {useCookie, CookieUniversalProvider} from '@shopify/react-cookie';
 import {createServer} from '../server';
-import {
-  mockMiddleware,
-  stopServers,
-  mountAppWithServer,
-  TestRack,
-} from '../../test/utilities';
+
+import {mockMiddleware, TestRack} from '../../test/utilities';
 
 const rack = new TestRack();
 
@@ -57,6 +54,41 @@ describe('createServer()', () => {
       expect.stringContaining(
         `<title data-react-html="true">${myTitle}</title>`,
       ),
+    );
+  });
+
+  it('supports getting cookies', async () => {
+    const cookie = 'foo';
+    const value = 'bar';
+
+    function MockApp() {
+      const [cookieValue] = useCookie(cookie);
+
+      return <>{cookieValue}</>;
+    }
+
+    const wrapper = await rack.mount(
+      ({ip, port}) =>
+        createServer({
+          port,
+          ip,
+          render: () => (
+            <CookieUniversalProvider server>
+              <MockApp />
+            </CookieUniversalProvider>
+          ),
+        }),
+      {
+        headers: {
+          cookie: `${cookie}=${value}`,
+        },
+      },
+    );
+
+    const response = await wrapper.request();
+
+    expect(await response.text()).toStrictEqual(
+      expect.stringContaining(`<div id="app">${value}</div>`),
     );
   });
 });
