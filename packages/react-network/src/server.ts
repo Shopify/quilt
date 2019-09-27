@@ -8,7 +8,7 @@ export function applyToContext<T extends Context>(
   ctx: T,
   manager: NetworkManager,
 ) {
-  const {status, redirectUrl, headers} = manager.extract();
+  const {status, redirectUrl, headers, cookies} = manager.extract();
 
   if (redirectUrl) {
     ctx.redirect(redirectUrl);
@@ -21,6 +21,14 @@ export function applyToContext<T extends Context>(
   for (const [header, value] of headers) {
     ctx.set(header, value);
   }
+
+  Object.entries(cookies).forEach(([cookie, options]) => {
+    const {value, ...cookieOptions} = options;
+
+    // missing 'none` in `sameSite`
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/cookies/index.d.ts#L91
+    ctx.cookies.set(cookie, value, cookieOptions as any);
+  });
 
   return ctx;
 }

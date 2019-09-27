@@ -6,7 +6,7 @@ import {ApolloLink} from 'apollo-link';
 import {extract} from '@shopify/react-effect/server';
 import {Effect} from '@shopify/react-effect';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
-import {ApolloProvider} from '@shopify/react-graphql';
+import {ApolloProvider, SsrExtractableLink} from '@shopify/react-graphql';
 import {mount} from '@shopify/react-testing';
 
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
@@ -29,12 +29,12 @@ jest.mock('@shopify/react-graphql', () => {
 
 describe('<GraphQLUniversalProvider />', () => {
   it('renders an ApolloProvider with a client created by the factory', () => {
-    const client = new ApolloClient({
+    const clientOptions = {
       cache: new InMemoryCache(),
       link: new ApolloLink(),
-    });
+    };
     const graphQL = mount(
-      <GraphQLUniversalProvider createClient={() => client} />,
+      <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
     );
 
     expect(graphQL).toContainReactComponent(ApolloProvider, {
@@ -46,10 +46,18 @@ describe('<GraphQLUniversalProvider />', () => {
     const htmlManager = new HtmlManager();
 
     const cache = new InMemoryCache();
-    const client = new ApolloClient({cache, link: new ApolloLink()});
+    const clientOptions = {cache, link: new ApolloLink()};
+
+    const graphQLProvider = (
+      <GraphQLUniversalProvider createClientOptions={() => clientOptions} />
+    );
+
+    const client = mount(graphQLProvider)
+      .find(ApolloProvider)!
+      .prop('client');
 
     // Simulated server render
-    await extract(<GraphQLUniversalProvider createClient={() => client} />, {
+    await extract(graphQLProvider, {
       decorate: (element: React.ReactNode) => (
         <HtmlContext.Provider value={htmlManager}>
           {element}
@@ -64,7 +72,7 @@ describe('<GraphQLUniversalProvider />', () => {
     // client would typically read serializations from the DOM on initialization).
     mount(
       <HtmlContext.Provider value={htmlManager}>
-        <GraphQLUniversalProvider createClient={() => client} />
+        {graphQLProvider}
       </HtmlContext.Provider>,
     );
 
@@ -72,14 +80,28 @@ describe('<GraphQLUniversalProvider />', () => {
   });
 
   it('renders an <Effect/> from ApolloBridge', () => {
-    const client = new ApolloClient({
+    const clientOptions = {
       cache: new InMemoryCache(),
       link: new ApolloLink(),
-    });
+    };
     const graphQL = mount(
-      <GraphQLUniversalProvider createClient={() => client} />,
+      <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
     );
 
     expect(graphQL).toContainReactComponent(Effect);
+  });
+
+  it('includes createSsrExtractableLink if a link is not present', () => {
+    const clientOptions = {
+      cache: new InMemoryCache(),
+    };
+
+    const graphQL = mount(
+      <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
+    );
+
+    expect(graphQL).toContainReactComponent(ApolloProvider, {
+      client: expect.objectContaining({link: expect.any(SsrExtractableLink)}),
+    });
   });
 });

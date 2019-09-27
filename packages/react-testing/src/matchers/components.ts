@@ -7,7 +7,13 @@ import {
 } from 'jest-matcher-utils';
 
 import {Node, PropsFor} from '../types';
-import {assertIsNode, diffs, pluralize, printType} from './utilities';
+import {
+  assertIsNode,
+  assertIsType,
+  diffs,
+  pluralize,
+  printType,
+} from './utilities';
 
 export function toContainReactComponent<
   Type extends string | ComponentType<any>
@@ -18,6 +24,11 @@ export function toContainReactComponent<
   props?: Partial<PropsFor<Type>>,
 ) {
   assertIsNode(node, {
+    expectation: 'toContainReactComponent',
+    isNot: this.isNot,
+  });
+
+  assertIsType(type, {
     expectation: 'toContainReactComponent',
     isNot: this.isNot,
   });
@@ -77,6 +88,11 @@ export function toContainReactComponentTimes<
 ) {
   assertIsNode(node, {
     expectation: 'toContainReactComponentTimes',
+    isNot: this.isNot,
+  });
+
+  assertIsType(type, {
+    expectation: 'toContainReactComponent',
     isNot: this.isNot,
   });
 
