@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-cookie",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "Cookies in React for the server and client",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
     "@shopify/react-effect": "^3.2.3",
     "@shopify/react-hooks": "^1.2.1",
     "@shopify/react-html": "^9.0.5",
-    "@shopify/react-network": "^3.3.0",
+    "@shopify/react-network": "^3.3.1",
     "cookie": "^0.4.0",
     "tslib": "^1.9.3"
   },

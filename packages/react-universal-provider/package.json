@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-universal-provider",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "description": "Factory function and utilities to create self-serializing/deserializing provider that works for isomorphic applications.",
   "main": "dist/index.js",
@@ -30,7 +30,7 @@
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^1.7.8",
+    "@shopify/react-testing": "^1.7.9",
     "faker": "^4.1.0"
   },
   "files": [
