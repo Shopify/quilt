@@ -5,6 +5,7 @@ import {
   RECEIVED_COLOR as receivedColor,
   printWithType,
   printReceived,
+  printExpected,
 } from 'jest-matcher-utils';
 
 import {Root} from '../root';
@@ -55,6 +56,23 @@ export function assertIsNode(
           'received',
         )} value must be an @shopify/react-testing Root or Element object`,
         printWithType('Received', node, printReceived),
+      ),
+    );
+  }
+}
+
+export function assertIsType(
+  type: unknown,
+  {expectation, isNot}: {expectation: string; isNot: boolean},
+) {
+  if (type == null) {
+    throw new Error(
+      matcherErrorMessage(
+        matcherHint(`.${expectation}`, undefined, undefined, {isNot}),
+        `${receivedColor(
+          'expected',
+        )} value must be a string or a valid React component.`,
+        printWithType('Expected', type, printExpected),
       ),
     );
   }
