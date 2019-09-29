@@ -26,6 +26,9 @@
     "serialize-javascript": "^1.5.0",
     "tslib": "^1.9.3"
   },
+  "devDependencies": {
+    "@shopify/react-testing": "^1.7.9"
+  },
   "peerDependencies": {
     "react": "^16.0.0"
   },

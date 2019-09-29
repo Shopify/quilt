@@ -1,7 +1,6 @@
 import React from 'react';
 import faker from 'faker';
-import {mount} from 'enzyme';
-import {trigger} from '@shopify/enzyme-utilities';
+import {mount} from '@shopify/react-testing';
 
 // eslint-disable-next-line shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
@@ -69,8 +68,7 @@ describe('<Nested />', () => {
       <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
     );
 
-    const input = form.find(Input);
-    trigger(input, 'onChange', newTitle);
+    form.find(Input)!.trigger('onChange', newTitle);
 
     const {fields} = lastCallArgs(renderPropSpy);
     expect(fields.product.value.title).toBe(newTitle);
