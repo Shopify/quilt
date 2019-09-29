@@ -525,7 +525,7 @@ Asserts that the rendered output of the component contains the passed string as 
 
 ```tsx
 const myComponent = mount(<MyComponent />);
-expect(myComponent).toContainReactText('<span>Hello world!</span>');
+expect(myComponent).toContainReactHtml('<span>Hello world!</span>');
 ```
 
 ## FAQ
