@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+- Add [mandatory GDPR webhooks](https://help.shopify.com/en/api/guides/gdpr-resources#mandatory-webhooks) to topics
+
 ## [2.0.0] - 2019-09-26
 
 *Breaking change*
