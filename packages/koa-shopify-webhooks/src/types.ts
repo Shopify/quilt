@@ -7,6 +7,8 @@ export enum WebhookHeader {
 
 export type Topic =
   | 'APP_UNINSTALLED'
+  | 'APP_SUBSCRIPTIONS_UPDATE'
+  | 'APP_PURCHASES_ONE_TIME_UPDATE'
   | 'CARTS_CREATE'
   | 'CARTS_UPDATE'
   | 'CHECKOUTS_CREATE'
