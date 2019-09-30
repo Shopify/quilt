@@ -128,7 +128,7 @@ export class Element<Props> implements Node<Props> {
     }
 
     if (instance instanceof HTMLElement) {
-      return instance.innerHTML;
+      return instance.outerHTML;
     }
 
     return allChildren.reduce<string>(
