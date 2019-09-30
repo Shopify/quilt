@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+## [2.0.2] - 2019-09-27
+
+### Added
+
+- Added displayName to `withI18n` decorator to help with debugging ([#1048](https://github.com/Shopify/quilt/pull/1048))
+
+## [2.0.1] - 2019-09-25
+
 ### Changed
 
 - Fixed babel plugin incompatiblity with jest code coverage

@@ -119,6 +119,26 @@ function MyComponent() {
 }
 ```
 
+#### `useNetworkManager()`
+
+Returns the full network manager from context.
+
+```tsx
+import React from 'react';
+import {useNetworkManager} from '@shopify/react-network';
+import {CookieContext} from './context';
+
+export function CookieProvider({children}: Props) {
+  const manager = useNetworkManager();
+
+  return (
+    <CookieContext.Provider value={manager.cookies}>
+      {children}
+    </CookieContext.Provider>
+  );
+}
+```
+
 ### Server
 
 To extract details from your application, render a `NetworkContext.Provider` around your app, and give it an instance of the `NetworkManager`. When using `react-effect`, this decoration can be done in the `decorate` option of `extract()`. Finally, you can use the `applyToContext` utility from this package to apply the necessary headers to the response. Your final server middleware will resemble th e example below:

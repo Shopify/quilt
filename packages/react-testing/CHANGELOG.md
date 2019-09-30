@@ -9,6 +9,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Fixed `html()` to properly return the outermost wrapping DOM tags ([#1042](https://github.com/Shopify/quilt/pull/1042))
 
+## [1.7.9] - 2019-09-27
+
+### Changed
+
+- Both `toContainReactComponent` and `toContainReactComponentTimes` matcher will now throw a more useful error if the expected value is `null` or `undefined` ([#1047](https://github.com/Shopify/quilt/pull/1047))
+
 ## [1.7.6] - 2019-08-27
 
 ### Fixed

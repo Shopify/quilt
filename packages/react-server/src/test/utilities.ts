@@ -11,7 +11,10 @@ export class TestRack {
     this.servers.forEach(server => server.close());
   }
 
-  async mount(mountFunction: ({port: number, ip: string}) => Server) {
+  async mount(
+    mountFunction: ({port: number, ip: string}) => Server,
+    options: RequestInit = {},
+  ) {
     const port = await getPort();
     const ip = 'http://localhost';
     const server = mountFunction({port, ip});
@@ -19,7 +22,7 @@ export class TestRack {
     this.servers.push(server);
 
     return {
-      request: () => fetch(`${ip}:${port}`).then(response => response),
+      request: () => fetch(`${ip}:${port}`, options).then(response => response),
     };
   }
 }
