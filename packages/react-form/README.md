@@ -14,6 +14,7 @@ Manage react forms tersely and safely-typed with no magic using React hooks. Bui
 1. [API](#api)
    1. [Hooks](#hooks)
       1. [useField](#usefield)
+      1. [useChoiceField](#usechoicefield)
       1. [useList](#uselist)
       1. [useForm](#useform)
       1. [useDirty](#usedirty)
@@ -399,6 +400,37 @@ return <TextField label="Title" {...title} />;
 **Reinitialization:** If the `value` property of the field configuration changes between calls to `useField`, the field will be reset to use it as its new default value.
 
 **Imperative methods:** The returned `Field` object contains a number of methods used to imperatively alter its state. These should only be used as escape hatches where the existing hooks and components do not make your life easy, or to build new abstractions in the same vein as `useForm`, `useSubmit` and friends.
+
+#### `useChoiceField()`
+
+An extension to `useField()` that produces a new field compatible with `<Checkbox />` and `<RadioButton />` from `@shopify/polaris`.
+
+##### Signature
+
+The signature is identical to `useField()` for `boolean` fields.
+
+```tsx
+const simple = useChoiceField(false);
+const complex = useChoiceField(config, validationDependencies);
+```
+
+##### Examples
+
+Fields produced by `useChoiceField` operate just like normal fields, except they have been converted by `asChoiceField` automatically which swaps the `value` member for `checked` to provide compatibility with `Checkbox` and `RadioButton`.
+
+```tsx
+const enabled = useChoiceField(false);
+
+return <Checkbox label="Enabled" {...enabled} />;
+```
+
+For fields that need to be compatible with choice components on the fly, the `asChoiceField` utility function can be used instead to adapt the field for a specific composition.
+
+```tsx
+const enabled = useField(false);
+
+return <Checkbox label="Enabled" {...asChoiceField(enabled)} />;
+```
 
 #### `useList()`
 

@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- new `asChoiceField` utility function to support `Checkbox` and `RadioButton` [#1070](https://github.com/Shopify/quilt/pull/1070)
 
 ## [0.11.8] - 2019-08-29
 
