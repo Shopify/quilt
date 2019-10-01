@@ -8,6 +8,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 - Fix Redirect component
+- <Link /> add new prop for children
 
 ## [0.0.4] - 2019-09-05
 
