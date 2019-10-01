@@ -1,4 +1,5 @@
 import isEqual from 'fast-deep-equal';
+import {FieldDescriptor} from './types';
 
 export {isEqual};
 
@@ -61,3 +62,19 @@ export function flatMap<T>(
     [],
   );
 }
+
+/**
+ * Transforms a boolean FieldDescriptor object to work with checkboxes and radios.
+ * @param field
+ */
+export function asChoiceField({
+  value: checked,
+  ...fieldData
+}: FieldDescriptor<boolean>) {
+  return {
+    checked,
+    ...fieldData,
+  };
+}
+
+export type ChoiceFieldDescriptor = ReturnType<typeof asChoiceField>;
