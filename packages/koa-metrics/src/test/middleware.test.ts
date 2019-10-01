@@ -1,10 +1,10 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
-import Metrics from '../Metrics';
+import {StatsDClient} from '@shopify/statsd';
 import {Tag} from '../tags';
-import metrics, {CustomMetric} from '..';
+import metrics, {CustomMetric} from '../middleware';
 
-jest.mock('../Metrics');
-const MetricsMock = (Metrics as any) as jest.Mock<Metrics>;
+jest.mock('@shopify/statsd');
+const MetricsMock = StatsDClient as jest.Mock<StatsDClient>;
 
 const defaultHost = 'localhost';
 const defaultPort = 1234;
@@ -24,10 +24,10 @@ describe('koa-metrics', () => {
     const ctx = createMockContext();
 
     await metricsMiddleware(ctx, () => {
-      expect(ctx.metrics).toBeInstanceOf(Metrics);
+      expect(ctx.metrics).toBeInstanceOf(StatsDClient);
     });
 
-    expect(Metrics).toHaveBeenCalledTimes(1);
+    expect(MetricsMock).toHaveBeenCalledTimes(1);
   });
 
   it('uses the provided prefix for metrics metrics', async () => {
@@ -60,7 +60,7 @@ describe('koa-metrics', () => {
 
     await metricsMiddleware(ctx, () => {});
 
-    expect(MetricsMock.mock.instances[0].closeClient).toHaveBeenCalled();
+    expect(MetricsMock.mock.instances[0].close).toHaveBeenCalled();
   });
 
   describe('tags', () => {
@@ -100,7 +100,7 @@ describe('koa-metrics', () => {
         ctx.response.status = status;
       });
       const addTagsFn = MetricsMock.mock.instances[0]
-        .addGlobalTags as jest.Mock<Metrics['addGlobalTags']>;
+        .addGlobalTags as jest.Mock<StatsDClient['addGlobalTags']>;
       const addedTags = addTagsFn.mock.calls.reduce(
         (acc, call) => ({...acc, ...call[0]}),
         {},
@@ -120,7 +120,7 @@ describe('koa-metrics', () => {
         ctx.response.status = status;
       });
       const addTagsFn = MetricsMock.mock.instances[0]
-        .addGlobalTags as jest.Mock<Metrics['addGlobalTags']>;
+        .addGlobalTags as jest.Mock<StatsDClient['addGlobalTags']>;
       const addedTags = addTagsFn.mock.calls.reduce(
         (acc, call) => ({...acc, ...call[0]}),
         {},
@@ -134,12 +134,13 @@ describe('koa-metrics', () => {
   describe('logging', () => {
     it('uses the provided logger for the metrics client', async () => {
       function logger() {}
+      logger.log = () => {};
       const metricsMiddleware = metrics({...defaultOptions, logger});
 
       const ctx = createMockContext();
 
       await metricsMiddleware(ctx, () => {});
-      expect(MetricsMock.mock.calls[0][1]).toBe(logger);
+      expect(MetricsMock.mock.calls[0][0].logger).toBe(logger);
     });
 
     it('uses ctx.log for the metrics client if available and no logger was provided', async () => {
@@ -150,7 +151,7 @@ describe('koa-metrics', () => {
       ctx.log = logger;
 
       await metricsMiddleware(ctx, () => {});
-      expect(MetricsMock.mock.calls[0][1]).toBe(logger);
+      expect(MetricsMock.mock.calls[0][0].logger).toBe(logger);
     });
 
     it('uses console.log for the metrics client if no logger was provided and ctx.log is undefined', async () => {
@@ -160,7 +161,7 @@ describe('koa-metrics', () => {
 
       await metricsMiddleware(ctx, () => {});
       // eslint-disable-next-line no-console
-      expect(MetricsMock.mock.calls[0][1]).toBe(console.log);
+      expect(MetricsMock.mock.calls[0][0].logger).toBe(console.log);
     });
   });
 
@@ -190,7 +191,7 @@ describe('koa-metrics', () => {
 
       await metricsMiddleware(ctx, () => {
         const distributionFn = MetricsMock.mock.instances[0]
-          .distribution as jest.Mock<Metrics['distribution']>;
+          .distribution as jest.Mock;
         expect(
           distributionFn.mock.calls.map(([metricName]) => metricName),
         ).not.toContain(CustomMetric.QueuingTime);
@@ -202,24 +203,12 @@ describe('koa-metrics', () => {
     it('logs the request time', async () => {
       const metricsMiddleware = metrics(defaultOptions);
       const ctx = createMockContext();
-      const requestTime = 123;
 
-      MetricsMock.prototype.initTimer = () => {
-        return {
-          stop() {
-            return requestTime;
-          },
-        };
-      };
-
-      await metricsMiddleware(ctx, () => {
-        const timingFn = MetricsMock.mock.instances[0].initTimer as jest.Mock;
-        timingFn.mockReturnValueOnce({stop: () => requestTime});
-      });
+      await metricsMiddleware(ctx, () => {});
 
       expect(MetricsMock.mock.instances[0].distribution).toHaveBeenCalledWith(
         CustomMetric.RequestDuration,
-        requestTime,
+        expect.any(Number),
       );
     });
   });
@@ -254,7 +243,7 @@ describe('koa-metrics', () => {
       await metricsMiddleware(ctx, () => {});
 
       const distributionFn = MetricsMock.mock.instances[0]
-        .distribution as jest.Mock<Metrics['distribution']>;
+        .distribution as jest.Mock;
 
       expect(
         distributionFn.mock.calls.map(([metricName]) => metricName),
@@ -274,17 +263,7 @@ describe('koa-metrics', () => {
         },
       });
 
-      MetricsMock.prototype.initTimer = () => {
-        return {
-          stop() {
-            return 123;
-          },
-        };
-      };
-
       await metricsMiddleware(ctx, () => {
-        const timingFn = MetricsMock.mock.instances[0].initTimer as jest.Mock;
-        timingFn.mockReturnValueOnce({stop: () => 123});
         ctx.response.length = 7500;
         const originalGet = ctx.response.get;
         ctx.response.get = headerName => {

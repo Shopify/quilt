@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+## 0.3.0
+
+- Use `@shopify/statd` instead of Metrics implementation. The log using logger in distribution was removed. ([#1074](https://github.com/Shopify/quilt/pull/1074))
+
 ## 0.2.0 - 2019-04-12
 
 - Wrapping all the calls in a Promise and awaiting them at the end of the middleware.
