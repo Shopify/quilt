@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- new `useChoiceField` and `asChoiceField` functions to support `Checkbox` and `RadioButton` [#1070](https://github.com/Shopify/quilt/pull/1070)
+
+### Fixed
+
 - handle invalid error path for submission errors [#1007](https://github.com/Shopify/quilt/pull/1007)
 
 ## [0.3.9]

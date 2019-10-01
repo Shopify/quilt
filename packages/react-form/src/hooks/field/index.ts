@@ -1,4 +1,10 @@
-export {useField, FieldConfig} from './field';
+export {
+  asChoiceField,
+  ChoiceField,
+  useChoiceField,
+  useField,
+  FieldConfig,
+} from './field';
 export {
   reduceField,
   FieldAction,
