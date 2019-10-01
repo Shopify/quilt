@@ -32,6 +32,7 @@
     "@shopify/react-hydrate": "^1.1.4",
     "@shopify/react-network": "^3.3.1",
     "@shopify/sewing-kit-koa": "^6.1.2",
+    "@shopify/react-cookie": "^0.0.2",
     "chalk": "^2.4.2",
     "koa": "^2.5.0",
     "koa-compose": "^4.1.0",
