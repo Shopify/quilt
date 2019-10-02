@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.0] - 2019.10.02
+
 ### Added
 
 - `@shopify/statsd` package
+
+[unreleased]: https://github.com/Shopify/quilt/compare/@shopify/statsd@1.0.0...HEAD
