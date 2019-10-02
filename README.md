@@ -81,6 +81,7 @@ Each package has its own `README` and documentation describing usage.
 | react-universal-provider | [directory](packages/react-universal-provider) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-universal-provider) |
 | semaphore | [directory](packages/semaphore) | [![npm version](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg)](https://badge.fury.io/js/%40shopify%2Fsemaphore) |
 | sewing-kit-koa | [directory](packages/sewing-kit-koa) | [![npm version](https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa.svg)](https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa) |
+| statsd | [directory](packages/statsd) | [![npm version](https://badge.fury.io/js/%40shopify%2Fstatsd.svg)](https://badge.fury.io/js/%40shopify%2Fstatsd) |
 | useful-types | [directory](packages/useful-types) | [![npm version](https://badge.fury.io/js/%40shopify%2Fuseful-types.svg)](https://badge.fury.io/js/%40shopify%2Fuseful-types) |
 | with-env | [directory](packages/with-env) | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
 
@@ -102,4 +103,4 @@ For Shopifolk, you can reach out to us in Slack in the `#web-foundation-tech` ch
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
 
-<a href="http://www.shopify.com/"><img src="./images/shopify.png" alt="Shopify" width="200" /></a>
+<a href="http://www.shopify.com/"><img src="https://cdn.shopify.com/assets2/press/brand/shopify-logo-main-small-f029fcaf14649a054509f6790ce2ce94d1f1c037b4015b4f106c5a67ab033f5b.png" alt="Shopify" width="200" /></a>
