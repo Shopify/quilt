@@ -7,6 +7,7 @@ export const GRAPHQL_PATH_PREFIX = '/admin/api';
 export enum ApiVersion {
   April19 = '2019-04',
   July19 = '2019-07',
+  October19 = '2019-10',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }
