@@ -30,8 +30,5 @@
   "peerDependencies": {
     "react": "^16.3.2"
   },
-  "devDependencies": {
-    "@types/enzyme": "^3.1.10"
-  },
   "sideEffects": false
 }
