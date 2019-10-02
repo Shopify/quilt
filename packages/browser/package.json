@@ -1,0 +1,35 @@
+{
+  "name": "@shopify/browser",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "A Browser object use to get browser information from user agent.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/browser/README.md",
+  "dependencies": {
+    "ua-parser-js": "^0.7.20"
+  },
+  "devDependencies": {
+    "typescript": "~3.2.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
