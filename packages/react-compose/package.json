@@ -30,8 +30,5 @@
   "peerDependencies": {
     "react": "^16.3.2"
   },
-  "devDependencies": {
-    "@shopify/react-testing": "^1.7.3"
-  },
   "sideEffects": false
 }
