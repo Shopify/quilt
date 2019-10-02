@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## Added
+
+- Added the `Connection` class for to allow mocking `navigator.connection` in tests
+
 ## [2.7.1] - 2019-07-03
 
 ### Fixed

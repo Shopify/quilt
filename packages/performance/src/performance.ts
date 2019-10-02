@@ -171,6 +171,12 @@ export class Performance {
     }
   }
 
+  mark(stage: string, id: string) {
+    if (this.supportsMarks) {
+      window.performance.mark(`${id}::${stage}`);
+    }
+  }
+
   on<T extends keyof EventMap>(event: T, handler: EventMap[T]) {
     const handlers = this.eventHandlers[event] as Set<any>;
     handlers.add(handler);
