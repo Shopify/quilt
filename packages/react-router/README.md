@@ -17,7 +17,22 @@ $ yarn add @shopify/react-router
 
 ### `<Router />`
 
-_TBD_
+Rendering the `Router` component at the top-level of your application will create the router that is provided to the rest of the React tree. It takes a single optional prop, `location`, that represents the current location in the server-side render of the application. This is not used or required in the client-side render of your application and can be `undefined` in that environment.
+
+This value should be derived from the server-side Node http request object. If you are rendering your app with a Node based web framework (such as [Koa](https://koajs.com/#request) or [Express](http://expressjs.com/en/5x/api.html#req)), there will be a standard convention for accessing this object within the lifecycle of each request to your server.
+
+A typical application will have a middleware within their application chain that is responsible for rendering the React tree, and providing your main App component the `location` prop. It can then delegate this value to the `Router` on the `location` prop. We also provide a simple library, [`@shopify/react-server`](../packages/react-server), for React server-side rendering.
+
+```tsx
+import React from 'react';
+import {Router} from '@shopify/react-router';
+
+// Assumes location will be passed in during the
+// server-side render
+export function App({location}: {location?: string}) {
+  return <Router location={location}>{/* rest of app tree */}</Router>;
+}
+```
 
 ### `<Route />`
 
