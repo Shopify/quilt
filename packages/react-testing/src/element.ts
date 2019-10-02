@@ -3,6 +3,7 @@ import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
+import {nodeName, toReactString} from './toReactString';
 import {
   Tag,
   Node,
@@ -10,6 +11,7 @@ import {
   FunctionKeys,
   DeepPartialArguments,
   PropsFor,
+  DebugOptions,
 } from './types';
 
 type Root = import('./root').Root<any>;
@@ -220,17 +222,12 @@ export class Element<Props> implements Node<Props> {
     });
   }
 
+  debug(options?: DebugOptions) {
+    return toReactString(this, options);
+  }
+
   toString() {
-    const {type} = this;
-
-    if (type == null) {
-      return '<Element />';
-    }
-
-    const name =
-      typeof type === 'string' ? type : type.displayName || type.name;
-
-    return `<${name} />`;
+    return `<${nodeName(this)} />`;
   }
 }
 
