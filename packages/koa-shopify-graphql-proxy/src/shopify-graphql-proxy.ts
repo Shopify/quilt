@@ -1,5 +1,5 @@
 import proxy from 'koa-better-http-proxy';
-import {Context} from 'koa';
+import { Context } from 'koa';
 
 export const PROXY_BASE_PATH = '/graphql';
 export const GRAPHQL_PATH_PREFIX = '/admin/api';
@@ -7,6 +7,7 @@ export const GRAPHQL_PATH_PREFIX = '/admin/api';
 export enum ApiVersion {
   April19 = '2019-04',
   July19 = '2019-07',
+  October1 = '2019-10',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }
@@ -27,7 +28,7 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
     ctx: Context,
     next: () => Promise<any>,
   ) {
-    const {session = {}} = ctx;
+    const { session = {} } = ctx;
 
     const shop = 'shop' in proxyOptions ? proxyOptions.shop : session.shop;
     const accessToken =
@@ -69,4 +70,4 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
   };
 }
 
-async function noop() {}
+async function noop() { }

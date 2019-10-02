@@ -1,9 +1,10 @@
-import {Method, Header} from '@shopify/network';
-import {WebhookHeader, Topic} from './types';
+import { Method, Header } from '@shopify/network';
+import { WebhookHeader, Topic } from './types';
 
 export enum ApiVersion {
   April19 = '2019-04',
   July19 = '2019-07',
+  October1 = '2019-10',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }
@@ -42,9 +43,9 @@ export async function registerWebhook({
     result.data.webhookSubscriptionCreate &&
     result.data.webhookSubscriptionCreate.webhookSubscription
   ) {
-    return {success: true, result};
+    return { success: true, result };
   } else {
-    return {success: false, result};
+    return { success: false, result };
   }
 }
 
