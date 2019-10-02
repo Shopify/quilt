@@ -23,16 +23,7 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect-apollo/README.md",
-  "dependencies": {
-    "@shopify/react-effect": "^3.2.3"
-  },
-  "devDependencies": {
-    "react-apollo": "^2.2.3"
-  },
   "files": [
     "dist/*"
-  ],
-  "peerDependencies": {
-    "react-apollo": "^2.2.3"
-  }
+  ]
 }
