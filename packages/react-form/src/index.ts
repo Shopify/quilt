@@ -2,6 +2,9 @@ export * from './types';
 export * from './validation';
 
 export {
+  asChoiceField,
+  ChoiceField,
+  useChoiceField,
   useField,
   FieldConfig,
   useList,
