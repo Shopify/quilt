@@ -44,6 +44,14 @@ performance.on('inflightNavigation', () => {});
 performance.on('lifecycleEvent', event => {});
 ```
 
+The `on` method returns a clean-up function that you can invoke when you're done listening on the event:
+
+```ts
+const cleanupNavigationListener = performance.on('navigation', navigation => {});
+
+cleanupNavigationListener();
+```
+
 You can also manage navigations using this object. Calling `performance.start()` will begin a new navigation, cancelling any that are currently inflight. `performance.event()` allows you to register custom events on the navigation. Finally, `performance.finish()` marks the navigation is complete.
 
 ```ts
