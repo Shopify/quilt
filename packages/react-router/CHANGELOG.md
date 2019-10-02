@@ -8,6 +8,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 - Fix Redirect component
+- Fix <Link /> component to explicitly accept a children prop to delegate to the underlying link from `react-router`. [1073](https://github.com/Shopify/quilt/pull/1073)
 
 ## [0.0.4] - 2019-09-05
 
