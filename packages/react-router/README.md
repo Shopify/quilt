@@ -29,7 +29,28 @@ See [`react-router` docs](https://reacttraining.com/react-router/web/api/Switch)
 
 ### `<Redirect />`
 
-_TBD_
+A `Redirect` component accepts a single prop, `url`, and will perform a redirect to that url when mounted.
+
+```tsx
+import React, {useState} from 'react';
+import {Redirect} from '@shopify/react-router';
+
+function MockComponent() {
+  const [redirect, setRedirect] = useState();
+
+  async function handleClick() {
+    const newThing = await createThing();
+
+    setRedirect(`/${newThing.id}`);
+  }
+
+  if (redirect) {
+    return <Redirect url={redirect} />;
+  }
+
+  return <button onClick={handleClick}>Create a new thing</button>;
+}
+```
 
 ### `<Link />`
 
