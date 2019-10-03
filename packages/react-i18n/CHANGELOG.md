@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Added
+
+- Added `memoizedPluralRules` utility function ([#1065](https://github.com/Shopify/quilt/pull/1065)
+- Added `memoizedNumberFormatter` utility function ([#1065](https://github.com/Shopify/quilt/pull/1065)
+
+### Fixed
+
+- Removed creation of `Intl.PluralRules` object from `I18n` constructor which caused backwards incompatibility for any platforms needing a polyfill for `Intl.Plualrules` support ([#1065](https://github.com/Shopify/quilt/pull/1065)
 
 ## [2.0.2] - 2019-09-27
 
