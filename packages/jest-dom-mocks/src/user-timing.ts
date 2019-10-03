@@ -1,4 +1,4 @@
-import set from 'lodash/set';
+import {set} from './utilities';
 
 type UserTimingMock = typeof window.performance.timing;
 

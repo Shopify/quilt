@@ -1,0 +1,38 @@
+{
+  "name": "@shopify/react-performance",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Primitives to measure your React application&#x27;s performance using @shopify/performance",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-performance/README.md",
+  "dependencies": {
+    "@shopify/performance": "^1.1.8"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0"
+  },
+  "devDependencies": {
+    "typescript": "~3.2.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
