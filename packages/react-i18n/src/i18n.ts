@@ -38,6 +38,8 @@ import {
   translate,
   getTranslationTree,
   TranslateOptions as RootTranslateOptions,
+  memoizedNumberFormatter,
+  memoizedPluralRules,
 } from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
@@ -64,12 +66,6 @@ const memoizedDateTimeFormatter = memoizeFn(
     `${locale}${JSON.stringify(options)}`,
 );
 
-const memoizedNumberFormatter = memoizeFn(
-  numberFormatter,
-  (locale: string, options: Intl.NumberFormatOptions = {}) =>
-    `${locale}${JSON.stringify(options)}`,
-);
-
 export class I18n {
   readonly locale: string;
   readonly pseudolocalize: boolean | string;
@@ -78,7 +74,6 @@ export class I18n {
   readonly defaultTimezone?: string;
   readonly onError: NonNullable<I18nDetails['onError']>;
   readonly loading: boolean;
-  readonly ordinalPluralRules: Intl.PluralRules;
 
   get language() {
     return languageFromLocale(this.locale);
@@ -128,7 +123,6 @@ export class I18n {
     this.pseudolocalize = pseudolocalize;
     this.onError = onError || defaultOnError;
     this.loading = loading || false;
-    this.ordinalPluralRules = new Intl.PluralRules(locale, {type: 'ordinal'});
   }
 
   translate(
@@ -319,7 +313,8 @@ export class I18n {
   }
 
   ordinal(amount: number) {
-    const group = this.ordinalPluralRules.select(amount);
+    const {locale} = this;
+    const group = memoizedPluralRules(locale, {type: 'ordinal'}).select(amount);
     return this.translate(group, {scope: 'ordinal'}, {amount});
   }
 
@@ -550,11 +545,4 @@ function dateTimeFormatter(
   options: Intl.DateTimeFormatOptions = {},
 ) {
   return new Intl.DateTimeFormat(locale, options);
-}
-
-function numberFormatter(
-  locale: string,
-  options: Intl.NumberFormatOptions = {},
-) {
-  return new Intl.NumberFormat(locale, options);
 }
