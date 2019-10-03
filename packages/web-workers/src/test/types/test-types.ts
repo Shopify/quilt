@@ -4,26 +4,29 @@ const createWorkerApi = createWorker(() => import('./fixture/module'));
 
 type ExpectedApi = {
   stringArgStringReturn: (arg: string) => Promise<string>;
+
   arrayArgArrayReturn: (arg: string[]) => Promise<string[]>;
+
   stringArgVoidReturn: (arg: string) => Promise<void>;
+
   multipleArgsStringReturn: (arg1: string, argTwo: number) => Promise<string>;
+
   stringArgFunctionReturn: (arg: string) => () => Promise<string>;
 
-  // is this right
-  functionArgStringReturn: (
-    arg: () => Promise<string>,
-  ) => Promise<Promise<string>>;
+  functionArgStringReturn: (arg: () => Promise<string>) => Promise<string>;
 
   functionArgFunctionReturn: (
     arg: () => Promise<string>,
   ) => () => Promise<string>;
 
-  // FIX: should return Promise<{func: Promsise<string>}>
-  objectArgObjectReturn: (
-    arg: {func: Promise<string>},
-  ) => Promise<{func: string}>;
+  objectWithStringArgObjectReturn: (
+    arg: {foo: string},
+  ) => Promise<{foo: string}>;
 
-  // FIX: should return Promise<{func: () => Promise<string>}[]>;
+  objectWithFunctionArgObjectReturn: (
+    arg: {func: () => Promise<string>},
+  ) => Promise<{func: () => Promise<string>}>;
+
   arrayOfObjectsWithFunctionsArg: (
     arg: {func: () => Promise<string>}[],
   ) => Promise<{func: () => Promise<string>}[]>;

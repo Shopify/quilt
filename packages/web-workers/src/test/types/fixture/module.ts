@@ -35,14 +35,25 @@ export function functionArgFunctionReturn(input: WorkerInput<() => string>) {
   return () => `${input()}`;
 }
 
-export function objectArgObjectReturn(
+export function objectWithStringArgObjectReturn(
+  objectWithString: WorkerInput<{
+    foo: string;
+  }>,
+) {
+  return {
+    ...objectWithString,
+    foo: `augmented: ${objectWithString.foo}`,
+  };
+}
+
+export function objectWithFunctionArgObjectReturn(
   objectWithFunction: WorkerInput<{
     func: () => string;
   }>,
 ) {
   return {
     ...objectWithFunction,
-    func: `augmented: ${objectWithFunction.func()}`,
+    func: () => new Promise<string>(resolve => resolve('string')),
   };
 }
 
