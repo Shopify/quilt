@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## 3.1.1 - 2010-10-02
+## 3.2.0 - 2010-10-02
 
 = The `ApiVersion` enum now has an `October19` option
 

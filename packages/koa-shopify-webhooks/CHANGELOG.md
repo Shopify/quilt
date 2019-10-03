@@ -6,14 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
-## [2.0.1] - 2010-10-02
+
+## [2.1.0] - 2010-10-03
 
 - The `ApiVersion` enum now has an `October19` option
 
 ## [2.0.0] - 2019-09-26
 
-*Breaking change*
+_Breaking change_
+
 - Added API version to GraphQL endpoint.
+
 ## [1.1.4] - 2019-03-29
 
 - Check success via valid webhookSubscription field
