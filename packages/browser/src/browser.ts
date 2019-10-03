@@ -42,7 +42,7 @@ export class Browser {
     return !this.isMobile;
   }
 
-  get isNativeApp() {
+  get isShopifyMobile() {
     return this.ua.getUA().includes('Shopify Mobile/', 0);
   }
 
@@ -108,7 +108,7 @@ export class Browser {
       name: this.name,
       version: this.version,
       isMobile: this.isMobile,
-      isNativeApp: this.isNativeApp,
+      isShopifyMobile: this.isShopifyMobile,
       isDesktop: this.isDesktop,
     };
   }
