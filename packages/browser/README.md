@@ -65,8 +65,7 @@ app.use(ctx => {
 
 ### The `Browser` class
 
-The primary API of this package is the `Browser` class. This class represents information about an individual browser as gleaned from it's
-user-agent.
+The primary API of this package is the `Browser` class. This class represents information about an individual browser as gleaned from it's user-agent.
 
 ```tsx
 import {Browser} from '@shopify/browser';
