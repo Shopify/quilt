@@ -8,7 +8,7 @@ export function arrayArgArrayReturn(arrayArg: WorkerInput<string[]>) {
   return arrayArg.map(string => `augmented: ${string}`);
 }
 
-export function stringArgVoidReturn(stringArg: string) {
+export function stringArgVoidReturn(stringArg: WorkerInput<string>) {
   // eslint-disable-next-line no-console
   console.log(stringArg);
 }
@@ -24,11 +24,13 @@ export function stringArgFunctionReturn(stringArg: WorkerInput<string>) {
   return () => `${stringArg}`;
 }
 
-export async function functionArgStringReturn(
+export function functionArgStringReturn(
   inputFunction: WorkerInput<() => string>,
 ) {
-  const stringResult = await inputFunction();
-  return stringResult;
+  const result = inputFunction();
+  return typeof result === 'string'
+    ? `Hello ${result}`
+    : result.then(final => `Hello ${final}`);
 }
 
 export function functionArgFunctionReturn(input: WorkerInput<() => string>) {
@@ -53,7 +55,7 @@ export function objectWithFunctionArgObjectReturn(
 ) {
   return {
     ...objectWithFunction,
-    func: () => new Promise<string>(resolve => resolve('string')),
+    func: () => 'string',
   };
 }
 
@@ -61,6 +63,14 @@ export function arrayOfObjectsWithFunctionsArg(
   arrayArg: WorkerInput<{func: () => string}[]>,
 ) {
   return arrayArg.concat({
-    func: () => new Promise<string>(resolve => resolve('string')),
+    func: () => 'string',
   });
+}
+
+export function returnsFunctionReturningObjectWithFunction() {
+  return function() {
+    return {
+      foo: () => 'string',
+    };
+  };
 }
