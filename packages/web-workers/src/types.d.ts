@@ -11,7 +11,7 @@ export type Promisify<T> = T extends (...args: infer Args) => infer TypeReturned
   ? TypeReturned extends () => infer ReturnTypesToAugment
     ? (...args: Args) => () => Promise<ReturnTypesToAugment>
     : TypeReturned extends ReturnTypesToAugment
-      ? (...args: Args) => Promise<TypeReturned>
+      ? (...args: Args) => Promise<Promisify<TypeReturned>>
       : (...args: Args) => Promisify<TypeReturned>
   : T extends Array<infer ArrayElement>
     ? PromisifyArray<ArrayElement>
