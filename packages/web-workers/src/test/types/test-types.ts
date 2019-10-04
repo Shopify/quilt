@@ -11,16 +11,11 @@ type ExpectedApi = {
 
   multipleArgsStringReturn: (arg1: string, argTwo: number) => Promise<string>;
 
-  stringArgFunctionReturn: (arg: string) => () => Promise<string>;
+  stringArgFunctionReturn: (arg: string) => Promise<() => Promise<string>>;
 
-  // BROKEN
   functionArgStringReturn: (
     arg: () => string | Promise<string>,
-  ) => Promise<string | Promise<string>>;
-
-  functionArgFunctionReturn: (
-    arg: () => Promise<string>,
-  ) => () => Promise<string>;
+  ) => Promise<string>;
 
   objectWithStringArgObjectReturn: (
     arg: {foo: string},
@@ -34,7 +29,6 @@ type ExpectedApi = {
     arg: {func: () => string | Promise<string>}[],
   ) => Promise<{func: () => Promise<string>}[]>;
 
-  // BROKEN
   returnsFunctionReturningObjectWithFunction: () => Promise<
     () => Promise<{foo: () => Promise<string>}>
   >;

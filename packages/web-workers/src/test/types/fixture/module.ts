@@ -33,10 +33,6 @@ export function functionArgStringReturn(
     : result.then(final => `Hello ${final}`);
 }
 
-export function functionArgFunctionReturn(input: WorkerInput<() => string>) {
-  return () => `${input()}`;
-}
-
 export function objectWithStringArgObjectReturn(
   objectWithString: WorkerInput<{
     foo: string;
@@ -62,9 +58,14 @@ export function objectWithFunctionArgObjectReturn(
 export function arrayOfObjectsWithFunctionsArg(
   arrayArg: WorkerInput<{func: () => string}[]>,
 ) {
-  return arrayArg.concat({
-    func: () => 'string',
-  });
+  return arrayArg.concat(
+    {
+      func: () => 'string',
+    },
+    {
+      func: () => Promise.resolve('string'),
+    },
+  );
 }
 
 export function returnsFunctionReturningObjectWithFunction() {
