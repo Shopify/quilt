@@ -9,12 +9,6 @@ export function runWebpack(
   return new Promise((resolve, reject) => {
     const srcRoot = path.resolve(__dirname, '../../');
 
-    require('@babel/register')({
-      only: [srcRoot],
-      extensions: ['.ts'],
-      presets: [['shopify-preset-shopify/node', {typescript: true}]],
-    });
-
     webpack(
       {
         ...extraConfig,
