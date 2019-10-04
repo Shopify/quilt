@@ -31,8 +31,7 @@
     "webpack-virtual-modules": "^0.1.12"
   },
   "devDependencies": {
-    "@types/webpack-virtual-modules": "^0.1.0",
-    "typescript": "~3.2.1"
+    "@types/webpack-virtual-modules": "^0.1.0"
   },
   "files": [
     "dist/*"
