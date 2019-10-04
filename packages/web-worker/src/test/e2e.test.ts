@@ -10,6 +10,8 @@ const babelPlugin = path.resolve(__dirname, '../babel-plugin.ts');
 const mainFile = 'src/main.js';
 const workerFile = 'src/worker.js';
 
+jest.setTimeout(10_000);
+
 describe('web-workers', () => {
   it('creates a worker factory that can produce workers that act like the original module', async () => {
     const greetingPrefix = 'Hello ';
