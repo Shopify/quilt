@@ -439,7 +439,8 @@ export class I18n {
 
     const time = this.formatDate(date, {
       ...options,
-      style: DateStyle.Time,
+      hour: 'numeric',
+      minute: '2-digit',
     }).toLocaleLowerCase();
 
     if (isToday(date)) {
