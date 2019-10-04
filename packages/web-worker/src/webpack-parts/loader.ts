@@ -60,7 +60,7 @@ export function pitch(
   const workerCompiler: import('webpack').Compiler = compilation.createChildCompiler(
     NAME,
     workerOptions,
-    (plugin && plugin.options.plugins) || [],
+    [],
   );
 
   (workerCompiler as any).context = (compiler as any).context;
@@ -70,6 +70,10 @@ export function pitch(
     mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
   new SingleEntryPlugin(context, virtualModule, 'worker').apply(workerCompiler);
+
+  for (const aPlugin of plugin.options.plugins || []) {
+    aPlugin.apply(workerCompiler);
+  }
 
   const subCache = `subcache ${__dirname} ${request}`;
   workerCompiler.hooks.compilation.tap(NAME, compilation => {
