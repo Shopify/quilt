@@ -1,4 +1,8 @@
-export function createWorker<T>(script: () => Promise<T>): () => T {
+import {PromisifyModule} from './types';
+
+export function createWorker<T>(
+  script: () => Promise<T>,
+): () => PromisifyModule<T> {
   return function create() {
     if (typeof Worker === 'undefined') {
       return new Proxy(
