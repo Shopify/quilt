@@ -6,6 +6,22 @@ export class AppBrowser {
 
   async go(url = '') {
     const page = await this.browser.newPage();
+
+    page.on('error', error => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
+
+    page.on('pageerror', error => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
+
+    page.on('console', consoleMessage => {
+      // eslint-disable-next-line no-console
+      console.log(consoleMessage.text());
+    });
+
     await page.goto(new URL(url, this.url).href);
     return page;
   }

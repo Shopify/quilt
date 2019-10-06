@@ -19,7 +19,8 @@ export function runWebpack(
         resolve: {
           extensions: ['.js', '.ts', '.json'],
           alias: {
-            '@shopify/web-workers': srcRoot,
+            '@shopify/web-worker': srcRoot,
+            '@shopify/web-worker/worker': path.join(srcRoot, 'worker'),
           },
         },
         resolveLoader: {

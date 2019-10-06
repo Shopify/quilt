@@ -43,7 +43,7 @@ export function pitch(
     virtualModule,
     `
       import * as api from ${JSON.stringify(request)};
-      import {expose} from '@shopify/web-workers';
+      import {expose} from '@shopify/web-worker/worker';
 
       expose(api);
     `,
