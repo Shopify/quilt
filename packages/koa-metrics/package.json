@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-metrics",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "Aims to provide standard middlewares and instrumentation tooling for metrics in Koa.",
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/shopify/quilt/blob/master/packages/koa-metrics/README.md",
   "dependencies": {
-    "@shopify/statsd": "^1.0.0",
+    "@shopify/statsd": "^1.0.1",
     "hot-shots": "^5.9.1",
     "tslib": "^1.9.3"
   },

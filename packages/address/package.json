@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address",
-  "version": "2.7.7",
+  "version": "2.7.8",
   "license": "MIT",
   "description": "Address utilities for formatting addresses.",
   "main": "dist/index.js",
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address/README.md",
   "devDependencies": {
-    "@shopify/address-mocks": "^1.2.25",
-    "@shopify/jest-dom-mocks": "^2.8.0"
+    "@shopify/address-mocks": "^1.2.26",
+    "@shopify/jest-dom-mocks": "^2.8.1"
   },
   "sideEffects": false,
   "dependencies": {

@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [5.2.0] - 2019-10-07
+
+### Changed
+
+- Changed some type imports to fix type errors when using `react-apollo@3.x`. Projects that use 2.x may have some typing issues as changes were made to `react-apollo` that make it impossible to support the types for both versions. ([#1087](https://github.com/Shopify/quilt/pull/1087))
 
 ## [5.1.0] - 2019-09-05
 
