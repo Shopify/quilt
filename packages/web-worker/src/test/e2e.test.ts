@@ -3,6 +3,8 @@
  */
 
 import * as path from 'path';
+import {DefinePlugin} from 'webpack';
+
 import {WebWorkerPlugin} from '../webpack-parts';
 import {withContext, Context, runWebpack as runWebpackBase} from './utilities';
 
@@ -53,9 +55,11 @@ describe('web-workers', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      expect(await workerElement.evaluate(element => element.innerHTML)).toBe(
-        `${greetingPrefix}${greetingTarget}`,
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
       );
+
+      expect(textContent).toBe(`${greetingPrefix}${greetingTarget}`);
     });
   });
 
@@ -110,6 +114,59 @@ describe('web-workers', () => {
 
       expect(textContent).toContain(errorMessage);
       expect(textContent).toContain(server.assetUrl('worker.worker.js').href);
+    });
+  });
+
+  it('supports using arbitrary webpack plugins on the worker build', async () => {
+    const magicVar = {id: '__MAGIC_VAR__', value: 'It’s magic!'};
+    const testId = 'WorkerResult';
+
+    await withContext('webpack-plugins', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker} from '@shopify/web-workers';
+
+          const worker = createWorker(() => import('./worker'))();
+
+          (async () => {
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = await worker.magicVar();
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          export function magicVar() {
+            return ${magicVar.id};
+          }
+        `,
+      );
+
+      await runWebpack(
+        context,
+        new WebWorkerPlugin({
+          plugins: [
+            new DefinePlugin({
+              [magicVar.id]: JSON.stringify(magicVar.value),
+            }),
+          ],
+        }),
+      );
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
+      );
+
+      expect(textContent).toBe(magicVar.value);
     });
   });
 });
