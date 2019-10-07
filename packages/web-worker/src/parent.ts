@@ -1,7 +1,7 @@
 import {PromisifyModule} from './types';
 
 export function createWorker<T>(
-  script: () => Promise<T>,
+  module: () => Promise<T>,
 ): () => PromisifyModule<T> {
   return function create() {
     if (typeof Worker === 'undefined') {
@@ -20,7 +20,7 @@ export function createWorker<T>(
     }
 
     const workerScript = URL.createObjectURL(
-      new Blob([`importScripts(${JSON.stringify(script)})`]),
+      new Blob([`importScripts(${JSON.stringify(module)})`]),
     );
 
     const worker = new Worker(workerScript);
