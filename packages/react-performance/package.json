@@ -29,9 +29,6 @@
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
   "files": [
     "dist/*"
   ]
