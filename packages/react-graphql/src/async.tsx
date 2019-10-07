@@ -43,6 +43,7 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
       props.children({
         data: undefined,
         loading: true,
+        called: false,
         variables: (props as any).variables,
         client,
         networkStatus: NetworkStatus.loading,

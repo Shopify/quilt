@@ -32,7 +32,6 @@ function App({server}: {server?: boolean}) {
 ```tsx
 // GraphQL.tsx
 
-import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-inmemory-cache';
 import {createHttpLink} from 'apollo-link-http';
 
@@ -68,6 +67,11 @@ function GraphQL({
 }
 ```
 
+You’ll know that this library is hooked up properly when the HTML response from server-side rendering:
+
+- contains a `<script type="text/json" data-serialized-id="apollo"></script>` element with the contents set to a JSON representation of the contents of the Apollo cache, and
+- does not present the loading state for any GraphQL-connected component that shows data immediately when available (this excludes any queries with a `fetchPolicy` that ignores the cache).
+
 #### Using it with csrf token
 
 We suggest that you use `@shopify/react-csrf-universal-provider` to share csrf token in your application.
@@ -95,7 +99,6 @@ function App({server}: {server?: boolean}) {
 ```tsx
 // GraphQL.tsx
 
-import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-inmemory-cache';
 import {createHttpLink} from 'apollo-link-http';
 

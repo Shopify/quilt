@@ -24,11 +24,10 @@ export default function useQuery<
   queryOrComponent:
     | DocumentNode<Data, Variables>
     | AsyncQueryComponentType<Data, Variables, DeepPartial>,
-  options: QueryHookOptions<Variables> = {},
+  options: Omit<QueryHookOptions<Variables>, 'query'> = {},
 ): QueryHookResult<Data, Variables> {
   const {
     skip = false,
-    variables,
     fetchPolicy,
     errorPolicy,
     pollInterval,
@@ -37,6 +36,10 @@ export default function useQuery<
     context,
     ssr = true,
   } = options;
+
+  // This type gets inferred as Record<string, any> which causes
+  // lots of issues with stronger type checks elsewhere in the hook.
+  const variables: Variables = options.variables as any;
   const client = useApolloClient(overrideClient);
 
   if (
@@ -193,17 +196,18 @@ export default function useQuery<
   return currentResult;
 }
 
-function createDefaultResult(
+function createDefaultResult<Variables>(
   client: ApolloClient<unknown>,
-  variables: any,
+  variables: Variables,
   queryObservable?: ObservableQuery,
-) {
+): QueryHookResult<any, Variables> {
   return {
     data: undefined,
     error: undefined,
     networkStatus: undefined,
     loading: false,
-    variables: queryObservable ? queryObservable.variables : variables,
+    called: false,
+    variables: (queryObservable ? queryObservable.variables : variables) as any,
     refetch: queryObservable
       ? queryObservable.refetch.bind(queryObservable)
       : noop,
