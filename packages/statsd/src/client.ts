@@ -1,6 +1,8 @@
 import {StatsD, ClientOptions, Tags} from 'hot-shots';
 import {snakeCase} from 'change-case';
 
+const UNKNOWN = 'Unknown';
+
 export interface Logger {
   log(message: string): void;
 }
@@ -89,12 +91,16 @@ export class StatsDClient {
 }
 
 function snakeCaseTags(tags?: Tags): Tags | undefined {
+  const output: Record<string, string> = {};
+
   if (tags == null) {
-    return tags;
+    return output;
   }
 
-  return Object.keys(tags).reduce(
-    (object, tag) => ({...object, [snakeCase(tag)]: (tags as any)[tag]}),
-    {},
-  );
+  for (const [key, value] of Object.entries(tags)) {
+    const newValue = value == null ? UNKNOWN : String(value);
+    output[snakeCase(key)] = newValue;
+  }
+
+  return output;
 }

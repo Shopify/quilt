@@ -1,7 +1,6 @@
 import {Context} from 'koa';
 import compose from 'koa-compose';
 import bodyParser from 'koa-bodyparser';
-import {snakeCase} from 'change-case';
 import {StatusCode, Header} from '@shopify/network';
 import {
   EventType,
@@ -44,11 +43,6 @@ export interface Metrics {
   }[];
 }
 
-export enum TagValue {
-  ReallyFastConnection = 'Really fast',
-  Unknown = 'Unknown',
-}
-
 export function clientPerformanceMetrics({
   statsdHost,
   statsdPort,
@@ -75,6 +69,7 @@ export function clientPerformanceMetrics({
         host: statsdHost,
         port: statsdPort,
         logger: statsLogger,
+        snakeCase: true,
         prefix,
       });
 
@@ -84,7 +79,7 @@ export function clientPerformanceMetrics({
       const metrics: {
         name: string;
         value: any;
-        tags: {[key: string]: string};
+        tags: {[key: string]: string | undefined | null};
       }[] = [];
 
       const additionalTags = getAdditionalTags
@@ -92,10 +87,8 @@ export function clientPerformanceMetrics({
         : {};
 
       const tags = {
-        ...formatTags({
-          browserConnectionType: connection.effectiveType,
-        }),
-        ...formatTags(additionalTags),
+        browserConnectionType: connection.effectiveType,
+        ...additionalTags,
       };
 
       statsLogger.log(`Adding event tags: ${JSON.stringify(tags)}`);
@@ -129,8 +122,8 @@ export function clientPerformanceMetrics({
 
         const navigationTags = {
           ...tags,
-          ...formatTags(additionalNavigationTags),
-          ...formatTags(anomalousNavigationDurationTag),
+          ...additionalNavigationTags,
+          ...anomalousNavigationDurationTag,
         };
 
         statsLogger.log(
@@ -207,16 +200,6 @@ function isClientMetricsBody(value: any): value is Metrics {
     Array.isArray(value.navigations) &&
     typeof value.pathname === 'string'
   );
-}
-
-function formatTags(object: Record<string, any>) {
-  const output: Record<string, string> = {};
-
-  for (const [key, value] of Object.entries(object)) {
-    output[snakeCase(key)] = value == null ? TagValue.Unknown : String(value);
-  }
-
-  return output;
 }
 
 function getAnomalousNavigationDurationTag(

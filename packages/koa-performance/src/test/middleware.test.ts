@@ -10,7 +10,7 @@ import {
 } from '@shopify/performance';
 import withEnv from '@shopify/with-env';
 
-import {clientPerformanceMetrics, Metrics, TagValue} from '../middleware';
+import {clientPerformanceMetrics, Metrics} from '../middleware';
 
 jest.mock('@shopify/statsd', () => {
   return {
@@ -125,10 +125,7 @@ describe('client metrics middleware', () => {
 
       StatsDClient.distributionSpy.mock.calls.forEach(
         ([, , tags]: [never, never, any]) => {
-          expect(tags).toHaveProperty(
-            'browser_connection_type',
-            TagValue.Unknown,
-          );
+          expect(tags).toHaveProperty('browser_connection_type', 'Unknown');
         },
       );
     });
@@ -157,7 +154,7 @@ describe('client metrics middleware', () => {
       );
     });
 
-    it('includes normalized additionalTags for each metric', async () => {
+    it('includes additionalTags for each metric', async () => {
       const additionalTags = {fooBar: true};
       const context = createMockContext({
         method: Method.Post,
@@ -176,8 +173,7 @@ describe('client metrics middleware', () => {
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         expect.anything(),
         expect.anything(),
-        // eslint-disable-next-line babel/camelcase
-        expect.objectContaining({foo_bar: 'true'}),
+        expect.objectContaining(additionalTags),
       );
     });
   });
@@ -344,7 +340,7 @@ describe('client metrics middleware', () => {
       );
     });
 
-    it('attaches (normalized) custom tags from the config', async () => {
+    it('attaches custom tags from the config', async () => {
       const additionalTags = {fooBar: 'baz'};
       const spy = jest.fn(() => additionalTags);
       const navigation = createNavigation();
@@ -367,8 +363,7 @@ describe('client metrics middleware', () => {
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'navigation_complete',
         expect.any(Number),
-        // eslint-disable-next-line babel/camelcase
-        expect.objectContaining({foo_bar: 'baz'}),
+        expect.objectContaining(additionalTags),
       );
     });
 
@@ -422,7 +417,7 @@ describe('client metrics middleware', () => {
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'navigation_complete',
         expect.any(Number),
-        expect.objectContaining({anomalous: 'true'}),
+        expect.objectContaining({anomalous: true}),
       );
     });
 
@@ -449,7 +444,7 @@ describe('client metrics middleware', () => {
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'navigation_complete',
         expect.any(Number),
-        expect.objectContaining({anomalous: 'false'}),
+        expect.objectContaining({anomalous: false}),
       );
     });
   });
