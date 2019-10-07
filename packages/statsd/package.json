@@ -1,6 +1,6 @@
 {
   "name": "@shopify/statsd",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "An opinionated StatsD client for Shopify Node.js server and other StatsD utilities.",
   "main": "dist/index.js",
