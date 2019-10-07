@@ -1,4 +1,8 @@
-export function createWorker<T>(script: () => Promise<T>): () => T {
+import {PromisifyModule} from './types';
+
+export function createWorker<T>(
+  module: () => Promise<T>,
+): () => PromisifyModule<T> {
   return function create() {
     if (typeof Worker === 'undefined') {
       return new Proxy(
@@ -16,7 +20,7 @@ export function createWorker<T>(script: () => Promise<T>): () => T {
     }
 
     const workerScript = URL.createObjectURL(
-      new Blob([`importScripts(${JSON.stringify(script)})`]),
+      new Blob([`importScripts(${JSON.stringify(module)})`]),
     );
 
     const worker = new Worker(workerScript);
