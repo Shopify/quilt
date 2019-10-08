@@ -1,3 +1,5 @@
+import * as Comlink from 'comlink';
+
 import {PromisifyModule} from './types';
 
 export function createWorker<T>(
@@ -24,29 +26,21 @@ export function createWorker<T>(
     );
 
     const worker = new Worker(workerScript);
+    const workerApi = Comlink.wrap(worker);
 
     return new Proxy(
       {},
       {
         get(_target, property) {
-          return (...args: any[]) => {
-            const done = new Promise<{result: any}>((resolve, reject) => {
-              worker.addEventListener('message', function listener({data}) {
-                worker.removeEventListener('message', listener);
+          return async (...args: any[]) => {
+            const requiresProxy = args.some(
+              arg => typeof arg === 'function' || typeof arg === 'object',
+            );
 
-                if (data.error) {
-                  const error = new Error();
-                  Object.assign(error, data.error);
-                  reject(error);
-                } else {
-                  resolve(data.result);
-                }
-              });
-            });
-
-            worker.postMessage({invoke: property, args});
-
-            return done;
+            // TODO: dont use args[0]
+            const parameters = requiresProxy ? Comlink.proxy(args[0]) : args;
+            const result = await (workerApi as any)[property](parameters);
+            return result;
           };
         },
       },

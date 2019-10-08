@@ -59,6 +59,53 @@ describe('web-workers', () => {
     });
   });
 
+  it('supports worker functions that accepts a function argument', async () => {
+    const greetingPrefix = 'Hello ';
+    const greetingTarget = 'world';
+    const testId = 'WorkerResult';
+
+    await withContext('basic-result', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker} from '@shopify/web-workers';
+
+          const worker = createWorker(() => import('./worker'))();
+
+          (async () => {
+            const result = await worker.greet(() => ${JSON.stringify(
+              greetingTarget,
+            )});
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = result;
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          export async function greet(functionThatReturnsName) {
+            const stringResult = await functionThatReturnsName();
+            return \`${greetingPrefix}\${stringResult}\`;
+          }
+        `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+      expect(await workerElement.evaluate(element => element.innerHTML)).toBe(
+        `${greetingPrefix}${greetingTarget}`,
+      );
+    });
+  });
+
   it('creates a worker that propagates thrown errors', async () => {
     const errorMessage = 'Something went wrong!';
     const testId = 'WorkerResult';
