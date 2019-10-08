@@ -1,9 +1,15 @@
-import {StatsD, ClientOptions, Tags} from 'hot-shots';
+import {StatsD, ClientOptions} from 'hot-shots';
 import {snakeCase} from 'change-case';
+
+const UNKNOWN = 'Unknown';
 
 export interface Logger {
   log(message: string): void;
 }
+
+type Tags =
+  | Record<string, string | number | boolean | null | undefined>
+  | string[];
 
 export interface Options extends ClientOptions {
   logger?: Logger;
@@ -65,7 +71,7 @@ export class StatsDClient {
 
   addGlobalTags(globalTags: Tags) {
     this.statsd = this.statsd.childClient({
-      globalTags,
+      globalTags: this.normalizeTags(globalTags),
     });
   }
 
@@ -79,22 +85,23 @@ export class StatsDClient {
     };
   }
 
-  private normalizeTags(tags?: Tags) {
-    if (!this.options.snakeCase) {
+  private normalizeTags(tags: Tags = []) {
+    if (Array.isArray(tags)) {
       return tags;
     }
 
-    return snakeCaseTags(tags);
-  }
-}
+    const output: Record<string, string> = {};
 
-function snakeCaseTags(tags?: Tags): Tags | undefined {
-  if (tags == null) {
-    return tags;
-  }
+    for (const [key, value] of Object.entries(tags)) {
+      const newValue = value == null ? UNKNOWN : String(value);
 
-  return Object.keys(tags).reduce(
-    (object, tag) => ({...object, [snakeCase(tag)]: (tags as any)[tag]}),
-    {},
-  );
+      if (this.options.snakeCase) {
+        output[snakeCase(key)] = newValue;
+      } else {
+        output[key] = newValue;
+      }
+    }
+
+    return output;
+  }
 }
