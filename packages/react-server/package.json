@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "license": "MIT",
   "description": "Utilities for React server-side rendering.",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
     "@shopify/network": "^1.4.2",
     "@shopify/react-async": "^3.0.9",
     "@shopify/react-cookie": "^0.0.3",
-    "@shopify/react-csrf-universal-provider": "^1.0.6",
+    "@shopify/react-csrf-universal-provider": "^1.0.7",
     "@shopify/react-effect": "^3.2.3",
     "@shopify/react-html": "^9.2.3",
     "@shopify/react-hydrate": "^1.1.4",
