@@ -112,5 +112,12 @@ export interface Node<Props> {
   ): MaybeFunctionReturnType<NonNullable<Props[K]>>;
   triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T;
 
+  debug(options?: DebugOptions): string;
   toString(): string;
+}
+
+export interface DebugOptions {
+  allProps?: boolean;
+  depth?: number;
+  verbosity?: number;
 }
