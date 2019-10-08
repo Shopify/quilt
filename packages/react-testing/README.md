@@ -11,6 +11,7 @@ A library for testing React components according to [Shopify conventions](https:
 1. [Usage](#usage)
    1. [`Root`](#root)
    1. [`Element`](#element)
+   1. [`debug()`](#debug)
    1. [`mount()`](#mount)
    1. [`createMount()`](#createMount)
    1. [`destroyAll()`](#destroyAll)
@@ -292,6 +293,48 @@ const myComponent = mount(
 );
 myComponent.triggerKeypath('action.onAction');
 expect(spy).toHaveBeenCalled();
+```
+
+### <a name="debug"></a> `debug(options?: {allProps?: boolean, depth?: number, verbosity?: number}): string`
+
+Returns a text representation of either the root node, or any element within the mounted graph. `debug()` output can be tweaked using the `options` parameter.
+
+- `allProps` overrides the default props filtering behaviour and instead includes all props in the output, by default `className`, `aria-*`, and `data-*` props are omitted.
+- `depth` defines the number of children printed, by default all children are printed.
+- `verbosity` defines the level of expansion that non-scalar props experience, the default value of `1` will expand objects one level deep
+
+Typical usage should not require providing any options as the default `verbosity` and `depth` should be appropriate for the majority of inspections.
+
+```tsx
+function ObjectText({data}: {data: {}}) {
+  return <span>{JSON.stringify(data)}</span>;
+}
+
+function Container({children}: PropsWithChildren<{}>) {
+  return children;
+}
+
+function MyComponent({onClick}: {onClick(id: string): void}) {
+  return (
+    <Container>
+      <button type="button" onClick={() => onClick(String(Math.random()))}>
+        <ObjectText data={{a: {very: {deep: {data: {object: 'with text'}}}}}} />
+      </button>
+    </Container>
+  );
+}
+
+const wrapper = mount(<MyComponent />);
+// print the whole structure with one level of prop verbosity
+console.log(wrapper.debug());
+// print only the Container and button without any other children
+console.log(wrapper.find(Container)!.debug({depth: 1}));
+// find button by name and print all children with verbose props details
+console.log(
+  wrapper
+    .findWhere(type => type && type.name === 'button')!
+    .debug({verbosity: 9}),
+);
 ```
 
 ### <a name="mount"></a> `mount(element: React.ReactElement<any>)`

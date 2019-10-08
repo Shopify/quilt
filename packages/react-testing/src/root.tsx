@@ -17,6 +17,7 @@ import {
   FunctionKeys,
   DeepPartialArguments,
   PropsFor,
+  DebugOptions,
 } from './types';
 
 // Manually casting `act()` until @types/react is updated to include
@@ -241,6 +242,11 @@ export class Root<Props> implements Node<Props> {
   forceUpdate() {
     this.ensureRoot();
     this.act(() => this.wrapper!.forceUpdate());
+  }
+
+  debug(options?: DebugOptions) {
+    this.ensureRoot();
+    return this.root!.debug(options);
   }
 
   toString() {
