@@ -30,6 +30,9 @@ describe('createServer()', () => {
     const wrapper = await rack.mount(({ip, port}) =>
       createServer({port, ip, render: () => <MockApp />}),
     );
+
+    await wrapper.listen();
+
     const response = await wrapper.request();
 
     expect(await response.text()).toStrictEqual(
@@ -48,6 +51,9 @@ describe('createServer()', () => {
     const wrapper = await rack.mount(({ip, port}) =>
       createServer({port, ip, render: () => <MockApp />}),
     );
+
+    await wrapper.listen();
+
     const response = await wrapper.request();
 
     expect(await response.text()).toStrictEqual(
@@ -84,6 +90,8 @@ describe('createServer()', () => {
         },
       },
     );
+
+    await wrapper.listen();
 
     const response = await wrapper.request();
 

@@ -1,5 +1,4 @@
 import 'isomorphic-fetch';
-import {Server} from 'http';
 import {join} from 'path';
 import {pathExistsSync} from 'fs-extra';
 import Koa, {Context} from 'koa';
@@ -10,8 +9,6 @@ import {createRender, RenderFunction} from '../render';
 import {requestLogger} from '../logger';
 import {metricsMiddleware as metrics} from '../metrics';
 import {ping} from '../ping';
-
-const logger = console;
 
 type Options = {
   port?: number;
@@ -26,8 +23,8 @@ type Options = {
  * @param options
  * @returns a Server instance
  */
-export function createServer(options: Options): Server {
-  const {port, assetPrefix, render, serverMiddleware, ip} = options;
+export function createServer(options: Options): Koa {
+  const {assetPrefix, render, serverMiddleware} = options;
   const app = new Koa();
   const manifestPath = getManifestPath(process.cwd());
 
@@ -43,9 +40,7 @@ export function createServer(options: Options): Server {
 
   app.use(createRender(render));
 
-  return app.listen(port || 3000, () => {
-    logger.log(`started react-server on ${ip}:${port}`);
-  });
+  return app;
 }
 
 function getManifestPath(root: string) {
