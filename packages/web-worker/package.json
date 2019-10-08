@@ -1,6 +1,6 @@
 {
-  "name": "@shopify/web-worker",
-  "version": "0.0.1",
+  "name": "@lemonmade/web-worker",
+  "version": "0.0.2-beta.0",
   "license": "MIT",
   "description": "Tools for making web workers fun to use.",
   "main": "dist/index.js",
@@ -11,8 +11,7 @@
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
-    "access": "public",
-    "@shopify:registry": "https://registry.npmjs.org"
+    "access": "public"
   },
   "author": "Shopify Inc.",
   "repository": {
