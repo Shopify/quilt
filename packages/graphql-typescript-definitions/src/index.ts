@@ -3,6 +3,7 @@ import {join, resolve} from 'path';
 import {
   DocumentNode,
   DefinitionNode,
+  FragmentDefinitionNode,
   OperationDefinitionNode,
   parse,
   Source,
@@ -278,6 +279,7 @@ export class Builder extends EventEmitter {
     this.emit('start:docs');
 
     this.checkForDuplicateOperations();
+    this.checkForDuplicateFragments();
 
     await Promise.all(
       Array.from(this.documentMapByProject.entries()).map(
@@ -299,6 +301,24 @@ export class Builder extends EventEmitter {
           duplicates.forEach(({operationName, filePaths}) => {
             const message = `GraphQL operations must have a unique name. The operation ${chalk.bold(
               operationName,
+            )} is declared in:\n ${filePaths.sort().join('\n ')}${
+              projectName ? ` (${chalk.bold(projectName)})` : ''
+            }`;
+
+            this.emit('error', new Error(message));
+          });
+        }
+      },
+    );
+  }
+
+  private checkForDuplicateFragments() {
+    getDuplicateFragments(this.documentMapByProject).forEach(
+      ({projectName, duplicates}) => {
+        if (duplicates.length) {
+          duplicates.forEach(({fragmentName, filePaths}) => {
+            const message = `GraphQL fragments must have a unique name. The fragment ${chalk.bold(
+              fragmentName,
             )} is declared in:\n ${filePaths.sort().join('\n ')}${
               projectName ? ` (${chalk.bold(projectName)})` : ''
             }`;
@@ -490,6 +510,19 @@ function getDuplicateOperations(
   );
 }
 
+function getDuplicateFragments(
+  documentsMapByProject: GraphQLDocumentMapByProject,
+) {
+  return Array.from(documentsMapByProject.entries()).map(
+    ([projectName, documents]) => {
+      return {
+        projectName,
+        duplicates: getDuplicateProjectFragments(documents),
+      };
+    },
+  );
+}
+
 function getDuplicateProjectOperations(documents: Map<string, DocumentNode>) {
   const operations = new Map<string, Set<string>>();
 
@@ -514,8 +547,38 @@ function getDuplicateProjectOperations(documents: Map<string, DocumentNode>) {
     });
 }
 
+function getDuplicateProjectFragments(documents: Map<string, DocumentNode>) {
+  const fragments = new Map<string, Set<string>>();
+
+  Array.from(documents.entries()).forEach(([filePath, document]) => {
+    document.definitions.filter(isFragmentDefinition).forEach((definition) => {
+      const {name} = definition;
+      if (name && name.value) {
+        const map = fragments.get(name.value);
+        if (map) {
+          map.add(filePath);
+        } else {
+          fragments.set(name.value, new Set([filePath]));
+        }
+      }
+    });
+  });
+
+  return Array.from(fragments.entries())
+    .filter(([, filePaths]) => filePaths.size > 1)
+    .map(([fragmentName, filePath]) => {
+      return {fragmentName, filePaths: Array.from(filePath)};
+    });
+}
+
 function isOperationDefinition(
   definition: DefinitionNode,
 ): definition is OperationDefinitionNode {
   return definition.kind === 'OperationDefinition';
+}
+
+function isFragmentDefinition(
+  definition: DefinitionNode,
+): definition is FragmentDefinitionNode {
+  return definition.kind === 'FragmentDefinition';
 }
