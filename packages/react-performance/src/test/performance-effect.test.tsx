@@ -7,18 +7,18 @@ import {
   PerformanceContext,
 } from '..';
 
+jest.mock('@shopify/performance', () => {
+  return {
+    ...require.requireActual('@shopify/performance'),
+    Performance: jest.fn(),
+  };
+});
+
 describe('usePerformanceEffect', () => {
   function TestComponent({callback}: {callback: PerformanceEffectCallback}) {
     usePerformanceEffect(callback);
     return <div>nothing of note ;P</div>;
   }
-
-  it('does not call the given callback when there is no Performance in context', () => {
-    const spy = jest.fn();
-    mount(<TestComponent callback={spy} />);
-
-    expect(spy).not.toHaveBeenCalled();
-  });
 
   it('calls the given callback and passes in the Performance object when there is one in context', () => {
     const performance = mockPerformance();
