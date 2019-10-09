@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- `PerformanceProvider` that creates a performance manager by default [#1102](https://github.com/Shopify/quilt/pull/1102)
+- creates a performance object as the default context value [#1102](https://github.com/Shopify/quilt/pull/1102)
 
 ## [1.0.0]
 

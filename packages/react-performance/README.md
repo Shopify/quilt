@@ -17,25 +17,9 @@ $ yarn add @shopify/react-performance
 
 The most basic way to use the tools in this package is to record information and display it locally to the user. In practice you usually only want to do this in development so that developers can easily see performance information.
 
-#### Add `PerformanceProvider`
-
-Before we can use any of the components or hooks in the package we must wrap our app tree with the `PerformanceProvider` component.
-
-```tsx
-// App.tsx
-import React from 'react';
-import {PerformanceProvider} from '@shopify/react-performance';
-
-function App() {
-  return (
-    <PerformanceProvider>{/* The rest of your app */}</PerformanceProvider>
-  );
-}
-```
-
 #### Display data using NavigationListener
 
-Now that we have setup the Provider, we can use the other components and hooks offered by `@shopify/react-performance` anywhere in our tree. To demonstrate, we'll create a component called `LastNavigationDetails` and use it to display some basic data about our app's performance.
+To demonstrate, we'll create a component called `LastNavigationDetails` and use it to display some basic data about our app's performance.
 
 ```tsx
 // LastNavigationDetails.tsx
@@ -66,20 +50,19 @@ export function LastNavigationDetails() {
 }
 ```
 
-We can render this component anywhere in our tree, but lets do so in our App component from earlier.
+We can render this component anywhere in our application, but lets do so in our App component from earlier.
 
 ```tsx
 // App.tsx
 import React from 'react';
-import {PerformanceProvider} from '@shopify/react-performance';
 import {LastNavigationDetails} from './LastNavigationDetails';
 
 function App() {
   return (
-    <PerformanceProvider>
+    <>
       {/* The rest of your app */}
       <LastNavigationDetails />
-    </PerformanceProvider>
+    </>
   );
 }
 ```
@@ -207,7 +190,7 @@ function SomeComponent() {
 
 #### PerformanceMark
 
-A componenr which takes both `id` and `stage` props and uses them to generate a tag for a call to `window.performance.mark` when it is mounted. This can be used to mark specialized moments in your applications startup, or a specific interaction.
+A component which takes both `id` and `stage` props and uses them to generate a tag for a call to `window.performance.mark` when it is mounted. This can be used to mark specialized moments in your applications startup, or a specific interaction.
 
 ```tsx
 import React from 'react';

@@ -17,5 +17,3 @@ export {useNavigationListener} from './navigation-listener';
 
 export {PerformanceReport} from './PerformanceReport';
 export {usePerformanceReport} from './performance-report';
-
-export {PerformanceProvider} from './PerformanceProvider';
