@@ -1,0 +1,10 @@
+fragment personFields on Person {
+  id
+  name
+}
+
+query FindPersons {
+  person {
+    ...personFields
+  }
+}

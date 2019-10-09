@@ -3,7 +3,11 @@
 All notable consumer-facing changes are documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Changed
+
+* duplicate checks now include fragments [[#88](https://github.com/Shopify/graphql-tools-web/pull/88)]
 
 ## [0.17.0] - 2019-04-01
 

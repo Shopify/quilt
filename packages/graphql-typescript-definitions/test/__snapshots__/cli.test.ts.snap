@@ -1,33 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cli fails when multiple queries have the same name 1`] = `
+exports[`cli fails when multiple fragments have the same name 1`] = `
 Object {
   "error": Object {
-    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions --cwd 'packages/graphql-typescript-definitions/test/fixtures/duplicate-names' --schema-types-path 'packages/graphql-typescript-definitions/test/fixtures/duplicate-names'",
+    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions --cwd 'packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names' --schema-types-path 'packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names'",
     "code": 1,
     "killed": false,
     "signal": null,
   },
   "stderr": "",
   "stdout": "
-[7m[1m[32m BUILT [39m[22m[27m [2mpackages/graphql-typescript-definitions/test/fixtures/duplicate-names/schema.json[22m → packages/graphql-typescript-definitions/test/fixtures/duplicate-names/types
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names/schema.json → packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names/types
 
-[7m[1m[31m ERROR [39m[22m[27m GraphQL operations must have a unique name. The operation [1mFindPerson[22m is declared in:
- packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query1/FindPersonsQuery.graphql
- packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query2/FindPersonQuery.graphql
-[2mError: GraphQL operations must have a unique name. The operation [1mFindPerson[2m is declared in:[22m
-[2m packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query1/FindPersonsQuery.graphql[22m
-[2m packages/graphql-typescript-definitions/test/fixtures/duplicate-names/documents/Query2/FindPersonQuery.graphql[22m
-[2m    at duplicates.forEach (packages/graphql-typescript-definitions/lib/index.js)[22m
-[2m    at Array.forEach (<anonymous>)[22m
-[2m    at getDuplicateOperations.forEach (packages/graphql-typescript-definitions/lib/index.js)[22m
-[2m    at Array.forEach (<anonymous>)[22m
-[2m    at Builder.checkForDuplicateOperations (packages/graphql-typescript-definitions/lib/index.js)[22m
-[2m    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)[22m
-[2m    at Generator.next (<anonymous>)[22m
-[2m    at packages/graphql-typescript-definitions/lib/index.js[22m
-[2m    at new Promise (<anonymous>)[22m
-[2m    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)[22m
+ ERROR  GraphQL fragments must have a unique name. The fragment personFields is declared in:
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names/documents/Query1/FindPersonsQuery.graphql
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names/documents/Query2/FindPersonQuery.graphql
+Error: GraphQL fragments must have a unique name. The fragment personFields is declared in:
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names/documents/Query1/FindPersonsQuery.graphql
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-fragment-names/documents/Query2/FindPersonQuery.graphql
+    at duplicates.forEach (packages/graphql-typescript-definitions/lib/index.js)
+    at Array.forEach (<anonymous>)
+    at getDuplicateFragments.forEach (packages/graphql-typescript-definitions/lib/index.js)
+    at Array.forEach (<anonymous>)
+    at Builder.checkForDuplicateFragments (packages/graphql-typescript-definitions/lib/index.js)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
+    at Generator.next (<anonymous>)
+    at packages/graphql-typescript-definitions/lib/index.js
+    at new Promise (<anonymous>)
+    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
+
+",
+}
+`;
+
+exports[`cli fails when multiple queries have the same name 1`] = `
+Object {
+  "error": Object {
+    "cmd": "packages/graphql-typescript-definitions/bin/graphql-typescript-definitions --cwd 'packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names' --schema-types-path 'packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names'",
+    "code": 1,
+    "killed": false,
+    "signal": null,
+  },
+  "stderr": "",
+  "stdout": "
+ BUILT  packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names/schema.json → packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names/types
+
+ ERROR  GraphQL operations must have a unique name. The operation FindPerson is declared in:
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names/documents/Query1/FindPersonsQuery.graphql
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names/documents/Query2/FindPersonQuery.graphql
+Error: GraphQL operations must have a unique name. The operation FindPerson is declared in:
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names/documents/Query1/FindPersonsQuery.graphql
+ packages/graphql-typescript-definitions/test/fixtures/duplicate-query-names/documents/Query2/FindPersonQuery.graphql
+    at duplicates.forEach (packages/graphql-typescript-definitions/lib/index.js)
+    at Array.forEach (<anonymous>)
+    at getDuplicateOperations.forEach (packages/graphql-typescript-definitions/lib/index.js)
+    at Array.forEach (<anonymous>)
+    at Builder.checkForDuplicateOperations (packages/graphql-typescript-definitions/lib/index.js)
+    at Builder.<anonymous> (packages/graphql-typescript-definitions/lib/index.js)
+    at Generator.next (<anonymous>)
+    at packages/graphql-typescript-definitions/lib/index.js
+    at new Promise (<anonymous>)
+    at __awaiter (packages/graphql-typescript-definitions/lib/index.js)
 
 ",
 }
