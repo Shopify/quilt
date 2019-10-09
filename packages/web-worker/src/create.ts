@@ -6,14 +6,18 @@ export function expose(
   caller: Endpoint<any>['call'],
   api: {[key: string]: Function | undefined},
 ) {
-  const endpoint = workerEndpointCache.get(caller);
+  const endpoint = getEndpoint(caller);
   return endpoint && endpoint.expose(api);
+}
+
+export function getEndpoint(caller: Endpoint<any>['call']) {
+  return workerEndpointCache.get(caller);
 }
 
 export function createWorker<T extends {[key: string]: () => Promise<any>}>(
   script: () => Promise<T>,
-): () => T {
-  return function create() {
+) {
+  return function create(): Endpoint<T>['call'] {
     if (typeof Worker === 'undefined') {
       return new Proxy(
         {},

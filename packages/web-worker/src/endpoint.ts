@@ -10,6 +10,7 @@ import {
 const ID = '_';
 const FUNCTION = '_@f';
 const RELEASE = '_@r';
+const REVOKE = '_@v';
 const APPLY = '_@a';
 const API_ENDPOINT = '_@i';
 const APPLY_RESULT = '_@ar';
@@ -54,6 +55,10 @@ interface ReleaseMessage {
   [RELEASE]: 1;
 }
 
+interface RevokeMessage {
+  [REVOKE]: 1;
+}
+
 interface ApplyMessage {
   [APPLY]: any[];
 }
@@ -79,6 +84,8 @@ export interface Endpoint<
 > {
   call: T;
   expose(api: {[key: string]: Function | undefined}): void;
+  revoke(value: Function): void;
+  exchange(value: Function, newValue: Function): void;
 }
 
 export function createEndpoint<
@@ -89,7 +96,7 @@ export function createEndpoint<
 ): Endpoint<T> {
   const functionStore = new Map<Function, [string, MessagePort]>();
   const functionProxies = new Map<string, Function>();
-
+  const removeListeners = new WeakMap<MessageEndpoint, (() => void)>();
   const activeApi = new Map<string, Function>();
 
   makeCallable(messageEndpoint, (apiCall: ApplyApiEndpoint) =>
@@ -118,15 +125,42 @@ export function createEndpoint<
         }
       }
     },
+    revoke(value: Function) {
+      if (!functionStore.has(value)) {
+        throw new Error(
+          'You tried to revoke a function that is not currently stored.',
+        );
+      }
+
+      const [, port] = functionStore.get(value)!;
+      port.postMessage({[REVOKE]: 1} as RevokeMessage);
+      port.close();
+      functionStore.delete(value);
+    },
+    exchange(value: Function, newValue: Function) {
+      if (!functionStore.has(value)) {
+        throw new Error(
+          'You tried to exchange a value that is not currently stored.',
+        );
+      }
+
+      const [id, port] = functionStore.get(value)!;
+      makeCallable(port, () => newValue);
+      functionStore.set(newValue, [id, port]);
+    },
   };
 
   function makeCallable(
     messageEndpoint: MessageEndpoint,
     getFunction: ((data: any) => Function | undefined),
   ) {
-    messageEndpoint.addEventListener('message', async function listener({
-      data,
-    }) {
+    const remove = removeListeners.get(messageEndpoint);
+
+    if (remove) {
+      remove();
+    }
+
+    async function listener({data}) {
       if (!(APPLY in data)) {
         return;
       }
@@ -154,7 +188,12 @@ export function createEndpoint<
       } finally {
         stackFrame.release();
       }
-    });
+    }
+
+    messageEndpoint.addEventListener('message', listener);
+    removeListeners.set(messageEndpoint, () =>
+      messageEndpoint.removeEventListener('message', listener),
+    );
   }
 
   function call(
@@ -232,6 +271,7 @@ export function createEndpoint<
 
       const id = uuid();
       const {port1, port2} = new MessageChannel();
+      makeCallable(port1, () => value);
       functionStore.set(value, [id, port1]);
 
       port1.addEventListener('message', function listener({data}) {
@@ -241,8 +281,6 @@ export function createEndpoint<
           functionStore.delete(value);
         }
       });
-
-      makeCallable(port1, () => value);
 
       port1.start();
 
@@ -271,6 +309,7 @@ export function createEndpoint<
 
         let retainCount = 0;
         let released = false;
+        let revoked = false;
 
         const release = () => {
           retainCount -= 1;
@@ -286,6 +325,14 @@ export function createEndpoint<
         const retain = () => {
           retainCount += 1;
         };
+
+        port!.addEventListener('message', ({data}) => {
+          if (data && data[REVOKE]) {
+            revoked = true;
+            functionProxies.delete(id);
+            port!.close();
+          }
+        });
 
         const retainers = new Set(retainedBy);
 
@@ -313,6 +360,12 @@ export function createEndpoint<
             if (released) {
               throw new Error(
                 'You attempted to call a function that was already released.',
+              );
+            }
+
+            if (revoked) {
+              throw new Error(
+                'You attempted to call a function that was already revoked.',
               );
             }
 
