@@ -4,6 +4,7 @@
 
 import * as path from 'path';
 import {DefinePlugin} from 'webpack';
+import {Page, Worker} from 'puppeteer';
 
 import {WebWorkerPlugin} from '../webpack-parts';
 import {withContext, Context, runWebpack as runWebpackBase} from './utilities';
@@ -357,31 +358,31 @@ describe('web-worker', () => {
         `
           import {createWorker} from '@shopify/web-worker';
 
-          // Store this on window so we can get access to it to
+          // Store this on self so we can get access to it to
           // count the non-GC'ed instances
-          window.WorkerTestClass = class WorkerTestClass {constructor(id) {this.id = id;}}
+          self.WorkerTestClass = class WorkerTestClass {}
 
-          // Store this on window so we have a retained reference that
+          // Store this on self so we have a retained reference that
           // references both the function and an instance of the test class
-          window.memoryTracker = new WeakMap();
+          self.memoryTracker = new WeakMap();
 
-          // Store this on window so we retain it and its function store,
+          // Store this on self so we retain it and its function store,
           // which should lead to memory leaks if the function store is not cleaned.
-          window.worker = createWorker(() => import('./worker'))();
+          self.worker = createWorker(() => import('./worker'))();
 
-          window.retain = async () => {
+          self.retain = async () => {
             start();
 
             const func = () => {};
-            window.memoryTracker.set(func, new window.WorkerTestClass('foo'));
-            await window.worker.retain(func);
+            self.memoryTracker.set(func, new self.WorkerTestClass());
+            await self.worker.retain(func);
 
             done();
           }
 
-          window.release = async () => {
+          self.release = async () => {
             start();
-            await window.worker.release();
+            await self.worker.release();
             done();
           };
 
@@ -408,16 +409,18 @@ describe('web-worker', () => {
         `
           import {retain as retainRef, release as releaseRef} from '@shopify/web-worker';
 
-          const ref = {};
+          self.memoryTracker = new WeakMap();
+          self.WorkerTestClass = class WorkerTestClass {}
 
           export async function retain(func) {
-            ref.current = func;
+            self.func = func;
+            self.memoryTracker.set(func, new self.WorkerTestClass());
             retainRef(func);
           }
 
           export async function release() {
-            const {current: func} = ref;
-            delete ref.current;
+            const {func} = self;
+            delete self.func;
             releaseRef(func);
           }
         `,
@@ -427,17 +430,21 @@ describe('web-worker', () => {
 
       const page = await browser.go();
 
-      async function getTestClassInstanceCount() {
+      async function getTestClassInstanceCount(source: Page | Worker) {
         let prototype: import('puppeteer').JSHandle | undefined;
         let instances: import('puppeteer').JSHandle | undefined;
 
+        const context = (source as any).executionContext
+          ? await (source as Worker).executionContext()
+          : (source as Page);
+
         try {
-          prototype = await page.evaluateHandle(
-            () => (window as any).WorkerTestClass.prototype,
+          prototype = await context.evaluateHandle(
+            () => (self as any).WorkerTestClass.prototype,
           );
 
-          instances = await page.queryObjects(prototype);
-          return page.evaluate(workers => workers.length, instances);
+          instances = await context.queryObjects(prototype);
+          return context.evaluate(workers => workers.length, instances);
         } finally {
           if (prototype) {
             await prototype.dispose();
@@ -451,12 +458,15 @@ describe('web-worker', () => {
 
       await page.waitForSelector(`#${testId}`);
 
+      const [worker] = page.workers();
+
       await page.evaluate(() => (window as any).retain());
       await page.waitForSelector(`#${testId}`);
 
       // One reference retained because we have a direct retainer
       // for the function (window)
-      expect(await getTestClassInstanceCount()).toBe(1);
+      expect(await getTestClassInstanceCount(page)).toBe(1);
+      expect(await getTestClassInstanceCount(worker)).toBe(1);
 
       await page.evaluate(() => (window as any).release());
       await page.waitForSelector(`#${testId}`);
@@ -464,7 +474,8 @@ describe('web-worker', () => {
       // Zero references because we took it off window and, even
       // though we passed it over the worker, we have since
       // collected its memory.
-      expect(await getTestClassInstanceCount()).toBe(0);
+      expect(await getTestClassInstanceCount(page)).toBe(0);
+      expect(await getTestClassInstanceCount(worker)).toBe(0);
     });
   });
 });
