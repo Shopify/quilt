@@ -1,5 +1,4 @@
 import {createEndpoint, Endpoint} from './endpoint';
-import {PromisifyExport} from './types';
 
 const workerEndpointCache = new WeakMap<Endpoint<any>['call'], Endpoint<any>>();
 
@@ -15,9 +14,7 @@ export function getEndpoint(caller: Endpoint<any>['call']) {
   return workerEndpointCache.get(caller);
 }
 
-export function createWorker<T extends {[K in keyof T]: T[K]}>(
-  script: () => Promise<T>,
-): () => {[K in keyof T]: PromisifyExport<T[K]>} {
+export function createWorker<T>(script: () => Promise<T>) {
   return function create(): Endpoint<T>['call'] {
     if (typeof Worker === 'undefined') {
       return new Proxy(
@@ -39,11 +36,11 @@ export function createWorker<T extends {[K in keyof T]: T[K]}>(
     );
 
     const worker = new Worker(workerScript);
-    const endpoint = createEndpoint<T>(worker);
+    const endpoint = createEndpoint(worker);
     const {call: caller} = endpoint;
 
     workerEndpointCache.set(caller, endpoint);
 
-    return caller;
+    return caller as any;
   };
 }
