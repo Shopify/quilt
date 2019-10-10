@@ -520,6 +520,59 @@ describe('web-worker', () => {
       expect(page.workers()).toHaveLength(0);
     });
   });
+
+  it('throws an error when calling a function on a terminated worker', async () => {
+    const greetingPrefix = 'Hello ';
+    const greetingTarget = 'world';
+    const testId = 'WorkerResult';
+
+    await withContext('basic-result', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker, terminate} from '@shopify/web-worker';
+          self.worker = createWorker(() => import('./worker'))();
+          (async () => {
+            await terminate(self.worker);
+            let result;
+            try {
+              result = await self.worker.greet(${JSON.stringify(
+                greetingTarget,
+              )});
+            } catch (error){
+              result = error.toString();
+            }
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = result;
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          export function greet(name) {
+            return \`${greetingPrefix}\${name}\`;
+          }
+        `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
+      );
+      expect(textContent).toBe(
+        'Error: You attempted to call a function on a terminated web worker.',
+      );
+    });
+  });
 });
 
 function runWebpack(

@@ -47,6 +47,7 @@ interface MessageEndpoint {
     event: 'message',
     listener: (event: MessageEvent) => void,
   ): void;
+  terminate?(): void;
 }
 
 interface FunctionSerialization {
@@ -86,12 +87,14 @@ export interface Endpoint<T> {
   expose(api: {[key: string]: Function | undefined}): void;
   revoke(value: Function): void;
   exchange(value: Function, newValue: Function): void;
+  terminateEndpoint(): void;
 }
 
 export function createEndpoint<T>(
   messageEndpoint: MessageEndpoint,
   {uuid = defaultUuid}: Options = {},
 ): Endpoint<T> {
+  let terminated = false;
   const functionStore = new Map<Function, [string, MessagePort]>();
   const functionProxies = new Map<string, Function>();
   const removeListeners = new WeakMap<MessageEndpoint, (() => void)>();
@@ -107,6 +110,12 @@ export function createEndpoint<T>(
       {
         get(_target, property) {
           return (...args: any[]) => {
+            if (terminated) {
+              throw new Error(
+                'You attempted to call a function on a terminated web worker.',
+              );
+            }
+
             return call(messageEndpoint, args, [], {[API_ENDPOINT]: property});
           };
         },
@@ -145,6 +154,13 @@ export function createEndpoint<T>(
       const [id, port] = functionStore.get(value)!;
       makeCallable(port, () => newValue);
       functionStore.set(newValue, [id, port]);
+    },
+    terminateEndpoint() {
+      if (messageEndpoint.terminate) {
+        [functionStore, functionProxies, activeApi].forEach(map => map.clear());
+        messageEndpoint.terminate();
+        terminated = true;
+      }
     },
   };
 
