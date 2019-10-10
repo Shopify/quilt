@@ -10,6 +10,15 @@ export function expose(
   return endpoint && endpoint.expose(api);
 }
 
+export function terminate(caller: Endpoint<any>['call']) {
+  const endpoint = getEndpoint(caller);
+  if (endpoint && endpoint.terminateEndpoint) {
+    endpoint.terminateEndpoint();
+  }
+
+  workerEndpointCache.delete(caller);
+}
+
 export function getEndpoint(caller: Endpoint<any>['call']) {
   return workerEndpointCache.get(caller);
 }

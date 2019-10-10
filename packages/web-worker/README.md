@@ -65,6 +65,22 @@ const result = await worker.default(
 ); // 'Hello, Tobi'
 ```
 
+When the web worker is no longer required, you can terminate the worker using `terminate()`. This will immedietly terminate any ongoing operations. If an attempt is made to make calls to a terminated worker, an error will be thrown.
+
+Note: A worker can only be terminated from the main thread. A worker can not terminate itself from within the worker module.
+
+```
+import {createWorker, terminate} from '@shopify/web-worker;
+
+const makeWorker = createWorker(() => import('./worker'));
+const worker = makeWorker();
+
+// Assume `stuff` is some large payload that needs to be processed
+const result = await worker.someExpensiveOperation(stuff);
+
+terminate(worker);
+```
+
 #### Worker
 
 Your worker can be written almost indistinguishably from a "normal" module. It can import other modules (including async `import()` statements), use modern JavaScript features, and more. The exported functions from your module form its public API, which the main thread code will call into as shown above. Note that only functions can be exported; this library is primarily meant to be used to create an imperative API for offloading work to a worker, for which only function exports are needed.
