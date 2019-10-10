@@ -1,6 +1,6 @@
-export type PromisifyModule<T> = {[K in keyof T]: PromisifyExport<T[K]>};
-
-type PromisifyExport<T> = T extends (...args: infer Args) => infer TypeReturned
+export type PromisifyExport<T> = T extends (
+  ...args: infer Args
+) => infer TypeReturned
   ? (...args: Args) => Promise<ForcePromiseWrapped<TypeReturned>>
   : never;
 
