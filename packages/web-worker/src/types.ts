@@ -1,3 +1,5 @@
+export type PromisifyModule<T> = {[K in keyof T]: PromisifyExport<T[K]>};
+
 export type PromisifyExport<T> = T extends (
   ...args: infer Args
 ) => infer TypeReturned
