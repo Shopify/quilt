@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "Tools for making web workers fun to use.",
   "main": "dist/index.js",
