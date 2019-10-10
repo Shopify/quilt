@@ -24,13 +24,13 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/ast-utilities/README.md",
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/plugin-transform-react-jsx": "7.3.0",
-    "@babel/plugin-transform-typescript": "7.5.5",
-    "@babel/traverse": "7.5.5",
-    "@babel/types": "7.5.5",
-    "@types/babel__core": "7.1.2",
-    "@types/babel__traverse": "^7.0.7",
+    "@babel/core": ">=7.0.0",
+    "@babel/plugin-transform-react-jsx": ">=7.0.0",
+    "@babel/plugin-transform-typescript": ">=7.0.0",
+    "@babel/traverse": ">=7.0.0",
+    "@babel/types": ">=7.0.0",
+    "@types/babel__core": ">=7.0.0",
+    "@types/babel__traverse": ">=7.0.0",
     "@types/unist": "^2.0.3"
   },
   "files": [
