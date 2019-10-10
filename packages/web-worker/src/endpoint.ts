@@ -1,3 +1,5 @@
+import {PromisifyModule} from './types';
+
 import {
   RETAIN_METHOD,
   RELEASE_METHOD,
@@ -79,18 +81,14 @@ interface Options {
   uuid?(): string;
 }
 
-export interface Endpoint<
-  T extends {[key: string]: (...args: any) => Promise<any>} = {}
-> {
-  call: T;
+export interface Endpoint<T> {
+  call: PromisifyModule<T>;
   expose(api: {[key: string]: Function | undefined}): void;
   revoke(value: Function): void;
   exchange(value: Function, newValue: Function): void;
 }
 
-export function createEndpoint<
-  T extends {[key: string]: (...args: any) => Promise<any>} = {}
->(
+export function createEndpoint<T>(
   messageEndpoint: MessageEndpoint,
   {uuid = defaultUuid}: Options = {},
 ): Endpoint<T> {

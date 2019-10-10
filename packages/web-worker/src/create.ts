@@ -14,9 +14,7 @@ export function getEndpoint(caller: Endpoint<any>['call']) {
   return workerEndpointCache.get(caller);
 }
 
-export function createWorker<T extends {[key: string]: () => Promise<any>}>(
-  script: () => Promise<T>,
-) {
+export function createWorker<T>(script: () => Promise<T>) {
   return function create(): Endpoint<T>['call'] {
     if (typeof Worker === 'undefined') {
       return new Proxy(
@@ -38,11 +36,11 @@ export function createWorker<T extends {[key: string]: () => Promise<any>}>(
     );
 
     const worker = new Worker(workerScript);
-    const endpoint = createEndpoint<T>(worker);
+    const endpoint = createEndpoint(worker);
     const {call: caller} = endpoint;
 
     workerEndpointCache.set(caller, endpoint);
 
-    return caller;
+    return caller as any;
   };
 }
