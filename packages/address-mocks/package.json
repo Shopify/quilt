@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-mocks",
-  "version": "1.2.26",
+  "version": "1.2.27",
   "license": "MIT",
   "description": "Address mocks for @shopify/address library.",
   "main": "dist/index.js",
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/address-mocks/README.md",
   "devDependencies": {
-    "@shopify/address": "^2.7.8",
-    "@shopify/jest-dom-mocks": "^2.8.1"
+    "@shopify/address": "^2.7.9",
+    "@shopify/jest-dom-mocks": "^2.8.2"
   },
   "sideEffects": false,
   "dependencies": {

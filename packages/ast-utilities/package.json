@@ -1,6 +1,6 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
   "main": "dist/index.js",
