@@ -269,10 +269,12 @@ describe('babel-pluin-react-i18n', () => {
 
     await expect(
       transform(code, optionsForFile('MyComponent.tsx', true)),
-    ).rejects.toMatchObject({
-      message:
+    ).rejects.toHaveProperty(
+      'message',
+      expect.stringContaining(
         'You attempted to use useI18n 2 times in a single file. This is not supported by the Babel plugin that automatically inserts translations.',
-    });
+      ),
+    );
   });
 });
 

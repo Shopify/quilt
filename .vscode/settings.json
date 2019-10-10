@@ -27,5 +27,8 @@
   "prettier.stylelintIntegration": true,
   "prettier.eslintIntegration": true,
   "eslint.validate": ["typescript", "typescriptreact"],
-  "javascript.implicitProjectConfig.experimentalDecorators": true
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
+  "cSpell.ignoreWords": [
+    "transferables"
+  ]
 }
