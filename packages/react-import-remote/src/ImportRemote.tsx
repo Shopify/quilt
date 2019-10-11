@@ -1,6 +1,6 @@
 import React from 'react';
-import {Preconnect} from '@shopify/react-html';
 import {DeferTiming} from '@shopify/async';
+import {Preconnect} from '@shopify/react-html';
 
 import {useImportRemote, Status} from './hooks';
 

@@ -20,11 +20,11 @@ export interface Options {
 const ASSETS = Symbol('assets');
 
 export function getAssets(ctx: Context): Assets {
-  return ctx.state[ASSETS];
+  return (ctx.state as any)[ASSETS];
 }
 
 export function setAssets(ctx: Context, assets: Assets) {
-  ctx.state[ASSETS] = assets;
+  (ctx.state as any)[ASSETS] = assets;
 }
 
 export default function middleware({

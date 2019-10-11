@@ -2,13 +2,14 @@
  * @jest-environment node
  */
 
-import '../test/matchers';
+import '../matchers';
 
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {extract, Effect} from '@shopify/react-effect/server';
-
-import {useI18n, I18nContext, I18nManager} from '..';
+import {I18nManager} from '../../manager';
+import {useI18n} from '../../hooks';
+import {I18nContext} from '../../context';
 
 const fallbackTranslations = {MyComponent: {hello: 'Hello'}};
 const frTranslations = {MyComponent: {hello: 'Bonjour'}};

@@ -11,9 +11,9 @@ import {
   NetworkContext,
   NetworkManager,
 } from '@shopify/react-network/server';
-import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 import {ArgumentAtIndex} from '@shopify/useful-types';
 import {extract} from '@shopify/react-effect/server';
+import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 import {
   AsyncAssetContext,
   AsyncAssetManager,

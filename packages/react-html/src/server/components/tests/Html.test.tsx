@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount} from '@shopify/react-testing';
 import withEnv from '@shopify/with-env';
+import {mount} from '@shopify/react-testing';
 
 import {Script, Style} from '../../../components';
 import {HtmlManager} from '../../../manager';

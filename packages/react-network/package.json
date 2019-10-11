@@ -28,10 +28,17 @@
     "@shopify/react-effect": "^3.2.3",
     "@types/accept-language-parser": "1.5.0",
     "@types/cookie": "^0.3.3",
-    "@types/koa": "^2.0.46",
+    "@types/koa": "^2.0.0",
     "accept-language-parser": "1.5.0",
     "cookie": "^0.4.0",
     "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@shopify/jest-koa-mocks": "^2.1.5"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "koa": "^2.5.0"
   },
   "files": [
     "dist/*",

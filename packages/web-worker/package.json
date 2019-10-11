@@ -25,7 +25,9 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/web-workers/README.md",
   "dependencies": {
     "@types/webpack": "^4.0.0",
-    "webpack-virtual-modules": "^0.1.12"
+    "webpack-virtual-modules": "^0.1.12",
+    "koa-mount": "^3.0.0",
+    "@types/koa-mount": "^3.0.1"
   },
   "devDependencies": {
     "@babel/types": ">=7.0.0",
