@@ -104,9 +104,7 @@ export class Navigation implements NavigationDefinition {
       return undefined;
     }
 
-    return (
-      events.filter(({metadata: {size}}) => size === 0).length / events.length
-    );
+    return events.filter(({duration}) => duration === 0).length / events.length;
   }
 
   toJSON({
