@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-performance",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Creating a middleware that send performance related data through StatsD.",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-performance/README.md",
   "dependencies": {
     "@shopify/network": "^1.4.2",
-    "@shopify/performance": "^1.2.0",
+    "@shopify/performance": "^1.2.1",
     "@shopify/statsd": "^1.1.0",
     "@types/koa-bodyparser": "*",
     "@types/koa-compose": "*",
