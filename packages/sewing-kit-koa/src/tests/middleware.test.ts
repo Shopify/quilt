@@ -1,6 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {Header} from '@shopify/network';
-import middleware, {getAssets} from '../middleware';
+import middleware, {getAssets, webpackAssetUrl} from '../middleware';
 import Assets from '../assets';
 
 describe('middleware', () => {
@@ -16,10 +16,7 @@ describe('middleware', () => {
   it('defaults the asset host to Sewing Kit’s dev server', async () => {
     const context = createMockContext();
     await middleware()(context, () => Promise.resolve());
-    expect(getAssets(context)).toHaveProperty(
-      'assetPrefix',
-      'http://localhost:8080/webpack/assets/',
-    );
+    expect(getAssets(context)).toHaveProperty('assetPrefix', webpackAssetUrl);
   });
 
   it('defaults the asset host to /assets/ when serveAssets is true', async () => {
@@ -48,11 +45,31 @@ describe('middleware', () => {
     );
   });
 
-  it('accespts a custom value for the manifest path', async () => {
+  it('accepts a custom value for the manifest path', async () => {
     const context = createMockContext();
     const manifestPath = 'path/to/manifest';
     await middleware({manifestPath})(context, () => Promise.resolve());
     expect(getAssets(context)).toHaveProperty('manifestPath', manifestPath);
+  });
+
+  it('accepts a assetPrefix callback and runs the callback', async () => {
+    const context = createMockContext();
+    const customAssetPrefix = 'https://cdn.some.site/path';
+
+    await middleware({
+      assetPrefixCallback: ctx => {
+        expect(ctx).toStrictEqual(context);
+        return customAssetPrefix;
+      },
+    })(context, () => Promise.resolve());
+
+    expect(getAssets(context)).toHaveProperty('assetPrefix', customAssetPrefix);
+
+    await middleware({
+      assetPrefixCallback: ctx => {},
+    })(context, () => Promise.resolve());
+
+    expect(getAssets(context)).toHaveProperty('assetPrefix', webpackAssetUrl);
   });
 
   it('calls the next middleware', async () => {

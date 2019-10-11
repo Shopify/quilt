@@ -13,6 +13,7 @@ export {Assets, Asset};
 
 export interface Options {
   assetPrefix?: string;
+  assetPrefixCallback?: Function;
   serveAssets?: boolean;
   manifestPath?: string;
 }
@@ -30,11 +31,18 @@ export function setAssets(ctx: Context, assets: Assets) {
 export default function middleware({
   serveAssets = false,
   assetPrefix = defaultAssetPrefix(serveAssets),
+  assetPrefixCallback,
   manifestPath,
 }: Options = {}): Middleware {
   async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
+    let currentAssetPrefix = assetPrefix;
+
+    if (!serveAssets && assetPrefixCallback) {
+      currentAssetPrefix = assetPrefixCallback(ctx) || currentAssetPrefix;
+    }
+
     const assets = new Assets({
-      assetPrefix,
+      assetPrefix: currentAssetPrefix,
       userAgent: ctx.get(Header.UserAgent),
       manifestPath,
     });
@@ -52,6 +60,8 @@ export default function middleware({
     : sewingKitMiddleware;
 }
 
+export const webpackAssetUrl = 'http://localhost:8080/webpack/assets/';
+
 function defaultAssetPrefix(serveAssets: boolean) {
   // In development, Sewing Kit defaults to running an asset server on
   // http://localhost:8080/webpack/assets/. When running in `serveAssets`
@@ -63,5 +73,5 @@ function defaultAssetPrefix(serveAssets: boolean) {
   // {
   //   plugins: [plugins.cdn('/assets/')],
   // }
-  return serveAssets ? '/assets/' : 'http://localhost:8080/webpack/assets/';
+  return serveAssets ? '/assets/' : webpackAssetUrl;
 }
