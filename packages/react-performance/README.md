@@ -17,30 +17,9 @@ $ yarn add @shopify/react-performance
 
 The most basic way to use the tools in this package is to record information and display it locally to the user. In practice you usually only want to do this in development so that developers can easily see performance information.
 
-#### Add the context provider
-
-Before we can use any of the components or hooks in the package we must wrap our app tree with the `PerformanceContext.Provider` component.
-
-```tsx
-// App.tsx
-import React from 'react';
-import {Performance, PerformanceContext} from '@shopify/react-performance';
-
-// in a Server-Side-Rendering enabled app you will likely only want to instantiate this if `document` is defined.
-const performance = new Performance();
-
-function App() {
-  return (
-    <PerformanceContext.Provider value={performance}>
-      {/* The rest of your app */}
-    </PerformanceContext.Provider>
-  );
-}
-```
-
 #### Display data using NavigationListener
 
-Now that we have access to `PerformanceContext` we can use the other components and hooks offered by `@shopify/react-performance` anywhere in our tree. To demonstrate, we'll create a component called `LastNavigationDetails` and use it to display some basic data about our app's performance.
+To demonstrate, we'll create a component called `LastNavigationDetails` and use it to display some basic data about our app's performance.
 
 ```tsx
 // LastNavigationDetails.tsx
@@ -71,23 +50,19 @@ export function LastNavigationDetails() {
 }
 ```
 
-We can render this component anywhere in our tree, but lets do so in our App component from earlier.
+We can render this component anywhere in our application, but lets do so in our App component from earlier.
 
 ```tsx
 // App.tsx
 import React from 'react';
-import {Performance, PerformanceContext} from '@shopify/react-performance';
 import {LastNavigationDetails} from './LastNavigationDetails';
-
-// in a Server-Side-Rendering enabled app you will likely only want to instantiate this if `document` is defined.
-const performance = new Performance();
 
 function App() {
   return (
-    <PerformanceContext.Provider value={performance}>
+    <>
       {/* The rest of your app */}
       <LastNavigationDetails />
-    </PerformanceContext.Provider>
+    </>
   );
 }
 ```
@@ -215,7 +190,7 @@ function SomeComponent() {
 
 #### PerformanceMark
 
-A componenr which takes both `id` and `stage` props and uses them to generate a tag for a call to `window.performance.mark` when it is mounted. This can be used to mark specialized moments in your applications startup, or a specific interaction.
+A component which takes both `id` and `stage` props and uses them to generate a tag for a call to `window.performance.mark` when it is mounted. This can be used to mark specialized moments in your applications startup, or a specific interaction.
 
 ```tsx
 import React from 'react';
