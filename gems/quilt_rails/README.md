@@ -20,7 +20,7 @@ useQuery(MyQuery, {
 
 # quilt_rails
 
-A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries.
+A turn-key solution for integrating Quilt client-side libraries into your Rails app, with support for server-side-rendering using [`@shopify/react-server`](https://www.npmjs.com/package/@shopify/react-server), integration with [`@shopify/sewing-kit`](https://www.npmjs.com/package/@shopify/sewing-kit) for building, testing and linting, and front-end performance tracking through [`@shopify/performance`](https://www.npmjs.com/package/@shopify/performance).
 
 ## Table of Contents
 
@@ -37,6 +37,7 @@ A turn-key solution for integrating server-rendered react into your Rails app us
 1. [Application Layout](#application-layout)
 1. [API](#api)
    1. [ReactRenderable](#reactrenderable)
+   1. [PerformanceReportable](#performanceReportable)
    1. [Engine](#engine)
    1. [Generators](#generators)
 1. [Advanced Use](#advanced-use)
@@ -44,6 +45,7 @@ A turn-key solution for integrating server-rendered react into your Rails app us
    1. [Interacting with the request and response in React code](#interacting-with-the-request-and-response-in-react-code)
    1. [Dealing with isomorphic state](#dealing-with-isomorphic-state)
    1. [Customizing the node server](#customizing-the-node-server)
+   1. [Adding performance tracking](#adding-performance-tracking)
 
 ## Quick Start
 
@@ -235,16 +237,170 @@ class ReactController < ApplicationController
 end
 ```
 
+### Performance
+
+#### Reportable
+
+The `Quilt::Performance::Reportable` mixin is intended to be used in Rails controllers, and provides only the `process_report` method. This method handles parsing an incoming report from [@shopify/react-performance's](https://www.npmjs.com/package/@shopify/react-performance) `<PerformanceReport />` component (or a custom report in the same format) and sending it to your application's StatsD endpoint as `distribution`s using [`StatsD-Instrument`](https://rubygems.org/gems/statsd-instrument).
+
+> **Note** `Quilt::Performance::Reportable` does not require you to use the `React::Renderable` mixin, React-Server, or even any server-side-rendering solution at all. It should work perfectly fine for applications using something like `sewing_kit_script_tag` based client-side-rendering.
+
+```ruby
+class PerformanceController < ApplicationController
+  include Quilt::Performance::Reportable
+
+  def create
+    process_report
+  end
+end
+```
+
+The params sent to the controller are expected to be of type `application/json`. Given the following example JSON sent by `@shopify/react-performance`,
+
+```json
+{
+  "connection": {
+    "rtt": 100,
+    "downlink": 2,
+    "effectiveType": "3g",
+    "type": "4g"
+  },
+  "navigations": [
+    {
+      "details": {
+        "start": 12312312,
+        "duration": 23924,
+        "target": "/",
+        "events": [
+          {
+            "type": "script",
+            "start": 23123,
+            "duration": 124
+          },
+          {
+            "type": "style",
+            "start": 23,
+            "duration": 14
+          }
+        ],
+        "result": 0
+      },
+      "metadata": {
+        "index": 0,
+        "supportsDetailedTime": true,
+        "supportsDetailedEvents": true
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "ttfb",
+      "start": 2,
+      "duration": 1000
+    }
+  ]
+}
+```
+
+the above controller would send the following metrics:
+
+```ruby
+StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
+StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
+StatsD.distribution('navigation_complete', 23924, ['browser_connection_type:3g'])
+StatsD.distribution('navigation_usable', 23924, ['browser_connection_type:3g'])
+```
+
+##### Customizing `process_report` with a block
+
+The behaviour of `process_report` can be customized by manipulating the `Quilt::Performance::Client` instance yielded into its implicit block parameter.
+
+```ruby
+process_report do |client|
+  # client.on_distribution do ....
+end
+```
+
+#### Client
+
+The `Quilt::Performance::Client` class is yielded into the block parameter for `process_report`, and is the primary API for customizing what metrics are sent for a given POST.
+
+##### Client#on_distribution
+
+The `on_distribution` method takes a block which is run for each distribution (including custom ones) sent during `process_report`.
+
+The provided callback can be used to easily add logging or other side-effects to your measurements.
+
+```ruby
+client.on_distribution do |metric_name, value, tags|
+  Rails.logger.debug "#{metric_name}: #{value}, tags: #{tags}"
+end
+```
+
+##### Client#on_navigation
+
+The `on_navigation` method takes a block which is run once per navigation reported to the performance controller _before_ the default distributions for the navigation are sent.
+
+The provided callback can be used to add tags to the default `distributions` for a given navigation.
+
+```ruby
+client.on_navigation do |navigation, tags|
+  # add tags to be sent with each distribution for this navigation
+  tags[:connection_rtt] = navigation.connection.rtt
+  tags[:connection_type] = navigation.connection.type
+  tags[:navigation_target] = navigation.target
+end
+```
+
+It can also be used to compute and send entirely custom metrics.
+
+```ruby
+client.on_navigation do |navigation, tags|
+  # calculate and then send an additional distribution
+  weight = navigation.events_with_size.reduce(0) do |total, event|
+    total + event.size
+  end
+  client.distribution('navigation_total_resource_weight', weight, tags)
+end
+```
+
+##### Client#on_event
+
+The `on_event` method takes a block which is run once per event reported to the performance controller _before_ the default distributions for the event are sent.
+
+The provided callback can be used to add tags to the default `distributions` for a given event, or perform other side-effects.
+
+```ruby
+client.on_event do |event, tags|
+  # add tags to be sent with each distribution for this event
+  tags[:connection_rtt] = event.connection.rtt
+  tags[:connection_type] = event.connection.type
+end
+```
+
 ### Engine
 
-`Quilt::Engine` provides a preconfigured controller which consumes `ReactRenderable` and provides an index route which uses it.
+`Quilt::Engine` provides:
+
+- a preconfigured `UiController` which consumes `ReactRenderable`
+- a preconfigured `PerformanceReportController` which consumes `Performance::Reportable`
+- a `/performance_report` route mapped to `performance_report#index`
+- a catch-all index route mapped to the `UiController#index`
 
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
   # ...
-  mount Quilt::Engine, at: '/path/to/react'
+  mount Quilt::Engine, at: '/my-front-end'
 end
+```
+
+The above is the equivalent of
+
+```ruby
+  post '/my-front-end/performance_report', to: 'performance_report#create'
+  get '/my-front-end/*path', to: 'ui#index'
+  get '/my-front-end', to: 'ui#index'
 ```
 
 ### Configuration
@@ -258,6 +414,10 @@ The `configure` method allows customization of the address the service will prox
     config.react_server_protocol = 'https'
   end
 ```
+
+### StatsD environment variables
+
+The `Performance::Reportable` mixin uses [https://github.com/Shopify/statsd-instrument](StatsD-Instrument) to send distributions. For detailed instructions on configuring where it sends data see [the documentation](https://github.com/Shopify/statsd-instrument#configuration).
 
 ### Generators
 
@@ -423,4 +583,78 @@ class GraphqlController < ApplicationController
     render(json: result)
   end
 end
+```
+
+### Adding performance tracking
+
+Using [`Quilt::Performance::Reportable`](#performanceReportable) and [@shopify/react-performance](https://www.npmjs.com/package/@shopify/react-performance) it's easy to add client-side performance tracking to your `quilt_rails` app.
+
+1. Add `@shopify/react-performance` to your javascript dependencies
+
+```bash
+yarn add @shopify/react-performance
+```
+
+2. Add a `<PerformanceReport />` to your top-level `<App />` component
+
+```tsx
+// app/ui/foundation/App/App.tsx
+
+/* your app's imports here */
+import {PerformanceReport} from '@shopify/react-performance';
+
+export function App() {
+  return (
+    <>
+      {/* your app JSX here*/}
+      <PerformanceReport url="/performance_report" />
+    </>
+  );
+}
+```
+
+3. Add a `<PerformanceMark stage="complete" />` to each of your route-level components.
+
+```tsx
+// app/ui/features/Home/Home.tsx
+
+/* your app's imports here */
+import {PerformanceMark} from '@shopify/react-performance';
+
+export function App() {
+  return (
+    <div>
+      My Cool Home Page
+      {/* other cool home page stuff */}
+      <PerformanceMark stage="complete" id="App" />
+    </div>
+  );
+}
+```
+
+4. If your application is not using `Quilt::Engine`, you will need to manually configure the server-side portion of performance tracking. Add a `PerformanceController` and the corresponding routes to your Rails app.
+
+```ruby
+# app/controllers/performance_report_controller.rb
+
+class PerformanceReportController < ActionController::Base
+  include Quilt::Performance::Reportable
+  protect_from_forgery with: :null_session
+
+  def create
+    process_report
+
+    render json: { result: 'success' }, status: 200
+  rescue ActionController::ParameterMissing => error
+    render json: { error: error.message, status: 422 }
+  end
+end
+```
+
+```ruby
+# config/routes.rb
+
+post '/performance_report', to: 'performance_report#create'
+
+# rest of routes
 ```
