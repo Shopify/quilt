@@ -1,9 +1,20 @@
 import {resolve} from 'path';
 
+const DEFAULT_PACKAGES_TO_PROCESS = {
+  '@shopify/web-worker': ['createWorker'],
+};
+
 const loader = resolve(__dirname, 'webpack-parts/loader');
 
+export interface Options {
+  noop?: boolean;
+  packages?: {[key: string]: string[]};
+}
+
 interface State {
+  process: Map<string, string[]>;
   program: import('@babel/traverse').NodePath<import('@babel/types').Program>;
+  opts?: Options;
 }
 
 export default function workerBabelPlugin({
@@ -15,6 +26,11 @@ export default function workerBabelPlugin({
     visitor: {
       Program(program, state) {
         state.program = program;
+        state.process = new Map(
+          Object.entries(
+            (state.opts && state.opts.packages) || DEFAULT_PACKAGES_TO_PROCESS,
+          ),
+        );
       },
       CallExpression(nodePath) {
         const callee = nodePath.get('callee');
