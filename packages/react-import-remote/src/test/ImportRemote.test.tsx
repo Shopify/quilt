@@ -1,12 +1,12 @@
 import React from 'react';
-import {mount} from '@shopify/react-testing';
-import {Preconnect} from '@shopify/react-html';
 import {DeferTiming} from '@shopify/async';
+import {mount} from '@shopify/react-testing';
 
 import {
   requestIdleCallback,
   intersectionObserver,
 } from '@shopify/jest-dom-mocks';
+import {Preconnect} from '@shopify/react-html';
 import ImportRemote, {Props} from '../ImportRemote';
 
 function noop() {}

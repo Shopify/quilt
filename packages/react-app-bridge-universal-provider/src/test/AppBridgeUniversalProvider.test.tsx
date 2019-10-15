@@ -2,9 +2,9 @@ import React from 'react';
 import faker from 'faker';
 
 import {Provider as AppBridgeProvider} from '@shopify/app-bridge-react';
-import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {extract} from '@shopify/react-effect/server';
 import {mount} from '@shopify/react-testing';
+import {HtmlManager, HtmlContext} from '@shopify/react-html';
 
 import {AppBridgeUniversalProvider} from '../AppBridgeUniversalProvider';
 

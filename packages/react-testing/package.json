@@ -28,6 +28,9 @@
     "jest-matcher-utils": "^24.5.0",
     "react-reconciler": "^0.20.2"
   },
+  "devDependencies": {
+    "faker": "^4.1.0"
+  },
   "files": [
     "dist/*",
     "matchers.js",

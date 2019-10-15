@@ -1,6 +1,6 @@
 import querystring from 'querystring';
-import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 import {createMockContext} from '@shopify/jest-koa-mocks';
+import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 
 import createOAuthCallback from '../create-oauth-callback';
 import {AuthConfig} from '../../types';

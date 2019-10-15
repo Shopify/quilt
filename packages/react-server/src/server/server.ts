@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 import {Server} from 'http';
 import {join} from 'path';
-import {pathExistsSync} from 'fs-extra';
+import {existsSync} from 'fs';
 import Koa, {Context} from 'koa';
 import compose from 'koa-compose';
 import mount from 'koa-mount';
@@ -49,7 +49,7 @@ export function createServer(options: Options): Server {
 }
 
 function getManifestPath(root: string) {
-  const gemFileExists = pathExistsSync(join(root, 'Gemfile'));
+  const gemFileExists = existsSync(join(root, 'Gemfile'));
   if (!gemFileExists) {
     return;
   }

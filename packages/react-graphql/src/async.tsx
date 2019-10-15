@@ -3,9 +3,9 @@ import {DocumentNode} from 'graphql-typed';
 import {NetworkStatus} from 'apollo-client';
 
 import {createResolver, ResolverOptions} from '@shopify/async';
-import {AsyncComponentType, useAsync, AssetTiming} from '@shopify/react-async';
 import {Omit} from '@shopify/useful-types';
 import {useIdleCallback} from '@shopify/react-idle';
+import {AsyncComponentType, useAsync, AssetTiming} from '@shopify/react-async';
 
 import {Query} from './Query';
 import {useBackgroundQuery, useApolloClient} from './hooks';

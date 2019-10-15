@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "@shopify/react-effect": "^3.2.3",
-    "@shopify/react-testing": "^1.8.0",
     "faker": "^4.1.0"
   },
   "files": [

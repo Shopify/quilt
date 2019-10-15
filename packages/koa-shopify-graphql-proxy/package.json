@@ -23,8 +23,12 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-graphql-proxy/README.md",
   "dependencies": {
+    "@types/koa": "^2.0.0",
     "koa-better-http-proxy": "^0.2.4",
     "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "koa": ">=2.0.0"
   },
   "sideEffects": false
 }

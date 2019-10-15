@@ -27,7 +27,8 @@
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "graphql": "^14.0.0"
+    "graphql": "^14.0.0",
+    "jest-matcher-utils": "^24.9.0"
   },
   "devDependencies": {
     "@shopify/useful-types": "^2.0.1",

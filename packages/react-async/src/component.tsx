@@ -7,8 +7,8 @@ import React, {
 } from 'react';
 
 import {createResolver, ResolverOptions, DeferTiming} from '@shopify/async';
-import {OnIdle, useIdleCallback} from '@shopify/react-idle';
 import {IntersectionObserver} from '@shopify/react-intersection-observer';
+import {OnIdle, useIdleCallback} from '@shopify/react-idle';
 import {Hydrator, useHydrationManager} from '@shopify/react-hydrate';
 
 import {useAsync} from './hooks';
