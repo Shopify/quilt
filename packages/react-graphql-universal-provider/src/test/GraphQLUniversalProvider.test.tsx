@@ -4,9 +4,9 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ApolloLink} from 'apollo-link';
 
 import {extract} from '@shopify/react-effect/server';
+import {mount} from '@shopify/react-testing';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {ApolloProvider, SsrExtractableLink} from '@shopify/react-graphql';
-import {mount} from '@shopify/react-testing';
 
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 

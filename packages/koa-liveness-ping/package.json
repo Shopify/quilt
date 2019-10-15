@@ -24,10 +24,10 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-liveness-ping/README.md",
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.1.5",
-    "@types/koa": "^2.0.44",
-    "@types/koa-mount": "^3.0.1",
+    "@types/koa": "^2.0.0",
+    "@types/koa-mount": "^4.0.0",
     "koa": "^2.5.0",
-    "koa-mount": "^3.0.0"
+    "koa-mount": "^4.0.0"
   },
   "sideEffects": false,
   "dependencies": {

@@ -32,7 +32,7 @@
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^2.8.2",
     "@shopify/jest-koa-mocks": "^2.1.5",
-    "@types/koa": "^2.0.44",
+    "@types/koa": "^2.0.0",
     "@types/koa-compose": "*",
     "@types/safe-compare": "^1.1.0",
     "koa": "^2.5.0"

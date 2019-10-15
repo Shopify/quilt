@@ -26,9 +26,6 @@
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
-  "devDependencies": {
-    "@shopify/react-testing": "^1.8.0"
-  },
   "files": [
     "dist/*"
   ]

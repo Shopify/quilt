@@ -30,7 +30,11 @@
     "@shopify/react-hydrate": "^1.1.4",
     "@shopify/react-idle": "^1.0.8",
     "@shopify/react-intersection-observer": "^2.0.5",
-    "@shopify/useful-types": "^2.0.1"
+    "@shopify/useful-types": "^2.0.1",
+    "@shopify/react-hooks": "^1.2.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0"
   },
   "files": [
     "dist/*"

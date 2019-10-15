@@ -25,7 +25,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-server-webpack-plugin/README.md",
   "dependencies": {
     "@shopify/ast-utilities": "^0.0.5",
-    "webpack-virtual-modules": "^0.1.12"
+    "webpack-virtual-modules": "^0.1.12",
+    "@babel/types": ">=7.0.0"
   },
   "devDependencies": {
     "@shopify/react-server": "^0.7.6",
