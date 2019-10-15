@@ -150,16 +150,15 @@ describe('web-worker', () => {
         `,
       );
 
-      await runWebpack(
-        context,
-        new WebWorkerPlugin({
+      await runWebpack(context, {
+        webpackPlugin: new WebWorkerPlugin({
           plugins: [
             new DefinePlugin({
               [magicVar.id]: JSON.stringify(magicVar.value),
             }),
           ],
         }),
-      );
+      });
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
@@ -231,7 +230,7 @@ describe('web-worker', () => {
   it('automatically released references to functions after a call-stack is finished', async () => {
     const testId = 'WorkerResult';
 
-    await withContext('automatic-release', async context => {
+    await withContext('automatic-retain-release', async context => {
       const {workspace, browser} = context;
 
       await workspace.write(
@@ -328,7 +327,7 @@ describe('web-worker', () => {
   it('supports the two endpoints manually retaining functions passed through the bridge', async () => {
     const testId = 'WorkerResult';
 
-    await withContext('automatic-release', async context => {
+    await withContext('manual-retain-release', async context => {
       const {workspace, browser} = context;
 
       await workspace.write(
@@ -478,12 +477,61 @@ describe('web-worker', () => {
       expect(page.workers()).toHaveLength(0);
     });
   });
+
+  it('creates a noop worker that throws when called if the noop option is passed', async () => {
+    const testId = 'WorkerResult';
+
+    await withContext('noop', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker} from '@shopify/web-worker';
+
+          const worker = createWorker(() => import('./worker'))();
+
+          (async () => {
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+
+            try {
+              await worker.willThrow();
+            } catch (error) {
+              element.textContent = error.message;
+            }
+
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await runWebpack(context, {
+        babelPluginOptions: {noop: true},
+      });
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
+      );
+
+      expect(textContent).toMatch(/noop worker/i);
+      expect(page.workers()).toHaveLength(0);
+    });
+  });
 });
 
-function runWebpack(context: Context, plugin = new WebWorkerPlugin()) {
+function runWebpack(
+  context: Context,
+  {
+    babelPluginOptions,
+    webpackPlugin = new WebWorkerPlugin(),
+  }: {webpackPlugin?: WebWorkerPlugin; babelPluginOptions?: object} = {},
+) {
   return runWebpackBase(context, {
     entry: context.workspace.resolvePath(mainFile),
-    plugins: [plugin],
+    plugins: [webpackPlugin],
     module: {
       rules: [
         {
@@ -493,7 +541,7 @@ function runWebpack(context: Context, plugin = new WebWorkerPlugin()) {
               loader: 'babel-loader',
               options: {
                 babelrc: false,
-                plugins: [babelPlugin],
+                plugins: [[babelPlugin, babelPluginOptions]],
               },
             },
           ],
