@@ -30,6 +30,10 @@
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
+  "devDependencies": {
+    "@shopify/network": "^1.4.2",
+    "typescript": "~3.2.1"
+  },
   "files": [
     "dist/*"
   ]

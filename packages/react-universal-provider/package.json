@@ -24,13 +24,13 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-universal-provider/README.md",
   "dependencies": {
-    "@shopify/react-html": "^9.2.3"
+    "@shopify/react-html": "^9.2.3",
+    "@shopify/react-effect": "^3.2.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^1.8.0",
     "faker": "^4.1.0"
   },
   "files": [

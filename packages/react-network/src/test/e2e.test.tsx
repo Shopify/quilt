@@ -1,6 +1,6 @@
 import React from 'react';
-import {useServerEffect} from '@shopify/react-effect';
 import {extract} from '@shopify/react-effect/server';
+import {useServerEffect} from '@shopify/react-effect';
 
 import {NetworkContext, NetworkManager} from '../server';
 import {

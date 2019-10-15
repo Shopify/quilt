@@ -28,6 +28,10 @@
     "@types/react-router-dom": "^4.3.5",
     "react-router-dom": "^5.0.1"
   },
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0",
+    "react-dom": ">=16.8.0 <17.0.0"
+  },
   "files": [
     "dist/*"
   ]

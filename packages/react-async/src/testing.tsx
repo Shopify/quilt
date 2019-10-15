@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
-import {Arguments} from '@shopify/useful-types';
 import {extract} from '@shopify/react-effect/server';
+import {Arguments} from '@shopify/useful-types';
 
 import {AsyncAssetManager, AsyncAssetContext} from './context/assets';
 

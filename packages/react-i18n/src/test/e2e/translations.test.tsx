@@ -1,6 +1,8 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import {useI18n, I18nContext, I18nManager} from '..';
+import {I18nManager} from '../../manager';
+import {useI18n} from '../../hooks';
+import {I18nContext} from '../../context';
 
 const enTranslations = {hello: 'Hello'};
 const frTranslations = {hello: 'Bonjour'};

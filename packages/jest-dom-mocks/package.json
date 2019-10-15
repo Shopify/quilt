@@ -30,7 +30,8 @@
     "fetch-mock": "^6.3.0",
     "lolex": "^2.7.5",
     "promise": "^8.0.3",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "lodash": ">=4.0.0 <5.0.0"
   },
   "sideEffects": false
 }
