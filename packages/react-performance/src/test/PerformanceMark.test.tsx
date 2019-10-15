@@ -3,13 +3,6 @@ import {mount} from '@shopify/react-testing';
 import {mockPerformance} from './utilities';
 import {PerformanceMark, PerformanceContext} from '..';
 
-jest.mock('@shopify/performance', () => {
-  return {
-    ...require.requireActual('@shopify/performance'),
-    Performance: jest.fn(),
-  };
-});
-
 describe('<PerformanceMark />', () => {
   it('calls performance.mark', () => {
     const performance = mockPerformance({mark: jest.fn()});
