@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg)](https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-web-worker.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-web-worker.svg)
 
-React hooks for using web workers
+A hook for using web workers in React applications.
 
 ## Installation
 
@@ -15,9 +15,11 @@ $ yarn add @shopify/react-web-worker
 
 This package provides a `useWorker` hook to leverage web workers in React.
 
+This library also re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/master/packages/web-worker). These packages are distributed seperately to ensure that the [tooling](https://github.com/Shopify/quilt/tree/master/packages/web-worker#tooling) provided by `@shopify/web-worker` does not pull in `react` as a dependency.
+
 ### Application
 
-`useWorker` allows your React applications to take advantage of [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) provided by `createWorker`.
+`useWorker` allows your React applications to take advantage of [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) provided by `createWorker`. This hook creates a web worker during render and terminates it when the component unmounts.
 
 ```tsx
 import React, {useEffect} from 'react';
@@ -28,6 +30,7 @@ import {createWorker, useWorker} from '@shopify/react-web-worker';
 // export function hello(name) {
 //  return `Hello, ${name}`;
 // }
+
 const create = createWorker(() => import('./worker'));
 
 function Home() {
@@ -47,7 +50,3 @@ function Home() {
   return <Page title="Home"> {message} </Page>;
 }
 ```
-
-### `@shopify/web-worker`
-
-This library re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/master/packages/web-worker). These packages are distributed seperately to ensure that the [tooling](https://github.com/Shopify/quilt/tree/master/packages/web-worker#tooling) provided by `@shopify/web-worker` does not pull in `react` as a dependency.

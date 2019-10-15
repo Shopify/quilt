@@ -2,7 +2,12 @@ import React from 'react';
 import {mount} from '@shopify/react-testing';
 import {useWorker} from '../index';
 
-function mockCreate(): () => {} {
+interface Props {
+  create(): {};
+  children: (worker) => React.ReactNode | jest.Mock;
+}
+
+function mockCreate() {
   return () => {
     return {
       hello(friend: string) {
@@ -12,7 +17,7 @@ function mockCreate(): () => {} {
   };
 }
 describe('useWorker', () => {
-  function MockComponent({create = mockCreate(), children}) {
+  function MockComponent({create = mockCreate(), children}: Props) {
     const worker = useWorker(create);
     return <>{children(worker)}</>;
   }
