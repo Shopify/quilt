@@ -17,6 +17,7 @@ const APPLY = '_@a';
 const API_ENDPOINT = '_@i';
 const APPLY_RESULT = '_@ar';
 const APPLY_ERROR = '_@ae';
+const TERMINATE = '_@t';
 
 class StackFrame {
   private readonly memoryManaged = new Set<MemoryManageable>();
@@ -78,6 +79,10 @@ interface ApplyErrorMessage {
   [APPLY_ERROR]: {name: string; message: string; stack?: string};
 }
 
+interface TerminateMessage {
+  [TERMINATE]: 1;
+}
+
 interface Options {
   uuid?(): string;
 }
@@ -87,7 +92,7 @@ export interface Endpoint<T> {
   expose(api: {[key: string]: Function | undefined}): void;
   revoke(value: Function): void;
   exchange(value: Function, newValue: Function): void;
-  terminateEndpoint(): void;
+  terminate(): void;
 }
 
 export function createEndpoint<T>(
@@ -103,6 +108,13 @@ export function createEndpoint<T>(
   makeCallable(messageEndpoint, (apiCall: ApplyApiEndpoint) =>
     activeApi.get(apiCall[API_ENDPOINT]),
   );
+
+  messageEndpoint.addEventListener('message', ({data}) => {
+    if (TERMINATE in data) {
+      [functionStore, functionProxies, activeApi].forEach(map => map.clear());
+      terminated = true;
+    }
+  });
 
   return {
     call: new Proxy(
@@ -155,11 +167,14 @@ export function createEndpoint<T>(
       makeCallable(port, () => newValue);
       functionStore.set(newValue, [id, port]);
     },
-    terminateEndpoint() {
+    terminate() {
+      [functionStore, functionProxies, activeApi].forEach(map => map.clear());
+      terminated = true;
+
       if (messageEndpoint.terminate) {
-        [functionStore, functionProxies, activeApi].forEach(map => map.clear());
         messageEndpoint.terminate();
-        terminated = true;
+      } else {
+        messageEndpoint.postMessage({[TERMINATE]: 1} as TerminateMessage);
       }
     },
   };

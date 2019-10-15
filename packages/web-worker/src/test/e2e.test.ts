@@ -521,12 +521,63 @@ describe('web-worker', () => {
     });
   });
 
-  it('throws an error when calling a function on a terminated worker', async () => {
+  it('terminates the worker from the main thread', async () => {
+    const testId = 'WorkerResult';
+    const terminateId = 'Terminate';
+
+    await withContext('terminate', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+        import {createWorker, terminate} from '@shopify/web-worker';
+        self.worker = createWorker(() => import('./worker'))();
+
+        (async () => {
+          const result = await self.worker.greet();
+          const element = document.createElement('div');
+          element.setAttribute('id', ${JSON.stringify(testId)});
+          element.textContent = result;
+          document.body.appendChild(element);
+        })();
+
+        self.terminateWorker =  () => {
+          terminate(self.worker);
+          const element = document.createElement('div');
+          element.setAttribute('id', ${JSON.stringify(terminateId)});
+          document.body.appendChild(element);
+        }
+      `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+        export function greet() {
+          return 'Hi, friend!';
+        }
+      `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+      await page.waitForSelector(`#${testId}`);
+      expect(page.workers()).toHaveLength(1);
+
+      await page.evaluate(() => (self as any).terminateWorker());
+      await page.waitForSelector(`#${terminateId}`);
+      expect(page.workers()).toHaveLength(0);
+    });
+  });
+
+  it('throws an error when calling a function on a terminated worker from the main thread', async () => {
     const greetingPrefix = 'Hello ';
     const greetingTarget = 'world';
     const testId = 'WorkerResult';
 
-    await withContext('basic-result', async context => {
+    await withContext('error-on-terminated-worker-calls', async context => {
       const {workspace, browser} = context;
 
       await workspace.write(
@@ -535,7 +586,7 @@ describe('web-worker', () => {
           import {createWorker, terminate} from '@shopify/web-worker';
           self.worker = createWorker(() => import('./worker'))();
           (async () => {
-            await terminate(self.worker);
+            terminate(self.worker);
             let result;
             try {
               result = await self.worker.greet(${JSON.stringify(
@@ -572,6 +623,159 @@ describe('web-worker', () => {
         'Error: You attempted to call a function on a terminated web worker.',
       );
     });
+  });
+
+  it('releases memory when the worker is terminated', async () => {
+    const testId = 'WorkerResult';
+
+    await withContext('terminated-worker-releases-memory', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker, terminate} from '@shopify/web-worker';
+
+          self.WorkerTestClass = class WorkerTestClass {}
+          self.memoryTracker = new WeakMap();
+          self.worker = createWorker(() => import('./worker'))();
+
+
+          self.retain = async () => {
+            start();
+
+            const func = () => {};
+            self.memoryTracker.set(func, new self.WorkerTestClass());
+            await self.worker.retain(func);
+
+            done();
+          }
+
+          self.releaseAndTerminate = async () => {
+            start();
+            await self.worker.release();
+            terminate(self.worker)
+            done();
+          };
+
+          done();
+
+          function start() {
+            for (const node of document.querySelectorAll('#' + ${JSON.stringify(
+              testId,
+            )})) {
+              node.remove();
+            }
+          }
+
+          function done() {
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            document.body.appendChild(element);
+          }
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          import {retain as retainRef, release as releaseRef} from '@shopify/web-worker';
+
+          self.memoryTracker = new WeakMap();
+          self.WorkerTestClass = class WorkerTestClass {}
+
+          export async function retain(func) {
+            self.func = func;
+            self.memoryTracker.set(func, new self.WorkerTestClass());
+            retainRef(func);
+          }
+
+          export async function release() {
+            const {func} = self;
+            delete self.func;
+            releaseRef(func);
+          }
+        `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+      await page.waitForSelector(`#${testId}`);
+
+      await page.evaluate(() => (self as any).retain());
+      await page.waitForSelector(`#${testId}`);
+
+      expect(await getTestClassInstanceCount(page)).toBe(1);
+      expect(page.workers()).toHaveLength(1);
+
+      await page.evaluate(() => (self as any).releaseAndTerminate());
+      await page.waitForSelector(`#${testId}`);
+
+      expect(await getTestClassInstanceCount(page)).toBe(0);
+      expect(page.workers()).toHaveLength(0);
+    });
+  });
+
+  it('throws an error when calling a function on a terminated worker that has been terminated from the worker file', async () => {
+    const greetingPrefix = 'Hello ';
+    const greetingTarget = 'world';
+    const testId = 'WorkerResult';
+
+    await withContext(
+      'errors-terminated-worker-calls-from-worker-termination',
+      async context => {
+        const {workspace, browser} = context;
+
+        await workspace.write(
+          mainFile,
+          `
+          import {createWorker} from '@shopify/web-worker';
+          self.worker = createWorker(() => import('./worker'))();
+
+          (async () => {
+            await self.worker.terminateAttemptFromWorker();
+
+            let result;
+            try {
+              result = await self.worker.greet(${JSON.stringify(
+                greetingTarget,
+              )});
+            } catch (error){
+              result = error.toString();
+            }
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = result;
+            document.body.appendChild(element);
+          })();
+        `,
+        );
+
+        await workspace.write(
+          workerFile,
+          `
+          export async function terminateAttemptFromWorker(){
+            self.endpoint.terminate();
+          }
+          export function greet(name) {
+            return \`${greetingPrefix}\${name}\`;
+          }
+        `,
+        );
+
+        await runWebpack(context);
+
+        const page = await browser.go();
+        const workerElement = await page.waitForSelector(`#${testId}`);
+        const textContent = await workerElement.evaluate(
+          element => element.innerHTML,
+        );
+        expect(textContent).toBe(
+          'Error: You attempted to call a function on a terminated web worker.',
+        );
+      },
+    );
   });
 });
 

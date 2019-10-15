@@ -12,8 +12,8 @@ export function expose(
 
 export function terminate(caller: Endpoint<any>['call']) {
   const endpoint = getEndpoint(caller);
-  if (endpoint && endpoint.terminateEndpoint) {
-    endpoint.terminateEndpoint();
+  if (endpoint) {
+    endpoint.terminate();
   }
 
   workerEndpointCache.delete(caller);
