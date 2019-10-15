@@ -28,12 +28,12 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@types/glob": "^7.1.1",
     "@types/babel__core": "^7.0.4",
-    "intl-pluralrules": "^0.2.1"
-  },
-  "dependencies": {
+    "intl-pluralrules": "^0.2.1",
     "@babel/types": ">=7.0.0",
     "@types/babel__template": "^7.0.0",
-    "@types/babel__traverse": "^7.0.0",
+    "@types/babel__traverse": "^7.0.0"
+  },
+  "dependencies": {
     "@shopify/dates": "^0.2.3",
     "@shopify/decorators": "^1.1.5",
     "@shopify/function-enhancers": "^1.0.5",
