@@ -427,6 +427,57 @@ describe('web-worker', () => {
       expect(await getTestClassInstanceCount(worker)).toBe(0);
     });
   });
+
+  it('calls into the module directly when not turned into a web worker', async () => {
+    const greetingPrefix = 'Hello ';
+    const greetingTarget = 'world';
+    const testId = 'WorkerResult';
+
+    await withContext('non-worker', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker} from '@shopify/web-worker';
+
+          const worker = createWorker(() => import('./worker'))();
+
+          (async () => {
+            const result = await worker.greet(${JSON.stringify(
+              greetingTarget,
+            )});
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = result;
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          export function greet(name) {
+            return \`${greetingPrefix}\${name}\`;
+          }
+        `,
+      );
+
+      await runWebpackBase(context, {
+        entry: context.workspace.resolvePath(mainFile),
+      });
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
+      );
+
+      expect(textContent).toBe(`${greetingPrefix}${greetingTarget}`);
+      expect(page.workers()).toHaveLength(0);
+    });
+  });
 });
 
 function runWebpack(context: Context, plugin = new WebWorkerPlugin()) {

@@ -136,6 +136,10 @@ The `WebWorkerPlugin` helps coordinate a few things during webpack compilation a
 - `globalObject`: allows you to customize the [`options.output.globalObject`](https://webpack.js.org/configuration/output/#outputglobalobject) option passed to the child Webpack compiler. By default, this is set to `self`, which works well in workers, but if you have a different global object that must be used, you can pass it here.
 - `plugins`: an array of [webpack plugins](https://webpack.js.org/plugins/) to include in the child compilation of the worker. This library automatically includes a few plugins that will generate output code appropriate for workers.
 
+#### Tests
+
+We do **not** recommend including the Babel plugin for the test environment. When the Babel plugin is omitted, `createWorker` will know to access your module asynchronously, and will proxy all method calls to it. To be clear, when in this mode, `createWorker` **will not** actually construct a `Worker` for your code. As a result, this feature will only work if your worker code is written such that it will also execute successfully on the "main" thread. If you do use features in the worker that make it incompatible to run alongside the browser code, we recommend mocking the "worker" module (using `jest.mock()`, for example).
+
 ## How does it work?
 
 The `@shopify/web-worker/babel` Babel plugin looks for any instances of calling `createWorker`. For each one, it looks for the nested `import()` call, and then for the imported path (e.g., `./worker`). It then replaces the first argument to `createWorker` with an import for the worker module that references a custom Webpack loader:
