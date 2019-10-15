@@ -16,6 +16,27 @@ export function getEndpoint(caller: Endpoint<any>['call']) {
 
 export function createWorker<T>(script: () => Promise<T>) {
   return function create(): Endpoint<T>['call'] {
+    // The babel plugin that comes with this package actually turns the argument
+    // into a string (the public path of the worker script). If it’s a function,
+    // it’s because we’re in an environment where we didn’t transform it into a
+    // worker. In that case, we can use the fact that we will get access to the
+    // real module and pretend to be a worker that way.
+    if (typeof script === 'function') {
+      return new Proxy(
+        {},
+        {
+          get(_target, property) {
+            return async (...args: any[]) => {
+              const module = await script();
+              return module[property](...args);
+            };
+          },
+        },
+      ) as any;
+    }
+
+    // If we aren’t in an environment that supports Workers, just bail out
+    // with a dummy worker that throws for every method call.
     if (typeof Worker === 'undefined') {
       return new Proxy(
         {},
