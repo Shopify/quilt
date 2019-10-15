@@ -1,3 +1,3 @@
 import {createContext} from 'react';
 
-export const CsrfTokenContext = createContext<string | null>(null);
+export const CsrfTokenContext = createContext<string | undefined>(undefined);
