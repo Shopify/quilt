@@ -8,13 +8,13 @@ export interface UniversalProviderProps<Value> {
 
 export function createUniversalProvider<Value>(
   id: string,
-  Context: React.Context<Value | null>,
+  Context: React.Context<Value>,
 ) {
   const UniversalProvider = React.memo(
     ({value: explicitValue, children}: UniversalProviderProps<Value>) => {
       const [value = explicitValue, Serialize] = useSerialized<Value>(id);
 
-      if (!value) {
+      if (value == null) {
         throw new Error(
           `You must provide a ${id} value, or have one previously serialized.`,
         );
