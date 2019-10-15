@@ -12,8 +12,7 @@ import Assets, {Asset} from './assets';
 export {Assets, Asset};
 
 export interface Options {
-  assetPrefix?: string;
-  assetPrefixCallback?: Function;
+  assetPrefix?: string | ((ctx: Context) => string);
   serveAssets?: boolean;
   manifestPath?: string;
 }
@@ -31,18 +30,19 @@ export function setAssets(ctx: Context, assets: Assets) {
 export default function middleware({
   serveAssets = false,
   assetPrefix = defaultAssetPrefix(serveAssets),
-  assetPrefixCallback,
   manifestPath,
 }: Options = {}): Middleware {
-  async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
-    let currentAssetPrefix = assetPrefix;
-
-    if (!serveAssets && assetPrefixCallback) {
-      currentAssetPrefix = assetPrefixCallback(ctx) || currentAssetPrefix;
+  const getAssetPrefix = (ctx?: Context): string => {
+    if (ctx && typeof assetPrefix === 'function') {
+      return assetPrefix(ctx);
+    } else {
+      return <string>assetPrefix;
     }
+  };
 
+  async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
     const assets = new Assets({
-      assetPrefix: currentAssetPrefix,
+      assetPrefix: getAssetPrefix(ctx),
       userAgent: ctx.get(Header.UserAgent),
       manifestPath,
     });
@@ -52,10 +52,10 @@ export default function middleware({
     await next();
   }
 
-  return serveAssets && assetPrefix.startsWith('/')
+  return serveAssets && getAssetPrefix().startsWith('/')
     ? compose([
         sewingKitMiddleware,
-        mount(assetPrefix, serve(join(appRoot.path, 'build/client'))),
+        mount(getAssetPrefix(), serve(join(appRoot.path, 'build/client'))),
       ])
     : sewingKitMiddleware;
 }
