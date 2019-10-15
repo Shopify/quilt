@@ -3,13 +3,6 @@ import {mount} from '@shopify/react-testing';
 import {mockPerformance} from './utilities';
 import {NavigationListener, PerformanceContext} from '..';
 
-jest.mock('@shopify/performance', () => {
-  return {
-    ...require.requireActual('@shopify/performance'),
-    Performance: jest.fn(),
-  };
-});
-
 describe('<NavigationListener />', () => {
   it('sets up a navigation listener on the Performance context object', () => {
     const performance = mockPerformance();
