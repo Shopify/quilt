@@ -27,6 +27,9 @@
     "@shopify/react-effect": "^3.2.3",
     "@shopify/react-hooks": "^1.2.3"
   },
+  "devDependencies": {
+    "faker": "^4.1.0"
+  },
   "peerDependencies": {
     "react": "^16.8.0"
   },
