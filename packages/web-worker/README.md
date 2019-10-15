@@ -65,18 +65,18 @@ const result = await worker.default(
 ); // 'Hello, Tobi'
 ```
 
-When the web worker is no longer required, you can terminate the worker using `terminate()`. This will immedietly terminate any ongoing operations. If an attempt is made to make calls to a terminated worker, an error will be thrown.
+When the web worker is no longer required, you can terminate the worker using `terminate()`. This will immediately terminate any ongoing operations. If an attempt is made to make calls to a terminated worker, an error will be thrown.
 
 Note: A worker can only be terminated from the main thread. A worker can not terminate itself from within the worker module.
 
-```
+```tsx
 import {createWorker, terminate} from '@shopify/web-worker;
 
 const makeWorker = createWorker(() => import('./worker'));
 const worker = makeWorker();
 
 // Assume `stuff` is some large payload that needs to be processed
-const result = await worker.someExpensiveOperation(stuff);
+// const result = await worker.someExpensiveOperation(stuff);
 
 terminate(worker);
 ```
