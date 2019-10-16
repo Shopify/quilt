@@ -30,12 +30,9 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>({
       assets: AssetTiming.Immediate,
     });
 
-    useEffect(
-      () => {
-        load();
-      },
-      [load],
-    );
+    useEffect(() => {
+      load();
+    }, [load]);
 
     return query ? (
       <Query query={query} {...props as any} />

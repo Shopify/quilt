@@ -40,7 +40,7 @@ export function executeOnce(link: ApolloLink, query: DocumentNode) {
   });
 }
 
-type BeforeResult = ((operation: Operation) => void);
+type BeforeResult = (operation: Operation) => void;
 type Result = {data: object} | {errors: {message: string}[]} | Error;
 type MultiResult =
   | Result

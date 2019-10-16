@@ -32,18 +32,15 @@ export default function ImportRemote<T = unknown>({
       <div ref={intersectionRef as React.RefObject<HTMLDivElement>} />
     ) : null;
 
-  React.useEffect(
-    () => {
-      switch (result.status) {
-        case Status.Failed:
-          onImported(result.error);
-          return;
-        case Status.Complete:
-          onImported(result.imported);
-      }
-    },
-    [result, onImported],
-  );
+  React.useEffect(() => {
+    switch (result.status) {
+      case Status.Failed:
+        onImported(result.error);
+        return;
+      case Status.Complete:
+        onImported(result.imported);
+    }
+  }, [result, onImported]);
 
   if (preconnect) {
     const url = new URL(source);

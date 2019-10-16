@@ -9,12 +9,9 @@ interface Props {
 type ComposedProps = Props & RouteComponentProps;
 
 function Redirect({url, history}: ComposedProps) {
-  useEffect(
-    () => {
-      history.push(url);
-    },
-    [history, url],
-  );
+  useEffect(() => {
+    history.push(url);
+  }, [history, url]);
   return <NetworkRedirect url={url} />;
 }
 
