@@ -95,11 +95,75 @@ The same [memory management concerns](#memory) apply to the worker as they do on
 
 #### Limitations
 
-TODO
+There are two key limitations to be aware of when calling functions in a worker with the help of this library:
+
+1. Only basic data structures are supported. Any function involved in a call across the main thread/ worker boundary can accept and return primitive types, objects, arrays, and functions. You can’t pass other data structures (like `Map`s or `Set`s), and if you pass class instances back and forth, only their own properties will be available on the other side.
+2. The worker can only export functions. Because the main thread can’t access the worker thread values synchronously, there is no way to implement arbitrary access to non-function exports without awkward use of promises.
+
+Additionally, when passing functions to and from the worker, developers may occasionally need to manually manage memory. This is detailed in the next section.
 
 #### Memory
 
-TODO
+Web worker’s can’t share memory with their parent, and functions can’t be serialized for `postMessage`. The implementation of passing functions between worker and parent is therefore implemented very differently from other data types: the worker and parent side keep references to functions that have been passed between the two, and they have a shared strategy for proxying calls from the "target" side back to the original source function.
+
+This strategy is effective, but without extra intervention it will leak memory. Even if the parent and worker no longer have references to that function, it must still be retained because the parent can’t know that the worker no longer needs to call that function.
+
+This library automatically implements some memory management for you. A function passed between the worker and parent is automatically retained for the lifetime of the original function call, and is subsequently released.
+
+```ts
+// PARENT
+
+const worker = createWorker(/* ... */)();
+const funcForWorker = () => 'Tobi';
+
+worker
+  // funcForWorker is retained on the main thread here...
+  .greet(funcForWorker)
+  // And is automatically released here because the worker
+  // signals it no longer needs the function
+  .then(result => console.log(result));
+
+// WORKER
+
+export async function greet(getName: () => Promise<string>) {
+  // Worker signals that it needs to retain `getName`, which
+  // was passed from the parent.
+
+  try {
+    return `Hello, ${await getName()}`;
+  } finally {
+    // Once this function exits, the library defaults to releasing
+    // `getName`, which signals to the main thread it can release
+    // the original function.
+  }
+}
+```
+
+This covers most common memory management cases, but one important exception remains: if you save the function on to an object in context, it will be still be accessible to your program, but the source of the function will be told to release the reference to that function. In this case, if you try to call the function from the worker at a later time, you will receive an error indicating that the value has been released.
+
+To resolve this problem, this library provides `retain` and `release` functions. Calling these on an object will increment the number of "retainers", allowing the source function to be retained. Any time you call `retain`, you must eventually call `release`, when you know you will no longer call that function.
+
+```ts
+// WORKER
+
+import {retain, release} from '@shopify/web-worker';
+
+export function setNameGetter(getName: () => Promise<string>) {
+  retain(getName);
+
+  if (self.getName) {
+    release(self.getName);
+  }
+
+  self.getName = getName;
+}
+
+export async function greet() {
+  return `Hello, ${self.getName ? await self.getName() : 'friend'}!`;
+}
+```
+
+Remember that any function passed between the worker and its parent, including functions attached as properties of objects, must be retained manually if you intend to call them outside the scope of the first function where they were passed over the bridge. To help make this easier, `release` and `retain` will automatically deeply release/ retain all functions when they are called with objects or arrays.
 
 ### Tooling
 
@@ -164,4 +228,6 @@ expose(api);
 
 This imaginary module is then compiled using a child compiler in Webpack. The loader then takes the resulting asset metadata from compiling the worker, and makes that information the exported data from the original `./worker` module. Finally, `createWorker()` takes this metadata (which includes the main script tag that should be loaded in the worker) and, when called, creates a new `Worker` instance using a `Blob` that simply `importScripts` the main script for the worker.
 
-TODO: how the proxying works
+The actual communication between the parent and worker is the most complex part of this library. The basic idea is that, when a method of the worker is called from the main thread, it is turned in to a message that deeply serializes all of the arguments. The worker receives that message (via `postMessage`) and calls the relevant export from the worker module. The return result is then serialized and sent back to the parent (again, via `postMessage`).
+
+Most serialization relies on the basic structured cloning done automatically for `Worker#postMessage`, but functions are pre-processed. Because these values can’t be serialized, there is no way of passing them directly between the parent and worker. Instead, the parent or worker (whichever is passing a function) stores the value of the original function, assigns it an ID, creates a `MessageChannel`, and sends that information in place of the function itself. The other side receives that object, and turns it into a `Proxy`; this `Proxy` listens for calls, and forwards them to the original owner of the function using the `MessageChannel` (again, serializing using `postMessage`). As discussed in the [memory](#memory) section, the library also performs some basic memory management automatically. Once `WeakRef`s are available in JavaScript, they will be adopted to automatically release references to proxied functions.
