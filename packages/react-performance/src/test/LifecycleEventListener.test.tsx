@@ -3,13 +3,6 @@ import {mount} from '@shopify/react-testing';
 import {mockPerformance} from './utilities';
 import {LifecycleEventListener, PerformanceContext} from '..';
 
-jest.mock('@shopify/performance', () => {
-  return {
-    ...require.requireActual('@shopify/performance'),
-    Performance: jest.fn(),
-  };
-});
-
 describe('<LifecycleEventListener />', () => {
   it('sets up a event listener on the Performance context object', () => {
     const performance = mockPerformance();

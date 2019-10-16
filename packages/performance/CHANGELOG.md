@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Fixed
+
+- `Performance` object constructor will now check if `PerformanceTiming` is supported. [[#1119](https://github.com/Shopify/quilt/pull/1119)]
+
 ## [1.2.1] - 2019-10-11
 
 ### Fixed

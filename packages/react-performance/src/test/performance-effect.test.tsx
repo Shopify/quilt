@@ -7,13 +7,6 @@ import {
   PerformanceContext,
 } from '..';
 
-jest.mock('@shopify/performance', () => {
-  return {
-    ...require.requireActual('@shopify/performance'),
-    Performance: jest.fn(),
-  };
-});
-
 describe('usePerformanceEffect', () => {
   function TestComponent({callback}: {callback: PerformanceEffectCallback}) {
     usePerformanceEffect(callback);

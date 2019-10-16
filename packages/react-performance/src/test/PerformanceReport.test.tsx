@@ -7,13 +7,6 @@ import {Method, Header} from '@shopify/network';
 import {mockPerformance, randomConnection} from './utilities';
 import {PerformanceReport, PerformanceContext} from '..';
 
-jest.mock('@shopify/performance', () => {
-  return {
-    ...require.requireActual('@shopify/performance'),
-    Performance: jest.fn(),
-  };
-});
-
 describe('<PerformanceReport />', () => {
   beforeEach(() => {
     timer.mock();
