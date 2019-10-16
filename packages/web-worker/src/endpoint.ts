@@ -17,6 +17,7 @@ const APPLY = '_@a';
 const API_ENDPOINT = '_@i';
 const APPLY_RESULT = '_@ar';
 const APPLY_ERROR = '_@ae';
+const TERMINATE = '_@t';
 
 class StackFrame {
   private readonly memoryManaged = new Set<MemoryManageable>();
@@ -47,6 +48,7 @@ interface MessageEndpoint {
     event: 'message',
     listener: (event: MessageEvent) => void,
   ): void;
+  terminate?(): void;
 }
 
 interface FunctionSerialization {
@@ -77,6 +79,10 @@ interface ApplyErrorMessage {
   [APPLY_ERROR]: {name: string; message: string; stack?: string};
 }
 
+interface TerminateMessage {
+  [TERMINATE]: 1;
+}
+
 interface Options {
   uuid?(): string;
 }
@@ -86,12 +92,14 @@ export interface Endpoint<T> {
   expose(api: {[key: string]: Function | undefined}): void;
   revoke(value: Function): void;
   exchange(value: Function, newValue: Function): void;
+  terminate(): void;
 }
 
 export function createEndpoint<T>(
   messageEndpoint: MessageEndpoint,
   {uuid = defaultUuid}: Options = {},
 ): Endpoint<T> {
+  let terminated = false;
   const functionStore = new Map<Function, [string, MessagePort]>();
   const functionProxies = new Map<string, Function>();
   const removeListeners = new WeakMap<MessageEndpoint, (() => void)>();
@@ -101,12 +109,25 @@ export function createEndpoint<T>(
     activeApi.get(apiCall[API_ENDPOINT]),
   );
 
+  messageEndpoint.addEventListener('message', ({data}) => {
+    if (TERMINATE in data) {
+      [functionStore, functionProxies, activeApi].forEach(map => map.clear());
+      terminated = true;
+    }
+  });
+
   return {
     call: new Proxy(
       {},
       {
         get(_target, property) {
           return (...args: any[]) => {
+            if (terminated) {
+              throw new Error(
+                'You attempted to call a function on a terminated web worker.',
+              );
+            }
+
             return call(messageEndpoint, args, [], {[API_ENDPOINT]: property});
           };
         },
@@ -145,6 +166,16 @@ export function createEndpoint<T>(
       const [id, port] = functionStore.get(value)!;
       makeCallable(port, () => newValue);
       functionStore.set(newValue, [id, port]);
+    },
+    terminate() {
+      [functionStore, functionProxies, activeApi].forEach(map => map.clear());
+      terminated = true;
+
+      if (messageEndpoint.terminate) {
+        messageEndpoint.terminate();
+      } else {
+        messageEndpoint.postMessage({[TERMINATE]: 1} as TerminateMessage);
+      }
     },
   };
 
