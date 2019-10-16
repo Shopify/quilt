@@ -47,12 +47,9 @@ export function createAsyncContext<Value>({
       assets: AssetTiming.Immediate,
     });
 
-    useEffect(
-      () => {
-        load();
-      },
-      [load],
-    );
+    useEffect(() => {
+      load();
+    }, [load]);
 
     return <Context.Provider value={resolved} {...props} />;
   }
@@ -76,12 +73,9 @@ export function createAsyncContext<Value>({
   function Prefetch() {
     const preload = usePreload();
 
-    useEffect(
-      () => {
-        preload();
-      },
-      [preload],
-    );
+    useEffect(() => {
+      preload();
+    }, [preload]);
 
     return null;
   }

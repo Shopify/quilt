@@ -94,7 +94,7 @@ export function createEndpoint<T>(
 ): Endpoint<T> {
   const functionStore = new Map<Function, [string, MessagePort]>();
   const functionProxies = new Map<string, Function>();
-  const removeListeners = new WeakMap<MessageEndpoint, (() => void)>();
+  const removeListeners = new WeakMap<MessageEndpoint, () => void>();
   const activeApi = new Map<string, Function>();
 
   makeCallable(messageEndpoint, (apiCall: ApplyApiEndpoint) =>
@@ -150,7 +150,7 @@ export function createEndpoint<T>(
 
   function makeCallable(
     messageEndpoint: MessageEndpoint,
-    getFunction: ((data: any) => Function | undefined),
+    getFunction: (data: any) => Function | undefined,
   ) {
     const remove = removeListeners.get(messageEndpoint);
 

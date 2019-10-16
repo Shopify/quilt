@@ -17,46 +17,43 @@ export function usePerformanceReport(
   const events = useRef<LifecycleEvent[]>([]);
   const timeout = useRef<ReturnType<typeof setTimeout>>();
 
-  const sendReport = useCallback(
-    () => {
-      if (timeout.current != null) {
-        return;
+  const sendReport = useCallback(() => {
+    if (timeout.current != null) {
+      return;
+    }
+
+    timeout.current = setTimeout(async () => {
+      if (timeout.current) {
+        clearTimeout(timeout.current);
+        timeout.current = undefined;
       }
 
-      timeout.current = setTimeout(async () => {
-        if (timeout.current) {
-          clearTimeout(timeout.current);
-          timeout.current = undefined;
+      try {
+        await fetch(url, {
+          method: Method.Post,
+          headers: {
+            [Header.ContentType]: 'application/json',
+          },
+          body: JSON.stringify({
+            connection: serializableClone((navigator as any).connection),
+            events: events.current,
+            navigations: navigations.current.map(navigation => ({
+              details: navigation.toJSON({removeEventMetadata: false}),
+              metadata: navigation.metadata,
+            })),
+            pathname: window.location.pathname,
+          }),
+        });
+      } catch (error) {
+        if (onError) {
+          onError(error);
         }
-
-        try {
-          await fetch(url, {
-            method: Method.Post,
-            headers: {
-              [Header.ContentType]: 'application/json',
-            },
-            body: JSON.stringify({
-              connection: serializableClone((navigator as any).connection),
-              events: events.current,
-              navigations: navigations.current.map(navigation => ({
-                details: navigation.toJSON({removeEventMetadata: false}),
-                metadata: navigation.metadata,
-              })),
-              pathname: window.location.pathname,
-            }),
-          });
-        } catch (error) {
-          if (onError) {
-            onError(error);
-          }
-        } finally {
-          events.current = [];
-          navigations.current = [];
-        }
-      }, 1000);
-    },
-    [onError, url],
-  );
+      } finally {
+        events.current = [];
+        navigations.current = [];
+      }
+    }, 1000);
+  }, [onError, url]);
 
   const onNavigation = useCallback(
     (navigation: Navigation) => {

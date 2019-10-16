@@ -48,14 +48,17 @@ export function createSerializer<T>(id: string) {
   function Serialize({data}: SerializeProps<T>) {
     const manager = React.useContext(HtmlContext);
 
-    useServerEffect(() => {
-      const result = data();
-      const handleResult = manager.setSerialization.bind(manager, id);
+    useServerEffect(
+      () => {
+        const result = data();
+        const handleResult = manager.setSerialization.bind(manager, id);
 
-      return typeof result === 'object' && result != null && isPromise(result)
-        ? result.then(handleResult)
-        : handleResult(result);
-    }, manager ? manager.effect : undefined);
+        return typeof result === 'object' && result != null && isPromise(result)
+          ? result.then(handleResult)
+          : handleResult(result);
+      },
+      manager ? manager.effect : undefined,
+    );
 
     return null;
   }

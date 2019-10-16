@@ -13,27 +13,24 @@ export default function useVisitFields(
   const fieldBagRef = useRef(fieldBag);
   fieldBagRef.current = fieldBag;
 
-  return useCallback(
-    () => {
-      const fields = Object.values(fieldBagRef.current);
+  return useCallback(() => {
+    const fields = Object.values(fieldBagRef.current);
 
-      for (const item of fields) {
-        if (isField(item)) {
-          visitor(item);
-          continue;
-        }
-
-        const visit = visitDictionary(visitor);
-        if (Array.isArray(item)) {
-          item.forEach(visit);
-          continue;
-        }
-
-        visit(item);
+    for (const item of fields) {
+      if (isField(item)) {
+        visitor(item);
+        continue;
       }
-    },
-    [visitor],
-  );
+
+      const visit = visitDictionary(visitor);
+      if (Array.isArray(item)) {
+        item.forEach(visit);
+        continue;
+      }
+
+      visit(item);
+    }
+  }, [visitor]);
 }
 
 function visitDictionary(visitor: FieldVisitor) {

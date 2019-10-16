@@ -65,23 +65,17 @@ export function useForm<T extends FieldBag>({
   const basicReset = useReset(fields);
   const {submit, submitting, errors, setErrors} = useSubmit(onSubmit, fields);
 
-  const reset = useCallback(
-    () => {
-      setErrors([]);
-      basicReset();
-    },
-    [basicReset, setErrors],
-  );
+  const reset = useCallback(() => {
+    setErrors([]);
+    basicReset();
+  }, [basicReset, setErrors]);
 
   const fieldsRef = useRef(fields);
   fieldsRef.current = fields;
 
-  const validate = useCallback(
-    () => {
-      return validateAll(fieldsRef.current);
-    },
-    [fieldsRef],
-  );
+  const validate = useCallback(() => {
+    return validateAll(fieldsRef.current);
+  }, [fieldsRef]);
 
   return {
     fields,

@@ -13,19 +13,16 @@ export function usePerformanceEffect(
 ) {
   const performance = useContext(PerformanceContext);
 
-  useEffect(
-    () => {
-      if (performance == null) {
-        return;
-      }
+  useEffect(() => {
+    if (performance == null) {
+      return;
+    }
 
-      const cleanup = callback(performance);
+    const cleanup = callback(performance);
 
-      if (cleanup) {
-        return cleanup;
-      }
-    },
+    if (cleanup) {
+      return cleanup;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [performance, ...dependencies],
-  );
+  }, [performance, ...dependencies]);
 }

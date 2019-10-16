@@ -46,38 +46,32 @@ export function useBackgroundQuery(
     [],
   );
 
-  return useCallback(
-    async () => {
-      if (subscription.current) {
+  return useCallback(async () => {
+    if (subscription.current) {
+      return;
+    }
+
+    const query = await load();
+
+    if (query == null || query instanceof Error) {
+      return;
+    }
+
+    const observableQuery = lastClient.current.watchQuery({
+      query,
+      fetchPolicy: 'network-only',
+      ...lastOptions.current,
+    });
+
+    const unsubscribe = () => {
+      if (polling.current || subscription.current == null) {
         return;
       }
 
-      const query = await load();
+      subscription.current.unsubscribe();
+      subscription.current = null;
+    };
 
-      if (query == null || query instanceof Error) {
-        return;
-      }
-
-      const observableQuery = lastClient.current.watchQuery({
-        query,
-        fetchPolicy: 'network-only',
-        ...lastOptions.current,
-      });
-
-      const unsubscribe = () => {
-        if (polling.current || subscription.current == null) {
-          return;
-        }
-
-        subscription.current.unsubscribe();
-        subscription.current = null;
-      };
-
-      subscription.current = observableQuery.subscribe(
-        unsubscribe,
-        unsubscribe,
-      );
-    },
-    [load],
-  );
+    subscription.current = observableQuery.subscribe(unsubscribe, unsubscribe);
+  }, [load]);
 }

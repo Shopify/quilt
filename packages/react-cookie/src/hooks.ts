@@ -20,8 +20,8 @@ export function useCookie(
     throw new Error(NO_MANAGER_ERROR);
   }
 
-  const [cookie, setCookieValue] = useState(
-    () => (manager ? manager.getCookie(key) : undefined),
+  const [cookie, setCookieValue] = useState(() =>
+    manager ? manager.getCookie(key) : undefined,
   );
 
   const setCookie = useCallback(

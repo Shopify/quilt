@@ -154,43 +154,44 @@ export function useField<Value = string>(
     dispatch,
   ]);
 
-  const onBlur = useCallback(
-    () => {
-      if (state.touched === false && state.error == null) {
-        return;
-      }
+  const onBlur = useCallback(() => {
+    if (state.touched === false && state.error == null) {
+      return;
+    }
 
-      runValidation();
-    },
-    [runValidation, state.touched, state.error],
-  );
+    runValidation();
+  }, [runValidation, state.touched, state.error]);
 
   // We want to reset the field whenever a new `value` is passed in
-  useEffect(
-    () => {
-      if (!isEqual(value, state.defaultValue)) {
-        newDefaultValue(value);
-      }
-    },
-    //  We actually do not want this to rerun when our `defaultValue` is updated. It can only happen independently of this callback when `newDefaultValue` is called by a user, and we don't want to undue their hard work by resetting to `value`.
+  useEffect(() => {
+    if (!isEqual(value, state.defaultValue)) {
+      newDefaultValue(value);
+    }
+    // We actually do not want this to rerun when our `defaultValue` is updated. It can
+    // only happen independently of this callback when `newDefaultValue` is called by a user,
+    // and we don't want to undue their hard work by resetting to `value`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value, newDefaultValue],
-  );
+  }, [value, newDefaultValue]);
 
-  const field = useMemo(
-    () => {
-      return {
-        ...state,
-        onBlur,
-        onChange,
-        newDefaultValue,
-        runValidation,
-        setError,
-        reset,
-      };
-    },
-    [state, onBlur, onChange, newDefaultValue, runValidation, setError, reset],
-  );
+  const field = useMemo(() => {
+    return {
+      ...state,
+      onBlur,
+      onChange,
+      newDefaultValue,
+      runValidation,
+      setError,
+      reset,
+    };
+  }, [
+    state,
+    onBlur,
+    onChange,
+    newDefaultValue,
+    runValidation,
+    setError,
+    reset,
+  ]);
 
   return field as Field<Value>;
 }
