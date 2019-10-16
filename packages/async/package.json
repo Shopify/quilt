@@ -1,6 +1,6 @@
 {
   "name": "@shopify/async",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously.",
   "main": "dist/index.js",
@@ -26,10 +26,10 @@
   "devDependencies": {
     "@babel/core": ">=7.0.0",
     "@babel/plugin-syntax-dynamic-import": ">=7.0.0",
+    "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
     "@types/babel__core": ">=7.0.0",
     "@types/babel__traverse": ">=7.0.0",
-    "@babel/traverse": ">=7.0.0",
     "@types/webpack": "^4.0.0"
   },
   "files": [
