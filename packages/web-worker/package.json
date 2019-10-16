@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "Tools for making web workers fun to use.",
   "main": "dist/index.js",
@@ -28,12 +28,12 @@
     "webpack-virtual-modules": "^0.1.12"
   },
   "devDependencies": {
-    "koa-mount": "^3.0.0",
-    "@types/koa-mount": "^3.0.1",
     "@babel/types": ">=7.0.0",
     "@types/babel__core": ">=7.0.0",
     "@types/babel__traverse": ">=7.0.0",
-    "@types/webpack-virtual-modules": "^0.1.0"
+    "@types/koa-mount": "^3.0.1",
+    "@types/webpack-virtual-modules": "^0.1.0",
+    "koa-mount": "^3.0.0"
   },
   "files": [
     "dist/*",

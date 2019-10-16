@@ -1,6 +1,6 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
   "main": "dist/index.js",
@@ -35,13 +35,13 @@
     "dist/*"
   ],
   "dependencies": {
+    "@babel/template": "^7.6.0",
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
-    "@babel/template": "^7.6.0",
+    "jest-matcher-utils": "^24.9.0",
     "remark-parse": "^7.0.1",
     "remark-stringify": "^7.0.3",
     "unified": "^8.4.0",
-    "unist-builder": "^1.0.4",
-    "jest-matcher-utils": "^24.9.0"
+    "unist-builder": "^1.0.4"
   }
 }
