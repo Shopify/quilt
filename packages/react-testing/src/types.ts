@@ -8,8 +8,8 @@ export type PropsFor<
     ? JSX.IntrinsicElements[T]
     : React.HTMLAttributes<T>
   : T extends React.ComponentType<any>
-    ? React.ComponentPropsWithoutRef<T>
-    : never;
+  ? React.ComponentPropsWithoutRef<T>
+  : never;
 
 export type FunctionKeys<T> = {
   [K in keyof T]-?: NonNullable<T[K]> extends ((...args: any[]) => any)
@@ -24,8 +24,10 @@ type DeepPartialObject<T extends object> = {[K in keyof T]?: DeepPartial<T[K]>};
 type DeepPartial<T> = T extends (infer U)[]
   ? DeepPartialArray<U>
   : T extends ReadonlyArray<infer U>
-    ? DeepPartialReadonlyArray<U>
-    : T extends object ? DeepPartialObject<T> : T;
+  ? DeepPartialReadonlyArray<U>
+  : T extends object
+  ? DeepPartialObject<T>
+  : T;
 
 export type DeepPartialArguments<T> = {[K in keyof T]?: DeepPartial<T[K]>} &
   any[];

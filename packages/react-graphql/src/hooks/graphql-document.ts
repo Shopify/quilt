@@ -28,30 +28,24 @@ export default function useGraphQLDocument<
 
   const mounted = useMountedRef();
 
-  const loadDocument = useCallback(
-    async () => {
-      if (!isDocumentNode(documentOrComponent)) {
-        try {
-          const resolved = await documentOrComponent.resolver.resolve();
-          if (mounted.current) {
-            setDocument(resolved);
-          }
-        } catch (error) {
-          throw Error('error loading GraphQL document');
+  const loadDocument = useCallback(async () => {
+    if (!isDocumentNode(documentOrComponent)) {
+      try {
+        const resolved = await documentOrComponent.resolver.resolve();
+        if (mounted.current) {
+          setDocument(resolved);
         }
+      } catch (error) {
+        throw Error('error loading GraphQL document');
       }
-    },
-    [documentOrComponent, mounted],
-  );
+    }
+  }, [documentOrComponent, mounted]);
 
-  useEffect(
-    () => {
-      if (!document) {
-        loadDocument();
-      }
-    },
-    [document, loadDocument],
-  );
+  useEffect(() => {
+    if (!document) {
+      loadDocument();
+    }
+  }, [document, loadDocument]);
 
   useAsyncAsset(
     isDocumentNode(documentOrComponent)

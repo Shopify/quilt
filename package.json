@@ -64,7 +64,7 @@
     "jest-transform-graphql": "^2.1.0",
     "lerna": "^2.9.0",
     "plop": "^2.0.0",
-    "prettier": "^1.14.0",
+    "prettier": "~1.17.1",
     "puppeteer": "^1.20.0",
     "react": "16.9.0-alpha.0",
     "react-apollo": "^3.1.2",

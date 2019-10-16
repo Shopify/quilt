@@ -18,11 +18,10 @@ export function toReactString<Props>(
   const props = Object.keys(node.props)
     // we always filter out children no matter what, but unless allProps option
     // is present we will also filter out insigificant props
-    .filter(
-      key =>
-        options.allProps
-          ? key !== 'children'
-          : !/^(children|className)$|^(aria|data)-/.test(key),
+    .filter(key =>
+      options.allProps
+        ? key !== 'children'
+        : !/^(children|className)$|^(aria|data)-/.test(key),
     )
     .reduce(
       (list, key) => {

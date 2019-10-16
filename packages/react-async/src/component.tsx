@@ -143,16 +143,13 @@ export function createAsyncComponent<
 
     const customPreload = useCustomPreload(props);
 
-    return useCallback(
-      () => {
-        load();
+    return useCallback(() => {
+      load();
 
-        if (customPreload) {
-          customPreload();
-        }
-      },
-      [load, customPreload],
-    );
+      if (customPreload) {
+        customPreload();
+      }
+    }, [load, customPreload]);
   }
 
   function usePrefetch(props: PrefetchOptions) {
@@ -162,16 +159,13 @@ export function createAsyncComponent<
 
     const customPrefetch = useCustomPrefetch(props);
 
-    return useCallback(
-      () => {
-        load();
+    return useCallback(() => {
+      load();
 
-        if (customPrefetch) {
-          customPrefetch();
-        }
-      },
-      [load, customPrefetch],
-    );
+      if (customPrefetch) {
+        customPrefetch();
+      }
+    }, [load, customPrefetch]);
   }
 
   function useKeepFresh(props: KeepFreshOptions) {
@@ -181,16 +175,13 @@ export function createAsyncComponent<
 
     const customKeepFresh = useCustomKeepFresh(props);
 
-    return useCallback(
-      () => {
-        load();
+    return useCallback(() => {
+      load();
 
-        if (customKeepFresh) {
-          customKeepFresh();
-        }
-      },
-      [load, customKeepFresh],
-    );
+      if (customKeepFresh) {
+        customKeepFresh();
+      }
+    }, [load, customKeepFresh]);
   }
 
   function Preload(options: PreloadOptions) {
@@ -203,12 +194,9 @@ export function createAsyncComponent<
   function Prefetch(options: PrefetchOptions) {
     const prefetch = usePrefetch(options);
 
-    useEffect(
-      () => {
-        prefetch();
-      },
-      [prefetch],
-    );
+    useEffect(() => {
+      prefetch();
+    }, [prefetch]);
 
     return null;
   }
@@ -314,16 +302,13 @@ function Loader<T>({
     [load],
   );
 
-  useEffect(
-    () => {
-      if (defer == null || defer === DeferTiming.Mount) {
-        load();
-      } else if (typeof defer === 'function' && defer(props)) {
-        load();
-      }
-    },
-    [defer, load, props],
-  );
+  useEffect(() => {
+    if (defer == null || defer === DeferTiming.Mount) {
+      load();
+    } else if (typeof defer === 'function' && defer(props)) {
+      load();
+    }
+  }, [defer, load, props]);
 
   if (typeof defer === 'function') {
     return null;
