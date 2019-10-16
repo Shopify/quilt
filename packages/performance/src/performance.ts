@@ -31,6 +31,7 @@ export class Performance {
   readonly supportsObserver = hasGlobal('PerformanceObserver');
   readonly supportsMarks = hasGlobal('PerformanceMark');
   readonly supportsNavigationEntries = hasGlobal('PerformanceNavigationTiming');
+  readonly supportsTimingEntries = hasGlobal('PerformanceTiming');
   readonly supportsLongtaskEntries = hasGlobal('PerformanceLongTaskTiming');
   readonly supportsResourceEntries = hasGlobal('PerformanceResourceTiming');
   readonly supportsPaintEntries = hasGlobal('PerformancePaintTiming');
@@ -59,7 +60,10 @@ export class Performance {
 
     withNavigation(this.start.bind(this));
 
-    if (!this.supportsDetailedTime || !this.supportsNavigationEntries) {
+    if (
+      this.supportsTimingEntries &&
+      (!this.supportsDetailedTime || !this.supportsNavigationEntries)
+    ) {
       withTiming(
         ({responseStart, domContentLoadedEventStart, loadEventStart}) => {
           // window.performance.timing uses full timestamps, while
