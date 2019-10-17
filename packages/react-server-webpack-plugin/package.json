@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server-webpack-plugin",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "license": "MIT",
   "description": "A webpack plugin that generates entrypoints for @shopify/react-server based applications",
   "main": "dist/index.js",
@@ -29,7 +29,7 @@
     "webpack-virtual-modules": "^0.1.12"
   },
   "devDependencies": {
-    "@shopify/react-server": "^0.7.7",
+    "@shopify/react-server": "^0.7.8",
     "@types/webpack-virtual-modules": "^0.1.0",
     "webpack": "^4.0.0"
   },
