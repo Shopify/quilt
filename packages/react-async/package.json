@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-async",
-  "version": "3.0.11",
+  "version": "3.0.12",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components.",
   "main": "dist/index.js",
@@ -24,14 +24,14 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-async/README.md",
   "dependencies": {
-    "@shopify/async": "^2.0.8",
+    "@shopify/async": "^2.0.9",
     "@shopify/javascript-utilities": "^2.4.0",
-    "@shopify/react-effect": "^3.2.4",
-    "@shopify/react-hooks": "^1.2.4",
-    "@shopify/react-hydrate": "^1.1.5",
-    "@shopify/react-idle": "^1.0.9",
-    "@shopify/react-intersection-observer": "^2.0.6",
-    "@shopify/useful-types": "^2.0.1"
+    "@shopify/react-effect": "^3.2.5",
+    "@shopify/react-hooks": "^1.2.5",
+    "@shopify/react-hydrate": "^1.1.6",
+    "@shopify/react-idle": "^1.0.10",
+    "@shopify/react-intersection-observer": "^2.0.7",
+    "@shopify/useful-types": "^2.0.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
