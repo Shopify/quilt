@@ -170,6 +170,58 @@ describe('web-worker', () => {
     });
   });
 
+  it('supports non-href public paths', async () => {
+    const greetingPrefix = 'Hello ';
+    const greetingTarget = 'world';
+    const testId = 'WorkerResult';
+
+    await withContext('non-href-public-path', async context => {
+      const {workspace, browser, server} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker} from '@shopify/web-worker';
+
+          const worker = createWorker(() => import('./worker'))();
+
+          (async () => {
+            const result = await worker.greet(${JSON.stringify(
+              greetingTarget,
+            )});
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = result;
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          export function greet(name) {
+            return \`${greetingPrefix}\${name}\`;
+          }
+        `,
+      );
+
+      await runWebpack(context, {
+        webpackConfig: {
+          output: {publicPath: server.assetUrl().pathname},
+        },
+      });
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
+      );
+
+      expect(textContent).toBe(`${greetingPrefix}${greetingTarget}`);
+    });
+  });
+
   it('automatically proxies functions passed from the parent to the worker', async () => {
     const nameOne = 'Gord';
     const nameTwo = 'Michelle';
@@ -784,9 +836,15 @@ function runWebpack(
   {
     babelPluginOptions,
     webpackPlugin = new WebWorkerPlugin(),
-  }: {webpackPlugin?: WebWorkerPlugin; babelPluginOptions?: object} = {},
+    webpackConfig = {},
+  }: {
+    webpackPlugin?: WebWorkerPlugin;
+    webpackConfig?: object;
+    babelPluginOptions?: object;
+  } = {},
 ) {
   return runWebpackBase(context, {
+    ...webpackConfig,
     entry: context.workspace.resolvePath(mainFile),
     plugins: [webpackPlugin],
     module: {

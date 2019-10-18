@@ -61,8 +61,10 @@ export function createWorker<T>(script: () => Promise<T>) {
       ) as any;
     }
 
+    const absoluteScript = new URL(script, window.location.href).href;
+
     const workerScript = URL.createObjectURL(
-      new Blob([`importScripts(${JSON.stringify(script)})`]),
+      new Blob([`importScripts(${JSON.stringify(absoluteScript)})`]),
     );
 
     const worker = new Worker(workerScript);

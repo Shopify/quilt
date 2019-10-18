@@ -15,6 +15,7 @@ export function runWebpack(
         output: {
           path: workspace.buildPath(),
           publicPath: server.assetUrl().href,
+          ...extraConfig.output,
         },
         resolve: {
           extensions: ['.js', '.ts', '.json'],
