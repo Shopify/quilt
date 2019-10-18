@@ -28,11 +28,12 @@ export function retain(value: any, {deep = true} = {}) {
   if (deep) {
     if (Array.isArray(value)) {
       return value.reduce(
-        (canRetain, item) => retain(item, {deep: true}) || canRetain,
+        (canRetain, item) => retain(item, {deep}) || canRetain,
+        canRetain,
       );
     } else if (typeof value === 'object' && value != null) {
       return Object.keys(value).reduce(
-        (canRetain, key) => retain(value[key]) || canRetain,
+        (canRetain, key) => retain(value[key], {deep}) || canRetain,
         canRetain,
       );
     }
@@ -51,11 +52,12 @@ export function release(value: any, {deep = true} = {}) {
   if (deep) {
     if (Array.isArray(value)) {
       return value.reduce(
-        (canRelease, item) => release(item, {deep: true}) || canRelease,
+        (canRelease, item) => release(item, {deep}) || canRelease,
+        canRelease,
       );
     } else if (typeof value === 'object' && value != null) {
       return Object.keys(value).reduce(
-        (canRelease, key) => release(value[key]) || canRelease,
+        (canRelease, key) => release(value[key], {deep}) || canRelease,
         canRelease,
       );
     }
