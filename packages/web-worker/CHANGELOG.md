@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.0.8] - 2019-10-18
+
+### Fixed
+
+- `createWorker` now works correctly when the webpack build uses only a pathname for `output.publicPath` ([#1126](https://github.com/Shopify/quilt/pull/1126)).
+- `retain` and `release` now correctly deeply retain/ release objects and arrays.
+
 ## [0.0.4] - 2019-10-15
 
 ### Added
