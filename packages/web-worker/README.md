@@ -1,7 +1,7 @@
 # `@shopify/web-worker`
 
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fweb-workers.svg)](https://badge.fury.io/js/%40shopify%2Fweb-workers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/web-workers.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/web-workers.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fweb-worker.svg)](https://badge.fury.io/js/%40shopify%2Fweb-workers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/web-worker.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/web-worker.svg)
 
 Tools for making [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) fun and type-safe.
 
@@ -15,9 +15,9 @@ $ yarn add @shopify/web-worker
 
 This library contains three parts that must be used in tandem:
 
+1. The public API of the package provided by `@shopify/web-worker`
+1. A webpack plugin provided by `@shopify/web-worker/webpack`
 1. A babel plugin provided by `@shopify/web-worker/babel`
-2. A webpack plugin provided by `@shopify/web-worker/webpack`
-3. The public API of the package provided by `@shopify/web-worker`
 
 ### App code
 

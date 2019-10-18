@@ -68,6 +68,13 @@ export function createWorkerFactory<T>(script: () => Promise<T>) {
     );
 
     const worker = new Worker(workerScript);
+
+    const originalTerminate = worker.terminate.bind(worker);
+    worker.terminate = () => {
+      URL.revokeObjectURL(workerScript);
+      originalTerminate();
+    };
+
     const endpoint = createEndpoint(worker);
     const {call: caller} = endpoint;
 
