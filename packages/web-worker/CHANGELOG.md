@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.0.0] - 2019-10-18
+
+### Changed
+
+- `createWorker` has been renamed to `createWorkerFactory` ([#1129](https://github.com/Shopify/quilt/pull/1129)).
+
+### Fixed
+
+- Fixed additional issues with `retain` and `release` on deep structures ([#1129](https://github.com/Shopify/quilt/pull/1129)).
+
 ## [0.0.8] - 2019-10-18
 
 ### Fixed
