@@ -479,6 +479,127 @@ describe('web-worker', () => {
     });
   });
 
+  it('supports the two endpoints manually retaining functions passed through the bridge in nested structures', async () => {
+    const testId = 'WorkerResult';
+
+    await withContext('manual-retain-release', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorker} from '@shopify/web-worker';
+
+          // See previous test for details of these test utilities
+          self.WorkerTestClass = class WorkerTestClass {}
+          self.memoryTracker = new WeakMap();
+          self.worker = createWorker(() => import('./worker'))();
+
+          self.retain = async () => {
+            start();
+
+            const funcOne = () => {};
+            const funcTwo = () => {};
+            self.memoryTracker.set(funcOne, new self.WorkerTestClass());
+            self.memoryTracker.set(funcTwo, new self.WorkerTestClass());
+
+            await self.worker.retain({funcOne, funcs: [funcOne, funcTwo]});
+
+            done();
+          }
+
+          self.release = async () => {
+            start();
+            await self.worker.release();
+            done();
+          };
+
+          done();
+
+          function start() {
+            for (const node of document.querySelectorAll('#' + ${JSON.stringify(
+              testId,
+            )})) {
+              node.remove();
+            }
+          }
+
+          function done() {
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            document.body.appendChild(element);
+          }
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          import {retain as retainRef, release as releaseRef} from '@shopify/web-worker';
+
+          self.memoryTracker = new WeakMap();
+          self.WorkerTestClass = class WorkerTestClass {}
+
+          export async function retain(value) {
+            self.value = value;
+
+            const funcs = new Set();
+
+            function extractFunctions(value) {
+              if (typeof value === 'function') {
+                funcs.add(value);
+              } else if (Array.isArray(value)) {
+                value.forEach(extractFunctions);
+              } else if (typeof value === 'object' && value != null) {
+                Object.values(value).forEach(extractFunctions);
+              }
+            }
+
+            extractFunctions(value);
+
+            for (const func of funcs) {
+              self.memoryTracker.set(func, new self.WorkerTestClass());
+            }
+
+            retainRef(value);
+          }
+
+          export async function release() {
+            const {value} = self;
+            delete self.value;
+            releaseRef(value);
+          }
+        `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+
+      await page.waitForSelector(`#${testId}`);
+
+      const [worker] = page.workers();
+
+      await page.evaluate(() => (self as any).retain());
+      await page.waitForSelector(`#${testId}`);
+
+      // Two references because both passed functions are deeply,
+      // manually retained.
+      expect(await getTestClassInstanceCount(page)).toBe(2);
+      expect(await getTestClassInstanceCount(worker)).toBe(2);
+
+      await page.evaluate(() => (self as any).release());
+      await page.waitForSelector(`#${testId}`);
+
+      // Zero references because we manually released it (and,
+      // in the case of the worker, removed our global `self`
+      // reference to the value which was only used for
+      // retrieving it in release())
+      expect(await getTestClassInstanceCount(page)).toBe(0);
+      expect(await getTestClassInstanceCount(worker)).toBe(0);
+    });
+  });
+
   it('calls into the module directly when not turned into a web worker', async () => {
     const greetingPrefix = 'Hello ';
     const greetingTarget = 'world';

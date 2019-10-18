@@ -27,9 +27,14 @@ export function retain(value: any, {deep = true} = {}) {
 
   if (deep) {
     if (Array.isArray(value)) {
-      return value.some(item => retain(item, {deep: true})) || canRetain;
+      return value.reduce(
+        (canRetain, item) => retain(item, {deep: true}) || canRetain,
+      );
     } else if (typeof value === 'object' && value != null) {
-      return Object.keys(value).some(key => retain(value[key])) || canRetain;
+      return Object.keys(value).reduce(
+        (canRetain, key) => retain(value[key]) || canRetain,
+        canRetain,
+      );
     }
   }
 
@@ -45,9 +50,14 @@ export function release(value: any, {deep = true} = {}) {
 
   if (deep) {
     if (Array.isArray(value)) {
-      return value.some(item => retain(item, {deep: true})) || canRelease;
+      return value.reduce(
+        (canRelease, item) => release(item, {deep: true}) || canRelease,
+      );
     } else if (typeof value === 'object' && value != null) {
-      return Object.keys(value).some(key => retain(value[key])) || canRelease;
+      return Object.keys(value).reduce(
+        (canRelease, key) => release(value[key]) || canRelease,
+        canRelease,
+      );
     }
   }
 
