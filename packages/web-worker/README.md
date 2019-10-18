@@ -70,7 +70,7 @@ When the web worker is no longer required, you can terminate the worker using `t
 > Note: A worker can only be terminated from the main thread. A worker can not terminate itself from within the worker module.
 
 ```tsx
-import {createWorkerFactory, terminate} from '@shopify/web-worker;
+import {createWorkerFactory, terminate} from '@shopify/web-worker';
 
 const createWorker = createWorkerFactory(() => import('./worker'));
 const worker = createWorker();
