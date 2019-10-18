@@ -27,9 +27,9 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
-          const worker = createWorker(() => import('./worker'))();
+          const worker = createWorkerFactory(() => import('./worker'))();
 
           (async () => {
             const result = await worker.greet(${JSON.stringify(
@@ -74,9 +74,9 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
-          const worker = createWorker(() => import('./worker'))();
+          const worker = createWorkerFactory(() => import('./worker'))();
 
           (async () => {
             let content = '';
@@ -128,9 +128,9 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
-          const worker = createWorker(() => import('./worker'))();
+          const worker = createWorkerFactory(() => import('./worker'))();
 
           (async () => {
             const element = document.createElement('div');
@@ -181,9 +181,9 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
-          const worker = createWorker(() => import('./worker'))();
+          const worker = createWorkerFactory(() => import('./worker'))();
 
           (async () => {
             const result = await worker.greet(${JSON.stringify(
@@ -233,9 +233,9 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
-          const worker = createWorker(() => import('./worker'))();
+          const worker = createWorkerFactory(() => import('./worker'))();
 
           const users = [
             {getName: () => ${JSON.stringify(nameOne)}},
@@ -288,7 +288,7 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
           self.prepare = () => {
             start();
@@ -298,7 +298,7 @@ describe('web-worker', () => {
 
             // Store this on self so we retain it and its function store,
             // which should lead to memory leaks if the function store is not cleaned.
-            self.worker = createWorker(() => import('./worker'))();
+            self.worker = createWorkerFactory(() => import('./worker'))();
 
             // Store this on self so we can get access to it to
             // count the non-GC'ed instances
@@ -385,12 +385,12 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
           // See previous test for details of these test utilities
           self.WorkerTestClass = class WorkerTestClass {}
           self.memoryTracker = new WeakMap();
-          self.worker = createWorker(() => import('./worker'))();
+          self.worker = createWorkerFactory(() => import('./worker'))();
 
           self.retain = async () => {
             start();
@@ -488,12 +488,12 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
           // See previous test for details of these test utilities
           self.WorkerTestClass = class WorkerTestClass {}
           self.memoryTracker = new WeakMap();
-          self.worker = createWorker(() => import('./worker'))();
+          self.worker = createWorkerFactory(() => import('./worker'))();
 
           self.retain = async () => {
             start();
@@ -611,9 +611,9 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
-          const worker = createWorker(() => import('./worker'))();
+          const worker = createWorkerFactory(() => import('./worker'))();
 
           (async () => {
             const result = await worker.greet(${JSON.stringify(
@@ -660,9 +660,9 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker} from '@shopify/web-worker';
+          import {createWorkerFactory} from '@shopify/web-worker';
 
-          const worker = createWorker(() => import('./worker'))();
+          const worker = createWorkerFactory(() => import('./worker'))();
 
           (async () => {
             const element = document.createElement('div');
@@ -704,8 +704,8 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-        import {createWorker, terminate} from '@shopify/web-worker';
-        self.worker = createWorker(() => import('./worker'))();
+        import {createWorkerFactory, terminate} from '@shopify/web-worker';
+        self.worker = createWorkerFactory(() => import('./worker'))();
 
         (async () => {
           const result = await self.worker.greet();
@@ -756,8 +756,8 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker, terminate} from '@shopify/web-worker';
-          self.worker = createWorker(() => import('./worker'))();
+          import {createWorkerFactory, terminate} from '@shopify/web-worker';
+          self.worker = createWorkerFactory(() => import('./worker'))();
           (async () => {
             terminate(self.worker);
             let result;
@@ -807,11 +807,11 @@ describe('web-worker', () => {
       await workspace.write(
         mainFile,
         `
-          import {createWorker, terminate} from '@shopify/web-worker';
+          import {createWorkerFactory, terminate} from '@shopify/web-worker';
 
           self.WorkerTestClass = class WorkerTestClass {}
           self.memoryTracker = new WeakMap();
-          self.worker = createWorker(() => import('./worker'))();
+          self.worker = createWorkerFactory(() => import('./worker'))();
 
 
           self.retain = async () => {
@@ -903,8 +903,8 @@ describe('web-worker', () => {
         await workspace.write(
           mainFile,
           `
-          import {createWorker} from '@shopify/web-worker';
-          self.worker = createWorker(() => import('./worker'))();
+          import {createWorkerFactory} from '@shopify/web-worker';
+          self.worker = createWorkerFactory(() => import('./worker'))();
 
           (async () => {
             await self.worker.terminateAttemptFromWorker();

@@ -1,8 +1,8 @@
 import {resolve} from 'path';
 
 const DEFAULT_PACKAGES_TO_PROCESS = {
-  '@shopify/web-worker': ['createWorker'],
-  '@shopify/react-web-worker': ['createWorker'],
+  '@shopify/web-worker': ['createWorkerFactory'],
+  '@shopify/react-web-worker': ['createWorkerFactory'],
 };
 
 const loader = resolve(__dirname, 'webpack-parts/loader');

@@ -23,18 +23,18 @@ This library contains three parts that must be used in tandem:
 
 #### Browser
 
-The main thread will use the `createWorker` function provided by this library to create a function that can build "smart" workers. Developers should pass this function an async `import()` for the module they wish to make into a worker:
+The main thread will use the `createWorkerFactory` function provided by this library to create a function that can build "smart" workers. Developers should pass this function an async `import()` for the module they wish to make into a worker:
 
 ```ts
-import {createWorker} from '@shopify/web-worker';
+import {createWorkerFactory} from '@shopify/web-worker';
 
-const makeWorker = createWorker(() => import('./worker'));
+const createWorker = createWorkerFactory(() => import('./worker'));
 ```
 
 When the resulting function is called, it will return a worker "instance". This instance is directly connected to the worker code, so you are expected to call it as if it were simply that external module. Note that there is one difference: any return values from the worker will be promises, because they are retrieved via message passing (if you use TypeScript, you’ll see the correct return types automatically).
 
 ```ts
-const worker = makeWorker();
+const worker = createWorker();
 
 // Assuming worker was:
 // export function hello(name) {
@@ -67,16 +67,15 @@ const result = await worker.default(
 
 When the web worker is no longer required, you can terminate the worker using `terminate()`. This will immediately terminate any ongoing operations. If an attempt is made to make calls to a terminated worker, an error will be thrown.
 
-Note: A worker can only be terminated from the main thread. A worker can not terminate itself from within the worker module.
+> Note: A worker can only be terminated from the main thread. A worker can not terminate itself from within the worker module.
 
 ```tsx
-import {createWorker, terminate} from '@shopify/web-worker;
+import {createWorkerFactory, terminate} from '@shopify/web-worker;
 
-const makeWorker = createWorker(() => import('./worker'));
-const worker = makeWorker();
+const createWorker = createWorkerFactory(() => import('./worker'));
+const worker = createWorker();
 
-// Assume `stuff` is some large payload that needs to be processed
-// const result = await worker.someExpensiveOperation(stuff);
+// ...
 
 terminate(worker);
 ```
@@ -183,7 +182,9 @@ Remember that any function passed between the worker and its parent, including f
 
 ### Tooling
 
-To use this library, you must use webpack. When configuring webpack, include the Babel plugin this library provides for any modules that might contain a call to `createWorker()`, and include the `WebWorkerPlugin` exported by `@shopify/web-worker/webpack`:
+> Note: if you use sewing-kit, all of the configuration below is automatically performed if you have at least @shopify/sewing-kit@0.110.0, and you have installed either @shopify/web-worker or @shopify/react-web-worker.
+
+To use this library, you must use webpack. When configuring webpack, include the Babel plugin this library provides for any modules that might contain a call to `createWorkerFactory()`, and include the `WebWorkerPlugin` exported by `@shopify/web-worker/webpack`:
 
 ```js
 import {WebWorkerPlugin} from '@shopify/web-worker/webpack';
@@ -218,19 +219,20 @@ The `WebWorkerPlugin` helps coordinate a few things during webpack compilation a
 
 #### Tests
 
-We do **not** recommend including the Babel plugin for the test environment. When the Babel plugin is omitted, `createWorker` will know to access your module asynchronously, and will proxy all method calls to it. To be clear, when in this mode, `createWorker` **will not** actually construct a `Worker` for your code. As a result, this feature will only work if your worker code is written such that it will also execute successfully on the "main" thread. If you do use features in the worker that make it incompatible to run alongside the browser code, we recommend mocking the "worker" module (using `jest.mock()`, for example).
+We do **not** recommend including the Babel plugin for the test environment. When the Babel plugin is omitted, `Factory` will know to access your module asynchronously, and will proxy all method calls to it. To be clear, when in this mode, the function returned from `createWorkerFactory` **will not** actually construct a `Worker` for your code. As a result, this feature will only work if your worker code is written such that it will also execute successfully on the "main" thread. If you do use features in the worker that make it incompatible to run alongside the browser code, we recommend mocking the "worker" module (using `jest.mock()`, for example).
 
 ## How does it work?
 
-The `@shopify/web-worker/babel` Babel plugin looks for any instances of calling `createWorker`. For each one, it looks for the nested `import()` call, and then for the imported path (e.g., `./worker`). It then replaces the first argument to `createWorker` with an import for the worker module that references a custom Webpack loader:
+The `@shopify/web-worker/babel` Babel plugin looks for any instances of calling `createWorkerFactory`. For each one, it looks for the nested `import()` call, and then for the imported path (e.g., `./worker`). It then replaces the first argument to `createWorkerFactory` with an import for the worker module that references a custom Webpack loader:
 
 ```ts
-import {createWorker} from '@shopify/web-worker';
-createWorker(() => import('./worker'));
+import {createWorkerFactory} from '@shopify/web-worker';
+createWorkerFactory(() => import('./worker'));
 
 // becomes something like:
-import * as workerStuff from '@shopify/web-worker/webpack-loader!./worker';
-createWorker(workerStuff);
+import {createWorkerFactory} from '@shopify/web-worker';
+import workerStuff from '@shopify/web-worker/webpack-loader!./worker';
+createWorkerFactory(workerStuff);
 ```
 
 When webpack attempts to process this import, it sees the loader syntax, and passes the worker script to this package’s custom webpack loader. This loader does most of the heavy lifting. It creates an in-memory module (using information it pulls off the `WebWorkerPlugin` instance it finds in the Webpack compiler) that exposes the worker API using the `expose()` function from this library:
@@ -242,7 +244,7 @@ import * as api from './worker';
 expose(api);
 ```
 
-This imaginary module is then compiled using a child compiler in Webpack. The loader then takes the resulting asset metadata from compiling the worker, and makes that information the exported data from the original `./worker` module. Finally, `createWorker()` takes this metadata (which includes the main script tag that should be loaded in the worker) and, when called, creates a new `Worker` instance using a `Blob` that simply `importScripts` the main script for the worker.
+This imaginary module is then compiled using a child compiler in Webpack. The loader then takes the resulting asset metadata from compiling the worker, and makes that information the exported data from the original `./worker` module. Finally, `createWorkerFactory()` takes this metadata (which includes the main script tag that should be loaded in the worker) and, when called, creates a new `Worker` instance using a `Blob` that simply `importScripts` the main script for the worker.
 
 The actual communication between the parent and worker is the most complex part of this library. The basic idea is that, when a method of the worker is called from the main thread, it is turned in to a message that deeply serializes all of the arguments. The worker receives that message (via `postMessage`) and calls the relevant export from the worker module. The return result is then serialized and sent back to the parent (again, via `postMessage`).
 
