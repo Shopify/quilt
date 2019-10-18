@@ -23,8 +23,8 @@ export function getEndpoint(caller: Endpoint<any>['call']) {
   return workerEndpointCache.get(caller);
 }
 
-export function createWorker<T>(script: () => Promise<T>) {
-  return function create(): Endpoint<T>['call'] {
+export function createWorkerFactory<T>(script: () => Promise<T>) {
+  return function createWorker(): Endpoint<T>['call'] {
     // The babel plugin that comes with this package actually turns the argument
     // into a string (the public path of the worker script). If it’s a function,
     // it’s because we’re in an environment where we didn’t transform it into a

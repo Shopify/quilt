@@ -13,33 +13,33 @@ $ yarn add @shopify/react-web-worker
 
 ## Usage
 
-This package provides a `useWorker` hook to leverage web workers in React.
+This package provides a `useWorker` hook to leverage web workers in React. For convenience, it also re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/master/packages/web-worker), so you only need to install this package to get access to those additional exports.
 
-This library also re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/master/packages/web-worker). These packages are distributed seperately to ensure that the [tooling](https://github.com/Shopify/quilt/tree/master/packages/web-worker#tooling) provided by `@shopify/web-worker` does not pull in `react` as a dependency.
+### `useWorker()`
 
-### Application
-
-`useWorker` allows your React applications to take advantage of [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) provided by `createWorker`. This hook creates a web worker during render and terminates it when the component unmounts.
+`useWorker` allows your React applications to take advantage of [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) provided by `createWorkerFactory` from `@shopify/web-worker`. This hook creates a web worker during render and terminates it when the component unmounts.
 
 ```tsx
 import React, {useEffect} from 'react';
 import {Page} from '@shopify/polaris';
-import {createWorker, useWorker} from '@shopify/react-web-worker';
+import {createWorkerFactory, useWorker} from '@shopify/react-web-worker';
 
 // assume ./worker.ts contains
 // export function hello(name) {
 //  return `Hello, ${name}`;
 // }
 
-const create = createWorker(() => import('./worker'));
+const createWorker = createWorkerFactory(() => import('./worker'));
 
 function Home() {
-  const worker = useWorker(create);
+  const worker = useWorker(createWorker);
   const [message, setMessage] = React.useState(null);
 
   useEffect(
     () => {
       (async () => {
+        // Note: in your actual app code, make sure to check if Home
+        // is still mounted before setting state asynchronously!
         const webWorkerMessage = await worker.hello('Tobi');
         setMessage(webWorkerMessage);
       })();
