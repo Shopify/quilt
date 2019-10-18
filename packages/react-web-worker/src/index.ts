@@ -1,3 +1,2 @@
-export {useWorker} from './hooks';
-
 export * from '@shopify/web-worker';
+export {useWorker} from './hooks';

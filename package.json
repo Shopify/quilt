@@ -6,14 +6,14 @@
     "publish": "lerna publish",
     "prebuild": "yarn run clean",
     "build": "lerna run build",
-    "lint": "yarn eslint '**/*.{ts,tsx}'",
+    "lint": "eslint '**/*.{ts,tsx}'",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
     "test": "NODE_ICU_DATA=node_modules/full-icu jest --maxWorkers=3 --coverage=false",
     "check": "lerna run check",
     "release": "lerna publish",
     "clean": "rimraf './packages/*/dist/**/*.{js,d.ts}'",
-    "generate": "yarn plop",
-    "generate:package": "yarn plop package && yarn plop docs"
+    "generate": "plop",
+    "generate:package": "plop package && yarn plop docs"
   },
   "repository": {
     "type": "git",
