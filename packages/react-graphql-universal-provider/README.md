@@ -32,7 +32,7 @@ function App({server}: {server?: boolean}) {
 ```tsx
 // GraphQL.tsx
 
-import {InMemoryCache} from 'apollo-inmemory-cache';
+import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
 
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
@@ -99,7 +99,7 @@ function App({server}: {server?: boolean}) {
 ```tsx
 // GraphQL.tsx
 
-import {InMemoryCache} from 'apollo-inmemory-cache';
+import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
 
 import {useRequestHeader} from '@shopify/react-network';
