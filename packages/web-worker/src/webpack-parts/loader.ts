@@ -1,4 +1,5 @@
 import * as path from 'path';
+import {getOptions} from 'loader-utils';
 
 import SingleEntryPlugin from 'webpack/lib/SingleEntryPlugin';
 import WebWorkerTemplatePlugin from 'webpack/lib/webworker/WebWorkerTemplatePlugin';
@@ -7,6 +8,10 @@ import FetchCompileWasmTemplatePlugin from 'webpack/lib/web/FetchCompileWasmTemp
 import {WebWorkerPlugin} from './plugin';
 
 const NAME = 'WebWorker';
+
+export interface Options {
+  name?: string;
+}
 
 export function pitch(
   this: import('webpack').loader.LoaderContext,
@@ -33,6 +38,15 @@ export function pitch(
   const plugin: WebWorkerPlugin = (compiler.options.plugins || []).find(
     WebWorkerPlugin.isInstance,
   ) as any;
+
+  if (plugin == null) {
+    throw new Error(
+      'You must also include the WebWorkerPlugin from `@shopify/web-worker` when using the Babel plugin.',
+    );
+  }
+
+  const options: Options = getOptions(this) || {};
+  const {name = String(plugin.workerId++)} = options;
 
   const virtualModule = path.join(
     path.dirname(resourcePath),
@@ -69,7 +83,7 @@ export function pitch(
   new FetchCompileWasmTemplatePlugin({
     mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new SingleEntryPlugin(context, virtualModule, 'worker').apply(workerCompiler);
+  new SingleEntryPlugin(context, virtualModule, name).apply(workerCompiler);
 
   for (const aPlugin of plugin.options.plugins || []) {
     aPlugin.apply(workerCompiler);

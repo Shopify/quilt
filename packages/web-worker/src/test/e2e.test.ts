@@ -12,6 +12,7 @@ import {withContext, Context, runWebpack as runWebpackBase} from './utilities';
 const babelPlugin = path.resolve(__dirname, '../babel-plugin.ts');
 const mainFile = 'src/main.js';
 const workerFile = 'src/worker.js';
+const secondWorkerFile = 'src/worker2.js';
 
 jest.setTimeout(10_000);
 
@@ -114,7 +115,7 @@ describe('web-worker', () => {
       );
 
       expect(textContent).toContain(errorMessage);
-      expect(textContent).toContain(server.assetUrl('worker.worker.js').href);
+      expect(textContent).toContain(server.assetUrl('0.worker.js').href);
     });
   });
 
@@ -950,7 +951,133 @@ describe('web-worker', () => {
       },
     );
   });
+
+  it('allows for multiple workers to be created without naming collisions', async () => {
+    const workerOneMessage = 'Hello';
+    const workerTwoMessage = 'world';
+    const testId = 'WorkerResult';
+
+    await withContext('multiple-workers', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorkerFactory} from '@shopify/web-worker';
+
+          const workerOne = createWorkerFactory(() => import(/* webpackChunkName: 'MyWorker' */ './worker'))();
+          const workerTwo = createWorkerFactory(() => import('./worker2'))();
+
+          (async () => {
+            const results = await Promise.all([
+              workerOne.default(),
+              workerTwo.default(),
+            ]);
+
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = results.join(' ');
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          export default function(name) {
+            return ${JSON.stringify(workerOneMessage)};
+          }
+        `,
+      );
+
+      await workspace.write(
+        secondWorkerFile,
+        `
+          export default function(name) {
+            return ${JSON.stringify(workerTwoMessage)};
+          }
+        `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
+      );
+      expect(textContent).toBe(`${workerOneMessage} ${workerTwoMessage}`);
+    });
+  });
+
+  it('allows setting a custom worker file name using the webpackChunkName directive', async () => {
+    const name = 'myFancyWorker';
+    const testId = 'WorkerResult';
+
+    await withContext('custom-worker-name', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createWorkerFactory} from '@shopify/web-worker';
+
+          const worker = createWorkerFactory(() => import(/* webpackChunkName: ${JSON.stringify(
+            name,
+          )} */ './worker'))();
+
+          (async () => {
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          export default function(name) {
+            return 'Hello world';
+          }
+        `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+      await page.waitForSelector(`#${testId}`);
+
+      expect(await getWorkerSource(page.workers()[0], page)).toContain(
+        `${name}.worker`,
+      );
+    });
+  });
 });
+
+// Workers are generated from a blob URL that just importScripts() the actual
+// source (this gets around same origin restrictions on the worker). To
+// get the actual source, we’ll go to the blob URL and pull out the imported
+// script.
+async function getWorkerSource(
+  worker: import('puppeteer').Worker,
+  page: import('puppeteer').Page,
+) {
+  const extraPage = await page.browser().newPage();
+
+  try {
+    await extraPage.goto(worker.url());
+    const pageContent =
+      (await extraPage.evaluate(() => document.documentElement.textContent)) ||
+      '';
+
+    return pageContent.match(/importScripts\("(.*)"\)/)![1];
+  } finally {
+    await extraPage.close();
+  }
+}
 
 function runWebpack(
   context: Context,
