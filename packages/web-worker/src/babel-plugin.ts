@@ -1,4 +1,5 @@
 import {resolve} from 'path';
+import {runInNewContext} from 'vm';
 
 const DEFAULT_PACKAGES_TO_PROCESS = {
   '@shopify/web-worker': ['createWorkerFactory'],
@@ -133,6 +134,9 @@ export default function workerBabelPlugin({
         return;
       }
 
+      const {leadingComments} = dynamicallyImported.node;
+      const options = getLoaderOptions(leadingComments || []);
+
       const importId = callExpression.scope.generateUidIdentifier('worker');
 
       program
@@ -140,7 +144,7 @@ export default function workerBabelPlugin({
         .insertBefore(
           t.importDeclaration(
             [t.importDefaultSpecifier(importId)],
-            t.stringLiteral(`${loader}!${imported}`),
+            t.stringLiteral(`${loader}?${JSON.stringify(options)}!${imported}`),
           ),
         );
 
@@ -149,4 +153,32 @@ export default function workerBabelPlugin({
       );
     }
   }
+}
+
+type LoaderOptions = import('./webpack-parts/loader').Options;
+
+// Reduced replication of webpack’s logic for parsing import comments:
+// https://github.com/webpack/webpack/blob/5147aed90ec8cd3633b0c45583f02afd16c7888d/lib/JavascriptParser.js#L2799-L2820
+const webpackCommentRegExp = new RegExp(/(^|\W)webpack[A-Z]{1,}[A-Za-z]{1,}:/);
+
+function getLoaderOptions(
+  comments: ReadonlyArray<import('@babel/types').Comment>,
+): LoaderOptions {
+  return comments.reduce<LoaderOptions>((options, comment) => {
+    const {value} = comment;
+
+    if (!value || !webpackCommentRegExp.test(value)) {
+      return options;
+    }
+
+    try {
+      const {webpackChunkName: name} = runInNewContext(
+        `(function(){return {${value}};})()`,
+      );
+
+      return name ? {...options, name} : options;
+    } catch {
+      return options;
+    }
+  }, {});
 }
