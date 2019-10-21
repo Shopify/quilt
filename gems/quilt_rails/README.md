@@ -10,7 +10,7 @@ For a description of the current architecture's problems, see [this Github comme
 
 The ["decide on a scalable quilt_rails architecture" issue](https://github.com/Shopify/quilt/issues/1100) will track discussion of future architectures.
 
-To scale up existing quilt_rails applications, skip server-side queries in your componeents. e.g.:
+To scale up existing quilt_rails applications, skip server-side queries in your components. e.g.:
 
 ```ts
 useQuery(MyQuery, {
