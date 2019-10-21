@@ -65,6 +65,8 @@ const result = await worker.default(
 ); // 'Hello, Tobi'
 ```
 
+##### Terminating the worker
+
 When the web worker is no longer required, you can terminate the worker using `terminate()`. This will immediately terminate any ongoing operations. If an attempt is made to make calls to a terminated worker, an error will be thrown.
 
 > Note: A worker can only be terminated from the main thread. A worker can not terminate itself from within the worker module.
@@ -79,6 +81,20 @@ const worker = createWorker();
 
 terminate(worker);
 ```
+
+##### Naming the worker file
+
+By default, worker files created using `createWorkerFactory` are given incrementing IDs as the file name. This strategy is generally less than ideal for long-term caching, as the name of the file depends on the order in which it was encountered during the build. For long-term caching, it is better to provide a static name for the worker file. This can be done by supplying the [`webpackChunkName` comment](https://webpack.js.org/api/module-methods/#magic-comments) before your import:
+
+```tsx
+import {createWorkerFactory, terminate} from '@shopify/web-worker;
+
+// Note: only webpackChunkName is currently supported. Don’t try to use
+// other magic webpack comments.
+const createWorker = createWorkerFactory(() => import(/* webpackChunkName: 'myWorker' */ './worker'));
+```
+
+This name will be used as the prefix for the worker file. The worker will always end in `.worker.js`, and may also include additional hashes or other content (this library re-uses your `output.filename` and `output.chunkFilename` webpack options).
 
 #### Worker
 

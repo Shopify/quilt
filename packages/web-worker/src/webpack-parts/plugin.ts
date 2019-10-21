@@ -14,6 +14,7 @@ export class WebWorkerPlugin implements Plugin {
   }
 
   public readonly virtualModules = new VirtualModulesPlugin({});
+  public workerId = 0;
   private readonly [PLUGIN] = true;
 
   constructor(public readonly options: Options = {}) {}
