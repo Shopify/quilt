@@ -42,7 +42,7 @@ app.listen(3000, () => {
 })
 ```
 
-Now the app will respond to requests to `/client-metrics`. The middleware returned from `clientPerformanceMetrics` expects to recieve JSON POST requests meeting the following interface:
+Now the app will respond to requests to `/client-metrics`. The middleware returned from `clientPerformanceMetrics` expects to receive JSON POST requests meeting the following interface:
 
 ```tsx
 interface Metrics {
