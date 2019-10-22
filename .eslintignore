@@ -4,3 +4,4 @@ coverage
 **/packages/*.js
 *.d.ts
 **/templates/*
+**/dummy/**

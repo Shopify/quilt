@@ -25,7 +25,7 @@ import {
 // https://github.com/Shopify/quilt/issues/692
 const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
-// eslint-disable-next-line typescript/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
 
 type ResolveRoot = (element: Element<unknown>) => Element<unknown> | null;

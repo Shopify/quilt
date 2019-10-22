@@ -272,7 +272,7 @@ function displayNameFromId(id?: string) {
     return DEFAULT_DISPLAY_NAME;
   }
 
-  const match = id.match(FILENAME_REGEX);
+  const match = FILENAME_REGEX.exec(id);
   return match ? match[1] : DEFAULT_DISPLAY_NAME;
 }
 

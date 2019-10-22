@@ -25,5 +25,5 @@
     ]
   },
   "include": ["./config/typescript/**/*.d.ts", "./**/*.ts", "./**/*.tsx"],
-  "exclude": ["./node_modules"]
+  "exclude": ["./node_modules/**/*", "**/node_modules/**", "**/dummy"]
 }

@@ -6,7 +6,9 @@ export type CookieValue = {
   value: string;
 } & CookieSerializeOptions;
 
-export type Cookie = {[key: string]: CookieValue};
+export interface Cookie {
+  [key: string]: CookieValue;
+}
 
 export interface CookieManager {
   getCookie(name: string): string | undefined;

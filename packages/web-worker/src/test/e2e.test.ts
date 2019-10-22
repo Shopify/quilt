@@ -1073,7 +1073,7 @@ async function getWorkerSource(
       (await extraPage.evaluate(() => document.documentElement.textContent)) ||
       '';
 
-    return pageContent.match(/importScripts\("(.*)"\)/)![1];
+    return /importScripts\("(.*)"\)/.exec(pageContent)![1];
   } finally {
     await extraPage.close();
   }

@@ -3,7 +3,7 @@ const GID_REGEXP = /\/(\w+(-\w+)*)$/;
 export function parseGid(gid: string): string {
   // appends forward slash to help identify invalid id
   const id = `/${gid}`;
-  const matches = id.match(GID_REGEXP);
+  const matches = GID_REGEXP.exec(id);
   if (matches && matches[1] !== undefined) {
     return matches[1];
   }
