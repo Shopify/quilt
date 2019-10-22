@@ -13,7 +13,8 @@
     "release": "lerna publish",
     "clean": "rimraf './packages/*/dist/**/*.{js,d.ts}'",
     "generate": "plop",
-    "generate:package": "plop package && yarn plop docs"
+    "generate:package": "plop package && yarn plop docs",
+    "tophat": "tophat"
   },
   "repository": {
     "type": "git",
@@ -46,7 +47,6 @@
     "babel-loader": "^8.0.6",
     "babel-preset-shopify": "^20.0.0",
     "codecov": "^3.0.2",
-    "create-shopify": "0.4.26",
     "element-closest": "^3.0.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -73,7 +73,8 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
     "tslib": "^1.9.3",
-    "typescript": "~3.2.1"
+    "typescript": "~3.2.1",
+    "@shopify/tophat": "^0.0.3"
   },
   "dependencies": {},
   "resolutions": {
