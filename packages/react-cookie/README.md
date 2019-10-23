@@ -111,10 +111,10 @@ function SomeComponent() {
 
 ### Utilities
 
-#### createCookies()
+#### `createCookies()`
 
 This utility can be used to create an initial set of cookies in the `document.cookie`. This can be useful in test set up.
 
-#### clearCookies()
+#### `clearCookies()`
 
 This utility can be used to clear a set of cookies from the `document.cookie`. This can be useful when you need to clear the cookies between tests, such as in an `afterEach` block.
