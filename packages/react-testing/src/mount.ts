@@ -2,11 +2,12 @@ import React from 'react';
 import {IfAllOptionalKeys} from '@shopify/useful-types';
 import {Root, Options as RootOptions} from './root';
 import {Element} from './element';
+import {nativeStrategy} from './strategies/native';
 
 export {Root, Element};
 
 export function mount<Props>(element: React.ReactElement<Props>) {
-  return new Root<Props>(element);
+  return new Root<Props>(element, nativeStrategy());
 }
 
 type AfterMountOption<

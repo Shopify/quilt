@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import {Arguments, MaybeFunctionReturnType} from '@shopify/useful-types';
 
 export type PropsFor<
@@ -122,4 +122,14 @@ export interface DebugOptions {
   allProps?: boolean;
   depth?: number;
   verbosity?: number;
+}
+
+export interface Adaptor {
+  act(acted: () => void | Promise<void>): void | Promise<void>;
+  mount(element: ReactElement<unknown>): void;
+  unmount(): void;
+}
+
+export interface Strategy {
+  (): {adaptor: Adaptor};
 }

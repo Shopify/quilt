@@ -1,6 +1,4 @@
 import React from 'react';
-import {render, unmountComponentAtNode} from 'react-dom';
-import {act as reactAct} from 'react-dom/test-utils';
 import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
@@ -18,12 +16,8 @@ import {
   DeepPartialArguments,
   PropsFor,
   DebugOptions,
+  Adaptor,
 } from './types';
-
-// Manually casting `act()` until @types/react is updated to include
-// the Promise types for async act introduced in version 16.9.0-alpha.0
-// https://github.com/Shopify/quilt/issues/692
-const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 // eslint-disable-next-line typescript/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
@@ -36,6 +30,7 @@ type Render = (
 export interface Options {
   render?: Render;
   resolveRoot?: ResolveRoot;
+  adaptor: Adaptor;
 }
 
 export const connected = new Set<Root<unknown>>();
@@ -74,9 +69,9 @@ export class Root<Props> implements Node<Props> {
   }
 
   private wrapper: TestWrapper<Props> | null = null;
-  private element = document.createElement('div');
   private root: Element<Props> | null = null;
   private acting = false;
+  private readonly adaptor: Adaptor;
 
   private render: Render;
   private resolveRoot: ResolveRoot;
@@ -87,10 +82,15 @@ export class Root<Props> implements Node<Props> {
 
   constructor(
     private tree: React.ReactElement<Props>,
-    {render = defaultRender, resolveRoot = defaultResolveRoot}: Options = {},
+    {
+      render = defaultRender,
+      resolveRoot = defaultResolveRoot,
+      adaptor,
+    }: Options,
   ) {
     this.render = render;
     this.resolveRoot = resolveRoot;
+    this.adaptor = adaptor;
 
     this.mount();
   }
@@ -112,7 +112,7 @@ export class Root<Props> implements Node<Props> {
       return result;
     };
 
-    const promise = act(() => {
+    const promise = this.adaptor.act(() => {
       result = action();
 
       // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
@@ -192,13 +192,10 @@ export class Root<Props> implements Node<Props> {
       throw new Error('Attempted to mount a node that was already mounted');
     }
 
-    if (this.element.parentNode == null) {
-      document.body.appendChild(this.element);
-      connected.add(this);
-    }
+    connected.add(this);
 
     this.act(() => {
-      render(
+      this.adaptor.mount(
         <TestWrapper<Props>
           render={this.render}
           ref={wrapper => {
@@ -207,7 +204,6 @@ export class Root<Props> implements Node<Props> {
         >
           {this.tree}
         </TestWrapper>,
-        this.element,
       );
     });
   }
@@ -220,18 +216,10 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => unmountComponentAtNode(this.element));
-  }
 
-  destroy() {
-    const {element, mounted} = this;
-
-    if (mounted) {
-      this.unmount();
-    }
-
-    element.remove();
     connected.delete(this);
+
+    this.act(() => this.adaptor.unmount());
   }
 
   setProps(props: Partial<Props>) {
