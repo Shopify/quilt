@@ -30,10 +30,10 @@ const mockData = {
   ],
 };
 
-type QueryOptions = {
+interface QueryOptions {
   fetchPolicy?: FetchPolicy;
   ssr?: boolean;
-};
+}
 
 function MockQuery({fetchPolicy = 'network-only', ssr}: QueryOptions) {
   const {data, loading} = useQuery(petQuery, {fetchPolicy, ssr});

@@ -25,7 +25,7 @@ All notable changes should be included in the [`CHANGELOG.md`](CHANGELOG.md).
 1. Update `version.rb` and `CHANGELOG.md` to your new desired version
 1. run `bundle install`
 1. Stage the changes with `git add -A`
-1. Commit the resulting changes, `git commit -m "Release v<new-version>"`
+1. Commit the resulting changes, `git commit -m "Release quilt_rails v<new-version>"`
 1. Create a tag, `git tag v<new-version>`
 1. `git push origin master --tags`
 1. Head to [ShipIt](https://shipit.shopify.io/shopify/quilt/gem) to deploy the release to Ruby Gems.

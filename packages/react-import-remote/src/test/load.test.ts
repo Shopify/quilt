@@ -60,7 +60,7 @@ describe('load()', () => {
 
     script.triggerEvent('error');
 
-    await expect(promise).rejects.toEqual(expect.anything());
+    await expect(promise).rejects.toStrictEqual(expect.anything());
   });
 
   it('calls the getImport() parameter with the window once the script has loaded', async () => {

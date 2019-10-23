@@ -16,10 +16,10 @@ export class Permit {
   }
 }
 
-type Deferred = {
+interface Deferred {
   resolve?(permit: Permit): void;
   promise?: Promise<Permit>;
-};
+}
 
 export class Semaphore {
   private availablePermits: number;

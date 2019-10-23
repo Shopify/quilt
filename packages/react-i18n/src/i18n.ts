@@ -417,7 +417,7 @@ export class I18n {
     const shortSymbol = info.symbol.replace(regionCode, '');
     const alphabeticCharacters = /[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḂ-ỳ]/;
 
-    return shortSymbol.match(alphabeticCharacters)
+    return alphabeticCharacters.exec(shortSymbol)
       ? info
       : {symbol: shortSymbol, prefixed: info.prefixed};
   }

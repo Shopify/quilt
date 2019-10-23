@@ -11,11 +11,11 @@ import {ApolloProvider, SsrExtractableLink} from '@shopify/react-graphql';
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 
 jest.mock('@shopify/react-graphql', () => {
-  /* eslint-disable typescript/no-var-requires */
+  /* eslint-disable @typescript-eslint/no-var-requires */
   const ApolloClient = require('apollo-client');
   const InMemoryCache = require('apollo-cache-inmemory');
   const ApolloLink = require('apollo-link');
-  /* eslint-enable typescript/no-var-requires */
+  /* eslint-enable @typescript-eslint/no-var-requires */
 
   return {
     ...require.requireActual('@shopify/react-graphql'),

@@ -524,6 +524,7 @@ function createTranslationPromise(
     };
   });
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore (It thinks that the resolve/ reject are not assigned yet,
   // but promise does assign them synchronously in the callback)
   return {promise, resolve: storedResolve, reject: storedReject};

@@ -6,9 +6,9 @@ export enum LogLevel {
 
 export type Value = string | number;
 
-export type Data = {
+export interface Data {
   [key: string]: Value | Data;
-};
+}
 
 export type Loggable = any;
 

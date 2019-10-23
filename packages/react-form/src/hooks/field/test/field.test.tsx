@@ -6,11 +6,12 @@ import {asChoiceField, useChoiceField, useField, FieldConfig} from '../field';
 describe('useField', () => {
   function TestField({config}: {config: string | FieldConfig<string>}) {
     const field = useField(config);
+    const text = 'Test field';
 
     return (
       <>
         <label htmlFor="test-field">
-          Test field{' '}
+          {text}
           <input
             id="test-field"
             name="test-field"
@@ -202,11 +203,12 @@ describe('useField', () => {
         config: {foo: string} | FieldConfig<{foo: string}>;
       }) {
         const field = useField(config);
+        const text = 'Test field';
 
         return (
           <>
             <label htmlFor="test-field">
-              Test field{' '}
+              {text}
               <input
                 id="test-field"
                 name="test-field"
@@ -241,10 +243,12 @@ describe('useField', () => {
       dependencies: unknown[];
     }) {
       const field = useField(config, dependencies);
+      const text = 'Test field';
+
       return (
         <>
           <label htmlFor="test-field">
-            Test field{' '}
+            {text}
             <input
               id="test-field"
               name="test-field"
@@ -295,11 +299,11 @@ describe('useField', () => {
         config: string | FieldConfig<any>;
       }) {
         const field = useField(config);
-
+        const text = 'Test field';
         return (
           <>
             <label htmlFor="test-field">
-              Test field{' '}
+              {text}
               <input
                 id="test-field"
                 name="test-field"
@@ -342,11 +346,12 @@ describe('useField', () => {
         config: string | FieldConfig<any>;
       }) {
         const field = useField(config);
+        const text = 'Text field';
 
         return (
           <>
             <label htmlFor="test-field">
-              Test field{' '}
+              {text}
               <input
                 id="test-field"
                 name="test-field"
@@ -404,11 +409,12 @@ describe('useField', () => {
         config: string | FieldConfig<any>;
       }) {
         const field = useField(config);
+        const text = 'Text field';
 
         return (
           <>
             <label htmlFor="test-field">
-              Test field{' '}
+              {text}
               <input
                 id="test-field"
                 name="test-field"
