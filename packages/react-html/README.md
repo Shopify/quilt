@@ -276,7 +276,9 @@ const markup = render(<Html>Hello world!</Html>);
 
 ### `showPage()`
 
-This function encapsulates the logic for showing the page in development, where it is hidden on the initial render by default. You must call this function from your client entry point, usually right after hydrating your React app. It returns a promise that resolves after the document is guaranteed to be visible.
+This function encapsulates the logic for showing the page in development, where it is hidden on the initial render by default. This avoids flashes of unstyled content that are an unavoidable side effect of embedding CSS in JavaScript.
+
+You must call this function from your client entry point, usually right after hydrating your React app. It returns a promise that resolves after the document is guaranteed to be visible. An example of using this function is shown in the [client entrypoint section](#in-your-client-entrypoint).
 
 ### `getSerialized<Data>()`
 
