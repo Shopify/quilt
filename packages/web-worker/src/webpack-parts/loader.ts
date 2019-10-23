@@ -65,7 +65,7 @@ export function pitch(
 
   const workerOptions = {
     filename: addWorkerSubExtension(compiler.options.output!
-      .filename! as string),
+      .filename as string),
     chunkFilename: addWorkerSubExtension(
       compiler.options.output!.chunkFilename!,
     ),

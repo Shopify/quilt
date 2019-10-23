@@ -52,10 +52,10 @@ function normalize(module: any) {
   return value == null ? null : value;
 }
 
-/* eslint-disable @typescript-eslint/camelcase*/
+/* eslint-disable @typescript-eslint/camelcase */
 declare const __webpack_require__: (id: string) => any;
 declare const __webpack_modules__: {[key: string]: any};
-/* eslint-enable @typescript-eslint/camelcase*/
+/* eslint-enable @typescript-eslint/camelcase */
 
 // Webpack does not like seeing an explicit require(someVariable) in code
 // because that is a dynamic require that it can’t resolve. This code
