@@ -119,7 +119,7 @@ describe('createMount()', () => {
     const div = customMount(<div />);
 
     expect(div).toBeInstanceOf(Promise);
-    await expect(div).resolves.toBeInstanceOf(Root);
+    expect(await div).toBeInstanceOf(Root);
   });
 
   describe('extend', () => {

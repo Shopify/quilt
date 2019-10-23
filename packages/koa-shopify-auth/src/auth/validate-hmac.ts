@@ -11,7 +11,7 @@ export default function validateHmac(
   const {hmac: _hmac, signature: _signature, ...map} = query;
 
   const orderedMap = Object.keys(map)
-    .sort()
+    .sort((value1, value2) => value1.localeCompare(value2))
     .reduce((accum, key) => {
       accum[key] = map[key];
       return accum;
