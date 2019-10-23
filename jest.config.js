@@ -3,7 +3,7 @@ const path = require('path');
 
 const moduleNameMapper = getPackageNames().reduce(
   (accumulator, name) => {
-    const scopedName = `@shopify/${name}`;
+    const scopedName = `@shopify/${name}$`;
     accumulator[scopedName] = `<rootDir>/packages/${name}/src/index.ts`;
     return accumulator;
   },
@@ -21,10 +21,10 @@ const moduleNameMapper = getPackageNames().reduce(
 
 module.exports = {
   setupFiles: ['./test/setup.ts'],
-  setupTestFrameworkScriptFile: './test/each-test.ts',
-  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  setupFilesAfterEnv: ['./test/each-test.ts'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.[t|j]sx?$': 'babel-jest',
     '\\.(gql|graphql)$': 'jest-transform-graphql',
   },
   testRegex: '.*\\.test\\.tsx?$',
@@ -34,9 +34,6 @@ module.exports = {
   coverageDirectory: './coverage/',
   collectCoverage: true,
   moduleNameMapper,
-  globals: {
-    'ts-jest': {diagnostics: false},
-  },
 };
 
 function getPackageNames() {

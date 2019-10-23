@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {useMeta} from '../hooks';
 
 type Props = React.HTMLProps<HTMLMetaElement>;

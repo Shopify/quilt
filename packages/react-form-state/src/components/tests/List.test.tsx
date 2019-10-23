@@ -1,7 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import faker from 'faker';
-import {mount} from 'enzyme';
-import {trigger} from '@shopify/enzyme-utilities';
+import {mount} from '@shopify/react-testing';
 
 // eslint-disable-next-line shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
@@ -87,7 +86,7 @@ describe('<FormState.List />', () => {
     );
 
     const input = form.find(Input);
-    trigger(input, 'onChange', newTitle);
+    input.trigger('onChange', newTitle);
 
     const {fields} = lastCallArgs(renderPropSpy);
     expect(fields.products.value[0].title).toBe(newTitle);
@@ -127,11 +126,11 @@ describe('<FormState.List />', () => {
       <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
     );
 
-    const titleInput = form.find(Input).first();
-    trigger(titleInput, 'onChange', newTitle);
+    const titleInput = form.find(Input);
+    titleInput.trigger('onChange', newTitle);
 
-    const priceInput = form.find(Input).at(1);
-    trigger(priceInput, 'onChange', newPrice);
+    const priceInput = form.findAll(Input)[1];
+    priceInput.trigger('onChange', newPrice);
 
     const {fields} = lastCallArgs(renderPropSpy);
     expect(fields.products.value[0].title).toBe(newTitle);
@@ -339,6 +338,48 @@ describe('<FormState.List />', () => {
 
     expect(updatedFields.title.value).toBe(newTitle);
     expect(updatedFields.department.value).toBe(newDepartment);
+  });
+
+  it('does not raise an exceptions when lists are nested in lists', () => {
+    function newProduct() {
+      return {
+        variants: [
+          {
+            title: faker.commerce.department(),
+          },
+        ],
+      };
+    }
+    const products = [newProduct()];
+
+    const renderSpy = jest.fn(({title}) => {
+      return <Input label="title" {...title} />;
+    });
+
+    let productsRef: FieldDescriptor<any>;
+    mount(
+      <FormState initialValues={{products}}>
+        {({fields}) => {
+          productsRef = fields.products;
+          return (
+            <FormState.List field={fields.products}>
+              {nestedProductFields => (
+                <FormState.List field={nestedProductFields.variants}>
+                  {renderSpy}
+                </FormState.List>
+              )}
+            </FormState.List>
+          );
+        }}
+      </FormState>,
+    );
+
+    const newProducts = [...products, newProduct()];
+    productsRef.onChange(newProducts);
+    const calls = renderSpy.mock.calls;
+    const originalRenderCount = 1;
+    const rerenderedCount = 2;
+    expect(calls).toHaveLength(originalRenderCount + rerenderedCount);
   });
 
   it('does not raise an exceptions when list items are nested', () => {

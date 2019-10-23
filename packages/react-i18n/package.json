@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "1.5.0",
+  "version": "2.1.3",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more.",
   "main": "dist/index.js",
@@ -25,21 +25,22 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n/README.md",
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/types": "^7.3.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/types": ">=7.0.0",
     "@types/babel__core": "^7.0.4",
-    "@types/babel__template": "^7.0.1",
-    "@types/babel__traverse": "^7.0.5",
+    "@types/babel__template": "^7.0.0",
+    "@types/babel__traverse": "^7.0.0",
     "@types/glob": "^7.1.1",
-    "intl-pluralrules": "^0.2.1",
-    "typescript": "~3.2.1"
+    "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
-    "@shopify/decorators": "^1.1.4",
-    "@shopify/function-enhancers": "^1.0.4",
-    "@shopify/i18n": "^0.1.5",
-    "@shopify/react-effect": "^3.2.0",
-    "@shopify/react-hooks": "^1.2.1",
-    "@shopify/useful-types": "^1.3.0",
+    "@shopify/dates": "^0.2.5",
+    "@shopify/decorators": "^1.1.5",
+    "@shopify/function-enhancers": "^1.0.5",
+    "@shopify/i18n": "^0.1.6",
+    "@shopify/react-effect": "^3.2.5",
+    "@shopify/react-hooks": "^1.2.5",
+    "@shopify/useful-types": "^2.0.2",
     "@types/hoist-non-react-statics": "^3.0.1",
     "glob": "^7.1.4",
     "hoist-non-react-statics": "^3.0.1",
@@ -50,6 +51,10 @@
   "sideEffects": false,
   "peerDependencies": {
     "react": "^16.0.0"
+  },
+  "optionalDependencies": {
+    "@babel/template": "^7.0.0",
+    "@babel/traverse": "^7.0.0"
   },
   "files": [
     "dist/*",

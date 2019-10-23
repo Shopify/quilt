@@ -5,9 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
 
-## Added
+## [5.2.0] - 2019-10-07
+
+### Changed
+
+- Changed some type imports to fix type errors when using `react-apollo@3.x`. Projects that use 2.x may have some typing issues as changes were made to `react-apollo` that make it impossible to support the types for both versions. ([#1087](https://github.com/Shopify/quilt/pull/1087))
+
+## [5.1.0] - 2019-09-05
+
+### Added
+
+- Adds support for `ssr=false` in `useQuery` ([951](https://github.com/Shopify/quilt/pull/951))
+
+## [5.0.9] - 2019-08-29
+
+### Fixed
+
+- Fix SSR when using `cache-and-network` fetch policy with `useQuery` ([#928](https://github.com/Shopify/quilt/pull/928))
+
+## [5.0.0] - 2019-08-20
+
+### Changed
+
+- Removed the `createGraphQLClient`/ `ApolloClient` exports, and instead export the tools to build an operation-tracking link (`createSsrExtractableLink`/ `SsrExtractableLink`). Projects using the `createGraphQLClient` utility to create a client with a `resolve` method can instead use the link and `SsrExtractableLink#resolveAll()` directly. ([#878](https://github.com/Shopify/quilt/pull/878))
+
+## [4.0.4] - 2019-08-13
+
+### Fixed
+
+- Add missing dependencies ([832](https://github.com/Shopify/quilt/pull/832))
+
+## [4.0.3] - 2019-07-07
+
+### Added
 
 - Adds SSR extractable link to support GraphQL Self-serialization ([810](https://github.com/Shopify/quilt/pull/810))
 

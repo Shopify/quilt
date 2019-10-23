@@ -5,23 +5,20 @@ import {isField} from '../utilities';
 export function useDirty(fieldBag: {[key: string]: FieldOutput<any>}) {
   const fields = Object.values(fieldBag);
 
-  return useMemo(
-    () => {
-      return fields.some(item => {
-        if (isField(item)) {
-          return item.dirty;
-        }
+  return useMemo(() => {
+    return fields.some(item => {
+      if (isField(item)) {
+        return item.dirty;
+      }
 
-        if (Array.isArray(item)) {
-          return item.some(fieldsDirty);
-        }
+      if (Array.isArray(item)) {
+        return item.some(fieldsDirty);
+      }
 
-        return fieldsDirty(item);
-      });
-    },
+      return fieldsDirty(item);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [...fields],
-  );
+  }, [...fields]);
 }
 
 function fieldsDirty(fields: FieldDictionary<any>) {

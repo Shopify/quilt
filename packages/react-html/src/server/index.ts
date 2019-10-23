@@ -1,3 +1,4 @@
 export * from '../common';
 export * from './components';
-export * from './utilities';
+export {default as render} from './render';
+export {default as stream} from './stream';

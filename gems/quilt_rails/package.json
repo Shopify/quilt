@@ -1,0 +1,7 @@
+{
+  "name": "quilt_rails",
+  "private": true,
+  "description": "A file that dev up insists on creating so don't delete this.",
+  "dependencies": {},
+  "devDependencies": {}
+}

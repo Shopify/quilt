@@ -1,11 +1,20 @@
 import {Method, Header} from '@shopify/network';
 import {WebhookHeader, Topic} from './types';
 
+export enum ApiVersion {
+  April19 = '2019-04',
+  July19 = '2019-07',
+  October19 = '2019-10',
+  Unstable = 'unstable',
+  Unversioned = 'unversioned',
+}
+
 export interface Options {
   topic: Topic;
   address: string;
   shop: string;
   accessToken: string;
+  apiVersion: ApiVersion;
 }
 
 export async function registerWebhook({
@@ -13,15 +22,19 @@ export async function registerWebhook({
   topic,
   accessToken,
   shop,
+  apiVersion,
 }: Options) {
-  const response = await fetch(`https://${shop}/admin/api/graphql.json`, {
-    method: Method.Post,
-    body: buildQuery(topic, address),
-    headers: {
-      [WebhookHeader.AccessToken]: accessToken,
-      [Header.ContentType]: 'application/graphql',
+  const response = await fetch(
+    `https://${shop}/admin/api/${apiVersion}/graphql.json`,
+    {
+      method: Method.Post,
+      body: buildQuery(topic, address),
+      headers: {
+        [WebhookHeader.AccessToken]: accessToken,
+        [Header.ContentType]: 'application/graphql',
+      },
     },
-  });
+  );
 
   const result = await response.json();
 

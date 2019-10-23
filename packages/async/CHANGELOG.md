@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Patch: Documentation typo fix in README.md ([842](https://github.com/Shopify/quilt/pull/842))
+
 ## 2.0.0 - 2019-07-03
 
 ### Added

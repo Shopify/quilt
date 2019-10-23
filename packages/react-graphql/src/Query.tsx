@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Query as ApolloQuery} from 'react-apollo';
 import {OperationVariables} from 'apollo-client';
 

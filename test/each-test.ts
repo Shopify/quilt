@@ -1,6 +1,7 @@
 import addClosest from 'element-closest';
 
 import './matchers';
+import '../packages/ast-utilities/src/matchers';
 import '../packages/react-testing/src/matchers';
 import '../packages/graphql-testing/src/matchers';
 

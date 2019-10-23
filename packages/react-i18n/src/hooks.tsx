@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {useLazyRef} from '@shopify/react-hooks';
 
@@ -41,6 +41,10 @@ function useComplexI18n(
   {id, fallback, translations}: Partial<RegisterOptions>,
   manager: I18nManager,
 ): Result {
+  const managerRef = React.useRef<I18nManager | null>(null);
+  const unsubscribeRef = React.useRef<ReturnType<I18nManager['subscribe']>>(
+    noop,
+  );
   const parentIds = React.useContext(I18nIdsContext);
 
   // Parent IDs can only change when a parent gets added/ removed,
@@ -49,8 +53,30 @@ function useComplexI18n(
   // reasons, it's safe to just store the IDs once and never let them change.
   const ids = useLazyRef(() => (id ? [id, ...parentIds] : parentIds));
 
-  if (id && (translations || fallback)) {
-    manager.register({id, translations, fallback});
+  // When the manager changes, we need to do the following IMMEDIATELY (i.e.,
+  // not in a useEffect callback):
+  //
+  // 1. Register the component’s translations. This ensures that the first render gets
+  //    the synchronous translations, if available.
+  // 2. Unsubscribe from changes to a previous manager.
+  // 3. Subscribe to changes from the new manager. This ensures that if the subscription
+  //    is updated between render and `useEffect`, the state update is not lost.
+  if (manager !== managerRef.current) {
+    managerRef.current = manager;
+
+    unsubscribeRef.current();
+    unsubscribeRef.current = manager.subscribe(
+      ids.current,
+      ({translations, loading}, details) => {
+        const newI18n = new I18n(translations, {...details, loading});
+        i18nRef.current = newI18n;
+        setI18n(newI18n);
+      },
+    );
+
+    if (id && (translations || fallback)) {
+      manager.register({id, translations, fallback});
+    }
   }
 
   const [i18n, setI18n] = React.useState(() => {
@@ -61,19 +87,9 @@ function useComplexI18n(
 
   const i18nRef = React.useRef(i18n);
 
-  React.useEffect(
-    () => {
-      return manager.subscribe(
-        ids.current,
-        ({translations, loading}, details) => {
-          const newI18n = new I18n(translations, {...details, loading});
-          i18nRef.current = newI18n;
-          setI18n(newI18n);
-        },
-      );
-    },
-    [ids, manager],
-  );
+  React.useEffect(() => {
+    return unsubscribeRef.current;
+  }, []);
 
   // We use refs in this component so that it never changes. If this component
   // is regenerated, it will unmount the entire tree of the previous component,
@@ -116,3 +132,5 @@ function shouldRegister({
 }: Partial<RegisterOptions> = {}) {
   return fallback != null || translations != null;
 }
+
+function noop() {}

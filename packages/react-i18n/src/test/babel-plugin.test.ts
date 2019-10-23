@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 import {transformAsync, TransformOptions} from '@babel/core';
 import i18nBabelPlugin from '../babel-plugin';
 
@@ -91,7 +91,7 @@ describe('babel-pluin-react-i18n', () => {
 
   it('does not inject arguments when no adjacent translations exist', async () => {
     const code = await normalize(
-      `import * as React from 'react';
+      `import React from 'react';
       import {withI18n} from '@shopify/react-i18n';
 
       function MyComponent({i18n}) {
@@ -269,16 +269,19 @@ describe('babel-pluin-react-i18n', () => {
 
     await expect(
       transform(code, optionsForFile('MyComponent.tsx', true)),
-    ).rejects.toMatchObject({
-      message:
+    ).rejects.toHaveProperty(
+      'message',
+      expect.stringContaining(
         'You attempted to use useI18n 2 times in a single file. This is not supported by the Babel plugin that automatically inserts translations.',
-    });
+      ),
+    );
   });
 });
 
 async function normalize(code: string) {
   const result = await transformAsync(code, {
-    plugins: ['@babel/plugin-syntax-dynamic-import'],
+    plugins: [require('@babel/plugin-syntax-dynamic-import')],
+    configFile: false,
   });
 
   return (result && result.code) || '';
@@ -291,6 +294,7 @@ async function transform(
   const result = await transformAsync(code, {
     plugins: [i18nBabelPlugin],
     ...transformOptions,
+    configFile: false,
   });
 
   return (result && result.code) || '';

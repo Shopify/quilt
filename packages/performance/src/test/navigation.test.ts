@@ -160,12 +160,12 @@ describe('Navigation', () => {
       expect(navigation).toHaveProperty('cacheEffectiveness', undefined);
     });
 
-    it('returns a ratio of cached (size = 0) resources to uncached ones', () => {
+    it('returns a ratio of cached (duration = 0) resources to uncached ones', () => {
       const navigation = createNavigation({
         events: [
-          createScriptDownloadEvent({metadata: {size: 0}}),
-          createScriptDownloadEvent({metadata: {size: 0}}),
-          createStyleDownloadEvent({metadata: {size: 250}}),
+          createScriptDownloadEvent({duration: 0, metadata: {size: 1000}}),
+          createScriptDownloadEvent({duration: 0, metadata: {size: 250}}),
+          createStyleDownloadEvent({duration: 100, metadata: {size: 250}}),
         ],
       });
       expect(navigation).toHaveProperty('cacheEffectiveness', 2 / 3);

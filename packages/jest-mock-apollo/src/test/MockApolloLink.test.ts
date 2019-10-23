@@ -1,5 +1,5 @@
 import {readFileSync} from 'fs';
-import * as path from 'path';
+import path from 'path';
 import {buildSchema, GraphQLError} from 'graphql';
 
 import MockApolloLink from '../MockApolloLink';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 
 import {UniversalAnalytics} from './types';

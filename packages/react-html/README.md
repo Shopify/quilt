@@ -24,7 +24,7 @@ This package exposes two entrypoints:
 Your server needs to construct an HTML document. To do this, you can use the `Html` component and `render` function from `@shopify/react-html/server`:
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {render, Html} from '@shopify/react-html/server';
 
 import App from '../app';

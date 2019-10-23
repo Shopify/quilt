@@ -1,0 +1,41 @@
+{
+  "name": "@shopify/react-cookie",
+  "version": "0.0.5",
+  "license": "MIT",
+  "description": "Cookies in React for the server and client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-cookie/README.md",
+  "dependencies": {
+    "@shopify/react-effect": "^3.2.5",
+    "@shopify/react-hooks": "^1.2.5",
+    "@shopify/react-html": "^9.2.5",
+    "@shopify/react-network": "^3.3.3",
+    "cookie": "^0.4.0",
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "files": [
+    "dist/*"
+  ]
+}

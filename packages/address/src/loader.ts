@@ -3,20 +3,12 @@ import {
   LoadCountriesResponse,
   LoadCountryResponse,
   ResponseError,
-} from './types';
+  GRAPHQL_ENDPOINT,
+  SUPPORTED_LOCALES,
+  HEADERS,
+  GraphqlOperationName,
+} from '@shopify/address-consts';
 import query from './graphqlQuery';
-
-export const GRAPHQL_ENDPOINT =
-  'https://country-service.shopifycloud.com/graphql';
-export enum GraphqlOperationName {
-  Countries = 'countries',
-  Country = 'country',
-}
-
-const HEADERS = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-};
 
 export const loadCountries: (
   locale: string,
@@ -80,18 +72,6 @@ class CountryLoaderError extends Error {
 }
 
 const DEFAULT_LOCALE = 'EN';
-export const SUPPORTED_LOCALES = [
-  'DA',
-  'DE',
-  'EN',
-  'ES',
-  'FR',
-  'IT',
-  'JA',
-  'NL',
-  'PT',
-  'PT_BR',
-];
 
 export function toSupportedLocale(locale: string) {
   const supportedLocale = locale.replace(/-/, '_').toUpperCase();

@@ -1,4 +1,4 @@
-import * as Types from '@babel/types';
+import Types from '@babel/types';
 import {NodePath, Binding} from '@babel/traverse';
 
 const DEFAULT_PACKAGES_TO_PROCESS = {

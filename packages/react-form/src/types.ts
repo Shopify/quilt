@@ -97,8 +97,8 @@ export interface SubmitHandler<Fields> {
 type FieldProp<T, K extends keyof Field<any>> = T extends Field<any>
   ? T[K]
   : T extends FieldDictionary<any>
-    ? {[InnerKey in keyof T]: T[InnerKey][K]}
-    : T;
+  ? {[InnerKey in keyof T]: T[InnerKey][K]}
+  : T;
 
 /**
   Represents all of the values for a given key mapped out of a mixed dictionary of Field objects,

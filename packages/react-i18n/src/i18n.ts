@@ -1,3 +1,12 @@
+import {
+  isLessThanOneHourAgo,
+  isLessThanOneMinuteAgo,
+  isLessThanOneWeekAgo,
+  isLessThanOneYearAgo,
+  isToday,
+  isYesterday,
+  TimeUnit,
+} from '@shopify/dates';
 import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
@@ -17,6 +26,7 @@ import {
   Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
+  CUSTOM_NAME_FORMATTERS,
 } from './constants';
 import {
   MissingCurrencyCodeError,
@@ -28,11 +38,17 @@ import {
   translate,
   getTranslationTree,
   TranslateOptions as RootTranslateOptions,
+  memoizedNumberFormatter,
+  memoizedPluralRules,
 } from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   as?: 'number' | 'currency' | 'percent';
   precision?: number;
+}
+
+export interface CurrencyFormatOptions extends NumberFormatOptions {
+  form?: 'short' | 'explicit';
 }
 
 export interface TranslateOptions {
@@ -47,12 +63,6 @@ const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 const memoizedDateTimeFormatter = memoizeFn(
   dateTimeFormatter,
   (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
-    `${locale}${JSON.stringify(options)}`,
-);
-
-const memoizedNumberFormatter = memoizeFn(
-  numberFormatter,
-  (locale: string, options: Intl.NumberFormatOptions = {}) =>
     `${locale}${JSON.stringify(options)}`,
 );
 
@@ -171,9 +181,22 @@ export class I18n {
     }
   }
 
-  getTranslationTree(id: string): string | object {
+  getTranslationTree(
+    id: string,
+    replacements?:
+      | PrimitiveReplacementDictionary
+      | ComplexReplacementDictionary,
+  ): string | TranslationDictionary {
     try {
-      return getTranslationTree(id, this.translations);
+      if (!replacements) {
+        return getTranslationTree(id, this.translations, this.locale);
+      }
+      return getTranslationTree(
+        id,
+        this.translations,
+        this.locale,
+        replacements,
+      );
     } catch (error) {
       this.onError(error);
       return '';
@@ -221,7 +244,15 @@ export class I18n {
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
   }
 
-  formatCurrency(amount: number, options: Intl.NumberFormatOptions = {}) {
+  formatCurrency(
+    amount: number,
+    {form, ...options}: CurrencyFormatOptions = {},
+  ) {
+    if (form === 'explicit') {
+      return this.formatCurrencyExplicit(amount, options);
+    } else if (form === 'short') {
+      return this.formatCurrencyShort(amount, options);
+    }
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
@@ -281,6 +312,12 @@ export class I18n {
     }).format(date);
   }
 
+  ordinal(amount: number) {
+    const {locale} = this;
+    const group = memoizedPluralRules(locale, {type: 'ordinal'}).select(amount);
+    return this.translate(group, {scope: 'ordinal'}, {amount});
+  }
+
   weekStartDay(argCountry?: I18n['defaultCountry']): Weekday {
     const country = argCountry || this.defaultCountry;
 
@@ -308,19 +345,139 @@ export class I18n {
     return getCurrencySymbol(locale, {currency});
   }
 
-  private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const today = new Date();
+  formatName(firstName: string, lastName?: string, options?: {full?: boolean}) {
+    if (!firstName) {
+      return lastName || '';
+    }
+    if (!lastName) {
+      return firstName;
+    }
 
-    if (isSameDate(today, date)) {
-      return this.translate('today');
-    } else if (isYesterday(date)) {
-      return this.translate('yesterday');
-    } else {
-      return this.formatDate(date, {
-        ...options,
-        ...dateStyle[DateStyle.Humanize],
+    const isFullName = Boolean(options && options.full);
+
+    const customNameFormatter =
+      CUSTOM_NAME_FORMATTERS.get(this.locale) ||
+      CUSTOM_NAME_FORMATTERS.get(this.language);
+
+    if (customNameFormatter) {
+      return customNameFormatter(firstName, lastName, isFullName);
+    }
+    if (isFullName) {
+      return `${firstName} ${lastName}`;
+    }
+    return firstName;
+  }
+
+  private formatCurrencyExplicit(
+    amount: number,
+    options: Intl.NumberFormatOptions = {},
+  ): string {
+    const value = this.formatCurrencyShort(amount, options);
+    const isoCode = options.currency || this.defaultCurrency || '';
+    if (value.includes(isoCode)) {
+      return value;
+    }
+    return `${value} ${isoCode}`;
+  }
+
+  private formatCurrencyShort(
+    amount: number,
+    options: NumberFormatOptions = {},
+  ): string {
+    const {locale} = this;
+    const shortSymbol = this.getShortCurrencySymbol(options.currency);
+    let adjustedPrecision = options.precision;
+    if (adjustedPrecision === undefined) {
+      const currency = options.currency || this.defaultCurrency || '';
+      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
+    }
+    const formattedAmount = memoizedNumberFormatter(locale, {
+      style: 'decimal',
+      minimumFractionDigits: adjustedPrecision,
+      maximumFractionDigits: adjustedPrecision,
+      ...options,
+    }).format(amount);
+
+    return shortSymbol.prefixed
+      ? `${shortSymbol.symbol}${formattedAmount}`
+      : `${formattedAmount}${shortSymbol.symbol}`;
+  }
+
+  // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
+  // For example, in locale 'fr-FR', 'USD' is given the "symbol" of " $US".
+  // This method strips out the country-code annotation, if there is one.
+  // (So, for 'fr-FR' and 'USD', the return value would be " $").
+  //
+  // For other currencies, e.g. CHF and OMR, the "symbol" is the ISO currency code.
+  // In those cases, we return the full currency code without stripping the country.
+  private getShortCurrencySymbol(currencyCode = this.defaultCurrency || '') {
+    const currency = currencyCode || this.defaultCurrency || '';
+    const regionCode = currency.substring(0, 2);
+    const info = this.getCurrencySymbol(currency);
+    const shortSymbol = info.symbol.replace(regionCode, '');
+    const alphabeticCharacters = /[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḂ-ỳ]/;
+
+    return shortSymbol.match(alphabeticCharacters)
+      ? info
+      : {symbol: shortSymbol, prefixed: info.prefixed};
+  }
+
+  private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    if (isLessThanOneMinuteAgo(date)) {
+      return this.translate('date.humanize.lessThanOneMinuteAgo');
+    }
+
+    if (isLessThanOneHourAgo(date)) {
+      const now = new Date();
+      const minutes = Math.floor(
+        (now.getTime() - date.getTime()) / TimeUnit.Minute,
+      );
+      return this.translate('date.humanize.lessThanOneHourAgo', {
+        count: minutes,
       });
     }
+
+    const time = this.formatDate(date, {
+      ...options,
+      hour: 'numeric',
+      minute: '2-digit',
+    }).toLocaleLowerCase();
+
+    if (isToday(date)) {
+      return time;
+    }
+
+    if (isYesterday(date)) {
+      return this.translate('date.humanize.yesterday', {time});
+    }
+
+    if (isLessThanOneWeekAgo(date)) {
+      const weekday = this.formatDate(date, {
+        ...options,
+        weekday: 'long',
+      });
+      return this.translate('date.humanize.lessThanOneWeekAgo', {
+        weekday,
+        time,
+      });
+    }
+
+    if (isLessThanOneYearAgo(date)) {
+      const monthDay = this.formatDate(date, {
+        ...options,
+        month: 'short',
+        day: 'numeric',
+      });
+      return this.translate('date.humanize.lessThanOneYearAgo', {
+        date: monthDay,
+        time,
+      });
+    }
+
+    return this.formatDate(date, {
+      ...options,
+      style: DateStyle.Short,
+    });
   }
 
   private currencyDecimalSymbol(currencyCode: string) {
@@ -380,26 +537,6 @@ function isTranslateOptions(
   return 'scope' in object;
 }
 
-function isSameMonthAndYear(source: Date, target: Date) {
-  return (
-    source.getFullYear() === target.getFullYear() &&
-    source.getMonth() === target.getMonth()
-  );
-}
-
-function isSameDate(source: Date, target: Date) {
-  return (
-    isSameMonthAndYear(source, target) && source.getDate() === target.getDate()
-  );
-}
-
-function isYesterday(date: Date) {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  return isSameDate(yesterday, date);
-}
-
 function defaultOnError(error: I18nError) {
   throw error;
 }
@@ -409,11 +546,4 @@ function dateTimeFormatter(
   options: Intl.DateTimeFormatOptions = {},
 ) {
   return new Intl.DateTimeFormat(locale, options);
-}
-
-function numberFormatter(
-  locale: string,
-  options: Intl.NumberFormatOptions = {},
-) {
-  return new Intl.NumberFormat(locale, options);
 }

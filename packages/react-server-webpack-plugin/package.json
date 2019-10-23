@@ -1,0 +1,39 @@
+{
+  "name": "@shopify/react-server-webpack-plugin",
+  "version": "2.2.7",
+  "license": "MIT",
+  "description": "A webpack plugin that generates entrypoints for @shopify/react-server based applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-server-webpack-plugin/README.md",
+  "dependencies": {
+    "@babel/types": ">=7.0.0",
+    "@shopify/ast-utilities": "^0.0.6",
+    "webpack-virtual-modules": "^0.1.12"
+  },
+  "devDependencies": {
+    "@shopify/react-server": "^0.7.8",
+    "@types/webpack-virtual-modules": "^0.1.0",
+    "webpack": "^4.0.0"
+  },
+  "files": [
+    "dist/*"
+  ]
+}

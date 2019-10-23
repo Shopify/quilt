@@ -95,6 +95,7 @@ The following standard mocks are available:
 - `promise`
 - `intersectionObserver`
 - `dimension`
+- `connection`
 
 Each of the standard mocks can be installed, for a given test, using `standardMock.mock()`, and must be restored before the end of the test using `standardMock.restore()`.
 

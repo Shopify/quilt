@@ -22,7 +22,7 @@ Triggers the callback in the `props` of `wrapper` according to the `keypath` and
 #### Example Usage
 
 ```typescript
-import * as React from 'react';
+import React from 'react';
 import MyComponent, {Button, Thing} from '../MyComponent';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';
@@ -42,7 +42,7 @@ describe('<MyComponent />', () => {
 The `trigger` function automatically handles updating the Enzyme instance both immediately as well as after the promise has resolved:
 
 ```typescript
-import * as React from 'react';
+import React from 'react';
 import MyComponent, {Button, Thing} from '../MyComponent';
 import {mount} from 'enzyme';
 import {trigger} from '@shopify/enzyme-utilities';

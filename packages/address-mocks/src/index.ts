@@ -1,5 +1,5 @@
+import {GRAPHQL_ENDPOINT, SUPPORTED_LOCALES} from '@shopify/address-consts';
 import {fetch} from '@shopify/jest-dom-mocks';
-import {GRAPHQL_ENDPOINT, SUPPORTED_LOCALES} from '@shopify/address';
 
 import {fixtures} from './fixtures';
 

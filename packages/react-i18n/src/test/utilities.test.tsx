@@ -1,9 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import {
   translate,
   getTranslationTree,
   PSEUDOTRANSLATE_OPTIONS,
   getCurrencySymbol,
+  memoizedNumberFormatter,
+  memoizedPluralRules,
 } from '../utilities';
 
 const {pseudotranslate} = require.requireMock('@shopify/i18n') as {
@@ -18,19 +20,160 @@ jest.mock('@shopify/i18n', () => ({
 
 describe('getTranslationTree()', () => {
   it('returns the translation keys if it has nested values', () => {
-    expect(getTranslationTree('foo', {foo: {bar: 'one'}})).toMatchObject({
+    expect(
+      getTranslationTree('foo', {foo: {bar: 'one'}}, locale),
+    ).toMatchObject({
       bar: 'one',
     });
   });
 
+  it('returns the translation keys with replacements if it has nested values', () => {
+    expect(
+      getTranslationTree('foo', {foo: {bar: '{replacement}'}}, locale, {
+        replacement: 'bar',
+      }),
+    ).toMatchObject({
+      bar: 'bar',
+    });
+  });
+
+  it('returns the singular translation keys if it has nested values', () => {
+    expect(
+      getTranslationTree(
+        'foo',
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 1,
+        },
+      ),
+    ).toMatchObject({
+      bar: 'one',
+    });
+  });
+
+  it('returns the pluralized translation keys if it has nested values', () => {
+    expect(
+      getTranslationTree(
+        'foo',
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 2,
+        },
+      ),
+    ).toMatchObject({
+      bar: 'other',
+    });
+  });
+
   it('returns the leaf string', () => {
-    expect(getTranslationTree('foo.bar', {foo: {bar: 'one'}})).toBe('one');
+    expect(getTranslationTree('foo.bar', {foo: {bar: 'one'}}, locale)).toBe(
+      'one',
+    );
+  });
+
+  it('returns the leaf string with replacements', () => {
+    expect(
+      getTranslationTree('foo.bar', {foo: {bar: '{replacement}'}}, locale, {
+        replacement: 'bar',
+      }),
+    ).toBe('bar');
+  });
+
+  it('returns the singular leaf string', () => {
+    expect(
+      getTranslationTree(
+        'foo.bar',
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 1,
+        },
+      ),
+    ).toBe('one');
+  });
+
+  it('returns the pluralized leaf string', () => {
+    expect(
+      getTranslationTree(
+        'foo.bar',
+        {foo: {bar: {one: 'one', other: 'other'}}},
+        locale,
+        {
+          count: 2,
+        },
+      ),
+    ).toBe('other');
   });
 
   it('throws a MissingTranslationError when no translation is found', () => {
     expect(() =>
-      getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}),
+      getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}, locale),
     ).toThrow();
+  });
+});
+
+describe('memoizedNumberFormatter', () => {
+  it('returns the same object when passed the same arguments', () => {
+    const numberFormatterA = memoizedNumberFormatter(locale);
+    expect(numberFormatterA).toBeInstanceOf(Intl.NumberFormat);
+
+    const numberFormatterB = memoizedNumberFormatter(locale);
+    expect(numberFormatterB).toBeInstanceOf(Intl.NumberFormat);
+    expect(numberFormatterB).toBe(numberFormatterA);
+  });
+
+  it('returns different object when passed different arguments', () => {
+    const numberFormatterA = memoizedNumberFormatter(locale);
+    expect(numberFormatterA).toBeInstanceOf(Intl.NumberFormat);
+
+    const numberFormatterB = memoizedNumberFormatter(locale, {
+      style: 'decimal',
+    });
+    expect(numberFormatterB).toBeInstanceOf(Intl.NumberFormat);
+    expect(numberFormatterB).not.toBe(numberFormatterA);
+    expect(numberFormatterB.resolvedOptions()).toMatchObject({
+      style: 'decimal',
+    });
+  });
+
+  it('passes options to Intl.NumberFormat constructor', () => {
+    const numberFormatter = memoizedNumberFormatter(locale, {
+      style: 'decimal',
+    });
+    expect(numberFormatter).toBeInstanceOf(Intl.NumberFormat);
+    expect(numberFormatter.resolvedOptions()).toMatchObject({style: 'decimal'});
+  });
+});
+
+describe('memoizedPluralRules', () => {
+  it('returns the same object when passed the same arguments', () => {
+    const pluralRulesA = memoizedPluralRules(locale);
+    expect(pluralRulesA).toBeInstanceOf(Intl.PluralRules);
+
+    const pluralRulesB = memoizedPluralRules(locale);
+    expect(pluralRulesB).toBeInstanceOf(Intl.PluralRules);
+    expect(pluralRulesB).toBe(pluralRulesA);
+  });
+
+  it('returns different object when passed different arguments', () => {
+    const pluralRulesA = memoizedPluralRules(locale);
+    expect(pluralRulesA).toBeInstanceOf(Intl.PluralRules);
+
+    const pluralRulesB = memoizedPluralRules(locale, {
+      type: 'ordinal',
+    });
+    expect(pluralRulesB).toBeInstanceOf(Intl.PluralRules);
+    expect(pluralRulesB).not.toBe(pluralRulesA);
+  });
+
+  it('passes options to Intl.PluralRules constructor', () => {
+    const pluralRules = memoizedPluralRules(locale, {
+      type: 'ordinal',
+    });
+    expect(pluralRules).toBeInstanceOf(Intl.PluralRules);
+    expect(pluralRules.resolvedOptions()).toMatchObject({type: 'ordinal'});
   });
 });
 

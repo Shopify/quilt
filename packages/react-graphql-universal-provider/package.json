@@ -1,0 +1,43 @@
+{
+  "name": "@shopify/react-graphql-universal-provider",
+  "version": "2.0.8",
+  "license": "MIT",
+  "description": "A self-serializing/deserializing GraphQL provider that works for isomorphic applications.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql-universal-provider/README.md",
+  "dependencies": {
+    "@shopify/react-graphql": "^5.2.3",
+    "@shopify/react-hooks": "^1.2.5",
+    "@shopify/react-html": "^9.2.5",
+    "apollo-client": "^2.3.8"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0"
+  },
+  "devDependencies": {
+    "@shopify/react-effect": "^3.2.5",
+    "apollo-cache-inmemory": "^1.3.6",
+    "apollo-link": "^1.2.3"
+  },
+  "files": [
+    "dist/*"
+  ]
+}

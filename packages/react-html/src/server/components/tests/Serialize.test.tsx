@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import serializeJavaScript from 'serialize-javascript';
 import {mount} from '@shopify/react-testing';
 

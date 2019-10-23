@@ -40,7 +40,7 @@ export function executeOnce(link: ApolloLink, query: DocumentNode) {
   });
 }
 
-type BeforeResult = ((operation: Operation) => void);
+type BeforeResult = (operation: Operation) => void;
 
 export class SimpleLink extends ApolloLink {
   constructor(

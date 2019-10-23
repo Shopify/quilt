@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+require 'bundler/gem_tasks'
+
+begin
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
+
+Bundler::GemHelper.install_tasks
+
+require File.expand_path('../test/dummy/config/application', __FILE__)
+
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
+end
+
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.name = 'test:unit'
+  t.pattern = 'test/quilt_rails/**/*_test.rb'
+end

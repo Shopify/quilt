@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {random, name} from 'faker';
-import {createMount} from '@shopify/react-testing';
 import {DeferTiming} from '@shopify/async';
+import {createMount} from '@shopify/react-testing';
 import {
   Hydrator,
   HydrationContext,

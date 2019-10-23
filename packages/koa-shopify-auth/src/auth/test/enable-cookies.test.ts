@@ -25,5 +25,6 @@ describe('CreateEnableCookies', () => {
     expect(ctx.body).toContain('CookiePartitionPrompt');
     expect(ctx.body).toContain(baseConfig.apiKey);
     expect(ctx.body).toContain(shopOrigin);
+    expect(ctx.body).toContain(`window.location.href = "/auth?shop=${shop}"`);
   });
 });

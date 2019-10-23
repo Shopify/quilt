@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import {render, unmountComponentAtNode} from 'react-dom';
 import {act as reactAct} from 'react-dom/test-utils';
 import {
   Arguments,
-  Props as PropsForComponent,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
 
@@ -17,6 +16,8 @@ import {
   ReactInstance,
   FunctionKeys,
   DeepPartialArguments,
+  PropsFor,
+  DebugOptions,
 } from './types';
 
 // Manually casting `act()` until @types/react is updated to include
@@ -141,7 +142,7 @@ export class Root<Props> implements Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Root<PropsForComponent<Type>> {
+  ): this is Root<PropsFor<Type>> {
     return this.withRoot(root => root.is(type));
   }
 
@@ -155,14 +156,14 @@ export class Root<Props> implements Node<Props> {
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.find(type, props));
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.findAll(type, props));
   }
@@ -241,6 +242,11 @@ export class Root<Props> implements Node<Props> {
   forceUpdate() {
     this.ensureRoot();
     this.act(() => this.wrapper!.forceUpdate());
+  }
+
+  debug(options?: DebugOptions) {
+    this.ensureRoot();
+    return this.root!.debug(options);
   }
 
   toString() {

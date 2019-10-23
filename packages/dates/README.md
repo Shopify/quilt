@@ -78,6 +78,76 @@ const date = new Date('2018-01-02Z23:59');
 const futureDay = isFutureDate(date, now);
 ```
 
+### `isLessThanOneDayAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one day before the "now" date.
+
+```ts
+import {isLessThanOneDayAgo} from '@shopify/dates';
+
+const moreThanOneDayAgo = new Date('2018-01-01Z00:00');
+const lessThanOneDayAgo = new Date(Date.now() - 23 * TimeUnit.Hour);
+
+isLessThanOneDayAgo(moreThanOneDayAgo); // false
+isLessThanOneDayAgo(lessThanOneDayAgo); // true
+```
+
+### `isLessThanOneHourAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one hour before the "now" date.
+
+```ts
+import {isLessThanOneHourAgo} from '@shopify/dates';
+
+const moreThanOneHourAgo = new Date('2018-01-01Z00:00');
+const lessThanOneHourAgo = new Date(Date.now() - 59 * TimeUnit.Minute);
+
+isLessThanOneHourAgo(moreThanOneHourAgo); // false
+isLessThanOneHourAgo(lessThanOneHourAgo); // true
+```
+
+### `isLessThanOneMinuteAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one minute before the "now" date.
+
+```ts
+import {isLessThanOneMinuteAgo} from '@shopify/dates';
+
+const moreThanOneMinuteAgo = new Date('2018-01-01Z00:00');
+const lessThanOneMinuteAgo = new Date(Date.now() - 59 * TimeUnit.Second);
+
+isLessThanOneMinuteAgo(moreThanOneMinuteAgo); // false
+isLessThanOneMinuteAgo(lessThanOneMinuteAgo); // true
+```
+
+### `isLessThanOneWeekAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one week before the "now" date.
+
+```ts
+import {isLessThanOneWeekAgo} from '@shopify/dates';
+
+const moreThanOneWeekAgo = new Date('2018-01-01Z00:00');
+const lessThanOneWeekAgo = new Date(Date.now() - 6 * TimeUnit.Day);
+
+isLessThanOneWeekAgo(moreThanOneWeekAgo); // false
+isLessThanOneWeekAgo(lessThanOneWeekAgo); // true
+```
+
+### `isLessThanOneYearAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one year before the "now" date.
+
+```ts
+import {isLessThanOneYearAgo} from '@shopify/dates';
+
+const moreThanOneYearAgo = new Date('2018-01-01Z00:00');
+const lessThanOneYearAgo = new Date(Date.now() - 51 * TimeUnit.Week);
+
+isLessThanOneYearAgo(moreThanOneYearAgo); // false
+isLessThanOneYearAgo(lessThanOneYearAgo); // true
+```
+
 ### `isSameDay`
 
 Takes in two date objects and an optional time zone string parameter. Returns a boolean indicating whether or not these two dates are in the same day.

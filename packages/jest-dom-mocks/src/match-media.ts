@@ -1,4 +1,4 @@
-import {noop} from '@shopify/javascript-utilities/other';
+function noop() {}
 
 export interface MediaMatching {
   (mediaQuery: string): Partial<MediaQueryList>;

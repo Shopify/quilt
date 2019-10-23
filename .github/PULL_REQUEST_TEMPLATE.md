@@ -23,4 +23,3 @@ Please delete options that are not relevant.
 ## Checklist
 
 - [ ] I have added a changelog entry, prefixed by the type of change noted above
-- [ ] I have prefixed my pull request title with the corresponding emoji from [this guide](https://gitmoji.carloscuesta.me/)

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-intersection-observer",
-  "version": "2.0.3",
+  "version": "2.0.7",
   "license": "MIT",
   "description": "A React wrapper around the IntersectionObserver API",
   "main": "dist/index.js",
@@ -23,10 +23,10 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-intersection-observer/README.md",
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
   "files": [
     "dist/*"
-  ]
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0"
+  }
 }

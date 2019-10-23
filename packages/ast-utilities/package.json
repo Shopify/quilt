@@ -1,0 +1,47 @@
+{
+  "name": "@shopify/ast-utilities",
+  "version": "0.0.6",
+  "license": "MIT",
+  "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/ast-utilities/README.md",
+  "devDependencies": {
+    "@babel/core": ">=7.0.0",
+    "@babel/plugin-transform-react-jsx": ">=7.0.0",
+    "@babel/plugin-transform-typescript": ">=7.0.0",
+    "@types/babel__core": ">=7.0.0",
+    "@types/babel__traverse": ">=7.0.0",
+    "@types/unist": "^2.0.3"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "dependencies": {
+    "@babel/template": "^7.6.0",
+    "@babel/traverse": ">=7.0.0",
+    "@babel/types": ">=7.0.0",
+    "jest-matcher-utils": "^24.9.0",
+    "remark-parse": "^7.0.1",
+    "remark-stringify": "^7.0.3",
+    "unified": "^8.4.0",
+    "unist-builder": "^1.0.4"
+  }
+}

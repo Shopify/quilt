@@ -8,6 +8,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 9.2.2 - 2019-09-06
+
+- Add missing `useLocale` export
+
+## 9.2.0 - 2019-08-26
+
+- New `useLocale` hook for setting the `lang` attribute on HTML
+
+## 9.1.0 - 2019-08-26
+
+### Added
+
+- New `stream` function for returning a streamed HTML response from a React tree ([904](https://github.com/Shopify/quilt/pull/904))
+
 ## 9.0.1 - 2019-07-04
 
 ### Changed

@@ -1,5 +1,3 @@
-import {ComponentType, HTMLAttributes} from 'react';
-
 export type ThenType<T> = T extends Promise<infer U> ? U : T;
 
 export type Arguments<T> = T extends (...args: infer U) => any ? U : never;
@@ -21,15 +19,9 @@ export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]
     ? DeepPartial<U>[]
     : T[P] extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : DeepPartial<T[P]>
+    ? ReadonlyArray<DeepPartial<U>>
+    : DeepPartial<T[P]>
 };
-
-export type Props<T> = T extends keyof JSX.IntrinsicElements
-  ? JSX.IntrinsicElements[T]
-  : T extends string
-    ? HTMLAttributes<T>
-    : T extends ComponentType<infer Props> ? Props : never;
 
 export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
   length: 0;

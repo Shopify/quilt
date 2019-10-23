@@ -5,6 +5,8 @@ import {
   TranslateOptions,
   translate,
   getTranslationTree,
+  memoizedNumberFormatter,
+  memoizedPluralRules,
 } from './translate';
 
 export {
@@ -14,4 +16,6 @@ export {
   translate,
   getTranslationTree,
   TranslateOptions,
+  memoizedNumberFormatter,
+  memoizedPluralRules,
 };

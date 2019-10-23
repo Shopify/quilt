@@ -1,9 +1,15 @@
-import * as React from 'react';
-import {
-  Arguments,
-  MaybeFunctionReturnType,
-  Props as PropsForComponent,
-} from '@shopify/useful-types';
+import React from 'react';
+import {Arguments, MaybeFunctionReturnType} from '@shopify/useful-types';
+
+export type PropsFor<
+  T extends string | React.ComponentType<any>
+> = T extends string
+  ? T extends keyof JSX.IntrinsicElements
+    ? JSX.IntrinsicElements[T]
+    : React.HTMLAttributes<T>
+  : T extends React.ComponentType<any>
+  ? React.ComponentPropsWithoutRef<T>
+  : never;
 
 export type FunctionKeys<T> = {
   [K in keyof T]-?: NonNullable<T[K]> extends ((...args: any[]) => any)
@@ -18,8 +24,10 @@ type DeepPartialObject<T extends object> = {[K in keyof T]?: DeepPartial<T[K]>};
 type DeepPartial<T> = T extends (infer U)[]
   ? DeepPartialArray<U>
   : T extends ReadonlyArray<infer U>
-    ? DeepPartialReadonlyArray<U>
-    : T extends object ? DeepPartialObject<T> : T;
+  ? DeepPartialReadonlyArray<U>
+  : T extends object
+  ? DeepPartialObject<T>
+  : T;
 
 export type DeepPartialArguments<T> = {[K in keyof T]?: DeepPartial<T[K]>} &
   any[];
@@ -87,16 +95,16 @@ export interface Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Node<PropsForComponent<Type>>;
+  ): this is Node<PropsFor<Type>>;
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Node<PropsForComponent<Type>> | null;
+    props?: Partial<PropsFor<Type>>,
+  ): Node<PropsFor<Type>> | null;
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Node<PropsForComponent<Type>>[];
+    props?: Partial<PropsFor<Type>>,
+  ): Node<PropsFor<Type>>[];
   findWhere(predicate: Predicate): Node<unknown> | null;
   findAllWhere(predicate: Predicate): Node<unknown>[];
 
@@ -106,5 +114,12 @@ export interface Node<Props> {
   ): MaybeFunctionReturnType<NonNullable<Props[K]>>;
   triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T;
 
+  debug(options?: DebugOptions): string;
   toString(): string;
+}
+
+export interface DebugOptions {
+  allProps?: boolean;
+  depth?: number;
+  verbosity?: number;
 }

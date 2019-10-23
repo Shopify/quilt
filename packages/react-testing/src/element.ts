@@ -1,15 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 import {
-  Props as PropsForComponent,
   Arguments,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
+import {nodeName, toReactString} from './toReactString';
 import {
   Tag,
   Node,
   Predicate,
   FunctionKeys,
   DeepPartialArguments,
+  PropsFor,
+  DebugOptions,
 } from './types';
 
 type Root = import('./root').Root<any>;
@@ -128,7 +130,7 @@ export class Element<Props> implements Node<Props> {
     }
 
     if (instance instanceof HTMLElement) {
-      return instance.innerHTML;
+      return instance.outerHTML;
     }
 
     return allChildren.reduce<string>(
@@ -140,30 +142,30 @@ export class Element<Props> implements Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Element<PropsForComponent<Type>> {
+  ): this is Element<PropsFor<Type>> {
     return isMatchingType(this.type, type);
   }
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Element<PropsForComponent<Type>> | null {
+    props?: Partial<PropsFor<Type>>,
+  ): Element<PropsFor<Type>> | null {
     return (this.elementDescendants.find(
       element =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) || null) as Element<PropsForComponent<Type>> | null;
+    ) || null) as Element<PropsFor<Type>> | null;
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
-  ): Element<PropsForComponent<Type>>[] {
+    props?: Partial<PropsFor<Type>>,
+  ): Element<PropsFor<Type>>[] {
     return this.elementDescendants.filter(
       element =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) as Element<PropsForComponent<Type>>[];
+    ) as Element<PropsFor<Type>>[];
   }
 
   findWhere(predicate: Predicate): Element<unknown> | null {
@@ -220,17 +222,12 @@ export class Element<Props> implements Node<Props> {
     });
   }
 
+  debug(options?: DebugOptions) {
+    return toReactString(this, options);
+  }
+
   toString() {
-    const {type} = this;
-
-    if (type == null) {
-      return '<Element />';
-    }
-
-    const name =
-      typeof type === 'string' ? type : type.displayName || type.name;
-
-    return `<${name} />`;
+    return `<${nodeName(this)} />`;
   }
 }
 

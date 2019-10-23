@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Element} from '../element';
 import {Root} from '../root';
 import {Tag} from '../types';
@@ -290,7 +290,7 @@ describe('Element', () => {
   });
 
   describe('#html()', () => {
-    it('returns the innerHTML of the element if it is a DOM node', () => {
+    it('returns the outerHTML of the element if it is a DOM node', () => {
       const html = 'foobar';
 
       const div = document.createElement('div');
@@ -303,7 +303,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
-      expect(element.html()).toBe(html);
+      expect(element.html()).toBe(`<div>${html}</div>`);
     });
 
     it('concatenates the HTML contents of all child elements and child text', () => {

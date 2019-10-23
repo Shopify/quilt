@@ -1,6 +1,6 @@
 import {Header} from '@shopify/network';
 import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
-
+import {ApiVersion} from '../register';
 import {registerWebhook, Options, WebhookHeader} from '..';
 
 const successResponse = {
@@ -26,6 +26,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
+      apiVersion: ApiVersion.Unstable,
     };
 
     const webhookQuery = `
@@ -47,7 +48,9 @@ describe('registerWebhook', () => {
     await registerWebhook(webhook);
 
     const [address, request] = fetchMock.lastCall();
-    expect(address).toBe(`https://${webhook.shop}/admin/api/graphql.json`);
+    expect(address).toBe(
+      `https://${webhook.shop}/admin/api/unstable/graphql.json`,
+    );
     expect(request.body).toBe(webhookQuery);
     expect(request.headers).toMatchObject({
       [WebhookHeader.AccessToken]: webhook.accessToken,

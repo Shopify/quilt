@@ -1,0 +1,13 @@
+ci:
+  require:
+    - continuous-integration/travis-ci/push
+dependencies:
+  override:
+    - echo "nothing to see here"
+deploy:
+  max_commits: 200
+  override:
+    - cd "gems/quilt_rails" && sed -i '/^ruby\s/d' Gemfile
+    - cd "gems/quilt_rails" && bundle install --frozen --jobs 4 --path /app/data/bundler --retry 2
+    - git status
+    - cd "gems/quilt_rails" && release-gem ./quilt_rails.gemspec || git status

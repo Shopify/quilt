@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Shortcut from '../Shortcut';
 
 interface Props {
@@ -9,16 +9,13 @@ export default function ShortcutWithFocus(props: Props) {
   const {spy} = props;
   const node = React.useRef<HTMLButtonElement | null>(null);
 
-  React.useEffect(
-    () => {
-      if (!node || !node.current) {
-        return;
-      }
+  React.useEffect(() => {
+    if (!node || !node.current) {
+      return;
+    }
 
-      node.current.focus();
-    },
-    [node],
-  );
+    node.current.focus();
+  }, [node]);
   return (
     <div className="app">
       <button type="button" ref={node} />

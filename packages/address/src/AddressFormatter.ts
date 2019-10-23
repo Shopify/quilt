@@ -1,4 +1,4 @@
-import {Address, FieldName, Country} from './types';
+import {Address, FieldName, Country} from '@shopify/address-consts';
 import {renderLineTemplate, FIELDS_MAPPING} from './utilities';
 import {loadCountry, loadCountries} from './loader';
 
@@ -41,17 +41,17 @@ export default class AddressFormatter {
   }
 
   /* Returns the address ordered in an array based based on the country code
-  * Eg.:
-  *   [
-  *     'Shopify',
-  *     'First Name Last Name',
-  *     'Address 1',
-  *     'address2',
-  *     'Montréal',
-  *     'Canada Quebec H2J 4B7',
-  *     '514 444 3333'
-  *   ]
-  */
+   * Eg.:
+   *   [
+   *     'Shopify',
+   *     'First Name Last Name',
+   *     'Address 1',
+   *     'address2',
+   *     'Montréal',
+   *     'Canada Quebec H2J 4B7',
+   *     '514 444 3333'
+   *   ]
+   */
   async format(address: Address): Promise<string[]> {
     const country = await this.getCountry(address.country);
     const layout = country.formatting.show || DEFAULT_SHOW_LAYOUT;
@@ -61,17 +61,17 @@ export default class AddressFormatter {
   }
 
   /* Returns an array that shows how to order fields based on the country code
-  * Eg.:
-  *   [
-  *     ['company'],
-  *     ['firstName', 'lastName'],
-  *     ['address1'],
-  *     ['address2'],
-  *     ['city'],
-  *     ['country', 'province', 'zip'],
-  *     ['phone']
-  *   ]
-  */
+   * Eg.:
+   *   [
+   *     ['company'],
+   *     ['firstName', 'lastName'],
+   *     ['address1'],
+   *     ['address2'],
+   *     ['city'],
+   *     ['country', 'province', 'zip'],
+   *     ['phone']
+   *   ]
+   */
   async getOrderedFields(countryCode: string): Promise<FieldName[][]> {
     const country = await this.getCountry(countryCode);
 

@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {
   pseudotranslate as pseudotranslateString,
   PseudotranslateOptions,
@@ -28,10 +29,35 @@ export interface TranslateOptions<Replacements = {}> {
   pseudotranslate?: boolean | string;
 }
 
+function numberFormatter(
+  locale: string,
+  options: Intl.NumberFormatOptions = {},
+) {
+  return new Intl.NumberFormat(locale, options);
+}
+
+export const memoizedNumberFormatter = memoizeFn(
+  numberFormatter,
+  (locale: string, options: Intl.NumberFormatOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
+
+function pluralRules(locale: string, options: Intl.PluralRulesOptions = {}) {
+  return new Intl.PluralRules(locale, options);
+}
+
+export const memoizedPluralRules = memoizeFn(
+  pluralRules,
+  (locale: string, options: Intl.PluralRulesOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
+
 export function getTranslationTree(
   id: string,
   translations: TranslationDictionary | TranslationDictionary[],
-): string | object {
+  locale: string,
+  replacements?: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
+): string | TranslationDictionary {
   const normalizedTranslations = Array.isArray(translations)
     ? translations
     : [translations];
@@ -46,6 +72,12 @@ export function getTranslationTree(
     }
 
     if (result) {
+      if (replacements) {
+        return typeof result === 'string'
+          ? updateStringWithReplacements(result, replacements)
+          : updateTreeWithReplacements(result, locale, replacements);
+      }
+
       return result;
     }
   }
@@ -139,10 +171,10 @@ function translateWithDictionary(
     const count = replacements[PLURALIZATION_KEY_NAME];
 
     if (typeof count === 'number') {
-      const group = new Intl.PluralRules(locale).select(count);
+      const group = memoizedPluralRules(locale).select(count);
       result = result[group];
 
-      additionalReplacements[PLURALIZATION_KEY_NAME] = new Intl.NumberFormat(
+      additionalReplacements[PLURALIZATION_KEY_NAME] = memoizedNumberFormatter(
         locale,
       ).format(count);
     }
@@ -247,4 +279,44 @@ function normalizeIdentifier(id: string, scope?: string | string[]) {
   return `${
     typeof scope === 'string' ? scope : scope.join(SEPARATOR)
   }${SEPARATOR}${id}`;
+}
+
+function updateTreeWithReplacements(
+  translationTree: TranslationDictionary,
+  locale: string,
+  replacements: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
+) {
+  if (
+    Object.prototype.hasOwnProperty.call(replacements, PLURALIZATION_KEY_NAME)
+  ) {
+    const count = replacements[PLURALIZATION_KEY_NAME];
+
+    if (typeof count === 'number') {
+      const group = memoizedPluralRules(locale).select(count);
+      if (typeof translationTree[group] === 'string') {
+        return updateStringWithReplacements(translationTree[group] as string, {
+          ...replacements,
+          PLURALIZATION_KEY_NAME: memoizedNumberFormatter(locale).format(count),
+        });
+      }
+    }
+  }
+
+  return Object.keys(translationTree).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]:
+        typeof translationTree[key] === 'string'
+          ? updateStringWithReplacements(
+              translationTree[key] as string,
+              replacements,
+            )
+          : updateTreeWithReplacements(
+              translationTree[key] as TranslationDictionary,
+              locale,
+              replacements,
+            ),
+    }),
+    {},
+  );
 }

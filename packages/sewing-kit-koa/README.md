@@ -47,8 +47,9 @@ By default, the styles and scripts of the main bundle will be returned to you. T
 
 ```ts
 // In your sewing-kit.config.ts...
+import {Plugins} from '@shopify/sewing-kit';
 
-module.exports = function sewingKitConfig(plugins) {
+export default function sewingKitConfig(plugins: Plugins) {
   return {
     plugins: [
       plugins.entry({
@@ -57,7 +58,7 @@ module.exports = function sewingKitConfig(plugins) {
       }),
     ],
   };
-};
+}
 ```
 
 ```ts
@@ -119,11 +120,13 @@ The middleware accepts some optional parameters that you can use to customize ho
   // In this example, we want our application to serve assets only when we pass an
   // environment variable that indicates we are performing an end-to-end test.
 
-  module.exports = function sewingKitConfig(plugins) {
+  import {Plugins} from '@shopify/sewing-kit';
+
+  export default function sewingKitConfig(plugins: Plugins) {
     const plugins = process.env.E2E ? [plugins.cdn('/e2e-assets/')] : [];
 
     return {plugins};
-  };
+  }
   ```
 
   ```ts

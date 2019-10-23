@@ -109,4 +109,17 @@ describe('server', () => {
       );
     });
   });
+
+  describe('cookies', () => {
+    it('applies cookies to server context', () => {
+      const cookies = 'foo=bar; baz=qux';
+      const ctx = createMockContext();
+      const manager = new NetworkManager({cookies});
+
+      applyToContext(ctx, manager);
+
+      expect(ctx.cookies.set).toHaveBeenCalledWith('foo', 'bar', {});
+      expect(ctx.cookies.set).toHaveBeenCalledWith('baz', 'qux', {});
+    });
+  });
 });

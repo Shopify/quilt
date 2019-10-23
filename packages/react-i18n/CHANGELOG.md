@@ -6,13 +6,114 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [2.1.0] - 2019-10-07
+
+### Added
+
+- Added `memoizedPluralRules` utility function ([#1065](https://github.com/Shopify/quilt/pull/1065)
+- Added `memoizedNumberFormatter` utility function ([#1065](https://github.com/Shopify/quilt/pull/1065)
+
+### Changed
+
+- Removed leading zero from hours of time output by `I18n#humanizeDate` method ([#1093](https://github.com/Shopify/quilt/pull/1093))
+
+### Fixed
+
+- Removed creation of `Intl.PluralRules` object from `I18n` constructor which caused backwards incompatibility for any platforms needing a polyfill for `Intl.Plualrules` support ([#1065](https://github.com/Shopify/quilt/pull/1065)
+
+## [2.0.2] - 2019-09-27
+
+### Added
+
+- Added displayName to `withI18n` decorator to help with debugging ([#1048](https://github.com/Shopify/quilt/pull/1048))
+
+## [2.0.1] - 2019-09-25
+
+### Changed
+
+- Fixed babel plugin incompatiblity with jest code coverage
+
+## [2.0.0] - 2019-09-19
+
+### Changed
+
+- Modified translation keys used by `I18n#humanizeDate` method ([#1011](https://github.com/Shopify/quilt/pull/1011)).
+
+  Please see the [migration guide](./migration-guide.md) for more information.
+
+## [1.10.0] - 2019-09-18
+
+### Added
+
+- Added `ordinal` method to I18n class to translate ordinal numbers ([#1003](https://github.com/Shopify/quilt/pull/1003))
+
+  Consumers will need to add the following translation keys for proper ordinal translation. _Note: values are English examples._
+
+  ```json
+  {
+    "ordinal": {
+      "one": "{number}st",
+      "two": "{number}nd",
+      "few": "{number}rd",
+      "other": "{number}th"
+    }
+  }
+  ```
+
+## [1.9.2] - 2019-09-17
+
+### Changed
+
+- Replaced `@shopify/javascript-utilities/dates` functions with those from `@shopify/dates`.
+- Removed `@shopify/javascript-utilities/dates` dependency.
+
+### Fixed
+
+- Fixed translation of weekday in `humanizeDate` for dates less than one week old.
+
+## [1.9.1] - 2019-09-13
+
+## Changed
+
+- Updated to `@shopify/dates@^0.2.0`
+
+## [1.9.0] - 2019-09-12
+
+- Added support for pluralization to `getTranslationTree` ([#988](https://github.com/Shopify/quilt/pull/988))
+
+## [1.8.3] - 2019-09-03
+
+- Added `form:` option (one of `short` | `explicit`) to `formatCurrency()` ([#916](https://github.com/Shopify/quilt/pull/916))
+
+## [1.7.0] - 2019-09-03
+
+### Added
+
+- Added `formatName` method to I18n class to format a first name and/or last name based on the locale used. ([#834](https://github.com/Shopify/quilt/pull/834))
+
+## [1.6.0] - 2019-08-23
+
+### Added
+
+- Added an optional replacements argument to `getTranslationTree` ([#874](https://github.com/Shopify/quilt/pull/874))
+
+## [1.5.1] - 2019-08-07
+
+### Fixed
+
+- Fixed an issue where async translations would sometimes not be shown on the initial mount of a component ([#824](https://github.com/Shopify/quilt/pull/824))
 
 ## [1.5.0] - 2019-07-02
+
+### Added
 
 - Added `loading` property to I18n class. This helps to determine loading states when retrieving translations async on apps that are rendered client-side.
 
 ## [1.4.0] - 2019-06-27
+
+### Added
 
 - Added `translationKeyExists` method for checking dynamic keys ([#766](https://github.com/Shopify/quilt/pull/766))
 

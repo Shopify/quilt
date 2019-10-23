@@ -54,43 +54,39 @@ export function useAsync<T>(
   resolver: Resolver<T>,
   {assets, scripts = assets, styles = assets, immediate = true}: Options = {},
 ) {
-  const [value, setValue] = useState<T | Error | null>(
-    () =>
-      immediate || typeof window !== 'undefined' ? resolver.resolved : null,
+  const [value, setValue] = useState<T | Error | null>(() =>
+    immediate || typeof window !== 'undefined' ? resolver.resolved : null,
   );
 
   const mounted = useMountedRef();
 
-  const load = useCallback(
-    async (): Promise<T | Error> => {
-      if (value != null) {
-        return value;
+  const load = useCallback(async (): Promise<T | Error> => {
+    if (value != null) {
+      return value;
+    }
+
+    try {
+      const resolved = await resolver.resolve();
+
+      if (mounted.current) {
+        // It's important to use the function form of setValue here.
+        // Resolved is going to be a function in most cases, since it's
+        // a React component. If you do not set it using the function form,
+        // React treats the component as the function that returns state,
+        // so it sets state with the result of manually calling the component
+        // (so, usually JSX).
+        setValue(() => resolved);
       }
 
-      try {
-        const resolved = await resolver.resolve();
-
-        if (mounted.current) {
-          // It's important to use the function form of setValue here.
-          // Resolved is going to be a function in most cases, since it's
-          // a React component. If you do not set it using the function form,
-          // React treats the component as the function that returns state,
-          // so it sets state with the result of manually calling the component
-          // (so, usually JSX).
-          setValue(() => resolved);
-        }
-
-        return resolved;
-      } catch (error) {
-        if (mounted.current) {
-          setValue(error);
-        }
-
-        return error;
+      return resolved;
+    } catch (error) {
+      if (mounted.current) {
+        setValue(error);
       }
-    },
-    [mounted, resolver, value],
-  );
+
+      return error;
+    }
+  }, [mounted, resolver, value]);
 
   const {id} = resolver;
 
@@ -113,9 +109,12 @@ export function useAsyncAsset(
 ) {
   const async = useContext(AsyncAssetContext);
 
-  useServerEffect(() => {
-    if (async && id) {
-      async.markAsUsed(id, {scripts, styles});
-    }
-  }, async ? async.effect : undefined);
+  useServerEffect(
+    () => {
+      if (async && id) {
+        async.markAsUsed(id, {scripts, styles});
+      }
+    },
+    async ? async.effect : undefined,
+  );
 }

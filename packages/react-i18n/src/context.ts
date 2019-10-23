@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {I18nManager} from './manager';
 import {I18n} from './i18n';
 

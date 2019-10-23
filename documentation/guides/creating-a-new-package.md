@@ -11,11 +11,11 @@ Submit a [feature request](https://github.com/Shopify/quilt/issues/new?template=
 
 Once we've identified a package for adding to quilt, it's time to begin the process of creating a PR. If you haven't set up your development environment for quilt, there are instructions for getting started in our [contributing guide](../../.github/CONTRIBUTING.md).
 
-Quilt provides a generator for creating new packages. Simply run `dev generate package` and follow the prompts to set up the initial boilerplate.
+Quilt provides a generator for creating new packages. Simply run `yarn generate:package` and follow the prompts to set up the initial boilerplate.
 
 ### Naming
 
-If you need help with finding a good name for your package, feel free to reach our in `#quilt` on Slack, or else just pick a relevant name and add a comment to the PR asking for feedback.
+If you need help with finding a good name for your package, feel free to reach our in `#web-foundation-tech` on Slack, or else just pick a relevant name and add a comment to the PR asking for feedback.
 
 ## Trading in a PR
 
@@ -31,8 +31,6 @@ Conversely, if you have some free cycles, one great way to contribute is to pick
 
 Congratulations; you've taken what was once just a concept and carried it through to completion as a member of the Quilt family. Now it's time to wrap up the initial pull request and submit the package to npm.
 
-We provide a list of packages in the root `README`. To generate this documentation, run `dev generate docs` in your branch and push the changes to your PR.
-
 Now's a good time to consider the completeness of the package you've created. Every package should have:
 
 **Tests** - We strive for high test coverage that tests the API surface and underlying functionality of all the packages in Quilt.
@@ -45,4 +43,4 @@ Now's a good time to consider the completeness of the package you've created. Ev
 
 ## Releasing
 
-Our release process is documented in our [Contributing guide](../../.github/CONTRIBUTING.md#releasing)
+Our release process is documented in our [release and deploy guide](./release-and-deploy.md)

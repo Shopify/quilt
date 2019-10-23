@@ -24,6 +24,7 @@ import {Query} from '@shopify/react-graphql';
 import myQuery from './graphql/MyQuery.graphql';
 
 // Assuming the following GraphQL API:
+
 //
 // type Shop = {
 //   id: String!
@@ -320,7 +321,7 @@ If options exist in both places, they will be shallowly merge together with per-
 ```tsx
 import React from 'react';
 import {Form, TextField, Button, Banner} from '@shopify/polaris';
-import {useQuery} from '@shopify/react-graphql';
+import {useMutation} from '@shopify/react-graphql';
 
 import createCustomerMutation from './graphql/CreateCustomerMutation.graphql';
 
@@ -343,7 +344,7 @@ function CustomerDetail() {
   }
 
   return (
-    <Form onSubmit={handleCreateCustomer}>
+    <Form onSubmit={handleFormSubmit}>
       <TextField label="Name" value={name} onChange={(value) => {
         setName(value);
       }}>

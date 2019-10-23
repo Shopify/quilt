@@ -22,6 +22,7 @@ function registerWebhook(options: {
   format: string;
   accessToken: string;
   shop: string;
+  apiVersion: ApiVersion;
 }): {success: boolean; result: any};
 ```
 
@@ -76,6 +77,7 @@ app.use(
         topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
+        ApiVersion.Unstable
       });
 
       if (registration.success) {
@@ -141,6 +143,7 @@ app.use(
         topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
+        ApiVersion.Unstable
       });
 
       await registerWebhook({
@@ -148,6 +151,7 @@ app.use(
         topic: 'ORDERS_CREATE',
         accessToken,
         shop,
+        ApiVersion.Unstable
       });
 
       ctx.redirect('/');
@@ -185,3 +189,5 @@ In your app
 OR
 
 `require('isomorphic-fetch')`
+
+

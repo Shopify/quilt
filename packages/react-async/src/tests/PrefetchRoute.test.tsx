@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {mount} from 'enzyme';
+import React from 'react';
+import {mount} from '@shopify/react-testing';
 
 import {PrefetchContext} from '../context/prefetch';
 import {PrefetchRoute} from '../PrefetchRoute';

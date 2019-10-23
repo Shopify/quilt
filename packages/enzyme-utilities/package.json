@@ -1,6 +1,6 @@
 {
   "name": "@shopify/enzyme-utilities",
-  "version": "2.1.0",
+  "version": "2.1.5",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components.",
   "main": "dist/index.js",
@@ -23,15 +23,12 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/enzyme-utilities/README.md",
   "dependencies": {
-    "@shopify/javascript-utilities": "^2.1.0",
     "lodash": "^4.17.5",
     "tslib": "^1.9.3"
   },
-  "devDependencies": {
-    "typescript": "~3.2.1"
-  },
   "sideEffects": false,
   "peerDependencies": {
+    "enzyme": "^3.10.0",
     "react": ">=16.8.0 <17.0.0",
     "react-dom": ">=16.8.0 <17.0.0"
   }

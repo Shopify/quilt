@@ -11,5 +11,6 @@ export {
   useMeta,
   useBodyAttributes,
   useHtmlAttributes,
+  useLocale,
 } from './hooks';
 export {createSerializer, useSerialized} from './serializer';

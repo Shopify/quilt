@@ -1,7 +1,8 @@
 const {readdirSync, existsSync} = require('fs');
 const path = require('path');
 
-const packageNames = getPackageNames();
+const jsPackageNames = getPackageNames('js');
+const gemNames = getPackageNames('ruby');
 
 module.exports = function(plop) {
   plop.setGenerator('package', {
@@ -60,31 +61,29 @@ module.exports = function(plop) {
           'packages/{{kebabCase name}}/src/test/{{properCase name}}.test.ts',
         templateFile: 'templates/test.hbs.ts',
       },
-      sharedActions.docs,
     ],
   });
 
   plop.setGenerator('docs', {
     description: 'Generate root repo documentation',
     prompts: [],
-    actions() {
-      return [sharedActions.docs];
-    },
+    actions: [
+      {
+        type: 'add',
+        path: 'README.md',
+        templateFile: 'templates/ROOT_README.hbs.md',
+        force: true,
+        data: {jsPackageNames, gemNames},
+      },
+    ],
   });
 };
 
-const sharedActions = {
-  docs: {
-    type: 'add',
-    path: 'README.md',
-    templateFile: 'templates/ROOT_README.hbs.md',
-    force: true,
-    data: {packageNames},
-  },
-};
-
-function getPackageNames() {
-  const packagesPath = path.join(__dirname, 'packages');
+function getPackageNames(type = 'js') {
+  const packagesPath = path.join(
+    __dirname,
+    type === 'js' ? 'packages' : 'gems',
+  );
   return readdirSync(packagesPath).filter(packageName => {
     const packageJSONPath = path.join(
       packagesPath,

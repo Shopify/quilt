@@ -60,7 +60,7 @@ export function propagateErrors(
 
     const got = get(fieldBag, error.field);
 
-    if (isField(got)) {
+    if (got && isField(got)) {
       if (got.error !== error.message) {
         got.setError(error.message);
       }

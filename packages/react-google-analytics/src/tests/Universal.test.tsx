@@ -1,6 +1,6 @@
-import * as React from 'react';
-import {mount} from '@shopify/react-testing';
+import React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
+import {mount} from '@shopify/react-testing';
 
 import Universal, {
   Props,

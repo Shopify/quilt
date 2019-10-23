@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import {mount} from '@shopify/react-testing';
-import {useField, FieldConfig} from '../field';
+import {asChoiceField, useChoiceField, useField, FieldConfig} from '../field';
 
 describe('useField', () => {
   function TestField({config}: {config: string | FieldConfig<string>}) {
@@ -457,6 +457,42 @@ describe('useField', () => {
 
         expect(wrapper).not.toContainReactComponent('p');
       });
+    });
+  });
+});
+
+describe('asChoiceField', () => {
+  it('replaces value with checked', () => {
+    expect(asChoiceField({value: true} as any)).toMatchObject({checked: true});
+  });
+});
+
+describe('useChoiceField', () => {
+  it('returns a field that has been converted using asChoiceField', () => {
+    function Placeholder(_props: any) {
+      return null;
+    }
+
+    function TestField() {
+      const field = useChoiceField(true);
+
+      return <Placeholder field={field} />;
+    }
+
+    const wrapper = mount(<TestField />);
+
+    expect(wrapper.find(Placeholder)!.prop('field')).toMatchObject({
+      checked: true,
+      defaultValue: true,
+      dirty: false,
+      error: undefined,
+      newDefaultValue: expect.any(Function),
+      onBlur: expect.any(Function),
+      onChange: expect.any(Function),
+      reset: expect.any(Function),
+      runValidation: expect.any(Function),
+      setError: expect.any(Function),
+      touched: false,
     });
   });
 });

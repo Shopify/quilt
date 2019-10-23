@@ -1,5 +1,7 @@
 # `@shopify/react-effect-apollo`
 
+> **Note**: this library is no longer maintained. Developers should use the `GraphQLUniversalProvider` from `@shopify/react-graphql-universal-provider` to wait for GraphQL queries to resolve on the server, and to perform automatic serialization.
+
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect-apollo.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect-apollo.svg)
 
@@ -12,8 +14,6 @@ $ yarn add @shopify/react-effect-apollo
 ```
 
 ## Usage
-
-> **Note**: if you are only using the Apollo hooks provided by [`@shopify/react-graphql`](../react-graphql), you do not need to use this library. It is only necessary when using the `Query` component from `react-apollo` or `@shopify/react-graphql`.
 
 `react-apollo` exposes a function, `getDataFromTree`, which performs a sequence of tree traversals to resolve GraphQL data. This can be wasteful in situations where you are already traversing the tree for other purposes, like resolving translations in `@shopify/react-i18n`, or extracting network details in `@shopify/react-network`. This package provides a way of resolving Apollo’s data with just a single call of `@shopify/react-effect`’s `extract()` function, which will also extract all other server details from packages using `@shopify/react-effect`.
 

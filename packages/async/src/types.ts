@@ -26,5 +26,5 @@ export interface WindowWithRequestIdleCallback {
     callback: RequestIdleCallback,
     opts?: RequestIdleCallbackOptions,
   ): RequestIdleCallbackHandle;
-  cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void);
+  cancelIdleCallback: (handle: RequestIdleCallbackHandle) => void;
 }

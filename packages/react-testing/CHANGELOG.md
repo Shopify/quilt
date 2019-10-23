@@ -7,6 +7,30 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.8.0] - 2019-10-08
+
+### Added
+
+- new `debug()` function added to `Root` and `Element` to inspect mounted structure ([#1088](https://github.com/Shopify/quilt/pull/1088))
+
+## [1.7.10] - 2019-09-30
+
+### Fixed
+
+- Fixed `html()` to properly return the outermost wrapping DOM tags ([#1042](https://github.com/Shopify/quilt/pull/1042))
+
+## [1.7.9] - 2019-09-27
+
+### Changed
+
+- Both `toContainReactComponent` and `toContainReactComponentTimes` matcher will now throw a more useful error if the expected value is `null` or `undefined` ([#1047](https://github.com/Shopify/quilt/pull/1047))
+
+## [1.7.6] - 2019-08-27
+
+### Fixed
+
+- Fixed `find` and `findAll` not returning the correct type when being passed a string that matches `JSX.IntrinsicElements` ([#906](https://github.com/Shopify/quilt/pull/906))
+
 ## [1.7.1] - 2019-07-16
 
 ### Fixed

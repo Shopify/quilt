@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import gql from 'graphql-tag';
 import ApolloClient, {NetworkStatus} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
@@ -32,6 +32,28 @@ describe('useQuery', () => {
     it('returns loading=true and networkStatus=loading during the loading of query', async () => {
       function MockQuery({children}) {
         const results = useQuery(petQuery);
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+        skipInitialGraphQL: true,
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          loading: true,
+          networkStatus: NetworkStatus.loading,
+        }),
+      );
+    });
+
+    it('returns loading=true and networkStatus=loading during the loading of query when ssr option is false', async () => {
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {ssr: false});
         return children(results);
       }
 
@@ -164,6 +186,38 @@ describe('useQuery', () => {
 
       function MockQuery({children}) {
         const results = useQuery(MockQueryComponent);
+        return children(results);
+      }
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+
+      const wrapper = await mountWithGraphQL(
+        <MockQuery>{renderPropSpy}</MockQuery>,
+        {
+          graphQL,
+          skipInitialGraphQL: true,
+        },
+      );
+
+      await wrapper.act(async () => {
+        await MockQueryComponent.resolver.resolve();
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          loading: true,
+          networkStatus: NetworkStatus.loading,
+        }),
+      );
+    });
+
+    it('returns loading=true and networkStatus=loading after the query document had been loaded when ssr option is false', async () => {
+      const MockQueryComponent = createAsyncQueryComponent({
+        load: () => Promise.resolve(petQuery),
+      });
+
+      function MockQuery({children}) {
+        const results = useQuery(MockQueryComponent, {ssr: false});
         return children(results);
       }
       const graphQL = createGraphQL({PetQuery: mockData});

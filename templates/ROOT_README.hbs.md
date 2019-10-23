@@ -19,8 +19,16 @@ Each package has its own `README` and documentation describing usage.
 
 | package |     |     |
 | ------- | --- | --- |
-{{#each packageNames}}
+{{#each jsPackageNames}}
 | {{this}} | [directory](packages/{{this}}) | [![npm version](https://badge.fury.io/js/%40shopify%2F{{this}}.svg)](https://badge.fury.io/js/%40shopify%2F{{this}}) |
+{{/each}}
+
+### Gem Index
+
+| package |     |     |
+| ------- | --- | --- |
+{{#each gemNames}}
+| {{this}} | [directory](gems/{{this}}) | [![Gem Version](https://badge.fury.io/rb/{{this}}.svg)](https://badge.fury.io/rb/{{this}}) |
 {{/each}}
 
 ## Want to contribute?
@@ -29,7 +37,7 @@ Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
 
 ## Questions?
 
-For Shopifolk, you can reach out to us in Slack on the `#quilt` and `#web-foundation-tech` channels. For external inquiries, we welcome bug reports, enhancements, and feature requests via Github issues.
+For Shopifolk, you can reach out to us in Slack in the `#web-foundation-tech` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via Github issues.
 
 ## License
 
