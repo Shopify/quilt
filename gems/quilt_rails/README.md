@@ -1,6 +1,44 @@
-# Alpha functionality - do not use in high-traffic production applications
+# quilt_rails
 
-**Warning:** quilt_rails does not work at scale. Improvements to its architecture are being investigated. In its current state, quilt_rails can be used for:
+A turn-key solution for integrating Quilt client-side libraries into your Rails app, with support for server-side-rendering using [`@shopify/react-server`](https://www.npmjs.com/package/@shopify/react-server), integration with [`@shopify/sewing-kit`](https://www.npmjs.com/package/@shopify/sewing-kit) for building, testing and linting, and front-end performance tracking through [`@shopify/performance`](https://www.npmjs.com/package/@shopify/performance).
+
+## Table of Contents
+
+- [Server-side-rendering](#server-side-rendering)
+  - [Quick start](#server-side-rendering-quick-start)
+    - [Generate Rails boilerplate](#generate-rails-boilerplate)
+    - [Add Ruby dependencies](#add-ruby-dependencies)
+    - [Generate Quilt boilerplate](#generate-quilt-boilerplate)
+    - [Try it out](#try-it-out)
+  - [Manual Install](#manual-installation)
+    - [Install Dependencies](#install-dependencies)
+    - [Setup the Rails app](#setup-the-rails-app)
+    - [Add JavaScript](#add-javascript)
+    - [Run the server](#run-the-server)
+  - [Application Layout](#application-layout)
+  - [Advanced Use](#advanced-use)
+    - [Testing](#testing)
+    - [Interacting with the request and response in React code](#interacting-with-the-request-and-response-in-react-code)
+    - [Dealing with isomorphic state](#dealing-with-isomorphic-state)
+    - [Customizing the node server](#customizing-the-node-server)
+- [Performance tracking a React app](#performance-tracking-a-react-app)
+  - [Install dependencies](#install-dependencies)
+  - [Setup an endpoint for performance reports](setup-an-endpoint-for-performance-reports)
+  - [Add annotations](#add-annotations)
+  - [Send the report](#send-the-report)
+  - [Verify in development](#verify-in-development)
+  - [Configure StatsD for production](#configure-statsd-for-production)
+- [API](#api)
+  - [ReactRenderable](#reactrenderable)
+  - [PerformanceReportable](#performanceReportable)
+  - [Engine](#engine)
+  - [Generators](#generators)
+
+## Server-side-rendering
+
+### Alpha functionality - do not use in high-traffic production applications
+
+**Warning:** quilt_rails's server-side-rendering module `ReactRenderable` does not work at scale. Improvements to its architecture are being investigated. In its current state, it can be used for:
 
 - Workshop applications
 - Proof of concept applications
@@ -18,66 +56,39 @@ useQuery(MyQuery, {
 });
 ```
 
-# quilt_rails
-
-A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries.
-
-## Table of Contents
-
-1. [Quick Start](#quick-start)
-   1. [Generate Rails boilerplate](#generate-rails-boilerplate)
-   1. [Add Ruby dependencies](#add-ruby-dependencies)
-   1. [Generate Quilt boilerplate](#generate-quilt-boilerplate)
-   1. [Try it out](#try-it-out)
-1. [Manual Install](#manual-installation)
-   1. [Install Dependencies](#install-dependencies)
-   1. [Setup the Rails app](#setup-the-rails-app)
-   1. [Add JavaScript](#add-javascript)
-   1. [Run the server](#run-the-server)
-1. [Application Layout](#application-layout)
-1. [API](#api)
-   1. [ReactRenderable](#reactrenderable)
-   1. [Engine](#engine)
-   1. [Generators](#generators)
-1. [Advanced Use](#advanced-use)
-   1. [Testing](#testing)
-   1. [Interacting with the request and response in React code](#interacting-with-the-request-and-response-in-react-code)
-   1. [Dealing with isomorphic state](#dealing-with-isomorphic-state)
-   1. [Customizing the node server](#customizing-the-node-server)
-
-## Quick Start
+### Quick start
 
 Using the magic of generators, we can spin up a basic app with a few console commands.
 
-### Generate Rails boilerplate
+#### Generate Rails boilerplate
 
 `dev init`
 
 When prompted, choose `rails`. This will generate a basic Rails application scaffold.
 
-### Add Ruby dependencies
+#### Add Ruby dependencies
 
 `bundle add sewing_kit quilt_rails`
 
 This will install our ruby dependencies and update the project's gemfile.
 
-### Generate Quilt boilerplate
+#### Generate Quilt boilerplate
 
 `rails generate quilt:install`
 
 This will install the Node dependencies, provide a basic React app (in TypeScript) and mounts the Quilt engine inside of `config/routes.rb`.
 
-### Try it out
+#### Try it out
 
 `dev server`
 
 Will run the application, starting up both servers and compiling assets.
 
-## Manual Installation
+### Manual installation
 
 An application can also be setup manually using the following steps.
 
-### Install Dependencies
+#### Install dependencies
 
 ```sh
 # Add core Node dependencies
@@ -90,11 +101,11 @@ yarn
 dev up
 ```
 
-### Setup the Rails app
+#### Setup the Rails app
 
 There are 2 ways to consume this package.
 
-#### Option 1: Mount the Engine
+##### Option 1: Mount the Engine
 
 Add the engine to `routes.rb`.
 
@@ -116,7 +127,7 @@ Rails.application.routes.draw do
 end
 ```
 
-#### Option 2: Add a React controller and routes
+##### Option 2: Add a React controller and routes
 
 Create a `ReactController` to handle react requests.
 
@@ -137,7 +148,7 @@ Add routes to default to the `ReactController`.
   root 'react#index'
 ```
 
-### Add JavaScript
+#### Add JavaScript
 
 `sewing_kit` looks for the top level component of your React app in `app/ui/index`. The component exported from this component (and any imported JS/CSS) will be built into a `main` bundle, and used to render the initial server-rendered markup.
 
@@ -155,15 +166,15 @@ function App() {
 export default App;
 ```
 
-### Run the server
+#### Run the server
 
 `dev server`
 
 Will run the application, starting up both servers and compiling assets.
 
-## Application layout
+### Application layout
 
-### Minimal
+#### Minimal
 
 The basic layout for an app using `quilt_rails` and friends will have a `ui` folder nested inside the normal Rails `app` folder, containing at _least_ an index.js file exporting a React component.
 
@@ -178,7 +189,7 @@ The basic layout for an app using `quilt_rails` and friends will have a `ui` fol
        └─- react_controller.rb (see above)
 ```
 
-### Rails and React
+#### Rails and React
 
 A more complex application will want a more complex layout. The following shows scalable locations for:
 
@@ -219,59 +230,9 @@ A more complex application will want a more complex layout. The following shows 
                     └── Home.{js|ts}
 ```
 
-## API
+### Advanced use
 
-### ReactRenderable
-
-The `ReactRenderable` mixin is intended to be used in Rails controllers, and provides only the `render_react` method. This method handles proxying to a running `@shopify/react-server`.
-
-```ruby
-class ReactController < ApplicationController
-  include Quilt::ReactRenderable
-
-  def index
-    render_react
-  end
-end
-```
-
-### Engine
-
-`Quilt::Engine` provides a preconfigured controller which consumes `ReactRenderable` and provides an index route which uses it.
-
-```ruby
-# config/routes.rb
-Rails.application.routes.draw do
-  # ...
-  mount Quilt::Engine, at: '/path/to/react'
-end
-```
-
-### Configuration
-
-The `configure` method allows customization of the address the service will proxy to for UI rendering.
-
-```ruby
-  # config/initializers/quilt.rb
-  Quilt.configure do |config|
-    config.react_server_host = "localhost:3000"
-    config.react_server_protocol = 'https'
-  end
-```
-
-### Generators
-
-#### `quilt:install`
-
-Installs the Node dependencies, provide a basic React app (in TypeScript) and mounts the Quilt engine in `config/routes.rb`.
-
-#### `sewing_kit:install`
-
-Adds a basic `sewing-kit.config.ts` file.
-
-## Advanced use
-
-### Testing
+#### Testing
 
 For fast tests with consistent results, test front-end components using the tools provided by sewing-kit instead of Rails integration tests.
 
@@ -279,7 +240,7 @@ Use [`sewing-kit test`](https://github.com/Shopify/sewing-kit/blob/master/docs/c
 
 For testing React applications we provide and support [`@shopify/react-testing`](https://github.com/Shopify/quilt/tree/master/packages/react-testing).
 
-#### Example
+##### Example
 
 Given a component `MyComponent.tsx`
 
@@ -306,17 +267,17 @@ describe('MyComponent', () => {
 });
 ```
 
-#### Customizing the test environment
+##### Customizing the test environment
 
 Often you will want to hook up custom polyfills, global mocks, or other logic that needs to run either before the initialization of the test environment, or once for each test suite.
 
 By default, sewing-kit will look for such test setup files under `/app/ui/tests`. Check out the [documentation](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md#smart-defaults) for more details.
 
-### Interacting with the request and response in React code
+##### Interacting with the request and response in React code
 
 React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/master/packages/react-network) automatically, so most interactions with the request or response can be done from inside the React app.
 
-#### Example: getting headers
+##### Example: getting headers
 
 ```tsx
 // app/ui/index.tsx
@@ -339,7 +300,7 @@ function App() {
 export default App;
 ```
 
-#### Example: redirecting
+##### Example: redirecting
 
 ```tsx
 // app/ui/index.tsx
@@ -357,13 +318,13 @@ function App() {
 export default App;
 ```
 
-### Isomorphic state
+#### Isomorphic state
 
 With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. When using `@shopify/react-server`, the best tool for this job is [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/react-html#in-your-application-code) hook.
 
 `useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [CSRF](https://github.com/Shopify/quilt/tree/master/packages/react-csrf-universal-provider), [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/react-graphql-universal-provider), [I18n](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider), and the [Shopify App Bridge](https://github.com/Shopify/quilt/tree/master/packages/react-app-bridge-universal-provider).
 
-### Customizing the node server
+#### Customizing the node server
 
 By default, sewing-kit bundles in `@shopify/react-server-webpack-plugin` for `quilt_rails` applications to get apps up and running fast without needing to manually write any node server code. If what it provides is not sufficient, a custom server can be defined by adding a `server.js` or `server.ts` file to the app folder.
 
@@ -400,7 +361,7 @@ const app = createServer({
 export default app;
 ```
 
-### Fixing rejected CSRF tokens for new user sessions
+#### Fixing rejected CSRF tokens for new user sessions
 
 If a React component calls back to a Rails endpoint (e.g., `/graphql`), Rails may throw a `Can't verify CSRF token authenticity` exception. This stems from the Rails CSRF tokens not persisting until after the first `UiController` call ends.
 
@@ -424,3 +385,336 @@ class GraphqlController < ApplicationController
   end
 end
 ```
+
+## Performance tracking a React app
+
+Using [`Quilt::Performance::Reportable`](#performanceReportable) and [@shopify/react-performance](https://www.npmjs.com/package/@shopify/react-performance) it's easy to add performance tracking to apps using[`sewing_kit`](https://www.npmjs.com/package/@shopify/sewing-kit) for client-side-rendering or `quilt_rails` for server-side-rendering.
+
+### Install dependencies
+
+1. Install the gem (if your app is not already using `quilt_rails`).
+
+```bash
+bundle add quilt_rails
+```
+
+2. Install `@shopify/react-performance`, the library we will use to annotate our React application and send performance reports to our server.
+
+```bash
+yarn add @shopify/react-performance
+```
+
+### Setup an endpoint for performance reports
+
+If your application is not using `Quilt::Engine`, you will need to manually configure the server-side portion of performance tracking. If it _is_ using the engine, the following will be done automatically.
+
+1. Add a `PerformanceController` and the corresponding routes to your Rails app.
+
+```ruby
+# app/controllers/performance_report_controller.rb
+
+class PerformanceReportController < ActionController::Base
+  include Quilt::Performance::Reportable
+  protect_from_forgery with: :null_session
+
+  def create
+    process_report
+
+    render json: { result: 'success' }, status: 200
+  rescue ActionController::ParameterMissing => error
+    render json: { error: error.message, status: 422 }
+  end
+end
+```
+
+2. Add a route pointing at the controller.
+
+```ruby
+# config/routes.rb
+
+post '/performance_report', to: 'performance_report#create'
+
+# rest of routes
+```
+
+### Add annotations
+
+Add a [`<PerformanceMark />`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#performancemark) to each of your route-level components.
+
+```tsx
+// app/ui/features/Home/Home.tsx
+import {PerformanceMark} from '@shopify/react-performance';
+
+export function Home() {
+  return (
+    <div>
+      My Cool Home Page
+      {/* tell the library the page has finished rendering completely */}
+      <PerformanceMark stage="complete" id="Home" />
+    </div>
+  );
+}
+```
+
+### Send the report
+
+Add a [`usePerformanceReport`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#usePerformanceReport) call to your top-level `<App />` component.
+
+```tsx
+// app/ui/foundation/App/App.tsx
+import {usePerformanceReport} from '@shopify/react-performance';
+
+export function App() {
+  // send the report to the server
+  usePerformanceReport('/performance_report');
+
+  return <>{/* your app JSX goes here*/}</>;
+}
+```
+
+For more details on how to use the APIs from `@shopify/react-performance` check out its [documentation](https://github.com/Shopify/quilt/tree/master/packages/react-performance).
+
+### Verify in development
+
+By default `quilt_rails` will not send metrics in development mode. To verify your app is setup correctly you can check in your network tab when visiting your application and see that POST requests are sent to `/performance_report`, and recieve a `200 OK` response.
+
+If you want more insight into what distributions _would_ be sent in production, you can use the `on_distribution` callback provided by the library to setup logging.
+
+```ruby
+# app/controllers/performance_report_controller.rb
+
+class PerformanceReportController < ActionController::Base
+  include Quilt::Performance::Reportable
+  protect_from_forgery with: :null_session
+
+  def create
+    # customize process_report's behaviour with a block
+    process_report do |client|
+      client.on_distribution do |name, value, tags|
+        # We log out the details of each distribution that would be sent in production.
+        Rails.logger.debug("Distribution: #{name}, #{value}, #{tags}")
+      end
+    end
+
+    render json: { result: 'success' }, status: 200
+  rescue ActionController::ParameterMissing => error
+    render json: { error: error.message, status: 422 }
+  end
+end
+```
+
+Now you can check your Rails console output and verify that metrics are reported as expected.
+
+### Configure StatsD for production
+
+> Attention Shopifolk! If using `dev` your `StatsD` endpoint will already be configured for you in production. You should not need to do the following. ✨
+
+To tell `Quilt::Performance::Reportable` where to send it's distributions, setup the environment variables detailed [documentation](https://github.com/Shopify/statsd-instrument#configuration).
+
+## API
+
+### ReactRenderable
+
+The `ReactRenderable` mixin is intended to be used in Rails controllers, and provides only the `render_react` method. This method handles proxying to a running `@shopify/react-server`.
+
+```ruby
+class ReactController < ApplicationController
+  include Quilt::ReactRenderable
+
+  def index
+    render_react
+  end
+end
+```
+
+### Performance
+
+#### Reportable
+
+The `Quilt::Performance::Reportable` mixin is intended to be used in Rails controllers, and provides only the `process_report` method. This method handles parsing an incoming report from [@shopify/react-performance's](https://www.npmjs.com/package/@shopify/react-performance) `<PerformanceReport />` component (or a custom report in the same format) and sending it to your application's StatsD endpoint as `distribution`s using [`StatsD-Instrument`](https://rubygems.org/gems/statsd-instrument).
+
+> **Note** `Quilt::Performance::Reportable` does not require you to use the `React::Renderable` mixin, React-Server, or even any server-side-rendering solution at all. It should work perfectly fine for applications using something like `sewing_kit_script_tag` based client-side-rendering.
+
+```ruby
+class PerformanceController < ApplicationController
+  include Quilt::Performance::Reportable
+
+  def create
+    process_report
+  end
+end
+```
+
+The params sent to the controller are expected to be of type `application/json`. Given the following example JSON sent by `@shopify/react-performance`,
+
+```json
+{
+  "connection": {
+    "rtt": 100,
+    "downlink": 2,
+    "effectiveType": "3g",
+    "type": "4g"
+  },
+  "navigations": [
+    {
+      "details": {
+        "start": 12312312,
+        "duration": 23924,
+        "target": "/",
+        "events": [
+          {
+            "type": "script",
+            "start": 23123,
+            "duration": 124
+          },
+          {
+            "type": "style",
+            "start": 23,
+            "duration": 14
+          }
+        ],
+        "result": 0
+      },
+      "metadata": {
+        "index": 0,
+        "supportsDetailedTime": true,
+        "supportsDetailedEvents": true
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "ttfb",
+      "start": 2,
+      "duration": 1000
+    }
+  ]
+}
+```
+
+the above controller would send the following metrics:
+
+```ruby
+StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
+StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
+StatsD.distribution('navigation_complete', 23924, ['browser_connection_type:3g'])
+StatsD.distribution('navigation_usable', 23924, ['browser_connection_type:3g'])
+```
+
+##### Customizing `process_report` with a block
+
+The behaviour of `process_report` can be customized by manipulating the `Quilt::Performance::Client` instance yielded into its implicit block parameter.
+
+```ruby
+process_report do |client|
+  # client.on_distribution do ....
+end
+```
+
+#### Client
+
+The `Quilt::Performance::Client` class is yielded into the block parameter for `process_report`, and is the primary API for customizing what metrics are sent for a given POST.
+
+##### Client#on_distribution
+
+The `on_distribution` method takes a block which is run for each distribution (including custom ones) sent during `process_report`.
+
+The provided callback can be used to easily add logging or other side-effects to your measurements.
+
+```ruby
+client.on_distribution do |metric_name, value, tags|
+  Rails.logger.debug "#{metric_name}: #{value}, tags: #{tags}"
+end
+```
+
+##### Client#on_navigation
+
+The `on_navigation` method takes a block which is run once per navigation reported to the performance controller _before_ the default distributions for the navigation are sent.
+
+The provided callback can be used to add tags to the default `distributions` for a given navigation.
+
+```ruby
+client.on_navigation do |navigation, tags|
+  # add tags to be sent with each distribution for this navigation
+  tags[:connection_rtt] = navigation.connection.rtt
+  tags[:connection_type] = navigation.connection.type
+  tags[:navigation_target] = navigation.target
+end
+```
+
+It can also be used to compute and send entirely custom metrics.
+
+```ruby
+client.on_navigation do |navigation, tags|
+  # calculate and then send an additional distribution
+  weight = navigation.events_with_size.reduce(0) do |total, event|
+    total + event.size
+  end
+  client.distribution('navigation_total_resource_weight', weight, tags)
+end
+```
+
+##### Client#on_event
+
+The `on_event` method takes a block which is run once per event reported to the performance controller _before_ the default distributions for the event are sent.
+
+The provided callback can be used to add tags to the default `distributions` for a given event, or perform other side-effects.
+
+```ruby
+client.on_event do |event, tags|
+  # add tags to be sent with each distribution for this event
+  tags[:connection_rtt] = event.connection.rtt
+  tags[:connection_type] = event.connection.type
+end
+```
+
+### Engine
+
+`Quilt::Engine` provides:
+
+- a preconfigured `UiController` which consumes `ReactRenderable`
+- a preconfigured `PerformanceReportController` which consumes `Performance::Reportable`
+- a `/performance_report` route mapped to `performance_report#index`
+- a catch-all index route mapped to the `UiController#index`
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  # ...
+  mount Quilt::Engine, at: '/my-front-end'
+end
+```
+
+The above is the equivalent of
+
+```ruby
+  post '/my-front-end/performance_report', to: 'performance_report#create'
+  get '/my-front-end/*path', to: 'ui#index'
+  get '/my-front-end', to: 'ui#index'
+```
+
+### Configuration
+
+The `configure` method allows customization of the address the service will proxy to for UI rendering.
+
+```ruby
+  # config/initializers/quilt.rb
+  Quilt.configure do |config|
+    config.react_server_host = "localhost:3000"
+    config.react_server_protocol = 'https'
+  end
+```
+
+### StatsD environment variables
+
+The `Performance::Reportable` mixin uses [https://github.com/Shopify/statsd-instrument](StatsD-Instrument) to send distributions. For detailed instructions on configuring where it sends data see [the documentation](https://github.com/Shopify/statsd-instrument#configuration).
+
+### Generators
+
+#### `quilt:install`
+
+Installs the Node dependencies, provide a basic React app (in TypeScript) and mounts the Quilt engine in `config/routes.rb`.
+
+#### `sewing_kit:install`
+
+Adds a basic `sewing-kit.config.ts` file.
