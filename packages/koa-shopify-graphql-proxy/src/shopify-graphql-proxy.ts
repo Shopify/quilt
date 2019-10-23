@@ -54,7 +54,8 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
         'X-Shopify-Access-Token': accessToken,
       },
       proxyReqOptDecorator(proxyReqOpts) {
-        delete proxyReqOpts.headers['cookie'];
+        delete proxyReqOpts.headers.cookie;
+        delete proxyReqOpts.headers.Cookie;
         return proxyReqOpts;
       },
       proxyReqPathResolver() {
