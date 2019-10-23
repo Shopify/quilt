@@ -1,8 +1,6 @@
 import {usePerformanceEffect} from './performance-effect';
 
-export type Stage = 'complete' | 'usable';
-
-export function usePerformanceMark(stage: Stage, id: string) {
+export function usePerformanceMark(stage: string, id: string) {
   usePerformanceEffect(
     performance => {
       if (stage === 'complete') {

@@ -439,20 +439,17 @@ post '/performance_report', to: 'performance_report#create'
 
 ### Add annotations
 
-Add a [`<PerformanceMark />`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#performancemark) to each of your route-level components.
+Add a [`usePerformanceMark`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#useperformancemark) call to each of your route-level components.
 
 ```tsx
 // app/ui/features/Home/Home.tsx
-import {PerformanceMark} from '@shopify/react-performance';
+import {usePerformanceMark} from '@shopify/react-performance';
 
 export function Home() {
-  return (
-    <div>
-      My Cool Home Page
-      {/* tell the library the page has finished rendering completely */}
-      <PerformanceMark stage="complete" id="Home" />
-    </div>
-  );
+  // tell the library the page has finished rendering completely
+  usePerformanceMark('complete', 'Home');
+
+  return <>{/* your Home page JSX goes here*/}</>;
 }
 ```
 
