@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Changed type definition from `Value | null` to `Value | undefined`
+- Changed type definition from `Value | null` to `Value`
 
 ## [1.0.0] - 2019-08-28
 
