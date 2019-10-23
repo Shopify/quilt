@@ -47,7 +47,10 @@ performance.on('lifecycleEvent', event => {});
 The `on` method returns a clean-up function that you can invoke when you're done listening on the event:
 
 ```ts
-const cleanupNavigationListener = performance.on('navigation', navigation => {});
+const cleanupNavigationListener = performance.on(
+  'navigation',
+  navigation => {},
+);
 
 cleanupNavigationListener();
 ```
@@ -94,3 +97,7 @@ The `Navigation` object represents a full navigation, either from a full-page re
   - `metadata`: an object with arbitrary key-value pairs providing additional context
 
 `Navigation` also provides a number of utility methods for gathering more actionable information, such as `eventsByType` for filtering events to a particular type, or `totalDownloadSize` for the cumulative size of all requested resources. Please consult the TypeScript definitions for a full listing of these methods.
+
+### Events
+
+Read about the list of events `Performance` and `Navigation` class supports and what they do [here](docs/events).
