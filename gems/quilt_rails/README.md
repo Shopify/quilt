@@ -1,6 +1,6 @@
 # quilt_rails
 
-A turn-key solution for integrating Quilt client-side libraries into your Rails app, with support for server-side-rendering using [`@shopify/react-server`](https://www.npmjs.com/package/@shopify/react-server), integration with [`@shopify/sewing-kit`](https://www.npmjs.com/package/@shopify/sewing-kit) for building, testing and linting, and front-end performance tracking through [`@shopify/performance`](https://www.npmjs.com/package/@shopify/performance).
+A turn-key solution for integrating Quilt client-side libraries into your Rails app, with support for server-side-rendering using [`@shopify/react-server`](https://www.npmjs.com/package/@shopify/react-server), integration with [`@shopify/sewing-kit`](https://github.com/Shopify/sewing-kit) for building, testing and linting, and front-end performance tracking through [`@shopify/performance`](https://www.npmjs.com/package/@shopify/performance).
 
 ## Table of Contents
 
@@ -388,7 +388,7 @@ end
 
 ## Performance tracking a React app
 
-Using [`Quilt::Performance::Reportable`](#performanceReportable) and [@shopify/react-performance](https://www.npmjs.com/package/@shopify/react-performance) it's easy to add performance tracking to apps using[`sewing_kit`](https://www.npmjs.com/package/@shopify/sewing-kit) for client-side-rendering or `quilt_rails` for server-side-rendering.
+Using [`Quilt::Performance::Reportable`](#performanceReportable) and [@shopify/react-performance](https://www.npmjs.com/package/@shopify/react-performance) it's easy to add performance tracking to apps using[`sewing_kit`](https://github.com/Shopify/sewing-kit/tree/master/gems/sewing_kit#sewing_kit-) for client-side-rendering or `quilt_rails` for server-side-rendering.
 
 ### Install dependencies
 
