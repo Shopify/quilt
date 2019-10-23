@@ -48,7 +48,7 @@ function endRequest(ctx: Context, requestDuration: number) {
     return;
   }
 
-  /* eslint-disable babel/camelcase */
+  /* eslint-disable @typescript-eslint/camelcase */
   const logObject: any = {
     datetime: new Date().toISOString(),
     http_method: ctx.method.toUpperCase(),
@@ -58,7 +58,7 @@ function endRequest(ctx: Context, requestDuration: number) {
     user_agent: ctx.header['User-Agent'],
     payload: logger.buffer,
   };
-  /* eslint-enable babel/camelcase */
+  /* eslint-enable @typescript-eslint/camelcase */
 
   // eslint-disable-next-line no-console
   console.log(

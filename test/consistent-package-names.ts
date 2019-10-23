@@ -1,4 +1,4 @@
-import {readdirSync, readFileSync, existsSync} from 'fs';
+import {readdirSync, readFileSync} from 'fs';
 import path from 'path';
 
 describe('package name', () => {
@@ -12,10 +12,6 @@ describe('package name', () => {
         packageName,
         'package.json',
       );
-
-      if (!existsSync(packageJSONPath)) {
-        continue;
-      }
 
       const packageJSON = JSON.parse(
         readFileSync(packageJSONPath, {encoding: 'utf8'}),

@@ -18,11 +18,10 @@ describe('ConsoleFormatter', () => {
     const args = errorSpy.mock.calls[0];
 
     expect(consoleCallIncludes(args, errorMsg)).toBe(true);
-    if (payload.stack) {
-      for (const stackLine of payload.stack.split('\n')) {
-        expect(consoleCallIncludes(args, stackLine)).toBe(true);
-      }
+    for (const stackLine of payload.stack!.split('\n')) {
+      expect(consoleCallIncludes(args, stackLine)).toBe(true);
     }
+
     expect(consoleCallIncludes(args, LogLevel.Critical)).toBe(true);
 
     errorSpy.mockReset();
