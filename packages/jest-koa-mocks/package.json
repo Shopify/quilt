@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-koa-mocks",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
