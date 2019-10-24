@@ -7,7 +7,7 @@ describe('Semaphore', () => {
     it('resolves with a permit when counter is > 0', async () => {
       const semaphore = new Semaphore(1);
 
-      await expect(semaphore.acquire()).resolves.toBeInstanceOf(Permit);
+      expect(await semaphore.acquire()).toBeInstanceOf(Permit);
     });
 
     it('does not resolve if counter is = 0', async () => {
@@ -33,7 +33,7 @@ describe('Semaphore', () => {
       const permit = await semaphore.acquire();
       permit.release();
 
-      await expect(semaphore.acquire()).resolves.toBeInstanceOf(Permit);
+      expect(await semaphore.acquire()).toBeInstanceOf(Permit);
     });
 
     it('resolves when previous permit is released after the call', async () => {

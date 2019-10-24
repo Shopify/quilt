@@ -1,7 +1,7 @@
 // general logic and approach taken from
 // https://github.com/matthew-andrews/isomorphic-fetch/blob/master/fetch-npm-node.js
 
-// eslint-disable-next-line typescript/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const nodeFetch = require('node-fetch');
 
 function wrappedFetch(url: string | Request, options) {
@@ -9,7 +9,7 @@ function wrappedFetch(url: string | Request, options) {
     return nodeFetch.call(this, url, options);
   }
 
-  const finalURL = /^\/\//.test(url) ? `https:${url}` : url;
+  const finalURL = url.startsWith('//') ? `https:${url}` : url;
   return nodeFetch.call(this, finalURL, options);
 }
 

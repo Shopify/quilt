@@ -321,7 +321,7 @@ If options exist in both places, they will be shallowly merge together with per-
 ```tsx
 import React from 'react';
 import {Form, TextField, Button, Banner} from '@shopify/polaris';
-import {useQuery} from '@shopify/react-graphql';
+import {useMutation} from '@shopify/react-graphql';
 
 import createCustomerMutation from './graphql/CreateCustomerMutation.graphql';
 

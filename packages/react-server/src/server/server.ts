@@ -13,13 +13,13 @@ import {ping} from '../ping';
 
 const logger = console;
 
-type Options = {
+interface Options {
   port?: number;
   ip?: string;
   assetPrefix?: string;
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
-};
+}
 
 /**
  * Create a full Koa server for server rendering an `@shopify/react-html` based React application defined by `options.render`

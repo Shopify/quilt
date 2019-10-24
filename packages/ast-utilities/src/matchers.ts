@@ -5,6 +5,7 @@ import {
 } from 'jest-matcher-utils';
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
       toBeFormated(expected: string): void;

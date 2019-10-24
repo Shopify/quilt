@@ -2,6 +2,7 @@ import {GraphQLOperation} from 'graphql-typed';
 import {toHavePerformedGraphQLOperation} from './operations';
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
       toHavePerformedGraphQLOperation<Variables>(

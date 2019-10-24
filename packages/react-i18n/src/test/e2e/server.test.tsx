@@ -101,7 +101,6 @@ describe('server', () => {
 
     const translations = manager.extract();
 
-    // @ts-ignore (Object.values)
     const extractedTranslations = Object.values(translations);
     expect(Object.keys(translations)).toBeArrayOfUniqueItems();
     expect(extractedTranslations).toContain(frCATranslations);

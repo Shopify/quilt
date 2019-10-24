@@ -1,17 +1,10 @@
 import React from 'react';
 import {extract} from '@shopify/react-effect/server';
 import {useServerEffect} from '@shopify/react-effect';
+import {StatusCode, CspDirective, Header} from '@shopify/network';
 
 import {NetworkContext, NetworkManager} from '../server';
-import {
-  useStatus,
-  useCspDirective,
-  useRedirect,
-  useHeader,
-  StatusCode,
-  CspDirective,
-  Header,
-} from '..';
+import {useStatus, useCspDirective, useRedirect, useHeader} from '../hooks';
 
 describe('e2e', () => {
   it('clears network details between requests', async () => {

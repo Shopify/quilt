@@ -35,11 +35,11 @@ const mount = createMount<{hydrated?: boolean}>({
 });
 
 function ResolvedComponent({name = 'friend'}: {name?: string}) {
-  return <div>Hello, {name}!</div>;
+  return <>Hello, {name}!</>;
 }
 
 function Loading() {
-  return <div>Loading…</div>;
+  return <>Loading…</>;
 }
 
 describe('createAsyncComponent()', () => {
