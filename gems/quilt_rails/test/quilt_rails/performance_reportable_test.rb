@@ -32,10 +32,14 @@ module Quilt
 
       StatsD
         .expects(:distribution)
-        .with('time_to_first_byte', 2, ['browser_connection_type:3g'])
+        .with('time_to_first_byte', 2, tags: {
+          browser_connection_type: '3g',
+        })
       StatsD
         .expects(:distribution)
-        .with('kitty-cat cuddle', 100, ['browser_connection_type:3g'])
+        .with('kitty-cat cuddle', 100, tags: {
+          browser_connection_type: '3g',
+        })
 
       process_report
     end
@@ -80,10 +84,14 @@ module Quilt
 
       StatsD
         .expects(:distribution)
-        .with('navigation_complete', 23924, ['browser_connection_type:3g'])
+        .with('navigation_complete', 23924, tags: {
+          browser_connection_type: '3g',
+        })
       StatsD
         .expects(:distribution)
-        .with('navigation_usable', 23924, ['browser_connection_type:3g'])
+        .with('navigation_usable', 23924, tags: {
+          browser_connection_type: '3g',
+        })
 
       process_report
     end
@@ -136,16 +144,24 @@ module Quilt
 
       StatsD
         .expects(:distribution)
-        .with('navigation_complete', 23924, ['browser_connection_type:3g'])
+        .with('navigation_complete', 23924, tags: {
+          browser_connection_type: '3g',
+        })
       StatsD
         .expects(:distribution)
-        .with('navigation_usable', 23924, ['browser_connection_type:3g'])
+        .with('navigation_usable', 23924, tags: {
+          browser_connection_type: '3g',
+        })
       StatsD
         .expects(:distribution)
-        .with('navigation_download_size', 2123, ['browser_connection_type:3g'])
+        .with('navigation_download_size', 2123, tags: {
+          browser_connection_type: '3g',
+        })
       StatsD
         .expects(:distribution)
-        .with('navigation_cache_effectiveness', 0, ['browser_connection_type:3g'])
+        .with('navigation_cache_effectiveness', 0, tags: {
+          browser_connection_type: '3g',
+        })
 
       process_report
     end
@@ -172,10 +188,16 @@ module Quilt
 
       StatsD
         .expects(:distribution)
-        .with('time_to_first_byte', 3, ['browser_connection_type:3g', 'connection_type:4g'])
+        .with('time_to_first_byte', 3, tags: {
+          browser_connection_type: '3g',
+          connection_type: '4g',
+        })
       StatsD
         .expects(:distribution)
-        .with('kitty-cat cuddle', 42, ['browser_connection_type:3g', 'connection_type:4g'])
+        .with('kitty-cat cuddle', 42, tags: {
+          browser_connection_type: '3g',
+          connection_type: '4g',
+        })
 
       process_report do |client|
         client.on_event do |event, tags|
@@ -227,16 +249,28 @@ module Quilt
 
       StatsD
         .expects(:distribution)
-        .with('navigation_complete', 2321, ['browser_connection_type:3g', 'navigation_target:/'])
+        .with('navigation_complete', 2321, tags: {
+          browser_connection_type: '3g',
+          navigation_target: '/',
+        })
       StatsD
         .expects(:distribution)
-        .with('navigation_usable', 2321, ['browser_connection_type:3g', 'navigation_target:/'])
+        .with('navigation_usable', 2321, tags: {
+          browser_connection_type: '3g',
+          navigation_target: '/',
+        })
       StatsD
         .expects(:distribution)
-        .with('navigation_complete', 999, ['browser_connection_type:3g', 'navigation_target:/foo'])
+        .with('navigation_complete', 999, tags: {
+          browser_connection_type: '3g',
+          navigation_target: '/foo',
+        })
       StatsD
         .expects(:distribution)
-        .with('navigation_usable', 999, ['browser_connection_type:3g', 'navigation_target:/foo'])
+        .with('navigation_usable', 999, tags: {
+          browser_connection_type: '3g',
+          navigation_target: '/foo',
+        })
 
       process_report do |client|
         client.on_navigation do |navigation, tags|
@@ -278,19 +312,31 @@ module Quilt
 
       StatsD
         .expects(:distribution)
-        .with('custom_event_metric', 12345, ['browser_connection_type:3g', 'custom:tag'])
+        .with('custom_event_metric', 12345, tags: {
+          browser_connection_type: '3g',
+          custom: 'tag',
+        })
       StatsD
         .expects(:distribution)
-        .with('custom_navigation_metric', 6789, ['browser_connection_type:3g', 'custom:tag2'])
+        .with('custom_navigation_metric', 6789, tags: {
+          browser_connection_type: '3g',
+          custom: 'tag2',
+        })
       StatsD
         .expects(:distribution)
-        .with("time_to_first_byte", 2, ["browser_connection_type:3g"])
+        .with("time_to_first_byte", 2, tags: {
+          browser_connection_type: '3g',
+        })
       StatsD
         .expects(:distribution)
-        .with("navigation_complete", 2321, ["browser_connection_type:3g"])
+        .with("navigation_complete", 2321, tags: {
+          browser_connection_type: '3g',
+        })
       StatsD
         .expects(:distribution)
-        .with("navigation_usable", 2321, ["browser_connection_type:3g"])
+        .with("navigation_usable", 2321, tags: {
+          browser_connection_type: '3g',
+        })
 
       process_report do |client|
         client.on_event do |_event, tags|
