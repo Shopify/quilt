@@ -11,7 +11,7 @@ export function getCurrencySymbol(
     directionControlCharacters,
     '',
   );
-  const matchResult = currencyString.match(numReg);
+  const matchResult = numReg.exec(currencyString);
   if (!matchResult) {
     throw new Error(
       `Number input in locale ${locale} is currently not supported.`,

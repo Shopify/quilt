@@ -4,12 +4,9 @@ import {useHydrationManager} from './hooks';
 export function HydrationTracker() {
   const manager = useHydrationManager();
 
-  React.useEffect(
-    () => {
-      manager.hydrated = true;
-    },
-    [manager],
-  );
+  React.useEffect(() => {
+    manager.hydrated = true;
+  }, [manager]);
 
   return null;
 }

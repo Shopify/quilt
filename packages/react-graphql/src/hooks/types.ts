@@ -1,15 +1,18 @@
-import ApolloClient from 'apollo-client';
 import {
-  QueryOpts,
+  ApolloClient,
+  MutationOptions as ClientMutationOptions,
+} from 'apollo-client';
+import {
+  QueryOptions,
   QueryResult,
   MutationOptions,
-  FetchResult,
+  ExecutionResult,
   OperationVariables,
 } from 'react-apollo';
 import {Omit} from '@shopify/useful-types';
 
 export interface QueryHookOptions<Variables = OperationVariables>
-  extends Omit<QueryOpts<Variables>, 'partialRefetch'> {
+  extends Omit<QueryOptions<Variables>, 'partialRefetch'> {
   skip?: boolean;
 }
 
@@ -27,5 +30,6 @@ export interface MutationHookOptions<
 }
 
 export type MutationHookResult<Data, Variables> = (
-  options?: MutationOptions<Data, Variables>,
-) => Promise<FetchResult<Data>>;
+  options?: Omit<MutationOptions<Data, Variables>, 'mutation' | 'fetchPolicy'> &
+    Pick<ClientMutationOptions, 'fetchPolicy'>,
+) => Promise<ExecutionResult<Data>>;

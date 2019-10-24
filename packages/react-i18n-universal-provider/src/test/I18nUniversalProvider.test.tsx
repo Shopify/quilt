@@ -1,9 +1,9 @@
 import React from 'react';
 import faker from 'faker';
-import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {extract} from '@shopify/react-effect/server';
-import {I18nContext, I18nManager} from '@shopify/react-i18n';
 import {createMount} from '@shopify/react-testing';
+import {HtmlManager, HtmlContext} from '@shopify/react-html';
+import {I18nContext, I18nManager} from '@shopify/react-i18n';
 
 import {I18nUniversalProvider} from '../I18nUniversalProvider';
 

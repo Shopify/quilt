@@ -4,6 +4,7 @@ import {WebhookHeader, Topic} from './types';
 export enum ApiVersion {
   April19 = '2019-04',
   July19 = '2019-07',
+  October19 = '2019-10',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hooks",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "license": "MIT",
   "description": "A collection of primitive React hooks.",
   "main": "dist/index.js",
@@ -21,6 +21,9 @@
   },
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 <17.0.0"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hooks/README.md",
   "files": [

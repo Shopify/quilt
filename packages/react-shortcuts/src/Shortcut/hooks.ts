@@ -22,33 +22,38 @@ export default function useShortcut(
   const subscription = React.useRef<Subscription | null>(null);
   const {node, held, ignoreInput, allowDefault} = options;
 
-  React.useEffect(
-    () => {
-      if (node != null) {
+  React.useEffect(() => {
+    if (node != null) {
+      return;
+    }
+
+    if (shortcutManager == null) {
+      return;
+    }
+
+    subscription.current = shortcutManager.subscribe({
+      onMatch,
+      ordered,
+      node,
+      held,
+      ignoreInput: ignoreInput || false,
+      allowDefault: allowDefault || false,
+    });
+
+    return () => {
+      if (subscription.current == null) {
         return;
       }
 
-      if (shortcutManager == null) {
-        return;
-      }
-
-      subscription.current = shortcutManager.subscribe({
-        onMatch,
-        ordered,
-        node,
-        held,
-        ignoreInput: ignoreInput || false,
-        allowDefault: allowDefault || false,
-      });
-
-      return () => {
-        if (subscription.current == null) {
-          return;
-        }
-
-        subscription.current.unsubscribe();
-      };
-    },
-    [node, ordered, onMatch, held, ignoreInput, allowDefault, shortcutManager],
-  );
+      subscription.current.unsubscribe();
+    };
+  }, [
+    node,
+    ordered,
+    onMatch,
+    held,
+    ignoreInput,
+    allowDefault,
+    shortcutManager,
+  ]);
 }

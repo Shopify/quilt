@@ -1,5 +1,3 @@
-function noop() {}
-
 export interface MediaMatching {
   (mediaQuery: string): Partial<MediaQueryList>;
 }
@@ -78,3 +76,5 @@ export function mediaQueryList(
     ...values,
   };
 }
+
+function noop() {}

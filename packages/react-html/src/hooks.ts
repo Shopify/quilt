@@ -6,7 +6,7 @@ import {HtmlContext} from './context';
 import {HtmlManager} from './manager';
 
 export function useDomEffect(
-  perform: (manager: HtmlManager) => (() => void),
+  perform: (manager: HtmlManager) => () => void,
   inputs: unknown[] = [],
 ) {
   const manager = useContext(HtmlContext);
@@ -74,22 +74,19 @@ export function useBodyAttributes(
 }
 
 export function useClientDomEffect(
-  perform: (manager: HtmlManager) => (() => void),
+  perform: (manager: HtmlManager) => () => void,
   inputs: unknown[] = [],
 ) {
   const manager = useContext(HtmlContext);
 
-  useEffect(
-    () => {
-      perform(manager);
-    },
+  useEffect(() => {
+    perform(manager);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [manager, perform, ...inputs],
-  );
+  }, [manager, perform, ...inputs]);
 }
 
 export function useServerDomEffect(
-  perform: (manager: HtmlManager) => (() => void),
+  perform: (manager: HtmlManager) => () => void,
 ) {
   const manager = useContext(HtmlContext);
 

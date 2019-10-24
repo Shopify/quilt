@@ -78,16 +78,16 @@ await graphQL.resolveAll();
 const graphQL = createGraphQL(mocks);
 
 // the very first operation, or undefined if no operations have been performed
-graphQL.first();
+graphQL.operations.first();
 
 // the second last operation run with petQuery
-graphQL.nth(-2, {query: petQuery});
+graphQL.operations.nth(-2, {query: petQuery});
 
 // the last operation of any kind
-graphQL.last();
+graphQL.operations.last();
 
 // all mutations with this mutation
-graphQL.all({mutation: addPetMutation});
+graphQL.operations.all({mutation: addPetMutation});
 ```
 
 The `query` and `mutation` options both accept either a regular `DocumentNode`, or an async GraphQL component created with [`@shopify/react-graphql`’s `createAsyncQueryComponent` function](../react-graphql).

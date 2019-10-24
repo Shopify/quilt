@@ -1,4 +1,5 @@
 import React from 'react';
+import {Omit} from '@shopify/useful-types';
 
 export interface Props {
   onChange?(value: string): void;
@@ -6,7 +7,7 @@ export interface Props {
 }
 
 export default class Input extends React.PureComponent<
-  Props & React.InputHTMLAttributes<any>,
+  Props & Omit<React.InputHTMLAttributes<any>, 'onChange'>,
   never
 > {
   render() {

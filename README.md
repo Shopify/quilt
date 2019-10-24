@@ -40,6 +40,7 @@ Each package has its own `README` and documentation describing usage.
 | jest-mock-router | [directory](packages/jest-mock-router) | [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-mock-router.svg)](https://badge.fury.io/js/%40shopify%2Fjest-mock-router) |
 | koa-liveness-ping | [directory](packages/koa-liveness-ping) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping) |
 | koa-metrics | [directory](packages/koa-metrics) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-metrics.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-metrics) |
+| koa-performance | [directory](packages/koa-performance) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-performance.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-performance) |
 | koa-shopify-auth | [directory](packages/koa-shopify-auth) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth) |
 | koa-shopify-graphql-proxy | [directory](packages/koa-shopify-graphql-proxy) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy) |
 | koa-shopify-webhooks | [directory](packages/koa-shopify-webhooks) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks) |
@@ -70,6 +71,7 @@ Each package has its own `README` and documentation describing usage.
 | react-import-remote | [directory](packages/react-import-remote) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-import-remote.svg)](https://badge.fury.io/js/%40shopify%2Freact-import-remote) |
 | react-intersection-observer | [directory](packages/react-intersection-observer) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-intersection-observer.svg)](https://badge.fury.io/js/%40shopify%2Freact-intersection-observer) |
 | react-network | [directory](packages/react-network) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-network.svg)](https://badge.fury.io/js/%40shopify%2Freact-network) |
+| react-performance | [directory](packages/react-performance) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-performance.svg)](https://badge.fury.io/js/%40shopify%2Freact-performance) |
 | react-router | [directory](packages/react-router) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-router.svg)](https://badge.fury.io/js/%40shopify%2Freact-router) |
 | react-serialize | [directory](packages/react-serialize) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-serialize.svg)](https://badge.fury.io/js/%40shopify%2Freact-serialize) |
 | react-server | [directory](packages/react-server) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server.svg)](https://badge.fury.io/js/%40shopify%2Freact-server) |
@@ -81,6 +83,7 @@ Each package has its own `README` and documentation describing usage.
 | react-universal-provider | [directory](packages/react-universal-provider) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-universal-provider) |
 | semaphore | [directory](packages/semaphore) | [![npm version](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg)](https://badge.fury.io/js/%40shopify%2Fsemaphore) |
 | sewing-kit-koa | [directory](packages/sewing-kit-koa) | [![npm version](https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa.svg)](https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa) |
+| statsd | [directory](packages/statsd) | [![npm version](https://badge.fury.io/js/%40shopify%2Fstatsd.svg)](https://badge.fury.io/js/%40shopify%2Fstatsd) |
 | useful-types | [directory](packages/useful-types) | [![npm version](https://badge.fury.io/js/%40shopify%2Fuseful-types.svg)](https://badge.fury.io/js/%40shopify%2Fuseful-types) |
 | with-env | [directory](packages/with-env) | [![npm version](https://badge.fury.io/js/%40shopify%2Fwith-env.svg)](https://badge.fury.io/js/%40shopify%2Fwith-env) |
 
@@ -102,4 +105,4 @@ For Shopifolk, you can reach out to us in Slack in the `#web-foundation-tech` ch
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
 
-<a href="http://www.shopify.com/"><img src="./images/shopify.png" alt="Shopify" width="200" /></a>
+<a href="http://www.shopify.com/"><img src="https://cdn.shopify.com/assets2/brand-assets/shopify-logo-main-8ee1e0052baf87fd9698ceff7cbc01cc36a89170212ad227db3ff2706e89fd04.svg" alt="Shopify" width="200" /></a>

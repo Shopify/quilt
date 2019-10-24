@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount} from '@shopify/react-testing';
 import ImportRemote from '@shopify/react-import-remote';
+import {mount} from '@shopify/react-testing';
 
 import GaJS, {
   Props,

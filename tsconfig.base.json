@@ -24,6 +24,6 @@
       "esnext.asynciterable"
     ]
   },
-  "include": ["./**/*.ts", "./**/*.tsx"],
+  "include": ["./config/typescript/**/*.d.ts", "./**/*.ts", "./**/*.tsx"],
   "exclude": ["./node_modules"]
 }

@@ -9,11 +9,14 @@ import {NetworkManager} from './manager';
 export function useNetworkEffect(perform: (network: NetworkManager) => void) {
   const network = useContext(NetworkContext);
 
-  useServerEffect(() => {
-    if (network != null) {
-      return perform(network);
-    }
-  }, network ? network.effect : undefined);
+  useServerEffect(
+    () => {
+      if (network != null) {
+        return perform(network);
+      }
+    },
+    network ? network.effect : undefined,
+  );
 }
 
 export function useCspDirective(

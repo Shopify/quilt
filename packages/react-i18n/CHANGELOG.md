@@ -8,6 +8,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+## [2.1.0] - 2019-10-07
+
+### Added
+
+- Added `memoizedPluralRules` utility function ([#1065](https://github.com/Shopify/quilt/pull/1065)
+- Added `memoizedNumberFormatter` utility function ([#1065](https://github.com/Shopify/quilt/pull/1065)
+
+### Changed
+
+- Removed leading zero from hours of time output by `I18n#humanizeDate` method ([#1093](https://github.com/Shopify/quilt/pull/1093))
+
+### Fixed
+
+- Removed creation of `Intl.PluralRules` object from `I18n` constructor which caused backwards incompatibility for any platforms needing a polyfill for `Intl.Plualrules` support ([#1065](https://github.com/Shopify/quilt/pull/1065)
+
 ## [2.0.2] - 2019-09-27
 
 ### Added

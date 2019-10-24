@@ -1,11 +1,11 @@
 import {readFileSync} from 'fs';
 import path from 'path';
 import React from 'react';
-import PropTypes from 'prop-types';
-import {graphql} from 'react-apollo';
+import {ApolloClient} from 'apollo-client';
+import {graphql, ApolloProvider} from 'react-apollo';
 
-import {mount} from 'enzyme';
 import {buildSchema} from 'graphql';
+import {createMount} from '@shopify/react-testing';
 
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
 import petQuery from './fixtures/PetQuery.graphql';
@@ -20,6 +20,12 @@ const schema = buildSchema(schemaSrc);
 const createGraphQLClient = configureClient({
   schema,
   unionOrIntersectionTypes,
+});
+
+const mount = createMount<{client: ApolloClient<any>}, {}>({
+  render(element, _, {client}) {
+    return <ApolloProvider client={client}>{element}</ApolloProvider>;
+  },
 });
 
 interface Props {
@@ -66,43 +72,25 @@ const client = createGraphQLClient({
 describe('jest-mock-apollo', () => {
   it('throws error when no mock provided', async () => {
     const client = createGraphQLClient();
-    const somePage = mount(<SomePage />, {
-      context: {
-        client,
-      },
-      childContextTypes: {
-        client: PropTypes.object,
-      },
-    });
+    const somePage = mount(<SomePage />, {client});
 
-    await Promise.all(client.graphQLRequests);
-    somePage.update();
+    await somePage.act(() => Promise.all(client.graphQLRequests));
 
-    expect(
-      somePage.containsMatchingElement(
-        <p>
-          GraphQL error: Can’t perform GraphQL operation {"'Pet'"} because no
-          mocks were set.
-        </p>,
-      ),
-    ).toBe(true);
+    expect(somePage).toContainReactText(
+      "GraphQL error: Can’t perform GraphQL operation 'Pet' because no mocks were set.",
+    );
   });
 
   it('resolves mock query and renders data', async () => {
     const somePage = mount(<SomePage />, {
-      context: {
-        client,
-      },
-      childContextTypes: {
-        client: PropTypes.object,
-      },
+      client,
     });
 
-    await Promise.all(client.graphQLRequests);
-    somePage.update();
+    await somePage.act(() => Promise.all(client.graphQLRequests));
+
     const query = client.graphQLRequests.lastOperation('Pet');
     expect(query).toMatchObject({operationName: 'Pet'});
 
-    expect(somePage.containsMatchingElement(<p>Garfield</p>)).toBe(true);
+    expect(somePage).toContainReactText('Garfield');
   });
 });

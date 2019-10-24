@@ -50,7 +50,7 @@ export default function createContext<
     statusCode,
     session,
     requestBody,
-    rawBody,
+    rawBody = '',
     url = '',
     host = 'test.com',
     encrypted = false,

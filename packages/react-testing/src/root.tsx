@@ -17,6 +17,7 @@ import {
   FunctionKeys,
   DeepPartialArguments,
   PropsFor,
+  DebugOptions,
 } from './types';
 
 // Manually casting `act()` until @types/react is updated to include
@@ -24,7 +25,7 @@ import {
 // https://github.com/Shopify/quilt/issues/692
 const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
-// eslint-disable-next-line typescript/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
 
 type ResolveRoot = (element: Element<unknown>) => Element<unknown> | null;
@@ -241,6 +242,11 @@ export class Root<Props> implements Node<Props> {
   forceUpdate() {
     this.ensureRoot();
     this.act(() => this.wrapper!.forceUpdate());
+  }
+
+  debug(options?: DebugOptions) {
+    this.ensureRoot();
+    return this.root!.debug(options);
   }
 
   toString() {

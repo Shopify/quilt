@@ -45,37 +45,38 @@ export function useIntersection({
     time: Date.now(),
   }));
 
-  useEffect(
-    () => {
-      if (!isSupported()) {
-        return;
-      }
+  useEffect(() => {
+    if (!isSupported()) {
+      return;
+    }
 
-      const resolvedRoot =
-        typeof root === 'string' ? document.querySelector(root) : root;
+    const resolvedRoot =
+      typeof root === 'string' ? document.querySelector(root) : root;
 
-      const intersectionObserver = new IntersectionObserver(
-        ([entry]) =>
-          setIntersectingEntry({
-            ...entry,
-            // Normalizes for inconsistent browser support
-            isIntersecting: entry.intersectionRatio > 0,
-          }),
-        {
-          root: resolvedRoot,
-          rootMargin,
-          threshold,
-        },
-      );
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) =>
+        setIntersectingEntry({
+          ...entry,
+          // Normalizes for inconsistent browser support
+          isIntersecting: entry.intersectionRatio > 0,
+        }),
+      {
+        root: resolvedRoot,
+        rootMargin,
+        threshold,
+      },
+    );
 
-      observer.current = intersectionObserver;
+    observer.current = intersectionObserver;
 
-      return () => {
-        intersectionObserver.disconnect();
-      };
-    },
-    [root, rootMargin, Array.isArray(threshold) ? threshold.join() : threshold],
-  );
+    return () => {
+      intersectionObserver.disconnect();
+    };
+  }, [
+    root,
+    rootMargin,
+    Array.isArray(threshold) ? threshold.join() : threshold,
+  ]);
 
   useEffect(() => {
     if (

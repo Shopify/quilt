@@ -10,6 +10,9 @@ import UserTiming from './user-timing';
 import IntersectionObserver from './intersection-observer';
 import Promise from './promise';
 import Dimension from './dimension';
+import {Connection} from './connection';
+
+export const connection = new Connection();
 
 export const animationFrame = new AnimationFrame();
 export const requestIdleCallback = new RequestIdleCallback();
@@ -56,6 +59,7 @@ const mocksToEnsureReset = {
   matchMedia,
   userTiming,
   intersectionObserver,
+  connection,
 };
 
 export function ensureMocksReset() {

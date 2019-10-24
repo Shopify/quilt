@@ -1,6 +1,6 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
   "main": "dist/index.js",
@@ -24,20 +24,21 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/ast-utilities/README.md",
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/plugin-transform-react-jsx": "7.3.0",
-    "@babel/plugin-transform-typescript": "7.5.5",
-    "@babel/traverse": "7.5.5",
-    "@babel/types": "7.5.5",
-    "@types/babel__core": "7.1.2",
-    "@types/babel__traverse": "^7.0.7",
-    "@types/unist": "^2.0.3",
-    "typescript": "~3.2.1"
+    "@babel/core": ">=7.0.0",
+    "@babel/plugin-transform-react-jsx": ">=7.0.0",
+    "@babel/plugin-transform-typescript": ">=7.0.0",
+    "@types/babel__core": ">=7.0.0",
+    "@types/babel__traverse": ">=7.0.0",
+    "@types/unist": "^2.0.3"
   },
   "files": [
     "dist/*"
   ],
   "dependencies": {
+    "@babel/template": "^7.6.0",
+    "@babel/traverse": ">=7.0.0",
+    "@babel/types": ">=7.0.0",
+    "jest-matcher-utils": "^24.9.0",
     "remark-parse": "^7.0.1",
     "remark-stringify": "^7.0.3",
     "unified": "^8.4.0",

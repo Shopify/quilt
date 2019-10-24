@@ -8,11 +8,11 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import {getUsedAssets as baseGetUsedAssets} from '@shopify/react-async/testing';
 import {createMount} from '@shopify/react-testing';
-import {AssetTiming} from '@shopify/react-async';
 import {
   requestIdleCallback,
   intersectionObserver,
 } from '@shopify/jest-dom-mocks';
+import {AssetTiming} from '@shopify/react-async';
 
 import {Query} from '../Query';
 import {ApolloProvider} from '../ApolloProvider';

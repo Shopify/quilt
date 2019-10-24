@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 
 import compose from '..';
 
@@ -12,9 +12,8 @@ describe('react-compose-enhancers', () => {
       )(ClassicalComponent);
 
       const result = mount(<Component baz="baz" />);
-      const wrappedComponent = result.find(ClassicalComponent);
 
-      expect(wrappedComponent.exists()).toBe(true);
+      expect(result).toContainReactComponent(ClassicalComponent);
     });
 
     it('passes props on the wrapper down to the wrapped component', () => {
@@ -25,9 +24,10 @@ describe('react-compose-enhancers', () => {
 
       const expectedBaz = 'test';
       const result = mount(<Component baz={expectedBaz} />);
-      const actualBaz = result.find(ClassicalComponent).prop('baz');
 
-      expect(actualBaz).toBe(expectedBaz);
+      expect(result).toContainReactComponent(ClassicalComponent, {
+        baz: expectedBaz,
+      });
     });
 
     it('injects props from all enhancers passed to it to the resulting component', () => {
@@ -42,9 +42,8 @@ describe('react-compose-enhancers', () => {
         baz: 'baz',
       };
       const result = mount(<Component baz={expectedProps.baz} />);
-      const actualProps = result.find(ClassicalComponent).props();
 
-      expect(actualProps).toStrictEqual(expectedProps);
+      expect(result).toContainReactComponent(ClassicalComponent, expectedProps);
     });
 
     it('hoists static members to wrapper class', () => {
@@ -65,9 +64,8 @@ describe('react-compose-enhancers', () => {
       )(StatelessComponent);
 
       const result = mount(<Component baz="baz" />);
-      const wrappedComponent = result.find(StatelessComponent);
 
-      expect(wrappedComponent.exists()).toBe(true);
+      expect(result).toContainReactComponent(StatelessComponent);
     });
 
     it('passes props on the wrapper down to the wrapped component', () => {
@@ -78,9 +76,10 @@ describe('react-compose-enhancers', () => {
 
       const expectedBaz = 'test';
       const result = mount(<Component baz={expectedBaz} />);
-      const actualBaz = result.find(StatelessComponent).prop('baz');
 
-      expect(actualBaz).toBe(expectedBaz);
+      expect(result).toContainReactComponent(StatelessComponent, {
+        baz: expectedBaz,
+      });
     });
 
     it('injects props from all enhancers passed to it to the resulting component', () => {
@@ -95,9 +94,8 @@ describe('react-compose-enhancers', () => {
         baz: 'baz',
       };
       const result = mount(<Component baz={expectedProps.baz} />);
-      const actualProps = result.find(StatelessComponent).props();
 
-      expect(actualProps).toStrictEqual(expectedProps);
+      expect(result).toContainReactComponent(StatelessComponent, expectedProps);
     });
   });
 });

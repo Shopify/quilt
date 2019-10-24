@@ -85,7 +85,7 @@ describe('react-hydrate', () => {
     );
 
     expect(clientHydrator.find('div')).toHaveReactProps({
-      dangerouslySetInnerHTML: {__html: serverHydrator.find('div')!.html()},
+      dangerouslySetInnerHTML: {__html: content},
     });
   });
 });

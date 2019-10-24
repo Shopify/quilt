@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "A fixture",
   "dependencies": {
-    "webpack-virtual-modules": "^0.1.11"
+    "webpack-virtual-modules": "^0.1.12"
   },
   "devDependencies": {
     "@shopify/react-server": "^0.1.0",

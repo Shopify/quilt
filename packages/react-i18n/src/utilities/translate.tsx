@@ -1,4 +1,5 @@
 import React from 'react';
+import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {
   pseudotranslate as pseudotranslateString,
   PseudotranslateOptions,
@@ -27,6 +28,29 @@ export interface TranslateOptions<Replacements = {}> {
   replacements?: Replacements;
   pseudotranslate?: boolean | string;
 }
+
+function numberFormatter(
+  locale: string,
+  options: Intl.NumberFormatOptions = {},
+) {
+  return new Intl.NumberFormat(locale, options);
+}
+
+export const memoizedNumberFormatter = memoizeFn(
+  numberFormatter,
+  (locale: string, options: Intl.NumberFormatOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
+
+function pluralRules(locale: string, options: Intl.PluralRulesOptions = {}) {
+  return new Intl.PluralRules(locale, options);
+}
+
+export const memoizedPluralRules = memoizeFn(
+  pluralRules,
+  (locale: string, options: Intl.PluralRulesOptions = {}) =>
+    `${locale}${JSON.stringify(options)}`,
+);
 
 export function getTranslationTree(
   id: string,
@@ -147,10 +171,10 @@ function translateWithDictionary(
     const count = replacements[PLURALIZATION_KEY_NAME];
 
     if (typeof count === 'number') {
-      const group = new Intl.PluralRules(locale).select(count);
+      const group = memoizedPluralRules(locale).select(count);
       result = result[group];
 
-      additionalReplacements[PLURALIZATION_KEY_NAME] = new Intl.NumberFormat(
+      additionalReplacements[PLURALIZATION_KEY_NAME] = memoizedNumberFormatter(
         locale,
       ).format(count);
     }
@@ -268,11 +292,11 @@ function updateTreeWithReplacements(
     const count = replacements[PLURALIZATION_KEY_NAME];
 
     if (typeof count === 'number') {
-      const group = new Intl.PluralRules(locale).select(count);
+      const group = memoizedPluralRules(locale).select(count);
       if (typeof translationTree[group] === 'string') {
         return updateStringWithReplacements(translationTree[group] as string, {
           ...replacements,
-          PLURALIZATION_KEY_NAME: new Intl.NumberFormat(locale).format(count),
+          PLURALIZATION_KEY_NAME: memoizedNumberFormatter(locale).format(count),
         });
       }
     }

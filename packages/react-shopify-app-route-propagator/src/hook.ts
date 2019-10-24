@@ -16,33 +16,30 @@ export default function useRoutePropagation(
 ) {
   const history = useMemo(() => History.create(app), [app]);
 
-  useEffect(
-    () => {
-      const selfWindow = getSelfWindow();
-      const topWindow = getTopWindow();
+  useEffect(() => {
+    const selfWindow = getSelfWindow();
+    const topWindow = getTopWindow();
 
-      const renderedInTheTopWindow = selfWindow === topWindow;
-      const renderedInAModal = selfWindow.name === MODAL_IFRAME_NAME;
+    const renderedInTheTopWindow = selfWindow === topWindow;
+    const renderedInAModal = selfWindow.name === MODAL_IFRAME_NAME;
 
-      if (renderedInTheTopWindow || renderedInAModal) {
-        return;
-      }
+    if (renderedInTheTopWindow || renderedInAModal) {
+      return;
+    }
 
-      const normalizedLocation = getNormalizedURL(location);
+    const normalizedLocation = getNormalizedURL(location);
 
-      /*
+    /*
       We delete this param that ends up unnecassarily stuck on
       the iframe due to oauth when propagating up.
     */
-      normalizedLocation.searchParams.delete('hmac');
+    normalizedLocation.searchParams.delete('hmac');
 
-      const {pathname, search, hash} = normalizedLocation;
-      const locationStr = `${pathname}${search}${hash}`;
+    const {pathname, search, hash} = normalizedLocation;
+    const locationStr = `${pathname}${search}${hash}`;
 
-      history.dispatch(History.Action.REPLACE, locationStr);
-    },
-    [history, location],
-  );
+    history.dispatch(History.Action.REPLACE, locationStr);
+  }, [history, location]);
 }
 
 function getNormalizedURL(location: LocationOrHref) {

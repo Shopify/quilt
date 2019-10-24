@@ -1,7 +1,7 @@
 import React from 'react';
+import {Effect} from '@shopify/react-effect/server';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
-import {Effect} from '@shopify/react-effect/server';
 import {createRender} from '../render';
 
 jest.mock('@shopify/sewing-kit-koa', () => ({

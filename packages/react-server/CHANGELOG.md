@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.7.3] - 2019-09-30
+
+- Added missing `@shopify/react-cookie` dependency
+
 ## [0.7.0] - 2019-09-12
 
 - Added universal cookies support using `@shopify/react-cookie`. [#1002](https://github.com/Shopify/quilt/pull/1002)

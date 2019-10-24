@@ -1,7 +1,6 @@
 import React from 'react';
 import faker from 'faker';
-import {mount} from 'enzyme';
-import {trigger} from '@shopify/enzyme-utilities';
+import {mount} from '@shopify/react-testing';
 
 // eslint-disable-next-line shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
@@ -87,7 +86,7 @@ describe('<FormState.List />', () => {
     );
 
     const input = form.find(Input);
-    trigger(input, 'onChange', newTitle);
+    input.trigger('onChange', newTitle);
 
     const {fields} = lastCallArgs(renderPropSpy);
     expect(fields.products.value[0].title).toBe(newTitle);
@@ -127,11 +126,11 @@ describe('<FormState.List />', () => {
       <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
     );
 
-    const titleInput = form.find(Input).first();
-    trigger(titleInput, 'onChange', newTitle);
+    const titleInput = form.find(Input);
+    titleInput.trigger('onChange', newTitle);
 
-    const priceInput = form.find(Input).at(1);
-    trigger(priceInput, 'onChange', newPrice);
+    const priceInput = form.findAll(Input)[1];
+    priceInput.trigger('onChange', newPrice);
 
     const {fields} = lastCallArgs(renderPropSpy);
     expect(fields.products.value[0].title).toBe(newTitle);

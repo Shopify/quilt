@@ -7,6 +7,18 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.8.0] - 2019-10-08
+
+### Added
+
+- new `debug()` function added to `Root` and `Element` to inspect mounted structure ([#1088](https://github.com/Shopify/quilt/pull/1088))
+
+## [1.7.10] - 2019-09-30
+
+### Fixed
+
+- Fixed `html()` to properly return the outermost wrapping DOM tags ([#1042](https://github.com/Shopify/quilt/pull/1042))
+
 ## [1.7.9] - 2019-09-27
 
 ### Changed

@@ -1,10 +1,10 @@
 import React from 'react';
 import faker from 'faker';
 
-import {CsrfTokenContext} from '@shopify/react-csrf';
-import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {extract} from '@shopify/react-effect/server';
+import {CsrfTokenContext} from '@shopify/react-csrf';
 import {mount} from '@shopify/react-testing';
+import {HtmlManager, HtmlContext} from '@shopify/react-html';
 
 import {CsrfUniversalProvider} from '../CsrfUniversalProvider';
 

@@ -154,45 +154,85 @@ export function useField<Value = string>(
     dispatch,
   ]);
 
-  const onBlur = useCallback(
-    () => {
-      if (state.touched === false && state.error == null) {
-        return;
-      }
+  const onBlur = useCallback(() => {
+    if (state.touched === false && state.error == null) {
+      return;
+    }
 
-      runValidation();
-    },
-    [runValidation, state.touched, state.error],
-  );
+    runValidation();
+  }, [runValidation, state.touched, state.error]);
 
   // We want to reset the field whenever a new `value` is passed in
-  useEffect(
-    () => {
-      if (!isEqual(value, state.defaultValue)) {
-        newDefaultValue(value);
-      }
-    },
-    //  We actually do not want this to rerun when our `defaultValue` is updated. It can only happen independently of this callback when `newDefaultValue` is called by a user, and we don't want to undue their hard work by resetting to `value`.
+  useEffect(() => {
+    if (!isEqual(value, state.defaultValue)) {
+      newDefaultValue(value);
+    }
+    // We actually do not want this to rerun when our `defaultValue` is updated. It can
+    // only happen independently of this callback when `newDefaultValue` is called by a user,
+    // and we don't want to undue their hard work by resetting to `value`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value, newDefaultValue],
-  );
+  }, [value, newDefaultValue]);
 
-  const field = useMemo(
-    () => {
-      return {
-        ...state,
-        onBlur,
-        onChange,
-        newDefaultValue,
-        runValidation,
-        setError,
-        reset,
-      };
-    },
-    [state, onBlur, onChange, newDefaultValue, runValidation, setError, reset],
-  );
+  const field = useMemo(() => {
+    return {
+      ...state,
+      onBlur,
+      onChange,
+      newDefaultValue,
+      runValidation,
+      setError,
+      reset,
+    };
+  }, [
+    state,
+    onBlur,
+    onChange,
+    newDefaultValue,
+    runValidation,
+    setError,
+    reset,
+  ]);
 
   return field as Field<Value>;
+}
+
+/**
+ * Converts a standard `Field<boolean>` into a `ChoiceField` that is compatible
+ * with `<Checkbox />` and `<RadioButton />` components in `@shopify/polaris`.
+ *
+ * For fields that are used by both a choice components and other components, it
+ * can be beneficial to retain the original `Field<boolean>` shape and convert
+ * the field on the fly for the choice component.
+ *
+ * ```typescript
+ * const enabled = useField(false);
+ * return (<Checkbox label="Enabled" {...asChoiceField(enabled)} />);
+ * ```
+ */
+export function asChoiceField({value: checked, ...fieldData}: Field<boolean>) {
+  return {
+    checked,
+    ...fieldData,
+  };
+}
+
+export type ChoiceField = ReturnType<typeof asChoiceField>;
+
+/**
+ * A simplification to `useField` that returns a `ChoiceField` by automatically
+ * converting the field using `asChoiceField` for direct use in choice
+ * components.
+ *
+ * ```typescript
+ * const enabled = useChoiceField(false);
+ * return (<Checkbox label="Enabled" {...enabled} />);
+ * ```
+ */
+export function useChoiceField(
+  input: FieldConfig<boolean> | boolean,
+  dependencies: unknown[] = [],
+) {
+  return asChoiceField(useField(input, dependencies));
 }
 
 function normalizeFieldConfig<Value>(

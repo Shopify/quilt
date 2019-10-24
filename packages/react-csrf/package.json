@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-csrf",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "license": "MIT",
   "description": "Share csrf token throughout a react application.",
   "main": "dist/index.js",
@@ -25,9 +25,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-csrf/README.md",
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
-  },
-  "devDependencies": {
-    "@shopify/react-testing": "^1.7.9"
   },
   "files": [
     "dist/*"
