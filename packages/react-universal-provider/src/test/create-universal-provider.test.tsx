@@ -8,7 +8,7 @@ import {mount} from '@shopify/react-testing';
 import {createUniversalProvider} from '../create-universal-provider';
 
 const id = 'random';
-const RandomContext = React.createContext<string | null>(null);
+const RandomContext = React.createContext<string | undefined>(undefined);
 const RandomProvider = createUniversalProvider(id, RandomContext);
 
 describe('createUniversalProvider()', () => {
@@ -16,7 +16,7 @@ describe('createUniversalProvider()', () => {
     const randomValue = faker.lorem.word();
     const randomProvider = mount(<RandomProvider value={randomValue} />);
 
-    expect(randomProvider).toProvideReactContext<string | null>(
+    expect(randomProvider).toProvideReactContext<string | undefined>(
       RandomContext,
       randomValue,
     );
@@ -41,7 +41,7 @@ describe('createUniversalProvider()', () => {
       </HtmlContext.Provider>,
     );
 
-    expect(randomProvider).toProvideReactContext<string | null>(
+    expect(randomProvider).toProvideReactContext<string | undefined>(
       RandomContext,
       randomValue,
     );
@@ -67,7 +67,7 @@ describe('createUniversalProvider()', () => {
       </HtmlContext.Provider>,
     );
 
-    expect(randomProvider).toProvideReactContext<string | null>(
+    expect(randomProvider).toProvideReactContext<string | undefined>(
       RandomContext,
       serverRandomValue,
     );
