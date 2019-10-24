@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Added a `usePrevious` hook ([#1145](https://github.com/Shopify/quilt/pull/1145))
+
 ## [1.2.0] - 2019-04-25
 
 - Added a `useMountedRef` hook ([#663](https://github.com/Shopify/quilt/pull/663))
