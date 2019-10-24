@@ -5,7 +5,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
 ## Table of Contents
 
 - [Server-side-rendering](#server-side-rendering)
-  - [Quick start](#server-side-rendering-quick-start)
+  - [Quick start](#quick-start)
     - [Generate Rails boilerplate](#generate-rails-boilerplate)
     - [Add Ruby dependencies](#add-ruby-dependencies)
     - [Generate Quilt boilerplate](#generate-quilt-boilerplate)
@@ -30,7 +30,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
   - [Configure StatsD for production](#configure-statsd-for-production)
 - [API](#api)
   - [ReactRenderable](#reactrenderable)
-  - [PerformanceReportable](#performanceReportable)
+  - [Performance](#performance)
   - [Engine](#engine)
   - [Generators](#generators)
 
