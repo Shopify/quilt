@@ -4,7 +4,9 @@ export type CookieValue = {
   value: string;
 } & CookieSerializeOptions;
 
-export type Cookie = {[key: string]: CookieValue};
+export interface Cookie {
+  [key: string]: CookieValue;
+}
 
 export class ServerCookieManager {
   private readonly cookies = new Map<string, CookieValue>();

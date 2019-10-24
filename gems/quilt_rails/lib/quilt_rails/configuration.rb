@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Quilt
   class Configuration
     attr_accessor :react_server_host, :react_server_protocol
