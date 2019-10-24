@@ -589,14 +589,40 @@ The params sent to the controller are expected to be of type `application/json`.
 }
 ```
 
-the above controller would send the following metrics:
+given the the above controller input, the library would send the following metrics:
 
 ```ruby
-StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
-StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
-StatsD.distribution('navigation_complete', 23924, ['browser_connection_type:3g'])
-StatsD.distribution('navigation_usable', 23924, ['browser_connection_type:3g'])
+StatsD.distribution('time_to_first_byte', 2, tags: {
+  browser_connection_type:'3g',
+})
+StatsD.distribution('time_to_first_byte', 2, tags: {
+  browser_connection_type:'3g' ,
+})
+StatsD.distribution('navigation_complete', 23924, tags: {
+  browser_connection_type:'3g' ,
+})
+StatsD.distribution('navigation_usable', 23924, tags: {
+  browser_connection_type:'3g' ,
+})
 ```
+
+##### Default Metrics
+
+The full list of metrics sent by default are as follows:
+
+###### For full-page load
+- `AppName.time_to_first_byte`, representing the time from the start of the request to when the server began responding with data.
+- `AppName.time_to_first_paint`, representing the time from the start of the request to when the browser rendered anything to the screen.
+- `AppName.time_to_first_contentful_paint` representing the time from the start of the request to when the browser rendered meaningful content to the screen.
+- `AppName.dom_content_loaded` representing the time from the start of the request to when the browser fired the [DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event) event.
+- `AppName.dom_load` representing the time from the start of the request to when the browser fired the [window.load](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) event.
+
+###### For both full-page navigations and client-side page transitions
+- `AppName.navigation_usable`, representing the time it took before for the page to be rendered in a usable state. Usually this does not include data fetching or asynchronous tasks.
+- `AppName.navigation_complete` representing the time it took for the page to be fully loaded, including any data fetching which blocks above-the-fold content.
+- `AppName.navigation_download_size`, representing the total weight of all client-side assets (eg. CSS, JS, images). This will only be sent if there are any events with a `type` of `script` or `style`.
+- `AppName.navigation_cache_effectiveness`, representing what percentage of client-side assets (eg. CSS, JS, images) were returned from the browser's cache. This will only be sent if there are any events with a `type` of `script` or `style`.
+
 
 ##### Customizing `process_report` with a block
 
