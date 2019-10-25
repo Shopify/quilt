@@ -39,12 +39,12 @@ That said, we will need to add some calls to the `usePerformanceMark` hook to ou
 ```tsx
 //Cats.tsx
 import React from 'react';
-import {PerformanceMark} from '@shopify/react-performance';
+import {usePerformanceMark, Stage} from '@shopify/react-performance';
 
 // Represents an entire page of our application
 export function Cats() {
   // Tell the @shopify/react-performance the page is completely loaded
-  usePerformanceMark('complete', 'cats');
+  usePerformanceMark(Stage.Complete, 'cats');
 
   return 'Kokusho, Moe, The Dude';
 }
@@ -210,20 +210,20 @@ function SomeComponent() {
 
 ##### Special `stage` values
 
-Though you can use `usePerformanceMark` with any arbitrary string passed as the `stage` parameter, two special values exist with predetermined meanings and extra side-effects.
+Though you can use `usePerformanceMark` with any arbitrary string passed as the `stage` parameter, two special values exist with predetermined meanings and extra side-effects. These values are contained in the `Stage` enum.
 
-- **usable**: Marks the page _usable_ using `performance.usable()`. A page should be considered `usable` when the bare-minimum of functionality is present. Usually this just means when the React application has mounted the page, but the application is still waiting on some asynchronous data.
-- **complete**: Marks the page _complete_ using `performance.finish()`. A page should be considered `complete` when all data is fetched and the page is fully rendered.
+- `Stage.Usable`: Marks the page _usable_ using `performance.usable()`. A page should be considered `usable` when the bare-minimum of functionality is present. Usually this just means when the React application has mounted the page, but the application is still waiting on some asynchronous data.
+- `Stage.Complete`: Marks the page _complete_ using `performance.finish()`. A page should be considered `complete` when all data is fetched and the page is fully rendered.
 
-For page level components, you should always have _at least_ a `usePerformanceMark` call with a `stage` of `"complete"`.
+For page level components, you should always have _at least_ a `usePerformanceMark` call with a `stage` of `Stage.Complete`.
 
 ```tsx
 import React from 'react';
-import {PerformanceMark} from '@shopify/react-performance';
+import {usePerformanceMark, Stage} from '@shopify/react-performance';
 
 function CatsPage() {
   // mark the component as complete immediately upon rendering
-  usePerformanceMark('complete', 'ProductPage');
+  usePerformanceMark(Stage.Complete, 'ProductPage');
 
   return 'Kokusho, Moe, Smoky, Mama Cat';
 }
@@ -235,14 +235,14 @@ In a more complex application with calls for remote data or other asynchronous w
 // ProductPage.tsx
 
 import React, {useState, useEffect} from 'react';
-import {PerformanceMark} from '@shopify/react-performance';
+import {usePerformanceMark, Stage} from '@shopify/react-performance';
 import {useRemoteKitties} from './hooks';
 
 export function CatsPage() {
   // get some data from a remote API
   const {data, error} = useRemoteKitties();
   // we consider the page complete when we have either our data, or the call for data has returned an error.
-  const stage = data || error ? 'complete' : 'usable';
+  const stage = data || error ? Stage.Complete : Stage.Usable;
   usePerformanceMark(stage, 'CatsPage');
 
   return data || error;
