@@ -1,8 +1,8 @@
-import React from 'react';
-import {ClientApplication} from '@shopify/app-bridge';
+import * as React from 'react';
+import {Context, ClientApplication} from '@shopify/app-bridge';
 import {History as AppBridgeHistory} from '@shopify/app-bridge/actions';
+import {act} from 'react-dom/test-utils';
 import {mount} from '@shopify/react-testing';
-import {MODAL_IFRAME_NAME} from '../globals';
 import RoutePropagator from '../route-propagator';
 
 jest.mock('../globals', () => {
@@ -25,7 +25,9 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
     name: '',
   };
 
-  const mockApp = {} as ClientApplication<any>;
+  const mockApp = ({
+    getState: jest.fn().mockReturnValue(Promise.resolve(Context.Main)),
+  } as unknown) as ClientApplication<any>;
 
   const appBridgeHistoryMock = {
     dispatch: jest.fn(),
@@ -40,10 +42,11 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
     getSelfWindow.mockImplementation(() => selfWindow);
   });
 
-  it('dispatch a replace action on mount', () => {
+  it('dispatch a replace action on mount', async () => {
     const path = '/settings';
-
-    mount(<RoutePropagator location={path} app={mockApp} />);
+    await act((async () => {
+      await mount(<RoutePropagator location={path} app={mockApp} />);
+    }) as any);
 
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(1);
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledWith(
@@ -52,11 +55,15 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
     );
   });
 
-  it('dispatch a replace action when the location updates', () => {
+  it('dispatch a replace action when the location updates', async () => {
     const firstPath = '/settings';
-    const propagator = mount(
-      <RoutePropagator location={firstPath} app={mockApp} />,
-    );
+    let propagator;
+
+    await act((async () => {
+      propagator = await mount(
+        <RoutePropagator location={firstPath} app={mockApp} />,
+      );
+    }) as any);
 
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(1);
     expect(appBridgeHistoryMock.dispatch).toHaveBeenLastCalledWith(
@@ -65,6 +72,11 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
     );
 
     const secondPath = '/foo';
+
+    await act((async () => {
+      await propagator.setProps({location: secondPath});
+    }) as any);
+
     propagator.setProps({location: secondPath});
 
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(2);
@@ -74,11 +86,14 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
     );
   });
 
-  it('does not dispatch a replace action when the location updates but the value stay the same', () => {
+  it('does not dispatch a replace action when the location updates but the value stay the same', async () => {
     const firstPath = '/settings';
-    const propagator = mount(
-      <RoutePropagator location={firstPath} app={mockApp} />,
-    );
+    let propagator;
+    await act((async () => {
+      propagator = await mount(
+        <RoutePropagator location={firstPath} app={mockApp} />,
+      );
+    }) as any);
 
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(1);
     expect(appBridgeHistoryMock.dispatch).toHaveBeenLastCalledWith(
@@ -86,54 +101,69 @@ describe('@shopify/react-shopify-app-route-propagator', () => {
       firstPath,
     );
 
-    propagator.setProps({location: firstPath});
+    await act((async () => {
+      await propagator.setProps({location: firstPath});
+    }) as any);
 
     expect(appBridgeHistoryMock.dispatch).toHaveBeenCalledTimes(1);
   });
 
   describe('when window is window.top', () => {
-    it('does not dispatch a replace action on mount', () => {
+    it('does not dispatch a replace action on mount', async () => {
       getSelfWindow.mockImplementation(() => topWindow);
 
-      mount(<RoutePropagator location="/settings" app={mockApp} />);
+      await act((async () => {
+        await mount(<RoutePropagator location="/settings" app={mockApp} />);
+      }) as any);
 
       expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });
 
-    it('does not dispatch a replace action when the location updates', () => {
+    it('does not dispatch a replace action when the location updates', async () => {
       getSelfWindow.mockImplementation(() => topWindow);
 
-      const propagator = mount(
-        <RoutePropagator location="/settings" app={mockApp} />,
-      );
+      let propagator;
+      await act((async () => {
+        propagator = await mount(
+          <RoutePropagator location="/settings" app={mockApp} />,
+        );
+      }) as any);
 
       const path = '/foo';
-      propagator.setProps({location: path});
+
+      await act((async () => {
+        await propagator.setProps({location: path});
+      }) as any);
 
       expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });
   });
 
-  describe('when window is an iframe', () => {
-    it('does not dispatch a replace action on mount', () => {
-      getSelfWindow.mockImplementation(() => ({
-        name: MODAL_IFRAME_NAME,
-      }));
-      mount(<RoutePropagator location="/settings" app={mockApp} />);
+  describe('when app is not a main app', () => {
+    const modalApp = ({
+      getState: jest.fn().mockReturnValue(Promise.resolve(Context.Modal)),
+    } as unknown) as ClientApplication<any>;
+
+    it('does not dispatch a replace action on mount', async () => {
+      await act((async () => {
+        await mount(<RoutePropagator location="/settings" app={modalApp} />);
+      }) as any);
 
       expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });
 
-    it('does not dispatch a replace action when the location updates', () => {
-      getSelfWindow.mockImplementation(() => ({
-        name: MODAL_IFRAME_NAME,
-      }));
+    it('does not dispatch a replace action when the location updates', async () => {
+      let propagator;
 
-      const propagator = mount(
-        <RoutePropagator location="/settings" app={mockApp} />,
-      );
+      await act((async () => {
+        propagator = await mount(
+          <RoutePropagator location="/settings" app={modalApp} />,
+        );
+      }) as any);
 
-      propagator.setProps({location: '/foo'});
+      await act((async () => {
+        await propagator.setProps({location: '/foo'});
+      }) as any);
 
       expect(appBridgeHistoryMock.dispatch).not.toHaveBeenCalled();
     });

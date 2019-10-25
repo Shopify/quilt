@@ -1,14 +1,9 @@
 import {useMemo, useEffect} from 'react';
-import {ClientApplication} from '@shopify/app-bridge';
+import {Context, ClientApplication} from '@shopify/app-bridge';
 import {History} from '@shopify/app-bridge/actions';
 import {LocationOrHref} from './types';
 
-import {
-  getSelfWindow,
-  getTopWindow,
-  getOrigin,
-  MODAL_IFRAME_NAME,
-} from './globals';
+import {getSelfWindow, getTopWindow, getOrigin} from './globals';
 
 export default function useRoutePropagation(
   app: ClientApplication<any>,
@@ -16,30 +11,42 @@ export default function useRoutePropagation(
 ) {
   const history = useMemo(() => History.create(app), [app]);
 
-  useEffect(() => {
-    const selfWindow = getSelfWindow();
-    const topWindow = getTopWindow();
+  useEffect(
+    () => {
+      async function updateHistory() {
+        const selfWindow = getSelfWindow();
+        const topWindow = getTopWindow();
 
-    const renderedInTheTopWindow = selfWindow === topWindow;
-    const renderedInAModal = selfWindow.name === MODAL_IFRAME_NAME;
+        const renderedInTheTopWindow = selfWindow === topWindow;
 
-    if (renderedInTheTopWindow || renderedInAModal) {
-      return;
-    }
+        const renderedAsMainApp = await app
+          .getState('context')
+          .then((context: Context) => {
+            return context === Context.Main;
+          });
 
-    const normalizedLocation = getNormalizedURL(location);
+        if (renderedInTheTopWindow || !renderedAsMainApp) {
+          return;
+        }
 
-    /*
+        const normalizedLocation = getNormalizedURL(location);
+
+        /*
       We delete this param that ends up unnecassarily stuck on
       the iframe due to oauth when propagating up.
     */
-    normalizedLocation.searchParams.delete('hmac');
+        normalizedLocation.searchParams.delete('hmac');
 
-    const {pathname, search, hash} = normalizedLocation;
-    const locationStr = `${pathname}${search}${hash}`;
+        const {pathname, search, hash} = normalizedLocation;
+        const locationStr = `${pathname}${search}${hash}`;
 
-    history.dispatch(History.Action.REPLACE, locationStr);
-  }, [history, location]);
+        history.dispatch(History.Action.REPLACE, locationStr);
+      }
+
+      updateHistory();
+    },
+    [history, location],
+  );
 }
 
 function getNormalizedURL(location: LocationOrHref) {

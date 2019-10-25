@@ -9,5 +9,3 @@ export function getTopWindow() {
 export function getOrigin() {
   return location.origin;
 }
-
-export const MODAL_IFRAME_NAME = 'app-modal-iframe';
