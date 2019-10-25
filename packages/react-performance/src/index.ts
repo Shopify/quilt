@@ -17,3 +17,5 @@ export {useNavigationListener} from './navigation-listener';
 
 export {PerformanceReport} from './PerformanceReport';
 export {usePerformanceReport} from './performance-report';
+
+export {Stage} from './types';

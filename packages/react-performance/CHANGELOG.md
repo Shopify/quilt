@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.1] - 2019-10-11
+
+### Added
+
+- special values for `PerformanceMark`'s `stage` prop are now exposed as a `Stage` enum [#1137](https://github.com/Shopify/quilt/pull/1137)
+
 ## [1.1.0] - 2019-10-11
 
 ### Added

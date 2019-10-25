@@ -1,12 +1,12 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 import {mockPerformance} from './utilities';
-import {PerformanceMark, PerformanceContext} from '..';
+import {PerformanceMark, PerformanceContext, Stage} from '..';
 
 describe('<PerformanceMark />', () => {
   it('calls performance.mark', () => {
     const performance = mockPerformance({mark: jest.fn()});
-    const stage = 'complete';
+    const stage = 'some custom stage';
     const id = 'test-id';
 
     mount(
@@ -24,7 +24,7 @@ describe('<PerformanceMark />', () => {
 
       mount(
         <PerformanceContext.Provider value={performance}>
-          <PerformanceMark stage="usable" id="test-id" />
+          <PerformanceMark stage={Stage.Usable} id="test-id" />
         </PerformanceContext.Provider>,
       );
 
@@ -38,7 +38,7 @@ describe('<PerformanceMark />', () => {
 
       mount(
         <PerformanceContext.Provider value={performance}>
-          <PerformanceMark stage="complete" id="test-id" />
+          <PerformanceMark stage={Stage.Complete} id="test-id" />
         </PerformanceContext.Provider>,
       );
 

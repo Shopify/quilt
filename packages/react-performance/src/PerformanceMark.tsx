@@ -1,8 +1,8 @@
-import {usePerformanceMark, Stage} from './performance-mark';
+import {usePerformanceMark} from './performance-mark';
 
 interface Props {
   id: string;
-  stage: Stage;
+  stage: string;
 }
 
 export function PerformanceMark({stage, id}: Props) {
