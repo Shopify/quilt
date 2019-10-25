@@ -10,7 +10,10 @@ const FOOTER = `Cookies let the app authenticate you by temporarily storing your
 information. They expire after 30 days.`;
 const ACTION = 'Enable cookies';
 
-export default function createEnableCookies({apiKey}: OAuthStartOptions) {
+export default function createEnableCookies({
+  apiKey,
+  prefix = '',
+}: OAuthStartOptions) {
   return function enableCookies(ctx: Context) {
     const {query} = ctx;
     const {shop} = query;
@@ -370,7 +373,7 @@ export default function createEnableCookies({apiKey}: OAuthStartOptions) {
     (function() {
       function setCookieAndRedirect() {
         document.cookie = "shopify.cookies_persist=true";
-        window.location.href = "/auth?shop=${shop}"
+        window.location.href = "${prefix}/auth?shop=${shop}"
       }
 
       function shouldDisplayPrompt() {

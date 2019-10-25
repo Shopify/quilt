@@ -27,4 +27,20 @@ describe('CreateEnableCookies', () => {
     expect(ctx.body).toContain(shopOrigin);
     expect(ctx.body).toContain(`window.location.href = "/auth?shop=${shop}"`);
   });
+
+  it('sets body to redirect to prefixed auth endpoint', () => {
+    const enableCookies = createEnableCookies({
+      ...baseConfig,
+      prefix: '/my-prefix',
+    });
+    const ctx = createMockContext({
+      url: `https://${baseUrl}?${query({shop})}`,
+    });
+
+    enableCookies(ctx);
+
+    expect(ctx.body).toContain(
+      `window.location.href = "/my-prefix/auth?shop=${shop}"`,
+    );
+  });
 });
