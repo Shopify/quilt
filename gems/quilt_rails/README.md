@@ -420,9 +420,9 @@ class PerformanceReportController < ActionController::Base
   def create
     process_report
 
-    render json: { result: 'success' }, status: 200
+    render(json: { result: 'success' }, status: 200)
   rescue ActionController::ParameterMissing => error
-    render json: { error: error.message, status: 422 }
+    render(json: { error: error.message }, status: 422)
   end
 end
 ```
