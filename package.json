@@ -19,26 +19,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "eslintConfig": {
-    "extends": [
-      "plugin:shopify/typescript",
-      "plugin:shopify/react",
-      "plugin:shopify/jest",
-      "plugin:shopify/prettier"
-    ],
-    "parserOptions": {
-      "project": "tsconfig.json"
-    },
-    "rules": {
-      "shopify/jest/no-snapshots": "off",
-      "shopify/jest/no-vague-titles": [
-        "error",
-        {
-          "allow": "all"
-        }
-      ]
-    }
-  },
   "scripts": {
     "clean": "rm -rf './packages/**/*.{js,d.ts}'",
     "prebuild": "yarn run clean",
@@ -66,8 +46,8 @@
     "@types/jest": "^24.0.11",
     "@types/node": "^10.0.4",
     "@types/yargs": "^11.0.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-shopify": "^30.0.1",
+    "eslint": "^6.5.0",
+    "eslint-plugin-shopify": "^31.0.0",
     "graphql": "^14.0.0",
     "in-publish": "^2.0.0",
     "jest": "^24.7.1",

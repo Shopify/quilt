@@ -216,7 +216,7 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(selfDocument).self).not.toEqual(fill(meDocument).me);
+      expect(fill(selfDocument).self).not.toStrictEqual(fill(meDocument).me);
     });
 
     it('uses different values for a list of keypaths', () => {
@@ -230,7 +230,9 @@ describe('createFiller()', () => {
 
       const data = fill(document, {self: {parents: () => [{}, {}]}});
 
-      expect(data.self.parents[0].name).not.toEqual(data.self.parents[1].name);
+      expect(data.self.parents[0].name).not.toStrictEqual(
+        data.self.parents[1].name,
+      );
     });
   });
 

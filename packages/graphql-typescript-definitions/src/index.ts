@@ -74,13 +74,13 @@ type GraphQLDocumentMapByProject = Map<
 >;
 
 export class Builder extends EventEmitter {
-  private options: Options;
+  private readonly options: Options;
   // workspace graphql configuration
   // see: https://github.com/prisma/graphql-config
   private readonly config: GraphQLConfig;
   // projectName -> {filePath -> document}
   // NOTE: projectName can be undefined for nameless graphql-config projects
-  private documentMapByProject: GraphQLDocumentMapByProject = new Map<
+  private readonly documentMapByProject: GraphQLDocumentMapByProject = new Map<
     string | undefined,
     Map<string, DocumentNode>
   >();
@@ -99,10 +99,11 @@ export class Builder extends EventEmitter {
   once(event: 'error', handler: (error: Error) => void): this;
   once(event: 'build:docs', handler: (built: DocumentBuild) => void): this;
   once(event: 'build:schema', handler: (built: SchemaBuild) => void): this;
-  once(event: 'start:docs', handler: () => void): this;
-  once(event: 'end:docs', handler: () => void): this;
-  once(event: 'start:schema', handler: () => void): this;
-  once(event: 'end:schema', handler: () => void): this;
+  once(
+    event: 'start:docs' | 'end:docs' | 'start:schema' | 'end:schema',
+    handler: () => void,
+  ): this;
+
   once(event: string, handler: (...args: any[]) => void): this {
     return super.once(event, handler);
   }
@@ -110,10 +111,11 @@ export class Builder extends EventEmitter {
   on(event: 'error', handler: (error: Error) => void): this;
   on(event: 'build:docs', handler: (built: DocumentBuild) => void): this;
   on(event: 'build:schema', handler: (built: SchemaBuild) => void): this;
-  on(event: 'start:docs', handler: () => void): this;
-  on(event: 'end:docs', handler: () => void): this;
-  on(event: 'start:schema', handler: () => void): this;
-  on(event: 'end:schema', handler: () => void): this;
+  on(
+    event: 'start:docs' | 'end:docs' | 'start:schema' | 'end:schema',
+    handler: () => void,
+  ): this;
+
   on(event: string, handler: (...args: any[]) => void): this {
     return super.on(event, handler);
   }
@@ -121,10 +123,10 @@ export class Builder extends EventEmitter {
   emit(event: 'error', error: Error): boolean;
   emit(event: 'build:docs', built: DocumentBuild): boolean;
   emit(event: 'build:schema', built: SchemaBuild): boolean;
-  emit(event: 'start:docs'): boolean;
-  emit(event: 'end:docs'): boolean;
-  emit(event: 'start:schema'): boolean;
-  emit(event: 'end:schema'): boolean;
+  emit(
+    event: 'start:docs' | 'end:docs' | 'start:schema' | 'end:schema',
+  ): boolean;
+
   emit(event: string, ...args: any[]): boolean {
     return super.emit(event, ...args);
   }

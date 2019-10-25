@@ -35,9 +35,12 @@ export class FileContext {
       : null;
   }
 
-  private importedTypes = new Set<string>();
+  private readonly importedTypes = new Set<string>();
 
-  constructor(private path: string, private options: Options) {}
+  constructor(
+    private readonly path: string,
+    private readonly options: Options,
+  ) {}
 
   import(type: string) {
     this.importedTypes.add(type);
@@ -78,7 +81,7 @@ export class OperationContext {
     return this.exportedTypes;
   }
 
-  private exportedTypes: NamespaceExportableType[] = [];
+  private readonly exportedTypes: NamespaceExportableType[] = [];
 
   constructor(
     public operation: Operation | Fragment,

@@ -14,7 +14,7 @@ import {
 import {Field} from 'graphql-tool-utilities';
 
 export class ObjectStack {
-  private seenFields = new Set<string>();
+  private readonly seenFields = new Set<string>();
 
   get name(): string {
     const {parent, field, isFragment, type} = this;
@@ -24,10 +24,10 @@ export class ObjectStack {
   }
 
   constructor(
-    private type?: GraphQLCompositeType,
-    private field?: Field,
-    private parent?: ObjectStack,
-    private isFragment = false,
+    private readonly type?: GraphQLCompositeType,
+    private readonly field?: Field,
+    private readonly parent?: ObjectStack,
+    private readonly isFragment = false,
   ) {}
 
   nested(field: Field, type: GraphQLCompositeType) {
