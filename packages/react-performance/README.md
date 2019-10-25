@@ -9,11 +9,11 @@ Primitives to measure your React application's performance using `@shopify/perfo
 
 - [Quick-start](#quick-start)
 
-  - [Install the package](install-the-package)
-  - [Track some stats](track-some-stats)
-  - [Display real-time navigation data](display-real-time-navigation-data)
-  - [Send report data to a server](send-report-data-to-a-server)
-  - [Process report data and forward it to StatsD](process-report-data-and-forward-it-to-statsd)
+  - [Install the package](#install-the-package)
+  - [Track some stats](#track-some-stats)
+  - [Display real-time navigation data](#display-real-time-navigation-data)
+  - [Send report data to a server](#send-report-data-to-a-server)
+  - [Process report data and forward it to StatsD](#process-report-data-and-forward-it-to-statsd)
 
 - [API](#api)
   - [Hooks](#hooks)
