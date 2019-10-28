@@ -16,10 +16,6 @@ export interface GraphQLClientConfig {
   cacheOptions?: ApolloReducerConfig;
 }
 
-export interface GraphQLClientOptions {
-  ssrMode?: boolean;
-}
-
 export type MockGraphQLClient = ApolloClient<any> & {
   graphQLRequests: Requests;
   graphQLResults: Promise<any>[];
@@ -37,10 +33,7 @@ export default function configureClient({
   schema,
   cacheOptions = {},
 }: GraphQLClientConfig) {
-  return function createGraphQLClient(
-    mock: GraphQLMock = defaultGraphQLMock,
-    {ssrMode = true}: GraphQLClientOptions = {},
-  ) {
+  return function createGraphQLClient(mock: GraphQLMock = defaultGraphQLMock) {
     const cache = new InMemoryCache({
       fragmentMatcher: new IntrospectionFragmentMatcher({
         introspectionQueryResultData: {
@@ -75,7 +68,6 @@ export default function configureClient({
     const client = new ApolloClient({
       link: memoryLink.concat(mockLink),
       cache,
-      ssrMode,
     }) as MockGraphQLClient;
 
     client.graphQLRequests = graphQLRequests;

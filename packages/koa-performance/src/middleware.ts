@@ -16,7 +16,7 @@ import {BrowserConnection} from './types';
 
 export interface Options {
   prefix: string;
-  development: boolean;
+  development?: boolean;
   statsdHost?: string;
   statsdPort?: number;
   anomalousNavigationDurationThreshold?: number;
@@ -47,7 +47,8 @@ export function clientPerformanceMetrics({
   statsdHost,
   statsdPort,
   prefix,
-  development,
+  // eslint-disable-next-line no-process-env
+  development = process.env.NODE_ENV === 'development',
   logger,
   anomalousNavigationDurationThreshold,
   additionalTags: getAdditionalTags,
