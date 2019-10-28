@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@shopify/react-effect/server": ["packages/react-effect/src/server"],
+      "@shopify/ast-utlities/markdown": ["packages/ast-utilties/src/markdown"],
       "@shopify/*": ["packages/*/src/index"]
     }
   }
