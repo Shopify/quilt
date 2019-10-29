@@ -84,3 +84,21 @@ function MockComponent() {
   );
 }
 ```
+
+### `usePrevious()`
+
+This hook will store the previous value of a given variable.
+
+```tsx
+function Score({value}) {
+  const previousValue = usePrevious(value);
+  const newRecord = value > previousValue ? <p>We have a new record!</p> : null;
+
+  return (
+    <>
+      <p>Current score: {value}</p>
+      {newRecord}
+    </>
+  );
+}
+```
