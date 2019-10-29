@@ -9,7 +9,7 @@ import {
   ExecutionResult,
   OperationVariables,
 } from 'react-apollo';
-import {Omit} from '@shopify/useful-types';
+import {Omit, IfAllNullableKeys} from '@shopify/useful-types';
 import {VariableOptions} from '../types';
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
@@ -39,6 +39,9 @@ export type MutationHookOptions<
   };
 
 export type MutationHookResult<Data, Variables> = (
-  options?: Omit<MutationOptions<Data, Variables>, 'mutation' | 'fetchPolicy'> &
-    Pick<ClientMutationOptions, 'fetchPolicy'>,
+  ...optionsPart: IfAllNullableKeys<
+    Variables,
+    [MutationHookOptions<Data, Variables>?],
+    [MutationHookOptions<Data, Variables>]
+  >
 ) => Promise<ExecutionResult<Data>>;
