@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.10] - 2019-10-29
+
+- Adds `RouterChildContext` to exported types
+
 ## [0.0.9] - 2019-10-01
 
 - Fix Redirect component
