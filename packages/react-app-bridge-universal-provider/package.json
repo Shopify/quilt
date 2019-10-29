@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-app-bridge-universal-provider",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "description": "A self-serializing/deserializing app-bridge-react provider that works for isomorphic applications.",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-app-bridge-universal-provider/README.md",
   "dependencies": {
     "@shopify/app-bridge-react": ">=1.5.0",
-    "@shopify/react-html": "^9.2.5"
+    "@shopify/react-html": "^9.2.6"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
