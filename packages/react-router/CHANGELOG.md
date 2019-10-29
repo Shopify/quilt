@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
 
-## [0.0.10] - 2019-10-29
+## [0.0.13] - 2019-10-29
 
 - Adds `RouterChildContext` to exported types
 
