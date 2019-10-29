@@ -5,19 +5,21 @@ import {
 import {MutationOptions} from 'react-apollo';
 import {DocumentNode} from 'graphql-typed';
 import {useCallback} from 'react';
-import {Omit} from '@shopify/useful-types';
+import {Omit, IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 
 import {MutationHookOptions, MutationHookResult} from './types';
 import useApolloClient from './apollo-client';
 
 export default function useMutation<Data = any, Variables = OperationVariables>(
   mutation: DocumentNode<Data, Variables>,
-  options: Omit<
-    MutationHookOptions<Data, Variables>,
-    'mutation' | 'fetchPolicy'
-  > &
-    Pick<ClientMutationOptions<Data, Variables>, 'fetchPolicy'> = {},
+  ...optionsPart: IfAllNullableKeys<
+    Variables,
+    [MutationHookOptions<Data, NoInfer<Variables>>?],
+    [MutationHookOptions<Data, NoInfer<Variables>>]
+  >
 ): MutationHookResult<Data, Variables> {
+  const [options = {} as MutationHookOptions<Data, Variables>] = optionsPart;
+
   const {
     client: overrideClient,
     variables,

@@ -10,11 +10,15 @@ import {
   OperationVariables,
 } from 'react-apollo';
 import {Omit} from '@shopify/useful-types';
+import {VariableOptions} from '../types';
 
-export interface QueryHookOptions<Variables = OperationVariables>
-  extends Omit<QueryOptions<Variables>, 'partialRefetch'> {
-  skip?: boolean;
-}
+export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
+  QueryOptions<Data, Variables>,
+  'query' | 'partialRefetch' | 'children' | 'variables'
+> &
+  VariableOptions<Variables> & {
+    skip?: boolean;
+  };
 
 export interface QueryHookResult<Data, Variables>
   extends Omit<QueryResult<Data, Variables>, 'networkStatus' | 'variables'> {
@@ -22,12 +26,17 @@ export interface QueryHookResult<Data, Variables>
   variables: QueryResult<Data, Variables>['variables'] | undefined;
 }
 
-export interface MutationHookOptions<
+export type MutationHookOptions<
   Data = any,
   Variables = OperationVariables
-> extends MutationOptions<Data, Variables> {
-  client?: ApolloClient<object>;
-}
+> = Omit<
+  MutationOptions<Data, Variables>,
+  'variables' | 'mutation' | 'fetchPolicy'
+> &
+  VariableOptions<Variables> &
+  Pick<ClientMutationOptions<Data, Variables>, 'fetchPolicy'> & {
+    client?: ApolloClient<object>;
+  };
 
 export type MutationHookResult<Data, Variables> = (
   options?: Omit<MutationOptions<Data, Variables>, 'mutation' | 'fetchPolicy'> &
