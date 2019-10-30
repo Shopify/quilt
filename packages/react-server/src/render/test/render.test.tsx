@@ -1,10 +1,13 @@
 import React from 'react';
 import {Effect} from '@shopify/react-effect/server';
+import {middleware as sewingKitKoaMiddleware} from '@shopify/sewing-kit-koa';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
 import {createRender} from '../render';
+import {mockMiddleware} from '../../test/utilities';
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
+  middleware: jest.fn(() => mockMiddleware),
   getAssets() {
     return {
       styles: () => Promise.resolve([]),
@@ -19,7 +22,7 @@ describe('createRender', () => {
     const ctx = createMockContext();
 
     const renderFunction = createRender(() => <>{myCoolApp}</>);
-    await renderFunction(ctx);
+    await renderFunction(ctx, noop);
 
     expect(await readStream(ctx.body)).toContain(myCoolApp);
   });
@@ -29,9 +32,21 @@ describe('createRender', () => {
     const ctx = createMockContext({headers: {'some-header': headerValue}});
 
     const renderFunction = createRender(ctx => <>{ctx.get('some-header')}</>);
-    await renderFunction(ctx);
+    await renderFunction(ctx, noop);
 
     expect(await readStream(ctx.body)).toContain(headerValue);
+  });
+
+  it('calls the sewing-kit-koa middleware with the passed in assetPrefix', async () => {
+    const assetPrefix = 'path/to/assets';
+    const ctx = createMockContext();
+
+    const renderFunction = createRender(() => <></>, {assetPrefix});
+    await renderFunction(ctx, noop);
+
+    expect(sewingKitKoaMiddleware).toHaveBeenCalledWith(
+      expect.objectContaining({assetPrefix}),
+    );
   });
 
   describe('error handling', () => {
@@ -47,7 +62,7 @@ describe('createRender', () => {
         const ctx = {...createMockContext(), locale: ''};
 
         const renderFunction = createRender(() => <BrokenApp />);
-        await renderFunction(ctx);
+        await renderFunction(ctx, noop);
 
         expect(await readStream(ctx.body)).toContain(error.message);
         expect(await readStream(ctx.body)).toContain(error.stack);
@@ -62,7 +77,7 @@ describe('createRender', () => {
           .mockImplementation(() => null);
 
         const renderFunction = createRender(() => <BrokenApp />);
-        await renderFunction(ctx);
+        await renderFunction(ctx, noop);
 
         expect(throwSpy).toHaveBeenCalledWith(500, new Error(error.message));
       });
@@ -75,7 +90,7 @@ describe('createRender', () => {
       const afterEachPass = jest.fn();
       const renderFunction = createRender(() => <>Markup</>, {afterEachPass});
 
-      await renderFunction(ctx);
+      await renderFunction(ctx, noop);
 
       expect(afterEachPass).toHaveBeenCalledTimes(1);
     });
@@ -96,7 +111,7 @@ describe('createRender', () => {
         },
       );
 
-      await renderFunction(ctx);
+      await renderFunction(ctx, noop);
 
       expect(betweenEachPass.mock.calls.length).toBeGreaterThanOrEqual(1);
     });
@@ -111,3 +126,5 @@ function readStream(stream: NodeJS.ReadableStream) {
     stream.on('end', () => resolve(response));
   });
 }
+
+async function noop() {}
