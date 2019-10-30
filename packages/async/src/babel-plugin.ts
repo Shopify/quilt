@@ -4,7 +4,7 @@ import {NodePath, Binding} from '@babel/traverse';
 const DEFAULT_PACKAGES_TO_PROCESS = {
   '@shopify/async': ['createResolver'],
   '@shopify/react-async': ['createAsyncContext', 'createAsyncComponent'],
-  '@shopify/react-graphql': ['createAsyncQueryComponent'],
+  '@shopify/react-graphql': ['createAsyncQueryComponent', 'createAsyncQuery'],
 };
 
 export interface Options {

@@ -4,53 +4,59 @@ import {DocumentNode} from 'graphql-typed';
 import {useMountedRef} from '@shopify/react-hooks';
 import {useAsyncAsset} from '@shopify/react-async';
 
-import {AsyncQueryComponentType} from '../types';
+import {AsyncDocumentNode} from '../types';
 
 export default function useGraphQLDocument<
   Data = any,
   Variables = OperationVariables,
   DeepPartial = {}
 >(
-  documentOrComponent:
+  documentOrAsyncDocument:
     | DocumentNode<Data, Variables>
-    | AsyncQueryComponentType<Data, Variables, DeepPartial>,
+    | AsyncDocumentNode<Data, Variables, DeepPartial>,
 ): DocumentNode<Data, Variables> | null {
   const [document, setDocument] = useState<DocumentNode<
     Data,
     Variables
   > | null>(() => {
-    if (isDocumentNode(documentOrComponent)) {
-      return documentOrComponent;
+    if (isDocumentNode(documentOrAsyncDocument)) {
+      return documentOrAsyncDocument;
     } else {
-      return documentOrComponent.resolver.resolved;
+      return documentOrAsyncDocument.resolver.resolved;
     }
   });
 
   const mounted = useMountedRef();
 
-  const loadDocument = useCallback(async () => {
-    if (!isDocumentNode(documentOrComponent)) {
-      try {
-        const resolved = await documentOrComponent.resolver.resolve();
-        if (mounted.current) {
-          setDocument(resolved);
+  const loadDocument = useCallback(
+    async () => {
+      if (!isDocumentNode(documentOrAsyncDocument)) {
+        try {
+          const resolved = await documentOrAsyncDocument.resolver.resolve();
+          if (mounted.current) {
+            setDocument(resolved);
+          }
+        } catch (error) {
+          throw Error('error loading GraphQL document');
         }
-      } catch (error) {
-        throw Error('error loading GraphQL document');
       }
-    }
-  }, [documentOrComponent, mounted]);
+    },
+    [documentOrAsyncDocument, mounted],
+  );
 
-  useEffect(() => {
-    if (!document) {
-      loadDocument();
-    }
-  }, [document, loadDocument]);
+  useEffect(
+    () => {
+      if (!document) {
+        loadDocument();
+      }
+    },
+    [document, loadDocument],
+  );
 
   useAsyncAsset(
-    isDocumentNode(documentOrComponent)
+    isDocumentNode(documentOrAsyncDocument)
       ? undefined
-      : documentOrComponent.resolver.id,
+      : documentOrAsyncDocument.resolver.id,
   );
 
   return document;

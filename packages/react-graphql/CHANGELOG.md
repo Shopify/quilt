@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Added a `createAsyncQuery` function that can create queries that are only loaded when executed.
+
 ### Changed
 
 - Improved typings to avoid cases where TypeScript allowed variables to be omitted incorrectly. These typings now require `react-apollo@3.x`.

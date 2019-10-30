@@ -15,50 +15,41 @@ $ yarn add @shopify/react-graphql
 
 This library builds on top of [react-apollo](https://github.com/apollographql/react-apollo) to provide asynchronously-loaded query components and more strongly-typed queries when used with [`graphql-typescript-definitions`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-typescript-definitions).
 
-### `Query`
+### `createAsyncQuery`
 
-react-apollo’s `Query` component is great, but does not have any built-in understanding of the connection between a GraphQL operation (provided in the `query` prop) and the data types of the resulting query. This library re-exports a `Query` component with improved typings. It will automatically read from from the types embedded in the query by `graphql-typescript-definitions` and use these as appropriate for the rest of the `Query` component’s props.
+`createAsyncQuery` is used to create a GraphQL document that is only loaded when the query is actually run. This feature of the query makes it well-suited for use with prefetching, as you would otherwise need to include all prefetched GraphQL queries in the main bundle.
+
+To create an async query, call `createAsyncQuery` with a `load` property that asyncronously loads a GraphQL document:
+
+```ts
+import {createAsyncQuery} from '@shopify/react-graphql';
+
+const productDetailsQuery = createAsyncQuery({
+  load: () => import('./graphql/ProductDetailsQuery.graphql'),
+});
+```
+
+The returned value can be used in any of the other APIs of this library that accept a query document. Additionally, this value has `@shopify/react-async`-compatible `usePreload`, `usePrefetch`, and `useKeepFresh` hooks. That means the document can be preloaded, prefetched, or kept fresh (using polling) using the hooks provided by `@shopify/react-async`.
 
 ```tsx
-import {Query} from '@shopify/react-graphql';
-import myQuery from './graphql/MyQuery.graphql';
+import {usePrefetch} from '@shopify/react-async';
+import {createAsyncQuery, useQuery} from '@shopify/react-graphql';
 
-// Assuming the following GraphQL API:
+const myQuery = createAsyncQuery({
+  load: () => import('./graphql/MyQuery.graphql'),
+});
 
-//
-// type Shop = {
-//   id: String!
-//   name: String!
-// }
+// The result of calling the GraphQL query
+const {data, loading} = useQuery(myQuery);
 
-// type Query = {
-//   shop: Shop!
-// }
-//
-// and the following query:
-//
-// query MyQuery {
-//   shop { id }
-// }
-
-// Type error because no variables are allowed
-<Query query={query} variables={{}}>{() => null}</Query>
-
-// Type error because name was not queried
-<Query query={query}>
-  {({data}) => {
-    return data ? <div>{data.shop.name}</div> : null;
-  }}
-</Query>
+// A function that will load the query script and run the query immediately
+// when called
+const prefetch = usePrefetch(myQuery);
 ```
 
 ### `createAsyncQueryComponent()`
 
-Another problem with the `Query` component is that it does not work well when trying to preload GraphQL data for another page that is in a different JavaScript bundle. Because the `query` must be provided directly, there is no easy way to keep it from "leaking" into unrelated bundles.
-
-The `createAsyncQueryComponent` function is an equally strong-typed alternative to `Query` that supports asynchronously-loading GraphQL queries. The resulting component also exposes useful `usePreload`, `usePrefetch`, and `useKeepFresh` hooks built from the query, as well as shortcut `Preload`, `Prefetch`, and `KeepFresh` components. Best of all, it uses [`@shopify/react-async`](https://github.com/Shopify/quilt/tree/master/packages/react-async) under the hood, so you get the same server rendering benefits described in that package.
-
-This function takes an options object with a `load` property that returns a promise for a GraphQL query:
+This function uses `createAsyncQuery` with the provided arguments to create an async query, and returns a React component that will run the query when mounted. Like `createAsyncQuery`, the resulting component is strongly type checked, and is fully compatible with the `usePreload`-style hooks from `@shopify/react-async`.
 
 ```tsx
 import {createAsyncQueryComponent} from '@shopify/react-graphql';
@@ -104,7 +95,7 @@ const MyQuery = createAsyncQueryComponent({
 </MyQuery>;
 ```
 
-As with components created by `@shopify/react-async`’s `createAsyncComponent()` function, these queries also have static `usePreload`, `usePrefetch`, and `useKeepFresh` hooks, and `Preload`, `Prefetch`, and `KeepFresh` components. "Preload" will simply load the JavaScript bundle associated with the query. "Prefetch" will load the JavaScript bundle **and** load the data (so, if there are any mandatory variables for your query, they will be required when rendering `Prefetch`/ using `usePrefetch`). "KeepFresh" will do the same as "Prefetch", but will also poll for the query.
+As with components created by `createAsyncQuery()`, these queries also have static `usePreload`, `usePrefetch`, and `useKeepFresh` hooks. Like components create with ``@shopify/react-async`, these components also have static`Preload`,`Prefetch`, and`KeepFresh` components.
 
 ```tsx
 import {usePrefetch} from '@shopify/react-async';
@@ -196,7 +187,7 @@ function MyComponent() {
 
 This hook accepts two arguments:
 
-- first argument, a required query document or an `AsyncQueryComponent` created from [`createAsyncQueryComponent`](#createasyncquerycomponent)
+- first argument, a required query document, or an `AsyncQueryComponent` created from [`createAsyncQueryComponent`](#createasyncquerycomponent), or an async query create with [`createAsyncQuery`](#createasyncquery).
 
 - second argument, a optional set of options with the following type definition.
 
@@ -264,6 +255,35 @@ import React from 'react';
 import {useQuery} from '@shopify/react-graphql';
 
 import customerListQuery from './graphql/CustomerListQuery.graphql';
+
+function CustomerList() {
+  const {data, loading} = useQuery(customerListQuery);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const customers = data && data.customers ? data.customers : [];
+  return (
+    <ul>
+      {customers.map(customer => (
+        <li key={customer.id}>{customer.displayName}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Querying with an async query
+
+Below is an example using `useQuery` with an async query created from [`createAsyncQuery`](#createasyncquery).
+
+```tsx
+import React from 'react';
+import {createAsyncQuery, useQuery} from '@shopify/react-graphql';
+
+const customerListQuery = createAsyncQuery({
+  load: () => import('./graphql/CustomerListQuery.graphql'),
+});
 
 function CustomerList() {
   const {data, loading} = useQuery(customerListQuery);
@@ -354,4 +374,41 @@ function CustomerDetail() {
     </Form>
   );
 }
+```
+
+### `Query`
+
+react-apollo’s `Query` component is great, but does not have any built-in understanding of the connection between a GraphQL operation (provided in the `query` prop) and the data types of the resulting query. This library re-exports a `Query` component with improved typings. It will automatically read from from the types embedded in the query by `graphql-typescript-definitions` and use these as appropriate for the rest of the `Query` component’s props.
+
+```tsx
+import {Query} from '@shopify/react-graphql';
+import myQuery from './graphql/MyQuery.graphql';
+
+// Assuming the following GraphQL API:
+
+//
+// type Shop = {
+//   id: String!
+//   name: String!
+// }
+
+// type Query = {
+//   shop: Shop!
+// }
+//
+// and the following query:
+//
+// query MyQuery {
+//   shop { id }
+// }
+
+// Type error because no variables are allowed
+<Query query={query} variables={{}}>{() => null}</Query>
+
+// Type error because name was not queried
+<Query query={query}>
+  {({data}) => {
+    return data ? <div>{data.shop.name}</div> : null;
+  }}
+</Query>
 ```

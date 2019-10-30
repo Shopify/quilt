@@ -9,18 +9,13 @@ export enum AssetTiming {
   Immediate = 4,
 }
 
-export interface AsyncComponentType<
+export interface AsyncHookTarget<
   T,
-  Props extends object,
   PreloadOptions extends object,
   PrefetchOptions extends object,
   KeepFreshOptions extends object
 > {
   readonly resolver: Resolver<T>;
-  (props: Props): ReactElement<Props>;
-  Preload(props: PreloadOptions): React.ReactElement<{}> | null;
-  Prefetch(props: PrefetchOptions): React.ReactElement<{}> | null;
-  KeepFresh(props: KeepFreshOptions): React.ReactElement<{}> | null;
   usePreload(
     ...props: IfAllOptionalKeys<
       PreloadOptions,
@@ -42,6 +37,25 @@ export interface AsyncComponentType<
       [KeepFreshOptions]
     >
   ): () => void;
+}
+
+export interface AsyncComponentType<
+  T,
+  Props extends object,
+  PreloadOptions extends object,
+  PrefetchOptions extends object,
+  KeepFreshOptions extends object
+>
+  extends AsyncHookTarget<
+      T,
+      PreloadOptions,
+      PrefetchOptions,
+      KeepFreshOptions
+    > {
+  (props: Props): ReactElement<Props>;
+  Preload(props: PreloadOptions): React.ReactElement<{}> | null;
+  Prefetch(props: PrefetchOptions): React.ReactElement<{}> | null;
+  KeepFresh(props: KeepFreshOptions): React.ReactElement<{}> | null;
 }
 
 export type PreloadOptions<T> = T extends AsyncComponentType<
