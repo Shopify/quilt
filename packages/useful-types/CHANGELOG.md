@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.1.0] - 2019-10-30
+
 ### Added
 
 - Added the `NoInfer<T>` type alias.

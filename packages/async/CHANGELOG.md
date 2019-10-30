@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 2.1.0 - 2019-10-30
+
+### Added
+
+- Added `createAsyncQuery` to the list of default transforms ([#1153](https://github.com/Shopify/quilt/pull/1153))
+
 ### Fixed
 
 - Patch: Documentation typo fix in README.md ([842](https://github.com/Shopify/quilt/pull/842))
