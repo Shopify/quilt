@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
 import {Resolver} from '@shopify/async';
-import {IfAllOptionalKeys} from '@shopify/useful-types';
+import {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
 
 export enum AssetTiming {
   None = 1,
@@ -19,22 +19,22 @@ export interface AsyncHookTarget<
   usePreload(
     ...props: IfAllOptionalKeys<
       PreloadOptions,
-      [PreloadOptions?],
-      [PreloadOptions]
+      [NoInfer<PreloadOptions>?],
+      [NoInfer<PreloadOptions>]
     >
   ): () => void;
   usePrefetch(
     ...props: IfAllOptionalKeys<
       PrefetchOptions,
-      [PrefetchOptions?],
-      [PrefetchOptions]
+      [NoInfer<PrefetchOptions>?],
+      [NoInfer<PrefetchOptions>]
     >
   ): () => void;
   useKeepFresh(
     ...props: IfAllOptionalKeys<
       KeepFreshOptions,
-      [KeepFreshOptions?],
-      [KeepFreshOptions]
+      [NoInfer<KeepFreshOptions>?],
+      [NoInfer<KeepFreshOptions>]
     >
   ): () => void;
 }
@@ -58,18 +58,7 @@ export interface AsyncComponentType<
   KeepFresh(props: KeepFreshOptions): React.ReactElement<{}> | null;
 }
 
-export type PreloadOptions<T> = T extends AsyncComponentType<
-  any,
-  any,
-  infer U,
-  any,
-  any
->
-  ? U
-  : never;
-
-export type PrefetchOptions<T> = T extends AsyncComponentType<
-  any,
+export type PreloadOptions<T> = T extends AsyncHookTarget<
   any,
   infer U,
   any,
@@ -78,12 +67,20 @@ export type PrefetchOptions<T> = T extends AsyncComponentType<
   ? U
   : never;
 
-export type KeepFreshOptions<T> = T extends AsyncComponentType<
+export type PrefetchOptions<T> = T extends AsyncHookTarget<
   any,
   any,
   infer U,
-  any,
   any
+>
+  ? U
+  : never;
+
+export type KeepFreshOptions<T> = T extends AsyncHookTarget<
+  any,
+  any,
+  any,
+  infer U
 >
   ? U
   : never;

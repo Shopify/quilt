@@ -2,7 +2,7 @@ import {useState, useCallback, useContext} from 'react';
 import {Resolver} from '@shopify/async';
 import {useServerEffect} from '@shopify/react-effect';
 import {useMountedRef} from '@shopify/react-hooks';
-import {IfAllOptionalKeys} from '@shopify/useful-types';
+import {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
 
 import {AsyncAssetContext} from './context/assets';
 import {AssetTiming, AsyncComponentType} from './types';
@@ -25,8 +25,8 @@ export type KeepFreshable<KeepFreshOptions extends object> = Pick<
 export function usePreload<PreloadOptions extends object>(
   ...args: IfAllOptionalKeys<
     PreloadOptions,
-    [Preloadable<PreloadOptions>, PreloadOptions?],
-    [Preloadable<PreloadOptions>, PreloadOptions]
+    [Preloadable<PreloadOptions>, NoInfer<PreloadOptions>?],
+    [Preloadable<PreloadOptions>, NoInfer<PreloadOptions>]
   >
 ): ReturnType<typeof args[0]['usePreload']> {
   const [preloadable, options = {}] = args;
@@ -36,8 +36,8 @@ export function usePreload<PreloadOptions extends object>(
 export function usePrefetch<PrefetchOptions extends object>(
   ...args: IfAllOptionalKeys<
     PrefetchOptions,
-    [Prefetchable<PrefetchOptions>, PrefetchOptions?],
-    [Prefetchable<PrefetchOptions>, PrefetchOptions]
+    [Prefetchable<PrefetchOptions>, NoInfer<PrefetchOptions>?],
+    [Prefetchable<PrefetchOptions>, NoInfer<PrefetchOptions>]
   >
 ): ReturnType<typeof args[0]['usePrefetch']> {
   const [prefetchable, options = {}] = args;
@@ -47,8 +47,8 @@ export function usePrefetch<PrefetchOptions extends object>(
 export function useKeepFresh<KeepFreshOptions extends object>(
   ...args: IfAllOptionalKeys<
     KeepFreshOptions,
-    [KeepFreshable<KeepFreshOptions>, KeepFreshOptions?],
-    [KeepFreshable<KeepFreshOptions>, KeepFreshOptions]
+    [KeepFreshable<KeepFreshOptions>, NoInfer<KeepFreshOptions>?],
+    [KeepFreshable<KeepFreshOptions>, NoInfer<KeepFreshOptions>]
   >
 ): ReturnType<typeof args[0]['useKeepFresh']> {
   const [keepFreshable, options = {}] = args;
