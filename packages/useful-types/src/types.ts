@@ -19,8 +19,8 @@ export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]
     ? DeepPartial<U>[]
     : T[P] extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : DeepPartial<T[P]>
+    ? ReadonlyArray<DeepPartial<U>>
+    : DeepPartial<T[P]>
 };
 
 export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
@@ -51,7 +51,7 @@ export type NonNullableKeys<T> = {
   [K in keyof T]-?: null extends T[K] ? never : K
 }[keyof T];
 
-export type NoInfer<T> = {} & T;
+export type NoInfer<T> = {[K in keyof T]: T[K]} & T;
 
 // Reference https://github.com/mridgway/hoist-non-react-statics/blob/master/src/index.js#L6
 type ReactStatics =

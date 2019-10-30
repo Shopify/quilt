@@ -47,11 +47,11 @@ export interface AsyncComponentType<
   KeepFreshOptions extends object
 >
   extends AsyncHookTarget<
-      T,
-      PreloadOptions,
-      PrefetchOptions,
-      KeepFreshOptions
-    > {
+    T,
+    PreloadOptions,
+    PrefetchOptions,
+    KeepFreshOptions
+  > {
   (props: Props): ReactElement<Props>;
   Preload(props: PreloadOptions): React.ReactElement<{}> | null;
   Prefetch(props: PrefetchOptions): React.ReactElement<{}> | null;
