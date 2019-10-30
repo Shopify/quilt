@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Exported some additional types that can be useful for creating objects that can be used with `usePreload`, `usePrefetch`, and `useKeepFresh`.
+
 ## [3.0.1] - 2019-07-04
 
 ### Fixed
