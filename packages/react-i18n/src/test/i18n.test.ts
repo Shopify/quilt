@@ -1451,8 +1451,8 @@ describe('I18n', () => {
 
   describe('#translationKeyExists', () => {
     it('returns true if the translation key exists', () => {
-      const mockResult = 'translated string';
-      translate.mockReturnValue(mockResult);
+      const mockResult = {hello: 'translated string'};
+      getTranslationTree.mockReturnValue(mockResult);
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
       const result = i18n.translationKeyExists('hello');
@@ -1463,13 +1463,28 @@ describe('I18n', () => {
     it('returns false if the translation key does not exist', () => {
       const key = 'foo';
       const error = new MissingTranslationError(key, defaultDetails.locale);
-      translate.mockImplementation(() => {
+      getTranslationTree.mockImplementation(() => {
         throw error;
       });
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
       const result = i18n.translationKeyExists(key);
 
+      expect(result).toBe(false);
+    });
+
+    it('returns false if the translation key does not exist and onError is overridden', () => {
+      const key = 'foo';
+      const error = new MissingTranslationError(key, defaultDetails.locale);
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: jest.fn(),
+      });
+
+      const result = i18n.translationKeyExists(key);
       expect(result).toBe(false);
     });
   });
