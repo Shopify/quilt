@@ -20,7 +20,7 @@ yarn add graphql-fixtures --dev
 
 Returns a function that will be used to create object fixtures. This function takes the GraphQL schema (which will be used to generate the correct type of data given the document), and an optional object with the following properties:
 
-* `resolvers`: an object whose keys are names of types in the passed `schema`, and whose values are functions that return a fixture version of that type. This function can return a partial fixture; the default resolvers will then fill the remainder of the object. The function will be called two arguments: the GraphQL request (including variables), and details about the type and field currently being filled. You could use this to, for example, create dynamic values for a type based on the object in which it resides:
+- `resolvers`: an object whose keys are names of types in the passed `schema`, and whose values are functions that return a fixture version of that type. This function can return a partial fixture; the default resolvers will then fill the remainder of the object. The function will be called two arguments: the GraphQL request (including variables), and details about the type and field currently being filled. You could use this to, for example, create dynamic values for a type based on the object in which it resides:
 
   ```ts
   let currentID = 1;
@@ -43,7 +43,7 @@ function fill<Data, Variables, PartialData>(
   // an import from a .graphql file and an asynchronous query component
   // from `@shopify/react-graphql`
   operation: GraphQLOperation<Data, Variables, PartialData>,
-  data?: DeepThunk<PartialData>,
+  data?: GraphQLFillerData<GraphQLOperation<Data, Variables, PartialData>>,
 ): (request: GraphQLRequest) => Data;
 ```
 
