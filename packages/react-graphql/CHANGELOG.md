@@ -7,13 +7,15 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [6.0.0] - 2019-10-30
+
 ### Added
 
-- Added a `createAsyncQuery` function that can create queries that are only loaded when executed.
+- Added a `createAsyncQuery` function that can create queries that are only loaded when executed ([#1153](https://github.com/Shopify/quilt/pull/1153)).
 
 ### Changed
 
-- Improved typings to avoid cases where TypeScript allowed variables to be omitted incorrectly. These typings now require `react-apollo@3.x`.
+- Improved typings to avoid cases where TypeScript allowed variables to be omitted incorrectly. These typings now require `react-apollo@3.x` ([#1153](https://github.com/Shopify/quilt/pull/1153)).
 
 ## [5.2.0] - 2019-10-07
 

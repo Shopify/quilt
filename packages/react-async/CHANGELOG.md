@@ -7,9 +7,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.1.0] - 2019-10-30
+
 ### Added
 
-- Exported some additional types that can be useful for creating objects that can be used with `usePreload`, `usePrefetch`, and `useKeepFresh`.
+- Exported some additional types that can be useful for creating objects that can be used with `usePreload`, `usePrefetch`, and `useKeepFresh` ([#1153](https://github.com/Shopify/quilt/pull/1153)).
 
 ## [3.0.1] - 2019-07-04
 
