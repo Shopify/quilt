@@ -4,34 +4,34 @@ import {DocumentNode} from 'graphql-typed';
 import {useMountedRef} from '@shopify/react-hooks';
 import {useAsyncAsset} from '@shopify/react-async';
 
-import {AsyncQueryComponentType} from '../types';
+import {AsyncDocumentNode} from '../types';
 
 export default function useGraphQLDocument<
   Data = any,
   Variables = OperationVariables,
   DeepPartial = {}
 >(
-  documentOrComponent:
+  documentOrAsyncDocument:
     | DocumentNode<Data, Variables>
-    | AsyncQueryComponentType<Data, Variables, DeepPartial>,
+    | AsyncDocumentNode<Data, Variables, DeepPartial>,
 ): DocumentNode<Data, Variables> | null {
   const [document, setDocument] = useState<DocumentNode<
     Data,
     Variables
   > | null>(() => {
-    if (isDocumentNode(documentOrComponent)) {
-      return documentOrComponent;
+    if (isDocumentNode(documentOrAsyncDocument)) {
+      return documentOrAsyncDocument;
     } else {
-      return documentOrComponent.resolver.resolved;
+      return documentOrAsyncDocument.resolver.resolved;
     }
   });
 
   const mounted = useMountedRef();
 
   const loadDocument = useCallback(async () => {
-    if (!isDocumentNode(documentOrComponent)) {
+    if (!isDocumentNode(documentOrAsyncDocument)) {
       try {
-        const resolved = await documentOrComponent.resolver.resolve();
+        const resolved = await documentOrAsyncDocument.resolver.resolve();
         if (mounted.current) {
           setDocument(resolved);
         }
@@ -39,7 +39,7 @@ export default function useGraphQLDocument<
         throw Error('error loading GraphQL document');
       }
     }
-  }, [documentOrComponent, mounted]);
+  }, [documentOrAsyncDocument, mounted]);
 
   useEffect(() => {
     if (!document) {
@@ -48,9 +48,9 @@ export default function useGraphQLDocument<
   }, [document, loadDocument]);
 
   useAsyncAsset(
-    isDocumentNode(documentOrComponent)
+    isDocumentNode(documentOrAsyncDocument)
       ? undefined
-      : documentOrComponent.resolver.id,
+      : documentOrAsyncDocument.resolver.id,
   );
 
   return document;

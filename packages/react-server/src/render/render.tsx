@@ -1,5 +1,8 @@
+import {join} from 'path';
+import {existsSync} from 'fs';
 import React from 'react';
 import {Context} from 'koa';
+import compose from 'koa-compose';
 import {
   Html,
   HtmlManager,
@@ -20,7 +23,10 @@ import {
   AssetTiming,
 } from '@shopify/react-async';
 import {Header, StatusCode} from '@shopify/react-network';
-import {getAssets} from '@shopify/sewing-kit-koa';
+import {
+  getAssets,
+  middleware as sewingKitMiddleware,
+} from '@shopify/sewing-kit-koa';
 import {getLogger} from '../logger';
 
 export {Context};
@@ -31,14 +37,20 @@ export interface RenderFunction {
 type Options = Pick<
   NonNullable<ArgumentAtIndex<typeof extract, 1>>,
   'afterEachPass' | 'betweenEachPass'
->;
+> & {
+  assetPrefix?: string;
+};
 
 /**
- * Creates a Koa middleware for rendering an `@shopify/react-html` based React application defined by `options.render`.
+ * Creates a Koa middleware for rendering an `@shopify/react-html` based React application defined by `render`.
  * @param render
+ * @param options
  */
 export function createRender(render: RenderFunction, options: Options = {}) {
-  return async function renderFunction(ctx: Context) {
+  const manifestPath = getManifestPath(process.cwd());
+  const {assetPrefix} = options;
+
+  async function renderFunction(ctx: Context) {
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
 
@@ -117,5 +129,22 @@ export function createRender(render: RenderFunction, options: Options = {}) {
         ctx.throw(StatusCode.InternalServerError, error);
       }
     }
-  };
+  }
+
+  return compose([
+    sewingKitMiddleware({assetPrefix, manifestPath}),
+    renderFunction,
+  ]);
+}
+
+function getManifestPath(root: string) {
+  const gemFileExists = existsSync(join(root, 'Gemfile'));
+  if (!gemFileExists) {
+    return;
+  }
+
+  // eslint-disable-next-line no-process-env
+  return process.env.NODE_ENV === 'development'
+    ? `tmp/sewing-kit/sewing-kit-manifest.json`
+    : `public/bundles/sewing-kit-manifest.json`;
 }

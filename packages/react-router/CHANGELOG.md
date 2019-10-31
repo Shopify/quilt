@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.0.15] - 2019-10-30
+
+- The `<Router />` component will now give a more useful error message when not given a `location` on the server
+
 ## [0.0.13] - 2019-10-29
 
 - Adds `RouterChildContext` to exported types
