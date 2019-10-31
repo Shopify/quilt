@@ -52,6 +52,22 @@ describe('react-server-webpack-plugin', () => {
       BUILD_TIMEOUT,
     );
 
+    it(
+      'does not use the generated client module when a folder with an index file is present',
+      async () => {
+        const [serverResults, clientResults] = await runBuild(
+          'client-folder-entrypoint',
+        );
+        const clientModule = getModule(clientResults, 'client');
+        const serverModule = getModule(serverResults, 'server');
+
+        expect(clientModule.source).not.toMatch(HEADER);
+        expect(clientModule.source).toMatch('I am a bespoke client entry');
+        expect(serverModule.source).toMatch(HEADER);
+      },
+      BUILD_TIMEOUT,
+    );
+
     it('does not use the generated client module when a bespoke file is present', async () => {
       const [serverResults, clientResults] = await runBuild(
         'client-entrypoint',
@@ -69,6 +85,22 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const [serverResults, clientResults] = await runBuild(
           'server-entrypoint',
+        );
+        const clientModule = getModule(clientResults, 'client');
+        const serverModule = getModule(serverResults, 'server');
+
+        expect(serverModule.source).not.toMatch(HEADER);
+        expect(serverModule.source).toMatch('I am a bespoke server entry');
+        expect(clientModule.source).toMatch(HEADER);
+      },
+      BUILD_TIMEOUT,
+    );
+
+    it(
+      'does not use the generated server module when a folder with an index file is present',
+      async () => {
+        const [serverResults, clientResults] = await runBuild(
+          'server-folder-entrypoint',
         );
         const clientModule = getModule(clientResults, 'client');
         const serverModule = getModule(serverResults, 'server');
@@ -157,8 +189,10 @@ function runBuild(configPath: string): Promise<any[]> {
 }
 
 function getModule(results: any, basePath: string) {
-  const newResults = results.modules.find(({name}) =>
-    name.includes(`./${basePath}.js`),
+  const newResults = results.modules.find(
+    ({name}) =>
+      name.includes(`./${basePath}.js`) ||
+      name.includes(`./${basePath}/index.js`),
   );
 
   if (newResults.source) {
