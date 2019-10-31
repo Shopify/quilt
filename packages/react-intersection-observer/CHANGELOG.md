@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.0.1] - 2019-10-31
+
+- Change `useIntersection` hook behaviour to set and distribute the `IntersectionObserverEntry` object directly
+
 ## [2.0.0] - 2019-04-09
 
 This library now requires React 16.8.
