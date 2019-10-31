@@ -189,8 +189,10 @@ function runBuild(configPath: string): Promise<any[]> {
 }
 
 function getModule(results: any, basePath: string) {
-  const newResults = results.modules.find(({name}) =>
-    name.includes(`./${basePath}.js`) || name.includes(`./${basePath}/index.js`),
+  const newResults = results.modules.find(
+    ({name}) =>
+      name.includes(`./${basePath}.js`) ||
+      name.includes(`./${basePath}/index.js`),
   );
 
   if (newResults.source) {

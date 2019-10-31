@@ -129,7 +129,7 @@ function noSourceExists(
   if (existsSync(join(basePath, entry))) {
     return false;
   }
-  
+
   // otherwise we look for explicit files in the folder
   const dirFiles = readdirSync(basePath);
   const filenameRegex = new RegExp(`^${entry}.[jt]sx?$`);
