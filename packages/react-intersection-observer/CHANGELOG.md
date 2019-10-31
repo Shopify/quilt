@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [2.0.1] - 2019-10-31
+## [2.0.8] - 2019-10-31
 
 - Change `useIntersection` hook behaviour to set and distribute the `IntersectionObserverEntry` object directly
 
