@@ -10,8 +10,9 @@ import {
 } from 'apollo-client';
 import {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
+import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 
-import {AsyncQueryComponentType} from '../types';
+import {AsyncDocumentNode} from '../types';
 import {QueryHookOptions, QueryHookResult} from './types';
 import useApolloClient from './apollo-client';
 import useGraphQLDocument from './graphql-document';
@@ -21,11 +22,17 @@ export default function useQuery<
   Variables = OperationVariables,
   DeepPartial = {}
 >(
-  queryOrComponent:
-    | DocumentNode<Data, Variables>
-    | AsyncQueryComponentType<Data, Variables, DeepPartial>,
-  options: Omit<QueryHookOptions<Variables>, 'query'> = {},
+  queryOrAsyncQuery:
+    | DocumentNode<Data, Variables, DeepPartial>
+    | AsyncDocumentNode<Data, Variables, DeepPartial>,
+  ...optionsPart: IfAllNullableKeys<
+    Variables,
+    [QueryHookOptions<Data, NoInfer<Variables>>?],
+    [QueryHookOptions<Data, NoInfer<Variables>>]
+  >
 ): QueryHookResult<Data, Variables> {
+  const [options = {} as QueryHookOptions<Data, Variables>] = optionsPart;
+
   const {
     skip = false,
     fetchPolicy,
@@ -37,9 +44,7 @@ export default function useQuery<
     ssr = true,
   } = options;
 
-  // This type gets inferred as Record<string, any> which causes
-  // lots of issues with stronger type checks elsewhere in the hook.
-  const variables: Variables = options.variables as any;
+  const variables: Variables = options.variables || ({} as any);
   const client = useApolloClient(overrideClient);
 
   if (
@@ -49,7 +54,7 @@ export default function useQuery<
     return createDefaultResult(client, variables);
   }
 
-  const query = useGraphQLDocument(queryOrComponent);
+  const query = useGraphQLDocument(queryOrAsyncQuery);
 
   const normalizedFetchPolicy =
     typeof window === 'undefined' &&

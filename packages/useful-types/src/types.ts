@@ -51,6 +51,8 @@ export type NonNullableKeys<T> = {
   [K in keyof T]-?: null extends T[K] ? never : K
 }[keyof T];
 
+export type NoInfer<T> = {[K in keyof T]: T[K]} & T;
+
 // Reference https://github.com/mridgway/hoist-non-react-statics/blob/master/src/index.js#L6
 type ReactStatics =
   | 'displayName'

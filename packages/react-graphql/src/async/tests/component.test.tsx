@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react';
 import {random, name} from 'faker';
 
 import gql from 'graphql-tag';
-import ApolloClient, {NetworkStatus} from 'apollo-client';
+import ApolloClient from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 
@@ -14,9 +14,8 @@ import {
 } from '@shopify/jest-dom-mocks';
 import {AssetTiming} from '@shopify/react-async';
 
-import {Query} from '../Query';
-import {ApolloProvider} from '../ApolloProvider';
-import {createAsyncQueryComponent} from '../async';
+import {ApolloProvider} from '../../ApolloProvider';
+import {createAsyncQueryComponent} from '../component';
 
 const query = gql`
   query MyQuery {
@@ -89,28 +88,8 @@ describe('createAsyncQueryComponent()', () => {
         loading: true,
         data: undefined,
         variables,
-        networkStatus: NetworkStatus.loading,
       }),
     );
-  });
-
-  it('renders a Query component when the query is available', async () => {
-    const resolvable = createResolvablePromise(query);
-    const load = () => resolvable.promise;
-    const props = {
-      ...defaultProps,
-      fetchPolicy: 'cache-first' as 'cache-first',
-    };
-
-    const AsyncQuery = createAsyncQueryComponent({load});
-    const asyncQuery = mount(<AsyncQuery {...props} />);
-
-    await asyncQuery.act(() => resolvable.resolve());
-
-    expect(asyncQuery).toContainReactComponent(Query, {
-      query,
-      ...props,
-    });
   });
 
   describe('<Preload />', () => {
@@ -168,7 +147,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const client = createMockApolloClient();
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
-      watchQuerySpy.mockImplementation(() => ({subscribe() {}}));
+      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
 
       const variables = {name: name.firstName()};
       const asyncQuery = mount(<AsyncQuery.Prefetch variables={variables} />, {
@@ -227,7 +206,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const client = createMockApolloClient();
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
-      watchQuerySpy.mockImplementation(() => ({subscribe() {}}));
+      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
 
       const variables = {name: name.firstName()};
       const asyncQuery = mount(<AsyncQuery.KeepFresh variables={variables} />, {
