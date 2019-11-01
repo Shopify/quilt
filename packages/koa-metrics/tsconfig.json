@@ -11,5 +11,9 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../jest-koa-mocks"}, {"path": "../with-env"}]
+  "references": [
+    {"path": "../jest-koa-mocks"},
+    {"path": "../with-env"},
+    {"path": "../statsd"}
+  ]
 }

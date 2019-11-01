@@ -11,5 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../useful-types"}]
+  "references": [{"path": "../useful-types"}, {"path": "../async"}]
 }
