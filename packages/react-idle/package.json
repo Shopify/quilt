@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-idle/README.md",
   "dependencies": {
-    "@shopify/async": "^2.1.0"
+    "@shopify/async": "^2.1.0",
+    "@shopify/useful-types": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"

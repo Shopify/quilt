@@ -1,4 +1,10 @@
-import {ApolloLink, Operation, NextLink, Observable} from 'apollo-link';
+import {
+  ApolloLink,
+  Operation,
+  NextLink,
+  Observable,
+  FetchResult,
+} from 'apollo-link';
 
 import {CacheMissBehavior} from './shared';
 

@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
+    "build": "tsc --p tsconfig.json",
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {

@@ -4,7 +4,6 @@
   "description": "Shopify's javascript application utilities",
   "scripts": {
     "publish": "lerna publish",
-    "prebuild": "yarn run clean",
     "build": "yarn tsc --build packages",
     "lint": "eslint '**/*.{ts,tsx}'",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
