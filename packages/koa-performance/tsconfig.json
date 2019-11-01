@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig_base.json",
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist",
@@ -11,5 +11,6 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [{"path": "../performance"}, {"path": "../statsd"}]
 }
