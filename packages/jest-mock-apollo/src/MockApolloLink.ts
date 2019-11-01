@@ -1,5 +1,4 @@
 import {ApolloLink, Observable, Operation, NextLink} from 'apollo-link';
-
 import {
   GraphQLType,
   ExecutionResult,

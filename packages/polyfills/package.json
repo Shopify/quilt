@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/polyfills/README.md",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@shopify/useful-types": "^2.1.0",
     "browser-unhandled-rejection": "^1.0.2",
     "caniuse-api": "^3.0.0",
     "formdata-polyfill": "^3.0.18",

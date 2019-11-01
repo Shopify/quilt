@@ -67,10 +67,11 @@
     {"path": "./react-tracking-pixel"},
     {"path": "./react-universal-provider"},
     {"path": "./react-web-worker"},
+    {"path": "./rpc"},
     {"path": "./semaphore"},
     {"path": "./sewing-kit-koa"},
     {"path": "./statsd"},
-    {"path": "./useful-types"}
+    {"path": "./useful-types"},
     {"path": "./web-worker"},
     {"path": "./with-env"}
   ]

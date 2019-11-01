@@ -1,5 +1,4 @@
 import React, {useRef} from 'react';
-
 import {useSerialized, useHtmlAttributes} from '@shopify/react-html';
 import {I18nContext, I18nDetails, I18nManager} from '@shopify/react-i18n';
 

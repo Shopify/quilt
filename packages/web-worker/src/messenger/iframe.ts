@@ -35,7 +35,7 @@ export function createIframeWorkerMessenger(url: URL): MessageEndpoint {
   document.body.appendChild(iframe);
 
   return {
-    postMessage: (...args) => port1.postMessage(...args),
+    postMessage: (...args: [any, Transferable[]]) => port1.postMessage(...args),
     addEventListener: (...args) => port1.addEventListener(...args),
     removeEventListener: (...args) => port1.removeEventListener(...args),
     terminate() {
