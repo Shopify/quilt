@@ -87,6 +87,21 @@ export type DeepThunk<T, Data, Variables, DeepPartial> = T extends object
     }
   : T;
 
+export type GraphQLFillerData<
+  Operation extends GraphQLOperation
+> = Operation extends GraphQLOperation<
+  infer Data,
+  infer Variables,
+  infer PartialData
+>
+  ? Thunk<
+      DeepThunk<PartialData, Data, Variables, PartialData>,
+      Data,
+      Variables,
+      PartialData
+    >
+  : never;
+
 export interface Options {
   resolvers?: {[key: string]: Resolver};
 }
@@ -129,12 +144,7 @@ export function createFiller(
 
   return function fill<Data, Variables, PartialData>(
     _document: GraphQLOperation<Data, Variables, PartialData>,
-    data?: Thunk<
-      DeepThunk<PartialData, Data, Variables, PartialData>,
-      Data,
-      Variables,
-      PartialData
-    >,
+    data?: GraphQLFillerData<GraphQLOperation<Data, Variables, PartialData>>,
   ): (request: GraphQLRequest<Data, Variables, PartialData>) => Data {
     return (request: GraphQLRequest<Data, Variables, PartialData>) => {
       const {operationName, query} = request;
