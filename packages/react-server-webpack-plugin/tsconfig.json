@@ -1,5 +1,6 @@
 {
   "extends": "../tsconfig_base.json",
+  "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./src",
@@ -10,6 +11,5 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/*/templates/**/*"],
-  "references": [{"path": "../react-testing"}]
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
 }

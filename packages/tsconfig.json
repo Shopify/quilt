@@ -23,6 +23,7 @@
     {"path": "./jest-mock-router"},
     {"path": "./koa-liveness-ping"},
     {"path": "./koa-metrics"},
+    {"path": "./koa-performance"},
     {"path": "./koa-shopify-auth"},
     {"path": "./koa-shopify-graphql-proxy"},
     {"path": "./koa-shopify-webhooks"},
@@ -34,6 +35,7 @@
     {"path": "./react-app-bridge-universal-provider"},
     {"path": "./react-async"},
     {"path": "./react-compose"},
+    {"path": "./react-cookie"},
     {"path": "./react-csrf"},
     {"path": "./react-csrf-universal-provider"},
     {"path": "./react-effect"},
@@ -52,6 +54,7 @@
     {"path": "./react-import-remote"},
     {"path": "./react-intersection-observer"},
     {"path": "./react-network"},
+    {"path": "./react-performance"},
     {"path": "./react-preconnect"},
     {"path": "./react-router"},
     {"path": "./react-self-serializers"},
@@ -63,9 +66,12 @@
     {"path": "./react-testing"},
     {"path": "./react-tracking-pixel"},
     {"path": "./react-universal-provider"},
+    {"path": "./react-web-worker"},
     {"path": "./semaphore"},
     {"path": "./sewing-kit-koa"},
-    {"path": "./useful-types"},
+    {"path": "./statsd"},
+    {"path": "./useful-types"}
+    {"path": "./web-worker"},
     {"path": "./with-env"}
   ]
 }
