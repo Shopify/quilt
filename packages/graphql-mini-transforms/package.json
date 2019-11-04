@@ -1,7 +1,7 @@
 {
   "name": "graphql-mini-transforms",
   "description": "Transformers for importing .graphql files in various build tools.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "types": "lib",
   "license": "MIT",
   "publishConfig": {
@@ -31,8 +31,8 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "common-tags": "1.8.0",
-    "@types/common-tags": "1.4.0"
+    "@types/common-tags": "1.4.0",
+    "common-tags": "1.8.0"
   },
   "dependencies": {
     "@jest/transform": "^24.7.1",
