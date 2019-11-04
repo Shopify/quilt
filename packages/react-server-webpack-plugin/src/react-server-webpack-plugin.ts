@@ -3,7 +3,7 @@ import {existsSync, readdirSync} from 'fs';
 import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 
-interface Options {
+export interface Options {
   basePath: string;
   assetPrefix?: string;
   host?: string;
