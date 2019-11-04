@@ -14,7 +14,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
           const [serverResults, clientResults] = await runBuild(name);
@@ -43,7 +42,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
           const [serverResults, clientResults] = await runBuild(name);
@@ -64,7 +62,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
           const [serverResults] = await runBuild(name);
@@ -88,7 +85,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client/index.js', BASIC_ENTRY);
 
@@ -111,7 +107,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client.js', BASIC_ENTRY);
 
@@ -134,7 +129,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server.js', BASIC_ENTRY);
 
@@ -157,7 +151,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server/index.js', BASIC_ENTRY);
 
@@ -181,7 +174,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write(
             'webpack.config.js',
             createWebpackConfig({basePath}),
@@ -212,7 +204,6 @@ describe('react-server-webpack-plugin', () => {
 
         await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('package.json', BASIC_PACKAGE_JSON);
           await workspace.write(
             'webpack.config.js',
             createWebpackConfig(customConfig),
@@ -295,24 +286,6 @@ const BASIC_ENTRY = `console.log('I am a bespoke entry');`;
 const BASIC_JS_MODULE = `module.exports = () => {
   return 'I am totally a react component';
 };`;
-
-const BASIC_PACKAGE_JSON = `{
-  "name": "react-server-webpack-plugin-no-entrypoints",
-  "version": "0.0.0",
-  "license": "MIT",
-  "description": "A fixture",
-  "dependencies": {
-    "webpack-virtual-modules": "^0.1.12"
-  },
-  "devDependencies": {
-    "@shopify/react-server": "^0.1.0",
-    "typescript": "~3.2.1",
-    "webpack": "^4.39.1"
-  },
-  "files": [
-    "dist/*"
-  ]
-}`;
 
 const createWebpackConfig = (
   {basePath, port, host, assetPrefix}: Options = {
