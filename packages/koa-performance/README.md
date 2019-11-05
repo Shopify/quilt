@@ -11,16 +11,13 @@ Best used with [`@shopify/performance`](https://www.npmjs.com/package/@shopify/p
 
 - [Quick-start](#quick-start)
 
-  - [Install the package](install-the-package)
-  - [Add the middleware](add-the-middleware)
-  - [Verify with CURL](verify-with-curl)
-  - [Send data from the frontend](send-data-from-the-frontend)
-  - [Process report data and forward it to StatsD](process-report-data-and-forward-it-to-statsd)
+  - [Install the package](#install-the-package)
+  - [Add the middleware](#add-the-middleware)
+  - [Verify with CURL](#verify-with-curl)
+  - [Send data from the frontend](#send-data-from-the-frontend)
+  - [Process report data and forward it to StatsD](#process-report-data-and-forward-it-to-statsd)
 
 - [API](#api)
-  - [Hooks](#hooks)
-  - [Components](#components)
-  - [Other](#other)
 
 ## Quick-start
 
