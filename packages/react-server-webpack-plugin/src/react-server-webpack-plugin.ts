@@ -1,5 +1,6 @@
 import {join, resolve} from 'path';
 import {existsSync, readdirSync} from 'fs';
+
 import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 

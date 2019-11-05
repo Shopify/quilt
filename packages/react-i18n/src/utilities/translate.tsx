@@ -4,6 +4,7 @@ import {
   pseudotranslate as pseudotranslateString,
   PseudotranslateOptions,
 } from '@shopify/i18n';
+
 import {
   TranslationDictionary,
   ComplexReplacementDictionary,

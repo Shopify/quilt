@@ -3,8 +3,10 @@ import faker from 'faker';
 import {mount} from 'enzyme';
 
 import {validateList} from '../validators';
+
 import {lastCallArgs} from './utilities';
 import {Input, InputField} from './components';
+
 import FormState, {validate, validateNested} from '..';
 
 describe('<FormState />', () => {

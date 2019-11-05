@@ -1,4 +1,5 @@
 import {join} from 'path';
+
 import {readJson} from 'fs-extra';
 import {matchesUA} from 'browserslist-useragent';
 import appRoot from 'app-root-path';

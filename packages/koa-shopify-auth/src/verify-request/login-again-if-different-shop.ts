@@ -1,5 +1,7 @@
 import {Context} from 'koa';
+
 import {NextFunction} from '../types';
+
 import {Routes} from './types';
 import {clearSession, redirectToAuth} from './utilities';
 

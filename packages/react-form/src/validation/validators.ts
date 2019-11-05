@@ -1,4 +1,5 @@
 import * as predicates from '@shopify/predicates';
+
 import {ErrorContent, validator} from './validator';
 
 export function lengthMoreThan(length, error: ErrorContent<string>) {

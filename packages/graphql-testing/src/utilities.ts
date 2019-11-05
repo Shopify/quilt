@@ -1,4 +1,5 @@
 import {DocumentNode, OperationDefinitionNode} from 'graphql';
+
 import {FindOptions} from './types';
 
 export function operationNameFromFindOptions({

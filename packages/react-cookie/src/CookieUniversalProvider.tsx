@@ -1,6 +1,7 @@
 import React from 'react';
 import {useNetworkManager} from '@shopify/react-network';
 import {useLazyRef} from '@shopify/react-hooks';
+
 import {BrowserCookieManager} from './BrowserCookieManager';
 import {CookieContext} from './context';
 import {hasDocumentCookie} from './utilities';

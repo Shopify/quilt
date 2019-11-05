@@ -6,6 +6,7 @@ import {
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
+
 import {GraphQLMock} from './types';
 import MockApolloLink from './MockApolloLink';
 import Requests from './Requests';

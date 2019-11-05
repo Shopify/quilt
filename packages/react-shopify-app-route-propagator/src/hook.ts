@@ -1,8 +1,8 @@
 import {useMemo, useEffect} from 'react';
 import {ClientApplication} from '@shopify/app-bridge';
 import {History} from '@shopify/app-bridge/actions';
-import {LocationOrHref} from './types';
 
+import {LocationOrHref} from './types';
 import {
   getSelfWindow,
   getTopWindow,

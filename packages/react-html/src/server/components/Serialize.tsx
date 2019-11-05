@@ -1,5 +1,6 @@
 import React from 'react';
 import serialize from 'serialize-javascript';
+
 import {SERIALIZE_ATTRIBUTE} from '../../utilities';
 
 interface Props {

@@ -1,6 +1,7 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 import {timer} from '@shopify/jest-dom-mocks';
+
 import useTimeout from '../timeout';
 
 describe('useTimeout', () => {

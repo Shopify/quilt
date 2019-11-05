@@ -1,5 +1,4 @@
 import {PromisifyModule} from './types';
-
 import {
   RETAIN_METHOD,
   RELEASE_METHOD,

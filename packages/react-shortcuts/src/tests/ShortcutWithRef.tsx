@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Shortcut from '../Shortcut';
 
 interface Props {

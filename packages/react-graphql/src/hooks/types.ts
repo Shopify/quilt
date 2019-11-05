@@ -10,6 +10,7 @@ import {
   OperationVariables,
 } from 'react-apollo';
 import {Omit, IfAllNullableKeys} from '@shopify/useful-types';
+
 import {VariableOptions} from '../types';
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<

@@ -1,8 +1,10 @@
 import React from 'react';
 import {NetworkManager, NetworkContext} from '@shopify/react-network';
 import {createMount} from '@shopify/react-testing';
+
 import {CookieUniversalProvider} from '../CookieUniversalProvider';
 import {useCookie} from '../hooks';
+
 import {clearCookies} from './utilities';
 
 const {hasDocumentCookie} = require.requireMock('../utilities');

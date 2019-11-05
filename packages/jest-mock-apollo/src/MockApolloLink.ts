@@ -12,6 +12,7 @@ import {
   isUnionType,
 } from 'graphql';
 import {compile, Field} from 'graphql-tool-utilities';
+
 import {GraphQLMock, MockGraphQLFunction} from './types';
 
 export default class MockApolloLink extends ApolloLink {

@@ -1,4 +1,5 @@
 import {StatusCode} from '@shopify/network';
+
 import {useStatus} from '../hooks';
 
 interface Props {

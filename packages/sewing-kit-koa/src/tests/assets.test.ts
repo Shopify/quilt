@@ -1,6 +1,8 @@
 import {join, basename} from 'path';
+
 import appRoot from 'app-root-path';
 import withEnv from '@shopify/with-env';
+
 import Assets, {
   internalOnlyClearCache,
   Asset,

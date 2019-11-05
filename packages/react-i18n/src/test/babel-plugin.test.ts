@@ -1,5 +1,7 @@
 import path from 'path';
+
 import {transformAsync, TransformOptions} from '@babel/core';
+
 import i18nBabelPlugin from '../babel-plugin';
 
 jest.mock('string-hash', () => () => {
