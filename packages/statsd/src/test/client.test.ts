@@ -1,4 +1,5 @@
 import {StatsD} from 'hot-shots';
+
 import {StatsDClient} from '../client';
 
 jest.mock('hot-shots');

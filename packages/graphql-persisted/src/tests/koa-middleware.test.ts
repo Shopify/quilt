@@ -2,6 +2,7 @@ import faker from 'faker';
 import {Header} from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {setAssets} from '@shopify/sewing-kit-koa';
+
 import {
   Cache,
   CacheMissBehavior,

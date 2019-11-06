@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 

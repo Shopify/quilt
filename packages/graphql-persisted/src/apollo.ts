@@ -1,4 +1,5 @@
 import {ApolloLink, Operation, NextLink, Observable} from 'apollo-link';
+
 import {CacheMissBehavior} from './shared';
 
 interface Options {

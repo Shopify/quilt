@@ -4,6 +4,7 @@ import {ApolloLink} from 'apollo-link';
 
 import {createPersistedLink} from '../apollo';
 import {CacheMissBehavior} from '../shared';
+
 import {executeOnce, SimpleLink} from './utilities';
 
 describe('PersistedLink', () => {

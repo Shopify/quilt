@@ -3,10 +3,12 @@
  */
 
 import * as path from 'path';
+
 import {DefinePlugin} from 'webpack';
 import {Page, Worker, JSHandle} from 'puppeteer';
 
 import {WebWorkerPlugin} from '../webpack-parts';
+
 import {withContext, Context, runWebpack as runWebpackBase} from './utilities';
 
 const babelPlugin = path.resolve(__dirname, '../babel-plugin.ts');

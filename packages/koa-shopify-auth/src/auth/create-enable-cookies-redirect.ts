@@ -1,6 +1,7 @@
 import {Context} from 'koa';
 
 import createTopLevelRedirect from './create-top-level-redirect';
+
 import {TEST_COOKIE_NAME} from './index';
 
 export default function createEnableCookiesRedirect(path: string) {

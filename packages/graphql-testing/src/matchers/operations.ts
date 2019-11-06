@@ -4,13 +4,14 @@ import {
   EXPECTED_COLOR as expectedColor,
 } from 'jest-matcher-utils';
 import {GraphQLOperation, DocumentNode} from 'graphql-typed';
-
 import {Operation} from 'apollo-link';
+
 import {GraphQL} from '../graphql-controller';
 import {
   operationNameFromDocument,
   operationTypeFromDocument,
 } from '../utilities';
+
 import {assertIsGraphQL, diffVariablesForOperation} from './utilities';
 
 export function toHavePerformedGraphQLOperation<Variables>(

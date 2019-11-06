@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {useIntersection, useValueTracking} from './hooks';
 import {UnsupportedBehavior} from './types';
 

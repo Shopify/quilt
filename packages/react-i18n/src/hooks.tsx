@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {useLazyRef} from '@shopify/react-hooks';
 
 import {I18n} from './i18n';

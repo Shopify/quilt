@@ -1,5 +1,6 @@
 import React from 'react';
 import {createPortal} from 'react-dom';
+
 import {mount} from '../mount';
 
 describe('e2e', () => {

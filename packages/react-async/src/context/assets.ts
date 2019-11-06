@@ -1,5 +1,6 @@
 import React from 'react';
 import {EffectKind} from '@shopify/react-effect';
+
 import {AssetTiming} from '../types';
 
 export interface AssetSelector {

@@ -1,4 +1,5 @@
 import faker from 'faker';
+
 import {push, replace, remove} from '../utilities';
 
 describe('array-utilities', () => {

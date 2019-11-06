@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter, StaticRouter} from 'react-router-dom';
 import {mount} from '@shopify/react-testing';
+
 import Router, {NO_LOCATION_ERROR} from '../Router';
 
 jest.mock('../utilities', () => ({

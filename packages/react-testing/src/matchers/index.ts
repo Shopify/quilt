@@ -1,6 +1,7 @@
 import {ComponentType, Context as ReactContext} from 'react';
 
 import {Node, PropsFor} from '../types';
+
 import {toHaveReactProps, toHaveReactDataProps} from './props';
 import {
   toContainReactComponent,

@@ -1,4 +1,5 @@
 import {GraphQLOperation} from 'graphql-typed';
+
 import {toHavePerformedGraphQLOperation} from './operations';
 
 declare global {
