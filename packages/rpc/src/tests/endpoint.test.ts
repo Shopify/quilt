@@ -31,6 +31,7 @@ describe('createEndpoint()', () => {
       const functionStrategy = {
         toWire: jest.fn<[string], any[]>(() => [intermediateValue]),
         fromWire: jest.fn(() => () => name),
+        has: () => false,
       };
       const createFunctionStrategy = jest.fn(() => functionStrategy);
 
