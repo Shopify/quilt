@@ -1,4 +1,5 @@
 import * as path from 'path';
+
 import {buildSchema, parse, GraphQLSchema, Source, concatAST} from 'graphql';
 import {stripIndent} from 'common-tags';
 import {compile} from 'graphql-tool-utilities';

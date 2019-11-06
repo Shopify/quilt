@@ -4,6 +4,7 @@ import * as yargs from 'yargs';
 import chalk from 'chalk';
 
 import {EnumFormat} from './types';
+
 import {Builder, SchemaBuild, DocumentBuild} from '.';
 
 const argv = yargs

@@ -1,9 +1,11 @@
 import {join} from 'path';
+
 import {
   GraphQLConfig,
   GraphQLConfigData,
   GraphQLProjectConfig,
 } from 'graphql-config';
+
 import {
   defaultGraphQLProjectName,
   getGraphQLProjectForSchemaPath,

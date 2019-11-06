@@ -1,4 +1,5 @@
 import {dirname} from 'path';
+
 import {loader} from 'webpack';
 import {parse, DocumentNode} from 'graphql';
 

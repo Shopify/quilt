@@ -1,4 +1,5 @@
 import {resolve} from 'path';
+
 import {readFile, readJSON} from 'fs-extra';
 import {Source, parse, concatAST, GraphQLSchema} from 'graphql';
 import {getGraphQLConfig, GraphQLProjectConfig} from 'graphql-config';

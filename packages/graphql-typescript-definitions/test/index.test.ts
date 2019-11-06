@@ -1,4 +1,5 @@
 import {resolve} from 'path';
+
 import {Builder} from '../src/index';
 
 const rootFixturePath = resolve(__dirname, 'fixtures');

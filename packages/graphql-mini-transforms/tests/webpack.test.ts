@@ -1,5 +1,6 @@
 import * as path from 'path';
 import {createHash} from 'crypto';
+
 import {loader} from 'webpack';
 import {stripIndent} from 'common-tags';
 

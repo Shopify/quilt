@@ -1,5 +1,4 @@
 import * as t from '@babel/types';
-
 import {GraphQLObjectType} from 'graphql';
 import {
   AST,

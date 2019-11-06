@@ -1,5 +1,6 @@
 import {resolve} from 'path';
 import {execSync} from 'child_process';
+
 import {stripFullFilePaths} from '../../../test/utilities';
 
 const scriptPath = resolve(__dirname, '../bin/graphql-validate-fixtures');

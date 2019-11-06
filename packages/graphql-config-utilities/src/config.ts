@@ -1,5 +1,6 @@
 import {existsSync} from 'fs';
 import {promisify} from 'util';
+
 import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 
 // we need to use an import/require here because it does not force consumers to

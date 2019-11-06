@@ -19,6 +19,7 @@ import {
   InlineFragment,
   Operation,
 } from 'graphql-tool-utilities';
+
 import {randomFromArray, chooseNull} from './utilities';
 
 export interface FieldMetadata {

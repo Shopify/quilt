@@ -1,4 +1,5 @@
 import {dirname, basename} from 'path';
+
 import {
   GraphQLType,
   GraphQLNonNull,

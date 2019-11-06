@@ -12,6 +12,7 @@ import {
   GraphQLInputType,
   isListType,
 } from 'graphql';
+
 import {scalarTypeMap} from '../utilities';
 import {EnumFormat} from '../../types';
 
