@@ -51,6 +51,7 @@ export function createChannelFunctionStrategy({
           case APPLY: {
             const stackFrame = new StackFrame();
             const [, id, args] = data;
+            const func = portToFunction.get(port1)!;
 
             try {
               const retainedBy = isMemoryManageable(func)
@@ -224,6 +225,9 @@ export function createChannelFunctionStrategy({
     terminate() {
       functionProxies.clear();
       functionStore.clear();
+    },
+    has(value: Function) {
+      return functionStore.has(value);
     },
   };
 }

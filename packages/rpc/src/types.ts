@@ -69,6 +69,7 @@ export interface FunctionStrategy<T> {
   revoke?(value: Function): void;
   exchange?(value: Function, newValue: Function): void;
   terminate?(): void;
+  has(value: Function): boolean;
 }
 
 export interface FunctionStrategyOptions {

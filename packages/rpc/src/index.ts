@@ -3,6 +3,7 @@ export {
   createChannelFunctionStrategy,
   createMessengerFunctionStrategy,
 } from './strategies';
+export {fromMessagePort, fromWebWorker} from './adaptors';
 export {
   retain,
   release,

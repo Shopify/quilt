@@ -23,6 +23,7 @@ export function createMessengerFunctionStrategy({
   const functionsToId = new Map<Function, string>();
   const idsToFunction = new Map<string, Function>();
   const idsToProxy = new Map<string, Function>();
+
   const callIdsToResolver = new Map<
     string,
     (error: Error | undefined, result: any) => void
@@ -63,7 +64,7 @@ export function createMessengerFunctionStrategy({
 
         if (func == null) {
           const {name, message, stack} = new Error(
-            'Attempted to call a function that does not exist',
+            'You attempted to call a function that was already revoked.',
           );
           messenger.postMessage([RESULT, callId, {name, message, stack}]);
           return;
@@ -228,6 +229,9 @@ export function createMessengerFunctionStrategy({
       idsToProxy.clear();
       callIdsToResolver.clear();
       messenger.removeEventListener('message', listener);
+    },
+    has(value: Function) {
+      return functionsToId.has(value);
     },
   };
 }
