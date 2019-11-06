@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-// import {terminate} from '@shopify/web-worker';
+import {terminate} from '@shopify/web-worker';
 
 import {useLazyRef} from '@shopify/react-hooks';
 
@@ -8,7 +8,7 @@ export function useWorker<T>(creator: () => T) {
 
   useEffect(() => {
     return () => {
-      // terminate(worker);
+      terminate(worker);
     };
   }, [worker]);
 
