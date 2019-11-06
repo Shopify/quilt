@@ -1,7 +1,9 @@
 import React from 'react';
 import {mount} from 'enzyme';
+
 import {Toggle} from './fixtures/Toggle';
 import {ActionList, Action} from './fixtures/Actions';
+
 import {trigger, findById} from '..';
 
 function noop() {}

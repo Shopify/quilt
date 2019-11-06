@@ -1,4 +1,5 @@
 import compose from 'koa-compose';
+
 import {loginAgainIfDifferentShop} from './login-again-if-different-shop';
 import {verifyToken} from './verify-token';
 import {Options, Routes} from './types';

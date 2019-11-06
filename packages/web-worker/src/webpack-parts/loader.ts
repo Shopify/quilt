@@ -1,6 +1,6 @@
 import * as path from 'path';
-import {getOptions} from 'loader-utils';
 
+import {getOptions} from 'loader-utils';
 import SingleEntryPlugin from 'webpack/lib/SingleEntryPlugin';
 import WebWorkerTemplatePlugin from 'webpack/lib/webworker/WebWorkerTemplatePlugin';
 import FetchCompileWasmTemplatePlugin from 'webpack/lib/web/FetchCompileWasmTemplatePlugin';

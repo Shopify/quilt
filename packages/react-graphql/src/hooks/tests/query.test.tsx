@@ -7,6 +7,7 @@ import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';
 import useQuery from '../query';
+
 import {mountWithGraphQL, createResolvablePromise} from './utilities';
 
 const petQuery = gql`

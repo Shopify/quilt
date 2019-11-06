@@ -1,5 +1,6 @@
 import React from 'react';
 import {IfAllOptionalKeys} from '@shopify/useful-types';
+
 import {Root, Options as RootOptions} from './root';
 import {Element} from './element';
 

@@ -1,14 +1,15 @@
 import {readFileSync} from 'fs';
 import path from 'path';
+
 import React from 'react';
 import {ApolloClient} from 'apollo-client';
 import {graphql, ApolloProvider} from 'react-apollo';
-
 import {buildSchema} from 'graphql';
 import {createMount} from '@shopify/react-testing';
 
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
 import petQuery from './fixtures/PetQuery.graphql';
+
 import configureClient from '..';
 
 // setup

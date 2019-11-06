@@ -1,5 +1,4 @@
 import {transform} from '../../transform';
-
 import addVariableDeclaratorProps from '../addVariableDeclaratorProps';
 
 describe('addVariableDeclaratorProps', () => {

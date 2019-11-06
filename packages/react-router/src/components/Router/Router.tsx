@@ -1,5 +1,6 @@
 import React from 'react';
 import {StaticRouter, BrowserRouter} from 'react-router-dom';
+
 import {isClient} from './utilities';
 
 interface Props {

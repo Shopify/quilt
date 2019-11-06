@@ -1,4 +1,5 @@
 import {CspDirective, SriAsset} from '@shopify/network';
+
 import {useCspDirective} from '../hooks';
 
 interface Props {

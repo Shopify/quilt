@@ -1,8 +1,10 @@
 import {Context} from 'koa';
 
 import {OAuthStartOptions} from '../types';
+
 import Error from './errors';
 import oAuthQueryString from './oauth-query-string';
+
 import {TOP_LEVEL_OAUTH_COOKIE_NAME} from './index';
 
 export default function createOAuthStart(

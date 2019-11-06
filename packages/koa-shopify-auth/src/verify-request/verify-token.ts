@@ -3,6 +3,7 @@ import {Method, Header, StatusCode} from '@shopify/network';
 
 import {NextFunction} from '../types';
 import {TEST_COOKIE_NAME, TOP_LEVEL_OAUTH_COOKIE_NAME} from '../index';
+
 import {Routes} from './types';
 import {redirectToAuth} from './utilities';
 

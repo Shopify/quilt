@@ -5,6 +5,7 @@ import {fetch, timer, connection} from '@shopify/jest-dom-mocks';
 import {Method, Header} from '@shopify/network';
 
 import {mockPerformance, randomConnection} from './utilities';
+
 import {PerformanceReport, PerformanceContext} from '..';
 
 describe('<PerformanceReport />', () => {

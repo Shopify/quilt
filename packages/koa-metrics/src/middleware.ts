@@ -1,10 +1,9 @@
 import {Context} from 'koa';
-
 import {StatsDClient, Logger} from '@shopify/statsd';
+
 import {tagsForRequest, tagsForResponse} from './tags';
 import {getQueuingTime} from './timing';
 import {getContentLength} from './content';
-
 import {initTimer, Timer} from './timer';
 
 export enum CustomMetric {

@@ -1,5 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {StatsDClient} from '@shopify/statsd';
+
 import {Tag} from '../tags';
 import metrics, {CustomMetric} from '../middleware';
 

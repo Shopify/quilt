@@ -1,5 +1,4 @@
 import FormState from './FormState';
-
 import {
   asChoiceField,
   ChoiceFieldDescriptor,

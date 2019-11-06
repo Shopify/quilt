@@ -7,6 +7,7 @@ import '../matchers';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {extract, Effect} from '@shopify/react-effect/server';
+
 import {I18nManager} from '../../manager';
 import {useI18n} from '../../hooks';
 import {I18nContext} from '../../context';

@@ -2,6 +2,7 @@ import React from 'react';
 import {ClientApplication} from '@shopify/app-bridge';
 import {History as AppBridgeHistory} from '@shopify/app-bridge/actions';
 import {mount} from '@shopify/react-testing';
+
 import {MODAL_IFRAME_NAME} from '../globals';
 import RoutePropagator from '../route-propagator';
 

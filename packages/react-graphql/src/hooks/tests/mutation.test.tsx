@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import useMutation from '../mutation';
+
 import {mountWithGraphQL} from './utilities';
 
 const updatePetMutation = gql`
