@@ -17,7 +17,7 @@ class MessagePortPolyfill implements MessagePort {
     return true;
   }
 
-  postMessage(message) {
+  postMessage(message: any) {
     if (!this.otherPort) {
       return;
     }
@@ -35,7 +35,7 @@ class MessagePortPolyfill implements MessagePort {
 
   removeEventListener(type: string, listener: EventListener) {
     if (type !== 'message') {
-        return;
+      return;
     }
 
     this.listeners.delete(listener);
@@ -46,8 +46,9 @@ class MessagePortPolyfill implements MessagePort {
 }
 
 class MessageChannelPolyfill implements MessageChannel {
-  port1: MessagePortPolyfill
-  port2: MessagePortPolyfill
+  readonly port1: MessagePortPolyfill;
+  readonly port2: MessagePortPolyfill;
+
   constructor() {
     this.port1 = new MessagePortPolyfill();
     this.port2 = new MessagePortPolyfill();

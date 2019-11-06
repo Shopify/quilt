@@ -3,14 +3,14 @@ import {createEndpoint, Endpoint} from './endpoint';
 const workerEndpointCache = new WeakMap<Endpoint<any>['call'], Endpoint<any>>();
 
 export function expose(
-  caller: Endpoint<any>['call'],
+  caller: any,
   api: {[key: string]: Function | undefined},
 ) {
   const endpoint = getEndpoint(caller);
   return endpoint && endpoint.expose(api);
 }
 
-export function terminate(caller: Endpoint<any>['call']) {
+export function terminate(caller: any) {
   const endpoint = getEndpoint(caller);
   if (endpoint) {
     endpoint.terminate();
@@ -19,7 +19,7 @@ export function terminate(caller: Endpoint<any>['call']) {
   workerEndpointCache.delete(caller);
 }
 
-export function getEndpoint(caller: Endpoint<any>['call']) {
+export function getEndpoint(caller: any) {
   return workerEndpointCache.get(caller);
 }
 
