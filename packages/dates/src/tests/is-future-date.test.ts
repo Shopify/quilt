@@ -1,4 +1,5 @@
 import {clock} from '@shopify/jest-dom-mocks';
+
 import {isFutureDate} from '../is-future-date';
 
 describe('isFutureDate()', () => {

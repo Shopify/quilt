@@ -1,4 +1,5 @@
 import {v4} from 'uuid';
+
 import {parseGid, composeGid, nodesFromEdges, keyFromEdges} from '..';
 
 describe('admin-graphql-api-utilities', () => {

@@ -1,4 +1,5 @@
 import {FirstArgument} from '@shopify/useful-types';
+
 import {Performance} from '../performance';
 import {Navigation} from '../navigation';
 import {EventType} from '../types';

@@ -1,4 +1,5 @@
 import serialize from 'serialize-javascript';
+
 import {getSerialized, serializedID} from '../utilities';
 
 describe('getSerialized()', () => {

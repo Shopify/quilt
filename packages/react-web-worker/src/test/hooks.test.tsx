@@ -1,5 +1,6 @@
 import React, {ReactNode} from 'react';
 import {mount} from '@shopify/react-testing';
+
 import {useWorker} from '../index';
 
 jest.mock('@shopify/web-worker', () => ({

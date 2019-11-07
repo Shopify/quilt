@@ -1,4 +1,5 @@
 import {clock} from '@shopify/jest-dom-mocks';
+
 import {isYesterday} from '../is-yesterday';
 
 describe('isYesterday()', () => {

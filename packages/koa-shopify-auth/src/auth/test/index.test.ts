@@ -1,7 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createShopifyAuth from '../index';
-
 import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
 import createEnableCookiesRedirect from '../create-enable-cookies-redirect';
 import {OAuthStartOptions} from '../../types';

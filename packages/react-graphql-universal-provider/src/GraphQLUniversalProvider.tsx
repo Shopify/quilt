@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ApolloClient, {ApolloClientOptions} from 'apollo-client';
 import {useSerialized} from '@shopify/react-html';
 import {ApolloProvider, createSsrExtractableLink} from '@shopify/react-graphql';

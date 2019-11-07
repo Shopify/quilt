@@ -13,6 +13,7 @@ import {useServerEffect} from '@shopify/react-effect';
 import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 
 import {AsyncDocumentNode} from '../types';
+
 import {QueryHookOptions, QueryHookResult} from './types';
 import useApolloClient from './apollo-client';
 import useGraphQLDocument from './graphql-document';

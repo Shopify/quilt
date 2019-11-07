@@ -1,5 +1,6 @@
 import {ApolloLink, Observable, Operation} from 'apollo-link';
 import {ExecutionResult, GraphQLError} from 'graphql';
+
 import {GraphQLMock, MockGraphQLFunction} from '../types';
 
 export class MockLink extends ApolloLink {

@@ -1,5 +1,4 @@
 import {DocumentNode} from 'graphql-typed';
-
 import {createResolver, ResolverOptions} from '@shopify/async';
 import {useAsync, AssetTiming} from '@shopify/react-async';
 

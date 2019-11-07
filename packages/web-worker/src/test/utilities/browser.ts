@@ -1,4 +1,5 @@
 import {URL} from 'url';
+
 import puppeteer, {Browser} from 'puppeteer';
 
 export class AppBrowser {

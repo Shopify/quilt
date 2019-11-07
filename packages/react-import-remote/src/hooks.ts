@@ -6,6 +6,7 @@ import {
   RequestIdleCallbackHandle,
 } from '@shopify/async';
 import {useMountedRef} from '@shopify/react-hooks';
+
 import load from './load';
 
 interface Options<Imported> {

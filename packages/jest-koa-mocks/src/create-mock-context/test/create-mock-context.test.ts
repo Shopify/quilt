@@ -1,4 +1,5 @@
 import {Context} from 'koa';
+
 import createContext from '../create-mock-context';
 
 const STORE_URL = 'http://mystore.com/admin';

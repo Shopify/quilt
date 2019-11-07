@@ -5,7 +5,9 @@ import {
   RECEIVED_COLOR as receivedColor,
   INVERTED_COLOR as invertedColor,
 } from 'jest-matcher-utils';
+
 import {Node} from '../types';
+
 import {assertIsNode} from './utilities';
 
 export function toContainReactText<Props>(

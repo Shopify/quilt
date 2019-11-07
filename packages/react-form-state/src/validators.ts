@@ -8,6 +8,7 @@ import {
   isNumericString,
   isPositiveNumericString,
 } from '@shopify/predicates';
+
 import {mapObject} from './utilities';
 
 interface Matcher<Input, Fields = any> {

@@ -1,7 +1,9 @@
 import querystring from 'querystring';
+
 import {Context} from 'koa';
 
 import {AuthConfig} from '../types';
+
 import Error from './errors';
 import validateHmac from './validate-hmac';
 

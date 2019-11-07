@@ -10,6 +10,7 @@ import {
 import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
+
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,

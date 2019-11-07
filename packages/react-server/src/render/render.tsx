@@ -1,5 +1,6 @@
 import {join} from 'path';
 import {existsSync} from 'fs';
+
 import React from 'react';
 import {Context} from 'koa';
 import compose from 'koa-compose';
@@ -27,6 +28,7 @@ import {
   getAssets,
   middleware as sewingKitMiddleware,
 } from '@shopify/sewing-kit-koa';
+
 import {getLogger} from '../logger';
 
 export {Context};

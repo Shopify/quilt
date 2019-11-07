@@ -6,7 +6,6 @@ import {
 const countryCAFr: LoadCountryResponse = require('./country_ca_fr').default;
 const countryCAEn: LoadCountryResponse = require('./country_ca_en').default;
 const countryCAJa: LoadCountryResponse = require('./country_ca_ja').default;
-
 const countriesEn: LoadCountriesResponse = require('./countries_en').default;
 const countriesJa: LoadCountriesResponse = require('./countries_ja').default;
 

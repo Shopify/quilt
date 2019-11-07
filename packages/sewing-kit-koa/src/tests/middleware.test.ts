@@ -1,5 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {Header} from '@shopify/network';
+
 import middleware, {getAssets} from '../middleware';
 import Assets from '../assets';
 

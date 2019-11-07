@@ -1,5 +1,6 @@
 import React from 'react';
 import {mount} from 'enzyme';
+
 import {I18nManager} from '../../manager';
 import {useI18n} from '../../hooks';
 import {I18nContext} from '../../context';

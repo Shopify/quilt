@@ -6,6 +6,7 @@ import {
   LifecycleEvent,
   EventType,
 } from '@shopify/performance';
+
 import {NavigationListener} from '../navigation-listener';
 import {LifecycleEventListener} from '../lifecycle-event-listener';
 
