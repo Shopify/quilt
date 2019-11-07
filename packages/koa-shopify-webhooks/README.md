@@ -164,7 +164,7 @@ const webhook = receiveWebhook({secret: SHOPIFY_SECRET});
 router.post('/webhooks/products/create', webhook, () => {
   /* handle products create */
 });
-router.post('/webhooks/products/create', webhook, () => {
+router.post('/webhooks/orders/create', webhook, () => {
   /* handle orders create */
 });
 
@@ -189,5 +189,3 @@ In your app
 OR
 
 `require('isomorphic-fetch')`
-
-
