@@ -23,7 +23,7 @@ This `postMessage`ing object is then passed to the `createEndpoint` function of 
 import {createEndpoint, fromWebWorker} from '@shopify/rpc';
 
 const worker = new Worker('worker.js');
-const endpoint = createEndpoint(worker);
+const endpoint = createEndpoint(fromWebWorker(worker));
 ```
 
 The `createEndpoint` function accepts an optional second argument that allows you to configure some behaviors of the resulting `Endpoint`:
@@ -127,7 +127,7 @@ const funcForEndpoint2 = () => 'Tobi';
 endpoint1.call.greet(funcForEndpoint2);
 ```
 
-This covers most common memory management cases, but one important exception remains: if you save the function on to an object in context, it will be still be accessible to your program, but the source of the function will be told to release the reference to that function. In this case, if you try to call the function from the worker at a later time, you will receive an error indicating that the value has been released.
+This covers most common memory management cases, but one important exception remains: if you save the function on to an object in context, it will be still be accessible to your program, but the source of the function will be told to release the reference to that function. In this case, if you try to call the function from the destination endpoint at a later time, you will receive an error indicating that the value has been released.
 
 To resolve this problem, this library provides `retain` and `release` functions. Calling these on an object will increment the number of "retainers", allowing the source function to be retained. Any time you call `retain`, you must eventually call `release`, when you know you will no longer call that function.
 
@@ -152,7 +152,7 @@ endpoint.expose({
 });
 ```
 
-Remember that any function passed between the worker and its parent, including functions attached as properties of objects, must be retained manually if you intend to call them outside the scope of the first function where they were passed over the bridge. To help make this easier, `release` and `retain` will automatically deeply release/ retain all functions when they are called with objects or arrays.
+Remember that any function passed the endpoints, including functions attached as properties of objects, must be retained manually if you intend to call them outside the scope of the first function where they were passed over the bridge. To help make this easier, `release` and `retain` will automatically deeply release/ retain all functions when they are called with objects or arrays.
 
 ### Adaptors
 
