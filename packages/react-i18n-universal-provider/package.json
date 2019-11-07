@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n-universal-provider",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "license": "MIT",
   "description": "A self-serializing/deserializing i18n provider that works for isomorphic applications.",
   "main": "dist/index.js",
@@ -25,14 +25,14 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n-universal-provider/README.md",
   "dependencies": {
     "@shopify/react-hooks": "^1.3.0",
-    "@shopify/react-html": "^9.2.7",
-    "@shopify/react-i18n": "^2.1.5"
+    "@shopify/react-html": "^9.2.8",
+    "@shopify/react-i18n": "^2.1.6"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/react-effect": "^3.2.6",
+    "@shopify/react-effect": "^3.2.7",
     "faker": "^4.1.0"
   },
   "files": [
