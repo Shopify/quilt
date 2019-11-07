@@ -1,4 +1,5 @@
 import {v4 as uuid} from 'uuid';
+
 import {MessageChannel} from '../../tests/utilities';
 import {fromMessagePort} from '../../adaptors';
 import {Retainer, FunctionStrategy, FunctionStrategyOptions} from '../../types';

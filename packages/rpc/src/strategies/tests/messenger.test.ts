@@ -1,5 +1,6 @@
 import {retain, release} from '../../memory';
 import {createMessengerFunctionStrategy} from '../messenger';
+
 import {createFunctionStrategyPair, createResolvablePromise} from './utilities';
 
 describe('createMessengerFunctionStrategy()', () => {
