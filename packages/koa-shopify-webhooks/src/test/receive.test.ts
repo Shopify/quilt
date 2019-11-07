@@ -109,6 +109,22 @@ describe('receiveWebhook', () => {
       });
     });
 
+    it('adds webhook payload to state', async () => {
+      const onReceived = jest.fn();
+      const middleware = receiveWebhook({secret, onReceived});
+
+      const context = createMockContext({
+        rawBody,
+        headers: headers({hmac: hmac(secret, rawBody)}),
+      });
+
+      await middleware(context, noop);
+
+      expect(context.state.webhook).toMatchObject({
+        payload: JSON.parse(rawBody),
+      });
+    });
+
     it('returns the Accepted status code', async () => {
       const onReceived = jest.fn();
       const middleware = receiveWebhook({secret, onReceived});
