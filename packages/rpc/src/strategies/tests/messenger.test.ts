@@ -33,7 +33,7 @@ describe('createMessengerFunctionStrategy()', () => {
     expect(spyTwo).toHaveBeenCalled();
   });
 
-  it('is released from the source when retain count hits zero', async () => {
+  it('is released from the source when retain count hits zero', () => {
     const func = () => {};
 
     const [source, destination] = createFunctionStrategyPair(
@@ -56,7 +56,9 @@ describe('createMessengerFunctionStrategy()', () => {
 
     retain(result);
     release(result);
-    expect(() => result()).toThrow(/released/);
+    await expect(Promise.resolve().then(() => result())).rejects.toMatchObject({
+      message: expect.stringContaining('released'),
+    });
   });
 
   it('throws an error when calling a revoked function', async () => {
@@ -112,7 +114,7 @@ describe('createMessengerFunctionStrategy()', () => {
     });
   });
 
-  it('resolves calls properly even if the results resolve out of order', async () => {
+  it('resolves calls even if the results resolve out of order', async () => {
     const valueOne = createResolvablePromise('one');
     const valueTwo = createResolvablePromise('two');
 
@@ -139,7 +141,7 @@ describe('createMessengerFunctionStrategy()', () => {
     expect(await resultTwo).toBe(await valueTwo.promise);
   });
 
-  it('releases all functions when terminated', async () => {
+  it('releases all functions when terminated', () => {
     const func = () => {};
 
     const [source, destination] = createFunctionStrategyPair(
@@ -152,7 +154,7 @@ describe('createMessengerFunctionStrategy()', () => {
     expect(source.has(func)).toBe(false);
   });
 
-  it('resolves calls of multiple functions properly even if the results resolve out of order', async () => {
+  it('resolves calls of multiple functions even if the results resolve out of order', async () => {
     const valueOne = createResolvablePromise('one');
     const valueTwo = createResolvablePromise('two');
 
