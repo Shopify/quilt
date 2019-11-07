@@ -1,5 +1,6 @@
 import {retain, release} from '../../memory';
 import {createChannelFunctionStrategy} from '../channel';
+
 import {createFunctionStrategyPair, createResolvablePromise} from './utilities';
 
 describe('createChannelFunctionStrategy()', () => {

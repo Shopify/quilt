@@ -4,9 +4,7 @@ import {
   FunctionStrategy,
   FunctionStrategyOptions,
 } from './types';
-
 import {Retainer, StackFrame} from './memory';
-
 import {createChannelFunctionStrategy} from './strategies';
 
 const APPLY = 0;
