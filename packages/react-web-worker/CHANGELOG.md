@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.0.4] - 2019-11-07
+
+### Fixed
+
+- `terminate` now properly terminates the worker ([#1166](https://github.com/Shopify/quilt/pull/1166/))).
+
 ## [1.0.0] - 2019-10-18
 
 ### Changed

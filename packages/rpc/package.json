@@ -1,6 +1,6 @@
 {
   "name": "@shopify/rpc",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Utilities for postmessage-based remote procedure calls.",
   "main": "dist/index.js",
@@ -23,7 +23,6 @@
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/rpc/README.md",
-  "dependencies": {},
   "files": [
     "dist/*"
   ],
