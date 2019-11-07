@@ -50,6 +50,7 @@
     {"path": "./react-hydrate"},
     {"path": "./react-i18n"},
     {"path": "./react-i18n-universal-provider"},
+    {"path": "./react-i18n-webpack-plugin"},
     {"path": "./react-idle"},
     {"path": "./react-import-remote"},
     {"path": "./react-intersection-observer"},
