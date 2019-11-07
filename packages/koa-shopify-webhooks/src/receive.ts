@@ -47,6 +47,7 @@ export function receiveWebhook({
       ctx.state.webhook = {
         topic: graphqlTopic as Topic,
         domain,
+        payload: JSON.parse(rawBody),
       };
 
       await onReceived(ctx);
