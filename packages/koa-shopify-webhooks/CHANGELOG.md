@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Added
+
+- Add payload to webhook data for the `receiveWebhook` middleware
+
+### Fixed
+
 - Fixed a typo in the README
 
 ## [2.1.0] - 2010-10-03
