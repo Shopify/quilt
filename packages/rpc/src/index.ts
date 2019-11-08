@@ -19,4 +19,5 @@ export {
   FunctionStrategyOptions,
   RemoteCallable,
   SafeRpcArgument,
+  MessageEndpoint,
 } from './types';
