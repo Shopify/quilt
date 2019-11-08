@@ -11,6 +11,7 @@ const NAME = 'WebWorker';
 
 export interface Options {
   name?: string;
+  plain?: boolean;
 }
 
 export function pitch(
@@ -27,13 +28,13 @@ export function pitch(
     _compilation: compilation,
   } = this;
 
-  // if (compiler.options.output.globalObject !== 'self') {
-  //   return callback(
-  //     new Error(
-  //       'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser.',
-  //     ),
-  //   );
-  // }
+  if (compiler.options.output!.globalObject !== 'self') {
+    return callback!(
+      new Error(
+        'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @shopify/web-worker babel plugin.',
+      ),
+    );
+  }
 
   const plugin: WebWorkerPlugin = (compiler.options.plugins || []).find(
     WebWorkerPlugin.isInstance,
@@ -46,7 +47,7 @@ export function pitch(
   }
 
   const options: Options = getOptions(this) || {};
-  const {name = String(plugin.workerId++)} = options;
+  const {name = String(plugin.workerId++), plain = false} = options;
 
   const virtualModule = path.join(
     path.dirname(resourcePath),
@@ -55,12 +56,14 @@ export function pitch(
 
   plugin.virtualModules.writeModule(
     virtualModule,
-    `
-      import * as api from ${JSON.stringify(request)};
-      import {expose} from '@shopify/web-worker/worker';
+    plain
+      ? `import ${JSON.stringify(request)};`
+      : `
+        import * as api from ${JSON.stringify(request)};
+        import {expose} from '@shopify/web-worker/worker';
 
-      expose(api);
-    `,
+        expose(api);
+      `,
   );
 
   const workerOptions = {

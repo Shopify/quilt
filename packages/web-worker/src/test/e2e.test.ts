@@ -1057,6 +1057,59 @@ describe('web-worker', () => {
       );
     });
   });
+
+  it('creates a "plain" worker factory that can produce workers wrapping the original module', async () => {
+    const greetingPrefix = 'Hello ';
+    const greetingTarget = 'world';
+    const testId = 'WorkerResult';
+
+    await withContext('plain', async context => {
+      const {workspace, browser} = context;
+
+      await workspace.write(
+        mainFile,
+        `
+          import {createPlainWorkerFactory} from '@shopify/web-worker';
+
+          const worker = createPlainWorkerFactory(() => import('./worker'))();
+
+          (async () => {
+            const result = await new Promise((resolve) => {
+              worker.addEventListener('message', ({data}) => {
+                resolve(data);
+              });
+
+              worker.postMessage(${JSON.stringify(greetingTarget)});
+            });
+
+            const element = document.createElement('div');
+            element.setAttribute('id', ${JSON.stringify(testId)});
+            element.textContent = result;
+            document.body.appendChild(element);
+          })();
+        `,
+      );
+
+      await workspace.write(
+        workerFile,
+        `
+          self.addEventListener('message', ({data}) => {
+            self.postMessage(\`${greetingPrefix}\${data}\`);
+          });
+        `,
+      );
+
+      await runWebpack(context);
+
+      const page = await browser.go();
+      const workerElement = await page.waitForSelector(`#${testId}`);
+      const textContent = await workerElement.evaluate(
+        element => element.innerHTML,
+      );
+
+      expect(textContent).toBe(`${greetingPrefix}${greetingTarget}`);
+    });
+  });
 });
 
 // Workers are generated from a blob URL that just importScripts() the actual
