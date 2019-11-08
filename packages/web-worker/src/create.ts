@@ -1,4 +1,6 @@
-import {createEndpoint, Endpoint} from './endpoint';
+import {createEndpoint, Endpoint, MessageEndpoint} from '@shopify/rpc';
+
+import {createWorkerMessenger} from './messenger';
 
 const workerEndpointCache = new WeakMap<Endpoint<any>['call'], Endpoint<any>>();
 
@@ -23,8 +25,14 @@ export function getEndpoint(caller: any) {
   return workerEndpointCache.get(caller);
 }
 
+export interface CreateWorkerOptions {
+  createMessenger?(url: URL): MessageEndpoint;
+}
+
 export function createWorkerFactory<T>(script: () => Promise<T>) {
-  return function createWorker(): Endpoint<T>['call'] {
+  return function createWorker({
+    createMessenger = createWorkerMessenger,
+  }: CreateWorkerOptions = {}): Endpoint<T>['call'] {
     // The babel plugin that comes with this package actually turns the argument
     // into a string (the public path of the worker script). If it’s a function,
     // it’s because we’re in an environment where we didn’t transform it into a
@@ -46,7 +54,7 @@ export function createWorkerFactory<T>(script: () => Promise<T>) {
 
     // If we aren’t in an environment that supports Workers, just bail out
     // with a dummy worker that throws for every method call.
-    if (typeof Worker === 'undefined') {
+    if (typeof window === 'undefined') {
       return new Proxy(
         {},
         {
@@ -61,21 +69,8 @@ export function createWorkerFactory<T>(script: () => Promise<T>) {
       ) as any;
     }
 
-    const absoluteScript = new URL(script, window.location.href).href;
-
-    const workerScript = URL.createObjectURL(
-      new Blob([`importScripts(${JSON.stringify(absoluteScript)})`]),
-    );
-
-    const worker = new Worker(workerScript);
-
-    const originalTerminate = worker.terminate.bind(worker);
-    worker.terminate = () => {
-      URL.revokeObjectURL(workerScript);
-      originalTerminate();
-    };
-
-    const endpoint = createEndpoint(worker);
+    const scriptUrl = new URL(script, window.location.href);
+    const endpoint = createEndpoint(createMessenger(scriptUrl));
     const {call: caller} = endpoint;
 
     workerEndpointCache.set(caller, endpoint);

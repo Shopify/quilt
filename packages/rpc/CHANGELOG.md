@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Made the default function strategy use the messenger, which makes is more broadly useful across different `postMessage` interfaces.
+
 ### Added
 
 - `@shopify/rpc` package

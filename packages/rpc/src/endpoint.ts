@@ -5,7 +5,7 @@ import {
   FunctionStrategyOptions,
 } from './types';
 import {Retainer, StackFrame} from './memory';
-import {createChannelFunctionStrategy} from './strategies';
+import {createMessengerFunctionStrategy} from './strategies';
 
 const APPLY = 0;
 const RESULT = 1;
@@ -32,7 +32,7 @@ export function createEndpoint<T>(
   initialMessenger: MessageEndpoint,
   {
     uuid = defaultUuid,
-    createFunctionStrategy = createChannelFunctionStrategy,
+    createFunctionStrategy = createMessengerFunctionStrategy,
   }: Options = {},
 ): Endpoint<T> {
   let terminated = false;
