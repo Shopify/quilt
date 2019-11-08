@@ -1,4 +1,5 @@
 import {createWorkerMessenger} from '../messenger';
+
 import {createScriptUrl, FileOrModuleResolver} from './utilities';
 
 export interface PlainWorkerCreator {
