@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [1.1.0] - 2019-11-08
 
-- You can now pass options as the second argument to `useWorker`. These options are forwarded as the [options to the worker creator](../web-worker#customizing-worker-creation).
+- You can now pass options as the second argument to `useWorker`. These options are forwarded as the [options to the worker creator](../web-worker#customizing-worker-creation) ([#1172](https://github.com/Shopify/quilt/pull/1172)).
 
 ## [1.0.4] - 2019-11-07
 

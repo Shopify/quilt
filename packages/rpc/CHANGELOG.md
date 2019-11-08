@@ -7,9 +7,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.1] - 2019-11-08
+
 ### Fixed
 
-- Made the default function strategy use the messenger, which makes is more broadly useful across different `postMessage` interfaces.
+- Made the default function strategy use the messenger, which makes is more broadly useful across different `postMessage` interfaces ([#1172](https://github.com/Shopify/quilt/pull/1172)).
 
 ### Added
 
