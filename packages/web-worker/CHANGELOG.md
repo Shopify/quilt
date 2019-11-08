@@ -7,6 +7,17 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.2.0] - 2019-11-08
+
+### Changed
+
+- Uses the new `@shopify/rpc` library for communication with the worker.
+
+### Added
+
+- You can now supply an optional options object to the `createWorkerFactory` functions. One option is currently supported: `createMessenger`, which allows you to customize the message channel for the worker.
+- To support creating workers that are not treated as same-origin, the library now provides a `createIframeWorkerMessenger` function. This function is passed to the new `createMessenger` API, and works by creating a message channel directly from the host page to a worker in a sandboxed `iframe`.
+
 ## [1.1.0] - 2019-10-21
 
 ### Added
