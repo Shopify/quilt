@@ -1,7 +1,6 @@
-import path from 'path';
-import webpack, {Compiler} from 'webpack';
 import {HEADER, Options} from '../react-server-webpack-plugin';
-import {withWorkspace} from './utilities/workspace';
+
+import {withWorkspace, runBuild, getModule} from './utilities/workspace';
 
 const BUILD_TIMEOUT = 10000;
 
@@ -12,11 +11,11 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'node-no-entrypoints';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults, clientResults] = await runBuild(name);
+          const [serverResults, clientResults] = await build();
           const [client, server] = [
             getModule(clientResults, 'client').source,
             getModule(serverResults, 'server').source,
@@ -40,11 +39,11 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'rails-no-entrypoints';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults, clientResults] = await runBuild(name);
+          const [serverResults, clientResults] = await build();
           const clientModule = getModule(clientResults, 'client');
           const serverModule = getModule(serverResults, 'server');
 
@@ -60,11 +59,11 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'rails-process-env';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults] = await runBuild(name);
+          const [serverResults] = await build();
           const serverModule = getModule(serverResults, 'server');
 
           expect(serverModule.source).toMatch(
@@ -83,12 +82,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'client-index-entrypoint';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client/index.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
+          const [serverResults, clientResults] = await build();
           const clientModule = getModule(clientResults, 'client');
           const serverModule = getModule(serverResults, 'server');
 
@@ -105,12 +104,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'client-entrypoint';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
+          const [serverResults, clientResults] = await build();
           const clientModule = getModule(clientResults, 'client');
           const serverModule = getModule(serverResults, 'server');
 
@@ -127,12 +126,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'server-entrypoint';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
+          const [serverResults, clientResults] = await build();
           const clientModule = getModule(clientResults, 'client');
           const serverModule = getModule(serverResults, 'server');
 
@@ -149,12 +148,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'server-index-entrypoint';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server/index.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
+          const [serverResults, clientResults] = await build();
           const clientModule = getModule(clientResults, 'client');
           const serverModule = getModule(serverResults, 'server');
 
@@ -172,7 +171,7 @@ describe('react-server-webpack-plugin', () => {
         const name = 'custom-base-path';
         const basePath = './app/ui';
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write(
             'webpack.config.js',
@@ -180,7 +179,7 @@ describe('react-server-webpack-plugin', () => {
           );
           await workspace.write(`${basePath}/index.js`, BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
+          const [serverResults, clientResults] = await build();
           const serverModule = getModule(serverResults, 'app/ui/server');
           const clientModule = getModule(clientResults, 'app/ui/client');
 
@@ -202,14 +201,14 @@ describe('react-server-webpack-plugin', () => {
           basePath: '.',
         };
 
-        await withWorkspace(name, async ({workspace}) => {
+        await withWorkspace(name, async ({workspace, build}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write(
             'webpack.config.js',
             createWebpackConfig(customConfig),
           );
 
-          const [serverResults] = await runBuild(name);
+          const [serverResults] = await build();
           const serverModule = getModule(serverResults, 'server');
 
           expect(serverModule.source).toMatch(`port: ${customConfig.port}`);
@@ -223,63 +222,6 @@ describe('react-server-webpack-plugin', () => {
     );
   });
 });
-
-function runBuild(configPath: string): Promise<any[]> {
-  return new Promise((resolve, reject) => {
-    const pathFromRoot = path.resolve(
-      './packages/react-server-webpack-plugin/src/test/fixtures',
-      configPath,
-    );
-
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const config = require(`${pathFromRoot}/webpack.config.js`);
-    const contextConfig = Array.isArray(config)
-      ? config.map(config => ({
-          ...config,
-          context: pathFromRoot,
-        }))
-      : {
-          ...config,
-          context: pathFromRoot,
-        };
-
-    // We use MemoryOutputFileSystem to prevent webpack from outputting to our actual FS
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const MemoryOutputFileSystem = require('webpack/lib/MemoryOutputFileSystem');
-
-    const compiler: Compiler = webpack(contextConfig);
-    compiler.outputFileSystem = new MemoryOutputFileSystem({});
-
-    compiler.run((err, stats) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      if (stats.hasErrors()) {
-        reject(stats.toString());
-        return;
-      }
-
-      const statsObject = stats.toJson();
-      resolve(statsObject.children);
-    });
-  });
-}
-
-function getModule(results: any, basePath: string) {
-  const newResults = results.modules.find(
-    ({name}) =>
-      name.includes(`./${basePath}.js`) ||
-      name.includes(`./${basePath}/index.js`),
-  );
-
-  if (newResults.source) {
-    return newResults;
-  }
-
-  return getModule(newResults, basePath);
-}
 
 const BASIC_ENTRY = `console.log('I am a bespoke entry');`;
 
