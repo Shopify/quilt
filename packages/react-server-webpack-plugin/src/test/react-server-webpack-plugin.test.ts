@@ -1,6 +1,6 @@
 import {HEADER, Options} from '../react-server-webpack-plugin';
 
-import {withWorkspace, runBuild, getModule} from './utilities/workspace';
+import {withWorkspace} from './utilities/workspace';
 
 const BUILD_TIMEOUT = 10000;
 
@@ -16,17 +16,11 @@ describe('react-server-webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
           const [serverResults, clientResults] = await build();
-          const [client, server] = [
-            getModule(clientResults, 'client').source,
-            getModule(serverResults, 'server').source,
-          ];
 
-          expect(client).toBeDefined();
-          expect(client).toMatch(HEADER);
+          expect(clientResults).toMatch(HEADER);
 
-          expect(server).toBeDefined();
-          expect(server).toMatch(HEADER);
-          expect(server).toMatch('port: ');
+          expect(serverResults).toMatch(HEADER);
+          expect(serverResults).toMatch('port: ');
         });
       },
       BUILD_TIMEOUT,
@@ -44,11 +38,9 @@ describe('react-server-webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
           const [serverResults, clientResults] = await build();
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch(HEADER);
+          expect(serverResults).toMatch(HEADER);
+          expect(clientResults).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -64,14 +56,9 @@ describe('react-server-webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
           const [serverResults] = await build();
-          const serverModule = getModule(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(
-            'ip: process.env.REACT_SERVER_IP',
-          );
-          expect(serverModule.source).toMatch(
-            'port: process.env.REACT_SERVER_PORT',
-          );
+          expect(serverResults).toMatch('ip: process.env.REACT_SERVER_IP');
+          expect(serverResults).toMatch('port: process.env.REACT_SERVER_PORT');
         });
       },
       BUILD_TIMEOUT,
@@ -88,12 +75,10 @@ describe('react-server-webpack-plugin', () => {
           await workspace.write('client/index.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await build();
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).not.toMatch(HEADER);
+          expect(serverResults).toMatch(HEADER);
+          expect(clientResults).toMatch('I am a bespoke entry');
+          expect(clientResults).not.toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -110,12 +95,10 @@ describe('react-server-webpack-plugin', () => {
           await workspace.write('client.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await build();
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).not.toMatch(HEADER);
+          expect(serverResults).toMatch(HEADER);
+          expect(clientResults).toMatch('I am a bespoke entry');
+          expect(clientResults).not.toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -132,12 +115,10 @@ describe('react-server-webpack-plugin', () => {
           await workspace.write('server.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await build();
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
 
-          expect(serverModule.source).not.toMatch(HEADER);
-          expect(serverModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).toMatch(HEADER);
+          expect(serverResults).not.toMatch(HEADER);
+          expect(serverResults).toMatch('I am a bespoke entry');
+          expect(clientResults).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -154,12 +135,10 @@ describe('react-server-webpack-plugin', () => {
           await workspace.write('server/index.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await build();
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
 
-          expect(serverModule.source).not.toMatch(HEADER);
-          expect(serverModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).toMatch(HEADER);
+          expect(serverResults).not.toMatch(HEADER);
+          expect(serverResults).toMatch('I am a bespoke entry');
+          expect(clientResults).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -179,12 +158,10 @@ describe('react-server-webpack-plugin', () => {
           );
           await workspace.write(`${basePath}/index.js`, BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await build();
-          const serverModule = getModule(serverResults, 'app/ui/server');
-          const clientModule = getModule(clientResults, 'app/ui/client');
+          const [serverResults, clientResults] = await build({basePath});
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch(HEADER);
+          expect(serverResults).toMatch(HEADER);
+          expect(clientResults).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -209,11 +186,10 @@ describe('react-server-webpack-plugin', () => {
           );
 
           const [serverResults] = await build();
-          const serverModule = getModule(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(`port: ${customConfig.port}`);
-          expect(serverModule.source).toMatch(`ip: "${customConfig.host}"`);
-          expect(serverModule.source).toMatch(
+          expect(serverResults).toMatch(`port: ${customConfig.port}`);
+          expect(serverResults).toMatch(`ip: "${customConfig.host}"`);
+          expect(serverResults).toMatch(
             `assetPrefix: "${customConfig.assetPrefix}"`,
           );
         });
@@ -272,7 +248,7 @@ const client = {
   ...universal,
   name: 'client',
   target: 'web',
-  entry: './${basePath}/client',
+  entry: '${basePath}/client',
 };
 
 module.exports = [server, client];`;

@@ -41,10 +41,14 @@ export async function createWorkspace({
 
 export async function withWorkspace(
   name: string,
-  runner: (context: {workspace: Workspace; build: () => Promise<any[]>}) => any,
+  runner: (context: {
+    workspace: Workspace;
+    build: (options?: Partial<WebpackOptions>) => Promise<[string, string]>;
+  }) => any,
 ) {
   const workspace = await createWorkspace({name});
-  const build = () => runWebpack(name);
+  const build = (options?: Partial<WebpackOptions>) =>
+    runWebpack(name, options);
 
   try {
     await runner({workspace, build});
@@ -53,7 +57,16 @@ export async function withWorkspace(
   }
 }
 
-export function runWebpack(configPath: string): Promise<any[]> {
+interface WebpackOptions {
+  basePath: string;
+}
+
+export function runWebpack(
+  configPath: string,
+  options?: Partial<WebpackOptions>,
+): Promise<[string, string]> {
+  const {basePath = ''} = options || {};
+
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
       './packages/react-server-webpack-plugin/src/test/fixtures',
@@ -91,19 +104,34 @@ export function runWebpack(configPath: string): Promise<any[]> {
       }
 
       const statsObject = stats.toJson();
-      resolve(statsObject.children);
+      const [serverResults, clientResults] = statsObject.children;
+      const serverModule = getModule(
+        serverResults,
+        path.join(basePath, 'server'),
+      );
+
+      const clientModule = getModule(
+        clientResults,
+        path.join(basePath, 'client'),
+      );
+
+      resolve([serverModule.source, clientModule.source]);
     });
   });
 }
 
 export function getModule(results: any, basePath: string) {
+  if (!results || !results.modules) {
+    return;
+  }
+
   const newResults = results.modules.find(
     ({name}) =>
       name.includes(`./${basePath}.js`) ||
       name.includes(`./${basePath}/index.js`),
   );
 
-  if (newResults.source) {
+  if (newResults && newResults.source) {
     return newResults;
   }
 
