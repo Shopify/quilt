@@ -1,29 +1,37 @@
 import {HEADER, Options} from '../react-server-webpack-plugin';
 
-import {withWorkspace} from './utilities/workspace';
+import {withWorkspace} from './utilities';
 
 const BUILD_TIMEOUT = 10000;
 
 describe('react-server-webpack-plugin', () => {
   describe('node', () => {
-    it(
+    it.only(
       'generates the server and client entrypoints when the virtual server & client modules are present',
       async () => {
         const name = 'node-no-entrypoints';
 
-        await withWorkspace(name, async ({workspace, build}) => {
-          await workspace.write('index.js', BASIC_JS_MODULE);
+        await withWorkspace(name, async ({workspace, browser}) => {
+          await workspace.write('index.jsx', BASIC_JSX_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults, clientResults] = await build();
+          const [serverResults, clientResults] = await workspace.build();
 
           expect(clientResults).toMatch(HEADER);
 
           expect(serverResults).toMatch(HEADER);
           expect(serverResults).toMatch('port: ');
+          const page = await browser.go();
+          console.log(page);
+          // const workerElement = await page.waitForSelector(`#${testId}`);
+          // const textContent = await workerElement.evaluate(
+          //   element => element.innerHTML,
+          // );
+
+          // console.log(textContent);
         });
       },
-      BUILD_TIMEOUT,
+      BUILD_TIMEOUT * 10,
     );
   });
 
@@ -33,11 +41,11 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'rails-no-entrypoints';
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults, clientResults] = await build();
+          const [serverResults, clientResults] = await workspace.build();
 
           expect(serverResults).toMatch(HEADER);
           expect(clientResults).toMatch(HEADER);
@@ -51,11 +59,11 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'rails-process-env';
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults] = await build();
+          const [serverResults] = await workspace.build();
 
           expect(serverResults).toMatch('ip: process.env.REACT_SERVER_IP');
           expect(serverResults).toMatch('port: process.env.REACT_SERVER_PORT');
@@ -69,12 +77,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'client-index-entrypoint';
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client/index.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await build();
+          const [serverResults, clientResults] = await workspace.build();
 
           expect(serverResults).toMatch(HEADER);
           expect(clientResults).toMatch('I am a bespoke entry');
@@ -89,12 +97,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'client-entrypoint';
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await build();
+          const [serverResults, clientResults] = await workspace.build();
 
           expect(serverResults).toMatch(HEADER);
           expect(clientResults).toMatch('I am a bespoke entry');
@@ -109,12 +117,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'server-entrypoint';
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await build();
+          const [serverResults, clientResults] = await workspace.build();
 
           expect(serverResults).not.toMatch(HEADER);
           expect(serverResults).toMatch('I am a bespoke entry');
@@ -129,12 +137,12 @@ describe('react-server-webpack-plugin', () => {
       async () => {
         const name = 'server-index-entrypoint';
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server/index.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await build();
+          const [serverResults, clientResults] = await workspace.build();
 
           expect(serverResults).not.toMatch(HEADER);
           expect(serverResults).toMatch('I am a bespoke entry');
@@ -150,7 +158,7 @@ describe('react-server-webpack-plugin', () => {
         const name = 'custom-base-path';
         const basePath = './app/ui';
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write(
             'webpack.config.js',
@@ -158,7 +166,9 @@ describe('react-server-webpack-plugin', () => {
           );
           await workspace.write(`${basePath}/index.js`, BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await build({basePath});
+          const [serverResults, clientResults] = await workspace.build({
+            basePath,
+          });
 
           expect(serverResults).toMatch(HEADER);
           expect(clientResults).toMatch(HEADER);
@@ -178,14 +188,14 @@ describe('react-server-webpack-plugin', () => {
           basePath: '.',
         };
 
-        await withWorkspace(name, async ({workspace, build}) => {
+        await withWorkspace(name, async ({workspace}) => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write(
             'webpack.config.js',
             createWebpackConfig(customConfig),
           );
 
-          const [serverResults] = await build();
+          const [serverResults] = await workspace.build();
 
           expect(serverResults).toMatch(`port: ${customConfig.port}`);
           expect(serverResults).toMatch(`ip: "${customConfig.host}"`);
@@ -258,3 +268,11 @@ const printIf = (key, value) => {
 };
 
 const BASIC_WEBPACK_CONFIG = createWebpackConfig();
+
+const BASIC_JSX_MODULE = `
+import React from 'react';
+
+export default function App() {
+  return <div>Hellow From React</div>;
+}
+`;
