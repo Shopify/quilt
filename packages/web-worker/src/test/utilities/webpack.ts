@@ -18,6 +18,7 @@ export function runWebpack(
         output: {
           path: workspace.buildPath(),
           publicPath: server.assetUrl().href,
+          globalObject: 'self',
           ...extraConfig.output,
         },
         resolve: {
