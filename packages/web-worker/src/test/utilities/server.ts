@@ -2,7 +2,7 @@ import {Server} from 'http';
 import {AddressInfo} from 'net';
 import {URL} from 'url';
 
-import Koa from 'koa';
+import Koa, {Middleware} from 'koa';
 import serve from 'koa-static';
 import mount from 'koa-mount';
 import getPort from 'get-port';
@@ -10,8 +10,15 @@ import getPort from 'get-port';
 export class AppServer {
   private readonly port: number;
 
-  constructor(private readonly server: Server) {
+  constructor(
+    private readonly server: Server,
+    private readonly middlewares: Set<Middleware>,
+  ) {
     this.port = (server.address() as AddressInfo).port;
+  }
+
+  use(middleware: Middleware) {
+    this.middlewares.add(middleware);
   }
 
   url(path = '') {
@@ -37,6 +44,26 @@ export class AppServer {
 
 export async function createServer({serve: servePath}: {serve: string}) {
   const app = new Koa();
+  const middlewares = new Set<Middleware>();
+
+  app.use((ctx, next) => {
+    if (middlewares.size === 0) {
+      return next();
+    }
+
+    const finalMiddlewares = [...middlewares];
+
+    function runMiddleware(index = 0): Promise<void> {
+      return finalMiddlewares[index](
+        ctx,
+        index === finalMiddlewares.length - 1
+          ? next
+          : () => runMiddleware(index + 1),
+      );
+    }
+
+    return runMiddleware();
+  });
 
   app.use(mount('/assets', serve(servePath)));
   app.use(
@@ -53,7 +80,7 @@ export async function createServer({serve: servePath}: {serve: string}) {
 
   return new Promise<AppServer>(resolve => {
     const server = app.listen(port, () => {
-      resolve(new AppServer(server));
+      resolve(new AppServer(server, middlewares));
     });
   });
 }

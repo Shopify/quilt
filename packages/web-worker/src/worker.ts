@@ -8,8 +8,9 @@ export function expose(api: any) {
       return;
     }
 
-    if (data.__replace != null) {
+    if (data.__replace instanceof MessagePort) {
       endpoint.replace(data.__replace);
+      data.__replace.start();
     }
   });
 

@@ -139,6 +139,8 @@ const worker = createWorker({
 });
 ```
 
+Note that this mechanism will always fail CORS checks on requests from the worker code unless the requested resource has the `Allow-Access-Control-Origin` header set to `*`.
+
 ##### Naming the worker file
 
 By default, worker files created using `createWorkerFactory` are given incrementing IDs as the file name. This strategy is generally less than ideal for long-term caching, as the name of the file depends on the order in which it was encountered during the build. For long-term caching, it is better to provide a static name for the worker file. This can be done by supplying the [`webpackChunkName` comment](https://webpack.js.org/api/module-methods/#magic-comments) before your import:
@@ -152,6 +154,20 @@ const createWorker = createWorkerFactory(() => import(/* webpackChunkName: 'myWo
 ```
 
 This name will be used as the prefix for the worker file. The worker will always end in `.worker.js`, and may also include additional hashes or other content (this library re-uses your `output.filename` and `output.chunkFilename` webpack options).
+
+##### "Plain" workers
+
+The power of the `createWorkerFactory` library is that it automatically wraps the `Worker` in an `Endpoint` from `@shopify/rpc`. This allows the seamless calling of module methods from the main thread to the worker, and the ability to pass non-serializable constructs like functions. However, if your use case does not require this RPC layer, you can save on bundle size by creating a "plain" worker factory. The functions created by `createPlainWorkerFactory` can be used to create `Worker` objects directly, with which you can implement whatever message passing system you want.
+
+```ts
+import {createPlainWorkerFactory} from '@shopify/web-worker;
+
+const createWorker = createPlainWorkerFactory(() => import('./worker'));
+const worker = createWorker();
+worker.postMessage('direct postMessage access!');
+```
+
+Because you are interacting with the worker directly in this mode, most other features of this library are not relevant (the memory management considerations, the `createMessenger` option, `expose`, `terminate`, etc). However, you can customize the name of the worker file with the [`webpackChunkName` comment](#naming-the-worker-file), just like with workers created via `createWorkerFactor`.
 
 #### Worker
 
