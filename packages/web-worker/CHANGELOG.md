@@ -7,11 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [1.3.0] - 2019-11-08
+## [1.3.0] - 2019-11-11
 
 ### Added
 
-- This library now exports a `createPlainWorkerFactory` function, which can be used to create a function that will create `Worker` objects wrapping a module. This can be used in cases where the automatic wrapping of the worker in `@shopify/rpc` is not desirable.
+- This library now exports a `createPlainWorkerFactory` function, which can be used to create a function that will create `Worker` objects wrapping a module. This can be used in cases where the automatic wrapping of the worker in `@shopify/rpc` is not desirable ([#1174](https://github.com/Shopify/quilt/pull/1174)).
+- The functions returned by `createWorkerFactory` and `createPlainWorkerFactory` now have a `url` property ([#1174](https://github.com/Shopify/quilt/pull/1174)).
+
+### Fixed
+
+- Fixed an issue with messages being lost when using the `createIframeWorkerMessenger` function ([#1174](https://github.com/Shopify/quilt/pull/1174)).
 
 ## [1.2.0] - 2019-11-08
 
