@@ -54,17 +54,17 @@ export function pitch(
     `${path.basename(resourcePath, path.extname(resourcePath))}.worker.js`,
   );
 
-  plugin.virtualModules.writeModule(
-    virtualModule,
-    plain
-      ? `import ${JSON.stringify(request)};`
-      : `
+  if (!plain) {
+    plugin.virtualModules.writeModule(
+      virtualModule,
+      `
         import * as api from ${JSON.stringify(request)};
         import {expose} from '@shopify/web-worker/worker';
 
         expose(api);
       `,
-  );
+    );
+  }
 
   const workerOptions = {
     filename: addWorkerSubExtension(compiler.options.output!
@@ -87,7 +87,9 @@ export function pitch(
   new FetchCompileWasmTemplatePlugin({
     mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new SingleEntryPlugin(context, virtualModule, name).apply(workerCompiler);
+  new SingleEntryPlugin(context, plain ? request : virtualModule, name).apply(
+    workerCompiler,
+  );
 
   for (const aPlugin of plugin.options.plugins || []) {
     aPlugin.apply(workerCompiler);
