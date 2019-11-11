@@ -26,7 +26,9 @@ export function createIframeWorkerMessenger(url: URL): MessageEndpoint {
 
   const iframe = document.createElement('iframe');
   iframe.setAttribute('sandbox', 'allow-scripts');
+  iframe.setAttribute('style', 'display:none;');
   iframe.addEventListener('load', () => {
+    port1.start();
     iframe.contentWindow!.postMessage({[RUN]: url.href}, '*', [port2]);
   });
   iframe.srcdoc = IFRAME_SOURCE;
