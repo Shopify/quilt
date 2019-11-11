@@ -1,12 +1,17 @@
 import {useEffect} from 'react';
-import {terminate, CreateWorkerOptions} from '@shopify/web-worker';
+import {terminate} from '@shopify/web-worker';
 import {useLazyRef} from '@shopify/react-hooks';
+import {NoInfer} from '@shopify/useful-types';
 
-export function useWorker<T>(
-  creator: (options?: CreateWorkerOptions) => T,
-  options?: CreateWorkerOptions,
+type WorkerCreator<Options extends any[], ReturnType> = (
+  ...args: Options
+) => ReturnType;
+
+export function useWorker<ReturnType, Options extends any[]>(
+  creator: WorkerCreator<Options, ReturnType>,
+  ...args: NoInfer<Options>
 ) {
-  const {current: worker} = useLazyRef(() => creator(options));
+  const {current: worker} = useLazyRef(() => creator(...(args as any)));
 
   useEffect(() => {
     return () => {

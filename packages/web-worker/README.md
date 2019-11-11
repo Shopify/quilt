@@ -145,15 +145,28 @@ Note that this mechanism will always fail CORS checks on requests from the worke
 
 By default, worker files created using `createWorkerFactory` are given incrementing IDs as the file name. This strategy is generally less than ideal for long-term caching, as the name of the file depends on the order in which it was encountered during the build. For long-term caching, it is better to provide a static name for the worker file. This can be done by supplying the [`webpackChunkName` comment](https://webpack.js.org/api/module-methods/#magic-comments) before your import:
 
-```tsx
-import {createWorkerFactory, terminate} from '@shopify/web-worker;
+```ts
+import {createWorkerFactory, terminate} from '@shopify/web-worker';
 
 // Note: only webpackChunkName is currently supported. Don’t try to use
 // other magic webpack comments.
-const createWorker = createWorkerFactory(() => import(/* webpackChunkName: 'myWorker' */ './worker'));
+const createWorker = createWorkerFactory(() =>
+  import(/* webpackChunkName: 'myWorker' */ './worker'),
+);
 ```
 
-This name will be used as the prefix for the worker file. The worker will always end in `.worker.js`, and may also include additional hashes or other content (this library re-uses your `output.filename` and `output.chunkFilename` webpack options).
+This name will be used as the prefix for the worker file. The worker will always end in `.worker.js`, and may also include additional hashes or other content (this library re-uses your `output.filename` and `output.chunkFilename` webpack options). You can access the `URL` of a worker file by accessing the `url` property of the function returned by `createWorkerFactory`:
+
+```ts
+import {createWorkerFactory, terminate} from '@shopify/web-worker';
+
+const createWorker = createWorkerFactory(() =>
+  import(/* webpackChunkName: 'myWorker' */ './worker'),
+);
+
+// Something like `new URL(__webpack_public_path__ + 'myWorker.worker.js')`
+console.log(createWorker.url);
+```
 
 ##### "Plain" workers
 
@@ -167,7 +180,7 @@ const worker = createWorker();
 worker.postMessage('direct postMessage access!');
 ```
 
-Because you are interacting with the worker directly in this mode, most other features of this library are not relevant (the memory management considerations, the `createMessenger` option, `expose`, `terminate`, etc). However, you can customize the name of the worker file with the [`webpackChunkName` comment](#naming-the-worker-file), just like with workers created via `createWorkerFactor`.
+Because you are interacting with the worker directly in this mode, most other features of this library are not relevant (the memory management considerations, the `createMessenger` option, `expose`, `terminate`, etc). However, you can customize the name of the worker file with the [`webpackChunkName` comment](#naming-the-worker-file), just like with workers created via `createWorkerFactory`. The functions returned by `createPlainWorkerFactory` also have a `url` property for the URL of the worker file, like `createWorkerFactory`.
 
 #### Worker
 
