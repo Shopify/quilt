@@ -32,7 +32,7 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
     ...options,
   };
 
-  const {prefix, embeddedApp}  = config;
+  const {prefix, embeddedApp} = config;
 
   const oAuthStartPath = `${prefix}/auth`;
   const oAuthCallbackPath = `${oAuthStartPath}/callback`;
