@@ -1,8 +1,8 @@
 import {Replacements} from './types';
 
 export class MissingTranslationError extends Error {
-  constructor(key: string) {
-    super(`Missing translation for key: ${key}`);
+  constructor(key: string, locale: string) {
+    super(`Missing translation for key: ${key} in locale: ${locale}`);
   }
 }
 export class MissingReplacementError extends Error {
