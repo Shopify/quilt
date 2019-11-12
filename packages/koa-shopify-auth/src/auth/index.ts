@@ -28,10 +28,11 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
     prefix: '',
     myShopifyDomain: DEFAULT_MYSHOPIFY_DOMAIN,
     accessMode: DEFAULT_ACCESS_MODE,
+    embeddedApp: true,
     ...options,
   };
 
-  const {prefix} = config;
+  const {prefix, embeddedApp}  = config;
 
   const oAuthStartPath = `${prefix}/auth`;
   const oAuthCallbackPath = `${oAuthStartPath}/callback`;
@@ -47,7 +48,7 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   const enableCookiesRedirect = createEnableCookiesRedirect(enableCookiesPath);
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
-    if (ctx.path === oAuthStartPath && !hasCookieAccess(ctx)) {
+    if (ctx.path === oAuthStartPath && (!hasCookieAccess(ctx) && embeddedApp)) {
       await enableCookiesRedirect(ctx);
       return;
     }
