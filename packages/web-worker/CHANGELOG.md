@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.3.1] - 2019-11-12
+
+### Fixed
+
+- Fixed an issue where imports would not be processed by the Babel plugin if multiple values were imported from `@shopify/web-worker` or `@shopify/react-web-worker`.
+
 ## [1.3.0] - 2019-11-11
 
 ### Added
