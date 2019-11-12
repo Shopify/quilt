@@ -85,7 +85,7 @@ export default function workerBabelPlugin({
           );
 
           if (processableImport == null) {
-            return;
+            continue;
           }
 
           const binding = specifier.scope.getBinding(
