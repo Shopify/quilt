@@ -9,7 +9,9 @@ export default function createEnableCookiesRedirect(path: string) {
 
   return function topLevelOAuthRedirect(ctx: Context) {
     // This is to avoid a redirect loop if the app doesn't use verifyRequest or set the test cookie elsewhere.
-    ctx.cookies.set(TEST_COOKIE_NAME, '1');
+    ctx.cookies.set(TEST_COOKIE_NAME, '1', {
+      sameSite: 'none',
+    });
     redirect(ctx);
   };
 }

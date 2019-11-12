@@ -24,7 +24,9 @@ describe('CreateEnableCookiesRedirect', () => {
 
     enableCookiesRedirect(ctx);
 
-    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyTestCookie', '1');
+    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyTestCookie', '1', {
+      sameSite: 'none',
+    });
   });
 
   it('sets up and calls the top level redirect', () => {

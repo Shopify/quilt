@@ -49,7 +49,9 @@ describe('verifyRequest', () => {
 
       verifyRequestMiddleware(ctx, next);
 
-      expect(ctx.cookies.set).toHaveBeenCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME);
+      expect(ctx.cookies.set).toHaveBeenCalledWith(TOP_LEVEL_OAUTH_COOKIE_NAME, '1', {
+        sameSite: 'none',
+      });
     });
 
     it('redirects to the given authRoute if the token is invalid', async () => {
@@ -99,7 +101,9 @@ describe('verifyRequest', () => {
 
       verifyRequestMiddleware(ctx, next);
 
-      expect(ctx.cookies.set).toHaveBeenCalledWith(TEST_COOKIE_NAME, '1');
+      expect(ctx.cookies.set).toHaveBeenCalledWith(TEST_COOKIE_NAME, '1', {
+        sameSite: 'none',
+      });
     });
 
     it('redirects to /auth if shop is present on query', () => {

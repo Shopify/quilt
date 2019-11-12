@@ -16,7 +16,9 @@ export default function oAuthQueryString(
   const {scopes = [], apiKey, accessMode} = options;
 
   const requestNonce = createNonce();
-  cookies.set('shopifyNonce', requestNonce);
+  cookies.set('shopifyNonce', requestNonce, {
+    sameSite: 'none',
+  });
 
   /* eslint-disable @typescript-eslint/camelcase */
   const redirectParams = {

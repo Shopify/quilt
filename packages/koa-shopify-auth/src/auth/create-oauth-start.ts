@@ -26,7 +26,9 @@ export default function createOAuthStart(
       return;
     }
 
-    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
+    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME, '1', {
+      sameSite: 'none',
+    });
 
     const formattedQueryString = oAuthQueryString(ctx, options, callbackPath);
 

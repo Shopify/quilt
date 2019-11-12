@@ -15,7 +15,9 @@ export function verifyToken(routes: Routes) {
     const {session} = ctx;
 
     if (session && session.accessToken) {
-      ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
+      ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME, '1', {
+        sameSite: 'none',
+      });
       // If a user has installed the store previously on their shop, the accessToken can be stored in session.
       // we need to check if the accessToken is valid, and the only way to do this is by hitting the api.
       const response = await fetch(
@@ -38,7 +40,9 @@ export function verifyToken(routes: Routes) {
       return;
     }
 
-    ctx.cookies.set(TEST_COOKIE_NAME, '1');
+    ctx.cookies.set(TEST_COOKIE_NAME, '1', {
+      sameSite: 'none',
+    });
 
     redirectToAuth(routes, ctx);
   };

@@ -8,7 +8,9 @@ export default function createTopLevelOAuthRedirect(path: string) {
   const redirect = createTopLevelRedirect(path);
 
   return function topLevelOAuthRedirect(ctx: Context) {
-    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME, '1');
+    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME, '1', {
+      sameSite: 'none',
+    });
     redirect(ctx);
   };
 }
