@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+## [2.1.7] - 2019-11-12
+
 ### Added
 
 - Added locale to be part of `MissingTranslationError` ([#1178](https://github.com/Shopify/quilt/pull/1178))
