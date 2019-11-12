@@ -42,6 +42,8 @@ app.use(
     scopes: ['write_orders, write_products'],
     // set access mode, default is 'online'
     accessMode: 'offline',
+    // set if app is embedded, default is true
+    embeddedApp: true,
     // callback for when auth is completed
     afterAuth(ctx) {
       const {shop, accessToken} = ctx.session;
