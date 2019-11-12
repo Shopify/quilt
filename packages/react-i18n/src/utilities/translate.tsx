@@ -83,7 +83,7 @@ export function getTranslationTree(
     }
   }
 
-  throw new MissingTranslationError(id);
+  throw new MissingTranslationError(id, locale);
 }
 
 export function translate(
@@ -128,7 +128,7 @@ export function translate(
     }
   }
 
-  throw new MissingTranslationError(id);
+  throw new MissingTranslationError(id, locale);
 }
 
 function translateWithDictionary(
