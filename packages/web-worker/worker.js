@@ -1,1 +1,1 @@
-module.exports = require('./dist/worker');
+module.exports = require('./dist/src/worker');

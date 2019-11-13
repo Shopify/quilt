@@ -3,13 +3,12 @@
   "version": "1.2.1",
   "license": "MIT",
   "description": "Primitives to measure your React application&#x27;s performance using @shopify/performance",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -31,8 +30,7 @@
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/network": "^1.4.2",
-    "typescript": "~3.2.1"
+    "@shopify/network": "^1.4.2"
   },
   "files": [
     "dist/*"

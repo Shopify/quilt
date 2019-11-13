@@ -57,7 +57,6 @@
     {"path": "./react-performance"},
     {"path": "./react-preconnect"},
     {"path": "./react-router"},
-    {"path": "./react-self-serializers"},
     {"path": "./react-serialize"},
     {"path": "./react-server"},
     {"path": "./react-server-webpack-plugin"},
