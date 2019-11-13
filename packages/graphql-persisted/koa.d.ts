@@ -1,1 +1,1 @@
-export * from './dist/koa-middleware';
+export * from './dist/src/koa-middleware';

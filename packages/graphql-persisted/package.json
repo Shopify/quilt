@@ -4,6 +4,9 @@
   "license": "MIT",
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "sideEffects": false,
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"

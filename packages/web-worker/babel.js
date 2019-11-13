@@ -1,1 +1,1 @@
-module.exports = require('./dist/babel-plugin');
+module.exports = require('./dist/src/babel-plugin');

@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "{{description}}",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",

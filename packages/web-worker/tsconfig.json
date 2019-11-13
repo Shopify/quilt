@@ -3,8 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "rootDir": "./src"
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "webpack": ["node_modules/webpack"]
+    }
   },
   "include": [
     "../../config/typescript/**/*",

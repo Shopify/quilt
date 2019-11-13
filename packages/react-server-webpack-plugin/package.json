@@ -3,8 +3,11 @@
   "version": "2.2.14",
   "license": "MIT",
   "description": "A webpack plugin that generates entrypoints for @shopify/react-server based applications",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",

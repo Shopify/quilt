@@ -11,7 +11,7 @@
     "test": "NODE_ICU_DATA=node_modules/full-icu jest --maxWorkers=3 --coverage=false",
     "check": "lerna run check",
     "release": "lerna publish",
-    "clean": "rimraf './packages/*/dist/**/*.{js,d.ts}' './packages/*/*.tsbuildinfo' './packages/*.tsbuildinfo'",
+    "clean": "rimraf './packages/*/dist'",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",
     "tophat": "tophat"

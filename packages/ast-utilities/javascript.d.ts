@@ -1,1 +1,1 @@
-export * from './dist/javascript';
+export * from './dist/src/javascript';

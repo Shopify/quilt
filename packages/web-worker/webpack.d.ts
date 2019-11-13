@@ -1,2 +1,2 @@
-export {default} from './dist/webpack-parts';
-export * from './dist/webpack-parts';
+export {default} from './dist/src/webpack-parts';
+export * from './dist/src/webpack-parts';

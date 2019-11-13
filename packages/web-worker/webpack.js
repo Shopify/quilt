@@ -1,1 +1,1 @@
-module.exports = require('./dist/webpack-parts');
+module.exports = require('./dist/src/webpack-parts');
