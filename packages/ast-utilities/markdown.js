@@ -1,1 +1,1 @@
-module.exports = require('./dist/markdown');
+module.exports = require('./dist/src/markdown');

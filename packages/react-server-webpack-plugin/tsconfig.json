@@ -3,13 +3,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "rootDir": "./src"
+    "baseUrl": ".",
+    "rootDir": "."
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [{"path": "../react-html"}, {"path": "../react-server"}]
 }

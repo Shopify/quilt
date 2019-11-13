@@ -3,8 +3,11 @@
   "version": "6.0.2",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",

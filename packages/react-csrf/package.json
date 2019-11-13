@@ -3,8 +3,11 @@
   "version": "1.0.7",
   "license": "MIT",
   "description": "Share csrf token throughout a react application.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",

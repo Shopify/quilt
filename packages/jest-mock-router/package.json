@@ -3,8 +3,11 @@
   "version": "1.0.20",
   "license": "MIT",
   "description": "Jest + Enzyme mocks for React Router 3.x.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
