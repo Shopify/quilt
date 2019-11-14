@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n-webpack-plugin",
-  "version": "0.0.0",
+  "version": "0.0.0-remove-babel-beta.1",
   "license": "MIT",
   "description": "A webpack plugin that automatically filled in &#x60;@shopify/react-i18n&#x60;&#x27;s &#x60;useI18n&#x60;s or &#x60;withI18n&#x60;s call arguments.",
   "main": "dist/index.js",
