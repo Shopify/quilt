@@ -1,4 +1,5 @@
 import webpack, {Parser} from 'webpack';
+import {ConstDependency} from 'webpack/lib/dependencies/ConstDependency';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 
 import {ReactI18nParserPlugin, Options} from './react-i18n-parser-plugin';
@@ -21,9 +22,14 @@ export class ReactI18nPlugin {
   apply(compiler: webpack.Compiler) {
     this.virtualModules.apply(compiler);
 
-    compiler.hooks.normalModuleFactory.tap(
+    compiler.hooks.compilation.tap(
       'ReactI18nPlugin',
-      (normalModuleFactory: webpack.compilation.NormalModuleFactory) => {
+      (compilation, {normalModuleFactory}) => {
+        compilation.dependencyTemplates.set(
+          ConstDependency,
+          new ConstDependency.Template(),
+        );
+
         const handler = (parser: Parser) => {
           new ReactI18nParserPlugin(this.options, this.virtualModules).apply(
             parser,
