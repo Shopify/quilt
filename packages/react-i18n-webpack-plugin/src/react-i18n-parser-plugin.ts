@@ -11,6 +11,7 @@ const I18N_CALL_NAMES = ['useI18n', 'withI18n'];
 
 export interface Options {
   fallbackLocale: string;
+  currentLocale?: string;
 }
 
 export class ReactI18nParserPlugin {
@@ -81,13 +82,11 @@ export class ReactI18nParserPlugin {
           originalExpression.arguments.map(node => {
             if (
               node.type === 'CallExpression' &&
-              node.callee.type === 'Identifier'
+              node.callee.type === 'Identifier' &&
+              importIdentifiers.includes(node.callee.name) &&
+              node.arguments.length === 0
             ) {
-              const identifierName = importIdentifiers[node.callee.name];
-
-              if (identifierName && node.arguments.length === 0) {
-                expressions.push(node);
-              }
+              expressions.push(node);
             }
           });
         }
