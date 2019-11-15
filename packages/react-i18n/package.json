@@ -3,12 +3,10 @@
   "version": "2.1.7",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build",
-    "test": "jest --config ./config/jest/config.json"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",

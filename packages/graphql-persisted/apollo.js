@@ -1,1 +1,1 @@
-module.exports = require('./dist/apollo');
+module.exports = require('./dist/src/apollo');

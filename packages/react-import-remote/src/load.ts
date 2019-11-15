@@ -1,3 +1,5 @@
+import {ExtendedWindow} from '@shopify/useful-types';
+
 const cache = new Map<string, Promise<any>>();
 
 export default function load<
@@ -27,7 +29,7 @@ export default function load<
     function scriptTagOnLoad() {
       scriptTag.removeEventListener('load', scriptTagOnLoad);
       scriptTag.removeEventListener('error', scriptTagOnError);
-      resolve(getImport(window as CustomWindow));
+      resolve(getImport(window as ExtendedWindow<CustomWindow>));
     }
 
     function scriptTagOnError() {

@@ -1,2 +1,2 @@
-export {default} from './dist/worker';
-export * from './dist/worker';
+export {default} from './dist/src/worker';
+export * from './dist/src/worker';

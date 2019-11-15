@@ -5,8 +5,7 @@
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",

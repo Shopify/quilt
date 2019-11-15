@@ -4,13 +4,8 @@
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "yarn run clean && tsc --p tsconfig.build.json",
-    "clean": "rimraf 'dist'",
-    "prepublishOnly": "yarn run build"
-  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -26,6 +21,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/polyfills/README.md",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@shopify/useful-types": "^2.1.0",
     "browser-unhandled-rejection": "^1.0.2",
     "caniuse-api": "^3.0.0",
     "formdata-polyfill": "^3.0.18",

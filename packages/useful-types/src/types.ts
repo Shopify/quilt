@@ -64,3 +64,5 @@ type ReactStatics =
   | 'getDefaultProps'
   | 'propTypes';
 export type NonReactStatics<T> = Pick<T, Exclude<keyof T, ReactStatics>>;
+
+export type ExtendedWindow<T> = Window & typeof globalThis & T;
