@@ -20,7 +20,8 @@ declare module 'webpack' {
     hooks: ParserHooks;
     state: {
       module: {
-        resource;
+        resource: string;
+        context: string;
       };
       [key: string]: any;
     };
