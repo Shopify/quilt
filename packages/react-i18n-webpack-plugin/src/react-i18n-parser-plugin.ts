@@ -34,7 +34,7 @@ export class ReactI18nParserPlugin {
         const componentPath = parser.state.module.resource;
 
         if (!parser.state.i18nImports)
-          parser.state.i18nImports = new Map<string, string>();
+          parser.state.i18nImports = new Map<string, string[]>();
 
         let exitingImportMap = parser.state.i18nImports.get(componentPath);
         if (!exitingImportMap) {
@@ -59,7 +59,9 @@ export class ReactI18nParserPlugin {
 
         const componentPath = parser.state.module.resource;
         const componentDir = parser.state.module.context;
-        const importIdentifiers = parser.state.i18nImports.get(componentPath);
+        const importIdentifiers:
+          | string[]
+          | undefined = parser.state.i18nImports.get(componentPath);
 
         if (
           !importIdentifiers ||
