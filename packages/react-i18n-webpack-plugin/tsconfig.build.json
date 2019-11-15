@@ -1,16 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
-  "compileOnSave": false,
+  "extends": "../packages/tsconfig_base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "rootDir": "./src"
+    "noEmit": true
   },
-  "include": [
-    "../../config/typescript/**/*",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./config/typescript/**/*"
-  ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+  "include": ["./**/*.ts"]
 }
