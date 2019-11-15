@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n-webpack-plugin",
-  "version": "0.0.0",
+  "version": "0.0.0-remove-babel-beta.11",
   "license": "MIT",
   "description": "A webpack plugin that automatically filled in &#x60;@shopify/react-i18n&#x60;s &#x60;useI18n&#x60;s or &#x60;withI18n&#x60;s call arguments.",
   "main": "dist/index.js",
@@ -29,7 +29,9 @@
     "string-hash": "^1.1.3",
     "webpack-virtual-modules": "^0.1.12"
   },
-  "files": ["dist/*"],
+  "files": [
+    "dist/*"
+  ],
   "devDependencies": {
     "@types/estree": "^0.0.39",
     "@types/webpack-virtual-modules": "^0.1.0"
