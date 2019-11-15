@@ -4,14 +4,14 @@
   "description": "Shopify's javascript application utilities",
   "scripts": {
     "publish": "lerna publish",
-    "prebuild": "yarn run clean",
-    "build": "lerna run build",
+    "build": "yarn tsc --build packages",
     "lint": "eslint '**/*.{ts,tsx}'",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
+    "pretest": "yarn run build",
     "test": "NODE_ICU_DATA=node_modules/full-icu jest --maxWorkers=3 --coverage=false",
     "check": "lerna run check",
     "release": "lerna publish",
-    "clean": "rimraf './packages/*/dist/**/*.{js,d.ts}'",
+    "clean": "rimraf './packages/*/dist'",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",
     "tophat": "tophat"
@@ -33,6 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@shopify/app-bridge": "^0.7.3",
+    "@shopify/tophat": "^0.0.3",
     "@types/enzyme": "^3.1.10",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/faker": "^4.1.5",
@@ -73,8 +74,7 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
     "tslib": "^1.9.3",
-    "typescript": "~3.2.1",
-    "@shopify/tophat": "^0.0.3"
+    "typescript": "^3.6.2"
   },
   "dependencies": {},
   "resolutions": {

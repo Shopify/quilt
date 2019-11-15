@@ -1,4 +1,10 @@
-import {ApolloLink, Operation, NextLink, Observable} from 'apollo-link';
+import {
+  ApolloLink,
+  Operation,
+  NextLink,
+  Observable,
+  FetchResult,
+} from 'apollo-link';
 
 import {CacheMissBehavior} from './shared';
 
@@ -17,7 +23,10 @@ export class PersistedLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation, forward?: NextLink) {
+  request(
+    operation: Operation,
+    forward?: NextLink,
+  ): Observable<FetchResult> | null {
     if (forward == null) {
       throw new Error('Persisted link can’t be a terminating link.');
     }

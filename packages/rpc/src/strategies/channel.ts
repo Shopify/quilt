@@ -64,7 +64,7 @@ export function createChannelFunctionStrategy({
               const [serializedResult, transferables] = toWire(result);
               port1.postMessage(
                 [RESULT, id, undefined, serializedResult],
-                transferables,
+                transferables as Transferable[],
               );
             } catch (error) {
               const {name, message, stack} = error;
@@ -182,7 +182,10 @@ export function createChannelFunctionStrategy({
           });
 
           const [serializedArgs, transferables] = toWire(args);
-          port.postMessage([APPLY, id, serializedArgs], transferables);
+          port.postMessage(
+            [APPLY, id, serializedArgs],
+            transferables as Transferable[],
+          );
 
           return done;
         },

@@ -59,5 +59,5 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
     ],
   );
 
-  return runMutation;
+  return runMutation as MutationHookResult<Data, Variables>;
 }

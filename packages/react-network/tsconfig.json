@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig_base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": "."
+  },
+  "include": [
+    "../../config/typescript/**/*",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+}
