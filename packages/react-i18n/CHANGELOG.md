@@ -6,12 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [2.1.8] - 2019-11-15
 
 ### Fixed
 
 - `translationKeyExists` on i18n works as expected with onError handler ([#1162](https://github.com/Shopify/quilt/pull/1162))
-
 
 ## [2.1.7] - 2019-11-12
 
