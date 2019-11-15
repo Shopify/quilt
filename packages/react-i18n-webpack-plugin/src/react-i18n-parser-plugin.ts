@@ -81,7 +81,7 @@ export class ReactI18nParserPlugin {
               node.type === 'CallExpression' &&
               node.callee.type === 'Identifier'
             ) {
-              const identifierName = importIdentifiers.get(node.callee.name);
+              const identifierName = importIdentifiers[node.callee.name];
 
               if (identifierName && node.arguments.length === 0) {
                 expressions.push(node);
