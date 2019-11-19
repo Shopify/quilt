@@ -27,14 +27,22 @@
     "@types/webpack": "^4.0.0",
     "change-case": "^3.1.0",
     "string-hash": "^1.1.3",
+    "glob": "^7.1.4",
     "webpack-virtual-modules": "^0.1.12"
   },
-  "files": ["dist/*"],
   "devDependencies": {
+    "@babel/types": ">=7.0.0",
     "@types/estree": "^0.0.39",
     "@types/webpack-virtual-modules": "^0.1.0"
   },
   "optionalDependencies": {
-    "webpack": "^4.40.0"
-  }
+    "webpack": "^4.40.0",
+    "@babel/template": "^7.0.0",
+    "@babel/traverse": "^7.0.0"
+  },
+  "files": [
+    "dist/*",
+    "babel.d.ts",
+    "babel.js"
+  ]
 }
