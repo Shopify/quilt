@@ -59,7 +59,7 @@ export class ReactI18nParserPlugin {
         }
 
         const componentPath = parser.state.module.resource;
-        const componentDir = parser.state.module.context;
+        const componentDirectory = parser.state.module.context;
         const importIdentifiers:
           | string[]
           | undefined = parser.state.i18nImports.get(componentPath);
@@ -97,8 +97,6 @@ export class ReactI18nParserPlugin {
         }
 
         let translationFiles = [];
-
-        const componentDirectory = parser.state.module.context;
         const translationsDirectoryPath = `${componentDirectory}/${TRANSLATION_DIRECTORY_NAME}`;
 
         try {
@@ -117,7 +115,7 @@ export class ReactI18nParserPlugin {
         const id = generateID(componentPath);
         const i18nOptionsName = '__webpack__i18n_options';
 
-        const optionsPath = `${componentDir}/${TRANSLATION_DIRECTORY_NAME}/i18nOptions.js`;
+        const optionsPath = `${componentDirectory}/${TRANSLATION_DIRECTORY_NAME}/i18nOptions.js`;
         const optionsSource = buildI18nOptions({
           id,
           chunkName: `${id}-i18n`,
