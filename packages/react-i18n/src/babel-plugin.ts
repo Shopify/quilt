@@ -23,19 +23,24 @@ export default function injectWithI18nArguments({
     })() as Types.ImportDeclaration;
   }
 
-  function i18nCallExpression({id, fallbackID, bindingName, translations}) {
+  function translationsImport({id}) {
+    return template(`import ${id} from './translations';`, {
+      sourceType: 'module',
+    })() as Types.ImportDeclaration;
+  }
+
+  function i18nCallExpression({
+    id,
+    fallbackID,
+    bindingName,
+    availableTranslationsID,
+  }) {
     return template(
       `${bindingName}({
         id: '${id}',
         fallback: ${fallbackID},
         translations(locale) {
-          const translations = [${translations
-            .filter(locale => !locale.endsWith('en.json'))
-            .map(locale =>
-              JSON.stringify(path.basename(locale, path.extname(locale))),
-            )
-            .sort()
-            .join(', ')}];
+          const translations = ${availableTranslationsID};
 
           if (translations.indexOf(locale) < 0) {
             return;
@@ -60,6 +65,7 @@ export default function injectWithI18nArguments({
     bindingName,
     filename,
     fallbackID,
+    availableTranslationsID,
     insertImport,
   }) {
     const {referencePaths} = binding;
@@ -96,8 +102,8 @@ export default function injectWithI18nArguments({
       i18nCallExpression({
         id: generateID(filename),
         fallbackID,
+        availableTranslationsID,
         bindingName,
-        translations,
       }),
     );
   }
@@ -129,6 +135,9 @@ export default function injectWithI18nArguments({
 
           if (binding != null) {
             const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
+            const availableTranslationsID = nodePath.scope.generateUidIdentifier(
+              'availableTranslations',
+            ).name;
             const {filename} = this.file.opts;
 
             addI18nArguments({
@@ -136,10 +145,14 @@ export default function injectWithI18nArguments({
               bindingName,
               filename,
               fallbackID,
+              availableTranslationsID,
               insertImport() {
                 const {program} = state;
                 program.node.body.unshift(
                   fallbackTranslationsImport({id: fallbackID}),
+                );
+                program.node.body.unshift(
+                  translationsImport({id: availableTranslationsID}),
                 );
               },
             });
