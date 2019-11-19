@@ -151,6 +151,72 @@ describe('ReactI18nParserPlugin', () => {
 
       expect(mockWriteModule).not.toHaveBeenCalled();
     });
+
+    it('does not call writeModule if parser.state.i18nImports does not exist', () => {
+      const componentPath = '/abc/path';
+      const mockWriteModule = jest.fn();
+      const mockTap = jest.fn();
+      const parser = createParser({
+        i18nImports: new Map([[componentPath, ['useI18n', 'useI18nAlias']]]),
+        evaluateTap: mockTap,
+      });
+
+      const reactI18nParserPlugin = new ReactI18nParserPlugin(defaultOptions, {
+        writeModule: mockWriteModule,
+      } as any);
+      reactI18nParserPlugin.apply(parser);
+
+      expect(mockWriteModule).not.toHaveBeenCalled();
+    });
+
+    it('does not call writeModule if the current path cannot be found in parser.state.i18nImports', () => {
+      const componentPath = '/abc/path1';
+      const mockWriteModule = jest.fn();
+      const mockTap = jest.fn();
+      const parser = createParser({
+        i18nImports: new Map([[componentPath, ['useI18n', 'useI18nAlias']]]),
+        evaluateTap: mockTap,
+      });
+
+      const reactI18nParserPlugin = new ReactI18nParserPlugin(defaultOptions, {
+        writeModule: mockWriteModule,
+      } as any);
+      reactI18nParserPlugin.apply(parser);
+
+      expect(mockWriteModule).not.toHaveBeenCalled();
+    });
+
+    it('does not call writeModule if the expression type if not Identifier', () => {
+      const componentPath = 'abc/path';
+      const componentDirectory = 'abc';
+      const mockWriteModule = jest.fn();
+      const identifierName = 'useI18nAlias';
+      const parser = createParser({
+        componentPath,
+        componentDirectory,
+        i18nImports: new Map([[componentPath, [identifierName]]]),
+        evaluateTap: jest.fn((_name, callback) => {
+          callback(
+            {
+              type: 'CallExpression',
+              callee: {
+                type: 'ThisExpression',
+              },
+              arguments: [],
+            },
+            {} as any,
+            {} as any,
+          );
+        }),
+      });
+
+      const reactI18nParserPlugin = new ReactI18nParserPlugin(defaultOptions, {
+        writeModule: mockWriteModule,
+      } as any);
+      reactI18nParserPlugin.apply(parser);
+
+      expect(mockWriteModule).not.toHaveBeenCalled();
+    });
   });
 
   describe('replace i18n call', () => {
