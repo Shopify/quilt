@@ -1,10 +1,10 @@
 import querystring from 'querystring';
+
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createOAuthStart from '../create-oauth-start';
 import Error from '../errors';
 import {OAuthStartOptions} from '../../types';
-
 import oAuthQueryString from '../oauth-query-string';
 
 jest.mock('../oauth-query-string', () => ({

@@ -5,6 +5,7 @@ import {
   NetworkContext,
   ServerCookieManager,
 } from '@shopify/react-network';
+
 import {CookieUniversalProvider} from '../CookieUniversalProvider';
 import {CookieContext} from '../context';
 import {BrowserCookieManager} from '../BrowserCookieManager';

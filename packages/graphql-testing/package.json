@@ -1,15 +1,14 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "4.0.4",
+  "version": "4.0.7",
   "license": "MIT",
   "description": "Utilities to create mock graphql factory.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -31,7 +30,7 @@
     "jest-matcher-utils": "^24.9.0"
   },
   "devDependencies": {
-    "@shopify/useful-types": "^2.0.2",
+    "@shopify/useful-types": "^2.1.1",
     "@types/graphql": "^14.0.0",
     "graphql-typed": "^0.4.0"
   },

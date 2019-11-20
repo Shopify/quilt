@@ -1,6 +1,5 @@
 import React from 'react';
 import faker from 'faker';
-
 import {extract} from '@shopify/react-effect/server';
 import {CsrfTokenContext} from '@shopify/react-csrf';
 import {mount} from '@shopify/react-testing';

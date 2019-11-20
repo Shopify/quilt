@@ -1,1 +1,1 @@
-module.exports = require('./dist/koa-middleware');
+module.exports = require('./dist/src/koa-middleware');

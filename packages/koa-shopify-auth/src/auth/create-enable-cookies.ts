@@ -1,6 +1,7 @@
 import {Context} from 'koa';
 
 import {OAuthStartOptions} from '../types';
+
 import Error from './errors';
 
 const HEADING = 'Enable cookies';

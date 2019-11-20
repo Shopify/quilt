@@ -1,15 +1,14 @@
 {
   "name": "@shopify/react-testing",
-  "version": "1.8.2",
+  "version": "1.8.5",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -24,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^2.0.2",
+    "@shopify/useful-types": "^2.1.1",
     "jest-matcher-utils": "^24.5.0",
     "react-reconciler": "^0.20.2"
   },

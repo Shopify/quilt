@@ -1,15 +1,14 @@
 {
   "name": "@shopify/react-router",
-  "version": "0.0.12",
+  "version": "0.0.17",
   "license": "MIT",
   "description": "A universal router for React.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -24,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-router/README.md",
   "dependencies": {
-    "@shopify/react-network": "^3.3.4",
+    "@shopify/react-network": "^3.3.7",
     "@types/react-router-dom": "^4.3.5",
     "react-router-dom": "^5.0.1"
   },

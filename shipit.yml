@@ -3,4 +3,4 @@ ci:
     - continuous-integration/travis-ci/push
 dependencies:
   post:
-    - yarn run build
+    - yarn run build: {timeout: 1800}

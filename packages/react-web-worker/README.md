@@ -35,18 +35,17 @@ function Home() {
   const worker = useWorker(createWorker);
   const [message, setMessage] = React.useState(null);
 
-  useEffect(
-    () => {
-      (async () => {
-        // Note: in your actual app code, make sure to check if Home
-        // is still mounted before setting state asynchronously!
-        const webWorkerMessage = await worker.hello('Tobi');
-        setMessage(webWorkerMessage);
-      })();
-    },
-    [worker],
-  );
+  useEffect(() => {
+    (async () => {
+      // Note: in your actual app code, make sure to check if Home
+      // is still mounted before setting state asynchronously!
+      const webWorkerMessage = await worker.hello('Tobi');
+      setMessage(webWorkerMessage);
+    })();
+  }, [worker]);
 
   return <Page title="Home"> {message} </Page>;
 }
 ```
+
+You can optionally pass a second argument to `useWorker`, which will be used as the [options to the worker creator function](../web-worker#customizing-worker-creation).

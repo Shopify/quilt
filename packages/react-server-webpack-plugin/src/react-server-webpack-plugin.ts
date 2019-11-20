@@ -1,8 +1,10 @@
 import {join, resolve} from 'path';
+import {existsSync, readdirSync} from 'fs';
+
 import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 
-interface Options {
+export interface Options {
   basePath: string;
   assetPrefix?: string;
   host?: string;
@@ -119,20 +121,18 @@ function clientSource() {
 function noSourceExists(
   entry: Entrypoint,
   options: Options,
-  {inputFileSystem, options: {context = ''}}: Compiler,
+  {options: {context = ''}}: Compiler,
 ) {
   const {basePath: path} = options;
   const basePath = resolve(context, path);
 
-  // readdirSync is not on the type for this
-  const dirFiles = (inputFileSystem as any).readdirSync(basePath);
-
-  // We assume the user knows what they're doing if the folder exists
-  const isEntryFolder = path => path.includes(`${basePath}/${entry}/`);
-  if (dirFiles.find(isEntryFolder)) {
+  // if there is a folder we assume it has an index file
+  if (existsSync(join(basePath, entry))) {
     return false;
   }
 
+  // otherwise we look for explicit files in the folder
+  const dirFiles = readdirSync(basePath);
   const filenameRegex = new RegExp(`^${entry}.[jt]sx?$`);
   return dirFiles.find(file => filenameRegex.test(file)) == null;
 }

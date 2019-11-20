@@ -1,13 +1,12 @@
 import {usePerformanceEffect} from './performance-effect';
+import {Stage} from './types';
 
-export type Stage = 'complete' | 'usable';
-
-export function usePerformanceMark(stage: Stage, id: string) {
+export function usePerformanceMark(stage: string, id: string) {
   usePerformanceEffect(
     performance => {
-      if (stage === 'complete') {
+      if (stage === Stage.Complete) {
         performance.finish();
-      } else if (stage === 'usable') {
+      } else if (stage === Stage.Usable) {
         performance.usable();
       }
 

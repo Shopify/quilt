@@ -420,9 +420,9 @@ class PerformanceReportController < ActionController::Base
   def create
     process_report
 
-    render json: { result: 'success' }, status: 200
+    render(json: { result: 'success' }, status: 200)
   rescue ActionController::ParameterMissing => error
-    render json: { error: error.message, status: 422 }
+    render(json: { error: error.message }, status: 422)
   end
 end
 ```
@@ -439,20 +439,17 @@ post '/performance_report', to: 'performance_report#create'
 
 ### Add annotations
 
-Add a [`<PerformanceMark />`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#performancemark) to each of your route-level components.
+Add a [`usePerformanceMark`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#useperformancemark) call to each of your route-level components.
 
 ```tsx
 // app/ui/features/Home/Home.tsx
-import {PerformanceMark} from '@shopify/react-performance';
+import {usePerformanceMark} from '@shopify/react-performance';
 
 export function Home() {
-  return (
-    <div>
-      My Cool Home Page
-      {/* tell the library the page has finished rendering completely */}
-      <PerformanceMark stage="complete" id="Home" />
-    </div>
-  );
+  // tell the library the page has finished rendering completely
+  usePerformanceMark('complete', 'Home');
+
+  return <>{/* your Home page JSX goes here*/}</>;
 }
 ```
 
@@ -592,14 +589,40 @@ The params sent to the controller are expected to be of type `application/json`.
 }
 ```
 
-the above controller would send the following metrics:
+given the the above controller input, the library would send the following metrics:
 
 ```ruby
-StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
-StatsD.distribution('time_to_first_byte', 2, ['browser_connection_type:3g'])
-StatsD.distribution('navigation_complete', 23924, ['browser_connection_type:3g'])
-StatsD.distribution('navigation_usable', 23924, ['browser_connection_type:3g'])
+StatsD.distribution('time_to_first_byte', 2, tags: {
+  browser_connection_type:'3g',
+})
+StatsD.distribution('time_to_first_byte', 2, tags: {
+  browser_connection_type:'3g' ,
+})
+StatsD.distribution('navigation_complete', 23924, tags: {
+  browser_connection_type:'3g' ,
+})
+StatsD.distribution('navigation_usable', 23924, tags: {
+  browser_connection_type:'3g' ,
+})
 ```
+
+##### Default Metrics
+
+The full list of metrics sent by default are as follows:
+
+###### For full-page load
+- `AppName.time_to_first_byte`, representing the time from the start of the request to when the server began responding with data.
+- `AppName.time_to_first_paint`, representing the time from the start of the request to when the browser rendered anything to the screen.
+- `AppName.time_to_first_contentful_paint` representing the time from the start of the request to when the browser rendered meaningful content to the screen.
+- `AppName.dom_content_loaded` representing the time from the start of the request to when the browser fired the [DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event) event.
+- `AppName.dom_load` representing the time from the start of the request to when the browser fired the [window.load](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) event.
+
+###### For both full-page navigations and client-side page transitions
+- `AppName.navigation_usable`, representing the time it took before for the page to be rendered in a usable state. Usually this does not include data fetching or asynchronous tasks.
+- `AppName.navigation_complete` representing the time it took for the page to be fully loaded, including any data fetching which blocks above-the-fold content.
+- `AppName.navigation_download_size`, representing the total weight of all client-side assets (eg. CSS, JS, images). This will only be sent if there are any events with a `type` of `script` or `style`.
+- `AppName.navigation_cache_effectiveness`, representing what percentage of client-side assets (eg. CSS, JS, images) were returned from the browser's cache. This will only be sent if there are any events with a `type` of `script` or `style`.
+
 
 ##### Customizing `process_report` with a block
 

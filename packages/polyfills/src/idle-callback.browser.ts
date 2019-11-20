@@ -1,4 +1,5 @@
 // reference: https://developers.google.com/web/updates/2015/08/using-requestidlecallback
+import {ExtendedWindow} from '@shopify/useful-types';
 
 interface IdleCallback {
   (params: CallbackParams): void;
@@ -8,7 +9,6 @@ interface CallbackParams {
   didTimeout: boolean;
   timeRemaining(): number;
 }
-
 interface PolyfilledWindow extends Window {
   requestIdleCallback(cb: IdleCallback): any;
   cancelIdleCallback(): any;
@@ -29,7 +29,7 @@ function fallbackQueueingFunction(cb: IdleCallback) {
   });
 }
 
-const extendedWindow = window as PolyfilledWindow;
+const extendedWindow = window as ExtendedWindow<PolyfilledWindow>;
 
 extendedWindow.requestIdleCallback =
   extendedWindow.requestIdleCallback || fallbackQueueingFunction;

@@ -4,7 +4,9 @@ import {
   printExpected,
   RECEIVED_COLOR as receivedColor,
 } from 'jest-matcher-utils';
+
 import {Node} from '../types';
+
 import {assertIsNode, diffPropsForNode} from './utilities';
 
 export function toHaveReactProps<Props>(

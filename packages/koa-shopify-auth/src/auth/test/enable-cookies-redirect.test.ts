@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createEnableCookiesRedirect from '../create-enable-cookies-redirect';

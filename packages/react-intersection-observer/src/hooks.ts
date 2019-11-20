@@ -54,12 +54,7 @@ export function useIntersection({
       typeof root === 'string' ? document.querySelector(root) : root;
 
     const intersectionObserver = new IntersectionObserver(
-      ([entry]) =>
-        setIntersectingEntry({
-          ...entry,
-          // Normalizes for inconsistent browser support
-          isIntersecting: entry.intersectionRatio > 0,
-        }),
+      ([entry]) => setIntersectingEntry(entry),
       {
         root: resolvedRoot,
         rootMargin,

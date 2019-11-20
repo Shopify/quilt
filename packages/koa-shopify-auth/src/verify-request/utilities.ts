@@ -1,4 +1,5 @@
 import {Context} from 'koa';
+
 import {Routes} from './types';
 
 export function redirectToAuth(

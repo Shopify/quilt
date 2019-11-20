@@ -1,4 +1,5 @@
 import {random} from 'faker';
+
 import {AssetTiming} from '../../types';
 import {AsyncAssetManager} from '../assets';
 

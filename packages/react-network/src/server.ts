@@ -1,4 +1,5 @@
 import {Context} from 'koa';
+
 import {NetworkManager, EFFECT_ID} from './manager';
 
 export {NetworkContext} from './context';

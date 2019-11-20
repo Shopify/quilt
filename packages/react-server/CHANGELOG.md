@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.8.0] - 2019-10-30
+
+- `createRender` now includes automatic sewing-kit-koa set-up. The `createRender` middleware now accepts an `assetPrefix` that is passed to `sewingKitKoa`'s middleware. [[1160](https://github.com/Shopify/quilt/pull/1160)]
+
 ## [0.7.3] - 2019-09-30
 
 - Added missing `@shopify/react-cookie` dependency

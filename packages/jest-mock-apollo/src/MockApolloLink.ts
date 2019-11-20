@@ -1,4 +1,4 @@
-import {ApolloLink, Observable, Operation} from 'apollo-link';
+import {ApolloLink, Observable, Operation, NextLink} from 'apollo-link';
 import {
   GraphQLType,
   ExecutionResult,
@@ -12,6 +12,7 @@ import {
   isUnionType,
 } from 'graphql';
 import {compile, Field} from 'graphql-tool-utilities';
+
 import {GraphQLMock, MockGraphQLFunction} from './types';
 
 export default class MockApolloLink extends ApolloLink {
@@ -19,7 +20,7 @@ export default class MockApolloLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation) {
+  request(operation: Operation, _forward?: NextLink): Observable<any> {
     return new Observable(obs => {
       const {mock} = this;
       const {operationName = ''} = operation;

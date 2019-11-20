@@ -1,13 +1,12 @@
 {
   "name": "@shopify/react-shopify-app-route-propagator",
-  "version": "3.0.3",
+  "version": "3.0.5",
   "license": "MIT",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",

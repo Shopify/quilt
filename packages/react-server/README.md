@@ -38,7 +38,7 @@ const app = createServer({
 });
 ```
 
-If you already have an exisiting node server, you can opt in to using only the render middleware provided by this package. See `createRender()`.
+If you already have an existing node server, you can opt in to using only the render middleware provided by this package. See `createRender()`.
 
 ## Webpack Plugin
 

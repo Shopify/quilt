@@ -180,7 +180,7 @@ function shouldPrefetchAggressively() {
   );
 }
 
-function urlsEqual(first?: URL, second?: URL) {
+function urlsEqual(first?: URL | null, second?: URL) {
   return (
     (first == null && first === second) ||
     (first != null && second != null && first.href === second.href)

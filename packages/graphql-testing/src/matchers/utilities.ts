@@ -7,6 +7,7 @@ import {
   printReceived,
 } from 'jest-matcher-utils';
 import {Operation} from 'apollo-link';
+
 import {GraphQL} from '../graphql-controller';
 
 export function assertIsGraphQL(

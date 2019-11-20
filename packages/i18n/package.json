@@ -1,17 +1,16 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "description": "Generic i18n-related utilities.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
-  },
-  "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
   },
   "author": "Shopify Inc.",
   "repository": {

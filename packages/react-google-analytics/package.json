@@ -1,13 +1,12 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "3.0.20",
+  "version": "3.0.21",
   "license": "MIT",
   "description": "Google Analytics",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",
@@ -30,6 +29,6 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^2.1.5"
+    "@shopify/enzyme-utilities": "^2.1.6"
   }
 }

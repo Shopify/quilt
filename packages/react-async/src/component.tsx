@@ -5,7 +5,6 @@ import React, {
   ReactNode,
   ComponentType,
 } from 'react';
-
 import {createResolver, ResolverOptions, DeferTiming} from '@shopify/async';
 import {IntersectionObserver} from '@shopify/react-intersection-observer';
 import {OnIdle, useIdleCallback} from '@shopify/react-idle';

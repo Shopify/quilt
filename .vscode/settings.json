@@ -24,11 +24,9 @@
     "**/*.js": true
   },
   "editor.formatOnSave": true,
-  "prettier.stylelintIntegration": true,
-  "prettier.eslintIntegration": true,
+  "prettier-stylelint.stylelintIntegration": true,
+  "prettier-eslint.eslintIntegration": true,
   "eslint.validate": ["typescript", "typescriptreact"],
   "javascript.implicitProjectConfig.experimentalDecorators": true,
-  "cSpell.ignoreWords": [
-    "transferables"
-  ]
+  "cSpell.ignoreWords": ["transferables"]
 }

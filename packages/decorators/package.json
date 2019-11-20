@@ -1,15 +1,14 @@
 {
   "name": "@shopify/decorators",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "license": "MIT",
   "description": "A set of decorators to aid your JavaScript journey.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -27,6 +26,6 @@
     "dist/*"
   ],
   "dependencies": {
-    "@shopify/function-enhancers": "^1.0.5"
+    "@shopify/function-enhancers": "^1.0.6"
   }
 }

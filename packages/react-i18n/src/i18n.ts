@@ -10,6 +10,7 @@ import {
 import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
+
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -205,7 +206,7 @@ export class I18n {
 
   translationKeyExists(id: string) {
     try {
-      this.translate(id);
+      getTranslationTree(id, this.translations, this.locale);
       return true;
     } catch (error) {
       return false;
