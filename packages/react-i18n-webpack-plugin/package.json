@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n-webpack-plugin",
-  "version": "0.0.0",
+  "version": "0.0.0-cache-buster-beta.2",
   "license": "MIT",
   "description": "A webpack plugin that automatically filled in &#x60;@shopify/react-i18n&#x60;s &#x60;useI18n&#x60;s or &#x60;withI18n&#x60;s call arguments.",
   "main": "dist/index.js",
@@ -26,8 +26,8 @@
   "dependencies": {
     "@types/webpack": "^4.0.0",
     "change-case": "^3.1.0",
-    "string-hash": "^1.1.3",
     "glob": "^7.1.4",
+    "string-hash": "^1.1.3",
     "webpack-virtual-modules": "^0.1.12"
   },
   "devDependencies": {
@@ -36,9 +36,9 @@
     "@types/webpack-virtual-modules": "^0.1.0"
   },
   "optionalDependencies": {
-    "webpack": "^4.40.0",
     "@babel/template": "^7.0.0",
-    "@babel/traverse": "^7.0.0"
+    "@babel/traverse": "^7.0.0",
+    "webpack": "^4.40.0"
   },
   "files": [
     "dist/*",
