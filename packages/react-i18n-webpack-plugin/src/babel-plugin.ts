@@ -23,20 +23,35 @@ export default function injectWithI18nArguments({
     })() as Types.ImportDeclaration;
   }
 
-  function i18nCallExpression({id, fallbackID, bindingName, translations}) {
+  function translationsImport({id}) {
+    return template(`import ${id} from './translations';`, {
+      sourceType: 'module',
+    })() as Types.ImportDeclaration;
+  }
+
+  function i18nCallExpression({
+    id,
+    fallbackID,
+    translationID,
+    bindingName,
+    translations,
+  }) {
+    const translationArrayString = translationID
+      ? translationID
+      : `[${translations
+          .filter(locale => !locale.endsWith('en.json'))
+          .map(locale =>
+            JSON.stringify(path.basename(locale, path.extname(locale))),
+          )
+          .sort()
+          .join(', ')}]`;
+
     return template(
       `${bindingName}({
         id: '${id}',
         fallback: ${fallbackID},
         translations(locale) {
-          const __shopify__i18n_translations = [${translations
-            .filter(locale => !locale.endsWith('en.json'))
-            .map(locale =>
-              JSON.stringify(path.basename(locale, path.extname(locale))),
-            )
-            .sort()
-            .join(', ')}];
-          if (__shopify__i18n_translations.indexOf(locale) < 0) {
+          if (${translationArrayString}.indexOf(locale) < 0) {
             return;
           }
           return (async () => {
@@ -58,6 +73,7 @@ export default function injectWithI18nArguments({
     bindingName,
     filename,
     fallbackID,
+    translationID,
     insertImport,
   }) {
     const {referencePaths} = binding;
@@ -94,6 +110,7 @@ export default function injectWithI18nArguments({
       i18nCallExpression({
         id: generateID(filename),
         fallbackID,
+        translationID,
         bindingName,
         translations,
       }),
@@ -109,6 +126,8 @@ export default function injectWithI18nArguments({
         nodePath: NodePath<Types.ImportDeclaration>,
         state: State,
       ) {
+        const fromGeneratedIndex =
+          (state as any).opts.mode === 'from-generated-index' || false;
         if (nodePath.node.source.value !== '@shopify/react-i18n') {
           return;
         }
@@ -127,6 +146,9 @@ export default function injectWithI18nArguments({
 
           if (binding != null) {
             const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
+            const translationID = fromGeneratedIndex
+              ? nodePath.scope.generateUidIdentifier('translation').name
+              : undefined;
             const {filename} = this.file.opts;
 
             addI18nArguments({
@@ -134,11 +156,18 @@ export default function injectWithI18nArguments({
               bindingName,
               filename,
               fallbackID,
+              translationID,
               insertImport() {
                 const {program} = state;
                 program.node.body.unshift(
                   fallbackTranslationsImport({id: fallbackID}),
                 );
+
+                if (fromGeneratedIndex) {
+                  program.node.body.unshift(
+                    translationsImport({id: translationID}),
+                  );
+                }
               },
             });
           }
