@@ -665,6 +665,7 @@ client.on_navigation do |navigation, tags|
   tags[:navigation_target] = navigation.target
 
   # add a tag to allow filtering out navigations that are too long
+  # this is useful when you are unable to rule out missing performance marks on some pages
   tags[:too_long_dont_read] = navigation.duration > 30.seconds.in_milliseconds
 end
 ```
