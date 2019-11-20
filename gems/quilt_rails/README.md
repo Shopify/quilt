@@ -611,6 +611,7 @@ StatsD.distribution('navigation_usable', 23924, tags: {
 The full list of metrics sent by default are as follows:
 
 ###### For full-page load
+
 - `AppName.time_to_first_byte`, representing the time from the start of the request to when the server began responding with data.
 - `AppName.time_to_first_paint`, representing the time from the start of the request to when the browser rendered anything to the screen.
 - `AppName.time_to_first_contentful_paint` representing the time from the start of the request to when the browser rendered meaningful content to the screen.
@@ -618,11 +619,11 @@ The full list of metrics sent by default are as follows:
 - `AppName.dom_load` representing the time from the start of the request to when the browser fired the [window.load](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) event.
 
 ###### For both full-page navigations and client-side page transitions
+
 - `AppName.navigation_usable`, representing the time it took before for the page to be rendered in a usable state. Usually this does not include data fetching or asynchronous tasks.
 - `AppName.navigation_complete` representing the time it took for the page to be fully loaded, including any data fetching which blocks above-the-fold content.
 - `AppName.navigation_download_size`, representing the total weight of all client-side assets (eg. CSS, JS, images). This will only be sent if there are any events with a `type` of `script` or `style`.
 - `AppName.navigation_cache_effectiveness`, representing what percentage of client-side assets (eg. CSS, JS, images) were returned from the browser's cache. This will only be sent if there are any events with a `type` of `script` or `style`.
-
 
 ##### Customizing `process_report` with a block
 
@@ -662,6 +663,10 @@ client.on_navigation do |navigation, tags|
   tags[:connection_rtt] = navigation.connection.rtt
   tags[:connection_type] = navigation.connection.type
   tags[:navigation_target] = navigation.target
+
+  # add a tag to allow filtering out navigations that are too long
+  # this is useful when you are unable to rule out missing performance marks on some pages
+  tags[:too_long_dont_read] = navigation.duration > 30.seconds.in_milliseconds
 end
 ```
 
