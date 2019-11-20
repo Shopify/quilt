@@ -19,7 +19,7 @@ export interface Options {
   logger?: Logger;
 }
 
-export default function metrics({
+export function metrics({
   prefix,
   host,
   skipInstrumentation = false,
