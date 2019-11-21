@@ -394,10 +394,37 @@ useI18n({
   id: 'MyComponent_<hash>',
   fallback: _en,
   async translations(locale) {
-    const dictionary = await import(/* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`);
+    const dictionary = await import(
+      /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
+    );
     return dictionary;
   },
 });
+```
+
+#### Integration with babel-loader
+
+Because `babel-loader`'s cache is based on a component's source content hash, newly added translation files will not invalidate the component's Babel cache. To combat this, run the `generateTranslationIndexes` function before building, and configure the plugin to use its `from-generated-index` mode.
+
+The generator will look for any `translations` folders and generate an array of local ids in `translations/index.js` based on the `{locale}.json` files found. We recommend that you add `**/translations/index.js` to `.gitignore` to make sure the generated files are not checked-in.
+
+```js
+// babel.config.js
+{
+  plugins: [
+    ['@shopify/react-i18n/babel', {mode: 'from-generated-index'}],
+  ],
+}
+```
+
+```js
+// generate-translations.js
+const {
+  generateTranslationIndexes,
+} = require('@shopify/react-i18n/generate-index');
+
+generateTranslationIndexes();
+webpack(require(./webpack.config.js));
 ```
 
 ## FAQ
