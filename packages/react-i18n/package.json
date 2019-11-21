@@ -52,11 +52,15 @@
   },
   "optionalDependencies": {
     "@babel/template": "^7.0.0",
-    "@babel/traverse": "^7.0.0"
+    "@babel/traverse": "^7.0.0",
+    "child_process": "^1.0.2",
+    "fs-extra": "^8.1.0"
   },
   "files": [
     "dist/*",
     "babel.d.ts",
-    "babel.js"
+    "babel.js",
+    "generate-index.d.ts",
+    "generate-index.js"
   ]
 }
