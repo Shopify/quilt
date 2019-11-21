@@ -40,8 +40,7 @@ export function buildI18nOptions({
       id: '${id}',
       ${fallBackExist ? `fallback: ${fallbackLocaleID},` : ''}
       async translations(locale) {
-        const translations = [${translations}];
-        if (!translations.includes(locale)) {
+        if (![${translations}].includes(locale)) {
           return;
         }
         const dictionary = await import(

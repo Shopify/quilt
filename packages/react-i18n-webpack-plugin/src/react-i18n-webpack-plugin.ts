@@ -21,9 +21,14 @@ export class ReactI18nPlugin {
   apply(compiler: webpack.Compiler) {
     this.virtualModules.apply(compiler);
 
-    compiler.hooks.normalModuleFactory.tap(
+    compiler.hooks.beforeCompile.tapAsync(
       'ReactI18nPlugin',
-      (normalModuleFactory: webpack.compilation.NormalModuleFactory) => {
+      (
+        {
+          normalModuleFactory,
+        }: {normalModuleFactory: webpack.compilation.NormalModuleFactory},
+        callback,
+      ) => {
         const handler = (parser: Parser) => {
           new ReactI18nParserPlugin(this.options, this.virtualModules).apply(
             parser,
@@ -41,6 +46,8 @@ export class ReactI18nPlugin {
         normalModuleFactory.hooks.parser
           .for('javascript/dynamic')
           .tap('HarmonyModulesPlugin', handler);
+
+        callback();
       },
     );
   }
