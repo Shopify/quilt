@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "2.1.9",
+  "version": "2.1.9-generate-index-beta.1",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more.",
   "main": "dist/src/index.js",
