@@ -1,13 +1,28 @@
 import path from 'path';
 
 import glob from 'glob';
+import stringHash from 'string-hash';
+import {camelCase} from 'change-case';
 import {TemplateBuilder} from '@babel/template';
 import Types from '@babel/types';
 import {Node, NodePath} from '@babel/traverse';
-import stringHash from 'string-hash';
+
+import {
+  fallbackTranslationsImport,
+  translationsImport,
+  i18nCallExpression,
+} from './babel-templates';
+import {TRANSLATION_DIRECTORY_NAME, DEFAULT_FALLBACK_LOCALE} from './shared';
+
+export const I18N_CALL_NAMES = ['useI18n', 'withI18n'];
+
+export interface Options {
+  mode?: 'from-generated-index';
+}
 
 interface State {
   program: NodePath<Types.Program>;
+  opts: Options;
 }
 
 export default function injectWithI18nArguments({
@@ -17,49 +32,13 @@ export default function injectWithI18nArguments({
   types: typeof Types;
   template: TemplateBuilder<Types.ImportDeclaration | Types.ObjectExpression>;
 }) {
-  function fallbackTranslationsImport({id}) {
-    return template(`import ${id} from './translations/en.json';`, {
-      sourceType: 'module',
-    })() as Types.ImportDeclaration;
-  }
-
-  function i18nCallExpression({id, fallbackID, bindingName, translations}) {
-    return template(
-      `${bindingName}({
-        id: '${id}',
-        fallback: ${fallbackID},
-        translations(locale) {
-          const translations = [${translations
-            .filter(locale => !locale.endsWith('en.json'))
-            .map(locale =>
-              JSON.stringify(path.basename(locale, path.extname(locale))),
-            )
-            .sort()
-            .join(', ')}];
-
-          if (translations.indexOf(locale) < 0) {
-            return;
-          }
-
-          return (async () => {
-            const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-            return dictionary && dictionary.default;
-          })();
-        },
-      })`,
-      {
-        sourceType: 'module',
-        plugins: ['dynamicImport'],
-        preserveComments: true,
-      },
-    )();
-  }
-
   function addI18nArguments({
     binding,
     bindingName,
     filename,
     fallbackID,
+    translationArrayID,
+    fallbackLocale,
     insertImport,
   }) {
     const {referencePaths} = binding;
@@ -84,20 +63,25 @@ export default function injectWithI18nArguments({
       );
     }
 
-    const translations = getTranslations(filename);
+    const translationFilePaths = getTranslationFilePaths(
+      filename,
+      TRANSLATION_DIRECTORY_NAME,
+    );
 
-    if (translations.length === 0) {
+    if (translationFilePaths.length === 0) {
       return;
     }
 
     insertImport();
 
     referencePathsToRewrite[0].parentPath.replaceWith(
-      i18nCallExpression({
+      i18nCallExpression(template, {
         id: generateID(filename),
         fallbackID,
+        translationArrayID,
         bindingName,
-        translations,
+        translationFilePaths,
+        fallbackLocale,
       }),
     );
   }
@@ -114,45 +98,72 @@ export default function injectWithI18nArguments({
         if (nodePath.node.source.value !== '@shopify/react-i18n') {
           return;
         }
+
         const {specifiers} = nodePath.node;
-        for (const specifier of specifiers) {
+        specifiers.forEach(specifier => {
           if (
             !t.isImportSpecifier(specifier) ||
-            (specifier.imported.name !== 'withI18n' &&
-              specifier.imported.name !== 'useI18n')
+            !I18N_CALL_NAMES.includes(specifier.imported.name)
           ) {
-            continue;
+            return;
           }
 
           const bindingName = specifier.local.name;
           const binding = nodePath.scope.getBinding(bindingName);
 
-          if (binding != null) {
-            const fallbackID = nodePath.scope.generateUidIdentifier('en').name;
-            const {filename} = this.file.opts;
-
-            addI18nArguments({
-              binding,
-              bindingName,
-              filename,
-              fallbackID,
-              insertImport() {
-                const {program} = state;
-                program.node.body.unshift(
-                  fallbackTranslationsImport({id: fallbackID}),
-                );
-              },
-            });
+          if (!binding) {
+            return;
           }
-        }
+
+          const {mode} = state.opts;
+          const fromGeneratedIndex = mode === 'from-generated-index';
+          const fallbackLocale = DEFAULT_FALLBACK_LOCALE;
+
+          const fallbackID = nodePath.scope.generateUidIdentifier(
+            camelCase(fallbackLocale),
+          ).name;
+          const translationArrayID = fromGeneratedIndex
+            ? '__shopify__i18n_translations'
+            : undefined;
+          const {filename} = this.file.opts;
+
+          addI18nArguments({
+            binding,
+            bindingName,
+            filename,
+            fallbackID,
+            translationArrayID,
+            fallbackLocale,
+            insertImport() {
+              const {program} = state;
+              program.node.body.unshift(
+                fallbackTranslationsImport(template, {
+                  id: fallbackID,
+                  fallbackLocale,
+                }),
+              );
+
+              if (fromGeneratedIndex) {
+                program.node.body.unshift(
+                  translationsImport(template, {
+                    id: translationArrayID,
+                  }),
+                );
+              }
+            },
+          });
+        });
       },
     },
   };
 }
 
-function getTranslations(filename: string): string[] {
+function getTranslationFilePaths(
+  filename: string,
+  translationDirName,
+): string[] {
   return glob.sync(
-    path.resolve(path.dirname(filename), 'translations', '*.json'),
+    path.resolve(path.dirname(filename), translationDirName, '*.json'),
     {
       nodir: true,
     },
