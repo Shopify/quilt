@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-effect",
-  "version": "3.2.8",
+  "version": "3.2.9",
   "license": "MIT",
   "description": "A component and set of utilities for performing effects within a universal React app",
   "main": "dist/src/index.js",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^2.1.1",
+    "@shopify/useful-types": "^2.1.2",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

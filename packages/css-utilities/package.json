@@ -1,6 +1,6 @@
 {
   "name": "@shopify/css-utilities",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "description": "A set of css styling related utilities.",
   "main": "dist/src/index.js",

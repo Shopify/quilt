@@ -1,6 +1,6 @@
 {
   "name": "@shopify/dates",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "license": "MIT",
   "description": "Lightweight date operations library.",
   "main": "dist/src/index.js",
@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
   "dependencies": {
-    "@shopify/decorators": "^1.1.6",
-    "@shopify/function-enhancers": "^1.0.6",
+    "@shopify/decorators": "^1.1.7",
+    "@shopify/function-enhancers": "^1.0.7",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.8.6"
+    "@shopify/jest-dom-mocks": "^2.8.7"
   },
   "files": [
     "dist/*"
