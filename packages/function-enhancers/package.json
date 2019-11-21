@@ -1,6 +1,6 @@
 {
   "name": "@shopify/function-enhancers",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "description": "A set of helpers to enhance functions.",
   "main": "dist/src/index.js",
