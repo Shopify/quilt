@@ -321,6 +321,37 @@ describe('babel-pluin-react-i18n', () => {
       ),
     );
   });
+
+  it('injects arguments with imported translation dictionary and no fallback option into useI18n when mode equals to from-generated-dictionary', async () => {
+    expect(
+      await transformUsingI18nBabelPlugin(
+        useI18nFixture,
+        optionsForFile('MyComponent.tsx', true),
+        {mode: 'from-generated-dictionary'},
+      ),
+    ).toBe(
+      await normalize(
+        `import __shopify__i18n_dictionary from './translations';
+        import React from 'react';
+        import {useI18n} from '@shopify/react-i18n';
+
+        export default function MyComponent() {
+          const [i18n] = useI18n({
+            id: 'MyComponent_${defaultHash}',
+            translations(locale) {
+              if (Object.keys(__shopify__i18n_dictionary).indexOf(locale) < 0) {
+                return;
+              }
+
+              return __shopify__i18n_dictionary[locale];
+            }
+          });
+          return i18n.translate('key');
+        }
+        `,
+      ),
+    );
+  });
 });
 
 async function transformUsingI18nBabelPlugin(

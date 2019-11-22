@@ -7,17 +7,13 @@ import {TemplateBuilder} from '@babel/template';
 import Types from '@babel/types';
 import {Node, NodePath} from '@babel/traverse';
 
-import {
-  fallbackTranslationsImport,
-  translationsImport,
-  i18nCallExpression,
-} from './babel-templates';
+import {importModule, i18nCallExpression} from './babel-templates';
 import {TRANSLATION_DIRECTORY_NAME, DEFAULT_FALLBACK_LOCALE} from './shared';
 
 export const I18N_CALL_NAMES = ['useI18n', 'withI18n'];
 
 export interface Options {
-  mode?: 'from-generated-index';
+  mode?: 'from-generated-index' | 'from-generated-dictionary';
 }
 
 interface State {
@@ -36,10 +32,10 @@ export default function injectWithI18nArguments({
     binding,
     bindingName,
     filename,
-    fallbackID,
-    translationArrayID,
-    fallbackLocale,
     insertImport,
+    fallback,
+    translationIndexImportID,
+    translationDictionaryImportID,
   }) {
     const {referencePaths} = binding;
 
@@ -63,13 +59,20 @@ export default function injectWithI18nArguments({
       );
     }
 
-    const translationFilePaths = getTranslationFilePaths(
-      filename,
-      TRANSLATION_DIRECTORY_NAME,
-    );
+    let translationFilePaths;
+    if (translationDictionaryImportID || translationIndexImportID) {
+      if (!translationIndexFileExist(filename, TRANSLATION_DIRECTORY_NAME)) {
+        return;
+      }
+    } else {
+      translationFilePaths = getTranslationFilePaths(
+        filename,
+        TRANSLATION_DIRECTORY_NAME,
+      );
 
-    if (translationFilePaths.length === 0) {
-      return;
+      if (translationFilePaths.length === 0) {
+        return;
+      }
     }
 
     insertImport();
@@ -77,11 +80,11 @@ export default function injectWithI18nArguments({
     referencePathsToRewrite[0].parentPath.replaceWith(
       i18nCallExpression(template, {
         id: generateID(filename),
-        fallbackID,
-        translationArrayID,
+        translationIndexImportID,
         bindingName,
         translationFilePaths,
-        fallbackLocale,
+        fallback,
+        translationDictionaryImportID,
       }),
     );
   }
@@ -117,36 +120,62 @@ export default function injectWithI18nArguments({
 
           const {mode} = state.opts;
           const fromGeneratedIndex = mode === 'from-generated-index';
-          const fallbackLocale = DEFAULT_FALLBACK_LOCALE;
+          const fromGeneratedDictionary = mode === 'from-generated-dictionary';
 
-          const fallbackID = nodePath.scope.generateUidIdentifier(
-            camelCase(fallbackLocale),
-          ).name;
-          const translationArrayID = fromGeneratedIndex
+          const fallback = fromGeneratedDictionary
+            ? undefined
+            : {
+                locale: DEFAULT_FALLBACK_LOCALE,
+                id: nodePath.scope.generateUidIdentifier(
+                  camelCase(DEFAULT_FALLBACK_LOCALE),
+                ).name,
+              };
+
+          const translationIndexImportID = fromGeneratedIndex
             ? '__shopify__i18n_translations'
             : undefined;
+
+          const translationDictionaryImportID = fromGeneratedDictionary
+            ? '__shopify__i18n_dictionary'
+            : undefined;
+
           const {filename} = this.file.opts;
 
           addI18nArguments({
             binding,
             bindingName,
             filename,
-            fallbackID,
-            translationArrayID,
-            fallbackLocale,
+            fallback,
+            translationIndexImportID,
+            translationDictionaryImportID,
             insertImport() {
               const {program} = state;
-              program.node.body.unshift(
-                fallbackTranslationsImport(template, {
-                  id: fallbackID,
-                  fallbackLocale,
-                }),
-              );
 
-              if (fromGeneratedIndex) {
+              if (fallback) {
                 program.node.body.unshift(
-                  translationsImport(template, {
-                    id: translationArrayID,
+                  importModule(template, {
+                    id: fallback.id,
+                    from: `./${TRANSLATION_DIRECTORY_NAME}/${
+                      fallback.locale
+                    }.json`,
+                  }),
+                );
+              }
+
+              if (translationIndexImportID) {
+                program.node.body.unshift(
+                  importModule(template, {
+                    id: translationIndexImportID,
+                    from: `./${TRANSLATION_DIRECTORY_NAME}`,
+                  }),
+                );
+              }
+
+              if (translationDictionaryImportID) {
+                program.node.body.unshift(
+                  importModule(template, {
+                    id: translationDictionaryImportID,
+                    from: `./${TRANSLATION_DIRECTORY_NAME}`,
                   }),
                 );
               }
@@ -168,6 +197,17 @@ function getTranslationFilePaths(
       nodir: true,
     },
   );
+}
+
+function translationIndexFileExist(filename: string, translationDirName) {
+  const indexFile = glob.sync(
+    path.resolve(path.dirname(filename), translationDirName, 'index.js'),
+    {
+      nodir: true,
+    },
+  );
+
+  return indexFile.length > 0;
 }
 
 // based on postcss-modules implementation
