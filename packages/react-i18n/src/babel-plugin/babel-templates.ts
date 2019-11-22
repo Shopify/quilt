@@ -7,23 +7,11 @@ import {
   toArrayString,
 } from './shared';
 
-export function fallbackTranslationsImport(
+export function importModule(
   template: TemplateBuilder<Types.ImportDeclaration | Types.ObjectExpression>,
-  {id, fallbackLocale},
+  {id, from}: {id: string; from: string},
 ) {
-  return template(
-    `import ${id} from './${TRANSLATION_DIRECTORY_NAME}/${fallbackLocale}.json';`,
-    {
-      sourceType: 'module',
-    },
-  )() as Types.ImportDeclaration;
-}
-
-export function translationsImport(
-  template: TemplateBuilder<Types.ImportDeclaration | Types.ObjectExpression>,
-  {id},
-) {
-  return template(`import ${id} from './${TRANSLATION_DIRECTORY_NAME}';`, {
+  return template(`import ${id} from '${from}';`, {
     sourceType: 'module',
   })() as Types.ImportDeclaration;
 }
@@ -32,34 +20,53 @@ export function i18nCallExpression(
   template: TemplateBuilder<Types.ImportDeclaration | Types.ObjectExpression>,
   {
     id,
-    fallbackID,
-    translationArrayID,
     bindingName,
     translationFilePaths,
-    fallbackLocale,
+    fallback,
+    translationIndexImportID,
+    translationDictionaryImportID,
+  }: {
+    id: string;
+    bindingName: string;
+    translationFilePaths?: string[];
+    fallback?: {
+      locale: string;
+      id: string;
+    };
+    translationIndexImportID?: string;
+    translationDictionaryImportID?: string;
   },
 ) {
-  const translationArrayString = translationArrayID
-    ? translationArrayID
-    : toArrayString(
-        getLocaleIds({
-          translationFilePaths,
-          fallbackLocale,
-        }),
-      );
+  let translationArrayString = '';
+  if (translationDictionaryImportID) {
+    translationArrayString = `Object.keys(${translationDictionaryImportID})`;
+  } else if (translationIndexImportID) {
+    translationArrayString = translationIndexImportID;
+  } else if (translationFilePaths) {
+    translationArrayString = toArrayString(
+      getLocaleIds({
+        translationFilePaths,
+        fallbackLocale: fallback ? fallback.locale : undefined,
+      }),
+    );
+  }
 
   return template(
     `${bindingName}({
         id: '${id}',
-        fallback: ${fallbackID},
+        ${fallback ? `fallback: ${fallback.id},` : ''}
         translations(locale) {
           if (${translationArrayString}.indexOf(locale) < 0) {
             return;
           }
-          return (async () => {
+          return ${
+            translationDictionaryImportID
+              ? `${translationDictionaryImportID}[locale]`
+              : `(async () => {
             const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/$\{locale}.json\`);
             return dictionary && dictionary.default;
-          })();
+          })()`
+          };
         },
       })`,
     {
