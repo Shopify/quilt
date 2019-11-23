@@ -2,46 +2,44 @@ import path from 'path';
 
 import {transformAsync, TransformOptions} from '@babel/core';
 
-import i18nBabelPlugin from '../babel-plugin';
+import i18nBabelPlugin, {Options} from '../index';
+import {TRANSLATION_DIRECTORY_NAME} from '../shared';
 
 jest.mock('string-hash', () => () => {
   return Number.MAX_SAFE_INTEGER;
 });
 
 const defaultHash = Number.MAX_SAFE_INTEGER.toString(36).substr(0, 5);
-const expectedTranslationsOption = `
-  translations(locale) {
-    const translations = ["de", "fr"];
-
-    if (translations.indexOf(locale) < 0) {
-      return;
-    }
-
-    return (async () => {
-      const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./translations/$\{locale}.json\`);
-      return dictionary && dictionary.default;
-    })();
-  }
-`;
 
 describe('babel-pluin-react-i18n', () => {
+  const withI18nFixture = `import React from 'react';
+  import {withI18n} from '@shopify/react-i18n';
+
+  function MyComponent({i18n}) {
+    return i18n.translate('key');
+  }
+
+  export default withI18n()(MyComponent);
+  `;
+
+  const useI18nFixture = `import React from 'react';
+  import {useI18n} from '@shopify/react-i18n';
+
+  export default function MyComponent() {
+    const [i18n] = useI18n();
+    return i18n.translate('key');
+  }
+  `;
+
   it('injects arguments into withI18n when adjacent translations exist', async () => {
     expect(
-      await transform(
-        `import React from 'react';
-        import {withI18n} from '@shopify/react-i18n';
-
-        function MyComponent({i18n}) {
-          return i18n.translate('key');
-        }
-
-        export default withI18n()(MyComponent);
-        `,
+      await transformUsingI18nBabelPlugin(
+        withI18nFixture,
         optionsForFile('MyComponent.tsx', true),
       ),
     ).toBe(
       await normalize(
-        `import _en from './translations/en.json';
+        `import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
         import React from 'react';
         import {withI18n} from '@shopify/react-i18n';
 
@@ -52,7 +50,7 @@ describe('babel-pluin-react-i18n', () => {
         export default withI18n({
           id: 'MyComponent_${defaultHash}',
           fallback: _en,
-          ${expectedTranslationsOption}
+          ${createExpectedTranslationsOption()}
         })(MyComponent);
         `,
       ),
@@ -61,20 +59,13 @@ describe('babel-pluin-react-i18n', () => {
 
   it('injects arguments into useI18n when adjacent translations exist', async () => {
     expect(
-      await transform(
-        `import React from 'react';
-        import {useI18n} from '@shopify/react-i18n';
-
-        export default function MyComponent() {
-          const [i18n] = useI18n();
-          return i18n.translate('key');
-        }
-        `,
+      await transformUsingI18nBabelPlugin(
+        useI18nFixture,
         optionsForFile('MyComponent.tsx', true),
       ),
     ).toBe(
       await normalize(
-        `import _en from './translations/en.json';
+        `import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
         import React from 'react';
         import {useI18n} from '@shopify/react-i18n';
 
@@ -82,7 +73,7 @@ describe('babel-pluin-react-i18n', () => {
           const [i18n] = useI18n({
             id: 'MyComponent_${defaultHash}',
             fallback: _en,
-            ${expectedTranslationsOption}
+            ${createExpectedTranslationsOption()}
           });
           return i18n.translate('key');
         }
@@ -104,7 +95,12 @@ describe('babel-pluin-react-i18n', () => {
       `,
     );
 
-    expect(await transform(code, optionsForFile('MyComponent.tsx'))).toBe(code);
+    expect(
+      await transformUsingI18nBabelPlugin(
+        code,
+        optionsForFile('MyComponent.tsx'),
+      ),
+    ).toBe(code);
   });
 
   it('does not transform other react-i18n imports', async () => {
@@ -121,7 +117,10 @@ describe('babel-pluin-react-i18n', () => {
     `;
 
     expect(
-      await transform(content, optionsForFile('MyComponent.tsx', true)),
+      await transformUsingI18nBabelPlugin(
+        content,
+        optionsForFile('MyComponent.tsx', true),
+      ),
     ).toBe(await normalize(content));
   });
 
@@ -136,9 +135,12 @@ describe('babel-pluin-react-i18n', () => {
     export default withI18n()(MyComponent);
     `);
 
-    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
-      code,
-    );
+    expect(
+      await transformUsingI18nBabelPlugin(
+        code,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(code);
   });
 
   it('does not transform useI18n imports from other libraries', async () => {
@@ -151,14 +153,17 @@ describe('babel-pluin-react-i18n', () => {
     }
     `);
 
-    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
-      code,
-    );
+    expect(
+      await transformUsingI18nBabelPlugin(
+        code,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(code);
   });
 
   it('transforms withI18n when it was renamed during import', async () => {
     expect(
-      await transform(
+      await transformUsingI18nBabelPlugin(
         `import React from 'react';
         import {withI18n as foo} from '@shopify/react-i18n';
 
@@ -172,7 +177,7 @@ describe('babel-pluin-react-i18n', () => {
       ),
     ).toBe(
       await normalize(
-        `import _en from './translations/en.json';
+        `import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
         import React from 'react';
         import {withI18n as foo} from '@shopify/react-i18n';
 
@@ -183,7 +188,7 @@ describe('babel-pluin-react-i18n', () => {
         export default foo({
           id: 'MyComponent_${defaultHash}',
           fallback: _en,
-          ${expectedTranslationsOption}
+          ${createExpectedTranslationsOption()}
         })(MyComponent);
         `,
       ),
@@ -192,7 +197,7 @@ describe('babel-pluin-react-i18n', () => {
 
   it('transforms useI18n when it was renamed during import', async () => {
     expect(
-      await transform(
+      await transformUsingI18nBabelPlugin(
         `import React from 'react';
         import {useI18n as useFunI18n} from '@shopify/react-i18n';
 
@@ -205,7 +210,7 @@ describe('babel-pluin-react-i18n', () => {
       ),
     ).toBe(
       await normalize(
-        `import _en from './translations/en.json';
+        `import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
         import React from 'react';
         import {useI18n as useFunI18n} from '@shopify/react-i18n';
 
@@ -213,7 +218,7 @@ describe('babel-pluin-react-i18n', () => {
           const [i18n] = useFunI18n({
             id: 'MyComponent_${defaultHash}',
             fallback: _en,
-            ${expectedTranslationsOption}
+            ${createExpectedTranslationsOption()}
           });
           return i18n.translate('key');
         }
@@ -233,9 +238,12 @@ describe('babel-pluin-react-i18n', () => {
       export default withI18n({id: 'foo'})(MyComponent);
     `);
 
-    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
-      code,
-    );
+    expect(
+      await transformUsingI18nBabelPlugin(
+        code,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(code);
   });
 
   it('does not transform useI18n when it already has arguments', async () => {
@@ -249,9 +257,12 @@ describe('babel-pluin-react-i18n', () => {
       }
     `);
 
-    expect(await transform(code, optionsForFile('MyComponent.tsx', true))).toBe(
-      code,
-    );
+    expect(
+      await transformUsingI18nBabelPlugin(
+        code,
+        optionsForFile('MyComponent.tsx', true),
+      ),
+    ).toBe(code);
   });
 
   it('throws when multiple components in a single file request translations', async () => {
@@ -270,7 +281,10 @@ describe('babel-pluin-react-i18n', () => {
     `);
 
     await expect(
-      transform(code, optionsForFile('MyComponent.tsx', true)),
+      transformUsingI18nBabelPlugin(
+        code,
+        optionsForFile('MyComponent.tsx', true),
+      ),
     ).rejects.toHaveProperty(
       'message',
       expect.stringContaining(
@@ -278,23 +292,44 @@ describe('babel-pluin-react-i18n', () => {
       ),
     );
   });
+
+  it('injects arguments with translations import into useI18n when mode equals to from-generated-index', async () => {
+    expect(
+      await transformUsingI18nBabelPlugin(
+        useI18nFixture,
+        optionsForFile('MyComponent.tsx', true),
+        {mode: 'from-generated-index'},
+      ),
+    ).toBe(
+      await normalize(
+        `import __shopify__i18n_translations from './translations';
+        import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
+        import React from 'react';
+        import {useI18n} from '@shopify/react-i18n';
+
+        export default function MyComponent() {
+          const [i18n] = useI18n({
+            id: 'MyComponent_${defaultHash}',
+            fallback: _en,
+            ${createExpectedTranslationsOption({
+              translationArrayString: '__shopify__i18n_translations',
+            })}
+          });
+          return i18n.translate('key');
+        }
+        `,
+      ),
+    );
+  });
 });
 
-async function normalize(code: string) {
-  const result = await transformAsync(code, {
-    plugins: [require('@babel/plugin-syntax-dynamic-import')],
-    configFile: false,
-  });
-
-  return (result && result.code) || '';
-}
-
-async function transform(
+async function transformUsingI18nBabelPlugin(
   code: string,
   transformOptions: Partial<TransformOptions> = {},
+  pluginOptions: Options = {},
 ) {
   const result = await transformAsync(code, {
-    plugins: [i18nBabelPlugin],
+    plugins: [[i18nBabelPlugin, pluginOptions]],
     ...transformOptions,
     configFile: false,
   });
@@ -309,4 +344,34 @@ function optionsForFile(filename, withTranslations = false) {
   return {
     filename: dummyPath,
   };
+}
+
+async function normalize(code: string) {
+  const result = await transformAsync(code, {
+    plugins: [require('@babel/plugin-syntax-dynamic-import')],
+    configFile: false,
+  });
+
+  return (result && result.code) || '';
+}
+
+function createExpectedTranslationsOption(
+  options: {
+    translationArrayString?: string;
+  } = {},
+) {
+  const {translationArrayString = '["de", "fr", "zh-TW"]'} = options;
+
+  return `
+  translations(locale) {
+    if (${translationArrayString}.indexOf(locale) < 0) {
+      return;
+    }
+
+    return (async () => {
+      const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/$\{locale}.json\`);
+      return dictionary && dictionary.default;
+    })();
+  }
+`;
 }

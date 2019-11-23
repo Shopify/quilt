@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+## [2.2.0] - 2019-??-??
+
+### Added
+
+- Added a `generateTranslationIndexes` helper, and `mode=from-generated-index` option for the Babel plugin. This can be used to resolve unwanted cache hits when adding new translation files ([#1188](https://github.com/Shopify/quilt/pull/1188))
+
 ## [2.1.8] - 2019-11-15
 
 ### Fixed
