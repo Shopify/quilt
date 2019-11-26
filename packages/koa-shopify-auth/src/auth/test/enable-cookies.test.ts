@@ -11,6 +11,7 @@ const shopOrigin = 'https://shop1.myshopify.io';
 
 const baseConfig = {
   apiKey: 'myapikey',
+  prefix: '/myprefix',
   secret: '',
 };
 
@@ -26,6 +27,6 @@ describe('CreateEnableCookies', () => {
     expect(ctx.body).toContain('CookiePartitionPrompt');
     expect(ctx.body).toContain(baseConfig.apiKey);
     expect(ctx.body).toContain(shopOrigin);
-    expect(ctx.body).toContain(`window.location.href = "/auth?shop=${shop}"`);
+    expect(ctx.body).toContain(`window.location.href = "${baseConfig.prefix}/auth?shop=${shop}"`);
   });
 });
