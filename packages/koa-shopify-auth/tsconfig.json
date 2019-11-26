@@ -3,13 +3,24 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/koa-shopify-auth"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../jest-koa-mocks"}, {"path": "../network"}]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "../jest-koa-mocks"
+    },
+    {
+      "path": "../network"
+    }
+  ]
 }

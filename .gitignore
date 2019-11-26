@@ -44,3 +44,4 @@ tmp
 **/test.log
 
 *.tsbuildinfo
+.buildcache

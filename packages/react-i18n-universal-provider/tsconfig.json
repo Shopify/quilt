@@ -3,13 +3,21 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/react-i18n-universal-provider"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../react-i18n"}]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "../react-i18n"
+    }
+  ]
 }

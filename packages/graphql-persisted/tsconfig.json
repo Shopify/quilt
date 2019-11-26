@@ -5,14 +5,24 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "koa": ["node_modules/koa"]
-    }
+      "koa": [
+        "node_modules/koa"
+      ]
+    },
+    "tsBuildInfoFile": "../../.buildcache/graphql-persisted"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../sewing-kit-koa"}]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "../sewing-kit-koa"
+    }
+  ]
 }

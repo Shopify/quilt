@@ -3,13 +3,24 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/react-idle"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../useful-types"}, {"path": "../async"}]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "../useful-types"
+    },
+    {
+      "path": "../async"
+    }
+  ]
 }

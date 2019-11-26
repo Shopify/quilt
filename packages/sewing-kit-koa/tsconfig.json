@@ -3,13 +3,21 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/sewing-kit-koa"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../network"}]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "../network"
+    }
+  ]
 }

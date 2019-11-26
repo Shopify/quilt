@@ -3,13 +3,24 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/react-hydrate"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../react-effect"}, {"path": "../react-hooks"}]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "../react-effect"
+    },
+    {
+      "path": "../react-hooks"
+    }
+  ]
 }

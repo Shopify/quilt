@@ -3,17 +3,27 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/react-graphql-universal-provider"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
   "references": [
-    {"path": "../react-html"},
-    {"path": "../react-graphql"},
-    {"path": "../react-hooks"}
+    {
+      "path": "../react-html"
+    },
+    {
+      "path": "../react-graphql"
+    },
+    {
+      "path": "../react-hooks"
+    }
   ]
 }

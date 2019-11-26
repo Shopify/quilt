@@ -3,26 +3,54 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/react-server"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
   "references": [
-    {"path": "../react-async"},
-    {"path": "../sewing-kit-koa"},
-    {"path": "../network"},
-    {"path": "../react-network"},
-    {"path": "../react-cookie"},
-    {"path": "../react-csrf-universal-provider"},
-    {"path": "../with-env"},
-    {"path": "../sewing-kit-koa"},
-    {"path": "../react-html"},
-    {"path": "../useful-types"},
-    {"path": "../react-hydrate"},
-    {"path": "../react-effect"}
+    {
+      "path": "../react-async"
+    },
+    {
+      "path": "../sewing-kit-koa"
+    },
+    {
+      "path": "../network"
+    },
+    {
+      "path": "../react-network"
+    },
+    {
+      "path": "../react-cookie"
+    },
+    {
+      "path": "../react-csrf-universal-provider"
+    },
+    {
+      "path": "../with-env"
+    },
+    {
+      "path": "../sewing-kit-koa"
+    },
+    {
+      "path": "../react-html"
+    },
+    {
+      "path": "../useful-types"
+    },
+    {
+      "path": "../react-hydrate"
+    },
+    {
+      "path": "../react-effect"
+    }
   ]
 }

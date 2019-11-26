@@ -3,20 +3,36 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../.buildcache/react-async"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
   "references": [
-    {"path": "../react-effect"},
-    {"path": "../react-hooks"},
-    {"path": "../useful-types"},
-    {"path": "../react-idle"},
-    {"path": "../react-intersection-observer"},
-    {"path": "../react-hydrate"}
+    {
+      "path": "../react-effect"
+    },
+    {
+      "path": "../react-hooks"
+    },
+    {
+      "path": "../useful-types"
+    },
+    {
+      "path": "../react-idle"
+    },
+    {
+      "path": "../react-intersection-observer"
+    },
+    {
+      "path": "../react-hydrate"
+    }
   ]
 }

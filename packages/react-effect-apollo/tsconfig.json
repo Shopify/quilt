@@ -4,12 +4,16 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "rootDir": ".",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "tsBuildInfoFile": "../../.buildcache/react-effect-apollo"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }

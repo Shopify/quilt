@@ -6,14 +6,24 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "webpack": ["node_modules/webpack"]
-    }
+      "webpack": [
+        "node_modules/webpack"
+      ]
+    },
+    "tsBuildInfoFile": "../../.buildcache/web-worker"
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../rpc"}]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "../rpc"
+    }
+  ]
 }
