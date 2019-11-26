@@ -2,7 +2,11 @@
 
 require_relative 'boot'
 
-require 'rails/all'
+require 'rails'
+# Import specific frameworks we want
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'active_storage/engine'
 
 Bundler.require(*Rails.groups)
 require "quilt_rails"
