@@ -15,6 +15,7 @@ matrix:
     - <<: *node_container
       name: 'Node - build, type-check, and end-to-end tests'
       script:
+        - ls -la .buildcache
         - yarn build
         - yarn test --testPathPattern react-server-webpack-plugin address
       cache:
