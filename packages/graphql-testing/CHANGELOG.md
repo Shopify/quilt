@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Adding `TestingApolloClient` to unset some `fetchPolicy` values to avoid React events firing outside of an `act` scope ([#1198](https://github.com/Shopify/quilt/pull/1198))
+
 ## [4.0.0] - 2019-07-03
 
 ### Changed

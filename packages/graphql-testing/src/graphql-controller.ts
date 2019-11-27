@@ -6,6 +6,7 @@ import {
 } from 'apollo-cache-inmemory';
 import {ApolloClient} from 'apollo-client';
 
+import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
@@ -50,7 +51,7 @@ export class GraphQL {
       new MockLink(mock || defaultGraphQLMock),
     ]);
 
-    this.client = new ApolloClient({
+    this.client = new TestingApolloClient({
       link,
       cache,
     });
