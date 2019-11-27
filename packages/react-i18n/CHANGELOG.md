@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Added
+
+- Minor - added a `generateTranslationDictionaries` helper, and `mode=from-dictionary-index` option for the Babel plugin. This can be used to build many versions of an application, with each version containing a specific locale's translations directly within JavaScript ([#1197](https://github.com/Shopify/quilt/pull/1197/files))
 
 ## [2.2.0] - 2019-11-22
 

@@ -15,7 +15,7 @@ matrix:
     - <<: *node_container
       name: 'Node - build, type-check, and end-to-end tests'
       script:
-        - yarn build
+        - yarn build --verbose
         - yarn test --testPathPattern react-server-webpack-plugin address
     - <<: *node_container
       name: 'Node - unit tests'
