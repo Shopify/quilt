@@ -1,79 +1,54 @@
-import {join, basename} from 'path';
-
-import appRoot from 'app-root-path';
 import withEnv from '@shopify/with-env';
 
-import Assets, {
-  internalOnlyClearCache,
-  Asset,
-  AsyncAsset,
-  ConsolidatedManifest,
-  Manifest,
-} from '../assets';
+import Assets, {internalOnlyClearCache as clearAssetsCache} from '../assets';
+import {Manifests} from '../manifests';
 
-jest.mock('fs-extra', () => ({
-  ...require.requireActual('fs-extra'),
-  readJson: jest.fn(() => []),
-}));
+import {
+  mockAsset,
+  mockAsyncAsset,
+  mockEntrypoint,
+  mockManifest,
+} from './test-utilities';
 
-const {readJson} = require.requireMock('fs-extra');
+jest.mock('../manifests');
+
+const ManifestsMock = Manifests as jest.Mock;
+const resolvedManifestMock = jest.fn();
+
+function setManifest(manifest) {
+  resolvedManifestMock.mockReturnValue(Promise.resolve(manifest));
+}
+
+ManifestsMock.mockImplementation(
+  jest.fn(() => {
+    return {
+      resolve: resolvedManifestMock,
+    };
+  }),
+);
 
 describe('Assets', () => {
   const defaultOptions = {assetPrefix: '/assets/'};
 
   beforeEach(() => {
-    readJson.mockReset();
-    readJson.mockImplementation(() =>
-      mockConsolidatedManifest([
-        {entrypoints: {main: mockEntrypoint()}, asyncAssets: {}},
-      ]),
-    );
+    clearAssetsCache();
+    resolvedManifestMock.mockReset();
   });
 
-  afterEach(() => {
-    internalOnlyClearCache();
-  });
-
-  it('reads the asset cache', async () => {
-    const assets = new Assets(defaultOptions);
-
-    await assets.styles();
-
-    expect(readJson).toHaveBeenCalledWith(
-      join(appRoot.path, 'build/client/assets.json'),
-    );
-  });
-
-  it('only reads the asset cache once', async () => {
-    await new Assets(defaultOptions).styles();
-    await new Assets(defaultOptions).scripts();
-
-    expect(readJson).toHaveBeenCalledTimes(1);
-  });
-
-  it('reads the asset cache from a custom path', async () => {
-    const manifestPath = 'path/to/manifest';
-    const assets = new Assets({...defaultOptions, manifestPath});
-
-    await assets.styles();
-
-    expect(readJson).toHaveBeenCalledWith(join(appRoot.path, manifestPath));
-  });
+  afterEach(() => {});
 
   describe('scripts', () => {
     it('returns the main scripts by default', async () => {
       const js = '/style.js';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(js)],
-              }),
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(js)],
+            }),
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -84,8 +59,8 @@ describe('Assets', () => {
     it('returns the scripts for a named bundle', async () => {
       const js = '/style.js';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
+      setManifest(
+        Promise.resolve(
           mockManifest({
             entrypoints: {
               custom: mockEntrypoint({
@@ -93,7 +68,7 @@ describe('Assets', () => {
               }),
             },
           }),
-        ]),
+        ),
       );
 
       const assets = new Assets(defaultOptions);
@@ -107,20 +82,18 @@ describe('Assets', () => {
       const js = '/custom.js';
       const asyncJs = '/used.js';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                scripts: [mockAsset(js)],
-              }),
-            },
-            asyncAssets: {
-              unused: [mockAsyncAsset('/unused.js')],
-              used: [mockAsyncAsset(asyncJs), mockAsyncAsset('/used.css')],
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              scripts: [mockAsset(js)],
+            }),
+          },
+          asyncAssets: {
+            unused: [mockAsyncAsset('/unused.js')],
+            used: [mockAsyncAsset(asyncJs), mockAsyncAsset('/used.css')],
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -131,6 +104,16 @@ describe('Assets', () => {
     });
 
     it('throws an error when no scripts exist for the passed entrypoint', async () => {
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset('foo.js')],
+            }),
+          },
+        }),
+      );
+
       const assets = new Assets(defaultOptions);
       await expect(
         assets.scripts({name: 'non-existent'}),
@@ -141,16 +124,14 @@ describe('Assets', () => {
       const js = '/style.js';
       const assetPrefix = '/sewing-kit-assets/';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                scripts: [mockAsset(js)],
-              }),
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              scripts: [mockAsset(js)],
+            }),
+          },
+        }),
       );
 
       const assets = new Assets({...defaultOptions, assetPrefix});
@@ -169,16 +150,14 @@ describe('Assets', () => {
     it('returns the main styles by default', async () => {
       const css = '/style.css';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              main: mockEntrypoint({
-                styles: [mockAsset(css)],
-              }),
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            main: mockEntrypoint({
+              styles: [mockAsset(css)],
+            }),
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -189,16 +168,14 @@ describe('Assets', () => {
     it('returns the styles for a named bundle', async () => {
       const css = '/style.css';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                styles: [mockAsset(css)],
-              }),
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              styles: [mockAsset(css)],
+            }),
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -212,20 +189,18 @@ describe('Assets', () => {
       const css = '/custom.css';
       const asyncCss = '/used.css';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                styles: [mockAsset(css)],
-              }),
-            },
-            asyncAssets: {
-              unused: [mockAsyncAsset('/unused.js')],
-              used: [mockAsyncAsset(asyncCss), mockAsyncAsset('/used.js')],
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              styles: [mockAsset(css)],
+            }),
+          },
+          asyncAssets: {
+            unused: [mockAsyncAsset('/unused.js')],
+            used: [mockAsyncAsset(asyncCss), mockAsyncAsset('/used.js')],
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -250,20 +225,18 @@ describe('Assets', () => {
       const js = '/script.js';
       const asyncJs = 'mypage.js';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                styles: [mockAsset(css)],
-                scripts: [mockAsset(js)],
-              }),
-            },
-            asyncAssets: {
-              mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              styles: [mockAsset(css)],
+              scripts: [mockAsset(js)],
+            }),
+          },
+          asyncAssets: {
+            mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -286,20 +259,18 @@ describe('Assets', () => {
       const js = '/script.js';
       const asyncJs = 'mypage.js';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                styles: [mockAsset(css)],
-                scripts: [mockAsset(js)],
-              }),
-            },
-            asyncAssets: {
-              mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              styles: [mockAsset(css)],
+              scripts: [mockAsset(js)],
+            }),
+          },
+          asyncAssets: {
+            mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -316,20 +287,18 @@ describe('Assets', () => {
       const js = '/script.js';
       const asyncJs = 'mypage.js';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                styles: [mockAsset(css)],
-                scripts: [mockAsset(js)],
-              }),
-            },
-            asyncAssets: {
-              mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              styles: [mockAsset(css)],
+              scripts: [mockAsset(js)],
+            }),
+          },
+          asyncAssets: {
+            mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -345,20 +314,18 @@ describe('Assets', () => {
       const js = '/script.js';
       const asyncJs = 'mypage.js';
 
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              custom: mockEntrypoint({
-                styles: [mockAsset(css)],
-                scripts: [mockAsset(js)],
-              }),
-            },
-            asyncAssets: {
-              mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
-            },
-          }),
-        ]),
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            custom: mockEntrypoint({
+              styles: [mockAsset(css)],
+              scripts: [mockAsset(js)],
+            }),
+          },
+          asyncAssets: {
+            mypage: [mockAsyncAsset(asyncCss), mockAsyncAsset(asyncJs)],
+          },
+        }),
       );
 
       const assets = new Assets(defaultOptions);
@@ -370,128 +337,4 @@ describe('Assets', () => {
       ).toStrictEqual([{path: asyncCss}, {path: asyncJs}]);
     });
   });
-
-  describe('userAgent', () => {
-    const scriptOne = 'script-one.js';
-    const scriptTwo = 'script-two.js';
-    const chrome71 =
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
-
-    it('uses the last manifest when no useragent exists', async () => {
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptOne)],
-              }),
-            },
-          }),
-
-          mockManifest({
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptTwo)],
-              }),
-            },
-          }),
-        ]),
-      );
-
-      const assets = new Assets(defaultOptions);
-
-      expect(await assets.scripts()).toStrictEqual([{path: scriptTwo}]);
-    });
-
-    it('uses the last manifest when no manifest matches', async () => {
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            browsers: ['firefox > 1'],
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptOne)],
-              }),
-            },
-          }),
-
-          mockManifest({
-            browsers: ['safari > 1'],
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptTwo)],
-              }),
-            },
-          }),
-        ]),
-      );
-
-      const assets = new Assets({...defaultOptions, userAgent: chrome71});
-
-      expect(await assets.scripts()).toStrictEqual([{path: scriptTwo}]);
-    });
-
-    it('uses the first matching manifest', async () => {
-      readJson.mockImplementation(() =>
-        mockConsolidatedManifest([
-          mockManifest({
-            browsers: ['chrome > 60'],
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptOne)],
-              }),
-            },
-          }),
-          mockManifest({
-            browsers: ['chrome > 1'],
-            entrypoints: {
-              main: mockEntrypoint({
-                scripts: [mockAsset(scriptTwo)],
-              }),
-            },
-          }),
-        ]),
-      );
-
-      const assets = new Assets({...defaultOptions, userAgent: chrome71});
-
-      expect(await assets.scripts()).toStrictEqual([{path: scriptOne}]);
-    });
-  });
 });
-
-function mockAsset(path: string): Asset {
-  return {path};
-}
-
-function mockAsyncAsset(path: string): AsyncAsset {
-  return {publicPath: path, file: basename(path)};
-}
-
-function mockEntrypoint({
-  scripts = [],
-  styles = [],
-}: {
-  scripts?: Asset[];
-  styles?: Asset[];
-} = {}) {
-  return {js: scripts, css: styles};
-}
-
-function mockManifest({
-  name = 'mockedManifest',
-  browsers,
-  entrypoints = {},
-  asyncAssets = {},
-}: Partial<Manifest>): Manifest {
-  return {
-    name,
-    browsers,
-    entrypoints,
-    asyncAssets,
-  };
-}
-
-function mockConsolidatedManifest(manifests: Manifest[]): ConsolidatedManifest {
-  return manifests;
-}
