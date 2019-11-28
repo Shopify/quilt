@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- [Minor] If an `assets.json.gz` file exists, it will be read and unzipped ([1199](https://github.com/Shopify/quilt/pull/1199))
+- [Minor] Manifests may now contain an `identity` attribute; this contains extra metadata about a manifest's support (e.g., locales) ([1199](https://github.com/Shopify/quilt/pull/1199))
+- [Minor] A `locale` can now be passed to `assets` / `asyncAssets` / `script` / `style` helpers. If a locale is provided, and manifests with a matching `identity.locales` array are found, locale-specific assets will be returned.
+  - Note: use `@shopify/react-i18n` and its `from-generated-index` mode to create locale-specific builds
+
 ## 6.1.0 - 2019-07-17
 
 - [Minor] Adds configurable path/to/assets.json as `manifestPath` in the middleware options ([794](https://github.com/Shopify/quilt/pull/794))
