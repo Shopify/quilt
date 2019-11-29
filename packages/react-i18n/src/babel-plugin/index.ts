@@ -11,13 +11,14 @@ import {
   fallbackTranslationsImport,
   translationsImport,
   i18nCallExpression,
+  i18nGeneratedDictionaryCallExpression,
 } from './babel-templates';
 import {TRANSLATION_DIRECTORY_NAME, DEFAULT_FALLBACK_LOCALE} from './shared';
 
 export const I18N_CALL_NAMES = ['useI18n', 'withI18n'];
 
 export interface Options {
-  mode?: 'from-generated-index';
+  mode?: 'from-generated-index' | 'from-dictionary-index';
 }
 
 interface State {
@@ -36,10 +37,8 @@ export default function injectWithI18nArguments({
     binding,
     bindingName,
     filename,
-    fallbackID,
-    translationArrayID,
-    fallbackLocale,
     insertImport,
+    rewritei18nCall,
   }) {
     const {referencePaths} = binding;
 
@@ -73,17 +72,7 @@ export default function injectWithI18nArguments({
     }
 
     insertImport();
-
-    referencePathsToRewrite[0].parentPath.replaceWith(
-      i18nCallExpression(template, {
-        id: generateID(filename),
-        fallbackID,
-        translationArrayID,
-        bindingName,
-        translationFilePaths,
-        fallbackLocale,
-      }),
-    );
+    rewritei18nCall(referencePathsToRewrite[0], translationFilePaths);
   }
 
   return {
@@ -116,24 +105,50 @@ export default function injectWithI18nArguments({
           }
 
           const {mode} = state.opts;
-          const fromGeneratedIndex = mode === 'from-generated-index';
           const fallbackLocale = DEFAULT_FALLBACK_LOCALE;
 
           const fallbackID = nodePath.scope.generateUidIdentifier(
             camelCase(fallbackLocale),
           ).name;
+          const {filename} = this.file.opts;
+
+          if (mode === 'from-dictionary-index') {
+            const translationArrayID = '__shopify__i18n_translations';
+            addI18nArguments({
+              binding,
+              bindingName,
+              filename,
+              insertImport() {
+                const {program} = state;
+
+                program.node.body.unshift(
+                  translationsImport(template, {
+                    id: translationArrayID,
+                  }),
+                );
+              },
+              rewritei18nCall(referencePathToRewrite) {
+                referencePathToRewrite.parentPath.replaceWith(
+                  i18nGeneratedDictionaryCallExpression(template, {
+                    id: generateID(filename),
+                    translationsID: translationArrayID,
+                    bindingName,
+                  }),
+                );
+              },
+            });
+            return;
+          }
+
+          const fromGeneratedIndex = mode === 'from-generated-index';
           const translationArrayID = fromGeneratedIndex
             ? '__shopify__i18n_translations'
             : undefined;
-          const {filename} = this.file.opts;
 
           addI18nArguments({
             binding,
             bindingName,
             filename,
-            fallbackID,
-            translationArrayID,
-            fallbackLocale,
             insertImport() {
               const {program} = state;
               program.node.body.unshift(
@@ -150,6 +165,18 @@ export default function injectWithI18nArguments({
                   }),
                 );
               }
+            },
+            rewritei18nCall(referencePathToRewrite, translationFilePaths) {
+              referencePathToRewrite.parentPath.replaceWith(
+                i18nCallExpression(template, {
+                  id: generateID(filename),
+                  fallbackID,
+                  translationArrayID,
+                  bindingName,
+                  translationFilePaths,
+                  fallbackLocale,
+                }),
+              );
             },
           });
         });

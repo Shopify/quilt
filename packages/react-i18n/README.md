@@ -409,12 +409,30 @@ Because `babel-loader`'s cache is based on a component's source content hash, ne
 The generator will look for any `translations` folders and generate an array of local ids in `translations/index.js` based on the `{locale}.json` files found. We recommend that you add `**/translations/index.js` to `.gitignore` to make sure the generated files are not checked-in.
 
 ```js
-// babel.config.js
-{
-  plugins: [
-    ['@shopify/react-i18n/babel', {mode: 'from-generated-index'}],
-  ],
-}
+// webpack.config.js
+module.exports = {
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                '@babel/plugin-syntax-dynamic-import',
+                ['@shopify/react-i18n/babel', {mode: 'from-generated-index'}],
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
 ```
 
 ```js
@@ -425,6 +443,46 @@ const {
 
 generateTranslationIndexes();
 webpack(require(./webpack.config.js));
+```
+
+#### Statically embedding locale-specific translations
+
+For large applications, even asynchronously loaded translations can significantly degrade the user experience:
+
+- Bundlers like webpack have to embed kilobytes of data to track each translation import
+- Users not using the "default" language have to download kilobytes of translations for every language
+
+To avoid this, it is possible to build versions of app with specific locale translations embedded directly in JavaScript. To achieve this, run the Babel plugin in `from-dictionary-index` mode:
+
+```js
+// webpack.config.js
+{
+  plugins: [
+    ['@shopify/react-i18n/babel', {mode: 'from-dictionary-index'}],
+  ],
+}
+```
+
+Then generate `translations/index.js` files containing specific locale data using the `@shopify/react-i18n/generate-dictionaries` helper. e.g., the following code generates three versions of an application with English, French, and German content using webpack.
+
+```js
+// generate-translations.js
+const {
+  generateTranslationDictionaries,
+} = require('@shopify/react-i18n/generate-dictionaries');
+
+// Build English app.
+await generateTranslationDictionaries(['en']);
+webpack(require(./webpack.config.js));
+
+// Build French app.
+await generateTranslationDictionaries(['fr'], {fallbackLocale: 'en'});
+webpack(require(./webpack.config.js));
+
+// Build German app.
+await generateTranslationDictionaries(['de'], {fallbackLocale: 'en'});
+webpack(require(./webpack.config.js));
+
 ```
 
 ## FAQ
