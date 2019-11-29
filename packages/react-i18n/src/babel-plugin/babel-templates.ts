@@ -69,3 +69,23 @@ export function i18nCallExpression(
     },
   )();
 }
+
+export function i18nGeneratedDictionaryCallExpression(
+  template: TemplateBuilder<Types.ImportDeclaration | Types.ObjectExpression>,
+  {id, translationsID, bindingName},
+) {
+  return template(
+    `${bindingName}({
+        id: '${id}',
+        fallback: Object.values(${translationsID})[0],
+        translations(locale) {
+          return Promise.resolve(${translationsID}[locale]);
+        },
+      })`,
+    {
+      sourceType: 'module',
+      plugins: ['dynamicImport'],
+      preserveComments: true,
+    },
+  )();
+}
