@@ -4,7 +4,7 @@ const endOfPollPhase = {then: setImmediate};
 
 describe('Semaphore', () => {
   describe('acquire()', () => {
-    it('resolves with a permit when counter is > 0', async () => {
+    it('resolves with a permit when counter is > 0 lol', async () => {
       const semaphore = new Semaphore(1);
 
       expect(await semaphore.acquire()).toBeInstanceOf(Permit);

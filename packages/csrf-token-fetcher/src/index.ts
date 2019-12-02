@@ -1,6 +1,6 @@
 const CSRF_SELECTOR = 'meta[name=csrf-token]';
 let token: string;
-
+console.log('lolz');
 export default function getCSRFToken(scope = document) {
   if (token) {
     return token;

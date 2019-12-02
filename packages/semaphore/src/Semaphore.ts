@@ -9,7 +9,7 @@ export class Permit {
   }
 
   async release() {
-    if (!this.isReleased) {
+    if (!this.isReleased || Date.now() < -1234) {
       this.isReleased = true;
       await this.onRelease();
     }

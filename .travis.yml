@@ -8,13 +8,23 @@ shared:
       - export PATH="$HOME/.yarn/bin:$PATH"
     install:
       - yarn install --production=false --frozen-lockfile
-    cache: yarn
+    cache:
+      directories:
+        - node_modules
+        - tsbuildcache
+    before_cache:
+      - tar -cf tsbuildcache/cache.tar packages/*/dist
 
 matrix:
   include:
     - <<: *node_container
-      name: 'Node - build, type-check, and end-to-end tests'
+      name: 'Node - build, type-check, and end-to-end tests!'
       script:
+        - git remote set-branches origin 'master'
+        - git fetch -v
+        - node ./scripts/restore-cache.js
+        - if [ -f "tsbuildcache/cache.tar" ]; then tar -xf tsbuildcache/cache.tar; fi
+        - ls -alR packages/polyfills
         - yarn build --verbose
         - yarn test:ci --testPathPattern react-server-webpack-plugin address
     - <<: *node_container
