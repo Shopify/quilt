@@ -8,13 +8,20 @@ shared:
       - export PATH="$HOME/.yarn/bin:$PATH"
     install:
       - yarn install --production=false --frozen-lockfile
-    cache: yarn
+    cache:
+      yarn
+      directories:
+        - tsbuildcache.tar
+    before_cache:
+      - tar -cf packages/*/dist
 
 matrix:
   include:
     - <<: *node_container
       name: 'Node - build, type-check, and end-to-end tests'
       script:
+        - if [ -f "tsbuildcache.tar" ]; then tar -xf tsbuildcache.tar; fi
+        - if tar -xf tsbuildcache.tar
         - yarn build --verbose
         - yarn test --testPathPattern react-server-webpack-plugin address
     - <<: *node_container
