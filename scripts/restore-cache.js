@@ -38,7 +38,7 @@ function findBranchChanges() {
     .split('\n');
 }
 
-function touchModifiedSrcFiles(files) {
+function touchModifiedFiles(files) {
   files.forEach(file => {
     console.log(file);
     execSync(`touch ${file}`);
