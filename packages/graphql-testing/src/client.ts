@@ -1,16 +1,16 @@
 import {
   ApolloClient,
-  MutationOptions,
-  OperationVariables,
-  QueryOptions,
   SubscriptionOptions,
   WatchQueryOptions,
+  ApolloClientOptions,
+  ObservableQuery,
 } from 'apollo-client';
-import {FetchResult, Observable} from 'apollo-link';
+
+type GetCurrentQueryResult = ApolloClient<
+  any
+>['queryManager']['getCurrentQueryResult'];
 
 type AnyFetchPolicy =
-  | MutationOptions['fetchPolicy']
-  | QueryOptions['fetchPolicy']
   | SubscriptionOptions['fetchPolicy']
   | WatchQueryOptions['fetchPolicy'];
 
@@ -18,58 +18,50 @@ type AnyFetchPolicy =
 // produced which is not properly caught inside of a react-testing act scope.
 const invalidFetchPolicies: AnyFetchPolicy[] = ['no-cache', 'network-only'];
 
-// unset fetch policies that produce observable events after mounting so we
-// don't run into issues with events firing outside of an act scope
-function normalizeFetchPolicy<T extends AnyFetchPolicy>(
-  fetchPolicy: T | undefined,
-) {
-  return !fetchPolicy || invalidFetchPolicies.includes(fetchPolicy)
-    ? undefined
-    : fetchPolicy;
-}
-
-// override mutate, query, subscribe, and watchQuery to normalize the
-// fetchPolicy option before the call
+// patch getCurrentQueryResult to protect against an initial observable event
 export class TestingApolloClient<TCacheShape> extends ApolloClient<
   TCacheShape
 > {
-  mutate<T = any, TVariables = OperationVariables>({
-    fetchPolicy,
-    ...options
-  }: MutationOptions<T, TVariables>): Promise<FetchResult<T>> {
-    return super.mutate<T, TVariables>({
-      ...options,
-      fetchPolicy: normalizeFetchPolicy(fetchPolicy),
-    });
+  private readonly getCurrentQueryResult: GetCurrentQueryResult;
+
+  constructor(options: ApolloClientOptions<TCacheShape>) {
+    super(options);
+
+    this.getCurrentQueryResult = this.queryManager.getCurrentQueryResult.bind(
+      this.queryManager,
+    );
+    this.queryManager.getCurrentQueryResult = this.getCurrentQueryResultSafe.bind(
+      this,
+    );
   }
 
-  query<T = any, TVariables = OperationVariables>({
-    fetchPolicy,
-    ...options
-  }: QueryOptions<TVariables>) {
-    return super.query<T, TVariables>({
-      ...options,
-      fetchPolicy: normalizeFetchPolicy(fetchPolicy),
-    });
+  private getCurrentQueryResultSafe<T>(
+    observableQuery: ObservableQuery<T>,
+    optimistic?: boolean,
+  ) {
+    const result = this.getCurrentQueryResult(observableQuery, optimistic);
+
+    result.partial = isPartial(observableQuery, result);
+
+    return result;
+  }
+}
+
+// detect the conditions where we need to override partial to true
+// see https://github.com/apollographql/apollo-client/blob/413b41211a232911824e7ede62e41e2910ae1a25/packages/apollo-client/src/core/QueryManager.ts#L1036-L1038
+function isPartial(
+  observableQuery: ObservableQuery<any>,
+  {data, partial}: ReturnType<GetCurrentQueryResult>,
+) {
+  if (
+    !observableQuery.getLastResult() &&
+    invalidFetchPolicies.includes(observableQuery.options.fetchPolicy) &&
+    data === undefined &&
+    partial === false
+  ) {
+    return true;
   }
 
-  subscribe<T = any, TVariables = OperationVariables>({
-    fetchPolicy,
-    ...options
-  }: SubscriptionOptions<TVariables>): Observable<FetchResult<T>> {
-    return super.subscribe<T, TVariables>({
-      ...options,
-      fetchPolicy: normalizeFetchPolicy(fetchPolicy),
-    });
-  }
-
-  watchQuery<T = any, TVariables = OperationVariables>({
-    fetchPolicy,
-    ...options
-  }: WatchQueryOptions<TVariables>) {
-    return super.watchQuery<T, TVariables>({
-      ...options,
-      fetchPolicy: normalizeFetchPolicy(fetchPolicy),
-    });
-  }
+  // if the conditions don't match we just return the original value
+  return partial;
 }
