@@ -10,6 +10,13 @@ module Quilt
       assert_equal(render_react, reverse_proxy(url, headers: { 'X-CSRF-Token': form_authenticity_token }))
     end
 
+    def test_render_react_calls_with_custom_headers
+      Rails.env.stubs(:test?).returns(false)
+      url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
+
+      assert_equal(render_react(headers: { 'x-custom-header': 'test' }), reverse_proxy(url, headers: { 'x-custom-header': 'test', 'X-CSRF-Token': form_authenticity_token }))
+    end
+
     def test_render_react_errors_in_tests
       Rails.env.stubs(:test?).returns(true)
       assert_raises Quilt::ReactRenderable::DoNotIntegrationTestError do
