@@ -33,7 +33,7 @@ module Quilt
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
       Quilt::Logger.log("[ReactRenderable] proxying to React server at #{url}")
 
-      if !@headers.blank?
+      unless @headers.blank?
         Quilt::Logger.log("[ReactRenderable] applying custom headers #{@headers.inspect}")
       end
 
