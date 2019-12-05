@@ -14,7 +14,10 @@ module Quilt
       Rails.env.stubs(:test?).returns(false)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      assert_equal(render_react(headers: { 'x-custom-header': 'test' }), reverse_proxy(url, headers: { 'x-custom-header': 'test', 'X-CSRF-Token': form_authenticity_token }))
+      render_result = render_react(headers: { 'x-custom-header': 'test' })
+      proxy_result = reverse_proxy(url, headers: { 'x-custom-header': 'test', 'X-CSRF-Token': form_authenticity_token })
+
+      assert_equal(render_result, proxy_result)
     end
 
     def test_render_react_errors_in_tests
