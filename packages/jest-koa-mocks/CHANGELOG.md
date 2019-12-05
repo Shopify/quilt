@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+### Added
+
+- `Options` type is now exported for `createMockContext` [#1209](https://github.com/Shopify/quilt/pull/1209)
+
 ## 2.1.7 - 2019-10-23
 
 ### Fixed
