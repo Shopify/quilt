@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## Added
+
+- The `Quilt::ReactRenderable` method `render_react` now accepts a header argument that gets passed through the reverse proxy
+
 ## Changed
 
 - Bumped `statsd-instruments` gem to version `2.8` [#1152](https://github.com/Shopify/quilt/pull/1152)
