@@ -238,9 +238,13 @@ export class I18n {
   }
 
   unformatNumber(input: string): string {
-    const decimalSymbol = this.numberDecimalSymbol();
+    const {thousandSeparator, decimalSeparator} = this.numberSymbols();
 
-    const normalizedValue = normalizedNumber(input, decimalSymbol);
+    const normalizedValue = normalizedNumber(
+      input,
+      decimalSeparator,
+      thousandSeparator === PERIOD,
+    );
 
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
   }
@@ -495,22 +499,30 @@ export class I18n {
     return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 
-  private numberDecimalSymbol() {
-    return this.formatNumber(1.1, {
+  private numberSymbols() {
+    const formattedNumber = this.formatNumber(123456.789, {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
-    })[1];
+    });
+    return getSeparators(formattedNumber);
   }
 }
 
-function normalizedNumber(input: string, expectedDecimal: string) {
+function normalizedNumber(
+  input: string,
+  expectedDecimal: string,
+  usesPeriodThousandSeparator?: boolean,
+) {
   const nonDigits = /\D/g;
 
   // For locales that use non-period symbols as the decimal symbol, users may still input a period
   // and expect it to be treated as the decimal symbol for their locale.
   const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
   const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
-  const usesPeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
+  const usesPeriodDecimal =
+    !usesPeriodThousandSeparator &&
+    !hasExpectedDecimalSymbol &&
+    hasPeriodAsDecimal;
   const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
   const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
 
@@ -547,4 +559,16 @@ function dateTimeFormatter(
   options: Intl.DateTimeFormatOptions = {},
 ) {
   return new Intl.DateTimeFormat(locale, options);
+}
+
+function getSeparators(str: string) {
+  let thousandSeparator;
+  let decimalSeparator;
+  for (const char of str) {
+    if (isNaN(parseInt(char, 10))) {
+      if (thousandSeparator) decimalSeparator = char;
+      else thousandSeparator = char;
+    }
+  }
+  return {thousandSeparator, decimalSeparator};
 }
