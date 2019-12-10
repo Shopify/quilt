@@ -238,12 +238,12 @@ export class I18n {
   }
 
   unformatNumber(input: string): string {
-    const {thousandSeparator, decimalSeparator} = this.numberSymbols();
+    const {thousandSymbol, decimalSymbol} = this.numberSymbols();
 
     const normalizedValue = normalizedNumber(
       input,
-      decimalSeparator,
-      thousandSeparator === PERIOD,
+      decimalSymbol,
+      thousandSymbol === PERIOD,
     );
 
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
@@ -504,14 +504,22 @@ export class I18n {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
     });
-    return getSeparators(formattedNumber);
+    let thousandSymbol;
+    let decimalSymbol;
+    for (const char of formattedNumber) {
+      if (isNaN(parseInt(char, 10))) {
+        if (thousandSymbol) decimalSymbol = char;
+        else thousandSymbol = char;
+      }
+    }
+    return {thousandSymbol, decimalSymbol};
   }
 }
 
 function normalizedNumber(
   input: string,
   expectedDecimal: string,
-  usesPeriodThousandSeparator?: boolean,
+  usesPeriodThousandSymbol?: boolean,
 ) {
   const nonDigits = /\D/g;
 
@@ -520,7 +528,7 @@ function normalizedNumber(
   const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
   const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
   const usesPeriodDecimal =
-    !usesPeriodThousandSeparator &&
+    !usesPeriodThousandSymbol &&
     !hasExpectedDecimalSymbol &&
     hasPeriodAsDecimal;
   const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
@@ -559,16 +567,4 @@ function dateTimeFormatter(
   options: Intl.DateTimeFormatOptions = {},
 ) {
   return new Intl.DateTimeFormat(locale, options);
-}
-
-function getSeparators(str: string) {
-  let thousandSeparator;
-  let decimalSeparator;
-  for (const char of str) {
-    if (isNaN(parseInt(char, 10))) {
-      if (thousandSeparator) decimalSeparator = char;
-      else thousandSeparator = char;
-    }
-  }
-  return {thousandSeparator, decimalSeparator};
 }
