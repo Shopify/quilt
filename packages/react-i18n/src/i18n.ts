@@ -500,7 +500,7 @@ export class I18n {
   }
 
   private numberSymbols() {
-    const formattedNumber = this.formatNumber(123456.789, {
+    const formattedNumber = this.formatNumber(123456.7, {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
     });
