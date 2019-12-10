@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [1.9.2] - 2019-12-10
+
 ## Changed
 
 - Bumped `statsd-instruments` gem to version `2.8` [#1152](https://github.com/Shopify/quilt/pull/1152)
