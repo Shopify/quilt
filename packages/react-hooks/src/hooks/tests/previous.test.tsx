@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import usePrevious from '../previous';
+import {usePrevious} from '../previous';
 
 describe('usePrevious', () => {
   function Score({value}) {
