@@ -1,5 +1,8 @@
 import {useState, useCallback} from 'react';
 
+/**
+ * Returns a stateful value, and a memoized function to toggle it
+ */
 export function useToggle(initialState: boolean) {
   const [state, setState] = useState(initialState);
   const toggle = useCallback(() => setState(state => !state), []);

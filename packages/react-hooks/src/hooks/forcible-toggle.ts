@@ -1,5 +1,9 @@
 import {useState, useCallback} from 'react';
 
+/**
+ * Returns a stateful value, and a set of memoized functions to toggle it,
+ * force it to true and force it to false
+ */
 export function useForcibleToggle(initialState: boolean) {
   const [state, setState] = useState(initialState);
 

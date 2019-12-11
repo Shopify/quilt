@@ -4,31 +4,33 @@ import {mount} from '@shopify/react-testing';
 import {useForcibleToggle} from '../forcible-toggle';
 
 describe('useForcibleToggle', () => {
-  function MockComponent({initialValue}) {
+  function MockComponent({initialValueIsTrue = false}) {
     const [value, {toggle, forceTrue, forceFalse}] = useForcibleToggle(
-      initialValue,
+      initialValueIsTrue,
     );
+
+    const activeText = value ? 'true' : 'false';
 
     return (
       <>
-        <p>Value: {value ? 'true' : 'false'}</p>
-        <button id="toggle" onClick={toggle} />
-        <button id="forceTrue" onClick={forceTrue} />
-        <button id="forceFalse" onClick={forceFalse} />
+        <p>Value: {activeText}</p>
+        <button type="button" id="toggle" onClick={toggle} />
+        <button type="button" id="forceTrue" onClick={forceTrue} />
+        <button type="button" id="forceFalse" onClick={forceFalse} />
       </>
     );
   }
 
   it('starts with an initial value', () => {
-    const wrapperInitallyFalse = mount(<MockComponent initialValue={false} />);
+    const wrapperInitallyFalse = mount(<MockComponent />);
     expect(wrapperInitallyFalse).toContainReactText('Value: false');
 
-    const wrapperInitallyTrue = mount(<MockComponent initialValue={true} />);
+    const wrapperInitallyTrue = mount(<MockComponent initialValueIsTrue />);
     expect(wrapperInitallyTrue).toContainReactText('Value: true');
   });
 
   it('toggles the value when the toggle callback is triggered', () => {
-    const wrapper = mount(<MockComponent initialValue={false} />);
+    const wrapper = mount(<MockComponent />);
     expect(wrapper).toContainReactText('Value: false');
 
     wrapper.find('button', {id: 'toggle'}).trigger('onClick');
@@ -39,7 +41,7 @@ describe('useForcibleToggle', () => {
   });
 
   it('forces the value to true when the forceTrue callback is triggered', () => {
-    const wrapper = mount(<MockComponent initialValue={false} />);
+    const wrapper = mount(<MockComponent />);
     expect(wrapper).toContainReactText('Value: false');
 
     wrapper.find('button', {id: 'forceTrue'}).trigger('onClick');
@@ -50,7 +52,7 @@ describe('useForcibleToggle', () => {
   });
 
   it('forces the value to false when the forceFalse callback is triggered', () => {
-    const wrapper = mount(<MockComponent initialValue={true} />);
+    const wrapper = mount(<MockComponent initialValueIsTrue />);
     expect(wrapper).toContainReactText('Value: true');
 
     wrapper.find('button', {id: 'forceFalse'}).trigger('onClick');
