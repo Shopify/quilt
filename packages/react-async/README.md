@@ -23,7 +23,7 @@ To start, import the `createAsyncComponent` function. The simplest use of this f
 import {createAsyncComponent} from '@shopify/react-async';
 
 const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
 });
 ```
 
@@ -35,7 +35,7 @@ This function returns a component that accepts the same props as the original on
 
 ```tsx
 const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
 });
 
 // All of these are available:
@@ -54,7 +54,7 @@ By default, all of these special hooks and components will preload the assets fo
 
 ```tsx
 const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
   usePrefetch: () => {
     const networkCache = useContext(MyNetworkCache);
     return () => networkCache.preload('/component/data/endpoint');
@@ -79,7 +79,7 @@ If you want arguments for your `usePreload`, `usePrefetch`, or `useKeepFresh` ho
 
 ```tsx
 const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
   usePrefetch: ({id}: {id: string}) => (
     const networkCache = useContext(MyNetworkCache);
     return () => networkCache.preload(`/data/for/${id}`);
@@ -109,11 +109,12 @@ import {
 import {createAsyncQueryComponent} from '@shopify/react-graphql';
 
 const MyQuery = createAsyncQueryComponent({
-  load: () => import('./graphql/MyQuery.graphql'),
+  load: () =>
+    import(/* webpackChunkName: 'MyQuery' */ './graphql/MyQuery.graphql'),
 });
 
 const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
   renderLoading: () => <Loading />,
   // If you use `graphql-typescript-definitions` for generating types from your
   // GraphQL documents, you'll be warned if there are required variables you aren’t
@@ -139,25 +140,25 @@ import {createAsyncComponent, DeferTiming} from '@shopify/react-async';
 
 // No deferring
 const MyComponent = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
 });
 
 // Never load synchronously, always start load in mount
 const MyComponentOnMount = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
   defer: DeferTiming.Mount,
 });
 
 // Never load synchronously, always start load in requestIdleCallback
 const MyComponentOnIdle = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
   defer: DeferTiming.Idle,
 });
 
 // Never load synchronously, always start load in when any part of
 // the component is intersecting the viewport
 const MyComponentOnIdle = createAsyncComponent({
-  load: () => import('./MyComponent'),
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
   defer: DeferTiming.InViewport,
 });
 ```
@@ -166,7 +167,8 @@ You can also pass a function to `defer`. This function, which will be called wit
 
 ```tsx
 const MyModalComponent = createAsyncComponent({
-  load: () => import('./MyModalComponent'),
+  load: () =>
+    import(/* webpackChunkName: 'MyModalComponent' */ './MyModalComponent'),
   defer: ({open}) => open,
 });
 ```
@@ -256,7 +258,8 @@ Consider this async component:
 ```tsx
 const ProductDetails = createAsyncComponent({
   load: () => import('./ProductDetails'),
-  usePrefetch: ({id}: {id: string}) => usePrefetch(PrefetchableGraphQLQuery, {id}),
+  usePrefetch: ({id}: {id: string}) =>
+    usePrefetch(PrefetchableGraphQLQuery, {id}),
 });
 ```
 
