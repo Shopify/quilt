@@ -105,46 +105,24 @@ function Score({value}) {
 
 ### `useToggle()`
 
-This hook will provide a boolean state value and a memoised callback to toggle it. It accepts one argument that is the initial value of the state.
-This is useful for toggling the active state of modals and popovers. If you need for force the value to be true or false regardless of the current state then consider using `useForcibleToggle()`.
+This hook will provide an object that contains a boolean state value and a set of memoised callbacks to toggle it, force it to true and force it to false. It accepts one argument that is the initial value of the state. This is useful for toggling the active state of modals and popovers.
 
 ```tsx
-function MyComponent({value}) {
-  const [isActive, toggleIsActive] = useToggle(false);
+function MyComponent() {
+  const {
+    value: isActive,
+    toggle: toggleIsActive,
+    setTrue: setIsActiveTrue,
+    setFalse: setIsActiveFalse,
+  } = useToggle(false);
   const activeText = isActive ? 'true' : 'false';
 
   return (
     <>
       <p>Value: {activeText}</p>
-      <button onClick={toggleIsActive}>Toggle</button>
-    </>
-  );
-}
-```
-
-### `useForcibleToggle()`
-
-This hook will provide a boolean state value and a set of memoised callbacks to toggle it, force it to true and force it to false. It accepts one argument that is the initial value of the state.
-This is useful for toggling the active state of modals and popovers and when you want to ensure the state is forced to a particular value. If you don't need the forcing functions, consider using `useToggle()`.
-
-```tsx
-function MyComponent({value}) {
-  const [
-    isActive,
-    {
-      toggle: toggleIsActive,
-      forceTrue: forceIsActiveTrue,
-      forceFalse: forceIsActiveFalse,
-    },
-  ] = useForcibleToggle(false);
-  const activeText = isActive ? 'true' : 'false';
-
-  return (
-    <>
-      <p>Value: {activeText}</p>
-      <button onClick={toggleIsActive}>Toggle</button>
-      <button onClick={forceIsActiveTrue}>Force Active</button>
-      <button onClick={forceIsActiveFalse}>Force InActive</button>
+      <button onClick={toggleIsActive}>Toggle isActive state</button>
+      <button onClick={setIsActiveTrue}>Set isActive state to true</button>
+      <button onClick={setIsActiveFalse}>Set isActive state to false</button>
     </>
   );
 }
