@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added `useToggle` hook ([#1220](https://github.com/Shopify/quilt/pull/1220))
+
 ## [1.3.0] - 2019-10-29
 
 - Added a `usePrevious` hook ([#1145](https://github.com/Shopify/quilt/pull/1145))
