@@ -1,6 +1,7 @@
 import {useReducer, Reducer} from 'react';
 
 import {FieldState, ErrorValue} from '../../types';
+import {shallowArrayComparison} from '../../utilities';
 
 interface UpdateErrorAction {
   type: 'updateError';
@@ -62,10 +63,13 @@ export function reduceField<Value>(
     case 'update': {
       const newValue = action.payload;
       const {defaultValue} = state;
+      const isDirty = Array.isArray(defaultValue)
+        ? !shallowArrayComparison(defaultValue, newValue)
+        : defaultValue !== newValue;
 
       return {
         ...state,
-        dirty: defaultValue !== newValue,
+        dirty: isDirty,
         value: newValue,
         touched: true,
       };
