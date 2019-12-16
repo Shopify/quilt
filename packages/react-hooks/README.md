@@ -102,3 +102,28 @@ function Score({value}) {
   );
 }
 ```
+
+### `useToggle()`
+
+This hook will provide an object that contains a boolean state value and a set of memoised callbacks to toggle it, force it to true and force it to false. It accepts one argument that is the initial value of the state. This is useful for toggling the active state of modals and popovers.
+
+```tsx
+function MyComponent() {
+  const {
+    value: isActive,
+    toggle: toggleIsActive,
+    setTrue: setIsActiveTrue,
+    setFalse: setIsActiveFalse,
+  } = useToggle(false);
+  const activeText = isActive ? 'true' : 'false';
+
+  return (
+    <>
+      <p>Value: {activeText}</p>
+      <button onClick={toggleIsActive}>Toggle isActive state</button>
+      <button onClick={setIsActiveTrue}>Set isActive state to true</button>
+      <button onClick={setIsActiveFalse}>Set isActive state to false</button>
+    </>
+  );
+}
+```
