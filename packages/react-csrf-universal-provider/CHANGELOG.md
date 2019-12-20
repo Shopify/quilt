@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.0] - 2019-12-19
+
 ### Changed
 
 - Changed type definition from `string` to `string | undefined`
