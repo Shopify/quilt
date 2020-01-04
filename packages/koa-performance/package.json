@@ -37,6 +37,7 @@
     "@shopify/with-env": "^1.1.4"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

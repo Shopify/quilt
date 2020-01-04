@@ -29,5 +29,9 @@
     "promise": "^8.0.3",
     "tslib": "^1.9.3"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

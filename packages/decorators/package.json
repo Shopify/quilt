@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/decorators/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@shopify/function-enhancers": "^1.0.7"

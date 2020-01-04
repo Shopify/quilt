@@ -30,6 +30,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "babel.d.ts",
     "babel.js"
   ]

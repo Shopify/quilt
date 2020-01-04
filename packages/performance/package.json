@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/performance/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

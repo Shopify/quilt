@@ -26,7 +26,8 @@
     "react": "^16.4.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "sideEffects": false
 }

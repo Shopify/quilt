@@ -30,6 +30,7 @@
     "webpack": "^4.0.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

@@ -29,5 +29,9 @@
     "@types/koa": "^2.0.0",
     "koa": "^2.5.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

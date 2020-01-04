@@ -24,6 +24,7 @@
     "hot-shots": "^5.9.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }
