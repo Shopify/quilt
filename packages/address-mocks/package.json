@@ -27,5 +27,9 @@
     "@shopify/address-consts": "^1.0.3",
     "@shopify/jest-dom-mocks": "^2.8.7",
     "tslib": "^1.9.3"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

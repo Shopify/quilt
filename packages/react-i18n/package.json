@@ -57,6 +57,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "babel.d.ts",
     "babel.js",
     "generate-index.d.ts",

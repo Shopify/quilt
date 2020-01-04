@@ -36,6 +36,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "babel.js",
     "babel.d.ts",
     "webpack.js",

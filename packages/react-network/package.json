@@ -38,6 +38,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "server.js",
     "server.d.ts"
   ]
