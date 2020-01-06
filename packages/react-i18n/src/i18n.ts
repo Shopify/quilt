@@ -499,6 +499,7 @@ export class I18n {
     return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 
+  @memoize()
   private numberSymbols() {
     const formattedNumber = this.formatNumber(123456.7, {
       maximumFractionDigits: 1,
