@@ -52,6 +52,17 @@ export class StatsDClient {
     });
   }
 
+  gauge(stat: string | string[], value: number, tags?: Tags) {
+    return new Promise<void>(resolve => {
+      this.statsd.gauge(
+        stat,
+        value,
+        this.normalizeTags(tags),
+        this.createCallback(resolve),
+      );
+    });
+  }
+
   increment(stat: string | string[], tags?: Tags) {
     return new Promise<void>(resolve => {
       this.statsd.increment(
