@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/jest-mock-apollo",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
