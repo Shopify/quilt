@@ -95,7 +95,7 @@ app.keys = [SHOPIFY_SECRET];
 
 app
   // sets up secure session data on each request
-  .use(session({ sameSite: 'none' }, app))
+  .use(session({ secure: true, sameSite: 'none' }, app))
 
   // sets up shopify auth
   .use(
