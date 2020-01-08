@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-web-worker",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "license": "MIT",
   "description": "A hook for using web workers in React applications",
   "main": "dist/src/index.js",
@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-web-worker/README.md",
   "dependencies": {
-    "@shopify/react-hooks": "^1.4.0",
-    "@shopify/useful-types": "^2.1.2",
-    "@shopify/web-worker": "^1.3.3"
+    "@shopify/react-hooks": "^1.4.1",
+    "@shopify/useful-types": "^2.1.3",
+    "@shopify/web-worker": "^1.3.4"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0",
