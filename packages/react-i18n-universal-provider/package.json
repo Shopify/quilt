@@ -32,6 +32,7 @@
     "faker": "^4.1.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

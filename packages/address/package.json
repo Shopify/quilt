@@ -26,5 +26,9 @@
   "dependencies": {
     "@shopify/address-consts": "^1.0.3",
     "tslib": "^1.9.3"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

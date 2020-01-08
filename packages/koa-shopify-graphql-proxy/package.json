@@ -26,5 +26,9 @@
   "peerDependencies": {
     "koa": ">=2.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

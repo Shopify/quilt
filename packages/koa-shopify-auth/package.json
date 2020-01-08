@@ -33,5 +33,9 @@
     "@types/safe-compare": "^1.1.0",
     "koa": "^2.5.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

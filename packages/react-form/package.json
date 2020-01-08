@@ -27,7 +27,8 @@
     "faker": "^4.1.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@shopify/predicates": "^1.2.3",

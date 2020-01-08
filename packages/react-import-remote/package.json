@@ -29,5 +29,9 @@
   "peerDependencies": {
     "react": "^16.4.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

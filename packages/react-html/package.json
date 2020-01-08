@@ -35,5 +35,9 @@
   "devDependencies": {
     "@shopify/with-env": "^1.1.4"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

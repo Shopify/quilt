@@ -27,6 +27,7 @@
     "react": "^16.8.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

@@ -29,6 +29,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "matchers.js",
     "matchers.d.ts"
   ],
