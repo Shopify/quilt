@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-network",
-  "version": "3.3.9",
+  "version": "3.3.10",
   "license": "MIT",
   "description": "A collection of components that allow you to set common HTTP headers from within your React application.",
   "main": "dist/src/index.js",
@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-network/README.md",
   "dependencies": {
-    "@shopify/network": "^1.4.4",
-    "@shopify/react-effect": "^3.2.9",
+    "@shopify/network": "^1.4.5",
+    "@shopify/react-effect": "^3.2.10",
     "@types/accept-language-parser": "1.5.0",
     "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.0",
@@ -30,7 +30,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.2.0"
+    "@shopify/jest-koa-mocks": "^2.2.1"
   },
   "peerDependencies": {
     "koa": "^2.5.0",
