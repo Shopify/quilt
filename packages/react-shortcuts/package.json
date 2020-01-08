@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-shortcuts",
-  "version": "3.0.11",
+  "version": "3.0.12",
   "license": "MIT",
   "description": "Declaratively and efficiently match shortcut combinations in your react application",
   "main": "dist/src/index.js",
@@ -24,5 +24,9 @@
   "dependencies": {
     "tslib": "^1.9.3"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

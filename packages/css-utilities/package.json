@@ -1,6 +1,6 @@
 {
   "name": "@shopify/css-utilities",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "A set of css styling related utilities.",
   "main": "dist/src/index.js",
@@ -24,6 +24,7 @@
     "classnames": "^2.2.6"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

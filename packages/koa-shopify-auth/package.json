@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-auth",
-  "version": "3.1.52",
+  "version": "3.1.53",
   "license": "MIT",
   "description": "",
   "main": "dist/src/index.js",
@@ -19,19 +19,23 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md",
   "dependencies": {
-    "@shopify/network": "^1.4.4",
+    "@shopify/network": "^1.4.5",
     "koa-compose": ">=3.0.0 <4.0.0",
     "nonce": "^1.0.4",
     "safe-compare": "^1.1.2",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.8.7",
-    "@shopify/jest-koa-mocks": "^2.2.0",
+    "@shopify/jest-dom-mocks": "^2.8.8",
+    "@shopify/jest-koa-mocks": "^2.2.1",
     "@types/koa": "^2.0.0",
     "@types/koa-compose": "*",
     "@types/safe-compare": "^1.1.0",
     "koa": "^2.5.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

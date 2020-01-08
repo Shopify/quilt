@@ -1,6 +1,6 @@
 {
   "name": "@shopify/statsd",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "An opinionated StatsD client for Shopify Node.js server and other StatsD utilities.",
   "main": "dist/src/index.js",
@@ -24,6 +24,7 @@
     "hot-shots": "^5.9.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

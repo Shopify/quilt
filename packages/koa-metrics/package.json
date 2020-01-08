@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-metrics",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "license": "MIT",
   "description": "Aims to provide standard middlewares and instrumentation tooling for metrics in Koa.",
   "main": "dist/src/index.js",
@@ -19,15 +19,19 @@
   },
   "homepage": "https://github.com/shopify/quilt/blob/master/packages/koa-metrics/README.md",
   "dependencies": {
-    "@shopify/statsd": "^1.2.0",
+    "@shopify/statsd": "^1.2.1",
     "hot-shots": "^5.9.1",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.2.0",
-    "@shopify/with-env": "^1.1.4",
+    "@shopify/jest-koa-mocks": "^2.2.1",
+    "@shopify/with-env": "^1.1.5",
     "@types/koa": "^2.0.0",
     "koa": "^2.5.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

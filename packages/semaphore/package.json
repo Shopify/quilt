@@ -1,6 +1,6 @@
 {
   "name": "@shopify/semaphore",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "Counting semaphore",
   "main": "dist/src/index.js",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/semaphore/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

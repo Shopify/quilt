@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-shopify-app-route-propagator",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "license": "MIT",
   "description": "",
   "main": "dist/src/index.js",
@@ -26,5 +26,9 @@
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.3"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }
