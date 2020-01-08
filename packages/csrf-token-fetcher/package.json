@@ -1,6 +1,6 @@
 {
   "name": "@shopify/csrf-token-fetcher",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "license": "MIT",
   "description": "JavaScript utility function to fetch the CSRF token required to make requests to a Rails server",
   "main": "dist/src/index.js",
@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/csrf-token-fetcher/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "tslib": "^1.9.3"

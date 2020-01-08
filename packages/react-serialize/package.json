@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-serialize",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "license": "MIT",
   "description": "Provides an idiomatic way to serialize data for rehydration in a universal react application.",
   "main": "dist/src/index.js",
@@ -25,5 +25,9 @@
   "peerDependencies": {
     "react": "^16.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

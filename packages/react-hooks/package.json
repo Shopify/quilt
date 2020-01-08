@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hooks",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "license": "MIT",
   "description": "A collection of primitive React hooks.",
   "main": "dist/src/index.js",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hooks/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

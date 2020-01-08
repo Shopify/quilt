@@ -1,6 +1,6 @@
 {
   "name": "@shopify/performance",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "license": "MIT",
   "description": "Primitives for collecting browser performance metrics.",
   "main": "dist/src/index.js",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/performance/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }
