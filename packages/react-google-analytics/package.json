@@ -27,5 +27,9 @@
   },
   "devDependencies": {
     "@shopify/enzyme-utilities": "^2.1.7"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

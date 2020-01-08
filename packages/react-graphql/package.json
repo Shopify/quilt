@@ -38,7 +38,8 @@
     "@types/graphql": "^14.0.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

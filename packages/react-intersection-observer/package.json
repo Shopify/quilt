@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-intersection-observer/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

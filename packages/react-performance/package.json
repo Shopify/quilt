@@ -30,6 +30,7 @@
     "@shopify/network": "^1.4.4"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

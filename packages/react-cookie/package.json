@@ -32,6 +32,7 @@
     "react-dom": "^16.3.2"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

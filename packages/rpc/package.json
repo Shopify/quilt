@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/rpc/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "devDependencies": {
     "@types/uuid": "^3.4.6",
