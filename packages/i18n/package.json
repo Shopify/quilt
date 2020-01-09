@@ -1,6 +1,6 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "license": "MIT",
   "description": "Generic i18n-related utilities.",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/i18n",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -24,5 +21,9 @@
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.3"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

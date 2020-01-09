@@ -1,6 +1,6 @@
 {
   "name": "@shopify/async",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously.",
   "main": "dist/src/index.js",
@@ -14,10 +14,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/async",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -33,6 +30,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "babel.d.ts",
     "babel.js"
   ]

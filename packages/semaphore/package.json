@@ -1,6 +1,6 @@
 {
   "name": "@shopify/semaphore",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "Counting semaphore",
   "main": "dist/src/index.js",
@@ -14,15 +14,13 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/semaphore",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/semaphore/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

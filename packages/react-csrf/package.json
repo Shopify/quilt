@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-csrf",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "description": "Share csrf token throughout a react application.",
   "main": "dist/src/index.js",
@@ -14,10 +14,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/react-csrf",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -26,6 +23,7 @@
     "react": ">=16.8.0 <17.0.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

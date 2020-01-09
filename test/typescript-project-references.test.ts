@@ -7,6 +7,7 @@ const IGNORE_REGEX = [
   /tsconfig\.json/,
   /tsconfig_base\.json/,
   /react-self-serializer/,
+  /react-preconnect/,
 ];
 
 const ROOT = resolve(__dirname, '..');

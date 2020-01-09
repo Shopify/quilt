@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "3.0.22",
+  "version": "3.0.23",
   "license": "MIT",
   "description": "Google Analytics",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/react-google-analytics",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -29,6 +26,10 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^2.1.7"
-  }
+    "@shopify/enzyme-utilities": "^2.1.8"
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/enzyme-utilities",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components.",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/enzyme-utilities",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -30,5 +27,9 @@
     "enzyme": "^3.10.0",
     "react": ">=16.8.0 <17.0.0",
     "react-dom": ">=16.8.0 <17.0.0"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

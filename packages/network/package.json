@@ -1,6 +1,6 @@
 {
   "name": "@shopify/network",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "license": "MIT",
   "description": "Common values related to dealing with the network",
   "main": "dist/src/index.js",
@@ -14,16 +14,14 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/network",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/network/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "tslib": "^1.9.3"

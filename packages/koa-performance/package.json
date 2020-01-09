@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-performance",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "license": "MIT",
   "description": "Creating a middleware that send performance related data through StatsD.",
   "main": "dist/src/index.js",
@@ -14,18 +14,15 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/koa-performance",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-performance/README.md",
   "dependencies": {
-    "@shopify/network": "^1.4.4",
-    "@shopify/performance": "^1.2.4",
-    "@shopify/statsd": "^1.1.2",
+    "@shopify/network": "^1.4.5",
+    "@shopify/performance": "^1.2.5",
+    "@shopify/statsd": "^1.2.1",
     "@types/koa": "^2.0.0",
     "@types/koa-bodyparser": "*",
     "@types/koa-compose": "*",
@@ -37,9 +34,10 @@
     "koa": ">=2.0.0"
   },
   "devDependencies": {
-    "@shopify/with-env": "^1.1.4"
+    "@shopify/with-env": "^1.1.5"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

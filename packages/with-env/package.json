@@ -1,6 +1,6 @@
 {
   "name": "@shopify/with-env",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "license": "MIT",
   "description": "A utility for executing code under a specific NODE_ENV.",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/with-env",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -24,5 +21,9 @@
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.3"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }
