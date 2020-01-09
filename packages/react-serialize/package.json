@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-serialize",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "license": "MIT",
   "description": "Provides an idiomatic way to serialize data for rehydration in a universal react application.",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/react-serialize",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -28,5 +25,9 @@
   "peerDependencies": {
     "react": "^16.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/performance",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "license": "MIT",
   "description": "Primitives for collecting browser performance metrics.",
   "main": "dist/src/index.js",
@@ -14,15 +14,13 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/performance",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/performance/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

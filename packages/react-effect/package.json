@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-effect",
-  "version": "3.2.9",
+  "version": "3.2.10",
   "license": "MIT",
   "description": "A component and set of utilities for performing effects within a universal React app",
   "main": "dist/src/index.js",
@@ -13,16 +13,13 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/react-effect",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^2.1.2",
+    "@shopify/useful-types": "^2.1.3",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
@@ -30,6 +27,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "server.js",
     "server.d.ts"
   ],

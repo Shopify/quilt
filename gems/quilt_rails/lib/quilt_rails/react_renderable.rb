@@ -6,34 +6,38 @@ module Quilt
   module ReactRenderable
     include ReverseProxy::Controller
 
-    def render_react
+    def render_react(headers: {})
       raise DoNotIntegrationTestError if Rails.env.test?
 
       # Allow concurrent loading to prevent this thread from blocking class
       # loading in controllers called by the Node server.
       ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-        call_proxy
+        call_proxy(headers)
       end
     end
 
     private
 
-    def call_proxy
+    def call_proxy(headers)
       if defined? ShopifySecurityBase
         ShopifySecurityBase::HTTPHostRestriction.whitelist([Quilt.configuration.react_server_host]) do
-          proxy
+          proxy(headers)
         end
       else
-        proxy
+        proxy(headers)
       end
     end
 
-    def proxy
+    def proxy(headers)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
       Quilt::Logger.log("[ReactRenderable] proxying to React server at #{url}")
 
+      unless headers.blank?
+        Quilt::Logger.log("[ReactRenderable] applying custom headers #{headers.inspect}")
+      end
+
       begin
-        reverse_proxy(url, headers: { 'X-CSRF-Token': form_authenticity_token }) do |callbacks|
+        reverse_proxy(url, headers: headers.merge('X-CSRF-Token': form_authenticity_token)) do |callbacks|
           callbacks.on_response do |status_code, _response|
             Quilt::Logger.log("[ReactRenderable] #{url} returned #{status_code}")
           end

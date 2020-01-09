@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-koa-mocks",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "license": "MIT",
   "description": "",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/jest-koa-mocks",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -30,5 +27,9 @@
     "@types/express": "^4.11.1",
     "@types/koa": "^2.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

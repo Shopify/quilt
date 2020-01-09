@@ -1,6 +1,6 @@
 {
   "name": "@shopify/useful-types",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/useful-types",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -25,6 +22,7 @@
     "tslib": "^1.9.3"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

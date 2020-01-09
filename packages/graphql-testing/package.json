@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "4.0.9",
+  "version": "4.0.10",
   "license": "MIT",
   "description": "Utilities to create mock graphql factory.",
   "main": "dist/src/index.js",
@@ -14,10 +14,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/graphql-testing",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -30,12 +27,13 @@
     "jest-matcher-utils": "^24.9.0"
   },
   "devDependencies": {
-    "@shopify/useful-types": "^2.1.2",
+    "@shopify/useful-types": "^2.1.3",
     "@types/graphql": "^14.0.0",
     "graphql-typed": "^0.4.0"
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "matchers.d.ts",
     "matchers.js"
   ]

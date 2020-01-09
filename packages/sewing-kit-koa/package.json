@@ -1,6 +1,6 @@
 {
   "name": "@shopify/sewing-kit-koa",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "license": "MIT",
   "description": "Easily access Sewing Kit assets from a Koa server.",
   "main": "dist/src/index.js",
@@ -14,16 +14,13 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/sewing-kit-koa",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/sewing-kit-koa/README.md",
   "dependencies": {
-    "@shopify/network": "^1.4.4",
+    "@shopify/network": "^1.4.5",
     "@types/koa-mount": "^4.0.0",
     "@types/koa-static": "^4.0.0",
     "app-root-path": "^2.1.0",
@@ -37,13 +34,14 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.2.0",
-    "@shopify/with-env": "^1.1.4",
+    "@shopify/jest-koa-mocks": "^2.2.1",
+    "@shopify/with-env": "^1.1.5",
     "@types/app-root-path": "^1.2.4",
     "@types/fs-extra": "^5.0.4",
     "@types/node-gzip": "^1.1.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

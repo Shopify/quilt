@@ -1,6 +1,6 @@
 {
   "name": "@shopify/logger",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "dist/src/index.js",
@@ -13,10 +13,7 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/logger",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
@@ -27,5 +24,9 @@
     "pretty-ms": "^3.2.0",
     "tslib": "^1.9.3"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

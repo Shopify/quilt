@@ -55,7 +55,6 @@
     {"path": "./react-intersection-observer"},
     {"path": "./react-network"},
     {"path": "./react-performance"},
-    {"path": "./react-preconnect"},
     {"path": "./react-router"},
     {"path": "./react-serialize"},
     {"path": "./react-server"},
