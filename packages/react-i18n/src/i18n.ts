@@ -238,9 +238,13 @@ export class I18n {
   }
 
   unformatNumber(input: string): string {
-    const decimalSymbol = this.numberDecimalSymbol();
+    const {thousandSymbol, decimalSymbol} = this.numberSymbols();
 
-    const normalizedValue = normalizedNumber(input, decimalSymbol);
+    const normalizedValue = normalizedNumber(
+      input,
+      decimalSymbol,
+      thousandSymbol === PERIOD,
+    );
 
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
   }
@@ -495,22 +499,39 @@ export class I18n {
     return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 
-  private numberDecimalSymbol() {
-    return this.formatNumber(1.1, {
+  @memoize()
+  private numberSymbols() {
+    const formattedNumber = this.formatNumber(123456.7, {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
-    })[1];
+    });
+    let thousandSymbol;
+    let decimalSymbol;
+    for (const char of formattedNumber) {
+      if (isNaN(parseInt(char, 10))) {
+        if (thousandSymbol) decimalSymbol = char;
+        else thousandSymbol = char;
+      }
+    }
+    return {thousandSymbol, decimalSymbol};
   }
 }
 
-function normalizedNumber(input: string, expectedDecimal: string) {
+function normalizedNumber(
+  input: string,
+  expectedDecimal: string,
+  usesPeriodThousandSymbol?: boolean,
+) {
   const nonDigits = /\D/g;
 
   // For locales that use non-period symbols as the decimal symbol, users may still input a period
   // and expect it to be treated as the decimal symbol for their locale.
   const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
   const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
-  const usesPeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
+  const usesPeriodDecimal =
+    !usesPeriodThousandSymbol &&
+    !hasExpectedDecimalSymbol &&
+    hasPeriodAsDecimal;
   const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
   const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
 

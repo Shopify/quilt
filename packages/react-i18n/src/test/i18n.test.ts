@@ -605,7 +605,7 @@ describe('I18n', () => {
     const input = 123456.7891;
 
     it('handles number with period decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '1.1');
+      formatNumber.mockImplementationOnce(() => '123,456.7');
 
       const formatted = '123,456.7891';
 
@@ -613,15 +613,23 @@ describe('I18n', () => {
     });
 
     it('handles number with comma decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '1,1');
+      formatNumber.mockImplementationOnce(() => '123.456,7');
 
       const formatted = '123.456,7891';
 
       expect(i18n.unformatNumber(formatted)).toBe(input.toString());
     });
 
+    it('handles number with space as the thousand symbol', () => {
+      formatNumber.mockImplementationOnce(() => '123 456,7');
+
+      const formatted = '123 456,7891';
+
+      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+    });
+
     it('handles number with unusual comma separators and period decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '1.1');
+      formatNumber.mockImplementationOnce(() => '123,456.7');
 
       const formatted = '1,23,456.7891';
 
@@ -629,7 +637,7 @@ describe('I18n', () => {
     });
 
     it('handles invalid value', () => {
-      formatNumber.mockImplementationOnce(() => '1.1');
+      formatNumber.mockImplementationOnce(() => '123,456.7');
 
       const formatted = 'foobar';
 
