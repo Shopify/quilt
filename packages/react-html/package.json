@@ -38,6 +38,8 @@
   "sideEffects": false,
   "files": [
     "dist/*",
-    "!tsconfig.tsbuildinfo"
+    "!tsconfig.tsbuildinfo",
+    "server.js",
+    "server.d.ts"
   ]
 }
