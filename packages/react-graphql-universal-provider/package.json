@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql-universal-provider",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "license": "MIT",
   "description": "A self-serializing/deserializing GraphQL provider that works for isomorphic applications.",
   "main": "dist/src/index.js",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@shopify/react-graphql": "^6.0.6",
     "@shopify/react-hooks": "^1.4.1",
-    "@shopify/react-html": "^9.2.12",
+    "@shopify/react-html": "^9.2.13",
     "apollo-client": "^2.3.8"
   },
   "peerDependencies": {
