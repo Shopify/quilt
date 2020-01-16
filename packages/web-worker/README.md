@@ -101,7 +101,7 @@ const worker = createWorker({
 });
 ```
 
-An optimization many uses of `createMessenger` will want to make is to use a `MessageChannel` to directly connect the worker and the main page, even if the worker itself is constructed unconventionally (e.g., inside an iframe). As a convenience, the worker that is constructed by this library supports `postMessage`ing a special `{__replace: MessagePort}` object. When sent, the `MessagePort` will be used as an argument to the worker’s [`Endpoing#replace` method](../rpc#endpoint-replace), making it the communication channel for all messages between the parent page and worker.
+An optimization many uses of `createMessenger` will want to make is to use a `MessageChannel` to directly connect the worker and the main page, even if the worker itself is constructed unconventionally (e.g., inside an iframe). As a convenience, the worker that is constructed by this library supports `postMessage`ing a special `{__replace: MessagePort}` object. When sent, the `MessagePort` will be used as an argument to the worker’s [`Endpoint#replace` method](../rpc#endpointreplace), making it the communication channel for all messages between the parent page and worker.
 
 ```ts
 import {fromMessagePort} from '@shopify/rpc';
