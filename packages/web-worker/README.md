@@ -173,7 +173,7 @@ console.log(createWorker.url);
 The power of the `createWorkerFactory` library is that it automatically wraps the `Worker` in an `Endpoint` from `@shopify/rpc`. This allows the seamless calling of module methods from the main thread to the worker, and the ability to pass non-serializable constructs like functions. However, if your use case does not require this RPC layer, you can save on bundle size by creating a "plain" worker factory. The functions created by `createPlainWorkerFactory` can be used to create `Worker` objects directly, with which you can implement whatever message passing system you want.
 
 ```ts
-import {createPlainWorkerFactory} from '@shopify/web-worker;
+import {createPlainWorkerFactory} from '@shopify/web-worker';
 
 const createWorker = createPlainWorkerFactory(() => import('./worker'));
 const worker = createWorker();
