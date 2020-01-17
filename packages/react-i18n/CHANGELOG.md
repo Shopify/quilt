@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 - Fixed `unformatNumber` for numbers using a period as the thousand separator ([#1215](https://github.com/Shopify/quilt/pull/1215))
+- Added `Gip` currency code value ([#1235](https://github.com/Shopify/quilt/pull/1235))
 
 ## [2.3.0] - 2019-11-29
 

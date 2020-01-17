@@ -139,4 +139,5 @@ export enum CurrencyCode {
   Xof = 'XOF',
   Yer = 'YER',
   Zmw = 'ZMW',
+  Gip = 'GIP',
 }
