@@ -300,6 +300,67 @@ function App() {
 export default App;
 ```
 
+##### Example: sending headers from Rails controller
+
+```ruby
+class ReactController < ApplicationController
+  include Quilt::ReactRenderable
+
+  def index
+    render_react(headers: { 'x-custom-header': 'header-value-a' })
+  end
+end
+```
+
+You will need to serialize the result of the useRequestHeader hook in order for it to persist to the client
+
+```tsx
+// app/ui/foundation/CustomUniversalProvider.tsx
+import {createContext} from 'react';
+import {createUniversalProvider} from '@shopify/react-universal-provider';
+
+export const CustomContext = createContext<string | null>(null);
+export const CustomUniversalProvider = createUniversalProvider('custom-key', CustomContext);
+```
+
+```tsx
+// app/ui/index.tsx
+
+import React from 'react';
+import {useRequestHeader} from '@shopify/react-network';
+import {CustomUniversalProvider} from './foundation/CustomUniversalProvider';
+import {ComponentWithCustomHeader} from './components/ComponentWithCustomHeader';
+
+function App() {
+  // get `x-custom-header` from the request that was sent through Rails ReactController
+  const customHeader = useRequestHeader('x-custom-header');
+
+  return (
+    <CustomUniversalProvider value={customHeader}>
+      <h1>My application ❤️</h1>
+      <ComponentWithCustomHeader />
+    </CustomUniversalProvider>
+  );
+}
+
+export default App;
+```
+
+```tsx
+// app/ui/components/ComponentWithCustomHeader.tsx
+
+import React, {useContext} from 'react';
+import {CustomContext} from '../foundation/CustomUniversalProvider';
+
+export function ComponentWithCustomHeader() {
+  // get `x-custom-header` from serialized context
+  // will be 'header-value-a' in this example
+  const customHeader = useContext(CustomContext);
+
+  return <span>{customHeader}</span>;
+}
+```
+
 ##### Example: redirecting
 
 ```tsx
@@ -611,6 +672,7 @@ StatsD.distribution('navigation_usable', 23924, tags: {
 The full list of metrics sent by default are as follows:
 
 ###### For full-page load
+
 - `AppName.time_to_first_byte`, representing the time from the start of the request to when the server began responding with data.
 - `AppName.time_to_first_paint`, representing the time from the start of the request to when the browser rendered anything to the screen.
 - `AppName.time_to_first_contentful_paint` representing the time from the start of the request to when the browser rendered meaningful content to the screen.
@@ -618,11 +680,11 @@ The full list of metrics sent by default are as follows:
 - `AppName.dom_load` representing the time from the start of the request to when the browser fired the [window.load](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) event.
 
 ###### For both full-page navigations and client-side page transitions
+
 - `AppName.navigation_usable`, representing the time it took before for the page to be rendered in a usable state. Usually this does not include data fetching or asynchronous tasks.
 - `AppName.navigation_complete` representing the time it took for the page to be fully loaded, including any data fetching which blocks above-the-fold content.
 - `AppName.navigation_download_size`, representing the total weight of all client-side assets (eg. CSS, JS, images). This will only be sent if there are any events with a `type` of `script` or `style`.
 - `AppName.navigation_cache_effectiveness`, representing what percentage of client-side assets (eg. CSS, JS, images) were returned from the browser's cache. This will only be sent if there are any events with a `type` of `script` or `style`.
-
 
 ##### Customizing `process_report` with a block
 
@@ -662,6 +724,10 @@ client.on_navigation do |navigation, tags|
   tags[:connection_rtt] = navigation.connection.rtt
   tags[:connection_type] = navigation.connection.type
   tags[:navigation_target] = navigation.target
+
+  # add a tag to allow filtering out navigations that are too long
+  # this is useful when you are unable to rule out missing performance marks on some pages
+  tags[:too_long_dont_read] = navigation.duration > 30.seconds.in_milliseconds
 end
 ```
 

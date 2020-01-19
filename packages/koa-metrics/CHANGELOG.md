@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+## 0.3.6 - 2019-11-20
+
+- Fix broken default export from 0.3.0 ([#1187](https://github.com/Shopify/quilt/pull/1187))
+
 ## 0.3.0 - 2019-10-07
 
 - Use `@shopify/statd` instead of Metrics implementation. The log using logger in distribution was removed. ([#1074](https://github.com/Shopify/quilt/pull/1074))

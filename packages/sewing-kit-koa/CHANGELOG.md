@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## 6.2.0 - 2019-11-29
+
+### Added
+
+- [Minor] If an `assets.json.gz` file exists, it will be read and unzipped ([1199](https://github.com/Shopify/quilt/pull/1199))
+- [Minor] Manifests may now contain an `identity` attribute; this contains extra metadata about a manifest's support (e.g., locales) ([1199](https://github.com/Shopify/quilt/pull/1199))
+- [Minor] A `locale` can now be passed to `assets` / `asyncAssets` / `script` / `style` helpers. If a locale is provided, and manifests with a matching `identity.locales` array are found, locale-specific assets will be returned.
+  - Note: use `@shopify/react-i18n` and its `from-generated-index` mode to create locale-specific builds
 
 ## 6.1.0 - 2019-07-17
 
