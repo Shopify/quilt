@@ -41,6 +41,32 @@ function MyComponent() {
 }
 ```
 
+### `useInterval()`
+
+This hook provides a declarative version of [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval). The first argument is a callback that will be invoked successively after the given delay (number of milliseconds) as the second argument. Optionally, the interval can be disabled by passing `null` as the delay.
+
+```tsx
+function MyComponent() {
+  const [counter, setCounter] = React.useState(0);
+  const [enabled, setEnabled] = React.useState(true);
+
+  const delay = enabled ? 1000 : null;
+  const label = enabled ? 'Disable' : 'Enable';
+  const toggle = () => setEnabled(!enabled);
+
+  useInterval(() => setCounter(counter + 1), delay);
+
+  return (
+    <div>
+      <div>{counter}</div>
+      <button onClick={toggle}>{label}</button>
+    </div>
+  );
+}
+```
+
+This is a TypeScript implementation of @gaeron's `useInterval` hook from the [Overreacted blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/#just-show-me-the-code).
+
 ### `useLazyRef()`
 
 This hook creates a ref object like React’s `useRef`, but instead of providing it the value directly, you provide a function that returns the value. The first time the hook is run, it will call the function and use the returned value as the initial `ref.current` value. Afterwards, the function is never invoked. You can use this for creating refs to values that are expensive to initialize.
