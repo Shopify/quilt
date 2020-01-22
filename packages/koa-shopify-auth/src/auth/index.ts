@@ -40,11 +40,17 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   const oAuthCallback = createOAuthCallback(config);
 
   const inlineOAuthPath = `${prefix}/auth/inline`;
-  const topLevelOAuthRedirect = createTopLevelOAuthRedirect(inlineOAuthPath);
+  const topLevelOAuthRedirect = createTopLevelOAuthRedirect(
+    config.apiKey,
+    inlineOAuthPath,
+  );
 
   const enableCookiesPath = `${oAuthStartPath}/enable_cookies`;
   const enableCookies = createEnableCookies(config);
-  const enableCookiesRedirect = createEnableCookiesRedirect(enableCookiesPath);
+  const enableCookiesRedirect = createEnableCookiesRedirect(
+    config.apiKey,
+    enableCookiesPath,
+  );
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
     if (ctx.path === oAuthStartPath && !hasCookieAccess(ctx)) {
