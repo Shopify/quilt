@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [6.0.7] - 2019-??-??
+
+### Fixed
+
+- Fixed when using `no-cache` fetch policy and data is undefined ([#1244](https://github.com/Shopify/quilt/pull/1244)).
+
 ## [6.0.0] - 2019-10-30
 
 ### Added
