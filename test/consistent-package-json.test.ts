@@ -38,6 +38,10 @@ packages.forEach(
           expectedPackageJSON.repository,
         );
       });
+
+      it('specifies if webpack can tree-shake, via sideEffects', () => {
+        expect(packageJSON.sideEffects).toBe(Boolean(packageJSON.sideEffects));
+      });
     });
   },
 );
