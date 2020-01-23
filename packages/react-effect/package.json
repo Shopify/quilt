@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
