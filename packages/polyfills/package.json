@@ -14,7 +14,11 @@
     "build": "tsc --p tsconfig.json"
   },
   "author": "Shopify Inc.",
-  "repository": "https://github.com/shopify/quilt/tree/master/packages/polyfills",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/polyfills"
+  },
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },

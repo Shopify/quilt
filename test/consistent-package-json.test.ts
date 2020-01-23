@@ -22,6 +22,12 @@ packages.forEach(
       it('specifies name matching scope and path', () => {
         expect(packageJSON.name).toBe(expectedPackageJSON.name);
       });
+
+      it('specifies a repository deep-linking into the Quilt monorepo', () => {
+        expect(packageJSON.repository).toStrictEqual(
+          expectedPackageJSON.repository,
+        );
+      });
     });
   },
 );

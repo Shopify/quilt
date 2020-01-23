@@ -14,7 +14,11 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": "https://github.com/shopify/quilt/tree/master/packages/css-utilities",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/css-utilities"
+  },
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },

@@ -13,7 +13,11 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": "https://github.com/shopify/quilt/tree/master/packages/jest-koa-mocks",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/jest-koa-mocks"
+  },
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
