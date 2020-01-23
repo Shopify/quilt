@@ -16,7 +16,7 @@
   "author": "Shopify Inc.",
   "repository": "https://github.com/shopify/quilt/tree/master/packages/react-testing",
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
