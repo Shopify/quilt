@@ -14,10 +14,11 @@ const query = querystring.stringify.bind(querystring);
 const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
 const path = '/auth/enable_cookies';
+const apiKey = 'somekey';
 
 describe('CreateEnableCookiesRedirect', () => {
   it('sets the test cookie', () => {
-    const enableCookiesRedirect = createEnableCookiesRedirect(path);
+    const enableCookiesRedirect = createEnableCookiesRedirect(apiKey, path);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
@@ -28,14 +29,14 @@ describe('CreateEnableCookiesRedirect', () => {
   });
 
   it('sets up and calls the top level redirect', () => {
-    const enableCookiesRedirect = createEnableCookiesRedirect(path);
+    const enableCookiesRedirect = createEnableCookiesRedirect(apiKey, path);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
 
     enableCookiesRedirect(ctx);
 
-    expect(createTopLevelRedirect).toHaveBeenCalledWith(path);
+    expect(createTopLevelRedirect).toHaveBeenCalledWith(apiKey, path);
     expect(mockTopLevelRedirect).toHaveBeenCalledWith(ctx);
   });
 });
