@@ -14,7 +14,7 @@
   "author": "Shopify Inc.",
   "repository": "https://github.com/shopify/quilt/tree/master/packages/graphql-persisted",
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/graphql-persisted/README.md",
   "dependencies": {

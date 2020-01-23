@@ -16,7 +16,7 @@
   "author": "Shopify Inc.",
   "repository": "https://github.com/shopify/quilt/tree/master/packages/react-hooks",
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

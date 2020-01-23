@@ -15,6 +15,10 @@ packages.forEach(
   ({packageName, packageJSONPath, packageJSON, expectedPackageJSON}) => {
     // eslint-disable-next-line jest/valid-describe
     describe(packageJSONPath, () => {
+      it('specifies Quilt Issues as bugs URL', () => {
+        expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
+      });
+
       it('specifies name matching scope and path', () => {
         expect(packageJSON.name).toBe(expectedPackageJSON.name);
       });
