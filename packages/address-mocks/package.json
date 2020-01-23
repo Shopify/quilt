@@ -13,7 +13,11 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": "https://github.com/shopify/quilt/tree/master/packages/address-mocks",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/address-mocks"
+  },
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },

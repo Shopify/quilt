@@ -14,7 +14,11 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": "https://github.com/shopify/quilt/tree/master/packages/react-server",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-server"
+  },
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
