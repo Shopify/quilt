@@ -25,6 +25,10 @@ packages.forEach(
         );
       });
 
+      it('specifies Quilt deep-link homepage', () => {
+        expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
+      });
+
       it('specifies name matching scope and path', () => {
         expect(packageJSON.name).toBe(expectedPackageJSON.name);
       });
