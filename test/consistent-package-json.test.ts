@@ -19,6 +19,12 @@ packages.forEach(
         expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
       });
 
+      it('specifies publishable files', () => {
+        expect(packageJSON.files).toStrictEqual(
+          expect.arrayContaining(expectedPackageJSON.files),
+        );
+      });
+
       it('specifies name matching scope and path', () => {
         expect(packageJSON.name).toBe(expectedPackageJSON.name);
       });

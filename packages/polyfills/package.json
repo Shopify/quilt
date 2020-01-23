@@ -40,8 +40,5 @@
   "devDependencies": {
     "@types/caniuse-api": "^3.0.0"
   },
-  "files": [
-    "**/*.js",
-    "**/*.d.ts"
-  ]
+  "files": ["dist/*", "!tsconfig.tsbuildinfo"]
 }
