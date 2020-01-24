@@ -168,7 +168,7 @@ export default function useQuery<
       data = (queryObservable.getLastResult() || {}).data;
     } else if (
       fetchPolicy === 'no-cache' &&
-      Object.keys(result.data).length === 0
+      (!result.data || Object.keys(result.data).length === 0)
     ) {
       data = previousData.current;
     } else {
