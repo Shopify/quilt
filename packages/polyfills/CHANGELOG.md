@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Update `package.json` published `files` patterns. [#1233](https://github.com/Shopify/quilt/pull/1233)
+
 ## [1.1.5] - 2019-11-25
 
 - Fix `Can't resolve '@shopify/polyfills/<polyfill>'` import error [#1192](https://github.com/Shopify/quilt/pull/1192)

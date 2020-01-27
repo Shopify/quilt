@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Specify package has no `sideEffects` ([#1233](https://github.com/Shopify/quilt/pull/1233))
+
 ## [2.1.0] - 2019-10-30
 
 ### Added
