@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -14,9 +14,13 @@
     "build": "tsc --p tsconfig.json"
   },
   "author": "Shopify Inc.",
-  "repository": "https://github.com/shopify/quilt/tree/master/packages/polyfills",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/polyfills"
+  },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/polyfills/README.md",
   "dependencies": {
@@ -36,8 +40,5 @@
   "devDependencies": {
     "@types/caniuse-api": "^3.0.0"
   },
-  "files": [
-    "**/*.js",
-    "**/*.d.ts"
-  ]
+  "files": ["dist/*", "!tsconfig.tsbuildinfo"]
 }

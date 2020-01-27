@@ -13,11 +13,15 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": "https://github.com/shopify/quilt/tree/master/packages/koa-metrics",
-  "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/koa-metrics"
   },
-  "homepage": "https://github.com/shopify/quilt/blob/master/packages/koa-metrics/README.md",
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-metrics/README.md",
   "dependencies": {
     "@shopify/statsd": "^1.2.1",
     "hot-shots": "^5.9.1",
