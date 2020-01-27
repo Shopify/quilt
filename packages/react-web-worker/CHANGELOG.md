@@ -29,7 +29,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - `createWorker` has been renamed to `createWorkerFactory` ([#1129](https://github.com/Shopify/quilt/pull/1129)).
 
-## 0.0.1 - 2019-10-16
+## [0.0.1] - 2019-10-16
 
 ### Added
 

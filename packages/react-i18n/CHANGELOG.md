@@ -2,7 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ---
 
@@ -104,7 +105,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [1.9.1] - 2019-09-13
 
-## Changed
+### Changed
 
 - Updated to `@shopify/dates@^0.2.0`
 
