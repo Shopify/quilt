@@ -1,4 +1,5 @@
 import faker from 'faker';
+
 import {validator} from '..';
 
 describe('validator', () => {

@@ -47,7 +47,10 @@ performance.on('lifecycleEvent', event => {});
 The `on` method returns a clean-up function that you can invoke when you're done listening on the event:
 
 ```ts
-const cleanupNavigationListener = performance.on('navigation', navigation => {});
+const cleanupNavigationListener = performance.on(
+  'navigation',
+  navigation => {},
+);
 
 cleanupNavigationListener();
 ```
@@ -94,3 +97,69 @@ The `Navigation` object represents a full navigation, either from a full-page re
   - `metadata`: an object with arbitrary key-value pairs providing additional context
 
 `Navigation` also provides a number of utility methods for gathering more actionable information, such as `eventsByType` for filtering events to a particular type, or `totalDownloadSize` for the cumulative size of all requested resources. Please consult the TypeScript definitions for a full listing of these methods.
+
+### Events
+
+The `Performance` and `Navigation` classes both deal with `Event` objects with which contain information about the timing of specific milestones during the course of a user's browser session in milliseconds.
+
+#### Lifecycle Events
+
+##### Time to First Byte (`EventType.TimeToFirstByte`)
+
+The time until the server sends the first part of the response.
+Learn more about [time to First Byte](https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing).
+
+##### First Paint (`EventType.TimeToFirstPaint`)
+
+The time until the browser renders anything that differs from the previous page.
+Learn more about [first paint](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_paint_and_first_contentful_paint).
+
+##### First Contentful Paint (`EventType.TimeToFirstContentfulPaint`)
+
+The time until the browser renders the first bit of content from the DOM.
+Learn more about this [first Contentful Paint](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint).
+
+##### DOM Content Loaded (`EventType.DomContentLoaded`)
+
+The time until the DOM has been entirely loaded and parsed.
+Learn more about [DOM Content Loaded](https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded).
+
+##### First Input Delay (`EventType.FirstInputDelay`)
+
+The time from when a user first interacts with your site to the time when the browser is able to respond to that interaction.
+Learn more about [first Input Delay](https://developers.google.com/web/updates/2018/05/first-input-delay).
+
+##### Load Event (`EventType.Load`)
+
+The time until the DOM and all its styles and synchronous scripts have loaded.
+Learn more about [load Event](https://developer.mozilla.org/en-US/docs/Web/Events/load).
+
+#### Navigation Events
+
+##### Long Task (`EventType.LongTask`)
+
+Any task that take 50 milliseconds or more.
+Learn more about [long task](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceLongTaskTiming).
+
+##### Script Download Event (`EventType.ScriptDownload`)
+
+The time spent downloading a script resource.
+
+This event will also log the name and size of the resource as `metadata`.
+
+##### Style Download Event (`EventType.StyleDownload`)
+
+The time spent downloading a style resource.
+
+This event will also log the name and size of the resource as `metadata`.
+
+##### GraphQL Event (`EventType.GraphQL`)
+
+The time spent resolving GraphQL queries during the navigation.
+
+This metric needs to be manually set up in Apollo Client.
+The setup can be done as a [ApolloLink](https://www.apollographql.com/docs/link/).
+
+##### Usable Event (`EventType.Usable`)
+
+The time between navigation start and the first time a [`@shopify/react-performance`](../../react-performance)'s `<PerformanceMark stage="usable" />` component is rendered.

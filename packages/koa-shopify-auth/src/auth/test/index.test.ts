@@ -1,7 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createShopifyAuth from '../index';
-
 import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
 import createEnableCookiesRedirect from '../create-enable-cookies-redirect';
 import {OAuthStartOptions} from '../../types';
@@ -48,6 +47,7 @@ describe('Index', () => {
         await shopifyAuth(ctx, nextFunction);
 
         expect(createEnableCookiesRedirect).toHaveBeenCalledWith(
+          'myapikey',
           '/auth/enable_cookies',
         );
         expect(mockEnableCookiesRedirect).toHaveBeenCalledWith(ctx);
@@ -65,6 +65,7 @@ describe('Index', () => {
         await shopifyAuth(ctx, nextFunction);
 
         expect(createTopLevelOAuthRedirect).toHaveBeenCalledWith(
+          'myapikey',
           '/auth/inline',
         );
         expect(mockTopLevelOAuthRedirect).toHaveBeenCalledWith(ctx);

@@ -1,7 +1,10 @@
 import {createHmac} from 'crypto';
+
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {StatusCode} from '@shopify/network';
+
 import {WebhookHeader} from '../types';
+
 import {receiveWebhook} from '..';
 
 const secret = 'kitties are cute';
@@ -103,6 +106,22 @@ describe('receiveWebhook', () => {
 
       expect(context.state.webhook).toMatchObject({
         domain: 'cool-store.com',
+      });
+    });
+
+    it('adds webhook payload to state', async () => {
+      const onReceived = jest.fn();
+      const middleware = receiveWebhook({secret, onReceived});
+
+      const context = createMockContext({
+        rawBody,
+        headers: headers({hmac: hmac(secret, rawBody)}),
+      });
+
+      await middleware(context, noop);
+
+      expect(context.state.webhook).toMatchObject({
+        payload: JSON.parse(rawBody),
       });
     });
 

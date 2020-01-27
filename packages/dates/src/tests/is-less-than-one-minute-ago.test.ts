@@ -1,4 +1,5 @@
 import {clock} from '@shopify/jest-dom-mocks';
+
 import {isLessThanOneMinuteAgo} from '../is-less-than-one-minute-ago';
 
 describe('isLessThanOneMinuteAgo()', () => {

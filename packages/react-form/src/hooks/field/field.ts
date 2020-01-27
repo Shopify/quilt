@@ -3,6 +3,7 @@ import isEqual from 'fast-deep-equal';
 
 import {Validates, Field} from '../../types';
 import {normalizeValidation, isChangeEvent} from '../../utilities';
+
 import {
   updateAction,
   updateErrorAction,

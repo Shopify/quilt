@@ -2,19 +2,30 @@ import {resolve} from 'path';
 import {runInNewContext} from 'vm';
 
 const DEFAULT_PACKAGES_TO_PROCESS = {
-  '@shopify/web-worker': ['createWorkerFactory'],
-  '@shopify/react-web-worker': ['createWorkerFactory'],
+  '@shopify/web-worker': [
+    {name: 'createWorkerFactory', plain: false},
+    {name: 'createPlainWorkerFactory', plain: true},
+  ],
+  '@shopify/react-web-worker': [
+    {name: 'createWorkerFactory', plain: false},
+    {name: 'createPlainWorkerFactory', plain: true},
+  ],
 };
 
 const loader = resolve(__dirname, 'webpack-parts/loader');
 
+interface ProcessableImport {
+  name: string;
+  plain: boolean;
+}
+
 export interface Options {
   noop?: boolean;
-  packages?: {[key: string]: string[]};
+  packages?: {[key: string]: (string | ProcessableImport)[]};
 }
 
 interface State {
-  process: Map<string, string[]>;
+  process: Map<string, ProcessableImport[]>;
   program: import('@babel/traverse').NodePath<import('@babel/types').Program>;
   opts?: Options;
 }
@@ -46,11 +57,13 @@ export default function workerBabelPlugin({
     visitor: {
       Program(program, state) {
         state.program = program;
-        state.process = new Map(
-          Object.entries(
-            (state.opts && state.opts.packages) || DEFAULT_PACKAGES_TO_PROCESS,
-          ),
-        );
+
+        const packages =
+          state.opts && state.opts.packages
+            ? normalize(state.opts.packages)
+            : DEFAULT_PACKAGES_TO_PROCESS;
+
+        state.process = new Map(Object.entries(packages));
       },
       ImportDeclaration(importDeclaration, state) {
         const processImports = state.process.get(
@@ -62,10 +75,16 @@ export default function workerBabelPlugin({
         }
 
         for (const specifier of importDeclaration.get('specifiers')) {
-          if (
-            !specifier.isImportSpecifier() ||
-            !processImports.includes(specifier.get('imported').node.name)
-          ) {
+          if (!specifier.isImportSpecifier()) {
+            continue;
+          }
+
+          const importedName = specifier.get('imported').node.name;
+          const processableImport = processImports.find(
+            ({name}) => name === importedName,
+          );
+
+          if (processableImport == null) {
             continue;
           }
 
@@ -77,7 +96,7 @@ export default function workerBabelPlugin({
             continue;
           }
 
-          processBinding(binding, state);
+          processBinding(binding, processableImport, state);
         }
       },
     },
@@ -85,6 +104,7 @@ export default function workerBabelPlugin({
 
   function processBinding(
     binding: import('@babel/traverse').Binding,
+    importOptions: ProcessableImport,
     state: State,
   ) {
     const {program, opts: options = {}} = state;
@@ -135,7 +155,10 @@ export default function workerBabelPlugin({
       }
 
       const {leadingComments} = dynamicallyImported.node;
-      const options = getLoaderOptions(leadingComments || []);
+      const options = {
+        ...getLoaderOptions(leadingComments || []),
+        plain: importOptions.plain,
+      };
 
       const importId = callExpression.scope.generateUidIdentifier('worker');
 
@@ -181,4 +204,18 @@ function getLoaderOptions(
       return options;
     }
   }, {});
+}
+
+function normalize(packages: NonNullable<Options['packages']>) {
+  return Object.keys(packages).reduce<{[key: string]: ProcessableImport[]}>(
+    (all, pkg) => ({
+      ...all,
+      [pkg]: packages[pkg].map(anImport =>
+        typeof anImport === 'string'
+          ? {name: anImport, plain: false}
+          : anImport,
+      ),
+    }),
+    {},
+  );
 }

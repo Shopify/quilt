@@ -1,7 +1,8 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {StatsDClient} from '@shopify/statsd';
+
 import {Tag} from '../tags';
-import metrics, {CustomMetric} from '../middleware';
+import {metrics, CustomMetric} from '../middleware';
 
 jest.mock('@shopify/statsd');
 const MetricsMock = StatsDClient as jest.Mock<StatsDClient>;

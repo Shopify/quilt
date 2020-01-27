@@ -1,6 +1,7 @@
 /* eslint-disable no-process-env */
 import {Context, Request} from 'koa';
 import chalk from 'chalk';
+
 import {KoaNextFunction} from '../types';
 
 export const LOGGER = Symbol('logger');

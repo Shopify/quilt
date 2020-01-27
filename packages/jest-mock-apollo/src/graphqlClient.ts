@@ -6,6 +6,7 @@ import {
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
+
 import {GraphQLMock} from './types';
 import MockApolloLink from './MockApolloLink';
 import Requests from './Requests';
@@ -14,10 +15,6 @@ export interface GraphQLClientConfig {
   unionOrIntersectionTypes?: any[];
   schema: GraphQLSchema;
   cacheOptions?: ApolloReducerConfig;
-}
-
-export interface GraphQLClientOptions {
-  ssrMode?: boolean;
 }
 
 export type MockGraphQLClient = ApolloClient<any> & {
@@ -37,10 +34,7 @@ export default function configureClient({
   schema,
   cacheOptions = {},
 }: GraphQLClientConfig) {
-  return function createGraphQLClient(
-    mock: GraphQLMock = defaultGraphQLMock,
-    {ssrMode = true}: GraphQLClientOptions = {},
-  ) {
+  return function createGraphQLClient(mock: GraphQLMock = defaultGraphQLMock) {
     const cache = new InMemoryCache({
       fragmentMatcher: new IntrospectionFragmentMatcher({
         introspectionQueryResultData: {
@@ -75,7 +69,6 @@ export default function configureClient({
     const client = new ApolloClient({
       link: memoryLink.concat(mockLink),
       cache,
-      ssrMode,
     }) as MockGraphQLClient;
 
     client.graphQLRequests = graphQLRequests;

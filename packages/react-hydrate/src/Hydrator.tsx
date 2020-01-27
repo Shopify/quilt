@@ -1,6 +1,7 @@
 import React from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
 import {useServerEffect} from '@shopify/react-effect';
+
 import {HydrationContext} from './context';
 import {HYDRATION_ATTRIBUTE} from './shared';
 

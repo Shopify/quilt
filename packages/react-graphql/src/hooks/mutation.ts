@@ -1,22 +1,14 @@
-import {
-  OperationVariables,
-  MutationOptions as ClientMutationOptions,
-} from 'apollo-client';
-import {MutationOptions} from 'react-apollo';
+import {OperationVariables} from 'apollo-client';
 import {DocumentNode} from 'graphql-typed';
 import {useCallback} from 'react';
-import {Omit} from '@shopify/useful-types';
+import {NoInfer} from '@shopify/useful-types';
 
 import {MutationHookOptions, MutationHookResult} from './types';
 import useApolloClient from './apollo-client';
 
 export default function useMutation<Data = any, Variables = OperationVariables>(
   mutation: DocumentNode<Data, Variables>,
-  options: Omit<
-    MutationHookOptions<Data, Variables>,
-    'mutation' | 'fetchPolicy'
-  > &
-    Pick<ClientMutationOptions<Data, Variables>, 'fetchPolicy'> = {},
+  options: MutationHookOptions<Data, NoInfer<Partial<Variables>>> = {} as any,
 ): MutationHookResult<Data, Variables> {
   const {
     client: overrideClient,
@@ -32,13 +24,7 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
   const client = useApolloClient(overrideClient);
 
   const runMutation = useCallback(
-    (
-      perMutationOptions: Omit<
-        MutationOptions<Data, Variables>,
-        'mutation' | 'fetchPolicy'
-      > &
-        Pick<ClientMutationOptions<Data, Variables>, 'fetchPolicy'> = {},
-    ) => {
+    (perMutationOptions: MutationHookOptions<Data, Variables> = {} as any) => {
       const mutateVariables = {
         ...(variables || {}),
         ...(perMutationOptions.variables || {}),
@@ -73,5 +59,5 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
     ],
   );
 
-  return runMutation;
+  return runMutation as MutationHookResult<Data, Variables>;
 }

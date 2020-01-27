@@ -25,11 +25,9 @@ module Quilt
         client.send(:process_report!)
       end
 
-      def distribution(metric_name, value, tag_hash = {})
-        tags = tag_hash.map { |key, hash_value| "#{key}:#{hash_value}" }
-
+      def distribution(metric_name, value, tags = {})
         @distribution_callback.call(metric_name, value, tags)
-        StatsD.distribution(metric_name, value, tags) unless Rails.env.dev?
+        StatsD.distribution(metric_name, value, tags: tags) unless Rails.env.dev?
       end
 
       def on_navigation(&block)

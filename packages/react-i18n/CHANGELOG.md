@@ -8,6 +8,35 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+## [2.3.4] - 2020-01-20
+
+- Added `Gip` currency code value ([#1235](https://github.com/Shopify/quilt/pull/1235))
+- Fixed `unformatNumber` for numbers using a period as the thousand separator ([#1215](https://github.com/Shopify/quilt/pull/1215))
+
+## [2.3.0] - 2019-11-29
+
+### Added
+
+- Minor - added a `generateTranslationDictionaries` helper, and `mode=from-dictionary-index` option for the Babel plugin. This can be used to build many versions of an application, with each version containing a specific locale's translations directly within JavaScript ([#1197](https://github.com/Shopify/quilt/pull/1197/files))
+
+## [2.2.0] - 2019-11-22
+
+### Added
+
+- Added a `generateTranslationIndexes` helper, and `mode=from-generated-index` option for the Babel plugin. This can be used to resolve unwanted cache hits when adding new translation files ([#1188](https://github.com/Shopify/quilt/pull/1188))
+
+## [2.1.8] - 2019-11-15
+
+### Fixed
+
+- `translationKeyExists` on i18n works as expected with onError handler ([#1162](https://github.com/Shopify/quilt/pull/1162))
+
+## [2.1.7] - 2019-11-12
+
+### Added
+
+- Added locale to be part of `MissingTranslationError` ([#1178](https://github.com/Shopify/quilt/pull/1178))
+
 ## [2.1.0] - 2019-10-07
 
 ### Added

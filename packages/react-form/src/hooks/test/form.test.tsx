@@ -1,8 +1,10 @@
 import React from 'react';
 import faker from 'faker';
 import {mount} from '@shopify/react-testing';
+
 import {SubmitHandler} from '../../types';
 import {positiveNumericString, notEmpty} from '../../validation';
+
 import {useList, useField, useForm, submitSuccess, submitFail} from '..';
 
 interface SimpleProduct {

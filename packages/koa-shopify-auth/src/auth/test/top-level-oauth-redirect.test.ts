@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
@@ -13,10 +14,11 @@ const query = querystring.stringify.bind(querystring);
 const baseUrl = 'myapp.com/auth';
 const shop = 'shop1.myshopify.io';
 const path = '/auth/inline';
+const apiKey = 'somekey';
 
 describe('CreateTopLevelOAuthRedirect', () => {
   it('sets the test cookie', () => {
-    const topLevelOAuthRedirect = createTopLevelOAuthRedirect(path);
+    const topLevelOAuthRedirect = createTopLevelOAuthRedirect(apiKey, path);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
@@ -27,14 +29,14 @@ describe('CreateTopLevelOAuthRedirect', () => {
   });
 
   it('sets up and calls the top level redirect', () => {
-    const topLevelOAuthRedirect = createTopLevelOAuthRedirect(path);
+    const topLevelOAuthRedirect = createTopLevelOAuthRedirect(apiKey, path);
     const ctx = createMockContext({
       url: `https://${baseUrl}?${query({shop})}`,
     });
 
     topLevelOAuthRedirect(ctx);
 
-    expect(createTopLevelRedirect).toHaveBeenCalledWith(path);
+    expect(createTopLevelRedirect).toHaveBeenCalledWith(apiKey, path);
     expect(mockTopLevelRedirect).toHaveBeenCalledWith(ctx);
   });
 });

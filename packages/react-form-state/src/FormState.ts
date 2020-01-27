@@ -393,7 +393,9 @@ export default class FormState<
       return;
     }
 
-    const {validators = {}} = this.props;
+    const {
+      validators = {} as Partial<ValidatorDictionary<Fields>>,
+    } = this.props;
     const {fields} = this.state;
 
     return runValidator(validators[fieldPath], value, fields);

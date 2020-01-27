@@ -1,6 +1,5 @@
 import React from 'react';
 import faker from 'faker';
-
 import {extract} from '@shopify/react-effect/server';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {mount} from '@shopify/react-testing';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function useOnValueChange<T>(
+export function useOnValueChange<T>(
   value: T,
   onChange: (value: T, oldValue: T) => void,
 ) {

@@ -1,5 +1,6 @@
 import {useContext, useState, useCallback} from 'react';
 import {CookieSerializeOptions} from 'cookie';
+
 import {CookieContext} from './context';
 
 const NO_MANAGER_ERROR = [

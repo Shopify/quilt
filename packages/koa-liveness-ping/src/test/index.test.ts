@@ -1,5 +1,6 @@
 import mount from 'koa-mount';
 import {createMockContext} from '@shopify/jest-koa-mocks';
+
 import ping from '..';
 
 describe('koa-liveness-ping', () => {

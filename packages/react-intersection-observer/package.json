@@ -1,30 +1,27 @@
 {
   "name": "@shopify/react-intersection-observer",
-  "version": "2.0.7",
+  "version": "2.0.12",
   "license": "MIT",
   "description": "A React wrapper around the IntersectionObserver API",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
-  },
+  "repository": "https://github.com/shopify/quilt/tree/master/packages/react-intersection-observer",
   "bugs": {
     "url": "https://github.com/shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-intersection-observer/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

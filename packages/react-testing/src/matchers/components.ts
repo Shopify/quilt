@@ -7,6 +7,7 @@ import {
 } from 'jest-matcher-utils';
 
 import {Node, PropsFor} from '../types';
+
 import {
   assertIsNode,
   assertIsType,

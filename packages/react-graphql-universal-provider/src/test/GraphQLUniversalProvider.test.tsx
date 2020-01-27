@@ -2,7 +2,6 @@ import React from 'react';
 import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ApolloLink} from 'apollo-link';
-
 import {extract} from '@shopify/react-effect/server';
 import {mount} from '@shopify/react-testing';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';

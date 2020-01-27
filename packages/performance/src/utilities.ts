@@ -29,14 +29,16 @@ export function withEntriesOfType<T extends keyof EntryMap>(
 ) {
   try {
     const initialEntries = performance.getEntriesByType(type);
-    initialEntries.forEach(entry => handler(entry));
+    initialEntries.forEach(entry => handler(entry as EntryMap[T]));
 
     if (!hasGlobal('PerformanceObserver')) {
       return;
     }
 
     const observer = new PerformanceObserver(entries => {
-      entries.getEntriesByType(type).forEach(entry => handler(entry));
+      entries
+        .getEntriesByType(type)
+        .forEach(entry => handler(entry as EntryMap[T]));
     });
 
     observer.observe({

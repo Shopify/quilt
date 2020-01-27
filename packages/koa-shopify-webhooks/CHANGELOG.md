@@ -9,7 +9,17 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Add [webhooks for billing](https://help.shopify.com/en/api/guides/billing-api#webhooks-for-billing) to topics
 
-## [2.1.0] - 2010-10-03
+## [2.2.0] - 2019-11-08
+
+### Added
+
+- Add payload to webhook data for the `receiveWebhook` middleware ([#1168](https://github.com/Shopify/quilt/pull/1168)).
+
+### Fixed
+
+- Fixed a typo in the README ([#1167](https://github.com/Shopify/quilt/pull/1167)).
+
+## [2.1.0] - 2019-10-03
 
 - The `ApiVersion` enum now has an `October19` option
 

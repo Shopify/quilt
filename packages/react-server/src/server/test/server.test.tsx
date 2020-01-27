@@ -1,8 +1,8 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
 import {useCookie, CookieUniversalProvider} from '@shopify/react-cookie';
-import {createServer} from '../server';
 
+import {createServer} from '../server';
 import {mockMiddleware, TestRack} from '../../test/utilities';
 
 const rack = new TestRack();

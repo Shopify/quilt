@@ -1,4 +1,5 @@
 import VirtualModulesPlugin from 'webpack-virtual-modules';
+
 import {PLUGIN} from '../common';
 
 type Plugin = import('webpack').Plugin;

@@ -1,5 +1,6 @@
 import React from 'react';
 import ApolloClient from 'apollo-client';
+
 import {ApolloContext} from '../ApolloContext';
 
 export default function useApolloClient<CacheShape>(

@@ -72,3 +72,12 @@ The following type aliases are provided by this library:
 
   type DeepPartialObj = DeepPartial<Obj>; // {foo?: string; bar?: { baz?: boolean }}
   ```
+
+- `NoInfer<T>`: creates a ["lower priority inference site"](https://github.com/microsoft/TypeScript/issues/14829#issuecomment-320754731), which allows other uses of a generic to take precedence in inference.
+
+  ```ts
+  // Here, TypeScript will always use the type of the items in the `items` argument as `T`, and will not consider the type of the `item` argument of `renderItem`.
+  function render<T>(items: T[], renderItem: (item: NoInfer<T>) => string) {
+    /* implementation */
+  }
+  ```

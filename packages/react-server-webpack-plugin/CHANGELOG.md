@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## [2.2.17] - 2019-11-29
+
+- Updated dependency: `@shopify/react-server@0.8.5`
+
+## [2.2.13] - 2019-10-31
+
+- Fix case where default entrypoints were generated for `client` and `server` when there were bespoke folders with index files present
+
 ## [2.2.0] - 2019-09-26
 
 - Log errors on `uncaughtException` `unhandledRejection` events [#1006](https://github.com/Shopify/quilt/pull/1006)

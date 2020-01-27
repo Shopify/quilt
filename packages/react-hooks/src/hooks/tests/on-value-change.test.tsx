@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import useOnValueChange from '../on-value-change';
+import {useOnValueChange} from '../on-value-change';
 
 describe('useOnValueChnge', () => {
   function MockComponent({value, spy}) {

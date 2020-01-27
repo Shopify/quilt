@@ -1,4 +1,5 @@
 import {Method, Header} from '@shopify/network';
+
 import {WebhookHeader, Topic} from './types';
 
 export enum ApiVersion {

@@ -1,2 +1,2 @@
 export {Tag} from './tags';
-export * from './middleware';
+export {CustomMetric, Options, metrics as default} from './middleware';

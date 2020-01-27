@@ -11,6 +11,7 @@ if (typeof window !== 'undefined') {
   addClosest(window);
 }
 
+// eslint-disable-next-line jest/require-top-level-describe
 afterEach(() => {
   destroyAll();
 });

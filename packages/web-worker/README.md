@@ -47,7 +47,7 @@ const result = await worker.hello('world'); // 'Hello, world'
 Note that more complex workers are allowed; it can export multiple functions, including default exports, and it can accept complex argument types [with some restrictions](#limitations):
 
 ```ts
-const worker = makeWorker();
+const worker = createWorker();
 
 // Assuming worker was:
 // export default function hello(name) {
@@ -82,19 +82,105 @@ const worker = createWorker();
 terminate(worker);
 ```
 
+##### Customizing worker creation
+
+By default, this library will create a worker by calling `new Worker` with a blob URL for the worker script. This is generally all you need, but some use cases may want to construct the worker differently. For example, you might want to construct a worker in a sandboxed iframe to ensure the worker is not treated as same-origin, or create a worker farm instead of a worker per script. To do so, you can supply the `createMessenger` option to the function provided by `createWorkerFactory`. This option should be a function that accepts a `URL` object for the location of the worker script, and return a `MessageEndpoint` compatible with being passed to [`@shopify/rpc`’s `createEndpoint`](https://github.com/Shopify/quilt/tree/master/packages/rpc#usage) API.
+
+```ts
+import {fromMessagePort} from '@shopify/rpc';
+import {createWorkerFactory} from '@shopify/web-worker';
+
+/* imaginary abstraction that vends workers */
+const workerFarm = {};
+
+const createWorker = createWorkerFactory(() => import('./worker'));
+const worker = createWorker({
+  createMessenger(url) {
+    return workerFarm.workerWithUrl(url);
+  },
+});
+```
+
+An optimization many uses of `createMessenger` will want to make is to use a [`MessageChannel`](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel) to directly connect the worker and the main page, even if the worker itself is constructed unconventionally (e.g., inside an iframe). As a convenience, the worker that is constructed by this library supports `postMessage`ing a special `{__replace: MessagePort}` object. When sent, the `MessagePort` will be used as an argument to the worker’s [`Endpoint#replace` method](../rpc#endpointreplace), making it the communication channel for all messages between the parent page and worker.
+
+```ts
+import {fromMessagePort} from '@shopify/rpc';
+import {createWorkerFactory} from '@shopify/web-worker';
+
+/* imaginary abstraction that creates workers in an iframe */
+const iframe = {};
+
+const createWorker = createWorkerFactory(() => import('./worker'));
+const worker = createWorker({
+  createMessenger(url) {
+    const {port1, port2} = new MessageChannel();
+    iframe.createWorker(url).postMessage({__replace: port2}, [port2]);
+
+    // In a real example, you'd want to also clean up the worker
+    // you've created in the iframe as part of the `terminate()` method.
+    return fromMessagePort(port1);
+  },
+});
+```
+
+###### `createIframeWorkerMessenger()`
+
+The `createIframeWorkerMessenger` is provided to make it easy to create a worker that is not treated as same-origin to the parent page. This function will, for each worker, create an iframe with a restrictive `sandbox` attribute and an anonymous origin, and will force that iframe to create a worker. It then passes a `MessagePort` through to the worker as the `postMessage` interface to use so that messages go directly between the worker and the original page.
+
+```ts
+import {
+  createWorkerFactory,
+  createIframeWorkerMessenger,
+} from '@shopify/web-worker';
+
+const createWorker = createWorkerFactory(() => import('./worker'));
+const worker = createWorker({
+  createMessenger: createIframeWorkerMessenger,
+});
+```
+
+Note that this mechanism will always fail CORS checks on requests from the worker code unless the requested resource has the `Allow-Access-Control-Origin` header set to `*`.
+
 ##### Naming the worker file
 
 By default, worker files created using `createWorkerFactory` are given incrementing IDs as the file name. This strategy is generally less than ideal for long-term caching, as the name of the file depends on the order in which it was encountered during the build. For long-term caching, it is better to provide a static name for the worker file. This can be done by supplying the [`webpackChunkName` comment](https://webpack.js.org/api/module-methods/#magic-comments) before your import:
 
-```tsx
-import {createWorkerFactory, terminate} from '@shopify/web-worker;
+```ts
+import {createWorkerFactory, terminate} from '@shopify/web-worker';
 
 // Note: only webpackChunkName is currently supported. Don’t try to use
 // other magic webpack comments.
-const createWorker = createWorkerFactory(() => import(/* webpackChunkName: 'myWorker' */ './worker'));
+const createWorker = createWorkerFactory(() =>
+  import(/* webpackChunkName: 'myWorker' */ './worker'),
+);
 ```
 
-This name will be used as the prefix for the worker file. The worker will always end in `.worker.js`, and may also include additional hashes or other content (this library re-uses your `output.filename` and `output.chunkFilename` webpack options).
+This name will be used as the prefix for the worker file. The worker will always end in `.worker.js`, and may also include additional hashes or other content (this library re-uses your `output.filename` and `output.chunkFilename` webpack options). You can access the `URL` of a worker file by accessing the `url` property of the function returned by `createWorkerFactory`:
+
+```ts
+import {createWorkerFactory, terminate} from '@shopify/web-worker';
+
+const createWorker = createWorkerFactory(() =>
+  import(/* webpackChunkName: 'myWorker' */ './worker'),
+);
+
+// Something like `new URL(__webpack_public_path__ + 'myWorker.worker.js')`
+console.log(createWorker.url);
+```
+
+##### "Plain" workers
+
+The power of the `createWorkerFactory` library is that it automatically wraps the `Worker` in an `Endpoint` from `@shopify/rpc`. This allows the seamless calling of module methods from the main thread to the worker, and the ability to pass non-serializable constructs like functions. However, if your use case does not require this RPC layer, you can save on bundle size by creating a "plain" worker factory. The functions created by `createPlainWorkerFactory` can be used to create `Worker` objects directly, with which you can implement whatever message passing system you want.
+
+```ts
+import {createPlainWorkerFactory} from '@shopify/web-worker';
+
+const createWorker = createPlainWorkerFactory(() => import('./worker'));
+const worker = createWorker();
+worker.postMessage('direct postMessage access!');
+```
+
+Because you are interacting with the worker directly in this mode, most other features of this library are not relevant (the memory management considerations, the `createMessenger` option, `expose`, `terminate`, etc). However, you can customize the name of the worker file with the [`webpackChunkName` comment](#naming-the-worker-file), just like with workers created via `createWorkerFactory`. The functions returned by `createPlainWorkerFactory` also have a `url` property for the URL of the worker file, like `createWorkerFactory`.
 
 #### Worker
 
@@ -102,99 +188,9 @@ Your worker can be written almost indistinguishably from a "normal" module. It c
 
 As noted in the browser section, worker code should be mindful of the [limitations](#limitations) of what can be passed into and out of a worker function.
 
-Your worker functions should be careful to note that, if they accept any arguments that include functions, those functions should at least optionally return a promise. This is because, when this argument is passed from the main thread to the worker, it can only pass a function that returns a promise. To help you make sure you are respecting this condition, we provide a `SafeWorkerArgument` helper type you can use for all arguments that your worker accepts.
-
-```ts
-import {SafeWorkerArgument} from '@shopify/web-worker';
-
-export function greet(name: SafeWorkerArgument<string | () => string>) {
-  // name is `string | (() => string | Promise<string>)` because a worker
-  // can synchronously pass a `string` argument, but can only provide a
-  // `() => Promise<string>` function, since it will have to proxy over
-  // message passing. Note that `() => string` is still allowed because
-  // it could still be valid for another function in the worker to call
-  // with a function of that type.
-  return (
-    typeof name === 'string'
-      ? `Hello, ${name}`
-      : Promise.resolve(name()).then((name) => `Hello, ${name}`)
-  );
-}
-```
-
-The same [memory management concerns](#memory) apply to the worker as they do on the main thread.
-
 #### Limitations
 
-There are two key limitations to be aware of when calling functions in a worker with the help of this library:
-
-1. Only basic data structures are supported. Any function involved in a call across the main thread/ worker boundary can accept and return primitive types, objects, arrays, and functions. You can’t pass other data structures (like `Map`s or `Set`s), and if you pass class instances back and forth, only their own properties will be available on the other side.
-2. The worker can only export functions. Because the main thread can’t access the worker thread values synchronously, there is no way to implement arbitrary access to non-function exports without awkward use of promises.
-
-Additionally, when passing functions to and from the worker, developers may occasionally need to manually manage memory. This is detailed in the next section.
-
-#### Memory
-
-Web worker’s can’t share memory with their parent, and functions can’t be serialized for `postMessage`. The implementation of passing functions between worker and parent is therefore implemented very differently from other data types: the worker and parent side keep references to functions that have been passed between the two, and they have a shared strategy for proxying calls from the "target" side back to the original source function.
-
-This strategy is effective, but without extra intervention it will leak memory. Even if the parent and worker no longer have references to that function, it must still be retained because the parent can’t know that the worker no longer needs to call that function.
-
-This library automatically implements some memory management for you. A function passed between the worker and parent is automatically retained for the lifetime of the original function call, and is subsequently released.
-
-```ts
-// PARENT
-
-const worker = createWorker(/* ... */)();
-const funcForWorker = () => 'Tobi';
-
-worker
-  // funcForWorker is retained on the main thread here...
-  .greet(funcForWorker)
-  // And is automatically released here because the worker
-  // signals it no longer needs the function
-  .then(result => console.log(result));
-
-// WORKER
-
-export async function greet(getName: () => Promise<string>) {
-  // Worker signals that it needs to retain `getName`, which
-  // was passed from the parent.
-
-  try {
-    return `Hello, ${await getName()}`;
-  } finally {
-    // Once this function exits, the library defaults to releasing
-    // `getName`, which signals to the main thread it can release
-    // the original function.
-  }
-}
-```
-
-This covers most common memory management cases, but one important exception remains: if you save the function on to an object in context, it will be still be accessible to your program, but the source of the function will be told to release the reference to that function. In this case, if you try to call the function from the worker at a later time, you will receive an error indicating that the value has been released.
-
-To resolve this problem, this library provides `retain` and `release` functions. Calling these on an object will increment the number of "retainers", allowing the source function to be retained. Any time you call `retain`, you must eventually call `release`, when you know you will no longer call that function.
-
-```ts
-// WORKER
-
-import {retain, release} from '@shopify/web-worker';
-
-export function setNameGetter(getName: () => Promise<string>) {
-  retain(getName);
-
-  if (self.getName) {
-    release(self.getName);
-  }
-
-  self.getName = getName;
-}
-
-export async function greet() {
-  return `Hello, ${self.getName ? await self.getName() : 'friend'}!`;
-}
-```
-
-Remember that any function passed between the worker and its parent, including functions attached as properties of objects, must be retained manually if you intend to call them outside the scope of the first function where they were passed over the bridge. To help make this easier, `release` and `retain` will automatically deeply release/ retain all functions when they are called with objects or arrays.
+This library implements the calling of functions on a worker using [`@shopify/rpc`](../rpc). As such, all the limitations and additional considerations in that library must be considered with the functions you expose from the worker. In particular, note the [memory management concerns](../rpc#memory) when passing functions to and from the worker. For convenience, the `release` and `retain` methods from `@shopify/rpc` are re-exported from this library.
 
 ### Tooling
 
