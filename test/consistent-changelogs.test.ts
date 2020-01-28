@@ -83,7 +83,6 @@ function readChangelogs() {
 
   return glob
     .sync(join(packagesPath, '*/'))
-    //.slice(0, 2)
     .map(packageDir => {
       const packageChangelogPath = join(packageDir, 'CHANGELOG.md');
       const packageChangelog = safeReadSync(packageChangelogPath, {encoding: 'utf8'});
