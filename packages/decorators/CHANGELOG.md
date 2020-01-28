@@ -19,7 +19,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - fix the bug where `memoize` will only remember result once per property definition. It will now memoize per instance. ([#567](https://github.com/Shopify/quilt/pull/567))
 
-## [1.0.0] - 2019-03-7
+## [1.0.0] - 2019-03-07
 
 ### Added
 
