@@ -7,10 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
----
-
-<!-- ## [Unreleased] -->
-
 ## [9.2.2] - 2019-09-06
 
 - Add missing `useLocale` export

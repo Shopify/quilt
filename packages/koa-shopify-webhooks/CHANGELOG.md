@@ -7,8 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-<!-- ## [Unreleased] -->
-
 ## [2.3.0] - 2020-01-27
 
 - Add [webhooks for billing](https://help.shopify.com/en/api/guides/billing-api#webhooks-for-billing) to topics

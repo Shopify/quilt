@@ -41,6 +41,13 @@ readChangelogs().forEach(({packageDir, packageChangelogPath, packageChangelog}) 
 
       expect(offendingHeaders).toEqual([]);
     });
+
+    it('does not contain duplicate headers', () => {
+      const headerLines = packageChangelog.split('\n').filter(line => line.match(/^## /) || line.match(/## \[Unreleased\]/)).sort();
+      const uniqueHeaderLines = headerLines.filter((element, index, array) => array.indexOf(element) === index)
+
+      expect(headerLines).toEqual(uniqueHeaderLines);
+    });
   });
 });
 

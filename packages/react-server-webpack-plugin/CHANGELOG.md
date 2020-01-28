@@ -7,8 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-<!-- ## [Unreleased] -->
-
 ## [2.2.17] - 2019-11-29
 
 - Updated dependency: `@shopify/react-server@0.8.5`
