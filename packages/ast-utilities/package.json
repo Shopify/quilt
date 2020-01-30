@@ -1,6 +1,6 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
   "main": "dist/src/index.js",
@@ -16,10 +16,11 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/ast-utilities"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/ast-utilities/README.md",
   "devDependencies": {
@@ -31,7 +32,8 @@
     "@types/unist": "^2.0.3"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@babel/template": "^7.6.0",

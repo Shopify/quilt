@@ -1,6 +1,6 @@
 {
   "name": "@shopify/css-utilities",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "A set of css styling related utilities.",
   "main": "dist/src/index.js",
@@ -16,10 +16,11 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/css-utilities"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/css-utilities/README.md",
   "dependencies": {
@@ -27,6 +28,7 @@
     "classnames": "^2.2.6"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

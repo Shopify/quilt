@@ -1,6 +1,6 @@
 {
   "name": "@shopify/decorators",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "license": "MIT",
   "description": "A set of decorators to aid your JavaScript journey.",
   "main": "dist/src/index.js",
@@ -16,16 +16,18 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/decorators"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/decorators/README.md",
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@shopify/function-enhancers": "^1.0.7"
+    "@shopify/function-enhancers": "^1.0.8"
   }
 }

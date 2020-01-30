@@ -4,7 +4,7 @@ import {Context} from 'koa';
 
 import redirectionPage from './redirection-page';
 
-export default function createTopLevelRedirect(path: string) {
+export default function createTopLevelRedirect(apiKey: string, path: string) {
   return function topLevelRedirect(ctx: Context) {
     const {host, query} = ctx;
     const {shop} = query;
@@ -13,8 +13,9 @@ export default function createTopLevelRedirect(path: string) {
     const queryString = querystring.stringify(params);
 
     ctx.body = redirectionPage({
-      origin: `https://${shop}`,
+      origin: shop,
       redirectTo: `https://${host}${path}?${queryString}`,
+      apiKey,
     });
   };
 }

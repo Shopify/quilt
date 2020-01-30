@@ -1,6 +1,6 @@
 {
   "name": "@shopify/statsd",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "An opinionated StatsD client for Shopify Node.js server and other StatsD utilities.",
   "main": "dist/src/index.js",
@@ -16,10 +16,11 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/statsd"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/statsd/README.md",
   "dependencies": {
@@ -27,6 +28,7 @@
     "hot-shots": "^5.9.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

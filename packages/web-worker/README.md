@@ -84,7 +84,7 @@ terminate(worker);
 
 ##### Customizing worker creation
 
-By default, this library will create a worker by calling `new Worker` with a blob URL for the worker script. This is generally all you need, but some use cases may want to construct the worker differently. For example, you might want to construct a worker in a sandboxed iframe to ensure the worker is not treated as same-origin, or create a worker farm instead of a worker per script. To do so, you can supply the `createMessenger` option to the function provided by `createWorkerFactory`. This option should be a function that accepts a `URL` object for the location of the worker script, and return a `MessageEndpoint` compatible with being passed to `@shopify/rpc`’s `createEndpoint` API.
+By default, this library will create a worker by calling `new Worker` with a blob URL for the worker script. This is generally all you need, but some use cases may want to construct the worker differently. For example, you might want to construct a worker in a sandboxed iframe to ensure the worker is not treated as same-origin, or create a worker farm instead of a worker per script. To do so, you can supply the `createMessenger` option to the function provided by `createWorkerFactory`. This option should be a function that accepts a `URL` object for the location of the worker script, and return a `MessageEndpoint` compatible with being passed to [`@shopify/rpc`’s `createEndpoint`](https://github.com/Shopify/quilt/tree/master/packages/rpc#usage) API.
 
 ```ts
 import {fromMessagePort} from '@shopify/rpc';
@@ -101,7 +101,7 @@ const worker = createWorker({
 });
 ```
 
-An optimization many uses of `createMessenger` will want to make is to use a `MessageChannel` to directly connect the worker and the main page, even if the worker itself is constructed unconventionally (e.g., inside an iframe). As a convenience, the worker that is constructed by this library supports `postMessage`ing a special `{__replace: MessagePort}` object. When sent, the `MessagePort` will be used as an argument to the worker’s [`Endpoing#replace` method](../rpc#endpoint-replace), making it the communication channel for all messages between the parent page and worker.
+An optimization many uses of `createMessenger` will want to make is to use a [`MessageChannel`](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel) to directly connect the worker and the main page, even if the worker itself is constructed unconventionally (e.g., inside an iframe). As a convenience, the worker that is constructed by this library supports `postMessage`ing a special `{__replace: MessagePort}` object. When sent, the `MessagePort` will be used as an argument to the worker’s [`Endpoint#replace` method](../rpc#endpointreplace), making it the communication channel for all messages between the parent page and worker.
 
 ```ts
 import {fromMessagePort} from '@shopify/rpc';
@@ -173,7 +173,7 @@ console.log(createWorker.url);
 The power of the `createWorkerFactory` library is that it automatically wraps the `Worker` in an `Endpoint` from `@shopify/rpc`. This allows the seamless calling of module methods from the main thread to the worker, and the ability to pass non-serializable constructs like functions. However, if your use case does not require this RPC layer, you can save on bundle size by creating a "plain" worker factory. The functions created by `createPlainWorkerFactory` can be used to create `Worker` objects directly, with which you can implement whatever message passing system you want.
 
 ```ts
-import {createPlainWorkerFactory} from '@shopify/web-worker;
+import {createPlainWorkerFactory} from '@shopify/web-worker';
 
 const createWorker = createPlainWorkerFactory(() => import('./worker'));
 const worker = createWorker();

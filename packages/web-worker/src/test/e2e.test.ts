@@ -16,7 +16,7 @@ const mainFile = 'src/main.js';
 const workerFile = 'src/worker.js';
 const secondWorkerFile = 'src/worker2.js';
 
-jest.setTimeout(10_000);
+jest.setTimeout(30_000);
 
 describe('web-worker', () => {
   it('creates a worker factory that can produce workers that act like the original module', async () => {
