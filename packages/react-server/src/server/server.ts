@@ -16,6 +16,7 @@ interface Options {
   port?: number;
   ip?: string;
   assetPrefix?: string;
+  assetName?: string;
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
 }
@@ -26,7 +27,7 @@ interface Options {
  * @returns a Server instance
  */
 export function createServer(options: Options): Server {
-  const {port, assetPrefix, render, serverMiddleware, ip} = options;
+  const {port, assetPrefix, render, serverMiddleware, ip, assetName} = options;
   const app = new Koa();
 
   app.use(mount('/services/ping', ping));
@@ -38,7 +39,7 @@ export function createServer(options: Options): Server {
     app.use(compose(serverMiddleware));
   }
 
-  app.use(createRender(render, {assetPrefix}));
+  app.use(createRender(render, {assetPrefix, assetName}));
 
   return app.listen(port || 3000, () => {
     logger.log(`started react-server on ${ip}:${port}`);
