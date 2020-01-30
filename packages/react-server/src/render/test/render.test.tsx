@@ -7,12 +7,15 @@ import withEnv from '@shopify/with-env';
 import {createRender} from '../render';
 import {mockMiddleware} from '../../test/utilities';
 
+const mockAssetsScripts = jest.fn(() => Promise.resolve([]));
+const mockAssetsStyles = jest.fn(() => Promise.resolve([]));
+
 jest.mock('@shopify/sewing-kit-koa', () => ({
   middleware: jest.fn(() => mockMiddleware),
   getAssets() {
     return {
-      styles: () => Promise.resolve([]),
-      scripts: () => Promise.resolve([]),
+      styles: mockAssetsStyles,
+      scripts: mockAssetsScripts,
     };
   },
 }));
@@ -47,6 +50,18 @@ describe('createRender', () => {
 
     expect(sewingKitKoaMiddleware).toHaveBeenCalledWith(
       expect.objectContaining({assetPrefix}),
+    );
+  });
+
+  it('calls the sewing-kit-koa middleware with the passed in assetName', async () => {
+    const assetName = 'alternate';
+    const ctx = createMockContext();
+
+    const renderFunction = createRender(() => <></>, {assetName});
+    await renderFunction(ctx, noop);
+
+    expect(mockAssetsScripts).toHaveBeenCalledWith(
+      expect.objectContaining({name: assetName}),
     );
   });
 

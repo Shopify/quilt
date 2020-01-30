@@ -68,6 +68,8 @@ interface Options {
   ip?: string;
   // the full base url for the cdn if applicable
   assetPrefix?: string;
+  // the name of the asset on the cdn
+  assetName?: string;
   // any additional Koa middleware to mount on the server
   serverMiddleware?: compose.Middleware<Context>[];
   // a function of `(ctx: Context, data: {locale: string}): React.ReactElement<any>`
