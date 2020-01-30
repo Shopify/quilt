@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added `assetName` option to allow the `name` to be passed and default to `main`
+
 ## [0.8.5] - 2019-11-29
 
 - Updated dependency: `@shopify/sewing-kit-koa@6.2.0`
