@@ -23,7 +23,7 @@ All notable changes should be included in the [`CHANGELOG.md`](CHANGELOG.md).
 
 1. `cd gems/quilt_rails`
 1. Update `version.rb` and `CHANGELOG.md` to your new desired version
-1. run `bundle install`
+1. Run `bundle install`
 1. Stage the changes with `git add -A`
 1. Commit the resulting changes, `git commit -m "Release quilt_rails v<new-version>"`
 1. Create a tag, `git tag v<new-version>`
