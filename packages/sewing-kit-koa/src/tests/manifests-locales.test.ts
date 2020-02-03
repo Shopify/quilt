@@ -242,4 +242,121 @@ describe('Manifests locales', () => {
       noLocaleScriptOne,
     );
   });
+
+  it('prefers variant locales', async () => {
+    readJson.mockImplementation(() =>
+      mockConsolidatedManifest([
+        mockManifest({
+          identifier: {locales: ['it']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset('it.js')],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['it-VA']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset('it-va.js')],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['en']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(enScriptOne)],
+            }),
+          },
+        }),
+      ]),
+    );
+
+    const manifests = new Manifests();
+    const manifest = await manifests.resolve(chrome71, {
+      locale: 'it-VA',
+    });
+
+    expect(manifest).toHaveProperty('entrypoints.main.js.0.path', 'it-va.js');
+  });
+
+  it('falls back to parent locale if a variant build does not exist', async () => {
+    readJson.mockImplementation(() =>
+      mockConsolidatedManifest([
+        mockManifest({
+          identifier: {locales: ['it']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset('it.js')],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['en']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(enScriptOne)],
+            }),
+          },
+        }),
+      ]),
+    );
+
+    const manifests = new Manifests();
+    const manifest = await manifests.resolve(chrome71, {
+      locale: 'it-VA',
+    });
+
+    expect(manifest).toHaveProperty('entrypoints.main.js.0.path', 'it.js');
+  });
+
+  it('returns the fallbackLocale‘s most polyfilled build when an unknown locale is requested and non-locale builds do not exist', async () => {
+    readJson.mockImplementation(() =>
+      mockConsolidatedManifest([
+        mockManifest({
+          identifier: {locales: ['en']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(enScriptOne)],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['fr']},
+          browsers: ['chrome > 50'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(frScriptOne)],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['en']},
+          browsers: ['chrome > 50'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(enScriptOne)],
+            }),
+          },
+        }),
+      ]),
+    );
+
+    const manifests = new Manifests();
+    const manifest = await manifests.resolve(
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+      {
+        locale: 'jp',
+      },
+    );
+
+    expect(manifest).toHaveProperty('entrypoints.main.js.0.path', enScriptOne);
+  });
 });
