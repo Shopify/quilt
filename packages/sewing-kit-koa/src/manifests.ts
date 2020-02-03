@@ -8,7 +8,6 @@ import {ungzip} from 'node-gzip';
 import {ConsolidatedManifest, Manifest} from './types';
 
 const DEFAULT_MANIFEST_PATH = 'build/client/assets.json';
-const MULTI_ASYNC_LANGUAGE_MANIFESTS = 'noLocales';
 
 export interface ResolveOptions {
   locale?: string | undefined;
@@ -23,11 +22,11 @@ export class Manifests {
   }
 
   async resolve(userAgent, {locale}: ResolveOptions = {}): Promise<Manifest> {
-    const manifestsByLocale = await loadConsolidatedManifest(this.path);
-
-    const multiAsyncLanguageManifests = manifestsByLocale.get(
-      MULTI_ASYNC_LANGUAGE_MANIFESTS,
-    )!;
+    const {
+      fallbackManifest,
+      multiAsyncLanguageManifests,
+      inlineLocaleManifests,
+    } = await loadConsolidatedManifest(this.path);
 
     // We do the following to determine the correct manifest to use:
     //
@@ -46,15 +45,31 @@ export class Manifests {
     // attribute).
 
     this.resolvedEntry =
-      find(manifestsByLocale.get(locale!), userAgent) ||
+      findManifestForLocale(inlineLocaleManifests, locale, userAgent) ||
       find(multiAsyncLanguageManifests, userAgent) ||
-      multiAsyncLanguageManifests[multiAsyncLanguageManifests.length - 1];
+      fallbackManifest;
 
     return this.resolvedEntry;
   }
 }
 
-let loadPromise: Promise<Map<string, ConsolidatedManifest>> | null = null;
+function findManifestForLocale(
+  inlineLocaleManifests: Map<string, Manifest[]>,
+  locale: string | undefined,
+  userAgent: string,
+) {
+  const locales = getPossibleLocales(locale);
+  for (const aLocale of locales) {
+    const result = find(inlineLocaleManifests.get(aLocale), userAgent);
+    if (result) {
+      return result;
+    }
+  }
+
+  return undefined;
+}
+
+let loadPromise: Promise<ReturnType<typeof groupManifests>> | null = null;
 
 function readGzipped(resolvedPath: string) {
   return readFile(resolvedPath)
@@ -76,14 +91,7 @@ function loadConsolidatedManifest(manifestPath: string) {
         : readJson(resolvedPath);
     })
     .then((manifests: Manifest[]) => {
-      return manifests
-        .map(backfillIdentity)
-        .reduce(
-          groupByLocale,
-          new Map<string, ConsolidatedManifest>([
-            [MULTI_ASYNC_LANGUAGE_MANIFESTS, []],
-          ]),
-        );
+      return groupManifests(manifests.map(backfillIdentity));
     });
 
   return loadPromise;
@@ -123,6 +131,22 @@ function backfillIdentity(manifest: Manifest) {
   return manifest;
 }
 
+function groupManifests(manifests: Manifest[]) {
+  const fallbackManifest = manifests[manifests.length - 1];
+  const multiAsyncLanguageManifests = manifests.filter(
+    manifest => !manifest.identifier || !manifest.identifier.locales,
+  );
+
+  return {
+    fallbackManifest,
+    multiAsyncLanguageManifests,
+    inlineLocaleManifests: manifests.reduce(
+      groupByLocale,
+      new Map<string, ConsolidatedManifest>(),
+    ),
+  };
+}
+
 function groupByLocale(
   acc: Map<string, ConsolidatedManifest>,
   manifest: Manifest,
@@ -137,8 +161,17 @@ function groupByLocale(
       }
       manifests.push(manifest);
     });
-  } else {
-    acc.get(MULTI_ASYNC_LANGUAGE_MANIFESTS)!.push(manifest);
   }
   return acc;
+}
+
+function getPossibleLocales(locale: string | undefined) {
+  if (!locale) {
+    return [];
+  }
+
+  const split = locale.split('-');
+  return split.length > 1
+    ? [`${split[0]}-${split[1].toUpperCase()}`, split[0]]
+    : [locale];
 }
