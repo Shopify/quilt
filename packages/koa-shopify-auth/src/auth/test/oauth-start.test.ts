@@ -63,7 +63,11 @@ describe('OAuthStart', () => {
 
     oAuthStart(ctx);
 
-    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyTopLevelOAuth');
+    expect(ctx.cookies.set).toHaveBeenCalledWith(
+      'shopifyTopLevelOAuth',
+      '',
+      {},
+    );
   });
 
   it('redirects to redirectionURL with the returned query string', () => {
