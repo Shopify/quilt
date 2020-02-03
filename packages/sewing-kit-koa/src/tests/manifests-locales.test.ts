@@ -243,6 +243,79 @@ describe('Manifests locales', () => {
     );
   });
 
+  it('prefers variant locales', async () => {
+    readJson.mockImplementation(() =>
+      mockConsolidatedManifest([
+        mockManifest({
+          identifier: {locales: ['it']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset('it.js')],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['it-VA']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset('it-va.js')],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['en']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(enScriptOne)],
+            }),
+          },
+        }),
+      ]),
+    );
+
+    const manifests = new Manifests();
+    const manifest = await manifests.resolve(chrome71, {
+      locale: 'it-VA',
+    });
+
+    expect(manifest).toHaveProperty('entrypoints.main.js.0.path', 'it-va.js');
+  });
+
+  it('falls back to parent locale if a variant build does not exist', async () => {
+    readJson.mockImplementation(() =>
+      mockConsolidatedManifest([
+        mockManifest({
+          identifier: {locales: ['it']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset('it.js')],
+            }),
+          },
+        }),
+        mockManifest({
+          identifier: {locales: ['en']},
+          browsers: ['chrome > 60'],
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(enScriptOne)],
+            }),
+          },
+        }),
+      ]),
+    );
+
+    const manifests = new Manifests();
+    const manifest = await manifests.resolve(chrome71, {
+      locale: 'it-VA',
+    });
+
+    expect(manifest).toHaveProperty('entrypoints.main.js.0.path', 'it.js');
+  });
+
   it('returns the fallbackLocale‘s most polyfilled build when an unknown locale is requested and non-locale builds do not exist', async () => {
     readJson.mockImplementation(() =>
       mockConsolidatedManifest([
