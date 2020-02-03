@@ -5,6 +5,8 @@ import nonce from 'nonce';
 
 import {OAuthStartOptions} from '../types';
 
+import getCookieOptions from './cookie-options';
+
 const createNonce = nonce();
 
 export default function oAuthQueryString(
@@ -16,7 +18,7 @@ export default function oAuthQueryString(
   const {scopes = [], apiKey, accessMode} = options;
 
   const requestNonce = createNonce();
-  cookies.set('shopifyNonce', requestNonce);
+  cookies.set('shopifyNonce', requestNonce, getCookieOptions(ctx));
 
   /* eslint-disable @typescript-eslint/camelcase */
   const redirectParams = {
