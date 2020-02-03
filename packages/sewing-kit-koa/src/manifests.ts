@@ -45,12 +45,28 @@ export class Manifests {
     // attribute).
 
     this.resolvedEntry =
-      find(inlineLocaleManifests.get(locale!), userAgent) ||
+      findManifestForLocale(inlineLocaleManifests, locale, userAgent) ||
       find(multiAsyncLanguageManifests, userAgent) ||
       fallbackManifest;
 
     return this.resolvedEntry;
   }
+}
+
+function findManifestForLocale(
+  inlineLocaleManifests: Map<string, Manifest[]>,
+  locale: string | undefined,
+  userAgent: string,
+) {
+  const locales = getPossibleLocales(locale);
+  for (const aLocale of locales) {
+    const result = find(inlineLocaleManifests.get(aLocale), userAgent);
+    if (result) {
+      return result;
+    }
+  }
+
+  return undefined;
 }
 
 let loadPromise: Promise<ReturnType<typeof groupManifests>> | null = null;
@@ -147,4 +163,15 @@ function groupByLocale(
     });
   }
   return acc;
+}
+
+function getPossibleLocales(locale: string | undefined) {
+  if (!locale) {
+    return [];
+  }
+
+  const split = locale.split('-');
+  return split.length > 1
+    ? [`${split[0]}-${split[1].toUpperCase()}`, split[0]]
+    : [locale];
 }

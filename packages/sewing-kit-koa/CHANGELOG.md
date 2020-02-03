@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - If the requested locale is not found, and only locale-specific manifests exist, return the fallback locale's most polyfilled assets [#1253](https://github.com/Shopify/quilt/pull/1253)
+- If the requested variant locale is not found, the parent locale's manifest will be returned [#1254](https://github.com/Shopify/quilt/pull/1254)
 
 ## 6.2.0 - 2019-11-29
 
