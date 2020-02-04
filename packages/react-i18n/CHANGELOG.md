@@ -6,11 +6,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Fixed
+
+- `MissingTranslationError` now uses the `normalizedId` which includes the `scope` ([#0](https://github.com/Shopify/quilt/pull/0))
 
 ## [2.3.4] - 2020-01-20
 
+### Added
+
 - Added `Gip` currency code value ([#1235](https://github.com/Shopify/quilt/pull/1235))
+
+### Fixed
+
 - Fixed `unformatNumber` for numbers using a period as the thousand separator ([#1215](https://github.com/Shopify/quilt/pull/1215))
 
 ## [2.3.0] - 2019-11-29
