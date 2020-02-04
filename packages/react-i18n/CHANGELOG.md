@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- `MissingTranslationError` now uses the `normalizedId` which includes the `scope` ([#0](https://github.com/Shopify/quilt/pull/0))
+- `MissingTranslationError` now uses the `normalizedId` which includes the `scope` ([#1258](https://github.com/Shopify/quilt/pull/1258))
 
 ## [2.3.4] - 2020-01-20
 
