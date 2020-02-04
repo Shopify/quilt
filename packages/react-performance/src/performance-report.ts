@@ -11,7 +11,10 @@ export interface ErrorHandler {
 
 export function usePerformanceReport(
   url: string,
-  {onError = noop}: {onError?: ErrorHandler} = {},
+  {
+    locale = undefined,
+    onError = noop,
+  }: {locale?: string; onError?: ErrorHandler} = {},
 ) {
   const navigations = useRef<Navigation[]>([]);
   const events = useRef<LifecycleEvent[]>([]);
@@ -42,6 +45,7 @@ export function usePerformanceReport(
               metadata: navigation.metadata,
             })),
             pathname: window.location.pathname,
+            locale,
           }),
         });
       } catch (error) {
@@ -53,7 +57,7 @@ export function usePerformanceReport(
         navigations.current = [];
       }
     }, 1000);
-  }, [onError, url]);
+  }, [locale, onError, url]);
 
   const onNavigation = useCallback(
     (navigation: Navigation) => {

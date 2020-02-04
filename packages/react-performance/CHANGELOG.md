@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Performance report hook and component now accepts a `locale` attribute [#1260](https://github.com/Shopify/quilt/pull/1260)
+
 ## [1.2.0] - 2019-10-25
 
 ### Added
