@@ -32,7 +32,7 @@ $ yarn add @shopify/react-performance
 
 ### Track some stats
 
-The `@shopify/react-performance` library automatically handles creating a shared `Performance` instance (from [`@shopify/performance`](../performance)) for you when it is imported. This `Performance` instance automatically wraps the browser's built in performance and connection information and calculates some basic page-load stats. A long as we import `@shopify/react-performance` somewhere in our app the instance will be there for us.
+The `@shopify/react-performance` library automatically handles creating a shared `Performance` instance (from [`@shopify/performance`](../performance)) for you when it is imported. This `Performance` instance automatically wraps the browser's built in performance and connection information and calculates some basic page-load stats. As long as we import `@shopify/react-performance` somewhere in our app the instance will be there for us.
 
 That said, we will need to add some calls to the `usePerformanceMark` hook to our application in order to help `@shopify/react-performance` determine when a page is fully loaded and React has finished mounting components.
 
@@ -265,7 +265,7 @@ function App() {
 }
 ```
 
-To get sensical data, applications using `usePerformanceReport` should be sure to have at least on performance mark on each top level page.
+To get sensical data, applications using `usePerformanceReport` should be sure to have at least one performance mark on each top level page.
 
 ### Components
 
