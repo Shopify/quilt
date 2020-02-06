@@ -403,9 +403,13 @@ export class I18n {
       ...options,
     }).format(amount);
 
-    return shortSymbol.prefixed
+    const formattedWithSymbol = shortSymbol.prefixed
       ? `${shortSymbol.symbol}${formattedAmount}`
       : `${formattedAmount}${shortSymbol.symbol}`;
+
+    return amount < 0
+      ? `-${formattedWithSymbol.replace('-', '')}`
+      : formattedWithSymbol;
   }
 
   // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
