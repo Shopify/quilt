@@ -14,6 +14,11 @@ export function formatDate(
   if (options.timeZone != null && options.timeZone === 'Etc/GMT+12') {
     const adjustedDate = new Date(date.valueOf() - 12 * 60 * 60 * 1000);
 
+    if (options.hour12 != null) {
+      options.hour12 = undefined;
+      options.hourCycle = 'h23';
+    }
+
     return memoizedGetDateTimeFormat(locales, {
       ...options,
       timeZone: 'UTC',
