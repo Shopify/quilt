@@ -5,10 +5,14 @@ const memoizedGetDateTimeFormat = memoize(
   dateTimeFormatCacheKey,
 );
 
+interface FormatDateOptions extends Intl.DateTimeFormatOptions {
+  hourCycle?: string;
+}
+
 export function formatDate(
   date: Date,
   locales: string | string[],
-  options: Intl.DateTimeFormatOptions = {},
+  options: FormatDateOptions = {},
 ) {
   // Etc/GMT+12 is not supported in most browsers and there is no equivalent fallback
   if (options.timeZone != null && options.timeZone === 'Etc/GMT+12') {
