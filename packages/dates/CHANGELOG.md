@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+- Move Chrome 80 bug fix outside of gaurding if
+
 ## [0.2.12] - 2020-02-07
 
 - ⚠️ A bug fix because Chrome 80's API change to Intl.DateTimeFormat ([#1266](https://github.com/Shopify/quilt/pull/1266))
