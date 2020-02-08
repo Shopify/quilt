@@ -9,20 +9,27 @@ interface FormatDateOptions extends Intl.DateTimeFormatOptions {
   hourCycle?: string;
 }
 
+interface ResolvedDateOptions extends Intl.ResolvedDateTimeFormatOptions {
+  hourCycle?: string;
+}
+
 export function formatDate(
   date: Date,
   locales: string | string[],
   options: FormatDateOptions = {},
 ) {
+  const formatOptions: ResolvedDateOptions = Intl.DateTimeFormat(locales, {
+    hour: 'numeric',
+  }).resolvedOptions();
+
+  if (options.hour12 != null && formatOptions.hourCycle != null) {
+    options.hour12 = undefined;
+    options.hourCycle = 'h23';
+  }
+
   // Etc/GMT+12 is not supported in most browsers and there is no equivalent fallback
   if (options.timeZone != null && options.timeZone === 'Etc/GMT+12') {
     const adjustedDate = new Date(date.valueOf() - 12 * 60 * 60 * 1000);
-
-    if (options.hour12 != null) {
-      options.hour12 = undefined;
-      options.hourCycle = 'h23';
-    }
-
     return memoizedGetDateTimeFormat(locales, {
       ...options,
       timeZone: 'UTC',
