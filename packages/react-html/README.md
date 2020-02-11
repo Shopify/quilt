@@ -68,7 +68,7 @@ You can also use the `Script`, `Style`, and `Serialize` components detailed in t
 
 ### In your application
 
-In order for `link`, `meta`, and `title` tags to be updated as components are mounted and unmounted, you must render the `HeadUpdater` component somewhere in your tree:
+In order for `link`, `meta`, and `title` tags to be updated as components are mounted and unmounted, you must render the `HtmlUpdater` component somewhere in your tree:
 
 ```tsx
 // Somewhere in app code
@@ -76,7 +76,7 @@ In order for `link`, `meta`, and `title` tags to be updated as components are mo
 function App() {
   return (
     <>
-      <HeadUpdater />
+      <HtmlUpdater />
       <RestOfApp />
     </>
   );
@@ -214,9 +214,9 @@ import {Script} from '@shopify/react-html';
 />;
 ```
 
-### `<HeadUpdater />`
+### `<HtmlUpdater />`
 
-The `<HeadUpdater />` component is responsible for updating the head in response to `link`, `meta`, and `title` changes. You should only render one of these in your entire app.
+The `<HtmlUpdater />` component is responsible for updating the head in response to `link`, `meta`, and `title` changes. It also renders a `HydrationTracker` from [`@shopify/react-hydrate`](../react-hydrate). You should only render one of these in your entire app.
 
 ### `useLink()` and `<Link />`
 
