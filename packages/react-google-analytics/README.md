@@ -74,6 +74,24 @@ const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
 </button>;
 ```
 
+#### Handling Errors
+
+As browsers become more strict and tracking scripts blocked more frequently by users, there is a good chance this component will not be able to embed the Google Analytics script as intended. For these cases, you can pass an `onError` callback as follows:
+
+```jsx
+import {Universal} from '@shopify/react-google-analytics';
+
+const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
+
+<Universal
+  account={UNIVERSAL_GA_ACCOUNT_ID}
+  domain={shopDomain}
+  onError={error => {
+    // do something with error
+  }}
+/>;
+```
+
 For more info on using analytics.js see the [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/)
 
 ## ga.js example
