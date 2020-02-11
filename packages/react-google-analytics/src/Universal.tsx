@@ -38,13 +38,17 @@ export default function UniversalGoogleAnalytics({
   disableTracking,
 }: Props) {
   const setAnalytics = React.useCallback(
-    (googleAnalytics: UniversalAnalytics) => {
+    (googleAnalytics: UniversalAnalytics | Error) => {
       const normalizedDomain = getRootDomain(domain);
       const options = {
         cookieDomain: normalizedDomain,
         legacyCookieDomain: normalizedDomain,
         allowLinker: true,
       };
+
+      if (googleAnalytics instanceof Error) {
+        return null;
+      }
 
       googleAnalytics('create', account, 'auto', options);
 
