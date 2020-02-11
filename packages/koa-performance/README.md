@@ -74,6 +74,8 @@ interface Metrics {
   connection: Partial<BrowserConnection>;
   // @shopify/performance lifecycle events
   events: LifecycleEvent[];
+  // the user's locale (e.g., `en-CA`)
+  locale?: string;
   // @shopify/performance navigation data
   navigations: {
     details: NavigationDefinition;

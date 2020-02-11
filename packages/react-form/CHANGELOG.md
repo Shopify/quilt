@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.3.24]
+
+### Fixed
+
+- Update reduceField() to check array equality when determining if a field is dirty [#1222](https://github.com/Shopify/quilt/pull/1222)
+
 ## [0.3.23]
 
 ### Added
