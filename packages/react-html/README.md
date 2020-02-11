@@ -222,7 +222,7 @@ The `<HtmlUpdater />` component is responsible for updating the head in response
 
 Renders a `<link />` tag in the head with the specified attributes. On the server, links are recorded in the `Manager` and automatically applied to the `Html` component. On the client, the `<link />` tags are updated in a deferred callback to minimize DOM manipulations.
 
-Both the hook and component versions accept any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`useFavicon()`/ `<Favicon />` component](#favicon) instead.
+Both the hook and component versions accept any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`useFavicon()`/ `<Favicon />` component](#usefavicon-and-favicon-) instead.
 
 ### `useMeta()` and `<Meta />`
 
