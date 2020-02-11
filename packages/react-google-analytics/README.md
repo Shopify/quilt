@@ -76,7 +76,7 @@ const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
 
 #### Handling Errors
 
-As browser becomes more strict and tracking scripts are blocked more frequently by users, there is a good chance this component will not be able to embed the Google Analytics script as intended. For these cases, you can pass an `onError` callback as follows:
+As browsers become more strict and tracking scripts blocked more frequently by users, there is a good chance this component will not be able to embed the Google Analytics script as intended. For these cases, you can pass an `onError` callback as follows:
 
 ```jsx
 import {Universal} from '@shopify/react-google-analytics';
