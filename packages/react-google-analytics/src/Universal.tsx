@@ -12,6 +12,7 @@ export interface Props {
   debug?: boolean;
   disableTracking?: boolean;
   onLoad?(analytics: UniversalAnalytics): void;
+  onError?(error: Error): void;
 }
 
 export const SETUP_SCRIPT = `
@@ -34,6 +35,7 @@ export default function UniversalGoogleAnalytics({
   nonce,
   set: setVariables = {},
   onLoad,
+  onError,
   debug,
   disableTracking,
 }: Props) {
@@ -47,6 +49,10 @@ export default function UniversalGoogleAnalytics({
       };
 
       if (googleAnalytics instanceof Error) {
+        if (onError) {
+          onError(googleAnalytics);
+        }
+
         return null;
       }
 
