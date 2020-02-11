@@ -4,6 +4,7 @@ import {OAuthStartOptions} from '../types';
 
 import Error from './errors';
 import oAuthQueryString from './oauth-query-string';
+import getCookieOptions from './cookie-options';
 
 import {TOP_LEVEL_OAUTH_COOKIE_NAME} from './index';
 
@@ -26,7 +27,7 @@ export default function createOAuthStart(
       return;
     }
 
-    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME);
+    ctx.cookies.set(TOP_LEVEL_OAUTH_COOKIE_NAME, '', getCookieOptions(ctx));
 
     const formattedQueryString = oAuthQueryString(ctx, options, callbackPath);
 

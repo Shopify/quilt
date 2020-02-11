@@ -128,7 +128,7 @@ export function translate(
     }
   }
 
-  throw new MissingTranslationError(id, locale);
+  throw new MissingTranslationError(normalizedId, locale);
 }
 
 function translateWithDictionary(

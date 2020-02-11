@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 3.1.56 - 2020-02-03
+
+- Package now forces cookies.secure to be true [1255](https://github.com/Shopify/quilt/pull/1255)
+
+- Package sets cookies to samesite:none and secure [1251](https://github.com/Shopify/quilt/pull/1251)
+
 ## 3.1.54 - 2020-01-24
 
 - Updated redirect script to use App Bridge [1242](https://github.com/Shopify/quilt/pull/1242)

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/predicates",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "license": "MIT",
   "description": "A set of common Javascript predicates",
   "main": "dist/src/index.js",

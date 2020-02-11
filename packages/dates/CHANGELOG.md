@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+## [0.2.12] - 2020-02-07
+
+- ⚠️ A bug fix because Chrome 80's API change to Intl.DateTimeFormat ([#1266](https://github.com/Shopify/quilt/pull/1266))
+
+## [0.2.11] - 2020-01-31
 
 - Specify package has no `sideEffects` ([#1233](https://github.com/Shopify/quilt/pull/1233))
 

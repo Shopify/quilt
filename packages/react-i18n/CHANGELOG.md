@@ -8,9 +8,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+## [2.3.6] - 2020-02-04
+
+### Fixed
+
+- `MissingTranslationError` now uses the `normalizedId` which includes the `scope` ([#1258](https://github.com/Shopify/quilt/pull/1258))
+
 ## [2.3.4] - 2020-01-20
 
+### Added
+
 - Added `Gip` currency code value ([#1235](https://github.com/Shopify/quilt/pull/1235))
+
+### Fixed
+
 - Fixed `unformatNumber` for numbers using a period as the thousand separator ([#1215](https://github.com/Shopify/quilt/pull/1215))
 
 ## [2.3.0] - 2019-11-29

@@ -53,6 +53,7 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
   );
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
+    ctx.cookies.secure = true;
     if (ctx.path === oAuthStartPath && !hasCookieAccess(ctx)) {
       await enableCookiesRedirect(ctx);
       return;

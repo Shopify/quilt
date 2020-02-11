@@ -59,7 +59,7 @@ describe('oAuthQueryString', () => {
 
     oAuthQueryString(ctx, baseConfig, callbackPath);
 
-    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyNonce', fakeNonce);
+    expect(ctx.cookies.set).toHaveBeenCalledWith('shopifyNonce', fakeNonce, {});
   });
 
   it('query string includes per-user grant for accessMode: online', () => {
