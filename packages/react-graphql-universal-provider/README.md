@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-graphql-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-graphql-universal-provider.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-graphql-universal-provider.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-graphql-universal-provider.svg)
 
-A self-serializing/deserializing GraphQL provider that works for isomorphic applications.
+A self-serializing/deserializing GraphQL provider for universal applications. In order to understand how this package works you should be fimiliar with [React self-serializers](https://github.com/Shopify/quilt/tree/master/packages/react-self-serializers#self-serializers).
 
 ## Installation
 
