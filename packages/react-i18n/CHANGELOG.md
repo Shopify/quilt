@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- `formatCurrency` will now put the minus sign in front of the currency symbol when the amount is negative ([#1264](https://github.com/Shopify/quilt/pull/1264))
+
 ## [2.3.6] - 2020-02-04
 
 ### Fixed
