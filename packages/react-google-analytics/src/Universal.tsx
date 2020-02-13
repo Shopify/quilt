@@ -12,6 +12,7 @@ export interface Props {
   debug?: boolean;
   disableTracking?: boolean;
   onLoad?(analytics: UniversalAnalytics): void;
+  onError?(error: Error): void;
 }
 
 export const SETUP_SCRIPT = `
@@ -34,17 +35,26 @@ export default function UniversalGoogleAnalytics({
   nonce,
   set: setVariables = {},
   onLoad,
+  onError,
   debug,
   disableTracking,
 }: Props) {
   const setAnalytics = React.useCallback(
-    (googleAnalytics: UniversalAnalytics) => {
+    (googleAnalytics: UniversalAnalytics | Error) => {
       const normalizedDomain = getRootDomain(domain);
       const options = {
         cookieDomain: normalizedDomain,
         legacyCookieDomain: normalizedDomain,
         allowLinker: true,
       };
+
+      if (googleAnalytics instanceof Error) {
+        if (onError) {
+          onError(googleAnalytics);
+        }
+
+        return null;
+      }
 
       googleAnalytics('create', account, 'auto', options);
 
