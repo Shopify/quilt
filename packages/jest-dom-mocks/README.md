@@ -216,7 +216,7 @@ Simulates a call on all matching observers. If you pass a `target` on the passed
 
 ### Fetch Mock
 
-We use a version of `fetch-mock` that is augmented to ensure that it is properly unmocked after each test run. See the [API of `fetch-mock`](http://www.wheresrhys.co.uk/fetch-mock/api) for more details.
+We use a version of `fetch-mock` that is augmented to ensure that it is properly unmocked after each test run. See the [API of `fetch-mock`](http://www.wheresrhys.co.uk/fetch-mock) for more details.
 
 ### Storage mock
 
