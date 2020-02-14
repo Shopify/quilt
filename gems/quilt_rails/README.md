@@ -91,6 +91,9 @@ An application can also be setup manually using the following steps.
 #### Install dependencies
 
 ```sh
+# Add ruby dependencies
+bundle add sewing_kit quilt_rails
+
 # Add core Node dependencies
 yarn add @shopify/sewing-kit @shopify/react-server
 
