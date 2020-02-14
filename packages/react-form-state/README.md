@@ -5,6 +5,8 @@
 
 Manage react forms tersely and safely-typed with no magic.
 
+Check out [@shopify/react-form](https://github.com/Shopify/quilt/tree/master/packages/react-form) for our newer form hooks.
+
 ## Installation
 
 ```bash
