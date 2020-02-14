@@ -1,6 +1,6 @@
 {
   "name": "@shopify/dates",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "license": "MIT",
   "description": "Lightweight date operations library.",
   "main": "dist/src/index.js",
