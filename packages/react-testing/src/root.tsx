@@ -76,7 +76,6 @@ export class Root<Props> implements Node<Props> {
   private wrapper: TestWrapper<Props> | null = null;
   private element = document.createElement('div');
   private root: Element<Props> | null = null;
-  private acting = false;
 
   private render: Render;
   private resolveRoot: ResolveRoot;
@@ -98,36 +97,15 @@ export class Root<Props> implements Node<Props> {
   act<T>(action: () => T, {update = true} = {}): T {
     const updateWrapper = update ? this.update.bind(this) : noop;
     let result!: T;
-
-    if (this.acting) {
-      return action();
-    }
-
-    this.acting = true;
-
     const afterResolve = () => {
       updateWrapper();
-      this.acting = false;
-
       return result;
     };
 
-    const promise = act(() => {
-      result = action();
-
-      // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
-      // This condition checks the returned value is an actual Promise and returns it
-      // to React’s `act()` call, otherwise we just want to return `undefined`
-      if (isPromise(result)) {
-        return (result as unknown) as Promise<void>;
-      }
-    });
-
-    if (isPromise(result)) {
+    act(() => {
       updateWrapper();
-
-      return Promise.resolve(promise).then(afterResolve) as any;
-    }
+      result = action();
+    });
 
     return afterResolve();
   }
@@ -336,10 +314,10 @@ function childrenToTree(fiber: Fiber | null, root: Root<unknown>) {
   return {children, descendants};
 }
 
-function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
-  return (
-    promise != null && typeof promise === 'object' && 'then' in (promise as any)
-  );
-}
+// function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
+//   return (
+//     promise != null && typeof promise === 'object' && 'then' in (promise as any)
+//   );
+// }
 
 function noop() {}
