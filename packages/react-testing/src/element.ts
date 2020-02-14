@@ -181,7 +181,7 @@ export class Element<Props> implements Node<Props> {
     prop: K,
     ...args: DeepPartialArguments<Arguments<Props[K]>>
   ): ReturnType<NonNullable<Props[K]>> {
-    return this.root.act(() => {
+    return this.root.internalAct(() => {
       const propValue = this.props[prop];
 
       if (propValue == null) {
@@ -195,7 +195,7 @@ export class Element<Props> implements Node<Props> {
   }
 
   triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T {
-    return this.root.act(() => {
+    return this.root.internalAct(() => {
       const {props} = this;
       const parts = keypath.split(/[.[\]]/g).filter(Boolean);
 

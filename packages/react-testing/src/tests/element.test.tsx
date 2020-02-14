@@ -618,7 +618,7 @@ describe('Element', () => {
     });
 
     it('wraps the call in a act block from the root', () => {
-      const act = jest.spyOn(defaultRoot, 'act');
+      const act = jest.spyOn(defaultRoot, 'internalAct');
       const element = new Element<Props>(
         {
           ...defaultTree,

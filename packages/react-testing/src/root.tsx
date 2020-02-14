@@ -76,7 +76,6 @@ export class Root<Props> implements Node<Props> {
   private wrapper: TestWrapper<Props> | null = null;
   private element = document.createElement('div');
   private root: Element<Props> | null = null;
-  private acting = false;
 
   private render: Render;
   private resolveRoot: ResolveRoot;
@@ -95,19 +94,23 @@ export class Root<Props> implements Node<Props> {
     this.mount();
   }
 
+  internalAct<T>(action: () => T, {update = true} = {}): T {
+    const updateWrapper = update ? this.update.bind(this) : noop;
+    let result!: T;
+
+    reactAct(() => {
+      result = action();
+    });
+    updateWrapper();
+    return result;
+  }
+
   act<T>(action: () => T, {update = true} = {}): T {
     const updateWrapper = update ? this.update.bind(this) : noop;
     let result!: T;
 
-    if (this.acting) {
-      return action();
-    }
-
-    this.acting = true;
-
     const afterResolve = () => {
       updateWrapper();
-      this.acting = false;
 
       return result;
     };
@@ -197,7 +200,7 @@ export class Root<Props> implements Node<Props> {
       connected.add(this);
     }
 
-    this.act(() => {
+    this.internalAct(() => {
       render(
         <TestWrapper<Props>
           render={this.render}
@@ -220,7 +223,7 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => unmountComponentAtNode(this.element));
+    this.internalAct(() => unmountComponentAtNode(this.element));
   }
 
   destroy() {
@@ -236,12 +239,12 @@ export class Root<Props> implements Node<Props> {
 
   setProps(props: Partial<Props>) {
     this.ensureRoot();
-    this.act(() => this.wrapper!.setProps(props));
+    this.internalAct(() => this.wrapper!.setProps(props));
   }
 
   forceUpdate() {
     this.ensureRoot();
-    this.act(() => this.wrapper!.forceUpdate());
+    this.internalAct(() => this.wrapper!.forceUpdate());
   }
 
   debug(options?: DebugOptions) {
