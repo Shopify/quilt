@@ -9,6 +9,7 @@ import {
 import {CacheMissBehavior} from './shared';
 
 interface Options {
+  alwaysSendQuery?: boolean;
   idFromOperation?(operation: Operation): string | undefined | null;
 }
 
@@ -32,7 +33,10 @@ export class PersistedLink extends ApolloLink {
     }
 
     return new Observable(observer => {
-      const {idFromOperation = defaultIdFromOperation} = this.options;
+      const {
+        alwaysSendQuery = false,
+        idFromOperation = defaultIdFromOperation,
+      } = this.options;
       const id = idFromOperation(operation);
 
       if (typeof id !== 'string' || this.sendAlwaysIds.has(id)) {
@@ -46,7 +50,7 @@ export class PersistedLink extends ApolloLink {
 
       operation.setContext({
         http: {
-          includeQuery: false,
+          includeQuery: alwaysSendQuery,
           includeExtensions: true,
         },
       });
