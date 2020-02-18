@@ -1,4 +1,5 @@
 import {
+  formatDate,
   isLessThanOneHourAgo,
   isLessThanOneMinuteAgo,
   isLessThanOneWeekAgo,
@@ -7,7 +8,6 @@ import {
   isYesterday,
   TimeUnit,
 } from '@shopify/dates';
-import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 
@@ -60,12 +60,6 @@ export interface TranslateOptions {
 const DECIMAL_NOT_SUPPORTED = 'N/A';
 const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
-
-const memoizedDateTimeFormatter = memoizeFn(
-  dateTimeFormatter,
-  (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
-    `${locale}${JSON.stringify(options)}`,
-);
 
 export class I18n {
   readonly locale: string;
@@ -296,13 +290,6 @@ export class I18n {
     const {locale, defaultTimezone} = this;
     const {timeZone = defaultTimezone} = options;
 
-    // Etc/GMT+12 is not supported in most browsers and there is no equivalent fallback
-    if (timeZone === 'Etc/GMT+12') {
-      const adjustedDate = new Date(date.valueOf() - 12 * 60 * 60 * 1000);
-
-      return this.formatDate(adjustedDate, {...options, timeZone: 'UTC'});
-    }
-
     const {style = undefined, ...formatOptions} = options || {};
 
     if (style) {
@@ -311,10 +298,7 @@ export class I18n {
         : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
     }
 
-    return memoizedDateTimeFormatter(locale, {
-      timeZone,
-      ...formatOptions,
-    }).format(date);
+    return formatDate(date, locale, {...formatOptions, timeZone});
   }
 
   ordinal(amount: number) {
@@ -565,11 +549,4 @@ function isTranslateOptions(
 
 function defaultOnError(error: I18nError) {
   throw error;
-}
-
-function dateTimeFormatter(
-  locale: string,
-  options: Intl.DateTimeFormatOptions = {},
-) {
-  return new Intl.DateTimeFormat(locale, options);
 }
