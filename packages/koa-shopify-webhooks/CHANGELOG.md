@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## [2.4.0] - 2020-02-17
+
+- The `ApiVersion` enum now has an `January20` and `April20` options
+
 ## [2.3.0] - 2020-01-27
 
 - Add [webhooks for billing](https://help.shopify.com/en/api/guides/billing-api#webhooks-for-billing) to topics
