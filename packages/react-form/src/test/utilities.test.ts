@@ -1,4 +1,4 @@
-import {shallowArrayComparison} from '../utilities';
+import {shallowArrayComparison, isChangeEvent} from '../utilities';
 
 describe('shallowArrayComparison()', () => {
   describe('when the two arrays are the same', () => {
@@ -17,5 +17,11 @@ describe('shallowArrayComparison()', () => {
 
       expect(shallowArrayComparison(array1, array2)).toBe(false);
     });
+  });
+});
+
+describe('isChangeEvent', () => {
+  it('returns false on null', () => {
+    expect(isChangeEvent(null)).toBe(false);
   });
 });
