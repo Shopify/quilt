@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## 3.3.0 - 2020-02-17
+## 3.3.0 - 2020-02-19
 
 = The `ApiVersion` enum now has an `January20` and `April20` options
 
