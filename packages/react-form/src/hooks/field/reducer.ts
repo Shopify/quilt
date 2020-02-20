@@ -1,7 +1,7 @@
 import {useReducer, Reducer} from 'react';
 
-import {FieldState, ErrorValue} from '../../types';
-import {shallowArrayComparison} from '../../utilities';
+import {FieldState, ErrorValue, DirtyStateComparator} from '../../types';
+import {defaultDirtyComparator} from '../../utilities';
 
 interface UpdateErrorAction {
   type: 'updateError';
@@ -55,62 +55,77 @@ export type FieldAction<Value> =
   | UpdateAction<Value>
   | NewDefaultAction<Value>;
 
-export function reduceField<Value>(
-  state: FieldState<Value>,
-  action: FieldAction<Value>,
-) {
-  switch (action.type) {
-    case 'update': {
-      const newValue = action.payload;
-      const {defaultValue} = state;
-      const isDirty = Array.isArray(defaultValue)
-        ? !shallowArrayComparison(defaultValue, newValue)
-        : defaultValue !== newValue;
+export function makeFieldReducer<Value>({
+  dirtyStateComparator,
+}: {
+  dirtyStateComparator: DirtyStateComparator<Value>;
+}): Reducer<FieldState<Value>, FieldAction<Value>> {
+  return (state: FieldState<Value>, action: FieldAction<Value>) => {
+    switch (action.type) {
+      case 'update': {
+        const newValue = action.payload;
+        const {defaultValue} = state;
+        const dirty = dirtyStateComparator(defaultValue, newValue);
 
-      return {
-        ...state,
-        dirty: isDirty,
-        value: newValue,
-        touched: true,
-      };
+        return {
+          ...state,
+          dirty,
+          value: newValue,
+          touched: true,
+        };
+      }
+
+      case 'updateError': {
+        return {
+          ...state,
+          error: action.payload,
+        };
+      }
+
+      case 'reset': {
+        const {defaultValue} = state;
+
+        return {
+          ...state,
+          error: undefined,
+          value: defaultValue,
+          dirty: false,
+          touched: false,
+        };
+      }
+
+      case 'newDefaultValue': {
+        const newDefaultValue = action.payload;
+        return {
+          ...state,
+          error: undefined,
+          value: newDefaultValue,
+          defaultValue: newDefaultValue,
+          touched: false,
+          dirty: false,
+        };
+      }
     }
-
-    case 'updateError': {
-      return {
-        ...state,
-        error: action.payload,
-      };
-    }
-
-    case 'reset': {
-      const {defaultValue} = state;
-
-      return {
-        ...state,
-        error: undefined,
-        value: defaultValue,
-        dirty: false,
-        touched: false,
-      };
-    }
-
-    case 'newDefaultValue': {
-      const newDefaultValue = action.payload;
-      return {
-        ...state,
-        error: undefined,
-        value: newDefaultValue,
-        defaultValue: newDefaultValue,
-        touched: false,
-        dirty: false,
-      };
-    }
-  }
+  };
 }
 
-export function useFieldReducer<Value>(value: Value) {
-  return useReducer<Reducer<FieldState<Value>, FieldAction<Value>>>(
-    reduceField,
+const shallowFieldReducer = makeFieldReducer({
+  dirtyStateComparator: defaultDirtyComparator,
+});
+
+export function reduceField<Value>(
+  prevState: FieldState<Value>,
+  action: FieldAction<Value>,
+): FieldState<Value> {
+  return shallowFieldReducer(prevState, action) as FieldState<Value>;
+}
+
+export function useFieldReducer<Value>(
+  value: Value,
+  dirtyStateComparator: DirtyStateComparator<Value>,
+) {
+  return useReducer(
+    makeFieldReducer<Value>({dirtyStateComparator}),
     initialFieldState(value),
   );
 }
