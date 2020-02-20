@@ -1,6 +1,10 @@
 import {ChangeEvent} from 'react';
 
 export type ErrorValue = string | undefined;
+export type DirtyStateComparator<Value> = (
+  defaultValue: Value,
+  value: Value,
+) => boolean;
 
 export interface Validator<Value, Context> {
   (value: Value, context: Context): ErrorValue;

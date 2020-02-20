@@ -4,7 +4,7 @@ import {mount} from '@shopify/react-testing';
 
 import {asChoiceField, useChoiceField, useField, FieldConfig} from '../field';
 import {FieldState} from '../../../types';
-import {FieldAction, reduceField} from '../reducer';
+import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
 
 describe('useField', () => {
   function TestField({config}: {config: string | FieldConfig<string>}) {
@@ -370,6 +370,52 @@ describe('useField', () => {
 
           expect(newState).toStrictEqual(expectedNewState);
         });
+      });
+    });
+
+    describe('when using a custom comparator', () => {
+      it("marks as dirty if the comparator says it's dirty", () => {
+        const dirtyStateComparator = () => true;
+        const reducer = makeFieldReducer({dirtyStateComparator});
+        const originalState = buildState({
+          value: 'original value',
+          defaultValue: 'default value',
+        });
+        const action: FieldAction<string> = {
+          type: 'update',
+          payload: 'updated value',
+        };
+        const expectedNewState = buildState({
+          value: 'updated value',
+          defaultValue: 'default value',
+          dirty: true,
+        });
+
+        const newState = reducer(originalState, action);
+
+        expect(newState).toStrictEqual(expectedNewState);
+      });
+
+      it("marks as clean if the comparator says it's not dirty", () => {
+        const dirtyStateComparator = () => false;
+        const reducer = makeFieldReducer({dirtyStateComparator});
+        const originalState = buildState({
+          value: 'original value',
+          defaultValue: 'default value',
+        });
+        const action: FieldAction<string> = {
+          type: 'update',
+          payload: 'updated value',
+        };
+        const expectedNewState = buildState({
+          value: 'updated value',
+          defaultValue: 'default value',
+          dirty: false,
+        });
+
+        const newState = reducer(originalState, action);
+
+        expect(newState).toStrictEqual(expectedNewState);
       });
     });
   });
