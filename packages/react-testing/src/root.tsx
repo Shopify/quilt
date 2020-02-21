@@ -106,6 +106,8 @@ export class Root<Props> implements Node<Props> {
     this.acting = true;
 
     const afterResolve = () => {
+      // Flush any remaining act before updating the wrapper
+      act(() => {});
       updateWrapper();
       this.acting = false;
 
