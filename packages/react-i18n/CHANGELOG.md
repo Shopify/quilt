@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Fixed
+
+- Fixed memory leaks when server-side rendering for `Intl.DateTimeFormat.format()` and `Intl.NumberFormat.format()` ([#1287](https://github.com/Shopify/quilt/pull/1287))
+
+---
 
 ### Fixed
 
