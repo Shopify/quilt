@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Improve typings for `useBackgroundQuery` by allowing the `fetchPolicy` option. ([#1293](https://github.com/Shopify/quilt/pull/1293)).
+
 ## [6.0.7] - 2020-01-24
 
 ### Fixed
