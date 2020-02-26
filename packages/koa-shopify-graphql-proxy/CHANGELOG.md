@@ -7,13 +7,15 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- You can now specify `headers` you would like to add to the proxied request.
+
 ## 3.3.0 - 2020-02-19
 
-= The `ApiVersion` enum now has an `January20` and `April20` options
+- The `ApiVersion` enum now has an `January20` and `April20` options
 
 ## 3.2.0 - 2019-10-02
 
-= The `ApiVersion` enum now has an `October19` option
+- The `ApiVersion` enum now has an `October19` option
 
 ## 3.1.0 - 2019-04-23
 

@@ -135,8 +135,10 @@ describe('koa-shopify-graphql-proxy', () => {
   });
 
   it('configures a custom koa-better-http-proxy', async () => {
+    const headers = {custom: 'headers'};
     const koaShopifyGraphQLProxyMiddleware = koaShopifyGraphQLProxy({
       version: ApiVersion.Unstable,
+      headers,
     });
     const accessToken = 'asdfasdf';
     const shop = 'i-sell-things.myshopify.com';
@@ -157,6 +159,7 @@ describe('koa-shopify-graphql-proxy', () => {
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
+        ...headers,
       },
       https: true,
       parseReqBody: false,

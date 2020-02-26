@@ -21,12 +21,12 @@ Attaching the middleware will proxy any requests sent to `/graphql` on your app 
 
 ```javascript
 // server/index.js
-import koa from 'koa';
+import Koa from 'koa';
 import session from 'koa-session';
 import createShopifyAuth from '@shopify/koa-shopify-auth';
 import proxy, {ApiVersion} from '@shopify/koa-shopify-graphql-proxy';
 
-const app = koa();
+const app = new Koa();
 
 app.use(session());
 
@@ -69,11 +69,11 @@ If you have a [private shopify app](https://help.shopify.com/en/manual/apps/priv
 
 ```javascript
 // server/index.js
-import koa from 'koa';
+import Koa from 'koa';
 import session from 'koa-session';
 import proxy, {ApiVersion} from '@shopify/koa-shopify-graphql-proxy';
 
-const app = koa();
+const app = new Koa();
 
 app.use(session());
 
@@ -84,4 +84,30 @@ app.use(
     password: '<your-app-password>',
   }),
 );
+```
+
+### Custom Headers
+
+If you need to pass headers to the proxied request, you can than add those headers during the configuration of the proxy.
+
+```javascript
+// server/index.js
+import Koa from 'koa';
+import session from 'koa-session';
+import proxy, {ApiVersion} from '@shopify/koa-shopify-graphql-proxy';
+
+const app = new Koa();
+
+app.use(session());
+
+app.use(ctx => {
+  const headers = {
+    'X-Request-ID': ctx.headers.get('X-Request-ID'),
+  };
+
+  proxy({
+    version: ApiVersion.Unstable,
+    headers,
+  })(ctx);
+});
 ```

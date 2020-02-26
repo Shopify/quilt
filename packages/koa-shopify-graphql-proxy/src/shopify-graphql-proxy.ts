@@ -16,6 +16,7 @@ export enum ApiVersion {
 
 interface DefaultProxyOptions {
   version: ApiVersion;
+  headers?: Record<string, string>;
 }
 
 interface PrivateShopOption extends DefaultProxyOptions {
@@ -36,6 +37,7 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
     const accessToken =
       'password' in proxyOptions ? proxyOptions.password : session.accessToken;
     const version = proxyOptions.version;
+    const headers = proxyOptions.headers;
 
     if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
       await next();
@@ -55,6 +57,7 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
+        ...headers,
       },
       proxyReqPathResolver() {
         return `${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;
