@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## Unreleased
+
+- Allows `hour12: true` to be passed to `formatDate`
+
 ## [0.3.0] - 2020-02-19
 
 - Export the `formatDate` function so it can be used by other packages / projects, e.g. in `@shopify/react-i18n`
