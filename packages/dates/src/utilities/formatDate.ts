@@ -29,7 +29,7 @@ export function formatDate(
 ) {
   const hourCycleRequired =
     resolvedOptions != null &&
-    options.hour12 != null &&
+    options.hour12 === false &&
     resolvedOptions.hourCycle != null;
 
   if (hourCycleRequired) {
