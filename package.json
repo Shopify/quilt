@@ -13,7 +13,7 @@
     "test:ci": "yarn _test --maxWorkers=3 --coverage",
     "check": "lerna run check",
     "release": "lerna publish",
-    "release-beta": "lerna publish --dist-tag beta",
+    "release-dev": "lerna publish --dist-tag dev",
     "clean": "rimraf './packages/*/dist'",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",
