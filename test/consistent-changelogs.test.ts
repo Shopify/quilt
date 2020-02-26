@@ -10,9 +10,7 @@ const CHANGELOG_INTRO = `# Changelog
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-
-`
+and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).`
 
 readChangelogs().forEach(({packageDir, packageChangelogPath, packageChangelog}) => {
   describe(packageChangelogPath, () => {
@@ -22,24 +20,55 @@ readChangelogs().forEach(({packageDir, packageChangelogPath, packageChangelog}) 
       expect(actualIntro).toBe(CHANGELOG_INTRO);
     });
 
-    it('contains an unreleased section after the intro', () => {
-      const afterIntro = packageChangelog.replace(CHANGELOG_INTRO, '').slice(0, 50);
+    it('has Unreleased section as first subheading', () => {
+      const firstSubheading = packageChangelog.split('\n').find(line => line.match(/^## /));
 
-      const unreleasedHeader = escapeRegExp('## [Unreleased]');
-      const unreleasedPlaceholder = escapeRegExp('<!-- ## [Unreleased] -->');
-      const regex = new RegExp(
-        `^(${unreleasedHeader})|(${unreleasedPlaceholder})$`,
-        'm',
-      );
-
-      expect(afterIntro).toEqual(expect.stringMatching(regex));
+      expect(firstSubheading).toBe('## [Unreleased]');
     });
+
+//     it('contains an unreleased section after the intro', () => {
+//       const searchArea = packageChangelog.slice(0, CHANGELOG_INTRO.length + 100);
+
+//       const regex = new RegExp(
+//         '^' + escapeRegExp(CHANGELOG_INTRO) + '$\n\n^' + escapeRegExp('## [Unreleased]') + '$',
+//         'm',
+//       );
+
+//       expect(searchArea).toEqual(expect.stringMatching(regex));
+//     });
+
+
+
+    // it('contains an unreleased section after the intro', () => {
+    //   const afterIntro = packageChangelog.replace(CHANGELOG_INTRO, '').slice(0, 50);
+
+    //   const unreleasedHeader = escapeRegExp('## [Unreleased]');
+    //   const unreleasedPlaceholder = escapeRegExp('<!-- ## [Unreleased] -->');
+    //   const regex = new RegExp(
+    //     `^(${unreleasedHeader})|(${unreleasedPlaceholder})$`,
+    //     'm',
+    //   );
+
+    //   expect(afterIntro).toEqual(expect.stringMatching(regex));
+    // });
 
     it('contains only known headers', () => {
       const headerLines = packageChangelog.split('\n').filter(line => line.match(/^\s*#/));
       const offendingHeaders = headerLines.filter(headerLine => !headerIsAllowed(headerLine));
 
       expect(offendingHeaders).toEqual([]);
+    });
+
+    it('has exactly 1 empty line before headings', () => {
+      const notEnoughSpacingBeforeHeadings = /[^\n]+\n^#.*$/gm;
+
+      expect(packageChangelog).not.toEqual(expect.stringMatching(notEnoughSpacingBeforeHeadings));
+    });
+
+    it('has exactly 1 empty line after headings', () => {
+      const notEnoughSpacingAfterHeadings = /^#.*$\n[^\n]+/gm;
+
+      expect(packageChangelog).not.toEqual(expect.stringMatching(notEnoughSpacingAfterHeadings));
     });
 
     it('does not contain duplicate headers', () => {
@@ -51,11 +80,16 @@ readChangelogs().forEach(({packageDir, packageChangelogPath, packageChangelog}) 
   });
 });
 
+const WIP = /(?:[^\n]+(?:\n\n+)?\n^#.*$)|(?:^#.*$\n(?:\n\n+)?[^\n]+)/gm;
+
+const NOT_EXACTLY_ONE_LINE_BEFORE_HEADINGS_REGEX = /^#.*$\n[^\n]+/gm;
+const NOT_EXACTLY_ONE_LINE_AFTER_HEADINGS_REGEX = /^#.*$\n[^\n]+/gm;
+
 const allowedHeaders = [
   '# Changelog',
   '## [Unreleased]',
   /^## \[\d+\.\d+\.\d+\] - \d\d\d\d-\d\d-\d\d$/,
-  /^## \[\d+\.\d+\.\d+\]$/, // FIXME: We should backfill dates using commit timestamps
+  /^## \[\d+\.\d+\.\d+\]$/, // We should backfill dates using commit timestamps
   '### Fixed',
   '### Added',
   '### Changed',
@@ -63,8 +97,8 @@ const allowedHeaders = [
   '### Removed',
   '### Fixed',
   '### Security',
-  '### Chore',
-  '### Breaking Change',
+  '### Chore', // This is technically not part of Keep a Changelog spec
+  '### Breaking Change', // This isn't part of it either
   /^####/,
 ];
 
