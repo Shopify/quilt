@@ -7,9 +7,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.34] - 2020-02-27
+
 ### Fixed
 
-- Update `isChangeEvent` to check for null [#1288](https://github.com/Shopify/quilt/issues/1288)
+- Update `isChangeEvent` to check for null ([#1288](https://github.com/Shopify/quilt/issues/1288))
 
 ## [0.3.24]
 

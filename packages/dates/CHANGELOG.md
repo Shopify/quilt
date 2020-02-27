@@ -8,9 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## [0.3.1] - 2020-02-27
+
 ### Fixed
 
-- Allows `hour12: true` to be passed to `formatDate`
+- Allows `hour12: true` to be passed to `formatDate` [#1299](https://github.com/Shopify/quilt/pull/1299)
 
 ## [0.3.0] - 2020-02-19
 
