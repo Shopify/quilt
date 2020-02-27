@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.0.0] - 2020-02-27
+
 - Type error while using `[toHaveReactProps](https://github.com/Shopify/quilt/issues/1212) is now resolved by updating`@types/jest`to`24.9.1`. [#1212](https://github.com/Shopify/quilt/issues/1212)
 
 ## [1.8.0] - 2019-10-08
