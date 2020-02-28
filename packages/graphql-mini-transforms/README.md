@@ -82,3 +82,9 @@ We wrote something custom in order to get the following benefits:
 
 - Significantly smaller output with no runtime
 - Automatically-generated document identifiers
+
+## Related projects
+
+- [next-plugin-mini-graphql](https://www.npmjs.com/package/next-plugin-mini-graphql) - Provides [Next.js](https://nextjs.org/) support for `.graphql` files using `graphql-mini-transforms`
+
+
