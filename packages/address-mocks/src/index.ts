@@ -11,7 +11,8 @@ interface Options {
 }
 
 export function mockCountryRequests() {
-  SUPPORTED_LOCALES.map(locale => {
+  const UNSUPPORTED_LOCALES = ['AF']
+  SUPPORTED_LOCALES.concat(UNSUPPORTED_LOCALES).map(locale => {
     ['countries', 'country'].map(operationName => {
       fetch.mock(
         (url: string, options: Options) => {
