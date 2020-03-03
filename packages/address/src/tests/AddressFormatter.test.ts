@@ -168,22 +168,4 @@ describe('AddressFormatter', () => {
       ]);
     });
   });
-
-  describe('toSupportedLocale', () => {
-    it('changes the lowercase locale to uppercase', () => {
-      expect(toSupportedLocale('ja')).toStrictEqual('JA');
-    });
-
-    it('replaces - with _ and returns the locale in uppercase', () => {
-      expect(toSupportedLocale('pt-br')).toStrictEqual('PT_BR');
-    });
-
-    it('returns default locale if locale is not supported', () => {
-      expect(toSupportedLocale('LOL')).toStrictEqual('EN');
-    });
-
-    it('returns most similar locale available if complex', () => {
-      expect(toSupportedLocale('fr-FR')).toStrictEqual('FR');
-    });
-  });
 });
