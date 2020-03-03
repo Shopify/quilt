@@ -121,3 +121,12 @@ export function shallowArrayComparison(arrA: unknown[], arrB: any) {
 
   return true;
 }
+
+export function defaultDirtyComparator<Value>(
+  defaultValue: Value,
+  newValue: Value,
+): boolean {
+  return Array.isArray(defaultValue)
+    ? !shallowArrayComparison(defaultValue, newValue)
+    : defaultValue !== newValue;
+}

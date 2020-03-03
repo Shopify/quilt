@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useMemo, ChangeEvent} from 'react';
 import isEqual from 'fast-deep-equal';
 
-import {Validates, Field} from '../../types';
+import {Validates, Field, DirtyStateComparator} from '../../types';
 import {normalizeValidation, isChangeEvent} from '../../utilities';
 
 import {
@@ -15,6 +15,7 @@ import {
 export interface FieldConfig<Value> {
   value: Value;
   validates: Validates<Value>;
+  dirtyStateComparator?: DirtyStateComparator<Value>;
 }
 
 /**
@@ -104,11 +105,12 @@ export interface FieldConfig<Value> {
 export function useField<Value = string>(
   input: FieldConfig<Value> | Value,
   dependencies: unknown[] = [],
+  dirtyStateComparator?: DirtyStateComparator<Value>,
 ): Field<Value> {
   const {value, validates} = normalizeFieldConfig(input);
   const validators = normalizeValidation(validates);
 
-  const [state, dispatch] = useFieldReducer(value);
+  const [state, dispatch] = useFieldReducer(value, dirtyStateComparator);
 
   const resetActionObject = useMemo(() => resetAction(), []);
   const reset = useCallback(() => dispatch(resetActionObject), [
