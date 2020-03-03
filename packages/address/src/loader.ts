@@ -4,7 +4,6 @@ import {
   LoadCountryResponse,
   ResponseError,
   GRAPHQL_ENDPOINT,
-  SUPPORTED_LOCALES,
   HEADERS,
   GraphqlOperationName,
 } from '@shopify/address-consts';
@@ -21,7 +20,7 @@ export const loadCountries: (
       query,
       operationName: GraphqlOperationName.Countries,
       variables: {
-        locale: toSupportedLocale(locale),
+        locale: locale.replace(/-/, '_').toUpperCase(),
       },
     }),
   });
@@ -50,7 +49,7 @@ export const loadCountry: (
         operationName: GraphqlOperationName.Country,
         variables: {
           countryCode,
-          locale: toSupportedLocale(locale),
+          locale: locale.replace(/-/, '_').toUpperCase(),
         },
       }),
     });
@@ -69,20 +68,6 @@ class CountryLoaderError extends Error {
   constructor(errors: ResponseError) {
     const errorMessage = errors.errors.map(error => error.message).join('; ');
     super(errorMessage);
-  }
-}
-
-const DEFAULT_LOCALE = 'EN';
-
-export function toSupportedLocale(locale: string) {
-  const supportedLocale = locale.replace(/-/, '_').toUpperCase();
-
-  if (SUPPORTED_LOCALES.includes(supportedLocale)) {
-    return supportedLocale;
-  } else if (SUPPORTED_LOCALES.includes(supportedLocale.substring(0, 2))) {
-    return supportedLocale.substring(0, 2);
-  } else {
-    return DEFAULT_LOCALE;
   }
 }
 
