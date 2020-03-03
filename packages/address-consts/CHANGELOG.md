@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.5] - 2020-03-03
+
+### Added
+
+- Update `LoadCountryResponse` to match new CountryService response signature
+- Update `LoadCountriesResponse` to match new CountryService response signature
+
 ## [1.0.0] - 2019-08-29
 
 ### Added
