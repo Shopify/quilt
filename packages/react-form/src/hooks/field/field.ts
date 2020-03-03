@@ -2,11 +2,7 @@ import {useCallback, useEffect, useMemo, ChangeEvent} from 'react';
 import isEqual from 'fast-deep-equal';
 
 import {Validates, Field, DirtyStateComparator} from '../../types';
-import {
-  normalizeValidation,
-  isChangeEvent,
-  defaultDirtyComparator,
-} from '../../utilities';
+import {normalizeValidation, isChangeEvent} from '../../utilities';
 
 import {
   updateAction,
@@ -109,12 +105,9 @@ export interface FieldConfig<Value> {
 export function useField<Value = string>(
   input: FieldConfig<Value> | Value,
   dependencies: unknown[] = [],
+  dirtyStateComparator?: DirtyStateComparator<Value>,
 ): Field<Value> {
-  const {
-    value,
-    validates,
-    dirtyStateComparator = defaultDirtyComparator,
-  } = normalizeFieldConfig(input);
+  const {value, validates} = normalizeFieldConfig(input);
   const validators = normalizeValidation(validates);
 
   const [state, dispatch] = useFieldReducer(value, dirtyStateComparator);
@@ -247,13 +240,12 @@ export function useChoiceField(
 
 function normalizeFieldConfig<Value>(
   input: FieldConfig<Value> | Value,
-  dirtyStateComparator?: DirtyStateComparator<Value>,
 ): FieldConfig<Value> {
   if (isFieldConfig(input)) {
     return input;
   }
 
-  return {value: input, validates: () => undefined, dirtyStateComparator};
+  return {value: input, validates: () => undefined};
 }
 
 function isFieldConfig<Value>(input: unknown): input is FieldConfig<Value> {
