@@ -2,7 +2,6 @@ import {fetch} from '@shopify/jest-dom-mocks';
 import {Address} from '@shopify/address-consts';
 
 import {mockCountryRequests} from '../../../address-mocks/src';
-import {toSupportedLocale} from '../loader';
 import AddressFormatter from '../AddressFormatter';
 
 const address: Address = {
@@ -54,6 +53,13 @@ describe('AddressFormatter', () => {
       ]);
     });
 
+    it('returns a country object in en if locale is not available', async () => {
+      const addressFormatter = new AddressFormatter('af');
+      const country = await addressFormatter.getCountry('CA');
+
+      expect(country.name).toStrictEqual('Canada');
+    });
+
     it('does not call the API again for the same country if the locale is the same', async () => {
       const addressFormatter = new AddressFormatter('pt-br');
 
@@ -99,6 +105,13 @@ describe('AddressFormatter', () => {
       const loadedCountries = await addressFormatter.getCountries();
 
       expect(loadedCountries).toHaveLength(242);
+    });
+
+    it('returns all countries in en if locale is not available', async () => {
+      const addressFormatter = new AddressFormatter('af');
+      const loadedCountries = await addressFormatter.getCountries();
+
+      expect(loadedCountries[0].name).toStrictEqual('Afghanistan');
     });
 
     it('does not call the API again for the countries if the locale is the same.', async () => {
