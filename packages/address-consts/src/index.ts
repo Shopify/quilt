@@ -41,12 +41,12 @@ export interface Zone {
 }
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
-  errors?: [any];
+  errors?: any[];
 }
 
 export interface LoadCountryResponse {
   data: {country: Country};
-  errors?: [any];
+  errors?: any[];
 }
 export interface Country {
   name: string;
