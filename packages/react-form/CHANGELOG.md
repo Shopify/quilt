@@ -13,6 +13,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Update `isChangeEvent` to check for null ([#1288](https://github.com/Shopify/quilt/issues/1288))
 
+### Added
+
+- Add option to use a custom comparator for determining if a field is dirty [#1296](https://github.com/Shopify/quilt/pull/1296/)
+
 ## [0.3.24]
 
 ### Fixed
