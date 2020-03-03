@@ -39,13 +39,33 @@ export interface Zone {
   code: string;
   name: string;
 }
+
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
+  errors?: {
+    message: string;
+    locations?: {
+      column: number;
+      line: number;
+    }[];
+    path?: any[];
+    extensions?: object;
+  }[];
 }
 
 export interface LoadCountryResponse {
   data: {country: Country};
+  errors?: {
+    message: string;
+    locations?: {
+      column: number;
+      line: number;
+    }[];
+    path?: any[];
+    extensions?: object;
+  }[];
 }
+
 export interface Country {
   name: string;
   code: string;
@@ -74,15 +94,13 @@ export interface Country {
 
 export interface ResponseError {
   errors: {
-    locations: {
+    message: string;
+    locations?: {
       column: number;
       line: number;
     }[];
-    message: string;
-    problems: {
-      explanation: string;
-    }[];
-    value: any;
+    path?: any[];
+    extensions?: object;
   }[];
 }
 
