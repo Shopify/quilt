@@ -6,9 +6,8 @@ export {
   FieldConfig,
 } from './field';
 export {
-  reduceField,
-  makeFieldReducer,
   FieldAction,
+  reduceField,
   updateErrorAction,
   initialFieldState,
 } from './reducer';

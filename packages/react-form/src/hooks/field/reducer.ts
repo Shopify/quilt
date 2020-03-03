@@ -3,6 +3,9 @@ import {useReducer, Reducer} from 'react';
 import {FieldState, ErrorValue, DirtyStateComparator} from '../../types';
 import {defaultDirtyComparator} from '../../utilities';
 
+export interface ReducerOptions<Value> {
+  dirtyStateComparator?: DirtyStateComparator<Value>;
+}
 interface UpdateErrorAction {
   type: 'updateError';
   payload: ErrorValue;
@@ -55,11 +58,20 @@ export type FieldAction<Value> =
   | UpdateAction<Value>
   | NewDefaultAction<Value>;
 
+const shallowFieldReducer = makeFieldReducer({
+  dirtyStateComparator: defaultDirtyComparator,
+});
+
+export function reduceField<Value>(
+  prevState: FieldState<Value>,
+  action: FieldAction<Value>,
+): FieldState<Value> {
+  return shallowFieldReducer(prevState, action) as FieldState<Value>;
+}
+
 export function makeFieldReducer<Value>({
-  dirtyStateComparator,
-}: {
-  dirtyStateComparator: DirtyStateComparator<Value>;
-}): Reducer<FieldState<Value>, FieldAction<Value>> {
+  dirtyStateComparator = defaultDirtyComparator,
+}: ReducerOptions<Value>): Reducer<FieldState<Value>, FieldAction<Value>> {
   return (state: FieldState<Value>, action: FieldAction<Value>) => {
     switch (action.type) {
       case 'update': {
@@ -109,20 +121,9 @@ export function makeFieldReducer<Value>({
   };
 }
 
-const shallowFieldReducer = makeFieldReducer({
-  dirtyStateComparator: defaultDirtyComparator,
-});
-
-export function reduceField<Value>(
-  prevState: FieldState<Value>,
-  action: FieldAction<Value>,
-): FieldState<Value> {
-  return shallowFieldReducer(prevState, action) as FieldState<Value>;
-}
-
 export function useFieldReducer<Value>(
   value: Value,
-  dirtyStateComparator: DirtyStateComparator<Value>,
+  dirtyStateComparator?: DirtyStateComparator<Value>,
 ) {
   return useReducer(
     makeFieldReducer<Value>({dirtyStateComparator}),
