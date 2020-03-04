@@ -40,6 +40,37 @@ describe('useTimeout', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
+  it('sets no timeout if the delay provided is null', () => {
+    const {callback} = setup({delay: null});
+
+    timer.runTimersToTime(ONE_SECOND);
+
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('clears existing timeout if the new delay is null', () => {
+    const {callback, wrapper} = setup({delay: ONE_SECOND});
+
+    wrapper.setProps({delay: null});
+
+    timer.runTimersToTime(ONE_SECOND);
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('continues to respect the delay after the callback changes', () => {
+    const {callback, wrapper} = setup({delay: ONE_SECOND});
+
+    timer.runTimersToTime(HALF_A_SECOND);
+    expect(callback).not.toHaveBeenCalled();
+
+    const newCallback = jest.fn();
+    wrapper.setProps({callback: newCallback});
+
+    timer.runTimersToTime(HALF_A_SECOND);
+    expect(newCallback).toHaveBeenCalled();
+    expect(callback).not.toHaveBeenCalled();
+  });
+
   it('resets the timeout when the delay changes', () => {
     const {callback, wrapper} = setup({delay: HALF_A_SECOND});
 
