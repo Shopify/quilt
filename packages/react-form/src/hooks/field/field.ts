@@ -105,9 +105,8 @@ export interface FieldConfig<Value> {
 export function useField<Value = string>(
   input: FieldConfig<Value> | Value,
   dependencies: unknown[] = [],
-  dirtyStateComparator?: DirtyStateComparator<Value>,
 ): Field<Value> {
-  const {value, validates} = normalizeFieldConfig(input);
+  const {value, validates, dirtyStateComparator} = normalizeFieldConfig(input);
   const validators = normalizeValidation(validates);
 
   const [state, dispatch] = useFieldReducer(value, dirtyStateComparator);
