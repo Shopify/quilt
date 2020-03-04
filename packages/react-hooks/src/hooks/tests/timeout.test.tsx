@@ -4,12 +4,10 @@ import {timer} from '@shopify/jest-dom-mocks';
 
 import {useTimeout} from '../timeout';
 
-describe('useTimeout', () => {
-  function MockComponent({spy, delay}) {
-    useTimeout(spy, delay);
-    return null;
-  }
+const ONE_SECOND = 1000;
+const HALF_A_SECOND = ONE_SECOND / 2;
 
+describe('useTimeout', () => {
   beforeEach(() => {
     timer.mock();
   });
@@ -18,38 +16,53 @@ describe('useTimeout', () => {
     timer.restore();
   });
 
-  it('does not call the handler immediately', () => {
-    const spy = jest.fn();
-    const delay = 1000;
+  it('does not call the callback immediately', () => {
+    const {callback} = setup({delay: ONE_SECOND});
 
-    mount(<MockComponent delay={delay} spy={spy} />);
-
-    expect(spy).not.toHaveBeenCalled();
+    expect(callback).not.toHaveBeenCalled();
   });
 
-  it('calls the handler after the delay', () => {
-    const spy = jest.fn();
-    const delay = 1000;
-
-    mount(<MockComponent delay={delay} spy={spy} />);
+  it('calls the callback exactly once after the delay', () => {
+    const {callback} = setup({delay: ONE_SECOND});
 
     timer.runAllTimers();
-
-    expect(spy).toHaveBeenCalled();
+    expect(callback).toHaveBeenCalledTimes(1);
   });
 
-  it('unsubscribes timeouts when the passed in callback changes', () => {
-    const spy = jest.fn();
-    const delay = 1000;
-    const newSpy = jest.fn();
+  it('updates the callback when it changes', () => {
+    const {callback, wrapper} = setup({delay: ONE_SECOND});
 
-    const wrapper = mount(<MockComponent delay={delay} spy={spy} />);
-
-    wrapper.setProps({spy: newSpy});
+    const newCallback = jest.fn();
+    wrapper.setProps({callback: newCallback});
 
     timer.runAllTimers();
+    expect(newCallback).toHaveBeenCalled();
+    expect(callback).not.toHaveBeenCalled();
+  });
 
-    expect(spy).not.toHaveBeenCalled();
-    expect(newSpy).toHaveBeenCalled();
+  it('resets the timeout when the delay changes', () => {
+    const {callback, wrapper} = setup({delay: HALF_A_SECOND});
+
+    timer.runTimersToTime(HALF_A_SECOND);
+    expect(callback).toHaveBeenCalledTimes(1);
+
+    wrapper.setProps({delay: ONE_SECOND});
+
+    timer.runTimersToTime(HALF_A_SECOND);
+    expect(callback).toHaveBeenCalledTimes(1);
+
+    timer.runTimersToTime(HALF_A_SECOND);
+    expect(callback).toHaveBeenCalledTimes(2);
   });
 });
+
+function setup({delay}) {
+  const callback = jest.fn();
+  const wrapper = mount(<MockComponent delay={delay} callback={callback} />);
+
+  return {callback, wrapper};
+}
+function MockComponent({callback, delay}) {
+  useTimeout(callback, delay);
+  return null;
+}
