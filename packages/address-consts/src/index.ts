@@ -41,12 +41,10 @@ export interface Zone {
 }
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
-  errors?: any[];
 }
 
 export interface LoadCountryResponse {
   data: {country: Country};
-  errors?: any[];
 }
 export interface Country {
   name: string;
@@ -76,15 +74,9 @@ export interface Country {
 
 export interface ResponseError {
   errors: {
-    locations: {
-      column: number;
-      line: number;
-    }[];
     message: string;
-    problems: {
-      explanation: string;
-    }[];
-    value: any;
+    locations?: object;
+    extensions?: object;
   }[];
 }
 
