@@ -39,13 +39,27 @@ export interface Zone {
   code: string;
   name: string;
 }
+
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
+  errors?: {
+    message: string;
+    locations?: object[];
+    path?: any[];
+    extensions?: object;
+  }[];
 }
 
 export interface LoadCountryResponse {
   data: {country: Country};
+  errors?: {
+    message: string;
+    locations?: object[];
+    path?: any[];
+    extensions?: object;
+  }[];
 }
+
 export interface Country {
   name: string;
   code: string;
