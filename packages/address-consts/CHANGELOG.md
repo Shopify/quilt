@@ -11,8 +11,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Update `LoadCountryResponse` to match new CountryService response signature
-- Update `LoadCountriesResponse` to match new CountryService response signature
+- Update `ResponseError` to allow for more custom errors from CountryService
 
 ## [1.0.0] - 2019-08-29
 
