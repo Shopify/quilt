@@ -54,7 +54,10 @@ export interface LoadCountryResponse {
   data: {country: Country};
   errors?: {
     message: string;
-    locations?: object[];
+    locations?: {
+      column: number;
+      line: number;
+    }[];
     path?: any[];
     extensions?: object;
   }[];
