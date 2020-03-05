@@ -11,7 +11,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Update `ResponseError` to allow for more custom errors from CountryService
+- Update `ResponseError` to allow for more custom errors from CountryService [#1302](https://github.com/Shopify/quilt/pull/1302)
 
 ## [1.0.0] - 2019-08-29
 
