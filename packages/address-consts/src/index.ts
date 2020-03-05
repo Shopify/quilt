@@ -75,7 +75,8 @@ export interface Country {
 export interface ResponseError {
   errors: {
     message: string;
-    locations?: object;
+    locations?: object[];
+    path?: any[];
     extensions?: object;
   }[];
 }
