@@ -28,7 +28,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@shopify/address-consts": "^1.0.5",
+    "@shopify/address-consts": "^1.1.5",
     "@shopify/jest-dom-mocks": "^2.8.9",
     "tslib": "^1.9.3"
   },
