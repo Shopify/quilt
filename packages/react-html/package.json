@@ -28,7 +28,7 @@
     "@shopify/useful-types": "^2.1.4",
     "@types/multistream": "^2.1.1",
     "multistream": "^2.1.1",
-    "serialize-javascript": "^1.5.0",
+    "serialize-javascript": "^3.0.0",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
