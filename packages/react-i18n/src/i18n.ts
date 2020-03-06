@@ -329,7 +329,6 @@ export class I18n {
     return this.getCurrencySymbolLocalized(this.locale, currency);
   };
 
-  @memoize((currency: string, locale: string) => `${locale}${currency}`)
   getCurrencySymbolLocalized(locale: string, currency: string) {
     return getCurrencySymbol(locale, {currency});
   }
