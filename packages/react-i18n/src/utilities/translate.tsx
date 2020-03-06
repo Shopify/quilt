@@ -17,16 +17,19 @@ const MISSING_TRANSLATION = Symbol('Missing translation');
 const PLURALIZATION_KEY_NAME = 'count';
 const SEPARATOR = '.';
 
-const numberFormats = new Map();
-export const memoizedNumberFormatter = function(locale, options = {}) {
+const numberFormats = new Map<string, Intl.NumberFormat>();
+export function memoizedNumberFormatter(
+  locale: string,
+  options: Intl.NumberFormatOptions = {},
+) {
   const key = numberFormatCacheKey(locale, options);
   if (numberFormats.has(key)) {
-    return numberFormats.get(key);
+    return numberFormats.get(key)!;
   }
   const i = new Intl.NumberFormat(locale, options);
   numberFormats.set(key, i);
   return i;
-};
+}
 
 export const PSEUDOTRANSLATE_OPTIONS: PseudotranslateOptions = {
   startDelimiter: '{',
