@@ -26,11 +26,9 @@ export const loadCountries: (
     }),
   });
 
-  const countries:
-    | LoadCountriesResponse
-    | ResponseError = await response.json();
+  const countries: LoadCountriesResponse | ResponseError = await response.json();
 
-  if ('errors' in countries) {
+  if (!('data' in countries) && 'errors' in countries) {
     throw new CountryLoaderError(countries);
   }
 
@@ -55,9 +53,9 @@ export const loadCountry: (
       }),
     });
 
-    const country: LoadCountryResponse = await response.json();
+    const country: LoadCountryResponse | ResponseError = await response.json();
 
-    if ('errors' in country) {
+    if (!('data' in country) && 'errors' in country) {
       throw new CountryLoaderError(country);
     }
 
