@@ -59,7 +59,7 @@ function MyComponent() {
 
 ### `useMountedRef()`
 
-This hook keep track of a component's mounted / un-mounted status and returns a ref object like React’s [`useRef`](https://reactjs.org/docs/hooks-reference.html#useref) with a boolean value representing said status. This is often use when a component contains async task that set state after the task resolved.
+This hook keeps track of a component's mounted / un-mounted status and returns a ref object like React’s [`useRef`](https://reactjs.org/docs/hooks-reference.html#useref) with a boolean value representing said status. This is often used when a component contains an async task that sets state after the task has resolved.
 
 ```tsx
 import React from 'react';

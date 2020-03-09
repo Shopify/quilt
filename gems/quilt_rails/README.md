@@ -91,6 +91,9 @@ An application can also be setup manually using the following steps.
 #### Install dependencies
 
 ```sh
+# Add ruby dependencies
+bundle add sewing_kit quilt_rails
+
 # Add core Node dependencies
 yarn add @shopify/sewing-kit @shopify/react-server
 
@@ -387,39 +390,16 @@ With SSR enabled React apps, state must be serialized on the server and deserial
 
 #### Customizing the node server
 
-By default, sewing-kit bundles in `@shopify/react-server-webpack-plugin` for `quilt_rails` applications to get apps up and running fast without needing to manually write any node server code. If what it provides is not sufficient, a custom server can be defined by adding a `server.js` or `server.ts` file to the app folder.
+By default, sewing-kit bundles in [`@shopify/react-server-webpack-plugin`](../../packages/react-server-webpack-plugin/README.md) for `quilt_rails` applications to get apps up and running fast without needing to manually write any node server code.
+
+If what it provides is not sufficient, a completely custom server can be defined by adding a `server.js` or `server.ts` file to the `app/ui` folder. The simplest way to customize the server is to export the object created by [`@shopify/react-server`](../../packages/react-server/README.md#node-usage)'s `createServer` call in `server.ts` file.
 
 ```
-└── app
+└── appeon
    └── ui
       └─- app.{js|ts}x
       └─- index.{js|ts}
       └─- server.{js|ts}x
-```
-
-```tsx
-// app/ui/server.tsx
-import '@shopify/polyfills/fetch';
-import {createServer} from '@shopify/react-server';
-import {Context} from 'koa';
-import React from 'react';
-
-import App from './app';
-
-// The simplest way to build a custom server that will work with this library is to use the APIs provided by @shopify/react-server.
-// https://github.com/Shopify/quilt/blob/master/packages/react-server/README.md#L8
-const app = createServer({
-  port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8081,
-  ip: process.env.IP,
-  assetPrefix: process.env.CDN_URL || 'localhost:8080/assets/webpack',
-  render: (ctx, {locale}) => {
-    const whatever = /* do something special with the koa context */;
-    // any special data we add to the incoming request in our rails controller we can access here to pass into our component
-    return <App server someCustomProp={whatever} location={ctx.request.url} locale={locale} />;
-  },
-});
-
-export default app;
 ```
 
 #### Fixing rejected CSRF tokens for new user sessions

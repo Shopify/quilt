@@ -31,11 +31,20 @@ Node apps require a server entry point that calls the `createServer` function. A
 ```tsx
 import React from 'react';
 import {createServer} from '@shopify/react-server';
+import {Context} from 'koa';
 import App from '../app';
 
 const app = createServer({
-  render: ctx => <App location={ctx.request.url} />,
+  port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8081,
+  ip: process.env.IP,
+  assetPrefix: process.env.CDN_URL || 'localhost:8080/assets/webpack',
+  render: (ctx: Context) => {
+    const whatever = /* do something special with the koa context */;
+    // any special data we add to the incoming request in our rails controller we can access here to pass into our component
+    return <App server location={ctx.request.url} someCustomProp={whatever}  />;
+  },
 });
+export default app;
 ```
 
 If you already have an existing node server, you can opt in to using only the render middleware provided by this package. See `createRender()`.
@@ -68,6 +77,8 @@ interface Options {
   ip?: string;
   // the full base url for the cdn if applicable
   assetPrefix?: string;
+  // the name of the asset on the cdn
+  assetName?: string;
   // any additional Koa middleware to mount on the server
   serverMiddleware?: compose.Middleware<Context>[];
   // a function of `(ctx: Context, data: {locale: string}): React.ReactElement<any>`

@@ -267,6 +267,22 @@ function App() {
 
 To get sensical data, applications using `usePerformanceReport` should be sure to have at least one performance mark on each top level page.
 
+##### Segmenting by user locale
+
+`usePerformanceReport` accepts a `locale` property that will be associated with all events.
+
+```tsx
+// App.tsx
+import React from 'react';
+import {usePerformanceReport} from '@shopify/react-performance';
+import {ProductPage} from './ProductPage';
+
+function App() {
+  usePerformanceReport('/performance-report', {locale: navigator.language});
+  return <ProductPage />;
+}
+```
+
 ### Components
 
 This library also provides the following component implementations of the above hooks:
