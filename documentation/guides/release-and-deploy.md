@@ -52,16 +52,16 @@ git push origin master --follow-tags
 
 # Releases for 🎩ing changes?
 
-### Step 1 - Publish a `dev` release for testing
+### Step 1 - Publish a `beta` release for testing
 
-- In your branch, run `yarn run release-dev`. Lerna will launch it's CLI to select a version for the changed packages. Select the `Custom` option and enter a version with an appended `-dev.X` (eg. `0.29.10-my-feature-dev.1`). Many quilt packages reference others. If your are prompted to version other packages, it is safe to do so.
+- In your branch, run `yarn run release-beta`. Lerna will launch it's CLI to select a version for the changed packages. Select the `Custom` option and enter a version with an appended `-beta.X` (eg. `0.29.10-my-feature-beta.1`). Many quilt packages reference others. If your are prompted to version other packages, it is safe to do so.
 - Push your branch to Github with the newly created tags using `git push origin <branch> --follow-tags`
 - Create a temporary stack in Shipit that points to your deb branch. Set the Branch to your PR/feature branch and update the Environment to something specific to your feature (eg. test-cool-feature)
   ![Create Shipit Stack](../images/shipit-stack.png)
 
-- Hit the deploy button on your Publish commit in Shipit to publish your dev release to npm
+- Hit the deploy button on your Publish commit in Shipit to publish your beta release to npm
 
 ### Step 2 - Consume the release
 
 - Add your release to a repository that uses the package your testing
-  - `yarn add --dev @shopify/my-package@0.29.10-my-feature-dev.1`
+  - `yarn add --dev @shopify/my-package@0.29.10-my-feature-beta.1`
