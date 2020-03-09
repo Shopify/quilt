@@ -7,8 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- [Major] Add `errors` to `LoadCountriesResponse` and `LoadCountryResponse`;
-  Update `ResponseError` to match GraphQl specification for Errors. [#1301](https://github.com/Shopify/quilt/pull/1301)
+- [Minor] Add `errors` to `LoadCountriesResponse` and `LoadCountryResponse`. [#1301](https://github.com/Shopify/quilt/pull/1301)
+- [Breaking Change] Update `ResponseError` to match GraphQl specification for Errors. [#1301](https://github.com/Shopify/quilt/pull/1301)
 
 ## [1.0.0] - 2019-08-29
 
