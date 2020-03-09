@@ -41,6 +41,7 @@ type Options = Pick<
   'afterEachPass' | 'betweenEachPass'
 > & {
   assetPrefix?: string;
+  assetName?: string;
 };
 
 /**
@@ -50,7 +51,7 @@ type Options = Pick<
  */
 export function createRender(render: RenderFunction, options: Options = {}) {
   const manifestPath = getManifestPath(process.cwd());
-  const {assetPrefix} = options;
+  const {assetPrefix, assetName = 'main'} = options;
 
   async function renderFunction(ctx: Context) {
     const logger = getLogger(ctx) || console;
@@ -105,8 +106,8 @@ export function createRender(render: RenderFunction, options: Options = {}) {
         AssetTiming.Immediate,
       );
       const [styles, scripts] = await Promise.all([
-        assets.styles({name: 'main', asyncAssets: immediateAsyncAssets}),
-        assets.scripts({name: 'main', asyncAssets: immediateAsyncAssets}),
+        assets.styles({name: assetName, asyncAssets: immediateAsyncAssets}),
+        assets.scripts({name: assetName, asyncAssets: immediateAsyncAssets}),
       ]);
 
       const response = stream(

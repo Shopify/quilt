@@ -15,8 +15,8 @@ type PropsFromNode<T> = T extends Node<infer U> ? U : never;
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
-    interface Matchers<R> {
-      toHaveReactProps(props: Partial<PropsFromNode<R>>): void;
+    interface Matchers<R, T> {
+      toHaveReactProps(props: Partial<PropsFromNode<T>>): void;
       toHaveReactDataProps(data: {[key: string]: string}): void;
       toContainReactComponent<Type extends string | ComponentType<any>>(
         type: Type,

@@ -3,6 +3,8 @@ import faker from 'faker';
 import {mount} from '@shopify/react-testing';
 
 import {asChoiceField, useChoiceField, useField, FieldConfig} from '../field';
+import {FieldState} from '../../../types';
+import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
 
 describe('useField', () => {
   function TestField({config}: {config: string | FieldConfig<string>}) {
@@ -288,6 +290,132 @@ describe('useField', () => {
 
       expect(wrapper).toContainReactComponent('p', {
         children: fieldConfig.validates('pants'),
+      });
+    });
+  });
+
+  describe('#reduceField', () => {
+    function buildState<Value>({
+      value,
+      defaultValue,
+      dirty = false,
+    }): FieldState<Value> {
+      return {
+        value,
+        defaultValue,
+        error: undefined,
+        touched: true,
+        dirty,
+      };
+    }
+
+    describe('when the new value is the same as the default value', () => {
+      describe('when the default value is an array', () => {
+        it('identifies that the state is not dirty', () => {
+          const originalState = buildState({value: [], defaultValue: []});
+          const action: FieldAction<string[]> = {
+            type: 'update',
+            payload: [],
+          };
+
+          const newState = reduceField(originalState, action);
+
+          expect(originalState).toStrictEqual(newState);
+        });
+
+        it('identifies that the state is dirty', () => {
+          const originalState = buildState({value: [], defaultValue: []});
+          const action: FieldAction<string[]> = {
+            type: 'update',
+            payload: ['new value'],
+          };
+          const expectedNewState = buildState({
+            value: action.payload,
+            defaultValue: [],
+            dirty: true,
+          });
+
+          const newState = reduceField(originalState, action);
+
+          expect(newState).toStrictEqual(expectedNewState);
+        });
+      });
+
+      describe('when the default value is not an array', () => {
+        it('identifies that the state is not dirty', () => {
+          const originalState = buildState({value: '', defaultValue: ''});
+          const action: FieldAction<string> = {
+            type: 'update',
+            payload: '',
+          };
+
+          const newState = reduceField(originalState, action);
+
+          expect(originalState).toStrictEqual(newState);
+        });
+
+        it('identifies that the state is dirty', () => {
+          const originalState = buildState({value: '', defaultValue: ''});
+          const action: FieldAction<string> = {
+            type: 'update',
+            payload: 'new value',
+          };
+          const expectedNewState = buildState({
+            value: action.payload,
+            defaultValue: '',
+            dirty: true,
+          });
+
+          const newState = reduceField(originalState, action);
+
+          expect(newState).toStrictEqual(expectedNewState);
+        });
+      });
+    });
+
+    describe('when using a custom comparator', () => {
+      it("marks as dirty if the comparator says it's dirty", () => {
+        const dirtyStateComparator = () => true;
+        const reducer = makeFieldReducer({dirtyStateComparator});
+        const originalState = buildState({
+          value: 'original value',
+          defaultValue: 'default value',
+        });
+        const action: FieldAction<string> = {
+          type: 'update',
+          payload: 'updated value',
+        };
+        const expectedNewState = buildState({
+          value: 'updated value',
+          defaultValue: 'default value',
+          dirty: true,
+        });
+
+        const newState = reducer(originalState, action);
+
+        expect(newState).toStrictEqual(expectedNewState);
+      });
+
+      it("marks as clean if the comparator says it's not dirty", () => {
+        const dirtyStateComparator = () => false;
+        const reducer = makeFieldReducer({dirtyStateComparator});
+        const originalState = buildState({
+          value: 'original value',
+          defaultValue: 'default value',
+        });
+        const action: FieldAction<string> = {
+          type: 'update',
+          payload: 'updated value',
+        };
+        const expectedNewState = buildState({
+          value: 'updated value',
+          defaultValue: 'default value',
+          dirty: false,
+        });
+
+        const newState = reducer(originalState, action);
+
+        expect(newState).toStrictEqual(expectedNewState);
       });
     });
   });

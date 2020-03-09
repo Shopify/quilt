@@ -188,6 +188,12 @@ describe('translate()', () => {
     expect(() => translate('foo', {}, {}, locale)).toThrow();
   });
 
+  it('throws a MissingTranslationError with the normalizedId when no translation is found using a scope', () => {
+    const scope = 'bar';
+    const id = 'foo';
+    expect(() => translate(id, {scope}, {}, locale)).toThrow(`${scope}.${id}`);
+  });
+
   it('looks up a translation by key', () => {
     expect(translate('foo', {}, {foo: 'bar'}, locale)).toBe('bar');
   });

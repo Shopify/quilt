@@ -30,6 +30,23 @@ const timeZone2 = 'America/Toronto';
 const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2);
 ```
 
+### `formatDate`
+
+Takes in a date object and two additional parameters, the locale and an optional options object. Returns a new date string with the applied locale and options.
+
+```ts
+import {formatDate} from '@shopify/dates';
+
+const date = new Date('2020-02-18Z14:00');
+const locales = 'en';
+const options = {
+  timeZone: 'America/New_York',
+  hour: 'numeric',
+};
+
+const newDate = formatDate(date, locales, options); // 9 AM
+```
+
 ### `getDateTimeParts`
 
 Takes in a date object and an optional time zone string parameter. Returns an object with functions to get the year, month, day, weekday, hour, minute and second of the provided date.

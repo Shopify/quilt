@@ -121,4 +121,24 @@ describe('<PerformanceReport />', () => {
       connection: mockConnection,
     });
   });
+
+  it('includes locale in reports', () => {
+    const performance = mockPerformance();
+    const mockConnection = randomConnection();
+    connection.mock(mockConnection);
+
+    mount(
+      <PerformanceContext.Provider value={performance}>
+        <PerformanceReport url={faker.internet.url()} locale="zh-CN" />
+      </PerformanceContext.Provider>,
+    );
+
+    performance.simulateNavigation();
+    timer.runAllTimers();
+
+    const [, {body}] = fetch.lastCall();
+    expect(JSON.parse(body!.toString())).toMatchObject({
+      locale: 'zh-CN',
+    });
+  });
 });
