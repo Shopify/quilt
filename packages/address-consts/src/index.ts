@@ -88,6 +88,16 @@ export interface ResponseError {
   }[];
 }
 
+export interface GraphQlError {
+  message: string;
+  locations?: {
+    column: number;
+    line: number;
+  }[];
+  path?: any[];
+  extensions?: object;
+}
+
 export const GRAPHQL_ENDPOINT =
   'https://country-service.shopifycloud.com/graphql';
 export enum GraphqlOperationName {
