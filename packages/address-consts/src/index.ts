@@ -42,10 +42,12 @@ export interface Zone {
 
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
+  errors?: GraphQlError[];
 }
 
 export interface LoadCountryResponse {
   data: {country: Country};
+  errors?: GraphQlError[];
 }
 
 export interface Country {
