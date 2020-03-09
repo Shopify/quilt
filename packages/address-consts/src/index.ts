@@ -39,6 +39,7 @@ export interface Zone {
   code: string;
   name: string;
 }
+
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
 }
@@ -46,6 +47,7 @@ export interface LoadCountriesResponse {
 export interface LoadCountryResponse {
   data: {country: Country};
 }
+
 export interface Country {
   name: string;
   code: string;
