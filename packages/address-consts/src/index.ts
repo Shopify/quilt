@@ -75,17 +75,7 @@ export interface Country {
 }
 
 export interface ResponseError {
-  errors: {
-    locations: {
-      column: number;
-      line: number;
-    }[];
-    message: string;
-    problems: {
-      explanation: string;
-    }[];
-    value: any;
-  }[];
+  errors: GraphQlError[];
 }
 
 export interface GraphQlError {
