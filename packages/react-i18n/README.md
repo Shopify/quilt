@@ -276,7 +276,7 @@ if (keyExists) {
 i18n.translate('MyComponent.searchResult', {count: searchResults});
 ```
 
-As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill.
+As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/master/packages/polyfills).
 We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
 
 By default, `{count}` will be automatically formatted as a number. If you want to format the variable differently, you can simply pass it in another variable.
