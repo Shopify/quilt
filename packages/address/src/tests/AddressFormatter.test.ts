@@ -2,7 +2,6 @@ import {fetch} from '@shopify/jest-dom-mocks';
 import {Address} from '@shopify/address-consts';
 
 import {mockCountryRequests} from '../../../address-mocks/src';
-import {toSupportedLocale} from '../loader';
 import AddressFormatter from '../AddressFormatter';
 
 const address: Address = {
@@ -54,6 +53,13 @@ describe('AddressFormatter', () => {
       ]);
     });
 
+    it('returns a country object in en if locale is not available', async () => {
+      const addressFormatter = new AddressFormatter('af');
+      const country = await addressFormatter.getCountry('CA');
+
+      expect(country.name).toStrictEqual('Canada');
+    });
+
     it('does not call the API again for the same country if the locale is the same', async () => {
       const addressFormatter = new AddressFormatter('pt-br');
 
@@ -99,6 +105,13 @@ describe('AddressFormatter', () => {
       const loadedCountries = await addressFormatter.getCountries();
 
       expect(loadedCountries).toHaveLength(242);
+    });
+
+    it('returns all countries in en if locale is not available', async () => {
+      const addressFormatter = new AddressFormatter('af');
+      const loadedCountries = await addressFormatter.getCountries();
+
+      expect(loadedCountries[0].name).toStrictEqual('Afghanistan');
     });
 
     it('does not call the API again for the countries if the locale is the same.', async () => {
@@ -166,24 +179,6 @@ describe('AddressFormatter', () => {
         ['address2'],
         ['phone'],
       ]);
-    });
-  });
-
-  describe('toSupportedLocale', () => {
-    it('changes the lowercase locale to uppercase', () => {
-      expect(toSupportedLocale('ja')).toStrictEqual('JA');
-    });
-
-    it('replaces - with _ and returns the locale in uppercase', () => {
-      expect(toSupportedLocale('pt-br')).toStrictEqual('PT_BR');
-    });
-
-    it('returns default locale if locale is not supported', () => {
-      expect(toSupportedLocale('LOL')).toStrictEqual('EN');
-    });
-
-    it('returns most similar locale available if complex', () => {
-      expect(toSupportedLocale('fr-FR')).toStrictEqual('FR');
     });
   });
 });

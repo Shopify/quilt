@@ -39,13 +39,17 @@ export interface Zone {
   code: string;
   name: string;
 }
+
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
+  errors?: GraphQlError[];
 }
 
 export interface LoadCountryResponse {
   data: {country: Country};
+  errors?: GraphQlError[];
 }
+
 export interface Country {
   name: string;
   code: string;
@@ -73,17 +77,17 @@ export interface Country {
 }
 
 export interface ResponseError {
-  errors: {
-    locations: {
-      column: number;
-      line: number;
-    }[];
-    message: string;
-    problems: {
-      explanation: string;
-    }[];
-    value: any;
+  errors: GraphQlError[];
+}
+
+export interface GraphQlError {
+  message: string;
+  locations?: {
+    column: number;
+    line: number;
   }[];
+  path?: any[];
+  extensions?: object;
 }
 
 export const GRAPHQL_ENDPOINT =
