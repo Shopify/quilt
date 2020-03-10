@@ -3,14 +3,7 @@ import {resolve} from 'path';
 import {readJSONSync} from 'fs-extra';
 import glob from 'glob';
 
-const IGNORE_REGEX = [
-  /tsconfig\.json/,
-  /tsconfig_base\.json/,
-  /react-self-serializer/,
-  /react-preconnect/,
-  /react-effect-apollo/,
-  /react-shopify-app-route-propagator/,
-];
+const IGNORE_REGEX = [/tsconfig\.json/, /tsconfig_base\.json/];
 
 const ROOT = resolve(__dirname, '..');
 const projectReferencesConfig = resolve(ROOT, 'packages', 'tsconfig.json');
@@ -23,10 +16,15 @@ describe('typescript project references', () => {
     );
 
     const packages = glob
-      .sync(resolve(ROOT, 'packages', '*'))
+      .sync(resolve(ROOT, 'packages', '*/package.json'))
       .filter(filePath => !IGNORE_REGEX.some(regex => regex.test(filePath)))
-      .map(packagePath => packagePath.split('quilt/packages/')[1]);
+      .map(
+        packageJsonPath =>
+          /quilt\/packages\/(?<packageName>[\w._-]+)\/package\.json$/i.exec(
+            packageJsonPath,
+          ).groups.packageName,
+      );
 
-    expect(packages).toStrictEqual(references);
+    expect(packages.sort()).toStrictEqual(references.sort());
   });
 });
