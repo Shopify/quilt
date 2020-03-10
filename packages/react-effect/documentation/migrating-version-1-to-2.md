@@ -52,4 +52,4 @@ extract(<App />, {
 });
 ```
 
-If you are also using Apollo for GraphQL data, we recommend you use [`@shopify/react-effect-apollo`](../../react-effect-apollo), which can collapse the tree passes performed by Apollo and this library into a single set. Instructions for doing so are in the documentation for `@shopify/react-effect-apollo`.
+If you are also using Apollo for GraphQL data, we recommend you use the `GraphQLUniversalProvider` from [`@shopify/react-graphql-universal-provider`](../../react-graphql-universal-provider/README.md) to wait for GraphQL queries to resolve on the server, and to perform automatic serialization.
