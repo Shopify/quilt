@@ -8,6 +8,8 @@ const IGNORE_REGEX = [
   /tsconfig_base\.json/,
   /react-self-serializer/,
   /react-preconnect/,
+  /react-effect-apollo/,
+  /react-shopify-app-route-propagator/,
 ];
 
 const ROOT = resolve(__dirname, '..');
