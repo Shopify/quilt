@@ -12,7 +12,7 @@ export default class Promise {
     }
 
     jest.useFakeTimers();
-    global.Promise = FakePromise;
+    global.Promise = FakePromise as any;
     this.isUsingFakePromise = true;
   }
 
