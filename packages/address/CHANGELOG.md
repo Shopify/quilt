@@ -9,6 +9,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ---
 
+## 2.8.0 - 2020-03-10
+
+- Major update to `@shopify/address-consts` and minor update to @shopify/address-mocks
+
 ## 2.7.0 - 2019-08-14
 
 ### Added

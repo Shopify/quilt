@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.4.1] - 2020-03-10
+
 ## Fixed
 
 - Overloaded `useList` to accept list as argument ([#1308](https://github.com/Shopify/quilt/issues/1308))
