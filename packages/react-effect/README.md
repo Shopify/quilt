@@ -84,15 +84,19 @@ You may optionally pass an options object that contains the following keys (all 
   ```tsx
   import {renderToString} from 'react-dom/server';
   import {extract} from '@shopify/react-effect/server';
-  import {createApolloBridge} from '@shopify/react-effect-apollo';
+  import {HtmlContext, HtmlManager} from '@shopify/react-html/server';
 
   async function app(ctx) {
-    const ApolloBridge = createApolloBridge();
+    const htmlManager = new HtmlManager();
     const app = <App />;
 
     await extract(app, {
       decorate(element) {
-        return <ApolloBridge>{element}</ApolloBridge>;
+        return (
+          <HtmlContext.Provider value={htmlManager}>
+            {element}
+          </HtmlContext.Provider>
+        );
       },
     });
 
