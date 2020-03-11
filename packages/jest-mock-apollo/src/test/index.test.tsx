@@ -3,7 +3,8 @@ import path from 'path';
 
 import React from 'react';
 import {ApolloClient} from 'apollo-client';
-import {graphql, ApolloProvider} from 'react-apollo';
+import {graphql} from '@apollo/react-hoc';
+import {ApolloProvider} from '@apollo/react-common';
 import {buildSchema} from 'graphql';
 import {createMount} from '@shopify/react-testing';
 
