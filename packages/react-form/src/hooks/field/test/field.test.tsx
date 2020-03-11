@@ -50,6 +50,27 @@ describe('useField', () => {
     });
   });
 
+  it('uses the dirty state comparator from the config', () => {
+    const dirtyStateComparator = jest.fn();
+
+    const wrapper = mount(
+      <TestField
+        config={{
+          value: 'default value',
+          validates: alwaysPass,
+          dirtyStateComparator,
+        }}
+      />,
+    );
+
+    wrapper.find('input')!.trigger('onChange', changeEvent('new value'));
+
+    expect(dirtyStateComparator).toHaveBeenCalledWith(
+      'default value',
+      'new value',
+    );
+  });
+
   describe('handlers', () => {
     describe('#onChange', () => {
       it('updates the value of the field when called with only a value', () => {
