@@ -1,1 +1,1 @@
-require('@babel/polyfill');
+import 'core-js/stable';
