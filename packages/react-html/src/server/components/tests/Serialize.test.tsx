@@ -29,7 +29,9 @@ describe('<Serialize />', () => {
       const serialize = mount(<Serialize id={id} data={data} />);
 
       expect(serialize).toContainReactComponent('script', {
-        dangerouslySetInnerHTML: {__html: serializeJavaScript(data)},
+        dangerouslySetInnerHTML: {
+          __html: serializeJavaScript(data, {isJSON: true}),
+        },
       });
     });
   });
