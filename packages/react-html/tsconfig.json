@@ -11,5 +11,11 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../react-testing"}, {"path": "../react-hydrate"}]
+  "references": [
+    {"path": "../react-effect"},
+    {"path": "../react-hydrate"},
+    {"path": "../react-testing"},
+    {"path": "../useful-types"},
+    {"path": "../with-env"}
+  ]
 }
