@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+## Breaking change
+
+- Removed the deprecated dependency `@babel/polyfill` and move to `core-js@^3.0.0`.
+- Removed the `@shopify/polyfill/url` polyfill since it's automatically provided with `core-js`.
+
+**Note**: This new version needs at least `sewing-kit@^0.150.0`.
 
 ## [1.2.4] - 2020-10-20
 
