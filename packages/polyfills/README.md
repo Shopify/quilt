@@ -29,9 +29,7 @@ $ yarn add @shopify/polyfills
 All you need to do is import the polyfills you use in your application:
 
 ```typescript
-import '@shopify/polyfills/base';
 import '@shopify/polyfills/fetch';
-import '@shopify/polyfills/url';
 ```
 
 In apps rendered on the client and server, we recommend importing these polyfills only once, in your top-level app component. Because this component is likely to be imported first by both the server and client bundles, the polyfills will be available throughout the application code. However, you may also need to import these files earlier in the execution of a Node server (if your server code uses features like `fetch` outside of the application). You will also likely need to import these in your test setup files, as most tests will not import the root app component.
