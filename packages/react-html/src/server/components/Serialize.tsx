@@ -12,7 +12,7 @@ export default function Serialize({id, data}: Props) {
   return (
     <script
       type="text/json"
-      dangerouslySetInnerHTML={{__html: serialize(data)}}
+      dangerouslySetInnerHTML={{__html: serialize(data, {isJSON: true})}}
       {...{[SERIALIZE_ATTRIBUTE]: id}}
     />
   );
