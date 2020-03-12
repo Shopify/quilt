@@ -11,5 +11,10 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../react-i18n"}]
+  "references": [
+    {"path": "../react-effect"},
+    {"path": "../react-hooks"},
+    {"path": "../react-html"},
+    {"path": "../react-i18n"}
+  ]
 }
