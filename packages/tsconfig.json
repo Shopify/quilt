@@ -55,7 +55,6 @@
     {"path": "./react-network"},
     {"path": "./react-performance"},
     {"path": "./react-router"},
-    {"path": "./react-serialize"},
     {"path": "./react-server"},
     {"path": "./react-server-webpack-plugin"},
     {"path": "./react-shortcuts"},
