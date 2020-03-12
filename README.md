@@ -4,7 +4,7 @@ A loosely related set of packages for web projects using GraphQL and TypeScript.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
 
-[![CircleCI](https://circleci.com/gh/Shopify/graphql-tools-web.svg?style=svg&circle-token=8dafbec2d33dcb489dfce1e82ed37c271b26aeba)](https://circleci.com/gh/Shopify/graphql-tools-web)
+[![CI](https://github.com/Shopify/graphql-tools-web/workflows/CI/badge.svg)](https://github.com/Shopify/graphql-tools-web/actions?query=branch%3Amain)
 
 ## Contribute
 
