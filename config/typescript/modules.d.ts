@@ -6,11 +6,6 @@ declare module 'url' {
   export function parse(url: string): URLDetails;
 }
 
-declare module 'browser-unhandled-rejection' {
-  const auto: Function;
-  export {auto};
-}
-
 declare module 'browserslist-useragent' {
   interface Options {
     browsers?: any;
