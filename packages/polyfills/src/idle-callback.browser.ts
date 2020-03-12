@@ -9,6 +9,7 @@ interface CallbackParams {
   didTimeout: boolean;
   timeRemaining(): number;
 }
+
 interface PolyfilledWindow extends Window {
   requestIdleCallback(cb: IdleCallback): any;
   cancelIdleCallback(): any;
