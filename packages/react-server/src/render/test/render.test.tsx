@@ -66,8 +66,8 @@ describe('createRender', () => {
   });
 
   it('calls the sewing-kit-koa middleware with the a functional assetName', async () => {
-    const assetName = (ctx: Context) => ctx.location.path;
-    const ctx = createMockContext({url: 'www.hi.com/hello-hi-hello'});
+    const assetName = (ctx: Context) => ctx.path;
+    const ctx = createMockContext({url: 'http://www.hi.com/hello-hi-hello'});
 
     const renderFunction = createRender(() => <></>, {assetName});
     await renderFunction(ctx, noop);
