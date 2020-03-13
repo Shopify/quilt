@@ -32,12 +32,10 @@
     "@shopify/react-effect": "^3.2.11",
     "@shopify/react-hooks": "^1.5.0",
     "@shopify/react-idle": "^1.0.16",
-    "@shopify/react-network": "^3.3.11",
     "@shopify/useful-types": "^2.1.4",
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "apollo-link-http": ">=1.0.0 <2.0.0",
     "graphql-typed": "^0.4.0"
   },
   "devDependencies": {

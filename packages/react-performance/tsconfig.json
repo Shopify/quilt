@@ -14,7 +14,6 @@
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {"path": "../network"},
-    {"path": "../performance"},
-    {"path": "../react-hooks"}
+    {"path": "../performance"}
   ]
 }

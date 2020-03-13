@@ -25,7 +25,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
   "dependencies": {
     "@shopify/decorators": "^1.1.9",
-    "@shopify/function-enhancers": "^1.0.9",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-performance/README.md",
   "dependencies": {
-    "@shopify/performance": "^1.2.6",
-    "@shopify/react-hooks": "^1.5.0"
+    "@shopify/performance": "^1.2.6"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
