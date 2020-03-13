@@ -6,7 +6,7 @@ import {
   GraphQLVariables,
   GraphQLDeepPartial,
 } from 'graphql-typed';
-import {QueryResult} from 'react-apollo';
+import {QueryResult} from '@apollo/react-common';
 import {
   ErrorPolicy,
   OperationVariables,

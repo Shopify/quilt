@@ -3,12 +3,11 @@ import {
   MutationOptions as ClientMutationOptions,
 } from 'apollo-client';
 import {
-  QueryOptions,
   QueryResult,
-  MutationOptions,
   ExecutionResult,
   OperationVariables,
-} from 'react-apollo';
+} from '@apollo/react-common';
+import {QueryOptions, MutationOptions} from '@apollo/react-hooks';
 import {Omit, IfAllNullableKeys} from '@shopify/useful-types';
 
 import {VariableOptions} from '../types';
