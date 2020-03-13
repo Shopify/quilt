@@ -72,14 +72,11 @@ Performs an action in the context of a React [`act() block`](https://reactjs.org
 function MyComponent() {
   const [clicked, setClicked] = React.useState(false);
 
-  React.useEffect(
-    () => {
-      const handler = () => setClicked(true);
-      document.body.addEventListener('click', handler);
-      return () => document.body.removeEventListener('click', handler);
-    },
-    [setClicked],
-  );
+  React.useEffect(() => {
+    const handler = () => setClicked(true);
+    document.body.addEventListener('click', handler);
+    return () => document.body.removeEventListener('click', handler);
+  }, [setClicked]);
 
   return clicked ? <div>I’ve been clicked!</div> : <div>Nothing yet</div>;
 }
@@ -380,7 +377,7 @@ The custom mount for this situation would be built as demonstrated below.
 
 ```tsx
 import React from 'react';
-import {ApolloProvider} from 'react-apollo';
+import {ApolloProvider} from '@apollo/react-common';
 import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
 
