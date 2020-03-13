@@ -12,5 +12,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../ast-utilities"}, {"path": "../react-server"}]
+  "references": [{"path": "../react-server"}]
 }

@@ -24,7 +24,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-metrics/README.md",
   "dependencies": {
     "@shopify/statsd": "^1.2.2",
-    "hot-shots": "^5.9.1",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

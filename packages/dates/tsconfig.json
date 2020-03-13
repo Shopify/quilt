@@ -12,7 +12,6 @@
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "references": [
-    {"path": "../function-enhancers"},
     {"path": "../decorators"},
     {"path": "../jest-dom-mocks"}
   ]
