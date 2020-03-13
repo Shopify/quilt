@@ -33,6 +33,7 @@
     "intl-pluralrules": "^0.2.1",
     "mutationobserver-shim": "^0.3.3",
     "node-fetch": "^2.3.0",
+    "regenerator-runtime": "^0.13.5",
     "tslib": "^1.9.3",
     "whatwg-fetch": "^3.0.0"
   },
