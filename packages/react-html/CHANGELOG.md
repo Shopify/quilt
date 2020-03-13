@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 9.3.0 - 2020-03-13
+
 - Update `serialize-javascript@^3.0.0`. Solved an issue when you try to deserialize a non-JSON object by enforcing data to be serialized as a JSON object. ([#762](https://github.com/Shopify/quilt/pull/762))
 
 ## 9.2.2 - 2019-09-06
