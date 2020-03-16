@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [4.0.6] - 2020-03-13
+
+- Update dev dependencies from `react-apollo` to `@apollo/react-common` and `@apollo/react-hoc` ([#1321](https://github.com/Shopify/quilt/pull/1321))
+
 ## [4.0.0] - 2019-10-25
 
 ### Added
