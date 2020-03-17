@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 export function useOnValueChange<T>(
   value: T,
@@ -7,8 +7,10 @@ export function useOnValueChange<T>(
   const tracked = React.useRef(value);
   const oldValue = tracked.current;
 
-  if (value !== oldValue) {
-    tracked.current = value;
-    onChange(value, oldValue);
-  }
+  useEffect(() => {
+    if (value !== oldValue) {
+      tracked.current = value;
+      onChange(value, oldValue);
+    }
+  }, [oldValue, onChange, value]);
 }
