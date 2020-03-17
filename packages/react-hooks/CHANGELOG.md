@@ -7,6 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Fixed `useOnValueChange` hook callback state updates ([#1330](https://github.com/Shopify/quilt/pull/1330))
 - Added `useInterval` hook ([#1241](https://github.com/Shopify/quilt/pull/1241))
 
 ## [1.4.0] - 2019-12-19
