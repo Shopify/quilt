@@ -11,5 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../jest-koa-mocks"}, {"path": "../jest-dom-mocks"}]
+  "references": [{"path": "../network"}]
 }

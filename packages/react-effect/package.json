@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-effect/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^2.1.4",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

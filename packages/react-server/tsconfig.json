@@ -12,6 +12,7 @@
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "references": [
+    {"path": "../jest-koa-mocks"},
     {"path": "../react-async"},
     {"path": "../sewing-kit-koa"},
     {"path": "../network"},
@@ -19,10 +20,10 @@
     {"path": "../react-cookie"},
     {"path": "../react-csrf-universal-provider"},
     {"path": "../with-env"},
-    {"path": "../sewing-kit-koa"},
     {"path": "../react-html"},
     {"path": "../useful-types"},
     {"path": "../react-hydrate"},
-    {"path": "../react-effect"}
+    {"path": "../react-effect"},
+    {"path": "../react-testing"}
   ]
 }

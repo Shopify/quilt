@@ -24,6 +24,7 @@ const KNOWN_TEMPLATE_KEYS = [
 const SINGLE_ENTRYPOINT_EXCEPTIONS = ['graphql-persisted'];
 
 const ROOT_PATH = resolve(__dirname, '..');
+const packagesPath = join(ROOT_PATH, 'packages');
 const rawPackageJSONTemplate = readFileSync(
   join(ROOT_PATH, 'templates', 'package.hbs.json'),
   {encoding: 'utf8'},
@@ -40,82 +41,105 @@ describe('templates/package.hbs.json', () => {
   });
 });
 
+const IGNORE_PACKAGES = ['tslib', '@types/'];
+
 packages.forEach(
   ({packageName, packageJSONPath, packageJSON, expectedPackageJSON}) => {
-    // eslint-disable-next-line jest/valid-describe
-    describe(packageJSONPath, () => {
-      it('specifies Shopify as author', () => {
-        expect(packageJSON.author).toBe(expectedPackageJSON.author);
-      });
-
-      it('specifies Quilt Issues as bugs URL', () => {
-        expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
-      });
-
-      it('specifies dependencies', () => {
-        expect(packageJSON.dependencies).not.toStrictEqual({});
-      });
-
-      it('specifies a description', () => {
-        expect(packageJSON.description).not.toBeUndefined();
-      });
-
-      it('specifies publishable files', () => {
-        expect(packageJSON.files).toStrictEqual(
-          expect.arrayContaining(expectedPackageJSON.files),
-        );
-      });
-
-      it('specifies Quilt deep-link homepage', () => {
-        expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
-      });
-
-      it('specifies the MIT license', () => {
-        expect(packageJSON.license).toBe(expectedPackageJSON.license);
-      });
-
-      it('specifies name matching scope and path', () => {
-        expect(packageJSON.name).toBe(expectedPackageJSON.name);
-      });
-
-      it('specifies Shopify‘s public publishConfig', () => {
-        expect(packageJSON.publishConfig).toStrictEqual(
-          expectedPackageJSON.publishConfig,
-        );
-      });
-
-      it('specifies a repository deep-linking into the Quilt monorepo', () => {
-        expect(packageJSON.repository).toStrictEqual(
-          expectedPackageJSON.repository,
-        );
-      });
-
-      it('specifies scripts, including build', () => {
-        expect(packageJSON.scripts.build).toBe(
-          expectedPackageJSON.scripts.build,
-        );
-      });
-
-      it('specifies if webpack can tree-shake, via sideEffects', () => {
-        expect(packageJSON.sideEffects).toBe(Boolean(packageJSON.sideEffects));
-      });
-
-      if (!SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
-        it('specifies the expected main', () => {
-          expect(packageJSON.main).toBe(expectedPackageJSON.main);
+    describe(`${packageName}`, () => {
+      // eslint-disable-next-line jest/valid-describe
+      describe(packageJSONPath, () => {
+        it('specifies Shopify as author', () => {
+          expect(packageJSON.author).toBe(expectedPackageJSON.author);
         });
 
-        it('specifies the expected types', () => {
-          expect(packageJSON.types).toBe(expectedPackageJSON.types);
+        it('specifies Quilt Issues as bugs URL', () => {
+          expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
         });
-      }
+
+        it('specifies dependencies', () => {
+          expect(packageJSON.dependencies).not.toStrictEqual({});
+        });
+
+        it('specifies a description', () => {
+          expect(packageJSON.description).not.toBeUndefined();
+        });
+
+        it('specifies publishable files', () => {
+          expect(packageJSON.files).toStrictEqual(
+            expect.arrayContaining(expectedPackageJSON.files),
+          );
+        });
+
+        it('specifies Quilt deep-link homepage', () => {
+          expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
+        });
+
+        it('specifies the MIT license', () => {
+          expect(packageJSON.license).toBe(expectedPackageJSON.license);
+        });
+
+        it('specifies name matching scope and path', () => {
+          expect(packageJSON.name).toBe(expectedPackageJSON.name);
+        });
+
+        it('specifies Shopify‘s public publishConfig', () => {
+          expect(packageJSON.publishConfig).toStrictEqual(
+            expectedPackageJSON.publishConfig,
+          );
+        });
+
+        it('specifies a repository deep-linking into the Quilt monorepo', () => {
+          expect(packageJSON.repository).toStrictEqual(
+            expectedPackageJSON.repository,
+          );
+        });
+
+        it('specifies scripts, including build', () => {
+          expect(packageJSON.scripts.build).toBe(
+            expectedPackageJSON.scripts.build,
+          );
+        });
+
+        it('specifies if webpack can tree-shake, via sideEffects', () => {
+          expect(packageJSON.sideEffects).toBe(
+            Boolean(packageJSON.sideEffects),
+          );
+        });
+
+        if (!SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
+          it('specifies the expected main', () => {
+            expect(packageJSON.main).toBe(expectedPackageJSON.main);
+          });
+
+          it('specifies the expected types', () => {
+            expect(packageJSON.types).toBe(expectedPackageJSON.types);
+          });
+        }
+      });
+
+      it(`ensures packages includes in dependencies are used`, () => {
+        const dependencies = Object.keys({
+          ...packageJSON.dependencies,
+        }).filter(dep =>
+          IGNORE_PACKAGES.every(ignorePackage => !dep.includes(ignorePackage)),
+        );
+
+        const filesContent = glob
+          .sync(resolve(packagesPath, packageName, '**/*.ts*'))
+          .filter(path => !path.includes('/dist/'))
+          .map(path => readFileSync(path, 'utf8'));
+
+        const expectValue = dependencies.filter(dep =>
+          filesContent.some(content => content.includes(dep)),
+        );
+
+        expect(dependencies).toStrictEqual(expectValue);
+      });
     });
   },
 );
 
 function readPackages() {
-  const packagesPath = join(ROOT_PATH, 'packages');
-
   return glob
     .sync(join(packagesPath, '*', 'package.json'))
     .map(absolutePackageJSONPath => {
