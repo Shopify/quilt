@@ -1,4 +1,5 @@
-import {fixtures} from '../../../address-mocks/src/fixtures';
+import {fixtures} from '@shopify/address-mocks';
+
 import {renderLineTemplate} from '../utilities';
 
 const Canada = fixtures.country.EN.data.country;
