@@ -12,8 +12,9 @@
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "references": [
-    {"path": "../react-html"},
+    {"path": "../react-effect"},
     {"path": "../react-graphql"},
+    {"path": "../react-html"},
     {"path": "../react-hooks"}
   ]
 }
