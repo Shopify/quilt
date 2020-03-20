@@ -12,11 +12,12 @@
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "references": [
+    {"path": "../async"},
     {"path": "../react-effect"},
     {"path": "../react-hooks"},
-    {"path": "../useful-types"},
+    {"path": "../react-hydrate"},
     {"path": "../react-idle"},
     {"path": "../react-intersection-observer"},
-    {"path": "../react-hydrate"}
+    {"path": "../useful-types"}
   ]
 }

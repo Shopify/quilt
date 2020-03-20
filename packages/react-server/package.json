@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.2.2",
+    "@shopify/react-testing": "^2.0.0",
     "@shopify/with-env": "^1.1.6",
     "@types/koa": "^2.0.0",
     "@types/supertest": "^2.0.8",

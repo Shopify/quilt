@@ -12,5 +12,10 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../performance"}, {"path": "../statsd"}]
+  "references": [
+    {"path": "../network"},
+    {"path": "../performance"},
+    {"path": "../statsd"},
+    {"path": "../with-env"}
+  ]
 }
