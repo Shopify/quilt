@@ -77,7 +77,7 @@ describe('<GraphQLUniversalProvider />', () => {
     expect(restoreSpy).toHaveBeenCalledWith(initialData);
   });
 
-  it('includes createSsrExtractableLink if a link is not present', () => {
+  it('includes a link if none are given', () => {
     const clientOptions = {
       cache: new InMemoryCache(),
     };
@@ -87,7 +87,7 @@ describe('<GraphQLUniversalProvider />', () => {
     );
 
     expect(graphQL).toContainReactComponent(ApolloProvider, {
-      client: expect.objectContaining({link: expect.any(SsrExtractableLink)}),
+      client: expect.objectContaining({link: expect.any(ApolloLink)}),
     });
   });
 });
