@@ -11,5 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../address"}, {"path": "../function-enhancers"}]
+  "references": [{"path": "../function-enhancers"}]
 }

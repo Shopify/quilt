@@ -12,9 +12,12 @@
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "references": [
-    {"path": "../function-enhancers"},
+    {"path": "../dates"},
     {"path": "../decorators"},
+    {"path": "../function-enhancers"},
     {"path": "../i18n"},
-    {"path": "../dates"}
+    {"path": "../react-effect"},
+    {"path": "../react-hooks"},
+    {"path": "../useful-types"}
   ]
 }

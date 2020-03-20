@@ -8,5 +8,9 @@
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../web-worker"}]
+  "references": [
+    {"path": "../react-hooks"},
+    {"path": "../useful-types"},
+    {"path": "../web-worker"}
+  ]
 }
