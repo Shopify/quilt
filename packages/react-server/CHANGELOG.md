@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+- Allow `assetName` to take a function for apps which need to serve multiple sub-apps based on path
+
+## [0.9.0]
 
 - Added `assetName` option to allow the `name` to be passed and default to `main`
 
