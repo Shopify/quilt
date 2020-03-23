@@ -9,6 +9,7 @@ import {createRender, RenderFunction} from '../render';
 import {requestLogger} from '../logger';
 import {metricsMiddleware as metrics} from '../metrics';
 import {ping} from '../ping';
+import {ValueFromContext} from '../types';
 
 const logger = console;
 
@@ -16,7 +17,7 @@ interface Options {
   port?: number;
   ip?: string;
   assetPrefix?: string;
-  assetName?: string;
+  assetName?: string | ValueFromContext<string>;
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
 }

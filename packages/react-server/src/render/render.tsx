@@ -30,6 +30,7 @@ import {
 } from '@shopify/sewing-kit-koa';
 
 import {getLogger} from '../logger';
+import {ValueFromContext} from '../types';
 
 export {Context};
 export interface RenderFunction {
@@ -41,7 +42,7 @@ type Options = Pick<
   'afterEachPass' | 'betweenEachPass'
 > & {
   assetPrefix?: string;
-  assetName?: string;
+  assetName?: string | ValueFromContext<string>;
 };
 
 /**
@@ -51,9 +52,14 @@ type Options = Pick<
  */
 export function createRender(render: RenderFunction, options: Options = {}) {
   const manifestPath = getManifestPath(process.cwd());
-  const {assetPrefix, assetName = 'main'} = options;
+  const {assetPrefix, assetName: assetNameInput = 'main'} = options;
 
   async function renderFunction(ctx: Context) {
+    const assetName =
+      typeof assetNameInput === 'function'
+        ? assetNameInput(ctx)
+        : assetNameInput;
+
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
 
