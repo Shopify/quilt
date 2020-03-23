@@ -4,7 +4,7 @@ import {middleware as sewingKitKoaMiddleware} from '@shopify/sewing-kit-koa';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
 
-import {createRender} from '../render';
+import {createRender, Context} from '../render';
 import {mockMiddleware} from '../../test/utilities';
 
 const mockAssetsScripts = jest.fn(() => Promise.resolve([]));
@@ -21,6 +21,11 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
 }));
 
 describe('createRender', () => {
+  beforeEach(() => {
+    mockAssetsScripts.mockClear();
+    mockAssetsStyles.mockClear();
+  });
+
   it('response contains "My cool app"', async () => {
     const myCoolApp = 'My cool app';
     const ctx = createMockContext();
@@ -62,6 +67,18 @@ describe('createRender', () => {
 
     expect(mockAssetsScripts).toHaveBeenCalledWith(
       expect.objectContaining({name: assetName}),
+    );
+  });
+
+  it('calls the sewing-kit-koa middleware with the a functional assetName', async () => {
+    const assetName = (ctx: Context) => ctx.path.replace('/', '');
+    const ctx = createMockContext({url: 'http://www.hi.com/hello-hi-hello'});
+
+    const renderFunction = createRender(() => <></>, {assetName});
+    await renderFunction(ctx, noop);
+
+    expect(mockAssetsScripts).toHaveBeenCalledWith(
+      expect.objectContaining({name: 'hello-hi-hello'}),
     );
   });
 
