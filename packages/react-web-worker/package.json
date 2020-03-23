@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-web-worker",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "license": "MIT",
   "description": "A hook for using web workers in React applications",
   "main": "dist/src/index.js",
