@@ -21,6 +21,11 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
 }));
 
 describe('createRender', () => {
+  beforeEach(() => {
+    mockAssetsScripts.mockClear();
+    mockAssetsStyles.mockClear();
+  });
+
   it('response contains "My cool app"', async () => {
     const myCoolApp = 'My cool app';
     const ctx = createMockContext();
@@ -66,7 +71,7 @@ describe('createRender', () => {
   });
 
   it('calls the sewing-kit-koa middleware with the a functional assetName', async () => {
-    const assetName = (ctx: Context) => ctx.path;
+    const assetName = (ctx: Context) => ctx.path.replace('/', '');
     const ctx = createMockContext({url: 'http://www.hi.com/hello-hi-hello'});
 
     const renderFunction = createRender(() => <></>, {assetName});
