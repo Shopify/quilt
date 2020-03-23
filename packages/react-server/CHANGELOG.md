@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [0.10.0] - 2020-03-23
+
+- Allow `assetName` to take a function for apps which need to serve multiple sub-apps based on path [[#1332]](https://github.com/Shopify/quilt/pull/1332)
+
+## [0.9.0]
 
 - Added `assetName` option to allow the `name` to be passed and default to `main`
 
@@ -15,7 +19,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.8.0] - 2019-10-30
 
-- `createRender` now includes automatic sewing-kit-koa set-up. The `createRender` middleware now accepts an `assetPrefix` that is passed to `sewingKitKoa`'s middleware. [[1160](https://github.com/Shopify/quilt/pull/1160)]
+- `createRender` now includes automatic sewing-kit-koa set-up. The `createRender` middleware now accepts an `assetPrefix` that is passed to `sewingKitKoa`'s middleware. [[#1160](https://github.com/Shopify/quilt/pull/1160)]
 
 ## [0.7.3] - 2019-09-30
 

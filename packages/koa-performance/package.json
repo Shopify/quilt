@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-performance",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "Creating a middleware that send performance related data through StatsD.",
   "main": "dist/src/index.js",
