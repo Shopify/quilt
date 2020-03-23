@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.4.2] - 2020-03-12
+
 ### Fixed
 
 - Fixed a bug in the custom comparator introduced in 0.4.0 [#1305](https://github.com/Shopify/quilt/pull/1305)
