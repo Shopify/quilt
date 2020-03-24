@@ -27,7 +27,7 @@ import {
   Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
-  CUSTOM_NAME_FORMATTERS,
+  EASTERN_NAME_ORDER_FORMATTERS,
 } from './constants';
 import {
   MissingCurrencyCodeError,
@@ -345,8 +345,8 @@ export class I18n {
     const isFullName = Boolean(options && options.full);
 
     const customNameFormatter =
-      CUSTOM_NAME_FORMATTERS.get(this.locale) ||
-      CUSTOM_NAME_FORMATTERS.get(this.language);
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
 
     if (customNameFormatter) {
       return customNameFormatter(firstName, lastName, isFullName);
@@ -355,6 +355,13 @@ export class I18n {
       return `${firstName} ${lastName}`;
     }
     return firstName;
+  }
+
+  hasEasternNameOrderFormatter() {
+    const easternNameOrderFormatter =
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
+    return Boolean(easternNameOrderFormatter);
   }
 
   private formatCurrencyExplicit(
