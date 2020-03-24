@@ -181,7 +181,7 @@ export {
   DEFAULT_DECIMAL_PLACES,
 } from './currency-decimal-places';
 
-export const CUSTOM_NAME_FORMATTERS = new Map([
+export const EASTERN_NAME_ORDER_FORMATTERS = new Map([
   [
     'ja',
     (firstName: string, lastName: string, full: boolean) =>
