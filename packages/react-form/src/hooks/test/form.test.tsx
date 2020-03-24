@@ -216,6 +216,27 @@ describe('useForm', () => {
       });
     });
 
+    it('validates list fields with their latest values before submitting and bails out if any fail', async () => {
+      const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
+      const product = fakeProduct();
+      const wrapper = mount(
+        <ProductForm data={product} onSubmit={submitSpy} />,
+      );
+
+      wrapper
+        .findAll(TextField, {label: 'price'})[1]
+        .trigger('onChange', 'not a valid price');
+
+      await wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
+
+      expect(submitSpy).not.toHaveBeenCalled();
+      expect(wrapper).toContainReactComponent('p', {
+        children: 'price must be a number',
+      });
+    });
+
     it('returns remote submission errors', async () => {
       const error = {message: 'The server hates it'};
       const promise = Promise.resolve(submitFail([error]));
