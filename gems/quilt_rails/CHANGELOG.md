@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+- Custom CSRF strategy to allow requests containing an `x-shopify-react-xhr: 1` header, deprecating the old custom CSRF strategy which was intended for use only in server rendering in favour of one for use both on the server and client.
 
 ## [1.10.0] - 2019-01-30
 
