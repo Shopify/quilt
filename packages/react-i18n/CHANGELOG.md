@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added 
+
+- Added `hasEasternNameOrderFormatter` method, to determine whether an Eastern name order formatter exists for the locale/language
+
 ## [2.3.10] - 2020-02-27
 
 ### Fixed
