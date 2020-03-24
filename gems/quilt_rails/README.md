@@ -404,18 +404,15 @@ If what it provides is not sufficient, a completely custom server can be defined
 
 #### Fixing rejected CSRF tokens for new user sessions
 
-If a React component calls back to a Rails endpoint (e.g., `/graphql`), Rails may throw a `Can't verify CSRF token authenticity` exception. This stems from the Rails CSRF tokens not persisting until after the first `UiController` call ends.
+When a React component sends HTTP requests back to a Rails endpoint (e.g., `/graphql`), Rails may throw a `Can't verify CSRF token authenticity` exception. This stems from the Rails CSRF tokens not persisting until after the first `UiController` call ends.
 
-To fix this:
+If your API **does not** require session data, the easiest way to deal with this is to use `protect_from_forgery with: :null_session`. This will work for APIs that either have no authentication requirements, or use header based authentication.
 
-- Add an `X-Shopify-Server-Side-Rendered: 1` header to all server-side GraphQL requests
-- Add a `protect_from_forgery with: Quilt::TrustedUiServerCsrfStrategy` override to Node-accessed controllers
-
-e.g.:
+##### Example
 
 ```rb
 class GraphqlController < ApplicationController
-  protect_from_forgery with: Quilt::TrustedUiServerCsrfStrategy
+  protect_from_forgery with: :null_session
 
   def execute
     # Get GraphQL query, etc
@@ -426,6 +423,29 @@ class GraphqlController < ApplicationController
   end
 end
 ```
+
+If your API **does** require session data, you may can use follow the following steps:
+
+- Add an `x-shopify-react-xhr` header to all GraphQL requests with a value of 1 (this is done automatically if you are using `@shopify/react-graphql-universal-provider`)
+- Add a `protect_from_forgery with: Quilt::HeaderCsrfStrategy` override to your controllers
+
+##### Example
+
+```rb
+class GraphqlController < ApplicationController
+  protect_from_forgery with: Quilt::HeaderCsrfStrategy
+
+  def execute
+    # Get GraphQL query, etc
+
+    result = MySchema.execute(query, operation_name: operation_name, variables: variables, context: context)
+
+    render(json: result)
+  end
+end
+```
+
+-
 
 ## Performance tracking a React app
 
