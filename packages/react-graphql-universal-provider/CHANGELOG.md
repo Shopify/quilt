@@ -11,7 +11,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- The generated `ApolloClient` now automatically includes a `x-shopify-react-xhr: 1` header.
+- The generated `ApolloClient` now automatically includes a `x-shopify-react-xhr: 1` header. ([#1331](https://github.com/Shopify/quilt/pull/1331))
 
 ## [3.0.2] - 2020-02-27
 
