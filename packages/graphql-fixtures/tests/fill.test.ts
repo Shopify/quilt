@@ -1220,6 +1220,44 @@ describe('createFiller()', () => {
       });
     });
 
+    it('fills a list with a random size and respect the min range value', () => {
+      jest.spyOn(Math, 'random').mockReturnValue(0);
+      const fill = createFillerForSchema(`
+        type Query {
+          initials: [String!]!
+        }
+      `);
+
+      const document = createDocument<{initials: string[]}>(`
+        query Details {
+          initials
+        }
+      `);
+
+      expect(fill(document, {initials: list([1, 3])})).toStrictEqual({
+        initials: [expect.any(String)],
+      });
+    });
+
+    it('fills a list with a random size and respect the max range value', () => {
+      jest.spyOn(Math, 'random').mockReturnValue(1);
+      const fill = createFillerForSchema(`
+        type Query {
+          initials: [String!]!
+        }
+      `);
+
+      const document = createDocument<{initials: string[]}>(`
+        query Details {
+          initials
+        }
+      `);
+
+      expect(fill(document, {initials: list([1, 3])})).toStrictEqual({
+        initials: [expect.any(String), expect.any(String), expect.any(String)],
+      });
+    });
+
     it('fills nested lists', () => {
       const fill = createFillerForSchema(`
         type Query {

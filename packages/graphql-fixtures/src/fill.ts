@@ -504,8 +504,9 @@ export function list<T = {}, Data = {}, Variables = {}, DeepPartial = {}>(
   size: number | [number, number],
   partial?: Thunk<T, Data, Variables, DeepPartial>,
 ): Thunk<T, Data, Variables, DeepPartial>[] {
-  const finalSize =
-    typeof size === 'number' ? size : size[Math.round(Math.random())];
+  const randomSize = ([min, max]: number[]) =>
+    Math.round(Math.random() * (max - min) + min);
+  const finalSize = typeof size === 'number' ? size : randomSize(size);
   return Array<Thunk<T, Data, Variables, DeepPartial>>(finalSize).fill(
     partial as Thunk<T, Data, Variables, DeepPartial>,
   );
