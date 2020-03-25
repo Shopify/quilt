@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-import-remote",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "license": "MIT",
   "description": "Asynchronous script loading for React",
   "main": "dist/src/index.js",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@shopify/async": "^2.1.4",
     "@shopify/react-hooks": "^1.5.0",
-    "@shopify/react-html": "^9.3.0",
+    "@shopify/react-html": "^9.3.1",
     "@shopify/react-intersection-observer": "^2.0.13",
     "@shopify/useful-types": "^2.1.4",
     "tslib": "^1.9.3"

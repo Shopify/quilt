@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+## [1.11.1] - 2020-03-24
+
+- add `allowed_push_host` in gemspec that is required to publish
+
+## [1.11.0] - 2020-03-24
+
+- Custom CSRF strategy to allow requests containing an `x-shopify-react-xhr: 1` header, deprecating the old custom CSRF strategy which was intended for use only in server rendering in favour of one for use both on the server and client. [#1331](https://github.com/Shopify/quilt/pull/1331)
 
 ## [1.10.0] - 2019-01-30
 

@@ -16,6 +16,8 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
+
   spec.add_dependency 'railties', '>= 3.2.0'
   spec.add_dependency 'rails-reverse-proxy', '~> 0.9.0'
   spec.add_dependency 'statsd-instrument', '>= 2.8.0'

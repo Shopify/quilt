@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [3.1.0] - 2020-03-24
+
+### Added
+
+- The generated `ApolloClient` now automatically includes a `x-shopify-react-xhr: 1` header. ([#1331](https://github.com/Shopify/quilt/pull/1331))
+
 ## [3.0.2] - 2020-02-27
 
 - Specify package has no `sideEffects` ([#1233](https://github.com/Shopify/quilt/pull/1233))
