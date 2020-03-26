@@ -40,6 +40,23 @@ describe('Router', () => {
     expect(wrapper).toContainReactComponent(StaticRouter, {location});
   });
 
+  it('mounts a BrowserRouter with basename', () => {
+    const basename = '/something';
+    const wrapper = mount(<Router basename={basename} />);
+
+    expect(wrapper).toContainReactComponent(BrowserRouter, {basename});
+  });
+
+  it('mounts a StaticRouter on the server with basename', () => {
+    isClient.mockReturnValue(false);
+
+    const location = 'http://www.shopify.com';
+    const basename = '/something';
+    const wrapper = mount(<Router location={location} basename={basename} />);
+
+    expect(wrapper).toContainReactComponent(StaticRouter, {location, basename});
+  });
+
   it('throws a useful error when location is omitted on the server', () => {
     isClient.mockReturnValue(false);
 
