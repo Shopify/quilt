@@ -1,5 +1,6 @@
 export {useInterval} from './interval';
 export {useLazyRef} from './lazy-ref';
+export {useMedia} from './media';
 export {useMountedRef} from './mounted-ref';
 export {useOnValueChange} from './on-value-change';
 export {usePrevious} from './previous';

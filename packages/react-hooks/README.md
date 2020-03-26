@@ -83,6 +83,22 @@ function MyComponent() {
 }
 ```
 
+### `useMedia()`
+
+This hook will return the value that matches the associated media query string. If no media query is matching then it will return the default value.
+
+```tsx
+function Message() {
+  const message = useMedia(
+    ['(max-width: 640px)', '(max-width: 748px)'],
+    ['You are using a small screen', 'You are using a medium screen'],
+    'Default message',
+  );
+
+  return <p>{message}</p>;
+}
+```
+
 ### `useMountedRef()`
 
 This hook keeps track of a component's mounted / un-mounted status and returns a ref object like React’s [`useRef`](https://reactjs.org/docs/hooks-reference.html#useref) with a boolean value representing said status. This is often used when a component contains an async task that sets state after the task has resolved.
