@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-metrics",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "license": "MIT",
   "description": "Aims to provide standard middlewares and instrumentation tooling for metrics in Koa.",
   "main": "dist/src/index.js",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.2.2",
-    "@shopify/with-env": "^1.1.6",
+    "@shopify/with-env": "^1.1.7",
     "@types/koa": "^2.0.0",
     "koa": "^2.5.0"
   },
