@@ -4,6 +4,8 @@ import {useSerialized} from '@shopify/react-html';
 import {ApolloProvider, createSsrExtractableLink} from '@shopify/react-graphql';
 import {useLazyRef} from '@shopify/react-hooks';
 
+import {csrfLink} from './csrf-link';
+
 interface Props {
   children?: React.ReactNode;
   createClientOptions(): ApolloClientOptions<any>;
@@ -15,14 +17,15 @@ export function GraphQLUniversalProvider({
 }: Props) {
   const [initialData, Serialize] = useSerialized<object | undefined>('apollo');
 
-  const [client, link] = useLazyRef<
+  const [client, ssrLink] = useLazyRef<
     [
       import('apollo-client').ApolloClient<any>,
       ReturnType<typeof createSsrExtractableLink>
     ]
   >(() => {
     const clientOptions = createClientOptions();
-    const link = createSsrExtractableLink();
+    const ssrLink = createSsrExtractableLink();
+    const link = ssrLink.concat(csrfLink);
 
     const apolloClient = new ApolloClient({
       ...clientOptions,
@@ -32,13 +35,13 @@ export function GraphQLUniversalProvider({
         : clientOptions.cache,
     });
 
-    return [apolloClient, link];
+    return [apolloClient, ssrLink];
   }).current;
 
   return (
     <>
       <ApolloProvider client={client}>{children}</ApolloProvider>
-      <Serialize data={() => link.resolveAll(() => client.extract())} />
+      <Serialize data={() => ssrLink.resolveAll(() => client.extract())} />
     </>
   );
 }
