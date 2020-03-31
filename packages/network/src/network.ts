@@ -176,3 +176,20 @@ export enum CacheControl {
 export const noCache = `${CacheControl.NoCache},${CacheControl.NoStore},${
   CacheControl.MustRevalidate
 },${CacheControl.MaxAge}=0`;
+
+export enum MimeType {
+  Csv = 'text/csv',
+  Gif = 'image/gif',
+  Glb = 'model/gltf-binary',
+  Hls = 'application/x-mpegURL',
+  Html = 'text/html',
+  Jpeg = 'image/jpeg',
+  Js = 'text/javascript',
+  Json = 'application/json',
+  Mov = 'video/quicktime',
+  Mp4 = 'video/mp4',
+  Pdf = 'application/pdf',
+  Png = 'image/png',
+  Text = 'text/plain',
+  Zip = 'application/zip',
+}
