@@ -35,11 +35,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - New Providers utlities:
 
-### `createDefaultProvider()`
+#### `createDefaultProvider()`
 
 This function return a set of providers based on a given the of options.
 
-### `<DefaultProvider />`
+#### `<DefaultProvider />`
 
 A single component that renders all of the providers required within a typical React application.
 
@@ -75,7 +75,7 @@ A single component that renders all of the providers required within a typical R
 
 - Added `Options` object as the second argument to `createRender()` allowing passed in values for `afterEachPass` and `betweenEachPass` [#911](https://github.com/Shopify/quilt/pull/911)
 
-## 0.2.0
+## [0.2.0]
 
 ### Changed
 
@@ -89,13 +89,13 @@ A single component that renders all of the providers required within a typical R
 
 - logger middleware will fallback to `console` in render middleware
 
-## 0.1.3
+## [0.1.3]
 
 ### Changed
 
 - Improve error experience in development when server rendering fails [#850](https://github.com/Shopify/quilt/pull/850)
 
-## 0.1.0
+## [0.1.0]
 
 ### Added
 
