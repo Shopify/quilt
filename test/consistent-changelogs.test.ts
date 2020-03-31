@@ -13,62 +13,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).`;
 
-readChangelogs().forEach(
-  ({packageDir, packageChangelogPath, packageChangelog}) => {
-    describe(`changelog consistency for ${packageChangelogPath}`, () => {
-      it('begins with the "Keep a Changelog" intro section ', () => {
-        const actualIntro = packageChangelog.substring(
-          0,
-          CHANGELOG_INTRO.length,
-        );
+readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
+  describe(`changelog consistency for ${packageChangelogPath}`, () => {
+    it('begins with the "Keep a Changelog" intro section ', () => {
+      const actualIntro = packageChangelog.substring(0, CHANGELOG_INTRO.length);
 
-        expect(actualIntro).toBe(CHANGELOG_INTRO);
-      });
-
-      it('contains only known headers', () => {
-        const headerLines = packageChangelog
-          .split('\n')
-          .filter(line => /^\s*#/.exec(line));
-        const offendingHeaders = headerLines.filter(
-          headerLine => !headerIsAllowed(headerLine),
-        );
-
-        expect(offendingHeaders).toStrictEqual([]);
-      });
-
-      it('has exactly 1 empty line before headings', () => {
-        const notEnoughSpacingBeforeHeadings = /[^\n]+\n^#.*$/gm;
-
-        expect(packageChangelog).not.toStrictEqual(
-          expect.stringMatching(notEnoughSpacingBeforeHeadings),
-        );
-      });
-
-      it('has exactly 1 empty line after headings', () => {
-        const notEnoughSpacingAfterHeadings = /^#.*$\n[^\n]+/gm;
-
-        expect(packageChangelog).not.toStrictEqual(
-          expect.stringMatching(notEnoughSpacingAfterHeadings),
-        );
-      });
-
-      it('does not contain duplicate headers', () => {
-        const headerLines = packageChangelog
-          .split('\n')
-          .filter(
-            line =>
-              HEADER_START_REGEX.exec(line) || /## \[Unreleased\]/.exec(line),
-          )
-          .sort();
-        const uniqueHeaderLines = headerLines.filter(
-          (element, index, array) => array.indexOf(element) === index,
-        );
-
-        expect(headerLines).toStrictEqual(uniqueHeaderLines);
-      });
+      expect(actualIntro).toBe(CHANGELOG_INTRO);
     });
-  },
-);
+
+    it('contains only known headers', () => {
+      const headerLines = packageChangelog
+        .split('\n')
+        .filter(line => /^\s*#/.exec(line));
+      const offendingHeaders = headerLines.filter(
+        headerLine => !headerIsAllowed(headerLine),
+      );
+
+      expect(offendingHeaders).toStrictEqual([]);
+    });
+
+    it('has exactly 1 empty line before headings', () => {
+      const notEnoughSpacingBeforeHeadings = /[^\n]+\n^#.*$/gm;
+
+      expect(packageChangelog).not.toStrictEqual(
+        expect.stringMatching(notEnoughSpacingBeforeHeadings),
+      );
+    });
+
+    it('has exactly 1 empty line after headings', () => {
+      const notEnoughSpacingAfterHeadings = /^#.*$\n[^\n]+/gm;
+
+      expect(packageChangelog).not.toStrictEqual(
+        expect.stringMatching(notEnoughSpacingAfterHeadings),
+      );
+    });
+
+    it('does not contain duplicate headers', () => {
+      const headerLines = packageChangelog
+        .split('\n')
+        .filter(
+          line =>
+            HEADER_START_REGEX.exec(line) || /## \[Unreleased\]/.exec(line),
+        )
+        .sort();
+      const uniqueHeaderLines = headerLines.filter(
+        (element, index, array) => array.indexOf(element) === index,
+      );
+
+      expect(headerLines).toStrictEqual(uniqueHeaderLines);
+    });
+  });
+});
 
 const allowedHeaders = [
   '# Changelog',

@@ -51,7 +51,7 @@ function readChangelogs() {
 function safeReadSync(path, options) {
   try {
     return readFileSync(path, options);
-  } catch {
+  } catch (err) {
     return '';
   }
 }
