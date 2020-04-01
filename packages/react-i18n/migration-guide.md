@@ -2,7 +2,7 @@
 
 This is a concise summary of changes and recommendations around updating `@shopify/react-i18n` in consuming projects. For a more detailed list of changes, see [the changelog](./CHANGELOG.md).
 
-## Unreleased
+## [Unreleased]
 
 🛑Breaking change - The translation keys for dates formatted with `DateStyle.Humanize` have changed. Consumers will need to modify the translation keys as outlined below.
 
