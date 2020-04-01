@@ -5,14 +5,13 @@ import {
   Validates,
   Validator,
   FieldOutput,
-  FieldDictionary,
+  FieldBag,
+  FormMapping,
   Field,
   FormError,
 } from './types';
 
-export function isField<T extends object>(
-  input: FieldOutput<T>,
-): input is Field<T> {
+export function isField<T extends Object>(input: any): input is Field<T> {
   return (
     Object.prototype.hasOwnProperty.call(input, 'value') &&
     Object.prototype.hasOwnProperty.call(input, 'onChange') &&
@@ -30,6 +29,32 @@ export function mapObject<Output>(
     accumulator[key] = mapper(value, key);
     return accumulator;
   }, {}) as Output;
+}
+
+// Eg: set({a: 1}, ['b', 'c'], 2) // => {a: 1, b: {c: 2}}
+function setObject<T extends Object>(
+  obj: T,
+  path: (string | number)[],
+  value: any,
+): T {
+  const [key, ...restPath] = path;
+  if (key == null || obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (!restPath.length) {
+    obj[key] = value;
+    return obj;
+  }
+
+  // creates prop if it doesn't exist
+  if (typeof obj[key] === 'undefined') {
+    // look ahead to the next key. If it is a number, this prop is an array
+    obj[key] = typeof restPath[0] === 'number' ? [] : {};
+  }
+
+  obj[key] = setObject(obj[key], restPath, value);
+  return obj;
 }
 
 export function normalizeValidation<Value, Context extends object = {}>(
@@ -68,32 +93,67 @@ export function propagateErrors(
   });
 }
 
-export function validateAll(fieldBag: {[key: string]: FieldOutput<any>}) {
-  const fields = Object.values(fieldBag);
-  const errors: FormError[] = [];
-
-  function validate(field: Field<unknown>) {
-    const message = field.runValidation();
-    if (message) {
-      errors.push({message});
-    }
-  }
-
-  function validateDictionary(fields: FieldDictionary<any>) {
-    Object.values(fields).forEach(validate);
-  }
-
-  for (const item of fields) {
+// Reduce function similar to Array.reduce() for a tree-like FieldBag
+export function reduceFields<V>(
+  fieldBag: FieldBag,
+  reduceFn: (
+    accumulator: V,
+    currentField: Field<any>,
+    path: (string | number)[],
+    fieldBag: FieldBag,
+  ) => V,
+  initialValue?: V,
+) {
+  return (function reduceField(
+    accumulator: V,
+    item: FieldBag | FieldOutput<any>,
+    path: (string | number)[],
+  ): V {
     if (isField(item)) {
-      validate(item);
-    } else if (Array.isArray(item)) {
-      item.map(validateDictionary);
-    } else {
-      validateDictionary(item);
+      return reduceFn(accumulator, item, path, fieldBag);
     }
-  }
 
-  return errors;
+    if (Array.isArray(item)) {
+      return item.reduce(
+        (_accumulator: V, value, index) =>
+          reduceField(_accumulator, value, path.concat(index)),
+        accumulator,
+      );
+    }
+
+    return Object.entries(item).reduce(
+      (_accumulator: V, [key, value]) =>
+        reduceField(_accumulator, value, path.concat(key)),
+      accumulator,
+    );
+  })(initialValue as V, fieldBag, []);
+}
+
+export function fieldsToArray(fieldBag: FieldBag) {
+  return reduceFields<Field<any>[]>(
+    fieldBag,
+    (fields, field) => fields.concat(field),
+    [],
+  );
+}
+
+export function validateAll(fieldBag: FieldBag) {
+  return reduceFields<FormError[]>(
+    fieldBag,
+    (errors, field) => {
+      const message = field.runValidation();
+      return message ? errors.concat({message}) : errors;
+    },
+    [],
+  );
+}
+
+export function getValues<T extends FieldBag>(fieldBag: T) {
+  return reduceFields<FormMapping<T, 'value'>>(
+    fieldBag,
+    (formValue, field, path) => setObject(formValue, path, field.value),
+    {} as any,
+  );
 }
 
 export function noop() {}
