@@ -29,15 +29,25 @@ function MyComponent({foo}: {foo: string}) {
 
 ### `useTimeout()`
 
-This hook provides a declarative version of [`setTimeout()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). The first argument is a callback that will be invoked after the given delay (number of milliseconds) as the second argument.
+This hook provides a declarative version of [`setTimeout()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). The first argument is a callback that will be invoked after the given delay (number of milliseconds) as the second argument. Optionally, the timeout can be disabled by passing `null` as the delay.
 
 ```tsx
 function MyComponent() {
-  const [foo, setFoo] = React.useState('Bar');
+  const [status, setStatus] = React.useState('Pending');
+  const pending = status === 'Pending';
 
-  useTimeout(() => setFoo('Baz!'), 5000);
+  const buttonLabel = pending ? 'Cancel' : 'Reset';
+  const handleClick = () => setStatus(pending ? 'Cancelled' : 'Pending');
+  const delay = pending ? 1000 : null;
 
-  return <div>{foo}</div>;
+  useTimeout(() => setStatus('Fired'), delay);
+
+  return (
+    <div>
+      <div>{status}</div>
+      <button onClick={handleClick}>{buttonLabel}</button>
+    </div>
+  );
 }
 ```
 
