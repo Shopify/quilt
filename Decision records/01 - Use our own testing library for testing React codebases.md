@@ -10,7 +10,7 @@
 
 ## Summary
 
-We use and maintain [`@shopify/react-testing`](https://www.npmjs.com/package/@shopify/react-testing) for testing React applications at Shopify. Usage of supplemental tools for visual regression testing and to aid in manual functional testing is also encouraged where needed.
+We use and maintain [`@shopify/react-testing`](https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md) for testing React applications at Shopify. Usage of supplemental tools for visual regression testing and to aid in manual functional testing is also encouraged where needed.
 
 ## Problem space
 
@@ -40,7 +40,7 @@ While this premise of writing tests that mirror user actions is compelling, basi
 
 ## Solution
 
-We use and maintain [`@shopify/react-testing`](https://www.npmjs.com/package/@shopify/react-testing) as our test library of choice for unit testing component behaviour and composition. We supplement this with [visual regression testing](https://percy.io/), manual functional testing, and usage of tools like [storybook](https://storybook.js.org/) to aid in UI development where needed.
+We use and maintain [`@shopify/react-testing`](https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md) as our test library of choice for unit testing component behaviour and composition. We supplement this with [visual regression testing](https://percy.io/), manual functional testing, and usage of tools like [storybook](https://storybook.js.org/) to aid in UI development where needed.
 
 `@shopify/react-testing` was originally built by @lemonmade as a direct response to some difficulties we were experiencing with Enzyme, and has since gone on to become the dominant way we test components and features in React applications at Shopify. Since then we have also released `@shopify/preact-testing` for our Preact applications. The library is closer to `Enzyme` than it is `testing-library` in principle but has a number of significantly different choices which make it an ideal middleground:
 
