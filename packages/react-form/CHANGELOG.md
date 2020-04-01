@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.5.0] - 2020-03-12
+
+### Added
+
+- Added `reduceFields` utilities [#1307](https://github.com/Shopify/quilt/pull/1307)
+
 ## [0.4.2] - 2020-03-12
 
 ### Fixed
