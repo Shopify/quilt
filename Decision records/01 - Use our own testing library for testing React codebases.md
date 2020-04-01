@@ -10,7 +10,7 @@
 
 ## Summary
 
-We use and maintain `@shopify/react-testing` for testing React applications at Shopify. Usage of supplemental tools for visual regression testing and to aid in manual functional testing is also encouraged where needed.
+We use and maintain [`@shopify/react-testing`](https://www.npmjs.com/package/@shopify/react-testing) for testing React applications at Shopify. Usage of supplemental tools for visual regression testing and to aid in manual functional testing is also encouraged where needed.
 
 ## Problem space
 
