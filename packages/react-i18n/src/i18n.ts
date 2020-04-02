@@ -49,7 +49,7 @@ export interface NumberFormatOptions extends Intl.NumberFormatOptions {
 }
 
 export interface CurrencyFormatOptions extends NumberFormatOptions {
-  form?: 'short' | 'explicit';
+  form?: 'auto' | 'short' | 'explicit';
 }
 
 export interface TranslateOptions {
@@ -247,11 +247,15 @@ export class I18n {
     amount: number,
     {form, ...options}: CurrencyFormatOptions = {},
   ) {
-    if (form === 'explicit') {
-      return this.formatCurrencyExplicit(amount, options);
-    } else if (form === 'short') {
-      return this.formatCurrencyShort(amount, options);
+    switch (form) {
+      case 'auto':
+        return this.formatCurrencyAuto(amount, options);
+      case 'explicit':
+        return this.formatCurrencyExplicit(amount, options);
+      case 'short':
+        return this.formatCurrencyShort(amount, options);
     }
+
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
@@ -362,6 +366,23 @@ export class I18n {
       EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
       EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
     return Boolean(easternNameOrderFormatter);
+  }
+
+  private formatCurrencyAuto(
+    amount: number,
+    options: Intl.NumberFormatOptions = {},
+  ): string {
+    // use the short format if we can't determine a currency match, or if the
+    // currencies match, use explicit when the currencies definitively do not
+    // match.
+    const formatShort =
+      options.currency == null ||
+      this.defaultCurrency == null ||
+      options.currency === this.defaultCurrency;
+
+    return formatShort
+      ? this.formatCurrencyShort(amount, options)
+      : this.formatCurrencyExplicit(amount, options);
   }
 
   private formatCurrencyExplicit(
