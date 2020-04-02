@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [2.5.0] - 2020-04-02
 
 ### Added
 
+- Add `defaultLocale` option to Babel plugin ([#1225](https://github.com/Shopify/quilt/pull/1225))
 - Added `form: 'auto'` option to `formatCurrency`, to automatically select `short` or `explicit` based on `currency` and `defaultCurrency` ([#1350](https://github.com/Shopify/quilt/pull/1350))
 
 ## [2.4.1] - 2020-04-02
