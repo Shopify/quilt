@@ -183,6 +183,11 @@ export {
 
 export const EASTERN_NAME_ORDER_FORMATTERS = new Map([
   [
+    'ko',
+    (firstName: string, lastName: string, full: boolean) =>
+      full ? `${lastName}${firstName}` : lastName,
+  ],
+  [
     'ja',
     (firstName: string, lastName: string, full: boolean) =>
       full ? `${lastName}${firstName}` : `${lastName}様`,

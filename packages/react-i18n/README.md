@@ -328,7 +328,7 @@ i18n.getTranslationTree('MyComponent.countries');
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
 
-We recommend you to use [`@shopify/react-html](https://github.com/Shopify/quilt/tree/master/packages/react-html) with [`@shopify/react-i18n-universal-provider`](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider) to serialize the extracted translations and rehydrate them on the client.
+We recommend you to use [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html) with [`@shopify/react-i18n-universal-provider`](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider) to serialize the extracted translations and rehydrate them on the client.
 
 ```tsx
 import {

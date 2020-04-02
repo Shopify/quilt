@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+<!-- ## [Unreleased] -->
+
+## [0.5.0] - 2020-03-12
+
+### Added
+
+- Added `reduceFields` utilities [#1307](https://github.com/Shopify/quilt/pull/1307)
 
 ## [0.4.2] - 2020-03-12
 
@@ -16,7 +22,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.4.1] - 2020-03-10
 
-## Fixed
+### Fixed
 
 - Overloaded `useList` to accept list as argument ([#1308](https://github.com/Shopify/quilt/issues/1308))
 

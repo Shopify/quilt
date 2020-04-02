@@ -26,6 +26,10 @@ Manage react forms tersely and safely-typed with no magic using React hooks. Bui
       1. [dependencies](#validation)
       1. [built-in](#validation)
       1. [validator](#validation)
+   1. [Utilities](#utilities)
+      1. [reduceFields](#utilities)
+      1. [getValues](#utilities)
+      1. [fieldsToArray](#utilities)
 1. [FAQ](#faq)
 
 ## Installation
@@ -826,6 +830,127 @@ Docs for these standalone hooks are coming soon. For now check out the `.d.ts` f
 ### Validation
 
 Detailed validation docs are coming soon. For now check out the `.d.ts` files for the API.
+
+### Utilities
+
+#### reduceFields
+
+Similar to `Array.reduce()` it visits all fields in the form
+
+##### Signature
+
+```tsx
+function reduceFields<V>(
+  fieldBag: FieldBag,
+  reduceFn: (
+    accumulator: V,
+    currentField: Field<any>,
+    path: (string | number)[],
+    fieldBag: FieldBag,
+  ) => V,
+  initialValue?: V,
+): V;
+```
+
+###### Parameters:
+
+- `fieldBag` is the collection of fields returned from `useForm`.
+- `reduceFn` is the reducer function to operate on each field. The return value will be passed onto the next iteration.
+- `initialValues` the starting value passed to the first iteration of the reducerFn.
+
+###### Return value:
+
+A value returned by the `reduceFn` iterating through all the fields in the form.
+
+##### Examples
+
+Here is how to calculate if the entire form is dirty
+
+```tsx
+const {fields} = useForm(/* ... */);
+
+const dirty = reduceFields(
+  fields,
+  (_dirty, field) => _dirty || field.dirty,
+  false,
+);
+```
+
+#### getValues
+
+Gets a form's field values like you get in `onSubmit`.
+
+##### Signature
+
+```tsx
+function getValues<T extends object>(fieldBag: FieldBag): T;
+```
+
+###### Parameters:
+
+- `fieldBag` is the collection of fields returned from `useForm`.
+
+###### Return value:
+
+Field values from the form.
+
+##### Examples
+
+Here is how to calculate if the entire form is dirty
+
+```tsx
+const {fields} = useForm({
+  fields: {
+    name: {
+      first: useField('your'),
+      last: useField('name'),
+    },
+    email: useField('your.name@shopify.com'),
+  },
+});
+
+const formValues = getValues(fields);
+// => { name: {first: 'your', last: 'name'}, email: 'your.name@shopify.com' }
+```
+
+#### fieldsToArray
+
+Normalizes nested fields to array of fields.
+
+##### Signature
+
+```tsx
+function fieldsToArray(fieldBag: FieldBag): Field[];
+```
+
+###### Parameters:
+
+- `fieldBag` is the collection of fields returned from `useForm`.
+
+###### Return value:
+
+Array of fields.
+
+##### Examples
+
+```tsx
+const firstName = useField('your');
+const lastName = useField('name');
+const email = useField('your.name@shopify.com');
+const {fields} = useForm({
+  fields: {
+    name: {
+      first: firstName,
+      last: lastName,
+    },
+    email,
+  },
+});
+
+const formValues = fieldsToArray(fields);
+// Note: Ordering of fields is not guaranteed.
+// => [firstName, lastName, email]
+```
 
 ## FAQ
 

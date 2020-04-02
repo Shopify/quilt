@@ -1462,10 +1462,18 @@ describe('I18n', () => {
       expect(i18n.formatName('', 'last', {full: true})).toStrictEqual('last');
     });
 
-    it('returns a string when firstName and lastName are missing using full', () => {
+    it('returns a string when lastName is undefined using full', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
       expect(i18n.formatName('', undefined, {full: true})).toStrictEqual('');
+    });
+
+    it('returns a string when first and lastName are missing using full', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName(undefined, undefined, {full: true})).toStrictEqual(
+        '',
+      );
     });
 
     it('defaults to firstName lastName for unknown locale', () => {
@@ -1494,6 +1502,14 @@ describe('I18n', () => {
 
     it('returns lastName first and no space for Japanese', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'ja'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'lastfirst',
+      );
+    });
+
+    it('returns lastName first and no space for Korean', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'ko'});
 
       expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
         'lastfirst',

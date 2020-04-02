@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Added support for `null` `delay` argument to `useTimeout`, to clear the timeout ([#1306](https://github.com/Shopify/quilt/pull/1306))
+
+### Fixed
+
+- Improved `useTimeout` hook, so it doesn't reset the timeout if the `callback` changes ([#1306](https://github.com/Shopify/quilt/pull/1306))
+
+## [1.5.0] - 2020-03-12
+
 - Added `useInterval` hook ([#1241](https://github.com/Shopify/quilt/pull/1241))
 
 ## [1.4.0] - 2019-12-19

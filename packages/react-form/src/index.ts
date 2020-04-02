@@ -16,4 +16,10 @@ export {
   submitSuccess,
 } from './hooks';
 
-export {validateAll, propagateErrors} from './utilities';
+export {
+  fieldsToArray,
+  getValues,
+  propagateErrors,
+  validateAll,
+  reduceFields,
+} from './utilities';
