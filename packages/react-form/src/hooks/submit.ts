@@ -7,9 +7,8 @@ import {
   SubmitResult,
   FieldBag,
   FormError,
-  FieldDictionary,
 } from '../types';
-import {mapObject, isField, propagateErrors, validateAll} from '../utilities';
+import {propagateErrors, validateAll, getValues} from '../utilities';
 
 export function useSubmit<T extends FieldBag>(
   onSubmit: SubmitHandler<FormMapping<T, 'value'>> = noopSubmission,
@@ -59,26 +58,6 @@ export function useSubmit<T extends FieldBag>(
   );
 
   return {submit, submitting, errors: submitErrors, setErrors};
-}
-
-function getValues<T extends FieldBag>(fieldBag: T) {
-  return mapObject<FormMapping<T, 'value'>>(fieldBag, item => {
-    if (isField(item)) {
-      return item.value;
-    }
-
-    if (Array.isArray(item)) {
-      return item.map(valuesOfFields);
-    }
-
-    return valuesOfFields(item);
-  });
-}
-
-function valuesOfFields(fields: FieldDictionary<any>) {
-  return mapObject(fields, item => {
-    return item.value;
-  });
 }
 
 /**
