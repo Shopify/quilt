@@ -659,6 +659,57 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrencyAuto()', () => {
+    const amount = 1234;
+    const currency = 'USD';
+    const symbolInfo = {symbol: '$', prefixed: true};
+
+    it('formats short when there is no currency in the options', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {form: 'auto'})).toBe(
+        i18n.formatCurrency(amount, {form: 'short'}),
+      );
+    });
+
+    it('formats short when there is no default currency', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+
+      expect(i18n.formatCurrency(amount, {form: 'auto', currency})).toBe(
+        i18n.formatCurrency(amount, {form: 'short', currency}),
+      );
+    });
+
+    it('formats short when the default currency matches the options currency', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {form: 'auto', currency})).toBe(
+        i18n.formatCurrency(amount, {form: 'short', currency}),
+      );
+    });
+
+    it('formats explicit when the default currency does not match the options currency', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {form: 'auto', currency: 'CAD'})).toBe(
+        i18n.formatCurrency(amount, {form: 'explicit', currency: 'CAD'}),
+      );
+    });
+  });
+
   describe('#formatCurrencyExplicit()', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
