@@ -486,6 +486,19 @@ webpack(require(./webpack.config.js));
 
 ```
 
+#### Setting the default locale to something other than `en`
+
+If you want your default locale to be something else than English because it's not your primary locale, you can pass the `defaultLocale` option to the babel plugin:
+
+```
+// webpack.config.js
+{
+  plugins: [
+    ['@shopify/react-i18n/babel', {defaultLocale: 'fr'}],
+  ],
+}
+```
+
 ## FAQ
 
 ### Why another i18n library? Why not just use <[react-intl](https://github.com/yahoo/react-intl) | [react-i18next](https://github.com/i18next/react-i18next)> etc?

@@ -322,6 +322,35 @@ describe('babel-pluin-react-i18n', () => {
     );
   });
 
+  it('loads fr.json as default translation when defaultLocale is set to fr', async () => {
+    expect(
+      await transformUsingI18nBabelPlugin(
+        withI18nFixture,
+        optionsForFile('MyComponent.tsx', true),
+        {defaultLocale: 'fr'},
+      ),
+    ).toBe(
+      await normalize(
+        `import _fr from './${TRANSLATION_DIRECTORY_NAME}/fr.json';
+        import React from 'react';
+        import {withI18n} from '@shopify/react-i18n';
+
+        function MyComponent({i18n}) {
+          return i18n.translate('key');
+        }
+
+        export default withI18n({
+          id: 'MyComponent_${defaultHash}',
+          fallback: _fr,
+          ${createExpectedTranslationsOption({
+            translationArrayString: '["de", "en", "zh-TW"]',
+          })}
+        })(MyComponent);
+        `,
+      ),
+    );
+  });
+
   describe('from-dictionary-index', () => {
     it('injects a dictionary import, and returns dictionary values from useI18n', async () => {
       expect(
