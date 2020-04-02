@@ -42,14 +42,14 @@ While this premise of writing tests that mirror user actions is compelling, basi
 
 We use and maintain [`@shopify/react-testing`](https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md) as our test library of choice for unit testing component behaviour and composition. We supplement this with [visual regression testing](https://percy.io/), manual functional testing, and usage of tools like [storybook](https://storybook.js.org/) to aid in UI development where needed.
 
-`@shopify/react-testing` was originally built by @lemonmade as a direct response to some difficulties we were experiencing with Enzyme, and has since gone on to become the dominant way we test components and features in React applications at Shopify. Since then we have also released `@shopify/preact-testing` for our Preact applications. The library is closer to `Enzyme` than it is `testing-library` in principle but has a number of significantly different choices which make it an ideal middleground:
+`@shopify/react-testing` was originally built by @lemonmade as a direct response to some difficulties we were experiencing with Enzyme, and has since gone on to become the dominant way we test components and features in React applications at Shopify. Since then we have also released `@shopify/preact-testing` for our Preact applications. The library is closer to `Enzyme` than `testing-library` but has a number of significantly different choices which make it an ideal middleground:
 
-- A small, focused, API focusing on testing the API of components directly and avoiding options which break that such as `setState`
+- A small API focused on testing the API of components directly and avoiding options which break that such as `setState`
 - A total avoidance of "shallow" rendering
 - A streamlined method for interacting with components avoiding event simulation in favour of `trigger`ing callbacks directly
 - Tight integration with React's `act` system for testing complex asynchronous user flows
 - Tracking major versions of React and aggressive deprecation of support for old versions allowing it to be updated and maintained quickly
-- Built in facilities for customizing the `mount` function for complex applications
+- Built-in facilities for customizing the `mount` function to reuse setup when testing complex applications
 - Smart cleanup behaviour allowing test suites to scale without memory leakage
 - Terse and literate custom matchers for the [`Jest`](https://www.npmjs.com/package/jest) test runner
 
