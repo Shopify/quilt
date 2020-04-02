@@ -178,7 +178,7 @@ export function useList<Item extends object>(
 
             const siblings = state.list.filter(listItem => listItem !== item);
 
-            runValidation(
+            return runValidation(
               error =>
                 dispatch(updateErrorAction<Item>({target, error: error || ''})),
               {value, siblings, listItem: item},
