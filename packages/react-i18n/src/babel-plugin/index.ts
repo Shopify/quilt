@@ -19,6 +19,7 @@ export const I18N_CALL_NAMES = ['useI18n', 'withI18n'];
 
 export interface Options {
   mode?: 'from-generated-index' | 'from-dictionary-index';
+  defaultLocale?: string;
 }
 
 interface State {
@@ -104,8 +105,10 @@ export default function injectWithI18nArguments({
             return;
           }
 
-          const {mode} = state.opts;
-          const fallbackLocale = DEFAULT_FALLBACK_LOCALE;
+          const {mode, defaultLocale} = state.opts;
+          const fallbackLocale = defaultLocale
+            ? defaultLocale
+            : DEFAULT_FALLBACK_LOCALE;
 
           const fallbackID = nodePath.scope.generateUidIdentifier(
             camelCase(fallbackLocale),
