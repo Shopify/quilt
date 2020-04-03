@@ -173,7 +173,7 @@ describe('koa-metrics', () => {
 
       const ctx = createMockContext({
         headers: {
-          'X-Request-Start': String(queuingTime),
+          'X-Request-Start': `t=${queuingTime}`,
         },
       });
 
