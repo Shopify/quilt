@@ -1,14 +1,6 @@
-import {useMemo} from 'react';
-
 import {FieldBag} from '../types';
-import {fieldsToArray} from '../utilities';
+import {reduceFields} from '../utilities';
 
 export function useDirty(fieldBag: FieldBag) {
-  const fields = fieldsToArray(fieldBag);
-
-  return useMemo(
-    () => fields.some(field => field.dirty),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    fields,
-  );
+  return reduceFields(fieldBag, (dirty, field) => dirty || field.dirty, false);
 }

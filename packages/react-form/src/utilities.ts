@@ -103,6 +103,12 @@ export function reduceFields<V>(
     fieldBag: FieldBag,
   ) => V,
   initialValue?: V,
+  reduceEmptyFn: (
+    accumulator: V,
+    value: any,
+    path: (string | number)[],
+    fieldBag: FieldBag,
+  ) => V = value => value,
 ) {
   return (function reduceField(
     accumulator: V,
@@ -113,7 +119,7 @@ export function reduceFields<V>(
       return reduceFn(accumulator, item, path, fieldBag);
     }
 
-    if (Array.isArray(item)) {
+    if (Array.isArray(item) && item.length) {
       return item.reduce(
         (_accumulator: V, value, index) =>
           reduceField(_accumulator, value, path.concat(index)),
@@ -121,11 +127,19 @@ export function reduceFields<V>(
       );
     }
 
-    return Object.entries(item).reduce(
-      (_accumulator: V, [key, value]) =>
-        reduceField(_accumulator, value, path.concat(key)),
-      accumulator,
-    );
+    if (typeof item === 'object' && item !== null) {
+      const entries = Object.entries(item);
+      if (entries.length) {
+        return entries.reduce(
+          (_accumulator: V, [key, value]) =>
+            reduceField(_accumulator, value, path.concat(key)),
+          accumulator,
+        );
+      }
+    }
+
+    // item is empty array, empty object, or primitive
+    return reduceEmptyFn(accumulator, item, path, fieldBag);
   })(initialValue as V, fieldBag, []);
 }
 
@@ -153,6 +167,7 @@ export function getValues<T extends FieldBag>(fieldBag: T) {
     fieldBag,
     (formValue, field, path) => setObject(formValue, path, field.value),
     {} as any,
+    (formValue, value, path) => setObject(formValue, path, value),
   );
 }
 
