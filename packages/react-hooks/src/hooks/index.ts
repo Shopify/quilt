@@ -1,3 +1,4 @@
+export {useDebouncedValue} from './debounced';
 export {useInterval} from './interval';
 export {useLazyRef} from './lazy-ref';
 export {useMountedRef} from './mounted-ref';

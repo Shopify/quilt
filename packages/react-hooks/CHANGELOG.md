@@ -9,6 +9,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [1.6.1] - 2020-04-07
 
+### Added
+
+- Added `useDebouncedValue` hook ([#1354](https://github.com/Shopify/quilt/pull/1354))
+
 ### Fixed
 
 - `useOnChangeValue` is now executed in an `useEffect` and doesn't block the render method anymore. **This fix may cause timing issue in your project if you depended on the change handler happening synchronously.**
