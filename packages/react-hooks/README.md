@@ -13,6 +13,27 @@ $ yarn add @shopify/react-hooks
 
 ## Usage
 
+### `useDebouncedValue()`
+
+This hook provide a debounced value.
+
+```tsx
+function MyComponent() {
+  const [searchValue, setSearchValue] = useState('');
+  const debouncedSearch = useDebouncedValue(searchValue);
+  const {data, loading} = useQuery(SomeQuery, {
+    variables: {
+      query: debouncedSearch,
+    },
+  });
+
+  function handleSearchTextChange(value: string) {
+    setSearchValue(value);
+  }
+
+  return (<input onChange={handleSearchTextChange} />);
+```
+
 ### `useOnValueChange()`
 
 This hook will track a given value and invoke a callback when it has changed.
