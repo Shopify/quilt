@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.5.2] - 2020-04-07
+
 ### Fixed
 
 - Fixed a bug where onSubmit fieldValues doesn't return empty arrays [#1353](https://github.com/Shopify/quilt/pull/1353)
