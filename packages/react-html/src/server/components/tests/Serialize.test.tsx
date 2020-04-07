@@ -30,7 +30,7 @@ describe('<Serialize />', () => {
 
       expect(serialize).toContainReactComponent('script', {
         dangerouslySetInnerHTML: {
-          __html: serializeJavaScript(data, {isJSON: true}),
+          __html: serializeJavaScript({data}, {isJSON: true}),
         },
       });
     });

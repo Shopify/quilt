@@ -22,7 +22,7 @@ function getSerializedFromNode<Data>(node: Element): Data | undefined {
   const value = node.textContent;
 
   try {
-    return value ? JSON.parse(value) : undefined;
+    return value ? JSON.parse(value).data : undefined;
   } catch {
     return undefined;
   }

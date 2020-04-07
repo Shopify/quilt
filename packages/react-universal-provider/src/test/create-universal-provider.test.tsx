@@ -2,6 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import {extract} from '@shopify/react-effect/server';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
+import {render, Html} from '@shopify/react-html/server';
 import {mount} from '@shopify/react-testing';
 
 import {createUniversalProvider} from '../create-universal-provider';
@@ -24,9 +25,10 @@ describe('createUniversalProvider()', () => {
   it('renders a RandomContext.Provider with value from the serializer', async () => {
     const htmlManager = new HtmlManager();
     const randomValue = faker.lorem.word();
+    const app = <RandomProvider value={randomValue} />;
 
     // Simulated server render
-    await extract(<RandomProvider value={randomValue} />, {
+    await extract(app, {
       decorate: (element: React.ReactNode) => (
         <HtmlContext.Provider value={htmlManager}>
           {element}
@@ -44,15 +46,20 @@ describe('createUniversalProvider()', () => {
       RandomContext,
       randomValue,
     );
+
+    expect(render(<Html manager={htmlManager}>{app}</Html>)).toContain(
+      `<script type="text/json" data-serialized-id="${id}">{"data":"${randomValue}"}</script>`,
+    );
   });
 
   it('renders a RandomContext.Provider with value from server when value are provided on both server and client', async () => {
     const htmlManager = new HtmlManager();
     const serverRandomValue = faker.lorem.word();
     const clientRandomValue = faker.lorem.word();
+    const app = <RandomProvider value={serverRandomValue} />;
 
     // Simulated server render
-    await extract(<RandomProvider value={serverRandomValue} />, {
+    await extract(app, {
       decorate: (element: React.ReactNode) => (
         <HtmlContext.Provider value={htmlManager}>
           {element}
@@ -69,6 +76,10 @@ describe('createUniversalProvider()', () => {
     expect(randomProvider).toProvideReactContext<string | undefined>(
       RandomContext,
       serverRandomValue,
+    );
+
+    expect(render(<Html manager={htmlManager}>{app}</Html>)).toContain(
+      `<script type="text/json" data-serialized-id="${id}">{"data":"${serverRandomValue}"}</script>`,
     );
   });
 });
