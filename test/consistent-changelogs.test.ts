@@ -76,7 +76,6 @@ const allowedHeaders = [
   '### Changed',
   '### Deprecated',
   '### Removed',
-  '### Fixed',
   '### Security',
   // This is technically not part of Keep a Changelog spec
   '### Chore',
