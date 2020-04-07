@@ -1,29 +1,26 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 
-export const DELAY_COMMIT_SETTING_CHANGE = 500;
+interface DebouncedOptions {
+  timeoutMs: number;
+}
+
+const DEFAULT_DELAY = 500;
 
 export function useDebouncedValue<T>(
   value: T,
-  delay = DELAY_COMMIT_SETTING_CHANGE,
+  {timeoutMs}: DebouncedOptions = {timeoutMs: DEFAULT_DELAY},
 ) {
   const [state, setState] = useState<T>(value);
-  const updateRef = useRef<number>();
 
   useEffect(() => {
-    if (updateRef.current) {
-      window.clearTimeout(updateRef.current);
-    }
-
-    updateRef.current = window.setTimeout(() => {
+    const timeout = window.setTimeout(() => {
       setState(value);
-    }, delay);
+    }, timeoutMs);
 
     return () => {
-      if (updateRef.current) {
-        window.clearTimeout(updateRef.current);
-      }
+      window.clearTimeout(timeout);
     };
-  }, [value, delay]);
+  }, [value, timeoutMs]);
 
   return state;
 }

@@ -50,6 +50,6 @@ function setup({delay, value}) {
 }
 
 function MockComponent({value, delay}) {
-  const debouncedValue = useDebouncedValue(value, delay);
+  const debouncedValue = useDebouncedValue(value, {timeoutMs: delay});
   return <div>{debouncedValue}</div>;
 }
