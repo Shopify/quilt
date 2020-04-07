@@ -82,6 +82,17 @@ describe('getValues()', () => {
 
     expect(getValues(fieldBag)).toStrictEqual(formValue);
   });
+
+  it('returns empty arrays', () => {
+    const formValue = {
+      emails: [],
+    };
+    const fieldBag = {
+      emails: [],
+    };
+
+    expect(getValues(fieldBag)).toStrictEqual(formValue);
+  });
 });
 
 describe('validateAll', () => {

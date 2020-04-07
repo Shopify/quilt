@@ -7,6 +7,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- Fixed a bug where onSubmit fieldValues doesn't return empty arrays [#1353](https://github.com/Shopify/quilt/pull/1353)
+- Fixed a bug where useDirty does not update dirty state properly on lists [#1353](https://github.com/Shopify/quilt/pull/1353)
+
 ## [0.5.1] - 2020-04-02
 
 ### Fixed

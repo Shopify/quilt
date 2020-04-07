@@ -856,11 +856,12 @@ function reduceFields<V>(
 
 - `fieldBag` is the collection of fields returned from `useForm`.
 - `reduceFn` is the reducer function to operate on each field. The return value will be passed onto the next iteration.
-- `initialValues` the starting value passed to the first iteration of the reducerFn.
+- `initialValues` (optional) the starting value passed to the first iteration of the reducerFn.
+- `reduceEmptyFn` (optional) is a reducer function that acts on non-field values such as empty array, empty object, and primitives.
 
 ###### Return value:
 
-A value returned by the `reduceFn` iterating through all the fields in the form.
+A value returned by `reduceFn` iterating through all the fields in the form, and `reduceEmptyFn` for all empty or primitive values.
 
 ##### Examples
 
