@@ -20,7 +20,7 @@ import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
 
 function App({token}: {token?: string}) {
   return (
-    <CsrfUniversalProvider value={token}>
+    <CsrfUniversalProvider value={{csrfToken: token}}>
       {/* rest of the app */}
     </CsrfUniversalProvider>
   );

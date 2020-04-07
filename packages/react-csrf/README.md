@@ -22,7 +22,7 @@ import {CsrfTokenContext} from '@shopify/react-csrf';
 
 function App({token}: {token?: string}) {
   return (
-    <CsrfTokenContext.Provider value={token}>
+    <CsrfTokenContext.Provider value={{csrfToken: token}}>
       {/* rest of the app */}
     </CsrfTokenContext.Provider>
   );

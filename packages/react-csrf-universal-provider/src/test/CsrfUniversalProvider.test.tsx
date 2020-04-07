@@ -9,7 +9,7 @@ import {CsrfUniversalProvider} from '../CsrfUniversalProvider';
 
 describe('<CsrfUniversalProvider />', () => {
   it('renders a CsrfTokenContext.Provider with token value from the prop', () => {
-    const token = faker.lorem.word();
+    const token = {csrfToken: faker.lorem.word()};
     const csrf = mount(<CsrfUniversalProvider value={token} />);
 
     expect(csrf).toContainReactComponent(CsrfTokenContext.Provider, {
@@ -19,7 +19,7 @@ describe('<CsrfUniversalProvider />', () => {
 
   it('renders a CsrfTokenContext.Provider with token value from the serializes csrf token', async () => {
     const htmlManager = new HtmlManager();
-    const token = faker.lorem.word();
+    const token = {csrfToken: faker.lorem.word()};
 
     // Simulated server render
     await extract(<CsrfUniversalProvider value={token} />, {
@@ -43,8 +43,8 @@ describe('<CsrfUniversalProvider />', () => {
 
   it('renders a CsrfTokenContext.Provider with value from server when value are provided on both server and client', async () => {
     const htmlManager = new HtmlManager();
-    const serverToken = faker.lorem.word();
-    const clientToken = faker.lorem.word();
+    const serverToken = {csrfToken: faker.lorem.word()};
+    const clientToken = {csrfToken: faker.lorem.word()};
 
     // Simulated server render
     await extract(<CsrfUniversalProvider value={serverToken} />, {

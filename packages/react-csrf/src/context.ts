@@ -1,3 +1,9 @@
 import {createContext} from 'react';
 
-export const CsrfTokenContext = createContext<string | undefined>(undefined);
+export interface CsrfTokenData {
+  csrfToken: string | undefined;
+}
+
+export const CsrfTokenContext = createContext<CsrfTokenData>({
+  csrfToken: undefined,
+});

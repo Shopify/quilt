@@ -14,7 +14,7 @@ describe('<CsrfProvider />', () => {
   it('renders a csrfToken with value from the context', () => {
     const token = faker.lorem.word();
     const csrf = mount(
-      <CsrfTokenContext.Provider value={token}>
+      <CsrfTokenContext.Provider value={{csrfToken: token}}>
         <CsrfToken />
       </CsrfTokenContext.Provider>,
     );

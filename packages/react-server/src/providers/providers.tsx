@@ -24,7 +24,7 @@ export function createCombinedProvider(options?: Options) {
         <ConditionalProvider
           provider={CsrfUniversalProvider}
           condition={csrf}
-          props={{value: csrfToken}}
+          props={{value: {csrfToken}}}
         >
           {children}
         </ConditionalProvider>

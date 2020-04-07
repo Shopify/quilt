@@ -1,2 +1,2 @@
-export {CsrfTokenContext} from './context';
+export {CsrfTokenContext, CsrfTokenData} from './context';
 export {useCsrfToken} from './hooks';
