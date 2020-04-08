@@ -27,8 +27,8 @@ function MyComponent() {
     },
   });
 
-  function handleSearchTextChange(value: string) {
-    setSearchValue(value);
+  function handleSearchTextChange(evt: React.KeyboardEvent) {
+    setSearchValue(evt.currentTarget.value);
   }
 
   return (<input onChange={handleSearchTextChange} />);
