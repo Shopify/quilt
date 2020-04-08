@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 
 interface DebouncedOptions {
   timeoutMs: number;
@@ -11,14 +11,20 @@ export function useDebouncedValue<T>(
   {timeoutMs}: DebouncedOptions = {timeoutMs: DEFAULT_DELAY},
 ) {
   const [state, setState] = useState<T>(value);
+  const stateRef = useRef<T>(state);
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => {
+    if (stateRef.current === value) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      stateRef.current = value;
       setState(value);
     }, timeoutMs);
 
     return () => {
-      window.clearTimeout(timeout);
+      clearTimeout(timeout);
     };
   }, [value, timeoutMs]);
 
