@@ -3,7 +3,7 @@ export function getCurrencySymbol(
   options: Intl.NumberFormatOptions,
 ) {
   const delimiters = ',.';
-  const directionControlCharacters = new RegExp(`[\u{200E}\u{200F}]`, 'u');
+  const directionControlCharacters = /[\u200E\u200F]/;
   const numReg = new RegExp(`0[${delimiters}]*0*`);
 
   const currencyStringRaw = formatCurrency(0, locale, options);
