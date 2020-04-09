@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- adding additional exports: `RegisterOptions`, `CurrencyFormatOptions`, `NumberFormatOptions`, `TranslateOptions`, `RootTranslateOptions`, `Replacements` ([#1365](https://github.com/Shopify/quilt/pull/1365))
+
 ### Fixed
 
 - Updated `formatCurrency` to use `memoizedNumberFormatter` to eliminate memory leak ([#1310](https://github.com/Shopify/quilt/pull/1310))
