@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- [Patch] Add optional `value` parameter to `runValidation` type definition [#1362](https://github.com/Shopify/quilt/pull/1362)
+
 ## [0.5.2] - 2020-04-07
 
 ### Fixed
