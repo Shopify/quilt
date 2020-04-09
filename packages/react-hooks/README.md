@@ -114,6 +114,21 @@ function MyComponent() {
 }
 ```
 
+### `useMedia()`
+
+This hook will listen to a [MediaQueryList](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList) created via [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) and return true or false if it matches the media query string.
+
+```tsx
+function MyComponent() {
+  const isSmallScreen = useMedia('(max-width: 640px)');
+  return (
+    <p>
+      {isSmallScreen ? 'This is a small screen' : 'This is not a small screen'}
+    </p>
+  );
+}
+```
+
 ### `useMountedRef()`
 
 This hook keeps track of a component's mounted / un-mounted status and returns a ref object like React’s [`useRef`](https://reactjs.org/docs/hooks-reference.html#useref) with a boolean value representing said status. This is often used when a component contains an async task that sets state after the task has resolved.
