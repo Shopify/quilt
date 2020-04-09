@@ -1,3 +1,5 @@
+import {memoizedNumberFormatter} from './translate';
+
 export function getCurrencySymbol(
   locale: string,
   options: Intl.NumberFormatOptions,
@@ -29,12 +31,12 @@ export function getCurrencySymbol(
   return elements;
 }
 
-function formatCurrency(
+export function formatCurrency(
   amount: number,
   locale: string,
   options: Intl.NumberFormatOptions,
 ) {
-  return new Intl.NumberFormat(locale, {
+  return memoizedNumberFormatter(locale, {
     style: 'currency',
     ...options,
   }).format(amount);
