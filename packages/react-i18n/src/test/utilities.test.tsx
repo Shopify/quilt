@@ -125,6 +125,16 @@ describe('memoizedNumberFormatter', () => {
     expect(numberFormatterB).toBe(numberFormatterA);
   });
 
+  it('returns the same object when passed multiple locales as an array', () => {
+    const locales = ['en-US', 'en-CA'];
+    const numberFormatterA = memoizedNumberFormatter(locales);
+    expect(numberFormatterA).toBeInstanceOf(Intl.NumberFormat);
+
+    const numberFormatterB = memoizedNumberFormatter(locales);
+    expect(numberFormatterB).toBeInstanceOf(Intl.NumberFormat);
+    expect(numberFormatterB).toBe(numberFormatterA);
+  });
+
   it('returns different object when passed different arguments', () => {
     const numberFormatterA = memoizedNumberFormatter(locale);
     expect(numberFormatterA).toBeInstanceOf(Intl.NumberFormat);
