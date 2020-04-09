@@ -38,10 +38,6 @@ describe('formatCurrency()', () => {
 
   it('calls format on the memoized formatter', () => {
     const amount = 123;
-    const locale = 'en';
-    const options = {
-      currency: 'USD',
-    };
     const result = 'result';
     mockFormat.mockImplementation(() => result);
 
