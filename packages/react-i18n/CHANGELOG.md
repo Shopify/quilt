@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [2.5.3] - 2020-04-09
+
 ### Fixed
 
 - Removed the unicode `RegExp` flag on `getCurrencySymbol` in order to support IE11 ([#1363](https://github.com/Shopify/quilt/pull/1363))
