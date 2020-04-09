@@ -5,17 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Added
+
+- Added `getIanaTimeZone` and exposed `memoizedGetDateTimeFormat` ([#1367](https://github.com/Shopify/quilt/pull/1367))
 
 ## [0.3.1] - 2020-02-27
 
 ### Fixed
 
-- Allows `hour12: true` to be passed to `formatDate` [#1299](https://github.com/Shopify/quilt/pull/1299)
+- Allows `hour12: true` to be passed to `formatDate` ([#1299](https://github.com/Shopify/quilt/pull/1299))
 
 ## [0.3.0] - 2020-02-19
 
-- Export the `formatDate` function so it can be used by other packages / projects, e.g. in `@shopify/react-i18n`
+- Export the `formatDate` function so it can be used by other packages / projects, e.g. in `@shopify/react-i18n` ([#1286](https://github.com/Shopify/quilt/pull/1286))
 
 ## [0.2.13] - 2020-02-07
 
