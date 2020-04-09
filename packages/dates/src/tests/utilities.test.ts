@@ -1,4 +1,4 @@
-import {formatDate} from '../utilities/formatDate';
+import {dateTimeFormatCacheKey, formatDate} from '../utilities/formatDate';
 
 describe('formatDate()', () => {
   it('formats dates as expected for various locales', () => {
@@ -35,5 +35,49 @@ describe('formatDate()', () => {
     const expected = '1/1/2018, 12:34:56 PM';
 
     expect(formatDate(date, locale, options)).toBe(expected);
+  });
+});
+
+describe('dateTimeFormatCacheKey()', () => {
+  const locale = 'en-CA';
+  const otherLocale = 'en-US';
+  const options = {timeZone: 'America/Vancouver'};
+  const optionsKey = JSON.stringify(options);
+  it('creates a key for an undefined locale with options', () => {
+    expect(dateTimeFormatCacheKey(undefined, options)).toBe(
+      `undefined-${optionsKey}`,
+    );
+  });
+
+  it('creates a key for an undefined locale without options', () => {
+    expect(dateTimeFormatCacheKey()).toBe(`undefined-{}`);
+  });
+
+  it('creates a key for a single locale with options', () => {
+    expect(dateTimeFormatCacheKey(locale, options)).toBe(
+      `${locale}-${optionsKey}`,
+    );
+  });
+
+  it('creates a key for a single locale without options', () => {
+    expect(dateTimeFormatCacheKey(locale)).toBe(`${locale}-{}`);
+  });
+
+  it('creates a key for a multiple locales with options', () => {
+    expect(dateTimeFormatCacheKey([locale, otherLocale], options)).toBe(
+      `${locale}-${otherLocale}-${optionsKey}`,
+    );
+  });
+
+  it('creates a key for a multiple locales without options', () => {
+    expect(dateTimeFormatCacheKey([locale, otherLocale])).toBe(
+      `${locale}-${otherLocale}-{}`,
+    );
+  });
+
+  it('sorts locales when there are multiple', () => {
+    expect(dateTimeFormatCacheKey([otherLocale, locale])).toBe(
+      `${locale}-${otherLocale}-{}`,
+    );
   });
 });
