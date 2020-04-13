@@ -1,4 +1,4 @@
-import {ucFirst} from 'change-case';
+import {upperCaseFirst} from 'upper-case-first';
 import {
   GraphQLCompositeType,
   // We need to bring these in as they are implicitly referenced by
@@ -18,7 +18,7 @@ export class ObjectStack {
 
   get name(): string {
     const {parent, field, isFragment, type} = this;
-    const fieldName = field ? ucFirst(field.responseName) : '';
+    const fieldName = field ? upperCaseFirst(field.responseName) : '';
     const name = `${parent ? parent.name : ''}${fieldName}`;
     return isFragment ? `${name}${type ? type.name : 'Other'}` : name;
   }

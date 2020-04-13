@@ -1,7 +1,7 @@
 import {relative, dirname} from 'path';
 
 import * as t from '@babel/types';
-import {ucFirst} from 'change-case';
+import {upperCaseFirst} from 'upper-case-first';
 import {AST, Fragment, isOperation, Operation} from 'graphql-tool-utilities';
 
 import {EnumFormat} from '../../types';
@@ -54,10 +54,12 @@ export class OperationContext {
 
     if (isOperation(this.operation)) {
       const {operationName, operationType} = this.operation;
-      typeName = `${ucFirst(operationName)}${ucFirst(operationType)}Data`;
+      typeName = `${upperCaseFirst(operationName)}${upperCaseFirst(
+        operationType,
+      )}Data`;
     } else {
       const {fragmentName} = this.operation;
-      typeName = `${ucFirst(fragmentName)}FragmentData`;
+      typeName = `${upperCaseFirst(fragmentName)}FragmentData`;
     }
 
     return this.options.partial
