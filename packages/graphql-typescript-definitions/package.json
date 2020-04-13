@@ -25,7 +25,6 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/common-tags": "^1.4.0",
     "common-tags": "^1.7.2",
     "ts-node": "^8.0.3"
