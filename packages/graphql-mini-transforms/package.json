@@ -37,7 +37,7 @@
   "dependencies": {
     "@jest/transform": "^24.7.1",
     "@types/fs-extra": "^8.1.0",
-    "@types/webpack": "^4.4.27",
+    "@types/webpack": "^4.41.11",
     "fs-extra": "^9.0.0",
     "graphql": ">=14.5.0 <15.0.0"
   }

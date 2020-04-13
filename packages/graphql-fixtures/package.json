@@ -24,7 +24,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@shopify/useful-types": "^1.1.2",
+    "@shopify/useful-types": "^2.1.4",
     "@types/faker": "^4.1.2",
     "faker": "^4.1.0",
     "graphql": ">=14.5.0 <15.0.0",
