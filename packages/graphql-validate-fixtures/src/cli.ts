@@ -2,7 +2,7 @@
 
 import {relative, basename} from 'path';
 
-import * as yargs from 'yargs';
+import yargs from 'yargs';
 import * as glob from 'glob';
 import * as chalk from 'chalk';
 
