@@ -312,6 +312,38 @@ describe('useForm', () => {
 
       expect(initialSubmitHandler).toBe(newSubmitHandler);
     });
+
+    it('returns a new submit function when field bag changes', async () => {
+      function Form() {
+        const title = useField('init');
+
+        const {submit} = useForm({
+          fields: {
+            title,
+          },
+          // eslint-disable-next-line @typescript-eslint/require-await
+          onSubmit: async fieldValues => {
+            expect(title.value).toStrictEqual(fieldValues.title);
+            return submitSuccess();
+          },
+        });
+
+        return (
+          <form onSubmit={submit} action="#">
+            <input value={title.value} onChange={title.onChange} />
+          </form>
+        );
+      }
+
+      const wrapper = mount(<Form />);
+      const form = wrapper.find('form');
+
+      wrapper
+        .find('input')
+        .trigger('onChange', {target: {value: 'changedText'}});
+
+      await form.trigger('onSubmit');
+    });
   });
 
   describe('reset', () => {
