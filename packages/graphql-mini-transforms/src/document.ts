@@ -36,9 +36,7 @@ export function cleanDocument(
   // This ID is a hash of the full file contents that are part of the document,
   // including other documents that are injected in, but excluding any unused
   // fragments. This is useful for things like persisted queries.
-  const id = createHash('sha256')
-    .update(normalizedSource)
-    .digest('hex');
+  const id = createHash('sha256').update(normalizedSource).digest('hex');
 
   Reflect.defineProperty(normalizedDocument, 'id', {
     value: id,

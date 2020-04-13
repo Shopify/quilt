@@ -66,9 +66,7 @@ describe('graphql-mini-transforms/webpack', () => {
     const result = await extractDocumentExport(`query Shop { shop { id } }`);
     expect(result).toHaveProperty(
       'id',
-      createHash('sha256')
-        .update(result.loc.source.body)
-        .digest('hex'),
+      createHash('sha256').update(result.loc.source.body).digest('hex'),
     );
   });
 

@@ -170,7 +170,7 @@ describe('getGraphQLSchemaPaths()', () => {
     existsSync.mockClear();
   });
 
-  it('returns schemaPath for each project ', () => {
+  it('returns schemaPath for each project', () => {
     const config = new GraphQLConfig(
       {
         schemaPath: '',
