@@ -19,14 +19,14 @@ const SEPARATOR = '.';
 
 const numberFormats = new Map<string, Intl.NumberFormat>();
 export function memoizedNumberFormatter(
-  locale: string,
-  options: Intl.NumberFormatOptions = {},
+  locales?: string | string[],
+  options?: Intl.NumberFormatOptions,
 ) {
-  const key = numberFormatCacheKey(locale, options);
+  const key = numberFormatCacheKey(locales, options);
   if (numberFormats.has(key)) {
     return numberFormats.get(key)!;
   }
-  const i = new Intl.NumberFormat(locale, options);
+  const i = new Intl.NumberFormat(locales, options);
   numberFormats.set(key, i);
   return i;
 }
@@ -44,11 +44,13 @@ export interface TranslateOptions<Replacements = {}> {
   pseudotranslate?: boolean | string;
 }
 
-function numberFormatCacheKey(
-  locale: string,
+export function numberFormatCacheKey(
+  locales?: string | string[],
   options: Intl.NumberFormatOptions = {},
 ) {
-  return `${locale}${JSON.stringify(options)}`;
+  const localeKey = Array.isArray(locales) ? locales.sort().join('-') : locales;
+
+  return `${localeKey}-${JSON.stringify(options)}`;
 }
 
 function pluralRules(locale: string, options: Intl.PluralRulesOptions = {}) {
