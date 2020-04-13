@@ -51,7 +51,7 @@ export interface Field<Value> {
   dirty: boolean;
   onBlur(): void;
   onChange(value: Value | ChangeEvent<HTMLInputElement>): void;
-  runValidation(): ErrorValue;
+  runValidation(value?: Value): ErrorValue;
   setError(value: ErrorValue): void;
   newDefaultValue(value: Value): void;
   reset(): void;
