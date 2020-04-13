@@ -4,7 +4,7 @@ import {relative, basename} from 'path';
 
 import * as yargs from 'yargs';
 import * as glob from 'glob';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 import {evaluateFixtures} from '.';
 
