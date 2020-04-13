@@ -7,7 +7,7 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 ### Changed
 
-- Update dependencies (`chalk`, `@shopify/useful-types`, `@types/webpack`, `change-case`, `chokidar`, `upper-case-first`) [[#110](https://github.com/Shopify/graphql-tools-web/pull/110)]
+- Update dependencies (`@types/webpack`) [[#110](https://github.com/Shopify/graphql-tools-web/pull/110)]
 - Upgrade fs-extra to v9 [[#105](https://github.com/Shopify/graphql-tools-web/pull/105)]
 - Upgrade prettier to `v2.0.4` and change `eslint-plugin-shopify` to `@shopify/eslint-plugin` [[#104](https://github.com/Shopify/graphql-tools-web/pull/104)]
 - Upgrade graphql to `v14.6.0` [[#104](https://github.com/Shopify/graphql-tools-web/pull/104)]
