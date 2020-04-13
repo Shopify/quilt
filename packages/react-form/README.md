@@ -90,7 +90,7 @@ function MyComponent() {
       <button type="button" disabled={!dirty} onClick={reset}>
         Reset
       </button>
-      <button type="submit" disabled={!dirty} onclick={submit}>
+      <button type="submit" disabled={!dirty} onClick={submit}>
         Submit
       </button>
     </form>
