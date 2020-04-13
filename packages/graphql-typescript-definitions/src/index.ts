@@ -285,12 +285,13 @@ export class Builder extends EventEmitter {
     this.checkForDuplicateFragments();
 
     await Promise.all(
-      Array.from(this.documentMapByProject.entries()).map(
-        ([projectName, documents]) =>
-          this.generateDocumentTypesForProject(
-            this.config.getProjectConfig(projectName),
-            documents,
-          ),
+      Array.from(
+        this.documentMapByProject.entries(),
+      ).map(([projectName, documents]) =>
+        this.generateDocumentTypesForProject(
+          this.config.getProjectConfig(projectName),
+          documents,
+        ),
       ),
     );
 
@@ -351,9 +352,9 @@ export class Builder extends EventEmitter {
 
     try {
       await Promise.all(
-        Array.from(groupOperationsAndFragmentsByFile(ast).values()).map(
-          (file) => this.writeDocumentFile(file, ast, projectConfig),
-        ),
+        Array.from(
+          groupOperationsAndFragmentsByFile(ast).values(),
+        ).map((file) => this.writeDocumentFile(file, ast, projectConfig)),
       );
     } catch (error) {
       // intentional noop

@@ -79,12 +79,12 @@ export type DeepThunk<T, Data, Variables, DeepPartial> = T extends object
               | null
               | undefined
           : T[P] extends infer U | null | undefined
-          ? (DeepThunk<U, Data, Variables, DeepPartial> | null | undefined)
+          ? DeepThunk<U, Data, Variables, DeepPartial> | null | undefined
           : T[P],
         Data,
         Variables,
         DeepPartial
-      >
+      >;
     }
   : T;
 

@@ -594,7 +594,10 @@ describe('createFiller()', () => {
       function createFillerForInterfaceSchema(options?: Options) {
         const filler = createFiller(createInterfaceSchema(), options);
         return (document: DocumentNode, data?: any) =>
-          filler(document, data)({
+          filler(
+            document,
+            data,
+          )({
             query: document,
           });
       }
@@ -1327,7 +1330,10 @@ function createFillerForSchema(schema: string, options?: Options) {
     document: DocumentNode<Data, {}, PartialData>,
     data?: any,
   ) =>
-    filler<Data, {}, PartialData>(document, data)({
+    filler<Data, {}, PartialData>(
+      document,
+      data,
+    )({
       query: document,
     });
 }
