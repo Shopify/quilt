@@ -31,7 +31,7 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@types/common-tags": "1.4.0",
+    "@types/common-tags": "1.8.0",
     "common-tags": "1.8.0"
   },
   "dependencies": {
