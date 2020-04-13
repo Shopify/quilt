@@ -54,16 +54,12 @@ const argv = yargs
   })
   .help().argv;
 
-type Args = typeof argv;
-
 const builder = new Builder({
   cwd: argv.cwd,
-  schemaTypesPath: argv.schemaTypesPath as Args['schema-types-path'],
-  addTypename: argv.addTypename as Args['add-typename'],
-  enumFormat: argv.enumFormat as Args['enum-format'],
-  customScalars: normalizeCustomScalars(
-    argv.customScalars as Args['custom-scalars'],
-  ),
+  schemaTypesPath: argv['schema-types-path'],
+  addTypename: argv['add-typename'],
+  enumFormat: argv['enum-format'],
+  customScalars: normalizeCustomScalars(argv['custom-scalars']),
 });
 
 function normalizeCustomScalars(customScalarOption: string) {
