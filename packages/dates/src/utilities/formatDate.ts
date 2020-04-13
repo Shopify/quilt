@@ -1,13 +1,16 @@
-const intl = new Map();
-const memoizedGetDateTimeFormat = function(locale, options) {
-  const key = dateTimeFormatCacheKey(locale, options);
+const intl = new Map<string, Intl.DateTimeFormat>();
+export function memoizedGetDateTimeFormat(
+  locales?: string | string[],
+  options?: Intl.DateTimeFormatOptions,
+) {
+  const key = dateTimeFormatCacheKey(locales, options);
   if (intl.has(key)) {
-    return intl.get(key);
+    return intl.get(key)!;
   }
-  const i = new Intl.DateTimeFormat(locale, options);
+  const i = new Intl.DateTimeFormat(locales, options);
   intl.set(key, i);
   return i;
-};
+}
 
 const browserFeatureDetectionDate = Intl.DateTimeFormat('en', {
   hour: 'numeric',
@@ -49,9 +52,11 @@ export function formatDate(
   return memoizedGetDateTimeFormat(locales, options).format(date);
 }
 
-function dateTimeFormatCacheKey(
-  locales: string | string[],
-  options?: Intl.DateTimeFormatOptions,
+export function dateTimeFormatCacheKey(
+  locales?: string | string[],
+  options: Intl.DateTimeFormatOptions = {},
 ) {
-  return `${locales}-${JSON.stringify(options)}`;
+  const localeKey = Array.isArray(locales) ? locales.sort().join('-') : locales;
+
+  return `${localeKey}-${JSON.stringify(options)}`;
 }
