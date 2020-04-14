@@ -1,7 +1,7 @@
 /* eslint no-console: off */
 
-import * as yargs from 'yargs';
 import * as chalk from 'chalk';
+import yargs from 'yargs';
 
 import {EnumFormat} from './types';
 
@@ -36,7 +36,6 @@ const argv = yargs
   })
   .option('enum-format', {
     required: false,
-    type: 'string',
     describe:
       'The format in which to generate case names for enum types in the schema',
     choices: [
@@ -57,10 +56,10 @@ const argv = yargs
 
 const builder = new Builder({
   cwd: argv.cwd,
-  schemaTypesPath: argv.schemaTypesPath,
-  addTypename: argv.addTypename,
-  enumFormat: argv.enumFormat,
-  customScalars: normalizeCustomScalars(argv.customScalars),
+  schemaTypesPath: argv['schema-types-path'],
+  addTypename: argv['add-typename'],
+  enumFormat: argv['enum-format'],
+  customScalars: normalizeCustomScalars(argv['custom-scalars']),
 });
 
 function normalizeCustomScalars(customScalarOption: string) {
