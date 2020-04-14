@@ -81,7 +81,7 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
     "tslib": "^1.9.3",
-    "typescript": "^3.6.2"
+    "typescript": "^3.7.5"
   },
   "dependencies": {},
   "resolutions": {
