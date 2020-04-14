@@ -5,6 +5,8 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [0.19.0] - 2020-04-14
+
 ### Changed
 
 - Upgrade yargs to `15` [[#107](https://github.com/Shopify/graphql-tools-web/pull/107)]

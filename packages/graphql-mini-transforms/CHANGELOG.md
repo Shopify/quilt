@@ -5,6 +5,8 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [1.1.0] - 2020-04-14
+
 ### Changed
 
 - Update dependencies (`@types/webpack`) [[#110](https://github.com/Shopify/graphql-tools-web/pull/110)]
