@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [2.5.5] - 2020-04-13
+
+### Fixed
+
+- updated `memoizedNumberFormatter` to support all `Intl.NumberFormat` constructor inputs ([#1366](https://github.com/Shopify/quilt/pull/1366))
+
+## [2.5.4] - 2020-04-09
+
+### Added
+
+- adding additional exports: `RegisterOptions`, `CurrencyFormatOptions`, `NumberFormatOptions`, `TranslateOptions`, `RootTranslateOptions`, `Replacements` ([#1365](https://github.com/Shopify/quilt/pull/1365))
 
 ### Fixed
 
