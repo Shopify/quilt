@@ -298,7 +298,7 @@ function flatten(
     return [node.memoizedProps as string];
   }
 
-  const props = {...(node.memoizedProps || {})};
+  const props = {...((node.memoizedProps as any) || {})};
   const {children, descendants} = childrenToTree(node.child, root);
 
   return [
