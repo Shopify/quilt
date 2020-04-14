@@ -722,10 +722,10 @@ describe('I18n', () => {
       ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235 JPY'}
       ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56 USD'}
-      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 € EUR'}
-      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
-      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
-      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $ USD'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $ USD'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, symbol, prefixed, expected}) => {
@@ -752,10 +752,10 @@ describe('I18n', () => {
       ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-¥ 1,235 JPY'}
       ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-$ 1,234.56 USD'}
-      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'-1 234,56 € EUR'}
-      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'-1 235 JPY'}
-      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'-1 234,560 OMR'}
-      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'-1 234,56 $ USD'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'-1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'-1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'-1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'-1 234,56 $ USD'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, symbol, prefixed, expected}) => {
@@ -782,10 +782,10 @@ describe('I18n', () => {
       ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235'}
       ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56'}
-      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 €'}
-      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
-      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
-      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 €'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, symbol, prefixed, expected}) => {
@@ -812,10 +812,10 @@ describe('I18n', () => {
       ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-¥ 1,235'}
       ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-$ 1,234.56'}
-      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'-1 234,56 €'}
-      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'-1 235 JPY'}
-      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'-1 234,560 OMR'}
-      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'-1 234,56 $'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'-1 234,56 €'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'-1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'-1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'-1 234,56 $'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, symbol, prefixed, expected}) => {
