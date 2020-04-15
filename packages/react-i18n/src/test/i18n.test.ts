@@ -1448,6 +1448,20 @@ describe('I18n', () => {
     });
   });
 
+  describe('#getCurrencyName()', () => {
+    it('returns the locale-specific currency name', () => {
+      const mockResult = {
+        symbol: 'euros',
+        prefixed: true,
+      };
+      getCurrencySymbol.mockReturnValue(mockResult);
+
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.getCurrencySymbol('euros')).toStrictEqual(mockResult);
+    });
+  });
+
   describe('#formatName()', () => {
     it('returns only the firstName when lastName is missing', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});

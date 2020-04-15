@@ -36,6 +36,20 @@ describe('formatCurrency()', () => {
     });
   });
 
+  it('memoizedNumberFormatter will be called with all given options', () => {
+    const locale = 'en';
+    const options = {
+      currency: 'USD',
+      currencyDisplay: 'name',
+    };
+
+    formatCurrency(123, locale, options);
+    expect(memoizedNumberFormatterMock).toHaveBeenCalledWith(locale, {
+      ...options,
+      style: 'currency',
+    });
+  });
+
   it('calls format on the memoized formatter', () => {
     const amount = 123;
     const result = 'result';

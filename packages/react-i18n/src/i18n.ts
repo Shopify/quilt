@@ -337,6 +337,19 @@ export class I18n {
     return getCurrencySymbol(locale, {currency});
   }
 
+  getCurrencyName(currencyCode: string) {
+    return this.getCurrencyNameLocalized(this.locale, currencyCode);
+  }
+
+  getCurrencyNameLocalized(locale: string, currencyCode: string) {
+    const currencyDetails = getCurrencySymbol(locale, {
+      style: 'currency',
+      currency: currencyCode,
+      currencyDisplay: 'name',
+    });
+    return currencyDetails.symbol.trim();
+  }
+
   formatName(firstName: string, lastName?: string, options?: {full?: boolean}) {
     if (!firstName) {
       return lastName || '';
