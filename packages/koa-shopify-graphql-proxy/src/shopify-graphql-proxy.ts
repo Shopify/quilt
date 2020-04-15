@@ -10,6 +10,7 @@ export enum ApiVersion {
   October19 = '2019-10',
   January20 = '2020-01',
   April20 = '2020-04',
+  July20 = '2020-07',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }
@@ -36,6 +37,12 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
     const accessToken =
       'password' in proxyOptions ? proxyOptions.password : session.accessToken;
     const version = proxyOptions.version;
+
+    if (version == April19 || version == July19) {
+      console.log(`${version} is deprecated and no longer supported.`+
+                  ` Requests to ${version} will fall forward to the oldest supported stable version.`+
+                  ` See the link for details on Shopify versioning: https://shopify.dev/concepts/about-apis/versioning`)
+    }
 
     if (ctx.path !== PROXY_BASE_PATH || ctx.method !== 'POST') {
       await next();
