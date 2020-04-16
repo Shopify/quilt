@@ -101,11 +101,7 @@ describe('server', () => {
 
       expect(spy).toHaveBeenCalledWith(
         Header.ContentSecurityPolicy,
-        `${CspDirective.DefaultSrc} ${SpecialSource.Self}; ${
-          CspDirective.StyleSrc
-        } ${SpecialSource.Self} ${SpecialSource.Blob}; ${
-          CspDirective.BlockAllMixedContent
-        }`,
+        `${CspDirective.DefaultSrc} ${SpecialSource.Self}; ${CspDirective.StyleSrc} ${SpecialSource.Self} ${SpecialSource.Blob}; ${CspDirective.BlockAllMixedContent}`,
       );
     });
   });

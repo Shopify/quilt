@@ -56,7 +56,7 @@ describe('react-hydrate', () => {
 
   it('uses different IDs for multiple hydrator components', () => {
     const [hydratorOne, hydratorTwo] = mount(
-      // eslint-disable-next-line shopify/jsx-prefer-fragment-wrappers
+      // eslint-disable-next-line @shopify/jsx-prefer-fragment-wrappers
       <div>
         <Hydrator>{random.words()}</Hydrator>
         <Hydrator>{random.words()}</Hydrator>

@@ -173,6 +173,4 @@ export enum CacheControl {
   MaxAge = 'max-age',
 }
 
-export const noCache = `${CacheControl.NoCache},${CacheControl.NoStore},${
-  CacheControl.MustRevalidate
-},${CacheControl.MaxAge}=0`;
+export const noCache = `${CacheControl.NoCache},${CacheControl.NoStore},${CacheControl.MustRevalidate},${CacheControl.MaxAge}=0`;

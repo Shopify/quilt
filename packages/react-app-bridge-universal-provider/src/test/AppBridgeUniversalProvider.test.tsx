@@ -18,10 +18,9 @@ describe('<AppBridgeUniversalProvider />', () => {
       <AppBridgeUniversalProvider {...config} />,
     );
 
-    expect(appBridgeUniversalProvider).toContainReactComponent(
-      AppBridgeProvider,
-      {config},
-    );
+    expect(
+      appBridgeUniversalProvider,
+    ).toContainReactComponent(AppBridgeProvider, {config});
   });
 
   it('renders an AppBridgeProvider with config from the serializer', async () => {
@@ -47,10 +46,9 @@ describe('<AppBridgeUniversalProvider />', () => {
       </HtmlContext.Provider>,
     );
 
-    expect(appBridgeUniversalProvider).toContainReactComponent(
-      AppBridgeProvider,
-      {config},
-    );
+    expect(
+      appBridgeUniversalProvider,
+    ).toContainReactComponent(AppBridgeProvider, {config});
   });
 
   it('renders an AppBridgeProvider with value from server when value are provided on both server and client', async () => {

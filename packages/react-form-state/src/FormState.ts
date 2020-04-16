@@ -29,7 +29,7 @@ interface SubmitHandler<Fields> {
 export type Validator<T, F> = MaybeArray<ValidationFunction<T, F>>;
 
 export type ValidatorDictionary<FieldMap> = {
-  [FieldPath in keyof FieldMap]: Validator<FieldMap[FieldPath], FieldMap>
+  [FieldPath in keyof FieldMap]: Validator<FieldMap[FieldPath], FieldMap>;
 };
 
 export interface FormData<Fields> {
@@ -138,14 +138,14 @@ export default class FormState<
     });
   }
 
-  // eslint-disable-next-line shopify/react-prefer-private-members
+  // eslint-disable-next-line @shopify/react-prefer-private-members
   public validateForm() {
     return new Promise(resolve => {
       this.setState(runAllValidators, () => resolve());
     });
   }
 
-  // eslint-disable-next-line shopify/react-prefer-private-members
+  // eslint-disable-next-line @shopify/react-prefer-private-members
   public reset = () => {
     return new Promise(resolve => {
       this.setState(

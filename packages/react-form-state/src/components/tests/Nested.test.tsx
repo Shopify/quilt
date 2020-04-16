@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import {mount} from '@shopify/react-testing';
 
-// eslint-disable-next-line shopify/strict-component-boundaries
+// eslint-disable-next-line @shopify/strict-component-boundaries
 import {Input} from '../../tests/components';
 import {lastCallArgs} from '../../tests/utilities';
 import FormState from '../..';

@@ -35,7 +35,7 @@ export function PrefetchRoute(props: Omit<Props, 'manager'>) {
   return (
     <PrefetchContext.Consumer>
       {manager => (
-        <ConnectedPrefetchRoute manager={manager} {...props as any} />
+        <ConnectedPrefetchRoute manager={manager} {...(props as any)} />
       )}
     </PrefetchContext.Consumer>
   );
