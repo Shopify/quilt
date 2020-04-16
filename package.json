@@ -65,7 +65,7 @@
     "get-port": "^5.0.0",
     "glob": "^7.1.6",
     "graphql": "^14.0.0",
-    "graphql-tag": "^2.10.0",
+    "graphql-tag": "^2.10.3",
     "intl-pluralrules": "^0.2.1",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^25.3.0",
