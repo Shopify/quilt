@@ -535,7 +535,7 @@ type DeepPartial<T> = {
     ? T[K]
     : T[K] extends object
     ? DeepPartial<T[K]>
-    : T[K]
+    : T[K];
 };
 
 function createBody({

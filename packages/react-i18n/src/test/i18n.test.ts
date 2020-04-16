@@ -889,7 +889,7 @@ describe('I18n', () => {
       expect(i18n.unformatCurrency('.12', 'USD')).toBe('0.12');
     });
 
-    it('handles value starting with ', () => {
+    it('handles value starting with', () => {
       getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
       const i18n = new I18n(defaultTranslations, defaultDetails);

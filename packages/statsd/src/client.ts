@@ -32,8 +32,9 @@ export class StatsDClient {
         ? options.errorHandler
         : (error: Error) => {
             this.logger.log(
-              `Error occurred in the StatsD client:\n${error.stack ||
-                error.message}`,
+              `Error occurred in the StatsD client:\n${
+                error.stack || error.message
+              }`,
             );
           },
     };

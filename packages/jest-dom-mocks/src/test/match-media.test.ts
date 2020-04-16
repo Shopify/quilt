@@ -16,7 +16,9 @@ describe('MatchMedia', () => {
 
       expect(() => {
         matchMedia.mock();
-      }).toThrow();
+      }).toThrow(
+        'You tried to mock window.matchMedia when it was already mocked.',
+      );
     });
   });
 
@@ -34,7 +36,9 @@ describe('MatchMedia', () => {
 
       expect(() => {
         matchMedia.restore();
-      }).toThrow();
+      }).toThrow(
+        'You tried to restore window.matchMedia when it was already restored.',
+      );
     });
   });
 });

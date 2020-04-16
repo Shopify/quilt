@@ -86,7 +86,7 @@ describe('createRender', () => {
     const error = new Error(
       'Look, it broken. This is some meaningful error messsage.',
     );
-    const BrokenApp = function() {
+    const BrokenApp = function () {
       throw error;
     };
 

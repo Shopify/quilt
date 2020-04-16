@@ -94,7 +94,8 @@ export class GraphQL {
 
 function defaultGraphQLMock({operationName}: GraphQLRequest) {
   return new Error(
-    `Can’t perform GraphQL operation '${operationName ||
-      ''}' because no mocks were set.`,
+    `Can’t perform GraphQL operation '${
+      operationName || ''
+    }' because no mocks were set.`,
   );
 }
