@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Added
+
+- Add optional `allErrors` property to `Field` type definition that stores all error messages resulting from `runValidation` [#1383](https://github.com/Shopify/quilt/pull/1383)
 
 ## [0.5.4] - 2020-04-13
 
