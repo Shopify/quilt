@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Update `graphql` dependencies [[#1379](https://github.com/Shopify/quilt/pull/1379)]
 - Update `jest-matcher-utils` to `25` [[#1375](https://github.com/Shopify/quilt/pull/1375)]
 
 ## [4.0.9] - 2019-12-04
