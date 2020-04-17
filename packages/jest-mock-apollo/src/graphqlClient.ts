@@ -24,8 +24,9 @@ export type MockGraphQLClient = ApolloClient<any> & {
 
 function defaultGraphQLMock({operationName}: GraphQLRequest) {
   return new Error(
-    `Can’t perform GraphQL operation '${operationName ||
-      ''}' because no mocks were set.`,
+    `Can’t perform GraphQL operation '${
+      operationName || ''
+    }' because no mocks were set.`,
   );
 }
 
@@ -62,7 +63,10 @@ export default function configureClient({
         }),
       );
       const observer = forward(operation);
-      observer.subscribe(next => resolver(next), err => resolver(err));
+      observer.subscribe(
+        next => resolver(next),
+        err => resolver(err),
+      );
       return observer;
     });
 

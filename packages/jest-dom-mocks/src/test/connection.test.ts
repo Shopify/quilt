@@ -15,7 +15,9 @@ describe('Connection', () => {
 
       expect(() => {
         connection.mock();
-      }).toThrow();
+      }).toThrow(
+        'You tried to mock navigator.connection when it was already mocked.',
+      );
     });
 
     it('delegates stubbed options to navigator.connection', () => {
@@ -47,7 +49,9 @@ describe('Connection', () => {
 
       expect(() => {
         connection.restore();
-      }).toThrow();
+      }).toThrow(
+        'You tried to restore navigator.connection when it was already restored.',
+      );
     });
   });
 });

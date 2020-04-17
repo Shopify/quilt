@@ -15,7 +15,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).`;
 
 readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
   describe(`changelog consistency for ${packageChangelogPath}`, () => {
-    it('begins with the "Keep a Changelog" intro section ', () => {
+    it('begins with the "Keep a Changelog" intro section', () => {
       const actualIntro = packageChangelog.substring(0, CHANGELOG_INTRO.length);
 
       expect(actualIntro).toBe(CHANGELOG_INTRO);

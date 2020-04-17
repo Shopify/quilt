@@ -20,7 +20,7 @@ export type DeepPartial<T> = {
     ? DeepPartial<U>[]
     : T[P] extends ReadonlyArray<infer U>
     ? ReadonlyArray<DeepPartial<U>>
-    : DeepPartial<T[P]>
+    : DeepPartial<T[P]>;
 };
 
 export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
@@ -44,11 +44,11 @@ export type IfAllNullableKeys<Obj, If, Else = never> = NonNullableKeys<
   : Else;
 
 export type NonOptionalKeys<T> = {
-  [K in keyof T]-?: undefined extends T[K] ? never : K
+  [K in keyof T]-?: undefined extends T[K] ? never : K;
 }[keyof T];
 
 export type NonNullableKeys<T> = {
-  [K in keyof T]-?: null extends T[K] ? never : K
+  [K in keyof T]-?: null extends T[K] ? never : K;
 }[keyof T];
 
 export type NoInfer<T> = {[K in keyof T]: T[K]} & T;

@@ -20,7 +20,10 @@ describe('replaceStrings', () => {
 
     const result = await transform(
       initial,
-      replaceStrings([['foo', 'baz'], ['bar', 'qux']]),
+      replaceStrings([
+        ['foo', 'baz'],
+        ['bar', 'qux'],
+      ]),
     );
 
     const expected = `

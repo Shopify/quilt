@@ -20,7 +20,7 @@ export function compose(...visitors: any[]) {
 
   return [
     (function combinedVisitor() {
-      return function() {
+      return function () {
         return {
           visitor,
         };

@@ -3,18 +3,15 @@ interface EnvBackup {
 }
 
 function getEnvValues(envVars: string[]): EnvBackup {
-  return envVars.reduce(
-    (acc, key) => {
-      acc[key] = {
-        // only care for keys that already have an entry in `process.env`
-        // as they would otherwise end up as `{KEY: "undefined"}` inside `process.env`
-        isSet: key in process.env,
-        value: process.env[key],
-      };
-      return acc;
-    },
-    {} as EnvBackup,
-  );
+  return envVars.reduce((acc, key) => {
+    acc[key] = {
+      // only care for keys that already have an entry in `process.env`
+      // as they would otherwise end up as `{KEY: "undefined"}` inside `process.env`
+      isSet: key in process.env,
+      value: process.env[key],
+    };
+    return acc;
+  }, {} as EnvBackup);
 }
 
 function resetEnv(oldEnv: EnvBackup) {
