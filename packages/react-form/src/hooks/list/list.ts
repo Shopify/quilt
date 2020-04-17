@@ -180,7 +180,9 @@ export function useList<Item extends object>(
 
             return runValidation(
               error =>
-                dispatch(updateErrorAction<Item>({target, error: error || ''})),
+                dispatch(
+                  updateErrorAction<Item>({target, error: error || ''}),
+                ),
               {value, siblings, listItem: item},
               validates,
             );

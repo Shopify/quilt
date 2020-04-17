@@ -16,7 +16,9 @@ describe('Location', () => {
 
       expect(() => {
         location.mock();
-      }).toThrow();
+      }).toThrow(
+        'You tried to mock window.location when it was already mocked.',
+      );
     });
   });
 
@@ -34,7 +36,9 @@ describe('Location', () => {
 
       expect(() => {
         location.restore();
-      }).toThrow();
+      }).toThrow(
+        'You tried to restore window.location when it was already restored.',
+      );
     });
   });
 });

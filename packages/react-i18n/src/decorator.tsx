@@ -20,7 +20,7 @@ export function withI18n(i18nOptions?: RegisterOptions) {
 
       return (
         <ShareTranslations>
-          <WrappedComponent {...props as any} i18n={i18n} />
+          <WrappedComponent {...(props as any)} i18n={i18n} />
         </ShareTranslations>
       );
     }

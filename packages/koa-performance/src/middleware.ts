@@ -165,9 +165,9 @@ export function clientPerformanceMetrics({
 
         if (getAdditionalNavigationMetrics) {
           metrics.push(
-            ...getAdditionalNavigationMetrics(navigation).map(
-              ({name, value}) => ({name, value, tags: navigationTags}),
-            ),
+            ...getAdditionalNavigationMetrics(
+              navigation,
+            ).map(({name, value}) => ({name, value, tags: navigationTags})),
           );
         }
       }

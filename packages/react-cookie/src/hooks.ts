@@ -13,7 +13,7 @@ export function useCookie(
   key: string,
 ): [
   string | undefined,
-  (value?: string, options?: CookieSerializeOptions) => void
+  (value?: string, options?: CookieSerializeOptions) => void,
 ] {
   const manager = useContext(CookieContext);
 

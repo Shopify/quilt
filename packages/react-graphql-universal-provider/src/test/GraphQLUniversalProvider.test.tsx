@@ -50,9 +50,7 @@ describe('<GraphQLUniversalProvider />', () => {
       <GraphQLUniversalProvider createClientOptions={() => clientOptions} />
     );
 
-    const client = mount(graphQLProvider)
-      .find(ApolloProvider)!
-      .prop('client');
+    const client = mount(graphQLProvider).find(ApolloProvider)!.prop('client');
 
     // Simulated server render
     await extract(graphQLProvider, {
