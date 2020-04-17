@@ -39,8 +39,7 @@
     "graphql-typed": "^0.4.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^2.0.1",
-    "@types/graphql": "^14.0.0"
+    "@shopify/react-testing": "^2.0.1"
   },
   "files": [
     "dist/*",
