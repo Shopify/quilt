@@ -1192,151 +1192,173 @@ describe('I18n', () => {
         ).toBe('Dec. 20, 2012');
       });
 
-      it('formats a date less than one minute ago', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneMinuteAgo = new Date(today.getTime());
-        lessThanOneMinuteAgo.setSeconds(-5);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
+      describe('past dates', () => {
+        it('formats a date less than one minute ago', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneMinuteAgo = new Date(today.getTime());
+          lessThanOneMinuteAgo.setSeconds(-5);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneMinuteAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneMinuteAgo',
+            {pseudotranslate: false},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
-        i18n.formatDate(lessThanOneMinuteAgo, {
-          style: DateStyle.Humanize,
+        it('formats a date less than one hour ago', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneHourAgo = new Date(today.getTime());
+          const minutesAgo = 5;
+          lessThanOneHourAgo.setMinutes(-minutesAgo);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneHourAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneHourAgo',
+            {pseudotranslate: false, replacements: {count: minutesAgo}},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneMinuteAgo',
-          {pseudotranslate: false},
-          defaultTranslations,
-          i18n.locale,
-        );
+
+        it('formats a date from today', () => {
+          const today = new Date('2012-12-20T23:00:00-00:00');
+          const moreThanOneHourAgo = new Date(today.getTime());
+          const hoursAgo = 5;
+          moreThanOneHourAgo.setHours(today.getHours() - hoursAgo);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          expect(
+            i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
+          ).toBe('5:00 a.m.');
+        });
+
+        it('formats a date from yesterday', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const yesterday = new Date('2012-12-19T00:00:00-00:00');
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(yesterday, {style: DateStyle.Humanize});
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.yesterday',
+            {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
+
+        it('formats a date less than one week ago', () => {
+          const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneWeekAgo = new Date(
+            today.getTime() - fiveDaysInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneWeekAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneWeekAgo',
+            {
+              pseudotranslate: false,
+              replacements: {weekday: 'Saturday', time: '11:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
+
+        it('formats a date less than one year ago', () => {
+          // Offset from 2012-12-20 to 2012-07-20
+          const fiveMonthsInMilliseconds =
+            (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
+
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneYearAgo = new Date(
+            today.getTime() - fiveMonthsInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneYearAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneYearAgo',
+            {
+              pseudotranslate: false,
+              replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
       });
 
-      it('formats a date less than one hour ago', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneHourAgo = new Date(today.getTime());
-        const minutesAgo = 5;
-        lessThanOneHourAgo.setMinutes(-minutesAgo);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
+      describe('future dates', () => {
+        it('formats a date from tomorrow', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const tomorrow = new Date('2012-12-21T00:00:00-00:00');
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(tomorrow, {style: DateStyle.Humanize});
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.tomorrow',
+            {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
-        i18n.formatDate(lessThanOneHourAgo, {
-          style: DateStyle.Humanize,
+        it('formats a future date', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const futureDate = new Date(today.getTime());
+          futureDate.setFullYear(today.getFullYear() + 1);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
+            'Dec. 20, 2013',
+          );
         });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneHourAgo',
-          {pseudotranslate: false, replacements: {count: minutesAgo}},
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
-
-      it('formats a date from today', () => {
-        const today = new Date('2012-12-20T23:00:00-00:00');
-        const moreThanOneHourAgo = new Date(today.getTime());
-        const hoursAgo = 5;
-        moreThanOneHourAgo.setHours(today.getHours() - hoursAgo);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
-        });
-
-        expect(
-          i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
-        ).toBe('5:00 a.m.');
-      });
-
-      it('formats a date from yesterday', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const yesterday = new Date('2012-12-19T00:00:00-00:00');
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
-        });
-
-        i18n.formatDate(yesterday, {style: DateStyle.Humanize});
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.yesterday',
-          {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
-
-      it('formats a date less than one week ago', () => {
-        const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneWeekAgo = new Date(
-          today.getTime() - fiveDaysInMilliseconds,
-        );
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
-        });
-
-        i18n.formatDate(lessThanOneWeekAgo, {
-          style: DateStyle.Humanize,
-        });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneWeekAgo',
-          {
-            pseudotranslate: false,
-            replacements: {weekday: 'Saturday', time: '11:00 a.m.'},
-          },
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
-
-      it('formats a date less than one year ago', () => {
-        // Offset from 2012-12-20 to 2012-07-20
-        const fiveMonthsInMilliseconds =
-          (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
-
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneYearAgo = new Date(
-          today.getTime() - fiveMonthsInMilliseconds,
-        );
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
-        });
-
-        i18n.formatDate(lessThanOneYearAgo, {
-          style: DateStyle.Humanize,
-        });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneYearAgo',
-          {
-            pseudotranslate: false,
-            replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
-          },
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
-
-      it('formats a future date', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const futureDate = new Date(today.getTime());
-        futureDate.setFullYear(today.getFullYear() + 1);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
-        });
-
-        expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
-          'Dec. 20, 2013',
-        );
       });
     });
 
