@@ -424,7 +424,7 @@ class GraphqlController < ApplicationController
 end
 ```
 
-If your API **does** require session data, you may can use follow the following steps:
+If your API **does** require session data, you can follow these steps:
 
 - Add an `x-shopify-react-xhr` header to all GraphQL requests with a value of 1 (this is done automatically if you are using `@shopify/react-graphql-universal-provider`)
 - Add a `protect_from_forgery with: Quilt::HeaderCsrfStrategy` override to your controllers
@@ -444,8 +444,6 @@ class GraphqlController < ApplicationController
   end
 end
 ```
-
--
 
 ## Performance tracking a React app
 
