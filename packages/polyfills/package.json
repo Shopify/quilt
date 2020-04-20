@@ -1,6 +1,6 @@
 {
   "name": "@shopify/polyfills",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features.",
   "sideEffects": true,
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/polyfills/README.md",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@shopify/useful-types": "^2.1.4",
+    "@shopify/useful-types": "^2.1.5",
     "browser-unhandled-rejection": "^1.0.2",
     "caniuse-api": "^3.0.0",
     "formdata-polyfill": "^3.0.18",

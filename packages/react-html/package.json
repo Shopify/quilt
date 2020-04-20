@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "9.3.6",
+  "version": "9.3.7",
   "license": "MIT",
   "description": "A component to render your react app with no static HTML.",
   "main": "dist/src/index.js",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@shopify/react-effect": "^3.2.12",
     "@shopify/react-hydrate": "^1.1.20",
-    "@shopify/useful-types": "^2.1.4",
+    "@shopify/useful-types": "^2.1.5",
     "@types/multistream": "^2.1.1",
     "multistream": "^2.1.1",
     "serialize-javascript": "^3.0.0",
@@ -36,8 +36,8 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^2.0.1",
-    "@shopify/with-env": "^1.1.7"
+    "@shopify/react-testing": "^2.1.0",
+    "@shopify/with-env": "^1.1.8"
   },
   "sideEffects": false,
   "files": [
