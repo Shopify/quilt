@@ -21,6 +21,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
     - [Interacting with the request and response in React code](#interacting-with-the-request-and-response-in-react-code)
     - [Dealing with isomorphic state](#dealing-with-isomorphic-state)
     - [Customizing the node server](#customizing-the-node-server)
+    - [Fixing rejected CSRF tokens for new user sessions](#fixing-rejected-csrf-tokens-for-new-user-sessions)
 - [Performance tracking a React app](#performance-tracking-a-react-app)
   - [Install dependencies](#install-dependencies)
   - [Setup an endpoint for performance reports](setup-an-endpoint-for-performance-reports)
