@@ -83,6 +83,10 @@ interface QueryHookResult<Data, Variables> {
     ) => Data,
   ): void;
   refetch(variables?: Variables): Promise<ApolloQueryResult<Data>>;
+  fetchMore(
+    fetchMoreOptions: FetchMoreQueryOptions<Variables> &
+      FetchMoreOptions<Data, Variables>,
+  ): Promise<ApolloQueryResult<Data>>;
   networkStatus: NetworkStatus | undefined;
   variables: Variables | undefined;
 }
