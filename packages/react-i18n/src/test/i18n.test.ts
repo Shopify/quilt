@@ -1327,7 +1327,7 @@ describe('I18n', () => {
       });
 
       describe('future dates', () => {
-        it('formats a date from tomorrow', () => {
+        it('formats a date for tomorrow', () => {
           const today = new Date('2012-12-20T00:00:00-00:00');
           const tomorrow = new Date('2012-12-21T00:00:00-00:00');
           clock.mock(today);
@@ -1343,6 +1343,22 @@ describe('I18n', () => {
             defaultTranslations,
             i18n.locale,
           );
+        });
+
+        it('formats a date for today', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const todayInTheFuture = new Date(today.getTime());
+          const hoursInTheFuture = 5;
+          todayInTheFuture.setHours(today.getHours() + hoursInTheFuture);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          expect(
+            i18n.formatDate(todayInTheFuture, {style: DateStyle.Humanize}),
+          ).toBe('4:00 p.m.');
         });
 
         it('formats a future date', () => {
