@@ -1,23 +1,31 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useLayoutEffect} from 'react';
 
-export function useMedia(query: string) {
-  const [match, setMatch] = useState(false);
+type EffectHook = typeof useEffect | typeof useLayoutEffect;
 
-  useEffect(() => {
-    if (!window || !window.matchMedia) {
-      return;
-    }
+function createUseMediaFactory(useEffectHook: EffectHook) {
+  return (query: string) => {
+    const [match, setMatch] = useState(false);
 
-    const matchMedia = window.matchMedia(query);
-    const updateMatch = (event: MediaQueryListEvent) => setMatch(event.matches);
+    useEffectHook(() => {
+      if (!window || !window.matchMedia) {
+        return;
+      }
 
-    setMatch(matchMedia.matches);
+      const matchMedia = window.matchMedia(query);
+      const updateMatch = (event: MediaQueryListEvent) =>
+        setMatch(event.matches);
 
-    matchMedia.addListener(updateMatch);
-    return () => {
-      matchMedia.removeListener(updateMatch);
-    };
-  }, [query]);
+      setMatch(matchMedia.matches);
 
-  return match;
+      matchMedia.addListener(updateMatch);
+      return () => {
+        matchMedia.removeListener(updateMatch);
+      };
+    }, [query]);
+
+    return match;
+  };
 }
+
+export const useMedia = createUseMediaFactory(useEffect);
+export const useMediaLayout = createUseMediaFactory(useLayoutEffect);
