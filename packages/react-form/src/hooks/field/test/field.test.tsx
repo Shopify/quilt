@@ -310,8 +310,6 @@ describe('useField', () => {
           );
         }
 
-        const failingValidator = (value: string) => `${value} tastes most foul`;
-
         const fieldConfig = {
           value: 'old title',
           validates: [alwaysPass],
@@ -319,6 +317,8 @@ describe('useField', () => {
 
         const wrapper = mount(<TestField config={fieldConfig} />);
         const newValue = faker.commerce.product();
+
+        expect(wrapper.find('p').props.children).toStrictEqual([]);
 
         wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
         wrapper.find('input')!.trigger('onBlur', blurEvent());
@@ -330,9 +330,7 @@ describe('useField', () => {
 
         const allErrorsSecondValidation = wrapper.find('p').props.children;
 
-        expect(allErrorsFirstValidation).toStrictEqual(
-          allErrorsSecondValidation,
-        );
+        expect(allErrorsFirstValidation).toBe(allErrorsSecondValidation);
       });
     });
   });
