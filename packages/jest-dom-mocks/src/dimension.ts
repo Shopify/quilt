@@ -1,6 +1,7 @@
 import {memoize} from '@shopify/decorators';
 
 enum SupportedDimension {
+  InnerWidth = 'innerWidth',
   OffsetWidth = 'offsetWidth',
   OffsetHeight = 'offsetHeight',
   ScrollWidth = 'scrollWidth',
@@ -56,6 +57,7 @@ export default class Dimension {
   @memoize()
   private get nativeImplementations(): NativeImplentationMap {
     return {
+      [SupportedDimension.InnerWidth]: HTMLElement.prototype,
       [SupportedDimension.OffsetWidth]: HTMLElement.prototype,
       [SupportedDimension.OffsetHeight]: HTMLElement.prototype,
       [SupportedDimension.ScrollWidth]: Element.prototype,
