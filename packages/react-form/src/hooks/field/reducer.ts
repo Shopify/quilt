@@ -1,14 +1,14 @@
 import {useReducer, Reducer} from 'react';
 
 import {FieldState, ErrorValue, DirtyStateComparator} from '../../types';
-import {defaultDirtyComparator} from '../../utilities';
+import {defaultDirtyComparator, shallowArrayComparison} from '../../utilities';
 
 export interface ReducerOptions<Value> {
   dirtyStateComparator?: DirtyStateComparator<Value>;
 }
 interface UpdateErrorAction {
   type: 'updateError';
-  payload: ErrorValue;
+  payload: ErrorValue[] | ErrorValue;
 }
 
 interface ResetAction {
@@ -45,7 +45,9 @@ export function newDefaultAction<Value>(value: Value): NewDefaultAction<Value> {
   };
 }
 
-export function updateErrorAction(error: ErrorValue): UpdateErrorAction {
+export function updateErrorAction(
+  error: ErrorValue[] | ErrorValue,
+): UpdateErrorAction {
   return {
     type: 'updateError',
     payload: error,
@@ -88,10 +90,22 @@ export function makeFieldReducer<Value>({
       }
 
       case 'updateError': {
-        return {
-          ...state,
-          error: action.payload,
-        };
+        const payload = Array.isArray(action.payload)
+          ? action.payload
+          : [action.payload];
+        const [firstError] = payload;
+        if (shallowArrayComparison(payload, state.allErrors)) {
+          return {
+            ...state,
+            error: firstError,
+          };
+        } else {
+          return {
+            ...state,
+            error: firstError,
+            allErrors: payload,
+          };
+        }
       }
 
       case 'reset': {
@@ -103,6 +117,7 @@ export function makeFieldReducer<Value>({
           value: defaultValue,
           dirty: false,
           touched: false,
+          allErrors: [],
         };
       }
 
@@ -138,5 +153,6 @@ export function initialFieldState<Value>(value: Value): FieldState<Value> {
     error: undefined,
     touched: false,
     dirty: false,
+    allErrors: [],
   };
 }
