@@ -94,7 +94,8 @@ export function makeFieldReducer<Value>({
           ? action.payload
           : [action.payload];
         const [firstError] = payload;
-        if (shallowArrayComparison(payload, state.allErrors)) {
+        const allErrors = firstError ? payload : [];
+        if (shallowArrayComparison(allErrors, state.allErrors)) {
           return {
             ...state,
             error: firstError,
@@ -103,7 +104,7 @@ export function makeFieldReducer<Value>({
           return {
             ...state,
             error: firstError,
-            allErrors: payload,
+            allErrors,
           };
         }
       }
