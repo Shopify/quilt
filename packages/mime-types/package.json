@@ -1,6 +1,6 @@
 {
   "name": "@shopify/mime-types",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "Mime type consistency",
   "main": "dist/src/index.js",
@@ -23,5 +23,8 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/mime-types/README.md",
-  "files": ["dist/*", "!tsconfig.tsbuildinfo"]
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }
