@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [Unreleased]
+## [2.9.0] - 2020-04-23
 
 - Added mock for `innerWidth` to dimensions ([#1399](https://github.com/Shopify/quilt/pull/1399))
 
