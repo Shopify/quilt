@@ -1,10 +1,12 @@
 import {
   formatDate,
+  isFutureDate,
   isLessThanOneHourAgo,
   isLessThanOneMinuteAgo,
   isLessThanOneWeekAgo,
   isLessThanOneYearAgo,
   isToday,
+  isTomorrow,
   isYesterday,
   TimeUnit,
 } from '@shopify/dates';
@@ -443,6 +445,14 @@ export class I18n {
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    if (isFutureDate(date)) {
+      return this.humanizeFutureDate(date, options);
+    } else {
+      return this.humanizePastDate(date, options);
+    }
+  }
+
+  private humanizePastDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     if (isLessThanOneMinuteAgo(date)) {
       return this.translate('date.humanize.lessThanOneMinuteAgo');
     }
@@ -492,6 +502,27 @@ export class I18n {
         date: monthDay,
         time,
       });
+    }
+
+    return this.formatDate(date, {
+      ...options,
+      style: DateStyle.Short,
+    });
+  }
+
+  private humanizeFutureDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const time = this.formatDate(date, {
+      ...options,
+      hour: 'numeric',
+      minute: '2-digit',
+    }).toLocaleLowerCase();
+
+    if (isToday(date)) {
+      return time;
+    }
+
+    if (isTomorrow(date)) {
+      return this.translate('date.humanize.tomorrow', {time});
     }
 
     return this.formatDate(date, {
