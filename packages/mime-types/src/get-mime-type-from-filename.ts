@@ -4,15 +4,23 @@ export function getMimeTypeFromFilename(filename: string) {
   const extension = getFileExtension(filename.toLowerCase());
 
   switch (extension) {
+    case 'csv':
+      return MimeType.Csv;
     case 'gif':
       return MimeType.Gif;
     case 'glb':
       return MimeType.Glb;
     case 'm3u8':
       return MimeType.Hls;
+    case 'html':
+      return MimeType.Html;
     case 'jpg':
     case 'jpeg':
       return MimeType.Jpeg;
+    case 'js':
+      return MimeType.Js;
+    case 'json':
+      return MimeType.Json;
     case 'mov':
       return MimeType.Mov;
     case 'mp4':
@@ -21,6 +29,10 @@ export function getMimeTypeFromFilename(filename: string) {
       return MimeType.Pdf;
     case 'png':
       return MimeType.Png;
+    case 'txt':
+      return MimeType.Text;
+    case 'zip':
+      return MimeType.Zip;
   }
 }
 
