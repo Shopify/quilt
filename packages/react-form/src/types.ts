@@ -35,6 +35,7 @@ export interface FieldState<Value> {
   value: Value;
   defaultValue: Value;
   error: ErrorValue;
+  allErrors?: ErrorValue[];
   touched: boolean;
   dirty: boolean;
 }
@@ -46,6 +47,7 @@ export type FieldStates<Record extends object> = {
 export interface Field<Value> {
   value: Value;
   error: ErrorValue;
+  allErrors?: ErrorValue[];
   defaultValue: Value;
   touched: boolean;
   dirty: boolean;

@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.6.0] - 2020-04-23
+
+### Added
+
+- Add optional `allErrors` property to `Field` type definition that stores all error messages resulting from `runValidation` [#1383](https://github.com/Shopify/quilt/pull/1383)
+
 ## [0.5.4] - 2020-04-13
 
 ### Fixed
