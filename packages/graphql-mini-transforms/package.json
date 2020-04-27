@@ -1,7 +1,7 @@
 {
   "name": "graphql-mini-transforms",
   "description": "Transformers for importing .graphql files in various build tools.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "types": "lib",
   "license": "MIT",
   "publishConfig": {
@@ -41,7 +41,7 @@
     "@types/webpack": "^4.41.11",
     "fs-extra": "^9.0.0",
     "graphql": ">=14.5.0 <15.0.0",
-    "graphql-typed": "^0.5.0",
+    "graphql-typed": "^0.6.0",
     "loader-utils": "^2.0.0"
   }
 }

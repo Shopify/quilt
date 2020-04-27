@@ -5,6 +5,12 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [0.20.0] - 2020-04-27
+
+### Added
+
+- Added a new `exportFormat` option to control the type of documents exported from `.graphql` files [[#114](https://github.com/Shopify/graphql-tools-web/pull/114)]
+
 ## [0.19.0] - 2020-04-14
 
 ### Changed

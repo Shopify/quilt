@@ -5,6 +5,13 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [1.2.0] - 2020-04-27
+
+### Added
+
+- Added a new `{simple: true}` option to the `graphql-mini-transforms/webpack` loader to produce GraphQL exports without any AST [[#114](https://github.com/Shopify/graphql-tools-web/pull/114)]
+- Added a new `graphql-mini-transforms/jest-simple` transformer that produces the same shape as the webpack loader’s `simple` option [[#114](https://github.com/Shopify/graphql-tools-web/pull/114)]
+
 ## [1.1.0] - 2020-04-14
 
 ### Changed
