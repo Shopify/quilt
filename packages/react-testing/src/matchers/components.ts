@@ -57,11 +57,13 @@ export function toContainReactComponent<
           foundByProps.length === 1 ? 'elements were' : 'element was'
         } found.\n`
     : () =>
-        `${`${matcherHint('.toContainReactComponent')}\n\n` +
+        `${
+          `${matcherHint('.toContainReactComponent')}\n\n` +
           `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
           `To contain component:\n  ${expectedColor(printType(type))}\n${
             props ? `With props matching:\n  ${printExpected(props)}\n` : ''
-          }`}${
+          }`
+        }${
           foundByType.length === 0
             ? `But no matching ${printType(type)} elements were found.\n`
             : `But the ${

@@ -16,7 +16,9 @@ describe('Clock', () => {
 
       expect(() => {
         clock.mock();
-      }).toThrow();
+      }).toThrow(
+        'The clock is already mocked, but you tried to mock it again.',
+      );
     });
   });
 
@@ -34,7 +36,9 @@ describe('Clock', () => {
 
       expect(() => {
         clock.restore();
-      }).toThrow();
+      }).toThrow(
+        'The clock is already real, but you tried to restore it again.',
+      );
     });
   });
 });

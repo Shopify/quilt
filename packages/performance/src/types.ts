@@ -7,7 +7,7 @@ export enum EventType {
   Load = 'load',
   LongTask = 'longtask',
   Usable = 'usable',
-  // eslint-disable-next-line shopify/typescript/prefer-pascal-case-enums
+  // eslint-disable-next-line @shopify/typescript/prefer-pascal-case-enums
   GraphQL = 'graphql',
   ScriptDownload = 'script',
   StyleDownload = 'style',

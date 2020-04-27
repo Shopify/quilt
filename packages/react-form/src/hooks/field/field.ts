@@ -123,13 +123,13 @@ export function useField<Value = string>(
 
   const runValidation = useCallback(
     (value: Value = state.value) => {
-      const error = validators
+      const errors = validators
         .map(check => check(value, {}))
         .filter(value => value != null);
 
-      if (error && error.length > 0) {
-        const [firstError] = error;
-        dispatch(updateErrorAction(firstError));
+      if (errors && errors.length > 0) {
+        const [firstError] = errors;
+        dispatch(updateErrorAction(errors));
         return firstError;
       }
 

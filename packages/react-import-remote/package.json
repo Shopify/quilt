@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-import-remote",
-  "version": "1.0.37",
+  "version": "1.0.39",
   "license": "MIT",
   "description": "Asynchronous script loading for React",
   "main": "dist/src/index.js",
@@ -24,10 +24,10 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
   "dependencies": {
     "@shopify/async": "^2.1.4",
-    "@shopify/react-hooks": "^1.8.0",
-    "@shopify/react-html": "^9.3.6",
+    "@shopify/react-hooks": "^1.9.0",
+    "@shopify/react-html": "^9.3.8",
     "@shopify/react-intersection-observer": "^2.0.14",
-    "@shopify/useful-types": "^2.1.4",
+    "@shopify/useful-types": "^2.1.5",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {

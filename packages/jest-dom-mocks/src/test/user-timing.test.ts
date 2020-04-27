@@ -15,7 +15,9 @@ describe('UserTiming', () => {
 
       expect(() => {
         userTiming.mock();
-      }).toThrow();
+      }).toThrow(
+        'You tried to mock window.performance.timing when it was already mocked.',
+      );
     });
 
     it('delegates stubbed options to window.performance.timing', () => {
@@ -47,7 +49,9 @@ describe('UserTiming', () => {
 
       expect(() => {
         userTiming.restore();
-      }).toThrow();
+      }).toThrow(
+        'You tried to restore window.performance.timing when it was already restored.',
+      );
     });
   });
 });

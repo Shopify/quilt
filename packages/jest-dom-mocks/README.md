@@ -237,6 +237,7 @@ The dimension mocks allow mocking the following DOM properties:
 - `scrollHeight`
 - `offsetWidth`
 - `offsetHeight`
+- `innerWidth`
 
 Pass the dimension you want to mock and the value you want returned for all calls when calling `mock`:
 

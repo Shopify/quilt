@@ -33,9 +33,7 @@ describe('registerWebhook', () => {
 
     const webhookQuery = `
     mutation webhookSubscriptionCreate {
-      webhookSubscriptionCreate(topic: ${
-        webhook.topic
-      }, webhookSubscription: {callbackUrl: "${webhook.address}"}) {
+      webhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {callbackUrl: "${webhook.address}"}) {
         userErrors {
           field
           message

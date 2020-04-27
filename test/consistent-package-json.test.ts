@@ -46,7 +46,7 @@ const IGNORE_PACKAGES = ['tslib', '@types/'];
 packages.forEach(
   ({packageName, packageJSONPath, packageJSON, expectedPackageJSON}) => {
     describe(`${packageName}`, () => {
-      // eslint-disable-next-line jest/valid-describe
+      // eslint-disable-next-line jest/valid-title
       describe(packageJSONPath, () => {
         it('specifies Shopify as author', () => {
           expect(packageJSON.author).toBe(expectedPackageJSON.author);

@@ -17,7 +17,7 @@ export interface FieldDescriptor<Value> extends FieldState<Value> {
 }
 
 export type FieldDescriptors<Fields> = {
-  [FieldPath in keyof Fields]: FieldDescriptor<Fields[FieldPath]>
+  [FieldPath in keyof Fields]: FieldDescriptor<Fields[FieldPath]>;
 };
 
 export interface ValueMapper<Value> {
@@ -25,5 +25,5 @@ export interface ValueMapper<Value> {
 }
 
 export type FieldStates<Fields> = {
-  [FieldPath in keyof Fields]: FieldState<Fields[FieldPath]>
+  [FieldPath in keyof Fields]: FieldState<Fields[FieldPath]>;
 };
