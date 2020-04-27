@@ -20,7 +20,7 @@ export function GraphQLUniversalProvider({
   const [client, ssrLink] = useLazyRef<
     [
       import('apollo-client').ApolloClient<any>,
-      ReturnType<typeof createSsrExtractableLink>
+      ReturnType<typeof createSsrExtractableLink>,
     ]
   >(() => {
     const clientOptions = createClientOptions();

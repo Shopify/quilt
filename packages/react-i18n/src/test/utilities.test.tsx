@@ -111,7 +111,7 @@ describe('getTranslationTree()', () => {
   it('throws a MissingTranslationError when no translation is found', () => {
     expect(() =>
       getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}, locale),
-    ).toThrow();
+    ).toThrow('Missing translation for key: foo.bar.baz in locale: en-us');
   });
 });
 
@@ -195,7 +195,9 @@ describe('translate()', () => {
   });
 
   it('throws a MissingTranslationError when no translation is found', () => {
-    expect(() => translate('foo', {}, {}, locale)).toThrow();
+    expect(() => translate('foo', {}, {}, locale)).toThrow(
+      'Missing translation for key: foo in locale: en-us',
+    );
   });
 
   it('throws a MissingTranslationError with the normalizedId when no translation is found using a scope', () => {

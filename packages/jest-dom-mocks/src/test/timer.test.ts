@@ -16,7 +16,9 @@ describe('Timer', () => {
 
       expect(() => {
         timer.mock();
-      }).toThrow();
+      }).toThrow(
+        'The Timer is already mocked, but you tried to mock it again.',
+      );
     });
   });
 
@@ -34,7 +36,9 @@ describe('Timer', () => {
 
       expect(() => {
         timer.restore();
-      }).toThrow();
+      }).toThrow(
+        'The Timer is already real, but you tried to restore it again.',
+      );
     });
   });
 });

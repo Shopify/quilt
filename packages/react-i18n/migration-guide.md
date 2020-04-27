@@ -2,7 +2,20 @@
 
 This is a concise summary of changes and recommendations around updating `@shopify/react-i18n` in consuming projects. For a more detailed list of changes, see [the changelog](./CHANGELOG.md).
 
-## [Unreleased]
+## [3.0.0] - 2020-04-23
+
+🛑Breaking change - New translation key is needed for future dates formatted with `DateStyle.Humanize`. Consumers will need to add the translation key as outlined below.
+
+```json
+"date": {
+  "humanize": {
+    ...
+    "tomorrow": "Tomorrow at {time}"
+  }
+},
+```
+
+## [2.0.0] - 2019-09-19
 
 🛑Breaking change - The translation keys for dates formatted with `DateStyle.Humanize` have changed. Consumers will need to modify the translation keys as outlined below.
 

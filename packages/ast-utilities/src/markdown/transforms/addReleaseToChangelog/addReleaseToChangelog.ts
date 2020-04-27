@@ -21,11 +21,7 @@ export default function addReleaseToChangelog({version, date, notes}: Options) {
       [build('text', {value: `${version} - ${date}`})],
     );
 
-    const notesNode = notes
-      ? unified()
-          .use(parse)
-          .parse(notes)
-      : null;
+    const notesNode = notes ? unified().use(parse).parse(notes) : null;
 
     function transformer(tree) {
       tree.children = flatten(
