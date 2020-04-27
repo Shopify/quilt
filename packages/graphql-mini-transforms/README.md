@@ -59,6 +59,27 @@ fragment ProductVariantId on ProductVariant {
 }
 ```
 
+#### Options
+
+This loader accepts a single option, `simple`. This option changes the shape of the value exported from `.graphql` files. By default, a `graphql-typed` `DocumentNode` is exported, but when `simple` is set to `true`, a `SimpleDocument` is exported instead. This representation of GraphQL documents is smaller than a full `DocumentNode`, but generally won’t work with normalized GraphQL caches.
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(graphql|gql)$/,
+        use: 'graphql-mini-transforms/webpack',
+        exclude: /node_modules/,
+        options: {simple: true},
+      },
+    ],
+  },
+};
+```
+
+If this option is set to `true`, you should also use the `jest-simple` transformer for Jest, and the `--export-format simple` flag for `graphql-typescript-definitions`.
+
 ### Jest
 
 This package also provides a transformer for GraphQL files in Jest. To use the transformer, add a reference to it in your Jest configuration’s `transform` option:
@@ -67,6 +88,16 @@ This package also provides a transformer for GraphQL files in Jest. To use the t
 module.exports = {
   transform: {
     '\\.(gql|graphql)$': 'graphql-mini-transforms/jest',
+  },
+};
+```
+
+If you want to get the same output as the `simple` option of the webpack loader, you can instead use the `jest-simple` loader transformer:
+
+```js
+module.exports = {
+  transform: {
+    '\\.(gql|graphql)$': 'graphql-mini-transforms/jest-simple',
   },
 };
 ```
@@ -86,5 +117,3 @@ We wrote something custom in order to get the following benefits:
 ## Related projects
 
 - [next-plugin-mini-graphql](https://www.npmjs.com/package/next-plugin-mini-graphql) - Provides [Next.js](https://nextjs.org/) support for `.graphql` files using `graphql-mini-transforms`
-
-

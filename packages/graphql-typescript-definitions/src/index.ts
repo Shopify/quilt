@@ -39,9 +39,9 @@ import {
   PrintDocumentOptions,
   PrintSchemaOptions,
 } from './print';
-import {EnumFormat} from './types';
+import {EnumFormat, ExportFormat} from './types';
 
-export {EnumFormat};
+export {EnumFormat, ExportFormat};
 
 export interface Options extends PrintDocumentOptions, PrintSchemaOptions {
   addTypename: boolean;

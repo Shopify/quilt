@@ -200,9 +200,66 @@ describe('graphql-mini-transforms/webpack', () => {
       expect(body).not.toContain('fragment FooFragment on Shop');
     });
   });
+
+  describe('simple', () => {
+    it('has a source property that is the minified source', async () => {
+      const originalSource = stripIndent`
+        # Comments should go away
+        # As should extra space
+        query Shop ( $id : ID! , $first: Number! ) {
+          # Most whitespace should go too
+          shop ( id:   $id, first: $first ) {
+            # Should also minify selection sets
+            id,
+            name,
+          }
+        }
+      `;
+
+      const expectedSource = `query Shop($id:ID!,$first:Number!){shop(id:$id,first:$first){id name __typename}}`;
+
+      expect(
+        await extractDocumentExport(
+          originalSource,
+          createLoaderContext({query: {simple: true}}),
+        ),
+      ).toHaveProperty('source', expectedSource);
+    });
+
+    it('has an id property that is a sha256 hash of the query document', async () => {
+      const result = await extractDocumentExport(
+        `query Shop { shop { id } }`,
+        createLoaderContext({query: {simple: true}}),
+      );
+
+      expect(result).toHaveProperty(
+        'id',
+        createHash('sha256').update(result.source).digest('hex'),
+      );
+    });
+
+    it('has a name property that is the name of the first operation', async () => {
+      const result = await extractDocumentExport(
+        `query Shop { shop { id } }`,
+        createLoaderContext({query: {simple: true}}),
+      );
+
+      expect(result).toHaveProperty('name', 'Shop');
+    });
+
+    it('has an undefined name when there are no named operations', async () => {
+      const result = await extractDocumentExport(
+        `query { shop { id } }`,
+        createLoaderContext({query: {simple: true}}),
+      );
+
+      expect(result).toHaveProperty('name', undefined);
+    });
+  });
 });
 
 interface Options {
+  query?: any;
   context?: string;
   resolve?(context: string, imported: string): string | Error;
   readFile?(file: string): string | Error;
@@ -211,12 +268,14 @@ interface Options {
 // This is a limited subset of the loader API that we actually use in our
 // loader.
 function createLoaderContext({
+  query = {},
   context = __dirname,
   readFile = () => '',
   resolve = (context, imported) => path.resolve(context, imported),
 }: Options = {}): loader.LoaderContext {
   return {
     context,
+    query,
     fs: {
       readFile(
         file: string,
@@ -257,7 +316,9 @@ async function extractDocumentExport(
   loader = createLoaderContext(),
 ) {
   const result = await simulateRun(source, loader);
-  return JSON.parse(result.replace(/^export default /, '').replace(/;$/, ''));
+
+  // eslint-disable-next-line no-eval
+  return eval(result.replace(/^export default /, '').replace(/;$/, ''));
 }
 
 function simulateRun(source: string, loader = createLoaderContext()) {

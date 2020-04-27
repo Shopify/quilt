@@ -4,3 +4,8 @@ export enum EnumFormat {
   PascalCase = 'pascal-case',
   ScreamingSnakeCase = 'screaming-snake-case',
 }
+
+export enum ExportFormat {
+  Document = 'document',
+  Simple = 'simple',
+}

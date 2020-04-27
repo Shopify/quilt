@@ -16,7 +16,16 @@ export interface GraphQLOperation<Data = {}, Variables = {}, DeepPartial = {}> {
 
 export interface DocumentNode<Data = {}, Variables = {}, DeepPartial = {}>
   extends BaseDocumentNode,
-    GraphQLOperation<Data, Variables, DeepPartial> {}
+    GraphQLOperation<Data, Variables, DeepPartial> {
+  readonly id: string;
+}
+
+export interface SimpleDocument<Data = {}, Variables = {}, DeepPartial = {}>
+  extends GraphQLOperation<Data, Variables, DeepPartial> {
+  readonly id: string;
+  readonly name?: string;
+  readonly source: string;
+}
 
 export type GraphQLData<T> = T extends GraphQLOperation<infer Data, any, any>
   ? Data
@@ -41,4 +50,4 @@ export type GraphQLDeepPartial<T> = T extends GraphQLOperation<
 export const parse: <Data = {}, Variables = {}, DeepPartial = {}>(
   source: string | Source,
   options?: ParseOptions,
-) => DocumentNode<Data, Variables, DeepPartial> = graphQLParse;
+) => DocumentNode<Data, Variables, DeepPartial> = graphQLParse as any;

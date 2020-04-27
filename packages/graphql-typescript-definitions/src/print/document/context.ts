@@ -4,11 +4,12 @@ import * as t from '@babel/types';
 import {upperCaseFirst} from 'upper-case-first';
 import {AST, Fragment, isOperation, Operation} from 'graphql-tool-utilities';
 
-import {EnumFormat} from '../../types';
+import {EnumFormat, ExportFormat} from '../../types';
 
 export interface Options {
   schemaTypesPath: string;
   enumFormat?: EnumFormat;
+  exportFormat?: ExportFormat;
   addTypename?: boolean;
 }
 

@@ -3,7 +3,7 @@
 import * as chalk from 'chalk';
 import yargs from 'yargs';
 
-import {EnumFormat} from './types';
+import {EnumFormat, ExportFormat} from './types';
 
 import {Builder, SchemaBuild, DocumentBuild} from '.';
 
@@ -33,6 +33,11 @@ const argv = yargs
     default: true,
     type: 'boolean',
     describe: 'Add a __typename field to every object type',
+  })
+  .option('export-format', {
+    required: false,
+    describe: 'The format to use for values exported from GraphQL documents',
+    choices: [ExportFormat.Document, ExportFormat.Simple],
   })
   .option('enum-format', {
     required: false,
