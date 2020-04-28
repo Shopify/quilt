@@ -5,6 +5,12 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [0.20.1] - 2020-04-28
+
+### Fixed
+
+- Fixed `Builder` not respecting the `exportFormat` option.
+
 ## [0.20.0] - 2020-04-27
 
 ### Added
