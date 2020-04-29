@@ -89,6 +89,33 @@ describe('Semaphore', () => {
 
       expect(spy4).toHaveBeenCalledWith(expect.any(Permit));
     });
+
+    it('does not allow acquiring more permits than initially allowed', async () => {
+      const semaphore = new Semaphore(1);
+
+      const promise1 = semaphore.acquire();
+      const promise2 = semaphore.acquire();
+
+      (await promise1).release();
+      (await promise2).release();
+
+      const spy3 = jest.fn();
+      const spy4 = jest.fn();
+
+      semaphore
+        .acquire()
+        .then(spy3)
+        .catch(() => {});
+      semaphore
+        .acquire()
+        .then(spy4)
+        .catch(() => {});
+
+      await endOfPollPhase;
+
+      expect(spy3).toHaveBeenCalledWith(expect.any(Permit));
+      expect(spy4).not.toHaveBeenCalled();
+    });
   });
 });
 

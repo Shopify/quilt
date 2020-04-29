@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.9.0] - 2020-04-23
+
+### Added
+
+- Added `useMediaLayout` hook ([#1396](https://github.com/Shopify/quilt/pull/1396))
+
 ## [1.8.0] - 2020-04-14
 
 - Added a `useMedia` hook ([#1364](https://github.com/Shopify/quilt/pull/1364))

@@ -45,6 +45,7 @@ describe('Dimension mocks', () => {
           scrollHeight: 200,
           offsetWidth: 200,
           offsetHeight: 200,
+          innerWidth: 200,
         });
       }).not.toThrow();
     });
