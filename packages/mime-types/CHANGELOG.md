@@ -7,14 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [1.0.6] - 2020-04-21
+## [0.0.1] - 2020-04-23
 
-### Fixed
-
-- Fixed an issue with incorrect number of permits when the semaphore has multiple tries to be acquired, then released [[#1394](https://github.com/Shopify/quilt/pull/1394)]
-
-## [1.0.0] - 2019-07-25
+- Added extra common mime types [#1372](https://github.com/Shopify/quilt/pull/1372)
 
 ### Added
 
-- `@shopify/semaphore` package
+- `@shopify/mime-types` package
