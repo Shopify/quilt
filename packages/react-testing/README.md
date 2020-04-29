@@ -630,7 +630,7 @@ Asserts that at least one `context.Provider` is in the descendants of the passed
 const MyContext = React.createContext({hello: 'world'});
 const myComponent = mount(<MyComponent />);
 
-expect(myComponent).toProvidereactContext(MyContext, {
+expect(myComponent).toProvideReactContext(MyContext, {
   hello: expect.any(String),
 });
 ```
