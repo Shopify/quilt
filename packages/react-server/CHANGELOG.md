@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Add: Serialize `x-quilt-data` received from the Rails server for use on the client ([#1411](https://github.com/Shopify/quilt/pull/1411))
+
 ## [0.10.0] - 2020-03-23
 
 - Allow `assetName` to take a function for apps which need to serve multiple sub-apps based on path [[#1332]](https://github.com/Shopify/quilt/pull/1332)
