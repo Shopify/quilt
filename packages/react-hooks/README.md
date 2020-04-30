@@ -114,9 +114,11 @@ function MyComponent() {
 }
 ```
 
-### `useMedia()`
+### `useMedia()` & `useMediaLayout()`
 
 This hook will listen to a [MediaQueryList](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList) created via [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) and return true or false if it matches the media query string.
+
+`useMediaLayout` is similar to `useMedia` but it uses `useLayoutEffect` internally to re-render synchronously.
 
 ```tsx
 function MyComponent() {
