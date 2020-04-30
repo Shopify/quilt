@@ -11,6 +11,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
     - [Generate Quilt boilerplate](#generate-quilt-boilerplate)
     - [Try it out](#try-it-out)
   - [Manual Install](#manual-installation)
+    - [Generate Rails boilerplate](#generate-rails-boilerplate)
     - [Install Dependencies](#install-dependencies)
     - [Setup the Rails app](#setup-the-rails-app)
     - [Add JavaScript](#add-javascript)
@@ -81,13 +82,18 @@ This will install the Node dependencies, provide a basic React app (in TypeScrip
 
 #### Try it out
 
-`dev server`
+```sh
+dev up
+dev server
+```
 
 Will run the application, starting up both servers and compiling assets.
 
 ### Manual installation
 
 An application can also be setup manually using the following steps.
+
+[Generate Rails boilerplate](#generate-rails-boilerplate)
 
 #### Install dependencies
 
@@ -101,6 +107,22 @@ yarn add @shopify/sewing-kit @shopify/react-server
 # Add React
 yarn add react react-dom
 
+# Add Typescript
+yarn add typescript @types/react @types/react-dom
+```
+##### Define typescript config
+```json
+// tsconfig.json
+{
+  "extends": "@shopify/typescript-configs/application.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "."
+  },
+  "include": ["app/ui"]
+}
+```
+```sh
 yarn
 dev up
 ```
