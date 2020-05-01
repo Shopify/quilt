@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.1.61] - 2020-05-01
+
+- Fixes ITP 2.3 and Safari 13.1 enable cookies loop [1413](https://github.com/Shopify/quilt/pull/1413)
+
 ## [3.1.56] - 2020-02-03
 
 - Package now forces cookies.secure to be true [1255](https://github.com/Shopify/quilt/pull/1255)
