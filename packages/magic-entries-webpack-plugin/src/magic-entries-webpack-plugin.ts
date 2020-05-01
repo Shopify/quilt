@@ -1,10 +1,7 @@
-import {resolve, basename} from 'path';
-import {promisify} from 'util';
+import {basename, resolve} from 'path';
 
-import cbGlob from 'glob';
+import globToRegExp from 'glob-to-regexp';
 import {Compiler, Entry} from 'webpack';
-
-const glob = promisify(cbGlob);
 
 export interface Options {
   pattern: string;
@@ -41,6 +38,7 @@ export class MagicEntriesPlugin {
   }
 
   private options: Options;
+  private compiledPattern: RegExp;
 
   constructor({
     pattern = '*.entry.{jsx,js,ts,tsx}',
@@ -52,6 +50,7 @@ export class MagicEntriesPlugin {
       pattern,
       nameFromFile,
     };
+    this.compiledPattern = globToRegExp(pattern, {extended: true});
   }
 
   apply(compiler: Compiler) {
@@ -62,21 +61,35 @@ export class MagicEntriesPlugin {
 
       const entries = {
         ...(await defaultEntries),
-        ...(await this.autodetectEntries(compiler.context)),
+        ...(await this.autodetectEntries(compiler)),
       };
 
       return entries;
     };
   }
 
-  async autodetectEntries(context: string) {
-    const {pattern, folder, nameFromFile} = this.options;
+  async autodetectEntries(compiler: Compiler) {
+    const {folder, nameFromFile} = this.options;
     const folders = typeof folder === 'string' ? [folder] : folder;
     const entries: Entry = {};
 
     for (const folder of folders) {
-      const entryPattern = resolve(context, folder, pattern);
-      const entryFiles = await glob(entryPattern);
+      const resolvedFolder = resolve(compiler.context, folder);
+      const files: string[] = await new Promise((resolve, reject) => {
+        (compiler.inputFileSystem as any).readdir(
+          resolvedFolder,
+          (error, data) => {
+            if (error) {
+              return reject(error);
+            }
+            resolve(data);
+          },
+        );
+      });
+
+      const entryFiles = await files
+        .filter(file => this.compiledPattern.exec(file))
+        .map(file => resolve(resolvedFolder, file));
 
       for (const entry of entryFiles) {
         entries[nameFromFile(entry)] = entry;
