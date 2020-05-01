@@ -217,31 +217,31 @@ describe('magic-entries-webpack-plugin', () => {
       },
       BUILD_TIMEOUT,
     );
-  });
 
-  it(
-    'adds entrypoints from a custom sub-folder',
-    async () => {
-      const name = 'node-custom-folder-entrypoints';
-      const content = 'console.log("hi")';
-      await withWorkspace(name, async ({workspace}) => {
-        await workspace.write('entrypoints/main.entry.js', content);
-        await workspace.write('entrypoints/floop.entry.js', content);
-        const result = await runBuild(workspace, {
-          ...BASIC_WEBPACK_CONFIG,
-          plugins: [new MagicEntriesPlugin({folder: 'entrypoints'})],
+    it(
+      'adds entrypoints from a custom sub-folder',
+      async () => {
+        const name = 'node-custom-folder-entrypoints';
+        const content = 'console.log("hi")';
+        await withWorkspace(name, async ({workspace}) => {
+          await workspace.write('entrypoints/main.entry.js', content);
+          await workspace.write('entrypoints/floop.entry.js', content);
+          const result = await runBuild(workspace, {
+            ...BASIC_WEBPACK_CONFIG,
+            plugins: [new MagicEntriesPlugin({folder: 'entrypoints'})],
+          });
+
+          const mainJs = getModule(result.modules, 'entrypoints/main').source;
+          expect(mainJs).toBeDefined();
+          expect(mainJs).toMatch(content);
+          const floopJs = getModule(result.modules, 'entrypoints/floop').source;
+          expect(floopJs).toBeDefined();
+          expect(floopJs).toMatch(content);
         });
-
-        const mainJs = getModule(result.modules, 'entrypoints/main').source;
-        expect(mainJs).toBeDefined();
-        expect(mainJs).toMatch(content);
-        const floopJs = getModule(result.modules, 'entrypoints/floop').source;
-        expect(floopJs).toBeDefined();
-        expect(floopJs).toMatch(content);
-      });
-    },
-    BUILD_TIMEOUT,
-  );
+      },
+      BUILD_TIMEOUT,
+    );
+  });
 });
 
 function runBuild(
