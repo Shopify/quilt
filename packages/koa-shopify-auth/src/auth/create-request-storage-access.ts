@@ -4,18 +4,19 @@ import {OAuthStartOptions} from '../types';
 
 import css from './client/polaris-css';
 import itpHelper from './client/itp-helper';
-import topLevelInteraction from './client/top-level-interaction';
+import requestStorageAccess from './client/request-storage-access';
+import storageAccessHelper from './client/storage-access-helper';
 import Error from './errors';
 
-const HEADING = 'Enable cookies';
+const HEADING = 'This app needs access to your browser data';
 const BODY =
-  'You must manually enable cookies in this browser in order to use this app within Shopify.';
-const FOOTER = `Cookies let the app authenticate you by temporarily storing your preferences and personal
-information. They expire after 30 days.`;
-const ACTION = 'Enable cookies';
+  'Your browser is blocking this app from accessing your data. To continue using this app, click Continue, then click Allow if the browser prompts you.';
+const ACTION = 'Continue';
 
-export default function createEnableCookies({apiKey}: OAuthStartOptions) {
-  return function enableCookies(ctx: Context) {
+export default function createRequestStorageAccess({
+  apiKey,
+}: OAuthStartOptions) {
+  return function requestStorage(ctx: Context) {
     const {query} = ctx;
     const {shop} = query;
 
@@ -38,13 +39,13 @@ export default function createEnableCookies({apiKey}: OAuthStartOptions) {
   <script>
     window.apiKey = "${apiKey}";
     window.shopOrigin = "https://${shop}";
-
     ${itpHelper}
-    ${topLevelInteraction(shop)}
+    ${storageAccessHelper}
+    ${requestStorageAccess(shop)}
   </script>
 </head>
 <body>
-  <main id="TopLevelInteractionContent">
+  <main id="RequestStorageAccess">
     <div class="Polaris-Page">
       <div class="Polaris-Page__Content">
         <div class="Polaris-Layout">
@@ -58,15 +59,12 @@ export default function createEnableCookies({apiKey}: OAuthStartOptions) {
                   <div class="Polaris-Card__Section">
                     <p>${BODY}</p>
                   </div>
-                  <div class="Polaris-Card__Section Polaris-Card__Section--subdued">
-                    <p>${FOOTER}</p>
-                  </div>
                 </div>
               </div>
               <div class="Polaris-Stack__Item">
                 <div class="Polaris-Stack Polaris-Stack--distributionTrailing">
                   <div class="Polaris-Stack__Item">
-                    <button type="button" class="Polaris-Button Polaris-Button--primary" id="TopLevelInteractionButton">
+                    <button type="button" class="Polaris-Button Polaris-Button--primary" id="TriggerAllowCookiesPrompt">
                       <span class="Polaris-Button__Content"><span>${ACTION}</span></span>
                     </button>
                   </div>

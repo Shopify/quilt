@@ -5,17 +5,23 @@ import {OAuthStartOptions, AccessMode, NextFunction} from '../types';
 import createOAuthStart from './create-oauth-start';
 import createOAuthCallback from './create-oauth-callback';
 import createEnableCookies from './create-enable-cookies';
-import createEnableCookiesRedirect from './create-enable-cookies-redirect';
 import createTopLevelOAuthRedirect from './create-top-level-oauth-redirect';
+import createRequestStorageAccess from './create-request-storage-access';
 
 const DEFAULT_MYSHOPIFY_DOMAIN = 'myshopify.com';
 const DEFAULT_ACCESS_MODE: AccessMode = 'online';
 
 export const TOP_LEVEL_OAUTH_COOKIE_NAME = 'shopifyTopLevelOAuth';
 export const TEST_COOKIE_NAME = 'shopifyTestCookie';
+export const GRANTED_STORAGE_ACCESS_COOKIE_NAME =
+  'shopify.granted_storage_access';
 
 function hasCookieAccess({cookies}: Context) {
   return Boolean(cookies.get(TEST_COOKIE_NAME));
+}
+
+function grantedStorageAccess({cookies}: Context) {
+  return Boolean(cookies.get(GRANTED_STORAGE_ACCESS_COOKIE_NAME));
 }
 
 function shouldPerformInlineOAuth({cookies}: Context) {
@@ -47,15 +53,17 @@ export default function createShopifyAuth(options: OAuthStartOptions) {
 
   const enableCookiesPath = `${oAuthStartPath}/enable_cookies`;
   const enableCookies = createEnableCookies(config);
-  const enableCookiesRedirect = createEnableCookiesRedirect(
-    config.apiKey,
-    enableCookiesPath,
-  );
+  const requestStorageAccess = createRequestStorageAccess(config);
 
   return async function shopifyAuth(ctx: Context, next: NextFunction) {
     ctx.cookies.secure = true;
-    if (ctx.path === oAuthStartPath && !hasCookieAccess(ctx)) {
-      await enableCookiesRedirect(ctx);
+
+    if (
+      ctx.path === oAuthStartPath &&
+      !hasCookieAccess(ctx) &&
+      !grantedStorageAccess(ctx)
+    ) {
+      await requestStorageAccess(ctx);
       return;
     }
 
