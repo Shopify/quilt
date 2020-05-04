@@ -10,6 +10,7 @@ import {
   HtmlContext,
   stream,
 } from '@shopify/react-html/server';
+import {useSerialized} from '@shopify/react-html';
 import {
   applyToContext,
   NetworkContext,
@@ -35,6 +36,10 @@ import {ValueFromContext} from '../types';
 export {Context};
 export interface RenderFunction {
   (ctx: Context): React.ReactElement<any>;
+}
+
+interface Data {
+  value: {[key: string]: any} | undefined;
 }
 
 type Options = Pick<
@@ -72,11 +77,14 @@ export function createRender(render: RenderFunction, options: Options = {}) {
     const hydrationManager = new HydrationManager();
 
     function Providers({children}: {children: React.ReactElement<any>}) {
+      const [, Serialize] = useSerialized<Data>('x-quilt-data');
+
       return (
         <AsyncAssetContext.Provider value={asyncAssetManager}>
           <HydrationContext.Provider value={hydrationManager}>
             <NetworkContext.Provider value={networkManager}>
               {children}
+              <Serialize data={() => ctx.headers['x-quilt-data']} />
             </NetworkContext.Provider>
           </HydrationContext.Provider>
         </AsyncAssetContext.Provider>
