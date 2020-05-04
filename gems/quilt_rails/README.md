@@ -110,7 +110,9 @@ yarn add react react-dom
 # Add Typescript
 yarn add typescript @types/react @types/react-dom
 ```
+
 ##### Define typescript config
+
 ```json
 // tsconfig.json
 {
@@ -122,6 +124,7 @@ yarn add typescript @types/react @types/react-dom
   "include": ["app/ui"]
 }
 ```
+
 ```sh
 yarn
 dev up
@@ -326,9 +329,9 @@ function App() {
 export default App;
 ```
 
-##### Example: Sending headers and custom data from Rails controller
+##### Example: sending custom data from Rails controller
 
-In some cases you may want to send custom headers or basic data from Rails to your React server. Quilt facilitates this case by providing consumers with a `data` argument on the `render_react` call.
+In some cases you may want to send custom headers or basic data from Rails to your React server. Quilt facilitates this case by providing consumers with a `headers` and `data` argument on the `render_react` call.
 
 **Note:** The data passed should be data that is unlikely or will never change over the course of the session before they render any React components.
 
@@ -337,7 +340,7 @@ class ReactController < ApplicationController
   include Quilt::ReactRenderable
 
   def index
-    render_react(data: { 'x-custom-header': 'header-value-a', 'some_id': 123 })
+    render_react(headers: {'x-custom-header': 'header-value-a'}, data: {'some_id': 123})
   end
 end
 ```
@@ -355,6 +358,9 @@ const IS_CLIENT = typeof window !== 'undefined';
 function App() {
   // get `x-quilt-data` from the request that was sent through Rails ReactController
   const quiltData = IS_CLIENT ? getSerialized<{[key: string]: any}>('x-quilt-data') : null;
+
+  // Logs {"x-custom-header":"header-value-a","some_id":123}
+  console.log(quiltData);
 
   return <h1>Data: {quiltData}</h1>;
 }
