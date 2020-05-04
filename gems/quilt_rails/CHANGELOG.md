@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Add: Expose a `data` arugment on `render_react` to share data to the React server using the `X-Quilt-Data` header ([#1411](https://github.com/Shopify/quilt/pull/1411))
+
 ## [1.11.1] - 2020-03-24
 
 - add `allowed_push_host` in gemspec that is required to publish

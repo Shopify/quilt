@@ -7,7 +7,13 @@ module Quilt
       Rails.env.stubs(:test?).returns(false)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      assert_equal(render_react, reverse_proxy(url, headers: { 'X-CSRF-Token': form_authenticity_token }))
+      assert_equal(
+        render_react,
+        reverse_proxy(
+          url,
+          headers: { 'X-CSRF-Token': form_authenticity_token, 'X-Quilt-Data': {}.to_json }
+        )
+      )
     end
 
     def test_render_react_calls_with_custom_headers
@@ -15,9 +21,25 @@ module Quilt
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
       render_result = render_react(headers: { 'x-custom-header': 'test' })
-      proxy_result = reverse_proxy(url, headers: { 'x-custom-header': 'test', 'X-CSRF-Token': form_authenticity_token })
+      headers = {
+        'x-custom-header': 'test',
+        'X-CSRF-Token': form_authenticity_token,
+        'X-Quilt-Data': { 'x-custom-header': 'test' }.to_json,
+      }
+      proxy_result = reverse_proxy(url, headers: headers)
 
       assert_equal(render_result, proxy_result)
+    end
+
+    def test_render_react_calls_reverse_proxy_with_header_data
+      Rails.env.stubs(:test?).returns(false)
+      url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
+
+      headers = { 'X-CSRF-Token': form_authenticity_token, 'X-Quilt-Data': { 'X-Foo': 'bar' }.to_json }
+      assert_equal(
+        render_react(data: { 'X-Foo': 'bar' }),
+        reverse_proxy(url, headers: headers)
+      )
     end
 
     def test_render_react_errors_in_tests
