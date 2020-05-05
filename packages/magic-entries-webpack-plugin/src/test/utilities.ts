@@ -1,12 +1,12 @@
-import * as path from 'path';
+import {resolve, dirname, join} from 'path';
 
-import * as fs from 'fs-extra';
+import {writeFile, mkdirp, emptyDir, remove} from 'fs-extra';
 
 export class Workspace {
   constructor(public readonly root: string) {}
 
   resolvePath(...parts: string[]) {
-    return path.resolve(this.root, ...parts);
+    return resolve(this.root, ...parts);
   }
 
   buildPath(...parts: string[]) {
@@ -15,22 +15,22 @@ export class Workspace {
 
   async write(file: string, contents: string) {
     const filePath = this.resolvePath(file);
-    await fs.mkdirp(path.dirname(filePath));
-    await fs.writeFile(filePath, contents);
+    await mkdirp(dirname(filePath));
+    await writeFile(filePath, contents);
   }
 
   async cleanup() {
-    await fs.emptyDir(this.root);
-    await fs.remove(this.root);
+    await emptyDir(this.root);
+    await remove(this.root);
   }
 }
 
-const rootFixtureDirectory = path.resolve(__dirname, '../fixtures');
+const rootFixtureDirectory = resolve(__dirname, '../fixtures');
 
 export async function createWorkspace({name}: {name: string}) {
-  const fixtureDirectory = path.join(rootFixtureDirectory, name);
-  await fs.mkdirp(fixtureDirectory);
-  await fs.writeFile(path.join(fixtureDirectory, '.gitignore'), '*');
+  const fixtureDirectory = join(rootFixtureDirectory, name);
+  await mkdirp(fixtureDirectory);
+  await writeFile(join(fixtureDirectory, '.gitignore'), '*');
   return new Workspace(fixtureDirectory);
 }
 
