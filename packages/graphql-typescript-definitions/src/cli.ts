@@ -1,6 +1,6 @@
 /* eslint no-console: off */
 
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import yargs from 'yargs';
 
 import {EnumFormat, ExportFormat} from './types';
