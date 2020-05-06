@@ -10,7 +10,7 @@ import {
   Source,
   concatAST,
 } from 'graphql';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import {mkdirp, readFile, writeFile} from 'fs-extra';
 import {FSWatcher, watch} from 'chokidar';
 import {
