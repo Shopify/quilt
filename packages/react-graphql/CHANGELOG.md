@@ -7,8 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- Add `fetchMore` param to `useQuery` hook result documention ([#1398](https://github.com/Shopify/quilt/pull/1398)).
-
 ## [6.1.0] - 2020-03-13
 
 - Update dependencies from `react-apollo` to `@apollo/react-common`, `@apollo/react-components`, and `@apollo/react-hooks` ([#1321](https://github.com/Shopify/quilt/pull/1321))
