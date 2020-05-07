@@ -27,7 +27,6 @@
     "@shopify/network": "^1.4.7",
     "@shopify/react-async": "^3.1.16",
     "@shopify/react-cookie": "^0.0.25",
-    "@shopify/react-csrf-universal-provider": "^1.1.14",
     "@shopify/react-effect": "^3.2.12",
     "@shopify/react-html": "^9.3.9",
     "@shopify/react-hydrate": "^1.1.22",

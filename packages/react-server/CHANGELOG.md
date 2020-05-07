@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## Changed
+### Changed
 
 - Removed the providers that were previously exported. To our knowledge nothing used them and they offered little value. If cookie context is needed users can manually use `CookieUniversalProvider` from `@shopify/react-cookie`, and `CSRFProvider` should not be necessary with the new strategies provided by `quilt_rails`.
 
