@@ -38,17 +38,17 @@ describe('createRender', () => {
 
   it('response contains x-quilt-data from headers', async () => {
     const myCoolApp = 'My cool app';
-    const customHeader = {'X-foo': 'bar'};
+    const data = {foo: 'bar'};
     const ctx = createMockContext({
-      headers: {'x-quilt-data': JSON.stringify(customHeader)},
+      headers: {'x-quilt-data': JSON.stringify({foo: 'bar'})},
     });
 
     const renderFunction = createRender(() => <>{myCoolApp}</>);
     await renderFunction(ctx, noop);
 
     const response = await readStream(ctx.body);
-    expect(response).toContain('x-quilt-data');
-    expect(response).toContain('X-foo');
+    expect(response).toContain('quilt-data');
+    expect(response).toContain(JSON.stringify(data));
   });
 
   it('does not clobber proxies in the context object', async () => {
