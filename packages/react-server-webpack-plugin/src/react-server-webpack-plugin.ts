@@ -124,7 +124,7 @@ function clientSource() {
     const data = getSerialized('quilt-data');
     const url = new URL(window.location.href);
 
-    ReactDOM.hydrate(React.createElement(App, {data, url: url}), appContainer);
+    ReactDOM.hydrate(React.createElement(App, {data, url}), appContainer);
     showPage();
   `;
 }
