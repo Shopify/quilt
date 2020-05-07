@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Changed
+
+- Generated entrypoints no longer render the App component with a `location` prop. Apps can instead get the same data from the new `url` prop's `href` attribute.
+- Generated entrypoints no longer render the `App` component with a `server` prop. Whether an app is rendered on the server can instead be trivially inferred from `typeof window === 'undefined'`
+
+### Added
+
+- Generated entrypoints now pass a `data` prop to the `App`. This prop contains the deserialized data from the `x-quilt-data` header which is used by `quilt_rails` to pass data directly to React
+- Generated entrypoints now pass a `url` prop to the `App`. This prop is a full WHATWG compliant `URL` object representing the url for the request that react-server responded to.
 
 ## [2.2.17] - 2019-11-29
 

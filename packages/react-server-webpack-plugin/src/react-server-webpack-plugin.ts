@@ -82,7 +82,9 @@ function serverSource(options: Options) {
     ${HEADER}
     import React from 'react';
     import {createServer} from '@shopify/react-server';
+
     import App from 'index';
+
     process.on('uncaughtException', logError);
     process.on('unhandledRejection', logError);
     function logError(error) {
@@ -90,17 +92,21 @@ function serverSource(options: Options) {
       console.log(\`React Server failed to start.\n\${errorLog}\`);
       process.exit(1);
     }
-    const render = (ctx) =>
-    React.createElement(App, {
-      server: true,
-      location: ctx.request.url,
-    });
+
+    const render = (ctx) => {
+      return React.createElement(App, {
+        url: ctx.request.URL,
+        data: ctx.state.quiltData,
+      });
+    }
+
     const app = createServer({
       port: ${serverPort},
       ip: ${serverIp},
       assetPrefix: ${serverAssetPrefix},
       render,
     });
+
     export default app;
   `;
 }
@@ -110,10 +116,15 @@ function clientSource() {
     ${HEADER}
     import React from 'react';
     import ReactDOM from 'react-dom';
-    import {showPage} from '@shopify/react-html';
-    import App from 'index';
+    import {showPage, getSerialized} from '@shopify/react-html';
+
+    import App from './index';
+
     const appContainer = document.getElementById('app');
-    ReactDOM.hydrate(React.createElement(App), appContainer);
+    const data = getSerialized('quilt-data');
+    const url = new URL(window.location.href);
+
+    ReactDOM.hydrate(React.createElement(App, {data, url: url}), appContainer);
     showPage();
   `;
 }
