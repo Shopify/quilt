@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.9.1] - 2020-05-01
+
+### Fixed
+
+- Add missing `useMediaLayout` export ([#1408](https://github.com/Shopify/quilt/pull/1408))
+
 ## [1.9.0] - 2020-04-23
 
 ### Added

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-cookie",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "license": "MIT",
   "description": "Cookies in React for the server and client",
   "main": "dist/src/index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-cookie/README.md",
   "dependencies": {
-    "@shopify/react-hooks": "^1.9.0",
+    "@shopify/react-hooks": "^1.9.1",
     "@shopify/react-network": "^3.3.13",
     "cookie": "^0.4.0",
     "tslib": "^1.9.3"

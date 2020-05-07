@@ -7,12 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [0.1.0] - 2020-05-23
-
-- Added extra common mime types [#1372](https://github.com/Shopify/quilt/pull/1372)
-
-## [0.0.1] - 2020-04-23
+## [0.1.0] - 2020-05-05
 
 ### Added
 
-- `@shopify/mime-types` package
+- `@shopify/magic-entries-webpack-plugin` package [[#1412](https://github.com/Shopify/quilt/pull/1412)]

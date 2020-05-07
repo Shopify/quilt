@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.1.16] - 2020-05-01
+
+### Fixed
+
+- Fixed a type issue with `usePreload`, `usePrefetch`, and `useKeepFresh` hook arguments ([#1404](https://github.com/Shopify/quilt/pull/1404))
+
 ## [3.1.0] - 2019-10-30
 
 ### Added

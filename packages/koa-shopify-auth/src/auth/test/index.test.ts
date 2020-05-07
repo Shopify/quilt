@@ -2,7 +2,7 @@ import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import createShopifyAuth from '../index';
 import createTopLevelOAuthRedirect from '../create-top-level-oauth-redirect';
-import createEnableCookiesRedirect from '../create-enable-cookies-redirect';
+import createRequestStorageAccess from '../create-request-storage-access';
 import {OAuthStartOptions} from '../../types';
 
 const mockTopLevelOAuthRedirect = jest.fn();
@@ -10,9 +10,9 @@ jest.mock('../create-top-level-oauth-redirect', () =>
   jest.fn(() => mockTopLevelOAuthRedirect),
 );
 
-const mockEnableCookiesRedirect = jest.fn();
-jest.mock('../create-enable-cookies-redirect', () =>
-  jest.fn(() => mockEnableCookiesRedirect),
+const mockRequestStorageAccess = jest.fn();
+jest.mock('../create-request-storage-access', () => () =>
+  mockRequestStorageAccess,
 );
 
 const mockOAuthStart = jest.fn();
@@ -38,7 +38,7 @@ function nextFunction() {}
 describe('Index', () => {
   describe('with the /auth path', () => {
     describe('with no test cookie', () => {
-      it('redirects to enable cookies', async () => {
+      it('redirects to request storage access', async () => {
         const shopifyAuth = createShopifyAuth(baseConfig);
         const ctx = createMockContext({
           url: `https://${baseUrl}`,
@@ -46,11 +46,25 @@ describe('Index', () => {
 
         await shopifyAuth(ctx, nextFunction);
 
-        expect(createEnableCookiesRedirect).toHaveBeenCalledWith(
+        expect(mockRequestStorageAccess).toHaveBeenCalledWith(ctx);
+      });
+    });
+
+    describe('with no test cookie but a granted storage access cookie', () => {
+      it('redirects to /auth/inline at the top-level', async () => {
+        const shopifyAuth = createShopifyAuth(baseConfig);
+        const ctx = createMockContext({
+          url: `https://${baseUrl}`,
+          cookies: {'shopify.granted_storage_access': '1'},
+        });
+
+        await shopifyAuth(ctx, nextFunction);
+
+        expect(createTopLevelOAuthRedirect).toHaveBeenCalledWith(
           'myapikey',
-          '/auth/enable_cookies',
+          '/auth/inline',
         );
-        expect(mockEnableCookiesRedirect).toHaveBeenCalledWith(ctx);
+        expect(mockTopLevelOAuthRedirect).toHaveBeenCalledWith(ctx);
       });
     });
 

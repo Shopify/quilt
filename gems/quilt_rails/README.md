@@ -11,6 +11,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
     - [Generate Quilt boilerplate](#generate-quilt-boilerplate)
     - [Try it out](#try-it-out)
   - [Manual Install](#manual-installation)
+    - [Generate Rails boilerplate](#generate-rails-boilerplate)
     - [Install Dependencies](#install-dependencies)
     - [Setup the Rails app](#setup-the-rails-app)
     - [Add JavaScript](#add-javascript)
@@ -81,13 +82,18 @@ This will install the Node dependencies, provide a basic React app (in TypeScrip
 
 #### Try it out
 
-`dev server`
+```sh
+dev up
+dev server
+```
 
 Will run the application, starting up both servers and compiling assets.
 
 ### Manual installation
 
 An application can also be setup manually using the following steps.
+
+[Generate Rails boilerplate](#generate-rails-boilerplate)
 
 #### Install dependencies
 
@@ -101,6 +107,25 @@ yarn add @shopify/sewing-kit @shopify/react-server
 # Add React
 yarn add react react-dom
 
+# Add Typescript
+yarn add typescript @types/react @types/react-dom
+```
+
+##### Define typescript config
+
+```json
+// tsconfig.json
+{
+  "extends": "@shopify/typescript-configs/application.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "."
+  },
+  "include": ["app/ui"]
+}
+```
+
+```sh
 yarn
 dev up
 ```
@@ -304,65 +329,43 @@ function App() {
 export default App;
 ```
 
-##### Example: sending headers from Rails controller
+##### Example: sending custom data from Rails controller
+
+In some cases you may want to send custom headers or basic data from Rails to your React server. Quilt facilitates this case by providing consumers with a `headers` and `data` argument on the `render_react` call.
+
+**Note:** The data passed should be data that is unlikely or will never change over the course of the session before they render any React components.
 
 ```ruby
 class ReactController < ApplicationController
   include Quilt::ReactRenderable
 
   def index
-    render_react(headers: { 'x-custom-header': 'header-value-a' })
+    render_react(headers: {'x-custom-header': 'header-value-a'}, data: {'some_id': 123})
   end
 end
 ```
 
-You will need to serialize the result of the useRequestHeader hook in order for it to persist to the client
-
-```tsx
-// app/ui/foundation/CustomUniversalProvider.tsx
-import {createContext} from 'react';
-import {createUniversalProvider} from '@shopify/react-universal-provider';
-
-export const CustomContext = createContext<string | null>(null);
-export const CustomUniversalProvider = createUniversalProvider('custom-key', CustomContext);
-```
+The React server will serialize the provided quilt data using `x-quilt-data` as the ID. You can then get this serialized data on the client with `getSerialized` from `@shopify/react-html`.
 
 ```tsx
 // app/ui/index.tsx
 
 import React from 'react';
-import {useRequestHeader} from '@shopify/react-network';
-import {CustomUniversalProvider} from './foundation/CustomUniversalProvider';
-import {ComponentWithCustomHeader} from './components/ComponentWithCustomHeader';
+import {getSerialized} from '@shopify/react-html';
+
+const IS_CLIENT = typeof window !== 'undefined';
 
 function App() {
-  // get `x-custom-header` from the request that was sent through Rails ReactController
-  const customHeader = useRequestHeader('x-custom-header');
+  // get `x-quilt-data` from the request that was sent through Rails ReactController
+  const quiltData = IS_CLIENT ? getSerialized<{[key: string]: any}>('x-quilt-data') : null;
 
-  return (
-    <CustomUniversalProvider value={customHeader}>
-      <h1>My application ❤️</h1>
-      <ComponentWithCustomHeader />
-    </CustomUniversalProvider>
-  );
+  // Logs {"x-custom-header":"header-value-a","some_id":123}
+  console.log(quiltData);
+
+  return <h1>Data: {quiltData}</h1>;
 }
 
 export default App;
-```
-
-```tsx
-// app/ui/components/ComponentWithCustomHeader.tsx
-
-import React, {useContext} from 'react';
-import {CustomContext} from '../foundation/CustomUniversalProvider';
-
-export function ComponentWithCustomHeader() {
-  // get `x-custom-header` from serialized context
-  // will be 'header-value-a' in this example
-  const customHeader = useContext(CustomContext);
-
-  return <span>{customHeader}</span>;
-}
 ```
 
 ##### Example: redirecting
