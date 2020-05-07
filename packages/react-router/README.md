@@ -3,9 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-router.svg)](https://badge.fury.io/js/%40shopify%2Freact-router.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-router.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-router.svg)
 
-A universal router for React.
-
-**NOTE** This package is pre-1.0 and not ready for production use.
+A universal router for React, wrapping `react-router` for now.
 
 ## Installation
 
