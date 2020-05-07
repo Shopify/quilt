@@ -18,7 +18,6 @@
     {"path": "../network"},
     {"path": "../react-network"},
     {"path": "../react-cookie"},
-    {"path": "../react-csrf-universal-provider"},
     {"path": "../with-env"},
     {"path": "../react-html"},
     {"path": "../useful-types"},
