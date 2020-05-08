@@ -118,7 +118,7 @@ function clientSource() {
     import ReactDOM from 'react-dom';
     import {showPage, getSerialized} from '@shopify/react-html';
 
-    import App from './index';
+    import App from 'index';
 
     const appContainer = document.getElementById('app');
     const data = getSerialized('quilt-data');

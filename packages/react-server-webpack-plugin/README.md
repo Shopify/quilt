@@ -95,7 +95,7 @@ The plugin passes some props to your application automatically.
 ```typescript
 interface DefaultProps {
   /*
-   The full WHATWG URL object for the initial request
+   The full WHATWG URL object for the initial request. On the client this will *not* update reactively. It is always the URL for the initial request.
   */
   url: URL;
 
