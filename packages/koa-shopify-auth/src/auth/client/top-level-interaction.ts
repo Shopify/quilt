@@ -1,9 +1,9 @@
 // Copied from https://github.com/Shopify/shopify_app
-const topLevelInteraction = (shop: string) => {
+const topLevelInteraction = (shop: string, prefix = '') => {
   return `(function() {
       function setUpTopLevelInteraction() {
         var TopLevelInteraction = new ITPHelper({
-          redirectUrl: "/auth?shop=${shop}",
+          redirectUrl: "${prefix}/auth?shop=${shop}",
         });
 
         TopLevelInteraction.execute();
