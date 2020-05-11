@@ -345,7 +345,7 @@ class ReactController < ApplicationController
 end
 ```
 
-The React server will serialize the provided quilt data using `x-quilt-data` as the ID. You can then get this serialized data on the client with `getSerialized` from `@shopify/react-html`.
+The React server will serialize the provided quilt data using `quilt-data` as the ID. You can then get this serialized data on the client with `getSerialized` from `@shopify/react-html`. If using the webpack plugin, this will be done automatically and the data will be passed into your application as the `data` prop.
 
 ```tsx
 // app/ui/index.tsx
@@ -356,8 +356,8 @@ import {getSerialized} from '@shopify/react-html';
 const IS_CLIENT = typeof window !== 'undefined';
 
 function App() {
-  // get `x-quilt-data` from the request that was sent through Rails ReactController
-  const quiltData = IS_CLIENT ? getSerialized<{[key: string]: any}>('x-quilt-data') : null;
+  // get the serialized data from the request that was sent through Rails ReactController
+  const quiltData = IS_CLIENT ? getSerialized<Record<string, any>>('quilt-data') : null;
 
   // Logs {"x-custom-header":"header-value-a","some_id":123}
   console.log(quiltData);

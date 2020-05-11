@@ -30,6 +30,7 @@ import {
   middleware as sewingKitMiddleware,
 } from '@shopify/sewing-kit-koa';
 
+import {quiltDataMiddleware} from '../quilt-data';
 import {getLogger} from '../logger';
 import {ValueFromContext} from '../types';
 
@@ -77,14 +78,14 @@ export function createRender(render: RenderFunction, options: Options = {}) {
     const hydrationManager = new HydrationManager();
 
     function Providers({children}: {children: React.ReactElement<any>}) {
-      const [, Serialize] = useSerialized<Data>('x-quilt-data');
+      const [, Serialize] = useSerialized<Data>('quilt-data');
 
       return (
         <AsyncAssetContext.Provider value={asyncAssetManager}>
           <HydrationContext.Provider value={hydrationManager}>
             <NetworkContext.Provider value={networkManager}>
               {children}
-              <Serialize data={() => ctx.headers['x-quilt-data']} />
+              <Serialize data={() => ctx.state.quiltData} />
             </NetworkContext.Provider>
           </HydrationContext.Provider>
         </AsyncAssetContext.Provider>
@@ -150,6 +151,7 @@ export function createRender(render: RenderFunction, options: Options = {}) {
   }
 
   return compose([
+    quiltDataMiddleware,
     sewingKitMiddleware({assetPrefix, manifestPath}),
     renderFunction,
   ]);
