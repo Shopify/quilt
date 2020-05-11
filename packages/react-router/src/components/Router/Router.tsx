@@ -4,7 +4,7 @@ import {StaticRouter, BrowserRouter} from 'react-router-dom';
 import {isClient} from './utilities';
 
 interface Props {
-  location?: string;
+  location?: string | URL;
   children?: React.ReactNode;
 }
 
