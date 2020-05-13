@@ -6,7 +6,7 @@ const requestStorageAccess = (shop: string, prefix = '') => {
           myshopifyUrl: "https://${shop}",
           hasStorageAccessUrl: "${prefix}/auth/inline?shop=${shop}",
           doesNotHaveStorageAccessUrl: "${prefix}/auth/enable_cookies?shop=${shop}",
-          appTargetUrl: "${prefix}/?shop=${shop}"
+          appTargetUrl: "/?shop=${shop}"
         }
 
         if (window.top == window.self) {
