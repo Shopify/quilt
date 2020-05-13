@@ -370,7 +370,7 @@ class ReactController < ApplicationController
   include Quilt::ReactRenderable
 
   def index
-    render_react(headers: {'x-custom-header': 'header-value-a'}, data: {'some_id': 123})
+    render_react(data: {'some_id': 123})
   end
 end
 ```
