@@ -20,14 +20,12 @@ export function Toggle({onToggle, deferred}: Props) {
       return new Promise(resolve => {
         setTimeout(() => {
           setActive(!active);
-          onToggle();
-          resolve();
+          resolve(onToggle());
         }, DEFERRED_TIMEOUT);
       });
     }
     setActive(!active);
-    onToggle();
-    return Promise.resolve();
+    return onToggle();
   }, [active, deferred, onToggle]);
 
   return (

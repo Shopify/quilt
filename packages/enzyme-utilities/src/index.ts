@@ -45,19 +45,20 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
     // This condition checks the returned value is an actual Promise and returns it
     // to React’s `act()` call, otherwise we just want to return `undefined`
     if (isPromise(returnValue)) {
-      return (returnValue as unknown) as Promise<void>;
+      return returnValue;
     }
   });
 
   if (isPromise(returnValue)) {
-    return Promise.resolve(promise as Promise<any>).then(ret => {
+    // `promise` here refer to the the `act` promise above.
+    // Resolving this promise will never return the resolved value because how `act` is design.
+    return Promise.resolve(promise).then(() => {
       updateRoot(wrapper);
-      return ret;
+      return returnValue;
     });
   }
 
   updateRoot(wrapper);
-
   return returnValue;
 }
 

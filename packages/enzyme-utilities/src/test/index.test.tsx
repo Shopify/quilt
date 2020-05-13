@@ -42,6 +42,24 @@ describe('enzyme-utilities', () => {
       expect(spy).toHaveBeenCalledWith('hello', 1, 2, 3);
     });
 
+    it('returns the value when the callback is not a promise', () => {
+      const mockReturnValue = 'foo';
+      const spy = jest.fn(() => mockReturnValue);
+      const toggle = mount(<Toggle onToggle={spy} />);
+
+      const returnValue = trigger(toggle.find('button'), 'onClick');
+      expect(returnValue).toBe(mockReturnValue);
+    });
+
+    it('returns the value when the callback is a promise', async () => {
+      const mockReturnValue = 'foo';
+      const spy = jest.fn(() => mockReturnValue);
+      const toggle = mount(<Toggle onToggle={spy} deferred />);
+
+      const returnValue = await trigger(toggle.find('button'), 'onClick');
+      expect(returnValue).toBe(mockReturnValue);
+    });
+
     it('calls the callback in an act block', () => {
       const toggle = mount(<Toggle onToggle={() => {}} />);
       trigger(toggle.find('button'), 'onClick');
