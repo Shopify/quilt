@@ -329,9 +329,39 @@ function App() {
 export default App;
 ```
 
+##### Example: sending custom headers from Rails controller
+
+In some cases you may want to send custom headers from Rails to your React server. Quilt facilitates this case by providing consumers with a `headers` argument on the `render_react` call.
+
+```ruby
+class ReactController < ApplicationController
+  include Quilt::ReactRenderable
+
+  def index
+    render_react(headers: {'x-custom-header': 'header-value-a'})
+  end
+end
+```
+
+Headers can be accessed during server-side-rendering with the `useRequestHeader` hook from `@shopify/react-network`.
+
+```tsx
+// app/ui/index.tsx
+
+import React from 'react';
+import {useRequestHeader} from '@shopify/react-network';
+
+function App() {
+  const header = useRequestHeader('x-custom-header');
+  return <h1>Data: {header}</h1>;
+}
+
+export default App;
+```
+
 ##### Example: sending custom data from Rails controller
 
-In some cases you may want to send custom headers or basic data from Rails to your React server. Quilt facilitates this case by providing consumers with a `headers` and `data` argument on the `render_react` call.
+In some cases you may want to send basic data from Rails to your React server. Quilt facilitates this case by providing consumers with a `data` argument on the `render_react` call.
 
 **Note:** The data passed should be data that is unlikely or will never change over the course of the session before they render any React components.
 
@@ -345,7 +375,7 @@ class ReactController < ApplicationController
 end
 ```
 
-The React server will serialize the provided quilt data using `quilt-data` as the ID. You can then get this serialized data on the client with `getSerialized` from `@shopify/react-html`. If using the webpack plugin, this will be done automatically and the data will be passed into your application as the `data` prop.
+The React server will serialize the provided quilt data using `quilt-data` as the ID. You can then get this serialized data on the client with `getSerialized` from `@shopify/react-html`.
 
 ```tsx
 // app/ui/index.tsx
@@ -359,10 +389,27 @@ function App() {
   // get the serialized data from the request that was sent through Rails ReactController
   const quiltData = IS_CLIENT ? getSerialized<Record<string, any>>('quilt-data') : null;
 
-  // Logs {"x-custom-header":"header-value-a","some_id":123}
+  // Logs {"some_id":123}
   console.log(quiltData);
 
   return <h1>Data: {quiltData}</h1>;
+}
+
+export default App;
+```
+
+If using the webpack plugin, this will be done automatically and the data will be passed into your application as the `data` prop.
+
+```tsx
+// app/ui/index.tsx
+
+import React from 'react';
+
+function App({data}: {data: Record<string, any>}) {
+  // Logs {"some_id":123}
+  console.log(data);
+
+  return <h1>Data: {data}</h1>;
 }
 
 export default App;
