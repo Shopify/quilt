@@ -19,8 +19,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Removed the providers that were previously exported. To our knowledge nothing used them and they offered little value. If cookie context is needed users can manually use `CookieUniversalProvider` from `@shopify/react-cookie`, and `CSRFProvider` should not be necessary with the new strategies provided by `quilt_rails`.
 
-## [0.11.0] - 2020-05-04
-
 - Add: Serialize `x-quilt-data` received from the Rails server for use on the client ([#1411](https://github.com/Shopify/quilt/pull/1411))
 
 ## [0.10.0] - 2020-03-23
