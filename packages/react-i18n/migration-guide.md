@@ -4,6 +4,18 @@ This is a concise summary of changes and recommendations around updating `@shopi
 
 <-- ## [Unreleased] -->
 
+🛑Breaking change - New translation keys are needed for future dates less than 1 week away and less than 1 year away formatted with `DateStyle.Humanize`. Consumers will need to add the translation keys as outlined below.
+
+```json
+"date": {
+  "humanize": {
+    ...
+    "lessThanOneWeekAway": "{weekday} at {time}",
+    "lessThanOneYearAway": "{date} at {time}"
+  }
+},
+```
+
 ## [4.0.0] - 2020-05-29
 
 🛑Breaking change - New translation key is needed for future 'today' date formatted with `DateStyle.Humanize`. Consumers will need to add the translation key as outlined below.
