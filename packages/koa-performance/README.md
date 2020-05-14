@@ -45,7 +45,7 @@ const app = new Koa();
 app.use(
   mount(
     '/client-metrics',
-    clientPerformanceMetrics({,
+    clientPerformanceMetrics({
       // the prefix for metrics sent to StatsD
       prefix: 'ExampleCode.',
       // the host of the statsd server you want to send metrics to
