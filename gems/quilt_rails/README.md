@@ -38,26 +38,6 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
 
 ## Server-side-rendering
 
-### Alpha functionality - do not use in high-traffic production applications
-
-**Warning:** quilt_rails's server-side-rendering module `ReactRenderable` does not work at scale. Improvements to its architecture are being investigated. In its current state, it can be used for:
-
-- Workshop applications
-- Proof of concept applications
-- Low traffic applications
-
-For a description of the current architecture's problems, see [this Github comment](https://github.com/Shopify/quilt/issues/1059#issuecomment-539195340).
-
-The ["decide on a scalable quilt_rails architecture" issue](https://github.com/Shopify/quilt/issues/1100) will track discussion of future architectures.
-
-To scale up existing quilt_rails applications, skip server-side queries in your components. e.g.:
-
-```ts
-useQuery(MyQuery, {
-  skip: typeof document === 'undefined',
-});
-```
-
 ### Quick start
 
 Using the magic of generators, we can spin up a basic app with a few console commands.
