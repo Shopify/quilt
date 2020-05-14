@@ -49,6 +49,8 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
     }
   });
 
+  updateRoot(wrapper);
+
   if (isPromise(returnValue)) {
     // `promise` here refer to the the `act` promise above.
     // Resolving this promise will never return the resolved value because how `act` is design.
@@ -58,7 +60,6 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
     });
   }
 
-  updateRoot(wrapper);
   return returnValue;
 }
 
