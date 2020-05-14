@@ -11,6 +11,19 @@ A collection of primitive React hooks.
 $ yarn add @shopify/react-hooks
 ```
 
+## List of hooks
+
+- [useDebouncedValue()](#usedebouncedvalue)
+- [useForceUpdate()](#useforceupdate)
+- [useInterval()](#useinterval)
+- [useLazyRef()](#uselazyref)
+- [useMedia() & useMediaLayout()](#usemedia--usemedialayout)
+- [useMountedRef()](#usemountedref)
+- [useOnValueChange()](#useonvaluechange)
+- [usePrevious()](#useprevious)
+- [useTimeout()](#usetimeout)
+- [useToggle()](#usetoggle)
+
 ## Usage
 
 ### `useDebouncedValue()`
@@ -31,7 +44,25 @@ function MyComponent() {
     setSearchValue(evt.currentTarget.value);
   }
 
-  return (<input onChange={handleSearchTextChange} />);
+  return <input onChange={handleSearchTextChange} />;
+}
+```
+
+### `useForceUpdate()`
+
+This hook provide a `forceUpdate` function which will force a component to re-render. This might be useful when you want to re-render after a mutable object gets updated.
+
+```tsx
+const mutableObject = {foo: 'bar'};
+export default function ResourceListFiltersExample() {
+  const forceUpdate = useForceUpdate();
+  const onClick = () => {
+    mutableObject.foo = 'bar' + new Date().getTime();
+    forceUpdate();
+  };
+
+  return <button onClick={onClick}>Click Me</button>;
+}
 ```
 
 ### `useOnValueChange()`

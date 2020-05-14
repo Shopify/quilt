@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [6.1.9] - 2020-05-14
+
+### Changed
+
+- Improve typings for `usePrefetch` to accept a `fetchPolicy` in `options` ([#1437](https://github.com/Shopify/quilt/pull/1437))
+
 ## [6.1.0] - 2020-03-13
 
 - Update dependencies from `react-apollo` to `@apollo/react-common`, `@apollo/react-components`, and `@apollo/react-hooks` ([#1321](https://github.com/Shopify/quilt/pull/1321))

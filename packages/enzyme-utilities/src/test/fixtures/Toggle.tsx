@@ -5,6 +5,12 @@ export interface Props {
   deferred?: boolean;
 }
 
+export enum Status {
+  Active,
+  Inactive,
+  InTransition,
+}
+
 export interface State {
   active: boolean;
 }
@@ -12,27 +18,33 @@ export interface State {
 const DEFERRED_TIMEOUT = 100;
 
 export function Toggle({onToggle, deferred}: Props) {
-  const [active, setActive] = React.useState(true);
-  const statusMarkup = active ? 'active' : 'inactive';
+  const [status, setStatus] = React.useState(Status.Active);
 
   const handleClick = React.useCallback(() => {
+    setStatus(Status.InTransition);
+
     if (deferred) {
       return new Promise(resolve => {
         setTimeout(() => {
-          setActive(!active);
-          onToggle();
-          resolve();
+          resolve(onToggle());
+          setStatus(Status.Inactive);
         }, DEFERRED_TIMEOUT);
       });
     }
-    setActive(!active);
-    onToggle();
-    return Promise.resolve();
-  }, [active, deferred, onToggle]);
 
+    setStatus(Status.Inactive);
+    return onToggle();
+  }, [deferred, onToggle]);
+
+  return <Button onClick={handleClick} status={status} />;
+}
+
+export function Button({onClick, status}) {
   return (
-    <button type="button" onClick={handleClick}>
-      {statusMarkup}
-    </button>
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={status === Status.Inactive}
+    />
   );
 }

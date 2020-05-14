@@ -4,7 +4,7 @@ const path = require('path');
 const jsPackageNames = getPackageNames('js');
 const gemNames = getPackageNames('ruby');
 
-module.exports = function(plop) {
+module.exports = function (plop) {
   plop.setGenerator('package', {
     description: 'create a new package from scratch',
     prompts: [
@@ -60,6 +60,19 @@ module.exports = function(plop) {
         path:
           'packages/{{kebabCase name}}/src/test/{{properCase name}}.test.ts',
         templateFile: 'templates/test.hbs.ts',
+      },
+      {
+        type: 'modify',
+        path: 'packages/tsconfig.json',
+        transform: (file, {name}) => {
+          const tsConfig = JSON.parse(file);
+          const kebabCase = plop.getHelper('kebabCase');
+          tsConfig.references.push({path: `./${kebabCase(name)}`});
+          tsConfig.references.sort(({path: firstPath}, {path: secondPath}) =>
+            firstPath.localeCompare(secondPath),
+          );
+          return JSON.stringify(tsConfig);
+        },
       },
     ],
   });

@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [2.1.11] - 2020-05-13
+
+- `trigger` update the wrapper even if the promise is not resolved. [[#1439](https://github.com/Shopify/quilt/pull/1439)]
+
+## [2.1.10] - 2020-05-13
+
+- `trigger` now return the return value when the callback is a promise. [[#1434](https://github.com/Shopify/quilt/pull/1434)]
+
 ## [2.0.0] - 2019-03-28
 
 ### Changed

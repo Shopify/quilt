@@ -17,7 +17,7 @@
     "release-beta": "lerna publish --dist-tag beta",
     "clean": "rimraf './packages/*/dist'",
     "generate": "plop",
-    "generate:package": "plop package && yarn plop docs",
+    "generate:package": "plop package && yarn plop docs && prettier --write \"./packages/tsconfig.json\"",
     "tophat": "tophat"
   },
   "repository": {
@@ -72,7 +72,7 @@
     "jest-enzyme": "^7.1.2",
     "jest-transform-graphql": "^2.1.0",
     "lerna": "^2.9.0",
-    "plop": "^2.0.0",
+    "plop": "^2.6.0",
     "prettier": "~2.0.4",
     "puppeteer": "^1.20.0",
     "react": "16.12.0",
