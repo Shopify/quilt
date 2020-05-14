@@ -405,15 +405,32 @@ module Quilt
       assert_equal(times_called, 4)
     end
 
-    def test_raises_parameter_missing_errors_when_mandatory_params_are_missing
+    def test_replaces_omitted_connection_param_with_default_value
       @params = ActionController::Parameters.new(
-        navigations: [],
-        events: []
+        'navigations' => [],
+        'events' => [{
+          'type' => 'ttfb',
+          'start' => 2,
+          'duration' => 1000,
+        }, {
+          'type' => 'kitty-cat cuddle',
+          'start' => 100,
+          'duration' => 999999,
+        }],
       )
 
-      assert_raises ActionController::ParameterMissing do
-        process_report
-      end
+      StatsD
+        .expects(:distribution)
+        .with('time_to_first_byte', 2, tags: {
+          browser_connection_type: 'unknown',
+        })
+      StatsD
+        .expects(:distribution)
+        .with('kitty-cat cuddle', 100, tags: {
+          browser_connection_type: 'unknown',
+        })
+
+      process_report
     end
 
     private
