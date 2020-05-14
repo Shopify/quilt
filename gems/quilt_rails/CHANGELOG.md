@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
-## [1.12.1] - 2020-05-13
+## [1.12.1] - 2020-05-14
 
 - Fixed: Performance endpoint now accepts data that lacks a `connection` parameter, replacing it with a stand-in value
 
