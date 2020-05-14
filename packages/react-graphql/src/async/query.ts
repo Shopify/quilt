@@ -22,7 +22,9 @@ export function createAsyncQuery<Data, Variables, DeepPartial>({
     return useAsync(resolver, {assets: AssetTiming.NextPage}).load;
   }
 
-  function usePrefetch(options: VariableOptions<Variables>) {
+  function usePrefetch(
+    options: VariableOptions<Variables> & Pick<QueryProps, 'fetchPolicy'>,
+  ) {
     const load = usePreload();
     return useBackgroundQuery(load, options);
   }
