@@ -19,7 +19,7 @@ All notable changes should be included in the [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Releasing
 
-**Note:** Gem releases will _not_ publish Node packages. If the gem depends on changes in the Node library, you _must_ [publish a Node release first](.github/contributing.md#releasing).
+**Note:** Gem releases will _not_ publish Node packages. If the gem depends on changes in the Node library, you _must_ [publish a Node release first](documentation/guides/release-and-deploy.md).
 
 1. `cd gems/quilt_rails`
 1. Update `version.rb` and `CHANGELOG.md` to your new desired version
