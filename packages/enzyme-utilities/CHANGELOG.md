@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [2.1.11] - 2020-05-13
 
 - `trigger` update the wrapper even if the promise is not resolved. [[#1439](https://github.com/Shopify/quilt/pull/1439)]
 
