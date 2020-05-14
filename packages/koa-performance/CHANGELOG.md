@@ -8,6 +8,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Fixed
+
 - Include `prefix` when we redirect to the `/auth` path.
 
 ## [1.2.0] - 2020-02-05
