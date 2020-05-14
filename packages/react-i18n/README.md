@@ -512,3 +512,23 @@ These libraries are excellent, and we may well use parts of them under the hood 
 - Exposing currency and datetime formatting utilities that automatically follow the [Polaris conventions](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses).
 
 Additional details on why we built our own package, and on specifics of parts of this package’s API, are available in the [original proposal](https://github.com/Shopify/web-foundation/pull/3).
+
+### How do I get this i18n library to work with React Native?
+
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version [2.3.0](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
+
+**Note**: You will need a script to generate `index` files:
+
+```javascript
+const {
+  generateTranslationDictionaries,
+} = require('@shopify/react-i18n/generate-dictionaries');
+
+const SUPPORTED_LOCALES = ['en'];
+
+(async () => {
+  await generateTranslationDictionaries(SUPPORTED_LOCALES, {
+    fallbackLocale: 'en',
+  });
+})();
+```
