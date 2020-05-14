@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [6.1.9] - 2020-05-14
+
 ### Changed
 
 - Improve typings for `usePrefetch` to accept a `fetchPolicy` in `options` ([#1437](https://github.com/Shopify/quilt/pull/1437))
