@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [1.12.2] - 2020-05-19
+
 - Fixed: Performance endpoint now parses `text/plain` report data as JSON
 
 ## [1.12.1] - 2020-05-14
