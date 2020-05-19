@@ -4,10 +4,12 @@ module Quilt
   module Performance
     module Reportable
       def process_report(&block)
-        if request.content_type == 'text/plain'
-          self.params = ActionController::Parameters.new(JSON.parse(request.body.read))
+        report_params = if request.content_type == 'text/plain'
+          ActionController::Parameters.new(JSON.parse(request.body.read))
+        else
+          params
         end
-        Client.send!(Report.from_params(params), &block)
+        Client.send!(Report.from_params(report_params), &block)
       end
     end
   end
