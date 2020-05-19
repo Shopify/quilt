@@ -472,10 +472,6 @@ module Quilt
       @params
     end
 
-    def params=(params)
-      @params = params
-    end
-
     def request
       @request
     end
