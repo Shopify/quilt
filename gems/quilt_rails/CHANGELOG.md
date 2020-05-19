@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [1.12.2] - 2020-05-19
+
+- Fixed: Performance endpoint now parses `text/plain` report data as JSON
+
+## [1.12.1] - 2020-05-14
+
+- Fixed: Performance endpoint now accepts data that lacks a `connection` parameter, replacing it with a stand-in value
+
 ## [1.12.0] - 2020-05-07
 
-- Add: Expose a `data` arugment on `render_react` to share data to the React server using the `X-Quilt-Data` header ([#1411](https://github.com/Shopify/quilt/pull/1411))
+- Add: Expose a `data` argument on `render_react` to share data to the React server using the `X-Quilt-Data` header ([#1411](https://github.com/Shopify/quilt/pull/1411))
 
 ## [1.11.1] - 2020-03-24
 

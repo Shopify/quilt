@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.10.0] - 2020-05-14
+
+### Added
+
+- Added `useForceUpdate` hook ([#1441](https://github.com/Shopify/quilt/pull/1441))
+
 ## [1.9.1] - 2020-05-01
 
 ### Fixed
