@@ -7,6 +7,7 @@ module Quilt
     include Quilt::Performance::Reportable
 
     def setup
+      @request = ActionDispatch::TestRequest.create('CONTENT_TYPE' => 'application/json')
       @params = ActionController::Parameters.new
     end
 
@@ -433,11 +434,46 @@ module Quilt
       process_report
     end
 
+    def test_parses_plaintext_to_json
+      @request = ActionDispatch::TestRequest.create(
+        'CONTENT_TYPE' => 'text/plain',
+        'RAW_POST_DATA' => JSON.generate(
+          'navigations' => [],
+          'events' => [{
+            'type' => 'ttfb',
+            'start' => 2,
+            'duration' => 1000,
+          }, {
+            'type' => 'kitty-cat cuddle',
+            'start' => 100,
+            'duration' => 999999,
+          }],
+        )
+      )
+
+      StatsD
+        .expects(:distribution)
+        .with('time_to_first_byte', 2, tags: {
+          browser_connection_type: 'unknown',
+        })
+      StatsD
+        .expects(:distribution)
+        .with('kitty-cat cuddle', 100, tags: {
+          browser_connection_type: 'unknown',
+        })
+
+      process_report
+    end
+
     private
 
     # rubocop:disable Style/TrivialAccessors
     def params
       @params
+    end
+
+    def request
+      @request
     end
     # rubocop:enable Style/TrivialAccessors
   end
