@@ -14,6 +14,11 @@ const baseConfig = {
   secret: '',
 };
 
+const baseConfigWithPrefix = {
+  ...baseConfig,
+  prefix: '/shopify',
+};
+
 describe('CreateEnableCookies', () => {
   it('sets body to the enable cookies HTML page', () => {
     const enableCookies = createEnableCookies(baseConfig);
@@ -27,5 +32,20 @@ describe('CreateEnableCookies', () => {
     expect(ctx.body).toContain(baseConfig.apiKey);
     expect(ctx.body).toContain(shopOrigin);
     expect(ctx.body).toContain(`redirectUrl: "/auth?shop=${shop}"`);
+  });
+
+  it('sets body to the enable cookies HTML page with prefix', () => {
+    const {prefix} = baseConfigWithPrefix;
+    const enableCookies = createEnableCookies(baseConfigWithPrefix);
+    const ctx = createMockContext({
+      url: `https://${baseUrl}?${query({shop})}`,
+    });
+
+    enableCookies(ctx);
+
+    expect(ctx.body).toContain('CookiePartitionPrompt');
+    expect(ctx.body).toContain(baseConfig.apiKey);
+    expect(ctx.body).toContain(shopOrigin);
+    expect(ctx.body).toContain(`redirectUrl: "${prefix}/auth?shop=${shop}"`);
   });
 });

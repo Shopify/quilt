@@ -1,11 +1,11 @@
 // Copied from https://github.com/Shopify/shopify_app
-const requestStorageAccess = (shop: string) => {
+const requestStorageAccess = (shop: string, prefix = '') => {
   return `(function() {
       function redirect() {
         var targetInfo = {
           myshopifyUrl: "https://${shop}",
-          hasStorageAccessUrl: "/auth/inline?shop=${shop}",
-          doesNotHaveStorageAccessUrl: "/auth/enable_cookies?shop=${shop}",
+          hasStorageAccessUrl: "${prefix}/auth/inline?shop=${shop}",
+          doesNotHaveStorageAccessUrl: "${prefix}/auth/enable_cookies?shop=${shop}",
           appTargetUrl: "/?shop=${shop}"
         }
 
