@@ -20,12 +20,12 @@ This package provides two methods that should be included in the jest setup file
 
 ### `ensureMocksReset`
 
-Should be called in the `beforeEach` method of the jest `each-test` setup file. For example:
+Should be called in the `afterEach` method of the jest `each-test` setup file. For example:
 
 ```ts
 import {ensureMocksReset} from '@shopify/jest-dom-mocks';
 
-beforeEach(() => {
+afterEach(() => {
   ensureMocksReset();
 });
 ```
