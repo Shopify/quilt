@@ -25,7 +25,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/web-worker/README.md",
   "dependencies": {
     "@shopify/rpc": "^1.0.6",
-    "@types/webpack": "^4.0.0",
     "loader-utils": "^1.0.0",
     "webpack-virtual-modules": "^0.1.12"
   },
@@ -35,6 +34,7 @@
     "@types/babel__traverse": ">=7.0.0",
     "@types/koa-mount": "^3.0.1",
     "@types/loader-utils": "^1.0.0",
+    "@types/webpack": "^4.0.0",
     "@types/webpack-virtual-modules": "^0.1.0",
     "koa-mount": "^3.0.0"
   },
@@ -50,6 +50,6 @@
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",
-    "webpack": "^4.40.0"
+    "webpack": ">4.25.1, <=4.5.0"
   }
 }
