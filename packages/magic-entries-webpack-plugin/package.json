@@ -26,7 +26,7 @@
   "dependencies": {
     "glob": "^7.1.6",
     "glob-to-regexp": "^0.4.1",
-    "webpack": "^4.43.0"
+    "webpack": ">4.25.1, <=4.5.0"
   },
   "files": [
     "dist/*",

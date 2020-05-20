@@ -50,6 +50,6 @@
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",
-    "webpack": "^4.40.0"
+    "webpack": ">4.25.1, <=4.5.0"
   }
 }

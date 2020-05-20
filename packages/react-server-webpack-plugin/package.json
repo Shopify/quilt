@@ -30,7 +30,7 @@
   "devDependencies": {
     "@shopify/react-server": "^0.12.1",
     "@types/webpack-virtual-modules": "^0.1.0",
-    "webpack": "^4.0.0"
+    "webpack": ">4.25.1, <=4.5.0"
   },
   "files": [
     "dist/*",
