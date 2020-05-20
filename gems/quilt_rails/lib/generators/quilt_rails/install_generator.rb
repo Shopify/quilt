@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-module Quilt
+module QuiltRails
   class InstallGenerator < Rails::Generators::Base
     def run_all_generators
-      generate("quilt:rails_setup")
-      generate("quilt:react_setup")
-      generate("quilt:react_app")
+      generate("sewing_kit:install")
+      generate("quilt:install")
     end
   end
 end

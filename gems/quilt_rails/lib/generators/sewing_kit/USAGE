@@ -2,4 +2,4 @@ Description:
     This generator creates a sewing-kit config file.
 
 Example:
-    rails generate sewing-kit:install
+    rails generate sewing_kit:install

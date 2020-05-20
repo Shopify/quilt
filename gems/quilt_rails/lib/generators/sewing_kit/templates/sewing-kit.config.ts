@@ -1,7 +1,11 @@
 /* eslint-env node */
 
-import {Env, Plugins} from '@shopify/sewing-kit';
+import {Plugins} from '@shopify/sewing-kit';
 
-export default function sewingKitConfig(_plugins: Plugins, _env: Env) {
-  return {};
+export default function sewingKitConfig(plugins: Plugins) {
+  return {
+    name: "${application_name}",
+    plugins: [
+    ],
+  };
 }
