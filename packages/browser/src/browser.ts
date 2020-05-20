@@ -86,10 +86,10 @@ export class Browser {
 
   get isIOS() {
     const os = this.ua.getOS();
-    const isStandardiOS = os.name && os.name.search('iOS') !== -1;
+    const isStandardiOS = os.name && os.name.includes('iOS');
     const isShopifyiOS =
-      this.userAgent.search(/Shopify Mobile|Shopify POS|Shopify Ping/g) !==
-        -1 && this.userAgent.search('iOS') !== -1;
+      /Shopify Mobile|Shopify POS|Shopify Ping/.test(this.userAgent) &&
+      this.userAgent.includes('iOS');
     return isStandardiOS || isShopifyiOS;
   }
 
