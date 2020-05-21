@@ -37,7 +37,7 @@ export class Browser {
   }
 
   get isMobile() {
-    return MOBILE_DEVICE_TYPES.includes(this.ua.getDevice().type);
+    return MOBILE_DEVICE_TYPES.includes(this.ua.getDevice().type as string);
   }
 
   get isDesktop() {

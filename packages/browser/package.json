@@ -28,6 +28,7 @@
     "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
+    "@types/ua-parser-js": "^0.7.33",
     "ua-parser-js": "^0.7.17"
   }
 }
