@@ -1,0 +1,33 @@
+{
+  "name": "@shopify/browser",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Utilities for extracting browser information from user-agents",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/browser"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/browser/README.md",
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ],
+  "dependencies": {
+    "ua-parser-js": "^0.7.17"
+  }
+}
