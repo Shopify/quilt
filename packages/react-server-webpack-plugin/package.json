@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server-webpack-plugin",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "license": "MIT",
   "description": "A webpack plugin that generates entrypoints for @shopify/react-server based applications",
   "main": "dist/src/index.js",
