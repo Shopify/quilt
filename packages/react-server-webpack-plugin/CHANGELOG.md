@@ -36,7 +36,7 @@ It would now look like this
 export function App({url}: {url: URL}) {
   return (
     <div className={styles.App}>
-      <Router location={url}>
+      <Router location={url.href}>
         <Frame>
           <Routes />
         </Frame>
