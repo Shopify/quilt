@@ -39,7 +39,7 @@ export default function createRequestStorageAccess({
 
   <script>
     window.apiKey = "${apiKey}";
-    window.shopOrigin = "https://${shop}";
+    window.shopOrigin = "https://${encodeURIComponent(shop)}";
     ${itpHelper}
     ${storageAccessHelper}
     ${requestStorageAccess(shop, prefix)}
