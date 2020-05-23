@@ -582,6 +582,30 @@ describe('I18n', () => {
         expect(i18n.formatNumber(50, {as: 'percent'})).toBe(expected);
       });
     });
+
+    describe('unit', () => {
+      // Skipped for now as `formatNumber support for `as:unit` was added in
+      // node 12.11.0 thanks to v8 7.7. Prior to that it crashes
+      // See https://nodejs.org/en/download/releases/ and https://v8.dev/blog/v8-release-77)
+      // Unskip once we update our run tests on at least node 12.11.0
+      // eslint-disable-next-line jest/no-disabled-tests
+      it.skip('formats the number as a unit', () => {
+        const i18n = new I18n(defaultTranslations, defaultDetails);
+        const expected = Intl.NumberFormat(defaultDetails.locale, {
+          style: 'unit',
+          // At time of writing this causes a type warning because the type for
+          // Intl.NumberFormatOptions does not contain `unit`. This ts-ignore
+          // should be removed once we're using a TS version with updated types
+          // https://github.com/microsoft/TypeScript/pull/38013
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
+          unit: 'kilometer',
+        }).format(50);
+        expect(i18n.formatNumber(50, {as: 'unit', unit: 'kilometer'})).toBe(
+          expected,
+        );
+      });
+    });
   });
 
   describe('#unformatNumber()', () => {
@@ -1175,6 +1199,28 @@ describe('I18n', () => {
         style: 'percent',
       }).format(50);
       expect(i18n.formatPercentage(50)).toBe(expected);
+    });
+  });
+
+  describe('#formatUnit()', () => {
+    // Skipped for now as `formatNumber support for `as:unit` was added in
+    // node 12.11.0 thanks to v8 7.7. Prior to that it crashes
+    // Unskip once we update our run tests on at least node 12.11.0
+    // See https://nodejs.org/en/download/releases/ and https://v8.dev/blog/v8-release-77)
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip('formats the number as a unit', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      const expected = Intl.NumberFormat(defaultDetails.locale, {
+        style: 'unit',
+        // At time of writing this causes a type warning because the type for
+        // Intl.NumberFormatOptions does not contain `unit`. This ts-ignore
+        // should be removed once we're using a TS version with updated types
+        // https://github.com/microsoft/TypeScript/pull/38013
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        unit: 'kilometer',
+      }).format(50);
+      expect(i18n.formatUnit(50, {unit: 'kilometer'})).toBe(expected);
     });
   });
 
