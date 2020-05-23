@@ -4,8 +4,12 @@ const requestStorageAccess = (shop: string, prefix = '') => {
       function redirect() {
         var targetInfo = {
           myshopifyUrl: "https://${encodeURIComponent(shop)}",
-          hasStorageAccessUrl: "${prefix}/auth/inline?shop=${encodeURIComponent(shop)}",
-          doesNotHaveStorageAccessUrl: "${prefix}/auth/enable_cookies?shop=${encodeURIComponent(shop)}",
+          hasStorageAccessUrl: "${prefix}/auth/inline?shop=${encodeURIComponent(
+    shop,
+  )}",
+          doesNotHaveStorageAccessUrl: "${prefix}/auth/enable_cookies?shop=${encodeURIComponent(
+    shop,
+  )}",
           appTargetUrl: "/?shop=${encodeURIComponent(shop)}"
         }
 
