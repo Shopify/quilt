@@ -1,12 +1,14 @@
 // Copied from https://github.com/Shopify/shopify_app
 const requestStorageAccess = (shop: string, prefix = '') => {
+  const encodedShopUrl = encodeURIComponent(shop);
   return `(function() {
       function redirect() {
         var targetInfo = {
-          myshopifyUrl: "https://${encodeURIComponent(shop)}",
-          hasStorageAccessUrl: "${prefix}/auth/inline?shop=${encodeURIComponent(shop)}",
-          doesNotHaveStorageAccessUrl: "${prefix}/auth/enable_cookies?shop=${encodeURIComponent(shop)}",
-          appTargetUrl: "/?shop=${encodeURIComponent(shop)}"
+          myshopifyUrl: "https://${encodedShopUrl}",
+          hasStorageAccessUrl: "${prefix}/auth/inline?shop=${encodedShopUrl}",
+          doesNotHaveStorageAccessUrl:
+            "${prefix}/auth/enable_cookies?shop=${encodedShopUrl}",
+          appTargetUrl: "/?shop=${encodedShopUrl}"
         }
 
         if (window.top == window.self) {
