@@ -11,7 +11,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Protect against reflected XSS vulnerability [1455](https://github.com/Shopify/quilt/pull/1455)
 
-## [3.1.62] - 2015-05-20
+## [3.1.62] - 2020-05-20
 
 ### Fixed
 
