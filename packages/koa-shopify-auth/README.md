@@ -9,6 +9,10 @@ Sister module to [`@shopify/shopify-express`](https://www.npmjs.com/package/@sho
 
 Features you might know from the express module like the webhook middleware and proxy will be presented as their [own packages instead](https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-graphql-proxy/README.md).
 
+## Warning: 3.1.61-3.1.62 vulnerable to reflected XSS
+
+Versions 3.1.61 and 3.1.62 are vulnerable to a reflected XSS attack. Please update to the latest version to protect your app.
+
 ## Installation
 
 ```bash
