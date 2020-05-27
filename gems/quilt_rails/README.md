@@ -282,3 +282,7 @@ Follow details guide [here](./docs/performance-tracking).
 ## API
 
 Find all features this gem offer in this [API doc](./docs/api).
+
+## FAQ
+
+Find your [here](./docs/FAQ).

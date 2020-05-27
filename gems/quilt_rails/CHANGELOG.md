@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Refactor generators into smaller tasks.
+  Added the generation of a few more configuration files `.editorconfig`, `.eslintignore`, `.prettierignore`
+  Added a default `package.json` file
+  Added the ability to grab application name from Rails setting for `package.json` & `sewing-kit.config`
+  Lock the version of `react`, `react-dom` and `typescript`
+  ([#1449](https://github.com/Shopify/quilt/pull/1449))
+
 ## [1.12.2] - 2020-05-19
 
 - Fixed: Performance endpoint now parses `text/plain` report data as JSON
