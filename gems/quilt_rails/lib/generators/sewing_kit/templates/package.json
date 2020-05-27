@@ -24,5 +24,8 @@
     "extends": [
       "@shopify/stylelint-plugin/prettier"
     ]
+  },
+  "resolutions": {
+    "babel-plugin-dynamic-import-node": "2.3.0"
   }
 }
