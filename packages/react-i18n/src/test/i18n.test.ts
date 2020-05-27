@@ -1356,9 +1356,13 @@ describe('I18n', () => {
             timezone,
           });
 
-          expect(
-            i18n.formatDate(todayInTheFuture, {style: DateStyle.Humanize}),
-          ).toBe('4:00 p.m.');
+          i18n.formatDate(todayInTheFuture, {style: DateStyle.Humanize});
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.today',
+            {pseudotranslate: false, replacements: {time: '4:00 p.m.'}},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
         it('formats a future date', () => {

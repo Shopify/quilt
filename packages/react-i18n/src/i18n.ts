@@ -518,7 +518,7 @@ export class I18n {
     }).toLocaleLowerCase();
 
     if (isToday(date)) {
-      return time;
+      return this.translate('date.humanize.today', {time});
     }
 
     if (isTomorrow(date)) {
