@@ -14,7 +14,7 @@ export const dateStyle = {
   },
   [DateStyle.Short]: {
     month: 'short',
-    day: '2-digit',
+    day: 'numeric',
     year: 'numeric',
   },
   [DateStyle.Humanize]: {
