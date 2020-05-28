@@ -13,6 +13,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
   Please see the [migration guide](./migration-guide.md) for more information.
 
+### Fixed
+
+- Fixed `DateStyle.Short` zero-padding days ([#1468](https://github.com/Shopify/quilt/pull/1468))
+
 ## [3.0.0] - 2020-04-23
 
 ### Changed
