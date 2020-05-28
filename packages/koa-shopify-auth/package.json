@@ -26,7 +26,6 @@
     "@shopify/network": "^1.4.7",
     "koa-compose": ">=3.0.0 <4.0.0",
     "nonce": "^1.0.4",
-    "safe-compare": "^1.1.2",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
@@ -34,7 +33,6 @@
     "@shopify/jest-koa-mocks": "^2.2.2",
     "@types/koa": "^2.0.0",
     "@types/koa-compose": "*",
-    "@types/safe-compare": "^1.1.0",
     "koa": "^2.5.0"
   },
   "sideEffects": false,

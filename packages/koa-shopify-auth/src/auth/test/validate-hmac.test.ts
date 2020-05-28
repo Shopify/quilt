@@ -1,10 +1,10 @@
 import validateHmac from '../validate-hmac';
 
-jest.mock('safe-compare', () => {
+jest.mock('../safe-compare', () => {
   return jest.fn((first: string, second: string) => first === second);
 });
 
-const safeCompare = require.requireMock('safe-compare');
+const safeCompare = require.requireMock('../safe-compare');
 const data = {fiz: 'buzz', foo: 'bar'};
 const secret = 'some secret';
 const hmac = '7c66606415117ff9744a2a9b2be1712a15928b5ef474ab1a9ff5dc36b7dcaed8';
