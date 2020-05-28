@@ -1156,14 +1156,14 @@ describe('I18n', () => {
     });
 
     it('formats a date using DateStyle.Short', () => {
-      const date = new Date('2012-12-20T00:00:00-00:00');
+      const date = new Date('2012-12-09T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
         timezone,
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Short})).toBe(
-        'Dec. 20, 2012',
+        'Dec. 9, 2012',
       );
     });
 
