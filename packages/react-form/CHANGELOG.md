@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## Changed
+
+- `FormMapping` and `FieldOutput` are recursively typed to allow deeply nested forms.
+
 ## [0.6.0] - 2020-04-23
 
 ### Added

@@ -60,7 +60,7 @@ export interface Field<Value> {
 }
 
 export type FieldDictionary<Record extends object> = {
-  [Key in keyof Record]: Field<Record[Key]>;
+  [Key in keyof Record]: FieldOutput<Record[Key]>;
 };
 
 export interface Form<T extends FieldBag> {
@@ -87,24 +87,17 @@ export type SubmitResult =
       status: 'success';
     };
 
-export type FieldOutput<T extends object> =
-  | FieldDictionary<T>
-  | Field<T>
-  | FieldDictionary<T>[];
+export type FieldOutput<T> = T extends object
+  ? FieldDictionary<T>
+  : T extends any[]
+  ? FieldDictionary<T>[]
+  : Field<T>;
 
-export interface FieldBag {
-  [key: string]: FieldOutput<any>;
-}
+export type FieldBag = FieldDictionary<any>;
 
 export interface SubmitHandler<Fields> {
   (fields: Fields): Promise<SubmitResult>;
 }
-
-type FieldProp<T, K extends keyof Field<any>> = T extends Field<any>
-  ? T[K]
-  : T extends FieldDictionary<any>
-  ? {[InnerKey in keyof T]: T[InnerKey][K]}
-  : T;
 
 /**
   Represents all of the values for a given key mapped out of a mixed dictionary of Field objects,
@@ -112,8 +105,15 @@ type FieldProp<T, K extends keyof Field<any>> = T extends Field<any>
 
   This is generally only useful if you're mapping over and transforming a nested tree of fields.
 */
-export type FormMapping<Bag, FieldKey extends keyof Field<any>> = {
-  [Key in keyof Bag]: Bag[Key] extends any[]
-    ? {[Index in keyof Bag[Key]]: FieldProp<Bag[Key][Index], FieldKey>}
-    : FieldProp<Bag[Key], FieldKey>;
-};
+export type FormMapping<
+  Bag extends FieldOutput<any>,
+  FieldKey extends keyof Field<any>
+> = Bag extends Field<any>
+  ? Bag[FieldKey]
+  : Bag extends FieldDictionary<any>
+  ? {[K in keyof Bag]: FormMapping<Bag[K], FieldKey>}
+  : {
+      [K in keyof Bag]: Bag[K] extends FieldDictionary<any>
+        ? FormMapping<Bag[K], FieldKey>
+        : never;
+    };
