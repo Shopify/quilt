@@ -4,8 +4,8 @@ import {StaticRouter, BrowserRouter} from 'react-router-dom';
 import {isClient} from './utilities';
 
 interface Props {
-  location?: string | URL;
   children?: React.ReactNode;
+  location?: string | URL;
 }
 
 export const NO_LOCATION_ERROR =
