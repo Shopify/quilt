@@ -1,4 +1,4 @@
-import {act as reactAct} from 'react-dom/test-utils';
+import {act} from 'react-dom/test-utils';
 import {ReactWrapper, CommonWrapper} from 'enzyme';
 import {get} from 'lodash';
 
@@ -7,11 +7,6 @@ export type AnyWrapper =
   | ReactWrapper<any, never>
   | CommonWrapper<any, any>
   | CommonWrapper<any, never>;
-
-// Manually casting `act()` until @types/react-dom is updated to include
-// the Promise types for async act introduced in version 16.9.0-alpha.0
-// https://github.com/Shopify/quilt/issues/692
-const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   if (wrapper.length === 0) {
@@ -41,12 +36,13 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   const promise = act(() => {
     returnValue = callback(...args);
 
-    // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
     // This condition checks the returned value is an actual Promise and returns it
     // to React’s `act()` call, otherwise we just want to return `undefined`
     if (isPromise(returnValue)) {
       return returnValue;
     }
+
+    return (undefined as unknown) as Promise<void>;
   });
 
   updateRoot(wrapper);
