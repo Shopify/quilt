@@ -26,7 +26,7 @@
   "dependencies": {
     "@shopify/rpc": "^1.0.6",
     "loader-utils": "^1.0.0",
-    "webpack-virtual-modules": "^0.1.12"
+    "webpack-virtual-modules": "^0.2.2"
   },
   "devDependencies": {
     "@babel/types": ">=7.0.0",
