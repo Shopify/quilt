@@ -58,11 +58,13 @@ export default function createOAuthCallback(config: AuthConfig) {
     if (ctx.session) {
       ctx.session.shop = shop;
       ctx.session.accessToken = accessToken;
+      ctx.session.accessTokenData = accessTokenData;
     }
 
     ctx.state.shopify = {
       shop,
       accessToken,
+      accessTokenData,
     };
 
     if (afterAuth) {
