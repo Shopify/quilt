@@ -27,9 +27,11 @@ describe('useForm', () => {
   function ProductForm({
     data,
     onSubmit,
+    makeCleanAfterSubmit,
   }: {
     data: SimpleProduct;
     onSubmit?: SubmitHandler<SimpleProduct>;
+    makeCleanAfterSubmit?: boolean;
   }) {
     const title = useField({
       value: data.title,
@@ -53,10 +55,13 @@ describe('useForm', () => {
       },
     });
 
-    const {submit, submitting, dirty, reset, submitErrors} = useForm({
-      fields: {title, description, defaultVariant, variants},
-      onSubmit: onSubmit as any,
-    });
+    const {submit, submitting, dirty, reset, makeClean, submitErrors} = useForm(
+      {
+        fields: {title, description, defaultVariant, variants},
+        onSubmit: onSubmit as any,
+        makeCleanAfterSubmit,
+      },
+    );
 
     return (
       <form onSubmit={submit}>
@@ -82,7 +87,10 @@ describe('useForm', () => {
             </fieldset>
           );
         })}
-        <button type="button" disabled={!dirty} onClick={reset}>
+        <button type="button" onClick={makeClean}>
+          Clean
+        </button>
+        <button type="reset" disabled={!dirty} onClick={reset}>
           Reset
         </button>
         <button type="submit" disabled={!dirty} onClick={submit}>
@@ -92,60 +100,69 @@ describe('useForm', () => {
     );
   }
 
-  describe('dirty state', () => {
-    it('dirty state is false when no field has been changed', () => {
-      const wrapper = mount(<ProductForm data={fakeProduct()} />);
-
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', 'Floobogs, the shoe for ogres');
-
+  function isDirty(wrapper) {
+    try {
       expect(wrapper).toContainReactComponent('button', {
-        type: 'button',
+        type: 'reset',
         disabled: false,
       });
       expect(wrapper).toContainReactComponent('button', {
         type: 'submit',
         disabled: false,
       });
+    } catch {
+      return false;
+    }
+    return true;
+  }
+
+  function changeTitle(wrapper, newTitle) {
+    wrapper.find(TextField, {label: 'title'})!.trigger('onChange', newTitle);
+  }
+
+  function hitSubmit(wrapper) {
+    wrapper.find('button', {type: 'submit'})!.trigger('onClick', clickEvent());
+  }
+
+  async function waitForSubmit(wrapper, successPromise) {
+    hitSubmit(wrapper);
+
+    await wrapper.act(async () => {
+      await successPromise;
+    });
+  }
+
+  function hitReset(wrapper) {
+    wrapper.find('button', {type: 'reset'})!.trigger('onClick', clickEvent());
+  }
+
+  function hitClean(wrapper) {
+    wrapper.find('button', {type: 'button'})!.trigger('onClick', clickEvent());
+  }
+
+  describe('dirty state', () => {
+    it('dirty state is false when no field has been changed', () => {
+      const wrapper = mount(<ProductForm data={fakeProduct()} />);
+
+      expect(isDirty(wrapper)).toBe(false);
     });
 
     it('dirty state is true when any field has been changed', () => {
       const wrapper = mount(<ProductForm data={fakeProduct()} />);
 
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', 'Floobogs, the shoe for ogres');
+      changeTitle(wrapper, 'Floobogs, the shoe for ogres');
 
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'button',
-        disabled: false,
-      });
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'submit',
-        disabled: false,
-      });
+      expect(isDirty(wrapper)).toBe(true);
     });
 
     it("dirty state is false when a field is changed and then returned to it's starting value", () => {
       const product = fakeProduct();
       const wrapper = mount(<ProductForm data={product} />);
 
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', 'Floobogs, the shoe for ogres');
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', product.title);
+      changeTitle(wrapper, 'Floobogs, the shoe for ogres');
+      changeTitle(wrapper, product.title);
 
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'button',
-        disabled: true,
-      });
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'submit',
-        disabled: true,
-      });
+      expect(isDirty(wrapper)).toBe(false);
     });
   });
 
@@ -158,13 +175,8 @@ describe('useForm', () => {
         />,
       );
 
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', 'tortoritos, the chip for turtles!');
-
-      wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      changeTitle(wrapper, 'tortoritos, the chip for turtles!');
+      hitSubmit(wrapper);
 
       expect(wrapper).toContainReactComponent('p', {
         children: 'loading...',
@@ -177,24 +189,15 @@ describe('useForm', () => {
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', 'tortoritos, the chip for turtles!');
-
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
-
-      await wrapper.act(async () => {
-        await promise;
-      });
+      changeTitle(wrapper, 'tortoritos, the chip for turtles!');
+      await waitForSubmit(wrapper, promise);
 
       expect(wrapper).not.toContainReactComponent('p', {
         children: 'loading...',
       });
     });
 
-    it('validates all fields with their latest values before submitting and bails out if any fail', async () => {
+    it('validates all fields with their latest values before submitting and bails out if any fail', () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = {
         ...fakeProduct(),
@@ -204,11 +207,8 @@ describe('useForm', () => {
         <ProductForm data={product} onSubmit={submitSpy} />,
       );
 
-      wrapper.find(TextField, {label: 'title'})!.trigger('onChange', '');
-
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      changeTitle(wrapper, '');
+      hitSubmit(wrapper);
 
       expect(submitSpy).not.toHaveBeenCalled();
       expect(wrapper).toContainReactComponent('p', {
@@ -216,7 +216,7 @@ describe('useForm', () => {
       });
     });
 
-    it('validates list fields with their latest values before submitting and bails out if any fail', async () => {
+    it('validates list fields with their latest values before submitting and bails out if any fail', () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = fakeProduct();
       const wrapper = mount(
@@ -226,10 +226,7 @@ describe('useForm', () => {
       wrapper
         .findAll(TextField, {label: 'price'})[1]
         .trigger('onChange', 'not a valid price');
-
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
+      hitSubmit(wrapper);
 
       expect(submitSpy).not.toHaveBeenCalled();
       expect(wrapper).toContainReactComponent('p', {
@@ -240,18 +237,11 @@ describe('useForm', () => {
     it('returns remote submission errors', async () => {
       const error = {message: 'The server hates it'};
       const promise = Promise.resolve(submitFail([error]));
-
       const wrapper = mount(
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
-
-      await wrapper.act(async () => {
-        await promise;
-      });
+      await waitForSubmit(wrapper, promise);
 
       expect(wrapper).toContainReactComponent('p', {
         children: error.message,
@@ -265,20 +255,12 @@ describe('useForm', () => {
           message: 'The server hates your price',
         },
       ];
-
       const promise = Promise.resolve(submitFail(errors));
-
       const wrapper = mount(
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
-
-      await wrapper.act(async () => {
-        await promise;
-      });
+      await waitForSubmit(wrapper, promise);
 
       expect(wrapper).toContainReactComponent(TextField, {
         error: errors[0].message,
@@ -292,25 +274,16 @@ describe('useForm', () => {
           message: 'The server hates your price',
         },
       ];
-
       const promise = Promise.resolve(submitFail(errors));
-
       const wrapper = mount(
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
-
-      await wrapper.act(async () => {
-        await promise;
-      });
+      await waitForSubmit(wrapper, promise);
 
       expect(wrapper).toContainReactComponent('p', {
         children: errors[0].message,
       });
-
       expect(wrapper).not.toContainReactComponent(TextField, {
         error: errors[0].message,
       });
@@ -323,9 +296,7 @@ describe('useForm', () => {
         .find('button', {type: 'submit'})!
         .prop('onClick');
 
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', 'tortoritos, the chip for turtles!');
+      changeTitle(wrapper, 'tortoritos, the chip for turtles!');
 
       const newSubmitHandler = wrapper
         .find('button', {type: 'submit'})!
@@ -333,31 +304,80 @@ describe('useForm', () => {
 
       expect(initialSubmitHandler).toBe(newSubmitHandler);
     });
+
+    describe('makeCleanAfterSubmit', () => {
+      it('does not undirty fields after successful submit by default', async () => {
+        const promise = Promise.resolve(submitSuccess());
+        const wrapper = mount(<ProductForm data={fakeProduct()} />);
+
+        changeTitle(wrapper, 'tortoritos, the chip for turtles!');
+
+        expect(isDirty(wrapper)).toBe(true);
+
+        await waitForSubmit(wrapper, promise);
+
+        expect(isDirty(wrapper)).toBe(true);
+      });
+
+      it('does undirty fields after successful submit if makeCleanAfterSubmit is true', async () => {
+        const promise = Promise.resolve(submitSuccess());
+        const wrapper = mount(
+          <ProductForm data={fakeProduct()} makeCleanAfterSubmit />,
+        );
+
+        changeTitle(wrapper, 'tortoritos, the chip for turtles!');
+
+        expect(isDirty(wrapper)).toBe(true);
+
+        await waitForSubmit(wrapper, promise);
+
+        expect(isDirty(wrapper)).toBe(false);
+      });
+
+      it('does not undirty fields after successful submit if makeCleanAfterSubmit is false', async () => {
+        const promise = Promise.resolve(submitSuccess());
+        const wrapper = mount(
+          <ProductForm data={fakeProduct()} makeCleanAfterSubmit={false} />,
+        );
+
+        changeTitle(wrapper, 'tortoritos, the chip for turtles!');
+
+        expect(isDirty(wrapper)).toBe(true);
+
+        await waitForSubmit(wrapper, promise);
+
+        expect(isDirty(wrapper)).toBe(true);
+      });
+
+      it('does not undirty fields after if makeCleanAfterSubmit is true but submit is unsuccessful', async () => {
+        const promise = Promise.resolve(submitFail());
+        const wrapper = mount(
+          <ProductForm data={fakeProduct()} makeCleanAfterSubmit={false} />,
+        );
+
+        changeTitle(wrapper, '');
+
+        expect(isDirty(wrapper)).toBe(true);
+
+        await waitForSubmit(wrapper, promise);
+
+        expect(isDirty(wrapper)).toBe(true);
+      });
+    });
   });
 
   describe('reset', () => {
     it('resets all fields', () => {
       const wrapper = mount(<ProductForm data={fakeProduct()} />);
-
       const newProduct = 'Submarine full of gnomes';
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', newProduct);
-      wrapper
-        .find('button', {type: 'button'})!
-        .trigger('onClick', clickEvent());
+
+      changeTitle(wrapper, newProduct);
+      hitReset(wrapper);
 
       expect(wrapper).not.toContainReactComponent(TextField, {
         value: newProduct,
       });
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'button',
-        disabled: true,
-      });
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'submit',
-        disabled: true,
-      });
+      expect(isDirty(wrapper)).toBe(false);
     });
 
     it('resets errors from previous submissions', async () => {
@@ -367,24 +387,13 @@ describe('useForm', () => {
           message: 'The server hates your price',
         },
       ];
-
       const promise = Promise.resolve(submitFail(errors));
-
       const wrapper = mount(
         <ProductForm data={fakeProduct()} onSubmit={() => promise} />,
       );
 
-      await wrapper
-        .find('button', {type: 'submit'})!
-        .trigger('onClick', clickEvent());
-
-      await wrapper
-        .find('button', {type: 'button'})!
-        .trigger('onClick', clickEvent());
-
-      await wrapper.act(async () => {
-        await promise;
-      });
+      await waitForSubmit(wrapper, promise);
+      hitReset(wrapper);
 
       expect(wrapper).not.toContainReactComponent(TextField, {
         error: errors[0].message,
@@ -395,18 +404,45 @@ describe('useForm', () => {
       const wrapper = mount(<ProductForm data={fakeProduct()} />);
 
       const initialResetHandler = wrapper
-        .find('button', {type: 'button'})!
+        .find('button', {type: 'reset'})!
         .prop('onClick');
 
-      wrapper
-        .find(TextField, {label: 'title'})!
-        .trigger('onChange', 'tortoritos, the chip for turtles!');
+      changeTitle(wrapper, 'tortoritos, the chip for turtles!');
 
       const newResetHandler = wrapper
-        .find('button', {type: 'button'})!
+        .find('button', {type: 'reset'})!
         .prop('onClick');
 
       expect(initialResetHandler).toBe(newResetHandler);
+    });
+  });
+
+  describe('makeClean', () => {
+    it(`cleans the form's dirty state`, () => {
+      const wrapper = mount(<ProductForm data={fakeProduct()} />);
+      const newProduct = 'Submarine full of gnomes';
+
+      changeTitle(wrapper, 'tortoritos, the chip for turtles!');
+
+      hitClean(wrapper);
+
+      expect(isDirty(wrapper)).toBe(false);
+    });
+
+    it('does not create a new makeClean function on each render', () => {
+      const wrapper = mount(<ProductForm data={fakeProduct()} />);
+
+      const initialMakeCleanHandler = wrapper
+        .find('button', {type: 'button'})!
+        .prop('onClick');
+
+      changeTitle(wrapper, 'tortoritos, the chip for turtles!');
+
+      const newMakeCleanHandler = wrapper
+        .find('button', {type: 'button'})!
+        .prop('onClick');
+
+      expect(initialMakeCleanHandler).toBe(newMakeCleanHandler);
     });
   });
 });
