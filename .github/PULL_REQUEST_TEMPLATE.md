@@ -16,10 +16,10 @@ If this is a new package, you may disregard this section.
 Please delete options that are not relevant.
 -->
 
-- [ ] <!--Package Name--> Patch: Bug/ Documentation fix (non-breaking change which fixes an issue or adds documentation)
+- [ ] <!--Package Name--> Patch: Bug (non-breaking change which fixes an issue)
 - [ ] <!--Package Name--> Minor: New feature (non-breaking change which adds functionality)
 - [ ] <!--Package Name--> Major: Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
 ## Checklist
 
-- [ ] I have added a changelog entry, prefixed by the type of change noted above
+- [ ] I have added a changelog entry, prefixed by the type of change noted above (Documentation fix and Test update does not need a changelog as we do not publish new version)

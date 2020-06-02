@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.7.0] - 2020-06-02
+
+### Added
+
+- Add optional `makeCleanAfterSubmit` param to both `useSubmit` and `useForm` config (defaults to `false`)
+- Provide bound `makeClean` in `Form` object returned from `useForm`
+- Provide `makeCleanFields` utility for other use cases
+
 ## [0.6.0] - 2020-04-23
 
 ### Added
