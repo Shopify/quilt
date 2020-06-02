@@ -8,7 +8,7 @@
 
 ### Manual installation
 
-An application can also be setup manually using the following steps with an existing Rails application.
+An application can also be setup manually using the following steps with an existing Rails application without [`webpacker`](./FAQ.md#i-run-into-webpacker-issue-while-setting-up-quilt_rails).
 
 #### Install dependencies
 

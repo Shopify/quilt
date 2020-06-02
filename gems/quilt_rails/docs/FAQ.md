@@ -13,3 +13,9 @@ useQuery(MyQuery, {
   skip: typeof document === 'undefined',
 });
 ```
+
+### I run into webpacker issue while setting up `quilt_rails`
+
+We suggest using webpack or [@shopify/sewing-kit](https://github.com/Shopify/sewing-kit) instead of webpacker with `quilt_rails` for JavaScript build.
+
+Remove webpacker by running `bundle remove webpacker` and remove any webpacker configuration files (`config/webpack` and `config/webpacker.yml`).

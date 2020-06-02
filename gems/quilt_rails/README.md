@@ -31,9 +31,12 @@ Using the magic of generators, we can spin up a basic app with a few console com
 
 #### Generate Rails boilerplate
 
-`dev init`
-
+With access to [`dev`](https://github.com/Shopify/dev), you can use `dev init` to scaffold out a Rails application.
 When prompted, choose `rails`. This will generate a basic Rails application scaffold.
+
+Alternatively, you can use [`rails new .`](https://guides.rubyonrails.org/command_line.html#rails-new) to do the same.
+
+In either case, remove [`webpacker`](./docs/FAQ.md#i-run-into-webpacker-issue-while-setting-up-quilt_rails) before continuing.
 
 #### Add Ruby dependencies
 
