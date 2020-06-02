@@ -1,0 +1,5 @@
+Description:
+    This generator adds Node dependencies necessary for a React app.
+
+Example:
+    rails generate quilt:react_setup

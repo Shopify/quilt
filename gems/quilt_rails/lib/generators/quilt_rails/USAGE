@@ -1,0 +1,5 @@
+Description:
+    This generator runs all the generators
+
+Example:
+    rails generate quilt_rails:install

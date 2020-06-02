@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Changed
+
+- Refactor generators into smaller tasks. ([#1449](https://github.com/Shopify/quilt/pull/1449))
+- Lock the version of `react`, `react-dom` and `typescript`
+  ([#1449](https://github.com/Shopify/quilt/pull/1449))
+
+### Added
+
+- Added the generation of a few more configuration files `.editorconfig`, `.eslintignore`, `.prettierignore` ([#1449](https://github.com/Shopify/quilt/pull/1449))
+- Added a default `package.json` file ([#1449](https://github.com/Shopify/quilt/pull/1449))
+- Added the ability to grab application name from Rails setting for `package.json` & `sewing-kit.config` ([#1449](https://github.com/Shopify/quilt/pull/1449))
 
 ## [1.12.2] - 2020-05-19
 
