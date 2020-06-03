@@ -5,6 +5,12 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+## [0.20.3] - 2020-06-03
+
+### Fixed
+
+- generated types `index.ts` file now emits all imports before exports [[#118](https://github.com/Shopify/graphql-tools-web/pull/118)]
+
 ## [0.20.1] - 2020-04-28
 
 ### Fixed
