@@ -197,6 +197,12 @@ describe('printSchema()', () => {
         SIX
       }
 
+      enum Season {
+        FIRST
+        SECOND
+        THIRD
+      }
+
       scalar Date
 
       input InputOne {
@@ -208,12 +214,15 @@ describe('printSchema()', () => {
       input InputTwo {
         name: String
         episode: Episode!
+        season: Season!
         date: Date
       }
     `);
 
     expect(generateSchemaTypes(schema).get('index.ts')).toContain(stripIndent`
+      import { Season } from "./Season";
       import { Episode } from "./Episode";
+      export { Season };
       export { Episode };
       export type Date = string;
       export interface InputOne {
@@ -224,6 +233,7 @@ describe('printSchema()', () => {
       export interface InputTwo {
         name?: string | null;
         episode: Episode;
+        season: Season;
         date?: Date | null;
       }
     `);
