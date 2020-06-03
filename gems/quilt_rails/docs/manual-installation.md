@@ -27,7 +27,7 @@ yarn add typescript @types/react @types/react-dom
 ```
 
 🗒️ Ignore `sewing_kit` and `@shopify/sewing-kit` dependencies if you don't have access to it.
-Instead, make sure to use [`react-server-webpack-plugin`](../../packages/react-server-webpack-plugin/README.md) with your webpack configuration.
+Instead, make sure to use [`react-server webpack plugin`](../../../packages/react-server/README.md#webpack-plugin) with your webpack configuration.
 
 ##### Define typescript config
 

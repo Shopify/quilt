@@ -2,13 +2,13 @@ import path from 'path';
 
 import webpack, {Compiler} from 'webpack';
 
-import {HEADER, Options} from '../react-server-webpack-plugin';
+import {HEADER, Options} from '../webpack-plugin';
 
 import {withWorkspace} from './utilities/workspace';
 
 const BUILD_TIMEOUT = 10000;
 
-describe('react-server-webpack-plugin', () => {
+describe('webpack-plugin', () => {
   describe('node', () => {
     it(
       'generates the server and client entrypoints when the virtual server & client modules are present',
@@ -230,7 +230,7 @@ describe('react-server-webpack-plugin', () => {
 function runBuild(configPath: string): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
-      './packages/react-server-webpack-plugin/src/test/fixtures',
+      './packages/react-server/src/webpack-plugin/test/fixtures',
       configPath,
     );
 
@@ -296,7 +296,7 @@ const createWebpackConfig = (
   },
 ) => `
 const path = require('path');
-const {ReactServerPlugin} = require('../../../react-server-webpack-plugin');
+const {ReactServerPlugin} = require('../../../webpack-plugin');
 
 const universal = {
   mode: 'production',
