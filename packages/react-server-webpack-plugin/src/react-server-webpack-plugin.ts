@@ -4,6 +4,8 @@ import {existsSync, readdirSync} from 'fs';
 import {Compiler} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 
+import {errorSSRComponentExists, errorClientSource} from './error';
+
 export interface Options {
   basePath: string;
   assetPrefix?: string;
@@ -11,9 +13,10 @@ export interface Options {
   port?: number;
 }
 
-enum Entrypoint {
+export enum Entrypoint {
   Client = 'client',
   Server = 'server',
+  Error = 'error',
 }
 
 export const HEADER = `
@@ -59,14 +62,19 @@ export class ReactServerPlugin {
 
     if (noSourceExists(Entrypoint.Server, this.options, compiler)) {
       const file = join(basePath, `${Entrypoint.Server}.js`);
-      modules[file] = serverSource(this.options);
+      modules[file] = serverSource(this.options, compiler);
+    }
+
+    if (errorSSRComponentExists(this.options, compiler)) {
+      const file = join(basePath, `${Entrypoint.Error}.entry.client.js`);
+      modules[file] = errorClientSource();
     }
 
     return modules;
   }
 }
 
-function serverSource(options: Options) {
+function serverSource(options: Options, compiler: Compiler) {
   const {port, host, assetPrefix} = options;
   const serverPort = port ? port : 'process.env.REACT_SERVER_PORT || 8081';
 
@@ -82,8 +90,13 @@ function serverSource(options: Options) {
     ${HEADER}
     import React from 'react';
     import {createServer} from '@shopify/react-server';
-
     import App from 'index';
+
+    ${
+      errorSSRComponentExists(options, compiler)
+        ? "import Error from 'error'"
+        : ''
+    }
 
     process.on('uncaughtException', logError);
     process.on('unhandledRejection', logError);
@@ -105,6 +118,17 @@ function serverSource(options: Options) {
       ip: ${serverIp},
       assetPrefix: ${serverAssetPrefix},
       render,
+      ${
+        errorSSRComponentExists(options, compiler)
+          ? `renderError: (ctx) => {
+              return React.createElement(Error, {
+                url: ctx.request.URL,
+                data: ctx.state.quiltData,
+                error: ctx.state.quiltError,
+              });
+            }`
+          : ''
+      }
     });
 
     export default app;
@@ -129,7 +153,7 @@ function clientSource() {
   `;
 }
 
-function noSourceExists(
+export function noSourceExists(
   entry: Entrypoint,
   options: Options,
   {options: {context = ''}}: Compiler,

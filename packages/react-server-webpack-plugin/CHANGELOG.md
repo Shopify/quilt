@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Added
+
+- Utilizes an `error` component if it exists at the root of `app/ui`. This component will be imported in the server source and passed to `@shopify/react-server`'s `renderError` option when creating a server. This will also create a virtual client entrypoint for the `error` component.
 
 ## [3.1.0] - 2020-05-29
 
