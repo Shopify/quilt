@@ -85,6 +85,8 @@ interface Options {
   render: RenderFunction;
   // whether to run in debug mode
   debug?: boolean;
+  // a function similar to the render option but specifc to return a Error component for production SSR errors
+  renderError: RenderFunction;
 }
 ```
 

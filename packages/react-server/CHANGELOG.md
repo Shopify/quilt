@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Added
+
+- Added `renderError` option to rendering a custom Error page on production SSR errors.
+  - Note: If `renderError` is not set, the server returns a fallback error page as a sane default for production SSR errors.
 
 ## [0.12.0] - 2020-05-12
 
