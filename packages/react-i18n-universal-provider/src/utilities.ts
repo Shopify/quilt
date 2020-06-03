@@ -1,7 +1,11 @@
 function pruneUndefinedFields(obj = {}) {
-  Object.keys(obj).forEach(key => obj[key] === undefined && delete obj[key]);
+  const objCopy = {...obj};
 
-  return obj;
+  Object.keys(objCopy).forEach(
+    key => objCopy[key] === undefined && delete objCopy[key],
+  );
+
+  return objCopy;
 }
 
 export function combinedI18nDetails(details, overrides) {
