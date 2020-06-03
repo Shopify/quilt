@@ -32,7 +32,8 @@ export function generateSchemaTypes(
   schema: GraphQLSchema,
   options: Options = {},
 ) {
-  const fileBody: t.Statement[] = [];
+  const importFileBody: t.Statement[] = [];
+  const exportFileBody: t.Statement[] = [];
   const definitions = new Map<string, string>();
 
   for (const type of Object.values(schema.getTypeMap())) {
@@ -56,11 +57,15 @@ export function generateSchemaTypes(
           t.file(t.program([t.exportNamedDeclaration(enumType, [])]), [], []),
         ).code,
       );
-      fileBody.unshift(
+
+      importFileBody.unshift(
         t.importDeclaration(
           [t.importSpecifier(enumType.id, enumType.id)],
           t.stringLiteral(`./${enumType.id.name}`),
         ),
+      );
+
+      exportFileBody.unshift(
         t.exportNamedDeclaration(null, [
           t.exportSpecifier(enumType.id, enumType.id),
         ]),
@@ -71,7 +76,7 @@ export function generateSchemaTypes(
       const scalarType = tsScalarForType(type, customScalarDefinition);
 
       if (customScalarDefinition) {
-        fileBody.unshift(
+        importFileBody.unshift(
           t.importDeclaration(
             [
               t.importSpecifier(
@@ -86,19 +91,23 @@ export function generateSchemaTypes(
             ],
             t.stringLiteral(customScalarDefinition.package),
           ),
-          t.exportNamedDeclaration(scalarType, []),
         );
+
+        exportFileBody.unshift(t.exportNamedDeclaration(scalarType, []));
       } else {
-        fileBody.push(t.exportNamedDeclaration(scalarType, []));
+        exportFileBody.push(t.exportNamedDeclaration(scalarType, []));
       }
     } else {
-      fileBody.push(t.exportNamedDeclaration(tsInputObjectForType(type), []));
+      exportFileBody.push(
+        t.exportNamedDeclaration(tsInputObjectForType(type), []),
+      );
     }
   }
 
   return definitions.set(
     'index.ts',
-    generate(t.file(t.program(fileBody), [], [])).code,
+    generate(t.file(t.program(importFileBody.concat(exportFileBody)), [], []))
+      .code,
   );
 }
 
