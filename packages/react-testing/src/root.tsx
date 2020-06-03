@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, unmountComponentAtNode} from 'react-dom';
-import {act as reactAct} from 'react-dom/test-utils';
+import {act} from 'react-dom/test-utils';
 import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
@@ -19,11 +19,6 @@ import {
   PropsFor,
   DebugOptions,
 } from './types';
-
-// Manually casting `act()` until @types/react is updated to include
-// the Promise types for async act introduced in version 16.9.0-alpha.0
-// https://github.com/Shopify/quilt/issues/692
-const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
@@ -115,12 +110,13 @@ export class Root<Props> implements Node<Props> {
     const promise = act(() => {
       result = action();
 
-      // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
       // This condition checks the returned value is an actual Promise and returns it
       // to React’s `act()` call, otherwise we just want to return `undefined`
       if (isPromise(result)) {
         return (result as unknown) as Promise<void>;
       }
+
+      return (undefined as unknown) as Promise<void>;
     });
 
     if (isPromise(result)) {

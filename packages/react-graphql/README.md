@@ -272,7 +272,7 @@ const MyQuery = createAsyncQueryComponent({
 </MyQuery>;
 ```
 
-As with components created by `createAsyncQuery()`, these queries also have static `usePreload`, `usePrefetch`, and `useKeepFresh` hooks. Like components create with ``@shopify/react-async`, these components also have static`Preload`,`Prefetch`, and`KeepFresh` components.
+As with components created by `createAsyncQuery()`, these queries also have static `usePreload`, `usePrefetch`, and `useKeepFresh` hooks. Like components create with `@shopify/react-async`, these components also have static `Preload`,`Prefetch`, and`KeepFresh` components.
 
 ```tsx
 import {usePrefetch} from '@shopify/react-async';

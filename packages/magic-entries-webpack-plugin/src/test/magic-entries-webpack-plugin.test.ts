@@ -1,4 +1,5 @@
 import webpack, {Compiler, Configuration, Stats} from 'webpack';
+import VirtualModulesPlugin from 'webpack-virtual-modules';
 
 import {MagicEntriesPlugin} from '../magic-entries-webpack-plugin';
 
@@ -241,6 +242,46 @@ describe('magic-entries-webpack-plugin', () => {
       },
       BUILD_TIMEOUT,
     );
+
+    describe('virtual modules', () => {
+      it(
+        'creates a magic entrypoint for virtually created entrypoints',
+        async () => {
+          const clientWebpackConfig = {
+            ...BASIC_WEBPACK_CONFIG,
+            plugins: [
+              new VirtualModulesPlugin({
+                'basic-js.entry.client.js': ENTRY_B,
+                'basic-jsx.entry.client.jsx': ENTRY_B,
+                'basic-ts.entry.client.ts': ENTRY_B,
+                'basic-tsx.entry.client.tsx': ENTRY_B,
+              }),
+              MagicEntriesPlugin.client(),
+            ],
+          };
+          const name = 'node-virtual-module-entrypoints';
+          await withWorkspace(name, async ({workspace}) => {
+            await workspace.write('index.js', ENTRY_A);
+            await workspace.write('cats.js', CATS_MODULE);
+            const result = await runBuild(workspace, clientWebpackConfig);
+
+            const js = getModule(result.modules, 'basic-js').source;
+            expect(js).toBeDefined();
+            expect(js).toMatch(ENTRY_B);
+            const jsx = getModule(result.modules, 'basic-jsx').source;
+            expect(jsx).toBeDefined();
+            expect(jsx).toMatch(ENTRY_B);
+            const ts = getModule(result.modules, 'basic-ts').source;
+            expect(ts).toBeDefined();
+            expect(ts).toMatch(ENTRY_B);
+            const tsx = getModule(result.modules, 'basic-tsx').source;
+            expect(tsx).toBeDefined();
+            expect(tsx).toMatch(ENTRY_B);
+          });
+        },
+        BUILD_TIMEOUT,
+      );
+    });
   });
 });
 

@@ -1,0 +1,7 @@
+package.json
+.sewing-kit
+.dev
+node_modules
+tmp
+public
+*.svg
