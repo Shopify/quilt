@@ -36,7 +36,7 @@ When prompted, choose `rails`. This will generate a basic Rails application scaf
 
 Alternatively, you can use [`rails new .`](https://guides.rubyonrails.org/command_line.html#rails-new) to do the same.
 
-In either case, remove [`webpacker`](./docs/FAQ.md#i-run-into-webpacker-issue-while-setting-up-quilt_rails) before continuing.
+In either case, remove [`webpacker`](./docs/FAQ.md#i-run-into-webpacker-issue-while-setting-up-quilt_rails) and [these files](./docs/FAQ.md#any-other-files-i-should-remove-before-running-generator) that any create conflict before continuing.
 
 #### Add Ruby dependencies
 
