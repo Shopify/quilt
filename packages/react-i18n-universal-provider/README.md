@@ -39,13 +39,18 @@ I18nDetails {
 import {I18nUniversalProvider} from '@shopify/react-i18n-universal-provider';
 
 function App({locale}: {locale?: string}) {
-  return <I18nUniversalProvider locale={locale}>{/* rest of the app */}</I18nUniversalProvider>;
+  return (
+    <I18nUniversalProvider locale={locale}>
+      {/* rest of the app */}
+    </I18nUniversalProvider>
+  );
 }
 ```
 
 ### Possible Issues
 
-####  Missing i18n manager error
+#### Missing i18n manager error
+
 ```
 Error: Missing i18n manager. Make sure to use an <I18nContext.Provider /> somewhere in your React tree from the @shopify/react-i18n hook.
 ```
@@ -66,7 +71,7 @@ npx yarn-deduplicate --packages @shopify/react-effect yarn.lock
 ```
 
 ```bash
-$ yarn why @shopify/react-i18n # ensure no duplicate / unmet dependencies 
-yarn list  # ensure no duplicate / unmet dependencies 
+$ yarn why @shopify/react-i18n # ensure no duplicate / unmet dependencies
+yarn list  # ensure no duplicate / unmet dependencies
 yarn install
 ```
