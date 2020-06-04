@@ -44,18 +44,26 @@
     "@shopify/with-env": "^1.1.8",
     "@types/koa": "^2.0.0",
     "@types/supertest": "^2.0.8",
+    "@types/webpack-virtual-modules": "^0.1.0",
     "get-port": "^5.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "webpack": ">4.25.1, <=4.5.0"
   },
   "peerDependencies": {
     "isomorphic-fetch": ">=2.0.0",
     "react": ">=16.8.0 <17.0.0",
     "react-dom": ">=16.8.0 <17.0.0"
   },
+  "optionalDependencies": {
+    "@babel/types": ">=7.0.0",
+    "webpack-virtual-modules": "^0.2.2"
+  },
   "files": [
     "dist/*",
-    "!tsconfig.tsbuildinfo"
+    "!tsconfig.tsbuildinfo",
+    "webpack-plugin.d.ts",
+    "webpack-plugin.js"
   ]
 }

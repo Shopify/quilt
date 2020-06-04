@@ -51,7 +51,7 @@ If you already have an existing node server, you can opt in to using only the re
 
 ## Webpack Plugin
 
-We also provide a [webpack plugin](https://github.com/Shopify/quilt/blob/master/packages/react-server-webpack-plugin) to automatically generate the server and client entries for an application.
+We also provide a [webpack plugin](./docs/webpack-plugin) to automatically generate the server and client entries for an application.
 
 ### Deployment (Shopify specific)
 

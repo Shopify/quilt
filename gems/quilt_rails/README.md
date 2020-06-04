@@ -23,7 +23,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
 
 ## Server-side-rendering
 
-🗒 This guide is focused on internal Shopify developers with access to [`dev`](https://github.com/Shopify/dev) and [@shopify/sewing-kit](https://github.com/Shopify/sewing-kit). A similar setup can be achieved using the [manual installation](./docs/manual-installation) , and following the [react-server-webpack-plugin](../../packages/react-server-webpack-plugin/README.md) guide. Apps not running on Shopify infrastructure should [disable server-side GraphQL queries](./docs/FAQ.md) to avoid scalability issue.
+🗒 This guide is focused on internal Shopify developers with access to [`dev`](https://github.com/Shopify/dev) and [@shopify/sewing-kit](https://github.com/Shopify/sewing-kit). A similar setup can be achieved using the [manual installation](./docs/manual-installation.md) , and following the [react-server webpack plugin](../../packages/react-server/README.md#webpack-plugin) guide. Apps not running on Shopify infrastructure should [disable server-side GraphQL queries](./docs/FAQ.md) to avoid scalability issue.
 
 ### Quick start
 
@@ -61,7 +61,7 @@ Will run the application, starting up both servers and compiling assets.
 
 ### Manual installation
 
-Follow [this guide](./docs/manual-installation) on how to do manual setup without the generator.
+Follow [this guide](./docs/manual-installation.md) on how to do manual setup without the generator.
 
 ### Advanced use
 
@@ -222,7 +222,7 @@ With SSR enabled React apps, state must be serialized on the server and deserial
 
 #### Customizing the Node server
 
-By default, sewing-kit bundles in [`@shopify/react-server-webpack-plugin`](../../packages/react-server-webpack-plugin/README.md) for `quilt_rails` applications to get apps up and running fast without needing to manually write any Node server code.
+By default, sewing-kit bundles in [`@shopify/react-server/webpack-plugin`](../../packages/react-server/README.md#webpack-plugin) for `quilt_rails` applications to get apps up and running fast without needing to manually write any Node server code.
 
 If what it provides is not sufficient, a completely custom server can be defined by adding a `server.js` or `server.ts` file to the `app/ui` folder. The simplest way to customize the server is to export the object created by [`@shopify/react-server`](../../packages/react-server/README.md#node-usage)'s `createServer` call in `server.ts` file.
 
@@ -280,12 +280,12 @@ end
 ## Performance tracking a React app
 
 To setup performance tracking with your React app with `quilt_rails`.
-Follow details guide [here](./docs/performance-tracking).
+Follow details guide [here](./docs/performance-tracking.md).
 
 ## API
 
-Find all features this gem offer in this [API doc](./docs/api).
+Find all features this gem offer in this [API doc](./docs/api.md).
 
 ## FAQ
 
-Find your [here](./docs/FAQ).
+Find your [here](./docs/FAQ.md).
