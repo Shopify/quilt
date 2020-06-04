@@ -2,7 +2,7 @@
 
 This is a concise summary of changes and recommendations around updating `@shopify/react-i18n` in consuming projects. For a more detailed list of changes, see [the changelog](./CHANGELOG.md).
 
-<-- ## [Unreleased] -->
+## [5.0.0] - 2020-05-04
 
 🛑Breaking change - New translation keys are needed for future dates less than 1 week away and less than 1 year away formatted with `DateStyle.Humanize`. Consumers will need to add the translation keys as outlined below.
 
