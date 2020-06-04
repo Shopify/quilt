@@ -51,7 +51,7 @@ export const fallbackErrorMarkup = `
                 </div>
                 <div class="Polaris-EmptyState__ImageContainer">
                   <img
-                    src="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
+                    src="https://cdn.shopify.com/shopifycloud/web-foundation/images/error.svg"
                     role="presentation"
                     alt=""
                     class="Polaris-EmptyState__Image"
