@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Added
+
+- Added `isLessThanOneWeekAway` and `isLessThanOneYearAgo` functions [[#1438](https://github.com/Shopify/quilt/pull/1438)]
+
 ## [0.3.4] - 2020-03-13
 
 ### Added

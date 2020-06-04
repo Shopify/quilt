@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Changed
+
+- Adds future date formatting to `formatDate` for dates less than 1 week away and less than 1 year away [[#1438](https://github.com/Shopify/quilt/pull/1438)]
+
+  Please see the [migration guide](./migration-guide.md) for more information.
+
 ## [4.0.0] - 2020-05-29
 
 ### Changed
