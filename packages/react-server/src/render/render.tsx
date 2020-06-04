@@ -9,6 +9,7 @@ import {
   HtmlManager,
   HtmlContext,
   stream,
+  render as renderHtml,
 } from '@shopify/react-html/server';
 import {useSerialized} from '@shopify/react-html';
 import {
@@ -157,7 +158,7 @@ export function createRender(render: RenderFunction, options: Options = {}) {
             assets.scripts({name: 'error'}),
           ]);
 
-          const response = stream(
+          const response = renderHtml(
             <Html manager={htmlManager} styles={styles} scripts={scripts}>
               {renderError(ctx)}
             </Html>,
