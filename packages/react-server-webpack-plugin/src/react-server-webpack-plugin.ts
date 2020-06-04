@@ -94,7 +94,7 @@ function serverSource(options: Options, compiler: Compiler) {
 
     ${
       errorSSRComponentExists(options, compiler)
-        ? "import Error from 'error'"
+        ? "import Error from 'error';"
         : ''
     }
 

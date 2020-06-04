@@ -224,6 +224,87 @@ describe('react-server-webpack-plugin', () => {
       },
       BUILD_TIMEOUT,
     );
+
+    describe('error component', () => {
+      it(
+        'imports the Error component in the server when error.js exists',
+        async () => {
+          const name = 'rails-includes-error-component';
+          const basePath = './app/ui';
+
+          await withWorkspace(name, async ({workspace}) => {
+            await workspace.write(`${basePath}/index.js`, BASIC_JS_MODULE);
+            await workspace.write(
+              `${basePath}/error.js`,
+              BASIC_JS_ERROR_COMPOENT,
+            );
+
+            await workspace.write(
+              'webpack.config.js',
+              createWebpackConfig({basePath}),
+            );
+
+            const [serverResults] = await runBuild(name);
+            const serverModule = getModule(serverResults, 'app/ui/server');
+
+            expect(serverModule.source).toMatch("import Error from 'error';");
+          });
+        },
+        BUILD_TIMEOUT,
+      );
+
+      it(
+        'does not imports the Error component in the server when error.js does not exists',
+        async () => {
+          const name = 'rails-doesnt-include-error-component';
+          const basePath = './app/ui';
+
+          await withWorkspace(name, async ({workspace}) => {
+            await workspace.write(`${basePath}/index.js`, BASIC_JS_MODULE);
+
+            await workspace.write(
+              'webpack.config.js',
+              createWebpackConfig({basePath}),
+            );
+
+            const [serverResults] = await runBuild(name);
+            const serverModule = getModule(serverResults, 'app/ui/server');
+
+            expect(serverModule.source).not.toMatch(
+              "import Error from 'error';",
+            );
+          });
+        },
+        BUILD_TIMEOUT,
+      );
+
+      it(
+        'includes the Error component in the server when an error folder exists',
+        async () => {
+          const name = 'rails-includes-error-component-folder';
+          const basePath = './app/ui';
+
+          await withWorkspace(name, async ({workspace}) => {
+            await workspace.write(`${basePath}/index.js`, BASIC_JS_MODULE);
+            await workspace.write(
+              `${basePath}/error/index.js`,
+              BASIC_JS_ERROR_COMPOENT,
+            );
+
+            await workspace.write(
+              'webpack.config.js',
+              createWebpackConfig({basePath}),
+            );
+
+            const [serverResults] = await runBuild(name);
+            const serverModule = getModule(serverResults, 'app/ui/server');
+
+            expect(serverModule.source).toMatch("import Error from 'error';");
+          });
+        },
+        BUILD_TIMEOUT,
+      );
+    });
   });
 });
 
@@ -288,6 +369,10 @@ const BASIC_ENTRY = `console.log('I am a bespoke entry');`;
 
 const BASIC_JS_MODULE = `module.exports = () => {
   return 'I am totally a react component';
+};`;
+
+const BASIC_JS_ERROR_COMPOENT = `module.exports = () => {
+  return 'I am totally an Error component';
 };`;
 
 const createWebpackConfig = (
