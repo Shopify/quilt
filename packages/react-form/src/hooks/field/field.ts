@@ -98,7 +98,7 @@ export interface FieldConfig<Value> {
  * **Reinitialization:** If the `value` property of the field configuration changes between calls to `useField`,
  * the field will be reset to use it as it's new default value.
  *
- * **Imperative methods:** The returned `Field` object contains a number of methods used to imperatively alter it's state.
+ * **Imperative methods:** The returned `Field` object contains a number of methods used to imperatively alter its state.
  * These should only be used as escape hatches where the existing hooks and components do not make your life easy,
  * or to build new abstractions in the same vein as `useForm`, `useSubmit` and friends.
  */

@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [2.1.1] - 2020-05-29
+
+### Fixed
+
+- Remove cast for `act` following update to `@types/react-dom`
+
 ## [2.1.0] - 2020-04-20
 
 ### Changed

@@ -1,5 +1,5 @@
-export {I18nManager, ExtractedTranslations, RegisterOptions} from './manager';
 export {I18nContext} from './context';
+export {I18nManager, ExtractedTranslations, RegisterOptions} from './manager';
 export {
   CurrencyFormatOptions,
   I18n,

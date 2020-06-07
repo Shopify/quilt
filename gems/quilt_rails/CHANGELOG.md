@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+## [1.13.0] - 2020-06-2
+
+### Changed
+
+- Refactor generators into smaller tasks. ([#1449](https://github.com/Shopify/quilt/pull/1449))
+- Lock the version of `react`, `react-dom` and `typescript`
+  ([#1449](https://github.com/Shopify/quilt/pull/1449))
+
+### Added
+
+- Added the generation of a few more configuration files `.editorconfig`, `.eslintignore`, `.prettierignore` ([#1449](https://github.com/Shopify/quilt/pull/1449))
+- Added a default `package.json` file ([#1449](https://github.com/Shopify/quilt/pull/1449))
+- Added the ability to grab application name from Rails setting for `package.json` & `sewing-kit.config` ([#1449](https://github.com/Shopify/quilt/pull/1449))
 
 ## [1.12.2] - 2020-05-19
 
@@ -18,6 +32,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.12.0] - 2020-05-07
 
 - Add: Expose a `data` argument on `render_react` to share data to the React server using the `X-Quilt-Data` header ([#1411](https://github.com/Shopify/quilt/pull/1411))
+
+⚠️ this change has the minimal requirement of `@shopify/react-server` v0.12.0 and `@shopify/react-server-webpack-plugin` v3.0.0 (or `@shopify/sewing-kit` v0.128.0)
 
 ## [1.11.1] - 2020-03-24
 

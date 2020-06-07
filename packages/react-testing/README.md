@@ -58,10 +58,10 @@ describe('<ClickCounter />', () => {
   it('allows us to set props', () => {
     const wrapper = mount(<ClickCounter defaultCount={0} />);
 
-    expect(wrapper.props().count).toBe(0);
+    expect(wrapper.props.count).toBe(0);
     expect(wrapper.text()).toBe('count: 0');
     wrapper.setProps({defaultCount: 1});
-    expect(wrapper.props().count).toBe(1);
+    expect(wrapper.props.count).toBe(1);
     expect(wrapper.text()).toBe('count: 1');
   });
 

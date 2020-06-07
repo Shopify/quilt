@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quilt_rails (1.12.2)
+    quilt_rails (1.13.0)
       rails-reverse-proxy (~> 0.9.0)
       railties (>= 3.2.0)
       statsd-instrument (>= 2.8.0)
@@ -159,15 +159,15 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    statsd-instrument (3.0.0)
+    statsd-instrument (3.0.1)
     thor (1.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
-    websocket-driver (0.7.1)
+    websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     zeitwerk (2.3.0)
 
 PLATFORMS

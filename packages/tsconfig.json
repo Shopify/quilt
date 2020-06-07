@@ -59,7 +59,6 @@
     {"path": "./react-performance"},
     {"path": "./react-router"},
     {"path": "./react-server"},
-    {"path": "./react-server-webpack-plugin"},
     {"path": "./react-shortcuts"},
     {"path": "./react-testing"},
     {"path": "./react-tracking-pixel"},

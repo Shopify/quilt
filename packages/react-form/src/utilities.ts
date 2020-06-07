@@ -205,3 +205,7 @@ export function defaultDirtyComparator<Value>(
     ? !shallowArrayComparison(defaultValue, newValue)
     : defaultValue !== newValue;
 }
+
+export function makeCleanFields(fieldBag: FieldBag) {
+  reduceFields(fieldBag, (_, field) => field.newDefaultValue(field.value));
+}

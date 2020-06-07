@@ -1,0 +1,31 @@
+{
+  "name": "${application_name}",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "dev": "sewing-kit dev",
+    "check": "sewing-kit check",
+    "lint": "sewing-kit lint",
+    "type-check": "sewing-kit type-check",
+    "nuke": "sewing-kit nuke",
+    "test": "sewing-kit test"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:@shopify/typescript",
+      "plugin:@shopify/react",
+      "plugin:@shopify/prettier",
+      "plugin:@shopify/jest",
+      "plugin:@shopify/polaris"
+    ]
+  },
+  "prettier": "@shopify/prettier-config",
+  "stylelint": {
+    "extends": [
+      "@shopify/stylelint-plugin/prettier"
+    ]
+  },
+  "resolutions": {
+    "babel-plugin-dynamic-import-node": "2.3.0"
+  }
+}

@@ -5,13 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [5.0.0] - 2020-06-04
+
+### Changed
+
+- Adds future date formatting to `formatDate` for dates less than 1 week away and less than 1 year away [[#1438](https://github.com/Shopify/quilt/pull/1438)]
+
+  Please see the [migration guide](./migration-guide.md) for more information.
+
+## [4.0.0] - 2020-05-29
 
 ### Changed
 
 - Updated `I18n#humanizeDate` to humanize today's date as `Today at {time}` [[#1459](https://github.com/Shopify/quilt/pull/1459)]
 
   Please see the [migration guide](./migration-guide.md) for more information.
+
+### Fixed
+
+- Fixed `DateStyle.Short` zero-padding days ([#1468](https://github.com/Shopify/quilt/pull/1468))
 
 ## [3.0.0] - 2020-04-23
 

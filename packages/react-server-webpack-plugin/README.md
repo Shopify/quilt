@@ -3,6 +3,10 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)
 
+## ❗️ Deprecated on version 3.1.0 ❗️
+
+**Note**: This module is now deprecated and included as part of [`@shopify/react-server`](../react-server/README.md#webpack-plugin).
+
 A webpack plugin which generates "virtual" in-memory entrypoints for `@shopify/react-server` based applications. This plugin allows you to run a universal React application without needing any client/server-specific code.
 
 ## Installation

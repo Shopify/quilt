@@ -47,6 +47,7 @@ Each package has its own `README` and documentation describing usage.
 | koa-shopify-graphql-proxy | [directory](packages/koa-shopify-graphql-proxy) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy) |
 | koa-shopify-webhooks | [directory](packages/koa-shopify-webhooks) | [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks) |
 | logger | [directory](packages/logger) | [![npm version](https://badge.fury.io/js/%40shopify%2Flogger.svg)](https://badge.fury.io/js/%40shopify%2Flogger) |
+| magic-entries-webpack-plugin | [directory](packages/magic-entries-webpack-plugin) | [![npm version](https://badge.fury.io/js/%40shopify%2Fmagic-entries-webpack-plugin.svg)](https://badge.fury.io/js/%40shopify%2Fmagic-entries-webpack-plugin) |
 | mime-types | [directory](packages/mime-types) | [![npm version](https://badge.fury.io/js/%40shopify%2Fmime-types.svg)](https://badge.fury.io/js/%40shopify%2Fmime-types) |
 | network | [directory](packages/network) | [![npm version](https://badge.fury.io/js/%40shopify%2Fnetwork.svg)](https://badge.fury.io/js/%40shopify%2Fnetwork) |
 | performance | [directory](packages/performance) | [![npm version](https://badge.fury.io/js/%40shopify%2Fperformance.svg)](https://badge.fury.io/js/%40shopify%2Fperformance) |
@@ -76,7 +77,6 @@ Each package has its own `README` and documentation describing usage.
 | react-performance | [directory](packages/react-performance) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-performance.svg)](https://badge.fury.io/js/%40shopify%2Freact-performance) |
 | react-router | [directory](packages/react-router) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-router.svg)](https://badge.fury.io/js/%40shopify%2Freact-router) |
 | react-server | [directory](packages/react-server) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server.svg)](https://badge.fury.io/js/%40shopify%2Freact-server) |
-| react-server-webpack-plugin | [directory](packages/react-server-webpack-plugin) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin) |
 | react-shortcuts | [directory](packages/react-shortcuts) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) |
 | react-testing | [directory](packages/react-testing) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)](https://badge.fury.io/js/%40shopify%2Freact-testing) |
 | react-tracking-pixel | [directory](packages/react-tracking-pixel) | [![npm version](https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel.svg)](https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel) |
