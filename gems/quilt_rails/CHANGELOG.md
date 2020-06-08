@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Move SewingKit generator task into sewing-kit. The generator command remains the same. ([#1494](https://github.com/Shopify/quilt/pull/1494))
+
+### Removed
+
+- Remove generator task `quilt_rails:install`. The generator command remains the same. ([#1494](https://github.com/Shopify/quilt/pull/1494))
+
 ## [1.13.0] - 2020-06-2
 
 ### Changed

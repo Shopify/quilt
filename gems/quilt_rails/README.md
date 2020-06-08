@@ -46,7 +46,11 @@ This will install our ruby dependencies and update the project's gemfile.
 
 #### Generate app boilerplate
 
-`rails generate quilt_rails:install`
+`rails generate sewing_kit:install`
+
+This will generate a package.json file with common sewing-kit script tasks, default lint, format configuration; a sewing-kit configuration file, and other project default configurations.
+
+`rails generate quilt:install`
 
 This will install Node dependencies, provide a basic React app (in TypeScript), and mount the Quilt engine in `config/routes.rb`. Basic linting and format configurations are also generated.
 
