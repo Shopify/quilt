@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import 'cross-fetch';
 import {Server} from 'http';
 
 import Koa, {Context} from 'koa';
