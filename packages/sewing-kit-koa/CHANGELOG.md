@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Updated peerDependency range for `koa-compose` to `>=4.0.0 <5.0.0`
+- Updated peerDependency range for `koa-compose` to `>=4.0.0 <5.0.0` [[#1496](https://github.com/Shopify/quilt/pull/1496)]
 
 ## [6.3.0] - 2020-02-03
 
