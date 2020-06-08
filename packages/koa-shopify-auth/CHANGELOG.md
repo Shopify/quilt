@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Include `prefix` when redirect to the root endpoint
+
 ## [3.1.63] - 2020-05-25
 
 ### Fixed
