@@ -20,7 +20,7 @@ Style/Alias:
   - prefer_alias
   - prefer_alias_method
 
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedHashRocketStyle: key
   EnforcedColonStyle: key
   EnforcedLastArgumentHashStyle: ignore_implicit
@@ -30,7 +30,7 @@ Layout/AlignHash:
   - ignore_implicit
   - ignore_explicit
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
   SupportedStyles:
   - with_first_parameter
@@ -75,13 +75,6 @@ Style/BlockDelimiters:
   - lambda
   - proc
   - it
-
-Style/BracesAroundHashParameters:
-  EnforcedStyle: no_braces
-  SupportedStyles:
-  - braces
-  - no_braces
-  - context_dependent
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -172,7 +165,7 @@ Naming/FileName:
   Regex:
   IgnoreExecutableScripts: true
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent
   SupportedStyles:
   - consistent
@@ -225,7 +218,7 @@ Layout/IndentationConsistency:
 Layout/IndentationWidth:
   Width: 2
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
   SupportedStyles:
   - special_inside_parentheses
@@ -233,10 +226,10 @@ Layout/IndentFirstArrayElement:
   - align_brackets
   IndentationWidth:
 
-Layout/IndentAssignment:
+Layout/AssignmentIndentation:
   IndentationWidth:
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
   SupportedStyles:
   - special_inside_parentheses
@@ -340,9 +333,9 @@ Style/PercentQLiterals:
 Naming/PredicateName:
   NamePrefix:
   - is_
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
   - is_
-  NameWhitelist:
+  AllowedMethods:
   - is_a?
   Exclude:
   - 'spec/**/*'
@@ -467,7 +460,7 @@ Style/TernaryParentheses:
   - require_no_parentheses
   AllowSafeAssignment: true
 
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   EnforcedStyle: final_newline
   SupportedStyles:
   - final_newline
@@ -478,7 +471,7 @@ Style/TrivialAccessors:
   AllowPredicates: true
   AllowDSLWriters: false
   IgnoreClassMethods: false
-  Whitelist:
+  AllowedMethods:
   - to_ary
   - to_a
   - to_c
@@ -509,7 +502,7 @@ Style/WhileUntilModifier:
 Metrics/BlockNesting:
   Max: 3
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   AllowHeredoc: true
   AllowURI: true
@@ -561,7 +554,7 @@ Lint/UnusedMethodArgument:
 Naming/AccessorMethodName:
   Enabled: true
 
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: true
 
 Style/ArrayJoin:
@@ -584,6 +577,7 @@ Layout/BlockEndNewline:
 
 Style/CaseEquality:
   Enabled: true
+  AllowOnConstant: true
 
 Style/CharacterLiteral:
   Enabled: true
@@ -664,6 +658,9 @@ Style/IfWithSemicolon:
   Enabled: true
 
 Style/IdenticalConditionalBranches:
+  Enabled: true
+
+Layout/IndentationStyle:
   Enabled: true
 
 Style/InfiniteLoop:
@@ -810,22 +807,19 @@ Layout/SpaceInsideRangeLiteral:
 Style/SymbolLiteral:
   Enabled: true
 
-Layout/Tab:
-  Enabled: true
-
 Layout/TrailingWhitespace:
   Enabled: true
 
 Style/UnlessElse:
   Enabled: true
 
-Style/UnneededCapitalW:
+Style/RedundantCapitalW:
   Enabled: true
 
-Style/UnneededInterpolation:
+Style/RedundantInterpolation:
   Enabled: true
 
-Style/UnneededPercentQ:
+Style/RedundantPercentQ:
   Enabled: true
 
 Style/VariableInterpolation:
@@ -840,8 +834,8 @@ Style/WhileUntilDo:
 Style/ZeroLengthPredicate:
   Enabled: true
 
-Layout/IndentHeredoc:
-  EnforcedStyle: squiggly
+Layout/HeredocIndentation:
+  Enabled: true
 
 Lint/AmbiguousOperator:
   Enabled: true
@@ -864,7 +858,7 @@ Lint/DeprecatedClassMethods:
 Lint/DuplicateMethods:
   Enabled: true
 
-Lint/DuplicatedKey:
+Lint/DuplicateHashKey:
   Enabled: true
 
 Lint/EachWithObjectArgument:
@@ -879,9 +873,6 @@ Lint/EmptyEnsure:
 Lint/EmptyInterpolation:
   Enabled: true
 
-Lint/EndInMethod:
-  Enabled: true
-
 Lint/EnsureReturn:
   Enabled: true
 
@@ -891,8 +882,8 @@ Lint/FloatOutOfRange:
 Lint/FormatParameterMismatch:
   Enabled: true
 
-Lint/HandleExceptions:
-  Enabled: true
+Lint/SuppressedException:
+  AllowComments: true
 
 Lint/ImplicitStringConcatenation:
   Description: Checks for adjacent string literals on the same line, which could
@@ -947,7 +938,7 @@ Lint/ShadowedException:
 Lint/ShadowingOuterLocalVariable:
   Enabled: true
 
-Lint/StringConversionInInterpolation:
+Lint/RedundantStringCoercion:
   Enabled: true
 
 Lint/UnderscorePrefixedVariableName:
@@ -956,13 +947,13 @@ Lint/UnderscorePrefixedVariableName:
 Lint/UnifiedInteger:
   Enabled: true
 
-Lint/UnneededCopDisableDirective:
+Lint/RedundantCopDisableDirective:
   Enabled: true
 
-Lint/UnneededCopEnableDirective:
+Lint/RedundantCopEnableDirective:
   Enabled: true
 
-Lint/UnneededSplatExpansion:
+Lint/RedundantSplatExpansion:
   Enabled: true
 
 Lint/UnreachableCode:
@@ -1024,4 +1015,7 @@ Style/ModuleFunction:
   EnforcedStyle: extend_self
 
 Lint/OrderedMagicComments:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
   Enabled: true

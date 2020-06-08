@@ -465,6 +465,36 @@ module Quilt
       process_report
     end
 
+    def test_parses_plaintext_to_json_with_correct_types
+      @request = ActionDispatch::TestRequest.create(
+        'CONTENT_TYPE' => 'text/plain',
+        'RAW_POST_DATA' => '{"navigations": [], "events": [{"type": "ttfb", "start": 2.2, "duration": 1000}]}'
+      )
+
+      StatsD
+        .expects(:distribution)
+        .with('time_to_first_byte', 2, tags: {
+          browser_connection_type: 'unknown',
+        })
+
+      process_report
+    end
+
+    def test_parses_plaintext_to_json_and_casts_incorrect_types
+      @request = ActionDispatch::TestRequest.create(
+        'CONTENT_TYPE' => 'text/plain',
+        'RAW_POST_DATA' => '{"navigations": [], "events": [{"type": "ttfb", "start": "2.2", "duration": "1000"}]}'
+      )
+
+      StatsD
+        .expects(:distribution)
+        .with('time_to_first_byte', 2, tags: {
+          browser_connection_type: 'unknown',
+        })
+
+      process_report
+    end
+
     private
 
     # rubocop:disable Style/TrivialAccessors
