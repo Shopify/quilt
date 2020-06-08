@@ -10,7 +10,7 @@ const requestStorageAccess = (shop: string, prefix = '') => {
           doesNotHaveStorageAccessUrl: "${prefix}/auth/enable_cookies?shop=${encodeURIComponent(
     shop,
   )}",
-          appTargetUrl: "/?shop=${encodeURIComponent(shop)}"
+          appTargetUrl: "${prefix}?shop=${encodeURIComponent(shop)}"
         }
 
         if (window.top == window.self) {
