@@ -52,7 +52,7 @@
     "webpack": ">4.25.1, <=4.5.0"
   },
   "peerDependencies": {
-    "isomorphic-fetch": ">=2.0.0",
+    "cross-fetch": ">=3.0.0",
     "react": ">=16.8.0 <17.0.0",
     "react-dom": ">=16.8.0 <17.0.0"
   },
