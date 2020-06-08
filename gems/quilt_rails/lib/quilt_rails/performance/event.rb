@@ -54,7 +54,7 @@ module Quilt
           start
         end
 
-        raw_value.round
+        raw_value.to_f.round
       end
 
       def metric_name

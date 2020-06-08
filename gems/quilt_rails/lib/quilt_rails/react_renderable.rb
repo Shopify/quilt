@@ -37,7 +37,6 @@ module Quilt
       end
 
       begin
-
         reverse_proxy(
           url,
           headers: headers.merge('X-CSRF-Token': form_authenticity_token, 'X-Quilt-Data': headers.merge(data).to_json)
