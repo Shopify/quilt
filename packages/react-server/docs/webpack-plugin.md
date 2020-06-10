@@ -1,19 +1,6 @@
-# `@shopify/react-server-webpack-plugin`
-
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)
-
-## ❗️ Deprecated on version 3.1.0 ❗️
-
-**Note**: This module is now deprecated and included as part of [`@shopify/react-server`](../react-server/README.md#webpack-plugin).
+# React Server Webpack Plugin
 
 A webpack plugin which generates "virtual" in-memory entrypoints for `@shopify/react-server` based applications. This plugin allows you to run a universal React application without needing any client/server-specific code.
-
-## Installation
-
-```bash
-$ yarn add @shopify/react-server-webpack-plugin
-```
 
 ## Usage
 
@@ -29,7 +16,7 @@ First you will need to install all of the dependencies you'll need for your appl
 
 ```sh
 yarn add react react-dom
-yarn add webpack @shopify/react-server @shopify/react-server-webpack-plugin @shopify/webpack-asset-metadata-plugin --dev
+yarn add webpack @shopify/react-server @shopify/webpack-asset-metadata-plugin --dev
 ```
 
 Since `@shopify/react-server` relies on `@shopify/webpack-asset-metadata-plugin`, you will need to setup both plugins in your webpack configuration. A simple starter (not production optimized) webpack setup is as follows:
@@ -37,7 +24,7 @@ Since `@shopify/react-server` relies on `@shopify/webpack-asset-metadata-plugin`
 ```tsx
 // webpack.config.js
 
-const {ReactServerPlugin} = require('@shopify/react-server-webpack-plugin');
+const {ReactServerPlugin} = require('@shopify/react-server/webpack-plugin');
 const {AssetMetadataPlugin} = require('@shopify/webpack-asset-metadata-plugin');
 
 const universal = {
@@ -143,7 +130,7 @@ export default function App({url, data}: {url: Url, data: Record<string, any>}) 
 The plugin is exported as a named export.
 
 ```tsx
-import {ReactServerPlugin} from '@shopify/react-server-webpack-plugin';
+import {ReactServerPlugin} from '@shopify/react-server/webpack-plugin';
 ```
 
 It accepts a configuration object with the following interface:

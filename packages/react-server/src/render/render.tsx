@@ -9,6 +9,7 @@ import {
   HtmlManager,
   HtmlContext,
   stream,
+  render as renderHtml,
 } from '@shopify/react-html/server';
 import {useSerialized} from '@shopify/react-html';
 import {
@@ -34,6 +35,8 @@ import {quiltDataMiddleware} from '../quilt-data';
 import {getLogger} from '../logger';
 import {ValueFromContext} from '../types';
 
+import {fallbackErrorMarkup} from './error';
+
 export {Context};
 export interface RenderFunction {
   (ctx: Context): React.ReactElement<any>;
@@ -49,6 +52,7 @@ type Options = Pick<
 > & {
   assetPrefix?: string;
   assetName?: string | ValueFromContext<string>;
+  renderError?: RenderFunction;
 };
 
 /**
@@ -58,7 +62,11 @@ type Options = Pick<
  */
 export function createRender(render: RenderFunction, options: Options = {}) {
   const manifestPath = getManifestPath(process.cwd());
-  const {assetPrefix, assetName: assetNameInput = 'main'} = options;
+  const {
+    assetPrefix,
+    assetName: assetNameInput = 'main',
+    renderError,
+  } = options;
 
   async function renderFunction(ctx: Context) {
     const assetName =
@@ -145,6 +153,24 @@ export function createRender(render: RenderFunction, options: Options = {}) {
       if (process.env.NODE_ENV === 'development') {
         ctx.body = errorMessage;
       } else {
+        if (renderError) {
+          const [styles, scripts] = await Promise.all([
+            assets.styles({name: 'error'}),
+            assets.scripts({name: 'error'}),
+          ]);
+
+          const response = renderHtml(
+            <Html manager={htmlManager} styles={styles} scripts={scripts}>
+              {renderError(ctx)}
+            </Html>,
+          );
+
+          ctx.body = response;
+        } else {
+          ctx.body = fallbackErrorMarkup;
+          ctx.set(Header.ContentType, 'text/html');
+        }
+
         ctx.throw(StatusCode.InternalServerError, error);
       }
     }

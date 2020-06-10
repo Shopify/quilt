@@ -5,7 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+<-- ## [Unreleased] -->
+
+## [0.15.0] - 2020-06-06
+
+### Changed
+
+- 🛑 Replace `isomorphic-fetch` with `cross-fetch` as peer dependency. Consumer project should install `cross-fetch` in their project or use `@shopify/sewing-kit >= v0.131.0` ([#1497](https://github.com/Shopify/quilt/pull/1497))
+
+## [0.14.0] - 2020-06-06
+
+### Added
+
+- Added `renderError` option to rendering a custom Error page on production SSR errors.
+
+  - Note: If `renderError` is not set, the server returns a fallback error page as a sane default for production SSR errors.
+
+- [webpack-plugin] Utilizes an `error` component if it exists at the root of `app/ui`. This component will be imported in the server source and passed to `@shopify/react-server`'s `renderError` option when creating a server. This will also create a virtual client entrypoint for the `error` component.
+
+## [0.13.0] - 2020-06-04
+
+### Changed
+
+- Move `react-server-webpack-plugin` into `react-server` and expose it from `@shopify/react-server/webpack-plugin` ([#1489](https://github.com/Shopify/quilt/pull/1489))
 
 ## [0.12.0] - 2020-05-12
 

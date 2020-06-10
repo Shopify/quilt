@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.12.2",
+  "version": "0.15.1",
   "license": "MIT",
   "description": "Utilities for React server-side rendering.",
   "main": "dist/src/index.js",
@@ -26,11 +26,11 @@
   "dependencies": {
     "@shopify/network": "^1.4.7",
     "@shopify/react-async": "^3.1.17",
-    "@shopify/react-cookie": "^0.0.26",
+    "@shopify/react-cookie": "^0.0.27",
     "@shopify/react-effect": "^3.2.12",
     "@shopify/react-html": "^9.3.11",
     "@shopify/react-hydrate": "^1.1.23",
-    "@shopify/react-network": "^3.3.13",
+    "@shopify/react-network": "^3.4.0",
     "@shopify/sewing-kit-koa": "^6.3.3",
     "@shopify/useful-types": "^2.1.5",
     "chalk": "^2.4.2",
@@ -44,18 +44,26 @@
     "@shopify/with-env": "^1.1.8",
     "@types/koa": "^2.0.0",
     "@types/supertest": "^2.0.8",
+    "@types/webpack-virtual-modules": "^0.1.0",
     "get-port": "^5.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "webpack": ">4.25.1, <=4.5.0"
   },
   "peerDependencies": {
-    "isomorphic-fetch": ">=2.0.0",
+    "cross-fetch": ">=3.0.0",
     "react": ">=16.8.0 <17.0.0",
     "react-dom": ">=16.8.0 <17.0.0"
   },
+  "optionalDependencies": {
+    "@babel/types": ">=7.0.0",
+    "webpack-virtual-modules": "^0.2.2"
+  },
   "files": [
     "dist/*",
-    "!tsconfig.tsbuildinfo"
+    "!tsconfig.tsbuildinfo",
+    "webpack-plugin.d.ts",
+    "webpack-plugin.js"
   ]
 }
