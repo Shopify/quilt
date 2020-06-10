@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- `data` header now only contains "data", and omits any custom headers passed into `render_react`. Consumers of this gem are encouraged to use the new `NetworkUniversalProvider` in `@shopify/react-network` to access headers on client-side renders
+
 ## [2.0.0] - 2020-06-08
 
 ### Changed
