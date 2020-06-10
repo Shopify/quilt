@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Added
+
+- Added the `ConstructorArguments` type alias
+- Added the `ConstructorArgumentAtIndex` type alias
+- Added the `FirstConstructorArgument` type alias
 
 ## [2.1.4] - 2019-01-27
 

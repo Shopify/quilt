@@ -66,3 +66,16 @@ type ReactStatics =
 export type NonReactStatics<T> = Pick<T, Exclude<keyof T, ReactStatics>>;
 
 export type ExtendedWindow<T> = Window & typeof globalThis & T;
+
+export type ConstructorArguments<T> = T extends {
+  new (...args: infer U): any;
+}
+  ? U
+  : never;
+
+export type ConstructorArgumentAtIndex<
+  T,
+  I extends keyof ConstructorArguments<T>
+> = ConstructorArguments<T>[I];
+
+export type FirstConstructorArgument<T> = ConstructorArgumentAtIndex<T, 0>;
