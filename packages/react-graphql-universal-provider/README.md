@@ -63,9 +63,10 @@ The component takes children and a function that can create an Apollo client. Th
 // App.tsx
 
 import {GraphQL} from '../GraphQL';
+const IS_SERVER = typeof window === 'undefined';
 
 function App({server}: {server?: boolean}) {
-  return <GraphQL server={server}>{/* rest of the app */}</GraphQL>;
+  return <GraphQL server={IS_SERVER}>{/* rest of the app */}</GraphQL>;
 }
 ```
 

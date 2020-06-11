@@ -9,7 +9,8 @@ import {createRender, RenderFunction} from '../render';
 import {requestLogger} from '../logger';
 import {metricsMiddleware as metrics} from '../metrics';
 import {ping} from '../ping';
-import {ValueFromContext} from '../types';
+import {ValueFromContext, KoaNextFunction} from '../types';
+import {fallbackErrorMarkup} from '../render/error';
 
 const logger = console;
 
@@ -41,6 +42,22 @@ export function createServer(options: Options): Server {
   const app = new Koa();
 
   app.use(mount('/services/ping', ping));
+
+  app.use(
+    mount('/webpack/assets/dll/vendor.js', async function middleware(
+      ctx: Context,
+      next: KoaNextFunction,
+    ) {
+      // eslint-disable-next-line no-process-env
+      if (process.env.NODE_ENV === 'development') {
+        console.log('!!! HERE !!!');
+        ctx.body = fallbackErrorMarkup;
+        ctx.set('Content-Type', 'text/html');
+      } else {
+        await next();
+      }
+    }),
+  );
 
   app.use(requestLogger);
   app.use(metrics);

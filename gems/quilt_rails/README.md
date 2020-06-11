@@ -151,6 +151,8 @@ class ReactController < ApplicationController
 end
 ```
 
+🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation#add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
+
 Headers can be accessed during server-side-rendering with the `useRequestHeader` hook from `@shopify/react-network`.
 
 ```tsx
@@ -183,7 +185,9 @@ class ReactController < ApplicationController
 end
 ```
 
-If using the webpack plugin, this will be automatically passed into your application as the `data` prop.
+🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation#add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
+
+If using `react-server` without a customized server & client file, this will be automatically passed into your application as the `data` prop. If `react-server` is not being used or a customized server / client file was provided, check out [`react-server/webpack-plugin`](../../packages/react-server/src/webpack-plugin/webpack-plugin.ts) on how to pass the data to React.
 
 ```tsx
 // app/ui/index.tsx
@@ -244,6 +248,10 @@ When a React component sends HTTP requests back to a Rails endpoint (e.g., `/gra
 
 If your API **does not** require session data, the easiest way to deal with this is to use `protect_from_forgery with: :null_session`. This will work for APIs that either have no authentication requirements, or use header based authentication.
 
+While `Can't verify CSRF token authenticity` error will persist, `protect_from_forgery with: :null_session` will keep CSRF protection while ensuring the session is nullified when a token is not sent in to be more secure.
+
+You can also add `self.log_warning_on_csrf_failure = false` to the controller to suppress this error all together.
+
 ##### Example
 
 ```rb
@@ -263,7 +271,7 @@ end
 If your API **does** require session data, you can follow these steps:
 
 - Add an `x-shopify-react-xhr` header to all GraphQL requests with a value of 1 (this is done automatically if you are using `@shopify/react-graphql-universal-provider`)
-- Add a `protect_from_forgery with: Quilt::HeaderCsrfStrategy` override to your controllers
+- Add a `protect_from_forgery with: Quilt::HeaderCsrfStrategy` override to your API controllers
 
 ##### Example
 
