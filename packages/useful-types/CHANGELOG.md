@@ -9,9 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Added the `ConstructorArguments` type alias
-- Added the `ConstructorArgumentAtIndex` type alias
-- Added the `FirstConstructorArgument` type alias
+- Added the `ConstructorArguments`, `ConstructorArgumentAtIndex`, and `FirstConstructorArgument` type aliases
 
 ## [2.1.4] - 2019-01-27
 
