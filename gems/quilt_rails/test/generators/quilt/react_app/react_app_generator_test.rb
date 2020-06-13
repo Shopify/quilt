@@ -12,6 +12,13 @@ class QuiltReactAppGeneratorTest < Rails::Generators::TestCase
     prepare_destination
   end
 
+  test "set javascript path" do
+    run_generator
+    assert_file "config/application.rb" do |app_config|
+      assert_match "config.javascript_path = \"ui\"", app_config
+    end
+  end
+
   test "creates the main React app" do
     run_generator
     assert_file "app/ui/index.tsx" do |app|
