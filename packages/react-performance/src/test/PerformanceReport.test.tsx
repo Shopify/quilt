@@ -36,7 +36,7 @@ describe('<PerformanceReport />', () => {
     timer.runAllTimers();
 
     const [fetchedUrl, {body, method, headers}] = fetch.lastCall();
-    expect(fetchedUrl).toBe(url);
+    expect(fetchedUrl).toBe(`${url}/`);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
     expect(JSON.parse(body!.toString())).toMatchObject({
@@ -63,7 +63,7 @@ describe('<PerformanceReport />', () => {
     timer.runAllTimers();
 
     const [fetchedUrl, {body, method, headers}] = fetch.lastCall();
-    expect(fetchedUrl).toBe(url);
+    expect(fetchedUrl).toBe(`${url}/`);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
     expect(JSON.parse(body!.toString())).toMatchObject({
