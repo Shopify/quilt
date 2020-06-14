@@ -1,5 +1,5 @@
 import './console-wrapper';
-import 'isomorphic-fetch';
+import 'cross-fetch';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

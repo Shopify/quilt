@@ -24,7 +24,7 @@ module Quilt
       headers = {
         'x-custom-header': 'test',
         'X-CSRF-Token': form_authenticity_token,
-        'X-Quilt-Data': { 'x-custom-header': 'test' }.to_json,
+        'X-Quilt-Data': {}.to_json,
       }
       proxy_result = reverse_proxy(url, headers: headers)
 

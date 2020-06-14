@@ -1,8 +1,8 @@
 {
-  "name": "@shopify/react-universal-provider",
-  "version": "1.1.17",
+  "name": "@shopify/react-bugsnag",
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "Factory function and utilities to create self-serializing/deserializing provider that works for isomorphic applications.",
+  "description": "An opinionated wrapper for bugsnag&#x27;s React plugin",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
@@ -17,21 +17,18 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shopify/quilt.git",
-    "directory": "packages/react-universal-provider"
+    "directory": "packages/react-bugsnag"
   },
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-universal-provider/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-bugsnag/README.md",
   "dependencies": {
-    "@shopify/react-effect": "^3.2.12",
-    "@shopify/react-html": "^9.3.12"
+    "@bugsnag/js": "^7.1.1",
+    "@bugsnag/plugin-react": "^7.1.1"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <17.0.0"
-  },
-  "devDependencies": {
-    "faker": "^4.1.0"
+    "react": "^16.8.1"
   },
   "files": [
     "dist/*",

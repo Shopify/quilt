@@ -19,6 +19,8 @@ This library builds on top of [react-apollo](https://github.com/apollographql/re
 
 #### `ApolloProvider`
 
+🗒️ If your application does server side rendering. Skip this step and setup [`@shopify/react-graphql-universal-provider`](../react-graphql-universal-provider/README.md) instead.
+
 Before using the hooks and other utilities provided by this package, you must wrap your application in an `ApolloProvider`. This provider should be used instead of `react-apollo`'s [`ApolloProvider`](https://www.apollographql.com/docs/react/api/react-apollo#ApolloProvider), and it accepts the same props as that component.
 
 ```tsx

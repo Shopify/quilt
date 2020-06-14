@@ -5,7 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [3.0.0] - 2020-06-10
+
+### Changed
+
+- `data` header now only contains "data", and omits any custom headers passed into `render_react`. Consumers of this gem are encouraged to use the new `NetworkUniversalProvider` in `@shopify/react-network` to access headers on client-side renders
+
+## [2.0.0] - 2020-06-08
+
+### Changed
+
+- Move SewingKit generator task into sewing-kit. The generator command remains the same. ([#1494](https://github.com/Shopify/quilt/pull/1494))
+
+### Removed
+
+- Remove generator task `quilt_rails:install`. The generator command remains the same. ([#1494](https://github.com/Shopify/quilt/pull/1494))
 
 ## [1.13.0] - 2020-06-2
 
