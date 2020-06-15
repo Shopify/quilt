@@ -5,7 +5,9 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 ## [Unreleased]
 
-* Allow custom scalars that alias built-in types
+## [0.21.0] - 2020-06-15
+
+- Allow custom scalars that alias built-in types [[#90](https://github.com/Shopify/graphql-tools-web/pull/90)] (thanks [ryanw](https://github.com/ryanw)!)
 
 ## [0.20.3] - 2020-06-03
 
