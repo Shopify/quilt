@@ -159,6 +159,26 @@ describe('printSchema()', () => {
     `);
   });
 
+  it('prints a custom scalar without a package import', () => {
+    const schema = buildSchema(`
+      scalar Seconds
+    `);
+
+    const content = generateSchemaTypes(schema, {
+      customScalars: {
+        Seconds: {
+          name: 'number',
+        },
+      },
+    }).get('index.ts');
+
+    expect(content).toContain(stripIndent`
+      export type Seconds = number;
+    `);
+
+    expect(content).not.toContain('import { number ');
+  });
+
   it('prints an input object in the index file', () => {
     const schema = buildSchema(`
       input Input {

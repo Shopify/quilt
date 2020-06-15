@@ -247,6 +247,18 @@ import {SafeString} from 'my-custom-type-package';
 export type HtmlString = SafeString;
 ```
 
+You can also use built-in types by simply leaving off the `package` property:
+
+```sh
+yarn run graphql-typescript-definitions --schema-path 'build/schema.json' --schema-types-path 'src/schema' --custom-scalars '{"Seconds": {"name": "number"}}'
+```
+
+This will produce a simple type alias:
+
+```ts
+export type Seconds = number;
+```
+
 ### Node
 
 ```js
