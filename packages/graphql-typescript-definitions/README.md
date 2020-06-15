@@ -97,7 +97,7 @@ A project configuration with a `schemaTypesPath` override
 ```json
 {
   "schemaPath": "build/schema.json",
-  "includes": "app/**/*.graphql",
+  "includes": ["app/**/*.graphql"],
   "extensions": {
     "schemaTypesPath": "app/bar/types/graphql"
   }
