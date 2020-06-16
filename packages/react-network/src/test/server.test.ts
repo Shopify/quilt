@@ -107,15 +107,37 @@ describe('server', () => {
   });
 
   describe('cookies', () => {
-    it('applies cookies to server context', () => {
-      const cookies = 'foo=bar; baz=qux';
-      const ctx = createMockContext();
-      const manager = new NetworkManager({cookies});
+    it('doesn’t reset existing cookies', () => {
+      const ctx = createMockContext({
+        cookies: {
+          _cookieA: 'this%2Bhas%2Ba%2Bplus',
+          _cookieB: '',
+        },
+      });
+      const manager = new NetworkManager({cookies: ctx.headers.cookie});
 
       applyToContext(ctx, manager);
 
-      expect(ctx.cookies.set).toHaveBeenCalledWith('foo', 'bar', {});
-      expect(ctx.cookies.set).toHaveBeenCalledWith('baz', 'qux', {});
+      expect(ctx.cookies.set).not.toHaveBeenCalledWith(
+        '_cookieA',
+        'this%2Bhas%2Ba%2Bplus',
+        {},
+      );
+      expect(ctx.cookies.set).not.toHaveBeenCalledWith('_cookieB', '', {});
+    });
+
+    it('does set changed cookies', () => {
+      const ctx = createMockContext({
+        cookies: {
+          _cookieA: 'this%2Bhas%2Ba%2Bplus',
+          _cookieB: '',
+        },
+      });
+      const manager = new NetworkManager({cookies: ctx.headers.cookie});
+
+      manager.cookies.setCookie('_cookieA', 'new_value');
+      applyToContext(ctx, manager);
+      expect(ctx.cookies.set).toHaveBeenCalledWith('_cookieA', 'new_value', {});
     });
   });
 });
