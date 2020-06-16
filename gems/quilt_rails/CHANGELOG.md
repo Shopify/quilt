@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+### Changed
+
+- Remove automatic passing of `X-CSRF-Token` in the header. With [csrf header strategy](./README.md#fixing-rejected-csrf-tokens-for-new-user-sessions) you should not need this value for GraphQL request. If absolutely needed, use [custom headers method](./README.md#example:-sending-custom-headers-from-rails-controller) to pass the value manually. ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+- Remove installation of `@shopify/react-server` from the generator. ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+### Added
+
+- Added setting of the javascript path in generator ([#1509](https://github.com/Shopify/quilt/pull/1509))
+- Added a demo app generator that has a more complete example of a typical react app. ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
 ## [3.0.0] - 2020-06-10
 
 ### Changed
