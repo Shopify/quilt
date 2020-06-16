@@ -28,7 +28,8 @@ export function applyToContext<T extends Context>(
 
     // only set cookies that have been changed
     // decode URI as the manager's cookie value is also decoded
-    if (decodeURIComponent(ctx.cookies.get(cookie)) === value) {
+    const rawCookieValue = ctx.cookies.get(cookie);
+    if (rawCookieValue && decodeURIComponent(rawCookieValue) === value) {
       return;
     }
 
