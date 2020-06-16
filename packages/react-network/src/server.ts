@@ -26,8 +26,9 @@ export function applyToContext<T extends Context>(
   Object.entries(cookies).forEach(([cookie, options]) => {
     const {value, ...cookieOptions} = options;
 
-    // only set cookie that had been changed
-    if (ctx.cookies.get(cookie) === value) {
+    // only set cookies that have been changed
+    // decode URI as the manager's cookie value is also decoded
+    if (decodeURIComponent(ctx.cookies.get(cookie)) === value) {
       return;
     }
 
