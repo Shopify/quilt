@@ -237,32 +237,19 @@ The `Performance::Reportable` mixin uses [https://github.com/Shopify/statsd-inst
 
 ## Generators
 
-### Umbrella Generators
-
-#### `quilt_rails:install`
-
-This is equivalent to running `rails generate sewing_kit:install` and `rails generate quilt:install`
-
-#### `quilt:install`
+### `quilt:install`
 
 This is equivalent to running `rails generate quilt:rails_setup`, `rails generate quilt:react_setup`, and `rails generate quilt:react_app`
 
-### Individual Generators
-
-##### `sewing_kit:install`
-
-Adds a basic `sewing-kit.config.ts` file and basic linting, format configuration.
-This generator assume the use of [`@shopify/sewing-kit`](https://github.com/Shopify/sewing-kit)
-
-###### `quilt:rails_setup`
+### `quilt:rails_setup`
 
 Mounts the Quilt engine in `config/routes.rb` and provide a Procfile to kick start Node in production container.
 
-###### `quilt:react_setup`
+### `quilt:react_setup`
 
 Installs the Node dependencies necessary for a React application.
 This generator assumes the use of [`@shopify/sewing-kit`](https://github.com/Shopify/sewing-kit)
 
-###### `quilt:react_app`
+### `quilt:react_app`
 
 This generator provides a basic React app (in TypeScript).
