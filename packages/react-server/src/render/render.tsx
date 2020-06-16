@@ -79,7 +79,6 @@ export function createRender(render: RenderFunction, options: Options = {}) {
 
     const networkManager = new NetworkManager({
       headers: ctx.headers,
-      cookies: ctx.request.headers.cookie || '',
     });
     const htmlManager = new HtmlManager();
     const asyncAssetManager = new AsyncAssetManager();
@@ -142,9 +141,8 @@ export function createRender(render: RenderFunction, options: Options = {}) {
       ctx.set(Header.ContentType, 'text/html');
       ctx.body = response;
     } catch (error) {
-      const errorMessage = `React server-side rendering error:\n${
-        error.stack || error.message
-      }`;
+      const errorMessage = `React server-side rendering error:\n${error.stack ||
+        error.message}`;
 
       logger.log(errorMessage);
       ctx.status = StatusCode.InternalServerError;
