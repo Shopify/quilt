@@ -39,7 +39,7 @@ module Quilt
       begin
         reverse_proxy(
           url,
-          headers: headers.merge('X-CSRF-Token': form_authenticity_token, 'X-Quilt-Data': data.to_json)
+          headers: headers.merge('X-Quilt-Data': data.to_json)
         ) do |callbacks|
           callbacks.on_response do |status_code, _response|
             Quilt::Logger.log("[ReactRenderable] #{url} returned #{status_code}")

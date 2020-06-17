@@ -357,7 +357,6 @@ const createWebpackConfig = (
 ) => `
 const path = require('path');
 const {ReactServerPlugin} = require('../../../webpack-plugin');
-
 const universal = {
   mode: 'production',
   optimization: {
@@ -373,7 +372,6 @@ const universal = {
     modules: ['node_modules', path.resolve(__dirname, '${basePath}')],
   },
 };
-
 const server = {
   ...universal,
   name: 'server',
@@ -388,14 +386,12 @@ const server = {
     },
   ],
 };
-
 const client = {
   ...universal,
   name: 'client',
   target: 'web',
   entry: './${basePath}/client',
 };
-
 module.exports = [server, client];`;
 
 const printIf = (key, value) => {
