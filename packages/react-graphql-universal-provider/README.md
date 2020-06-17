@@ -65,8 +65,12 @@ The component takes children and a function that can create an Apollo client. Th
 import {GraphQL} from '../GraphQL';
 const IS_SERVER = typeof window === 'undefined';
 
-function App({server}: {server?: boolean}) {
-  return <GraphQL server={IS_SERVER}>{/* rest of the app */}</GraphQL>;
+export function App({url}: {url: URL}) {
+  return (
+    <GraphQL server={IS_SERVER} url={url}>
+      {/* rest of the app */}
+    </GraphQL>
+  );
 }
 ```
 
@@ -78,17 +82,19 @@ import {createHttpLink} from 'apollo-link-http';
 
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
-function GraphQL({
+export function GraphQL({
   server,
+  url,
   children,
 }: {
   server?: boolean;
+  url: URL;
   children?: React.ReactNode;
 }) {
   const createClientOptions = () => {
     const link = createHttpLink({
       // make sure to use absolute URL on the server
-      uri: `https://your-api-end-point/api/graphql`,
+      uri: `${url.origin}/merchant/graphql`,
     });
 
     return {
@@ -113,11 +119,9 @@ You’ll know that this library is hooked up properly when the HTML response fro
 - contains a `<script type="text/json" data-serialized-id="apollo"></script>` element with the contents set to a JSON representation of the contents of the Apollo cache, and
 - does not present the loading state for any GraphQL-connected component that shows data immediately when available (this excludes any queries with a `fetchPolicy` that ignores the cache).
 
-#### Using it with csrf token
+#### Using it with cookie
 
-We suggest that you use `@shopify/react-csrf-universal-provider` to share csrf token in your application.
-
-This example will also show getting the csrf token and cookie using `@shopify/react-network` but this is certainly not an requirement.
+This example will also show getting cookie using `@shopify/react-network` but this is certainly not an requirement.
 
 ```tsx
 // App.tsx
@@ -126,12 +130,16 @@ import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
 import {useRequestHeader} from '@shopify/react-network';
 import {GraphQL} from '../GraphQL';
 
-function App({server}: {server?: boolean}) {
+const IS_SERVER = typeof window === 'undefined';
+
+export function App({url}: {url: URL}) {
   const csrfToken = useRequestHeader('x-csrf-token');
 
   return (
     <CsrfUniversalProvider value={csrfToken}>
-      <GraphQL server={server}>{/* rest of the app */}</GraphQL>
+      <GraphQL server={IS_SERVER} url={url}>
+        {/* rest of the app */}
+      </GraphQL>
     </CsrfUniversalProvider>
   );
 }
@@ -145,25 +153,24 @@ import {createHttpLink} from 'apollo-link-http';
 
 import {useRequestHeader} from '@shopify/react-network';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
-import {useCsrfToken} from '@shopify/react-csrf';
 
 function GraphQL({
   server,
+  url,
   children,
 }: {
   server?: boolean;
+  url: URL;
   children?: React.ReactNode;
 }) {
   const cookie = useRequestHeader('cookie');
-  const csrfToken = useCsrfToken();
 
   const createClientOptions = () => {
     const link = createHttpLink({
       // make sure to use absolute URL on the server
-      uri: `https://your-api-end-point/api/graphql`,
+      uri: `${url.origin}/merchant/graphql`,
       headers: {
         cookie,
-        'X-CSRF-Token': csrfToken,
       },
     });
 

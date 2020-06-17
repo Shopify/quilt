@@ -7,10 +7,8 @@ module Quilt
     desc "This generator adds a React app."
 
     def install_js_dependencies
-      say "Installing @shopify/react-server and @shopify/sewing-kit dependencies"
+      say "Installing react and types dependencies"
       system("yarn add "\
-        "@shopify/sewing-kit "\
-        "@shopify/react-server "\
         "typescript@~3.8.0 "\
         "react@~16.11.0 "\
         "react-dom@~16.11.0 "\
