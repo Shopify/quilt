@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [3.1.0] - 2020-06-17
+
 ### Changed
 
 - Remove automatic passing of `X-CSRF-Token` in the header. With [csrf header strategy](./README.md#fixing-rejected-csrf-tokens-for-new-user-sessions) you should not need this value for GraphQL request. If absolutely needed, use [custom headers method](./README.md#example:-sending-custom-headers-from-rails-controller) to pass the value manually. ([#1509](https://github.com/Shopify/quilt/pull/1509))
