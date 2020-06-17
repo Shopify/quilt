@@ -1,0 +1,5 @@
+Description:
+    This generator adds a demo React app with all the quilt toolings.
+
+Example:
+    rails generate quilt:demo_app

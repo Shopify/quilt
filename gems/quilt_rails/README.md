@@ -23,7 +23,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
 
 ## Server-side-rendering
 
-🗒 This guide is focused on internal Shopify developers with access to [`dev`](https://github.com/Shopify/dev) and [@shopify/sewing-kit](https://github.com/Shopify/sewing-kit). A similar setup can be achieved using the [manual installation](./docs/manual-installation.md) , and following the [react-server webpack plugin](../../packages/react-server/README.md#webpack-plugin) guide. Apps not running on Shopify infrastructure should [disable server-side GraphQL queries](./docs/FAQ.md) to avoid scalability issue.
+🗒 This guide is focused on internal Shopify developers with access [@shopify/sewing-kit](https://github.com/Shopify/sewing-kit). A similar setup can be achieved using the [manual installation](./docs/manual-installation.md) , and following the [react-server webpack plugin](../../packages/react-server/README.md#webpack-plugin) guide. Apps not running on Shopify infrastructure should [disable server-side GraphQL queries](./docs/FAQ.md) to avoid scalability issue.
 
 ### Quick start
 
@@ -31,12 +31,7 @@ Using the magic of generators, we can spin up a basic app with a few console com
 
 #### Generate Rails boilerplate
 
-With access to [`dev`](https://github.com/Shopify/dev), you can use `dev init` to scaffold out a Rails application.
-When prompted, choose `rails`. This will generate a basic Rails application scaffold.
-
-Alternatively, you can use [`rails new .`](https://guides.rubyonrails.org/command_line.html#rails-new) to do the same.
-
-In either case, remove [`webpacker`](./docs/FAQ.md#i-run-into-webpacker-issue-while-setting-up-quilt_rails) and [these files](./docs/FAQ.md#any-other-files-i-should-remove-before-running-generator) that any create conflict before continuing.
+Use [`rails new . --skip-javascript`](https://guides.rubyonrails.org/command_line.html#rails-new) to scaffold out a Rails application.to do the same.
 
 #### Add Ruby dependencies
 
@@ -50,15 +45,16 @@ This will install our ruby dependencies and update the project's gemfile.
 
 This will generate a package.json file with common sewing-kit script tasks, default lint, format configuration; a sewing-kit configuration file, and other project default configurations.
 
-`rails generate quilt:install`
+`rails generate quilt::install_demo_app`
 
-This will install Node dependencies, provide a basic React app (in TypeScript), and mount the Quilt engine in `config/routes.rb`. Basic linting and format configurations are also generated.
+Both command will install Node dependencies, mount the Quilt engine in `config/routes.rb`, set up basic linting and format configurations, and provide a demo React app (in TypeScript) that uses all of quilt toolings and is a more complete example of a typical application.
+
+If you prefer to setup all of the React app yourself, `rails generate quilt:install` does the same as above but with a bare bone React app.
 
 #### Try it out
 
 ```sh
-dev up
-dev server
+bin/rails server
 ```
 
 Will run the application, starting up both servers and compiling assets.
@@ -226,7 +222,7 @@ export default App;
 
 With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. When using `@shopify/react-server`, the best tool for this job is [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/react-html#in-your-application-code) hook.
 
-`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [CSRF](https://github.com/Shopify/quilt/tree/master/packages/react-csrf-universal-provider), [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/react-graphql-universal-provider), [I18n](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider), and the [Shopify App Bridge](https://github.com/Shopify/quilt/tree/master/packages/react-app-bridge-universal-provider).
+`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/react-graphql-universal-provider), and [I18n](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider).
 
 #### Customizing the Node server
 
