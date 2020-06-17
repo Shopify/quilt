@@ -285,6 +285,29 @@ class GraphqlController < ApplicationController
 end
 ```
 
+#### Exception monitoring with Bugsnag
+
+For an opinionated universal Bugsnag+React setup we provide and support [`@shopify/react-bugsnag`](https://github.com/Shopify/quilt/tree/master/packages/react-bugsnag).
+
+##### Example
+
+```typescript
+// app/ui/index.tsx
+import React from 'react';
+import {Bugsnag, createBugsnagClient} from 'utilities/bugsnag';
+import {bugsnagClientApiKey} from 'config/bugsnag';
+
+const bugsnagClient = createBugsnagClient({apiKey: bugsnagClientApiKey});
+
+export function App() {
+  return (
+    <Bugsnag client={bugsnagClient}>
+        {/* actual app content here */}
+    </Bugsnag>
+  );
+}
+```
+
 ## Performance tracking a React app
 
 To setup performance tracking with your React app with `quilt_rails`.
