@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)
 
-A library for testing React components according to [Shopify conventions](https://github.com/Shopify/web-foundation/blob/master/handbook/Best%20practices/React/Testing.md).
+A library for testing React components according to [Shopify conventions](https://github.com/Shopify/web-foundation/blob/main/handbook/Best%20practices/Testing.md).
 
 ## Table of contents
 
