@@ -30,7 +30,7 @@ export function applyToContext<T extends Context>(
     // decode URI as the manager's cookie value is also decoded
     const rawCookieValue = ctx.cookies.get(cookie);
     if (
-      typeof rawCookieValue !== 'undefined' &&
+      rawCookieValue != null &&
       decodeURIComponent(rawCookieValue) === value
     ) {
       return;
