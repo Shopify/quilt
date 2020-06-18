@@ -644,13 +644,13 @@ const myComponent = mount(<MyComponent />);
 expect(myComponent).toContainReactText('Hello world!');
 ```
 
-#### <a name="toContainHtml"></a> `.toContainHtml(text: string)`
+#### <a name="toContainReactHtml"></a> `.toContainReactHtml(text: string)`
 
 Asserts that the rendered output of the component contains the passed string as HTML (that is, the text is included in what you would get by calling `outerHTML` on all root DOM nodes rendered by the component).
 
 ```tsx
 const myComponent = mount(<MyComponent />);
-expect(myComponent).toContainHtml('<span>Hello world!</span>');
+expect(myComponent).toContainReactHtml('<span>Hello world!</span>');
 ```
 
 ## FAQ
