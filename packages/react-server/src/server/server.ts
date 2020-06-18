@@ -14,8 +14,8 @@ import {ValueFromContext} from '../types';
 const logger = console;
 
 interface Options {
-  port?: number;
   ip?: string;
+  port?: number;
   assetPrefix?: string;
   assetName?: string | ValueFromContext<string>;
   serverMiddleware?: compose.Middleware<Context>[];
@@ -30,11 +30,16 @@ interface Options {
  */
 export function createServer(options: Options): Server {
   const {
-    port,
-    assetPrefix,
+    /* eslint-disable no-process-env */
+    ip = process.env.REACT_SERVER_IP || 'localhost',
+    port = (process.env.REACT_SERVER_PORT &&
+      parseInt(process.env.REACT_SERVER_PORT, 10)) ||
+      8081,
+    // a default is set in sewingKitMiddleware
+    assetPrefix = process.env.CDN_URL,
+    /* eslint-enable no-process-env */
     render,
     serverMiddleware,
-    ip,
     assetName,
     renderError,
   } = options;

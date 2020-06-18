@@ -3,3 +3,10 @@ Description:
 
 Example:
     rails generate quilt:install
+
+
+Description:
+    This generator mounts the Quilt engine and adds a demo React app with all the quilt toolings.
+
+Example:
+    rails generate quilt:install_demo_app

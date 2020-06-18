@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <-- ## [Unreleased] -->
 
+## [0.16.0] - 2020-06-16
+
+### Changed
+
+- Move default options from webpack plugin into react-server. ([#1514](https://github.com/Shopify/quilt/pull/1514))
+
 ## [0.15.0] - 2020-06-06
 
 ### Changed

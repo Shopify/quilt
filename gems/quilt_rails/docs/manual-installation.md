@@ -17,7 +17,7 @@ An application can also be setup manually using the following steps with an exis
 bundle add sewing_kit quilt_rails
 
 # Add core Node dependencies
-yarn add @shopify/sewing-kit @shopify/react-server
+yarn add @shopify/sewing-kit
 
 # Add React
 yarn add react react-dom
@@ -45,7 +45,6 @@ Instead, make sure to use [`react-server webpack plugin`](../../../packages/reac
 
 ```sh
 yarn
-dev up
 ```
 
 #### Setup the Rails app
@@ -115,7 +114,7 @@ export default App;
 
 #### Run the server
 
-`dev server`
+`bin/rails server`
 
 Will run the application, starting up both servers and compiling assets.
 
