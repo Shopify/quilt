@@ -173,6 +173,33 @@ const MyModalComponent = createAsyncComponent({
 });
 ```
 
+#### Preloading and Deferring
+
+When using defer and handling the defered loading using one of the defered methods (e.g DeferTiming.idle), the
+
+```tsx
+<MyComponent.Preload />
+```
+
+Will only be required when you purposely want to control the pre-loading.
+
+For example
+
+```tsx
+const MyComponent = createAsyncComponent({
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
+  usePreload: () => usePreload(MyQuery),
+});
+
+<MyComponent.Preload />;
+```
+
+When relying on the library for example using `DeferTiming.Idle`, we do not need to have
+
+```tsx
+<MyComponent.Preload />
+```
+
 #### Progressive hydration
 
 It can sometimes be useful to server render a component, but to wait to load its assets until later in the page lifecycle. This is particularly relevant for large, mostly static components, components that are very likely to be outside the viewport on load, and expensive components that would cause significant layout shifts if only rendered on the client. This library supports this pattern through the `deferHydration` option, and with the help from the [`@shopify/react-hydrate` package](../react-hydrate).
