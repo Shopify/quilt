@@ -79,6 +79,7 @@ export function App({url}: {url: URL}) {
 ```tsx
 // GraphQL.tsx
 import React from 'react';
+import fetch from 'cross-fetch';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
@@ -96,6 +97,7 @@ export function GraphQL({
     const link = createHttpLink({
       // make sure to use absolute URL on the server
       uri: `${url.origin}/graphql`,
+      fetch,
     });
 
     return {
@@ -149,6 +151,7 @@ export function App({url}: {url: URL}) {
 ```tsx
 // GraphQL.tsx
 import React from 'react';
+import fetch from 'cross-fetch';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
 import {useRequestHeader} from '@shopify/react-network';
@@ -169,6 +172,7 @@ function GraphQL({
     const link = createHttpLink({
       // make sure to use absolute URL on the server
       uri: `${url.origin}/graphql`,
+      fetch,
       headers: {
         cookie,
       },
