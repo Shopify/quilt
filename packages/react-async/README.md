@@ -183,7 +183,7 @@ When using defer and handling the defered loading using one of the defered metho
 
 Will only be required when you purposely want to control the pre-loading.
 
-For example
+_For example_
 
 ```tsx
 const MyComponent = createAsyncComponent({
@@ -194,7 +194,7 @@ const MyComponent = createAsyncComponent({
 <MyComponent.Preload />;
 ```
 
-When relying on the library for example using `DeferTiming.Idle`, we do not need to have
+When relying on the library by not including usePreload or by using `DeferTiming.Idle`, we do not need to have
 
 ```tsx
 <MyComponent.Preload />
