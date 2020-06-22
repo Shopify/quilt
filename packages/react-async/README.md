@@ -173,9 +173,7 @@ const MyModalComponent = createAsyncComponent({
 });
 ```
 
-#### Preloading and Deferring
-
-When using defer and handling the defered loading using one of the defered methods (e.g DeferTiming.idle), the
+#### When to use MyComponent.Preload, MyComponent.Prefetch and MyComponent.KeepFresh
 
 ```tsx
 <MyComponent.Preload />
@@ -194,7 +192,7 @@ const MyComponent = createAsyncComponent({
 <MyComponent.Preload />;
 ```
 
-When relying on the library by not including usePreload or by using `DeferTiming.Idle`, we do not need to have
+When relying on the library by not including usePreload; in this case, we do not need to have.
 
 ```tsx
 <MyComponent.Preload />
