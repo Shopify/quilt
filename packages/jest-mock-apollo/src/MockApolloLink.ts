@@ -38,38 +38,41 @@ export default class MockApolloLink extends ApolloLink {
             : mockForOperation;
       }
 
-      let result: ExecutionResult | Error;
+      let result: ExecutionResult;
 
       if (response == null) {
         let message = `Can’t perform GraphQL operation '${operationName}' because no valid mocks were found`;
 
         if (typeof mock === 'object') {
           const operationNames = Object.keys(mock);
-          // We will provide a more helpful message when it looks like they just provided data,
-          // not an object mapping names to fixtures.
-          const looksLikeDataNotFixtures = operationNames.every(
-            name => name === name.toLowerCase(),
-          );
 
-          message += looksLikeDataNotFixtures
-            ? ` (it looks like you tried to provide data directly to the mock GraphQL client. You need to provide your fixture on the key that matches its operation name. To fix this, simply change your code to read 'mockGraphQLClient({${operationName}: yourFixture}).'`
-            : ` (you provided an object that had mocks only for the following operations: ${Object.keys(
-                mock,
-              ).join(', ')}).`;
+          if (operationNames.length === 0) {
+            message += ' (it looks like you provided an empty mock object)';
+          } else if (
+            operationNames.every(name => name === name.toLowerCase())
+          ) {
+            // We will provide a more helpful message when it looks like they just provided data
+            message += ` (it looks like you tried to provide data directly to the mock GraphQL client. You need to provide your fixture on the key that matches its operation name. To fix this, simply change your code to read 'mockGraphQLClient({${operationName}: yourFixture})'`;
+          } else {
+            message += ` (you provided an object that had mocks only for the following operations: ${operationNames.join(
+              ', ',
+            )})`;
+          }
         } else {
           message +=
             ' (you provided a function that did not return a valid mock result)';
         }
 
-        const error = new Error(message);
-        result = error;
+        // We want to throw this error and break the test since it's not coming from the user-defined mocks
+        obs.error(new Error(message));
+        obs.complete();
+        return;
       } else if (response instanceof GraphQLError) {
-        result = {
-          errors: [response],
-        };
+        result = {errors: [response]};
       } else if (response instanceof Error) {
         result = {errors: [new GraphQLError(response.message)]};
       } else {
+        // We want to throw any errors and break the test since it's not coming from the user-defined mocks
         try {
           result = {
             data: normalizeGraphQLResponseWithOperation(
@@ -79,7 +82,9 @@ export default class MockApolloLink extends ApolloLink {
             ),
           };
         } catch (error) {
-          result = error;
+          obs.error(error);
+          obs.complete();
+          return;
         }
       }
 
