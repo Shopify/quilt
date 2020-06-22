@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ["Mathew Allen"]
   spec.email       = ["mathew.allen@shopify.com"]
   spec.homepage    = "https://github.com/Shopify/quilt/tree/master/gems/quilt_rails"
-  spec.summary     = "A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries."
-  spec.description = "A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries."
+  spec.summary     = "A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries."
+  spec.description = "A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries."
   spec.license     = "MIT"
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

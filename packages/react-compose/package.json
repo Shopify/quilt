@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-compose",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "license": "MIT",
   "description": "Cleanly compose multiple component enhancers together with minimal fuss",
   "main": "dist/src/index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-compose/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^2.1.5",
+    "@shopify/useful-types": "^2.2.0",
     "hoist-non-react-statics": "^3.0.1",
     "tslib": "^1.9.3"
   },

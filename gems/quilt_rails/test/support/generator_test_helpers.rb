@@ -7,6 +7,14 @@ module GeneratorTestHelpers
     copy_to_generator_root("config", "routes.rb")
   end
 
+  def provide_existing_app_config_file
+    copy_to_generator_root("config", "application.rb")
+  end
+
+  def provide_existing_sewing_kit_config_file
+    copy_to_generator_root("config", "sewing-kit.config.ts")
+  end
+
   private
 
   def copy_to_generator_root(destination, template)

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-bugsnag.svg)](https://badge.fury.io/js/%40shopify%2Freact-bugsnag.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-bugsnag.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-bugsnag.svg)
 
-A wrapper for bugsnag&#x27; and its React plugin with smart defaults and support for universal Server-Side-Rendered applications.
+An opinionated wrapper for Bugsnag's React plugin with smart defaults and support for universal server-side-rendered applications.
 
 ## Installation
 

@@ -7,6 +7,18 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.5.1] - 2020-06-22
+
+### Fixed
+
+- Fixes bug where empty cookies are still being set
+
+## [3.5.0] - 2020-06-16
+
+### Fixed
+
+- Do not set `set-cookie` headers for incoming request cookies
+
 ## [3.4.0] - 2020-06-10
 
 ### Added

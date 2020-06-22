@@ -9,14 +9,13 @@ import {createRender, RenderFunction} from '../render';
 import {requestLogger} from '../logger';
 import {metricsMiddleware as metrics} from '../metrics';
 import {ping} from '../ping';
-import {ValueFromContext, KoaNextFunction} from '../types';
-import {fallbackErrorMarkup} from '../render/error';
+import {ValueFromContext} from '../types';
 
 const logger = console;
 
 interface Options {
-  port?: number;
   ip?: string;
+  port?: number;
   assetPrefix?: string;
   assetName?: string | ValueFromContext<string>;
   serverMiddleware?: compose.Middleware<Context>[];
@@ -31,33 +30,22 @@ interface Options {
  */
 export function createServer(options: Options): Server {
   const {
-    port,
-    assetPrefix,
+    /* eslint-disable no-process-env */
+    ip = process.env.REACT_SERVER_IP || 'localhost',
+    port = (process.env.REACT_SERVER_PORT &&
+      parseInt(process.env.REACT_SERVER_PORT, 10)) ||
+      8081,
+    // a default is set in sewingKitMiddleware
+    assetPrefix = process.env.CDN_URL,
+    /* eslint-enable no-process-env */
     render,
     serverMiddleware,
-    ip,
     assetName,
     renderError,
   } = options;
   const app = new Koa();
 
   app.use(mount('/services/ping', ping));
-
-  app.use(
-    mount('/webpack/assets/dll/vendor.js', async function middleware(
-      ctx: Context,
-      next: KoaNextFunction,
-    ) {
-      // eslint-disable-next-line no-process-env
-      if (process.env.NODE_ENV === 'development') {
-        console.log('!!! HERE !!!');
-        ctx.body = fallbackErrorMarkup;
-        ctx.set('Content-Type', 'text/html');
-      } else {
-        await next();
-      }
-    }),
-  );
 
   app.use(requestLogger);
   app.use(metrics);

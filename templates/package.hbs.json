@@ -2,7 +2,7 @@
   "name": "@shopify/{{name}}",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "{{description}}",
+  "description": "{{{description}}}",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

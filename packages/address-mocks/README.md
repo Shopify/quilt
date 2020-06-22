@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Faddress-mocks.svg)](https://badge.fury.io/js/%40shopify%2Faddress-mocks)
 ![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/%40shopify/shopify%2address-mocks.svg)
 
-Address mocks for @shopify/address library.
+Address mocks for `@shopify/address`.
 
 ## Installation
 
