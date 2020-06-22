@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-- Include `prefix` when redirect to the root endpoint
+- Include `prefix` when redirect to the root endpoint [1498](https://github.com/Shopify/quilt/pull/1498)
 
 ## [3.1.63] - 2020-05-25
 
