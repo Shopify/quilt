@@ -2,7 +2,7 @@
   "name": "@shopify/react-html",
   "version": "9.3.12",
   "license": "MIT",
-  "description": "A component to render your react app with no static HTML.",
+  "description": "A component to render your React app with no static HTML",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

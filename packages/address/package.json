@@ -2,7 +2,7 @@
   "name": "@shopify/address",
   "version": "2.8.4",
   "license": "MIT",
-  "description": "Address utilities for formatting addresses.",
+  "description": "Address utilities for formatting addresses",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

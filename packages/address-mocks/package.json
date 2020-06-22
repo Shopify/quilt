@@ -2,7 +2,7 @@
   "name": "@shopify/address-mocks",
   "version": "1.3.4",
   "license": "MIT",
-  "description": "Address mocks for @shopify/address library.",
+  "description": "Address mocks for `@shopify/address`",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

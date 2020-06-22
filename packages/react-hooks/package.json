@@ -2,7 +2,7 @@
   "name": "@shopify/react-hooks",
   "version": "1.10.0",
   "license": "MIT",
-  "description": "A collection of primitive React hooks.",
+  "description": "A collection of primitive React hooks",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

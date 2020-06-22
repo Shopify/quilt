@@ -2,7 +2,7 @@
   "name": "@shopify/web-worker",
   "version": "1.4.0",
   "license": "MIT",
-  "description": "Tools for making web workers fun to use.",
+  "description": "Tools for making web workers fun to use",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

@@ -2,7 +2,7 @@
   "name": "@shopify/koa-shopify-webhooks",
   "version": "2.4.2",
   "license": "MIT",
-  "description": "Receive webhooks from Shopify with ease.",
+  "description": "Receive webhooks from Shopify with ease",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

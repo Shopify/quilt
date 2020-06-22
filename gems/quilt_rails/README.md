@@ -133,6 +133,8 @@ function App() {
 export default App;
 ```
 
+**Note:** This solution works out of the box for initial server-side renders. If you wish to have consistent access to request headers on subsequent client-side renders, take a look at [`NetworkUniversalProvider`](https://github.com/Shopify/quilt/tree/master/packages/react-network#networkuniversalprovider).
+
 ##### Example: sending custom headers from Rails controller
 
 In some cases you may want to send custom headers from Rails to your React server. Quilt facilitates this case by providing consumers with a `headers` argument on the `render_react` call.

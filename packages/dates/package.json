@@ -2,7 +2,7 @@
   "name": "@shopify/dates",
   "version": "0.4.0",
   "license": "MIT",
-  "description": "Lightweight date operations library.",
+  "description": "Lightweight date operations library",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

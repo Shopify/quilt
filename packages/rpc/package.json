@@ -2,7 +2,7 @@
   "name": "@shopify/rpc",
   "version": "1.0.6",
   "license": "MIT",
-  "description": "Utilities for postmessage-based remote procedure calls.",
+  "description": "Utilities for `postMessage`-based remote procedure calls",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

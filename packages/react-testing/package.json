@@ -2,7 +2,7 @@
   "name": "@shopify/react-testing",
   "version": "2.1.2",
   "license": "MIT",
-  "description": "A library for testing React components according to our conventions.",
+  "description": "A library for testing React components according to our conventions",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

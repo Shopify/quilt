@@ -2,7 +2,7 @@
   "name": "@shopify/react-universal-provider",
   "version": "1.1.17",
   "license": "MIT",
-  "description": "Factory function and utilities to create self-serializing/deserializing provider that works for isomorphic applications.",
+  "description": "Factory function and utilities to create self-serializing/deserializing providers that work for isomorphic applications",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

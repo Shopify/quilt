@@ -2,7 +2,7 @@
   "name": "@shopify/statsd",
   "version": "1.2.3",
   "license": "MIT",
-  "description": "An opinionated StatsD client for Shopify Node.js server and other StatsD utilities.",
+  "description": "An opinionated StatsD client for Shopify Node.js servers and other StatsD utilities",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

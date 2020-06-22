@@ -2,7 +2,7 @@
   "name": "@shopify/jest-dom-mocks",
   "version": "2.9.0",
   "license": "MIT",
-  "description": "",
+  "description": "Jest mocking utilities for working with the DOM",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

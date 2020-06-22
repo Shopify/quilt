@@ -2,7 +2,7 @@
   "name": "@shopify/sewing-kit-koa",
   "version": "6.3.3",
   "license": "MIT",
-  "description": "Easily access Sewing Kit assets from a Koa server.",
+  "description": "Easily access Sewing Kit assets from a Koa server",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
