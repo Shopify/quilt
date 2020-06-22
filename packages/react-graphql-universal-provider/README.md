@@ -78,10 +78,9 @@ export function App({url}: {url: URL}) {
 
 ```tsx
 // GraphQL.tsx
-
+import React from 'react';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
-
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
 export function GraphQL({
@@ -96,7 +95,7 @@ export function GraphQL({
   const createClientOptions = () => {
     const link = createHttpLink({
       // make sure to use absolute URL on the server
-      uri: `${url.origin}/merchant/graphql`,
+      uri: `${url.origin}/graphql`,
     });
 
     return {
@@ -127,7 +126,7 @@ This example will also show getting cookie using `@shopify/react-network` but th
 
 ```tsx
 // App.tsx
-
+import React from 'react';
 import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
 import {useRequestHeader} from '@shopify/react-network';
 import {GraphQL} from '../GraphQL';
@@ -149,10 +148,9 @@ export function App({url}: {url: URL}) {
 
 ```tsx
 // GraphQL.tsx
-
+import React from 'react';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
-
 import {useRequestHeader} from '@shopify/react-network';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
@@ -170,7 +168,7 @@ function GraphQL({
   const createClientOptions = () => {
     const link = createHttpLink({
       // make sure to use absolute URL on the server
-      uri: `${url.origin}/merchant/graphql`,
+      uri: `${url.origin}/graphql`,
       headers: {
         cookie,
       },
