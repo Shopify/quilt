@@ -2,7 +2,7 @@
   "name": "@shopify/react-performance",
   "version": "1.3.4",
   "license": "MIT",
-  "description": "Primitives to measure your React application&#x27;s performance using @shopify/performance",
+  "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

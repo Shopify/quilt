@@ -1,7 +1,7 @@
 {
   "name": "quilt",
   "version": "1.0.0",
-  "description": "Shopify's javascript application utilities",
+  "description": "A loosely related set of packages for JavaScript/TypeScript projects at Shopify",
   "scripts": {
     "publish": "lerna publish",
     "build": "yarn tsc --build packages",

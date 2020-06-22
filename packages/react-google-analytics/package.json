@@ -2,7 +2,7 @@
   "name": "@shopify/react-google-analytics",
   "version": "3.1.15",
   "license": "MIT",
-  "description": "Google Analytics",
+  "description": "Allows React apps to easily embed Google Analytics scripts",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

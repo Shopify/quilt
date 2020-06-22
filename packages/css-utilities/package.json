@@ -2,7 +2,7 @@
   "name": "@shopify/css-utilities",
   "version": "1.0.5",
   "license": "MIT",
-  "description": "A set of css styling related utilities.",
+  "description": "A set of CSS styling-related utilities",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

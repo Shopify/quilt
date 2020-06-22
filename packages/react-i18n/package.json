@@ -2,7 +2,7 @@
   "name": "@shopify/react-i18n",
   "version": "5.0.1",
   "license": "MIT",
-  "description": "i18n utilities for React handling translations, formatting, and more.",
+  "description": "i18n utilities for React handling translations, formatting, and more",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

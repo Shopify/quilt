@@ -2,7 +2,7 @@
   "name": "@shopify/koa-liveness-ping",
   "version": "0.1.26",
   "license": "MIT",
-  "description": "A package for creating a liveness ping middleware for use with koa",
+  "description": "A package for creating liveness ping middleware for use with Koa",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

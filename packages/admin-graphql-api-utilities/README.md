@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg)](https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/admin-graphql-api-utilities.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/admin-graphql-api-utilities.svg)
 
-A set of utilities to use when consuming Shopify’s admin graphql api.
+A set of utilities to use when consuming Shopify’s admin GraphQL API.
 
 ## Installation
 

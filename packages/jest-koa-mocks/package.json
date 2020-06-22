@@ -2,7 +2,7 @@
   "name": "@shopify/jest-koa-mocks",
   "version": "2.2.2",
   "license": "MIT",
-  "description": "",
+  "description": "Utilities to easily stub Koa context and cookies",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

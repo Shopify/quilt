@@ -2,7 +2,7 @@
   "name": "@shopify/react-i18n-universal-provider",
   "version": "1.0.60",
   "license": "MIT",
-  "description": "A self-serializing/deserializing i18n provider that works for isomorphic applications.",
+  "description": "A self-serializing/deserializing i18n provider that works for isomorphic applications",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

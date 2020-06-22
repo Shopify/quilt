@@ -2,7 +2,7 @@
   "name": "@shopify/koa-shopify-auth",
   "version": "3.1.63",
   "license": "MIT",
-  "description": "",
+  "description": "Middleware to authenticate a Koa application with Shopify",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

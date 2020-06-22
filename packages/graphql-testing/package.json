@@ -2,7 +2,7 @@
   "name": "@shopify/graphql-testing",
   "version": "4.1.1",
   "license": "MIT",
-  "description": "Utilities to create mock graphql factory.",
+  "description": "Utilities to create mock GraphQL factories",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

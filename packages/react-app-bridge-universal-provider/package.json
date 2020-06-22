@@ -2,7 +2,7 @@
   "name": "@shopify/react-app-bridge-universal-provider",
   "version": "1.0.32",
   "license": "MIT",
-  "description": "A self-serializing/deserializing app-bridge-react provider that works for isomorphic applications.",
+  "description": "A self-serializing/deserializing `app-bridge-react` provider that works for isomorphic applications",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

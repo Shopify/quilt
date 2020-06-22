@@ -2,7 +2,7 @@
   "name": "@shopify/polyfills",
   "version": "1.2.1",
   "license": "MIT",
-  "description": "Blessed polyfills for web platform features.",
+  "description": "Blessed polyfills for web platform features",
   "sideEffects": true,
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",

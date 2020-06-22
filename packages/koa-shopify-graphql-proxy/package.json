@@ -2,7 +2,7 @@
   "name": "@shopify/koa-shopify-graphql-proxy",
   "version": "4.0.0",
   "license": "MIT",
-  "description": "A wrapper around koa-better-http-proxy which allows easy proxying of graphql requests from an embedded shopify app.",
+  "description": "A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

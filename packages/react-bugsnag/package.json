@@ -2,7 +2,7 @@
   "name": "@shopify/react-bugsnag",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "An opinionated wrapper for bugsnag&#x27;s React plugin",
+  "description": "An opinionated wrapper for Bugsnag's React plugin",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

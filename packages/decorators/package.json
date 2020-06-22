@@ -2,7 +2,7 @@
   "name": "@shopify/decorators",
   "version": "1.1.11",
   "license": "MIT",
-  "description": "A set of decorators to aid your JavaScript journey.",
+  "description": "A set of decorators to aid your JavaScript journey",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

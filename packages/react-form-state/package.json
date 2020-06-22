@@ -2,7 +2,7 @@
   "name": "@shopify/react-form-state",
   "version": "0.11.25",
   "license": "MIT",
-  "description": "Manage react forms tersely and type-safe with no magic.",
+  "description": "Manage React forms tersely and type-safely with no magic",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
