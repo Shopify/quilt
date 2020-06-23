@@ -1,3 +1,4 @@
+import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 import {OperationVariables} from 'apollo-client';
 import {DocumentNode} from 'graphql-typed';
 
@@ -13,7 +14,13 @@ export function Query<Data = any, Variables = OperationVariables>({
   query,
   ...options
 }: QueryComponentOptions<Data, Variables>) {
-  const result = useQuery<Data, Variables>(query, options);
+  const opts = [options] as IfAllNullableKeys<
+    Variables,
+    [QueryHookOptions<Data, NoInfer<Variables>>?],
+    [QueryHookOptions<Data, NoInfer<Variables>>]
+  >;
+
+  const result = useQuery(query, ...opts);
 
   return children(result);
 }
