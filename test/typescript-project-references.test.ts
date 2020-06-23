@@ -11,7 +11,7 @@ const projectReferencesConfig = resolve(ROOT, 'tsconfig.json');
 describe('typescript project references', () => {
   const referencesConfig = readJSONSync(projectReferencesConfig);
   const references = referencesConfig.references.map(({path}) =>
-    path.replace('./', ''),
+    path.replace('./packages/', ''),
   );
   const shopifyReferences = references.map(prefixPackageName);
 
