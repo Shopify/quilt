@@ -192,11 +192,7 @@ const MyComponent = createAsyncComponent({
 <MyComponent.Preload />;
 ```
 
-When relying on the default behaviour we do not need to render
-
-```tsx
-<MyComponent.Preload />
-```
+When relying on the default behaviour we do not need to render `MyComponent.Preload`
 
 #### Progressive hydration
 
