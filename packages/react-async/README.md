@@ -194,7 +194,7 @@ const MyComponent = createAsyncComponent({
 
 When relying on the default behaviour we do not need to render `MyComponent.Preload`
 
-In the example below we can just render `MyComponent`
+For example,
 
 ```tsx
 const MyComponent = createAsyncComponent({
