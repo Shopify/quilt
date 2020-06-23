@@ -192,7 +192,7 @@ const MyComponent = createAsyncComponent({
 <MyComponent.Preload />;
 ```
 
-When relying on the library by not including usePreload; in this case, we do not need to have.
+When relying on the default behaviour we do not need to render
 
 ```tsx
 <MyComponent.Preload />
