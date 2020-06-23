@@ -194,6 +194,16 @@ const MyComponent = createAsyncComponent({
 
 When relying on the default behaviour we do not need to render `MyComponent.Preload`
 
+In the example below we can just render `MyComponent`
+
+```tsx
+const MyComponent = createAsyncComponent({
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
+});
+
+<MyComponent />;
+```
+
 #### Progressive hydration
 
 It can sometimes be useful to server render a component, but to wait to load its assets until later in the page lifecycle. This is particularly relevant for large, mostly static components, components that are very likely to be outside the viewport on load, and expensive components that would cause significant layout shifts if only rendered on the client. This library supports this pattern through the `deferHydration` option, and with the help from the [`@shopify/react-hydrate` package](../react-hydrate).
