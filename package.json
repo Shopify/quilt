@@ -1,39 +1,44 @@
 {
   "name": "quilt",
   "version": "1.0.0",
+  "private": true,
   "description": "A loosely related set of packages for JavaScript/TypeScript projects at Shopify",
-  "scripts": {
-    "publish": "lerna publish",
-    "build": "yarn tsc --build packages",
-    "lint": "eslint '**/*.{ts,tsx}'",
-    "lint:changelogs": "node scripts/lint-changelogs.js",
-    "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
-    "_test": "NODE_ICU_DATA=node_modules/full-icu jest",
-    "pretest": "yarn build",
-    "test": "yarn _test --no-coverage",
-    "test:ci": "yarn _test --maxWorkers=3 --coverage",
-    "check": "lerna run check",
-    "release": "yarn lint:changelogs && lerna publish",
-    "release-beta": "lerna publish --dist-tag beta",
-    "clean": "rimraf './packages/*/dist'",
-    "generate": "plop",
-    "generate:package": "plop package && yarn plop docs && prettier --write \"tsconfig.json\"",
-    "tophat": "tophat"
+  "homepage": "https://github.com/shopify/quilt#readme",
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shopify/quilt.git"
   },
-  "author": "Shopify Inc.",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
-  },
-  "homepage": "https://github.com/shopify/quilt#readme",
-  "private": true,
+  "author": "Shopify Inc.",
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "_test": "NODE_ICU_DATA=node_modules/full-icu jest",
+    "build": "yarn tsc --build",
+    "check": "lerna run check",
+    "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
+    "clean": "rimraf './packages/*/dist'",
+    "generate": "plop",
+    "generate:package": "plop package && yarn plop docs && prettier --write \"tsconfig.json\"",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "lint:changelogs": "node scripts/lint-changelogs.js",
+    "publish": "lerna publish",
+    "release": "yarn lint:changelogs && lerna publish",
+    "release-beta": "lerna publish --dist-tag beta",
+    "pretest": "yarn build",
+    "test": "yarn _test --no-coverage",
+    "test:ci": "yarn _test --maxWorkers=3 --coverage",
+    "tophat": "tophat"
+  },
+  "resolutions": {
+    "@types/react": "16.9.19",
+    "@types/react-dom": "16.9.5"
+  },
+  "dependencies": {},
   "devDependencies": {
     "@apollo/react-common": "^3.1.3",
     "@apollo/react-hooks": "^3.1.3",
@@ -84,10 +89,5 @@
     "ts-jest": "^25.3.1",
     "tslib": "^1.9.3",
     "typescript": "^3.7.5"
-  },
-  "dependencies": {},
-  "resolutions": {
-    "@types/react": "16.9.19",
-    "@types/react-dom": "16.9.5"
   }
 }
