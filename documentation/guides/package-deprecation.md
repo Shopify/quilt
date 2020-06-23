@@ -16,7 +16,7 @@ Leaving only `README.md` and `CHANGELOG.md`
 
 ## 3. Delete TS package project reference
 
-Delete the line referencing the deprecate package from [`packages/tsconfig.json`](../../packages/tsconfig.json)
+Delete the line referencing the deprecated package from [`tsconfig.json`](../../tsconfig.json)
 
 ## 4. Global search deprecate package in quilt
 

@@ -1,15 +1,10 @@
 {
-  "extends": "../tsconfig_base.json",
+  "extends": "../../tsconfig_base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
     "rootDir": "."
   },
-  "include": [
-    "../../config/typescript/**/*",
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "**/*.test.ts"
-  ]
+  "include": ["../../config/typescript/**/*", "./src/**/*.ts"],
+  "exclude": ["**/*.test.ts"]
 }

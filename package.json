@@ -17,7 +17,7 @@
     "release-beta": "lerna publish --dist-tag beta",
     "clean": "rimraf './packages/*/dist'",
     "generate": "plop",
-    "generate:package": "plop package && yarn plop docs && prettier --write \"./packages/tsconfig.json\"",
+    "generate:package": "plop package && yarn plop docs && prettier --write \"tsconfig.json\"",
     "tophat": "tophat"
   },
   "repository": {
