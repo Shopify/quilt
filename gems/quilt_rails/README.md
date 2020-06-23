@@ -45,7 +45,7 @@ This will install our ruby dependencies and update the project's gemfile.
 
 This will generate a package.json file with common sewing-kit script tasks, default lint, format configuration; a sewing-kit configuration file, and other project default configurations.
 
-`rails generate quilt::install_demo_app`
+`rails generate quilt:install_demo_app`
 
 Both command will install Node dependencies, mount the Quilt engine in `config/routes.rb`, set up basic linting and format configurations, and provide a demo React app (in TypeScript) that uses all of quilt toolings and is a more complete example of a typical application.
 
