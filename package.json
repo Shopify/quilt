@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "_test": "NODE_ICU_DATA=node_modules/full-icu jest",
-    "build": "yarn tsc --build",
+    "build": "yarn tsc --build packages",
     "check": "lerna run check",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
     "clean": "rimraf './packages/*/dist'",
