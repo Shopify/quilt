@@ -250,6 +250,26 @@ describe('Assets', () => {
         {path: js},
       ]);
     });
+
+    it('replaces the cdn domain if country is China', async () => {
+      const js = 'https://cdn.shopify.com/shopifycloud/app/bundles/script.js';
+      const chinaCdnJs =
+        'https://cdn.shopifycdn.net/shopifycloud/app/bundles/script.js';
+
+      setManifest(
+        mockManifest({
+          entrypoints: {
+            main: mockEntrypoint({
+              scripts: [mockAsset(js)],
+            }),
+          },
+        }),
+      );
+
+      const assets = new Assets({...defaultOptions, countryCode: 'CN'});
+
+      expect(await assets.scripts()).toStrictEqual([{path: chinaCdnJs}]);
+    });
   });
 
   describe('asyncAssets', () => {

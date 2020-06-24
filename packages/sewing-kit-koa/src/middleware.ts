@@ -37,6 +37,7 @@ export default function middleware({
       assetPrefix,
       userAgent: ctx.get(Header.UserAgent),
       manifestPath,
+      countryCode: ctx.get('X-Ip-Metadata'),
     });
 
     setAssets(ctx, assets);

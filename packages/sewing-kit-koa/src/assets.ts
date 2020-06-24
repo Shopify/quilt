@@ -3,7 +3,7 @@ import {join} from 'path';
 import {readJson} from 'fs-extra';
 import appRoot from 'app-root-path';
 
-import {Manifest} from './types';
+import {Asset, Manifest} from './types';
 import {Manifests} from './manifests';
 
 export {Asset} from './types';
@@ -12,6 +12,7 @@ interface Options {
   assetPrefix: string;
   userAgent?: string;
   manifestPath?: string;
+  countryCode?: string;
 }
 
 interface AssetSelector {
@@ -33,19 +34,21 @@ enum AssetKind {
 
 export default class Assets {
   assetPrefix: string;
+  countryCode?: string;
   userAgent?: string;
   private manifests: Manifests;
   private resolvedManifestEntry?: Manifest;
 
-  constructor({assetPrefix, userAgent, manifestPath}: Options) {
+  constructor({assetPrefix, userAgent, manifestPath, countryCode}: Options) {
     this.assetPrefix = assetPrefix;
     this.userAgent = userAgent;
     this.manifests = new Manifests(manifestPath);
+    this.countryCode = countryCode;
   }
 
   async scripts(options: AssetOptions = {}) {
     const js = getAssetsFromManifest(
-      {...options, kind: AssetKind.Scripts},
+      {...options, kind: AssetKind.Scripts, countryCode: this.countryCode},
       await this.getResolvedManifest(options.locale),
     );
 
@@ -62,14 +65,14 @@ export default class Assets {
 
   async styles(options: AssetOptions = {}) {
     return getAssetsFromManifest(
-      {...options, kind: AssetKind.Styles},
+      {...options, kind: AssetKind.Styles, countryCode: this.countryCode},
       await this.getResolvedManifest(options.locale),
     );
   }
 
   async assets(options: AssetOptions) {
     return getAssetsFromManifest(
-      options,
+      {...options, countryCode: this.countryCode},
       await this.getResolvedManifest(options.locale),
     );
   }
@@ -136,7 +139,8 @@ function getAssetsFromManifest(
     name = 'main',
     asyncAssets: asyncIds,
     kind,
-  }: AssetOptions & {kind?: AssetKind},
+    countryCode,
+  }: AssetOptions & {kind?: AssetKind} & {countryCode?: string},
   manifest: Manifest,
 ) {
   const {entrypoints} = manifest;
@@ -164,7 +168,7 @@ function getAssetsFromManifest(
     : [];
 
   if (asyncAssets.length === 0) {
-    return entrypointAssets;
+    return replaceCdnIfRequired(entrypointAssets, countryCode);
   }
 
   const bundleTester = new RegExp(`\\b${name}[^\\.]*\\.${kind}`);
@@ -235,4 +239,17 @@ function kindFromAssetSelector({styles = true, scripts = true}: AssetSelector) {
 
 function isAssetSelector(selector: unknown): selector is AssetSelector {
   return typeof selector === 'object' && selector != null && 'id' in selector;
+}
+
+function replaceCdnIfRequired(assets: Asset[], countryCode?: string) {
+  if (!countryCode || countryCode !== 'CN') {
+    return assets;
+  }
+
+  return assets.map(({path, ...asset}) => {
+    return {
+      ...asset,
+      path: path.replace('//cdn.shopify.com', '//cdn.shopifycdn.net'),
+    };
+  });
 }
