@@ -7,12 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [3.1.1] - 2020-06-24
+
 ### Fixed
+
 - Fix typo in [error message](https://github.com/Shopify/quilt/blob/fefe904fe6e59f11c59092e523f6ee63ba1fd09d/gems/quilt_rails/lib/quilt_rails/react_renderable.rb#L56). ([#1528](https://github.com/Shopify/quilt/pull/1528))
-
-### Remove
-
-- Remove demo app from quilt_rails.
 
 ## [3.1.0] - 2020-06-17
 
@@ -25,7 +24,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Added setting of the javascript path in generator ([#1509](https://github.com/Shopify/quilt/pull/1509))
-- Added a demo app generator that has a more complete example of a typical react app. ([#1509](https://github.com/Shopify/quilt/pull/1509))
 
 ## [3.0.0] - 2020-06-10
 
