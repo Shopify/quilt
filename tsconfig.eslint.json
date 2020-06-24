@@ -1,0 +1,7 @@
+{
+  "extends": "./packages/tsconfig_base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["sewing-kit.config.ts"]
+}

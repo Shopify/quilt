@@ -11,6 +11,7 @@ module.exports = {
       'packages/tsconfig.json',
       'packages/tsconfig_base.json',
       'test/tsconfig.eslint.json',
+      'tsconfig.eslint.json',
     ],
   },
   rules: {
