@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig_base.json",
+  "extends": "../tsconfig_base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
@@ -11,5 +11,8 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [{"path": "../decorators"}, {"path": "../jest-dom-mocks"}]
+  "references": [
+    {"path": "../decorators"},
+    {"path": "../jest-dom-mocks"}
+  ]
 }

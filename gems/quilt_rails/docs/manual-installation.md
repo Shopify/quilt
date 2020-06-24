@@ -6,11 +6,11 @@
   - [Add JavaScript](#add-javascript)
   - [Run the server](#run-the-server)
 
-### Manual Installation
+### Manual installation
 
 An application can also be setup manually using the following steps with an existing Rails application without [`webpacker`](./FAQ.md#i-run-into-webpacker-issue-while-setting-up-quilt_rails).
 
-#### Install Dependencies
+#### Install dependencies
 
 ```sh
 # Add ruby dependencies
@@ -29,7 +29,7 @@ yarn add typescript @types/react @types/react-dom
 🗒️ Ignore `sewing_kit` and `@shopify/sewing-kit` dependencies if you don't have access to it.
 Instead, make sure to use [`react-server webpack plugin`](../../../packages/react-server/README.md#webpack-plugin) with your webpack configuration.
 
-##### Configure TypeScript
+##### Define typescript config
 
 ```json
 // tsconfig.json
@@ -47,11 +47,11 @@ Instead, make sure to use [`react-server webpack plugin`](../../../packages/reac
 yarn
 ```
 
-#### Setup the Rails App
+#### Setup the Rails app
 
-There are two ways to consume this package.
+There are 2 ways to consume this package.
 
-##### Option 1: Mount the engine
+##### Option 1: Mount the Engine
 
 Add the engine to `routes.rb`.
 
@@ -112,13 +112,13 @@ function App() {
 export default App;
 ```
 
-#### Run the Server
+#### Run the server
 
 `bin/rails server`
 
 Will run the application, starting up both servers and compiling assets.
 
-### Application Layout
+### Application layout
 
 #### Minimal
 
