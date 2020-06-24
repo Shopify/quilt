@@ -12,7 +12,7 @@ module GeneratorTestHelpers
   end
 
   def provide_existing_sewing_kit_config_file
-    copy_to_generator_root("config", "sewing-kit.config.ts")
+    copy_to_generator_root("config", "sewing-kit.config.test.ts")
   end
 
   private
