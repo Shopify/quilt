@@ -27,6 +27,7 @@ export class GraphQL {
 
   private readonly pendingRequests = new Set<MockRequest>();
   private readonly wrappers: Wrapper[] = [];
+  private readonly mockLink: MockLink | null = null;
 
   constructor(
     mock: GraphQLMock | undefined,
@@ -43,18 +44,26 @@ export class GraphQL {
       ...cacheOptions,
     });
 
+    this.mockLink = new MockLink(mock || defaultGraphQLMock);
     const link = ApolloLink.from([
       new InflightLink({
         onCreated: this.handleCreate,
         onResolved: this.handleResolve,
       }),
-      new MockLink(mock || defaultGraphQLMock),
+      this.mockLink,
     ]);
 
     this.client = new TestingApolloClient({
       link,
       cache,
     });
+  }
+
+  update(mock: GraphQLMock) {
+    if (!this.mockLink) {
+      return;
+    }
+    this.mockLink.updateMock(mock);
   }
 
   async resolveAll(options: FindOptions = {}) {
