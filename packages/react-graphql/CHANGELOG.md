@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+### Changed
+
+- Replace Apollo declarative Query component with `useQuery` hook ([#1519](https://github.com/Shopify/quilt/pull/1519))
 
 ## [6.1.9] - 2020-05-14
 
