@@ -1,5 +1,6 @@
 schema {
-  query: QueryRoot
+  query: Root
+  mutation: Root
 }
 
 type Dog {
@@ -12,6 +13,6 @@ type Cat {
 
 union Pet = Dog | Cat
 
-type QueryRoot {
+type Root {
   pets: [Pet!]!
 }
