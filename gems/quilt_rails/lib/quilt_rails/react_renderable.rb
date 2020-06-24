@@ -53,7 +53,7 @@ module Quilt
     class ReactServerNoResponseError < StandardError
       def initialize(url)
         # rubocop:disable LineLength
-        super "Errno::ECONNREFUSED: Waiting for React server to boot up. If this error presists verify that @shopify/react-server is configured on #{url}"
+        super "Errno::ECONNREFUSED: Waiting for React server to boot up. If this error persists verify that @shopify/react-server is configured on #{url}"
         # rubocop:enable LineLength
       end
     end
