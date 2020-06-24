@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+- Fix typo in [error message](https://github.com/Shopify/quilt/blob/fefe904fe6e59f11c59092e523f6ee63ba1fd09d/gems/quilt_rails/lib/quilt_rails/react_renderable.rb#L56). ([#1528](https://github.com/Shopify/quilt/pull/1528))
+
 ### Remove
 
 - Remove demo app from quilt_rails.
