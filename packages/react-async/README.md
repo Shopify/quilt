@@ -194,7 +194,7 @@ const MyComponent = createAsyncComponent({
 
 When relying on the default behaviour we do not need to render `MyComponent.Preload`
 
-For example,
+_For example_
 
 ```tsx
 const MyComponent = createAsyncComponent({
@@ -203,6 +203,10 @@ const MyComponent = createAsyncComponent({
 
 <MyComponent />;
 ```
+
+#### Dont use .Preload .Prefetch components with defer
+It is not advisable to use .Preload or .Prefetch components with the defer property. This is because it will be ignored by
+the `<MyComponent.Preload />` and `<MyComponent.Prefetch />` components.
 
 #### Progressive hydration
 
