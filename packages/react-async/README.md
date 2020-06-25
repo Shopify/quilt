@@ -205,7 +205,7 @@ const MyComponent = createAsyncComponent({
 ```
 
 #### Dont use .Preload .Prefetch components with defer
-It is not advisable to use .Preload or .Prefetch components with the defer property. This is because it will be ignored by
+It is not advisable to use .Preload or .Prefetch with the defer property. This is because it will be ignored by
 the `<MyComponent.Preload />` and `<MyComponent.Prefetch />` components.
 
 #### Progressive hydration
