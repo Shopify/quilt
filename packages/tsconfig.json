@@ -1,6 +1,9 @@
 {
   "files": [],
   "include": [],
+  "compilerOptions": {
+    "composite": true
+  },
   "references": [
     {"path": "./address"},
     {"path": "./address-consts"},
