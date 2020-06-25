@@ -1,13 +1,26 @@
-import React from 'react';
-import {Query as ApolloQuery} from '@apollo/react-components';
+import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 import {OperationVariables} from 'apollo-client';
+import {DocumentNode} from 'graphql-typed';
 
-import {QueryProps} from './types';
+import {useQuery, QueryHookResult, QueryHookOptions} from './hooks';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class QueryTypeClass<
-  Data = any,
-  Variables = OperationVariables
-> extends React.Component<QueryProps<Data, Variables>> {}
+interface QueryComponentOptions<Data, Variables> extends QueryHookOptions {
+  children: (result: QueryHookResult<Data, Variables>) => JSX.Element | null;
+  query: DocumentNode<Data, Variables>;
+}
 
-export const Query: typeof QueryTypeClass = ApolloQuery as any;
+export function Query<Data = any, Variables = OperationVariables>({
+  children,
+  query,
+  ...options
+}: QueryComponentOptions<Data, Variables>) {
+  const opts = [options] as IfAllNullableKeys<
+    Variables,
+    [QueryHookOptions<Data, NoInfer<Variables>>?],
+    [QueryHookOptions<Data, NoInfer<Variables>>]
+  >;
+
+  const result = useQuery(query, ...opts);
+
+  return children(result);
+}

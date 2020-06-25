@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [6.1.13] - 2020-06-24
+
+### Changed
+
+- Replace Apollo declarative Query component with `useQuery` hook ([#1519](https://github.com/Shopify/quilt/pull/1519))
+
 ## [6.1.9] - 2020-05-14
 
 ### Changed

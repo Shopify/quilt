@@ -45,11 +45,9 @@ This will install our ruby dependencies and update the project's gemfile.
 
 This will generate a package.json file with common sewing-kit script tasks, default lint, format configuration; a sewing-kit configuration file, and other project default configurations.
 
-`rails generate quilt::install_demo_app`
+`rails generate quilt:install`
 
-Both command will install Node dependencies, mount the Quilt engine in `config/routes.rb`, set up basic linting and format configurations, and provide a demo React app (in TypeScript) that uses all of quilt toolings and is a more complete example of a typical application.
-
-If you prefer to setup all of the React app yourself, `rails generate quilt:install` does the same as above but with a bare bone React app.
+This command will install Node dependencies, mount the Quilt engine in `config/routes.rb`, and provide a bare bone React app (in TypeScript) that.
 
 #### Try it out
 
@@ -302,11 +300,7 @@ import {bugsnagClientApiKey} from 'config/bugsnag';
 const bugsnagClient = createBugsnagClient({apiKey: bugsnagClientApiKey});
 
 export function App() {
-  return (
-    <Bugsnag client={bugsnagClient}>
-        {/* actual app content here */}
-    </Bugsnag>
-  );
+  return <Bugsnag client={bugsnagClient}>{/* actual app content here */}</Bugsnag>;
 }
 ```
 
