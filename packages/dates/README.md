@@ -27,7 +27,7 @@ const date = new Date('2018-06-01Z14:00');
 const timeZone1 = 'Australia/Perth';
 const timeZone2 = 'America/Toronto';
 
-const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2);
+const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2); //'2018-06-01T02:00:00.000Z'
 ```
 
 ### `formatDate`
@@ -330,7 +330,8 @@ Takes in a date object and two optional time zone string parameters. Returns a n
 import {unapplyTimeZoneOffset} from '@shopify/dates';
 
 const date = new Date('2018-06-01Z14:00');
-const timeZone = 'Australia/Perth';
+const timeZone1 = 'Australia/Perth';
+const timeZone2 = 'America/Toronto';
 
-const newDate = unapplyTimeZoneOffset(date, offset);
+const newDate = unapplyTimeZoneOffset(date, timeZone1, timeZone2); //2018-06-02T02:00:00.000Z
 ```
