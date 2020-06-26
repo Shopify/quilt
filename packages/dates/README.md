@@ -18,7 +18,7 @@ Optional time zone parameters that are omitted are inferred as local.
 
 ### `applyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it. We can also assume the passed date is in the first time zone and we want to calculate it in the second time zone.
 
 ```ts
 import {applyTimeZoneOffset} from '@shopify/dates';
@@ -324,7 +324,7 @@ const {
 
 ### `unapplyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it. We can also assume the passed date is in the second time zone and we want to calculate it back in the first time zone.
 
 ```ts
 import {unapplyTimeZoneOffset} from '@shopify/dates';
