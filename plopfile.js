@@ -115,12 +115,8 @@ module.exports = function (plop) {
       return {
         type: 'modify',
         path: `packages/${name}/package.json`,
-        transform: file => {
-          const packageJSON = JSON.parse(file);
-          packageJSON.main = 'index.ts';
-          packageJSON.types = 'index.d.ts';
-          return JSON.stringify(packageJSON);
-        },
+        pattern: /dist\/src\/index/g,
+        template: 'index',
       };
     }),
   });
