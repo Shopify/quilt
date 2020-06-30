@@ -66,7 +66,7 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'packages/{{name}}/sewing-kit.config.ts',
-        templateFile: 'templates/sewing-kit.config.hbs.ts',
+        templateFile: 'templates/sewing-kit.templateconfig.hbs.ts',
       },
       {
         type: 'modify',
@@ -103,7 +103,7 @@ module.exports = function (plop) {
       return {
         type: 'add',
         path: `packages/${name}/sewing-kit.config.ts`,
-        templateFile: 'templates/sewing-kit.config.hbs.ts',
+        templateFile: 'templates/sewing-kit.templateconfig.hbs.ts',
         force: true,
       };
     }),
