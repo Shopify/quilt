@@ -47,3 +47,8 @@ tmp
 
 .sewing-kit
 build
+packages/*/*.esnext
+packages/*/*.node
+packages/*/*.mjs
+packages/*/*.d.ts
+packages/*/*.js
