@@ -24,16 +24,15 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/polyfills/README.md",
   "dependencies": {
+    "@babel/polyfill": "^7.10.1",
     "@shopify/useful-types": "^2.2.0",
     "browser-unhandled-rejection": "^1.0.2",
     "caniuse-api": "^3.0.0",
-    "core-js": "^2.6.5",
     "formdata-polyfill": "^3.0.18",
     "intersection-observer": "^0.5.1",
     "intl-pluralrules": "^0.2.1",
     "mutationobserver-shim": "^0.3.3",
     "node-fetch": "^2.3.0",
-    "regenerator-runtime": "^0.13.4",
     "tslib": "^1.9.3",
     "url-polyfill": "^1.1.7",
     "whatwg-fetch": "^3.0.0"
