@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig_base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": ".",
-    "rootDir": "."
+    "outDir": "./build/ts",
+    "rootDir": "src",
+    "baseUrl": "src"
   },
   "include": [
     "../../config/typescript/**/*",
@@ -11,8 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/*.test.ts", "**/*.test.tsx"],
-  "references": [
-    {"path": "../decorators"},
-    {"path": "../jest-dom-mocks"}
-  ]
+  "references": [{"path": "../decorators"}, {"path": "../jest-dom-mocks"}]
 }

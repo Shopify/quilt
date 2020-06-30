@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig_base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": ".",
-    "rootDir": ".",
+    "outDir": "./build/ts",
+    "rootDir": "src",
+    "baseUrl": "src",
     "paths": {
       "koa": ["node_modules/koa"]
     }
