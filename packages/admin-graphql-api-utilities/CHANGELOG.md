@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [Unreleased]
+## [0.0.14] - 2020-06-30
 
 - Let `parseGid` parse GIDs containing query parameters.
 

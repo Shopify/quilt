@@ -1,6 +1,6 @@
 {
   "name": "@shopify/admin-graphql-api-utilities",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "MIT",
   "description": "A set of utilities to use when consuming Shopify’s admin GraphQL API",
   "main": "dist/src/index.js",
