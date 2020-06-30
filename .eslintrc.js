@@ -45,6 +45,8 @@ module.exports = {
         '**/test/**/*.tsx',
         '**/tests/**/*.ts',
         '**/tests/**/*.tsx',
+        'sewing-kit.config.ts',
+        'config/sewing-kit/**/*',
       ],
       rules: {
         // We disable `import/no-extraneous-dependencies` for test files because it
