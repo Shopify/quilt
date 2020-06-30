@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

@@ -3,8 +3,8 @@
   "version": "2.9.1",
   "license": "MIT",
   "description": "Jest mocking utilities for working with the DOM",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

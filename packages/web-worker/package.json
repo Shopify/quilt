@@ -3,8 +3,8 @@
   "version": "1.4.1",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

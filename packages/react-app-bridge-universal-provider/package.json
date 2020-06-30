@@ -3,8 +3,8 @@
   "version": "1.0.33",
   "license": "MIT",
   "description": "A self-serializing/deserializing `app-bridge-react` provider that works for isomorphic applications",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

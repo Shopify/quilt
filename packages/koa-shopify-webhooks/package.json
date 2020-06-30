@@ -3,8 +3,8 @@
   "version": "2.4.3",
   "license": "MIT",
   "description": "Receive webhooks from Shopify with ease",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

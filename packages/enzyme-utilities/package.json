@@ -3,8 +3,8 @@
   "version": "2.1.13",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

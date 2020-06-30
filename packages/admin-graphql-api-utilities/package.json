@@ -3,8 +3,8 @@
   "version": "0.0.14",
   "license": "MIT",
   "description": "A set of utilities to use when consuming Shopify’s admin GraphQL API",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

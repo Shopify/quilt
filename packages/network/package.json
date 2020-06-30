@@ -3,8 +3,8 @@
   "version": "1.4.7",
   "license": "MIT",
   "description": "Common values related to dealing with the network",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

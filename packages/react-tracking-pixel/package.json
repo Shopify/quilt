@@ -3,8 +3,8 @@
   "version": "3.0.49",
   "license": "MIT",
   "description": "Allows React apps to easily embed tracking pixel iframes",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

@@ -3,8 +3,8 @@
   "version": "2.2.3",
   "license": "MIT",
   "description": "Utilities to easily stub Koa context and cookies",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

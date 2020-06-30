@@ -3,8 +3,8 @@
   "version": "5.0.2",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },

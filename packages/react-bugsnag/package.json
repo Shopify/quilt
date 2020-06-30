@@ -3,8 +3,8 @@
   "version": "1.0.1",
   "license": "MIT",
   "description": "An opinionated wrapper for Bugsnag's React plugin",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
