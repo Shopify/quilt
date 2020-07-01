@@ -2,7 +2,7 @@
   "extends": "../tsconfig_base.json",
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./build/ts",
+    "outDir": "build/ts",
     "baseUrl": "src",
     "rootDir": "src",
     "paths": {
