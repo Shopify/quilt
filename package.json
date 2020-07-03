@@ -19,9 +19,10 @@
   "scripts": {
     "_test": "NODE_ICU_DATA=node_modules/full-icu jest",
     "build": "yarn tsc --build packages",
+    "sk-build": "NODE_OPTIONS='--max-old-space-size=5120' yarn sk build",
     "check": "lerna run check",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
-    "clean": "rimraf './packages/*/build' './packages/*/index*' '.sewing-kit'",
+    "clean": "rimraf './packages/*/build' './packages/*/*.d.ts' './packages/*/*.js' './packages/*/*.esnext' './packages/*/*.mjs' '.sewing-kit'",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs && prettier --write \"tsconfig.json\"",
     "lint": "eslint '**/*.{ts,tsx}'",
