@@ -53,11 +53,17 @@ export default function createOAuthCallback(config: AuthConfig) {
     }
 
     const accessTokenData = await accessTokenResponse.json();
-    const {access_token: accessToken} = accessTokenData;
-
+    const {
+      access_token: accessToken,
+      associated_user_scope: associatedUserScope,
+      associated_user: associatedUser } = accessTokenData;
+    
+    
     if (ctx.session) {
       ctx.session.shop = shop;
       ctx.session.accessToken = accessToken;
+      ctx.session.associatedUserScope = associatedUserScope;
+      ctx.session.associatedUser = associatedUser;
     }
 
     ctx.state.shopify = {
