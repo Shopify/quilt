@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/shopify/graphql-tools-web/issues"
   },
-  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-typescript-definitions",
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/main/packages/graphql-typescript-definitions",
   "scripts": {
     "build": "tsc",
     "pretest": "yarn build",

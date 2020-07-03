@@ -22,7 +22,7 @@ This utility reads schema information from a [`.graphqlconfig`](https://github.c
 
 Each project specifies a `schemaPath`, `include`, and `exclude` globs. Glob patterns match paths relative to the location of the configuration file. Omit `exclude` if empty.
 
-See the [official specification documentation](https://github.com/prisma/graphql-config/blob/master/specification.md#use-cases) for more detail and examples.
+See the [official specification documentation](https://github.com/prisma/graphql-config/blob/main/specification.md#use-cases) for more detail and examples.
 
 #### Example: single nameless project configuration
 

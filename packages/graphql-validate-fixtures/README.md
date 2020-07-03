@@ -18,8 +18,8 @@ yarn add graphql-validate-fixtures --dev
 
 In order to associate a fixture with a GraphQL query or mutation in your app, you must follow one of these conventions:
 
-* Your fixtures are in a directory with a name matching that of the associated GraphQL operation
-* Your fixtures have a key called `@operation` at the top level, which has a string value that is the name of the associated operation
+- Your fixtures are in a directory with a name matching that of the associated GraphQL operation
+- Your fixtures have a key called `@operation` at the top level, which has a string value that is the name of the associated operation
 
 Once this is done, you can validate your fixtures using the CLI or Node.js API.
 
@@ -27,16 +27,16 @@ Once this is done, you can validate your fixtures using the CLI or Node.js API.
 
 On startup this tool performs the following actions:
 
-* Loads all schemas
-* Discovers all operations belonging to each schema
-* Discovers all fixtures and infers operation names as described [above](#Usage)
-* Validates fixtures against the operation with a matching name
-  * Reports operation not found error if no schema matches
-  * Reports ambiguous operation name error if more than one schema matches
+- Loads all schemas
+- Discovers all operations belonging to each schema
+- Discovers all fixtures and infers operation names as described [above](#Usage)
+- Validates fixtures against the operation with a matching name
+  - Reports operation not found error if no schema matches
+  - Reports ambiguous operation name error if more than one schema matches
 
 ### Configuration
 
-This tool reads schema information from a [`.graphqlconfig`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-tool-utilities#configuration) file in the project root.
+This tool reads schema information from a [`.graphqlconfig`](https://github.com/Shopify/graphql-tools-web/tree/main/packages/graphql-tool-utilities#configuration) file in the project root.
 
 ### CLI
 

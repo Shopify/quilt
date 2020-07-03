@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/shopify/graphql-tools-web/issues"
   },
-  "homepage": "https://github.com/shopify/graphql-tools-web/blob/master/packages/graphql-mini-transforms",
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/main/packages/graphql-mini-transforms",
   "tags": [
     "graphql",
     "apollo",

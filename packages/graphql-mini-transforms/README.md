@@ -18,7 +18,7 @@ yarn add graphql-mini-transforms --dev
 
 ### Webpack
 
-This package provides a loader for `.graphql` files in Webpack. This loader automatically minifies and adds a unique identifier to each GraphQL document. These features are used by [`@shopify/webpack-persisted-graphql-plugin`](https://github.com/Shopify/sewing-kit/tree/master/packages/webpack-persisted-graphql-plugin) to generate a mapping of identifiers to GraphQL operations for persisted queries.
+This package provides a loader for `.graphql` files in Webpack. This loader automatically minifies and adds a unique identifier to each GraphQL document. These features are used by [`@shopify/webpack-persisted-graphql-plugin`](https://github.com/Shopify/sewing-kit/tree/main/packages/webpack-persisted-graphql-plugin) to generate a mapping of identifiers to GraphQL operations for persisted queries.
 
 To use this loader in Webpack, add a rule referencing this loader to your Webpack configuration:
 
