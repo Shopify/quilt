@@ -56,8 +56,8 @@ export default function createOAuthCallback(config: AuthConfig) {
     const {
       access_token: accessToken,
       associated_user_scope: associatedUserScope,
-      associated_user: associatedUser } = accessTokenData;
-    
+      associated_user: associatedUser 
+    } = accessTokenData;
     
     if (ctx.session) {
       ctx.session.shop = shop;
