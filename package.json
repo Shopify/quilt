@@ -26,6 +26,7 @@
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs && prettier --write \"tsconfig.json\"",
     "lint": "eslint '**/*.{ts,tsx}'",
+    "sk-lint": "rimraf 'gems/**/tmp/**/*.ts*' && yarn sk lint",
     "lint:changelogs": "node scripts/lint-changelogs.js",
     "publish": "lerna publish",
     "release": "yarn lint:changelogs && lerna publish",

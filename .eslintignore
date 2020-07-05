@@ -5,3 +5,8 @@ coverage
 *.d.ts
 **/templates/*
 **/dummy/**
+**/*.js
+**/packages/*/build/**
+**/packages/*/*.d.ts
+**/packages/*/*.esnext
+**/packages/*/*.mjs
