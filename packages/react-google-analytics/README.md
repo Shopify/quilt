@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg)](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-google-analytics.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-google-analytics.svg)
 
-Allows React apps to easily embed tracking pixel iframes
+Allows React apps to easily embed Google Analytics scripts.
 
 ## Installation
 

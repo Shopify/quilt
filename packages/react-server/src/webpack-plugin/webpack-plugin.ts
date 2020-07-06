@@ -59,15 +59,6 @@ export class ReactServerPlugin {
 
 function serverSource(options: Options, compiler: Compiler) {
   const {port, host, assetPrefix} = options;
-  const serverPort = port ? port : 'process.env.REACT_SERVER_PORT || 8081';
-
-  const serverIp = host
-    ? JSON.stringify(host)
-    : 'process.env.REACT_SERVER_IP || "localhost"';
-
-  const serverAssetPrefix = assetPrefix
-    ? JSON.stringify(assetPrefix)
-    : 'process.env.CDN_URL || "localhost:8080/assets/webpack"';
 
   return `
     ${HEADER}
@@ -98,9 +89,9 @@ function serverSource(options: Options, compiler: Compiler) {
     }
 
     const app = createServer({
-      port: ${serverPort},
-      ip: ${serverIp},
-      assetPrefix: ${serverAssetPrefix},
+      port: ${port},
+      ip: ${JSON.stringify(host)},
+      assetPrefix: ${JSON.stringify(assetPrefix)},
       render,
       ${
         errorSSRComponentExists(options, compiler)

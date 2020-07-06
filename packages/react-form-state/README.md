@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg)](https://badge.fury.io/js/%40shopify%2Freact-form-state.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form-state.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form-state.svg)
 
-Manage react forms tersely and safely-typed with no magic.
+Manage React forms tersely and type-safely with no magic.
 
 This library is now superseded by [@shopify/react-form](https://github.com/Shopify/quilt/tree/master/packages/react-form) as it allows you to write the preferred, functional, and hooks-driven React components over class-based ones.
 

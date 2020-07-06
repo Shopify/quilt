@@ -173,6 +173,41 @@ const MyModalComponent = createAsyncComponent({
 });
 ```
 
+#### When to use MyComponent.Preload, MyComponent.Prefetch and MyComponent.KeepFresh
+
+```tsx
+<MyComponent.Preload />
+```
+
+Will only be required when you purposely want to control the pre-loading.
+
+_For example_
+
+```tsx
+const MyComponent = createAsyncComponent({
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
+  usePreload: () => usePreload(MyQuery),
+});
+
+<MyComponent.Preload />;
+```
+
+When relying on the default behaviour we do not need to render `MyComponent.Preload`
+
+_For example_
+
+```tsx
+const MyComponent = createAsyncComponent({
+  load: () => import(/* webpackChunkName: 'MyComponent' */ './MyComponent'),
+});
+
+<MyComponent />;
+```
+
+#### Dont use .Preload .Prefetch components with defer
+It is not advisable to use .Preload or .Prefetch with the defer property. This is because it will be ignored by
+the `<MyComponent.Preload />` and `<MyComponent.Prefetch />` components.
+
 #### Progressive hydration
 
 It can sometimes be useful to server render a component, but to wait to load its assets until later in the page lifecycle. This is particularly relevant for large, mostly static components, components that are very likely to be outside the viewport on load, and expensive components that would cause significant layout shifts if only rendered on the client. This library supports this pattern through the `deferHydration` option, and with the help from the [`@shopify/react-hydrate` package](../react-hydrate).

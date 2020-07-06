@@ -59,29 +59,6 @@ describe('webpack-plugin', () => {
     );
 
     it(
-      'uses process.env to default port and host',
-      async () => {
-        const name = 'rails-process-env';
-
-        await withWorkspace(name, async ({workspace}) => {
-          await workspace.write('index.js', BASIC_JS_MODULE);
-          await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
-
-          const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'server');
-
-          expect(serverModule.source).toMatch(
-            'ip: process.env.REACT_SERVER_IP',
-          );
-          expect(serverModule.source).toMatch(
-            'port: process.env.REACT_SERVER_PORT',
-          );
-        });
-      },
-      BUILD_TIMEOUT,
-    );
-
-    it(
       'does not use the generated client module when a folder with an index file is present',
       async () => {
         const name = 'client-index-entrypoint';
@@ -380,7 +357,6 @@ const createWebpackConfig = (
 ) => `
 const path = require('path');
 const {ReactServerPlugin} = require('../../../webpack-plugin');
-
 const universal = {
   mode: 'production',
   optimization: {
@@ -396,7 +372,6 @@ const universal = {
     modules: ['node_modules', path.resolve(__dirname, '${basePath}')],
   },
 };
-
 const server = {
   ...universal,
   name: 'server',
@@ -411,14 +386,12 @@ const server = {
     },
   ],
 };
-
 const client = {
   ...universal,
   name: 'client',
   target: 'web',
   entry: './${basePath}/client',
 };
-
 module.exports = [server, client];`;
 
 const printIf = (key, value) => {

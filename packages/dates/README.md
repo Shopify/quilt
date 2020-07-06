@@ -18,7 +18,7 @@ Optional time zone parameters that are omitted are inferred as local.
 
 ### `applyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it. We can also assume the passed date is in the first time zone and we want to calculate it in the second time zone.
 
 ```ts
 import {applyTimeZoneOffset} from '@shopify/dates';
@@ -27,7 +27,7 @@ const date = new Date('2018-06-01Z14:00');
 const timeZone1 = 'Australia/Perth';
 const timeZone2 = 'America/Toronto';
 
-const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2);
+const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2); //'2018-06-01T02:00:00.000Z'
 ```
 
 ### `formatDate`
@@ -324,13 +324,14 @@ const {
 
 ### `unapplyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it. We can also assume the passed date is in the second time zone and we want to calculate it back in the first time zone.
 
 ```ts
 import {unapplyTimeZoneOffset} from '@shopify/dates';
 
 const date = new Date('2018-06-01Z14:00');
-const timeZone = 'Australia/Perth';
+const timeZone1 = 'Australia/Perth';
+const timeZone2 = 'America/Toronto';
 
-const newDate = unapplyTimeZoneOffset(date, offset);
+const newDate = unapplyTimeZoneOffset(date, timeZone1, timeZone2); //2018-06-02T02:00:00.000Z
 ```

@@ -37,10 +37,9 @@ module Quilt
       end
 
       begin
-
         reverse_proxy(
           url,
-          headers: headers.merge('X-CSRF-Token': form_authenticity_token, 'X-Quilt-Data': headers.merge(data).to_json)
+          headers: headers.merge('X-Quilt-Data': data.to_json)
         ) do |callbacks|
           callbacks.on_response do |status_code, _response|
             Quilt::Logger.log("[ReactRenderable] #{url} returned #{status_code}")
@@ -54,7 +53,7 @@ module Quilt
     class ReactServerNoResponseError < StandardError
       def initialize(url)
         # rubocop:disable LineLength
-        super "Errno::ECONNREFUSED: Waiting for React server to boot up. If this error presists verify that @shopify/react-server is configured on #{url}"
+        super "Errno::ECONNREFUSED: Waiting for React server to boot up. If this error persists verify that @shopify/react-server is configured on #{url}"
         # rubocop:enable LineLength
       end
     end

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-idle.svg)](https://badge.fury.io/js/%40shopify%2Freact-idle.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-idle.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-idle.svg)
 
-Utilities for working with [idle callbacks](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) in React
+Utilities for working with [idle callbacks](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) in React.
 
 ## Installation
 

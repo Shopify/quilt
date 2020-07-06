@@ -9,6 +9,7 @@
     {"path": "./ast-utilities"},
     {"path": "./async"},
     {"path": "./browser"},
+    {"path": "./react-bugsnag"},
     {"path": "./csrf-token-fetcher"},
     {"path": "./css-utilities"},
     {"path": "./dates"},

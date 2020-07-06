@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy)
 
-A wrapper around koa-better-http-proxy which allows easy proxying of graphql requests from an embedded shopify app.
+A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app.
 
 ## Installation
 

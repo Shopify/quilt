@@ -23,7 +23,7 @@ A turn-key solution for integrating Quilt client-side libraries into your Rails 
 
 ## Server-side-rendering
 
-🗒 This guide is focused on internal Shopify developers with access to [`dev`](https://github.com/Shopify/dev) and [@shopify/sewing-kit](https://github.com/Shopify/sewing-kit). A similar setup can be achieved using the [manual installation](./docs/manual-installation.md) , and following the [react-server webpack plugin](../../packages/react-server/README.md#webpack-plugin) guide. Apps not running on Shopify infrastructure should [disable server-side GraphQL queries](./docs/FAQ.md) to avoid scalability issue.
+🗒 This guide is focused on internal Shopify developers with access [@shopify/sewing-kit](https://github.com/Shopify/sewing-kit). A similar setup can be achieved using the [manual installation](./docs/manual-installation.md) , and following the [react-server webpack plugin](../../packages/react-server/README.md#webpack-plugin) guide. Apps not running on Shopify infrastructure should [disable server-side GraphQL queries](./docs/FAQ.md) to avoid scalability issue.
 
 ### Quick start
 
@@ -31,12 +31,7 @@ Using the magic of generators, we can spin up a basic app with a few console com
 
 #### Generate Rails boilerplate
 
-With access to [`dev`](https://github.com/Shopify/dev), you can use `dev init` to scaffold out a Rails application.
-When prompted, choose `rails`. This will generate a basic Rails application scaffold.
-
-Alternatively, you can use [`rails new .`](https://guides.rubyonrails.org/command_line.html#rails-new) to do the same.
-
-In either case, remove [`webpacker`](./docs/FAQ.md#i-run-into-webpacker-issue-while-setting-up-quilt_rails) and [these files](./docs/FAQ.md#any-other-files-i-should-remove-before-running-generator) that any create conflict before continuing.
+Use [`rails new . --skip-javascript`](https://guides.rubyonrails.org/command_line.html#rails-new) to scaffold out a Rails application.to do the same.
 
 #### Add Ruby dependencies
 
@@ -52,13 +47,12 @@ This will generate a package.json file with common sewing-kit script tasks, defa
 
 `rails generate quilt:install`
 
-This will install Node dependencies, provide a basic React app (in TypeScript), and mount the Quilt engine in `config/routes.rb`. Basic linting and format configurations are also generated.
+This command will install Node dependencies, mount the Quilt engine in `config/routes.rb`, and provide a bare bone React app (in TypeScript) that.
 
 #### Try it out
 
 ```sh
-dev up
-dev server
+bin/rails server
 ```
 
 Will run the application, starting up both servers and compiling assets.
@@ -137,6 +131,8 @@ function App() {
 export default App;
 ```
 
+**Note:** This solution works out of the box for initial server-side renders. If you wish to have consistent access to request headers on subsequent client-side renders, take a look at [`NetworkUniversalProvider`](https://github.com/Shopify/quilt/tree/master/packages/react-network#networkuniversalprovider).
+
 ##### Example: sending custom headers from Rails controller
 
 In some cases you may want to send custom headers from Rails to your React server. Quilt facilitates this case by providing consumers with a `headers` argument on the `render_react` call.
@@ -150,6 +146,8 @@ class ReactController < ApplicationController
   end
 end
 ```
+
+🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation#add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
 
 Headers can be accessed during server-side-rendering with the `useRequestHeader` hook from `@shopify/react-network`.
 
@@ -183,7 +181,9 @@ class ReactController < ApplicationController
 end
 ```
 
-If using the webpack plugin, this will be automatically passed into your application as the `data` prop.
+🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation#add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
+
+If using `react-server` without a customized server & client file, this will be automatically passed into your application as the `data` prop. If `react-server` is not being used or a customized server / client file was provided, check out [`react-server/webpack-plugin`](../../packages/react-server/src/webpack-plugin/webpack-plugin.ts) on how to pass the data to React.
 
 ```tsx
 // app/ui/index.tsx
@@ -222,7 +222,7 @@ export default App;
 
 With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. When using `@shopify/react-server`, the best tool for this job is [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/react-html#in-your-application-code) hook.
 
-`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [CSRF](https://github.com/Shopify/quilt/tree/master/packages/react-csrf-universal-provider), [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/react-graphql-universal-provider), [I18n](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider), and the [Shopify App Bridge](https://github.com/Shopify/quilt/tree/master/packages/react-app-bridge-universal-provider).
+`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/react-graphql-universal-provider), and [I18n](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider).
 
 #### Customizing the Node server
 
@@ -244,6 +244,10 @@ When a React component sends HTTP requests back to a Rails endpoint (e.g., `/gra
 
 If your API **does not** require session data, the easiest way to deal with this is to use `protect_from_forgery with: :null_session`. This will work for APIs that either have no authentication requirements, or use header based authentication.
 
+While `Can't verify CSRF token authenticity` error will persist, `protect_from_forgery with: :null_session` will keep CSRF protection while ensuring the session is nullified when a token is not sent in to be more secure.
+
+You can also add `self.log_warning_on_csrf_failure = false` to the controller to suppress this error all together.
+
 ##### Example
 
 ```rb
@@ -263,7 +267,7 @@ end
 If your API **does** require session data, you can follow these steps:
 
 - Add an `x-shopify-react-xhr` header to all GraphQL requests with a value of 1 (this is done automatically if you are using `@shopify/react-graphql-universal-provider`)
-- Add a `protect_from_forgery with: Quilt::HeaderCsrfStrategy` override to your controllers
+- Add a `protect_from_forgery with: Quilt::HeaderCsrfStrategy` override to your API controllers
 
 ##### Example
 
@@ -279,6 +283,25 @@ class GraphqlController < ApplicationController
     render(json: result)
   end
 end
+```
+
+#### Exception monitoring with Bugsnag
+
+For an opinionated universal Bugsnag+React setup we provide and support [`@shopify/react-bugsnag`](https://github.com/Shopify/quilt/tree/master/packages/react-bugsnag).
+
+##### Example
+
+```typescript
+// app/ui/index.tsx
+import React from 'react';
+import {Bugsnag, createBugsnagClient} from 'utilities/bugsnag';
+import {bugsnagClientApiKey} from 'config/bugsnag';
+
+const bugsnagClient = createBugsnagClient({apiKey: bugsnagClientApiKey});
+
+export function App() {
+  return <Bugsnag client={bugsnagClient}>{/* actual app content here */}</Bugsnag>;
+}
 ```
 
 ## Performance tracking a React app

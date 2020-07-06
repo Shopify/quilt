@@ -67,13 +67,9 @@ import {getAssets} from '@shopify/sewing-kit-koa';
 
 app.use(async ctx => {
   const assets = getAssets(ctx);
-  
-  const styles = (await assets.styles({name: 'error'})).map(
-    ({path}) => path,
-  );
-  const scripts = (await assets.scripts({name: 'error'})).map(
-    ({path}) => path,
-  );
+
+  const styles = (await assets.styles({name: 'error'})).map(({path}) => path);
+  const scripts = (await assets.scripts({name: 'error'})).map(({path}) => path);
 
   ctx.body = `Error page needs the following assets: ${[
     ...styles,

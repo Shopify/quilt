@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [4.2.0] - 2020-06-24
+
+### Changed
+
+- Add subsequential request mocking support ([#1534](https://github.com/Shopify/quilt/pull/1534))
+
 ## [4.1.0] - 2020-04-20
 
 ### Changed

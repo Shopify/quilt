@@ -1,5 +1,5 @@
 import {GraphQLSchema} from 'graphql';
-import {GraphQLRequest, ApolloLink} from 'apollo-link';
+import {ApolloLink} from 'apollo-link';
 import {
   ApolloReducerConfig,
   InMemoryCache,
@@ -22,20 +22,12 @@ export type MockGraphQLClient = ApolloClient<any> & {
   graphQLResults: Promise<any>[];
 };
 
-function defaultGraphQLMock({operationName}: GraphQLRequest) {
-  return new Error(
-    `Can’t perform GraphQL operation '${
-      operationName || ''
-    }' because no mocks were set.`,
-  );
-}
-
 export default function configureClient({
   unionOrIntersectionTypes = [],
   schema,
   cacheOptions = {},
 }: GraphQLClientConfig) {
-  return function createGraphQLClient(mock: GraphQLMock = defaultGraphQLMock) {
+  return function createGraphQLClient(mock: GraphQLMock = {}) {
     const cache = new InMemoryCache({
       fragmentMatcher: new IntrospectionFragmentMatcher({
         introspectionQueryResultData: {
@@ -57,15 +49,17 @@ export default function configureClient({
       }
       graphQLRequests.push(operation);
       let resolver: Function;
+      let rejecter: Function;
       graphQLResults.push(
-        new Promise(resolve => {
+        new Promise((resolve, reject) => {
           resolver = resolve;
+          rejecter = reject;
         }),
       );
       const observer = forward(operation);
       observer.subscribe(
         next => resolver(next),
-        err => resolver(err),
+        err => rejecter(err),
       );
       return observer;
     });

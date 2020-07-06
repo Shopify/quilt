@@ -28,6 +28,24 @@ describe('admin-graphql-api-utilities', () => {
       const gid = `gid://shopify/Section/${id}`;
       expect(parseGid(gid)).toStrictEqual(id);
     });
+
+    it('returns the id portion of a gid with a query parameter', () => {
+      const id = v4();
+      const gid = `gid://shopify/Section/${id}?foo=bar`;
+      expect(parseGid(gid)).toStrictEqual(id);
+    });
+
+    it('returns the id portion of a gid with multiple query parameters', () => {
+      const id = v4();
+      const gid = `gid://shopify/Section/${id}?foo=bar&baz=0`;
+      expect(parseGid(gid)).toStrictEqual(id);
+    });
+
+    it('returns the id portion of a gid with a query parameter with extended character set', () => {
+      const id = v4();
+      const gid = `gid://shopify/Section/${id}?foo-a=bar_baz`;
+      expect(parseGid(gid)).toStrictEqual(id);
+    });
   });
 
   describe('composeGid()', () => {

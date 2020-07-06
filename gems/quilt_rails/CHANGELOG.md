@@ -5,7 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [3.1.1] - 2020-06-24
+
+### Fixed
+
+- Fix typo in [error message](https://github.com/Shopify/quilt/blob/fefe904fe6e59f11c59092e523f6ee63ba1fd09d/gems/quilt_rails/lib/quilt_rails/react_renderable.rb#L56). ([#1528](https://github.com/Shopify/quilt/pull/1528))
+
+## [3.1.0] - 2020-06-17
+
+### Changed
+
+- Remove automatic passing of `X-CSRF-Token` in the header. With [csrf header strategy](./README.md#fixing-rejected-csrf-tokens-for-new-user-sessions) you should not need this value for GraphQL request. If absolutely needed, use [custom headers method](./README.md#example:-sending-custom-headers-from-rails-controller) to pass the value manually. ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+- Remove installation of `@shopify/react-server` from the generator. ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+### Added
+
+- Added setting of the javascript path in generator ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+## [3.0.0] - 2020-06-10
+
+### Changed
+
+- `data` header now only contains "data", and omits any custom headers passed into `render_react`. Consumers of this gem are encouraged to use the new `NetworkUniversalProvider` in `@shopify/react-network` to access headers on client-side renders
 
 ## [2.0.0] - 2020-06-08
 
