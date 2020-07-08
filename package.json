@@ -34,7 +34,9 @@
     "pretest": "yarn build",
     "test": "yarn _test --no-coverage",
     "test:ci": "yarn _test --maxWorkers=3 --coverage",
-    "tophat": "tophat"
+    "tophat": "tophat",
+    "symlink": "yarn install && for p in node_modules/@sewing-kit/*; do yarn link ${p:13}; done",
+    "unsymlink": "rimraf node_modules && yarn install"
   },
   "resolutions": {
     "@types/react": "16.9.19",
