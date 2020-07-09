@@ -8,7 +8,7 @@ import {javascript} from '@sewing-kit/plugin-javascript';
 import {typescript} from '@sewing-kit/plugin-typescript';
 import {buildFlexibleOutputs} from '@sewing-kit/plugin-package-flexible-outputs';
 
-export function quiltPackage({binaryOnly = false, jestEnv = 'jsdom'} = {}) {
+export function quiltPackage({binaryOnly = true, jestEnv = 'jsdom'} = {}) {
   return createComposedProjectPlugin<Package>('Quilt.DefaultProject', [
     javascript(),
     typescript(),
