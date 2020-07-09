@@ -28,6 +28,10 @@ export function quiltPackage({binaryOnly = true, jestEnv = 'jsdom'} = {}) {
           ...config,
           setupFiles: ['../../test/setup.ts'],
           setupFilesAfterEnv: ['../../test/each-test.ts'],
+          transform: {
+            ...config.transform,
+            '\\.(gql|graphql)$': 'jest-transform-graphql',
+          },
         }));
       });
     }),
