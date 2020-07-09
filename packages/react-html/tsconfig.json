@@ -16,6 +16,7 @@
     {"path": "../react-hydrate"},
     {"path": "../react-testing"},
     {"path": "../useful-types"},
+    {"path": "../jest-dom-mocks"},
     {"path": "../with-env"}
   ]
 }
