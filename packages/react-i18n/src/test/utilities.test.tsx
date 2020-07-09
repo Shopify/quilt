@@ -9,7 +9,7 @@ import {
   memoizedPluralRules,
 } from '../utilities';
 
-const {pseudotranslate} = require.requireMock('@shopify/i18n') as {
+const {pseudotranslate} = jest.requireMock('@shopify/i18n') as {
   pseudotranslate: jest.Mock;
 };
 

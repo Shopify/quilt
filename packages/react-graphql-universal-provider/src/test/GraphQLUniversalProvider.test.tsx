@@ -17,7 +17,7 @@ jest.mock('@shopify/react-graphql', () => {
   /* eslint-enable @typescript-eslint/no-var-requires */
 
   return {
-    ...require.requireActual('@shopify/react-graphql'),
+    ...jest.requireActual('@shopify/react-graphql'),
     createGraphQLClient: jest.fn(
       () =>
         new ApolloClient({cache: new InMemoryCache(), link: new ApolloLink()}),

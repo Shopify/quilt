@@ -7,7 +7,7 @@ import {useCookie} from '../hooks';
 
 import {clearCookies} from './utilities';
 
-const {hasDocumentCookie} = require.requireMock('../utilities');
+const {hasDocumentCookie} = jest.requireMock('../utilities');
 
 jest.mock('../utilities', () => ({
   hasDocumentCookie: jest.fn(),

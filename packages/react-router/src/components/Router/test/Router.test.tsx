@@ -8,7 +8,7 @@ jest.mock('../utilities', () => ({
   isClient: jest.fn(),
 }));
 
-const {isClient} = require.requireMock('../utilities') as {
+const {isClient} = jest.requireMock('../utilities') as {
   isClient: jest.Mock;
 };
 

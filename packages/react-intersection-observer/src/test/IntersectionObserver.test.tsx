@@ -9,7 +9,7 @@ jest.mock('../utilities', () => ({
   isSupported: jest.fn(),
 }));
 
-const {isSupported} = require.requireMock('../utilities') as {
+const {isSupported} = jest.requireMock('../utilities') as {
   isSupported: jest.Mock;
 };
 
