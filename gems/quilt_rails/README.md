@@ -171,6 +171,8 @@ In some cases you may want to send basic data from Rails to your React server. Q
 
 **Note:** The data passed should be data that is unlikely or will never change over the course of the session before they render any React components.
 
+**Note:** Please note the minimal dependencies require to use this feature is listed in [CHANGELOG](./CHANGELOG.md#[1.12.0]-2020-05-07)
+
 ```ruby
 class ReactController < ApplicationController
   include Quilt::ReactRenderable
