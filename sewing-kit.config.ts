@@ -9,7 +9,7 @@ export default createWorkspace(workspace => {
     eslint(),
     jest(),
     workspaceTypeScript(),
-    createWorkspaceBuildPlugin('Quilt.BabelBuild', ({hooks}) => {
+    createWorkspaceBuildPlugin('Quilt.Build', ({hooks}) => {
       hooks.configure.hook(hooks => {
         hooks.babelConfig?.hook(_ => ({
           presets: [
