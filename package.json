@@ -34,6 +34,7 @@
     "pretest": "yarn build",
     "test": "yarn _test --no-coverage",
     "test:ci": "yarn _test --maxWorkers=3 --coverage",
+    "sk-test": "NODE_ICU_DATA=node_modules/full-icu yarn sk test",
     "tophat": "tophat",
     "symlink": "yarn install && for p in node_modules/@sewing-kit/*; do yarn link ${p:13}; done",
     "unsymlink": "rimraf node_modules && yarn install"
