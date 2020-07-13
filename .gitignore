@@ -52,3 +52,4 @@ packages/*/*.node
 packages/*/*.mjs
 packages/*/*.d.ts
 packages/*/*.js
+test/*.d.ts
