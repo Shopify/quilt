@@ -56,7 +56,7 @@ export function createServer(options: Options): Server {
 
   app.use(createRender(render, {assetPrefix, assetName, renderError}));
 
-  return app.listen(port || 3000, () => {
+  return app.listen(port || 3000, ip, () => {
     logger.log(`started react-server on ${ip}:${port}`);
   });
 }
