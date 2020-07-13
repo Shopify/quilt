@@ -31,7 +31,7 @@ dev up
 
 ### Getting productive
 
-We are adding documentation as we go in the [Web Foundation repo](https://github.com/Shopify/web-foundation). There you will find our [decision records](https://github.com/Shopify/web-foundation/tree/master/Decision%20records), [principles](https://github.com/Shopify/web-foundation/tree/master/Principles), [best practices](https://github.com/Shopify/web-foundation/tree/master/Best%20practices) and [styleguides](https://github.com/Shopify/web-foundation/tree/master/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundation/blob/master/Best%20practices/Testing.md) different kinds of components.
+We are adding documentation as we go in the [Web Foundation repo](https://github.com/Shopify/web-foundation). There you will find our [decision records](https://github.com/Shopify/web-foundation/tree/main/handbook/Decision%20records), [principles](https://github.com/Shopify/web-foundation/tree/main/handbook/Principles), [best practices](https://github.com/Shopify/web-foundation/tree/main/handbook/Best%20practices) and [styleguides](https://github.com/Shopify/web-foundation/blob/main/handbook/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundation/blob/main/handbook/Best%20practices/Testing.md) different kinds of components.
 
 The [documentation](../documentation) directory in this repo covers the more granular technical aspects of this project. Of particular note for new folks are the following:
 
