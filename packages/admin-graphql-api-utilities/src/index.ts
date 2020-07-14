@@ -1,5 +1,5 @@
 const GID_TYPE_REGEXP = /^gid:\/\/[\w-]+\/([\w-]+)\//;
-const GID_REGEXP = /\/(\w[\w-]*)(?:\?([\w-]+=[\w-]+(&[\w-]+=[\w-]+)*))*$/;
+const GID_REGEXP = /\/(\w[\w-]*)(?:\?(.*))*$/;
 
 interface ParsedGID {
   id: string;
@@ -33,13 +33,7 @@ export function parseGidWithParams(gid: string): ParsedGID {
     const params =
       matches[2] === undefined
         ? {}
-        : matches[2]
-            .split('&')
-            .reduce<Record<string, string>>((acc, keyVal) => {
-              const [key, value] = keyVal.split('=');
-              acc[key] = value;
-              return acc;
-            }, {});
+        : fromEntries(new URLSearchParams(matches[2]).entries());
 
     return {
       id: matches[1],
@@ -49,7 +43,7 @@ export function parseGidWithParams(gid: string): ParsedGID {
   throw new Error(`Invalid gid: ${gid}`);
 }
 
-export function createComposeGidFunction(namescape: string) {
+export function composeGidFactory(namescape: string) {
   return function composeGid(
     key: string,
     id: number | string,
@@ -62,22 +56,12 @@ export function createComposeGidFunction(namescape: string) {
       return gid;
     }
 
-    const queryParams = paramKeys
-      .map(query => {
-        if (params[query] == null) {
-          return null;
-        }
-
-        return `${query}=${params[query]}`;
-      })
-      .filter(Boolean)
-      .join('&');
-
-    return `${gid}?${queryParams}`;
+    const paramString = new URLSearchParams(params).toString();
+    return `${gid}?${paramString}`;
   };
 }
 
-export const composeGid = createComposeGidFunction('shopify');
+export const composeGid = composeGidFactory('shopify');
 
 interface Edge<T> {
   node: T;
@@ -92,4 +76,13 @@ export function keyFromEdges<T, K extends keyof T>(
   key: K,
 ): T[K][] {
   return edges.map(({node}) => node[key]);
+}
+
+// Once we update to Node 12, we can drop this helper to use `Object.fromEntries` instead.
+function fromEntries<K extends string, T>(entries: IterableIterator<[K, T]>) {
+  const obj = {} as Record<K, T>;
+  for (const [key, val] of entries) {
+    obj[key] = val;
+  }
+  return obj;
 }

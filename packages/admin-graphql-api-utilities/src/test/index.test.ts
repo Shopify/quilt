@@ -4,7 +4,7 @@ import {
   parseGidType,
   parseGid,
   parseGidWithParams,
-  createComposeGidFunction,
+  composeGidFactory,
   composeGid,
   nodesFromEdges,
   keyFromEdges,
@@ -126,9 +126,9 @@ describe('admin-graphql-api-utilities', () => {
     });
   });
 
-  describe('createComposeGidFunction()', () => {
+  describe('composeGidFactory()', () => {
     it('returns a function to compose "shopify" gid', () => {
-      const customComposeGid = createComposeGidFunction('shopify');
+      const customComposeGid = composeGidFactory('shopify');
       const id = 123;
       const key = 'Section';
       expect(customComposeGid(key, id)).toStrictEqual(
@@ -137,7 +137,7 @@ describe('admin-graphql-api-utilities', () => {
     });
 
     it('returns a function to compose "custom" gid', () => {
-      const customComposeGid = createComposeGidFunction('custom-app');
+      const customComposeGid = composeGidFactory('custom-app');
       const id = 123;
       const key = 'Section';
       expect(customComposeGid(key, id)).toStrictEqual(
@@ -146,7 +146,7 @@ describe('admin-graphql-api-utilities', () => {
     });
 
     it('returns the composed Gid with params', () => {
-      const customComposeGid = createComposeGidFunction('custom-app');
+      const customComposeGid = composeGidFactory('custom-app');
       const id = 'button';
       const key = 'Section';
       const params = {foo: 'bar', hello: 'world'};

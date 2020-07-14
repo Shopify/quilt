@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- Add `parseGidWithParams` and `createComposeGidFunction`. Also add support for optional params in `composeGid` ([#1548](https://github.com/Shopify/quilt/pull/1548))
+- Add `parseGidWithParams` and `composeGidFactory`. Also add support for optional params in `composeGid` ([#1548](https://github.com/Shopify/quilt/pull/1548))
 
 ## [0.0.14] - 2020-06-30
 
