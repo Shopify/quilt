@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+### Added
+
+- Added a `--skip-yarn` option when running the `bin/rails generate sewing_kit:install` generator. This option is mostly
+  using for tools to control when yarn dependencies get installed in the case where you implemented a caching mechanism.
+  ([#1552](https://github.com/Shopify/quilt/pull/1552))
+
 ## [3.1.1] - 2020-06-24
 
 ### Fixed
