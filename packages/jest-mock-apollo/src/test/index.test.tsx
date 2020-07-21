@@ -74,8 +74,8 @@ function SomePage() {
   );
 }
 
-function clickButton(wrapper) {
-  wrapper.find('button', {type: 'submit'}).trigger('onClick');
+async function clickButton(wrapper) {
+  await wrapper.find('button', {type: 'submit'}).trigger('onClick');
 }
 
 async function waitToResolve(wrapper, graphQLClient = client) {
@@ -171,7 +171,7 @@ describe('jest-mock-apollo', () => {
       });
 
       await waitToResolve(somePage, client);
-      clickButton(somePage);
+      await clickButton(somePage);
       await waitToResolve(somePage, client);
 
       const query = client.graphQLRequests.lastOperation('PetMutation');
