@@ -120,9 +120,10 @@ describe('createRender', () => {
     it('throws a 500 with a meaningful error message in production', () => {
       withEnv('production', async () => {
         const ctx = {...createMockContext(), locale: ''};
+        const noopSpy = () => {};
         const throwSpy = jest
           .spyOn(ctx, 'throw')
-          .mockImplementation(() => null);
+          .mockImplementation(noopSpy as any);
 
         const renderFunction = createRender(() => <BrokenApp />);
         await renderFunction(ctx, noop);

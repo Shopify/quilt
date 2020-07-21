@@ -1,11 +1,10 @@
 import React from 'react';
 import {useTitle} from '@shopify/react-html';
 import {useCookie, CookieUniversalProvider} from '@shopify/react-cookie';
+import {saddle, unsaddle} from 'saddle-up';
 
+import {mockMiddleware} from '../../test/utilities';
 import {createServer} from '../server';
-import {mockMiddleware, TestRack} from '../../test/utilities';
-
-const rack = new TestRack();
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
   middleware: jest.fn(() => mockMiddleware),
@@ -18,21 +17,20 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
 }));
 
 describe('createServer()', () => {
-  afterAll(() => {
-    rack.unmountAll();
-  });
+  afterAll(unsaddle);
 
   it('starts a server that responds with markup', async () => {
     function MockApp() {
       return <div>markup</div>;
     }
 
-    const wrapper = await rack.mount(({ip, port}) =>
-      createServer({port, ip, render: () => <MockApp />}),
+    const wrapper = await saddle((port, host) =>
+      createServer({port, ip: host, render: () => <MockApp />}),
     );
-    const response = await wrapper.request();
 
-    expect(await response.text()).toStrictEqual(
+    const response = await wrapper.fetch('/');
+
+    await expect(response).toHaveBodyText(
       `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div><script type="text/json" data-serialized-id="quilt-data">undefined</script></body></html>`,
     );
   });
@@ -45,30 +43,28 @@ describe('createServer()', () => {
       return null;
     }
 
-    const wrapper = await rack.mount(({ip, port}) =>
+    const wrapper = await saddle((port, ip) =>
       createServer({port, ip, render: () => <MockApp />}),
     );
-    const response = await wrapper.request();
+    const response = await wrapper.fetch('/');
 
-    expect(await response.text()).toStrictEqual(
-      expect.stringContaining(
-        `<title data-react-html="true">${myTitle}</title>`,
-      ),
+    await expect(response).toHaveBodyText(
+      `<title data-react-html="true">${myTitle}</title>`,
     );
   });
 
   it('supports getting cookies', async () => {
-    const cookie = 'foo';
+    const cookieName = 'foo';
     const value = 'bar';
 
     function MockApp() {
-      const [cookieValue] = useCookie(cookie);
+      const [cookieValue] = useCookie(cookieName);
 
       return <>{cookieValue}</>;
     }
 
-    const wrapper = await rack.mount(
-      ({ip, port}) =>
+    const wrapper = await saddle(
+      (port, ip) =>
         createServer({
           port,
           ip,
@@ -79,16 +75,14 @@ describe('createServer()', () => {
           ),
         }),
       {
-        headers: {
-          cookie: `${cookie}=${value}`,
+        cookies: {
+          [cookieName]: value,
         },
       },
     );
 
-    const response = await wrapper.request();
+    const response = await wrapper.fetch('/');
 
-    expect(await response.text()).toStrictEqual(
-      expect.stringContaining(`<div id="app">${value}</div>`),
-    );
+    expect(response).toHaveBodyText(`<div id="app">${value}</div>`);
   });
 });
