@@ -1,7 +1,7 @@
 const GID_TYPE_REGEXP = /^gid:\/\/[\w-]+\/([\w-]+)\//;
 const GID_REGEXP = /\/(\w[\w-]*)(?:\?(.*))*$/;
 
-interface ParsedGID {
+interface ParsedGid {
   id: string;
   params: Record<string, string>;
 }
@@ -25,7 +25,7 @@ export function parseGid(gid: string): string {
   throw new Error(`Invalid gid: ${gid}`);
 }
 
-export function parseGidWithParams(gid: string): ParsedGID {
+export function parseGidWithParams(gid: string): ParsedGid {
   // appends forward slash to help identify invalid id
   const id = `/${gid}`;
   const matches = GID_REGEXP.exec(id);
