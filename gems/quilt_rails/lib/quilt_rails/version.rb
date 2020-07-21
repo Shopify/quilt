@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 module Quilt
-  VERSION = "3.1.1"
+  VERSION = "3.2.1"
 end
