@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-import-remote",
-  "version": "1.0.44",
+  "version": "1.0.45-async-text-cleanup-beta.1",
   "license": "MIT",
   "description": "Asynchronous script loading for React",
   "main": "dist/src/index.js",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@shopify/async": "^2.1.5",
     "@shopify/react-hooks": "^1.10.1",
-    "@shopify/react-html": "^9.3.13",
+    "@shopify/react-html": "^9.3.14-async-text-cleanup-beta.1",
     "@shopify/react-intersection-observer": "^2.0.15",
     "@shopify/useful-types": "^2.2.0",
     "tslib": "^1.9.3"
