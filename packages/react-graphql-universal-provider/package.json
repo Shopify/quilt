@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql-universal-provider",
-  "version": "3.1.13-async-text-cleanup-beta.1",
+  "version": "3.1.13-async-text-cleanup-beta.2",
   "license": "MIT",
   "description": "A self-serializing/deserializing GraphQL provider that works for isomorphic applications",
   "main": "dist/src/index.js",
@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-graphql-universal-provider/README.md",
   "dependencies": {
-    "@shopify/react-graphql": "^6.1.14-async-text-cleanup-beta.1",
+    "@shopify/react-graphql": "^6.1.14-async-text-cleanup-beta.2",
     "@shopify/react-hooks": "^1.10.1",
-    "@shopify/react-html": "^9.3.14-async-text-cleanup-beta.1",
+    "@shopify/react-html": "^9.3.14-async-text-cleanup-beta.2",
     "apollo-client": "^2.3.8",
     "apollo-link-context": "^1.0.19"
   },

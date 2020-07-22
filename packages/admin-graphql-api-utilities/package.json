@@ -1,6 +1,6 @@
 {
   "name": "@shopify/admin-graphql-api-utilities",
-  "version": "0.0.15-async-text-cleanup-beta.1",
+  "version": "0.0.15-async-text-cleanup-beta.2",
   "license": "MIT",
   "description": "A set of utilities to use when consuming Shopify’s admin GraphQL API",
   "main": "dist/src/index.js",
