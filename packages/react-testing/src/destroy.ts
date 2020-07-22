@@ -6,8 +6,8 @@ export function destroyAll() {
   }
 }
 
-export async function destroyAllAsync() {
+export async function cleanup() {
   for (const wrapper of [...connected]) {
-    await wrapper.destroyAsync();
+    await wrapper.cleanup();
   }
 }
