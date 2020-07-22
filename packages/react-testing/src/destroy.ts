@@ -5,3 +5,9 @@ export function destroyAll() {
     wrapper.destroy();
   }
 }
+
+export async function destroyAllAsync() {
+  for (const wrapper of [...connected]) {
+    await wrapper.destroyAsync();
+  }
+}

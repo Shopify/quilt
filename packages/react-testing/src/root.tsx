@@ -219,11 +219,36 @@ export class Root<Props> implements Node<Props> {
     this.act(() => unmountComponentAtNode(this.element));
   }
 
+  async unmountAsync() {
+    if (!this.mounted) {
+      throw new Error(
+        'You attempted to unmount a node that was already unmounted',
+      );
+    }
+
+    this.ensureRoot();
+    // eslint-disable-next-line @typescript-eslint/require-await
+    await act(async () => {
+      unmountComponentAtNode(this.element);
+    });
+  }
+
   destroy() {
     const {element, mounted} = this;
 
     if (mounted) {
       this.unmount();
+    }
+
+    element.remove();
+    connected.delete(this);
+  }
+
+  async destroyAsync() {
+    const {element, mounted} = this;
+
+    if (mounted) {
+      await this.unmountAsync();
     }
 
     element.remove();
