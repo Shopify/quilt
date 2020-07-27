@@ -63,7 +63,7 @@ The primary API for this library, the `<Bugsnag />` component handles rendering 
 ### createBugsnagClient
 
 ```tsx
-createClient({apiKey: 'some-key'});
+createBugsnagClient({apiKey: 'some-key'});
 ```
 
 Creates a [bugsnag client](https://docs.bugsnag.com/platforms/javascript/configuration-options/) and passes it a number of sane default configuration options. It must be passed an `apiKey`but all other configutation is optional.
