@@ -25,7 +25,7 @@ const API_KEY = 'api-key-from-bugsnag';
 import {createBugsnagClient} from '@shopify/react-bugsnag';
 
 const API_KEY = 'api-key-from-bugsnag';
-const client = createBugsnagClient(API_KEY);
+const client = createBugsnagClient({apiKey: API_KEY});
 ```
 
 - Wrap your React tree with the `<Bugsnag />` component
@@ -35,7 +35,7 @@ import React from 'react';
 import {createBugsnagClient, Bugsnag} from '@shopify/react-bugsnag';
 
 const API_KEY = 'api-key-from-bugsnag';
-const client = createBugsnagClient(API_KEY);
+const client = createBugsnagClient({apiKey: API_KEY});
 
 function App() {
   return (
