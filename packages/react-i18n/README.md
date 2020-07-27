@@ -164,8 +164,8 @@ import React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {useI18n} from '@shopify/react-i18n';
 
-import en from './locales/en.json';
-import fr from './locales/fr.json';
+import en from './translations/en.json';
+import fr from './translations/fr.json';
 
 export default function NotFound() {
   const [i18n] = useI18n({
