@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+- Added a custom error page for `Quilt::ReactRenderable::ReactServerNoResponseError` that automatically refreshes until the react server has started.
+  ([#1566](https://github.com/Shopify/quilt/pull/1566))
+
 ## [3.2.1] - 2020-07-15
 
 ### Added
