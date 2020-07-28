@@ -3,8 +3,8 @@
   "version": "3.5.1",
   "license": "MIT",
   "description": "A collection of components that allow you to set common HTTP headers from within your React application",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -43,9 +43,30 @@
     "react": "^16.9.0"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
     "server.js",
+    "server.mjs",
+    "server.esnext",
     "server.d.ts"
-  ]
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./server": {
+      "import": "./server.mjs",
+      "require": "./server.js",
+      "esnext": "./server.esnext"
+    }
+  }
 }
