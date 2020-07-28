@@ -88,7 +88,9 @@ export default function ContentSecurityPolicy() {
 
 #### `useHeader()` and `useRequestHeader()`
 
-This library allows you to read from request headers, and set response headers. To set a header, call the `useHeader()` hook, which accepts the name of a header and the desired value. `useRequestHeader()`, on the other hand, gives you access to a specified request header (see `NetworkUniversalProvider` below for usage on client-side renders).
+This library allows you to read from request headers, and set response headers. To set a header, call the `useHeader()` hook, which accepts the name of a header and the desired value. `useRequestHeader()`, on the other hand, gives you access to a specified request header.
+
+**Note:** calling `useRequestHeader` on client-side renders will give you `undefined`, since we only have access to the request context on the server. To remedy this, wrap your app in a `NetworkUniversalProvider` (see below for more details).
 
 ```tsx
 import {useHeader, useRequestHeader} from '@shopify/react-network';
@@ -103,6 +105,8 @@ function MyComponent() {
 #### `useAcceptLanguage()`
 
 This hook will read and parse the value of the `Accept-Language` header and return the result in an array of `Language` objects. It takes one argument as the fallback `Language` in case the header is not present.
+
+**Note:** `useAcceptLanguage` calls `useRequestHeader`, so the constraints on client-side renders apply here too. Wrap your app in a `NetworkUniversalProvider` and pass in `[Header.AcceptLanguage]` to the `headers` prop in order to call `useAcceptLanguage` on subsequent client-side renders.
 
 ```tsx
 import {useAcceptLanguage} from '@shopify/react-network';
