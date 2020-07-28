@@ -10,7 +10,7 @@ import {CookieUniversalProvider} from '../CookieUniversalProvider';
 import {CookieContext} from '../context';
 import {BrowserCookieManager} from '../BrowserCookieManager';
 
-const {hasDocumentCookie} = require.requireMock('../utilities');
+const {hasDocumentCookie} = jest.requireMock('../utilities');
 
 jest.mock('../utilities', () => ({
   hasDocumentCookie: jest.fn(),

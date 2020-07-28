@@ -8,7 +8,7 @@ import {AuthConfig} from '../../types';
 import Error from '../errors';
 
 jest.mock('../validate-hmac', () => jest.fn(() => true));
-const validateHmac = require.requireMock('../validate-hmac');
+const validateHmac = jest.requireMock('../validate-hmac');
 
 const baseConfig: AuthConfig = {
   apiKey: 'myapikey',
