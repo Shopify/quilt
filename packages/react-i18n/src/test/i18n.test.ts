@@ -8,7 +8,7 @@ import {DateStyle, Weekday} from '../constants';
 import {MissingTranslationError} from '../errors';
 
 jest.mock('../utilities', () => ({
-  ...require.requireActual('../utilities'),
+  ...jest.requireActual('../utilities'),
   translate: jest.fn(),
   getTranslationTree: jest.fn(),
   getCurrencySymbol: jest.fn(),
