@@ -15,12 +15,20 @@ matrix:
     - <<: *node_container
       name: 'Node - build, type-check, and end-to-end tests'
       script:
-        - yarn build --verbose
-        - yarn test:ci --testPathPattern react-server address
+        - yarn build
+        - yarn test:ci "(address|react-server)"
+      cache:
+        directories:
+          - .sewing-kit
+          - .package-build-cache
+      before-cache:
+        - ./scripts/copy_build_to_cache.sh
+      before-script:
+        - ./scripts/copy_cache_to_build.sh
     - <<: *node_container
       name: 'Node - unit tests'
       script:
-        - yarn test:ci --testPathIgnorePatterns react-server address
+        - yarn test:ci "^(?:(?!(address|react-server)).)*$"
         - yarn codecov
     - <<: *node_container
       name: 'Node - lint'
