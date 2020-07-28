@@ -92,4 +92,4 @@ If you are using your components in a non-Webpack environment (for example, in J
 
 ### Webpack
 
-In order to make use of the `id` property added by the Babel plugin, you will need to create a manifest of assets keyed by this ID. An example of doing so can be found in [sewing kit’s `webpac-asset-metadata-plugin` package](https://github.com/Shopify/sewing-kit/tree/master/packages/webpack-asset-metadata-plugin).
+In order to make use of the `id` property added by the Babel plugin, you will need to create a manifest of assets keyed by this ID. An example of doing so can be found in [sewing kit’s `webpack-asset-metadata-plugin` package](https://github.com/Shopify/sewing-kit/tree/master/packages/webpack-asset-metadata-plugin).
