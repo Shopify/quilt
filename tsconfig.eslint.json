@@ -1,0 +1,12 @@
+{
+  "extends": "./config/typescript/tsconfig.base.json",
+  "compilerOptions": {"noEmit": true},
+  "include": [
+    "./sewing-kit.config.ts",
+    "./config/**/*.ts",
+    "./tests/**/*.ts",
+    "./packages/**/*.ts",
+    "./packages/**/*.tsx"
+  ],
+  "exclude": ["./packages/*/build/**/*"]
+}
