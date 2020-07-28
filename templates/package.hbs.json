@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "{{{description}}}",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -24,5 +24,5 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/{{name}}/README.md",
   "dependencies": {},
-  "files": ["dist/*", "!tsconfig.tsbuildinfo"]
+  "files": ["build/*", "!tsconfig.tsbuildinfo"]
 }
