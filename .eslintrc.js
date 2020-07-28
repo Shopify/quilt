@@ -7,11 +7,7 @@ module.exports = {
     'plugin:@shopify/prettier',
   ],
   parserOptions: {
-    project: [
-      'packages/tsconfig.json',
-      'packages/tsconfig_base.json',
-      'test/tsconfig.eslint.json',
-    ],
+    project: ['./tsconfig.eslint.json'],
   },
   rules: {
     'jest/valid-expect-in-promise': 'off',
@@ -34,7 +30,6 @@ module.exports = {
     '@typescript-eslint/unbound-method': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/await-thenable': 'off',
-    '@typescript-eslint/no-misused-promises': 'off',
     'import/no-extraneous-dependencies': 'error',
   },
   overrides: [
@@ -44,6 +39,7 @@ module.exports = {
         '**/test/**/*.tsx',
         '**/tests/**/*.ts',
         '**/tests/**/*.tsx',
+        '**/sewing-kit.config.ts',
       ],
       rules: {
         // We disable `import/no-extraneous-dependencies` for test files because it
