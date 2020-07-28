@@ -3,8 +3,8 @@
   "version": "6.1.14",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -41,10 +41,24 @@
     "@shopify/react-testing": "^2.1.3"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
+  },
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
   }
 }

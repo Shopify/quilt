@@ -3,8 +3,8 @@
   "version": "2.1.5",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -33,9 +33,30 @@
     "@types/webpack": "^4.0.0"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
+    "babel.js",
+    "babel.mjs",
+    "babel.esnext",
     "babel.d.ts",
-    "babel.js"
-  ]
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./babel": {
+      "import": "./babel.mjs",
+      "require": "./babel.js",
+      "esnext": "./babel.esnext"
+    },
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }
