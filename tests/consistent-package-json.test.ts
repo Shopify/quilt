@@ -117,7 +117,7 @@ packages.forEach(
         }
       });
 
-      it(`ensures packages includes in dependencies are used`, () => {
+      it(`ensures packages included in dependencies are used`, () => {
         const dependencies = Object.keys({
           ...packageJSON.dependencies,
         }).filter(dep =>
