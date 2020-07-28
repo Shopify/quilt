@@ -1,16 +1,16 @@
 {
-  "extends": "../tsconfig_base.json",
+  "extends": "../../config/typescript/tsconfig.base.json",
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": ".",
-    "rootDir": ".",
+    "outDir": "build/ts",
+    "baseUrl": "src",
+    "rootDir": "src",
     "paths": {
       "webpack": ["node_modules/webpack"]
     }
   },
   "include": [
-    "../../config/typescript/**/*",
+    "../../config/typescript/*.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],

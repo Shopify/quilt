@@ -3,8 +3,8 @@
   "version": "4.2.1",
   "license": "MIT",
   "description": "Utilities to create mock GraphQL factories",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -36,9 +36,30 @@
     "graphql-typed": "^0.5.0"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
-    "matchers.d.ts",
-    "matchers.js"
-  ]
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
+    "matchers.js",
+    "matchers.mjs",
+    "matchers.esnext",
+    "matchers.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./matchers": {
+      "import": "./matchers.mjs",
+      "require": "./matchers.js",
+      "esnext": "./matchers.esnext"
+    }
+  }
 }

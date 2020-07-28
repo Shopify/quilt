@@ -3,8 +3,8 @@
   "version": "0.20.2",
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -46,6 +46,7 @@
     "@types/koa": "^2.0.0",
     "@types/webpack-virtual-modules": "^0.1.0",
     "get-port": "^5.0.0",
+    "node-loader": "^1.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "saddle-up": "^0.5.1",
@@ -61,9 +62,30 @@
     "webpack-virtual-modules": "^0.2.2"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
-    "webpack-plugin.d.ts",
-    "webpack-plugin.js"
-  ]
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
+    "webpack-plugin.js",
+    "webpack-plugin.mjs",
+    "webpack-plugin.esnext",
+    "webpack-plugin.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./webpack-plugin": {
+      "import": "./webpack-plugin.mjs",
+      "require": "./webpack-plugin.js",
+      "esnext": "./webpack-plugin.esnext"
+    }
+  }
 }
