@@ -3,8 +3,8 @@
   "version": "2.0.1",
   "license": "MIT",
   "description": "An opinionated StatsD client for Shopify Node.js servers and other StatsD utilities",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -29,7 +29,21 @@
     "tslib": "^1.14.1"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

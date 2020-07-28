@@ -3,8 +3,8 @@
   "version": "5.1.7",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -59,13 +59,48 @@
     "fs-extra": "^8.1.0"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
-    "babel.d.ts",
     "babel.js",
-    "generate-index.d.ts",
-    "generate-index.js",
+    "babel.mjs",
+    "babel.esnext",
+    "babel.d.ts",
+    "generate-dictionaries.js",
+    "generate-dictionaries.mjs",
+    "generate-dictionaries.esnext",
     "generate-dictionaries.d.ts",
-    "generate-dictionaries.js"
-  ]
+    "generate-index.js",
+    "generate-index.mjs",
+    "generate-index.esnext",
+    "generate-index.d.ts",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./babel": {
+      "import": "./babel.mjs",
+      "require": "./babel.js",
+      "esnext": "./babel.esnext"
+    },
+    "./generate-dictionaries": {
+      "import": "./generate-dictionaries.mjs",
+      "require": "./generate-dictionaries.js",
+      "esnext": "./generate-dictionaries.esnext"
+    },
+    "./generate-index": {
+      "import": "./generate-index.mjs",
+      "require": "./generate-index.js",
+      "esnext": "./generate-index.esnext"
+    },
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

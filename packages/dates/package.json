@@ -3,8 +3,8 @@
   "version": "0.4.5",
   "license": "MIT",
   "description": "Lightweight date operations library",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -31,7 +31,21 @@
     "@shopify/jest-dom-mocks": "^2.9.5"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

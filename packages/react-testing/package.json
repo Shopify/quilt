@@ -3,8 +3,8 @@
   "version": "2.1.4",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -33,13 +33,34 @@
     "faker": "^4.1.0"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
     "matchers.js",
+    "matchers.mjs",
+    "matchers.esnext",
     "matchers.d.ts"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0",
     "react-dom": ">=16.8.0 <17.0.0"
+  },
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./matchers": {
+      "import": "./matchers.mjs",
+      "require": "./matchers.js",
+      "esnext": "./matchers.esnext"
+    }
   }
 }
