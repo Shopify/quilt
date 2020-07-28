@@ -371,6 +371,18 @@ const universal = {
   resolve: {
     modules: ['node_modules', path.resolve(__dirname, '${basePath}')],
   },
+  module: {
+    rules: [
+      {
+        test: /\\.mjs$/,
+        type: "javascript/auto"
+      },
+      {
+        test: /node\\/.*\\.js$/,
+        loader: 'node-loader',
+      }
+    ]
+  }
 };
 const server = {
   ...universal,

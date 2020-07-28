@@ -11,13 +11,13 @@ import {
 } from './test-utilities';
 
 jest.mock('fs-extra', () => ({
-  ...require.requireActual('fs-extra'),
+  ...jest.requireActual('fs-extra'),
   pathExists: jest.fn(() => Promise.resolve(false)),
   readFile: jest.fn(() => '[]'),
   readJson: jest.fn(() => []),
 }));
 
-const {pathExists, readFile, readJson} = require.requireMock('fs-extra');
+const {pathExists, readFile, readJson} = jest.requireMock('fs-extra');
 
 describe('Manifests locales', () => {
   beforeEach(() => {

@@ -8,7 +8,7 @@ jest.mock('nonce', () => {
   const fakeFactory = jest.fn();
   return () => fakeFactory;
 });
-const nonce = require.requireMock('nonce');
+const nonce = jest.requireMock('nonce');
 
 const query = querystring.stringify.bind(querystring);
 const fakeNonce = 'fakenonce';

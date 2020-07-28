@@ -10,7 +10,7 @@ jest.mock('koa-better-http-proxy', () => {
   return jest.fn(() => jest.fn());
 });
 
-const proxyFactory = require.requireMock('koa-better-http-proxy');
+const proxyFactory = jest.requireMock('koa-better-http-proxy');
 
 describe('koa-shopify-graphql-proxy', () => {
   beforeEach(() => {

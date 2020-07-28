@@ -11,16 +11,21 @@ export default class Location {
       );
     }
 
-    // required to make it possible to write to location.search in tests
     // https://github.com/facebook/jest/issues/890
     Reflect.defineProperty(window.location, 'search', {
       writable: true,
       value: '',
     });
+    // https://github.com/facebook/jest/issues/9471
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: {...window.location},
+    });
 
     this.assignSpy = jest.spyOn(window.location, 'assign');
     this.reloadSpy = jest.spyOn(window.location, 'reload');
     this.replaceSpy = jest.spyOn(window.location, 'replace');
+
     this.isUsingMockLocation = true;
   }
 
