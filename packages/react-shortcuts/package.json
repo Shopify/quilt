@@ -3,8 +3,8 @@
   "version": "3.0.15",
   "license": "MIT",
   "description": "Declaratively and efficiently match shortcut combinations in your React application",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -30,7 +30,21 @@
   },
   "sideEffects": false,
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./index": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

@@ -34,11 +34,15 @@
     "@shopify/sewing-kit-koa": "^6.3.6"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
     "apollo.js",
+    "apollo.mjs",
+    "apollo.esnext",
     "apollo.d.ts",
     "koa.js",
+    "koa.mjs",
+    "koa.esnext",
     "koa.d.ts"
   ],
   "optionalDependencies": {
@@ -46,5 +50,18 @@
   },
   "peerDependencies": {
     "koa": ">=2.0.0"
+  },
+  "exports": {
+    "./": "./",
+    "./apollo": {
+      "import": "./apollo.mjs",
+      "require": "./apollo.js",
+      "esnext": "./apollo.esnext"
+    },
+    "./koa": {
+      "import": "./koa.mjs",
+      "require": "./koa.js",
+      "esnext": "./koa.esnext"
+    }
   }
 }
