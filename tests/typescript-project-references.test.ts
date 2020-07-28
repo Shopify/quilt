@@ -6,12 +6,12 @@ import {readJSONSync} from 'fs-extra';
 
 const ROOT = resolve(__dirname, '..');
 const basePackagePath = resolve(ROOT, 'packages');
-const projectReferencesConfig = resolve(basePackagePath, 'tsconfig.json');
+const projectReferencesConfig = resolve(ROOT, 'tsconfig.json');
 
 describe('typescript project references', () => {
   const referencesConfig = readJSONSync(projectReferencesConfig);
   const references = referencesConfig.references.map(({path}) =>
-    path.replace('./', ''),
+    path.replace('./packages/', ''),
   );
   const shopifyReferences = references.map(prefixPackageName);
 
