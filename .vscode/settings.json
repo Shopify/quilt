@@ -23,6 +23,7 @@
     "build": true,
     "**/*.js": true
   },
+  "typescript.tsserver.maxTsServerMemory": 8000,
   "editor.formatOnSave": true,
   "prettier-stylelint.stylelintIntegration": true,
   "prettier-eslint.eslintIntegration": true,
