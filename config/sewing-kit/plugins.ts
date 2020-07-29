@@ -1,40 +1,27 @@
-import {BabelConfig} from '@sewing-kit/plugin-javascript';
+import {BabelConfig, updateBabelPlugin} from '@sewing-kit/plugin-javascript';
 
-export function addLegacyDecoratorSupport(config: BabelConfig): BabelConfig {
-  return {
-    presets: config.presets,
-    plugins: (config.plugins || []).map(plugin => {
-      const pluginName = getPluginName(plugin);
-
-      if (pluginName.includes('@babel/plugin-proposal-decorators')) {
-        return [pluginName, {legacy: true}];
-      } else if (
-        pluginName.includes('@babel/plugin-proposal-class-properties')
-      ) {
-        return [pluginName, {loose: true}];
-      } else {
-        return plugin;
-      }
+export async function addLegacyDecoratorSupport(config: BabelConfig) {
+  const updateProposalDecorators = updateBabelPlugin(
+    [
+      '@babel/plugin-proposal-decorators',
+      require.resolve('@babel/plugin-proposal-decorators'),
+    ],
+    () => ({
+      legacy: true,
     }),
-  };
-}
-
-export function addReactPreset(config: BabelConfig): BabelConfig {
-  const alreadyContainsPreset = config.presets.some(preset =>
-    getPluginName(preset).includes('@babel/preset-react'),
+  );
+  const updateClassProps = updateBabelPlugin(
+    [
+      '@babel/plugin-proposal-class-properties',
+      require.resolve('@babel/plugin-proposal-class-properties'),
+    ],
+    {
+      loose: true,
+    },
   );
 
-  return alreadyContainsPreset
-    ? config
-    : {
-        ...config,
-        presets: [
-          ...config.presets,
-          ['@babel/preset-react', {development: false, useBuiltIns: true}],
-        ],
-      };
-}
+  let newConfig = await updateClassProps(config);
+  newConfig = await updateProposalDecorators(newConfig);
 
-function getPluginName(plugin): string {
-  return Array.isArray(plugin) ? plugin[0] : plugin;
+  return newConfig;
 }
