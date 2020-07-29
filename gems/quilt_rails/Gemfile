@@ -8,4 +8,5 @@ group :test do
   gem 'minitest-hooks'
   gem 'mocha'
   gem 'pry'
+  gem 'sqlite3'
 end
