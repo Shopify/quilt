@@ -1,7 +1,7 @@
 import {BabelConfig, updateBabelPlugin} from '@sewing-kit/plugin-javascript';
 
 export async function addLegacyDecoratorSupport(config: BabelConfig) {
-  const updateProposalDecorators = updateBabelPlugin(
+  return updateBabelPlugin(
     [
       '@babel/plugin-proposal-decorators',
       require.resolve('@babel/plugin-proposal-decorators'),
@@ -9,19 +9,15 @@ export async function addLegacyDecoratorSupport(config: BabelConfig) {
     () => ({
       legacy: true,
     }),
+  )(
+    await updateBabelPlugin(
+      [
+        '@babel/plugin-proposal-class-properties',
+        require.resolve('@babel/plugin-proposal-class-properties'),
+      ],
+      {
+        loose: true,
+      },
+    )(config),
   );
-  const updateClassProps = updateBabelPlugin(
-    [
-      '@babel/plugin-proposal-class-properties',
-      require.resolve('@babel/plugin-proposal-class-properties'),
-    ],
-    {
-      loose: true,
-    },
-  );
-
-  let newConfig = await updateClassProps(config);
-  newConfig = await updateProposalDecorators(newConfig);
-
-  return newConfig;
 }
