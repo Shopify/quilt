@@ -19,7 +19,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- ⚠️ Generated entrypoints no longer render the App component with a `location` prop. Apps can instead get the same data from the new `url` prop's `href` attribute.
+- ⚠️ Generated entrypoints no longer render the App component with a `location` prop. Apps can instead get the same data from the new `url` prop's `pathname` attribute.
 - ⚠️ Generated entrypoints no longer render the `App` component with a `server` prop. Whether an app is rendered on the server can instead be trivially inferred from `typeof window === 'undefined'`
 
 Apps which were using the `location` prop will need to use the `url` prop instead. Where before an app component might look like this
