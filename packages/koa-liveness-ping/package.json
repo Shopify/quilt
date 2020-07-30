@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-liveness-ping",
-  "version": "0.0.1-sknext-beta.1",
+  "version": "0.0.2-sknext-beta.2",
   "license": "MIT",
   "description": "A package for creating liveness ping middleware for use with Koa",
   "main": "index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-liveness-ping/README.md",
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^0.0.1-sknext-beta.1",
+    "@shopify/jest-koa-mocks": "0.0.2-sknext-beta.2",
     "@types/koa": "^2.0.0",
     "@types/koa-mount": "^4.0.0",
     "koa": "^2.5.0",

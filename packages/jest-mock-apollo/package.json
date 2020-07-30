@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-mock-apollo",
-  "version": "0.0.1-sknext-beta.1",
+  "version": "0.0.2-sknext-beta.2",
   "license": "MIT",
   "description": "Jest + Enzyme mocks for Apollo 2.x",
   "main": "index.js",

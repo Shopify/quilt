@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-dom-mocks",
-  "version": "0.0.1-sknext-beta.1",
+  "version": "0.0.2-sknext-beta.2",
   "license": "MIT",
   "description": "Jest mocking utilities for working with the DOM",
   "main": "index.js",
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/jest-dom-mocks/README.md",
   "dependencies": {
-    "@shopify/async": "^0.0.1-sknext-beta.1",
-    "@shopify/decorators": "^0.0.1-sknext-beta.1",
+    "@shopify/async": "0.0.2-sknext-beta.2",
+    "@shopify/decorators": "0.0.2-sknext-beta.2",
     "@types/fetch-mock": "^6.0.1",
     "@types/lolex": "^2.1.3",
     "fetch-mock": "^6.3.0",

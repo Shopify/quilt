@@ -1,6 +1,6 @@
 {
   "name": "@shopify/network",
-  "version": "0.0.1-sknext-beta.1",
+  "version": "0.0.2-sknext-beta.2",
   "license": "MIT",
   "description": "Common values related to dealing with the network",
   "main": "index.js",

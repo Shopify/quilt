@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-idle",
-  "version": "0.0.1-sknext-beta.1",
+  "version": "0.0.2-sknext-beta.2",
   "license": "MIT",
   "description": "Utilities for working with idle callbacks in React",
   "main": "index.js",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-idle/README.md",
   "dependencies": {
-    "@shopify/async": "^0.0.1-sknext-beta.1",
-    "@shopify/useful-types": "^0.0.1-sknext-beta.1"
+    "@shopify/async": "0.0.2-sknext-beta.2",
+    "@shopify/useful-types": "0.0.2-sknext-beta.2"
   },
   "peerDependencies": {
     "react": "^16.8.0"

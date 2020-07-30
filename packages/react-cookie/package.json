@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-cookie",
-  "version": "0.0.1-sknext-beta.1",
+  "version": "0.0.2-sknext-beta.2",
   "license": "MIT",
   "description": "Cookies in React for the server and client",
   "main": "index.js",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-cookie/README.md",
   "dependencies": {
-    "@shopify/react-hooks": "^0.0.1-sknext-beta.1",
-    "@shopify/react-network": "^0.0.1-sknext-beta.1",
+    "@shopify/react-hooks": "0.0.2-sknext-beta.2",
+    "@shopify/react-network": "0.0.2-sknext-beta.2",
     "cookie": "^0.4.0",
     "tslib": "^1.9.3"
   },

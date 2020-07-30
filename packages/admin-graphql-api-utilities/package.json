@@ -1,6 +1,6 @@
 {
   "name": "@shopify/admin-graphql-api-utilities",
-  "version": "0.0.1-sknext-beta.1",
+  "version": "0.0.2-sknext-beta.2",
   "license": "MIT",
   "description": "A set of utilities to use when consuming Shopify’s admin GraphQL API",
   "main": "index.js",
