@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-graphql-proxy",
-  "version": "4.0.1",
+  "version": "0.0.1-sknext-beta.1",
   "license": "MIT",
   "description": "A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app",
   "main": "index.js",
