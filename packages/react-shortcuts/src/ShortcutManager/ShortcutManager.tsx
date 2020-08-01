@@ -1,4 +1,4 @@
-import Key, { HeldKey, ModifierKey } from '../keys';
+import Key, {HeldKey, ModifierKey} from '../keys';
 
 const ON_MATCH_DELAY = 500;
 
@@ -7,7 +7,7 @@ export interface Data {
   ordered: Key[];
   held?: HeldKey;
   ignoreInput: boolean;
-  onMatch(matched: { ordered: Key[]; held?: HeldKey }): void;
+  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault: boolean;
 }
 
@@ -22,7 +22,7 @@ export default class ShortcutManager {
   }
 
   subscribe(data: Data) {
-    const { shortcuts } = this;
+    const {shortcuts} = this;
 
     shortcuts.push(data);
 
@@ -42,7 +42,7 @@ export default class ShortcutManager {
   }
 
   private handleKeyDown = (event: KeyboardEvent) => {
-    const { key } = event;
+    const {key} = event;
 
     this.keysPressed.push(key as Key);
     this.updateMatchingShortcuts(event);
@@ -83,7 +83,7 @@ export default class ShortcutManager {
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
     this.shortcutsMatched = shortcuts.filter(
-      ({ ordered, held, node, ignoreInput }) => {
+      ({ordered, held, node, ignoreInput}) => {
         if (isFocusedInput() && !ignoreInput) {
           return false;
         }
@@ -108,7 +108,7 @@ export default class ShortcutManager {
   }
 
   private callMatchedShortcut(event: Event) {
-    const longestMatchingShortcut = this.shortcutsMatched.find(({ ordered }) =>
+    const longestMatchingShortcut = this.shortcutsMatched.find(({ordered}) =>
       arraysMatch(ordered, this.keysPressed),
     );
 
