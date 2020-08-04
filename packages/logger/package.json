@@ -1,6 +1,6 @@
 {
   "name": "@shopify/logger",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.3-sknext-beta.3",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "index.js",

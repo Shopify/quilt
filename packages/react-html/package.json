@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.3-sknext-beta.3",
   "license": "MIT",
   "description": "A component to render your React app with no static HTML",
   "main": "index.js",
@@ -23,9 +23,9 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-html/README.md",
   "dependencies": {
-    "@shopify/react-effect": "0.0.2-sknext-beta.2",
-    "@shopify/react-hydrate": "0.0.2-sknext-beta.2",
-    "@shopify/useful-types": "0.0.2-sknext-beta.2",
+    "@shopify/react-effect": "0.0.3-sknext-beta.3",
+    "@shopify/react-hydrate": "0.0.3-sknext-beta.3",
+    "@shopify/useful-types": "0.0.3-sknext-beta.3",
     "@types/multistream": "^2.1.1",
     "multistream": "^2.1.1",
     "serialize-javascript": "^3.0.0",
@@ -36,9 +36,9 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "0.0.2-sknext-beta.2",
-    "@shopify/react-testing": "0.0.2-sknext-beta.2",
-    "@shopify/with-env": "0.0.2-sknext-beta.2"
+    "@shopify/jest-dom-mocks": "0.0.3-sknext-beta.3",
+    "@shopify/react-testing": "0.0.3-sknext-beta.3",
+    "@shopify/with-env": "0.0.3-sknext-beta.3"
   },
   "sideEffects": false,
   "files": [

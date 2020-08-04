@@ -1,6 +1,6 @@
 {
   "name": "@shopify/statsd",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.3-sknext-beta.3",
   "license": "MIT",
   "description": "An opinionated StatsD client for Shopify Node.js servers and other StatsD utilities",
   "main": "index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form-state",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.3-sknext-beta.3",
   "license": "MIT",
   "description": "Manage React forms tersely and type-safely with no magic",
   "main": "index.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form-state/README.md",
   "dependencies": {
-    "@shopify/predicates": "0.0.2-sknext-beta.2",
+    "@shopify/predicates": "0.0.3-sknext-beta.3",
     "fast-deep-equal": "^2.0.1",
     "tslib": "^1.9.3"
   },
@@ -31,8 +31,8 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "0.0.2-sknext-beta.2",
-    "@shopify/useful-types": "0.0.2-sknext-beta.2",
+    "@shopify/enzyme-utilities": "0.0.3-sknext-beta.3",
+    "@shopify/useful-types": "0.0.3-sknext-beta.3",
     "faker": "^4.1.0"
   },
   "sideEffects": false,

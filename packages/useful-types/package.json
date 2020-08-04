@@ -1,6 +1,6 @@
 {
   "name": "@shopify/useful-types",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.3-sknext-beta.3",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "index.js",
