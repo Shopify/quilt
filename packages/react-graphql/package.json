@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "0.0.5-sknext-beta.5",
+  "version": "0.0.8-sknext-beta.8",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React",
   "main": "index.js",
@@ -26,19 +26,19 @@
   "dependencies": {
     "@apollo/react-common": ">=3.0.0 <4.0.0",
     "@apollo/react-hooks": ">=3.0.0 <4.0.0",
-    "@shopify/async": "0.0.5-sknext-beta.5",
-    "@shopify/react-async": "0.0.5-sknext-beta.5",
-    "@shopify/react-effect": "0.0.5-sknext-beta.5",
-    "@shopify/react-hooks": "0.0.5-sknext-beta.5",
-    "@shopify/react-idle": "0.0.5-sknext-beta.5",
-    "@shopify/useful-types": "0.0.5-sknext-beta.5",
+    "@shopify/async": "0.0.8-sknext-beta.8",
+    "@shopify/react-async": "0.0.8-sknext-beta.8",
+    "@shopify/react-effect": "0.0.8-sknext-beta.8",
+    "@shopify/react-hooks": "0.0.8-sknext-beta.8",
+    "@shopify/react-idle": "0.0.8-sknext-beta.8",
+    "@shopify/useful-types": "0.0.8-sknext-beta.8",
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
     "graphql-typed": "^0.5.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "0.0.5-sknext-beta.5"
+    "@shopify/react-testing": "0.0.8-sknext-beta.8"
   },
   "files": [
     "build/*",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/function-enhancers",
-  "version": "0.0.5-sknext-beta.5",
+  "version": "0.0.8-sknext-beta.8",
   "license": "MIT",
   "description": "A set of helpers to enhance functions",
   "main": "index.js",

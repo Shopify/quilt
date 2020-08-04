@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-effect",
-  "version": "0.0.5-sknext-beta.5",
+  "version": "0.0.8-sknext-beta.8",
   "license": "MIT",
   "description": "A component and set of utilities for performing effects within a universal React app",
   "main": "index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-persisted",
-  "version": "0.0.5-sknext-beta.5",
+  "version": "0.0.8-sknext-beta.8",
   "license": "MIT",
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "sideEffects": false,
@@ -30,7 +30,7 @@
     "koa-compose": ">=3.0.0 <4.0.0"
   },
   "devDependencies": {
-    "@shopify/sewing-kit-koa": "0.0.5-sknext-beta.5"
+    "@shopify/sewing-kit-koa": "0.0.8-sknext-beta.8"
   },
   "files": [
     "build/*",

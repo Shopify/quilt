@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-testing",
-  "version": "0.0.5-sknext-beta.5",
+  "version": "0.0.8-sknext-beta.8",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
-    "@shopify/useful-types": "0.0.5-sknext-beta.5",
+    "@shopify/useful-types": "0.0.8-sknext-beta.8",
     "jest-matcher-utils": "^26.2.0",
     "react-reconciler": "^0.20.2"
   },
