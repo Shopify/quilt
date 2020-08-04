@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-consts",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.5-sknext-beta.5",
   "license": "MIT",
   "description": "Constants and types relating to `@shopify/address`",
   "main": "index.js",

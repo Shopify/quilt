@@ -1,21 +1,10 @@
-import {getCurrencySymbol} from './money';
-import {noop} from './noop';
-import {
+export {getCurrencySymbol} from './money';
+export {noop} from './noop';
+export {
   PSEUDOTRANSLATE_OPTIONS,
-  TranslateOptions,
   translate,
   getTranslationTree,
   memoizedNumberFormatter,
   memoizedPluralRules,
 } from './translate';
-
-export {
-  getCurrencySymbol,
-  noop,
-  PSEUDOTRANSLATE_OPTIONS,
-  translate,
-  getTranslationTree,
-  TranslateOptions,
-  memoizedNumberFormatter,
-  memoizedPluralRules,
-};
+export type {TranslateOptions} from './translate';

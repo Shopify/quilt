@@ -1,6 +1,6 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.5-sknext-beta.5",
   "license": "MIT",
   "description": "Generic i18n-related utilities",
   "main": "index.js",

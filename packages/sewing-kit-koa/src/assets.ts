@@ -6,7 +6,7 @@ import appRoot from 'app-root-path';
 import {Manifest} from './types';
 import {Manifests} from './manifests';
 
-export {Asset} from './types';
+export type {Asset} from './types';
 
 interface Options {
   assetPrefix: string;

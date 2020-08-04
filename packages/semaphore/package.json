@@ -1,6 +1,6 @@
 {
   "name": "@shopify/semaphore",
-  "version": "0.0.2-sknext-beta.2",
+  "version": "0.0.5-sknext-beta.5",
   "license": "MIT",
   "description": "Counting semaphore",
   "main": "index.js",

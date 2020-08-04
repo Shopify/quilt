@@ -1,6 +1,6 @@
 import {CookieSerializeOptions} from 'cookie';
 
-export {CookieSerializeOptions};
+export type {CookieSerializeOptions};
 
 export type CookieValue = {
   value: string;
