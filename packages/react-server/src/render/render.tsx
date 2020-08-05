@@ -37,7 +37,7 @@ import {ValueFromContext} from '../types';
 
 import {fallbackErrorMarkup} from './error';
 
-export {Context};
+export type {Context};
 export interface RenderFunction {
   (ctx: Context): React.ReactElement<any>;
 }

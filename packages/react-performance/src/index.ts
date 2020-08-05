@@ -1,10 +1,8 @@
 export * from '@shopify/performance';
 
 export {PerformanceContext} from './context';
-export {
-  usePerformanceEffect,
-  PerformanceEffectCallback,
-} from './performance-effect';
+export {usePerformanceEffect} from './performance-effect';
+export type {PerformanceEffectCallback} from './performance-effect';
 
 export {PerformanceMark} from './PerformanceMark';
 export {usePerformanceMark} from './performance-mark';
