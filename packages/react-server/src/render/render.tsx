@@ -141,6 +141,8 @@ export function createRender(render: RenderFunction, options: Options = {}) {
 
       ctx.set(Header.ContentType, 'text/html');
       ctx.body = response;
+
+      ctx.status = StatusCode.Ok;
     } catch (error) {
       const errorMessage = `React server-side rendering error:\n${
         error.stack || error.message

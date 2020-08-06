@@ -1,5 +1,6 @@
 import React from 'react';
 import {Effect} from '@shopify/react-effect/server';
+import {StatusCode} from '@shopify/react-network';
 import {middleware as sewingKitKoaMiddleware} from '@shopify/sewing-kit-koa';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
@@ -34,6 +35,7 @@ describe('createRender', () => {
     await renderFunction(ctx, noop);
 
     expect(await readStream(ctx.body)).toContain(myCoolApp);
+    expect(ctx.status).toEqual(Status.InternalServerError);
   });
 
   it('response contains x-quilt-data from headers', async () => {
@@ -114,6 +116,7 @@ describe('createRender', () => {
 
         expect(await readStream(ctx.body)).toContain(error.message);
         expect(await readStream(ctx.body)).toContain(error.stack);
+        expect(ctx.status).toEqual(Status.InternalServerError);
       });
     });
 
