@@ -1,4 +1,5 @@
-export {Endpoint, createEndpoint} from './endpoint';
+export {createEndpoint} from './endpoint';
+export type {Endpoint} from './endpoint';
 export {
   createChannelFunctionStrategy,
   createMessengerFunctionStrategy,
@@ -7,14 +8,13 @@ export {fromMessagePort, fromWebWorker} from './adaptors';
 export {
   retain,
   release,
-  MemoryManageable,
   StackFrame,
-  Retainer,
   RELEASE_METHOD,
   RETAIN_METHOD,
   RETAINED_BY,
 } from './memory';
-export {
+export type {MemoryManageable, Retainer} from './memory';
+export type {
   FunctionStrategy,
   FunctionStrategyOptions,
   RemoteCallable,

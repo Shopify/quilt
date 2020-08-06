@@ -1,8 +1,9 @@
 export {DeferTiming} from '@shopify/async';
 export {Query} from './Query';
-export {Prefetch, Props as PrefetchProps} from './Prefetch';
+export {Prefetch} from './Prefetch';
+export type {Props as PrefetchProps} from './Prefetch';
 export {createAsyncQueryComponent, createAsyncQuery} from './async';
-export {
+export type {
   AsyncQueryComponentType,
   GraphQLData,
   GraphQLVariables,
