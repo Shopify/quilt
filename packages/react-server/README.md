@@ -51,11 +51,11 @@ If you already have an existing node server, you can opt in to using only the re
 
 ## Webpack Plugin
 
-We also provide a [webpack plugin](./docs/webpack-plugin) to automatically generate the server and client entries for an application.
+We also provide a [webpack plugin](./docs/webpack-plugin.md) to automatically generate the server and client entries for an application.
 
 ### Deployment (Shopify specific)
 
-For Shopifolk, we have a [walkthrough](https://docs.shopifycloud.com/getting_started/rails-with-node-walkthrough) for getting an app ready to deploy.
+For Shopifolk, we have a [walkthrough](https://platform-docs.docs.shopify.io/getting_started/rails-with-a-private-node-server.html) for getting an app ready to deploy.
 
 ## API
 
