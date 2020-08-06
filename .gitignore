@@ -41,9 +41,9 @@ tmp
 
 *.tsbuildinfo
 
-# Sewing Kit
+# Sewing-Kit builds and entrypoints
 .sewing-kit
-build
+packages/*/build
 packages/*/*.esnext
 packages/*/*.node
 packages/*/*.mjs
