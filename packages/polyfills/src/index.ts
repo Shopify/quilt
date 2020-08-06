@@ -32,7 +32,7 @@ export const polyfills: {[polyfill: string]: PolyfillDescriptor} = {
 export function mappedPolyfillsForEnv(
   env: 'node' | 'jest' | string[],
 ): {[key: string]: string} {
-  const prefix = `@shopify/polyfills/build/ts`;
+  const prefix = `@shopify/polyfills/build/cjs`;
   const noop = `${prefix}/noop`;
 
   return Object.entries(polyfills).reduce(
