@@ -53,7 +53,7 @@
       "require": "./babel.js",
       "esnext": "./babel.esnext"
     },
-    "./index": {
+    ".": {
       "import": "./index.mjs",
       "require": "./index.js",
       "esnext": "./index.esnext"

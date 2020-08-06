@@ -76,7 +76,7 @@
   "esnext": "index.esnext",
   "exports": {
     "./": "./",
-    "./index": {
+    ".": {
       "import": "./index.mjs",
       "require": "./index.js",
       "esnext": "./index.esnext"
