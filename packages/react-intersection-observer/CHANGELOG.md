@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 ## [2.0.8] - 2019-10-31
 
 - Change `useIntersection` hook behaviour to set and distribute the `IntersectionObserverEntry` object directly

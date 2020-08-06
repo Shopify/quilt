@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 ## [9.3.0] - 2020-03-13
 
 - Update `serialize-javascript@^3.0.0`. Solved an issue when you try to deserialize a non-JSON object by enforcing data to be serialized as a JSON object. ([#762](https://github.com/Shopify/quilt/pull/762))
