@@ -97,7 +97,7 @@
       "require": "./generate-index.js",
       "esnext": "./generate-index.esnext"
     },
-    "./index": {
+    ".": {
       "import": "./index.mjs",
       "require": "./index.js",
       "esnext": "./index.esnext"
