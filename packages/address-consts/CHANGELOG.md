@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 ## [2.0.0] - 2020-03-10
 
 - Add `errors` to `LoadCountriesResponse` and `LoadCountryResponse`. [#1301](https://github.com/Shopify/quilt/pull/1301)

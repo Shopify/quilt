@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 ## [0.1.0] - 2020-05-23
 
 - Added extra common mime types [#1372](https://github.com/Shopify/quilt/pull/1372)

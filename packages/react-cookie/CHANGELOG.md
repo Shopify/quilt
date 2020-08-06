@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 ## [0.0.1] - 2019-09-27
 
 ### Added

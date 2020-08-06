@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 - Removed dependency on deprecated `@shopify/javascript-utilities` package ([#1560](https://github.com/Shopify/quilt/pull/1560))
 
 ## [3.1.16] - 2020-05-01

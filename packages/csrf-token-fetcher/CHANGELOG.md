@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 ## [0.0.4] - 2019-01-12
 
 - Specify package has no `sideEffects` ([#1233](https://github.com/Shopify/quilt/pull/1233))

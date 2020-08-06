@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Added new types of builds (CommonJS, ESM, esnext, Node) for greater tree-shakability
+
 ## [0.4.0] - 2020-04-03
 
 - Adding support for `X-Request-Start` header if it is prefix with `t=` ([#1352](https://github.com/Shopify/quilt/pull/1352))
