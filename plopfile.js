@@ -99,15 +99,11 @@ module.exports = function (plop) {
   });
 
   plop.setGenerator('entrypoints', {
-    description: 'Update package.json files with the generated entrypoints',
+    description: 'Update package.json files using the generated entrypoints',
     prompts: [],
     actions: jsPackages.reduce((acc, {name: packageName}) => {
       const packagePath = path.join(__dirname, 'packages', packageName);
       const packageJSONPath = path.join(packagePath, 'package.json');
-
-      if (!existsSync(packageJSONPath)) {
-        return;
-      }
 
       const packageJSON = require(packageJSONPath);
       const entrypoints = glob
@@ -123,7 +119,9 @@ module.exports = function (plop) {
       }
       packageJSON.exports = {'./': './'};
       entrypoints.forEach(entrypoint => {
-        packageJSON.exports[`./${entrypoint}`] = {
+        packageJSON.exports[
+          entrypoint === 'index' ? '.' : `./${entrypoint}`
+        ] = {
           import: `./${entrypoint}.mjs`,
           require: `./${entrypoint}.js`,
           esnext: `./${entrypoint}.esnext`,
