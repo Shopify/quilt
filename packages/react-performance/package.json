@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-performance",
-  "version": "1.3.5",
+  "version": "1.3.5-sknext-beta.9",
   "license": "MIT",
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "index.js",
@@ -24,13 +24,13 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-performance/README.md",
   "dependencies": {
-    "@shopify/performance": "^1.2.9"
+    "@shopify/performance": "^1.2.9-sknext-beta.9"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/network": "^1.4.7"
+    "@shopify/network": "^1.4.7-sknext-beta.9"
   },
   "files": [
     "build/*",

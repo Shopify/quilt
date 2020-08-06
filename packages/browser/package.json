@@ -1,6 +1,6 @@
 {
   "name": "@shopify/browser",
-  "version": "1.0.0",
+  "version": "1.0.0-sknext-beta.9",
   "license": "MIT",
   "description": "Utilities for extracting browser information from user-agents",
   "main": "index.js",

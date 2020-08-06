@@ -1,6 +1,6 @@
 {
   "name": "@shopify/rpc",
-  "version": "1.0.7",
+  "version": "1.0.7-sknext-beta.9",
   "license": "MIT",
   "description": "Utilities for `postMessage`-based remote procedure calls",
   "main": "index.js",
