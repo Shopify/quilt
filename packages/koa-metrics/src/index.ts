@@ -1,2 +1,3 @@
 export {Tag} from './tags';
-export {CustomMetric, Options, metrics as default} from './middleware';
+export {CustomMetric, metrics as default} from './middleware';
+export type {Options} from './middleware';

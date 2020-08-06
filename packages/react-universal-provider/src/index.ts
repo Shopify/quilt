@@ -1,4 +1,2 @@
-export {
-  createUniversalProvider,
-  UniversalProviderProps,
-} from './create-universal-provider';
+export {createUniversalProvider} from './create-universal-provider';
+export type {UniversalProviderProps} from './create-universal-provider';

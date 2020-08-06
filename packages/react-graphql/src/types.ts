@@ -19,7 +19,12 @@ import {AsyncComponentType, AsyncHookTarget} from '@shopify/react-async';
 
 import {QueryHookOptions} from './hooks';
 
-export {GraphQLData, GraphQLVariables, GraphQLDeepPartial, GraphQLOperation};
+export type {
+  GraphQLData,
+  GraphQLVariables,
+  GraphQLDeepPartial,
+  GraphQLOperation,
+};
 
 export type VariableOptions<Variables> = IfEmptyObject<
   Variables,
