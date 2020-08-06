@@ -1,9 +1,4 @@
-export {
-  expose,
-  terminate,
-  getEndpoint,
-  createWorkerFactory,
-  CreateWorkerOptions,
-  WorkerCreator,
-} from './worker';
-export {createPlainWorkerFactory, PlainWorkerCreator} from './plain-worker';
+export {expose, terminate, getEndpoint, createWorkerFactory} from './worker';
+export type {CreateWorkerOptions, WorkerCreator} from './worker';
+export {createPlainWorkerFactory} from './plain-worker';
+export type {PlainWorkerCreator} from './plain-worker';

@@ -2,7 +2,7 @@ export {BrowserCookieManager} from './BrowserCookieManager';
 export {CookieContext} from './context';
 export {useCookie} from './hooks';
 export {CookieUniversalProvider} from './CookieUniversalProvider';
-export {
+export type {
   Cookie,
   CookieManager,
   CookieValue,

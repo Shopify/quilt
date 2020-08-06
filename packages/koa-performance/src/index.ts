@@ -1,1 +1,2 @@
-export {clientPerformanceMetrics, Metrics} from './middleware';
+export {clientPerformanceMetrics} from './middleware';
+export type {Metrics} from './middleware';

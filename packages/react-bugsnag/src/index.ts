@@ -1,4 +1,4 @@
-export {ErrorLogger} from './types';
+export type {ErrorLogger} from './types';
 
 export {createBugsnagClient} from './client';
 export {Bugsnag} from './Bugsnag';

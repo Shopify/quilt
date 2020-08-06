@@ -9,7 +9,8 @@ import {Header} from '@shopify/network';
 
 import Assets, {Asset} from './assets';
 
-export {Assets, Asset};
+export {Assets};
+export type {Asset};
 
 export interface Options {
   assetPrefix?: string;
