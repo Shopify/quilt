@@ -1,9 +1,7 @@
-export {
-  Route,
+export {Route, Switch, withRouter} from 'react-router-dom';
+export type {
   SwitchProps,
-  Switch,
   RouteComponentProps,
-  withRouter,
   RouterChildContext,
   MemoryRouter,
   useRouteMatch,
