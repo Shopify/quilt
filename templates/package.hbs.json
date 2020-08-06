@@ -24,5 +24,22 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/{{name}}/README.md",
   "dependencies": {},
-  "files": ["build/*", "!tsconfig.tsbuildinfo"]
+  "files": [
+    "build/*",
+    "index.js",
+    "index.d.ts",
+    "index.esnext",
+    "index.mjs",
+    "!tsconfig.tsbuildinfo"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

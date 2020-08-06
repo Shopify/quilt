@@ -19,6 +19,9 @@ const KNOWN_TEMPLATE_KEYS = [
   'sideEffects',
   'types',
   'version',
+  'esnext',
+  'module',
+  'export',
 ];
 
 const SINGLE_ENTRYPOINT_EXCEPTIONS = ['graphql-persisted'];
@@ -64,11 +67,20 @@ packages.forEach(
           expect(packageJSON.description).not.toBeUndefined();
         });
 
-        it('specifies publishable files', () => {
-          expect(packageJSON.files).toStrictEqual(
-            expect.arrayContaining(expectedPackageJSON.files),
-          );
-        });
+        if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
+          it('specifies publishable files, including at least one entrypoint', () => {
+            expect(packageJSON.files).toStrictEqual(
+              expect.arrayContaining(['build/*', '!tsconfig.tsbuildinfo']),
+            );
+            expect(packageJSON.files.length).toBeGreaterThan(2);
+          });
+        } else {
+          it('specifies publishable files, including index entrypoints', () => {
+            expect(packageJSON.files).toStrictEqual(
+              expect.arrayContaining(expectedPackageJSON.files),
+            );
+          });
+        }
 
         it('specifies Quilt deep-link homepage', () => {
           expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
