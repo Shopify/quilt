@@ -8,10 +8,13 @@ const KNOWN_TEMPLATE_KEYS = [
   'bugs',
   'dependencies',
   'description',
+  'esnext',
+  'exports',
   'files',
   'homepage',
   'license',
   'main',
+  'module',
   'name',
   'publishConfig',
   'repository',
@@ -19,9 +22,6 @@ const KNOWN_TEMPLATE_KEYS = [
   'sideEffects',
   'types',
   'version',
-  'esnext',
-  'module',
-  'export',
 ];
 
 const SINGLE_ENTRYPOINT_EXCEPTIONS = ['graphql-persisted'];
