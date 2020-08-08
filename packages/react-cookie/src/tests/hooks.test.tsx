@@ -4,8 +4,7 @@ import {createMount} from '@shopify/react-testing';
 
 import {CookieUniversalProvider} from '../CookieUniversalProvider';
 import {useCookie} from '../hooks';
-
-import {clearCookies} from './utilities';
+import {clearCookies} from '../utilities';
 
 const {hasDocumentCookie} = jest.requireMock('../utilities');
 
