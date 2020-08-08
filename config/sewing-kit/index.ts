@@ -23,8 +23,8 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
         hooks.configure.hook(hooks => {
           hooks.babelIgnorePatterns?.hook(ext => [
             ...ext,
-            '**/*.test.ts',
-            '**/*.test.tsx',
+            '**/test/**/*',
+            '**/tests/**/*',
           ]);
 
           hooks.babelConfig?.hook(addLegacyDecoratorSupport);
