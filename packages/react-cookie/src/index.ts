@@ -9,5 +9,4 @@ export type {
   CookieSerializeOptions,
 } from './types';
 
-export {clearCookies, createCookies} from './tests/utilities';
-export {hasDocumentCookie} from './utilities';
+export {hasDocumentCookie, clearCookies, createCookies} from './utilities';

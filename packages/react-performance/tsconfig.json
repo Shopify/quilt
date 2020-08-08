@@ -11,6 +11,6 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "exclude": ["**/test/**/*", "**/tests/**/*"],
   "references": [{"path": "../network"}, {"path": "../performance"}]
 }

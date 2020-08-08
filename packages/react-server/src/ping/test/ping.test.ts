@@ -1,7 +1,7 @@
 import {saddle, unsaddle} from 'saddle-up/koa';
 import {StatusCode} from '@shopify/network';
 
-import {ping} from './ping';
+import {ping} from '../ping';
 
 describe('ping', () => {
   afterAll(unsaddle);
