@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
     "@shopify/useful-types": "1.0.0-sknext-beta.1",
-    "jest-matcher-utils": "^25.3.0",
+    "jest-matcher-utils": "^26.0.0",
     "react-reconciler": "^0.20.2"
   },
   "devDependencies": {
