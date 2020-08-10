@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-network",
-  "version": "1.0.0-sknext-beta.1",
+  "version": "1.0.0-sknext-beta.2",
   "license": "MIT",
   "description": "A collection of components that allow you to set common HTTP headers from within your React application",
   "main": "index.js",
@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-network/README.md",
   "dependencies": {
-    "@shopify/network": "1.0.0-sknext-beta.1",
-    "@shopify/react-effect": "1.0.0-sknext-beta.1",
-    "@shopify/react-hooks": "1.0.0-sknext-beta.1",
-    "@shopify/react-universal-provider": "1.0.0-sknext-beta.1",
+    "@shopify/network": "1.0.0-sknext-beta.2",
+    "@shopify/react-effect": "1.0.0-sknext-beta.2",
+    "@shopify/react-hooks": "1.0.0-sknext-beta.2",
+    "@shopify/react-universal-provider": "1.0.0-sknext-beta.2",
     "@types/accept-language-parser": "1.5.0",
     "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.0",
@@ -35,7 +35,7 @@
     "cookie": "^0.4.0"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "1.0.0-sknext-beta.1"
+    "@shopify/jest-koa-mocks": "1.0.0-sknext-beta.2"
   },
   "peerDependencies": {
     "koa": "^2.5.0",

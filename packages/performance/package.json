@@ -1,6 +1,6 @@
 {
   "name": "@shopify/performance",
-  "version": "1.0.0-sknext-beta.1",
+  "version": "1.0.0-sknext-beta.2",
   "license": "MIT",
   "description": "Primitives for collecting browser performance metrics",
   "main": "index.js",
