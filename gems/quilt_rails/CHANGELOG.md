@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [3.3.0] - 2020-08-10
+
+### Added
+
 - Added automatic route mounting for `Quilt::Engine` that is easily overridable within the main application.
   ([#1576](https://github.com/Shopify/quilt/pull/1576))
 
