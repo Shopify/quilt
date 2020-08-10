@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hydrate",
-  "version": "1.0.0-sknext-beta.1",
+  "version": "1.0.0-sknext-beta.2",
   "license": "MIT",
   "description": "Utilities for hydrating server-rendered React apps",
   "main": "index.js",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hydrate/README.md",
   "dependencies": {
-    "@shopify/react-effect": "1.0.0-sknext-beta.1",
-    "@shopify/react-hooks": "1.0.0-sknext-beta.1"
+    "@shopify/react-effect": "1.0.0-sknext-beta.2",
+    "@shopify/react-hooks": "1.0.0-sknext-beta.2"
   },
   "devDependencies": {
     "faker": "^4.1.0"

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "1.0.0-sknext-beta.1",
+  "version": "1.0.0-sknext-beta.2",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/web-worker/README.md",
   "dependencies": {
-    "@shopify/rpc": "1.0.0-sknext-beta.1",
+    "@shopify/rpc": "1.0.0-sknext-beta.2",
     "loader-utils": "^1.0.0",
     "webpack-virtual-modules": "^0.2.2"
   },

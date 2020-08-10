@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "1.0.0-sknext-beta.1",
+  "version": "1.0.0-sknext-beta.2",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more",
   "main": "index.js",
@@ -33,13 +33,13 @@
     "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
-    "@shopify/dates": "1.0.0-sknext-beta.1",
-    "@shopify/decorators": "1.0.0-sknext-beta.1",
-    "@shopify/function-enhancers": "1.0.0-sknext-beta.1",
-    "@shopify/i18n": "1.0.0-sknext-beta.1",
-    "@shopify/react-effect": "1.0.0-sknext-beta.1",
-    "@shopify/react-hooks": "1.0.0-sknext-beta.1",
-    "@shopify/useful-types": "1.0.0-sknext-beta.1",
+    "@shopify/dates": "1.0.0-sknext-beta.2",
+    "@shopify/decorators": "1.0.0-sknext-beta.2",
+    "@shopify/function-enhancers": "1.0.0-sknext-beta.2",
+    "@shopify/i18n": "1.0.0-sknext-beta.2",
+    "@shopify/react-effect": "1.0.0-sknext-beta.2",
+    "@shopify/react-hooks": "1.0.0-sknext-beta.2",
+    "@shopify/useful-types": "1.0.0-sknext-beta.2",
     "@types/hoist-non-react-statics": "^3.0.1",
     "change-case": "^3.1.0",
     "glob": "^7.1.4",

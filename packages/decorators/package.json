@@ -1,6 +1,6 @@
 {
   "name": "@shopify/decorators",
-  "version": "1.0.0-sknext-beta.1",
+  "version": "1.0.0-sknext-beta.2",
   "license": "MIT",
   "description": "A set of decorators to aid your JavaScript journey",
   "main": "index.js",
@@ -32,7 +32,7 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@shopify/function-enhancers": "1.0.0-sknext-beta.1"
+    "@shopify/function-enhancers": "1.0.0-sknext-beta.2"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",

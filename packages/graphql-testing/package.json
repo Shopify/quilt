@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "1.0.0-sknext-beta.1",
+  "version": "1.0.0-sknext-beta.2",
   "license": "MIT",
   "description": "Utilities to create mock GraphQL factories",
   "main": "index.js",
@@ -31,7 +31,7 @@
     "jest-matcher-utils": "^26.0.0"
   },
   "devDependencies": {
-    "@shopify/useful-types": "1.0.0-sknext-beta.1",
+    "@shopify/useful-types": "1.0.0-sknext-beta.2",
     "graphql-typed": "^0.5.0"
   },
   "files": [
