@@ -31,9 +31,6 @@
     "index.esnext",
     "index.d.ts"
   ],
-  "dependencies": {
-    "tslib": "^1.9.3"
-  },
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {

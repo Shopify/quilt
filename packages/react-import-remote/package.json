@@ -27,8 +27,7 @@
     "@shopify/react-hooks": "1.0.0-sknext-beta.1",
     "@shopify/react-html": "1.0.0-sknext-beta.1",
     "@shopify/react-intersection-observer": "1.0.0-sknext-beta.1",
-    "@shopify/useful-types": "1.0.0-sknext-beta.1",
-    "tslib": "^1.9.3"
+    "@shopify/useful-types": "1.0.0-sknext-beta.1"
   },
   "peerDependencies": {
     "react": "^16.4.1"

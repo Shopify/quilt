@@ -28,8 +28,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@shopify/address-consts": "1.0.0-sknext-beta.1",
-    "tslib": "^1.9.3"
+    "@shopify/address-consts": "1.0.0-sknext-beta.1"
   },
   "files": [
     "build/*",

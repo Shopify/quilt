@@ -32,8 +32,7 @@
     "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.0",
     "accept-language-parser": "1.5.0",
-    "cookie": "^0.4.0",
-    "tslib": "^1.9.3"
+    "cookie": "^0.4.0"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "1.0.0-sknext-beta.1"

@@ -23,8 +23,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-metrics/README.md",
   "dependencies": {
-    "@shopify/statsd": "1.0.0-sknext-beta.1",
-    "tslib": "^1.9.3"
+    "@shopify/statsd": "1.0.0-sknext-beta.1"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "1.0.0-sknext-beta.1",

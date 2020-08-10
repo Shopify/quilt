@@ -30,9 +30,6 @@
     "koa-mount": "^4.0.0"
   },
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.3"
-  },
   "files": [
     "build/*",
     "!tsconfig.tsbuildinfo",

@@ -24,8 +24,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-compose/README.md",
   "dependencies": {
     "@shopify/useful-types": "1.0.0-sknext-beta.1",
-    "hoist-non-react-statics": "^3.0.1",
-    "tslib": "^1.9.3"
+    "hoist-non-react-statics": "^3.0.1"
   },
   "peerDependencies": {
     "react": "^16.3.2"

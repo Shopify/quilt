@@ -24,8 +24,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form-state/README.md",
   "dependencies": {
     "@shopify/predicates": "1.0.0-sknext-beta.1",
-    "fast-deep-equal": "^2.0.1",
-    "tslib": "^1.9.3"
+    "fast-deep-equal": "^2.0.1"
   },
   "peerDependencies": {
     "react": "^16.4.1"

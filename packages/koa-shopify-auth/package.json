@@ -26,8 +26,7 @@
     "@shopify/network": "1.0.0-sknext-beta.1",
     "koa-compose": ">=3.0.0 <4.0.0",
     "nonce": "^1.0.4",
-    "safe-compare": "^1.1.2",
-    "tslib": "^1.9.3"
+    "safe-compare": "^1.1.2"
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "1.0.0-sknext-beta.1",
