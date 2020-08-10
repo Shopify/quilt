@@ -35,9 +35,6 @@
     ]
   },
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.3"
-  },
   "files": [
     "build/*",
     "!tsconfig.tsbuildinfo",

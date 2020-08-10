@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-google-analytics/README.md",
   "dependencies": {
-    "@shopify/react-import-remote": "1.0.0-sknext-beta.1",
-    "tslib": "^1.9.3"
+    "@shopify/react-import-remote": "1.0.0-sknext-beta.1"
   },
   "peerDependencies": {
     "react": "^16.4.1"

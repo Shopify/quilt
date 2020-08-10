@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
   "dependencies": {
-    "@shopify/decorators": "1.0.0-sknext-beta.1",
-    "tslib": "^1.9.3"
+    "@shopify/decorators": "1.0.0-sknext-beta.1"
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "1.0.0-sknext-beta.1"

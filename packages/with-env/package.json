@@ -23,9 +23,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/with-env/README.md",
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.3"
-  },
   "files": [
     "build/*",
     "!tsconfig.tsbuildinfo",
