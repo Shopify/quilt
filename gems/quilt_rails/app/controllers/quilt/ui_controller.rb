@@ -10,7 +10,7 @@ module Quilt
     end
 
     def index
-      render_react
+      render_react(headers: { 'COOKIE' => headers['COOKIE'] })
     end
   end
 end
