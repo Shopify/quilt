@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "1.0.0-sknext-beta.2",
+  "version": "3.1.16",
   "license": "MIT",
   "description": "Allows React apps to easily embed Google Analytics scripts",
   "main": "index.js",
@@ -24,13 +24,13 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-google-analytics/README.md",
   "dependencies": {
-    "@shopify/react-import-remote": "1.0.0-sknext-beta.2"
+    "@shopify/react-import-remote": "^1.0.44"
   },
   "peerDependencies": {
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "1.0.0-sknext-beta.2"
+    "@shopify/enzyme-utilities": "^2.1.13"
   },
   "files": [
     "build/*",
