@@ -21,7 +21,7 @@ export default function Router({location, children}: Props) {
   }
 
   const locationString =
-    typeof location === 'object' ? location.href : location;
+    typeof location === 'object' ? location.pathname : location;
 
   return (
     <StaticRouter location={locationString} context={{}}>
