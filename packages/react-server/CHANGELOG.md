@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <-- ## [Unreleased] -->
 
+- Allow `proxy` and `app` options to be passed to `createServer`. ([#1591](https://github.com/Shopify/quilt/pull/1591))
+
 ## [0.16.0] - 2020-06-16
 
 ### Changed

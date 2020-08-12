@@ -1,4 +1,5 @@
 import React from 'react';
+import Koa from 'koa';
 import {useTitle} from '@shopify/react-html';
 import {useCookie, CookieUniversalProvider} from '@shopify/react-cookie';
 import {saddle, unsaddle} from 'saddle-up';
@@ -18,6 +19,17 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
 
 describe('createServer()', () => {
   afterAll(unsaddle);
+
+  it('configurable as koa proxy', async () => {
+    function MockApp() {}
+    const app = new Koa();
+
+    const wrapper = await saddle((port, host) =>
+      createServer({app, proxy: true, render: () => <MockApp />}),
+    );
+
+    expect(app.proxy).toBe(true);
+  });
 
   it('starts a server that responds with markup', async () => {
     function MockApp() {
