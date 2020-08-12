@@ -47,4 +47,14 @@ describe('Router', () => {
       mount(<Router />);
     }).toThrow(NO_LOCATION_ERROR);
   });
+
+  it('mounts a StaticRouter on the server with location string when location passed in is an object', () => {
+    isClient.mockReturnValue(false);
+
+    const href = 'http://www.shopify.com/';
+    const location = new URL(href);
+    const wrapper = mount(<Router location={location} />);
+
+    expect(wrapper).toContainReactComponent(StaticRouter, {location: href});
+  });
 });

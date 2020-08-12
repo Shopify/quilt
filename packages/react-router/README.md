@@ -19,7 +19,7 @@ Rendering the `Router` component at the top-level of your application will creat
 
 This value should be derived from the server-side Node http request object. If you are rendering your app with a Node based web framework (such as [Koa](https://koajs.com/#request) or [Express](http://expressjs.com/en/5x/api.html#req)), there will be a standard convention for accessing this object within the lifecycle of each request to your server.
 
-A typical application will have a middleware within their application chain that is responsible for rendering the React tree, and providing your main App component the `location` prop. It can then delegate this value to the `Router` on the `location` prop. We also provide a simple library, [`@shopify/react-server`](../packages/react-server), for React server-side rendering.
+A typical application will have a middleware within their application chain that is responsible for rendering the React tree, and providing your main App component the `location` prop. It can then delegate this value to the `Router` on the `location` prop. We also provide a simple library, [`@shopify/react-server`](../react-server/README.md), for React server-side rendering.
 
 ```tsx
 import React from 'react';

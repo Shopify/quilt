@@ -5,8 +5,8 @@
 
 This package provides utilities to help in the following testing scenarios:
 
-1. Testing a graphQL operation with mock data.
-2. Testing the state of your application before/after all the graphQL operations resolve.
+1. Testing a GraphQL operation with mock data
+2. Testing the state of your application before/after all the GraphQL operations resolve
 
 ## Installation
 

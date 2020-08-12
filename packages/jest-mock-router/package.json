@@ -1,8 +1,8 @@
 {
   "name": "@shopify/jest-mock-router",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "license": "MIT",
-  "description": "Jest + Enzyme mocks for React Router 3.x.",
+  "description": "Jest + Enzyme mocks for React Router 3.x",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

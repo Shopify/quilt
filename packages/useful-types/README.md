@@ -41,6 +41,30 @@ The following type aliases are provided by this library:
   type Arg = FirstArgument<typeof func>; // Promise<any>
   ```
 
+- `ConstructorArgumentAtIndex<T, Index>`: Resolves to the type of the argument of the passed class's constructor at the passed index. Useful for cases where you wish to extract the type of arguments without actually exporting the argument types, and is a nice complement to TypeScript’s built-in `ReturnType`.
+
+  ```tsx
+  class SomeClass {
+    constructor(floop: string, doop: number) {
+      console.log(floop);
+    }
+  }
+
+  type DoopType = ConstructorArgument<typeof SomeClass, 1>; // number
+  ```
+
+- `FirstConstructorArgument<T>`: Resolves to the type of the first argument to the passed class's constructor. This is shorthand for `ConstructorArgumentAtIndex<T, 0>`.
+
+  ```ts
+  class SomeClass {
+    constructor(floop: string) {
+      console.log(floop);
+    }
+  }
+
+  type DoopType = FirstConstructorArgument<typeof SomeClass>; // string
+  ```
+
 - `ArrayElement<T>`: When `T` is an array, resolves to the type contained within the array.
 
   ```ts

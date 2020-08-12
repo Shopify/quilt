@@ -7,6 +7,24 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.5.1] - 2020-06-22
+
+### Fixed
+
+- Fixes bug where empty cookies are still being set [#1517](https://github.com/Shopify/quilt/pull/1517)
+
+## [3.5.0] - 2020-06-16
+
+### Fixed
+
+- Do not set `set-cookie` headers for incoming request cookies [#1515](https://github.com/Shopify/quilt/pull/1515)
+
+## [3.4.0] - 2020-06-10
+
+### Added
+
+- Provide `NetworkUniversalProvider` component for universal access to network details. Currently only supports request headers. Previously `useRequestHeader` only had value on initial server-side renders
+
 ## [3.3.0]
 
 ### Added

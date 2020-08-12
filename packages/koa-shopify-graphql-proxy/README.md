@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy)
 
-A wrapper around koa-better-http-proxy which allows easy proxying of graphql requests from an embedded shopify app.
+A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app.
 
 ## Installation
 
@@ -13,11 +13,11 @@ $ yarn add @shopify/koa-shopify-graphql-proxy
 
 ## Usage
 
-The module exports a proxy middleware as it's default export. It expects that you have other middleware set up (such as [koa-shopify-auth](https://github.com/Shopify/quilt/tree/master/packages/koa-shopify-auth)) to authenticate requests with Shopify, and have session data stored on `ctx.session`.
+The module exports a proxy middleware as its default export. It expects that you have other middleware set up (such as [koa-shopify-auth](https://github.com/Shopify/quilt/tree/master/packages/koa-shopify-auth)) to authenticate requests with Shopify, and have session data stored on `ctx.session`.
 
 ### Basic
 
-Attaching the middleware will proxy any requests sent to `/graphql` on your app to the current logged in shop found in session.
+Attaching the middleware will proxy any requests sent to `/graphql` on your app to the current logged-in shop found in session.
 
 ```javascript
 // server/index.js
@@ -39,7 +39,7 @@ app.use(
 app.use(proxy({version: ApiVersion.Unstable}));
 ```
 
-This allows client side scripts to query a logged in merchant's shop without needing to know the users access token.
+This allows client-side scripts to query a logged-in merchant's shop without needing to know the user's access token.
 
 ```javascript
 fetch('/graphql', {credentials: 'include', body: mySerializedGraphQL});

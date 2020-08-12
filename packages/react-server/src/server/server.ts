@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import 'cross-fetch';
 import {Server} from 'http';
 
 import Koa, {Context} from 'koa';
@@ -14,12 +14,13 @@ import {ValueFromContext} from '../types';
 const logger = console;
 
 interface Options {
-  port?: number;
   ip?: string;
+  port?: number;
   assetPrefix?: string;
   assetName?: string | ValueFromContext<string>;
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
+  renderError?: RenderFunction;
 }
 
 /**
@@ -28,7 +29,20 @@ interface Options {
  * @returns a Server instance
  */
 export function createServer(options: Options): Server {
-  const {port, assetPrefix, render, serverMiddleware, ip, assetName} = options;
+  const {
+    /* eslint-disable no-process-env */
+    ip = process.env.REACT_SERVER_IP || 'localhost',
+    port = (process.env.REACT_SERVER_PORT &&
+      parseInt(process.env.REACT_SERVER_PORT, 10)) ||
+      8081,
+    // a default is set in sewingKitMiddleware
+    assetPrefix = process.env.CDN_URL,
+    /* eslint-enable no-process-env */
+    render,
+    serverMiddleware,
+    assetName,
+    renderError,
+  } = options;
   const app = new Koa();
 
   app.use(mount('/services/ping', ping));
@@ -40,9 +54,9 @@ export function createServer(options: Options): Server {
     app.use(compose(serverMiddleware));
   }
 
-  app.use(createRender(render, {assetPrefix, assetName}));
+  app.use(createRender(render, {assetPrefix, assetName, renderError}));
 
-  return app.listen(port || 3000, () => {
+  return app.listen(port || 3000, ip, () => {
     logger.log(`started react-server on ${ip}:${port}`);
   });
 }

@@ -18,7 +18,7 @@ Optional time zone parameters that are omitted are inferred as local.
 
 ### `applyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it. We can also assume the passed date is in the first time zone and we want to calculate it in the second time zone.
 
 ```ts
 import {applyTimeZoneOffset} from '@shopify/dates';
@@ -27,7 +27,7 @@ const date = new Date('2018-06-01Z14:00');
 const timeZone1 = 'Australia/Perth';
 const timeZone2 = 'America/Toronto';
 
-const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2);
+const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2); //'2018-06-01T02:00:00.000Z'
 ```
 
 ### `formatDate`
@@ -151,6 +151,20 @@ isLessThanOneWeekAgo(moreThanOneWeekAgo); // false
 isLessThanOneWeekAgo(lessThanOneWeekAgo); // true
 ```
 
+### `isLessThanOneWeekAway`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one week after the "now" date.
+
+```ts
+import {isLessThanOneWeekAway} from '@shopify/dates';
+
+const moreThanOneWeekAway = new Date(Date.now() + 8 * TimeUnit.Day);
+const lessThanOneWeekAway = new Date(Date.now() + 6 * TimeUnit.Day);
+
+isLessThanOneWeekAway(moreThanOneWeekAway); // false
+isLessThanOneWeekAway(lessThanOneWeekAway); // true
+```
+
 ### `isLessThanOneYearAgo`
 
 Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one year before the "now" date.
@@ -163,6 +177,20 @@ const lessThanOneYearAgo = new Date(Date.now() - 51 * TimeUnit.Week);
 
 isLessThanOneYearAgo(moreThanOneYearAgo); // false
 isLessThanOneYearAgo(lessThanOneYearAgo); // true
+```
+
+### `isLessThanOneYearAway`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one year after the "now" date.
+
+```ts
+import {isLessThanOneYearAway} from '@shopify/dates';
+
+const moreThanOneYearAway = new Date(Date.now() + 53 * TimeUnit.Week);
+const lessThanOneYearAway = new Date(Date.now() + 51 * TimeUnit.Week);
+
+isLessThanOneYearAway(moreThanOneYearAway); // false
+isLessThanOneYearAway(lessThanOneYearAway); // true
 ```
 
 ### `isSameDay`
@@ -296,13 +324,14 @@ const {
 
 ### `unapplyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it. We can also assume the passed date is in the second time zone and we want to calculate it back in the first time zone.
 
 ```ts
 import {unapplyTimeZoneOffset} from '@shopify/dates';
 
 const date = new Date('2018-06-01Z14:00');
-const timeZone = 'Australia/Perth';
+const timeZone1 = 'Australia/Perth';
+const timeZone2 = 'America/Toronto';
 
-const newDate = unapplyTimeZoneOffset(date, offset);
+const newDate = unapplyTimeZoneOffset(date, timeZone1, timeZone2); //2018-06-02T02:00:00.000Z
 ```

@@ -1,8 +1,8 @@
 {
   "name": "@shopify/async",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "license": "MIT",
-  "description": "Primitives for loading parts of an application asynchronously.",
+  "description": "Primitives for loading parts of an application asynchronously",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {

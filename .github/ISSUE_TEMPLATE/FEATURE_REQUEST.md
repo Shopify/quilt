@@ -1,6 +1,7 @@
 ---
 name: '🙌 Feature Request'
 about: Suggest a new feature, or changes to an existing one
+labels: "Type: Feature Request :raised_hands:" 
 ---
 
 ## Overview
@@ -18,10 +19,6 @@ about: Suggest a new feature, or changes to an existing one
 > or what else makes you think this should be in `quilt`?
 
 ...
-
-## Labels
-
-- [ ] Add the `Type: Feature Request` label to this issue.
 
 ### Area
 

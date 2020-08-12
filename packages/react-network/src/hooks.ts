@@ -3,8 +3,11 @@ import {parse, Language} from 'accept-language-parser';
 import {CspDirective, StatusCode, Header} from '@shopify/network';
 import {useServerEffect} from '@shopify/react-effect';
 
-import {NetworkContext} from './context';
+import {NetworkContext, NetworkUniversalContext} from './context';
 import {NetworkManager} from './manager';
+
+const NO_UNIVERSAL_PROVIDER_WARNING =
+  'Could not find serialized network context. Ensure that your app is rendering <NetworkUniversalProvider /> above in your tree';
 
 export function useNetworkEffect(perform: (network: NetworkManager) => void) {
   const network = useContext(NetworkContext);
@@ -27,8 +30,21 @@ export function useCspDirective(
 }
 
 export function useRequestHeader(header: string) {
-  const network = useContext(NetworkContext);
-  return network ? network.getHeader(header) : undefined;
+  const manager = useNetworkManager();
+  const details = useContext(NetworkUniversalContext);
+
+  if (manager) {
+    // Server-side: get it directly from network context
+    return manager.getHeader(header);
+  } else if (details) {
+    // Client-side: get it from serialized universal context
+    return details.headers[header.toLowerCase()];
+  } else {
+    // No server-side network context and no universal context provider
+    // eslint-disable-next-line no-console
+    console.warn(NO_UNIVERSAL_PROVIDER_WARNING);
+    return undefined;
+  }
 }
 
 export function useHeader(header: string, value: string) {

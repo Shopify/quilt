@@ -1,4 +1,10 @@
-query Pet {
+query PetQuery {
+  pets {
+    ...CatInfo
+  }
+}
+
+mutation PetMutation($name: String!) {
   pets {
     ...CatInfo
   }

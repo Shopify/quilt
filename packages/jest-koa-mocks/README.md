@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks)
 
-Utilities to easily stub Koa context and cookies. The utilities are designed to help you write unit tests for your koa middleware without needing to set up any kind of actual server in your test environment. When test writing is easy and fun you'll want to write more tests. ✨😎
+Utilities to easily stub Koa context and cookies. The utilities are designed to help you write unit tests for your Koa middleware without needing to set up any kind of actual server in your test environment. When test writing is easy and fun you'll want to write more tests. ✨😎
 
 ## Installation
 

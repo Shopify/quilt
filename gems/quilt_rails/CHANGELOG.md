@@ -5,7 +5,59 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [3.3.0] - 2020-08-10
+
+### Added
+
+- Added automatic route mounting for `Quilt::Engine` that is easily overridable within the main application.
+  ([#1576](https://github.com/Shopify/quilt/pull/1576))
+
+- Added a custom error page for `Quilt::ReactRenderable::ReactServerNoResponseError` that automatically refreshes until the react server has started.
+  ([#1566](https://github.com/Shopify/quilt/pull/1566))
+
+## [3.2.1] - 2020-07-15
+
+### Added
+
+- Added a `--skip-yarn` option when running the `bin/rails generate sewing_kit:install` generator. This option is mostly
+  using for tools to control when yarn dependencies get installed in the case where you implemented a caching mechanism.
+  ([#1552](https://github.com/Shopify/quilt/pull/1552))
+
+## [3.1.1] - 2020-06-24
+
+### Fixed
+
+- Fix typo in [error message](https://github.com/Shopify/quilt/blob/fefe904fe6e59f11c59092e523f6ee63ba1fd09d/gems/quilt_rails/lib/quilt_rails/react_renderable.rb#L56). ([#1528](https://github.com/Shopify/quilt/pull/1528))
+
+## [3.1.0] - 2020-06-17
+
+### Changed
+
+- Remove automatic passing of `X-CSRF-Token` in the header. With [csrf header strategy](./README.md#fixing-rejected-csrf-tokens-for-new-user-sessions) you should not need this value for GraphQL request. If absolutely needed, use [custom headers method](./README.md#example:-sending-custom-headers-from-rails-controller) to pass the value manually. ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+- Remove installation of `@shopify/react-server` from the generator. ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+### Added
+
+- Added setting of the javascript path in generator ([#1509](https://github.com/Shopify/quilt/pull/1509))
+
+## [3.0.0] - 2020-06-10
+
+### Changed
+
+- `data` header now only contains "data", and omits any custom headers passed into `render_react`. Consumers of this gem are encouraged to use the new `NetworkUniversalProvider` in `@shopify/react-network` to access headers on client-side renders
+
+## [2.0.0] - 2020-06-08
+
+### Changed
+
+- Move SewingKit generator task into sewing-kit. The generator command remains the same. ([#1494](https://github.com/Shopify/quilt/pull/1494))
+
+### Removed
+
+- Remove generator task `quilt_rails:install`. The generator command remains the same. ([#1494](https://github.com/Shopify/quilt/pull/1494))
 
 ## [1.13.0] - 2020-06-2
 
@@ -32,6 +84,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.12.0] - 2020-05-07
 
 - Add: Expose a `data` argument on `render_react` to share data to the React server using the `X-Quilt-Data` header ([#1411](https://github.com/Shopify/quilt/pull/1411))
+
+⚠️ this change has the minimal requirement of `@shopify/react-server` v0.12.0 and `@shopify/react-server-webpack-plugin` v3.0.0 (or `@shopify/sewing-kit` v0.128.0)
 
 ## [1.11.1] - 2020-03-24
 

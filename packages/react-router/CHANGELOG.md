@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <-- ## [Unreleased] -->
 
+## [0.0.30] - 2020-07-28
+
+- Fix bug where passing URL object would cause server router to page incorrectly [1567](https://github.com/Shopify/quilt/pull/1567)
+
 ## [0.0.25] - 2020-05-29
 
 - Change the Router location prop to accept URL as well as string. [1423](https://github.com/Shopify/quilt/pull/1423)

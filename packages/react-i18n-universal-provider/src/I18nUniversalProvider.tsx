@@ -3,6 +3,8 @@ import {useLazyRef} from '@shopify/react-hooks';
 import {useSerialized, useHtmlAttributes} from '@shopify/react-html';
 import {I18nContext, I18nDetails, I18nManager} from '@shopify/react-i18n';
 
+import {combinedI18nDetails} from './utilities';
+
 interface Props extends Partial<I18nDetails> {
   children?: React.ReactNode;
 }
@@ -24,11 +26,10 @@ export function I18nUniversalProvider({
 }: Props) {
   const [serialized, Serialize] = useSerialized<Serialized>('i18n');
 
-  const i18nDetails: I18nDetails = {
-    locale: explicitI18nDetails.fallbackLocale || 'en',
-    ...(serialized ? serialized : {}),
-    ...explicitI18nDetails,
-  };
+  const i18nDetails: I18nDetails = combinedI18nDetails(
+    serialized,
+    explicitI18nDetails,
+  );
 
   const manager = useLazyRef(
     () =>

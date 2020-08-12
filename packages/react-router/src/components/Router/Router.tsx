@@ -20,8 +20,11 @@ export default function Router({location, children}: Props) {
     throw new Error(NO_LOCATION_ERROR);
   }
 
+  const locationString =
+    typeof location === 'object' ? location.href : location;
+
   return (
-    <StaticRouter location={location} context={{}}>
+    <StaticRouter location={locationString} context={{}}>
       {children}
     </StaticRouter>
   );

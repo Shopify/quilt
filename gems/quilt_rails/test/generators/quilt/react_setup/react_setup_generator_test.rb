@@ -7,6 +7,7 @@ require 'generators/quilt/react_setup/react_setup_generator'
 class QuiltReactSetupGeneratorTest < Rails::Generators::TestCase
   tests Quilt::ReactSetupGenerator
   destination File.expand_path("./tmp", File.dirname(__FILE__))
+  self.default_arguments = %w(--skip-yarn)
 
   setup do
     prepare_destination

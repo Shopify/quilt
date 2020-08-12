@@ -1365,6 +1365,61 @@ describe('I18n', () => {
           );
         });
 
+        it('formats a date less than one week away', () => {
+          const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneWeekAway = new Date(
+            today.getTime() + fiveDaysInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneWeekAway, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneWeekAway',
+            {
+              pseudotranslate: false,
+              replacements: {weekday: 'Tuesday', time: '11:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
+
+        it('formats a date less than one year away', () => {
+          // Offset from 2012-12-20 to 2013-05-22
+          const fiveMonthsInMilliseconds =
+            (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
+
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneYearAway = new Date(
+            today.getTime() + fiveMonthsInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneYearAway, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneYearAway',
+            {
+              pseudotranslate: false,
+              replacements: {date: 'May 22', time: '10:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
+
         it('formats a future date', () => {
           const today = new Date('2012-12-20T00:00:00-00:00');
           const futureDate = new Date(today.getTime());

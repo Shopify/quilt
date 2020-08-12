@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-performance.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-performance.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/koa-performance.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/koa-performance.svg)
 
-A middleware which makes it easy to send metrics from your front end application and forward them to a StatsD server of your choice.
+Middleware which makes it easy to send metrics from your front-end application and forward them to a StatsD server of your choice.
 
 Best used with [`@shopify/performance`](https://www.npmjs.com/package/@shopify/performance) and/or [`@shopify/react-performance`](https://www.npmjs.com/package/@shopify/react-performance).
 
