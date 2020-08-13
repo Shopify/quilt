@@ -16,7 +16,7 @@ matrix:
       name: 'Node - build, type-check, and end-to-end tests'
       script:
         - yarn build
-        - yarn test:ci "(address|react-server)"
+        - yarn ci:test "(address|react-server)"
       cache:
         directories:
           - .sewing-kit
@@ -28,7 +28,7 @@ matrix:
     - <<: *node_container
       name: 'Node - unit tests'
       script:
-        - yarn test:ci "^(?:(?!(address|react-server)).)*$"
+        - yarn ci:test "^(?:(?!(address|react-server)).)*$"
         - yarn codecov
     - <<: *node_container
       name: 'Node - lint'

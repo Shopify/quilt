@@ -19,17 +19,17 @@
   "scripts": {
     "build": "sk build",
     "check": "lerna run check",
-    "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
-    "clean": "rimraf './packages/*/build' './packages/*/*.d.ts' './packages/*/*.js' './packages/*/*.esnext' './packages/*/*.mjs' '.sewing-kit'",
+    "ci:lint-docs": "yarn generate docs && ./scripts/check-docs.sh",
+    "clean": "rimraf ./packages/*/build ./packages/*/*.{d.ts,js,esnext,mjs} .sewing-kit",
     "generate": "plop",
-    "generate:package": "plop package && yarn plop docs && prettier --write \"tsconfig.json\"",
+    "generate:package": "plop package && yarn plop docs",
     "lint": "sk lint",
     "lint:changelogs": "node scripts/lint-changelogs.js",
     "publish": "lerna publish",
     "release": "yarn lint:changelogs && lerna publish",
     "release-beta": "lerna publish --dist-tag beta",
     "test": "NODE_ICU_DATA=node_modules/full-icu yarn sk test",
-    "test:ci": "yarn test --coverage",
+    "ci:test": "yarn test --coverage",
     "tophat": "tophat"
   },
   "resolutions": {
