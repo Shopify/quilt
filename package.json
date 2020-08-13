@@ -4,10 +4,10 @@
   "description": "A loosely related set of packages for JavaScript/TypeScript projects at Shopify",
   "scripts": {
     "publish": "lerna publish",
-    "build": "yarn tsc --build packages",
+    "build": "sk build",
     "lint": "sk lint",
     "lint:changelogs": "node scripts/lint-changelogs.js",
-    "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
+    "ci:lint-docs": "yarn generate docs && ./scripts/check-docs.sh",
     "_test": "NODE_ICU_DATA=node_modules/full-icu jest",
     "pretest": "yarn build",
     "test": "yarn _test --no-coverage",
@@ -15,9 +15,9 @@
     "check": "lerna run check",
     "release": "yarn lint:changelogs && lerna publish",
     "release-beta": "lerna publish --dist-tag beta",
-    "clean": "rimraf './packages/*/build' './packages/*/*.d.ts' './packages/*/*.js' './packages/*/*.esnext' './packages/*/*.mjs' '.sewing-kit'",
+    "clean": "rimraf ./packages/*/build ./packages/*/*.{d.ts,js,esnext,mjs} .sewing-kit",
     "generate": "plop",
-    "generate:package": "plop package && yarn plop docs && prettier --write \"./packages/tsconfig.json\"",
+    "generate:package": "plop package && yarn plop docs",
     "tophat": "tophat"
   },
   "repository": {
@@ -93,6 +93,7 @@
   "resolutions": {
     "@types/react": "16.9.19",
     "@types/react-dom": "16.9.5",
-    "dot-prop": "5.1.1"
+    "dot-prop": "5.1.1",
+    "@babel/plugin-proposal-decorators": "7.10.5"
   }
 }
