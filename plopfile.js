@@ -78,7 +78,7 @@ module.exports = function (plop) {
           tsConfig.references.sort(({path: firstPath}, {path: secondPath}) =>
             firstPath.localeCompare(secondPath),
           );
-          return JSON.stringify(tsConfig);
+          return prettyStringify(tsConfig);
         },
       },
     ],
@@ -143,7 +143,7 @@ module.exports = function (plop) {
       acc.push({
         type: 'modify',
         path: packageJSONPath,
-        transform: () => JSON.stringify(packageJSON, undefined, 2) + '\n',
+        transform: () => prettyStringify(packageJSON),
       });
 
       return acc;
@@ -184,4 +184,8 @@ function validatePackageName(name) {
 
 function stripDescription(desc) {
   return desc.replace(/[.\s]*$/g, '').replace(/^\s*/g, '');
+}
+
+function prettyStringify(jsonObj) {
+  return JSON.stringify(jsonObj, undefined, 2) + '\n';
 }
