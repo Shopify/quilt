@@ -17,10 +17,12 @@ interface Options {
   ip?: string;
   port?: number;
   assetPrefix?: string;
+  proxy?: boolean;
   assetName?: string | ValueFromContext<string>;
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
   renderError?: RenderFunction;
+  app?: Koa;
 }
 
 /**
@@ -39,11 +41,14 @@ export function createServer(options: Options): Server {
     assetPrefix = process.env.CDN_URL,
     /* eslint-enable no-process-env */
     render,
+    renderError,
     serverMiddleware,
     assetName,
-    renderError,
+    proxy = false,
+    app = new Koa(),
   } = options;
-  const app = new Koa();
+
+  app.proxy = proxy;
 
   app.use(mount('/services/ping', ping));
 
