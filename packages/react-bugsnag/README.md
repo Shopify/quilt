@@ -25,7 +25,7 @@ const API_KEY = 'api-key-from-bugsnag';
 import {createBugsnagClient} from '@shopify/react-bugsnag';
 
 const API_KEY = 'api-key-from-bugsnag';
-const client = createBugsnagClient(API_KEY);
+const client = createBugsnagClient({apiKey: API_KEY});
 ```
 
 - Wrap your React tree with the `<Bugsnag />` component
@@ -35,7 +35,7 @@ import React from 'react';
 import {createBugsnagClient, Bugsnag} from '@shopify/react-bugsnag';
 
 const API_KEY = 'api-key-from-bugsnag';
-const client = createBugsnagClient(API_KEY);
+const client = createBugsnagClient({apiKey: API_KEY});
 
 function App() {
   return (
@@ -63,7 +63,7 @@ The primary API for this library, the `<Bugsnag />` component handles rendering 
 ### createBugsnagClient
 
 ```tsx
-createClient({apiKey: 'some-key'});
+createBugsnagClient({apiKey: 'some-key'});
 ```
 
 Creates a [bugsnag client](https://docs.bugsnag.com/platforms/javascript/configuration-options/) and passes it a number of sane default configuration options. It must be passed an `apiKey`but all other configutation is optional.

@@ -11,13 +11,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Fixes bug where empty cookies are still being set
+- Fixes bug where empty cookies are still being set [#1517](https://github.com/Shopify/quilt/pull/1517)
 
 ## [3.5.0] - 2020-06-16
 
 ### Fixed
 
-- Do not set `set-cookie` headers for incoming request cookies
+- Do not set `set-cookie` headers for incoming request cookies [#1515](https://github.com/Shopify/quilt/pull/1515)
 
 ## [3.4.0] - 2020-06-10
 

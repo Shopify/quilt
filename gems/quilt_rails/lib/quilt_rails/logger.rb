@@ -3,7 +3,7 @@
 module Quilt
   module Logger
     def self.log(string)
-      if defined? Rails && Rails.logger.nil?
+      if Rails.logger.nil?
         puts string
       else
         Rails.logger.info(string)
