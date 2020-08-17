@@ -1,7 +1,7 @@
 import {Header} from '@shopify/network';
 import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 
-import {ApiVersion} from '../register';
+import {ApiVersion, DeliveryMethod} from '../register';
 
 import {registerWebhook, Options, WebhookHeader} from '..';
 
@@ -95,5 +95,43 @@ describe('registerWebhook', () => {
 
     const result = await registerWebhook(webhook);
     expect(result.success).toBe(false);
+  });
+
+  it('sends an eventbridge registration GraphQL query for an eventbridge webhook registration', async () => {
+    fetchMock.mock('*', successResponse);
+    const webhook: Options = {
+      address: 'myapp.com/webhooks',
+      topic: 'PRODUCTS_CREATE',
+      accessToken: 'some token',
+      shop: 'shop1.myshopify.io',
+      apiVersion: ApiVersion.April20,
+      deliveryMethod: DeliveryMethod.EventBridge,
+    };
+
+    const webhookQuery = `
+    mutation webhookSubscriptionCreate {
+      eventBridgeWebhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {arn: "${webhook.address}"}) {
+        userErrors {
+          field
+          message
+        }
+        webhookSubscription {
+          id
+        }
+      }
+    }
+  `;
+
+    await registerWebhook(webhook);
+
+    const [address, request] = fetchMock.lastCall();
+    expect(address).toBe(
+      `https://${webhook.shop}/admin/api/${ApiVersion.April20}/graphql.json`,
+    );
+    expect(request.body).toBe(webhookQuery);
+    expect(request.headers).toMatchObject({
+      [WebhookHeader.AccessToken]: webhook.accessToken,
+      [Header.ContentType]: 'application/graphql',
+    });
   });
 });
