@@ -5,7 +5,7 @@ import {isClient} from './utilities';
 
 interface Props {
   children?: React.ReactNode;
-  location?: string | URL;
+  location?: string | {pathname: string; search: string};
 }
 
 export const NO_LOCATION_ERROR =
@@ -20,11 +20,21 @@ export default function Router({location, children}: Props) {
     throw new Error(NO_LOCATION_ERROR);
   }
 
-  const locationString =
-    typeof location === 'object' ? location.href : location;
+  // Internally react-router uses the spread (...) operator to clone the object we pass in.
+  // This means that we lose any properties which come from the prototype even if they are the ones we need.
+  // As a result we need to manually pull the properties off to build our object if we want this API to work with stuff like URLs or other instances.
+  const locationObject =
+    typeof location === 'object'
+      ? {
+          pathname: location.pathname,
+          search: location.search,
+          hash: '',
+          state: undefined,
+        }
+      : location;
 
   return (
-    <StaticRouter location={locationString} context={{}}>
+    <StaticRouter location={locationObject} context={{}}>
       {children}
     </StaticRouter>
   );

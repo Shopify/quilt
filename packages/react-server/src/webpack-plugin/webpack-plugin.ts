@@ -97,7 +97,7 @@ function serverSource(options: Options, compiler: Compiler) {
         errorSSRComponentExists(options, compiler)
           ? `renderError: (ctx) => {
               return React.createElement(Error, {
-                url: ctx.request.URL,
+                url: ctx.request.url,
                 data: ctx.state.quiltData,
                 error: ctx.state.quiltError,
               });
