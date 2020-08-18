@@ -25,8 +25,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-router/README.md",
   "dependencies": {
     "@shopify/react-network": "^3.5.1",
-    "@types/react-router-dom": "^4.3.5",
-    "react-router-dom": "^5.0.1"
+    "@types/react-router-dom": "*",
+    "react-router-dom": ">=5.0.0 <6.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0",

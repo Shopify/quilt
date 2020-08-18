@@ -51,10 +51,13 @@ describe('Router', () => {
   it('mounts a StaticRouter on the server with location string when location passed in is an object', () => {
     isClient.mockReturnValue(false);
 
-    const href = 'http://www.shopify.com/';
-    const location = new URL(href);
+    const pathname = '/test123';
+    const search = '?test1=value1&test2=value2';
+    const location = new URL(`http://www.shopify.com${pathname}${search}`);
     const wrapper = mount(<Router location={location} />);
 
-    expect(wrapper).toContainReactComponent(StaticRouter, {location: href});
+    expect(wrapper).toContainReactComponent(StaticRouter, {
+      location: {pathname, search, hash: '', state: undefined},
+    });
   });
 });
