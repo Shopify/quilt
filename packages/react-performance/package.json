@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-performance",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "license": "MIT",
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "dist/src/index.js",
@@ -30,7 +30,7 @@
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/network": "^1.4.7"
+    "@shopify/network": "^1.5.0"
   },
   "files": [
     "dist/*",
