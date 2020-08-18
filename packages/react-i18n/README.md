@@ -148,12 +148,14 @@ Most notably, you will frequently use `i18n`’s `translate()` method. This meth
 
 The most commonly-used feature of the `@shopify/react-i18n` library is looking up translations. In this library, translations are provided **for the component that need them**, and are **available for ancestors of the component**. This allows applications to grow while keeping translations manageable, makes it clearer where to add new translations, and follows Shopify’s principle of [isolation over integration](https://github.com/Shopify/web-foundations/blob/main/handbook/Principles/4%20-%20Isolation%20over%20integration.md) by collocating translations with all other component assets.
 
+Translations are serialized into files according to [the React I18n schema](./packages/react-i18n/docs/react_i18n_schema.md).
+
 Translations are provided using two keys in the `withI18n` decorator:
 
 - `fallback`: a translation file to use when translation keys are not found in the locale-specific translation files. These will usually be your English translations, as they are typically the most complete.
 - `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. The `translations` function can also throw and `react-i18n` will handle the situation gracefully. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries.
 
-We recommend that you colocate your translation files in a `./translations` directory and that you include an `en.json` file in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
+We recommend that you co-locate your translation files in a `./translations` directory and that you include an `en.json` file ([schema specification](docs/react_i18n_schema.md)) in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
 
 If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary. If you're using the [babel plugin](#Babel), this `id` will the automatically generated based on the relative path to your component from your project's root directory.
 
@@ -262,7 +264,7 @@ if (keyExists) {
 
 ##### Pluralization
 
-`@shopify/react-i18n` handles pluralization similarly to [Rails’ default i18n utility](https://guides.rubyonrails.org/i18n.html#pluralization). The key is to provide the plural-dependent value as a `count` variable. `react-i18n` then looks up the plural form using [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules) and, within the keypath you have specified for the translation, will look up a nested translation matching the plural form:
+`@shopify/react-i18n` handles pluralization similarly to [Rails’ default i18n utility](https://guides.rubyonrails.org/i18n.html#pluralization) ([with some minor differences](docs/react_i18n_schema.md#pluralization-1)). The key is to provide the plural-dependent value as a `count` variable. `react-i18n` then looks up the plural form using [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules) and, within the keypath you have specified for the translation, will look up a nested translation matching the plural form:
 
 ```ts
 // Assuming a dictionary like:
