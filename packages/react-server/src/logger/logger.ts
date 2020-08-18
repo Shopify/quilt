@@ -1,6 +1,7 @@
 /* eslint-disable no-process-env */
 import {Context, Request} from 'koa';
 import chalk from 'chalk';
+import {Header} from '@shopify/react-network';
 
 import {KoaNextFunction} from '../types';
 
@@ -50,13 +51,16 @@ function endRequest(ctx: Context, requestDuration: number) {
   }
 
   /* eslint-disable @typescript-eslint/camelcase */
-  const logObject: any = {
+  const logObject = {
     datetime: new Date().toISOString(),
     http_method: ctx.method.toUpperCase(),
     http_response: ctx.message || '',
     http_status: ctx.status,
+    hostname: ctx.request.hostname,
+    ips: ctx.request.ips,
+    request_id: ctx.header['X-Request-ID'],
     uri: ctx.originalUrl,
-    user_agent: ctx.header['User-Agent'],
+    user_agent: ctx.header[Header.UserAgent],
     payload: logger.buffer,
   };
   /* eslint-enable @typescript-eslint/camelcase */

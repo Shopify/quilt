@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Add request_id, hostname, and ips as part of the log. ([#1579](https://github.com/Shopify/quilt/pull/1579)).
+
 ### Changed
 
 - Change createServer default ip from `localhost` to `0.0.0.0` and remove 3000 as a default port. ([#1585](https://github.com/Shopify/quilt/pull/1585))
