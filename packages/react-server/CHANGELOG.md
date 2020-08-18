@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Change createServer default ip from `localhost` to `0.0.0.0` and remove 3000 as a default port. ([#1585](https://github.com/Shopify/quilt/pull/1585))
 
+- Allow `proxy` option to be specified by webpack plugin config (and forwarded to `createServer`). ([#1598](https://github.com/Shopify/quilt/pull/1598))
+
 - Allow `proxy` and `app` options to be passed to `createServer`. ([#1591](https://github.com/Shopify/quilt/pull/1591))
 
 ## [0.16.0] - 2020-06-16
