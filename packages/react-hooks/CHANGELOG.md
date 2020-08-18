@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.20.0] - 2020-08-18
+
 ### Added
 
 - Added `useDelayedCallback` hook ([#1595](https://github.com/Shopify/quilt/pull/1595))

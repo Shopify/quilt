@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "9.3.13",
+  "version": "9.3.14",
   "license": "MIT",
   "description": "A component to render your React app with no static HTML",
   "main": "dist/src/index.js",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-html/README.md",
   "dependencies": {
     "@shopify/react-effect": "^3.2.12",
-    "@shopify/react-hydrate": "^1.1.24",
+    "@shopify/react-hydrate": "^1.1.25",
     "@shopify/useful-types": "^2.2.0",
     "@types/multistream": "^2.1.1",
     "multistream": "^2.1.1",
