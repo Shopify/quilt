@@ -172,6 +172,32 @@ describe('webpack-plugin', () => {
     );
 
     it(
+      'uses default server configuration options',
+      async () => {
+        const name = 'default-server-config';
+        const customConfig = {
+          port: 3000,
+          host: '127.0.0.1',
+          assetPrefix: 'https://localhost/webpack/assets',
+          basePath: '.',
+        };
+
+        await withWorkspace(name, async ({workspace}) => {
+          await workspace.write('index.js', BASIC_JS_MODULE);
+          await workspace.write(
+            'webpack.config.js',
+            createWebpackConfig(customConfig),
+          );
+
+          const [serverResults] = await runBuild(name);
+          const serverModule = getModule(serverResults, 'server');
+          expect(serverModule.source).toMatch('proxy: false');
+        });
+      },
+      BUILD_TIMEOUT,
+    );
+
+    it(
       'uses the given server configuration options',
       async () => {
         const name = 'custom-server-config';
@@ -180,6 +206,7 @@ describe('webpack-plugin', () => {
           host: '127.0.0.1',
           assetPrefix: 'https://localhost/webpack/assets',
           basePath: '.',
+          proxy: true,
         };
 
         await withWorkspace(name, async ({workspace}) => {
@@ -197,6 +224,7 @@ describe('webpack-plugin', () => {
           expect(serverModule.source).toMatch(
             `assetPrefix: "${customConfig.assetPrefix}"`,
           );
+          expect(serverModule.source).toMatch(`proxy: ${customConfig.proxy}`);
         });
       },
       BUILD_TIMEOUT,
@@ -351,7 +379,7 @@ const BASIC_JS_ERROR_COMPOENT = `module.exports = () => {
 };`;
 
 const createWebpackConfig = (
-  {basePath, port, host, assetPrefix}: Options = {
+  {basePath, port, host, assetPrefix, proxy}: Options = {
     basePath: '.',
   },
 ) => `
@@ -367,6 +395,7 @@ const universal = {
     ${printIf('port', port)}
     ${printIf('host', host)}
     ${printIf('assetPrefix', assetPrefix)}
+    ${printIf('proxy', proxy)}
   })],
   resolve: {
     modules: ['node_modules', path.resolve(__dirname, '${basePath}')],

@@ -19,12 +19,14 @@ export class ReactServerPlugin {
     port,
     assetPrefix,
     basePath = '.',
+    proxy = false,
   }: Partial<Options> = {}) {
     this.options = {
       basePath,
       host,
       port,
       assetPrefix,
+      proxy,
     };
   }
 
@@ -58,7 +60,7 @@ export class ReactServerPlugin {
 }
 
 function serverSource(options: Options, compiler: Compiler) {
-  const {port, host, assetPrefix} = options;
+  const {port, host, assetPrefix, proxy} = options;
 
   return `
     ${HEADER}
@@ -92,6 +94,7 @@ function serverSource(options: Options, compiler: Compiler) {
       port: ${port},
       ip: ${JSON.stringify(host)},
       assetPrefix: ${JSON.stringify(assetPrefix)},
+      proxy: ${proxy},
       render,
       ${
         errorSSRComponentExists(options, compiler)
