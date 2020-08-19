@@ -77,7 +77,7 @@ describe('useDelayedCallback', () => {
     expect(callbackSpy).toHaveBeenCalledTimes(2);
   });
 
-  it("doesn't call the callback if the component unmounts before the delay", async () => {
+  it("doesn't call the callback after the delay if the component has unmounted", async () => {
     const callbackSpy = jest.fn();
     const delay = 300;
 
@@ -88,6 +88,10 @@ describe('useDelayedCallback', () => {
     fakeComponent.find('button').trigger('onClick');
 
     fakeComponent.unmount();
+
+    fakeComponent.act(() => {
+      clock.tick(1.5 * delay);
+    });
 
     expect(callbackSpy).not.toHaveBeenCalled();
   });
