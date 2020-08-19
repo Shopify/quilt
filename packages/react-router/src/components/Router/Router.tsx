@@ -21,8 +21,9 @@ export default function Router({location, children}: Props) {
   }
 
   // Internally react-router uses the spread (...) operator to clone the object we pass in.
-  // This means that we lose any properties which come from the prototype even if they are the ones we need.
-  // As a result we need to manually pull the properties off to build our object if we want this API to work with stuff like URLs or other instances.
+  // This means that we lose any properties that is not enumerable even (ie. pathname on a URL object is not enumerable)
+  // As a result we need to manually access the properties to build location object
+  // if we want this API to work with obejct like URLs or other instances.
   const locationObject =
     typeof location === 'object'
       ? {
