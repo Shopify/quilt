@@ -31,13 +31,18 @@
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "apollo-link-context": ">=1.0.0 <2.0.0"
+    "apollo-link-context": ">=1.0.0 <2.0.0",
+    "apollo-link-error": ">=1.0.0 <2.0.0",
+    "graphql": ">=14.0.0 <15.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
-  "devDependencies": {
-    "@shopify/react-effect": "^3.2.12"
+  "devDependencies":
+    "@shopify/react-effect": "^3.2.12",
+    "@shopify/with-env": "^1.1.9",
+    "apollo-link-http-common": "^0.2.16",
+    "graphql-tag": "^2.11.0"
   },
   "files": [
     "dist/*",

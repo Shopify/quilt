@@ -10,6 +10,8 @@ import {useRequestHeader} from '@shopify/react-network';
 import {isServer} from './utilities';
 import {csrfLink} from './csrf-link';
 import {createRequestIdLink} from './request-id-link';
+import {createErrorHandlerLink} from './error-link';
+import {createNetworkErrorLink} from './network-error-link';
 
 interface Props<TCacheShape extends NormalizedCacheObject> {
   children?: React.ReactNode;
@@ -39,6 +41,8 @@ export function GraphQLUniversalProvider<
 
     const clientOptions = createClientOptions();
     const ssrLink = createSsrExtractableLink();
+    const errorLink = createErrorHandlerLink();
+    const networkErrorLink = createNetworkErrorLink();
     const requestIdLink = requestID
       ? createRequestIdLink(requestID)
       : undefined;
@@ -47,6 +51,8 @@ export function GraphQLUniversalProvider<
     const link = ApolloLink.from([
       ssrLink,
       csrfLink,
+      errorLink,
+      networkErrorLink,
       ...(requestIdLink ? [requestIdLink] : []),
       ...(finalLink ? [finalLink] : []),
     ]);
