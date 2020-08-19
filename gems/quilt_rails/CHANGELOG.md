@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+### Added
+
+- Added `config.mount` (default `true`) option to disable automatic engine mounting.
+  ([#1605](https://github.com/Shopify/quilt/pull/1605))
+
 ## [3.3.0] - 2020-08-10
 
 ### Added
