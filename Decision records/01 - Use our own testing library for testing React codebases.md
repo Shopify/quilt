@@ -14,7 +14,7 @@ We use and maintain [`@shopify/react-testing`](https://github.com/Shopify/quilt/
 
 ## Problem space
 
-There are a number of testing libraries available for React applications. The most popular of these focus on testing the behaviour of components in response to initial data and subsequent user interaction and the composition of components together. Testing of the actual visual output of a component is usually not included in the scope of these libraries, or is encouraged to be done via snapshots of the DOM (which is highly [problematic](https://github.com/Shopify/web-foundation/blob/master/handbook/Decision%20records/03%20-%20We%20do%20not%20use%20Jest%20snapshot%20tests.md)).
+There are a number of testing libraries available for React applications. The most popular of these focus on testing the behaviour of components in response to initial data and subsequent user interaction and the composition of components together. Testing of the actual visual output of a component is usually not included in the scope of these libraries, or is encouraged to be done via snapshots of the DOM (which is highly [problematic](https://github.com/Shopify/web-foundation/blob/main/handbook/Decision%20records/03%20-%20We%20do%20not%20use%20Jest%20snapshot%20tests.md)).
 
 ### Prior Art #1 - Enzyme
 
@@ -23,7 +23,7 @@ There are a number of testing libraries available for React applications. The mo
 Unfortunately, Enzyme has a number of downsides for our usecase.
 
 - It has frequently taken a long time to support new React features (specifically, it took quite a while for it to properly support hooks)
-- It has a very large API surface area, much of which works against Shopify’s [testing conventions](https://github.com/Shopify/web-foundation/blob/master/Best%20practices/react/Testing.md). For example, Enzyme provides APIs like `setState` which encourage reaching in to implementation details of your components
+- It has a very large API surface area, much of which works against Shopify’s [testing conventions](https://github.com/Shopify/web-foundation/blob/main/Best%20practices/react/Testing.md). For example, Enzyme provides APIs like `setState` which encourage reaching in to implementation details of your components
 - Enzyme is unlikely to add features we use or need in a testing library, such as automatic unmounting and a built-in version `trigger()`
 - Enzyme tends to continue to support a large backlog of React versions, which makes contribution more difficult
 
@@ -33,14 +33,14 @@ Unfortunately, Enzyme has a number of downsides for our usecase.
 
 While this premise of writing tests that mirror user actions is compelling, basing all tests off the raw DOM being produced has a number of problems.
 
-- Relying exclusively on DOM output can actually lead to testing **more** implementation details rather than less. Users generally do not interact with things based on constructs like test-ids ([see our previous decision log about test-ids](https://github.com/Shopify/web-foundation/blob/master/handbook/Decision%20records/04%20-%20We%20do%20not%20use%20test%20IDs.md)), or even by actual HTML attributes. The DOM itself is not a public API from a user's perspective.
+- Relying exclusively on DOM output can actually lead to testing **more** implementation details rather than less. Users generally do not interact with things based on constructs like test-ids ([see our previous decision log about test-ids](https://github.com/Shopify/web-foundation/blob/main/handbook/Decision%20records/04%20-%20We%20do%20not%20use%20test%20IDs.md)), or even by actual HTML attributes. The DOM itself is not a public API from a user's perspective.
 - Tests that rely on fine-grain knowledge of the DOM structure have a tendency to false-positive _and_ false-negative. It is extremely difficult to judge how a change in DOM structure which fails a test actually reflects a user's experience of the feature.
 - Tests which ignore component boundaries can easily rely on the implementation details of components potentially maintained by totally different teams. A test of a feature should not necessarily care about the implementation details of a button from a shared component library, just that the component/feature under test does what is expected.
 - For an ecosystem like React, the DOM is not the only intended output.
 
 ## Solution
 
-We use and maintain [`@shopify/react-testing`](https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md) as our test library of choice for unit testing component behaviour and composition. We supplement this with [visual regression testing](https://percy.io/), manual functional testing, and usage of tools like [storybook](https://storybook.js.org/) to aid in UI development where needed.
+We use and maintain [`@shopify/react-testing`](https://github.com/Shopify/quilt/blob/main/packages/react-testing/README.md) as our test library of choice for unit testing component behaviour and composition. We supplement this with [visual regression testing](https://percy.io/), manual functional testing, and usage of tools like [storybook](https://storybook.js.org/) to aid in UI development where needed.
 
 `@shopify/react-testing` was originally built by @lemonmade as a direct response to some difficulties we were experiencing with Enzyme, and has since gone on to become the dominant way we test components and features in React applications at Shopify. Since then we have also released `@shopify/preact-testing` for our Preact applications. The library is closer to `Enzyme` than `testing-library` but has a number of significantly different choices which make it an ideal middleground:
 
