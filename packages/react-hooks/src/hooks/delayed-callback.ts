@@ -1,24 +1,23 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef} from 'react';
 
 export function useDelayedCallback(callback: Function, delay: number) {
-  const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>();
 
   useEffect(() => {
     return () => {
-      if (timeoutId != null) {
-        clearTimeout(timeoutId);
+      if (timeoutRef.current != null) {
+        clearTimeout(timeoutRef.current);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function callbackWithDelay() {
-    const callbackId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       callback();
-      setTimeoutId(undefined);
+      timeoutRef.current = undefined;
     }, delay);
 
-    setTimeoutId(callbackId);
+    timeoutRef.current = timeoutId;
   }
 
   return callbackWithDelay;

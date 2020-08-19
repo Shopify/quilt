@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- `useDelayedCallback` now uses `useRef` instead of `useState` in to avoid unnecessary re-render ([#1600](https://github.com/Shopify/quilt/pull/1600))
+
 ## [1.11.0] - 2020-08-18
 
 ### Added
