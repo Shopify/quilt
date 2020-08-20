@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.2.0] - 2020-08-19
+
+### Changed
+
+- Add default cache, ssrMode, ssrForceFetchDelay, and connectToDevTools options with the server prop passed in. ([#1579](https://github.com/Shopify/quilt/pull/1579)).
+
+- Update apollo dependencies to accept a range. ([#1579](https://github.com/Shopify/quilt/pull/1579)).
+
 ## [3.1.0] - 2020-03-24
 
 ### Added
