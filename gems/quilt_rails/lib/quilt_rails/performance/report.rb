@@ -7,25 +7,39 @@ module Quilt
       attr_accessor :navigations
       attr_accessor :connection
 
-      def self.from_params(params)
-        params.transform_keys! { |key| key.underscore.to_sym }
-        params[:connection] = { effectiveType: 'unknown' } if params[:connection].blank?
+      class << self
+        def from_params(params)
+          params.transform_keys! { |key| key.underscore.to_sym }
+          params[:connection] = { effectiveType: 'unknown' } if params[:connection].blank?
 
-        connection = Connection.from_params(params[:connection])
+          connection = Connection.from_params(params[:connection])
 
-        Report.new(
-          connection: connection,
-          navigations: (params[:navigations] || []).map do |navigation|
+          Report.new(
+            connection: connection,
+            navigations: build_navigations(params[:navigations], connection: connection),
+            events: build_events(params[:events], connection: connection),
+          )
+        end
+
+        private
+
+        def build_navigations(navigations_params, connection:)
+          navigations_params ||= []
+          navigations_params.map do |navigation|
             navigation = Navigation.from_params(navigation)
             navigation.connection = connection
             navigation
-          end,
-          events: (params[:events] || []).map do |event|
+          end
+        end
+
+        def build_events(events_params, connection:)
+          events_params ||= []
+          events_params.map do |event|
             event = Event.from_params(event)
             event.connection = connection
             event
-          end,
-        )
+          end
+        end
       end
 
       def initialize(events:, navigations:, connection:)

@@ -24,3 +24,5 @@ Rake::TestTask.new do |t|
   t.name = 'test:unit'
   t.pattern = 'test/quilt_rails/**/*_test.rb'
 end
+
+task(default: %i(test))

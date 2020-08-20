@@ -19,7 +19,6 @@ module Quilt
     end
   end
 
-
   def self.configuration
     @configuration ||= Configuration.new
   end

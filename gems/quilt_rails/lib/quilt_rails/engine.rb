@@ -7,9 +7,11 @@ module Quilt
     config.quilt = Quilt.configuration
 
     initializer(:mount_quilt, before: :add_builtin_route) do |app|
-      app.routes.append do
-        mount(Quilt::Engine, at: '/') unless has_named_route?(:quilt)
-      end if config.quilt.mount?
+      if config.quilt.mount?
+        app.routes.append do
+          mount(Quilt::Engine, at: '/') unless has_named_route?(:quilt)
+        end
+      end
     end
   end
 end
