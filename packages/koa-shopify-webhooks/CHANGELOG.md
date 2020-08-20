@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [2.5.0] - 2020-08-17
+## [2.5.0] - 2020-08-20
 
 - Add an option to register EventBridge webhooks to `registerWebhook`.
 
