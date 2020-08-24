@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [3.3.1] - 2020-08-10
+
 ### Added
 
 - Added `config.mount` (default `true`) option to disable automatic engine mounting.
