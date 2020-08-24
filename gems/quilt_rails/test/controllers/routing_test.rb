@@ -10,9 +10,9 @@ module Quilt
     class PerformanceReportController < ActionController::Base; end
     class UiController < ActionController::Base; end
 
-    setup { boot_dummy }
-
     test "routes on app without routes" do
+      boot_dummy
+
       assert_recognizes(
         { controller: "quilt/performance_report", action: "create" },
         { path: "/performance_report", method: "post" }
@@ -29,6 +29,8 @@ module Quilt
     end
 
     test "routes on app with engine mount" do
+      boot_dummy
+
       Rails.application.routes.draw do
         mount(Quilt::Engine, at: '/quilt')
       end
@@ -49,6 +51,8 @@ module Quilt
     end
 
     test "routes on app with custom controllers" do
+      boot_dummy
+
       Rails.application.routes.draw do
         post '/performance_report', to: 'quilt/routing_test/performance_report#create'
         get '/*path', to: 'quilt/routing_test/ui#index'
@@ -65,6 +69,17 @@ module Quilt
       )
       assert_recognizes(
         { controller: "quilt/routing_test/ui", action: "index" },
+        { path: "/" }
+      )
+    end
+
+    test "routes on app with mounting disabled" do
+      Quilt.configuration.mount = false
+
+      boot_dummy
+
+      assert_recognizes(
+        { controller: "rails/welcome", action: "index" },
         { path: "/" }
       )
     end

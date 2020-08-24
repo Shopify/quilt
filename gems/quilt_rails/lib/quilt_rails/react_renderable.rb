@@ -52,17 +52,19 @@ module Quilt
 
     class ReactServerNoResponseError < StandardError
       def initialize(url)
-        # rubocop:disable LineLength
-        super "Errno::ECONNREFUSED: Waiting for React server to boot up. If this error persists verify that @shopify/react-server is configured on #{url}"
-        # rubocop:enable LineLength
+        super(<<~MSG.squish)
+          Errno::ECONNREFUSED: Waiting for React server to boot up.
+          If this error persists verify that @shopify/react-server is configured on #{url}"
+        MSG
       end
     end
 
     class DoNotIntegrationTestError < StandardError
       def initialize
-        # rubocop:disable LineLength
-        super "Do not try to use Rails integration tests on your quilt_rails app. Instead use Jest and @shopify/react-testing to test your React application directly."
-        # rubocop:enable LineLength
+        super(<<~MSG.squish)
+          Do not try to use Rails integration tests on your quilt_rails app.
+          Instead use Jest and @shopify/react-testing to test your React application directly."
+        MSG
       end
     end
   end
