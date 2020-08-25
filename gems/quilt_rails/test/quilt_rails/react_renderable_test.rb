@@ -11,7 +11,7 @@ module Quilt
         render_react,
         reverse_proxy(
           url,
-          headers: { 'X-Quilt-Data': {}.to_json }
+          headers: { 'X-Request-ID': request.request_id, 'X-Quilt-Data': {}.to_json }
         )
       )
     end
@@ -23,6 +23,7 @@ module Quilt
       render_result = render_react(headers: { 'x-custom-header': 'test' })
       headers = {
         'x-custom-header': 'test',
+        'X-Request-ID': request.request_id,
         'X-Quilt-Data': {}.to_json,
       }
       proxy_result = reverse_proxy(url, headers: headers)
@@ -34,7 +35,7 @@ module Quilt
       Rails.env.stubs(:test?).returns(false)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      headers = { 'X-Quilt-Data': { 'X-Foo': 'bar' }.to_json }
+      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': { 'X-Foo': 'bar' }.to_json }
       assert_equal(
         render_react(data: { 'X-Foo': 'bar' }),
         reverse_proxy(url, headers: headers)
@@ -58,6 +59,13 @@ module Quilt
     # Stubbing this method the mixin calls
     def form_authenticity_token
       'foo'
+    end
+
+    # Stubbing request that exist in a controller
+    def request
+      @request ||= ActionDispatch::TestRequest.create.tap do |request|
+        request.request_id = SecureRandom.uuid
+      end
     end
   end
 end
