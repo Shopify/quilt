@@ -19,6 +19,9 @@ query countries($locale: SupportedLocale!) {
       postalCode
       zone
     }
+    optionalLabels {
+      address2
+    }
     formatting {
       edit
       show
@@ -49,6 +52,9 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
       phone
       postalCode
       zone
+    }
+    optionalLabels {
+      address2
     }
     formatting {
       edit

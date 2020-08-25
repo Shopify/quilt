@@ -47,6 +47,7 @@ describe('AddressFormatter', () => {
         'autocompletionField',
         'continent',
         'labels',
+        'optionalLabels',
         'formatting',
         'zones',
         'provinceKey',

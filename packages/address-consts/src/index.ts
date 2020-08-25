@@ -69,6 +69,9 @@ export interface Country {
     postalCode: string;
     zone: string;
   };
+  optionalLabels: {
+    address2: string;
+  };
   formatting: {
     edit: string;
     show: string;
