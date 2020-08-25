@@ -1,16 +1,25 @@
 # frozen_string_literal: true
-require 'test_helper'
 
-module Quilt
+require "test_helper"
+require "action_controller"
+
+module QuiltRails
   class LoggerTest < ActiveSupport::TestCase
-    test "logger delegate" do
-      assert_same(Quilt.configuration.logger, Quilt.logger)
+    include ActiveSupport::Testing::Isolation
+
+    test "sets rails logger" do
+      boot_dummy
+
+      assert_same(Rails.logger, ::Quilt.configuration.logger)
     end
 
-    test "log deprecation" do
-      assert_deprecated do
-        Quilt::Logger.log("something")
-      end
+    private
+
+    def boot_dummy
+      Rails.env = "development"
+      require_relative "../dummy/config/environment"
+      @routes = Rails.application.routes
+      @controller = nil
     end
   end
 end
