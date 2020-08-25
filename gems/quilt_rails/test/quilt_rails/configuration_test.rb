@@ -40,6 +40,20 @@ module Quilt
       assert_equal(protocol, Quilt.configuration.react_server_protocol)
     end
 
+    def test_logger_default
+      assert_kind_of(::Logger, Quilt.configuration.logger)
+    end
+
+    def test_logger_configured
+      custom_logger = ::Logger.new(nil)
+
+      Quilt.configure do |config|
+        config.logger = custom_logger
+      end
+
+      assert_same(custom_logger, Quilt.configuration.logger)
+    end
+
     def test_mount_default
       assert_predicate(Quilt.configuration, :mount?)
     end

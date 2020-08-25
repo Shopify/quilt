@@ -3,7 +3,7 @@
 require "test_helper"
 require "action_controller"
 
-module Quilt
+module QuiltRails
   class RoutingTest < ActionDispatch::IntegrationTest
     include ActiveSupport::Testing::Isolation
 
@@ -32,7 +32,7 @@ module Quilt
       boot_dummy
 
       Rails.application.routes.draw do
-        mount(Quilt::Engine, at: '/quilt')
+        mount(::Quilt::Engine, at: '/quilt')
       end
 
       assert_recognizes(
@@ -54,27 +54,27 @@ module Quilt
       boot_dummy
 
       Rails.application.routes.draw do
-        post '/performance_report', to: 'quilt/routing_test/performance_report#create'
-        get '/*path', to: 'quilt/routing_test/ui#index'
-        root 'quilt/routing_test/ui#index'
+        post '/performance_report', to: 'quilt_rails/routing_test/performance_report#create'
+        get '/*path', to: 'quilt_rails/routing_test/ui#index'
+        root 'quilt_rails/routing_test/ui#index'
       end
 
       assert_recognizes(
-        { controller: "quilt/routing_test/performance_report", action: "create" },
+        { controller: "quilt_rails/routing_test/performance_report", action: "create" },
         { path: "/performance_report", method: "post" }
       )
       assert_recognizes(
-        { controller: "quilt/routing_test/ui", action: "index", path: "anything" },
+        { controller: "quilt_rails/routing_test/ui", action: "index", path: "anything" },
         { path: "/anything" }
       )
       assert_recognizes(
-        { controller: "quilt/routing_test/ui", action: "index" },
+        { controller: "quilt_rails/routing_test/ui", action: "index" },
         { path: "/" }
       )
     end
 
     test "routes on app with mounting disabled" do
-      Quilt.configuration.mount = false
+      ::Quilt.configuration.mount = false
 
       boot_dummy
 
@@ -88,7 +88,7 @@ module Quilt
 
     def boot_dummy
       Rails.env = "development"
-      require_relative "../dummy/config/environment"
+      require_relative "../../dummy/config/environment"
       @routes = Rails.application.routes
       @controller = nil
     end

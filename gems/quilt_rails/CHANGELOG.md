@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+### Changed
+
+- Deprecate `Quilt::Logger.log` in favour of `Quilt.logger`. ([#1611](https://github.com/Shopify/quilt/pull/1611))
+
 ## [3.4.0] - 2020-08-26
 
 ### Added

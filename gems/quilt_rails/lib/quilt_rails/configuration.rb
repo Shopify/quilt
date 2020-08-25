@@ -11,6 +11,7 @@ module Quilt
 
       self.react_server_host     = "#{react_server_ip}:#{react_server_port}"
       self.react_server_protocol = ENV['REACT_SERVER_PROTOCOL'] || "http"
+      self.logger                = ::Logger.new($stdout)
       self.mount                 = true
     end
 
@@ -19,11 +20,13 @@ module Quilt
     end
   end
 
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
+  class << self
+    def configuration
+      @configuration ||= Configuration.new
+    end
 
-  def self.configure
-    yield(configuration)
+    def configure
+      yield(configuration)
+    end
   end
 end
