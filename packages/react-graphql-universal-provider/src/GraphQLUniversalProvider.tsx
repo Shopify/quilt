@@ -31,6 +31,7 @@ export function GraphQLUniversalProvider<
     ]
   >(() => {
     const server = isServer();
+
     const defaultClientOptions: Partial<ApolloClientOptions<TCacheShape>> = {
       ssrMode: server,
       ssrForceFetchDelay: 100,

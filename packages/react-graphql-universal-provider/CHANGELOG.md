@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.3.0] - 2020-08-26
+
+### Added
+
+- Automatically passed `X-Request-ID` header to GraphQL requests when it exist. ([#1609](https://github.com/Shopify/quilt/pull/1609)).
+
 ## [3.2.0] - 2020-08-19
 
 ### Changed
