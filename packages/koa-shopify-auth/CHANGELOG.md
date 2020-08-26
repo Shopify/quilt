@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [3.1.66] - 2020-08-26
+## [3.1.67] - 2020-08-26
 
 - URI encode `config` on redirection page [1612](https://github.com/Shopify/quilt/pull/1612)
 
