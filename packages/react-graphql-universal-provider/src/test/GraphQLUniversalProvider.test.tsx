@@ -5,6 +5,7 @@ import {extract} from '@shopify/react-effect/server';
 import {mount} from '@shopify/react-testing';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {ApolloProvider} from '@shopify/react-graphql';
+import {NetworkContext, NetworkManager} from '@shopify/react-network';
 
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 
@@ -20,12 +21,16 @@ jest.mock('apollo-client', () => {
 });
 
 jest.mock('../utilities', () => ({
+  ...require.requireActual('../utilities'),
   isServer: jest.fn(),
 }));
+const {isServer} = require.requireMock('../utilities');
 
-const {isServer} = require.requireMock('../utilities') as {
-  isServer: jest.Mock;
-};
+jest.mock('../request-id-link', () => ({
+  ...require.requireActual('../request-id-link'),
+  createRequestIdLink: jest.fn(),
+}));
+const {createRequestIdLink} = require.requireMock('../request-id-link');
 
 const ApolloClient = require.requireMock('apollo-client').default;
 
@@ -35,15 +40,14 @@ describe('<GraphQLUniversalProvider />', () => {
     isServer.mockImplementation(() => true);
 
     ApolloClient.mockClear();
+    createRequestIdLink.mockClear();
   });
 
   it('renders an ApolloProvider with a client created by the factory', () => {
-    const clientOptions = {
-      cache: new InMemoryCache(),
-      link: new ApolloLink(),
-    };
     const graphQL = mount(
-      <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
+      <NetworkContext.Provider value={new NetworkManager()}>
+        <GraphQLUniversalProvider createClientOptions={() => ({})} />
+      </NetworkContext.Provider>,
     );
 
     expect(graphQL).toContainReactComponent(ApolloProvider, {
@@ -52,12 +56,10 @@ describe('<GraphQLUniversalProvider />', () => {
   });
 
   it('includes a link if none are given', () => {
-    const clientOptions = {
-      cache: new InMemoryCache(),
-    };
-
     const graphQL = mount(
-      <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
+      <NetworkContext.Provider value={new NetworkManager()}>
+        <GraphQLUniversalProvider createClientOptions={() => ({})} />
+      </NetworkContext.Provider>,
     );
 
     expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -67,10 +69,10 @@ describe('<GraphQLUniversalProvider />', () => {
 
   describe('cache', () => {
     it('includes a InMemoryCache as cache when none is given in clientOptions', () => {
-      const clientOptions = {};
-
       const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -80,10 +82,11 @@ describe('<GraphQLUniversalProvider />', () => {
 
     it('includes the given cache from clientOptions', () => {
       const cache = new InMemoryCache({addTypename: true});
-      const clientOptions = {cache};
 
       const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => clientOptions} />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({cache})} />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -95,10 +98,13 @@ describe('<GraphQLUniversalProvider />', () => {
       const htmlManager = new HtmlManager();
 
       const cache = new InMemoryCache();
-      const clientOptions = {cache, link: new ApolloLink()};
 
       const graphQLProvider = (
-        <GraphQLUniversalProvider createClientOptions={() => clientOptions} />
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider
+            createClientOptions={() => ({cache, link: new ApolloLink()})}
+          />
+        </NetworkContext.Provider>
       );
 
       const client = mount(graphQLProvider)
@@ -134,7 +140,9 @@ describe('<GraphQLUniversalProvider />', () => {
       isServer.mockReturnValue(true);
 
       const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => ({})} />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -146,7 +154,9 @@ describe('<GraphQLUniversalProvider />', () => {
       isServer.mockReturnValue(false);
 
       const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => ({})} />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -158,9 +168,11 @@ describe('<GraphQLUniversalProvider />', () => {
       isServer.mockReturnValue(true);
 
       const graphQL = mount(
-        <GraphQLUniversalProvider
-          createClientOptions={() => ({ssrMode: false})}
-        />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider
+            createClientOptions={() => ({ssrMode: false})}
+          />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -172,7 +184,9 @@ describe('<GraphQLUniversalProvider />', () => {
   describe('ssrForceFetchDelay', () => {
     it('ssrForceFetchDelay is set to 100 by default', () => {
       const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => ({})} />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -183,11 +197,13 @@ describe('<GraphQLUniversalProvider />', () => {
     it('ssrForceFetchDelay is set to the value returend in createClientOptions', () => {
       const mockSsrForceFetchDelay = 500;
       const graphQL = mount(
-        <GraphQLUniversalProvider
-          createClientOptions={() => ({
-            ssrForceFetchDelay: mockSsrForceFetchDelay,
-          })}
-        />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider
+            createClientOptions={() => ({
+              ssrForceFetchDelay: mockSsrForceFetchDelay,
+            })}
+          />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -201,7 +217,9 @@ describe('<GraphQLUniversalProvider />', () => {
       isServer.mockReturnValue(true);
 
       const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => ({})} />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -213,7 +231,9 @@ describe('<GraphQLUniversalProvider />', () => {
       isServer.mockReturnValue(false);
 
       const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => ({})} />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
@@ -225,14 +245,42 @@ describe('<GraphQLUniversalProvider />', () => {
       isServer.mockReturnValue(true);
 
       const graphQL = mount(
-        <GraphQLUniversalProvider
-          createClientOptions={() => ({connectToDevTools: true})}
-        />,
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider
+            createClientOptions={() => ({connectToDevTools: true})}
+          />
+        </NetworkContext.Provider>,
       );
 
       expect(ApolloClient).toHaveBeenLastCalledWith(
         expect.objectContaining({connectToDevTools: true}),
       );
+    });
+  });
+
+  describe('requestIdLink', () => {
+    it('calls createRequestIdLink if RequestId header has value', () => {
+      const mockRequestId = 'request-id-value';
+
+      const graphQL = mount(
+        <NetworkContext.Provider
+          value={new NetworkManager({headers: {'X-Request-ID': mockRequestId}})}
+        >
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
+      );
+
+      expect(createRequestIdLink).toHaveBeenCalledWith(mockRequestId);
+    });
+
+    it('does not call createRequestIdLink if RequestId header has not value', () => {
+      const graphQL = mount(
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider createClientOptions={() => ({})} />
+        </NetworkContext.Provider>,
+      );
+
+      expect(createRequestIdLink).not.toHaveBeenCalled();
     });
   });
 });

@@ -27,6 +27,7 @@
     "@shopify/react-graphql": "^6.1.16",
     "@shopify/react-hooks": "^1.11.1",
     "@shopify/react-html": "^9.3.15",
+    "@shopify/react-network": "^3.5.4",
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
