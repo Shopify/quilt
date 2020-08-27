@@ -30,10 +30,10 @@ module Quilt
 
     def proxy(headers, data)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
-      Quilt::Logger.log("[ReactRenderable] proxying to React server at #{url}")
+      Quilt.logger.info("[ReactRenderable] proxying to React server at #{url}")
 
       unless headers.blank?
-        Quilt::Logger.log("[ReactRenderable] applying custom headers #{headers.inspect}")
+        Quilt.logger.info("[ReactRenderable] applying custom headers #{headers.inspect}")
       end
 
       begin
@@ -42,7 +42,7 @@ module Quilt
           headers: headers.merge('X-Request-ID': request.request_id, 'X-Quilt-Data': data.to_json)
         ) do |callbacks|
           callbacks.on_response do |status_code, _response|
-            Quilt::Logger.log("[ReactRenderable] #{url} returned #{status_code}")
+            Quilt.logger.info("[ReactRenderable] #{url} returned #{status_code}")
           end
         end
       rescue Errno::ECONNREFUSED
