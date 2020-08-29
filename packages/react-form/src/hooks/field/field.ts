@@ -198,31 +198,56 @@ export function useField<Value = string>(
   return field as Field<Value>;
 }
 
+export type ChoiceField<Value = boolean> = Omit<
+  Field<Value>,
+  'value' | 'onChange'
+> & {
+  checked: boolean;
+  onChange(checked: boolean): void;
+};
+
 /**
- * Converts a standard `Field<boolean>` into a `ChoiceField` that is compatible
+ * Converts a standard `Field<Value>` into a `ChoiceField` that is compatible
  * with `<Checkbox />` and `<RadioButton />` components in `@shopify/polaris`.
  *
  * For fields that are used by both a choice components and other components, it
- * can be beneficial to retain the original `Field<boolean>` shape and convert
+ * can be beneficial to retain the original `Field<Value>` shape and convert
  * the field on the fly for the choice component.
+ *
+ * For multi-value base fields (not simple boolean fields), you can provide a
+ * checkedValue predicate to project the base field's value into the boolean
+ * checked state so that it can function with multiple <RadioButton /> choice
+ * components.
  *
  * ```typescript
  * const enabled = useField(false);
  * return (<Checkbox label="Enabled" {...asChoiceField(enabled)} />);
+ *
+ * const field = useField<'A' | 'B'>('A');
+ * const radioA = (<RadioButton label="A" {...asChoiceField(field, 'A')} />)
+ * const radioB = (<RadioButton label="B" {...asChoiceField(field, 'B')} />)
  * ```
  */
-export function asChoiceField({value: checked, ...fieldData}: Field<boolean>) {
+export function asChoiceField<Value>(
+  {value, ...fieldData}: Field<Value>,
+  checkedValue: Value = true as any,
+): ChoiceField<Value> {
   return {
-    checked,
     ...fieldData,
+    checked: value === checkedValue,
+    onChange(checked: boolean) {
+      if (typeof checkedValue === 'boolean') {
+        fieldData.onChange(checked as any);
+      } else if (checked) {
+        fieldData.onChange(checkedValue);
+      }
+    },
   };
 }
 
-export type ChoiceField = ReturnType<typeof asChoiceField>;
-
 /**
  * A simplification to `useField` that returns a `ChoiceField` by automatically
- * converting the field using `asChoiceField` for direct use in choice
+ * converting a boolean field using `asChoiceField` for direct use in choice
  * components.
  *
  * ```typescript
@@ -233,7 +258,7 @@ export type ChoiceField = ReturnType<typeof asChoiceField>;
 export function useChoiceField(
   input: FieldConfig<boolean> | boolean,
   dependencies: unknown[] = [],
-) {
+): ChoiceField<boolean> {
   return asChoiceField(useField(input, dependencies));
 }
 
