@@ -147,7 +147,7 @@ class ReactController < ApplicationController
 end
 ```
 
-🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation#add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
+🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation.md#option-2-add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
 
 Headers can be accessed during server-side-rendering with the `useRequestHeader` hook from `@shopify/react-network`.
 
@@ -183,7 +183,7 @@ class ReactController < ApplicationController
 end
 ```
 
-🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation#add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
+🗒️ if you don't have a controller. Follow the [instruction](./docs/manual-installation.md#option-2-add-a-react-controller-and-routes) to setup `quilt_rails` in a controller instead of using the engine.
 
 If using `react-server` without a customized server & client file, this will be automatically passed into your application as the `data` prop. If `react-server` is not being used or a customized server / client file was provided, check out [`react-server/webpack-plugin`](../../packages/react-server/src/webpack-plugin/webpack-plugin.ts) on how to pass the data to React.
 
