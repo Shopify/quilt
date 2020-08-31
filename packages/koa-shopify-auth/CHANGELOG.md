@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [3.1.69] - 2020-08-31
 
-- Fixes missing "/" in redirect url when passing prefix, https://github.com/Shopify/quilt/issues/1550. Thanks for your contributions @berrypeng6 and @dooman87
+- Fixes missing "/" in redirect url when passing prefix, https://github.com/Shopify/quilt/issues/1550. Thanks for your contributions @berrypeng6 and @dooman87 [#1616](https://github.com/Shopify/quilt/pull/1616)
 
 ## [3.1.68] - 2020-08-26
 
