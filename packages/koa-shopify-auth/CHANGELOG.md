@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.1.69] - 2020-08-31
+
+- Fixes missing "/" in redirect url when passing prefix, https://github.com/Shopify/quilt/issues/1550. Thanks for your contributions @berrypeng6 and @dooman87
+
 ## [3.1.68] - 2020-08-26
 
 - Wrap `encodeURI` values in double quotes [1613](https://github.com/Shopify/quilt/pull/1613)
