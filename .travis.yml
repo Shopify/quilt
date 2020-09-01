@@ -21,7 +21,6 @@ matrix:
       name: 'Node - unit tests'
       script:
         - yarn test:ci --testPathIgnorePatterns react-server address
-        - yarn codecov
     - <<: *node_container
       name: 'Node - lint'
       script:
