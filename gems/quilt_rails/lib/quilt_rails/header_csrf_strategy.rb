@@ -25,9 +25,10 @@ module Quilt
 
     class NoSameSiteHeaderError < StandardError
       def initialize
-        # rubocop:disable LineLength
-        super "CSRF verification failed. This request is missing the `x-shopify-react-xhr` header, or it does not have the expected value."
-        # rubocop:enable LineLength
+        super(<<~MSG.squish)
+          CSRF verification failed. This request is missing the
+          `x-shopify-react-xhr` header, or it does not have the expected value.
+        MSG
       end
     end
   end

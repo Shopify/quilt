@@ -94,6 +94,8 @@ Add routes to default to the `ReactController`.
   root 'react#index'
 ```
 
+Set `Quilt.configuration.mount = false` in your app config.
+
 #### Add JavaScript
 
 `sewing_kit` looks for the top level component of your React app in `app/ui/index`. The component exported from this component (and any imported JS/CSS) will be built into a `main` bundle, and used to render the initial server-rendered markup.

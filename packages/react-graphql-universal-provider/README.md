@@ -59,20 +59,28 @@ Since self-serializers handle the details of serialization they allow you to rem
 
 The component takes children and a function that can create an Apollo client. This function will be called when needed, and the resulting Apollo client will be augmented with the serialized initial data.
 
+The Apollo Client by default has the following option values. These values can also be overwritten using the return value of the `createClientOptions` prop.
+
+```js
+const IS_SERVER = typeof window === 'undefined';
+
+const defaultClientOptions = {
+  cache: new InMemoryCache()
+  ssrMode: IS_SERVER,
+  ssrForceFetchDelay: 100,
+  connectToDevTools: !IS_SERVER,
+};
+```
+
 #### Basic Example
 
 ```tsx
 // App.tsx
 
 import {GraphQL} from '../GraphQL';
-const IS_SERVER = typeof window === 'undefined';
 
 export function App({url}: {url: URL}) {
-  return (
-    <GraphQL server={IS_SERVER} url={url}>
-      {/* rest of the app */}
-    </GraphQL>
-  );
+  return <GraphQL url={url}>{/* rest of the app */}</GraphQL>;
 }
 ```
 
@@ -80,16 +88,13 @@ export function App({url}: {url: URL}) {
 // GraphQL.tsx
 import React from 'react';
 import fetch from 'cross-fetch';
-import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
 export function GraphQL({
-  server,
   url,
   children,
 }: {
-  server?: boolean;
   url: URL;
   children?: React.ReactNode;
 }) {
@@ -100,13 +105,7 @@ export function GraphQL({
       fetch,
     });
 
-    return {
-      link,
-      cache: new InMemoryCache(),
-      ssrMode: server,
-      ssrForceFetchDelay: 100,
-      connectToDevTools: !server,
-    };
+    return {link};
   };
 
   return (
@@ -129,22 +128,10 @@ This example will also show getting cookie using `@shopify/react-network` but th
 ```tsx
 // App.tsx
 import React from 'react';
-import {CsrfUniversalProvider} from '@shopify/react-csrf-universal-provider';
-import {useRequestHeader} from '@shopify/react-network';
 import {GraphQL} from '../GraphQL';
 
-const IS_SERVER = typeof window === 'undefined';
-
 export function App({url}: {url: URL}) {
-  const csrfToken = useRequestHeader('x-csrf-token');
-
-  return (
-    <CsrfUniversalProvider value={csrfToken}>
-      <GraphQL server={IS_SERVER} url={url}>
-        {/* rest of the app */}
-      </GraphQL>
-    </CsrfUniversalProvider>
-  );
+  return <GraphQL url={url}>{/* rest of the app */}</GraphQL>;
 }
 ```
 
@@ -152,20 +139,11 @@ export function App({url}: {url: URL}) {
 // GraphQL.tsx
 import React from 'react';
 import fetch from 'cross-fetch';
-import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createHttpLink} from 'apollo-link-http';
 import {useRequestHeader} from '@shopify/react-network';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
-function GraphQL({
-  server,
-  url,
-  children,
-}: {
-  server?: boolean;
-  url: URL;
-  children?: React.ReactNode;
-}) {
+function GraphQL({url, children}: {url: URL; children?: React.ReactNode}) {
   const cookie = useRequestHeader('cookie');
 
   const createClientOptions = () => {
@@ -178,13 +156,7 @@ function GraphQL({
       },
     });
 
-    return {
-      link,
-      cache: new InMemoryCache(),
-      ssrMode: server,
-      ssrForceFetchDelay: 100,
-      connectToDevTools: !server,
-    };
+    return {link};
   };
 
   return (
