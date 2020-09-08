@@ -14,7 +14,7 @@ export default function createTopLevelRedirect(apiKey: string, path: string) {
 
     ctx.body = redirectionPage({
       origin: shop,
-      redirectTo: `https://${host}${path}?${queryString}`,
+      redirectTo: `https://${process.env.SHOPIFY_CALLBACK_HOST || host}${path}?${queryString}`,
       apiKey,
     });
   };

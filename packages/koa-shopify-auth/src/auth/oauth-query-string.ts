@@ -25,7 +25,9 @@ export default function oAuthQueryString(
     state: requestNonce,
     scope: scopes.join(', '),
     client_id: apiKey,
-    redirect_uri: `https://${host}${callbackPath}`,
+    redirect_uri: `https://${
+      process.env.SHOPIFY_CALLBACK_HOST || host
+    }${callbackPath}`,
   };
   /* eslint-enable @typescript-eslint/camelcase */
 
