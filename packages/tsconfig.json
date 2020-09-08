@@ -26,7 +26,6 @@
     {"path": "./koa-liveness-ping"},
     {"path": "./koa-metrics"},
     {"path": "./koa-performance"},
-    {"path": "./koa-shopify-auth"},
     {"path": "./koa-shopify-graphql-proxy"},
     {"path": "./koa-shopify-webhooks"},
     {"path": "./logger"},
