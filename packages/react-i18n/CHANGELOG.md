@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed `DateStyle.Humanize`'s handling of time zones for dates that are yesterday, today, or tomorrow [[#1623](https://github.com/Shopify/quilt/pull/1623)]
+
 ## [5.0.0] - 2020-06-04
 
 ### Changed
