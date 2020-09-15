@@ -23,6 +23,8 @@ import {validators} from '@shopify/react-form-state';
 
 We can pass these directly into the `validators` prop of `<FormState />`.
 
+To validate the form automatically on form submit set the `validateOnSubmit` prop of `FormState` to be `true`.
+
 ```typescript
 import {TextField} from '@shopify/polaris';
 import FormState, {validators} from '@shopify/react-form-state';
