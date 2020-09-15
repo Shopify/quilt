@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Exported `useImportRemote` hook and `Status`([1634](https://github.com/Shopify/quilt/pull/1634))
+
 ## [2.0.0] - 2019-05-03
 
 ### Changed
