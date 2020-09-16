@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A loosely related set of packages for JavaScript/TypeScript projects at Shopify",
   "scripts": {
-    "publish": "lerna version",
     "build": "yarn tsc --build packages",
     "lint": "eslint '**/*.{ts,tsx}'",
     "lint:changelogs": "node scripts/lint-changelogs.js",
@@ -12,8 +11,8 @@
     "pretest": "yarn build",
     "test": "yarn _test --no-coverage",
     "test:ci": "yarn _test --maxWorkers=3 --coverage",
-    "check": "lerna run check",
-    "release": "yarn lint:changelogs && lerna version",
+    "prerelease": "yarn lint:changelogs",
+    "release": "lerna version",
     "release-beta": "lerna version --dist-tag beta",
     "clean": "rimraf './packages/*/dist'",
     "generate": "plop",
