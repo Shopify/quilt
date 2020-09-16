@@ -6,7 +6,7 @@ import {
   withNavigation,
   withTiming,
   supportsPerformanceObserver,
-  referenceTime,
+  timeOrigin as referenceTime,
   hasGlobal,
 } from './utilities';
 import {

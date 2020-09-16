@@ -1,4 +1,4 @@
-export function referenceTime() {
+export function timeOrigin() {
   // If no performance, then we always used Date.now(), which is a full
   // (if inaccurate) timestamp
   if (typeof performance === 'undefined') {
