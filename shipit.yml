@@ -1,3 +1,6 @@
+deploy:
+  override:
+    - npm install
 ci:
   require:
     - continuous-integration/travis-ci/push
