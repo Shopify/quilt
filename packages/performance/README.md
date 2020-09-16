@@ -78,6 +78,8 @@ performance.event({
 performance.finish();
 ```
 
+This package also exports a `timeOrigin` util. This util can be used instead of using `performance.timeOrigin` directly. The `timeOrigin` util provides a fallback for browsers that don't support `performance.timeOrigin`, such as Safari, but will still use the higher-resolution `performance.timeOrigin` when available.
+
 ### `Navigation`
 
 The `Navigation` object represents a full navigation, either from a full-page refresh, or between two pages. It has the following key details about the navigation:

@@ -7,11 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [1.2.3] - 2020-9-16
+### Added
 
-### Changed
-
-- Change `@shopify/performance` package to export the `referenceTime` util
+- Added `timeOrigin` util as an export of `@shopify/performance` so it can be reused outside this package
 
 ## [1.2.2] - 2019-10-16
 
