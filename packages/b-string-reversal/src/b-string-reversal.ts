@@ -6,14 +6,8 @@ export class StringReversal {
   }
 
   reverseString() {
-    const splitString = this.inputString.split();
+    const splitString = this.inputString.split('');
     const reverseArray = splitString.reverse();
     return reverseArray.join();
   }
-}
-
-export function asPlainObject(StringReversal) {
-  return {
-    reversedString: reverseString(),
-  };
 }
