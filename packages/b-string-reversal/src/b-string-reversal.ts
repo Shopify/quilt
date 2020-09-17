@@ -12,7 +12,7 @@ export class StringReversal {
   }
 }
 
-export function asPlainObject(browser?: StringReversal) {
+export function asPlainObject(StringReversal) {
   return {
     reversedString: reverseString(),
   };
