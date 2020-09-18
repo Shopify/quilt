@@ -1,5 +1,6 @@
 import {useContext, useState, useCallback} from 'react';
 import {CookieSerializeOptions} from 'cookie';
+
 import {CookieContext} from './context';
 
 const NO_MANAGER_ERROR = [
@@ -12,7 +13,7 @@ export function useCookie(
   key: string,
 ): [
   string | undefined,
-  (value?: string, options?: CookieSerializeOptions) => void
+  (value?: string, options?: CookieSerializeOptions) => void,
 ] {
   const manager = useContext(CookieContext);
 

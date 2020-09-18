@@ -1,6 +1,10 @@
 import {ChangeEvent} from 'react';
 
 export type ErrorValue = string | undefined;
+export type DirtyStateComparator<Value> = (
+  defaultValue: Value,
+  value: Value,
+) => boolean;
 
 export interface Validator<Value, Context> {
   (value: Value, context: Context): ErrorValue;
@@ -19,7 +23,7 @@ export type NormalizedValidationDictionary<ListItem extends object> = {
   [Key in keyof ListItem]: Validator<
     ListItem[Key],
     ListValidationContext<ListItem>
-  >[]
+  >[];
 };
 
 export type ValidationDictionary<
@@ -31,30 +35,32 @@ export interface FieldState<Value> {
   value: Value;
   defaultValue: Value;
   error: ErrorValue;
+  allErrors?: ErrorValue[];
   touched: boolean;
   dirty: boolean;
 }
 
 export type FieldStates<Record extends object> = {
-  [Key in keyof Record]: FieldState<Record[Key]>
+  [Key in keyof Record]: FieldState<Record[Key]>;
 };
 
 export interface Field<Value> {
   value: Value;
   error: ErrorValue;
+  allErrors?: ErrorValue[];
   defaultValue: Value;
   touched: boolean;
   dirty: boolean;
   onBlur(): void;
   onChange(value: Value | ChangeEvent<HTMLInputElement>): void;
-  runValidation(): ErrorValue;
+  runValidation(value?: Value): ErrorValue;
   setError(value: ErrorValue): void;
   newDefaultValue(value: Value): void;
   reset(): void;
 }
 
 export type FieldDictionary<Record extends object> = {
-  [Key in keyof Record]: Field<Record[Key]>
+  [Key in keyof Record]: Field<Record[Key]>;
 };
 
 export interface Form<T extends FieldBag> {
@@ -65,6 +71,7 @@ export interface Form<T extends FieldBag> {
   validate(): FormError[];
   reset(): void;
   submit(event?: React.FormEvent): void;
+  makeClean(): void;
 }
 
 export interface FormError {
@@ -109,5 +116,5 @@ type FieldProp<T, K extends keyof Field<any>> = T extends Field<any>
 export type FormMapping<Bag, FieldKey extends keyof Field<any>> = {
   [Key in keyof Bag]: Bag[Key] extends any[]
     ? {[Index in keyof Bag[Key]]: FieldProp<Bag[Key][Index], FieldKey>}
-    : FieldProp<Bag[Key], FieldKey>
+    : FieldProp<Bag[Key], FieldKey>;
 };

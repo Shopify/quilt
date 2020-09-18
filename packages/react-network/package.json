@@ -1,15 +1,14 @@
 {
   "name": "@shopify/react-network",
-  "version": "3.3.4",
+  "version": "3.5.4",
   "license": "MIT",
-  "description": "A collection of components that allow you to set common HTTP headers from within your React application.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "description": "A collection of components that allow you to set common HTTP headers from within your React application",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -17,15 +16,18 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-network"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-network/README.md",
   "dependencies": {
-    "@shopify/network": "^1.4.2",
-    "@shopify/react-effect": "^3.2.5",
+    "@shopify/network": "^1.5.0",
+    "@shopify/react-effect": "^3.2.12",
+    "@shopify/react-hooks": "^1.11.1",
+    "@shopify/react-universal-provider": "^1.1.20",
     "@types/accept-language-parser": "1.5.0",
     "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.0",
@@ -34,7 +36,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.1.7"
+    "@shopify/jest-koa-mocks": "^2.2.3"
   },
   "peerDependencies": {
     "koa": "^2.5.0",
@@ -42,6 +44,7 @@
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "server.js",
     "server.d.ts"
   ]

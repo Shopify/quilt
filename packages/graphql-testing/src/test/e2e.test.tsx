@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import gql from 'graphql-tag';
 import {DocumentNode} from 'graphql-typed';
 import {mount} from '@shopify/react-testing';
@@ -21,18 +21,22 @@ const petQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
 `;
 
 function MyComponent({id = '1'} = {}) {
-  const {data, loading, error} = useQuery(petQuery, {variables: {id}});
+  const {data, loading, error, refetch} = useQuery(petQuery, {variables: {id}});
 
   const errorMarkup = error ? <p>Error</p> : null;
   const loadingMarkup = loading ? <p>Loading</p> : null;
   const petsMarkup =
     data != null && data.pet != null ? <p>{data.pet.name}</p> : null;
+  const handleButtonClick = useCallback(() => refetch(), [refetch]);
 
   return (
     <>
       {loadingMarkup}
       {petsMarkup}
       {errorMarkup}
+      <button onClick={handleButtonClick} type="button">
+        Refetch!
+      </button>
     </>
   );
 }
@@ -99,5 +103,40 @@ describe('graphql-testing', () => {
       id,
     });
     expect(myComponent).toContainReactText(name);
+  });
+
+  it('allows for mock updates after it has been initialized', async () => {
+    const newName = 'Garfield2';
+    const graphQL = createGraphQL({
+      Pet: {
+        pet: {
+          __typename: 'Cat',
+          name: 'Garfield',
+        },
+      },
+    });
+
+    const myComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent id="123" />
+      </ApolloProvider>,
+    );
+
+    graphQL.wrap(resolve => myComponent.act(resolve));
+    await graphQL.resolveAll();
+
+    graphQL.update({
+      Pet: {
+        pet: {
+          __typename: 'Cat',
+          name: newName,
+        },
+      },
+    });
+
+    myComponent.find('button').trigger('onClick');
+    await graphQL.resolveAll();
+
+    expect(myComponent).toContainReactText(newName);
   });
 });

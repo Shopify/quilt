@@ -1,15 +1,14 @@
 {
   "name": "@shopify/react-form",
-  "version": "0.3.26",
+  "version": "0.7.3",
   "license": "MIT",
-  "description": "Manage react forms tersely and safely-typed with no magic using React hooks.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "description": "Manage React forms tersely and safely-typed with no magic using React hooks",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -17,10 +16,11 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-form"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-form/README.md",
   "peerDependencies": {
@@ -31,11 +31,12 @@
     "faker": "^4.1.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@shopify/predicates": "^1.2.1",
-    "@shopify/react-hooks": "^1.2.5",
+    "@shopify/predicates": "^1.2.6",
+    "@shopify/react-hooks": "^1.11.1",
     "fast-deep-equal": "^2.0.1",
     "get-value": "^3.0.1"
   }

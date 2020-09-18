@@ -1,4 +1,5 @@
 import {stringify} from 'jest-matcher-utils';
+
 import {DebugOptions, Node} from './types';
 
 export function toReactString<Props>(
@@ -23,24 +24,21 @@ export function toReactString<Props>(
         ? key !== 'children'
         : !/^(children|className)$|^(aria|data)-/.test(key),
     )
-    .reduce(
-      (list, key) => {
-        if (!key) {
-          return list;
-        }
-
-        const value = node.props[key];
-
-        if (value === undefined && !options.allProps) {
-          return list;
-        }
-
-        list.push(toPropString(key, value, options.verbosity));
-
+    .reduce((list, key) => {
+      if (!key) {
         return list;
-      },
-      [] as string[],
-    );
+      }
+
+      const value = node.props[key];
+
+      if (value === undefined && !options.allProps) {
+        return list;
+      }
+
+      list.push(toPropString(key, value, options.verbosity));
+
+      return list;
+    }, [] as string[]);
   const hasChildren = node.children.length > 0 && !['svg'].includes(name);
   const open = `${indent}<${name}${
     props.length > 0 ? ` ${props.join(' ')}` : ''

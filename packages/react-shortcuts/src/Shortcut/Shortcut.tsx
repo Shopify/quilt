@@ -1,4 +1,5 @@
 import Key, {HeldKey} from '../keys';
+
 import useShortcut from './hooks';
 
 export interface Props {

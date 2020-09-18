@@ -176,6 +176,54 @@ describe('client metrics middleware', () => {
         expect.objectContaining(additionalTags),
       );
     });
+
+    it('includes locale in distributions', async () => {
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          connection: {
+            effectiveType: '3G',
+          },
+          locale: 'es',
+          events: [createLifecycleEvent()],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics(config)(context);
+      });
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(Number),
+        expect.objectContaining({
+          locale: 'es',
+        }),
+      );
+    });
+
+    it('omits undefined locales from distributions', async () => {
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          connection: {
+            effectiveType: '3G',
+          },
+          locale: undefined,
+          events: [createLifecycleEvent()],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics(config)(context);
+      });
+
+      expect(StatsDClient.distributionSpy).not.toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(Number),
+        expect.objectContaining({locale: expect.anything()}),
+      );
+    });
   });
 
   describe('events', () => {
@@ -487,12 +535,13 @@ type DeepPartial<T> = {
     ? T[K]
     : T[K] extends object
     ? DeepPartial<T[K]>
-    : T[K]
+    : T[K];
 };
 
 function createBody({
   connection,
   events = [],
+  locale,
   navigations = [],
   pathname = '/some-path',
 }: DeepPartial<Metrics> = {}): Metrics {
@@ -503,6 +552,7 @@ function createBody({
       ...connection,
     },
     events,
+    locale,
     navigations,
     pathname,
   };

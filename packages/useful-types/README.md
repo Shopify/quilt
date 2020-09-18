@@ -41,6 +41,30 @@ The following type aliases are provided by this library:
   type Arg = FirstArgument<typeof func>; // Promise<any>
   ```
 
+- `ConstructorArgumentAtIndex<T, Index>`: Resolves to the type of the argument of the passed class's constructor at the passed index. Useful for cases where you wish to extract the type of arguments without actually exporting the argument types, and is a nice complement to TypeScript’s built-in `ReturnType`.
+
+  ```tsx
+  class SomeClass {
+    constructor(floop: string, doop: number) {
+      console.log(floop);
+    }
+  }
+
+  type DoopType = ConstructorArgument<typeof SomeClass, 1>; // number
+  ```
+
+- `FirstConstructorArgument<T>`: Resolves to the type of the first argument to the passed class's constructor. This is shorthand for `ConstructorArgumentAtIndex<T, 0>`.
+
+  ```ts
+  class SomeClass {
+    constructor(floop: string) {
+      console.log(floop);
+    }
+  }
+
+  type DoopType = FirstConstructorArgument<typeof SomeClass>; // string
+  ```
+
 - `ArrayElement<T>`: When `T` is an array, resolves to the type contained within the array.
 
   ```ts
@@ -71,4 +95,13 @@ The following type aliases are provided by this library:
   }
 
   type DeepPartialObj = DeepPartial<Obj>; // {foo?: string; bar?: { baz?: boolean }}
+  ```
+
+- `NoInfer<T>`: creates a ["lower priority inference site"](https://github.com/microsoft/TypeScript/issues/14829#issuecomment-320754731), which allows other uses of a generic to take precedence in inference.
+
+  ```ts
+  // Here, TypeScript will always use the type of the items in the `items` argument as `T`, and will not consider the type of the `item` argument of `renderItem`.
+  function render<T>(items: T[], renderItem: (item: NoInfer<T>) => string) {
+    /* implementation */
+  }
   ```

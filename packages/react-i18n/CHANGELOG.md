@@ -2,11 +2,139 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
-
----
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
+
+## [5.1.0] - 2020-09-15
+
+### Fixed
+
+- Fixed (updated) currencies list. [[#1632](https://github.com/Shopify/quilt/pull/1632)]
+
+## [5.0.0] - 2020-06-04
+
+### Changed
+
+- Adds future date formatting to `formatDate` for dates less than 1 week away and less than 1 year away [[#1438](https://github.com/Shopify/quilt/pull/1438)]
+
+  Please see the [migration guide](./migration-guide.md) for more information.
+
+## [4.0.0] - 2020-05-29
+
+### Changed
+
+- Updated `I18n#humanizeDate` to humanize today's date as `Today at {time}` [[#1459](https://github.com/Shopify/quilt/pull/1459)]
+
+  Please see the [migration guide](./migration-guide.md) for more information.
+
+### Fixed
+
+- Fixed `DateStyle.Short` zero-padding days ([#1468](https://github.com/Shopify/quilt/pull/1468))
+
+## [3.0.0] - 2020-04-23
+
+### Changed
+
+- Modified `I18n#humanizeDate` to humanize future dates, specifically `Tomorrow at {time}` [[#1391](https://github.com/Shopify/quilt/pull/1391)]
+
+  Please see the [migration guide](./migration-guide.md) for more information.
+
+## [2.6.0] - 2020-04-20
+
+### Changed
+
+- `jest.Matchers` type updated to match `@types/jest` version `25` [[#1239](https://github.com/Shopify/quilt/pull/1239)]
+
+## [2.5.5] - 2020-04-13
+
+### Fixed
+
+- updated `memoizedNumberFormatter` to support all `Intl.NumberFormat` constructor inputs ([#1366](https://github.com/Shopify/quilt/pull/1366))
+
+## [2.5.4] - 2020-04-09
+
+### Added
+
+- adding additional exports: `RegisterOptions`, `CurrencyFormatOptions`, `NumberFormatOptions`, `TranslateOptions`, `RootTranslateOptions`, `Replacements` ([#1365](https://github.com/Shopify/quilt/pull/1365))
+
+### Fixed
+
+- Updated `formatCurrency` to use `memoizedNumberFormatter` to eliminate memory leak ([#1310](https://github.com/Shopify/quilt/pull/1310))
+
+## [2.5.3] - 2020-04-09
+
+### Fixed
+
+- Removed the unicode `RegExp` flag on `getCurrencySymbol` in order to support IE11 ([#1363](https://github.com/Shopify/quilt/pull/1363))
+
+## [2.5.0] - 2020-04-02
+
+### Added
+
+- Add `defaultLocale` option to Babel plugin ([#1225](https://github.com/Shopify/quilt/pull/1225))
+- Added `form: 'auto'` option to `formatCurrency`, to automatically select `short` or `explicit` based on `currency` and `defaultCurrency` ([#1350](https://github.com/Shopify/quilt/pull/1350))
+
+## [2.4.1] - 2020-04-02
+
+### Added
+
+- Added korean eastern name formatter
+
+## [2.4.0] - 2020-03-24
+
+### Added
+
+- Added `hasEasternNameOrderFormatter` method, to determine whether an Eastern name order formatter exists for the locale/language
+
+## [2.3.10] - 2020-02-27
+
+### Fixed
+
+- Fixed memory leaks when server-side rendering for `Intl.DateTimeFormat.format()` and `Intl.NumberFormat.format()` ([#1287](https://github.com/Shopify/quilt/pull/1287))
+
+- `formatCurrency` will now put the minus sign in front of the currency symbol when the amount is negative ([#1264](https://github.com/Shopify/quilt/pull/1264))
+
+## [2.3.6] - 2020-02-04
+
+### Fixed
+
+- `MissingTranslationError` now uses the `normalizedId` which includes the `scope` ([#1258](https://github.com/Shopify/quilt/pull/1258))
+
+## [2.3.4] - 2020-01-20
+
+### Added
+
+- Added `Gip` currency code value ([#1235](https://github.com/Shopify/quilt/pull/1235))
+
+### Fixed
+
+- Fixed `unformatNumber` for numbers using a period as the thousand separator ([#1215](https://github.com/Shopify/quilt/pull/1215))
+
+## [2.3.0] - 2019-11-29
+
+### Added
+
+- Minor - added a `generateTranslationDictionaries` helper, and `mode=from-dictionary-index` option for the Babel plugin. This can be used to build many versions of an application, with each version containing a specific locale's translations directly within JavaScript ([#1197](https://github.com/Shopify/quilt/pull/1197/files))
+
+## [2.2.0] - 2019-11-22
+
+### Added
+
+- Added a `generateTranslationIndexes` helper, and `mode=from-generated-index` option for the Babel plugin. This can be used to resolve unwanted cache hits when adding new translation files ([#1188](https://github.com/Shopify/quilt/pull/1188))
+
+## [2.1.8] - 2019-11-15
+
+### Fixed
+
+- `translationKeyExists` on i18n works as expected with onError handler ([#1162](https://github.com/Shopify/quilt/pull/1162))
+
+## [2.1.7] - 2019-11-12
+
+### Added
+
+- Added locale to be part of `MissingTranslationError` ([#1178](https://github.com/Shopify/quilt/pull/1178))
 
 ## [2.1.0] - 2019-10-07
 
@@ -75,7 +203,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [1.9.1] - 2019-09-13
 
-## Changed
+### Changed
 
 - Updated to `@shopify/dates@^0.2.0`
 

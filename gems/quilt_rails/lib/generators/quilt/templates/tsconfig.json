@@ -1,8 +1,0 @@
-{
-  "extends": "@shopify/typescript-configs/application.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "."
-  },
-  "include": ["app/ui"]
-}

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   translate,
   getTranslationTree,
@@ -110,7 +111,7 @@ describe('getTranslationTree()', () => {
   it('throws a MissingTranslationError when no translation is found', () => {
     expect(() =>
       getTranslationTree('foo.bar.baz', {foo: {bar: 'one'}}, locale),
-    ).toThrow();
+    ).toThrow('Missing translation for key: foo.bar.baz in locale: en-us');
   });
 });
 
@@ -120,6 +121,16 @@ describe('memoizedNumberFormatter', () => {
     expect(numberFormatterA).toBeInstanceOf(Intl.NumberFormat);
 
     const numberFormatterB = memoizedNumberFormatter(locale);
+    expect(numberFormatterB).toBeInstanceOf(Intl.NumberFormat);
+    expect(numberFormatterB).toBe(numberFormatterA);
+  });
+
+  it('returns the same object when passed multiple locales as an array', () => {
+    const locales = ['en-US', 'en-CA'];
+    const numberFormatterA = memoizedNumberFormatter(locales);
+    expect(numberFormatterA).toBeInstanceOf(Intl.NumberFormat);
+
+    const numberFormatterB = memoizedNumberFormatter(locales);
     expect(numberFormatterB).toBeInstanceOf(Intl.NumberFormat);
     expect(numberFormatterB).toBe(numberFormatterA);
   });
@@ -184,7 +195,15 @@ describe('translate()', () => {
   });
 
   it('throws a MissingTranslationError when no translation is found', () => {
-    expect(() => translate('foo', {}, {}, locale)).toThrow();
+    expect(() => translate('foo', {}, {}, locale)).toThrow(
+      'Missing translation for key: foo in locale: en-us',
+    );
+  });
+
+  it('throws a MissingTranslationError with the normalizedId when no translation is found using a scope', () => {
+    const scope = 'bar';
+    const id = 'foo';
+    expect(() => translate(id, {scope}, {}, locale)).toThrow(`${scope}.${id}`);
   });
 
   it('looks up a translation by key', () => {

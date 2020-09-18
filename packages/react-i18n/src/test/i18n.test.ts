@@ -174,7 +174,7 @@ describe('I18n', () => {
 
     it('rethrows a missing translation error by default', () => {
       const key = 'hello';
-      const error = new MissingTranslationError(key);
+      const error = new MissingTranslationError(key, defaultDetails.locale);
       getTranslationTree.mockImplementation(() => {
         throw error;
       });
@@ -185,7 +185,7 @@ describe('I18n', () => {
 
     it('rethrows a missing translation error with the missing key message', () => {
       const key = 'hello';
-      const error = new MissingTranslationError(key);
+      const error = new MissingTranslationError(key, defaultDetails.locale);
       getTranslationTree.mockImplementation(() => {
         throw error;
       });
@@ -199,7 +199,7 @@ describe('I18n', () => {
     it('calls an onError handler', () => {
       const key = 'hello';
       const spy = jest.fn();
-      const error = new MissingTranslationError(key);
+      const error = new MissingTranslationError(key, defaultDetails.locale);
       getTranslationTree.mockImplementation(() => {
         throw error;
       });
@@ -217,7 +217,7 @@ describe('I18n', () => {
     it('returns an empty string when an onError handler does not rethrow', () => {
       const key = 'key';
       getTranslationTree.mockImplementation(() => {
-        throw new MissingTranslationError(key);
+        throw new MissingTranslationError(key, defaultDetails.locale);
       });
 
       const i18n = new I18n(defaultTranslations, {
@@ -374,7 +374,7 @@ describe('I18n', () => {
 
     it('rethrows a missing translation error by default', () => {
       const key = 'hello';
-      const error = new MissingTranslationError(key);
+      const error = new MissingTranslationError(key, defaultDetails.locale);
       translate.mockImplementation(() => {
         throw error;
       });
@@ -385,7 +385,7 @@ describe('I18n', () => {
 
     it('rethrows a missing translation error with the missing key message', () => {
       const key = 'hello';
-      const error = new MissingTranslationError(key);
+      const error = new MissingTranslationError(key, defaultDetails.locale);
       translate.mockImplementation(() => {
         throw error;
       });
@@ -399,7 +399,7 @@ describe('I18n', () => {
     it('calls an onError handler', () => {
       const key = 'hello';
       const spy = jest.fn();
-      const error = new MissingTranslationError(key);
+      const error = new MissingTranslationError(key, defaultDetails.locale);
       translate.mockImplementation(() => {
         throw error;
       });
@@ -417,7 +417,7 @@ describe('I18n', () => {
     it('returns an empty string when an onError handler does not rethrow', () => {
       const key = 'hello';
       translate.mockImplementation(() => {
-        throw new MissingTranslationError(key);
+        throw new MissingTranslationError(key, defaultDetails.locale);
       });
 
       const i18n = new I18n(defaultTranslations, {
@@ -605,7 +605,7 @@ describe('I18n', () => {
     const input = 123456.7891;
 
     it('handles number with period decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '1.1');
+      formatNumber.mockImplementationOnce(() => '123,456.7');
 
       const formatted = '123,456.7891';
 
@@ -613,15 +613,23 @@ describe('I18n', () => {
     });
 
     it('handles number with comma decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '1,1');
+      formatNumber.mockImplementationOnce(() => '123.456,7');
 
       const formatted = '123.456,7891';
 
       expect(i18n.unformatNumber(formatted)).toBe(input.toString());
     });
 
+    it('handles number with space as the thousand symbol', () => {
+      formatNumber.mockImplementationOnce(() => '123 456,7');
+
+      const formatted = '123 456,7891';
+
+      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+    });
+
     it('handles number with unusual comma separators and period decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '1.1');
+      formatNumber.mockImplementationOnce(() => '123,456.7');
 
       const formatted = '1,23,456.7891';
 
@@ -629,7 +637,7 @@ describe('I18n', () => {
     });
 
     it('handles invalid value', () => {
-      formatNumber.mockImplementationOnce(() => '1.1');
+      formatNumber.mockImplementationOnce(() => '123,456.7');
 
       const formatted = 'foobar';
 
@@ -651,6 +659,57 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrencyAuto()', () => {
+    const amount = 1234;
+    const currency = 'USD';
+    const symbolInfo = {symbol: '$', prefixed: true};
+
+    it('formats short when there is no currency in the options', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {form: 'auto'})).toBe(
+        i18n.formatCurrency(amount, {form: 'short'}),
+      );
+    });
+
+    it('formats short when there is no default currency', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+
+      expect(i18n.formatCurrency(amount, {form: 'auto', currency})).toBe(
+        i18n.formatCurrency(amount, {form: 'short', currency}),
+      );
+    });
+
+    it('formats short when the default currency matches the options currency', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {form: 'auto', currency})).toBe(
+        i18n.formatCurrency(amount, {form: 'short', currency}),
+      );
+    });
+
+    it('formats explicit when the default currency does not match the options currency', () => {
+      getCurrencySymbol.mockReturnValue(symbolInfo);
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {form: 'auto', currency: 'CAD'})).toBe(
+        i18n.formatCurrency(amount, {form: 'explicit', currency: 'CAD'}),
+      );
+    });
+  });
+
   describe('#formatCurrencyExplicit()', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
@@ -663,14 +722,44 @@ describe('I18n', () => {
       ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235 JPY'}
       ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56 USD'}
-      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 € EUR'}
-      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
-      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
-      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $ USD'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $ USD'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, symbol, prefixed, expected}) => {
         const amount = 1234.56;
+        const mockSymbolResult = {symbol, prefixed};
+
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+      },
+    );
+  });
+
+  describe('#formatCurrencyExplicit() with negative amount', () => {
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56 Kč CZK'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'-€ 1 234,56 EUR'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-¥ 1 235 JPY'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-$ 1 234,56 USD'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'-€ 1,234.56 EUR'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-¥ 1,235 JPY'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-$ 1,234.56 USD'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'-1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'-1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'-1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'-1 234,56 $ USD'}
+    `(
+      'formats -1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = -1234.56;
         const mockSymbolResult = {symbol, prefixed};
 
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
@@ -693,14 +782,44 @@ describe('I18n', () => {
       ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'¥ 1,235'}
       ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'$ 1,234.56'}
-      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 €'}
-      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
-      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
-      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56 €'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56 $'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, symbol, prefixed, expected}) => {
         const amount = 1234.56;
+        const mockSymbolResult = {symbol, prefixed};
+
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+      },
+    );
+  });
+
+  describe('#formatCurrencyShort() with negative amount', () => {
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56 Kč'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'-€ 1 234,56'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-¥ 1 235'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-$ 1 234,56'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'-€ 1,234.56'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-¥ 1,235'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-$ 1,234.56'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'-1 234,56 €'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'-1 235 JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'-1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'-1 234,56 $'}
+    `(
+      'formats -1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = -1234.56;
         const mockSymbolResult = {symbol, prefixed};
 
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
@@ -770,7 +889,7 @@ describe('I18n', () => {
       expect(i18n.unformatCurrency('.12', 'USD')).toBe('0.12');
     });
 
-    it('handles value starting with ', () => {
+    it('handles value starting with', () => {
       getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
@@ -1037,14 +1156,14 @@ describe('I18n', () => {
     });
 
     it('formats a date using DateStyle.Short', () => {
-      const date = new Date('2012-12-20T00:00:00-00:00');
+      const date = new Date('2012-12-09T00:00:00-00:00');
       const i18n = new I18n(defaultTranslations, {
         ...defaultDetails,
         timezone,
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Short})).toBe(
-        'Dec. 20, 2012',
+        'Dec. 9, 2012',
       );
     });
 
@@ -1073,151 +1192,248 @@ describe('I18n', () => {
         ).toBe('Dec. 20, 2012');
       });
 
-      it('formats a date less than one minute ago', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneMinuteAgo = new Date(today.getTime());
-        lessThanOneMinuteAgo.setSeconds(-5);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
+      describe('past dates', () => {
+        it('formats a date less than one minute ago', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneMinuteAgo = new Date(today.getTime());
+          lessThanOneMinuteAgo.setSeconds(-5);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneMinuteAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneMinuteAgo',
+            {pseudotranslate: false},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
-        i18n.formatDate(lessThanOneMinuteAgo, {
-          style: DateStyle.Humanize,
+        it('formats a date less than one hour ago', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneHourAgo = new Date(today.getTime());
+          const minutesAgo = 5;
+          lessThanOneHourAgo.setMinutes(-minutesAgo);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneHourAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneHourAgo',
+            {pseudotranslate: false, replacements: {count: minutesAgo}},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneMinuteAgo',
-          {pseudotranslate: false},
-          defaultTranslations,
-          i18n.locale,
-        );
+
+        it('formats a date from today', () => {
+          const today = new Date('2012-12-20T23:00:00-00:00');
+          const moreThanOneHourAgo = new Date(today.getTime());
+          const hoursAgo = 5;
+          moreThanOneHourAgo.setHours(today.getHours() - hoursAgo);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          expect(
+            i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
+          ).toBe('5:00 a.m.');
+        });
+
+        it('formats a date from yesterday', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const yesterday = new Date('2012-12-19T00:00:00-00:00');
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(yesterday, {style: DateStyle.Humanize});
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.yesterday',
+            {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
+
+        it('formats a date less than one week ago', () => {
+          const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneWeekAgo = new Date(
+            today.getTime() - fiveDaysInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneWeekAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneWeekAgo',
+            {
+              pseudotranslate: false,
+              replacements: {weekday: 'Saturday', time: '11:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
+
+        it('formats a date less than one year ago', () => {
+          // Offset from 2012-12-20 to 2012-07-20
+          const fiveMonthsInMilliseconds =
+            (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
+
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneYearAgo = new Date(
+            today.getTime() - fiveMonthsInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneYearAgo, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneYearAgo',
+            {
+              pseudotranslate: false,
+              replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
+        });
       });
 
-      it('formats a date less than one hour ago', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneHourAgo = new Date(today.getTime());
-        const minutesAgo = 5;
-        lessThanOneHourAgo.setMinutes(-minutesAgo);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
+      describe('future dates', () => {
+        it('formats a date for tomorrow', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const tomorrow = new Date('2012-12-21T00:00:00-00:00');
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(tomorrow, {style: DateStyle.Humanize});
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.tomorrow',
+            {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
-        i18n.formatDate(lessThanOneHourAgo, {
-          style: DateStyle.Humanize,
-        });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneHourAgo',
-          {pseudotranslate: false, replacements: {count: minutesAgo}},
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
+        it('formats a date for today', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const todayInTheFuture = new Date(today.getTime());
+          const hoursInTheFuture = 5;
+          todayInTheFuture.setHours(today.getHours() + hoursInTheFuture);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
 
-      it('formats a date from today', () => {
-        const today = new Date('2012-12-20T23:00:00-00:00');
-        const moreThanOneHourAgo = new Date(today.getTime());
-        const hoursAgo = 5;
-        moreThanOneHourAgo.setHours(today.getHours() - hoursAgo);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
+          i18n.formatDate(todayInTheFuture, {style: DateStyle.Humanize});
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.today',
+            {pseudotranslate: false, replacements: {time: '4:00 p.m.'}},
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
-        expect(
-          i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
-        ).toBe('5:00 a.m.');
-      });
+        it('formats a date less than one week away', () => {
+          const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneWeekAway = new Date(
+            today.getTime() + fiveDaysInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
 
-      it('formats a date from yesterday', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const yesterday = new Date('2012-12-19T00:00:00-00:00');
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
+          i18n.formatDate(lessThanOneWeekAway, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneWeekAway',
+            {
+              pseudotranslate: false,
+              replacements: {weekday: 'Tuesday', time: '11:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
-        i18n.formatDate(yesterday, {style: DateStyle.Humanize});
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.yesterday',
-          {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
+        it('formats a date less than one year away', () => {
+          // Offset from 2012-12-20 to 2013-05-22
+          const fiveMonthsInMilliseconds =
+            (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
 
-      it('formats a date less than one week ago', () => {
-        const fiveDaysInMilliseconds = 5 * 24 * 60 * 60 * 1000;
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneWeekAgo = new Date(
-          today.getTime() - fiveDaysInMilliseconds,
-        );
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const lessThanOneYearAway = new Date(
+            today.getTime() + fiveMonthsInMilliseconds,
+          );
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          i18n.formatDate(lessThanOneYearAway, {
+            style: DateStyle.Humanize,
+          });
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneYearAway',
+            {
+              pseudotranslate: false,
+              replacements: {date: 'May 22', time: '10:00 a.m.'},
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
         });
 
-        i18n.formatDate(lessThanOneWeekAgo, {
-          style: DateStyle.Humanize,
+        it('formats a future date', () => {
+          const today = new Date('2012-12-20T00:00:00-00:00');
+          const futureDate = new Date(today.getTime());
+          futureDate.setFullYear(today.getFullYear() + 1);
+          clock.mock(today);
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            timezone,
+          });
+
+          expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
+            'Dec. 20, 2013',
+          );
         });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneWeekAgo',
-          {
-            pseudotranslate: false,
-            replacements: {weekday: 'Saturday', time: '11:00 a.m.'},
-          },
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
-
-      it('formats a date less than one year ago', () => {
-        // Offset from 2012-12-20 to 2012-07-20
-        const fiveMonthsInMilliseconds =
-          (30 + 31 + 30 + 31 + 31) * 24 * 60 * 60 * 1000;
-
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const lessThanOneYearAgo = new Date(
-          today.getTime() - fiveMonthsInMilliseconds,
-        );
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
-        });
-
-        i18n.formatDate(lessThanOneYearAgo, {
-          style: DateStyle.Humanize,
-        });
-        expect(translate).toHaveBeenCalledWith(
-          'date.humanize.lessThanOneYearAgo',
-          {
-            pseudotranslate: false,
-            replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
-          },
-          defaultTranslations,
-          i18n.locale,
-        );
-      });
-
-      it('formats a future date', () => {
-        const today = new Date('2012-12-20T00:00:00-00:00');
-        const futureDate = new Date(today.getTime());
-        futureDate.setFullYear(today.getFullYear() + 1);
-        clock.mock(today);
-        const i18n = new I18n(defaultTranslations, {
-          ...defaultDetails,
-          timezone,
-        });
-
-        expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
-          'Dec. 20, 2013',
-        );
       });
     });
 
@@ -1394,10 +1610,18 @@ describe('I18n', () => {
       expect(i18n.formatName('', 'last', {full: true})).toStrictEqual('last');
     });
 
-    it('returns a string when firstName and lastName are missing using full', () => {
+    it('returns a string when lastName is undefined using full', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
       expect(i18n.formatName('', undefined, {full: true})).toStrictEqual('');
+    });
+
+    it('returns a string when first and lastName are missing using full', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.formatName(undefined, undefined, {full: true})).toStrictEqual(
+        '',
+      );
     });
 
     it('defaults to firstName lastName for unknown locale', () => {
@@ -1432,6 +1656,14 @@ describe('I18n', () => {
       );
     });
 
+    it('returns lastName first and no space for Korean', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'ko'});
+
+      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
+        'lastfirst',
+      );
+    });
+
     it('returns lastName first and no space for zh-CN', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'zh-CN'});
 
@@ -1451,8 +1683,8 @@ describe('I18n', () => {
 
   describe('#translationKeyExists', () => {
     it('returns true if the translation key exists', () => {
-      const mockResult = 'translated string';
-      translate.mockReturnValue(mockResult);
+      const mockResult = {hello: 'translated string'};
+      getTranslationTree.mockReturnValue(mockResult);
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
       const result = i18n.translationKeyExists('hello');
@@ -1462,8 +1694,8 @@ describe('I18n', () => {
 
     it('returns false if the translation key does not exist', () => {
       const key = 'foo';
-      const error = new MissingTranslationError(key);
-      translate.mockImplementation(() => {
+      const error = new MissingTranslationError(key, defaultDetails.locale);
+      getTranslationTree.mockImplementation(() => {
         throw error;
       });
 
@@ -1471,6 +1703,35 @@ describe('I18n', () => {
       const result = i18n.translationKeyExists(key);
 
       expect(result).toBe(false);
+    });
+
+    it('returns false if the translation key does not exist and onError is overridden', () => {
+      const key = 'foo';
+      const error = new MissingTranslationError(key, defaultDetails.locale);
+      getTranslationTree.mockImplementation(() => {
+        throw error;
+      });
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        onError: jest.fn(),
+      });
+
+      const result = i18n.translationKeyExists(key);
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('#hasEasternNameOrderFormatter', () => {
+    it('returns true if easternNameOrderFormatter exists', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'ja'});
+
+      expect(i18n.hasEasternNameOrderFormatter()).toStrictEqual(true);
+    });
+
+    it('returns false if custom name formatter does not exist', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(i18n.hasEasternNameOrderFormatter()).toStrictEqual(false);
     });
   });
 });

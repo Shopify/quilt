@@ -1,13 +1,12 @@
 {
   "name": "@shopify/koa-shopify-graphql-proxy",
-  "version": "3.2.1",
+  "version": "4.0.1",
   "license": "MIT",
-  "description": "A wrapper around koa-better-http-proxy which allows easy proxying of graphql requests from an embedded shopify app.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",
@@ -16,10 +15,11 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/koa-shopify-graphql-proxy"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-graphql-proxy/README.md",
   "dependencies": {
@@ -30,5 +30,9 @@
   "peerDependencies": {
     "koa": ">=2.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

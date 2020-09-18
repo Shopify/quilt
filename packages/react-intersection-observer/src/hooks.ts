@@ -20,6 +20,9 @@ const emptyBoundingClientRect = {
   right: 0,
   top: 0,
   width: 0,
+  x: 0,
+  y: 0,
+  toJSON: () => {},
 };
 
 export function useIntersection({
@@ -54,12 +57,7 @@ export function useIntersection({
       typeof root === 'string' ? document.querySelector(root) : root;
 
     const intersectionObserver = new IntersectionObserver(
-      ([entry]) =>
-        setIntersectingEntry({
-          ...entry,
-          // Normalizes for inconsistent browser support
-          isIntersecting: entry.intersectionRatio > 0,
-        }),
+      ([entry]) => setIntersectingEntry(entry),
       {
         root: resolvedRoot,
         rootMargin,

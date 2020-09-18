@@ -7,6 +7,75 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.7.0] - 2020-06-02
+
+### Added
+
+- Add optional `makeCleanAfterSubmit` param to both `useSubmit` and `useForm` config (defaults to `false`)
+- Provide bound `makeClean` in `Form` object returned from `useForm`
+- Provide `makeCleanFields` utility for other use cases
+
+## [0.6.0] - 2020-04-23
+
+### Added
+
+- Add optional `allErrors` property to `Field` type definition that stores all error messages resulting from `runValidation` [#1383](https://github.com/Shopify/quilt/pull/1383)
+
+## [0.5.4] - 2020-04-13
+
+### Fixed
+
+- [Patch] Add optional `value` parameter to `runValidation` type definition [#1362](https://github.com/Shopify/quilt/pull/1362)
+
+## [0.5.2] - 2020-04-07
+
+### Fixed
+
+- Fixed a bug where onSubmit fieldValues doesn't return empty arrays [#1353](https://github.com/Shopify/quilt/pull/1353)
+- Fixed a bug where useDirty does not update dirty state properly on lists [#1353](https://github.com/Shopify/quilt/pull/1353)
+
+## [0.5.1] - 2020-04-02
+
+### Fixed
+
+- Fixed a bug in useList [#1335](https://github.com/Shopify/quilt/pull/1335)
+
+## [0.5.0] - 2020-03-12
+
+### Added
+
+- Added `reduceFields` utilities [#1307](https://github.com/Shopify/quilt/pull/1307)
+
+## [0.4.2] - 2020-03-12
+
+### Fixed
+
+- Fixed a bug in the custom comparator introduced in 0.4.0 [#1305](https://github.com/Shopify/quilt/pull/1305)
+
+## [0.4.1] - 2020-03-10
+
+### Fixed
+
+- Overloaded `useList` to accept list as argument ([#1308](https://github.com/Shopify/quilt/issues/1308))
+
+## [0.4.0] - 2020-03-04
+
+### Added
+
+- Add option to use a custom comparator for determining if a field is dirty [#1296](https://github.com/Shopify/quilt/pull/1296/)
+
+## [0.3.34] - 2020-02-27
+
+### Fixed
+
+- Update `isChangeEvent` to check for null ([#1288](https://github.com/Shopify/quilt/issues/1288))
+
+## [0.3.24]
+
+### Fixed
+
+- Update reduceField() to check array equality when determining if a field is dirty [#1222](https://github.com/Shopify/quilt/pull/1222)
+
 ## [0.3.23]
 
 ### Added

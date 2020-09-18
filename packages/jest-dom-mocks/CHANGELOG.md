@@ -2,13 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- Unreleased changes should go to UNRELEASED.md -->
+<!-- ## [Unreleased] -->
 
----
+## [2.9.1] - 2020-05-05
 
-## Unreleased
+### Added
+
+- Fixed setup instructions instructions for `ensureMocksReset`
+
+## [2.9.0] - 2020-04-23
+
+- Added mock for `innerWidth` to dimensions ([#1399](https://github.com/Shopify/quilt/pull/1399))
 
 ## [2.8.0] - 2019-10-03
 
@@ -36,24 +43,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - Added a mock for dimensions ([#625](https://github.com/Shopify/quilt/pull/625))
 
-## 2.5.0 - 2019-03-28
+## [2.5.0] - 2019-03-28
 
 ### Added
 
 - Added a mock for `Promise` ([#614](https://github.com/Shopify/quilt/pull/614))
 
-## 2.4.0
+## [2.4.0]
 
 ### Added
 
 - Added a mock for `IntersectionObserver` and `requestIdleCallback` ([#576](https://github.com/Shopify/quilt/pull/576))
 
-## 2.2.0
+## [2.2.0]
 
 ### Added
 
 - User timing mocks [#468](https://github.com/Shopify/quilt/pull/468).
 
-## 2.1.3 - 2019-01-09
+## [2.1.3] - 2019-01-09
 
 - Start of Changelog

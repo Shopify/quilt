@@ -1,15 +1,14 @@
 {
   "name": "@shopify/react-hydrate",
-  "version": "1.1.6",
+  "version": "1.1.26",
   "license": "MIT",
   "description": "Utilities for hydrating server-rendered React apps",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -17,15 +16,16 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-hydrate"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hydrate/README.md",
   "dependencies": {
-    "@shopify/react-effect": "^3.2.5",
-    "@shopify/react-hooks": "^1.2.5"
+    "@shopify/react-effect": "^3.2.12",
+    "@shopify/react-hooks": "^1.11.1"
   },
   "devDependencies": {
     "faker": "^4.1.0"
@@ -34,6 +34,7 @@
     "react": "^16.8.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

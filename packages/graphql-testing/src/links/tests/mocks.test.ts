@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-
 import {GraphQLError} from 'graphql';
+
 import {MockGraphQLResponse} from '../../types';
 import {MockLink} from '../mocks';
 

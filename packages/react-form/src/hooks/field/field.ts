@@ -1,8 +1,9 @@
 import {useCallback, useEffect, useMemo, ChangeEvent} from 'react';
 import isEqual from 'fast-deep-equal';
 
-import {Validates, Field} from '../../types';
+import {Validates, Field, DirtyStateComparator} from '../../types';
 import {normalizeValidation, isChangeEvent} from '../../utilities';
+
 import {
   updateAction,
   updateErrorAction,
@@ -14,6 +15,7 @@ import {
 export interface FieldConfig<Value> {
   value: Value;
   validates: Validates<Value>;
+  dirtyStateComparator?: DirtyStateComparator<Value>;
 }
 
 /**
@@ -96,7 +98,7 @@ export interface FieldConfig<Value> {
  * **Reinitialization:** If the `value` property of the field configuration changes between calls to `useField`,
  * the field will be reset to use it as it's new default value.
  *
- * **Imperative methods:** The returned `Field` object contains a number of methods used to imperatively alter it's state.
+ * **Imperative methods:** The returned `Field` object contains a number of methods used to imperatively alter its state.
  * These should only be used as escape hatches where the existing hooks and components do not make your life easy,
  * or to build new abstractions in the same vein as `useForm`, `useSubmit` and friends.
  */
@@ -104,10 +106,10 @@ export function useField<Value = string>(
   input: FieldConfig<Value> | Value,
   dependencies: unknown[] = [],
 ): Field<Value> {
-  const {value, validates} = normalizeFieldConfig(input);
+  const {value, validates, dirtyStateComparator} = normalizeFieldConfig(input);
   const validators = normalizeValidation(validates);
 
-  const [state, dispatch] = useFieldReducer(value);
+  const [state, dispatch] = useFieldReducer(value, dirtyStateComparator);
 
   const resetActionObject = useMemo(() => resetAction(), []);
   const reset = useCallback(() => dispatch(resetActionObject), [
@@ -121,13 +123,13 @@ export function useField<Value = string>(
 
   const runValidation = useCallback(
     (value: Value = state.value) => {
-      const error = validators
+      const errors = validators
         .map(check => check(value, {}))
         .filter(value => value != null);
 
-      if (error && error.length > 0) {
-        const [firstError] = error;
-        dispatch(updateErrorAction(firstError));
+      if (errors && errors.length > 0) {
+        const [firstError] = errors;
+        dispatch(updateErrorAction(errors));
         return firstError;
       }
 

@@ -1,15 +1,20 @@
 import {
+  formatDate,
+  isFutureDate,
   isLessThanOneHourAgo,
   isLessThanOneMinuteAgo,
   isLessThanOneWeekAgo,
   isLessThanOneYearAgo,
   isToday,
+  isTomorrow,
   isYesterday,
   TimeUnit,
+  isLessThanOneWeekAway,
+  isLessThanOneYearAway,
 } from '@shopify/dates';
-import {memoize as memoizeFn} from '@shopify/function-enhancers';
 import {memoize} from '@shopify/decorators';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
+
 import {
   I18nDetails,
   PrimitiveReplacementDictionary,
@@ -26,7 +31,7 @@ import {
   Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
-  CUSTOM_NAME_FORMATTERS,
+  EASTERN_NAME_ORDER_FORMATTERS,
 } from './constants';
 import {
   MissingCurrencyCodeError,
@@ -48,7 +53,7 @@ export interface NumberFormatOptions extends Intl.NumberFormatOptions {
 }
 
 export interface CurrencyFormatOptions extends NumberFormatOptions {
-  form?: 'short' | 'explicit';
+  form?: 'auto' | 'short' | 'explicit';
 }
 
 export interface TranslateOptions {
@@ -59,12 +64,6 @@ export interface TranslateOptions {
 const DECIMAL_NOT_SUPPORTED = 'N/A';
 const PERIOD = '.';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
-
-const memoizedDateTimeFormatter = memoizeFn(
-  dateTimeFormatter,
-  (locale: string, options: Intl.DateTimeFormatOptions = {}) =>
-    `${locale}${JSON.stringify(options)}`,
-);
 
 export class I18n {
   readonly locale: string;
@@ -205,7 +204,7 @@ export class I18n {
 
   translationKeyExists(id: string) {
     try {
-      this.translate(id);
+      getTranslationTree(id, this.translations, this.locale);
       return true;
     } catch (error) {
       return false;
@@ -237,9 +236,13 @@ export class I18n {
   }
 
   unformatNumber(input: string): string {
-    const decimalSymbol = this.numberDecimalSymbol();
+    const {thousandSymbol, decimalSymbol} = this.numberSymbols();
 
-    const normalizedValue = normalizedNumber(input, decimalSymbol);
+    const normalizedValue = normalizedNumber(
+      input,
+      decimalSymbol,
+      thousandSymbol === PERIOD,
+    );
 
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
   }
@@ -248,11 +251,15 @@ export class I18n {
     amount: number,
     {form, ...options}: CurrencyFormatOptions = {},
   ) {
-    if (form === 'explicit') {
-      return this.formatCurrencyExplicit(amount, options);
-    } else if (form === 'short') {
-      return this.formatCurrencyShort(amount, options);
+    switch (form) {
+      case 'auto':
+        return this.formatCurrencyAuto(amount, options);
+      case 'explicit':
+        return this.formatCurrencyExplicit(amount, options);
+      case 'short':
+        return this.formatCurrencyShort(amount, options);
     }
+
     return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
@@ -291,13 +298,6 @@ export class I18n {
     const {locale, defaultTimezone} = this;
     const {timeZone = defaultTimezone} = options;
 
-    // Etc/GMT+12 is not supported in most browsers and there is no equivalent fallback
-    if (timeZone === 'Etc/GMT+12') {
-      const adjustedDate = new Date(date.valueOf() - 12 * 60 * 60 * 1000);
-
-      return this.formatDate(adjustedDate, {...options, timeZone: 'UTC'});
-    }
-
     const {style = undefined, ...formatOptions} = options || {};
 
     if (style) {
@@ -306,10 +306,7 @@ export class I18n {
         : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
     }
 
-    return memoizedDateTimeFormatter(locale, {
-      timeZone,
-      ...formatOptions,
-    }).format(date);
+    return formatDate(date, locale, {...formatOptions, timeZone});
   }
 
   ordinal(amount: number) {
@@ -340,7 +337,6 @@ export class I18n {
     return this.getCurrencySymbolLocalized(this.locale, currency);
   };
 
-  @memoize((currency: string, locale: string) => `${locale}${currency}`)
   getCurrencySymbolLocalized(locale: string, currency: string) {
     return getCurrencySymbol(locale, {currency});
   }
@@ -356,8 +352,8 @@ export class I18n {
     const isFullName = Boolean(options && options.full);
 
     const customNameFormatter =
-      CUSTOM_NAME_FORMATTERS.get(this.locale) ||
-      CUSTOM_NAME_FORMATTERS.get(this.language);
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
 
     if (customNameFormatter) {
       return customNameFormatter(firstName, lastName, isFullName);
@@ -366,6 +362,30 @@ export class I18n {
       return `${firstName} ${lastName}`;
     }
     return firstName;
+  }
+
+  hasEasternNameOrderFormatter() {
+    const easternNameOrderFormatter =
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
+      EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
+    return Boolean(easternNameOrderFormatter);
+  }
+
+  private formatCurrencyAuto(
+    amount: number,
+    options: Intl.NumberFormatOptions = {},
+  ): string {
+    // use the short format if we can't determine a currency match, or if the
+    // currencies match, use explicit when the currencies definitively do not
+    // match.
+    const formatShort =
+      options.currency == null ||
+      this.defaultCurrency == null ||
+      options.currency === this.defaultCurrency;
+
+    return formatShort
+      ? this.formatCurrencyShort(amount, options)
+      : this.formatCurrencyExplicit(amount, options);
   }
 
   private formatCurrencyExplicit(
@@ -398,9 +418,13 @@ export class I18n {
       ...options,
     }).format(amount);
 
-    return shortSymbol.prefixed
+    const formattedWithSymbol = shortSymbol.prefixed
       ? `${shortSymbol.symbol}${formattedAmount}`
       : `${formattedAmount}${shortSymbol.symbol}`;
+
+    return amount < 0
+      ? `-${formattedWithSymbol.replace('-', '')}`
+      : formattedWithSymbol;
   }
 
   // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
@@ -423,6 +447,14 @@ export class I18n {
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    if (isFutureDate(date)) {
+      return this.humanizeFutureDate(date, options);
+    } else {
+      return this.humanizePastDate(date, options);
+    }
+  }
+
+  private humanizePastDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     if (isLessThanOneMinuteAgo(date)) {
       return this.translate('date.humanize.lessThanOneMinuteAgo');
     }
@@ -480,6 +512,50 @@ export class I18n {
     });
   }
 
+  private humanizeFutureDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const time = this.formatDate(date, {
+      ...options,
+      hour: 'numeric',
+      minute: '2-digit',
+    }).toLocaleLowerCase();
+
+    if (isToday(date)) {
+      return this.translate('date.humanize.today', {time});
+    }
+
+    if (isTomorrow(date)) {
+      return this.translate('date.humanize.tomorrow', {time});
+    }
+
+    if (isLessThanOneWeekAway(date)) {
+      const weekday = this.formatDate(date, {
+        ...options,
+        weekday: 'long',
+      });
+      return this.translate('date.humanize.lessThanOneWeekAway', {
+        weekday,
+        time,
+      });
+    }
+
+    if (isLessThanOneYearAway(date)) {
+      const monthDay = this.formatDate(date, {
+        ...options,
+        month: 'short',
+        day: 'numeric',
+      });
+      return this.translate('date.humanize.lessThanOneYearAway', {
+        date: monthDay,
+        time,
+      });
+    }
+
+    return this.formatDate(date, {
+      ...options,
+      style: DateStyle.Short,
+    });
+  }
+
   private currencyDecimalSymbol(currencyCode: string) {
     const digitOrSpace = /\s|\d/g;
     const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
@@ -494,22 +570,39 @@ export class I18n {
     return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 
-  private numberDecimalSymbol() {
-    return this.formatNumber(1.1, {
+  @memoize()
+  private numberSymbols() {
+    const formattedNumber = this.formatNumber(123456.7, {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
-    })[1];
+    });
+    let thousandSymbol;
+    let decimalSymbol;
+    for (const char of formattedNumber) {
+      if (isNaN(parseInt(char, 10))) {
+        if (thousandSymbol) decimalSymbol = char;
+        else thousandSymbol = char;
+      }
+    }
+    return {thousandSymbol, decimalSymbol};
   }
 }
 
-function normalizedNumber(input: string, expectedDecimal: string) {
+function normalizedNumber(
+  input: string,
+  expectedDecimal: string,
+  usesPeriodThousandSymbol?: boolean,
+) {
   const nonDigits = /\D/g;
 
   // For locales that use non-period symbols as the decimal symbol, users may still input a period
   // and expect it to be treated as the decimal symbol for their locale.
   const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
   const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
-  const usesPeriodDecimal = !hasExpectedDecimalSymbol && hasPeriodAsDecimal;
+  const usesPeriodDecimal =
+    !usesPeriodThousandSymbol &&
+    !hasExpectedDecimalSymbol &&
+    hasPeriodAsDecimal;
   const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
   const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
 
@@ -539,11 +632,4 @@ function isTranslateOptions(
 
 function defaultOnError(error: I18nError) {
   throw error;
-}
-
-function dateTimeFormatter(
-  locale: string,
-  options: Intl.DateTimeFormatOptions = {},
-) {
-  return new Intl.DateTimeFormat(locale, options);
 }

@@ -7,6 +7,44 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [6.1.13] - 2020-06-24
+
+### Changed
+
+- Replace Apollo declarative Query component with `useQuery` hook ([#1519](https://github.com/Shopify/quilt/pull/1519))
+
+## [6.1.9] - 2020-05-14
+
+### Changed
+
+- Improve typings for `usePrefetch` to accept a `fetchPolicy` in `options` ([#1437](https://github.com/Shopify/quilt/pull/1437))
+
+## [6.1.0] - 2020-03-13
+
+- Update dependencies from `react-apollo` to `@apollo/react-common`, `@apollo/react-components`, and `@apollo/react-hooks` ([#1321](https://github.com/Shopify/quilt/pull/1321))
+
+## [6.0.9] - 2020-02-27
+
+### Changed
+
+- Improve typings for `useBackgroundQuery` by allowing the `fetchPolicy` option. ([#1293](https://github.com/Shopify/quilt/pull/1293)).
+
+## [6.0.7] - 2020-01-24
+
+### Fixed
+
+- Fixed when using `no-cache` fetch policy and data is undefined ([#1244](https://github.com/Shopify/quilt/pull/1244)).
+
+## [6.0.0] - 2019-10-30
+
+### Added
+
+- Added a `createAsyncQuery` function that can create queries that are only loaded when executed ([#1153](https://github.com/Shopify/quilt/pull/1153)).
+
+### Changed
+
+- Improved typings to avoid cases where TypeScript allowed variables to be omitted incorrectly. These typings now require `react-apollo@3.x` ([#1153](https://github.com/Shopify/quilt/pull/1153)).
+
 ## [5.2.0] - 2019-10-07
 
 ### Changed

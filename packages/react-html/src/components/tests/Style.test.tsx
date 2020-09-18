@@ -1,5 +1,6 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
+
 import {Style} from '../Style';
 
 describe('<Style />', () => {

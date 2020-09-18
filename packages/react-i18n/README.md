@@ -126,6 +126,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
   - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1,25`, `€ 1,25 EUR`, `OMR 1.250`, `$ 1.25 USD`
   - if `form: 'explicit'` is given, then the result will be the same as for `short`, but will append the ISO 4217 code if it is not already present
+  - if `form: 'auto'` is given, then `explicit` will be selected if the `currency` option does not match the `defaultCurrency`, otherwise `short` is selected. If either `currency` or `defaultCurrency` is not defined then `short` is selected.
   - if `form:` is not given, then behaviour reverts to the legacy (deprecated) `formatCurrency()`, which is a convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`. Note that this will resemble `form: 'short'`, but will sometimes extend the symbol with extra information depending on the browser's implementation of `Intl.NumberFormat` and the locale in use. For example, `formatCurrency(1.25, {currency: 'CAD'})` may return `$ 1.25`, or it might return `CA$ 1.25`.
 - `formatPercentage()`: formats a number as a percentage according to the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
@@ -139,6 +140,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
   - `formatName('John', 'Smith')` will return `John` in Germany and `Smith様` in Japan
   - `formatName('John', 'Smith', {full: true})` will return `John Smith` in Germany and `SmithJohn` in Japan
 - `ordinal()`: formats a number as an ordinal according to the locale, e.g. `1st`, `2nd`, `3rd`, `4th`
+- `hasEasternNameOrderFormatter()`: returns true when an eastern name order formatter corresponding to the locale/language exists.
 
 Most notably, you will frequently use `i18n`’s `translate()` method. This method looks up a key in translation files that you supply based on the provided locale. This method is discussed in detail in the next section.
 
@@ -276,7 +278,7 @@ if (keyExists) {
 i18n.translate('MyComponent.searchResult', {count: searchResults});
 ```
 
-As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill.
+As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/master/packages/polyfills).
 We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
 
 By default, `{count}` will be automatically formatted as a number. If you want to format the variable differently, you can simply pass it in another variable.
@@ -327,43 +329,43 @@ i18n.getTranslationTree('MyComponent.countries');
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
 
-This library uses the [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/master/packages/react-effect) package to allow translations to be extracted alongside other asynchronous side effects on the server. To make use of this, you will need to keep a reference to the `I18nManager` for your app. Then, import the `extract` function from `@shopify/react-effect`, and call it with your top-level component. Finally, call the manager’s `extract` method to get an opaque representation of the translations that were loaded in that tree:
+We recommend you to use [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html) with [`@shopify/react-i18n-universal-provider`](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider) to serialize the extracted translations and rehydrate them on the client.
 
 ```tsx
+import {
+  Html,
+  render,
+  Serialize,
+  HtmlContext,
+  HtmlManager,
+} from '@shopify/react-html/server';
 import {I18nManager} from '@shopify/react-i18n';
 import {extract} from '@shopify/react-effect/server';
 
-const i18nManager = new I18nManager({locale: 'en'});
-// This assumes your `App` component accepts this prop, and
-// appropriately uses it with a `I18nContext.Provider` component as
-// documented above.
-const element = <App i18nManager={i18nManager} />;
 
-await extract(element);
-
-const translations = i18nManager.extract();
-```
-
-> Note: You can selectively extract _only_ the translations by using the `EFFECT_ID` exported from `@shopify/react-i18n`, and using this as the second argument to `@shopify/react-effect`’s `extract()` as detailed in its documentation. Most consumers of this package will be fine with just the example above.
-
-Once you have done this, serialize the result (we recommend [`@shopify/react-serialize`](https://github.com/Shopify/quilt/tree/master/packages/react-serialize)), then load it on the client and include it as part of the initialization of the i18n manager:
-
-```tsx
-import {I18nContext, I18nManager} from '@shopify/react-i18n';
-import {getSerialized} from '@shopify/react-serialize';
-
-const locale = 'en';
-const {data: translations} = getSerialized('translations');
-
-export default function App({
-  i18nManager = new I18nManager({locale}, translations),
-}) {
+function App({locale}: {locale?: string}) {
   return (
-    <I18nContext.Provider value={i18nManager}>
+    <I18nUniversalProvider locale={locale}>
       {/* App contents */}
     </I18nContext.Provider>
   );
 }
+const app = <App locale='en' />;
+
+const htmlManager = new HtmlManager();
+await extract(element, {
+  decorate(app) {
+    return (
+      <HtmlContext.Provider value={htmlManager}>{app}</HtmlContext.Provider>
+    );
+  },
+});
+
+const html = render(
+  <Html manager={htmlManager}>
+    {app}
+  </Html>,
+);
 ```
 
 ### Babel
@@ -394,10 +396,108 @@ useI18n({
   id: 'MyComponent_<hash>',
   fallback: _en,
   async translations(locale) {
-    const dictionary = await import(/* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`);
+    const dictionary = await import(
+      /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
+    );
     return dictionary;
   },
 });
+```
+
+#### Integration with babel-loader
+
+Because `babel-loader`'s cache is based on a component's source content hash, newly added translation files will not invalidate the component's Babel cache. To combat this, run the `generateTranslationIndexes` function before building, and configure the plugin to use its `from-generated-index` mode.
+
+The generator will look for any `translations` folders and generate an array of local ids in `translations/index.js` based on the `{locale}.json` files found. We recommend that you add `**/translations/index.js` to `.gitignore` to make sure the generated files are not checked-in.
+
+```js
+// webpack.config.js
+module.exports = {
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                '@babel/plugin-syntax-dynamic-import',
+                ['@shopify/react-i18n/babel', {mode: 'from-generated-index'}],
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+```js
+// generate-translations.js
+const {
+  generateTranslationIndexes,
+} = require('@shopify/react-i18n/generate-index');
+
+generateTranslationIndexes();
+webpack(require(./webpack.config.js));
+```
+
+#### Statically embedding locale-specific translations
+
+For large applications, even asynchronously loaded translations can significantly degrade the user experience:
+
+- Bundlers like webpack have to embed kilobytes of data to track each translation import
+- Users not using the "default" language have to download kilobytes of translations for every language
+
+To avoid this, it is possible to build versions of app with specific locale translations embedded directly in JavaScript. To achieve this, run the Babel plugin in `from-dictionary-index` mode:
+
+```js
+// webpack.config.js
+{
+  plugins: [
+    ['@shopify/react-i18n/babel', {mode: 'from-dictionary-index'}],
+  ],
+}
+```
+
+Then generate `translations/index.js` files containing specific locale data using the `@shopify/react-i18n/generate-dictionaries` helper. e.g., the following code generates three versions of an application with English, French, and German content using webpack.
+
+```js
+// generate-translations.js
+const {
+  generateTranslationDictionaries,
+} = require('@shopify/react-i18n/generate-dictionaries');
+
+// Build English app.
+await generateTranslationDictionaries(['en']);
+webpack(require(./webpack.config.js));
+
+// Build French app.
+await generateTranslationDictionaries(['fr'], {fallbackLocale: 'en'});
+webpack(require(./webpack.config.js));
+
+// Build German app.
+await generateTranslationDictionaries(['de'], {fallbackLocale: 'en'});
+webpack(require(./webpack.config.js));
+
+```
+
+#### Setting the default locale to something other than `en`
+
+If you want your default locale to be something else than English because it's not your primary locale, you can pass the `defaultLocale` option to the babel plugin:
+
+```
+// webpack.config.js
+{
+  plugins: [
+    ['@shopify/react-i18n/babel', {defaultLocale: 'fr'}],
+  ],
+}
 ```
 
 ## FAQ
@@ -412,3 +512,23 @@ These libraries are excellent, and we may well use parts of them under the hood 
 - Exposing currency and datetime formatting utilities that automatically follow the [Polaris conventions](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses).
 
 Additional details on why we built our own package, and on specifics of parts of this package’s API, are available in the [original proposal](https://github.com/Shopify/web-foundation/pull/3).
+
+### How do I get this i18n library to work with React Native?
+
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version [2.3.0](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
+
+**Note**: You will need a script to generate `index` files:
+
+```javascript
+const {
+  generateTranslationDictionaries,
+} = require('@shopify/react-i18n/generate-dictionaries');
+
+const SUPPORTED_LOCALES = ['en'];
+
+(async () => {
+  await generateTranslationDictionaries(SUPPORTED_LOCALES, {
+    fallbackLocale: 'en',
+  });
+})();
+```

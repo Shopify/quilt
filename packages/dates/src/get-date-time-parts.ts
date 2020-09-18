@@ -1,5 +1,6 @@
 import {memoize} from '@shopify/decorators';
-import {formatDate} from './utilities/formatDate';
+
+import {formatDate} from './utilities';
 import {sanitiseDateString} from './sanitise-date-string';
 
 const TWO_DIGIT_REGEX = /(\d{2})/;

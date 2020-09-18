@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+
 import {Operations} from '../operations';
 
 const queryOne = gql`

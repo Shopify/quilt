@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-performance.svg)](https://badge.fury.io/js/%40shopify%2Freact-performance.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-performance.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-performance.svg)
 
-Primitives to measure your React application's performance using `@shopify/performance`
+Primitives to measure your React application's performance using `@shopify/performance`.
 
 ## Table of Contents
 
@@ -32,7 +32,7 @@ $ yarn add @shopify/react-performance
 
 ### Track some stats
 
-The `@shopify/react-performance` library automatically handles creating a shared `Performance` instance (from [`@shopify/performance`](../performance)) for you when it is imported. This `Performance` instance automatically wraps the browser's built in performance and connection information and calculates some basic page-load stats. A long as we import `@shopify/react-performance` somewhere in our app the instance will be there for us.
+The `@shopify/react-performance` library automatically handles creating a shared `Performance` instance (from [`@shopify/performance`](../performance)) for you when it is imported. This `Performance` instance automatically wraps the browser's built in performance and connection information and calculates some basic page-load stats. As long as we import `@shopify/react-performance` somewhere in our app the instance will be there for us.
 
 That said, we will need to add some calls to the `usePerformanceMark` hook to our application in order to help `@shopify/react-performance` determine when a page is fully loaded and React has finished mounting components.
 
@@ -265,7 +265,23 @@ function App() {
 }
 ```
 
-To get sensical data, applications using `usePerformanceReport` should be sure to have at least on performance mark on each top level page.
+To get sensical data, applications using `usePerformanceReport` should be sure to have at least one performance mark on each top level page.
+
+##### Segmenting by user locale
+
+`usePerformanceReport` accepts a `locale` property that will be associated with all events.
+
+```tsx
+// App.tsx
+import React from 'react';
+import {usePerformanceReport} from '@shopify/react-performance';
+import {ProductPage} from './ProductPage';
+
+function App() {
+  usePerformanceReport('/performance-report', {locale: navigator.language});
+  return <ProductPage />;
+}
+```
 
 ### Components
 

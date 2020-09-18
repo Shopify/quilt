@@ -1,14 +1,12 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "2.1.3",
+  "version": "5.1.0",
   "license": "MIT",
-  "description": "i18n utilities for React handling translations, formatting, and more.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "i18n utilities for React handling translations, formatting, and more",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build",
-    "test": "jest --config ./config/jest/config.json"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",
@@ -17,10 +15,11 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-i18n"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-i18n/README.md",
   "devDependencies": {
@@ -34,17 +33,19 @@
     "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
-    "@shopify/dates": "^0.2.5",
-    "@shopify/decorators": "^1.1.5",
-    "@shopify/function-enhancers": "^1.0.5",
-    "@shopify/i18n": "^0.1.6",
-    "@shopify/react-effect": "^3.2.5",
-    "@shopify/react-hooks": "^1.2.5",
-    "@shopify/useful-types": "^2.0.2",
+    "@shopify/dates": "^0.4.1",
+    "@shopify/decorators": "^1.1.12",
+    "@shopify/function-enhancers": "^1.0.10",
+    "@shopify/i18n": "^0.1.11",
+    "@shopify/react-effect": "^3.2.12",
+    "@shopify/react-hooks": "^1.11.1",
+    "@shopify/useful-types": "^2.2.0",
     "@types/hoist-non-react-statics": "^3.0.1",
+    "change-case": "^3.1.0",
     "glob": "^7.1.4",
     "hoist-non-react-statics": "^3.0.1",
-    "prop-types": "^15.6.2",
+    "lodash.clonedeep": "^4.0.0",
+    "lodash.merge": "^4.0.0",
     "string-hash": "^1.1.3",
     "tslib": "^1.9.3"
   },
@@ -54,11 +55,17 @@
   },
   "optionalDependencies": {
     "@babel/template": "^7.0.0",
-    "@babel/traverse": "^7.0.0"
+    "@babel/traverse": "^7.0.0",
+    "fs-extra": "^8.1.0"
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "babel.d.ts",
-    "babel.js"
+    "babel.js",
+    "generate-index.d.ts",
+    "generate-index.js",
+    "generate-dictionaries.d.ts",
+    "generate-dictionaries.js"
   ]
 }

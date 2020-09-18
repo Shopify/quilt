@@ -1,14 +1,14 @@
 {
   "name": "@shopify/dates",
-  "version": "0.2.5",
+  "version": "0.4.1",
   "license": "MIT",
-  "description": "Lightweight date operations library.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "Lightweight date operations library",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -16,21 +16,22 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/dates"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
   "dependencies": {
-    "@shopify/decorators": "^1.1.5",
-    "@shopify/function-enhancers": "^1.0.5",
+    "@shopify/decorators": "^1.1.12",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.8.4"
+    "@shopify/jest-dom-mocks": "^2.9.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

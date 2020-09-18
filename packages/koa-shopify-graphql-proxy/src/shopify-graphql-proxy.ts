@@ -5,9 +5,11 @@ export const PROXY_BASE_PATH = '/graphql';
 export const GRAPHQL_PATH_PREFIX = '/admin/api';
 
 export enum ApiVersion {
-  April19 = '2019-04',
   July19 = '2019-07',
   October19 = '2019-10',
+  January20 = '2020-01',
+  April20 = '2020-04',
+  July20 = '2020-07',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }

@@ -1,15 +1,14 @@
 {
   "name": "@shopify/react-idle",
-  "version": "1.0.10",
+  "version": "1.0.19",
   "license": "MIT",
   "description": "Utilities for working with idle callbacks in React",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -17,19 +16,22 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-idle"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-idle/README.md",
   "dependencies": {
-    "@shopify/async": "^2.0.9"
+    "@shopify/async": "^2.1.5",
+    "@shopify/useful-types": "^2.2.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

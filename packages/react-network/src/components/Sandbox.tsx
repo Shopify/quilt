@@ -1,4 +1,5 @@
 import {CspDirective, CspSandboxAllow} from '@shopify/network';
+
 import {useCspDirective} from '../hooks';
 
 interface Props {

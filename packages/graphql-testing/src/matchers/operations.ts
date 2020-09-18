@@ -4,13 +4,14 @@ import {
   EXPECTED_COLOR as expectedColor,
 } from 'jest-matcher-utils';
 import {GraphQLOperation, DocumentNode} from 'graphql-typed';
-
 import {Operation} from 'apollo-link';
+
 import {GraphQL} from '../graphql-controller';
 import {
   operationNameFromDocument,
   operationTypeFromDocument,
 } from '../utilities';
+
 import {assertIsGraphQL, diffVariablesForOperation} from './utilities';
 
 export function toHavePerformedGraphQLOperation<Variables>(
@@ -56,14 +57,16 @@ export function toHavePerformedGraphQLOperation<Variables>(
           foundByVariables.length === 1 ? 'operation was' : 'operations were'
         } found.\n`
     : () =>
-        `${`${matcherHint('.toHavePerformedGraphQLOperation')}\n\n` +
+        `${
+          `${matcherHint('.toHavePerformedGraphQLOperation')}\n\n` +
           `Expected to have performed GraphQL ${type}:\n  ${expectedColor(
             name,
           )}\n${
             variables
               ? `With props matching:\n  ${printExpected(variables)}\n`
               : ''
-          }`}${
+          }`
+        }${
           foundByVariables.length === 0
             ? `But no matching operations were found.\n`
             : `But the ${

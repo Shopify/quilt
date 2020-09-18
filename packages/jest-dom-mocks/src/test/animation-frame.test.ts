@@ -16,7 +16,9 @@ describe('AnimationFrame', () => {
 
       expect(() => {
         animationFrame.mock();
-      }).toThrow();
+      }).toThrow(
+        'The animation frame is already mocked, but you tried to mock it again.',
+      );
     });
   });
 
@@ -34,7 +36,9 @@ describe('AnimationFrame', () => {
 
       expect(() => {
         animationFrame.restore();
-      }).toThrow();
+      }).toThrow(
+        'The animation frame is already real, but you tried to restore it again.',
+      );
     });
   });
 });

@@ -196,7 +196,7 @@ export class Performance {
       (handler as EventMap['navigation'])(this.firstNavigation);
     }
 
-    // If they are registered to here about new navigations, and one is in flight,
+    // If they are registered to hear about new navigations, and one is in flight,
     // tell them right away.
     if (event === 'inflightNavigation' && this.inflightNavigation != null) {
       (handler as EventMap['inflightNavigation'])();

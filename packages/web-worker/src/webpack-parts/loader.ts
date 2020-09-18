@@ -1,6 +1,6 @@
 import * as path from 'path';
-import {getOptions} from 'loader-utils';
 
+import {getOptions} from 'loader-utils';
 import SingleEntryPlugin from 'webpack/lib/SingleEntryPlugin';
 import WebWorkerTemplatePlugin from 'webpack/lib/webworker/WebWorkerTemplatePlugin';
 import FetchCompileWasmTemplatePlugin from 'webpack/lib/web/FetchCompileWasmTemplatePlugin';
@@ -11,6 +11,7 @@ const NAME = 'WebWorker';
 
 export interface Options {
   name?: string;
+  plain?: boolean;
 }
 
 export function pitch(
@@ -27,13 +28,13 @@ export function pitch(
     _compilation: compilation,
   } = this;
 
-  // if (compiler.options.output.globalObject !== 'self') {
-  //   return callback(
-  //     new Error(
-  //       'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser.',
-  //     ),
-  //   );
-  // }
+  if (compiler.options.output!.globalObject !== 'self') {
+    return callback!(
+      new Error(
+        'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @shopify/web-worker babel plugin.',
+      ),
+    );
+  }
 
   const plugin: WebWorkerPlugin = (compiler.options.plugins || []).find(
     WebWorkerPlugin.isInstance,
@@ -46,26 +47,29 @@ export function pitch(
   }
 
   const options: Options = getOptions(this) || {};
-  const {name = String(plugin.workerId++)} = options;
+  const {name = String(plugin.workerId++), plain = false} = options;
 
   const virtualModule = path.join(
     path.dirname(resourcePath),
     `${path.basename(resourcePath, path.extname(resourcePath))}.worker.js`,
   );
 
-  plugin.virtualModules.writeModule(
-    virtualModule,
-    `
-      import * as api from ${JSON.stringify(request)};
-      import {expose} from '@shopify/web-worker/worker';
+  if (!plain) {
+    plugin.virtualModules.writeModule(
+      virtualModule,
+      `
+        import * as api from ${JSON.stringify(request)};
+        import {expose} from '@shopify/web-worker/worker';
 
-      expose(api);
-    `,
-  );
+        expose(api);
+      `,
+    );
+  }
 
   const workerOptions = {
-    filename: addWorkerSubExtension(compiler.options.output!
-      .filename as string),
+    filename: addWorkerSubExtension(
+      compiler.options.output!.filename as string,
+    ),
     chunkFilename: addWorkerSubExtension(
       compiler.options.output!.chunkFilename!,
     ),
@@ -84,7 +88,9 @@ export function pitch(
   new FetchCompileWasmTemplatePlugin({
     mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new SingleEntryPlugin(context, virtualModule, name).apply(workerCompiler);
+  new SingleEntryPlugin(context, plain ? request : virtualModule, name).apply(
+    workerCompiler,
+  );
 
   for (const aPlugin of plugin.options.plugins || []) {
     aPlugin.apply(workerCompiler);

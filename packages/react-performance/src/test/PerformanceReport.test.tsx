@@ -5,6 +5,7 @@ import {fetch, timer, connection} from '@shopify/jest-dom-mocks';
 import {Method, Header} from '@shopify/network';
 
 import {mockPerformance, randomConnection} from './utilities';
+
 import {PerformanceReport, PerformanceContext} from '..';
 
 describe('<PerformanceReport />', () => {
@@ -118,6 +119,26 @@ describe('<PerformanceReport />', () => {
     const [, {body}] = fetch.lastCall();
     expect(JSON.parse(body!.toString())).toMatchObject({
       connection: mockConnection,
+    });
+  });
+
+  it('includes locale in reports', () => {
+    const performance = mockPerformance();
+    const mockConnection = randomConnection();
+    connection.mock(mockConnection);
+
+    mount(
+      <PerformanceContext.Provider value={performance}>
+        <PerformanceReport url={faker.internet.url()} locale="zh-CN" />
+      </PerformanceContext.Provider>,
+    );
+
+    performance.simulateNavigation();
+    timer.runAllTimers();
+
+    const [, {body}] = fetch.lastCall();
+    expect(JSON.parse(body!.toString())).toMatchObject({
+      locale: 'zh-CN',
     });
   });
 });

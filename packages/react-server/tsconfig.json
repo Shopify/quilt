@@ -1,0 +1,28 @@
+{
+  "extends": "../tsconfig_base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": "."
+  },
+  "include": [
+    "../../config/typescript/**/*",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [
+    {"path": "../jest-koa-mocks"},
+    {"path": "../react-async"},
+    {"path": "../sewing-kit-koa"},
+    {"path": "../network"},
+    {"path": "../react-network"},
+    {"path": "../react-cookie"},
+    {"path": "../with-env"},
+    {"path": "../react-html"},
+    {"path": "../useful-types"},
+    {"path": "../react-hydrate"},
+    {"path": "../react-effect"},
+    {"path": "../react-testing"}
+  ]
+}

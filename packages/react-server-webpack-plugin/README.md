@@ -3,6 +3,10 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)](https://badge.fury.io/js/%40shopify%2Freact-server-webpack-plugin.svg)
 
+## ❗️ Deprecated on version 3.1.0 ❗️
+
+**Note**: This module is now deprecated and included as part of [`@shopify/react-server`](../react-server/README.md#webpack-plugin).
+
 A webpack plugin which generates "virtual" in-memory entrypoints for `@shopify/react-server` based applications. This plugin allows you to run a universal React application without needing any client/server-specific code.
 
 ## Installation
@@ -15,7 +19,7 @@ $ yarn add @shopify/react-server-webpack-plugin
 
 ### With sewing-kit
 
-As of version [0.102.0](https://github.com/Shopify/sewing-kit/blob/big-docs-update/CHANGELOG.md#L35) `sewing-kit` consumes this plugin by default if you have `@shopify/react-server` in your `package.json`. 
+As of version [0.102.0](https://github.com/Shopify/sewing-kit/blob/big-docs-update/CHANGELOG.md#L35) `sewing-kit` consumes this plugin by default if you have `@shopify/react-server` in your `package.json`.
 
 For detailed instructions on usage with Rails and sewing-kit see the documentation for [quilt_rails](/gems/quilt_rails/README.md).
 
@@ -87,6 +91,52 @@ started react-server on localhost:PORT
 ```
 
 If you point your browser at `localhost:PORT` you should see "I am an app". :)
+
+### Automatic Props
+
+The plugin passes some props to your application automatically.
+
+```typescript
+interface DefaultProps {
+  /*
+   The full WHATWG URL object for the initial request. On the client this will *not* update reactively. It is always the URL for the initial request.
+  */
+  url: URL;
+
+  /*
+   An object containing any data sent via the `x-quilt-data` header.
+   This header is used by `quilt_rails` for sending data directly from ruby to React.
+  */
+  data: Record<string, any>;
+}
+```
+
+These props are provided during both server-side and client-side rendering, so they can be used without any special logic around what environment your app is in.
+
+These props can be used to feed initial data into your application for use with libraries such as `react-router`, as well as for simple app logic.
+
+```tsx
+// index.jsx
+import React from 'react';
+
+export default function App({url, data}: {url: Url, data: Record<string, any>}) {
+  const {href} = url;
+  if (href.endsWith('/about')) {
+    return <div>this is an about page</div>;
+  }
+
+  return (
+    <div>
+      I am an app, here are some items:
+      <ul>
+        {data.items.forEach(({content, id}) => (
+          <li key={id}>{content}</li>;
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
 
 ### API
 

@@ -2,45 +2,57 @@ import {useState, useCallback, useContext} from 'react';
 import {Resolver} from '@shopify/async';
 import {useServerEffect} from '@shopify/react-effect';
 import {useMountedRef} from '@shopify/react-hooks';
-import {IfAllOptionalKeys} from '@shopify/useful-types';
+import {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
 
 import {AsyncAssetContext} from './context/assets';
 import {AssetTiming, AsyncComponentType} from './types';
 
+export type Preloadable<PreloadOptions extends object> = Pick<
+  AsyncComponentType<any, any, PreloadOptions, any, any>,
+  'usePreload'
+>;
+
+export type Prefetchable<PrefetchOptions extends object> = Pick<
+  AsyncComponentType<any, any, any, PrefetchOptions, any>,
+  'usePrefetch'
+>;
+
+export type KeepFreshable<KeepFreshOptions extends object> = Pick<
+  AsyncComponentType<any, any, any, any, KeepFreshOptions>,
+  'useKeepFresh'
+>;
+
 export function usePreload<PreloadOptions extends object>(
   ...args: IfAllOptionalKeys<
     PreloadOptions,
-    [AsyncComponentType<any, any, PreloadOptions, any, any>, PreloadOptions?],
-    [AsyncComponentType<any, any, PreloadOptions, any, any>, PreloadOptions]
+    [Preloadable<PreloadOptions>, PreloadOptions?],
+    [Preloadable<PreloadOptions>, NoInfer<PreloadOptions>]
   >
 ): ReturnType<typeof args[0]['usePreload']> {
-  const [asyncComponent, options = {}] = args;
-  return (asyncComponent.usePreload as any)(options);
+  const [preloadable, options = {}] = args;
+  return (preloadable.usePreload as any)(options);
 }
 
 export function usePrefetch<PrefetchOptions extends object>(
   ...args: IfAllOptionalKeys<
     PrefetchOptions,
-    [AsyncComponentType<any, any, any, PrefetchOptions, any>, PrefetchOptions?],
-    [AsyncComponentType<any, any, any, PrefetchOptions, any>, PrefetchOptions]
+    [Prefetchable<PrefetchOptions>, PrefetchOptions?],
+    [Prefetchable<PrefetchOptions>, NoInfer<PrefetchOptions>]
   >
 ): ReturnType<typeof args[0]['usePrefetch']> {
-  const [asyncComponent, options = {}] = args;
-  return (asyncComponent.usePrefetch as any)(options);
+  const [prefetchable, options = {}] = args;
+  return (prefetchable.usePrefetch as any)(options);
 }
 
 export function useKeepFresh<KeepFreshOptions extends object>(
   ...args: IfAllOptionalKeys<
     KeepFreshOptions,
-    [
-      AsyncComponentType<any, any, any, any, KeepFreshOptions>,
-      KeepFreshOptions?
-    ],
-    [AsyncComponentType<any, any, any, any, KeepFreshOptions>, KeepFreshOptions]
+    [KeepFreshable<KeepFreshOptions>, KeepFreshOptions?],
+    [KeepFreshable<KeepFreshOptions>, NoInfer<KeepFreshOptions>]
   >
 ): ReturnType<typeof args[0]['useKeepFresh']> {
-  const [asyncComponent, options = {}] = args;
-  return (asyncComponent.useKeepFresh as any)(options);
+  const [keepFreshable, options = {}] = args;
+  return (keepFreshable.useKeepFresh as any)(options);
 }
 
 interface Options {

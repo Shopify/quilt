@@ -7,6 +7,36 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.3.0] - 2020-08-26
+
+### Added
+
+- Automatically passed `X-Request-ID` header to GraphQL requests when it exist. ([#1609](https://github.com/Shopify/quilt/pull/1609)).
+
+## [3.2.0] - 2020-08-19
+
+### Changed
+
+- Add default cache, ssrMode, ssrForceFetchDelay, and connectToDevTools options with the server prop passed in. ([#1579](https://github.com/Shopify/quilt/pull/1579)).
+
+- Update apollo dependencies to accept a range. ([#1579](https://github.com/Shopify/quilt/pull/1579)).
+
+## [3.1.0] - 2020-03-24
+
+### Added
+
+- The generated `ApolloClient` now automatically includes a `x-shopify-react-xhr: 1` header. ([#1331](https://github.com/Shopify/quilt/pull/1331))
+
+## [3.0.2] - 2020-02-27
+
+- Specify package has no `sideEffects` ([#1233](https://github.com/Shopify/quilt/pull/1233))
+
+## [3.0.0] - 2020-01-24
+
+### Changed
+
+- Uses `@shopify/react-graphql@6.x`, which now requires `apollo-react@>=3.0.0` ([#1153](https://github.com/Shopify/quilt/pull/1153)).
+
 ## [2.0.4] - 2019-10-07
 
 ### Fixed

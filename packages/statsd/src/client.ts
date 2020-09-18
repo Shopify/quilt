@@ -32,8 +32,9 @@ export class StatsDClient {
         ? options.errorHandler
         : (error: Error) => {
             this.logger.log(
-              `Error occurred in the StatsD client:\n${error.stack ||
-                error.message}`,
+              `Error occurred in the StatsD client:\n${
+                error.stack || error.message
+              }`,
             );
           },
     };
@@ -44,6 +45,17 @@ export class StatsDClient {
   distribution(stat: string | string[], value: number, tags?: Tags) {
     return new Promise<void>(resolve => {
       this.statsd.distribution(
+        stat,
+        value,
+        this.normalizeTags(tags),
+        this.createCallback(resolve),
+      );
+    });
+  }
+
+  gauge(stat: string | string[], value: number, tags?: Tags) {
+    return new Promise<void>(resolve => {
+      this.statsd.gauge(
         stat,
         value,
         this.normalizeTags(tags),

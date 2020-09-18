@@ -1,5 +1,7 @@
 import * as path from 'path';
+
 import webpack from 'webpack';
+
 import {Context} from './context';
 
 export function runWebpack(
@@ -8,6 +10,7 @@ export function runWebpack(
 ) {
   return new Promise((resolve, reject) => {
     const srcRoot = path.resolve(__dirname, '../../');
+    const rpcSrcRoot = path.resolve(srcRoot, '../../rpc/src');
 
     webpack(
       {
@@ -15,11 +18,13 @@ export function runWebpack(
         output: {
           path: workspace.buildPath(),
           publicPath: server.assetUrl().href,
+          globalObject: 'self',
           ...extraConfig.output,
         },
         resolve: {
           extensions: ['.js', '.ts', '.json'],
           alias: {
+            '@shopify/rpc': rpcSrcRoot,
             '@shopify/web-worker': srcRoot,
             '@shopify/web-worker/worker': path.join(srcRoot, 'worker'),
           },
@@ -31,7 +36,7 @@ export function runWebpack(
           rules: [
             {
               test: /\.ts$/,
-              include: srcRoot,
+              include: {or: [srcRoot, rpcSrcRoot]},
               loaders: [
                 {
                   loader: 'babel-loader',

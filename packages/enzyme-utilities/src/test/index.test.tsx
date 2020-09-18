@@ -1,7 +1,9 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import {Toggle} from './fixtures/Toggle';
+
+import {Toggle, Button, Status} from './fixtures/Toggle';
 import {ActionList, Action} from './fixtures/Actions';
+
 import {trigger, findById} from '..';
 
 function noop() {}
@@ -40,6 +42,49 @@ describe('enzyme-utilities', () => {
       expect(spy).toHaveBeenCalledWith('hello', 1, 2, 3);
     });
 
+    it('returns the value when the callback is not a promise', () => {
+      const mockReturnValue = 'foo';
+      const spy = jest.fn(() => mockReturnValue);
+      const toggle = mount(<Toggle onToggle={spy} />);
+
+      const returnValue = trigger(toggle.find('button'), 'onClick');
+      expect(returnValue).toBe(mockReturnValue);
+    });
+
+    it('returns the value when the callback is a promise', async () => {
+      const mockReturnValue = 'foo';
+      const spy = jest.fn(() => mockReturnValue);
+      const toggle = mount(<Toggle onToggle={spy} deferred />);
+
+      const returnValue = await trigger(toggle.find('button'), 'onClick');
+      expect(returnValue).toBe(mockReturnValue);
+    });
+
+    it('updates root with synchronous functions', () => {
+      const spy = jest.fn();
+      const toggle = mount(<Toggle onToggle={spy} />);
+
+      expect(toggle.find(Button).prop('status')).toBe(Status.Active);
+      trigger(toggle.find(Button), 'onClick');
+
+      expect(toggle.find(Button).prop('status')).toBe(Status.Inactive);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('updates root with asynchronous functions', async () => {
+      const spy = jest.fn();
+      const toggle = mount(<Toggle onToggle={spy} deferred />);
+
+      expect(toggle.find(Button).prop('status')).toBe(Status.Active);
+      const promise = trigger(toggle.find(Button), 'onClick');
+
+      expect(toggle.find(Button).prop('status')).toBe(Status.InTransition);
+      await promise;
+
+      expect(toggle.find(Button).prop('status')).toBe(Status.Inactive);
+      expect(spy).toHaveBeenCalled();
+    });
+
     it('calls the callback in an act block', () => {
       const toggle = mount(<Toggle onToggle={() => {}} />);
       trigger(toggle.find('button'), 'onClick');
@@ -52,18 +97,6 @@ describe('enzyme-utilities', () => {
         trigger(toggle.find('button'), 'onClick'),
       );
       expect(errors).toHaveLength(0);
-    });
-
-    it('updates root after asynchronous functions resolve', async () => {
-      const spy = jest.fn();
-      const toggle = mount(<Toggle onToggle={spy} deferred />);
-
-      const promise = trigger(toggle.find('button'), 'onClick');
-      expect(toggle.find('button').text()).toBe('active');
-
-      await promise;
-      expect(toggle.find('button').text()).toBe('inactive');
-      expect(spy).toHaveBeenCalled();
     });
 
     it('throws an error if wrapper has no matching nodes', () => {

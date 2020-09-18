@@ -1,13 +1,12 @@
 {
   "name": "@shopify/react-import-remote",
-  "version": "1.0.19",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "Asynchronous script loading for React",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",
@@ -16,21 +15,27 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-import-remote"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-import-remote/README.md",
   "dependencies": {
-    "@shopify/async": "^2.0.9",
-    "@shopify/react-hooks": "^1.2.5",
-    "@shopify/react-html": "^9.2.5",
-    "@shopify/react-intersection-observer": "^2.0.7",
+    "@shopify/async": "^2.1.5",
+    "@shopify/react-hooks": "^1.11.1",
+    "@shopify/react-html": "^9.3.15",
+    "@shopify/react-intersection-observer": "^2.0.15",
+    "@shopify/useful-types": "^2.2.0",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
     "react": "^16.4.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

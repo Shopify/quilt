@@ -1,41 +1,63 @@
 import React from 'react';
 import {BrowserRouter, StaticRouter} from 'react-router-dom';
 import {mount} from '@shopify/react-testing';
-import Router from '../Router';
+
+import Router, {NO_LOCATION_ERROR} from '../Router';
 
 jest.mock('../utilities', () => ({
-  isServer: jest.fn(),
+  isClient: jest.fn(),
 }));
 
-const {isServer} = require.requireMock('../utilities') as {
-  isServer: jest.Mock;
+const {isClient} = require.requireMock('../utilities') as {
+  isClient: jest.Mock;
 };
 
 describe('Router', () => {
   beforeEach(() => {
-    isServer.mockClear();
-    isServer.mockImplementation(() => false);
+    isClient.mockClear();
+    isClient.mockImplementation(() => true);
   });
 
-  it('renders children', async () => {
+  it('renders children', () => {
     const text = 'Hello router';
-    const wrapper = await mount(<Router>{text}</Router>);
+    const wrapper = mount(<Router>{text}</Router>);
 
     expect(wrapper).toContainReactText(text);
   });
 
-  it('mounts a BrowserRouter by default', async () => {
-    const wrapper = await mount(<Router />);
+  it('mounts a BrowserRouter by default', () => {
+    const wrapper = mount(<Router />);
 
     expect(wrapper).toContainReactComponent(BrowserRouter);
   });
 
-  it('mounts a StaticRouter on the server with the delegated location prop', async () => {
-    isServer.mockReturnValue(true);
+  it('mounts a StaticRouter on the server with the delegated location prop', () => {
+    isClient.mockReturnValue(false);
 
     const location = 'http://www.shopify.com';
-    const wrapper = await mount(<Router location={location} />);
+    const wrapper = mount(<Router location={location} />);
 
     expect(wrapper).toContainReactComponent(StaticRouter, {location});
+  });
+
+  it('throws a useful error when location is omitted on the server', () => {
+    isClient.mockReturnValue(false);
+
+    expect(() => {
+      mount(<Router />);
+    }).toThrow(NO_LOCATION_ERROR);
+  });
+
+  it('mounts a StaticRouter on the server with location string when location passed in is an object', () => {
+    isClient.mockReturnValue(false);
+
+    const pathname = '/test123';
+    const search = '?test1=value1&test2=value2';
+    const location = new URL(`http://www.shopify.com${pathname}${search}`);
+    const wrapper = mount(<Router location={location} />);
+
+    expect(wrapper).toContainReactComponent(StaticRouter, {
+      location: {pathname, search, hash: '', state: undefined},
+    });
   });
 });

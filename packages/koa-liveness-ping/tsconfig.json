@@ -1,15 +1,15 @@
 {
-  "extends": "../../tsconfig.json",
-  "compileOnSave": false,
+  "extends": "../tsconfig_base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "rootDir": "./src"
+    "baseUrl": ".",
+    "rootDir": "."
   },
   "include": [
     "../../config/typescript/**/*",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [{"path": "../jest-koa-mocks"}]
 }

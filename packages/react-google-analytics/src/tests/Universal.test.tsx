@@ -151,6 +151,18 @@ describe('<Universal />', () => {
     });
   });
 
+  describe('onError()', () => {
+    it('is called with the error object', () => {
+      const onError = jest.fn();
+      const error = new Error('Script download error');
+      const universal = mount(<Universal {...mockProps} onError={onError} />);
+
+      universal.find(ImportRemote)!.trigger('onImported', error);
+
+      expect(onError).toHaveBeenCalledWith(error);
+    });
+  });
+
   describe('debug', () => {
     it('loads the GA script without restrictions when debug is not set', () => {
       const analytics = mockAnalytics();

@@ -1,6 +1,7 @@
 import React from 'react';
 import hoistStatics from 'hoist-non-react-statics';
 import {NonReactStatics} from '@shopify/useful-types';
+
 import {RegisterOptions} from './manager';
 import {useI18n} from './hooks';
 import {I18n} from './i18n';
@@ -19,7 +20,7 @@ export function withI18n(i18nOptions?: RegisterOptions) {
 
       return (
         <ShareTranslations>
-          <WrappedComponent {...props as any} i18n={i18n} />
+          <WrappedComponent {...(props as any)} i18n={i18n} />
         </ShareTranslations>
       );
     }

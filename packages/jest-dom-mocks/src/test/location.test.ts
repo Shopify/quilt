@@ -1,6 +1,7 @@
 import Location from '../location';
 
-describe('Location', () => {
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip('Location', () => {
   describe('mock', () => {
     it('sets isMocked()', () => {
       const location = new Location();
@@ -16,7 +17,9 @@ describe('Location', () => {
 
       expect(() => {
         location.mock();
-      }).toThrow();
+      }).toThrow(
+        'You tried to mock window.location when it was already mocked.',
+      );
     });
   });
 
@@ -34,7 +37,9 @@ describe('Location', () => {
 
       expect(() => {
         location.restore();
-      }).toThrow();
+      }).toThrow(
+        'You tried to restore window.location when it was already restored.',
+      );
     });
   });
 });

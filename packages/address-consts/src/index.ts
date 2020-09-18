@@ -39,13 +39,17 @@ export interface Zone {
   code: string;
   name: string;
 }
+
 export interface LoadCountriesResponse {
   data: {countries: Country[]};
+  errors?: GraphQlError[];
 }
 
 export interface LoadCountryResponse {
   data: {country: Country};
+  errors?: GraphQlError[];
 }
+
 export interface Country {
   name: string;
   code: string;
@@ -65,6 +69,9 @@ export interface Country {
     postalCode: string;
     zone: string;
   };
+  optionalLabels: {
+    address2: string;
+  };
   formatting: {
     edit: string;
     show: string;
@@ -73,17 +80,17 @@ export interface Country {
 }
 
 export interface ResponseError {
-  errors: {
-    locations: {
-      column: number;
-      line: number;
-    }[];
-    message: string;
-    problems: {
-      explanation: string;
-    }[];
-    value: any;
+  errors: GraphQlError[];
+}
+
+export interface GraphQlError {
+  message: string;
+  locations?: {
+    column: number;
+    line: number;
   }[];
+  path?: any[];
+  extensions?: object;
 }
 
 export const GRAPHQL_ENDPOINT =
@@ -97,16 +104,3 @@ export const HEADERS = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
 };
-
-export const SUPPORTED_LOCALES = [
-  'DA',
-  'DE',
-  'EN',
-  'ES',
-  'FR',
-  'IT',
-  'JA',
-  'NL',
-  'PT',
-  'PT_BR',
-];

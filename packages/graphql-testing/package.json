@@ -1,15 +1,14 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "4.0.4",
+  "version": "4.2.0",
   "license": "MIT",
-  "description": "Utilities to create mock graphql factory.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "description": "Utilities to create mock GraphQL factories",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -17,10 +16,11 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/graphql-testing"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/graphql-testing/README.md",
   "dependencies": {
@@ -28,15 +28,15 @@
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
     "graphql": "^14.0.0",
-    "jest-matcher-utils": "^24.9.0"
+    "jest-matcher-utils": "^25.3.0"
   },
   "devDependencies": {
-    "@shopify/useful-types": "^2.0.2",
-    "@types/graphql": "^14.0.0",
-    "graphql-typed": "^0.4.0"
+    "@shopify/useful-types": "^2.2.0",
+    "graphql-typed": "^0.5.0"
   },
   "files": [
     "dist/*",
+    "!tsconfig.tsbuildinfo",
     "matchers.d.ts",
     "matchers.js"
   ]

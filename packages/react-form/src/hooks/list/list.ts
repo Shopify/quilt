@@ -12,6 +12,7 @@ import {
   ListValidationContext,
 } from '../../types';
 import {mapObject, normalizeValidation, isChangeEvent} from '../../utilities';
+
 import {
   updateAction,
   updateErrorAction,
@@ -32,13 +33,13 @@ export interface FieldListConfig<Item extends object> {
  * In it's simplest form `useList` can be called with a single parameter with the list to derive default values and structure from.
  *
  * ```typescript
- * const field = useList([{title: '', description: ''}, {title: '', description: ''}]);
+ * const list = useList([{title: '', description: ''}, {title: '', description: ''}]);
  * ```
  *
  * You can also pass a more complex configuration object specifying a validation dictionary.
  *
  * ```tsx
- *const field = useField({
+ *const list = useList({
  *  list: [{title: '', description: ''}, {title: '', description: ''}],
  *  validates: {
  *    title:(title) => {
@@ -58,7 +59,7 @@ export interface FieldListConfig<Item extends object> {
  * Generally, you will want to use the list returned from useList by looping over it in your JSX.
  * ```tsx
  *function MyComponent() {
- *  const title = useField([{title: '', description: ''}, {title: '', description: ''}]);
+ *  const variants = useList([{title: '', description: ''}, {title: '', description: ''}]);
  *
  *  return (
  *    <ul>
@@ -98,7 +99,7 @@ export interface FieldListConfig<Item extends object> {
  *
  * ```tsx
  * function MyComponent() {
- *  const title = useField([{title: '', description: ''}, {title: '', description: ''}]);
+ *  const variants = useList([{title: '', description: ''}, {title: '', description: ''}]);
  *
  *  return (
  *    <ul>
@@ -130,9 +131,16 @@ export interface FieldListConfig<Item extends object> {
  * or to build new abstractions in the same vein as `useForm`, `useSubmit` and friends.
  */
 export function useList<Item extends object>(
-  {list, validates = {}}: FieldListConfig<Item>,
+  listOrConfig: FieldListConfig<Item> | Item[],
   validationDependencies: unknown[] = [],
 ): FieldDictionary<Item>[] {
+  const list = Array.isArray(listOrConfig) ? listOrConfig : listOrConfig.list;
+  const validates: FieldListConfig<Item>['validates'] = Array.isArray(
+    listOrConfig,
+  )
+    ? {}
+    : listOrConfig.validates || {};
+
   const [state, dispatch] = useListReducer(list);
 
   useEffect(() => {
@@ -170,9 +178,11 @@ export function useList<Item extends object>(
 
             const siblings = state.list.filter(listItem => listItem !== item);
 
-            runValidation(
+            return runValidation(
               error =>
-                dispatch(updateErrorAction<Item>({target, error: error || ''})),
+                dispatch(
+                  updateErrorAction<Item>({target, error: error || ''}),
+                ),
               {value, siblings, listItem: item},
               validates,
             );

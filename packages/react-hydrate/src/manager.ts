@@ -1,4 +1,5 @@
 import {EffectKind} from '@shopify/react-effect';
+
 import {HYDRATION_ATTRIBUTE} from './shared';
 
 const DEFAULT_HYDRATION_ID = Symbol('defaultId');

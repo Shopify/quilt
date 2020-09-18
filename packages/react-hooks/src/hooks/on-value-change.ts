@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-export default function useOnValueChange<T>(
+export function useOnValueChange<T>(
   value: T,
   onChange: (value: T, oldValue: T) => void,
 ) {
   const tracked = React.useRef(value);
-  const oldValue = tracked.current;
-
-  if (value !== oldValue) {
-    tracked.current = value;
-    onChange(value, oldValue);
-  }
+  useEffect(() => {
+    const oldValue = tracked.current;
+    if (value !== tracked.current) {
+      tracked.current = value;
+      onChange(value, oldValue);
+    }
+  }, [value, onChange]);
 }

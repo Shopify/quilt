@@ -1,13 +1,12 @@
 {
   "name": "@shopify/koa-metrics",
-  "version": "0.3.3",
+  "version": "0.4.2",
   "license": "MIT",
-  "description": "Aims to provide standard middlewares and instrumentation tooling for metrics in Koa.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "Aims to provide standard middleware and instrumentation tooling for metrics in Koa",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",
@@ -16,22 +15,26 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/koa-metrics"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/quilt/blob/master/packages/koa-metrics/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-metrics/README.md",
   "dependencies": {
-    "@shopify/statsd": "^1.1.0",
-    "hot-shots": "^5.9.1",
+    "@shopify/statsd": "^1.2.4",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.1.7",
-    "@shopify/with-env": "^1.1.2",
+    "@shopify/jest-koa-mocks": "^2.2.3",
+    "@shopify/with-env": "^1.1.9",
     "@types/koa": "^2.0.0",
     "koa": "^2.5.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

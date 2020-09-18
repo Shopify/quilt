@@ -37,6 +37,7 @@ export interface Metrics {
   pathname: string;
   connection: Partial<BrowserConnection>;
   events: LifecycleEvent[];
+  locale?: string;
   navigations: {
     details: NavigationDefinition;
     metadata: NavigationMetadata;
@@ -75,7 +76,7 @@ export function clientPerformanceMetrics({
       });
 
       const userAgent = ctx.get(Header.UserAgent);
-      const {connection, events, navigations} = body;
+      const {connection, events, navigations, locale} = body;
 
       const metrics: {
         name: string;
@@ -89,6 +90,7 @@ export function clientPerformanceMetrics({
 
       const tags = {
         browserConnectionType: connection.effectiveType,
+        ...(locale ? {locale} : {}),
         ...additionalTags,
       };
 
@@ -163,9 +165,9 @@ export function clientPerformanceMetrics({
 
         if (getAdditionalNavigationMetrics) {
           metrics.push(
-            ...getAdditionalNavigationMetrics(navigation).map(
-              ({name, value}) => ({name, value, tags: navigationTags}),
-            ),
+            ...getAdditionalNavigationMetrics(
+              navigation,
+            ).map(({name, value}) => ({name, value, tags: navigationTags})),
           );
         }
       }

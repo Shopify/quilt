@@ -2,6 +2,7 @@ import React from 'react';
 import {createMount} from '@shopify/react-testing';
 import {Header} from '@shopify/network';
 import {FirstArgument} from '@shopify/useful-types';
+
 import {NetworkManager} from '../manager';
 import {NetworkContext} from '../context';
 import {useAcceptLanguage} from '../hooks';

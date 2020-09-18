@@ -1,5 +1,6 @@
 import React from 'react';
 import {Omit} from '@shopify/useful-types';
+
 import {PrefetchContext, PrefetchManager} from './context/prefetch';
 
 interface Props {
@@ -34,7 +35,7 @@ export function PrefetchRoute(props: Omit<Props, 'manager'>) {
   return (
     <PrefetchContext.Consumer>
       {manager => (
-        <ConnectedPrefetchRoute manager={manager} {...props as any} />
+        <ConnectedPrefetchRoute manager={manager} {...(props as any)} />
       )}
     </PrefetchContext.Consumer>
   );

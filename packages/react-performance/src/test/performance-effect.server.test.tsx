@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+
 import {usePerformanceEffect, PerformanceEffectCallback} from '..';
 
 describe('usePerformanceEffect', () => {

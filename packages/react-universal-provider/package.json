@@ -1,15 +1,14 @@
 {
   "name": "@shopify/react-universal-provider",
-  "version": "1.0.11",
+  "version": "1.1.20",
   "license": "MIT",
-  "description": "Factory function and utilities to create self-serializing/deserializing provider that works for isomorphic applications.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
+  "description": "Factory function and utilities to create self-serializing/deserializing providers that work for isomorphic applications",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -17,15 +16,16 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-universal-provider"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-universal-provider/README.md",
   "dependencies": {
-    "@shopify/react-effect": "^3.2.5",
-    "@shopify/react-html": "^9.2.5"
+    "@shopify/react-effect": "^3.2.12",
+    "@shopify/react-html": "^9.3.15"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
@@ -34,6 +34,7 @@
     "faker": "^4.1.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ]
 }

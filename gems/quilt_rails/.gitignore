@@ -5,3 +5,5 @@ node_modules
 /test/**/public
 test/integration/fixtures/basic_app/yarn.lock
 test/integration/fixtures/basic_app/tmp
+test/dummy/log/*
+test/dummy/db/*

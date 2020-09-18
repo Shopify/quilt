@@ -1,6 +1,7 @@
 ---
 name: '📈 Enhancement'
 about: Enhancement to our codebase that isn't a adding or changing a feature
+labels: "Type: Enhancement 📈" 
 ---
 
 ## Overview
@@ -12,10 +13,6 @@ about: Enhancement to our codebase that isn't a adding or changing a feature
 > What inspired this enhancement? What makes you think this should be in `quilt`?
 
 ...
-
-## Labels
-
-- [ ] Add the `Type: Enhancement` label to this issue.
 
 ### Area
 

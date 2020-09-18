@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig_base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": "."
+  },
+  "include": [
+    "../../config/typescript/**/*",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [
+    {"path": "../react-graphql"},
+    {"path": "../react-hooks"},
+    {"path": "../react-html"},
+    {"path": "../react-network"},
+    {"path": "../react-effect"}
+  ]
+}

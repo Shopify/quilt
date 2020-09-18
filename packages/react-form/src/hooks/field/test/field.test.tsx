@@ -1,7 +1,10 @@
 import React from 'react';
 import faker from 'faker';
 import {mount} from '@shopify/react-testing';
+
 import {asChoiceField, useChoiceField, useField, FieldConfig} from '../field';
+import {FieldState} from '../../../types';
+import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
 
 describe('useField', () => {
   function TestField({config}: {config: string | FieldConfig<string>}) {
@@ -45,6 +48,27 @@ describe('useField', () => {
     expect(wrapper).toContainReactComponent('input', {
       value,
     });
+  });
+
+  it('uses the dirty state comparator from the config', () => {
+    const dirtyStateComparator = jest.fn();
+
+    const wrapper = mount(
+      <TestField
+        config={{
+          value: 'default value',
+          validates: alwaysPass,
+          dirtyStateComparator,
+        }}
+      />,
+    );
+
+    wrapper.find('input')!.trigger('onChange', changeEvent('new value'));
+
+    expect(dirtyStateComparator).toHaveBeenCalledWith(
+      'default value',
+      'new value',
+    );
   });
 
   describe('handlers', () => {
@@ -167,6 +191,147 @@ describe('useField', () => {
           children: firstFailingValidator(newValue),
         });
       });
+
+      it('updates the allErrors property with all failing validation messages', () => {
+        function TestField({config}: {config: string | FieldConfig<string>}) {
+          const field = useField(config);
+          const text = 'Test field';
+
+          return (
+            <>
+              <label htmlFor="test-field">
+                {text}
+                <input
+                  id="test-field"
+                  name="test-field"
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                />
+              </label>
+              {field.allErrors && <p>{field.allErrors}</p>}
+            </>
+          );
+        }
+
+        const firstFailingValidator = (value: string) =>
+          `${value} tastes most foul`;
+        const secondFailingValidator = (value: string) => `${value} is horrid`;
+
+        const fieldConfig = {
+          value: 'old title',
+          validates: [
+            alwaysPass,
+            firstFailingValidator,
+            alwaysPass,
+            secondFailingValidator,
+          ],
+        };
+        const wrapper = mount(<TestField config={fieldConfig} />);
+        const newValue = faker.commerce.product();
+
+        wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
+        wrapper.find('input')!.trigger('onBlur', blurEvent());
+
+        expect(wrapper).toContainReactComponent('p', {
+          children: [
+            firstFailingValidator(newValue),
+            secondFailingValidator(newValue),
+          ],
+        });
+      });
+
+      it('only updates the allErrors property if validation errors have changed', () => {
+        function TestField({config}: {config: string | FieldConfig<string>}) {
+          const field = useField(config);
+          const text = 'Test field';
+
+          return (
+            <>
+              <label htmlFor="test-field">
+                {text}
+                <input
+                  id="test-field"
+                  name="test-field"
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                />
+              </label>
+              {field.allErrors && <p>{field.allErrors}</p>}
+            </>
+          );
+        }
+
+        const failingValidator = (value: string) => `${value} tastes most foul`;
+
+        const fieldConfig = {
+          value: 'old title',
+          validates: [failingValidator],
+        };
+
+        const wrapper = mount(<TestField config={fieldConfig} />);
+        const newValue = faker.commerce.product();
+
+        wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
+        wrapper.find('input')!.trigger('onBlur', blurEvent());
+
+        const allErrorsFirstValidation = wrapper.find('p').props.children;
+
+        wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
+        wrapper.find('input')!.trigger('onBlur', blurEvent());
+
+        const allErrorsSecondValidation = wrapper.find('p').props.children;
+
+        expect(allErrorsFirstValidation).toStrictEqual(
+          allErrorsSecondValidation,
+        );
+      });
+
+      it('does not update allErrors if there are no failing validations', () => {
+        function TestField({config}: {config: string | FieldConfig<string>}) {
+          const field = useField(config);
+          const text = 'Test field';
+
+          return (
+            <>
+              <label htmlFor="test-field">
+                {text}
+                <input
+                  id="test-field"
+                  name="test-field"
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                />
+              </label>
+              {field.allErrors && <p>{field.allErrors}</p>}
+            </>
+          );
+        }
+
+        const fieldConfig = {
+          value: 'old title',
+          validates: [alwaysPass],
+        };
+
+        const wrapper = mount(<TestField config={fieldConfig} />);
+        const newValue = faker.commerce.product();
+
+        expect(wrapper.find('p').props.children).toStrictEqual([]);
+
+        wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
+        wrapper.find('input')!.trigger('onBlur', blurEvent());
+
+        const allErrorsFirstValidation = wrapper.find('p').props.children;
+
+        wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
+        wrapper.find('input')!.trigger('onBlur', blurEvent());
+
+        const allErrorsSecondValidation = wrapper.find('p').props.children;
+
+        expect(allErrorsFirstValidation).toBe(allErrorsSecondValidation);
+      });
     });
   });
 
@@ -287,6 +452,132 @@ describe('useField', () => {
 
       expect(wrapper).toContainReactComponent('p', {
         children: fieldConfig.validates('pants'),
+      });
+    });
+  });
+
+  describe('#reduceField', () => {
+    function buildState<Value>({
+      value,
+      defaultValue,
+      dirty = false,
+    }): FieldState<Value> {
+      return {
+        value,
+        defaultValue,
+        error: undefined,
+        touched: true,
+        dirty,
+      };
+    }
+
+    describe('when the new value is the same as the default value', () => {
+      describe('when the default value is an array', () => {
+        it('identifies that the state is not dirty', () => {
+          const originalState = buildState({value: [], defaultValue: []});
+          const action: FieldAction<string[]> = {
+            type: 'update',
+            payload: [],
+          };
+
+          const newState = reduceField(originalState, action);
+
+          expect(originalState).toStrictEqual(newState);
+        });
+
+        it('identifies that the state is dirty', () => {
+          const originalState = buildState({value: [], defaultValue: []});
+          const action: FieldAction<string[]> = {
+            type: 'update',
+            payload: ['new value'],
+          };
+          const expectedNewState = buildState({
+            value: action.payload,
+            defaultValue: [],
+            dirty: true,
+          });
+
+          const newState = reduceField(originalState, action);
+
+          expect(newState).toStrictEqual(expectedNewState);
+        });
+      });
+
+      describe('when the default value is not an array', () => {
+        it('identifies that the state is not dirty', () => {
+          const originalState = buildState({value: '', defaultValue: ''});
+          const action: FieldAction<string> = {
+            type: 'update',
+            payload: '',
+          };
+
+          const newState = reduceField(originalState, action);
+
+          expect(originalState).toStrictEqual(newState);
+        });
+
+        it('identifies that the state is dirty', () => {
+          const originalState = buildState({value: '', defaultValue: ''});
+          const action: FieldAction<string> = {
+            type: 'update',
+            payload: 'new value',
+          };
+          const expectedNewState = buildState({
+            value: action.payload,
+            defaultValue: '',
+            dirty: true,
+          });
+
+          const newState = reduceField(originalState, action);
+
+          expect(newState).toStrictEqual(expectedNewState);
+        });
+      });
+    });
+
+    describe('when using a custom comparator', () => {
+      it("marks as dirty if the comparator says it's dirty", () => {
+        const dirtyStateComparator = () => true;
+        const reducer = makeFieldReducer({dirtyStateComparator});
+        const originalState = buildState({
+          value: 'original value',
+          defaultValue: 'default value',
+        });
+        const action: FieldAction<string> = {
+          type: 'update',
+          payload: 'updated value',
+        };
+        const expectedNewState = buildState({
+          value: 'updated value',
+          defaultValue: 'default value',
+          dirty: true,
+        });
+
+        const newState = reducer(originalState, action);
+
+        expect(newState).toStrictEqual(expectedNewState);
+      });
+
+      it("marks as clean if the comparator says it's not dirty", () => {
+        const dirtyStateComparator = () => false;
+        const reducer = makeFieldReducer({dirtyStateComparator});
+        const originalState = buildState({
+          value: 'original value',
+          defaultValue: 'default value',
+        });
+        const action: FieldAction<string> = {
+          type: 'update',
+          payload: 'updated value',
+        };
+        const expectedNewState = buildState({
+          value: 'updated value',
+          defaultValue: 'default value',
+          dirty: false,
+        });
+
+        const newState = reducer(originalState, action);
+
+        expect(newState).toStrictEqual(expectedNewState);
       });
     });
   });

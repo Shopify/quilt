@@ -1,13 +1,12 @@
 {
   "name": "@shopify/react-tracking-pixel",
-  "version": "3.0.25",
+  "version": "3.0.51",
   "license": "MIT",
   "description": "Allows React apps to easily embed tracking pixel iframes",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
+    "build": "tsc --p tsconfig.json"
   },
   "publishConfig": {
     "access": "public",
@@ -16,21 +15,23 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-tracking-pixel"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-tracking-pixel/README.md",
   "dependencies": {
-    "@shopify/react-html": "^9.2.5",
+    "@shopify/react-html": "^9.3.15",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
     "react": "^16.4.1"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
   ],
   "sideEffects": false
 }

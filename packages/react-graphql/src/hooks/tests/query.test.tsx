@@ -7,6 +7,7 @@ import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';
 import useQuery from '../query';
+
 import {mountWithGraphQL, createResolvablePromise} from './utilities';
 
 const petQuery = gql`
@@ -151,6 +152,26 @@ describe('useQuery', () => {
       });
 
       expect(watchQuerySpy).not.toHaveBeenCalled();
+    });
+
+    it('returns previous data if the fetchPolicy=no-cache and the current query has error', async () => {
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {fetchPolicy: 'no-cache'});
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: new Error()});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          data: undefined,
+        }),
+      );
     });
   });
 

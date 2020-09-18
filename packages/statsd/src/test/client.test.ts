@@ -1,4 +1,5 @@
 import {StatsD} from 'hot-shots';
+
 import {StatsDClient} from '../client';
 
 jest.mock('hot-shots');
@@ -102,6 +103,73 @@ describe('StatsDClient', () => {
       );
 
       statsDClient.distribution(name, value, tags);
+      expect(logSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('gauge', () => {
+    it('passes gauge metrics to the statsd client', () => {
+      const statsDClient = new StatsDClient(defaultOptions);
+      statsDClient.gauge(stat, value, tags);
+
+      const stats = StatsDMock.mock.instances[0];
+      const gaugeFn = stats.gauge;
+      expect(gaugeFn).toHaveBeenCalledTimes(1);
+      expect(gaugeFn).toHaveBeenCalledWith(
+        stat,
+        value,
+        tags,
+        expect.any(Function),
+      );
+    });
+
+    it('passes gauge metrics with snake case name metrics to the statsd client when snakeCase=true', () => {
+      const statsDClient = new StatsDClient({
+        ...defaultOptions,
+        snakeCase: true,
+      });
+      statsDClient.gauge(stat, value, tags);
+
+      const stats = StatsDMock.mock.instances[0];
+      const gaugeFn = stats.gauge;
+      expect(gaugeFn).toHaveBeenCalledTimes(1);
+      expect(gaugeFn).toHaveBeenCalledWith(
+        stat,
+        value,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        {foo_bar: tagValue},
+        expect.any(Function),
+      );
+    });
+
+    it('calls errorHandler on the promise when the client returns an error', () => {
+      const errorHandler = jest.fn();
+      const statsDClient = new StatsDClient({...defaultOptions, errorHandler});
+      const statsDMock = StatsDMock.mock.instances[0];
+
+      const error = new Error('Something went wrong!');
+      statsDMock.gauge.mockImplementation((_name, _value, _tags, callback) => {
+        callback(error);
+      });
+
+      statsDClient.gauge(stat, value, tags);
+      expect(errorHandler).toHaveBeenCalledWith(error);
+    });
+
+    it("calls logger's log on the promise when the client returns an error and there is no errorHandler in options", () => {
+      function logger() {}
+      logger.log = () => {};
+      const logSpy = jest.spyOn(logger, 'log');
+
+      const statsDClient = new StatsDClient({...defaultOptions, logger});
+      const statsDMock = StatsDMock.mock.instances[0];
+
+      const error = new Error('Something went wrong!');
+      statsDMock.gauge.mockImplementation((_name, _value, _tags, callback) => {
+        callback(error);
+      });
+
+      statsDClient.gauge(name, value, tags);
       expect(logSpy).toHaveBeenCalled();
     });
   });

@@ -1,9 +1,11 @@
+import {memoizedNumberFormatter} from './translate';
+
 export function getCurrencySymbol(
   locale: string,
   options: Intl.NumberFormatOptions,
 ) {
   const delimiters = ',.';
-  const directionControlCharacters = new RegExp(`[\u{200E}\u{200F}]`, 'u');
+  const directionControlCharacters = /[\u200E\u200F]/;
   const numReg = new RegExp(`0[${delimiters}]*0*`);
 
   const currencyStringRaw = formatCurrency(0, locale, options);
@@ -29,12 +31,12 @@ export function getCurrencySymbol(
   return elements;
 }
 
-function formatCurrency(
+export function formatCurrency(
   amount: number,
   locale: string,
   options: Intl.NumberFormatOptions,
 ) {
-  return new Intl.NumberFormat(locale, {
+  return memoizedNumberFormatter(locale, {
     style: 'currency',
     ...options,
   }).format(amount);

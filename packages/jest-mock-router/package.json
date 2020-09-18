@@ -1,25 +1,25 @@
 {
   "name": "@shopify/jest-mock-router",
-  "version": "1.0.20",
+  "version": "1.0.25",
   "license": "MIT",
-  "description": "Jest + Enzyme mocks for React Router 3.x.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "Jest + Enzyme mocks for React Router 3.x",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
   },
-  "scripts": {
-    "build": "tsc --p tsconfig.build.json",
-    "prepublishOnly": "yarn run build"
-  },
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/quilt.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/jest-mock-router"
   },
   "bugs": {
-    "url": "https://github.com/shopify/quilt/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/jest-mock-router/README.md",
   "devDependencies": {
@@ -37,5 +37,9 @@
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.3"
-  }
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
 }

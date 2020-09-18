@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {useHydrationManager} from './hooks';
 
 export function HydrationTracker() {
