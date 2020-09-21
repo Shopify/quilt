@@ -7,6 +7,7 @@ import {
   getCurrencySymbol,
   memoizedNumberFormatter,
   memoizedPluralRules,
+  wrapWithDisclaimer,
 } from '../utilities';
 
 const {pseudotranslate} = require.requireMock('@shopify/i18n') as {
@@ -396,6 +397,20 @@ describe('translate()', () => {
         symbol: '€',
         prefixed: true,
       });
+    });
+  });
+
+  describe('wrapWithDisclaimer', () => {
+    const translations = {
+      disclaimer: {language: {en: '{content}', de: '{content} (in German)'}},
+    };
+    it('wraps the content in the translation', () => {
+      expect(wrapWithDisclaimer('Learn more', 'en', translations, locale)).toBe(
+        'Learn more',
+      );
+      expect(wrapWithDisclaimer('Learn more', 'de', translations, locale)).toBe(
+        'Learn more (in German)',
+      );
     });
   });
 });
