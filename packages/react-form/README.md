@@ -427,7 +427,7 @@ return <TextField label="Title" {...title} />;
 
 #### `useChoiceField()`
 
-An extension to `useField()` that produces a new field compatible with `<Checkbox />` and `<RadioButton />` from `@shopify/polaris`.
+An extension to `useField()` that produces a new field compatible with `<Checkbox />` and `<RadioButton />` from `@shopify/polaris`. Note that this hook cannot be used within a `useForm`, `useChoiceField` can only be used for standalone fields.
 
 ##### Signature
 
@@ -454,6 +454,57 @@ For fields that need to be compatible with choice components on the fly, the `as
 const enabled = useField(false);
 
 return <Checkbox label="Enabled" {...asChoiceField(enabled)} />;
+```
+
+#### `asChoiceField()`
+
+A utility to convert a `Field<Value>` into a derivative that is compatible with `<Checkbox />` and `<RadioButton />` from `@shopify/polaris`. The `value` member will be replaced by a new `checked` member, and the `onChange` will be replaced with a choice component compatible callback.
+
+##### Signature
+
+<!-- The signature is identical to `useField()` for `boolean` fields. -->
+
+`asChoiceField` consumes an existing `Field<Value>`, and optionally a `checkedValue` predicate when dealing with multi-value base fields.
+
+```tsx
+const simpleField = useField(false);
+const simple = asChoiceField(simpleField);
+
+const multiField = useField<'A' | 'B'>('A');
+const multiA = asChoiceField(multiField, 'A');
+const multiB = asChoiceField(multiField, 'B');
+```
+
+##### Examples
+
+`asChoiceField` is used as a helper to expand an existing field into a choice component (`<Checkbox />` and `<RadioButton />`).
+
+```tsx
+const enabled = useChoiceField(false);
+
+return <Checkbox label="Enabled" {...enabled} />;
+```
+
+You can also expand an existing field directly into a choice component by wrapping the field in `asChoiceField` if you want to retain the original field's shape.
+
+```tsx
+const enabled = useField(false);
+
+return <Checkbox label="Enabled" {...asChoiceField(enabled)} />;
+```
+
+For multi-value base fields, we expand the same field into multiple `<RadioButton>` components.
+
+```tsx
+const selectedOption = useField<'A' | 'B'>('A');
+
+return (
+  <Stack vertical>
+    <RadioButton label="A" {...asChoiceField(selectedOption, 'A')} />
+    <RadioButton label="B" {...asChoiceField(selectedOption, 'B')} />
+    <RadioButton label="C" {...asChoiceField(selectedOption, 'C')} />
+  </Stack>
+);
 ```
 
 #### `useList()`
