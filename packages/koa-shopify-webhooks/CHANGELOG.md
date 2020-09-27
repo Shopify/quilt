@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [2.6.0] - 2020-09-27
 
-- The `ApiVersion` enum now has an `July20` option
+- The `ApiVersion` enum now has an `July20` option.
 
 ## [2.5.0] - 2020-08-20
 
