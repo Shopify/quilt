@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [4.0.2] - 2020-09-28
+
 ### Fixed
 
 - Delete cookie header before proxying GraphQL request ([#820](https://github.com/Shopify/quilt/pull/820))
