@@ -469,17 +469,18 @@ export class I18n {
       });
     }
 
+    const timeZone = options?.timeZone;
     const time = this.formatDate(date, {
       ...options,
       hour: 'numeric',
       minute: '2-digit',
     }).toLocaleLowerCase();
 
-    if (isToday(date)) {
+    if (isToday(date, timeZone)) {
       return time;
     }
 
-    if (isYesterday(date)) {
+    if (isYesterday(date, timeZone)) {
       return this.translate('date.humanize.yesterday', {time});
     }
 
@@ -513,17 +514,18 @@ export class I18n {
   }
 
   private humanizeFutureDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const timeZone = options?.timeZone;
     const time = this.formatDate(date, {
       ...options,
       hour: 'numeric',
       minute: '2-digit',
     }).toLocaleLowerCase();
 
-    if (isToday(date)) {
+    if (isToday(date, timeZone)) {
       return this.translate('date.humanize.today', {time});
     }
 
-    if (isTomorrow(date)) {
+    if (isTomorrow(date, timeZone)) {
       return this.translate('date.humanize.tomorrow', {time});
     }
 

@@ -1236,38 +1236,94 @@ describe('I18n', () => {
           );
         });
 
-        it('formats a date from today', () => {
-          const today = new Date('2012-12-20T23:00:00-00:00');
-          const moreThanOneHourAgo = new Date(today.getTime());
-          const hoursAgo = 5;
-          moreThanOneHourAgo.setHours(today.getHours() - hoursAgo);
-          clock.mock(today);
-          const i18n = new I18n(defaultTranslations, {
-            ...defaultDetails,
-            timezone,
+        describe('when the local time zone is not specified', () => {
+          it('formats a date from today', () => {
+            const today = new Date('2012-12-20T23:00:00-00:00');
+            const moreThanOneHourAgo = new Date(today.getTime());
+            const hoursAgo = 5;
+            moreThanOneHourAgo.setHours(today.getHours() - hoursAgo);
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            expect(
+              i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
+            ).toBe('5:00 a.m.');
           });
 
-          expect(
-            i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
-          ).toBe('5:00 a.m.');
+          it('formats a date from yesterday', () => {
+            const today = new Date('2012-12-20T00:00:00-00:00');
+            const yesterday = new Date('2012-12-19T00:00:00-00:00');
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            i18n.formatDate(yesterday, {style: DateStyle.Humanize});
+            expect(translate).toHaveBeenCalledWith(
+              'date.humanize.yesterday',
+              {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+              defaultTranslations,
+              i18n.locale,
+            );
+          });
         });
 
-        it('formats a date from yesterday', () => {
-          const today = new Date('2012-12-20T00:00:00-00:00');
-          const yesterday = new Date('2012-12-19T00:00:00-00:00');
-          clock.mock(today);
-          const i18n = new I18n(defaultTranslations, {
-            ...defaultDetails,
-            timezone,
+        describe('when the locale time zone is specified', () => {
+          it('formats a date for today if it is today relative to the locale time zone', () => {
+            // "today" is 11pm UTC / 6pm EST. "today - 5 hours" is 6pm UTC / 1pm EST (the same day)
+            const timezone = 'America/Toronto';
+            const today = new Date('2012-12-20T23:00:00-00:00');
+            const todayInThePast = new Date(today.getTime());
+            const hoursAgo = 5;
+            todayInThePast.setHours(today.getHours() - hoursAgo);
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            i18n.formatDate(todayInThePast, {
+              style: DateStyle.Humanize,
+              timeZone: timezone,
+            });
+
+            expect(
+              i18n.formatDate(todayInThePast, {
+                style: DateStyle.Humanize,
+                timeZone: timezone,
+              }),
+            ).toBe('1:00 p.m.');
           });
 
-          i18n.formatDate(yesterday, {style: DateStyle.Humanize});
-          expect(translate).toHaveBeenCalledWith(
-            'date.humanize.yesterday',
-            {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
-            defaultTranslations,
-            i18n.locale,
-          );
+          it('formats a date for yesterday if it is yesterday relative to the locale time zone', () => {
+            // "today" is 6am UTC / 1am EST. "today - 4 hours" is 2am UTC / 9pm EST (the previous day)
+            const timezone = 'America/Toronto';
+            const today = new Date('2012-12-20T06:00:00-00:00');
+            const todayInThePast = new Date(today.getTime());
+            const hoursAgo = 4;
+            todayInThePast.setHours(today.getHours() - hoursAgo);
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            i18n.formatDate(todayInThePast, {
+              style: DateStyle.Humanize,
+              timeZone: timezone,
+            });
+
+            expect(translate).toHaveBeenCalledWith(
+              'date.humanize.yesterday',
+              {pseudotranslate: false, replacements: {time: '9:00 p.m.'}},
+              defaultTranslations,
+              i18n.locale,
+            );
+          });
         });
 
         it('formats a date less than one week ago', () => {
@@ -1327,42 +1383,98 @@ describe('I18n', () => {
       });
 
       describe('future dates', () => {
-        it('formats a date for tomorrow', () => {
-          const today = new Date('2012-12-20T00:00:00-00:00');
-          const tomorrow = new Date('2012-12-21T00:00:00-00:00');
-          clock.mock(today);
-          const i18n = new I18n(defaultTranslations, {
-            ...defaultDetails,
-            timezone,
+        describe('when the locale time zone is not specified', () => {
+          it('formats a date for tomorrow', () => {
+            const today = new Date('2012-12-20T00:00:00-00:00');
+            const tomorrow = new Date('2012-12-21T00:00:00-00:00');
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            i18n.formatDate(tomorrow, {style: DateStyle.Humanize});
+            expect(translate).toHaveBeenCalledWith(
+              'date.humanize.tomorrow',
+              {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+              defaultTranslations,
+              i18n.locale,
+            );
           });
 
-          i18n.formatDate(tomorrow, {style: DateStyle.Humanize});
-          expect(translate).toHaveBeenCalledWith(
-            'date.humanize.tomorrow',
-            {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
-            defaultTranslations,
-            i18n.locale,
-          );
+          it('formats a date for today', () => {
+            const today = new Date('2012-12-20T00:00:00-00:00');
+            const todayInTheFuture = new Date(today.getTime());
+            const hoursInTheFuture = 5;
+            todayInTheFuture.setHours(today.getHours() + hoursInTheFuture);
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            i18n.formatDate(todayInTheFuture, {style: DateStyle.Humanize});
+            expect(translate).toHaveBeenCalledWith(
+              'date.humanize.today',
+              {pseudotranslate: false, replacements: {time: '4:00 p.m.'}},
+              defaultTranslations,
+              i18n.locale,
+            );
+          });
         });
 
-        it('formats a date for today', () => {
-          const today = new Date('2012-12-20T00:00:00-00:00');
-          const todayInTheFuture = new Date(today.getTime());
-          const hoursInTheFuture = 5;
-          todayInTheFuture.setHours(today.getHours() + hoursInTheFuture);
-          clock.mock(today);
-          const i18n = new I18n(defaultTranslations, {
-            ...defaultDetails,
-            timezone,
+        describe('when the locale time zone is specified', () => {
+          it('formats a date for today if it is today relative to the locale time zone', () => {
+            // "today" is 10am UTC / 5am EST. "today + 10 hours" is 8pm UTC / 3pm EST (the same day)
+            const timezone = 'America/Toronto';
+            const today = new Date('2012-12-20T10:00:00-00:00');
+            const todayInTheFuture = new Date(today.getTime());
+            const hoursInTheFuture = 10;
+            todayInTheFuture.setHours(today.getHours() + hoursInTheFuture);
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            i18n.formatDate(todayInTheFuture, {
+              style: DateStyle.Humanize,
+              timeZone: timezone,
+            });
+
+            expect(translate).toHaveBeenCalledWith(
+              'date.humanize.today',
+              {pseudotranslate: false, replacements: {time: '3:00 p.m.'}},
+              defaultTranslations,
+              i18n.locale,
+            );
           });
 
-          i18n.formatDate(todayInTheFuture, {style: DateStyle.Humanize});
-          expect(translate).toHaveBeenCalledWith(
-            'date.humanize.today',
-            {pseudotranslate: false, replacements: {time: '4:00 p.m.'}},
-            defaultTranslations,
-            i18n.locale,
-          );
+          it('formats a date for tomorrow if it is tomorrow relative to the locale time zone', () => {
+            // "today" is 12am UTC / 7pm EST. "today + 10 hours" is 10am UTC / 5am EST (the next day)
+            const timezone = 'America/Toronto';
+            const today = new Date('2012-12-20T00:00:00-00:00');
+            const todayInTheFuture = new Date(today.getTime());
+            const hoursInTheFuture = 10;
+            todayInTheFuture.setHours(today.getHours() + hoursInTheFuture);
+            clock.mock(today);
+            const i18n = new I18n(defaultTranslations, {
+              ...defaultDetails,
+              timezone,
+            });
+
+            i18n.formatDate(todayInTheFuture, {
+              style: DateStyle.Humanize,
+              timeZone: timezone,
+            });
+
+            expect(translate).toHaveBeenCalledWith(
+              'date.humanize.tomorrow',
+              {pseudotranslate: false, replacements: {time: '5:00 a.m.'}},
+              defaultTranslations,
+              i18n.locale,
+            );
+          });
         });
 
         it('formats a date less than one week away', () => {
