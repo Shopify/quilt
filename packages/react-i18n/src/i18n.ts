@@ -514,7 +514,7 @@ export class I18n {
   }
 
   private humanizeFutureDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const timeZone = options ? options.timeZone : undefined;
+    const timeZone = options?.timeZone;
     const time = this.formatDate(date, {
       ...options,
       hour: 'numeric',
