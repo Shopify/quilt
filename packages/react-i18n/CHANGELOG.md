@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- Fixed `DateStyle.Humanize`'s handling of time zones for dates that are yesterday, today, or tomorrow [[#1623](https://github.com/Shopify/quilt/pull/1623)]
+
 ## [5.1.0] - 2020-09-15
 
 ### Fixed
