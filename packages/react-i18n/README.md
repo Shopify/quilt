@@ -153,7 +153,7 @@ Translations are provided using two keys in the `withI18n` decorator:
 - `fallback`: a translation file to use when translation keys are not found in the locale-specific translation files. These will usually be your English translations, as they are typically the most complete.
 - `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. The `translations` function can also throw and `react-i18n` will handle the situation gracefully. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries.
 
-We recommend that colocate your translations files in a `./translations` directory and that you include an `en.json` file in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
+We recommend that you colocate your translation files in a `./translations` directory and that you include an `en.json` file in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
 
 If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary. If you're using the [babel plugin](#Babel), this `id` will the automatically generated based on the relative path to your component from your project's root directory.
 
@@ -164,8 +164,8 @@ import React from 'react';
 import {EmptyState} from '@shopify/polaris';
 import {useI18n} from '@shopify/react-i18n';
 
-import en from './locales/en.json';
-import fr from './locales/fr.json';
+import en from './translations/en.json';
+import fr from './translations/fr.json';
 
 export default function NotFound() {
   const [i18n] = useI18n({

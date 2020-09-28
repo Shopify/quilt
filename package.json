@@ -85,7 +85,6 @@
   "dependencies": {},
   "resolutions": {
     "@types/react": "16.9.19",
-    "@types/react-dom": "16.9.5",
-    "dot-prop": "5.1.1"
+    "@types/react-dom": "16.9.5"
   }
 }

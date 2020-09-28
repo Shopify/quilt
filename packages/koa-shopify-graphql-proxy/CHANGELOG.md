@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- Delete cookie header before proxying GraphQL request ([#820](https://github.com/Shopify/quilt/pull/820))
+
 ## [4.0.0] - 2020-05-01
 
 = The `ApiVersion` enum now has an `April20` and `July20` options

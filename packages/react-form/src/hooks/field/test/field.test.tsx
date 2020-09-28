@@ -762,6 +762,68 @@ describe('asChoiceField', () => {
   it('replaces value with checked', () => {
     expect(asChoiceField({value: true} as any)).toMatchObject({checked: true});
   });
+
+  it('replaces value with unchecked', () => {
+    expect(asChoiceField({value: false} as any)).toMatchObject({
+      checked: false,
+    });
+  });
+
+  it('projects a checked value from a predicate', () => {
+    expect(asChoiceField<'A' | 'B'>({value: 'A'} as any, 'A')).toMatchObject({
+      checked: true,
+    });
+  });
+
+  it('projects an unchecked value from a predicate', () => {
+    expect(asChoiceField<'A' | 'B'>({value: 'B'} as any, 'A')).toMatchObject({
+      checked: false,
+    });
+  });
+
+  it('calls onChange on the underlying multi-choice field when checked', () => {
+    const onChange = jest.fn();
+    const checkedValue = 'A';
+    const choiceField = asChoiceField(
+      {value: 'B', onChange} as any,
+      checkedValue,
+    );
+
+    choiceField.onChange(true);
+
+    expect(onChange).toHaveBeenCalledWith(checkedValue);
+  });
+
+  it('does not call onChange on the underlying multi-choice field when unchecked', () => {
+    const onChange = jest.fn();
+    const checkedValue = 'A';
+    const choiceField = asChoiceField(
+      {value: checkedValue, onChange} as any,
+      checkedValue,
+    );
+
+    choiceField.onChange(false);
+
+    expect(onChange).not.toHaveBeenCalledWith();
+  });
+
+  it('calls onChange on the underlying choice field when checked', () => {
+    const onChange = jest.fn();
+    const choiceField = asChoiceField({value: false, onChange} as any);
+
+    choiceField.onChange(true);
+
+    expect(onChange).toHaveBeenCalledWith(true);
+  });
+
+  it('calls onChange on the underlying choice field when unchecked', () => {
+    const onChange = jest.fn();
+    const choiceField = asChoiceField({value: true, onChange} as any);
+
+    choiceField.onChange(false);
+
+    expect(onChange).toHaveBeenCalledWith(false);
+  });
 });
 
 describe('useChoiceField', () => {
