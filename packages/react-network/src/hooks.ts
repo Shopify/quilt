@@ -12,14 +12,11 @@ const NO_UNIVERSAL_PROVIDER_WARNING =
 export function useNetworkEffect(perform: (network: NetworkManager) => void) {
   const network = useContext(NetworkContext);
 
-  useServerEffect(
-    () => {
-      if (network != null) {
-        return perform(network);
-      }
-    },
-    network ? network.effect : undefined,
-  );
+  useServerEffect(() => {
+    if (network != null) {
+      return perform(network);
+    }
+  }, network?.effect);
 }
 
 export function useCspDirective(
