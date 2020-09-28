@@ -43,7 +43,7 @@ export function GraphQLUniversalProvider<
     const requestIdLink = requestID
       ? createRequestIdLink(requestID)
       : undefined;
-    const finalLink = clientOptions.link ? clientOptions.link : undefined;
+    const finalLink = clientOptions.link || undefined;
 
     const link = ApolloLink.from([
       ssrLink,

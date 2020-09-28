@@ -32,11 +32,7 @@ export function I18nUniversalProvider({
   );
 
   const manager = useLazyRef(
-    () =>
-      new I18nManager(
-        i18nDetails,
-        serialized ? serialized.translations : undefined,
-      ),
+    () => new I18nManager(i18nDetails, serialized?.translations),
   ).current;
 
   useHtmlAttributes({lang: i18nDetails.locale});

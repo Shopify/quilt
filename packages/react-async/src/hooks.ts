@@ -121,12 +121,9 @@ export function useAsyncAsset(
 ) {
   const async = useContext(AsyncAssetContext);
 
-  useServerEffect(
-    () => {
-      if (async && id) {
-        async.markAsUsed(id, {scripts, styles});
-      }
-    },
-    async ? async.effect : undefined,
-  );
+  useServerEffect(() => {
+    if (async && id) {
+      async.markAsUsed(id, {scripts, styles});
+    }
+  }, async?.effect);
 }
