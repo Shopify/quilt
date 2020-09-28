@@ -469,7 +469,7 @@ export class I18n {
       });
     }
 
-    const timeZone = options ? options.timeZone : undefined;
+    const timeZone = options?.timeZone;
     const time = this.formatDate(date, {
       ...options,
       hour: 'numeric',
