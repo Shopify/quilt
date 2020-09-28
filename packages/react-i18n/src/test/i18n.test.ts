@@ -1236,7 +1236,7 @@ describe('I18n', () => {
           );
         });
 
-        describe('when the locale time zone is not specified', () => {
+        describe('when the local time zone is not specified', () => {
           it('formats a date from today', () => {
             const today = new Date('2012-12-20T23:00:00-00:00');
             const moreThanOneHourAgo = new Date(today.getTime());
