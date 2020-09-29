@@ -1,5 +1,6 @@
-import {noop} from '@shopify/javascript-utilities/other';
 import load, {clearCache} from '../load';
+
+function noop() {}
 
 describe('load()', () => {
   const mockURL = 'https://foo.com/bar.js';
@@ -59,7 +60,7 @@ describe('load()', () => {
 
     script.triggerEvent('error');
 
-    await expect(promise).rejects.toEqual(expect.anything());
+    await expect(promise).rejects.toStrictEqual(expect.anything());
   });
 
   it('calls the getImport() parameter with the window once the script has loaded', async () => {

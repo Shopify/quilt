@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import {useServerEffect} from '@shopify/react-effect';
+
 import {HtmlContext} from './context';
 import {useServerDomEffect} from './hooks';
 
@@ -55,7 +56,7 @@ export function createSerializer<T>(id: string) {
       return typeof result === 'object' && result != null && isPromise(result)
         ? result.then(handleResult)
         : handleResult(result);
-    }, manager ? manager.effect : undefined);
+    }, manager?.effect);
 
     return null;
   }

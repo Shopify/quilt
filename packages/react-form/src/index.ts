@@ -2,6 +2,9 @@ export * from './types';
 export * from './validation';
 
 export {
+  asChoiceField,
+  ChoiceField,
+  useChoiceField,
   useField,
   FieldConfig,
   useList,
@@ -13,4 +16,11 @@ export {
   submitSuccess,
 } from './hooks';
 
-export {validateAll, propagateErrors} from './utilities';
+export {
+  fieldsToArray,
+  getValues,
+  propagateErrors,
+  validateAll,
+  reduceFields,
+  makeCleanFields,
+} from './utilities';

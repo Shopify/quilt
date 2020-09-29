@@ -1,14 +1,14 @@
 {
   "lerna": "2.9.0",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "version": "independent",
+  "ignoreChanges": ["**/*.md", "**/tests/**", "**/test/**"],
   "commands": {
     "publish": {
-      "skipNpm": true
+      "skipNpm": true,
+      "ignore": ["**/*.md", "**/tests/**", "**/test/**"]
     }
   }
 }

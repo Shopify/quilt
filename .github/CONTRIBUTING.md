@@ -16,7 +16,7 @@ There are many ways to contribute to Quilt, some of which are:
 - Hacking away on an issue from our [backlog](https://github.com/Shopify/quilt/issues)
 - Improving tests or documentation
 
-Want to contribute, but not sure how? Find us on Slack in `#quilt` and `#web-foundation-tech`.
+Want to contribute, but not sure how? Find us on Slack in `#web-foundation-tech`.
 
 ## Development
 
@@ -31,7 +31,7 @@ dev up
 
 ### Getting productive
 
-We are adding documentation as we go in the [Web Foundation repo](https://github.com/Shopify/web-foundation). There you will find our [decision records](https://github.com/Shopify/web-foundation/tree/master/Decision%20records), [principles](https://github.com/Shopify/web-foundation/tree/master/Principles), [best practices](https://github.com/Shopify/web-foundation/tree/master/Best%20practices) and [styleguides](https://github.com/Shopify/web-foundation/tree/master/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundation/blob/master/Best%20practices/Testing.md) different kinds of components.
+We are adding documentation as we go in the [Web Foundation repo](https://github.com/Shopify/web-foundation). There you will find our [decision records](https://github.com/Shopify/web-foundation/tree/main/handbook/Decision%20records), [principles](https://github.com/Shopify/web-foundation/tree/main/handbook/Principles), [best practices](https://github.com/Shopify/web-foundation/tree/main/handbook/Best%20practices) and [styleguides](https://github.com/Shopify/web-foundation/blob/main/handbook/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundation/blob/main/handbook/Best%20practices/Testing.md) different kinds of components.
 
 The [documentation](../documentation) directory in this repo covers the more granular technical aspects of this project. Of particular note for new folks are the following:
 
@@ -47,6 +47,8 @@ To try out your changes in another locally cloned project, you can use `yarn top
 Example: To test my changes to `@shopify/react-form-state` in my local project named `cool-proj`, I would run `yarn tophat react-form-state ../path/to/cool-proj`.
 
 Notes: If the package you are testing has dependencies inside Quilt itself, you will need to run `dev build` first. If you are using a build system in the consumer of the package, you may need to clear your build folder.
+
+More usage instructions on the `tophat` command can be [found here](https://github.com/Shopify/webgen/blob/master/docs/TOPHAT.md).
 
 ### Emoji commits
 
@@ -79,7 +81,7 @@ Another option, if you'd like to break work down into reviewable chunks, is to u
 
 ## Releasing
 
-The release process currently involves some manual steps to complete. Please ping one of the repo owners in the `#quilt` Slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
+The release process currently involves some manual steps to complete. Please ping Web Foundations ATC in the `#web-foundation-tech` Slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
 
 **Note** Version numbers in `package.json` files should never be altered manually. This will be done via scripts as part of the release process.
 

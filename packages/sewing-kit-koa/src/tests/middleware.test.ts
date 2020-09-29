@@ -1,9 +1,20 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {Header} from '@shopify/network';
+
 import middleware, {getAssets} from '../middleware';
 import Assets from '../assets';
+import {Manifests} from '../manifests';
+
+jest.mock('../manifests');
+
+const ManifestsMock = Manifests as jest.Mock;
+ManifestsMock.mockImplementation(jest.fn());
 
 describe('middleware', () => {
+  afterEach(() => {
+    ManifestsMock.mockReset();
+  });
+
   it('adds an instance of Assets with the specified assetPrefix to state', async () => {
     const assetPrefix = '/sewing-kit-assets/';
     const context = createMockContext();
@@ -39,20 +50,11 @@ describe('middleware', () => {
     expect(getAssets(context)).toHaveProperty('userAgent', userAgent);
   });
 
-  it('defaults the manifest path to `build/client/assets.json`', async () => {
-    const context = createMockContext();
-    await middleware()(context, () => Promise.resolve());
-    expect(getAssets(context)).toHaveProperty(
-      'manifestPath',
-      'build/client/assets.json',
-    );
-  });
-
-  it('accespts a custom value for the manifest path', async () => {
+  it('accepts a custom value for the manifest path', async () => {
     const context = createMockContext();
     const manifestPath = 'path/to/manifest';
     await middleware({manifestPath})(context, () => Promise.resolve());
-    expect(getAssets(context)).toHaveProperty('manifestPath', manifestPath);
+    expect(Manifests).toHaveBeenCalledWith(manifestPath);
   });
 
   it('calls the next middleware', async () => {

@@ -12,12 +12,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -38,16 +41,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -64,12 +70,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -90,16 +99,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -116,16 +128,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -142,12 +157,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -168,12 +186,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -194,12 +215,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -220,22 +244,25 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'Buenos Aires',
+            name: 'Buenos Aires Province',
             code: 'B',
           },
           {
@@ -251,7 +278,7 @@ const data = {
             code: 'U',
           },
           {
-            name: 'Ciudad Autónoma de Buenos Aires',
+            name: 'Buenos Aires (Autonomous City)',
             code: 'C',
           },
           {
@@ -319,11 +346,11 @@ const data = {
             code: 'S',
           },
           {
-            name: 'Santiago Del Estero',
+            name: 'Santiago del Estero',
             code: 'G',
           },
           {
-            name: 'Tierra Del Fuego',
+            name: 'Tierra del Fuego',
             code: 'V',
           },
           {
@@ -343,16 +370,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -369,12 +399,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -393,14 +426,17 @@ const data = {
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
-          city: 'City',
+          city: 'Suburb',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postcode',
           zone: 'State/territory',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -450,20 +486,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
+          address1: 'Street and house number',
+          address2: 'Additional address',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Additional address (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -480,16 +519,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -506,12 +548,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -532,12 +577,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -558,12 +606,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -584,12 +635,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -610,16 +664,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -636,16 +693,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -662,12 +722,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -688,12 +751,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -714,12 +780,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -740,12 +809,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -766,12 +838,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -792,16 +867,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -818,12 +896,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -844,12 +925,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -866,16 +950,19 @@ const data = {
         autocompletionField: 'address1',
         continent: 'South America',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'State',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -909,7 +996,7 @@ const data = {
             code: 'CE',
           },
           {
-            name: 'Distrito Federal',
+            name: 'Federal District',
             code: 'DF',
           },
           {
@@ -1005,12 +1092,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1031,12 +1121,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1057,12 +1150,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1083,16 +1179,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -1109,12 +1208,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1135,12 +1237,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1161,12 +1266,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1187,12 +1295,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1210,15 +1321,18 @@ const data = {
         continent: 'North America',
         labels: {
           address1: 'Address',
-          address2: 'Apt./Unit No.',
+          address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1292,16 +1406,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -1318,12 +1435,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1344,12 +1464,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1370,12 +1493,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1396,12 +1522,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1422,20 +1551,88 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'State',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        zones: [],
+        zones: [
+          {
+            name: 'Arica y Parinacota',
+            code: 'AP',
+          },
+          {
+            name: 'Tarapacá',
+            code: 'TA',
+          },
+          {
+            name: 'Antofagasta',
+            code: 'AN',
+          },
+          {
+            name: 'Atacama',
+            code: 'AT',
+          },
+          {
+            name: 'Coquimbo',
+            code: 'CO',
+          },
+          {
+            name: 'Valparaíso',
+            code: 'VS',
+          },
+          {
+            name: 'Santiago Metropolitan',
+            code: 'RM',
+          },
+          {
+            name: 'Libertador General Bernardo O’Higgins',
+            code: 'LI',
+          },
+          {
+            name: 'Maule',
+            code: 'ML',
+          },
+          {
+            name: 'Ñuble',
+            code: 'NB',
+          },
+          {
+            name: 'Bío Bío',
+            code: 'BI',
+          },
+          {
+            name: 'Araucanía',
+            code: 'AR',
+          },
+          {
+            name: 'Los Ríos',
+            code: 'LR',
+          },
+          {
+            name: 'Los Lagos',
+            code: 'LL',
+          },
+          {
+            name: 'Aysén',
+            code: 'AI',
+          },
+          {
+            name: 'Magallanes Region',
+            code: 'MA',
+          },
+        ],
       },
       {
         name: 'China',
@@ -1444,16 +1641,19 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Asia',
         labels: {
-          address1: 'Address',
+          address1: 'Full address',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1575,7 +1775,7 @@ const data = {
             code: 'XJ',
           },
           {
-            name: 'Xizang',
+            name: 'Tibet',
             code: 'YZ',
           },
           {
@@ -1599,12 +1799,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1625,12 +1828,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1651,12 +1857,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1666,7 +1875,7 @@ const data = {
         },
         zones: [
           {
-            name: 'Bogotá, D.C.',
+            name: 'Capital District',
             code: 'DC',
           },
           {
@@ -1770,7 +1979,7 @@ const data = {
             code: 'RIS',
           },
           {
-            name: 'San Andrés, Providencia y Santa Catalina',
+            name: 'San Andrés & Providencia',
             code: 'SAP',
           },
           {
@@ -1810,12 +2019,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1836,12 +2048,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1862,12 +2077,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1888,12 +2106,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1914,12 +2135,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -1940,16 +2164,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -1966,16 +2193,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -1992,12 +2222,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2018,23 +2251,26 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
       {
-        name: 'Czech Republic',
+        name: 'Czechia',
         code: 'CZ',
         phoneNumberPrefix: 420,
         autocompletionField: 'address1',
@@ -2044,16 +2280,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2070,12 +2309,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2092,20 +2334,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2122,12 +2367,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2148,12 +2396,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2174,16 +2425,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2200,16 +2454,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
@@ -2226,12 +2483,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Governorate',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2369,12 +2629,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2395,12 +2658,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2421,12 +2687,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2447,18 +2716,50 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+        },
+        zones: [],
+      },
+      {
+        name: 'Eswatini',
+        code: 'SZ',
+        phoneNumberPrefix: 268,
+        autocompletionField: 'address1',
+        continent: 'Africa',
+        labels: {
+          address1: 'Address',
+          address2: 'Apartment, suite, etc.',
+          city: 'City',
+          company: 'Company',
+          country: 'Country/Region',
+          firstName: 'First name',
+          lastName: 'Last name',
+          phone: 'Phone',
+          postalCode: 'Postal code',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2473,12 +2774,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2499,12 +2803,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2525,16 +2832,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2551,12 +2861,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2577,16 +2890,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2603,12 +2919,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2629,16 +2948,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2655,16 +2977,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2681,12 +3006,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2707,12 +3035,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2733,12 +3064,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2759,16 +3093,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2785,16 +3122,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{country}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2811,12 +3151,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2837,12 +3180,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2863,16 +3209,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2889,16 +3238,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2915,12 +3267,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -2941,16 +3296,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -2967,12 +3325,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3082,12 +3443,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3108,12 +3472,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3134,16 +3501,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -3160,12 +3530,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3186,16 +3559,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -3212,12 +3588,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3238,16 +3617,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -3262,14 +3644,17 @@ const data = {
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
-          city: 'City',
+          city: 'District',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3303,12 +3688,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3329,16 +3717,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -3355,12 +3746,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'PIN code',
           zone: 'State',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3370,7 +3764,7 @@ const data = {
         },
         zones: [
           {
-            name: 'Andaman and Nicobar',
+            name: 'Andaman and Nicobar Islands',
             code: 'AN',
           },
           {
@@ -3394,7 +3788,7 @@ const data = {
             code: 'CH',
           },
           {
-            name: 'Chattisgarh',
+            name: 'Chhattisgarh',
             code: 'CG',
           },
           {
@@ -3442,6 +3836,10 @@ const data = {
             code: 'KL',
           },
           {
+            name: 'Ladakh',
+            code: 'LA',
+          },
+          {
             name: 'Lakshadweep',
             code: 'LD',
           },
@@ -3470,7 +3868,7 @@ const data = {
             code: 'NL',
           },
           {
-            name: 'Orissa',
+            name: 'Odisha',
             code: 'OR',
           },
           {
@@ -3526,18 +3924,21 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {zip}_{country}_{phone}',
         },
         zones: [
           {
@@ -3549,7 +3950,7 @@ const data = {
             code: 'BA',
           },
           {
-            name: 'Bangka Belitung',
+            name: 'Bangka–Belitung Islands',
             code: 'BB',
           },
           {
@@ -3573,39 +3974,39 @@ const data = {
             code: 'JA',
           },
           {
-            name: 'Jawa Barat',
+            name: 'West Java',
             code: 'JB',
           },
           {
-            name: 'Jawa Tengah',
+            name: 'Central Java',
             code: 'JT',
           },
           {
-            name: 'Jawa Timur',
+            name: 'East Java',
             code: 'JI',
           },
           {
-            name: 'Kalimantan Barat',
+            name: 'West Kalimantan',
             code: 'KB',
           },
           {
-            name: 'Kalimantan Selatan',
+            name: 'South Kalimantan',
             code: 'KS',
           },
           {
-            name: 'Kalimantan Tengah',
+            name: 'Central Kalimantan',
             code: 'KT',
           },
           {
-            name: 'Kalimantan Timur',
+            name: 'East Kalimantan',
             code: 'KI',
           },
           {
-            name: 'Kalimantan Utara',
+            name: 'North Kalimantan',
             code: 'KU',
           },
           {
-            name: 'Kepulauan Riau',
+            name: 'Riau Islands',
             code: 'KR',
           },
           {
@@ -3617,15 +4018,19 @@ const data = {
             code: 'MA',
           },
           {
-            name: 'Maluku Utara',
+            name: 'North Maluku',
             code: 'MU',
           },
           {
-            name: 'Nusa Tenggara Barat',
+            name: 'North Sumatra',
+            code: 'SU',
+          },
+          {
+            name: 'West Nusa Tenggara',
             code: 'NB',
           },
           {
-            name: 'Nusa Tenggara Timur',
+            name: 'East Nusa Tenggara',
             code: 'NT',
           },
           {
@@ -3633,7 +4038,7 @@ const data = {
             code: 'PA',
           },
           {
-            name: 'Papua Barat',
+            name: 'West Papua',
             code: 'PB',
           },
           {
@@ -3641,36 +4046,32 @@ const data = {
             code: 'RI',
           },
           {
-            name: 'Sulawesi Barat',
-            code: 'SR',
-          },
-          {
-            name: 'Sulawesi Selatan',
-            code: 'SN',
-          },
-          {
-            name: 'Sulawesi Tengah',
-            code: 'ST',
-          },
-          {
-            name: 'Sulawesi Tenggara',
-            code: 'SG',
-          },
-          {
-            name: 'Sulawesi Utara',
-            code: 'SA',
-          },
-          {
-            name: 'Sumatra Barat',
-            code: 'SB',
-          },
-          {
-            name: 'Sumatra Selatan',
+            name: 'South Sumatra',
             code: 'SS',
           },
           {
-            name: 'Sumatra Utara',
-            code: 'SU',
+            name: 'West Sulawesi',
+            code: 'SR',
+          },
+          {
+            name: 'South Sulawesi',
+            code: 'SN',
+          },
+          {
+            name: 'Central Sulawesi',
+            code: 'ST',
+          },
+          {
+            name: 'Southeast Sulawesi',
+            code: 'SG',
+          },
+          {
+            name: 'North Sulawesi',
+            code: 'SA',
+          },
+          {
+            name: 'West Sumatra',
+            code: 'SB',
           },
           {
             name: 'Yogyakarta',
@@ -3689,16 +4090,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -3715,12 +4119,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3741,12 +4148,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'County',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3872,12 +4282,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -3898,16 +4311,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -3920,20 +4336,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
@@ -3999,7 +4418,7 @@ const data = {
             code: 'BO',
           },
           {
-            name: 'Bolzano',
+            name: 'South Tyrol',
             code: 'BZ',
           },
           {
@@ -4075,7 +4494,7 @@ const data = {
             code: 'FE',
           },
           {
-            name: 'Firenze',
+            name: 'Florence',
             code: 'FI',
           },
           {
@@ -4091,7 +4510,7 @@ const data = {
             code: 'FR',
           },
           {
-            name: 'Genova',
+            name: 'Genoa',
             code: 'GE',
           },
           {
@@ -4111,7 +4530,7 @@ const data = {
             code: 'IS',
           },
           {
-            name: "L'Aquila",
+            name: 'L’Aquila',
             code: 'AQ',
           },
           {
@@ -4147,11 +4566,11 @@ const data = {
             code: 'MC',
           },
           {
-            name: 'Mantova',
+            name: 'Mantua',
             code: 'MN',
           },
           {
-            name: 'Massa-Carrara',
+            name: 'Massa and Carrara',
             code: 'MS',
           },
           {
@@ -4167,7 +4586,7 @@ const data = {
             code: 'ME',
           },
           {
-            name: 'Milano',
+            name: 'Milan',
             code: 'MI',
           },
           {
@@ -4175,11 +4594,11 @@ const data = {
             code: 'MO',
           },
           {
-            name: 'Monza e Brianza',
+            name: 'Monza and Brianza',
             code: 'MB',
           },
           {
-            name: 'Napoli',
+            name: 'Naples',
             code: 'NA',
           },
           {
@@ -4203,7 +4622,7 @@ const data = {
             code: 'OR',
           },
           {
-            name: 'Padova',
+            name: 'Padua',
             code: 'PD',
           },
           {
@@ -4223,7 +4642,7 @@ const data = {
             code: 'PG',
           },
           {
-            name: 'Pesaro e Urbino',
+            name: 'Pesaro and Urbino',
             code: 'PU',
           },
           {
@@ -4279,7 +4698,7 @@ const data = {
             code: 'RN',
           },
           {
-            name: 'Roma',
+            name: 'Rome',
             code: 'RM',
           },
           {
@@ -4303,7 +4722,7 @@ const data = {
             code: 'SI',
           },
           {
-            name: 'Siracusa',
+            name: 'Syracuse',
             code: 'SR',
           },
           {
@@ -4323,7 +4742,7 @@ const data = {
             code: 'TR',
           },
           {
-            name: 'Torino',
+            name: 'Turin',
             code: 'TO',
           },
           {
@@ -4331,7 +4750,7 @@ const data = {
             code: 'TP',
           },
           {
-            name: 'Trento',
+            name: 'Trentino',
             code: 'TN',
           },
           {
@@ -4351,7 +4770,7 @@ const data = {
             code: 'VA',
           },
           {
-            name: 'Venezia',
+            name: 'Venice',
             code: 'VE',
           },
           {
@@ -4391,12 +4810,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4415,20 +4837,23 @@ const data = {
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
-          city: 'City',
+          city: 'City/ward/town/village',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Prefecture',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{company}_{lastName}{firstName}_{zip}_{country}_{province}{city}_{address1}_{address2}_{phone}',
+            '{lastName}{firstName}_{company}_{country}{zip}_{province}_{city}_{address1}_{address2}_{phone}',
           show:
-            '{country}_〒{zip} {province} {city} {address1} {address2}_{company}_{lastName} {firstName}様_{phone}',
+            '{country} 〒{zip}_{province} {city}_{address1}_{address2}_{company}_{lastName} {firstName}様_{phone}',
         },
         zones: [
           {
@@ -4480,7 +4905,7 @@ const data = {
             code: 'JP-12',
           },
           {
-            name: 'Tōkyō',
+            name: 'Tokyo',
             code: 'JP-13',
           },
           {
@@ -4632,12 +5057,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4658,12 +5086,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4684,12 +5115,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4710,12 +5144,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4736,12 +5173,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4762,16 +5202,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -4788,12 +5231,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4814,16 +5260,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{zip}{city}_{address2}_{address1}_{company}_{firstName}{lastName}_{country}_{phone}',
           show:
             '{zip} {city}_{address2}_{address1}_{company}_{firstName} {lastName}_{country}_{phone}',
         },
@@ -4840,12 +5289,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4866,12 +5318,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4892,12 +5347,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4918,12 +5376,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4944,16 +5405,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -4970,12 +5434,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -4996,16 +5463,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5022,12 +5492,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5048,23 +5521,26 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
       {
-        name: 'Macau SAR China',
+        name: 'Macao SAR China',
         code: 'MO',
         phoneNumberPrefix: 853,
         autocompletionField: 'address1',
@@ -5074,38 +5550,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
         },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
-        name: 'Macedonia',
-        code: 'MK',
-        phoneNumberPrefix: 389,
-        autocompletionField: 'address1',
-        continent: 'Europe',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Province',
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5126,16 +5579,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5152,12 +5608,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5178,16 +5637,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postcode',
           zone: 'State/territory',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
@@ -5213,7 +5675,7 @@ const data = {
             code: 'LBN',
           },
           {
-            name: 'Melaka',
+            name: 'Malacca',
             code: 'MLK',
           },
           {
@@ -5225,16 +5687,16 @@ const data = {
             code: 'PHG',
           },
           {
+            name: 'Penang',
+            code: 'PNG',
+          },
+          {
             name: 'Perak',
             code: 'PRK',
           },
           {
             name: 'Perlis',
             code: 'PLS',
-          },
-          {
-            name: 'Pulau Pinang',
-            code: 'PNG',
           },
           {
             name: 'Putrajaya',
@@ -5269,12 +5731,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5295,12 +5760,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5321,12 +5789,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5347,16 +5818,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5373,12 +5847,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5399,12 +5876,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5425,16 +5905,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5447,20 +5930,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'North America',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'State',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
@@ -5490,7 +5976,7 @@ const data = {
             code: 'CHIH',
           },
           {
-            name: 'Ciudad de México',
+            name: 'Ciudad de Mexico',
             code: 'DF',
           },
           {
@@ -5522,7 +6008,7 @@ const data = {
             code: 'JAL',
           },
           {
-            name: 'México',
+            name: 'Mexico State',
             code: 'MEX',
           },
           {
@@ -5606,16 +6092,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5632,16 +6121,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5658,12 +6150,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5684,16 +6179,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5710,12 +6208,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5736,16 +6237,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5762,16 +6266,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5788,12 +6295,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5814,12 +6324,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5840,12 +6353,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5866,12 +6382,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5888,20 +6407,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5918,12 +6440,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -5944,16 +6469,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -5970,12 +6498,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6001,7 +6532,7 @@ const data = {
             code: 'GIS',
           },
           {
-            name: "Hawke's Bay",
+            name: 'Hawke’s Bay',
             code: 'HKB',
           },
           {
@@ -6061,16 +6592,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
@@ -6087,16 +6621,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6113,12 +6650,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'State',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6132,7 +6672,7 @@ const data = {
             code: 'AB',
           },
           {
-            name: 'Abuja Federal Capital Territory',
+            name: 'Federal Capital Territory',
             code: 'FC',
           },
           {
@@ -6288,12 +6828,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6314,12 +6857,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6340,16 +6886,48 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+        },
+        zones: [],
+      },
+      {
+        name: 'North Macedonia',
+        code: 'MK',
+        phoneNumberPrefix: 389,
+        autocompletionField: 'address1',
+        continent: 'Europe',
+        labels: {
+          address1: 'Address',
+          address2: 'Apartment, suite, etc.',
+          city: 'City',
+          company: 'Company',
+          country: 'Country/Region',
+          firstName: 'First name',
+          lastName: 'Last name',
+          phone: 'Phone',
+          postalCode: 'Postal code',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6362,20 +6940,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6392,16 +6973,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
@@ -6418,12 +7002,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6444,12 +7031,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6470,12 +7060,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6513,7 +7106,7 @@ const data = {
             code: 'PA-6',
           },
           {
-            name: 'Kuna Yala',
+            name: 'Guna Yala',
             code: 'PA-KY',
           },
           {
@@ -6529,7 +7122,7 @@ const data = {
             code: 'PA-8',
           },
           {
-            name: 'Panamá Oeste',
+            name: 'West Panamá',
             code: 'PA-10',
           },
           {
@@ -6549,12 +7142,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6575,16 +7171,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6601,12 +7200,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6620,7 +7222,7 @@ const data = {
             code: 'PE-AMA',
           },
           {
-            name: 'Áncash',
+            name: 'Ancash',
             code: 'PE-ANC',
           },
           {
@@ -6640,11 +7242,11 @@ const data = {
             code: 'PE-CAJ',
           },
           {
-            name: 'Callao',
+            name: 'El Callao',
             code: 'PE-CAL',
           },
           {
-            name: 'Cuzco',
+            name: 'Cusco',
             code: 'PE-CUS',
           },
           {
@@ -6672,11 +7274,11 @@ const data = {
             code: 'PE-LAM',
           },
           {
-            name: 'Lima (departamento)',
+            name: 'Lima Region',
             code: 'PE-LIM',
           },
           {
-            name: 'Lima (provincia)',
+            name: 'Lima',
             code: 'PE-LMA',
           },
           {
@@ -6732,16 +7334,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6758,16 +7363,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6784,16 +7392,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6810,12 +7421,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6825,7 +7439,7 @@ const data = {
         },
         zones: [
           {
-            name: 'Açores',
+            name: 'Azores',
             code: 'PT-20',
           },
           {
@@ -6869,7 +7483,7 @@ const data = {
             code: 'PT-10',
           },
           {
-            name: 'Lisboa',
+            name: 'Lisbon',
             code: 'PT-11',
           },
           {
@@ -6917,12 +7531,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -6943,16 +7560,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -6969,16 +7589,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'County',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
@@ -7004,11 +7627,11 @@ const data = {
             code: 'BH',
           },
           {
-            name: 'Bistrița-Năsăud',
+            name: 'Bistriţa-Năsăud',
             code: 'BN',
           },
           {
-            name: 'Botoșani',
+            name: 'Botoşani',
             code: 'BT',
           },
           {
@@ -7016,11 +7639,11 @@ const data = {
             code: 'BR',
           },
           {
-            name: 'Brașov',
+            name: 'Braşov',
             code: 'BV',
           },
           {
-            name: 'București',
+            name: 'Bucharest',
             code: 'B',
           },
           {
@@ -7088,7 +7711,7 @@ const data = {
             code: 'IF',
           },
           {
-            name: 'Maramureș',
+            name: 'Maramureş',
             code: 'MM',
           },
           {
@@ -7096,11 +7719,11 @@ const data = {
             code: 'MH',
           },
           {
-            name: 'Mureș',
+            name: 'Mureş',
             code: 'MS',
           },
           {
-            name: 'Neamț',
+            name: 'Neamţ',
             code: 'NT',
           },
           {
@@ -7164,12 +7787,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7183,67 +7809,67 @@ const data = {
             code: 'ALT',
           },
           {
-            name: 'Altai Republic',
+            name: 'Altai',
             code: 'AL',
           },
           {
-            name: 'Amur Oblast',
+            name: 'Amur',
             code: 'AMU',
           },
           {
-            name: 'Arkhangelsk Oblast',
+            name: 'Arkhangelsk',
             code: 'ARK',
           },
           {
-            name: 'Astrakhan Oblast',
+            name: 'Astrakhan',
             code: 'AST',
           },
           {
-            name: 'Belgorod Oblast',
+            name: 'Belgorod',
             code: 'BEL',
           },
           {
-            name: 'Bryansk Oblast',
+            name: 'Bryansk',
             code: 'BRY',
           },
           {
-            name: 'Chechen Republic',
+            name: 'Chechen',
             code: 'CE',
           },
           {
-            name: 'Chelyabinsk Oblast',
+            name: 'Chelyabinsk',
             code: 'CHE',
           },
           {
-            name: 'Chukotka Autonomous Okrug',
+            name: 'Chukotka Okrug',
             code: 'CHU',
           },
           {
-            name: 'Chuvash Republic',
+            name: 'Chuvash',
             code: 'CU',
           },
           {
-            name: 'Irkutsk Oblast',
+            name: 'Irkutsk',
             code: 'IRK',
           },
           {
-            name: 'Ivanovo Oblast',
+            name: 'Ivanovo',
             code: 'IVA',
           },
           {
-            name: 'Jewish Autonomous Oblast',
+            name: 'Jewish',
             code: 'YEV',
           },
           {
-            name: 'Kabardino-Balkarian Republic',
+            name: 'Kabardino-Balkar',
             code: 'KB',
           },
           {
-            name: 'Kaliningrad Oblast',
+            name: 'Kaliningrad',
             code: 'KGD',
           },
           {
-            name: 'Kaluga Oblast',
+            name: 'Kaluga',
             code: 'KLU',
           },
           {
@@ -7251,11 +7877,11 @@ const data = {
             code: 'KAM',
           },
           {
-            name: 'Karachay–Cherkess Republic',
+            name: 'Karachay-Cherkess',
             code: 'KC',
           },
           {
-            name: 'Kemerovo Oblast',
+            name: 'Kemerovo',
             code: 'KEM',
           },
           {
@@ -7263,19 +7889,19 @@ const data = {
             code: 'KHA',
           },
           {
-            name: 'Khanty-Mansi Autonomous Okrug',
+            name: 'Khanty-Mansi',
             code: 'KHM',
           },
           {
-            name: 'Kirov Oblast',
+            name: 'Kirov',
             code: 'KIR',
           },
           {
-            name: 'Komi Republic',
+            name: 'Komi',
             code: 'KO',
           },
           {
-            name: 'Kostroma Oblast',
+            name: 'Kostroma',
             code: 'KOS',
           },
           {
@@ -7287,27 +7913,27 @@ const data = {
             code: 'KYA',
           },
           {
-            name: 'Kurgan Oblast',
+            name: 'Kurgan',
             code: 'KGN',
           },
           {
-            name: 'Kursk Oblast',
+            name: 'Kursk',
             code: 'KRS',
           },
           {
-            name: 'Leningrad Oblast',
+            name: 'Leningrad',
             code: 'LEN',
           },
           {
-            name: 'Lipetsk Oblast',
+            name: 'Lipetsk',
             code: 'LIP',
           },
           {
-            name: 'Magadan Oblast',
+            name: 'Magadan',
             code: 'MAG',
           },
           {
-            name: 'Mari El Republic',
+            name: 'Mari El',
             code: 'ME',
           },
           {
@@ -7315,39 +7941,39 @@ const data = {
             code: 'MOW',
           },
           {
-            name: 'Moscow Oblast',
+            name: 'Moscow Province',
             code: 'MOS',
           },
           {
-            name: 'Murmansk Oblast',
+            name: 'Murmansk',
             code: 'MUR',
           },
           {
-            name: 'Nizhny Novgorod Oblast',
+            name: 'Nizhny Novgorod',
             code: 'NIZ',
           },
           {
-            name: 'Novgorod Oblast',
+            name: 'Novgorod',
             code: 'NGR',
           },
           {
-            name: 'Novosibirsk Oblast',
+            name: 'Novosibirsk',
             code: 'NVS',
           },
           {
-            name: 'Omsk Oblast',
+            name: 'Omsk',
             code: 'OMS',
           },
           {
-            name: 'Orenburg Oblast',
+            name: 'Orenburg',
             code: 'ORE',
           },
           {
-            name: 'Oryol Oblast',
+            name: 'Oryol',
             code: 'ORL',
           },
           {
-            name: 'Penza Oblast',
+            name: 'Penza',
             code: 'PNZ',
           },
           {
@@ -7359,59 +7985,59 @@ const data = {
             code: 'PRI',
           },
           {
-            name: 'Pskov Oblast',
+            name: 'Pskov',
             code: 'PSK',
           },
           {
-            name: 'Republic of Adygeya',
+            name: 'Adygea',
             code: 'AD',
           },
           {
-            name: 'Republic of Bashkortostan',
+            name: 'Bashkortostan',
             code: 'BA',
           },
           {
-            name: 'Republic of Buryatia',
+            name: 'Buryat',
             code: 'BU',
           },
           {
-            name: 'Republic of Dagestan',
+            name: 'Dagestan',
             code: 'DA',
           },
           {
-            name: 'Republic of Ingushetia',
+            name: 'Ingushetia',
             code: 'IN',
           },
           {
-            name: 'Republic of Kalmykia',
+            name: 'Kalmykia',
             code: 'KL',
           },
           {
-            name: 'Republic of Karelia',
+            name: 'Karelia',
             code: 'KR',
           },
           {
-            name: 'Republic of Khakassia',
+            name: 'Khakassia',
             code: 'KK',
           },
           {
-            name: 'Republic of Mordovia',
+            name: 'Mordovia',
             code: 'MO',
           },
           {
-            name: 'Republic of North Ossetia–Alania',
+            name: 'North Ossetia-Alania',
             code: 'SE',
           },
           {
-            name: 'Republic of Tatarstan',
+            name: 'Tatarstan',
             code: 'TA',
           },
           {
-            name: 'Rostov Oblast',
+            name: 'Rostov',
             code: 'ROS',
           },
           {
-            name: 'Ryazan Oblast',
+            name: 'Ryazan',
             code: 'RYA',
           },
           {
@@ -7419,23 +8045,23 @@ const data = {
             code: 'SPE',
           },
           {
-            name: 'Sakha Republic (Yakutia)',
+            name: 'Sakha',
             code: 'SA',
           },
           {
-            name: 'Sakhalin Oblast',
+            name: 'Sakhalin',
             code: 'SAK',
           },
           {
-            name: 'Samara Oblast',
+            name: 'Samara',
             code: 'SAM',
           },
           {
-            name: 'Saratov Oblast',
+            name: 'Saratov',
             code: 'SAR',
           },
           {
-            name: 'Smolensk Oblast',
+            name: 'Smolensk',
             code: 'SMO',
           },
           {
@@ -7443,63 +8069,63 @@ const data = {
             code: 'STA',
           },
           {
-            name: 'Sverdlovsk Oblast',
+            name: 'Sverdlovsk',
             code: 'SVE',
           },
           {
-            name: 'Tambov Oblast',
+            name: 'Tambov',
             code: 'TAM',
           },
           {
-            name: 'Tomsk Oblast',
+            name: 'Tomsk',
             code: 'TOM',
           },
           {
-            name: 'Tula Oblast',
+            name: 'Tula',
             code: 'TUL',
           },
           {
-            name: 'Tver Oblast',
+            name: 'Tver',
             code: 'TVE',
           },
           {
-            name: 'Tyumen Oblast',
+            name: 'Tyumen',
             code: 'TYU',
           },
           {
-            name: 'Tyva Republic',
+            name: 'Tuva',
             code: 'TY',
           },
           {
-            name: 'Udmurtia',
+            name: 'Udmurt',
             code: 'UD',
           },
           {
-            name: 'Ulyanovsk Oblast',
+            name: 'Ulyanovsk',
             code: 'ULY',
           },
           {
-            name: 'Vladimir Oblast',
+            name: 'Vladimir',
             code: 'VLA',
           },
           {
-            name: 'Volgograd Oblast',
+            name: 'Volgograd',
             code: 'VGG',
           },
           {
-            name: 'Vologda Oblast',
+            name: 'Vologda',
             code: 'VLG',
           },
           {
-            name: 'Voronezh Oblast',
+            name: 'Voronezh',
             code: 'VOR',
           },
           {
-            name: 'Yamalo-Nenets Autonomous Okrug',
+            name: 'Yamalo-Nenets Okrug',
             code: 'YAN',
           },
           {
-            name: 'Yaroslavl Oblast',
+            name: 'Yaroslavl',
             code: 'YAR',
           },
           {
@@ -7519,38 +8145,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
         },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
-        name: 'Saint Martin',
-        code: 'SX',
-        phoneNumberPrefix: 1,
-        autocompletionField: 'address1',
-        continent: 'Central America',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Province',
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7571,12 +8174,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7597,16 +8203,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -7623,12 +8232,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7649,12 +8261,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7675,16 +8290,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -7701,16 +8319,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -7727,12 +8348,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7753,12 +8377,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7779,18 +8406,50 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+        },
+        zones: [],
+      },
+      {
+        name: 'Sint Maarten',
+        code: 'SX',
+        phoneNumberPrefix: 1,
+        autocompletionField: 'address1',
+        continent: 'Central America',
+        labels: {
+          address1: 'Address',
+          address2: 'Apartment, suite, etc.',
+          city: 'City',
+          company: 'Company',
+          country: 'Country/Region',
+          firstName: 'First name',
+          lastName: 'Last name',
+          phone: 'Phone',
+          postalCode: 'Postal code',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7805,16 +8464,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -7831,16 +8493,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -7857,12 +8522,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7883,12 +8551,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7909,12 +8580,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7972,12 +8646,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -7998,12 +8675,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8017,11 +8697,11 @@ const data = {
             code: 'KR-26',
           },
           {
-            name: 'Chungbuk',
+            name: 'North Chungcheong',
             code: 'KR-43',
           },
           {
-            name: 'Chungnam',
+            name: 'South Chungcheong',
             code: 'KR-44',
           },
           {
@@ -8037,11 +8717,11 @@ const data = {
             code: 'KR-42',
           },
           {
-            name: 'Gwangju',
+            name: 'Gwangju City',
             code: 'KR-29',
           },
           {
-            name: 'Gyeongbuk',
+            name: 'North Gyeongsang',
             code: 'KR-47',
           },
           {
@@ -8049,7 +8729,7 @@ const data = {
             code: 'KR-41',
           },
           {
-            name: 'Gyeongnam',
+            name: 'South Gyeongsang',
             code: 'KR-48',
           },
           {
@@ -8061,11 +8741,11 @@ const data = {
             code: 'KR-49',
           },
           {
-            name: 'Jeonbuk',
+            name: 'North Jeolla',
             code: 'KR-45',
           },
           {
-            name: 'Jeonnam',
+            name: 'South Jeolla',
             code: 'KR-46',
           },
           {
@@ -8093,12 +8773,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8115,20 +8798,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
         },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
@@ -8154,7 +8840,7 @@ const data = {
             code: 'AL',
           },
           {
-            name: 'Asturias',
+            name: 'Asturias Province',
             code: 'O',
           },
           {
@@ -8166,7 +8852,7 @@ const data = {
             code: 'BA',
           },
           {
-            name: 'Balears',
+            name: 'Balears Province',
             code: 'PM',
           },
           {
@@ -8186,7 +8872,7 @@ const data = {
             code: 'CA',
           },
           {
-            name: 'Cantabria',
+            name: 'Cantabria Province',
             code: 'S',
           },
           {
@@ -8222,7 +8908,7 @@ const data = {
             code: 'GU',
           },
           {
-            name: 'Guipúzcoa',
+            name: 'Gipuzkoa',
             code: 'SS',
           },
           {
@@ -8238,7 +8924,7 @@ const data = {
             code: 'J',
           },
           {
-            name: 'La Rioja',
+            name: 'La Rioja Province',
             code: 'LO',
           },
           {
@@ -8258,7 +8944,7 @@ const data = {
             code: 'LU',
           },
           {
-            name: 'Madrid',
+            name: 'Madrid Province',
             code: 'M',
           },
           {
@@ -8302,7 +8988,7 @@ const data = {
             code: 'SG',
           },
           {
-            name: 'Sevilla',
+            name: 'Seville',
             code: 'SE',
           },
           {
@@ -8330,7 +9016,7 @@ const data = {
             code: 'VA',
           },
           {
-            name: 'Vizcaya',
+            name: 'Biscay',
             code: 'BI',
           },
           {
@@ -8354,12 +9040,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8380,16 +9069,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -8406,12 +9098,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8432,12 +9127,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8458,12 +9156,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8484,16 +9185,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -8510,16 +9214,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -8536,12 +9243,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8562,16 +9272,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
@@ -8588,12 +9301,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8614,44 +9330,21 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
-        name: 'Swaziland',
-        code: 'SZ',
-        phoneNumberPrefix: 268,
-        autocompletionField: 'address1',
-        continent: 'Africa',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Province',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -8662,20 +9355,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
+          address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
-          city: 'City',
+          city: 'City/town',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -8688,20 +9384,23 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
+          address1: 'Street and house number',
+          address2: 'Additional address',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Additional address (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -8718,12 +9417,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8744,12 +9446,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8770,16 +9475,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -8796,16 +9504,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -8822,12 +9533,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Province',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -8853,7 +9567,7 @@ const data = {
             code: 'TH-38',
           },
           {
-            name: 'Buriram',
+            name: 'Buri Ram',
             code: 'TH-31',
           },
           {
@@ -8993,7 +9707,7 @@ const data = {
             code: 'TH-S',
           },
           {
-            name: 'Phangnga',
+            name: 'Phang Nga',
             code: 'TH-82',
           },
           {
@@ -9089,7 +9803,7 @@ const data = {
             code: 'TH-17',
           },
           {
-            name: 'Sisaket',
+            name: 'Si Sa Ket',
             code: 'TH-33',
           },
           {
@@ -9101,7 +9815,7 @@ const data = {
             code: 'TH-64',
           },
           {
-            name: 'Suphan Buri',
+            name: 'Suphanburi',
             code: 'TH-72',
           },
           {
@@ -9161,12 +9875,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9187,12 +9904,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9213,12 +9933,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9239,12 +9962,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9265,12 +9991,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9291,16 +10020,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -9317,16 +10049,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -9343,18 +10078,21 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{zip}{city}_{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{zip}{city}_{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
         },
         zones: [],
       },
@@ -9369,12 +10107,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9395,12 +10136,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9421,12 +10165,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'State',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9447,12 +10194,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9473,12 +10223,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9499,12 +10252,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
           zone: 'Emirate',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9554,12 +10310,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postcode',
           zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9580,12 +10339,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'ZIP code',
           zone: 'State',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9631,11 +10393,11 @@ const data = {
             code: 'DE',
           },
           {
-            name: 'District of Columbia',
+            name: 'Washington DC',
             code: 'DC',
           },
           {
-            name: 'Federated States of Micronesia',
+            name: 'Micronesia',
             code: 'FM',
           },
           {
@@ -9807,7 +10569,7 @@ const data = {
             code: 'VT',
           },
           {
-            name: 'Virgin Islands',
+            name: 'U.S. Virgin Islands',
             code: 'VI',
           },
           {
@@ -9855,16 +10617,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -9881,12 +10646,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9907,12 +10675,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9933,16 +10704,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -9959,12 +10733,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -9985,12 +10762,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -10011,16 +10791,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -10037,12 +10820,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -10063,12 +10849,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
@@ -10089,16 +10878,19 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
@@ -10115,12 +10907,15 @@ const data = {
           address2: 'Apartment, suite, etc.',
           city: 'City',
           company: 'Company',
-          country: 'Country',
+          country: 'Country/Region',
           firstName: 'First name',
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'Province',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
         },
         formatting: {
           edit:

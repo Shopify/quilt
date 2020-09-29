@@ -5,6 +5,7 @@ import {
   Header,
 } from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
+import cookie from 'cookie';
 
 import {NetworkManager, applyToContext} from '../server';
 
@@ -101,12 +102,44 @@ describe('server', () => {
 
       expect(spy).toHaveBeenCalledWith(
         Header.ContentSecurityPolicy,
-        `${CspDirective.DefaultSrc} ${SpecialSource.Self}; ${
-          CspDirective.StyleSrc
-        } ${SpecialSource.Self} ${SpecialSource.Blob}; ${
-          CspDirective.BlockAllMixedContent
-        }`,
+        `${CspDirective.DefaultSrc} ${SpecialSource.Self}; ${CspDirective.StyleSrc} ${SpecialSource.Self} ${SpecialSource.Blob}; ${CspDirective.BlockAllMixedContent}`,
       );
+    });
+  });
+
+  describe('cookies', () => {
+    it('doesn’t reset existing cookies', () => {
+      const cookieString = '_cookieA=this%2Bhas%2Ba%2Bplus; _cookieB=';
+      const ctx = createMockContext({
+        cookies: cookie.parse(cookieString),
+      });
+      const manager = new NetworkManager({
+        cookies: cookieString,
+      });
+
+      applyToContext(ctx, manager);
+
+      expect(ctx.cookies.set).not.toHaveBeenCalledWith(
+        '_cookieA',
+        'this%2Bhas%2Ba%2Bplus',
+        {},
+      );
+      expect(ctx.cookies.set).not.toHaveBeenCalledWith('_cookieB', '', {});
+    });
+
+    it('does set changed cookies', () => {
+      const cookieString = '_cookieA=this%2Bhas%2Ba%2Bplus; _cookieB=';
+      const ctx = createMockContext({
+        cookies: cookie.parse(cookieString),
+      });
+      const manager = new NetworkManager({
+        cookies: '_cookieA=this%2Bhas%2Ba%2Bplus; _cookieB=',
+      });
+
+      manager.cookies.setCookie('_cookieA', 'new_value');
+      applyToContext(ctx, manager);
+      expect(ctx.cookies.set).toHaveBeenCalledWith('_cookieA', 'new_value', {});
+      expect(ctx.cookies.set).not.toHaveBeenCalledWith('_cookieB', '', {});
     });
   });
 });

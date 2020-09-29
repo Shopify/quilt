@@ -1,4 +1,5 @@
 import faker from 'faker';
+
 import {push, replace, remove} from '../utilities';
 
 describe('array-utilities', () => {
@@ -19,7 +20,7 @@ describe('array-utilities', () => {
       const newArray = push(array, newItem);
 
       expect(newArray).not.toBe(array);
-      expect(array).not.toEqual(array.concat([newItem]));
+      expect(array).not.toStrictEqual(array.concat([newItem]));
     });
   });
 
@@ -44,7 +45,7 @@ describe('array-utilities', () => {
       const newArray = replace(array, 0, newItem);
 
       expect(newArray).not.toBe(array);
-      expect(array).not.toEqual([newItem]);
+      expect(array).not.toStrictEqual([newItem]);
     });
   });
 
@@ -67,7 +68,7 @@ describe('array-utilities', () => {
       const newArray = remove(array, 0);
 
       expect(newArray).not.toBe(array);
-      expect(array).not.toEqual([]);
+      expect(array).not.toStrictEqual([]);
     });
   });
 });

@@ -2,15 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- Unreleased changes should go to UNRELEASED.md -->
+<!-- ## [Unreleased] -->
 
----
+## [2.1.12] - 2020-05-29
 
-## Unreleased
+### Fixed
 
-## 2.0.0 - 2019-03-28
+- Remove cast for `act` following update to `@types/react-dom`
+
+## [2.1.11] - 2020-05-13
+
+- `trigger` update the wrapper even if the promise is not resolved. [[#1439](https://github.com/Shopify/quilt/pull/1439)]
+
+## [2.1.10] - 2020-05-13
+
+- `trigger` now return the return value when the callback is a promise. [[#1434](https://github.com/Shopify/quilt/pull/1434)]
+
+## [2.0.0] - 2019-03-28
 
 ### Changed
 

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-import-remote.svg)](https://badge.fury.io/js/%40shopify%2Freact-import-remote.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-import-remote.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-import-remote.svg)
 
-Asynchronous script loading for React
+Asynchronous script loading for React.
 
 ## Installation
 
@@ -18,7 +18,7 @@ The package provides a hook and component that are intended for loading external
 ### useImportRemote()
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {useImportRemote, Status} from '@shopify/react-import-remote';
 import {DeferTiming} from '@shopify/async';
 
@@ -42,7 +42,7 @@ function MyComponent() {
 ### <ImportRemote />
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 import {DeferTiming} from '@shopify/async';
 
@@ -76,7 +76,7 @@ Source of the script to load the global from
 
 **preconnect**
 
-Generates a preconnect link tag for the source’s domain using [`@shopify/react-preconnect`](https://github.com/Shopify/quilt/tree/master/packages/react-preconnect)
+Generates a preconnect link tag for the source’s domain using `<Preconnect />` component from [`@shopify/react-html`](../react-html)
 
 **getImport**
 

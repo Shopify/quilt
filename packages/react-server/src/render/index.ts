@@ -1,1 +1,1 @@
-export {createRender, RenderContext, RenderFunction} from './render';
+export {createRender, Context, RenderFunction} from './render';

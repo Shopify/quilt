@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import {mount, Root} from '@shopify/react-testing';
 import {clock} from '@shopify/jest-dom-mocks';
 
 import {EventListener} from '../EventListener';
 import {Prefetcher, INTENTION_DELAY_MS} from '../Prefetcher';
 import {PrefetchContext} from '../context/prefetch';
+
 import {createPrefetchManager} from './utilities';
 
 jest.mock('../EventListener', () => ({

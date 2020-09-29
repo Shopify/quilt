@@ -6,6 +6,7 @@ query countries($locale: SupportedLocale!) {
     continent
     phoneNumberPrefix
     autocompletionField
+    provinceKey
     labels {
       address1
       address2
@@ -17,6 +18,9 @@ query countries($locale: SupportedLocale!) {
       phone
       postalCode
       zone
+    }
+    optionalLabels {
+      address2
     }
     formatting {
       edit
@@ -36,6 +40,7 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
     continent
     phoneNumberPrefix
     autocompletionField
+    provinceKey
     labels {
       address1
       address2
@@ -47,6 +52,9 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
       phone
       postalCode
       zone
+    }
+    optionalLabels {
+      address2
     }
     formatting {
       edit

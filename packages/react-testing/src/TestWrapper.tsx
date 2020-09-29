@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 interface State<ChildProps> {
   props?: Partial<ChildProps>;
@@ -15,7 +15,7 @@ export class TestWrapper<ChildProps> extends React.Component<
 > {
   state: State<ChildProps> = {};
 
-  // eslint-disable-next-line shopify/react-prefer-private-members
+  // eslint-disable-next-line @shopify/react-prefer-private-members
   setProps(props: Partial<ChildProps>) {
     this.setState({props});
   }

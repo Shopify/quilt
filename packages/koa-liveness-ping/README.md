@@ -1,8 +1,12 @@
 # `@shopify/koa-liveness-ping`
 
-A package for creating a liveness ping middleware for use with koa
+[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
+[![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping)
 
-A liveness ping is a URL at which your application will respond with a `200` whenever your server is running. It can be used, for example, for liveness checks in kubernetes deployments.
+A package for creating liveness ping middleware for use with Koa.
+
+A liveness ping is a URL at which your application will respond with a `200` whenever your server is running. It can be used, for example, for liveness checks in Kubernetes deployments.
 
 ## Installation
 

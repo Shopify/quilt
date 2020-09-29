@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fpredicates.svg)](https://badge.fury.io/js/%40shopify%2Fpredicates.svg)
 
-A set of common Javascript predicates. The functions in this library either take one input and return `true` / `false`, or return a customized function that does so.
+A set of common JavaScript predicates. The functions in this library either take one input and return `true`/`false`, or return a customized function that does so.
 
 ## Installation
 

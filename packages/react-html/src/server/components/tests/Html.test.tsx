@@ -1,11 +1,10 @@
-import * as React from 'react';
-import {mount} from '@shopify/react-testing';
+import React from 'react';
 import withEnv from '@shopify/with-env';
+import {mount} from '@shopify/react-testing';
 
 import {Script, Style} from '../../../components';
 import {HtmlManager} from '../../../manager';
 import {MANAGED_ATTRIBUTE} from '../../../utilities';
-
 import Html from '../Html';
 import Serialize from '../Serialize';
 

@@ -1,33 +1,12 @@
 import {join} from 'path';
+
 import {readJson} from 'fs-extra';
-import {matchesUA} from 'browserslist-useragent';
 import appRoot from 'app-root-path';
 
-export interface Asset {
-  path: string;
-  integrity?: string;
-}
+import {Manifest} from './types';
+import {Manifests} from './manifests';
 
-export interface Entrypoint {
-  js: Asset[];
-  css: Asset[];
-}
-
-export interface AsyncAsset {
-  id?: string;
-  file: string;
-  publicPath: string;
-  integrity?: string;
-}
-
-export interface Manifest {
-  name?: string;
-  browsers?: string[];
-  entrypoints: {[key: string]: Entrypoint};
-  asyncAssets: {[key: string]: AsyncAsset[]};
-}
-
-export type ConsolidatedManifest = Manifest[];
+export {Asset} from './types';
 
 interface Options {
   assetPrefix: string;
@@ -42,6 +21,7 @@ interface AssetSelector {
 }
 
 interface AssetOptions {
+  locale?: string;
   name?: string;
   asyncAssets?: Iterable<string | RegExp | AssetSelector>;
 }
@@ -51,24 +31,22 @@ enum AssetKind {
   Scripts = 'js',
 }
 
-const DEFAULT_MANIFEST_PATH = 'build/client/assets.json';
-
 export default class Assets {
   assetPrefix: string;
   userAgent?: string;
-  manifestPath: string;
+  private manifests: Manifests;
   private resolvedManifestEntry?: Manifest;
 
   constructor({assetPrefix, userAgent, manifestPath}: Options) {
     this.assetPrefix = assetPrefix;
     this.userAgent = userAgent;
-    this.manifestPath = manifestPath || DEFAULT_MANIFEST_PATH;
+    this.manifests = new Manifests(manifestPath);
   }
 
   async scripts(options: AssetOptions = {}) {
     const js = getAssetsFromManifest(
       {...options, kind: AssetKind.Scripts},
-      await this.getResolvedManifest(),
+      await this.getResolvedManifest(options.locale),
     );
 
     const scripts =
@@ -85,16 +63,25 @@ export default class Assets {
   async styles(options: AssetOptions = {}) {
     return getAssetsFromManifest(
       {...options, kind: AssetKind.Styles},
-      await this.getResolvedManifest(),
+      await this.getResolvedManifest(options.locale),
     );
   }
 
   async assets(options: AssetOptions) {
-    return getAssetsFromManifest(options, await this.getResolvedManifest());
+    return getAssetsFromManifest(
+      options,
+      await this.getResolvedManifest(options.locale),
+    );
   }
 
-  async asyncAssets(ids: Iterable<string | RegExp | AssetSelector>) {
-    return getAsyncAssetsFromManifest(ids, await this.getResolvedManifest());
+  async asyncAssets(
+    ids: Iterable<string | RegExp | AssetSelector>,
+    locale?: string,
+  ) {
+    return getAsyncAssetsFromManifest(
+      ids,
+      await this.getResolvedManifest(locale),
+    );
   }
 
   async graphQLSource(id: string) {
@@ -102,66 +89,31 @@ export default class Assets {
     return graphQLManifest.get(id) || null;
   }
 
-  private async getResolvedManifestEntry() {
+  private async getResolvedManifestEntry(
+    locale: string | undefined,
+  ): Promise<Manifest> {
     if (this.resolvedManifestEntry) {
       return this.resolvedManifestEntry;
     }
 
-    const consolidatedManifest = await loadConsolidatedManifest(
-      this.manifestPath,
-    );
     const {userAgent} = this;
+    const manifest = await this.manifests.resolve(userAgent, {
+      locale,
+    });
 
-    const lastManifestEntry =
-      consolidatedManifest[consolidatedManifest.length - 1];
-
-    // We do the following to determine the correct manifest to use:
-    //
-    // 1. If there is no user agent, use the "last" manifest, which is the
-    // least restrictive set of browsers.
-    // 2. If there is only one manifest, use it, regardless of how well it
-    // matches the user agent.
-    // 3. If there is a user agent, find the first manifest where the
-    // browsers it was compiled for matches the user agent, or where there
-    // is no browser restriction on the bundle.
-    // 4. If no matching manifests are found, fall back to the last manifest.
-    if (userAgent == null || consolidatedManifest.length === 1) {
-      this.resolvedManifestEntry = lastManifestEntry;
-    } else {
-      this.resolvedManifestEntry =
-        consolidatedManifest.find(
-          ({browsers}) =>
-            browsers == null ||
-            matchesUA(userAgent, {
-              browsers,
-              ignoreMinor: true,
-              ignorePatch: true,
-              allowHigherVersions: true,
-            }),
-        ) || lastManifestEntry;
-    }
-
-    return this.resolvedManifestEntry;
+    this.resolvedManifestEntry = manifest;
+    return manifest;
   }
 
-  private async getResolvedManifest(): Promise<Manifest> {
-    const manifest = await this.getResolvedManifestEntry();
+  private async getResolvedManifest(
+    locale: string | undefined,
+  ): Promise<Manifest> {
+    const manifest = await this.getResolvedManifestEntry(locale);
     return manifest;
   }
 }
 
-let consolidatedManifestPromise: Promise<ConsolidatedManifest> | null = null;
 let graphQLManifestPromise: Promise<Map<string, string>> | null = null;
-
-function loadConsolidatedManifest(manifestPath: string) {
-  if (consolidatedManifestPromise) {
-    return consolidatedManifestPromise;
-  }
-
-  consolidatedManifestPromise = readJson(join(appRoot.path, manifestPath));
-
-  return consolidatedManifestPromise;
-}
 
 function loadGraphQLManifest() {
   if (graphQLManifestPromise) {
@@ -176,7 +128,6 @@ function loadGraphQLManifest() {
 }
 
 export function internalOnlyClearCache() {
-  consolidatedManifestPromise = null;
   graphQLManifestPromise = null;
 }
 

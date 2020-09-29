@@ -2,9 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+<!-- ## [Unreleased] -->
+
+## [0.11.11] - 2019-10-01
+
+### Added
+
+- new `asChoiceField` utility function to support `Checkbox` and `RadioButton` [#1070](https://github.com/Shopify/quilt/pull/1070)
+
+## [0.11.8] - 2019-08-29
+
+### Fixed
+
+- Fixed using multiple layers deep of nested `<List />` inside of `<List />`
+
 ## [0.11.3]
 
 ### Added
@@ -65,13 +79,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - `submit` now checks for the existence of `preventDefault` on the event passed in before calling it. [#465](https://github.com/Shopify/quilt/pull/465)
 
-## [0.6]
+## [0.6.0]
 
 ### Added
 
 - You can control how `<FormState />` reacts to changes in the initialValue prop using onInitialValueChanged.
 
-## [0.5]
+## [0.5.0]
 
 ### Added
 

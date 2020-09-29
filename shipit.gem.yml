@@ -1,6 +1,9 @@
 ci:
   require:
     - continuous-integration/travis-ci/push
+dependencies:
+  override:
+    - echo "nothing to see here"
 deploy:
   max_commits: 200
   override:

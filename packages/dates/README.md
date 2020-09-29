@@ -18,7 +18,7 @@ Optional time zone parameters that are omitted are inferred as local.
 
 ### `applyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones added to it. We can also assume the passed date is in the first time zone and we want to calculate it in the second time zone.
 
 ```ts
 import {applyTimeZoneOffset} from '@shopify/dates';
@@ -27,7 +27,24 @@ const date = new Date('2018-06-01Z14:00');
 const timeZone1 = 'Australia/Perth';
 const timeZone2 = 'America/Toronto';
 
-const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2);
+const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2); //'2018-06-01T02:00:00.000Z'
+```
+
+### `formatDate`
+
+Takes in a date object and two additional parameters, the locale and an optional options object. Returns a new date string with the applied locale and options.
+
+```ts
+import {formatDate} from '@shopify/dates';
+
+const date = new Date('2020-02-18Z14:00');
+const locales = 'en';
+const options = {
+  timeZone: 'America/New_York',
+  hour: 'numeric',
+};
+
+const newDate = formatDate(date, locales, options); // 9 AM
 ```
 
 ### `getDateTimeParts`
@@ -76,6 +93,104 @@ const now = new Date('2018-01-01Z00:00');
 const date = new Date('2018-01-02Z23:59');
 
 const futureDay = isFutureDate(date, now);
+```
+
+### `isLessThanOneDayAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one day before the "now" date.
+
+```ts
+import {isLessThanOneDayAgo} from '@shopify/dates';
+
+const moreThanOneDayAgo = new Date('2018-01-01Z00:00');
+const lessThanOneDayAgo = new Date(Date.now() - 23 * TimeUnit.Hour);
+
+isLessThanOneDayAgo(moreThanOneDayAgo); // false
+isLessThanOneDayAgo(lessThanOneDayAgo); // true
+```
+
+### `isLessThanOneHourAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one hour before the "now" date.
+
+```ts
+import {isLessThanOneHourAgo} from '@shopify/dates';
+
+const moreThanOneHourAgo = new Date('2018-01-01Z00:00');
+const lessThanOneHourAgo = new Date(Date.now() - 59 * TimeUnit.Minute);
+
+isLessThanOneHourAgo(moreThanOneHourAgo); // false
+isLessThanOneHourAgo(lessThanOneHourAgo); // true
+```
+
+### `isLessThanOneMinuteAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one minute before the "now" date.
+
+```ts
+import {isLessThanOneMinuteAgo} from '@shopify/dates';
+
+const moreThanOneMinuteAgo = new Date('2018-01-01Z00:00');
+const lessThanOneMinuteAgo = new Date(Date.now() - 59 * TimeUnit.Second);
+
+isLessThanOneMinuteAgo(moreThanOneMinuteAgo); // false
+isLessThanOneMinuteAgo(lessThanOneMinuteAgo); // true
+```
+
+### `isLessThanOneWeekAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one week before the "now" date.
+
+```ts
+import {isLessThanOneWeekAgo} from '@shopify/dates';
+
+const moreThanOneWeekAgo = new Date('2018-01-01Z00:00');
+const lessThanOneWeekAgo = new Date(Date.now() - 6 * TimeUnit.Day);
+
+isLessThanOneWeekAgo(moreThanOneWeekAgo); // false
+isLessThanOneWeekAgo(lessThanOneWeekAgo); // true
+```
+
+### `isLessThanOneWeekAway`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one week after the "now" date.
+
+```ts
+import {isLessThanOneWeekAway} from '@shopify/dates';
+
+const moreThanOneWeekAway = new Date(Date.now() + 8 * TimeUnit.Day);
+const lessThanOneWeekAway = new Date(Date.now() + 6 * TimeUnit.Day);
+
+isLessThanOneWeekAway(moreThanOneWeekAway); // false
+isLessThanOneWeekAway(lessThanOneWeekAway); // true
+```
+
+### `isLessThanOneYearAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one year before the "now" date.
+
+```ts
+import {isLessThanOneYearAgo} from '@shopify/dates';
+
+const moreThanOneYearAgo = new Date('2018-01-01Z00:00');
+const lessThanOneYearAgo = new Date(Date.now() - 51 * TimeUnit.Week);
+
+isLessThanOneYearAgo(moreThanOneYearAgo); // false
+isLessThanOneYearAgo(lessThanOneYearAgo); // true
+```
+
+### `isLessThanOneYearAway`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one year after the "now" date.
+
+```ts
+import {isLessThanOneYearAway} from '@shopify/dates';
+
+const moreThanOneYearAway = new Date(Date.now() + 53 * TimeUnit.Week);
+const lessThanOneYearAway = new Date(Date.now() + 51 * TimeUnit.Week);
+
+isLessThanOneYearAway(moreThanOneYearAway); // false
+isLessThanOneYearAway(lessThanOneYearAway); // true
 ```
 
 ### `isSameDay`
@@ -209,13 +324,14 @@ const {
 
 ### `unapplyTimeZoneOffset`
 
-Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it.
+Takes in a date object and two optional time zone string parameters. Returns a new date object with the offset between the time zones subtracted from it. We can also assume the passed date is in the second time zone and we want to calculate it back in the first time zone.
 
 ```ts
 import {unapplyTimeZoneOffset} from '@shopify/dates';
 
 const date = new Date('2018-06-01Z14:00');
-const timeZone = 'Australia/Perth';
+const timeZone1 = 'Australia/Perth';
+const timeZone2 = 'America/Toronto';
 
-const newDate = unapplyTimeZoneOffset(date, offset);
+const newDate = unapplyTimeZoneOffset(date, timeZone1, timeZone2); //2018-06-02T02:00:00.000Z
 ```

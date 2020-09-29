@@ -31,6 +31,7 @@ export class Performance {
   readonly supportsObserver = hasGlobal('PerformanceObserver');
   readonly supportsMarks = hasGlobal('PerformanceMark');
   readonly supportsNavigationEntries = hasGlobal('PerformanceNavigationTiming');
+  readonly supportsTimingEntries = hasGlobal('PerformanceTiming');
   readonly supportsLongtaskEntries = hasGlobal('PerformanceLongTaskTiming');
   readonly supportsResourceEntries = hasGlobal('PerformanceResourceTiming');
   readonly supportsPaintEntries = hasGlobal('PerformancePaintTiming');
@@ -59,7 +60,10 @@ export class Performance {
 
     withNavigation(this.start.bind(this));
 
-    if (!this.supportsDetailedTime || !this.supportsNavigationEntries) {
+    if (
+      this.supportsTimingEntries &&
+      (!this.supportsDetailedTime || !this.supportsNavigationEntries)
+    ) {
       withTiming(
         ({responseStart, domContentLoadedEventStart, loadEventStart}) => {
           // window.performance.timing uses full timestamps, while
@@ -171,6 +175,12 @@ export class Performance {
     }
   }
 
+  mark(stage: string, id: string) {
+    if (this.supportsMarks) {
+      window.performance.mark(`${id}::${stage}`);
+    }
+  }
+
   on<T extends keyof EventMap>(event: T, handler: EventMap[T]) {
     const handlers = this.eventHandlers[event] as Set<any>;
     handlers.add(handler);
@@ -186,7 +196,7 @@ export class Performance {
       (handler as EventMap['navigation'])(this.firstNavigation);
     }
 
-    // If they are registered to here about new navigations, and one is in flight,
+    // If they are registered to hear about new navigations, and one is in flight,
     // tell them right away.
     if (event === 'inflightNavigation' && this.inflightNavigation != null) {
       (handler as EventMap['inflightNavigation'])();

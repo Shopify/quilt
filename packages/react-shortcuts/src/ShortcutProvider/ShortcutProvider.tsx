@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+
 import ShortcutManager from '../ShortcutManager';
 
 export interface Props {

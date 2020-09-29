@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {random, name} from 'faker';
-import {createMount} from '@shopify/react-testing';
 import {DeferTiming} from '@shopify/async';
+import {createMount} from '@shopify/react-testing';
 import {
   Hydrator,
   HydrationContext,
@@ -35,11 +35,11 @@ const mount = createMount<{hydrated?: boolean}>({
 });
 
 function ResolvedComponent({name = 'friend'}: {name?: string}) {
-  return <div>Hello, {name}!</div>;
+  return <>Hello, {name}!</>;
 }
 
 function Loading() {
-  return <div>Loading…</div>;
+  return <>Loading…</>;
 }
 
 describe('createAsyncComponent()', () => {

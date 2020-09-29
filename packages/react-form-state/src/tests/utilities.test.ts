@@ -1,4 +1,4 @@
-import {set} from '../utilities';
+import {asChoiceField, set} from '../utilities';
 
 describe('utilities', () => {
   describe('set', () => {
@@ -9,6 +9,14 @@ describe('utilities', () => {
         ab: {
           cd: 'ef',
         },
+      });
+    });
+  });
+
+  describe('asChoiceField()', () => {
+    it('replaces value with checked', () => {
+      expect(asChoiceField({value: true} as any)).toMatchObject({
+        checked: true,
       });
     });
   });

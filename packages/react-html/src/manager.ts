@@ -1,4 +1,5 @@
 import {EffectKind} from '@shopify/react-effect';
+
 import {getSerializationsFromDocument} from './utilities';
 
 interface Title {

@@ -10,9 +10,9 @@ type TranslationGetter = (
   locale: string,
 ) => MaybePromise<TranslationDictionary | undefined>;
 
-type TranslationMap = {
+interface TranslationMap {
   [key: string]: MaybePromise<TranslationDictionary | undefined>;
-};
+}
 
 export interface RegisterOptions {
   id: string;

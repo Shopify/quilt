@@ -1,4 +1,5 @@
 import {Context} from 'koa';
+
 import createContext from '../create-mock-context';
 
 const STORE_URL = 'http://mystore.com/admin';
@@ -155,6 +156,11 @@ describe('create-mock-context', () => {
     });
 
     expect(context.headers.referrer).toBe(headers.referrer);
+  });
+
+  it('returns custom headers when requested through ctx.get', () => {
+    const context = createContext({headers: {test: 'value'}});
+    expect(context.get('test')).toBe('value');
   });
 
   it('includes custom state', () => {

@@ -5,10 +5,9 @@ import React, {
   ReactNode,
   ComponentType,
 } from 'react';
-
 import {createResolver, ResolverOptions, DeferTiming} from '@shopify/async';
-import {OnIdle, useIdleCallback} from '@shopify/react-idle';
 import {IntersectionObserver} from '@shopify/react-intersection-observer';
+import {OnIdle, useIdleCallback} from '@shopify/react-idle';
 import {Hydrator, useHydrationManager} from '@shopify/react-hydrate';
 
 import {useAsync} from './hooks';
@@ -143,16 +142,13 @@ export function createAsyncComponent<
 
     const customPreload = useCustomPreload(props);
 
-    return useCallback(
-      () => {
-        load();
+    return useCallback(() => {
+      load();
 
-        if (customPreload) {
-          customPreload();
-        }
-      },
-      [load, customPreload],
-    );
+      if (customPreload) {
+        customPreload();
+      }
+    }, [load, customPreload]);
   }
 
   function usePrefetch(props: PrefetchOptions) {
@@ -162,16 +158,13 @@ export function createAsyncComponent<
 
     const customPrefetch = useCustomPrefetch(props);
 
-    return useCallback(
-      () => {
-        load();
+    return useCallback(() => {
+      load();
 
-        if (customPrefetch) {
-          customPrefetch();
-        }
-      },
-      [load, customPrefetch],
-    );
+      if (customPrefetch) {
+        customPrefetch();
+      }
+    }, [load, customPrefetch]);
   }
 
   function useKeepFresh(props: KeepFreshOptions) {
@@ -181,16 +174,13 @@ export function createAsyncComponent<
 
     const customKeepFresh = useCustomKeepFresh(props);
 
-    return useCallback(
-      () => {
-        load();
+    return useCallback(() => {
+      load();
 
-        if (customKeepFresh) {
-          customKeepFresh();
-        }
-      },
-      [load, customKeepFresh],
-    );
+      if (customKeepFresh) {
+        customKeepFresh();
+      }
+    }, [load, customKeepFresh]);
   }
 
   function Preload(options: PreloadOptions) {
@@ -203,12 +193,9 @@ export function createAsyncComponent<
   function Prefetch(options: PrefetchOptions) {
     const prefetch = usePrefetch(options);
 
-    useEffect(
-      () => {
-        prefetch();
-      },
-      [prefetch],
-    );
+    useEffect(() => {
+      prefetch();
+    }, [prefetch]);
 
     return null;
   }
@@ -284,7 +271,7 @@ function displayNameFromId(id?: string) {
     return DEFAULT_DISPLAY_NAME;
   }
 
-  const match = id.match(FILENAME_REGEX);
+  const match = FILENAME_REGEX.exec(id);
   return match ? match[1] : DEFAULT_DISPLAY_NAME;
 }
 
@@ -314,16 +301,13 @@ function Loader<T>({
     [load],
   );
 
-  useEffect(
-    () => {
-      if (defer == null || defer === DeferTiming.Mount) {
-        load();
-      } else if (typeof defer === 'function' && defer(props)) {
-        load();
-      }
-    },
-    [defer, load, props],
-  );
+  useEffect(() => {
+    if (defer == null || defer === DeferTiming.Mount) {
+      load();
+    } else if (typeof defer === 'function' && defer(props)) {
+      load();
+    }
+  }, [defer, load, props]);
 
   if (typeof defer === 'function') {
     return null;

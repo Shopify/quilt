@@ -2,6 +2,7 @@
 import React from 'react';
 import faker from 'faker';
 import {mount} from '@shopify/react-testing';
+
 import {useList, FieldListConfig} from '../list';
 import {ListValidationContext} from '../../../types';
 
@@ -39,6 +40,57 @@ describe('useList', () => {
   it('generates an array of field dictionaries with values from the properties of objects in the given list', () => {
     const variants = randomVariants(4);
     const wrapper = mount(<TestList list={variants} />);
+
+    variants.forEach(({price, optionName, optionValue}) => {
+      expect(wrapper).toContainReactComponent(TextField, {
+        value: price,
+        onChange: expect.any(Function),
+        onBlur: expect.any(Function),
+      });
+      expect(wrapper).toContainReactComponent(TextField, {
+        value: optionName,
+        onChange: expect.any(Function),
+        onBlur: expect.any(Function),
+      });
+      expect(wrapper).toContainReactComponent(TextField, {
+        value: optionValue,
+        onChange: expect.any(Function),
+        onBlur: expect.any(Function),
+      });
+    });
+  });
+
+  it('accepts a list as argument', () => {
+    function ListArgTestList({list}: {list: Variant[]}) {
+      const variants = useList<Variant>(list);
+
+      return (
+        <ul>
+          {variants.map((fields, index) => (
+            <li key={index}>
+              <TextField
+                label="price"
+                name={`price${index}`}
+                {...fields.price}
+              />
+              <TextField
+                label="option"
+                name={`option${index}`}
+                {...fields.optionName}
+              />
+              <TextField
+                label="value"
+                name={`value${index}`}
+                {...fields.optionValue}
+              />
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+    const variants = randomVariants(4);
+    const wrapper = mount(<ListArgTestList list={variants} />);
 
     variants.forEach(({price, optionName, optionValue}) => {
       expect(wrapper).toContainReactComponent(TextField, {

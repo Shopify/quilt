@@ -9,23 +9,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アイルランド',
@@ -35,15 +39,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '郡',
+          zone: '州',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -53,110 +60,111 @@ const data = {
         },
         zones: [
           {
-            name: 'Carlow',
+            name: 'カーロウ州',
             code: 'CW',
           },
           {
-            name: 'Cavan',
+            name: 'キャバン州',
             code: 'CN',
           },
           {
-            name: 'Clare',
+            name: 'クレア州',
             code: 'CE',
           },
           {
-            name: 'Cork',
+            name: 'コーク州',
             code: 'CO',
           },
           {
-            name: 'Donegal',
+            name: 'ドニゴール州',
             code: 'DL',
           },
           {
-            name: 'Dublin',
+            name: 'ダブリン州',
             code: 'D',
           },
           {
-            name: 'Galway',
+            name: 'ゴールウェイ州',
             code: 'G',
           },
           {
-            name: 'Kerry',
+            name: 'ケリー州',
             code: 'KY',
           },
           {
-            name: 'Kildare',
+            name: 'キルデア州',
             code: 'KE',
           },
           {
-            name: 'Kilkenny',
+            name: 'キルケニー州',
             code: 'KK',
           },
           {
-            name: 'Laois',
+            name: 'ラオース州',
             code: 'LS',
           },
           {
-            name: 'Leitrim',
+            name: 'リートリム州',
             code: 'LM',
           },
           {
-            name: 'Limerick',
+            name: 'リムリック州',
             code: 'LK',
           },
           {
-            name: 'Longford',
+            name: 'ロングフォード州',
             code: 'LD',
           },
           {
-            name: 'Louth',
+            name: 'ラウス州',
             code: 'LH',
           },
           {
-            name: 'Mayo',
+            name: 'メイヨー州',
             code: 'MO',
           },
           {
-            name: 'Meath',
+            name: 'ミース州',
             code: 'MH',
           },
           {
-            name: 'Monaghan',
+            name: 'モナハン州',
             code: 'MN',
           },
           {
-            name: 'Offaly',
+            name: 'オファリー州',
             code: 'OY',
           },
           {
-            name: 'Roscommon',
+            name: 'ロスコモン州',
             code: 'RN',
           },
           {
-            name: 'Sligo',
+            name: 'スライゴ州',
             code: 'SO',
           },
           {
-            name: 'Tipperary',
+            name: 'ティペラリー州',
             code: 'TA',
           },
           {
-            name: 'Waterford',
+            name: 'ウォーターフォード州',
             code: 'WD',
           },
           {
-            name: 'Westmeath',
+            name: 'ウェストミース州',
             code: 'WH',
           },
           {
-            name: 'Wexford',
+            name: 'ウェックスフォード州',
             code: 'WX',
           },
           {
-            name: 'Wicklow',
+            name: 'ウィックロー州',
             code: 'WW',
           },
         ],
+        provinceKey: 'COUNTY',
       },
       {
         name: 'アゼルバイジャン',
@@ -166,23 +174,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アフガニスタン',
@@ -192,15 +204,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -209,6 +224,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アメリカ合衆国',
@@ -218,15 +234,18 @@ const data = {
         continent: 'North America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -236,11 +255,11 @@ const data = {
         },
         zones: [
           {
-            name: 'Alabama',
+            name: 'アラバマ州',
             code: 'AL',
           },
           {
-            name: 'Alaska',
+            name: 'アラスカ州',
             code: 'AK',
           },
           {
@@ -248,43 +267,43 @@ const data = {
             code: 'AS',
           },
           {
-            name: 'Arizona',
+            name: 'アリゾナ州',
             code: 'AZ',
           },
           {
-            name: 'Arkansas',
+            name: 'アーカンソー州',
             code: 'AR',
           },
           {
-            name: 'California',
+            name: 'カリフォルニア州',
             code: 'CA',
           },
           {
-            name: 'Colorado',
+            name: 'コロラド州',
             code: 'CO',
           },
           {
-            name: 'Connecticut',
+            name: 'コネチカット州',
             code: 'CT',
           },
           {
-            name: 'Delaware',
+            name: 'デラウェア州',
             code: 'DE',
           },
           {
-            name: 'District of Columbia',
+            name: 'Washington DC',
             code: 'DC',
           },
           {
-            name: 'Federated States of Micronesia',
+            name: 'ミクロネシア連邦',
             code: 'FM',
           },
           {
-            name: 'Florida',
+            name: 'フロリダ州',
             code: 'FL',
           },
           {
-            name: 'Georgia',
+            name: 'ジョージア州',
             code: 'GA',
           },
           {
@@ -292,103 +311,103 @@ const data = {
             code: 'GU',
           },
           {
-            name: 'Hawaii',
+            name: 'ハワイ州',
             code: 'HI',
           },
           {
-            name: 'Idaho',
+            name: 'アイダホ州',
             code: 'ID',
           },
           {
-            name: 'Illinois',
+            name: 'イリノイ州',
             code: 'IL',
           },
           {
-            name: 'Indiana',
+            name: 'インディアナ州',
             code: 'IN',
           },
           {
-            name: 'Iowa',
+            name: 'アイオワ州',
             code: 'IA',
           },
           {
-            name: 'Kansas',
+            name: 'カンザス州',
             code: 'KS',
           },
           {
-            name: 'Kentucky',
+            name: 'ケンタッキー州',
             code: 'KY',
           },
           {
-            name: 'Louisiana',
+            name: 'ルイジアナ州',
             code: 'LA',
           },
           {
-            name: 'Maine',
+            name: 'メイン州',
             code: 'ME',
           },
           {
-            name: 'Marshall Islands',
+            name: 'マーシャル諸島',
             code: 'MH',
           },
           {
-            name: 'Maryland',
+            name: 'メリーランド州',
             code: 'MD',
           },
           {
-            name: 'Massachusetts',
+            name: 'マサチューセッツ州',
             code: 'MA',
           },
           {
-            name: 'Michigan',
+            name: 'ミシガン州',
             code: 'MI',
           },
           {
-            name: 'Minnesota',
+            name: 'ミネソタ州',
             code: 'MN',
           },
           {
-            name: 'Mississippi',
+            name: 'ミシシッピ州',
             code: 'MS',
           },
           {
-            name: 'Missouri',
+            name: 'ミズーリ州',
             code: 'MO',
           },
           {
-            name: 'Montana',
+            name: 'モンタナ州',
             code: 'MT',
           },
           {
-            name: 'Nebraska',
+            name: 'ネブラスカ州',
             code: 'NE',
           },
           {
-            name: 'Nevada',
+            name: 'ネバダ州',
             code: 'NV',
           },
           {
-            name: 'New Hampshire',
+            name: 'ニューハンプシャー州',
             code: 'NH',
           },
           {
-            name: 'New Jersey',
+            name: 'ニュージャージー州',
             code: 'NJ',
           },
           {
-            name: 'New Mexico',
+            name: 'ニューメキシコ州',
             code: 'NM',
           },
           {
-            name: 'New York',
+            name: 'ニューヨーク州',
             code: 'NY',
           },
           {
-            name: 'North Carolina',
+            name: 'ノースカロライナ州',
             code: 'NC',
           },
           {
-            name: 'North Dakota',
+            name: 'ノースダコタ州',
             code: 'ND',
           },
           {
@@ -396,23 +415,23 @@ const data = {
             code: 'MP',
           },
           {
-            name: 'Ohio',
+            name: 'オハイオ州',
             code: 'OH',
           },
           {
-            name: 'Oklahoma',
+            name: 'オクラホマ州',
             code: 'OK',
           },
           {
-            name: 'Oregon',
+            name: 'オレゴン州',
             code: 'OR',
           },
           {
-            name: 'Palau',
+            name: 'パラオ',
             code: 'PW',
           },
           {
-            name: 'Pennsylvania',
+            name: 'ペンシルベニア州',
             code: 'PA',
           },
           {
@@ -420,70 +439,71 @@ const data = {
             code: 'PR',
           },
           {
-            name: 'Rhode Island',
+            name: 'ロードアイランド州',
             code: 'RI',
           },
           {
-            name: 'South Carolina',
+            name: 'サウスカロライナ州',
             code: 'SC',
           },
           {
-            name: 'South Dakota',
+            name: 'サウスダコタ州',
             code: 'SD',
           },
           {
-            name: 'Tennessee',
+            name: 'テネシー州',
             code: 'TN',
           },
           {
-            name: 'Texas',
+            name: 'テキサス州',
             code: 'TX',
           },
           {
-            name: 'Utah',
+            name: 'ユタ州',
             code: 'UT',
           },
           {
-            name: 'Vermont',
+            name: 'バーモント州',
             code: 'VT',
           },
           {
-            name: 'Virgin Islands',
+            name: 'U.S. Virgin Islands',
             code: 'VI',
           },
           {
-            name: 'Virginia',
+            name: 'バージニア州',
             code: 'VA',
           },
           {
-            name: 'Washington',
+            name: 'ワシントン州',
             code: 'WA',
           },
           {
-            name: 'West Virginia',
+            name: 'ウェストバージニア州',
             code: 'WV',
           },
           {
-            name: 'Wisconsin',
+            name: 'ウィスコンシン州',
             code: 'WI',
           },
           {
-            name: 'Wyoming',
+            name: 'ワイオミング州',
             code: 'WY',
           },
           {
-            name: 'Armed Forces Americas',
+            name: 'アメリカ軍',
             code: 'AA',
           },
           {
-            name: 'Armed Forces Europe',
+            name: '欧州戦力',
             code: 'AE',
           },
           {
-            name: 'Armed Forces Pacific',
+            name: '太平洋方面駐在軍',
             code: 'AP',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'アラブ首長国連邦',
@@ -493,15 +513,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: 'エミレーツ',
+          zone: '首長国',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -511,19 +534,19 @@ const data = {
         },
         zones: [
           {
-            name: 'Abu Dhabi',
+            name: 'アブダビ',
             code: 'AZ',
           },
           {
-            name: 'Ajman',
+            name: 'アジュマーン',
             code: 'AJ',
           },
           {
-            name: 'Dubai',
+            name: 'ドバイ首長国',
             code: 'DU',
           },
           {
-            name: 'Fujairah',
+            name: 'フジャイラ',
             code: 'FU',
           },
           {
@@ -531,7 +554,7 @@ const data = {
             code: 'RK',
           },
           {
-            name: 'Sharjah',
+            name: 'シャールジャ',
             code: 'SH',
           },
           {
@@ -539,6 +562,7 @@ const data = {
             code: 'UQ',
           },
         ],
+        provinceKey: 'EMIRATE',
       },
       {
         name: 'アルジェリア',
@@ -548,23 +572,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '県',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'アルゼンチン',
@@ -574,120 +602,124 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
         },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'Buenos Aires',
+            name: 'ブエノスアイレス州',
             code: 'B',
           },
           {
-            name: 'Catamarca',
+            name: 'カタマルカ州',
             code: 'K',
           },
           {
-            name: 'Chaco',
+            name: 'チャコ州',
             code: 'H',
           },
           {
-            name: 'Chubut',
+            name: 'チュブ州',
             code: 'U',
           },
           {
-            name: 'Ciudad Autónoma de Buenos Aires',
+            name: 'ブエノスアイレス自治都市',
             code: 'C',
           },
           {
-            name: 'Córdoba',
+            name: 'コルドバ州',
             code: 'X',
           },
           {
-            name: 'Corrientes',
+            name: 'コリエンテス州',
             code: 'W',
           },
           {
-            name: 'Entre Ríos',
+            name: 'エントレ・リオス州',
             code: 'E',
           },
           {
-            name: 'Formosa',
+            name: 'フォルモサ州',
             code: 'P',
           },
           {
-            name: 'Jujuy',
+            name: 'フフイ州',
             code: 'Y',
           },
           {
-            name: 'La Pampa',
+            name: 'ラ・パンパ州',
             code: 'L',
           },
           {
-            name: 'La Rioja',
+            name: 'ラ・リオハ州',
             code: 'F',
           },
           {
-            name: 'Mendoza',
+            name: 'メンドーサ州',
             code: 'M',
           },
           {
-            name: 'Misiones',
+            name: 'ミシオネス州',
             code: 'N',
           },
           {
-            name: 'Neuquén',
+            name: 'ネウケン州',
             code: 'Q',
           },
           {
-            name: 'Río Negro',
+            name: 'リオネグロ州',
             code: 'R',
           },
           {
-            name: 'Salta',
+            name: 'サルタ州',
             code: 'A',
           },
           {
-            name: 'San Juan',
+            name: 'サンフアン州',
             code: 'J',
           },
           {
-            name: 'San Luis',
+            name: 'サンルイス州',
             code: 'D',
           },
           {
-            name: 'Santa Cruz',
+            name: 'サンタクルス州',
             code: 'Z',
           },
           {
-            name: 'Santa Fe',
+            name: 'サンタフェ州',
             code: 'S',
           },
           {
-            name: 'Santiago Del Estero',
+            name: 'サンティアゴ・デル・エステロ州',
             code: 'G',
           },
           {
-            name: 'Tierra Del Fuego',
+            name: 'ティエラ・デル・フエゴ州',
             code: 'V',
           },
           {
-            name: 'Tucumán',
+            name: 'トゥクマン州',
             code: 'T',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'アルバ',
@@ -697,15 +729,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -714,6 +749,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アルバニア',
@@ -723,15 +759,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -740,6 +779,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アルメニア',
@@ -749,23 +789,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンギラ',
@@ -775,15 +819,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -792,6 +839,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンゴラ',
@@ -801,15 +849,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -818,6 +869,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンティグア・バーブーダ',
@@ -827,15 +879,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -844,6 +899,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'アンドラ',
@@ -853,23 +909,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イエメン',
@@ -879,15 +939,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -896,6 +959,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イギリス',
@@ -905,15 +969,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -922,6 +989,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イスラエル',
@@ -931,23 +999,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イタリア',
@@ -956,58 +1028,61 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '県',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'Agrigento',
+            name: 'アグリジェント県',
             code: 'AG',
           },
           {
-            name: 'Alessandria',
+            name: 'アレッサンドリア県',
             code: 'AL',
           },
           {
-            name: 'Ancona',
+            name: 'アンコーナ県',
             code: 'AN',
           },
           {
-            name: 'Aosta',
+            name: 'アオスタ',
             code: 'AO',
           },
           {
-            name: 'Arezzo',
+            name: 'アレッツォ県',
             code: 'AR',
           },
           {
-            name: 'Ascoli Piceno',
+            name: 'アスコリ・ピチェーノ県',
             code: 'AP',
           },
           {
-            name: 'Asti',
+            name: 'アスティ県',
             code: 'AT',
           },
           {
-            name: 'Avellino',
+            name: 'アヴェッリーノ県',
             code: 'AV',
           },
           {
-            name: 'Bari',
+            name: 'バーリ県',
             code: 'BA',
           },
           {
@@ -1015,47 +1090,47 @@ const data = {
             code: 'BT',
           },
           {
-            name: 'Belluno',
+            name: 'ベッルーノ県',
             code: 'BL',
           },
           {
-            name: 'Benevento',
+            name: 'ベネヴェント県',
             code: 'BN',
           },
           {
-            name: 'Bergamo',
+            name: 'ベルガモ県',
             code: 'BG',
           },
           {
-            name: 'Biella',
+            name: 'ビエッラ県',
             code: 'BI',
           },
           {
-            name: 'Bologna',
+            name: 'ボローニャ県',
             code: 'BO',
           },
           {
-            name: 'Bolzano',
+            name: 'ボルツァーノ自治県',
             code: 'BZ',
           },
           {
-            name: 'Brescia',
+            name: 'ブレシア県',
             code: 'BS',
           },
           {
-            name: 'Brindisi',
+            name: 'ブリンディジ県',
             code: 'BR',
           },
           {
-            name: 'Cagliari',
+            name: 'カリャリ県',
             code: 'CA',
           },
           {
-            name: 'Caltanissetta',
+            name: 'カルタニッセッタ県',
             code: 'CL',
           },
           {
-            name: 'Campobasso',
+            name: 'カンポバッソ県',
             code: 'CB',
           },
           {
@@ -1063,59 +1138,59 @@ const data = {
             code: 'CI',
           },
           {
-            name: 'Caserta',
+            name: 'カゼルタ県',
             code: 'CE',
           },
           {
-            name: 'Catania',
+            name: 'カターニア県',
             code: 'CT',
           },
           {
-            name: 'Catanzaro',
+            name: 'カタンザーロ県',
             code: 'CZ',
           },
           {
-            name: 'Chieti',
+            name: 'キエーティ県',
             code: 'CH',
           },
           {
-            name: 'Como',
+            name: 'コモ県',
             code: 'CO',
           },
           {
-            name: 'Cosenza',
+            name: 'コゼンツァ県',
             code: 'CS',
           },
           {
-            name: 'Cremona',
+            name: 'クレモナ県',
             code: 'CR',
           },
           {
-            name: 'Crotone',
+            name: 'クロトーネ県',
             code: 'KR',
           },
           {
-            name: 'Cuneo',
+            name: 'クーネオ県',
             code: 'CN',
           },
           {
-            name: 'Enna',
+            name: 'エンナ県',
             code: 'EN',
           },
           {
-            name: 'Fermo',
+            name: 'フェルモ県',
             code: 'FM',
           },
           {
-            name: 'Ferrara',
+            name: 'フェラーラ県',
             code: 'FE',
           },
           {
-            name: 'Firenze',
+            name: 'フィレンツェ県',
             code: 'FI',
           },
           {
-            name: 'Foggia',
+            name: 'フォッジャ県',
             code: 'FG',
           },
           {
@@ -1123,111 +1198,111 @@ const data = {
             code: 'FC',
           },
           {
-            name: 'Frosinone',
+            name: 'フロジノーネ県',
             code: 'FR',
           },
           {
-            name: 'Genova',
+            name: 'ジェノヴァ',
             code: 'GE',
           },
           {
-            name: 'Gorizia',
+            name: 'ゴリツィア県',
             code: 'GO',
           },
           {
-            name: 'Grosseto',
+            name: 'グロッセート県',
             code: 'GR',
           },
           {
-            name: 'Imperia',
+            name: 'インペリア県',
             code: 'IM',
           },
           {
-            name: 'Isernia',
+            name: 'イゼルニア県',
             code: 'IS',
           },
           {
-            name: "L'Aquila",
+            name: 'ラクイラ県',
             code: 'AQ',
           },
           {
-            name: 'La Spezia',
+            name: 'ラ・スペツィア県',
             code: 'SP',
           },
           {
-            name: 'Latina',
+            name: 'ラティーナ県',
             code: 'LT',
           },
           {
-            name: 'Lecce',
+            name: 'レッチェ県',
             code: 'LE',
           },
           {
-            name: 'Lecco',
+            name: 'レッコ県',
             code: 'LC',
           },
           {
-            name: 'Livorno',
+            name: 'リヴォルノ県',
             code: 'LI',
           },
           {
-            name: 'Lodi',
+            name: 'ローディ県',
             code: 'LO',
           },
           {
-            name: 'Lucca',
+            name: 'ルッカ県',
             code: 'LU',
           },
           {
-            name: 'Macerata',
+            name: 'マチェラータ県',
             code: 'MC',
           },
           {
-            name: 'Mantova',
+            name: 'マントヴァ県',
             code: 'MN',
           },
           {
-            name: 'Massa-Carrara',
+            name: 'Massa and Carrara',
             code: 'MS',
           },
           {
-            name: 'Matera',
+            name: 'マテーラ県',
             code: 'MT',
           },
           {
-            name: 'Medio Campidano',
+            name: 'メディオ・カンピダーノ県',
             code: 'VS',
           },
           {
-            name: 'Messina',
+            name: 'メッシーナ県',
             code: 'ME',
           },
           {
-            name: 'Milano',
+            name: 'ミラノ県',
             code: 'MI',
           },
           {
-            name: 'Modena',
+            name: 'モデナ県',
             code: 'MO',
           },
           {
-            name: 'Monza e Brianza',
+            name: 'モンツァ・エ・ブリアンツァ県',
             code: 'MB',
           },
           {
-            name: 'Napoli',
+            name: 'ナポリ県',
             code: 'NA',
           },
           {
-            name: 'Novara',
+            name: 'ノヴァーラ県',
             code: 'NO',
           },
           {
-            name: 'Nuoro',
+            name: 'ヌーオロ県',
             code: 'NU',
           },
           {
-            name: 'Ogliastra',
+            name: 'オリアストラ県',
             code: 'OG',
           },
           {
@@ -1235,186 +1310,187 @@ const data = {
             code: 'OT',
           },
           {
-            name: 'Oristano',
+            name: 'オリスターノ県',
             code: 'OR',
           },
           {
-            name: 'Padova',
+            name: 'パドヴァ県',
             code: 'PD',
           },
           {
-            name: 'Palermo',
+            name: 'パレルモ県',
             code: 'PA',
           },
           {
-            name: 'Parma',
+            name: 'パルマ県',
             code: 'PR',
           },
           {
-            name: 'Pavia',
+            name: 'パヴィーア県',
             code: 'PV',
           },
           {
-            name: 'Perugia',
+            name: 'ペルージャ県',
             code: 'PG',
           },
           {
-            name: 'Pesaro e Urbino',
+            name: 'ペーザロ・エ・ウルビーノ県',
             code: 'PU',
           },
           {
-            name: 'Pescara',
+            name: 'ペスカーラ県',
             code: 'PE',
           },
           {
-            name: 'Piacenza',
+            name: 'ピアチェンツァ県',
             code: 'PC',
           },
           {
-            name: 'Pisa',
+            name: 'ピサ県',
             code: 'PI',
           },
           {
-            name: 'Pistoia',
+            name: 'ピストイア県',
             code: 'PT',
           },
           {
-            name: 'Pordenone',
+            name: 'ポルデノーネ県',
             code: 'PN',
           },
           {
-            name: 'Potenza',
+            name: 'ポテンツァ県',
             code: 'PZ',
           },
           {
-            name: 'Prato',
+            name: 'プラート県',
             code: 'PO',
           },
           {
-            name: 'Ragusa',
+            name: 'ラグーザ県',
             code: 'RG',
           },
           {
-            name: 'Ravenna',
+            name: 'ラヴェンナ県',
             code: 'RA',
           },
           {
-            name: 'Reggio Calabria',
+            name: 'レッジョ・カラブリア県',
             code: 'RC',
           },
           {
-            name: 'Reggio Emilia',
+            name: 'レッジョ・エミリア県',
             code: 'RE',
           },
           {
-            name: 'Rieti',
+            name: 'リエーティ県',
             code: 'RI',
           },
           {
-            name: 'Rimini',
+            name: 'リミニ県',
             code: 'RN',
           },
           {
-            name: 'Roma',
+            name: 'ローマ県',
             code: 'RM',
           },
           {
-            name: 'Rovigo',
+            name: 'ロヴィーゴ県',
             code: 'RO',
           },
           {
-            name: 'Salerno',
+            name: 'サレルノ県',
             code: 'SA',
           },
           {
-            name: 'Sassari',
+            name: 'サッサリ県',
             code: 'SS',
           },
           {
-            name: 'Savona',
+            name: 'サヴォーナ県',
             code: 'SV',
           },
           {
-            name: 'Siena',
+            name: 'シエーナ県',
             code: 'SI',
           },
           {
-            name: 'Siracusa',
+            name: 'シラクーザ県',
             code: 'SR',
           },
           {
-            name: 'Sondrio',
+            name: 'ソンドリオ県',
             code: 'SO',
           },
           {
-            name: 'Taranto',
+            name: 'ターラント県',
             code: 'TA',
           },
           {
-            name: 'Teramo',
+            name: 'テーラモ県',
             code: 'TE',
           },
           {
-            name: 'Terni',
+            name: 'テルニ県',
             code: 'TR',
           },
           {
-            name: 'Torino',
+            name: 'トリノ県',
             code: 'TO',
           },
           {
-            name: 'Trapani',
+            name: 'トラーパニ県',
             code: 'TP',
           },
           {
-            name: 'Trento',
+            name: 'トレント自治県',
             code: 'TN',
           },
           {
-            name: 'Treviso',
+            name: 'トレヴィーゾ県',
             code: 'TV',
           },
           {
-            name: 'Trieste',
+            name: 'トリエステ県',
             code: 'TS',
           },
           {
-            name: 'Udine',
+            name: 'ウーディネ県',
             code: 'UD',
           },
           {
-            name: 'Varese',
+            name: 'ヴァレーゼ県',
             code: 'VA',
           },
           {
-            name: 'Venezia',
+            name: 'ヴェネツィア県',
             code: 'VE',
           },
           {
-            name: 'Verbano-Cusio-Ossola',
+            name: 'ヴェルバーノ・クジオ・オッソラ県',
             code: 'VB',
           },
           {
-            name: 'Vercelli',
+            name: 'ヴェルチェッリ県',
             code: 'VC',
           },
           {
-            name: 'Verona',
+            name: 'ヴェローナ県',
             code: 'VR',
           },
           {
-            name: 'Vibo Valentia',
+            name: 'ヴィボ・ヴァレンツィア県',
             code: 'VV',
           },
           {
-            name: 'Vicenza',
+            name: 'ヴィチェンツァ県',
             code: 'VI',
           },
           {
-            name: 'Viterbo',
+            name: 'ヴィテルボ県',
             code: 'VT',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'イラク',
@@ -1424,15 +1500,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -1441,6 +1520,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'イラン',
@@ -1450,23 +1530,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'インド',
@@ -1476,15 +1560,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
-          postalCode: '郵便番号',
+          postalCode: 'PINコード',
           zone: '州',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -1494,150 +1581,155 @@ const data = {
         },
         zones: [
           {
-            name: 'Andaman and Nicobar',
+            name: 'アンダマン・ニコバル諸島',
             code: 'AN',
           },
           {
-            name: 'Andhra Pradesh',
+            name: 'アーンドラ・プラデーシュ州',
             code: 'AP',
           },
           {
-            name: 'Arunachal Pradesh',
+            name: 'アルナーチャル・プラデーシュ州',
             code: 'AR',
           },
           {
-            name: 'Assam',
+            name: 'アッサム州',
             code: 'AS',
           },
           {
-            name: 'Bihar',
+            name: 'ビハール州',
             code: 'BR',
           },
           {
-            name: 'Chandigarh',
+            name: 'チャンディーガル',
             code: 'CH',
           },
           {
-            name: 'Chattisgarh',
+            name: 'チャッティースガル州',
             code: 'CG',
           },
           {
-            name: 'Dadra and Nagar Haveli',
+            name: 'ダードラー及びナガル・ハヴェーリー連邦直轄領',
             code: 'DN',
           },
           {
-            name: 'Daman and Diu',
+            name: 'ダマン・ディーウ連邦直轄領',
             code: 'DD',
           },
           {
-            name: 'Delhi',
+            name: 'デリー',
             code: 'DL',
           },
           {
-            name: 'Goa',
+            name: 'ゴア州',
             code: 'GA',
           },
           {
-            name: 'Gujarat',
+            name: 'グジャラート州',
             code: 'GJ',
           },
           {
-            name: 'Haryana',
+            name: 'ハリヤーナー州',
             code: 'HR',
           },
           {
-            name: 'Himachal Pradesh',
+            name: 'ヒマーチャル・プラデーシュ州',
             code: 'HP',
           },
           {
-            name: 'Jammu and Kashmir',
+            name: 'ジャンムー・カシミール州',
             code: 'JK',
           },
           {
-            name: 'Jharkhand',
+            name: 'ジャールカンド州',
             code: 'JH',
           },
           {
-            name: 'Karnataka',
+            name: 'カルナータカ州',
             code: 'KA',
           },
           {
-            name: 'Kerala',
+            name: 'ケーララ州',
             code: 'KL',
           },
           {
-            name: 'Lakshadweep',
+            name: 'Ladakh',
+            code: 'LA',
+          },
+          {
+            name: 'ラクシャディープ諸島',
             code: 'LD',
           },
           {
-            name: 'Madhya Pradesh',
+            name: 'マディヤ・プラデーシュ州',
             code: 'MP',
           },
           {
-            name: 'Maharashtra',
+            name: 'マハーラーシュトラ州',
             code: 'MH',
           },
           {
-            name: 'Manipur',
+            name: 'マニプル州',
             code: 'MN',
           },
           {
-            name: 'Meghalaya',
+            name: 'メーガーラヤ州',
             code: 'ML',
           },
           {
-            name: 'Mizoram',
+            name: 'ミゾラム州',
             code: 'MZ',
           },
           {
-            name: 'Nagaland',
+            name: 'ナガランド州',
             code: 'NL',
           },
           {
-            name: 'Orissa',
+            name: 'オリッサ州',
             code: 'OR',
           },
           {
-            name: 'Puducherry',
+            name: 'ポンディシェリ連邦直轄領',
             code: 'PY',
           },
           {
-            name: 'Punjab',
+            name: 'パンジャーブ州',
             code: 'PB',
           },
           {
-            name: 'Rajasthan',
+            name: 'ラージャスターン州',
             code: 'RJ',
           },
           {
-            name: 'Sikkim',
+            name: 'シッキム州',
             code: 'SK',
           },
           {
-            name: 'Tamil Nadu',
+            name: 'タミル・ナードゥ州',
             code: 'TN',
           },
           {
-            name: 'Telangana',
+            name: 'テランガナ',
             code: 'TS',
           },
           {
-            name: 'Tripura',
+            name: 'トリプラ州',
             code: 'TR',
           },
           {
-            name: 'Uttar Pradesh',
+            name: 'ウッタル・プラデーシュ州',
             code: 'UP',
           },
           {
-            name: 'Uttarakhand',
+            name: 'ウッタラーカンド州',
             code: 'UK',
           },
           {
-            name: 'West Bengal',
+            name: '西ベンガル州',
             code: 'WB',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'インドネシア',
@@ -1647,160 +1739,164 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
         },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {zip}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'Aceh',
+            name: 'アチェ州',
             code: 'AC',
           },
           {
-            name: 'Bali',
+            name: 'バリ州',
             code: 'BA',
           },
           {
-            name: 'Bangka Belitung',
+            name: 'バンカ・ブリトゥン州',
             code: 'BB',
           },
           {
-            name: 'Banten',
+            name: 'バンテン州',
             code: 'BT',
           },
           {
-            name: 'Bengkulu',
+            name: 'ブンクル州',
             code: 'BE',
           },
           {
-            name: 'Gorontalo',
+            name: 'ゴロンタロ州',
             code: 'GO',
           },
           {
-            name: 'Jakarta',
+            name: 'ジャカルタ',
             code: 'JK',
           },
           {
-            name: 'Jambi',
+            name: 'ジャンビ州',
             code: 'JA',
           },
           {
-            name: 'Jawa Barat',
+            name: '西ジャワ州',
             code: 'JB',
           },
           {
-            name: 'Jawa Tengah',
+            name: '中部ジャワ州',
             code: 'JT',
           },
           {
-            name: 'Jawa Timur',
+            name: '東ジャワ州',
             code: 'JI',
           },
           {
-            name: 'Kalimantan Barat',
+            name: '西カリマンタン州',
             code: 'KB',
           },
           {
-            name: 'Kalimantan Selatan',
+            name: '南カリマンタン州',
             code: 'KS',
           },
           {
-            name: 'Kalimantan Tengah',
+            name: '中部カリマンタン州',
             code: 'KT',
           },
           {
-            name: 'Kalimantan Timur',
+            name: '東カリマンタン州',
             code: 'KI',
           },
           {
-            name: 'Kalimantan Utara',
+            name: '北カリマンタン州',
             code: 'KU',
           },
           {
-            name: 'Kepulauan Riau',
+            name: 'リアウ諸島州',
             code: 'KR',
           },
           {
-            name: 'Lampung',
+            name: 'ランプン州',
             code: 'LA',
           },
           {
-            name: 'Maluku',
+            name: 'マルク州',
             code: 'MA',
           },
           {
-            name: 'Maluku Utara',
+            name: '北マルク州',
             code: 'MU',
           },
           {
-            name: 'Nusa Tenggara Barat',
-            code: 'NB',
-          },
-          {
-            name: 'Nusa Tenggara Timur',
-            code: 'NT',
-          },
-          {
-            name: 'Papua',
-            code: 'PA',
-          },
-          {
-            name: 'Papua Barat',
-            code: 'PB',
-          },
-          {
-            name: 'Riau',
-            code: 'RI',
-          },
-          {
-            name: 'Sulawesi Barat',
-            code: 'SR',
-          },
-          {
-            name: 'Sulawesi Selatan',
-            code: 'SN',
-          },
-          {
-            name: 'Sulawesi Tengah',
-            code: 'ST',
-          },
-          {
-            name: 'Sulawesi Tenggara',
-            code: 'SG',
-          },
-          {
-            name: 'Sulawesi Utara',
-            code: 'SA',
-          },
-          {
-            name: 'Sumatra Barat',
-            code: 'SB',
-          },
-          {
-            name: 'Sumatra Selatan',
-            code: 'SS',
-          },
-          {
-            name: 'Sumatra Utara',
+            name: '北スマトラ州',
             code: 'SU',
           },
           {
-            name: 'Yogyakarta',
+            name: '西ヌサ・トゥンガラ州',
+            code: 'NB',
+          },
+          {
+            name: '東ヌサ・トゥンガラ州',
+            code: 'NT',
+          },
+          {
+            name: 'パプア州',
+            code: 'PA',
+          },
+          {
+            name: '西パプア州',
+            code: 'PB',
+          },
+          {
+            name: 'リアウ州',
+            code: 'RI',
+          },
+          {
+            name: '南スマトラ州',
+            code: 'SS',
+          },
+          {
+            name: '西スラウェシ州',
+            code: 'SR',
+          },
+          {
+            name: '南スラウェシ州',
+            code: 'SN',
+          },
+          {
+            name: '中部スラウェシ州',
+            code: 'ST',
+          },
+          {
+            name: '南東スラウェシ州',
+            code: 'SG',
+          },
+          {
+            name: '北スラウェシ州',
+            code: 'SA',
+          },
+          {
+            name: '西スマトラ州',
+            code: 'SB',
+          },
+          {
+            name: 'ジョグジャカルタ特別州',
             code: 'YO',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'ウォリス・フツナ',
@@ -1810,23 +1906,27 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ウガンダ',
@@ -1836,15 +1936,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -1853,6 +1956,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ウクライナ',
@@ -1862,15 +1966,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -1879,6 +1986,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ウズベキスタン',
@@ -1888,15 +1996,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -1905,6 +2016,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ウルグアイ',
@@ -1914,23 +2026,27 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エクアドル',
@@ -1940,23 +2056,27 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エジプト',
@@ -1966,15 +2086,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '行政',
+          zone: '行政区域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -1984,122 +2107,123 @@ const data = {
         },
         zones: [
           {
-            name: '6th of October',
+            name: '10月6日',
             code: 'SU',
           },
           {
-            name: 'Al Sharqia',
+            name: 'シャルキーヤ県',
             code: 'SHR',
           },
           {
-            name: 'Alexandria',
+            name: 'アレクサンドリア県',
             code: 'ALX',
           },
           {
-            name: 'Aswan',
+            name: 'アスワン県',
             code: 'ASN',
           },
           {
-            name: 'Asyut',
+            name: 'アシュート県',
             code: 'AST',
           },
           {
-            name: 'Beheira',
+            name: 'ブハイラ県',
             code: 'BH',
           },
           {
-            name: 'Beni Suef',
+            name: 'ベニ・スエフ県',
             code: 'BNS',
           },
           {
-            name: 'Cairo',
+            name: 'カイロ県',
             code: 'C',
           },
           {
-            name: 'Dakahlia',
+            name: 'ダカリーヤ県',
             code: 'DK',
           },
           {
-            name: 'Damietta',
+            name: 'ディムヤート県',
             code: 'DT',
           },
           {
-            name: 'Faiyum',
+            name: 'ファイユーム県',
             code: 'FYM',
           },
           {
-            name: 'Gharbia',
+            name: 'ガルビーヤ県',
             code: 'GH',
           },
           {
-            name: 'Giza',
+            name: 'ギーザ県',
             code: 'GZ',
           },
           {
-            name: 'Helwan',
+            name: 'ヘルワン',
             code: 'HU',
           },
           {
-            name: 'Ismailia',
+            name: 'イスマイリア県',
             code: 'IS',
           },
           {
-            name: 'Kafr el-Sheikh',
+            name: 'カフル・アッシャイフ県',
             code: 'KFS',
           },
           {
-            name: 'Luxor',
+            name: 'ルクソール県',
             code: 'LX',
           },
           {
-            name: 'Matrouh',
+            name: 'マトルーフ県',
             code: 'MT',
           },
           {
-            name: 'Minya',
+            name: 'ミニヤー県',
             code: 'MN',
           },
           {
-            name: 'Monufia',
+            name: 'ミヌーフィーヤ県',
             code: 'MNF',
           },
           {
-            name: 'New Valley',
+            name: 'ニューバレー県',
             code: 'WAD',
           },
           {
-            name: 'North Sinai',
+            name: '北シナイ県',
             code: 'SIN',
           },
           {
-            name: 'Port Said',
+            name: 'ポートサイド県',
             code: 'PTS',
           },
           {
-            name: 'Qalyubia',
+            name: 'カリュービーヤ県',
             code: 'KB',
           },
           {
-            name: 'Qena',
+            name: 'ケナ県',
             code: 'KN',
           },
           {
-            name: 'Red Sea',
+            name: '紅海県',
             code: 'BA',
           },
           {
-            name: 'Sohag',
+            name: 'ソハーグ県',
             code: 'SHG',
           },
           {
-            name: 'South Sinai',
+            name: '南シナイ県',
             code: 'JS',
           },
           {
-            name: 'Suez',
+            name: 'スエズ県',
             code: 'SUZ',
           },
         ],
+        provinceKey: 'GOVERNORATE',
       },
       {
         name: 'エストニア',
@@ -2109,23 +2233,57 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+        },
+        zones: [],
+        provinceKey: 'REGION',
+      },
+      {
+        name: 'エスワティニ',
+        code: 'SZ',
+        phoneNumberPrefix: 268,
+        autocompletionField: 'address1',
+        continent: 'Africa',
+        labels: {
+          address1: '住所',
+          address2: '建物名、部屋番号など',
+          city: '市区町村',
+          company: '会社',
+          country: '国/地域',
+          firstName: '名',
+          lastName: '姓',
+          phone: '電話番号',
+          postalCode: '郵便番号',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
             '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エチオピア',
@@ -2135,15 +2293,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2152,6 +2313,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エリトリア',
@@ -2161,15 +2323,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2178,6 +2343,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'エルサルバドル',
@@ -2187,15 +2353,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2204,6 +2373,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オマーン',
@@ -2213,23 +2383,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オランダ',
@@ -2238,42 +2412,49 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'オランダ領アンティル',
+        name: 'オランダ領アンティル諸島',
         code: 'AN',
         phoneNumberPrefix: 599,
         autocompletionField: 'address1',
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2282,6 +2463,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オランダ領カリブ',
@@ -2291,15 +2473,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2308,6 +2493,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オーストラリア',
@@ -2317,15 +2503,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
+          address2: '建物名、部屋番号など',
+          city: 'サバーブ',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州、準州',
+          zone: '州/地区',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2335,38 +2524,39 @@ const data = {
         },
         zones: [
           {
-            name: 'Australian Capital Territory',
+            name: 'オーストラリア首都特別地域',
             code: 'ACT',
           },
           {
-            name: 'New South Wales',
+            name: 'ニューサウスウェールズ州',
             code: 'NSW',
           },
           {
-            name: 'Northern Territory',
+            name: 'ノーザンテリトリー',
             code: 'NT',
           },
           {
-            name: 'Queensland',
+            name: 'クイーンズランド州',
             code: 'QLD',
           },
           {
-            name: 'South Australia',
+            name: '南オーストラリア州',
             code: 'SA',
           },
           {
-            name: 'Tasmania',
+            name: 'タスマニア州',
             code: 'TAS',
           },
           {
-            name: 'Victoria',
+            name: 'ビクトリア州',
             code: 'VIC',
           },
           {
-            name: 'Western Australia',
+            name: '西オーストラリア州',
             code: 'WA',
           },
         ],
+        provinceKey: 'STATE_AND_TERRITORY',
       },
       {
         name: 'オーストリア',
@@ -2375,24 +2565,28 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '住所2',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '住所2 (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'オーランド諸島',
@@ -2402,23 +2596,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カザフスタン',
@@ -2428,15 +2626,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2445,6 +2646,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カタール',
@@ -2454,15 +2656,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2471,6 +2676,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カナダ',
@@ -2480,15 +2686,18 @@ const data = {
         continent: 'North America',
         labels: {
           address1: '住所',
-          address2: 'アパート、ユニット番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2498,58 +2707,59 @@ const data = {
         },
         zones: [
           {
-            name: 'Alberta',
+            name: 'アルバータ州',
             code: 'AB',
           },
           {
-            name: 'British Columbia',
+            name: 'ブリティッシュコロンビア州',
             code: 'BC',
           },
           {
-            name: 'Manitoba',
+            name: 'マニトバ州',
             code: 'MB',
           },
           {
-            name: 'New Brunswick',
+            name: 'ニューブランズウィック州',
             code: 'NB',
           },
           {
-            name: 'Newfoundland and Labrador',
+            name: 'ニューファンドランド・ラブラドール州',
             code: 'NL',
           },
           {
-            name: 'Northwest Territories',
+            name: 'ノースウエスト準州',
             code: 'NT',
           },
           {
-            name: 'Nova Scotia',
+            name: 'ノバスコシア州',
             code: 'NS',
           },
           {
-            name: 'Nunavut',
+            name: 'ヌナブト準州',
             code: 'NU',
           },
           {
-            name: 'Ontario',
+            name: 'オンタリオ州',
             code: 'ON',
           },
           {
-            name: 'Prince Edward Island',
+            name: 'プリンスエドワードアイランド州',
             code: 'PE',
           },
           {
-            name: 'Quebec',
+            name: 'ケベック州',
             code: 'QC',
           },
           {
-            name: 'Saskatchewan',
+            name: 'サスカチュワン州',
             code: 'SK',
           },
           {
-            name: 'Yukon',
+            name: 'ユーコン準州',
             code: 'YT',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'カメルーン',
@@ -2559,15 +2769,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2576,6 +2789,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カンボジア',
@@ -2585,15 +2799,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2602,6 +2819,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'カーボベルデ',
@@ -2611,23 +2829,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガイアナ',
@@ -2637,15 +2859,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2654,6 +2879,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガボン',
@@ -2663,15 +2889,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2680,6 +2909,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガンビア',
@@ -2689,15 +2919,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2706,6 +2939,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガーナ',
@@ -2715,15 +2949,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2732,6 +2969,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ガーンジー',
@@ -2741,15 +2979,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2758,6 +2999,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キプロス',
@@ -2767,23 +3009,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キュラソー',
@@ -2793,15 +3039,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2810,6 +3059,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キューバ',
@@ -2819,23 +3069,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キリバス',
@@ -2845,15 +3099,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2862,6 +3119,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'キルギス',
@@ -2871,23 +3129,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{zip}{city}_{address2}_{address1}_{company}_{firstName}{lastName}_{country}_{phone}',
           show:
             '{zip} {city}_{address2}_{address1}_{company}_{firstName} {lastName}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ギニア',
@@ -2897,15 +3159,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2914,6 +3179,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ギニアビサウ',
@@ -2923,23 +3189,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ギリシャ',
@@ -2949,23 +3219,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クウェート',
@@ -2975,15 +3249,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -2992,6 +3269,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クック諸島',
@@ -3001,15 +3279,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3018,6 +3299,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クリスマス島',
@@ -3027,15 +3309,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3044,6 +3329,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'クロアチア',
@@ -3053,23 +3339,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'グアテマラ',
@@ -3079,15 +3369,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3097,94 +3390,95 @@ const data = {
         },
         zones: [
           {
-            name: 'Alta Verapaz',
+            name: 'アルタ・ベラパス県',
             code: 'AVE',
           },
           {
-            name: 'Baja Verapaz',
+            name: 'バハ・ベラパス県',
             code: 'BVE',
           },
           {
-            name: 'Chimaltenango',
+            name: 'チマルテナンゴ県',
             code: 'CMT',
           },
           {
-            name: 'Chiquimula',
+            name: 'チキムラ県',
             code: 'CQM',
           },
           {
-            name: 'El Progreso',
+            name: 'エル・プログレソ県',
             code: 'EPR',
           },
           {
-            name: 'Escuintla',
+            name: 'エスクィントラ県',
             code: 'ESC',
           },
           {
-            name: 'Guatemala',
+            name: 'グアテマラ県',
             code: 'GUA',
           },
           {
-            name: 'Huehuetenango',
+            name: 'ウェウェテナンゴ県',
             code: 'HUE',
           },
           {
-            name: 'Izabal',
+            name: 'イサバル県',
             code: 'IZA',
           },
           {
-            name: 'Jalapa',
+            name: 'ハラパ県',
             code: 'JAL',
           },
           {
-            name: 'Jutiapa',
+            name: 'フティアパ県',
             code: 'JUT',
           },
           {
-            name: 'Petén',
+            name: 'ペテン県',
             code: 'PET',
           },
           {
-            name: 'Quetzaltenango',
+            name: 'ケツァルテナンゴ県',
             code: 'QUE',
           },
           {
-            name: 'Quiché',
+            name: 'キチェ県',
             code: 'QUI',
           },
           {
-            name: 'Retalhuleu',
+            name: 'レタルレウ県',
             code: 'RET',
           },
           {
-            name: 'Sacatepéquez',
+            name: 'サカテペケス県',
             code: 'SAC',
           },
           {
-            name: 'San Marcos',
+            name: 'サン・マルコス県',
             code: 'SMA',
           },
           {
-            name: 'Santa Rosa',
+            name: 'サンタ・ローサ県',
             code: 'SRO',
           },
           {
-            name: 'Sololá',
+            name: 'ソロラ県',
             code: 'SOL',
           },
           {
-            name: 'Suchitepéquez',
+            name: 'スチテペケス県',
             code: 'SUC',
           },
           {
-            name: 'Totonicapán',
+            name: 'トトニカパン県',
             code: 'TOT',
           },
           {
-            name: 'Zacapa',
+            name: 'サカパ県',
             code: 'ZAC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'グアドループ',
@@ -3194,23 +3488,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'グリーンランド',
@@ -3220,49 +3518,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
-      },
-      {
-        name: 'グルジア',
-        code: 'GE',
-        phoneNumberPrefix: 995,
-        autocompletionField: 'address1',
-        continent: 'Europe',
-        labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
-          company: '会社',
-          country: '国',
-          firstName: '名',
-          lastName: '姓',
-          phone: '電話番号',
-          postalCode: '郵便番号',
-          zone: '州',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'グレナダ',
@@ -3272,15 +3548,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3289,6 +3568,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ケイマン諸島',
@@ -3298,15 +3578,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3315,6 +3598,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ケニア',
@@ -3324,15 +3608,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3341,6 +3628,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ココス(キーリング)諸島',
@@ -3350,15 +3638,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3367,6 +3658,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コスタリカ',
@@ -3376,15 +3668,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3393,6 +3688,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コソボ',
@@ -3402,23 +3698,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コモロ',
@@ -3428,15 +3728,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3445,6 +3748,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コロンビア',
@@ -3454,15 +3758,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '県',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3472,55 +3779,55 @@ const data = {
         },
         zones: [
           {
-            name: 'Bogotá, D.C.',
+            name: 'ボゴタ',
             code: 'DC',
           },
           {
-            name: 'Amazonas',
+            name: 'アマソナス県',
             code: 'AMA',
           },
           {
-            name: 'Antioquia',
+            name: 'アンティオキア県',
             code: 'ANT',
           },
           {
-            name: 'Arauca',
+            name: 'アラウカ県',
             code: 'ARA',
           },
           {
-            name: 'Atlántico',
+            name: 'アトランティコ県',
             code: 'ATL',
           },
           {
-            name: 'Bolívar',
+            name: 'ボリーバル県',
             code: 'BOL',
           },
           {
-            name: 'Boyacá',
+            name: 'ボヤカ県',
             code: 'BOY',
           },
           {
-            name: 'Caldas',
+            name: 'カルダス県',
             code: 'CAL',
           },
           {
-            name: 'Caquetá',
+            name: 'カケタ県',
             code: 'CAQ',
           },
           {
-            name: 'Casanare',
+            name: 'カサナレ県',
             code: 'CAS',
           },
           {
-            name: 'Cauca',
+            name: 'カウカ県',
             code: 'CAU',
           },
           {
-            name: 'Cesar',
+            name: 'セサール県',
             code: 'CES',
           },
           {
-            name: 'Chocó',
+            name: 'チョコ県',
             code: 'CHO',
           },
           {
@@ -3528,82 +3835,83 @@ const data = {
             code: 'COR',
           },
           {
-            name: 'Cundinamarca',
+            name: 'クンディナマルカ県',
             code: 'CUN',
           },
           {
-            name: 'Guainía',
+            name: 'グアイニア県',
             code: 'GUA',
           },
           {
-            name: 'Guaviare',
+            name: 'グアビアーレ県',
             code: 'GUV',
           },
           {
-            name: 'Huila',
+            name: 'ウイラ県',
             code: 'HUI',
           },
           {
-            name: 'La Guajira',
+            name: 'ラ・グアヒーラ県',
             code: 'LAG',
           },
           {
-            name: 'Magdalena',
+            name: 'マグダレーナ県',
             code: 'MAG',
           },
           {
-            name: 'Meta',
+            name: 'メタ県',
             code: 'MET',
           },
           {
-            name: 'Nariño',
+            name: 'ナリーニョ県',
             code: 'NAR',
           },
           {
-            name: 'Norte de Santander',
+            name: 'ノルテ・デ・サンタンデール県',
             code: 'NSA',
           },
           {
-            name: 'Putumayo',
+            name: 'プトゥマヨ県',
             code: 'PUT',
           },
           {
-            name: 'Quindío',
+            name: 'キンディオ県',
             code: 'QUI',
           },
           {
-            name: 'Risaralda',
+            name: 'リサラルダ県',
             code: 'RIS',
           },
           {
-            name: 'San Andrés, Providencia y Santa Catalina',
+            name: 'サン・アンドレス・イ・プロビデンシア県',
             code: 'SAP',
           },
           {
-            name: 'Santander',
+            name: 'サンタンデール県',
             code: 'SAN',
           },
           {
-            name: 'Sucre',
+            name: 'スクレ県',
             code: 'SUC',
           },
           {
-            name: 'Tolima',
+            name: 'トリマ県',
             code: 'TOL',
           },
           {
-            name: 'Valle del Cauca',
+            name: 'バジェ・デル・カウカ県',
             code: 'VAC',
           },
           {
-            name: 'Vaupés',
+            name: 'バウペス県',
             code: 'VAU',
           },
           {
-            name: 'Vichada',
+            name: 'ビチャーダ県',
             code: 'VID',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'コンゴ共和国(ブラザビル)',
@@ -3613,15 +3921,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3630,6 +3941,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コンゴ民主共和国(キンシャサ)',
@@ -3639,15 +3951,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3656,6 +3971,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'コートジボワール',
@@ -3665,15 +3981,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3682,6 +4001,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サウジアラビア',
@@ -3691,15 +4011,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3708,6 +4031,37 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
+      },
+      {
+        name: 'サウスジョージア・サウスサンドウィッチ諸島',
+        code: 'GS',
+        phoneNumberPrefix: 500,
+        autocompletionField: 'address1',
+        continent: 'Other',
+        labels: {
+          address1: '住所',
+          address2: '建物名、部屋番号など',
+          city: '市区町村',
+          company: '会社',
+          country: '国/地域',
+          firstName: '名',
+          lastName: '姓',
+          phone: '電話番号',
+          postalCode: '郵便番号',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+        },
+        zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サモア',
@@ -3717,15 +4071,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3734,6 +4091,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サントメ・プリンシペ',
@@ -3743,15 +4101,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3760,6 +4121,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サンピエール島・ミクロン島',
@@ -3769,23 +4131,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サンマリノ',
@@ -3795,49 +4161,57 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'サン・バルテルミー島',
+        name: 'サン・バルテルミー',
         code: 'BL',
         phoneNumberPrefix: 590,
         autocompletionField: 'address1',
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'サン・マルタン',
@@ -3847,23 +4221,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ザンビア',
@@ -3873,23 +4251,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シエラレオネ',
@@ -3899,15 +4281,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3916,6 +4301,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シリア',
@@ -3925,15 +4311,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3942,6 +4331,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シンガポール',
@@ -3951,15 +4341,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3968,6 +4361,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'シント・マールテン',
@@ -3977,15 +4371,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -3994,6 +4391,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジブチ',
@@ -4003,15 +4401,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4020,6 +4421,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジブラルタル',
@@ -4029,15 +4431,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4046,6 +4451,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジャマイカ',
@@ -4055,15 +4461,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4072,6 +4481,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジャージー',
@@ -4081,15 +4491,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4098,6 +4511,37 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
+      },
+      {
+        name: 'ジョージア',
+        code: 'GE',
+        phoneNumberPrefix: 995,
+        autocompletionField: 'address1',
+        continent: 'Europe',
+        labels: {
+          address1: '住所',
+          address2: '建物名、部屋番号など',
+          city: '市区町村',
+          company: '会社',
+          country: '国/地域',
+          firstName: '名',
+          lastName: '姓',
+          phone: '電話番号',
+          postalCode: '郵便番号',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+        },
+        zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ジンバブエ',
@@ -4107,15 +4551,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4124,6 +4571,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スイス',
@@ -4132,24 +4580,28 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '住所2',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '住所2 (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スウェーデン',
@@ -4158,24 +4610,28 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
+          city: '市/町',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スバールバル諸島・ヤンマイエン島',
@@ -4185,23 +4641,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スペイン',
@@ -4210,233 +4670,237 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
         },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'A Coruña',
+            name: 'ア・コルーニャ県',
             code: 'C',
           },
           {
-            name: 'Álava',
+            name: 'アラバ県',
             code: 'VI',
           },
           {
-            name: 'Albacete',
+            name: 'アルバセテ県',
             code: 'AB',
           },
           {
-            name: 'Alicante',
+            name: 'アリカンテ県',
             code: 'A',
           },
           {
-            name: 'Almería',
+            name: 'アルメリア県',
             code: 'AL',
           },
           {
-            name: 'Asturias',
+            name: 'Asturias Province',
             code: 'O',
           },
           {
-            name: 'Ávila',
+            name: 'アビラ県',
             code: 'AV',
           },
           {
-            name: 'Badajoz',
+            name: 'バダホス県',
             code: 'BA',
           },
           {
-            name: 'Balears',
+            name: 'バレアレス諸島²',
             code: 'PM',
           },
           {
-            name: 'Barcelona',
+            name: 'バルセロナ県',
             code: 'B',
           },
           {
-            name: 'Burgos',
+            name: 'ブルゴス県',
             code: 'BU',
           },
           {
-            name: 'Cáceres',
+            name: 'カセレス県',
             code: 'CC',
           },
           {
-            name: 'Cádiz',
+            name: 'カディス県',
             code: 'CA',
           },
           {
-            name: 'Cantabria',
+            name: 'カンタブリア州²',
             code: 'S',
           },
           {
-            name: 'Castellón',
+            name: 'カステリョン県',
             code: 'CS',
           },
           {
-            name: 'Ceuta',
+            name: 'セウタ',
             code: 'CE',
           },
           {
-            name: 'Ciudad Real',
+            name: 'シウダ・レアル県',
             code: 'CR',
           },
           {
-            name: 'Córdoba',
+            name: 'コルドバ県',
             code: 'CO',
           },
           {
-            name: 'Cuenca',
+            name: 'クエンカ県',
             code: 'CU',
           },
           {
-            name: 'Girona',
+            name: 'ジローナ県',
             code: 'GI',
           },
           {
-            name: 'Granada',
+            name: 'グラナダ県',
             code: 'GR',
           },
           {
-            name: 'Guadalajara',
+            name: 'グアダラハラ県',
             code: 'GU',
           },
           {
-            name: 'Guipúzcoa',
+            name: 'ギプスコア県',
             code: 'SS',
           },
           {
-            name: 'Huelva',
+            name: 'ウエルバ県',
             code: 'H',
           },
           {
-            name: 'Huesca',
+            name: 'ウエスカ県',
             code: 'HU',
           },
           {
-            name: 'Jaén',
+            name: 'ハエン県',
             code: 'J',
           },
           {
-            name: 'La Rioja',
+            name: 'ラ・リオハ州',
             code: 'LO',
           },
           {
-            name: 'Las Palmas',
+            name: 'ラス・パルマス県',
             code: 'GC',
           },
           {
-            name: 'León',
+            name: 'レオン県',
             code: 'LE',
           },
           {
-            name: 'Lleida',
+            name: 'リェイダ県',
             code: 'L',
           },
           {
-            name: 'Lugo',
+            name: 'ルーゴ県',
             code: 'LU',
           },
           {
-            name: 'Madrid',
+            name: 'マドリード県',
             code: 'M',
           },
           {
-            name: 'Málaga',
+            name: 'マラガ県',
             code: 'MA',
           },
           {
-            name: 'Melilla',
+            name: 'メリリャ',
             code: 'ML',
           },
           {
-            name: 'Murcia',
+            name: 'ムルシア県',
             code: 'MU',
           },
           {
-            name: 'Navarra',
+            name: 'ナバラ州²',
             code: 'NA',
           },
           {
-            name: 'Ourense',
+            name: 'オウレンセ県',
             code: 'OR',
           },
           {
-            name: 'Palencia',
+            name: 'パレンシア県',
             code: 'P',
           },
           {
-            name: 'Pontevedra',
+            name: 'ポンテベドラ県',
             code: 'PO',
           },
           {
-            name: 'Salamanca',
+            name: 'サラマンカ県',
             code: 'SA',
           },
           {
-            name: 'Santa Cruz de Tenerife',
+            name: 'サンタ・クルス・デ・テネリフェ県',
             code: 'TF',
           },
           {
-            name: 'Segovia',
+            name: 'セゴビア県',
             code: 'SG',
           },
           {
-            name: 'Sevilla',
+            name: 'セビリア県',
             code: 'SE',
           },
           {
-            name: 'Soria',
+            name: 'ソリア県',
             code: 'SO',
           },
           {
-            name: 'Tarragona',
+            name: 'タラゴナ県',
             code: 'T',
           },
           {
-            name: 'Teruel',
+            name: 'テルエル県',
             code: 'TE',
           },
           {
-            name: 'Toledo',
+            name: 'トレド県',
             code: 'TO',
           },
           {
-            name: 'Valencia',
+            name: 'バレンシア県',
             code: 'V',
           },
           {
-            name: 'Valladolid',
+            name: 'バリャドリッド県',
             code: 'VA',
           },
           {
-            name: 'Vizcaya',
+            name: 'ビスカヤ県',
             code: 'BI',
           },
           {
-            name: 'Zamora',
+            name: 'サモラ県',
             code: 'ZA',
           },
           {
-            name: 'Zaragoza',
+            name: 'サラゴサ県',
             code: 'Z',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'スリナム',
@@ -4446,15 +4910,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4463,6 +4930,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スリランカ',
@@ -4472,15 +4940,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4489,6 +4960,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スロバキア',
@@ -4498,23 +4970,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スロベニア',
@@ -4524,49 +5000,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
-      },
-      {
-        name: 'スワジランド',
-        code: 'SZ',
-        phoneNumberPrefix: 268,
-        autocompletionField: 'address1',
-        continent: 'Africa',
-        labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
-          company: '会社',
-          country: '国',
-          firstName: '名',
-          lastName: '姓',
-          phone: '電話番号',
-          postalCode: '郵便番号',
-          zone: '州',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
-        },
-        zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'スーダン',
@@ -4576,23 +5030,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セネガル',
@@ -4602,23 +5060,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セルビア',
@@ -4628,41 +5090,48 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'セントクリストファー・ネイビス',
+        name: 'セントクリストファー・ネーヴィス',
         code: 'KN',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4671,24 +5140,28 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'セントビンセント・グレナディーン諸島',
+        name: 'セントビンセント及びグレナディーン諸島',
         code: 'VC',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4697,6 +5170,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セントヘレナ',
@@ -4706,15 +5180,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4723,6 +5200,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セントルシア',
@@ -4732,15 +5210,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4749,6 +5230,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'セーシェル',
@@ -4758,15 +5240,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4775,6 +5260,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ソマリア',
@@ -4784,15 +5270,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4801,6 +5290,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ソロモン諸島',
@@ -4810,15 +5300,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4827,6 +5320,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'タイ',
@@ -4836,15 +5330,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '県',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -4854,318 +5351,319 @@ const data = {
         },
         zones: [
           {
-            name: 'Amnat Charoen',
+            name: 'アムナートチャルーン県',
             code: 'TH-37',
           },
           {
-            name: 'Ang Thong',
+            name: 'アーントーン県',
             code: 'TH-15',
           },
           {
-            name: 'Bangkok',
+            name: 'バンコク',
             code: 'TH-10',
           },
           {
-            name: 'Bueng Kan',
+            name: 'ブンカーン県',
             code: 'TH-38',
           },
           {
-            name: 'Buriram',
+            name: 'ブリーラム県',
             code: 'TH-31',
           },
           {
-            name: 'Chachoengsao',
+            name: 'チャチューンサオ県',
             code: 'TH-24',
           },
           {
-            name: 'Chai Nat',
+            name: 'チャイナート県',
             code: 'TH-18',
           },
           {
-            name: 'Chaiyaphum',
+            name: 'チャイヤプーム県',
             code: 'TH-36',
           },
           {
-            name: 'Chanthaburi',
+            name: 'チャンタブリー県',
             code: 'TH-22',
           },
           {
-            name: 'Chiang Mai',
+            name: 'チエンマイ県',
             code: 'TH-50',
           },
           {
-            name: 'Chiang Rai',
+            name: 'チエンラーイ県',
             code: 'TH-57',
           },
           {
-            name: 'Chon Buri',
+            name: 'チョンブリー県',
             code: 'TH-20',
           },
           {
-            name: 'Chumphon',
+            name: 'チュムポーン県',
             code: 'TH-86',
           },
           {
-            name: 'Kalasin',
+            name: 'カーラシン県',
             code: 'TH-46',
           },
           {
-            name: 'Kamphaeng Phet',
+            name: 'カムペーンペット県',
             code: 'TH-62',
           },
           {
-            name: 'Kanchanaburi',
+            name: 'カーンチャナブリー県',
             code: 'TH-71',
           },
           {
-            name: 'Khon Kaen',
+            name: 'コーンケン県',
             code: 'TH-40',
           },
           {
-            name: 'Krabi',
+            name: 'クラビー県',
             code: 'TH-81',
           },
           {
-            name: 'Lampang',
+            name: 'ラムパーン県',
             code: 'TH-52',
           },
           {
-            name: 'Lamphun',
+            name: 'ラムプーン県',
             code: 'TH-51',
           },
           {
-            name: 'Loei',
+            name: 'ルーイ県',
             code: 'TH-42',
           },
           {
-            name: 'Lopburi',
+            name: 'ロッブリー県',
             code: 'TH-16',
           },
           {
-            name: 'Mae Hong Son',
+            name: 'メーホンソーン県',
             code: 'TH-58',
           },
           {
-            name: 'Maha Sarakham',
+            name: 'マハーサーラカーム県',
             code: 'TH-44',
           },
           {
-            name: 'Mukdahan',
+            name: 'ムックダーハーン県',
             code: 'TH-49',
           },
           {
-            name: 'Nakhon Nayok',
+            name: 'ナコーンナーヨック県',
             code: 'TH-26',
           },
           {
-            name: 'Nakhon Pathom',
+            name: 'ナコーンパトム県',
             code: 'TH-73',
           },
           {
-            name: 'Nakhon Phanom',
+            name: 'ナコーンパノム県',
             code: 'TH-48',
           },
           {
-            name: 'Nakhon Ratchasima',
+            name: 'ナコーンラーチャシーマー県',
             code: 'TH-30',
           },
           {
-            name: 'Nakhon Sawan',
+            name: 'ナコーンサワン県',
             code: 'TH-60',
           },
           {
-            name: 'Nakhon Si Thammarat',
+            name: 'ナコーンシータンマラート県',
             code: 'TH-80',
           },
           {
-            name: 'Nan',
+            name: 'ナーン県',
             code: 'TH-55',
           },
           {
-            name: 'Narathiwat',
+            name: 'ナラーティワート県',
             code: 'TH-96',
           },
           {
-            name: 'Nong Bua Lam Phu',
+            name: 'ノーンブワラムプー県',
             code: 'TH-39',
           },
           {
-            name: 'Nong Khai',
+            name: 'ノーンカーイ県',
             code: 'TH-43',
           },
           {
-            name: 'Nonthaburi',
+            name: 'ノンタブリー県',
             code: 'TH-12',
           },
           {
-            name: 'Pathum Thani',
+            name: 'パトゥムターニー県',
             code: 'TH-13',
           },
           {
-            name: 'Pattani',
+            name: 'パッターニー県',
             code: 'TH-94',
           },
           {
-            name: 'Pattaya',
+            name: 'パッタヤー',
             code: 'TH-S',
           },
           {
-            name: 'Phangnga',
+            name: 'パンガー県',
             code: 'TH-82',
           },
           {
-            name: 'Phatthalung',
+            name: 'パッタルン県',
             code: 'TH-93',
           },
           {
-            name: 'Phayao',
+            name: 'パヤオ県',
             code: 'TH-56',
           },
           {
-            name: 'Phetchabun',
+            name: 'ペッチャブーン県',
             code: 'TH-67',
           },
           {
-            name: 'Phetchaburi',
+            name: 'ペッチャブリー県',
             code: 'TH-76',
           },
           {
-            name: 'Phichit',
+            name: 'ピチット県',
             code: 'TH-66',
           },
           {
-            name: 'Phitsanulok',
+            name: 'ピッサヌローク県',
             code: 'TH-65',
           },
           {
-            name: 'Phra Nakhon Si Ayutthaya',
+            name: 'アユタヤ県',
             code: 'TH-14',
           },
           {
-            name: 'Phrae',
+            name: 'プレー県',
             code: 'TH-54',
           },
           {
-            name: 'Phuket',
+            name: 'プーケット県',
             code: 'TH-83',
           },
           {
-            name: 'Prachin Buri',
+            name: 'プラーチーンブリー県',
             code: 'TH-25',
           },
           {
-            name: 'Prachuap Khiri Khan',
+            name: 'プラチュワップキーリーカン県',
             code: 'TH-77',
           },
           {
-            name: 'Ranong',
+            name: 'ラノーン県',
             code: 'TH-85',
           },
           {
-            name: 'Ratchaburi',
+            name: 'ラーチャブリー県',
             code: 'TH-70',
           },
           {
-            name: 'Rayong',
+            name: 'ラヨーン県',
             code: 'TH-21',
           },
           {
-            name: 'Roi Et',
+            name: 'ローイエット県',
             code: 'TH-45',
           },
           {
-            name: 'Sa Kaeo',
+            name: 'サケーオ県',
             code: 'TH-27',
           },
           {
-            name: 'Sakon Nakhon',
+            name: 'サコンナコーン県',
             code: 'TH-47',
           },
           {
-            name: 'Samut Prakan',
+            name: 'サムットプラーカーン県',
             code: 'TH-11',
           },
           {
-            name: 'Samut Sakhon',
+            name: 'サムットサーコーン県',
             code: 'TH-74',
           },
           {
-            name: 'Samut Songkhram',
+            name: 'サムットソンクラーム県',
             code: 'TH-75',
           },
           {
-            name: 'Saraburi',
+            name: 'サラブリー県',
             code: 'TH-19',
           },
           {
-            name: 'Satun',
+            name: 'サトゥーン県',
             code: 'TH-91',
           },
           {
-            name: 'Sing Buri',
+            name: 'シンブリー県',
             code: 'TH-17',
           },
           {
-            name: 'Sisaket',
+            name: 'シーサケート県',
             code: 'TH-33',
           },
           {
-            name: 'Songkhla',
+            name: 'ソンクラー県',
             code: 'TH-90',
           },
           {
-            name: 'Sukhothai',
+            name: 'スコータイ県',
             code: 'TH-64',
           },
           {
-            name: 'Suphan Buri',
+            name: 'スパンブリー県',
             code: 'TH-72',
           },
           {
-            name: 'Surat Thani',
+            name: 'スラートターニー県',
             code: 'TH-84',
           },
           {
-            name: 'Surin',
+            name: 'スリン県',
             code: 'TH-32',
           },
           {
-            name: 'Tak',
+            name: 'ターク県',
             code: 'TH-63',
           },
           {
-            name: 'Trang',
+            name: 'トラン県',
             code: 'TH-92',
           },
           {
-            name: 'Trat',
+            name: 'トラート県',
             code: 'TH-23',
           },
           {
-            name: 'Ubon Ratchathani',
+            name: 'ウボンラーチャターニー県',
             code: 'TH-34',
           },
           {
-            name: 'Udon Thani',
+            name: 'ウドーンターニー県',
             code: 'TH-41',
           },
           {
-            name: 'Uthai Thani',
+            name: 'ウタイターニー県',
             code: 'TH-61',
           },
           {
-            name: 'Uttaradit',
+            name: 'ウッタラディット県',
             code: 'TH-53',
           },
           {
-            name: 'Yala',
+            name: 'ヤラー県',
             code: 'TH-95',
           },
           {
-            name: 'Yasothon',
+            name: 'ヤソートーン県',
             code: 'TH-35',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'タジキスタン',
@@ -5175,23 +5673,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'タンザニア',
@@ -5201,23 +5703,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'タークス・カイコス諸島',
@@ -5227,15 +5733,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5244,32 +5753,37 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'チェコ共和国',
+        name: 'チェコ',
         code: 'CZ',
         phoneNumberPrefix: 420,
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'チャド',
@@ -5279,15 +5793,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5296,6 +5813,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'チュニジア',
@@ -5305,23 +5823,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'チリ',
@@ -5331,23 +5853,93 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        zones: [],
+        zones: [
+          {
+            name: 'アリカ・イ・パリナコータ州',
+            code: 'AP',
+          },
+          {
+            name: 'タラパカ州',
+            code: 'TA',
+          },
+          {
+            name: 'アントファガスタ州',
+            code: 'AN',
+          },
+          {
+            name: 'アタカマ州',
+            code: 'AT',
+          },
+          {
+            name: 'コキンボ州',
+            code: 'CO',
+          },
+          {
+            name: 'バルパライソ州',
+            code: 'VS',
+          },
+          {
+            name: '首都州',
+            code: 'RM',
+          },
+          {
+            name: 'リベルタドール・ベルナルド・オイギンス州',
+            code: 'LI',
+          },
+          {
+            name: 'マウレ州',
+            code: 'ML',
+          },
+          {
+            name: 'ニュブレ州',
+            code: 'NB',
+          },
+          {
+            name: 'ビオビオ州',
+            code: 'BI',
+          },
+          {
+            name: 'ラ・アラウカニア州',
+            code: 'AR',
+          },
+          {
+            name: 'ロス・リオス州',
+            code: 'LR',
+          },
+          {
+            name: 'ロス・ラゴス州',
+            code: 'LL',
+          },
+          {
+            name:
+              'アイセン・デル・ヘネラル・カルロス・イバニェス・デル・カンポ州',
+            code: 'AI',
+          },
+          {
+            name: 'マガジャネス・イ・デ・ラ・アンタルティカ・チレーナ州',
+            code: 'MA',
+          },
+        ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ツバル',
@@ -5357,15 +5949,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5374,6 +5969,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'デンマーク',
@@ -5382,24 +5978,28 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トケラウ',
@@ -5409,15 +6009,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5426,6 +6029,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トリニダード・トバゴ',
@@ -5435,15 +6039,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5452,6 +6059,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トルクメニスタン',
@@ -5461,23 +6069,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{zip}{city}_{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{zip}{city}_{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トルコ',
@@ -5487,23 +6099,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トンガ',
@@ -5513,15 +6129,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5530,6 +6149,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'トーゴ',
@@ -5539,15 +6159,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5556,6 +6179,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ドイツ',
@@ -5565,23 +6189,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{country}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ドミニカ共和国',
@@ -5591,23 +6219,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ドミニカ国',
@@ -5617,15 +6249,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5634,6 +6269,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ナイジェリア',
@@ -5643,15 +6279,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5661,154 +6300,155 @@ const data = {
         },
         zones: [
           {
-            name: 'Abia',
+            name: 'アビア州',
             code: 'AB',
           },
           {
-            name: 'Abuja Federal Capital Territory',
+            name: '連邦首都地区',
             code: 'FC',
           },
           {
-            name: 'Adamawa',
+            name: 'アダマワ州',
             code: 'AD',
           },
           {
-            name: 'Akwa Ibom',
+            name: 'アクワ・イボム州',
             code: 'AK',
           },
           {
-            name: 'Anambra',
+            name: 'アナンブラ州',
             code: 'AN',
           },
           {
-            name: 'Bauchi',
+            name: 'バウチ州',
             code: 'BA',
           },
           {
-            name: 'Bayelsa',
+            name: 'バイエルサ州',
             code: 'BY',
           },
           {
-            name: 'Benue',
+            name: 'ベヌエ州',
             code: 'BE',
           },
           {
-            name: 'Borno',
+            name: 'ボルノ州',
             code: 'BO',
           },
           {
-            name: 'Cross River',
+            name: 'クロスリバー州',
             code: 'CR',
           },
           {
-            name: 'Delta',
+            name: 'デルタ州',
             code: 'DE',
           },
           {
-            name: 'Ebonyi',
+            name: 'エボニ州',
             code: 'EB',
           },
           {
-            name: 'Edo',
+            name: 'エド州',
             code: 'ED',
           },
           {
-            name: 'Ekiti',
+            name: 'エキティ州',
             code: 'EK',
           },
           {
-            name: 'Enugu',
+            name: 'エヌグ州',
             code: 'EN',
           },
           {
-            name: 'Gombe',
+            name: 'ゴンベ州',
             code: 'GO',
           },
           {
-            name: 'Imo',
+            name: 'イモ州',
             code: 'IM',
           },
           {
-            name: 'Jigawa',
+            name: 'ジガワ州',
             code: 'JI',
           },
           {
-            name: 'Kaduna',
+            name: 'カドゥナ州',
             code: 'KD',
           },
           {
-            name: 'Kano',
+            name: 'カノ州',
             code: 'KN',
           },
           {
-            name: 'Katsina',
+            name: 'カツィナ州',
             code: 'KT',
           },
           {
-            name: 'Kebbi',
+            name: 'ケビ州',
             code: 'KE',
           },
           {
-            name: 'Kogi',
+            name: 'コギ州',
             code: 'KO',
           },
           {
-            name: 'Kwara',
+            name: 'クワラ州',
             code: 'KW',
           },
           {
-            name: 'Lagos',
+            name: 'レゴス州',
             code: 'LA',
           },
           {
-            name: 'Nasarawa',
+            name: 'ナサラワ州',
             code: 'NA',
           },
           {
-            name: 'Niger',
+            name: 'ナイジャ州',
             code: 'NI',
           },
           {
-            name: 'Ogun',
+            name: 'オグン州',
             code: 'OG',
           },
           {
-            name: 'Ondo',
+            name: 'オンド州',
             code: 'ON',
           },
           {
-            name: 'Osun',
+            name: 'オスン州',
             code: 'OS',
           },
           {
-            name: 'Oyo',
+            name: 'オヨ州',
             code: 'OY',
           },
           {
-            name: 'Plateau',
+            name: 'プラトー州',
             code: 'PL',
           },
           {
-            name: 'Rivers',
+            name: 'リバーズ州',
             code: 'RI',
           },
           {
-            name: 'Sokoto',
+            name: 'ソコト州',
             code: 'SO',
           },
           {
-            name: 'Taraba',
+            name: 'タラバ州',
             code: 'TA',
           },
           {
-            name: 'Yobe',
+            name: 'ヨベ州',
             code: 'YO',
           },
           {
-            name: 'Zamfara',
+            name: 'ザムファラ州',
             code: 'ZA',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'ナウル',
@@ -5818,15 +6458,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5835,6 +6478,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ナミビア',
@@ -5844,15 +6488,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5861,24 +6508,28 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'ニウエ島',
+        name: 'ニウエ',
         code: 'NU',
         phoneNumberPrefix: 683,
         autocompletionField: 'address1',
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5887,6 +6538,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニカラグア',
@@ -5896,23 +6548,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニジェール',
@@ -5922,23 +6578,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニューカレドニア',
@@ -5948,23 +6608,27 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ニュージーランド',
@@ -5974,15 +6638,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -5992,70 +6659,71 @@ const data = {
         },
         zones: [
           {
-            name: 'Auckland',
+            name: 'オークランド地方',
             code: 'AUK',
           },
           {
-            name: 'Bay of Plenty',
+            name: 'ベイ・オブ・プレンティ地方',
             code: 'BOP',
           },
           {
-            name: 'Canterbury',
+            name: 'カンタベリー地方',
             code: 'CAN',
           },
           {
-            name: 'Gisborne',
+            name: 'ギズボーン地方',
             code: 'GIS',
           },
           {
-            name: "Hawke's Bay",
+            name: 'ホークス・ベイ地方',
             code: 'HKB',
           },
           {
-            name: 'Manawatu-Wanganui',
+            name: 'マナワツ・ワンガヌイ地方',
             code: 'MWT',
           },
           {
-            name: 'Marlborough',
+            name: 'マールボロ地方',
             code: 'MBH',
           },
           {
-            name: 'Nelson',
+            name: 'ネルソン地方',
             code: 'NSN',
           },
           {
-            name: 'Northland',
+            name: 'ノースランド地方',
             code: 'NTL',
           },
           {
-            name: 'Otago',
+            name: 'オタゴ地方',
             code: 'OTA',
           },
           {
-            name: 'Southland',
+            name: 'サウスランド地方',
             code: 'STL',
           },
           {
-            name: 'Taranaki',
+            name: 'タラナキ地方',
             code: 'TKI',
           },
           {
-            name: 'Tasman',
+            name: 'タスマン地方',
             code: 'TAS',
           },
           {
-            name: 'Waikato',
+            name: 'ワイカト地方',
             code: 'WKO',
           },
           {
-            name: 'Wellington',
+            name: 'ウェリントン地方',
             code: 'WGN',
           },
           {
-            name: 'West Coast',
+            name: 'ウェスト・コースト地方',
             code: 'WTC',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ネパール',
@@ -6065,15 +6733,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6082,6 +6753,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ノルウェー',
@@ -6090,24 +6762,28 @@ const data = {
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ノーフォーク島',
@@ -6117,15 +6793,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6134,6 +6813,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ハイチ',
@@ -6143,23 +6823,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ハンガリー',
@@ -6169,15 +6853,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6186,6 +6873,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ハード島・マクドナルド諸島',
@@ -6195,15 +6883,18 @@ const data = {
         continent: 'Other',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6212,6 +6903,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バチカン市国',
@@ -6221,23 +6913,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バヌアツ',
@@ -6247,15 +6943,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6264,6 +6963,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バハマ',
@@ -6273,15 +6973,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6290,6 +6993,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バミューダ',
@@ -6299,15 +7003,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6316,6 +7023,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バルバドス',
@@ -6325,15 +7033,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6342,6 +7053,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バングラデシュ',
@@ -6351,15 +7063,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6368,6 +7083,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'バーレーン',
@@ -6377,15 +7093,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6394,6 +7113,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'パキスタン',
@@ -6403,15 +7123,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6420,6 +7143,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'パナマ',
@@ -6429,15 +7153,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6447,58 +7174,59 @@ const data = {
         },
         zones: [
           {
-            name: 'Bocas del Toro',
+            name: 'ボカス・デル・トーロ県',
             code: 'PA-1',
           },
           {
-            name: 'Chiriquí',
+            name: 'チリキ県',
             code: 'PA-4',
           },
           {
-            name: 'Coclé',
+            name: 'コクレ県',
             code: 'PA-2',
           },
           {
-            name: 'Colón',
+            name: 'コロン県',
             code: 'PA-3',
           },
           {
-            name: 'Darién',
+            name: 'ダリエン県',
             code: 'PA-5',
           },
           {
-            name: 'Emberá',
+            name: 'エンベラ自治区',
             code: 'PA-EM',
           },
           {
-            name: 'Herrera',
+            name: 'エレーラ県',
             code: 'PA-6',
           },
           {
-            name: 'Kuna Yala',
+            name: 'クナ・ヤラ自治区',
             code: 'PA-KY',
           },
           {
-            name: 'Los Santos',
+            name: 'ロス・サントス県',
             code: 'PA-7',
           },
           {
-            name: 'Ngöbe-Buglé',
+            name: 'ノベ・ブグレ自治区',
             code: 'PA-NB',
           },
           {
-            name: 'Panamá',
+            name: 'パナマ県',
             code: 'PA-8',
           },
           {
-            name: 'Panamá Oeste',
+            name: '西パナマ県',
             code: 'PA-10',
           },
           {
-            name: 'Veraguas',
+            name: 'ベラグアス県',
             code: 'PA-9',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'パプアニューギニア',
@@ -6508,15 +7236,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6525,6 +7256,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'パラグアイ',
@@ -6534,41 +7266,48 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'パレスチナ',
+        name: 'パレスチナ自治区',
         code: 'PS',
         phoneNumberPrefix: 970,
         autocompletionField: 'address1',
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6577,6 +7316,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ピトケアン諸島',
@@ -6586,23 +7326,27 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フィジー',
@@ -6612,15 +7356,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6629,6 +7376,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フィリピン',
@@ -6638,23 +7386,27 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フィンランド',
@@ -6664,23 +7416,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フェロー諸島',
@@ -6690,23 +7446,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フォークランド諸島',
@@ -6716,15 +7476,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6733,6 +7496,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'フランス',
@@ -6742,15 +7506,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6759,6 +7526,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブラジル',
@@ -6767,16 +7535,19 @@ const data = {
         autocompletionField: 'address1',
         continent: 'South America',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6786,114 +7557,115 @@ const data = {
         },
         zones: [
           {
-            name: 'Acre',
+            name: 'アクレ州',
             code: 'AC',
           },
           {
-            name: 'Alagoas',
+            name: 'アラゴアス州',
             code: 'AL',
           },
           {
-            name: 'Amapá',
+            name: 'アマパー州',
             code: 'AP',
           },
           {
-            name: 'Amazonas',
+            name: 'アマゾナス州',
             code: 'AM',
           },
           {
-            name: 'Bahia',
+            name: 'バイーア州',
             code: 'BA',
           },
           {
-            name: 'Ceará',
+            name: 'セアラー州',
             code: 'CE',
           },
           {
-            name: 'Distrito Federal',
+            name: 'ブラジリア連邦直轄区',
             code: 'DF',
           },
           {
-            name: 'Espírito Santo',
+            name: 'エスピリトサント州',
             code: 'ES',
           },
           {
-            name: 'Goiás',
+            name: 'ゴイアス州',
             code: 'GO',
           },
           {
-            name: 'Maranhão',
+            name: 'マラニョン州',
             code: 'MA',
           },
           {
-            name: 'Mato Grosso',
+            name: 'マットグロッソ州',
             code: 'MT',
           },
           {
-            name: 'Mato Grosso do Sul',
+            name: 'マットグロッソ・ド・スル州',
             code: 'MS',
           },
           {
-            name: 'Minas Gerais',
+            name: 'ミナスジェライス州',
             code: 'MG',
           },
           {
-            name: 'Pará',
+            name: 'パラー州',
             code: 'PA',
           },
           {
-            name: 'Paraíba',
+            name: 'パライバ州',
             code: 'PB',
           },
           {
-            name: 'Paraná',
+            name: 'パラナ州',
             code: 'PR',
           },
           {
-            name: 'Pernambuco',
+            name: 'ペルナンブーコ州',
             code: 'PE',
           },
           {
-            name: 'Piauí',
+            name: 'ピアウイ州',
             code: 'PI',
           },
           {
-            name: 'Rio Grande do Norte',
+            name: 'リオグランデ・ド・ノルテ州',
             code: 'RN',
           },
           {
-            name: 'Rio Grande do Sul',
+            name: 'リオグランデ・ド・スル州',
             code: 'RS',
           },
           {
-            name: 'Rio de Janeiro',
+            name: 'リオデジャネイロ州',
             code: 'RJ',
           },
           {
-            name: 'Rondônia',
+            name: 'ロンドニア州',
             code: 'RO',
           },
           {
-            name: 'Roraima',
+            name: 'ロライマ州',
             code: 'RR',
           },
           {
-            name: 'Santa Catarina',
+            name: 'サンタカタリーナ州',
             code: 'SC',
           },
           {
-            name: 'São Paulo',
+            name: 'サンパウロ州',
             code: 'SP',
           },
           {
-            name: 'Sergipe',
+            name: 'セルジッペ州',
             code: 'SE',
           },
           {
-            name: 'Tocantins',
+            name: 'トカンティンス州',
             code: 'TO',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'ブルガリア',
@@ -6903,23 +7675,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブルキナファソ',
@@ -6929,15 +7705,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6946,6 +7725,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブルネイ',
@@ -6955,15 +7735,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6972,6 +7755,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブルンジ',
@@ -6981,15 +7765,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -6998,6 +7785,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブータン',
@@ -7007,15 +7795,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7024,6 +7815,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ブーベ島',
@@ -7033,15 +7825,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7050,6 +7845,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベトナム',
@@ -7059,15 +7855,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7076,6 +7875,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベナン',
@@ -7085,15 +7885,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7102,6 +7905,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベネズエラ',
@@ -7111,15 +7915,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7128,6 +7935,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベラルーシ',
@@ -7137,23 +7945,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベリーズ',
@@ -7163,15 +7975,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7180,6 +7995,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ベルギー',
@@ -7189,23 +8005,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ペルー',
@@ -7215,15 +8035,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7233,110 +8056,111 @@ const data = {
         },
         zones: [
           {
-            name: 'Amazonas',
+            name: 'アマソナス県',
             code: 'PE-AMA',
           },
           {
-            name: 'Áncash',
+            name: 'アンカシュ県',
             code: 'PE-ANC',
           },
           {
-            name: 'Apurímac',
+            name: 'アプリマク県',
             code: 'PE-APU',
           },
           {
-            name: 'Arequipa',
+            name: 'アレキパ県',
             code: 'PE-ARE',
           },
           {
-            name: 'Ayacucho',
+            name: 'アヤクーチョ県',
             code: 'PE-AYA',
           },
           {
-            name: 'Cajamarca',
+            name: 'カハマルカ県',
             code: 'PE-CAJ',
           },
           {
-            name: 'Callao',
+            name: 'カヤオ特別区',
             code: 'PE-CAL',
           },
           {
-            name: 'Cuzco',
+            name: 'クスコ県',
             code: 'PE-CUS',
           },
           {
-            name: 'Huancavelica',
+            name: 'ワンカベリカ県',
             code: 'PE-HUV',
           },
           {
-            name: 'Huánuco',
+            name: 'ワヌコ県',
             code: 'PE-HUC',
           },
           {
-            name: 'Ica',
+            name: 'イカ県',
             code: 'PE-ICA',
           },
           {
-            name: 'Junín',
+            name: 'フニン県',
             code: 'PE-JUN',
           },
           {
-            name: 'La Libertad',
+            name: 'ラ・リベルタ県',
             code: 'PE-LAL',
           },
           {
-            name: 'Lambayeque',
+            name: 'ランバイエケ県',
             code: 'PE-LAM',
           },
           {
-            name: 'Lima (departamento)',
+            name: 'リマ県',
             code: 'PE-LIM',
           },
           {
-            name: 'Lima (provincia)',
+            name: 'リマ郡',
             code: 'PE-LMA',
           },
           {
-            name: 'Loreto',
+            name: 'ロレート県',
             code: 'PE-LOR',
           },
           {
-            name: 'Madre de Dios',
+            name: 'マードレ・デ・ディオス県',
             code: 'PE-MDD',
           },
           {
-            name: 'Moquegua',
+            name: 'モケグア県',
             code: 'PE-MOQ',
           },
           {
-            name: 'Pasco',
+            name: 'パスコ県',
             code: 'PE-PAS',
           },
           {
-            name: 'Piura',
+            name: 'ピウラ県',
             code: 'PE-PIU',
           },
           {
-            name: 'Puno',
+            name: 'プーノ県',
             code: 'PE-PUN',
           },
           {
-            name: 'San Martín',
+            name: 'サン・マルティン県',
             code: 'PE-SAM',
           },
           {
-            name: 'Tacna',
+            name: 'タクナ県',
             code: 'PE-TAC',
           },
           {
-            name: 'Tumbes',
+            name: 'トゥンベス県',
             code: 'PE-TUM',
           },
           {
-            name: 'Ucayali',
+            name: 'ウカヤリ県',
             code: 'PE-UCA',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ホンジュラス',
@@ -7346,23 +8170,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ボスニア・ヘルツェゴビナ',
@@ -7372,23 +8200,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ボツワナ',
@@ -7398,15 +8230,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7415,6 +8250,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ボリビア',
@@ -7424,15 +8260,18 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7441,6 +8280,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ポルトガル',
@@ -7450,15 +8290,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7468,86 +8311,87 @@ const data = {
         },
         zones: [
           {
-            name: 'Açores',
+            name: 'アゾレス諸島',
             code: 'PT-20',
           },
           {
-            name: 'Aveiro',
+            name: 'アヴェイロ県',
             code: 'PT-01',
           },
           {
-            name: 'Beja',
+            name: 'ベージャ県',
             code: 'PT-02',
           },
           {
-            name: 'Braga',
+            name: 'ブラガ県',
             code: 'PT-03',
           },
           {
-            name: 'Bragança',
+            name: 'ブラガンサ県',
             code: 'PT-04',
           },
           {
-            name: 'Castelo Branco',
+            name: 'カステロ・ブランコ県',
             code: 'PT-05',
           },
           {
-            name: 'Coimbra',
+            name: 'コインブラ県',
             code: 'PT-06',
           },
           {
-            name: 'Évora',
+            name: 'エヴォラ県',
             code: 'PT-07',
           },
           {
-            name: 'Faro',
+            name: 'ファーロ県',
             code: 'PT-08',
           },
           {
-            name: 'Guarda',
+            name: 'グアルダ県',
             code: 'PT-09',
           },
           {
-            name: 'Leiria',
+            name: 'レイリア県',
             code: 'PT-10',
           },
           {
-            name: 'Lisboa',
+            name: 'リスボン県',
             code: 'PT-11',
           },
           {
-            name: 'Madeira',
+            name: 'マデイラ諸島',
             code: 'PT-30',
           },
           {
-            name: 'Portalegre',
+            name: 'ポルタレグレ県',
             code: 'PT-12',
           },
           {
-            name: 'Porto',
+            name: 'ポルト県',
             code: 'PT-13',
           },
           {
-            name: 'Santarém',
+            name: 'サンタレン県',
             code: 'PT-14',
           },
           {
-            name: 'Setúbal',
+            name: 'セトゥーバル県',
             code: 'PT-15',
           },
           {
-            name: 'Viana do Castelo',
+            name: 'ヴィアナ・ド・カステロ県',
             code: 'PT-16',
           },
           {
-            name: 'Vila Real',
+            name: 'ヴィラ・レアル県',
             code: 'PT-17',
           },
           {
-            name: 'Viseu',
+            name: 'ヴィゼウ県',
             code: 'PT-18',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: 'ポーランド',
@@ -7557,49 +8401,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
-      },
-      {
-        name: 'マケドニア',
-        code: 'MK',
-        phoneNumberPrefix: 389,
-        autocompletionField: 'address1',
-        continent: 'Europe',
-        labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
-          company: '会社',
-          country: '国',
-          firstName: '名',
-          lastName: '姓',
-          phone: '電話番号',
-          postalCode: '郵便番号',
-          zone: '州',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マダガスカル',
@@ -7609,49 +8431,57 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'マヨット島',
+        name: 'マヨット',
         code: 'YT',
         phoneNumberPrefix: 262,
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マラウイ',
@@ -7661,15 +8491,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7678,6 +8511,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マリ',
@@ -7687,15 +8521,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7704,6 +8541,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マルタ',
@@ -7713,15 +8551,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7730,6 +8571,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マルティニーク',
@@ -7739,23 +8581,27 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'マレーシア',
@@ -7765,88 +8611,92 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州、準州',
+          zone: '州/地区',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'Johor',
+            name: 'ジョホール州',
             code: 'JHR',
           },
           {
-            name: 'Kedah',
+            name: 'ケダ州',
             code: 'KDH',
           },
           {
-            name: 'Kelantan',
+            name: 'クランタン州',
             code: 'KTN',
           },
           {
-            name: 'Kuala Lumpur',
+            name: 'クアラルンプール',
             code: 'KUL',
           },
           {
-            name: 'Labuan',
+            name: 'ラブアン',
             code: 'LBN',
           },
           {
-            name: 'Melaka',
+            name: 'ムラカ州',
             code: 'MLK',
           },
           {
-            name: 'Negeri Sembilan',
+            name: 'ヌグリ・スンビラン州',
             code: 'NSN',
           },
           {
-            name: 'Pahang',
+            name: 'パハン州',
             code: 'PHG',
           },
           {
-            name: 'Perak',
-            code: 'PRK',
-          },
-          {
-            name: 'Perlis',
-            code: 'PLS',
-          },
-          {
-            name: 'Pulau Pinang',
+            name: 'ペナン州',
             code: 'PNG',
           },
           {
-            name: 'Putrajaya',
+            name: 'ペラ州',
+            code: 'PRK',
+          },
+          {
+            name: 'プルリス州',
+            code: 'PLS',
+          },
+          {
+            name: 'プトラジャヤ',
             code: 'PJY',
           },
           {
-            name: 'Sabah',
+            name: 'サバ州',
             code: 'SBH',
           },
           {
-            name: 'Sarawak',
+            name: 'サラワク州',
             code: 'SWK',
           },
           {
-            name: 'Selangor',
+            name: 'セランゴール州',
             code: 'SGR',
           },
           {
-            name: 'Terengganu',
+            name: 'トレンガヌ州',
             code: 'TRG',
           },
         ],
+        provinceKey: 'STATE_AND_TERRITORY',
       },
       {
         name: 'マン島',
@@ -7856,15 +8706,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7873,24 +8726,28 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'ミャンマー',
+        name: 'ミャンマー (ビルマ)',
         code: 'MM',
         phoneNumberPrefix: 95,
         autocompletionField: 'address1',
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -7899,6 +8756,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'メキシコ',
@@ -7907,153 +8765,157 @@ const data = {
         autocompletionField: 'address1',
         continent: 'North America',
         labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address1: '住所および部屋番号',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
         },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'Aguascalientes',
+            name: 'アグアスカリエンテス州',
             code: 'AGS',
           },
           {
-            name: 'Baja California',
+            name: 'バハ・カリフォルニア州',
             code: 'BC',
           },
           {
-            name: 'Baja California Sur',
+            name: 'バハ・カリフォルニア・スル州',
             code: 'BCS',
           },
           {
-            name: 'Campeche',
+            name: 'カンペチェ州',
             code: 'CAMP',
           },
           {
-            name: 'Chiapas',
+            name: 'チアパス州',
             code: 'CHIS',
           },
           {
-            name: 'Chihuahua',
+            name: 'チワワ州',
             code: 'CHIH',
           },
           {
-            name: 'Ciudad de México',
+            name: 'メキシコシティ',
             code: 'DF',
           },
           {
-            name: 'Coahuila',
+            name: 'コアウイラ州',
             code: 'COAH',
           },
           {
-            name: 'Colima',
+            name: 'コリマ州',
             code: 'COL',
           },
           {
-            name: 'Durango',
+            name: 'ドゥランゴ州',
             code: 'DGO',
           },
           {
-            name: 'Guanajuato',
+            name: 'グアナフアト州',
             code: 'GTO',
           },
           {
-            name: 'Guerrero',
+            name: 'ゲレーロ州',
             code: 'GRO',
           },
           {
-            name: 'Hidalgo',
+            name: 'イダルゴ州',
             code: 'HGO',
           },
           {
-            name: 'Jalisco',
+            name: 'ハリスコ州',
             code: 'JAL',
           },
           {
-            name: 'México',
+            name: 'メヒコ州',
             code: 'MEX',
           },
           {
-            name: 'Michoacán',
+            name: 'ミチョアカン州',
             code: 'MICH',
           },
           {
-            name: 'Morelos',
+            name: 'モレロス州',
             code: 'MOR',
           },
           {
-            name: 'Nayarit',
+            name: 'ナヤリット州',
             code: 'NAY',
           },
           {
-            name: 'Nuevo León',
+            name: 'ヌエボ・レオン州',
             code: 'NL',
           },
           {
-            name: 'Oaxaca',
+            name: 'オアハカ州',
             code: 'OAX',
           },
           {
-            name: 'Puebla',
+            name: 'プエブラ州',
             code: 'PUE',
           },
           {
-            name: 'Querétaro',
+            name: 'ケレタロ州',
             code: 'QRO',
           },
           {
-            name: 'Quintana Roo',
+            name: 'キンタナ・ロー州',
             code: 'Q ROO',
           },
           {
-            name: 'San Luis Potosí',
+            name: 'サン・ルイス・ポトシ州',
             code: 'SLP',
           },
           {
-            name: 'Sinaloa',
+            name: 'シナロア州',
             code: 'SIN',
           },
           {
-            name: 'Sonora',
+            name: 'ソノラ州',
             code: 'SON',
           },
           {
-            name: 'Tabasco',
+            name: 'タバスコ州',
             code: 'TAB',
           },
           {
-            name: 'Tamaulipas',
+            name: 'タマウリパス州',
             code: 'TAMPS',
           },
           {
-            name: 'Tlaxcala',
+            name: 'トラスカラ州',
             code: 'TLAX',
           },
           {
-            name: 'Veracruz',
+            name: 'ベラクルス州',
             code: 'VER',
           },
           {
-            name: 'Yucatán',
+            name: 'ユカタン州',
             code: 'YUC',
           },
           {
-            name: 'Zacatecas',
+            name: 'サカテカス州',
             code: 'ZAC',
           },
         ],
+        provinceKey: 'STATE',
       },
       {
         name: 'モザンビーク',
@@ -8063,23 +8925,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モナコ',
@@ -8089,23 +8955,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モルディブ',
@@ -8115,15 +8985,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8132,6 +9005,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モルドバ',
@@ -8141,23 +9015,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モロッコ',
@@ -8167,23 +9045,27 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モンゴル',
@@ -8193,15 +9075,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8210,6 +9095,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モンテネグロ',
@@ -8219,23 +9105,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モントセラト',
@@ -8245,15 +9135,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8262,6 +9155,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モーリシャス',
@@ -8271,15 +9165,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8288,6 +9185,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'モーリタニア',
@@ -8297,15 +9195,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8314,6 +9215,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ヨルダン',
@@ -8323,15 +9225,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8340,6 +9245,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ラオス',
@@ -8349,15 +9255,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '県',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8366,6 +9275,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: 'ラトビア',
@@ -8375,15 +9285,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8392,6 +9305,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'リトアニア',
@@ -8401,15 +9315,18 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8418,6 +9335,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'リヒテンシュタイン',
@@ -8427,23 +9345,27 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'リビア',
@@ -8453,15 +9375,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8470,6 +9395,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'リベリア',
@@ -8479,49 +9405,57 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'ルクセンブルグ',
+        name: 'ルクセンブルク',
         code: 'LU',
         phoneNumberPrefix: 352,
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ルワンダ',
@@ -8531,15 +9465,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8548,6 +9485,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ルーマニア',
@@ -8557,65 +9495,68 @@ const data = {
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '郡',
+          zone: '県',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {
-            name: 'Alba',
+            name: 'アルバ県',
             code: 'AB',
           },
           {
-            name: 'Arad',
+            name: 'アラド県',
             code: 'AR',
           },
           {
-            name: 'Argeș',
+            name: 'アルジェシュ県',
             code: 'AG',
           },
           {
-            name: 'Bacău',
+            name: 'バカウ県',
             code: 'BC',
           },
           {
-            name: 'Bihor',
+            name: 'ビホル県',
             code: 'BH',
           },
           {
-            name: 'Bistrița-Năsăud',
+            name: 'Bistriţa-Năsăud',
             code: 'BN',
           },
           {
-            name: 'Botoșani',
+            name: 'ボトシャニ県',
             code: 'BT',
           },
           {
-            name: 'Brăila',
+            name: 'ブライラ県',
             code: 'BR',
           },
           {
-            name: 'Brașov',
+            name: 'ブラショフ県',
             code: 'BV',
           },
           {
-            name: 'București',
+            name: 'ブカレスト',
             code: 'B',
           },
           {
-            name: 'Buzău',
+            name: 'ブザウ県',
             code: 'BZ',
           },
           {
@@ -8623,126 +9564,127 @@ const data = {
             code: 'CS',
           },
           {
-            name: 'Cluj',
+            name: 'クルジュ県',
             code: 'CJ',
           },
           {
-            name: 'Constanța',
+            name: 'コンスタンツァ県',
             code: 'CT',
           },
           {
-            name: 'Covasna',
+            name: 'コヴァスナ県',
             code: 'CV',
           },
           {
-            name: 'Călărași',
+            name: 'カララシ県',
             code: 'CL',
           },
           {
-            name: 'Dolj',
+            name: 'ドルジュ県',
             code: 'DJ',
           },
           {
-            name: 'Dâmbovița',
+            name: 'ドゥンボヴィツァ県',
             code: 'DB',
           },
           {
-            name: 'Galați',
+            name: 'ガラツィ県',
             code: 'GL',
           },
           {
-            name: 'Giurgiu',
+            name: 'ジュルジュ県',
             code: 'GR',
           },
           {
-            name: 'Gorj',
+            name: 'ゴルジュ県',
             code: 'GJ',
           },
           {
-            name: 'Harghita',
+            name: 'ハルギタ県',
             code: 'HR',
           },
           {
-            name: 'Hunedoara',
+            name: 'フネドアラ県',
             code: 'HD',
           },
           {
-            name: 'Ialomița',
+            name: 'ヤロミツァ県',
             code: 'IL',
           },
           {
-            name: 'Iași',
+            name: 'ヤシ県',
             code: 'IS',
           },
           {
-            name: 'Ilfov',
+            name: 'イルフォヴ県',
             code: 'IF',
           },
           {
-            name: 'Maramureș',
+            name: 'マラムレシュ県',
             code: 'MM',
           },
           {
-            name: 'Mehedinți',
+            name: 'メヘディンチ県',
             code: 'MH',
           },
           {
-            name: 'Mureș',
+            name: 'ムレシュ県',
             code: 'MS',
           },
           {
-            name: 'Neamț',
+            name: 'ネアムツ県',
             code: 'NT',
           },
           {
-            name: 'Olt',
+            name: 'オルト県',
             code: 'OT',
           },
           {
-            name: 'Prahova',
+            name: 'プラホヴァ県',
             code: 'PH',
           },
           {
-            name: 'Sălaj',
+            name: 'サラージュ県',
             code: 'SJ',
           },
           {
-            name: 'Satu Mare',
+            name: 'サトゥ・マーレ県',
             code: 'SM',
           },
           {
-            name: 'Sibiu',
+            name: 'シビウ県',
             code: 'SB',
           },
           {
-            name: 'Suceava',
+            name: 'スチャヴァ県',
             code: 'SV',
           },
           {
-            name: 'Teleorman',
+            name: 'テレオルマン県',
             code: 'TR',
           },
           {
-            name: 'Timiș',
+            name: 'ティミシュ県',
             code: 'TM',
           },
           {
-            name: 'Tulcea',
+            name: 'トゥルチャ県',
             code: 'TL',
           },
           {
-            name: 'Vâlcea',
+            name: 'ヴルチャ県',
             code: 'VL',
           },
           {
-            name: 'Vaslui',
+            name: 'ヴァスルイ県',
             code: 'VS',
           },
           {
-            name: 'Vrancea',
+            name: 'ヴランチャ県',
             code: 'VN',
           },
         ],
+        provinceKey: 'COUNTY',
       },
       {
         name: 'レソト',
@@ -8752,15 +9694,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8769,6 +9714,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'レバノン',
@@ -8778,15 +9724,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8795,32 +9744,37 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: 'レユニオン島',
+        name: 'レユニオン',
         code: 'RE',
         phoneNumberPrefix: 262,
         autocompletionField: 'address1',
         continent: 'Europe',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: 'ロシア',
@@ -8830,15 +9784,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -8848,334 +9805,335 @@ const data = {
         },
         zones: [
           {
-            name: 'Altai Krai',
+            name: 'アルタイ地方',
             code: 'ALT',
           },
           {
-            name: 'Altai Republic',
+            name: 'アルタイ共和国',
             code: 'AL',
           },
           {
-            name: 'Amur Oblast',
+            name: 'アムール州',
             code: 'AMU',
           },
           {
-            name: 'Arkhangelsk Oblast',
+            name: 'アルハンゲリスク州',
             code: 'ARK',
           },
           {
-            name: 'Astrakhan Oblast',
+            name: 'アストラハン州',
             code: 'AST',
           },
           {
-            name: 'Belgorod Oblast',
+            name: 'ベルゴロド州',
             code: 'BEL',
           },
           {
-            name: 'Bryansk Oblast',
+            name: 'ブリャンスク州',
             code: 'BRY',
           },
           {
-            name: 'Chechen Republic',
+            name: 'チェチェン共和国',
             code: 'CE',
           },
           {
-            name: 'Chelyabinsk Oblast',
+            name: 'チェリャビンスク州',
             code: 'CHE',
           },
           {
-            name: 'Chukotka Autonomous Okrug',
+            name: 'チュクチ自治管区',
             code: 'CHU',
           },
           {
-            name: 'Chuvash Republic',
+            name: 'チュヴァシ共和国',
             code: 'CU',
           },
           {
-            name: 'Irkutsk Oblast',
+            name: 'イルクーツク州',
             code: 'IRK',
           },
           {
-            name: 'Ivanovo Oblast',
+            name: 'イヴァノヴォ州',
             code: 'IVA',
           },
           {
-            name: 'Jewish Autonomous Oblast',
+            name: 'ユダヤ自治州',
             code: 'YEV',
           },
           {
-            name: 'Kabardino-Balkarian Republic',
+            name: 'カバルダ・バルカル共和国',
             code: 'KB',
           },
           {
-            name: 'Kaliningrad Oblast',
+            name: 'カリーニングラード州',
             code: 'KGD',
           },
           {
-            name: 'Kaluga Oblast',
+            name: 'カルーガ州',
             code: 'KLU',
           },
           {
-            name: 'Kamchatka Krai',
+            name: 'カムチャツカ地方',
             code: 'KAM',
           },
           {
-            name: 'Karachay–Cherkess Republic',
+            name: 'カラチャイ・チェルケス共和国',
             code: 'KC',
           },
           {
-            name: 'Kemerovo Oblast',
+            name: 'ケメロヴォ州',
             code: 'KEM',
           },
           {
-            name: 'Khabarovsk Krai',
+            name: 'ハバロフスク地方',
             code: 'KHA',
           },
           {
-            name: 'Khanty-Mansi Autonomous Okrug',
+            name: 'ハンティ・マンシ自治管区・ユグラ',
             code: 'KHM',
           },
           {
-            name: 'Kirov Oblast',
+            name: 'キーロフ州',
             code: 'KIR',
           },
           {
-            name: 'Komi Republic',
+            name: 'コミ共和国',
             code: 'KO',
           },
           {
-            name: 'Kostroma Oblast',
+            name: 'コストロマ州',
             code: 'KOS',
           },
           {
-            name: 'Krasnodar Krai',
+            name: 'クラスノダール地方',
             code: 'KDA',
           },
           {
-            name: 'Krasnoyarsk Krai',
+            name: 'クラスノヤルスク地方',
             code: 'KYA',
           },
           {
-            name: 'Kurgan Oblast',
+            name: 'クルガン州',
             code: 'KGN',
           },
           {
-            name: 'Kursk Oblast',
+            name: 'クルスク州',
             code: 'KRS',
           },
           {
-            name: 'Leningrad Oblast',
+            name: 'レニングラード州',
             code: 'LEN',
           },
           {
-            name: 'Lipetsk Oblast',
+            name: 'リペツク州',
             code: 'LIP',
           },
           {
-            name: 'Magadan Oblast',
+            name: 'マガダン州',
             code: 'MAG',
           },
           {
-            name: 'Mari El Republic',
+            name: 'マリ・エル共和国',
             code: 'ME',
           },
           {
-            name: 'Moscow',
+            name: 'モスクワ',
             code: 'MOW',
           },
           {
-            name: 'Moscow Oblast',
+            name: 'モスクワ州',
             code: 'MOS',
           },
           {
-            name: 'Murmansk Oblast',
+            name: 'ムルマンスク州',
             code: 'MUR',
           },
           {
-            name: 'Nizhny Novgorod Oblast',
+            name: 'ニジニ・ノヴゴロド州',
             code: 'NIZ',
           },
           {
-            name: 'Novgorod Oblast',
+            name: 'ノヴゴロド州',
             code: 'NGR',
           },
           {
-            name: 'Novosibirsk Oblast',
+            name: 'ノヴォシビルスク州',
             code: 'NVS',
           },
           {
-            name: 'Omsk Oblast',
+            name: 'オムスク州',
             code: 'OMS',
           },
           {
-            name: 'Orenburg Oblast',
+            name: 'オレンブルク州',
             code: 'ORE',
           },
           {
-            name: 'Oryol Oblast',
+            name: 'オリョール州',
             code: 'ORL',
           },
           {
-            name: 'Penza Oblast',
+            name: 'ペンザ州',
             code: 'PNZ',
           },
           {
-            name: 'Perm Krai',
+            name: 'ペルミ地方',
             code: 'PER',
           },
           {
-            name: 'Primorsky Krai',
+            name: '沿海地方',
             code: 'PRI',
           },
           {
-            name: 'Pskov Oblast',
+            name: 'プスコフ州',
             code: 'PSK',
           },
           {
-            name: 'Republic of Adygeya',
+            name: 'アディゲ共和国',
             code: 'AD',
           },
           {
-            name: 'Republic of Bashkortostan',
+            name: 'バシコルトスタン共和国',
             code: 'BA',
           },
           {
-            name: 'Republic of Buryatia',
+            name: 'ブリヤート共和国',
             code: 'BU',
           },
           {
-            name: 'Republic of Dagestan',
+            name: 'ダゲスタン共和国',
             code: 'DA',
           },
           {
-            name: 'Republic of Ingushetia',
+            name: 'イングーシ共和国',
             code: 'IN',
           },
           {
-            name: 'Republic of Kalmykia',
+            name: 'カルムイク共和国',
             code: 'KL',
           },
           {
-            name: 'Republic of Karelia',
+            name: 'カレリア共和国',
             code: 'KR',
           },
           {
-            name: 'Republic of Khakassia',
+            name: 'ハカス共和国',
             code: 'KK',
           },
           {
-            name: 'Republic of Mordovia',
+            name: 'モルドヴィア共和国',
             code: 'MO',
           },
           {
-            name: 'Republic of North Ossetia–Alania',
+            name: '北オセチア共和国',
             code: 'SE',
           },
           {
-            name: 'Republic of Tatarstan',
+            name: 'タタールスタン共和国',
             code: 'TA',
           },
           {
-            name: 'Rostov Oblast',
+            name: 'ロストフ州',
             code: 'ROS',
           },
           {
-            name: 'Ryazan Oblast',
+            name: 'リャザン州',
             code: 'RYA',
           },
           {
-            name: 'Saint Petersburg',
+            name: 'サンクトペテルブルク',
             code: 'SPE',
           },
           {
-            name: 'Sakha Republic (Yakutia)',
+            name: 'サハ共和国',
             code: 'SA',
           },
           {
-            name: 'Sakhalin Oblast',
+            name: 'サハリン州',
             code: 'SAK',
           },
           {
-            name: 'Samara Oblast',
+            name: 'サマラ州',
             code: 'SAM',
           },
           {
-            name: 'Saratov Oblast',
+            name: 'サラトフ州',
             code: 'SAR',
           },
           {
-            name: 'Smolensk Oblast',
+            name: 'スモレンスク州',
             code: 'SMO',
           },
           {
-            name: 'Stavropol Krai',
+            name: 'スタヴロポリ地方',
             code: 'STA',
           },
           {
-            name: 'Sverdlovsk Oblast',
+            name: 'スヴェルドロフスク州',
             code: 'SVE',
           },
           {
-            name: 'Tambov Oblast',
+            name: 'タンボフ州',
             code: 'TAM',
           },
           {
-            name: 'Tomsk Oblast',
+            name: 'トムスク州',
             code: 'TOM',
           },
           {
-            name: 'Tula Oblast',
+            name: 'トゥーラ州',
             code: 'TUL',
           },
           {
-            name: 'Tver Oblast',
+            name: 'トヴェリ州',
             code: 'TVE',
           },
           {
-            name: 'Tyumen Oblast',
+            name: 'チュメニ州',
             code: 'TYU',
           },
           {
-            name: 'Tyva Republic',
+            name: 'トゥヴァ共和国',
             code: 'TY',
           },
           {
-            name: 'Udmurtia',
+            name: 'ウドムルト共和国',
             code: 'UD',
           },
           {
-            name: 'Ulyanovsk Oblast',
+            name: 'ウリヤノフスク州',
             code: 'ULY',
           },
           {
-            name: 'Vladimir Oblast',
+            name: 'ヴラジーミル州',
             code: 'VLA',
           },
           {
-            name: 'Volgograd Oblast',
+            name: 'ヴォルゴグラード州',
             code: 'VGG',
           },
           {
-            name: 'Vologda Oblast',
+            name: 'ヴォログダ州',
             code: 'VLG',
           },
           {
-            name: 'Voronezh Oblast',
+            name: 'ヴォロネジ州',
             code: 'VOR',
           },
           {
-            name: 'Yamalo-Nenets Autonomous Okrug',
+            name: 'ヤマロ・ネネツ自治管区',
             code: 'YAN',
           },
           {
-            name: 'Yaroslavl Oblast',
+            name: 'ヤロスラヴリ州',
             code: 'YAR',
           },
           {
-            name: 'Zabaykalsky Krai',
+            name: 'ザバイカリエ地方',
             code: 'ZAB',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: '中国',
@@ -9185,15 +10143,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '省',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9203,130 +10164,131 @@ const data = {
         },
         zones: [
           {
-            name: 'Anhui',
+            name: '安徽省',
             code: 'AH',
           },
           {
-            name: 'Beijing',
+            name: '北京市',
             code: 'BJ',
           },
           {
-            name: 'Chongqing',
+            name: '重慶市',
             code: 'CQ',
           },
           {
-            name: 'Fujian',
+            name: '福建省',
             code: 'FJ',
           },
           {
-            name: 'Gansu',
+            name: '甘粛省',
             code: 'GS',
           },
           {
-            name: 'Guangdong',
+            name: '広東省',
             code: 'GD',
           },
           {
-            name: 'Guangxi',
+            name: '広西チワン族自治区',
             code: 'GX',
           },
           {
-            name: 'Guizhou',
+            name: '貴州省',
             code: 'GZ',
           },
           {
-            name: 'Hainan',
+            name: '海南省',
             code: 'HI',
           },
           {
-            name: 'Hebei',
+            name: '河北省',
             code: 'HE',
           },
           {
-            name: 'Heilongjiang',
+            name: '黒竜江省',
             code: 'HL',
           },
           {
-            name: 'Henan',
+            name: '河南省',
             code: 'HA',
           },
           {
-            name: 'Hubei',
+            name: '湖北省',
             code: 'HB',
           },
           {
-            name: 'Hunan',
+            name: '湖南省',
             code: 'HN',
           },
           {
-            name: 'Inner Mongolia',
+            name: '内モンゴル自治区',
             code: 'NM',
           },
           {
-            name: 'Jiangsu',
+            name: '江蘇省',
             code: 'JS',
           },
           {
-            name: 'Jiangxi',
+            name: '江西省',
             code: 'JX',
           },
           {
-            name: 'Jilin',
+            name: '吉林省',
             code: 'JL',
           },
           {
-            name: 'Liaoning',
+            name: '遼寧省',
             code: 'LN',
           },
           {
-            name: 'Ningxia',
+            name: '寧夏回族自治区',
             code: 'NX',
           },
           {
-            name: 'Qinghai',
+            name: '青海省',
             code: 'QH',
           },
           {
-            name: 'Shaanxi',
+            name: '陝西省',
             code: 'SN',
           },
           {
-            name: 'Shandong',
+            name: '山東省',
             code: 'SD',
           },
           {
-            name: 'Shanghai',
+            name: '上海市',
             code: 'SH',
           },
           {
-            name: 'Shanxi',
+            name: '山西省',
             code: 'SX',
           },
           {
-            name: 'Sichuan',
+            name: '四川省',
             code: 'SC',
           },
           {
-            name: 'Tianjin',
+            name: '天津市',
             code: 'TJ',
           },
           {
-            name: 'Xinjiang',
+            name: '新疆ウイグル自治区',
             code: 'XJ',
           },
           {
-            name: 'Xizang',
+            name: 'チベット自治区',
             code: 'YZ',
           },
           {
-            name: 'Yunnan',
+            name: '雲南省',
             code: 'YN',
           },
           {
-            name: 'Zhejiang',
+            name: '浙江省',
             code: 'ZJ',
           },
         ],
+        provinceKey: 'PROVINCE',
       },
       {
         name: '中央アフリカ共和国',
@@ -9336,15 +10298,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9353,6 +10318,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '中華人民共和国マカオ特別行政区',
@@ -9362,15 +10328,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9379,6 +10348,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '中華人民共和国香港特別行政区',
@@ -9388,15 +10358,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
+          address2: '建物名、部屋番号など',
+          city: '地区',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9406,18 +10379,19 @@ const data = {
         },
         zones: [
           {
-            name: 'Hong Kong Island',
+            name: '香港島',
             code: 'HK',
           },
           {
-            name: 'Kowloon',
+            name: '九龍',
             code: 'KL',
           },
           {
-            name: 'New Territories',
+            name: '新しい地域',
             code: 'NT',
           },
         ],
+        provinceKey: 'REGION',
       },
       {
         name: '仏領ギアナ',
@@ -9427,23 +10401,27 @@ const data = {
         continent: 'South America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '仏領ポリネシア',
@@ -9453,23 +10431,27 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '仏領極南諸島',
@@ -9479,15 +10461,18 @@ const data = {
         continent: 'Other',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9496,6 +10481,67 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
+      },
+      {
+        name: '北マケドニア',
+        code: 'MK',
+        phoneNumberPrefix: 389,
+        autocompletionField: 'address1',
+        continent: 'Europe',
+        labels: {
+          address1: '住所',
+          address2: '建物名、部屋番号など',
+          city: '市区町村',
+          company: '会社',
+          country: '国/地域',
+          firstName: '名',
+          lastName: '姓',
+          phone: '電話番号',
+          postalCode: '郵便番号',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+        },
+        zones: [],
+        provinceKey: 'REGION',
+      },
+      {
+        name: '北朝鮮',
+        code: 'KP',
+        phoneNumberPrefix: 82,
+        autocompletionField: 'address1',
+        continent: 'Asia',
+        labels: {
+          address1: '住所',
+          address2: '建物名、部屋番号など',
+          city: '市区町村',
+          company: '会社',
+          country: '国/地域',
+          firstName: '名',
+          lastName: '姓',
+          phone: '電話番号',
+          postalCode: '郵便番号',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+        },
+        zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '南アフリカ',
@@ -9505,15 +10551,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9523,68 +10572,43 @@ const data = {
         },
         zones: [
           {
-            name: 'Eastern Cape',
+            name: '東ケープ州',
             code: 'EC',
           },
           {
-            name: 'Free State',
+            name: 'フリーステイト州',
             code: 'FS',
           },
           {
-            name: 'Gauteng',
+            name: 'ハウテン州',
             code: 'GT',
           },
           {
-            name: 'KwaZulu-Natal',
+            name: 'クワズール・ナタール州',
             code: 'NL',
           },
           {
-            name: 'Limpopo',
+            name: 'リンポポ州',
             code: 'LP',
           },
           {
-            name: 'Mpumalanga',
+            name: 'ムプマランガ州',
             code: 'MP',
           },
           {
-            name: 'North West',
+            name: '北西州',
             code: 'NW',
           },
           {
-            name: 'Northern Cape',
+            name: '北ケープ州',
             code: 'NC',
           },
           {
-            name: 'Western Cape',
+            name: '西ケープ州',
             code: 'WC',
           },
         ],
-      },
-      {
-        name: '南ジョージア島・南サンドイッチ諸島',
-        code: 'GS',
-        phoneNumberPrefix: 500,
-        autocompletionField: 'address1',
-        continent: 'Other',
-        labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
-          company: '会社',
-          country: '国',
-          firstName: '名',
-          lastName: '姓',
-          phone: '電話番号',
-          postalCode: '郵便番号',
-          zone: '州',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
+        provinceKey: 'PROVINCE',
       },
       {
         name: '南スーダン',
@@ -9594,15 +10618,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9611,6 +10638,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '台湾',
@@ -9620,15 +10648,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9637,101 +10668,37 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
-        name: '大韓民国',
-        code: 'KR',
-        phoneNumberPrefix: 82,
-        autocompletionField: 'zip',
-        continent: 'Asia',
+        name: '合衆国領有小離島',
+        code: 'UM',
+        phoneNumberPrefix: 1,
+        autocompletionField: 'address1',
+        continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '州',
         },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
         formatting: {
           edit:
-            '{company}_{lastName}{firstName}_{zip}_{country}_{province}{city}_{address1}_{address2}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
-        zones: [
-          {
-            name: 'Busan',
-            code: 'KR-26',
-          },
-          {
-            name: 'Chungbuk',
-            code: 'KR-43',
-          },
-          {
-            name: 'Chungnam',
-            code: 'KR-44',
-          },
-          {
-            name: 'Daegu',
-            code: 'KR-27',
-          },
-          {
-            name: 'Daejeon',
-            code: 'KR-30',
-          },
-          {
-            name: 'Gangwon',
-            code: 'KR-42',
-          },
-          {
-            name: 'Gwangju',
-            code: 'KR-29',
-          },
-          {
-            name: 'Gyeongbuk',
-            code: 'KR-47',
-          },
-          {
-            name: 'Gyeonggi',
-            code: 'KR-41',
-          },
-          {
-            name: 'Gyeongnam',
-            code: 'KR-48',
-          },
-          {
-            name: 'Incheon',
-            code: 'KR-28',
-          },
-          {
-            name: 'Jeju',
-            code: 'KR-49',
-          },
-          {
-            name: 'Jeonbuk',
-            code: 'KR-45',
-          },
-          {
-            name: 'Jeonnam',
-            code: 'KR-46',
-          },
-          {
-            name: 'Sejong',
-            code: 'KR-50',
-          },
-          {
-            name: 'Seoul',
-            code: 'KR-11',
-          },
-          {
-            name: 'Ulsan',
-            code: 'KR-31',
-          },
-        ],
+        zones: [],
+        provinceKey: 'STATE',
       },
       {
         name: '日本',
@@ -9741,15 +10708,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
           zone: '都道府県',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9947,32 +10917,7 @@ const data = {
             code: 'JP-47',
           },
         ],
-      },
-      {
-        name: '朝鮮民主主義人民共和国',
-        code: 'KP',
-        phoneNumberPrefix: 82,
-        autocompletionField: 'address1',
-        continent: 'Asia',
-        labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
-          company: '会社',
-          country: '国',
-          firstName: '名',
-          lastName: '姓',
-          phone: '電話番号',
-          postalCode: '郵便番号',
-          zone: '州',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
+        provinceKey: 'PREFECTURE',
       },
       {
         name: '東ティモール',
@@ -9982,15 +10927,18 @@ const data = {
         continent: 'Oceania',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -9999,32 +10947,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
-      },
-      {
-        name: '米領太平洋諸島',
-        code: 'UM',
-        phoneNumberPrefix: 1,
-        autocompletionField: 'address1',
-        continent: 'Central America',
-        labels: {
-          address1: '住所',
-          address2: 'アパート、部屋番号など',
-          city: '市区町村',
-          company: '会社',
-          country: '国',
-          firstName: '名',
-          lastName: '姓',
-          phone: '電話番号',
-          postalCode: '郵便番号',
-          zone: '州',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
-        },
-        zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '英領インド洋地域',
@@ -10034,15 +10957,18 @@ const data = {
         continent: 'Asia',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -10051,6 +10977,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '英領ヴァージン諸島',
@@ -10060,15 +10987,18 @@ const data = {
         continent: 'Central America',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -10077,6 +11007,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '西サハラ',
@@ -10086,15 +11017,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -10103,6 +11037,7 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
       },
       {
         name: '赤道ギニア',
@@ -10112,15 +11047,18 @@ const data = {
         continent: 'Africa',
         labels: {
           address1: '住所',
-          address2: 'アパート、部屋番号など',
+          address2: '建物名、部屋番号など',
           city: '市区町村',
           company: '会社',
-          country: '国',
+          country: '国/地域',
           firstName: '名',
           lastName: '姓',
           phone: '電話番号',
           postalCode: '郵便番号',
-          zone: '州',
+          zone: '地域',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
         },
         formatting: {
           edit:
@@ -10129,9 +11067,108 @@ const data = {
             '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
+        provinceKey: 'REGION',
+      },
+      {
+        name: '韓国',
+        code: 'KR',
+        phoneNumberPrefix: 82,
+        autocompletionField: 'zip',
+        continent: 'Asia',
+        labels: {
+          address1: '住所',
+          address2: '建物名、部屋番号など',
+          city: '市区町村',
+          company: '会社',
+          country: '国/地域',
+          firstName: '名',
+          lastName: '姓',
+          phone: '電話番号',
+          postalCode: '郵便番号',
+          zone: '行政区',
+        },
+        optionalLabels: {
+          address2: '建物名、部屋番号など (任意)',
+        },
+        formatting: {
+          edit:
+            '{company}_{lastName}{firstName}_{zip}_{country}_{province}{city}_{address1}_{address2}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+        },
+        zones: [
+          {
+            name: '釜山広域市',
+            code: 'KR-26',
+          },
+          {
+            name: '忠清北道',
+            code: 'KR-43',
+          },
+          {
+            name: '忠清南道',
+            code: 'KR-44',
+          },
+          {
+            name: '大邱広域市',
+            code: 'KR-27',
+          },
+          {
+            name: '大田広域市',
+            code: 'KR-30',
+          },
+          {
+            name: '江原道 (南)',
+            code: 'KR-42',
+          },
+          {
+            name: '光州広域市',
+            code: 'KR-29',
+          },
+          {
+            name: '慶尚北道',
+            code: 'KR-47',
+          },
+          {
+            name: '京畿道',
+            code: 'KR-41',
+          },
+          {
+            name: '慶尚南道',
+            code: 'KR-48',
+          },
+          {
+            name: '仁川広域市',
+            code: 'KR-28',
+          },
+          {
+            name: '済州特別自治道',
+            code: 'KR-49',
+          },
+          {
+            name: '全羅北道',
+            code: 'KR-45',
+          },
+          {
+            name: '全羅南道',
+            code: 'KR-46',
+          },
+          {
+            name: '世宗特別自治市',
+            code: 'KR-50',
+          },
+          {
+            name: 'ソウル特別市',
+            code: 'KR-11',
+          },
+          {
+            name: '蔚山広域市',
+            code: 'KR-31',
+          },
+        ],
+        provinceKey: 'PROVINCE',
       },
     ],
   },
 };
-
 export default data;

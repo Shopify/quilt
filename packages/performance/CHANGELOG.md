@@ -5,7 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [1.2.2] - 2019-10-16
+
+### Fixed
+
+- `Performance` object constructor will now check if `PerformanceTiming` is supported. [[#1119](https://github.com/Shopify/quilt/pull/1119)]
+
+## [1.2.1] - 2019-10-11
+
+### Fixed
+
+- `cacheEffectiveness` now assumes duration=0 is a cache hit [[#1107](https://github.com/Shopify/quilt/pull/1107)]
+
+## [1.2.0] - 2019-10-03
+
+### Changed
+
+- Updated the README to include instructions on cleaning up listeners from `performance.on` [[#1081](https://github.com/Shopify/quilt/pull/1081)
+
+### Added
+
+- Added a new API `mark` to the `Performance` class. This encapsulates both checking for `supportsMarks` and calling `window.performance.mark` into one call. [[#1083]](https://github.com/Shopify/quilt/pull/1083/files)
 
 ## [1.1.2] - 2019-03-27
 

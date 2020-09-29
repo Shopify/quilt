@@ -1,4 +1,5 @@
 import {StatusCode} from '@shopify/network';
+
 import {useRedirect} from '../hooks';
 
 interface Props {

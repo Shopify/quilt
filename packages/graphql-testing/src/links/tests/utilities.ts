@@ -40,7 +40,7 @@ export function executeOnce(link: ApolloLink, query: DocumentNode) {
   });
 }
 
-type BeforeResult = ((operation: Operation) => void);
+type BeforeResult = (operation: Operation) => void;
 
 export class SimpleLink extends ApolloLink {
   constructor(
@@ -50,7 +50,10 @@ export class SimpleLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation, nextLink?: NextLink) {
+  request(
+    operation: Operation,
+    nextLink?: NextLink,
+  ): Observable<FetchResult> | null {
     this.beforeResult(operation);
 
     if (nextLink != null) {

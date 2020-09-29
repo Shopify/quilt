@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
+
 import {EffectContext} from './context';
 import {EffectManager} from './manager';
 import {Pass} from './types';

@@ -1,10 +1,10 @@
 import {join} from 'path';
+
 import {Context, Middleware} from 'koa';
 import serve from 'koa-static';
 import compose from 'koa-compose';
 import mount from 'koa-mount';
 import appRoot from 'app-root-path';
-
 import {Header} from '@shopify/network';
 
 import Assets, {Asset} from './assets';
@@ -20,11 +20,11 @@ export interface Options {
 const ASSETS = Symbol('assets');
 
 export function getAssets(ctx: Context): Assets {
-  return ctx.state[ASSETS];
+  return (ctx.state as any)[ASSETS];
 }
 
 export function setAssets(ctx: Context, assets: Assets) {
-  ctx.state[ASSETS] = assets;
+  (ctx.state as any)[ASSETS] = assets;
 }
 
 export default function middleware({

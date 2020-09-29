@@ -12,6 +12,7 @@ import {
   ListValidationContext,
 } from '../../types';
 import {mapObject, normalizeValidation, isChangeEvent} from '../../utilities';
+
 import {
   updateAction,
   updateErrorAction,
@@ -32,13 +33,13 @@ export interface FieldListConfig<Item extends object> {
  * In it's simplest form `useList` can be called with a single parameter with the list to derive default values and structure from.
  *
  * ```typescript
- * const field = useList([{title: '', description: ''}, {title: '', description: ''}]);
+ * const list = useList([{title: '', description: ''}, {title: '', description: ''}]);
  * ```
  *
  * You can also pass a more complex configuration object specifying a validation dictionary.
  *
  * ```tsx
- *const field = useField({
+ *const list = useList({
  *  list: [{title: '', description: ''}, {title: '', description: ''}],
  *  validates: {
  *    title:(title) => {
@@ -58,7 +59,7 @@ export interface FieldListConfig<Item extends object> {
  * Generally, you will want to use the list returned from useList by looping over it in your JSX.
  * ```tsx
  *function MyComponent() {
- *  const title = useField([{title: '', description: ''}, {title: '', description: ''}]);
+ *  const variants = useList([{title: '', description: ''}, {title: '', description: ''}]);
  *
  *  return (
  *    <ul>
@@ -98,7 +99,7 @@ export interface FieldListConfig<Item extends object> {
  *
  * ```tsx
  * function MyComponent() {
- *  const title = useField([{title: '', description: ''}, {title: '', description: ''}]);
+ *  const variants = useList([{title: '', description: ''}, {title: '', description: ''}]);
  *
  *  return (
  *    <ul>
@@ -130,19 +131,23 @@ export interface FieldListConfig<Item extends object> {
  * or to build new abstractions in the same vein as `useForm`, `useSubmit` and friends.
  */
 export function useList<Item extends object>(
-  {list, validates = {}}: FieldListConfig<Item>,
+  listOrConfig: FieldListConfig<Item> | Item[],
   validationDependencies: unknown[] = [],
 ): FieldDictionary<Item>[] {
+  const list = Array.isArray(listOrConfig) ? listOrConfig : listOrConfig.list;
+  const validates: FieldListConfig<Item>['validates'] = Array.isArray(
+    listOrConfig,
+  )
+    ? {}
+    : listOrConfig.validates || {};
+
   const [state, dispatch] = useListReducer(list);
 
-  useEffect(
-    () => {
-      if (!isEqual(list, state.initial)) {
-        dispatch(reinitializeAction(list));
-      }
-    },
-    [list, state.initial, dispatch],
-  );
+  useEffect(() => {
+    if (!isEqual(list, state.initial)) {
+      dispatch(reinitializeAction(list));
+    }
+  }, [list, state.initial, dispatch]);
 
   const validationConfigs = useMemo(
     () =>
@@ -154,92 +159,86 @@ export function useList<Item extends object>(
     [validates, ...validationDependencies],
   );
 
-  const handlers = useMemo(
-    () => {
-      return state.list.map((item, index) => {
-        return mapObject<FieldDictionary<Item>>(
-          item,
-          <Key extends keyof Item & string>(
-            field: FieldState<Item[Key]>,
-            key: Key,
-          ) => {
-            const target = {index, key};
+  const handlers = useMemo(() => {
+    return state.list.map((item, index) => {
+      return mapObject<FieldDictionary<Item>>(
+        item,
+        <Key extends keyof Item & string>(
+          field: FieldState<Item[Key]>,
+          key: Key,
+        ) => {
+          const target = {index, key};
 
-            function validate(value = field.value) {
-              const validates = validationConfigs[key];
+          function validate(value = field.value) {
+            const validates = validationConfigs[key];
 
-              if (validates == null) {
-                return;
-              }
-
-              const siblings = state.list.filter(listItem => listItem !== item);
-
-              runValidation(
-                error =>
-                  dispatch(
-                    updateErrorAction<Item>({target, error: error || ''}),
-                  ),
-                {value, siblings, listItem: item},
-                validates,
-              );
+            if (validates == null) {
+              return;
             }
 
-            return {
-              onChange(value: Item[Key] | ChangeEvent) {
-                const normalizedValue = (isChangeEvent(value)
-                  ? value.target.value
-                  : value) as Item[Key];
+            const siblings = state.list.filter(listItem => listItem !== item);
 
+            return runValidation(
+              error =>
                 dispatch(
-                  updateAction({
-                    target,
-                    value: normalizedValue,
-                  }),
-                );
+                  updateErrorAction<Item>({target, error: error || ''}),
+                ),
+              {value, siblings, listItem: item},
+              validates,
+            );
+          }
 
-                if (field.error) {
-                  validate(normalizedValue);
-                }
-              },
-              reset() {
-                dispatch(resetAction({target}));
-              },
-              newDefaultValue(value: Item[Key]) {
-                dispatch(newDefaultAction({target, value}));
-              },
-              runValidation: validate,
-              onBlur() {
-                const {touched, error} = field;
-
-                if (touched === false && error == null) {
-                  return;
-                }
-                validate();
-              },
-              setError(error: string) {
-                dispatch(updateErrorAction({target, error}));
-              },
-            };
-          },
-        );
-      });
-    },
-    [dispatch, state.list, validationConfigs],
-  );
-
-  return useMemo(
-    () => {
-      return state.list.map((item, index) => {
-        return mapObject(item, (field, key: keyof Item) => {
           return {
-            ...field,
-            ...(handlers[index][key] as any),
+            onChange(value: Item[Key] | ChangeEvent) {
+              const normalizedValue = (isChangeEvent(value)
+                ? value.target.value
+                : value) as Item[Key];
+
+              dispatch(
+                updateAction({
+                  target,
+                  value: normalizedValue,
+                }),
+              );
+
+              if (field.error) {
+                validate(normalizedValue);
+              }
+            },
+            reset() {
+              dispatch(resetAction({target}));
+            },
+            newDefaultValue(value: Item[Key]) {
+              dispatch(newDefaultAction({target, value}));
+            },
+            runValidation: validate,
+            onBlur() {
+              const {touched, error} = field;
+
+              if (touched === false && error == null) {
+                return;
+              }
+              validate();
+            },
+            setError(error: string) {
+              dispatch(updateErrorAction({target, error}));
+            },
           };
-        });
+        },
+      );
+    });
+  }, [dispatch, state.list, validationConfigs]);
+
+  return useMemo(() => {
+    return state.list.map((item, index) => {
+      return mapObject(item, (field, key: keyof Item) => {
+        return {
+          ...field,
+          ...(handlers[index][key] as any),
+        };
       });
-    },
-    [state.list, handlers],
-  );
+    });
+  }, [state.list, handlers]);
 }
 
 function runValidation<Value, Record extends object>(

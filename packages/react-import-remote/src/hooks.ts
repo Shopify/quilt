@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import {ExtendedWindow} from '@shopify/useful-types';
 import {useIntersection} from '@shopify/react-intersection-observer';
 import {
   DeferTiming,
@@ -6,6 +7,7 @@ import {
   RequestIdleCallbackHandle,
 } from '@shopify/async';
 import {useMountedRef} from '@shopify/react-hooks';
+
 import load from './load';
 
 interface Options<Imported> {
@@ -67,64 +69,55 @@ export function useImportRemote<Imported = unknown>(
   }
   /* eslint-enable react-hooks/rules-of-hooks */
 
-  const loadRemote = React.useCallback(
-    async () => {
-      try {
-        setResult({status: Status.Loading});
-        const importResult = await load(source, getImport, nonce);
+  const loadRemote = React.useCallback(async () => {
+    try {
+      setResult({status: Status.Loading});
+      const importResult = await load(source, getImport, nonce);
 
-        if (mounted.current) {
-          setResult({status: Status.Complete, imported: importResult});
-        }
-      } catch (error) {
-        if (mounted.current) {
-          setResult({status: Status.Failed, error});
-        }
+      if (mounted.current) {
+        setResult({status: Status.Complete, imported: importResult});
       }
-    },
-    [getImport, mounted, nonce, source],
-  );
+    } catch (error) {
+      if (mounted.current) {
+        setResult({status: Status.Failed, error});
+      }
+    }
+  }, [getImport, mounted, nonce, source]);
 
-  React.useEffect(
-    () => {
+  React.useEffect(() => {
+    if (
+      result.status === Status.Initial &&
+      defer === DeferTiming.InViewport &&
+      intersection &&
+      intersection.isIntersecting
+    ) {
+      loadRemote();
+    }
+  }, [result, defer, intersection, loadRemote]);
+
+  React.useEffect(() => {
+    if (defer === DeferTiming.Idle) {
+      if ('requestIdleCallback' in window) {
+        idleCallbackHandle.current = (window as ExtendedWindow<
+          WindowWithRequestIdleCallback
+        >).requestIdleCallback(loadRemote);
+      } else {
+        loadRemote();
+      }
+    } else if (defer === DeferTiming.Mount) {
+      loadRemote();
+    }
+
+    return () => {
       if (
-        result.status === Status.Initial &&
-        defer === DeferTiming.InViewport &&
-        intersection &&
-        intersection.isIntersecting
+        idleCallbackHandle.current != null &&
+        typeof (window as any).cancelIdleCallback === 'function'
       ) {
-        loadRemote();
+        (window as any).cancelIdleCallback(idleCallbackHandle.current);
+        idleCallbackHandle.current = null;
       }
-    },
-    [result, defer, intersection, loadRemote],
-  );
-
-  React.useEffect(
-    () => {
-      if (defer === DeferTiming.Idle) {
-        if ('requestIdleCallback' in window) {
-          idleCallbackHandle.current = (window as WindowWithRequestIdleCallback).requestIdleCallback(
-            loadRemote,
-          );
-        } else {
-          loadRemote();
-        }
-      } else if (defer === DeferTiming.Mount) {
-        loadRemote();
-      }
-
-      return () => {
-        if (
-          idleCallbackHandle.current != null &&
-          typeof (window as any).cancelIdleCallback === 'function'
-        ) {
-          (window as any).cancelIdleCallback(idleCallbackHandle.current);
-          idleCallbackHandle.current = null;
-        }
-      };
-    },
-    [defer, loadRemote, intersection, nonce, getImport, source],
-  );
+    };
+  }, [defer, loadRemote, intersection, nonce, getImport, source]);
 
   return {result, intersectionRef};
 }

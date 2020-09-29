@@ -1,5 +1,6 @@
-import {memoize} from '@shopify/javascript-utilities/decorators';
-import {formatDate} from './utilities/formatDate';
+import {memoize} from '@shopify/decorators';
+
+import {formatDate} from './utilities';
 import {sanitiseDateString} from './sanitise-date-string';
 
 const TWO_DIGIT_REGEX = /(\d{2})/;
@@ -57,7 +58,7 @@ function getWeekdayValue(weekday: string) {
   return weekdays[weekday];
 }
 
-// eslint-disable-next-line shopify/no-fully-static-classes
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class DateTimeParts {
   @memoize(dateTimeCacheKey('year'))
   static getYear(date: Date, timeZone?: string) {

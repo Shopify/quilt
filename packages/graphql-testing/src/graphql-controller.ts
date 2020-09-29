@@ -6,6 +6,7 @@ import {
 } from 'apollo-cache-inmemory';
 import {ApolloClient} from 'apollo-client';
 
+import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
@@ -26,6 +27,7 @@ export class GraphQL {
 
   private readonly pendingRequests = new Set<MockRequest>();
   private readonly wrappers: Wrapper[] = [];
+  private readonly mockLink: MockLink | null = null;
 
   constructor(
     mock: GraphQLMock | undefined,
@@ -42,18 +44,26 @@ export class GraphQL {
       ...cacheOptions,
     });
 
+    this.mockLink = new MockLink(mock || defaultGraphQLMock);
     const link = ApolloLink.from([
       new InflightLink({
         onCreated: this.handleCreate,
         onResolved: this.handleResolve,
       }),
-      new MockLink(mock || defaultGraphQLMock),
+      this.mockLink,
     ]);
 
-    this.client = new ApolloClient({
+    this.client = new TestingApolloClient({
       link,
       cache,
     });
+  }
+
+  update(mock: GraphQLMock) {
+    if (!this.mockLink) {
+      return;
+    }
+    this.mockLink.updateMock(mock);
   }
 
   async resolveAll(options: FindOptions = {}) {
@@ -93,7 +103,8 @@ export class GraphQL {
 
 function defaultGraphQLMock({operationName}: GraphQLRequest) {
   return new Error(
-    `Can’t perform GraphQL operation '${operationName ||
-      ''}' because no mocks were set.`,
+    `Can’t perform GraphQL operation '${
+      operationName || ''
+    }' because no mocks were set.`,
   );
 }

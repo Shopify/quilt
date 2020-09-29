@@ -1,5 +1,6 @@
 import {URL} from 'url';
 import stream from 'stream';
+
 import httpMocks, {RequestMethod} from 'node-mocks-http';
 import Koa, {Context} from 'koa';
 
@@ -50,7 +51,7 @@ export default function createContext<
     statusCode,
     session,
     requestBody,
-    rawBody,
+    rawBody = '',
     url = '',
     host = 'test.com',
     encrypted = false,

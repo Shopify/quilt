@@ -1,4 +1,5 @@
 import {createHmac} from 'crypto';
+
 import safeCompare from 'safe-compare';
 import bodyParser from 'koa-bodyparser';
 import mount from 'koa-mount';
@@ -46,6 +47,7 @@ export function receiveWebhook({
       ctx.state.webhook = {
         topic: graphqlTopic as Topic,
         domain,
+        payload: JSON.parse(rawBody),
       };
 
       await onReceived(ctx);

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Omit} from '@shopify/useful-types';
 
 import {PrefetchContext, PrefetchManager} from './context/prefetch';
@@ -180,7 +180,7 @@ function shouldPrefetchAggressively() {
   );
 }
 
-function urlsEqual(first?: URL, second?: URL) {
+function urlsEqual(first?: URL | null, second?: URL) {
   return (
     (first == null && first === second) ||
     (first != null && second != null && first.href === second.href)

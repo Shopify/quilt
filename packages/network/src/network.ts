@@ -158,6 +158,31 @@ export enum HashAlgorithm {
   Sha512 = 'sha512',
 }
 
+export enum ResponseType {
+  Informational = '1xx',
+  Success = '2xx',
+  Redirection = '3xx',
+  ClientError = '4xx',
+  ServerError = '5xx',
+  Unknown = 'Unknown',
+}
+
+export function getResponseType(status: number | StatusCode) {
+  if (status >= 100 && status < 200) {
+    return ResponseType.Informational;
+  } else if (status >= 200 && status < 300) {
+    return ResponseType.Success;
+  } else if (status >= 300 && status < 400) {
+    return ResponseType.Redirection;
+  } else if (status >= 400 && status < 500) {
+    return ResponseType.ClientError;
+  } else if (status >= 500 && status < 600) {
+    return ResponseType.ServerError;
+  } else {
+    return ResponseType.Unknown;
+  }
+}
+
 export function nonceSource(nonce: string) {
   return `'nonce-${nonce}'`;
 }
@@ -173,6 +198,4 @@ export enum CacheControl {
   MaxAge = 'max-age',
 }
 
-export const noCache = `${CacheControl.NoCache},${CacheControl.NoStore},${
-  CacheControl.MustRevalidate
-},${CacheControl.MaxAge}=0`;
+export const noCache = `${CacheControl.NoCache},${CacheControl.NoStore},${CacheControl.MustRevalidate},${CacheControl.MaxAge}=0`;

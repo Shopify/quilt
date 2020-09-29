@@ -1,4 +1,5 @@
 import {Operation} from 'apollo-link';
+
 import {operationNameFromFindOptions} from './utilities';
 import {FindOptions} from './types';
 

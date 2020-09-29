@@ -7,6 +7,7 @@ import {
 } from 'jest-matcher-utils';
 
 import {Node} from '../types';
+
 import {assertIsNode, diffs, printType} from './utilities';
 
 export function toProvideReactContext<Type>(
@@ -43,13 +44,15 @@ export function toProvideReactContext<Type>(
           foundByValue.length === 1 ? 's were' : ' was'
         } found.\n`
     : () =>
-        `${`${matcherHint('.toProvideReactContext')}\n\n` +
+        `${
+          `${matcherHint('.toProvideReactContext')}\n\n` +
           `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
           `To contain context provider:\n  ${expectedColor(
             printType(Context.Provider),
           )}\n${
             value ? `With value matching:\n  ${printExpected(value)}\n` : ''
-          }`}${
+          }`
+        }${
           foundByType.length === 0
             ? `But no matching ${printType(Context.Provider)}s were found.\n`
             : `But the ${

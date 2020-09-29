@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import {render, unmountComponentAtNode} from 'react-dom';
-import {act as reactAct} from 'react-dom/test-utils';
+import {act} from 'react-dom/test-utils';
 import {
   Arguments,
-  Props as PropsForComponent,
   MaybeFunctionReturnType as ReturnType,
 } from '@shopify/useful-types';
 
@@ -17,14 +16,11 @@ import {
   ReactInstance,
   FunctionKeys,
   DeepPartialArguments,
+  PropsFor,
+  DebugOptions,
 } from './types';
 
-// Manually casting `act()` until @types/react is updated to include
-// the Promise types for async act introduced in version 16.9.0-alpha.0
-// https://github.com/Shopify/quilt/issues/692
-const act = reactAct as (func: () => void | Promise<void>) => Promise<void>;
-
-// eslint-disable-next-line typescript/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {findCurrentFiberUsingSlowPath} = require('react-reconciler/reflection');
 
 type ResolveRoot = (element: Element<unknown>) => Element<unknown> | null;
@@ -114,12 +110,13 @@ export class Root<Props> implements Node<Props> {
     const promise = act(() => {
       result = action();
 
-      // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
       // This condition checks the returned value is an actual Promise and returns it
       // to React’s `act()` call, otherwise we just want to return `undefined`
       if (isPromise(result)) {
         return (result as unknown) as Promise<void>;
       }
+
+      return (undefined as unknown) as Promise<void>;
     });
 
     if (isPromise(result)) {
@@ -141,7 +138,7 @@ export class Root<Props> implements Node<Props> {
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
-  ): this is Root<PropsForComponent<Type>> {
+  ): this is Root<PropsFor<Type>> {
     return this.withRoot(root => root.is(type));
   }
 
@@ -155,14 +152,14 @@ export class Root<Props> implements Node<Props> {
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.find(type, props));
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
-    props?: Partial<PropsForComponent<Type>>,
+    props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot(root => root.findAll(type, props));
   }
@@ -243,6 +240,11 @@ export class Root<Props> implements Node<Props> {
     this.act(() => this.wrapper!.forceUpdate());
   }
 
+  debug(options?: DebugOptions) {
+    this.ensureRoot();
+    return this.root!.debug(options);
+  }
+
   toString() {
     return this.withRoot(root => root.toString());
   }
@@ -292,7 +294,7 @@ function flatten(
     return [node.memoizedProps as string];
   }
 
-  const props = {...(node.memoizedProps || {})};
+  const props = {...((node.memoizedProps as any) || {})};
   const {children, descendants} = childrenToTree(node.child, root);
 
   return [

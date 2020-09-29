@@ -1,11 +1,12 @@
 import {GraphQLSchema} from 'graphql';
-import {GraphQLRequest, ApolloLink} from 'apollo-link';
+import {ApolloLink} from 'apollo-link';
 import {
   ApolloReducerConfig,
   InMemoryCache,
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
+
 import {GraphQLMock} from './types';
 import MockApolloLink from './MockApolloLink';
 import Requests from './Requests';
@@ -16,31 +17,17 @@ export interface GraphQLClientConfig {
   cacheOptions?: ApolloReducerConfig;
 }
 
-export interface GraphQLClientOptions {
-  ssrMode?: boolean;
-}
-
 export type MockGraphQLClient = ApolloClient<any> & {
   graphQLRequests: Requests;
   graphQLResults: Promise<any>[];
 };
-
-function defaultGraphQLMock({operationName}: GraphQLRequest) {
-  return new Error(
-    `Can’t perform GraphQL operation '${operationName ||
-      ''}' because no mocks were set.`,
-  );
-}
 
 export default function configureClient({
   unionOrIntersectionTypes = [],
   schema,
   cacheOptions = {},
 }: GraphQLClientConfig) {
-  return function createGraphQLClient(
-    mock: GraphQLMock = defaultGraphQLMock,
-    {ssrMode = true}: GraphQLClientOptions = {},
-  ) {
+  return function createGraphQLClient(mock: GraphQLMock = {}) {
     const cache = new InMemoryCache({
       fragmentMatcher: new IntrospectionFragmentMatcher({
         introspectionQueryResultData: {
@@ -62,20 +49,24 @@ export default function configureClient({
       }
       graphQLRequests.push(operation);
       let resolver: Function;
+      let rejecter: Function;
       graphQLResults.push(
-        new Promise(resolve => {
+        new Promise((resolve, reject) => {
           resolver = resolve;
+          rejecter = reject;
         }),
       );
       const observer = forward(operation);
-      observer.subscribe(next => resolver(next), err => resolver(err));
+      observer.subscribe(
+        next => resolver(next),
+        err => rejecter(err),
+      );
       return observer;
     });
 
     const client = new ApolloClient({
       link: memoryLink.concat(mockLink),
       cache,
-      ssrMode,
     }) as MockGraphQLClient;
 
     client.graphQLRequests = graphQLRequests;

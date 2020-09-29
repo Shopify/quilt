@@ -21,10 +21,10 @@ export type RequestIdleCallback = (
   deadline: RequestIdleCallbackDeadline,
 ) => void;
 
-export interface WindowWithRequestIdleCallback {
+export interface WindowWithRequestIdleCallback extends Window {
   requestIdleCallback(
     callback: RequestIdleCallback,
     opts?: RequestIdleCallbackOptions,
   ): RequestIdleCallbackHandle;
-  cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void);
+  cancelIdleCallback: (handle: RequestIdleCallbackHandle) => void;
 }

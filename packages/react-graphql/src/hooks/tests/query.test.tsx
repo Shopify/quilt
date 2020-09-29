@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import gql from 'graphql-tag';
 import ApolloClient, {NetworkStatus} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
@@ -7,6 +7,7 @@ import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';
 import useQuery from '../query';
+
 import {mountWithGraphQL, createResolvablePromise} from './utilities';
 
 const petQuery = gql`
@@ -32,6 +33,28 @@ describe('useQuery', () => {
     it('returns loading=true and networkStatus=loading during the loading of query', async () => {
       function MockQuery({children}) {
         const results = useQuery(petQuery);
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+        skipInitialGraphQL: true,
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          loading: true,
+          networkStatus: NetworkStatus.loading,
+        }),
+      );
+    });
+
+    it('returns loading=true and networkStatus=loading during the loading of query when ssr option is false', async () => {
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {ssr: false});
         return children(results);
       }
 
@@ -130,6 +153,26 @@ describe('useQuery', () => {
 
       expect(watchQuerySpy).not.toHaveBeenCalled();
     });
+
+    it('returns previous data if the fetchPolicy=no-cache and the current query has error', async () => {
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {fetchPolicy: 'no-cache'});
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: new Error()});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          data: undefined,
+        }),
+      );
+    });
   });
 
   describe('async query component', () => {
@@ -164,6 +207,38 @@ describe('useQuery', () => {
 
       function MockQuery({children}) {
         const results = useQuery(MockQueryComponent);
+        return children(results);
+      }
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+
+      const wrapper = await mountWithGraphQL(
+        <MockQuery>{renderPropSpy}</MockQuery>,
+        {
+          graphQL,
+          skipInitialGraphQL: true,
+        },
+      );
+
+      await wrapper.act(async () => {
+        await MockQueryComponent.resolver.resolve();
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          loading: true,
+          networkStatus: NetworkStatus.loading,
+        }),
+      );
+    });
+
+    it('returns loading=true and networkStatus=loading after the query document had been loaded when ssr option is false', async () => {
+      const MockQueryComponent = createAsyncQueryComponent({
+        load: () => Promise.resolve(petQuery),
+      });
+
+      function MockQuery({children}) {
+        const results = useQuery(MockQueryComponent, {ssr: false});
         return children(results);
       }
       const graphQL = createGraphQL({PetQuery: mockData});

@@ -1,5 +1,12 @@
 # `@shopify/react-self-serializers`
 
+**Note**: This module is now deprecated. Use the following packages instead.
+
+[@shopify/react-app-bridge-universal-provider](../react-app-bridge-universal-provider)
+[@shopify/react-graphql-universal-provider`](../react-graphql-universal-provider)
+[@shopify/react-i18n-universal-provider](../react-i18n-universal-provider)
+[@shopify/react-universal-provider](../react-universal-provider)
+
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg)](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)
 
@@ -86,7 +93,8 @@ interface Props {
 
 ```tsx
 // App.tsx
-import {I18n} from '@shopify/react-self-serializers';
+
+import {I18n} from '@shopify/react-self-serializers/I18n';
 
 function App({locale}: {locale?: string}) {
   return <I18n locale={locale}>{/* rest of the app */}</I18n>;
@@ -99,30 +107,116 @@ A self-serializing provider for initial GraphQL data from Apollo.
 
 #### Props
 
-The component takes an object containing the React children to render and any options to use when creating the GraphQL client.
+The component takes children and a function that can create an Apollo client. This function will be called when needed, and the resulting Apollo client will be augmented with the serialized initial data.
 
 #### Example
 
 ```tsx
 interface Props {
-  shop?: string;
-  server?: boolean;
-  accessToken?: string;
-  graphQLEndpoint?: string;
-  connectToDevTools?: boolean;
   children?: React.ReactNode;
+  createClient(): ApolloClient<any>;
 }
 ```
 
 ```tsx
 // App.tsx
-import {GraphQL} from '@shopify/react-self-serializers';
+import {ApolloClient} from 'apollo-client';
+import {InMemoryCache} from 'apollo-inmemory-cache';
+import {createHttpLink} from 'apollo-link-http';
 
-function App({shop, accessToken}: {shop?: string; accessToken?: string}) {
-  return (
-    <GraphQL shop={shop} accessToken={accessToken}>
-      {/* rest of the app */}
-    </GraphQL>
-  );
+import {GraphQL} from '@shopify/react-self-serializers/GraphQL';
+
+function App({
+  server,
+  shop,
+  accessToken,
+}: {
+  server?: boolean;
+  shop?: string;
+  accessToken?: string;
+}) {
+  const createClient = () => {
+    const link = createHttpLink({
+      uri: `https://${shop}/admin/api/graphql`,
+      headers: {'X-Shopify-Access-Token': accessToken},
+    });
+
+    return new ApolloClient({
+      link,
+      cache: new InMemoryCache(),
+      ssrMode: server,
+      ssrForceFetchDelay: 100,
+      connectToDevTools: !server,
+    });
+  };
+
+  return <GraphQL createClient={}>{/* rest of the app */}</GraphQL>;
+}
+```
+
+### `createSelfSerializer`
+
+This factor function will create a Self Serialized Provider given a React Context object.
+It is particularly useful for simple object that need to be sync up between the server and client.
+
+#### Options
+
+The function takes a unique id and a React Context object.
+
+#### Props
+
+The resulting Provider takes children and a data prop.
+
+#### Example
+
+```tsx
+interface Props {
+  data?: Data;
+  children?: React.ReactNode;
+}
+```
+
+```tsx
+//ApiKeyProvider.tsx
+import {createContext} from 'react';
+import {createSelfSerializer} from '@shopify/react-self-serializers/create-self-serializer';
+
+export const ApiKeyContext = createContext<string | null>(null);
+export const ApiKeyProvider = createSelfSerializer('api-key', ApiKeyContext);
+```
+
+```tsx
+// App.tsx
+import {ApiKeyProvider} from './ApiKeyProvider';
+
+function App({apiKey}: {apiKey?: string}) {
+  return <ApiKeyProvider data={apiKey}>{/* rest of the app */}</ApiKeyProvider>;
+}
+```
+
+### AppBridge
+
+A self-serializing provider for `@shopify/app-bridge-react`'s Provider.
+
+#### Props
+
+The component takes children, `apiKey`, `shop`, and `forceRedirect`. Similar to `@shopify/app-bridge-react`'s Provider.
+
+```tsx
+interface Props {
+  apiKey?: string;
+  shop?: string;
+  forceRedirect?: boolean;
+  children?: React.ReactNode;
+}
+```
+
+#### Example
+
+```tsx
+// App.tsx
+import {AppBridge} from '@shopify/react-self-serializers/AppBridge';
+function App({apiKey, shop}: {apiKey?: string; shop?: string}) {
+  return <AppBridge config={{apiKey, shop}}>{/* rest of the app */}</AppBridge>;
 }
 ```

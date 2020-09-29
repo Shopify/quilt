@@ -40,7 +40,7 @@ export function executeOnce(link: ApolloLink, query: DocumentNode) {
   });
 }
 
-type BeforeResult = ((operation: Operation) => void);
+type BeforeResult = (operation: Operation) => void;
 type Result = {data: object} | {errors: {message: string}[]} | Error;
 type MultiResult =
   | Result
@@ -60,7 +60,7 @@ export class SimpleLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation, nextLink?: NextLink) {
+  request(operation: Operation, nextLink?: NextLink): Observable<any> {
     this.beforeResult(operation);
 
     if (nextLink != null) {

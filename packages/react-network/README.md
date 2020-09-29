@@ -17,7 +17,7 @@ This package uses [`@shopify/react-effect`](https://github.com/Shopify/quilt/tre
 
 ### Application
 
-This library provides a number of React hooks and components you can use anywhere in application to register network-related details on the server.
+This library provides a number of React hooks and components you can use anywhere in your application to register network-related details on the server.
 
 #### `useRedirect()` and `<Redirect />`
 
@@ -30,7 +30,6 @@ function MyComponent() {
   useRedirect('/login', StatusCode.SeeOther);
 
   // or
-
   return <Redirect url="/login" code={StatusCode.SeeOther} />;
 }
 ```
@@ -91,22 +90,103 @@ export default function ContentSecurityPolicy() {
 
 This library allows you to read from request headers, and set response headers. To set a header, call the `useHeader()` hook, which accepts the name of a header and the desired value. `useRequestHeader()`, on the other hand, gives you access to a specified request header.
 
+**Note:** calling `useRequestHeader` on client-side renders will give you `undefined`, since we only have access to the request context on the server. To remedy this, wrap your app in a `NetworkUniversalProvider` (see below for more details).
+
 ```tsx
 import {useHeader, useRequestHeader} from '@shopify/react-network';
 
 function MyComponent() {
   useHeader('X-React', 'true');
-  const acceptsLanguages = useRequestHeader('Accepts-Languages');
-  return <div>Requested languages: {acceptsLanguages}</div>;
+  const acceptLanguage = useRequestHeader('Accept-Language');
+  return <div>Requested languages: {acceptLanguage}</div>;
 }
 ```
 
-### Server
+#### `useAcceptLanguage()`
 
-To extract details from your application, render a `NetworkContext.Provider` around your app, and give it an instance of the `NetworkManager`. When using `react-effect`, this decoration can be done in the `decorate` option of `extract()`. Finally, you can use the `applyToContext` utility from this package to apply the necessary headers to the response. Your final server middleware will resemble the example below:
+This hook will read and parse the value of the `Accept-Language` header and return the result in an array of `Language` objects. It takes one argument as the fallback `Language` in case the header is not present.
+
+**Note:** `useAcceptLanguage` calls `useRequestHeader`, so the constraints on client-side renders apply here too. Wrap your app in a `NetworkUniversalProvider` and pass in `[Header.AcceptLanguage]` to the `headers` prop in order to call `useAcceptLanguage` on subsequent client-side renders.
 
 ```tsx
-import {renderToString} from 'react-dom/server';
+import {useAcceptLanguage} from '@shopify/react-network';
+
+function MyComponent() {
+  const fallback = {code: 'en', quality: 1.0};
+  const locales = useAcceptLanguage(fallback);
+
+  const languages = locales.map(({code, quality, region}) => {
+    return `code: ${code}, quality: ${quality}, region: ${region}`;
+  });
+
+  return <div>Requested languages: {languages}</div>;
+}
+```
+
+#### `useNetworkManager()`
+
+Returns the full network manager from context.
+
+```tsx
+import React from 'react';
+import {useNetworkManager} from '@shopify/react-network';
+import {CookieContext} from './context';
+
+export function CookieProvider({children}: Props) {
+  const manager = useNetworkManager();
+
+  return (
+    <CookieContext.Provider value={manager.cookies}>
+      {children}
+    </CookieContext.Provider>
+  );
+}
+```
+
+#### `<NetworkUniversalProvider />`
+
+In the case you need to have access to network details on both client and server-side renders, you can wrap your top-level app in `NetworkUniversalProvider` like so:
+
+```tsx
+export default function App() {
+  return (
+    <NetworkUniversalProvider
+      headers={['x-some-header', 'x-some-other-header']}
+    >
+      {
+        // rest of your app
+      }
+    </NetworkUniversalProvider>
+  );
+}
+```
+
+Note that `NetworkContext.Provider` has to be rendered somewhere above in your app (see below).
+
+Currently this universal provider only supports headers, so you can pass in an array of header names to the `headers` prop. Then, in components nested further down in your tree you can get those headers from context using `useRequestHeader` on client-side renders like so:
+
+```tsx
+export default function SomeInnerComponent() {
+  const someHeaderValue = useRequestHeader('x-some-header');
+  const someOtherHeaderValue = useRequestHeader('x-some-other-header');
+
+  return (
+    <Markup
+      value={someHeaderDependentLogic(someHeaderValue, someOtherHeaderValue)}
+    />
+  );
+}
+```
+
+`headers` aren't case-sensitive, but it's a good idea to keep consistent between `NetworkUniversalProvider` and `useRequestHeader`.
+
+### Server
+
+To extract details from your application, render a `NetworkContext.Provider` around your app, and give it an instance of `NetworkManager`. When using `react-effect`, this decoration can be done in the `decorate` option of `extract()`. Finally, you can use the `applyToContext` utility from this package to apply the necessary headers to the response. Your final server middleware will resemble the example below:
+
+```tsx
+import React from 'react';
+import {render} from '@shopify/react-html/server';
 import {extract} from '@shopify/react-effect/server';
 import {
   NetworkManager,
@@ -115,7 +195,7 @@ import {
 } from '@shopify/react-network/server';
 import App from './App';
 
-export default function render(ctx: Context) {
+export default function renderApp(ctx: Context) {
   // Accepts an optional headers argument for giving access
   // to request headers.
   const networkManager = new NetworkManager({
@@ -133,7 +213,11 @@ export default function render(ctx: Context) {
   });
 
   applyToContext(ctx, networkManager);
-  ctx.body = renderToString(app);
+  ctx.body = render(
+    <NetworkContext.Provider value={networkManager}>
+      {app}
+    </NetworkContext.Provider>,
+  );
 }
 ```
 

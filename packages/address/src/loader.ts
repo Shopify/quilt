@@ -3,20 +3,12 @@ import {
   LoadCountriesResponse,
   LoadCountryResponse,
   ResponseError,
-} from './types';
+  GRAPHQL_ENDPOINT,
+  HEADERS,
+  GraphqlOperationName,
+} from '@shopify/address-consts';
+
 import query from './graphqlQuery';
-
-export const GRAPHQL_ENDPOINT =
-  'https://country-service.shopifycloud.com/graphql';
-export enum GraphqlOperationName {
-  Countries = 'countries',
-  Country = 'country',
-}
-
-const HEADERS = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-};
 
 export const loadCountries: (
   locale: string,
@@ -28,7 +20,7 @@ export const loadCountries: (
       query,
       operationName: GraphqlOperationName.Countries,
       variables: {
-        locale: toSupportedLocale(locale),
+        locale: locale.replace(/-/, '_').toUpperCase(),
       },
     }),
   });
@@ -37,7 +29,7 @@ export const loadCountries: (
     | LoadCountriesResponse
     | ResponseError = await response.json();
 
-  if ('errors' in countries) {
+  if (!('data' in countries) && 'errors' in countries) {
     throw new CountryLoaderError(countries);
   }
 
@@ -57,14 +49,14 @@ export const loadCountry: (
         operationName: GraphqlOperationName.Country,
         variables: {
           countryCode,
-          locale: toSupportedLocale(locale),
+          locale: locale.replace(/-/, '_').toUpperCase(),
         },
       }),
     });
 
     const country: LoadCountryResponse = await response.json();
 
-    if ('errors' in country) {
+    if (!('data' in country) && 'errors' in country) {
       throw new CountryLoaderError(country);
     }
 
@@ -76,32 +68,6 @@ class CountryLoaderError extends Error {
   constructor(errors: ResponseError) {
     const errorMessage = errors.errors.map(error => error.message).join('; ');
     super(errorMessage);
-  }
-}
-
-const DEFAULT_LOCALE = 'EN';
-export const SUPPORTED_LOCALES = [
-  'DA',
-  'DE',
-  'EN',
-  'ES',
-  'FR',
-  'IT',
-  'JA',
-  'NL',
-  'PT',
-  'PT_BR',
-];
-
-export function toSupportedLocale(locale: string) {
-  const supportedLocale = locale.replace(/-/, '_').toUpperCase();
-
-  if (SUPPORTED_LOCALES.includes(supportedLocale)) {
-    return supportedLocale;
-  } else if (SUPPORTED_LOCALES.includes(supportedLocale.substring(0, 2))) {
-    return supportedLocale.substring(0, 2);
-  } else {
-    return DEFAULT_LOCALE;
   }
 }
 

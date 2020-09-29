@@ -10,21 +10,19 @@ Gem::Specification.new do |spec|
   spec.authors     = ["Mathew Allen"]
   spec.email       = ["mathew.allen@shopify.com"]
   spec.homepage    = "https://github.com/Shopify/quilt/tree/master/gems/quilt_rails"
-  spec.summary     = "A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries."
-  spec.description = "A turn-key solution for integrating server-rendered react into your Rails app using Quilt libraries."
+  spec.summary     = "A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries."
+  spec.description = "A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries."
   spec.license     = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
+
   spec.add_dependency 'railties', '>= 3.2.0'
+  spec.add_dependency 'activesupport', '>= 3.2.0'
   spec.add_dependency 'rails-reverse-proxy', '~> 0.9.0'
+  spec.add_dependency 'statsd-instrument', '>= 2.8.0'
+
+  spec.add_development_dependency 'rubocop', '~> 0.74'
+  spec.add_development_dependency 'rubocop-git', '~> 0.1.3'
 end

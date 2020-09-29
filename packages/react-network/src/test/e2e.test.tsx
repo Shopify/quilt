@@ -1,17 +1,10 @@
 import React from 'react';
-import {useServerEffect} from '@shopify/react-effect';
 import {extract} from '@shopify/react-effect/server';
+import {useServerEffect} from '@shopify/react-effect';
+import {StatusCode, CspDirective, Header} from '@shopify/network';
 
 import {NetworkContext, NetworkManager} from '../server';
-import {
-  useStatus,
-  useCspDirective,
-  useRedirect,
-  useHeader,
-  StatusCode,
-  CspDirective,
-  Header,
-} from '..';
+import {useStatus, useCspDirective, useRedirect, useHeader} from '../hooks';
 
 describe('e2e', () => {
   it('clears network details between requests', async () => {
@@ -25,6 +18,7 @@ describe('e2e', () => {
       }
 
       useStatus(StatusCode.NotFound);
+      networkManager.cookies.setCookie('foo', 'bar');
       useCspDirective(CspDirective.ChildSrc, 'https://*');
       useHeader(Header.CacheControl, 'no-cache');
     });
@@ -40,6 +34,7 @@ describe('e2e', () => {
     const extracted = networkManager.extract();
     expect(extracted).toHaveProperty('headers.size', 0);
     expect(extracted).toHaveProperty('status', undefined);
+    expect(extracted).toHaveProperty('cookies', {});
   });
 
   it('bails out when a redirect is set', async () => {

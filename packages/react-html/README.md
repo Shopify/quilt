@@ -24,7 +24,7 @@ This package exposes two entrypoints:
 Your server needs to construct an HTML document. To do this, you can use the `Html` component and `render` function from `@shopify/react-html/server`:
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import {render, Html} from '@shopify/react-html/server';
 
 import App from '../app';
@@ -68,7 +68,7 @@ You can also use the `Script`, `Style`, and `Serialize` components detailed in t
 
 ### In your application
 
-In order for `link`, `meta`, and `title` tags to be updated as components are mounted and unmounted, you must render the `HeadUpdater` component somewhere in your tree:
+In order for `link`, `meta`, and `title` tags to be updated as components are mounted and unmounted, you must render the `HtmlUpdater` component somewhere in your tree:
 
 ```tsx
 // Somewhere in app code
@@ -76,7 +76,7 @@ In order for `link`, `meta`, and `title` tags to be updated as components are mo
 function App() {
   return (
     <>
-      <HeadUpdater />
+      <HtmlUpdater />
       <RestOfApp />
     </>
   );
@@ -214,15 +214,15 @@ import {Script} from '@shopify/react-html';
 />;
 ```
 
-### `<HeadUpdater />`
+### `<HtmlUpdater />`
 
-The `<HeadUpdater />` component is responsible for updating the head in response to `link`, `meta`, and `title` changes. You should only render one of these in your entire app.
+The `<HtmlUpdater />` component is responsible for updating the head in response to `link`, `meta`, and `title` changes. It also renders a `HydrationTracker` from [`@shopify/react-hydrate`](../react-hydrate). You should only render one of these in your entire app.
 
 ### `useLink()` and `<Link />`
 
 Renders a `<link />` tag in the head with the specified attributes. On the server, links are recorded in the `Manager` and automatically applied to the `Html` component. On the client, the `<link />` tags are updated in a deferred callback to minimize DOM manipulations.
 
-Both the hook and component versions accept any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`useFavicon()`/ `<Favicon />` component](#favicon) instead.
+Both the hook and component versions accept any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`useFavicon()`/ `<Favicon />` component](#usefavicon-and-favicon-) instead.
 
 ### `useMeta()` and `<Meta />`
 
@@ -276,7 +276,9 @@ const markup = render(<Html>Hello world!</Html>);
 
 ### `showPage()`
 
-This function encapsulates the logic for showing the page in development, where it is hidden on the initial render by default. You must call this function from your client entry point, usually right after hydrating your React app. It returns a promise that resolves after the document is guaranteed to be visible.
+This function encapsulates the logic for showing the page in development, where it is hidden on the initial render by default. This avoids flashes of unstyled content that are an unavoidable side effect of embedding CSS in JavaScript.
+
+You must call this function from your client entry point, usually right after hydrating your React app. It returns a promise that resolves after the document is guaranteed to be visible. An example of using this function is shown in the [client entrypoint section](#in-your-client-entrypoint).
 
 ### `getSerialized<Data>()`
 

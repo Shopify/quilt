@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import {mount} from '@shopify/react-testing';
 
 import {Link} from '../Link';
 import {Meta} from '../Meta';
-
 import {AppleHomeScreen, IconSize} from '../AppleHomeScreen';
 
 describe('<AppleHomeScreen />', () => {

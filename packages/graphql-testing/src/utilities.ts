@@ -1,4 +1,5 @@
 import {DocumentNode, OperationDefinitionNode} from 'graphql';
+
 import {FindOptions} from './types';
 
 export function operationNameFromFindOptions({
@@ -23,7 +24,7 @@ export function operationNameFromDocument(
   document: DocumentNode | {resolver: {resolved?: DocumentNode}},
 ) {
   return 'resolver' in document && document.resolver.resolved != null
-    ? operationNameFromDocumentNode(document.resolver.resolved!)
+    ? operationNameFromDocumentNode(document.resolver.resolved)
     : operationNameFromDocumentNode(document as DocumentNode);
 }
 
@@ -31,7 +32,7 @@ export function operationTypeFromDocument(
   document: DocumentNode | {resolver: {resolved?: DocumentNode}},
 ) {
   return 'resolver' in document && document.resolver.resolved != null
-    ? operationTypeFromDocumentNode(document.resolver.resolved!)
+    ? operationTypeFromDocumentNode(document.resolver.resolved)
     : operationTypeFromDocumentNode(document as DocumentNode);
 }
 

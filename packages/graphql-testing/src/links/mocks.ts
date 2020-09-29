@@ -1,5 +1,6 @@
 import {ApolloLink, Observable, Operation} from 'apollo-link';
 import {ExecutionResult, GraphQLError} from 'graphql';
+
 import {GraphQLMock, MockGraphQLFunction} from '../types';
 
 export class MockLink extends ApolloLink {
@@ -7,7 +8,11 @@ export class MockLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation) {
+  updateMock(mock: GraphQLMock) {
+    this.mock = mock;
+  }
+
+  request(operation: Operation): Observable<any> {
     return new Observable(obs => {
       const {mock} = this;
       const {operationName = ''} = operation;

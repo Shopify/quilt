@@ -1,7 +1,10 @@
 import {createHmac} from 'crypto';
+
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {StatusCode} from '@shopify/network';
+
 import {WebhookHeader} from '../types';
+
 import {receiveWebhook} from '..';
 
 const secret = 'kitties are cute';
@@ -106,6 +109,22 @@ describe('receiveWebhook', () => {
       });
     });
 
+    it('adds webhook payload to state', async () => {
+      const onReceived = jest.fn();
+      const middleware = receiveWebhook({secret, onReceived});
+
+      const context = createMockContext({
+        rawBody,
+        headers: headers({hmac: hmac(secret, rawBody)}),
+      });
+
+      await middleware(context, noop);
+
+      expect(context.state.webhook).toMatchObject({
+        payload: JSON.parse(rawBody),
+      });
+    });
+
     it('returns the Accepted status code', async () => {
       const onReceived = jest.fn();
       const middleware = receiveWebhook({secret, onReceived});
@@ -182,9 +201,7 @@ function headers({
 }
 
 function hmac(secret: string, body: string) {
-  return createHmac('sha256', secret)
-    .update(body, 'utf8')
-    .digest('base64');
+  return createHmac('sha256', secret).update(body, 'utf8').digest('base64');
 }
 
 async function noop() {}

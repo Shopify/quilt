@@ -14,12 +14,12 @@ export const dateStyle = {
   },
   [DateStyle.Short]: {
     month: 'short',
-    day: '2-digit',
+    day: 'numeric',
     year: 'numeric',
   },
   [DateStyle.Humanize]: {
     month: 'long',
-    day: '2-digit',
+    day: 'numeric',
     year: 'numeric',
   },
   [DateStyle.Time]: {
@@ -180,3 +180,26 @@ export {
   default as currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
 } from './currency-decimal-places';
+
+export const EASTERN_NAME_ORDER_FORMATTERS = new Map([
+  [
+    'ko',
+    (firstName: string, lastName: string, full: boolean) =>
+      full ? `${lastName}${firstName}` : lastName,
+  ],
+  [
+    'ja',
+    (firstName: string, lastName: string, full: boolean) =>
+      full ? `${lastName}${firstName}` : `${lastName}様`,
+  ],
+  [
+    'zh-CN',
+    (firstName: string, lastName: string, full: boolean) =>
+      full ? `${lastName}${firstName}` : lastName,
+  ],
+  [
+    'zh-TW',
+    (firstName: string, lastName: string, full: boolean) =>
+      full ? `${lastName}${firstName}` : lastName,
+  ],
+]);

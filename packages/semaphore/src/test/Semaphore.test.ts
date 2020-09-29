@@ -7,7 +7,7 @@ describe('Semaphore', () => {
     it('resolves with a permit when counter is > 0', async () => {
       const semaphore = new Semaphore(1);
 
-      await expect(semaphore.acquire()).resolves.toBeInstanceOf(Permit);
+      expect(await semaphore.acquire()).toBeInstanceOf(Permit);
     });
 
     it('does not resolve if counter is = 0', async () => {
@@ -33,7 +33,7 @@ describe('Semaphore', () => {
       const permit = await semaphore.acquire();
       permit.release();
 
-      await expect(semaphore.acquire()).resolves.toBeInstanceOf(Permit);
+      expect(await semaphore.acquire()).toBeInstanceOf(Permit);
     });
 
     it('resolves when previous permit is released after the call', async () => {
@@ -88,6 +88,33 @@ describe('Semaphore', () => {
       await permit1.release();
 
       expect(spy4).toHaveBeenCalledWith(expect.any(Permit));
+    });
+
+    it('does not allow acquiring more permits than initially allowed', async () => {
+      const semaphore = new Semaphore(1);
+
+      const promise1 = semaphore.acquire();
+      const promise2 = semaphore.acquire();
+
+      (await promise1).release();
+      (await promise2).release();
+
+      const spy3 = jest.fn();
+      const spy4 = jest.fn();
+
+      semaphore
+        .acquire()
+        .then(spy3)
+        .catch(() => {});
+      semaphore
+        .acquire()
+        .then(spy4)
+        .catch(() => {});
+
+      await endOfPollPhase;
+
+      expect(spy3).toHaveBeenCalledWith(expect.any(Permit));
+      expect(spy4).not.toHaveBeenCalled();
     });
   });
 });

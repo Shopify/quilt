@@ -1,18 +1,24 @@
 import {useState, useCallback, useRef} from 'react';
 import {useMountedRef} from '@shopify/react-hooks';
+
 import {
   FormMapping,
   SubmitHandler,
   SubmitResult,
   FieldBag,
   FormError,
-  FieldDictionary,
 } from '../types';
-import {mapObject, isField, propagateErrors, validateAll} from '../utilities';
+import {
+  propagateErrors,
+  validateAll,
+  getValues,
+  makeCleanFields,
+} from '../utilities';
 
 export function useSubmit<T extends FieldBag>(
   onSubmit: SubmitHandler<FormMapping<T, 'value'>> = noopSubmission,
   fieldBag: T,
+  makeCleanAfterSubmit = false,
 ) {
   const mounted = useMountedRef();
   const [submitting, setSubmitting] = useState(false);
@@ -53,31 +59,15 @@ export function useSubmit<T extends FieldBag>(
       } else {
         setSubmitErrors([]);
       }
+
+      if (makeCleanAfterSubmit) {
+        makeCleanFields(fields);
+      }
     },
-    [mounted, onSubmit, setErrors],
+    [mounted, onSubmit, setErrors, makeCleanAfterSubmit],
   );
 
   return {submit, submitting, errors: submitErrors, setErrors};
-}
-
-function getValues<T extends FieldBag>(fieldBag: T) {
-  return mapObject<FormMapping<T, 'value'>>(fieldBag, item => {
-    if (isField(item)) {
-      return item.value;
-    }
-
-    if (Array.isArray(item)) {
-      return item.map(valuesOfFields);
-    }
-
-    return valuesOfFields(item);
-  });
-}
-
-function valuesOfFields(fields: FieldDictionary<any>) {
-  return mapObject(fields, item => {
-    return item.value;
-  });
 }
 
 /**
