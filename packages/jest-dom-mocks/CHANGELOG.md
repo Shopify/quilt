@@ -10,7 +10,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - `fetch-mock` is updated to the latest version [#1510](https://github.com/Shopify/quilt/pull/1510)
-    Please see the [migration guide](./migration-guide.md) for more information.
+
+  Please see the [migration guide](./migration-guide.md) for more information.
 
 ## [2.9.1] - 2020-05-05
 
