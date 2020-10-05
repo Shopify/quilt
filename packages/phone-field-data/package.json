@@ -1,0 +1,36 @@
+{
+  "name": "@shopify/phone-field-data",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Providing the PhoneField data for the PhoneField component on polaris-react",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "node src/build.js"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/phone-field-data"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/phone-field-data/README.md",
+  "devDependencies": {
+    "countries-list": "^2.5.6",
+    "intl-tel-input": "^17.0.5",
+    "libphonenumber-js": "^1.8.1",
+    "us-area-codes": "^1.0.0"
+  },
+  "files": [
+    "!tsconfig.tsbuildinfo",
+    "index.json"
+  ]
+}
