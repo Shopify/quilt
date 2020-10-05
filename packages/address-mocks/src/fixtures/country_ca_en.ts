@@ -18,6 +18,9 @@ const data = {
         postalCode: 'Postal code',
         zone: 'Province',
       },
+      optionalLabels: {
+        address2: 'Apt./Unit No. (optional)',
+      },
       formatting: {
         edit:
           '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',

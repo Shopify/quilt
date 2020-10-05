@@ -36,7 +36,7 @@ describe('<PerformanceReport />', () => {
     timer.runAllTimers();
 
     const [fetchedUrl, {body, method, headers}] = fetch.lastCall();
-    expect(fetchedUrl).toBe(url);
+    expect(fetchedUrl).toBe(`${url}/`);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
     expect(JSON.parse(body!.toString())).toMatchObject({
@@ -63,7 +63,7 @@ describe('<PerformanceReport />', () => {
     timer.runAllTimers();
 
     const [fetchedUrl, {body, method, headers}] = fetch.lastCall();
-    expect(fetchedUrl).toBe(url);
+    expect(fetchedUrl).toBe(`${url}/`);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
     expect(JSON.parse(body!.toString())).toMatchObject({
@@ -119,6 +119,26 @@ describe('<PerformanceReport />', () => {
     const [, {body}] = fetch.lastCall();
     expect(JSON.parse(body!.toString())).toMatchObject({
       connection: mockConnection,
+    });
+  });
+
+  it('includes locale in reports', () => {
+    const performance = mockPerformance();
+    const mockConnection = randomConnection();
+    connection.mock(mockConnection);
+
+    mount(
+      <PerformanceContext.Provider value={performance}>
+        <PerformanceReport url={faker.internet.url()} locale="zh-CN" />
+      </PerformanceContext.Provider>,
+    );
+
+    performance.simulateNavigation();
+    timer.runAllTimers();
+
+    const [, {body}] = fetch.lastCall();
+    expect(JSON.parse(body!.toString())).toMatchObject({
+      locale: 'zh-CN',
     });
   });
 });

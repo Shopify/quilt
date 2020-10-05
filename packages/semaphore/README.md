@@ -1,9 +1,9 @@
 # `@shopify/semaphore`
 
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg)](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg)  [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/semaphore.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/semaphore.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg)](https://badge.fury.io/js/%40shopify%2Fsemaphore.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/semaphore.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/semaphore.svg)
 
-The Semaphore class implements a counting [semaphore](https://en.wikipedia.org/wiki/Semaphore_(programming)).
+The Semaphore class implements a counting [semaphore](<https://en.wikipedia.org/wiki/Semaphore_(programming)>).
 It can be useful to control concurrent access to a pool of resources such as:
 
 1. Maintaining a pool of web workers to run background scripts
@@ -29,7 +29,7 @@ Create a semaphore instance by calling the `Semaphore` constructor with a count 
 const semaphore = new Semaphore(3);
 ```
 
-If you need a [lock/mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)), a semaphore with a count of 1 will effectively act as one:
+If you need a [lock/mutex](<https://en.wikipedia.org/wiki/Lock_(computer_science)>), a semaphore with a count of 1 will effectively act as one:
 
 ```typescript
 const mutex = new Semaphore(1);
@@ -57,7 +57,6 @@ The `.release)()` method returns a promise that gets resolved when the permit is
 await permit.release();
 ```
 
-
 ## Example
 
 ```typescript
@@ -68,8 +67,7 @@ const fetchSemaphore = new Semaphore(MAX_SIMULTANEOUS_FETCHES);
 async function callApi(path) {
   const permit = await fetchSemaphore.acquire();
 
-  return fetch(path)
-    .finally(() => permit.release());
+  return fetch(path).finally(() => permit.release());
 }
 
 callApi(apples).then(renderApples);

@@ -18,6 +18,9 @@ const data = {
         postalCode: '郵便番号',
         zone: '州',
       },
+      optionalLabels: {
+        address2: '建物名、部屋番号など (任意)',
+      },
       formatting: {
         edit:
           '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',

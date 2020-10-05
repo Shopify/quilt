@@ -38,7 +38,7 @@ describe('addReleaseToChangelog', () => {
     const notes = 'updated another thing';
 
     const initial = `
-## Unreleased
+## [Unreleased]
 
 ## 0.0.1 - 2019-08-15
 
@@ -74,7 +74,7 @@ ${notes}
 		`;
 
     const initial = `
-## Unreleased
+## [Unreleased]
 
 ## 0.0.1 - 2019-08-15
 

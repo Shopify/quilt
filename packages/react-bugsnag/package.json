@@ -1,0 +1,37 @@
+{
+  "name": "@shopify/react-bugsnag",
+  "version": "1.0.1",
+  "license": "MIT",
+  "description": "An opinionated wrapper for Bugsnag's React plugin",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-bugsnag"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-bugsnag/README.md",
+  "dependencies": {
+    "@bugsnag/js": "^7.1.1",
+    "@bugsnag/plugin-react": "^7.1.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.1"
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo"
+  ]
+}

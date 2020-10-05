@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig_base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": "."
+  },
+  "include": [
+    "../../config/typescript/**/*",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "references": [
+    {"path": "../react-effect"},
+    {"path": "../react-hydrate"},
+    {"path": "../react-testing"},
+    {"path": "../useful-types"},
+    {"path": "../with-env"}
+  ]
+}

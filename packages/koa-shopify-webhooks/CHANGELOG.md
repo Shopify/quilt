@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+<!-- ## [Unreleased] -->
+
+## [2.5.1] - 2020-09-28
+
+### Added
+
+- The `ApiVersion` enum now has an `July20` option.
+
+## [2.5.0] - 2020-08-20
+
+- Add an option to register EventBridge webhooks to `registerWebhook`.
+
+## [2.4.0] - 2020-02-19
+
+- The `ApiVersion` enum now has an `January20` and `April20` options
+
+## [2.3.0] - 2020-01-27
+
+- Add [webhooks for billing](https://help.shopify.com/en/api/guides/billing-api#webhooks-for-billing) to topics
 
 ## [2.2.0] - 2019-11-08
 

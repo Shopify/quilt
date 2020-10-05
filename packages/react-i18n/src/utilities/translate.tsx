@@ -17,6 +17,20 @@ const MISSING_TRANSLATION = Symbol('Missing translation');
 const PLURALIZATION_KEY_NAME = 'count';
 const SEPARATOR = '.';
 
+const numberFormats = new Map<string, Intl.NumberFormat>();
+export function memoizedNumberFormatter(
+  locales?: string | string[],
+  options?: Intl.NumberFormatOptions,
+) {
+  const key = numberFormatCacheKey(locales, options);
+  if (numberFormats.has(key)) {
+    return numberFormats.get(key)!;
+  }
+  const i = new Intl.NumberFormat(locales, options);
+  numberFormats.set(key, i);
+  return i;
+}
+
 export const PSEUDOTRANSLATE_OPTIONS: PseudotranslateOptions = {
   startDelimiter: '{',
   endDelimiter: '}',
@@ -30,18 +44,14 @@ export interface TranslateOptions<Replacements = {}> {
   pseudotranslate?: boolean | string;
 }
 
-function numberFormatter(
-  locale: string,
+export function numberFormatCacheKey(
+  locales?: string | string[],
   options: Intl.NumberFormatOptions = {},
 ) {
-  return new Intl.NumberFormat(locale, options);
-}
+  const localeKey = Array.isArray(locales) ? locales.sort().join('-') : locales;
 
-export const memoizedNumberFormatter = memoizeFn(
-  numberFormatter,
-  (locale: string, options: Intl.NumberFormatOptions = {}) =>
-    `${locale}${JSON.stringify(options)}`,
-);
+  return `${localeKey}-${JSON.stringify(options)}`;
+}
 
 function pluralRules(locale: string, options: Intl.PluralRulesOptions = {}) {
   return new Intl.PluralRules(locale, options);
@@ -128,7 +138,7 @@ export function translate(
     }
   }
 
-  throw new MissingTranslationError(id, locale);
+  throw new MissingTranslationError(normalizedId, locale);
 }
 
 function translateWithDictionary(

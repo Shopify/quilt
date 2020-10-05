@@ -12,9 +12,9 @@ export type PropsFor<
   : never;
 
 export type FunctionKeys<T> = {
-  [K in keyof T]-?: NonNullable<T[K]> extends ((...args: any[]) => any)
+  [K in keyof T]-?: NonNullable<T[K]> extends (...args: any[]) => any
     ? K
-    : never
+    : never;
 }[keyof T];
 
 interface DeepPartialArray<T> extends Array<DeepPartial<T>> {}

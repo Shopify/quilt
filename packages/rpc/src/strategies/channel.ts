@@ -64,7 +64,7 @@ export function createChannelFunctionStrategy({
               const [serializedResult, transferables] = toWire(result);
               port1.postMessage(
                 [RESULT, id, undefined, serializedResult],
-                transferables,
+                transferables as Transferable[],
               );
             } catch (error) {
               const {name, message, stack} = error;
@@ -127,7 +127,7 @@ export function createChannelFunctionStrategy({
 
       const retainers = new Set(retainedBy);
 
-      const proxy = new Proxy(function() {}, {
+      const proxy = new Proxy(function () {}, {
         get(target, prop, receiver) {
           if (prop === 'apply' || prop === 'bind') {
             return receiver;
@@ -182,7 +182,10 @@ export function createChannelFunctionStrategy({
           });
 
           const [serializedArgs, transferables] = toWire(args);
-          port.postMessage([APPLY, id, serializedArgs], transferables);
+          port.postMessage(
+            [APPLY, id, serializedArgs],
+            transferables as Transferable[],
+          );
 
           return done;
         },

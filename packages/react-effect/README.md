@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect.svg)
 
-This package contains a component and set of utilities for performing multiple effects during one single pass of server rendering in a universal React application.
+This package contains a component and set of utilities for performing multiple effects during a single pass of server-side rendering in a universal React application.
 
 ## Installation
 
@@ -84,15 +84,19 @@ You may optionally pass an options object that contains the following keys (all 
   ```tsx
   import {renderToString} from 'react-dom/server';
   import {extract} from '@shopify/react-effect/server';
-  import {createApolloBridge} from '@shopify/react-effect-apollo';
+  import {HtmlContext, HtmlManager} from '@shopify/react-html/server';
 
   async function app(ctx) {
-    const ApolloBridge = createApolloBridge();
+    const htmlManager = new HtmlManager();
     const app = <App />;
 
     await extract(app, {
       decorate(element) {
-        return <ApolloBridge>{element}</ApolloBridge>;
+        return (
+          <HtmlContext.Provider value={htmlManager}>
+            {element}
+          </HtmlContext.Provider>
+        );
       },
     });
 

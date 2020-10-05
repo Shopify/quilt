@@ -20,12 +20,12 @@ This package provides two methods that should be included in the jest setup file
 
 ### `ensureMocksReset`
 
-Should be called in the `beforeEach` method of the jest `each-test` setup file. For example:
+Should be called in the `afterEach` method of the jest `each-test` setup file. For example:
 
 ```ts
 import {ensureMocksReset} from '@shopify/jest-dom-mocks';
 
-beforeEach(() => {
+afterEach(() => {
   ensureMocksReset();
 });
 ```
@@ -216,7 +216,7 @@ Simulates a call on all matching observers. If you pass a `target` on the passed
 
 ### Fetch Mock
 
-We use a version of `fetch-mock` that is augmented to ensure that it is properly unmocked after each test run. See the [API of `fetch-mock`](http://www.wheresrhys.co.uk/fetch-mock/api) for more details.
+We use a version of `fetch-mock` that is augmented to ensure that it is properly unmocked after each test run. See the [API of `fetch-mock`](http://www.wheresrhys.co.uk/fetch-mock) for more details.
 
 ### Storage mock
 
@@ -224,7 +224,7 @@ The storage mocks are a bit different than the other mocks, because they serve p
 
 - `getItem`
 - `setItem`
-- `removeItrem`
+- `removeItem`
 - `clear`
 
 Each of these are wrapped in a jest spy, which is automatically restored at the end of the test run.
@@ -237,6 +237,7 @@ The dimension mocks allow mocking the following DOM properties:
 - `scrollHeight`
 - `offsetWidth`
 - `offsetHeight`
+- `innerWidth`
 
 Pass the dimension you want to mock and the value you want returned for all calls when calling `mock`:
 

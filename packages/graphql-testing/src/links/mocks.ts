@@ -8,7 +8,11 @@ export class MockLink extends ApolloLink {
     super();
   }
 
-  request(operation: Operation) {
+  updateMock(mock: GraphQLMock) {
+    this.mock = mock;
+  }
+
+  request(operation: Operation): Observable<any> {
     return new Observable(obs => {
       const {mock} = this;
       const {operationName = ''} = operation;

@@ -1,4 +1,4 @@
-import {GRAPHQL_ENDPOINT, SUPPORTED_LOCALES} from '@shopify/address-consts';
+import {GRAPHQL_ENDPOINT} from '@shopify/address-consts';
 import {fetch} from '@shopify/jest-dom-mocks';
 
 import {fixtures} from './fixtures';
@@ -11,7 +11,20 @@ interface Options {
 }
 
 export function mockCountryRequests() {
-  SUPPORTED_LOCALES.map(locale => {
+  const locales = [
+    'AF',
+    'DA',
+    'DE',
+    'EN',
+    'ES',
+    'FR',
+    'IT',
+    'JA',
+    'NL',
+    'PT',
+    'PT_BR',
+  ];
+  locales.concat(locales).map(locale => {
     ['countries', 'country'].map(operationName => {
       fetch.mock(
         (url: string, options: Options) => {

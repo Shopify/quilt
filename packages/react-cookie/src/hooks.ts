@@ -13,7 +13,7 @@ export function useCookie(
   key: string,
 ): [
   string | undefined,
-  (value?: string, options?: CookieSerializeOptions) => void
+  (value?: string, options?: CookieSerializeOptions) => void,
 ] {
   const manager = useContext(CookieContext);
 
@@ -21,9 +21,7 @@ export function useCookie(
     throw new Error(NO_MANAGER_ERROR);
   }
 
-  const [cookie, setCookieValue] = useState(() =>
-    manager ? manager.getCookie(key) : undefined,
-  );
+  const [cookie, setCookieValue] = useState(() => manager?.getCookie(key));
 
   const setCookie = useCallback(
     (value?: string, options?: CookieSerializeOptions) => {

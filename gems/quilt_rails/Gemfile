@@ -3,9 +3,12 @@ source('https://rubygems.org')
 
 gemspec
 
+gem('rubocop-shopify', require: false)
+
 group :test do
   gem 'minitest'
   gem 'minitest-hooks'
   gem 'mocha'
   gem 'pry'
+  gem 'sqlite3'
 end

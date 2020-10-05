@@ -3,11 +3,14 @@
 module Quilt
   module Logger
     def self.log(string)
-      if defined? Rails && Rails.logger.nil?
-        puts string
-      else
-        Rails.logger.info(string)
-      end
+      ActiveSupport::Deprecation.warn(<<~MSG.squish)
+        Quilt::Logger.log is deprecated. Please use Quilt.logger instead.
+      MSG
+      Quilt.configuration.logger.info(string)
     end
+  end
+
+  class << self
+    delegate(:logger, to: :configuration)
   end
 end

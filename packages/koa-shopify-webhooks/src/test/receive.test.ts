@@ -201,9 +201,7 @@ function headers({
 }
 
 function hmac(secret: string, body: string) {
-  return createHmac('sha256', secret)
-    .update(body, 'utf8')
-    .digest('base64');
+  return createHmac('sha256', secret).update(body, 'utf8').digest('base64');
 }
 
 async function noop() {}

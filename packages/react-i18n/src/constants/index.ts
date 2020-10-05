@@ -14,7 +14,7 @@ export const dateStyle = {
   },
   [DateStyle.Short]: {
     month: 'short',
-    day: '2-digit',
+    day: 'numeric',
     year: 'numeric',
   },
   [DateStyle.Humanize]: {
@@ -181,7 +181,12 @@ export {
   DEFAULT_DECIMAL_PLACES,
 } from './currency-decimal-places';
 
-export const CUSTOM_NAME_FORMATTERS = new Map([
+export const EASTERN_NAME_ORDER_FORMATTERS = new Map([
+  [
+    'ko',
+    (firstName: string, lastName: string, full: boolean) =>
+      full ? `${lastName}${firstName}` : lastName,
+  ],
   [
     'ja',
     (firstName: string, lastName: string, full: boolean) =>

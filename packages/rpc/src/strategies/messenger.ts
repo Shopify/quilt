@@ -135,7 +135,7 @@ export function createMessengerFunctionStrategy({
 
       const retainers = new Set(retainedBy);
 
-      const proxy = new Proxy(function() {}, {
+      const proxy = new Proxy(function () {}, {
         get(target, prop, receiver) {
           if (prop === 'apply' || prop === 'bind') {
             return receiver;

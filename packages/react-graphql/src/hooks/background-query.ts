@@ -13,7 +13,7 @@ type Subscription = ReturnType<
 
 export function useBackgroundQuery(
   load: () => Promise<DocumentNode | null | Error>,
-  options?: Omit<WatchQueryOptions, 'query' | 'fetchPolicy'>,
+  options?: Omit<WatchQueryOptions, 'query'>,
 ) {
   const client = useApolloClient();
   const lastClient = useRef(client);

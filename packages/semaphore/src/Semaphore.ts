@@ -31,7 +31,6 @@ export class Semaphore {
 
   acquire(): Promise<Permit> {
     if (this.availablePermits > 0) {
-      this.availablePermits--;
       return Promise.resolve(this.createPermit());
     } else {
       const deferred: Deferred = {};
@@ -44,11 +43,13 @@ export class Semaphore {
   }
 
   private createPermit(): Permit {
+    this.availablePermits--;
+
     return new Permit(
       async (): Promise<any> => {
         this.availablePermits++;
 
-        if (this.deferreds.length) {
+        if (this.deferreds.length > 0) {
           const deferred = this.deferreds.shift()!;
           deferred.resolve!(this.createPermit());
           await deferred.promise;

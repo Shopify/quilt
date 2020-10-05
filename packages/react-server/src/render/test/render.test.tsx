@@ -4,20 +4,28 @@ import {middleware as sewingKitKoaMiddleware} from '@shopify/sewing-kit-koa';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
 
-import {createRender} from '../render';
+import {createRender, Context} from '../render';
 import {mockMiddleware} from '../../test/utilities';
+
+const mockAssetsScripts = jest.fn(() => Promise.resolve([]));
+const mockAssetsStyles = jest.fn(() => Promise.resolve([]));
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
   middleware: jest.fn(() => mockMiddleware),
   getAssets() {
     return {
-      styles: () => Promise.resolve([]),
-      scripts: () => Promise.resolve([]),
+      styles: mockAssetsStyles,
+      scripts: mockAssetsScripts,
     };
   },
 }));
 
 describe('createRender', () => {
+  beforeEach(() => {
+    mockAssetsScripts.mockClear();
+    mockAssetsStyles.mockClear();
+  });
+
   it('response contains "My cool app"', async () => {
     const myCoolApp = 'My cool app';
     const ctx = createMockContext();
@@ -26,6 +34,21 @@ describe('createRender', () => {
     await renderFunction(ctx, noop);
 
     expect(await readStream(ctx.body)).toContain(myCoolApp);
+  });
+
+  it('response contains x-quilt-data from headers', async () => {
+    const myCoolApp = 'My cool app';
+    const data = {foo: 'bar'};
+    const ctx = createMockContext({
+      headers: {'x-quilt-data': JSON.stringify({foo: 'bar'})},
+    });
+
+    const renderFunction = createRender(() => <>{myCoolApp}</>);
+    await renderFunction(ctx, noop);
+
+    const response = await readStream(ctx.body);
+    expect(response).toContain('quilt-data');
+    expect(response).toContain(JSON.stringify(data));
   });
 
   it('does not clobber proxies in the context object', async () => {
@@ -50,11 +73,35 @@ describe('createRender', () => {
     );
   });
 
+  it('calls the sewing-kit-koa middleware with the passed in assetName', async () => {
+    const assetName = 'alternate';
+    const ctx = createMockContext();
+
+    const renderFunction = createRender(() => <></>, {assetName});
+    await renderFunction(ctx, noop);
+
+    expect(mockAssetsScripts).toHaveBeenCalledWith(
+      expect.objectContaining({name: assetName}),
+    );
+  });
+
+  it('calls the sewing-kit-koa middleware with the a functional assetName', async () => {
+    const assetName = (ctx: Context) => ctx.path.replace('/', '');
+    const ctx = createMockContext({url: 'http://www.hi.com/hello-hi-hello'});
+
+    const renderFunction = createRender(() => <></>, {assetName});
+    await renderFunction(ctx, noop);
+
+    expect(mockAssetsScripts).toHaveBeenCalledWith(
+      expect.objectContaining({name: 'hello-hi-hello'}),
+    );
+  });
+
   describe('error handling', () => {
     const error = new Error(
       'Look, it broken. This is some meaningful error messsage.',
     );
-    const BrokenApp = function() {
+    const BrokenApp = function () {
       throw error;
     };
 
@@ -73,9 +120,10 @@ describe('createRender', () => {
     it('throws a 500 with a meaningful error message in production', () => {
       withEnv('production', async () => {
         const ctx = {...createMockContext(), locale: ''};
+        const noopSpy = () => {};
         const throwSpy = jest
           .spyOn(ctx, 'throw')
-          .mockImplementation(() => null);
+          .mockImplementation(noopSpy as any);
 
         const renderFunction = createRender(() => <BrokenApp />);
         await renderFunction(ctx, noop);

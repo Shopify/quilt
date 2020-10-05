@@ -1,13 +1,17 @@
 module.exports = {
   extends: [
-    'plugin:shopify/typescript',
-    'plugin:shopify/typescript-type-checking',
-    'plugin:shopify/react',
-    'plugin:shopify/jest',
-    'plugin:shopify/prettier',
+    'plugin:@shopify/typescript',
+    'plugin:@shopify/typescript-type-checking',
+    'plugin:@shopify/react',
+    'plugin:@shopify/jest',
+    'plugin:@shopify/prettier',
   ],
   parserOptions: {
-    project: 'tsconfig.json',
+    project: [
+      'packages/tsconfig.json',
+      'packages/tsconfig_base.json',
+      'test/tsconfig.eslint.json',
+    ],
   },
   rules: {
     'jest/valid-expect-in-promise': 'off',
@@ -19,8 +23,8 @@ module.exports = {
     'callback-return': 'off',
     'func-style': 'off',
     'react/display-name': 'off',
-    'shopify/restrict-full-import': ['error', 'lodash'],
-    'shopify/jsx-no-hardcoded-content': 'off',
+    '@shopify/restrict-full-import': ['error', 'lodash'],
+    '@shopify/jsx-no-hardcoded-content': 'off',
     // reports false positives with React's useRef hook
     'require-atomic-updates': 'off',
     '@typescript-eslint/no-unnecessary-type-arguments': 'off',
