@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 const countriesList = require('countries-list');
 const intlTelInput = require('intl-tel-input/build/js/data');
 const libphonenumberJS = require('libphonenumber-js');
@@ -6,68 +7,53 @@ const examples = require('libphonenumber-js/examples.mobile.json');
 const usAreaCodes = require('us-area-codes/data/codes.json');
 
 function obtainCountryInformation(telephoneData) {
-  let countryInformation = [];
-  telephoneData.forEach(countryObj => {
-    if (countriesList.countries[countryObj['iso2'].toUpperCase()]) {
-      let countryData = {
-        countryName:
-          countriesList.countries[countryObj['iso2'].toUpperCase()]['name'],
-        image:
-          countriesList.countries[countryObj['iso2'].toUpperCase()]['emoji'],
-        countryAlphaCode: countryObj['iso2'].toUpperCase(),
-        countryCode: `+${countryObj['dialCode']}`,
-      };
+  return telephoneData.map(countryObj => {
+    const countryData = {
+      countryName: countriesList.countries[countryObj.iso2.toUpperCase()].name,
+      image: countriesList.countries[countryObj.iso2.toUpperCase()].emoji,
+      countryAlphaCode: countryObj.iso2.toUpperCase(),
+      countryCode: `+${countryObj.dialCode}`,
+    };
 
-      if (countryObj['dialCode'] === '1') {
-        countryData['areaCodes'] = countryObj['areaCodes'];
+    if (countryObj.dialCode === '1') {
+      countryData.areaCodes = countryObj.areaCodes;
+
+      if (countryObj.iso2.toUpperCase() === 'US') {
+        countryData.areaCodes = Object.keys(usAreaCodes);
       }
-
-      // Add US data
-      if (countryObj['iso2'].toUpperCase() == 'US') {
-        countryData['areaCodes'] = Object.keys(usAreaCodes);
-      }
-
-      if (countryData['areaCodes']) {
-        countryData.areaCodes = countryData.areaCodes.map(Number);
-      }
-
-      countryInformation.push(countryData);
+      countryData.areaCodes = countryData.areaCodes.map(Number);
     }
-  });
 
-  return countryInformation;
+    return countryData;
+  });
 }
 
 function obtainCountryFormatting(countryData) {
-  let allCountryData = countryData;
-  countryData.forEach((countryObj, index) => {
-    if (libphonenumberJS.isSupportedCountry(countryObj.countryAlphaCode)) {
-      ('+14082333333'); // 'US'
-      ('4082333333');
-      '408 233 3333'[(3, 3, 4)];
-      let phoneNumber = libphonenumberJS.getExampleNumber(
-        countryObj.countryAlphaCode,
-        examples,
-      );
-      let displayFormatting = phoneNumber
-        .formatInternational()
-        .substring(`${countryObj.countryCode}`.length)
-        .split(' ')
-        .filter(Boolean)
-        .map(num => num.length);
-      allCountryData[index]['displayFormat'] = displayFormatting;
+  return countryData.map(countryObj => {
+    if (!libphonenumberJS.isSupportedCountry(countryObj.countryAlphaCode)) {
+      return countryObj;
     }
+
+    const phoneNumber = libphonenumberJS.getExampleNumber(
+      countryObj.countryAlphaCode,
+      examples,
+    );
+
+    /* Phone Number Formatting (US Example):
+      1. '+14082333333'  Obtain the example phone number
+      2. '4082333333'    Remove the country code
+      3. '408 233 3333'  Format phone number according to country rules
+      4. [3, 3, 4]       Construct the array for display formatting
+    */
+    const displayFormatting = phoneNumber
+      .formatInternational()
+      .substring(countryObj.countryCode.length + 1)
+      .split(' ')
+      .map(num => num.length);
+
+    countryObj.displayFormat = displayFormatting;
+    return countryObj;
   });
-
-  return allCountryData;
-}
-
-function findCountriesByCode(countryData, countryCode) {
-  let filteredData = countryData.filter(
-    countryObj => countryObj.countryCode == countryCode,
-  );
-
-  return filteredData;
 }
 
 function populationData() {
@@ -112,5 +98,7 @@ const allData = insertPopulationData(
   obtainCountryFormatting(obtainCountryInformation(intlTelInput)),
   populationData(),
 );
+
+console.log(obtainCountryInformation(intlTelInput));
 
 fs.writeFileSync('./index.json', JSON.stringify(allData));
