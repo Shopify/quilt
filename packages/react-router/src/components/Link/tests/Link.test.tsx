@@ -43,10 +43,9 @@ describe('<Link />', () => {
 
     it('sets the `to` prop and passes along other props to ReactRouterLink', () => {
       const url = '/home';
-      const props = {className: 'foo'};
-      const link = mount(<Link url={url} {...props} />);
+      const link = mount(<Link url={url} className="foo" />);
       expect(link).toContainReactComponent(ReactRouterLink, {
-        ...props,
+        className: 'foo',
         to: url,
       });
     });
