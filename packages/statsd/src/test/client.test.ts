@@ -107,6 +107,73 @@ describe('StatsDClient', () => {
     });
   });
 
+  describe('timing', () => {
+    it('passes timing metrics to the statsd client', () => {
+      const statsDClient = new StatsDClient(defaultOptions);
+      statsDClient.timing(stat, value, tags);
+
+      const stats = StatsDMock.mock.instances[0];
+      const timingFn = stats.timing;
+      expect(timingFn).toHaveBeenCalledTimes(1);
+      expect(timingFn).toHaveBeenCalledWith(
+        stat,
+        value,
+        tags,
+        expect.any(Function),
+      );
+    });
+
+    it('passes timing metrics with snake case name metrics to the statsd client when snakeCase=true', () => {
+      const statsDClient = new StatsDClient({
+        ...defaultOptions,
+        snakeCase: true,
+      });
+      statsDClient.timing(stat, value, tags);
+
+      const stats = StatsDMock.mock.instances[0];
+      const timingFn = stats.timing;
+      expect(timingFn).toHaveBeenCalledTimes(1);
+      expect(timingFn).toHaveBeenCalledWith(
+        stat,
+        value,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        {foo_bar: tagValue},
+        expect.any(Function),
+      );
+    });
+
+    it('calls errorHandler on the promise when the client returns an error', () => {
+      const errorHandler = jest.fn();
+      const statsDClient = new StatsDClient({...defaultOptions, errorHandler});
+      const statsDMock = StatsDMock.mock.instances[0];
+
+      const error = new Error('Something went wrong!');
+      statsDMock.timing.mockImplementation((_name, _value, _tags, callback) => {
+        callback(error);
+      });
+
+      statsDClient.timing(stat, value, tags);
+      expect(errorHandler).toHaveBeenCalledWith(error);
+    });
+
+    it("calls logger's log on the promise when the client returns an error and there is no errorHandler in options", () => {
+      function logger() {}
+      logger.log = () => {};
+      const logSpy = jest.spyOn(logger, 'log');
+
+      const statsDClient = new StatsDClient({...defaultOptions, logger});
+      const statsDMock = StatsDMock.mock.instances[0];
+
+      const error = new Error('Something went wrong!');
+      statsDMock.timing.mockImplementation((_name, _value, _tags, callback) => {
+        callback(error);
+      });
+
+      statsDClient.timing(name, value, tags);
+      expect(logSpy).toHaveBeenCalled();
+    });
+  });
+
   describe('gauge', () => {
     it('passes gauge metrics to the statsd client', () => {
       const statsDClient = new StatsDClient(defaultOptions);
