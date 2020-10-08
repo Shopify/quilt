@@ -32,6 +32,7 @@ describe('<Provider />', () => {
     const title = 'Shopify';
     const meta = {content: 'foo'};
     const link = {src: 'bar'};
+    const style = {children: '.foo{color:red;}'};
     const manager = new HtmlManager();
 
     mountWithManager(<HtmlUpdater />, manager);
@@ -39,6 +40,7 @@ describe('<Provider />', () => {
     manager.addTitle(title);
     manager.addLink(link);
     manager.addMeta(meta);
+    manager.addInlineStyle(style);
 
     expect(document.querySelectorAll(`[${MANAGED_ATTRIBUTE}]`)).toHaveLength(0);
 
@@ -53,6 +55,11 @@ describe('<Provider />', () => {
     expect(
       document.querySelector(`link[${MANAGED_ATTRIBUTE}]`)!.getAttribute('src'),
     ).toBe(link.src);
+
+    expect(
+      document.querySelector<HTMLStyleElement>(`style[${MANAGED_ATTRIBUTE}]`)!
+        .textContent,
+    ).toBe(style.children);
 
     expect(
       document.querySelector(`title[${MANAGED_ATTRIBUTE}]`)!.textContent,
@@ -81,6 +88,35 @@ describe('<Provider />', () => {
     expect(linkElement.getAttribute('src')).toBe(linkOne.src);
     expect(linkElement).toBe(allLinks[0]);
     expect(allLinks[1].getAttribute('src')).toBe(linkTwo.src);
+  });
+
+  it('does not remove matching style elements on subsequent changes', () => {
+    const styleOne = {children: '.foo{color:red}'};
+    const styleTwo = {children: '.bar{color:blue}'};
+
+    const manager = new HtmlManager();
+
+    mountWithManager(<HtmlUpdater />, manager);
+
+    manager.addInlineStyle(styleOne);
+    animationFrame.runFrame();
+
+    const styleElement = document.querySelector<HTMLStyleElement>(
+      `style[${MANAGED_ATTRIBUTE}]`,
+    )!;
+
+    manager.addInlineStyle(styleTwo);
+    animationFrame.runFrame();
+
+    const allStyles = Array.from(
+      document.querySelectorAll<HTMLStyleElement>(
+        `style[${MANAGED_ATTRIBUTE}]`,
+      ),
+    );
+
+    expect(styleElement.textContent).toBe(styleOne.children);
+    expect(styleElement).toBe(allStyles[0]);
+    expect(allStyles[1].textContent).toBe(styleTwo.children);
   });
 
   it('does not remove matching meta elements on subsequent changes', () => {

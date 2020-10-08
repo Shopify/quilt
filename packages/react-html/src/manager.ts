@@ -10,6 +10,7 @@ export interface State {
   title?: string;
   metas: React.HTMLProps<HTMLMetaElement>[];
   links: React.HTMLProps<HTMLLinkElement>[];
+  inlineStyles: React.HTMLProps<HTMLStyleElement>[];
   bodyAttributes: React.HTMLProps<HTMLBodyElement>;
   htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>;
 }
@@ -30,6 +31,7 @@ export class HtmlManager {
   private titles: Title[] = [];
   private metas: React.HTMLProps<HTMLMetaElement>[] = [];
   private links: React.HTMLProps<HTMLLinkElement>[] = [];
+  private inlineStyles: React.HTMLProps<HTMLStyleElement>[] = [];
   private htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>[] = [];
   private bodyAttributes: React.HTMLProps<HTMLBodyElement>[] = [];
   private subscriptions = new Set<Subscription>();
@@ -41,6 +43,7 @@ export class HtmlManager {
       title: lastTitle && lastTitle.title,
       metas: this.metas,
       links: this.links,
+      inlineStyles: this.inlineStyles,
       bodyAttributes: Object.assign({}, ...this.bodyAttributes),
       htmlAttributes: Object.assign({}, ...this.htmlAttributes),
     };
@@ -50,6 +53,8 @@ export class HtmlManager {
     this.titles = [];
     this.metas = [];
     this.links = [];
+    this.inlineStyles = [];
+
     this.subscriptions.clear();
 
     if (includeSerializations) {
@@ -74,6 +79,10 @@ export class HtmlManager {
 
   addLink(link: React.HTMLProps<HTMLLinkElement>) {
     return this.addDescriptor(link, this.links);
+  }
+
+  addInlineStyle(inlineStyle: React.HTMLProps<HTMLStyleElement>) {
+    return this.addDescriptor(inlineStyle, this.inlineStyles);
   }
 
   addHtmlAttributes(attributes: React.HtmlHTMLAttributes<HTMLHtmlElement>) {
