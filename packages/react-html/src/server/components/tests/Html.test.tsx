@@ -2,7 +2,9 @@ import React from 'react';
 import withEnv from '@shopify/with-env';
 import {mount} from '@shopify/react-testing';
 
-import {Script, Style} from '../../../components';
+import {Script} from '../Script';
+import {Stylesheet} from '../Stylesheet';
+import {InlineStyle} from '../InlineStyle';
 import {HtmlManager} from '../../../manager';
 import {MANAGED_ATTRIBUTE} from '../../../utilities';
 import Html from '../Html';
@@ -104,8 +106,25 @@ describe('<Html />', () => {
       const head = html.find('head')!;
 
       for (const style of styles) {
-        expect(head).toContainReactComponent(Style, {
+        expect(head).toContainReactComponent(Stylesheet, {
           href: style.path,
+        });
+      }
+    });
+  });
+
+  describe('inlineStyles', () => {
+    it('generates a style tag in the head', () => {
+      const inlineStyles = [
+        {content: '.foo{color:blue;}'},
+        {content: '.bar{color:red;}'},
+      ];
+      const html = mount(<Html {...mockProps} inlineStyles={inlineStyles} />);
+      const head = html.find('head')!;
+
+      for (const inlineStyle of inlineStyles) {
+        expect(head).toContainReactComponent(InlineStyle, {
+          children: inlineStyle.content,
         });
       }
     });

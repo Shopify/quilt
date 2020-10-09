@@ -26,6 +26,12 @@ export function useLink(link: React.HTMLProps<HTMLLinkElement>) {
   useDomEffect(manager => manager.addLink(link), [JSON.stringify(link)]);
 }
 
+export function useInlineStyle(inlineStyle: React.HTMLProps<HTMLStyleElement>) {
+  useDomEffect(manager => manager.addInlineStyle(inlineStyle), [
+    JSON.stringify(inlineStyle),
+  ]);
+}
+
 export function useMeta(meta: React.HTMLProps<HTMLMetaElement>) {
   useDomEffect(manager => manager.addMeta(meta), [JSON.stringify(meta)]);
 }
