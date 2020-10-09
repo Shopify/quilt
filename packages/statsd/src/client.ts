@@ -53,6 +53,17 @@ export class StatsDClient {
     });
   }
 
+  timing(stat: string | string[], value: number, tags?: Tags) {
+    return new Promise<void>(resolve => {
+      this.statsd.timing(
+        stat,
+        value,
+        this.normalizeTags(tags),
+        this.createCallback(resolve),
+      );
+    });
+  }
+
   gauge(stat: string | string[], value: number, tags?: Tags) {
     return new Promise<void>(resolve => {
       this.statsd.gauge(
