@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "9.3.16",
+  "version": "10.0.0",
   "license": "MIT",
   "description": "A component to render your React app with no static HTML",
   "main": "dist/src/index.js",

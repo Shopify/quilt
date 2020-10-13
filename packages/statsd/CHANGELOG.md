@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [2.0.0] - 2019-12-24
+
+### Changed
+
+- Update `hot-spot` dependencies [[#1650](https://github.com/Shopify/quilt/pull/1650)]
+
+### Added
+
+- added `timing` metric support from `hot-spot`
+
 ## [1.2.0] - 2019-12-24
 
 ### Added

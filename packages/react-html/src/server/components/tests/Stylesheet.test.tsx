@@ -1,12 +1,16 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {Style} from '../Style';
+import {Stylesheet} from '../Stylesheet';
 
-describe('<Style />', () => {
+describe('<Stylesheet />', () => {
   it('renders attributes', () => {
     const style = mount(
-      <Style href="foo.css" integrity="00000000" crossOrigin="anonymous" />,
+      <Stylesheet
+        href="foo.css"
+        integrity="00000000"
+        crossOrigin="anonymous"
+      />,
     );
 
     expect(style).toContainReactComponent('link', {
