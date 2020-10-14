@@ -167,18 +167,7 @@ function getAssetsFromManifest(
     return entrypointAssets;
   }
 
-  const bundleTester = new RegExp(`\\b${name}[^\\.]*\\.${kind}`);
-
-  const nonVendorEntrypointIndex = entrypointAssets.findIndex(bundle =>
-    bundleTester.test(bundle.path),
-  );
-
-  if (nonVendorEntrypointIndex) {
-    entrypointAssets.splice(nonVendorEntrypointIndex, 0, ...asyncAssets);
-    return entrypointAssets;
-  }
-
-  return [...asyncAssets, ...entrypointAssets];
+  return [...entrypointAssets, ...asyncAssets];
 }
 
 function getAsyncAssetsFromManifest(

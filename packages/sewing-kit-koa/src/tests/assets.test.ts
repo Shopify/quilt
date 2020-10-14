@@ -78,7 +78,7 @@ describe('Assets', () => {
       ]);
     });
 
-    it('prefixes async assets matching the passed IDs', async () => {
+    it('appends async assets matching the passed IDs', async () => {
       const js = '/custom.js';
       const asyncJs = '/used.js';
 
@@ -100,7 +100,7 @@ describe('Assets', () => {
 
       expect(
         await assets.scripts({name: 'custom', asyncAssets: ['used']}),
-      ).toStrictEqual([{path: asyncJs}, {path: js}]);
+      ).toStrictEqual([{path: js}, {path: asyncJs}]);
     });
 
     it('throws an error when no scripts exist for the passed entrypoint', async () => {
@@ -185,7 +185,7 @@ describe('Assets', () => {
       ]);
     });
 
-    it('prefixes async assets matching the passed IDs', async () => {
+    it('appends async assets matching the passed IDs', async () => {
       const css = '/custom.css';
       const asyncCss = '/used.css';
 
@@ -207,7 +207,7 @@ describe('Assets', () => {
 
       expect(
         await assets.styles({name: 'custom', asyncAssets: ['used']}),
-      ).toStrictEqual([{path: asyncCss}, {path: css}]);
+      ).toStrictEqual([{path: css}, {path: asyncCss}]);
     });
 
     it('throws an error when no styles exist for the passed entrypoint', async () => {
@@ -245,9 +245,9 @@ describe('Assets', () => {
         await assets.assets({name: 'custom', asyncAssets: ['mypage']}),
       ).toStrictEqual([
         {path: css},
+        {path: js},
         {path: asyncCss},
         {path: asyncJs},
-        {path: js},
       ]);
     });
   });
