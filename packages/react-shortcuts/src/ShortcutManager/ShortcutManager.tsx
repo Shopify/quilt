@@ -67,7 +67,10 @@ export default class ShortcutManager {
     }
 
     function keyGroupIsHeld(keyGroup: ModifierKey[]) {
-      return keyGroup.every((key: ModifierKey) => event.getModifierState(key));
+      return keyGroup.every(
+        (key: ModifierKey) =>
+          event.getModifierState && event.getModifierState(key),
+      );
     }
 
     return hasKeyGroups(heldKeys)

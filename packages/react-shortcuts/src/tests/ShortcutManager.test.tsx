@@ -297,6 +297,22 @@ describe('ShortcutManager', () => {
 
       expect(fooSpy).not.toHaveBeenCalled();
     });
+
+    it('doesn’t fire on non-keyboard events', () => {
+      const matchSpy = jest.fn();
+      const heldGroup: ModifierKey[] = ['Control', 'Shift'];
+      const heldToCheck: HeldKey = [[...heldGroup], ['Alt', 'Meta']];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut held={heldToCheck} ordered={['/']} onMatch={matchSpy} />
+        </ShortcutProvider>,
+      );
+
+      document.dispatchEvent(new UIEvent('keydown'));
+
+      expect(matchSpy).not.toHaveBeenCalled();
+    });
   });
 });
 
