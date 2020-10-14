@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Fixed
+
+- Added a check for event.getModifierState method before calling it.  ([#1578](https://github.com/Shopify/quilt/pull/1578))
+
 ## [3.0.0] - 2019-04-02
 
 ### Changed
@@ -16,7 +20,3 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - This CHANGELOG [(#508)](https://github.com/Shopify/quilt/pull/508)
-
-### Fixed
-
-- Added a check for event.getModifierState method before calling it.  ([#1578](https://github.com/Shopify/quilt/pull/1578))
