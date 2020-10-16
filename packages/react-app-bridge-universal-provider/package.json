@@ -25,7 +25,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-app-bridge-universal-provider/README.md",
   "dependencies": {
     "@shopify/app-bridge-react": ">=1.5.0",
-    "@shopify/react-html": "^10.0.0"
+    "@shopify/react-html": "^10.0.0",
+    "tslib": "^1.14.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

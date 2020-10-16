@@ -25,7 +25,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hydrate/README.md",
   "dependencies": {
     "@shopify/react-effect": "^3.2.12",
-    "@shopify/react-hooks": "^1.11.1"
+    "@shopify/react-hooks": "^1.11.1",
+    "tslib": "^1.14.1"
   },
   "devDependencies": {
     "faker": "^4.1.0"

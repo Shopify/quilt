@@ -26,7 +26,8 @@
   "dependencies": {
     "@shopify/useful-types": "^2.2.0",
     "jest-matcher-utils": "^25.3.0",
-    "react-reconciler": "^0.20.2"
+    "react-reconciler": "^0.20.2",
+    "tslib": "^1.14.1"
   },
   "devDependencies": {
     "faker": "^4.1.0"

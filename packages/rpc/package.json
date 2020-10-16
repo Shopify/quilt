@@ -30,5 +30,8 @@
   "devDependencies": {
     "@types/uuid": "^3.4.6",
     "uuid": "^3.3.3"
+  },
+  "dependencies": {
+    "tslib": "^1.14.1"
   }
 }

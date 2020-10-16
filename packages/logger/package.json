@@ -26,7 +26,7 @@
     "chalk": "^2.4.1",
     "log-symbols": "^2.2.0",
     "pretty-ms": "^3.2.0",
-    "tslib": "^1.9.3"
+    "tslib": "^1.14.1"
   },
   "sideEffects": false,
   "files": [

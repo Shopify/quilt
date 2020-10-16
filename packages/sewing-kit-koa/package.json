@@ -35,7 +35,7 @@
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
     "node-gzip": "^1.1.2",
-    "tslib": "^1.9.3"
+    "tslib": "^1.14.1"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.2.3",

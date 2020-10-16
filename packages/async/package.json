@@ -37,5 +37,8 @@
     "!tsconfig.tsbuildinfo",
     "babel.d.ts",
     "babel.js"
-  ]
+  ],
+  "dependencies": {
+    "tslib": "^1.14.1"
+  }
 }
