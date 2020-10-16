@@ -2,7 +2,7 @@
 
 ## Technical foundation
 
-We are adding documentation as we go in the [Web Foundation repo](https://github.com/Shopify/web-foundations). There you will find our [decision records](https://github.com/Shopify/web-foundations/tree/main/handbook/Decision%20Records), [principles](https://github.com/Shopify/web-foundations/tree/main/handbook/Principles), [best practices](https://github.com/Shopify/web-foundations/tree/main/handbook/Best%20Practices) and [styleguides](https://github.com/Shopify/web-foundations/tree/main/handbook/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundations/blob/main/handbook/Best%20Practices/Testing.md) different kinds of components.
+We are adding documentation as we go in the [Web Foundations repo](https://github.com/Shopify/web-foundations). There you will find our [decision records](https://github.com/Shopify/web-foundations/tree/main/handbook/Decision%20Records), [principles](https://github.com/Shopify/web-foundations/tree/main/handbook/Principles), [best practices](https://github.com/Shopify/web-foundations/tree/main/handbook/Best%20Practices) and [styleguides](https://github.com/Shopify/web-foundations/tree/main/handbook/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundations/blob/main/handbook/Best%20Practices/Testing.md) different kinds of components.
 
 In addition to this documentation, Quilt contributors generally have an in-depth understanding of the following technologies:
 
