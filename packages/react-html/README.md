@@ -147,7 +147,7 @@ export default function I18n({locale, children}: Props) {
 }
 ```
 
-The rationale for this approach to handling serialization is available in [our original proposal](https://github.com/Shopify/web-foundation/blob/master/Proposals/02%20-%20Serialization%20in%20application%20code.md).
+The rationale for this approach to handling serialization is available in [our original proposal](https://github.com/Shopify/web-foundations/blob/main/handbook/Proposals/02%20-%20Serialization%20in%20application%20code.md).
 
 ## API reference
 
