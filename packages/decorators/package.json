@@ -28,6 +28,7 @@
     "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@shopify/function-enhancers": "^1.0.10"
+    "@shopify/function-enhancers": "^1.0.10",
+    "tslib": "^1.14.1"
   }
 }

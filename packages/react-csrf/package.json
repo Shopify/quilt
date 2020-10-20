@@ -29,5 +29,8 @@
   "files": [
     "dist/*",
     "!tsconfig.tsbuildinfo"
-  ]
+  ],
+  "dependencies": {
+    "tslib": "^1.14.1"
+  }
 }

@@ -26,7 +26,8 @@
   "dependencies": {
     "@shopify/react-csrf": "^1.0.12",
     "@shopify/react-html": "^10.0.0",
-    "@shopify/react-universal-provider": "^1.1.22"
+    "@shopify/react-universal-provider": "^1.1.22",
+    "tslib": "^1.14.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

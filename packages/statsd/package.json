@@ -25,7 +25,8 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/statsd/README.md",
   "dependencies": {
     "change-case": "^4.1.1",
-    "hot-shots": "^8.2.0"
+    "hot-shots": "^8.2.0",
+    "tslib": "^1.14.1"
   },
   "files": [
     "dist/*",

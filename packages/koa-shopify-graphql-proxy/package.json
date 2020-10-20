@@ -25,7 +25,7 @@
   "dependencies": {
     "@types/koa": "^2.0.0",
     "koa-better-http-proxy": "^0.2.4",
-    "tslib": "^1.9.3"
+    "tslib": "^1.14.1"
   },
   "peerDependencies": {
     "koa": ">=2.0.0"

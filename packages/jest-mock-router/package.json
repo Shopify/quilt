@@ -36,7 +36,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1.14.1"
   },
   "files": [
     "dist/*",

@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+- Updated `tslib` dependency to `^1.14.1`
 
 ### Fixed
 
-- Added a check for event.getModifierState method before calling it.  ([#1578](https://github.com/Shopify/quilt/pull/1578))
+- Added a check for event.getModifierState method before calling it. ([#1578](https://github.com/Shopify/quilt/pull/1578))
 
 ## [3.0.0] - 2019-04-02
 
