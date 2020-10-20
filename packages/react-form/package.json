@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "license": "MIT",
   "description": "Manage React forms tersely and safely-typed with no magic using React hooks",
   "main": "dist/src/index.js",
@@ -35,8 +35,8 @@
     "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@shopify/predicates": "^1.2.6",
-    "@shopify/react-hooks": "^1.11.1",
+    "@shopify/predicates": "^1.2.7",
+    "@shopify/react-hooks": "^1.11.2",
     "fast-deep-equal": "^2.0.1",
     "get-value": "^3.0.1",
     "tslib": "^1.14.1"

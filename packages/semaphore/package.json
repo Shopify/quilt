@@ -1,6 +1,6 @@
 {
   "name": "@shopify/semaphore",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "description": "Counting semaphore",
   "main": "dist/src/index.js",

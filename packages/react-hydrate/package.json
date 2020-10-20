@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hydrate",
-  "version": "1.1.26",
+  "version": "1.1.27",
   "license": "MIT",
   "description": "Utilities for hydrating server-rendered React apps",
   "main": "dist/src/index.js",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hydrate/README.md",
   "dependencies": {
-    "@shopify/react-effect": "^3.2.12",
-    "@shopify/react-hooks": "^1.11.1",
+    "@shopify/react-effect": "^3.2.13",
+    "@shopify/react-hooks": "^1.11.2",
     "tslib": "^1.14.1"
   },
   "devDependencies": {
