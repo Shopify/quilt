@@ -84,7 +84,7 @@ export enum Header {
   ContentTypeOptions = 'X-Content-Type-Options',
   StrictTransportSecurity = 'Strict-Transport-Security',
   ReferrerPolicy = 'Referrer-Policy',
-  Origin = 'Origin'
+  Origin = 'Origin',
 }
 
 export enum CspDirective {
