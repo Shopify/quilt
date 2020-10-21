@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-mock-apollo",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "license": "MIT",
   "description": "Jest + Enzyme mocks for Apollo 2.x",
   "main": "dist/src/index.js",
@@ -26,7 +26,7 @@
     "apollo-link": "^1.2.3",
     "graphql": "^14.0.0",
     "graphql-tool-utilities": "^1.0.0",
-    "tslib": "^1.9.3"
+    "tslib": "^1.14.1"
   },
   "devDependencies": {
     "@apollo/react-common": "^3.1.3",

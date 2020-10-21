@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.1.24] - 2020-10-20
+
+- Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [3.1.20] - 2020-09-28
+
 - Removed dependency on deprecated `@shopify/javascript-utilities` package ([#1560](https://github.com/Shopify/quilt/pull/1560))
 
 ## [3.1.16] - 2020-05-01

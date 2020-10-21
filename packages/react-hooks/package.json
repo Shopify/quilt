@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hooks",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "license": "MIT",
   "description": "A collection of primitive React hooks",
   "main": "dist/src/index.js",
@@ -29,5 +29,8 @@
   "files": [
     "dist/*",
     "!tsconfig.tsbuildinfo"
-  ]
+  ],
+  "dependencies": {
+    "tslib": "^1.14.1"
+  }
 }

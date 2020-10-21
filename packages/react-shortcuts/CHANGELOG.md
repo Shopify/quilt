@@ -7,9 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [3.0.15] - 2020-10-20
+
+- Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
 ### Fixed
 
-- Added a check for event.getModifierState method before calling it.  ([#1578](https://github.com/Shopify/quilt/pull/1578))
+- Added a check for event.getModifierState method before calling it. ([#1578](https://github.com/Shopify/quilt/pull/1578))
 
 ## [3.0.0] - 2019-04-02
 
