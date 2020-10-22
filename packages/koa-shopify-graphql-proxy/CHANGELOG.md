@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- The `ApiVersion` enum now has an `October20` option
+
 ## [4.0.3] - 2020-10-20
 
 - Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
@@ -19,11 +21,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [4.0.0] - 2020-05-01
 
-= The `ApiVersion` enum now has an `April20` and `July20` options
+= The `ApiVersion` enum now has a `April20` and `July20` options
 
 ## [3.3.0] - 2020-02-19
 
-= The `ApiVersion` enum now has an `January20` and `April20` options
+= The `ApiVersion` enum now has a `January20` and `April20` options
 
 ## [3.2.0] - 2010-10-02
 
