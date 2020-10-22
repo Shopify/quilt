@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Replace deprecated `babel-polyfills` in favor of `core-js` and `regenerator-runtime`. [#1660](https://github.com/Shopify/quilt/pull/1660)
+
 ## [1.2.4] - 2020-10-20
 
 - Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
