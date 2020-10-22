@@ -7,8 +7,8 @@ import withEnv from '@shopify/with-env';
 import {createRender, Context} from '../render';
 import {mockMiddleware} from '../../test/utilities';
 
-const mockAssetsScripts = jest.fn(() => Promise.resolve([]));
-const mockAssetsStyles = jest.fn(() => Promise.resolve([]));
+const mockAssetsScripts = jest.fn(() => Promise.resolve([{path: 'main.js'}]));
+const mockAssetsStyles = jest.fn(() => Promise.resolve([{path: 'main.css'}]));
 
 jest.mock('@shopify/sewing-kit-koa', () => ({
   middleware: jest.fn(() => mockMiddleware),
@@ -35,6 +35,59 @@ describe('createRender', () => {
 
     expect(await readStream(ctx.body)).toContain(myCoolApp);
   });
+
+  it.each([
+    [
+      'as Plain object',
+      {
+        scripts: [{path: '/extraScript.js'}],
+        styles: [{path: '/extraStyle.css'}],
+        headMarkup: <script>let ScriptFromHeadMarkup = 1;</script>,
+      },
+    ],
+    [
+      'as Function',
+      () => ({
+        scripts: [{path: '/extraScript.js'}],
+        styles: [{path: '/extraStyle.css'}],
+        headMarkup: <script>let ScriptFromHeadMarkup = 1;</script>,
+      }),
+    ],
+  ])(
+    'response contains data passed in through htmlProps (%s)',
+    async (style, htmlProps) => {
+      const myCoolApp = 'My cool app';
+      const ctx = createMockContext();
+
+      const renderFunction = createRender(() => <>{myCoolApp}</>, {
+        htmlProps,
+      });
+      await renderFunction(ctx, noop);
+
+      const bodyResult = await readStream(ctx.body);
+
+      // Assets from manifest are still present
+      expect(bodyResult).toContain(
+        '<script type="text/javascript" src="main.js" crossorigin="anonymous" defer=""></script>',
+      );
+      expect(bodyResult).toContain(
+        '<link rel="stylesheet" type="text/css" href="main.css" crossorigin="anonymous"/>',
+      );
+
+      // Additional script/style assets are added
+      expect(bodyResult).toContain(
+        '<script type="text/javascript" src="/extraScript.js" crossorigin="anonymous" defer=""></script>',
+      );
+      expect(bodyResult).toContain(
+        '<link rel="stylesheet" type="text/css" href="/extraStyle.css" crossorigin="anonymous"/>',
+      );
+
+      // Other props work
+      expect(bodyResult).toContain(
+        '<script>let ScriptFromHeadMarkup = 1;</script>',
+      );
+    },
+  );
 
   it('response contains x-quilt-data from headers', async () => {
     const myCoolApp = 'My cool app';
