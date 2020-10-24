@@ -6,6 +6,7 @@ import {Context} from 'koa';
 import compose from 'koa-compose';
 import {
   Html,
+  HtmlProps,
   HtmlManager,
   HtmlContext,
   stream,
@@ -46,13 +47,14 @@ interface Data {
   value: {[key: string]: any} | undefined;
 }
 
-type Options = Pick<
+export type RenderOptions = Pick<
   NonNullable<ArgumentAtIndex<typeof extract, 1>>,
   'afterEachPass' | 'betweenEachPass'
 > & {
   assetPrefix?: string;
   assetName?: string | ValueFromContext<string>;
   renderError?: RenderFunction;
+  htmlProps?: HtmlProps | ValueFromContext<HtmlProps>;
 };
 
 /**
@@ -60,12 +62,16 @@ type Options = Pick<
  * @param render
  * @param options
  */
-export function createRender(render: RenderFunction, options: Options = {}) {
+export function createRender(
+  render: RenderFunction,
+  options: RenderOptions = {},
+) {
   const manifestPath = getManifestPath(process.cwd());
   const {
     assetPrefix,
     assetName: assetNameInput = 'main',
     renderError,
+    htmlProps: htmlPropsInput = {},
   } = options;
 
   async function renderFunction(ctx: Context) {
@@ -73,6 +79,15 @@ export function createRender(render: RenderFunction, options: Options = {}) {
       typeof assetNameInput === 'function'
         ? assetNameInput(ctx)
         : assetNameInput;
+
+    const {
+      scripts: additionalScripts = [],
+      styles: additionalStyles = [],
+      ...additionalHtmlProps
+    } =
+      typeof htmlPropsInput === 'function'
+        ? htmlPropsInput(ctx)
+        : htmlPropsInput;
 
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
@@ -133,8 +148,16 @@ export function createRender(render: RenderFunction, options: Options = {}) {
         assets.scripts({name: assetName, asyncAssets: immediateAsyncAssets}),
       ]);
 
+      styles.push(...additionalStyles);
+      scripts.push(...additionalScripts);
+
       const response = stream(
-        <Html manager={htmlManager} styles={styles} scripts={scripts}>
+        <Html
+          {...additionalHtmlProps}
+          manager={htmlManager}
+          styles={styles}
+          scripts={scripts}
+        >
           <Providers>{app}</Providers>
         </Html>,
       );

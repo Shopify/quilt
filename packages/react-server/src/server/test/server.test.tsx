@@ -53,6 +53,37 @@ describe('createServer()', () => {
     );
   });
 
+  it('passes htmlProps through to the Html component', async () => {
+    function MockApp() {
+      return <div>markup</div>;
+    }
+
+    const wrapper = await saddle((port, host) =>
+      createServer({
+        port,
+        ip: host,
+        render: () => <MockApp />,
+        htmlProps: {
+          scripts: [{path: '/extraScript.js'}],
+          styles: [{path: '/extraStyle.css'}],
+          headMarkup: <script>let ScriptFromHeadMarkup = 1;</script>,
+        },
+      }),
+    );
+
+    const response = await wrapper.fetch('/');
+
+    await expect(response).toHaveBodyText(
+      `<script type="text/javascript" src="/extraScript.js" crossorigin="anonymous" defer="">`,
+    );
+    await expect(response).toHaveBodyText(
+      `<link rel="stylesheet" type="text/css" href="/extraStyle.css" crossorigin="anonymous"/>`,
+    );
+    await expect(response).toHaveBodyText(
+      `<script>let ScriptFromHeadMarkup = 1;</script>`,
+    );
+  });
+
   it('supports updatable meta components', async () => {
     const myTitle = 'Shopify Mock App';
 

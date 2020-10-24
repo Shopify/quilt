@@ -20,10 +20,10 @@ export interface InlineStyle {
   content: string;
 }
 
-export interface Props {
+export interface HtmlProps {
   manager?: HtmlManager;
   hydrationManager?: HydrationManager;
-  children: React.ReactElement<any> | string;
+  children?: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];
   inlineStyles?: InlineStyle[];
@@ -37,7 +37,7 @@ export interface Props {
 export default function Html({
   manager,
   hydrationManager,
-  children,
+  children = '',
   locale = 'en',
   blockingScripts = [],
   scripts = [],
@@ -46,7 +46,7 @@ export default function Html({
   preloadAssets = [],
   headMarkup = null,
   bodyMarkup = null,
-}: Props) {
+}: HtmlProps) {
   const markup =
     typeof children === 'string'
       ? children

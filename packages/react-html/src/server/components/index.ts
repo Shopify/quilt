@@ -1,2 +1,2 @@
 export {default as Serialize} from './Serialize';
-export {default as Html} from './Html';
+export {default as Html, HtmlProps} from './Html';
