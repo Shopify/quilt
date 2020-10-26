@@ -7,6 +7,15 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [2.9.2] - 2020-10-20
+
+- Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [2.9.0] - 2020-09-02
+
+- Added `optionalLabels` to GraphQL query for countries and for country [(#1610)](https://github.com/Shopify/quilt/pull/1610)
+- Minor update to `@shopify/address-consts` and minor update to `@shopify/address-mocks`. [(#1610)](https://github.com/Shopify/quilt/pull/1610)
+
 ## [2.8.0] - 2020-03-10
 
 - Major update to `@shopify/address-consts` and minor update to @shopify/address-mocks

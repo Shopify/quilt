@@ -3,7 +3,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
-[![codecov](https://codecov.io/gh/Shopify/quilt/branch/master/graph/badge.svg)](https://codecov.io/gh/Shopify/quilt)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
 A loosely related set of packages for JavaScript/TypeScript projects at Shopify.
@@ -42,7 +41,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [koa-liveness-ping](packages/koa-liveness-ping) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping.svg" width="200px" /></a> | A package for creating liveness ping middleware for use with Koa |
 | [koa-metrics](packages/koa-metrics) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-metrics"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-metrics.svg" width="200px" /></a> | Aims to provide standard middleware and instrumentation tooling for metrics in Koa |
 | [koa-performance](packages/koa-performance) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-performance"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-performance.svg" width="200px" /></a> | Creating middleware that sends performance-related data through StatsD |
-| [koa-shopify-auth](packages/koa-shopify-auth) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-auth.svg" width="200px" /></a> | Middleware to authenticate a Koa application with Shopify |
 | [koa-shopify-graphql-proxy](packages/koa-shopify-graphql-proxy) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg" width="200px" /></a> | A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app |
 | [koa-shopify-webhooks](packages/koa-shopify-webhooks) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg" width="200px" /></a> | Receive webhooks from Shopify with ease |
 | [logger](packages/logger) | <a href="https://badge.fury.io/js/%40shopify%2Flogger"><img src="https://badge.fury.io/js/%40shopify%2Flogger.svg" width="200px" /></a> | Opinionated logger for production-scale applications |

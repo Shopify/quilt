@@ -7,6 +7,20 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [2.5.2] - 2020-10-20
+
+- Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [2.5.1] - 2020-09-28
+
+### Added
+
+- The `ApiVersion` enum now has an `July20` option.
+
+## [2.5.0] - 2020-08-20
+
+- Add an option to register EventBridge webhooks to `registerWebhook`.
+
 ## [2.4.0] - 2020-02-19
 
 - The `ApiVersion` enum now has an `January20` and `April20` options

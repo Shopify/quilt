@@ -1,6 +1,6 @@
 {
   "name": "@shopify/function-enhancers",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "license": "MIT",
   "description": "A set of helpers to enhance functions",
   "main": "dist/src/index.js",
@@ -26,5 +26,8 @@
   "files": [
     "dist/*",
     "!tsconfig.tsbuildinfo"
-  ]
+  ],
+  "dependencies": {
+    "tslib": "^1.14.1"
+  }
 }

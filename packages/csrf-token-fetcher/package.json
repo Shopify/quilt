@@ -1,6 +1,6 @@
 {
   "name": "@shopify/csrf-token-fetcher",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "license": "MIT",
   "description": "JavaScript utility function to fetch the CSRF token required to make requests to a Rails server",
   "main": "dist/src/index.js",
@@ -28,6 +28,6 @@
     "!tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1.14.1"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-intersection-observer",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "license": "MIT",
   "description": "A React wrapper around the Intersection Observer API",
   "main": "dist/src/index.js",
@@ -29,5 +29,8 @@
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
+  },
+  "dependencies": {
+    "tslib": "^1.14.1"
   }
 }

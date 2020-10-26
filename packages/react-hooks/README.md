@@ -14,6 +14,7 @@ $ yarn add @shopify/react-hooks
 ## List of hooks
 
 - [useDebouncedValue()](#usedebouncedvalue)
+- [useDelayedCallback()](#usedelayedcallback)
 - [useForceUpdate()](#useforceupdate)
 - [useInterval()](#useinterval)
 - [useLazyRef()](#uselazyref)
@@ -28,7 +29,7 @@ $ yarn add @shopify/react-hooks
 
 ### `useDebouncedValue()`
 
-This hook provide a debounced value.
+This hook provides a debounced value.
 
 ```tsx
 function MyComponent() {
@@ -48,9 +49,32 @@ function MyComponent() {
 }
 ```
 
+### `useDelayedCallback()`
+
+This hook provides a delayed callback function. It takes a callback and a delay in milliseconds. This might be useful when you want to invoke a callback after a certain delay.
+
+```tsx
+function MyComponent() {
+  const delay = 300;
+  const callback = () => {
+    console.log(
+      `Oh, you KNOW I'm calling that callback after ${delay} milliseconds!`,
+    );
+  };
+
+  const callbackWithDelay = useDelayedCallback(callback, delay);
+
+  const onClick = () => {
+    callbackWithDelay();
+  };
+
+  return <button onClick={onClick}>Click me!</button>;
+}
+```
+
 ### `useForceUpdate()`
 
-This hook provide a `forceUpdate` function which will force a component to re-render. This might be useful when you want to re-render after a mutable object gets updated.
+This hook provides a `forceUpdate` function which will force a component to re-render. This might be useful when you want to re-render after a mutable object gets updated.
 
 ```tsx
 const mutableObject = {foo: 'bar'};
@@ -67,7 +91,7 @@ export default function ResourceListFiltersExample() {
 
 ### `useOnValueChange()`
 
-This hook will track a given value and invoke a callback when it has changed.
+This hook tracks a given value and invokes a callback when it has changed.
 
 ```tsx
 function MyComponent({foo}: {foo: string}) {
@@ -147,7 +171,7 @@ function MyComponent() {
 
 ### `useMedia()` & `useMediaLayout()`
 
-This hook will listen to a [MediaQueryList](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList) created via [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) and return true or false if it matches the media query string.
+This hook listens to a [MediaQueryList](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList) created via [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) and returns true or false if it matches the media query string.
 
 `useMediaLayout` is similar to `useMedia` but it uses `useLayoutEffect` internally to re-render synchronously.
 
@@ -192,7 +216,7 @@ function MockComponent() {
 
 ### `usePrevious()`
 
-This hook will store the previous value of a given variable.
+This hook stores the previous value of a given variable.
 
 ```tsx
 function Score({value}) {
@@ -210,7 +234,7 @@ function Score({value}) {
 
 ### `useToggle()`
 
-This hook will provide an object that contains a boolean state value and a set of memoised callbacks to toggle it, force it to true and force it to false. It accepts one argument that is the initial value of the state. This is useful for toggling the active state of modals and popovers.
+This hook provides an object that contains a boolean state value and a set of memoised callbacks to toggle it, force it to true, and force it to false. It accepts one argument that is the initial value of the state. This is useful for toggling the active state of modals and popovers.
 
 ```tsx
 function MyComponent() {

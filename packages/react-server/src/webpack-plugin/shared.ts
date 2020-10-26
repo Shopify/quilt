@@ -8,6 +8,7 @@ export interface Options {
   assetPrefix?: string;
   host?: string;
   port?: number;
+  proxy?: boolean;
 }
 
 export enum Entrypoint {

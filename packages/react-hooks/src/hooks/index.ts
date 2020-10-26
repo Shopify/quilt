@@ -8,3 +8,4 @@ export {usePrevious} from './previous';
 export {useTimeout} from './timeout';
 export {useToggle} from './toggle';
 export {useForceUpdate} from './force-update';
+export {useDelayedCallback} from './delayed-callback';

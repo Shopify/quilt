@@ -5,7 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<-- ## [Unreleased] -->
+<!-- ## [Unreleased] -->
+
+## [0.19.0] - 2020-10-26
+
+- Added `htmlProps` to the options for `createRender` and `createServer`, these props will be passed into the call to `@shopify/react-html`'s `<Html>` component ([#1661](https://github.com/Shopify/quilt/pull/1661))
+
+## [0.18.4] - 2020-10-20
+
+- Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [0.18.0] - 2019-08-18
+
+### Changed
+
+- Allow `proxy` option to be specified by webpack plugin config (and forwarded to `createServer`). ([#1598](https://github.com/Shopify/quilt/pull/1598))
+
+## [0.17.0] - 2019-08-18
+
+### Added
+
+- Add request_id, hostname, and ips as part of the log. ([#1579](https://github.com/Shopify/quilt/pull/1579)).
+
+### Changed
+
+- Change createServer default ip from `localhost` to `0.0.0.0` and remove 3000 as a default port. ([#1585](https://github.com/Shopify/quilt/pull/1585))
+
+- Allow `proxy` and `app` options to be passed to `createServer`. ([#1591](https://github.com/Shopify/quilt/pull/1591))
 
 ## [0.16.0] - 2020-06-16
 

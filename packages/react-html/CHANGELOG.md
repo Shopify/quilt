@@ -7,6 +7,27 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [10.0.2] - 2020-10-26
+
+- Update `HtmlProps` to mark children as optional (same as any React component) and export it ([#1661](https://github.com/Shopify/quilt/pull/1661))
+
+## [10.0.1] - 2020-10-20
+
+- Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [10.0.0] - 2020-10-09
+
+### Changed
+
+- The `<Script />` components is now exported from `@shopify/react-html/server` ([#1648](https://github.com/Shopify/quilt/pull/1648))
+- The `<Style>` has been renamed for `<Stylesheet>` and is now exported from `@shopify/react-html/server` ([#1648](https://github.com/Shopify/quilt/pull/1648))
+
+### Added
+
+- New `useInlineStyle` hook to add inline `<style>` elements in the head of the document. ([#1648](https://github.com/Shopify/quilt/pull/1648))
+- New `<InlineStyle />` component so you can add inline `<style>` elements in the head of the document. ([#1648](https://github.com/Shopify/quilt/pull/1648))
+- Introduced new `inlineStyles` prop on the `<Html />` component to render inline`<style>` elements in the head of the document. ([#1648](https://github.com/Shopify/quilt/pull/1648))
+
 ## [9.3.0] - 2020-03-13
 
 - Update `serialize-javascript@^3.0.0`. Solved an issue when you try to deserialize a non-JSON object by enforcing data to be serialized as a JSON object. ([#762](https://github.com/Shopify/quilt/pull/762))

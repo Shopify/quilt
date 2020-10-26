@@ -5,10 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<-- ## [Unreleased] -->
+<!-- ## [Unreleased] -->
+
+## [0.1.1] - 2020-10-20
+
+- Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [0.1.0] - 2020-10-09
+
+### Changed
+
+- Fix typing of Link so it supports the same props as react-router's Link. [1645](https://github.com/Shopify/quilt/pull/1645)
+- Export `MemoryRouter`. [1645](https://github.com/Shopify/quilt/pull/1645)
+- Reexport `useRouteMatch`, `useParams`, `useLocation` and `useHistory` hooks. [1646](https://github.com/Shopify/quilt/pull/1646)
+
+## [0.0.31] - 2019-08-18
+
+### Changed
+
+- Pass in object with pathname (ie. `/test123`) and search to StaticRouter. The strange behaviour is cause by a react-router using spread operator to copy object. [1589](https://github.com/Shopify/quilt/pull/1589)
 
 ## [0.0.30] - 2020-07-28
 
+- ❗️ This version is broken and deprecated. Do not use ❗️
 - Fix bug where passing URL object would cause server router to page incorrectly [1567](https://github.com/Shopify/quilt/pull/1567)
 
 ## [0.0.25] - 2020-05-29

@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [2.1.1] - 2020-10-20
+
+- Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [2.1.0] - 2020-09-02
+
+- Add `optionalLabels` to `Country` interface. [#1610](https://github.com/Shopify/quilt/pull/1610)
+
 ## [2.0.0] - 2020-03-10
 
 - Add `errors` to `LoadCountriesResponse` and `LoadCountryResponse`. [#1301](https://github.com/Shopify/quilt/pull/1301)

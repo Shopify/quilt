@@ -24,7 +24,7 @@ export function HtmlUpdater() {
 }
 
 function updateOnClient(state: State) {
-  const {title, metas, links} = state;
+  const {title, metas, links, inlineStyles} = state;
   let titleElement = document.querySelector('title');
 
   if (title == null) {
@@ -43,59 +43,46 @@ function updateOnClient(state: State) {
 
   const fragment = document.createDocumentFragment();
 
-  const oldMetas = Array.from(
-    document.head.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
-  );
-
-  for (const meta of metas) {
-    const element = document.createElement('meta');
-    element.setAttribute(MANAGED_ATTRIBUTE, 'true');
-
-    for (const [attribute, value] of Object.entries(meta)) {
-      element.setAttribute(attribute, value);
-    }
-
-    const matchingOldMetaIndex = oldMetas.findIndex(oldMeta =>
-      oldMeta.isEqualNode(element),
-    );
-
-    if (matchingOldMetaIndex >= 0) {
-      oldMetas.splice(matchingOldMetaIndex, 1);
-    } else {
-      fragment.appendChild(element);
-    }
-  }
-
-  const oldLinks = Array.from(
-    document.head.querySelectorAll(`link[${MANAGED_ATTRIBUTE}]`),
-  );
-
-  for (const link of links) {
-    const element = document.createElement('link');
-    element.setAttribute(MANAGED_ATTRIBUTE, 'true');
-
-    for (const [attribute, value] of Object.entries(link)) {
-      element.setAttribute(attribute, value);
-    }
-
-    const matchingOldLinkIndex = oldLinks.findIndex(oldLink =>
-      oldLink.isEqualNode(element),
-    );
-
-    if (matchingOldLinkIndex >= 0) {
-      oldLinks.splice(matchingOldLinkIndex, 1);
-    } else {
-      fragment.appendChild(element);
-    }
-  }
-
-  for (const link of oldLinks) {
-    link.remove();
-  }
-
-  for (const meta of oldMetas) {
-    meta.remove();
-  }
+  updateElement('meta', metas, fragment);
+  updateElement('link', links, fragment);
+  updateElement('style', inlineStyles, fragment);
 
   document.head.appendChild(fragment);
+}
+
+function updateElement<T extends React.HTMLProps<HTMLElement>>(
+  selector: string,
+  items: T[],
+  fragment: DocumentFragment,
+) {
+  const oldElements = Array.from(
+    document.head.querySelectorAll(`${selector}[${MANAGED_ATTRIBUTE}]`),
+  );
+
+  for (const item of items) {
+    const element = document.createElement(selector);
+    element.setAttribute(MANAGED_ATTRIBUTE, 'true');
+
+    for (const [attribute, value] of Object.entries(item)) {
+      if (attribute === 'children') {
+        element.textContent = value;
+      } else {
+        element.setAttribute(attribute, value);
+      }
+    }
+
+    const matchingOldElementIndex = oldElements.findIndex(oldElement =>
+      oldElement.isEqualNode(element),
+    );
+
+    if (matchingOldElementIndex >= 0) {
+      oldElements.splice(matchingOldElementIndex, 1);
+    } else {
+      fragment.appendChild(element);
+    }
+  }
+
+  for (const oldElement of oldElements) {
+    oldElement.remove();
+  }
 }

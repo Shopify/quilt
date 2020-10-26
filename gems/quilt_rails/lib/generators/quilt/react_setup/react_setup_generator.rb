@@ -10,7 +10,7 @@ module Quilt
     def install_js_dependencies
       return if options.skip_yarn?
 
-      say "Installing react and types dependencies"
+      say("Installing react and types dependencies")
       system("yarn add "\
         "typescript@~3.8.0 "\
         "react@~16.11.0 "\

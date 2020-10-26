@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+### Changed
+
+- Deprecate `Quilt::Logger.log` in favour of `Quilt.logger`. ([#1611](https://github.com/Shopify/quilt/pull/1611))
+
+## [3.4.0] - 2020-08-26
+
+### Added
+
+- Passed `X-Request-ID` header to the Node server by default. ([#1608](https://github.com/Shopify/quilt/pull/1608))
+
+## [3.3.1] - 2020-08-10
+
+### Added
+
+- Added `config.mount` (default `true`) option to disable automatic engine mounting.
+  ([#1605](https://github.com/Shopify/quilt/pull/1605))
+
 ## [3.3.0] - 2020-08-10
 
 ### Added

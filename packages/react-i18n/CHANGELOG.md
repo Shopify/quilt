@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+<!-- ## [Unreleased] -->
+
+## [5.1.3] - 2020-10-20
+
+- Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [5.1.1] - 2020-09-28
+
+### Fixed
+
+- Fixed `DateStyle.Humanize`'s handling of time zones for dates that are yesterday, today, or tomorrow [[#1623](https://github.com/Shopify/quilt/pull/1623)]
+
+## [5.1.0] - 2020-09-15
+
+### Fixed
+
+- Fixed (updated) currencies list. [[#1632](https://github.com/Shopify/quilt/pull/1632)]
+
 ## [5.0.0] - 2020-06-04
 
 ### Changed

@@ -1,8 +1,8 @@
 # This file strictly follows the rules defined in the Ruby style guide:
 #   http://shopify.github.io/ruby-style-guide/
 # Before updating anything please sync-up with #ruby-style-guide on Slack.
-inherit_from:
-  - http://shopify.github.io/ruby-style-guide/rubocop.yml
+inherit_gem:
+  rubocop-shopify: rubocop.yml
 
 AllCops:
   TargetRubyVersion: 2.6.3
@@ -12,13 +12,12 @@ AllCops:
     - 'vendor/**/*'
     - '*.gemspec'
 
-Rails:
-  Enabled: false
-
 Metrics/PerceivedComplexity:
   Max: 6
+  Exclude:
+    - bin/**/*
 
-CyclomaticComplexity:
+Metrics/CyclomaticComplexity:
   Max: 6
   Exclude:
     - bin/**/*
@@ -41,16 +40,6 @@ Metrics/BlockLength:
     - config/initializers/**/*
     - config/environments/**/*
 
-Metrics/BlockNesting:
-  CountBlocks: false
-  Max: 1
-  Exclude:
-    - lib/**/*.rake
-    - test/**/*
-    - bin/**/*
-    - Gemfile
-    - config/initializers/**/*
-
 Metrics/ClassLength:
   CountComments: true
   Max: 100
@@ -64,16 +53,12 @@ Naming/MethodName:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - Guardfile
     - Gemfile
     - config/**/*
-    - bin/**/*
-
-Metrics/PerceivedComplexity:
-  Exclude:
     - bin/**/*
 
 Style/MethodCallWithArgsParentheses:

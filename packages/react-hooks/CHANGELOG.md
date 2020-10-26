@@ -7,6 +7,23 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [1.11.2] - 2020-10-20
+
+- Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [1.11.1] - 2020-08-19
+
+### Fixed
+
+- `useDelayedCallback` now uses `useRef` instead of `useState` in to avoid unnecessary re-render ([#1600](https://github.com/Shopify/quilt/pull/1600))
+- Improved test case for `useDelayedCallback` ([#1601](https://github.com/Shopify/quilt/pull/1601))
+
+## [1.11.0] - 2020-08-18
+
+### Added
+
+- Added `useDelayedCallback` hook ([#1595](https://github.com/Shopify/quilt/pull/1595))
+
 ## [1.10.0] - 2020-05-14
 
 ### Added

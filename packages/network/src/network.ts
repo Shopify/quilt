@@ -167,10 +167,6 @@ export enum ResponseType {
   Unknown = 'Unknown',
 }
 
-export function nonceSource(nonce: string) {
-  return `'nonce-${nonce}'`;
-}
-
 export function getResponseType(status: number | StatusCode) {
   if (status >= 100 && status < 200) {
     return ResponseType.Informational;
@@ -185,6 +181,10 @@ export function getResponseType(status: number | StatusCode) {
   } else {
     return ResponseType.Unknown;
   }
+}
+
+export function nonceSource(nonce: string) {
+  return `'nonce-${nonce}'`;
 }
 
 export function hashSource(hashAlgorithm: HashAlgorithm, value: string) {

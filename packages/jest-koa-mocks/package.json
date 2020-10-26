@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-koa-mocks",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "license": "MIT",
   "description": "Utilities to easily stub Koa context and cookies",
   "main": "dist/src/index.js",
@@ -25,7 +25,7 @@
   "dependencies": {
     "koa": "^2.5.0",
     "node-mocks-http": "^1.5.8",
-    "tslib": "^1.9.3"
+    "tslib": "^1.14.1"
   },
   "devDependencies": {
     "@types/express": "^4.11.1",

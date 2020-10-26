@@ -22,6 +22,7 @@ import {validators} from '@shopify/react-form-state';
 ```
 
 We can pass these directly into the `validators` prop of `<FormState />`.
+To use validators when submitting your form, set the `validateOnSubmit` prop of `<FormState />` to `true`. Here's an example:
 
 ```typescript
 import {TextField} from '@shopify/polaris';
@@ -35,6 +36,7 @@ function MyComponent() {
         description: 'Cool product',
         quantity: 0,
       }}
+      validateOnSubmit
       validators={{
         title: validators.lengthLessThan(10, 'That title is too long'),
 

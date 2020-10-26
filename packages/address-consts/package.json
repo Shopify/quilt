@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-consts",
-  "version": "2.0.2",
+  "version": "2.1.1",
   "license": "MIT",
   "description": "Constants and types relating to `@shopify/address`",
   "main": "dist/src/index.js",
@@ -26,5 +26,8 @@
   "files": [
     "dist/*",
     "!tsconfig.tsbuildinfo"
-  ]
+  ],
+  "dependencies": {
+    "tslib": "^1.14.1"
+  }
 }

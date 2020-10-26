@@ -10,6 +10,7 @@ export enum ApiVersion {
   January20 = '2020-01',
   April20 = '2020-04',
   July20 = '2020-07',
+  October20 = '2020-10',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }
@@ -55,6 +56,11 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
+      },
+      proxyReqOptDecorator(proxyReqOpts) {
+        delete proxyReqOpts.headers.cookie;
+        delete proxyReqOpts.headers.Cookie;
+        return proxyReqOpts;
       },
       proxyReqPathResolver() {
         return `${GRAPHQL_PATH_PREFIX}/${version}/graphql.json`;

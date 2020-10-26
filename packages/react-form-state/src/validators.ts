@@ -9,14 +9,11 @@ import {
   isPositiveNumericString,
 } from '@shopify/predicates';
 
+import {StringMapper} from './types';
 import {mapObject} from './utilities';
 
 interface Matcher<Input, Fields = any> {
   (input: Input, fields: Fields): boolean;
-}
-
-interface StringMapper {
-  (input: string): any;
 }
 
 type ErrorContent = string | StringMapper;

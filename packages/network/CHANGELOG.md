@@ -7,9 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [Unreleased]
+## [1.5.1] - 2020-10-20
 
-Added `ResponseType` function
+- Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## [1.5.0] - 2019-08-18
+
+Added `ResponseType` function ([#1579](https://github.com/Shopify/quilt/pull/1573))
 
 ## [1.4.0] - 2019-06-27
 

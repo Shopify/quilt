@@ -2,24 +2,31 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 
-import {Script, Style} from '../../components';
 import {HtmlManager} from '../../manager';
 import {HtmlContext} from '../../context';
 import {MANAGED_ATTRIBUTE} from '../../utilities';
 
+import {Script} from './Script';
 import Serialize from './Serialize';
+import {Stylesheet} from './Stylesheet';
+import {InlineStyle} from './InlineStyle';
 
 export interface Asset {
   path: string;
   integrity?: string;
 }
 
-export interface Props {
+export interface InlineStyle {
+  content: string;
+}
+
+export interface HtmlProps {
   manager?: HtmlManager;
   hydrationManager?: HydrationManager;
-  children: React.ReactElement<any> | string;
+  children?: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];
+  inlineStyles?: InlineStyle[];
   scripts?: Asset[];
   blockingScripts?: Asset[];
   preloadAssets?: Asset[];
@@ -30,15 +37,16 @@ export interface Props {
 export default function Html({
   manager,
   hydrationManager,
-  children,
+  children = '',
   locale = 'en',
   blockingScripts = [],
   scripts = [],
   styles = [],
+  inlineStyles = [],
   preloadAssets = [],
   headMarkup = null,
   bodyMarkup = null,
-}: Props) {
+}: HtmlProps) {
   const markup =
     typeof children === 'string'
       ? children
@@ -77,14 +85,20 @@ export default function Html({
       ))
     : null;
 
-  const stylesMarkup = styles.map(style => {
+  const stylesheetMarkup = styles.map(style => {
     return (
-      <Style
+      <Stylesheet
         key={style.path}
         href={style.path}
         integrity={style.integrity}
         crossOrigin="anonymous"
       />
+    );
+  });
+
+  const inlineStylesMarkup = inlineStyles.map(inlineStyle => {
+    return (
+      <InlineStyle key={inlineStyle.content}>{inlineStyle.content}</InlineStyle>
     );
   });
 
@@ -137,7 +151,8 @@ export default function Html({
         {metaMarkup}
         {linkMarkup}
 
-        {stylesMarkup}
+        {stylesheetMarkup}
+        {inlineStylesMarkup}
         {headMarkup}
         {blockingScriptsMarkup}
         {deferredScriptsMarkup}
