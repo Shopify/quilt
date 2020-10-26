@@ -100,7 +100,7 @@ describe('Assets', () => {
 
       expect(
         await assets.scripts({name: 'custom', asyncAssets: ['used']}),
-      ).toStrictEqual([{path: asyncJs}, {path: js}]);
+      ).toStrictEqual([{path: js}, {path: asyncJs}]);
     });
 
     it('throws an error when no scripts exist for the passed entrypoint', async () => {
@@ -207,7 +207,7 @@ describe('Assets', () => {
 
       expect(
         await assets.styles({name: 'custom', asyncAssets: ['used']}),
-      ).toStrictEqual([{path: asyncCss}, {path: css}]);
+      ).toStrictEqual([{path: css}, {path: asyncCss}]);
     });
 
     it('throws an error when no styles exist for the passed entrypoint', async () => {
