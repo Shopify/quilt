@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.18.4",
+  "version": "0.19.0",
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
   "main": "dist/src/index.js",
@@ -26,11 +26,11 @@
   "dependencies": {
     "@shopify/network": "^1.5.1",
     "@shopify/react-async": "^3.1.24",
-    "@shopify/react-cookie": "^0.0.36",
+    "@shopify/react-cookie": "^0.0.37",
     "@shopify/react-effect": "^3.2.13",
-    "@shopify/react-html": "^10.0.1",
+    "@shopify/react-html": "^10.0.2",
     "@shopify/react-hydrate": "^1.1.27",
-    "@shopify/react-network": "^3.5.7",
+    "@shopify/react-network": "^3.5.8",
     "@shopify/sewing-kit-koa": "^6.3.6",
     "@shopify/useful-types": "^2.2.1",
     "chalk": "^2.4.2",

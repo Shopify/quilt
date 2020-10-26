@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.19.0] - 2020-10-26
+
 - Added `htmlProps` to the options for `createRender` and `createServer`, these props will be passed into the call to `@shopify/react-html`'s `<Html>` component ([#1661](https://github.com/Shopify/quilt/pull/1661))
 
 ## [0.18.4] - 2020-10-20

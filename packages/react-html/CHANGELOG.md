@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [10.0.2] - 2020-10-26
+
 - Update `HtmlProps` to mark children as optional (same as any React component) and export it ([#1661](https://github.com/Shopify/quilt/pull/1661))
 
 ## [10.0.1] - 2020-10-20
