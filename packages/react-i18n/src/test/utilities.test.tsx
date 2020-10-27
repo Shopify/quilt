@@ -110,7 +110,11 @@ describe('getTranslationTree()', () => {
 
   it('returns the translation keys even if they are hidden in a second dictionary', () => {
     expect(
-      getTranslationTree('foobar.barfoo', [{foo: {bar: 'one'}}, {foobar: {barfoo: 'two '}}], locale),
+      getTranslationTree(
+        'foobar.barfoo',
+        [{foo: {bar: 'one'}}, {foobar: {barfoo: 'two'}}],
+        locale,
+      ),
     ).toBe('two');
   });
 
