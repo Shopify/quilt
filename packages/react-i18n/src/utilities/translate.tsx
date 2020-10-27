@@ -80,6 +80,7 @@ export function getTranslationTree(
 
     for (const part of id.split(SEPARATOR)) {
       result = result[part];
+      if (!result) break;
     }
 
     if (result) {
