@@ -4,13 +4,18 @@ React I18n is a schema comprised of a structure of nested key-value pairs (KVPs)
 
 <!-- Created using "Markdown All in One" extension for VS Code -->
 - [History](#history)
+  - [Version 2.0](#version-20)
   - [Version 1.0](#version-10)
 - [Versioning](#versioning)
 - [Basic Structure](#basic-structure)
 - [Pluralization](#pluralization)
-  - [Reserved pluralization keys](#reserved-pluralization-keys)
-  - [Invalid pluralization keys](#invalid-pluralization-keys)
-  - [Detecting pluralization contexts](#detecting-pluralization-contexts)
+  - [Cardinal Pluralization](#cardinal-pluralization)
+    - [Reserved cardinal pluralization keys](#reserved-cardinal-pluralization-keys)
+    - [Invalid cardinal pluralization keys](#invalid-cardinal-pluralization-keys)
+    - [Detecting cardinal pluralization contexts](#detecting-cardinal-pluralization-contexts)
+  - [Ordinal Pluralization](#ordinal-pluralization)
+    - [Invalid ordinal pluralization keys](#invalid-ordinal-pluralization-keys)
+    - [Detecting ordinal pluralization contexts](#detecting-ordinal-pluralization-contexts)
 - [Serialization](#serialization)
   - [Serialization to JSON](#serialization-to-json)
     - [Comments](#comments)
@@ -21,6 +26,14 @@ React I18n is a schema comprised of a structure of nested key-value pairs (KVPs)
     - [Interpolation](#interpolation)
 
 # History
+
+## Version 2.0
+
+* Use the more precise language: `"Pluralization" -> "Cardinal Pluralization"`
+* Clarify that a cardinal pluralization context only includes immediate children
+* Add a description of how ordinal pluralization works.
+    * This was an omission in the version `1.0` specification.
+* Adjust the rules for reserved cardinal pluralization keys to account for their usage in ordinal pluralization contexts
 
 ## Version 1.0
 
@@ -66,22 +79,24 @@ When [serialized to JSON](#serialization-to-json), each of the dictionaries beco
 
 # Pluralization
 
-Pluralization is handled by providing the pluralization keys required by the language as leaf KVPs, creating a "pluralization context".
+## Cardinal Pluralization
 
-**Example English file with pluralization keys:**
+Pluralization of cardinal numbers is handled by providing the cardinal pluralization keys required by the language as leaf KVPs, creating a "cardinal pluralization context".
+
+**Example English file with cardinal pluralization keys:**
 
 ```jsonc
 {
-  "cars": {  // All the children of `cars` are in a "pluralization context"
+  "cars": {  // All the children of `cars` are in a "cardinal pluralization context"
     "one": "I have {count} car",
     "other": "I have {count} cars"
   }
 }
 ```
 
-Different languages require different sets of pluralization keys. For example, Polish (`pl`) has 4 required pluralization keys: `one`, `few`, `many`, and `other`. The Polish version of the previous example would be:
+Different languages require different sets of cardinal pluralization keys. For example, Polish (`pl`) has 4 required cardinal pluralization keys: `one`, `few`, `many`, and `other`. The Polish version of the previous example would be:
 
-**Example Polish file with pluralization keys:**
+**Example Polish file with cardinal pluralization keys:**
 
 ```json
 {
@@ -94,9 +109,9 @@ Different languages require different sets of pluralization keys. For example, P
 }
 ```
 
-## Reserved pluralization keys
+### Reserved cardinal pluralization keys
 
-In order to avoid key collisions, the following keys are reserved for use as pluralization keys and must not be used as keys of leaf KVPs outside of a pluralization context:
+In order to avoid key collisions, the following keys are reserved for use as cardinal pluralization keys and must not be used as keys of leaf KVPs outside of a cardinal pluralization context:
 
 * `few`
 * `many`
@@ -105,48 +120,116 @@ In order to avoid key collisions, the following keys are reserved for use as plu
 * `two`
 * `zero`
 
-These keys are derived from the names given to the pluralization rules of all languages, as defined in the [Unicode Consortium's Common Locale Data Repository (CLDR)](https://github.com/unicode-org/cldr).
+**Note:** There is an exception. These keys are also allowed to be present within an **ordinal pluralization context**.
 
-This list is current as of version `37` of the CLDR. In the unlikely event that new pluralization rule names are added, they will be added to this reserved list in a future version of this specification.
+These keys are derived from the names given to the cardinal pluralization rules of all languages, as defined in the [Unicode Consortium's Common Locale Data Repository (CLDR)](https://github.com/unicode-org/cldr).
+
+This list is current as of version `37` of the CLDR. In the unlikely event that new cardinal pluralization rule names are added, they will be added to this reserved list in a future version of this specification.
 
 **Example INVALID English file:**
 ```jsonc
 {
   "foo": "bar",
-  // 🚫 INVALID: The use of `other` makes this a pluralization context,
+  // 🚫 INVALID:
+  // The use of `other` key outside of an ordinal pluralization context
+  // makes this a cardinal pluralization context,
   // but it is missing the required `one` sibling key that English needs
-  // therefore it is not a valid pluralization context.
+  // therefore it is not a valid cardinal pluralization context.
   // It is either:
-  //   * not intended to be a pluralization context (in which case the reserved `other` key needs to be renamed)
-  //   * missing the `one` sibling key (in which case the `one` key needs to be added)
+  //   * not intended to be a cardinal pluralization context (in which case the reserved `other` key needs to be renamed)
+  //   * missing the required `one` sibling cardinal pluralization key (in which case the `one` key needs to be added)
+  //   * meant to be part of an ordinal pluralization context (in which case it needs to be placed under an "ordinal"
+  //     key and the other sibling ordinal pluralization keys need to be added)
   "other": "Other"
 }
 ```
 
-## Invalid pluralization keys
+### Invalid cardinal pluralization keys
 
-Furthermore, pluralization keys that are not required by the language must not be used, even within a pluralization context.
+Furthermore, cardinal pluralization keys that are not required by the language must not be used, even within a cardinal pluralization context.
 
-For example, even though `zero` is a required pluralization key for some languages (eg. Arabic), it is not a required pluralization key in English. Therefore, the `zero` key must not be present in an English file alongside the pluralization KVPs required by English.
+For example, even though `zero` is a required cardinal pluralization key for some languages (eg. Arabic), it is not a required cardinal pluralization key in English. Therefore, the `zero` key must not be present in an English file alongside the cardinal pluralization KVPs required by English.
 
 **Example INVALID English file:**
 ```jsonc
 {
   "cars": {
-    "zero": "I have no cars", // 🚫 INVALID: `zero` is not a required pluralization key for English!
+    "zero": "I have no cars", // 🚫 INVALID: `zero` is not a required cardinal pluralization key for English!
     "one": "I have {count} car",
     "other": "I have {count} cars"
   }
 }
 ```
 
-## Detecting pluralization contexts
+### Detecting cardinal pluralization contexts
 
-These constraints allow for a simple algorithm for identifying pluralization contexts:
+These constraints allow for a simple algorithm for identifying cardinal pluralization contexts:
 
-* If a node has child leaf KVPs for **any** of the pluralization keys required by the language, then its children are within a pluralization context.
+* If a node has child leaf KVPs for **any** of the cardinal pluralization keys required by the language, and the node is not `ordinal` (which would make it an [ordinal pluralization context](#ordinal-pluralization), then its **immediate** children are within a cardinal pluralization context.
 
-**Note**: in order to be a valid pluralization context, any other required pluralization keys must also be present within the pluralization context.
+**Note**: in order to be a valid cardinal pluralization context, any other required cardinal pluralization keys must also be present within the cardinal pluralization context.
+
+## Ordinal Pluralization
+
+Pluralization of ordinal numbers is handled by providing the ordinal pluralization keys required by the language as leaf KVPs, under an `ordinal` parent, creating an "ordinal pluralization context"
+
+**Example English file with ordinal pluralization keys:**
+
+```jsonc
+{
+  "cars": {
+    "ordinal": { // The special key "ordinal" creates an ordinal pluralization context
+      "one": "This is my {amount}st car", // Used for 1, 21, 31, 41, 51, 61, 71, 81, 101, 1001, …
+      "two": "This is my {amount}nd car", // Used for 2, 22, 32, 42, 52, 62, 72, 82, 102, 1002, …
+      "few": "This is my {amount}rd car", // Used for 3, 23, 33, 43, 53, 63, 73, 83, 103, 1003, …
+      "other": "This is my {amount}th car" // Used for 0, 4~18, 100, 1000, 10000, 100000, 1000000, …
+    }
+  }
+}
+```
+
+Different languages require different sets of ordinal pluralization keys. For example, Polish (`pl`) only has 1 required ordinal pluralization key: `other`. The Polish version of the previous example would be:
+
+**Example Polish file with ordinal pluralization keys:**
+
+```json
+{
+  "cars": {
+    "ordinal": {
+      "other": "To mój {amount}. samochód"
+    }
+  }
+}
+```
+
+### Invalid ordinal pluralization keys
+
+Ordinal pluralization keys that are not required by the language must not be used as leaf KVPs within an ordinal pluralization context.
+
+For example, even though `many` is a required cardinal pluralization key for some languages (eg. Italian), it is not a required ordinal pluralization key in English. Therefore, the `many` key must not be present in an English file alongside the ordinal pluralization KVPs required by English.
+
+**Example INVALID English file:**
+```jsonc
+{
+  "cars": {
+    "ordinal": {
+      "many": "This is one car of many that I own", // 🚫 INVALID: `zero` is not a required ordinal pluralization key for English!
+      "one": "This is my {amount}st car",
+      "two": "This is my {amount}nd car",
+      "few": "This is my {amount}rd car",
+      "other": "This is my {amount}th car"
+    }
+  }
+}
+```
+
+### Detecting ordinal pluralization contexts
+
+These constraints allow for a simple algorithm for identifying ordinal pluralization contexts:
+
+* If a node has the special key name `ordinal`, then its **immediate** children are within a ordinal pluralization context.
+
+**Note**: in order to be a valid ordinal pluralization context, any other required ordinal pluralization keys must also be present within the ordinal pluralization context.
 
 # Serialization
 
@@ -155,7 +238,7 @@ React I18n can be serialized to different formats. Two serializations are offici
 * JSON+Comments
 * JSON
 
-Consumers of React I18n `1.0` schema files are expected to be able to parse files serialized into each of these serialization formats.
+Consumers of React I18n `2.0` schema files are expected to be able to parse files serialized into each of these serialization formats.
 
 ## Serialization to JSON
 
