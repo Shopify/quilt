@@ -70,6 +70,40 @@ graphQL.wrap(resolve => myComponent.act(resolve));
 await graphQL.resolveAll();
 ```
 
+#### `update()`
+
+The `update()` method updates mocks after they have been initialized:
+
+```tsx
+const myComponent = mount(<MyComponent />);
+const newName = 'Garfield2';
+const graphQL = createGraphQL({
+  Pet: {
+    pet: {
+      __typename: 'Cat',
+      name: 'Garfield',
+    },
+  },
+});
+
+graphQL.wrap(resolve => myComponent.act(resolve));
+await graphQL.resolveAll();
+
+graphQL.update({
+  Pet: {
+    pet: {
+      __typename: 'Cat',
+      name: newName,
+    },
+  },
+});
+
+myComponent.find('button').trigger('onClick');
+await graphQL.resolveAll();
+
+expect(myComponent).toContainReactText(newName);
+```
+
 #### `#operations`
 
 `graphQL.operations` is a custom data structure that tracks all **resolved** GraphQL operations that the GraphQL controller has performed. This object has `first()`, `last()`, `all()`, and `nth()` methods, which allow you to inspect individual operations. All of these methods also accept an optional options argument, which allows you to narrow down the operations to specific queries or mutations:
