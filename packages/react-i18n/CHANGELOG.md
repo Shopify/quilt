@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+- Fix bug in `getTranslationTree` when having multiple translation dictionaries. [#1662](https://github.com/Shopify/quilt/pull/1662)
+
 ## [5.1.3] - 2020-10-20
 
 - Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
