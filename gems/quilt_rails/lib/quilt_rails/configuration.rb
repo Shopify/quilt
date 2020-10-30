@@ -13,6 +13,7 @@ module Quilt
       self.react_server_protocol = ENV['REACT_SERVER_PROTOCOL'] || "http"
       self.logger                = ::Logger.new($stdout)
       self.mount                 = true
+      self.react_server_refresh  = '/'
     end
 
     def mount?

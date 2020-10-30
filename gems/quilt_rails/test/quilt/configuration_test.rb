@@ -65,5 +65,17 @@ module Quilt
 
       refute_predicate(Quilt.configuration, :mount?)
     end
+
+    def test_refresh_default
+      assert_equal('/', Quilt.configuration.react_server_refresh)
+    end
+
+    def test_refresh_configured
+      Quilt.configure do |config|
+        config.react_server_refresh = '/custom'
+      end
+
+      assert_equal('/custom', Quilt.configuration.react_server_refresh)
+    end
   end
 end

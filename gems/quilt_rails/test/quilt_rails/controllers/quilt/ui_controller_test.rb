@@ -11,11 +11,11 @@ module QuiltRails
       setup { boot_dummy }
 
       test "react render error" do
-        get("/")
+        resp = get("/")
 
         assert_select("h1", "Waiting for React Sever to boot up.")
         assert_select("meta[http-equiv='refresh']") do |selector, *|
-          assert_equal("3;URL='/'", selector[:content])
+          assert_equal("3;URL='#{Quilt.configuration.react_server_refresh}'", selector[:content])
         end
       end
 
