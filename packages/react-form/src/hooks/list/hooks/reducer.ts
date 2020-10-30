@@ -1,16 +1,18 @@
 import {useReducer, Reducer} from 'react';
 
-import {FieldStates, ErrorValue} from '../../types';
+import {FieldStates, ErrorValue} from '../../../types';
 import {
   reduceField,
   FieldAction,
   updateErrorAction as updateFieldError,
   initialFieldState,
-} from '../field';
-import {mapObject} from '../../utilities';
+} from '../../field';
+import {mapObject} from '../../../utilities';
 
-type ListAction<Item> =
+export type ListAction<Item> =
   | ReinitializeAction<Item>
+  | AddFieldItemAction<Item>
+  | RemoveFieldItemAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
@@ -19,6 +21,16 @@ type ListAction<Item> =
 interface ReinitializeAction<Item> {
   type: 'reinitialize';
   payload: {list: Item[]};
+}
+
+interface AddFieldItemAction<Item> {
+  type: 'addFieldItem';
+  payload: {list: Item[]};
+}
+
+interface RemoveFieldItemAction {
+  type: 'removeFieldItem';
+  payload: {indexToRemove: number};
 }
 
 interface TargetedPayload<Item, Key extends keyof Item> {
@@ -66,6 +78,24 @@ export function reinitializeAction<Item>(
   return {
     type: 'reinitialize',
     payload: {list},
+  };
+}
+
+export function addFieldItemAction<Item>(
+  list: Item[],
+): AddFieldItemAction<Item> {
+  return {
+    type: 'addFieldItem',
+    payload: {list},
+  };
+}
+
+export function removeFieldItemAction(
+  indexToRemove: number,
+): RemoveFieldItemAction {
+  return {
+    type: 'removeFieldItem',
+    payload: {indexToRemove},
   };
 }
 
@@ -126,6 +156,20 @@ function reduceList<Item extends object>(
       return {
         initial: action.payload.list,
         list: action.payload.list.map(initialListItemState),
+      };
+    }
+    case 'addFieldItem': {
+      return {
+        ...state,
+        list: [...state.list, ...action.payload.list.map(initialListItemState)],
+      };
+    }
+    case 'removeFieldItem': {
+      const newList = [...state.list];
+      newList.splice(action.payload.indexToRemove, 1);
+      return {
+        ...state,
+        list: newList,
       };
     }
     case 'updateError': {

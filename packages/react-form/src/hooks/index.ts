@@ -5,7 +5,7 @@ export {
   useField,
   FieldConfig,
 } from './field';
-export {useList} from './list';
+export {useList, useDynamicList} from './list';
 export {useForm} from './form';
 export {useSubmit, submitSuccess, submitFail} from './submit';
 export {useDirty} from './dirty';
