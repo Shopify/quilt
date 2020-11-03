@@ -15,7 +15,7 @@ module QuiltRails
 
         assert_select("h1", "Waiting for React Sever to boot up.")
         assert_select("meta[http-equiv='refresh']") do |selector, *|
-          assert_equal("3;URL='/'", selector[:content])
+          assert_equal("3", selector[:content])
         end
       end
 
