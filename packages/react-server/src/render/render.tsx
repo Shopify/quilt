@@ -174,7 +174,6 @@ export function createRender(
       logger.log(errorMessage);
       ctx.status = StatusCode.InternalServerError;
 
-      // eslint-disable-next-line no-process-env
       if (renderRawErrorMessage) {
         ctx.body = errorMessage;
       } else {

@@ -46,10 +46,10 @@ export function createServer(options: Options): Server {
     assetPrefix = process.env.CDN_URL && process.env.CDN_URL !== 'undefined'
       ? process.env.CDN_URL
       : undefined,
-    /* eslint-enable no-process-env */
     render,
     renderError,
     renderRawErrorMessage = process.env.NODE_ENV === 'development',
+    /* eslint-enable no-process-env */
     serverMiddleware,
     assetName,
     htmlProps,
