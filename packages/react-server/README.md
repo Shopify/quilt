@@ -87,6 +87,8 @@ interface Options {
   debug?: boolean;
   // a function similar to the render option but specifically used to render error pages for production SSR errors
   renderError: RenderFunction;
+  // Control when to render raw stack trace, defaults to development only.
+  renderRawErrorMessage?: boolean;
   // additional props to pass into the Html component, or a function that takes a Koa.Context and returns a props object
   // See https://github.com/Shopify/quilt/blob/master/packages/react-html/README.md#html-
   htmlProps?: HtmlProps | (ctx: Context) => HtmlProps
