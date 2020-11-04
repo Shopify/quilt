@@ -22,6 +22,7 @@ interface Options {
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
   renderError?: RenderOptions['renderError'];
+  renderRawErrorMessage?: boolean;
   app?: Koa;
 }
 
@@ -48,6 +49,7 @@ export function createServer(options: Options): Server {
     /* eslint-enable no-process-env */
     render,
     renderError,
+    renderRawErrorMessage = process.env.NODE_ENV === 'development',
     serverMiddleware,
     assetName,
     htmlProps,
@@ -67,7 +69,7 @@ export function createServer(options: Options): Server {
   }
 
   app.use(
-    createRender(render, {assetPrefix, assetName, renderError, htmlProps}),
+    createRender(render, {assetPrefix, assetName, renderError, renderRawErrorMessage, htmlProps}),
   );
 
   return app.listen(port, ip, () => {

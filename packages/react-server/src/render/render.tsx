@@ -54,6 +54,7 @@ export type RenderOptions = Pick<
   assetPrefix?: string;
   assetName?: string | ValueFromContext<string>;
   renderError?: RenderFunction;
+  renderRawErrorMessage?: boolean;
   htmlProps?: HtmlProps | ValueFromContext<HtmlProps>;
 };
 
@@ -71,6 +72,7 @@ export function createRender(
     assetPrefix,
     assetName: assetNameInput = 'main',
     renderError,
+    renderRawErrorMessage,
     htmlProps: htmlPropsInput = {},
   } = options;
 
@@ -173,7 +175,7 @@ export function createRender(
       ctx.status = StatusCode.InternalServerError;
 
       // eslint-disable-next-line no-process-env
-      if (process.env.NODE_ENV === 'development') {
+      if (renderRawErrorMessage) {
         ctx.body = errorMessage;
       } else {
         if (renderError) {
