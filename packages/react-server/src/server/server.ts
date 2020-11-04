@@ -69,7 +69,13 @@ export function createServer(options: Options): Server {
   }
 
   app.use(
-    createRender(render, {assetPrefix, assetName, renderError, renderRawErrorMessage, htmlProps}),
+    createRender(render, {
+      assetPrefix,
+      assetName,
+      renderError,
+      renderRawErrorMessage,
+      htmlProps,
+    }),
   );
 
   return app.listen(port, ip, () => {
