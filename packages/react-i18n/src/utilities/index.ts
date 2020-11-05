@@ -1,4 +1,5 @@
 import {getCurrencySymbol} from './money';
+import {wrapWithDisclaimer} from './disclaimer';
 import {noop} from './noop';
 import {
   PSEUDOTRANSLATE_OPTIONS,
@@ -11,6 +12,7 @@ import {
 
 export {
   getCurrencySymbol,
+  wrapWithDisclaimer,
   noop,
   PSEUDOTRANSLATE_OPTIONS,
   translate,
