@@ -148,7 +148,7 @@ Most notably, you will frequently use `i18n`’s `translate()` method. This meth
 
 The most commonly-used feature of the `@shopify/react-i18n` library is looking up translations. In this library, translations are provided **for the component that need them**, and are **available for ancestors of the component**. This allows applications to grow while keeping translations manageable, makes it clearer where to add new translations, and follows Shopify’s principle of [isolation over integration](https://github.com/Shopify/web-foundations/blob/main/handbook/Principles/4%20-%20Isolation%20over%20integration.md) by collocating translations with all other component assets.
 
-Translations are serialized into files according to [the React I18n schema](./packages/react-i18n/docs/react_i18n_schema.md).
+Translations are serialized into files according to [the React I18n schema](./docs/react_i18n_schema.md).
 
 Translations are provided using two keys in the `withI18n` decorator:
 
