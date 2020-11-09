@@ -12,7 +12,7 @@ export function applyTimeZoneOffset(
   const initialOffset = getTimeZoneOffset(date, timeZone1, timeZone2);
   const adjustedDate = new Date(date.valueOf() - initialOffset * 60 * 1000);
   const targetOffset = getTimeZoneOffset(adjustedDate, timeZone1, timeZone2);
-  const offsetDiff = targetOffset - initialOffset - Math.abs(dstOffsetDiff);
+  const offsetDiff = targetOffset - initialOffset + dstOffsetDiff;
 
   return new Date(adjustedDate.valueOf() - offsetDiff * 60 * 1000);
 }
