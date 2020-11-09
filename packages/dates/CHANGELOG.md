@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.4.4] - 2020-11-01
+
+- Updated `apply-time-zone-offest.ts` to check for offset in days dst is applied. fixes web issue [#18493](https://github.com/Shopify/store/issues/18493)
+
 ## [0.4.3] - 2020-10-20
 
 - Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
