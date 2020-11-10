@@ -63,7 +63,7 @@ describe('applyTimeZoneOffset()', () => {
       const expected = new Date('2020-11-01T06:00:00.000Z');
 
       expect(
-        applyTimeZoneOffset(date, 'America/Denver', undefined),
+        applyTimeZoneOffset(date, 'America/Denver', 'America/Toronto'),
       ).toStrictEqual(expected);
     });
   });
