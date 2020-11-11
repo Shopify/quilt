@@ -8,16 +8,20 @@ export interface Props extends ReactRouterLinkProps {
   url: string;
 }
 
-export default function Link({url, external, children, ...rest}: Props) {
-  let target: string | undefined;
-  let rel: string | undefined;
-  if (external) {
-    target = '_blank';
-    rel = 'noopener noreferrer';
+const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
+
+export default function Link(props: Props) {
+  const {url, external, children, ...rest} = props;
+  if (external || IS_EXTERNAL_LINK_REGEX.test(url)) {
+    return (
+      <a href={url} {...rest} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    );
   }
 
   return (
-    <ReactRouterLink target={target} to={url} rel={rel} {...rest}>
+    <ReactRouterLink to={url} {...props}>
       {children}
     </ReactRouterLink>
   );

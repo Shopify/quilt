@@ -36,9 +36,20 @@ describe('<Link />', () => {
   });
 
   describe('external', () => {
-    it('renders a react router link', () => {
+    it('does not render a react router link for external URL', () => {
       const link = mount(<Link url="https://shopify.com" />);
-      expect(link).toContainReactComponent(ReactRouterLink);
+      expect(link).not.toContainReactComponent(ReactRouterLink);
+      expect(link).toContainReactComponent('a', {
+        href: 'https://shopify.com',
+      });
+    });
+
+    it('does not render a react router link when external prop is provided', () => {
+      const link = mount(<Link external url="something-else" />);
+      expect(link).not.toContainReactComponent(ReactRouterLink);
+      expect(link).toContainReactComponent('a', {
+        href: 'something-else',
+      });
     });
 
     it('sets the `to` prop and passes along other props to ReactRouterLink', () => {
@@ -52,7 +63,7 @@ describe('<Link />', () => {
 
     it('sets default external attributes', () => {
       const link = mount(<Link url="https://shopify.com" external />);
-      expect(link).toContainReactComponent(ReactRouterLink, {
+      expect(link).toContainReactComponent('a', {
         target: '_blank',
         rel: 'noopener noreferrer',
       });
