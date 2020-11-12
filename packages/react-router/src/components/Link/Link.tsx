@@ -8,11 +8,11 @@ export interface Props extends ReactRouterLinkProps {
   url: string;
 }
 
-const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
+const EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
 
 export default function Link(props: Props) {
   const {url, external, children, ...rest} = props;
-  if (external || IS_EXTERNAL_LINK_REGEX.test(url)) {
+  if (external || EXTERNAL_LINK_REGEX.test(url)) {
     return (
       <a href={url} {...rest} target="_blank" rel="noopener noreferrer">
         {children}
