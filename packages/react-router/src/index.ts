@@ -11,4 +11,4 @@ export {
   useLocation,
   useHistory,
 } from 'react-router-dom';
-export {Router, Redirect, Link} from './components';
+export {Router, Redirect, Link, PolarisLink} from './components';

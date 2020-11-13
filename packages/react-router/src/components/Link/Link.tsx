@@ -4,21 +4,29 @@ import {Link as ReactRouterLink, LinkProps} from 'react-router-dom';
 type ReactRouterLinkProps = Omit<LinkProps, 'to'>;
 
 export interface Props extends ReactRouterLinkProps {
-  external?: boolean;
+  skipRouter?: boolean;
   url: string;
 }
 
-export default function Link({url, external, children, ...rest}: Props) {
-  let target: string | undefined;
-  let rel: string | undefined;
-  if (external) {
-    target = '_blank';
-    rel = 'noopener noreferrer';
+export function Link(props: Props) {
+  const {url, skipRouter, children, ...rest} = props;
+  if (skipRouter || isNonHttpProtocol(url)) {
+    return (
+      <a href={url} {...rest}>
+        {children}
+      </a>
+    );
   }
 
   return (
-    <ReactRouterLink target={target} to={url} rel={rel} {...rest}>
+    <ReactRouterLink to={url} {...rest}>
       {children}
     </ReactRouterLink>
   );
+}
+
+const CUSTOM_PROTOCOL_REGEX = /^(?!http)\w+:/;
+
+export function isNonHttpProtocol(url: string) {
+  return CUSTOM_PROTOCOL_REGEX.test(url);
 }
