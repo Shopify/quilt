@@ -173,6 +173,7 @@ export function createRender(
 
       logger.log(errorMessage);
       ctx.status = StatusCode.InternalServerError;
+      ctx.state.quiltError = error;
 
       if (renderRawErrorMessage) {
         ctx.body = errorMessage;
