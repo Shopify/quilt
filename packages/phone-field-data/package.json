@@ -27,7 +27,8 @@
     "countries-list": "^2.5.6",
     "intl-tel-input": "^17.0.5",
     "libphonenumber-js": "^1.8.1",
-    "us-area-codes": "^1.0.0"
+    "us-area-codes": "^1.0.0",
+    "countries-db": "^1.2.0"
   },
   "files": [
     "!tsconfig.tsbuildinfo",

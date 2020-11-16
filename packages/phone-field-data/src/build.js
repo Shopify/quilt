@@ -5,6 +5,7 @@ const intlTelInput = require('intl-tel-input/build/js/data');
 const libphonenumberJS = require('libphonenumber-js');
 const examples = require('libphonenumber-js/examples.mobile.json');
 const usAreaCodes = require('us-area-codes/data/codes.json');
+const countriesDB = require('countries-db');
 
 function obtainCountryInformation(telephoneData) {
   return telephoneData.map(countryObj => {
@@ -56,49 +57,26 @@ function obtainCountryFormatting(countryData) {
   });
 }
 
-function populationData() {
-  return {
-    KZ: 18776707,
-    RU: 145934462,
-    AU: 25499884,
-    CX: 1843,
-    CC: 544,
-    BQ: 20104,
-    CW: 164093,
-    NO: 5421241,
-    SJ: 2667,
-    GB: 67886011,
-    JE: 97857,
-    IM: 84077,
-    GG: 67052,
-    IT: 60461826,
-    VA: 825,
-    FI: 5541159,
-    AX: 28007,
-    US: 331002651,
-    CA: 37757861,
-  };
-}
-
-function insertPopulationData(allData, populationData) {
-  let countryData = allData;
-  countryData.forEach((countryObj, index) => {
-    if (populationData[countryObj.countryAlphaCode]) {
-      countryData[index]['population'] =
-        populationData[countryObj.countryAlphaCode];
+function obtainPopulationData(countryData) {
+  return countryData.map(countryObj => {
+    if (
+      countriesDB.getCountry(countryObj.countryAlphaCode, 'population') === null
+    ) {
+      return countryObj;
     }
-  });
 
-  return countryData;
+    countryObj.population = countriesDB.getCountry(
+      countryObj.countryAlphaCode,
+      'population',
+    );
+
+    return countryObj;
+  });
 }
 
 // View the information passed to the user
-// console.log(insertPopulationData(obtainCountryFormatting(obtainCountryInformation(intlTelInput)), populationData()));
-const allData = insertPopulationData(
+const allData = obtainPopulationData(
   obtainCountryFormatting(obtainCountryInformation(intlTelInput)),
-  populationData(),
 );
-
-console.log(obtainCountryInformation(intlTelInput));
 
 fs.writeFileSync('./index.json', JSON.stringify(allData));
