@@ -16,6 +16,7 @@ Manage React forms tersely and safely-typed with no magic using React hooks. Bui
       1. [useField](#usefield)
       1. [useChoiceField](#usechoicefield)
       1. [useList](#uselist)
+      1. [useDynamicList](#usedynamiclist)
       1. [useForm](#useform)
       1. [useDirty](#usedirty)
       1. [useReset](#usereset)
@@ -633,6 +634,83 @@ function MyComponent() {
 **Reinitialization:** If the `list` property of the field configuration changes between calls to `useList`, the field will be reset to use it as its new default value.
 
 **Imperative methods:** The returned `Field` objects contains a number of methods used to imperatively alter their state. These should only be used as escape hatches where the existing hooks and components do not make your life easy, or to build new abstractions in the same vein as `useForm`, `useSubmit` and friends.
+
+#### `useDynamicList()`
+
+This offers the same functionality as useList. `useDynamicList` is a hook that adds on `useList` by adding the ability to dynamically add and remove list items. The same way you would utilize `useList` is the same way you would utilize `useDynamicList` except some differences such as the `addField`, and the `removeField` function. We also have to pass in a factory into this hook (telling the hook the exact type of object to add and how it should be initialized).
+
+##### Using `useDynamicList`
+
+Lets simulate having a user interface that allows you add as many payments methods as you wish.
+
+1. We have to initialize `useDynamicList` the following way
+
+```tsx
+const emptyCardFactory = (): Card => ({
+  cardNumber: '',
+  cvv: '',
+});
+
+const {fields, addItem, removeItem} = useDynamicList(
+  [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
+  emptyCardFactory,
+);
+```
+
+You can choose to initialize it with an existing number of cards or no card.
+
+2. Displaying your list and attaching the handlers `useDynamicList` provides
+
+```tsx
+{
+  fields.map((field, index) => (
+    <FormLayout.Group key={index}>
+      <TextField
+        placeholder="Card Number"
+        label="Card Number"
+        value={field.cardNumber.value}
+        onChange={field.cardNumber.onChange}
+      />
+      <TextField
+        placeholder="CVV"
+        label="CVV"
+        value={field.cvv.value}
+        onChange={field.cvv.onChange}
+      />
+      <div>
+        <Button onClick={() => removeItem(index)}>Remove</Button>
+      </div>
+    </FormLayout.Group>
+  ));
+}
+<Button onClick={() => addItem()}>Add Card</Button>;
+```
+
+We render our UI representation of the fields by utilizing the `fields.map` function. For each field, we can use the handlers such as onChange, value, onBlur. These are the same handlers that useList provides.
+
+We can also utilize the `removeItem`, and `addItem` functions. In this example, these functions are attached to a button press. When we remove a field we pass in the index (to indicate what field to remove). When we add a field, we utilize the factory we passed in when initializing `useDynamicList`.
+
+#### Does this work with useForm?
+
+Yes this works out of the box with `useForm` and is compatible with what `useList` is compatible with.
+
+We would utilize it the following way
+
+```tsx
+const {submit, dirty, submitting} = useForm({
+  fields: {
+    fields, // the fields returned from useDynamicList.
+  },
+  onSubmit: async fieldValues => {
+    console.log(fieldValues);
+    return {status: 'success'};
+  },
+});
+```
+
+A code sandbox of `useDynamicList` in action can be seen [here](https://codesandbox.io/s/hungry-rubin-exrkz?fontsize=14&hidenavigation=1&theme=dark)
+
+Here, onSubmit is called when the form is submitted. See `useForm` documentation.
 
 #### `useForm()`
 
