@@ -39,7 +39,7 @@ const client = createBugsnagClient({apiKey: API_KEY});
 
 function App() {
   return (
-    <Bugsang client={client}>
+    <Bugsnag client={client}>
       {/* app code */}
     </Bugsnag>
   );
