@@ -120,7 +120,7 @@ describe('oauthStart', () => {
 
 #### Testing apps using common koa libraries
 
-`createContext` allows you to pass a `body` and `session` key by default, so you should be able to test applications using the common body parsing or session libraries simply and quickly.
+`createMockContext` allows you to pass a `requestBody` and `session` key by default, so you should be able to test applications using the common body parsing or session libraries simply and quickly.
 
 ```javascript
 import login from '../login';
@@ -130,7 +130,7 @@ describe('password-validator', () => {
   it('sets session.user if body contains a valid password and username', async () => {
     const ctx = createMockContext({
       url: '/login',
-      body: {
+      requestBody: {
         username: 'valid',
         password: 'valid',
       },
