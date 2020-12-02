@@ -15,6 +15,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Updated `fetch-mock` dependency to `^9.11.0`. [#1691](https://github.com/Shopify/quilt/pull/1691)
 
+### Fixed
+
+- Fixed broken `location` module and re-enabled tests [#1684](https://github.com/Shopify/quilt/pull/1684)
+
 ## [2.9.3] - 2020-10-20
 
 - Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
