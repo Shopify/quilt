@@ -77,6 +77,7 @@ export interface Country {
     show: string;
   };
   zones: Zone[];
+  zipExample: string;
 }
 
 export interface ResponseError {

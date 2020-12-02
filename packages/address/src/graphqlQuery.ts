@@ -30,6 +30,7 @@ query countries($locale: SupportedLocale!) {
       name
       code
     }
+    zipExample
   }
 }
 
@@ -64,6 +65,7 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
       name
       code
     }
+    zipExample
   }
 }
 `;
