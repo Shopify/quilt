@@ -1,6 +1,6 @@
 ci:
   require:
-    - continuous-integration/travis-ci/push
+    - tests
 dependencies:
   post:
     - yarn run build
