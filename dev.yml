@@ -2,7 +2,7 @@ name: graphql-tools-web
 type: node
 up:
   - node:
-      version: v10.15.3
+      version: v12.20.0
       yarn: true
 
 commands:
