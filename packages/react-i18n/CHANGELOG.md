@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-##  - 2020-11-04
+## [5.1.4] - 2020-11-04
 
 - Fix bug in `getTranslationTree` when having multiple translation dictionaries. [#1662](https://github.com/Shopify/quilt/pull/1662)
 - Remove unused `noop` util helper [#1669](https://github.com/Shopify/quilt/pull/1669)
