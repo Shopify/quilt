@@ -1,0 +1,40 @@
+name: Ruby-CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  ruby-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+
+      - uses: actions/setup-ruby@v1
+        name: Use Ruby 2.x
+        with:
+          ruby-version: 2.x
+
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Setup
+        run: gem install bundler -v 2.0.2
+
+      - name: 📦 Install dependencies
+        run: bundle install --clean
+        working-directory: ./gems/quilt_rails
+
+      - name: 💅🏼 Lint
+        run: bundle exec rubocop --fail-fast
+
+      - name: Test
+        run: bundle exec rake test
