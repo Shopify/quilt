@@ -5,12 +5,12 @@ import {
   createProjectBuildPlugin,
 } from '@sewing-kit/plugins';
 import {react} from '@sewing-kit/plugin-react';
-import {javascript} from '@sewing-kit/plugin-javascript';
+import {javascript, updateBabelPreset} from '@sewing-kit/plugin-javascript';
 import {typescript} from '@sewing-kit/plugin-typescript';
 import {buildFlexibleOutputs} from '@sewing-kit/plugin-package-flexible-outputs';
 import {} from '@sewing-kit/plugin-jest';
 
-import {addLegacyDecoratorSupport, addReactPreset} from './plugins';
+import {addLegacyDecoratorSupport} from './plugins';
 
 export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
   return createComposedProjectPlugin<Package>('Quilt.Package', [
@@ -45,9 +45,16 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
           '<rootDir>/.*/tests?/.*fixtures',
         ]);
 
-        hooks.babelConfig?.hook(config =>
-          // For all our package tests, we import from react-testing (see tests/setup/test.ts)
-          addReactPreset(addLegacyDecoratorSupport(config)),
+        hooks.babelConfig?.hook(addLegacyDecoratorSupport);
+        // Each test imports from react-testing during setup
+        hooks.babelConfig?.hook(
+          updateBabelPreset(
+            ['@babel/preset-react', require.resolve('@babel/preset-react')],
+            {
+              development: false,
+              useBuiltIns: true,
+            },
+          ),
         );
       });
     }),
