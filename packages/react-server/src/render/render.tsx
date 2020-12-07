@@ -153,6 +153,9 @@ export function createRender(
       styles.push(...additionalStyles);
       scripts.push(...additionalScripts);
 
+      // BUG: Async query bundles should show up here
+      console.trace('~~~~ scripts: ', scripts);
+
       const response = stream(
         <Html
           {...additionalHtmlProps}

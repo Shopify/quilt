@@ -121,6 +121,8 @@ export function useAsyncAsset(
 ) {
   const async = useContext(AsyncAssetContext);
 
+  console.trace(`~~~[react-async] async context with id of ${id}: ${async}`);
+
   useServerEffect(() => {
     if (async && id) {
       async.markAsUsed(id, {scripts, styles});
