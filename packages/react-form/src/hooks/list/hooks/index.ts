@@ -1,6 +1,5 @@
 export {useHandlers} from './handlers';
 export {
-  ListAction,
   reinitializeAction,
   useListReducer,
   updateAction,
@@ -9,5 +8,6 @@ export {
   resetAction,
   addFieldItemAction,
   removeFieldItemAction,
-  ListState,
 } from './reducer';
+
+export type {ListAction, ListState} from './reducer';
