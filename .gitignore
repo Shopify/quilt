@@ -51,4 +51,8 @@ packages/*/*.d.ts
 packages/*/*.js
 !packages/*/.eslintrc.js
 
+## Remove me after sk-next migration
+packages/**/dist
+dist
+
 .package-build-cache
