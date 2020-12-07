@@ -24,16 +24,10 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
-<<<<<<< HEAD
     "@shopify/useful-types": "^2.2.1",
-    "jest-matcher-utils": "^25.3.0",
+    "jest-matcher-utils": "^26.0.0",
     "react-reconciler": "^0.20.2",
     "tslib": "^1.14.1"
-=======
-    "@shopify/useful-types": "1.0.0-sknext-beta.1",
-    "jest-matcher-utils": "^26.0.0",
-    "react-reconciler": "^0.20.2"
->>>>>>> c9b69a0f... Enforce isolatedModules
   },
   "devDependencies": {
     "faker": "^4.1.0"

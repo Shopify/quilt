@@ -93,7 +93,6 @@
   "resolutions": {
     "@types/react": "16.9.19",
     "@types/react-dom": "16.9.5",
-    "dot-prop": "5.1.1",
     "@babel/plugin-proposal-decorators": "7.10.5"
   }
 }
