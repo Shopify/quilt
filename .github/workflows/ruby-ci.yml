@@ -23,14 +23,17 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
+
       - name: 📦 Install dependencies
         run: |
           bundle config set ignore_messages true
-          bundle install
+          bundle install --frozen
         working-directory: ./gems/quilt_rails
+
       - name: 💅🏼 Lint
         run: bundle exec rubocop --fail-fast
         working-directory: ./gems/quilt_rails
+
       - name: Test
         run: bundle exec rake test
         working-directory: ./gems/quilt_rails
