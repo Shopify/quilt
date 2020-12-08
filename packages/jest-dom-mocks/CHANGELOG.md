@@ -13,6 +13,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [2.9.4] - 2020-12-08
 
+### Added
+
 - Updated `fetch-mock` dependency to `^9.11.0`. [#1691](https://github.com/Shopify/quilt/pull/1691)
 
 ### Fixed
