@@ -9,7 +9,7 @@ export default function addVariableDeclaratorProps(prop: string) {
           (t.isVariableDeclarator(declaration) &&
             declaration.init &&
             t.isMemberExpression(declaration.init) &&
-            declaration.init.property.name === 'props') ||
+            (declaration.init.property as t.Identifier).name === 'props') ||
           false,
       );
 
