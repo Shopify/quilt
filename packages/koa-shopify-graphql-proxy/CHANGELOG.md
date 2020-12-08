@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [4.0.4] - 2020-10-23
 
-- The `ApiVersion` enum now has an `October20` option
+- The `ApiVersion` enum now has an `October20` option. [#1654](https://github.com/Shopify/quilt/pull/1654)
 
 ## [4.0.3] - 2020-10-20
 
