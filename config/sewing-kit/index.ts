@@ -26,8 +26,6 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
             '**/test/**/*',
             '**/tests/**/*',
           ]);
-
-          hooks.babelConfig?.hook(addLegacyDecoratorSupport);
         });
       });
     }),

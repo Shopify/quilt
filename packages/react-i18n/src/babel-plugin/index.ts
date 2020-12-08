@@ -91,7 +91,9 @@ export default function injectWithI18nArguments({
         specifiers.forEach(specifier => {
           if (
             !t.isImportSpecifier(specifier) ||
-            !I18N_CALL_NAMES.includes(specifier.imported.name)
+            !I18N_CALL_NAMES.includes(
+              (specifier.imported as Types.Identifier).name,
+            )
           ) {
             return;
           }
