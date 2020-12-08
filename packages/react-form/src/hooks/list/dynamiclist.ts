@@ -5,11 +5,13 @@ import {useBaseList, FieldListConfig} from './baselist';
 
 interface DynamicList<Item extends object> {
   fields: FieldDictionary<Item>[];
-  addItem(): void;
+  addItem(factoryArgument?: any): void;
   removeItem(index: number): void;
 }
 
-type FactoryFunction<Item> = () => Item;
+type FactoryFunction<Item extends object> = (
+  factoryArgument?: any,
+) => Item | Item[];
 
 /*
   A custom hook for dynamically adding and removing field items. This utilizes the base functionality of useBaseList.
@@ -27,8 +29,14 @@ export function useDynamicList<Item extends object>(
 ): DynamicList<Item> {
   const {fields, dispatch} = useBaseList(listOrConfig, validationDependencies);
 
-  function addItem() {
-    dispatch(addFieldItemAction([fieldFactory()]));
+  function addItem(factoryArgument?: any) {
+    const itemToAdd = fieldFactory(factoryArgument);
+
+    if (Array.isArray(itemToAdd)) {
+      dispatch(addFieldItemAction(itemToAdd));
+    } else {
+      dispatch(addFieldItemAction([itemToAdd]));
+    }
   }
 
   function removeItem(index: number) {

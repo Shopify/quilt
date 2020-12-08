@@ -637,7 +637,7 @@ function MyComponent() {
 
 #### `useDynamicList()`
 
-This offers the same functionality as useList. `useDynamicList` is a hook that adds on `useList` by adding the ability to dynamically add and remove list items. The same way you would utilize `useList` is the same way you would utilize `useDynamicList` except some differences such as the `addField`, and the `removeField` function. We also have to pass in a factory into this hook (telling the hook the exact type of object to add and how it should be initialized).
+This offers the same functionality as useList. `useDynamicList` is a hook that adds on `useList` by adding the ability to dynamically add and remove list items. The same way you would utilize `useList` is the same way you would utilize `useDynamicList` except some differences such as the `addItem`, and the `removeItem` function. We also have to pass in a factory into this hook (telling the hook the exact type of object to add and how it should be initialized).
 
 ##### Using `useDynamicList`
 
@@ -657,7 +657,27 @@ const {fields, addItem, removeItem} = useDynamicList(
 );
 ```
 
-You can choose to initialize it with an existing number of cards or no card.
+We can also have a factory that produces multiple cards such as
+
+```tsx
+const emptyCardFactory = (): Card[] => [
+  {
+    cardNumber: '',
+    cvv: '',
+  },
+  {
+    cardNumber: '',
+    cvv: '',
+  },
+];
+
+const {fields, addItem, removeItem} = useDynamicList(
+  [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
+  emptyCardFactory,
+);
+```
+
+You can choose to initialize the list with an existing number of cards or no card.
 
 2. Displaying your list and attaching the handlers `useDynamicList` provides
 
@@ -688,7 +708,18 @@ You can choose to initialize it with an existing number of cards or no card.
 
 We render our UI representation of the fields by utilizing the `fields.map` function. For each field, we can use the handlers such as onChange, value, onBlur. These are the same handlers that useList provides.
 
-We can also utilize the `removeItem`, and `addItem` functions. In this example, these functions are attached to a button press. When we remove a field we pass in the index (to indicate what field to remove). When we add a field, we utilize the factory we passed in when initializing `useDynamicList`.
+We can also utilize the `removeItem`, and `addItem` functions. In this example, these functions are attached to a button press. When we remove an item we pass in the index (to indicate what field item to remove). When we add a item, we utilize the factory we passed in when initializing `useDynamicList`.
+
+Note that addItem can also take in an argument which can then be passed onto the factory. In this case, the factory can be
+
+```tsx
+const emptyCardFactory = (factoryArgument: any): Card => ([{
+  cardNumber: '',
+  cvv: '',
+});
+```
+
+You can then use this argument to do as you wish :).
 
 #### Does this work with useForm?
 
