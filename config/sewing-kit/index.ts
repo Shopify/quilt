@@ -10,6 +10,8 @@ import {typescript} from '@sewing-kit/plugin-typescript';
 import {buildFlexibleOutputs} from '@sewing-kit/plugin-package-flexible-outputs';
 import {} from '@sewing-kit/plugin-jest';
 
+import {addLegacyDecoratorSupport} from './plugin';
+
 export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
   return createComposedProjectPlugin<Package>('Quilt.Package', [
     javascript(),
@@ -40,6 +42,8 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
           ...patterns,
           '<rootDir>/.*/tests?/.*fixtures',
         ]);
+
+        hooks.babelConfig?.hook(addLegacyDecoratorSupport);
 
         // Each test imports from react-testing during setup
         hooks.babelConfig?.hook(
