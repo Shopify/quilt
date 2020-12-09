@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "5.1.5",
+  "version": "5.1.6",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more",
   "main": "dist/src/index.js",
@@ -33,7 +33,7 @@
     "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
-    "@shopify/dates": "^0.4.3",
+    "@shopify/dates": "^0.4.4",
     "@shopify/decorators": "^1.1.13",
     "@shopify/function-enhancers": "^1.0.11",
     "@shopify/i18n": "^0.1.12",
