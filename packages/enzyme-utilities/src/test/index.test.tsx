@@ -17,7 +17,7 @@ jest.mock('react-dom/test-utils', () => {
   };
 });
 
-const {act} = require.requireMock('react-dom/test-utils') as {act: jest.Mock};
+const {act} = jest.requireMock('react-dom/test-utils') as {act: jest.Mock};
 
 describe('enzyme-utilities', () => {
   beforeEach(() => {

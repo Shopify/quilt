@@ -26,7 +26,7 @@ jest.mock('@shopify/react-intersection-observer', () => ({
 
 jest.mock('../load', () => jest.fn());
 
-const load: jest.Mock = require.requireMock('../load');
+const load: jest.Mock = jest.requireMock('../load');
 
 describe('<ImportRemote />', () => {
   beforeEach(() => {

@@ -31,7 +31,7 @@ const config = {
   logger: {log: jest.fn()},
 };
 
-const StatsDClient = require.requireMock('@shopify/statsd').StatsDClient;
+const StatsDClient = jest.requireMock('@shopify/statsd').StatsDClient;
 
 describe('client metrics middleware', () => {
   beforeEach(() => {

@@ -17,7 +17,7 @@ jest.mock('fs-extra', () => ({
   readJson: jest.fn(() => []),
 }));
 
-const {pathExists, readFile, readJson} = require.requireMock('fs-extra');
+const {pathExists, readFile, readJson} = jest.requireMock('fs-extra');
 
 describe('Manifests locales', () => {
   beforeEach(() => {

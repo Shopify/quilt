@@ -6,7 +6,7 @@ jest.mock('@bugsnag/js', () => ({
   createClient: jest.fn(),
 }));
 
-const Bugsnag = require.requireMock('@bugsnag/js');
+const Bugsnag = jest.requireMock('@bugsnag/js');
 
 describe('createBugsnagClient()', () => {
   beforeEach(() => {
