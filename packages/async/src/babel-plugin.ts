@@ -2,6 +2,7 @@ import Types from '@babel/types';
 import {NodePath, Binding} from '@babel/traverse';
 
 const DEFAULT_PACKAGES_TO_PROCESS = {
+  '@shopify/alpaql/async': ['createAsyncQuery'],
   '@shopify/async': ['createResolver'],
   '@shopify/react-async': ['createAsyncContext', 'createAsyncComponent'],
   '@shopify/react-graphql': ['createAsyncQueryComponent', 'createAsyncQuery'],
