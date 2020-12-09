@@ -1,5 +1,6 @@
 import {transform} from '../../transform';
 import addImportSpecifier from '../addImportSpecifier';
+import '../../../matchers';
 
 describe('addImportSpecifier', () => {
   it('adds a specifier to an import statement that has an exisiting specifier', async () => {
