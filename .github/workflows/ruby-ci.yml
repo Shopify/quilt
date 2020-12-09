@@ -1,0 +1,39 @@
+name: Ruby-CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  ruby-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby-version: [2.6, 2.7]
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+
+      - uses: ruby/setup-ruby@v1
+        name: Use Ruby ${{ matrix.ruby-version }}
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+
+      - name: 📦 Install dependencies
+        run: |
+          bundle config set ignore_messages true
+          bundle install --frozen
+        working-directory: ./gems/quilt_rails
+
+      - name: 💅🏼 Lint
+        run: bundle exec rubocop --fail-fast
+        working-directory: ./gems/quilt_rails
+
+      - name: Test
+        run: bundle exec rake test
+        working-directory: ./gems/quilt_rails
