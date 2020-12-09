@@ -9,7 +9,7 @@ import {trigger, findById} from '..';
 function noop() {}
 
 jest.mock('react-dom/test-utils', () => {
-  const actualTestUtilities = require.requireActual('react-dom/test-utils');
+  const actualTestUtilities = jest.requireActual('react-dom/test-utils');
 
   return {
     ...actualTestUtilities,
@@ -17,7 +17,7 @@ jest.mock('react-dom/test-utils', () => {
   };
 });
 
-const {act} = require.requireMock('react-dom/test-utils') as {act: jest.Mock};
+const {act} = jest.requireMock('react-dom/test-utils') as {act: jest.Mock};
 
 describe('enzyme-utilities', () => {
   beforeEach(() => {
