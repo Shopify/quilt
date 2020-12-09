@@ -2,7 +2,8 @@
 
 > **Note**: this library is no longer maintained. Developers should use the `GraphQLUniversalProvider` from `@shopify/react-graphql-universal-provider` to wait for GraphQL queries to resolve on the server, and to perform automatic serialization.
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo.svg)](https://badge.fury.io/js/%40shopify%2Freact-effect-apollo.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect-apollo.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-effect-apollo.svg)
 
 A bridging layer between react-apollo and react-effect.

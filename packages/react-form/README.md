@@ -1,6 +1,7 @@
 # `@shopify/react-form`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form.svg)](https://badge.fury.io/js/%40shopify%2Freact-form.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form.svg)
 
 Manage React forms tersely and safely-typed with no magic using React hooks. Build up your form logic by combining hooks yourself, or take advantage of the smart defaults provided by the powerful `useForm` hook.
