@@ -1,6 +1,8 @@
 ci:
   require:
-    - continuous-integration/travis-ci/push
+    - node-tests (10.x)
+    - node-tests (12.x)
+    - node-tests (14.x)
 dependencies:
   post:
     - yarn run build: {timeout: 1800}
