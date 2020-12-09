@@ -10,6 +10,8 @@ A loosely related set of packages for JavaScript/TypeScript projects at Shopify.
 
 These libraries compose together to help you create performant modern JS apps that you love to develop and test. These packages are developed primarily to be used on top of the stack we like best for our JS apps; Typescript for the flavor, Koa for the server, React for UI, Apollo for data fetching, and Jest for tests. That said, you can mix and match as you like.
 
+⚠️ Over the past few years, this repo has become a dumping ground for a variety of packages unrelated to the core problems Quilt aims to solve. For this reason, we are no longer accepting new packages.
+
 ## Usage
 
 The Quilt repo is managed as a monorepo that is composed of {{jsPackages.length}} npm packages and one Ruby gem.
