@@ -9,7 +9,7 @@ import {trigger, findById} from '..';
 function noop() {}
 
 jest.mock('react-dom/test-utils', () => {
-  const actualTestUtilities = require.requireActual('react-dom/test-utils');
+  const actualTestUtilities = jest.requireActual('react-dom/test-utils');
 
   return {
     ...actualTestUtilities,

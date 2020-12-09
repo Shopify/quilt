@@ -10,24 +10,24 @@ import {NetworkContext, NetworkManager} from '@shopify/react-network';
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 
 jest.mock('apollo-client', () => {
-  const ApolloClient = require.requireActual('apollo-client').ApolloClient;
+  const ApolloClient = jest.requireActual('apollo-client').ApolloClient;
   const mockApolloClient = jest.fn(options => new ApolloClient(options));
 
   return {
-    ...require.requireActual('apollo-client'),
+    ...jest.requireActual('apollo-client'),
     default: mockApolloClient,
     ApolloClient: mockApolloClient,
   };
 });
 
 jest.mock('../utilities', () => ({
-  ...require.requireActual('../utilities'),
+  ...jest.requireActual('../utilities'),
   isServer: jest.fn(),
 }));
 const {isServer} = require.requireMock('../utilities');
 
 jest.mock('../request-id-link', () => ({
-  ...require.requireActual('../request-id-link'),
+  ...jest.requireActual('../request-id-link'),
   createRequestIdLink: jest.fn(),
 }));
 const {createRequestIdLink} = require.requireMock('../request-id-link');
@@ -51,7 +51,7 @@ describe('<GraphQLUniversalProvider />', () => {
     );
 
     expect(graphQL).toContainReactComponent(ApolloProvider, {
-      client: expect.any(require.requireActual('apollo-client').ApolloClient),
+      client: expect.any(jest.requireActual('apollo-client').ApolloClient),
     });
   });
 

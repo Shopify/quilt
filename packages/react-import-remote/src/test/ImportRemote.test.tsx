@@ -18,7 +18,7 @@ jest.mock('@shopify/react-html', () => ({
 }));
 
 jest.mock('@shopify/react-intersection-observer', () => ({
-  ...require.requireActual('@shopify/react-intersection-observer'),
+  ...jest.requireActual('@shopify/react-intersection-observer'),
   IntersectionObserver() {
     return null;
   },

@@ -11,7 +11,7 @@ import {
 } from './test-utilities';
 
 jest.mock('fs-extra', () => ({
-  ...require.requireActual('fs-extra'),
+  ...jest.requireActual('fs-extra'),
   pathExists: jest.fn(() => Promise.resolve(false)),
   readFile: jest.fn(() => '[]'),
   readJson: jest.fn(() => []),
