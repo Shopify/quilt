@@ -1,8 +1,17 @@
 ci:
   require:
-    - node-tests (10.x)
-    - node-tests (12.x)
-    - node-tests (14.x)
+    - node-unit-tests (10.x)
+    - node-unit-tests (12.x)
+    - node-unit-tests (14.x)
+    - node-e2e-tests (10.x)
+    - node-e2e-tests (12.x)
+    - node-e2e-tests (14.x)
+    - node-lint (10.x)
+    - node-lint (12.x)
+    - node-lint (14.x)
+    - node-build (10.x)
+    - node-build (12.x)
+    - node-build (14.x)
 dependencies:
   post:
     - yarn run build: {timeout: 1800}
