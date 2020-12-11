@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Added
+
+- Added `createAsyncQuery` from AlpaQL to the list of default transforms. ([#1702](https://github.com/Shopify/quilt/pull/1702))
+
 ## [2.1.6] - 2020-10-20
 
 - Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
