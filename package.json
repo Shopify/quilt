@@ -4,7 +4,7 @@
   "description": "A loosely related set of packages for JavaScript/TypeScript projects at Shopify",
   "scripts": {
     "publish": "lerna publish",
-    "build": "yarn tsc --build packages",
+    "build": "yarn run clean && yarn tsc --build packages",
     "lint": "eslint '**/*.{ts,tsx}'",
     "lint:changelogs": "node scripts/lint-changelogs.js",
     "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
