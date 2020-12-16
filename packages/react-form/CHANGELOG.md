@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Updated `fast-deep-equal` dependency to `^3.1.3` [#1710](https://github.com/Shopify/quilt/pull/1710)
+
 ## [0.10.0] - 2020-12-08
 
 - Added new functionality to `useDynamicList`. Added the ability to dynamically add more than one list item and the ability to pass in an argument into the dynamic list factory. [#1679](https://github.com/Shopify/quilt/pull/1679)
