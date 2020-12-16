@@ -1,6 +1,7 @@
 const {readdirSync, existsSync} = require('fs');
 const path = require('path');
 const glob = require('glob');
+const prettier = require('prettier');
 
 const jsPackages = getPackages('js');
 const gems = getPackages('ruby');
@@ -78,6 +79,7 @@ module.exports = function (plop) {
           tsConfig.references.sort(({path: firstPath}, {path: secondPath}) =>
             firstPath.localeCompare(secondPath),
           );
+
           return prettyStringify(tsConfig);
         },
       },
@@ -187,5 +189,8 @@ function stripDescription(desc) {
 }
 
 function prettyStringify(jsonObj) {
-  return JSON.stringify(jsonObj, undefined, 2) + '\n';
+  return prettier.format(JSON.stringify(jsonObj), {
+    parser: 'json',
+    bracketSpacing: false,
+  });
 }
