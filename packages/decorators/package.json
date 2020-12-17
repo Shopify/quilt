@@ -1,6 +1,6 @@
 {
   "name": "@shopify/decorators",
-  "version": "1.2.0-sk-next-beta.0",
+  "version": "1.2.0-sk-next-beta.1",
   "license": "MIT",
   "description": "A set of decorators to aid your JavaScript journey",
   "main": "index.js",
@@ -32,7 +32,7 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@shopify/function-enhancers": "^1.1.0-sk-next-beta.0",
+    "@shopify/function-enhancers": "^1.1.0-sk-next-beta.1",
     "tslib": "^1.14.1"
   },
   "module": "index.mjs",

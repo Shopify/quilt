@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-shortcuts",
-  "version": "3.1.0-sk-next-beta.0",
+  "version": "3.1.0-sk-next-beta.1",
   "license": "MIT",
   "description": "Declaratively and efficiently match shortcut combinations in your React application",
   "main": "index.js",
