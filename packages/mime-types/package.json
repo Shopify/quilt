@@ -3,8 +3,8 @@
   "version": "0.1.2",
   "license": "MIT",
   "description": "MIME type consistency",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -25,8 +25,23 @@
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/mime-types/README.md",
   "files": [
     "dist/*",
-    "!tsconfig.tsbuildinfo"
+    "!tsconfig.tsbuildinfo",
+    "build/*",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
   ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  },
   "dependencies": {
     "tslib": "^1.14.1"
   }

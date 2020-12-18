@@ -7,7 +7,8 @@ import {
   remove,
 } from './utilities';
 
-export {asChoiceField, ChoiceFieldDescriptor};
+export {asChoiceField};
+export type {ChoiceFieldDescriptor};
 export const arrayUtils = {push, replace, remove};
 
 export {default as validators} from './validators';

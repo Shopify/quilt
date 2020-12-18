@@ -3,8 +3,8 @@
   "version": "10.0.2",
   "license": "MIT",
   "description": "A component to render your React app with no static HTML",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -41,9 +41,30 @@
   },
   "sideEffects": false,
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
     "server.js",
+    "server.mjs",
+    "server.esnext",
     "server.d.ts"
-  ]
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./server": {
+      "import": "./server.mjs",
+      "require": "./server.js",
+      "esnext": "./server.esnext"
+    }
+  }
 }

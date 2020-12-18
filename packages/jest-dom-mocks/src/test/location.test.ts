@@ -1,7 +1,6 @@
 import Location from '../location';
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Location', () => {
+describe('Location', () => {
   describe('mock', () => {
     it('sets isMocked()', () => {
       const location = new Location();

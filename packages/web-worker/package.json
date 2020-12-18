@@ -3,8 +3,8 @@
   "version": "1.4.2",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -40,17 +40,52 @@
     "koa-mount": "^3.0.0"
   },
   "files": [
-    "dist/*",
+    "build/*",
     "!tsconfig.tsbuildinfo",
     "babel.js",
+    "babel.mjs",
+    "babel.esnext",
     "babel.d.ts",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
     "webpack.js",
+    "webpack.mjs",
+    "webpack.esnext",
     "webpack.d.ts",
     "worker.js",
+    "worker.mjs",
+    "worker.esnext",
     "worker.d.ts"
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",
     "webpack": ">4.25.1, <=4.5.0"
+  },
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./babel": {
+      "import": "./babel.mjs",
+      "require": "./babel.js",
+      "esnext": "./babel.esnext"
+    },
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./webpack": {
+      "import": "./webpack.mjs",
+      "require": "./webpack.js",
+      "esnext": "./webpack.esnext"
+    },
+    "./worker": {
+      "import": "./worker.mjs",
+      "require": "./worker.js",
+      "esnext": "./worker.esnext"
+    }
   }
 }

@@ -3,8 +3,8 @@
   "version": "0.1.1",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -32,18 +32,50 @@
     "@types/unist": "^2.0.3"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
+    "javascript.js",
+    "javascript.mjs",
+    "javascript.esnext",
+    "javascript.d.ts",
+    "markdown.js",
+    "markdown.mjs",
+    "markdown.esnext",
+    "markdown.d.ts"
   ],
   "dependencies": {
     "@babel/template": "^7.6.0",
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
-    "jest-matcher-utils": "^25.3.0",
+    "jest-matcher-utils": "^26.0.0",
     "remark-parse": "^7.0.1",
     "remark-stringify": "^7.0.3",
     "tslib": "^1.14.1",
     "unified": "^8.4.0",
     "unist-builder": "^1.0.4"
+  },
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./javascript": {
+      "import": "./javascript.mjs",
+      "require": "./javascript.js",
+      "esnext": "./javascript.esnext"
+    },
+    "./markdown": {
+      "import": "./markdown.mjs",
+      "require": "./markdown.js",
+      "esnext": "./markdown.esnext"
+    }
   }
 }

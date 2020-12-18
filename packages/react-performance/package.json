@@ -3,8 +3,8 @@
   "version": "1.3.7",
   "license": "MIT",
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -34,7 +34,21 @@
     "@shopify/network": "^1.5.1"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

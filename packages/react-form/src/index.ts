@@ -3,10 +3,8 @@ export * from './validation';
 
 export {
   asChoiceField,
-  ChoiceField,
   useChoiceField,
   useField,
-  FieldConfig,
   useList,
   useDirty,
   useReset,
@@ -16,6 +14,7 @@ export {
   submitSuccess,
   useDynamicList,
 } from './hooks';
+export type {ChoiceField, FieldConfig} from './hooks';
 
 export {
   fieldsToArray,

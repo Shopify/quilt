@@ -1,5 +1,7 @@
 const {readdirSync, existsSync} = require('fs');
 const path = require('path');
+const glob = require('glob');
+const prettier = require('prettier');
 
 const jsPackages = getPackages('js');
 const gems = getPackages('ruby');
@@ -64,15 +66,21 @@ module.exports = function (plop) {
         templateFile: 'templates/test.hbs.ts',
       },
       {
+        type: 'add',
+        path: 'packages/{{name}}/sewing-kit.config.ts',
+        templateFile: 'templates/sewing-kit.templateconfig.hbs.ts',
+      },
+      {
         type: 'modify',
-        path: 'packages/tsconfig.json',
+        path: 'tsconfig.json',
         transform: (file, {name}) => {
           const tsConfig = JSON.parse(file);
-          tsConfig.references.push({path: `./${name}`});
+          tsConfig.references.push({path: `./packages/${name}`});
           tsConfig.references.sort(({path: firstPath}, {path: secondPath}) =>
             firstPath.localeCompare(secondPath),
           );
-          return JSON.stringify(tsConfig);
+
+          return prettyStringify(tsConfig);
         },
       },
     ],
@@ -90,6 +98,58 @@ module.exports = function (plop) {
         data: {jsPackages, gems},
       },
     ],
+  });
+
+  plop.setGenerator('entrypoints', {
+    description: 'Update package.json files using the generated entrypoints',
+    prompts: [],
+    actions: jsPackages.reduce((acc, {name: packageName}) => {
+      const packagePath = path.join(__dirname, 'packages', packageName);
+      const packageJSONPath = path.join(packagePath, 'package.json');
+
+      const packageJSON = require(packageJSONPath);
+      const entrypoints = glob
+        .sync(`${packagePath}/*.js`)
+        .map(entrypoint => path.basename(entrypoint).slice(0, -3));
+      const hasIndex = entrypoints.includes('index');
+
+      if (hasIndex) {
+        packageJSON.main = 'index.js';
+        packageJSON.module = 'index.mjs';
+        packageJSON.esnext = 'index.esnext';
+        packageJSON.types = 'index.d.ts';
+      }
+      packageJSON.exports = {'./': './'};
+      entrypoints.forEach(entrypoint => {
+        packageJSON.exports[
+          entrypoint === 'index' ? '.' : `./${entrypoint}`
+        ] = {
+          import: `./${entrypoint}.mjs`,
+          require: `./${entrypoint}.js`,
+          esnext: `./${entrypoint}.esnext`,
+        };
+      });
+
+      packageJSON.files = entrypoints.reduce(
+        (acc, entrypoint) => {
+          return acc.concat([
+            `${entrypoint}.js`,
+            `${entrypoint}.mjs`,
+            `${entrypoint}.esnext`,
+            `${entrypoint}.d.ts`,
+          ]);
+        },
+        ['build/*', '!tsconfig.tsbuildinfo'],
+      );
+
+      acc.push({
+        type: 'modify',
+        path: packageJSONPath,
+        transform: () => prettyStringify(packageJSON),
+      });
+
+      return acc;
+    }, []),
   });
 };
 
@@ -126,4 +186,11 @@ function validatePackageName(name) {
 
 function stripDescription(desc) {
   return desc.replace(/[.\s]*$/g, '').replace(/^\s*/g, '');
+}
+
+function prettyStringify(jsonObj) {
+  return prettier.format(JSON.stringify(jsonObj), {
+    parser: 'json',
+    bracketSpacing: false,
+  });
 }

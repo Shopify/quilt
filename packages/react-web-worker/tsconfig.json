@@ -1,13 +1,13 @@
 {
-  "extends": "../tsconfig_base.json",
+  "extends": "../../config/typescript/tsconfig.base.json",
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": ".",
-    "rootDir": "."
+    "outDir": "build/ts",
+    "rootDir": "src",
+    "baseUrl": "src"
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "exclude": ["**/test/**/*", "**/tests/**/*"],
   "references": [
     {"path": "../react-hooks"},
     {"path": "../useful-types"},

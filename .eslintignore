@@ -1,7 +1,9 @@
 node_modules
 coverage
-**/node_modules/*
-**/packages/*.js
-*.d.ts
-**/templates/*
-**/dummy/**
+templates
+gems/**/dummy
+packages/*/build
+**/*.d.ts
+**/*.js
+**/*.esnext
+**/*.mjs
