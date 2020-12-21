@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-testing",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-testing/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^2.2.1",
+    "@shopify/useful-types": "^2.3.0",
     "jest-matcher-utils": "^26.0.0",
     "react-reconciler": "^0.20.2",
     "tslib": "^1.14.1"
