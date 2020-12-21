@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "Blessed polyfills for web platform features",
   "sideEffects": true,
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -41,7 +41,255 @@
     "@types/caniuse-api": "^3.0.0"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "base.js",
+    "base.mjs",
+    "base.esnext",
+    "base.d.ts",
+    "fetch.browser.js",
+    "fetch.browser.mjs",
+    "fetch.browser.esnext",
+    "fetch.browser.d.ts",
+    "fetch.jest.js",
+    "fetch.jest.mjs",
+    "fetch.jest.esnext",
+    "fetch.jest.d.ts",
+    "fetch.node.js",
+    "fetch.node.mjs",
+    "fetch.node.esnext",
+    "fetch.node.d.ts",
+    "formdata.browser.js",
+    "formdata.browser.mjs",
+    "formdata.browser.esnext",
+    "formdata.browser.d.ts",
+    "formdata.jest.js",
+    "formdata.jest.mjs",
+    "formdata.jest.esnext",
+    "formdata.jest.d.ts",
+    "formdata.node.js",
+    "formdata.node.mjs",
+    "formdata.node.esnext",
+    "formdata.node.d.ts",
+    "idle-callback.browser.js",
+    "idle-callback.browser.mjs",
+    "idle-callback.browser.esnext",
+    "idle-callback.browser.d.ts",
+    "idle-callback.jest.js",
+    "idle-callback.jest.mjs",
+    "idle-callback.jest.esnext",
+    "idle-callback.jest.d.ts",
+    "idle-callback.node.js",
+    "idle-callback.node.mjs",
+    "idle-callback.node.esnext",
+    "idle-callback.node.d.ts",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
+    "intersection-observer.browser.js",
+    "intersection-observer.browser.mjs",
+    "intersection-observer.browser.esnext",
+    "intersection-observer.browser.d.ts",
+    "intersection-observer.jest.js",
+    "intersection-observer.jest.mjs",
+    "intersection-observer.jest.esnext",
+    "intersection-observer.jest.d.ts",
+    "intersection-observer.node.js",
+    "intersection-observer.node.mjs",
+    "intersection-observer.node.esnext",
+    "intersection-observer.node.d.ts",
+    "intl.browser.js",
+    "intl.browser.mjs",
+    "intl.browser.esnext",
+    "intl.browser.d.ts",
+    "intl.jest.js",
+    "intl.jest.mjs",
+    "intl.jest.esnext",
+    "intl.jest.d.ts",
+    "intl.node.js",
+    "intl.node.mjs",
+    "intl.node.esnext",
+    "intl.node.d.ts",
+    "mutation-observer.browser.js",
+    "mutation-observer.browser.mjs",
+    "mutation-observer.browser.esnext",
+    "mutation-observer.browser.d.ts",
+    "mutation-observer.jest.js",
+    "mutation-observer.jest.mjs",
+    "mutation-observer.jest.esnext",
+    "mutation-observer.jest.d.ts",
+    "mutation-observer.node.js",
+    "mutation-observer.node.mjs",
+    "mutation-observer.node.esnext",
+    "mutation-observer.node.d.ts",
+    "noop.js",
+    "noop.mjs",
+    "noop.esnext",
+    "noop.d.ts",
+    "unhandled-rejection.browser.js",
+    "unhandled-rejection.browser.mjs",
+    "unhandled-rejection.browser.esnext",
+    "unhandled-rejection.browser.d.ts",
+    "unhandled-rejection.jest.js",
+    "unhandled-rejection.jest.mjs",
+    "unhandled-rejection.jest.esnext",
+    "unhandled-rejection.jest.d.ts",
+    "unhandled-rejection.node.js",
+    "unhandled-rejection.node.mjs",
+    "unhandled-rejection.node.esnext",
+    "unhandled-rejection.node.d.ts",
+    "url.browser.js",
+    "url.browser.mjs",
+    "url.browser.esnext",
+    "url.browser.d.ts",
+    "url.jest.js",
+    "url.jest.mjs",
+    "url.jest.esnext",
+    "url.jest.d.ts",
+    "url.node.js",
+    "url.node.mjs",
+    "url.node.esnext",
+    "url.node.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./base": {
+      "import": "./base.mjs",
+      "require": "./base.js",
+      "esnext": "./base.esnext"
+    },
+    "./fetch.browser": {
+      "import": "./fetch.browser.mjs",
+      "require": "./fetch.browser.js",
+      "esnext": "./fetch.browser.esnext"
+    },
+    "./fetch.jest": {
+      "import": "./fetch.jest.mjs",
+      "require": "./fetch.jest.js",
+      "esnext": "./fetch.jest.esnext"
+    },
+    "./fetch.node": {
+      "import": "./fetch.node.mjs",
+      "require": "./fetch.node.js",
+      "esnext": "./fetch.node.esnext"
+    },
+    "./formdata.browser": {
+      "import": "./formdata.browser.mjs",
+      "require": "./formdata.browser.js",
+      "esnext": "./formdata.browser.esnext"
+    },
+    "./formdata.jest": {
+      "import": "./formdata.jest.mjs",
+      "require": "./formdata.jest.js",
+      "esnext": "./formdata.jest.esnext"
+    },
+    "./formdata.node": {
+      "import": "./formdata.node.mjs",
+      "require": "./formdata.node.js",
+      "esnext": "./formdata.node.esnext"
+    },
+    "./idle-callback.browser": {
+      "import": "./idle-callback.browser.mjs",
+      "require": "./idle-callback.browser.js",
+      "esnext": "./idle-callback.browser.esnext"
+    },
+    "./idle-callback.jest": {
+      "import": "./idle-callback.jest.mjs",
+      "require": "./idle-callback.jest.js",
+      "esnext": "./idle-callback.jest.esnext"
+    },
+    "./idle-callback.node": {
+      "import": "./idle-callback.node.mjs",
+      "require": "./idle-callback.node.js",
+      "esnext": "./idle-callback.node.esnext"
+    },
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./intersection-observer.browser": {
+      "import": "./intersection-observer.browser.mjs",
+      "require": "./intersection-observer.browser.js",
+      "esnext": "./intersection-observer.browser.esnext"
+    },
+    "./intersection-observer.jest": {
+      "import": "./intersection-observer.jest.mjs",
+      "require": "./intersection-observer.jest.js",
+      "esnext": "./intersection-observer.jest.esnext"
+    },
+    "./intersection-observer.node": {
+      "import": "./intersection-observer.node.mjs",
+      "require": "./intersection-observer.node.js",
+      "esnext": "./intersection-observer.node.esnext"
+    },
+    "./intl.browser": {
+      "import": "./intl.browser.mjs",
+      "require": "./intl.browser.js",
+      "esnext": "./intl.browser.esnext"
+    },
+    "./intl.jest": {
+      "import": "./intl.jest.mjs",
+      "require": "./intl.jest.js",
+      "esnext": "./intl.jest.esnext"
+    },
+    "./intl.node": {
+      "import": "./intl.node.mjs",
+      "require": "./intl.node.js",
+      "esnext": "./intl.node.esnext"
+    },
+    "./mutation-observer.browser": {
+      "import": "./mutation-observer.browser.mjs",
+      "require": "./mutation-observer.browser.js",
+      "esnext": "./mutation-observer.browser.esnext"
+    },
+    "./mutation-observer.jest": {
+      "import": "./mutation-observer.jest.mjs",
+      "require": "./mutation-observer.jest.js",
+      "esnext": "./mutation-observer.jest.esnext"
+    },
+    "./mutation-observer.node": {
+      "import": "./mutation-observer.node.mjs",
+      "require": "./mutation-observer.node.js",
+      "esnext": "./mutation-observer.node.esnext"
+    },
+    "./noop": {
+      "import": "./noop.mjs",
+      "require": "./noop.js",
+      "esnext": "./noop.esnext"
+    },
+    "./unhandled-rejection.browser": {
+      "import": "./unhandled-rejection.browser.mjs",
+      "require": "./unhandled-rejection.browser.js",
+      "esnext": "./unhandled-rejection.browser.esnext"
+    },
+    "./unhandled-rejection.jest": {
+      "import": "./unhandled-rejection.jest.mjs",
+      "require": "./unhandled-rejection.jest.js",
+      "esnext": "./unhandled-rejection.jest.esnext"
+    },
+    "./unhandled-rejection.node": {
+      "import": "./unhandled-rejection.node.mjs",
+      "require": "./unhandled-rejection.node.js",
+      "esnext": "./unhandled-rejection.node.esnext"
+    },
+    "./url.browser": {
+      "import": "./url.browser.mjs",
+      "require": "./url.browser.js",
+      "esnext": "./url.browser.esnext"
+    },
+    "./url.jest": {
+      "import": "./url.jest.mjs",
+      "require": "./url.jest.js",
+      "esnext": "./url.jest.esnext"
+    },
+    "./url.node": {
+      "import": "./url.node.mjs",
+      "require": "./url.node.js",
+      "esnext": "./url.node.esnext"
+    }
+  }
 }

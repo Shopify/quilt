@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "{{{description}}}",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc --p tsconfig.json"
   },
@@ -26,5 +26,22 @@
   "dependencies": {
     "tslib": "^1.14.1"
   },
-  "files": ["dist/*", "!tsconfig.tsbuildinfo"]
+  "files": [
+    "build/*",
+    "index.js",
+    "index.d.ts",
+    "index.esnext",
+    "index.mjs",
+    "!tsconfig.tsbuildinfo"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

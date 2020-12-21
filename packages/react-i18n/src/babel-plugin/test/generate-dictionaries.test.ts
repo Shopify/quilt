@@ -27,14 +27,18 @@ describe('generate-dictionaries', () => {
   });
 
   it('merges fallback translations into missing locale translations', async () => {
-    await generateTranslationDictionaries(['de'], {
+    await generateTranslationDictionaries(['es', 'de'], {
       rootDir,
       fallbackLocale: 'en',
     });
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const dictionary = require(`${rootDir}/index`);
-    expect(Object.keys(dictionary.default)).toStrictEqual(['de']);
+    expect(Object.keys(dictionary.default)).toStrictEqual(['es', 'de']);
+    expect(dictionary.default.es).toStrictEqual({
+      Foo: 'foo_es',
+      Bar: 'bar_es',
+    });
     expect(dictionary.default.de).toStrictEqual({
       Foo: 'foo_de',
       Bar: 'bar_en',

@@ -11,7 +11,7 @@ jest.mock('string-hash', () => () => {
 
 const defaultHash = Number.MAX_SAFE_INTEGER.toString(36).substr(0, 5);
 
-describe('babel-pluin-react-i18n', () => {
+describe('babel-plugin-react-i18n', () => {
   const withI18nFixture = `import React from 'react';
   import {withI18n} from '@shopify/react-i18n';
 

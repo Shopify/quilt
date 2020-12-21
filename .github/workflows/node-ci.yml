@@ -31,6 +31,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - uses: actions/cache@v2
+        id: sewing-kit-cache
+        name: Restore sewing-kit cache
+        with:
+          path: |
+            .sewing-kit/
+          key: ${{ runner.os }}-sewing-kit-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-sewing-kit-
+
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile
 
@@ -67,11 +77,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - uses: actions/cache@v2
+        id: build-cache
+        name: Restore build cache
+        with:
+          path: |
+            .sewing-kit/
+            ./packages/*/build/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile
 
       - name: 🔨 Build
-        run: yarn build --verbose
+        run: yarn build
 
   node-e2e-tests:
     runs-on: ubuntu-latest
@@ -101,14 +122,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - uses: actions/cache@v2
+        id: build-cache
+        name: Restore build cache
+        with:
+          # index packages files need to be cached for e2e tests
+          path: |
+            .sewing-kit/
+            ./packages/*/build/
+            ./packages/*/*.esnext
+            ./packages/*/*.mjs
+            ./packages/*/*.js
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile
 
       - name: 🔨 Build
-        run: yarn build --verbose
+        run: yarn build
 
       - name: E2E tests
-        run: yarn test:ci --testPathPattern react-server address
+        run: yarn test --debug "(address|react-server)"
 
   node-unit-tests:
     runs-on: ubuntu-latest
@@ -139,8 +175,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - uses: actions/cache@v2
+        id: build-cache
+        name: Restore build cache
+        with:
+          path: |
+            .sewing-kit/
+            ./packages/*/build/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile
 
       - name: Unit tests
-        run: yarn test:ci --testPathIgnorePatterns react-server address
+        run: yarn test:ci "^(?:(?!(address|react-server)).)*$"

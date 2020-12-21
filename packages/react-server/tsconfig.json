@@ -1,16 +1,16 @@
 {
-  "extends": "../tsconfig_base.json",
+  "extends": "../../config/typescript/tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": ".",
-    "rootDir": "."
+    "outDir": "build/ts",
+    "rootDir": "src",
+    "baseUrl": "src"
   },
   "include": [
-    "../../config/typescript/**/*",
+    "../../config/typescript/*.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
+  "exclude": ["**/test/**/*", "**/tests/**/*"],
   "references": [
     {"path": "../jest-koa-mocks"},
     {"path": "../react-async"},

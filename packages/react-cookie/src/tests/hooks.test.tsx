@@ -5,11 +5,12 @@ import {createMount} from '@shopify/react-testing';
 import {CookieUniversalProvider} from '../CookieUniversalProvider';
 import {useCookie} from '../hooks';
 
-import {clearCookies} from './utilities';
-
+const {clearCookies} = jest.requireActual('../utilities');
 const {hasDocumentCookie} = jest.requireMock('../utilities');
 
 jest.mock('../utilities', () => ({
+  __esModule: true,
+  ...jest.requireActual('../utilities'),
   hasDocumentCookie: jest.fn(),
 }));
 
