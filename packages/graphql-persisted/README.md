@@ -35,9 +35,10 @@ const client = new ApolloClient({
 });
 ```
 
-This function accepts an optional `options` object. The following option is available:
+This function accepts an optional `options` object. The following options are available:
 
 - `idFromOperation?(operation: Operation): string | undefined | null`: calculates the unique ID to use for the persisted query, which will eventually be passed to the server’s `cache#get` method to retrieve the full query body. If omitted, this option will default to pulling the `id` field off of the `operation.query` `DocumentNode`, which works well in combination with documents compiled using [`graphql-mini-transforms`](https://github.com/Shopify/graphql-tools-web/tree/master/packages/graphql-mini-transforms) (used by default in sewing-kit).
+- `alwaysIncludeQuery: boolean`: always include the GraphQL query in a request, instead of the default behavior where the query is only included if the server does not recognize the persisted query ID. This is useful for debugging, and can avoid extra round trips in an SSR environment.
 
 The behavior of this link when a persisted query is not found for a particular ID depends on the `cacheMissBehavior` passed to your server middleware, which is documented below.
 

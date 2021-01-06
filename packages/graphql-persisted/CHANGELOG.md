@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- add alwaysSendQuery option for PersistedLink. ([#1285](https://github.com/Shopify/quilt/pull/1285))
+- Add alwaysIncludeQuery option for PersistedLink. ([#1285](https://github.com/Shopify/quilt/pull/1285))
 
 ## [1.2.0] - 2020-12-18
 
