@@ -46,7 +46,7 @@ The behavior of this link when a persisted query is not found for a particular I
 The Koa middleware from this package will parse the request body, extract the ID, and attempt to resolve it to a full document body, replacing the request body’s `query` field if a match is found. You can construct this middleware with the following options:
 
 - `cache`: A cache object with a `get` and `set` method (both of which can be asynchronous). You can use this option to store and retrieve persisted documents from a dedicated store like Redis.
-- `cacheMissBehavior`: A member of the exported `CacheMissBehavior` enum. This dictates how the system will handle cases where a full document body could not be retrieved for an ID. The default is `CacheMissBehavior.AlwaysSend`.
+- `cacheMissBehavior`: A member of the exported `CacheMissBehavior` enum. This dictates how the system will handle cases where a full document body could not be retrieved for an ID. The default is `CacheMissBehavior.SendAlways`.
 
 ```tsx
 import Koa from 'koa';
