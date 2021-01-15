@@ -77,7 +77,7 @@ export interface Country {
     show: string;
   };
   zones: Zone[];
-  zipExample: string;
+  postalCodeExample: string;
 }
 
 export interface ResponseError {

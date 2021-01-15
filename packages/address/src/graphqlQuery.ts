@@ -30,7 +30,7 @@ query countries($locale: SupportedLocale!) {
       name
       code
     }
-    zipExample
+    postalCodeExample
   }
 }
 
@@ -65,7 +65,7 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
       name
       code
     }
-    zipExample
+    postalCodeExample
   }
 }
 `;
