@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Added
 
-- Added the ability to use a custom serialized identifier for the apollo cache. [#X](https://github.com/Shopify/quilt/pull/X)
+- Added the ability to use a custom serialized identifier for the apollo cache. [#1724](https://github.com/Shopify/quilt/pull/1724)
 
 ## [3.4.0] - 2020-12-18
 
