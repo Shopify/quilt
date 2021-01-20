@@ -133,6 +133,47 @@ describe('<GraphQLUniversalProvider />', () => {
 
       expect(restoreSpy).toHaveBeenCalledWith(initialData);
     });
+
+    it('serializes the apollo cache to a custom id and re-uses it to hydrate the cache', async () => {
+      const htmlManager = new HtmlManager();
+
+      const cache = new InMemoryCache();
+
+      const graphQLProvider = (
+        <NetworkContext.Provider value={new NetworkManager()}>
+          <GraphQLUniversalProvider
+            id="graphql-cache"
+            createClientOptions={() => ({cache, link: new ApolloLink()})}
+          />
+        </NetworkContext.Provider>
+      );
+
+      const client = mount(graphQLProvider)
+        .find(ApolloProvider)!
+        .prop('client');
+
+      // Simulated server render
+      await extract(graphQLProvider, {
+        decorate: (element: React.ReactNode) => (
+          <HtmlContext.Provider value={htmlManager}>
+            {element}
+          </HtmlContext.Provider>
+        ),
+      });
+
+      const initialData = client.extract();
+      const restoreSpy = jest.spyOn(cache, 'restore');
+
+      // Simulated client render (note: same htmlManager, which replaces the way the
+      // client would typically read serializations from the DOM on initialization).
+      mount(
+        <HtmlContext.Provider value={htmlManager}>
+          {graphQLProvider}
+        </HtmlContext.Provider>,
+      );
+
+      expect(restoreSpy).toHaveBeenCalledWith(initialData);
+    });
   });
 
   describe('ssrMode', () => {

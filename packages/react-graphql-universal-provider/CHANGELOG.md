@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Added the ability to use a custom serialized identifier for the apollo cache. [#1724](https://github.com/Shopify/quilt/pull/1724)
+
 ## [3.4.0] - 2020-12-18
 
 ### Added

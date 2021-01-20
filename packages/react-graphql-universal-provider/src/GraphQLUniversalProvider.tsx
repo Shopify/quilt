@@ -12,16 +12,15 @@ import {csrfLink} from './csrf-link';
 import {createRequestIdLink} from './request-id-link';
 
 interface Props<TCacheShape extends NormalizedCacheObject> {
+  id?: string;
   children?: React.ReactNode;
   createClientOptions(): Partial<ApolloClientOptions<TCacheShape>>;
 }
 
 export function GraphQLUniversalProvider<
   TCacheShape extends NormalizedCacheObject
->({children, createClientOptions}: Props<TCacheShape>) {
-  const [initialData, Serialize] = useSerialized<TCacheShape | undefined>(
-    'apollo',
-  );
+>({id = 'apollo', children, createClientOptions}: Props<TCacheShape>) {
+  const [initialData, Serialize] = useSerialized<TCacheShape | undefined>(id);
   const requestID = useRequestHeader('X-Request-ID');
 
   const [client, ssrLink] = useLazyRef<
