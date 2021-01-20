@@ -74,7 +74,7 @@ describe('createServer()', () => {
     const response = await wrapper.fetch('/');
 
     await expect(response).toHaveBodyText(
-      `<script type="text/javascript" src="/extraScript.js" crossorigin="anonymous" defer="">`,
+      `<script src="/extraScript.js" type="text/javascript" crossorigin="anonymous" defer="">`,
     );
     await expect(response).toHaveBodyText(
       `<link rel="stylesheet" type="text/css" href="/extraStyle.css" crossorigin="anonymous"/>`,

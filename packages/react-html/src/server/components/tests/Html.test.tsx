@@ -83,6 +83,17 @@ describe('<Html />', () => {
         });
       }
     });
+
+    it('includes `type` attributes', () => {
+      const script = {path: 'foo.js', type: 'module' as const};
+      const html = mount(<Html {...mockProps} scripts={[script]} />);
+      const head = html.find('head')!;
+
+      expect(head).toContainReactComponent(Script, {
+        defer: true,
+        type: script.type,
+      });
+    });
   });
 
   describe('blockingScripts', () => {
@@ -96,6 +107,16 @@ describe('<Html />', () => {
           src: script.path,
         });
       }
+    });
+
+    it('includes `type` attributes', () => {
+      const script = {path: 'foo.js', type: 'text/javascript' as const};
+      const html = mount(<Html {...mockProps} blockingScripts={[script]} />);
+      const head = html.find('head')!;
+
+      expect(head).toContainReactComponent(Script, {
+        type: 'text/javascript',
+      });
     });
   });
 
