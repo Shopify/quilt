@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql-universal-provider",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "license": "MIT",
   "description": "A self-serializing/deserializing GraphQL provider that works for isomorphic applications",
   "main": "index.js",
