@@ -5,13 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-### Changed
-
-- The `react_render_error` now refreshes on current page. ([#1611](https://github.com/Shopify/quilt/pull/1664))
-
 <!-- ## [Unreleased] -->
 
 ### Changed
+
+- Make server recompilation is now synchronous for more hot-reload-friendly behaviour. ([#1688](https://github.com/Shopify/quilt/pull/1688))
+
+- The `react_render_error` now refreshes on current page. ([#1664](https://github.com/Shopify/quilt/pull/1664))
 
 - Deprecate `Quilt::Logger.log` in favour of `Quilt.logger`. ([#1611](https://github.com/Shopify/quilt/pull/1611))
 

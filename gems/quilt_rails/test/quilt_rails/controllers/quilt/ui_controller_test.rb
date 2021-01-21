@@ -10,13 +10,11 @@ module QuiltRails
 
       setup { boot_dummy }
 
-      test "react render error" do
-        get("/")
+      test "error when no react server" do
+        time = Benchmark.realtime { get("/") }
 
-        assert_select("h1", "Waiting for React Sever to boot up.")
-        assert_select("meta[http-equiv='refresh']") do |selector, *|
-          assert_equal("3", selector[:content])
-        end
+        assert_response(:internal_server_error)
+        assert_operator(time, :in?, (10..12))
       end
 
       private
