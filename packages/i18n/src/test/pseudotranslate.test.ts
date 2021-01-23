@@ -32,6 +32,15 @@ describe('pseudotranslate()', () => {
       expect(pseudo).toContain('day');
     });
 
+    it('does not break strings without delimiters', () => {
+      const pseudoWithoutDelimiter = pseudotranslate('cat');
+      const pseudoWithDelimiter = pseudotranslate('cat', {
+        startDelimiter: '{',
+        endDelimiter: '}',
+      });
+      expect(pseudoWithoutDelimiter).toBe(pseudoWithDelimiter);
+    });
+
     it('uses the delimiter as both start and end', () => {
       expect(
         pseudotranslate('Hello, $name$.', {
