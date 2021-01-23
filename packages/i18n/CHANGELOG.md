@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Fixed pseudotranslate leaving out final part.
+- Fixed `pseudotranslate` leaving out final part with default options. [#1725](https://github.com/Shopify/quilt/pull/1725)
 
 ## [0.2.0] - 2020-12-18
 
