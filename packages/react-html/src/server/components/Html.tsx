@@ -17,7 +17,7 @@ export interface Asset {
 }
 
 export interface ScriptAsset extends Asset {
-  type?: 'module' | 'text/javascript';
+  type?: 'module' | 'nomodule' | 'script';
 }
 
 export interface InlineStyle {
