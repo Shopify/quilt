@@ -326,7 +326,7 @@ const myComponent = mount(<MyComponent />);
 // will fail
 myComponent.act(() => simulateClickOnBody());
 
-expect(myComponent.text()).toContain been clicked!');
+expect(myComponent.text()).toContain('been clicked!');
 ```
 
 ##### <a name="destroy"></a> `destroy()`
