@@ -178,6 +178,8 @@ function createParts(
       lastTokenEndIndex = token.index + token[0].length;
       token = delimiterRegex.exec(string);
     }
+
+    parts.push(string.substring(lastTokenEndIndex, string.length));
   } else {
     parts.push(string);
   }

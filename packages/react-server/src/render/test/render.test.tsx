@@ -68,7 +68,7 @@ describe('createRender', () => {
 
       // Assets from manifest are still present
       expect(bodyResult).toContain(
-        '<script type="text/javascript" src="main.js" crossorigin="anonymous" defer=""></script>',
+        '<script src="main.js" crossorigin="anonymous" type="text/javascript" defer=""></script>',
       );
       expect(bodyResult).toContain(
         '<link rel="stylesheet" type="text/css" href="main.css" crossorigin="anonymous"/>',
@@ -76,7 +76,7 @@ describe('createRender', () => {
 
       // Additional script/style assets are added
       expect(bodyResult).toContain(
-        '<script type="text/javascript" src="/extraScript.js" crossorigin="anonymous" defer=""></script>',
+        '<script src="/extraScript.js" crossorigin="anonymous" type="text/javascript" defer=""></script>',
       );
       expect(bodyResult).toContain(
         '<link rel="stylesheet" type="text/css" href="/extraStyle.css" crossorigin="anonymous"/>',

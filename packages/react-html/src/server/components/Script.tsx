@@ -5,5 +5,15 @@ export interface Props extends React.ScriptHTMLAttributes<HTMLScriptElement> {
 }
 
 export function Script(props: Props) {
-  return <script type="text/javascript" {...props} />;
+  const {type, defer, ...otherProps} = props;
+  const isNoModule = type === 'nomodule';
+
+  const attributes = {
+    ...otherProps,
+    type: !type || isNoModule ? 'text/javascript' : type,
+    defer: type === 'module' ? undefined : defer,
+    noModule: isNoModule ? true : undefined,
+  };
+
+  return <script {...attributes} />;
 }
