@@ -3,8 +3,12 @@ export interface Asset {
   integrity?: string;
 }
 
+export interface ScriptAsset extends Asset {
+  type?: string;
+}
+
 export interface Entrypoint {
-  js: Asset[];
+  js: ScriptAsset[];
   css: Asset[];
 }
 
