@@ -1,4 +1,5 @@
 import {EffectKind} from '@shopify/react-effect';
+import uniqby from 'lodash.uniqby';
 
 import {getSerializationsFromDocument} from './utilities';
 
@@ -41,7 +42,7 @@ export class HtmlManager {
 
     return {
       title: lastTitle && lastTitle.title,
-      metas: this.metas,
+      metas: uniqby(uniqby(this.metas.reverse(), 'name'), 'property'),
       links: this.links,
       inlineStyles: this.inlineStyles,
       bodyAttributes: Object.assign({}, ...this.bodyAttributes),

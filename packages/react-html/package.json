@@ -27,6 +27,7 @@
     "@shopify/react-hydrate": "^1.2.0",
     "@shopify/useful-types": "^2.3.0",
     "@types/multistream": "^2.1.1",
+    "lodash.uniqby": "^4.7.0",
     "multistream": "^2.1.1",
     "serialize-javascript": "^3.0.0",
     "tslib": "^1.14.1"
@@ -37,7 +38,8 @@
   },
   "devDependencies": {
     "@shopify/react-testing": "^2.2.0",
-    "@shopify/with-env": "^1.2.0"
+    "@shopify/with-env": "^1.2.0",
+    "@types/lodash.uniqby": "^4.7.6"
   },
   "sideEffects": false,
   "files": [

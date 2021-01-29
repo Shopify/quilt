@@ -10,9 +10,7 @@ export function useDomEffect(
   inputs: unknown[] = [],
 ) {
   const manager = useContext(HtmlContext);
-  const effect = () => {
-    perform(manager);
-  };
+  const effect = () => perform(manager);
 
   useServerEffect(effect, manager.effect);
   useEffect(effect, [manager, ...inputs]);

@@ -7,6 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Minor: Only render the last meta tag if they have same name or property []()
+- Minor: Cleanup tags from DOM when unmounting []()
+
 ### Added
 
 - Better ES module support via `<Html />`'s `script` / `blockingScripts` accepting a `type` property
