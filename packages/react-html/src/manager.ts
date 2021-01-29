@@ -1,5 +1,5 @@
 import {EffectKind} from '@shopify/react-effect';
-import uniqby from 'lodash.uniqby';
+import uniqwith from 'lodash.uniqwith';
 
 import {getSerializationsFromDocument} from './utilities';
 
@@ -42,7 +42,7 @@ export class HtmlManager {
 
     return {
       title: lastTitle && lastTitle.title,
-      metas: uniqby(uniqby(this.metas.reverse(), 'name'), 'property'),
+      metas: uniqwith(this.metas.reverse(), metaComparator),
       links: this.links,
       inlineStyles: this.inlineStyles,
       bodyAttributes: Object.assign({}, ...this.bodyAttributes),
@@ -130,4 +130,17 @@ export class HtmlManager {
       subscription(this.state);
     }
   }
+}
+
+function metaComparator(
+  metaA: React.HTMLProps<HTMLMetaElement>,
+  metaB: React.HTMLProps<HTMLMetaElement>,
+) {
+  if (metaA.name && metaB.name && metaA.name === metaB.name) {
+    return true;
+  }
+  if (metaA.property && metaB.property && metaA.property === metaB.property) {
+    return true;
+  }
+  return false;
 }
