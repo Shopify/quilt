@@ -264,8 +264,34 @@ describe('<Html />', () => {
         .filter(meta => meta.data(MANAGED_ATTRIBUTE));
 
       expect(metas).toHaveLength(2);
-      expect(metas[0]).toHaveReactProps(metaOne);
-      expect(metas[1]).toHaveReactProps(metaTwo);
+      expect(metas[0]).toHaveReactProps(metaTwo);
+      expect(metas[1]).toHaveReactProps(metaOne);
+    });
+
+    it('only keeps the last added meta based on name or property', () => {
+      const globalDescription = 'global description';
+      const pageDescription = 'page description';
+
+      const latestDescription = {name: 'desciption', content: pageDescription};
+      const latestOgDescription = {
+        property: 'og:description',
+        content: pageDescription,
+      };
+
+      const manager = new HtmlManager();
+      manager.addMeta({name: 'desciption', content: globalDescription});
+      manager.addMeta({property: 'og:description', content: globalDescription});
+      manager.addMeta(latestDescription);
+      manager.addMeta(latestOgDescription);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+      const metas = html
+        .findAll('meta')
+        .filter(meta => meta.data(MANAGED_ATTRIBUTE));
+
+      expect(metas).toHaveLength(2);
+      expect(metas[0]).toHaveReactProps(latestOgDescription);
+      expect(metas[1]).toHaveReactProps(latestDescription);
     });
 
     it('renders link tags with the managed attribute', () => {
