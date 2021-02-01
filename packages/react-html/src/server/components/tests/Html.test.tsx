@@ -272,7 +272,7 @@ describe('<Html />', () => {
       const globalDescription = 'global description';
       const pageDescription = 'page description';
 
-      const latestDescription = {name: 'desciption', content: pageDescription};
+      const latestDescription = {name: 'description', content: pageDescription};
       const latestOgDescription = {
         property: 'og:description',
         content: pageDescription,
