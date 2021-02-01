@@ -279,7 +279,7 @@ describe('<Html />', () => {
       };
 
       const manager = new HtmlManager();
-      manager.addMeta({name: 'desciption', content: globalDescription});
+      manager.addMeta({name: 'description', content: globalDescription});
       manager.addMeta({property: 'og:description', content: globalDescription});
       manager.addMeta(latestDescription);
       manager.addMeta(latestOgDescription);
