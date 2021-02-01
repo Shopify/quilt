@@ -31,7 +31,7 @@ The `Quilt::Performance::Reportable` mixin is intended to be used in Rails contr
 > **Note** `Quilt::Performance::Reportable` does not require you to use the `React::Renderable` mixin, React-Server, or even any server-side-rendering solution at all. It should work perfectly fine for applications using something like `sewing_kit_script_tag` based client-side-rendering.
 
 ```ruby
-class PerformanceController < ApplicationController
+class PerformanceReportController < ApplicationController
   include Quilt::Performance::Reportable
 
   def create
