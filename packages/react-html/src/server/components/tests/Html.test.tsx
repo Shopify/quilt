@@ -264,8 +264,8 @@ describe('<Html />', () => {
         .filter(meta => meta.data(MANAGED_ATTRIBUTE));
 
       expect(metas).toHaveLength(2);
-      expect(metas[0]).toHaveReactProps(metaTwo);
-      expect(metas[1]).toHaveReactProps(metaOne);
+      expect(metas[0]).toHaveReactProps(metaOne);
+      expect(metas[1]).toHaveReactProps(metaTwo);
     });
 
     it('only keeps the last added meta based on name or property', () => {
@@ -290,8 +290,8 @@ describe('<Html />', () => {
         .filter(meta => meta.data(MANAGED_ATTRIBUTE));
 
       expect(metas).toHaveLength(2);
-      expect(metas[0]).toHaveReactProps(latestOgDescription);
-      expect(metas[1]).toHaveReactProps(latestDescription);
+      expect(metas[0]).toHaveReactProps(latestDescription);
+      expect(metas[1]).toHaveReactProps(latestOgDescription);
     });
 
     it('renders link tags with the managed attribute', () => {

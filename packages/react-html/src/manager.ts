@@ -135,7 +135,7 @@ function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
   const names = new Set();
   const properties = new Set();
 
-  return metas.reverse().filter(meta => {
+  const metasWithoutDuplicates = metas.reverse().filter(meta => {
     const {name, property} = meta;
 
     if (name) {
@@ -156,4 +156,6 @@ function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
 
     return true;
   });
+
+  return metasWithoutDuplicates.reverse();
 }
