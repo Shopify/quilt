@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Only render the last meta tag if they have same name or property [#1732](https://github.com/Shopify/quilt/pull/1732)
+
+### Fixed
+
+- Cleanup tags from DOM when unmounting [#1732](https://github.com/Shopify/quilt/pull/1732)
+
 ### Added
 
 - Better ES module support via `<Html />`'s `script` / `blockingScripts` accepting a `type` property

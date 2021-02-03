@@ -15,4 +15,19 @@ describe('<Meta />', () => {
 
     expect(spy).toHaveBeenCalledWith(props);
   });
+
+  it('removes meta after unmounting', () => {
+    const manager = new HtmlManager();
+
+    const meta = mountWithManager(
+      <Meta name="desciption" content="test" />,
+      manager,
+    );
+
+    expect(manager.state.metas).toHaveLength(1);
+
+    meta.unmount();
+
+    expect(manager.state.metas).toHaveLength(0);
+  });
 });

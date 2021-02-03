@@ -268,6 +268,32 @@ describe('<Html />', () => {
       expect(metas[1]).toHaveReactProps(metaTwo);
     });
 
+    it('only keeps the last added meta based on name or property', () => {
+      const globalDescription = 'global description';
+      const pageDescription = 'page description';
+
+      const latestDescription = {name: 'description', content: pageDescription};
+      const latestOgDescription = {
+        property: 'og:description',
+        content: pageDescription,
+      };
+
+      const manager = new HtmlManager();
+      manager.addMeta({name: 'description', content: globalDescription});
+      manager.addMeta({property: 'og:description', content: globalDescription});
+      manager.addMeta(latestDescription);
+      manager.addMeta(latestOgDescription);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+      const metas = html
+        .findAll('meta')
+        .filter(meta => meta.data(MANAGED_ATTRIBUTE));
+
+      expect(metas).toHaveLength(2);
+      expect(metas[0]).toHaveReactProps(latestDescription);
+      expect(metas[1]).toHaveReactProps(latestOgDescription);
+    });
+
     it('renders link tags with the managed attribute', () => {
       const linkOne = {href: 'foo'};
       const linkTwo = {href: 'bar'};
