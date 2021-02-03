@@ -41,7 +41,7 @@ export class HtmlManager {
 
     return {
       title: lastTitle && lastTitle.title,
-      metas: filterMetas(this.metas),
+      metas: removeDuplicate(this.metas),
       links: this.links,
       inlineStyles: this.inlineStyles,
       bodyAttributes: Object.assign({}, ...this.bodyAttributes),
@@ -131,7 +131,7 @@ export class HtmlManager {
   }
 }
 
-function filterMetas(metas: React.HTMLProps<HTMLMetaElement>[]) {
+function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
   const names = new Set();
   const properties = new Set();
 
