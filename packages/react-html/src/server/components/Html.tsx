@@ -4,7 +4,7 @@ import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 
 import {HtmlManager} from '../../manager';
 import {HtmlContext} from '../../context';
-import {MANAGED_ATTRIBUTE} from '../../utilities';
+import {MANAGED_ATTRIBUTE, removeDuplicate} from '../../utilities';
 
 import {Script} from './Script';
 import Serialize from './Serialize';
@@ -72,7 +72,7 @@ export default function Html({
     ) : null;
 
   const metaMarkup = extracted
-    ? extracted.metas.map((metaProps, index) => (
+    ? removeDuplicate(extracted.metas).map((metaProps, index) => (
         // This is never re-rendered, since it is the initial HTML document,
         // so index keys are acceptable.
         // eslint-disable-next-line react/no-array-index-key

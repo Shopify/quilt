@@ -53,3 +53,32 @@ export function showPage(): Promise<void> {
       })
     : Promise.resolve();
 }
+
+export function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
+  const names = new Set();
+  const properties = new Set();
+
+  const metasWithoutDuplicates = metas.reverse().filter(meta => {
+    const {name, property} = meta;
+
+    if (name) {
+      if (names.has(name)) {
+        return false;
+      }
+      names.add(name);
+      return true;
+    }
+
+    if (property) {
+      if (properties.has(property)) {
+        return false;
+      }
+      properties.add(property);
+      return true;
+    }
+
+    return true;
+  });
+
+  return metasWithoutDuplicates.reverse();
+}

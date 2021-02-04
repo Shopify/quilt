@@ -41,7 +41,7 @@ export class HtmlManager {
 
     return {
       title: lastTitle && lastTitle.title,
-      metas: removeDuplicate(this.metas),
+      metas: this.metas,
       links: this.links,
       inlineStyles: this.inlineStyles,
       bodyAttributes: Object.assign({}, ...this.bodyAttributes),
@@ -129,33 +129,4 @@ export class HtmlManager {
       subscription(this.state);
     }
   }
-}
-
-function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
-  const names = new Set();
-  const properties = new Set();
-
-  const metasWithoutDuplicates = metas.reverse().filter(meta => {
-    const {name, property} = meta;
-
-    if (name) {
-      if (names.has(name)) {
-        return false;
-      }
-      names.add(name);
-      return true;
-    }
-
-    if (property) {
-      if (properties.has(property)) {
-        return false;
-      }
-      properties.add(property);
-      return true;
-    }
-
-    return true;
-  });
-
-  return metasWithoutDuplicates.reverse();
 }
