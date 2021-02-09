@@ -3,7 +3,7 @@ import {HydrationTracker} from '@shopify/react-hydrate';
 
 import {State} from '../manager';
 import {useClientDomEffect} from '../hooks';
-import {MANAGED_ATTRIBUTE} from '../utilities';
+import {MANAGED_ATTRIBUTE, removeDuplicate} from '../utilities';
 
 export function HtmlUpdater() {
   const queuedUpdate = React.useRef<number | null>(null);
@@ -43,7 +43,7 @@ function updateOnClient(state: State) {
 
   const fragment = document.createDocumentFragment();
 
-  updateElement('meta', metas, fragment);
+  updateElement('meta', removeDuplicate(metas), fragment);
   updateElement('link', links, fragment);
   updateElement('style', inlineStyles, fragment);
 

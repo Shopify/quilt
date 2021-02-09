@@ -142,4 +142,38 @@ describe('<Provider />', () => {
     expect(metaElement).toBe(allMetas[0]);
     expect(allMetas[1].getAttribute('content')).toBe(metaTwo.content);
   });
+
+  it('only keeps the last added meta based on name or property', () => {
+    const globalDescription = 'global description';
+    const pageDescription = 'page description';
+
+    const latestDescription = {name: 'description', content: pageDescription};
+    const latestOgDescription = {
+      property: 'og:description',
+      content: pageDescription,
+    };
+
+    const manager = new HtmlManager();
+    mountWithManager(<HtmlUpdater />, manager);
+
+    manager.addMeta({name: 'description', content: globalDescription});
+    manager.addMeta({property: 'og:description', content: globalDescription});
+    manager.addMeta(latestDescription);
+    manager.addMeta(latestOgDescription);
+    animationFrame.runFrame();
+
+    const allMetas = Array.from(
+      document.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
+    );
+
+    expect(allMetas).toHaveLength(2);
+    expect(allMetas[0].getAttribute('name')).toBe(latestDescription.name);
+    expect(allMetas[0].getAttribute('content')).toBe(latestDescription.content);
+    expect(allMetas[1].getAttribute('property')).toBe(
+      latestOgDescription.property,
+    );
+    expect(allMetas[1].getAttribute('content')).toBe(
+      latestOgDescription.content,
+    );
+  });
 });
