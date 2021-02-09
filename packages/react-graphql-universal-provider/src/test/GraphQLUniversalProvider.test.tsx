@@ -32,6 +32,12 @@ jest.mock('../request-id-link', () => ({
 }));
 const {createRequestIdLink} = jest.requireMock('../request-id-link');
 
+jest.mock('../csrf-link', () => ({
+  ...jest.requireActual('../csrf-link'),
+  createCsrfLink: jest.fn(),
+}));
+const {createCsrfLink} = jest.requireMock('../csrf-link');
+
 const ApolloClient = jest.requireMock('apollo-client').default;
 
 describe('<GraphQLUniversalProvider />', () => {
@@ -41,6 +47,7 @@ describe('<GraphQLUniversalProvider />', () => {
 
     ApolloClient.mockClear();
     createRequestIdLink.mockClear();
+    createCsrfLink.mockClear();
   });
 
   it('renders an ApolloProvider with a client created by the factory', () => {
@@ -322,6 +329,44 @@ describe('<GraphQLUniversalProvider />', () => {
       );
 
       expect(createRequestIdLink).not.toHaveBeenCalled();
+    });
+
+    it('does not call createRequestIdLink if addRequestId is false', () => {
+      const mockRequestId = 'request-id-value';
+
+      const graphQL = mount(
+        <NetworkContext.Provider
+          value={new NetworkManager({headers: {'X-Request-ID': mockRequestId}})}
+        >
+          <GraphQLUniversalProvider
+            createClientOptions={() => ({})}
+            addRequestId={false}
+          />
+        </NetworkContext.Provider>,
+      );
+
+      expect(createRequestIdLink).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('createCsrfLink', () => {
+    it('calls createCsrfLink if quiltRails is true', () => {
+      const graphQL = mount(
+        <GraphQLUniversalProvider createClientOptions={() => ({})} />,
+      );
+
+      expect(createCsrfLink).toHaveBeenCalledWith();
+    });
+
+    it('does not call createCsrfLink if quiltRails is false', () => {
+      const graphQL = mount(
+        <GraphQLUniversalProvider
+          createClientOptions={() => ({})}
+          quiltRails={false}
+        />,
+      );
+
+      expect(createCsrfLink).not.toHaveBeenCalled();
     });
   });
 });

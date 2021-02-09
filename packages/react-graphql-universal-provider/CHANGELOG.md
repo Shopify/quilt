@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+### Changed
+
+- Change the request id header name from `X-Request-ID` to `X-Initiated-By-Request-ID` [#1738](https://github.com/Shopify/quilt/pull/1738)
+
+### Added
+
+- Added the ability to disabled csrfLink or requestIdLink. [#1738](https://github.com/Shopify/quilt/pull/1738)
+
 ## [3.5.0] - 2021-01-21
 
 ### Added
