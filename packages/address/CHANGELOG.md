@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Add `getTimeZones()` to `AddressFormatter`. [#1739](https://github.com/Shopify/quilt/pull/1739)
+
+### Changed
+
+- Minor update to `@shopify/address-consts` and minor update to `@shopify-address-mocks`. [1234]()
+
 ## [2.10.0] - 2020-12-18
 
 ### Added

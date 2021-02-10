@@ -1,7 +1,7 @@
-import {Address, FieldName, Country} from '@shopify/address-consts';
+import {Address, FieldName, Country, TimeZone} from '@shopify/address-consts';
 
 import {renderLineTemplate, FIELDS_MAPPING} from './utilities';
-import {loadCountry, loadCountries} from './loader';
+import {loadCountry, loadCountries, loadTimeZones} from './loader';
 
 const FIELD_REGEXP = /({\w+})/g;
 const LINE_DELIMITER = '_';
@@ -39,6 +39,12 @@ export default class AddressFormatter {
     ORDERED_COUNTRIES_CACHE[this.locale] = countries;
 
     return countries;
+  }
+
+  async getTimeZones(): Promise<TimeZone[]> {
+    const timeZones = await loadTimeZones(this.locale);
+
+    return timeZones;
   }
 
   /* Returns the address ordered in an array based based on the country code

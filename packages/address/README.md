@@ -27,17 +27,17 @@ Update the locale of the formatter. Following requests will be in the given loca
 
 #### `async .getCountry(countryCode: string): Promise<Country>`
 
-Loads and return data about a given country in the locale used for instanciation. Country and province names are localized. Province names are ordered based on the locale
+Loads and returns data about a given country in the locale used for instantiation. Country and province names are localized. Province names are ordered based on the locale.
 
 #### `async .getCountries(): Promise<Country[]>`
 
-Loads and return data about a all countries in the given locale. Countries are ordered alphabetically based on the locale. Zones are also ordered based on the locale.
+Loads and returns data about all countries in the given locale. Countries are ordered alphabetically based on the locale. Zones are also ordered based on the locale..
 
 #### `async .getOrderedFields(countryCode): FieldName[][]`
 
 Returns how to order address fields.
 
-Eg.:
+For example:
 
 ```typescript
 [
@@ -53,10 +53,36 @@ Eg.:
 
 #### `async .format(address: Address): string[]`
 
-Given an address, returns the address ordered for multiline show. Eg.
+Given an address, returns the address ordered for multiline show.
+
+For example:
 
 ```typescript
 ['Shopify', 'Lindenstraße 9-14', '10969 Berlin', 'Germany'];
+```
+
+#### `async .getTimeZones(): Promise<TimeZone[]>`
+
+Loads and returns all time zones in the given locale. Time zones are ordered from (GMT-12:00) to (GMT+13:00) in ascending order.
+
+For example:
+
+```typescript
+[
+  {
+    olsonName: 'Etc/GMT+12',
+    description: '(GMT-12:00) International Date Line West',
+  },
+  {
+    olsonName: 'Pacific/Pago_Pago',
+    description: '(GMT-11:00) American Samoa',
+  },
+  {
+    olsonName: 'Pacific/Midway',
+    description: '(GMT-11:00) Midway Island',
+  },
+  ...
+]
 ```
 
 #### Example Usage

@@ -25,7 +25,7 @@ export function mockCountryRequests() {
     'PT_BR',
   ];
   locales.concat(locales).map(locale => {
-    ['countries', 'country'].map(operationName => {
+    ['countries', 'country', 'timeZones'].map(operationName => {
       fetch.mock(
         (url: string, options: Options) => {
           if (url !== GRAPHQL_ENDPOINT || options.method !== 'POST') {

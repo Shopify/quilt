@@ -182,4 +182,40 @@ describe('AddressFormatter', () => {
       ]);
     });
   });
+
+  describe('getTimeZones()', () => {
+    it('returns all time zones for the locale', async () => {
+      const addressFormatter = new AddressFormatter('fr');
+      const loadedTimeZones = await addressFormatter.getTimeZones();
+
+      expect(loadedTimeZones).toHaveLength(135);
+    });
+
+    it('returns all time zones in en if locale is not available', async () => {
+      const addressFormatter = new AddressFormatter('af');
+      const loadedTimeZones = await addressFormatter.getTimeZones();
+
+      expect(loadedTimeZones[0].description).toStrictEqual(
+        '(GMT-12:00) International Date Line West',
+      );
+    });
+
+    it('does not call the API again for timeZones if the locale is the same', async () => {
+      // Bypass the cache by using a non existant locale
+      const addressFormatter = new AddressFormatter('pt-br');
+      await addressFormatter.getTimeZones();
+      await addressFormatter.getTimeZones();
+
+      expect(fetch.calls()).toHaveLength(1);
+    });
+
+    it('does call the API again for timeZones if the locale has been updated', async () => {
+      const addressFormatter = new AddressFormatter('nl');
+      await addressFormatter.getTimeZones();
+      addressFormatter.updateLocale('it');
+      await addressFormatter.getTimeZones();
+
+      expect(fetch.calls()).toHaveLength(2);
+    });
+  });
 });

@@ -66,6 +66,13 @@ query country($countryCode: SupportedCountry!, $locale: SupportedLocale!) {
     }
   }
 }
+
+query timeZones($locale: SupportedLocale!) {
+  timeZones(locale: $locale) {
+    olsonName,
+    description
+  }
+}
 `;
 
 export default query;

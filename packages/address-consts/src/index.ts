@@ -79,6 +79,16 @@ export interface Country {
   zones: Zone[];
 }
 
+export interface LoadTimeZonesResponse {
+  data: {timeZones: TimeZone[]};
+  errors?: GraphQlError[];
+}
+
+export interface TimeZone {
+  olsonName: string;
+  description: string;
+}
+
 export interface ResponseError {
   errors: GraphQlError[];
 }
@@ -98,6 +108,7 @@ export const GRAPHQL_ENDPOINT =
 export enum GraphqlOperationName {
   Countries = 'countries',
   Country = 'country',
+  TimeZones = 'timeZones',
 }
 
 export const HEADERS = {

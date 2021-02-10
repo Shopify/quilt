@@ -1,7 +1,9 @@
 import {
   Country,
+  TimeZone,
   LoadCountriesResponse,
   LoadCountryResponse,
+  LoadTimeZonesResponse,
   ResponseError,
   GRAPHQL_ENDPOINT,
   HEADERS,
@@ -30,7 +32,7 @@ export const loadCountries: (
     | ResponseError = await response.json();
 
   if (!('data' in countries) && 'errors' in countries) {
-    throw new CountryLoaderError(countries);
+    throw new LoaderError(countries);
   }
 
   return countries.data.countries;
@@ -57,14 +59,40 @@ export const loadCountry: (
     const country: LoadCountryResponse = await response.json();
 
     if (!('data' in country) && 'errors' in country) {
-      throw new CountryLoaderError(country);
+      throw new LoaderError(country);
     }
 
     return country.data.country;
   },
 );
 
-class CountryLoaderError extends Error {
+export const loadTimeZones: (
+  locale: string,
+) => Promise<TimeZone[]> = memoizeAsync(async (locale: string) => {
+  const response = await fetch(GRAPHQL_ENDPOINT, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({
+      query,
+      operationName: GraphqlOperationName.TimeZones,
+      variables: {
+        locale: locale.replace(/-/, '_').toUpperCase(),
+      },
+    }),
+  });
+
+  const timeZones:
+    | LoadTimeZonesResponse
+    | ResponseError = await response.json();
+
+  if (!('data' in timeZones) && 'errors' in timeZones) {
+    throw new LoaderError(timeZones);
+  }
+
+  return timeZones.data.timeZones;
+});
+
+class LoaderError extends Error {
   constructor(errors: ResponseError) {
     const errorMessage = errors.errors.map(error => error.message).join('; ');
     super(errorMessage);
