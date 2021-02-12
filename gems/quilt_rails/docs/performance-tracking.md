@@ -30,7 +30,7 @@ yarn add @shopify/react-performance
 
 If your application is not using `Quilt::Engine`, you will need to manually configure the server-side portion of performance tracking. If it _is_ using the engine, the following will be done automatically.
 
-1. Add a `PerformanceController` and the corresponding routes to your Rails app.
+1. Add a `PerformanceReportController` and the corresponding routes to your Rails app.
 
 ```ruby
 # app/controllers/performance_report_controller.rb
