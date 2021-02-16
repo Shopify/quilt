@@ -29,7 +29,7 @@
     "tslib": "^1.14.1"
   },
   "peerDependencies": {
-    "webpack": ">4.25.1, <=4.5.0"
+    "webpack": "^4.25.1"
   },
   "files": [
     "build/*",
