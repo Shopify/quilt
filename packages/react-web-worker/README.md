@@ -14,7 +14,7 @@ $ yarn add @shopify/react-web-worker
 
 ## Usage
 
-This package provides a `useWorker` hook to leverage web workers in React. For convenience, it also re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/master/packages/web-worker), so you only need to install this package to get access to those additional exports.
+This package provides a `useWorker` hook to leverage web workers in React. For convenience, it also re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/main/packages/web-worker), so you only need to install this package to get access to those additional exports.
 
 ### `useWorker()`
 

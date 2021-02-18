@@ -18,7 +18,7 @@ $ yarn add @shopify/react-cookie
 
 To extract cookies during the server-side render of your application, your component needs to have access to the `NetworkManager` from `@shopify/react-network`. You can pass the initial server cookie value when the manager is instantiated within your server-side middleware.
 
-For full details on setting up `@shopify/react-network`, [see the readme for that package](https://github.com/Shopify/quilt/tree/master/packages/react-network#server).
+For full details on setting up `@shopify/react-network`, [see the readme for that package](https://github.com/Shopify/quilt/tree/main/packages/react-network#server).
 
 _Koa Server Example_
 

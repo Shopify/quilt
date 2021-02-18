@@ -14,7 +14,7 @@ $ yarn add @shopify/react-network
 
 ## Usage
 
-This package uses [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/master/packages/react-effect) to allow your application to communicate various HTTP-related details to the Node server doing React rendering. It also provides a utility function for easily applying these details to a Koa context object.
+This package uses [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/main/packages/react-effect) to allow your application to communicate various HTTP-related details to the Node server doing React rendering. It also provides a utility function for easily applying these details to a Koa context object.
 
 ### Application
 
@@ -226,4 +226,4 @@ export default function renderApp(ctx: Context) {
 
 ### Other utilities
 
-This library re-exports the entirety of [`@shopify/network`](https://github.com/Shopify/quilt/tree/master/packages/network), so you do not need to install both.
+This library re-exports the entirety of [`@shopify/network`](https://github.com/Shopify/quilt/tree/main/packages/network), so you do not need to install both.

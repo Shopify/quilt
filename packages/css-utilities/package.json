@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/css-utilities/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/css-utilities/README.md",
   "dependencies": {
     "@types/classnames": "^2.2.7",
     "classnames": "^2.2.6",

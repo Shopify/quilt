@@ -156,7 +156,7 @@ For Node services based on `Koa`, we provide [@shopify/koa-performance](https://
 
 #### Using Rails (`quilt_rails`)
 
-For Rails services we provide [quilt_rails](https://github.com/Shopify/quilt/tree/master/gems/quilt_rails#performance-tracking-a-react-app)'s `Quilt::Performance::Reportable` mixin for parsing `PerformanceReport` payloads and sending them forward to a [StatsD](https://github.com/statsd/statsd) endpoint as `distribution`s.
+For Rails services we provide [quilt_rails](https://github.com/Shopify/quilt/tree/main/gems/quilt_rails#performance-tracking-a-react-app)'s `Quilt::Performance::Reportable` mixin for parsing `PerformanceReport` payloads and sending them forward to a [StatsD](https://github.com/statsd/statsd) endpoint as `distribution`s.
 
 ## API
 

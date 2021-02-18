@@ -4,13 +4,13 @@
 
 ## 1. Preparing local environment
 
-- Ensure you have the latest `master` branch including all tags:
+- Ensure you have the latest `main` branch including all tags:
 
 ```
-git checkout master && git pull
+git checkout main && git pull
 ```
 
-**Note** `git pull` should be used instead of `git pull origin master` to ensure that tags are pulled as well.
+**Note** `git pull` should be used instead of `git pull origin main` to ensure that tags are pulled as well.
 
 ## 2. Updating `CHANGELOG.md`
 
@@ -41,7 +41,7 @@ yarn release
 The following will push the changes and new tags to GitHub
 
 ```
-git push origin master --follow-tags
+git push origin main --follow-tags
 ```
 
 ## 5. Deploying to npm

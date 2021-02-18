@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-metrics/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-metrics/README.md",
   "dependencies": {
     "@shopify/statsd": "^2.1.0",
     "tslib": "^1.14.1"

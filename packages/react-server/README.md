@@ -4,7 +4,7 @@
 [![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-server.svg)](https://badge.fury.io/js/%40shopify%2Freact-server.svg)
 
-A simple library for React server-side rendering using [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html).
+A simple library for React server-side rendering using [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/main/packages/react-html).
 
 ## Table of contents
 
@@ -23,7 +23,7 @@ $ yarn add @shopify/react-server
 
 ## Rails Usage
 
-We provide a [gem](https://github.com/Shopify/quilt/blob/master/gems/quilt_rails/README.md#L2) to automagically setup a proxy controller for react-server.
+We provide a [gem](https://github.com/Shopify/quilt/blob/main/gems/quilt_rails/README.md#L2) to automagically setup a proxy controller for react-server.
 
 ## Node Usage
 
@@ -91,7 +91,7 @@ interface Options {
   // Control when to render raw stack trace, defaults to development only.
   renderRawErrorMessage?: boolean;
   // additional props to pass into the Html component, or a function that takes a Koa.Context and returns a props object
-  // See https://github.com/Shopify/quilt/blob/master/packages/react-html/README.md#html-
+  // See https://github.com/Shopify/quilt/blob/main/packages/react-html/README.md#html-
   htmlProps?: HtmlProps | (ctx: Context) => HtmlProps
 }
 ```

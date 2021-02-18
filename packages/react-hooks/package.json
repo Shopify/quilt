@@ -25,7 +25,7 @@
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-hooks/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-hooks/README.md",
   "files": [
     "dist/*",
     "build/*",

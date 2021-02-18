@@ -44,7 +44,7 @@ app.use(async ctx => {
 });
 ```
 
-By default, the styles and scripts of the main bundle will be returned to you. This is the default bundle sewing-kit creates, or the one you have specifically named `main`. You can optionally pass a custom name to retrieve only the assets for that bundle (which would match to the name you gave it when using [sewing-kit’s entry plugin](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/entry.md)):
+By default, the styles and scripts of the main bundle will be returned to you. This is the default bundle sewing-kit creates, or the one you have specifically named `main`. You can optionally pass a custom name to retrieve only the assets for that bundle (which would match to the name you gave it when using [sewing-kit’s entry plugin](https://github.com/Shopify/sewing-kit/blob/main/docs/plugins/entry.md)):
 
 ```ts
 // In your sewing-kit.config.ts...
@@ -108,7 +108,7 @@ Starting in version 3.3 of this library (and the associated 82.0 release of sewi
 
 The middleware accepts some optional parameters that you can use to customize how sewing-kit-generated assets will be served:
 
-- `assetPrefix`: the path prefix to use for all assets. This is used primary to decide where to mount a static file server if `serveAssets` is true (see next section for details). If not provided, `assetPrefix` will default to sewing-kit’s default development asset server URL. If you set a [custom CDN](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/cdn.md) in your sewing-kit config, you should pass that same value to this option.
+- `assetPrefix`: the path prefix to use for all assets. This is used primary to decide where to mount a static file server if `serveAssets` is true (see next section for details). If not provided, `assetPrefix` will default to sewing-kit’s default development asset server URL. If you set a [custom CDN](https://github.com/Shopify/sewing-kit/blob/main/docs/plugins/cdn.md) in your sewing-kit config, you should pass that same value to this option.
 
 - `serveAssets`: whether this middleware should also serve assets from within your application server. This can be useful when running the application locally, but attempting to replicate more of a production environment (and, therefore, would not be able to use the true production CDN). When this option is passed, `assetPrefix` must be passed with a path that can be safely mounted to for your server (this same path should be used as the custom CDN for sewing-kit so that the paths sewing-kit generates make sense). The middleware will then take over that endpoint for asset serving:
 
