@@ -1,7 +1,7 @@
 # `@shopify/react-testing`
 
-[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
-[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)
 
 A library for testing React components according to [Shopify conventions](https://github.com/Shopify/web-foundations/blob/main/handbook/Best%20Practices/Testing.md).
@@ -308,14 +308,11 @@ Performs an action in the context of a react [`act() block`](https://github.com/
 function MyComponent() {
   const [clicked, setClicked] = useState(false);
 
-  useEffect(
-    () => {
-      const handler = () => setClicked(true);
-      document.body.addEventListener('click', handler);
-      return () => document.body.removeEventListener('click', handler);
-    },
-    [setClicked],
-  );
+  useEffect(() => {
+    const handler = () => setClicked(true);
+    document.body.addEventListener('click', handler);
+    return () => document.body.removeEventListener('click', handler);
+  }, [setClicked]);
 
   return clicked ? <div>I’ve been clicked!</div> : <div>Nothing yet</div>;
 }

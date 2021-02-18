@@ -1,7 +1,7 @@
 # `@shopify/react-bugsnag`
 
-[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
-[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-bugsnag.svg)](https://badge.fury.io/js/%40shopify%2Freact-bugsnag.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-bugsnag.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-bugsnag.svg)
 
 An opinionated wrapper for Bugsnag's React plugin with smart defaults and support for universal server-side-rendered applications.
@@ -39,11 +39,7 @@ const API_KEY = 'api-key-from-bugsnag';
 const client = createBugsnagClient({apiKey: API_KEY});
 
 function App() {
-  return (
-    <Bugsnag client={client}>
-      {/* app code */}
-    </Bugsnag>
-  );
+  return <Bugsnag client={client}>{/* app code */}</Bugsnag>;
 }
 ```
 

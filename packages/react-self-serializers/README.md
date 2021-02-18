@@ -7,8 +7,8 @@
 [@shopify/react-i18n-universal-provider](../react-i18n-universal-provider)
 [@shopify/react-universal-provider](../react-universal-provider)
 
-[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
-[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=master)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg)](https://badge.fury.io/js/%40shopify%2Freact-self-serializers.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-self-serializers.svg)
 
 A set of self-serializing providers for [@shopify/react-html](../react-html) applications.
@@ -85,7 +85,7 @@ interface Props {
   timezone?: string;
   pseudolocalize?: boolean;
   fallbackLocale?: string;
-  onError?: ((error: I18nError) => void);
+  onError?: (error: I18nError) => void;
   children?: React.ReactNode;
 }
 ```
