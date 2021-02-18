@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-graphql-proxy/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-shopify-graphql-proxy/README.md",
   "dependencies": {
     "@types/koa": "^2.0.0",
     "koa-better-http-proxy": "^0.2.4",

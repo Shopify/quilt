@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/polyfills/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/polyfills/README.md",
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
     "@shopify/useful-types": "^2.3.0",

@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-universal-provider/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-universal-provider/README.md",
   "dependencies": {
     "@shopify/react-effect": "^3.3.0",
     "@shopify/react-html": "^10.2.1",

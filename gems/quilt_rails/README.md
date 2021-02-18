@@ -67,9 +67,9 @@ Follow [this guide](./docs/manual-installation.md) on how to do manual setup wit
 
 For fast tests with consistent results, test front-end components using the tools provided by sewing-kit instead of Rails integration tests.
 
-Use [`sewing-kit test`](https://github.com/Shopify/sewing-kit/blob/master/docs/commands/test.md#L3) to run all `.test.{js|ts}x` files in the `app/ui` directory. [Jest](https://jestjs.io/) is used as a test runner, with customization available via [its sewing-kit plugin](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md).
+Use [`sewing-kit test`](https://github.com/Shopify/sewing-kit/blob/main/docs/commands/test.md#L3) to run all `.test.{js|ts}x` files in the `app/ui` directory. [Jest](https://jestjs.io/) is used as a test runner, with customization available via [its sewing-kit plugin](https://github.com/Shopify/sewing-kit/blob/main/docs/plugins/jest.md).
 
-For testing React applications we provide and support [`@shopify/react-testing`](https://github.com/Shopify/quilt/tree/master/packages/react-testing).
+For testing React applications we provide and support [`@shopify/react-testing`](https://github.com/Shopify/quilt/tree/main/packages/react-testing).
 
 ##### Example
 
@@ -102,11 +102,11 @@ describe('MyComponent', () => {
 
 Often you will want to hook up custom polyfills, global mocks, or other logic that needs to run either before the initialization of the test environment, or once for each test suite.
 
-By default, sewing-kit will look for such test setup files under `/app/ui/tests`. Check out the [documentation](https://github.com/Shopify/sewing-kit/blob/master/docs/plugins/jest.md#smart-defaults) for more details.
+By default, sewing-kit will look for such test setup files under `/app/ui/tests`. Check out the [documentation](https://github.com/Shopify/sewing-kit/blob/main/docs/plugins/jest.md#smart-defaults) for more details.
 
 ##### Interacting with the request and response in React code
 
-React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/master/packages/react-network) automatically, so most interactions with the request or response can be done from inside the React app.
+React-server sets up [@shopify/react-network](https://github.com/Shopify/quilt/blob/main/packages/react-network) automatically, so most interactions with the request or response can be done from inside the React app.
 
 ##### Example: getting headers
 
@@ -131,7 +131,7 @@ function App() {
 export default App;
 ```
 
-**Note:** This solution works out of the box for initial server-side renders. If you wish to have consistent access to request headers on subsequent client-side renders, take a look at [`NetworkUniversalProvider`](https://github.com/Shopify/quilt/tree/master/packages/react-network#networkuniversalprovider).
+**Note:** This solution works out of the box for initial server-side renders. If you wish to have consistent access to request headers on subsequent client-side renders, take a look at [`NetworkUniversalProvider`](https://github.com/Shopify/quilt/tree/main/packages/react-network#networkuniversalprovider).
 
 ##### Example: sending custom headers from Rails controller
 
@@ -222,9 +222,9 @@ export default App;
 
 #### Isomorphic state
 
-With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. When using `@shopify/react-server`, the best tool for this job is [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/master/packages/react-html#in-your-application-code) hook.
+With SSR enabled React apps, state must be serialized on the server and deserialized on the client to keep it consistent. When using `@shopify/react-server`, the best tool for this job is [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/main/packages/react-html)'s [`useSerialized`](https://github.com/Shopify/quilt/tree/main/packages/react-html#in-your-application-code) hook.
 
-`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/master/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [GraphQL](https://github.com/Shopify/quilt/tree/master/packages/react-graphql-universal-provider), and [I18n](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider).
+`useSerialized` can be used to implement [universal-providers](https://github.com/Shopify/quilt/tree/main/packages/react-universal-provider#what-is-a-universal-provider-), allowing application code to manage what is persisted between the server and client without adding any custom code to client or server entrypoints. We offer some for common use cases such as [GraphQL](https://github.com/Shopify/quilt/tree/main/packages/react-graphql-universal-provider), and [I18n](https://github.com/Shopify/quilt/tree/main/packages/react-i18n-universal-provider).
 
 #### Customizing the Node server
 
@@ -289,7 +289,7 @@ end
 
 #### Exception monitoring with Bugsnag
 
-For an opinionated universal Bugsnag+React setup we provide and support [`@shopify/react-bugsnag`](https://github.com/Shopify/quilt/tree/master/packages/react-bugsnag).
+For an opinionated universal Bugsnag+React setup we provide and support [`@shopify/react-bugsnag`](https://github.com/Shopify/quilt/tree/main/packages/react-bugsnag).
 
 ##### Example
 

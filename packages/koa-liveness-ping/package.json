@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-liveness-ping/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-liveness-ping/README.md",
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.3.0",
     "@types/koa": "^2.0.0",

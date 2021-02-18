@@ -121,7 +121,7 @@ export default withI18n()(NotFound);
 
 #### `i18n`
 
-The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
+The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/main/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
 
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
@@ -281,7 +281,7 @@ if (keyExists) {
 i18n.translate('MyComponent.searchResult', {count: searchResults});
 ```
 
-As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/master/packages/polyfills).
+As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/main/packages/polyfills).
 We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
 
 By default, `{count}` will be automatically formatted as a number. If you want to format the variable differently, you can simply pass it in another variable.
@@ -332,7 +332,7 @@ i18n.getTranslationTree('MyComponent.countries');
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
 
-We recommend you to use [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html) with [`@shopify/react-i18n-universal-provider`](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider) to serialize the extracted translations and rehydrate them on the client.
+We recommend you to use [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/main/packages/react-html) with [`@shopify/react-i18n-universal-provider`](https://github.com/Shopify/quilt/tree/main/packages/react-i18n-universal-provider) to serialize the extracted translations and rehydrate them on the client.
 
 ```tsx
 import {
@@ -518,7 +518,7 @@ Additional details on why we built our own package, and on specifics of parts of
 
 ### How do I get this i18n library to work with React Native?
 
-[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version [2.3.0](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version [2.3.0](https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
 
 **Note**: You will need a script to generate `index` files:
 

@@ -85,7 +85,7 @@ terminate(worker);
 
 ##### Customizing worker creation
 
-By default, this library will create a worker by calling `new Worker` with a blob URL for the worker script. This is generally all you need, but some use cases may want to construct the worker differently. For example, you might want to construct a worker in a sandboxed iframe to ensure the worker is not treated as same-origin, or create a worker farm instead of a worker per script. To do so, you can supply the `createMessenger` option to the function provided by `createWorkerFactory`. This option should be a function that accepts a `URL` object for the location of the worker script, and return a `MessageEndpoint` compatible with being passed to [`@shopify/rpc`’s `createEndpoint`](https://github.com/Shopify/quilt/tree/master/packages/rpc#usage) API.
+By default, this library will create a worker by calling `new Worker` with a blob URL for the worker script. This is generally all you need, but some use cases may want to construct the worker differently. For example, you might want to construct a worker in a sandboxed iframe to ensure the worker is not treated as same-origin, or create a worker farm instead of a worker per script. To do so, you can supply the `createMessenger` option to the function provided by `createWorkerFactory`. This option should be a function that accepts a `URL` object for the location of the worker script, and return a `MessageEndpoint` compatible with being passed to [`@shopify/rpc`’s `createEndpoint`](https://github.com/Shopify/quilt/tree/main/packages/rpc#usage) API.
 
 ```ts
 import {fromMessagePort} from '@shopify/rpc';

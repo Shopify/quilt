@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/dates/README.md",
   "dependencies": {
     "@shopify/decorators": "^1.2.0",
     "tslib": "^1.14.1"

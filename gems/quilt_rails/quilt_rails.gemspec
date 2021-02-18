@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version     = Quilt::VERSION
   spec.authors     = ["Mathew Allen"]
   spec.email       = ["mathew.allen@shopify.com"]
-  spec.homepage    = "https://github.com/Shopify/quilt/tree/master/gems/quilt_rails"
+  spec.homepage    = "https://github.com/Shopify/quilt/tree/main/gems/quilt_rails"
   spec.summary     = "A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries."
   spec.description = "A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries."
   spec.license     = "MIT"

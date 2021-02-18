@@ -6,7 +6,7 @@
 
 Manage React forms tersely and type-safely with no magic.
 
-This library is now superseded by [@shopify/react-form](https://github.com/Shopify/quilt/tree/master/packages/react-form) as it allows you to write the preferred, functional, and hooks-driven React components over class-based ones.
+This library is now superseded by [@shopify/react-form](https://github.com/Shopify/quilt/tree/main/packages/react-form) as it allows you to write the preferred, functional, and hooks-driven React components over class-based ones.
 
 ## Installation
 
@@ -45,7 +45,7 @@ Its only mandatory props are `initialValues` and `children`. The `initialValues`
 </FormState>
 ```
 
-For detailed explanations of how to use `<FormState />` check out [the guide](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/building-forms.md).
+For detailed explanations of how to use `<FormState />` check out [the guide](https://github.com/Shopify/quilt/tree/main/packages/react-form-state/docs/building-forms.md).
 
 ### `validators`
 
@@ -55,4 +55,4 @@ The library also makes a number of validation factory functions available out of
 import {validate, validators} from '@shopify/react-form-state';
 ```
 
-For detailed explanations of the validation utilities, check out [the validation docs](https://github.com/Shopify/quilt/tree/master/packages/react-form-state/docs/validators.md).
+For detailed explanations of the validation utilities, check out [the validation docs](https://github.com/Shopify/quilt/tree/main/packages/react-form-state/docs/validators.md).
