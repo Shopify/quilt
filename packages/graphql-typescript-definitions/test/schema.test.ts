@@ -94,6 +94,13 @@ describe('printSchema()', () => {
     });
   });
 
+  it('prints a unambiguous es module file if nothing would otherwise be exported', () => {
+    const schema = buildSchema('type Query {getValue: String}');
+    expect(generateSchemaTypes(schema).get('index.ts')).toStrictEqual(
+      'export {};',
+    );
+  });
+
   it('prints a custom scalar in the index file', () => {
     const schema = buildSchema('scalar Date');
     expect(generateSchemaTypes(schema).get('index.ts')).toContain(

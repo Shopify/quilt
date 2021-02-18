@@ -104,6 +104,15 @@ export function generateSchemaTypes(
     }
   }
 
+  // A blank file is ambiguous - its not clear if it is a script or a module.
+  // If the file would be blank then give it an empty `export {}` to make in
+  // unambiguously an es module file.
+  // This ensures the generated files passes TypeScript type checking in
+  // "isolatedModules" mode.
+  if (exportFileBody.length === 0) {
+    exportFileBody.push(t.exportNamedDeclaration(null, []));
+  }
+
   return definitions.set(
     'index.ts',
     generate(t.file(t.program(importFileBody.concat(exportFileBody)), [], []))

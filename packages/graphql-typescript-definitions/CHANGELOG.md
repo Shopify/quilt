@@ -5,6 +5,8 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 ## [Unreleased]
 
+- Ensure we add an `export {}` to otherwise blank files to make it clear that they are in the es modules format [[#131](https://github.com/Shopify/graphql-tools-web/pull/131)]
+
 ## [0.21.0] - 2020-06-15
 
 - Allow custom scalars that alias built-in types [[#90](https://github.com/Shopify/graphql-tools-web/pull/90)] (thanks [ryanw](https://github.com/ryanw)!)
