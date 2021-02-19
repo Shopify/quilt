@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/web-worker/README.md",
   "dependencies": {
-    "@shopify/rpc": "^1.1.0",
+    "@shopify/rpc": "^1.1.1",
     "loader-utils": "^1.0.0",
     "tslib": "^1.14.1",
     "webpack-virtual-modules": "^0.2.2"
