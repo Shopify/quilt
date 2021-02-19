@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [3.4.1] - 2021-02-18
+
 ### Changed
 
 - Make server recompilation is now synchronous for more hot-reload-friendly behaviour. ([#1688](https://github.com/Shopify/quilt/pull/1688))
