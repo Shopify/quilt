@@ -8,8 +8,7 @@ describe('timer', () => {
     await delay(10);
     const durationMillis = timer.stop();
 
-    // Node 14 CI test are flaky with this test
-    expect(durationMillis).toBeGreaterThanOrEqual(isNode14() ? 9 : 10);
+    expect(durationMillis).toBeGreaterThanOrEqual(9);
   });
 });
 
@@ -17,8 +16,4 @@ function delay(milliseconds: number) {
   return new Promise(resolve => {
     setTimeout(resolve, milliseconds);
   });
-}
-
-function isNode14() {
-  return NODE_VERSION.includes('v14.');
 }
