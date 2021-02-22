@@ -6983,10 +6983,10 @@ graphql-tool-utilities@^1.0.0:
     core-js "^2.0.0"
     graphql ">=14.5.0 <15.0.0"
 
-graphql-typed@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-0.5.0.tgz#9af11f039ca36e558af8ddee9af951d192d7141c"
-  integrity sha512-/tO13GMz6LNUl+v6K0jOyM2cPzDUeL70gBeVsbKpBJKHQqVd1O2t9Ld5vnUGwix+KkGmgpwo4UdrqJXMn0McDA==
+graphql-typed@^0.6.0:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-0.6.1.tgz#a305bad26cc1e6a5f7cf34e720d9cbd7bc57317d"
+  integrity sha512-41J/CLton6F6tt5AGmKbroU5RSyXOSH5My2D396yXcNuQynaehP8FFG9bx/XjLukJMgLHJ8pUSHOw+fAqcGklw==
 
 "graphql@14.0.2 - 14.2.0 || ^14.3.1", "graphql@>=14.5.0 <15.0.0", graphql@^14.0.0:
   version "14.6.0"
