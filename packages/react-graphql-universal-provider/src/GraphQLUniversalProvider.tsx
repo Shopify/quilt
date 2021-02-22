@@ -8,18 +8,26 @@ import {useLazyRef} from '@shopify/react-hooks';
 import {useRequestHeader} from '@shopify/react-network';
 
 import {isServer} from './utilities';
-import {csrfLink} from './csrf-link';
+import {createCsrfLink} from './csrf-link';
 import {createRequestIdLink} from './request-id-link';
 
 interface Props<TCacheShape extends NormalizedCacheObject> {
   id?: string;
   children?: React.ReactNode;
+  quiltRails?: boolean;
+  addRequestId?: boolean;
   createClientOptions(): Partial<ApolloClientOptions<TCacheShape>>;
 }
 
 export function GraphQLUniversalProvider<
   TCacheShape extends NormalizedCacheObject
->({id = 'apollo', children, createClientOptions}: Props<TCacheShape>) {
+>({
+  id = 'apollo',
+  quiltRails = true,
+  addRequestId = true,
+  children,
+  createClientOptions,
+}: Props<TCacheShape>) {
   const [initialData, Serialize] = useSerialized<TCacheShape | undefined>(id);
   const requestID = useRequestHeader('X-Request-ID');
 
@@ -39,14 +47,14 @@ export function GraphQLUniversalProvider<
 
     const clientOptions = createClientOptions();
     const ssrLink = createSsrExtractableLink();
-    const requestIdLink = requestID
-      ? createRequestIdLink(requestID)
-      : undefined;
+    const csrfLink = quiltRails ? createCsrfLink() : undefined;
+    const requestIdLink =
+      addRequestId && requestID ? createRequestIdLink(requestID) : undefined;
     const finalLink = clientOptions.link || undefined;
 
     const link = ApolloLink.from([
       ssrLink,
-      csrfLink,
+      ...(csrfLink ? [csrfLink] : []),
       ...(requestIdLink ? [requestIdLink] : []),
       ...(finalLink ? [finalLink] : []),
     ]);

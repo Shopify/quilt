@@ -8,7 +8,9 @@ describe('createRequestIdLink()', () => {
     const requestIdLink = createRequestIdLink(mockRequestId);
 
     const mockLink = new ApolloLink(operation => {
-      expect(operation.getContext().header['X-Request-ID']).toBe(mockRequestId);
+      expect(operation.getContext().header['X-Initiated-By-Request-ID']).toBe(
+        mockRequestId,
+      );
 
       return Observable.of({data: {foo: {bar: true}}});
     });
