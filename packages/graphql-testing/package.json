@@ -28,7 +28,7 @@
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
     "graphql": "^14.0.0",
-    "jest-matcher-utils": "^25.3.0",
+    "jest-matcher-utils": "^26.6.2",
     "tslib": "^1.14.1"
   },
   "devDependencies": {

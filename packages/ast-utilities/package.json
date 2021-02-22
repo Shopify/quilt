@@ -51,7 +51,7 @@
     "@babel/template": "^7.6.0",
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
-    "jest-matcher-utils": "^26.0.0",
+    "jest-matcher-utils": "^26.6.2",
     "remark-parse": "^7.0.1",
     "remark-stringify": "^7.0.3",
     "tslib": "^1.14.1",
