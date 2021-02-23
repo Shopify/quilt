@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## [Unreleased] -->
 
+## [3.4.2] - 2021-02-23
+
+### Changed
+
+- Claerify quilt_rails error ([#1752](https://github.com/Shopify/quilt/pull/1752))
+
 ## [3.4.1] - 2021-02-18
 
 ### Changed
