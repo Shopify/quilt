@@ -42,11 +42,32 @@ module Quilt
       )
     end
 
-    def test_render_react_errors_in_tests
+    def test_no_test_errors_in_tests
       Rails.env.stubs(:test?).returns(true)
-      assert_raises Quilt::ReactRenderable::DoNotIntegrationTestError do
+
+      error = assert_raises(Quilt::ReactRenderable::DoNotIntegrationTestError) do
         render_react
       end
+
+      assert_equal(<<~MSG.squish, error.message)
+        Please don't test React views with Ruby.
+        Jest and @shopify/react-testing should be used to test React components.
+        If you meant to query your Rails application, please check your integration test for errors.
+      MSG
+    end
+
+    def test_render_react_errors_in_tests
+      Rails.env.stubs(:test?).returns(false)
+      expects(:reverse_proxy).raises(Errno::ECONNREFUSED)
+
+      error = assert_raises(Quilt::ReactRenderable::ReactServerNoResponseError) do
+        render_react
+      end
+
+      assert_equal(<<~MSG.squish, error.message)
+        Connection refused while waiting for React server to boot up.
+        If this error persists, verify that @shopify/react-server is configured on http://localhost:8081.
+      MSG
     end
 
     private
