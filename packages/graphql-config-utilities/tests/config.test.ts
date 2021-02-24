@@ -24,8 +24,8 @@ jest.mock('fs', () => {
 });
 jest.mock('glob', () => jest.fn());
 
-const existsSync: jest.Mock = require.requireMock('fs').existsSync;
-const glob: jest.Mock = require.requireMock('glob');
+const existsSync: jest.Mock = jest.requireMock('fs').existsSync;
+const glob: jest.Mock = jest.requireMock('glob');
 
 const configData: GraphQLConfigData = {schemaPath: 'test'};
 const configPath = join(__dirname, '.graphqlconfig');

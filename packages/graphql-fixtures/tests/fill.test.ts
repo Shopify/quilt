@@ -4,13 +4,15 @@ import {parse, DocumentNode} from 'graphql-typed';
 
 import {createFiller, list, Options} from '../src/fill';
 
-jest.mock('../src/utilities', () => ({
-  ...require.requireActual('../src/utilities'),
-  chooseNull: jest.fn(() => false),
-}));
+jest.mock('../src/utilities', () => {
+  const utilities = jest.requireActual('../src/utilities');
+  return {
+    ...utilities,
+    chooseNull: jest.fn(() => false),
+  };
+});
 
-const chooseNull: jest.Mock = require.requireMock('../src/utilities')
-  .chooseNull;
+const chooseNull: jest.Mock = jest.requireMock('../src/utilities').chooseNull;
 
 describe('createFiller()', () => {
   beforeEach(() => {
