@@ -37,7 +37,7 @@
     "common-tags": "^1.8.0"
   },
   "dependencies": {
-    "@jest/transform": "^25.3.0",
+    "@jest/transform": "^26.6.2",
     "@types/fs-extra": "^8.1.0",
     "@types/webpack": "^4.41.11",
     "fs-extra": "^9.0.0",

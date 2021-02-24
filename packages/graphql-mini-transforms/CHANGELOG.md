@@ -5,6 +5,10 @@ and from `v0.14.0`, this project adheres to [Semantic Versioning](http://semver.
 
 <!-- ## [Unreleased] -->
 
+### Added
+
+- Update dependencies (`jest`) to `26` [[#133](https://github.com/Shopify/graphql-tools-web/pull/133)]
+
 ## [1.2.0] - 2020-04-27
 
 ### Added
