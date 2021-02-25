@@ -1,7 +1,0 @@
-**/*.d.ts
-**/package.json
-packages/graphql-typescript-definitions/test/fixtures/malformed-query/**/*.graphql
-packages/graphql-typescript-definitions/test/fixtures/**/schema.ts
-packages/graphql-validate-fixtures/test/fixtures/malformed-query/**/*.graphql
-packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/**/*.json
-packages/*/node_modules/**
