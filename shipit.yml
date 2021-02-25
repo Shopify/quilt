@@ -1,8 +1,0 @@
-ci:
-  require:
-    - tests (10.x)
-    - tests (12.x)
-    - tests (14.x)
-dependencies:
-  post:
-    - yarn run build
