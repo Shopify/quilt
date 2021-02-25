@@ -1,0 +1,27 @@
+{
+  "name": "graphql-typed",
+  "version": "0.6.1",
+  "description": "A more strongly typed version of GraphQL's DocumentNode.",
+  "main": "index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/main/packages/graphql-typed",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn build"
+  },
+  "peerDependencies": {
+    "graphql": ">=14.5.0 <15.0.0"
+  }
+}
