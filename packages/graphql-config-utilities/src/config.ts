@@ -94,9 +94,9 @@ export async function getGraphQLProjectIncludedFilePaths(
 ) {
   return (
     await Promise.all(
-      projectConfig.includes.map((include) =>
+      projectConfig.includes.map(include =>
         promisify(glob)(resolvePathRelativeToConfig(projectConfig, include), {
-          ignore: projectConfig.excludes.map((exclude) =>
+          ignore: projectConfig.excludes.map(exclude =>
             resolvePathRelativeToConfig(projectConfig, exclude),
           ),
         }),
@@ -111,7 +111,7 @@ export function getGraphQLProjectForSchemaPath(
 ) {
   const project =
     getGraphQLProjects(config)
-      .filter((project) => project.schemaPath === schemaPath)
+      .filter(project => project.schemaPath === schemaPath)
       .shift() || config.getProjectConfig();
 
   if (!project || project.schemaPath !== schemaPath) {

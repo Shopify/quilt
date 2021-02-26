@@ -1,3 +1,4 @@
+/* eslint-disable @shopify/jest/no-snapshots */
 import {resolve} from 'path';
 import {execSync} from 'child_process';
 
@@ -88,3 +89,5 @@ function cliCommandForFixtureDirectory(fixture: string, showPasses = false) {
     .join(' ')
     .trim();
 }
+
+/* eslint-enable @shopify/jest/no-snapshots */

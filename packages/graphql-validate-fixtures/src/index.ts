@@ -37,7 +37,7 @@ export async function evaluateFixtures(
     getGraphQLProjects(config).map(getOperationsForProject),
   );
 
-  return runForEachFixture(fixturePaths, (fixture) =>
+  return runForEachFixture(fixturePaths, fixture =>
     evaluateFixture(fixture, projectASTCollection),
   );
 }
@@ -54,7 +54,7 @@ async function getOperationsForProject(
   );
 
   const document = concatAST(
-    operationSources.map((source) => {
+    operationSources.map(source => {
       try {
         return parse(source);
       } catch (error) {
@@ -98,7 +98,7 @@ function runForEachFixture<T extends Partial<Evaluation>>(
   runner: (fixture: Fixture) => T,
 ): Promise<Evaluation[]> {
   return Promise.all(
-    fixturePaths.map(async (fixturePath) => {
+    fixturePaths.map(async fixturePath => {
       try {
         const fixture = await readJSON(fixturePath);
         return {

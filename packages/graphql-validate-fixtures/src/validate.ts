@@ -129,7 +129,7 @@ export function findOperations(
   projectASTCollection: GraphQLProjectAST[],
 ) {
   return projectASTCollection
-    .map<FoundOperation | null>((projectAST) => {
+    .map<FoundOperation | null>(projectAST => {
       for (const lookForOperationName of lookForOperationNames) {
         const operation = projectAST.ast.operations[lookForOperationName];
 
@@ -253,9 +253,9 @@ function validateValueAgainstObjectFieldDescription(
 
   if (fragmentSpreads) {
     fragmentSpreads
-      .map((spread) => ast.fragments[spread])
-      .forEach((fragment) => {
-        fragment.fields.forEach((field) => {
+      .map(spread => ast.fragments[spread])
+      .forEach(fragment => {
+        fragment.fields.forEach(field => {
           if (fields.some(({fieldName}) => fieldName === field.fieldName)) {
             return;
           }
@@ -339,8 +339,8 @@ function validateValueAgainstFields(
   const finalValue = value || {};
 
   const excessFields = Object.keys(finalValue)
-    .filter((key) => fields.every(({responseName}) => key !== responseName))
-    .map((key) => error(keyPath, `has key '${key}' not present in the query`));
+    .filter(key => fields.every(({responseName}) => key !== responseName))
+    .map(key => error(keyPath, `has key '${key}' not present in the query`));
 
   return fields.reduce((allErrors, field) => {
     return allErrors.concat(
@@ -488,7 +488,7 @@ function validateValueAgainstType(
               type,
             )} (available values: ${type
               .getValues()
-              .map((enumValue) => enumValue.value)
+              .map(enumValue => enumValue.value)
               .join(', ')})`,
           ),
         ]

@@ -1,3 +1,4 @@
+/* eslint-disable @shopify/jest/no-snapshots */
 import {resolve} from 'path';
 import {exec} from 'child_process';
 
@@ -58,7 +59,7 @@ describe.skip('cli', () => {
 });
 
 function execDetails(command: string) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     exec(command, (error, stdout, stderr) => {
       resolve({
         error: stripFullFilePaths(error),
@@ -77,3 +78,5 @@ function cliCommandForFixtureDirectory(fixture: string) {
     `--schema-types-path '${fixtureDirectory}'`,
   ].join(' ');
 }
+
+/* eslint-enable @shopify/jest/no-snapshots */

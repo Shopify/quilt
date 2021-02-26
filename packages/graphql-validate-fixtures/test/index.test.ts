@@ -1,3 +1,4 @@
+/* eslint-disable @shopify/jest/no-snapshots */
 import {join} from 'path';
 
 import * as glob from 'glob';
@@ -73,3 +74,5 @@ async function evaluateFixturesForFixturePath(
 function detailsForFixture(fixture: string) {
   return glob.sync(join(rootFixtureDirectory, fixture, 'fixtures/**/*.json'));
 }
+
+/* eslint-enable @shopify/jest/no-snapshots */
