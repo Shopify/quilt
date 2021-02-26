@@ -49,10 +49,11 @@ describe('Router', () => {
 
   it('mounts a StaticRouter on the server with basename if provided', () => {
     isClient.mockReturnValue(false);
+    const location = 'http://www.shopify.com/next/example';
     const basename = '/next';
-    const wrapper = mount(<Router basename={basename} />);
+    const wrapper = mount(<Router basename={basename} location={location} />);
 
-    expect(wrapper).toContainReactComponent(StaticRouter, {basename});
+    expect(wrapper).toContainReactComponent(StaticRouter, {basename, location});
   });
 
   it('throws a useful error when location is omitted on the server', () => {
