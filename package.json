@@ -46,7 +46,7 @@
     "@sewing-kit/cli": "^0.2.0",
     "@sewing-kit/config": "^0.1.7",
     "@sewing-kit/plugin-eslint": "^0.1.6",
-    "@sewing-kit/plugin-javascript": "^0.2.0",
+    "@sewing-kit/plugin-javascript": "^0.2.1-mandatory-extensions.0",
     "@sewing-kit/plugin-jest": "^0.1.21",
     "@sewing-kit/plugin-package-flexible-outputs": "^0.1.21",
     "@sewing-kit/plugin-react": "^0.1.22",
@@ -90,6 +90,7 @@
     "typescript": "^3.7.5"
   },
   "resolutions": {
+    "@sewing-kit/plugin-javascript": "^0.2.1-mandatory-extensions.0",
     "@types/react": "16.9.19",
     "@types/react-dom": "16.9.5"
   }
