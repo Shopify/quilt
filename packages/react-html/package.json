@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "10.2.2",
+  "version": "10.2.2-beta.1",
   "license": "MIT",
   "description": "A component to render your React app with no static HTML",
   "main": "index.js",
@@ -36,7 +36,7 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^2.2.1",
+    "@shopify/react-testing": "^2.2.1-beta.1",
     "@shopify/with-env": "^1.2.1"
   },
   "sideEffects": false,

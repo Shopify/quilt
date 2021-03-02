@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql-universal-provider",
-  "version": "3.6.0",
+  "version": "3.6.0-beta.1",
   "license": "MIT",
   "description": "A self-serializing/deserializing GraphQL provider that works for isomorphic applications",
   "main": "index.js",
@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-graphql-universal-provider/README.md",
   "dependencies": {
-    "@shopify/react-graphql": "^6.3.0",
+    "@shopify/react-graphql": "^6.3.0-beta.1",
     "@shopify/react-hooks": "^1.12.1",
-    "@shopify/react-html": "^10.2.2",
-    "@shopify/react-network": "^3.6.3",
+    "@shopify/react-html": "^10.2.2-beta.1",
+    "@shopify/react-network": "^3.6.3-beta.1",
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",

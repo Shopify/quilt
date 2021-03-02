@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "6.3.0",
+  "version": "6.3.0-beta.1",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React",
   "main": "index.js",
@@ -35,11 +35,11 @@
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "graphql-typed": "^0.6.0",
+    "graphql-typed": "^0.6.1-beta.1",
     "tslib": "^1.14.1"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^2.2.1"
+    "@shopify/react-testing": "^2.2.1-beta.1"
   },
   "files": [
     "build/*",
