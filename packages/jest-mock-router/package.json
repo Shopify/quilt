@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-mock-router",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "description": "Jest + Enzyme mocks for React Router 3.x",
   "main": "index.js",
