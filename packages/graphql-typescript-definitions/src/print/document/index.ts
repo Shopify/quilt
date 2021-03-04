@@ -22,7 +22,7 @@ export interface File {
   fragments: Fragment[];
 }
 
-export {Options};
+export type {Options};
 
 export function printDocument(
   {path, operation, fragments}: File,

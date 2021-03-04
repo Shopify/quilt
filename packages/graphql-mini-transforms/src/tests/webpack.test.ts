@@ -4,7 +4,7 @@ import {createHash} from 'crypto';
 import {loader} from 'webpack';
 import {stripIndent} from 'common-tags';
 
-import graphQLLoader from '../src/webpack';
+import graphQLLoader from '../webpack-loader';
 
 describe('graphql-mini-transforms/webpack', () => {
   it('marks the loader as cacheable', async () => {
@@ -145,7 +145,7 @@ describe('graphql-mini-transforms/webpack', () => {
 
       const loader = createLoaderContext({
         context,
-        readFile: (file) => fragmentFiles.get(file)!,
+        readFile: file => fragmentFiles.get(file)!,
       });
 
       const {

@@ -1,17 +1,15 @@
 # `graphql-validate-fixtures`
 
-> Validates JSON fixtures for GraphQL responses against the associated operations and schema
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/graphql-validate-fixtures .svg)](https://badge.fury.io/js/graphql-validate-fixtures .svg) {{#if usedInBrowser}} [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/graphql-validate-fixtures .svg)](https://img.shields.io/bundlephobia/minzip/graphql-validate-fixtures .svg) {{/if}}
+
+Validates JSON fixtures for GraphQL responses against the associated operations and schema.
 
 ## Installation
 
-```
-npm install graphql-validate-fixtures --save-dev
-```
-
-or, with Yarn:
-
-```
-yarn add graphql-validate-fixtures --dev
+```bash
+$ yarn add graphql-validate-fixtures
 ```
 
 ## Usage
@@ -51,9 +49,9 @@ yarn run graphql-validate-fixtures 'src/**/fixtures/**/*.graphql.json'
 const {evaluateFixtures} = require('graphql-validate-fixtures');
 evaluateFixtures({
   fixturePaths: ['test/fixtures/one.json', 'test/fixtures/two.json'],
-}).then((results) => {
+}).then(results => {
   // See the TypeScript definition file for more details on the
   // structure of the `results`
-  results.forEach((result) => console.log(result));
+  results.forEach(result => console.log(result));
 });
 ```

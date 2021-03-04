@@ -1,7 +1,8 @@
+/* eslint-disable @shopify/jest/no-snapshots */
 import {resolve} from 'path';
 import {exec} from 'child_process';
 
-import {stripFullFilePaths} from '../../../test/utilities';
+import {stripFullFilePaths} from '../../../tests/utilities';
 
 const scriptPath = resolve(__dirname, '../bin/graphql-typescript-definitions');
 const rootFixturePath = resolve(__dirname, 'fixtures');
@@ -58,7 +59,7 @@ describe.skip('cli', () => {
 });
 
 function execDetails(command: string) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     exec(command, (error, stdout, stderr) => {
       resolve({
         error: stripFullFilePaths(error),
@@ -77,3 +78,5 @@ function cliCommandForFixtureDirectory(fixture: string) {
     `--schema-types-path '${fixtureDirectory}'`,
   ].join(' ');
 }
+
+/* eslint-enable @shopify/jest/no-snapshots */
