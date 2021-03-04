@@ -8,7 +8,7 @@ import {extractImports} from './document';
 
 const THIS_FILE = readFileSync(__filename);
 
-const transformer: Transformer = {
+export const transformer: Transformer = {
   getCacheKey(fileData, filename) {
     return createHash('md5')
       .update(THIS_FILE)
@@ -54,5 +54,3 @@ const transformer: Transformer = {
     `;
   },
 };
-
-export = transformer;

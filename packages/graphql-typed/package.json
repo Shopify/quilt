@@ -1,9 +1,14 @@
 {
   "name": "graphql-typed",
   "version": "0.6.1",
+  "license": "MIT",
   "description": "A more strongly typed version of GraphQL's DocumentNode.",
   "main": "index.js",
-  "license": "MIT",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -11,17 +16,33 @@
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/graphql-typed"
   },
   "bugs": {
-    "url": "https://github.com/shopify/graphql-tools-web/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/graphql-tools-web/blob/main/packages/graphql-typed",
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "yarn build"
-  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-typed/README.md",
   "peerDependencies": {
-    "graphql": ">=14.5.0 <15.0.0"
+    "graphql": ">=14.5.0 <15.0.0",
+    "tslib": "^1.14.1"
+  },
+  "files": [
+    "build/*",
+    "index.js",
+    "index.d.ts",
+    "index.esnext",
+    "index.mjs",
+    "!tsconfig.tsbuildinfo"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
   }
 }

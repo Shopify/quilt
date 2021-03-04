@@ -1,34 +1,29 @@
 {
   "name": "graphql-typescript-definitions",
   "version": "0.22.0",
-  "main": "lib/index.js",
-  "types": "lib",
-  "description": "Generate TypeScript definition files from .graphql documents",
   "license": "MIT",
+  "description": "Generate TypeScript definition files from .graphql documents",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": "./bin/graphql-typescript-definitions",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
   },
-  "bin": "./bin/graphql-typescript-definitions",
   "author": "Shopify Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/graphql-typescript-definitions"
   },
   "bugs": {
-    "url": "https://github.com/shopify/graphql-tools-web/issues"
+    "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/shopify/graphql-tools-web/blob/main/packages/graphql-typescript-definitions",
-  "scripts": {
-    "build": "tsc",
-    "pretest": "yarn build",
-    "prepublishOnly": "yarn build"
-  },
-  "devDependencies": {
-    "@types/common-tags": "^1.4.0",
-    "common-tags": "^1.7.2",
-    "ts-node": "^8.0.3"
-  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-typescript-definitions/README.md",
   "dependencies": {
     "@babel/generator": "^7.4.0",
     "@babel/types": "^7.4.0",
@@ -45,9 +40,33 @@
     "graphql-config-utilities": "^1.2.0",
     "graphql-tool-utilities": "^1.3.0",
     "upper-case-first": "^2.0.1",
-    "yargs": "^15.3.1"
+    "yargs": "^15.3.1",
+    "tslib": "^1.14.1"
+  },
+  "devDependencies": {
+    "@types/common-tags": "^1.4.0",
+    "common-tags": "^1.7.2",
+    "ts-node": "^8.0.3"
   },
   "peerDependencies": {
     "graphql-typed": "^0.4.0"
+  },
+  "files": [
+    "build/*",
+    "index.js",
+    "index.d.ts",
+    "index.esnext",
+    "index.mjs",
+    "!tsconfig.tsbuildinfo"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
   }
 }

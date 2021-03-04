@@ -3,6 +3,8 @@ import {dirname, join, relative, resolve} from 'path';
 import {readFileSync, readJSONSync} from 'fs-extra';
 import glob from 'glob';
 
+import {shouldSkipShopifyPrefix} from './skip-shopify-prefix';
+
 const KNOWN_TEMPLATE_KEYS = [
   'author',
   'bugs',
@@ -54,19 +56,15 @@ packages.forEach(
         it('specifies Shopify as author', () => {
           expect(packageJSON.author).toBe(expectedPackageJSON.author);
         });
-
         it('specifies Quilt Issues as bugs URL', () => {
           expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
         });
-
         it('specifies dependencies', () => {
           expect(packageJSON.dependencies).not.toStrictEqual({});
         });
-
         it('specifies a description', () => {
           expect(packageJSON.description).not.toBeUndefined();
         });
-
         if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies publishable files, including at least one entrypoint', () => {
             expect(packageJSON.files).toStrictEqual(
@@ -81,48 +79,39 @@ packages.forEach(
             );
           });
         }
-
         it('specifies Quilt deep-link homepage', () => {
           expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
         });
-
         it('specifies the MIT license', () => {
           expect(packageJSON.license).toBe(expectedPackageJSON.license);
         });
-
         it('specifies name matching scope and path', () => {
           expect(packageJSON.name).toBe(expectedPackageJSON.name);
         });
-
         it('specifies Shopify‘s public publishConfig', () => {
           expect(packageJSON.publishConfig).toStrictEqual(
             expectedPackageJSON.publishConfig,
           );
         });
-
         it('specifies a repository deep-linking into the Quilt monorepo', () => {
           expect(packageJSON.repository).toStrictEqual(
             expectedPackageJSON.repository,
           );
         });
-
         it('specifies scripts, including build', () => {
           expect(packageJSON.scripts.build).toBe(
             expectedPackageJSON.scripts.build,
           );
         });
-
         it('specifies if webpack can tree-shake, via sideEffects', () => {
           expect(packageJSON.sideEffects).toBe(
             Boolean(packageJSON.sideEffects),
           );
         });
-
         if (!SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies the expected main', () => {
             expect(packageJSON.main).toBe(expectedPackageJSON.main);
           });
-
           it('specifies the expected types', () => {
             expect(packageJSON.types).toBe(expectedPackageJSON.types);
           });
@@ -167,5 +156,15 @@ function readPackages() {
 }
 
 function compileTemplate({name}) {
+  const skipPrefix = shouldSkipShopifyPrefix(name);
+
+  if (skipPrefix) {
+    return JSON.parse(
+      rawPackageJSONTemplate
+        .replace(/@shopify\/{{name}}/g, name)
+        .replace(/{{name}}/g, name),
+    );
+  }
+
   return JSON.parse(rawPackageJSONTemplate.replace(/{{name}}/g, name));
 }

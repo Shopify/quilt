@@ -28,14 +28,14 @@ const argv = yargs
 evaluateFixtures(glob.sync(argv._[0]), {
   cwd: argv.cwd,
 })
-  .then((evaluations) => {
+  .then(evaluations => {
     let passed = 0;
     let failed = 0;
     let lastFailed = false;
 
     console.log();
 
-    evaluations.forEach((evaluation) => {
+    evaluations.forEach(evaluation => {
       const relativePath = relative(argv.cwd, evaluation.fixturePath);
       const formattedPath = `${chalk.dim(
         relativePath.replace(basename(relativePath), ''),
@@ -67,7 +67,7 @@ evaluateFixtures(glob.sync(argv._[0]), {
         lastFailed = true;
 
         console.log(`${chalk.inverse.bold.red(' FAIL ')} ${formattedPath}`);
-        evaluation.validationErrors.forEach((error) => {
+        evaluation.validationErrors.forEach(error => {
           console.log(`${error.keyPath} ${chalk.red(error.message)}`);
         });
         console.log();
@@ -92,7 +92,7 @@ evaluateFixtures(glob.sync(argv._[0]), {
       process.exit(1);
     }
   })
-  .catch((error) => {
+  .catch(error => {
     console.log();
     console.log(`${chalk.inverse.bold.red(' ERROR ')} ${error.message}`);
     console.log(

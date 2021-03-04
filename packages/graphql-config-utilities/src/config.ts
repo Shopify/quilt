@@ -2,10 +2,9 @@ import {existsSync} from 'fs';
 import {promisify} from 'util';
 
 import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
-
 // we need to use an import/require here because it does not force consumers to
 // enable esModuleInterop in tsconfig.json
-import glob = require('glob');
+import glob from 'glob';
 
 export const defaultGraphQLProjectName = 'GraphQL';
 
@@ -94,9 +93,9 @@ export async function getGraphQLProjectIncludedFilePaths(
 ) {
   return (
     await Promise.all(
-      projectConfig.includes.map((include) =>
+      projectConfig.includes.map(include =>
         promisify(glob)(resolvePathRelativeToConfig(projectConfig, include), {
-          ignore: projectConfig.excludes.map((exclude) =>
+          ignore: projectConfig.excludes.map(exclude =>
             resolvePathRelativeToConfig(projectConfig, exclude),
           ),
         }),
@@ -111,7 +110,7 @@ export function getGraphQLProjectForSchemaPath(
 ) {
   const project =
     getGraphQLProjects(config)
-      .filter((project) => project.schemaPath === schemaPath)
+      .filter(project => project.schemaPath === schemaPath)
       .shift() || config.getProjectConfig();
 
   if (!project || project.schemaPath !== schemaPath) {

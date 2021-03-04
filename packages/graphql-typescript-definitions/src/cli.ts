@@ -92,17 +92,19 @@ builder.on('start:schema', () => {
   console.log();
 });
 
-builder.on('build:docs', (doc) => {
+builder.on('build:docs', doc => {
   docs.push(doc);
 });
 
-builder.on('build:schema', (schema) => {
+builder.on('build:schema', schema => {
   schemas.push(schema);
 });
 
 builder.on('end:docs', () => {
   docs
-    .sort(({documentPath: a}, {documentPath: b}) => a.localeCompare(b))
+    .sort(({documentPath: documentPathA}, {documentPath: documentPathB}) =>
+      documentPathA.localeCompare(documentPathB),
+    )
     .forEach(({documentPath, definitionPath}) => {
       console.log(`${BUILT} ${chalk.dim(documentPath)} → ${definitionPath}`);
     });
@@ -110,13 +112,15 @@ builder.on('end:docs', () => {
 
 builder.on('end:schema', () => {
   schemas
-    .sort(({schemaPath: a}, {schemaPath: b}) => a.localeCompare(b))
+    .sort(({schemaPath: schemaPathA}, {schemaPath: schemaPathB}) =>
+      schemaPathA.localeCompare(schemaPathB),
+    )
     .forEach(({schemaPath, schemaTypesPath}) => {
       console.log(`${BUILT} ${chalk.dim(schemaPath)} → ${schemaTypesPath}`);
     });
 });
 
-builder.on('error', (error) => {
+builder.on('error', error => {
   console.log(`${ERROR} ${error.message}`);
   if (error.stack) {
     console.log(chalk.dim(error.stack));

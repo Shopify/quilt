@@ -1,17 +1,15 @@
 # `graphql-typed`
 
-> A more strongly typed version of GraphQL's DocumentNode.
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/graphql-typed.svg)](https://badge.fury.io/js/graphql-typed.svg) {{#if usedInBrowser}} [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/graphql-typed.svg)](https://img.shields.io/bundlephobia/minzip/graphql-typed.svg) {{/if}}
+
+A more strongly typed version of GraphQL's DocumentNode.
 
 ## Installation
 
-```
-npm install graphql-typed --save
-```
-
-or, with Yarn:
-
-```
-yarn add graphql-typed
+```bash
+$ yarn add graphql-typed
 ```
 
 ## Usage

@@ -18,6 +18,7 @@
     {"path": "../react-hooks"},
     {"path": "../react-idle"},
     {"path": "../react-testing"},
-    {"path": "../useful-types"}
+    {"path": "../useful-types"},
+    {"path": "../graphql-typed"}
   ]
 }
