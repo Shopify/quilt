@@ -2,17 +2,17 @@ import faker from 'faker';
 import {buildSchema} from 'graphql';
 import {parse, DocumentNode} from 'graphql-typed';
 
-import {createFiller, list, Options} from '../src/fill';
+import {createFiller, list, Options} from '../fill';
 
-jest.mock('../src/utilities', () => {
-  const utilities = jest.requireActual('../src/utilities');
+jest.mock('../utilities', () => {
+  const utilities = jest.requireActual('../utilities');
   return {
     ...utilities,
     chooseNull: jest.fn(() => false),
   };
 });
 
-const chooseNull: jest.Mock = jest.requireMock('../src/utilities').chooseNull;
+const chooseNull: jest.Mock = jest.requireMock('../utilities').chooseNull;
 
 describe('createFiller()', () => {
   beforeEach(() => {

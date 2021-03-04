@@ -44,7 +44,7 @@ export function tsInterfaceBodyForObjectField(
       graphQLType === schema.getMutationType() ||
       graphQLType === schema.getSubscriptionType());
 
-  const uniqueFields = fields.filter((field) => {
+  const uniqueFields = fields.filter(field => {
     if (stack.hasSeenField(field)) {
       return false;
     }
@@ -72,7 +72,7 @@ export function tsInterfaceBodyForObjectField(
         )
       : null;
 
-  const body = uniqueFields.map((field) =>
+  const body = uniqueFields.map(field =>
     tsPropertyForField(field, graphQLType, stack, context, requiresTypename),
   );
 
@@ -116,7 +116,7 @@ function tsTypeForObjectField(
       : [];
 
   if (inlineFragments.length) {
-    const fragmentTypes = [...inlineFragments].map((inlineFragment) =>
+    const fragmentTypes = [...inlineFragments].map(inlineFragment =>
       tsTypeForInlineFragment(
         inlineFragment,
         graphQLType,
@@ -133,7 +133,7 @@ function tsTypeForObjectField(
       ),
     );
 
-    const missingPossibleTypes = possibleTypes.filter((possibleType) => {
+    const missingPossibleTypes = possibleTypes.filter(possibleType => {
       return !typesCoveredByInlineFragments.has(possibleType);
     });
 
@@ -330,7 +330,7 @@ export function variablesInterface(
     t.tsInterfaceBody(
       variables
         .filter(isTypedVariable)
-        .map((variable) => tsPropertyForVariable(variable, context)),
+        .map(variable => tsPropertyForVariable(variable, context)),
     ),
   );
 }

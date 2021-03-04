@@ -1,4 +1,5 @@
 import {upperCaseFirst} from 'upper-case-first';
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import {
   GraphQLCompositeType,
   // We need to bring these in as they are implicitly referenced by
@@ -11,6 +12,7 @@ import {
   // @ts-ignore
   GraphQLUnionType,
 } from 'graphql';
+/* eslint-enable @typescript-eslint/ban-ts-ignore */
 import {Field} from 'graphql-tool-utilities';
 
 export class ObjectStack {

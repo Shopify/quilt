@@ -120,13 +120,13 @@ function minifySource(source: string) {
 
 function definitionDependencies(definitions: ReadonlyArray<DefinitionNode>) {
   const executableDefinitions: ExecutableDefinitionNode[] = definitions.filter(
-    (definition) =>
+    definition =>
       definition.kind === 'OperationDefinition' ||
       definition.kind === 'FragmentDefinition',
   ) as any[];
 
   const definitionsByName = new Map(
-    executableDefinitions.map<[string, DefinitionNode]>((definition) => [
+    executableDefinitions.map<[string, DefinitionNode]>(definition => [
       definition.name ? definition.name.value : DEFAULT_NAME,
       definition,
     ]),
@@ -134,10 +134,10 @@ function definitionDependencies(definitions: ReadonlyArray<DefinitionNode>) {
 
   return new Map(
     executableDefinitions.map<[DefinitionNode, DefinitionNode[]]>(
-      (executableNode) => [
+      executableNode => [
         executableNode,
         [...collectUsedFragmentSpreads(executableNode, new Set())].map(
-          (usedFragment) => {
+          usedFragment => {
             const definition = definitionsByName.get(usedFragment);
 
             if (definition == null) {
@@ -165,7 +165,7 @@ const TYPENAME_FIELD = {
 function addTypename(definition: DefinitionNode) {
   for (const {selections} of selectionSetsForDefinition(definition)) {
     const hasTypename = selections.some(
-      (selection) =>
+      selection =>
         selection.kind === 'Field' && selection.name.value === '__typename',
     );
 
