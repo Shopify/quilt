@@ -1,17 +1,15 @@
 # `graphql-fixtures`
 
-> Utilities for generating fixture objects from GraphQL documents.
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/graphql-fixtures.svg)](https://badge.fury.io/js/graphql-tool-utilities.svg) {{#if usedInBrowser}} [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/graphql-fixtures.svg)](https://img.shields.io/bundlephobia/minzip/graphql-fixtures.svg) {{/if}}
+
+Utilities for generating fixture objects from GraphQL documents.
 
 ## Installation
 
-```
-npm install graphql-fixtures --save-dev
-```
-
-or, with Yarn:
-
-```
-yarn add graphql-fixtures --dev
+```bash
+$ yarn add graphql-fixtures
 ```
 
 ## Usage

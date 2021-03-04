@@ -15,7 +15,7 @@ import {
   resolvePathRelativeToConfig,
   resolveProjectName,
   resolveSchemaPath,
-} from '../src/config';
+} from '../config';
 
 jest.mock('fs', () => {
   return {

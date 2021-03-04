@@ -5,7 +5,6 @@ import {
   ParseOptions,
 } from 'graphql';
 
-// @ts-ignore
 export interface GraphQLOperation<Data = {}, Variables = {}, DeepPartial = {}> {
   // We need something to actually use the types, otherwise TypeScript
   // "discards" them for inference on extending interfaces.

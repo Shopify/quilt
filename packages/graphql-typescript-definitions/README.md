@@ -1,17 +1,15 @@
 # `graphql-typescript-definitions`
 
-> Generate TypeScript definition files from .graphql documents
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/graphql-typescript-definitions.svg)](https://badge.fury.io/js/graphql-typescript-definitions.svg) {{#if usedInBrowser}} [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/graphql-typescript-definitions.svg)](https://img.shields.io/bundlephobia/minzip/graphql-typescript-definitions.svg) {{/if}}
+
+Generate TypeScript definition files from .graphql documents.
 
 ## Installation
 
-```
-npm install graphql-typescript-definitions --save-dev
-```
-
-or, with Yarn:
-
-```
-yarn add graphql-typescript-definitions --dev
+```bash
+$ yarn add graphql-typescript-definitions
 ```
 
 ## Usage
@@ -268,12 +266,12 @@ const builder = new Builder({
   schemaTypesPath: 'app/graphql/types',
 });
 
-builder.on('build', (build) => {
+builder.on('build', build => {
   // See the source file for details on the shape of the object returned here
   console.log(build);
 });
 
-builder.on('error', (error) => {
+builder.on('error', error => {
   console.error(error);
 });
 
