@@ -1,0 +1,39 @@
+{
+  "name": "graphql-validate-fixtures",
+  "description": "Validates JSON fixtures for GraphQL responses against the associated operations and schema",
+  "version": "0.13.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "bin": "./bin/graphql-validate-fixtures",
+  "tags": [
+    "graphql"
+  ],
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/main/packages/graphql-typescript-definitions",
+  "scripts": {
+    "build": "tsc",
+    "pretest": "yarn build",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "fs-extra": "^9.0.0",
+    "glob": "^7.1.2",
+    "graphql": ">=14.5.0 <15.0.0",
+    "graphql-config": "^2.2.1",
+    "graphql-config-utilities": "^1.2.0",
+    "graphql-tool-utilities": "^1.3.0",
+    "yargs": "^15.3.1"
+  }
+}
