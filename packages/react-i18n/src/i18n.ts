@@ -371,6 +371,23 @@ export class I18n {
     return Boolean(easternNameOrderFormatter);
   }
 
+  @memoize()
+  numberSymbols() {
+    const formattedNumber = this.formatNumber(123456.7, {
+      maximumFractionDigits: 1,
+      minimumFractionDigits: 1,
+    });
+    let thousandSymbol;
+    let decimalSymbol;
+    for (const char of formattedNumber) {
+      if (isNaN(parseInt(char, 10))) {
+        if (thousandSymbol) decimalSymbol = char;
+        else thousandSymbol = char;
+      }
+    }
+    return {thousandSymbol, decimalSymbol};
+  }
+
   private formatCurrencyAuto(
     amount: number,
     options: Intl.NumberFormatOptions = {},
@@ -571,23 +588,6 @@ export class I18n {
 
     return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
-
-  @memoize()
-  private numberSymbols() {
-    const formattedNumber = this.formatNumber(123456.7, {
-      maximumFractionDigits: 1,
-      minimumFractionDigits: 1,
-    });
-    let thousandSymbol;
-    let decimalSymbol;
-    for (const char of formattedNumber) {
-      if (isNaN(parseInt(char, 10))) {
-        if (thousandSymbol) decimalSymbol = char;
-        else thousandSymbol = char;
-      }
-    }
-    return {thousandSymbol, decimalSymbol};
-  }
 }
 
 function normalizedNumber(
@@ -615,8 +615,11 @@ function normalizedNumber(
     .substring(lastDecimalIndex + 1)
     .replace(nonDigits, '');
 
+  const isNegative = input.trim().startsWith('-');
+  const negativeSign = isNegative ? '-' : '';
+
   const normalizedDecimal = lastDecimalIndex === -1 ? '' : PERIOD;
-  const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
+  const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;
 
   return normalizedValue === '' || normalizedValue === PERIOD
     ? ''
