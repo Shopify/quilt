@@ -415,7 +415,7 @@ describe('useBaseList', () => {
         optionValue: faker.commerce.productMaterial(),
       };
       const wrapper = mount(<TestList list={[variant]} />);
-      const newPrice = faker.commerce.price();
+      const newPrice = faker.commerce.price(10, 80);
 
       wrapper
         .find(TextField, {name: 'price0'})!

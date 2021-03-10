@@ -583,66 +583,82 @@ describe('I18n', () => {
   });
 
   describe('#unformatNumber()', () => {
-    let formatNumber: jest.SpyInstance;
-    let i18n: I18n;
+    const getI18n = (locale = 'en-ca') =>
+      new I18n(defaultTranslations, {...defaultDetails, locale});
 
-    beforeAll(() => {
-      formatNumber = jest.spyOn(I18n.prototype, 'formatNumber');
-    });
-
-    beforeEach(() => {
-      i18n = new I18n(defaultTranslations, defaultDetails);
-    });
-
-    afterEach(() => {
-      formatNumber.mockClear();
-    });
-
-    afterAll(() => {
-      formatNumber.mockRestore();
-    });
-
-    const input = 123456.7891;
+    const expected = '123456.7891';
 
     it('handles number with period decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '123,456.7');
-
       const formatted = '123,456.7891';
 
-      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+      expect(getI18n().unformatNumber(formatted)).toBe(expected);
     });
 
     it('handles number with comma decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '123.456,7');
-
       const formatted = '123.456,7891';
 
-      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+      expect(getI18n('es-es').unformatNumber(formatted)).toBe(expected);
     });
 
     it('handles number with space as the thousand symbol', () => {
-      formatNumber.mockImplementationOnce(() => '123 456,7');
-
       const formatted = '123 456,7891';
 
-      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+      expect(getI18n('de-de').unformatNumber(formatted)).toBe(expected);
     });
 
     it('handles number with unusual comma separators and period decimal symbol', () => {
-      formatNumber.mockImplementationOnce(() => '123,456.7');
-
       const formatted = '1,23,456.7891';
 
-      expect(i18n.unformatNumber(formatted)).toBe(input.toString());
+      expect(getI18n().unformatNumber(formatted)).toBe(expected);
     });
 
     it('handles invalid value', () => {
-      formatNumber.mockImplementationOnce(() => '123,456.7');
-
       const formatted = 'foobar';
 
-      expect(i18n.unformatNumber(formatted)).toBe('');
+      expect(getI18n().unformatNumber(formatted)).toBe('');
     });
+
+    it('handles negative value', () => {
+      const formatted = '-123,343.34';
+
+      expect(getI18n().unformatNumber(formatted)).toBe('-123343.34');
+    });
+
+    it('ignores negative sign not in first position', () => {
+      const formatted = '123-232.34';
+
+      expect(getI18n().unformatNumber(formatted)).toBe('123232.34');
+    });
+
+    it('handles leading/trailing spaces', () => {
+      const formatted = '  -34,455.5  ';
+
+      expect(getI18n().unformatNumber(formatted)).toBe('-34455.5');
+    });
+  });
+
+  describe('#numberSymbols()', () => {
+    const tests: [string, string, string][] = [
+      // [locale, decimal, thousands]
+      ['en', '.', ','],
+      ['es', ',', '.'],
+      ['fr', ',', '\u202F'],
+      ['sv', ',', '\u00A0'],
+      ['hi', '.', ','],
+      ['ko', '.', ','],
+      ['jp', '.', ','],
+    ];
+    it.each(tests)(
+      'locale %s decimal is "%s" and thousands is "%s"',
+      (locale, decimalSymbol, thousandSymbol) => {
+        const i18n = new I18n(defaultTranslations, {...defaultDetails, locale});
+
+        expect(i18n.numberSymbols()).toStrictEqual({
+          decimalSymbol,
+          thousandSymbol,
+        });
+      },
+    );
   });
 
   describe('#formatCurrency()', () => {
@@ -889,11 +905,18 @@ describe('I18n', () => {
       expect(i18n.unformatCurrency('.12', 'USD')).toBe('0.12');
     });
 
-    it('handles value starting with', () => {
+    it("handles value starting with '", () => {
       getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
       expect(i18n.unformatCurrency("'12", 'USD')).toBe('12.00');
+    });
+
+    it('handles values starting with -', () => {
+      getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('-12', 'USD')).toBe('-12.00');
     });
 
     describe('unique currencies or locales', () => {
