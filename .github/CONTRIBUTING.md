@@ -42,13 +42,24 @@ The [documentation](../documentation) directory in this repo covers the more gra
 
 ## Testing your changes in a local project
 
-To try out your changes in another locally cloned project, you can use `yarn tophat <package-name-without-@shopify-prefix> <relative-path-to-project>`. Using this command rather than `yarn link` will set up a watcher let you make changes without needing to rerun any commands.
+You can use [`yalc`](https://github.com/wclr/yalc) to test local changes to quilt packages inside consuming repos without publishing new versions.
 
-Example: To test my changes to `@shopify/react-form-state` in my local project named `cool-proj`, I would run `yarn tophat react-form-state ../path/to/cool-proj`.
+(We have a local installation of yalc. You can use `yarn yalc` instead of `yalc` with any of the command below if you want to avoid installing yalc globally.)
 
-Notes: If the package you are testing has dependencies inside Quilt itself, you will need to run `dev build` first. If you are using a build system in the consumer of the package, you may need to clear your build folder.
+Once you have some local changes you want to test:
 
-More usage instructions on the `tophat` command can be [found here](https://github.com/Shopify/webgen/blob/master/docs/TOPHAT.md).
+#### First run
+
+1. Run `yarn build` at the repo root or `yarn build --root packages/<package-folder-name>` to build a single package
+1. Run `yalc publish packages/<package-folder-name>` to publish a package
+1. Inside the consuming repo run `yalc link --no-pure <package-name-in-package.json>`
+
+#### Subsequent runs
+
+After making code changes within the quilt repo:
+
+1. Run `yarn build --root packages/<package-folder-name>` to rebuild the package
+1. Run `yalc publish --push packages/<package-folder-name>` to push the changes to the consuming repo
 
 ### Emoji commits
 

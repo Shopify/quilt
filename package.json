@@ -18,7 +18,7 @@
     "clean": "rimraf ./packages/*/build ./packages/*/*.{d.ts,js,esnext,mjs} .sewing-kit",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",
-    "tophat": "tophat"
+    "yalc": "yalc"
   },
   "repository": {
     "type": "git",
@@ -55,7 +55,6 @@
     "@shopify/app-bridge": "^0.7.3",
     "@shopify/babel-preset": "^23.1.1",
     "@shopify/eslint-plugin": "^36.0.2",
-    "@shopify/tophat": "^0.0.3",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/faker": "^4.1.5",
@@ -88,7 +87,8 @@
     "react-dom": "16.12.0",
     "rimraf": "^2.6.2",
     "tslib": "^1.14.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "yalc": "^1.0.0-pre.50"
   },
   "resolutions": {
     "@types/react": "16.9.19",
