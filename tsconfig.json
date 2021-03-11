@@ -68,6 +68,7 @@
     {"path": "./packages/semaphore"},
     {"path": "./packages/sewing-kit-koa"},
     {"path": "./packages/statsd"},
+    {"path": "./packages/storybook-a11y-test"},
     {"path": "./packages/useful-types"},
     {"path": "./packages/web-worker"},
     {"path": "./packages/with-env"}
