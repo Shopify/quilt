@@ -1,4 +1,5 @@
 import {resolve, basename} from 'path';
+
 import {sync as globSync} from 'glob';
 
 const ROOT_PATH = resolve(__dirname, '..');
