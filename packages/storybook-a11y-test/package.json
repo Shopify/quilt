@@ -1,0 +1,50 @@
+{
+  "name": "@shopify/storybook-a11y-test",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Test storybook pages with axe and puppeteer",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/storybook-a11y-test"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/storybook-a11y-test/README.md",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "p-map": "^4.0.0",
+    "puppeteer": "^7.1.0",
+    "tslib": "^1.14.1"
+  },
+  "files": [
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
+}
