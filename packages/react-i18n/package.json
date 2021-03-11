@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "5.2.4",
+  "version": "5.3.0",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more",
   "main": "index.js",
