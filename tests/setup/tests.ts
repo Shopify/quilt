@@ -1,4 +1,5 @@
 import addClosest from 'element-closest';
+import 'jest-extended';
 
 import 'saddle-up/matchers';
 import 'saddle-up/koa-matchers';

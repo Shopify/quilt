@@ -1,0 +1,8 @@
+type Query {
+  name: String!
+  age: Int!
+}
+
+schema {
+  query: Query
+}

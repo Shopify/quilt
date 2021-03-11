@@ -1,0 +1,94 @@
+{
+  "name": "graphql-mini-transforms",
+  "version": "1.3.0",
+  "license": "MIT",
+  "description": "Transformers for importing .graphql files in various build tools.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/graphql-mini-transforms"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-mini-transforms/README.md",
+  "dependencies": {
+    "@jest/transform": "^26.6.2",
+    "@types/fs-extra": "^8.1.0",
+    "@types/webpack": "^4.41.11",
+    "fs-extra": "^9.0.0",
+    "graphql": ">=14.5.0 <15.0.0",
+    "graphql-typed": "^0.6.1",
+    "loader-utils": "^2.0.0",
+    "tslib": "^1.14.1"
+  },
+  "devDependencies": {
+    "@types/common-tags": "^1.8.0",
+    "@types/loader-utils": "^1.1.3",
+    "common-tags": "^1.8.0"
+  },
+  "files": [
+    "build/*",
+    "!tsconfig.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
+    "jest.js",
+    "jest.mjs",
+    "jest.esnext",
+    "jest.d.ts",
+    "jest-simple.js",
+    "jest-simple.mjs",
+    "jest-simple.esnext",
+    "jest-simple.d.ts",
+    "webpack-loader.js",
+    "webpack-loader.mjs",
+    "webpack-loader.esnext",
+    "webpack-loader.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./jest": {
+      "import": "./jest.mjs",
+      "require": "./jest.js",
+      "esnext": "./jest.esnext"
+    },
+    "./jest-simple": {
+      "import": "./jest-simple.mjs",
+      "require": "./jest-simple.js",
+      "esnext": "./jest-simple.esnext"
+    },
+    "./webpack": {
+      "import": "./webpack-loader.mjs",
+      "require": "./webpack-loader.js",
+      "esnext": "./webpack-loader.esnext"
+    }
+  },
+  "tags": [
+    "graphql",
+    "apollo",
+    "webpack",
+    "loader",
+    "webpack-loader",
+    "jest"
+  ]
+}

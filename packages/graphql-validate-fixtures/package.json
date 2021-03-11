@@ -1,0 +1,56 @@
+{
+  "name": "graphql-validate-fixtures",
+  "version": "0.13.0",
+  "license": "MIT",
+  "description": "Validates JSON fixtures for GraphQL responses against the associated operations and schema",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": "./bin/graphql-validate-fixtures",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/graphql-validate-fixtures"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-validate-fixtures/README.md",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "fs-extra": "^9.0.0",
+    "glob": "^7.1.2",
+    "graphql": ">=14.5.0 <15.0.0",
+    "graphql-config": "^2.2.1",
+    "graphql-config-utilities": "^1.2.0",
+    "graphql-tool-utilities": "^1.3.0",
+    "yargs": "^15.3.1",
+    "tslib": "^1.14.1"
+  },
+  "files": [
+    "build/*",
+    "index.js",
+    "index.d.ts",
+    "index.esnext",
+    "index.mjs",
+    "!tsconfig.tsbuildinfo"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
+}

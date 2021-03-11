@@ -14,7 +14,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 70 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 77 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -34,8 +34,15 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [decorators](packages/decorators) | <a href="https://badge.fury.io/js/%40shopify%2Fdecorators"><img src="https://badge.fury.io/js/%40shopify%2Fdecorators.svg" width="200px" /></a> | A set of decorators to aid your JavaScript journey |
 | [enzyme-utilities](packages/enzyme-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fenzyme-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg" width="200px" /></a> | Enzyme utilities for testing React components |
 | [function-enhancers](packages/function-enhancers) | <a href="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers"><img src="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg" width="200px" /></a> | A set of helpers to enhance functions |
+| [graphql-config-utilities](packages/graphql-config-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-config-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-config-utilities.svg" width="200px" /></a> | Common utilities for graphql-config |
+| [graphql-fixtures](packages/graphql-fixtures) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-fixtures"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-fixtures.svg" width="200px" /></a> | Utilities for generating fixture objects from GraphQL documents. |
+| [graphql-mini-transforms](packages/graphql-mini-transforms) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-mini-transforms"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-mini-transforms.svg" width="200px" /></a> | Transformers for importing .graphql files in various build tools. |
 | [graphql-persisted](packages/graphql-persisted) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-persisted"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-persisted.svg" width="200px" /></a> | Apollo and Koa integrations for persisted GraphQL queries. |
 | [graphql-testing](packages/graphql-testing) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-testing"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-testing.svg" width="200px" /></a> | Utilities to create mock GraphQL factories |
+| [graphql-tool-utilities](packages/graphql-tool-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-tool-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-tool-utilities.svg" width="200px" /></a> | Common utilities for GraphQL developer tools |
+| [graphql-typed](packages/graphql-typed) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-typed"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-typed.svg" width="200px" /></a> | A more strongly typed version of GraphQL's DocumentNode. |
+| [graphql-typescript-definitions](packages/graphql-typescript-definitions) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-typescript-definitions"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-typescript-definitions.svg" width="200px" /></a> | Generate TypeScript definition files from .graphql documents |
+| [graphql-validate-fixtures](packages/graphql-validate-fixtures) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-validate-fixtures"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-validate-fixtures.svg" width="200px" /></a> | Validates JSON fixtures for GraphQL responses against the associated operations and schema |
 | [i18n](packages/i18n) | <a href="https://badge.fury.io/js/%40shopify%2Fi18n"><img src="https://badge.fury.io/js/%40shopify%2Fi18n.svg" width="200px" /></a> | Generic i18n-related utilities |
 | [jest-dom-mocks](packages/jest-dom-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg" width="200px" /></a> | Jest mocking utilities for working with the DOM |
 | [jest-koa-mocks](packages/jest-koa-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg" width="200px" /></a> | Utilities to easily stub Koa context and cookies |
