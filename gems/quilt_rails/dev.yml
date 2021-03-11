@@ -4,7 +4,7 @@ up:
   - bundler
   - node:
       yarn: v1.19.1
-      version: v10.16.3
+      version: v10.18.1
 
 commands:
   test: bundle exec rake test
