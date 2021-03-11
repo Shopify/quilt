@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli fails when a fixture matches no operations 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/missing-operation'"`;
+
+exports[`cli fails when there are ambiguous fixture names 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation'"`;
+
+exports[`cli fails when there are fixture errors 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/fixture-errors'"`;
+
+exports[`cli fails when there are syntax errors 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/fixture-invalid'"`;
+
+exports[`cli fails when there are syntax errors 2`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/malformed-query'"`;
+
+exports[`cli fails when there are syntax errors 3`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/missing-schema'"`;
+
+exports[`cli hides passing fixtures by default 1`] = `
+"
+
+[1m[32m3 passed[39m[22m
+"
+`;
+
+exports[`cli shows passes fixtures when the show-passes flag is true 1`] = `
+"
+[7m[1m[32m PASS [39m[22m[27m [2mfixtures/[22m[1manother-another-fixture.json[22m
+[7m[1m[32m PASS [39m[22m[27m [2mfixtures/[22m[1manother-fixture.json[22m
+[7m[1m[32m PASS [39m[22m[27m [2mfixtures/MyQuery/[22m[1mfixture.json[22m
+
+[1m[32m3 passed[39m[22m
+"
+`;

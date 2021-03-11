@@ -1,0 +1,6 @@
+fragment PersonFields on Person
+  name
+  relatives {
+    name
+  }
+}

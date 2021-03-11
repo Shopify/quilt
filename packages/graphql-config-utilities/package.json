@@ -1,0 +1,33 @@
+{
+  "name": "graphql-config-utilities",
+  "description": "Common utilities for graphql-config",
+  "version": "1.2.0",
+  "types": "lib",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/graphql-tools-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/graphql-tools-web/issues"
+  },
+  "homepage": "https://github.com/shopify/graphql-tools-web/blob/main/packages/graphql-config-utilities",
+  "tags": [
+    "graphql",
+    "graphql-config"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "pretest": "yarn build",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "graphql-config": "^2.0.0"
+  }
+}
