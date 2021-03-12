@@ -101,9 +101,32 @@ function removeUnusedDefinitions(document: UntypedDocumentNode) {
     }
   };
 
-  for (const definition of document.definitions) {
-    if (definition.kind !== 'FragmentDefinition') {
-      markAsUsed(definition);
+  if (
+     document.definitions.some(
+       (definition) => definition.kind !== 'FragmentDefinition',
+     )
+   ) {
+     // There is at least one operation in the document.
+     for (const definition of document.definitions) {
+       if (definition.kind !== 'FragmentDefinition') {
+         markAsUsed(definition);
+       }
+     }
+   } else {
+     // No operations are defined.
+     const numDefinitions = document.definitions.length;
+     for (const definition of document.definitions) {
+       // If any fragment imports all other definitions, mark that one as used.
+       if ((dependencies.get(definition) || []).length === numDefinitions - 1) {
+         markAsUsed(definition);
+         break;
+       }
+     }
+
+     if (usedDefinitions.size === 0) {
+       throw new Error(
+         '@shopify/graphql-loader could not identify any used definitions in this document',
+       );
     }
   }
 

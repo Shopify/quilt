@@ -70,6 +70,26 @@ describe('graphql-mini-transforms/webpack', () => {
     );
   });
 
+  it('outputs a fragment when it is the only definition in the document', async () => {
+    const fragment = `fragment MyShop on Shop{__typename}`;
+
+    expect(await extractDocumentExport(fragment)).toHaveProperty(
+      'loc.source.body',
+      fragment,
+    );
+  });
+
+  it('provides a useful error when a document is ambiguous', async () => {
+    const fragment = stripIndent`
+      fragment Foo on Shop{__typename}
+      fragment Bar on Shop{__typename}
+    `;
+
+    await expect(extractDocumentExport(fragment)).rejects.toThrow(
+      '@shopify/graphql-loader could not identify any used definitions in this document',
+    );
+  });
+
   describe('import', () => {
     it('adds the resolved import as a dependency', async () => {
       const context = '/app/';
@@ -198,6 +218,33 @@ describe('graphql-mini-transforms/webpack', () => {
       );
 
       expect(body).not.toContain('fragment FooFragment on Shop');
+    });
+    
+    it('includes imported sources if a fragment is the only export', async () => {
+      const context = '/app/';
+      const loader = createLoaderContext({
+        context,
+        readFile: () => `fragment FooFragment on Shop { id }`,
+      });
+
+      const {
+        loc: {
+          source: {body},
+        },
+      } = await extractDocumentExport(
+        stripIndent`
+          #import './FooFragment.graphql';
+          fragment ShopFragment on Query {
+            shop {
+              ...FooFragment
+            }
+          }
+        `,
+        loader,
+      );
+
+      expect(body).toContain('fragment FooFragment on Shop');
+      expect(body).toContain('fragment ShopFragment on Query');
     });
   });
 
