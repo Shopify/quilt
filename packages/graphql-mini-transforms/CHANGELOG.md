@@ -14,6 +14,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 - Renamed `webpack` entry point to `webpack-loader`
 
 - Move from graphql-tools-web repo to quilt
+- Support documents that export a single fragment
+- Make adding __typename optional
+
 
 ## [1.3.0] - 2021-02-24
 
