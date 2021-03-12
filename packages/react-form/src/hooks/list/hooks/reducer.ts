@@ -12,6 +12,7 @@ import {mapObject} from '../../../utilities';
 export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldItemAction<Item>
+  | MoveFieldItemAction<Item>
   | RemoveFieldItemAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
@@ -26,6 +27,11 @@ interface ReinitializeAction<Item> {
 interface AddFieldItemAction<Item> {
   type: 'addFieldItem';
   payload: {list: Item[]};
+}
+
+interface MoveFieldItemAction<Item> {
+  type: 'moveFieldItem';
+  payload: {item: Item, oldIndex: number, newIndex: number};
 }
 
 interface RemoveFieldItemAction {
@@ -87,6 +93,17 @@ export function addFieldItemAction<Item>(
   return {
     type: 'addFieldItem',
     payload: {list},
+  };
+}
+
+export function moveFieldItemAction<Item>(
+  item: Item,
+  oldIndex: number,
+  newIndex: number,
+): MoveFieldItemAction<Item> {
+  return {
+    type: 'moveFieldItem',
+    payload: {item, oldIndex, newIndex}
   };
 }
 
@@ -156,6 +173,16 @@ function reduceList<Item extends object>(
       return {
         initial: action.payload.list,
         list: action.payload.list.map(initialListItemState),
+      };
+    }
+    case 'moveFieldItem': {
+      const newList = [...state.list];
+      newList.splice(action.payload.oldIndex, 1);
+      newList.splice(action.payload.newIndex, 0, action.payload.item as FieldStates<Item>);
+
+      return {
+        ...state,
+        list: newList,
       };
     }
     case 'addFieldItem': {
