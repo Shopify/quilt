@@ -219,7 +219,7 @@ describe('graphql-mini-transforms/webpack', () => {
 
       expect(body).not.toContain('fragment FooFragment on Shop');
     });
-    
+
     it('includes imported sources if a fragment is the only export', async () => {
       const context = '/app/';
       const loader = createLoaderContext({
