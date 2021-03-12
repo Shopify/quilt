@@ -16,16 +16,23 @@ import {DocumentNode, SimpleDocument} from 'graphql-typed';
 const IMPORT_REGEX = /^#import\s+['"]([^'"]*)['"];?[\s\n]*/gm;
 const DEFAULT_NAME = 'Operation';
 
+export interface CleanDocumentOptions {
+  removeUnused?: boolean;
+  addTypename?: boolean;
+}
+
 export function cleanDocument(
   document: UntypedDocumentNode,
-  {removeUnused = true} = {},
+  options?: CleanDocumentOptions,
 ): DocumentNode<any, any, any> {
-  if (removeUnused) {
+  if (options?.removeUnused ?? true) {
     removeUnusedDefinitions(document);
   }
 
-  for (const definition of document.definitions) {
-    addTypename(definition);
+  if (options?.addTypename ?? true) {
+    for (const definition of document.definitions) {
+      addTypename(definition);
+    }
   }
 
   const normalizedSource = minifySource(print(document));
