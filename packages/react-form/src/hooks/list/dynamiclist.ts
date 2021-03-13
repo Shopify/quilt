@@ -1,6 +1,10 @@
 import {FieldDictionary} from '../../types';
 
-import {addFieldItemAction, removeFieldItemAction, moveFieldItemAction} from './hooks';
+import {
+  addFieldItemAction,
+  removeFieldItemAction,
+  moveFieldItemAction,
+} from './hooks';
 import {useBaseList, FieldListConfig} from './baselist';
 
 interface DynamicList<Item extends object> {
@@ -41,13 +45,11 @@ export function useDynamicList<Item extends object>(
   }
 
   function moveItem(item: Item, oldIndex: number, newIndex: number) {
-    dispatch(moveFieldItemAction(item, oldIndex, newIndex))
+    dispatch(moveFieldItemAction(item, oldIndex, newIndex));
   }
 
   function removeItem(index: number) {
     dispatch(removeFieldItemAction(index));
   }
-
   return {fields, addItem, removeItem, moveItem};
 }
-
