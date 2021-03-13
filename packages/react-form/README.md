@@ -652,7 +652,7 @@ const emptyCardFactory = (): Card => ({
   cvv: '',
 });
 
-const {fields, addItem, removeItem} = useDynamicList(
+const {fields, addItem, removeItem, moveItem} = useDynamicList(
   [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
   emptyCardFactory,
 );
@@ -672,7 +672,7 @@ const emptyCardFactory = (): Card[] => [
   },
 ];
 
-const {fields, addItem, removeItem} = useDynamicList(
+const {fields, addItem, removeItem, moveItem} = useDynamicList(
   [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
   emptyCardFactory,
 );
@@ -700,6 +700,16 @@ You can choose to initialize the list with an existing number of cards or no car
       />
       <div>
         <Button onClick={() => removeItem(index)}>Remove</Button>
+      </div>
+      <div>
+        <Button onClick={() => moveItem(field, index, index - 1)}>
+          Move Item Up
+        </Button>
+      </div>
+      <div>
+        <Button onClick={() => moveItem(field, index, index + 1)}>
+          Move Item Down
+        </Button>
       </div>
     </FormLayout.Group>
   ));
