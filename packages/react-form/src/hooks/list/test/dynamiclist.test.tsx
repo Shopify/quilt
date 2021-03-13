@@ -13,7 +13,7 @@ describe('useDynamicList', () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {fields, addItem, removeItem} = useDynamicList<Variant>(
+      const {fields, addItem, removeItem, moveItem} = useDynamicList<Variant>(
         config,
         factory,
       );
@@ -30,6 +30,24 @@ describe('useDynamicList', () => {
               <button type="button" onClick={() => removeItem(index)}>
                 Remove Variant
               </button>
+              <button
+                type="button"
+                title="move up"
+                onClick={() => {
+                  moveItem((fields as unknown) as Variant, index, index - 1);
+                }}
+              >
+                Move Variant up
+              </button>
+              <button
+                type="button"
+                title="move down"
+                onClick={() => {
+                  moveItem((fields as unknown) as Variant, index, index + 1);
+                }}
+              >
+                Move Variant down
+              </button>
             </li>
           ))}
           <button type="button" onClick={() => addItem()}>
@@ -38,6 +56,36 @@ describe('useDynamicList', () => {
         </ul>
       );
     }
+
+    it('can move field to a new position', () => {
+      const variants: Variant[] = [
+        {price: 'A', optionName: 'A', optionValue: 'A'},
+        {price: 'B', optionName: 'B', optionValue: 'B'},
+        {price: 'C', optionName: 'C', optionValue: 'C'},
+      ];
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+
+      wrapper
+        .findAll('button', {children: 'Move Variant up'})![2]
+        .trigger('onClick');
+
+      const sort1 = wrapper
+        .findAll('li')
+        .map(i => i.find(TextField).props.value);
+
+      expect(sort1).toStrictEqual(['A', 'C', 'B']);
+
+      wrapper
+        .findAll('button', {children: 'Move Variant down'})![0]
+        .trigger('onClick');
+
+      const sort2 = wrapper
+        .findAll('li')
+        .map(i => i.find(TextField).props.value);
+
+      expect(sort2).toStrictEqual(['C', 'A', 'B']);
+    });
 
     it('can remove field', () => {
       const variants: Variant[] = randomVariants(1);

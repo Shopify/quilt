@@ -31,7 +31,7 @@ interface AddFieldItemAction<Item> {
 
 interface MoveFieldItemAction<Item> {
   type: 'moveFieldItem';
-  payload: {item: Item, oldIndex: number, newIndex: number};
+  payload: {item: Item; oldIndex: number; newIndex: number};
 }
 
 interface RemoveFieldItemAction {
@@ -103,7 +103,7 @@ export function moveFieldItemAction<Item>(
 ): MoveFieldItemAction<Item> {
   return {
     type: 'moveFieldItem',
-    payload: {item, oldIndex, newIndex}
+    payload: {item, oldIndex, newIndex},
   };
 }
 
@@ -178,7 +178,11 @@ function reduceList<Item extends object>(
     case 'moveFieldItem': {
       const newList = [...state.list];
       newList.splice(action.payload.oldIndex, 1);
-      newList.splice(action.payload.newIndex, 0, action.payload.item as FieldStates<Item>);
+      newList.splice(
+        action.payload.newIndex,
+        0,
+        action.payload.item as FieldStates<Item>,
+      );
 
       return {
         ...state,

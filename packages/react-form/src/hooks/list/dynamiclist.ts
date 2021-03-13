@@ -40,8 +40,7 @@ export function useDynamicList<Item extends object>(
     }
   }
 
-  function moveItem(item, oldIndex, newIndex) {
-    console.log('moving item in array');
+  function moveItem(item: Item, oldIndex: number, newIndex: number) {
     dispatch(moveFieldItemAction(item, oldIndex, newIndex))
   }
 
