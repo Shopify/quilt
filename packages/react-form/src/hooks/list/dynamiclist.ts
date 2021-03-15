@@ -11,7 +11,7 @@ interface DynamicList<Item extends object> {
   fields: FieldDictionary<Item>[];
   addItem(factoryArgument?: any): void;
   removeItem(index: number): void;
-  moveItem(oldIndex: number, newIndex: number): void;
+  moveItem(fromIndex: number, toIndex: number): void;
 }
 
 type FactoryFunction<Item extends object> = (
@@ -44,8 +44,8 @@ export function useDynamicList<Item extends object>(
     }
   }
 
-  function moveItem(oldIndex: number, newIndex: number) {
-    dispatch(moveFieldItemAction(oldIndex, newIndex));
+  function moveItem(fromIndex: number, toIndex: number) {
+    dispatch(moveFieldItemAction(fromIndex, toIndex));
   }
 
   function removeItem(index: number) {

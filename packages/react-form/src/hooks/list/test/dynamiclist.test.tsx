@@ -39,15 +39,6 @@ describe('useDynamicList', () => {
               >
                 Move Variant up
               </button>
-              <button
-                type="button"
-                title="move down"
-                onClick={() => {
-                  moveItem(index, index + 1);
-                }}
-              >
-                Move Variant down
-              </button>
             </li>
           ))}
           <button type="button" onClick={() => addItem()}>
@@ -75,16 +66,6 @@ describe('useDynamicList', () => {
         .map(i => i.find(TextField).props.value);
 
       expect(sort1).toStrictEqual(['A', 'C', 'B']);
-
-      wrapper
-        .findAll('button', {children: 'Move Variant down'})![0]
-        .trigger('onClick');
-
-      const sort2 = wrapper
-        .findAll('li')
-        .map(i => i.find(TextField).props.value);
-
-      expect(sort2).toStrictEqual(['C', 'A', 'B']);
     });
 
     it('can remove field', () => {
