@@ -34,7 +34,7 @@ describe('useDynamicList', () => {
                 type="button"
                 title="move up"
                 onClick={() => {
-                  moveItem((fields as unknown) as Variant, index, index - 1);
+                  moveItem(index, index - 1);
                 }}
               >
                 Move Variant up
@@ -43,7 +43,7 @@ describe('useDynamicList', () => {
                 type="button"
                 title="move down"
                 onClick={() => {
-                  moveItem((fields as unknown) as Variant, index, index + 1);
+                  moveItem(index, index + 1);
                 }}
               >
                 Move Variant down
