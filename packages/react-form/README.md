@@ -702,12 +702,18 @@ You can choose to initialize the list with an existing number of cards or no car
         <Button onClick={() => removeItem(index)}>Remove</Button>
       </div>
       <div>
-        <Button onClick={() => moveItem(index, index - 1)}>
+        <Button
+          disabled={index === 0}
+          onClick={() => moveItem(index, index - 1)}
+        >
           Move Item Up
         </Button>
       </div>
       <div>
-        <Button onClick={() => moveItem(index, index + 1)}>
+        <Button
+          disabled={index === fields.length}
+          onClick={() => moveItem(index, index + 1)}
+        >
           Move Item Down
         </Button>
       </div>

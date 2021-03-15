@@ -68,6 +68,22 @@ describe('useDynamicList', () => {
       expect(sort1).toStrictEqual(['A', 'C', 'B']);
     });
 
+    it('will throw an error if new position is out of index range', () => {
+      const variants: Variant[] = [
+        {price: 'A', optionName: 'A', optionValue: 'A'},
+        {price: 'B', optionName: 'B', optionValue: 'B'},
+        {price: 'C', optionName: 'C', optionValue: 'C'},
+      ];
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+
+      expect(() => {
+        wrapper
+          .findAll('button', {children: 'Move Variant up'})![0]
+          .trigger('onClick');
+      }).toThrow('Failed to move item from 0 to -1');
+    });
+
     it('can remove field', () => {
       const variants: Variant[] = randomVariants(1);
 
