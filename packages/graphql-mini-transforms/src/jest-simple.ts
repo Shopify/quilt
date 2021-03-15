@@ -54,3 +54,5 @@ export const transformer: Transformer = {
     `;
   },
 };
+
+export default transformer;
