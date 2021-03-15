@@ -175,13 +175,23 @@ function reduceList<Item extends object>(
       };
     }
     case 'moveFieldItem': {
+      const {fromIndex, toIndex} = action.payload;
+      if (
+        fromIndex >= state.list.length ||
+        fromIndex < 0 ||
+        toIndex >= state.list.length ||
+        toIndex < 0
+      ) {
+        throw new Error(`Failed to move item from ${fromIndex} to ${toIndex}`);
+      }
+
       const newList = [...state.list];
-      const [item] = newList.splice(action.payload.oldIndex, 1);
-      newList.splice(action.payload.newIndex, 0, item);
+      const [item] = newList.splice(action.payload.fromIndex, 1);
+      newList.splice(action.payload.toIndex, 0, item);
 
       return {
         ...state,
-        list: state.list,
+        list: newList,
       };
     }
     case 'addFieldItem': {
