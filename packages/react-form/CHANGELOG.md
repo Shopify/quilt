@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Add ability to sort dynamic lists [#1785](https://github.com/Shopify/quilt/pull/1785)
+- Add ability to reorder dynamic lists [#1785](https://github.com/Shopify/quilt/pull/1785)
 
 ## [0.11.2] - 2021-03-03
 
