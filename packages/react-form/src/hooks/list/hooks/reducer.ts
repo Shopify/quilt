@@ -176,8 +176,7 @@ function reduceList<Item extends object>(
     }
     case 'moveFieldItem': {
       const newList = [...state.list];
-      const item = newList[action.payload.oldIndex];
-      newList.splice(action.payload.oldIndex, 1);
+      const [item] = newList.splice(action.payload.oldIndex, 1);
       newList.splice(action.payload.newIndex, 0, item);
 
       return {
