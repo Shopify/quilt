@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.12.0] - 2021-03-16
+
 ### Added
 
 - Add ability to reorder dynamic lists [#1785](https://github.com/Shopify/quilt/pull/1785)
