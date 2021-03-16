@@ -8,6 +8,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 <!-- ## [Unreleased] -->
 
 ## [2.0.0] - 2021-03-11
+- Updated `jest` and `jest-simple` to be compatible with jest [[#133](https://github.com/Shopify/quilt/pull/133)]
+
+## [2.0.0] - 2021-03-11
 
 ### Changed
 

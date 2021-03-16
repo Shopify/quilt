@@ -55,4 +55,4 @@ export const transformer: Transformer = {
   },
 };
 
-export default transformer;
+module.exports = transformer;
