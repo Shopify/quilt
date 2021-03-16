@@ -24,9 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/semaphore/README.md",
   "files": [
-    "dist/*",
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",
