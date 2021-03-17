@@ -68,15 +68,19 @@ packages.forEach(
         if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies publishable files, including at least one entrypoint', () => {
             expect(packageJSON.files).toStrictEqual(
-              expect.arrayContaining(['build/*', '!tsconfig.tsbuildinfo']),
+              expect.arrayContaining(['build/*', '!*.tsbuildinfo']),
             );
             expect(packageJSON.files.length).toBeGreaterThan(2);
           });
         } else {
           it('specifies publishable files, including index entrypoints', () => {
-            expect(packageJSON.files).toStrictEqual(
-              expect.arrayContaining(expectedPackageJSON.files),
-            );
+            // Don't use arrayContaining here as it does not guarantee order
+            // We want to make sure the first set of items are always in a fixed
+            // order. Most importantly, the `!*.tsbuildinfo` exclusion must be
+            // after `build/*`.
+            expect(
+              packageJSON.files.slice(0, expectedPackageJSON.files.length),
+            ).toStrictEqual(expectedPackageJSON.files);
           });
         }
         it('specifies Quilt deep-link homepage', () => {

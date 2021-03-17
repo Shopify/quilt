@@ -24,9 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/address-consts/README.md",
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo",
     "build/*",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

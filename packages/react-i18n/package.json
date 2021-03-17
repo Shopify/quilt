@@ -60,7 +60,11 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
     "babel.js",
     "babel.mjs",
     "babel.esnext",
@@ -72,11 +76,7 @@
     "generate-index.js",
     "generate-index.mjs",
     "generate-index.esnext",
-    "generate-index.d.ts",
-    "index.js",
-    "index.mjs",
-    "index.esnext",
-    "index.d.ts"
+    "generate-index.d.ts"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

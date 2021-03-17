@@ -34,16 +34,16 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts",
     "babel.js",
     "babel.mjs",
     "babel.esnext",
     "babel.d.ts",
-    "babel.js",
-    "index.js",
-    "index.mjs",
-    "index.esnext",
-    "index.d.ts"
+    "babel.js"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

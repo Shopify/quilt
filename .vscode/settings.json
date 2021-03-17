@@ -4,30 +4,21 @@
   "javascript.validate.enable": false,
   "css.validate": false,
   "scss.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
   "typescript.tsdk": "./node_modules/typescript/lib",
   "flow.enabled": false,
   "files.exclude": {
     "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
     "**/node_modules": true,
     "**/.DS_Store": true,
-    "build": true,
-    ".dev": true
+    "packages/*/{.sewing-kit,build}": true,
+    ".{dev,shadowenv.d,sewing-kit}": true
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "build": true,
-    "**/*.js": true
-  },
   "typescript.tsserver.maxTsServerMemory": 8000,
-  "editor.formatOnSave": true,
-  "prettier-stylelint.stylelintIntegration": true,
-  "prettier-eslint.eslintIntegration": true,
-  "eslint.validate": ["typescript", "typescriptreact"],
-  "javascript.implicitProjectConfig.experimentalDecorators": true,
   "cSpell.ignoreWords": ["transferables"]
 }
