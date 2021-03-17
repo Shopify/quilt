@@ -25,6 +25,7 @@ $ yarn add @shopify/react-hooks
 - [usePrevious()](#useprevious)
 - [useTimeout()](#usetimeout)
 - [useToggle()](#usetoggle)
+- [useSteps()](#usesteps)
 
 ## Usage
 
@@ -253,6 +254,24 @@ function MyComponent() {
       <button onClick={toggleIsActive}>Toggle isActive state</button>
       <button onClick={setIsActiveTrue}>Set isActive state to true</button>
       <button onClick={setIsActiveFalse}>Set isActive state to false</button>
+    </>
+  );
+}
+```
+
+### `useSteps()`
+
+This hook provides an object that contains a numeric state value for the current step and two memoized callbacks to manipulate it (nextStep, previousStep). It accepts two arguments: the total number of steps possible, and the initial step (optional - defaults to 1). This is useful for paged modals or anything that has a finite set of steps to walkthrough.
+
+```tsx
+function MyComponent() {
+  const {currentStep, nextStep, previousStep} = useSteps(5, 2);
+
+  return (
+    <>
+      <p>Step: {currentStep}</p>
+      <button onClick={nextStep}>Go to next step</button>
+      <button onClick={previousStep}>Go to previous step</button>
     </>
   );
 }
