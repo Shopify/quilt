@@ -12,6 +12,7 @@ import {mapObject} from '../../../utilities';
 export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldItemAction<Item>
+  | MoveFieldItemAction
   | RemoveFieldItemAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
@@ -26,6 +27,11 @@ interface ReinitializeAction<Item> {
 interface AddFieldItemAction<Item> {
   type: 'addFieldItem';
   payload: {list: Item[]};
+}
+
+interface MoveFieldItemAction {
+  type: 'moveFieldItem';
+  payload: {fromIndex: number; toIndex: number};
 }
 
 interface RemoveFieldItemAction {
@@ -87,6 +93,16 @@ export function addFieldItemAction<Item>(
   return {
     type: 'addFieldItem',
     payload: {list},
+  };
+}
+
+export function moveFieldItemAction(
+  fromIndex: number,
+  toIndex: number,
+): MoveFieldItemAction {
+  return {
+    type: 'moveFieldItem',
+    payload: {fromIndex, toIndex},
   };
 }
 
@@ -156,6 +172,26 @@ function reduceList<Item extends object>(
       return {
         initial: action.payload.list,
         list: action.payload.list.map(initialListItemState),
+      };
+    }
+    case 'moveFieldItem': {
+      const {fromIndex, toIndex} = action.payload;
+      if (
+        fromIndex >= state.list.length ||
+        fromIndex < 0 ||
+        toIndex >= state.list.length ||
+        toIndex < 0
+      ) {
+        throw new Error(`Failed to move item from ${fromIndex} to ${toIndex}`);
+      }
+
+      const newList = [...state.list];
+      const [item] = newList.splice(action.payload.fromIndex, 1);
+      newList.splice(action.payload.toIndex, 0, item);
+
+      return {
+        ...state,
+        list: newList,
       };
     }
     case 'addFieldItem': {

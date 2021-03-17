@@ -27,9 +27,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-hooks/README.md",
   "files": [
-    "dist/*",
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

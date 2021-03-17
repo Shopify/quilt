@@ -8,49 +8,49 @@ import {extractImports} from './document';
 
 const THIS_FILE = readFileSync(__filename);
 
-export const transformer: Transformer = {
-  getCacheKey(fileData, filename) {
-    return createHash('md5')
-      .update(THIS_FILE)
-      .update(fileData)
-      .update(filename)
-      .digest('hex');
-  },
-  process(rawSource) {
-    const {imports, source} = extractImports(rawSource);
+export const getCacheKey: Transformer['getCacheKey'] = function getCacheKey(
+  fileData,
+  filename,
+) {
+  return createHash('md5')
+    .update(THIS_FILE)
+    .update(fileData)
+    .update(filename)
+    .digest('hex');
+};
 
-    const utilityImports = `
-      var {print} = require('graphql');
-      var {cleanDocument} = require(${JSON.stringify(
-        `${__dirname}/document.js`,
-      )});
-    `;
+export const process: Transformer['process'] = function process(rawSource) {
+  const {imports, source} = extractImports(rawSource);
 
-    const importSource = imports
-      .map(
-        (imported, index) =>
-          `var importedDocument${index} = require(${JSON.stringify(
-            imported,
-          )});`,
-      )
-      .join('\n');
+  const utilityImports = `
+    var {print} = require('graphql');
+    var {cleanDocument} = require(${JSON.stringify(
+      `${__dirname}/document.js`,
+    )});
+  `;
 
-    const appendDefinitionsSource = imports
-      .map(
-        (_, index) =>
-          `document.definitions.push.apply(document.definitions, importedDocument${index}.definitions);`,
-      )
-      .join('\n');
+  const importSource = imports
+    .map(
+      (imported, index) =>
+        `var importedDocument${index} = require(${JSON.stringify(imported)});`,
+    )
+    .join('\n');
 
-    return `
-      ${utilityImports}
-      ${importSource}
+  const appendDefinitionsSource = imports
+    .map(
+      (_, index) =>
+        `document.definitions.push.apply(document.definitions, importedDocument${index}.definitions);`,
+    )
+    .join('\n');
 
-      var document = ${JSON.stringify(parse(source))};
+  return `
+    ${utilityImports}
+    ${importSource}
 
-      ${appendDefinitionsSource}
+    var document = ${JSON.stringify(parse(source))};
 
-      module.exports = cleanDocument(document, {removeUnused: false});
-    `;
-  },
+    ${appendDefinitionsSource}
+
+    module.exports = cleanDocument(document, {removeUnused: false});
+  `;
 };

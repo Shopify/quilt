@@ -7,6 +7,7 @@ export {
   newDefaultAction,
   resetAction,
   addFieldItemAction,
+  moveFieldItemAction,
   removeFieldItemAction,
 } from './reducer';
 
