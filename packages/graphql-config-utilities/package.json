@@ -30,11 +30,11 @@
   },
   "files": [
     "build/*",
+    "!*.tsbuildinfo",
     "index.js",
-    "index.d.ts",
-    "index.esnext",
     "index.mjs",
-    "!tsconfig.tsbuildinfo"
+    "index.esnext",
+    "index.d.ts"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

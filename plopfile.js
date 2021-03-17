@@ -139,7 +139,7 @@ module.exports = function (plop) {
             `${entrypoint}.d.ts`,
           ]);
         },
-        ['build/*', '!tsconfig.tsbuildinfo'],
+        ['build/*', '!*.tsbuildinfo'],
       );
 
       acc.push({
