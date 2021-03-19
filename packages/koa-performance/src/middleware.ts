@@ -14,6 +14,10 @@ import {StatsDClient, Logger} from '@shopify/statsd';
 import {LifecycleMetric, NavigationMetric} from './enums';
 import {BrowserConnection} from './types';
 
+interface Tags {
+  [key: string]: string | number | boolean;
+}
+
 export interface Options {
   prefix: string;
   development?: boolean;
@@ -21,16 +25,15 @@ export interface Options {
   statsdPort?: number;
   anomalousNavigationDurationThreshold?: number;
   logger?: Logger;
-  additionalTags?(
-    metricsBody: Metrics,
-    userAgent: string,
-  ): {[key: string]: string | number | boolean};
-  additionalNavigationTags?(
-    navigation: Navigation,
-  ): {[key: string]: string | number | boolean};
+  additionalTags?(metricsBody: Metrics, userAgent: string): Tags;
+  additionalNavigationTags?(navigation: Navigation): Tags;
   additionalNavigationMetrics?(
     navigation: Navigation,
-  ): {name: string; value: any}[];
+  ): {
+    name: string;
+    value: any;
+    tags?: Tags;
+  }[];
 }
 
 export interface Metrics {
@@ -165,9 +168,13 @@ export function clientPerformanceMetrics({
 
         if (getAdditionalNavigationMetrics) {
           metrics.push(
-            ...getAdditionalNavigationMetrics(
-              navigation,
-            ).map(({name, value}) => ({name, value, tags: navigationTags})),
+            ...getAdditionalNavigationMetrics(navigation).map(
+              ({name, value, tags = {}}) => ({
+                name,
+                value,
+                tags: {...navigationTags, ...tags},
+              }),
+            ),
           );
         }
       }
