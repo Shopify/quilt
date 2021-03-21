@@ -526,7 +526,7 @@ const fields = useList(config, validationDependencies);
 
 ###### Return value:
 
-A list of dictionaries of `Field` objects representing the state of your input. It also includes functions to manipulate that state. Generally, you will want to pass these callbacks down to the component or components representing yournput.
+A list of dictionaries of `Field` objects representing the state of your input. It also includes functions to manipulate that state. Generally, you will want to pass these callbacks down to the component or components representing your input.
 
 ##### Examples
 
