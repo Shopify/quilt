@@ -5,8 +5,6 @@ import {quiltPackage} from '../../config/sewing-kit';
 export default createPackage(pkg => {
   pkg.entry({root: './src/index'});
 
-  pkg.entry({name: 'base', root: './src/base'});
-
   pkg.entry({name: 'noop', root: './src/noop'});
 
   pkg.entry({name: 'fetch.browser', root: './src/fetch.browser'});
@@ -53,23 +51,6 @@ export default createPackage(pkg => {
     name: 'mutation-observer.node',
     root: './src/mutation-observer.node',
   });
-
-  pkg.entry({
-    name: 'unhandled-rejection.browser',
-    root: './src/unhandled-rejection.browser',
-  });
-  pkg.entry({
-    name: 'unhandled-rejection.jest',
-    root: './src/unhandled-rejection.jest',
-  });
-  pkg.entry({
-    name: 'unhandled-rejection.node',
-    root: './src/unhandled-rejection.node',
-  });
-
-  pkg.entry({name: 'url.browser', root: './src/url.browser'});
-  pkg.entry({name: 'url.jest', root: './src/url.jest'});
-  pkg.entry({name: 'url.node', root: './src/url.node'});
 
   pkg.use(quiltPackage());
 });

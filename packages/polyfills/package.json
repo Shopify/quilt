@@ -26,7 +26,7 @@
   "dependencies": {
     "@shopify/useful-types": "^2.3.3",
     "caniuse-api": "^3.0.0",
-    "core-js": "^3.8.0",
+    "core-js": "^3.9.1",
     "formdata-polyfill": "^3.0.18",
     "intersection-observer": "^0.5.1",
     "intl-pluralrules": "^0.2.1",
