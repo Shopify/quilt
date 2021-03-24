@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [5.3.1] - 2021-03-23
+
+### Fixed
+
+- Fixed issue where humanized date for today may be reported as tomorrow [#1797](https://github.com/Shopify/quilt/pull/1797)
+
 ## [5.3.0] - 2021-03-11
 
 - Fixed bug in `unformatNumber` that caused the minus sign to be removed from negative numbers [#1758](https://github.com/Shopify/quilt/pull/1758)

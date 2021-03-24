@@ -44,6 +44,7 @@ tmp
 # Sewing-Kit builds and entrypoints
 .sewing-kit
 packages/*/build
+packages/*/bin
 packages/*/*.esnext
 packages/*/*.mjs
 packages/*/*.d.ts
