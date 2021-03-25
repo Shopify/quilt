@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## Breaking change
+### Breaking Change
 
 - Removed the deprecated dependency `@babel/polyfill` and move to `core-js@^3.0.0`.
 - Removed the `@shopify/polyfill/url` polyfill, it's automatically provided with `core-js`.

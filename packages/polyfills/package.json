@@ -26,13 +26,11 @@
   "dependencies": {
     "@shopify/useful-types": "^2.3.3",
     "caniuse-api": "^3.0.0",
-    "core-js": "^3.9.1",
     "formdata-polyfill": "^3.0.18",
     "intersection-observer": "^0.5.1",
     "intl-pluralrules": "^0.2.1",
     "mutationobserver-shim": "^0.3.3",
     "node-fetch": "^2.3.0",
-    "regenerator-runtime": "^0.13.7",
     "tslib": "^1.14.1",
     "whatwg-fetch": "^3.0.0"
   },
