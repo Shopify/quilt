@@ -7,3 +7,4 @@ packages/*/build
 **/*.js
 **/*.esnext
 **/*.mjs
+packages/graphql-typescript-definitions/test/fixtures/**
