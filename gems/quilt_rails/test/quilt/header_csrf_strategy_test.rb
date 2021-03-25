@@ -7,7 +7,7 @@ module Quilt
       DummyRequest.any_instance.stubs(:headers).returns({})
       strategy = HeaderCsrfStrategy.new(DummyController.new)
 
-      assert_raises HeaderCsrfStrategy::NoSameSiteHeaderError do
+      assert_raises(HeaderCsrfStrategy::NoSameSiteHeaderError) do
         strategy.handle_unverified_request
       end
     end
@@ -18,7 +18,7 @@ module Quilt
       DummyRequest.any_instance.stubs(:headers).returns(headers)
       strategy = HeaderCsrfStrategy.new(DummyController.new)
 
-      assert_raises HeaderCsrfStrategy::NoSameSiteHeaderError do
+      assert_raises(HeaderCsrfStrategy::NoSameSiteHeaderError) do
         strategy.handle_unverified_request
       end
     end
