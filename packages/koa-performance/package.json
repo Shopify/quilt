@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-performance/README.md",
   "dependencies": {
+    "@babel/runtime": "^7.13.10",
     "@shopify/network": "^1.6.3",
     "@shopify/performance": "^1.3.3",
     "@shopify/statsd": "^2.1.3",
