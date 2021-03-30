@@ -186,6 +186,8 @@ Here are some example PRs that might help guide you through the steps others hav
 
 - [Merchant Frustrations](https://github.com/Shopify/merchant-frustrations/pull/3561/files) and related discourse troubleshooting: https://discourse.shopify.io/t/uncaught-error-no-serializations-found-for-id-quilt-data/8591/9
 
+- [PoC for the Shopify App Store](https://github.com/Shopify/shopify-app-store/pull/11375)
+
 - add your PR to the top of this list and 🙌 future Shopify devs :)
 
 
