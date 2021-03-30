@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Add `DeepOmit` and `DeepOmitArray` to recursively remove field from nested type definition [#1807](https://github.com/Shopify/quilt/pull/1807)
+- Add `DeepOmit` and `DeepOmitArray` type to recursively omit field from nested type definition [#1807](https://github.com/Shopify/quilt/pull/1807)
 
 ## [2.3.2] - 2021-03-03
 
