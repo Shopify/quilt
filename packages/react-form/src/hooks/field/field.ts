@@ -129,11 +129,14 @@ export function useField<Value = string>(
 
       if (errors && errors.length > 0) {
         const [firstError] = errors;
-        dispatch(updateErrorAction(errors));
+        requestAnimationFrame(() => {
+          dispatch(updateErrorAction(errors));
+        });
         return firstError;
       }
-
-      dispatch(updateErrorAction(undefined));
+      requestAnimationFrame(() => {
+        dispatch(updateErrorAction(undefined));
+      });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state.value, ...dependencies],
