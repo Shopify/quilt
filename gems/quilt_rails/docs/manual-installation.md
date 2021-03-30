@@ -177,3 +177,15 @@ A more complex application will want a more complex layout. The following shows 
                     ├-─ index.{js|ts}
                     └── Home.{js|ts}
 ```
+
+### Example PRs
+
+Here are some example PRs that might help guide you through the steps others have taken: 
+
+- [Setting up the new `shopify.dev` site alongside the old Rails-views-only app](https://github.com/Shopify/shopify-dev/pull/6222/files?diff=split&w=1)
+
+- [Merchant Frustrations](https://github.com/Shopify/merchant-frustrations/pull/3561/files) and related discourse troubleshooting: https://discourse.shopify.io/t/uncaught-error-no-serializations-found-for-id-quilt-data/8591/9
+
+- add your PR to the top of this list and 🙌 future Shopify devs :)
+
+
