@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+## [0.12.3] - 2021-03-30
+
+### Fixed
+
+- Fixed a bug in `makeCleanAfterSubmit` for `useForm` [#1762](https://github.com/Shopify/quilt/pull/1762)
+
+## [0.12.2] - 2021-03-30
+
+### Fixed
+
+- Fixed blur event causing fields to lose focus [#1803](https://github.com/Shopify/quilt/pull/1803)
 
 ### Fixed
 

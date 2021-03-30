@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.14.2] - 2021-03-23
+
+### Fixed
+
+- Fix `graphql-validate-fixtures` binary not running [[#1798](https://github.com/Shopify/quilt/pull/1798)]
+
 ## [0.14.0] - 2021-03-11
 
 ### Changed

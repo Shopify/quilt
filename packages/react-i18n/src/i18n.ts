@@ -302,7 +302,7 @@ export class I18n {
 
     if (style) {
       return style === DateStyle.Humanize
-        ? this.humanizeDate(date, formatOptions)
+        ? this.humanizeDate(date, {...formatOptions, timeZone})
         : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
     }
 
