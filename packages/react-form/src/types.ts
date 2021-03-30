@@ -115,6 +115,6 @@ type FieldProp<T, K extends keyof Field<any>> = T extends Field<any>
 */
 export type FormMapping<Bag, FieldKey extends keyof Field<any>> = {
   [Key in keyof Bag]: Bag[Key] extends any[]
-    ? {[Index in keyof Bag[Key]]: FieldProp<Bag[Key][Index], FieldKey>}
+    ? FieldProp<Bag[Key][number], FieldKey>[]
     : FieldProp<Bag[Key], FieldKey>;
 };

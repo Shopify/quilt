@@ -17,6 +17,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Fixed blur event causing fields to lose focus [#1803](https://github.com/Shopify/quilt/pull/1803)
 
+### Fixed
+
+- Fixed a TypeScript bug in FormMapping for FieldDictionary arrays [#1795](https://github.com/Shopify/quilt/pull/1795)
+
 ## [0.12.0] - 2021-03-16
 
 ### Added
