@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.12.1] - 2021-03-30
+
+### Fixed
+
+- Fixed blur event causing fields to lose focus [#1803](https://github.com/Shopify/quilt/pull/1803)
+
 ## [0.12.0] - 2021-03-16
 
 ### Added

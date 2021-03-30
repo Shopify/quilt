@@ -7,12 +7,11 @@ import {FieldState} from '../../../types';
 import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
 
 describe('useField', () => {
-
   let rafSpy: jest.SpyInstance;
 
   beforeEach(() => {
     rafSpy = jest.spyOn(window, 'requestAnimationFrame');
-    rafSpy.mockImplementation((callback) => callback());
+    rafSpy.mockImplementation(callback => callback());
   });
 
   afterEach(() => {
