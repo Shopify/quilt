@@ -352,7 +352,7 @@ describe('useForm', () => {
       it('does not undirty fields after if makeCleanAfterSubmit is true but submit is unsuccessful', async () => {
         const promise = Promise.resolve(submitFail());
         const wrapper = mount(
-          <ProductForm data={fakeProduct()} makeCleanAfterSubmit={false} />,
+          <ProductForm data={fakeProduct()} makeCleanAfterSubmit />,
         );
 
         changeTitle(wrapper, '');

@@ -58,10 +58,9 @@ export function useSubmit<T extends FieldBag>(
         setErrors(result.errors);
       } else {
         setSubmitErrors([]);
-      }
-
-      if (makeCleanAfterSubmit) {
-        makeCleanFields(fields);
+        if (makeCleanAfterSubmit) {
+          makeCleanFields(fields);
+        }
       }
     },
     [mounted, onSubmit, setErrors, makeCleanAfterSubmit],
