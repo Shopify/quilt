@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-router",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "license": "MIT",
   "description": "A universal router for React",
   "main": "index.js",
