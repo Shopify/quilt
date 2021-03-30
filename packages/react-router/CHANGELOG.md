@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.2.6] - 2021-03-30
+
+### Fixed
+
+- Export values for `MemoryRouter`, `useRouteMatch`, `useParams`, `useLocation` and `useHistory`, which were previously only exporting their types since 0.2.0 [#1804](https://github.com/Shopify/quilt/pull/1804)
+
 ## [0.2.4] - 2021-03-03
 
 ### Fixed
