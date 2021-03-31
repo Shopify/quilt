@@ -1,4 +1,4 @@
 export enum Generation {
-  MILLENIAL = "MILLENIAL",
-  GEN_X = "GEN_X",
+  Millenial = 'MILLENIAL',
+  GenX = 'GEN_X',
 }
