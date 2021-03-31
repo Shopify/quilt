@@ -24,6 +24,7 @@ interface Options<
   displayName?: string;
   renderLoading?(props: Props): ReactNode;
   renderError?(error: Error): ReactNode;
+  reloadOnError?: boolean;
 
   /**
    * Custom logic to use for the usePreload hook of the new, async
@@ -60,6 +61,7 @@ export function createAsyncComponent<
   displayName,
   renderLoading = noopRender,
   renderError = defaultRenderError,
+  reloadOnError,
   usePreload: useCustomPreload = noopUse,
   usePrefetch: useCustomPrefetch = noopUse,
   useKeepFresh: useCustomKeepFresh = noopUse,
@@ -97,6 +99,9 @@ export function createAsyncComponent<
     const {current: startedHydrated} = useRef(useHydrationManager().hydrated);
 
     if (error) {
+      if (reloadOnError) {
+        load();
+      }
       return renderError(error);
     }
 
