@@ -1,1 +1,1 @@
-import {Generation} from './Generation';
+export {Generation} from './Generation';
