@@ -101,7 +101,9 @@ export function createAsyncComponent<
     if (error) {
       if (reloadOnError) {
         load();
+        return null;
       }
+
       return renderError(error);
     }
 
