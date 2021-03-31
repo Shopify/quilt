@@ -7,17 +7,6 @@ import {FieldState} from '../../../types';
 import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
 
 describe('useField', () => {
-  let rafSpy: jest.SpyInstance;
-
-  beforeEach(() => {
-    rafSpy = jest.spyOn(window, 'requestAnimationFrame');
-    rafSpy.mockImplementation(callback => callback());
-  });
-
-  afterEach(() => {
-    rafSpy.mockRestore();
-  });
-
   function TestField({config}: {config: string | FieldConfig<string>}) {
     const field = useField(config);
     const text = 'Test field';
