@@ -1821,6 +1821,11 @@
     pkg-dir "4.2.0"
     pluralize "^8.0.0"
 
+"@shopify/typescript-configs@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/typescript-configs/-/typescript-configs-4.0.0.tgz#56624b897014a49212924ba867c23d50093f3f4c"
+  integrity sha512-pHCdcOjKlHnuLC5xJtL83fWCknVZ/Im7lVBtBaAl1MRmtVpi5OpZL1FDEAWDFc0RGPpHBnurrxtbcusHUtrbVQ==
+
 "@sinonjs/commons@^1.7.0":
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.2.tgz#505f55c74e0272b43f6c52d81946bed7058fc0e2"
