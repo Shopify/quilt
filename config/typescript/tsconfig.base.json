@@ -1,33 +1,15 @@
 {
-  "compileOnSave": false,
+  "extends": "@shopify/typescript-configs/library.json",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "pretty": true,
-    "moduleResolution": "node",
-    "target": "es5",
-    "downlevelIteration": true,
-    "esModuleInterop": true,
-    "jsx": "react",
-    "isolatedModules": true,
-    "strictNullChecks": true,
+    // Strict mode enables these strict* and noImplicit* options.
+    // Disable them temporarily while we fix up problematic behaviour from
+    // the time before we wanted strict mode
+    "strictBindCallApply": false,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
     "noImplicitAny": false,
-    "sourceMap": false,
-    "noEmitOnError": false,
-    "experimentalDecorators": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "importHelpers": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2015",
-      "es2016",
-      "es2017",
-      "es2018",
-      "esnext.asynciterable"
-    ],
+    "noImplicitThis": false,
     "typeRoots": ["../../node_modules/@types"]
   }
 }
