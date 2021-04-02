@@ -3,6 +3,7 @@ import path from 'path';
 import glob from 'glob';
 import stringHash from 'string-hash';
 import {camelCase} from 'change-case';
+import type {BabelFile} from '@babel/core';
 import {TemplateBuilder} from '@babel/template';
 import Types from '@babel/types';
 import {Node, NodePath} from '@babel/traverse';
@@ -80,6 +81,7 @@ export default function injectWithI18nArguments({
         state.program = nodePath;
       },
       ImportDeclaration(
+        this: {file: BabelFile},
         nodePath: NodePath<Types.ImportDeclaration>,
         state: State,
       ) {
@@ -114,6 +116,12 @@ export default function injectWithI18nArguments({
             camelCase(fallbackLocale),
           ).name;
           const {filename} = this.file.opts;
+
+          if (typeof filename !== 'string') {
+            throw new Error(
+              `You attempted to run the react-i18n plugin on code without specifying an input filename. A filename is required to sucessfully inject translation information.`,
+            );
+          }
 
           if (mode === 'from-dictionary-index') {
             const translationArrayID = '__shopify__i18n_translations';

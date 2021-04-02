@@ -8,7 +8,6 @@
     "strictBindCallApply": false,
     "strictFunctionTypes": false,
     "noImplicitAny": false,
-    "noImplicitThis": false,
     "typeRoots": ["../../node_modules/@types"]
   }
 }
