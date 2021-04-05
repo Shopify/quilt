@@ -7,9 +7,7 @@
     // the time before we wanted strict mode
     "strictBindCallApply": false,
     "strictFunctionTypes": false,
-    "strictPropertyInitialization": false,
     "noImplicitAny": false,
-    "noImplicitThis": false,
     "typeRoots": ["../../node_modules/@types"]
   }
 }

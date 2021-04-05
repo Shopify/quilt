@@ -3,35 +3,32 @@ export interface MediaMatching {
 }
 
 export default class MatchMedia {
-  originalMatchMedia: (mediaQuery: string) => MediaQueryList;
-  private isUsingMockMatchMedia = false;
+  originalMatchMedia: ((mediaQuery: string) => MediaQueryList) | null = null;
 
   mock(media: MediaMatching = defaultMatcher) {
-    if (this.isUsingMockMatchMedia) {
+    if (this.originalMatchMedia !== null) {
       throw new Error(
         'You tried to mock window.matchMedia when it was already mocked.',
       );
     }
 
     this.originalMatchMedia = window.matchMedia;
-    this.isUsingMockMatchMedia = true;
-
     this.setMedia(media);
   }
 
   restore() {
-    if (!this.isUsingMockMatchMedia) {
+    if (this.originalMatchMedia === null) {
       throw new Error(
         'You tried to restore window.matchMedia when it was already restored.',
       );
     }
 
     window.matchMedia = this.originalMatchMedia;
-    this.isUsingMockMatchMedia = false;
+    this.originalMatchMedia = null;
   }
 
   isMocked() {
-    return this.isUsingMockMatchMedia;
+    return this.originalMatchMedia !== null;
   }
 
   setMedia(media: MediaMatching = defaultMatcher) {
@@ -40,7 +37,7 @@ export default class MatchMedia {
   }
 
   private ensureMatchMediaIsMocked() {
-    if (!this.isUsingMockMatchMedia) {
+    if (this.originalMatchMedia === null) {
       throw new Error(
         'You must call matchMedia.mock() before interacting with the mock matchMedia.',
       );
