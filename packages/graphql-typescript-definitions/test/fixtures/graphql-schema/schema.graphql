@@ -1,0 +1,11 @@
+type Person {
+  id: ID!
+}
+
+type Query {
+  person: Person
+}
+
+schema {
+  query: Query
+}

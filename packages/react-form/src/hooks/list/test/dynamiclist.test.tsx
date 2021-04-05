@@ -13,7 +13,7 @@ describe('useDynamicList', () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {fields, addItem, removeItem} = useDynamicList<Variant>(
+      const {fields, addItem, removeItem, moveItem} = useDynamicList<Variant>(
         config,
         factory,
       );
@@ -30,6 +30,15 @@ describe('useDynamicList', () => {
               <button type="button" onClick={() => removeItem(index)}>
                 Remove Variant
               </button>
+              <button
+                type="button"
+                title="move up"
+                onClick={() => {
+                  moveItem(index, index - 1);
+                }}
+              >
+                Move Variant up
+              </button>
             </li>
           ))}
           <button type="button" onClick={() => addItem()}>
@@ -38,6 +47,42 @@ describe('useDynamicList', () => {
         </ul>
       );
     }
+
+    it('can move field to a new position', () => {
+      const variants: Variant[] = [
+        {price: 'A', optionName: 'A', optionValue: 'A'},
+        {price: 'B', optionName: 'B', optionValue: 'B'},
+        {price: 'C', optionName: 'C', optionValue: 'C'},
+      ];
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+
+      wrapper
+        .findAll('button', {children: 'Move Variant up'})![2]
+        .trigger('onClick');
+
+      const sort1 = wrapper
+        .findAll('li')
+        .map(i => i.find(TextField).props.value);
+
+      expect(sort1).toStrictEqual(['A', 'C', 'B']);
+    });
+
+    it('will throw an error if new position is out of index range', () => {
+      const variants: Variant[] = [
+        {price: 'A', optionName: 'A', optionValue: 'A'},
+        {price: 'B', optionName: 'B', optionValue: 'B'},
+        {price: 'C', optionName: 'C', optionValue: 'C'},
+      ];
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+
+      expect(() => {
+        wrapper
+          .findAll('button', {children: 'Move Variant up'})![0]
+          .trigger('onClick');
+      }).toThrow('Failed to move item from 0 to -1');
+    });
 
     it('can remove field', () => {
       const variants: Variant[] = randomVariants(1);

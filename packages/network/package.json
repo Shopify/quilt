@@ -1,6 +1,6 @@
 {
   "name": "@shopify/network",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "license": "MIT",
   "description": "Common values related to dealing with the network",
   "main": "index.js",
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/network/README.md",
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

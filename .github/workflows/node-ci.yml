@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -186,9 +187,9 @@ jobs:
           path: |
             .sewing-kit/
             ./packages/*/build/
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-
 
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/logger",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "index.js",
@@ -31,7 +31,7 @@
   "sideEffects": false,
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

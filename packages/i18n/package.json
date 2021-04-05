@@ -1,6 +1,6 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "description": "Generic i18n-related utilities",
   "main": "index.js",
@@ -28,7 +28,7 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

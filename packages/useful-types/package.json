@@ -1,6 +1,6 @@
 {
   "name": "@shopify/useful-types",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "index.js",
@@ -28,7 +28,7 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-consts",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "license": "MIT",
   "description": "Constants and types relating to `@shopify/address`",
   "main": "index.js",
@@ -24,9 +24,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/address-consts/README.md",
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo",
     "build/*",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

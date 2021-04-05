@@ -1,0 +1,19 @@
+enum Job {
+  ENGINEER
+  DESIGNER
+  RESEARCHER
+}
+
+type Person {
+  id: ID!
+  name: String!
+  relatives: [Person!]!
+}
+
+type Query {
+  person(job: Job): Person
+}
+
+schema {
+  query: Query
+}

@@ -1,0 +1,53 @@
+{
+  "name": "graphql-config-utilities",
+  "version": "1.3.1",
+  "license": "MIT",
+  "description": "Common utilities for graphql-config",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/graphql-config-utilities"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-config-utilities/README.md",
+  "dependencies": {
+    "glob": "^7.1.6",
+    "graphql-config": "^2.0.0",
+    "tslib": "^1.14.1"
+  },
+  "files": [
+    "build/*",
+    "!*.tsbuildinfo",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "index.d.ts"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  },
+  "tags": [
+    "graphql",
+    "graphql-config"
+  ]
+}

@@ -14,7 +14,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 69 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 77 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -34,8 +34,15 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [decorators](packages/decorators) | <a href="https://badge.fury.io/js/%40shopify%2Fdecorators"><img src="https://badge.fury.io/js/%40shopify%2Fdecorators.svg" width="200px" /></a> | A set of decorators to aid your JavaScript journey |
 | [enzyme-utilities](packages/enzyme-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fenzyme-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg" width="200px" /></a> | Enzyme utilities for testing React components |
 | [function-enhancers](packages/function-enhancers) | <a href="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers"><img src="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg" width="200px" /></a> | A set of helpers to enhance functions |
+| [graphql-config-utilities](packages/graphql-config-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-config-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-config-utilities.svg" width="200px" /></a> | Common utilities for graphql-config |
+| [graphql-fixtures](packages/graphql-fixtures) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-fixtures"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-fixtures.svg" width="200px" /></a> | Utilities for generating fixture objects from GraphQL documents. |
+| [graphql-mini-transforms](packages/graphql-mini-transforms) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-mini-transforms"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-mini-transforms.svg" width="200px" /></a> | Transformers for importing .graphql files in various build tools. |
 | [graphql-persisted](packages/graphql-persisted) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-persisted"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-persisted.svg" width="200px" /></a> | Apollo and Koa integrations for persisted GraphQL queries. |
 | [graphql-testing](packages/graphql-testing) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-testing"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-testing.svg" width="200px" /></a> | Utilities to create mock GraphQL factories |
+| [graphql-tool-utilities](packages/graphql-tool-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-tool-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-tool-utilities.svg" width="200px" /></a> | Common utilities for GraphQL developer tools |
+| [graphql-typed](packages/graphql-typed) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-typed"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-typed.svg" width="200px" /></a> | A more strongly typed version of GraphQL's DocumentNode. |
+| [graphql-typescript-definitions](packages/graphql-typescript-definitions) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-typescript-definitions"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-typescript-definitions.svg" width="200px" /></a> | Generate TypeScript definition files from .graphql documents |
+| [graphql-validate-fixtures](packages/graphql-validate-fixtures) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-validate-fixtures"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-validate-fixtures.svg" width="200px" /></a> | Validates JSON fixtures for GraphQL responses against the associated operations and schema |
 | [i18n](packages/i18n) | <a href="https://badge.fury.io/js/%40shopify%2Fi18n"><img src="https://badge.fury.io/js/%40shopify%2Fi18n.svg" width="200px" /></a> | Generic i18n-related utilities |
 | [jest-dom-mocks](packages/jest-dom-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg" width="200px" /></a> | Jest mocking utilities for working with the DOM |
 | [jest-koa-mocks](packages/jest-koa-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg" width="200px" /></a> | Utilities to easily stub Koa context and cookies |
@@ -87,6 +94,7 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [semaphore](packages/semaphore) | <a href="https://badge.fury.io/js/%40shopify%2Fsemaphore"><img src="https://badge.fury.io/js/%40shopify%2Fsemaphore.svg" width="200px" /></a> | Counting semaphore |
 | [sewing-kit-koa](packages/sewing-kit-koa) | <a href="https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa"><img src="https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa.svg" width="200px" /></a> | Easily access Sewing Kit assets from a Koa server |
 | [statsd](packages/statsd) | <a href="https://badge.fury.io/js/%40shopify%2Fstatsd"><img src="https://badge.fury.io/js/%40shopify%2Fstatsd.svg" width="200px" /></a> | An opinionated StatsD client for Shopify Node.js servers and other StatsD utilities |
+| [storybook-a11y-test](packages/storybook-a11y-test) | <a href="https://badge.fury.io/js/%40shopify%2Fstorybook-a11y-test"><img src="https://badge.fury.io/js/%40shopify%2Fstorybook-a11y-test.svg" width="200px" /></a> | Test storybook pages with axe and puppeteer |
 | [useful-types](packages/useful-types) | <a href="https://badge.fury.io/js/%40shopify%2Fuseful-types"><img src="https://badge.fury.io/js/%40shopify%2Fuseful-types.svg" width="200px" /></a> | A few handy TypeScript types |
 | [web-worker](packages/web-worker) | <a href="https://badge.fury.io/js/%40shopify%2Fweb-worker"><img src="https://badge.fury.io/js/%40shopify%2Fweb-worker.svg" width="200px" /></a> | Tools for making web workers fun to use |
 | [with-env](packages/with-env) | <a href="https://badge.fury.io/js/%40shopify%2Fwith-env"><img src="https://badge.fury.io/js/%40shopify%2Fwith-env.svg" width="200px" /></a> | A utility for executing code under a specific `NODE_ENV` |

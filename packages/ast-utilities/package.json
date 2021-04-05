@@ -1,6 +1,6 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
   "main": "index.js",
@@ -33,7 +33,7 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",
