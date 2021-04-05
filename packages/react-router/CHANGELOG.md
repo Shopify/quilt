@@ -7,15 +7,17 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.2.7] - 2021-04-05
+
 ### Added
 
-- Add new `basename` prop to `Router` to match behaviour of React-Router components
+- Added new `basename` prop to `Router` to match behaviour of React-Router components [#1757](https://github.com/shopify/quilt/pull/1757)
 
 ## [0.2.6] - 2021-03-30
 
 ### Fixed
 
-- Export values for `MemoryRouter`, `useRouteMatch`, `useParams`, `useLocation` and `useHistory`, which were previously only exporting their types since 0.2.0 [#1804](https://github.com/Shopify/quilt/pull/1804)
+- Exported values for `MemoryRouter`, `useRouteMatch`, `useParams`, `useLocation` and `useHistory`, which were previously only exporting their types since 0.2.0 [#1804](https://github.com/Shopify/quilt/pull/1804)
 
 ## [0.2.4] - 2021-03-03
 
