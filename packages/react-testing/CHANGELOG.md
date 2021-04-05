@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Improved the performance of Root wrapper updates [#1812](https://github.com/Shopify/quilt/pull/1812)
+
 ## [2.2.2] - 2021-03-03
 
 ### Fixed
