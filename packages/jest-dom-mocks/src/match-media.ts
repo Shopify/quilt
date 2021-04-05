@@ -6,7 +6,7 @@ export default class MatchMedia {
   originalMatchMedia: ((mediaQuery: string) => MediaQueryList) | null = null;
 
   mock(media: MediaMatching = defaultMatcher) {
-    if (this.originalMatchMedia) {
+    if (this.originalMatchMedia !== null) {
       throw new Error(
         'You tried to mock window.matchMedia when it was already mocked.',
       );
@@ -17,7 +17,7 @@ export default class MatchMedia {
   }
 
   restore() {
-    if (!this.originalMatchMedia) {
+    if (this.originalMatchMedia === null) {
       throw new Error(
         'You tried to restore window.matchMedia when it was already restored.',
       );
