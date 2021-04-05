@@ -23,7 +23,6 @@ describe('Root', () => {
         instance: childInstance,
       },
       [],
-      [],
       root,
     );
 
@@ -39,7 +38,6 @@ describe('Root', () => {
         },
         instance,
       },
-      [childElement],
       [childElement],
       root,
     );
