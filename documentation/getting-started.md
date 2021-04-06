@@ -12,7 +12,7 @@ In addition to this documentation, Quilt contributors generally have an in-depth
 - Node.JS
 - Jest
 
-If you're looking to enhance your understanding of these technologies, fell free to reach out in `#web-foundation-tech` on Slack.
+If you're looking to enhance your understanding of these technologies, fell free to reach out in `#kernel-web-foundations` on Slack.
 
 ## Tools
 

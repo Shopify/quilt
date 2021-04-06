@@ -39,7 +39,7 @@ Check out our [Contributing Guide](./.github/CONTRIBUTING.md)
 
 ## Questions?
 
-For Shopifolk, you can reach out to us in Slack in the `#web-foundation-tech` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via GitHub issues.
+For Shopifolk, you can reach out to us in Slack in the `#kernel-web-foundations` channel. For external inquiries, we welcome bug reports, enhancements, and feature requests via GitHub issues.
 
 ## License
 
