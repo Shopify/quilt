@@ -954,6 +954,7 @@ describe('web-worker', () => {
     );
   });
 
+  // Disabled because it's flaky and takes about a minute to run
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('allows for multiple workers to be created without naming collisions', async () => {
     const workerOneMessage = 'Hello';
