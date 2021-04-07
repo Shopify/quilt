@@ -57,5 +57,14 @@ describe('applyTimeZoneOffset()', () => {
         applyTimeZoneOffset(date, 'Australia/Sydney', 'UTC'),
       ).toStrictEqual(expected);
     });
+
+    it.only('applies extra dst offset for days where DST is applied or reverted', () => {
+      const date = new Date('2020-11-01T00:00:00.000Z');
+      const expected = new Date('2020-11-01T02:00:00.000Z');
+
+      expect(
+        applyTimeZoneOffset(date, 'America/Denver', 'America/Toronto'),
+      ).toStrictEqual(expected);
+    });
   });
 });
