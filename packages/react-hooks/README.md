@@ -18,6 +18,7 @@ $ yarn add @shopify/react-hooks
 - [useDelayedCallback()](#usedelayedcallback)
 - [useForceUpdate()](#useforceupdate)
 - [useInterval()](#useinterval)
+- [useIsomorphicLayoutEffect()](#useisomorphiclayouteffect)
 - [useLazyRef()](#uselazyref)
 - [useMedia() & useMediaLayout()](#usemedia--usemedialayout)
 - [useMountedRef()](#usemountedref)
@@ -153,6 +154,12 @@ function MyComponent() {
 ```
 
 This is a TypeScript implementation of @gaeron's `useInterval` hook from the [Overreacted blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/#just-show-me-the-code).
+
+### `useIsomorphicLayoutEffect()`
+
+This hook is a drop-in replacement for `useLayoutEffect` that can be used safely in a server-side rendered app. It resolves to `useEffect` on the server and `useLayoutEffect` on the client (since `useLayoutEffect` cannot be used in a server-side environment).
+
+Refer to the [`useLayoutEffect` documentation to learn more](https://reactjs.org/docs/hooks-reference.html#uselayouteffect).
 
 ### `useLazyRef()`
 
