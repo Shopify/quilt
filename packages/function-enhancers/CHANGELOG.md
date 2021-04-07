@@ -27,6 +27,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
 
+- Added debounce and throttle ([#829](https://github.com/Shopify/quilt/pull/829))
+
 ## [1.0.0] - 2019-03-21
 
 ### Added
