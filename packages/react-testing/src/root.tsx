@@ -255,7 +255,8 @@ export class Root<Props> implements Node<Props> {
     } else {
       const topElement = fiberToElement(
         findCurrentFiberUsingSlowPath(
-          ((this.wrapper as unknown) as ReactInstance)._reactInternalFiber,
+          ((this.wrapper.rootRef as unknown) as ReactInstance)
+            ._reactInternalFiber,
         ),
         this,
       );
