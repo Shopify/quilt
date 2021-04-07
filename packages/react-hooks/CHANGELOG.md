@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [1.13.0] - 2021-04-07
 
 - Added `useIsomorphicLayoutEffect` hook [#1813](https://github.com/Shopify/quilt/pull/1813).
 - Updated `useLazyRef` hook implementation to avoid mutating refs directly during the render phase, which is unsafe [#1813](https://github.com/Shopify/quilt/pull/1813).
