@@ -5,9 +5,6 @@
   "description": "A set of utilities to use when consuming Shopify’s admin GraphQL API",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -23,9 +20,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/admin-graphql-api-utilities/README.md",
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.14.1"
-  },
   "files": [
     "build/*",
     "!*.tsbuildinfo",

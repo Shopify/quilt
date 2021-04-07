@@ -5,9 +5,6 @@
   "description": "Receive webhooks from Shopify with ease",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -29,8 +26,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-compose": ">=3.0.0 <4.0.0",
     "koa-mount": "^4.0.0",
-    "safe-compare": "^1.1.3",
-    "tslib": "^1.14.1"
+    "safe-compare": "^1.1.3"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.2.1",

@@ -5,9 +5,6 @@
   "description": "An opinionated StatsD client for Shopify Node.js servers and other StatsD utilities",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -25,8 +22,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/statsd/README.md",
   "dependencies": {
     "change-case": "^4.1.1",
-    "hot-shots": "^8.2.0",
-    "tslib": "^1.14.1"
+    "hot-shots": "^8.2.0"
   },
   "files": [
     "build/*",

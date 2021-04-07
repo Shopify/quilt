@@ -46,7 +46,7 @@ describe('templates/package.hbs.json', () => {
   });
 });
 
-const IGNORE_PACKAGES = ['tslib', '@types/'];
+const IGNORE_PACKAGES = ['@types/'];
 
 packages.forEach(
   ({packageName, packageJSONPath, packageJSON, expectedPackageJSON}) => {
