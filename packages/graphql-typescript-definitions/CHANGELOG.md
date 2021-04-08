@@ -11,6 +11,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Removed dependency on tslib, as we no-longer compile with `tsc`. [#1829](https://github.com/Shopify/quilt/pull/1829)
 
+### Added
+
+- Minor: `Builder.run` now accepts an optional `graphQLFilesystem` property. Custom filesystems _must_ provide watch/glob functionality mandated by [`GraphQLFileSystem`](./src/filesystem/graphql-filesystem.ts) [[#1824](https://github.com/Shopify/quilt/pull/1824)]
+- Minor: `AbstractGraphQLFileSystem` provides emitter boilerplate for `GraphQLFileSystem`'s `change:schema` / `change:document` / `delete:document` events [[#1824](https://github.com/Shopify/quilt/pull/1824)]
+
 ## 0.23.2 - 2021-03-23
 
 ### Fixed
