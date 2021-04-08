@@ -67,7 +67,7 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
 
 const allowedHeaders = [
   '# Changelog',
-  '## [Unreleased]',
+  '## Unreleased',
   /^## \[\d+\.\d+\.\d+\] - \d\d\d\d-\d\d-\d\d$/,
   // We should backfill dates using commit timestamps
   /^## \[\d+\.\d+\.\d+\]$/,

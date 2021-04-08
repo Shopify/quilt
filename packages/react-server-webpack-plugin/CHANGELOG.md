@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 **Note**: This module is now deprecated and included as part of [`@shopify/react-server`](../react-server/README.md#webpack-plugin).
 
-<!-- ## [Unreleased] -->
+<!-- ## Unreleased -->
 
 ## 3.1.0 - 2020-05-29
 

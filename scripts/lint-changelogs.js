@@ -11,13 +11,13 @@ const changelogs = readChangelogs();
 console.log(`🕵️‍♂️  Checking ${changelogs.length} changelogs`);
 
 const haveUnreleasedHeader = changelogs.filter(({packageChangelog}) =>
-  packageChangelog.split('\n').find(line => /^## \[Unreleased\]/.exec(line)),
+  packageChangelog.split('\n').find(line => /^## Unreleased/.exec(line)),
 );
 
 if (haveUnreleasedHeader.length > 0) {
   console.error(
     [
-      `❌ Found uncommented "## [Unreleased]" headers in one or more changelogs. These file(s) should be kept in-synch with the version(s) you are releasing. Update all changelogs to reflect the version you intend to release or the last released version and run yarn release again.`,
+      `❌ Found uncommented "## Unreleased" headers in one or more changelogs. These file(s) should be kept in-synch with the version(s) you are releasing. Update all changelogs to reflect the version you intend to release or the last released version and run yarn release again.`,
       'Violations:',
       ...haveUnreleasedHeader.map(
         ({packageChangelogPath}) => `- ${packageChangelogPath}`,
