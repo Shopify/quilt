@@ -11,11 +11,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
-## [3.1.0] - 2020-05-29
+## 3.1.0 - 2020-05-29
 
 - Bump `webpack-virtual-modules` to `v0.2.2` [[#1484]](https://github.com/Shopify/quilt/pull/1484)
 
-## [3.0.0] - 2020-05-12
+## 3.0.0 - 2020-05-12
 
 ### Changed
 
@@ -59,41 +59,41 @@ export function App({url}: {url: URL}) {
 - Generated entrypoints now pass a `data` prop to the `App`. This prop contains the deserialized data from the `x-quilt-data` header which is used by `quilt_rails` to pass data directly to React
 - Generated entrypoints now pass a `url` prop to the `App`. This prop is a full WHATWG compliant `URL` object representing the url for the request that react-server responded to.
 
-## [2.2.17] - 2019-11-29
+## 2.2.17 - 2019-11-29
 
 - Updated dependency: `@shopify/react-server@0.8.5`
 
-## [2.2.13] - 2019-10-31
+## 2.2.13 - 2019-10-31
 
 - Fix case where default entrypoints were generated for `client` and `server` when there were bespoke folders with index files present
 
-## [2.2.0] - 2019-09-26
+## 2.2.0 - 2019-09-26
 
 - Log errors on `uncaughtException` `unhandledRejection` events [#1006](https://github.com/Shopify/quilt/pull/1006)
 
-## [2.1.1] - 2019-09-17
+## 2.1.1 - 2019-09-17
 
 - Fixes an error regrding missing templates [#1006](https://github.com/Shopify/quilt/pull/1006)
 
-## [2.1.0] - 2019-08-16
+## 2.1.0 - 2019-08-16
 
 - Added support for Node projects [#917](https://github.com/Shopify/quilt/pull/917)
   - _Note:_ For Node apps the plugin relies on `app` being included in your webpack config's `resolve.modules`. For Rails apps, it relies on `app/ui`.
 
-## [2.0.0] - 2019-08-16
+## 2.0.0 - 2019-08-16
 
 - The plugin now defaults the `host` of the generated code to use `process.env.REACT_SERVER_IP` and the `port` to use `process.env.REACT_SERVER_PORT` when explicit values are not supplied. [#852](https://github.com/Shopify/quilt/pull/852)
 - 💚 Increase test timeout [#849](https://github.com/Shopify/quilt/pull/849)
 
-## [1.0.2] - 2019-08-14
+## 1.0.2 - 2019-08-14
 
 - Remove unused `@shopify/koa-shopify-graphql-proxy` import [#847](https://github.com/Shopify/quilt/pull/847)
 
-## [1.0.1] - 2019-08-13
+## 1.0.1 - 2019-08-13
 
 - Upgrading to `react-server@^0.1.1`
 
-## [1.0.0] - 2019-08-13
+## 1.0.0 - 2019-08-13
 
 ### Added
 
