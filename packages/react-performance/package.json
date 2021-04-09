@@ -5,9 +5,6 @@
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -24,8 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-performance/README.md",
   "dependencies": {
-    "@shopify/performance": "^1.3.3",
-    "tslib": "^1.14.1"
+    "@shopify/performance": "^1.3.3"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"

@@ -5,9 +5,6 @@
   "description": "A set of decorators to aid your JavaScript journey",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -32,8 +29,7 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@shopify/function-enhancers": "^1.1.4",
-    "tslib": "^1.14.1"
+    "@shopify/function-enhancers": "^1.1.4"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",

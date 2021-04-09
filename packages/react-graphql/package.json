@@ -5,9 +5,6 @@
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -35,8 +32,7 @@
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "graphql-typed": "^0.7.1",
-    "tslib": "^1.14.1"
+    "graphql-typed": "^0.7.1"
   },
   "devDependencies": {
     "@shopify/react-testing": "^2.3.0"

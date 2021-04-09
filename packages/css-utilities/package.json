@@ -5,9 +5,6 @@
   "description": "A set of CSS styling-related utilities",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -25,8 +22,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/css-utilities/README.md",
   "dependencies": {
     "@types/classnames": "^2.2.7",
-    "classnames": "^2.2.6",
-    "tslib": "^1.14.1"
+    "classnames": "^2.2.6"
   },
   "files": [
     "build/*",

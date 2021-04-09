@@ -5,9 +5,6 @@
   "description": "A webpack plugin that automatically sets up entrypoints from filename conventions",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -25,8 +22,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/magic-entries-webpack-plugin/README.md",
   "dependencies": {
     "glob": "^7.1.6",
-    "glob-to-regexp": "^0.4.1",
-    "tslib": "^1.14.1"
+    "glob-to-regexp": "^0.4.1"
   },
   "peerDependencies": {
     "webpack": "^4.25.1"
