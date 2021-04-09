@@ -1,4 +1,5 @@
 import React, {
+  forwardRef,
   useEffect,
   useRef,
   useCallback,
@@ -51,7 +52,8 @@ export function createAsyncComponent<
   Props extends object,
   PreloadOptions extends object = {},
   PrefetchOptions extends object = {},
-  KeepFreshOptions extends object = {}
+  KeepFreshOptions extends object = {},
+  Ref extends object = {}
 >({
   id,
   load,
@@ -87,7 +89,7 @@ export function createAsyncComponent<
     ? AssetTiming.CurrentPage
     : AssetTiming.Immediate;
 
-  function Async(props: Props) {
+  const Async = forwardRef<Ref | undefined, Props>((props, ref) => {
     const {resolved: Component, load, loading, error} = useAsync(resolver, {
       scripts: scriptTiming,
       styles: stylesTiming,
@@ -97,7 +99,7 @@ export function createAsyncComponent<
     const {current: startedHydrated} = useRef(useHydrationManager().hydrated);
 
     if (error) {
-      return renderError(error);
+      return <>{renderError(error)}</>;
     }
 
     let loadingMarkup: ReactNode | null = null;
@@ -111,7 +113,7 @@ export function createAsyncComponent<
     }
 
     let contentMarkup: ReactNode | null = null;
-    const rendered = Component ? <Component {...props} /> : null;
+    const rendered = Component ? <Component {...props} ref={ref} /> : null;
 
     if (progressivelyHydrated && !startedHydrated) {
       contentMarkup = rendered ? (
@@ -131,7 +133,7 @@ export function createAsyncComponent<
         {loadingMarkup}
       </>
     );
-  }
+  });
 
   Async.displayName = `Async(${componentName})`;
 
