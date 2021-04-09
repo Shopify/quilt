@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Removed dependency on tslib, as we no-longer compile with `tsc`. [#1829](https://github.com/Shopify/quilt/pull/1829)
+- Added an empty file to use as the index entrypoint, instead of causing a file-not-found error. [#1834](https://github.com/Shopify/quilt/pull/1834)
 
 ## 0.2.2 - 2021-03-03
 
