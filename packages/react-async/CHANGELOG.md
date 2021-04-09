@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+- Now forwarding the ref of the component rendered via `createAsyncComponent` [#1833](https://github.com/Shopify/quilt/pull/1833)
+
 ## 3.2.2 - 2021-03-03
 
 ### Fixed
