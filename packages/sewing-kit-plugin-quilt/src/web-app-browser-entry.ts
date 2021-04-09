@@ -13,7 +13,6 @@ import type {
 } from '@sewing-kit/hooks';
 
 import type {} from './web-app-auto-server';
-import {excludeNonPolyfillEntries} from './shared';
 import {MAGIC_MODULE_APP_COMPONENT} from './constants';
 
 interface CustomHooks {
@@ -53,12 +52,9 @@ export function webAppBrowserEntry({
             typeof hydrate === 'boolean' ? hydrate : hydrate({target, task});
           const reactFunction = shouldHydrate ? 'hydrate' : 'render';
 
-          webpackEntries?.hook((entries) => [
-            ...excludeNonPolyfillEntries(entries),
-            entry,
-          ]);
+          webpackEntries?.hook(entries => [...entries, entry]);
 
-          webpackPlugins?.hook(async (plugins) => {
+          webpackPlugins?.hook(async plugins => {
             const {default: WebpackVirtualModules} = await import(
               'webpack-virtual-modules'
             );
