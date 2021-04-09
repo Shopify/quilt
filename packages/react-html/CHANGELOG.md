@@ -7,19 +7,19 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
-## [10.2.3] - 2021-03-03
+## 10.2.3 - 2021-03-03
 
 ### Fixed
 
 - Updated multi-build outputs to include mandatory extensions to fix "Module not found" issues reported by ESM supported bundlers [#1759](https://github.com/Shopify/quilt/pull/1759)
 
-## [10.2.1] - 2021-02-10
+## 10.2.1 - 2021-02-10
 
 ### Fixed
 
 - Remove duplicated metas without mutating the state [#1736](https://github.com/Shopify/quilt/ pull/1736)
 
-## [10.2.0] - 2021-02-03
+## 10.2.0 - 2021-02-03
 
 ### Changed
 
@@ -33,21 +33,21 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Better ES module support via `<Html />`'s `script` / `blockingScripts` accepting a `type` property
 
-## [10.1.0] - 2020-12-18
+## 10.1.0 - 2020-12-18
 
 ### Added
 
 - Add new build outputs (CommonJS, ESM, esnext, Node) for greater tree-shakability [#1698](https://github.com/Shopify/quilt/pull/1698)
 
-## [10.0.2] - 2020-10-26
+## 10.0.2 - 2020-10-26
 
 - Update `HtmlProps` to mark children as optional (same as any React component) and export it ([#1661](https://github.com/Shopify/quilt/pull/1661))
 
-## [10.0.1] - 2020-10-20
+## 10.0.1 - 2020-10-20
 
 - Updated `tslib` dependency to `^1.14.1`. [#1657](https://github.com/Shopify/quilt/pull/1657)
 
-## [10.0.0] - 2020-10-09
+## 10.0.0 - 2020-10-09
 
 ### Changed
 
