@@ -1,6 +1,5 @@
 import {
   Package,
-  Service,
   WebApp,
   createComposedWorkspacePlugin,
   createComposedProjectPlugin,
@@ -9,7 +8,6 @@ import {
 import {flexibleOutputs} from '@sewing-kit/plugin-package-flexible-outputs';
 import {webpackHooks, webpackBuild} from '@sewing-kit/plugin-webpack';
 import {webpackDevWebApp} from '@sewing-kit/plugin-web-app-base';
-import {webpackDevService} from '@sewing-kit/plugin-service-base';
 import {eslint} from '@sewing-kit/plugin-eslint';
 import {javascript} from '@sewing-kit/plugin-javascript';
 import {typescript, workspaceTypeScript} from '@sewing-kit/plugin-typescript';
@@ -76,7 +74,6 @@ export function quiltWebApp({
   cdn: cdnUrl,
   graphql: {export: exportStyle = 'simple'} = {},
   browserGroups,
-  features,
 }: QuiltWebAppOptions = {}) {
   return createComposedProjectPlugin<WebApp>('Quilt.WebApp', composer => {
     composer.use(
@@ -110,7 +107,6 @@ export interface QuiltWorkspaceOptions {
 export function quiltWorkspace({
   css = true,
   stylelint: stylelintOptions = css,
-  graphql = true,
 }: QuiltWorkspaceOptions = {}) {
   return createComposedWorkspacePlugin('Quilt.Workspace', composer => {
     composer.use(jest(), eslint(), workspaceTypeScript(), workspaceGraphQL());
@@ -123,12 +119,4 @@ export function quiltWorkspace({
       );
     }
   });
-}
-
-async function ignoreMissingImports<T>(perform: () => Promise<T>) {
-  try {
-    await perform();
-  } catch {
-    // intentional noop
-  }
 }

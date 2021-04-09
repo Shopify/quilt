@@ -124,19 +124,16 @@ export function webAppMultiBuilds({
           if (browsers == null) return;
 
           configuration.webpackPlugins?.hook(async plugins => {
-            const [
-              {AssetMetadataPlugin},
-              {getUserAgentRegExp},
-              browserslist,
-            ] = await Promise.all([
+            const [{AssetMetadataPlugin}] = await Promise.all([
               import('@shopify/webpack-asset-metadata-plugin'),
-              import('browserslist-useragent-regexp'),
               configuration.quiltBrowserslist!.run([]),
             ]);
 
             return [
               ...plugins,
-              new AssetMetadataPlugin(idFromTargetOptions(target.options)),
+              new AssetMetadataPlugin(
+                idFromTargetOptions(target.options) as any,
+              ),
             ];
           });
 

@@ -1,18 +1,9 @@
 import {
   createProjectPlugin,
   WebApp,
-  TargetBuilder,
-  TargetRuntime,
-  Runtime,
   WaterfallHook,
   addHooks,
 } from '@sewing-kit/plugins';
-import type {AssetMetadata} from '@shopify/webpack-asset-metadata-plugin';
-
-import {
-  MAGIC_MODULE_APP_COMPONENT,
-  MAGIC_MODULE_APP_AUTO_SERVER_ASSETS,
-} from './constants';
 
 interface TargetOptions {
   readonly quiltAutoServer?: true;
@@ -41,7 +32,7 @@ export function webAppAutoServer({
 }: Options = {}) {
   return createProjectPlugin<WebApp>(
     'Quilt.WebAppAutoServer',
-    ({project, tasks, api, workspace}) => {
+    ({tasks, api}) => {
       const addCustomHooks = addHooks<CustomHooks>(() => ({
         quiltAutoServerContent: new WaterfallHook(),
         quiltAutoServerPort: new WaterfallHook(),

@@ -4,13 +4,10 @@ import {eslint} from '@sewing-kit/plugin-eslint';
 import {jest} from '@sewing-kit/plugin-jest';
 import {workspaceTypeScript} from '@sewing-kit/plugin-typescript';
 
-import {workspaceGraphQL} from './packages/sewing-kit-plugin-quilt';
-
 export default createWorkspace(workspace => {
   workspace.use(
     eslint(),
     jest(),
-    workspaceGraphQL(),
     workspaceTypeScript(),
     createWorkspaceTestPlugin('Quilt.WorkspaceTest', ({hooks}) => {
       hooks.configure.hook(hooks => {

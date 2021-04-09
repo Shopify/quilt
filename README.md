@@ -14,7 +14,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 77 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 78 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -93,6 +93,7 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [rpc](packages/rpc) | <a href="https://badge.fury.io/js/%40shopify%2Frpc"><img src="https://badge.fury.io/js/%40shopify%2Frpc.svg" width="200px" /></a> | Utilities for `postMessage`-based remote procedure calls |
 | [semaphore](packages/semaphore) | <a href="https://badge.fury.io/js/%40shopify%2Fsemaphore"><img src="https://badge.fury.io/js/%40shopify%2Fsemaphore.svg" width="200px" /></a> | Counting semaphore |
 | [sewing-kit-koa](packages/sewing-kit-koa) | <a href="https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa"><img src="https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa.svg" width="200px" /></a> | Easily access Sewing Kit assets from a Koa server |
+| [sewing-kit-plugin-quilt](packages/sewing-kit-plugin-quilt) | <a href="https://badge.fury.io/js/%40shopify%2Fsewing-kit-plugin-quilt"><img src="https://badge.fury.io/js/%40shopify%2Fsewing-kit-plugin-quilt.svg" width="200px" /></a> |  |
 | [statsd](packages/statsd) | <a href="https://badge.fury.io/js/%40shopify%2Fstatsd"><img src="https://badge.fury.io/js/%40shopify%2Fstatsd.svg" width="200px" /></a> | An opinionated StatsD client for Shopify Node.js servers and other StatsD utilities |
 | [storybook-a11y-test](packages/storybook-a11y-test) | <a href="https://badge.fury.io/js/%40shopify%2Fstorybook-a11y-test"><img src="https://badge.fury.io/js/%40shopify%2Fstorybook-a11y-test.svg" width="200px" /></a> | Test storybook pages with axe and puppeteer |
 | [useful-types](packages/useful-types) | <a href="https://badge.fury.io/js/%40shopify%2Fuseful-types"><img src="https://badge.fury.io/js/%40shopify%2Fuseful-types.svg" width="200px" /></a> | A few handy TypeScript types |
