@@ -66,7 +66,9 @@ You may also run this command to rebuild and publish every time a change is dete
 ```console
 npx nodemon --watch packages/<package-folder-name> \
   --exec 'yarn build --root packages/<package-folder-name> \
-  && npx yalc publish --push packages/<package-folder-name>'
+  && npx yalc publish --push packages/<package-folder-name>' \
+  --ignore packages/<package-folder-name> \
+  --ext ts --ignore '*.d.ts'
 ```
 
 For example:
@@ -74,7 +76,9 @@ For example:
 ```console
 npx nodemon --watch packages/storybook-a11y-test \
   --exec 'yarn build --root packages/storybook-a11y-test \
-  && npx yalc publish --push packages/storybook-a11y-test'
+  && npx yalc publish --push packages/storybook-a11y-test' \
+  --ignore packages/storybook-a11y-test/build \
+  --ext ts --ignore '*.d.ts'
 ```
 
 ### Emoji commits
