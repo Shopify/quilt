@@ -59,9 +59,6 @@ packages.forEach(
         it('specifies Quilt Issues as bugs URL', () => {
           expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
         });
-        it('specifies dependencies', () => {
-          expect(packageJSON.dependencies).not.toStrictEqual({});
-        });
         it('specifies a description', () => {
           expect(packageJSON.description).not.toBeUndefined();
         });
@@ -100,11 +97,6 @@ packages.forEach(
         it('specifies a repository deep-linking into the Quilt monorepo', () => {
           expect(packageJSON.repository).toStrictEqual(
             expectedPackageJSON.repository,
-          );
-        });
-        it('specifies scripts, including build', () => {
-          expect(packageJSON.scripts.build).toBe(
-            expectedPackageJSON.scripts.build,
           );
         });
         it('specifies if webpack can tree-shake, via sideEffects', () => {

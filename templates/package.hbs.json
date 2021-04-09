@@ -5,6 +5,7 @@
   "description": "{{{description}}}",
   "main": "index.js",
   "types": "index.d.ts",
+  "scripts": {},
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -20,6 +21,7 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/{{name}}/README.md",
+  "dependencies": {},
   "files": [
     "build/*",
     "!*.tsbuildinfo",
