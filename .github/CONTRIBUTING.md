@@ -61,6 +61,12 @@ After making code changes within the quilt repo:
 1. Run `yarn build --root packages/<package-folder-name>` to rebuild the package
 1. Run `yalc publish --push packages/<package-folder-name>` to push the changes to the consuming repo
 
+You may also run this command rebuild and publish on every change in a package:
+
+```console
+npx nodemon --watch packages/<package-folder-name> --exec 'yarn build --root packages/<package-folder-name> && npx yalc publish --push packages/<package-folder-name>'
+```
+
 ### Emoji commits
 
 We have found that prefacing a commit message or PR title with an emoji can be a great way to improve the developer experience when browsing the repo code. Additionally, it is a terse way to convey information. Many of our contributors have found the guide at https://gitmoji.carloscuesta.me/ to be helpful in preserving this dynamic.
