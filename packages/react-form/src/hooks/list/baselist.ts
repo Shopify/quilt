@@ -8,12 +8,14 @@ import {
   ListValidationContext,
 } from '../../types';
 import {mapObject, normalizeValidation} from '../../utilities';
+import {useDirty} from '../dirty';
 
 import {
   useHandlers,
   useListReducer,
   ListAction,
   reinitializeAction,
+  resetListAction,
 } from './hooks';
 
 /*
@@ -42,6 +44,8 @@ export interface FieldListConfig<Item extends object> {
 interface BaseList<Item extends object> {
   fields: FieldDictionary<Item>[];
   dispatch: React.Dispatch<ListAction<Item>>;
+  reset(): void;
+  dirty: boolean;
 }
 
 export function useBaseList<Item extends object>(
@@ -73,6 +77,10 @@ export function useBaseList<Item extends object>(
     [validates, ...validationDependencies],
   );
 
+  function reset() {
+    dispatch(resetListAction());
+  }
+
   const handlers = useHandlers(state, dispatch, validationConfigs);
 
   const fields: FieldDictionary<Item>[] = useMemo(() => {
@@ -86,5 +94,18 @@ export function useBaseList<Item extends object>(
     });
   }, [state.list, handlers]);
 
-  return {fields, dispatch};
+  const listWithoutFieldStates: Item[] = useMemo(() => {
+    return state.list.map(item => {
+      return mapObject(item, field => field.value);
+    });
+  }, [state.list]);
+
+  const isBaseListDirty = useMemo(
+    () => !isEqual(listWithoutFieldStates, state.initial),
+    [listWithoutFieldStates, state.initial],
+  );
+
+  const fieldsDirty = useDirty({fields});
+
+  return {fields, dispatch, reset, dirty: fieldsDirty || isBaseListDirty};
 }

@@ -13,38 +13,42 @@ describe('useDynamicList', () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {fields, addItem, removeItem, moveItem} = useDynamicList<Variant>(
-        config,
-        factory,
-      );
+      const {fields, addItem, removeItem, moveItem, reset} = useDynamicList<
+        Variant
+      >(config, factory);
 
       return (
-        <ul>
-          {fields.map((fields, index) => (
-            <li key={index}>
-              <TextField
-                label="price"
-                name={`price${index}`}
-                {...fields.price}
-              />
-              <button type="button" onClick={() => removeItem(index)}>
-                Remove Variant
-              </button>
-              <button
-                type="button"
-                title="move up"
-                onClick={() => {
-                  moveItem(index, index - 1);
-                }}
-              >
-                Move Variant up
-              </button>
-            </li>
-          ))}
-          <button type="button" onClick={() => addItem()}>
-            Add Variant
+        <>
+          <ul>
+            {fields.map((fields, index) => (
+              <li key={index}>
+                <TextField
+                  label="price"
+                  name={`price${index}`}
+                  {...fields.price}
+                />
+                <button type="button" onClick={() => removeItem(index)}>
+                  Remove Variant
+                </button>
+                <button
+                  type="button"
+                  title="move up"
+                  onClick={() => {
+                    moveItem(index, index - 1);
+                  }}
+                >
+                  Move Variant up
+                </button>
+              </li>
+            ))}
+            <button type="button" onClick={() => addItem()}>
+              Add Variant
+            </button>
+          </ul>
+          <button type="button" onClick={reset}>
+            Reset
           </button>
-        </ul>
+        </>
       );
     }
 
@@ -154,6 +158,50 @@ describe('useDynamicList', () => {
       expect(
         wrapper.findAll('button', {children: 'Remove Variant'}),
       ).toHaveLength(0);
+    });
+
+    describe('reset dynamic list', () => {
+      it('can reset a dynamic list after adding a field', () => {
+        const variants: Variant[] = randomVariants(1);
+
+        const wrapper = mount(<DynamicListComponent list={variants} />);
+
+        wrapper
+          .find('button', {children: 'Add Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactComponent(TextField, {
+          name: 'price1',
+          value: '',
+        });
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).not.toContainReactComponent(TextField, {
+          name: 'price1',
+          value: '',
+        });
+      });
+
+      it('can reset a dynamic list after removing a field', () => {
+        const variants: Variant[] = randomVariants(1);
+
+        const wrapper = mount(<DynamicListComponent list={variants} />);
+
+        wrapper
+          .find('button', {children: 'Remove Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).not.toContainReactComponent(TextField);
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactComponent(TextField);
+      });
     });
   });
 

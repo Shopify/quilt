@@ -1,5 +1,7 @@
 import {ChangeEvent} from 'react';
 
+import {DynamicList} from './hooks/list/dynamiclist';
+
 export type ErrorValue = string | undefined;
 export type DirtyStateComparator<Value> = (
   defaultValue: Value,
@@ -72,6 +74,7 @@ export interface Form<T extends FieldBag> {
   reset(): void;
   submit(event?: React.FormEvent): void;
   makeClean(): void;
+  dynamicLists: DynamicListBag;
 }
 
 export interface FormError {
@@ -95,6 +98,12 @@ export type FieldOutput<T extends object> =
 
 export interface FieldBag {
   [key: string]: FieldOutput<any>;
+}
+
+export type DynamicListOutput<V extends object> = DynamicList<V>;
+
+export interface DynamicListBag {
+  [key: string]: DynamicListOutput<any>;
 }
 
 export interface SubmitHandler<Fields> {

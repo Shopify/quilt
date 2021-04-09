@@ -5,7 +5,14 @@ import {mount} from '@shopify/react-testing';
 import {SubmitHandler} from '../../types';
 import {positiveNumericString, notEmpty} from '../../validation';
 
-import {useList, useField, useForm, submitSuccess, submitFail} from '..';
+import {
+  useList,
+  useField,
+  useForm,
+  submitSuccess,
+  submitFail,
+  useDynamicList,
+} from '..';
 
 interface SimpleProduct {
   title: string;
@@ -28,11 +35,17 @@ describe('useForm', () => {
     data,
     onSubmit,
     makeCleanAfterSubmit,
+    dynamicListEnabled = false,
   }: {
     data: SimpleProduct;
     onSubmit?: SubmitHandler<SimpleProduct>;
     makeCleanAfterSubmit?: boolean;
+    dynamicListEnabled: boolean;
   }) {
+    const variantsEmptyFactory = () => {
+      return {id: '', price: '', optionName: '', optionValue: ''};
+    };
+
     const title = useField({
       value: data.title,
       validates: notEmpty('Title is required!'),
@@ -55,13 +68,34 @@ describe('useForm', () => {
       },
     });
 
-    const {submit, submitting, dirty, reset, makeClean, submitErrors} = useForm(
-      {
-        fields: {title, description, defaultVariant, variants},
-        onSubmit: onSubmit as any,
-        makeCleanAfterSubmit,
-      },
-    );
+    const dynamicVariants = useDynamicList(data.variants, variantsEmptyFactory);
+
+    const dynamicListProp = dynamicListEnabled
+      ? {
+          dynamicLists: {
+            defaultDynamicList: dynamicVariants,
+          },
+        }
+      : undefined;
+
+    const {
+      submit,
+      submitting,
+      dirty,
+      reset,
+      makeClean,
+      submitErrors,
+      dynamicLists,
+    } = useForm({
+      fields: {title, description, defaultVariant, variants},
+      ...dynamicListProp,
+      onSubmit: onSubmit as any,
+      makeCleanAfterSubmit,
+    });
+
+    const {
+      defaultDynamicList: {addItem, fields: dynamicListFields, removeItem},
+    } = dynamicLists;
 
     return (
       <form onSubmit={submit}>
@@ -87,6 +121,24 @@ describe('useForm', () => {
             </fieldset>
           );
         })}
+        {dynamicListFields.map((field, index) => (
+          <>
+            <TextField
+              value={field.price.value}
+              key={field.id.value}
+              label={`dynamicField${index}`}
+              onChange={field.price.onChange}
+              onBlur={field.price.onBlur}
+            />
+            <button
+              type="button"
+              onClick={() => removeItem(index)}
+              key={`button${field.id.value}`}
+            >
+              Remove dynamic field
+            </button>
+          </>
+        ))}
         <button type="button" onClick={makeClean}>
           Clean
         </button>
@@ -95,6 +147,9 @@ describe('useForm', () => {
         </button>
         <button type="submit" disabled={!dirty} onClick={submit}>
           Submit
+        </button>
+        <button type="button" disabled={!dirty} onClick={addItem}>
+          Add Item
         </button>
       </form>
     );
@@ -443,6 +498,60 @@ describe('useForm', () => {
         .prop('onClick');
 
       expect(initialMakeCleanHandler).toBe(newMakeCleanHandler);
+    });
+  });
+
+  describe('dynamicLists', () => {
+    it('reflects dynamic list being dirty in forms dirty state', () => {
+      const wrapper = mount(
+        <ProductForm data={fakeProduct()} dynamicListEnabled />,
+      );
+
+      wrapper
+        .find('button', {
+          children: 'Add Item',
+        })!
+        .trigger('onClick', clickEvent());
+
+      expect(isDirty(wrapper)).toBe(true);
+
+      hitReset(wrapper);
+
+      expect(isDirty(wrapper)).toBe(false);
+    });
+
+    it('resets dynamic list fields when forms reset is called', () => {
+      const wrapper = mount(
+        <ProductForm data={fakeProduct()} dynamicListEnabled />,
+      );
+
+      wrapper
+        .find('button', {
+          children: 'Add Item',
+        })!
+        .trigger('onClick', clickEvent());
+
+      expect(wrapper).toContainReactComponent(TextField, {
+        value: '',
+        label: 'dynamicField2',
+      });
+
+      hitReset(wrapper);
+
+      expect(wrapper).not.toContainReactComponent(TextField, {
+        value: '',
+        label: 'dynamicField2',
+      });
+    });
+
+    it('renders empty dynamic list when dynamic list is not enabled', () => {
+      const wrapper = mount(<ProductForm data={fakeProduct()} />);
+
+      const dynamicListFieldsRemoveButtons = wrapper.findAll('button', {
+        children: 'Remove dynamic field',
+      });
+
+      expect(dynamicListFieldsRemoveButtons).toHaveLength(0);
     });
   });
 });

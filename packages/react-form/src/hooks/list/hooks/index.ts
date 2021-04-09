@@ -9,6 +9,7 @@ export {
   addFieldItemAction,
   moveFieldItemAction,
   removeFieldItemAction,
+  resetListAction,
 } from './reducer';
 
 export type {ListAction, ListState} from './reducer';
