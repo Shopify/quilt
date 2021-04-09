@@ -23,10 +23,6 @@
     "@types/webpack-virtual-modules": "^0.1.0"
   },
   "dependencies": {
-    "@quilted/polyfills": "^0.0.5",
-    "@quilted/async": "^0.2.0",
-    "@quilted/react-web-workers": "^0.2.4",
-    "@quilted/graphql": "^0.3.3",
     "@sewing-kit/plugin-css": "^0.1.24",
     "@sewing-kit/plugin-eslint": "^0.1.10",
     "@sewing-kit/plugin-graphql": "^0.1.28",
@@ -40,6 +36,7 @@
     "@sewing-kit/plugin-web-app-base": "^0.1.22",
     "@sewing-kit/plugin-webpack": "^0.1.12",
     "@sewing-kit/plugins": "^0.1.9",
+    "@shopify/webpack-asset-metadata-plugin": "^2.0.3",
     "@types/execa": "^0.9.0",
     "browserslist": "^4.16.0",
     "browserslist-useragent-regexp": "^2.0.0",
