@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.21.5",
+  "version": "0.21.7",
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -25,23 +22,22 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-server/README.md",
   "dependencies": {
     "@shopify/network": "^1.6.3",
-    "@shopify/react-async": "^3.2.3",
-    "@shopify/react-cookie": "^0.1.5",
+    "@shopify/react-async": "^3.2.4",
+    "@shopify/react-cookie": "^0.1.7",
     "@shopify/react-effect": "^3.3.3",
-    "@shopify/react-html": "^10.2.4",
-    "@shopify/react-hydrate": "^1.2.3",
-    "@shopify/react-network": "^3.6.5",
+    "@shopify/react-html": "^10.2.6",
+    "@shopify/react-hydrate": "^1.2.4",
+    "@shopify/react-network": "^3.6.7",
     "@shopify/sewing-kit-koa": "^6.4.4",
     "@shopify/useful-types": "^2.3.3",
     "chalk": "^2.4.2",
     "koa": "^2.5.0",
     "koa-compose": ">=3.0.0 <4.0.0",
-    "koa-mount": "^4.0.0",
-    "tslib": "^1.14.1"
+    "koa-mount": "^4.0.0"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.3.3",
-    "@shopify/react-testing": "^2.2.3",
+    "@shopify/react-testing": "^2.3.0",
     "@shopify/with-env": "^1.2.3",
     "@types/koa": "^2.0.0",
     "@types/webpack-virtual-modules": "^0.1.0",

@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-testing",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -26,8 +23,7 @@
   "dependencies": {
     "@shopify/useful-types": "^2.3.3",
     "jest-matcher-utils": "^26.6.2",
-    "react-reconciler": "^0.20.2",
-    "tslib": "^1.14.1"
+    "react-reconciler": "^0.20.2"
   },
   "devDependencies": {
     "faker": "^4.1.0"

@@ -9,6 +9,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 **Note**: This module is now deprecated. You should move to using the serialization features of [`@shopify/react-html`](../react-html) instead.
 
-## [1.0.12] - 2019-01-09
+## 1.0.12 - 2019-01-09
 
 - Start of Changelog

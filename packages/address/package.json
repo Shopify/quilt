@@ -1,13 +1,10 @@
 {
   "name": "@shopify/address",
-  "version": "2.10.4",
+  "version": "2.10.5",
   "license": "MIT",
   "description": "Address utilities for formatting addresses",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -23,13 +20,12 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/address/README.md",
   "devDependencies": {
-    "@shopify/address-mocks": "^1.5.4",
-    "@shopify/jest-dom-mocks": "^2.11.3"
+    "@shopify/address-mocks": "^1.5.5",
+    "@shopify/jest-dom-mocks": "^2.11.4"
   },
   "sideEffects": false,
   "dependencies": {
-    "@shopify/address-consts": "^2.2.3",
-    "tslib": "^1.14.1"
+    "@shopify/address-consts": "^2.2.3"
   },
   "files": [
     "build/*",

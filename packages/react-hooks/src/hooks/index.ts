@@ -9,3 +9,4 @@ export {useTimeout} from './timeout';
 export {useToggle} from './toggle';
 export {useForceUpdate} from './force-update';
 export {useDelayedCallback} from './delayed-callback';
+export {useIsomorphicLayoutEffect} from './isomorphic-layout-effect';

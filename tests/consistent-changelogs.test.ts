@@ -1,6 +1,6 @@
-import {dirname, join, relative, resolve} from 'path';
+import {join, resolve} from 'path';
 
-import {readFileSync, readJSONSync, existsSync} from 'fs-extra';
+import {readFileSync} from 'fs-extra';
 import glob from 'glob';
 
 const ROOT_PATH = resolve(__dirname, '..');
@@ -52,8 +52,7 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
       const headerLines = packageChangelog
         .split('\n')
         .filter(
-          line =>
-            HEADER_START_REGEX.exec(line) || /## \[Unreleased\]/.exec(line),
+          line => HEADER_START_REGEX.exec(line) || /## Unreleased/.exec(line),
         )
         .sort();
       const uniqueHeaderLines = headerLines.filter(
@@ -67,10 +66,10 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
 
 const allowedHeaders = [
   '# Changelog',
-  '## [Unreleased]',
-  /^## \[\d+\.\d+\.\d+\] - \d\d\d\d-\d\d-\d\d$/,
+  '## Unreleased',
+  /^## \d+\.\d+\.\d+ - \d\d\d\d-\d\d-\d\d$/,
   // We should backfill dates using commit timestamps
-  /^## \[\d+\.\d+\.\d+\]$/,
+  /^## \d+\.\d+\.\d+$/,
   '### Fixed',
   '### Added',
   '### Changed',

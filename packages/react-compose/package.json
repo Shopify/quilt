@@ -5,9 +5,6 @@
   "description": "Cleanly compose multiple component enhancers together with minimal fuss",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -24,8 +21,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-compose/README.md",
   "dependencies": {
     "@shopify/useful-types": "^2.3.3",
-    "hoist-non-react-statics": "^3.0.1",
-    "tslib": "^1.14.1"
+    "hoist-non-react-statics": "^3.0.1"
   },
   "peerDependencies": {
     "react": "^16.3.2"

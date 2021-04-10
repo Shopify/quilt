@@ -1,13 +1,10 @@
 {
   "name": "@shopify/function-enhancers",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "license": "MIT",
   "description": "A set of helpers to enhance functions",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -40,8 +37,5 @@
       "require": "./index.js",
       "esnext": "./index.esnext"
     }
-  },
-  "dependencies": {
-    "tslib": "^1.14.1"
   }
 }
