@@ -7,7 +7,8 @@ import mount from 'koa-mount';
 import appRoot from 'app-root-path';
 import {Header} from '@shopify/network';
 
-import Assets, {Asset} from './assets';
+import type {Asset} from './assets';
+import Assets from './assets';
 
 export {Assets};
 export type {Asset};
