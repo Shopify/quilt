@@ -1,6 +1,6 @@
 {
   "name": "@shopify/sewing-kit-koa",
-  "version": "6.4.4",
+  "version": "6.4.5",
   "license": "MIT",
   "description": "Easily access Sewing Kit assets from a Koa server",
   "main": "index.js",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/sewing-kit-koa/README.md",
   "dependencies": {
-    "@shopify/network": "^1.6.3",
+    "@shopify/network": "^1.6.4",
     "@types/koa-mount": "^4.0.0",
     "@types/koa-static": "^4.0.0",
     "app-root-path": "^2.1.0",
@@ -34,8 +34,8 @@
     "node-gzip": "^1.1.2"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.3.3",
-    "@shopify/with-env": "^1.2.3",
+    "@shopify/jest-koa-mocks": "^2.3.4",
+    "@shopify/with-env": "^1.2.4",
     "@types/app-root-path": "^1.2.4",
     "@types/fs-extra": "^5.0.4",
     "@types/node-gzip": "^1.1.0"
