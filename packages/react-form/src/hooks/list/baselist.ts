@@ -47,6 +47,7 @@ interface BaseList<Item extends object> {
 export function useBaseList<Item extends object>(
   listOrConfig: FieldListConfig<Item> | Item[],
   validationDependencies: unknown[] = [],
+  isDynamic = false,
 ): BaseList<Item> {
   const list = Array.isArray(listOrConfig) ? listOrConfig : listOrConfig.list;
   const validates: FieldListConfig<Item>['validates'] = Array.isArray(
@@ -55,7 +56,7 @@ export function useBaseList<Item extends object>(
     ? {}
     : listOrConfig.validates || {};
 
-  const [state, dispatch] = useListReducer(list);
+  const [state, dispatch] = useListReducer(list, isDynamic);
 
   useEffect(() => {
     if (!isEqual(list, state.initial)) {

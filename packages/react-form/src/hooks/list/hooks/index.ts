@@ -6,6 +6,7 @@ export {
   updateErrorAction,
   newDefaultAction,
   resetAction,
+  resetListAction,
   addFieldItemAction,
   moveFieldItemAction,
   removeFieldItemAction,

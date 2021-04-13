@@ -13,6 +13,7 @@ import {
   updateErrorAction,
   newDefaultAction,
   resetAction,
+  resetListAction,
   ListState,
   ListAction,
 } from './index';
@@ -69,7 +70,11 @@ export function useHandlers<Item extends object>(
               }
             },
             reset() {
-              dispatch(resetAction({target}));
+              if (state.isDynamic) {
+                dispatch(resetListAction());
+              } else {
+                dispatch(resetAction({target}));
+              }
             },
             newDefaultValue(value: Item[Key]) {
               dispatch(newDefaultAction({target, value}));
@@ -90,5 +95,5 @@ export function useHandlers<Item extends object>(
         },
       );
     });
-  }, [dispatch, state.list, validationConfigs]);
+  }, [dispatch, state.isDynamic, state.list, validationConfigs]);
 }

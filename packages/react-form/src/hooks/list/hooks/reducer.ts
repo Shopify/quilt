@@ -17,6 +17,7 @@ export type ListAction<Item> =
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
+  | ResetListAction
   | NewDefaultAction<Item, keyof Item>;
 
 interface ReinitializeAction<Item> {
@@ -66,6 +67,10 @@ interface ResetAction<Item, Key extends keyof Item> {
       key: Key;
     };
   };
+}
+
+interface ResetListAction {
+  type: 'resetList';
 }
 
 interface UpdateAction<Item, Key extends keyof Item> {
@@ -133,6 +138,12 @@ export function resetAction<Item, Key extends keyof Item>(
   };
 }
 
+export function resetListAction(): ResetListAction {
+  return {
+    type: 'resetList',
+  };
+}
+
 export function newDefaultAction<Item, Key extends keyof Item>(
   payload: TargetedPayload<Item, Key>,
 ): NewDefaultAction<Item, Key> {
@@ -154,12 +165,17 @@ export function updateErrorAction<Item>(
 export interface ListState<Item extends object> {
   list: FieldStates<Item>[];
   initial: Item[];
+  isDynamic: boolean;
 }
 
-export function useListReducer<Item extends object>(initial: Item[]) {
+export function useListReducer<Item extends object>(
+  initial: Item[],
+  isDynamic: boolean,
+) {
   return useReducer<Reducer<ListState<Item>, ListAction<Item>>>(reduceList, {
     list: initial.map(initialListItemState),
     initial,
+    isDynamic,
   });
 }
 
@@ -172,6 +188,7 @@ function reduceList<Item extends object>(
       return {
         initial: action.payload.list,
         list: action.payload.list.map(initialListItemState),
+        isDynamic: state.isDynamic,
       };
     }
     case 'moveFieldItem': {
@@ -232,6 +249,9 @@ function reduceList<Item extends object>(
       currentItem[key] = reduceField(currentItem[key], {type: 'reset'});
 
       return {...state, list: [...state.list]};
+    }
+    case 'resetList': {
+      return {...state, list: state.initial.map(initialListItemState)};
     }
     case 'update':
     case 'newDefaultValue': {
