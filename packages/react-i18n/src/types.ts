@@ -20,7 +20,7 @@ export interface TranslationDictionary {
 }
 
 export interface PrimitiveReplacementDictionary {
-  [key: string]: string | number;
+  [key: string]: string | number | undefined | boolean;
 }
 
 export interface ComplexReplacementDictionary {
