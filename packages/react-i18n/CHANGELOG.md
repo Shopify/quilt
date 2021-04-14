@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 5.3.4 - 2021-04-13
+
+### Changed
+
+- Removed dependency on tslib, as we no-longer compile with `tsc`. [#1829](https://github.com/Shopify/quilt/pull/1829)
+
 ## 5.3.2 - 2021-04-07
 
 ### Changed

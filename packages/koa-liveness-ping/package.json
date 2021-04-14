@@ -1,13 +1,10 @@
 {
   "name": "@shopify/koa-liveness-ping",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "description": "A package for creating liveness ping middleware for use with Koa",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -23,16 +20,13 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-liveness-ping/README.md",
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.3.3",
+    "@shopify/jest-koa-mocks": "^2.3.4",
     "@types/koa": "^2.0.0",
     "@types/koa-mount": "^4.0.0",
     "koa": "^2.5.0",
     "koa-mount": "^4.0.0"
   },
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.14.1"
-  },
   "files": [
     "build/*",
     "!*.tsbuildinfo",

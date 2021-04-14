@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 2.10.6 - 2021-04-13
+
+### Changed
+
+- Removed dependency on tslib, as we no-longer compile with `tsc`. [#1829](https://github.com/Shopify/quilt/pull/1829)
+
 ## 2.10.4 - 2021-04-07
 
 ### Changed
@@ -37,6 +43,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## 2.8.0 - 2020-03-10
 
 - Major update to `@shopify/address-consts` and minor update to @shopify/address-mocks
+- Remove use of `toSupportedLocale` to default locale to `en` and let
+  CountryService take care of the default `en` feature. [#1301](https://github.com/Shopify/quilt/pull/1301)
 
 ## 2.7.0 - 2019-08-14
 

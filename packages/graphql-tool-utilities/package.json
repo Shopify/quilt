@@ -1,13 +1,10 @@
 {
   "name": "graphql-tool-utilities",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "license": "MIT",
   "description": "Common utilities for GraphQL developer tools",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -26,8 +23,7 @@
   "dependencies": {
     "apollo-codegen-core": "0.36.5",
     "core-js": "^3.0.0",
-    "graphql": ">=14.5.0 <15.0.0",
-    "tslib": "^1.14.1"
+    "graphql": ">=14.5.0 <15.0.0"
   },
   "files": [
     "build/*",

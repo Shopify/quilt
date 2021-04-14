@@ -12,14 +12,12 @@ import {
 } from 'graphql';
 import chalk from 'chalk';
 import {mkdirp, readFile, writeFile} from 'fs-extra';
-import {FSWatcher, watch} from 'chokidar';
 import {
   getGraphQLConfig,
   GraphQLProjectConfig,
   GraphQLConfig,
 } from 'graphql-config';
 import {
-  getGraphQLProjectIncludedFilePaths,
   getGraphQLProjectForSchemaPath,
   getGraphQLProjects,
   getGraphQLSchemaPaths,
@@ -33,6 +31,8 @@ import {
   Operation,
 } from 'graphql-tool-utilities';
 
+import type {GraphQLFilesystem} from './filesystem';
+import {AbstractGraphQLFilesystem} from './filesystem';
 import {
   printDocument,
   generateSchemaTypes,
@@ -41,12 +41,16 @@ import {
 } from './print';
 import {EnumFormat, ExportFormat} from './types';
 
-export {EnumFormat, ExportFormat};
+export type {GraphQLFilesystem};
+export {AbstractGraphQLFilesystem, EnumFormat, ExportFormat};
 
 export interface Options extends PrintDocumentOptions, PrintSchemaOptions {
   addTypename: boolean;
   schemaTypesPath: string;
   config?: GraphQLConfig;
+  getProjectFilePaths?: (
+    projectConfig: GraphQLProjectConfig,
+  ) => Promise<string[]>;
 }
 
 export interface BuilderOptions extends Options {
@@ -55,6 +59,7 @@ export interface BuilderOptions extends Options {
 
 export interface RunOptions {
   watch?: boolean;
+  graphQLFilesystem?: GraphQLFilesystem | undefined;
 }
 
 export interface SchemaBuild {
@@ -86,7 +91,7 @@ export class Builder extends EventEmitter {
     Map<string, DocumentNode>
   >();
 
-  private readonly watchers: FSWatcher[] = [];
+  private filesystem: GraphQLFilesystem | undefined;
 
   constructor({cwd, ...options}: BuilderOptions) {
     super();
@@ -132,7 +137,7 @@ export class Builder extends EventEmitter {
     return super.emit(event, ...args);
   }
 
-  async run({watch: watchGlobs = false} = {}) {
+  async run({watch: watchGlobs = false, graphQLFilesystem}: RunOptions = {}) {
     let schemaPaths: string[];
 
     try {
@@ -142,18 +147,17 @@ export class Builder extends EventEmitter {
       return;
     }
 
+    const filesystem = graphQLFilesystem ?? (await defaultFilesytem());
+    this.filesystem = filesystem;
+
     if (watchGlobs) {
-      this.watchers.push(
-        ...this.setupDocumentWatchers().concat(this.setupSchemaWatcher()),
-      );
+      filesystem
+        .on('change:document', this.handleDocumentUpdate)
+        .on('delete:document', this.handleDocumentDelete)
+        .on('change:schema', this.handleSchemaUpdate);
 
       // wait for all watchers to be ready
-      await Promise.all(
-        this.watchers.map(
-          watcher =>
-            new Promise<void>(resolve => watcher.on('ready', () => resolve())),
-        ),
-      );
+      await filesystem.watch(this.config);
     }
 
     try {
@@ -170,7 +174,7 @@ export class Builder extends EventEmitter {
     try {
       await Promise.all(
         getGraphQLProjects(this.config).map(projectConfig =>
-          this.updateDocumentsForProject(projectConfig),
+          this.updateDocumentsForProject(filesystem, projectConfig),
         ),
       );
     } catch (error) {
@@ -182,76 +186,47 @@ export class Builder extends EventEmitter {
   }
 
   stop() {
-    this.watchers.forEach(watcher => {
-      watcher.close();
-    });
-
-    this.watchers.length = 0;
+    this.filesystem?.dispose();
   }
 
-  private setupDocumentWatchers() {
-    const update = async (
-      filePath: string,
-      projectConfig: GraphQLProjectConfig,
-    ) => {
-      try {
-        await this.updateDocumentForFile(filePath, projectConfig);
-      } catch (error) {
-        this.emit('error', error);
-        return;
-      }
+  private handleDocumentUpdate = async (
+    filePath: string,
+    projectConfig: GraphQLProjectConfig,
+  ) => {
+    try {
+      await this.updateDocumentForFile(filePath, projectConfig);
+    } catch (error) {
+      this.emit('error', error);
+      return;
+    }
+
+    await this.generateDocumentTypes();
+  };
+
+  private handleDocumentDelete = async (
+    filePath: string,
+    projectConfig: GraphQLProjectConfig,
+  ) => {
+    const documents = this.documentMapByProject.get(projectConfig.projectName);
+
+    if (documents) {
+      documents.delete(filePath);
+    }
+
+    await this.generateDocumentTypes();
+  };
+
+  private handleSchemaUpdate = async (schemaPath: string) => {
+    try {
+      this.emit('start:schema');
+      await this.generateSchemaTypes(schemaPath);
+      this.emit('end:schema');
 
       await this.generateDocumentTypes();
-    };
-
-    return getGraphQLProjects(this.config)
-      .filter(({includes}) => includes.length > 0)
-      .map(projectConfig => {
-        return watch(
-          projectConfig.includes.map(include =>
-            resolvePathRelativeToConfig(projectConfig, include),
-          ),
-          {
-            ignored: projectConfig.excludes.map(exclude =>
-              resolvePathRelativeToConfig(projectConfig, exclude),
-            ),
-            ignoreInitial: true,
-          },
-        )
-          .on('add', (filePath: string) => update(filePath, projectConfig))
-          .on('change', (filePath: string) => update(filePath, projectConfig))
-          .on('unlink', async (filePath: string) => {
-            const documents = this.documentMapByProject.get(
-              projectConfig.projectName,
-            );
-
-            if (documents) {
-              documents.delete(filePath);
-            }
-
-            await this.generateDocumentTypes();
-          });
-      });
-  }
-
-  private setupSchemaWatcher() {
-    const update = async (schemaPath: string) => {
-      try {
-        this.emit('start:schema');
-        await this.generateSchemaTypes(schemaPath);
-        this.emit('end:schema');
-
-        await this.generateDocumentTypes();
-      } catch (error) {
-        // intentional noop
-      }
-    };
-
-    return watch(getGraphQLSchemaPaths(this.config), {ignoreInitial: true}).on(
-      'change',
-      update,
-    );
-  }
+    } catch (error) {
+      // intentional noop
+    }
+  };
 
   private async generateSchemaTypes(schemaPath: string) {
     const projectConfig = getGraphQLProjectForSchemaPath(
@@ -400,8 +375,13 @@ export class Builder extends EventEmitter {
     }
   }
 
-  private async updateDocumentsForProject(projectConfig: GraphQLProjectConfig) {
-    const filePaths = await getGraphQLProjectIncludedFilePaths(projectConfig);
+  private async updateDocumentsForProject(
+    filesystem: GraphQLFilesystem,
+    projectConfig: GraphQLProjectConfig,
+  ) {
+    const filePaths = await filesystem.getGraphQLProjectIncludedFilePaths(
+      projectConfig,
+    );
 
     return Promise.all(
       filePaths.map(filePath =>
@@ -462,6 +442,13 @@ function getSchemaTypesPath(
       }types`,
     ),
   );
+}
+
+async function defaultFilesytem() {
+  const {DefaultGraphQLFilesystem} = await import(
+    './filesystem/default-graphql-filesystem'
+  );
+  return new DefaultGraphQLFilesystem();
 }
 
 interface File {
