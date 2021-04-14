@@ -1,11 +1,6 @@
 import FormState from './FormState';
-import {
-  asChoiceField,
-  ChoiceFieldDescriptor,
-  push,
-  replace,
-  remove,
-} from './utilities';
+import type {ChoiceFieldDescriptor} from './utilities';
+import {asChoiceField, push, replace, remove} from './utilities';
 
 export {asChoiceField};
 export type {ChoiceFieldDescriptor};
