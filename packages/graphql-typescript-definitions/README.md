@@ -288,3 +288,34 @@ As with the CLI, you can pass options to customize the build and behavior:
 - `schemaTypesPath`
 - `customScalars`
 - `config` (custom `GraphQLConfig` instance)
+
+#### Customizing filesystem interactions
+
+In projects with thousands of GraphQL documents, `Builder` may take a few seconds to reach its ready state. Additionally, very large projects with deep file trees may exceed Node's default memory limits (especially in non-MacOS environments). To allow project/environment-specific customization, builders accept a [`GraphQLFilesystem`](./src/filesystem/graphql-filesystem.ts) object.
+
+```js
+const {
+  AbstractGraphQLFilesystem,
+  Builder,
+} = require('graphql-typescript-definitions');
+
+class CustomFilesystem extends AbstractGraphQLFilesystem {
+  watch(config) {
+    // Set up filesystem watchers, and emit change:schema / change:document / delete:document events.
+  }
+
+  getGraphQLProjectIncludedFilePaths(projectConfig) {
+    // Find all .graphql documents for the given project.
+  }
+
+  dispose() {
+    // Release any resources held by watchers.
+  }
+}
+
+const builder = new Builder({
+  graphQLFilesystem: new CustomFilesystem(),
+});
+
+builder.run({watch: true});
+```
