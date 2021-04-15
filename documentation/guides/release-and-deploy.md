@@ -14,6 +14,7 @@ git checkout main && git pull
 
 ## 2. Updating `CHANGELOG.md`
 
+- Run `yarn updated` to a get list of packaged that have changed since the last release.
 - Go into every package that is being released. Edit `CHANGELOG.md` by moving any line items from `Unreleased` section into a new release with the new section with the new version number and today's date as title. (eg. `1.0.0 - 2019-07-24`).
 
 - Stage the `CHANGELOG.md` changes using:
