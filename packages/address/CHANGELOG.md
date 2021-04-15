@@ -43,6 +43,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## 2.8.0 - 2020-03-10
 
 - Major update to `@shopify/address-consts` and minor update to @shopify/address-mocks
+- Remove use of `toSupportedLocale` to default locale to `en` and let
+  CountryService take care of the default `en` feature. [#1301](https://github.com/Shopify/quilt/pull/1301)
 
 ## 2.7.0 - 2019-08-14
 
