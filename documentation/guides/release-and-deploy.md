@@ -38,7 +38,7 @@ yarn release
 
 ## 4. Pushing Changes
 
-The following will push the changes and new tags to GitHub
+The following will push the changes and new tags to GitHub:
 
 ```sh
 git push origin main --follow-tags
