@@ -1,6 +1,6 @@
 import {Address, FieldName, Country, Zone} from '@shopify/address-consts';
 
-const FIELD_REGEXP = /({\w+})/g;
+export const FIELD_REGEXP = /({\w+})/g;
 export const FIELDS_MAPPING: {
   [key: string]: FieldName;
 } = {

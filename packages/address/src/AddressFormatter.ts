@@ -1,14 +1,7 @@
 import {Address, FieldName, Country} from '@shopify/address-consts';
 
-import {renderLineTemplate, FIELDS_MAPPING} from './utilities';
+import {formatAddress, buildOrderedFields} from './format';
 import {loadCountry, loadCountries} from './loader';
-
-const FIELD_REGEXP = /({\w+})/g;
-const LINE_DELIMITER = '_';
-const DEFAULT_FORM_LAYOUT =
-  '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}';
-const DEFAULT_SHOW_LAYOUT =
-  '{lastName} {firstName}_{company}_{address1} {address2}_{city} {province} {zip}_{country}_{phone}';
 
 const ORDERED_COUNTRIES_CACHE: {
   [locale: string]: Country[];
@@ -55,10 +48,7 @@ export default class AddressFormatter {
    */
   async format(address: Address): Promise<string[]> {
     const country = await this.getCountry(address.country);
-    const layout = country.formatting.show || DEFAULT_SHOW_LAYOUT;
-    return layout
-      .split(LINE_DELIMITER)
-      .map((fields) => renderLineTemplate(country, fields, address).trim());
+    return formatAddress(address, country);
   }
 
   /* Returns an array that shows how to order fields based on the country code
@@ -76,17 +66,7 @@ export default class AddressFormatter {
   async getOrderedFields(countryCode: string): Promise<FieldName[][]> {
     const country = await this.getCountry(countryCode);
 
-    const format = country ? country.formatting.edit : DEFAULT_FORM_LAYOUT;
-
-    return format.split(LINE_DELIMITER).map((fields) => {
-      const result = fields.match(FIELD_REGEXP);
-      if (!result) {
-        return [];
-      }
-      return result.map((field) => {
-        return FIELDS_MAPPING[field];
-      });
-    });
+    return buildOrderedFields(country);
   }
 
   private loadCountryFromCache(

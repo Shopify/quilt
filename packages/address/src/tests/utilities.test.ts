@@ -1,10 +1,11 @@
+import {Address} from '@shopify/address-consts';
 import {fixtures} from '@shopify/address-mocks';
 
 import {renderLineTemplate} from '../utilities';
 
 const Canada = fixtures.country.EN.data.country;
 
-const address = {
+const address: Address = {
   company: 'Shopify',
   firstName: '',
   lastName: '',
