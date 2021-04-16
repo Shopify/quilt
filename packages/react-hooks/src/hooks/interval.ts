@@ -1,5 +1,7 @@
 import {useEffect, useRef} from 'react';
 
+import {useIsomorphicLayoutEffect} from './isomorphic-layout-effect';
+
 type IntervalCallback = () => void;
 type IntervalDelay = number | null;
 
@@ -11,7 +13,8 @@ type IntervalDelay = number | null;
 export function useInterval(callback: IntervalCallback, delay: IntervalDelay) {
   const savedCallback = useRef(callback);
 
-  useEffect(() => {
+  // Need to use a layout effect to force the saved callback to be synchronously updated during a commit
+  useIsomorphicLayoutEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 

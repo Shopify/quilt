@@ -1,13 +1,10 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "license": "MIT",
   "description": "Generic i18n-related utilities",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -23,9 +20,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/i18n/README.md",
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.14.1"
-  },
   "files": [
     "build/*",
     "!*.tsbuildinfo",

@@ -1,13 +1,10 @@
 {
   "name": "@shopify/with-env",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "license": "MIT",
   "description": "A utility for executing code under a specific `NODE_ENV`",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -23,9 +20,6 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/with-env/README.md",
   "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.14.1"
-  },
   "files": [
     "build/*",
     "!*.tsbuildinfo",

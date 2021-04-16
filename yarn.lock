@@ -1821,6 +1821,11 @@
     pkg-dir "4.2.0"
     pluralize "^8.0.0"
 
+"@shopify/typescript-configs@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/typescript-configs/-/typescript-configs-4.0.0.tgz#56624b897014a49212924ba867c23d50093f3f4c"
+  integrity sha512-pHCdcOjKlHnuLC5xJtL83fWCknVZ/Im7lVBtBaAl1MRmtVpi5OpZL1FDEAWDFc0RGPpHBnurrxtbcusHUtrbVQ==
+
 "@sinonjs/commons@^1.7.0":
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.2.tgz#505f55c74e0272b43f6c52d81946bed7058fc0e2"
@@ -12645,7 +12650,7 @@ ts-node@^8, ts-node@^8.0.3:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-tslib@^1, tslib@^1.10.0, tslib@^1.14.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==

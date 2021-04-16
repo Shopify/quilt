@@ -1,13 +1,8 @@
-import {useRef, MutableRefObject} from 'react';
-
-const UNSET = Symbol('unset');
+import {useRef, useState, MutableRefObject} from 'react';
 
 export function useLazyRef<T>(getValue: () => T): MutableRefObject<T> {
-  const ref = useRef<T | typeof UNSET>(UNSET);
-
-  if (ref.current === UNSET) {
-    ref.current = getValue();
-  }
+  const [value] = useState<T>(getValue);
+  const ref = useRef<T>(value);
 
   return ref as MutableRefObject<T>;
 }

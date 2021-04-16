@@ -31,6 +31,13 @@ describe('Router', () => {
     expect(wrapper).toContainReactComponent(BrowserRouter);
   });
 
+  it('mounts a BrowserRouter with basename if provided', () => {
+    const basename = '/next';
+    const wrapper = mount(<Router basename={basename} />);
+
+    expect(wrapper).toContainReactComponent(BrowserRouter, {basename});
+  });
+
   it('mounts a StaticRouter on the server with the delegated location prop', () => {
     isClient.mockReturnValue(false);
 
@@ -38,6 +45,15 @@ describe('Router', () => {
     const wrapper = mount(<Router location={location} />);
 
     expect(wrapper).toContainReactComponent(StaticRouter, {location});
+  });
+
+  it('mounts a StaticRouter on the server with basename if provided', () => {
+    isClient.mockReturnValue(false);
+    const location = 'http://www.shopify.com/next/example';
+    const basename = '/next';
+    const wrapper = mount(<Router basename={basename} location={location} />);
+
+    expect(wrapper).toContainReactComponent(StaticRouter, {basename, location});
   });
 
   it('throws a useful error when location is omitted on the server', () => {

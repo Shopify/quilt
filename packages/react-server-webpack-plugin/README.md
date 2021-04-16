@@ -20,7 +20,7 @@ $ yarn add @shopify/react-server-webpack-plugin
 
 ### With sewing-kit
 
-As of version [0.102.0](https://github.com/Shopify/sewing-kit/blob/big-docs-update/CHANGELOG.md#L35) `sewing-kit` consumes this plugin by default if you have `@shopify/react-server` in your `package.json`.
+As of version 0.102.0(https://github.com/Shopify/sewing-kit/blob/big-docs-update/CHANGELOG.md#L35) `sewing-kit` consumes this plugin by default if you have `@shopify/react-server` in your `package.json`.
 
 For detailed instructions on usage with Rails and sewing-kit see the documentation for [quilt_rails](/gems/quilt_rails/README.md).
 

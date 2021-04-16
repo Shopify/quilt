@@ -4,7 +4,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const nodeFetch = require('node-fetch');
 
-function wrappedFetch(url: string | Request, options) {
+function wrappedFetch(this: unknown, url: string | Request, options) {
   if (typeof url !== 'string') {
     return nodeFetch.call(this, url, options);
   }

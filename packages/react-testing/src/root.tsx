@@ -253,10 +253,13 @@ export class Root<Props> implements Node<Props> {
     if (this.wrapper == null) {
       this.root = null;
     } else {
-      const topElement = flatten(
-        ((this.wrapper as unknown) as ReactInstance)._reactInternalFiber,
+      const topElement = fiberToElement(
+        findCurrentFiberUsingSlowPath(
+          ((this.wrapper.rootRef as unknown) as ReactInstance)
+            ._reactInternalFiber,
+        ),
         this,
-      )[0];
+      );
 
       this.root = this.resolveRoot(topElement as any) as any;
     }
@@ -284,52 +287,40 @@ function defaultRender(element: React.ReactElement<unknown>) {
   return element;
 }
 
-function flatten(
-  element: Fiber,
+function fiberToElement(
+  node: Fiber,
   root: Root<unknown>,
-): (Element<unknown> | string)[] {
-  const node: Fiber = findCurrentFiberUsingSlowPath(element);
-
+): Element<unknown> | string {
   if (node.tag === Tag.HostText) {
-    return [node.memoizedProps as string];
+    return node.memoizedProps as string;
   }
 
-  const props = {...((node.memoizedProps as any) || {})};
-  const {children, descendants} = childrenToTree(node.child, root);
+  const props = node.memoizedProps as any;
+  const children = childrenToTree(node.child, root);
 
-  return [
-    new Element(
-      {
-        tag: node.tag,
-        type: node.type,
-        props,
-        instance: node.stateNode,
-      },
-      children,
-      descendants,
-      root,
-    ),
-    ...descendants,
-  ];
+  return new Element(
+    {
+      tag: node.tag,
+      type: node.type,
+      props,
+      instance: node.stateNode,
+    },
+    children,
+    root,
+  );
 }
 
 function childrenToTree(fiber: Fiber | null, root: Root<unknown>) {
   let currentFiber = fiber;
   const children: (string | Element<unknown>)[] = [];
-  const descendants: (string | Element<unknown>)[] = [];
 
   while (currentFiber != null) {
-    const result = flatten(currentFiber, root);
-
-    if (result.length > 0) {
-      children.push(result[0]);
-      descendants.push(...result);
-    }
-
+    const result = fiberToElement(currentFiber, root);
+    children.push(result);
     currentFiber = currentFiber.sibling;
   }
 
-  return {children, descendants};
+  return children;
 }
 
 function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {

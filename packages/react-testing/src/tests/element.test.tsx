@@ -15,19 +15,6 @@ const defaultTree = {
 };
 
 const defaultRoot = new Root(<DummyComponent />);
-
-const divOne = new Element(
-  {
-    ...defaultTree,
-    type: 'div',
-    tag: Tag.HostComponent,
-    instance: document.createElement('div'),
-  },
-  [],
-  [],
-  defaultRoot,
-);
-
 const divTwo = new Element(
   {
     ...defaultTree,
@@ -36,21 +23,29 @@ const divTwo = new Element(
     instance: document.createElement('div'),
   },
   [],
-  [],
   defaultRoot,
 );
 
-const componentOne = new Element(
-  {...defaultTree, type: DummyComponent},
-  [],
-  [],
+const divOne = new Element(
+  {
+    ...defaultTree,
+    type: 'div',
+    tag: Tag.HostComponent,
+    instance: document.createElement('div'),
+  },
+  [divTwo],
   defaultRoot,
 );
 
 const componentTwo = new Element(
   {...defaultTree, type: DummyComponent},
   [],
-  [],
+  defaultRoot,
+);
+
+const componentOne = new Element(
+  {...defaultTree, type: DummyComponent},
+  [divOne, componentTwo],
   defaultRoot,
 );
 
@@ -58,7 +53,7 @@ describe('Element', () => {
   describe('#props', () => {
     it('returns the props from the tree', () => {
       const props = {foo: 'bar'};
-      const element = new Element({...defaultTree, props}, [], [], defaultRoot);
+      const element = new Element({...defaultTree, props}, [], defaultRoot);
       expect(element).toHaveProperty('props', props);
     });
   });
@@ -66,7 +61,7 @@ describe('Element', () => {
   describe('#type', () => {
     it('returns the type from the tree', () => {
       const type = DummyComponent;
-      const element = new Element({...defaultTree, type}, [], [], defaultRoot);
+      const element = new Element({...defaultTree, type}, [], defaultRoot);
       expect(element).toHaveProperty('type', type);
     });
   });
@@ -74,12 +69,7 @@ describe('Element', () => {
   describe('#instance', () => {
     it('returns the type from the tree', () => {
       const instance = {};
-      const element = new Element(
-        {...defaultTree, instance},
-        [],
-        [],
-        defaultRoot,
-      );
+      const element = new Element({...defaultTree, instance}, [], defaultRoot);
       expect(element).toHaveProperty('instance', instance);
     });
   });
@@ -88,7 +78,6 @@ describe('Element', () => {
     it('is false for non-host components', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.MemoComponent},
-        [],
         [],
         defaultRoot,
       );
@@ -99,7 +88,6 @@ describe('Element', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.HostComponent},
         [],
-        [],
         defaultRoot,
       );
       expect(element).toHaveProperty('isDOM', true);
@@ -108,12 +96,7 @@ describe('Element', () => {
 
   describe('#children', () => {
     it('returns element children', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne, divTwo],
-        [divOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne, divTwo], defaultRoot);
 
       expect(element).toHaveProperty('children', [divOne, divTwo]);
     });
@@ -121,7 +104,6 @@ describe('Element', () => {
     it('does not return string children', () => {
       const element = new Element(
         defaultTree,
-        [divOne, 'Some text', divTwo],
         [divOne, 'Some text', divTwo],
         defaultRoot,
       );
@@ -132,23 +114,7 @@ describe('Element', () => {
 
   describe('#descendants', () => {
     it('returns element descendants', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne],
-        [divOne, divTwo],
-        defaultRoot,
-      );
-
-      expect(element).toHaveProperty('descendants', [divOne, divTwo]);
-    });
-
-    it('does not return string descendants', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne],
-        [divOne, 'Some text', divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne], defaultRoot);
 
       expect(element).toHaveProperty('descendants', [divOne, divTwo]);
     });
@@ -160,12 +126,7 @@ describe('Element', () => {
     });
 
     it('returns the instances associated with each child DOM element', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne, divTwo],
-        [divOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne, divTwo], defaultRoot);
 
       expect(element.domNodes).toStrictEqual([
         divOne.instance,
@@ -174,23 +135,13 @@ describe('Element', () => {
     });
 
     it('does not return descendant DOM nodes', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne],
-        [divOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne], defaultRoot);
 
       expect(element.domNodes).not.toContain(divTwo.instance);
     });
 
     it('does not return instances for non-DOM nodes', () => {
-      const element = new Element(
-        defaultTree,
-        [componentOne],
-        [componentOne],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [componentOne], defaultRoot);
 
       expect(element.domNodes).not.toContain(componentOne.instance);
     });
@@ -202,34 +153,19 @@ describe('Element', () => {
     });
 
     it('returns null if there is no direct child DOM node', () => {
-      const element = new Element(
-        defaultTree,
-        [componentOne],
-        [componentOne],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [componentOne], defaultRoot);
 
       expect(element.domNode).toBeNull();
     });
 
     it('returns the DOM node if there is a single DOM child', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne],
-        [divOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne], defaultRoot);
 
       expect(element.domNode).toBe(divOne.instance);
     });
 
     it('throws an error if there are multiple top-level DOM nodes', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne, divTwo],
-        [divOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne, divTwo], defaultRoot);
 
       expect(() => element.domNode).toThrow(/multiple HTML elements/);
     });
@@ -238,7 +174,7 @@ describe('Element', () => {
   describe('#prop()', () => {
     it('returns the prop value for the specified key', () => {
       const props = {foo: 'bar'};
-      const element = new Element({...defaultTree, props}, [], [], defaultRoot);
+      const element = new Element({...defaultTree, props}, [], defaultRoot);
       expect(element.prop('foo')).toBe(props.foo);
     });
   });
@@ -253,7 +189,6 @@ describe('Element', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.HostComponent, type: 'div', instance: div},
         [],
-        [],
         defaultRoot,
       );
 
@@ -265,13 +200,12 @@ describe('Element', () => {
       const childTextTwo = 'bar';
       const descendantText = ' baz?';
 
-      const elementChild = new Element(defaultTree, [], [], defaultRoot);
+      const elementChild = new Element(defaultTree, [], defaultRoot);
       jest.spyOn(elementChild, 'text').mockImplementation(() => childTextOne);
 
       const element = new Element(
         {...defaultTree, tag: Tag.FunctionComponent, type: DummyComponent},
         [elementChild, childTextTwo],
-        [elementChild, childTextTwo, descendantText],
         defaultRoot,
       );
 
@@ -281,7 +215,6 @@ describe('Element', () => {
     it('returns an empty string for portals', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.HostPortal, type: DummyComponent},
-        ['Hello world'],
         ['Hello world'],
         defaultRoot,
       );
@@ -300,7 +233,6 @@ describe('Element', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.HostComponent, type: 'div', instance: div},
         [],
-        [],
         defaultRoot,
       );
 
@@ -310,15 +242,13 @@ describe('Element', () => {
     it('concatenates the HTML contents of all child elements and child text', () => {
       const childHtml = 'foo ';
       const childText = 'bar';
-      const descendantText = ' baz?';
 
-      const elementChild = new Element(defaultTree, [], [], defaultRoot);
+      const elementChild = new Element(defaultTree, [], defaultRoot);
       jest.spyOn(elementChild, 'text').mockImplementation(() => childHtml);
 
       const element = new Element(
         {...defaultTree, tag: Tag.FunctionComponent, type: DummyComponent},
         [elementChild, childText],
-        [elementChild, childText, descendantText],
         defaultRoot,
       );
 
@@ -328,7 +258,6 @@ describe('Element', () => {
     it('returns an empty string for portals', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.HostPortal, type: DummyComponent},
-        ['Hello world'],
         ['Hello world'],
         defaultRoot,
       );
@@ -342,7 +271,6 @@ describe('Element', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.HostComponent, type: 'div'},
         [],
-        [],
         defaultRoot,
       );
 
@@ -353,7 +281,6 @@ describe('Element', () => {
       const element = new Element(
         {...defaultTree, tag: Tag.FunctionComponent, type: DummyComponent},
         [],
-        [],
         defaultRoot,
       );
 
@@ -363,12 +290,7 @@ describe('Element', () => {
 
   describe('#find()', () => {
     it('finds the first matching DOM node', () => {
-      const element = new Element(
-        defaultTree,
-        [componentOne],
-        [componentOne, divOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [componentOne], defaultRoot);
 
       expect(element.find('div')).toBe(divOne);
     });
@@ -376,8 +298,7 @@ describe('Element', () => {
     it('finds the first matching component', () => {
       const element = new Element(
         defaultTree,
-        [divOne],
-        [divOne, componentOne, componentTwo],
+        [divOne, componentOne],
         defaultRoot,
       );
 
@@ -394,7 +315,6 @@ describe('Element', () => {
           instance: document.createElement('div'),
         },
         [],
-        [],
         defaultRoot,
       );
 
@@ -406,7 +326,6 @@ describe('Element', () => {
           tag: Tag.HostComponent,
           instance: document.createElement('div'),
         },
-        [],
         [],
         defaultRoot,
       );
@@ -420,13 +339,11 @@ describe('Element', () => {
           instance: document.createElement('span'),
         },
         [],
-        [],
         defaultRoot,
       );
 
       const element = new Element(
         defaultTree,
-        [divOne, divTwo, span],
         [divOne, divTwo, span],
         defaultRoot,
       );
@@ -439,30 +356,20 @@ describe('Element', () => {
     });
 
     it('returns null when no match is found', () => {
-      const element = new Element(defaultTree, [], [], defaultRoot);
+      const element = new Element(defaultTree, [], defaultRoot);
       expect(element.find(DummyComponent)).toBeNull();
     });
   });
 
   describe('#findAll()', () => {
     it('finds all matching DOM nodes', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne],
-        [divOne, componentOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne], defaultRoot);
 
       expect(element.findAll('div')).toStrictEqual([divOne, divTwo]);
     });
 
     it('finds all matching components', () => {
-      const element = new Element(
-        defaultTree,
-        [componentOne],
-        [componentOne, divOne, componentTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [componentOne], defaultRoot);
 
       expect(element.findAll(DummyComponent)).toStrictEqual([
         componentOne,
@@ -480,7 +387,6 @@ describe('Element', () => {
           instance: document.createElement('div'),
         },
         [],
-        [],
         defaultRoot,
       );
 
@@ -492,7 +398,6 @@ describe('Element', () => {
           tag: Tag.HostComponent,
           instance: document.createElement('div'),
         },
-        [],
         [],
         defaultRoot,
       );
@@ -506,13 +411,11 @@ describe('Element', () => {
           instance: document.createElement('span'),
         },
         [],
-        [],
         defaultRoot,
       );
 
       const element = new Element(
         defaultTree,
-        [divOne, divTwo, span],
         [divOne, divTwo, span],
         defaultRoot,
       );
@@ -527,7 +430,7 @@ describe('Element', () => {
     });
 
     it('returns an empty array when no matches are found', () => {
-      const element = new Element(defaultTree, [], [], defaultRoot);
+      const element = new Element(defaultTree, [], defaultRoot);
       expect(element.findAll(DummyComponent)).toHaveLength(0);
     });
   });
@@ -538,12 +441,7 @@ describe('Element', () => {
         (element: Element<unknown>) => element === divTwo,
       );
 
-      const element = new Element(
-        defaultTree,
-        [componentOne],
-        [componentOne, divOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [componentOne], defaultRoot);
 
       expect(element.findWhere(matches)).toBe(divTwo);
       expect(matches).toHaveBeenCalledWith(componentOne);
@@ -552,24 +450,14 @@ describe('Element', () => {
     });
 
     it('returns null when no match is found', () => {
-      const element = new Element(
-        defaultTree,
-        [componentOne],
-        [componentOne],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [componentOne], defaultRoot);
       expect(element.findWhere(() => false)).toBeNull();
     });
   });
 
   describe('#findAllWhere()', () => {
     it('finds all matching nodes', () => {
-      const element = new Element(
-        defaultTree,
-        [divOne],
-        [divOne, componentOne, divTwo],
-        defaultRoot,
-      );
+      const element = new Element(defaultTree, [divOne], defaultRoot);
 
       expect(
         element.findAllWhere(element => element === componentTwo),
@@ -594,7 +482,6 @@ describe('Element', () => {
       const element = new Element<Props>(
         {...defaultTree, type: TriggerableComponent, props: {}},
         [],
-        [],
         defaultRoot,
       );
 
@@ -607,7 +494,6 @@ describe('Element', () => {
       const onClick = jest.fn(() => '');
       const element = new Element<Props>(
         {...defaultTree, type: TriggerableComponent, props: {onClick}},
-        [],
         [],
         defaultRoot,
       );
@@ -626,7 +512,6 @@ describe('Element', () => {
           props: {onClick: () => ''},
         },
         [],
-        [],
         defaultRoot,
       );
 
@@ -643,7 +528,6 @@ describe('Element', () => {
           props: {onClick: () => returnValue},
         },
         [],
-        [],
         defaultRoot,
       );
 
@@ -658,7 +542,6 @@ describe('Element', () => {
           type: TriggerableComponent,
           props: {onClick: jest.fn()},
         },
-        [],
         [],
         defaultRoot,
       );
@@ -688,7 +571,6 @@ describe('Element', () => {
           props: {actions: []},
         },
         [],
-        [],
         defaultRoot,
       );
 
@@ -704,7 +586,6 @@ describe('Element', () => {
           type: TriggerableComponent,
           props: {actions: []},
         },
-        [],
         [],
         defaultRoot,
       );
@@ -725,7 +606,6 @@ describe('Element', () => {
           props: {actions: [{onAction}]},
         },
         [],
-        [],
         defaultRoot,
       );
 
@@ -742,7 +622,6 @@ describe('Element', () => {
           type: TriggerableComponent,
           props: {actions: [{onAction: () => returnValue}]},
         },
-        [],
         [],
         defaultRoot,
       );

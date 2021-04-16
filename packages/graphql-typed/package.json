@@ -1,13 +1,10 @@
 {
   "name": "graphql-typed",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "license": "MIT",
   "description": "A more strongly typed version of GraphQL's DocumentNode.",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -24,8 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-typed/README.md",
   "peerDependencies": {
-    "graphql": ">=14.5.0 <15.0.0",
-    "tslib": "^1.14.1"
+    "graphql": ">=14.5.0 <15.0.0"
   },
   "files": [
     "build/*",
