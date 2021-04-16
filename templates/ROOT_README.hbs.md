@@ -45,4 +45,4 @@ For Shopifolk, you can reach out to us in Slack in the `#kernel-web-foundations`
 
 MIT &copy; [Shopify](https://shopify.com/), see [LICENSE.md](LICENSE.md) for details.
 
-<a href="http://www.shopify.com/"><img src="https://cdn.shopify.com/assets2/brand-assets/shopify-logo-main-8ee1e0052baf87fd9698ceff7cbc01cc36a89170212ad227db3ff2706e89fd04.svg" alt="Shopify" width="200" /></a>
+[<img src="images/shopify.svg" alt="Shopify" width="200" />](https://www.shopify.com/)
