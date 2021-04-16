@@ -18,7 +18,8 @@
     "clean": "rimraf ./packages/*/build ./packages/*/*.{d.ts,js,esnext,mjs} .sewing-kit",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",
-    "yalc": "yalc"
+    "yalc": "yalc",
+    "updated": "lerna updated"
   },
   "repository": {
     "type": "git",

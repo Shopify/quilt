@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "6.3.6",
+  "version": "6.3.7",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React",
   "main": "index.js",
@@ -35,7 +35,7 @@
     "graphql-typed": "^0.7.2"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^2.3.1"
+    "@shopify/react-testing": "^2.3.2"
   },
   "files": [
     "build/*",
