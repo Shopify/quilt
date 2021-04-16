@@ -55,10 +55,7 @@ export default class AddressFormatter {
    */
   async format(address: Address): Promise<string[]> {
     const country = await this.getCountry(address.country);
-    const layout = country.formatting.show || DEFAULT_SHOW_LAYOUT;
-    return layout
-      .split(LINE_DELIMITER)
-      .map(fields => renderLineTemplate(country, fields, address).trim());
+    return format(address, country);
   }
 
   /* Returns an array that shows how to order fields based on the country code
@@ -76,17 +73,7 @@ export default class AddressFormatter {
   async getOrderedFields(countryCode: string): Promise<FieldName[][]> {
     const country = await this.getCountry(countryCode);
 
-    const format = country ? country.formatting.edit : DEFAULT_FORM_LAYOUT;
-
-    return format.split(LINE_DELIMITER).map(fields => {
-      const result = fields.match(FIELD_REGEXP);
-      if (!result) {
-        return [];
-      }
-      return result.map(field => {
-        return FIELDS_MAPPING[field];
-      });
-    });
+    return getOrderedFields(country);
   }
 
   private loadCountryFromCache(
@@ -100,4 +87,24 @@ export default class AddressFormatter {
 
     return null;
   }
+}
+
+export function format(address: Address, country: Country): string[] {
+  const layout = country.formatting.show || DEFAULT_SHOW_LAYOUT;
+  return layout
+    .split(LINE_DELIMITER)
+    .map(fields => renderLineTemplate(country, fields, address).trim());
+}
+export function getOrderedFields(country: Country): FieldName[][] {
+  const format = country ? country.formatting.edit : DEFAULT_FORM_LAYOUT;
+
+  return format.split(LINE_DELIMITER).map(fields => {
+    const result = fields.match(FIELD_REGEXP);
+    if (!result) {
+      return [];
+    }
+    return result.map(field => {
+      return FIELDS_MAPPING[field];
+    });
+  });
 }
