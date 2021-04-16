@@ -8,6 +8,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## Unreleased
 
 - Fixed types on `translate` when `undefined` or `boolean` is used in a replacement dictionary.
+- adjusted `translate` types when a react node is used in a replacement dictionary.
 
 ## 5.3.4 - 2021-04-13
 

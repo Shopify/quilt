@@ -24,7 +24,7 @@ export interface PrimitiveReplacementDictionary {
 }
 
 export interface ComplexReplacementDictionary {
-  [key: string]: string | number | React.ReactNode;
+  [key: string]: React.ReactNode;
 }
 
 export type MaybePromise<T> = T | Promise<T>;

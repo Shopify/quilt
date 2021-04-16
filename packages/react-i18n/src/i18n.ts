@@ -134,13 +134,13 @@ export class I18n {
     id: string,
     options: TranslateOptions,
     replacements?: ComplexReplacementDictionary,
-  ): React.ReactElement<any>;
+  ): (string | React.ReactElement<any>)[];
 
   translate(id: string, replacements?: PrimitiveReplacementDictionary): string;
   translate(
     id: string,
     replacements?: ComplexReplacementDictionary,
-  ): React.ReactElement<any>;
+  ): (string | React.ReactElement<any>)[];
 
   translate(
     id: string,
@@ -151,7 +151,7 @@ export class I18n {
     replacements?:
       | PrimitiveReplacementDictionary
       | ComplexReplacementDictionary,
-  ): any {
+  ): string | (string | React.ReactElement<any>)[] {
     const {pseudolocalize} = this;
     let normalizedOptions: RootTranslateOptions<
       PrimitiveReplacementDictionary | ComplexReplacementDictionary
