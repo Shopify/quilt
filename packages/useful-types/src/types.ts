@@ -94,8 +94,8 @@ type DeepOmitHelper<T, K extends keyof T> = {
     ? TP extends Primitive
       ? TP
       : TP extends any[]
-      ? DeepOmitArray<TP, K>
-      : DeepOmit<TP, K>
+        ? DeepOmitArray<TP, K>
+        : DeepOmit<TP, K>
     : never;
 };
 export type DeepOmit<T, K> = T extends Primitive
