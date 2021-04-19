@@ -2,4 +2,4 @@ audience: partner
 classification: library
 ci_url: https://travis-ci.org/Shopify/quilt
 slack_channels:
-  - kernel-web-foundations
+  - web-foundations
