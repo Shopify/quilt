@@ -15,7 +15,7 @@ Quilt provides a generator for creating new packages. Simply run `yarn generate:
 
 ### Naming
 
-If you need help with finding a good name for your package, feel free to reach our in `#help-kernel-web-foundations` on Slack, or else just pick a relevant name and add a comment to the PR asking for feedback.
+If you need help with finding a good name for your package, feel free to reach our in `#web-foundations` on Slack, or else just pick a relevant name and add a comment to the PR asking for feedback.
 
 ## Trading in a PR
 
