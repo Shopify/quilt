@@ -2,10 +2,12 @@ import {useCallback, useMemo} from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
 
 import {
-  SubmitHandler,
-  FormMapping,
   FieldBag,
+  FormInput,
+  FormWithDynamicListsInput,
+  FormWithoutDynamicListsInput,
   Form,
+  FormWithDynamicLists,
   DynamicListBag,
 } from '../types';
 import {validateAll, makeCleanFields} from '../utilities';
@@ -13,7 +15,7 @@ import {validateAll, makeCleanFields} from '../utilities';
 import {useDirty} from './dirty';
 import {useReset} from './reset';
 import {useSubmit} from './submit';
-import {useDynamicList, useDynamicListDirty, useDynamicListReset} from './list';
+import {useDynamicListDirty, useDynamicListReset} from './list';
 
 /**
  * A custom hook for managing the state of an entire form. `useForm` wraps up many of the other hooks in this package in one API, and when combined with `useField` and `useList`, allows you to easily build complex forms with smart defaults for common cases.
@@ -80,14 +82,22 @@ import {useDynamicList, useDynamicListDirty, useDynamicListReset} from './list';
 export function useForm<T extends FieldBag>({
   fields,
   onSubmit,
+  makeCleanAfterSubmit,
+}: FormWithoutDynamicListsInput<T>): Form<T>;
+
+export function useForm<T extends FieldBag, D extends DynamicListBag>({
+  fields,
   dynamicLists,
+  onSubmit,
+  makeCleanAfterSubmit,
+}: FormWithDynamicListsInput<T, D>): FormWithDynamicLists<T, D>;
+
+export function useForm<T extends FieldBag, D extends DynamicListBag>({
+  fields,
+  dynamicLists,
+  onSubmit,
   makeCleanAfterSubmit = false,
-}: {
-  fields: T;
-  onSubmit?: SubmitHandler<FormMapping<T, 'value'>>;
-  makeCleanAfterSubmit?: boolean;
-  dynamicLists?: DynamicListBag;
-}): Form<T> {
+}: FormInput<T, D>) {
   const fieldsWithLists = useMemo(() => {
     if (dynamicLists) {
       const fieldsWithList = {...fields};
@@ -128,13 +138,7 @@ export function useForm<T extends FieldBag>({
     fieldsRef,
   ]);
 
-  const defaultDynamicListBag = {
-    defaultDynamicList: useDynamicList<{}>([], () => {
-      return {};
-    }),
-  };
-
-  return {
+  const form: Form<T> = {
     fields,
     dirty: dirty || dynamicListDirty,
     submitting,
@@ -143,6 +147,11 @@ export function useForm<T extends FieldBag>({
     validate,
     makeClean,
     submitErrors: errors,
-    dynamicLists: dynamicLists || defaultDynamicListBag,
   };
+
+  if (dynamicLists) {
+    return {...form, dynamicLists};
+  }
+
+  return form;
 }
