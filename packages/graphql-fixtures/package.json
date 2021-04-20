@@ -23,6 +23,7 @@
   "dependencies": {
     "@shopify/useful-types": "^2.3.4",
     "@types/faker": "^4.1.2",
+    "core-js": "^3.0.0",
     "faker": "^4.1.0",
     "graphql": ">=14.5.0 <15.0.0",
     "graphql-tool-utilities": "^1.4.2"

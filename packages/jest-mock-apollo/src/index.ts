@@ -1,3 +1,5 @@
+import './polyfills';
+
 export {default} from './graphqlClient';
 export type {MockGraphQLClient, GraphQLClientConfig} from './graphqlClient';
 
