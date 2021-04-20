@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+- Updated library to allow running axe test on specific story ids
+
 ## 0.0.3 - 2021-04-13
 
 ### Changed
