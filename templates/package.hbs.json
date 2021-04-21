@@ -5,9 +5,7 @@
   "description": "{{{description}}}",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
+  "scripts": {},
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,9 +21,7 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/{{name}}/README.md",
-  "dependencies": {
-    "tslib": "^1.14.1"
-  },
+  "dependencies": {},
   "files": [
     "build/*",
     "!*.tsbuildinfo",

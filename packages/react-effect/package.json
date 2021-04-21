@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-effect",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "license": "MIT",
   "description": "A component and set of utilities for performing effects within a universal React app",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,9 +20,6 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-effect/README.md",
-  "dependencies": {
-    "tslib": "^1.14.1"
-  },
   "devDependencies": {
     "@types/react-dom": "^16.0.11"
   },

@@ -11,7 +11,7 @@ interface Options {
 export default function addReleaseToChangelog({version, date, notes}: Options) {
   return function addReleaseToChangelogPlugin() {
     const commentedUnreleasedNode = build('html', {
-      value: '<!-- ## [Unreleased] -->',
+      value: '<!-- ## Unreleased -->',
     });
     const releaseVersionNode = build(
       'heading',
@@ -58,5 +58,5 @@ function isUnreleasdHeading(node) {
 
 function isUnreleasdComment(node) {
   const {type, value} = node;
-  return type === 'html' && value === '<!-- ## [Unreleased] -->';
+  return type === 'html' && value === '<!-- ## Unreleased -->';
 }

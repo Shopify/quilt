@@ -1,13 +1,10 @@
 {
   "name": "@shopify/logger",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -25,8 +22,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "log-symbols": "^2.2.0",
-    "pretty-ms": "^3.2.0",
-    "tslib": "^1.14.1"
+    "pretty-ms": "^3.2.0"
   },
   "sideEffects": false,
   "files": [

@@ -76,7 +76,7 @@ interface Cache {
   [key: string]: Promise<any>;
 }
 
-function memoizeAsync(asyncFunction: AsyncFunc) {
+function memoizeAsync(this: unknown, asyncFunction: AsyncFunc) {
   const cache: Cache = {};
 
   return (...args: any[]) => {

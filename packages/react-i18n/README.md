@@ -521,7 +521,7 @@ Additional details on why we built our own package, and on specifics of parts of
 
 ### How do I get this i18n library to work with React Native?
 
-[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version [2.3.0](https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version 2.3.0(https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
 
 **Note**: You will need a script to generate `index` files:
 

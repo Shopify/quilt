@@ -652,7 +652,7 @@ const emptyCardFactory = (): Card => ({
   cvv: '',
 });
 
-const {fields, addItem, removeItem, moveItem} = useDynamicList(
+const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
   [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
   emptyCardFactory,
 );
@@ -672,7 +672,7 @@ const emptyCardFactory = (): Card[] => [
   },
 ];
 
-const {fields, addItem, removeItem, moveItem} = useDynamicList(
+const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
   [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
   emptyCardFactory,
 );
@@ -717,6 +717,9 @@ You can choose to initialize the list with an existing number of cards or no car
           Move Item Down
         </Button>
       </div>
+      <Button disabled={!dirty} onClick={reset}>
+        Reset
+      </Button>
     </FormLayout.Group>
   ));
 }
@@ -742,12 +745,29 @@ You can then use this argument to do as you wish :).
 
 Yes this works out of the box with `useForm` and is compatible with what `useList` is compatible with.
 
-We would utilize it the following way
+You would utilize it the following way in order to use the forms reset and dirty state for the `DynamicList` as well as others fields.
 
 ```tsx
-const {submit, dirty, submitting} = useForm({
+const {submit, dirty, submitting, reset} = useForm({
   fields: {
-    fields, // the fields returned from useDynamicList.
+    title: useField('')
+  },
+  dynamicLists: {
+    customerCards: useDynamicList<Card>([{cardNumber: '4242 4242 4242 4242', cvv: '422'}], emptyCardFactory)
+  },
+  onSubmit: async fieldValues => {
+    console.log(fieldValues);
+    return {status: 'success'};
+  },
+});
+```
+
+you can directly pass a dynamic list within `fields` but note that the `reset` function returned by `useForm` will only reset each field, plus the `dirty` state will only reflect dirty fields within each item.
+
+```tsx
+const {submit, dirty, submitting, reset} = useForm({
+  fields: {
+    fields,  // the fields returned from useDynamicList.
   },
   onSubmit: async fieldValues => {
     console.log(fieldValues);

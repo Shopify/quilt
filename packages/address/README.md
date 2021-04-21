@@ -23,15 +23,15 @@ Instantiate the AddressFormatter by passing it a locale.
 
 #### `updateLocale(locale: string)`
 
-Update the locale of the formatter. Following requests will be in the given locale.
+Update the current locale of the formatter. Following requests will be in the given locale.
 
 #### `async .getCountry(countryCode: string): Promise<Country>`
 
-Loads and return data about a given country in the locale used for instanciation. Country and province names are localized. Province names are ordered based on the locale
+Loads and returns data about a given country in the current locale. Country and province names are localized. Province names are sorted based on the locale.
 
 #### `async .getCountries(): Promise<Country[]>`
 
-Loads and return data about a all countries in the given locale. Countries are ordered alphabetically based on the locale. Zones are also ordered based on the locale.
+Loads and returns data for all countries in the current locale. Countries are sorted based on the locale. Zones are also ordered based on the locale.
 
 #### `async .getOrderedFields(countryCode): FieldName[][]`
 
@@ -53,7 +53,7 @@ Eg.:
 
 #### `async .format(address: Address): string[]`
 
-Given an address, returns the address ordered for multiline show. Eg.
+Given an address, returns the address ordered for multiline rendering. e.g.:
 
 ```typescript
 ['Shopify', 'Lindenstraße 9-14', '10969 Berlin', 'Germany'];
@@ -104,7 +104,7 @@ await addressFormatter.getOrderedFields('CA');
 
 ## Testing
 
-If your component uses this package and you want to test it with mock API calls you can use the following
+If your component uses this package and you want to test it with mock API calls you can use the following:
 
 ```
 import {fetch} from '@shopify/jest-dom-mocks';

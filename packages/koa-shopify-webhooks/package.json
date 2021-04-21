@@ -1,13 +1,10 @@
 {
   "name": "@shopify/koa-shopify-webhooks",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "license": "MIT",
   "description": "Receive webhooks from Shopify with ease",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -24,13 +21,12 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-shopify-webhooks/README.md",
   "dependencies": {
-    "@shopify/network": "^1.6.3",
+    "@shopify/network": "^1.6.4",
     "@types/koa": "^2.0.0",
     "koa-bodyparser": "^4.2.1",
     "koa-compose": ">=3.0.0 <4.0.0",
     "koa-mount": "^4.0.0",
-    "safe-compare": "^1.1.3",
-    "tslib": "^1.14.1"
+    "safe-compare": "^1.1.3"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.2.1",

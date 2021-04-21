@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-shortcuts",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "license": "MIT",
   "description": "Declaratively and efficiently match shortcut combinations in your React application",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -24,9 +21,6 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-shortcuts/README.md",
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
-  },
-  "dependencies": {
-    "tslib": "^1.14.1"
   },
   "sideEffects": false,
   "files": [

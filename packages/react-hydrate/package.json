@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-hydrate",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "license": "MIT",
   "description": "Utilities for hydrating server-rendered React apps",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -24,9 +21,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-hydrate/README.md",
   "dependencies": {
-    "@shopify/react-effect": "^3.3.3",
-    "@shopify/react-hooks": "^1.12.3",
-    "tslib": "^1.14.1"
+    "@shopify/react-effect": "^3.3.4",
+    "@shopify/react-hooks": "^1.13.1"
   },
   "devDependencies": {
     "faker": "^4.1.0"

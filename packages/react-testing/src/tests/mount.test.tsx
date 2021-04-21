@@ -59,7 +59,15 @@ describe('createMount()', () => {
 
     customMount(<div />, options);
 
-    expect(spy).toHaveBeenCalledWith(element, context, options);
+    expect(spy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        props: {
+          children: element,
+        },
+      }),
+      context,
+      options,
+    );
   });
 
   it('resolves the returned Root instance to the top level node in the original tree', () => {
@@ -206,7 +214,7 @@ describe('createMount()', () => {
       extendedMount(element, finalOptions);
 
       expect(additionalRenderSpy).toHaveBeenCalledWith(
-        element,
+        expect.objectContaining({props: {children: element}}),
         finalContext,
         finalOptions,
       );

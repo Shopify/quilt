@@ -1,13 +1,10 @@
 {
   "name": "@shopify/async",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -59,8 +56,5 @@
       "require": "./index.js",
       "esnext": "./index.esnext"
     }
-  },
-  "dependencies": {
-    "tslib": "^1.14.1"
   }
 }

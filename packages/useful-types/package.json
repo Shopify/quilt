@@ -1,13 +1,10 @@
 {
   "name": "@shopify/useful-types",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,9 +20,6 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/useful-types/README.md",
-  "dependencies": {
-    "tslib": "^1.14.1"
-  },
   "files": [
     "build/*",
     "!*.tsbuildinfo",
