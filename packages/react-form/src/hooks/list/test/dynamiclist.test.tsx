@@ -73,6 +73,9 @@ describe('useDynamicList', () => {
     });
 
     it('will throw an error if new position is out of index range', () => {
+      const consoleErrorMock = jest.spyOn(console, 'error');
+      consoleErrorMock.mockImplementation();
+
       const variants: Variant[] = [
         {price: 'A', optionName: 'A', optionValue: 'A'},
         {price: 'B', optionName: 'B', optionValue: 'B'},
@@ -86,6 +89,8 @@ describe('useDynamicList', () => {
           .findAll('button', {children: 'Move Variant up'})![0]
           .trigger('onClick');
       }).toThrow('Failed to move item from 0 to -1');
+
+      consoleErrorMock.mockRestore();
     });
 
     it('can remove field', () => {
