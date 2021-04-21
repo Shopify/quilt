@@ -17,26 +17,36 @@ import {
 
 describe('useBaseList', () => {
   function TestList(config: FieldListConfig<Variant>) {
-    const {fields} = useBaseList<Variant>(config);
+    const {fields, dirty, reset} = useBaseList<Variant>(config);
 
     return (
-      <ul>
-        {fields.map((fields, index) => (
-          <li key={index}>
-            <TextField label="price" name={`price${index}`} {...fields.price} />
-            <TextField
-              label="option"
-              name={`option${index}`}
-              {...fields.optionName}
-            />
-            <TextField
-              label="value"
-              name={`value${index}`}
-              {...fields.optionValue}
-            />
-          </li>
-        ))}
-      </ul>
+      <>
+        <ul>
+          {fields.map((fields, index) => (
+            <li key={index}>
+              <TextField
+                label="price"
+                name={`price${index}`}
+                {...fields.price}
+              />
+              <TextField
+                label="option"
+                name={`option${index}`}
+                {...fields.optionName}
+              />
+              <TextField
+                label="value"
+                name={`value${index}`}
+                {...fields.optionValue}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <button type="button" onClick={reset}>
+          {dirty}
+        </button>
+      </>
     );
   }
 
@@ -702,6 +712,59 @@ describe('useBaseList', () => {
           name: 'price1',
           value: '',
         });
+      });
+    });
+  });
+
+  describe('reset and dirty', () => {
+    it('can reset base list', () => {
+      const price = '1.00';
+      const variants: Variant[] = [
+        {
+          price,
+          optionName: 'material',
+          optionValue: faker.commerce.productMaterial(),
+        },
+      ];
+
+      const newPrice = faker.commerce.price();
+      const wrapper = mount(<TestList list={variants} />);
+      wrapper.find(TextField, {name: 'price0'})!.trigger('onChange', newPrice);
+
+      expect(wrapper).toContainReactComponent(TextField, {
+        name: 'price0',
+        value: newPrice,
+      });
+
+      wrapper.find('button')!.trigger('onClick');
+
+      expect(wrapper).toContainReactComponent(TextField, {
+        name: 'price0',
+        value: price,
+      });
+    });
+
+    it('returns the expected dirty state', () => {
+      const variants: Variant[] = [
+        {
+          price: '1.00',
+          optionName: 'material',
+          optionValue: faker.commerce.productMaterial(),
+        },
+      ];
+
+      const newPrice = faker.commerce.price();
+      const wrapper = mount(<TestList list={variants} />);
+      wrapper.find(TextField, {name: 'price0'})!.trigger('onChange', newPrice);
+
+      expect(wrapper).toContainReactComponent('button', {
+        children: true,
+      });
+
+      wrapper.find('button')!.trigger('onClick');
+
+      expect(wrapper).toContainReactComponent('button', {
+        children: false,
       });
     });
   });

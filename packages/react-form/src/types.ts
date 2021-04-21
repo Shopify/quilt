@@ -1,5 +1,7 @@
 import {ChangeEvent} from 'react';
 
+import {DynamicList} from './hooks/list/dynamiclist';
+
 export type ErrorValue = string | undefined;
 export type DirtyStateComparator<Value> = (
   defaultValue: Value,
@@ -63,6 +65,24 @@ export type FieldDictionary<Record extends object> = {
   [Key in keyof Record]: Field<Record[Key]>;
 };
 
+export interface FormWithoutDynamicListsInput<T extends FieldBag> {
+  fields: T;
+  onSubmit?: SubmitHandler<FormMapping<T, 'value'>>;
+  makeCleanAfterSubmit?: boolean;
+}
+
+export interface FormWithDynamicListsInput<
+  T extends FieldBag,
+  D extends DynamicListBag
+> extends FormWithoutDynamicListsInput<T> {
+  dynamicLists: D;
+}
+
+export interface FormInput<T extends FieldBag, D extends DynamicListBag>
+  extends FormWithoutDynamicListsInput<T> {
+  dynamicLists?: D;
+}
+
 export interface Form<T extends FieldBag> {
   fields: T;
   dirty: boolean;
@@ -72,6 +92,13 @@ export interface Form<T extends FieldBag> {
   reset(): void;
   submit(event?: React.FormEvent): void;
   makeClean(): void;
+}
+
+export interface FormWithDynamicLists<
+  T extends FieldBag,
+  D extends DynamicListBag
+> extends Form<T> {
+  dynamicLists: D;
 }
 
 export interface FormError {
@@ -95,6 +122,12 @@ export type FieldOutput<T extends object> =
 
 export interface FieldBag {
   [key: string]: FieldOutput<any>;
+}
+
+export type DynamicListOutput<V extends object> = DynamicList<V>;
+
+export interface DynamicListBag {
+  [key: string]: DynamicListOutput<any>;
 }
 
 export interface SubmitHandler<Fields> {

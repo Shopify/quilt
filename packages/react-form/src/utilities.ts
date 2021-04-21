@@ -13,6 +13,7 @@ import {
 
 export function isField<T extends Object>(input: any): input is Field<T> {
   return (
+    Boolean(input) &&
     Object.prototype.hasOwnProperty.call(input, 'value') &&
     Object.prototype.hasOwnProperty.call(input, 'onChange') &&
     Object.prototype.hasOwnProperty.call(input, 'onBlur') &&
