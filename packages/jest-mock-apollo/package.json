@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/jest-mock-apollo/README.md",
   "dependencies": {
     "apollo-link": "^1.2.3",
+    "core-js": "^3.0.0",
     "graphql": "^14.0.0",
     "graphql-tool-utilities": "^1.4.2"
   },
