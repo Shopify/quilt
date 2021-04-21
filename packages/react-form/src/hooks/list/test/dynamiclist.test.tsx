@@ -13,9 +13,14 @@ describe('useDynamicList', () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {fields, addItem, removeItem, moveItem, reset} = useDynamicList<
-        Variant
-      >(config, factory);
+      const {
+        fields,
+        addItem,
+        removeItem,
+        moveItem,
+        reset,
+        dirty,
+      } = useDynamicList<Variant>(config, factory);
 
       return (
         <>
@@ -48,6 +53,7 @@ describe('useDynamicList', () => {
           <button type="button" onClick={reset}>
             Reset
           </button>
+          <p>Dirty: {dirty.toString()}</p>
         </>
       );
     }
@@ -112,8 +118,6 @@ describe('useDynamicList', () => {
       wrapper
         .find('button', {children: 'Add Variant'})!
         .trigger('onClick', clickEvent());
-
-      // const addedTextField = wrapper.findAll(TextField)![0];
 
       expect(wrapper).toContainReactComponent(TextField, {
         name: 'price1',
@@ -206,6 +210,66 @@ describe('useDynamicList', () => {
           .trigger('onClick', clickEvent());
 
         expect(wrapper).toContainReactComponent(TextField);
+      });
+    });
+
+    describe('dirty dynamic list', () => {
+      it('handles dirty state when adding a field and resetting it', () => {
+        const wrapper = mount(
+          <DynamicListComponent list={randomVariants(1)} />,
+        );
+
+        expect(wrapper).toContainReactText('Dirty: false');
+
+        wrapper
+          .find(TextField, {name: 'price0'})!
+          .trigger('onChange', 'new value');
+
+        expect(wrapper).toContainReactText('Dirty: true');
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: false');
+      });
+
+      it('handles dirty state when adding a field and resetting it', () => {
+        const wrapper = mount(<DynamicListComponent list={randomVariants()} />);
+
+        expect(wrapper).toContainReactText('Dirty: false');
+
+        wrapper
+          .find('button', {children: 'Add Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: true');
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: false');
+      });
+
+      it('handles dirty state when removing a field and resetting it', () => {
+        const wrapper = mount(
+          <DynamicListComponent list={randomVariants(1)} />,
+        );
+
+        expect(wrapper).toContainReactText('Dirty: false');
+
+        wrapper
+          .find('button', {children: 'Remove Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: true');
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: false');
       });
     });
   });
