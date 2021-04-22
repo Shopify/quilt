@@ -1,5 +1,3 @@
-import './polyfills';
-
 import {dirname, basename} from 'path';
 
 import {

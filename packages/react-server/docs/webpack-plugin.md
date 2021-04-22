@@ -125,6 +125,16 @@ export default function App({url, data}: {url: Url, data: Record<string, any>}) 
 }
 ```
 
+### Error component
+
+There is a default error page used to display production SSR errors built into this library.
+
+This can be customized using the `renderError` option for `createServer` or `createRender`.
+
+To use a custom error page with React Server Webpack Plugin, add an `error.ts`/`tsx`/`jsx` file and have it export the component you wish to use as an error page as a default export. Place this file in your project's react-server `basePath` (typically where your index.ts/tsx/jsx is).
+
+A virtual entry point file `error.entry.client.js` will be built at compile time for you when a `error.ts`/`tsx`/`jsx` file exist, which the webpack plugin will pick up as an entry point for SSR error display.
+
 ### API
 
 The plugin is exported as a named export.
