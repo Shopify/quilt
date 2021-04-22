@@ -1,5 +1,3 @@
-import './polyfills';
-
 import {resolve} from 'path';
 
 import {readFile, readJSON} from 'fs-extra';

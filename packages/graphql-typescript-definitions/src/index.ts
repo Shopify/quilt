@@ -1,4 +1,3 @@
-import './polyfills';
 import {EventEmitter} from 'events';
 import {join, resolve} from 'path';
 
