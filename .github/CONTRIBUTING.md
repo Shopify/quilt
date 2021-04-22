@@ -67,7 +67,7 @@ You may also run this command to rebuild and publish every time a change is dete
 npx nodemon --watch packages/<package-folder-name> \
   --exec 'yarn build --root packages/<package-folder-name> \
   && npx yalc publish --push packages/<package-folder-name>' \
-  --ignore packages/<package-folder-name> \
+  --ignore packages/<package-folder-name>/build \
   --ext ts --ignore '*.d.ts'
 ```
 
