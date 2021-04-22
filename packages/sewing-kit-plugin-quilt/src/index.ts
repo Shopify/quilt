@@ -66,6 +66,7 @@ export interface QuiltWebAppOptions {
   readonly browserGroups?: NonNullable<
     Parameters<typeof webAppMultiBuilds>[0]
   >['browserGroups'];
+  readonly skipBuild?: boolean;
 }
 
 export function quiltWebApp({
@@ -74,6 +75,7 @@ export function quiltWebApp({
   cdn: cdnUrl,
   graphql: {export: exportStyle = 'simple'} = {},
   browserGroups,
+  skipBuild = false,
 }: QuiltWebAppOptions = {}) {
   return createComposedProjectPlugin<WebApp>('Quilt.WebApp', composer => {
     composer.use(
@@ -83,10 +85,10 @@ export function quiltWebApp({
       webpackHooks(),
       webAppMultiBuilds({babel: true, postcss: true, browserGroups}),
       webpackDevWebApp({assetServer}),
-      webpackBuild(),
+      !skipBuild && webpackBuild(),
       flexibleOutputs(),
       react(),
-      reactJsxRuntime(),
+      !skipBuild && reactJsxRuntime(),
       graphql({export: exportStyle}),
       webAppConvenienceAliases(),
       webAppMagicModules(),
