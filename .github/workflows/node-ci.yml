@@ -89,9 +89,9 @@ jobs:
           path: |
             .sewing-kit/
             ./packages/*/build/
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: ${{ runner.os }}-${{ matrix.node-version }}-build-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-${{ matrix.node-version }}-build-
 
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile
@@ -138,9 +138,9 @@ jobs:
             ./packages/*/*.esnext
             ./packages/*/*.mjs
             ./packages/*/*.js
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: ${{ runner.os }}-${{ matrix.node-version }}-build-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-${{ matrix.node-version }}-build-
 
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile
@@ -187,9 +187,9 @@ jobs:
           path: |
             .sewing-kit/
             ./packages/*/build/
-          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-${{ matrix.node-version }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-
+            ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-${{ matrix.node-version }}-
 
       - name: 📦 Install dependencies
         run: yarn --production=false --frozen-lockfile
