@@ -1,4 +1,3 @@
-import './polyfills';
 import faker from 'faker';
 import {
   GraphQLSchema,
