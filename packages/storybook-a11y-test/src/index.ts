@@ -78,6 +78,7 @@ export async function storybookA11yTest({
   iframePath,
   skippedStoryIds = [],
   concurrentCount = os.cpus().length,
+  timeout = 3000,
 }) {
   try {
     // Open a browser
@@ -98,7 +99,7 @@ export async function storybookA11yTest({
 
       try {
         const page = await browser.newPage();
-        await page.goto(url);
+        await page.goto(url, {timeout});
         const result = await page.evaluate(() =>
           window.axe.run(document.getElementById('root'), {}),
         );
