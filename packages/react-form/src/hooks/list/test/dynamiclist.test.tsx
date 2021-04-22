@@ -13,38 +13,48 @@ describe('useDynamicList', () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {fields, addItem, removeItem, moveItem} = useDynamicList<Variant>(
-        config,
-        factory,
-      );
+      const {
+        fields,
+        addItem,
+        removeItem,
+        moveItem,
+        reset,
+        dirty,
+      } = useDynamicList<Variant>(config, factory);
 
       return (
-        <ul>
-          {fields.map((fields, index) => (
-            <li key={index}>
-              <TextField
-                label="price"
-                name={`price${index}`}
-                {...fields.price}
-              />
-              <button type="button" onClick={() => removeItem(index)}>
-                Remove Variant
-              </button>
-              <button
-                type="button"
-                title="move up"
-                onClick={() => {
-                  moveItem(index, index - 1);
-                }}
-              >
-                Move Variant up
-              </button>
-            </li>
-          ))}
-          <button type="button" onClick={() => addItem()}>
-            Add Variant
+        <>
+          <ul>
+            {fields.map((fields, index) => (
+              <li key={index}>
+                <TextField
+                  label="price"
+                  name={`price${index}`}
+                  {...fields.price}
+                />
+                <button type="button" onClick={() => removeItem(index)}>
+                  Remove Variant
+                </button>
+                <button
+                  type="button"
+                  title="move up"
+                  onClick={() => {
+                    moveItem(index, index - 1);
+                  }}
+                >
+                  Move Variant up
+                </button>
+              </li>
+            ))}
+            <button type="button" onClick={() => addItem()}>
+              Add Variant
+            </button>
+          </ul>
+          <button type="button" onClick={reset}>
+            Reset
           </button>
-        </ul>
+          <p>Dirty: {dirty.toString()}</p>
+        </>
       );
     }
 
@@ -69,6 +79,9 @@ describe('useDynamicList', () => {
     });
 
     it('will throw an error if new position is out of index range', () => {
+      const consoleErrorMock = jest.spyOn(console, 'error');
+      consoleErrorMock.mockImplementation();
+
       const variants: Variant[] = [
         {price: 'A', optionName: 'A', optionValue: 'A'},
         {price: 'B', optionName: 'B', optionValue: 'B'},
@@ -82,6 +95,8 @@ describe('useDynamicList', () => {
           .findAll('button', {children: 'Move Variant up'})![0]
           .trigger('onClick');
       }).toThrow('Failed to move item from 0 to -1');
+
+      consoleErrorMock.mockRestore();
     });
 
     it('can remove field', () => {
@@ -103,8 +118,6 @@ describe('useDynamicList', () => {
       wrapper
         .find('button', {children: 'Add Variant'})!
         .trigger('onClick', clickEvent());
-
-      // const addedTextField = wrapper.findAll(TextField)![0];
 
       expect(wrapper).toContainReactComponent(TextField, {
         name: 'price1',
@@ -154,6 +167,110 @@ describe('useDynamicList', () => {
       expect(
         wrapper.findAll('button', {children: 'Remove Variant'}),
       ).toHaveLength(0);
+    });
+
+    describe('reset dynamic list', () => {
+      it('can reset a dynamic list after adding a field', () => {
+        const variants: Variant[] = randomVariants(1);
+
+        const wrapper = mount(<DynamicListComponent list={variants} />);
+
+        wrapper
+          .find('button', {children: 'Add Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactComponent(TextField, {
+          name: 'price1',
+          value: '',
+        });
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).not.toContainReactComponent(TextField, {
+          name: 'price1',
+          value: '',
+        });
+      });
+
+      it('can reset a dynamic list after removing a field', () => {
+        const variants: Variant[] = randomVariants(1);
+
+        const wrapper = mount(<DynamicListComponent list={variants} />);
+
+        wrapper
+          .find('button', {children: 'Remove Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).not.toContainReactComponent(TextField);
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactComponent(TextField);
+      });
+    });
+
+    describe('dirty dynamic list', () => {
+      it('handles dirty state when changing the value of a field', () => {
+        const wrapper = mount(
+          <DynamicListComponent list={randomVariants(1)} />,
+        );
+
+        expect(wrapper).toContainReactText('Dirty: false');
+
+        wrapper
+          .find(TextField, {name: 'price0'})!
+          .trigger('onChange', 'new value');
+
+        expect(wrapper).toContainReactText('Dirty: true');
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: false');
+      });
+
+      it('handles dirty state when adding a field and resetting it', () => {
+        const wrapper = mount(<DynamicListComponent list={randomVariants()} />);
+
+        expect(wrapper).toContainReactText('Dirty: false');
+
+        wrapper
+          .find('button', {children: 'Add Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: true');
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: false');
+      });
+
+      it('handles dirty state when removing a field and resetting it', () => {
+        const wrapper = mount(
+          <DynamicListComponent list={randomVariants(1)} />,
+        );
+
+        expect(wrapper).toContainReactText('Dirty: false');
+
+        wrapper
+          .find('button', {children: 'Remove Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: true');
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: false');
+      });
     });
   });
 
