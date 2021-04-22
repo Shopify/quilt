@@ -19,7 +19,7 @@ Make sure you have built your storybook instance and there is an `iframe.html` f
 ```js
 const {storybookA11yTest} = require('./built-a11y-package');
 
-(async() => {
+(async () => {
   const options = {
     iframePath: `file://${__dirname}/../build/storybook/static/iframe.html`,
     skippedStoryIds: [],
@@ -52,3 +52,7 @@ An array of storybook id's to skip.
 #### concurrentCount `number` (optional)
 
 The number of tabs to open in chromium. The default option is based off the number of CPU cores available `os.cpus().length`.
+
+#### timeout `number` (optional)
+
+The goto timeout for the provided url. Defaults to 3000 (puppeteer default)

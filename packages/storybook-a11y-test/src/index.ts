@@ -99,7 +99,7 @@ export async function storybookA11yTest({
 
       try {
         const page = await browser.newPage();
-        await page.goto(url, {timeout});
+        await page.goto(url, {waitUntil: 'load', timeout});
         const result = await page.evaluate(() =>
           window.axe.run(document.getElementById('root'), {}),
         );
