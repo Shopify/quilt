@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+<!-- ## Unreleased -->
+
+## 0.13.0 - 2021-04-22
 
 - Adds reset functionality, dirty state for dynamic list, and the ability to add multiple dynamic lists to a form by adding a dynamicLists parameter to useForm [#1828](https://github.com/Shopify/quilt/pull/1828)
 
