@@ -7,11 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+- Updated library to allow running axe test on specific story ids
+
+## 0.0.3 - 2021-04-13
+
 ### Added
 
 - Added timeout option [[#1859](https://github.com/Shopify/quilt/pull/1859)]
-
-## 0.0.3 - 2021-04-13
 
 ### Changed
 
