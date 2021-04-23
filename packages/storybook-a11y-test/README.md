@@ -21,9 +21,9 @@ const {testPages, getCurrentStoryIds} = require('./built-a11y-package');
 
 (async () => {
   const iframePath = `file://${__dirname}/../build/storybook/static/iframe.html`;
-
+  const timeout = 1000;
   const storyIds = await getCurrentStoryIds({iframePath, skippedStoryIds: []});
-  const results = await testPages({iframePath, storyIds});
+  const results = await testPages({iframePath, storyIds, timeout});
 
   if (results.length) {
     console.error(`‼️  Test failures found`);
@@ -60,3 +60,7 @@ An array of storybook id's to run. These can be retrieved via the `getCurrentSto
 #### concurrentCount `number` (optional)
 
 The number of tabs to open in chromium. The default option is based off the number of CPU cores available `os.cpus().length`.
+
+#### timeout `number` (optional)
+
+The goto timeout for the provided url. Defaults to 3000 (puppeteer default)

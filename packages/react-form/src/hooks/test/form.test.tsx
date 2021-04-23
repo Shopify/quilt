@@ -1,145 +1,21 @@
 import React from 'react';
-import faker from 'faker';
 import {mount} from '@shopify/react-testing';
 
-import {SubmitHandler} from '../../types';
-import {positiveNumericString, notEmpty} from '../../validation';
+import {
+  ProductForm,
+  TextField,
+  isDirty,
+  changeTitle,
+  fakeProduct,
+  hitSubmit,
+  hitReset,
+  hitClean,
+  waitForSubmit,
+} from './utilities';
 
-import {useList, useField, useForm, submitSuccess, submitFail} from '..';
-
-interface SimpleProduct {
-  title: string;
-  description: string;
-  defaultVariant: {
-    optionName: string;
-    optionValue: string;
-    price: string;
-  };
-  variants: {
-    id: string;
-    optionName: string;
-    optionValue: string;
-    price: string;
-  }[];
-}
+import {submitSuccess, submitFail} from '..';
 
 describe('useForm', () => {
-  function ProductForm({
-    data,
-    onSubmit,
-    makeCleanAfterSubmit,
-  }: {
-    data: SimpleProduct;
-    onSubmit?: SubmitHandler<SimpleProduct>;
-    makeCleanAfterSubmit?: boolean;
-  }) {
-    const title = useField({
-      value: data.title,
-      validates: notEmpty('Title is required!'),
-    });
-    const description = useField(data.description);
-
-    const defaultVariant = {
-      price: useField({
-        value: data.defaultVariant.price,
-        validates: positiveNumericString('price must be a number'),
-      }),
-      optionName: useField(data.defaultVariant.optionName),
-      optionValue: useField(data.defaultVariant.optionValue),
-    };
-
-    const variants = useList({
-      list: data.variants,
-      validates: {
-        price: positiveNumericString('price must be a number'),
-      },
-    });
-
-    const {submit, submitting, dirty, reset, makeClean, submitErrors} = useForm(
-      {
-        fields: {title, description, defaultVariant, variants},
-        onSubmit: onSubmit as any,
-        makeCleanAfterSubmit,
-      },
-    );
-
-    return (
-      <form onSubmit={submit}>
-        {submitting && <p>loading...</p>}
-        {submitErrors.length > 0 &&
-          submitErrors.map(({message}) => <p key={message}>{message}</p>)}
-
-        <fieldset>
-          <TextField label="title" {...title} />
-          <TextField label="description" {...description} />
-        </fieldset>
-        <fieldset name="default-variant">
-          <TextField label="price" {...defaultVariant.price} />
-          <TextField label="option" {...defaultVariant.optionName} />
-          <TextField label="value" {...defaultVariant.optionValue} />
-        </fieldset>
-        {variants.map(({price, optionName, optionValue, id}) => {
-          return (
-            <fieldset name="default-variant" key={id.value}>
-              <TextField label="price" {...price} />
-              <TextField label="option" {...optionName} />
-              <TextField label="value" {...optionValue} />
-            </fieldset>
-          );
-        })}
-        <button type="button" onClick={makeClean}>
-          Clean
-        </button>
-        <button type="reset" disabled={!dirty} onClick={reset}>
-          Reset
-        </button>
-        <button type="submit" disabled={!dirty} onClick={submit}>
-          Submit
-        </button>
-      </form>
-    );
-  }
-
-  function isDirty(wrapper) {
-    try {
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'reset',
-        disabled: false,
-      });
-      expect(wrapper).toContainReactComponent('button', {
-        type: 'submit',
-        disabled: false,
-      });
-    } catch {
-      return false;
-    }
-    return true;
-  }
-
-  function changeTitle(wrapper, newTitle) {
-    wrapper.find(TextField, {label: 'title'})!.trigger('onChange', newTitle);
-  }
-
-  function hitSubmit(wrapper) {
-    wrapper.find('button', {type: 'submit'})!.trigger('onClick', clickEvent());
-  }
-
-  async function waitForSubmit(wrapper, successPromise) {
-    hitSubmit(wrapper);
-
-    await wrapper.act(async () => {
-      await successPromise;
-    });
-  }
-
-  function hitReset(wrapper) {
-    wrapper.find('button', {type: 'reset'})!.trigger('onClick', clickEvent());
-  }
-
-  function hitClean(wrapper) {
-    wrapper.find('button', {type: 'button'})!.trigger('onClick', clickEvent());
-  }
-
   describe('dirty state', () => {
     it('dirty state is false when no field has been changed', () => {
       const wrapper = mount(<ProductForm data={fakeProduct()} />);
@@ -446,60 +322,3 @@ describe('useForm', () => {
     });
   });
 });
-
-interface TextFieldProps {
-  value: string;
-  label: string;
-  name?: string;
-  error?: string;
-  onChange(value): void;
-  onBlur(): void;
-}
-
-function TextField({
-  label,
-  name = label,
-  onChange,
-  onBlur,
-  value,
-  error,
-}: TextFieldProps) {
-  return (
-    <>
-      <label htmlFor={name}>
-        {label}
-        <input
-          id={name}
-          name={name}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-        />
-      </label>
-      {error && <p>{error}</p>}
-    </>
-  );
-}
-
-function fakeProduct(): SimpleProduct {
-  return {
-    title: faker.commerce.product(),
-    description: faker.lorem.paragraph(),
-    defaultVariant: {
-      price: faker.commerce.price(),
-      optionName: 'material',
-      optionValue: faker.commerce.productMaterial(),
-    },
-    variants: Array.from({length: 2}).map(() => ({
-      id: faker.random.uuid(),
-      price: faker.commerce.price(),
-      optionName: faker.lorem.word(),
-      optionValue: faker.commerce.productMaterial(),
-    })),
-  };
-}
-
-function clickEvent() {
-  // we don't actually use these at all so it is ok to just return an empty object
-  return {} as any;
-}

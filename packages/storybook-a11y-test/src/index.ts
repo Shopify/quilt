@@ -89,15 +89,13 @@ const isAutcompleteNope = violation => {
   return isAutocompleteAttribute && hasNope;
 };
 
-const testPage = (iframePath, browser) => {
+const testPage = (iframePath, browser, timeout) => {
   return async id => {
     console.log(` - ${id}`);
 
     try {
       const page = await browser.newPage();
-      await page.goto(`${iframePath}?id=${id}`, {
-        timeout: 0,
-      });
+      await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
       const result = await page.evaluate(() =>
         window.axe.run(document.getElementById('root'), {}),
       );
@@ -122,19 +120,25 @@ export const testPages = async ({
   iframePath,
   storyIds = [],
   concurrentCount = os.cpus().length,
+  timeout = 3000,
 }: {
   iframePath: string;
   storyIds: string[];
   concurrentCount: number;
+  timeout: number;
 }) => {
   try {
     console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in chromium`));
     const browser = await getBrowser();
 
     console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
-    const results = await pMap(storyIds, testPage(iframePath, browser), {
-      concurrency: concurrentCount,
-    });
+    const results = await pMap(
+      storyIds,
+      testPage(iframePath, browser, timeout),
+      {
+        concurrency: concurrentCount,
+      },
+    );
 
     await browser.close();
 

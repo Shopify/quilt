@@ -17,7 +17,8 @@ export type ListAction<Item> =
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
-  | NewDefaultAction<Item, keyof Item>;
+  | NewDefaultAction<Item, keyof Item>
+  | ResetListAction;
 
 interface ReinitializeAction<Item> {
   type: 'reinitialize';
@@ -32,6 +33,10 @@ interface AddFieldItemAction<Item> {
 interface MoveFieldItemAction {
   type: 'moveFieldItem';
   payload: {fromIndex: number; toIndex: number};
+}
+
+interface ResetListAction {
+  type: 'resetList';
 }
 
 interface RemoveFieldItemAction {
@@ -130,6 +135,12 @@ export function resetAction<Item, Key extends keyof Item>(
   return {
     type: 'reset',
     payload,
+  };
+}
+
+export function resetListAction(): ResetListAction {
+  return {
+    type: 'resetList',
   };
 }
 
@@ -232,6 +243,9 @@ function reduceList<Item extends object>(
       currentItem[key] = reduceField(currentItem[key], {type: 'reset'});
 
       return {...state, list: [...state.list]};
+    }
+    case 'resetList': {
+      return {...state, list: state.initial.map(initialListItemState)};
     }
     case 'update':
     case 'newDefaultValue': {

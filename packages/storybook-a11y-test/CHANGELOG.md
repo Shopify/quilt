@@ -11,6 +11,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## 0.0.3 - 2021-04-13
 
+### Added
+
+- Added timeout option [[#1859](https://github.com/Shopify/quilt/pull/1859)]
+
 ### Changed
 
 - Removed dependency on tslib, as we no-longer compile with `tsc`. [#1829](https://github.com/Shopify/quilt/pull/1829)
