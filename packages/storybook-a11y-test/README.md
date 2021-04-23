@@ -17,15 +17,13 @@ $ yarn add @shopify/storybook-a11y-test
 Make sure you have built your storybook instance and there is an `iframe.html` file that you can point the test towards.
 
 ```js
-const {storybookA11yTest} = require('./built-a11y-package');
+const {testPages, getCurrentStoryIds} = require('./built-a11y-package');
 
 (async () => {
-  const options = {
-    iframePath: `file://${__dirname}/../build/storybook/static/iframe.html`,
-    skippedStoryIds: [],
-  };
-
-  const results = await storybookA11yTest(options);
+  const iframePath = `file://${__dirname}/../build/storybook/static/iframe.html`;
+  const timeout = 1000;
+  const storyIds = await getCurrentStoryIds({iframePath, skippedStoryIds: []});
+  const results = await testPages({iframePath, storyIds, timeout});
 
   if (results.length) {
     console.error(`‼️  Test failures found`);
@@ -39,7 +37,7 @@ const {storybookA11yTest} = require('./built-a11y-package');
 
 ## API
 
-### storybookA11yTest(options)
+### getCurrentStoryIds(options)
 
 #### iframePath `string`
 
@@ -48,6 +46,16 @@ The location of the built storybook `iframe.html` file.
 #### skippedStoryIds `array` (optional)
 
 An array of storybook id's to skip.
+
+### testPages(options)
+
+#### iframePath `string`
+
+The location of the built storybook `iframe.html` file.
+
+#### storyIds
+
+An array of storybook id's to run. These can be retrieved via the `getCurrentStoryIds()` function.
 
 #### concurrentCount `number` (optional)
 

@@ -12,8 +12,16 @@ declare global {
   }
 }
 
-const getUrls = async (browser, iframePath, skippedStoryIds) => {
-  // Get the URLS from storybook
+const FORMATTING_SPACER = '    ';
+
+const getBrowser = () => {
+  return puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
+};
+
+export const getStoryIds = async (iframePath: string) => {
+  const browser = await getBrowser();
   const page = await browser.newPage();
   await page.goto(iframePath);
 
@@ -21,39 +29,46 @@ const getUrls = async (browser, iframePath, skippedStoryIds) => {
     Object.keys(window.__STORYBOOK_STORY_STORE__.extract()),
   );
 
-  const skippedParams = await page.evaluate(() =>
-    window.__STORYBOOK_STORY_STORE__
-      .raw()
-      .filter(story => story.parameters.a11y && story.parameters.a11y.disable)
-      .map(story => story.id),
-  );
-
-  const skipIds = skippedStoryIds.concat(skippedParams);
-
   await page.close();
+  await browser.close();
 
-  const urls: string[] = [];
-  for (const id of storyIds) {
-    if (skipIds.every(skipId => !id.includes(skipId))) {
-      urls.push(`${iframePath}?id=${id}`);
+  return storyIds;
+};
+
+const removeSkippedStories = (skippedStoryIds: string[]) => {
+  return (selectedStories: string[] = [], storyId = '') => {
+    if (skippedStoryIds.every(skipId => !storyId.includes(skipId))) {
+      return [...selectedStories, storyId];
     }
-  }
+    return selectedStories;
+  };
+};
 
-  return urls;
+export const getCurrentStoryIds = async ({
+  iframePath,
+  skippedStoryIds = [],
+}: {
+  iframePath: string;
+  skippedStoryIds: string[];
+}) => {
+  const stories =
+    process.argv[2] == null
+      ? await getStoryIds(iframePath)
+      : process.argv[2].split('|');
+
+  return stories.reduce(removeSkippedStories(skippedStoryIds), []);
 };
 
 const formatFailureNodes = nodes => {
-  return `    ${nodes.map(node => node.html).join('\n    ')}`;
-};
-
-const formatFailureId = id => {
-  return id.split('iframe.html?')[1];
+  return `${FORMATTING_SPACER}${nodes
+    .map(node => node.html)
+    .join(`\n${FORMATTING_SPACER}`)}`;
 };
 
 const formatMessage = (id, violations) => {
   return violations
     .map(fail => {
-      return `- FAIL: ${formatFailureId(id)}\n  Error: ${
+      return `- FAIL: ${id}\n  Error: ${
         fail.help
       }\n  Violating node(s):\n${formatFailureNodes(
         fail.nodes,
@@ -74,58 +89,62 @@ const isAutcompleteNope = violation => {
   return isAutocompleteAttribute && hasNope;
 };
 
-export async function storybookA11yTest({
+const testPage = (iframePath, browser, timeout) => {
+  return async id => {
+    console.log(` - ${id}`);
+
+    try {
+      const page = await browser.newPage();
+      await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
+      const result = await page.evaluate(() =>
+        window.axe.run(document.getElementById('root'), {}),
+      );
+      await page.close();
+
+      if (result.violations.length) {
+        const filteredViolations = result.violations.filter(
+          violation => !isAutcompleteNope(violation),
+        );
+
+        return formatMessage(id, filteredViolations);
+      }
+
+      return null;
+    } catch (error) {
+      return `please retry => ${id}:\n - ${error.message}`;
+    }
+  };
+};
+
+export const testPages = async ({
   iframePath,
-  skippedStoryIds = [],
+  storyIds = [],
   concurrentCount = os.cpus().length,
   timeout = 3000,
-}) {
+}: {
+  iframePath: string;
+  storyIds: string[];
+  concurrentCount: number;
+  timeout: number;
+}) => {
   try {
-    // Open a browser
     console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in chromium`));
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
+    const browser = await getBrowser();
 
-    // Get the test ids from storybook
-    const testIds = await getUrls(browser, iframePath, skippedStoryIds);
+    console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
+    const results = await pMap(
+      storyIds,
+      testPage(iframePath, browser, timeout),
+      {
+        concurrency: concurrentCount,
+      },
+    );
 
-    console.log(chalk.bold(`🧪 Testing ${testIds.length} urls with axe`));
-
-    // Test the pages with axe
-    const testPage = async url => {
-      const id = url.replace(`${iframePath}?id=all-components-`, '');
-      console.log(` - ${id}`);
-
-      try {
-        const page = await browser.newPage();
-        await page.goto(url, {waitUntil: 'load', timeout});
-        const result = await page.evaluate(() =>
-          window.axe.run(document.getElementById('root'), {}),
-        );
-        await page.close();
-
-        if (result.violations.length) {
-          const filteredViolations = result.violations.filter(
-            violation => !isAutcompleteNope(violation),
-          );
-
-          return formatMessage(id, filteredViolations);
-        }
-      } catch (error) {
-        return `please retry => ${id}:\n - ${error.message}`;
-      }
-    };
-
-    const results = await pMap(testIds, testPage, {
-      concurrency: concurrentCount,
-    });
     await browser.close();
 
-    // Format the results and log them out
     return results.filter(x => x);
   } catch (error) {
     console.error(error.message);
     process.exit(1);
   }
-}
+};
