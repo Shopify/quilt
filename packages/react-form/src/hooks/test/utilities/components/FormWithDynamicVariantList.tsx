@@ -13,7 +13,7 @@ export function FormWithDynamicVariantList({
   makeCleanAfterSubmit,
 }: {
   data: SimpleProduct;
-  onSubmit?: SubmitHandler<SimpleProduct>;
+  onSubmit?: SubmitHandler<Partial<SimpleProduct>>;
   makeCleanAfterSubmit?: boolean;
 }) {
   const variantFactory = () => {
@@ -52,7 +52,7 @@ export function FormWithDynamicVariantList({
         variantFactory,
       ),
     },
-    onSubmit: onSubmit as any,
+    onSubmit,
     makeCleanAfterSubmit,
   });
 

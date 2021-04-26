@@ -40,7 +40,7 @@ export function ProductForm({
 
   const {submit, submitting, dirty, reset, makeClean, submitErrors} = useForm({
     fields: {title, description, defaultVariant, variants},
-    onSubmit: onSubmit as any,
+    onSubmit,
     makeCleanAfterSubmit,
   });
 
