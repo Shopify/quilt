@@ -124,7 +124,7 @@ export const testPages = async ({
 }: {
   iframePath: string;
   storyIds: string[];
-  concurrentCount: number;
+  concurrentCount?: number;
   timeout: number;
 }) => {
   try {
