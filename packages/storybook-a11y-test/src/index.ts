@@ -36,8 +36,6 @@ export const getStoryIds = async (iframePath: string) => {
       .map(story => story.id),
   );
 
-  console.log(disabledStoryIds);
-
   await page.close();
   await browser.close();
 
