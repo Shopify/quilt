@@ -1,8 +1,11 @@
 import {fetch} from '@shopify/jest-dom-mocks';
 import {Address} from '@shopify/address-consts';
-import {mockCountryRequests} from '@shopify/address-mocks';
+import {mockCountryRequests, fixtures} from '@shopify/address-mocks';
 
-import AddressFormatter from '../AddressFormatter';
+import AddressFormatter, {
+  buildFormat,
+  buildOrderedFields,
+} from '../AddressFormatter';
 
 const address: Address = {
   company: 'Shopify',
@@ -38,7 +41,7 @@ describe('AddressFormatter', () => {
   describe('getCountry()', () => {
     it('returns a country object', async () => {
       const addressFormatter = new AddressFormatter('ja');
-      const country = await addressFormatter.getCountry('JP');
+      const country = await addressFormatter.getCountry(address.country);
 
       expect(Object.keys(country)).toStrictEqual([
         'name',
@@ -165,10 +168,67 @@ describe('AddressFormatter', () => {
     });
   });
 
+  describe('buildformat()', () => {
+    const country = fixtures.countries.JA.data.countries.find(country => {
+      return country.code === 'JP';
+    });
+
+    it('returns an array of parts of the address', () => {
+      const result = buildFormat(address, country);
+
+      expect(result).toStrictEqual([
+        '日本',
+        '〒100-8994 東京都 目黒区 八重洲1-5-3',
+        'Shopify',
+        '田中 恵子様',
+        '514 xxx xxxx',
+      ]);
+    });
+
+    it('does not return {province} if the address does not have it', () => {
+      const result = buildFormat(
+        {
+          ...address,
+          province: '',
+        },
+        country,
+      );
+
+      expect(result).toStrictEqual([
+        '日本',
+        '〒100-8994 目黒区 八重洲1-5-3',
+        'Shopify',
+        '田中 恵子様',
+        '514 xxx xxxx',
+      ]);
+    });
+  });
+
   describe('getOrderedFields()', () => {
     it('return fields ordered based on the country', async () => {
       const addressFormatter = new AddressFormatter('ja');
       const result = await addressFormatter.getOrderedFields('JP');
+
+      expect(result).toMatchObject([
+        ['company'],
+        ['lastName', 'firstName'],
+        ['zip'],
+        ['country'],
+        ['province', 'city'],
+        ['address1'],
+        ['address2'],
+        ['phone'],
+      ]);
+    });
+  });
+
+  describe('buildOrderedFields()', () => {
+    it('return fields ordered based on the country', () => {
+      const country = fixtures.countries.JA.data.countries.find(country => {
+        return country.code === 'JP';
+      });
+
+      const result = buildOrderedFields(country);
 
       expect(result).toMatchObject([
         ['company'],

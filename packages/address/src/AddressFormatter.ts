@@ -55,7 +55,7 @@ export default class AddressFormatter {
    */
   async format(address: Address): Promise<string[]> {
     const country = await this.getCountry(address.country);
-    return format(address, country);
+    return buildFormat(address, country);
   }
 
   /* Returns an array that shows how to order fields based on the country code
@@ -73,7 +73,7 @@ export default class AddressFormatter {
   async getOrderedFields(countryCode: string): Promise<FieldName[][]> {
     const country = await this.getCountry(countryCode);
 
-    return getOrderedFields(country);
+    return buildOrderedFields(country);
   }
 
   private loadCountryFromCache(
@@ -89,13 +89,14 @@ export default class AddressFormatter {
   }
 }
 
-export function format(address: Address, country: Country): string[] {
+export function buildFormat(address: Address, country: Country): string[] {
   const layout = country.formatting.show || DEFAULT_SHOW_LAYOUT;
   return layout
     .split(LINE_DELIMITER)
     .map(fields => renderLineTemplate(country, fields, address).trim());
 }
-export function getOrderedFields(country: Country): FieldName[][] {
+
+export function buildOrderedFields(country: Country): FieldName[][] {
   const format = country ? country.formatting.edit : DEFAULT_FORM_LAYOUT;
 
   return format.split(LINE_DELIMITER).map(fields => {
