@@ -21,9 +21,22 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/storybook-a11y-test/README.md",
   "dependencies": {
+    "@storybook/client-api": "^6.2.9",
     "chalk": "^4.1.0",
     "p-map": "^4.0.0",
-    "puppeteer": "^7.1.0"
+    "puppeteer": "^9.0.0"
+  },
+  "devDependencies": {
+    "axe-core": "^4.2.0"
+  },
+  "peerDependencies": {
+    "@storybook/addon-a11y": ">=6.0.0",
+    "axe-core": ">=4.2.0"
+  },
+  "peerDependenciesMeta": {
+    "axe-core": {
+      "optional": true
+    }
   },
   "files": [
     "build/*",

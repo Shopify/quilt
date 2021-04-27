@@ -4,11 +4,13 @@ import os from 'os';
 import puppeteer from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
+import {StoryStore} from '@storybook/client-api';
+import axeCore from 'axe-core';
 
 declare global {
   interface Window {
-    __STORYBOOK_STORY_STORE__: any;
-    axe: any;
+    __STORYBOOK_STORY_STORE__: StoryStore;
+    axe: typeof axeCore;
   }
 }
 
@@ -20,7 +22,13 @@ const getBrowser = () => {
   });
 };
 
-export const getStoryIds = async (iframePath: string) => {
+/**
+ * Get all Story IDs, except the ones that have story.parameters.a11y.disabled set
+ * @param iframePath {string} URI to iframe.html
+ */
+export const getStoryIds = async (
+  iframePath = 'http://localhost:6006/iframe.html',
+) => {
   const browser = await getBrowser();
   const page = await browser.newPage();
   await page.goto(iframePath);
@@ -42,37 +50,13 @@ export const getStoryIds = async (iframePath: string) => {
   return storyIds.filter(storyId => !disabledStoryIds.includes(storyId));
 };
 
-const removeSkippedStories = (skippedStoryIds: string[]) => {
-  return (selectedStories: string[] = [], storyId = '') => {
-    if (skippedStoryIds.every(skipId => !storyId.includes(skipId))) {
-      return [...selectedStories, storyId];
-    }
-    return selectedStories;
-  };
-};
-
-export const getCurrentStoryIds = async ({
-  iframePath,
-  skippedStoryIds = [],
-}: {
-  iframePath: string;
-  skippedStoryIds: string[];
-}) => {
-  const stories =
-    process.argv[2] == null
-      ? await getStoryIds(iframePath)
-      : process.argv[2].split('|');
-
-  return stories.reduce(removeSkippedStories(skippedStoryIds), []);
-};
-
 const formatFailureNodes = nodes => {
   return `${FORMATTING_SPACER}${nodes
     .map(node => node.html)
     .join(`\n${FORMATTING_SPACER}`)}`;
 };
 
-const formatMessage = (id, violations) => {
+const formatMessage = (id: string, violations: axeCore.Result[]) => {
   return violations
     .map(fail => {
       return `- FAIL: ${id}\n  Error: ${
@@ -84,36 +68,45 @@ const formatMessage = (id, violations) => {
     .join('\n');
 };
 
-// This check is added specifically for autocomplete="nope"
-// https://bugs.chromium.org/p/chromium/issues/detail?id=468153
-// This is necessary to prevent autocomplete in chrome and fails the axe test
-// Do not disable accessibility tests if you notice a failure please fix the issue
-const isAutcompleteNope = violation => {
-  const isAutocompleteAttribute = violation.id === 'autocomplete-valid';
-  const hasNope = violation.nodes.every(node =>
-    node.html.includes('autocomplete="nope"'),
-  );
-  return isAutocompleteAttribute && hasNope;
-};
-
-const testPage = (iframePath, browser, timeout) => {
-  return async id => {
+const testPage = (
+  iframePath: string,
+  browser: puppeteer.Browser,
+  timeout: number,
+) => {
+  return async (id: string) => {
     console.log(` - ${id}`);
 
     try {
       const page = await browser.newPage();
       await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
-      const result = await page.evaluate(() =>
-        window.axe.run(document.getElementById('root'), {}),
-      );
+      const violations = await page.evaluate(() => {
+        const story = window.__STORYBOOK_STORY_STORE__.fromId(id)!;
+        // optional selector which element to inspect
+        const axeElement =
+          story.parameters.a11y && story.parameters.a11y.element;
+        // axe-core configurationOptions (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#parameters-1)
+        const axeConfig: axeCore.Spec =
+          story.parameters.a11y && story.parameters.a11y.config;
+        // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
+        const axeOptions: axeCore.RunOptions =
+          story.parameters.a11y && story.parameters.a11y.options;
+
+        window.axe.configure(axeConfig || {});
+        return (window.axe.run(
+          axeElement || document.getElementById('root')!,
+          axeOptions || {},
+          (err, {violations}) => {
+            if (err) {
+              throw err;
+            }
+            return violations;
+          },
+        ) as unknown) as axeCore.Result[];
+      });
       await page.close();
 
-      if (result.violations.length) {
-        const filteredViolations = result.violations.filter(
-          violation => !isAutcompleteNope(violation),
-        );
-
-        return formatMessage(id, filteredViolations);
+      if (violations.length) {
+        return formatMessage(id, violations);
       }
 
       return null;
@@ -124,18 +117,18 @@ const testPage = (iframePath, browser, timeout) => {
 };
 
 export const testPages = async ({
-  iframePath,
-  storyIds = [],
+  storyIds,
+  iframePath = 'http://localhost:6006/iframe.html',
   concurrentCount = os.cpus().length,
-  timeout = 3000,
+  timeout = 30000,
 }: {
-  iframePath: string;
   storyIds: string[];
+  iframePath?: string;
   concurrentCount?: number;
   timeout?: number;
 }) => {
   try {
-    console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in chromium`));
+    console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in Chromium`));
     const browser = await getBrowser();
 
     console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));

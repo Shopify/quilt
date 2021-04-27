@@ -12,6 +12,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Updated webpack dependency to be ^4.25.1
+- Updated Puppeteer dependency to ^9.0.0
 
 ## 1.5.4 - 2021-04-13
 
