@@ -9,6 +9,7 @@ import {
   FormMapping,
   Field,
   FormError,
+  DynamicListBag,
 } from './types';
 
 export function isField<T extends Object>(input: any): input is Field<T> {
@@ -209,4 +210,12 @@ export function defaultDirtyComparator<Value>(
 
 export function makeCleanFields(fieldBag: FieldBag) {
   reduceFields(fieldBag, (_, field) => field.newDefaultValue(field.value));
+}
+
+export function makeCleanDynamicLists(dynamicLists?: DynamicListBag) {
+  if (dynamicLists) {
+    Object.values(dynamicLists).forEach(dynamicList => {
+      dynamicList.newDefaultValue(dynamicList.value);
+    });
+  }
 }

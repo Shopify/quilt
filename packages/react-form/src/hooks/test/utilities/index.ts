@@ -1,4 +1,5 @@
 import faker from 'faker';
+import {Root} from '@shopify/react-testing';
 
 import {SimpleProduct, TextField} from './components';
 
@@ -65,4 +66,16 @@ export function fakeProduct(): SimpleProduct {
 export function clickEvent() {
   // we don't actually use these at all so it is ok to just return an empty object
   return {} as any;
+}
+
+export function fillRequiredFields(wrapper: Root<any>) {
+  const optionTextFields = wrapper.findAll(TextField, {label: 'option'});
+  optionTextFields.forEach(textField =>
+    textField.trigger('onChange', 'a value'),
+  );
+
+  const titleTextFields = wrapper.findAll(TextField, {label: 'title'});
+  titleTextFields.forEach(textField =>
+    textField.trigger('onChange', 'a value'),
+  );
 }
