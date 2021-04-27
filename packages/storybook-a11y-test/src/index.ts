@@ -131,8 +131,8 @@ export const testPages = async ({
 }: {
   iframePath: string;
   storyIds: string[];
-  concurrentCount: number;
-  timeout: number;
+  concurrentCount?: number;
+  timeout?: number;
 }) => {
   try {
     console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in chromium`));
