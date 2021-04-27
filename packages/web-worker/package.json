@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
@@ -57,7 +57,7 @@
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",
-    "webpack": ">4.25.1, <=4.5.0"
+    "webpack": "^4.25.1"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",
