@@ -57,7 +57,7 @@
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",
-    "webpack": ">4.25.1, <=4.5.0"
+    "webpack": "^4.25.1"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",
