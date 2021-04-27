@@ -29,10 +29,17 @@ export const getStoryIds = async (iframePath: string) => {
     Object.keys(window.__STORYBOOK_STORY_STORE__.extract()),
   );
 
+  const disabledStoryIds = await page.evaluate(() =>
+    window.__STORYBOOK_STORY_STORE__
+      .raw()
+      .filter(story => story.parameters.a11y && story.parameters.a11y.disable)
+      .map(story => story.id),
+  );
+
   await page.close();
   await browser.close();
 
-  return storyIds;
+  return storyIds.filter(storyId => !disabledStoryIds.includes(storyId));
 };
 
 const removeSkippedStories = (skippedStoryIds: string[]) => {
