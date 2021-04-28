@@ -644,7 +644,7 @@ A custom hook that adds on `useList` the ability to dynamically add, move and re
 
 Let's simulate a user interface that allows you add as many credit cards as you wish.
 
-You can initialize `useDynamicList` the following way
+You can initialize `useDynamicList` the following way:
 
 ```tsx
 interface Card {
@@ -654,7 +654,7 @@ interface Card {
 }
 
 const emptyCardFactory = (): Card => ({
-  id: new Date.now().toString(),
+  id: Date.now().toString(),
   cardNumber: '',
   cvv: '',
 });
@@ -665,11 +665,11 @@ const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
 );
 ```
 
-You can also have a factory that produces multiple cards such as
+You can also have a factory that produces multiple cards such as:
 
 ```tsx
 function generateId() {
-  return new Date.now().toString();
+  return Date.now().toString();
 }
 
 const emptyCardFactory = (): Card[] => {
@@ -685,11 +685,11 @@ const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
 );
 ```
 
-AddItem can accept an argument which will be passed to the factory. In this case, the factory could look like
+AddItem can accept an argument which will be passed to the factory. In this case, the factory could look like:
 
 ```tsx
 const emptyCardFactory = ({id, cardNumber, cvv}: Partial<Card>): Card => ({
-  id: id || new Date.now().toString(),
+  id: id || Date.now().toString(),
   cardNumber: cardNumber || '',
   cvv: cvv || '',
 });
@@ -698,7 +698,7 @@ const emptyCardFactory = ({id, cardNumber, cvv}: Partial<Card>): Card => ({
 addItem({cardNumber: '3131 3131 3131 3131'});
 ```
 
-You can choose to initialize the list with no card (same as above) or with existing cards coming from your database for example.
+You can choose to initialize the list with no card (same as above) or with existing cards e.g. coming from your database:
 
 ```tsx
 const loadedCards = [
@@ -713,7 +713,7 @@ const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
 
 You can also pass a more complex configuration object specifying a validation dictionary like in `useList`.
 
-Rendering your dynamic list would look like this
+Rendering your dynamic list would look like this:
 
 ```tsx
 <FormLayout>
@@ -755,7 +755,7 @@ Rendering your dynamic list would look like this
 
 You can use `useDynamicList` with `useForm` in two ways:
 
-You can directly pass one or several dynamic lists within `fields`. But note that the `reset` function returned by `useForm` won't reset the dynamic list to its initial value. It will only reset the value of each field for each item. So for example if you remove an item, clicking on reset won't re-add it. Plus the adding or removing a field won't make the form dirty. The form will only be dirty if you edit the value of one item's field.
+You can directly pass one or several dynamic lists within `fields`. But note that the `reset` function returned by `useForm` won't reset the dynamic list to its initial value. It will only reset the value of each field for each item. So, if you remove an item, clicking on reset won't re-add it. Plus, adding or removing a field won't make the form dirty. The form will only be dirty if you edit the value of an item's field.
 
 ```tsx
 const {fields} = useDynamicList<Card>([], emptyCardFactory);
@@ -771,7 +771,7 @@ const form = useForm({
 });
 ```
 
-Or you can pass your dynamic lists within `dynamicLists`. This way the form `reset` and `dirty` will work as expected. Note that you still need to have one "classic field", `fields` cannot be optional at the moment. If you use TypeScript, you might want to pass generic types to `useForm` in order to make sure TypeScript will infer the `fieldValues` types correctly within `onSubmit`.
+Or you can pass your dynamic lists within `dynamicLists`. This way the form `reset` and `dirty` will work as expected. Note that you still need to have one "classic field", `fields` cannot be optional at the moment. If you use TypeScript, you might want to pass generic types to `useForm` to make sure TypeScript infers the `fieldValues` types correctly within `onSubmit`.
 
 ```tsx
 const fields = {
@@ -785,7 +785,7 @@ const form = useForm<typeof fields, typeof customerCards>({
   dynamicLists: {
     customerCards,
   },
-  onSubmit: async fieldValues => {
+  onSubmit: async (fieldValues) => {
     console.log(fieldValues);
     return submitSuccess();
   },
