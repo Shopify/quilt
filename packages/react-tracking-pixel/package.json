@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-tracking-pixel",
-  "version": "3.1.9",
+  "version": "3.1.10",
   "license": "MIT",
   "description": "Allows React apps to easily embed tracking pixel iframes",
   "main": "index.js",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-tracking-pixel/README.md",
   "dependencies": {
-    "@shopify/react-html": "^10.2.8"
+    "@shopify/react-html": "^10.2.9"
   },
   "peerDependencies": {
     "react": "^16.4.1"

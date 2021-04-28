@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 1.5.5 - 2021-04-27
+
+### Changed
+
+- Updated webpack dependency to be ^4.25.1
+
 ## 1.5.4 - 2021-04-13
 
 ### Changed
