@@ -21,7 +21,7 @@ export function operationNameFromFindOptions({
 }
 
 export function operationNameFromDocument(
-  document: DocumentNode | {resolver: {resolved?: DocumentNode}},
+  document: DocumentNode | {resolver: {resolved?: DocumentNode | null}},
 ) {
   return 'resolver' in document && document.resolver.resolved != null
     ? operationNameFromDocumentNode(document.resolver.resolved)
@@ -29,7 +29,7 @@ export function operationNameFromDocument(
 }
 
 export function operationTypeFromDocument(
-  document: DocumentNode | {resolver: {resolved?: DocumentNode}},
+  document: DocumentNode | {resolver: {resolved?: DocumentNode | null}},
 ) {
   return 'resolver' in document && document.resolver.resolved != null
     ? operationTypeFromDocumentNode(document.resolver.resolved)
