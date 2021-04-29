@@ -85,7 +85,7 @@ describe('createMessengerFunctionStrategy()', () => {
     );
 
     const result = destination.fromWire(
-      source.toWire((users: {getName(): Promise<string>}[]) =>
+      source.toWire((users: Array<{getName(): Promise<string>}>) =>
         users[0].getName(),
       )[0],
     );

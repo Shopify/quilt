@@ -5,6 +5,7 @@ import {
   getGraphQLProjects,
   getGraphQLSchemaPaths,
   resolvePathRelativeToConfig,
+  getIncludesExcludesFromConfig,
 } from 'graphql-config-utilities';
 
 import {AbstractGraphQLFilesystem} from './graphql-filesystem';
@@ -41,14 +42,20 @@ export class DefaultGraphQLFilesystem extends AbstractGraphQLFilesystem {
 
   private setupDocumentWatchers(config: GraphQLConfig) {
     return getGraphQLProjects(config)
-      .filter(({includes}) => includes.length > 0)
+      .filter(projectConfig => {
+        const [includes] = getIncludesExcludesFromConfig(projectConfig);
+        return includes.length > 0;
+      })
       .map(projectConfig => {
+        const [includes, excludes] = getIncludesExcludesFromConfig(
+          projectConfig,
+        );
         return watch(
-          projectConfig.includes.map(include =>
+          includes.map(include =>
             resolvePathRelativeToConfig(projectConfig, include),
           ),
           {
-            ignored: projectConfig.excludes.map(exclude =>
+            ignored: excludes.map(exclude =>
               resolvePathRelativeToConfig(projectConfig, exclude),
             ),
             ignoreInitial: true,

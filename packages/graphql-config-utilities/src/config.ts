@@ -1,5 +1,6 @@
 import {existsSync} from 'fs';
 import {promisify} from 'util';
+import {resolve} from 'path';
 
 import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 // we need to use an import/require here because it does not force consumers to
@@ -14,14 +15,18 @@ export function resolvePathRelativeToConfig(
   project: GraphQLProjectConfig,
   relativePath: string,
 ) {
-  return project.resolveConfigPath(relativePath);
+  return resolve(project.dirpath, relativePath);
 }
 
 export function resolveProjectName(
   project: GraphQLProjectConfig,
   defaultName = defaultGraphQLProjectName,
 ) {
-  return project.projectName || defaultName;
+  // eslint-disable-next-line no-console
+  console.warn(
+    'Deprecation: Use of `resolveProjectName` has been deprecated. Please use `project.name` instead.',
+  );
+  return project.name || defaultName;
 }
 
 export function resolveSchemaPath(
@@ -31,31 +36,26 @@ export function resolveSchemaPath(
   // schemaPath is nullable in graphq-config even though it cannot actually be
   // omitted. This function simplifies access to the schemaPath without
   // requiring a type guard.
-  if (!project.schemaPath) {
+  if (!project.schema) {
     // this case should never happen with a properly formatted config file.
     // graphql-config currently does not perform any validation so it's possible
     // for a mal-formed schema to be loaded at runtime.
-    throw new Error(
-      `Missing GraphQL schemaPath for project '${resolveProjectName(project)}'`,
-    );
+    throw new Error(`Missing GraphQL schemaPath for project '${project.name}'`);
   }
 
   // resolve fully qualified schemaPath
-  const schemaPath = project.resolveConfigPath(project.schemaPath);
-
+  const schemaPath = resolve(project.dirpath, project.schema as string);
   if (ignoreMissing) {
     return schemaPath;
   }
 
   if (!existsSync(schemaPath)) {
-    const forProject = project.projectName
-      ? ` for project '${project.projectName}'`
-      : '';
+    const forProject = project.name ? ` for project '${project.name}'` : '';
     throw new Error(
       [
         `Schema not found${forProject}.`,
         `Expected to find the schema at '${schemaPath}' but the path does not exist.`,
-        `Check '${project.configPath}' and verify that schemaPath is configured correctly${forProject}.`,
+        `Check '${project.filepath}' and verify that schemaPath is configured correctly${forProject}.`,
       ].join(' '),
     );
   }
@@ -64,22 +64,25 @@ export function resolveSchemaPath(
 }
 
 export function getGraphQLProjects(config: GraphQLConfig) {
-  const projects = config.getProjects();
+  // eslint-disable-next-line no-console
+  console.warn(
+    'Deprecation: Use of `getGraphQLProjects` has been deprecated. Please use `config.projects` instead.',
+  );
 
-  if (projects) {
+  const projects = Object.values(config?.projects || {});
+
+  if (projects.length > 1) {
     // multi-project configuration, return an array of projects
-    return Object.values(projects);
+    return projects;
   }
 
-  const project = config.getProjectConfig();
-
-  if (project && project.schemaPath) {
+  if (projects[0] && projects[0]?.schema) {
     // single project configuration, return an array of the single project
-    return [project];
+    return projects;
   }
 
   // invalid project configuration
-  throw new Error(`No projects defined in '${config.configPath}'`);
+  throw new Error(`No projects defined in '${config.filepath}'`);
 }
 
 export function getGraphQLSchemaPaths(config: GraphQLConfig) {
@@ -91,11 +94,12 @@ export function getGraphQLSchemaPaths(config: GraphQLConfig) {
 export async function getGraphQLProjectIncludedFilePaths(
   projectConfig: GraphQLProjectConfig,
 ) {
+  const [includes, excludes] = getIncludesExcludesFromConfig(projectConfig);
   return (
     await Promise.all(
-      projectConfig.includes.map(include =>
+      includes.map(include =>
         promisify(glob)(resolvePathRelativeToConfig(projectConfig, include), {
-          ignore: projectConfig.excludes.map(exclude =>
+          ignore: excludes.map(exclude =>
             resolvePathRelativeToConfig(projectConfig, exclude),
           ),
         }),
@@ -110,14 +114,40 @@ export function getGraphQLProjectForSchemaPath(
 ) {
   const project =
     getGraphQLProjects(config)
-      .filter(project => project.schemaPath === schemaPath)
-      .shift() || config.getProjectConfig();
+      .filter(project => {
+        return (
+          resolve(project.dirpath, project.schema as string) === schemaPath
+        );
+      })
+      .shift() || config.projects[0];
 
-  if (!project || project.schemaPath !== schemaPath) {
+  if (
+    !project ||
+    !(project as GraphQLProjectConfig).schema ||
+    `${(project as GraphQLProjectConfig).dirpath}/${
+      (project as GraphQLProjectConfig).schema
+    }` !== schemaPath
+  ) {
     throw new Error(
       `No project defined in graphql config for schema '${schemaPath}'`,
     );
   }
-
   return project;
+}
+
+export function getIncludesExcludesFromConfig(
+  projectConfig: GraphQLProjectConfig,
+): [string[], string[]] {
+  if (!projectConfig.include) {
+    return [[], []];
+  }
+
+  const excludes = projectConfig.exclude || [];
+
+  const includes =
+    typeof projectConfig.include === 'string'
+      ? [projectConfig.include as string]
+      : projectConfig.include;
+  const ignore = typeof excludes === 'string' ? [excludes as string] : excludes;
+  return [includes, ignore];
 }

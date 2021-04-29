@@ -1,5 +1,6 @@
 import * as path from 'path';
 
+// eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema, parse, GraphQLSchema, Source, concatAST} from 'graphql';
 import {stripIndent} from 'common-tags';
 import {compile} from 'graphql-tool-utilities';

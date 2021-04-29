@@ -95,7 +95,7 @@ export function createRender(
     const assets = getAssets(ctx);
 
     const networkManager = new NetworkManager({
-      headers: ctx.headers,
+      headers: ctx.headers as {[key: string]: string},
       cookies: ctx.request.headers.cookie || '',
     });
     const htmlManager = new HtmlManager();

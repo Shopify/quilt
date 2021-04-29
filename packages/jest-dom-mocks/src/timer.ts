@@ -34,7 +34,7 @@ export default class Timer {
 
   runTimersToTime(time: number) {
     this.ensureUsingFakeTimers();
-    jest.runTimersToTime(time);
+    jest.advanceTimersByTime(time);
   }
 
   private ensureUsingFakeTimers() {

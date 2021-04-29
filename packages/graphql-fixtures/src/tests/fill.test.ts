@@ -1,4 +1,5 @@
 import faker from 'faker';
+// eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema} from 'graphql';
 import {parse, DocumentNode} from 'graphql-typed';
 
@@ -223,7 +224,7 @@ describe('createFiller()', () => {
 
     it('uses different values for a list of keypaths', () => {
       const document = createDocument<{
-        self: {parents: {name: string}[]};
+        self: {parents: Array<{name: string}>};
       }>(`
       query Details {
         self { parents { name } }
@@ -1305,8 +1306,8 @@ describe('createFiller()', () => {
       `);
 
       const document = createDocument<
-        {people: {name: string}[]},
-        {people?: {name?: string | null}[] | null}
+        {people: Array<{name: string}>},
+        {people?: Array<{name?: string | null}> | null}
       >(`
         query Details {
           people {

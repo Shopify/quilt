@@ -1,13 +1,13 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {mockPerformance} from './utilities';
-
 import {
   usePerformanceEffect,
   PerformanceEffectCallback,
   PerformanceContext,
 } from '..';
+
+import {mockPerformance} from './utilities';
 
 describe('usePerformanceEffect', () => {
   function TestComponent({callback}: {callback: PerformanceEffectCallback}) {

@@ -1,9 +1,9 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {mockPerformance} from './utilities';
-
 import {PerformanceMark, PerformanceContext, Stage} from '..';
+
+import {mockPerformance} from './utilities';
 
 describe('<PerformanceMark />', () => {
   it('calls performance.mark', () => {

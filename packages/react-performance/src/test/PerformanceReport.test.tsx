@@ -4,9 +4,9 @@ import {mount} from '@shopify/react-testing';
 import {fetch, timer, connection} from '@shopify/jest-dom-mocks';
 import {Method, Header} from '@shopify/network';
 
-import {mockPerformance, randomConnection} from './utilities';
-
 import {PerformanceReport, PerformanceContext} from '..';
+
+import {mockPerformance, randomConnection} from './utilities';
 
 describe('<PerformanceReport />', () => {
   beforeEach(() => {

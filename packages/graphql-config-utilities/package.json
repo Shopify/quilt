@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-config-utilities/README.md",
   "dependencies": {
     "glob": "^7.1.6",
-    "graphql-config": "^2.0.0"
+    "graphql-config": "^3.2.0"
   },
   "files": [
     "build/*",

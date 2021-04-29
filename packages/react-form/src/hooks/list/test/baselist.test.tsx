@@ -369,7 +369,7 @@ describe('useBaseList', () => {
                 sibling.optionName.value === optionName.value &&
                 sibling.optionValue.value === value,
             );
-
+            // eslint-disable-next-line jest/no-if
             if (anyDupes) {
               return 'No duplicates allowed';
             }

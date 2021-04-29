@@ -126,9 +126,13 @@ Array [
 `;
 
 exports[`evaluateFixtures() throws an error when the schema is not found 1`] = `
-[Error: Error parsing 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json':
+[Error: Error parsing 'schema.json':
 
-ENOENT: no such file or directory, open 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/schema.json']
+
+      Unable to find any GraphQL type definitions for the following pointers:
+        
+          - schema.json
+          ]
 `;
 
 exports[`evaluateFixtures() throws an error when there are malformed GraphQL documents 1`] = `

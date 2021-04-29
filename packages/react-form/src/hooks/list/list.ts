@@ -100,7 +100,7 @@ import {useBaseList, FieldListConfig} from './baselist';
 export function useList<Item extends object>(
   listOrConfig: FieldListConfig<Item> | Item[],
   validationDependencies: unknown[] = [],
-): FieldDictionary<Item>[] {
+): Array<FieldDictionary<Item>> {
   const {fields} = useBaseList(listOrConfig, validationDependencies);
 
   return fields;
