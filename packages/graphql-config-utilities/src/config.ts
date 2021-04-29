@@ -33,14 +33,14 @@ export function resolveSchemaPath(
   project: GraphQLProjectConfig,
   ignoreMissing = false,
 ) {
-  // schemaPath is nullable in graphq-config even though it cannot actually be
-  // omitted. This function simplifies access to the schemaPath without
+  // schemaPath is nullable in graphql-config even though it cannot actually be
+  // omitted. This function simplifies access to the schema without
   // requiring a type guard.
   if (!project.schema) {
     // this case should never happen with a properly formatted config file.
     // graphql-config currently does not perform any validation so it's possible
     // for a mal-formed schema to be loaded at runtime.
-    throw new Error(`Missing GraphQL schemaPath for project '${project.name}'`);
+    throw new Error(`Missing GraphQL schema for project '${project.name}'`);
   }
 
   // resolve fully qualified schemaPath
