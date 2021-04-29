@@ -74,13 +74,22 @@ export interface FormWithoutDynamicListsInput<T extends FieldBag> {
 export interface FormWithDynamicListsInput<
   T extends FieldBag,
   D extends DynamicListBag
-> extends FormWithoutDynamicListsInput<T> {
+> {
+  fields: T;
   dynamicLists: D;
+  onSubmit?: SubmitHandler<
+    FormMapping<T, 'value'> & FormMapping<DynamicListMapping<D>, 'value'>
+  >;
+  makeCleanAfterSubmit?: boolean;
 }
 
-export interface FormInput<T extends FieldBag, D extends DynamicListBag>
-  extends FormWithoutDynamicListsInput<T> {
+export interface FormInput<T extends FieldBag, D extends DynamicListBag> {
+  fields: T;
   dynamicLists?: D;
+  onSubmit?: SubmitHandler<
+    FormMapping<T, 'value'> & FormMapping<DynamicListMapping<D>, 'value'>
+  >;
+  makeCleanAfterSubmit?: boolean;
 }
 
 export interface Form<T extends FieldBag> {
@@ -124,10 +133,8 @@ export interface FieldBag {
   [key: string]: FieldOutput<any>;
 }
 
-export type DynamicListOutput<V extends object> = DynamicList<V>;
-
 export interface DynamicListBag {
-  [key: string]: DynamicListOutput<any>;
+  [key: string]: DynamicList<any>;
 }
 
 export interface SubmitHandler<Fields> {
@@ -150,4 +157,8 @@ export type FormMapping<Bag, FieldKey extends keyof Field<any>> = {
   [Key in keyof Bag]: Bag[Key] extends any[]
     ? FieldProp<Bag[Key][number], FieldKey>[]
     : FieldProp<Bag[Key], FieldKey>;
+};
+
+export type DynamicListMapping<DLBag extends DynamicListBag> = {
+  [Key in keyof DLBag]: DLBag[Key]['fields'];
 };

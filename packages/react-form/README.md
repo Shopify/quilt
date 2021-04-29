@@ -638,54 +638,87 @@ function MyComponent() {
 
 #### `useDynamicList()`
 
-This offers the same functionality as useList. `useDynamicList` is a hook that adds on `useList` by adding the ability to dynamically add and remove list items. The same way you would utilize `useList` is the same way you would utilize `useDynamicList` except some differences such as the `addItem`, and the `removeItem` function. We also have to pass in a factory into this hook (telling the hook the exact type of object to add and how it should be initialized).
+A custom hook that adds on `useList` the ability to dynamically add, move and remove list items.
 
 ##### Using `useDynamicList`
 
-Lets simulate having a user interface that allows you add as many payments methods as you wish.
+Let's simulate a user interface that allows you add as many credit cards as you wish.
 
-1. We have to initialize `useDynamicList` the following way
+You can initialize `useDynamicList` the following way:
 
 ```tsx
+interface Card {
+  id: string;
+  cardNumber: string;
+  cvv: string;
+}
+
 const emptyCardFactory = (): Card => ({
+  id: Date.now().toString(),
   cardNumber: '',
   cvv: '',
 });
 
 const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
-  [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
+  [],
   emptyCardFactory,
 );
 ```
 
-We can also have a factory that produces multiple cards such as
+You can also have a factory that produces multiple cards such as:
 
 ```tsx
-const emptyCardFactory = (): Card[] => [
-  {
-    cardNumber: '',
-    cvv: '',
-  },
-  {
-    cardNumber: '',
-    cvv: '',
-  },
+function generateId() {
+  return Date.now().toString();
+}
+
+const emptyCardFactory = (): Card[] => {
+  return [
+    {id: generateId(), cardNumber: '', cvv: ''},
+    {id: generateId(), cardNumber: '', cvv: ''},
+  ];
+};
+
+const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
+  [],
+  emptyCardFactory,
+);
+```
+
+AddItem can accept an argument which will be passed to the factory. In this case, the factory could look like:
+
+```tsx
+const emptyCardFactory = ({id, cardNumber, cvv}: Partial<Card>): Card => ({
+  id: id || Date.now().toString(),
+  cardNumber: cardNumber || '',
+  cvv: cvv || '',
+});
+
+// somwhere else you could call
+addItem({cardNumber: '3131 3131 3131 3131'});
+```
+
+You can choose to initialize the list with no card (same as above) or with existing cards e.g. coming from your database:
+
+```tsx
+const loadedCards = [
+  {id: '123456', cardNumber: '4242 4242 4242 4242', cvv: '000'},
 ];
 
 const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
-  [{cardNumber: '4242 4242 4242 4242', cvv: '000'}],
+  loadedCards,
   emptyCardFactory,
 );
 ```
 
-You can choose to initialize the list with an existing number of cards or no card.
+You can also pass a more complex configuration object specifying a validation dictionary like in `useList`.
 
-2. Displaying your list and attaching the handlers `useDynamicList` provides
+Rendering your dynamic list would look like this:
 
 ```tsx
-{
-  fields.map((field, index) => (
-    <FormLayout.Group key={index}>
+<FormLayout>
+  {fields.map((field, index) => (
+    <div key={field.id}>
       <TextField
         placeholder="Card Number"
         label="Card Number"
@@ -698,87 +731,66 @@ You can choose to initialize the list with an existing number of cards or no car
         value={field.cvv.value}
         onChange={field.cvv.onChange}
       />
-      <div>
-        <Button onClick={() => removeItem(index)}>Remove</Button>
-      </div>
-      <div>
-        <Button
-          disabled={index === 0}
-          onClick={() => moveItem(index, index - 1)}
-        >
-          Move Item Up
-        </Button>
-      </div>
-      <div>
-        <Button
-          disabled={index === fields.length}
-          onClick={() => moveItem(index, index + 1)}
-        >
-          Move Item Down
-        </Button>
-      </div>
-      <Button disabled={!dirty} onClick={reset}>
-        Reset
+      <Button onClick={() => removeItem(index)}>Remove</Button>
+      <Button disabled={index === 0} onClick={() => moveItem(index, index - 1)}>
+        Move Item Up
       </Button>
-    </FormLayout.Group>
-  ));
-}
-<Button onClick={() => addItem()}>Add Card</Button>;
+      <Button
+        disabled={index === fields.length - 1}
+        onClick={() => moveItem(index, index + 1)}
+      >
+        Move Item Down
+      </Button>
+      <hr />
+    </div>
+  ))}
+  <Button onClick={() => addItem()}>Add Card</Button>
+  <Button disabled={!dirty} onClick={reset}>
+    Reset
+  </Button>
+</FormLayout>
 ```
 
-We render our UI representation of the fields by utilizing the `fields.map` function. For each field, we can use the handlers such as onChange, value, onBlur. These are the same handlers that useList provides.
+##### How to use it with `useForm`
 
-We can also utilize the `removeItem`, and `addItem` functions. In this example, these functions are attached to a button press. When we remove an item we pass in the index (to indicate what field item to remove). When we add a item, we utilize the factory we passed in when initializing `useDynamicList`.
+You can use `useDynamicList` with `useForm` in two ways:
 
-Note that addItem can also take in an argument which can then be passed onto the factory. In this case, the factory can be
+You can directly pass one or several dynamic lists within `fields`. But note that the `reset` function returned by `useForm` won't reset the dynamic list to its initial value. It will only reset the value of each field for each item. So, if you remove an item, clicking on reset won't re-add it. Plus, adding or removing a field won't make the form dirty. The form will only be dirty if you edit the value of an item's field.
 
 ```tsx
-const emptyCardFactory = (factoryArgument: any): Card => ([{
-  cardNumber: '',
-  cvv: '',
+const {fields} = useDynamicList<Card>([], emptyCardFactory);
+
+const form = useForm({
+  fields: {
+    customerCards: fields,
+  },
+  onSubmit: async fieldValues => {
+    console.log(fieldValues);
+    return submitSuccess();
+  },
 });
 ```
 
-You can then use this argument to do as you wish :).
-
-#### Does this work with useForm?
-
-Yes this works out of the box with `useForm` and is compatible with what `useList` is compatible with.
-
-You would utilize it the following way in order to use the forms reset and dirty state for the `DynamicList` as well as others fields.
+Or you can pass your dynamic lists within `dynamicLists`. This way the form `reset` and `dirty` will work as expected. Note that you still need to have one "classic field", `fields` cannot be optional at the moment. If you use TypeScript, you might want to pass generic types to `useForm` to make sure TypeScript infers the `fieldValues` types correctly within `onSubmit`.
 
 ```tsx
-const {submit, dirty, submitting, reset} = useForm({
-  fields: {
-    title: useField('')
-  },
+const fields = {
+  title: useField(''),
+};
+
+const customerCards = useDynamicList<Card>([], emptyCardFactory);
+
+const form = useForm<typeof fields, typeof customerCards>({
+  fields,
   dynamicLists: {
-    customerCards: useDynamicList<Card>([{cardNumber: '4242 4242 4242 4242', cvv: '422'}], emptyCardFactory)
+    customerCards,
   },
-  onSubmit: async fieldValues => {
+  onSubmit: async (fieldValues) => {
     console.log(fieldValues);
-    return {status: 'success'};
+    return submitSuccess();
   },
 });
 ```
-
-you can directly pass a dynamic list within `fields` but note that the `reset` function returned by `useForm` will only reset each field, plus the `dirty` state will only reflect dirty fields within each item.
-
-```tsx
-const {submit, dirty, submitting, reset} = useForm({
-  fields: {
-    fields,  // the fields returned from useDynamicList.
-  },
-  onSubmit: async fieldValues => {
-    console.log(fieldValues);
-    return {status: 'success'};
-  },
-});
-```
-
-A code sandbox of `useDynamicList` in action can be seen [here](https://codesandbox.io/s/hungry-rubin-exrkz?fontsize=14&hidenavigation=1&theme=dark)
-
-Here, onSubmit is called when the form is submitted. See `useForm` documentation.
 
 #### `useForm()`
 
@@ -795,6 +807,7 @@ const form = useForm(config);
 - `config`, An object has the following fields:
 
   - `fields`, A dictionary of `Field` objects, dictionaries of `Field` objects, and lists of dictionaries of `Field` objects. Generally, you'll want these to be generated by the other hooks in this package, either `useField` or `useList`. This will be returned back out as the `fields` property of the return value.
+  - `useDynamicList`, optional dictionaries of `DynamicList`.
   - `onSubmit`, An async function to handle submission of the form. If this function returns an object of `{status: 'fail', error: FormError[]}` then the submission is considered a failure. Otherwise, it should return an object with `{status: 'success'}` and the submission will be considered a success. `useForm` will also call all client-side validation methods for the fields passed to it. The `onSubmit` handler will not be called if client validations fails.
   - `makeCleanAfterSubmit`, A boolean flag (defaults to `false`) indicating whether the form should "undirty" itself after a successful submission. If `true`, then the form fields' default values will be set to their submitted values after a successful submission. This is useful in the case where you'd want to submit the same form multiple times while "saving" the most recent submission as the new default state.
 
