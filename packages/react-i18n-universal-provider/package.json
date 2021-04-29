@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n-universal-provider",
-  "version": "1.1.12",
+  "version": "1.1.12-graphql-config-beta.1",
   "license": "MIT",
   "description": "A self-serializing/deserializing i18n provider that works for isomorphic applications",
   "main": "index.js",
@@ -22,14 +22,14 @@
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-i18n-universal-provider/README.md",
   "dependencies": {
     "@shopify/react-hooks": "^1.13.1",
-    "@shopify/react-html": "^10.2.9",
-    "@shopify/react-i18n": "^5.3.5"
+    "@shopify/react-html": "^10.2.9-graphql-config-beta.1",
+    "@shopify/react-i18n": "^5.3.5-graphql-config-beta.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/react-effect": "^3.3.4",
+    "@shopify/react-effect": "^3.3.4-graphql-config-beta.1",
     "faker": "^4.1.0"
   },
   "files": [

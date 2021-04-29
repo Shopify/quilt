@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-testing",
-  "version": "2.3.3",
+  "version": "2.3.3-graphql-config-beta.1",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-testing/README.md",
   "dependencies": {
-    "@shopify/useful-types": "^2.4.0",
+    "@shopify/useful-types": "^2.4.0-graphql-config-beta.1",
     "jest-matcher-utils": "^26.6.2",
     "react-reconciler": "^0.20.2"
   },

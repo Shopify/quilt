@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-metrics",
-  "version": "0.5.4",
+  "version": "0.5.4-graphql-config-beta.1",
   "license": "MIT",
   "description": "Aims to provide standard middleware and instrumentation tooling for metrics in Koa",
   "main": "index.js",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-metrics/README.md",
   "dependencies": {
-    "@shopify/statsd": "^2.1.4"
+    "@shopify/statsd": "^2.1.4-graphql-config-beta.1"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.3.4",
