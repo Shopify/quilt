@@ -19,7 +19,9 @@
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",
     "yalc": "yalc",
-    "updated": "lerna updated"
+    "updated": "lerna updated",
+    "publish:local": "yarn build --root packages/$PKG_NAME && yalc publish --push packages/$PKG_NAME",
+    "tophat": "npx nodemon --watch packages/$PKG_NAME --exec 'yarn publish:local' --ignore packages/$PKG_NAME/build --ext ts --ignore '*.d.ts' --ignore '*.test.*'"
   },
   "repository": {
     "type": "git",
