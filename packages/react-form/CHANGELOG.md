@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## 0.13.1 - 2021-04-29
+<!-- ## Unreleased -->
 
-## Unreleased
+## 0.13.1 - 2021-04-29
 
 - Include `dynamicLists` values in `onSubmit` type [#1865](https://github.com/Shopify/quilt/pull/1865)
 
