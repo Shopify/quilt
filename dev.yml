@@ -2,8 +2,8 @@ name: quilt
 type: node
 up:
   - node:
-      version: v10.18.1
-      yarn: 1.19.1
+      version: v12.21.0
+      yarn: 1.22.5
 commands:
   __default__: start
   build: yarnpkg build
