@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Changed
+
+- Updated `tryRequire` to log errors to help with debugging [#1829](https://github.com/Shopify/quilt/pull/1829)
+
 ## 2.2.4 - 2021-04-13
 
 ### Changed

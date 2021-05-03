@@ -93,14 +93,18 @@ function tryRequire(id: string) {
   ) {
     try {
       return normalize(__webpack_require__(id));
-    } catch {
-      // Just ignore failures
+    } catch (error) {
+      // Log errors
+      // eslint-disable-next-line no-console
+      console.log(`webpack require error: ${error}`);
     }
   } else if (typeof nodeRequire === 'function') {
     try {
       return normalize(nodeRequire(id));
-    } catch {
-      // Just ignore failures
+    } catch (error) {
+      // Log errors
+      // eslint-disable-next-line no-console
+      console.log(`node require error: ${error}`);
     }
   }
 
