@@ -5,6 +5,7 @@ import React from 'react';
 import {ApolloClient} from 'apollo-client';
 import {useQuery, useMutation} from '@apollo/react-hooks';
 import {ApolloProvider} from '@apollo/react-common';
+// eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema} from 'graphql';
 import {createMount} from '@shopify/react-testing';
 

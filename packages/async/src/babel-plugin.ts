@@ -49,7 +49,7 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
             return (
               specifier.isImportSpecifier() &&
               processImports.some(name =>
-                specifier.get('imported').isIdentifier({name}),
+                (specifier.get('imported') as NodePath).isIdentifier({name}),
               )
             );
           });
@@ -82,7 +82,7 @@ function addIdOption(
       return;
     }
 
-    const args = callExpression.get('arguments');
+    const args = callExpression.get('arguments') as {length: number};
     if (args.length === 0) {
       return;
     }
@@ -121,7 +121,7 @@ function addIdOption(
       ? loadProperty.get('value')
       : loadProperty.get('body');
 
-    const dynamicImports: NodePath<Types.CallExpression>[] = [];
+    const dynamicImports: Array<NodePath<Types.CallExpression>> = [];
 
     if (!Array.isArray(loaderMethod)) {
       loaderMethod.traverse({

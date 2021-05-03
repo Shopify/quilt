@@ -14,10 +14,12 @@ jest.mock('../utilities', () => ({
   getCurrencySymbol: jest.fn(),
 }));
 
+/* eslint-disable @typescript-eslint/no-var-requires */
 const translate: jest.Mock = require('../utilities').translate;
 const getTranslationTree: jest.Mock = require('../utilities')
   .getTranslationTree;
 const getCurrencySymbol: jest.Mock = require('../utilities').getCurrencySymbol;
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 describe('I18n', () => {
   const defaultDetails = {locale: 'en-ca'};
@@ -638,7 +640,7 @@ describe('I18n', () => {
   });
 
   describe('#numberSymbols()', () => {
-    const tests: [string, string, string][] = [
+    const tests: Array<[string, string, string]> = [
       // [locale, decimal, thousands]
       ['en', '.', ','],
       ['es', ',', '.'],

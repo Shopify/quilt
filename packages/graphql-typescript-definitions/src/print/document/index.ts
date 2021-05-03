@@ -14,6 +14,7 @@ import {Options, FileContext, OperationContext} from './context';
 import {ObjectStack} from './utilities';
 import {tsInterfaceBodyForObjectField, variablesInterface} from './language';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const generate = require('@babel/generator').default;
 
 export interface File {

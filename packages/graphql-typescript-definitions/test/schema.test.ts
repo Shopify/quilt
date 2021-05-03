@@ -1,3 +1,4 @@
+// eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema} from 'graphql';
 import {stripIndent} from 'common-tags';
 

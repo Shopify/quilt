@@ -65,7 +65,6 @@ describe('StatsDClient', () => {
       expect(distributionFn).toHaveBeenCalledWith(
         stat,
         value,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         {foo_bar: tagValue},
         expect.any(Function),
       );
@@ -136,7 +135,6 @@ describe('StatsDClient', () => {
       expect(timingFn).toHaveBeenCalledWith(
         stat,
         value,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         {foo_bar: tagValue},
         expect.any(Function),
       );
@@ -203,7 +201,6 @@ describe('StatsDClient', () => {
       expect(gaugeFn).toHaveBeenCalledWith(
         stat,
         value,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         {foo_bar: tagValue},
         expect.any(Function),
       );
@@ -270,7 +267,6 @@ describe('StatsDClient', () => {
       expect(incrementFn).toHaveBeenCalledWith(
         stat,
         1,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         {foo_bar: tagValue},
         expect.any(Function),
       );
