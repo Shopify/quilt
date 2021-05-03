@@ -2,7 +2,7 @@ import {resolve} from 'path';
 
 import {readFile, readJSON} from 'fs-extra';
 import {Source, parse, concatAST, GraphQLSchema} from 'graphql';
-import {getGraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
+import {loadConfig, GraphQLProjectConfig} from 'graphql-config';
 import {
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjects,
@@ -31,7 +31,13 @@ export async function evaluateFixtures(
   fixturePaths: string[],
   {cwd}: Options,
 ): Promise<Evaluation[]> {
-  const config = getGraphQLConfig(resolve(cwd));
+  const config = await loadConfig({
+    rootDir: resolve(cwd),
+  });
+
+  if (!config) {
+    return [];
+  }
 
   const projectASTCollection = await Promise.all(
     getGraphQLProjects(config).map(getOperationsForProject),
@@ -71,10 +77,10 @@ async function getOperationsForProject(
   let schema: GraphQLSchema;
 
   try {
-    schema = projectConfig.getSchema();
+    schema = await projectConfig.getSchema();
   } catch (error) {
     throw new Error(
-      `Error parsing '${projectConfig.schemaPath}':\n\n${error.message.replace(
+      `Error parsing '${projectConfig.schema}':\n\n${error.message.replace(
         /Syntax Error.*?\(.*?\) /,
         '',
       )}`,

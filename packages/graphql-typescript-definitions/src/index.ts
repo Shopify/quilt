@@ -13,7 +13,7 @@ import {
 import chalk from 'chalk';
 import {mkdirp, readFile, writeFile} from 'fs-extra';
 import {
-  getGraphQLConfig,
+  loadConfigSync,
   GraphQLProjectConfig,
   GraphQLConfig,
 } from 'graphql-config';
@@ -97,9 +97,11 @@ export class Builder extends EventEmitter {
     super();
     this.options = options;
 
+    const configPath = cwd ? resolve(cwd) : undefined;
+
     this.config = options.config
       ? options.config
-      : getGraphQLConfig(cwd ? resolve(cwd) : undefined);
+      : loadConfigSync({rootDir: configPath});
   }
 
   once(event: 'error', handler: (error: Error) => void): this;
@@ -186,7 +188,7 @@ export class Builder extends EventEmitter {
   }
 
   stop() {
-    if (this.filesystem) {
+    if (this.filesystem && typeof this.filesystem.dispose === 'function') {
       this.filesystem.dispose();
     }
   }
@@ -209,7 +211,7 @@ export class Builder extends EventEmitter {
     filePath: string,
     projectConfig: GraphQLProjectConfig,
   ) => {
-    const documents = this.documentMapByProject.get(projectConfig.projectName);
+    const documents = this.documentMapByProject.get(projectConfig.name);
 
     if (documents) {
       documents.delete(filePath);
@@ -235,10 +237,9 @@ export class Builder extends EventEmitter {
       this.config,
       schemaPath,
     );
-
     const schemaTypesPath = getSchemaTypesPath(projectConfig, this.options);
     const definitions = generateSchemaTypes(
-      projectConfig.getSchema(),
+      await projectConfig.getSchema(),
       this.options,
     );
     await mkdirp(schemaTypesPath);
@@ -264,7 +265,7 @@ export class Builder extends EventEmitter {
         this.documentMapByProject.entries(),
       ).map(([projectName, documents]) =>
         this.generateDocumentTypesForProject(
-          this.config.getProjectConfig(projectName),
+          this.config.getProject(projectName),
           documents,
         ),
       ),
@@ -317,7 +318,7 @@ export class Builder extends EventEmitter {
 
     try {
       ast = compile(
-        projectConfig.getSchema(),
+        await projectConfig.getSchema(),
         concatAST(Array.from(documents.values())),
       );
     } catch (error) {
@@ -406,11 +407,11 @@ export class Builder extends EventEmitter {
     projectConfig: GraphQLProjectConfig,
     contents: string,
   ) {
-    let documents = this.documentMapByProject.get(projectConfig.projectName);
+    let documents = this.documentMapByProject.get(projectConfig.name);
 
     if (!documents) {
       documents = new Map<string, DocumentNode>();
-      this.documentMapByProject.set(projectConfig.projectName, documents);
+      this.documentMapByProject.set(projectConfig.name, documents);
     }
 
     if (contents.trim().length === 0) {
@@ -439,9 +440,7 @@ function getSchemaTypesPath(
     projectConfig,
     join(
       options.schemaTypesPath,
-      `${
-        projectConfig.projectName ? `${projectConfig.projectName}-` : ''
-      }types`,
+      `${projectConfig.name ? `${projectConfig.name}-` : ''}types`,
     ),
   );
 }

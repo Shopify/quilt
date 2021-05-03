@@ -1,0 +1,12 @@
+{
+  "name": "this-is-a-test",
+  "schemaPath": "schema.graphql",
+  "includes": ["documents/**/*.graphql"],
+  "projects": {
+    "project-one": {
+      "name": "project-one",
+      "schemaPath": "schema.graphql",
+      "includes": ["documents/**/*.graphql", "new-documents/**/*.graphql"],
+    }
+  }
+}
