@@ -112,7 +112,7 @@ export function pitch(
   (workerCompiler as any).runAsChild(
     (
       error: Error | null,
-      entries: {files: string[]}[] | null,
+      entries: Array<{files: string[]}> | null,
       compilation: import('webpack').compilation.Compilation,
     ) => {
       let finalError;

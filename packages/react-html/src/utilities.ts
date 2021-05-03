@@ -54,7 +54,9 @@ export function showPage(): Promise<void> {
     : Promise.resolve();
 }
 
-export function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
+export function removeDuplicate(
+  metas: Array<React.HTMLProps<HTMLMetaElement>>,
+) {
   const names = new Set();
   const properties = new Set();
 

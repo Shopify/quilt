@@ -2,7 +2,6 @@ import React from 'react';
 import {extract} from '@shopify/react-effect/server';
 
 import {render, Html} from '../server';
-
 import {useSerialized, HtmlContext, HtmlManager} from '..';
 
 describe('useSerialized', () => {

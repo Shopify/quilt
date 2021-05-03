@@ -1,9 +1,9 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {mockPerformance} from './utilities';
-
 import {LifecycleEventListener, PerformanceContext} from '..';
+
+import {mockPerformance} from './utilities';
 
 describe('<LifecycleEventListener />', () => {
   it('sets up a event listener on the Performance context object', () => {

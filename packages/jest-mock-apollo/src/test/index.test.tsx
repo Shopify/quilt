@@ -9,13 +9,13 @@ import {ApolloProvider} from '@apollo/react-common';
 import {buildSchema} from 'graphql';
 import {createMount} from '@shopify/react-testing';
 
+import configureClient from '..';
+
 import unionOrIntersectionTypes from './fixtures/schema-unions-and-interfaces.json';
 import {
   PetQuery as petQuery,
   PetMutation as petMutation,
 } from './fixtures/PetQuery.graphql';
-
-import configureClient from '..';
 
 const schemaSrc = readFileSync(
   path.resolve(__dirname, './fixtures/schema.graphql'),
