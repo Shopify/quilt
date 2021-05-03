@@ -237,6 +237,7 @@ export class Builder extends EventEmitter {
       this.config,
       schemaPath,
     );
+
     const schemaTypesPath = getSchemaTypesPath(projectConfig, this.options);
     const definitions = generateSchemaTypes(
       await projectConfig.getSchema(),

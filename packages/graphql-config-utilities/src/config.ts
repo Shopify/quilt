@@ -76,7 +76,7 @@ export function getGraphQLProjects(config: GraphQLConfig) {
     return projects;
   }
 
-  if (projects[0] && projects[0]?.schema) {
+  if (projects[0]?.schema) {
     // single project configuration, return an array of the single project
     return projects;
   }
@@ -124,9 +124,10 @@ export function getGraphQLProjectForSchemaPath(
   if (
     !project ||
     !(project as GraphQLProjectConfig).schema ||
-    `${(project as GraphQLProjectConfig).dirpath}/${
-      (project as GraphQLProjectConfig).schema
-    }` !== schemaPath
+    resolve(
+      (project as GraphQLProjectConfig).dirpath,
+      (project as GraphQLProjectConfig).schema as string,
+    ) !== schemaPath
   ) {
     throw new Error(
       `No project defined in graphql config for schema '${schemaPath}'`,
