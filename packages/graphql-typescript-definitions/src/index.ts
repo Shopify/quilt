@@ -186,7 +186,9 @@ export class Builder extends EventEmitter {
   }
 
   stop() {
-    this.filesystem?.dispose();
+    if (this.filesystem) {
+      this.filesystem.dispose();
+    }
   }
 
   private handleDocumentUpdate = async (
@@ -458,7 +460,7 @@ interface File {
 }
 
 function groupOperationsAndFragmentsByFile({operations, fragments}: AST) {
-  return (Object.values(operations) as (Operation | Fragment)[])
+  return (Object.values(operations) as Array<Operation | Fragment>)
     .concat(Object.values(fragments))
     .reduce((map, item) => {
       if (!item.filePath) {

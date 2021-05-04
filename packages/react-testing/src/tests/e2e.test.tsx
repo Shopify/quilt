@@ -239,11 +239,13 @@ describe('@shopify/react-testing', () => {
       function MyComponent() {
         const [clicked, setClicked] = useState(false);
 
+        /* eslint-disable jest/no-if */
         return clicked ? (
           <div>Clicked!</div>
         ) : (
           <Clickable onClick={setClicked.bind(null, true)} />
         );
+        /* eslint-enable jest/no-if */
       }
 
       const myComponent = mount(<MyComponent />);

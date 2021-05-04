@@ -1,1 +1,2 @@
-export {Generation} from './Generation';
+import { Generation } from "./Generation";
+export { Generation };

@@ -1,6 +1,8 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
+import {submitSuccess, submitFail} from '..';
+
 import {
   ProductForm,
   TextField,
@@ -12,8 +14,6 @@ import {
   hitClean,
   waitForSubmit,
 } from './utilities';
-
-import {submitSuccess, submitFail} from '..';
 
 describe('useForm', () => {
   describe('dirty state', () => {

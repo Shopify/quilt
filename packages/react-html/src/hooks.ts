@@ -13,6 +13,7 @@ export function useDomEffect(
   const effect = () => perform(manager);
 
   useServerEffect(effect, manager.effect);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(effect, [manager, ...inputs]);
 }
 

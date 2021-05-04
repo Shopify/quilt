@@ -3,11 +3,10 @@ import faker from 'faker';
 import {mount} from 'enzyme';
 
 import {validateList} from '../validators';
+import FormState, {validate, validateNested} from '..';
 
 import {lastCallArgs} from './utilities';
 import {Input, InputField} from './components';
-
-import FormState, {validate, validateNested} from '..';
 
 describe('<FormState />', () => {
   it('passes form state into child function', () => {

@@ -21,7 +21,7 @@ interface ProcessableImport {
 
 export interface Options {
   noop?: boolean;
-  packages?: {[key: string]: (string | ProcessableImport)[]};
+  packages?: {[key: string]: Array<string | ProcessableImport>};
 }
 
 interface State {
@@ -79,7 +79,9 @@ export default function workerBabelPlugin({
             continue;
           }
 
-          const importedName = (specifier.get('imported').node as {
+          const imported: any = specifier.get('imported');
+
+          const importedName = (imported.node as {
             name: string;
           }).name;
           const processableImport = processImports.find(
@@ -91,7 +93,7 @@ export default function workerBabelPlugin({
           }
 
           const binding = specifier.scope.getBinding(
-            (specifier.get('imported').node as {name: string}).name,
+            (imported.node as {name: string}).name,
           );
 
           if (binding == null) {

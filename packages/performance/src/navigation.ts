@@ -11,7 +11,7 @@ import {
 } from './types';
 import {getUniqueRanges} from './utilities';
 
-const LIFECYCLE_EVENTS: LifecycleEvent['type'][] = [
+const LIFECYCLE_EVENTS: Array<LifecycleEvent['type']> = [
   EventType.TimeToFirstByte,
   EventType.TimeToFirstPaint,
   EventType.TimeToFirstContentfulPaint,
@@ -73,7 +73,7 @@ export class Navigation implements NavigationDefinition {
     return usableEvent ? usableEvent.start - this.start : this.timeToComplete;
   }
 
-  get resourceEvents(): (ScriptDownloadEvent | StyleDownloadEvent)[] {
+  get resourceEvents(): Array<ScriptDownloadEvent | StyleDownloadEvent> {
     return [
       ...this.eventsByType(EventType.ScriptDownload),
       ...this.eventsByType(EventType.StyleDownload),

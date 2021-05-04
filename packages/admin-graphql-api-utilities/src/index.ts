@@ -67,14 +67,14 @@ interface Edge<T> {
   node: T;
 }
 
-export function nodesFromEdges<T>(edges: Edge<T>[]): T[] {
+export function nodesFromEdges<T>(edges: Array<Edge<T>>): T[] {
   return edges.map(({node}) => node);
 }
 
 export function keyFromEdges<T, K extends keyof T>(
-  edges: Edge<T>[],
+  edges: Array<Edge<T>>,
   key: K,
-): T[K][] {
+): Array<T[K]> {
   return edges.map(({node}) => node[key]);
 }
 

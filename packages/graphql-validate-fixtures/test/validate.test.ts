@@ -2,6 +2,7 @@
 
 import {join} from 'path';
 
+// eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema, parse, concatAST} from 'graphql';
 import {GraphQLProjectConfig} from 'graphql-config';
 import {AST, compile} from 'graphql-tool-utilities';

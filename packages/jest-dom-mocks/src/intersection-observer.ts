@@ -16,7 +16,7 @@ export default class IntersectionObserverMock {
   simulate(
     entry:
       | Partial<IntersectionObserverEntry>
-      | Partial<IntersectionObserverEntry>[],
+      | Array<Partial<IntersectionObserverEntry>>,
   ) {
     this.ensureMocked();
 

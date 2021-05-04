@@ -19,7 +19,7 @@ export interface GraphQLClientConfig {
 
 export type MockGraphQLClient = ApolloClient<any> & {
   graphQLRequests: Requests;
-  graphQLResults: Promise<any>[];
+  graphQLResults: Array<Promise<any>>;
 };
 
 export default function configureClient({
@@ -42,7 +42,7 @@ export default function configureClient({
     const mockLink = new MockApolloLink(mock, schema);
 
     const graphQLRequests = new Requests();
-    const graphQLResults: Promise<any>[] = [];
+    const graphQLResults: Array<Promise<any>> = [];
     const memoryLink = new ApolloLink((operation, forward) => {
       if (forward == null) {
         return null;
