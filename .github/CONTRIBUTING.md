@@ -40,46 +40,25 @@ The [documentation](../documentation) directory in this repo covers the more gra
 - [Resources](../documentation/resources.md): good resources for understanding this project’s tech stack.
 - [Getting started](../documentation/getting-started.md): some tools we recommend for getting the most out of this project.
 
-## Testing your changes in a local project
+## 🎩 in a local project
 
-You can use [`yalc`](https://github.com/wclr/yalc) to test local changes to quilt packages inside consuming repos without publishing new versions.
+You can use [`yalc`](https://github.com/wclr/yalc) to publish the package and [`nodemon`](https://nodemon.io/) to watch the file changes.
 
-(We have a local installation of yalc. You can use `yarn yalc` instead of `yalc` with any of the command below if you want to avoid installing yalc globally.)
+This had been added as a `tophat` script to allow for faster iteration.
 
-Once you have some local changes you want to test:
+In quilt:
 
-#### First run
-
-1. Run `yarn build` at the repo root or `yarn build --root packages/<package-folder-name>` to build a single package
-1. Run `yalc publish packages/<package-folder-name>` to publish a package
-1. Inside the consuming repo run `yalc link --no-pure <package-name-in-package.json>`
-
-#### Subsequent runs
-
-After making code changes within the quilt repo:
-
-1. Run `yarn build --root packages/<package-folder-name>` to rebuild the package
-1. Run `yalc publish --push packages/<package-folder-name>` to push the changes to the consuming repo
-
-You may also run this command to rebuild and publish every time a change is detected in a package:
-
-```console
-npx nodemon --watch packages/<package-folder-name> \
-  --exec 'yarn build --root packages/<package-folder-name> \
-  && npx yalc publish --push packages/<package-folder-name>' \
-  --ignore packages/<package-folder-name>/build \
-  --ext ts --ignore '*.d.ts'
+```bash
+ PKG_NAME=<package-folder-name> yarn tophat #PKG_NAME=react-server yarn tophat
 ```
 
-For example:
+In consuming repo:
 
-```console
-npx nodemon --watch packages/storybook-a11y-test \
-  --exec 'yarn build --root packages/storybook-a11y-test \
-  && npx yalc publish --push packages/storybook-a11y-test' \
-  --ignore packages/storybook-a11y-test/build \
-  --ext ts --ignore '*.d.ts'
+```bash
+yalc link --no-pure <package-name-in-package.json>  #yalc link --no-pure @shopify/react-server
 ```
+
+You may also want to add `.yalc` and `yalc.lock` to `.gitignore` to remove some of the noise.
 
 ### Emoji commits
 
