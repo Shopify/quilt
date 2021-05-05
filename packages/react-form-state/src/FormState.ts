@@ -58,7 +58,7 @@ interface Props<Fields> {
 interface State<Fields> {
   submitting: boolean;
   fields: FieldStates<Fields>;
-  dirtyFields: (keyof Fields)[];
+  dirtyFields: Array<keyof Fields>;
   errors: RemoteError[];
   externalErrors: RemoteError[];
 }
@@ -316,7 +316,7 @@ export default class FormState<
   }: {
     fieldPath: Key;
     dirty: boolean;
-    dirtyFields: (keyof Fields)[];
+    dirtyFields: Array<keyof Fields>;
   }) {
     const dirtyFieldsSet = new Set(dirtyFields);
 

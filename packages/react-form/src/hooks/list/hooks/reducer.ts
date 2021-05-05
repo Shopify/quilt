@@ -163,7 +163,7 @@ export function updateErrorAction<Item>(
 }
 
 export interface ListState<Item extends object> {
-  list: FieldStates<Item>[];
+  list: Array<FieldStates<Item>>;
   initial: Item[];
 }
 

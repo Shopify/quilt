@@ -50,7 +50,7 @@ function endRequest(ctx: Context, requestDuration: number) {
     return;
   }
 
-  /* eslint-disable @typescript-eslint/camelcase */
+  /* eslint-disable @typescript-eslint/naming-convention */
   const logObject = {
     datetime: new Date().toISOString(),
     http_method: ctx.method.toUpperCase(),
@@ -63,7 +63,7 @@ function endRequest(ctx: Context, requestDuration: number) {
     user_agent: ctx.header[Header.UserAgent],
     payload: logger.buffer,
   };
-  /* eslint-enable @typescript-eslint/camelcase */
+  /* eslint-enable @typescript-eslint/naming-convention */
 
   // eslint-disable-next-line no-console
   console.log(

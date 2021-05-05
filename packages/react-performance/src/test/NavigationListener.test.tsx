@@ -1,9 +1,9 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {mockPerformance} from './utilities';
-
 import {NavigationListener, PerformanceContext} from '..';
+
+import {mockPerformance} from './utilities';
 
 describe('<NavigationListener />', () => {
   it('sets up a navigation listener on the Performance context object', () => {

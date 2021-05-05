@@ -1,6 +1,7 @@
 import {readFileSync} from 'fs';
 import path from 'path';
 
+// eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema, GraphQLError} from 'graphql';
 
 import MockApolloLink from '../MockApolloLink';

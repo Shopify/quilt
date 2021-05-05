@@ -42,7 +42,7 @@ export interface FieldListConfig<Item extends object> {
 }
 
 interface BaseList<Item extends object> {
-  fields: FieldDictionary<Item>[];
+  fields: Array<FieldDictionary<Item>>;
   dispatch: React.Dispatch<ListAction<Item>>;
   reset(): void;
   dirty: boolean;
@@ -53,11 +53,9 @@ export function useBaseList<Item extends object>(
   validationDependencies: unknown[] = [],
 ): BaseList<Item> {
   const list = Array.isArray(listOrConfig) ? listOrConfig : listOrConfig.list;
-  const validates: FieldListConfig<Item>['validates'] = Array.isArray(
-    listOrConfig,
-  )
-    ? {}
-    : listOrConfig.validates || {};
+  const validates: FieldListConfig<Item>['validates'] = useMemo(() => {
+    return Array.isArray(listOrConfig) ? {} : listOrConfig.validates || {};
+  }, [listOrConfig]);
 
   const [state, dispatch] = useListReducer(list);
 
@@ -83,7 +81,7 @@ export function useBaseList<Item extends object>(
 
   const handlers = useHandlers(state, dispatch, validationConfigs);
 
-  const fields: FieldDictionary<Item>[] = useMemo(() => {
+  const fields: Array<FieldDictionary<Item>> = useMemo(() => {
     return state.list.map((item, index) => {
       return mapObject(item, (field, key: keyof Item) => {
         return {

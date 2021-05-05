@@ -166,7 +166,7 @@ function createParts(
       : undefined;
 
   let lastTokenEndIndex = 0;
-  const parts: (RegExpExecArray | string)[] = [];
+  const parts: Array<RegExpExecArray | string> = [];
 
   if (delimiterRegex) {
     let token = delimiterRegex.exec(string);

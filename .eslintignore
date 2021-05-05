@@ -7,3 +7,6 @@ packages/*/build
 **/*.js
 **/*.esnext
 **/*.mjs
+**/sewing-kit.config.ts
+config/sewing-kit/index.ts
+**/test/fixtures/**/default-types/*.ts

@@ -57,7 +57,7 @@
     "@sewing-kit/plugins": "^0.1.10",
     "@shopify/app-bridge": "^0.7.3",
     "@shopify/babel-preset": "^23.1.1",
-    "@shopify/eslint-plugin": "^36.0.2",
+    "@shopify/eslint-plugin": "^39.0.0",
     "@shopify/typescript-configs": "^4.0.0",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",

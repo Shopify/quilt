@@ -1,6 +1,8 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
+import {submitSuccess, submitFail} from '..';
+
 import {
   FormWithDynamicVariantList,
   TextField,
@@ -10,8 +12,6 @@ import {
   hitReset,
   waitForSubmit,
 } from './utilities';
-
-import {submitSuccess, submitFail} from '..';
 
 describe('useForm with dynamic list', () => {
   describe('dirty state', () => {

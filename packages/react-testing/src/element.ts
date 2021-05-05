@@ -57,7 +57,7 @@ export class Element<Props> implements Node<Props> {
     if (!this.elementChildrenCache) {
       this.elementChildrenCache = this.allChildren.filter(
         element => typeof element !== 'string',
-      ) as Element<unknown>[];
+      ) as Array<Element<unknown>>;
     }
 
     return this.elementChildrenCache;
@@ -89,12 +89,12 @@ export class Element<Props> implements Node<Props> {
     return domNodes[0] || null;
   }
 
-  private descendantsCache: Element<unknown>[] | null = null;
-  private elementChildrenCache: Element<unknown>[] | null = null;
+  private descendantsCache: Array<Element<unknown>> | null = null;
+  private elementChildrenCache: Array<Element<unknown>> | null = null;
 
   constructor(
     private readonly tree: Tree<Props>,
-    private readonly allChildren: (Element<unknown> | string)[],
+    private readonly allChildren: Array<Element<unknown> | string>,
     public readonly root: Root,
   ) {}
 
@@ -170,19 +170,19 @@ export class Element<Props> implements Node<Props> {
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
-  ): Element<PropsFor<Type>>[] {
+  ): Array<Element<PropsFor<Type>>> {
     return this.elementDescendants.filter(
       element =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) as Element<PropsFor<Type>>[];
+    ) as Array<Element<PropsFor<Type>>>;
   }
 
   findWhere(predicate: Predicate): Element<unknown> | null {
     return this.elementDescendants.find(element => predicate(element)) || null;
   }
 
-  findAllWhere(predicate: Predicate): Element<unknown>[] {
+  findAllWhere(predicate: Predicate): Array<Element<unknown>> {
     return this.elementDescendants.filter(element => predicate(element));
   }
 
@@ -263,7 +263,7 @@ function equalSubset(subset: object, full: object) {
 }
 
 function getDescendants(element: any) {
-  const descendants: Element<unknown>[] = [];
+  const descendants: Array<Element<unknown>> = [];
   // eslint-disable-next-line @typescript-eslint/prefer-for-of
   for (let i = 0; i < element.allChildren.length; i++) {
     const child = element.allChildren[i];
