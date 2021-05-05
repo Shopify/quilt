@@ -46,6 +46,7 @@
     "index.d.ts"
   ],
   "peerDependencies": {
+    "graphql": ">=15.0.0 <16.0.0",
     "react": ">=16.8.0 <17.0.0"
   },
   "module": "index.mjs",

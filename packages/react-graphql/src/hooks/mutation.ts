@@ -3,6 +3,7 @@ import {OperationVariables} from 'apollo-client';
 import {NoInfer} from '@shopify/useful-types';
 
 import {QueryDocument} from '../types';
+
 import {MutationHookOptions, MutationHookResult} from './types';
 import useApolloClient from './apollo-client';
 import {normalizeDocument} from './graphql-document';

@@ -48,7 +48,7 @@ export default function useGraphQLDocument<
         }
       })();
     }
-  }, [document]);
+  }, [document, documentOrAsyncDocument, mounted]);
 
   useAsyncAsset(
     isAsync(documentOrAsyncDocument)
