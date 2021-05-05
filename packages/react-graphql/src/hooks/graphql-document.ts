@@ -1,61 +1,93 @@
-import {useState, useEffect, useCallback} from 'react';
+import {parse} from 'graphql';
+import {useState, useEffect} from 'react';
 import {OperationVariables} from 'apollo-client';
-import {DocumentNode} from 'graphql-typed';
+import {DocumentNode, SimpleDocument} from 'graphql-typed';
 import {useMountedRef} from '@shopify/react-hooks';
 import {useAsyncAsset} from '@shopify/react-async';
 
-import {AsyncDocumentNode} from '../types';
+import {AsyncDocumentNode, QueryDocument, PossiblyAsyncQuery} from '../types';
 
 export default function useGraphQLDocument<
   Data = any,
   Variables = OperationVariables,
   DeepPartial = {}
 >(
-  documentOrAsyncDocument:
-    | DocumentNode<Data, Variables>
-    | AsyncDocumentNode<Data, Variables, DeepPartial>,
+  documentOrAsyncDocument: PossiblyAsyncQuery<Data, Variables, DeepPartial>,
 ): DocumentNode<Data, Variables> | null {
   const [document, setDocument] = useState<DocumentNode<
     Data,
     Variables
   > | null>(() => {
-    if (isDocumentNode(documentOrAsyncDocument)) {
-      return documentOrAsyncDocument;
+    const doc = isAsync(documentOrAsyncDocument)
+      ? documentOrAsyncDocument.resolver.resolved
+      : documentOrAsyncDocument;
+
+    if (doc == null) {
+      return doc;
     } else {
-      return documentOrAsyncDocument.resolver.resolved;
+      return normalizeDocument(doc as QueryDocument<Data, Variables>);
     }
   });
 
   const mounted = useMountedRef();
 
-  const loadDocument = useCallback(async () => {
-    if (!isDocumentNode(documentOrAsyncDocument)) {
-      try {
-        const resolved = await documentOrAsyncDocument.resolver.resolve();
-        if (mounted.current) {
-          setDocument(resolved);
-        }
-      } catch (error) {
-        throw Error('error loading GraphQL document');
-      }
-    }
-  }, [documentOrAsyncDocument, mounted]);
-
   useEffect(() => {
-    if (!document) {
-      loadDocument();
+    if (!document && isAsync(documentOrAsyncDocument)) {
+      (async () => {
+        try {
+          const resolved = (await documentOrAsyncDocument.resolver.resolve()) as QueryDocument<
+            Data,
+            Variables,
+            DeepPartial
+          >;
+          if (mounted.current) {
+            setDocument(normalizeDocument(resolved));
+          }
+        } catch (error) {
+          throw Error('error loading GraphQL document');
+        }
+      })();
     }
-  }, [document, loadDocument]);
+  }, [document]);
 
   useAsyncAsset(
-    isDocumentNode(documentOrAsyncDocument)
-      ? undefined
-      : documentOrAsyncDocument.resolver.id,
+    isAsync(documentOrAsyncDocument)
+      ? documentOrAsyncDocument.resolver.id
+      : undefined,
   );
 
   return document;
 }
 
-function isDocumentNode(arg: any): arg is DocumentNode {
-  return Boolean(arg && arg.kind && arg.kind === 'Document');
+export function normalizeDocument<Data, Variables, DeepPartial = {}>(
+  document: QueryDocument<Data, Variables, DeepPartial>,
+) {
+  if (isSimpleDocument(document)) {
+    return desimplify(document);
+  } else {
+    return document;
+  }
+}
+
+function desimplify<Data, Variables, DeepPartial = {}>(
+  doc: SimpleDocument<Data, Variables, DeepPartial>,
+): DocumentNode<Data, Variables, DeepPartial> {
+  return {
+    id: doc.id,
+    ...parse(doc.source),
+  };
+}
+
+function isAsync<Data, Variables, DeepPartial = {}>(
+  arg: any,
+): arg is AsyncDocumentNode<Data, Variables, DeepPartial> {
+  return 'resolver' in arg;
+}
+
+export function isSimpleDocument<Data, Variables, DeepPartial = {}>(
+  doc: any,
+): doc is SimpleDocument<Data, Variables, DeepPartial> {
+  return (
+    typeof doc === 'object' && 'id' in doc && 'source' in doc && 'name' in doc
+  );
 }

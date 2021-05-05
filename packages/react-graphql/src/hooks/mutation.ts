@@ -1,13 +1,14 @@
+import {useCallback, useMemo} from 'react';
 import {OperationVariables} from 'apollo-client';
-import {DocumentNode} from 'graphql-typed';
-import {useCallback} from 'react';
 import {NoInfer} from '@shopify/useful-types';
 
+import {QueryDocument} from '../types';
 import {MutationHookOptions, MutationHookResult} from './types';
 import useApolloClient from './apollo-client';
+import {normalizeDocument} from './graphql-document';
 
 export default function useMutation<Data = any, Variables = OperationVariables>(
-  mutation: DocumentNode<Data, Variables>,
+  mutation: QueryDocument<Data, Variables>,
   options: MutationHookOptions<Data, NoInfer<Partial<Variables>>> = {} as any,
 ): MutationHookResult<Data, Variables> {
   const {
@@ -22,6 +23,7 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
   } = options;
 
   const client = useApolloClient(overrideClient);
+  const document = useMemo(() => normalizeDocument(mutation), [mutation]);
 
   const runMutation = useCallback(
     (perMutationOptions: MutationHookOptions<Data, Variables> = {} as any) => {
@@ -32,7 +34,7 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
       delete perMutationOptions.variables;
 
       return client.mutate({
-        mutation,
+        mutation: document,
         variables: mutateVariables as any,
         optimisticResponse,
         refetchQueries,

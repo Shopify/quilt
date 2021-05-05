@@ -8,6 +8,7 @@ export type {
   GraphQLData,
   GraphQLVariables,
   GraphQLDeepPartial,
+  PossiblyAsyncQuery,
   QueryProps,
 } from './types';
 

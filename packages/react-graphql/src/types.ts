@@ -5,6 +5,7 @@ import {
   GraphQLData,
   GraphQLVariables,
   GraphQLDeepPartial,
+  SimpleDocument,
 } from 'graphql-typed';
 import {QueryResult} from '@apollo/react-common';
 import {
@@ -49,10 +50,18 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
   onError?: (error: ApolloError) => void;
 } & VariableOptions<Variables>;
 
+export type PossiblyAsyncQuery<Data = {}, Variables = {}, DeepPartial = {}> =
+  | QueryDocument<Data, Variables>
+  | AsyncDocumentNode<Data, Variables, DeepPartial>;
+
+export type QueryDocument<Data = {}, Variables = {}, DeepPartial = {}> =
+  | DocumentNode<Data, Variables, DeepPartial>
+  | SimpleDocument<Data, Variables, DeepPartial>;
+
 export interface AsyncDocumentNode<Data, Variables, DeepPartial>
   extends GraphQLOperation<Data, Variables, DeepPartial>,
     AsyncHookTarget<
-      DocumentNode<Data, Variables, DeepPartial>,
+      QueryDocument<Data, Variables, DeepPartial>,
       {},
       VariableOptions<Variables>,
       VariableOptions<Variables> &
@@ -62,7 +71,7 @@ export interface AsyncDocumentNode<Data, Variables, DeepPartial>
 export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
   extends GraphQLOperation<Data, Variables, DeepPartial>,
     AsyncComponentType<
-      DocumentNode<Data, Variables, DeepPartial>,
+      QueryDocument<Data, Variables, DeepPartial>,
       QueryHookOptions<Data, Variables> &
         Pick<QueryProps<Data, Variables>, 'children'>,
       {},
