@@ -1,18 +1,16 @@
 import {upperCaseFirst} from 'upper-case-first';
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   GraphQLCompositeType,
   // We need to bring these in as they are implicitly referenced by
   // GraphQLCompositeType, but TypeScript doesn’t know this when it
   // generates its declaration files.
-  // @ts-ignore
+  // @ts-expect-error TS needs this implict reference though we never use it explicitly
   GraphQLInterfaceType,
-  // @ts-ignore
+  // @ts-expect-error TS needs this implict reference though we never use it explicitly
   GraphQLObjectType,
-  // @ts-ignore
+  // @ts-expect-error TS needs this implict reference though we never use it explicitly
   GraphQLUnionType,
 } from 'graphql';
-/* eslint-enable @typescript-eslint/ban-ts-comment */
 import {Field} from 'graphql-tool-utilities';
 
 export class ObjectStack {
