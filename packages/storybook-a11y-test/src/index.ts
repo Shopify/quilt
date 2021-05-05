@@ -14,6 +14,21 @@ declare global {
   }
 }
 
+/**
+ * Default Axe rule overrides
+ */
+export const SENSIBLE_RULE_OVERRIDES: axeCore.Rule[] = [
+  {
+    // Allow `autocomplete="nope"` on form elements,
+    // a workaround to disable autofill in Chrome.
+    // @link https://bugs.chromium.org/p/chromium/issues/detail?id=468153
+    // @link https://development.shopify.io/engineering/developing_at_Shopify/accessibility/forms/autocomplete
+    // @link https://dequeuniversity.com/rules/axe/4.1/autocomplete-valid
+    id: 'autocomplete-valid',
+    selector: '*:not([autocomplete="nope"])',
+  },
+];
+
 const FORMATTING_SPACER = '    ';
 
 const getBrowser = () => {
@@ -79,10 +94,10 @@ const testPage = (
     try {
       const page = await browser.newPage();
       await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
-      const violations = await page.evaluate(() => {
+      const axeResults = await page.evaluate(() => {
         const story = window.__STORYBOOK_STORY_STORE__.fromId(id)!;
         // optional selector which element to inspect
-        const axeElement =
+        const axeElement: axeCore.ElementContext =
           story.parameters.a11y && story.parameters.a11y.element;
         // axe-core configurationOptions (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#parameters-1)
         const axeConfig: axeCore.Spec =
@@ -92,21 +107,22 @@ const testPage = (
           story.parameters.a11y && story.parameters.a11y.options;
 
         window.axe.configure(axeConfig || {});
+
         return (window.axe.run(
           axeElement || document.getElementById('root')!,
           axeOptions || {},
-          (err, {violations}) => {
+          (err, results) => {
             if (err) {
               throw err;
             }
-            return violations;
+            return results;
           },
-        ) as unknown) as axeCore.Result[];
+        ) as unknown) as axeCore.AxeResults;
       });
       await page.close();
 
-      if (violations.length) {
-        return formatMessage(id, violations);
+      if (axeResults.violations.length) {
+        return formatMessage(id, axeResults.violations);
       }
 
       return null;

@@ -27,13 +27,17 @@ In `.storybook/preview.ts` (you may have to create this file), set these recomme
 
 ```ts
 // .storybook/preview.ts
+import {SENSIBLE_RULE_OVERRIDES} from '@shopify/storybook-a11y-test';
+
 export const parameters = {
   a11y: {
     config: {
       rules: [
+        ...SENSIBLE_RULE_OVERRIDES,
         {
           // Add support for `autocomplete="nope"`, a workaround to prevent autocomplete in Chrome
           // @link https://bugs.chromium.org/p/chromium/issues/detail?id=468153
+          // @link https://development.shopify.io/engineering/developing_at_Shopify/accessibility/forms/autocomplete
           id: 'autocomplete-valid',
           selector: '*:not([autocomplete="nope"])',
         },
@@ -82,7 +86,7 @@ const {testPages, getCurrentStoryIds} = require('./built-a11y-package');
     // No server? Load the iframe from the filesystem instead:
     // iframePath: `file://${__dirname}/../build/storybook/static/iframe.html`,
     // Optional, IDs of stories that shouldn’t be tested
-    skippedStoryIds: []
+    skippedStoryIds: [],
   });
 
   // Run tests on all stories in `storyIds`
@@ -93,7 +97,7 @@ const {testPages, getCurrentStoryIds} = require('./built-a11y-package');
 
     // Maximum time in milliseconds to wait for the browser instance to start. Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
     timeout: 30000,
- });
+  });
 
   if (results.length) {
     console.error(`‼️  Accessibility violations found`);
@@ -125,8 +129,6 @@ MyStory.parameters = {
         },
         {
           // When there's a false positive, it's okay to disable a specific rule, for example:
-          // <explain why here>
-          // Example:
           // Color contrast ratio doesn't need to meet 4.5:1, as elements are disabled
           // @link https://dequeuniversity.com/rules/axe/4.1/color-contrast?application=axeAPI
           id: 'color-contrast',
