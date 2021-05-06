@@ -62,6 +62,7 @@ export default function useGraphQLDocument<
 export function normalizeDocument<Data, Variables, DeepPartial = {}>(
   document: QueryDocument<Data, Variables, DeepPartial>,
 ) {
+  console.log('normalizing document', document);
   if (isSimpleDocument(document)) {
     return desimplify(document);
   } else {
