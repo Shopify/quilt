@@ -2,9 +2,9 @@ import React from 'react';
 import withEnv from '@shopify/with-env';
 import {mount} from '@shopify/react-testing';
 
+import {Style} from '../Style';
 import {Script} from '../Script';
 import {Stylesheet} from '../Stylesheet';
-import {InlineStyle} from '../InlineStyle';
 import {HtmlManager} from '../../../manager';
 import {MANAGED_ATTRIBUTE} from '../../../utilities';
 import Html from '../Html';
@@ -143,7 +143,7 @@ describe('<Html />', () => {
       const head = html.find('head')!;
 
       for (const inlineStyle of inlineStyles) {
-        expect(head).toContainReactComponent(InlineStyle, {
+        expect(head).toContainReactComponent(Style, {
           children: inlineStyle.content,
         });
       }
