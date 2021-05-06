@@ -72,9 +72,20 @@ export function normalizeDocument<Data, Variables, DeepPartial = {}>(
 function desimplify<Data, Variables, DeepPartial = {}>(
   doc: SimpleDocument<Data, Variables, DeepPartial>,
 ): DocumentNode<Data, Variables, DeepPartial> {
+  const start = performance.now();
+  const parsedDoc = parse(doc.source);
+  const interval = performance.now() - start;
+  console.log(
+    'Parsing document',
+    doc.name || 'anonymous',
+    'took',
+    interval,
+    'ms',
+  );
+
   return {
     id: doc.id,
-    ...parse(doc.source),
+    ...parsedDoc,
   };
 }
 
