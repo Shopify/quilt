@@ -1,13 +1,8 @@
-import {join} from 'path';
+import {join, resolve} from 'path';
+
+import {loadConfigSync} from 'graphql-config';
 
 import {
-  GraphQLConfig,
-  GraphQLConfigData,
-  GraphQLProjectConfig,
-} from 'graphql-config';
-
-import {
-  defaultGraphQLProjectName,
   getGraphQLProjectForSchemaPath,
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjects,
@@ -17,66 +12,68 @@ import {
   resolveSchemaPath,
 } from '../config';
 
-jest.mock('fs', () => {
-  return {
-    existsSync: jest.fn(),
-  };
-});
-jest.mock('glob', () => jest.fn());
+jest.mock('fs', () => ({
+  ...jest.requireActual('fs'),
+  existsSync: jest.fn(),
+}));
 
 const existsSync: jest.Mock = jest.requireMock('fs').existsSync;
-const glob: jest.Mock = jest.requireMock('glob');
 
-const configData: GraphQLConfigData = {schemaPath: 'test'};
 const configPath = join(__dirname, '.graphqlconfig');
+
+const projectConfig = loadConfigSync({
+  filepath: resolve(__dirname, 'fixtures', 'project-one', '.graphqlconfig'),
+});
+
+const projectConfigMulti = loadConfigSync({
+  filepath: resolve(__dirname, 'fixtures', 'project-multi', '.graphqlconfig'),
+});
+
+const projectConfigDefault = loadConfigSync({
+  filepath: resolve(__dirname, 'fixtures', 'default', '.graphqlconfig'),
+});
+
+const projectConfigError = loadConfigSync({
+  filepath: resolve(__dirname, 'fixtures', 'error', '.graphqlconfig'),
+});
 
 describe('resolvePathRelativeToConfig()', () => {
   it('resolves a relative path', () => {
-    const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
-    expect(resolvePathRelativeToConfig(projectConfig, 'test')).toBe(
-      join(__dirname, 'test'),
-    );
+    expect(
+      resolvePathRelativeToConfig(
+        projectConfig.getProject('project-one'),
+        'test',
+      ),
+    ).toBe(join(__dirname, './fixtures', 'project-one', 'test'));
   });
 
   it('resolves an absolute path', () => {
-    const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
-    expect(resolvePathRelativeToConfig(projectConfig, '/test')).toBe('/test');
+    expect(
+      resolvePathRelativeToConfig(
+        projectConfig.getProject('project-one'),
+        '/test',
+      ),
+    ).toBe('/test');
   });
 });
 
 describe('resolveProjectName()', () => {
   it('resolves a named project name', () => {
-    const projectConfig = new GraphQLProjectConfig(
-      configData,
-      configPath,
-      'test',
+    expect(resolveProjectName(projectConfig.getProject('project-one'))).toBe(
+      'project-one',
     );
-
-    expect(resolveProjectName(projectConfig)).toBe('test');
   });
 
   it('ignores the provided defaultName for a named project', () => {
-    const projectConfig = new GraphQLProjectConfig(
-      configData,
-      configPath,
-      'test',
-    );
-
-    expect(resolveProjectName(projectConfig, 'ignored')).toBe('test');
-  });
-
-  it('uses the provided defaultName for a nameless project', () => {
-    const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
-    expect(resolveProjectName(projectConfig, 'test')).toBe('test');
+    expect(
+      resolveProjectName(projectConfig.getProject('project-one'), 'ignored'),
+    ).toBe('project-one');
   });
 
   it('uses default projectName for a nameless project when defaultName is omitted', () => {
-    const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
-    expect(resolveProjectName(projectConfig)).toBe(defaultGraphQLProjectName);
+    expect(resolveProjectName(projectConfigDefault.getDefault())).toBe(
+      'default',
+    );
   });
 });
 
@@ -86,82 +83,70 @@ describe('resolveSchemaPath()', () => {
   });
 
   it('throws an error if the schemaPath is empty', () => {
-    const projectConfig = new GraphQLProjectConfig({} as any, configPath);
-
-    expect(() => resolveSchemaPath(projectConfig)).toThrow(
-      /Missing GraphQL schemaPath/i,
+    const errorProjectConfig = {
+      ...projectConfigError.getDefault(),
+    };
+    delete errorProjectConfig.schema;
+    expect(() => resolveSchemaPath(errorProjectConfig as any)).toThrow(
+      /Missing GraphQL schema for project 'default'/i,
     );
   });
 
   it('throws an error if the schemaPath does not exist', () => {
-    const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
     existsSync.mockImplementation(() => false);
 
-    expect(() => resolveSchemaPath(projectConfig)).toThrow(/Schema not found/i);
+    expect(() =>
+      resolveSchemaPath(projectConfig.getProject('project-one')),
+    ).toThrow(/Schema not found/i);
   });
 
   it('returns the schemaPath if it exists', () => {
-    const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
     existsSync.mockImplementation(() => true);
-
-    expect(resolveSchemaPath(projectConfig)).toBe(
-      join(__dirname, configData.schemaPath),
+    const fullPath = `${projectConfig.getProject('project-one').dirpath}/${
+      projectConfig.getProject('project-one').schema
+    }`;
+    expect(resolveSchemaPath(projectConfig.getProject('project-one'))).toBe(
+      fullPath,
     );
-    expect(existsSync).toHaveBeenCalledWith(
-      join(__dirname, configData.schemaPath),
-    );
+    expect(existsSync).toHaveBeenCalledWith(fullPath);
   });
 
   it('returns the non-existent schemaPath when ignoreMissing is true', () => {
-    const projectConfig = new GraphQLProjectConfig(configData, configPath);
-
     existsSync.mockImplementation(() => false);
-
-    expect(resolveSchemaPath(projectConfig, true)).toBe(
-      join(__dirname, configData.schemaPath),
+    const fakeProjectConfig = {
+      ...projectConfig.getProject('project-one'),
+    };
+    fakeProjectConfig.schema = 'totally-fake-schema.gql';
+    expect(resolveSchemaPath(fakeProjectConfig as any, true)).toBe(
+      `${fakeProjectConfig.dirpath}/${fakeProjectConfig.schema}`,
     );
   });
 });
 
 describe('getGraphQLProjects()', () => {
   it('returns all projects in a multi-project configuration', () => {
-    const config = new GraphQLConfig(
-      {
-        schemaPath: '',
-        projects: {foo: {schemaPath: 'foo'}, bar: {schemaPath: 'bar'}},
-      },
-      configPath,
-    );
-
-    const projects = getGraphQLProjects(config);
+    const projects = getGraphQLProjects(projectConfigMulti);
 
     expect(projects).toHaveLength(2);
-    expect(projects[0].projectName).toBe('foo');
-    expect(projects[0].schemaPath).toBe(join(__dirname, 'foo'));
-    expect(projects[1].projectName).toBe('bar');
-    expect(projects[1].schemaPath).toBe(join(__dirname, 'bar'));
+    expect(projects[0].name).toBe('project-one');
+    expect(projects[1].name).toBe('project-two');
   });
 
   it('returns one project in a single project configuration', () => {
-    const config = new GraphQLConfig(
-      {
-        schemaPath: 'single',
-      },
-      configPath,
-    );
-
-    const projects = getGraphQLProjects(config);
+    const projects = getGraphQLProjects(projectConfig);
 
     expect(projects).toHaveLength(1);
-    expect(projects[0].schemaPath).toBe(join(__dirname, 'single'));
+    expect(projects[0].name).toBe('project-one');
   });
 
   it('throws an error if no projects are defined', () => {
-    const config = new GraphQLConfig({projects: {}} as any, configPath);
-
-    expect(() => getGraphQLProjects(config)).toThrow(/No projects defined/i);
+    const fakeGraphQLConfig = {
+      ...projectConfig,
+    };
+    delete fakeGraphQLConfig.projects;
+    expect(() => getGraphQLProjects(fakeGraphQLConfig as any)).toThrow(
+      /No projects defined/i,
+    );
   });
 });
 
@@ -171,64 +156,66 @@ describe('getGraphQLSchemaPaths()', () => {
   });
 
   it('returns schemaPath for each project', () => {
-    const config = new GraphQLConfig(
-      {
-        schemaPath: '',
-        projects: {foo: {schemaPath: 'foo'}, bar: {schemaPath: 'bar'}},
-      },
-      configPath,
-    );
-
     existsSync.mockImplementation(() => true);
 
-    expect(getGraphQLSchemaPaths(config)).toStrictEqual(
-      expect.arrayContaining([join(__dirname, 'foo'), join(__dirname, 'bar')]),
+    expect(getGraphQLSchemaPaths(projectConfigMulti)).toStrictEqual(
+      expect.arrayContaining([
+        join(
+          __dirname,
+          'fixtures',
+          'project-multi',
+          'project-one',
+          'schema.graphql',
+        ),
+        join(
+          __dirname,
+          'fixtures',
+          'project-multi',
+          'project-two',
+          'schema.graphql',
+        ),
+      ]),
     );
   });
 });
 
 describe('getGraphQLProjectIncludedFilePaths()', () => {
-  beforeEach(() => {
-    glob.mockClear();
-  });
-
   it('joins all file paths from each included pattern', async () => {
-    const projectConfig = new GraphQLProjectConfig(
-      {
-        schemaPath: 'test',
-        includes: ['app/A/**/*', 'app/B/**/*'],
-        excludes: ['**/excluded'],
-      },
-      configPath,
+    const filePaths = await getGraphQLProjectIncludedFilePaths(
+      projectConfig.getProject('project-one'),
     );
 
-    // eslint-disable-next-line no-empty-pattern
-    glob.mockImplementationOnce(({}, {}, cb) => cb(null, ['fileA']));
-    // eslint-disable-next-line no-empty-pattern
-    glob.mockImplementationOnce(({}, {}, cb) => cb(null, ['fileB']));
-
-    const filePaths = await getGraphQLProjectIncludedFilePaths(projectConfig);
-
-    expect(filePaths).toHaveLength(2);
-    expect(filePaths).toStrictEqual(expect.arrayContaining(['fileA', 'fileB']));
-
-    expect(glob).toHaveBeenCalledTimes(2);
-    expect(glob.mock.calls).toStrictEqual(
+    expect(filePaths).toHaveLength(4);
+    expect(filePaths).toStrictEqual(
       expect.arrayContaining([
-        [
-          join(__dirname, 'app/A/**/*'),
-          {
-            ignore: [join(__dirname, '**/excluded')],
-          },
-          expect.any(Function),
-        ],
-        [
-          join(__dirname, 'app/B/**/*'),
-          {
-            ignore: [join(__dirname, '**/excluded')],
-          },
-          expect.any(Function),
-        ],
+        join(
+          __dirname,
+          'fixtures',
+          'project-one',
+          'documents',
+          'Fragment.graphql',
+        ),
+        join(
+          __dirname,
+          'fixtures',
+          'project-one',
+          'documents',
+          'Query.graphql',
+        ),
+        join(
+          __dirname,
+          'fixtures',
+          'project-one',
+          'new-documents',
+          'Fragment.graphql',
+        ),
+        join(
+          __dirname,
+          'fixtures',
+          'project-one',
+          'new-documents',
+          'Query.graphql',
+        ),
       ]),
     );
   });
@@ -236,48 +223,31 @@ describe('getGraphQLProjectIncludedFilePaths()', () => {
 
 describe('getGraphQLProjectForSchemaPath()', () => {
   it('returns the schema in a multi-project configuration', () => {
-    const config = new GraphQLConfig(
-      {
-        schemaPath: '',
-        projects: {foo: {schemaPath: 'foo'}},
-      },
-      configPath,
+    const graphqlProjectConfig = getGraphQLProjectForSchemaPath(
+      projectConfigMulti,
+      join(
+        __dirname,
+        'fixtures',
+        'project-multi',
+        'project-one/schema.graphql',
+      ),
     );
 
-    const projectConfig = getGraphQLProjectForSchemaPath(
-      config,
-      join(__dirname, 'foo'),
-    );
-
-    expect(projectConfig.schemaPath).toBe(join(__dirname, 'foo'));
+    expect(graphqlProjectConfig.schema).toBe('project-one/schema.graphql');
   });
 
   it('returns the schema in a single project configuration', () => {
-    const config = new GraphQLConfig(
-      {
-        schemaPath: 'foo',
-      },
-      configPath,
+    const graphqlProjectConfig = getGraphQLProjectForSchemaPath(
+      projectConfig,
+      join(__dirname, 'fixtures', 'project-one/schema.graphql'),
     );
 
-    const projectConfig = getGraphQLProjectForSchemaPath(
-      config,
-      join(__dirname, 'foo'),
-    );
-
-    expect(projectConfig.schemaPath).toBe(join(__dirname, 'foo'));
+    expect(graphqlProjectConfig.schema).toBe('schema.graphql');
   });
 
   it('throws an error if the schemaPath does not match any project', () => {
-    const config = new GraphQLConfig(
-      {
-        schemaPath: 'foo',
-      },
-      configPath,
-    );
-
     expect(() =>
-      getGraphQLProjectForSchemaPath(config, join(__dirname, 'bar')),
+      getGraphQLProjectForSchemaPath(projectConfigMulti, 'schema.graphql'),
     ).toThrow(/No project defined/i);
   });
 });

@@ -1,10 +1,10 @@
 /* eslint-disable @shopify/jest/no-snapshots */
 
-import {join} from 'path';
+import {join, resolve} from 'path';
 
 // eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema, parse, concatAST} from 'graphql';
-import {GraphQLProjectConfig} from 'graphql-config';
+import {GraphQLProjectConfig, loadConfigSync} from 'graphql-config';
 import {AST, compile} from 'graphql-tool-utilities';
 
 import {
@@ -513,13 +513,9 @@ describe('validate', () => {
   });
 });
 
-const mockGraphQLConfig = new GraphQLProjectConfig(
-  {
-    schemaPath: '.',
-  },
-  '.',
-  'test',
-);
+const mockGraphQLConfig = loadConfigSync({
+  rootDir: resolve(__dirname, 'fixtures', 'all-clear'),
+});
 
 function validateAgainstAST(fixtureContent: any, ast: AST) {
   const projectOperations: GraphQLProjectAST = {
