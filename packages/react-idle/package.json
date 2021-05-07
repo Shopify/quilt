@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-idle",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "license": "MIT",
   "description": "Utilities for working with idle callbacks in React",
   "main": "index.js",
@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-idle/README.md",
   "dependencies": {
-    "@shopify/async": "^2.2.5",
-    "@shopify/useful-types": "^2.4.1"
+    "@shopify/async": "^2.2.6",
+    "@shopify/useful-types": "^2.4.2"
   },
   "peerDependencies": {
     "react": "^16.8.0"

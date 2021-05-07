@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-mocks",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "license": "MIT",
   "description": "Address mocks for `@shopify/address`",
   "main": "index.js",
@@ -24,8 +24,8 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@shopify/address-consts": "^2.2.5",
-    "@shopify/jest-dom-mocks": "^2.11.6"
+    "@shopify/address-consts": "^2.2.6",
+    "@shopify/jest-dom-mocks": "^2.11.7"
   },
   "files": [
     "build/*",

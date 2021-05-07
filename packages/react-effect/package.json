@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-effect",
-  "version": "3.3.5",
+  "version": "3.3.6",
   "license": "MIT",
   "description": "A component and set of utilities for performing effects within a universal React app",
   "main": "index.js",
