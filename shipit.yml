@@ -15,3 +15,6 @@ ci:
 dependencies:
   post:
     - yarn run build: {timeout: 1800}
+deploy:
+  override:
+    - yarn run lerna publish from-package --yes
