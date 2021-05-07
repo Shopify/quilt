@@ -17,13 +17,13 @@ git checkout main && git pull
 - Run `yarn updated` to a get list of packaged that have changed since the last release.
 - Go into every package that is being released. Edit `CHANGELOG.md` by moving any line items from `Unreleased` section into a new release with the new section with the new version number and today's date as title. (eg. `1.0.0 - 2019-07-24`).
 
-- Stage the `CHANGELOG.md` changes using:
+- Stage and commit the `CHANGELOG.md` changes using:
 
 ```sh
-git add .
+git add .; git commit -m 'Update changelogs';
 ```
 
-**Note🗒️** Lerna will make these staged changes part of the publish commit during the final confirmation of `yarn release`
+**Note🗒️** Lerna will push these changes as part of `yarn release`
 
 ## 3. Versioning and Tagging
 
@@ -38,6 +38,8 @@ yarn release
 **Note🗒️** Quilt packages adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## 4. Pushing Changes
+
+**Note🗒️** as of Lerna 3 these will be pushed on your confirm your release as part of the previous step. Skip to step `.5`
 
 The following will push the changes and new tags to GitHub:
 
