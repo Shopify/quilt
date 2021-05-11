@@ -14,7 +14,6 @@
     "test:ci": "yarn test --coverage",
     "check": "lerna run check",
     "release": "yarn lint:changelogs && lerna version --no-push --include-merged-tags",
-    "deploy": "lerna publish from-package --yes --no-verify-access",
     "clean": "rimraf ./packages/*/build ./packages/*/*.{d.ts,js,esnext,mjs} .sewing-kit",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",

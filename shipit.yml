@@ -13,9 +13,5 @@ ci:
     - node-build (12.x)
     - node-build (14.x)
 dependencies:
-  override:
-    - yarn install --frozen-lockfile --no-progress
-    - yarn lerna -- bootstrap
-deploy:
-  override:
-    - yarn run lerna publish from-package --yes
+  post:
+    - yarn run build
