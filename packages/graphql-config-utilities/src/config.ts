@@ -112,6 +112,9 @@ export function getGraphQLProjectForSchemaPath(
   config: GraphQLConfig,
   schemaPath: string,
 ) {
+  // eslint-disable-next-line no-console
+  console.log('foo');
+
   const project =
     getGraphQLProjects(config)
       .filter(project => {

@@ -142,6 +142,9 @@ export class Builder extends EventEmitter {
   async run({watch: watchGlobs = false, graphQLFilesystem}: RunOptions = {}) {
     let schemaPaths: string[];
 
+    // eslint-disable-next-line no-console
+    console.log('foo');
+
     try {
       schemaPaths = getGraphQLSchemaPaths(this.config);
     } catch (error) {
