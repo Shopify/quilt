@@ -143,7 +143,7 @@ export class Builder extends EventEmitter {
     let schemaPaths: string[];
 
     // eslint-disable-next-line no-console
-    console.log('bar');
+    console.log('bazz');
 
     try {
       schemaPaths = getGraphQLSchemaPaths(this.config);
