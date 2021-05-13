@@ -13,7 +13,6 @@ ci:
     - node-build (12.x)
     - node-build (14.x)
 dependencies:
-  pre:
-    - yarn cache clean
   post:
+    - yarn cache clean
     - yarn run build
