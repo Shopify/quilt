@@ -75,6 +75,11 @@ packages.forEach(
             // We want to make sure the first set of items are always in a fixed
             // order. Most importantly, the `!*.tsbuildinfo` exclusion must be
             // after `build/*`.
+            /* eslint-disable jest/no-if */
+            if (packageJSON?.bin) {
+              expectedPackageJSON.files.unshift('bin/*');
+            }
+            /* eslint-enable */
             expect(
               packageJSON.files.slice(0, expectedPackageJSON.files.length),
             ).toStrictEqual(expectedPackageJSON.files);
