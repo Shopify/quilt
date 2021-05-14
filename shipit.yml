@@ -13,11 +13,9 @@ ci:
     - node-build (12.x)
     - node-build (14.x)
 dependencies:
-  override:
-    - yarn install --frozen-lockfile --no-progress
-    - yarn lerna -- bootstrap
+  post:
+    - yarn run build: {timeout: 1800}
+
 deploy:
-  pre:
-    - yarn run build
   override:
     - node_modules/.bin/lerna publish from-git --yes
