@@ -64,11 +64,6 @@ export function resolveSchemaPath(
 }
 
 export function getGraphQLProjects(config: GraphQLConfig) {
-  // eslint-disable-next-line no-console
-  console.warn(
-    'Deprecation: Use of `getGraphQLProjects` has been deprecated. Please use `config.projects` instead.',
-  );
-
   const projects = Object.values(config?.projects || {});
 
   if (projects.length > 1) {
@@ -81,8 +76,15 @@ export function getGraphQLProjects(config: GraphQLConfig) {
     return projects;
   }
 
-  // invalid project configuration
-  throw new Error(`No projects defined in '${config.filepath}'`);
+  let defaultProject: GraphQLProjectConfig;
+
+  try {
+    defaultProject = config.getDefault();
+    return [defaultProject];
+  } catch {
+    // invalid project configuration
+    throw new Error(`No projects defined in '${config.filepath}'`);
+  }
 }
 
 export function getGraphQLSchemaPaths(config: GraphQLConfig) {

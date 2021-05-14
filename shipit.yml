@@ -20,4 +20,4 @@ deploy:
   pre:
     - yarn run build
   override:
-    - yarn run lerna publish from-git --yes
+    - node_modules/.bin/lerna publish from-git --yes
