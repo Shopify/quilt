@@ -8,6 +8,7 @@ export type AnyWrapper =
   | CommonWrapper<any, any>
   | CommonWrapper<any, never>;
 
+// trigger
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   if (wrapper.length === 0) {
     throw new Error(
