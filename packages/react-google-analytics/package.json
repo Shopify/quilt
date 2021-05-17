@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "3.2.12",
+  "version": "3.2.12-test-beta.1",
   "license": "MIT",
   "description": "Allows React apps to easily embed Google Analytics scripts",
   "main": "index.js",
@@ -27,7 +27,7 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^2.2.4"
+    "@shopify/enzyme-utilities": "^2.2.4-test-beta.1"
   },
   "files": [
     "build/*",
