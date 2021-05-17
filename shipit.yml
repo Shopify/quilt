@@ -14,4 +14,6 @@ ci:
     - node-build (14.x)
 dependencies:
   post:
+    - npm config set @shopify:registry https://registry.yarnpkg.com
+    - npm config set registry https://registry.yarnpkg.com
     - yarn run build: {timeout: 1800}
