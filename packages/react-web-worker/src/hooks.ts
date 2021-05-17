@@ -7,6 +7,7 @@ type WorkerCreator<Options extends any[], ReturnType> = (
   ...args: Options
 ) => ReturnType;
 
+// comment
 export function useWorker<ReturnType, Options extends any[]>(
   creator: WorkerCreator<Options, ReturnType>,
   ...args: NoInfer<Options>
