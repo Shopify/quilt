@@ -582,6 +582,7 @@ export class I18n {
     const templatedInput = 1;
     const decimal = this.formatCurrency(templatedInput, {
       currency: currencyCode,
+      form: 'short',
     })
       .replace(symbol, '')
       .replace(digitOrSpace, '');

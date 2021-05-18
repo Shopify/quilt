@@ -862,6 +862,17 @@ describe('I18n', () => {
       expect(i18n.unformatCurrency('1', 'USD')).toBe('1.00');
     });
 
+    it('handles formatted RSD input', () => {
+      getCurrencySymbol.mockReturnValue({
+        symbol: 'RSD',
+        prefixed: true,
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('1,234.55', 'RSD')).toBe('1234.55');
+      expect(i18n.unformatCurrency('1', 'RSD')).toBe('1.00');
+    });
+
     describe('prefixed symbols', () => {
       it('handles prefix with a space', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
