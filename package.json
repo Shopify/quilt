@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A loosely related set of packages for JavaScript/TypeScript projects at Shopify",
   "scripts": {
-    "publish": "lerna publish",
     "build": "skn build",
     "lint": "skn lint",
     "lint:changelogs": "node scripts/lint-changelogs.js",
