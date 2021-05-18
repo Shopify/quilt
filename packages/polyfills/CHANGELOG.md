@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Breaking Change
+
+- Update `core-js` to version 3, remove deprecated polyfills, and update dependencies. See [the migration guide](./migration-guide.md). [#1900 ](https://github.com/Shopify/quilt/pull/1900)
+
 ## 2.0.1 - 2021-05-28
 
 ### Fixed

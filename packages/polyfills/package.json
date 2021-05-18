@@ -24,17 +24,16 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.10.1",
     "@shopify/useful-types": "^3.0.0",
-    "browser-unhandled-rejection": "^1.0.2",
     "caniuse-api": "^3.0.0",
-    "formdata-polyfill": "^3.0.18",
-    "intersection-observer": "^0.5.1",
-    "intl-pluralrules": "^0.2.1",
-    "mutationobserver-shim": "^0.3.3",
-    "node-fetch": "^2.3.0",
-    "url-polyfill": "^1.1.7",
-    "whatwg-fetch": "^3.0.0"
+    "core-js": "^3.13.0",
+    "formdata-polyfill": "^4.0.0",
+    "intersection-observer": "^0.12.0",
+    "intl-pluralrules": "^1.2.2",
+    "mutationobserver-shim": "^0.3.7",
+    "node-fetch": "^2.6.1",
+    "regenerator-runtime": "^0.13.7",
+    "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
     "@types/caniuse-api": "^3.0.0"
@@ -125,31 +124,7 @@
     "noop.js",
     "noop.mjs",
     "noop.esnext",
-    "noop.d.ts",
-    "unhandled-rejection.browser.js",
-    "unhandled-rejection.browser.mjs",
-    "unhandled-rejection.browser.esnext",
-    "unhandled-rejection.browser.d.ts",
-    "unhandled-rejection.jest.js",
-    "unhandled-rejection.jest.mjs",
-    "unhandled-rejection.jest.esnext",
-    "unhandled-rejection.jest.d.ts",
-    "unhandled-rejection.node.js",
-    "unhandled-rejection.node.mjs",
-    "unhandled-rejection.node.esnext",
-    "unhandled-rejection.node.d.ts",
-    "url.browser.js",
-    "url.browser.mjs",
-    "url.browser.esnext",
-    "url.browser.d.ts",
-    "url.jest.js",
-    "url.jest.mjs",
-    "url.jest.esnext",
-    "url.jest.d.ts",
-    "url.node.js",
-    "url.node.mjs",
-    "url.node.esnext",
-    "url.node.d.ts"
+    "noop.d.ts"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",
@@ -259,36 +234,6 @@
       "import": "./noop.mjs",
       "require": "./noop.js",
       "esnext": "./noop.esnext"
-    },
-    "./unhandled-rejection.browser": {
-      "import": "./unhandled-rejection.browser.mjs",
-      "require": "./unhandled-rejection.browser.js",
-      "esnext": "./unhandled-rejection.browser.esnext"
-    },
-    "./unhandled-rejection.jest": {
-      "import": "./unhandled-rejection.jest.mjs",
-      "require": "./unhandled-rejection.jest.js",
-      "esnext": "./unhandled-rejection.jest.esnext"
-    },
-    "./unhandled-rejection.node": {
-      "import": "./unhandled-rejection.node.mjs",
-      "require": "./unhandled-rejection.node.js",
-      "esnext": "./unhandled-rejection.node.esnext"
-    },
-    "./url.browser": {
-      "import": "./url.browser.mjs",
-      "require": "./url.browser.js",
-      "esnext": "./url.browser.esnext"
-    },
-    "./url.jest": {
-      "import": "./url.jest.mjs",
-      "require": "./url.jest.js",
-      "esnext": "./url.jest.esnext"
-    },
-    "./url.node": {
-      "import": "./url.node.mjs",
-      "require": "./url.node.js",
-      "esnext": "./url.node.esnext"
     }
   }
 }
