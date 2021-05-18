@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
 - Fixed `currencyDecimalSymbol` function returning `DECIMAL_NOT_SUPPORTED` for RSD
 
 ## 5.3.4 - 2021-04-13
