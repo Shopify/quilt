@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- Unreleased -->
 
+## 5.3.8 - 2021-05-19
+
+### Fixed
+
 - Fixed `currencyDecimalSymbol` function returning `DECIMAL_NOT_SUPPORTED` for RSD [#1902](https://github.com/Shopify/quilt/pull/1902)
 
 ## 5.3.4 - 2021-04-13
