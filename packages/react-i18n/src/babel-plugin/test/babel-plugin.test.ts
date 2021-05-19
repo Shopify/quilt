@@ -6,10 +6,10 @@ import i18nBabelPlugin, {Options} from '../index';
 import {TRANSLATION_DIRECTORY_NAME} from '../shared';
 
 jest.mock('string-hash', () => () => {
-  return Number.MAX_SAFE_INTEGER;
+  return 0xdeadbeef;
 });
 
-const defaultHash = Number.MAX_SAFE_INTEGER.toString(36).substr(0, 5);
+const defaultHash = (0xdeadbeef).toString(36);
 
 describe('babel-plugin-react-i18n', () => {
   const withI18nFixture = `import React from 'react';
