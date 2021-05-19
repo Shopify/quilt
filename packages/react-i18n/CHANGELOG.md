@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- Unreleased -->
 
+### Fixed
+
+- Fixed higher chance of id collision caused by trimming of generated hashes in babel-plugin [#1905](https://github.com/Shopify/quilt/pull/1905)
+
 ## 5.3.8 - 2021-05-19
 
 ### Fixed
