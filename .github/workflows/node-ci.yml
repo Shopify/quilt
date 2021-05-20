@@ -42,6 +42,10 @@ jobs:
         with:
           path: |
             .sewing-kit/
+            ./packages/*/build/
+            ./packages/*/*.esnext
+            ./packages/*/*.mjs
+            ./packages/*/*.js
           key: ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-
