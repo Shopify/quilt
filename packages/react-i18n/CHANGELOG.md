@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- Unreleased -->
 
+- Added a `none` option to the `CurrencyFormatOptions` that returns a currency-formatted string without a currency symbol [#1907](https://github.com/Shopify/quilt/pull/1907)
+
 ### Fixed
 
 - Fixed higher chance of id collision caused by trimming of generated hashes in babel-plugin [#1905](https://github.com/Shopify/quilt/pull/1905)
