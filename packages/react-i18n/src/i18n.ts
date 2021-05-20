@@ -53,7 +53,7 @@ export interface NumberFormatOptions extends Intl.NumberFormatOptions {
 }
 
 export interface CurrencyFormatOptions extends NumberFormatOptions {
-  form?: 'auto' | 'short' | 'explicit';
+  form?: 'auto' | 'short' | 'explicit' | 'none';
 }
 
 export interface TranslateOptions {
@@ -258,6 +258,8 @@ export class I18n {
         return this.formatCurrencyExplicit(amount, options);
       case 'short':
         return this.formatCurrencyShort(amount, options);
+      case 'none':
+        return this.formatCurrencyNone(amount, options);
     }
 
     return this.formatNumber(amount, {as: 'currency', ...options});
@@ -421,19 +423,8 @@ export class I18n {
     amount: number,
     options: NumberFormatOptions = {},
   ): string {
-    const {locale} = this;
+    const formattedAmount = this.formatCurrencyNone(amount, options);
     const shortSymbol = this.getShortCurrencySymbol(options.currency);
-    let adjustedPrecision = options.precision;
-    if (adjustedPrecision === undefined) {
-      const currency = options.currency || this.defaultCurrency || '';
-      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
-    }
-    const formattedAmount = memoizedNumberFormatter(locale, {
-      style: 'decimal',
-      minimumFractionDigits: adjustedPrecision,
-      maximumFractionDigits: adjustedPrecision,
-      ...options,
-    }).format(amount);
 
     const formattedWithSymbol = shortSymbol.prefixed
       ? `${shortSymbol.symbol}${formattedAmount}`
@@ -442,6 +433,25 @@ export class I18n {
     return amount < 0
       ? `-${formattedWithSymbol.replace('-', '')}`
       : formattedWithSymbol;
+  }
+
+  private formatCurrencyNone(
+    amount: number,
+    options: NumberFormatOptions = {},
+  ): string {
+    const {locale} = this;
+    let adjustedPrecision = options.precision;
+    if (adjustedPrecision === undefined) {
+      const currency = options.currency || this.defaultCurrency || '';
+      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
+    }
+
+    return memoizedNumberFormatter(locale, {
+      style: 'decimal',
+      minimumFractionDigits: adjustedPrecision,
+      maximumFractionDigits: adjustedPrecision,
+      ...options,
+    }).format(amount);
   }
 
   // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
