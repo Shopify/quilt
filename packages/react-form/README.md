@@ -659,10 +659,17 @@ const emptyCardFactory = (): Card => ({
   cvv: '',
 });
 
-const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
-  [],
-  emptyCardFactory,
-);
+const {
+  fields,
+  addItem,
+  removeItem,
+  moveItem,
+  reset,
+  dirty,
+  value,
+  newDefaultValue,
+  defaultValue,
+} = useDynamicList([], emptyCardFactory);
 ```
 
 You can also have a factory that produces multiple cards such as:
@@ -679,10 +686,17 @@ const emptyCardFactory = (): Card[] => {
   ];
 };
 
-const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
-  [],
-  emptyCardFactory,
-);
+const {
+  fields,
+  addItem,
+  removeItem,
+  moveItem,
+  reset,
+  dirty,
+  value,
+  newDefaultValue,
+  defaultValue,
+} = useDynamicList([], emptyCardFactory);
 ```
 
 AddItem can accept an argument which will be passed to the factory. In this case, the factory could look like:
@@ -751,6 +765,33 @@ Rendering your dynamic list would look like this:
 </FormLayout>
 ```
 
+You can use the newDefaultValue function to change the defaultValue of the dynamicList. This will also set the value and defaultValue property of the dynamicList to the newValue passed in.
+
+```tsx
+const newValue = [
+  {id: '123456', cardNumber: '4242 4242 4242 4242', cvv: '000'},
+];
+newDefaultValue(newValue);
+```
+
+You can iterate through the values and defaultValues of the dynamicList
+
+```tsx
+value.map(card => (
+  <div>
+    <p>Card number: {card.cardNumber}</p>
+    <p>CVV : {card.cvv}</p>
+  </div>
+));
+
+defaultValue.map(card => (
+  <div>
+    <p>Card number: {card.cardNumber}</p>
+    <p>CVV : {card.cvv}</p>
+  </div>
+));
+```
+
 ##### How to use it with `useForm`
 
 You can use `useDynamicList` with `useForm` in two ways:
@@ -785,7 +826,7 @@ const form = useForm<typeof fields, typeof customerCards>({
   dynamicLists: {
     customerCards,
   },
-  onSubmit: async (fieldValues) => {
+  onSubmit: async fieldValues => {
     console.log(fieldValues);
     return submitSuccess();
   },

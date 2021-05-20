@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from '@shopify/react-testing';
+import {mount, Root} from '@shopify/react-testing';
 
 import {submitSuccess, submitFail} from '..';
 
@@ -11,6 +11,8 @@ import {
   hitSubmit,
   hitReset,
   waitForSubmit,
+  clickEvent,
+  fillRequiredFields,
 } from './utilities';
 
 describe('useForm with dynamic list', () => {
@@ -139,6 +141,85 @@ describe('useForm with dynamic list', () => {
       expect(wrapper).toContainReactComponentTimes(TextField, 2, {
         label: 'option',
       });
+      expect(isDirty(wrapper)).toBe(false);
+    });
+  });
+
+  describe('makeCleanAfterSubmit', () => {
+    it('sets dirty to false after successful submit if makeCleanAfterSubmit is true', async () => {
+      const promise = Promise.resolve(submitSuccess());
+      const wrapper = mount(
+        <FormWithDynamicVariantList
+          data={fakeProduct()}
+          makeCleanAfterSubmit
+        />,
+      );
+
+      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      fillRequiredFields(wrapper);
+
+      expect(isDirty(wrapper)).toBe(true);
+
+      await wrapper
+        .find('button', {type: 'submit'})!
+        .trigger('onClick', clickEvent());
+      expect(isDirty(wrapper)).toBe(false);
+    });
+
+    it('does not set dirty to false after successful submit if makeCleanAfterSubmit is false', async () => {
+      const promise = Promise.resolve(submitSuccess());
+      const wrapper = mount(
+        <FormWithDynamicVariantList
+          data={fakeProduct()}
+          makeCleanAfterSubmit={false}
+        />,
+      );
+
+      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      fillRequiredFields(wrapper);
+
+      expect(isDirty(wrapper)).toBe(true);
+
+      await waitForSubmit(wrapper, promise);
+
+      expect(isDirty(wrapper)).toBe(true);
+    });
+
+    it('does not set dirty to false if makeCleanAfterSubmit is true but submit is unsuccessful', async () => {
+      const promise = Promise.resolve(submitFail());
+      const wrapper = mount(
+        <FormWithDynamicVariantList
+          data={fakeProduct()}
+          makeCleanAfterSubmit={false}
+        />,
+      );
+
+      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      fillRequiredFields(wrapper);
+
+      expect(isDirty(wrapper)).toBe(true);
+
+      await waitForSubmit(wrapper, promise);
+
+      expect(isDirty(wrapper)).toBe(true);
+    });
+  });
+
+  describe('makeClean', () => {
+    it('cleans the forms dirty state', () => {
+      const wrapper = mount(
+        <FormWithDynamicVariantList data={fakeProduct()} />,
+      );
+
+      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      fillRequiredFields(wrapper);
+
+      expect(isDirty(wrapper)).toBe(true);
+
+      wrapper
+        .find('button', {children: 'Clean'})!
+        .trigger('onClick', clickEvent());
+
       expect(isDirty(wrapper)).toBe(false);
     });
   });

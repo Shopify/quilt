@@ -336,4 +336,105 @@ describe('useDynamicList', () => {
       });
     });
   });
+
+  describe('value, newDefaultValue and defaultValue', () => {
+    function TestListWithValue(config: FieldListConfig<Variant>) {
+      const factory = () => {
+        return {price: '', optionName: '', optionValue: ''};
+      };
+      const {
+        value,
+        newDefaultValue,
+        dirty,
+        addItem,
+        defaultValue,
+      } = useDynamicList<Variant>(config, factory);
+
+      const onNewDefault = (value: Variant[]) => {
+        newDefaultValue(value);
+      };
+
+      return (
+        <>
+          {value.map(variants => (
+            <>
+              <p>Value: {variants.price}</p>
+              <p>Value: {variants.optionName}</p>
+              <p>Value: {variants.optionValue}</p>
+            </>
+          ))}
+
+          {defaultValue.map(variants => (
+            <>
+              <p>Default: {variants.price}</p>
+              <p>Default: {variants.optionName}</p>
+              <p>Default: {variants.optionValue}</p>
+            </>
+          ))}
+
+          <button type="button" onClick={onNewDefault}>
+            Default
+          </button>
+          <button type="button" onClick={() => addItem()}>
+            Add Variant
+          </button>
+          <button type="button" disabled={!dirty}>
+            Reset
+          </button>
+        </>
+      );
+    }
+
+    it('returns the value of the dynamiclist', () => {
+      const price = '1.00';
+      const optionName = 'material';
+      const optionValue = 'cotton';
+      const variants: Variant[] = [
+        {
+          price,
+          optionName,
+          optionValue,
+        },
+      ];
+
+      const wrapper = mount(<TestListWithValue list={variants} />);
+      expect(wrapper).toContainReactText(`Value: ${price}`);
+      expect(wrapper).toContainReactText(`Value: ${optionName}`);
+      expect(wrapper).toContainReactText(`Value: ${optionValue}`);
+    });
+
+    it('sets and returns the default value of the dynamic list', () => {
+      const price = '1.00';
+      const optionName = 'material';
+      const optionValue = 'cotton';
+      const variants: Variant[] = [
+        {
+          price,
+          optionName,
+          optionValue,
+        },
+      ];
+      const newDefaultPrice = '2.00';
+      const newDefaultOption = 'color';
+      const newDefaultOptionValue = 'blue';
+
+      const wrapper = mount(<TestListWithValue list={variants} />);
+
+      expect(wrapper).toContainReactText(`Default: ${price}`);
+      expect(wrapper).toContainReactText(`Default: ${optionName}`);
+      expect(wrapper).toContainReactText(`Default: ${optionValue}`);
+
+      wrapper.find('button', {children: 'Default'})!.trigger('onClick', [
+        {
+          price: newDefaultPrice,
+          optionName: newDefaultOption,
+          optionValue: newDefaultOptionValue,
+        },
+      ]);
+
+      expect(wrapper).toContainReactText(`Default: ${newDefaultPrice}`);
+      expect(wrapper).toContainReactText(`Default: ${newDefaultOption}`);
+      expect(wrapper).toContainReactText(`Default: ${newDefaultOptionValue}`);
+    });
+  });
 });
