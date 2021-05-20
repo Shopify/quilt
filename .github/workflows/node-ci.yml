@@ -195,4 +195,4 @@ jobs:
         run: yarn --production=false --frozen-lockfile
 
       - name: Unit tests
-        run: yarn test:ci "^(?:(?!(address|react-server)).)*$"
+        run: yarn test "^(?:(?!(address|react-server)).)*$"
