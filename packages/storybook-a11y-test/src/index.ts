@@ -96,13 +96,19 @@ const isAutcompleteNope = violation => {
   return isAutocompleteAttribute && hasNope;
 };
 
-const testPage = (iframePath, browser, timeout) => {
+const testPage = (iframePath, browser, timeout, disableAnimation) => {
   return async id => {
     console.log(` - ${id}`);
 
     try {
       const page = await browser.newPage();
       await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
+      if (disableAnimation) {
+        await page.addStyleTag({
+          content:
+            '* {transition: none !important; animation: none !important; }',
+        });
+      }
       const result = await page.evaluate(() =>
         window.axe.run(document.getElementById('root'), {}),
       );
@@ -128,11 +134,13 @@ export const testPages = async ({
   storyIds = [],
   concurrentCount = os.cpus().length,
   timeout = 3000,
+  disableAnimation = false,
 }: {
   iframePath: string;
   storyIds: string[];
   concurrentCount?: number;
   timeout?: number;
+  disableAnimation?: boolean;
 }) => {
   try {
     console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in chromium`));
@@ -141,7 +149,7 @@ export const testPages = async ({
     console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
     const results = await pMap(
       storyIds,
-      testPage(iframePath, browser, timeout),
+      testPage(iframePath, browser, timeout, disableAnimation),
       {
         concurrency: concurrentCount,
       },
