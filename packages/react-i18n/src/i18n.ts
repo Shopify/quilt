@@ -587,15 +587,11 @@ export class I18n {
 
   private currencyDecimalSymbol(currencyCode: string) {
     const digitOrSpace = /\s|\d/g;
-    const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
-
     const templatedInput = 1;
-    const decimal = this.formatCurrency(templatedInput, {
+
+    const decimal = this.formatCurrencyNone(templatedInput, {
       currency: currencyCode,
-      form: 'short',
-    })
-      .replace(symbol, '')
-      .replace(digitOrSpace, '');
+    }).replace(digitOrSpace, '');
 
     return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
