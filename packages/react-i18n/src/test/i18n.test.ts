@@ -921,7 +921,11 @@ describe('I18n', () => {
       });
 
       const formatted = '12,34';
-      const mismatchI18n = new I18n(defaultTranslations, {...defaultDetails, locale: 'fr', currency: 'cad'});
+      const mismatchI18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        locale: 'fr',
+        currency: 'cad',
+      });
 
       expect(mismatchI18n.unformatCurrency(formatted, 'CAD')).toBe('12.34');
     });
