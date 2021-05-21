@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- Unreleased -->
 
-- Updated `currencyDecimalSymbol` to handle mismatched locale/currency []()
+- Updated `currencyDecimalSymbol` to handle mismatched locale/currency [#1912](https://github.com/Shopify/quilt/pull/1912)
 
 ## 5.4.0 - 2021-05-20
 
