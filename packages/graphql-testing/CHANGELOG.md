@@ -11,6 +11,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Update minimum supported node version to 12.14.0. Add engines field to help enforce usage of this version. [#1906](https://github.com/Shopify/quilt/pull/1906)
 
+### Fixed
+
+- Updated FindOptions type for async query components [#1873](https://github.com/Shopify/quilt/pull/1873)
+
 ## 4.4.4 - 2021-04-13
 
 ### Changed

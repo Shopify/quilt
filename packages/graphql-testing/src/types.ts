@@ -2,7 +2,7 @@ import {DocumentNode} from 'graphql';
 import {GraphQLRequest, Operation} from 'apollo-link';
 
 export interface FindOptions {
-  query?: DocumentNode | {resolver: {resolved?: DocumentNode}};
+  query?: DocumentNode | {resolver: {resolved?: DocumentNode | null}};
   mutation?: DocumentNode;
 
   /**
