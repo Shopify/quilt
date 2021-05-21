@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-i18n-universal-provider/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "@shopify/react-hooks": "^1.13.1",
     "@shopify/react-html": "^10.2.11",

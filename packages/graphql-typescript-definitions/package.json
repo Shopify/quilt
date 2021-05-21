@@ -21,6 +21,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-typescript-definitions/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "@babel/generator": "^7.4.0",
     "@babel/types": "^7.4.0",

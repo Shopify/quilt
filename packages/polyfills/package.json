@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/polyfills/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
     "@shopify/useful-types": "^2.4.2",

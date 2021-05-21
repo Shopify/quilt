@@ -18,6 +18,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-persisted/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "@types/koa": "^2.0.0",
     "@types/koa-bodyparser": "*",

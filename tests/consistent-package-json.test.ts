@@ -10,6 +10,7 @@ const KNOWN_TEMPLATE_KEYS = [
   'bugs',
   'dependencies',
   'description',
+  'engines',
   'esnext',
   'exports',
   'files',
@@ -107,6 +108,11 @@ packages.forEach(
         it('specifies if webpack can tree-shake, via sideEffects', () => {
           expect(packageJSON.sideEffects).toBe(
             Boolean(packageJSON.sideEffects),
+          );
+        });
+        it('specifies an engines.node field', () => {
+          expect(packageJSON.engines.node).toBe(
+            expectedPackageJSON.engines.node,
           );
         });
         if (!SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {

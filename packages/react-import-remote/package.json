@@ -19,6 +19,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-import-remote/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "@shopify/async": "^2.2.6",
     "@shopify/react-hooks": "^1.13.1",

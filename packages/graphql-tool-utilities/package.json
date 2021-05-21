@@ -20,9 +20,11 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-tool-utilities/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "apollo-codegen-core": "0.36.5",
-    "core-js": "^3.0.0",
     "graphql": ">=14.5.0 <15.0.0"
   },
   "files": [

@@ -7,6 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Breaking Change
+
+- Update minimum supported node version to 12.14.0. Add engines field to help enforce usage of this version. [#1906](https://github.com/Shopify/quilt/pull/1906)
 - Adds a makeCleanDynamicLists function, which adds the ability to set [newDefaultValue, defaultValue] and get the value of a dynamic list. [#1871](https://github.com/Shopify/quilt/pull/1871)
 
 ## 0.13.1 - 2021-04-29

@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/async/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "devDependencies": {
     "@babel/core": ">=7.0.0",
     "@babel/plugin-syntax-dynamic-import": ">=7.0.0",

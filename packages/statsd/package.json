@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/statsd/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "change-case": "^4.1.1",
     "hot-shots": "^8.2.0"

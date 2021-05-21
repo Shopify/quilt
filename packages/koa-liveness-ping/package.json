@@ -19,6 +19,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-liveness-ping/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^2.3.4",
     "@types/koa": "^2.0.0",

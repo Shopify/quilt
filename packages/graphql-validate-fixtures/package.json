@@ -21,6 +21,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-validate-fixtures/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "chalk": "^4.0.0",
     "fs-extra": "^9.0.0",
