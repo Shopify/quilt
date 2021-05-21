@@ -1,4 +1,3 @@
-import './polyfills';
 import {DocumentNode, GraphQLInputType, GraphQLSchema} from 'graphql';
 import {
   BooleanCondition,
