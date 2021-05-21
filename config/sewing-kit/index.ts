@@ -7,7 +7,7 @@ import {
 import {react} from '@sewing-kit/plugin-react';
 import {javascript, updateBabelPreset} from '@sewing-kit/plugin-javascript';
 import {typescript} from '@sewing-kit/plugin-typescript';
-import {buildFlexibleOutputs} from '@sewing-kit/plugin-package-flexible-outputs';
+import {packageBuild} from '@sewing-kit/plugin-package-build';
 import {} from '@sewing-kit/plugin-jest';
 
 import {addLegacyDecoratorSupport} from './plugin';
@@ -17,7 +17,10 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
     javascript(),
     typescript(),
     useReact && react(),
-    buildFlexibleOutputs(),
+    packageBuild({
+      nodeTargets: 'node 12.14.0',
+      browserTargets: 'extends @shopify/browserslist-config',
+    }),
     createProjectBuildPlugin('Quilt.PackageBuild', ({hooks}) => {
       hooks.target.hook(({hooks}) => {
         hooks.configure.hook(hooks => {
