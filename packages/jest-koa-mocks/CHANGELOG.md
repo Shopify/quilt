@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Fixed
+
+- `createMockContext` properly sets `ctx.url` and `ctx.originalUrl` so that it includes only the portions of URL that are present in the actual HTTP request [source](https://nodejs.org/api/http.html#http_message_url).
+
 ## 2.3.4 - 2021-04-13
 
 ### Changed
