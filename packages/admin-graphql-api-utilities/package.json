@@ -19,6 +19,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/admin-graphql-api-utilities/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "sideEffects": false,
   "files": [
     "build/*",

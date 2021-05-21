@@ -37,6 +37,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/sewing-kit-plugin-quilt/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "sideEffects": false,
   "devDependencies": {
     "@types/webpack-virtual-modules": "^0.1.0"

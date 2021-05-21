@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/storybook-a11y-test/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "chalk": "^4.1.0",
     "p-map": "^4.0.0",
