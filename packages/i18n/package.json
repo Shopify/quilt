@@ -1,6 +1,6 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.2.7",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Generic i18n-related utilities",
   "main": "index.js",
@@ -19,6 +19,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/i18n/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "sideEffects": false,
   "files": [
     "build/*",

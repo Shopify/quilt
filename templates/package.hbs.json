@@ -21,6 +21,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/{{name}}/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {},
   "files": [
     "build/*",

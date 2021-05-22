@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 7.0.0 - 2021-05-21
+
+### Breaking Change
+
+- Update minimum supported node version to 12.14.0. Add engines field to help enforce usage of this version. [#1906](https://github.com/Shopify/quilt/pull/1906)
+
 ## 6.3.6 - 2021-04-13
 
 ### Changed

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/function-enhancers",
-  "version": "1.1.5",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "A set of helpers to enhance functions",
   "main": "index.js",
@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/function-enhancers/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "files": [
     "build/*",
     "!*.tsbuildinfo",

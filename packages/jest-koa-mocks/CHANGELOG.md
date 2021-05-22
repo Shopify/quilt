@@ -11,6 +11,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - `createMockContext` properly sets `ctx.url` and `ctx.originalUrl` so that it includes only the portions of URL that are present in the actual HTTP request [source](https://nodejs.org/api/http.html#http_message_url). [#1909](https://github.com/Shopify/quilt/pull/1909)
 
+## 3.0.0 - 2021-05-21
+
+### Breaking Change
+
+- Update minimum supported node version to 12.14.0. Add engines field to help enforce usage of this version. [#1906](https://github.com/Shopify/quilt/pull/1906)
+
 ## 2.3.4 - 2021-04-13
 
 ### Changed

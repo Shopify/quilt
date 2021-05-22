@@ -1,6 +1,6 @@
 {
   "name": "graphql-config-utilities",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "Common utilities for graphql-config",
   "main": "index.js",
@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-config-utilities/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "glob": "^7.1.6",
     "graphql-config": "^3.2.0"

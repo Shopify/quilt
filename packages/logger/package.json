@@ -1,6 +1,6 @@
 {
   "name": "@shopify/logger",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "index.js",
@@ -19,6 +19,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/logger/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "chalk": "^2.4.1",
     "log-symbols": "^2.2.0",

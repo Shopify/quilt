@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-koa-mocks",
-  "version": "2.3.4",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "Utilities to easily stub Koa context and cookies",
   "main": "index.js",
@@ -19,6 +19,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/jest-koa-mocks/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "koa": "^2.5.0",
     "node-mocks-http": "^1.5.8"

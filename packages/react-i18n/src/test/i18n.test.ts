@@ -914,6 +914,22 @@ describe('I18n', () => {
       prefixed: true,
     };
 
+    it('handles locale/currency mismatch', () => {
+      getCurrencySymbol.mockReturnValue({
+        symbol: '$CA',
+        prefixed: 'false',
+      });
+
+      const formatted = '12,34';
+      const mismatchI18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        locale: 'fr',
+        currency: 'cad',
+      });
+
+      expect(mismatchI18n.unformatCurrency(formatted, 'CAD')).toBe('12.34');
+    });
+
     it('handles formatted USD input', () => {
       getCurrencySymbol.mockReturnValue(mockSymbolResult);
 

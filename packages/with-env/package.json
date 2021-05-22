@@ -1,6 +1,6 @@
 {
   "name": "@shopify/with-env",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "A utility for executing code under a specific `NODE_ENV`",
   "main": "index.js",
@@ -19,6 +19,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/with-env/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "sideEffects": false,
   "files": [
     "build/*",

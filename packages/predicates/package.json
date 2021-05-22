@@ -1,6 +1,6 @@
 {
   "name": "@shopify/predicates",
-  "version": "1.3.4",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "A set of common JavaScript predicates",
   "main": "index.js",
@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/predicates/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "files": [
     "build/*",
     "!*.tsbuildinfo",

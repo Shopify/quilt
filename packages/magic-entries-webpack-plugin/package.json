@@ -1,6 +1,6 @@
 {
   "name": "@shopify/magic-entries-webpack-plugin",
-  "version": "0.2.5",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A webpack plugin that automatically sets up entrypoints from filename conventions",
   "main": "index.js",
@@ -20,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/magic-entries-webpack-plugin/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "glob": "^7.1.6",
     "glob-to-regexp": "^0.4.1"

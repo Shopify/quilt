@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- Unreleased -->
+<!-- ## Unreleased -->
+
+## 6.0.0 - 2021-05-21
+
+### Breaking Change
+
+- Update minimum supported node version to 12.14.0. Add engines field to help enforce usage of this version. [#1906](https://github.com/Shopify/quilt/pull/1906)
+
+### Changed
+
+- Updated `currencyDecimalSymbol` to handle mismatched locale/currency [#1912](https://github.com/Shopify/quilt/pull/1912)
+
+## 5.4.0 - 2021-05-20
+
+### Changed
 
 - Added a `none` option to the `CurrencyFormatOptions` that returns a currency-formatted string without a currency symbol [#1907](https://github.com/Shopify/quilt/pull/1907)
 
