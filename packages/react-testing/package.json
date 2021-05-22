@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-testing",
-  "version": "2.3.5",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/useful-types": "^2.4.2",
+    "@shopify/useful-types": "^3.0.0",
     "jest-matcher-utils": "^26.6.2",
     "react-reconciler": "^0.20.2"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.2.7",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Generic i18n-related utilities",
   "main": "index.js",

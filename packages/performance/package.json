@@ -1,6 +1,6 @@
 {
   "name": "@shopify/performance",
-  "version": "1.3.6",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "Primitives for collecting browser performance metrics",
   "main": "index.js",
