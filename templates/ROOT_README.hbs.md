@@ -19,10 +19,10 @@ Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
 
-| Package | Version | Description |
-| ------- | ------- | ----------- |
+| Package | Version | Downloads | Description |
+| ------- | ------- | --------- | ----------- |
 {{#each jsPackages}}
-| [{{name}}](packages/{{name}}) | <a href="https://badge.fury.io/js/%40shopify%2F{{name}}"><img src="https://badge.fury.io/js/%40shopify%2F{{name}}.svg" width="200px" /></a> | {{{description}}} |
+| [{{name}}](packages/{{name}}) | ![npm (scoped)](https://img.shields.io/npm/v/@shopify/{{name}}) | ![npm](https://img.shields.io/npm/dw/@shopify/{{name}}?label=%E2%87%A9) | {{{description}}} |
 {{/each}}
 
 ### Gem Index
