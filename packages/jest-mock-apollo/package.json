@@ -25,7 +25,7 @@
   "dependencies": {
     "apollo-link": "^1.2.3",
     "graphql": "^14.0.0",
-    "graphql-tool-utilities": "^2.0.0"
+    "@shopify/graphql-tool-utilities": "^2.0.0"
   },
   "devDependencies": {
     "@apollo/react-common": "^3.1.3",

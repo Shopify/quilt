@@ -35,7 +35,7 @@
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "graphql-typed": "^1.0.0"
+    "@shopify/graphql-typed": "^1.0.0"
   },
   "devDependencies": {
     "@shopify/react-testing": "^3.0.0"

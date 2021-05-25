@@ -30,8 +30,8 @@
     "glob": "^7.1.2",
     "graphql": ">=14.5.0 <15.0.0",
     "graphql-config": "^3.2.0",
-    "graphql-config-utilities": "^3.0.0",
-    "graphql-tool-utilities": "^2.0.0",
+    "@shopify/graphql-config-utilities": "^3.0.0",
+    "@shopify/graphql-tool-utilities": "^2.0.0",
     "yargs": "^15.3.1"
   },
   "files": [

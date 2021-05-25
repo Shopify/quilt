@@ -28,10 +28,10 @@
     "@types/faker": "^4.1.2",
     "faker": "^4.1.0",
     "graphql": ">=14.5.0 <15.0.0",
-    "graphql-tool-utilities": "^2.0.0"
+    "@shopify/graphql-tool-utilities": "^2.0.0"
   },
   "peerDependencies": {
-    "graphql-typed": "^0.6.1"
+    "@shopify/graphql-typed": "^0.6.1"
   },
   "files": [
     "build/*",

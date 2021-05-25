@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@shopify/useful-types": "^3.0.0",
-    "graphql-typed": "^1.0.0"
+    "@shopify/graphql-typed": "^1.0.0"
   },
   "files": [
     "build/*",
