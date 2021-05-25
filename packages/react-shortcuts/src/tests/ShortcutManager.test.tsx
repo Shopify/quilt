@@ -238,7 +238,6 @@ describe('ShortcutManager', () => {
 
     isFocusedInputMock.mockImplementation(() => true);
 
-
     const spy = jest.fn();
 
     mount(
@@ -246,7 +245,6 @@ describe('ShortcutManager', () => {
           <Shortcut ordered={['a']} onMatch={spy} allowFocusedInput/>
       </ShortcutProvider>,
     );
-
 
     keydown('a');
 
@@ -267,7 +265,6 @@ describe('ShortcutManager', () => {
 
     isFocusedInputMock.mockImplementation(() => true);
 
-
     const spy = jest.fn();
 
     mount(
@@ -275,7 +272,6 @@ describe('ShortcutManager', () => {
           <Shortcut ordered={['a']} onMatch={spy} />
       </ShortcutProvider>,
     );
-
 
     keydown('a');
 
