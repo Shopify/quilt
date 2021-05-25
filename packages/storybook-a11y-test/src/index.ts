@@ -105,8 +105,14 @@ const testPage = (iframePath, browser, timeout, disableAnimation) => {
       await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
       if (disableAnimation) {
         await page.addStyleTag({
-          content:
-            '* {transition: none !important; animation: none !important; }',
+          content: `*,
+            *::after,
+            *::before {
+              transition-delay: 0.0001s !important;
+              transition-duration: 0.0001s !important;
+              animation-delay: -0.0001s !important;
+              animation-duration: 0.0001s !important;
+            }`,
         });
       }
       const result = await page.evaluate(() =>
