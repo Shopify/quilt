@@ -354,7 +354,7 @@ function App({locale}: {locale?: string}) {
   return (
     <I18nUniversalProvider locale={locale}>
       {/* App contents */}
-    </I18nContext.Provider>
+    </I18nUniversalProvider>
   );
 }
 const app = <App locale='en' />;
