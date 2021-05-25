@@ -1,5 +1,5 @@
 {
-  "name": "graphql-fixtures",
+  "name": "@shopify/graphql-fixtures",
   "version": "1.0.0",
   "license": "MIT",
   "description": "Utilities for generating fixture objects from GraphQL documents.",

@@ -1,5 +1,5 @@
 {
-  "name": "graphql-validate-fixtures",
+  "name": "@shopify/graphql-validate-fixtures",
   "version": "2.0.0",
   "license": "MIT",
   "description": "Validates JSON fixtures for GraphQL responses against the associated operations and schema",

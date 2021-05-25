@@ -1,5 +1,5 @@
 {
-  "name": "graphql-mini-transforms",
+  "name": "@shopify/graphql-mini-transforms",
   "version": "3.0.0",
   "license": "MIT",
   "description": "Transformers for importing .graphql files in various build tools.",

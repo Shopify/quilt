@@ -1,5 +1,5 @@
 {
-  "name": "graphql-config-utilities",
+  "name": "@shopify/graphql-config-utilities",
   "version": "3.0.0",
   "license": "MIT",
   "description": "Common utilities for graphql-config",
