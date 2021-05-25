@@ -9,6 +9,7 @@ export interface Data {
   ignoreInput: boolean;
   onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault: boolean;
+  allowFocusedInput?: boolean;
 }
 
 export default class ShortcutManager {
@@ -83,8 +84,8 @@ export default class ShortcutManager {
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
     this.shortcutsMatched = shortcuts.filter(
-      ({ordered, held, node, ignoreInput}) => {
-        if (isFocusedInput() && !ignoreInput) {
+      ({ordered, held, node, allowFocusedInput, ignoreInput}) => {
+        if (isFocusedInput() && !allowFocusedInput && !ignoreInput) {
           return false;
         }
 

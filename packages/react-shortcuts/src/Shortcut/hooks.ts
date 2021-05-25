@@ -12,6 +12,7 @@ export interface Options {
   node?: HTMLElement | null;
   ignoreInput?: boolean;
   allowDefault?: boolean;
+  allowFocusedInput?: boolean;
 }
 
 export default function useShortcut(
@@ -21,7 +22,7 @@ export default function useShortcut(
 ) {
   const shortcutManager = React.useContext(ShortcutContext);
   const subscription = React.useRef<Subscription | null>(null);
-  const {node, held, ignoreInput, allowDefault} = options;
+  const {node, held, ignoreInput, allowDefault, allowFocusedInput} = options;
 
   React.useEffect(() => {
     if (node != null) {
@@ -39,6 +40,7 @@ export default function useShortcut(
       held,
       ignoreInput: ignoreInput || false,
       allowDefault: allowDefault || false,
+      allowFocusedInput: allowFocusedInput || false,
     });
 
     return () => {
@@ -55,6 +57,7 @@ export default function useShortcut(
     held,
     ignoreInput,
     allowDefault,
+    allowFocusedInput,
     shortcutManager,
   ]);
 }

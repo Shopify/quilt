@@ -9,6 +9,7 @@ export interface Props {
   ignoreInput?: boolean;
   onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault?: boolean;
+  allowFocusedInput?: boolean;
 }
 
 export default function Shortcut(props: Props) {
