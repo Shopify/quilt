@@ -1,6 +1,6 @@
 {
   "name": "@shopify/polyfills",
-  "version": "2.0.0",
+  "version": "2.0.0-core-js-3-entry-beta.1",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features",
   "sideEffects": true,
