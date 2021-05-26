@@ -126,7 +126,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
 - `unformatNumber()`: converts a localized number string to a number string parseable by JavaScript. Example: `123.456,45 => 123456.45`
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
-  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1,25`, `€ 1,25`, `OMR 1.250`, `$ 1.25`
+  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1.25`, `€1.25`, `OMR 1.250`, `$1.25`
   - if `form: 'none'` is given, the number will be formatted with currency rules but will not include a currency symbol or ISO code in the string. Examples: `1,234.56`, `1 234,56`
   - if `form: 'explicit'` is given, then the result will be the same as for `short`, but will append the ISO 4217 code if it is not already present
   - if `form: 'auto'` is given, then `explicit` will be selected if the `currency` option does not match the `defaultCurrency`, otherwise `short` is selected. If either `currency` or `defaultCurrency` is not defined then `short` is selected.
