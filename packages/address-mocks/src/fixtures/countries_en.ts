@@ -4,9 +4,10 @@ const data = {
       {
         name: 'Afghanistan',
         code: 'AF',
+        continent: 'Asia',
         phoneNumberPrefix: 93,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -33,9 +34,10 @@ const data = {
       {
         name: 'Åland Islands',
         code: 'AX',
+        continent: 'Europe',
         phoneNumberPrefix: 358,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -62,9 +64,10 @@ const data = {
       {
         name: 'Albania',
         code: 'AL',
+        continent: 'Europe',
         phoneNumberPrefix: 355,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -91,9 +94,10 @@ const data = {
       {
         name: 'Algeria',
         code: 'DZ',
+        continent: 'Africa',
         phoneNumberPrefix: 213,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -120,9 +124,10 @@ const data = {
       {
         name: 'Andorra',
         code: 'AD',
+        continent: 'Europe',
         phoneNumberPrefix: 376,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -149,9 +154,10 @@ const data = {
       {
         name: 'Angola',
         code: 'AO',
+        continent: 'Africa',
         phoneNumberPrefix: 244,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -178,9 +184,10 @@ const data = {
       {
         name: 'Anguilla',
         code: 'AI',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -205,11 +212,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Antigua & Barbuda',
+        name: 'Antigua \u0026 Barbuda',
         code: 'AG',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -236,9 +244,10 @@ const data = {
       {
         name: 'Argentina',
         code: 'AR',
+        continent: 'South America',
         phoneNumberPrefix: 54,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -362,9 +371,10 @@ const data = {
       {
         name: 'Armenia',
         code: 'AM',
+        continent: 'Europe',
         phoneNumberPrefix: 374,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -391,9 +401,10 @@ const data = {
       {
         name: 'Aruba',
         code: 'AW',
+        continent: 'Central America',
         phoneNumberPrefix: 297,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -418,11 +429,42 @@ const data = {
         zones: [],
       },
       {
+        name: 'Ascension Island',
+        code: 'AC',
+        continent: 'Africa',
+        phoneNumberPrefix: 247,
+        autocompletionField: 'address1',
+        provinceKey: 'REGION',
+        labels: {
+          address1: 'Address',
+          address2: 'Apartment, suite, etc.',
+          city: 'City',
+          company: 'Company',
+          country: 'Country/Region',
+          firstName: 'First name',
+          lastName: 'Last name',
+          phone: 'Phone',
+          postalCode: 'Postal code',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+        },
+        zones: [],
+      },
+      {
         name: 'Australia',
         code: 'AU',
+        continent: 'Oceania',
         phoneNumberPrefix: 61,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'STATE_AND_TERRITORY',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -482,9 +524,10 @@ const data = {
       {
         name: 'Austria',
         code: 'AT',
+        continent: 'Europe',
         phoneNumberPrefix: 43,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Street and house number',
           address2: 'Additional address',
@@ -511,9 +554,10 @@ const data = {
       {
         name: 'Azerbaijan',
         code: 'AZ',
+        continent: 'Asia',
         phoneNumberPrefix: 994,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -540,9 +584,10 @@ const data = {
       {
         name: 'Bahamas',
         code: 'BS',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -569,9 +614,10 @@ const data = {
       {
         name: 'Bahrain',
         code: 'BH',
+        continent: 'Asia',
         phoneNumberPrefix: 973,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -598,9 +644,10 @@ const data = {
       {
         name: 'Bangladesh',
         code: 'BD',
+        continent: 'Asia',
         phoneNumberPrefix: 880,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -627,9 +674,10 @@ const data = {
       {
         name: 'Barbados',
         code: 'BB',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -656,9 +704,10 @@ const data = {
       {
         name: 'Belarus',
         code: 'BY',
+        continent: 'Europe',
         phoneNumberPrefix: 375,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -685,9 +734,10 @@ const data = {
       {
         name: 'Belgium',
         code: 'BE',
+        continent: 'Europe',
         phoneNumberPrefix: 32,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -714,9 +764,10 @@ const data = {
       {
         name: 'Belize',
         code: 'BZ',
+        continent: 'Central America',
         phoneNumberPrefix: 501,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -743,9 +794,10 @@ const data = {
       {
         name: 'Benin',
         code: 'BJ',
+        continent: 'Africa',
         phoneNumberPrefix: 229,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -772,9 +824,10 @@ const data = {
       {
         name: 'Bermuda',
         code: 'BM',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -801,9 +854,10 @@ const data = {
       {
         name: 'Bhutan',
         code: 'BT',
+        continent: 'Asia',
         phoneNumberPrefix: 975,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -830,9 +884,10 @@ const data = {
       {
         name: 'Bolivia',
         code: 'BO',
+        continent: 'South America',
         phoneNumberPrefix: 591,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -857,11 +912,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Bosnia & Herzegovina',
+        name: 'Bosnia \u0026 Herzegovina',
         code: 'BA',
+        continent: 'Europe',
         phoneNumberPrefix: 387,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -888,9 +944,10 @@ const data = {
       {
         name: 'Botswana',
         code: 'BW',
+        continent: 'Africa',
         phoneNumberPrefix: 267,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -917,9 +974,10 @@ const data = {
       {
         name: 'Bouvet Island',
         code: 'BV',
+        continent: 'Europe',
         phoneNumberPrefix: 55,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -946,9 +1004,10 @@ const data = {
       {
         name: 'Brazil',
         code: 'BR',
+        continent: 'South America',
         phoneNumberPrefix: 55,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'STATE',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -1084,9 +1143,10 @@ const data = {
       {
         name: 'British Indian Ocean Territory',
         code: 'IO',
+        continent: 'Asia',
         phoneNumberPrefix: 246,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1113,9 +1173,10 @@ const data = {
       {
         name: 'British Virgin Islands',
         code: 'VG',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1142,9 +1203,10 @@ const data = {
       {
         name: 'Brunei',
         code: 'BN',
+        continent: 'Asia',
         phoneNumberPrefix: 673,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1171,9 +1233,10 @@ const data = {
       {
         name: 'Bulgaria',
         code: 'BG',
+        continent: 'Europe',
         phoneNumberPrefix: 359,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1200,9 +1263,10 @@ const data = {
       {
         name: 'Burkina Faso',
         code: 'BF',
+        continent: 'Africa',
         phoneNumberPrefix: 226,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1229,9 +1293,10 @@ const data = {
       {
         name: 'Burundi',
         code: 'BI',
+        continent: 'Africa',
         phoneNumberPrefix: 257,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1258,9 +1323,10 @@ const data = {
       {
         name: 'Cambodia',
         code: 'KH',
+        continent: 'Asia',
         phoneNumberPrefix: 855,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1287,9 +1353,10 @@ const data = {
       {
         name: 'Cameroon',
         code: 'CM',
+        continent: 'Africa',
         phoneNumberPrefix: 237,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1316,9 +1383,10 @@ const data = {
       {
         name: 'Canada',
         code: 'CA',
+        continent: 'North America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'North America',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1398,9 +1466,10 @@ const data = {
       {
         name: 'Cape Verde',
         code: 'CV',
+        continent: 'Africa',
         phoneNumberPrefix: 238,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1427,9 +1496,10 @@ const data = {
       {
         name: 'Caribbean Netherlands',
         code: 'BQ',
+        continent: 'South America',
         phoneNumberPrefix: 599,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1456,9 +1526,10 @@ const data = {
       {
         name: 'Cayman Islands',
         code: 'KY',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1485,9 +1556,10 @@ const data = {
       {
         name: 'Central African Republic',
         code: 'CF',
+        continent: 'Africa',
         phoneNumberPrefix: 236,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1514,9 +1586,10 @@ const data = {
       {
         name: 'Chad',
         code: 'TD',
+        continent: 'Africa',
         phoneNumberPrefix: 235,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1543,9 +1616,10 @@ const data = {
       {
         name: 'Chile',
         code: 'CL',
+        continent: 'South America',
         phoneNumberPrefix: 56,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1637,9 +1711,10 @@ const data = {
       {
         name: 'China',
         code: 'CN',
+        continent: 'Asia',
         phoneNumberPrefix: 86,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Full address',
           address2: 'Apartment, suite, etc.',
@@ -1791,9 +1866,10 @@ const data = {
       {
         name: 'Christmas Island',
         code: 'CX',
+        continent: 'Asia',
         phoneNumberPrefix: 61,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1820,9 +1896,10 @@ const data = {
       {
         name: 'Cocos (Keeling) Islands',
         code: 'CC',
+        continent: 'Asia',
         phoneNumberPrefix: 891,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1849,9 +1926,10 @@ const data = {
       {
         name: 'Colombia',
         code: 'CO',
+        continent: 'South America',
         phoneNumberPrefix: 57,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -1979,7 +2057,7 @@ const data = {
             code: 'RIS',
           },
           {
-            name: 'San Andrés & Providencia',
+            name: 'San Andrés \u0026 Providencia',
             code: 'SAP',
           },
           {
@@ -2011,9 +2089,10 @@ const data = {
       {
         name: 'Comoros',
         code: 'KM',
+        continent: 'Africa',
         phoneNumberPrefix: 269,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2040,9 +2119,10 @@ const data = {
       {
         name: 'Congo - Brazzaville',
         code: 'CG',
+        continent: 'Africa',
         phoneNumberPrefix: 243,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2069,9 +2149,10 @@ const data = {
       {
         name: 'Congo - Kinshasa',
         code: 'CD',
+        continent: 'Africa',
         phoneNumberPrefix: 243,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2098,9 +2179,10 @@ const data = {
       {
         name: 'Cook Islands',
         code: 'CK',
+        continent: 'Oceania',
         phoneNumberPrefix: 682,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2127,9 +2209,10 @@ const data = {
       {
         name: 'Costa Rica',
         code: 'CR',
+        continent: 'Central America',
         phoneNumberPrefix: 506,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2156,38 +2239,10 @@ const data = {
       {
         name: 'Croatia',
         code: 'HR',
+        continent: 'Europe',
         phoneNumberPrefix: 385,
         autocompletionField: 'address1',
-        continent: 'Europe',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country/Region',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Region',
-        },
-        optionalLabels: {
-          address2: 'Apartment, suite, etc. (optional)',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
-        name: 'Cuba',
-        code: 'CU',
-        phoneNumberPrefix: 53,
-        autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2214,9 +2269,10 @@ const data = {
       {
         name: 'Curaçao',
         code: 'CW',
+        continent: 'Central America',
         phoneNumberPrefix: 599,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2243,9 +2299,10 @@ const data = {
       {
         name: 'Cyprus',
         code: 'CY',
+        continent: 'Europe',
         phoneNumberPrefix: 357,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2272,9 +2329,10 @@ const data = {
       {
         name: 'Czechia',
         code: 'CZ',
+        continent: 'Europe',
         phoneNumberPrefix: 420,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2301,9 +2359,10 @@ const data = {
       {
         name: 'Côte d’Ivoire',
         code: 'CI',
+        continent: 'Africa',
         phoneNumberPrefix: 225,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2330,9 +2389,10 @@ const data = {
       {
         name: 'Denmark',
         code: 'DK',
+        continent: 'Europe',
         phoneNumberPrefix: 45,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -2359,9 +2419,10 @@ const data = {
       {
         name: 'Djibouti',
         code: 'DJ',
+        continent: 'Africa',
         phoneNumberPrefix: 253,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2379,18 +2440,19 @@ const data = {
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
       {
         name: 'Dominica',
         code: 'DM',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2417,9 +2479,10 @@ const data = {
       {
         name: 'Dominican Republic',
         code: 'DO',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2446,9 +2509,10 @@ const data = {
       {
         name: 'Ecuador',
         code: 'EC',
+        continent: 'South America',
         phoneNumberPrefix: 593,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2475,9 +2539,10 @@ const data = {
       {
         name: 'Egypt',
         code: 'EG',
+        continent: 'Africa',
         phoneNumberPrefix: 20,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'GOVERNORATE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2621,9 +2686,10 @@ const data = {
       {
         name: 'El Salvador',
         code: 'SV',
+        continent: 'Central America',
         phoneNumberPrefix: 503,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2650,9 +2716,10 @@ const data = {
       {
         name: 'Equatorial Guinea',
         code: 'GQ',
+        continent: 'Africa',
         phoneNumberPrefix: 240,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2679,9 +2746,10 @@ const data = {
       {
         name: 'Eritrea',
         code: 'ER',
+        continent: 'Africa',
         phoneNumberPrefix: 291,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2708,9 +2776,10 @@ const data = {
       {
         name: 'Estonia',
         code: 'EE',
+        continent: 'Europe',
         phoneNumberPrefix: 372,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2737,9 +2806,10 @@ const data = {
       {
         name: 'Eswatini',
         code: 'SZ',
+        continent: 'Africa',
         phoneNumberPrefix: 268,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2766,9 +2836,10 @@ const data = {
       {
         name: 'Ethiopia',
         code: 'ET',
+        continent: 'Africa',
         phoneNumberPrefix: 251,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2795,9 +2866,10 @@ const data = {
       {
         name: 'Falkland Islands',
         code: 'FK',
+        continent: 'South America',
         phoneNumberPrefix: 500,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2824,9 +2896,10 @@ const data = {
       {
         name: 'Faroe Islands',
         code: 'FO',
+        continent: 'Europe',
         phoneNumberPrefix: 298,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2853,9 +2926,10 @@ const data = {
       {
         name: 'Fiji',
         code: 'FJ',
+        continent: 'Oceania',
         phoneNumberPrefix: 679,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2882,9 +2956,10 @@ const data = {
       {
         name: 'Finland',
         code: 'FI',
+        continent: 'Europe',
         phoneNumberPrefix: 358,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2911,9 +2986,10 @@ const data = {
       {
         name: 'France',
         code: 'FR',
+        continent: 'Europe',
         phoneNumberPrefix: 33,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2940,9 +3016,10 @@ const data = {
       {
         name: 'French Guiana',
         code: 'GF',
+        continent: 'South America',
         phoneNumberPrefix: 594,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2969,9 +3046,10 @@ const data = {
       {
         name: 'French Polynesia',
         code: 'PF',
+        continent: 'Oceania',
         phoneNumberPrefix: 689,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -2998,9 +3076,10 @@ const data = {
       {
         name: 'French Southern Territories',
         code: 'TF',
+        continent: 'Other',
         phoneNumberPrefix: 262,
         autocompletionField: 'address1',
-        continent: 'Other',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3027,9 +3106,10 @@ const data = {
       {
         name: 'Gabon',
         code: 'GA',
+        continent: 'Africa',
         phoneNumberPrefix: 241,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3056,9 +3136,10 @@ const data = {
       {
         name: 'Gambia',
         code: 'GM',
+        continent: 'Africa',
         phoneNumberPrefix: 220,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3085,9 +3166,10 @@ const data = {
       {
         name: 'Georgia',
         code: 'GE',
+        continent: 'Europe',
         phoneNumberPrefix: 995,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3114,12 +3196,13 @@ const data = {
       {
         name: 'Germany',
         code: 'DE',
+        continent: 'Europe',
         phoneNumberPrefix: 49,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
+          address1: 'Street and house number',
+          address2: 'Additional address',
           city: 'City',
           company: 'Company',
           country: 'Country/Region',
@@ -3130,7 +3213,7 @@ const data = {
           zone: 'Region',
         },
         optionalLabels: {
-          address2: 'Apartment, suite, etc. (optional)',
+          address2: 'Additional address (optional)',
         },
         formatting: {
           edit:
@@ -3143,9 +3226,10 @@ const data = {
       {
         name: 'Ghana',
         code: 'GH',
+        continent: 'Africa',
         phoneNumberPrefix: 233,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3172,9 +3256,10 @@ const data = {
       {
         name: 'Gibraltar',
         code: 'GI',
+        continent: 'Europe',
         phoneNumberPrefix: 350,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3201,9 +3286,10 @@ const data = {
       {
         name: 'Greece',
         code: 'GR',
+        continent: 'Europe',
         phoneNumberPrefix: 30,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3230,9 +3316,10 @@ const data = {
       {
         name: 'Greenland',
         code: 'GL',
+        continent: 'Europe',
         phoneNumberPrefix: 299,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3259,9 +3346,10 @@ const data = {
       {
         name: 'Grenada',
         code: 'GD',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3288,9 +3376,10 @@ const data = {
       {
         name: 'Guadeloupe',
         code: 'GP',
+        continent: 'Europe',
         phoneNumberPrefix: 590,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3317,9 +3406,10 @@ const data = {
       {
         name: 'Guatemala',
         code: 'GT',
+        continent: 'Central America',
         phoneNumberPrefix: 502,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3435,9 +3525,10 @@ const data = {
       {
         name: 'Guernsey',
         code: 'GG',
+        continent: 'Europe',
         phoneNumberPrefix: 44,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3464,9 +3555,10 @@ const data = {
       {
         name: 'Guinea',
         code: 'GN',
+        continent: 'Africa',
         phoneNumberPrefix: 224,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3493,9 +3585,10 @@ const data = {
       {
         name: 'Guinea-Bissau',
         code: 'GW',
+        continent: 'Africa',
         phoneNumberPrefix: 245,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3522,9 +3615,10 @@ const data = {
       {
         name: 'Guyana',
         code: 'GY',
+        continent: 'South America',
         phoneNumberPrefix: 592,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3551,9 +3645,10 @@ const data = {
       {
         name: 'Haiti',
         code: 'HT',
+        continent: 'Central America',
         phoneNumberPrefix: 509,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3578,11 +3673,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Heard & McDonald Islands',
+        name: 'Heard \u0026 McDonald Islands',
         code: 'HM',
+        continent: 'Other',
         phoneNumberPrefix: 0,
         autocompletionField: 'address1',
-        continent: 'Other',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3609,9 +3705,10 @@ const data = {
       {
         name: 'Honduras',
         code: 'HN',
+        continent: 'Central America',
         phoneNumberPrefix: 504,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3636,11 +3733,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Hong Kong SAR China',
+        name: 'Hong Kong SAR',
         code: 'HK',
+        continent: 'Asia',
         phoneNumberPrefix: 852,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3680,9 +3778,10 @@ const data = {
       {
         name: 'Hungary',
         code: 'HU',
+        continent: 'Europe',
         phoneNumberPrefix: 36,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3709,9 +3808,10 @@ const data = {
       {
         name: 'Iceland',
         code: 'IS',
+        continent: 'Europe',
         phoneNumberPrefix: 354,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3738,9 +3838,10 @@ const data = {
       {
         name: 'India',
         code: 'IN',
+        continent: 'Asia',
         phoneNumberPrefix: 91,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'STATE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -3916,9 +4017,10 @@ const data = {
       {
         name: 'Indonesia',
         code: 'ID',
+        continent: 'Asia',
         phoneNumberPrefix: 62,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -4080,40 +4182,12 @@ const data = {
         ],
       },
       {
-        name: 'Iran',
-        code: 'IR',
-        phoneNumberPrefix: 98,
-        autocompletionField: 'address1',
-        continent: 'Asia',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country/Region',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Region',
-        },
-        optionalLabels: {
-          address2: 'Apartment, suite, etc. (optional)',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
         name: 'Iraq',
         code: 'IQ',
+        continent: 'Asia',
         phoneNumberPrefix: 964,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -4140,9 +4214,10 @@ const data = {
       {
         name: 'Ireland',
         code: 'IE',
+        continent: 'Europe',
         phoneNumberPrefix: 353,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'COUNTY',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -4274,9 +4349,10 @@ const data = {
       {
         name: 'Isle of Man',
         code: 'IM',
+        continent: 'Europe',
         phoneNumberPrefix: 44,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -4303,9 +4379,10 @@ const data = {
       {
         name: 'Israel',
         code: 'IL',
+        continent: 'Asia',
         phoneNumberPrefix: 972,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -4332,9 +4409,10 @@ const data = {
       {
         name: 'Italy',
         code: 'IT',
+        continent: 'Europe',
         phoneNumberPrefix: 39,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -4802,9 +4880,10 @@ const data = {
       {
         name: 'Jamaica',
         code: 'JM',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -4831,9 +4910,10 @@ const data = {
       {
         name: 'Japan',
         code: 'JP',
+        continent: 'Asia',
         phoneNumberPrefix: 81,
         autocompletionField: 'zip',
-        continent: 'Asia',
+        provinceKey: 'PREFECTURE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -4857,7 +4937,7 @@ const data = {
         },
         zones: [
           {
-            name: 'Hokkaidō',
+            name: 'Hokkaido',
             code: 'JP-01',
           },
           {
@@ -4957,15 +5037,15 @@ const data = {
             code: 'JP-25',
           },
           {
-            name: 'Kyōto',
+            name: 'Kyoto',
             code: 'JP-26',
           },
           {
-            name: 'Ōsaka',
+            name: 'Osaka',
             code: 'JP-27',
           },
           {
-            name: 'Hyōgo',
+            name: 'Hyogo',
             code: 'JP-28',
           },
           {
@@ -5009,7 +5089,7 @@ const data = {
             code: 'JP-38',
           },
           {
-            name: 'Kōchi',
+            name: 'Kochi',
             code: 'JP-39',
           },
           {
@@ -5029,7 +5109,7 @@ const data = {
             code: 'JP-43',
           },
           {
-            name: 'Ōita',
+            name: 'Oita',
             code: 'JP-44',
           },
           {
@@ -5049,9 +5129,10 @@ const data = {
       {
         name: 'Jersey',
         code: 'JE',
+        continent: 'Europe',
         phoneNumberPrefix: 44,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5078,9 +5159,10 @@ const data = {
       {
         name: 'Jordan',
         code: 'JO',
+        continent: 'Asia',
         phoneNumberPrefix: 962,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5107,9 +5189,10 @@ const data = {
       {
         name: 'Kazakhstan',
         code: 'KZ',
+        continent: 'Asia',
         phoneNumberPrefix: 7,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5136,9 +5219,10 @@ const data = {
       {
         name: 'Kenya',
         code: 'KE',
+        continent: 'Africa',
         phoneNumberPrefix: 254,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5165,9 +5249,10 @@ const data = {
       {
         name: 'Kiribati',
         code: 'KI',
+        continent: 'Oceania',
         phoneNumberPrefix: 686,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5194,9 +5279,10 @@ const data = {
       {
         name: 'Kosovo',
         code: 'XK',
+        continent: 'Europe',
         phoneNumberPrefix: 383,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5223,9 +5309,10 @@ const data = {
       {
         name: 'Kuwait',
         code: 'KW',
+        continent: 'Asia',
         phoneNumberPrefix: 965,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5252,9 +5339,10 @@ const data = {
       {
         name: 'Kyrgyzstan',
         code: 'KG',
+        continent: 'Asia',
         phoneNumberPrefix: 996,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5281,9 +5369,10 @@ const data = {
       {
         name: 'Laos',
         code: 'LA',
+        continent: 'Asia',
         phoneNumberPrefix: 856,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5310,9 +5399,10 @@ const data = {
       {
         name: 'Latvia',
         code: 'LV',
+        continent: 'Europe',
         phoneNumberPrefix: 371,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5339,9 +5429,10 @@ const data = {
       {
         name: 'Lebanon',
         code: 'LB',
+        continent: 'Asia',
         phoneNumberPrefix: 961,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5368,9 +5459,10 @@ const data = {
       {
         name: 'Lesotho',
         code: 'LS',
+        continent: 'Africa',
         phoneNumberPrefix: 266,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5397,9 +5489,10 @@ const data = {
       {
         name: 'Liberia',
         code: 'LR',
+        continent: 'Africa',
         phoneNumberPrefix: 231,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5426,9 +5519,10 @@ const data = {
       {
         name: 'Libya',
         code: 'LY',
+        continent: 'Africa',
         phoneNumberPrefix: 218,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5455,9 +5549,10 @@ const data = {
       {
         name: 'Liechtenstein',
         code: 'LI',
+        continent: 'Europe',
         phoneNumberPrefix: 423,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5484,9 +5579,10 @@ const data = {
       {
         name: 'Lithuania',
         code: 'LT',
+        continent: 'Europe',
         phoneNumberPrefix: 370,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5513,9 +5609,10 @@ const data = {
       {
         name: 'Luxembourg',
         code: 'LU',
+        continent: 'Europe',
         phoneNumberPrefix: 352,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5540,11 +5637,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Macao SAR China',
+        name: 'Macao SAR',
         code: 'MO',
+        continent: 'Asia',
         phoneNumberPrefix: 853,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5562,18 +5660,19 @@ const data = {
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
       {
         name: 'Madagascar',
         code: 'MG',
+        continent: 'Africa',
         phoneNumberPrefix: 261,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5600,9 +5699,10 @@ const data = {
       {
         name: 'Malawi',
         code: 'MW',
+        continent: 'Africa',
         phoneNumberPrefix: 265,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5629,9 +5729,10 @@ const data = {
       {
         name: 'Malaysia',
         code: 'MY',
+        continent: 'Asia',
         phoneNumberPrefix: 60,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'STATE_AND_TERRITORY',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5723,9 +5824,10 @@ const data = {
       {
         name: 'Maldives',
         code: 'MV',
+        continent: 'Asia',
         phoneNumberPrefix: 960,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5752,9 +5854,10 @@ const data = {
       {
         name: 'Mali',
         code: 'ML',
+        continent: 'Africa',
         phoneNumberPrefix: 223,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5781,9 +5884,10 @@ const data = {
       {
         name: 'Malta',
         code: 'MT',
+        continent: 'Europe',
         phoneNumberPrefix: 356,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5810,9 +5914,10 @@ const data = {
       {
         name: 'Martinique',
         code: 'MQ',
+        continent: 'Central America',
         phoneNumberPrefix: 596,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5839,9 +5944,10 @@ const data = {
       {
         name: 'Mauritania',
         code: 'MR',
+        continent: 'Africa',
         phoneNumberPrefix: 222,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5868,9 +5974,10 @@ const data = {
       {
         name: 'Mauritius',
         code: 'MU',
+        continent: 'Africa',
         phoneNumberPrefix: 230,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5897,9 +6004,10 @@ const data = {
       {
         name: 'Mayotte',
         code: 'YT',
+        continent: 'Europe',
         phoneNumberPrefix: 262,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -5926,9 +6034,10 @@ const data = {
       {
         name: 'Mexico',
         code: 'MX',
+        continent: 'North America',
         phoneNumberPrefix: 52,
         autocompletionField: 'address1',
-        continent: 'North America',
+        provinceKey: 'STATE',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -6084,9 +6193,10 @@ const data = {
       {
         name: 'Moldova',
         code: 'MD',
+        continent: 'Europe',
         phoneNumberPrefix: 373,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6113,9 +6223,10 @@ const data = {
       {
         name: 'Monaco',
         code: 'MC',
+        continent: 'Europe',
         phoneNumberPrefix: 377,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6142,9 +6253,10 @@ const data = {
       {
         name: 'Mongolia',
         code: 'MN',
+        continent: 'Asia',
         phoneNumberPrefix: 976,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6171,9 +6283,10 @@ const data = {
       {
         name: 'Montenegro',
         code: 'ME',
+        continent: 'Europe',
         phoneNumberPrefix: 382,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6200,9 +6313,10 @@ const data = {
       {
         name: 'Montserrat',
         code: 'MS',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6229,9 +6343,10 @@ const data = {
       {
         name: 'Morocco',
         code: 'MA',
+        continent: 'Africa',
         phoneNumberPrefix: 212,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6258,9 +6373,10 @@ const data = {
       {
         name: 'Mozambique',
         code: 'MZ',
+        continent: 'Africa',
         phoneNumberPrefix: 258,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6287,9 +6403,10 @@ const data = {
       {
         name: 'Myanmar (Burma)',
         code: 'MM',
+        continent: 'Asia',
         phoneNumberPrefix: 95,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6316,9 +6433,10 @@ const data = {
       {
         name: 'Namibia',
         code: 'NA',
+        continent: 'Africa',
         phoneNumberPrefix: 264,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6345,9 +6463,10 @@ const data = {
       {
         name: 'Nauru',
         code: 'NR',
+        continent: 'Oceania',
         phoneNumberPrefix: 674,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6374,9 +6493,10 @@ const data = {
       {
         name: 'Nepal',
         code: 'NP',
+        continent: 'Asia',
         phoneNumberPrefix: 977,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6403,9 +6523,10 @@ const data = {
       {
         name: 'Netherlands',
         code: 'NL',
+        continent: 'Europe',
         phoneNumberPrefix: 31,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -6430,40 +6551,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Netherlands Antilles',
-        code: 'AN',
-        phoneNumberPrefix: 599,
-        autocompletionField: 'address1',
-        continent: 'South America',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country/Region',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Region',
-        },
-        optionalLabels: {
-          address2: 'Apartment, suite, etc. (optional)',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
         name: 'New Caledonia',
         code: 'NC',
+        continent: 'Oceania',
         phoneNumberPrefix: 687,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6490,9 +6583,10 @@ const data = {
       {
         name: 'New Zealand',
         code: 'NZ',
+        continent: 'Oceania',
         phoneNumberPrefix: 64,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6526,6 +6620,10 @@ const data = {
           {
             name: 'Canterbury',
             code: 'CAN',
+          },
+          {
+            name: 'Chatham Islands',
+            code: 'CIT',
           },
           {
             name: 'Gisborne',
@@ -6584,9 +6682,10 @@ const data = {
       {
         name: 'Nicaragua',
         code: 'NI',
+        continent: 'Central America',
         phoneNumberPrefix: 505,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6613,9 +6712,10 @@ const data = {
       {
         name: 'Niger',
         code: 'NE',
+        continent: 'Africa',
         phoneNumberPrefix: 227,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6642,9 +6742,10 @@ const data = {
       {
         name: 'Nigeria',
         code: 'NG',
+        continent: 'Africa',
         phoneNumberPrefix: 234,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'STATE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6820,9 +6921,10 @@ const data = {
       {
         name: 'Niue',
         code: 'NU',
+        continent: 'Oceania',
         phoneNumberPrefix: 683,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6849,38 +6951,10 @@ const data = {
       {
         name: 'Norfolk Island',
         code: 'NF',
+        continent: 'Oceania',
         phoneNumberPrefix: 672,
         autocompletionField: 'address1',
-        continent: 'Oceania',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country/Region',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Region',
-        },
-        optionalLabels: {
-          address2: 'Apartment, suite, etc. (optional)',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
-        name: 'North Korea',
-        code: 'KP',
-        phoneNumberPrefix: 82,
-        autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6907,9 +6981,10 @@ const data = {
       {
         name: 'North Macedonia',
         code: 'MK',
+        continent: 'Europe',
         phoneNumberPrefix: 389,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6936,9 +7011,10 @@ const data = {
       {
         name: 'Norway',
         code: 'NO',
+        continent: 'Europe',
         phoneNumberPrefix: 47,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -6965,9 +7041,10 @@ const data = {
       {
         name: 'Oman',
         code: 'OM',
+        continent: 'Asia',
         phoneNumberPrefix: 968,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -6994,9 +7071,10 @@ const data = {
       {
         name: 'Pakistan',
         code: 'PK',
+        continent: 'Asia',
         phoneNumberPrefix: 92,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7023,9 +7101,10 @@ const data = {
       {
         name: 'Palestinian Territories',
         code: 'PS',
+        continent: 'Asia',
         phoneNumberPrefix: 970,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7052,9 +7131,10 @@ const data = {
       {
         name: 'Panama',
         code: 'PA',
+        continent: 'Central America',
         phoneNumberPrefix: 507,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7134,9 +7214,10 @@ const data = {
       {
         name: 'Papua New Guinea',
         code: 'PG',
+        continent: 'Oceania',
         phoneNumberPrefix: 675,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7163,9 +7244,10 @@ const data = {
       {
         name: 'Paraguay',
         code: 'PY',
+        continent: 'South America',
         phoneNumberPrefix: 595,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7192,9 +7274,10 @@ const data = {
       {
         name: 'Peru',
         code: 'PE',
+        continent: 'South America',
         phoneNumberPrefix: 51,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7326,9 +7409,10 @@ const data = {
       {
         name: 'Philippines',
         code: 'PH',
+        continent: 'Asia',
         phoneNumberPrefix: 63,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7346,18 +7430,348 @@ const data = {
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{country}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
-        zones: [],
+        zones: [
+          {
+            name: 'Abra',
+            code: 'PH-ABR',
+          },
+          {
+            name: 'Agusan del Norte',
+            code: 'PH-AGN',
+          },
+          {
+            name: 'Agusan del Sur',
+            code: 'PH-AGS',
+          },
+          {
+            name: 'Aklan',
+            code: 'PH-AKL',
+          },
+          {
+            name: 'Albay',
+            code: 'PH-ALB',
+          },
+          {
+            name: 'Antique',
+            code: 'PH-ANT',
+          },
+          {
+            name: 'Apayao',
+            code: 'PH-APA',
+          },
+          {
+            name: 'Aurora',
+            code: 'PH-AUR',
+          },
+          {
+            name: 'Basilan',
+            code: 'PH-BAS',
+          },
+          {
+            name: 'Bataan',
+            code: 'PH-BAN',
+          },
+          {
+            name: 'Batanes',
+            code: 'PH-BTN',
+          },
+          {
+            name: 'Batangas',
+            code: 'PH-BTG',
+          },
+          {
+            name: 'Benguet',
+            code: 'PH-BEN',
+          },
+          {
+            name: 'Biliran',
+            code: 'PH-BIL',
+          },
+          {
+            name: 'Bohol',
+            code: 'PH-BOH',
+          },
+          {
+            name: 'Bukidnon',
+            code: 'PH-BUK',
+          },
+          {
+            name: 'Bulacan',
+            code: 'PH-BUL',
+          },
+          {
+            name: 'Cagayan',
+            code: 'PH-CAG',
+          },
+          {
+            name: 'Camarines Norte',
+            code: 'PH-CAN',
+          },
+          {
+            name: 'Camarines Sur',
+            code: 'PH-CAS',
+          },
+          {
+            name: 'Camiguin',
+            code: 'PH-CAM',
+          },
+          {
+            name: 'Capiz',
+            code: 'PH-CAP',
+          },
+          {
+            name: 'Catanduanes',
+            code: 'PH-CAT',
+          },
+          {
+            name: 'Cavite',
+            code: 'PH-CAV',
+          },
+          {
+            name: 'Cebu',
+            code: 'PH-CEB',
+          },
+          {
+            name: 'Cotabato',
+            code: 'PH-NCO',
+          },
+          {
+            name: 'Davao Occidental',
+            code: 'PH-DVO',
+          },
+          {
+            name: 'Davao Oriental',
+            code: 'PH-DAO',
+          },
+          {
+            name: 'Compostela Valley',
+            code: 'PH-COM',
+          },
+          {
+            name: 'Davao del Norte',
+            code: 'PH-DAV',
+          },
+          {
+            name: 'Davao del Sur',
+            code: 'PH-DAS',
+          },
+          {
+            name: 'Dinagat Islands',
+            code: 'PH-DIN',
+          },
+          {
+            name: 'Eastern Samar',
+            code: 'PH-EAS',
+          },
+          {
+            name: 'Guimaras',
+            code: 'PH-GUI',
+          },
+          {
+            name: 'Ifugao',
+            code: 'PH-IFU',
+          },
+          {
+            name: 'Ilocos Norte',
+            code: 'PH-ILN',
+          },
+          {
+            name: 'Ilocos Sur',
+            code: 'PH-ILS',
+          },
+          {
+            name: 'Iloilo',
+            code: 'PH-ILI',
+          },
+          {
+            name: 'Isabela',
+            code: 'PH-ISA',
+          },
+          {
+            name: 'Kalinga',
+            code: 'PH-KAL',
+          },
+          {
+            name: 'La Union',
+            code: 'PH-LUN',
+          },
+          {
+            name: 'Laguna',
+            code: 'PH-LAG',
+          },
+          {
+            name: 'Lanao del Norte',
+            code: 'PH-LAN',
+          },
+          {
+            name: 'Lanao del Sur',
+            code: 'PH-LAS',
+          },
+          {
+            name: 'Leyte',
+            code: 'PH-LEY',
+          },
+          {
+            name: 'Maguindanao',
+            code: 'PH-MAG',
+          },
+          {
+            name: 'Marinduque',
+            code: 'PH-MAD',
+          },
+          {
+            name: 'Masbate',
+            code: 'PH-MAS',
+          },
+          {
+            name: 'Metro Manila',
+            code: 'PH-00',
+          },
+          {
+            name: 'Misamis Occidental',
+            code: 'PH-MSC',
+          },
+          {
+            name: 'Misamis Oriental',
+            code: 'PH-MSR',
+          },
+          {
+            name: 'Mountain',
+            code: 'PH-MOU',
+          },
+          {
+            name: 'Negros Occidental',
+            code: 'PH-NEC',
+          },
+          {
+            name: 'Negros Oriental',
+            code: 'PH-NER',
+          },
+          {
+            name: 'Northern Samar',
+            code: 'PH-NSA',
+          },
+          {
+            name: 'Nueva Ecija',
+            code: 'PH-NUE',
+          },
+          {
+            name: 'Nueva Vizcaya',
+            code: 'PH-NUV',
+          },
+          {
+            name: 'Occidental Mindoro',
+            code: 'PH-MDC',
+          },
+          {
+            name: 'Oriental Mindoro',
+            code: 'PH-MDR',
+          },
+          {
+            name: 'Palawan',
+            code: 'PH-PLW',
+          },
+          {
+            name: 'Pampanga',
+            code: 'PH-PAM',
+          },
+          {
+            name: 'Pangasinan',
+            code: 'PH-PAN',
+          },
+          {
+            name: 'Quezon',
+            code: 'PH-QUE',
+          },
+          {
+            name: 'Quirino',
+            code: 'PH-QUI',
+          },
+          {
+            name: 'Rizal',
+            code: 'PH-RIZ',
+          },
+          {
+            name: 'Romblon',
+            code: 'PH-ROM',
+          },
+          {
+            name: 'Samar',
+            code: 'PH-WSA',
+          },
+          {
+            name: 'Sarangani',
+            code: 'PH-SAR',
+          },
+          {
+            name: 'Siquijor',
+            code: 'PH-SIG',
+          },
+          {
+            name: 'Sorsogon',
+            code: 'PH-SOR',
+          },
+          {
+            name: 'South Cotabato',
+            code: 'PH-SCO',
+          },
+          {
+            name: 'Southern Leyte',
+            code: 'PH-SLE',
+          },
+          {
+            name: 'Sultan Kudarat',
+            code: 'PH-SUK',
+          },
+          {
+            name: 'Sulu',
+            code: 'PH-SLU',
+          },
+          {
+            name: 'Surigao del Norte',
+            code: 'PH-SUN',
+          },
+          {
+            name: 'Surigao del Sur',
+            code: 'PH-SUR',
+          },
+          {
+            name: 'Tarlac',
+            code: 'PH-TAR',
+          },
+          {
+            name: 'Tawi-Tawi',
+            code: 'PH-TAW',
+          },
+          {
+            name: 'Zambales',
+            code: 'PH-ZMB',
+          },
+          {
+            name: 'Zamboanga Sibugay',
+            code: 'PH-ZSI',
+          },
+          {
+            name: 'Zamboanga del Norte',
+            code: 'PH-ZAN',
+          },
+          {
+            name: 'Zamboanga del Sur',
+            code: 'PH-ZAS',
+          },
+        ],
       },
       {
         name: 'Pitcairn Islands',
         code: 'PN',
+        continent: 'Oceania',
         phoneNumberPrefix: 64,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7384,9 +7798,10 @@ const data = {
       {
         name: 'Poland',
         code: 'PL',
+        continent: 'Europe',
         phoneNumberPrefix: 48,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7413,9 +7828,10 @@ const data = {
       {
         name: 'Portugal',
         code: 'PT',
+        continent: 'Europe',
         phoneNumberPrefix: 351,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7523,9 +7939,10 @@ const data = {
       {
         name: 'Qatar',
         code: 'QA',
+        continent: 'Asia',
         phoneNumberPrefix: 974,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7552,9 +7969,10 @@ const data = {
       {
         name: 'Réunion',
         code: 'RE',
+        continent: 'Europe',
         phoneNumberPrefix: 262,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7581,9 +7999,10 @@ const data = {
       {
         name: 'Romania',
         code: 'RO',
+        continent: 'Europe',
         phoneNumberPrefix: 40,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'COUNTY',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -7779,9 +8198,10 @@ const data = {
       {
         name: 'Russia',
         code: 'RU',
+        continent: 'Asia',
         phoneNumberPrefix: 7,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8137,9 +8557,10 @@ const data = {
       {
         name: 'Rwanda',
         code: 'RW',
+        continent: 'Africa',
         phoneNumberPrefix: 250,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8166,9 +8587,10 @@ const data = {
       {
         name: 'Samoa',
         code: 'WS',
+        continent: 'Oceania',
         phoneNumberPrefix: 685,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8195,9 +8617,10 @@ const data = {
       {
         name: 'San Marino',
         code: 'SM',
+        continent: 'Europe',
         phoneNumberPrefix: 378,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8222,11 +8645,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'São Tomé & Príncipe',
+        name: 'São Tomé \u0026 Príncipe',
         code: 'ST',
+        continent: 'Africa',
         phoneNumberPrefix: 239,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8253,9 +8677,10 @@ const data = {
       {
         name: 'Saudi Arabia',
         code: 'SA',
+        continent: 'Asia',
         phoneNumberPrefix: 966,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8282,9 +8707,10 @@ const data = {
       {
         name: 'Senegal',
         code: 'SN',
+        continent: 'Africa',
         phoneNumberPrefix: 221,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8311,9 +8737,10 @@ const data = {
       {
         name: 'Serbia',
         code: 'RS',
+        continent: 'Europe',
         phoneNumberPrefix: 381,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8340,9 +8767,10 @@ const data = {
       {
         name: 'Seychelles',
         code: 'SC',
+        continent: 'Africa',
         phoneNumberPrefix: 248,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8369,9 +8797,10 @@ const data = {
       {
         name: 'Sierra Leone',
         code: 'SL',
+        continent: 'Africa',
         phoneNumberPrefix: 232,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8389,18 +8818,19 @@ const data = {
         },
         formatting: {
           edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
           show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
       {
         name: 'Singapore',
         code: 'SG',
+        continent: 'Asia',
         phoneNumberPrefix: 65,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8427,9 +8857,10 @@ const data = {
       {
         name: 'Sint Maarten',
         code: 'SX',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8456,9 +8887,10 @@ const data = {
       {
         name: 'Slovakia',
         code: 'SK',
+        continent: 'Europe',
         phoneNumberPrefix: 421,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8485,9 +8917,10 @@ const data = {
       {
         name: 'Slovenia',
         code: 'SI',
+        continent: 'Europe',
         phoneNumberPrefix: 386,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8514,9 +8947,10 @@ const data = {
       {
         name: 'Solomon Islands',
         code: 'SB',
+        continent: 'Oceania',
         phoneNumberPrefix: 677,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8543,9 +8977,10 @@ const data = {
       {
         name: 'Somalia',
         code: 'SO',
+        continent: 'Africa',
         phoneNumberPrefix: 252,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8572,9 +9007,10 @@ const data = {
       {
         name: 'South Africa',
         code: 'ZA',
+        continent: 'Africa',
         phoneNumberPrefix: 27,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8636,11 +9072,12 @@ const data = {
         ],
       },
       {
-        name: 'South Georgia & South Sandwich Islands',
+        name: 'South Georgia \u0026 South Sandwich Islands',
         code: 'GS',
+        continent: 'Other',
         phoneNumberPrefix: 500,
         autocompletionField: 'address1',
-        continent: 'Other',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8667,9 +9104,10 @@ const data = {
       {
         name: 'South Korea',
         code: 'KR',
+        continent: 'Asia',
         phoneNumberPrefix: 82,
         autocompletionField: 'zip',
-        continent: 'Asia',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8765,9 +9203,10 @@ const data = {
       {
         name: 'South Sudan',
         code: 'SS',
+        continent: 'Africa',
         phoneNumberPrefix: 211,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -8794,9 +9233,10 @@ const data = {
       {
         name: 'Spain',
         code: 'ES',
+        continent: 'Europe',
         phoneNumberPrefix: 34,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -9032,9 +9472,10 @@ const data = {
       {
         name: 'Sri Lanka',
         code: 'LK',
+        continent: 'Asia',
         phoneNumberPrefix: 94,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9061,9 +9502,10 @@ const data = {
       {
         name: 'St. Barthélemy',
         code: 'BL',
+        continent: 'Central America',
         phoneNumberPrefix: 590,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9090,9 +9532,10 @@ const data = {
       {
         name: 'St. Helena',
         code: 'SH',
+        continent: 'Africa',
         phoneNumberPrefix: 290,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9117,11 +9560,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'St. Kitts & Nevis',
+        name: 'St. Kitts \u0026 Nevis',
         code: 'KN',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9148,9 +9592,10 @@ const data = {
       {
         name: 'St. Lucia',
         code: 'LC',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9177,9 +9622,10 @@ const data = {
       {
         name: 'St. Martin',
         code: 'MF',
+        continent: 'Central America',
         phoneNumberPrefix: 590,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9204,11 +9650,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'St. Pierre & Miquelon',
+        name: 'St. Pierre \u0026 Miquelon',
         code: 'PM',
+        continent: 'Central America',
         phoneNumberPrefix: 508,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9233,11 +9680,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'St. Vincent & Grenadines',
+        name: 'St. Vincent \u0026 Grenadines',
         code: 'VC',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9264,9 +9712,10 @@ const data = {
       {
         name: 'Sudan',
         code: 'SD',
+        continent: 'Africa',
         phoneNumberPrefix: 249,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9293,9 +9742,10 @@ const data = {
       {
         name: 'Suriname',
         code: 'SR',
+        continent: 'South America',
         phoneNumberPrefix: 597,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9320,11 +9770,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Svalbard & Jan Mayen',
+        name: 'Svalbard \u0026 Jan Mayen',
         code: 'SJ',
+        continent: 'Europe',
         phoneNumberPrefix: 47,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9351,9 +9802,10 @@ const data = {
       {
         name: 'Sweden',
         code: 'SE',
+        continent: 'Europe',
         phoneNumberPrefix: 46,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Street and house number',
           address2: 'Apartment, suite, etc.',
@@ -9380,9 +9832,10 @@ const data = {
       {
         name: 'Switzerland',
         code: 'CH',
+        continent: 'Europe',
         phoneNumberPrefix: 41,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Street and house number',
           address2: 'Additional address',
@@ -9407,40 +9860,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Syria',
-        code: 'SY',
-        phoneNumberPrefix: 963,
-        autocompletionField: 'address1',
-        continent: 'Asia',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country/Region',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Region',
-        },
-        optionalLabels: {
-          address2: 'Apartment, suite, etc. (optional)',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
         name: 'Taiwan',
         code: 'TW',
+        continent: 'Asia',
         phoneNumberPrefix: 886,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9467,9 +9892,10 @@ const data = {
       {
         name: 'Tajikistan',
         code: 'TJ',
+        continent: 'Asia',
         phoneNumberPrefix: 992,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9496,9 +9922,10 @@ const data = {
       {
         name: 'Tanzania',
         code: 'TZ',
+        continent: 'Africa',
         phoneNumberPrefix: 255,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9525,9 +9952,10 @@ const data = {
       {
         name: 'Thailand',
         code: 'TH',
+        continent: 'Asia',
         phoneNumberPrefix: 66,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'PROVINCE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9867,9 +10295,10 @@ const data = {
       {
         name: 'Timor-Leste',
         code: 'TL',
+        continent: 'Oceania',
         phoneNumberPrefix: 670,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9896,9 +10325,10 @@ const data = {
       {
         name: 'Togo',
         code: 'TG',
+        continent: 'Africa',
         phoneNumberPrefix: 228,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9925,9 +10355,10 @@ const data = {
       {
         name: 'Tokelau',
         code: 'TK',
+        continent: 'Oceania',
         phoneNumberPrefix: 690,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -9954,38 +10385,10 @@ const data = {
       {
         name: 'Tonga',
         code: 'TO',
+        continent: 'Oceania',
         phoneNumberPrefix: 676,
         autocompletionField: 'address1',
-        continent: 'Oceania',
-        labels: {
-          address1: 'Address',
-          address2: 'Apartment, suite, etc.',
-          city: 'City',
-          company: 'Company',
-          country: 'Country/Region',
-          firstName: 'First name',
-          lastName: 'Last name',
-          phone: 'Phone',
-          postalCode: 'Postal code',
-          zone: 'Region',
-        },
-        optionalLabels: {
-          address2: 'Apartment, suite, etc. (optional)',
-        },
-        formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
-        },
-        zones: [],
-      },
-      {
-        name: 'Trinidad & Tobago',
-        code: 'TT',
-        phoneNumberPrefix: 1,
-        autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10010,11 +10413,72 @@ const data = {
         zones: [],
       },
       {
+        name: 'Trinidad \u0026 Tobago',
+        code: 'TT',
+        continent: 'Central America',
+        phoneNumberPrefix: 1,
+        autocompletionField: 'address1',
+        provinceKey: 'REGION',
+        labels: {
+          address1: 'Address',
+          address2: 'Apartment, suite, etc.',
+          city: 'City',
+          company: 'Company',
+          country: 'Country/Region',
+          firstName: 'First name',
+          lastName: 'Last name',
+          phone: 'Phone',
+          postalCode: 'Postal code',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+        },
+        zones: [],
+      },
+      {
+        name: 'Tristan da Cunha',
+        code: 'TA',
+        continent: 'Africa',
+        phoneNumberPrefix: 2908,
+        autocompletionField: 'address1',
+        provinceKey: 'REGION',
+        labels: {
+          address1: 'Address',
+          address2: 'Apartment, suite, etc.',
+          city: 'City',
+          company: 'Company',
+          country: 'Country/Region',
+          firstName: 'First name',
+          lastName: 'Last name',
+          phone: 'Phone',
+          postalCode: 'Postal code',
+          zone: 'Region',
+        },
+        optionalLabels: {
+          address2: 'Apartment, suite, etc. (optional)',
+        },
+        formatting: {
+          edit:
+            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{zip}_{phone}',
+          show:
+            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+        },
+        zones: [],
+      },
+      {
         name: 'Tunisia',
         code: 'TN',
+        continent: 'Africa',
         phoneNumberPrefix: 216,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10041,9 +10505,10 @@ const data = {
       {
         name: 'Turkey',
         code: 'TR',
+        continent: 'Europe',
         phoneNumberPrefix: 90,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10070,9 +10535,10 @@ const data = {
       {
         name: 'Turkmenistan',
         code: 'TM',
+        continent: 'Asia',
         phoneNumberPrefix: 993,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10097,11 +10563,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Turks & Caicos Islands',
+        name: 'Turks \u0026 Caicos Islands',
         code: 'TC',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10128,9 +10595,10 @@ const data = {
       {
         name: 'Tuvalu',
         code: 'TV',
+        continent: 'Oceania',
         phoneNumberPrefix: 688,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10157,9 +10625,10 @@ const data = {
       {
         name: 'U.S. Outlying Islands',
         code: 'UM',
+        continent: 'Central America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'Central America',
+        provinceKey: 'STATE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10170,7 +10639,7 @@ const data = {
           lastName: 'Last name',
           phone: 'Phone',
           postalCode: 'Postal code',
-          zone: 'State',
+          zone: 'Region',
         },
         optionalLabels: {
           address2: 'Apartment, suite, etc. (optional)',
@@ -10186,9 +10655,10 @@ const data = {
       {
         name: 'Uganda',
         code: 'UG',
+        continent: 'Africa',
         phoneNumberPrefix: 256,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10215,9 +10685,10 @@ const data = {
       {
         name: 'Ukraine',
         code: 'UA',
+        continent: 'Europe',
         phoneNumberPrefix: 380,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10244,9 +10715,10 @@ const data = {
       {
         name: 'United Arab Emirates',
         code: 'AE',
+        continent: 'Asia',
         phoneNumberPrefix: 971,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'EMIRATE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10302,9 +10774,10 @@ const data = {
       {
         name: 'United Kingdom',
         code: 'GB',
+        continent: 'Europe',
         phoneNumberPrefix: 44,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10326,14 +10799,36 @@ const data = {
           show:
             '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
-        zones: [],
+        zones: [
+          {
+            name: 'British Forces',
+            code: 'BFP',
+          },
+          {
+            name: 'England',
+            code: 'ENG',
+          },
+          {
+            name: 'Northern Ireland',
+            code: 'NIR',
+          },
+          {
+            name: 'Scotland',
+            code: 'SCT',
+          },
+          {
+            name: 'Wales',
+            code: 'WLS',
+          },
+        ],
       },
       {
         name: 'United States',
         code: 'US',
+        continent: 'North America',
         phoneNumberPrefix: 1,
         autocompletionField: 'address1',
-        continent: 'North America',
+        provinceKey: 'STATE',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10609,9 +11104,10 @@ const data = {
       {
         name: 'Uruguay',
         code: 'UY',
+        continent: 'South America',
         phoneNumberPrefix: 598,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10638,9 +11134,10 @@ const data = {
       {
         name: 'Uzbekistan',
         code: 'UZ',
+        continent: 'Asia',
         phoneNumberPrefix: 998,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10667,9 +11164,10 @@ const data = {
       {
         name: 'Vanuatu',
         code: 'VU',
+        continent: 'Oceania',
         phoneNumberPrefix: 678,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10696,9 +11194,10 @@ const data = {
       {
         name: 'Vatican City',
         code: 'VA',
+        continent: 'Europe',
         phoneNumberPrefix: 379,
         autocompletionField: 'address1',
-        continent: 'Europe',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10725,9 +11224,10 @@ const data = {
       {
         name: 'Venezuela',
         code: 'VE',
+        continent: 'South America',
         phoneNumberPrefix: 58,
         autocompletionField: 'address1',
-        continent: 'South America',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10754,9 +11254,10 @@ const data = {
       {
         name: 'Vietnam',
         code: 'VN',
+        continent: 'Asia',
         phoneNumberPrefix: 84,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10781,11 +11282,12 @@ const data = {
         zones: [],
       },
       {
-        name: 'Wallis & Futuna',
+        name: 'Wallis \u0026 Futuna',
         code: 'WF',
+        continent: 'Oceania',
         phoneNumberPrefix: 681,
         autocompletionField: 'address1',
-        continent: 'Oceania',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10812,9 +11314,10 @@ const data = {
       {
         name: 'Western Sahara',
         code: 'EH',
+        continent: 'Africa',
         phoneNumberPrefix: 212,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10841,9 +11344,10 @@ const data = {
       {
         name: 'Yemen',
         code: 'YE',
+        continent: 'Asia',
         phoneNumberPrefix: 967,
         autocompletionField: 'address1',
-        continent: 'Asia',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10870,9 +11374,10 @@ const data = {
       {
         name: 'Zambia',
         code: 'ZM',
+        continent: 'Africa',
         phoneNumberPrefix: 260,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
@@ -10899,9 +11404,10 @@ const data = {
       {
         name: 'Zimbabwe',
         code: 'ZW',
+        continent: 'Africa',
         phoneNumberPrefix: 263,
         autocompletionField: 'address1',
-        continent: 'Africa',
+        provinceKey: 'REGION',
         labels: {
           address1: 'Address',
           address2: 'Apartment, suite, etc.',
