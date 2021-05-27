@@ -103,7 +103,7 @@ module.exports = function (plop) {
   plop.setGenerator('entrypoints', {
     description: 'Update package.json files using the generated entrypoints',
     prompts: [],
-    actions: jsPackages.reduce((acc, {name: packageName}) => {
+    actions: jsPackages.reduce((acc, {unscopedName: packageName}) => {
       const packagePath = path.join(__dirname, 'packages', packageName);
       const packageJSONPath = path.join(packagePath, 'package.json');
 
@@ -169,7 +169,12 @@ function getPackages(type = 'js') {
     if (existsSync(packageJSONPath)) {
       const {name, description} = require(packageJSONPath);
 
-      acc.push({name: name.replace('@shopify/', ''), description});
+      acc.push({
+        name,
+        urlEncodedName: encodeURIComponent(name),
+        unscopedName: name.replace('@shopify/', ''),
+        description,
+      });
     }
 
     return acc;
@@ -180,7 +185,7 @@ function validatePackageName(name) {
   return (
     /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/g.test(
       `@shopify/${name}`,
-    ) || `Your package name (@shopify/${name}) does not confirm to npm rules!`
+    ) || `Your package name (@shopify/${name}) does not conform to npm rules!`
   );
 }
 
