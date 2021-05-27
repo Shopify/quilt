@@ -103,7 +103,7 @@ module.exports = function (plop) {
   plop.setGenerator('entrypoints', {
     description: 'Update package.json files using the generated entrypoints',
     prompts: [],
-    actions: jsPackages.reduce((acc, {name: packageName}) => {
+    actions: jsPackages.reduce((acc, {unscopedName: packageName}) => {
       const packagePath = path.join(__dirname, 'packages', packageName);
       const packageJSONPath = path.join(packagePath, 'package.json');
 
@@ -170,9 +170,9 @@ function getPackages(type = 'js') {
       const {name, description} = require(packageJSONPath);
 
       acc.push({
-        name: name.replace('@shopify/', ''),
-        scopedName: name,
-        urlEncodedScopedName: encodeURIComponent(name),
+        name,
+        urlEncodedName: encodeURIComponent(name),
+        unscopedName: name.replace('@shopify/', ''),
         description,
       });
     }
