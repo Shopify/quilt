@@ -1,4 +1,6 @@
 import {createPackage, Runtime} from '@sewing-kit/config';
+import {Package, createProjectBuildPlugin} from '@sewing-kit/plugins';
+import {BabelConfig, updateBabelPreset} from '@sewing-kit/plugin-javascript';
 
 import {quiltPackage} from '../../config/sewing-kit';
 
@@ -73,4 +75,25 @@ export default createPackage(pkg => {
   pkg.entry({name: 'url.node', root: './src/url.node'});
 
   pkg.use(quiltPackage());
+  pkg.use(
+    createProjectBuildPlugin('Quilt.PackagePolyfillsBuild', ({hooks}) => {
+      hooks.target.hook(({hooks}) => {
+        hooks.configure.hook(hooks => {
+          hooks.babelConfig?.hook(async (config: BabelConfig) => {
+            let newConfig = config;
+
+            newConfig = await updateBabelPreset(
+              [
+                '@sewing-kit/plugin-javascript/babel-preset',
+                require.resolve('@sewing-kit/plugin-javascript/babel-preset'),
+              ],
+              {modules: 'auto', polyfill: 'inline'},
+            )(newConfig);
+
+            return newConfig;
+          });
+        });
+      });
+    }),
+  );
 });
