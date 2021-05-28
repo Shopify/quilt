@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## 0.2.0 - 2021-05-28
+
 ### Added
 
 - Added the ability to disable transitions and animations [#1910](https://github.com/Shopify/quilt/pull/1910)
