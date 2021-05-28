@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-## Added
+### Added
 
 - Now also includes the react plugin in server environments to avoid warnings from bugsnag during React SSR and give better bugsnag support to SSR apps in general.
 
