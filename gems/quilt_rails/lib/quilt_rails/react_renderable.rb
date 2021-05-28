@@ -20,7 +20,8 @@ module Quilt
 
     def call_proxy(headers, data)
       if defined? ShopifySecurityBase
-        ShopifySecurityBase::HTTPHostRestriction.whitelist([Quilt.configuration.react_server_host]) do
+        allowlist = ShopifySecurityBase::HTTPHostRestriction.respond_to?(:allowlist) ? :allowlist : :whitelist
+        ShopifySecurityBase::HTTPHostRestriction.send(allowlist, [Quilt.configuration.react_server_host]) do
           proxy(headers, data)
         end
       else
