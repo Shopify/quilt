@@ -2,7 +2,9 @@
 
 This is a concise summary of changes and recommendations around updating `@shopify/polyfills` in consuming projects. For a more detailed list of changes, see [the changelog](./CHANGELOG.md).
 
-## [Unreleased]
+<!-- ## [Unreleased] -->
+
+## [3.0.0] - 2021-05-28
 
 Base polyfills now use `core-js@3`. The following polyfills have been removed because they are provided by `core-js@3`. Please remove imports containing:
 
