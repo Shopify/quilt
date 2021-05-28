@@ -4,7 +4,7 @@ This is a concise summary of changes and recommendations around updating `@shopi
 
 ## [Unreleased]
 
-The following polyfills have been removed because they are provided by `core-js@3`. Please remove imports containing:
+Base polyfills now use `core-js@3`. The following polyfills have been removed because they are provided by `core-js@3`. Please remove imports containing:
 
 - `@shopify/polyfill/url`
 - `@shopify/polyfill/unhandled-rejection`
