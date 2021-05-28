@@ -22,7 +22,7 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | Package | Version | Description |
 | ------- | ------- | ----------- |
 {{#each jsPackages}}
-| [{{name}}](packages/{{name}}) | <a href="https://badge.fury.io/js/%40shopify%2F{{name}}"><img src="https://badge.fury.io/js/%40shopify%2F{{name}}.svg" width="200px" /></a> | {{{description}}} |
+| [{{name}}](packages/{{unscopedName}}) | <a href="https://badge.fury.io/js/{{urlEncodedName}}"><img src="https://badge.fury.io/js/{{urlEncodedName}}.svg" width="200px" /></a> | {{{description}}} |
 {{/each}}
 
 ### Gem Index
