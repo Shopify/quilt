@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Fixed
+
+- Prevent this package from being polyfilled. [#1921](https://github.com/Shopify/quilt/pull/1921)
+
 ## 2.0.0 - 2021-05-21
 
 ### Breaking Change
