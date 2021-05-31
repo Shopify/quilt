@@ -24,9 +24,9 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
     it('contains only known headers', () => {
       const headerLines = packageChangelog
         .split('\n')
-        .filter(line => /^\s*#/.exec(line));
+        .filter((line) => /^\s*#/.exec(line));
       const offendingHeaders = headerLines.filter(
-        headerLine => !headerIsAllowed(headerLine),
+        (headerLine) => !headerIsAllowed(headerLine),
       );
 
       expect(offendingHeaders).toStrictEqual([]);
@@ -52,7 +52,7 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
       const headerLines = packageChangelog
         .split('\n')
         .filter(
-          line => HEADER_START_REGEX.exec(line) || /## Unreleased/.exec(line),
+          (line) => HEADER_START_REGEX.exec(line) || /## Unreleased/.exec(line),
         )
         .sort();
       const uniqueHeaderLines = headerLines.filter(
@@ -84,7 +84,7 @@ const allowedHeaders = [
 ];
 
 function headerIsAllowed(headerLine) {
-  return allowedHeaders.some(allowedHeader => {
+  return allowedHeaders.some((allowedHeader) => {
     if (allowedHeader instanceof RegExp) {
       return allowedHeader.test(headerLine);
     } else {
@@ -99,7 +99,7 @@ function readChangelogs() {
   return glob
     .sync(join(packagesPath, '*/'))
     .filter(hasPackageJSON)
-    .map(packageDir => {
+    .map((packageDir) => {
       const packageChangelogPath = join(packageDir, 'CHANGELOG.md');
       const packageChangelog = safeReadSync(packageChangelogPath, {
         encoding: 'utf8',

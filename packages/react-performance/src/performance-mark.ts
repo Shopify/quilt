@@ -3,7 +3,7 @@ import {Stage} from './types';
 
 export function usePerformanceMark(stage: string, id: string) {
   usePerformanceEffect(
-    performance => {
+    (performance) => {
       if (stage === Stage.Complete) {
         performance.finish();
       } else if (stage === Stage.Usable) {

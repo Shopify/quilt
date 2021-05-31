@@ -115,5 +115,5 @@ describe('ConsoleFormatter', () => {
 });
 
 function consoleCallIncludes(args: string[], str: string) {
-  return args.findIndex(val => val.includes(str)) !== -1;
+  return args.findIndex((val) => val.includes(str)) !== -1;
 }

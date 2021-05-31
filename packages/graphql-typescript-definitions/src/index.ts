@@ -165,7 +165,7 @@ export class Builder extends EventEmitter {
     try {
       this.emit('start:schema');
       await Promise.all(
-        schemaPaths.map(schemaPath => this.generateSchemaTypes(schemaPath)),
+        schemaPaths.map((schemaPath) => this.generateSchemaTypes(schemaPath)),
       );
       this.emit('end:schema');
     } catch (error) {
@@ -175,7 +175,7 @@ export class Builder extends EventEmitter {
 
     try {
       await Promise.all(
-        getGraphQLProjects(this.config).map(projectConfig =>
+        getGraphQLProjects(this.config).map((projectConfig) =>
           this.updateDocumentsForProject(filesystem, projectConfig),
         ),
       );
@@ -328,9 +328,9 @@ export class Builder extends EventEmitter {
 
     try {
       await Promise.all(
-        Array.from(groupOperationsAndFragmentsByFile(ast).values()).map(file =>
-          this.writeDocumentFile(file, ast, projectConfig),
-        ),
+        Array.from(
+          groupOperationsAndFragmentsByFile(ast).values(),
+        ).map((file) => this.writeDocumentFile(file, ast, projectConfig)),
       );
     } catch (error) {
       // intentional noop
@@ -387,7 +387,7 @@ export class Builder extends EventEmitter {
     );
 
     return Promise.all(
-      filePaths.map(filePath =>
+      filePaths.map((filePath) =>
         this.updateDocumentForFile(filePath, projectConfig),
       ),
     );
@@ -518,7 +518,7 @@ function getDuplicateProjectOperations(documents: Map<string, DocumentNode>) {
   const operations = new Map<string, Set<string>>();
 
   Array.from(documents.entries()).forEach(([filePath, document]) => {
-    document.definitions.filter(isOperationDefinition).forEach(definition => {
+    document.definitions.filter(isOperationDefinition).forEach((definition) => {
       const {name} = definition;
       if (name && name.value) {
         const map = operations.get(name.value);
@@ -542,7 +542,7 @@ function getDuplicateProjectFragments(documents: Map<string, DocumentNode>) {
   const fragments = new Map<string, Set<string>>();
 
   Array.from(documents.entries()).forEach(([filePath, document]) => {
-    document.definitions.filter(isFragmentDefinition).forEach(definition => {
+    document.definitions.filter(isFragmentDefinition).forEach((definition) => {
       const {name} = definition;
       if (name && name.value) {
         const map = fragments.get(name.value);

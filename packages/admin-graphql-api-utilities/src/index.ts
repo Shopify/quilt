@@ -80,7 +80,7 @@ export function keyFromEdges<T, K extends keyof T>(
 
 // Once we update to Node 12, we can drop this helper to use `Object.fromEntries` instead.
 function fromEntries<K extends string, T>(entries: IterableIterator<[K, T]>) {
-  const obj = {} as {[key: K]: T};
+  const obj = {} as {[key in K]: T};
   for (const [key, val] of entries) {
     obj[key] = val;
   }

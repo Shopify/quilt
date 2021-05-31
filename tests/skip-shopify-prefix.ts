@@ -10,7 +10,7 @@ const PACKAGES_WITHOUT_SHOPIFY_PREFIX = [
 
 export function shouldSkipShopifyPrefix(packageName: string) {
   const skipPrefix = PACKAGES_WITHOUT_SHOPIFY_PREFIX.find(
-    noPrefixPacakge => packageName === noPrefixPacakge,
+    (noPrefixPacakge) => packageName === noPrefixPacakge,
   );
 
   return Boolean(skipPrefix);

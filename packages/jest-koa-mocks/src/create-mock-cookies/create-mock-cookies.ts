@@ -16,7 +16,7 @@ export default function createMockCookies(
   secure = true,
 ): MockCookies {
   const cookieEntries = Object.keys(cookies).map(
-    key => [key, cookies[key]] as [string, string],
+    (key) => [key, cookies[key]] as [string, string],
   );
 
   const requestStore = new Map<string, string>(cookieEntries);
@@ -26,7 +26,7 @@ export default function createMockCookies(
     set: jest.fn((key, value) => {
       return responseStore.set(key, value);
     }),
-    get: jest.fn(key => {
+    get: jest.fn((key) => {
       return requestStore.get(key);
     }),
     requestStore,

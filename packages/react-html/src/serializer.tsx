@@ -26,7 +26,7 @@ export function useSerialized<T>(
   const Serialize = React.useMemo(
     () =>
       function Serialize({data}: SerializeProps<T>) {
-        useServerDomEffect(manager => {
+        useServerDomEffect((manager) => {
           const result = data();
           const handleResult = manager.setSerialization.bind(manager, id);
 

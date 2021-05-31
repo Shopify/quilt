@@ -73,8 +73,8 @@ let loadPromise: Promise<ReturnType<typeof groupManifests>> | null = null;
 
 function readGzipped(resolvedPath: string) {
   return readFile(resolvedPath)
-    .then(zippedContent => ungzip(zippedContent))
-    .then(unzippedStr => JSON.parse(unzippedStr.toString()));
+    .then((zippedContent) => ungzip(zippedContent))
+    .then((unzippedStr) => JSON.parse(unzippedStr.toString()));
 }
 
 function loadConsolidatedManifest(manifestPath: string) {
@@ -85,7 +85,7 @@ function loadConsolidatedManifest(manifestPath: string) {
   const resolvedPath = join(appRoot.path, manifestPath);
   const resolvedZippedPath = `${resolvedPath}.gz`;
   loadPromise = pathExists(resolvedZippedPath)
-    .then(gzippedVersionExists => {
+    .then((gzippedVersionExists) => {
       return gzippedVersionExists
         ? readGzipped(resolvedZippedPath)
         : readJson(resolvedPath);
@@ -134,7 +134,7 @@ function backfillIdentity(manifest: Manifest) {
 function groupManifests(manifests: Manifest[]) {
   const fallbackManifest = manifests[manifests.length - 1];
   const multiAsyncLanguageManifests = manifests.filter(
-    manifest => !manifest.identifier || !manifest.identifier.locales,
+    (manifest) => !manifest.identifier || !manifest.identifier.locales,
   );
 
   return {
@@ -153,7 +153,7 @@ function groupByLocale(
 ) {
   const locales = manifest.identifier!.locales;
   if (locales) {
-    locales.forEach(locale => {
+    locales.forEach((locale) => {
       let manifests = acc.get(locale);
       if (!manifests) {
         manifests = [];

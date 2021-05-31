@@ -7,5 +7,5 @@ export interface NavigationListener {
 }
 
 export function useNavigationListener(listener: NavigationListener) {
-  usePerformanceEffect(performance => performance.on('navigation', listener));
+  usePerformanceEffect((performance) => performance.on('navigation', listener));
 }

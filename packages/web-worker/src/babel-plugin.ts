@@ -114,7 +114,7 @@ export default function workerBabelPlugin({
     const {program, opts: options = {}} = state;
     const {noop = false} = options;
 
-    const callingReferences = binding.referencePaths.filter(referencePath =>
+    const callingReferences = binding.referencePaths.filter((referencePath) =>
       referencePath.parentPath.isCallExpression(),
     );
 
@@ -214,7 +214,7 @@ function normalize(packages: NonNullable<Options['packages']>) {
   return Object.keys(packages).reduce<{[key: string]: ProcessableImport[]}>(
     (all, pkg) => ({
       ...all,
-      [pkg]: packages[pkg].map(anImport =>
+      [pkg]: packages[pkg].map((anImport) =>
         typeof anImport === 'string'
           ? {name: anImport, plain: false}
           : anImport,

@@ -14,10 +14,10 @@ describe('stream', () => {
 });
 
 function streamResponse(stream: NodeJS.ReadableStream) {
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     let response: string;
 
-    stream.on('data', data => (response += data));
+    stream.on('data', (data) => (response += data));
     stream.on('end', () => resolve(response));
   });
 }

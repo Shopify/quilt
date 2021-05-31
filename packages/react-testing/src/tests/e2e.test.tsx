@@ -74,7 +74,7 @@ describe('@shopify/react-testing', () => {
     );
 
     expect(
-      wrapper.findAll('span').map(component => component.text()),
+      wrapper.findAll('span').map((component) => component.text()),
     ).toStrictEqual(['hi', 'howdy']);
   });
 
@@ -105,7 +105,7 @@ describe('@shopify/react-testing', () => {
     );
 
     expect(
-      wrapper.findAll(Message).map(component => component.text()),
+      wrapper.findAll(Message).map((component) => component.text()),
     ).toStrictEqual(['hi', 'howdy']);
   });
 
@@ -162,7 +162,10 @@ describe('@shopify/react-testing', () => {
         // eslint-disable-next-line @shopify/jsx-prefer-fragment-wrappers
         <div>
           <Message>{counter}</Message>
-          <button type="button" onClick={() => setCounter(count => count + 1)}>
+          <button
+            type="button"
+            onClick={() => setCounter((count) => count + 1)}
+          >
             increase
           </button>
           {children}
@@ -278,7 +281,7 @@ describe('@shopify/react-testing', () => {
       function MyComponent() {
         return (
           <MessageContext.Consumer>
-            {message => <Message>{message}</Message>}
+            {(message) => <Message>{message}</Message>}
           </MessageContext.Consumer>
         );
       }
@@ -397,7 +400,7 @@ describe('@shopify/react-testing', () => {
   describe('customized mount', () => {
     it('treats the rendered component as the root despite any rendered wrapper', () => {
       const customMount = createMount({
-        render: vdom => <div>{vdom}</div>,
+        render: (vdom) => <div>{vdom}</div>,
       });
 
       function Message({children}: {children?: ReactNode}) {
@@ -448,8 +451,8 @@ describe('@shopify/react-testing', () => {
             </AppContext.Provider>
           );
         },
-        afterMount: async root => {
-          return new Promise(resolve => {
+        afterMount: async (root) => {
+          return new Promise((resolve) => {
             setTimeout(() => {
               root.context.message = 'a different message';
               root.forceUpdate();

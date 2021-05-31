@@ -123,8 +123,8 @@ export function createMount<
     const context = createContext(options);
 
     const wrapper = new CustomRoot(element, context, {
-      render: element => render(element, context, options),
-      resolveRoot: root => root.find(element.type),
+      render: (element) => render(element, context, options),
+      resolveRoot: (root) => root.find(element.type),
     });
 
     const afterMountResult = afterMount(wrapper, options);
@@ -142,7 +142,7 @@ export function createMount<
       afterMount: additionalAfterMount = defaultAfterMount,
     }: CustomMountOptions<any, any, any, any>) => {
       return createMount<any, any, any>({
-        context: options => ({
+        context: (options) => ({
           ...createContext(options),
           ...createAdditionalContext(options),
         }),

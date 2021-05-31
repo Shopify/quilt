@@ -80,7 +80,7 @@ export function propagateErrors(
   fieldBag: {[key: string]: FieldOutput<any>},
   errors: FormError[],
 ) {
-  errors.forEach(error => {
+  errors.forEach((error) => {
     if (error.field == null) {
       return;
     }
@@ -110,7 +110,7 @@ export function reduceFields<V>(
     value: any,
     path: (string | number)[],
     fieldBag: FieldBag,
-  ) => V = value => value,
+  ) => V = (value) => value,
 ) {
   return (function reduceField(
     accumulator: V,
@@ -214,7 +214,7 @@ export function makeCleanFields(fieldBag: FieldBag) {
 
 export function makeCleanDynamicLists(dynamicLists?: DynamicListBag) {
   if (dynamicLists) {
-    Object.values(dynamicLists).forEach(dynamicList => {
+    Object.values(dynamicLists).forEach((dynamicList) => {
       dynamicList.newDefaultValue(dynamicList.value);
     });
   }

@@ -10,7 +10,7 @@ export class TestRack {
   private servers: Server[] = [];
 
   unmountAll() {
-    this.servers.forEach(server => server.close());
+    this.servers.forEach((server) => server.close());
   }
 
   async mount(
@@ -24,7 +24,8 @@ export class TestRack {
     this.servers.push(server);
 
     return {
-      request: () => fetch(`${ip}:${port}`, options).then(response => response),
+      request: () =>
+        fetch(`${ip}:${port}`, options).then((response) => response),
     };
   }
 }

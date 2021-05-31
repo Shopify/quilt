@@ -18,26 +18,26 @@ export function useDomEffect(
 }
 
 export function useTitle(title: string) {
-  useDomEffect(manager => manager.addTitle(title), [title]);
+  useDomEffect((manager) => manager.addTitle(title), [title]);
 }
 
 export function useLink(link: React.HTMLProps<HTMLLinkElement>) {
-  useDomEffect(manager => manager.addLink(link), [JSON.stringify(link)]);
+  useDomEffect((manager) => manager.addLink(link), [JSON.stringify(link)]);
 }
 
 export function useInlineStyle(inlineStyle: React.HTMLProps<HTMLStyleElement>) {
-  useDomEffect(manager => manager.addInlineStyle(inlineStyle), [
+  useDomEffect((manager) => manager.addInlineStyle(inlineStyle), [
     JSON.stringify(inlineStyle),
   ]);
 }
 
 export function useMeta(meta: React.HTMLProps<HTMLMetaElement>) {
-  useDomEffect(manager => manager.addMeta(meta), [JSON.stringify(meta)]);
+  useDomEffect((manager) => manager.addMeta(meta), [JSON.stringify(meta)]);
 }
 
 export function usePreconnect(source: string) {
   useDomEffect(
-    manager =>
+    (manager) =>
       manager.addLink({
         rel: 'preconnect',
         href: source,
@@ -48,7 +48,7 @@ export function usePreconnect(source: string) {
 
 export function useFavicon(source: string) {
   useDomEffect(
-    manager =>
+    (manager) =>
       manager.addLink({
         rel: 'shortcut icon',
         type: 'image/x-icon',
@@ -59,13 +59,15 @@ export function useFavicon(source: string) {
 }
 
 export function useLocale(locale: string) {
-  useDomEffect(manager => manager.addHtmlAttributes({lang: locale}), [locale]);
+  useDomEffect((manager) => manager.addHtmlAttributes({lang: locale}), [
+    locale,
+  ]);
 }
 
 export function useHtmlAttributes(
   htmlAttributes: FirstArgument<HtmlManager['addHtmlAttributes']>,
 ) {
-  useDomEffect(manager => manager.addHtmlAttributes(htmlAttributes), [
+  useDomEffect((manager) => manager.addHtmlAttributes(htmlAttributes), [
     JSON.stringify(htmlAttributes),
   ]);
 }
@@ -73,7 +75,7 @@ export function useHtmlAttributes(
 export function useBodyAttributes(
   bodyAttributes: FirstArgument<HtmlManager['addBodyAttributes']>,
 ) {
-  useDomEffect(manager => manager.addBodyAttributes(bodyAttributes), [
+  useDomEffect((manager) => manager.addBodyAttributes(bodyAttributes), [
     JSON.stringify(bodyAttributes),
   ]);
 }

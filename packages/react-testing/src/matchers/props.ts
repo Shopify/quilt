@@ -29,7 +29,7 @@ export function toHaveReactProps<Props>(
     };
   }
 
-  const pass = Object.keys(props).every(key =>
+  const pass = Object.keys(props).every((key) =>
     this.equals(props[key], node.props[key]),
   );
 

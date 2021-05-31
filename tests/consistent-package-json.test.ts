@@ -140,17 +140,19 @@ packages.forEach(
       it(`ensures packages included in dependencies are used`, () => {
         const dependencies = Object.keys({
           ...packageJSON.dependencies,
-        }).filter(dep =>
-          IGNORE_PACKAGES.every(ignorePackage => !dep.includes(ignorePackage)),
+        }).filter((dep) =>
+          IGNORE_PACKAGES.every(
+            (ignorePackage) => !dep.includes(ignorePackage),
+          ),
         );
 
         const filesContent = glob
           .sync(resolve(packagesPath, packageName, '**/*.ts*'))
-          .filter(path => !path.includes('/dist/'))
-          .map(path => readFileSync(path, 'utf8'));
+          .filter((path) => !path.includes('/dist/'))
+          .map((path) => readFileSync(path, 'utf8'));
 
-        const expectValue = dependencies.filter(dep =>
-          filesContent.some(content => content.includes(dep)),
+        const expectValue = dependencies.filter((dep) =>
+          filesContent.some((content) => content.includes(dep)),
         );
 
         expect(dependencies).toStrictEqual(expectValue);
@@ -162,7 +164,7 @@ packages.forEach(
 function readPackages() {
   return glob
     .sync(join(packagesPath, '*', 'package.json'))
-    .map(absolutePackageJSONPath => {
+    .map((absolutePackageJSONPath) => {
       const packageName = dirname(
         relative(packagesPath, absolutePackageJSONPath),
       );

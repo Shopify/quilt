@@ -77,7 +77,7 @@ export function quiltWebApp({
   browserGroups,
   skipBuild = false,
 }: QuiltWebAppOptions = {}) {
-  return createComposedProjectPlugin<WebApp>('Quilt.WebApp', composer => {
+  return createComposedProjectPlugin<WebApp>('Quilt.WebApp', (composer) => {
     composer.use(
       javascript(),
       typescript(),
@@ -110,7 +110,7 @@ export function quiltWorkspace({
   css = true,
   stylelint: stylelintOptions = css,
 }: QuiltWorkspaceOptions = {}) {
-  return createComposedWorkspacePlugin('Quilt.Workspace', composer => {
+  return createComposedWorkspacePlugin('Quilt.Workspace', (composer) => {
     composer.use(jest(), eslint(), workspaceTypeScript(), workspaceGraphQL());
 
     if (stylelintOptions) {

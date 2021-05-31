@@ -460,11 +460,11 @@ describe('Element', () => {
       const element = new Element(defaultTree, [divOne], defaultRoot);
 
       expect(
-        element.findAllWhere(element => element === componentTwo),
+        element.findAllWhere((element) => element === componentTwo),
       ).toHaveLength(0);
 
       expect(
-        element.findAllWhere(element => element.type === 'div'),
+        element.findAllWhere((element) => element.type === 'div'),
       ).toStrictEqual([divOne, divTwo]);
     });
   });

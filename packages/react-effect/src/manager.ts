@@ -40,7 +40,7 @@ export class EffectManager {
 
   async betweenEachPass(pass: Pass) {
     await Promise.all(
-      [...this.kinds].map(kind =>
+      [...this.kinds].map((kind) =>
         typeof kind.betweenEachPass === 'function'
           ? kind.betweenEachPass(pass)
           : Promise.resolve(),
@@ -50,14 +50,14 @@ export class EffectManager {
 
   async afterEachPass(pass: Pass) {
     const results = await Promise.all(
-      [...this.kinds].map(kind =>
+      [...this.kinds].map((kind) =>
         typeof kind.afterEachPass === 'function'
           ? kind.afterEachPass(pass)
           : Promise.resolve(),
       ),
     );
 
-    return results.every(result => result !== false);
+    return results.every((result) => result !== false);
   }
 
   shouldPerform(kind: EffectKind) {

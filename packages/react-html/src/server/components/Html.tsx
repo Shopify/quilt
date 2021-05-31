@@ -89,7 +89,7 @@ export default function Html({
       ))
     : null;
 
-  const stylesheetMarkup = styles.map(style => {
+  const stylesheetMarkup = styles.map((style) => {
     return (
       <Stylesheet
         key={style.path}
@@ -100,13 +100,13 @@ export default function Html({
     );
   });
 
-  const inlineStylesMarkup = inlineStyles.map(inlineStyle => {
+  const inlineStylesMarkup = inlineStyles.map((inlineStyle) => {
     return (
       <InlineStyle key={inlineStyle.content}>{inlineStyle.content}</InlineStyle>
     );
   });
 
-  const blockingScriptsMarkup = blockingScripts.map(script => {
+  const blockingScriptsMarkup = blockingScripts.map((script) => {
     return (
       <Script
         key={script.path}
@@ -118,7 +118,7 @@ export default function Html({
     );
   });
 
-  const deferredScriptsMarkup = scripts.map(script => {
+  const deferredScriptsMarkup = scripts.map((script) => {
     return (
       <Script
         key={script.path}
@@ -131,7 +131,7 @@ export default function Html({
     );
   });
 
-  const preloadAssetsMarkup = preloadAssets.map(asset => (
+  const preloadAssetsMarkup = preloadAssets.map((asset) => (
     <link key={asset.path} rel="prefetch" href={asset.path} />
   ));
 

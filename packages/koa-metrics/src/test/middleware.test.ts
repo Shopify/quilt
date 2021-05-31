@@ -223,7 +223,7 @@ describe('koa-metrics', () => {
       await metricsMiddleware(ctx, () => {
         ctx.response.length = length;
         const originalGet = ctx.response.get;
-        ctx.response.get = headerName => {
+        ctx.response.get = (headerName) => {
           if (headerName === 'Content-Length') {
             return String(length);
           }
@@ -267,7 +267,7 @@ describe('koa-metrics', () => {
       await metricsMiddleware(ctx, () => {
         ctx.response.length = 7500;
         const originalGet = ctx.response.get;
-        ctx.response.get = headerName => {
+        ctx.response.get = (headerName) => {
           if (headerName === 'Content-Length') {
             return '7500';
           }

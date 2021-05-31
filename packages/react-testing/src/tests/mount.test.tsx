@@ -26,7 +26,7 @@ describe('createMount()', () => {
 
     const customMount = createMount<typeof options>({
       context: spy,
-      render: element => element,
+      render: (element) => element,
     });
 
     customMount(<div />, options);
@@ -38,7 +38,7 @@ describe('createMount()', () => {
     const context = {foo: 'barbaz'};
     const customMount = createMount<{}, typeof context>({
       context: () => context,
-      render: element => element,
+      render: (element) => element,
     });
 
     const div = customMount(<div />);
@@ -72,7 +72,7 @@ describe('createMount()', () => {
 
   it('resolves the returned Root instance to the top level node in the original tree', () => {
     const customMount = createMount({
-      render: element => <span id="ShouldNotBeFound">{element}</span>,
+      render: (element) => <span id="ShouldNotBeFound">{element}</span>,
     });
 
     const div = customMount(<div />);
@@ -91,7 +91,7 @@ describe('createMount()', () => {
     }
 
     const customMount = createMount({
-      render: element => <Wrapper>{element}</Wrapper>,
+      render: (element) => <Wrapper>{element}</Wrapper>,
     });
 
     const originalWords = random.words();
@@ -109,7 +109,7 @@ describe('createMount()', () => {
     const options = {foo: 'bar'};
 
     const customMount = createMount<typeof options>({
-      render: element => element,
+      render: (element) => element,
       afterMount: spy,
     });
 
@@ -120,7 +120,7 @@ describe('createMount()', () => {
 
   it('returns a promise for the wrapper if afterMount returns a promise', async () => {
     const customMount = createMount<{}, {}, true>({
-      render: element => element,
+      render: (element) => element,
       afterMount: () => Promise.resolve(),
     });
 
@@ -249,7 +249,7 @@ describe('createMount()', () => {
 
       const afterMountSpy = jest.fn();
       const additionalAfterMountSpy = jest.fn(
-        () => new Promise(resolve => setTimeout(resolve, 1)),
+        () => new Promise((resolve) => setTimeout(resolve, 1)),
       );
 
       const customMount = createMount<typeof options>({

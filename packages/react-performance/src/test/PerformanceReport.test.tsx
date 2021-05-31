@@ -95,7 +95,7 @@ describe('<PerformanceReport />', () => {
 
     expect(parsedBody).toMatchObject({
       events,
-      navigations: navigations.map(navigation => ({
+      navigations: navigations.map((navigation) => ({
         details: navigation.toJSON({removeEventMetadata: false}),
         metadata: navigation.metadata,
       })),

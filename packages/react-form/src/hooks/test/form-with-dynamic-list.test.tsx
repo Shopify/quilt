@@ -68,7 +68,7 @@ describe('useForm with dynamic list', () => {
 
       const textFields = wrapper.findAll(TextField, {label: 'option'});
 
-      textFields.forEach(textField => textField.trigger('onChange', ''));
+      textFields.forEach((textField) => textField.trigger('onChange', ''));
       hitSubmit(wrapper);
 
       expect(submitSpy).not.toHaveBeenCalled();

@@ -120,7 +120,7 @@ export default function useQuery<
     }
 
     const invalidateCurrentResult = () => {
-      setResponseId(x => x + 1);
+      setResponseId((x) => x + 1);
     };
     const subscription = queryObservable.subscribe(
       invalidateCurrentResult,

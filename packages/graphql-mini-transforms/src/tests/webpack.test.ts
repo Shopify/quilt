@@ -145,7 +145,7 @@ describe('graphql-mini-transforms/webpack', () => {
 
       const loader = createLoaderContext({
         context,
-        readFile: file => fragmentFiles.get(file)!,
+        readFile: (file) => fragmentFiles.get(file)!,
       });
 
       const {

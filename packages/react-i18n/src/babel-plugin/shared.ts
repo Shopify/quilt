@@ -14,14 +14,14 @@ export function getLocaleIds(options: {
   } = options;
 
   return translationFilePaths
-    .map(filePath => path.basename(filePath, path.extname(filePath)))
-    .filter(locale => locale !== fallbackLocale)
+    .map((filePath) => path.basename(filePath, path.extname(filePath)))
+    .filter((locale) => locale !== fallbackLocale)
     .sort();
 }
 
 export function toArrayString(stringArray: string[]) {
   return `[${stringArray
-    .map(singleStr => JSON.stringify(singleStr))
+    .map((singleStr) => JSON.stringify(singleStr))
     .join(', ')}]`;
 }
 

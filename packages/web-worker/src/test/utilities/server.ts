@@ -31,7 +31,7 @@ export class AppServer {
 
   terminate() {
     return new Promise((resolve, reject) => {
-      this.server.close(error => {
+      this.server.close((error) => {
         if (error) {
           reject(error);
         } else {
@@ -67,7 +67,7 @@ export async function createServer({serve: servePath}: {serve: string}) {
 
   app.use(mount('/assets', serve(servePath)));
   app.use(
-    mount('/', ctx => {
+    mount('/', (ctx) => {
       ctx.body = `
         <html>
           <body><script type="text/javascript" src="/assets/main.js"></script></body>
@@ -78,7 +78,7 @@ export async function createServer({serve: servePath}: {serve: string}) {
 
   const port = await getPort();
 
-  return new Promise<AppServer>(resolve => {
+  return new Promise<AppServer>((resolve) => {
     const server = app.listen(port, () => {
       resolve(new AppServer(server, middlewares));
     });

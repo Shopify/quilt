@@ -191,7 +191,7 @@ describe('<Nested />', () => {
         {({fields}) => {
           return (
             <FormState.Nested field={fields.product}>
-              {nestedFields => (
+              {(nestedFields) => (
                 <FormState.Nested field={nestedFields.nested}>
                   {renderSpy}
                 </FormState.Nested>
@@ -240,7 +240,7 @@ describe('<Nested />', () => {
         {({fields}) => {
           return (
             <FormState.List field={fields.product}>
-              {nestedFields => (
+              {(nestedFields) => (
                 <FormState.Nested field={nestedFields.nested}>
                   {renderSpy}
                 </FormState.Nested>

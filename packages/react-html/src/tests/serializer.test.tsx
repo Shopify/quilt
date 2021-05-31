@@ -14,7 +14,7 @@ describe('useSerialized', () => {
     const manager = new HtmlManager();
     const app = <MockComponent />;
     await extract(app, {
-      decorate: element => (
+      decorate: (element) => (
         <HtmlContext.Provider value={manager}>{element}</HtmlContext.Provider>
       ),
     });

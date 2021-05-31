@@ -197,7 +197,7 @@ function tsEnumForType(
     t.identifier(type.name),
     type
       .getValues()
-      .map(value =>
+      .map((value) =>
         t.tsEnumMember(
           t.identifier(enumMemberName(value.name, enumFormat)),
           t.stringLiteral(value.name),

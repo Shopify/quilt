@@ -72,11 +72,11 @@ export function webAppMultiBuilds({
 
   return createProjectPlugin<WebApp>(PLUGIN, ({project, workspace, tasks}) => {
     tasks.build.hook(({hooks}) => {
-      hooks.targets.hook(targets =>
-        targets.map(target =>
+      hooks.targets.hook((targets) =>
+        targets.map((target) =>
           target.default && !target.runtime.includes(Runtime.Node)
-            ? target.multiply(currentTarget =>
-                ['default', ...browserGroups].map(browsers => ({
+            ? target.multiply((currentTarget) =>
+                ['default', ...browserGroups].map((browsers) => ({
                   ...currentTarget,
                   browsers: browsers as BuildWebAppTargetOptions['browsers'],
                 })),
@@ -92,7 +92,7 @@ export function webAppMultiBuilds({
       );
 
       hooks.target.hook(({target, hooks}) => {
-        hooks.configure.hook(configuration => {
+        hooks.configure.hook((configuration) => {
           const {browsers} = target.options;
 
           configuration.webpackOutputDirectory?.hook(() => {
@@ -111,7 +111,7 @@ export function webAppMultiBuilds({
           const addTargetIdToExtension = (filename: string) => {
             return filename.replace(
               /\.\w+$/,
-              extension => `${id ? `.${id}` : ''}${extension}`,
+              (extension) => `${id ? `.${id}` : ''}${extension}`,
             );
           };
 
@@ -123,7 +123,7 @@ export function webAppMultiBuilds({
 
           if (browsers == null) return;
 
-          configuration.webpackPlugins?.hook(async plugins => {
+          configuration.webpackPlugins?.hook(async (plugins) => {
             const [{AssetMetadataPlugin}] = await Promise.all([
               import('@shopify/webpack-asset-metadata-plugin'),
               configuration.quiltBrowserslist!.run([]),
@@ -156,7 +156,7 @@ export function webAppMultiBuilds({
           if (babel) {
             configuration.babelConfig?.hook(
               updateSewingKitBabelPreset(
-                async options => {
+                async (options) => {
                   const target = await configuration.quiltBrowserslist!.run(
                     undefined,
                   );
@@ -171,7 +171,7 @@ export function webAppMultiBuilds({
           if (postcss) {
             configuration.postcssPlugins?.hook(
               updatePostcssEnvPreset(
-                async options => {
+                async (options) => {
                   const browsers = await configuration.quiltBrowserslist!.run(
                     undefined,
                   );

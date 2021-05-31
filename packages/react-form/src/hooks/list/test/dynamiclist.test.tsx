@@ -73,7 +73,7 @@ describe('useDynamicList', () => {
 
       const sort1 = wrapper
         .findAll('li')
-        .map(i => i.find(TextField).props.value);
+        .map((i) => i.find(TextField).props.value);
 
       expect(sort1).toStrictEqual(['A', 'C', 'B']);
     });
@@ -356,7 +356,7 @@ describe('useDynamicList', () => {
 
       return (
         <>
-          {value.map(variants => (
+          {value.map((variants) => (
             <>
               <p>Value: {variants.price}</p>
               <p>Value: {variants.optionName}</p>
@@ -364,7 +364,7 @@ describe('useDynamicList', () => {
             </>
           ))}
 
-          {defaultValue.map(variants => (
+          {defaultValue.map((variants) => (
             <>
               <p>Default: {variants.price}</p>
               <p>Default: {variants.optionName}</p>

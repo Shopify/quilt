@@ -325,7 +325,7 @@ describe('StatsDClient', () => {
       const statsDMock = StatsDMock.mock.instances[0];
 
       const error = new Error('Something went wrong!');
-      statsDMock.close.mockImplementation(callback => {
+      statsDMock.close.mockImplementation((callback) => {
         callback(error);
       });
 
@@ -342,7 +342,7 @@ describe('StatsDClient', () => {
       const statsDMock = StatsDMock.mock.instances[0];
 
       const error = new Error('Something went wrong!');
-      statsDMock.close.mockImplementation(callback => {
+      statsDMock.close.mockImplementation((callback) => {
         callback(error);
       });
 

@@ -84,7 +84,7 @@ export class InflightNavigation {
           ? replaceExisting
           : MATCHES_CHECK_MAP.get(event.type) || defaultEqualityCheck;
 
-      const existingIndex = this.events.findIndex(oldEvent =>
+      const existingIndex = this.events.findIndex((oldEvent) =>
         check(event, oldEvent),
       );
 

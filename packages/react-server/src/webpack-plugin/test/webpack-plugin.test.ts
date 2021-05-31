@@ -321,7 +321,7 @@ function runBuild(configPath: string): Promise<any[]> {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const config = require(`${pathFromRoot}/webpack.config.js`);
     const contextConfig = Array.isArray(config)
-      ? config.map(config => ({
+      ? config.map((config) => ({
           ...config,
           context: pathFromRoot,
         }))

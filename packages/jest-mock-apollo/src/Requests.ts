@@ -27,7 +27,7 @@ export default class Requests {
 
   allWithOperationName(operation: string): GraphQLRequest[] {
     const allMatchedOperations = this.requests.filter(
-      req => req.operationName === operation,
+      (req) => req.operationName === operation,
     );
 
     return allMatchedOperations;
@@ -36,7 +36,7 @@ export default class Requests {
   lastOperation(operation: string): GraphQLRequest {
     const lastOperation = this.requests
       .reverse()
-      .find(req => req.operationName === operation);
+      .find((req) => req.operationName === operation);
 
     if (lastOperation == null) {
       throw new Error(`no requests with operation '${operation}' were found.`);

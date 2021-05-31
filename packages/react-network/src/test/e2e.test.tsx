@@ -9,7 +9,7 @@ import {useStatus, useCspDirective, useRedirect, useHeader} from '../hooks';
 describe('e2e', () => {
   it('clears network details between requests', async () => {
     const networkManager = new NetworkManager();
-    const TwoPass = createMultiPassComponent(2, pass => {
+    const TwoPass = createMultiPassComponent(2, (pass) => {
       // This function only adds network details on the first pass,
       // which lets us verify that it was cleared out when the second pass
       // has finished.
@@ -24,7 +24,7 @@ describe('e2e', () => {
     });
 
     await extract(<TwoPass />, {
-      decorate: element => (
+      decorate: (element) => (
         <NetworkContext.Provider value={networkManager}>
           {element}
         </NetworkContext.Provider>
@@ -47,7 +47,7 @@ describe('e2e', () => {
 
     await extract(<InfinitePass />, {
       afterEachPass,
-      decorate: element => (
+      decorate: (element) => (
         <NetworkContext.Provider value={networkManager}>
           {element}
         </NetworkContext.Provider>

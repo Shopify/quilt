@@ -16,7 +16,7 @@ describe('create-mock-cookies', () => {
 
     const cookies = createMockCookies(values);
 
-    Object.keys(values).forEach(key => {
+    Object.keys(values).forEach((key) => {
       const value = values[key];
       expect(cookies.requestStore.get(key)).toBe(value);
     });

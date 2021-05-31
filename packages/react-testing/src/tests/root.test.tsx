@@ -64,12 +64,12 @@ describe('Root', () => {
     expect(root.prop('aria-label')).toBe(element.prop('aria-label'));
     expect(root.find('div')).toBe(element.find('div'));
     expect(root.findAll('div')).toStrictEqual(element.findAll('div'));
-    expect(root.findWhere(element => element.type === 'div')).toBe(
-      element.findWhere(element => element.type === 'div'),
+    expect(root.findWhere((element) => element.type === 'div')).toBe(
+      element.findWhere((element) => element.type === 'div'),
     );
-    expect(root.findAllWhere(element => element.type === 'div')).toStrictEqual(
-      element.findAllWhere(element => element.type === 'div'),
-    );
+    expect(
+      root.findAllWhere((element) => element.type === 'div'),
+    ).toStrictEqual(element.findAllWhere((element) => element.type === 'div'));
     expect(root.trigger('onClick', 'Gord')).toStrictEqual(
       element.trigger('onClick', 'Gord'),
     );

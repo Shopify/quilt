@@ -117,15 +117,15 @@ export function useField<Value = string>(
     resetActionObject,
   ]);
   const newDefaultValue = useCallback(
-    value => dispatch(newDefaultAction(value)),
+    (value) => dispatch(newDefaultAction(value)),
     [dispatch],
   );
 
   const runValidation = useCallback(
     (value: Value = state.value) => {
       const errors = validators
-        .map(check => check(value, {}))
-        .filter(value => value != null);
+        .map((check) => check(value, {}))
+        .filter((value) => value != null);
 
       if (errors && errors.length > 0) {
         const [firstError] = errors;
@@ -152,7 +152,7 @@ export function useField<Value = string>(
     [runValidation, state.error, dispatch],
   );
 
-  const setError = useCallback(value => dispatch(updateErrorAction(value)), [
+  const setError = useCallback((value) => dispatch(updateErrorAction(value)), [
     dispatch,
   ]);
 

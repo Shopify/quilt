@@ -101,8 +101,8 @@ export function useBaseList<Item extends object>(
   }, [state.list, handlers]);
 
   const listWithoutFieldStates: Item[] = useMemo(() => {
-    return state.list.map(item => {
-      return mapObject(item, field => field.value);
+    return state.list.map((item) => {
+      return mapObject(item, (field) => field.value);
     });
   }, [state.list]);
 

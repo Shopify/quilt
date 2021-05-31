@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import Requests from '../Requests';
 
 function pushRequests(requests: Requests, requestList: GraphQLRequest[]) {
-  requestList.forEach(request => requests.push(request));
+  requestList.forEach((request) => requests.push(request));
 }
 
 const Q1 = gql`

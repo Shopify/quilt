@@ -44,7 +44,7 @@ export default function injectWithI18nArguments({
   }) {
     const {referencePaths} = binding;
 
-    const referencePathsToRewrite = referencePaths.filter(referencePath => {
+    const referencePathsToRewrite = referencePaths.filter((referencePath) => {
       const parent: Node = referencePath.parent;
       return (
         parent.type === 'CallExpression' &&
@@ -90,7 +90,7 @@ export default function injectWithI18nArguments({
         }
 
         const {specifiers} = nodePath.node;
-        specifiers.forEach(specifier => {
+        specifiers.forEach((specifier) => {
           if (
             !t.isImportSpecifier(specifier) ||
             !I18N_CALL_NAMES.includes(

@@ -13,7 +13,7 @@ export function ApolloProvider<CacheShape = any>({
   client,
   children,
 }: Props<CacheShape>) {
-  const providerValue = useMemo(
+  const providerValue = React.useMemo(
     () => ({
       client,
       operations: (client as any).__operations_cache__,

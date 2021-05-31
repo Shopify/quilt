@@ -7,7 +7,7 @@ export interface LifecycleEventListener {
 }
 
 export function useLifecycleEventListener(listener: LifecycleEventListener) {
-  usePerformanceEffect(performance =>
+  usePerformanceEffect((performance) =>
     performance.on('lifecycleEvent', listener),
   );
 }

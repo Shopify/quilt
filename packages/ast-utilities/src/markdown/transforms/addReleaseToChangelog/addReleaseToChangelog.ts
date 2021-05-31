@@ -25,13 +25,13 @@ export default function addReleaseToChangelog({version, date, notes}: Options) {
 
     function transformer(tree) {
       tree.children = flatten(
-        tree.children.map(node => {
+        tree.children.map((node) => {
           if (isUnreleasdHeading(node) || isUnreleasdComment(node)) {
             return [
               commentedUnreleasedNode,
               releaseVersionNode,
               notesNode,
-            ].filter(node => node);
+            ].filter((node) => node);
           }
 
           return node;
@@ -43,7 +43,7 @@ export default function addReleaseToChangelog({version, date, notes}: Options) {
   };
 }
 
-const flatten = arr => [].concat(...arr);
+const flatten = (arr) => [].concat(...arr);
 
 function isUnreleasdHeading(node) {
   const {type, depth, children} = node;

@@ -35,7 +35,7 @@ describe('extract()', () => {
     await resolve();
     // Some versions of Node need one extra tick for all .then()
     // calls on the promise to resolve
-    await new Promise(resolve => process.nextTick(resolve));
+    await new Promise((resolve) => process.nextTick(resolve));
 
     expect(extractSpy).toHaveBeenCalled();
 
@@ -311,7 +311,7 @@ function createResolvablePromise() {
   let promiseResolve!: () => void;
   let resolved = false;
 
-  const promise = new Promise(resolve => {
+  const promise = new Promise((resolve) => {
     promiseResolve = resolve;
   });
 

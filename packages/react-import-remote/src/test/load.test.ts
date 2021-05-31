@@ -193,7 +193,7 @@ function fakeScript() {
       },
     ),
     triggerEvent(event: 'load' | 'error') {
-      events[event].forEach(callback =>
+      events[event].forEach((callback) =>
         callback(event === 'load' ? {} : new Error()),
       );
     },

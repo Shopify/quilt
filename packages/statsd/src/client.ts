@@ -43,7 +43,7 @@ export class StatsDClient {
   }
 
   distribution(stat: string | string[], value: number, tags?: Tags) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.distribution(
         stat,
         value,
@@ -54,7 +54,7 @@ export class StatsDClient {
   }
 
   timing(stat: string | string[], value: number, tags?: Tags) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.timing(
         stat,
         value,
@@ -65,7 +65,7 @@ export class StatsDClient {
   }
 
   gauge(stat: string | string[], value: number, tags?: Tags) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.gauge(
         stat,
         value,
@@ -76,7 +76,7 @@ export class StatsDClient {
   }
 
   increment(stat: string | string[], tags?: Tags) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.increment(
         stat,
         1,
@@ -87,7 +87,7 @@ export class StatsDClient {
   }
 
   close() {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.close(this.createCallback(resolve));
     });
   }

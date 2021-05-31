@@ -182,7 +182,7 @@ export function createFiller(
 function normalizeDocument(document: DocumentNode<any, any, any>) {
   return {
     ...document,
-    definitions: document.definitions.map(definition => ({
+    definitions: document.definitions.map((definition) => ({
       ...definition,
       loc: definition.loc || document.loc,
     })),

@@ -432,7 +432,7 @@ describe('useField', () => {
 
       const fieldConfig = {
         value: '',
-        validates: value => {
+        validates: (value) => {
           if (someOtherFieldValue === 'radical' && value === 'pants') {
             return 'no radical pants allowed';
           }

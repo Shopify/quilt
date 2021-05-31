@@ -17,13 +17,13 @@ export function runValidation<Value, Record extends object>(
   const {value, listItem, siblings} = state;
 
   const error = validators
-    .map(check =>
+    .map((check) =>
       check(value, {
         listItem,
         siblings,
       }),
     )
-    .filter(value => value != null);
+    .filter((value) => value != null);
 
   if (error && error.length > 0) {
     const [firstError] = error;

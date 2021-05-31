@@ -68,7 +68,7 @@ describe('pseudotranslate()', () => {
     it('does not duplicate whitespace characters', () => {
       const pseudo = pseudotranslate('c a');
       expect(pseudo).toHaveLength(4);
-      expect([...pseudo].filter(character => character === ' ')).toHaveLength(
+      expect([...pseudo].filter((character) => character === ' ')).toHaveLength(
         1,
       );
     });

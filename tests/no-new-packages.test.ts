@@ -8,7 +8,7 @@ describe('no new packages', () => {
   it('does not have any new packages added', () => {
     const packageNames = globSync(resolve(ROOT_PATH, 'packages', '*'));
 
-    expect(packageNames.map(fullPath => basename(fullPath))).toStrictEqual([
+    expect(packageNames.map((fullPath) => basename(fullPath))).toStrictEqual([
       'address',
       'address-consts',
       'address-mocks',

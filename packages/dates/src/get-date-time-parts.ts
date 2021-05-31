@@ -43,7 +43,7 @@ const weekdays: {[key in Weekday]: number} = {
 };
 
 function isWeekday(weekday: string): weekday is Weekday {
-  return Object.keys(weekdays).some(key => key === weekday);
+  return Object.keys(weekdays).some((key) => key === weekday);
 }
 
 function assertNever(message: string): never {

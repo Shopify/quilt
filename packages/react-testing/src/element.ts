@@ -56,7 +56,7 @@ export class Element<Props> implements Node<Props> {
   private get elementChildren() {
     if (!this.elementChildrenCache) {
       this.elementChildrenCache = this.allChildren.filter(
-        element => typeof element !== 'string',
+        (element) => typeof element !== 'string',
       ) as Element<unknown>[];
     }
 
@@ -73,8 +73,8 @@ export class Element<Props> implements Node<Props> {
     }
 
     return this.elementChildren
-      .filter(element => element.isDOM)
-      .map(element => element.instance);
+      .filter((element) => element.isDOM)
+      .map((element) => element.instance);
   }
 
   get domNode(): HTMLElement | null {
@@ -161,7 +161,7 @@ export class Element<Props> implements Node<Props> {
     props?: Partial<PropsFor<Type>>,
   ): Element<PropsFor<Type>> | null {
     return (this.elementDescendants.find(
-      element =>
+      (element) =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) || null) as Element<PropsFor<Type>> | null;
@@ -172,18 +172,20 @@ export class Element<Props> implements Node<Props> {
     props?: Partial<PropsFor<Type>>,
   ): Element<PropsFor<Type>>[] {
     return this.elementDescendants.filter(
-      element =>
+      (element) =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) as Element<PropsFor<Type>>[];
   }
 
   findWhere(predicate: Predicate): Element<unknown> | null {
-    return this.elementDescendants.find(element => predicate(element)) || null;
+    return (
+      this.elementDescendants.find((element) => predicate(element)) || null
+    );
   }
 
   findAllWhere(predicate: Predicate): Element<unknown>[] {
-    return this.elementDescendants.filter(element => predicate(element));
+    return this.elementDescendants.filter((element) => predicate(element));
   }
 
   trigger<K extends FunctionKeys<Props>>(
@@ -258,7 +260,7 @@ function isMatchingType(
 
 function equalSubset(subset: object, full: object) {
   return Object.keys(subset).every(
-    key => key in full && full[key] === subset[key],
+    (key) => key in full && full[key] === subset[key],
   );
 }
 

@@ -2012,7 +2012,7 @@ function print(
     schemaTypesPath: path.resolve('Schema.ts'),
     ...printOptions,
   };
-  const fragmentDocuments = Object.keys(fragments).map(key =>
+  const fragmentDocuments = Object.keys(fragments).map((key) =>
     parse(new Source(fragments[key], key)),
   );
   const document = parse(new Source(documentString, filename));
@@ -2020,11 +2020,11 @@ function print(
   const file = {
     path: filename,
     operation: Object.keys(ast.operations)
-      .map(key => ast.operations[key])
-      .filter(operation => operation.filePath === filename)[0],
+      .map((key) => ast.operations[key])
+      .filter((operation) => operation.filePath === filename)[0],
     fragments: Object.keys(ast.fragments)
-      .map(key => ast.fragments[key])
-      .filter(fragment => fragment.filePath === filename),
+      .map((key) => ast.fragments[key])
+      .filter((fragment) => fragment.filePath === filename),
   };
   return printDocument(file, ast, finalOptions);
 }

@@ -58,8 +58,8 @@ export default function configureClient({
       );
       const observer = forward(operation);
       observer.subscribe(
-        next => resolver(next),
-        err => rejecter(err),
+        (next) => resolver(next),
+        (err) => rejecter(err),
       );
       return observer;
     });
