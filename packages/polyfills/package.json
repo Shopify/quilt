@@ -27,6 +27,7 @@
     "@shopify/useful-types": "^3.0.0",
     "caniuse-api": "^3.0.0",
     "core-js": "^3.13.0",
+    "fetch-blob": "2.1.2",
     "formdata-polyfill": "^4.0.0",
     "intersection-observer": "^0.12.0",
     "intl-pluralrules": "^1.2.2",
