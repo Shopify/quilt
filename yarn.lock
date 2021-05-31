@@ -8122,7 +8122,7 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-formdata-polyfill@3.0.20:
+formdata-polyfill@^3.0.20:
   version "3.0.20"
   resolved "https://registry.yarnpkg.com/formdata-polyfill/-/formdata-polyfill-3.0.20.tgz#d6319db8efc5cf4bb2da27856c2b902be63be1c6"
   integrity sha512-TAaxIEwTBdoH1TWndtUH1T0/GisUHwmOKcV5hjkR/iTatHBJSOHb563FP86Lra5nXo3iNdhK7HPwMl5Ihg71pg==
