@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Prevent latest unsupported `fetch-blob` packages from being installed. [#1921](https://github.com/Shopify/quilt/pull/1921)
+- Prevent latest unsupported `fetch-blob` packages from being installed. [#1926](https://github.com/Shopify/quilt/pull/1926)
 
 ## 3.0.0 - 2021-05-28
 
