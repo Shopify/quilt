@@ -8,9 +8,9 @@ interface Title {
 
 export interface State {
   title?: string;
-  metas: Array<React.HTMLProps<HTMLMetaElement>>;
-  links: Array<React.HTMLProps<HTMLLinkElement>>;
-  inlineStyles: Array<React.HTMLProps<HTMLStyleElement>>;
+  metas: React.HTMLProps<HTMLMetaElement>[];
+  links: React.HTMLProps<HTMLLinkElement>[];
+  inlineStyles: React.HTMLProps<HTMLStyleElement>[];
   bodyAttributes: React.HTMLProps<HTMLBodyElement>;
   htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>;
 }
@@ -29,11 +29,11 @@ export class HtmlManager {
 
   private serializations = getSerializationsFromDocument();
   private titles: Title[] = [];
-  private metas: Array<React.HTMLProps<HTMLMetaElement>> = [];
-  private links: Array<React.HTMLProps<HTMLLinkElement>> = [];
-  private inlineStyles: Array<React.HTMLProps<HTMLStyleElement>> = [];
-  private htmlAttributes: Array<React.HtmlHTMLAttributes<HTMLHtmlElement>> = [];
-  private bodyAttributes: Array<React.HTMLProps<HTMLBodyElement>> = [];
+  private metas: React.HTMLProps<HTMLMetaElement>[] = [];
+  private links: React.HTMLProps<HTMLLinkElement>[] = [];
+  private inlineStyles: React.HTMLProps<HTMLStyleElement>[] = [];
+  private htmlAttributes: React.HtmlHTMLAttributes<HTMLHtmlElement>[] = [];
+  private bodyAttributes: React.HTMLProps<HTMLBodyElement>[] = [];
   private subscriptions = new Set<Subscription>();
 
   get state(): State {

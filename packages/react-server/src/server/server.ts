@@ -19,7 +19,7 @@ interface Options {
   proxy?: boolean;
   assetName?: RenderOptions['assetName'];
   htmlProps?: RenderOptions['htmlProps'];
-  serverMiddleware?: Array<compose.Middleware<Context>>;
+  serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
   renderError?: RenderOptions['renderError'];
   renderRawErrorMessage?: boolean;

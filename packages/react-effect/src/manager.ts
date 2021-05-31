@@ -6,7 +6,7 @@ interface Options {
 
 export class EffectManager {
   private include: symbol[] | boolean;
-  private effects: Array<Promise<any>> = [];
+  private effects: Promise<any>[] = [];
   private kinds = new Set<EffectKind>();
 
   get finished() {

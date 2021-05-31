@@ -8,7 +8,7 @@ export interface Logger {
 }
 
 type Tags =
-  | Record<string, string | number | boolean | null | undefined>
+  | {[key: string]: string | number | boolean | null | undefined}
   | string[];
 
 export interface Options extends ClientOptions {
@@ -113,7 +113,7 @@ export class StatsDClient {
       return tags;
     }
 
-    const output: Record<string, string> = {};
+    const output: {[key: string]: string} = {};
 
     for (const [key, value] of Object.entries(tags)) {
       const newValue = value == null ? UNKNOWN : String(value);

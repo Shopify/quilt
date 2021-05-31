@@ -10,7 +10,7 @@ enum SupportedDimension {
 
 type MockedGetter = (element: HTMLElement) => number;
 type Mock = MockedGetter | number;
-type Mocks = Partial<Record<string, Mock>>;
+type Mocks = Partial<{[key: string]: Mock}>;
 
 type AugmentedElement = Element & {[key: string]: Mock};
 

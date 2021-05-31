@@ -38,7 +38,7 @@ export function metrics({
       logger: logger || ctx.log || console.log,
     });
 
-    const promises: Array<Promise<void>> = [];
+    const promises: Promise<void>[] = [];
     let timer: Timer | undefined;
 
     if (!skipInstrumentation) {

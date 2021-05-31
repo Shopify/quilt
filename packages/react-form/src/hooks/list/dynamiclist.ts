@@ -8,7 +8,7 @@ import {
 import {useBaseList, FieldListConfig} from './baselist';
 
 export interface DynamicList<Item extends object> {
-  fields: Array<FieldDictionary<Item>>;
+  fields: FieldDictionary<Item>[];
   addItem(factoryArgument?: any): void;
   removeItem(index: number): void;
   moveItem(fromIndex: number, toIndex: number): void;

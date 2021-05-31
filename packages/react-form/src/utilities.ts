@@ -36,7 +36,7 @@ export function mapObject<Output>(
 // Eg: set({a: 1}, ['b', 'c'], 2) // => {a: 1, b: {c: 2}}
 function setObject<T extends Object>(
   obj: T,
-  path: Array<string | number>,
+  path: (string | number)[],
   value: any,
 ): T {
   const [key, ...restPath] = path;
@@ -61,7 +61,7 @@ function setObject<T extends Object>(
 
 export function normalizeValidation<Value, Context extends object = {}>(
   input: Validates<Value, Context>,
-): Array<Validator<Value, Context>> {
+): Validator<Value, Context>[] {
   return Array.isArray(input) ? input : [input];
 }
 
@@ -101,21 +101,21 @@ export function reduceFields<V>(
   reduceFn: (
     accumulator: V,
     currentField: Field<any>,
-    path: Array<string | number>,
+    path: (string | number)[],
     fieldBag: FieldBag,
   ) => V,
   initialValue?: V,
   reduceEmptyFn: (
     accumulator: V,
     value: any,
-    path: Array<string | number>,
+    path: (string | number)[],
     fieldBag: FieldBag,
   ) => V = value => value,
 ) {
   return (function reduceField(
     accumulator: V,
     item: FieldBag | FieldOutput<any>,
-    path: Array<string | number>,
+    path: (string | number)[],
   ): V {
     if (isField(item)) {
       return reduceFn(accumulator, item, path, fieldBag);
@@ -146,7 +146,7 @@ export function reduceFields<V>(
 }
 
 export function fieldsToArray(fieldBag: FieldBag) {
-  return reduceFields<Array<Field<any>>>(
+  return reduceFields<Field<any>[]>(
     fieldBag,
     (fields, field) => fields.concat(field),
     [],

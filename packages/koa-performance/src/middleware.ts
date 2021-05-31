@@ -29,11 +29,11 @@ export interface Options {
   additionalNavigationTags?(navigation: Navigation): Tags;
   additionalNavigationMetrics?(
     navigation: Navigation,
-  ): Array<{
+  ): {
     name: string;
     value: any;
     tags?: Tags;
-  }>;
+  }[];
 }
 
 export interface Metrics {
@@ -41,10 +41,10 @@ export interface Metrics {
   connection: Partial<BrowserConnection>;
   events: LifecycleEvent[];
   locale?: string;
-  navigations: Array<{
+  navigations: {
     details: NavigationDefinition;
     metadata: NavigationMetadata;
-  }>;
+  }[];
 }
 
 export function clientPerformanceMetrics({
@@ -81,11 +81,11 @@ export function clientPerformanceMetrics({
       const userAgent = ctx.get(Header.UserAgent);
       const {connection, events, navigations, locale} = body;
 
-      const metrics: Array<{
+      const metrics: {
         name: string;
         value: any;
         tags: {[key: string]: string | undefined | null};
-      }> = [];
+      }[] = [];
 
       const additionalTags = getAdditionalTags
         ? getAdditionalTags(body, userAgent)

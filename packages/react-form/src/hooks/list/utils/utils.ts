@@ -10,9 +10,9 @@ export function runValidation<Value, Record extends object>(
   state: {
     value: Value;
     listItem: FieldStates<Record>;
-    siblings: Array<FieldStates<Record>>;
+    siblings: FieldStates<Record>[];
   },
-  validators: Array<Validator<Value, ListValidationContext<Record>>>,
+  validators: Validator<Value, ListValidationContext<Record>>[],
 ) {
   const {value, listItem, siblings} = state;
 

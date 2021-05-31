@@ -57,12 +57,15 @@ packages.forEach(
         it('specifies Shopify as author', () => {
           expect(packageJSON.author).toBe(expectedPackageJSON.author);
         });
+
         it('specifies Quilt Issues as bugs URL', () => {
           expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
         });
+
         it('specifies a description', () => {
           expect(packageJSON.description).not.toBeUndefined();
         });
+
         if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies publishable files, including at least one entrypoint', () => {
             expect(packageJSON.files).toStrictEqual(
@@ -86,39 +89,48 @@ packages.forEach(
             ).toStrictEqual(expectedPackageJSON.files);
           });
         }
+
         it('specifies Quilt deep-link homepage', () => {
           expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
         });
+
         it('specifies the MIT license', () => {
           expect(packageJSON.license).toBe(expectedPackageJSON.license);
         });
+
         it('specifies name matching scope and path', () => {
           expect(packageJSON.name).toBe(expectedPackageJSON.name);
         });
+
         it('specifies Shopify‘s public publishConfig', () => {
           expect(packageJSON.publishConfig).toStrictEqual(
             expectedPackageJSON.publishConfig,
           );
         });
+
         it('specifies a repository deep-linking into the Quilt monorepo', () => {
           expect(packageJSON.repository).toStrictEqual(
             expectedPackageJSON.repository,
           );
         });
+
         it('specifies if webpack can tree-shake, via sideEffects', () => {
           expect(packageJSON.sideEffects).toBe(
             Boolean(packageJSON.sideEffects),
           );
         });
+
         it('specifies an engines.node field', () => {
           expect(packageJSON.engines.node).toBe(
             expectedPackageJSON.engines.node,
           );
         });
+
         if (!SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies the expected main', () => {
             expect(packageJSON.main).toBe(expectedPackageJSON.main);
           });
+
           it('specifies the expected types', () => {
             expect(packageJSON.types).toBe(expectedPackageJSON.types);
           });

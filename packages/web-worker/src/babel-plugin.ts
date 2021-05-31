@@ -21,7 +21,7 @@ interface ProcessableImport {
 
 export interface Options {
   noop?: boolean;
-  packages?: {[key: string]: Array<string | ProcessableImport>};
+  packages?: {[key: string]: (string | ProcessableImport)[]};
 }
 
 interface State {

@@ -56,16 +56,14 @@ export type Thunk<T, Data, Variables, DeepPartial> =
 export type DeepThunk<T, Data, Variables, DeepPartial> = T extends object
   ? {
       [P in keyof T]: Thunk<
-        T[P] extends Array<infer U> | null | undefined
+        T[P] extends (infer U)[] | null | undefined
           ?
-              | Array<
-                  Thunk<
-                    DeepThunk<U, Data, Variables, DeepPartial>,
-                    Data,
-                    Variables,
-                    DeepPartial
-                  >
-                >
+              | Thunk<
+                  DeepThunk<U, Data, Variables, DeepPartial>,
+                  Data,
+                  Variables,
+                  DeepPartial
+                >[]
               | null
               | undefined
           : T[P] extends ReadonlyArray<infer U> | null | undefined
@@ -505,7 +503,7 @@ function seedFromKey(key: string) {
 export function list<T = {}, Data = {}, Variables = {}, DeepPartial = {}>(
   size: number | [number, number],
   partial?: Thunk<T, Data, Variables, DeepPartial>,
-): Array<Thunk<T, Data, Variables, DeepPartial>> {
+): Thunk<T, Data, Variables, DeepPartial>[] {
   const randomSize = ([min, max]: number[]) =>
     Math.round(Math.random() * (max - min) + min);
   const finalSize = typeof size === 'number' ? size : randomSize(size);

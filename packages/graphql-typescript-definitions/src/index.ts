@@ -459,7 +459,7 @@ interface File {
 }
 
 function groupOperationsAndFragmentsByFile({operations, fragments}: AST) {
-  return (Object.values(operations) as Array<Operation | Fragment>)
+  return (Object.values(operations) as (Operation | Fragment)[])
     .concat(Object.values(fragments))
     .reduce((map, item) => {
       if (!item.filePath) {

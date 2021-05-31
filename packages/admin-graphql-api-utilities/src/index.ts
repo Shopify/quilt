@@ -3,7 +3,7 @@ const GID_REGEXP = /\/(\w[\w-]*)(?:\?(.*))*$/;
 
 interface ParsedGid {
   id: string;
-  params: Record<string, string>;
+  params: {[key: string]: string};
 }
 
 export function parseGidType(gid: string): string {
@@ -47,7 +47,7 @@ export function composeGidFactory(namescape: string) {
   return function composeGid(
     key: string,
     id: number | string,
-    params: Record<string, string> = {},
+    params: {[key: string]: string} = {},
   ): string {
     const gid = `gid://${namescape}/${key}/${id}`;
     const paramKeys = Object.keys(params);
@@ -67,20 +67,20 @@ interface Edge<T> {
   node: T;
 }
 
-export function nodesFromEdges<T>(edges: Array<Edge<T>>): T[] {
+export function nodesFromEdges<T>(edges: Edge<T>[]): T[] {
   return edges.map(({node}) => node);
 }
 
 export function keyFromEdges<T, K extends keyof T>(
-  edges: Array<Edge<T>>,
+  edges: Edge<T>[],
   key: K,
-): Array<T[K]> {
+): T[K][] {
   return edges.map(({node}) => node[key]);
 }
 
 // Once we update to Node 12, we can drop this helper to use `Object.fromEntries` instead.
 function fromEntries<K extends string, T>(entries: IterableIterator<[K, T]>) {
-  const obj = {} as Record<K, T>;
+  const obj = {} as {[key: K]: T};
   for (const [key, val] of entries) {
     obj[key] = val;
   }

@@ -34,6 +34,34 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['**/*.ts', '**/*.tsx'],
+      rules: {
+        // Enforce camelCase naming convention and PascalCase class and interface names
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: 'default',
+            format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+            leadingUnderscore: 'allow',
+            trailingUnderscore: 'allow',
+          },
+          {
+            selector: 'default',
+            filter: {
+              match: true,
+              // Allow double underscores and React UNSAFE_ (for lifecycle hooks that are to be deprecated)
+              regex: '^(__|UNSAFE_).+$',
+            },
+            format: null,
+          },
+          {
+            selector: 'typeLike',
+            format: ['PascalCase'],
+          },
+        ],
+      },
+    },
+    {
       files: [
         '**/test/**/*.ts',
         '**/test/**/*.tsx',
@@ -47,12 +75,12 @@ module.exports = {
         // to cause unnecessary package bumps in every package that consumes them.
         // Test files with extraneous dependencies won't cause runtime errors in production.
         'import/no-extraneous-dependencies': 'off',
+        'react/jsx-no-constructed-context-values': 'off',
+        'react/jsx-key': 'off',
       },
     },
     {
-      files: [
-        '**/test/fixtures/**/*.*',
-      ],
+      files: ['**/test/fixtures/**/*.*'],
       rules: {
         '@shopify/typescript/prefer-pascal-case-enums': 'off',
         'babel/object-curly-spacing': 'off',
@@ -61,9 +89,7 @@ module.exports = {
       },
     },
     {
-      files: [
-        'packages/sewing-kit-plugin-quilt/src/*.ts',
-      ],
+      files: ['packages/sewing-kit-plugin-quilt/src/*.ts'],
       rules: {
         'babel/no-unused-expressions': 'off',
       },

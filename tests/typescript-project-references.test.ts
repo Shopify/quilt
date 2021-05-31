@@ -32,6 +32,7 @@ describe('typescript project references', () => {
 
   references.map(packageName => {
     const displayedName = prefixPackageName(packageName);
+
     describe(`${displayedName}`, () => {
       it(`includes internal packages used as references`, () => {
         const packageJson = resolvePackageJSONFile(packageName, 'package.json');

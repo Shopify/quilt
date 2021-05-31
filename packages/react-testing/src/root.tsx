@@ -312,7 +312,7 @@ function fiberToElement(
 
 function childrenToTree(fiber: Fiber | null, root: Root<unknown>) {
   let currentFiber = fiber;
-  const children: Array<string | Element<unknown>> = [];
+  const children: (string | Element<unknown>)[] = [];
 
   while (currentFiber != null) {
     const result = fiberToElement(currentFiber, root);

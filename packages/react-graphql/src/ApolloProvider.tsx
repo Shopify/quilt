@@ -13,14 +13,16 @@ export function ApolloProvider<CacheShape = any>({
   client,
   children,
 }: Props<CacheShape>) {
+  const providerValue = useMemo(
+    () => ({
+      client,
+      operations: (client as any).__operations_cache__,
+    }),
+    [client],
+  );
   return (
     <OriginalApolloProvider client={client}>
-      <ApolloContext.Provider
-        value={{
-          client,
-          operations: (client as any).__operations_cache__,
-        }}
-      >
+      <ApolloContext.Provider value={providerValue}>
         {children}
       </ApolloContext.Provider>
     </OriginalApolloProvider>

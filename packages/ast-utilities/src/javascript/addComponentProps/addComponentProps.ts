@@ -2,7 +2,7 @@ import * as traverse from '@babel/traverse';
 import * as t from '@babel/types';
 
 export default function addComponentProps(
-  props: Array<{name: string; value: t.StringLiteral | t.Identifier}>,
+  props: {name: string; value: t.StringLiteral | t.Identifier}[],
   component: string,
 ) {
   return {

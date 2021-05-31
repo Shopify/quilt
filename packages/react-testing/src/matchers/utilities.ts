@@ -78,11 +78,7 @@ export function assertIsType(
   }
 }
 
-export function diffs(
-  element: Array<Node<any>>,
-  props: object,
-  expand?: boolean,
-) {
+export function diffs(element: Node<any>[], props: object, expand?: boolean) {
   return element.reduce<string>((diffs, element, index) => {
     const separator = index === 0 ? '' : '\n\n';
 

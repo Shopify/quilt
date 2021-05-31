@@ -11,13 +11,13 @@ export type MaybeFunctionReturnType<T> = T extends (...args: any[]) => infer U
   ? U
   : never;
 
-export type ArrayElement<T> = T extends Array<infer U> ? U : never;
+export type ArrayElement<T> = T extends (infer U)[] ? U : never;
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>>
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? DeepPartial<U>[]
     : T[P] extends ReadonlyArray<infer U>
     ? ReadonlyArray<DeepPartial<U>>
     : DeepPartial<T[P]>;

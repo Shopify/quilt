@@ -121,7 +121,7 @@ function addIdOption(
       ? loadProperty.get('value')
       : loadProperty.get('body');
 
-    const dynamicImports: Array<NodePath<Types.CallExpression>> = [];
+    const dynamicImports: NodePath<Types.CallExpression>[] = [];
 
     if (!Array.isArray(loaderMethod)) {
       loaderMethod.traverse({
