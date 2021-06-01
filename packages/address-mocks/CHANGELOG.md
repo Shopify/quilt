@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 2.0.1 - 2021-05-28
+
 - Bumped `countries_en` fixture with latest country service data [#1920](https://github.com/Shopify/quilt/pull/1920)
 
 ## 2.0.0 - 2021-05-21
