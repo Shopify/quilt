@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Now also includes the react plugin in server environments to avoid warnings from bugsnag during React SSR and give better bugsnag support to SSR apps in general.
 
 ## 2.0.0 - 2021-05-21
 
