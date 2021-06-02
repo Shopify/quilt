@@ -1,10 +1,16 @@
 import * as path from 'path';
 import {createHash} from 'crypto';
 
-import {loader} from 'webpack';
+import type {LoaderContext} from 'webpack';
 import {stripIndent} from 'common-tags';
 
 import graphQLLoader from '../webpack-loader';
+
+const webpackVersion = require('webpack/package.json').version;
+const typescript = require('typescript');
+
+console.log(`Using webpack version --${webpackVersion}`);
+console.log(`Using typescript version ${typescript.version}`);
 
 describe('graphql-mini-transforms/webpack', () => {
   it('marks the loader as cacheable', async () => {
@@ -272,7 +278,7 @@ function createLoaderContext({
   context = __dirname,
   readFile = () => '',
   resolve = (context, imported) => path.resolve(context, imported),
-}: Options = {}): loader.LoaderContext {
+}: Options = {}): LoaderContext<Options> {
   return {
     context,
     query,
@@ -291,6 +297,9 @@ function createLoaderContext({
       },
     },
     cacheable() {},
+    getOptions() {
+      return this.query;
+    },
     async() {
       return () => {};
     },
