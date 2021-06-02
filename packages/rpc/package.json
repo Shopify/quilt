@@ -1,6 +1,6 @@
 {
   "name": "@shopify/rpc",
-  "version": "2.0.0",
+  "version": "2.0.1-address-mocks-minified-beta.0",
   "license": "MIT",
   "description": "Utilities for `postMessage`-based remote procedure calls",
   "main": "index.js",

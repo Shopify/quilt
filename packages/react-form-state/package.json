@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form-state",
-  "version": "1.0.0",
+  "version": "1.0.1-address-mocks-minified-beta.0",
   "license": "MIT",
   "description": "Manage React forms tersely and type-safely with no magic",
   "main": "index.js",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@shopify/enzyme-utilities": "^3.0.0",
-    "@shopify/useful-types": "^3.0.0",
+    "@shopify/useful-types": "^3.0.1-address-mocks-minified-beta.0",
     "faker": "^4.1.0"
   },
   "sideEffects": false,

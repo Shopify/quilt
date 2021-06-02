@@ -1,6 +1,6 @@
 {
   "name": "@shopify/sewing-kit-koa",
-  "version": "7.0.0",
+  "version": "7.0.1-address-mocks-minified-beta.0",
   "license": "MIT",
   "description": "Easily access Sewing Kit assets from a Koa server",
   "main": "index.js",
@@ -37,7 +37,7 @@
     "node-gzip": "^1.1.2"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^3.0.0",
+    "@shopify/jest-koa-mocks": "^3.0.1-address-mocks-minified-beta.0",
     "@shopify/with-env": "^2.0.0",
     "@types/app-root-path": "^1.2.4",
     "@types/fs-extra": "^5.0.4",
