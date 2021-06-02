@@ -6,12 +6,6 @@ import {stripIndent} from 'common-tags';
 
 import graphQLLoader from '../webpack-loader';
 
-const webpackVersion = require('webpack/package.json').version;
-const typescript = require('typescript');
-
-console.log(`Using webpack version --${webpackVersion}`);
-console.log(`Using typescript version ${typescript.version}`);
-
 describe('graphql-mini-transforms/webpack', () => {
   it('marks the loader as cacheable', async () => {
     const loader = createLoaderContext();
