@@ -78,11 +78,7 @@ export function assertIsType(
   }
 }
 
-export function diffs(
-  element: Array<Node<any>>,
-  props: object,
-  expand?: boolean,
-) {
+export function diffs(element: Node<any>[], props: object, expand?: boolean) {
   return element.reduce<string>((diffs, element, index) => {
     const separator = index === 0 ? '' : '\n\n';
 
@@ -150,9 +146,9 @@ function getObjectSubset(object: any, subset: any): any {
   ) {
     const trimmed: any = {};
     Object.keys(subset)
-      .filter(key => Reflect.has(object, key))
+      .filter((key) => Reflect.has(object, key))
       .forEach(
-        key => (trimmed[key] = getObjectSubset(object[key], subset[key])),
+        (key) => (trimmed[key] = getObjectSubset(object[key], subset[key])),
       );
 
     if (Object.keys(trimmed).length > 0) {

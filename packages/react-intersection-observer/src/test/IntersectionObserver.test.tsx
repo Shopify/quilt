@@ -119,7 +119,7 @@ describe('<IntersectionObserver />', () => {
     });
 
     it('uses an HTML element for the root IntersectionObserver option', () => {
-      withHtmlElement(root => {
+      withHtmlElement((root) => {
         mount(<IntersectionObserver {...defaultProps} root={root} />);
 
         expect(intersectionObserverMock.observers[0]).toMatchObject({
@@ -131,7 +131,7 @@ describe('<IntersectionObserver />', () => {
     });
 
     it('resolves a string to an HTML element for the root IntersectionObserver option', () => {
-      withHtmlElement(root => {
+      withHtmlElement((root) => {
         const id = 'MyRootElement';
         root.setAttribute('id', id);
 
@@ -250,12 +250,12 @@ describe('<IntersectionObserver />', () => {
     });
 
     it('un-observes and re-observes when the root changes', () => {
-      withHtmlElement(firstRoot => {
+      withHtmlElement((firstRoot) => {
         const intersectionObserver = mount(
           <IntersectionObserver {...defaultProps} root={firstRoot} />,
         );
 
-        withHtmlElement(secondRoot => {
+        withHtmlElement((secondRoot) => {
           intersectionObserver.setProps({root: secondRoot});
 
           expect(intersectionObserverMock.observers).toHaveLength(1);
@@ -331,11 +331,11 @@ function withHtmlElement<T>(
       return result;
     } else {
       return (result as Promise<T>)
-        .then(result => {
+        .then((result) => {
           remove();
           return result;
         })
-        .catch(error => {
+        .catch((error) => {
           remove();
           throw error;
         });

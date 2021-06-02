@@ -32,19 +32,19 @@ export const getStoryIds = async (iframePath: string) => {
   const disabledStoryIds = await page.evaluate(() =>
     window.__STORYBOOK_STORY_STORE__
       .raw()
-      .filter(story => story.parameters.a11y && story.parameters.a11y.disable)
-      .map(story => story.id),
+      .filter((story) => story.parameters.a11y && story.parameters.a11y.disable)
+      .map((story) => story.id),
   );
 
   await page.close();
   await browser.close();
 
-  return storyIds.filter(storyId => !disabledStoryIds.includes(storyId));
+  return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
 };
 
 const removeSkippedStories = (skippedStoryIds: string[]) => {
   return (selectedStories: string[] = [], storyId = '') => {
-    if (skippedStoryIds.every(skipId => !storyId.includes(skipId))) {
+    if (skippedStoryIds.every((skipId) => !storyId.includes(skipId))) {
       return [...selectedStories, storyId];
     }
     return selectedStories;
@@ -66,15 +66,15 @@ export const getCurrentStoryIds = async ({
   return stories.reduce(removeSkippedStories(skippedStoryIds), []);
 };
 
-const formatFailureNodes = nodes => {
+const formatFailureNodes = (nodes) => {
   return `${FORMATTING_SPACER}${nodes
-    .map(node => node.html)
+    .map((node) => node.html)
     .join(`\n${FORMATTING_SPACER}`)}`;
 };
 
 const formatMessage = (id, violations) => {
   return violations
-    .map(fail => {
+    .map((fail) => {
       return `- FAIL: ${id}\n  Error: ${
         fail.help
       }\n  Violating node(s):\n${formatFailureNodes(
@@ -88,16 +88,16 @@ const formatMessage = (id, violations) => {
 // https://bugs.chromium.org/p/chromium/issues/detail?id=468153
 // This is necessary to prevent autocomplete in chrome and fails the axe test
 // Do not disable accessibility tests if you notice a failure please fix the issue
-const isAutcompleteNope = violation => {
+const isAutcompleteNope = (violation) => {
   const isAutocompleteAttribute = violation.id === 'autocomplete-valid';
-  const hasNope = violation.nodes.every(node =>
+  const hasNope = violation.nodes.every((node) =>
     node.html.includes('autocomplete="nope"'),
   );
   return isAutocompleteAttribute && hasNope;
 };
 
 const testPage = (iframePath, browser, timeout, disableAnimation) => {
-  return async id => {
+  return async (id) => {
     console.log(` - ${id}`);
 
     try {
@@ -122,7 +122,7 @@ const testPage = (iframePath, browser, timeout, disableAnimation) => {
 
       if (result.violations.length) {
         const filteredViolations = result.violations.filter(
-          violation => !isAutcompleteNope(violation),
+          (violation) => !isAutcompleteNope(violation),
         );
 
         return formatMessage(id, filteredViolations);
@@ -163,7 +163,7 @@ export const testPages = async ({
 
     await browser.close();
 
-    return results.filter(x => x);
+    return results.filter((x) => x);
   } catch (error) {
     console.error(error.message);
     process.exit(1);

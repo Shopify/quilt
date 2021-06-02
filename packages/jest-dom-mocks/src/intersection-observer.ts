@@ -16,18 +16,18 @@ export default class IntersectionObserverMock {
   simulate(
     entry:
       | Partial<IntersectionObserverEntry>
-      | Array<Partial<IntersectionObserverEntry>>,
+      | Partial<IntersectionObserverEntry>[],
   ) {
     this.ensureMocked();
 
     const arrayOfEntries = Array.isArray(entry) ? entry : [entry];
     const targets = arrayOfEntries.map(({target}) => target);
-    const noCustomTargets = targets.every(target => target == null);
+    const noCustomTargets = targets.every((target) => target == null);
 
     for (const observer of this.observers) {
       if (noCustomTargets || targets.includes(observer.target)) {
         observer.callback(
-          arrayOfEntries.map(entry => normalizeEntry(entry, observer.target)),
+          arrayOfEntries.map((entry) => normalizeEntry(entry, observer.target)),
           observer as any,
         );
       }
@@ -65,7 +65,7 @@ export default class IntersectionObserverMock {
       ) {}
 
       observe(target: Element) {
-        setObservers(observers => [
+        setObservers((observers) => [
           ...observers,
           {
             source: this,
@@ -77,15 +77,15 @@ export default class IntersectionObserverMock {
       }
 
       disconnect() {
-        setObservers(observers =>
-          observers.filter(observer => observer.source !== this),
+        setObservers((observers) =>
+          observers.filter((observer) => observer.source !== this),
         );
       }
 
       unobserve(target: Element) {
-        setObservers(observers =>
+        setObservers((observers) =>
           observers.filter(
-            observer =>
+            (observer) =>
               !(observer.target === target && observer.source === this),
           ),
         );

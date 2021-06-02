@@ -19,6 +19,7 @@ const address: Address = {
 
 describe('AddressFormatter', () => {
   beforeEach(() => mockCountryRequests());
+
   afterEach(() => fetch.restore());
 
   describe('updateLocale()', () => {

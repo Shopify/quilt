@@ -66,7 +66,7 @@ export const loadCountry: (
 
 class CountryLoaderError extends Error {
   constructor(errors: ResponseError) {
-    const errorMessage = errors.errors.map(error => error.message).join('; ');
+    const errorMessage = errors.errors.map((error) => error.message).join('; ');
     super(errorMessage);
   }
 }

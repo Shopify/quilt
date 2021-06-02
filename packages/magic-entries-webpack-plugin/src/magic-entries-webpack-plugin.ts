@@ -88,8 +88,8 @@ export class MagicEntriesPlugin {
       });
 
       const entryFiles = await files
-        .filter(file => this.compiledPattern.exec(file))
-        .map(file => resolve(resolvedFolder, file));
+        .filter((file) => this.compiledPattern.exec(file))
+        .map((file) => resolve(resolvedFolder, file));
 
       for (const entry of entryFiles) {
         entries[nameFromFile(entry)] = entry;

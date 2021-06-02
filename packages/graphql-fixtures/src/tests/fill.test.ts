@@ -224,7 +224,7 @@ describe('createFiller()', () => {
 
     it('uses different values for a list of keypaths', () => {
       const document = createDocument<{
-        self: {parents: Array<{name: string}>};
+        self: {parents: {name: string}[]};
       }>(`
       query Details {
         self { parents { name } }
@@ -1306,8 +1306,8 @@ describe('createFiller()', () => {
       `);
 
       const document = createDocument<
-        {people: Array<{name: string}>},
-        {people?: Array<{name?: string | null}> | null}
+        {people: {name: string}[]},
+        {people?: {name?: string | null}[] | null}
       >(`
         query Details {
           people {

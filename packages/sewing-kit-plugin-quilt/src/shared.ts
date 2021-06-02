@@ -4,7 +4,7 @@ export function idFromTargetOptions(options: BuildWebAppTargetOptions) {
   return (
     Object.keys(options)
       .sort()
-      .map(key => {
+      .map((key) => {
         const value = (options as any)[key];
 
         switch (key as keyof typeof options) {

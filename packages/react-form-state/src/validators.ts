@@ -38,8 +38,8 @@ export function validateNested<Input extends object, Fields>(
       }
 
       const errors = validate
-        .map(validator => validator(value, fields))
-        .filter(input => input != null);
+        .map((validator) => validator(value, fields))
+        .filter((input) => input != null);
 
       if (errors.length === 0) {
         return;
@@ -48,8 +48,8 @@ export function validateNested<Input extends object, Fields>(
     });
 
     const anyErrors = Object.keys(errors)
-      .map(key => errors[key])
-      .some(value => value != null);
+      .map((key) => errors[key])
+      .some((value) => value != null);
 
     if (anyErrors) {
       return errors;
@@ -63,9 +63,9 @@ export function validateList<Input extends object, Fields>(
   const validateItem = validateNested(validatorDictionary);
 
   return (input: Input[], fields: Fields) => {
-    const errors = input.map(item => validateItem(item, fields));
+    const errors = input.map((item) => validateItem(item, fields));
 
-    if (errors.some(error => error != null)) {
+    if (errors.some((error) => error != null)) {
       return errors;
     }
   };

@@ -45,10 +45,10 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
 
         const importSpecifiersToProcess = path
           .get('specifiers')
-          .filter(specifier => {
+          .filter((specifier) => {
             return (
               specifier.isImportSpecifier() &&
-              processImports.some(name =>
+              processImports.some((name) =>
                 (specifier.get('imported') as NodePath).isIdentifier({name}),
               )
             );
@@ -75,7 +75,7 @@ function addIdOption(
   t: typeof Types,
   {webpack = true}: Options = {},
 ) {
-  binding.referencePaths.forEach(refPath => {
+  binding.referencePaths.forEach((refPath) => {
     const callExpression = refPath.parentPath;
 
     if (!callExpression.isCallExpression()) {
@@ -97,7 +97,7 @@ function addIdOption(
       [key: string]: NodePath<Types.ObjectMember>;
     } = {};
 
-    properties.forEach(property => {
+    properties.forEach((property) => {
       if (!property.isObjectMember() || property.node.computed) {
         return;
       }
@@ -121,7 +121,7 @@ function addIdOption(
       ? loadProperty.get('value')
       : loadProperty.get('body');
 
-    const dynamicImports: Array<NodePath<Types.CallExpression>> = [];
+    const dynamicImports: NodePath<Types.CallExpression>[] = [];
 
     if (!Array.isArray(loaderMethod)) {
       loaderMethod.traverse({

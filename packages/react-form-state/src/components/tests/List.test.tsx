@@ -48,14 +48,14 @@ describe('<FormState.List />', () => {
   it('uses getChildKey to determine keys for each item', () => {
     const products = [{title: faker.commerce.productName()}];
 
-    const childKeySpy = jest.fn(item => item.title);
+    const childKeySpy = jest.fn((item) => item.title);
 
     mount(
       <FormState initialValues={{products}}>
         {({fields}) => {
           return (
             <FormState.List field={fields.products} getChildKey={childKeySpy}>
-              {_ => <div />}
+              {(_) => <div />}
             </FormState.List>
           );
         }}
@@ -269,7 +269,7 @@ describe('<FormState.List />', () => {
       <FormState initialValues={{variants}}>
         {({fields}) => (
           <FormState.List field={fields.variants}>
-            {nestedFields => (
+            {(nestedFields) => (
               <FormState.List field={nestedFields.products}>
                 {renderSpy}
               </FormState.List>
@@ -316,7 +316,7 @@ describe('<FormState.List />', () => {
       <FormState initialValues={{variants}}>
         {({fields}) => (
           <FormState.Nested field={fields.variants}>
-            {nestedFields => (
+            {(nestedFields) => (
               <FormState.List field={nestedFields.products}>
                 {renderSpy}
               </FormState.List>
@@ -363,7 +363,7 @@ describe('<FormState.List />', () => {
           productsRef = fields.products;
           return (
             <FormState.List field={fields.products}>
-              {nestedProductFields => (
+              {(nestedProductFields) => (
                 <FormState.List field={nestedProductFields.variants}>
                   {renderSpy}
                 </FormState.List>
@@ -403,7 +403,7 @@ describe('<FormState.List />', () => {
           return (
             <>
               <FormState.List field={fields.variants}>
-                {nestedFields => (
+                {(nestedFields) => (
                   <FormState.Nested field={nestedFields.product}>
                     {renderSpy}
                   </FormState.Nested>

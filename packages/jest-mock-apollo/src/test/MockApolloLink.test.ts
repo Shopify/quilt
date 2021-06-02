@@ -26,12 +26,12 @@ const mockRequest = {
 };
 
 function expectObservableError(obs, errorMessage) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     obs.subscribe(
       () => {
         throw new Error(`Expected error ("${errorMessage}") but none thrown`);
       },
-      error => {
+      (error) => {
         expect(error.message).toBe(errorMessage);
         resolve(true);
       },
@@ -89,7 +89,7 @@ describe('MockApolloLink', () => {
     );
     const mockApolloLink = new MockApolloLink({Pets: error}, schema);
 
-    const result = await new Promise(resolve => {
+    const result = await new Promise((resolve) => {
       mockApolloLink.request(mockRequest).subscribe(resolve);
     });
 
@@ -100,7 +100,7 @@ describe('MockApolloLink', () => {
     const error = new Error('error message');
     const mockApolloLink = new MockApolloLink({Pets: error}, schema);
 
-    const result = await new Promise(resolve => {
+    const result = await new Promise((resolve) => {
       mockApolloLink.request(mockRequest).subscribe(resolve);
     });
 

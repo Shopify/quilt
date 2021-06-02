@@ -16,7 +16,7 @@ export default function addImportSpecifier(
   return {
     ImportDeclaration(path: traverse.NodePath<t.ImportDeclaration>) {
       if (path.node.source.value === importSource) {
-        newSpecifiers.forEach(specifier => {
+        newSpecifiers.forEach((specifier) => {
           path.node.specifiers.push(
             t.importSpecifier(t.identifier(specifier), t.identifier(specifier)),
           );

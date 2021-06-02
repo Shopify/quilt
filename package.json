@@ -48,7 +48,7 @@
     "@shopify/app-bridge": "^0.7.3",
     "@shopify/babel-preset": "^23.6.1",
     "@shopify/browserslist-config": "^2.2.4",
-    "@shopify/eslint-plugin": "^39.0.0",
+    "@shopify/eslint-plugin": "^40.2.3",
     "@shopify/typescript-configs": "^4.0.0",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",

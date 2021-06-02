@@ -57,12 +57,15 @@ packages.forEach(
         it('specifies Shopify as author', () => {
           expect(packageJSON.author).toBe(expectedPackageJSON.author);
         });
+
         it('specifies Quilt Issues as bugs URL', () => {
           expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
         });
+
         it('specifies a description', () => {
           expect(packageJSON.description).not.toBeUndefined();
         });
+
         if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies publishable files, including at least one entrypoint', () => {
             expect(packageJSON.files).toStrictEqual(
@@ -86,39 +89,48 @@ packages.forEach(
             ).toStrictEqual(expectedPackageJSON.files);
           });
         }
+
         it('specifies Quilt deep-link homepage', () => {
           expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
         });
+
         it('specifies the MIT license', () => {
           expect(packageJSON.license).toBe(expectedPackageJSON.license);
         });
+
         it('specifies name matching scope and path', () => {
           expect(packageJSON.name).toBe(expectedPackageJSON.name);
         });
+
         it('specifies Shopify‘s public publishConfig', () => {
           expect(packageJSON.publishConfig).toStrictEqual(
             expectedPackageJSON.publishConfig,
           );
         });
+
         it('specifies a repository deep-linking into the Quilt monorepo', () => {
           expect(packageJSON.repository).toStrictEqual(
             expectedPackageJSON.repository,
           );
         });
+
         it('specifies if webpack can tree-shake, via sideEffects', () => {
           expect(packageJSON.sideEffects).toBe(
             Boolean(packageJSON.sideEffects),
           );
         });
+
         it('specifies an engines.node field', () => {
           expect(packageJSON.engines.node).toBe(
             expectedPackageJSON.engines.node,
           );
         });
+
         if (!SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies the expected main', () => {
             expect(packageJSON.main).toBe(expectedPackageJSON.main);
           });
+
           it('specifies the expected types', () => {
             expect(packageJSON.types).toBe(expectedPackageJSON.types);
           });
@@ -128,17 +140,19 @@ packages.forEach(
       it(`ensures packages included in dependencies are used`, () => {
         const dependencies = Object.keys({
           ...packageJSON.dependencies,
-        }).filter(dep =>
-          IGNORE_PACKAGES.every(ignorePackage => !dep.includes(ignorePackage)),
+        }).filter((dep) =>
+          IGNORE_PACKAGES.every(
+            (ignorePackage) => !dep.includes(ignorePackage),
+          ),
         );
 
         const filesContent = glob
           .sync(resolve(packagesPath, packageName, '**/*.ts*'))
-          .filter(path => !path.includes('/dist/'))
-          .map(path => readFileSync(path, 'utf8'));
+          .filter((path) => !path.includes('/dist/'))
+          .map((path) => readFileSync(path, 'utf8'));
 
-        const expectValue = dependencies.filter(dep =>
-          filesContent.some(content => content.includes(dep)),
+        const expectValue = dependencies.filter((dep) =>
+          filesContent.some((content) => content.includes(dep)),
         );
 
         expect(dependencies).toStrictEqual(expectValue);
@@ -150,7 +164,7 @@ packages.forEach(
 function readPackages() {
   return glob
     .sync(join(packagesPath, '*', 'package.json'))
-    .map(absolutePackageJSONPath => {
+    .map((absolutePackageJSONPath) => {
       const packageName = dirname(
         relative(packagesPath, absolutePackageJSONPath),
       );

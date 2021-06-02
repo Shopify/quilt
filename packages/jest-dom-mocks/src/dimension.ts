@@ -10,7 +10,7 @@ enum SupportedDimension {
 
 type MockedGetter = (element: HTMLElement) => number;
 type Mock = MockedGetter | number;
-type Mocks = Partial<Record<string, Mock>>;
+type Mocks = Partial<{[key: string]: Mock}>;
 
 type AugmentedElement = Element & {[key: string]: Mock};
 
@@ -66,7 +66,7 @@ export default class Dimension {
   }
 
   private mockDOMMethods(mocks: Mocks) {
-    Object.keys(mocks).forEach(method => {
+    Object.keys(mocks).forEach((method) => {
       const nativeSource = this.nativeImplementations[method];
       const mock: Mock | undefined = mocks[method];
 
@@ -89,7 +89,7 @@ export default class Dimension {
   }
 
   private restoreDOMMethods() {
-    this.overwrittenImplementations.forEach(method => {
+    this.overwrittenImplementations.forEach((method) => {
       const nativeSource = this.nativeImplementations[method];
 
       if (nativeSource == null) {

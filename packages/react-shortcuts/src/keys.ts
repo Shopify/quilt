@@ -101,7 +101,7 @@ export type ModifierKey =
   | 'Symbol'
   | 'SymbolLock';
 
-export type HeldKey = Array<ModifierKey | ModifierKey[]>;
+export type HeldKey = (ModifierKey | ModifierKey[])[];
 
 export type SymbolKey =
   | '~'

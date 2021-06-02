@@ -237,7 +237,7 @@ describe('ShortcutManager', () => {
       );
 
       keydown('/', document, {
-        getModifierState: key => held.includes(key),
+        getModifierState: (key) => held.includes(key),
       });
 
       expect(fooSpy).toHaveBeenCalled();
@@ -255,7 +255,7 @@ describe('ShortcutManager', () => {
       );
 
       keydown('/', document, {
-        getModifierState: key => heldGroup.includes(key),
+        getModifierState: (key) => heldGroup.includes(key),
       });
 
       expect(fooSpy).toHaveBeenCalled();
@@ -274,7 +274,7 @@ describe('ShortcutManager', () => {
       const heldPressed: HeldKey = ['Control', 'Shift', 'Hyper'];
 
       keydown('/', document, {
-        getModifierState: key => heldPressed.includes(key),
+        getModifierState: (key) => heldPressed.includes(key),
       });
 
       expect(fooSpy).not.toHaveBeenCalled();
@@ -292,7 +292,7 @@ describe('ShortcutManager', () => {
       );
 
       keydown('/', document, {
-        getModifierState: key => ['Control'].includes(key),
+        getModifierState: (key) => ['Control'].includes(key),
       });
 
       expect(fooSpy).not.toHaveBeenCalled();

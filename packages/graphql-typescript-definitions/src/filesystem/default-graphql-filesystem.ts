@@ -22,14 +22,14 @@ export class DefaultGraphQLFilesystem extends AbstractGraphQLFilesystem {
 
     await Promise.all(
       this.watchers.map(
-        watcher =>
-          new Promise<void>(resolve => watcher.on('ready', () => resolve())),
+        (watcher) =>
+          new Promise<void>((resolve) => watcher.on('ready', () => resolve())),
       ),
     );
   }
 
   dispose() {
-    this.watchers.forEach(watcher => {
+    this.watchers.forEach((watcher) => {
       watcher.close();
     });
 
@@ -42,20 +42,20 @@ export class DefaultGraphQLFilesystem extends AbstractGraphQLFilesystem {
 
   private setupDocumentWatchers(config: GraphQLConfig) {
     return getGraphQLProjects(config)
-      .filter(projectConfig => {
+      .filter((projectConfig) => {
         const [includes] = getIncludesExcludesFromConfig(projectConfig);
         return includes.length > 0;
       })
-      .map(projectConfig => {
+      .map((projectConfig) => {
         const [includes, excludes] = getIncludesExcludesFromConfig(
           projectConfig,
         );
         return watch(
-          includes.map(include =>
+          includes.map((include) =>
             resolvePathRelativeToConfig(projectConfig, include),
           ),
           {
-            ignored: excludes.map(exclude =>
+            ignored: excludes.map((exclude) =>
               resolvePathRelativeToConfig(projectConfig, exclude),
             ),
             ignoreInitial: true,
@@ -76,6 +76,6 @@ export class DefaultGraphQLFilesystem extends AbstractGraphQLFilesystem {
   private setupSchemaWatcher(config: GraphQLConfig) {
     return watch(getGraphQLSchemaPaths(config), {
       ignoreInitial: true,
-    }).on('change', schemaPath => this.emit('change:schema', schemaPath));
+    }).on('change', (schemaPath) => this.emit('change:schema', schemaPath));
   }
 }

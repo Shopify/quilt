@@ -11,7 +11,7 @@ import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 
 jest.mock('apollo-client', () => {
   const ApolloClient = jest.requireActual('apollo-client').ApolloClient;
-  const mockApolloClient = jest.fn(options => new ApolloClient(options));
+  const mockApolloClient = jest.fn((options) => new ApolloClient(options));
 
   return {
     ...jest.requireActual('apollo-client'),

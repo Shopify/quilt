@@ -58,7 +58,7 @@ export default class AddressFormatter {
     const layout = country.formatting.show || DEFAULT_SHOW_LAYOUT;
     return layout
       .split(LINE_DELIMITER)
-      .map(fields => renderLineTemplate(country, fields, address).trim());
+      .map((fields) => renderLineTemplate(country, fields, address).trim());
   }
 
   /* Returns an array that shows how to order fields based on the country code
@@ -78,12 +78,12 @@ export default class AddressFormatter {
 
     const format = country ? country.formatting.edit : DEFAULT_FORM_LAYOUT;
 
-    return format.split(LINE_DELIMITER).map(fields => {
+    return format.split(LINE_DELIMITER).map((fields) => {
       const result = fields.match(FIELD_REGEXP);
       if (!result) {
         return [];
       }
-      return result.map(field => {
+      return result.map((field) => {
         return FIELDS_MAPPING[field];
       });
     });
@@ -93,7 +93,7 @@ export default class AddressFormatter {
     countryCode: string,
   ): Country | undefined | null {
     if (ORDERED_COUNTRIES_CACHE[this.locale]) {
-      return ORDERED_COUNTRIES_CACHE[this.locale].find(country => {
+      return ORDERED_COUNTRIES_CACHE[this.locale].find((country) => {
         return country.code === countryCode;
       });
     }

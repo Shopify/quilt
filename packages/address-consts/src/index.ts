@@ -85,10 +85,10 @@ export interface ResponseError {
 
 export interface GraphQlError {
   message: string;
-  locations?: Array<{
+  locations?: {
     column: number;
     line: number;
-  }>;
+  }[];
   path?: any[];
   extensions?: object;
 }

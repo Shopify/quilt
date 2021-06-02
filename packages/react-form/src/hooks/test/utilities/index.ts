@@ -70,12 +70,12 @@ export function clickEvent() {
 
 export function fillRequiredFields(wrapper: Root<any>) {
   const optionTextFields = wrapper.findAll(TextField, {label: 'option'});
-  optionTextFields.forEach(textField =>
+  optionTextFields.forEach((textField) =>
     textField.trigger('onChange', 'a value'),
   );
 
   const titleTextFields = wrapper.findAll(TextField, {label: 'title'});
-  titleTextFields.forEach(textField =>
+  titleTextFields.forEach((textField) =>
     textField.trigger('onChange', 'a value'),
   );
 }

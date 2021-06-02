@@ -52,7 +52,7 @@ function SomePage() {
   const loadingMarkup = queryLoading || mutationLoading ? 'Loading' : 'Loaded!';
   const pets = [...queryData, ...mutationData];
   const petsMarkup =
-    pets && pets.length ? pets.map(pets => pets.name).join(', ') : 'No pets';
+    pets && pets.length ? pets.map((pets) => pets.name).join(', ') : 'No pets';
 
   return (
     <>
@@ -87,7 +87,7 @@ async function expectQueryError(wrapper, graphQLClient, errorMessage) {
   const errorSpy = jest.fn();
 
   await wrapper.act(() =>
-    Promise.all(graphQLClient.graphQLResults).catch(error => {
+    Promise.all(graphQLClient.graphQLResults).catch((error) => {
       errorSpy(error.message);
       return null;
     }),

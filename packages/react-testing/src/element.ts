@@ -56,8 +56,8 @@ export class Element<Props> implements Node<Props> {
   private get elementChildren() {
     if (!this.elementChildrenCache) {
       this.elementChildrenCache = this.allChildren.filter(
-        element => typeof element !== 'string',
-      ) as Array<Element<unknown>>;
+        (element) => typeof element !== 'string',
+      ) as Element<unknown>[];
     }
 
     return this.elementChildrenCache;
@@ -73,8 +73,8 @@ export class Element<Props> implements Node<Props> {
     }
 
     return this.elementChildren
-      .filter(element => element.isDOM)
-      .map(element => element.instance);
+      .filter((element) => element.isDOM)
+      .map((element) => element.instance);
   }
 
   get domNode(): HTMLElement | null {
@@ -89,12 +89,12 @@ export class Element<Props> implements Node<Props> {
     return domNodes[0] || null;
   }
 
-  private descendantsCache: Array<Element<unknown>> | null = null;
-  private elementChildrenCache: Array<Element<unknown>> | null = null;
+  private descendantsCache: Element<unknown>[] | null = null;
+  private elementChildrenCache: Element<unknown>[] | null = null;
 
   constructor(
     private readonly tree: Tree<Props>,
-    private readonly allChildren: Array<Element<unknown> | string>,
+    private readonly allChildren: (Element<unknown> | string)[],
     public readonly root: Root,
   ) {}
 
@@ -161,7 +161,7 @@ export class Element<Props> implements Node<Props> {
     props?: Partial<PropsFor<Type>>,
   ): Element<PropsFor<Type>> | null {
     return (this.elementDescendants.find(
-      element =>
+      (element) =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) || null) as Element<PropsFor<Type>> | null;
@@ -170,20 +170,22 @@ export class Element<Props> implements Node<Props> {
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
-  ): Array<Element<PropsFor<Type>>> {
+  ): Element<PropsFor<Type>>[] {
     return this.elementDescendants.filter(
-      element =>
+      (element) =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
-    ) as Array<Element<PropsFor<Type>>>;
+    ) as Element<PropsFor<Type>>[];
   }
 
   findWhere(predicate: Predicate): Element<unknown> | null {
-    return this.elementDescendants.find(element => predicate(element)) || null;
+    return (
+      this.elementDescendants.find((element) => predicate(element)) || null
+    );
   }
 
-  findAllWhere(predicate: Predicate): Array<Element<unknown>> {
-    return this.elementDescendants.filter(element => predicate(element));
+  findAllWhere(predicate: Predicate): Element<unknown>[] {
+    return this.elementDescendants.filter((element) => predicate(element));
   }
 
   trigger<K extends FunctionKeys<Props>>(
@@ -258,12 +260,12 @@ function isMatchingType(
 
 function equalSubset(subset: object, full: object) {
   return Object.keys(subset).every(
-    key => key in full && full[key] === subset[key],
+    (key) => key in full && full[key] === subset[key],
   );
 }
 
 function getDescendants(element: any) {
-  const descendants: Array<Element<unknown>> = [];
+  const descendants: Element<unknown>[] = [];
   // eslint-disable-next-line @typescript-eslint/prefer-for-of
   for (let i = 0; i < element.allChildren.length; i++) {
     const child = element.allChildren[i];

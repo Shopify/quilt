@@ -37,35 +37,35 @@ export const connected = new Set<Root<unknown>>();
 
 export class Root<Props> implements Node<Props> {
   get props() {
-    return this.withRoot(root => root.props);
+    return this.withRoot((root) => root.props);
   }
 
   get isDOM() {
-    return this.withRoot(root => root.isDOM);
+    return this.withRoot((root) => root.isDOM);
   }
 
   get type() {
-    return this.withRoot(root => root.type);
+    return this.withRoot((root) => root.type);
   }
 
   get instance() {
-    return this.withRoot(root => root.instance);
+    return this.withRoot((root) => root.instance);
   }
 
   get children() {
-    return this.withRoot(root => root.children);
+    return this.withRoot((root) => root.children);
   }
 
   get descendants() {
-    return this.withRoot(root => root.descendants);
+    return this.withRoot((root) => root.descendants);
   }
 
   get domNodes() {
-    return this.withRoot(root => root.domNodes);
+    return this.withRoot((root) => root.domNodes);
   }
 
   get domNode() {
-    return this.withRoot(root => root.domNode);
+    return this.withRoot((root) => root.domNode);
   }
 
   private wrapper: TestWrapper<Props> | null = null;
@@ -129,58 +129,58 @@ export class Root<Props> implements Node<Props> {
   }
 
   html() {
-    return this.withRoot(root => root.html());
+    return this.withRoot((root) => root.html());
   }
 
   text() {
-    return this.withRoot(root => root.text());
+    return this.withRoot((root) => root.text());
   }
 
   is<Type extends React.ComponentType<any> | string>(
     type: Type,
   ): this is Root<PropsFor<Type>> {
-    return this.withRoot(root => root.is(type));
+    return this.withRoot((root) => root.is(type));
   }
 
   prop<K extends keyof Props>(key: K) {
-    return this.withRoot(root => root.prop(key));
+    return this.withRoot((root) => root.prop(key));
   }
 
   data(key: string) {
-    return this.withRoot(root => root.data(key));
+    return this.withRoot((root) => root.data(key));
   }
 
   find<Type extends React.ComponentType<any> | string>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ) {
-    return this.withRoot(root => root.find(type, props));
+    return this.withRoot((root) => root.find(type, props));
   }
 
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ) {
-    return this.withRoot(root => root.findAll(type, props));
+    return this.withRoot((root) => root.findAll(type, props));
   }
 
   findWhere(predicate: Predicate) {
-    return this.withRoot(root => root.findWhere(predicate));
+    return this.withRoot((root) => root.findWhere(predicate));
   }
 
   findAllWhere(predicate: Predicate) {
-    return this.withRoot(root => root.findAllWhere(predicate));
+    return this.withRoot((root) => root.findAllWhere(predicate));
   }
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Arguments<Props[K]>>
   ): ReturnType<NonNullable<Props[K]>> {
-    return this.withRoot(root => root.trigger(prop, ...(args as any)));
+    return this.withRoot((root) => root.trigger(prop, ...(args as any)));
   }
 
   triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]) {
-    return this.withRoot(root => root.triggerKeypath<T>(keypath, ...args));
+    return this.withRoot((root) => root.triggerKeypath<T>(keypath, ...args));
   }
 
   mount() {
@@ -197,7 +197,7 @@ export class Root<Props> implements Node<Props> {
       render(
         <TestWrapper<Props>
           render={this.render}
-          ref={wrapper => {
+          ref={(wrapper) => {
             this.wrapper = wrapper;
           }}
         >
@@ -246,7 +246,7 @@ export class Root<Props> implements Node<Props> {
   }
 
   toString() {
-    return this.withRoot(root => root.toString());
+    return this.withRoot((root) => root.toString());
   }
 
   private update() {
@@ -312,7 +312,7 @@ function fiberToElement(
 
 function childrenToTree(fiber: Fiber | null, root: Root<unknown>) {
   let currentFiber = fiber;
-  const children: Array<string | Element<unknown>> = [];
+  const children: (string | Element<unknown>)[] = [];
 
   while (currentFiber != null) {
     const result = fiberToElement(currentFiber, root);

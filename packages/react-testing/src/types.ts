@@ -21,7 +21,7 @@ interface DeepPartialArray<T> extends Array<DeepPartial<T>> {}
 interface DeepPartialReadonlyArray<T> extends ReadonlyArray<DeepPartial<T>> {}
 type DeepPartialObject<T extends object> = {[K in keyof T]?: DeepPartial<T[K]>};
 
-type DeepPartial<T> = T extends Array<infer U>
+type DeepPartial<T> = T extends (infer U)[]
   ? DeepPartialArray<U>
   : T extends ReadonlyArray<infer U>
   ? DeepPartialReadonlyArray<U>
@@ -82,8 +82,8 @@ export interface Node<Props> {
   readonly type: string | React.ComponentType<any> | null;
   readonly isDOM: boolean;
   readonly instance: any;
-  readonly children: Array<Node<unknown>>;
-  readonly descendants: Array<Node<unknown>>;
+  readonly children: Node<unknown>[];
+  readonly descendants: Node<unknown>[];
   readonly domNodes: HTMLElement[];
   readonly domNode: HTMLElement | null;
 
@@ -104,9 +104,9 @@ export interface Node<Props> {
   findAll<Type extends React.ComponentType<any> | string>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
-  ): Array<Node<PropsFor<Type>>>;
+  ): Node<PropsFor<Type>>[];
   findWhere(predicate: Predicate): Node<unknown> | null;
-  findAllWhere(predicate: Predicate): Array<Node<unknown>>;
+  findAllWhere(predicate: Predicate): Node<unknown>[];
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,

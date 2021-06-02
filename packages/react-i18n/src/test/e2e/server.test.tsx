@@ -129,7 +129,7 @@ describe('server', () => {
 });
 
 function defer<T>(value: T): Promise<T> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve.bind(null, value), 1);
   });
 }

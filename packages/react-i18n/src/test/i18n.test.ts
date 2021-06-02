@@ -640,7 +640,7 @@ describe('I18n', () => {
   });
 
   describe('#numberSymbols()', () => {
-    const tests: Array<[string, string, string]> = [
+    const tests: [string, string, string][] = [
       // [locale, decimal, thousands]
       ['en', '.', ','],
       ['es', ',', '.'],
@@ -650,6 +650,7 @@ describe('I18n', () => {
       ['ko', '.', ','],
       ['jp', '.', ','],
     ];
+
     it.each(tests)(
       'locale %s decimal is "%s" and thousands is "%s"',
       (locale, decimalSymbol, thousandSymbol) => {
@@ -1134,6 +1135,7 @@ describe('I18n', () => {
           expect(i18n.unformatCurrency('1234.50', 'USD')).toBe('1234.50');
         });
       });
+
       describe('it locale', () => {
         it('treats , as the decimal symbol', () => {
           formatCurrency.mockImplementationOnce(() => '1,00 $');

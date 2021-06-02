@@ -108,7 +108,7 @@ export function translate(
   options: TranslateOptions<ComplexReplacementDictionary>,
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
-): Array<string | React.ReactElement<any>>;
+): (string | React.ReactElement<any>)[];
 export function translate(
   id: string,
   options: TranslateOptions<
@@ -227,11 +227,11 @@ function updateStringWithReplacements(
 ): any {
   const replaceFinder = /([^{]*)({([^}]*)})?/g;
   const allReplacementsArePrimitives = Object.keys(replacements).every(
-    key => typeof replacements[key] !== 'object',
+    (key) => typeof replacements[key] !== 'object',
   );
 
   if (allReplacementsArePrimitives) {
-    return str.replace(REPLACE_REGEX, match => {
+    return str.replace(REPLACE_REGEX, (match) => {
       const replacement = match.substring(1, match.length - 1);
 
       if (!Object.prototype.hasOwnProperty.call(replacements, replacement)) {
@@ -241,7 +241,7 @@ function updateStringWithReplacements(
       return replacements[replacement] as string;
     });
   } else {
-    const pieces: Array<string | React.ReactElement<any>> = [];
+    const pieces: (string | React.ReactElement<any>)[] = [];
 
     let match = replaceFinder.exec(str);
     let matchIndex = 0;

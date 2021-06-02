@@ -40,7 +40,7 @@ export function usePerformanceReport(
           body: JSON.stringify({
             connection: serializableClone((navigator as any).connection),
             events: events.current,
-            navigations: navigations.current.map(navigation => ({
+            navigations: navigations.current.map((navigation) => ({
               details: navigation.toJSON({removeEventMetadata: false}),
               metadata: navigation.metadata,
             })),

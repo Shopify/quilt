@@ -533,7 +533,7 @@ function validateAgainstAST(fixtureContent: any, ast: AST) {
 
 function createAST(schemaString: string, ...queryStrings: string[]) {
   const schema = buildSchema(schemaString);
-  const ast = concatAST(queryStrings.map(queryString => parse(queryString)));
+  const ast = concatAST(queryStrings.map((queryString) => parse(queryString)));
   return compile(schema, ast);
 }
 

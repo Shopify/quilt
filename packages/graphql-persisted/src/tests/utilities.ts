@@ -28,7 +28,7 @@ export function executeOnce(link: ApolloLink, query: DocumentNode) {
     return nextLink(operation);
   });
 
-  return new Promise<ExecuteOnceOutcome>(resolve => {
+  return new Promise<ExecuteOnceOutcome>((resolve) => {
     execute(storeLink.concat(link), {query}).subscribe({
       next(result) {
         resolve({operation: op, result});
@@ -41,7 +41,7 @@ export function executeOnce(link: ApolloLink, query: DocumentNode) {
 }
 
 type BeforeResult = (operation: Operation) => void;
-type Result = {data: object} | {errors: Array<{message: string}>} | Error;
+type Result = {data: object} | {errors: {message: string}[]} | Error;
 type MultiResult =
   | Result
   | Promise<Result>
@@ -67,7 +67,7 @@ export class SimpleLink extends ApolloLink {
       return nextLink(operation);
     }
 
-    return new Observable(obs => {
+    return new Observable((obs) => {
       const handleResult = (result: Result) => {
         this.resultIndex += 1;
 

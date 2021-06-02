@@ -66,7 +66,7 @@ async function readLocaleTranslations(
   locale: string,
   translationFilePaths: string[],
 ) {
-  const translationPath = translationFilePaths.find(filePath =>
+  const translationPath = translationFilePaths.find((filePath) =>
     filePath.endsWith(`/${locale}.json`),
   );
 

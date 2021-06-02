@@ -56,7 +56,7 @@ async function loadDocument(
   }
 
   const resolvedImports = await Promise.all(
-    imports.map(async imported => {
+    imports.map(async (imported) => {
       const resolvedPath = await new Promise<string>((resolve, reject) => {
         loader.resolve(resolveContext, imported, (error, result) => {
           if (error) {

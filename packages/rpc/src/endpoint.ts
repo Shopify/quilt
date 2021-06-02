@@ -197,7 +197,7 @@ export function createEndpoint<T>(
       const transferables: Transferable[] = [];
 
       if (Array.isArray(value)) {
-        const result = value.map(item => {
+        const result = value.map((item) => {
           const [result, nestedTransferables = []] = toWire(item);
           transferables.push(...nestedTransferables);
           return result;
@@ -230,7 +230,7 @@ export function createEndpoint<T>(
       }
 
       if (Array.isArray(value)) {
-        return value.map(value => fromWire(value, retainedBy));
+        return value.map((value) => fromWire(value, retainedBy));
       }
 
       if (value[FUNCTION]) {

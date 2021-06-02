@@ -29,7 +29,7 @@ export const IntersectionObserver = React.memo(function IntersectionObserver({
     unsupportedBehavior,
   });
 
-  useValueTracking(intersection, newValue => onIntersectionChange(newValue));
+  useValueTracking(intersection, (newValue) => onIntersectionChange(newValue));
 
   return React.createElement(Wrapper, {ref}, children);
 });

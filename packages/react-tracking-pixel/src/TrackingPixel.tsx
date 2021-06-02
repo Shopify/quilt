@@ -14,7 +14,7 @@ export interface Props {
 const IFRAME_STYLES = {display: 'none'};
 
 function TrackingPixel({url, preconnectHosts = []}: Props) {
-  const preconnectHostsMarkup = preconnectHosts.map(preconnectHost => (
+  const preconnectHostsMarkup = preconnectHosts.map((preconnectHost) => (
     <Preconnect key={preconnectHost} source={preconnectHost} />
   ));
 

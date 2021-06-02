@@ -14,17 +14,18 @@ export interface Validator<Value, Context> {
 
 export interface ListValidationContext<Item extends object> {
   listItem: FieldStates<Item>;
-  siblings: Array<FieldStates<Item>>;
+  siblings: FieldStates<Item>[];
 }
 
 export type Validates<Value, Context extends object = {}> =
   | Validator<Value, Context>
-  | Array<Validator<Value, Context>>;
+  | Validator<Value, Context>[];
 
 export type NormalizedValidationDictionary<ListItem extends object> = {
-  [Key in keyof ListItem]: Array<
-    Validator<ListItem[Key], ListValidationContext<ListItem>>
-  >;
+  [Key in keyof ListItem]: Validator<
+    ListItem[Key],
+    ListValidationContext<ListItem>
+  >[];
 };
 
 export type ValidationDictionary<
@@ -126,7 +127,7 @@ export type SubmitResult =
 export type FieldOutput<T extends object> =
   | FieldDictionary<T>
   | Field<T>
-  | Array<FieldDictionary<T>>;
+  | FieldDictionary<T>[];
 
 export interface FieldBag {
   [key: string]: FieldOutput<any>;
@@ -154,7 +155,7 @@ type FieldProp<T, K extends keyof Field<any>> = T extends Field<any>
 */
 export type FormMapping<Bag, FieldKey extends keyof Field<any>> = {
   [Key in keyof Bag]: Bag[Key] extends any[]
-    ? Array<FieldProp<Bag[Key][number], FieldKey>>
+    ? FieldProp<Bag[Key][number], FieldKey>[]
     : FieldProp<Bag[Key], FieldKey>;
 };
 

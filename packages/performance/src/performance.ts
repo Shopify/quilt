@@ -92,7 +92,7 @@ export class Performance {
         },
       );
     } else {
-      withEntriesOfType('navigation', entry => {
+      withEntriesOfType('navigation', (entry) => {
         this.lifecycleEvent({
           type: EventType.TimeToFirstByte,
           start: entry.responseStart,
@@ -118,7 +118,7 @@ export class Performance {
     }
 
     if (this.supportsResourceEntries) {
-      withEntriesOfType('resource', entry => {
+      withEntriesOfType('resource', (entry) => {
         if (!WATCH_RESOURCE_TYPES.includes(entry.initiatorType)) {
           return;
         }
@@ -142,7 +142,7 @@ export class Performance {
     }
 
     if (this.supportsLongtaskEntries) {
-      withEntriesOfType('longtask', entry => {
+      withEntriesOfType('longtask', (entry) => {
         this.event({
           type: EventType.LongTask,
           start: entry.startTime,
@@ -152,7 +152,7 @@ export class Performance {
     }
 
     if (this.supportsPaintEntries) {
-      withEntriesOfType('paint', entry => {
+      withEntriesOfType('paint', (entry) => {
         const type =
           entry.name === 'first-paint'
             ? EventType.TimeToFirstPaint
@@ -165,7 +165,7 @@ export class Performance {
     }
 
     if (typeof window !== undefined && window.perfMetrics !== undefined) {
-      window.perfMetrics.onFirstInputDelay(delay => {
+      window.perfMetrics.onFirstInputDelay((delay) => {
         this.lifecycleEvent({
           type: EventType.FirstInputDelay,
           start: now() - delay,

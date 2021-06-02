@@ -52,9 +52,9 @@ export function webAppBrowserEntry({
             typeof hydrate === 'boolean' ? hydrate : hydrate({target, task});
           const reactFunction = shouldHydrate ? 'hydrate' : 'render';
 
-          webpackEntries?.hook(entries => [...entries, entry]);
+          webpackEntries?.hook((entries) => [...entries, entry]);
 
-          webpackPlugins?.hook(async plugins => {
+          webpackPlugins?.hook(async (plugins) => {
             const {default: WebpackVirtualModules} = await import(
               'webpack-virtual-modules'
             );

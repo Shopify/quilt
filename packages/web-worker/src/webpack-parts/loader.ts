@@ -97,7 +97,7 @@ export function pitch(
   }
 
   const subCache = `subcache ${__dirname} ${request}`;
-  workerCompiler.hooks.compilation.tap(NAME, compilation => {
+  workerCompiler.hooks.compilation.tap(NAME, (compilation) => {
     if (!compilation.cache) {
       return;
     }
@@ -112,7 +112,7 @@ export function pitch(
   (workerCompiler as any).runAsChild(
     (
       error: Error | null,
-      entries: Array<{files: string[]}> | null,
+      entries: {files: string[]}[] | null,
       compilation: import('webpack').compilation.Compilation,
     ) => {
       let finalError;

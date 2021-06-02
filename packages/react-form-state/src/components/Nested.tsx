@@ -49,7 +49,7 @@ export default class Nested<Fields> extends React.PureComponent<
         field: {onChange},
       } = this.props;
 
-      onChange(value => {
+      onChange((value) => {
         return {
           ...(value as any),
           [key]:

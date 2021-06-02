@@ -63,7 +63,7 @@ function createResolvablePromise<T>(value: T) {
       const value = await resolver();
       // If we just resolve, the tick that actually processes the promise
       // has not finished yet.
-      await new Promise(resolve => process.nextTick(resolve));
+      await new Promise((resolve) => process.nextTick(resolve));
       return value;
     },
     reject: rejecter,

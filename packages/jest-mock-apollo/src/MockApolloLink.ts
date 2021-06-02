@@ -21,7 +21,7 @@ export default class MockApolloLink extends ApolloLink {
   }
 
   request(operation: Operation, _forward?: NextLink): Observable<any> {
-    return new Observable(obs => {
+    return new Observable((obs) => {
       const {mock} = this;
       const {operationName = ''} = operation;
 
@@ -49,7 +49,7 @@ export default class MockApolloLink extends ApolloLink {
           if (operationNames.length === 0) {
             message += ' (it looks like you provided an empty mock object)';
           } else if (
-            operationNames.every(name => name === name.toLowerCase())
+            operationNames.every((name) => name === name.toLowerCase())
           ) {
             // We will provide a more helpful message when it looks like they just provided data
             message += ` (it looks like you tried to provide data directly to the mock GraphQL client. You need to provide your fixture on the key that matches its operation name. To fix this, simply change your code to read 'mockGraphQLClient({${operationName}: yourFixture})'`;
@@ -106,7 +106,7 @@ export function normalizeGraphQLResponseWithOperation(
   // For some reason, these documents do not have any details on the source,
   // which apollo-codegen depends on for top-level operations. This manually
   // adds some hacky references so that they are always at least defined.
-  query.definitions.forEach(definition => {
+  query.definitions.forEach((definition) => {
     (definition as any).loc =
       definition.loc || ({source: {name: 'GraphQL request'}} as Location);
   });
@@ -133,7 +133,7 @@ function normalizeDataWithField(data: any, field?: Field): any {
   }
 
   if (Array.isArray(data)) {
-    return data.map(item => normalizeDataWithField(item, field));
+    return data.map((item) => normalizeDataWithField(item, field));
   }
 
   const finalType = rootType(field.type);

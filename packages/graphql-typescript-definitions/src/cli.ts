@@ -92,11 +92,11 @@ builder.on('start:schema', () => {
   console.log();
 });
 
-builder.on('build:docs', doc => {
+builder.on('build:docs', (doc) => {
   docs.push(doc);
 });
 
-builder.on('build:schema', schema => {
+builder.on('build:schema', (schema) => {
   schemas.push(schema);
 });
 
@@ -120,7 +120,7 @@ builder.on('end:schema', () => {
     });
 });
 
-builder.on('error', error => {
+builder.on('error', (error) => {
   console.log(`${ERROR} ${error.message}`);
   if (error.stack) {
     console.log(chalk.dim(error.stack));

@@ -13,7 +13,7 @@ export class MockLink extends ApolloLink {
   }
 
   request(operation: Operation): Observable<any> {
-    return new Observable(obs => {
+    return new Observable((obs) => {
       const {mock} = this;
       const {operationName = ''} = operation;
 
@@ -40,7 +40,7 @@ export class MockLink extends ApolloLink {
           // We will provide a more helpful message when it looks like they just provided data,
           // not an object mapping names to fixtures.
           const looksLikeDataNotFixtures = operationNames.every(
-            name => name === name.toLowerCase(),
+            (name) => name === name.toLowerCase(),
           );
 
           message += looksLikeDataNotFixtures

@@ -29,7 +29,7 @@ export default class ShortcutManager {
     return {
       unsubscribe() {
         const unsubscribeIndex = shortcuts.findIndex(
-          shortcut => shortcut === data,
+          (shortcut) => shortcut === data,
         );
         shortcuts.splice(unsubscribeIndex, 1);
       },
@@ -63,7 +63,7 @@ export default class ShortcutManager {
 
   private allModifiersAreHeld(heldKeys: HeldKey, event: KeyboardEvent) {
     function hasKeyGroups(groups: HeldKey): groups is HeldKey {
-      return groups.every(key => Array.isArray(key));
+      return groups.every((key) => Array.isArray(key));
     }
 
     function keyGroupIsHeld(keyGroup: ModifierKey[]) {

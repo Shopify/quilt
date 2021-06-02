@@ -45,7 +45,7 @@ export function showPage(): Promise<void> {
   // eslint-disable-next-line no-process-env
   return process.env.NODE_ENV === 'development' &&
     typeof document !== 'undefined'
-    ? new Promise(resolve => {
+    ? new Promise((resolve) => {
         setTimeout(() => {
           document.body.style.visibility = '';
           resolve();
@@ -54,13 +54,11 @@ export function showPage(): Promise<void> {
     : Promise.resolve();
 }
 
-export function removeDuplicate(
-  metas: Array<React.HTMLProps<HTMLMetaElement>>,
-) {
+export function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
   const names = new Set();
   const properties = new Set();
 
-  const metasWithoutDuplicates = metas.reverse().filter(meta => {
+  const metasWithoutDuplicates = metas.reverse().filter((meta) => {
     const {name, property} = meta;
 
     if (name) {

@@ -41,11 +41,11 @@ export function mockPerformance(
       return () => {
         if (type === 'navigation') {
           navigationListeners = navigationListeners.filter(
-            item => item !== listener,
+            (item) => item !== listener,
           );
         } else if (type === 'lifecycleEvent') {
           lifecycleEventListeners = lifecycleEventListeners.filter(
-            item => item !== listener,
+            (item) => item !== listener,
           );
         }
 
@@ -59,14 +59,14 @@ export function mockPerformance(
     usable: noop,
     ...otherStubs,
     simulateNavigation(navigation: Navigation = mockNavigation()) {
-      navigationListeners.forEach(listener => {
+      navigationListeners.forEach((listener) => {
         listener(navigation);
       });
 
       return navigation;
     },
     simulateLifecycleEvent(event: LifecycleEvent = mockLifecycleEvent()) {
-      lifecycleEventListeners.forEach(listener => {
+      lifecycleEventListeners.forEach((listener) => {
         listener(event);
       });
 

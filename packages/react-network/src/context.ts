@@ -6,7 +6,7 @@ import {NetworkManager} from './manager';
 export const NetworkContext = React.createContext<NetworkManager | null>(null);
 
 export interface NetworkUniversalDetails {
-  headers: Record<string, string>;
+  headers: {[key: string]: string};
 }
 export const NetworkUniversalContext = React.createContext<NetworkUniversalDetails | null>(
   null,

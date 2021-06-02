@@ -42,7 +42,7 @@ export interface FieldListConfig<Item extends object> {
 }
 
 interface BaseList<Item extends object> {
-  fields: Array<FieldDictionary<Item>>;
+  fields: FieldDictionary<Item>[];
   dispatch: React.Dispatch<ListAction<Item>>;
   reset(): void;
   dirty: boolean;
@@ -89,7 +89,7 @@ export function useBaseList<Item extends object>(
 
   const handlers = useHandlers(state, dispatch, validationConfigs);
 
-  const fields: Array<FieldDictionary<Item>> = useMemo(() => {
+  const fields: FieldDictionary<Item>[] = useMemo(() => {
     return state.list.map((item, index) => {
       return mapObject(item, (field, key: keyof Item) => {
         return {
@@ -101,8 +101,8 @@ export function useBaseList<Item extends object>(
   }, [state.list, handlers]);
 
   const listWithoutFieldStates: Item[] = useMemo(() => {
-    return state.list.map(item => {
-      return mapObject(item, field => field.value);
+    return state.list.map((item) => {
+      return mapObject(item, (field) => field.value);
     });
   }, [state.list]);
 

@@ -29,7 +29,7 @@ export class FileContext {
 
     return importedTypes.size > 0
       ? t.importDeclaration(
-          [...importedTypes].map(type =>
+          [...importedTypes].map((type) =>
             t.importSpecifier(t.identifier(type), t.identifier(type)),
           ),
           t.stringLiteral(importPath(path, schemaTypesPath)),
@@ -75,7 +75,7 @@ export class OperationContext {
       ? t.tsModuleDeclaration(
           t.identifier(typeName),
           t.tsModuleBlock(
-            exported.map(type => t.exportNamedDeclaration(type, [])),
+            exported.map((type) => t.exportNamedDeclaration(type, [])),
           ),
         )
       : null;

@@ -146,7 +146,7 @@ describe('createServer()', () => {
       const app = new Koa();
       const spy = jest.spyOn(app, 'listen');
 
-      await saddle(port =>
+      await saddle((port) =>
         createServer({app, port, render: () => <MockApp />}),
       );
 
@@ -168,7 +168,7 @@ describe('createServer()', () => {
       const app = new Koa();
       const spy = jest.spyOn(app, 'listen');
 
-      const wrapper = await saddle(port =>
+      const wrapper = await saddle((port) =>
         createServer({app, port, render: () => <MockApp />}),
       );
 

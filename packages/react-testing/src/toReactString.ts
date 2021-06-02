@@ -10,7 +10,7 @@ export function toReactString<Props>(
   // if this is an array node then print all children at the current level
   if (!node.type && node.children.length > 0) {
     return node.children
-      .map(child => toReactString(child, options, level))
+      .map((child) => toReactString(child, options, level))
       .join('\n');
   }
 
@@ -19,7 +19,7 @@ export function toReactString<Props>(
   const props = Object.keys(node.props)
     // we always filter out children no matter what, but unless allProps option
     // is present we will also filter out insigificant props
-    .filter(key =>
+    .filter((key) =>
       options.allProps
         ? key !== 'children'
         : !/^(children|className)$|^(aria|data)-/.test(key),
@@ -62,7 +62,7 @@ export function toReactString<Props>(
 
   return [
     open,
-    ...node.children.map(child => toReactString(child, options, level + 1)),
+    ...node.children.map((child) => toReactString(child, options, level + 1)),
     close,
   ].join('\n');
 }

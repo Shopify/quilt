@@ -54,7 +54,7 @@ export function webAppAutoServer({
               label: 'starting stating HTML development server',
               id: 'StaticHtml.DevServer',
             },
-            step => {
+            (step) => {
               step.indefinite(async ({stdio}) => {
                 const [{createServer}, {URL}] = await Promise.all([
                   import('http'),

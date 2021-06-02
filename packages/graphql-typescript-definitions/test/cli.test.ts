@@ -59,7 +59,7 @@ describe.skip('cli', () => {
 });
 
 function execDetails(command: string) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     exec(command, (error, stdout, stderr) => {
       resolve({
         error: stripFullFilePaths(error),

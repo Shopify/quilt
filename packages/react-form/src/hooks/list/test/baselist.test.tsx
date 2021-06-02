@@ -300,7 +300,7 @@ describe('useBaseList', () => {
           .trigger('onChange', newValue);
         wrapper.find(TextField, {name: 'price0'})!.trigger('onBlur');
 
-        ['option0', 'value0', 'price1', 'option1', 'value1'].forEach(name => {
+        ['option0', 'value0', 'price1', 'option1', 'value1'].forEach((name) => {
           expect(wrapper).toContainReactComponent(TextField, {
             name,
             error: undefined,
@@ -365,7 +365,7 @@ describe('useBaseList', () => {
             const {optionName} = listItem;
 
             const anyDupes = siblings.some(
-              sibling =>
+              (sibling) =>
                 sibling.optionName.value === optionName.value &&
                 sibling.optionValue.value === value,
             );
@@ -781,7 +781,7 @@ describe('useBaseList', () => {
 
       return (
         <>
-          {value.map(variant => (
+          {value.map((variant) => (
             <>
               <p>Value: {variant.price}</p>
               <p>Value: {variant.optionName}</p>
@@ -789,7 +789,7 @@ describe('useBaseList', () => {
             </>
           ))}
 
-          {defaultValue.map(variant => (
+          {defaultValue.map((variant) => (
             <>
               <p>Default: {variant.price}</p>
               <p>Default: {variant.optionName}</p>

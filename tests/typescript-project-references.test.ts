@@ -21,7 +21,7 @@ describe('typescript project references', () => {
     const packages = glob
       .sync(resolve(basePackagePath, '*/package.json'))
       .map(
-        packageJsonPath =>
+        (packageJsonPath) =>
           /quilt\/packages\/(?<packageName>[\w._-]+)\/package\.json$/i.exec(
             packageJsonPath,
           ).groups.packageName,
@@ -30,8 +30,9 @@ describe('typescript project references', () => {
     expect(packages.sort()).toStrictEqual(references.sort());
   });
 
-  references.map(packageName => {
+  references.map((packageName) => {
     const displayedName = prefixPackageName(packageName);
+
     describe(`${displayedName}`, () => {
       it(`includes internal packages used as references`, () => {
         const packageJson = resolvePackageJSONFile(packageName, 'package.json');
@@ -42,7 +43,7 @@ describe('typescript project references', () => {
         const internalReferences = tsconfigJson.references || [];
 
         const internalPackages = internalReferences
-          .map(internalReference =>
+          .map((internalReference) =>
             extractPackagesFromInternalReference(internalReference),
           )
           .sort();
@@ -54,7 +55,7 @@ describe('typescript project references', () => {
         });
 
         const quiltPackage = dependencies
-          .filter(lib => quiltReferences.includes(lib))
+          .filter((lib) => quiltReferences.includes(lib))
           .sort();
 
         expect(internalPackages).toStrictEqual(quiltPackage);

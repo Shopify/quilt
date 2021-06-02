@@ -40,7 +40,7 @@ describe('Browser', () => {
         'some-fake-UI/3.0.1 (nonsense) Apple Microsoft (XML like salamander)',
         'completely bogus UA',
         'Mozilla/5.0 (Linux; Android 6.0; ALE-L23 Build/HuaweiALE-L23) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36',
-      ].forEach(userAgent => {
+      ].forEach((userAgent) => {
         expect(new Browser({userAgent}).isNativeApp).toBe(false);
       });
     });

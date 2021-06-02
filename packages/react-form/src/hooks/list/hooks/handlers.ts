@@ -39,10 +39,10 @@ export function useHandlers<Item extends object>(
               return;
             }
 
-            const siblings = state.list.filter(listItem => listItem !== item);
+            const siblings = state.list.filter((listItem) => listItem !== item);
 
             return runValidation(
-              error =>
+              (error) =>
                 dispatch(
                   updateErrorAction<Item>({target, error: error || ''}),
                 ),

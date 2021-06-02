@@ -30,12 +30,12 @@ export function webAppMagicModules({include = () => true}: Options = {}) {
         webpackAliases,
         webpackPlugins,
       }: BuildWebAppConfigurationHooks | DevWebAppConfigurationHooks) {
-        webpackAliases?.hook(aliases => ({
+        webpackAliases?.hook((aliases) => ({
           ...aliases,
           [MAGIC_MODULE_APP_COMPONENT]: appComponentModulePath,
         }));
 
-        webpackPlugins?.hook(async plugins => {
+        webpackPlugins?.hook(async (plugins) => {
           const {default: WebpackVirtualModules} = await import(
             'webpack-virtual-modules'
           );

@@ -58,7 +58,7 @@ interface Props<Fields> {
 interface State<Fields> {
   submitting: boolean;
   fields: FieldStates<Fields>;
-  dirtyFields: Array<keyof Fields>;
+  dirtyFields: (keyof Fields)[];
   errors: RemoteError[];
   externalErrors: RemoteError[];
 }
@@ -140,14 +140,14 @@ export default class FormState<
 
   // eslint-disable-next-line @shopify/react-prefer-private-members
   public validateForm() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.setState(runAllValidators, () => resolve());
     });
   }
 
   // eslint-disable-next-line @shopify/react-prefer-private-members
   public reset = () => {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.setState(
         (_state, props) =>
           createFormState(props.initialValues, props.externalErrors),
@@ -186,7 +186,7 @@ export default class FormState<
   private get hasClientErrors() {
     const {fields} = this.state;
 
-    return Object.keys(fields).some(fieldPath => {
+    return Object.keys(fields).some((fieldPath) => {
       const field = fields[fieldPath];
       return field.error != null;
     });
@@ -316,7 +316,7 @@ export default class FormState<
   }: {
     fieldPath: Key;
     dirty: boolean;
-    dirtyFields: Array<keyof Fields>;
+    dirtyFields: (keyof Fields)[];
   }) {
     const dirtyFieldsSet = new Set(dirtyFields);
 
@@ -372,7 +372,7 @@ export default class FormState<
       return;
     }
 
-    this.setState(state => ({
+    this.setState((state) => ({
       fields: {
         // FieldStates<Fields> is not spreadable due to a TS bug
         // https://github.com/Microsoft/TypeScript/issues/13557
@@ -471,7 +471,7 @@ function createFormState<Fields>(
   values: Fields,
   externalErrors: RemoteError[] = [],
 ): State<Fields> {
-  const fields: FieldStates<Fields> = mapObject(values, value => {
+  const fields: FieldStates<Fields> = mapObject(values, (value) => {
     return {
       value,
       initialValue: value,
@@ -506,8 +506,8 @@ function runValidator<T, F>(
   }
 
   const errors = validate
-    .map(validator => validator(value, fields))
-    .filter(input => input != null);
+    .map((validator) => validator(value, fields))
+    .filter((input) => input != null);
 
   if (errors.length === 0) {
     return;
@@ -552,10 +552,10 @@ function collectErrors(
   }
 
   if (Array.isArray(message)) {
-    return flatMap(message, itemError => collectErrors(itemError));
+    return flatMap(message, (itemError) => collectErrors(itemError));
   }
 
-  return flatMap(Object.values(message), nestedError =>
+  return flatMap(Object.values(message), (nestedError) =>
     collectErrors(nestedError),
   );
 }
