@@ -202,15 +202,15 @@ import {Stylesheet} from '@shopify/react-html/server';
 />;
 ```
 
-### `<InlineStyle />`
+### `<Style />`
 
-The `<InlineStyle />` component lets you render `<style>` tags in your document dynamically as part of your react app. It supports all of the props of a basic `style` tag, but forces some properties to be the values needed for an inline style. In general, prefer the `inlineStyles` prop of the `Html` component instead of using this component explicitly.
+The `<Style />` component lets you render `<style>` tags in your document dynamically as part of your react app. It supports all of the props of a basic `style` tag, but forces some properties to be the values needed for an inline style. In general, prefer the `inlineStyles` prop of the `Html` component instead of using this component explicitly.
 
 ```tsx
-import {InlineStyle} from '@shopify/react-html/server';
+import {Style} from '@shopify/react-html/server';
 
 const css = '.foo {color: red}';
-<InlineStyle>{css}</InlineStyle>;
+<Style>{css}</Style>;
 ```
 
 ### `<Script />`

@@ -6,10 +6,10 @@ import {HtmlManager} from '../../manager';
 import {HtmlContext} from '../../context';
 import {MANAGED_ATTRIBUTE, removeDuplicate} from '../../utilities';
 
+import {Style} from './Style';
 import {Script} from './Script';
 import Serialize from './Serialize';
 import {Stylesheet} from './Stylesheet';
-import {InlineStyle} from './InlineStyle';
 
 export interface Asset {
   path: string;
@@ -101,9 +101,7 @@ export default function Html({
   });
 
   const inlineStylesMarkup = inlineStyles.map(inlineStyle => {
-    return (
-      <InlineStyle key={inlineStyle.content}>{inlineStyle.content}</InlineStyle>
-    );
+    return <Style key={inlineStyle.content}>{inlineStyle.content}</Style>;
   });
 
   const blockingScriptsMarkup = blockingScripts.map(script => {
