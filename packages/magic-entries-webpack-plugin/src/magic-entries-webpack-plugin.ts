@@ -7,6 +7,7 @@ export interface Options {
   pattern: string;
   folder: string | string[];
   nameFromFile: (file: string) => string;
+  onCompilerEntries: ((entries: Entry) => Entry) | null;
 }
 
 type EntryOption = Compiler['options']['entry'];
@@ -44,11 +45,13 @@ export class MagicEntriesPlugin {
     pattern = '*.entry.{jsx,js,ts,tsx}',
     folder = '.',
     nameFromFile = defaultNameFromFile,
+    onCompilerEntries = null,
   }: Partial<Options> = {}) {
     this.options = {
       folder,
       pattern,
       nameFromFile,
+      onCompilerEntries,
     };
     this.compiledPattern = globToRegExp(pattern, {extended: true});
   }
@@ -63,7 +66,9 @@ export class MagicEntriesPlugin {
         ...(await defaultEntries),
         ...(await this.autodetectEntries(compiler)),
       };
-
+      if (this.options.onCompilerEntries) {
+        return this.options.onCompilerEntries(entries);
+      }
       return entries;
     };
   }
