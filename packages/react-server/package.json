@@ -52,12 +52,13 @@
     "@types/koa": "^2.0.0",
     "@types/webpack-virtual-modules": "^0.1.0",
     "get-port": "^5.0.0",
+    "memfs": "^3.2.2",
     "node-loader": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "17.0.2",
     "saddle-up": "^0.5.4",
     "setimmediate": "^1.0.5",
-    "webpack": "^4.25.1"
+    "webpack": ">=5.40.0"
   },
   "peerDependencies": {
     "cross-fetch": ">=3.0.0",

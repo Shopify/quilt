@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "@shopify/rpc": "^2.0.4",
-    "loader-utils": "^1.0.0",
     "webpack-virtual-modules": "^0.4.3"
   },
   "devDependencies": {
@@ -49,10 +48,8 @@
     "@types/babel__core": ">=7.0.0",
     "@types/babel__traverse": ">=7.0.0",
     "@types/koa-mount": "^3.0.1",
-    "@types/loader-utils": "^1.0.0",
-    "@types/webpack": "^4.0.0",
-    "@types/webpack-virtual-modules": "^0.1.0",
-    "koa-mount": "^3.0.0"
+    "koa-mount": "^3.0.0",
+    "webpack": ">=5.38.0"
   },
   "files": [
     "build/",
@@ -72,8 +69,7 @@
     "worker.esnext"
   ],
   "optionalDependencies": {
-    "@babel/core": "^7.0.0",
-    "webpack": "^4.25.1"
+    "@babel/core": "^7.0.0"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",

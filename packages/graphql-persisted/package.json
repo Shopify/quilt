@@ -54,7 +54,7 @@
     "koa.esnext"
   ],
   "optionalDependencies": {
-    "@shopify/sewing-kit-koa": "^7.0.5"
+    "@shopify/sewing-kit-koa": "^7.0.2-webpack-5-betat.10"
   },
   "peerDependencies": {
     "koa": ">=2.0.0"

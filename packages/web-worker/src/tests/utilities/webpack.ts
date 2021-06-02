@@ -37,13 +37,21 @@ export function runWebpack(
             {
               test: /\.ts$/,
               include: {or: [srcRoot, rpcSrcRoot]},
-              loaders: [
+              use: [
                 {
                   loader: 'babel-loader',
                   options: {
                     babelrc: false,
-                    browsers: 'last 1 chrome version',
-                    presets: [['@shopify/babel-preset', {typescript: true}]],
+                    presets: [
+                      [
+                        '@shopify/babel-preset',
+                        {
+                          typescript: true,
+                          browsers: 'last 1 chrome version',
+                          useBuiltIns: 'usage',
+                        },
+                      ],
+                    ],
                   },
                 },
               ],

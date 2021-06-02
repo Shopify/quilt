@@ -1,24 +1,20 @@
 import * as path from 'path';
 
-import {getOptions} from 'loader-utils';
-import SingleEntryPlugin from 'webpack/lib/SingleEntryPlugin';
-import WebWorkerTemplatePlugin from 'webpack/lib/webworker/WebWorkerTemplatePlugin';
-import FetchCompileWasmTemplatePlugin from 'webpack/lib/web/FetchCompileWasmTemplatePlugin';
+import type {LoaderContext, Compilation, Compiler, Chunk} from 'webpack';
+import {EntryPlugin, webworker, web} from 'webpack';
 
 import {WebWorkerPlugin} from './plugin';
 
 const NAME = 'WebWorker';
 
+const moduleWrapperCache = new Map<string, string | false>();
+
 export interface Options {
   name?: string;
-  plain?: boolean;
+  wrapperModule?: string;
 }
 
-export function pitch(
-  this: import('webpack').loader.LoaderContext,
-  request: string,
-) {
-  this.cacheable(false);
+export function pitch(this: LoaderContext<Options>, request: string) {
   const callback = this.async();
 
   const {
@@ -28,99 +24,102 @@ export function pitch(
     _compilation: compilation,
   } = this;
 
-  if (compiler.options.output!.globalObject !== 'self') {
-    return callback!(
+  if (compiler == null || compilation == null) {
+    return callback(new Error('compiler or compilation is undefined'));
+  }
+
+  if (compiler.options.output.globalObject !== 'self') {
+    return callback(
       new Error(
         'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @shopify/web-worker babel plugin.',
       ),
     );
   }
 
-  const plugin: WebWorkerPlugin = (compiler.options.plugins || []).find(
+  const plugin: WebWorkerPlugin | undefined = compiler.options.plugins.find(
     WebWorkerPlugin.isInstance,
-  ) as any;
+  );
 
   if (plugin == null) {
-    throw new Error(
-      'You must also include the WebWorkerPlugin from `@shopify/web-worker` when using the Babel plugin.',
+    return callback(
+      new Error(
+        'You must also include the WebWorkerPlugin from `@shopify/web-worker` when using the Babel plugin.',
+      ),
     );
   }
 
-  const options: Options = getOptions(this) || {};
-  const {name = String(plugin.workerId++), plain = false} = options;
+  const options: Options = this.getOptions();
+  const {name = String(plugin.workerId++), wrapperModule} = options;
 
   const virtualModule = path.join(
     path.dirname(resourcePath),
     `${path.basename(resourcePath, path.extname(resourcePath))}.worker.js`,
   );
 
-  if (!plain) {
+  let wrapperContent: string | undefined;
+
+  if (wrapperModule) {
+    this.addDependency(wrapperModule);
+    const cachedContent = moduleWrapperCache.get(wrapperModule);
+
+    if (typeof cachedContent === 'string') {
+      wrapperContent = cachedContent;
+    } else if (cachedContent == null) {
+      try {
+        // @ts-expect-error readFileSync is available here
+        wrapperContent = this.fs.readFileSync(wrapperModule).toString();
+        moduleWrapperCache.set(wrapperModule, wrapperContent ?? false);
+      } catch (error) {
+        moduleWrapperCache.set(wrapperModule, false);
+      }
+    }
+  }
+
+  if (wrapperContent) {
     plugin.virtualModules.writeModule(
       virtualModule,
-      `
-        import * as api from ${JSON.stringify(request)};
-        import {expose} from '@shopify/web-worker/worker';
-
-        expose(api);
-      `,
+      wrapperContent.replace('{{WORKER_MODULE}}', JSON.stringify(request)),
     );
   }
 
   const workerOptions = {
-    filename: addWorkerSubExtension(
-      compiler.options.output!.filename as string,
-    ),
+    filename: addWorkerSubExtension(compiler.options.output.filename as string),
     chunkFilename: addWorkerSubExtension(
-      compiler.options.output!.chunkFilename!,
+      compiler.options.output.chunkFilename as string,
     ),
     globalObject: (plugin && plugin.options.globalObject) || 'self',
   };
 
-  const workerCompiler: import('webpack').Compiler = compilation.createChildCompiler(
+  const workerCompiler: Compiler = compilation.createChildCompiler(
     NAME,
     workerOptions,
     [],
   );
 
-  (workerCompiler as any).context = (compiler as any).context;
+  workerCompiler.context = compiler.context;
 
-  new WebWorkerTemplatePlugin({}).apply(workerCompiler);
-  new FetchCompileWasmTemplatePlugin({
+  new webworker.WebWorkerTemplatePlugin().apply(workerCompiler);
+  new web.FetchCompileWasmPlugin({
     mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new SingleEntryPlugin(context, plain ? request : virtualModule, name).apply(
-    workerCompiler,
-  );
+  new EntryPlugin(
+    context,
+    wrapperContent === null ? request : virtualModule,
+    name,
+  ).apply(workerCompiler);
 
   for (const aPlugin of plugin.options.plugins || []) {
     aPlugin.apply(workerCompiler);
   }
 
-  const subCache = `subcache ${__dirname} ${request}`;
-  workerCompiler.hooks.compilation.tap(NAME, (compilation) => {
-    if (!compilation.cache) {
-      return;
-    }
+  workerCompiler.runAsChild(
+    (error?: Error, entries?: Chunk[], compilation?: Compilation) => {
+      let finalError: Error | undefined;
 
-    if (!compilation.cache[subCache]) {
-      compilation.cache[subCache] = {};
-    }
-
-    compilation.cache = compilation.cache[subCache];
-  });
-
-  (workerCompiler as any).runAsChild(
-    (
-      error: Error | null,
-      entries: {files: string[]}[] | null,
-      compilation: import('webpack').compilation.Compilation,
-    ) => {
-      let finalError;
-
-      if (!error && compilation.errors && compilation.errors.length) {
+      if (!error && compilation?.errors && compilation.errors.length) {
         finalError = compilation.errors[0];
       }
-      const entry = entries && entries[0] && entries[0].files[0];
+      const entry = entries && entries[0] && Array.from(entries[0].files)[0];
 
       if (!finalError && !entry) {
         finalError = new Error(`WorkerPlugin: no entry for ${request}`);
@@ -139,7 +138,9 @@ export function pitch(
 }
 
 function addWorkerSubExtension(file: string) {
-  return file.replace(/\.([a-z]+)$/i, '.worker.$1');
+  return file.includes('[name]')
+    ? file.replace(/\.([a-z]+)$/i, '.worker.$1')
+    : file.replace(/\.([a-z]+)$/i, '.[name].worker.$1');
 }
 
 const loader = {

@@ -44,20 +44,10 @@ export default class Assets {
   }
 
   async scripts(options: AssetOptions = {}) {
-    const js = getAssetsFromManifest(
+    return getAssetsFromManifest(
       {...options, kind: AssetKind.Scripts},
       await this.getResolvedManifest(options.locale),
     );
-
-    const scripts =
-      // Sewing Kit does not currently include the vendor DLL in its asset
-      // manifest, so we manually add it here (it only exists in dev).
-      // eslint-disable-next-line no-process-env
-      process.env.NODE_ENV === 'development'
-        ? [{path: `${this.assetPrefix}dll/vendor.js`}, ...js]
-        : js;
-
-    return scripts;
   }
 
   async styles(options: AssetOptions = {}) {
