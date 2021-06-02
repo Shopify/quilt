@@ -18,9 +18,7 @@ const secondWorkerFile = 'src/worker2.js';
 
 jest.setTimeout(30_000);
 
-// @TODO: Disabled for now because these tests are flaky and take a long time to run
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('web-worker', () => {
+describe('web-worker', () => {
   it('creates a worker factory that can produce workers that act like the original module', async () => {
     const greetingPrefix = 'Hello ';
     const greetingTarget = 'world';
@@ -1222,7 +1220,7 @@ function runWebpack(
       rules: [
         {
           include: context.workspace.resolvePath(mainFile),
-          loaders: [
+          use: [
             {
               loader: 'babel-loader',
               options: {
