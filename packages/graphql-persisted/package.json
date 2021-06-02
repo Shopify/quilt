@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-persisted",
-  "version": "2.0.9",
+  "version": "3.0.0-wp5-beta.3",
   "license": "MIT",
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "typesVersions": {
@@ -54,7 +54,7 @@
     "koa.esnext"
   ],
   "optionalDependencies": {
-    "@shopify/sewing-kit-koa": "^7.0.9"
+    "@shopify/sewing-kit-koa": "^8.0.0-wp5-beta.3"
   },
   "peerDependencies": {
     "koa": ">=2.0.0"

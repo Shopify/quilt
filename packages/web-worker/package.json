@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "3.0.3",
+  "version": "4.0.0-wp5-beta.2",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
@@ -87,35 +87,23 @@
     "@types/koa": "^2.11.3",
     "@types/koa-mount": "^4.0.0",
     "@types/koa-static": "^4.0.1",
-    "@types/loader-utils": "^2.0.0",
-    "@types/webpack": ">=4 <5",
-    "@types/webpack-virtual-modules": "^0.1.0",
     "babel-loader": "^8.2.0",
     "fs-extra": "^9.0.0",
     "get-port": "^5.1.0",
     "koa": "^2.11.0",
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
-    "loader-utils": "^2.0.0",
     "rollup-plugin-copy": "^3.4.0",
-    "webpack": ">=4 <5",
-    "webpack-virtual-modules": "^0.4.0"
+    "webpack": ">=5.38.0",
+    "webpack-virtual-modules": "^0.4.3"
   },
   "peerDependencies": {
     "@babel/core": "^7.0.0",
-    "@types/webpack": ">=4 <5",
-    "loader-utils": "^2.0.0",
-    "webpack": ">=4 <5",
-    "webpack-virtual-modules": "^0.4.0"
+    "webpack": ">=5.38.0",
+    "webpack-virtual-modules": "^0.4.3"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
-      "optional": true
-    },
-    "@types/webpack": {
-      "optional": true
-    },
-    "loader-utils": {
       "optional": true
     },
     "webpack-virtual-modules": {

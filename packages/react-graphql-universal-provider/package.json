@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql-universal-provider",
-  "version": "4.3.5",
+  "version": "5.0.0-wp5-beta.1",
   "license": "MIT",
   "description": "A self-serializing/deserializing GraphQL provider that works for isomorphic applications",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/react-graphql": "^7.1.13",
+    "@shopify/react-graphql": "^8.0.0-wp5-beta.1",
     "@shopify/react-hooks": "^2.1.8",
     "@shopify/react-html": "^11.1.10",
     "@shopify/react-network": "^4.1.11",

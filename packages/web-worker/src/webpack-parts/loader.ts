@@ -1,9 +1,7 @@
 import * as path from 'path';
 
-import {getOptions} from 'loader-utils';
-import SingleEntryPlugin from 'webpack/lib/SingleEntryPlugin';
-import WebWorkerTemplatePlugin from 'webpack/lib/webworker/WebWorkerTemplatePlugin';
-import FetchCompileWasmTemplatePlugin from 'webpack/lib/web/FetchCompileWasmTemplatePlugin';
+import type {LoaderContext, Compilation, Compiler, Chunk} from 'webpack';
+import {EntryPlugin, webworker, web} from 'webpack';
 
 import {WebWorkerPlugin} from './plugin';
 
@@ -16,12 +14,9 @@ export interface Options {
   wrapperModule?: string;
 }
 
-export function pitch(
-  this: import('webpack').loader.LoaderContext,
-  request: string,
-) {
-  this.cacheable(false);
+export function pitch(this: LoaderContext<Options>, request: string) {
   const callback = this.async();
+  this.cacheable(false);
 
   const {
     context,
@@ -30,8 +25,13 @@ export function pitch(
     _compilation: compilation,
   } = this;
 
-  if (compiler.options.output!.globalObject !== 'self') {
-    callback!(
+  if (compiler == null || compilation == null) {
+    callback(new Error('compiler or compilation is undefined'));
+    return;
+  }
+
+  if (compiler.options.output.globalObject !== 'self') {
+    callback(
       new Error(
         'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @shopify/web-worker babel plugin.',
       ),
@@ -39,17 +39,20 @@ export function pitch(
     return;
   }
 
-  const plugin: WebWorkerPlugin = (compiler.options.plugins || []).find(
+  const plugin: WebWorkerPlugin | undefined = compiler.options.plugins.find(
     WebWorkerPlugin.isInstance,
-  ) as any;
+  );
 
   if (plugin == null) {
-    throw new Error(
-      'You must also include the WebWorkerPlugin from `@shopify/web-worker` when using the Babel plugin.',
+    callback(
+      new Error(
+        'You must also include the WebWorkerPlugin from `@shopify/web-worker` when using the Babel plugin.',
+      ),
     );
+    return;
   }
 
-  const options: Options = getOptions(this) || {};
+  const options: Options = this.getOptions();
   const {name = String(plugin.workerId++), wrapperModule} = options;
 
   const virtualModule = path.join(
@@ -67,6 +70,7 @@ export function pitch(
       wrapperContent = cachedContent;
     } else if (cachedContent == null) {
       try {
+        // @ts-expect-error readFileSync is available here
         wrapperContent = this.fs.readFileSync(wrapperModule).toString();
         moduleWrapperCache.set(wrapperModule, wrapperContent ?? false);
       } catch (error) {
@@ -85,28 +89,28 @@ export function pitch(
   const workerOptions = {
     filename:
       plugin.options.filename ??
-      addWorkerSubExtension(compiler.options.output!.filename as string),
+      addWorkerSubExtension(compiler.options.output.filename as string),
     chunkFilename: addWorkerSubExtension(
-      compiler.options.output!.chunkFilename!,
+      compiler.options.output.chunkFilename as string,
     ),
     globalObject: (plugin && plugin.options.globalObject) || 'self',
   };
 
-  const workerCompiler: import('webpack').Compiler = compilation.createChildCompiler(
+  const workerCompiler: Compiler = compilation.createChildCompiler(
     NAME,
     workerOptions,
     [],
   );
 
-  (workerCompiler as any).context = (compiler as any).context;
+  workerCompiler.context = compiler.context;
 
-  new WebWorkerTemplatePlugin({}).apply(workerCompiler);
-  new FetchCompileWasmTemplatePlugin({
+  new webworker.WebWorkerTemplatePlugin().apply(workerCompiler);
+  new web.FetchCompileWasmPlugin({
     mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new SingleEntryPlugin(
+  new EntryPlugin(
     context,
-    wrapperContent == null ? request : virtualModule,
+    wrapperContent === undefined ? request : virtualModule,
     name,
   ).apply(workerCompiler);
 
@@ -114,31 +118,14 @@ export function pitch(
     aPlugin.apply(workerCompiler);
   }
 
-  const subCache = `subcache ${__dirname} ${request}`;
-  workerCompiler.hooks.compilation.tap(NAME, (compilation) => {
-    if (!compilation.cache) {
-      return;
-    }
+  workerCompiler.runAsChild(
+    (error?: Error, entries?: Chunk[], compilation?: Compilation) => {
+      let finalError: Error | undefined;
 
-    if (!compilation.cache[subCache]) {
-      compilation.cache[subCache] = {};
-    }
-
-    compilation.cache = compilation.cache[subCache];
-  });
-
-  (workerCompiler as any).runAsChild(
-    (
-      error: Error | null,
-      entries: {files: string[]}[] | null,
-      compilation: import('webpack').compilation.Compilation,
-    ) => {
-      let finalError;
-
-      if (!error && compilation.errors && compilation.errors.length) {
+      if (!error && compilation?.errors && compilation.errors.length) {
         finalError = compilation.errors[0];
       }
-      const entry = entries && entries[0] && entries[0].files[0];
+      const entry = entries && entries[0] && Array.from(entries[0].files)[0];
 
       if (!finalError && !entry) {
         finalError = new Error(`WorkerPlugin: no entry for ${request}`);
