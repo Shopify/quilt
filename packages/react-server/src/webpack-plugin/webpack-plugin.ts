@@ -1,6 +1,6 @@
 import {join} from 'path';
 
-import {Compiler} from 'webpack';
+import {Compiler, WatchIgnorePlugin} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 
 import {HEADER, Options, Entrypoint, noSourceExists} from './shared';
@@ -34,6 +34,12 @@ export class ReactServerPlugin {
     const modules = this.modules(compiler);
     const virtualModules = new VirtualModulesPlugin(modules);
     (virtualModules as any).apply(compiler);
+
+    const ignorePaths = (Object.keys(modules) as (string | RegExp)[]).concat(
+      compiler.options.watchOptions.ignored || [],
+    );
+    const watchIgnore = new WatchIgnorePlugin({paths: ignorePaths});
+    watchIgnore.apply(compiler);
   }
 
   private modules(compiler: Compiler) {

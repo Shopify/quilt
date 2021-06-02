@@ -24,32 +24,38 @@ const {readFileSync, writeFileSync} = require('fs');
 
 const ROOT_PATH = path.resolve(__dirname, '..');
 
-const modifiedPackageJsons = execSync(`git diff --name-only`, {stdio: ['pipe']})
-  .toString()
-  .trim()
-  .split('\n')
-  .filter((filename) => filename.endsWith('package.json'));
+try {
+  const modifiedPackageJsons = execSync(`git diff --name-only`, {
+    stdio: ['pipe'],
+  })
+    .toString()
+    .trim()
+    .split('\n')
+    .filter((filename) => filename.endsWith('package.json'));
 
-const packageLocations = JSON.parse(
-  execSync(`yarn run --silent lerna changed --json`, {stdio: ['pipe']}),
-)
-  .map(({location}) => location)
-  .filter((location) =>
-    modifiedPackageJsons.includes(
-      path.relative(ROOT_PATH, path.join(location, 'package.json')),
-    ),
-  );
+  const packageLocations = JSON.parse(
+    execSync(`yarn run --silent lerna changed --json`, {stdio: ['pipe']}),
+  )
+    .map(({location}) => location)
+    .filter((location) =>
+      modifiedPackageJsons.includes(
+        path.relative(ROOT_PATH, path.join(location, 'package.json')),
+      ),
+    );
 
-const updatedChangelogs = packageLocations
-  .map((location) => updateChangelogForPackage(location))
-  .filter((changelog) => changelog !== '');
+  const updatedChangelogs = packageLocations
+    .map((location) => updateChangelogForPackage(location))
+    .filter((changelog) => changelog !== '');
 
-if (updatedChangelogs.length > 0) {
-  const changelogsForGit = updatedChangelogs
-    .map((changelogPath) => JSON.stringify(changelogPath))
-    .join(' ');
+  if (updatedChangelogs.length > 0) {
+    const changelogsForGit = updatedChangelogs
+      .map((changelogPath) => JSON.stringify(changelogPath))
+      .join(' ');
 
-  execSync(`git add ${changelogsForGit}`);
+    execSync(`git add ${changelogsForGit}`);
+  }
+} catch (error) {
+  console.error(error);
 }
 
 /**

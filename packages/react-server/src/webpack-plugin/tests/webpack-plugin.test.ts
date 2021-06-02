@@ -2,13 +2,18 @@ import 'setimmediate';
 
 import path from 'path';
 
-import webpack, {Compiler} from 'webpack';
+import memfs from 'memfs';
+import webpack, {Compiler, Stats} from 'webpack';
 
-import {HEADER, Options} from '../shared';
+import {HEADER, Options, Entrypoint} from '../shared';
 
 import {withWorkspace} from './utilities/workspace';
 
 const BUILD_TIMEOUT = 10000;
+
+const DEFAULT_SERVER_FILE_EPATH = `${Entrypoint.Server}.js`;
+const DEFAULT_CLIENT_FILE_PATH = `${Entrypoint.Client}.js`;
+const DEFAULT_ERROR_FILE_PATH = `${Entrypoint.Error}.entry.client.js`;
 
 describe('webpack-plugin', () => {
   describe('node', () => {
@@ -21,11 +26,10 @@ describe('webpack-plugin', () => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults, clientResults] = await runBuild(name);
-          const [client, server] = [
-            getModule(clientResults, 'client').source,
-            getModule(serverResults, 'server').source,
-          ];
+          const [client, server] = await runBuild(name, [
+            DEFAULT_CLIENT_FILE_PATH,
+            DEFAULT_SERVER_FILE_EPATH,
+          ]);
 
           expect(client).toBeDefined();
           expect(client).toMatch(HEADER);
@@ -49,12 +53,13 @@ describe('webpack-plugin', () => {
           await workspace.write('index.js', BASIC_JS_MODULE);
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
-          const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const [client, server] = await runBuild(name, [
+            DEFAULT_CLIENT_FILE_PATH,
+            DEFAULT_SERVER_FILE_EPATH,
+          ]);
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch(HEADER);
+          expect(server).toMatch(HEADER);
+          expect(client).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -70,13 +75,16 @@ describe('webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client/index.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const [client, clientIndex, server] = await runBuild(name, [
+            DEFAULT_CLIENT_FILE_PATH,
+            'client/index.js',
+            DEFAULT_SERVER_FILE_EPATH,
+          ]);
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).not.toMatch(HEADER);
+          expect(server).toMatch(HEADER);
+          expect(client).toBeNull();
+          expect(clientIndex).toMatch('I am a bespoke entry');
+          expect(clientIndex).not.toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -92,13 +100,14 @@ describe('webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('client.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const [client, server] = await runBuild(name, [
+            DEFAULT_CLIENT_FILE_PATH,
+            DEFAULT_SERVER_FILE_EPATH,
+          ]);
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).not.toMatch(HEADER);
+          expect(server).toMatch(HEADER);
+          expect(client).toMatch('I am a bespoke entry');
+          expect(client).not.toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -114,13 +123,14 @@ describe('webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const [client, server] = await runBuild(name, [
+            DEFAULT_CLIENT_FILE_PATH,
+            DEFAULT_SERVER_FILE_EPATH,
+          ]);
 
-          expect(serverModule.source).not.toMatch(HEADER);
-          expect(serverModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).toMatch(HEADER);
+          expect(server).not.toMatch(HEADER);
+          expect(server).toMatch('I am a bespoke entry');
+          expect(client).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -136,13 +146,16 @@ describe('webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
           await workspace.write('server/index.js', BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const [client, server, serverIndex] = await runBuild(name, [
+            DEFAULT_CLIENT_FILE_PATH,
+            DEFAULT_SERVER_FILE_EPATH,
+            'server/index.js',
+          ]);
 
-          expect(serverModule.source).not.toMatch(HEADER);
-          expect(serverModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).toMatch(HEADER);
+          expect(server).toBeNull();
+          expect(serverIndex).not.toMatch(HEADER);
+          expect(serverIndex).toMatch('I am a bespoke entry');
+          expect(client).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -162,12 +175,13 @@ describe('webpack-plugin', () => {
           );
           await workspace.write(`${basePath}/index.js`, BASIC_ENTRY);
 
-          const [serverResults, clientResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
-          const clientModule = getModule(clientResults, 'app/ui/client');
+          const [client, server] = await runBuild(name, [
+            `${basePath}/${DEFAULT_CLIENT_FILE_PATH}`,
+            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+          ]);
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch(HEADER);
+          expect(server).toMatch(HEADER);
+          expect(client).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -191,9 +205,9 @@ describe('webpack-plugin', () => {
             createWebpackConfig(customConfig),
           );
 
-          const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'server');
-          expect(serverModule.source).toMatch('proxy: false');
+          const [server] = await runBuild(name, [DEFAULT_SERVER_FILE_EPATH]);
+
+          expect(server).toMatch('proxy: false');
         });
       },
       BUILD_TIMEOUT,
@@ -218,15 +232,12 @@ describe('webpack-plugin', () => {
             createWebpackConfig(customConfig),
           );
 
-          const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'server');
+          const [server] = await runBuild(name, [DEFAULT_SERVER_FILE_EPATH]);
 
-          expect(serverModule.source).toMatch(`port: ${customConfig.port}`);
-          expect(serverModule.source).toMatch(`ip: "${customConfig.host}"`);
-          expect(serverModule.source).toMatch(
-            `assetPrefix: "${customConfig.assetPrefix}"`,
-          );
-          expect(serverModule.source).toMatch(`proxy: ${customConfig.proxy}`);
+          expect(server).toMatch(`port: ${customConfig.port}`);
+          expect(server).toMatch(`ip: "${customConfig.host}"`);
+          expect(server).toMatch(`assetPrefix: "${customConfig.assetPrefix}"`);
+          expect(server).toMatch(`proxy: ${customConfig.proxy}`);
         });
       },
       BUILD_TIMEOUT,
@@ -252,10 +263,11 @@ describe('webpack-plugin', () => {
             createWebpackConfig({basePath}),
           );
 
-          const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
+          const [server] = await runBuild(name, [
+            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+          ]);
 
-          expect(serverModule.source).toMatch("import Error from 'error';");
+          expect(server).toMatch("import Error from 'error';");
         });
       },
       BUILD_TIMEOUT,
@@ -275,10 +287,11 @@ describe('webpack-plugin', () => {
             createWebpackConfig({basePath}),
           );
 
-          const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
+          const [server] = await runBuild(name, [
+            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+          ]);
 
-          expect(serverModule.source).not.toMatch("import Error from 'error';");
+          expect(server).not.toMatch("import Error from 'error';");
         });
       },
       BUILD_TIMEOUT,
@@ -302,10 +315,11 @@ describe('webpack-plugin', () => {
             createWebpackConfig({basePath}),
           );
 
-          const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
+          const [server] = await runBuild(name, [
+            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+          ]);
 
-          expect(serverModule.source).toMatch("import Error from 'error';");
+          expect(server).toMatch("import Error from 'error';");
         });
       },
       BUILD_TIMEOUT,
@@ -313,7 +327,10 @@ describe('webpack-plugin', () => {
   });
 });
 
-function runBuild(configPath: string): Promise<any[]> {
+function runBuild(
+  configPath: string,
+  basePaths: string[],
+): Promise<(string | null)[]> {
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
       './packages/react-server/src/webpack-plugin/tests/fixtures',
@@ -332,12 +349,10 @@ function runBuild(configPath: string): Promise<any[]> {
           context: pathFromRoot,
         };
 
-    // We use MemoryOutputFileSystem to prevent webpack from outputting to our actual FS
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const MemoryOutputFileSystem = require('webpack/lib/MemoryOutputFileSystem');
-
     const compiler: Compiler = webpack(contextConfig);
-    compiler.outputFileSystem = new MemoryOutputFileSystem({});
+    // We use memfs.fs to prevent webpack from outputting to our actual FS
+    // from https://github.com/webpack/webpack/blob/4837c3ddb9da8e676c73d97460e19689dd9d4691/test/configCases/types/filesystems/webpack.config.js#L8
+    compiler.outputFileSystem = memfs.fs;
 
     compiler.run((err, stats) => {
       if (err) {
@@ -345,29 +360,27 @@ function runBuild(configPath: string): Promise<any[]> {
         return;
       }
 
-      if (stats.hasErrors()) {
-        reject(stats.toString());
+      if (stats!.hasErrors()) {
+        reject(stats!.toString());
         return;
       }
 
-      const statsObject = stats.toJson();
-      resolve(statsObject.children!);
+      // the Stats type is incorrect from webpack v5.39.1
+      // https://github.com/webpack/webpack/blob/5d297327bc1f208de16c29f5c9b31d2b8a06bce4/types.d.ts#L1848
+      const fs = ((stats as any).stats[0] as Stats).compilation
+        .inputFileSystem as typeof memfs.fs;
+
+      const sources = basePaths.map((basePath) => {
+        try {
+          return fs.readFileSync(path.join(pathFromRoot, basePath)).toString();
+        } catch {
+          return null;
+        }
+      });
+
+      resolve(sources);
     });
   });
-}
-
-function getModule(results: any, basePath: string) {
-  const newResults = results.modules.find(
-    ({name}) =>
-      name.includes(`./${basePath}.js`) ||
-      name.includes(`./${basePath}/index.js`),
-  );
-
-  if (newResults.source) {
-    return newResults;
-  }
-
-  return getModule(newResults, basePath);
 }
 
 const BASIC_ENTRY = `console.log('I am a bespoke entry');`;
@@ -406,7 +419,9 @@ const universal = {
     rules: [
       {
         test: /\\.mjs$/,
-        type: "javascript/auto"
+        resolve: {
+          fullySpecified: false,
+        },
       },
       {
         test: /node\\/.*\\.js$/,
@@ -421,9 +436,9 @@ const server = {
   target: 'node',
   entry: './${basePath}/server',
   externals: [
-    (context, request, callback) => {
+    ({context, request}, callback) => {
       if (/node_modules/.test(context)) {
-        return callback(null, 'commonjs' + request);
+        return callback(null, 'commonjs ' + request);
       }
       callback();
     },
