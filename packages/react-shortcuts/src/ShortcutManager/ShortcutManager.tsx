@@ -141,8 +141,6 @@ function isFocusedInput() {
     return false;
   }
 
-  console.log('is target contentEditable', target.hasAttribute('contenteditable'))
-
   return (
       target.tagName === 'INPUT' ||
       target.tagName === 'SELECT' ||
