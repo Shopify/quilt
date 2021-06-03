@@ -6,10 +6,10 @@ export interface Data {
   node: HTMLElement | null | undefined;
   ordered: Key[];
   held?: HeldKey;
-  ignoreInput: boolean;
-  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
+  disabled?: boolean;
   allowDefault: boolean;
-  allowFocusedInput?: boolean;
+  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
+  ignoreInput?(): void;
 }
 
 export default class ShortcutManager {
@@ -84,8 +84,8 @@ export default class ShortcutManager {
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
     this.shortcutsMatched = shortcuts.filter(
-      ({ordered, held, node, allowFocusedInput, ignoreInput}) => {
-        if (isFocusedInput() && !allowFocusedInput && !ignoreInput) {
+      ({ordered, held, node, disabled, ignoreInput = isFocusedInput}) => {
+        if (disabled || ignoreInput()) {
           return false;
         }
 
@@ -107,6 +107,8 @@ export default class ShortcutManager {
       },
     );
   }
+
+
 
   private callMatchedShortcut(event: Event) {
     const longestMatchingShortcut = this.shortcutsMatched.find(({ordered}) =>
@@ -139,12 +141,14 @@ function isFocusedInput() {
     return false;
   }
 
+  console.log('is target contentEditable', target.hasAttribute('contenteditable'))
+
   return (
-    target.tagName === 'INPUT' ||
-    target.tagName === 'SELECT' ||
-    target.tagName === 'TEXTAREA' ||
-    target.hasAttribute('contenteditable')
-  );
+      target.tagName === 'INPUT' ||
+      target.tagName === 'SELECT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.hasAttribute('contenteditable')
+    );
 }
 
 function arraysMatch<T>(first: T[], second: T[]) {

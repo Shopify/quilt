@@ -7,6 +7,7 @@ import Shortcut from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 
 import ShortcutWithFocus from './ShortcutWithRef';
+import ShortcutWithFocusedInput from './ShortcutWithInput';
 
 describe('ShortcutManager', () => {
   beforeEach(() => {
@@ -225,60 +226,53 @@ describe('ShortcutManager', () => {
     expect(event.preventDefault).toHaveBeenCalled();
   });
 
-  // TODO: correctly implement isFocusedInput mock
-  it.skip('allows shortcuts for isFocusedInput when passed allowFocusedInput', () => {
+  describe('disabled', () => {
+    it('disables shortcuts when true', () => {
+      const spy = jest.fn();
 
-    jest.mock('../ShortcutManager', () => ({
-      isFocusedInput: jest.fn(),
-    }));
+      mount(
+        <ShortcutProvider>
+          <Shortcut ordered={['a']} onMatch={spy} disabled />
+        </ShortcutProvider>,
+      );
 
-    const isFocusedInputMock: jest.Mock = jest.requireMock(
-      '../ShortcutManager',
-    ).isFocusedInput;
+      keydown('a');
 
-    isFocusedInputMock.mockImplementation(() => true);
+      expect(spy).not.toHaveBeenCalled();
+    });
 
-    const spy = jest.fn();
+    it('enables shortcuts by default', () => {
+      const spy = jest.fn();
 
-    mount(
-      <ShortcutProvider>
-          <Shortcut ordered={['a']} onMatch={spy} allowFocusedInput/>
-      </ShortcutProvider>,
-    );
-
-    keydown('a');
-
-    expect(spy).toHaveBeenCalled();
-
-    isFocusedInputMock.mockReset();
-  });
-
-  // TODO: correctly implement isFocusedInput mock
-  it.skip('prevents shortcuts for isFocusedInput by default', () => {
-    jest.mock('../ShortcutManager', () => ({
-      isFocusedInput: jest.fn(),
-    }));
-
-    const isFocusedInputMock: jest.Mock = jest.requireMock(
-      '../ShortcutManager',
-    ).isFocusedInput;
-
-    isFocusedInputMock.mockImplementation(() => true);
-
-    const spy = jest.fn();
-
-    mount(
-      <ShortcutProvider>
+      mount(
+        <ShortcutProvider>
           <Shortcut ordered={['a']} onMatch={spy} />
-      </ShortcutProvider>,
-    );
+        </ShortcutProvider>,
+      );
 
-    keydown('a');
+      keydown('a');
 
-    expect(spy).not.toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
+    });
 
-    isFocusedInputMock.mockReset();
-  });
+  })
+
+  describe('ignore input', () => {
+    it.only('ignores contentEditable by default', () => {
+      const spy = jest.fn();
+
+      const app = mount(
+        <ShortcutProvider>
+          <ShortcutWithFocusedInput spy={spy} />
+        </ShortcutProvider>,
+      );
+
+      keydown('z');
+
+      expect(spy).not.toHaveBeenCalled();
+    })
+  })
+
 
 
   describe('modifier keys', () => {

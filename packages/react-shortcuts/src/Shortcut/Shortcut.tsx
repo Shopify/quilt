@@ -6,10 +6,10 @@ export interface Props {
   ordered: Key[];
   held?: HeldKey;
   node?: HTMLElement | null;
-  ignoreInput?: boolean;
-  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
+  disabled?: boolean;
   allowDefault?: boolean;
-  allowFocusedInput?: boolean;
+  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
+  ignoreInput?(): void;
 }
 
 export default function Shortcut(props: Props) {
