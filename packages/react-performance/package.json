@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-performance",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/performance": "^2.0.0"
+    "@shopify/performance": "^2.0.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
