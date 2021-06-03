@@ -254,11 +254,10 @@ describe('ShortcutManager', () => {
 
       expect(spy).toHaveBeenCalled();
     });
-
-  })
+  });
 
   describe('ignore input', () => {
-    it.only('ignores contentEditable by default', () => {
+    it.skip('ignores contentEditable by default', () => {
       const spy = jest.fn();
 
       const app = mount(
@@ -270,10 +269,8 @@ describe('ShortcutManager', () => {
       keydown('z');
 
       expect(spy).not.toHaveBeenCalled();
-    })
-  })
-
-
+    });
+  });
 
   describe('modifier keys', () => {
     it('matches shortcut when all modifier keys are pressed', () => {

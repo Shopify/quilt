@@ -19,7 +19,7 @@ export default function ShortcutWithFocusedInput(props: Props) {
   }, [node]);
   return (
     <div className="app">
-      <div contentEditable={true} ref={node}>
+      <div contentEditable ref={node}>
         <Shortcut ordered={['z']} onMatch={spy} node={node.current} />
       </div>
     </div>

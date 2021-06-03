@@ -108,8 +108,6 @@ export default class ShortcutManager {
     );
   }
 
-
-
   private callMatchedShortcut(event: Event) {
     const longestMatchingShortcut = this.shortcutsMatched.find(({ordered}) =>
       arraysMatch(ordered, this.keysPressed),
@@ -142,11 +140,11 @@ function isFocusedInput() {
   }
 
   return (
-      target.tagName === 'INPUT' ||
-      target.tagName === 'SELECT' ||
-      target.tagName === 'TEXTAREA' ||
-      target.hasAttribute('contenteditable')
-    );
+    target.tagName === 'INPUT' ||
+    target.tagName === 'SELECT' ||
+    target.tagName === 'TEXTAREA' ||
+    target.hasAttribute('contenteditable')
+  );
 }
 
 function arraysMatch<T>(first: T[], second: T[]) {
