@@ -3,14 +3,14 @@ import {basename, resolve} from 'path';
 import globToRegExp from 'glob-to-regexp';
 import {Compiler, Entry} from 'webpack';
 
+type EntryOption = Compiler['options']['entry'];
+
 export interface Options {
   pattern: string;
   folder: string | string[];
   nameFromFile: (file: string) => string;
-  onCompilerEntries: ((entries: Entry) => Entry) | null;
+  onCompilerEntries: ((entry: EntryOption) => Entry) | null;
 }
-
-type EntryOption = Compiler['options']['entry'];
 
 /**
  * A webpack plugin that automatically configures webpack entries by checking the filesystem
@@ -18,23 +18,31 @@ type EntryOption = Compiler['options']['entry'];
  * @returns a customized webpack plugin
  */
 export class MagicEntriesPlugin {
-  static server({folder = '.'}: Partial<Pick<Options, 'folder'>> = {}) {
+  static server({
+    folder = '.',
+    onCompilerEntries = null,
+  }: Partial<Pick<Options, 'folder' | 'onCompilerEntries'>> = {}) {
     return new MagicEntriesPlugin({
       folder,
       pattern: '*.entry.server.{jsx,js,ts,tsx}',
       nameFromFile(file: string) {
         return defaultNameFromFile(file).replace('.server', '');
       },
+      onCompilerEntries,
     });
   }
 
-  static client({folder = '.'}: Partial<Pick<Options, 'folder'>> = {}) {
+  static client({
+    folder = '.',
+    onCompilerEntries = null,
+  }: Partial<Pick<Options, 'folder' | 'onCompilerEntries'>> = {}) {
     return new MagicEntriesPlugin({
       folder,
       pattern: '*.entry.client.{jsx,js,ts,tsx}',
       nameFromFile(file: string) {
         return defaultNameFromFile(file).replace('.client', '');
       },
+      onCompilerEntries,
     });
   }
 
@@ -66,9 +74,11 @@ export class MagicEntriesPlugin {
         ...(await defaultEntries),
         ...(await this.autodetectEntries(compiler)),
       };
-      if (this.options.onCompilerEntries) {
+
+      if (typeof this.options.onCompilerEntries === 'function') {
         return this.options.onCompilerEntries(entries);
       }
+
       return entries;
     };
   }
