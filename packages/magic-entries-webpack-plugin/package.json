@@ -1,6 +1,6 @@
 {
   "name": "@shopify/magic-entries-webpack-plugin",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.1-beta.1",
   "license": "MIT",
   "description": "A webpack plugin that automatically sets up entrypoints from filename conventions",
   "main": "index.js",
