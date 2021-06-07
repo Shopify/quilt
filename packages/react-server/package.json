@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "1.0.1",
+  "version": "1.0.1-virtual-modules-beta.1",
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
   "main": "index.js",
