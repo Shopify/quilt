@@ -40,7 +40,7 @@
   ],
   "devDependencies": {
     "@types/webpack-virtual-modules": "^0.1.0",
-    "webpack-virtual-modules": "^0.2.2"
+    "webpack-virtual-modules": "^0.4.3"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",
