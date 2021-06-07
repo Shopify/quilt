@@ -9,7 +9,7 @@ export interface Options {
   pattern: string;
   folder: string | string[];
   nameFromFile: (file: string) => string;
-  onCompilerEntries: ((entry: EntryOption) => Entry) | null;
+  appendToEntries: {[entryName: string]: string};
 }
 
 /**
@@ -20,29 +20,29 @@ export interface Options {
 export class MagicEntriesPlugin {
   static server({
     folder = '.',
-    onCompilerEntries = null,
-  }: Partial<Pick<Options, 'folder' | 'onCompilerEntries'>> = {}) {
+    appendToEntries = {},
+  }: Partial<Pick<Options, 'folder' | 'appendToEntries'>> = {}) {
     return new MagicEntriesPlugin({
       folder,
       pattern: '*.entry.server.{jsx,js,ts,tsx}',
       nameFromFile(file: string) {
         return defaultNameFromFile(file).replace('.server', '');
       },
-      onCompilerEntries,
+      appendToEntries,
     });
   }
 
   static client({
     folder = '.',
-    onCompilerEntries = null,
-  }: Partial<Pick<Options, 'folder' | 'onCompilerEntries'>> = {}) {
+    appendToEntries = {},
+  }: Partial<Pick<Options, 'folder' | 'appendToEntries'>> = {}) {
     return new MagicEntriesPlugin({
       folder,
       pattern: '*.entry.client.{jsx,js,ts,tsx}',
       nameFromFile(file: string) {
         return defaultNameFromFile(file).replace('.client', '');
       },
-      onCompilerEntries,
+      appendToEntries,
     });
   }
 
@@ -53,13 +53,13 @@ export class MagicEntriesPlugin {
     pattern = '*.entry.{jsx,js,ts,tsx}',
     folder = '.',
     nameFromFile = defaultNameFromFile,
-    onCompilerEntries = null,
+    appendToEntries = {},
   }: Partial<Options> = {}) {
     this.options = {
       folder,
       pattern,
       nameFromFile,
-      onCompilerEntries,
+      appendToEntries,
     };
     this.compiledPattern = globToRegExp(pattern, {extended: true});
   }
@@ -69,17 +69,11 @@ export class MagicEntriesPlugin {
 
     compiler.options.entry = async () => {
       const defaultEntries = await normalizedEntries(originalEntries);
-
       const entries = {
         ...(await defaultEntries),
         ...(await this.autodetectEntries(compiler)),
       };
-
-      if (typeof this.options.onCompilerEntries === 'function') {
-        return this.options.onCompilerEntries(entries);
-      }
-
-      return entries;
+      return this.appendToEntries(entries);
     };
   }
 
@@ -112,6 +106,34 @@ export class MagicEntriesPlugin {
 
       return entries;
     }
+  }
+
+  appendToEntries(entries: Entry): Entry {
+    if (this.options.appendToEntries) {
+      for (const [entryName, entry] of Object.entries(entries)) {
+        if (
+          this.options.appendToEntries[entryName] &&
+          Array.isArray(entries[entryName])
+        ) {
+          entries[entryName] = [
+            ...entry,
+            this.options.appendToEntries[entryName],
+          ];
+        }
+
+        if (
+          this.options.appendToEntries[entryName] &&
+          typeof entries[entryName] === 'string'
+        ) {
+          entries[entryName] = [
+            entry as string,
+            this.options.appendToEntries[entryName],
+          ];
+        }
+      }
+      return entries;
+    }
+    return entries;
   }
 }
 
