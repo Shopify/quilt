@@ -1,6 +1,6 @@
 {
   "name": "@shopify/sewing-kit-plugin-quilt",
-  "version": "0.1.1",
+  "version": "0.1.1-virtual-modules-beta.2",
   "description": "Quilt plugins for sewing-kit",
   "publishConfig": {
     "access": "public",
