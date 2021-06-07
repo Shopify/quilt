@@ -43,7 +43,7 @@
     "@shopify/react-testing": "^3.0.1",
     "@shopify/with-env": "^2.0.0",
     "@types/koa": "^2.0.0",
-    "@types/webpack-virtual-modules": "^0.1.0",
+    "@types/webpack-virtual-modules": "^0.1.1",
     "get-port": "^5.0.0",
     "node-loader": "^1.0.0",
     "react": "^16.8.1",
@@ -58,7 +58,7 @@
   },
   "optionalDependencies": {
     "@babel/types": ">=7.0.0",
-    "webpack-virtual-modules": "^0.2.2"
+    "webpack-virtual-modules": "^0.4.3"
   },
   "files": [
     "build/*",
