@@ -28,7 +28,7 @@
     "glob-to-regexp": "^0.4.1"
   },
   "peerDependencies": {
-    "webpack": "^4.25.1"
+    "webpack": ">=5.38.0 <6.0.0"
   },
   "files": [
     "build/*",

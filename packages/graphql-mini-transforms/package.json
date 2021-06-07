@@ -36,7 +36,7 @@
     "common-tags": "^1.8.0"
   },
   "peerDependencies": {
-    "webpack": ">=5.38.0"
+    "webpack": ">=5.38.0 <6.0.0"
   },
   "files": [
     "build/*",
