@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 1.2.0 - 2021-06-08
+
 ### Changed
 
 - Add `appendToEntries` to to allow outside sources to add to the final entries object before compilation [#1932](https://github.com/Shopify/quilt/pull/1932)
