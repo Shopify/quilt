@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 2.0.2 - 2021-06-08
+
+### Changed
+
+- Transitive dependency update of web-worker
+
 ## 2.0.0 - 2021-05-21
 
 ### Breaking Change

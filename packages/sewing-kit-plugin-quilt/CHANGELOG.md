@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 0.2.0 - 2021-06-08
+
 ### Changed
 
 - Update `webpack-virtual-modules` to 0.4.3 which support webpack 5
