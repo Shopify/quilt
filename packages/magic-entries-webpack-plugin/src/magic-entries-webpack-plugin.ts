@@ -13,6 +13,7 @@ type EntryOption = Compiler['options']['entry'];
 
 /**
  * A webpack plugin that automatically configures webpack entries by checking the filesystem
+ * currently breaks hot module reloading
  * @param config
  * @returns a customized webpack plugin
  */

@@ -2,8 +2,11 @@ ci:
   require:
     - node-tests (12.14)
     - node-tests (14.x)
+machine:
+  environment:
+    SHIPIT_LERNA_PUBLISH_MECHANISM: 'from-git'
 dependencies:
   post:
-    - npm config set @shopify:registry https://registry.npmjs.org
-    - npm config set registry https://registry.npmjs.org
+    # - npm config set @shopify:registry https://registry.npmjs.org
+    # - npm config set registry https://registry.npmjs.org
     - yarn run build: {timeout: 1800}
