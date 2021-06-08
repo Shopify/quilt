@@ -1,1 +1,1 @@
-require('whatwg-fetch');
+import 'whatwg-fetch';

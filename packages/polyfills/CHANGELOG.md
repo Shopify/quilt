@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Fixed
+
+- Replace `require` statements with `import` statements (except for the conditional Jest polyfills) so we get a proper strict ESM module.
+
 ## 3.0.1 - 2021-05-31
 
 ### Fixed

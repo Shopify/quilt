@@ -1,1 +1,1 @@
-require('intersection-observer');
+import 'intersection-observer';
