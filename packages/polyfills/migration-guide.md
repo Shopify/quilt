@@ -8,8 +8,8 @@ This is a concise summary of changes and recommendations around updating `@shopi
 
 Base polyfills now use `core-js@3`. The following polyfills have been removed because they are provided by `core-js@3`. Please remove imports containing:
 
-- `@shopify/polyfill/url`
-- `@shopify/polyfill/unhandled-rejection`
+- `@shopify/polyfills/url`
+- `@shopify/polyfills/unhandled-rejection`
 
 ## [2.0.0] - 2021-05-21
 
