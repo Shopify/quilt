@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Change
+
+- Update supported `jest` version to `27`. [#1945](https://github.com/Shopify/quilt/pull/1945)
+
 ## 3.0.0 - 2021-05-21
 
 ### Breaking Change
