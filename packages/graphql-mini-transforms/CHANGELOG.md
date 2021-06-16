@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
-### Change
+### Changed
 
 - Update supported `jest` version to `27`. [#1945](https://github.com/Shopify/quilt/pull/1945)
 
