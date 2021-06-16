@@ -1,7 +1,7 @@
 import {createHash} from 'crypto';
 
 import {readFileSync} from 'fs-extra';
-import {Transformer} from '@jest/transform';
+import type {Transformer} from '@jest/transform';
 import {parse} from 'graphql';
 
 import {extractImports} from './document';
