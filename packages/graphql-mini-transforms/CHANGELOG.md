@@ -5,14 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Changed
+
+- Update supported `jest` version to `27`. [#1945](https://github.com/Shopify/quilt/pull/1945)
 
 ## 3.0.2 - 2021-06-17
 
 ### Changed
 
 - Update `fs-extra` to `^9.1.0` and `@types/fs-extra` to `^9.0.11` [#1946](https://github.com/Shopify/quilt/pull/1946)
-- Update supported `jest` version to `27`. [#1945](https://github.com/Shopify/quilt/pull/1945)
 
 ## 3.0.0 - 2021-05-21
 
