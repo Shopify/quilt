@@ -35,8 +35,8 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/packages/graphql-mini-transforms/**/webpack",
-      "**/packages/graphql-mini-transforms/**/@types/webpack",
+      "**/webpack",
+      "**/@types/webpack",
       "**/tapable"
     ]
   },

@@ -42,7 +42,8 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@types/webpack-virtual-modules": "^0.1.0"
+    "@types/webpack-virtual-modules": "^0.1.0",
+    "@types/webpack": "4.41.27"
   },
   "dependencies": {
     "@sewing-kit/plugin-css": "^0.2.1",
