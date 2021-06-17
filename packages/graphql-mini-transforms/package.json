@@ -1,6 +1,6 @@
 {
   "name": "graphql-mini-transforms",
-  "version": "4.0.0-webpack-5-beta.1",
+  "version": "4.0.0-webpack-5-beta.2",
   "license": "MIT",
   "description": "Transformers for importing .graphql files in various build tools.",
   "main": "index.js",
@@ -30,10 +30,10 @@
     "graphql-typed": "^1.0.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.11",
     "@types/common-tags": "^1.8.0",
-    "common-tags": "^1.8.0",
-    "@types/webpack": "^5.28.0"
+    "@types/fs-extra": "^9.0.11",
+    "@types/webpack": "^5.28.0",
+    "common-tags": "^1.8.0"
   },
   "peerDependencies": {
     "webpack": ">=5.38.0"
