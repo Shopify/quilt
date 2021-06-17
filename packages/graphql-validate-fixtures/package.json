@@ -1,6 +1,6 @@
 {
   "name": "graphql-validate-fixtures",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "description": "Validates JSON fixtures for GraphQL responses against the associated operations and schema",
   "main": "index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-persisted",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "sideEffects": false,
@@ -45,7 +45,7 @@
     "koa.d.ts"
   ],
   "optionalDependencies": {
-    "@shopify/sewing-kit-koa": "^7.0.1"
+    "@shopify/sewing-kit-koa": "^7.0.2"
   },
   "peerDependencies": {
     "koa": ">=2.0.0"
