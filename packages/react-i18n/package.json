@@ -55,7 +55,7 @@
   "optionalDependencies": {
     "@babel/template": "^7.0.0",
     "@babel/traverse": "^7.0.0",
-    "fs-extra": "^8.1.0"
+    "fs-extra": "^9.1.0"
   },
   "files": [
     "build/*",
