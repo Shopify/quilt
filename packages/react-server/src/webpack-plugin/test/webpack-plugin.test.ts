@@ -422,7 +422,7 @@ const server = {
   target: 'node',
   entry: './${basePath}/server',
   externals: [
-    (context, request, callback) => {
+    ({context, request}, callback) => {
       if (/node_modules/.test(context)) {
         return callback(null, 'commonjs' + request);
       }
