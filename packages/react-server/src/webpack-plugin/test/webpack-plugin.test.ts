@@ -405,7 +405,9 @@ const universal = {
     rules: [
       {
         test: /\\.mjs$/,
-        type: "javascript/auto"
+        resolve: {
+          fullySpecified: false,
+        },
       },
       {
         test: /node\\/.*\\.js$/,
