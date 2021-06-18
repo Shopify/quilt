@@ -2,6 +2,7 @@ import 'setimmediate';
 
 import path from 'path';
 
+import memfs from 'memfs';
 import webpack, {Compiler} from 'webpack';
 
 import {HEADER, Options} from '../shared';
@@ -332,12 +333,10 @@ function runBuild(configPath: string): Promise<any[]> {
           context: pathFromRoot,
         };
 
-    // We use MemoryOutputFileSystem to prevent webpack from outputting to our actual FS
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const MemoryOutputFileSystem = require('webpack/lib/MemoryOutputFileSystem');
-
     const compiler: Compiler = webpack(contextConfig);
-    compiler.outputFileSystem = new MemoryOutputFileSystem({});
+    // We use memfs.fs to prevent webpack from outputting to our actual FS
+    // from https://github.com/webpack/webpack/blob/4837c3ddb9da8e676c73d97460e19689dd9d4691/test/configCases/types/filesystems/webpack.config.js#L8
+    compiler.outputFileSystem = memfs.fs;
 
     compiler.run((err, stats) => {
       if (err) {
