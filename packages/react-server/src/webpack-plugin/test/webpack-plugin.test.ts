@@ -3,7 +3,7 @@ import 'setimmediate';
 import path from 'path';
 
 import memfs from 'memfs';
-import webpack, {Compiler} from 'webpack';
+import webpack, {Compiler, StatsCompilation, StatsModule} from 'webpack';
 
 import {HEADER, Options} from '../shared';
 
@@ -24,8 +24,8 @@ describe('webpack-plugin', () => {
 
           const [serverResults, clientResults] = await runBuild(name);
           const [client, server] = [
-            getModule(clientResults, 'client').source,
-            getModule(serverResults, 'server').source,
+            getModuleSource(clientResults, 'client'),
+            getModuleSource(serverResults, 'server'),
           ];
 
           expect(client).toBeDefined();
@@ -51,11 +51,11 @@ describe('webpack-plugin', () => {
           await workspace.write('webpack.config.js', BASIC_WEBPACK_CONFIG);
 
           const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const clientModuleSource = getModuleSource(clientResults, 'client');
+          const serverModuleSource = getModuleSource(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch(HEADER);
+          expect(serverModuleSource).toMatch(HEADER);
+          expect(clientModuleSource).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -72,12 +72,12 @@ describe('webpack-plugin', () => {
           await workspace.write('client/index.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const clientModuleSource = getModuleSource(clientResults, 'client');
+          const serverModuleSource = getModuleSource(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).not.toMatch(HEADER);
+          expect(serverModuleSource).toMatch(HEADER);
+          expect(clientModuleSource).toMatch('I am a bespoke entry');
+          expect(clientModuleSource).not.toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -94,12 +94,12 @@ describe('webpack-plugin', () => {
           await workspace.write('client.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const client = getModuleSource(clientResults, 'client');
+          const server = getModuleSource(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).not.toMatch(HEADER);
+          expect(server).toMatch(HEADER);
+          expect(client).toMatch('I am a bespoke entry');
+          expect(client).not.toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -116,12 +116,12 @@ describe('webpack-plugin', () => {
           await workspace.write('server.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const client = getModuleSource(clientResults, 'client');
+          const server = getModuleSource(serverResults, 'server');
 
-          expect(serverModule.source).not.toMatch(HEADER);
-          expect(serverModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).toMatch(HEADER);
+          expect(server).not.toMatch(HEADER);
+          expect(server).toMatch('I am a bespoke entry');
+          expect(client).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -138,12 +138,12 @@ describe('webpack-plugin', () => {
           await workspace.write('server/index.js', BASIC_ENTRY);
 
           const [serverResults, clientResults] = await runBuild(name);
-          const clientModule = getModule(clientResults, 'client');
-          const serverModule = getModule(serverResults, 'server');
+          const clientModuleSource = getModuleSource(clientResults, 'client');
+          const serverModuleSource = getModuleSource(serverResults, 'server');
 
-          expect(serverModule.source).not.toMatch(HEADER);
-          expect(serverModule.source).toMatch('I am a bespoke entry');
-          expect(clientModule.source).toMatch(HEADER);
+          expect(serverModuleSource).not.toMatch(HEADER);
+          expect(serverModuleSource).toMatch('I am a bespoke entry');
+          expect(clientModuleSource).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -164,11 +164,17 @@ describe('webpack-plugin', () => {
           await workspace.write(`${basePath}/index.js`, BASIC_ENTRY);
 
           const [serverResults, clientResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
-          const clientModule = getModule(clientResults, 'app/ui/client');
+          const serverModuleSource = getModuleSource(
+            serverResults,
+            'app/ui/server',
+          );
+          const clientModuleSource = getModuleSource(
+            clientResults,
+            'app/ui/client',
+          );
 
-          expect(serverModule.source).toMatch(HEADER);
-          expect(clientModule.source).toMatch(HEADER);
+          expect(serverModuleSource).toMatch(HEADER);
+          expect(clientModuleSource).toMatch(HEADER);
         });
       },
       BUILD_TIMEOUT,
@@ -193,8 +199,8 @@ describe('webpack-plugin', () => {
           );
 
           const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'server');
-          expect(serverModule.source).toMatch('proxy: false');
+          const serverModuleSource = getModuleSource(serverResults, 'server');
+          expect(serverModuleSource).toMatch('proxy: false');
         });
       },
       BUILD_TIMEOUT,
@@ -220,14 +226,14 @@ describe('webpack-plugin', () => {
           );
 
           const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'server');
+          const serverModuleSource = getModuleSource(serverResults, 'server');
 
-          expect(serverModule.source).toMatch(`port: ${customConfig.port}`);
-          expect(serverModule.source).toMatch(`ip: "${customConfig.host}"`);
-          expect(serverModule.source).toMatch(
+          expect(serverModuleSource).toMatch(`port: ${customConfig.port}`);
+          expect(serverModuleSource).toMatch(`ip: "${customConfig.host}"`);
+          expect(serverModuleSource).toMatch(
             `assetPrefix: "${customConfig.assetPrefix}"`,
           );
-          expect(serverModule.source).toMatch(`proxy: ${customConfig.proxy}`);
+          expect(serverModuleSource).toMatch(`proxy: ${customConfig.proxy}`);
         });
       },
       BUILD_TIMEOUT,
@@ -254,9 +260,12 @@ describe('webpack-plugin', () => {
           );
 
           const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
+          const serverModuleSource = getModuleSource(
+            serverResults,
+            'app/ui/server',
+          );
 
-          expect(serverModule.source).toMatch("import Error from 'error';");
+          expect(serverModuleSource).toMatch("import Error from 'error';");
         });
       },
       BUILD_TIMEOUT,
@@ -277,9 +286,12 @@ describe('webpack-plugin', () => {
           );
 
           const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
+          const serverModuleSource = getModuleSource(
+            serverResults,
+            'app/ui/server',
+          );
 
-          expect(serverModule.source).not.toMatch("import Error from 'error';");
+          expect(serverModuleSource).not.toMatch("import Error from 'error';");
         });
       },
       BUILD_TIMEOUT,
@@ -304,9 +316,12 @@ describe('webpack-plugin', () => {
           );
 
           const [serverResults] = await runBuild(name);
-          const serverModule = getModule(serverResults, 'app/ui/server');
+          const serverModuleSource = getModuleSource(
+            serverResults,
+            'app/ui/server',
+          );
 
-          expect(serverModule.source).toMatch("import Error from 'error';");
+          expect(serverModuleSource).toMatch("import Error from 'error';");
         });
       },
       BUILD_TIMEOUT,
@@ -314,7 +329,7 @@ describe('webpack-plugin', () => {
   });
 });
 
-function runBuild(configPath: string): Promise<any[]> {
+function runBuild(configPath: string): Promise<StatsCompilation[]> {
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
       './packages/react-server/src/webpack-plugin/test/fixtures',
@@ -355,18 +370,21 @@ function runBuild(configPath: string): Promise<any[]> {
   });
 }
 
-function getModule(results: any, basePath: string) {
-  const newResults = results.modules.find(
+function getModuleSource(
+  results: StatsCompilation | StatsModule,
+  basePath: string,
+) {
+  const moduleMatched = results.modules.find(
     ({name}) =>
       name.includes(`./${basePath}.js`) ||
       name.includes(`./${basePath}/index.js`),
   );
 
-  if (newResults.source) {
-    return newResults;
+  if (moduleMatched.modules && moduleMatched.modules.length > 0) {
+    return getModuleSource(moduleMatched, basePath);
   }
 
-  return getModule(newResults, basePath);
+  return moduleMatched.source;
 }
 
 const BASIC_ENTRY = `console.log('I am a bespoke entry');`;
@@ -424,7 +442,7 @@ const server = {
   externals: [
     ({context, request}, callback) => {
       if (/node_modules/.test(context)) {
-        return callback(null, 'commonjs' + request);
+        return callback(null, 'commonjs ' + request);
       }
       callback();
     },
