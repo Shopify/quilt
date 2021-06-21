@@ -111,7 +111,12 @@ function readChangelogs() {
   const packagesPath = join(ROOT_PATH, 'packages');
 
   return glob
-    .sync(join(packagesPath, '*/'))
+    .sync(
+      join(
+        packagesPath,
+        '!(jest-mock-apollo|enzyme-utilities|jest-mock-router)/',
+      ),
+    )
     .filter(hasPackageJSON)
     .map((packageDir) => {
       const packageChangelogPath = join(packageDir, 'CHANGELOG.md');
