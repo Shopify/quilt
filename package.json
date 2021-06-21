@@ -5,7 +5,6 @@
   "scripts": {
     "build": "skn build",
     "lint": "skn lint",
-    "lint:changelogs": "node scripts/lint-changelogs.js",
     "ci:lint-docs": "yarn generate docs && ./scripts/check-docs.sh",
     "test": "NODE_ICU_DATA=node_modules/full-icu skn test",
     "check": "lerna run check",
