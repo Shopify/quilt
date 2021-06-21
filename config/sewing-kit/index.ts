@@ -48,7 +48,6 @@ export function quiltPackage({
         }));
 
         hooks.jestConfig?.hook((jestConfig) => {
-          // console.log('jestConfig', jestConfig);
           return {
             ...jestConfig,
             testRunner: jestTestRunner,
