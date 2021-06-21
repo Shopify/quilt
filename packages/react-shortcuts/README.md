@@ -152,7 +152,7 @@ class MyComponent extends React.Component {
     const {fooNode} = this.state;
     return (
       <div>
-        <button ref={node => this.setState({fooNode: node})} />
+        <button ref={(node) => this.setState({fooNode: node})} />
         <Shortcut
           node={fooNode}
           ordered={['f', 'o', 'o']}
@@ -222,13 +222,13 @@ export default function MyComponent() {
 }
 ```
 
-you might want to add a `ShortcutManager` to it's context in an enzyme test to prevent errors
+you might want to add a `ShortcutManager` to it's context in an `@shopify/react-testing` test to prevent errors
 
 ```ts
 // MyComponent.test.tsx
 
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 import {ShortcutManager, Shortcut} from '@shopify/react-shortcuts';
 
 import MyComponent from './MyComponent';
