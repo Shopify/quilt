@@ -15,7 +15,7 @@ import {addLegacyDecoratorSupport} from './plugin';
 export function quiltPackage({
   jestEnv = 'jsdom',
   useReact = false,
-  jestTestRunner = 'jest-circus',
+  jestTestRunner = 'jest-jasmine2',
 } = {}) {
   return createComposedProjectPlugin<Package>('Quilt.Package', [
     javascript(),
