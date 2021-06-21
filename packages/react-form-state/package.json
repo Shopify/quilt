@@ -30,7 +30,6 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^3.0.0",
     "@shopify/useful-types": "^3.0.1",
     "faker": "^4.1.0"
   },

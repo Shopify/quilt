@@ -11,9 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/test/**/*", "**/tests/**/*"],
-  "references": [
-    {"path": "../enzyme-utilities"},
-    {"path": "../predicates"},
-    {"path": "../useful-types"}
-  ]
+  "references": [{"path": "../predicates"}, {"path": "../useful-types"}]
 }

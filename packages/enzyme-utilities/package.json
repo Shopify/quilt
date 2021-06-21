@@ -3,8 +3,6 @@
   "version": "3.0.0",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components",
-  "main": "index.js",
-  "types": "index.d.ts",
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -22,31 +20,12 @@
   "engines": {
     "node": ">=12.14.0"
   },
-  "dependencies": {
-    "lodash": "^4.17.5"
-  },
   "sideEffects": false,
-  "peerDependencies": {
-    "enzyme": "^3.10.0",
-    "react": ">=16.8.0 <17.0.0",
-    "react-dom": ">=16.8.0 <17.0.0"
-  },
   "files": [
-    "build/*",
-    "!*.tsbuildinfo",
-    "index.js",
-    "index.mjs",
-    "index.esnext",
-    "index.d.ts"
   ],
-  "module": "index.mjs",
-  "esnext": "index.esnext",
   "exports": {
     "./": "./",
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
     }
   }
 }

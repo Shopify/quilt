@@ -3,8 +3,6 @@
   "version": "2.0.0",
   "license": "MIT",
   "description": "Jest + Enzyme mocks for React Router 3.x",
-  "main": "index.js",
-  "types": "index.d.ts",
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -23,10 +21,6 @@
     "node": ">=12.14.0"
   },
   "devDependencies": {
-    "@types/react-router": "^3.0.0",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-router": "^3.2.0"
   },
   "greenkeeper": {
     "ignore": [
@@ -36,21 +30,8 @@
   },
   "sideEffects": false,
   "files": [
-    "build/*",
-    "!*.tsbuildinfo",
-    "index.js",
-    "index.mjs",
-    "index.esnext",
-    "index.d.ts"
+
   ],
-  "module": "index.mjs",
-  "esnext": "index.esnext",
   "exports": {
-    "./": "./",
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
-    }
   }
 }
