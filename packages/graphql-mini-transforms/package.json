@@ -24,8 +24,8 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@types/fs-extra": "^9.0.11",
     "@jest/transform": "^27.0.2",
+    "@types/fs-extra": "^9.0.11",
     "@types/webpack": "^4.41.11",
     "fs-extra": "^9.1.0",
     "graphql": ">=14.5.0 <15.0.0",
