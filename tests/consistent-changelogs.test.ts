@@ -48,6 +48,20 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
       );
     });
 
+    it('contains an Unreleased header with content, or a commented out Unreleased header with no content', () => {
+      // One of the following must be present
+      // - An Unreleased header, that is immediatly preceded by a level 3 heading ("Changed" etc)
+      // - A commented out Unreleased header, that is immediatly preceded by a level 2 heading (A version info)
+
+      const unrelasedHeaderWithContent = /^## Unreleased\n\n### /gm;
+      const commentedUnreleasedHeaderWithNoContent = /^<!-- ## Unreleased -->\n\n## /gm;
+
+      expect([
+        unrelasedHeaderWithContent.test(packageChangelog),
+        commentedUnreleasedHeaderWithNoContent.test(packageChangelog),
+      ]).toContain(true);
+    });
+
     it('does not contain duplicate headers', () => {
       const headerLines = packageChangelog
         .split('\n')
