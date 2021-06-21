@@ -26,7 +26,6 @@
     {"path": "./packages/i18n"},
     {"path": "./packages/jest-dom-mocks"},
     {"path": "./packages/jest-koa-mocks"},
-    {"path": "./packages/jest-mock-apollo"},
     {"path": "./packages/koa-liveness-ping"},
     {"path": "./packages/koa-metrics"},
     {"path": "./packages/koa-performance"},
