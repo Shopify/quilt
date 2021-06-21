@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Changed
+
+- Update `@babel/core` to `^7.14.6` [#1948](https://github.com/Shopify/quilt/pull/1948)
+
 ## 6.0.2 - 2021-06-17
 
 ### Changed

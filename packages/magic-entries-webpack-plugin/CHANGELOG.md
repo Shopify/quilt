@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Changed
+
+- Include `setImmediate` in tests. [#1948](https://github.com/Shopify/quilt/pull/1948)
+
 ## 1.2.0 - 2021-06-08
 
 ### Changed
