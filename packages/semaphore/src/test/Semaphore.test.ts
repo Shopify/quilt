@@ -1,7 +1,5 @@
 import {Semaphore, Permit} from '..';
 
-const endOfPollPhase = {then: setImmediate};
-
 describe('Semaphore', () => {
   describe('acquire()', () => {
     it('resolves with a permit when counter is > 0', async () => {
@@ -22,7 +20,7 @@ describe('Semaphore', () => {
         .then(spy)
         .catch(() => {});
 
-      await endOfPollPhase;
+      await setTimeout(() => {}, 0);
 
       expect(spy).not.toHaveBeenCalled();
     });
@@ -48,7 +46,7 @@ describe('Semaphore', () => {
         .then(spy)
         .catch(() => {});
 
-      await endOfPollPhase;
+      await setTimeout(() => {}, 0);
 
       expect(spy).not.toHaveBeenCalled();
 
@@ -75,7 +73,7 @@ describe('Semaphore', () => {
         .then(spy4)
         .catch(() => {});
 
-      await endOfPollPhase;
+      await setTimeout(() => {}, 0);
 
       expect(spy3).not.toHaveBeenCalled();
       expect(spy4).not.toHaveBeenCalled();
@@ -111,7 +109,7 @@ describe('Semaphore', () => {
         .then(spy4)
         .catch(() => {});
 
-      await endOfPollPhase;
+      await setTimeout(() => {}, 0);
 
       expect(spy3).toHaveBeenCalledWith(expect.any(Permit));
       expect(spy4).not.toHaveBeenCalled();

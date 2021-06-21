@@ -1,3 +1,5 @@
+import 'setimmediate';
+
 import path from 'path';
 
 import webpack, {Compiler} from 'webpack';

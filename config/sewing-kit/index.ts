@@ -12,7 +12,11 @@ import {} from '@sewing-kit/plugin-jest';
 
 import {addLegacyDecoratorSupport} from './plugin';
 
-export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
+export function quiltPackage({
+  jestEnv = 'jsdom',
+  useReact = false,
+  jestTestRunner = 'jest-circus',
+} = {}) {
   return createComposedProjectPlugin<Package>('Quilt.Package', [
     javascript(),
     typescript(),
@@ -23,8 +27,8 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
     }),
     createProjectBuildPlugin('Quilt.PackageBuild', ({hooks}) => {
       hooks.target.hook(({hooks}) => {
-        hooks.configure.hook(hooks => {
-          hooks.babelIgnorePatterns?.hook(ext => [
+        hooks.configure.hook((hooks) => {
+          hooks.babelIgnorePatterns?.hook((ext) => [
             ...ext,
             '**/test/**/*',
             '**/tests/**/*',
@@ -35,15 +39,22 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
       });
     }),
     createProjectTestPlugin('Quilt.PackageTest', ({hooks}) => {
-      hooks.configure.hook(hooks => {
+      hooks.configure.hook((hooks) => {
         hooks.jestEnvironment?.hook(() => jestEnv);
 
-        hooks.jestTransforms?.hook(transforms => ({
+        hooks.jestTransforms?.hook((transforms) => ({
           ...transforms,
           '\\.(gql|graphql)$': 'jest-transform-graphql',
         }));
 
-        hooks.jestWatchIgnore?.hook(patterns => [
+        hooks.jestConfig?.hook((jestConfig) => {
+          return {
+            ...jestConfig,
+            testRunner: jestTestRunner,
+          };
+        });
+
+        hooks.jestWatchIgnore?.hook((patterns) => [
           ...patterns,
           '<rootDir>/.*/tests?/.*fixtures',
         ]);

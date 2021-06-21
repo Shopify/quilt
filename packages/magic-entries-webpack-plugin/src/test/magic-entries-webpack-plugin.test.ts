@@ -1,3 +1,4 @@
+import 'setimmediate';
 import webpack, {Compiler, Configuration, Stats} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 

@@ -48,7 +48,7 @@
     "markdown.d.ts"
   ],
   "dependencies": {
-    "@babel/template": "^7.6.0",
+    "@babel/template": "^7.14.5",
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
     "jest-matcher-utils": "^26.6.2",
