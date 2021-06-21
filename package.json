@@ -9,7 +9,7 @@
     "ci:lint-docs": "yarn generate docs && ./scripts/check-docs.sh",
     "test": "NODE_ICU_DATA=node_modules/full-icu skn test",
     "check": "lerna run check",
-    "version-bump": "yarn lint:changelogs && lerna version --no-push --include-merged-tags",
+    "version-bump": "lerna version --no-push --include-merged-tags",
     "version": "node scripts/update-changelogs-on-version.js",
     "clean": "rimraf ./packages/*/build ./packages/*/*.{d.ts,js,esnext,mjs} .sewing-kit",
     "generate": "plop",
