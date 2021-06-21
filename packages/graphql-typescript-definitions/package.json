@@ -34,7 +34,6 @@
     "change-case": "^4.1.1",
     "chokidar": "^3.3.1",
     "fs-extra": "^9.1.0",
-    "glob": "^7.1.2",
     "graphql": ">=14.5.0 <15.0.0",
     "graphql-config": "^3.2.0",
     "graphql-config-utilities": "^3.0.1",
