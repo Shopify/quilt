@@ -57,7 +57,7 @@
     "react-dom": ">=16.8.0 <17.0.0"
   },
   "optionalDependencies": {
-    "@babel/types": ">=7.0.0",
+    "@babel/types": ">=7.14.5",
     "webpack-virtual-modules": "^0.4.3"
   },
   "files": [

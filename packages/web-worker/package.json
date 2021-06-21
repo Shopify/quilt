@@ -29,7 +29,7 @@
     "webpack-virtual-modules": "^0.4.3"
   },
   "devDependencies": {
-    "@babel/types": ">=7.0.0",
+    "@babel/types": ">=7.14.5",
     "@types/babel__core": ">=7.0.0",
     "@types/babel__traverse": ">=7.0.0",
     "@types/koa-mount": "^3.0.1",
@@ -59,7 +59,7 @@
     "worker.d.ts"
   ],
   "optionalDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.14.6",
     "webpack": "^4.25.1"
   },
   "module": "index.mjs",
