@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/shopify/quilt#readme",
   "private": true,
-  "workspaces":[
+  "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
