@@ -56,6 +56,26 @@ module Quilt
       MSG
     end
 
+    def test_no_errors_if_integration_test_error_config_is_false
+      Quilt.configure do |config|
+        config.allow_integration_test = true
+      end
+
+      Rails.env.stubs(:test?).returns(true)
+
+      url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
+
+      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': { 'X-Foo': 'bar' }.to_json }
+      assert_equal(
+        render_react(data: { 'X-Foo': 'bar' }),
+        reverse_proxy(url, headers: headers)
+      )
+
+      Quilt.configure do |config|
+        config.allow_integration_test = false
+      end
+    end
+
     def test_render_react_errors_in_tests
       Rails.env.stubs(:test?).returns(false)
       expects(:reverse_proxy).raises(Errno::ECONNREFUSED)

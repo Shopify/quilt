@@ -231,6 +231,16 @@ The `configure` method allows customization of the address the service will prox
   end
 ```
 
+You can also disable `DoNotIntegrationTestError` error when running rails in `test` environment by setting
+`allow_integration_test` config value to `true`
+
+```ruby
+  # config/initializers/quilt.rb
+  Quilt.configure do |config|
+    config.allow_integration_test = true
+  end
+```
+
 ## StatsD environment variables
 
 The `Performance::Reportable` mixin uses [https://github.com/Shopify/statsd-instrument](StatsD-Instrument) to send distributions. For detailed instructions on configuring where it sends data see [the documentation](https://github.com/Shopify/statsd-instrument#configuration).
