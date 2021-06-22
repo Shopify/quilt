@@ -70,7 +70,7 @@ describe('no new packages', () => {
       'react-import-remote',
       'react-intersection-observer',
       'react-network',
-      'react-preconnect',
+      'react-performance',
       'react-router',
       'react-server',
       'react-shortcuts',
