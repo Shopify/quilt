@@ -2,4 +2,4 @@
 
 ## 🛑 Deprecated Package
 
-This package is no longer supported and has been deprecated.
+This package is no longer supported and has been deprecated. We recommend the `@shopify/react-testing` library instead.
