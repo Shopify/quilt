@@ -1,6 +1,6 @@
 {
   "name": "@shopify/enzyme-utilities",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "license": "MIT",
   "description": "Enzyme utilities for testing React components",
   "publishConfig": {
@@ -21,11 +21,9 @@
     "node": ">=12.14.0"
   },
   "sideEffects": false,
-  "files": [
-  ],
+  "files": [],
   "exports": {
     "./": "./",
-    ".": {
-    }
+    ".": {}
   }
 }

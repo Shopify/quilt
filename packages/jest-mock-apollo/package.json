@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-mock-apollo",
-  "version": "6.0.1",
+  "version": "7.0.0",
   "license": "MIT",
   "description": "Jest + Enzyme mocks for Apollo 2.x",
   "publishConfig": {
@@ -20,15 +20,7 @@
   "engines": {
     "node": ">=12.14.0"
   },
-  "dependencies": {
-  },
-  "devDependencies": {
-  },
-  "peerDependencies": {
-  },
   "sideEffects": false,
-  "files": [
-  ],
-  "exports": {
-  }
+  "files": [],
+  "exports": {}
 }

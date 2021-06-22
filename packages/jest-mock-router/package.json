@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-mock-router",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "Jest + Enzyme mocks for React Router 3.x",
   "publishConfig": {
@@ -20,8 +20,6 @@
   "engines": {
     "node": ">=12.14.0"
   },
-  "devDependencies": {
-  },
   "greenkeeper": {
     "ignore": [
       "react-router",
@@ -29,9 +27,6 @@
     ]
   },
   "sideEffects": false,
-  "files": [
-
-  ],
-  "exports": {
-  }
+  "files": [],
+  "exports": {}
 }
