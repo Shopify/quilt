@@ -19,12 +19,7 @@ describe('typescript project references', () => {
 
   it('includes all the packages', () => {
     const packages = glob
-      .sync(
-        resolve(
-          basePackagePath,
-          '!(jest-mock-apollo|enzyme-utilities|jest-mock-router)/package.json',
-        ),
-      )
+      .sync(resolve(basePackagePath, '*/package.json'))
       .map(
         (packageJsonPath) =>
           /quilt\/packages\/(?<packageName>[\w._-]+)\/package\.json$/i.exec(
