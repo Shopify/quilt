@@ -34,6 +34,12 @@ const packageLocations = JSON.parse(
   execSync(`yarn run --silent lerna changed --json`, {stdio: ['pipe']}),
 )
   .map(({location}) => location)
+  .filter(
+    (location) =>
+      !location.includes('jest-mock-apollo') &&
+      !location.includes('jest-mock-router') &&
+      !location.includes('enzyme-utilities'),
+  )
   .filter((location) =>
     modifiedPackageJsons.includes(
       path.relative(ROOT_PATH, path.join(location, 'package.json')),
