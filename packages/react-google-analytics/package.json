@@ -30,7 +30,6 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@shopify/enzyme-utilities": "^3.0.0"
   },
   "files": [
     "build/*",

@@ -163,7 +163,13 @@ packages.forEach(
 
 function readPackages() {
   return glob
-    .sync(join(packagesPath, '*', 'package.json'))
+    .sync(
+      join(
+        packagesPath,
+        '!(jest-mock-apollo|enzyme-utilities|jest-mock-router)',
+        'package.json',
+      ),
+    )
     .map((absolutePackageJSONPath) => {
       const packageName = dirname(
         relative(packagesPath, absolutePackageJSONPath),
