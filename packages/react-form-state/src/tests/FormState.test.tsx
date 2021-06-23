@@ -1,6 +1,6 @@
 import React from 'react';
 import faker from 'faker';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 
 import {validateList} from '../validators';
 import FormState, {validate, validateNested} from '..';
@@ -1662,9 +1662,11 @@ describe('<FormState />', () => {
   });
 
   describe('validateForm', () => {
-    it('calls all validators', () => {
+    it('calls all validators', async () => {
+      const renderPropSpy = jest.fn(() => null);
       const productValidatorSpy = jest.fn();
       const skuValidatorSpy = jest.fn();
+      const onSubmitSpy = jest.fn();
 
       const form = mount(
         <FormState
@@ -1676,17 +1678,16 @@ describe('<FormState />', () => {
             product: productValidatorSpy,
             sku: skuValidatorSpy,
           }}
-          onSubmit={noop}
+          onSubmit={onSubmitSpy}
+          validateOnSubmit
         >
-          {() => <div />}
+          {renderPropSpy}
         </FormState>,
       );
 
-      /*
-        unfortunately enzyme doesn't invoke refs so we can't access the instance the
-        way we would in real application code
-      */
-      (form.instance() as FormState<any>).validateForm();
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      await submit();
 
       expect(productValidatorSpy).toHaveBeenCalled();
       expect(skuValidatorSpy).toHaveBeenCalled();
@@ -1696,6 +1697,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const error = 'bad';
       const productValidatorSpy = jest.fn(() => error);
+      const onSubmitSpy = jest.fn();
 
       const form = mount(
         <FormState
@@ -1705,17 +1707,16 @@ describe('<FormState />', () => {
           validators={{
             product: productValidatorSpy,
           }}
-          onSubmit={noop}
+          onSubmit={onSubmitSpy}
+          validateOnSubmit
         >
           {renderPropSpy}
         </FormState>,
       );
 
-      /*
-        unfortunately enzyme doesn't invoke refs so we can't access the instance the
-        way we would in real application code
-      */
-      await (form.instance() as FormState<any>).validateForm();
+      const {submit} = lastCallArgs(renderPropSpy);
+
+      await submit();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.error).toBe(error);

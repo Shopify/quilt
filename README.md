@@ -14,7 +14,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 78 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 75 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -32,7 +32,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/css-utilities](packages/css-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fcss-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fcss-utilities.svg" width="200px" /></a> | A set of CSS styling-related utilities |
 | [@shopify/dates](packages/dates) | <a href="https://badge.fury.io/js/%40shopify%2Fdates"><img src="https://badge.fury.io/js/%40shopify%2Fdates.svg" width="200px" /></a> | Lightweight date operations library |
 | [@shopify/decorators](packages/decorators) | <a href="https://badge.fury.io/js/%40shopify%2Fdecorators"><img src="https://badge.fury.io/js/%40shopify%2Fdecorators.svg" width="200px" /></a> | A set of decorators to aid your JavaScript journey |
-| [@shopify/enzyme-utilities](packages/enzyme-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fenzyme-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fenzyme-utilities.svg" width="200px" /></a> | Enzyme utilities for testing React components |
 | [@shopify/function-enhancers](packages/function-enhancers) | <a href="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers"><img src="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg" width="200px" /></a> | A set of helpers to enhance functions |
 | [graphql-config-utilities](packages/graphql-config-utilities) | <a href="https://badge.fury.io/js/graphql-config-utilities"><img src="https://badge.fury.io/js/graphql-config-utilities.svg" width="200px" /></a> | Common utilities for graphql-config |
 | [graphql-fixtures](packages/graphql-fixtures) | <a href="https://badge.fury.io/js/graphql-fixtures"><img src="https://badge.fury.io/js/graphql-fixtures.svg" width="200px" /></a> | Utilities for generating fixture objects from GraphQL documents. |
@@ -46,8 +45,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/i18n](packages/i18n) | <a href="https://badge.fury.io/js/%40shopify%2Fi18n"><img src="https://badge.fury.io/js/%40shopify%2Fi18n.svg" width="200px" /></a> | Generic i18n-related utilities |
 | [@shopify/jest-dom-mocks](packages/jest-dom-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg" width="200px" /></a> | Jest mocking utilities for working with the DOM |
 | [@shopify/jest-koa-mocks](packages/jest-koa-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg" width="200px" /></a> | Utilities to easily stub Koa context and cookies |
-| [@shopify/jest-mock-apollo](packages/jest-mock-apollo) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-mock-apollo"><img src="https://badge.fury.io/js/%40shopify%2Fjest-mock-apollo.svg" width="200px" /></a> | Jest + Enzyme mocks for Apollo 2.x |
-| [@shopify/jest-mock-router](packages/jest-mock-router) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-mock-router"><img src="https://badge.fury.io/js/%40shopify%2Fjest-mock-router.svg" width="200px" /></a> | Jest + Enzyme mocks for React Router 3.x |
 | [@shopify/koa-liveness-ping](packages/koa-liveness-ping) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-liveness-ping.svg" width="200px" /></a> | A package for creating liveness ping middleware for use with Koa |
 | [@shopify/koa-metrics](packages/koa-metrics) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-metrics"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-metrics.svg" width="200px" /></a> | Aims to provide standard middleware and instrumentation tooling for metrics in Koa |
 | [@shopify/koa-performance](packages/koa-performance) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-performance"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-performance.svg" width="200px" /></a> | Creating middleware that sends performance-related data through StatsD |

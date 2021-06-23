@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 
 import {I18nManager} from '../../manager';
 import {useI18n} from '../../hooks';
