@@ -42,7 +42,7 @@ jobs:
         with:
           path: |
             .sewing-kit/
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-${{ github.sha }}
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v1-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-
 
