@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+- Added `config.allow_integration_test`(default `false`) option to disable raising error in rails `test` environment.
+
 - Prioritize using `allowlist` over `whitelist` from ShopifySecurityBase ([#1923](https://github.com/Shopify/quilt/pull/1923))
 
 ## 3.4.2 - 2021-02-23
