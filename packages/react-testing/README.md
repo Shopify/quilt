@@ -200,7 +200,7 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
     // This makes it so any GraphQL resolution is wrapped in
     // an act() block, which prevents setting state outside of
     // act().
-    graphQL.wrap(perform => root.act(perform));
+    graphQL.wrap((perform) => root.act(perform));
 
     if (skipInitialGraphQL) {
       return;
@@ -235,14 +235,14 @@ interface ExtendedOptions {
 }
 
 const mount = createMount<Options, Options>({
-  context: options => options,
+  context: (options) => options,
   render: (element, {pathname}) => (
     <Router pathname={pathname}>{element}</Router>
   ),
 });
 
 const extendedMount = mount.extend<ExtendedOptions, ExtendedOptions>({
-  context: options => options,
+  context: (options) => options,
   render: (element, {graphQLResult}) => (
     <GraphQLMock mock={graphQLResult}>{element}</GraphQLMock>
   ),
@@ -565,7 +565,7 @@ console.log(wrapper.find(Container)!.debug({depth: 1}));
 // find button by name and print all children with verbose props details
 console.log(
   wrapper
-    .findWhere(type => type && type.name === 'button')!
+    .findWhere((type) => type && type.name === 'button')!
     .debug({verbosity: 9}),
 );
 ```
@@ -664,6 +664,10 @@ Enzyme is a very popular testing library that heavily inspired the approach this
 ### Why not use [react-testing-library](https://github.com/testing-library/react-testing-library) instead?
 
 While the premise of writing tests that mirror user actions is compelling, basing all tests off the raw DOM being produced becomes unmanageable for larger apps.
+
+### What versions of React does this support?
+
+The React versions this library supports are spelled out via a [peer dependency in the package.json](https://github.com/Shopify/quilt/blob/main/packages/react-testing/package.json#L47-L47)
 
 ### Does this library work with Preact?
 

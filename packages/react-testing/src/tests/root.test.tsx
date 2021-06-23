@@ -2,12 +2,23 @@ import React from 'react';
 
 import {Root} from '../root';
 import {Element} from '../element';
-import {Tag} from '../types';
+import {Tag, ReactInstance} from '../types';
 import {destroyAll} from '../destroy';
 
 describe('Root', () => {
   afterEach(() => {
     destroyAll();
+  });
+
+  it('works with react 17 style nodes', () => {
+    const root = new Root(<div />);
+
+    // in React 17 _reactInternalFiber is renamed to _reactInternals
+    const rootRef = (root as any).wrapper.rootRef;
+    rootRef._reactInternals = rootRef._reactInternalFiber;
+    delete rootRef._reactInternalFiber;
+
+    expect(() => root.act(() => {})).not.toThrow();
   });
 
   it('delegates calls to the root element', () => {

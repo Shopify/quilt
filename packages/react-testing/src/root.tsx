@@ -8,12 +8,12 @@ import {
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
+import {getInternals} from './compat';
 import {
   Tag,
   Fiber,
   Node,
   Predicate,
-  ReactInstance,
   FunctionKeys,
   DeepPartialArguments,
   PropsFor,
@@ -253,11 +253,9 @@ export class Root<Props> implements Node<Props> {
     if (this.wrapper == null) {
       this.root = null;
     } else {
+      const rootFiber = getInternals(this.wrapper.rootRef as any);
       const topElement = fiberToElement(
-        findCurrentFiberUsingSlowPath(
-          ((this.wrapper.rootRef as unknown) as ReactInstance)
-            ._reactInternalFiber,
-        ),
+        findCurrentFiberUsingSlowPath(rootFiber),
         this,
       );
 
