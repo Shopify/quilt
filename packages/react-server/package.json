@@ -51,7 +51,7 @@
     "react-dom": "^16.8.1",
     "saddle-up": "^0.5.1",
     "setimmediate": "^1.0.5",
-    "webpack": ">=5.38.0"
+    "webpack": ">=5.40.0"
   },
   "peerDependencies": {
     "cross-fetch": ">=3.0.0",
