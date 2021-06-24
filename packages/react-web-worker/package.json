@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-web-worker",
-  "version": "2.0.2-webpack-5-beta.4",
+  "version": "2.0.2-webpack-5-beta.6",
   "license": "MIT",
   "description": "A hook for using web workers in React applications",
   "main": "index.js",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@shopify/react-hooks": "^2.0.1",
     "@shopify/useful-types": "^3.0.1",
-    "@shopify/web-worker": "^2.1.0-webpack-5-beta.4"
+    "@shopify/web-worker": "^2.1.0-webpack-5-beta.6"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0",
