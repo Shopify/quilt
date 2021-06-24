@@ -8,7 +8,7 @@ import {cleanDocument, extractImports, toSimpleDocument} from './document';
 interface Options {
   simple?: boolean;
 }
-
+// release comment
 export default async function graphQLLoader(
   this: LoaderContext<Options>,
   source: string | Buffer,
