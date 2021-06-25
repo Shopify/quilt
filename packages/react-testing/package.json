@@ -26,7 +26,7 @@
   "dependencies": {
     "@shopify/useful-types": "^3.0.1",
     "jest-matcher-utils": "^26.6.2",
-    "react-reconciler": "^0.20.2"
+    "react-reconciler": "^0.26.2"
   },
   "devDependencies": {
     "faker": "^4.1.0"
@@ -44,8 +44,8 @@
     "matchers.d.ts"
   ],
   "peerDependencies": {
-    "react": ">=16.8.0 <17.0.0",
-    "react-dom": ">=16.8.0 <17.0.0"
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",
