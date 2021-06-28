@@ -1,5 +1,3 @@
-import {memoize} from '@shopify/decorators';
-
 enum SupportedDimension {
   InnerWidth = 'innerWidth',
   OffsetWidth = 'offsetWidth',
@@ -8,26 +6,16 @@ enum SupportedDimension {
   ScrollHeight = 'scrollHeight',
 }
 
-type MockedGetter = (element: HTMLElement) => number;
-type Mock = MockedGetter | number;
-type Mocks = Partial<{[key: string]: Mock}>;
-
-type AugmentedElement = Element & {[key: string]: Mock};
-
-interface NativeImplentationMap {
-  [key: string]: Element;
-}
-
-function isGetterFunction(mock?: Mock): mock is MockedGetter {
-  return mock != null && typeof mock === 'function';
-}
+type NumberOrGetter = number | ((element: HTMLElement | Element) => number);
+type DimensionMap = {[T in SupportedDimension]: HTMLElement | Element};
+type MockedDimensions = {[T in SupportedDimension]: NumberOrGetter};
 
 export default class Dimension {
-  private isUsingMock = false;
-  private overwrittenImplementations: string[] = [];
+  private dimensionMap!: DimensionMap;
+  private undoMocks: Function[] = [];
 
-  mock(mocks: Mocks) {
-    if (this.isUsingMock) {
+  mock(mocks: Partial<MockedDimensions>) {
+    if (this.isMocked()) {
       throw new Error(
         'Dimensions are already mocked, but you tried to mock them again.',
       );
@@ -35,70 +23,54 @@ export default class Dimension {
       throw new Error('No dimensions provided for mocking');
     }
 
-    this.mockDOMMethods(mocks);
-    this.isUsingMock = true;
-  }
-
-  restore() {
-    if (!this.isUsingMock) {
-      throw new Error(
-        "Dimensions haven't been mocked, but you are trying to restore them.",
-      );
-    }
-
-    this.restoreDOMMethods();
-    this.isUsingMock = false;
-  }
-
-  isMocked() {
-    return this.isUsingMock;
-  }
-
-  @memoize()
-  private get nativeImplementations(): NativeImplentationMap {
-    return {
+    // We initialize this lazily so that we don’t try to reference
+    // HTMLElement in test environments where it does not exist.
+    this.dimensionMap = this.dimensionMap || {
       [SupportedDimension.InnerWidth]: HTMLElement.prototype,
       [SupportedDimension.OffsetWidth]: HTMLElement.prototype,
       [SupportedDimension.OffsetHeight]: HTMLElement.prototype,
       [SupportedDimension.ScrollWidth]: Element.prototype,
       [SupportedDimension.ScrollHeight]: Element.prototype,
     };
+
+    this.undoMocks = this.applyMocks(mocks);
   }
 
-  private mockDOMMethods(mocks: Mocks) {
-    Object.keys(mocks).forEach((method) => {
-      const nativeSource = this.nativeImplementations[method];
-      const mock: Mock | undefined = mocks[method];
+  restore() {
+    if (!this.isMocked()) {
+      throw new Error(
+        "Dimensions haven't been mocked, but you are trying to restore them.",
+      );
+    }
 
-      this.overwrittenImplementations.push(method);
+    [...this.undoMocks].forEach((undo) => undo());
+    this.undoMocks = [];
+  }
 
-      if (isGetterFunction(mock)) {
-        Object.defineProperty(nativeSource, method, {
+  isMocked() {
+    return this.undoMocks.length > 0;
+  }
+
+  private applyMocks(properties: Partial<MockedDimensions>) {
+    const keys = Object.getOwnPropertyNames(properties) as SupportedDimension[];
+    return keys.map((key) => {
+      const base = this.dimensionMap[key];
+      const orignalDescriptor = Object.getOwnPropertyDescriptor(base, key);
+      const mock = properties[key];
+
+      if (typeof mock === 'function') {
+        Object.defineProperty(base, key, {
           get() {
             return mock.call(this, this);
           },
-          configurable: true,
         });
       } else {
-        Object.defineProperty(nativeSource, method, {
-          value: mocks[method],
-          configurable: true,
-        });
-      }
-    });
-  }
-
-  private restoreDOMMethods() {
-    this.overwrittenImplementations.forEach((method) => {
-      const nativeSource = this.nativeImplementations[method];
-
-      if (nativeSource == null) {
-        return;
+        Object.defineProperty(base, key, {value: mock});
       }
 
-      delete (nativeSource as AugmentedElement)[method];
+      return () => {
+        Object.defineProperty(base, key, {...orignalDescriptor});
+      };
     });
-
-    this.overwrittenImplementations = [];
   }
 }

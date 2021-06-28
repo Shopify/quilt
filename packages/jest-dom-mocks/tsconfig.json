@@ -11,5 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/test/**/*", "**/tests/**/*"],
-  "references": [{"path": "../async"}, {"path": "../decorators"}]
+  "references": [{"path": "../async"}]
 }

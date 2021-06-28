@@ -70,7 +70,7 @@ describe('Dimension mocks', () => {
       targetEl.id = 'testId';
 
       dimension.mock({
-        scrollWidth(element: HTMLElement) {
+        scrollWidth(element) {
           return element.id === 'testId' ? 200 : 0;
         },
       });
@@ -105,13 +105,16 @@ describe('Dimension mocks', () => {
       const dimension = new Dimension();
       const testEl = document.createElement('div');
 
+      const originalScrollWidth = testEl.scrollWidth;
+      expect(originalScrollWidth).not.toBeUndefined();
+
       dimension.mock({
         scrollWidth: 200,
       });
       dimension.restore();
 
       expect(testEl.scrollWidth).not.toBe(200);
-      expect(testEl.scrollWidth).toBeUndefined();
+      expect(testEl.scrollWidth).toBe(originalScrollWidth);
     });
   });
 });
