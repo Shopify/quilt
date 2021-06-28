@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-## Fixed
+### Fixed
 
 - Dimension mocks no longer leak invalid values into other tests after being restored. [[#1961](https://github.com/Shopify/quilt/pull/1961)]
 
