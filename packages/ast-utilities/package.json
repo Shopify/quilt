@@ -52,7 +52,7 @@
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
     "jest-matcher-utils": "^26.6.2",
-    "remark-parse": "^7.0.1",
+    "remark-parse": "^9.0.0",
     "remark-stringify": "^7.0.3",
     "unified": "^8.4.0",
     "unist-builder": "^1.0.4"
