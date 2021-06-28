@@ -6,8 +6,9 @@ enum SupportedDimension {
   ScrollHeight = 'scrollHeight',
 }
 
+type NumberOrGetter = number | ((element: HTMLElement | Element) => number);
 type DimensionMap = {[T in SupportedDimension]: HTMLElement | Element};
-type MockedDimensions = {[T in SupportedDimension]: number};
+type MockedDimensions = {[T in SupportedDimension]: NumberOrGetter};
 
 export default class Dimension {
   private dimensionMap!: DimensionMap;
@@ -18,6 +19,8 @@ export default class Dimension {
       throw new Error(
         'Dimensions are already mocked, but you tried to mock them again.',
       );
+    } else if (Object.keys(mocks).length === 0) {
+      throw new Error('No dimensions provided for mocking');
     }
 
     // We initialize this lazily so that we don’t try to reference
@@ -30,7 +33,7 @@ export default class Dimension {
       [SupportedDimension.ScrollHeight]: Element.prototype,
     };
 
-    this.undoMocks.push(...this.applyMocks(mocks));
+    this.undoMocks = this.applyMocks(mocks);
   }
 
   restore() {
@@ -40,7 +43,7 @@ export default class Dimension {
       );
     }
 
-    [...this.undoMocks].reverse().forEach((undo) => undo());
+    [...this.undoMocks].forEach((undo) => undo());
     this.undoMocks = [];
   }
 
@@ -53,8 +56,17 @@ export default class Dimension {
     return keys.map((key) => {
       const base = this.dimensionMap[key];
       const orignalDescriptor = Object.getOwnPropertyDescriptor(base, key);
+      const mock = properties[key];
 
-      Object.defineProperty(base, key, {value: properties[key]});
+      if (typeof mock === 'function') {
+        Object.defineProperty(base, key, {
+          get() {
+            return mock.call(this, this);
+          },
+        });
+      } else {
+        Object.defineProperty(base, key, {value: mock});
+      }
 
       return () => {
         Object.defineProperty(base, key, {...orignalDescriptor});
