@@ -1,7 +1,7 @@
 import * as path from 'path';
 import {createHash} from 'crypto';
 
-import {loader} from 'webpack';
+import type {LoaderContext} from 'webpack';
 import {stripIndent} from 'common-tags';
 
 import graphQLLoader from '../webpack-loader';
@@ -272,7 +272,7 @@ function createLoaderContext({
   context = __dirname,
   readFile = () => '',
   resolve = (context, imported) => path.resolve(context, imported),
-}: Options = {}): loader.LoaderContext {
+}: Options = {}): LoaderContext<Options> {
   return {
     context,
     query,
@@ -291,6 +291,9 @@ function createLoaderContext({
       },
     },
     cacheable() {},
+    getOptions() {
+      return this.query;
+    },
     async() {
       return () => {};
     },

@@ -97,6 +97,7 @@ export function pitch(
   }
 
   const subCache = `subcache ${__dirname} ${request}`;
+
   workerCompiler.hooks.compilation.tap(NAME, (compilation) => {
     if (!compilation.cache) {
       return;
