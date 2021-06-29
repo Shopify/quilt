@@ -7,21 +7,28 @@ import {
 import {react} from '@sewing-kit/plugin-react';
 import {javascript, updateBabelPreset} from '@sewing-kit/plugin-javascript';
 import {typescript} from '@sewing-kit/plugin-typescript';
-import {buildFlexibleOutputs} from '@sewing-kit/plugin-package-flexible-outputs';
+import {packageBuild} from '@sewing-kit/plugin-package-build';
 import {} from '@sewing-kit/plugin-jest';
 
 import {addLegacyDecoratorSupport} from './plugin';
 
-export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
+export function quiltPackage({
+  jestEnv = 'jsdom',
+  useReact = false,
+  jestTestRunner = 'jest-circus',
+} = {}) {
   return createComposedProjectPlugin<Package>('Quilt.Package', [
     javascript(),
     typescript(),
     useReact && react(),
-    buildFlexibleOutputs(),
+    packageBuild({
+      nodeTargets: 'node 12.14.0',
+      browserTargets: 'extends @shopify/browserslist-config',
+    }),
     createProjectBuildPlugin('Quilt.PackageBuild', ({hooks}) => {
       hooks.target.hook(({hooks}) => {
-        hooks.configure.hook(hooks => {
-          hooks.babelIgnorePatterns?.hook(ext => [
+        hooks.configure.hook((hooks) => {
+          hooks.babelIgnorePatterns?.hook((ext) => [
             ...ext,
             '**/test/**/*',
             '**/tests/**/*',
@@ -32,15 +39,22 @@ export function quiltPackage({jestEnv = 'jsdom', useReact = false} = {}) {
       });
     }),
     createProjectTestPlugin('Quilt.PackageTest', ({hooks}) => {
-      hooks.configure.hook(hooks => {
+      hooks.configure.hook((hooks) => {
         hooks.jestEnvironment?.hook(() => jestEnv);
 
-        hooks.jestTransforms?.hook(transforms => ({
+        hooks.jestTransforms?.hook((transforms) => ({
           ...transforms,
           '\\.(gql|graphql)$': 'jest-transform-graphql',
         }));
 
-        hooks.jestWatchIgnore?.hook(patterns => [
+        hooks.jestConfig?.hook((jestConfig) => {
+          return {
+            ...jestConfig,
+            testRunner: jestTestRunner,
+          };
+        });
+
+        hooks.jestWatchIgnore?.hook((patterns) => [
           ...patterns,
           '<rootDir>/.*/tests?/.*fixtures',
         ]);

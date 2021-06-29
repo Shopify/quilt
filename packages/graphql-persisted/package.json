@@ -1,12 +1,9 @@
 {
   "name": "@shopify/graphql-persisted",
-  "version": "1.3.3",
+  "version": "2.0.2",
   "license": "MIT",
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "sideEffects": false,
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -21,21 +18,23 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-persisted/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "@types/koa": "^2.0.0",
     "@types/koa-bodyparser": "*",
     "@types/koa-compose": "*",
     "apollo-link": ">=1.0.0 <2.0.0",
     "koa-bodyparser": ">=4.0.0 <5.0.0",
-    "koa-compose": ">=3.0.0 <4.0.0",
-    "tslib": "^1.14.1"
+    "koa-compose": ">=3.0.0 <4.0.0"
   },
   "devDependencies": {
-    "@shopify/sewing-kit-koa": "^6.4.3"
+    "@shopify/sewing-kit-koa": "^6.4.5"
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "apollo.js",
     "apollo.mjs",
     "apollo.esnext",
@@ -46,7 +45,7 @@
     "koa.d.ts"
   ],
   "optionalDependencies": {
-    "@shopify/sewing-kit-koa": "*"
+    "@shopify/sewing-kit-koa": "^7.0.2"
   },
   "peerDependencies": {
     "koa": ">=2.0.0"

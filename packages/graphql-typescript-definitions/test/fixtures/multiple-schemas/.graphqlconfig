@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "test1": {
+      "schemaPath": "schema1/schema.graphql",
+      "includes": ["schema1/documents/**/*.graphql"],
+      "extensions": {
+        "schemaTypesPath": "schema1/types"
+      }
+    },
+    "test2": {
+      "schemaPath": "schema2/schema.graphql",
+      "includes": ["schema2/documents/**/*.graphql"],
+      "extensions": {
+        "schemaTypesPath": "schema2/types"
+      }
+    }
+  }
+}

@@ -835,7 +835,7 @@ function withIgnoredReactErrorLogs(perform: () => unknown) {
   console.error = (...args) => {
     if (
       typeof args[0] === 'string' &&
-      IGNORE_ERRORS.some(regex => regex.test(args[0]))
+      IGNORE_ERRORS.some((regex) => regex.test(args[0]))
     ) {
       return;
     }
@@ -856,11 +856,11 @@ function withIgnoredReactErrorLogs(perform: () => unknown) {
     'catch' in result
   ) {
     return (result as Promise<unknown>)
-      .then(resolvedResult => {
+      .then((resolvedResult) => {
         cleanup();
         return resolvedResult;
       })
-      .catch(error => {
+      .catch((error) => {
         cleanup();
         return error;
       });

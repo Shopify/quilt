@@ -108,7 +108,7 @@ describe('createRender', () => {
     const headerValue = 'some-value';
     const ctx = createMockContext({headers: {'some-header': headerValue}});
 
-    const renderFunction = createRender(ctx => <>{ctx.get('some-header')}</>);
+    const renderFunction = createRender((ctx) => <>{ctx.get('some-header')}</>);
     await renderFunction(ctx, noop);
 
     expect(await readStream(ctx.body)).toContain(headerValue);
@@ -221,10 +221,10 @@ describe('createRender', () => {
 });
 
 function readStream(stream: NodeJS.ReadableStream) {
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     let response: string;
 
-    stream.on('data', data => (response += data));
+    stream.on('data', (data) => (response += data));
     stream.on('end', () => resolve(response));
   });
 }

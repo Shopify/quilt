@@ -1,8 +1,11 @@
-import {createPackage} from '@sewing-kit/config';
+import {createPackage, Runtime} from '@sewing-kit/config';
+import {Package, createProjectBuildPlugin} from '@sewing-kit/plugins';
+import {BabelConfig, updateBabelPreset} from '@sewing-kit/plugin-javascript';
 
 import {quiltPackage} from '../../config/sewing-kit';
 
 export default createPackage(pkg => {
+  pkg.runtimes(Runtime.Browser, Runtime.Node);
   pkg.entry({root: './src/index'});
 
   pkg.entry({name: 'base', root: './src/base'});
@@ -54,22 +57,22 @@ export default createPackage(pkg => {
     root: './src/mutation-observer.node',
   });
 
-  pkg.entry({
-    name: 'unhandled-rejection.browser',
-    root: './src/unhandled-rejection.browser',
-  });
-  pkg.entry({
-    name: 'unhandled-rejection.jest',
-    root: './src/unhandled-rejection.jest',
-  });
-  pkg.entry({
-    name: 'unhandled-rejection.node',
-    root: './src/unhandled-rejection.node',
-  });
-
-  pkg.entry({name: 'url.browser', root: './src/url.browser'});
-  pkg.entry({name: 'url.jest', root: './src/url.jest'});
-  pkg.entry({name: 'url.node', root: './src/url.node'});
-
   pkg.use(quiltPackage());
+  pkg.use(
+    createProjectBuildPlugin('Quilt.PackagePolyfillsBuild', ({hooks}) => {
+      hooks.target.hook(({hooks}) => {
+        hooks.configure.hook(hooks => {
+          hooks.babelConfig?.hook(
+            updateBabelPreset(
+              [
+                '@sewing-kit/plugin-javascript/babel-preset',
+                require.resolve('@sewing-kit/plugin-javascript/babel-preset'),
+              ],
+              {modules: 'auto', polyfill: 'inline'},
+            ),
+          );
+        });
+      });
+    }),
+  );
 });

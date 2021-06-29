@@ -1,12 +1,22 @@
 import {FieldDictionary} from '../../types';
 
-import {addFieldItemAction, removeFieldItemAction} from './hooks';
+import {
+  addFieldItemAction,
+  removeFieldItemAction,
+  moveFieldItemAction,
+} from './hooks';
 import {useBaseList, FieldListConfig} from './baselist';
 
-interface DynamicList<Item extends object> {
+export interface DynamicList<Item extends object> {
   fields: FieldDictionary<Item>[];
   addItem(factoryArgument?: any): void;
   removeItem(index: number): void;
+  moveItem(fromIndex: number, toIndex: number): void;
+  reset(): void;
+  dirty: boolean;
+  value: Item[];
+  defaultValue: Item[];
+  newDefaultValue(newDefaultItems: Item[]): void;
 }
 
 type FactoryFunction<Item extends object> = (
@@ -27,7 +37,15 @@ export function useDynamicList<Item extends object>(
   fieldFactory: FactoryFunction<Item>,
   validationDependencies: unknown[] = [],
 ): DynamicList<Item> {
-  const {fields, dispatch} = useBaseList(listOrConfig, validationDependencies);
+  const {
+    fields,
+    dispatch,
+    reset,
+    dirty,
+    newDefaultValue,
+    value,
+    defaultValue,
+  } = useBaseList(listOrConfig, validationDependencies);
 
   function addItem(factoryArgument?: any) {
     const itemToAdd = fieldFactory(factoryArgument);
@@ -39,9 +57,23 @@ export function useDynamicList<Item extends object>(
     }
   }
 
+  function moveItem(fromIndex: number, toIndex: number) {
+    dispatch(moveFieldItemAction(fromIndex, toIndex));
+  }
+
   function removeItem(index: number) {
     dispatch(removeFieldItemAction(index));
   }
 
-  return {fields, addItem, removeItem};
+  return {
+    fields,
+    addItem,
+    removeItem,
+    moveItem,
+    reset,
+    dirty,
+    value,
+    newDefaultValue,
+    defaultValue,
+  };
 }

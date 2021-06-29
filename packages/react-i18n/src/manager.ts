@@ -180,7 +180,7 @@ export class I18nManager {
 
       if (isPromise(translations)) {
         const promise = translations
-          .then(result => {
+          .then((result) => {
             this.translationPromises.delete(translationId);
             this.translations.set(translationId, result);
             this.asyncTranslationIds.add(translationId);
@@ -219,7 +219,7 @@ export class I18nManager {
       this.idsToUpdate.clear();
 
       for (const [subscriber, ids] of this.subscriptions) {
-        if (ids.some(id => idsToUpdate.includes(id))) {
+        if (ids.some((id) => idsToUpdate.includes(id))) {
           subscriber(this.state(ids), this.details);
         }
       }

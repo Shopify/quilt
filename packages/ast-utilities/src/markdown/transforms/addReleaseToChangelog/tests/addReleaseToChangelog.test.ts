@@ -7,7 +7,7 @@ describe('addReleaseToChangelog', () => {
     const newDate = '2019-09-16';
 
     const initial = `
-## [Unreleased]
+## Unreleased
 
 ## 0.0.1 - 2019-08-15
 
@@ -15,7 +15,7 @@ describe('addReleaseToChangelog', () => {
     `;
 
     const expected = `
-<!-- ## [Unreleased] -->
+<!-- ## Unreleased -->
 
 ## ${newVersion} - ${newDate}
 
@@ -38,7 +38,7 @@ describe('addReleaseToChangelog', () => {
     const notes = 'updated another thing';
 
     const initial = `
-## [Unreleased]
+## Unreleased
 
 ## 0.0.1 - 2019-08-15
 
@@ -46,7 +46,7 @@ describe('addReleaseToChangelog', () => {
     `;
 
     const expected = `
-<!-- ## [Unreleased] -->
+<!-- ## Unreleased -->
 
 ## ${version} - ${date}
 
@@ -74,7 +74,7 @@ ${notes}
 		`;
 
     const initial = `
-## [Unreleased]
+## Unreleased
 
 ## 0.0.1 - 2019-08-15
 
@@ -82,7 +82,7 @@ ${notes}
     `;
 
     const expected = `
-<!-- ## [Unreleased] -->
+<!-- ## Unreleased -->
 
 ## ${version} - ${date}
 
@@ -106,7 +106,7 @@ ${notes}
     const newDate = '2019-09-16';
 
     const initial = `
-<!-- ## [Unreleased] -->
+<!-- ## Unreleased -->
 
 ## 0.0.2 - 2019-08-17
 
@@ -118,7 +118,7 @@ ${notes}
     `;
 
     const expected = `
-<!-- ## [Unreleased] -->
+<!-- ## Unreleased -->
 
 ## ${newVersion} - ${newDate}
 

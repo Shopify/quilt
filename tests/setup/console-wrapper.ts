@@ -8,7 +8,7 @@ console.error = (...args: any[]) => {
   const [firstArgument] = args;
   if (
     typeof firstArgument === 'string' &&
-    IGNORABLE_TEST_ERRORS.some(regex => regex.test(firstArgument))
+    IGNORABLE_TEST_ERRORS.some((regex) => regex.test(firstArgument))
   ) {
     return;
   }

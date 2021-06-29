@@ -14,7 +14,7 @@ const mount = createMount<{htmlManager?: HtmlManager}>({
   ),
 });
 
-const headerNames = headers => Object.keys(headers);
+const headerNames = (headers) => Object.keys(headers);
 
 function generateTestKey(index) {
   return `key-${index}`;
@@ -22,7 +22,7 @@ function generateTestKey(index) {
 
 function TestApp({headers = []}) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const headerValues = headers.map(header => useRequestHeader(header));
+  const headerValues = headers.map((header) => useRequestHeader(header));
 
   return (
     <>

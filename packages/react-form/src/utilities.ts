@@ -9,10 +9,12 @@ import {
   FormMapping,
   Field,
   FormError,
+  DynamicListBag,
 } from './types';
 
 export function isField<T extends Object>(input: any): input is Field<T> {
   return (
+    Boolean(input) &&
     Object.prototype.hasOwnProperty.call(input, 'value') &&
     Object.prototype.hasOwnProperty.call(input, 'onChange') &&
     Object.prototype.hasOwnProperty.call(input, 'onBlur') &&
@@ -78,7 +80,7 @@ export function propagateErrors(
   fieldBag: {[key: string]: FieldOutput<any>},
   errors: FormError[],
 ) {
-  errors.forEach(error => {
+  errors.forEach((error) => {
     if (error.field == null) {
       return;
     }
@@ -108,7 +110,7 @@ export function reduceFields<V>(
     value: any,
     path: (string | number)[],
     fieldBag: FieldBag,
-  ) => V = value => value,
+  ) => V = (value) => value,
 ) {
   return (function reduceField(
     accumulator: V,
@@ -208,4 +210,12 @@ export function defaultDirtyComparator<Value>(
 
 export function makeCleanFields(fieldBag: FieldBag) {
   reduceFields(fieldBag, (_, field) => field.newDefaultValue(field.value));
+}
+
+export function makeCleanDynamicLists(dynamicLists?: DynamicListBag) {
+  if (dynamicLists) {
+    Object.values(dynamicLists).forEach((dynamicList) => {
+      dynamicList.newDefaultValue(dynamicList.value);
+    });
+  }
 }

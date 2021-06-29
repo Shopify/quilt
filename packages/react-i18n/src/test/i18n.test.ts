@@ -14,10 +14,12 @@ jest.mock('../utilities', () => ({
   getCurrencySymbol: jest.fn(),
 }));
 
+/* eslint-disable @typescript-eslint/no-var-requires */
 const translate: jest.Mock = require('../utilities').translate;
 const getTranslationTree: jest.Mock = require('../utilities')
   .getTranslationTree;
 const getCurrencySymbol: jest.Mock = require('../utilities').getCurrencySymbol;
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 describe('I18n', () => {
   const defaultDetails = {locale: 'en-ca'};
@@ -648,6 +650,7 @@ describe('I18n', () => {
       ['ko', '.', ','],
       ['jp', '.', ','],
     ];
+
     it.each(tests)(
       'locale %s decimal is "%s" and thousands is "%s"',
       (locale, decimalSymbol, thousandSymbol) => {
@@ -786,6 +789,66 @@ describe('I18n', () => {
     );
   });
 
+  describe('#formatCurrencyNone()', () => {
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'1 234,56'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'1 235'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'1 234,56'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'1,234.56'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'1,235'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'1,234.56'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'1 234,56'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'1 235'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'1 234,560'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'1 234,56'}
+    `(
+      'formats 1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = 1234.56;
+        const mockSymbolResult = {symbol, prefixed};
+
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyNone(amount, {currency})).toBe(expected);
+      },
+    );
+  });
+
+  describe('#formatCurrencyNone() with negative amount', () => {
+    it.each`
+      locale     | currency | symbol    | prefixed | expected
+      ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56'}
+      ${'de-AT'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'-1 234,56'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-1 235'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-1 234,56'}
+      ${'en-US'} | ${'EUR'} | ${'€ '}   | ${true}  | ${'-1,234.56'}
+      ${'en-US'} | ${'JPY'} | ${'¥ '}   | ${true}  | ${'-1,235'}
+      ${'en-US'} | ${'OMR'} | ${'OMR '} | ${true}  | ${'-1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$ '}   | ${true}  | ${'-1,234.56'}
+      ${'fr-FR'} | ${'EUR'} | ${' €'}   | ${false} | ${'-1 234,56'}
+      ${'fr-FR'} | ${'JPY'} | ${' JPY'} | ${false} | ${'-1 235'}
+      ${'fr-FR'} | ${'OMR'} | ${' OMR'} | ${false} | ${'-1 234,560'}
+      ${'fr-FR'} | ${'USD'} | ${' $US'} | ${false} | ${'-1 234,56'}
+    `(
+      'formats -1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, symbol, prefixed, expected}) => {
+        const amount = -1234.56;
+        const mockSymbolResult = {symbol, prefixed};
+
+        getCurrencySymbol.mockReturnValue(mockSymbolResult);
+
+        const i18n = new I18n(defaultTranslations, {locale});
+        expect(i18n.formatCurrencyNone(amount, {currency})).toBe(expected);
+      },
+    );
+  });
+
   describe('#formatCurrencyShort()', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
@@ -852,12 +915,39 @@ describe('I18n', () => {
       prefixed: true,
     };
 
+    it('handles locale/currency mismatch', () => {
+      getCurrencySymbol.mockReturnValue({
+        symbol: '$CA',
+        prefixed: 'false',
+      });
+
+      const formatted = '12,34';
+      const mismatchI18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        locale: 'fr',
+        currency: 'cad',
+      });
+
+      expect(mismatchI18n.unformatCurrency(formatted, 'CAD')).toBe('12.34');
+    });
+
     it('handles formatted USD input', () => {
       getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
       const i18n = new I18n(defaultTranslations, defaultDetails);
       expect(i18n.unformatCurrency('1,234.50', 'USD')).toBe('1234.50');
       expect(i18n.unformatCurrency('1', 'USD')).toBe('1.00');
+    });
+
+    it('handles formatted RSD input', () => {
+      getCurrencySymbol.mockReturnValue({
+        symbol: 'RSD',
+        prefixed: true,
+      });
+
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.unformatCurrency('1,234.55', 'RSD')).toBe('1234.55');
+      expect(i18n.unformatCurrency('1', 'RSD')).toBe('1.00');
     });
 
     describe('prefixed symbols', () => {
@@ -1045,6 +1135,7 @@ describe('I18n', () => {
           expect(i18n.unformatCurrency('1234.50', 'USD')).toBe('1234.50');
         });
       });
+
       describe('it locale', () => {
         it('treats , as the decimal symbol', () => {
           formatCurrency.mockImplementationOnce(() => '1,00 $');

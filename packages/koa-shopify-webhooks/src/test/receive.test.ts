@@ -4,7 +4,6 @@ import {createMockContext} from '@shopify/jest-koa-mocks';
 import {StatusCode} from '@shopify/network';
 
 import {WebhookHeader} from '../types';
-
 import {receiveWebhook} from '..';
 
 const secret = 'kitties are cute';

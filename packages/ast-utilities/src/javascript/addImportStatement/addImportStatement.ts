@@ -8,7 +8,7 @@ export default function addImportStatement(statement: string | string[]) {
 
   return {
     Program(path: traverse.NodePath<t.Program>) {
-      statements.forEach(statement => {
+      statements.forEach((statement) => {
         const ast = astFrom(`${statement}
         `);
 

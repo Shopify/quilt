@@ -1,0 +1,20 @@
+enum Generation {
+  MILLENIAL
+  GEN_X
+}
+
+type Person {
+  id: ID!
+  name: String!
+  generation: Generation!
+  relatives: [Person!]!
+}
+
+type Query {
+  person: Person
+  people: [Person]
+}
+
+schema {
+  query: Query
+}

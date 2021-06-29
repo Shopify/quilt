@@ -68,7 +68,7 @@ export default class List<Fields> extends React.PureComponent<
         field: {onChange},
       } = this.props;
 
-      onChange(value => {
+      onChange((value) => {
         const existingItem = value[index];
         const newItem = {
           ...(existingItem as any),

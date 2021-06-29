@@ -11,7 +11,7 @@ export async function getUsedAssets(
   const asyncAssets = new AsyncAssetManager();
 
   await extract(element, {
-    decorate: element => (
+    decorate: (element) => (
       <AsyncAssetContext.Provider value={asyncAssets}>
         {element}
       </AsyncAssetContext.Provider>

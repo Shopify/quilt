@@ -29,16 +29,16 @@ export function withEntriesOfType<T extends keyof EntryMap>(
 ) {
   try {
     const initialEntries = performance.getEntriesByType(type);
-    initialEntries.forEach(entry => handler(entry as EntryMap[T]));
+    initialEntries.forEach((entry) => handler(entry as EntryMap[T]));
 
     if (!hasGlobal('PerformanceObserver')) {
       return;
     }
 
-    const observer = new PerformanceObserver(entries => {
+    const observer = new PerformanceObserver((entries) => {
       entries
         .getEntriesByType(type)
-        .forEach(entry => handler(entry as EntryMap[T]));
+        .forEach((entry) => handler(entry as EntryMap[T]));
     });
 
     observer.observe({
@@ -119,8 +119,8 @@ interface Range {
 export function getUniqueRanges(ranges: Range[]) {
   const uniqueRanges = new Set<Range>();
 
-  ranges.forEach(range => {
-    const overlappingRanges = [...uniqueRanges].filter(otherRange =>
+  ranges.forEach((range) => {
+    const overlappingRanges = [...uniqueRanges].filter((otherRange) =>
       rangesOverlap(range, otherRange),
     );
 

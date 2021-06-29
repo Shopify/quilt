@@ -1,0 +1,13 @@
+type Person {
+  id: ID!
+  name: String!
+  relatives: [Person!]!
+}
+
+type Query {
+  person: Person
+}
+
+schema {
+  query: Query
+}

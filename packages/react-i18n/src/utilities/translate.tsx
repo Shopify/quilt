@@ -227,11 +227,11 @@ function updateStringWithReplacements(
 ): any {
   const replaceFinder = /([^{]*)({([^}]*)})?/g;
   const allReplacementsArePrimitives = Object.keys(replacements).every(
-    key => typeof replacements[key] !== 'object',
+    (key) => typeof replacements[key] !== 'object',
   );
 
   if (allReplacementsArePrimitives) {
-    return str.replace(REPLACE_REGEX, match => {
+    return str.replace(REPLACE_REGEX, (match) => {
       const replacement = match.substring(1, match.length - 1);
 
       if (!Object.prototype.hasOwnProperty.call(replacements, replacement)) {

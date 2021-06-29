@@ -43,7 +43,7 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
   displayName?: string;
   skip?: boolean;
   client?: ApolloClient<object>;
-  context?: Record<string, any>;
+  context?: {[key: string]: any};
   partialRefetch?: boolean;
   onCompleted?: (data: Data | {}) => void;
   onError?: (error: ApolloError) => void;

@@ -1,10 +1,9 @@
 // general logic and approach taken from
 // https://github.com/matthew-andrews/isomorphic-fetch/blob/master/fetch-npm-node.js
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const nodeFetch = require('node-fetch');
+import nodeFetch, {Response, Headers, Request} from 'node-fetch';
 
-function wrappedFetch(url: string | Request, options) {
+function wrappedFetch(this: unknown, url: string | Request, options) {
   if (typeof url !== 'string') {
     return nodeFetch.call(this, url, options);
   }
@@ -15,9 +14,7 @@ function wrappedFetch(url: string | Request, options) {
 
 if (!(global as any).fetch) {
   (global as any).fetch = wrappedFetch;
-  (global as any).Response = nodeFetch.Response;
-  (global as any).Headers = nodeFetch.Headers;
-  (global as any).Request = nodeFetch.Request;
+  (global as any).Response = Response;
+  (global as any).Headers = Headers;
+  (global as any).Request = Request;
 }
-
-export {};

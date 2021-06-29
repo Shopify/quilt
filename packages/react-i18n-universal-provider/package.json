@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-i18n-universal-provider",
-  "version": "1.1.5",
+  "version": "2.0.4",
   "license": "MIT",
   "description": "A self-serializing/deserializing i18n provider that works for isomorphic applications",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,22 +20,24 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-i18n-universal-provider/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/react-hooks": "^1.12.2",
-    "@shopify/react-html": "^10.2.3",
-    "@shopify/react-i18n": "^5.2.4",
-    "tslib": "^1.14.1"
+    "@shopify/react-hooks": "^2.0.1",
+    "@shopify/react-html": "^11.0.2",
+    "@shopify/react-i18n": "^6.0.4"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "devDependencies": {
-    "@shopify/react-effect": "^3.3.2",
+    "@shopify/react-effect": "^4.0.1",
     "faker": "^4.1.0"
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

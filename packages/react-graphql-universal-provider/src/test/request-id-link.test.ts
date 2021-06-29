@@ -7,7 +7,7 @@ describe('createRequestIdLink()', () => {
     const mockRequestId = '06a2f67e-b080-446f-bffa-7851ddad3a45';
     const requestIdLink = createRequestIdLink(mockRequestId);
 
-    const mockLink = new ApolloLink(operation => {
+    const mockLink = new ApolloLink((operation) => {
       expect(operation.getContext().header['X-Initiated-By-Request-ID']).toBe(
         mockRequestId,
       );

@@ -15,7 +15,7 @@ describe('useAcceptLanguage()', () => {
   }) {
     const locales = useAcceptLanguage(fallback);
 
-    const localeCodes = locales.map(local => local.code).join(' ');
+    const localeCodes = locales.map((local) => local.code).join(' ');
     return <>{localeCodes}</>;
   }
 

@@ -8,7 +8,7 @@ export {NetworkContext} from './context';
 export const EFFECT_ID = Symbol('network');
 
 interface Options {
-  headers?: Record<string, string>;
+  headers?: {[key: string]: string};
   cookies?: Cookie | string;
 }
 
@@ -29,7 +29,7 @@ export class NetworkManager {
   private redirectUrl?: string;
   private readonly csp = new Map<CspDirective, string[] | boolean>();
   private readonly headers = new Map<string, string>();
-  private readonly requestHeaders: Record<string, string>;
+  private readonly requestHeaders: {[key: string]: string};
 
   constructor({headers, cookies}: Options = {}) {
     this.requestHeaders = normalizeHeaders(headers);
@@ -113,7 +113,7 @@ export class NetworkManager {
   }
 }
 
-function normalizeHeaders(headers: undefined | Record<string, string>) {
+function normalizeHeaders(headers: undefined | {[key: string]: string}) {
   if (!headers) {
     return {};
   }

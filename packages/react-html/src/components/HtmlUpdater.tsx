@@ -8,8 +8,8 @@ import {MANAGED_ATTRIBUTE, removeDuplicate} from '../utilities';
 export function HtmlUpdater() {
   const queuedUpdate = React.useRef<number | null>(null);
 
-  useClientDomEffect(manager => {
-    return manager.subscribe(state => {
+  useClientDomEffect((manager) => {
+    return manager.subscribe((state) => {
       if (queuedUpdate.current) {
         cancelAnimationFrame(queuedUpdate.current);
       }
@@ -71,7 +71,7 @@ function updateElement<T extends React.HTMLProps<HTMLElement>>(
       }
     }
 
-    const matchingOldElementIndex = oldElements.findIndex(oldElement =>
+    const matchingOldElementIndex = oldElements.findIndex((oldElement) =>
       oldElement.isEqualNode(element),
     );
 

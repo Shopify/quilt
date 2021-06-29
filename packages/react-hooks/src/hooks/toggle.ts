@@ -9,7 +9,7 @@ export function useToggle(initialState: boolean) {
 
   return {
     value,
-    toggle: useCallback(() => setState(state => !state), []),
+    toggle: useCallback(() => setState((state) => !state), []),
     setTrue: useCallback(() => setState(true), []),
     setFalse: useCallback(() => setState(false), []),
   };

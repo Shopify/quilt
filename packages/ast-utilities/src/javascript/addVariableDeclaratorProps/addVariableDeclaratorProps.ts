@@ -5,7 +5,7 @@ export default function addVariableDeclaratorProps(prop: string) {
   return {
     VariableDeclaration(path: traverse.NodePath<t.VariableDeclaration>) {
       const propsDeclaration = path.node.declarations.find(
-        declaration =>
+        (declaration) =>
           (t.isVariableDeclarator(declaration) &&
             declaration.init &&
             t.isMemberExpression(declaration.init) &&

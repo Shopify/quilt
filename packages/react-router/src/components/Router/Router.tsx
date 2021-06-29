@@ -6,14 +6,15 @@ import {isClient} from './utilities';
 interface Props {
   children?: React.ReactNode;
   location?: string | {pathname: string; search: string};
+  basename?: string;
 }
 
 export const NO_LOCATION_ERROR =
   'A location must be passed to <Router /> on the server.';
 
-export default function Router({location, children}: Props) {
+export default function Router({location, basename, children}: Props) {
   if (isClient()) {
-    return <BrowserRouter>{children}</BrowserRouter>;
+    return <BrowserRouter basename={basename}>{children}</BrowserRouter>;
   }
 
   if (location == null) {
@@ -35,7 +36,7 @@ export default function Router({location, children}: Props) {
       : location;
 
   return (
-    <StaticRouter location={locationObject} context={{}}>
+    <StaticRouter basename={basename} location={locationObject} context={{}}>
       {children}
     </StaticRouter>
   );

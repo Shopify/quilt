@@ -1,0 +1,4 @@
+schemaPath: schema.graphql
+includes:
+  - schema.graphql
+  - queries/**/*.graphql

@@ -25,7 +25,7 @@ export function toProvideReactContext<Type>(
   const foundByValue =
     value == null
       ? foundByType
-      : foundByType.filter(element =>
+      : foundByType.filter((element) =>
           this.equals(value, element.prop('value')),
         );
 

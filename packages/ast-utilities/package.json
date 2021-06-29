@@ -1,13 +1,10 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "0.2.2",
+  "version": "1.0.3",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,6 +20,9 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/ast-utilities/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "devDependencies": {
     "@babel/core": ">=7.0.0",
     "@babel/plugin-transform-react-jsx": ">=7.0.0",
@@ -33,7 +33,7 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",
@@ -48,13 +48,12 @@
     "markdown.d.ts"
   ],
   "dependencies": {
-    "@babel/template": "^7.6.0",
+    "@babel/template": "^7.14.5",
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
     "jest-matcher-utils": "^26.6.2",
-    "remark-parse": "^7.0.1",
+    "remark-parse": "^9.0.0",
     "remark-stringify": "^7.0.3",
-    "tslib": "^1.14.1",
     "unified": "^8.4.0",
     "unist-builder": "^1.0.4"
   },

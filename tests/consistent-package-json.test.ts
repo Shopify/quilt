@@ -3,11 +3,14 @@ import {dirname, join, relative, resolve} from 'path';
 import {readFileSync, readJSONSync} from 'fs-extra';
 import glob from 'glob';
 
+import {shouldSkipShopifyPrefix} from './skip-shopify-prefix';
+
 const KNOWN_TEMPLATE_KEYS = [
   'author',
   'bugs',
   'dependencies',
   'description',
+  'engines',
   'esnext',
   'exports',
   'files',
@@ -44,7 +47,7 @@ describe('templates/package.hbs.json', () => {
   });
 });
 
-const IGNORE_PACKAGES = ['tslib', '@types/'];
+const IGNORE_PACKAGES = ['@types/'];
 
 packages.forEach(
   ({packageName, packageJSONPath, packageJSON, expectedPackageJSON}) => {
@@ -59,10 +62,6 @@ packages.forEach(
           expect(packageJSON.bugs).toStrictEqual(expectedPackageJSON.bugs);
         });
 
-        it('specifies dependencies', () => {
-          expect(packageJSON.dependencies).not.toStrictEqual({});
-        });
-
         it('specifies a description', () => {
           expect(packageJSON.description).not.toBeUndefined();
         });
@@ -70,15 +69,24 @@ packages.forEach(
         if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies publishable files, including at least one entrypoint', () => {
             expect(packageJSON.files).toStrictEqual(
-              expect.arrayContaining(['build/*', '!tsconfig.tsbuildinfo']),
+              expect.arrayContaining(['build/*', '!*.tsbuildinfo']),
             );
             expect(packageJSON.files.length).toBeGreaterThan(2);
           });
         } else {
           it('specifies publishable files, including index entrypoints', () => {
-            expect(packageJSON.files).toStrictEqual(
-              expect.arrayContaining(expectedPackageJSON.files),
-            );
+            // Don't use arrayContaining here as it does not guarantee order
+            // We want to make sure the first set of items are always in a fixed
+            // order. Most importantly, the `!*.tsbuildinfo` exclusion must be
+            // after `build/*`.
+            /* eslint-disable jest/no-if */
+            if (packageJSON?.bin) {
+              expectedPackageJSON.files.unshift('bin/*');
+            }
+            /* eslint-enable */
+            expect(
+              packageJSON.files.slice(0, expectedPackageJSON.files.length),
+            ).toStrictEqual(expectedPackageJSON.files);
           });
         }
 
@@ -106,15 +114,15 @@ packages.forEach(
           );
         });
 
-        it('specifies scripts, including build', () => {
-          expect(packageJSON.scripts.build).toBe(
-            expectedPackageJSON.scripts.build,
-          );
-        });
-
         it('specifies if webpack can tree-shake, via sideEffects', () => {
           expect(packageJSON.sideEffects).toBe(
             Boolean(packageJSON.sideEffects),
+          );
+        });
+
+        it('specifies an engines.node field', () => {
+          expect(packageJSON.engines.node).toBe(
+            expectedPackageJSON.engines.node,
           );
         });
 
@@ -132,17 +140,19 @@ packages.forEach(
       it(`ensures packages included in dependencies are used`, () => {
         const dependencies = Object.keys({
           ...packageJSON.dependencies,
-        }).filter(dep =>
-          IGNORE_PACKAGES.every(ignorePackage => !dep.includes(ignorePackage)),
+        }).filter((dep) =>
+          IGNORE_PACKAGES.every(
+            (ignorePackage) => !dep.includes(ignorePackage),
+          ),
         );
 
         const filesContent = glob
           .sync(resolve(packagesPath, packageName, '**/*.ts*'))
-          .filter(path => !path.includes('/dist/'))
-          .map(path => readFileSync(path, 'utf8'));
+          .filter((path) => !path.includes('/dist/'))
+          .map((path) => readFileSync(path, 'utf8'));
 
-        const expectValue = dependencies.filter(dep =>
-          filesContent.some(content => content.includes(dep)),
+        const expectValue = dependencies.filter((dep) =>
+          filesContent.some((content) => content.includes(dep)),
         );
 
         expect(dependencies).toStrictEqual(expectValue);
@@ -154,7 +164,7 @@ packages.forEach(
 function readPackages() {
   return glob
     .sync(join(packagesPath, '*', 'package.json'))
-    .map(absolutePackageJSONPath => {
+    .map((absolutePackageJSONPath) => {
       const packageName = dirname(
         relative(packagesPath, absolutePackageJSONPath),
       );
@@ -167,5 +177,15 @@ function readPackages() {
 }
 
 function compileTemplate({name}) {
+  const skipPrefix = shouldSkipShopifyPrefix(name);
+
+  if (skipPrefix) {
+    return JSON.parse(
+      rawPackageJSONTemplate
+        .replace(/@shopify\/{{name}}/g, name)
+        .replace(/{{name}}/g, name),
+    );
+  }
+
   return JSON.parse(rawPackageJSONTemplate.replace(/{{name}}/g, name));
 }

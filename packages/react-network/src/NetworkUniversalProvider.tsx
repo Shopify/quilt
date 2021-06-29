@@ -24,7 +24,7 @@ export function NetworkUniversalProvider({
 
     const result: NetworkUniversalDetails = {headers: {}};
 
-    headerNames.forEach(header => {
+    headerNames.forEach((header) => {
       result.headers[header.toLowerCase()] = network.getHeader(header);
     });
 

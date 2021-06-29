@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-async",
-  "version": "3.2.2",
+  "version": "4.0.1",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,22 +20,24 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-async/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/async": "^2.2.2",
-    "@shopify/react-effect": "^3.3.2",
-    "@shopify/react-hooks": "^1.12.2",
-    "@shopify/react-hydrate": "^1.2.2",
-    "@shopify/react-idle": "^1.1.2",
-    "@shopify/react-intersection-observer": "^2.1.2",
-    "@shopify/useful-types": "^2.3.2",
-    "tslib": "^1.14.1"
+    "@shopify/async": "^3.0.1",
+    "@shopify/react-effect": "^4.0.1",
+    "@shopify/react-hooks": "^2.0.1",
+    "@shopify/react-hydrate": "^2.0.1",
+    "@shopify/react-idle": "^2.0.1",
+    "@shopify/react-intersection-observer": "^3.0.1",
+    "@shopify/useful-types": "^3.0.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <17.0.0"
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

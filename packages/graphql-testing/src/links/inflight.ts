@@ -28,7 +28,7 @@ export class InflightLink extends ApolloLink {
 
     let resolver: Function;
 
-    const promise = new Promise<void>(resolve => {
+    const promise = new Promise<void>((resolve) => {
       resolver = resolve;
     });
 
@@ -43,7 +43,7 @@ export class InflightLink extends ApolloLink {
 
     this.options.onCreated(request);
 
-    return new Observable(observer => {
+    return new Observable((observer) => {
       return nextLink(operation).subscribe({
         complete() {
           const complete = observer.complete.bind(observer);

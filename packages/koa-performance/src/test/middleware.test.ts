@@ -442,6 +442,35 @@ describe('client metrics middleware', () => {
       );
     });
 
+    it('sends custom tags for navigation metrics', async () => {
+      const additionalMetric = {
+        name: 'navigation_metric',
+        value: 123,
+        tags: {name: 'custom tag'},
+      };
+      const navigation = createNavigation();
+
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          navigations: [navigation],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics({
+          ...config,
+          additionalNavigationMetrics: () => [additionalMetric],
+        })(context);
+      });
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        additionalMetric.name,
+        additionalMetric.value,
+        expect.objectContaining(additionalMetric.tags),
+      );
+    });
+
     it('attaches anomalous:true tag if anomalousNavigationDurationThreshold is exceeded', async () => {
       const anomalousNavigationDurationThreshold = 10000;
       const navigation = createNavigation({

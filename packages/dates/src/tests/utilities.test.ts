@@ -43,6 +43,7 @@ describe('dateTimeFormatCacheKey()', () => {
   const otherLocale = 'en-US';
   const options = {timeZone: 'America/Vancouver'};
   const optionsKey = JSON.stringify(options);
+
   it('creates a key for an undefined locale with options', () => {
     expect(dateTimeFormatCacheKey(undefined, options)).toBe(
       `undefined-${optionsKey}`,

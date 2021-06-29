@@ -7,7 +7,9 @@ module Quilt
     include ReverseProxy::Controller
 
     def render_react(headers: {}, data: {})
-      raise DoNotIntegrationTestError if Rails.env.test?
+      if Rails.env.test? && !Quilt.configuration.allow_integration_test
+        raise DoNotIntegrationTestError
+      end
 
       # Allow concurrent loading to prevent this thread from blocking class
       # loading in controllers called by the Node server.
@@ -20,7 +22,8 @@ module Quilt
 
     def call_proxy(headers, data)
       if defined? ShopifySecurityBase
-        ShopifySecurityBase::HTTPHostRestriction.whitelist([Quilt.configuration.react_server_host]) do
+        allowlist = ShopifySecurityBase::HTTPHostRestriction.respond_to?(:allowlist) ? :allowlist : :whitelist
+        ShopifySecurityBase::HTTPHostRestriction.send(allowlist, [Quilt.configuration.react_server_host]) do
           proxy(headers, data)
         end
       else

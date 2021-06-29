@@ -12,11 +12,13 @@ import {mapObject} from '../../../utilities';
 export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldItemAction<Item>
+  | MoveFieldItemAction
   | RemoveFieldItemAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
-  | NewDefaultAction<Item, keyof Item>;
+  | NewDefaultAction<Item, keyof Item>
+  | ResetListAction;
 
 interface ReinitializeAction<Item> {
   type: 'reinitialize';
@@ -26,6 +28,15 @@ interface ReinitializeAction<Item> {
 interface AddFieldItemAction<Item> {
   type: 'addFieldItem';
   payload: {list: Item[]};
+}
+
+interface MoveFieldItemAction {
+  type: 'moveFieldItem';
+  payload: {fromIndex: number; toIndex: number};
+}
+
+interface ResetListAction {
+  type: 'resetList';
 }
 
 interface RemoveFieldItemAction {
@@ -90,6 +101,16 @@ export function addFieldItemAction<Item>(
   };
 }
 
+export function moveFieldItemAction(
+  fromIndex: number,
+  toIndex: number,
+): MoveFieldItemAction {
+  return {
+    type: 'moveFieldItem',
+    payload: {fromIndex, toIndex},
+  };
+}
+
 export function removeFieldItemAction(
   indexToRemove: number,
 ): RemoveFieldItemAction {
@@ -114,6 +135,12 @@ export function resetAction<Item, Key extends keyof Item>(
   return {
     type: 'reset',
     payload,
+  };
+}
+
+export function resetListAction(): ResetListAction {
+  return {
+    type: 'resetList',
   };
 }
 
@@ -158,6 +185,26 @@ function reduceList<Item extends object>(
         list: action.payload.list.map(initialListItemState),
       };
     }
+    case 'moveFieldItem': {
+      const {fromIndex, toIndex} = action.payload;
+      if (
+        fromIndex >= state.list.length ||
+        fromIndex < 0 ||
+        toIndex >= state.list.length ||
+        toIndex < 0
+      ) {
+        throw new Error(`Failed to move item from ${fromIndex} to ${toIndex}`);
+      }
+
+      const newList = [...state.list];
+      const [item] = newList.splice(action.payload.fromIndex, 1);
+      newList.splice(action.payload.toIndex, 0, item);
+
+      return {
+        ...state,
+        list: newList,
+      };
+    }
     case 'addFieldItem': {
       return {
         ...state,
@@ -196,6 +243,9 @@ function reduceList<Item extends object>(
       currentItem[key] = reduceField(currentItem[key], {type: 'reset'});
 
       return {...state, list: [...state.list]};
+    }
+    case 'resetList': {
+      return {...state, list: state.initial.map(initialListItemState)};
     }
     case 'update':
     case 'newDefaultValue': {

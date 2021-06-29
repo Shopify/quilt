@@ -14,6 +14,8 @@ $ yarn add @shopify/react-i18n
 
 ## Usage
 
+[Code Sand Box of below example](https://codesandbox.io/api/v1/sandboxes/define?parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgFYLIgDGA9qgC4yVIgD0dABAAJwAWpADhGAJ50AnGAENiFALQQAjAA5UjAKJZhAW06wAOqgaNxe_QcNHjJ02fN7GWnQGE2w1AHMYjCmxdRSxYbEakBjACucC4OvH5gru6M0nKMnAKkAG4QmOiMYIGoYhDkcIwA7hBuaNZMbi4AcqQUAGKkWelkauTUFDhlZYz1AcKMUBBwFBGMPlCjScLQwgBGvpnZFLmo-SlwxVbaTGwUFJxwiAyOxWyBMzjNdADKHNx8dACOgdAUdBRCMHQqU9qcogDWwmccEEIjEklkqC0WggLQEwwASmDhmBEiorCAhKIKBoQABuGFwxHIgAiAHkALIZNEYrHg9CkFS4gmoWGcfzDYCMACCnE4AAVEilMAEAL7UxkY1i3Hj8dlQYQCQbMwns-GMLkASUhNnIVCwFAANIxtXIKQ4gTAxRL0bjpVxZaDsRC5CqoayiTy-TaMTg6LzOG7VRypewHfd5YrBnR0INXkNeLA4Bc4HAg1tGMR7E4XCV8p5vL4KKQMajcThGNUlsQXBwClEXGRKNhhoFOOhhFQuu8II5nAJ8mMYpCcO8HHAFVQYisKA4a_li4xY3B1MJwhVqdQs10m1RKB1snlhgWfC4ALwY6huptDYdmi39xgX1Aweum1Dm1CWgQACmAWkYfovFPQ0AL8VAFAERJfytaCAEoNTAwCb1IWAcFg_wfwwgQ4JZQDRS0UVcOhVAkWxckKRwIQMCtH8wIAHgDQVklSK0GxUGAz2ALkyE8AQrizGAOMQDEBkcHZcUYUVRQAPiQxh6PfXVmwNHBmOFNjJigQJOOAWIPwfK1ZPkwDGO9Og5PkQCFLoJS9RbNShVYgRLNM_0-XU5yZNAqyGWIQIOP3ZwKAUWBAooAAhXhNXQOjMVIGpcTgrRcM2azrJAUVDRAAN8EIUBdzaWhg3VMixB9XE6RxfESuGKt6kaCqQD9eqGgwdNsDVYZMDAYRAigFEshycgvU4H8EP_KyhAoQIBHkOirNM2Mklc9KFNaxqLPk-iYwgFawOI1BxTWk6TMYTLso2jA8qQAr7JoRAQFqxgypRGlKuRN02RDLkFDUCheCuWcp3FVFJTtMM7jlVCozTGqPS6xhqCav1qDy8gvs9VEUboVF0aheHvvVLlghgd8pKa-0oadcF9I6rBEZ6vqBoyIalhGq7YomsCb2GABtfSAF0nyCEJ3z_eTUhE3FOdxHz0t6qAoBmAEROoeXrLHFZJ2WOAfxPWBucW6yeEYfXgN8M8rcvAmjZOwDptm-RqDwtbxRgKAQhiSJzcLc9rdxMsQDt-3Hbm6lXfSgjjej_DDodmAZvDhb0vov7OABoHOxgM73GEWMnC4_TRwEcdJxgOLOZwPOC8cJLY7W7Fli4nj7ooETi61ids8rmoGuupuMeD41ZqgaX6Ek6T5NW1POBkvSRy78ve7qNr0AuNv652uftrodPM-BmBVsOhv0rOi6QDRghyFukg2-K1BJsAmW-7X3ERKf6zcRrtA66QDF-SWkYKgGoGQ34gA1s_EAg8CbjwigCOW8lcSFUoO_DEAAVaIfxnCMF4A0QoVoPAJX-L_MBAQyD9XSCA4YMwXBgDXhWfksBhBe0EsQf4DYCEzFGOgdAQhUxkKRlBfwg4MCuAEOEIEPwOhPSstHY6Z9jaAQvnja-qBb4oIoA_T-L9V6NDQZ_KBP8nBoNxIAnBID5DvAaEkAAlznCBSDoHDVgbSRODQBCIONsgze_9cQABk-jYJcE8FwSQGj5CEIJAQgkABeSNbxoGsYESYcwYAVgAGowGeErGA8S7FKkgGxKAAByfO_CvYAHUYDcPZLNfo8AhFCFmvkROjABD2NTGuK0MiwLyPtmlNaF80CYFwDsFQUANH30evRZaMR0BnkqglaqMkdrLRkhfP47DLT4ymc2B6oBMCcGoJgbIEB4C3ypo6SMSpCAgHLkMCBIArkRhhrcyQN5aAPK0dlF5_AqounUY9AAbDgAADOCp5VUvnZ0edlAFDIVAwqoI86SaKgA)
+
 ### `<I18nContext.Provider />` and `I18nManager`
 
 This library requires a provider component which supplies i18n details to the rest of the app, and coordinates the loading of translations. Somewhere near the "top" of your application, render a `I18nContext.Provider` component. This component accepts an `I18nManager` as the `value` prop, which allows you to specify the following global i18n properties:
@@ -126,7 +128,8 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
 - `unformatNumber()`: converts a localized number string to a number string parseable by JavaScript. Example: `123.456,45 => 123456.45`
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
-  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1,25`, `€ 1,25 EUR`, `OMR 1.250`, `$ 1.25 USD`
+  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1.25`, `€1.25`, `OMR 1.250`, `$1.25`
+  - if `form: 'none'` is given, the number will be formatted with currency rules but will not include a currency symbol or ISO code in the string. Examples: `1,234.56`, `1 234,56`
   - if `form: 'explicit'` is given, then the result will be the same as for `short`, but will append the ISO 4217 code if it is not already present
   - if `form: 'auto'` is given, then `explicit` will be selected if the `currency` option does not match the `defaultCurrency`, otherwise `short` is selected. If either `currency` or `defaultCurrency` is not defined then `short` is selected.
   - if `form:` is not given, then behaviour reverts to the legacy (deprecated) `formatCurrency()`, which is a convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`. Note that this will resemble `form: 'short'`, but will sometimes extend the symbol with extra information depending on the browser's implementation of `Intl.NumberFormat` and the locale in use. For example, `formatCurrency(1.25, {currency: 'CAD'})` may return `$ 1.25`, or it might return `CA$ 1.25`.
@@ -353,7 +356,7 @@ function App({locale}: {locale?: string}) {
   return (
     <I18nUniversalProvider locale={locale}>
       {/* App contents */}
-    </I18nContext.Provider>
+    </I18nUniversalProvider>
   );
 }
 const app = <App locale='en' />;
@@ -521,7 +524,7 @@ Additional details on why we built our own package, and on specifics of parts of
 
 ### How do I get this i18n library to work with React Native?
 
-[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version [2.3.0](https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version 2.3.0(https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
 
 **Note**: You will need a script to generate `index` files:
 

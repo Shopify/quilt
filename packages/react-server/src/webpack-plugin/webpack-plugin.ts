@@ -38,7 +38,7 @@ export class ReactServerPlugin {
 
   private modules(compiler: Compiler) {
     const {basePath} = this.options;
-    const modules: Record<string, string> = {};
+    const modules: {[key: string]: string} = {};
 
     if (noSourceExists(Entrypoint.Client, this.options, compiler)) {
       const file = join(basePath, `${Entrypoint.Client}.js`);

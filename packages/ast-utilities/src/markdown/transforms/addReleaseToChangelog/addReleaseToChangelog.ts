@@ -11,7 +11,7 @@ interface Options {
 export default function addReleaseToChangelog({version, date, notes}: Options) {
   return function addReleaseToChangelogPlugin() {
     const commentedUnreleasedNode = build('html', {
-      value: '<!-- ## [Unreleased] -->',
+      value: '<!-- ## Unreleased -->',
     });
     const releaseVersionNode = build(
       'heading',
@@ -25,13 +25,13 @@ export default function addReleaseToChangelog({version, date, notes}: Options) {
 
     function transformer(tree) {
       tree.children = flatten(
-        tree.children.map(node => {
+        tree.children.map((node) => {
           if (isUnreleasdHeading(node) || isUnreleasdComment(node)) {
             return [
               commentedUnreleasedNode,
               releaseVersionNode,
               notesNode,
-            ].filter(node => node);
+            ].filter((node) => node);
           }
 
           return node;
@@ -43,7 +43,7 @@ export default function addReleaseToChangelog({version, date, notes}: Options) {
   };
 }
 
-const flatten = arr => [].concat(...arr);
+const flatten = (arr) => [].concat(...arr);
 
 function isUnreleasdHeading(node) {
   const {type, depth, children} = node;
@@ -58,5 +58,5 @@ function isUnreleasdHeading(node) {
 
 function isUnreleasdComment(node) {
   const {type, value} = node;
-  return type === 'html' && value === '<!-- ## [Unreleased] -->';
+  return type === 'html' && value === '<!-- ## Unreleased -->';
 }

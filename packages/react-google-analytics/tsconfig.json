@@ -11,8 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/test/**/*", "**/tests/**/*"],
-  "references": [
-    {"path": "../enzyme-utilities"},
-    {"path": "../react-import-remote"}
-  ]
+  "references": [{"path": "../react-import-remote"}]
 }

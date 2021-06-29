@@ -34,7 +34,7 @@ export class Semaphore {
       return Promise.resolve(this.createPermit());
     } else {
       const deferred: Deferred = {};
-      deferred.promise = new Promise(resolve => {
+      deferred.promise = new Promise((resolve) => {
         deferred.resolve = resolve;
       });
       this.deferreds.push(deferred);

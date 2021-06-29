@@ -1,6 +1,6 @@
-import {dirname, join, relative, resolve} from 'path';
+import {join, resolve} from 'path';
 
-import {readFileSync, readJSONSync, existsSync} from 'fs-extra';
+import {readFileSync} from 'fs-extra';
 import glob from 'glob';
 
 const ROOT_PATH = resolve(__dirname, '..');
@@ -24,9 +24,9 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
     it('contains only known headers', () => {
       const headerLines = packageChangelog
         .split('\n')
-        .filter(line => /^\s*#/.exec(line));
+        .filter((line) => /^\s*#/.exec(line));
       const offendingHeaders = headerLines.filter(
-        headerLine => !headerIsAllowed(headerLine),
+        (headerLine) => !headerIsAllowed(headerLine),
       );
 
       expect(offendingHeaders).toStrictEqual([]);
@@ -48,12 +48,25 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
       );
     });
 
+    it('contains an Unreleased header with content, or a commented out Unreleased header with no content', () => {
+      // One of the following must be present
+      // - An Unreleased header, that is immediatly preceded by a level 3 heading ("Changed" etc)
+      // - A commented out Unreleased header, that is immediatly preceded by a level 2 heading (A version info)
+
+      const unrelasedHeaderWithContent = /^## Unreleased\n\n### /gm;
+      const commentedUnreleasedHeaderWithNoContent = /^<!-- ## Unreleased -->\n\n## /gm;
+
+      expect([
+        unrelasedHeaderWithContent.test(packageChangelog),
+        commentedUnreleasedHeaderWithNoContent.test(packageChangelog),
+      ]).toContain(true);
+    });
+
     it('does not contain duplicate headers', () => {
       const headerLines = packageChangelog
         .split('\n')
         .filter(
-          line =>
-            HEADER_START_REGEX.exec(line) || /## \[Unreleased\]/.exec(line),
+          (line) => HEADER_START_REGEX.exec(line) || /## Unreleased/.exec(line),
         )
         .sort();
       const uniqueHeaderLines = headerLines.filter(
@@ -67,10 +80,10 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
 
 const allowedHeaders = [
   '# Changelog',
-  '## [Unreleased]',
-  /^## \[\d+\.\d+\.\d+\] - \d\d\d\d-\d\d-\d\d$/,
+  '## Unreleased',
+  /^## \d+\.\d+\.\d+ - \d\d\d\d-\d\d-\d\d$/,
   // We should backfill dates using commit timestamps
-  /^## \[\d+\.\d+\.\d+\]$/,
+  /^## \d+\.\d+\.\d+$/,
   '### Fixed',
   '### Added',
   '### Changed',
@@ -85,7 +98,7 @@ const allowedHeaders = [
 ];
 
 function headerIsAllowed(headerLine) {
-  return allowedHeaders.some(allowedHeader => {
+  return allowedHeaders.some((allowedHeader) => {
     if (allowedHeader instanceof RegExp) {
       return allowedHeader.test(headerLine);
     } else {
@@ -100,7 +113,7 @@ function readChangelogs() {
   return glob
     .sync(join(packagesPath, '*/'))
     .filter(hasPackageJSON)
-    .map(packageDir => {
+    .map((packageDir) => {
       const packageChangelogPath = join(packageDir, 'CHANGELOG.md');
       const packageChangelog = safeReadSync(packageChangelogPath, {
         encoding: 'utf8',

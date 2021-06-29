@@ -44,7 +44,7 @@ function format(str: string) {
   return (
     str
       .split('\n')
-      .map(line => line.trim())
+      .map((line) => line.trim())
       .join('\n')
       // outdent
       .replace(/(^\s+|\s+$)/g, '')

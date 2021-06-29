@@ -5,7 +5,7 @@ import prettyMs from 'pretty-ms';
 import {LogLevel, FormatEntry, Formatter} from '../types';
 
 const MAX_LEVEL_LENGTH = [LogLevel.Critical, LogLevel.Info, LogLevel.Warn]
-  .map(level => level.length)
+  .map((level) => level.length)
   .reduce((lenA, lenB) => (lenA > lenB ? lenA : lenB));
 
 export class ConsoleFormatter implements Formatter {
@@ -36,7 +36,7 @@ export class ConsoleFormatter implements Formatter {
       if (stack != null) {
         const [messageLine, ...otherLines] = stack.split('\n');
         logMsg = `${messageLine} ${timestamp}\n${otherLines
-          .map(line => {
+          .map((line) => {
             return chalk.gray(line);
           })
           .join('\n')}`;

@@ -1,13 +1,10 @@
 {
   "name": "@shopify/web-worker",
-  "version": "1.5.2",
+  "version": "2.1.0",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,11 +20,13 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/web-worker/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/rpc": "^1.1.2",
+    "@shopify/rpc": "^2.0.1",
     "loader-utils": "^1.0.0",
-    "tslib": "^1.14.1",
-    "webpack-virtual-modules": "^0.2.2"
+    "webpack-virtual-modules": "^0.4.3"
   },
   "devDependencies": {
     "@babel/types": ">=7.0.0",
@@ -41,15 +40,15 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
-    "babel.js",
-    "babel.mjs",
-    "babel.esnext",
-    "babel.d.ts",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",
     "index.d.ts",
+    "babel.js",
+    "babel.mjs",
+    "babel.esnext",
+    "babel.d.ts",
     "webpack.js",
     "webpack.mjs",
     "webpack.esnext",
@@ -61,7 +60,7 @@
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",
-    "webpack": ">4.25.1, <=4.5.0"
+    "webpack": "^4.25.1"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",

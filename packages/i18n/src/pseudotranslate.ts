@@ -117,7 +117,7 @@ export function pseudotranslate(
     const pseudotranslatedPart =
       typeof part === 'string'
         ? [...part]
-            .map(character => {
+            .map((character) => {
               const isAdjustable = isAdjustableCharacter(character);
 
               if (isAdjustable) {
@@ -196,10 +196,10 @@ function createDelimiterRegex(startDelimiter: string, endDelimiter: string) {
   }
 
   const escapedStart = [...startDelimiter]
-    .map(character => `\\${character}`)
+    .map((character) => `\\${character}`)
     .join('');
   const escapedEnd = [...endDelimiter]
-    .map(character => `\\${character}`)
+    .map((character) => `\\${character}`)
     .join('');
 
   return new RegExp(`${escapedStart}.*?${escapedEnd}`, 'g');

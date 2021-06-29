@@ -45,11 +45,11 @@ export default function asyncBabelPlugin({types: t}: {types: typeof Types}) {
 
         const importSpecifiersToProcess = path
           .get('specifiers')
-          .filter(specifier => {
+          .filter((specifier) => {
             return (
               specifier.isImportSpecifier() &&
-              processImports.some(name =>
-                specifier.get('imported').isIdentifier({name}),
+              processImports.some((name) =>
+                (specifier.get('imported') as NodePath).isIdentifier({name}),
               )
             );
           });
@@ -75,14 +75,14 @@ function addIdOption(
   t: typeof Types,
   {webpack = true}: Options = {},
 ) {
-  binding.referencePaths.forEach(refPath => {
+  binding.referencePaths.forEach((refPath) => {
     const callExpression = refPath.parentPath;
 
     if (!callExpression.isCallExpression()) {
       return;
     }
 
-    const args = callExpression.get('arguments');
+    const args = callExpression.get('arguments') as {length: number};
     if (args.length === 0) {
       return;
     }
@@ -97,7 +97,7 @@ function addIdOption(
       [key: string]: NodePath<Types.ObjectMember>;
     } = {};
 
-    properties.forEach(property => {
+    properties.forEach((property) => {
       if (!property.isObjectMember() || property.node.computed) {
         return;
       }

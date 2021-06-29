@@ -71,7 +71,7 @@ describe('graphql-testing', () => {
       </ApolloProvider>,
     );
 
-    graphQL.wrap(resolve => myComponent.act(resolve));
+    graphQL.wrap((resolve) => myComponent.act(resolve));
     await graphQL.resolveAll();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
@@ -96,7 +96,7 @@ describe('graphql-testing', () => {
       </ApolloProvider>,
     );
 
-    graphQL.wrap(resolve => myComponent.act(resolve));
+    graphQL.wrap((resolve) => myComponent.act(resolve));
     await graphQL.resolveAll();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery, {
@@ -122,7 +122,7 @@ describe('graphql-testing', () => {
       </ApolloProvider>,
     );
 
-    graphQL.wrap(resolve => myComponent.act(resolve));
+    graphQL.wrap((resolve) => myComponent.act(resolve));
     await graphQL.resolveAll();
 
     graphQL.update({

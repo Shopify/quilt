@@ -1,13 +1,10 @@
 {
   "name": "@shopify/address-mocks",
-  "version": "1.5.3",
+  "version": "2.0.3",
   "license": "MIT",
   "description": "Address mocks for `@shopify/address`",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -22,18 +19,20 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/address-mocks/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.11.2"
+    "@shopify/jest-dom-mocks": "^2.11.5"
   },
   "sideEffects": false,
   "dependencies": {
-    "@shopify/address-consts": "^2.2.2",
-    "@shopify/jest-dom-mocks": "^2.11.2",
-    "tslib": "^1.14.1"
+    "@shopify/address-consts": "^3.0.1",
+    "@shopify/jest-dom-mocks": "^3.0.2"
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

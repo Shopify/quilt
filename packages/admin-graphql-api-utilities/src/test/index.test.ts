@@ -32,7 +32,7 @@ describe('admin-graphql-api-utilities', () => {
   describe('parseGid()', () => {
     it('throw Error for an invalid id', () => {
       const key = 'gid://shopify/Section/';
-      ['@', '-1', '!1'].forEach(id =>
+      ['@', '-1', '!1'].forEach((id) =>
         expect(() => parseGid(`${key}/${id}`)).toThrow(
           `Invalid gid: ${key}/${id}`,
         ),
@@ -40,7 +40,7 @@ describe('admin-graphql-api-utilities', () => {
     });
 
     it('returns the id portion of an unprefixed gid', () => {
-      ['1', '1a', v4()].forEach(id => expect(parseGid(id)).toStrictEqual(id));
+      ['1', '1a', v4()].forEach((id) => expect(parseGid(id)).toStrictEqual(id));
     });
 
     it('returns the id portion of a gid for integer ids', () => {

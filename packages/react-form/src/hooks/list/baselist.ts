@@ -8,12 +8,14 @@ import {
   ListValidationContext,
 } from '../../types';
 import {mapObject, normalizeValidation} from '../../utilities';
+import {useDirty} from '../dirty';
 
 import {
   useHandlers,
   useListReducer,
   ListAction,
   reinitializeAction,
+  resetListAction,
 } from './hooks';
 
 /*
@@ -42,6 +44,11 @@ export interface FieldListConfig<Item extends object> {
 interface BaseList<Item extends object> {
   fields: FieldDictionary<Item>[];
   dispatch: React.Dispatch<ListAction<Item>>;
+  reset(): void;
+  dirty: boolean;
+  defaultValue: Item[];
+  value: Item[];
+  newDefaultValue(newDefaultItems: Item[]): void;
 }
 
 export function useBaseList<Item extends object>(
@@ -49,11 +56,9 @@ export function useBaseList<Item extends object>(
   validationDependencies: unknown[] = [],
 ): BaseList<Item> {
   const list = Array.isArray(listOrConfig) ? listOrConfig : listOrConfig.list;
-  const validates: FieldListConfig<Item>['validates'] = Array.isArray(
-    listOrConfig,
-  )
-    ? {}
-    : listOrConfig.validates || {};
+  const validates: FieldListConfig<Item>['validates'] = useMemo(() => {
+    return Array.isArray(listOrConfig) ? {} : listOrConfig.validates || {};
+  }, [listOrConfig]);
 
   const [state, dispatch] = useListReducer(list);
 
@@ -61,7 +66,8 @@ export function useBaseList<Item extends object>(
     if (!isEqual(list, state.initial)) {
       dispatch(reinitializeAction(list));
     }
-  }, [list, state.initial, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [list, dispatch]);
 
   const validationConfigs = useMemo(
     () =>
@@ -72,6 +78,14 @@ export function useBaseList<Item extends object>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [validates, ...validationDependencies],
   );
+
+  function reset() {
+    dispatch(resetListAction());
+  }
+
+  function newDefaultValue(newDefaultItems: Item[]) {
+    dispatch(reinitializeAction(newDefaultItems));
+  }
 
   const handlers = useHandlers(state, dispatch, validationConfigs);
 
@@ -86,5 +100,26 @@ export function useBaseList<Item extends object>(
     });
   }, [state.list, handlers]);
 
-  return {fields, dispatch};
+  const listWithoutFieldStates: Item[] = useMemo(() => {
+    return state.list.map((item) => {
+      return mapObject(item, (field) => field.value);
+    });
+  }, [state.list]);
+
+  const isBaseListDirty = useMemo(
+    () => !isEqual(listWithoutFieldStates, state.initial),
+    [listWithoutFieldStates, state.initial],
+  );
+
+  const fieldsDirty = useDirty({fields});
+
+  return {
+    fields,
+    dispatch,
+    reset,
+    dirty: fieldsDirty || isBaseListDirty,
+    defaultValue: state.initial,
+    value: listWithoutFieldStates,
+    newDefaultValue,
+  };
 }

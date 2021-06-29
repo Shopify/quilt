@@ -32,7 +32,7 @@ export class PersistedLink extends ApolloLink {
       throw new Error('Persisted link can’t be a terminating link.');
     }
 
-    return new Observable(observer => {
+    return new Observable((observer) => {
       const {
         alwaysIncludeQuery = false,
         idFromOperation = defaultIdFromOperation,
@@ -60,7 +60,7 @@ export class PersistedLink extends ApolloLink {
       > | null = null;
 
       subscription = forward(operation).subscribe({
-        next: response => {
+        next: (response) => {
           const errors = (response && response.errors) || [];
 
           if (

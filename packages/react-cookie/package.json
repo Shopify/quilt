@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-cookie",
-  "version": "0.1.4",
+  "version": "1.0.2",
   "license": "MIT",
   "description": "Cookies in React for the server and client",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -23,11 +20,13 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-cookie/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/react-hooks": "^1.12.2",
-    "@shopify/react-network": "^3.6.4",
-    "cookie": "^0.4.0",
-    "tslib": "^1.14.1"
+    "@shopify/react-hooks": "^2.0.1",
+    "@shopify/react-network": "^4.0.2",
+    "cookie": "^0.4.0"
   },
   "peerDependencies": {
     "react": "^16.3.2",
@@ -35,7 +34,7 @@
   },
   "files": [
     "build/*",
-    "!tsconfig.tsbuildinfo",
+    "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

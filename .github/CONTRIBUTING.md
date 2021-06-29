@@ -16,7 +16,7 @@ There are many ways to contribute to Quilt, some of which are:
 - Hacking away on an issue from our [backlog](https://github.com/Shopify/quilt/issues)
 - Improving tests or documentation
 
-Want to contribute, but not sure how? Find us on Slack in `#web-foundation-tech`.
+Want to contribute, but not sure how? Find us on Slack in `#web-foundations`.
 
 ## Development
 
@@ -40,15 +40,25 @@ The [documentation](../documentation) directory in this repo covers the more gra
 - [Resources](../documentation/resources.md): good resources for understanding this project’s tech stack.
 - [Getting started](../documentation/getting-started.md): some tools we recommend for getting the most out of this project.
 
-## Testing your changes in a local project
+## 🎩 in a local project
 
-To try out your changes in another locally cloned project, you can use `yarn tophat <package-name-without-@shopify-prefix> <relative-path-to-project>`. Using this command rather than `yarn link` will set up a watcher let you make changes without needing to rerun any commands.
+You can use [`yalc`](https://github.com/wclr/yalc) to publish the package and [`nodemon`](https://nodemon.io/) to watch the file changes.
 
-Example: To test my changes to `@shopify/react-form-state` in my local project named `cool-proj`, I would run `yarn tophat react-form-state ../path/to/cool-proj`.
+This had been added as a `tophat` script to allow for faster iteration.
 
-Notes: If the package you are testing has dependencies inside Quilt itself, you will need to run `dev build` first. If you are using a build system in the consumer of the package, you may need to clear your build folder.
+In quilt:
 
-More usage instructions on the `tophat` command can be [found here](https://github.com/Shopify/webgen/blob/master/docs/TOPHAT.md).
+```bash
+ PKG_NAME=<package-folder-name> yarn tophat #PKG_NAME=react-server yarn tophat
+```
+
+In consuming repo:
+
+```bash
+yalc link --no-pure <package-name-in-package.json>  #yalc link --no-pure @shopify/react-server
+```
+
+You may also want to add `.yalc` and `yalc.lock` to `.gitignore` to remove some of the noise.
 
 ### Emoji commits
 
@@ -81,7 +91,7 @@ Another option, if you'd like to break work down into reviewable chunks, is to u
 
 ## Releasing
 
-The release process currently involves some manual steps to complete. Please ping Web Foundations ATC in the `#web-foundation-tech` Slack channel when you're ready to merge a new PR into `main`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
+The release process currently involves some manual steps to complete. Please ping Web Foundations ATC in the `#web-foundations` Slack channel when you're ready to merge a new PR into `main`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
 
 **Note** Version numbers in `package.json` files should never be altered manually. This will be done via scripts as part of the release process.
 
