@@ -1,9 +1,9 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useLayoutEffect} from 'react';
 
 export function useMountedRef() {
   const mounted = useRef(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     return () => {
       mounted.current = false;
     };
