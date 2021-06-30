@@ -319,6 +319,24 @@ describe('useQuery', () => {
       expect(watchQuerySpy).not.toHaveBeenCalled();
     });
   });
+
+  describe('refetch', () => {
+    it('works', async () => {
+      const graphQL = createGraphQL({PetQuery: mockData});
+      function MockComponent() {
+        const {data, refetch} = useQuery(petQuery, {variables: {id: 1}});
+
+        return (<button onClick={refetch}></button>)
+      }
+      const component = await mountWithGraphQL(<MockComponent />, {
+        graphQL,
+      });
+
+      component.find("button").trigger("onClick");
+      await graphQL.resolveAll();
+      expect(true).toBe(true);
+    })
+  });
 });
 
 function createMockApolloClient() {

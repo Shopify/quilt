@@ -192,17 +192,15 @@ export class Element<Props> implements Node<Props> {
     prop: K,
     ...args: DeepPartialArguments<Arguments<Props[K]>>
   ): ReturnType<NonNullable<Props[K]>> {
-    return this.root.act(() => {
-      const propValue = this.props[prop];
+    const propValue = this.props[prop];
 
-      if (propValue == null) {
-        throw new Error(
-          `Attempted to call prop ${prop} but it was not defined.`,
-        );
-      }
+    if (propValue == null) {
+      throw new Error(
+        `Attempted to call prop ${prop} but it was not defined.`,
+      );
+    }
 
-      return (propValue as any)(...args);
-    });
+    return (propValue as any)(...args);
   }
 
   triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T {
