@@ -20,11 +20,11 @@ export interface TranslationDictionary {
 }
 
 export interface PrimitiveReplacementDictionary {
-  [key: string]: string | number;
+  [key: string]: string | number | undefined | boolean;
 }
 
 export interface ComplexReplacementDictionary {
-  [key: string]: string | number | React.ReactNode;
+  [key: string]: React.ReactNode;
 }
 
 export type MaybePromise<T> = T | Promise<T>;
