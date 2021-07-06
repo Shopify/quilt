@@ -1,6 +1,7 @@
 /* eslint react-hooks/rules-of-hooks: off */
 
-import {useEffect, useMemo, useState, useRef} from 'react';
+import {useMemo, useState, useRef} from 'react';
+import {useIsomorphicLayoutEffect} from '@shopify/react-hooks';
 import {
   ApolloClient,
   OperationVariables,
@@ -114,7 +115,7 @@ export default function useQuery<
 
   const [responseId, setResponseId] = useState(0);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (skip || !queryObservable) {
       return;
     }
