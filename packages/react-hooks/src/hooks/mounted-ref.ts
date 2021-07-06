@@ -1,12 +1,9 @@
-import {useRef} from 'react';
-
-import {useIsomorphicLayoutEffect} from './isomorphic-layout-effect';
-
+import {useRef, useEffect} from 'react';
 
 export function useMountedRef() {
   const mounted = useRef(true);
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     return () => {
       mounted.current = false;
     };
