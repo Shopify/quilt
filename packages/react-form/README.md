@@ -362,7 +362,7 @@ You can also pass a more complex configuration object specifying a validation fu
 const field = useField({
   value: someRemoteData.title,
   validates: title => {
-    if (title.length > 3) {
+    if (title.length <= 3) {
       return 'Title must be longer than three characters';
     }
   },
@@ -376,7 +376,7 @@ const field = useField({
   value: someRemoteData.title,
   validates: [
     title => {
-      if (title.length > 3) {
+      if (title.length <= 3) {
         return 'Title must be longer than three characters';
       }
     },
@@ -549,7 +549,7 @@ const field = useList({
   ],
   validates: {
     title: title => {
-      if (title.length > 3) {
+      if (title.length <= 3) {
         return 'Title must be longer than three characters';
       }
     },
