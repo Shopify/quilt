@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Changed
+
+- Replace [country-service](https://github.com/Shopify/country-service) with [atlas](https://github.com/Shopify/atlas) address service's GraphQL endpoint [#1965](https://github.com/Shopify/quilt/pull/1965)
 
 ## 3.0.0 - 2021-05-21
 
