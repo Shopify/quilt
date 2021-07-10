@@ -178,7 +178,7 @@ function getAssetsFromManifest(
     return entrypointAssets;
   }
 
-  return [...asyncAssets, ...entrypointAssets];
+  return [...entrypointAssets, ...asyncAssets];
 }
 
 function getAsyncAssetsFromManifest(
