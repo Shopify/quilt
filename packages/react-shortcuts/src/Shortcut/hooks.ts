@@ -8,10 +8,11 @@ export interface Subscription {
 }
 
 export interface Options {
-  held?: HeldKey;
   node?: HTMLElement | null;
-  ignoreInput?: boolean;
+  held?: HeldKey;
+  disabled?: boolean;
   allowDefault?: boolean;
+  ignoreInput?(): void;
 }
 
 export default function useShortcut(
@@ -21,7 +22,7 @@ export default function useShortcut(
 ) {
   const shortcutManager = React.useContext(ShortcutContext);
   const subscription = React.useRef<Subscription | null>(null);
-  const {node, held, ignoreInput, allowDefault} = options;
+  const {node, held, disabled, allowDefault, ignoreInput} = options;
 
   React.useEffect(() => {
     if (node != null) {
@@ -37,8 +38,9 @@ export default function useShortcut(
       ordered,
       node,
       held,
-      ignoreInput: ignoreInput || false,
+      disabled: disabled || false,
       allowDefault: allowDefault || false,
+      ignoreInput: ignoreInput || undefined,
     });
 
     return () => {
@@ -51,10 +53,11 @@ export default function useShortcut(
   }, [
     node,
     ordered,
-    onMatch,
     held,
-    ignoreInput,
+    disabled,
     allowDefault,
+    onMatch,
+    ignoreInput,
     shortcutManager,
   ]);
 }

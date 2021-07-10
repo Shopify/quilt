@@ -6,9 +6,10 @@ export interface Data {
   node: HTMLElement | null | undefined;
   ordered: Key[];
   held?: HeldKey;
-  ignoreInput: boolean;
-  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
+  disabled?: boolean;
   allowDefault: boolean;
+  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
+  ignoreInput?(): void;
 }
 
 export default class ShortcutManager {
@@ -83,8 +84,8 @@ export default class ShortcutManager {
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
     this.shortcutsMatched = shortcuts.filter(
-      ({ordered, held, node, ignoreInput}) => {
-        if (isFocusedInput() && !ignoreInput) {
+      ({ordered, held, node, disabled, ignoreInput = isFocusedInput}) => {
+        if (disabled || ignoreInput()) {
           return false;
         }
 

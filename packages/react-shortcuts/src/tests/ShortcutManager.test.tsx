@@ -7,6 +7,7 @@ import Shortcut from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 
 import ShortcutWithFocus from './ShortcutWithRef';
+import ShortcutWithFocusedInput from './ShortcutWithInput';
 
 describe('ShortcutManager', () => {
   beforeEach(() => {
@@ -223,6 +224,52 @@ describe('ShortcutManager', () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  describe('disabled', () => {
+    it('disables shortcuts when true', () => {
+      const spy = jest.fn();
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut ordered={['a']} onMatch={spy} disabled />
+        </ShortcutProvider>,
+      );
+
+      keydown('a');
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('enables shortcuts by default', () => {
+      const spy = jest.fn();
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut ordered={['a']} onMatch={spy} />
+        </ShortcutProvider>,
+      );
+
+      keydown('a');
+
+      expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('ignore input', () => {
+    it.skip('ignores contentEditable by default', () => {
+      const spy = jest.fn();
+
+      const app = mount(
+        <ShortcutProvider>
+          <ShortcutWithFocusedInput spy={spy} />
+        </ShortcutProvider>,
+      );
+
+      keydown('z');
+
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 
   describe('modifier keys', () => {
