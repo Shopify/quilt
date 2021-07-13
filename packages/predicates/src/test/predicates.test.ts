@@ -3,6 +3,8 @@ import {
   lengthLessThan,
   isPositiveNumericString,
   isNumericString,
+  isURL,
+  isSecureURL,
   isEmpty,
   isEmptyString,
   notEmpty,
@@ -101,6 +103,129 @@ describe('notNumericString', () => {
 
   it('returns true for non-numeric strings', () => {
     expect(notNumericString('lorem ipsum')).toBe(true);
+  });
+});
+
+describe('isURL', () => {
+  it('returns false when given a string that is not a URL', () => {
+    expect(isURL('foobar')).toBe(false);
+  });
+
+  it('returns false when given a URL with an invalid domain', () => {
+    expect(isURL('http://-example.com')).toBe(false);
+    expect(isURL('http://www.-example.com')).toBe(false);
+    expect(isURL('http://exa~mple.com')).toBe(false);
+    expect(isURL('http://www.exa~mple.com')).toBe(false);
+    expect(isURL('http://www.example😂.com')).toBe(false);
+  });
+
+  it('returns true when given a secure URL with a valid domain', () => {
+    expect(isURL('http://example.com')).toBe(true);
+    expect(isURL('http://example-test.com')).toBe(true);
+    expect(isURL('http://example2test.com')).toBe(true);
+    expect(isURL('http://2exampletest.com')).toBe(true);
+  });
+
+  it('returns false when given a URL with an invalid domain extension', () => {
+    expect(isURL('http://example')).toBe(false);
+    expect(isURL('http://example.')).toBe(false);
+    expect(isURL('http://www.example.')).toBe(false);
+    expect(isURL('http://example.t')).toBe(false);
+    expect(isURL('http://www.example.t')).toBe(false);
+    expect(isURL('http://www.example.😂a')).toBe(false);
+  });
+
+  it('returns true when given a secure URL with a valid domain extension', () => {
+    expect(isURL('http://example.biz')).toBe(true);
+    expect(isURL('http://www.example.biz')).toBe(true);
+    expect(isURL('http://example.co')).toBe(true);
+    expect(isURL('http://example.dz')).toBe(true);
+  });
+
+  it('returns false when given an invalid IP address', () => {
+    expect(isURL('http://111.111.11')).toBe(false);
+  });
+
+  it('returns true when given a valid IP Address', () => {
+    expect(isURL('http://111.111.11.11')).toBe(true);
+  });
+
+  it('returns false when given a URL with an invalid port', () => {
+    expect(isURL('http://example.com:')).toBe(false);
+  });
+
+  it('returns true when given a URL with a valid port', () => {
+    expect(isURL('http://example.com:1')).toBe(true);
+    expect(isURL('http://example.com:3000')).toBe(true);
+  });
+
+  it('returns false when given a URL with an invalid query string', () => {
+    expect(isURL('http://example.com#?foo[]=bar&batz=test')).toBe(false);
+    expect(isURL('http://example.com/#?foo[]=bar&batz=test')).toBe(false);
+    expect(isURL('http://example.com/?foo=bar&batz=😂test')).toBe(false);
+  });
+
+  it('returns true when given a URL with a valid query string', () => {
+    expect(isURL('http://example.com#')).toBe(true);
+    expect(isURL('http://example.com?foo[]=bar&batz=test')).toBe(true);
+    expect(isURL('http://example.com/?foo[]=bar&batz=test-this')).toBe(true);
+    expect(
+      isURL(
+        'http://example.com/?batz=test-this&amp;foo=thing~and+that_and_this.too%20aswell',
+      ),
+    ).toBe(true);
+    expect(isURL('http://example.com?foo[]=bar&batz=test#')).toBe(true);
+    expect(isURL('http://example.com:3000?foo[]=bar&batz=test#')).toBe(true);
+  });
+});
+
+describe('isSecureURL()', () => {
+  it('returns false when given a valid but non-secure URL', () => {
+    expect(isSecureURL('http://example.com')).toBe(false);
+    expect(isSecureURL('http://example.com/')).toBe(false);
+    expect(isSecureURL('http://www.example.com')).toBe(false);
+  });
+
+  it('returns false when given a URL with an invalid domain', () => {
+    expect(isSecureURL('https://-example.com')).toBe(false);
+  });
+
+  it('returns true when given a secure URL with a valid domain', () => {
+    expect(isSecureURL('https://example-test.com')).toBe(true);
+  });
+
+  it('returns false when given a URL with an invalid domain extension', () => {
+    expect(isSecureURL('https://example')).toBe(false);
+  });
+
+  it('returns true when given a secure URL with a valid domain extension', () => {
+    expect(isSecureURL('https://example.dz')).toBe(true);
+  });
+
+  it('returns false when given an invalid IP address', () => {
+    expect(isSecureURL('https://111.111.11')).toBe(false);
+  });
+
+  it('returns true when given a secure IP Address', () => {
+    expect(isSecureURL('https://111.111.11.11')).toBe(true);
+  });
+
+  it('returns false when given a URL with an invalid port', () => {
+    expect(isSecureURL('https://example.com:')).toBe(false);
+  });
+
+  it('returns true when given a secure URL with a valid port', () => {
+    expect(isSecureURL('https://example.com:3000')).toBe(true);
+  });
+
+  it('returns false when given a URL with an invalid query string', () => {
+    expect(isSecureURL('https://example.com#?foo[]=bar&batz=test')).toBe(false);
+  });
+
+  it('returns true when given a secure URL with a valid query string', () => {
+    expect(isSecureURL('https://example.com:3000?foo[]=bar&batz=test#')).toBe(
+      true,
+    );
   });
 });
 

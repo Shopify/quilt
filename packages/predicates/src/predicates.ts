@@ -18,6 +18,32 @@ export function isNumericString(input: string) {
   return input !== '' && (input.match(/[^0-9.,-]/g) || []).length === 0;
 }
 
+export function isURL(input: string) {
+  if (!input) return false;
+
+  const urlRegex = new RegExp(
+    // protocol
+    '^(https?:\\/\\/)?' +
+      // domain name
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+      // OR ip (v4) address
+      '((\\d{1,3}\\.){3}\\d{1,3}))' +
+      // port and path
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+      // query string
+      '(\\?[;&a-z\\d%_.~+=\\-\\[\\]]*)?' +
+      // fragment locator
+      '(\\#[-a-z\\d_]*)?$',
+    'i',
+  );
+  return urlRegex.test(input);
+}
+
+export function isSecureURL(input: string) {
+  const secureUrlRegex = /^https:\/\//i;
+  return isURL(input) && secureUrlRegex.test(input);
+}
+
 export function isEmpty(input: any) {
   return input === null || input === undefined || input.length === 0;
 }

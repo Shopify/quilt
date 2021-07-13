@@ -29,3 +29,11 @@ export function positiveNumericString(error: ErrorContent<string>) {
 export function numericString(error: ErrorContent<string>) {
   return validator(predicates.isNumericString)(error);
 }
+
+export function isURL(error: ErrorContent<string>) {
+  return validator(predicates.isURL)(error);
+}
+
+export function isSecureUrl(error: ErrorContent<string>) {
+  return validator(predicates.isSecureURL)(error);
+}
