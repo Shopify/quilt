@@ -11,7 +11,7 @@ describe('create-mock-context', () => {
     const context = createContext({method, url});
 
     expect(context.method).toBe(method);
-    expect(context.url).toBe(url);
+    expect(context.url).toBe('/admin');
   });
 
   it('defaults status to 404', () => {
@@ -62,8 +62,8 @@ describe('create-mock-context', () => {
     const context = createContext({url: STORE_URL});
 
     const {url, originalUrl, host, origin, path, protocol} = context;
-    expect(url).toBe(STORE_URL);
-    expect(originalUrl).toBe(STORE_URL);
+    expect(url).toBe('/admin');
+    expect(originalUrl).toBe('/admin');
     expect(host).toBe('mystore.com');
     expect(path).toBe('/admin');
     expect(protocol).toBe('http');
@@ -71,13 +71,14 @@ describe('create-mock-context', () => {
   });
 
   it('defaults url segments when no origin is given', () => {
-    const context = createContext({url: '/foo'});
+    const context = createContext({url: '/foo?baz=qux'});
 
-    const {url, originalUrl, host, origin, path, protocol} = context;
-    expect(url).toBe('http://test.com/foo');
-    expect(originalUrl).toBe('http://test.com/foo');
+    const {url, originalUrl, host, origin, path, protocol, search} = context;
+    expect(url).toBe('/foo?baz=qux');
+    expect(originalUrl).toBe('/foo?baz=qux');
     expect(host).toBe('test.com');
     expect(path).toBe('/foo');
+    expect(search).toBe('?baz=qux');
     expect(protocol).toBe('http');
     expect(origin).toBe('http://test.com');
   });
@@ -108,13 +109,14 @@ describe('create-mock-context', () => {
   it('prefers fully qualified url over explicit segments', () => {
     const expectedUrl = 'https://www.foobarbaz.com/foo/bar';
 
-    const {originalUrl} = createContext({
+    const {originalUrl, host} = createContext({
       url: 'https://www.foobarbaz.com/foo/bar',
       host: 'someotherplace.com',
       encrypted: false,
     });
 
-    expect(originalUrl).toBe(expectedUrl);
+    expect(originalUrl).toBe('/foo/bar');
+    expect(host).toBe('www.foobarbaz.com');
   });
 
   it('includes custom cookies', () => {

@@ -1,4 +1,4 @@
-import {URL} from 'url';
+import {URL, format} from 'url';
 import stream from 'stream';
 
 import httpMocks, {RequestMethod} from 'node-mocks-http';
@@ -74,7 +74,10 @@ export default function createContext<
   const urlObject = new URL(url, `${protocolFallback}://${host}`);
 
   const req = httpMocks.createRequest({
-    url: urlObject.toString(),
+    url: format({
+      pathname: urlObject.pathname,
+      search: urlObject.search,
+    }),
     method,
     statusCode,
     session,
