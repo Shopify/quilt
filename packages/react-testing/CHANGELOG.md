@@ -7,7 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-- No updates. Test changes for compatibility in dev. [#1957](https://github.com/Shopify/quilt/issues/1957)
+### Fixed
+
+- Changes to tests for compatibility in dev. [#1957](https://github.com/Shopify/quilt/issues/1957)
 
 ## 3.1.0 - 2021-06-29
 
