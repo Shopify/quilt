@@ -9,7 +9,7 @@ However, if you were using `fillGraphQL` and expected to receive the data, this 
 ```ts
 const fillGraphQL = createFiller(/* options */);
 const data = fillGraphQL(myQuery);
-const graphQL = createGraphQL({ MyQuery: data });
+const graphQL = createGraphQL({MyQuery: data});
 
 /* ... */
 
@@ -22,9 +22,9 @@ You have two options to update code like what is shown above:
 
 ```ts
 const fillGraphQL = createFiller(/* options */);
-const someDataOnTheQuery = "foo";
-const fillMyQuery = fillGraphQL(myQuery, { someDataOnTheQuery });
-const graphQL = createGraphQL({ MyQuery: fillMyQuery });
+const someDataOnTheQuery = 'foo';
+const fillMyQuery = fillGraphQL(myQuery, {someDataOnTheQuery});
+const graphQL = createGraphQL({MyQuery: fillMyQuery});
 
 /* ... */
 
@@ -36,8 +36,8 @@ expect(something).toBe(someDataOnTheQuery);
 ```ts
 const fillGraphQL = createFiller(/* options */);
 const fillMyQuery = fillGraphQL(myQuery);
-const data = fillMyQuery({ query: myQuery });
-const graphQL = createGraphQL({ MyQuery: data });
+const data = fillMyQuery({query: myQuery});
+const graphQL = createGraphQL({MyQuery: data});
 
 /* ... */
 

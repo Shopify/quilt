@@ -3,6 +3,7 @@
 React I18n is a schema comprised of a structure of nested key-value pairs (KVPs). This document captures the nuances of the constraints placed on the schema by the different levels of concern.
 
 <!-- Created using "Markdown All in One" extension for VS Code -->
+
 - [History](#history)
   - [Version 2.0](#version-20)
   - [Version 1.0](#version-10)
@@ -21,19 +22,19 @@ React I18n is a schema comprised of a structure of nested key-value pairs (KVPs)
     - [Comments](#comments)
   - [Serialization to JSON+Comments](#serialization-to-jsoncomments)
 - [Appendix A: Comparison with Rails I18n](#appendix-a-comparison-with-rails-i18n)
-    - [Root locale key](#root-locale-key)
-    - [Pluralization](#pluralization-1)
-    - [Interpolation](#interpolation)
+  - [Root locale key](#root-locale-key)
+  - [Pluralization](#pluralization-1)
+  - [Interpolation](#interpolation)
 
 # History
 
 ## Version 2.0
 
-* Use the more precise language: `"Pluralization" -> "Cardinal Pluralization"`
-* Clarify that a cardinal pluralization context only includes immediate children
-* Add a description of how ordinal pluralization works.
-    * This was an omission in the version `1.0` specification.
-* Adjust the rules for reserved cardinal pluralization keys to account for their usage in ordinal pluralization contexts
+- Use the more precise language: `"Pluralization" -> "Cardinal Pluralization"`
+- Clarify that a cardinal pluralization context only includes immediate children
+- Add a description of how ordinal pluralization works.
+  - This was an omission in the version `1.0` specification.
+- Adjust the rules for reserved cardinal pluralization keys to account for their usage in ordinal pluralization contexts
 
 ## Version 1.0
 
@@ -87,7 +88,8 @@ Pluralization of cardinal numbers is handled by providing the cardinal pluraliza
 
 ```jsonc
 {
-  "cars": {  // All the children of `cars` are in a "cardinal pluralization context"
+  "cars": {
+    // All the children of `cars` are in a "cardinal pluralization context"
     "one": "I have {count} car",
     "other": "I have {count} cars"
   }
@@ -113,12 +115,12 @@ Different languages require different sets of cardinal pluralization keys. For e
 
 In order to avoid key collisions, the following keys are reserved for use as cardinal pluralization keys and must not be used as keys of leaf KVPs outside of a cardinal pluralization context:
 
-* `few`
-* `many`
-* `one`
-* `other`
-* `two`
-* `zero`
+- `few`
+- `many`
+- `one`
+- `other`
+- `two`
+- `zero`
 
 **Note:** There is an exception. These keys are also allowed to be present within an **ordinal pluralization context**.
 
@@ -127,6 +129,7 @@ These keys are derived from the names given to the cardinal pluralization rules 
 This list is current as of version `37` of the CLDR. In the unlikely event that new cardinal pluralization rule names are added, they will be added to this reserved list in a future version of this specification.
 
 **Example INVALID English file:**
+
 ```jsonc
 {
   "foo": "bar",
@@ -151,6 +154,7 @@ Furthermore, cardinal pluralization keys that are not required by the language m
 For example, even though `zero` is a required cardinal pluralization key for some languages (eg. Arabic), it is not a required cardinal pluralization key in English. Therefore, the `zero` key must not be present in an English file alongside the cardinal pluralization KVPs required by English.
 
 **Example INVALID English file:**
+
 ```jsonc
 {
   "cars": {
@@ -165,7 +169,7 @@ For example, even though `zero` is a required cardinal pluralization key for som
 
 These constraints allow for a simple algorithm for identifying cardinal pluralization contexts:
 
-* If a node has child leaf KVPs for **any** of the cardinal pluralization keys required by the language, and the node is not `ordinal` (which would make it an [ordinal pluralization context](#ordinal-pluralization), then its **immediate** children are within a cardinal pluralization context.
+- If a node has child leaf KVPs for **any** of the cardinal pluralization keys required by the language, and the node is not `ordinal` (which would make it an [ordinal pluralization context](#ordinal-pluralization), then its **immediate** children are within a cardinal pluralization context.
 
 **Note**: in order to be a valid cardinal pluralization context, any other required cardinal pluralization keys must also be present within the cardinal pluralization context.
 
@@ -178,7 +182,8 @@ Pluralization of ordinal numbers is handled by providing the ordinal pluralizati
 ```jsonc
 {
   "cars": {
-    "ordinal": { // The special key "ordinal" creates an ordinal pluralization context
+    "ordinal": {
+      // The special key "ordinal" creates an ordinal pluralization context
       "one": "This is my {amount}st car", // Used for 1, 21, 31, 41, 51, 61, 71, 81, 101, 1001, …
       "two": "This is my {amount}nd car", // Used for 2, 22, 32, 42, 52, 62, 72, 82, 102, 1002, …
       "few": "This is my {amount}rd car", // Used for 3, 23, 33, 43, 53, 63, 73, 83, 103, 1003, …
@@ -209,6 +214,7 @@ Ordinal pluralization keys that are not required by the language must not be use
 For example, even though `many` is a required cardinal pluralization key for some languages (eg. Italian), it is not a required ordinal pluralization key in English. Therefore, the `many` key must not be present in an English file alongside the ordinal pluralization KVPs required by English.
 
 **Example INVALID English file:**
+
 ```jsonc
 {
   "cars": {
@@ -227,7 +233,7 @@ For example, even though `many` is a required cardinal pluralization key for som
 
 These constraints allow for a simple algorithm for identifying ordinal pluralization contexts:
 
-* If a node has the special key name `ordinal`, then its **immediate** children are within a ordinal pluralization context.
+- If a node has the special key name `ordinal`, then its **immediate** children are within a ordinal pluralization context.
 
 **Note**: in order to be a valid ordinal pluralization context, any other required ordinal pluralization keys must also be present within the ordinal pluralization context.
 
@@ -235,8 +241,8 @@ These constraints allow for a simple algorithm for identifying ordinal pluraliza
 
 React I18n can be serialized to different formats. Two serializations are officially defined:
 
-* JSON+Comments
-* JSON
+- JSON+Comments
+- JSON
 
 Consumers of React I18n `2.0` schema files are expected to be able to parse files serialized into each of these serialization formats.
 
@@ -307,6 +313,7 @@ This section compares the two schemas, in order to point out the ways in which t
 Rails I18n has a locale root key, while React I18n doesn't:
 
 **Rails I18n:**
+
 ```yaml
 en:
   foo: bar
@@ -335,12 +342,13 @@ React I18n avoids this by disallowing the use of the `zero` key unless the sourc
 When manually converting Rails I18n files to React I18n, use a different key (eg. `none` or `blank`) for storing strings that should be used for placeholder or empty values.
 
 **Rails I18n:**
+
 ```yaml
 en:
   cars:
     zero: "I don't have any cars" # Problematic when translating into languages that use the `zero` pluralization key
-    one: "I have %{count} car"
-    other: "I have %{count} car"
+    one: 'I have %{count} car'
+    other: 'I have %{count} car'
 ```
 
 **React I18n**
@@ -360,6 +368,7 @@ en:
 While neither schema defines an interpolation syntax, the most common syntax used in Rails I18n is `%{}`, while in React I18n, the most common syntax is `{}`.
 
 **Rails I18n:**
+
 ```yaml
 en:
   hello: My name is %{name}

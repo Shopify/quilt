@@ -42,7 +42,7 @@ function MyComponent() {
         description: 'Cool product',
       }}
     >
-      {formDetails => {
+      {(formDetails) => {
         const {fields} = formDetails;
         const {title, description} = fields;
 
@@ -92,7 +92,7 @@ function MyComponent() {
         description: 'Cool product',
       }}
     >
-      {formDetails => {
+      {(formDetails) => {
         const {fields} = formDetails;
 
         return (
@@ -132,7 +132,7 @@ const fakeErrorResult = {error: [{message: 'api is not real'}]};
 
 // simple async function that fakes a failing api call
 export function fakeApiCall(data: any) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(fakeErrorResult);
     }, 2000);
@@ -165,7 +165,7 @@ export function MyPage() {
             {!valid && (
               <Banner status="critical">
                 <ul>
-                  {errors.map(error => (
+                  {errors.map((error) => (
                     <li key={`${error.message}${error.field}`}>
                       {error.message}
                     </li>
@@ -274,7 +274,7 @@ export function MyPage() {
 export type ValidatorDictionary<Fields> = {
   [FieldPath in keyof Fields]: MaybeArray<
     ValidationFunction<Fields[FieldPath], Fields>
-  >
+  >;
 };
 
 interface ValidationFunction<Value, Fields> {
@@ -359,7 +359,7 @@ function MyComponent() {
         },
       }}
     >
-      {formDetails => {
+      {(formDetails) => {
         const {fields} = formDetails;
 
         return (
@@ -401,7 +401,7 @@ function MyComponent() {
         console.log('I will not be run if title is too long');
       }}
     >
-      {formDetails => {
+      {(formDetails) => {
         const {errors, fields, submit} = formDetails;
 
         const errorBanner = Boolean(errors.length) && (
@@ -706,7 +706,7 @@ function CreateProductPage({initialValues}: Props) {
         return [{message: 'server error'}];
       }}
     >
-      {formDetails => {
+      {(formDetails) => {
         const {fields, dirty, reset, submit, submitting, errors} = formDetails;
         const {
           title,
@@ -733,7 +733,7 @@ function CreateProductPage({initialValues}: Props) {
         const errorBanner = errors.length > 0 && (
           <Banner status="critical">
             <ul>
-              {errors.map(error => (
+              {errors.map((error) => (
                 <li key={`${error.message}${error.field}`}>{error.message}</li>
               ))}
             </ul>

@@ -70,7 +70,7 @@ function MyComponent() {
     fields: {
       title: useField('some default title'),
     },
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -258,7 +258,7 @@ export default function MyComponent() {
 
   // handle submission state
   const {submit, submitting, errors, setErrors} = useSubmit(
-    async fieldValues => {
+    async (fieldValues) => {
       const remoteErrors = []; // your API call goes here
       if (remoteErrors.length > 0) {
         return {status: 'fail', errors: remoteErrors};
@@ -361,7 +361,7 @@ You can also pass a more complex configuration object specifying a validation fu
 ```tsx
 const field = useField({
   value: someRemoteData.title,
-  validates: title => {
+  validates: (title) => {
     if (title.length > 3) {
       return 'Title must be longer than three characters';
     }
@@ -375,12 +375,12 @@ You may also pass multiple validators.
 const field = useField({
   value: someRemoteData.title,
   validates: [
-    title => {
+    (title) => {
       if (title.length > 3) {
         return 'Title must be longer than three characters';
       }
     },
-    title => {
+    (title) => {
       if (!title.includes('radical')) {
         return 'Only radical items are allowed';
       }
@@ -548,12 +548,12 @@ const field = useList({
     {title: '', description: ''},
   ],
   validates: {
-    title: title => {
+    title: (title) => {
       if (title.length > 3) {
         return 'Title must be longer than three characters';
       }
     },
-    description: description => {
+    description: (description) => {
       if (description === '') {
         return 'Description is required!';
       }
@@ -777,14 +777,14 @@ newDefaultValue(newValue);
 You can iterate through the values and defaultValues of the dynamicList
 
 ```tsx
-value.map(card => (
+value.map((card) => (
   <div>
     <p>Card number: {card.cardNumber}</p>
     <p>CVV : {card.cvv}</p>
   </div>
 ));
 
-defaultValue.map(card => (
+defaultValue.map((card) => (
   <div>
     <p>Card number: {card.cardNumber}</p>
     <p>CVV : {card.cvv}</p>
@@ -805,7 +805,7 @@ const form = useForm({
   fields: {
     customerCards: fields,
   },
-  onSubmit: async fieldValues => {
+  onSubmit: async (fieldValues) => {
     console.log(fieldValues);
     return submitSuccess();
   },
@@ -826,7 +826,7 @@ const form = useForm<typeof fields, typeof customerCards>({
   dynamicLists: {
     customerCards,
   },
-  onSubmit: async fieldValues => {
+  onSubmit: async (fieldValues) => {
     console.log(fieldValues);
     return submitSuccess();
   },
@@ -877,7 +877,7 @@ function MyComponent() {
     fields: {
       title: useField('some default title'),
     },
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -950,7 +950,7 @@ function MyComponent() {
       title: useField('some default title'),
       description: useField('some default description'),
     },
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -1034,7 +1034,7 @@ function MyComponent() {
   const price = useField(
     {
       value: '0.00',
-      validates: value => {
+      validates: (value) => {
         if (title.value.includes('expensive') && parseFloat(value) < 1000) {
           return 'Expensive items must cost more than 1000 dollars';
         }
@@ -1045,7 +1045,7 @@ function MyComponent() {
 
   const {submit, submitting, dirty, reset, submitErrors, makeClean} = useForm({
     fields: {title, description},
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -1270,7 +1270,7 @@ const {
   submit,
 } = useForm({
   fields,
-  onSubmit: async values => {
+  onSubmit: async (values) => {
     console.log('You submitted the form!', values);
     if (someCondition) {
       makeCleanFields(fields); // set form state to 'clean'
@@ -1305,7 +1305,7 @@ function MyForm() {
   const price = useField(
     {
       value: '2.00',
-      validates: value => {
+      validates: (value) => {
         if (title.value.includes('expensive') && parseFloat(value) < 1000) {
           return 'Expensive items must be at least 1000 dollars.';
         }

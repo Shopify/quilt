@@ -72,7 +72,7 @@ export function LastNavigationDetails() {
   const [lastNavigation, setLastNavigation] = useState<Navigation | null>(null);
 
   // listen for subsequent client-side navigations and update our state
-  useNavigationListener(navigation => {
+  useNavigationListener((navigation) => {
     setLastNavigation(navigation);
   });
 
@@ -170,7 +170,7 @@ A custom hook which takes in callback to invoke whenever the `Performance` conte
 import {useLifecycleEventListener} from '@shopify/react-performance';
 
 function SomeComponent() {
-  useLifecycleEventListener(event => {
+  useLifecycleEventListener((event) => {
     console.log(event);
   });
 
@@ -186,7 +186,7 @@ A custom hook which takes in a callback to invoke whenever a navigation takes pl
 import {useNavigationListener} from '@shopify/react-performance';
 
 function SomeComponent() {
-  useNavigationListener(navigation => {
+  useNavigationListener((navigation) => {
     console.log(navigation);
   });
 

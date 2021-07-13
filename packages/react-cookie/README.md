@@ -42,7 +42,7 @@ export default function renderApp(ctx: Context) {
   const app = <App />;
 
   await extract(app, {
-    decorate: element => (
+    decorate: (element) => (
       <NetworkContext.Provider value={networkManager}>
         {element}
       </NetworkContext.Provider>
@@ -95,7 +95,7 @@ import {useCookie} from '@shopify/react-cookie';
 
 function SomeComponent() {
   const [cookie, setCookie] = useCookie('fooCookie');
-  const handleChange = event => setCookie(event.target.value);
+  const handleChange = (event) => setCookie(event.target.value);
   const removeCookie = () => setCookie();
 
   return (

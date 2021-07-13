@@ -120,7 +120,7 @@ export default function App() {
   return (
     <Provider value={new StatefulManager()}>
       <Consumer>
-        {manager => <Effect perform={() => (manager.value = true)} />}
+        {(manager) => <Effect perform={() => (manager.value = true)} />}
       </Consumer>
     </Provider>
   );
@@ -137,7 +137,7 @@ export default function App({manager}) {
   return (
     <Provider value={manager}>
       <Consumer>
-        {manager => <Effect perform={() => (manager.value = true)} />}
+        {(manager) => <Effect perform={() => (manager.value = true)} />}
       </Consumer>
     </Provider>
   );
