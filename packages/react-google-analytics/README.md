@@ -61,7 +61,7 @@ const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
 <Universal
   account={UNIVERSAL_GA_ACCOUNT_ID}
   domain={shopDomain}
-  onLoad={ga => {
+  onLoad={(ga) => {
     this.ga = ga;
   }}
 />;
@@ -87,7 +87,7 @@ const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
 <Universal
   account={UNIVERSAL_GA_ACCOUNT_ID}
   domain={shopDomain}
-  onError={error => {
+  onError={(error) => {
     // do something with error
   }}
 />;
@@ -141,7 +141,7 @@ const GA_JS_ACCOUNT_ID = 'UA-xxxx-xx';
 <GaJS
   account={GA_JS_ACCOUNT_ID}
   domain={shopDomain}
-  onLoad={_gaq => {
+  onLoad={(_gaq) => {
     this._gaq = _gaq;
   }}
 />;

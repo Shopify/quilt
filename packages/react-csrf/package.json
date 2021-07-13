@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-csrf",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "description": "Share CSRF tokens throughout a React application",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": ">=12.14.0"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <17.0.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
     "build/*",

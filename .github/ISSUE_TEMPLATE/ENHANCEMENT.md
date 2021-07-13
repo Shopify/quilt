@@ -1,7 +1,7 @@
 ---
 name: '📈 Enhancement'
 about: Enhancement to our codebase that isn't a adding or changing a feature
-labels: "Type: Enhancement 📈" 
+labels: 'Type: Enhancement 📈'
 ---
 
 ## Overview

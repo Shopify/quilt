@@ -64,7 +64,7 @@ The `wrap()` method allows you to wrap all GraphQL resolutions in a function cal
 const myComponent = mount(<MyComponent />);
 const graphQL = createGraphQL(mocks);
 
-graphQL.wrap(resolve => myComponent.act(resolve));
+graphQL.wrap((resolve) => myComponent.act(resolve));
 
 // Before, calling this could cause warnings about state updates happening outside
 // of act(). Now, all GraphQL resolutions are safely wrapped in myComponent.act().
@@ -87,7 +87,7 @@ const graphQL = createGraphQL({
   },
 });
 
-graphQL.wrap(resolve => myComponent.act(resolve));
+graphQL.wrap((resolve) => myComponent.act(resolve));
 await graphQL.resolveAll();
 
 graphQL.update({
@@ -99,8 +99,9 @@ graphQL.update({
   },
 });
 
-myComponent.find('button').trigger('onClick');
+const click = myComponent.find('button').trigger('onClick');
 await graphQL.resolveAll();
+await click;
 
 expect(myComponent).toContainReactText(newName);
 ```

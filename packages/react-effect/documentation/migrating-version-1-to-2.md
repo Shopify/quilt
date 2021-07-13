@@ -31,7 +31,7 @@ class Manager {
 
 <Context.Provider value={new Manager()}>
   <Context.Consumer>
-    {manager => (
+    {(manager) => (
       <Effect kind={manager.effect} perform={doSomethingWithManager(manager)} />
     )}
   </Context.Consumer>

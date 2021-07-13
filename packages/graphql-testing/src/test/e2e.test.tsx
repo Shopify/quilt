@@ -134,8 +134,9 @@ describe('graphql-testing', () => {
       },
     });
 
-    myComponent.find('button').trigger('onClick');
+    const request = myComponent.find('button').trigger('onClick');
     await graphQL.resolveAll();
+    await request;
 
     expect(myComponent).toContainReactText(newName);
   });

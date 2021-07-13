@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-compose",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "license": "MIT",
   "description": "Cleanly compose multiple component enhancers together with minimal fuss",
   "main": "index.js",
@@ -27,7 +27,7 @@
     "hoist-non-react-statics": "^3.0.1"
   },
   "peerDependencies": {
-    "react": "^16.3.2"
+    "react": ">=16.8.0 <18.0.0"
   },
   "sideEffects": false,
   "files": [

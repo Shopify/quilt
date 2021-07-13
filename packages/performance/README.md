@@ -31,7 +31,7 @@ If you want to listen for events, you can use the `on` method. There are three e
 ```ts
 // Listen for completed navigations. If you call this after the initial load
 // "navigation", your handler will immediately be invoked with that object.
-performance.on('navigation', navigation => {});
+performance.on('navigation', (navigation) => {});
 
 // Listen for the start of new navigations.
 performance.on('inflightNavigation', () => {});
@@ -42,7 +42,7 @@ performance.on('inflightNavigation', () => {});
 // the full set of possible events. If you add your listener after some of these
 // events have been triggered, it will immediately be invoked once for each
 // previously-triggered event.
-performance.on('lifecycleEvent', event => {});
+performance.on('lifecycleEvent', (event) => {});
 ```
 
 The `on` method returns a clean-up function that you can invoke when you're done listening on the event:
@@ -50,7 +50,7 @@ The `on` method returns a clean-up function that you can invoke when you're done
 ```ts
 const cleanupNavigationListener = performance.on(
   'navigation',
-  navigation => {},
+  (navigation) => {},
 );
 
 cleanupNavigationListener();

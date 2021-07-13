@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 4.1.0 - 2021-07-13
+
+### Added
+
+- Officially supports React `17.x` [1969](https://github.com/Shopify/quilt/pull/1969/files)
+
 ## 4.0.0 - 2021-05-21
 
 ### Breaking Change

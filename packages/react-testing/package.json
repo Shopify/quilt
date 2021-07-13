@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-testing",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
@@ -44,8 +44,8 @@
     "matchers.d.ts"
   ],
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "react": ">=16.8.0 <18.0.0",
+    "react-dom": ">=16.8.0 <18.0.0"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",

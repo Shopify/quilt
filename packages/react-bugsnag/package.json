@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-bugsnag",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "license": "MIT",
   "description": "An opinionated wrapper for Bugsnag's React plugin",
   "main": "index.js",
@@ -28,7 +28,7 @@
     "@bugsnag/plugin-react": "^7.1.1"
   },
   "peerDependencies": {
-    "react": "^16.8.1"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
     "build/*",
