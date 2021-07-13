@@ -29,6 +29,8 @@ function registerWebhook(options: {
 
 Registers a webhook for the given `topic` which will send requests to the given `address`. Returns an object with success `true` / `false` to indicate success or failure, as well as the parsed JSON of the response from Shopify. This function will throw if the fetch request it makes encounters an error.
 
+List of `TOPICS` = https://shopify.dev/docs/admin-api/graphql/reference/events/webhooksubscriptiontopic
+
 ### receiveWebhook
 
 ```typescript
