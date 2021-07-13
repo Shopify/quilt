@@ -29,7 +29,7 @@
     "@shopify/react-i18n": "^6.0.4"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <17.0.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "devDependencies": {
     "@shopify/react-effect": "^4.0.1",

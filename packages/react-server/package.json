@@ -46,16 +46,16 @@
     "@types/webpack-virtual-modules": "^0.1.0",
     "get-port": "^5.0.0",
     "node-loader": "^1.0.0",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2",
     "saddle-up": "^0.5.1",
     "setimmediate": "^1.0.5",
     "webpack": "^4.25.1"
   },
   "peerDependencies": {
     "cross-fetch": ">=3.0.0",
-    "react": ">=16.8.0 <17.0.0",
-    "react-dom": ">=16.8.0 <17.0.0"
+    "react": ">=16.8.0 <18.0.0",
+    "react-dom": ">=16.8.0 <18.0.0"
   },
   "optionalDependencies": {
     "@babel/types": ">=7.0.0",

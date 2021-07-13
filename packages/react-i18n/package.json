@@ -50,7 +50,7 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "optionalDependencies": {
     "@babel/template": "^7.0.0",
