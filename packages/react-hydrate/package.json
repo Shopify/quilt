@@ -31,7 +31,7 @@
     "faker": "^4.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
     "build/*",

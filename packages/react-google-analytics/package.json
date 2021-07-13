@@ -27,7 +27,7 @@
     "@shopify/react-import-remote": "^2.0.2"
   },
   "peerDependencies": {
-    "react": "^16.4.1"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
     "build/*",

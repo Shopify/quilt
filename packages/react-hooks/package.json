@@ -20,7 +20,7 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <17.0.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-hooks/README.md",
   "engines": {

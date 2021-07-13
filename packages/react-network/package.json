@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "koa": "^2.5.0",
-    "react": "^16.9.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
     "build/*",
