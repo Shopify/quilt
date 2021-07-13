@@ -29,7 +29,7 @@ In subsequent middleware, you can now use `getAssets()`, which return an object 
 ```ts
 import {getAssets} from '@shopify/sewing-kit-koa';
 
-app.use(async ctx => {
+app.use(async (ctx) => {
   const assets = getAssets(ctx);
   // Both `styles` and `scripts` return a Promise for an array of objects.
   // Each object has a `path` for its resolved URL, and an optional `integrity`
@@ -66,7 +66,7 @@ export default function sewingKitConfig(plugins: Plugins) {
 // In your server...
 import {getAssets} from '@shopify/sewing-kit-koa';
 
-app.use(async ctx => {
+app.use(async (ctx) => {
   const assets = getAssets(ctx);
 
   const styles = (await assets.styles({name: 'error'})).map(({path}) => path);
@@ -85,7 +85,7 @@ You can also pass an optional `asyncAssets` to either the `scripts()` or `styles
 import {AsyncAssetManager} from '@shopify/react-async';
 import {getAssets} from '@shopify/sewing-kit-koa';
 
-app.use(async ctx => {
+app.use(async (ctx) => {
   const assets = getAssets(ctx);
   const asyncAssetManager = new AsyncAssetManager();
 

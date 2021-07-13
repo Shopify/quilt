@@ -49,9 +49,9 @@ yarn run graphql-validate-fixtures 'src/**/fixtures/**/*.graphql.json'
 const {evaluateFixtures} = require('graphql-validate-fixtures');
 evaluateFixtures({
   fixturePaths: ['test/fixtures/one.json', 'test/fixtures/two.json'],
-}).then(results => {
+}).then((results) => {
   // See the TypeScript definition file for more details on the
   // structure of the `results`
-  results.forEach(result => console.log(result));
+  results.forEach((result) => console.log(result));
 });
 ```

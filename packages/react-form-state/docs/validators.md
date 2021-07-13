@@ -46,7 +46,7 @@ function MyComponent() {
         ],
       }}
     >
-      {formDetails => {
+      {(formDetails) => {
         const {fields} = formDetails;
 
         return (
@@ -118,7 +118,7 @@ import {validate, ErrorContent} from '@shopify/react-form-state';
 
 export function validEmail(input: string, errorContent: ErrorContent) {
   // example only
-  return validate(input => /+\@.+\..+/.test(input), errorContent);
+  return validate((input) => /+\@.+\..+/.test(input), errorContent);
 }
 ```
 

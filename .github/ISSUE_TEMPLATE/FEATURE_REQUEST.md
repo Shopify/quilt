@@ -1,7 +1,7 @@
 ---
 name: '🙌 Feature Request'
 about: Suggest a new feature, or changes to an existing one
-labels: "Type: Feature Request :raised_hands:" 
+labels: 'Type: Feature Request :raised_hands:'
 ---
 
 ## Overview

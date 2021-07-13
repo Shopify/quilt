@@ -206,7 +206,7 @@ export default function renderApp(ctx: Context) {
   const app = <App />;
 
   await extract(app, {
-    decorate: element => (
+    decorate: (element) => (
       <NetworkContext.Provider value={networkManager}>
         {element}
       </NetworkContext.Provider>

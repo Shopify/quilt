@@ -305,7 +305,7 @@ This component might be rendered when the URL matches `/products/:id`. If we wan
 ```tsx
 <PrefetchRoute
   path={/^\/products\/(\d+)$/}
-  render={url => {
+  render={(url) => {
     const id = url.pathname.split('/').pop();
     return <ProductDetails.Prefetch id={id} />;
   }}
@@ -379,7 +379,7 @@ const ExpensiveFileContext = createAsyncContext({
 // and use the consumer to access the value:
 
 <ExpensiveFileContext.Consumer>
-  {file => (file ? <CsvViewer file={file} /> : null)}
+  {(file) => (file ? <CsvViewer file={file} /> : null)}
 </ExpensiveFileContext.Consumer>;
 ```
 

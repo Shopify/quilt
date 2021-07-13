@@ -109,19 +109,18 @@ The following type aliases are provided by this library:
 
 - `DeepOmit<T, K>` Recursively maps over all properties in a type and omits those matching `K`.
 
- ```ts
-  interface Obj {
+```ts
+interface Obj {
+  __typename: string;
+  foo: string;
+  bar: {
     __typename: string;
-    foo: string;
-    bar: {
-      __typename: string,
-      baz: string
-    };
-    
-  }
-  
-  type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: string}}
-  ```
+    baz: string;
+  };
+}
+
+type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: string}}
+```
 
 - `DeepOmitArray<T extends any[], K>` Iterate over all properties in an array of types and omits those matching `K`.
 

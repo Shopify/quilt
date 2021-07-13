@@ -75,7 +75,7 @@ The `endpoint.call` object allows you to call methods that were exposed on the s
 const endpoint = createEndpoint(messenger);
 
 // Logs "Hello, Michelle!"
-endpoint.call.greet('Michelle').then(result => console.log(result));
+endpoint.call.greet('Michelle').then((result) => console.log(result));
 ```
 
 This example also demonstrates that, because this function call is implemented using messages, it will always return a promise for the result, even if the source function returned synchronously.

@@ -6,7 +6,7 @@ May 18, 2018
 
 ## Contributors
 
-* tzvipm
+- tzvipm
 
 ## Summary
 
@@ -26,8 +26,8 @@ This same documentation provides a [list of libraries in various programming lan
 
 Among those, there are 2 libraries listed under `Node.js` with support for `DogStatsD`:
 
-* `hot-shots`
-* `node-dogstatsd`
+- `hot-shots`
+- `node-dogstatsd`
 
 `hot-shots` appears to be the clear choice between these 2 for the following reasons:
 

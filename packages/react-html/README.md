@@ -56,7 +56,7 @@ export default async function middleware(ctx) {
   const app = <App />;
 
   await extract(app, {
-    decorate: element => (
+    decorate: (element) => (
       <HtmlContext.Provider value={manager}>{element}</HtmlContext.Provider>
     ),
   });

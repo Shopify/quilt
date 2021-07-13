@@ -266,12 +266,12 @@ const builder = new Builder({
   schemaTypesPath: 'app/graphql/types',
 });
 
-builder.on('build', build => {
+builder.on('build', (build) => {
   // See the source file for details on the shape of the object returned here
   console.log(build);
 });
 
-builder.on('error', error => {
+builder.on('error', (error) => {
   console.error(error);
 });
 

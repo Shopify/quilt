@@ -129,7 +129,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `unformatNumber()`: converts a localized number string to a number string parseable by JavaScript. Example: `123.456,45 => 123456.45`
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
   - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1.25`, `€1.25`, `OMR 1.250`, `$1.25`
-  - if `form: 'none'` is given, the number will be formatted with currency rules but will not include a currency symbol or ISO code in the string. Examples: `1,234.56`, `1 234,56`
+  - if `form: 'none'` is given, the number will be formatted with currency rules but will not include a currency symbol or ISO code in the string. Examples: `1,234.56`, `1 234,56`
   - if `form: 'explicit'` is given, then the result will be the same as for `short`, but will append the ISO 4217 code if it is not already present
   - if `form: 'auto'` is given, then `explicit` will be selected if the `currency` option does not match the `defaultCurrency`, otherwise `short` is selected. If either `currency` or `defaultCurrency` is not defined then `short` is selected.
   - if `form:` is not given, then behaviour reverts to the legacy (deprecated) `formatCurrency()`, which is a convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`. Note that this will resemble `form: 'short'`, but will sometimes extend the symbol with extra information depending on the browser's implementation of `Intl.NumberFormat` and the locale in use. For example, `formatCurrency(1.25, {currency: 'CAD'})` may return `$ 1.25`, or it might return `CA$ 1.25`.
@@ -351,7 +351,6 @@ import {
 import {I18nManager} from '@shopify/react-i18n';
 import {extract} from '@shopify/react-effect/server';
 
-
 function App({locale}: {locale?: string}) {
   return (
     <I18nUniversalProvider locale={locale}>
@@ -359,7 +358,7 @@ function App({locale}: {locale?: string}) {
     </I18nUniversalProvider>
   );
 }
-const app = <App locale='en' />;
+const app = <App locale="en" />;
 
 const htmlManager = new HtmlManager();
 await extract(element, {
@@ -370,11 +369,7 @@ await extract(element, {
   },
 });
 
-const html = render(
-  <Html manager={htmlManager}>
-    {app}
-  </Html>,
-);
+const html = render(<Html manager={htmlManager}>{app}</Html>);
 ```
 
 ### Babel
