@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-performance",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "license": "MIT",
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "index.js",
