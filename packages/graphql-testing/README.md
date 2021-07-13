@@ -99,8 +99,9 @@ graphQL.update({
   },
 });
 
-myComponent.find('button').trigger('onClick');
+const click = myComponent.find('button').trigger('onClick');
 await graphQL.resolveAll();
+await click;
 
 expect(myComponent).toContainReactText(newName);
 ```

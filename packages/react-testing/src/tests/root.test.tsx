@@ -10,13 +10,13 @@ describe('Root', () => {
     destroyAll();
   });
 
-  it('works with react 17 style nodes', () => {
+  it('works with react 16 style nodes', () => {
     const root = new Root(<div />);
 
     // in React 17 _reactInternalFiber is renamed to _reactInternals
     const rootRef = (root as any).wrapper.rootRef;
-    rootRef._reactInternals = rootRef._reactInternalFiber;
-    delete rootRef._reactInternalFiber;
+    rootRef._reactInternalFiber = rootRef._reactInternals;
+    delete rootRef._reactInternals;
 
     expect(() => root.act(() => {})).not.toThrow();
   });
