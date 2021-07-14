@@ -1,9 +1,8 @@
 import * as path from 'path';
 
+import type {LoaderContext, Compilation, Compiler} from 'webpack';
+import webpack from 'webpack';
 import {getOptions} from 'loader-utils';
-import SingleEntryPlugin from 'webpack/lib/SingleEntryPlugin';
-import WebWorkerTemplatePlugin from 'webpack/lib/webworker/WebWorkerTemplatePlugin';
-import FetchCompileWasmTemplatePlugin from 'webpack/lib/web/FetchCompileWasmTemplatePlugin';
 
 import {WebWorkerPlugin} from './plugin';
 
@@ -14,10 +13,7 @@ export interface Options {
   plain?: boolean;
 }
 
-export function pitch(
-  this: import('webpack').loader.LoaderContext,
-  request: string,
-) {
+export function pitch(this: LoaderContext<Options>, request: string) {
   this.cacheable(false);
   const callback = this.async();
 
@@ -28,7 +24,7 @@ export function pitch(
     _compilation: compilation,
   } = this;
 
-  if (compiler.options.output!.globalObject !== 'self') {
+  if (compiler!.options.output!.globalObject !== 'self') {
     return callback!(
       new Error(
         'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @shopify/web-worker babel plugin.',
@@ -36,7 +32,7 @@ export function pitch(
     );
   }
 
-  const plugin: WebWorkerPlugin = (compiler.options.plugins || []).find(
+  const plugin: WebWorkerPlugin = (compiler!.options.plugins || []).find(
     WebWorkerPlugin.isInstance,
   ) as any;
 
@@ -68,15 +64,15 @@ export function pitch(
 
   const workerOptions = {
     filename: addWorkerSubExtension(
-      compiler.options.output!.filename as string,
+      compiler!.options.output!.filename as string,
     ),
     chunkFilename: addWorkerSubExtension(
-      compiler.options.output!.chunkFilename!,
+      compiler!.options.output!.chunkFilename as string,
     ),
     globalObject: (plugin && plugin.options.globalObject) || 'self',
   };
 
-  const workerCompiler: import('webpack').Compiler = compilation.createChildCompiler(
+  const workerCompiler: Compiler = compilation!.createChildCompiler(
     NAME,
     workerOptions,
     [],
@@ -84,13 +80,15 @@ export function pitch(
 
   (workerCompiler as any).context = (compiler as any).context;
 
-  new WebWorkerTemplatePlugin({}).apply(workerCompiler);
-  new FetchCompileWasmTemplatePlugin({
-    mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
+  new webpack.webworker.WebWorkerTemplatePlugin().apply(workerCompiler);
+  new webpack.web.FetchCompileWasmPlugin({
+    mangleImports: (compiler!.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new SingleEntryPlugin(context, plain ? request : virtualModule, name).apply(
-    workerCompiler,
-  );
+  new webpack.SingleEntryPlugin(
+    context,
+    plain ? request : virtualModule,
+    name,
+  ).apply(workerCompiler);
 
   for (const aPlugin of plugin.options.plugins || []) {
     aPlugin.apply(workerCompiler);
@@ -114,7 +112,7 @@ export function pitch(
     (
       error: Error | null,
       entries: {files: string[]}[] | null,
-      compilation: import('webpack').compilation.Compilation,
+      compilation: Compilation,
     ) => {
       let finalError;
 
