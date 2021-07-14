@@ -2,7 +2,6 @@ import * as path from 'path';
 
 import type {LoaderContext, Compilation, Compiler} from 'webpack';
 import webpack from 'webpack';
-import {getOptions} from 'loader-utils';
 
 import {WebWorkerPlugin} from './plugin';
 
@@ -42,7 +41,7 @@ export function pitch(this: LoaderContext<Options>, request: string) {
     );
   }
 
-  const options: Options = getOptions(this) || {};
+  const options: Options = (this.query as Options) || {};
   const {name = String(plugin.workerId++), plain = false} = options;
 
   const virtualModule = path.join(
