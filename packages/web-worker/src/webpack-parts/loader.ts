@@ -91,20 +91,6 @@ export function pitch(this: LoaderContext<Options>, request: string) {
     aPlugin.apply(workerCompiler);
   }
 
-  const subCache = `subcache ${__dirname} ${request}`;
-
-  workerCompiler.hooks.compilation.tap(NAME, (compilation) => {
-    if (!compilation.cache) {
-      return;
-    }
-
-    if (!compilation.cache[subCache]) {
-      compilation.cache[subCache] = {};
-    }
-
-    compilation.cache = compilation.cache[subCache];
-  });
-
   (workerCompiler as any).runAsChild(
     (
       error: Error | null,
