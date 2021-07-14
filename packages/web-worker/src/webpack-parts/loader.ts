@@ -1,7 +1,7 @@
 import * as path from 'path';
 
 import type {LoaderContext, Compilation, Compiler} from 'webpack';
-import webpack from 'webpack';
+import {SingleEntryPlugin, webworker, web} from 'webpack';
 
 import {WebWorkerPlugin} from './plugin';
 
@@ -79,15 +79,13 @@ export function pitch(this: LoaderContext<Options>, request: string) {
 
   (workerCompiler as any).context = (compiler as any).context;
 
-  new webpack.webworker.WebWorkerTemplatePlugin().apply(workerCompiler);
-  new webpack.web.FetchCompileWasmPlugin({
+  new webworker.WebWorkerTemplatePlugin().apply(workerCompiler);
+  new web.FetchCompileWasmPlugin({
     mangleImports: (compiler!.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new webpack.SingleEntryPlugin(
-    context,
-    plain ? request : virtualModule,
-    name,
-  ).apply(workerCompiler);
+  new SingleEntryPlugin(context, plain ? request : virtualModule, name).apply(
+    workerCompiler,
+  );
 
   for (const aPlugin of plugin.options.plugins || []) {
     aPlugin.apply(workerCompiler);
