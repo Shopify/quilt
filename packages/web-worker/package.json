@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@shopify/rpc": "^2.0.1",
-    "loader-utils": "^1.0.0",
     "webpack-virtual-modules": "^0.4.3"
   },
   "devDependencies": {
@@ -33,7 +32,6 @@
     "@types/babel__core": ">=7.0.0",
     "@types/babel__traverse": ">=7.0.0",
     "@types/koa-mount": "^3.0.1",
-    "@types/loader-utils": "^1.0.0",
     "@types/webpack": "^4.0.0",
     "@types/webpack-virtual-modules": "^0.1.0",
     "koa-mount": "^3.0.0"
