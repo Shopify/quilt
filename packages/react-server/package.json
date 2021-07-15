@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "1.1.2",
+  "version": "1.1.2-webpack-5-beta.8",
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
   "main": "index.js",
@@ -31,7 +31,7 @@
     "@shopify/react-html": "^11.0.1",
     "@shopify/react-hydrate": "^2.0.1",
     "@shopify/react-network": "^4.0.1",
-    "@shopify/sewing-kit-koa": "^7.0.2",
+    "@shopify/sewing-kit-koa": "^7.0.2-webpack-5-beta.8",
     "@shopify/useful-types": "^3.0.1",
     "chalk": "^2.4.2",
     "koa": "^2.5.0",
