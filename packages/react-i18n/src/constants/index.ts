@@ -38,18 +38,6 @@ export enum Weekday {
   Saturday = 'saturday',
 }
 
-export const undefinedDateDisplayProps = {
-  era: undefined,
-  year: undefined,
-  month: undefined,
-  day: undefined,
-  weekday: undefined,
-  hour: undefined,
-  minute: undefined,
-  second: undefined,
-  timeZoneName: undefined,
-};
-
 export const DEFAULT_WEEK_START_DAY = Weekday.Sunday;
 export const WEEK_START_DAYS = new Map([
   // Saturday

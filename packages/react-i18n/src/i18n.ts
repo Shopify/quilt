@@ -32,7 +32,6 @@ import {
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
   EASTERN_NAME_ORDER_FORMATTERS,
-  undefinedDateDisplayProps,
 } from './constants';
 import {
   MissingCurrencyCodeError,
@@ -564,10 +563,56 @@ export class I18n {
     });
   }
 
+  private getDateTimeStylingOptions(
+    options?: Intl.DateTimeFormatOptions,
+  ): Omit<
+    Intl.DateTimeFormatOptions,
+    | 'era'
+    | 'year'
+    | 'month'
+    | 'day'
+    | 'weekday'
+    | 'hour'
+    | 'minute'
+    | 'second'
+    | 'timeZoneName'
+  > {
+    if (!options) {
+      return {};
+    }
+
+    const {
+      dateStyle,
+      timeStyle,
+      calendar,
+      dayPeriod,
+      numberingSystem,
+      hourCycle,
+      fractionalSecondDigits,
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
+    } = options;
+
+    return {
+      dateStyle,
+      timeStyle,
+      calendar,
+      dayPeriod,
+      numberingSystem,
+      hourCycle,
+      fractionalSecondDigits,
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
+    };
+  }
+
   private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     return this.formatDate(date, {
-      ...options,
-      ...undefinedDateDisplayProps,
+      ...this.getDateTimeStylingOptions(options),
       timeZoneName: options?.timeZoneName,
       hour: 'numeric',
       minute: '2-digit',
@@ -576,8 +621,7 @@ export class I18n {
 
   private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     return this.formatDate(date, {
-      ...options,
-      ...undefinedDateDisplayProps,
+      ...this.getDateTimeStylingOptions(options),
       weekday: 'long',
     });
   }
@@ -587,8 +631,7 @@ export class I18n {
     options?: Intl.DateTimeFormatOptions,
   ) {
     return this.formatDate(date, {
-      ...options,
-      ...undefinedDateDisplayProps,
+      ...this.getDateTimeStylingOptions(options),
       month: 'short',
       day: 'numeric',
     });
