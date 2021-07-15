@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Breaking Change
+
+- Update to support webpack 5
+
+- Remove `vendor.js` (only use this version with sewing-kit version that supports webpack 5)
+
 ## 7.0.2 - 2021-06-17
 
 ### Changed
