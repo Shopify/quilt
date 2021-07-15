@@ -1306,6 +1306,114 @@ describe('I18n', () => {
         ).toBe('Dec. 20, 2012');
       });
 
+      it('formats a date from last month with date and timezone name', () => {
+        const today = new Date('2012-12-20T05:00:00-00:00');
+        clock.mock(today);
+
+        const date = new Date('2012-11-20T05:00:00-00:00');
+        const defaultTimezone = 'America/Toronto';
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone: defaultTimezone,
+        });
+
+        i18n.formatDate(date, {
+          timeZoneName: 'short',
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'date.humanize.lessThanOneYearAgo',
+          {
+            pseudotranslate: false,
+            replacements: {date: 'Nov. 20', time: '12:00 a.m. EST'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a date from this week with timezone name', () => {
+        const today = new Date('2012-12-20T05:00:00-00:00');
+        clock.mock(today);
+
+        const date = new Date('2012-12-18T05:00:00-00:00');
+        const defaultTimezone = 'America/Toronto';
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone: defaultTimezone,
+        });
+
+        i18n.formatDate(date, {
+          timeZoneName: 'short',
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'date.humanize.lessThanOneWeekAgo',
+          {
+            pseudotranslate: false,
+            replacements: {weekday: 'Tuesday', time: '12:00 a.m. EST'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a date from yesterday with timezone name', () => {
+        const today = new Date('2012-12-20T05:00:00-00:00');
+        clock.mock(today);
+
+        const date = new Date('2012-12-19T05:00:00-00:00');
+        const defaultTimezone = 'America/Toronto';
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone: defaultTimezone,
+        });
+
+        i18n.formatDate(date, {
+          timeZoneName: 'short',
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'date.humanize.yesterday',
+          {
+            pseudotranslate: false,
+            replacements: {time: '12:00 a.m. EST'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a date from today with timezone name', () => {
+        const today = new Date('2012-12-20T05:00:00-00:00');
+        clock.mock(today);
+
+        const date = new Date('2012-12-20T06:00:00-00:00');
+        const defaultTimezone = 'America/Toronto';
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone: defaultTimezone,
+        });
+
+        i18n.formatDate(date, {
+          timeZoneName: 'short',
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'date.humanize.today',
+          {
+            pseudotranslate: false,
+            replacements: {time: '1:00 a.m. EST'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
       describe('past dates', () => {
         it('formats a date less than one minute ago', () => {
           const today = new Date('2012-12-20T00:00:00-00:00');
