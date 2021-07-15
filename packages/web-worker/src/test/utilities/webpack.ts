@@ -37,14 +37,14 @@ export function runWebpack(
             {
               test: /\.ts$/,
               include: {or: [srcRoot, rpcSrcRoot]},
-              loaders: [
+              use: [
                 {
                   loader: 'babel-loader',
                   options: {
                     babelrc: false,
                     presets: [
                       [
-                        '@shopify/babel-preset/web',
+                        '@shopify/babel-preset',
                         {typescript: true, browsers: 'last 1 chrome version'},
                       ],
                     ],
