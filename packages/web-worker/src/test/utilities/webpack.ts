@@ -45,7 +45,11 @@ export function runWebpack(
                     presets: [
                       [
                         '@shopify/babel-preset',
-                        {typescript: true, browsers: 'last 1 chrome version'},
+                        {
+                          typescript: true,
+                          browsers: 'last 1 chrome version',
+                          useBuiltIns: 'usage',
+                        },
                       ],
                     ],
                   },
