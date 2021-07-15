@@ -565,44 +565,17 @@ export class I18n {
 
   private getDateTimeStylingOptions(
     options?: Intl.DateTimeFormatOptions,
-  ): Omit<
+  ): Pick<
     Intl.DateTimeFormatOptions,
-    | 'era'
-    | 'year'
-    | 'month'
-    | 'day'
-    | 'weekday'
-    | 'hour'
-    | 'minute'
-    | 'second'
-    | 'timeZoneName'
+    'localeMatcher' | 'formatMatcher' | 'hour12' | 'timeZone'
   > {
     if (!options) {
       return {};
     }
 
-    const {
-      dateStyle,
-      timeStyle,
-      calendar,
-      dayPeriod,
-      numberingSystem,
-      hourCycle,
-      fractionalSecondDigits,
-      localeMatcher,
-      formatMatcher,
-      hour12,
-      timeZone,
-    } = options;
+    const {localeMatcher, formatMatcher, hour12, timeZone} = options;
 
     return {
-      dateStyle,
-      timeStyle,
-      calendar,
-      dayPeriod,
-      numberingSystem,
-      hourCycle,
-      fractionalSecondDigits,
       localeMatcher,
       formatMatcher,
       hour12,
