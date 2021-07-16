@@ -563,29 +563,13 @@ export class I18n {
     });
   }
 
-  private getDateTimeStylingOptions(
-    options?: Intl.DateTimeFormatOptions,
-  ): Pick<
-    Intl.DateTimeFormatOptions,
-    'localeMatcher' | 'formatMatcher' | 'hour12' | 'timeZone'
-  > {
-    if (!options) {
-      return {};
-    }
-
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options;
-
-    return {
+  private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
+    return this.formatDate(date, {
       localeMatcher,
       formatMatcher,
       hour12,
       timeZone,
-    };
-  }
-
-  private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    return this.formatDate(date, {
-      ...this.getDateTimeStylingOptions(options),
       timeZoneName: options?.timeZoneName,
       hour: 'numeric',
       minute: '2-digit',
@@ -593,8 +577,12 @@ export class I18n {
   }
 
   private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
     return this.formatDate(date, {
-      ...this.getDateTimeStylingOptions(options),
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
       weekday: 'long',
     });
   }
@@ -603,8 +591,12 @@ export class I18n {
     date: Date,
     options?: Intl.DateTimeFormatOptions,
   ) {
+    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
     return this.formatDate(date, {
-      ...this.getDateTimeStylingOptions(options),
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
       month: 'short',
       day: 'numeric',
     });
