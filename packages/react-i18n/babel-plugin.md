@@ -88,12 +88,9 @@ useI18n({
       return;
     }
 
-    return (async () => {
-      const dictionary = await import(
-        /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
-      );
-      return dictionary && dictionary.default;
-    })();
+    return import(
+      /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
+    ).then((dict) => dict && dict.default);
   },
 });
 ```
@@ -102,9 +99,93 @@ useI18n({
 
 ### `mode`
 
-Type: `undefined`, `from-generated-index`, `from-dictionary-index`
+Type: `with-dynamic-paths`, `with-explicit-paths`, `from-generated-index`, `from-dictionary-index`
 
-Default: `undefined`
+Default: `with-dynamic-paths`
+
+#### `with-explicit-paths`
+
+_*Use this mode with bundlers that require import paths to be explicit.*_
+
+The babel plugin uses dynamic imports by default to resolve translation locations. Some bundlers however require that imports be explicity stated so that the bundler knows what files are to be included in the final generated bundle. Examples of bundlers with this behaviour include [Metro](https://facebook.github.io/metro/) and [rollup.js](https://rollupjs.org/guide/en/). Configure the plugin to use explicit paths rather than dynamic imports with the `with-explicit-paths` options.
+
+##### Usage
+
+```js
+// webpack.config.js
+module.exports = {
+  resolve: {
+    extensions: ['.js'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              '@shopify/react-i18n/babel',
+              {mode: 'with-explicit-paths'},
+            ],
+          },
+        },
+      },
+    ],
+  },
+};
+```
+
+#### Transform
+
+With two locale translation files (default being `en`):
+
+```js
+// After auto-fill:
+
+import _en from './translations/en.json';
+
+useI18n({
+  id: 'MyComponent_<hash>',
+  fallback: _en,
+  async translations(locale) {
+    if (locale !== 'jp') {
+      return;
+    }
+
+    return import(
+      /* webpackChunkName: "MyComponent_<hash>-i18n" */ './translations/jp.json'
+    ).then((dict) => dict && dict.default);
+  },
+});
+```
+
+With three or more locale translation files (default being `en`):
+
+```js
+// After auto-fill:
+
+import _en from './translations/en.json';
+
+useI18n({
+  id: 'MyComponent_<hash>',
+  fallback: _en,
+  async translations(locale) {
+    const returnDefault = (dict) => dict && dict.default;
+
+    switch (locale) {
+      case 'fr':
+        return import(
+          /* webpackChunkName: "MyComponent_<hash>-i18n" */ './translations/fr.json'
+        ).then(returnDefault);
+      case 'jp':
+        return import(
+          /* webpackChunkName: "MyComponent_<hash>-i18n" */ './translations/jp.json'
+        ).then(returnDefault);
+    }
+  },
+});
+```
 
 #### `from-generated-index`
 
@@ -178,12 +259,9 @@ useI18n({
       return;
     }
 
-    return (async () => {
-      const dictionary = await import(
-        /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
-      );
-      return dictionary && dictionary.default;
-    })();
+    return import(
+      /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
+    ).then((dict) => dict && dict.default);
   },
 });
 ```

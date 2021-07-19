@@ -380,6 +380,108 @@ describe('babel-plugin-react-i18n', () => {
       );
     });
   });
+
+  describe('explicit paths', () => {
+    it('injects proper translation function for only fallback case', async () => {
+      expect(
+        await transformUsingI18nBabelPlugin(
+          useI18nFixture,
+          optionsForExplicitImportFile('MyComponent.tsx', 'fallbackOnly'),
+          {mode: 'with-explicit-paths'},
+        ),
+      ).toBe(
+        await normalize(
+          `import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
+          import React from 'react';
+          import {useI18n} from '@shopify/react-i18n';
+
+          export default function MyComponent() {
+            const [i18n] = useI18n({
+              id: 'MyComponent_${defaultHash}',
+              fallback: _en,
+              translations(locale) {
+                return;
+              }
+            });
+            return i18n.translate('key');
+          }
+        `,
+        ),
+      );
+    });
+
+    it('injects proper translation function for fallback plus one case', async () => {
+      expect(
+        await transformUsingI18nBabelPlugin(
+          useI18nFixture,
+          optionsForExplicitImportFile('MyComponent.tsx', 'fallbackPlusOne'),
+          {mode: 'with-explicit-paths'},
+        ),
+      ).toBe(
+        await normalize(
+          `import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
+          import React from 'react';
+          import {useI18n} from '@shopify/react-i18n';
+
+          export default function MyComponent() {
+            const [i18n] = useI18n({
+              id: 'MyComponent_${defaultHash}',
+              fallback: _en,
+              translations(locale) {
+                if (locale !== "fr") {
+                  return;
+                }
+
+                return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/fr.json").then((dict) => dict && dict.default);
+              }
+            });
+            return i18n.translate('key');
+          }
+        `,
+        ),
+      );
+    });
+
+    it('injects translation function with multiple static imports', async () => {
+      expect(
+        await transformUsingI18nBabelPlugin(
+          useI18nFixture,
+          optionsForExplicitImportFile(
+            'MyComponent.tsx',
+            'multipleTranslations',
+          ),
+          {mode: 'with-explicit-paths'},
+        ),
+      ).toBe(
+        await normalize(
+          `import _en from './${TRANSLATION_DIRECTORY_NAME}/en.json';
+          import React from 'react';
+          import {useI18n} from '@shopify/react-i18n';
+
+          export default function MyComponent() {
+            const [i18n] = useI18n({
+              id: 'MyComponent_${defaultHash}',
+              fallback: _en,
+              translations(locale) {
+                const returnDefault = (dict) => dict && dict.default;
+
+                switch (locale) {
+                  case "de":
+                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/de.json").then(returnDefault);
+                  case "fr":
+                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/fr.json").then(returnDefault);
+                  case "zh-TW":
+                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/zh-TW.json").then(returnDefault);
+                }
+              }
+            });
+            return i18n.translate('key');
+          }
+        `,
+        ),
+      );
+    });
+  });
 });
 
 async function transformUsingI18nBabelPlugin(
@@ -400,6 +502,43 @@ function optionsForFile(filename, withTranslations = false) {
   const dummyPath = withTranslations
     ? path.join(__dirname, 'fixtures', 'adjacentTranslations', filename)
     : path.join(__dirname, 'fixtures', filename);
+  return {
+    filename: dummyPath,
+  };
+}
+
+function optionsForExplicitImportFile(filename, translationOption) {
+  let dummyPath;
+
+  switch (translationOption) {
+    case 'fallbackOnly':
+      dummyPath = path.join(
+        __dirname,
+        'fixtures',
+        'fallbackOnlyTranslation',
+        filename,
+      );
+      break;
+    case 'fallbackPlusOne':
+      dummyPath = path.join(
+        __dirname,
+        'fixtures',
+        'fallbackPlusOneTranslations',
+        filename,
+      );
+      break;
+    case 'multipleTranslations':
+      dummyPath = path.join(
+        __dirname,
+        'fixtures',
+        'adjacentTranslations',
+        filename,
+      );
+      break;
+    default:
+      dummyPath = path.join(__dirname, 'fixtures', filename);
+  }
+
   return {
     filename: dummyPath,
   };
@@ -427,10 +566,7 @@ function createExpectedTranslationsOption(
       return;
     }
 
-    return (async () => {
-      const dictionary = await import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/$\{locale}.json\`);
-      return dictionary && dictionary.default;
-    })();
+    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/$\{locale}.json\`).then((dict) => dict && dict.default);
   }
 `;
 }
