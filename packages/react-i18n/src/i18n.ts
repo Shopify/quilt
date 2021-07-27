@@ -573,7 +573,7 @@ export class I18n {
       timeZoneName: options?.timeZoneName,
       hour: 'numeric',
       minute: '2-digit',
-    });
+    }).toLocaleLowerCase();
   }
 
   private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {

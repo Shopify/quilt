@@ -1326,7 +1326,7 @@ describe('I18n', () => {
           'date.humanize.lessThanOneYearAgo',
           {
             pseudotranslate: false,
-            replacements: {date: 'Nov. 20', time: '12:00 a.m. EST'},
+            replacements: {date: 'Nov. 20', time: '12:00 a.m. est'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1353,7 +1353,7 @@ describe('I18n', () => {
           'date.humanize.lessThanOneWeekAgo',
           {
             pseudotranslate: false,
-            replacements: {weekday: 'Tuesday', time: '12:00 a.m. EST'},
+            replacements: {weekday: 'Tuesday', time: '12:00 a.m. est'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1380,7 +1380,7 @@ describe('I18n', () => {
           'date.humanize.yesterday',
           {
             pseudotranslate: false,
-            replacements: {time: '12:00 a.m. EST'},
+            replacements: {time: '12:00 a.m. est'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1407,7 +1407,7 @@ describe('I18n', () => {
           'date.humanize.today',
           {
             pseudotranslate: false,
-            replacements: {time: '1:00 a.m. EST'},
+            replacements: {time: '1:00 a.m. est'},
           },
           defaultTranslations,
           i18n.locale,
