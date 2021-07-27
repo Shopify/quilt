@@ -497,7 +497,11 @@ export class I18n {
     }
 
     const timeZone = options?.timeZone;
-    const time = this.getTimeFromDate(date, options);
+    const time = this.formatDate(date, {
+      ...options,
+      hour: 'numeric',
+      minute: '2-digit',
+    }).toLocaleLowerCase();
 
     if (isToday(date, timeZone)) {
       return time;
@@ -508,7 +512,10 @@ export class I18n {
     }
 
     if (isLessThanOneWeekAgo(date)) {
-      const weekday = this.getWeekdayFromDate(date, options);
+      const weekday = this.formatDate(date, {
+        ...options,
+        weekday: 'long',
+      });
       return this.translate('date.humanize.lessThanOneWeekAgo', {
         weekday,
         time,
@@ -516,7 +523,11 @@ export class I18n {
     }
 
     if (isLessThanOneYearAgo(date)) {
-      const monthDay = this.getMonthDayFromDate(date, options);
+      const monthDay = this.formatDate(date, {
+        ...options,
+        month: 'short',
+        day: 'numeric',
+      });
       return this.translate('date.humanize.lessThanOneYearAgo', {
         date: monthDay,
         time,
@@ -531,7 +542,11 @@ export class I18n {
 
   private humanizeFutureDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     const timeZone = options?.timeZone;
-    const time = this.getTimeFromDate(date, options);
+    const time = this.formatDate(date, {
+      ...options,
+      hour: 'numeric',
+      minute: '2-digit',
+    }).toLocaleLowerCase();
 
     if (isToday(date, timeZone)) {
       return this.translate('date.humanize.today', {time});
@@ -542,7 +557,10 @@ export class I18n {
     }
 
     if (isLessThanOneWeekAway(date)) {
-      const weekday = this.getWeekdayFromDate(date, options);
+      const weekday = this.formatDate(date, {
+        ...options,
+        weekday: 'long',
+      });
       return this.translate('date.humanize.lessThanOneWeekAway', {
         weekday,
         time,
@@ -550,7 +568,11 @@ export class I18n {
     }
 
     if (isLessThanOneYearAway(date)) {
-      const monthDay = this.getMonthDayFromDate(date, options);
+      const monthDay = this.formatDate(date, {
+        ...options,
+        month: 'short',
+        day: 'numeric',
+      });
       return this.translate('date.humanize.lessThanOneYearAway', {
         date: monthDay,
         time,
@@ -560,45 +582,6 @@ export class I18n {
     return this.formatDate(date, {
       ...options,
       style: DateStyle.Short,
-    });
-  }
-
-  private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
-    return this.formatDate(date, {
-      localeMatcher,
-      formatMatcher,
-      hour12,
-      timeZone,
-      timeZoneName: options?.timeZoneName,
-      hour: 'numeric',
-      minute: '2-digit',
-    });
-  }
-
-  private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
-    return this.formatDate(date, {
-      localeMatcher,
-      formatMatcher,
-      hour12,
-      timeZone,
-      weekday: 'long',
-    });
-  }
-
-  private getMonthDayFromDate(
-    date: Date,
-    options?: Intl.DateTimeFormatOptions,
-  ) {
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
-    return this.formatDate(date, {
-      localeMatcher,
-      formatMatcher,
-      hour12,
-      timeZone,
-      month: 'short',
-      day: 'numeric',
     });
   }
 
