@@ -5,13 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+<!-- ## Unreleased -->
+
+## 6.1.2 - 2021-07-28
 
 ### Changed
 
 - Makes humanized short timezones uppercase. [#1977](https://github.com/Shopify/quilt/pull/1977)
 
-### Changed
+### Fixed
 
 - added back `toLocalLowerCase` to humanized times. [#1972](https://github.com/Shopify/quilt/pull/1972) removed it which caused `am` and `pm` to be capitalized in some cases [#1976](https://github.com/Shopify/quilt/pull/1976)
 
