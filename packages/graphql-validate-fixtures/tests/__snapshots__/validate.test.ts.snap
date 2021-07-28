@@ -1179,7 +1179,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "generation",
-      "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
+      "message": "Value \\"SEVENTH\\" does not exist in \\"Generation\\" enum.",
     },
   ],
 }
@@ -1194,7 +1194,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "generation",
-      "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
+      "message": "Enum \\"Generation\\" cannot represent non-string value: true.",
     },
   ],
 }
@@ -1244,7 +1244,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "generation",
-      "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
+      "message": "Value \\"SEVENTH\\" does not exist in \\"Generation\\" enum.",
     },
   ],
 }
@@ -1259,7 +1259,7 @@ Object {
   "validationErrors": Array [
     Object {
       "keyPath": "generation",
-      "message": "value does not match enum Generation (available values: FIRST, SECOND, THIRD)",
+      "message": "Enum \\"Generation\\" cannot represent non-string value: true.",
     },
   ],
 }

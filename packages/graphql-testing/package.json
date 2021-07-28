@@ -34,7 +34,7 @@
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "graphql": "^14.0.0",
+    "graphql": ">=14.5.0 <16.0.0",
     "jest-matcher-utils": "^26.6.2"
   },
   "devDependencies": {
