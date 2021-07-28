@@ -9,6 +9,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Makes humanized short timezones uppercase. [#1977](https://github.com/Shopify/quilt/pull/1977)
+
+### Changed
+
 - added back `toLocalLowerCase` to humanized times. [#1972](https://github.com/Shopify/quilt/pull/1972) removed it which caused `am` and `pm` to be capitalized in some cases [#1976](https://github.com/Shopify/quilt/pull/1976)
 
 ## 6.1.1 - 2021-07-26
