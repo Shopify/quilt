@@ -564,16 +564,38 @@ export class I18n {
   }
 
   private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
-    return this.formatDate(date, {
+    const {
       localeMatcher,
       formatMatcher,
       hour12,
+      hourCycle,
       timeZone,
-      timeZoneName: options?.timeZoneName,
+      timeZoneName,
+    } = options || {};
+    const formattedTime = this.formatDate(date, {
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      hourCycle,
+      timeZone,
+      timeZoneName: timeZoneName === 'short' ? undefined : timeZoneName,
       hour: 'numeric',
       minute: '2-digit',
     }).toLocaleLowerCase();
+
+    if (timeZoneName === 'short') {
+      const capitalizedZone = this.formatDate(date, {
+        localeMatcher,
+        hour12: false,
+        timeZone,
+        timeZoneName,
+        hour: 'numeric',
+      }).split(' ')[1];
+
+      return `${formattedTime} ${capitalizedZone}`;
+    }
+
+    return formattedTime;
   }
 
   private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {

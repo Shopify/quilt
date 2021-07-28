@@ -1326,7 +1326,7 @@ describe('I18n', () => {
           'date.humanize.lessThanOneYearAgo',
           {
             pseudotranslate: false,
-            replacements: {date: 'Nov. 20', time: '12:00 a.m. est'},
+            replacements: {date: 'Nov. 20', time: '12:00 a.m. EST'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1353,7 +1353,7 @@ describe('I18n', () => {
           'date.humanize.lessThanOneWeekAgo',
           {
             pseudotranslate: false,
-            replacements: {weekday: 'Tuesday', time: '12:00 a.m. est'},
+            replacements: {weekday: 'Tuesday', time: '12:00 a.m. EST'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1380,7 +1380,7 @@ describe('I18n', () => {
           'date.humanize.yesterday',
           {
             pseudotranslate: false,
-            replacements: {time: '12:00 a.m. est'},
+            replacements: {time: '12:00 a.m. EST'},
           },
           defaultTranslations,
           i18n.locale,
@@ -1407,7 +1407,34 @@ describe('I18n', () => {
           'date.humanize.today',
           {
             pseudotranslate: false,
-            replacements: {time: '1:00 a.m. est'},
+            replacements: {time: '1:00 a.m. EST'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats a date with a full timezone name in lowercase', () => {
+        const today = new Date('2012-12-20T05:00:00-00:00');
+        clock.mock(today);
+
+        const date = new Date('2012-12-20T06:00:00-00:00');
+        const defaultTimezone = 'America/Toronto';
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone: defaultTimezone,
+        });
+
+        i18n.formatDate(date, {
+          timeZoneName: 'long',
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'date.humanize.today',
+          {
+            pseudotranslate: false,
+            replacements: {time: '1:00 a.m. eastern standard time'},
           },
           defaultTranslations,
           i18n.locale,
