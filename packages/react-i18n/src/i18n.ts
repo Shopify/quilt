@@ -563,17 +563,43 @@ export class I18n {
     });
   }
 
+  private getTimeZone(
+    date: Date,
+    options?: Intl.DateTimeFormatOptions,
+  ): string {
+    const {localeMatcher, formatMatcher, timeZone} = options || {};
+
+    const hourZone = this.formatDate(date, {
+      localeMatcher,
+      formatMatcher,
+      timeZone,
+      hour12: false,
+      timeZoneName: 'short',
+      hour: 'numeric',
+    });
+
+    const zoneMatchGroup = /\s(\w*$)/i.exec(hourZone);
+
+    return zoneMatchGroup ? zoneMatchGroup[1] : '';
+  }
+
   private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
-    return this.formatDate(date, {
+    const {localeMatcher, formatMatcher, hour12, timeZone, timeZoneName} =
+      options || {};
+
+    const formattedTime = this.formatDate(date, {
       localeMatcher,
       formatMatcher,
       hour12,
       timeZone,
-      timeZoneName: options?.timeZoneName,
+      timeZoneName: timeZoneName === 'short' ? undefined : timeZoneName,
       hour: 'numeric',
       minute: '2-digit',
     }).toLocaleLowerCase();
+
+    return timeZoneName === 'short'
+      ? `${formattedTime} ${this.getTimeZone(date, options)}`
+      : formattedTime;
   }
 
   private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
