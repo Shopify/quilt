@@ -2748,6 +2748,14 @@
     "@sewing-kit/plugins" "^0.1.10"
     fs-extra "^9.0.0"
 
+"@sewing-kit/plugin-prettier@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@sewing-kit/plugin-prettier/-/plugin-prettier-0.1.2.tgz#4fcfdc1236ea769f0418682cb319e23d824bbea3"
+  integrity sha512-NAg7sEMQ+65WWJzX/AXgEUPpeFW6IP2ezQfuF+iR3Q6RbiavZAwLo9YLkAxjmI62ebqTAjV7mE2Px2EnxdpNFw==
+  dependencies:
+    "@sewing-kit/core" "^0.6.2"
+    prettier "^2.0.0"
+
 "@sewing-kit/plugin-react@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@sewing-kit/plugin-react/-/plugin-react-0.2.1.tgz#4872a359f2616c88919dd7fe38bd43b811d85267"
@@ -12857,7 +12865,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@~2.0.4:
+prettier@^2.0.0, prettier@~2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.4.tgz#2d1bae173e355996ee355ec9830a7a1ee05457ef"
   integrity sha512-SVJIQ51spzFDvh4fIbCLvciiDMCrRhlN3mbZvv/+ycjvmF5E73bKdGfU8QDLNmjYJf+lsGnDBC4UUnvTe5OO0w==

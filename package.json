@@ -43,6 +43,7 @@
     "@sewing-kit/plugin-eslint": "^0.4.2",
     "@sewing-kit/plugin-jest": "^0.5.1",
     "@sewing-kit/plugin-package-build": "^0.5.1",
+    "@sewing-kit/plugin-prettier": "^0.1.2",
     "@sewing-kit/plugin-typescript": "^0.6.1",
     "@shopify/app-bridge": "^2.0.3",
     "@shopify/babel-preset": "^24.1.2",
