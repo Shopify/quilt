@@ -4,7 +4,7 @@ import {BabelConfig, updateBabelPreset} from '@sewing-kit/plugin-javascript';
 
 import {quiltPackage} from '../../config/sewing-kit';
 
-export default createPackage(pkg => {
+export default createPackage((pkg) => {
   pkg.runtimes(Runtime.Browser, Runtime.Node);
   pkg.entry({root: './src/index'});
 
@@ -61,7 +61,7 @@ export default createPackage(pkg => {
   pkg.use(
     createProjectBuildPlugin('Quilt.PackagePolyfillsBuild', ({hooks}) => {
       hooks.target.hook(({hooks}) => {
-        hooks.configure.hook(hooks => {
+        hooks.configure.hook((hooks) => {
           hooks.babelConfig?.hook(
             updateBabelPreset(
               [

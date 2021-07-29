@@ -3,6 +3,7 @@ module.exports = {
     'plugin:@shopify/typescript',
     'plugin:@shopify/typescript-type-checking',
     'plugin:@shopify/react',
+    'plugin:@shopify/graphql',
     'plugin:@shopify/jest',
     'plugin:@shopify/prettier',
   ],
@@ -89,7 +90,11 @@ module.exports = {
       },
     },
     {
-      files: ['packages/sewing-kit-plugin-quilt/src/*.ts'],
+      files: [
+        '**/sewing-kit.config.ts',
+        'config/sewing-kit/index.ts',
+        'packages/sewing-kit-plugin-quilt/src/*.ts',
+      ],
       rules: {
         'babel/no-unused-expressions': 'off',
       },
