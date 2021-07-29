@@ -1,6 +1,6 @@
 {
   "name": "@shopify/sewing-kit-plugin-quilt",
-  "version": "0.3.0",
+  "version": "0.3.0-webpack-5-betat.10",
   "description": "Quilt plugins for sewing-kit",
   "publishConfig": {
     "access": "public",
@@ -42,8 +42,8 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@types/webpack-virtual-modules": "^0.1.0",
-    "@types/webpack": "4.41.27"
+    "@types/webpack": "4.41.27",
+    "@types/webpack-virtual-modules": "^0.1.0"
   },
   "dependencies": {
     "@sewing-kit/plugin-css": "^0.2.1",
