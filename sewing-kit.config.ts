@@ -1,5 +1,4 @@
-import {createWorkspace} from '@sewing-kit/config';
-import {createWorkspaceTestPlugin} from '@sewing-kit/plugins';
+import {createWorkspace, createWorkspaceTestPlugin} from '@sewing-kit/core';
 import {eslint} from '@sewing-kit/plugin-eslint';
 import {jest} from '@sewing-kit/plugin-jest';
 import {workspaceTypeScript} from '@sewing-kit/plugin-typescript';

@@ -26,7 +26,7 @@ import {webAppMagicModules} from './web-app-magic-modules';
 import {webAppMultiBuilds} from './web-app-multi-build';
 import {webAppConvenienceAliases} from './web-app-convenience-aliases';
 
-// eslint-disable-next-line prettier/prettier
+// prettier-ignore
 export type {} from './web-app-auto-server';
 
 export {

@@ -1,4 +1,4 @@
-import {createPackage, Runtime} from '@sewing-kit/config';
+import {createPackage, Runtime} from '@sewing-kit/core';
 
 import {quiltPackage} from '../../config/sewing-kit';
 
@@ -14,5 +14,5 @@ export default createPackage((pkg) => {
     root: './src/babel-plugin/generate-index',
   });
   pkg.entry({name: 'babel', root: './src/babel-plugin'});
-  pkg.use(quiltPackage({useReact: true}));
+  pkg.use(quiltPackage());
 });
