@@ -1,6 +1,6 @@
 {
   "name": "graphql-mini-transforms",
-  "version": "3.1.0-webpack-5-beta.8",
+  "version": "3.1.0-webpack-5-beta.9",
   "license": "MIT",
   "description": "Transformers for importing .graphql files in various build tools.",
   "main": "index.js",
