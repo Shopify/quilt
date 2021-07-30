@@ -44,10 +44,12 @@ export function quiltPackage({
   css: useCss = false,
 }: QuiltPackageOptions = {}) {
   return createComposedProjectPlugin<Package>('Quilt.Package', [
+    // @ts-expect-error ProjectPlugin<Project> is assignable to ProjectPlugin<Package>
     javascript(),
     typescript(),
     useReact && react(),
     useReact && reactJsxRuntime(),
+    // @ts-expect-error ProjectPlugin<Project> is assignable to ProjectPlugin<Package>
     useCss && css(),
   ]);
 }
@@ -79,6 +81,7 @@ export function quiltWebApp({
 }: QuiltWebAppOptions = {}) {
   return createComposedProjectPlugin<WebApp>('Quilt.WebApp', (composer) => {
     composer.use(
+      // @ts-expect-error ProjectPlugin<Project> is assignable to ProjectPlugin<Package>
       javascript(),
       typescript(),
       css(),

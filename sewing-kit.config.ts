@@ -10,21 +10,23 @@ export default createWorkspace((workspace) => {
     prettier({files: '**/*.{md,json,yaml,yml}'}),
     jest(),
     workspaceTypeScript(),
-    createWorkspaceTestPlugin('Quilt.WorkspaceTest', ({hooks}) => {
-      hooks.configure.hook((hooks) => {
-        hooks.jestConfig?.hook((config) => ({
-          ...config,
-          projects: [
-            ...config.projects,
-            {
-              ...(config.projects[0] as any),
-              displayName: 'quilt',
-              rootDir: 'tests',
-            },
-          ],
-          coverageDirectory: './coverage',
-        }));
-      });
-    }),
+    runWorkspaceTests(),
   );
 });
+
+function runWorkspaceTests() {
+  return createWorkspaceTestPlugin('SK.WorkspaceTests', ({hooks}) => {
+    hooks.configure.hook((hooks) => {
+      hooks.jestConfig?.hook((config) => {
+        if (Array.isArray(config.projects)) {
+          config.projects.unshift({
+            ...(config.projects[0] as any),
+            displayName: 'root',
+            rootDir: 'tests',
+          });
+        }
+        return config;
+      });
+    });
+  });
+}
