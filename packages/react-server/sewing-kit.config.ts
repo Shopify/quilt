@@ -10,7 +10,6 @@ export default createPackage((pkg) => {
     quiltPackage({
       jestEnv: 'node',
       jestTestRunner: 'jest-jasmine2',
-      useReact: true,
     }),
   );
 });
