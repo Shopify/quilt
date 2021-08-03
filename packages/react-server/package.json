@@ -4,7 +4,14 @@
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "webpack-plugin": [
+        "./build/ts/webpack-plugin/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -67,11 +74,9 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "webpack-plugin.js",
     "webpack-plugin.mjs",
-    "webpack-plugin.esnext",
-    "webpack-plugin.d.ts"
+    "webpack-plugin.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

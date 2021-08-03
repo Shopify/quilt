@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -37,8 +37,7 @@
     "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
-    "index.esnext",
-    "index.d.ts"
+    "index.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

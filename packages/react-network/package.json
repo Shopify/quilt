@@ -4,7 +4,14 @@
   "license": "MIT",
   "description": "A collection of components that allow you to set common HTTP headers from within your React application",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "server": [
+        "./build/ts/server.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -47,11 +54,9 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "server.js",
     "server.mjs",
-    "server.esnext",
-    "server.d.ts"
+    "server.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "Utilities to create mock GraphQL factories",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -40,11 +40,9 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "matchers.js",
     "matchers.mjs",
-    "matchers.esnext",
-    "matchers.d.ts"
+    "matchers.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

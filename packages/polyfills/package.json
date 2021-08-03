@@ -5,7 +5,71 @@
   "description": "Blessed polyfills for web platform features",
   "sideEffects": true,
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "base": [
+        "./build/ts/base.d.ts"
+      ],
+      "noop": [
+        "./build/ts/noop.d.ts"
+      ],
+      "fetch.browser": [
+        "./build/ts/fetch.browser.d.ts"
+      ],
+      "fetch.jest": [
+        "./build/ts/fetch.jest.d.ts"
+      ],
+      "fetch.node": [
+        "./build/ts/fetch.node.d.ts"
+      ],
+      "formdata.browser": [
+        "./build/ts/formdata.browser.d.ts"
+      ],
+      "formdata.jest": [
+        "./build/ts/formdata.jest.d.ts"
+      ],
+      "formdata.node": [
+        "./build/ts/formdata.node.d.ts"
+      ],
+      "idle-callback.browser": [
+        "./build/ts/idle-callback.browser'.d.ts"
+      ],
+      "idle-callback.jest": [
+        "./build/ts/idle-callback.jest.d.ts"
+      ],
+      "idle-callback.node": [
+        "./build/ts/idle-callback.node.d.ts"
+      ],
+      "intersection-observer.browser": [
+        "./build/ts/intersection-observer.browser.d.ts"
+      ],
+      "intersection-observer.jest": [
+        "./build/ts/intersection-observer.jest.d.ts"
+      ],
+      "intersection-observer.node": [
+        "./build/ts/intersection-observer.node.d.ts"
+      ],
+      "intl.browser": [
+        "./build/ts/intl.browser.d.ts"
+      ],
+      "intl.jest": [
+        "./build/ts/intl.jest.d.ts"
+      ],
+      "intl.node": [
+        "./build/ts/intl.node.d.ts"
+      ],
+      "mutation-observer.browser": [
+        "./build/ts/mutation-observer.browser.d.ts"
+      ],
+      "mutation-observer.jest": [
+        "./build/ts/mutation-observer.jest.d.ts"
+      ],
+      "mutation-observer.node": [
+        "./build/ts/mutation-observer.node.d.ts"
+      ]
+    }
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -44,87 +108,66 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "base.js",
     "base.mjs",
     "base.esnext",
-    "base.d.ts",
     "fetch.browser.js",
     "fetch.browser.mjs",
     "fetch.browser.esnext",
-    "fetch.browser.d.ts",
     "fetch.jest.js",
     "fetch.jest.mjs",
     "fetch.jest.esnext",
-    "fetch.jest.d.ts",
     "fetch.node.js",
     "fetch.node.mjs",
     "fetch.node.esnext",
-    "fetch.node.d.ts",
     "formdata.browser.js",
     "formdata.browser.mjs",
     "formdata.browser.esnext",
-    "formdata.browser.d.ts",
     "formdata.jest.js",
     "formdata.jest.mjs",
     "formdata.jest.esnext",
-    "formdata.jest.d.ts",
     "formdata.node.js",
     "formdata.node.mjs",
     "formdata.node.esnext",
-    "formdata.node.d.ts",
     "idle-callback.browser.js",
     "idle-callback.browser.mjs",
     "idle-callback.browser.esnext",
-    "idle-callback.browser.d.ts",
     "idle-callback.jest.js",
     "idle-callback.jest.mjs",
     "idle-callback.jest.esnext",
-    "idle-callback.jest.d.ts",
     "idle-callback.node.js",
     "idle-callback.node.mjs",
     "idle-callback.node.esnext",
-    "idle-callback.node.d.ts",
     "intersection-observer.browser.js",
     "intersection-observer.browser.mjs",
     "intersection-observer.browser.esnext",
-    "intersection-observer.browser.d.ts",
     "intersection-observer.jest.js",
     "intersection-observer.jest.mjs",
     "intersection-observer.jest.esnext",
-    "intersection-observer.jest.d.ts",
     "intersection-observer.node.js",
     "intersection-observer.node.mjs",
     "intersection-observer.node.esnext",
-    "intersection-observer.node.d.ts",
     "intl.browser.js",
     "intl.browser.mjs",
     "intl.browser.esnext",
-    "intl.browser.d.ts",
     "intl.jest.js",
     "intl.jest.mjs",
     "intl.jest.esnext",
-    "intl.jest.d.ts",
     "intl.node.js",
     "intl.node.mjs",
     "intl.node.esnext",
-    "intl.node.d.ts",
     "mutation-observer.browser.js",
     "mutation-observer.browser.mjs",
     "mutation-observer.browser.esnext",
-    "mutation-observer.browser.d.ts",
     "mutation-observer.jest.js",
     "mutation-observer.jest.mjs",
     "mutation-observer.jest.esnext",
-    "mutation-observer.jest.d.ts",
     "mutation-observer.node.js",
     "mutation-observer.node.mjs",
     "mutation-observer.node.esnext",
-    "mutation-observer.node.d.ts",
     "noop.js",
     "noop.mjs",
-    "noop.esnext",
-    "noop.d.ts"
+    "noop.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

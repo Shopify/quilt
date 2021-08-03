@@ -110,17 +110,17 @@ module.exports = function (plop) {
       const packageJSON = require(packageJSONPath);
       const entrypoints = glob
         .sync(`${packagePath}/*.js`)
-        .map(entrypoint => path.basename(entrypoint).slice(0, -3));
+        .map((entrypoint) => path.basename(entrypoint).slice(0, -3));
       const hasIndex = entrypoints.includes('index');
 
       if (hasIndex) {
         packageJSON.main = 'index.js';
         packageJSON.module = 'index.mjs';
         packageJSON.esnext = 'index.esnext';
-        packageJSON.types = 'index.d.ts';
+        packageJSON.types = 'build/ts/index.d.ts';
       }
       packageJSON.exports = {'./': './'};
-      entrypoints.forEach(entrypoint => {
+      entrypoints.forEach((entrypoint) => {
         packageJSON.exports[
           entrypoint === 'index' ? '.' : `./${entrypoint}`
         ] = {

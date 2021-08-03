@@ -4,7 +4,20 @@
   "license": "MIT",
   "description": "Transformers for importing .graphql files in various build tools.",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "jest": [
+        "./build/ts/jest.d.ts"
+      ],
+      "jest-simple": [
+        "./build/ts/jest-simple.d.ts"
+      ],
+      "webpack-loader": [
+        "./build/ts/webpack-loader.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -43,19 +56,15 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "jest.js",
     "jest.mjs",
     "jest.esnext",
-    "jest.d.ts",
     "jest-simple.js",
     "jest-simple.mjs",
     "jest-simple.esnext",
-    "jest-simple.d.ts",
     "webpack-loader.js",
     "webpack-loader.mjs",
-    "webpack-loader.esnext",
-    "webpack-loader.d.ts"
+    "webpack-loader.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

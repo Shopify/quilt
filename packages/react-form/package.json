@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "Manage React forms tersely and safely-typed with no magic using React hooks",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -35,8 +35,7 @@
     "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
-    "index.esnext",
-    "index.d.ts"
+    "index.esnext"
   ],
   "dependencies": {
     "@shopify/predicates": "^2.0.0",

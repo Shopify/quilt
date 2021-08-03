@@ -4,7 +4,23 @@
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "babel": [
+        "./build/ts/babel-plugin.d.ts"
+      ],
+      "webpack": [
+        "./build/ts/webpack-parts/index.d.ts"
+      ],
+      "webpack-loader": [
+        "./build/ts/webpack-parts/loader.d.ts"
+      ],
+      "worker": [
+        "./build/ts/worker.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -44,19 +60,15 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "babel.js",
     "babel.mjs",
     "babel.esnext",
-    "babel.d.ts",
     "webpack.js",
     "webpack.mjs",
     "webpack.esnext",
-    "webpack.d.ts",
     "worker.js",
     "worker.mjs",
-    "worker.esnext",
-    "worker.d.ts"
+    "worker.esnext"
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",

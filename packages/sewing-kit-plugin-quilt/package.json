@@ -10,7 +10,7 @@
   "main": "index.js",
   "module": "index.mjs",
   "esnext": "index.esnext",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
   "exports": {
     ".": {
       "import": "./index.mjs",
@@ -24,8 +24,7 @@
     "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
-    "index.esnext",
-    "index.d.ts"
+    "index.esnext"
   ],
   "author": "Shopify Inc.",
   "repository": {

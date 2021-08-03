@@ -3,6 +3,16 @@
   "version": "2.0.2",
   "license": "MIT",
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
+  "typesVersions": {
+    "*": {
+      "apollo": [
+        "./build/ts/apollo.d.ts"
+      ],
+      "koa": [
+        "./build/ts/koa-middleware.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -38,11 +48,9 @@
     "apollo.js",
     "apollo.mjs",
     "apollo.esnext",
-    "apollo.d.ts",
     "koa.js",
     "koa.mjs",
-    "koa.esnext",
-    "koa.d.ts"
+    "koa.esnext"
   ],
   "optionalDependencies": {
     "@shopify/sewing-kit-koa": "^7.0.2"

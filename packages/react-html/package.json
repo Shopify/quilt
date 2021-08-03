@@ -4,7 +4,14 @@
   "license": "MIT",
   "description": "A component to render your React app with no static HTML",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "server": [
+        "./build/ts/server/index.d.ts"
+      ]
+    }
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -45,11 +52,9 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "server.js",
     "server.mjs",
-    "server.esnext",
-    "server.d.ts"
+    "server.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",
