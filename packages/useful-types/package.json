@@ -1,6 +1,6 @@
 {
   "name": "@shopify/useful-types",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "index.js",

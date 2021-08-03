@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-performance",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "description": "Creating middleware that sends performance-related data through StatsD",
   "main": "index.js",
@@ -24,9 +24,9 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/network": "^2.0.0",
-    "@shopify/performance": "^2.0.1",
-    "@shopify/statsd": "^3.0.1",
+    "@shopify/network": "^2.0.1",
+    "@shopify/performance": "^2.0.2",
+    "@shopify/statsd": "^3.0.2",
     "@types/koa": "^2.0.0",
     "@types/koa-bodyparser": "*",
     "@types/koa-compose": "*",
@@ -37,7 +37,7 @@
     "koa": ">=2.0.0"
   },
   "devDependencies": {
-    "@shopify/with-env": "^2.0.0"
+    "@shopify/with-env": "^2.0.1"
   },
   "files": [
     "build/*",

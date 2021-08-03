@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hooks",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "MIT",
   "description": "A collection of primitive React hooks",
   "main": "index.js",
