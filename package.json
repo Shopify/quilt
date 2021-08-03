@@ -80,7 +80,6 @@
   },
   "resolutions": {
     "@types/react": "17.0.13",
-    "@types/react-dom": "17.0.8",
-    "typescript": "3.9.9"
+    "@types/react-dom": "17.0.8"
   }
 }
