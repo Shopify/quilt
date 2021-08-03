@@ -42,12 +42,8 @@ export function runWebpack(
                   loader: 'babel-loader',
                   options: {
                     babelrc: false,
-                    presets: [
-                      [
-                        '@shopify/babel-preset/web',
-                        {typescript: true, browsers: 'last 1 chrome version'},
-                      ],
-                    ],
+                    browsers: 'last 1 chrome version',
+                    presets: [['@shopify/babel-preset', {typescript: true}]],
                   },
                 },
               ],

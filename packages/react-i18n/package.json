@@ -4,7 +4,20 @@
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "babel": [
+        "./build/ts/babel-plugin/index.d.ts"
+      ],
+      "generate-dictionaries": [
+        "./build/ts/babel-plugin/generate-dictionaries.d.ts"
+      ],
+      "generate-index": [
+        "./build/ts/babel-plugin/generate-index.d.ts"
+      ]
+    }
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -63,19 +76,15 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "babel.js",
     "babel.mjs",
     "babel.esnext",
-    "babel.d.ts",
     "generate-dictionaries.js",
     "generate-dictionaries.mjs",
     "generate-dictionaries.esnext",
-    "generate-dictionaries.d.ts",
     "generate-index.js",
     "generate-index.mjs",
-    "generate-index.esnext",
-    "generate-index.d.ts"
+    "generate-index.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

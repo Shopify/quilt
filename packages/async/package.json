@@ -4,7 +4,14 @@
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "babel": [
+        "./build/ts/babel-plugin.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -38,12 +45,9 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "babel.js",
     "babel.mjs",
-    "babel.esnext",
-    "babel.d.ts",
-    "babel.js"
+    "babel.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

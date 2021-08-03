@@ -1,6 +1,4 @@
-import {createPackage, Runtime} from '@sewing-kit/config';
-import {Package, createProjectBuildPlugin} from '@sewing-kit/plugins';
-import {BabelConfig, updateBabelPreset} from '@sewing-kit/plugin-javascript';
+import {createPackage, Runtime} from '@sewing-kit/core';
 
 import {quiltPackage} from '../../config/sewing-kit';
 
@@ -57,22 +55,5 @@ export default createPackage((pkg) => {
     root: './src/mutation-observer.node',
   });
 
-  pkg.use(quiltPackage());
-  pkg.use(
-    createProjectBuildPlugin('Quilt.PackagePolyfillsBuild', ({hooks}) => {
-      hooks.target.hook(({hooks}) => {
-        hooks.configure.hook((hooks) => {
-          hooks.babelConfig?.hook(
-            updateBabelPreset(
-              [
-                '@sewing-kit/plugin-javascript/babel-preset',
-                require.resolve('@sewing-kit/plugin-javascript/babel-preset'),
-              ],
-              {modules: 'auto', polyfill: 'inline'},
-            ),
-          );
-        });
-      });
-    }),
-  );
+  pkg.use(quiltPackage({polyfill: false}));
 });

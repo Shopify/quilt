@@ -4,7 +4,14 @@
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "testing": [
+        "./build/ts/testing.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -41,11 +48,9 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "testing.js",
     "testing.mjs",
-    "testing.esnext",
-    "testing.d.ts"
+    "testing.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

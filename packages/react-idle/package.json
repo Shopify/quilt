@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "Utilities for working with idle callbacks in React",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -35,8 +35,7 @@
     "!*.tsbuildinfo",
     "index.js",
     "index.mjs",
-    "index.esnext",
-    "index.d.ts"
+    "index.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",

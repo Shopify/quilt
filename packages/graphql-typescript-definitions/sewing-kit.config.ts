@@ -1,4 +1,4 @@
-import {createPackage, Runtime} from '@sewing-kit/config';
+import {createPackage, Runtime} from '@sewing-kit/core';
 
 import {quiltPackage} from '../../config/sewing-kit';
 

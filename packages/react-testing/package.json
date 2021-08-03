@@ -4,7 +4,14 @@
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "matchers": [
+        "./build/ts/matchers/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -37,11 +44,9 @@
     "index.js",
     "index.mjs",
     "index.esnext",
-    "index.d.ts",
     "matchers.js",
     "matchers.mjs",
-    "matchers.esnext",
-    "matchers.d.ts"
+    "matchers.esnext"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0",
