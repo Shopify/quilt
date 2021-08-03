@@ -42,9 +42,9 @@ jobs:
         with:
           path: |
             .sewing-kit/
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v1-${{ github.sha }}
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v2-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v1-
+            ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v2-
 
       - name: 📦 Install dependencies
         run: yarn --frozen-lockfile
