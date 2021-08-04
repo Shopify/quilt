@@ -5,6 +5,13 @@
   "description": "Utilities to create mock GraphQL factories",
   "main": "index.js",
   "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "matchers": [
+        "./build/ts/matchers/index.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public",

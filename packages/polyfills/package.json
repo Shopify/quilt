@@ -33,7 +33,7 @@
         "./build/ts/formdata.node.d.ts"
       ],
       "idle-callback.browser": [
-        "./build/ts/idle-callback.browser'.d.ts"
+        "./build/ts/idle-callback.browser.d.ts"
       ],
       "idle-callback.jest": [
         "./build/ts/idle-callback.jest.d.ts"
