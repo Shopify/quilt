@@ -48,7 +48,7 @@
   "sideEffects": false,
   "files": [
     "build/*",
-    "!*.tsbuildinfo",
+    "!build/*.tsbuildinfo",
     "index.js",
     "index.mjs",
     "index.esnext",

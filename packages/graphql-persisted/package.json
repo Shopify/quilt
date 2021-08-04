@@ -44,7 +44,7 @@
   },
   "files": [
     "build/*",
-    "!*.tsbuildinfo",
+    "!build/*.tsbuildinfo",
     "apollo.js",
     "apollo.mjs",
     "apollo.esnext",
