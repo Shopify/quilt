@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Fix `idle-callback.browser` entrypoint path in `typesVersions` field.
+- Fix `idle-callback.browser` entrypoint path in `typesVersions` field. [[#1985](https://github.com/Shopify/quilt/pull/1985)]
 
 ## 3.1.2 - 2021-08-04
 
@@ -21,7 +21,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Update to latest sewiing-kit-next for build. Update `types`/`typeVersions` fields to point directly into the build folder [[#1980](https://github.com/Shopify/quilt/pull/1980)]
+- Update to latest sewing-kit-next for build. Update `types`/`typesVersions` fields to point directly into the build folder [[#1980](https://github.com/Shopify/quilt/pull/1980)]
 
 ## 3.1.0 - 2021-06-08
 

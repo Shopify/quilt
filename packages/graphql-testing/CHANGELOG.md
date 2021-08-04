@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Add matchers entrypoint to `typesVersions` fields. This should have happened in 5.0.2 but was missed.
+- Add matchers entrypoint to `typesVersions` fields. This should have happened in 5.0.2 but was missed. [[#1985](https://github.com/Shopify/quilt/pull/1985)]
 
 ## 5.0.3 - 2021-08-04
 
@@ -21,7 +21,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Update to latest sewiing-kit-next for build. Update `types`/`typeVersions` fields to point directly into the build folder [[#1980](https://github.com/Shopify/quilt/pull/1980)]
+- Update to latest sewing-kit-next for build. Update `types`/`typesVersions` fields to point directly into the build folder [[#1980](https://github.com/Shopify/quilt/pull/1980)]
 
 ## 5.0.0 - 2021-05-21
 
