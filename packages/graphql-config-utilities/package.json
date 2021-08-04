@@ -1,6 +1,6 @@
 {
   "name": "graphql-config-utilities",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "license": "MIT",
   "description": "Common utilities for graphql-config",
   "main": "index.js",

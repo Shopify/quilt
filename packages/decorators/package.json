@@ -1,6 +1,6 @@
 {
   "name": "@shopify/decorators",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "description": "A set of decorators to aid your JavaScript journey",
   "main": "index.js",
@@ -31,7 +31,7 @@
     "index.esnext"
   ],
   "dependencies": {
-    "@shopify/function-enhancers": "^2.0.1"
+    "@shopify/function-enhancers": "^2.0.2"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",
