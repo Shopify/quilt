@@ -3,7 +3,6 @@ coverage
 templates
 gems/**/dummy
 packages/*/build
-**/*.d.ts
 **/*.js
 **/*.esnext
 **/*.mjs
