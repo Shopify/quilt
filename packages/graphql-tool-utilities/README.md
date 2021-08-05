@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
 [![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/graphql-tool-utilities.svg)](https://badge.fury.io/js/graphql-tool-utilities.svg) {{#if usedInBrowser}} [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/graphql-tool-utilities.svg)](https://img.shields.io/bundlephobia/minzip/graphql-tool-utilities.svg) {{/if}}
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/graphql-tool-utilities.svg)](https://badge.fury.io/js/graphql-tool-utilities.svg)
 
 Common utilities for GraphQL developer tools.
 
