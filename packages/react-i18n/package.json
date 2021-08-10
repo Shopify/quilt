@@ -54,7 +54,7 @@
     "@shopify/react-hooks": "^2.1.2",
     "@shopify/useful-types": "^3.0.3",
     "@types/hoist-non-react-statics": "^3.0.1",
-    "change-case": "^3.1.0",
+    "change-case": "^4.1.2",
     "glob": "^7.1.4",
     "hoist-non-react-statics": "^3.0.1",
     "lodash.clonedeep": "^4.0.0",

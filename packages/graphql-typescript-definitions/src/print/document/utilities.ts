@@ -1,4 +1,3 @@
-import {upperCaseFirst} from 'upper-case-first';
 import {
   GraphQLCompositeType,
   // We need to bring these in as they are implicitly referenced by
@@ -45,4 +44,8 @@ export class ObjectStack {
   hasSeenField(field: Field) {
     return this.seenFields.has(field.responseName);
   }
+}
+
+export function upperCaseFirst(input: string) {
+  return input.charAt(0).toUpperCase() + input.substr(1);
 }
