@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Breaking Change
 
-- This package has been deprecated and removed. Webpack integration into sewing-kit-next shall be revisited once Webpack 5 in sewing-kit classic work is completed.
+- This package has been deprecated and removed. Webpack integration into sewing-kit-next shall be revisited once Webpack 5 in sewing-kit classic work is completed. [[#1991](https://github.com/Shopify/quilt/pull/1991)]
 
 ## 0.3.2 - 2021-08-04
 
