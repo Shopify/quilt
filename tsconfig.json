@@ -71,7 +71,6 @@
     {"path": "./packages/rpc"},
     {"path": "./packages/semaphore"},
     {"path": "./packages/sewing-kit-koa"},
-    {"path": "./packages/sewing-kit-plugin-quilt"},
     {"path": "./packages/statsd"},
     {"path": "./packages/storybook-a11y-test"},
     {"path": "./packages/useful-types"},
