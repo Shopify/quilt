@@ -40,25 +40,5 @@
     "node": ">=12.14.0"
   },
   "sideEffects": false,
-  "devDependencies": {
-    "@types/webpack-virtual-modules": "^0.1.0"
-  },
-  "dependencies": {
-    "@sewing-kit/plugin-css": "^0.2.1",
-    "@sewing-kit/plugin-eslint": "^0.2.1",
-    "@sewing-kit/plugin-graphql": "^0.2.1",
-    "@sewing-kit/plugin-javascript": "^0.4.2",
-    "@sewing-kit/plugin-jest": "^0.3.0",
-    "@sewing-kit/plugin-package-flexible-outputs": "^0.2.2",
-    "@sewing-kit/plugin-react": "^0.2.1",
-    "@sewing-kit/plugin-stylelint": "^0.2.1",
-    "@sewing-kit/plugin-typescript": "^0.3.0",
-    "@sewing-kit/plugin-web-app-base": "^0.2.2",
-    "@sewing-kit/plugin-webpack": "^0.2.1",
-    "@sewing-kit/plugins": "^0.2.1",
-    "@shopify/webpack-asset-metadata-plugin": "^2.0.3",
-    "@types/execa": "^0.9.0",
-    "browserslist": "^4.16.0",
-    "webpack-virtual-modules": "^0.4.3"
-  }
+  "dependencies": {}
 }
