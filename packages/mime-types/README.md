@@ -36,7 +36,7 @@ This helps keeping MIME types and file extensions consistent.
 Takes in a file name string and returns a `MimeType`.
 
 ```ts
-import {getMimeTypeFromFilename} from '@shopify/files';
+import {getMimeTypeFromFilename} from '@shopify/mime-types';
 
 getMimeTypeFromFilename('image.jpg'); // image/jpeg
 ```
@@ -46,7 +46,7 @@ getMimeTypeFromFilename('image.jpg'); // image/jpeg
 Takes in a `MimeType` and returns a string filename extension that matches the inputted `MimeType`.
 
 ```ts
-import {getExtensionFromMimeType, MimeType} from '@shopify/files';
+import {getExtensionFromMimeType, MimeType} from '@shopify/mime-types';
 
 getExtensionFromMimeType(MimeType.Pdf); // .pdf
 ```
