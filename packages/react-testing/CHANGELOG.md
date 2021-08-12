@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Added ability to specify a generic when calling `findWhere` and `findWhereAll` [[#1999](https://github.com/Shopify/quilt/pull/1999)]
 - Updated build tooling, types are now compiled with TypeScript 4.3. [[#1997](https://github.com/Shopify/quilt/pull/1997)]
 
 ## 3.2.2 - 2021-08-04

@@ -468,11 +468,42 @@ expect(wrapper.find(MyComponent, {name: 'Gord'})!.props).toMatchObject({
 
 Like `find()`, but returns all matches as an array.
 
-##### <a name="findWhere"></a> `findWhere(predicate: (element: Element<unknown>) => boolean): Element<unknown> | null`
+##### <a name="findWhere"></a> `findWhere<Type = unknown>(predicate: (element: Element<unknown>) => boolean): Element<PropsForComponent<Type>> | null`
 
 Finds the first descendant component matching the passed function. The function is called with each `Element` from [`descendants`](#descendants) until a match is found. If no match is found, `null` is returned.
 
-##### <a name="findAllWhere"></a> `findAllWhere(predicate: (element: Element<unknown>) => boolean): Element<unknown>[]`
+`findWhere` accepts an optional generic argument that can be used to specify the type of the returned element. This argument is either a string or a React component, the same as the first argument on `.find`. If the generic argument is omited then the returned element will have unknown props and thus calling `.props` and `.trigger` on it will cause type errors as those functions won't know what props are valid on your element:
+
+```tsx
+function MyComponent({name}: {name: string}) {
+  return <div>Hello, {name}!</div>;
+}
+
+function Wrapper() {
+  return (
+    <>
+      <div id="Michelle" />
+      <MyComponent name="Gord" />
+    </>
+  );
+}
+
+const wrapper = mount(<Wrapper />);
+const divElement = wrapper.findWhere<'div'>(
+  (node) => node.is('div') && node.prop('id').startsWith('M'),
+);
+
+const componentElement = wrapper.findWhere<typeof MyComponent>(
+  (node) => node.is(MyComponent) && node.prop('name').startsWith('G'),
+);
+
+expect(divElement.prop('id')).toBe('Michelle');
+expect(componentElement.prop('name')).toBe('Gord');
+```
+
+````
+
+##### <a name="findAllWhere"></a> `findAllWhere<Type = unknown>(predicate: (element: Element<unknown>) => boolean): Element<PropsForComponent<Type>>[]`
 
 Like `findWhere`, but returns all matches as an array.
 
@@ -505,7 +536,7 @@ function Wrapper() {
 const wrapper = mount(<Wrapper />);
 wrapper.find(MyComponent)!.trigger('onClick', 'some-id');
 expect(wrapper.find('div')!.text()).toContain('some-id');
-```
+````
 
 ##### <a name="triggerKeypath"></a> `triggerKeypath<T>(keypath: string, ...args: any[]): T`
 

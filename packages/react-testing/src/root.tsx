@@ -164,12 +164,16 @@ export class Root<Props> implements Node<Props> {
     return this.withRoot((root) => root.findAll(type, props));
   }
 
-  findWhere(predicate: Predicate) {
-    return this.withRoot((root) => root.findWhere(predicate));
+  findWhere<Type extends React.ComponentType<any> | string | unknown = unknown>(
+    predicate: Predicate,
+  ) {
+    return this.withRoot((root) => root.findWhere<Type>(predicate));
   }
 
-  findAllWhere(predicate: Predicate) {
-    return this.withRoot((root) => root.findAllWhere(predicate));
+  findAllWhere<
+    Type extends React.ComponentType<any> | string | unknown = unknown
+  >(predicate: Predicate) {
+    return this.withRoot((root) => root.findAllWhere<Type>(predicate));
   }
 
   trigger<K extends FunctionKeys<Props>>(
