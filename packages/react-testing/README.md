@@ -482,23 +482,23 @@ function MyComponent({name}: {name: string}) {
 function Wrapper() {
   return (
     <>
-      <MyComponent name="Michelle" />
+      <div id="Michelle" />
       <MyComponent name="Gord" />
     </>
   );
 }
 
 const wrapper = mount(<Wrapper />);
-const startsWithM = wrapper.findWhere<typeof MyComponent>(
-  (node) => node.is(MyComponent) && node.prop('name').startsWith('M'),
+const divElement = wrapper.findWhere<'div'>(
+  (node) => node.is('div') && node.prop('id').startsWith('M'),
 );
 
-const startsWithG = wrapper.findWhere<typeof MyComponent>(
+const componentElement = wrapper.findWhere<typeof MyComponent>(
   (node) => node.is(MyComponent) && node.prop('name').startsWith('G'),
 );
 
-expect(startsWithM.prop('name')).toBe('Michelle');
-expect(startsWithG.prop('name')).toBe('Gord');
+expect(divElement.prop('id')).toBe('Michelle');
+expect(componentElement.prop('name')).toBe('Gord');
 ```
 
 ````
