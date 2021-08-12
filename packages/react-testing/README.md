@@ -489,11 +489,11 @@ function Wrapper() {
 }
 
 const wrapper = mount(<Wrapper />);
-const startsWithM = wrapper.findWhere<MyComponent>(
+const startsWithM = wrapper.findWhere<typeof MyComponent>(
   (node) => node.is(MyComponent) && node.prop('name').startsWith('M'),
 );
 
-const startsWithG = wrapper.findWhere<MyComponent>(
+const startsWithG = wrapper.findWhere<typeof MyComponent>(
   (node) => node.is(MyComponent) && node.prop('name').startsWith('G'),
 );
 
