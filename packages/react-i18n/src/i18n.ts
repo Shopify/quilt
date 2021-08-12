@@ -50,23 +50,6 @@ import {
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   as?: 'number' | 'currency' | 'percent' | 'unit';
   precision?: number;
-  // At time of writing TS does not have these definitions. They may be removed
-  // once TS adds them onto the type for Intl.NumberFormatOptions.
-  // TS PR: https://github.com/microsoft/TypeScript/pull/38013
-  // Intl.NumberFormatOptions info see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
-  //
-  // Strictly speaking there is a defined set of valid values for unit, however
-  // combinatorial complexity makes it unfeasable to list them all out here.
-  // Valid units are specfied at https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-issanctionedsimpleunitidentifier
-  // In addition to a single units, X-per-Y units are also valid where X and Y
-  // are units from the above list e.g. "acre-per-day". At time of writing there
-  // are 43 simple units, and thus 43*43 X-per-Y units. Ths results in 1892
-  // valid values so lets not try and list all those here.
-  unit?: string;
-  // Strictly speaking this is currently `'long' | 'short' | 'narrow'` but TS
-  // doesn't use a union type for currencyDisplay either, probably to allow
-  // for additional values in the future so follow their lead
-  unitDisplay?: string;
 }
 
 export interface CurrencyFormatOptions extends NumberFormatOptions {
