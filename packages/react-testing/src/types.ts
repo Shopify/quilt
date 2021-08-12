@@ -11,6 +11,10 @@ export type PropsFor<
   ? React.ComponentPropsWithoutRef<T>
   : never;
 
+export type UnknowablePropsFor<
+  T extends string | React.ComponentType<any> | unknown
+> = T extends string | React.ComponentType<any> ? PropsFor<T> : unknown;
+
 export type FunctionKeys<T> = {
   [K in keyof T]-?: NonNullable<T[K]> extends (...args: any[]) => any
     ? K

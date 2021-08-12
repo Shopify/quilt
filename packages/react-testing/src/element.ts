@@ -12,6 +12,7 @@ import {
   FunctionKeys,
   DeepPartialArguments,
   PropsFor,
+  UnknowablePropsFor,
   DebugOptions,
 } from './types';
 
@@ -178,14 +179,19 @@ export class Element<Props> implements Node<Props> {
     ) as Element<PropsFor<Type>>[];
   }
 
-  findWhere(predicate: Predicate): Element<unknown> | null {
-    return (
-      this.elementDescendants.find((element) => predicate(element)) || null
-    );
+  findWhere<Type extends React.ComponentType<any> | string | unknown = unknown>(
+    predicate: Predicate,
+  ): Element<UnknowablePropsFor<Type>> | null {
+    return (this.elementDescendants.find((element) => predicate(element)) ||
+      null) as Element<UnknowablePropsFor<Type>> | null;
   }
 
-  findAllWhere(predicate: Predicate): Element<unknown>[] {
-    return this.elementDescendants.filter((element) => predicate(element));
+  findAllWhere<
+    Type extends React.ComponentType<any> | string | unknown = unknown
+  >(predicate: Predicate): Element<UnknowablePropsFor<Type>>[] {
+    return this.elementDescendants.filter((element) =>
+      predicate(element),
+    ) as Element<UnknowablePropsFor<Type>>[];
   }
 
   trigger<K extends FunctionKeys<Props>>(
