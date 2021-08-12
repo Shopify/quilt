@@ -12,7 +12,7 @@ interface State {
   url?: URL;
 }
 
-interface NavigatorWithConnection {
+interface NavigatorWithConnection extends Navigator {
   connection: {saveData: boolean};
 }
 

@@ -54,7 +54,7 @@ export const loadCountry: (
       }),
     });
 
-    const country: LoadCountryResponse = await response.json();
+    const country: LoadCountryResponse | ResponseError = await response.json();
 
     if (!('data' in country) && 'errors' in country) {
       throw new CountryLoaderError(country);
