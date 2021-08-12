@@ -45,10 +45,10 @@ export default class RequestIdleCallback {
     const windowWithIdle: WindowWithRequestIdleCallback = window as any;
 
     this.originalRequestIdleCallback = windowWithIdle.requestIdleCallback;
-    delete windowWithIdle.requestIdleCallback;
+    delete (windowWithIdle as any).requestIdleCallback;
 
     this.originalCancelIdleCallback = windowWithIdle.cancelIdleCallback;
-    delete windowWithIdle.cancelIdleCallback;
+    delete (windowWithIdle as any).cancelIdleCallback;
   }
 
   restore() {

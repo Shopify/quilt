@@ -3,8 +3,7 @@
   "compilerOptions": {
     "outDir": "build/ts",
     "rootDir": "src",
-    "baseUrl": "src",
-    "isolatedModules": false
+    "baseUrl": "src"
   },
   "include": [
     "../../config/typescript/*.d.ts",

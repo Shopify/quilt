@@ -71,7 +71,7 @@ async function loadDocument(
       const source = await new Promise<string>((resolve, reject) => {
         loader.fs.readFile(
           resolvedPath,
-          (error: Error | null, result?: string) => {
+          (error: Error | null, result: string) => {
             if (error) {
               reject(error);
             } else {

@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Updated build tooling, types are now compiled with TypeScript 4.3. [[#1997](https://github.com/Shopify/quilt/pull/1997)]
 - Update `classnames` and remove `@types/classnames`. [[#1998](https://github.com/Shopify/quilt/pull/1998)]
 
 ## 2.0.2 - 2021-08-04

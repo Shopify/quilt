@@ -140,14 +140,14 @@ export default class FormState<
 
   // eslint-disable-next-line @shopify/react-prefer-private-members
   public validateForm() {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       this.setState(runAllValidators, () => resolve());
     });
   }
 
   // eslint-disable-next-line @shopify/react-prefer-private-members
   public reset = () => {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       this.setState(
         (_state, props) =>
           createFormState(props.initialValues, props.externalErrors),

@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Changed
+
+- `formatDate`'s options object now expects its `hourCycle` value to be 'h11', 'h12', 'h23' or 'h24' rather than an arbitary string. Any other value would have caused an error at runtime, this helps us catch that error at compile time. [[#1997](https://github.com/Shopify/quilt/pull/1997)]
+- Updated build tooling, types are now compiled with TypeScript 4.3. [[#1997](https://github.com/Shopify/quilt/pull/1997)]
 
 ## 1.0.4 - 2021-08-04
 
