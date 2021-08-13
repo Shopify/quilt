@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-dom-mocks",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "license": "MIT",
   "description": "Jest mocking utilities for working with the DOM",
   "main": "index.js",
