@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Updated build tooling, types are now compiled with TypeScript 4.3. [[#1997](https://github.com/Shopify/quilt/pull/1997)]
+- The `ApiVersion` enum now have been updated to remove obsolete versions and add supported ones. [#2000](https://github.com/Shopify/quilt/pull/2000)
 
 ## 3.0.2 - 2021-08-04
 
