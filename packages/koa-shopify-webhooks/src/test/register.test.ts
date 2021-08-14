@@ -1,18 +1,18 @@
-import {Header} from '@shopify/network';
-import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
+import { Header } from '@shopify/network';
+import { fetch as fetchMock } from '@shopify/jest-dom-mocks';
 
-import {ApiVersion, DeliveryMethod} from '../register';
-import {registerWebhook, Options, WebhookHeader} from '..';
+import { ApiVersion, DeliveryMethod } from '../register';
+import { registerWebhook, Options, WebhookHeader } from '..';
 
 const successResponse = {
   data: {
     webhookSubscriptionCreate: {
       userErrors: [],
-      webhookSubscription: {id: 'gid://shopify/WebhookSubscription/12345'},
+      webhookSubscription: { id: 'gid://shopify/WebhookSubscription/12345' },
     },
   },
 };
-const failResponse = {data: {}};
+const failResponse = { data: {} };
 
 describe('registerWebhook', () => {
   afterEach(async () => {
@@ -103,7 +103,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
-      apiVersion: ApiVersion.April20,
+      apiVersion: ApiVersion.April21,
       deliveryMethod: DeliveryMethod.EventBridge,
     };
 
@@ -125,7 +125,7 @@ describe('registerWebhook', () => {
 
     const [address, request] = fetchMock.lastCall();
     expect(address).toBe(
-      `https://${webhook.shop}/admin/api/${ApiVersion.April20}/graphql.json`,
+      `https://${webhook.shop}/admin/api/${ApiVersion.April21}/graphql.json`,
     );
     expect(request.body).toBe(webhookQuery);
     expect(request.headers).toMatchObject({
