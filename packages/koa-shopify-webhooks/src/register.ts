@@ -3,13 +3,10 @@ import {Method, Header} from '@shopify/network';
 import {WebhookHeader, Topic} from './types';
 
 export enum ApiVersion {
-  April19 = '2019-04',
-  July19 = '2019-07',
-  October19 = '2019-10',
-  January20 = '2020-01',
-  April20 = '2020-04',
-  July20 = '2020-07',
   October20 = '2020-10',
+  January21 = '2021-01',
+  April21 = '2021-04',
+  July21 = '2021-07',
   Unstable = 'unstable',
   Unversioned = 'unversioned',
 }
