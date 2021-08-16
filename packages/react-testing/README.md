@@ -472,7 +472,7 @@ Like `find()`, but returns all matches as an array.
 
 Finds the first descendant component matching the passed function. The function is called with each `Element` from [`descendants`](#descendants) until a match is found. If no match is found, `null` is returned.
 
-`findWhere` accepts an optional generic argument that can be used to specify the type of the returned element. This argument is either a string or a React component, the same as the first argument on `.find`. If the generic argument is omited then the returned element will have unknown props and thus calling `.props` and `.trigger` on it will cause type errors as those functions won't know what props are valid on your element:
+`findWhere` accepts an optional generic argument that can be used to specify the type of the returned element. This argument is either a string or a React component, the same as the first argument on `.find`. If the generic argument is omitted then the returned element will have unknown props and thus calling `.props` and `.trigger` on it will cause type errors as those functions won't know what props are valid on your element:
 
 ```tsx
 function MyComponent({name}: {name: string}) {
@@ -500,8 +500,6 @@ const componentElement = wrapper.findWhere<typeof MyComponent>(
 expect(divElement.prop('id')).toBe('Michelle');
 expect(componentElement.prop('name')).toBe('Gord');
 ```
-
-````
 
 ##### <a name="findAllWhere"></a> `findAllWhere<Type = unknown>(predicate: (element: Element<unknown>) => boolean): Element<PropsForComponent<Type>>[]`
 
@@ -536,7 +534,7 @@ function Wrapper() {
 const wrapper = mount(<Wrapper />);
 wrapper.find(MyComponent)!.trigger('onClick', 'some-id');
 expect(wrapper.find('div')!.text()).toContain('some-id');
-````
+```
 
 ##### <a name="triggerKeypath"></a> `triggerKeypath<T>(keypath: string, ...args: any[]): T`
 
