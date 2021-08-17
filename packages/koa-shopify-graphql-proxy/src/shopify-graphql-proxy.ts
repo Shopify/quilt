@@ -11,7 +11,7 @@ export type ApiVersion =
   | '2021-07'
   | 'unstable'
   | 'unversioned'
-  | string;
+  | (string & {});
 
 interface DefaultProxyOptions {
   version: ApiVersion;

@@ -9,7 +9,7 @@ export type ApiVersion =
   | '2021-07'
   | 'unstable'
   | 'unversioned'
-  | string;
+  | (string & {});
 
 export enum DeliveryMethod {
   Http = 'http',
