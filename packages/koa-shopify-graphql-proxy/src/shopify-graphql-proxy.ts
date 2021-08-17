@@ -4,16 +4,14 @@ import {Context} from 'koa';
 export const PROXY_BASE_PATH = '/graphql';
 export const GRAPHQL_PATH_PREFIX = '/admin/api';
 
-export enum ApiVersion {
-  July19 = '2019-07',
-  October19 = '2019-10',
-  January20 = '2020-01',
-  April20 = '2020-04',
-  July20 = '2020-07',
-  October20 = '2020-10',
-  Unstable = 'unstable',
-  Unversioned = 'unversioned',
-}
+export type ApiVersion =
+  | '2020-10'
+  | '2021-01'
+  | '2021-04'
+  | '2021-07'
+  | 'unstable'
+  | 'unversioned'
+  | string;
 
 interface DefaultProxyOptions {
   version: ApiVersion;
