@@ -34,6 +34,10 @@ export class ReactServerPlugin {
     const modules = this.modules(compiler);
     const virtualModules = new VirtualModulesPlugin(modules);
     (virtualModules as any).apply(compiler);
+
+    compiler.hooks.afterEnvironment.tap('ReactServerPlugin', () => {
+      compiler.watchFileSystem.paths.push(...Object.keys(modules));
+    });
   }
 
   private modules(compiler: Compiler) {
