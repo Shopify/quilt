@@ -36,6 +36,8 @@ export class ReactServerPlugin {
     (virtualModules as any).apply(compiler);
 
     compiler.hooks.afterEnvironment.tap('ReactServerPlugin', () => {
+      // @TODO need webpack 5 + check if watchFileSystem is a IgnoringWatchFileSystem
+      // (the wfs property should be present)
       compiler.watchFileSystem.paths.push(...Object.keys(modules));
     });
   }
