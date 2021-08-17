@@ -1,7 +1,6 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 
 import koaShopifyGraphQLProxy, {
-  ApiVersion,
   PROXY_BASE_PATH,
   GRAPHQL_PATH_PREFIX,
 } from '../shopify-graphql-proxy';
