@@ -78,7 +78,7 @@ app.use(
         topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
-        apiVersion: ApiVersion.Unstable,
+        apiVersion: 'unstable',
       });
 
       if (registration.success) {
@@ -144,7 +144,7 @@ app.use(
         topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
-        apiVersion: ApiVersion.Unstable,
+        apiVersion: 'unstable',
       });
 
       await registerWebhook({
@@ -152,7 +152,7 @@ app.use(
         topic: 'ORDERS_CREATE',
         accessToken,
         shop,
-        apiVersion: ApiVersion.Unstable,
+        apiVersion: 'unstable',
       });
 
       ctx.redirect('/');

@@ -1,7 +1,7 @@
 import {Header} from '@shopify/network';
 import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 
-import {ApiVersion, DeliveryMethod} from '../register';
+import {DeliveryMethod} from '../register';
 import {registerWebhook, Options, WebhookHeader} from '..';
 
 const successResponse = {
@@ -27,7 +27,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
-      apiVersion: ApiVersion.Unstable,
+      apiVersion: 'unstable',
     };
 
     const webhookQuery = `
@@ -103,7 +103,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
-      apiVersion: ApiVersion.April20,
+      apiVersion: '2020-04',
       deliveryMethod: DeliveryMethod.EventBridge,
     };
 
@@ -125,7 +125,7 @@ describe('registerWebhook', () => {
 
     const [address, request] = fetchMock.lastCall();
     expect(address).toBe(
-      `https://${webhook.shop}/admin/api/${ApiVersion.April20}/graphql.json`,
+      `https://${webhook.shop}/admin/api/2020-04/graphql.json`,
     );
     expect(request.body).toBe(webhookQuery);
     expect(request.headers).toMatchObject({
