@@ -162,9 +162,9 @@ Translations are provided using two keys in the `withI18n` decorator:
 - `fallback`: a translation file to use when translation keys are not found in the locale-specific translation files. These will usually be your English translations, as they are typically the most complete.
 - `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. The `translations` function can also throw and `react-i18n` will handle the situation gracefully. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries.
 
-We recommend that you co-locate your translation files in a `./translations` directory and that you include an `en.json` file ([schema specification](docs/react_i18n_schema.md)) in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
+We recommend that you co-locate your translation files in a `./translations` directory and that you include an `en.json` file ([schema specification](docs/react_i18n_schema.md)) in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](./babel-plugin.md) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
 
-If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary. If you're using the [babel plugin](#Babel), this `id` will the automatically generated based on the relative path to your component from your project's root directory.
+If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary. If you're using the [babel plugin](./babel-plugin.md), this `id` will the automatically generated based on the relative path to your component from your project's root directory.
 
 Here’s the example above with component-specific translations:
 
@@ -372,138 +372,6 @@ await extract(element, {
 const html = render(<Html manager={htmlManager}>{app}</Html>);
 ```
 
-### Babel
-
-This package includes a plugin for Babel that auto-fills `useI18n`'s or `withI18n`'s arguments from an adjacent translations folder. The Babel plugin is exported from the `@shopify/react-i18n/babel` entrypoint:
-
-```js
-// babel.config.js
-{
-  plugins: [
-    ['@shopify/react-i18n/babel'],
-  ],
-}
-```
-
-This plugin will look for an adjacent translations folder containing, at minimum, an `en.json` file (the default locale). It will then iterate over each reference to the `useI18n` hook or `withI18n` decorator and, if the reference is a call expression with no arguments, and inject the appropriate arguments.
-
-```js
-// Within MyComponent.tsx:
-
-useI18n();
-
-// Becomes:
-
-import _en from './translations/en.json';
-
-useI18n({
-  id: 'MyComponent_<hash>',
-  fallback: _en,
-  async translations(locale) {
-    const dictionary = await import(
-      /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
-    );
-    return dictionary;
-  },
-});
-```
-
-#### Integration with babel-loader
-
-Because `babel-loader`'s cache is based on a component's source content hash, newly added translation files will not invalidate the component's Babel cache. To combat this, run the `generateTranslationIndexes` function before building, and configure the plugin to use its `from-generated-index` mode.
-
-The generator will look for any `translations` folders and generate an array of local ids in `translations/index.js` based on the `{locale}.json` files found. We recommend that you add `**/translations/index.js` to `.gitignore` to make sure the generated files are not checked-in.
-
-```js
-// webpack.config.js
-module.exports = {
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              plugins: [
-                '@babel/plugin-syntax-dynamic-import',
-                ['@shopify/react-i18n/babel', {mode: 'from-generated-index'}],
-              ],
-            },
-          },
-        ],
-      },
-    ],
-  },
-};
-```
-
-```js
-// generate-translations.js
-const {
-  generateTranslationIndexes,
-} = require('@shopify/react-i18n/generate-index');
-
-generateTranslationIndexes();
-webpack(require(./webpack.config.js));
-```
-
-#### Statically embedding locale-specific translations
-
-For large applications, even asynchronously loaded translations can significantly degrade the user experience:
-
-- Bundlers like webpack have to embed kilobytes of data to track each translation import
-- Users not using the "default" language have to download kilobytes of translations for every language
-
-To avoid this, it is possible to build versions of app with specific locale translations embedded directly in JavaScript. To achieve this, run the Babel plugin in `from-dictionary-index` mode:
-
-```js
-// webpack.config.js
-{
-  plugins: [
-    ['@shopify/react-i18n/babel', {mode: 'from-dictionary-index'}],
-  ],
-}
-```
-
-Then generate `translations/index.js` files containing specific locale data using the `@shopify/react-i18n/generate-dictionaries` helper. e.g., the following code generates three versions of an application with English, French, and German content using webpack.
-
-```js
-// generate-translations.js
-const {
-  generateTranslationDictionaries,
-} = require('@shopify/react-i18n/generate-dictionaries');
-
-// Build English app.
-await generateTranslationDictionaries(['en']);
-webpack(require(./webpack.config.js));
-
-// Build French app.
-await generateTranslationDictionaries(['fr'], {fallbackLocale: 'en'});
-webpack(require(./webpack.config.js));
-
-// Build German app.
-await generateTranslationDictionaries(['de'], {fallbackLocale: 'en'});
-webpack(require(./webpack.config.js));
-
-```
-
-#### Setting the default locale to something other than `en`
-
-If you want your default locale to be something else than English because it's not your primary locale, you can pass the `defaultLocale` option to the babel plugin:
-
-```
-// webpack.config.js
-{
-  plugins: [
-    ['@shopify/react-i18n/babel', {defaultLocale: 'fr'}],
-  ],
-}
-```
-
 ## FAQ
 
 ### Why another i18n library? Why not just use <[react-intl](https://github.com/yahoo/react-intl) | [react-i18next](https://github.com/i18next/react-i18next)> etc?
@@ -519,7 +387,7 @@ Additional details on why we built our own package, and on specifics of parts of
 
 ### How do I get this i18n library to work with React Native?
 
-[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version 2.3.0(https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version 2.3.0(https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [`from-dictionary-index`](./babel-plugin.md#from-dictionary-index).
 
 **Note**: You will need a script to generate `index` files:
 
