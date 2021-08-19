@@ -34,8 +34,9 @@
     "@types/react-dom": "^16.0.11"
   },
   "files": [
-    "build/*",
+    "build",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/*.test.*",
     "index.js",
     "index.mjs",
     "index.esnext",

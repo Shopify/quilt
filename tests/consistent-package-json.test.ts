@@ -69,7 +69,11 @@ packages.forEach(
         if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
           it('specifies publishable files, including at least one entrypoint', () => {
             expect(packageJSON.files).toStrictEqual(
-              expect.arrayContaining(['build/*', '!build/*.tsbuildinfo']),
+              expect.arrayContaining([
+                'build',
+                '!build/*.tsbuildinfo',
+                '!build/ts/**/*.test.*',
+              ]),
             );
             expect(packageJSON.files.length).toBeGreaterThan(2);
           });
@@ -78,7 +82,7 @@ packages.forEach(
             // Don't use arrayContaining here as it does not guarantee order
             // We want to make sure the first set of items are always in a fixed
             // order. Most importantly, the `!build/*.tsbuildinfo` exclusion must be
-            // after `build/*`.
+            // after `build`.
             /* eslint-disable jest/no-if */
             if (packageJSON?.bin) {
               expectedPackageJSON.files.unshift('bin/*');

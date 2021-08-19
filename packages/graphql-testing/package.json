@@ -42,8 +42,9 @@
     "graphql-typed": "^1.0.2"
   },
   "files": [
-    "build/*",
+    "build",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/*.test.*",
     "index.js",
     "index.mjs",
     "index.esnext",

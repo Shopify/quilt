@@ -28,8 +28,9 @@
     "hot-shots": "^8.2.0"
   },
   "files": [
-    "build/*",
+    "build",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/*.test.*",
     "index.js",
     "index.mjs",
     "index.esnext"

@@ -34,8 +34,9 @@
   },
   "sideEffects": false,
   "files": [
-    "build/*",
+    "build",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/*.test.*",
     "index.js",
     "index.mjs",
     "index.esnext"

@@ -43,8 +43,9 @@
     "@shopify/sewing-kit-koa": "^6.4.5"
   },
   "files": [
-    "build/*",
+    "build",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/*.test.*",
     "apollo.js",
     "apollo.mjs",
     "apollo.esnext",
