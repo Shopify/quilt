@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Fixed
+
+- Fix format currency double negative bug in nordic regions [[#2004](https://github.com/Shopify/quilt/pull/2004)]
+
 ### Changed
 
 - Added file exclusion for tests to package.json. [[#2005](https://github.com/Shopify/quilt/pull/2005)]
