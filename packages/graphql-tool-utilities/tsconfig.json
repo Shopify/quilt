@@ -5,10 +5,5 @@
     "rootDir": "src",
     "baseUrl": "src"
   },
-  "include": [
-    "../../config/typescript/*.ts",
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
+  "include": ["../../config/typescript/*.ts", "./src/**/*.ts", "./src/**/*.tsx"]
 }

@@ -8,7 +8,6 @@
   "include": [
     "../../config/typescript/*.d.ts",
     "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ],
-  "exclude": ["**/test/**/*", "**/tests/**/*"]
+    "./src/**/*.ts"
+  ]
 }
