@@ -45,7 +45,7 @@
   "files": [
     "build/",
     "!build/*.tsbuildinfo",
-    "!build/ts/**/*.test.*",
+    "!build/ts/**/tests/",
     "apollo.js",
     "apollo.mjs",
     "apollo.esnext",

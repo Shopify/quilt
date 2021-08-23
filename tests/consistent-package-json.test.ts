@@ -72,7 +72,7 @@ packages.forEach(
               expect.arrayContaining([
                 'build/',
                 '!build/*.tsbuildinfo',
-                '!build/ts/**/*.test.*',
+                '!build/ts/**/tests/',
               ]),
             );
             expect(packageJSON.files.length).toBeGreaterThan(2);

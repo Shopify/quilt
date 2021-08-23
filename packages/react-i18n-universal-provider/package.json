@@ -38,7 +38,7 @@
   "files": [
     "build/",
     "!build/*.tsbuildinfo",
-    "!build/ts/**/*.test.*",
+    "!build/ts/**/tests/",
     "index.js",
     "index.mjs",
     "index.esnext"
