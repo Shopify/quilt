@@ -64,8 +64,6 @@ module.exports = {
     },
     {
       files: [
-        '**/test/**/*.ts',
-        '**/test/**/*.tsx',
         '**/tests/**/*.ts',
         '**/tests/**/*.tsx',
         '**/sewing-kit.config.ts',
@@ -81,7 +79,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/test/fixtures/**/*.*'],
+      files: ['**/tests/fixtures/**/*.*'],
       rules: {
         '@shopify/typescript/prefer-pascal-case-enums': 'off',
         'babel/object-curly-spacing': 'off',

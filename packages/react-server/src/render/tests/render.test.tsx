@@ -5,7 +5,7 @@ import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
 
 import {createRender, Context} from '../render';
-import {mockMiddleware} from '../../test/utilities';
+import {mockMiddleware} from '../../tests/utilities';
 
 const mockAssetsScripts = jest.fn(() => Promise.resolve([{path: 'main.js'}]));
 const mockAssetsStyles = jest.fn(() => Promise.resolve([{path: 'main.css'}]));

@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cli fails when a fixture matches no operations 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/missing-operation'"`;
+exports[`cli fails when a fixture matches no operations 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/tests/fixtures/missing-operation/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/tests/fixtures/missing-operation'"`;
 
-exports[`cli fails when there are ambiguous fixture names 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation'"`;
+exports[`cli fails when there are ambiguous fixture names 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/tests/fixtures/ambiguous-operation/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/tests/fixtures/ambiguous-operation'"`;
 
-exports[`cli fails when there are fixture errors 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/fixture-errors'"`;
+exports[`cli fails when there are fixture errors 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/tests/fixtures/fixture-errors/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/tests/fixtures/fixture-errors'"`;
 
-exports[`cli fails when there are syntax errors 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/fixture-invalid'"`;
+exports[`cli fails when there are syntax errors 1`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid'"`;
 
-exports[`cli fails when there are syntax errors 2`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/malformed-query'"`;
+exports[`cli fails when there are syntax errors 2`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/tests/fixtures/malformed-query/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/tests/fixtures/malformed-query'"`;
 
-exports[`cli fails when there are syntax errors 3`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/test/fixtures/missing-schema/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/test/fixtures/missing-schema'"`;
+exports[`cli fails when there are syntax errors 3`] = `"Command failed: packages/graphql-validate-fixtures/bin/graphql-validate-fixtures 'packages/graphql-validate-fixtures/tests/fixtures/missing-schema/fixtures/**/*.json' --cwd 'packages/graphql-validate-fixtures/tests/fixtures/missing-schema'"`;
 
 exports[`cli hides passing fixtures by default 1`] = `
 "

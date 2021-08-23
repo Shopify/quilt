@@ -316,7 +316,7 @@ describe('webpack-plugin', () => {
 function runBuild(configPath: string): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const pathFromRoot = path.resolve(
-      './packages/react-server/src/webpack-plugin/test/fixtures',
+      './packages/react-server/src/webpack-plugin/tests/fixtures',
       configPath,
     );
 

@@ -3,15 +3,15 @@
 exports[`evaluateFixtures() handles ambiguous operation names in multi-project fixtures with errors 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectA/AmbiguousQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/ambiguous-operation/fixtures/projectA/AmbiguousQuery/fixture.json",
     "validationErrors": Array [
-      [Error: Ambiguous operation name found for 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectA/AmbiguousQuery/fixture.json' (found Ambiguous) in projects: projectA, projectB. Try renaming the operation in one of the projects listed and updating the fixture folder name or use an '@operation' key indicating the new operation name.],
+      [Error: Ambiguous operation name found for 'packages/graphql-validate-fixtures/tests/fixtures/ambiguous-operation/fixtures/projectA/AmbiguousQuery/fixture.json' (found Ambiguous) in projects: projectA, projectB. Try renaming the operation in one of the projects listed and updating the fixture folder name or use an '@operation' key indicating the new operation name.],
     ],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectB/AmbiguousQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/ambiguous-operation/fixtures/projectB/AmbiguousQuery/fixture.json",
     "validationErrors": Array [
-      [Error: Ambiguous operation name found for 'packages/graphql-validate-fixtures/test/fixtures/ambiguous-operation/fixtures/projectB/AmbiguousQuery/fixture.json' (found Ambiguous) in projects: projectA, projectB. Try renaming the operation in one of the projects listed and updating the fixture folder name or use an '@operation' key indicating the new operation name.],
+      [Error: Ambiguous operation name found for 'packages/graphql-validate-fixtures/tests/fixtures/ambiguous-operation/fixtures/projectB/AmbiguousQuery/fixture.json' (found Ambiguous) in projects: projectA, projectB. Try renaming the operation in one of the projects listed and updating the fixture folder name or use an '@operation' key indicating the new operation name.],
     ],
   },
 ]
@@ -20,14 +20,14 @@ Array [
 exports[`evaluateFixtures() handles fixtures that are invalid json 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json",
-    "scriptError": [SyntaxError: packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/another-fixture.json: Unexpected string in JSON at position 35],
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/another-fixture.json",
+    "scriptError": [SyntaxError: packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/another-fixture.json: Unexpected string in JSON at position 35],
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/MyQuery/fixture.json",
     "operationName": "My",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-invalid/queries/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
@@ -37,9 +37,9 @@ Array [
 exports[`evaluateFixtures() handles fixtures with errors 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-errors/fixtures/another-fixture.json",
     "operationName": "Another",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Another.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-errors/queries/Another.graphql",
     "operationType": "query",
     "validationErrors": Array [
       Object {
@@ -53,9 +53,9 @@ Array [
     ],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-errors/fixtures/MyQuery/fixture.json",
     "operationName": "My",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/fixture-errors/queries/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-errors/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
@@ -65,23 +65,23 @@ Array [
 exports[`evaluateFixtures() handles fixtures without errors 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/all-clear/fixtures/another-another-fixture.json",
     "operationName": "Another",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/all-clear/queries/Another.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/another-fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/all-clear/fixtures/another-fixture.json",
     "operationName": "Another",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Another.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/all-clear/queries/Another.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/fixtures/MyQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/all-clear/fixtures/MyQuery/fixture.json",
     "operationName": "My",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/all-clear/queries/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/all-clear/queries/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
@@ -91,16 +91,16 @@ Array [
 exports[`evaluateFixtures() handles missing operation names in multi-project fixtures with errors 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/projectA/AQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/missing-operation/fixtures/projectA/AQuery/fixture.json",
     "operationName": "A",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/missing-operation/queries/projectA/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/missing-operation/queries/projectA/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/projectB/Missing/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/missing-operation/fixtures/projectB/Missing/fixture.json",
     "validationErrors": Array [
-      [Error: Could not find a matching operation for 'packages/graphql-validate-fixtures/test/fixtures/missing-operation/fixtures/projectB/Missing/fixture.json' (looked for Missing). Make sure to put your fixture in a folder named the same as the operation, or add an '@operation' key indicating the operation. Available operations: A, B],
+      [Error: Could not find a matching operation for 'packages/graphql-validate-fixtures/tests/fixtures/missing-operation/fixtures/projectB/Missing/fixture.json' (looked for Missing). Make sure to put your fixture in a folder named the same as the operation, or add an '@operation' key indicating the operation. Available operations: A, B],
     ],
   },
 ]
@@ -109,16 +109,16 @@ Array [
 exports[`evaluateFixtures() handles multi-project fixtures without errors 1`] = `
 Array [
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/fixtures/projectA/AQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/multi-project/fixtures/projectA/AQuery/fixture.json",
     "operationName": "A",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/queries/projectA/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/multi-project/queries/projectA/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
   Object {
-    "fixturePath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/fixtures/projectB/BQuery/fixture.json",
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/multi-project/fixtures/projectB/BQuery/fixture.json",
     "operationName": "B",
-    "operationPath": "packages/graphql-validate-fixtures/test/fixtures/multi-project/queries/projectB/Query.graphql",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/multi-project/queries/projectB/Query.graphql",
     "operationType": "query",
     "validationErrors": Array [],
   },
@@ -136,7 +136,7 @@ exports[`evaluateFixtures() throws an error when the schema is not found 1`] = `
 `;
 
 exports[`evaluateFixtures() throws an error when there are malformed GraphQL documents 1`] = `
-[Error: Error parsing 'packages/graphql-validate-fixtures/test/fixtures/malformed-query/queries/Another.graphql':
+[Error: Error parsing 'packages/graphql-validate-fixtures/tests/fixtures/malformed-query/queries/Another.graphql':
 
 Syntax Error: Expected {, found Name "name"]
 `;
