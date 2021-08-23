@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Added file exclusion for tests to package.json and enable type checking for tests. [[#2005](https://github.com/Shopify/quilt/pull/2005)]
+- Rename test/ to tests/ [[#2005](https://github.com/Shopify/quilt/pull/2005)]
 
 ## 3.0.5 - 2021-08-13
 
