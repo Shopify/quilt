@@ -9,6 +9,6 @@ packages/*/build
 **/tests/fixtures/**/default-types/*.ts
 
 # Don't lint fixture graphql files as they include schemas
-packages/graphql-config-utilities/src/testss/fixtures/**/*.graphql
+packages/graphql-config-utilities/src/tests/fixtures/**/*.graphql
 packages/graphql-typescript-definitions/tests/fixtures/**/*.graphql
 packages/graphql-validate-fixtures/tests/fixtures/**/*.graphql
