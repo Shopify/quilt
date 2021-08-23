@@ -24,7 +24,7 @@
     "node": ">=12.14.0"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

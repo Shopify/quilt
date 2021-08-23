@@ -70,7 +70,7 @@ packages.forEach(
           it('specifies publishable files, including at least one entrypoint', () => {
             expect(packageJSON.files).toStrictEqual(
               expect.arrayContaining([
-                'build',
+                'build/',
                 '!build/*.tsbuildinfo',
                 '!build/ts/**/*.test.*',
               ]),

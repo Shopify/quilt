@@ -43,7 +43,7 @@
     "react": ">=16.8.0 <18.0.0"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

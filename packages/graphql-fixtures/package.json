@@ -34,7 +34,7 @@
     "graphql-typed": "^0.6.1"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

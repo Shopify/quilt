@@ -44,7 +44,7 @@
     "@types/node-gzip": "^1.1.0"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

@@ -30,7 +30,7 @@
     "@shopify/jest-dom-mocks": "^3.0.5"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

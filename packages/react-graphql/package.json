@@ -41,7 +41,7 @@
     "@shopify/react-testing": "^3.2.3"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

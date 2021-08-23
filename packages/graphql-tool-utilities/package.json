@@ -28,7 +28,7 @@
     "graphql": ">=14.5.0 <15.0.0"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

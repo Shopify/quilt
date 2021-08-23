@@ -27,7 +27,7 @@
     "classnames": "^2.3.1"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

@@ -39,7 +39,7 @@
     "koa": ">=2.0.0"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

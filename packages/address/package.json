@@ -31,7 +31,7 @@
     "@shopify/address-consts": "^3.0.4"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

@@ -40,7 +40,7 @@
     "@types/webpack": "^4.0.0"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

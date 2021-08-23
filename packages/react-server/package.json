@@ -69,7 +69,7 @@
     "webpack-virtual-modules": "^0.4.3"
   },
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",

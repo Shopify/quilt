@@ -26,7 +26,7 @@
   },
   "dependencies": {},
   "files": [
-    "build",
+    "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/*.test.*",
     "index.js",
