@@ -4,5 +4,6 @@
     "outDir": "build/ts",
     "rootDir": "src",
     "baseUrl": "src"
-  }
+  },
+  "include": ["./src/**/*.ts"]
 }
