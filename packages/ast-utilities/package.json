@@ -42,8 +42,9 @@
     "@types/unist": "^2.0.3"
   },
   "files": [
-    "build/*",
+    "build/",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
     "index.js",
     "index.mjs",
     "index.esnext",

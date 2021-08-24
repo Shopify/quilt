@@ -28,8 +28,9 @@
     "graphql-config": "^3.2.0"
   },
   "files": [
-    "build/*",
+    "build/",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
     "index.js",
     "index.mjs",
     "index.esnext"

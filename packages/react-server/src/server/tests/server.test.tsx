@@ -4,7 +4,7 @@ import {useTitle} from '@shopify/react-html';
 import {useCookie, CookieUniversalProvider} from '@shopify/react-cookie';
 import {saddle, unsaddle} from 'saddle-up';
 
-import {mockMiddleware} from '../../test/utilities';
+import {mockMiddleware} from '../../tests/utilities';
 import {createServer} from '../server';
 
 jest.mock('@shopify/sewing-kit-koa', () => ({

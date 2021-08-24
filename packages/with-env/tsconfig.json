@@ -5,6 +5,5 @@
     "rootDir": "src",
     "baseUrl": "src"
   },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["**/*.test.ts"]
+  "include": ["./src/**/*.ts"]
 }

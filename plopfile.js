@@ -62,7 +62,7 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'packages/{{name}}/src/test/{{properCase name}}.test.ts',
+        path: 'packages/{{name}}/src/tests/{{properCase name}}.test.ts',
         templateFile: 'templates/test.hbs.ts',
       },
       {

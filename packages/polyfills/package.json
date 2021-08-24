@@ -103,8 +103,9 @@
     "@types/caniuse-api": "^3.0.0"
   },
   "files": [
-    "build/*",
+    "build/",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
     "index.js",
     "index.mjs",
     "index.esnext",

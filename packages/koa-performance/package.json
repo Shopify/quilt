@@ -40,8 +40,9 @@
     "@shopify/with-env": "^2.0.2"
   },
   "files": [
-    "build/*",
+    "build/",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
     "index.js",
     "index.mjs",
     "index.esnext"

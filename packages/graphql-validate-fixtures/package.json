@@ -36,8 +36,9 @@
   },
   "files": [
     "bin/*",
-    "build/*",
+    "build/",
     "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
     "index.js",
     "index.mjs",
     "index.esnext"
