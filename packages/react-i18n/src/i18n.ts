@@ -431,7 +431,7 @@ export class I18n {
       : `${formattedAmount}${shortSymbol.symbol}`;
 
     return amount < 0
-      ? `-${formattedWithSymbol.replace('-', '')}`
+      ? `-${formattedWithSymbol.replace(/[-−]/, '')}`
       : formattedWithSymbol;
   }
 
