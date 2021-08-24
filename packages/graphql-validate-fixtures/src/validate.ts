@@ -16,7 +16,6 @@ import {
   isScalarType,
 } from 'graphql';
 import {GraphQLProjectConfig} from 'graphql-config';
-import {resolveProjectName} from 'graphql-config-utilities';
 import {AST, Field, Operation} from 'graphql-tool-utilities';
 
 export type KeyPath = string;
@@ -76,7 +75,7 @@ export class AmbiguousOperationNameError extends Error {
         ).join(', ')})`,
         `in projects:`,
         `${foundOperations
-          .map(({projectAST: {config}}) => resolveProjectName(config))
+          .map(({projectAST: {config}}) => config.name)
           .join(', ')}.`,
         `Try renaming the operation in one of the projects listed and updating`,
         `the fixture folder name or use an '${OPERATION_MARKER}' key indicating`,
