@@ -48,6 +48,7 @@ packages/*/bin
 packages/*/*.esnext
 packages/*/*.mjs
 packages/*/*.js
+packages/*/*.d.ts
 !packages/*/.eslintrc.js
 
 .package-build-cache
