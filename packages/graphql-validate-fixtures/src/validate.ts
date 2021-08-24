@@ -480,19 +480,23 @@ function validateValueAgainstType(
   }
 
   if (isEnumType(type)) {
-    return type.parseValue(value) == null
-      ? [
-          error(
-            keyPath,
-            `value does not match enum ${nameForType(
-              type,
-            )} (available values: ${type
-              .getValues()
-              .map((enumValue) => enumValue.value)
-              .join(', ')})`,
-          ),
-        ]
-      : [];
+    try {
+      return type.parseValue(value) == null
+        ? [
+            error(
+              keyPath,
+              `value does not match enum ${nameForType(
+                type,
+              )} (available values: ${type
+                .getValues()
+                .map((enumValue) => enumValue.value)
+                .join(', ')})`,
+            ),
+          ]
+        : [];
+    } catch (err) {
+      return [error(keyPath, err.message)];
+    }
   }
 
   return [];

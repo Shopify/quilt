@@ -138,5 +138,5 @@ exports[`evaluateFixtures() throws an error when the schema is not found 1`] = `
 exports[`evaluateFixtures() throws an error when there are malformed GraphQL documents 1`] = `
 [Error: Error parsing 'packages/graphql-validate-fixtures/tests/fixtures/malformed-query/queries/Another.graphql':
 
-Syntax Error: Expected {, found Name "name"]
+Syntax Error: Expected "{", found Name "name".]
 `;
