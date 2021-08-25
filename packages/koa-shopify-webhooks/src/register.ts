@@ -22,7 +22,7 @@ export interface Options {
   shop: string;
   accessToken: string;
   apiVersion: ApiVersion;
-  deliveryMethod: DeliveryMethod;
+  deliveryMethod?: DeliveryMethod;
 }
 
 export async function registerWebhook({

@@ -342,14 +342,12 @@ function createStyleDownloadEvent(
   };
 }
 
-function createLifecycleEventEvent<T extends LifecycleEvent['type']>(
-  type: T,
-): EventMap[T] {
+function createLifecycleEventEvent<T extends LifecycleEvent['type']>(type: T) {
   return {
     type,
     duration: 0,
     start: 0,
-  } as LifecycleEvent;
+  } as EventMap[T];
 }
 
 function createNavigation(

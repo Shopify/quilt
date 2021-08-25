@@ -22,7 +22,7 @@ describe('formatDate()', () => {
     const date = new Date('2018-01-01T12:34:56-12:00');
     const locale = 'en';
     const timeZone = 'Etc/GMT+12';
-    const options = {
+    const options: Intl.DateTimeFormatOptions = {
       timeZone,
       year: 'numeric',
       month: 'numeric',

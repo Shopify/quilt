@@ -101,7 +101,7 @@ describe('StatsDClient', () => {
         },
       );
 
-      statsDClient.distribution(name, value, tags);
+      statsDClient.distribution(stat, value, tags);
       expect(logSpy).toHaveBeenCalled();
     });
   });
@@ -167,7 +167,7 @@ describe('StatsDClient', () => {
         callback(error);
       });
 
-      statsDClient.timing(name, value, tags);
+      statsDClient.timing(stat, value, tags);
       expect(logSpy).toHaveBeenCalled();
     });
   });
@@ -233,7 +233,7 @@ describe('StatsDClient', () => {
         callback(error);
       });
 
-      statsDClient.gauge(name, value, tags);
+      statsDClient.gauge(stat, value, tags);
       expect(logSpy).toHaveBeenCalled();
     });
   });
@@ -303,7 +303,7 @@ describe('StatsDClient', () => {
         },
       );
 
-      statsDClient.increment(name, tags);
+      statsDClient.increment(stat, tags);
       expect(logSpy).toHaveBeenCalled();
     });
   });
@@ -366,7 +366,7 @@ describe('StatsDClient', () => {
         globalTags: supplementaryTags,
       });
 
-      statsDClient.distribution(name, value);
+      statsDClient.distribution(stat, value);
 
       expect(StatsDMock.mock.instances[0].distribution).not.toHaveBeenCalled();
       expect(StatsDMock.mock.instances[1].distribution).toHaveBeenCalled();

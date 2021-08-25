@@ -30,7 +30,7 @@ export class AppServer {
   }
 
   terminate() {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       this.server.close((error) => {
         if (error) {
           reject(error);
