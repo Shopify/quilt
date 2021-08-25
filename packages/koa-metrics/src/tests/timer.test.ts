@@ -1,7 +1,5 @@
 import {initTimer} from '../timer';
 
-const NODE_VERSION = process.version;
-
 describe('timer', () => {
   it('measures the time between when initTimer and the returned timer objects stop method is called', async () => {
     const timer = initTimer();
