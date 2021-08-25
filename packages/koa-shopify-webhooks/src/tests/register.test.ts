@@ -46,12 +46,12 @@ describe('registerWebhook', () => {
 
     await registerWebhook(webhook);
 
-    const [address, request] = fetchMock.lastCall();
+    const [address, request] = fetchMock.lastCall()!;
     expect(address).toBe(
       `https://${webhook.shop}/admin/api/unstable/graphql.json`,
     );
-    expect(request.body).toBe(webhookQuery);
-    expect(request.headers).toMatchObject({
+    expect(request!.body).toBe(webhookQuery);
+    expect(request!.headers).toMatchObject({
       [WebhookHeader.AccessToken]: webhook.accessToken,
       [Header.ContentType]: 'application/graphql',
     });
@@ -64,6 +64,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
+      apiVersion: 'unstable',
     };
 
     const result = await registerWebhook(webhook);
@@ -77,6 +78,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
+      apiVersion: 'unstable',
     };
 
     const registerResponse = await registerWebhook(webhook);
@@ -90,6 +92,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
+      apiVersion: 'unstable',
     };
 
     const result = await registerWebhook(webhook);
@@ -123,12 +126,12 @@ describe('registerWebhook', () => {
 
     await registerWebhook(webhook);
 
-    const [address, request] = fetchMock.lastCall();
+    const [address, request] = fetchMock.lastCall()!;
     expect(address).toBe(
       `https://${webhook.shop}/admin/api/2020-04/graphql.json`,
     );
-    expect(request.body).toBe(webhookQuery);
-    expect(request.headers).toMatchObject({
+    expect(request!.body).toBe(webhookQuery);
+    expect(request!.headers).toMatchObject({
       [WebhookHeader.AccessToken]: webhook.accessToken,
       [Header.ContentType]: 'application/graphql',
     });
