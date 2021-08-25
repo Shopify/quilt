@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Remove reference to depracated `resolveProjectName` [[#2010](https://github.com/Shopify/quilt/pull/2010)]
+- Remove reference to deprecated `resolveProjectName` [[#2010](https://github.com/Shopify/quilt/pull/2010)]
 
 ## 2.0.6 - 2021-08-24
 
