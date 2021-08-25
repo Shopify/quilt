@@ -28,7 +28,7 @@ describe('getIanaTimeZone()', () => {
 
   it('uses memoizedGetDateTimeFormat to get a memoized formatter', () => {
     const locale = 'en';
-    const options = {
+    const options: Intl.DateTimeFormatOptions = {
       timeZoneName: 'short',
     };
 
