@@ -44,7 +44,7 @@ describe('magic-entries-webpack-plugin', () => {
           await workspace.write('cats.js', CATS_MODULE);
 
           const result = await runBuild(workspace, BASIC_WEBPACK_CONFIG);
-          const main = getModule(result.modules, 'index').source;
+          const main = getModule(result.modules!, 'index').source;
 
           expect(main).toBeDefined();
           expect(main).toMatch(ENTRY_A);
@@ -67,20 +67,20 @@ describe('magic-entries-webpack-plugin', () => {
           await workspace.write('basic-tsx.entry.tsx', ENTRY_B);
           const result = await runBuild(workspace, BASIC_WEBPACK_CONFIG);
 
-          const main = getModule(result.modules, 'index').source;
+          const main = getModule(result.modules!, 'index').source;
           expect(main).toBeDefined();
           expect(main).toMatch(ENTRY_A);
 
-          const js = getModule(result.modules, 'basic-js').source;
+          const js = getModule(result.modules!, 'basic-js').source;
           expect(js).toBeDefined();
           expect(js).toMatch(ENTRY_B);
-          const jsx = getModule(result.modules, 'basic-jsx').source;
+          const jsx = getModule(result.modules!, 'basic-jsx').source;
           expect(jsx).toBeDefined();
           expect(jsx).toMatch(ENTRY_B);
-          const ts = getModule(result.modules, 'basic-ts').source;
+          const ts = getModule(result.modules!, 'basic-ts').source;
           expect(ts).toBeDefined();
           expect(ts).toMatch(ENTRY_B);
-          const tsx = getModule(result.modules, 'basic-tsx').source;
+          const tsx = getModule(result.modules!, 'basic-tsx').source;
           expect(tsx).toBeDefined();
           expect(tsx).toMatch(ENTRY_B);
         });
@@ -101,7 +101,7 @@ describe('magic-entries-webpack-plugin', () => {
             ...BASIC_WEBPACK_CONFIG,
             entry: undefined,
           });
-          const main = getModule(result.modules, 'main').source;
+          const main = getModule(result.modules!, 'main').source;
 
           expect(main).toBeDefined();
           expect(main).toMatch(ENTRY_A);
@@ -131,20 +131,20 @@ describe('magic-entries-webpack-plugin', () => {
           await workspace.write('basic-tsx.entry.client.tsx', ENTRY_B);
           const result = await runBuild(workspace, clientWebpackConfig);
 
-          const main = getModule(result.modules, 'index').source;
+          const main = getModule(result.modules!, 'index').source;
           expect(main).toBeDefined();
           expect(main).toMatch(ENTRY_A);
 
-          const js = getModule(result.modules, 'basic-js').source;
+          const js = getModule(result.modules!, 'basic-js').source;
           expect(js).toBeDefined();
           expect(js).toMatch(ENTRY_B);
-          const jsx = getModule(result.modules, 'basic-jsx').source;
+          const jsx = getModule(result.modules!, 'basic-jsx').source;
           expect(jsx).toBeDefined();
           expect(jsx).toMatch(ENTRY_B);
-          const ts = getModule(result.modules, 'basic-ts').source;
+          const ts = getModule(result.modules!, 'basic-ts').source;
           expect(ts).toBeDefined();
           expect(ts).toMatch(ENTRY_B);
-          const tsx = getModule(result.modules, 'basic-tsx').source;
+          const tsx = getModule(result.modules!, 'basic-tsx').source;
           expect(tsx).toBeDefined();
           expect(tsx).toMatch(ENTRY_B);
         });
@@ -173,20 +173,20 @@ describe('magic-entries-webpack-plugin', () => {
           await workspace.write('basic-tsx.entry.server.tsx', ENTRY_B);
           const result = await runBuild(workspace, serverWebpackConfig);
 
-          const main = getModule(result.modules, 'index').source;
+          const main = getModule(result.modules!, 'index').source;
           expect(main).toBeDefined();
           expect(main).toMatch(ENTRY_A);
 
-          const js = getModule(result.modules, 'basic-js').source;
+          const js = getModule(result.modules!, 'basic-js').source;
           expect(js).toBeDefined();
           expect(js).toMatch(ENTRY_B);
-          const jsx = getModule(result.modules, 'basic-jsx').source;
+          const jsx = getModule(result.modules!, 'basic-jsx').source;
           expect(jsx).toBeDefined();
           expect(jsx).toMatch(ENTRY_B);
-          const ts = getModule(result.modules, 'basic-ts').source;
+          const ts = getModule(result.modules!, 'basic-ts').source;
           expect(ts).toBeDefined();
           expect(ts).toMatch(ENTRY_B);
-          const tsx = getModule(result.modules, 'basic-tsx').source;
+          const tsx = getModule(result.modules!, 'basic-tsx').source;
           expect(tsx).toBeDefined();
           expect(tsx).toMatch(ENTRY_B);
         });
@@ -209,10 +209,10 @@ describe('magic-entries-webpack-plugin', () => {
             plugins: [new MagicEntriesPlugin({pattern: '*.js'})],
           });
 
-          const mainJs = getModule(result.modules, 'main').source;
+          const mainJs = getModule(result.modules!, 'main').source;
           expect(mainJs).toBeDefined();
           expect(mainJs).toMatch(content);
-          const floopJs = getModule(result.modules, 'floop').source;
+          const floopJs = getModule(result.modules!, 'floop').source;
           expect(floopJs).toBeDefined();
           expect(floopJs).toMatch(content);
         });
@@ -233,10 +233,11 @@ describe('magic-entries-webpack-plugin', () => {
             plugins: [new MagicEntriesPlugin({folder: 'entrypoints'})],
           });
 
-          const mainJs = getModule(result.modules, 'entrypoints/main').source;
+          const mainJs = getModule(result.modules!, 'entrypoints/main').source;
           expect(mainJs).toBeDefined();
           expect(mainJs).toMatch(content);
-          const floopJs = getModule(result.modules, 'entrypoints/floop').source;
+          const floopJs = getModule(result.modules!, 'entrypoints/floop')
+            .source;
           expect(floopJs).toBeDefined();
           expect(floopJs).toMatch(content);
         });
@@ -331,16 +332,16 @@ describe('magic-entries-webpack-plugin', () => {
           await workspace.write('cats.js', CATS_MODULE);
           const result = await runBuild(workspace, clientWebpackConfig);
 
-          const js = getModule(result.modules, 'basic-js').source;
+          const js = getModule(result.modules!, 'basic-js').source;
           expect(js).toBeDefined();
           expect(js).toMatch(ENTRY_B);
-          const jsx = getModule(result.modules, 'basic-jsx').source;
+          const jsx = getModule(result.modules!, 'basic-jsx').source;
           expect(jsx).toBeDefined();
           expect(jsx).toMatch(ENTRY_B);
-          const ts = getModule(result.modules, 'basic-ts').source;
+          const ts = getModule(result.modules!, 'basic-ts').source;
           expect(ts).toBeDefined();
           expect(ts).toMatch(ENTRY_B);
-          const tsx = getModule(result.modules, 'basic-tsx').source;
+          const tsx = getModule(result.modules!, 'basic-tsx').source;
           expect(tsx).toBeDefined();
           expect(tsx).toMatch(ENTRY_B);
         });
