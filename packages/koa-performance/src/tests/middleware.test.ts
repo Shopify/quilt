@@ -47,7 +47,7 @@ describe('client metrics middleware', () => {
     });
 
     await withEnv('production', async () => {
-      await clientPerformanceMetrics(config)(context);
+      await clientPerformanceMetrics(config)(context, () => Promise.resolve());
     });
 
     expect(context.status).toBe(StatusCode.Ok);
@@ -60,7 +60,7 @@ describe('client metrics middleware', () => {
     });
 
     await withEnv('production', async () => {
-      await clientPerformanceMetrics(config)(context);
+      await clientPerformanceMetrics(config)(context, () => Promise.resolve());
     });
 
     expect(context.status).toBe(StatusCode.UnprocessableEntity);
@@ -78,7 +78,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       StatsDClient.distributionSpy.mock.calls.forEach(
@@ -99,7 +101,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       StatsDClient.distributionSpy.mock.calls.forEach(
@@ -120,7 +124,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       StatsDClient.distributionSpy.mock.calls.forEach(
@@ -145,7 +151,7 @@ describe('client metrics middleware', () => {
         await clientPerformanceMetrics({
           ...config,
           additionalTags: additionalTagsSpy,
-        })(context);
+        })(context, () => Promise.resolve());
       });
 
       expect(additionalTagsSpy).toHaveBeenCalledWith(
@@ -167,7 +173,7 @@ describe('client metrics middleware', () => {
         await clientPerformanceMetrics({
           ...config,
           additionalTags: () => additionalTags,
-        })(context);
+        })(context, () => Promise.resolve());
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -190,7 +196,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -215,7 +223,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).not.toHaveBeenCalledWith(
@@ -242,7 +252,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -273,7 +285,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -307,7 +321,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -332,7 +348,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).not.toHaveBeenCalledWith(
@@ -372,7 +390,9 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('production', async () => {
-        await clientPerformanceMetrics(config)(context);
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -404,7 +424,7 @@ describe('client metrics middleware', () => {
         await clientPerformanceMetrics({
           ...config,
           additionalNavigationTags: spy,
-        })(context);
+        })(context, () => Promise.resolve());
       });
 
       expect(spy).toHaveBeenCalledWith(expect.any(Navigation));
@@ -431,7 +451,7 @@ describe('client metrics middleware', () => {
         await clientPerformanceMetrics({
           ...config,
           additionalNavigationMetrics: spy,
-        })(context);
+        })(context, () => Promise.resolve());
       });
 
       expect(spy).toHaveBeenCalledWith(expect.any(Navigation));
@@ -461,7 +481,7 @@ describe('client metrics middleware', () => {
         await clientPerformanceMetrics({
           ...config,
           additionalNavigationMetrics: () => [additionalMetric],
-        })(context);
+        })(context, () => Promise.resolve());
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -488,7 +508,7 @@ describe('client metrics middleware', () => {
         await clientPerformanceMetrics({
           ...config,
           anomalousNavigationDurationThreshold,
-        })(context);
+        })(context, () => Promise.resolve());
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -515,7 +535,7 @@ describe('client metrics middleware', () => {
         await clientPerformanceMetrics({
           ...config,
           anomalousNavigationDurationThreshold,
-        })(context);
+        })(context, () => Promise.resolve());
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
@@ -536,7 +556,10 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('development', async () => {
-        await clientPerformanceMetrics({...config, development: true})(context);
+        await clientPerformanceMetrics({...config, development: true})(
+          context,
+          () => Promise.resolve(),
+        );
       });
 
       expect(StatsDClient.distributionSpy).not.toHaveBeenCalled();
@@ -551,7 +574,10 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('development', async () => {
-        await clientPerformanceMetrics({...config, development: true})(context);
+        await clientPerformanceMetrics({...config, development: true})(
+          context,
+          () => Promise.resolve(),
+        );
       });
 
       expect(config.logger.log).toHaveBeenCalled();
