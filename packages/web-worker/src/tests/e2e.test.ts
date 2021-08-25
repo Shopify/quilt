@@ -5,7 +5,7 @@
 import * as path from 'path';
 
 import {DefinePlugin} from 'webpack';
-import {Page, Worker, JSHandle} from 'puppeteer';
+import {Page, WebWorker, JSHandle} from 'puppeteer';
 
 import {WebWorkerPlugin} from '../webpack-parts';
 
@@ -61,7 +61,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -114,7 +114,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -167,7 +167,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -219,7 +219,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -276,7 +276,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -647,7 +647,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -690,7 +690,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -794,7 +794,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
       expect(textContent).toBe(
@@ -946,7 +946,7 @@ describe.skip('web-worker', () => {
 
         const page = await browser.go();
         const workerElement = await page.waitForSelector(`#${testId}`);
-        const textContent = await workerElement.evaluate(
+        const textContent = await workerElement!.evaluate(
           (element) => element.innerHTML,
         );
         expect(textContent).toBe(
@@ -1009,7 +1009,7 @@ describe.skip('web-worker', () => {
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
 
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
       expect(textContent).toBe(`${workerOneMessage} ${workerTwoMessage}`);
@@ -1105,7 +1105,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -1171,7 +1171,7 @@ describe.skip('web-worker', () => {
 
       const page = await browser.go();
       const workerElement = await page.waitForSelector(`#${testId}`);
-      const textContent = await workerElement.evaluate(
+      const textContent = await workerElement!.evaluate(
         (element) => element.innerHTML,
       );
 
@@ -1185,7 +1185,7 @@ describe.skip('web-worker', () => {
 // get the actual source, we’ll go to the blob URL and pull out the imported
 // script.
 async function getWorkerSource(
-  worker: import('puppeteer').Worker,
+  worker: import('puppeteer').WebWorker,
   page: import('puppeteer').Page,
 ) {
   const extraPage = await page.browser().newPage();
@@ -1237,20 +1237,24 @@ function runWebpack(
   });
 }
 
-async function getTestClassInstanceCount(source: Page | Worker) {
+async function getTestClassInstanceCount(source: Page | WebWorker) {
   let prototype: JSHandle | undefined;
   let instances: JSHandle | undefined;
 
-  const context = (source as any).executionContext
-    ? await (source as Worker).executionContext()
-    : (source as Page);
-
   try {
+    if ((source as any).executionContext) {
+      const context = await (source as WebWorker).executionContext();
+      prototype = await context.evaluateHandle(
+        () => (self as any).WorkerTestClass.prototype,
+      );
+      instances = await context.queryObjects(prototype!);
+      return context.evaluate((workers) => workers.length, instances);
+    }
+    const context = source as Page;
     prototype = await context.evaluateHandle(
       () => (self as any).WorkerTestClass.prototype,
     );
-
-    instances = await context.queryObjects(prototype);
+    instances = await context.queryObjects(prototype!);
     return context.evaluate((workers) => workers.length, instances);
   } finally {
     if (prototype) {
