@@ -311,7 +311,7 @@ function createResolvablePromise() {
   let promiseResolve!: () => void;
   let resolved = false;
 
-  const promise = new Promise((resolve) => {
+  const promise = new Promise<void>((resolve) => {
     promiseResolve = resolve;
   });
 
