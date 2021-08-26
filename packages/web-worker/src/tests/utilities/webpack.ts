@@ -63,7 +63,7 @@ export function runWebpack(
       (error, stats) => {
         if (error) {
           reject(error);
-        } else if (stats.hasErrors()) {
+        } else if (stats && stats.hasErrors()) {
           reject(stats.compilation.errors[0]);
         } else {
           resolve(stats);
