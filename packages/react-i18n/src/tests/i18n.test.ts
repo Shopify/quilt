@@ -729,7 +729,7 @@ describe('I18n', () => {
     });
   });
 
-  describe('#formatCurrencyExplicit()', () => {
+  describe('#formatCurrency() form:explicit', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč CZK'}
@@ -761,7 +761,7 @@ describe('I18n', () => {
     );
   });
 
-  describe('#formatCurrencyExplicit() with negative amount', () => {
+  describe('#formatCurrency() form:explicit with negative amount', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56 Kč CZK'}
@@ -793,7 +793,7 @@ describe('I18n', () => {
     );
   });
 
-  describe('#formatCurrencyNone()', () => {
+  describe('#formatCurrency() form:none', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56'}
@@ -825,7 +825,7 @@ describe('I18n', () => {
     );
   });
 
-  describe('#formatCurrencyNone() with negative amount', () => {
+  describe('#formatCurrency() form:none with negative amount', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56'}
@@ -857,7 +857,7 @@ describe('I18n', () => {
     );
   });
 
-  describe('#formatCurrencyShort()', () => {
+  describe('#formatCurrency() form:short', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč'}
@@ -890,7 +890,7 @@ describe('I18n', () => {
     );
   });
 
-  describe('#formatCurrencyShort() with negative amount', () => {
+  describe('#formatCurrency() form:short with negative amount', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56 Kč'}
