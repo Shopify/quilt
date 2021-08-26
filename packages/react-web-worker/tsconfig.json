@@ -6,6 +6,7 @@
     "rootDir": "src",
     "baseUrl": "src"
   },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "references": [
     {"path": "../react-hooks"},
     {"path": "../useful-types"},
