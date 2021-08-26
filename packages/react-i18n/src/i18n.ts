@@ -343,7 +343,11 @@ export class I18n {
     return getCurrencySymbol(locale, {currency});
   }
 
-  formatName(firstName: string, lastName?: string, options?: {full?: boolean}) {
+  formatName(
+    firstName?: string,
+    lastName?: string,
+    options?: {full?: boolean},
+  ) {
     if (!firstName) {
       return lastName || '';
     }

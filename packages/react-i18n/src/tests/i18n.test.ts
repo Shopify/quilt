@@ -754,7 +754,9 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'explicit', currency})).toBe(
+          expected,
+        );
       },
     );
   });
@@ -784,7 +786,9 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'explicit', currency})).toBe(
+          expected,
+        );
       },
     );
   });
@@ -814,7 +818,9 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyNone(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'none', currency})).toBe(
+          expected,
+        );
       },
     );
   });
@@ -844,7 +850,9 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyNone(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'none', currency})).toBe(
+          expected,
+        );
       },
     );
   });
@@ -875,7 +883,9 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'short', currency})).toBe(
+          expected,
+        );
       },
     );
   });
@@ -906,7 +916,9 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'short', currency})).toBe(
+          expected,
+        );
       },
     );
   });
@@ -1886,7 +1898,8 @@ describe('I18n', () => {
         const mockResult = {symbol, prefixed};
         getCurrencySymbol.mockReturnValue(mockResult);
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.getShortCurrencySymbol(currency)).toStrictEqual({
+        // eslint-disable-next-line dot-notation
+        expect(i18n['getShortCurrencySymbol'](currency)).toStrictEqual({
           prefixed,
           symbol: shortSymbol,
         });
