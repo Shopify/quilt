@@ -1922,6 +1922,11 @@ describe('I18n', () => {
   });
 
   describe('#formatName()', () => {
+    it('returns an empty string when nothing is defined', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+      expect(i18n.formatName()).toStrictEqual('');
+    });
+
     it('returns only the firstName when lastName is missing', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
