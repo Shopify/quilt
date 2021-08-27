@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-## Changed
+### Changed
 
 - Enable type checking in tests and fix type errors. [[#2011](https://github.com/Shopify/quilt/pull/2016)]
 
