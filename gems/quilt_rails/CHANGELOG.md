@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Security
+
+- Bumped actionpack from 6.1.3.2 to 6.1.4.1 ([#2015](https://github.com/Shopify/quilt/pull/2015))
+
 ## 3.5.0 - 2021-06-23
 
 ### Changed
