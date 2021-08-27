@@ -729,7 +729,7 @@ describe('I18n', () => {
     });
   });
 
-  describe('#formatCurrencyExplicit()', () => {
+  describe('#formatCurrency() form:explicit', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč CZK'}
@@ -754,12 +754,14 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'explicit', currency})).toBe(
+          expected,
+        );
       },
     );
   });
 
-  describe('#formatCurrencyExplicit() with negative amount', () => {
+  describe('#formatCurrency() form:explicit with negative amount', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56 Kč CZK'}
@@ -784,12 +786,14 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyExplicit(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'explicit', currency})).toBe(
+          expected,
+        );
       },
     );
   });
 
-  describe('#formatCurrencyNone()', () => {
+  describe('#formatCurrency() form:none', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56'}
@@ -814,12 +818,14 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyNone(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'none', currency})).toBe(
+          expected,
+        );
       },
     );
   });
 
-  describe('#formatCurrencyNone() with negative amount', () => {
+  describe('#formatCurrency() form:none with negative amount', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56'}
@@ -844,12 +850,14 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyNone(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'none', currency})).toBe(
+          expected,
+        );
       },
     );
   });
 
-  describe('#formatCurrencyShort()', () => {
+  describe('#formatCurrency() form:short', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'1 234,56 Kč'}
@@ -875,12 +883,14 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'short', currency})).toBe(
+          expected,
+        );
       },
     );
   });
 
-  describe('#formatCurrencyShort() with negative amount', () => {
+  describe('#formatCurrency() form:short with negative amount', () => {
     it.each`
       locale     | currency | symbol    | prefixed | expected
       ${'cs-CZ'} | ${'CZK'} | ${' Kč'}  | ${false} | ${'-1 234,56 Kč'}
@@ -906,7 +916,9 @@ describe('I18n', () => {
         getCurrencySymbol.mockReturnValue(mockSymbolResult);
 
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.formatCurrencyShort(amount, {currency})).toBe(expected);
+        expect(i18n.formatCurrency(amount, {form: 'short', currency})).toBe(
+          expected,
+        );
       },
     );
   });
@@ -1886,7 +1898,8 @@ describe('I18n', () => {
         const mockResult = {symbol, prefixed};
         getCurrencySymbol.mockReturnValue(mockResult);
         const i18n = new I18n(defaultTranslations, {locale});
-        expect(i18n.getShortCurrencySymbol(currency)).toStrictEqual({
+        // eslint-disable-next-line dot-notation
+        expect(i18n['getShortCurrencySymbol'](currency)).toStrictEqual({
           prefixed,
           symbol: shortSymbol,
         });
@@ -1909,6 +1922,11 @@ describe('I18n', () => {
   });
 
   describe('#formatName()', () => {
+    it('returns an empty string when nothing is defined', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+      expect(i18n.formatName()).toStrictEqual('');
+    });
+
     it('returns only the firstName when lastName is missing', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 

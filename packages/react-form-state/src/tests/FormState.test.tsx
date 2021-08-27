@@ -1130,7 +1130,7 @@ describe('<FormState />', () => {
           validateOnSubmit
           initialValues={{
             product: faker.commerce.productName,
-            sku: faker.commerce.sku,
+            sku: faker.random.uuid,
           }}
           validators={{
             product: productValidatorSpy,
@@ -1217,7 +1217,7 @@ describe('<FormState />', () => {
           validateOnSubmit={false}
           initialValues={{
             product: faker.commerce.productName,
-            sku: faker.commerce.sku,
+            sku: faker.random.uuid,
           }}
           validators={{
             product: productValidatorSpy,
@@ -1668,11 +1668,11 @@ describe('<FormState />', () => {
       const skuValidatorSpy = jest.fn();
       const onSubmitSpy = jest.fn();
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{
             product: faker.commerce.productName,
-            sku: faker.commerce.sku,
+            sku: faker.random.uuid,
           }}
           validators={{
             product: productValidatorSpy,
@@ -1699,7 +1699,7 @@ describe('<FormState />', () => {
       const productValidatorSpy = jest.fn(() => error);
       const onSubmitSpy = jest.fn();
 
-      const form = mount(
+      mount(
         <FormState
           initialValues={{
             product: faker.commerce.productName,

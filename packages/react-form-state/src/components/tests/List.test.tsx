@@ -6,11 +6,13 @@ import {mount} from '@shopify/react-testing';
 import {Input} from '../../tests/components';
 import {lastCallArgs} from '../../tests/utilities';
 import FormState, {arrayUtils} from '../..';
-import {FieldDescriptor} from '../../types';
+import {FieldDescriptor, FieldDescriptors} from '../../types';
 
 describe('<FormState.List />', () => {
   it('passes form state into child function for each index of the given array', () => {
-    const renderPropSpy = jest.fn(() => null);
+    const renderPropSpy = jest.fn(
+      (_: FieldDescriptors<{title: string}>) => null,
+    );
 
     const products = [
       {title: faker.commerce.productName()},
@@ -85,7 +87,7 @@ describe('<FormState.List />', () => {
       <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
     );
 
-    const input = form.find(Input);
+    const input = form.find(Input)!;
     input.trigger('onChange', newTitle);
 
     const {fields} = lastCallArgs(renderPropSpy);
@@ -126,7 +128,7 @@ describe('<FormState.List />', () => {
       <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
     );
 
-    const titleInput = form.find(Input);
+    const titleInput = form.find(Input)!;
     titleInput.trigger('onChange', newTitle);
 
     const priceInput = form.findAll(Input)[1];
@@ -165,7 +167,12 @@ describe('<FormState.List />', () => {
   });
 
   it('passes errors down to inner fields', () => {
-    const products = [
+    interface Product {
+      title: string;
+      department: string;
+    }
+
+    const products: Product[] = [
       {
         title: faker.commerce.productName(),
         department: faker.commerce.department(),
@@ -194,7 +201,7 @@ describe('<FormState.List />', () => {
       ],
     };
 
-    const renderSpy = jest.fn(() => null);
+    const renderSpy = jest.fn((_: FieldDescriptors<Product>) => null);
     mount(<FormState.List field={field}>{renderSpy}</FormState.List>);
 
     renderSpy.mock.calls.forEach(([fields], index) => {
@@ -375,7 +382,7 @@ describe('<FormState.List />', () => {
     );
 
     const newProducts = [...products, newProduct()];
-    productsRef.onChange(newProducts);
+    productsRef!.onChange(newProducts);
     const calls = renderSpy.mock.calls;
     const originalRenderCount = 1;
     const rerenderedCount = 2;
@@ -415,12 +422,12 @@ describe('<FormState.List />', () => {
       </FormState>,
     );
 
-    const newVariants = arrayUtils.push(variantsRef.value, {
+    const newVariants = arrayUtils.push(variantsRef!.value, {
       product: {
         title: 'newProduct',
       },
     });
-    variantsRef.onChange(newVariants);
+    variantsRef!.onChange(newVariants);
     const calls = renderSpy.mock.calls;
     const originalRenderCount = variants.length;
     const rerenderedCount = originalRenderCount + 1;
