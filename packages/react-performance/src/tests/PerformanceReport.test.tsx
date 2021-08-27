@@ -35,7 +35,8 @@ describe('<PerformanceReport />', () => {
     const navigation = performance.simulateNavigation();
     timer.runAllTimers();
 
-    const [fetchedUrl, {body, method, headers}] = fetch.lastCall();
+    const [fetchedUrl, request] = fetch.lastCall()!;
+    const {body, method, headers} = request!;
     expect(fetchedUrl).toBe(`${url}/`);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
@@ -62,7 +63,8 @@ describe('<PerformanceReport />', () => {
     const event = performance.simulateLifecycleEvent();
     timer.runAllTimers();
 
-    const [fetchedUrl, {body, method, headers}] = fetch.lastCall();
+    const [fetchedUrl, request] = fetch.lastCall()!;
+    const {body, method, headers} = request!;
     expect(fetchedUrl).toBe(`${url}/`);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
@@ -90,7 +92,8 @@ describe('<PerformanceReport />', () => {
     ];
     timer.runAllTimers();
 
-    const [, {body}] = fetch.lastCall();
+    const [, request] = fetch.lastCall()!;
+    const {body} = request!;
     const parsedBody = JSON.parse(body!.toString());
 
     expect(parsedBody).toMatchObject({
@@ -116,7 +119,8 @@ describe('<PerformanceReport />', () => {
     performance.simulateNavigation();
     timer.runAllTimers();
 
-    const [, {body}] = fetch.lastCall();
+    const [, request] = fetch.lastCall()!;
+    const {body} = request!;
     expect(JSON.parse(body!.toString())).toMatchObject({
       connection: mockConnection,
     });
@@ -136,7 +140,8 @@ describe('<PerformanceReport />', () => {
     performance.simulateNavigation();
     timer.runAllTimers();
 
-    const [, {body}] = fetch.lastCall();
+    const [, request] = fetch.lastCall()!;
+    const {body} = request!;
     expect(JSON.parse(body!.toString())).toMatchObject({
       locale: 'zh-CN',
     });
