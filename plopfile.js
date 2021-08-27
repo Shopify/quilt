@@ -1,10 +1,10 @@
-const {readdirSync, existsSync} = require('fs');
+const {readdirSync, readFileSync, existsSync} = require('fs');
 const path = require('path');
 const glob = require('glob');
 const prettier = require('prettier');
 
-const jsPackages = getPackages('js');
-const gems = getPackages('ruby');
+const jsPackages = getJsPackages();
+const gems = getRubyPackages();
 
 module.exports = function (plop) {
   plop.setGenerator('package', {
@@ -153,10 +153,10 @@ module.exports = function (plop) {
   });
 };
 
-function getPackages(type = 'js') {
+function getJsPackages() {
   const packagesPath = path.join(
     __dirname,
-    type === 'js' ? 'packages' : 'gems',
+    'packages',
   );
 
   return readdirSync(packagesPath).reduce((acc, packageName) => {
@@ -173,6 +173,54 @@ function getPackages(type = 'js') {
         name,
         urlEncodedName: encodeURIComponent(name),
         unscopedName: name.replace('@shopify/', ''),
+        description,
+      });
+    }
+
+    return acc;
+  }, []);
+}
+
+function getRubyPackages() {
+  const packagesPath = path.join(
+    __dirname,
+    'gems',
+  );
+
+  return readdirSync(packagesPath).reduce((acc, packageName) => {
+    const gemSpecPath = path.join(
+      packagesPath,
+      packageName,
+      `${packageName}.gemspec`,
+    );
+
+    if (existsSync(gemSpecPath)) {
+      const specSrc = readFileSync(gemSpecPath, 'utf-8');
+
+      const spec = {};
+      const specRe = /\bspec\.(\w+)\s*=\s*(.+)\n/gm;
+
+      while (true) {
+        const matches = specRe.exec(specSrc);
+
+        if (!matches) {
+          break;
+        }
+
+        const [_, key, value] = matches;
+
+        try {
+          spec[key] = JSON.parse(value);
+        } catch (_) {
+          spec[key] = value;
+        }
+      }
+
+      const {name, description} = spec;
+
+      acc.push({
+        name,
+        urlEncodedName: encodeURIComponent(name),
         description,
       });
     }
