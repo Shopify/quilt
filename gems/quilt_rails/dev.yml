@@ -2,9 +2,6 @@ name: react-server
 up:
   - ruby: 2.6.3
   - bundler
-  - node:
-      version: v12.14.0
-      yarn: v1.22.5
 
 commands:
   test: bundle exec rake test
