@@ -1,8 +1,0 @@
-{
-  "name": "quilt_rails",
-  "private": true,
-  "description": "A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries",
-  "dependencies": {},
-  "devDependencies": {},
-  "comment": "A file that dev up insists on creating so don't delete this"
-}
