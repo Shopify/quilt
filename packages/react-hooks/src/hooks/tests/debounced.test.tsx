@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {mount} from '@shopify/react-testing';
 import {timer} from '@shopify/jest-dom-mocks';
 
