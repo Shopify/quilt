@@ -63,7 +63,7 @@ describe('<GraphQLUniversalProvider />', () => {
   });
 
   it('includes a link if none are given', () => {
-    const graphQL = mount(
+    mount(
       <NetworkContext.Provider value={new NetworkManager()}>
         <GraphQLUniversalProvider createClientOptions={() => ({})} />
       </NetworkContext.Provider>,
@@ -76,7 +76,7 @@ describe('<GraphQLUniversalProvider />', () => {
 
   describe('cache', () => {
     it('includes a InMemoryCache as cache when none is given in clientOptions', () => {
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
         </NetworkContext.Provider>,
@@ -90,7 +90,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('includes the given cache from clientOptions', () => {
       const cache = new InMemoryCache({addTypename: true});
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({cache})} />
         </NetworkContext.Provider>,
@@ -187,7 +187,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('ssrMode is set to true when it is on the server', () => {
       isServer.mockReturnValue(true);
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
         </NetworkContext.Provider>,
@@ -201,7 +201,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('ssrMode is set to false when it is on the client', () => {
       isServer.mockReturnValue(false);
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
         </NetworkContext.Provider>,
@@ -215,7 +215,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('ssrMode is set to the value returend in createClientOptions', () => {
       isServer.mockReturnValue(true);
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider
             createClientOptions={() => ({ssrMode: false})}
@@ -231,7 +231,7 @@ describe('<GraphQLUniversalProvider />', () => {
 
   describe('ssrForceFetchDelay', () => {
     it('ssrForceFetchDelay is set to 100 by default', () => {
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
         </NetworkContext.Provider>,
@@ -244,7 +244,7 @@ describe('<GraphQLUniversalProvider />', () => {
 
     it('ssrForceFetchDelay is set to the value returend in createClientOptions', () => {
       const mockSsrForceFetchDelay = 500;
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider
             createClientOptions={() => ({
@@ -264,7 +264,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('connectToDevTools is set to false when it is on the server', () => {
       isServer.mockReturnValue(true);
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
         </NetworkContext.Provider>,
@@ -278,7 +278,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('connectToDevTools is set to true when it is on the client', () => {
       isServer.mockReturnValue(false);
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
         </NetworkContext.Provider>,
@@ -292,7 +292,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('connectToDevTools is set to the value returend in createClientOptions', () => {
       isServer.mockReturnValue(true);
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider
             createClientOptions={() => ({connectToDevTools: true})}
@@ -310,7 +310,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('calls createRequestIdLink if RequestId header has value', () => {
       const mockRequestId = 'request-id-value';
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider
           value={new NetworkManager({headers: {'X-Request-ID': mockRequestId}})}
         >
@@ -322,7 +322,7 @@ describe('<GraphQLUniversalProvider />', () => {
     });
 
     it('does not call createRequestIdLink if RequestId header has not value', () => {
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider value={new NetworkManager()}>
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
         </NetworkContext.Provider>,
@@ -334,7 +334,7 @@ describe('<GraphQLUniversalProvider />', () => {
     it('does not call createRequestIdLink if addRequestId is false', () => {
       const mockRequestId = 'request-id-value';
 
-      const graphQL = mount(
+      mount(
         <NetworkContext.Provider
           value={new NetworkManager({headers: {'X-Request-ID': mockRequestId}})}
         >
@@ -351,15 +351,13 @@ describe('<GraphQLUniversalProvider />', () => {
 
   describe('createCsrfLink', () => {
     it('calls createCsrfLink if quiltRails is true', () => {
-      const graphQL = mount(
-        <GraphQLUniversalProvider createClientOptions={() => ({})} />,
-      );
+      mount(<GraphQLUniversalProvider createClientOptions={() => ({})} />);
 
       expect(createCsrfLink).toHaveBeenCalledWith();
     });
 
     it('does not call createCsrfLink if quiltRails is false', () => {
-      const graphQL = mount(
+      mount(
         <GraphQLUniversalProvider
           createClientOptions={() => ({})}
           quiltRails={false}
