@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 2.1.1 - 2021-08-30
+
+### Changed
+
+- Update `apollo-codegen-core` to support `graphql`@`15.x`. [[#2019](https://github.com/Shopify/quilt/pull/2019)]
+
 ## 2.1.0 - 2021-08-26
 
 ### Changed

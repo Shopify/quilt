@@ -100,7 +100,7 @@ Each package/gem has its own `README.md` and documentation describing usage.
 
 | Gem | Version | Description |
 | --- | ------- | ----------- |
-| [quilt_rails](gems/quilt_rails) | <a href="https://badge.fury.io/rb/quilt_rails"><img src="https://badge.fury.io/rb/quilt_rails.svg" width="200px" /></a> | A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries |
+| [quilt_rails](gems/quilt_rails) | <a href="https://badge.fury.io/rb/quilt_rails"><img src="https://badge.fury.io/rb/quilt_rails.svg" width="200px" /></a> | A turn-key solution for integrating server-rendered React into your Rails app using Quilt libraries. |
 
 ## Want to contribute?
 
