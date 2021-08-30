@@ -169,8 +169,10 @@ function spyOnDOM() {
     script,
     create: jest
       .spyOn(document, 'createElement')
-      .mockImplementation(() => script),
-    append: jest.spyOn(document.head, 'appendChild').mockImplementation(noop),
+      .mockImplementation(() => (script as unknown) as HTMLElement),
+    append: jest
+      .spyOn(document.head, 'appendChild')
+      .mockImplementation((noop as unknown) as (newChild: Node) => Node),
   };
 }
 
