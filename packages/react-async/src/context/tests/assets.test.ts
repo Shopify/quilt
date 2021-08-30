@@ -119,6 +119,7 @@ describe('AsyncAssetManager', () => {
     asyncAssets.markAsUsed(id);
     asyncAssets.effect.betweenEachPass!({
       finished: false,
+      cancelled: false,
       index: 0,
       renderDuration: 0,
       resolveDuration: 0,
