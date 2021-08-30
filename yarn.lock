@@ -12707,6 +12707,11 @@ ts-invariant@^0.4.0, ts-invariant@^0.4.4:
   dependencies:
     tslib "^1.9.3"
 
+ts-jest-mock@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ts-jest-mock/-/ts-jest-mock-1.0.1.tgz#7222eba77c0b3897924b90a4c776cbc8e5337362"
+  integrity sha512-IutBVIta7qxT6lip8xj098Qg4CrDF2cPvyCd4Xm+mvmxzfECzDXaR14Rtu9I+GZhXmU9OB0NNfX9liS2oTjang==
+
 ts-node@^8, ts-node@^8.0.3:
   version "8.10.2"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.10.2.tgz#eee03764633b1234ddd37f8db9ec10b75ec7fb8d"

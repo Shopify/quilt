@@ -33,7 +33,8 @@
   "dependencies": {
     "@shopify/useful-types": "^3.0.4",
     "jest-matcher-utils": "^26.6.2",
-    "react-reconciler": "^0.26.2"
+    "react-reconciler": "^0.26.2",
+    "ts-jest-mock": "^1.0.1"
   },
   "devDependencies": {
     "faker": "^4.1.0"
