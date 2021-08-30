@@ -21,10 +21,12 @@ describe('createServer()', () => {
   afterAll(unsaddle);
 
   it('configurable as koa proxy', async () => {
-    function MockApp() {}
+    function MockApp() {
+      return null;
+    }
     const app = new Koa();
 
-    const wrapper = await saddle((port, host) =>
+    await saddle((port, host) =>
       createServer({
         app,
         proxy: true,
@@ -142,7 +144,9 @@ describe('createServer()', () => {
       const oldReactServerIP = process.env.REACT_SERVER_IP;
       process.env.REACT_SERVER_IP = mockIP;
 
-      function MockApp() {}
+      function MockApp() {
+        return null;
+      }
       const app = new Koa();
       const spy = jest.spyOn(app, 'listen');
 
@@ -164,11 +168,13 @@ describe('createServer()', () => {
       const oldReactServerIP = process.env.REACT_SERVER_IP;
       process.env.REACT_SERVER_IP = undefined;
 
-      function MockApp() {}
+      function MockApp() {
+        return null;
+      }
       const app = new Koa();
       const spy = jest.spyOn(app, 'listen');
 
-      const wrapper = await saddle((port) =>
+      await saddle((port) =>
         createServer({app, port, render: () => <MockApp />}),
       );
 
@@ -189,7 +195,9 @@ describe('createServer()', () => {
       const oldReactServerPort = process.env.REACT_SERVER_PORT;
       process.env.REACT_SERVER_PORT = mockPort;
 
-      function MockApp() {}
+      function MockApp() {
+        return null;
+      }
       const app = new Koa();
       const spy = jest.spyOn(app, 'listen');
 
@@ -211,11 +219,13 @@ describe('createServer()', () => {
       const oldReactServerPort = process.env.REACT_SERVER_PORT;
       process.env.REACT_SERVER_PORT = undefined;
 
-      function MockApp() {}
+      function MockApp() {
+        return null;
+      }
       const app = new Koa();
       const spy = jest.spyOn(app, 'listen');
 
-      const wrapper = await saddle((_port, host) =>
+      await saddle((_port, host) =>
         createServer({app, ip: host, render: () => <MockApp />}),
       );
 
