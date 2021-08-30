@@ -1,10 +1,6 @@
 {
   "name": "@shopify/react-server",
-<<<<<<< HEAD
-  "version": "1.2.5",
-=======
   "version": "2.0.0-webpack-5-beta.1",
->>>>>>> f46c7ad2 (Publish)
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
   "main": "index.js",

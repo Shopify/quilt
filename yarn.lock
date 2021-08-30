@@ -2596,6 +2596,23 @@
     pkg-dir "^4.2.0"
     pluralize "^8.0.0"
 
+"@shopify/sewing-kit-koa@^7.0.5":
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/@shopify/sewing-kit-koa/-/sewing-kit-koa-7.0.5.tgz#d34f4bae523fa235712eb70111de6c195c863b7e"
+  integrity sha512-22YdXcp7sSHXmJzH6uyRFua4I8q6VA+lceQHDotquc3qFkEbrlfom9QyeVUltVjgC9E7uJ7uU2dbXAdxKfmNzA==
+  dependencies:
+    "@shopify/network" "^2.0.3"
+    "@types/koa-mount" "^4.0.0"
+    "@types/koa-static" "^4.0.0"
+    app-root-path "^2.1.0"
+    browserslist-useragent "^2.0.1"
+    fs-extra "^9.1.0"
+    koa "^2.5.0"
+    koa-compose ">=3.0.0 <4.0.0"
+    koa-mount "^4.0.0"
+    koa-static "^5.0.0"
+    node-gzip "^1.1.2"
+
 "@shopify/typescript-configs@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@shopify/typescript-configs/-/typescript-configs-5.0.0.tgz#4cd1339a6a5ab34e7f7d852d155d2c82b731c152"
