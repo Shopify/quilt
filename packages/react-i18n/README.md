@@ -387,9 +387,13 @@ Additional details on why we built our own package, and on specifics of parts of
 
 ### How do I get this i18n library to work with React Native?
 
-[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version 2.3.0(https://github.com/Shopify/quilt/blob/main/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [`from-dictionary-index`](./babel-plugin.md#from-dictionary-index).
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations.
 
-**Note**: You will need a script to generate `index` files:
+You set the mode for the plugin to `with-explicit-paths` in order to enable asynchronous translation loading for React Native. This will signify to the plugin that explicit imports should be used instead of dynamic imports. You should use this mode if your application has a large amount of translations and locales. To read more about `with-explicit-paths`, go to [`with-explicit-paths`](./babel-plugin.md#with-explicit-paths).
+
+You can also set the mode to `from-dictionary-index` so that imports happen synchronously. You should use this mode if your application has minimal translations in which asynchronously importing them using the `with-explicit-paths` mode can be more costly. To read more about `from-dictionary-index`, go to [`from-dictionary-index`](./babel-plugin.md#from-dictionary-index).
+
+**Note**: For `from-dictionary-index`, you will need a script to generate `index` files:
 
 ```javascript
 const {
