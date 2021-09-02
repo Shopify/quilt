@@ -180,10 +180,10 @@ interface Options {
 }
 ```
 
-An example configuration for a `sewing-kit` app named `cool-app` might look like this:
+An example configuration for a `sewing-kit` app might look like this:
 
 ```tsx
 new ReactServerPlugin({
-  assetPrefix: process.env.CDN_URL || 'https://localhost:8080/webpack/assets/';
+  assetPrefix: process.env.CDN_URL || 'https://localhost:8080/assets/myassets/';
 });
 ```
