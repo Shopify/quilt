@@ -27,6 +27,7 @@ The types of files currently supported are:
   'video/quicktime',
   'model/gltf-binary',
   'application/x-mpegURL',
+  'model/vnd.usdz+zip',
 ```
 
 This helps keeping MIME types and file extensions consistent.

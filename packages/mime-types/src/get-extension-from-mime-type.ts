@@ -28,6 +28,8 @@ export function getExtensionFromMimeType(mimeType: MimeType) {
       return '.png';
     case MimeType.Text:
       return '.txt';
+    case MimeType.Usdz:
+      return '.usdz';
     case MimeType.Zip:
       return '.zip';
   }
