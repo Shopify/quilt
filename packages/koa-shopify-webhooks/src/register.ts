@@ -22,7 +22,7 @@ export interface Options {
   shop: string;
   accessToken: string;
   apiVersion: ApiVersion;
-  fields?: Array<string>;
+  includeFields?: Array<string>;
   deliveryMethod?: DeliveryMethod;
 }
 
@@ -32,14 +32,14 @@ export async function registerWebhook({
   accessToken,
   shop,
   apiVersion,
-  fields = [],
+  includeFields = [],
   deliveryMethod = DeliveryMethod.Http,
 }: Options) {
   const response = await fetch(
     `https://${shop}/admin/api/${apiVersion}/graphql.json`,
     {
       method: Method.Post,
-      body: buildQuery(topic, address, deliveryMethod, fields),
+      body: buildQuery(topic, address, deliveryMethod, includeFields),
       headers: {
         [WebhookHeader.AccessToken]: accessToken,
         [Header.ContentType]: 'application/graphql',
@@ -73,18 +73,18 @@ function buildQuery(
   topic: string,
   address: string,
   deliveryMethod: DeliveryMethod,
-  fields: Array<string>
+  includeFields: Array<string>
 ) {
   let mutationName;
   let webhookSubscriptionArgs;
   switch (deliveryMethod) {
     case DeliveryMethod.Http:
       mutationName = 'webhookSubscriptionCreate';
-      webhookSubscriptionArgs = `{callbackUrl: "${address}" , includeFields: ${JSON.stringify(fields)} }`;
+      webhookSubscriptionArgs = `{callbackUrl: "${address}" , includeFields: ${JSON.stringify(includeFields)}}`;
       break;
     case DeliveryMethod.EventBridge:
       mutationName = 'eventBridgeWebhookSubscriptionCreate';
-      webhookSubscriptionArgs = `{arn: "${address}" , includeFields: ${JSON.stringify(fields)} }`;
+      webhookSubscriptionArgs = `{arn: "${address}" , includeFields: ${JSON.stringify(includeFields)}}`;
       break;
   }
   return `
