@@ -1,6 +1,6 @@
 {
   "name": "@shopify/mime-types",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "MIME type consistency",
   "main": "index.js",
