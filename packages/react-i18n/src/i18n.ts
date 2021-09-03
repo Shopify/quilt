@@ -5,6 +5,7 @@ import {
   isLessThanOneMinuteAgo,
   isLessThanOneWeekAgo,
   isLessThanOneYearAgo,
+  isOneMinuteAgo,
   isToday,
   isTomorrow,
   isYesterday,
@@ -175,7 +176,7 @@ export class I18n {
     try {
       return translate(id, normalizedOptions, this.translations, this.locale);
     } catch (error) {
-      this.onError(error);
+      this.onError(error as I18nError);
       return '';
     }
   }
@@ -197,7 +198,7 @@ export class I18n {
         replacements,
       );
     } catch (error) {
-      this.onError(error);
+      this.onError(error as I18nError);
       return '';
     }
   }
@@ -488,6 +489,10 @@ export class I18n {
   private humanizePastDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     if (isLessThanOneMinuteAgo(date)) {
       return this.translate('date.humanize.lessThanOneMinuteAgo');
+    }
+
+    if (isOneMinuteAgo(date)) {
+      return this.translate('date.humanize.aMinuteAgo');
     }
 
     if (isLessThanOneHourAgo(date)) {

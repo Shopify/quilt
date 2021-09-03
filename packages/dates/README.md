@@ -138,6 +138,20 @@ isLessThanOneMinuteAgo(moreThanOneMinuteAgo); // false
 isLessThanOneMinuteAgo(lessThanOneMinuteAgo); // true
 ```
 
+### `isOneMinuteAgo`
+
+Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is more than one minute before the "now" date but less than two minutes from that date. Handles the singular case of "a minute ago".
+
+```ts
+import {isOneMinuteAgo} from '@shopify/dates';
+
+const moreThanTwoMinutesAgo = new Date('2018-01-01Z00:00');
+const moreThanOneMinuteAgoButLessThanTwo = new Date(Date.now() - 61 * TimeUnit.Second);
+
+isOneMinuteAgo(moreThanTwoMinutesAgo); // false
+isOneMinuteAgo(moreThanOneMinuteAgoButLessThanTwo); // true
+```
+
 ### `isLessThanOneWeekAgo`
 
 Takes in a date object and an optional "now" date object (that defaults to `new Date()`). Returns a boolean indicating whether or not the date is less than one week before the "now" date.

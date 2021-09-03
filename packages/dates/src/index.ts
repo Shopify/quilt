@@ -6,6 +6,7 @@ export * from './is-future-date';
 export * from './is-less-than-one-day-ago';
 export * from './is-less-than-one-hour-ago';
 export * from './is-less-than-one-minute-ago';
+export * from './is-one-minute-ago';
 export * from './is-less-than-one-week-ago';
 export * from './is-less-than-one-week-away';
 export * from './is-less-than-one-year-ago';

@@ -1,0 +1,1 @@
+export * from "./build/ts/intersection-observer.browser";
