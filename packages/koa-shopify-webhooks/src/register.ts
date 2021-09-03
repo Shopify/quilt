@@ -81,13 +81,13 @@ function buildQuery(
     case DeliveryMethod.Http:
       mutationName = 'webhookSubscriptionCreate';
       webhookSubscriptionArgs = `{callbackUrl: "${address}" , includeFields: ${JSON.stringify(
-          includeFields,
+        includeFields,
       )}}`;
       break;
     case DeliveryMethod.EventBridge:
       mutationName = 'eventBridgeWebhookSubscriptionCreate';
       webhookSubscriptionArgs = `{arn: "${address}" , includeFields: ${JSON.stringify(
-          includeFields,
+        includeFields,
       )}}`;
       break;
   }
