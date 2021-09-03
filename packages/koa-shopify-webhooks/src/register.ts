@@ -22,7 +22,7 @@ export interface Options {
   shop: string;
   accessToken: string;
   apiVersion: ApiVersion;
-  includeFields?: Array<string>;
+  includeFields?: string[];
   deliveryMethod?: DeliveryMethod;
 }
 
@@ -73,7 +73,7 @@ function buildQuery(
   topic: string,
   address: string,
   deliveryMethod: DeliveryMethod,
-  includeFields: Array<string>
+  includeFields: string[],
 ) {
   let mutationName;
   let webhookSubscriptionArgs;
