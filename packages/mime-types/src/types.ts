@@ -12,5 +12,6 @@ export enum MimeType {
   Pdf = 'application/pdf',
   Png = 'image/png',
   Text = 'text/plain',
+  Usdz = 'model/vnd.usdz+zip',
   Zip = 'application/zip',
 }

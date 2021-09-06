@@ -22,7 +22,7 @@ export interface Options {
   shop: string;
   accessToken: string;
   apiVersion: ApiVersion;
-  includeFields?: Array<string>;
+  includeFields?: string[];
   deliveryMethod?: DeliveryMethod;
 }
 
@@ -73,18 +73,22 @@ function buildQuery(
   topic: string,
   address: string,
   deliveryMethod: DeliveryMethod,
-  includeFields: Array<string>
+  includeFields: string[],
 ) {
   let mutationName;
   let webhookSubscriptionArgs;
   switch (deliveryMethod) {
     case DeliveryMethod.Http:
       mutationName = 'webhookSubscriptionCreate';
-      webhookSubscriptionArgs = `{callbackUrl: "${address}" , includeFields: ${JSON.stringify(includeFields)}}`;
+      webhookSubscriptionArgs = `{callbackUrl: "${address}" , includeFields: ${JSON.stringify(
+        includeFields,
+      )}}`;
       break;
     case DeliveryMethod.EventBridge:
       mutationName = 'eventBridgeWebhookSubscriptionCreate';
-      webhookSubscriptionArgs = `{arn: "${address}" , includeFields: ${JSON.stringify(includeFields)}}`;
+      webhookSubscriptionArgs = `{arn: "${address}" , includeFields: ${JSON.stringify(
+        includeFields,
+      )}}`;
       break;
   }
   return `

@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 1.1.2 - 2021-09-03
+
+### Changed
+
+- Update `graphql-typed` range. [[#2027](https://github.com/Shopify/quilt/pull/2027)]
+
 ## 1.1.1 - 2021-08-30
 
 - No updates. Transitive dependency bump.
