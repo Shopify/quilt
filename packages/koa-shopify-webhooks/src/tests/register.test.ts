@@ -32,7 +32,7 @@ describe('registerWebhook', () => {
 
     const webhookQuery = `
     mutation webhookSubscriptionCreate {
-      webhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {callbackUrl: "${webhook.address}"}) {
+      webhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {callbackUrl: "${webhook.address}" , includeFields: []}) {
         userErrors {
           field
           message
@@ -112,7 +112,7 @@ describe('registerWebhook', () => {
 
     const webhookQuery = `
     mutation webhookSubscriptionCreate {
-      eventBridgeWebhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {arn: "${webhook.address}"}) {
+      eventBridgeWebhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {arn: "${webhook.address}" , includeFields: []}) {
         userErrors {
           field
           message
