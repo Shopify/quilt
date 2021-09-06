@@ -1,13 +1,15 @@
 import {set} from './utilities';
 
+interface BrowserConnection extends NetworkInformation {
+  downlink: number;
+  effectiveType: string;
+  onchange: null | Function;
+  rtt: number;
+  saveData: boolean;
+}
+
 export interface NavigatorWithConnection extends Navigator {
-  connection: {
-    downlink: number;
-    effectiveType: string;
-    onchange: null | Function;
-    rtt: number;
-    saveData: boolean;
-  };
+    connection: BrowserConnection;
 }
 
 export class Connection {

@@ -10,5 +10,6 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "references": [{"path": "../async"}]
+  "references": [{"path": "../async"}],
+  "lib": ["dom"],
 }
