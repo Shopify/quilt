@@ -32,7 +32,7 @@ export async function registerWebhook({
   accessToken,
   shop,
   apiVersion,
-  includeFields = [],
+  includeFields,
   deliveryMethod = DeliveryMethod.Http,
 }: Options) {
   const response = await fetch(
@@ -69,26 +69,37 @@ function isSuccess(result, deliveryMethod: DeliveryMethod): boolean {
   }
 }
 
+function buildArgs(args: {[key: string]: string | string[] | undefined}) {
+  const formattedArgs = Object.entries(args)
+    .filter(([_key, value]) => typeof value !== 'undefined')
+    .map(([key, value]) => {
+      return `${key}: ${JSON.stringify(value)}`;
+    });
+  return `{${formattedArgs.join(', ')}}`;
+}
+
 function buildQuery(
   topic: string,
   address: string,
   deliveryMethod: DeliveryMethod,
-  includeFields: string[],
+  includeFields?: string[],
 ) {
   let mutationName;
   let webhookSubscriptionArgs;
   switch (deliveryMethod) {
     case DeliveryMethod.Http:
       mutationName = 'webhookSubscriptionCreate';
-      webhookSubscriptionArgs = `{callbackUrl: "${address}" , includeFields: ${JSON.stringify(
+      webhookSubscriptionArgs = buildArgs({
+        callbackUrl: address,
         includeFields,
-      )}}`;
+      });
       break;
     case DeliveryMethod.EventBridge:
       mutationName = 'eventBridgeWebhookSubscriptionCreate';
-      webhookSubscriptionArgs = `{arn: "${address}" , includeFields: ${JSON.stringify(
+      webhookSubscriptionArgs = buildArgs({
+        arn: address,
         includeFields,
-      )}}`;
+      });
       break;
   }
   return `
