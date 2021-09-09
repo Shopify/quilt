@@ -32,7 +32,45 @@ describe('registerWebhook', () => {
 
     const webhookQuery = `
     mutation webhookSubscriptionCreate {
-      webhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {callbackUrl: "${webhook.address}" , includeFields: []}) {
+      webhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {callbackUrl: "${webhook.address}"}) {
+        userErrors {
+          field
+          message
+        }
+        webhookSubscription {
+          id
+        }
+      }
+    }
+  `;
+
+    await registerWebhook(webhook);
+
+    const [address, request] = fetchMock.lastCall()!;
+    expect(address).toBe(
+      `https://${webhook.shop}/admin/api/unstable/graphql.json`,
+    );
+    expect(request!.body).toBe(webhookQuery);
+    expect(request!.headers).toMatchObject({
+      [WebhookHeader.AccessToken]: webhook.accessToken,
+      [Header.ContentType]: 'application/graphql',
+    });
+  });
+
+  it('the post request includes the optional includeFields fields', async () => {
+    fetchMock.mock('*', successResponse);
+    const webhook: Options = {
+      address: 'myapp.com/webhooks',
+      topic: 'PRODUCTS_CREATE',
+      accessToken: 'some token',
+      shop: 'shop1.myshopify.io',
+      apiVersion: 'unstable',
+      includeFields: ['id', 'title'],
+    };
+
+    const webhookQuery = `
+    mutation webhookSubscriptionCreate {
+      webhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {callbackUrl: "${webhook.address}", includeFields: ["id","title"]}) {
         userErrors {
           field
           message
@@ -112,7 +150,46 @@ describe('registerWebhook', () => {
 
     const webhookQuery = `
     mutation webhookSubscriptionCreate {
-      eventBridgeWebhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {arn: "${webhook.address}" , includeFields: []}) {
+      eventBridgeWebhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {arn: "${webhook.address}"}) {
+        userErrors {
+          field
+          message
+        }
+        webhookSubscription {
+          id
+        }
+      }
+    }
+  `;
+
+    await registerWebhook(webhook);
+
+    const [address, request] = fetchMock.lastCall()!;
+    expect(address).toBe(
+      `https://${webhook.shop}/admin/api/2020-04/graphql.json`,
+    );
+    expect(request!.body).toBe(webhookQuery);
+    expect(request!.headers).toMatchObject({
+      [WebhookHeader.AccessToken]: webhook.accessToken,
+      [Header.ContentType]: 'application/graphql',
+    });
+  });
+
+  it('the eventbridge registration includes the optional includeFields fields', async () => {
+    fetchMock.mock('*', successResponse);
+    const webhook: Options = {
+      address: 'myapp.com/webhooks',
+      topic: 'PRODUCTS_CREATE',
+      accessToken: 'some token',
+      shop: 'shop1.myshopify.io',
+      apiVersion: '2020-04',
+      deliveryMethod: DeliveryMethod.EventBridge,
+      includeFields: ['id', 'title'],
+    };
+
+    const webhookQuery = `
+    mutation webhookSubscriptionCreate {
+      eventBridgeWebhookSubscriptionCreate(topic: ${webhook.topic}, webhookSubscription: {arn: "${webhook.address}", includeFields: ["id","title"]}) {
         userErrors {
           field
           message

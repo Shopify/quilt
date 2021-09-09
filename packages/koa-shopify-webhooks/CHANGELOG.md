@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Omit `includeFields` arg from webhook registration mutation when it's null [[#2033](https://github.com/Shopify/quilt/pull/2033)]
+- Add support for the `includeFields` argument for webhook registrations [[#2024](https://github.com/Shopify/quilt/pull/2024)]
 
 ## 4.0.2 - 2021-08-26
 
