@@ -100,7 +100,10 @@ This is a concise summary of changes and recommendations around updating `@shopi
    {
      "humanize": {
        "date": "{date} at {time}",
-       "minutes": "{count} minutes ago",
+       "minutes": {
+         "one": "{count} minute ago",
+         "other": "{count} minutes ago"
+       },
        "now": "Just now",
        "weekday": "{day} at {time}",
        "yesterday": "Yesterday at {time}"
@@ -114,7 +117,10 @@ This is a concise summary of changes and recommendations around updating `@shopi
    "date": {
      "humanize": {
        "lessThanOneMinuteAgo": "Just now",
-       "lessThanOneHourAgo": "{count} minutes ago",
+       "lessThanOneHourAgo": {
+         "one": "{count} minute ago",
+         "other": "{count} minutes ago",
+       },
        "yesterday": "Yesterday at {time}",
        "lessThanOneWeekAgo": "{weekday} at {time}",
        "lessThanOneYearAgo": "{date} at {time}"
