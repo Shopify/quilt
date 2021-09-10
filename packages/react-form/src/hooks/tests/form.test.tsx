@@ -296,7 +296,6 @@ describe('useForm', () => {
   describe('makeClean', () => {
     it(`cleans the form's dirty state`, () => {
       const wrapper = mount(<ProductForm data={fakeProduct()} />);
-      const newProduct = 'Submarine full of gnomes';
 
       changeTitle(wrapper, 'tortoritos, the chip for turtles!');
 

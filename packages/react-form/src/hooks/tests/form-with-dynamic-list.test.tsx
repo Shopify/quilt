@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount, Root} from '@shopify/react-testing';
+import {mount} from '@shopify/react-testing';
 
 import {submitSuccess, submitFail} from '..';
 
@@ -30,7 +30,7 @@ describe('useForm with dynamic list', () => {
         <FormWithDynamicVariantList data={fakeProduct()} />,
       );
 
-      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Add item'})!.trigger('onClick');
 
       expect(isDirty(wrapper)).toBe(true);
     });
@@ -40,7 +40,7 @@ describe('useForm with dynamic list', () => {
         <FormWithDynamicVariantList data={fakeProduct()} />,
       );
 
-      wrapper.find('button', {children: 'Remove item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Remove item'})!.trigger('onClick');
 
       expect(isDirty(wrapper)).toBe(true);
     });
@@ -51,7 +51,7 @@ describe('useForm with dynamic list', () => {
       );
 
       wrapper
-        .find(TextField, {label: 'price'})
+        .find(TextField, {label: 'price'})!
         .trigger('onChange', 'next price');
 
       expect(isDirty(wrapper)).toBe(true);
@@ -111,7 +111,7 @@ describe('useForm with dynamic list', () => {
         <FormWithDynamicVariantList data={fakeProduct()} />,
       );
 
-      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Add item'})!.trigger('onClick');
 
       expect(wrapper).toContainReactComponentTimes(TextField, 3, {
         label: 'option',
@@ -130,7 +130,7 @@ describe('useForm with dynamic list', () => {
         <FormWithDynamicVariantList data={fakeProduct()} />,
       );
 
-      wrapper.find('button', {children: 'Remove item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Remove item'})!.trigger('onClick');
 
       expect(wrapper).toContainReactComponentTimes(TextField, 1, {
         label: 'option',
@@ -147,7 +147,8 @@ describe('useForm with dynamic list', () => {
 
   describe('makeCleanAfterSubmit', () => {
     it('sets dirty to false after successful submit if makeCleanAfterSubmit is true', async () => {
-      const promise = Promise.resolve(submitSuccess());
+      // eslint-disable-next-line promise/catch-or-return
+      Promise.resolve(submitSuccess());
       const wrapper = mount(
         <FormWithDynamicVariantList
           data={fakeProduct()}
@@ -155,7 +156,7 @@ describe('useForm with dynamic list', () => {
         />,
       );
 
-      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Add item'})!.trigger('onClick');
       fillRequiredFields(wrapper);
 
       expect(isDirty(wrapper)).toBe(true);
@@ -175,7 +176,7 @@ describe('useForm with dynamic list', () => {
         />,
       );
 
-      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Add item'})!.trigger('onClick');
       fillRequiredFields(wrapper);
 
       expect(isDirty(wrapper)).toBe(true);
@@ -194,7 +195,7 @@ describe('useForm with dynamic list', () => {
         />,
       );
 
-      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Add item'})!.trigger('onClick');
       fillRequiredFields(wrapper);
 
       expect(isDirty(wrapper)).toBe(true);
@@ -211,7 +212,7 @@ describe('useForm with dynamic list', () => {
         <FormWithDynamicVariantList data={fakeProduct()} />,
       );
 
-      wrapper.find('button', {children: 'Add item'}).trigger('onClick');
+      wrapper.find('button', {children: 'Add item'})!.trigger('onClick');
       fillRequiredFields(wrapper);
 
       expect(isDirty(wrapper)).toBe(true);

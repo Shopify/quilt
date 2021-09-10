@@ -9,7 +9,7 @@ import {
 } from '../utilities';
 import {Field} from '../types';
 
-function mockField<T>(params: Partial<Field<T>> | T): Field<T> {
+function mockField<T>(params: Partial<Field<T>> | T): Field<T | undefined> {
   const value = typeof params === 'string' ? params : undefined;
   const fieldProps = typeof params === 'string' ? {} : params;
 
@@ -151,7 +151,7 @@ describe('reduceFields()', () => {
       emails: [{work}],
     };
 
-    const fieldsArray = reduceFields(
+    const fieldsArray = reduceFields<Field<any>[]>(
       fieldBag,
       (list, field) => list.concat(field),
       [],
