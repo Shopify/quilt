@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Root} from '../root';
 import {Element} from '../element';
-import {Tag, ReactInstance} from '../types';
+import {Tag} from '../types';
 import {destroyAll} from '../destroy';
 
 describe('Root', () => {

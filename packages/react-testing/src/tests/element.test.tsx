@@ -198,7 +198,6 @@ describe('Element', () => {
     it('concatenates the text contents of all child elements and child text', () => {
       const childTextOne = 'foo ';
       const childTextTwo = 'bar';
-      const descendantText = ' baz?';
 
       const elementChild = new Element(defaultTree, [], defaultRoot);
       jest.spyOn(elementChild, 'text').mockImplementation(() => childTextOne);
@@ -458,9 +457,10 @@ describe('Element', () => {
   describe('#findAllWhere()', () => {
     it('finds all matching nodes', () => {
       const element = new Element(defaultTree, [divOne], defaultRoot);
-
       expect(
-        element.findAllWhere((element) => element === componentTwo),
+        element.findAllWhere(
+          (element) => ((element as unknown) as Element<{}>) === componentTwo,
+        ),
       ).toHaveLength(0);
 
       expect(
