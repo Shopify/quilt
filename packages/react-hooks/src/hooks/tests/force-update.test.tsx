@@ -9,11 +9,11 @@ describe('useForceUpdate', () => {
 
     expect(callback).toHaveBeenCalledTimes(1);
 
-    wrapper.find('button').trigger('onClick');
+    wrapper.find('button')!.trigger('onClick');
     expect(callback).toHaveBeenCalledTimes(2);
-    wrapper.find('button').trigger('onClick');
+    wrapper.find('button')!.trigger('onClick');
     expect(callback).toHaveBeenCalledTimes(3);
-    wrapper.find('button').trigger('onClick');
+    wrapper.find('button')!.trigger('onClick');
     expect(callback).toHaveBeenCalledTimes(4);
   });
 });
