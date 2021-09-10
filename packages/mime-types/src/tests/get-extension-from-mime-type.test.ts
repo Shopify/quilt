@@ -15,6 +15,7 @@ describe('getExtensionFromMimeType', () => {
   assertExtensionForMimeType('.pdf', MimeType.Pdf);
   assertExtensionForMimeType('.png', MimeType.Png);
   assertExtensionForMimeType('.txt', MimeType.Text);
+  assertExtensionForMimeType('.usdz', MimeType.Usdz);
   assertExtensionForMimeType('.zip', MimeType.Zip);
 });
 

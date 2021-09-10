@@ -19,7 +19,11 @@ import {TRANSLATION_DIRECTORY_NAME, DEFAULT_FALLBACK_LOCALE} from './shared';
 export const I18N_CALL_NAMES = ['useI18n', 'withI18n'];
 
 export interface Options {
-  mode?: 'from-generated-index' | 'from-dictionary-index';
+  mode?:
+    | 'with-dynamic-paths'
+    | 'with-explicit-paths'
+    | 'from-generated-index'
+    | 'from-dictionary-index';
   defaultLocale?: string;
 }
 
@@ -107,7 +111,7 @@ export default function injectWithI18nArguments({
             return;
           }
 
-          const {mode, defaultLocale} = state.opts;
+          const {mode = 'with-dynamic-paths', defaultLocale} = state.opts;
           const fallbackLocale = defaultLocale
             ? defaultLocale
             : DEFAULT_FALLBACK_LOCALE;
@@ -186,6 +190,7 @@ export default function injectWithI18nArguments({
                   bindingName,
                   translationFilePaths,
                   fallbackLocale,
+                  withExplicitPaths: mode === 'with-explicit-paths',
                 }),
               );
             },

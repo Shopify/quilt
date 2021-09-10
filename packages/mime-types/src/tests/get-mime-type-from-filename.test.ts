@@ -17,6 +17,7 @@ describe('getMimeTypeFromFilename', () => {
     [MimeType.Pdf, 'document.pdf'],
     [MimeType.Png, 'image.png'],
     [MimeType.Text, 'text.txt'],
+    [MimeType.Usdz, 'model.usdz'],
     [MimeType.Zip, 'files.zip'],
   ])('returns %s for %s', (mimeType, filename) => {
     const actualMimeType = getMimeTypeFromFilename(filename);

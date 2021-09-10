@@ -11,6 +11,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Enable type checking in tests and fix type errors. [[#2011](https://github.com/Shopify/quilt/pull/2016)]
 
+## 2.1.10 - 2021-09-03
+
+- No updates. Transitive dependency bump.
+
 ## 2.1.9 - 2021-08-30
 
 - No updates. Transitive dependency bump.

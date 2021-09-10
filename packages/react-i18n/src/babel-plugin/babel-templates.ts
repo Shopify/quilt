@@ -37,29 +37,27 @@ export function i18nCallExpression(
     bindingName,
     translationFilePaths,
     fallbackLocale,
+    withExplicitPaths,
   },
 ) {
-  const translationArrayString = translationArrayID
-    ? translationArrayID
-    : toArrayString(
-        getLocaleIds({
-          translationFilePaths,
-          fallbackLocale,
-        }),
-      );
+  const localeIds = getLocaleIds({
+    translationFilePaths,
+    fallbackLocale,
+  });
+
+  const dictionaryRetriever = withExplicitPaths
+    ? buildExplicitImports(id, localeIds)
+    : `${generateLocaleReturnCheck(localeIds, translationArrayID)}
+      return ${generateImportDefinition(id)}${generateThenChain(
+        generateReturnDefaultFunction(),
+      )};`;
 
   return template(
     `${bindingName}({
         id: '${id}',
         fallback: ${fallbackID},
         translations(locale) {
-          if (${translationArrayString}.indexOf(locale) < 0) {
-            return;
-          }
-          return (async () => {
-            const dictionary = await import(/* webpackChunkName: "${id}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/$\{locale}.json\`);
-            return dictionary && dictionary.default;
-          })();
+          ${dictionaryRetriever}
         },
       })`,
     {
@@ -88,4 +86,75 @@ export function i18nGeneratedDictionaryCallExpression(
       preserveComments: true,
     },
   )();
+}
+
+function buildExplicitImports(bindingId: string, localeIds: string[]) {
+  if (localeIds.length === 0) {
+    return `return;`;
+  }
+
+  if (localeIds.length === 1) {
+    const localeId = localeIds[0];
+
+    return `if (locale !== "${localeId}") {
+      return;
+    }
+
+    return ${generateImportDefinition(bindingId, localeId)}${generateThenChain(
+      generateReturnDefaultFunction(),
+    )};`;
+  }
+
+  const returnDefaultVariable = 'returnDefault';
+  const generateReturnStatement = (id: string) => {
+    return `return ${generateImportDefinition(
+      bindingId,
+      id,
+    )}${generateThenChain(returnDefaultVariable)};`;
+  };
+
+  const switchStatementInternals = localeIds.reduce((merged, value) => {
+    return merged.concat(`case "${value}":
+      ${generateReturnStatement(value)}
+    `);
+  }, '');
+
+  const localeSelectionStatement = `switch (locale) {
+    ${switchStatementInternals}
+  }`;
+
+  return `const ${returnDefaultVariable} = ${generateReturnDefaultFunction()};
+  ${localeSelectionStatement}`;
+}
+
+function generateImportDefinition(
+  bindingId: string,
+  explicitFileName?: string,
+) {
+  if (explicitFileName) {
+    return `import(/* webpackChunkName: "${bindingId}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/${explicitFileName}.json")`;
+  }
+
+  return `import(/* webpackChunkName: "${bindingId}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/\${locale}.json\`)`;
+}
+
+function generateLocaleReturnCheck(
+  localeIds: string[],
+  translationArrayID?: string,
+) {
+  const translationArrayString = translationArrayID
+    ? translationArrayID
+    : toArrayString(localeIds);
+
+  return `if (${translationArrayString}.indexOf(locale) < 0) {
+    return;
+  }`;
+}
+
+function generateReturnDefaultFunction() {
+  return '(dict) => dict && dict.default';
+}
+
+function generateThenChain(thenFunc: string) {
+  return `.then(${thenFunc})`;
 }

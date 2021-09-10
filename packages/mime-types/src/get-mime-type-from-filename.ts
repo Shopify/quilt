@@ -31,6 +31,8 @@ export function getMimeTypeFromFilename(filename: string) {
       return MimeType.Png;
     case 'txt':
       return MimeType.Text;
+    case 'usdz':
+      return MimeType.Usdz;
     case 'zip':
       return MimeType.Zip;
   }

@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 6.2.0 - 2021-09-03
+
+### Added
+
+- Added `with-explicit-paths` option to babel plugin. [#1973](https://github.com/Shopify/quilt/pull/1973)
+
 ## 6.1.9 - 2021-08-30
 
 ### Changed

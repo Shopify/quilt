@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## 3.5.1 - 2021-08-30
+
 ### Security
 
 - Bumped actionpack from 6.1.3.2 to 6.1.4.1 ([#2015](https://github.com/Shopify/quilt/pull/2015))
