@@ -458,9 +458,7 @@ describe('Element', () => {
     it('finds all matching nodes', () => {
       const element = new Element(defaultTree, [divOne], defaultRoot);
       expect(
-        element.findAllWhere(
-          (element) => ((element as unknown) as Element<{}>) === componentTwo,
-        ),
+        element.findAllWhere((element) => element.type === componentTwo.type),
       ).toHaveLength(0);
 
       expect(
