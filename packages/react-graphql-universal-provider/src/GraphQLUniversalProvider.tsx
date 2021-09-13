@@ -34,7 +34,7 @@ export function GraphQLUniversalProvider<
   const [client, ssrLink] = useLazyRef<
     [
       import('apollo-client').ApolloClient<any>,
-      ReturnType<typeof createSsrExtractableLink>,
+      ReturnType<typeof createSsrExtractableLink> | undefined,
     ]
   >(() => {
     const server = isServer();
@@ -46,14 +46,14 @@ export function GraphQLUniversalProvider<
     };
 
     const clientOptions = createClientOptions();
-    const ssrLink = createSsrExtractableLink();
+    const ssrLink = server ? createSsrExtractableLink() : undefined;
     const csrfLink = quiltRails ? createCsrfLink() : undefined;
     const requestIdLink =
       addRequestId && requestID ? createRequestIdLink(requestID) : undefined;
     const finalLink = clientOptions.link || undefined;
 
     const link = ApolloLink.from([
-      ssrLink,
+      ...(ssrLink ? [ssrLink] : []),
       ...(csrfLink ? [csrfLink] : []),
       ...(requestIdLink ? [requestIdLink] : []),
       ...(finalLink ? [finalLink] : []),
@@ -76,7 +76,11 @@ export function GraphQLUniversalProvider<
   return (
     <>
       <ApolloProvider client={client}>{children}</ApolloProvider>
-      <Serialize data={() => ssrLink.resolveAll(() => client.extract())} />
+      <Serialize
+        data={() =>
+          ssrLink ? ssrLink.resolveAll(() => client.extract()) : undefined
+        }
+      />
     </>
   );
 }
