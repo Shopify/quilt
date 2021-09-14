@@ -29,7 +29,7 @@ jobs:
         name: Restore sewing-kit cache
         with:
           path: |
-            .sewing-kit
+            .loom
             packages/*/build/ts
             packages/*/build/*.tsbuildinfo
           key: ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v1-${{ github.sha }}

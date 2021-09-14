@@ -88,7 +88,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/sewing-kit.config.ts', 'config/sewing-kit/index.ts'],
+      files: ['**/loom.config.ts', 'config/loom/index.ts'],
       rules: {
         'babel/no-unused-expressions': 'off',
       },
