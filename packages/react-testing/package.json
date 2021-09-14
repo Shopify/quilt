@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-testing",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "license": "MIT",
   "description": "A library for testing React components according to our conventions",
   "main": "index.js",
