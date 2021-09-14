@@ -46,7 +46,7 @@ export class SsrExtractableLink extends ApolloLink {
           operationDone();
         },
         next: observer.next.bind(observer),
-        error: observer.next.bind(observer),
+        error: observer.error.bind(observer),
       });
     });
   }
