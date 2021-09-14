@@ -31,10 +31,10 @@ describe('useToggle', () => {
     const wrapper = mount(<MockComponent />);
     expect(wrapper).toContainReactText('Value: false');
 
-    wrapper.find('button', {id: 'toggle'}).trigger('onClick');
+    wrapper.find('button', {id: 'toggle'})!.trigger('onClick');
     expect(wrapper).toContainReactText('Value: true');
 
-    wrapper.find('button', {id: 'toggle'}).trigger('onClick');
+    wrapper.find('button', {id: 'toggle'})!.trigger('onClick');
     expect(wrapper).toContainReactText('Value: false');
   });
 
@@ -42,10 +42,10 @@ describe('useToggle', () => {
     const wrapper = mount(<MockComponent />);
     expect(wrapper).toContainReactText('Value: false');
 
-    wrapper.find('button', {id: 'forceTrue'}).trigger('onClick');
+    wrapper.find('button', {id: 'forceTrue'})!.trigger('onClick');
     expect(wrapper).toContainReactText('Value: true');
 
-    wrapper.find('button', {id: 'forceTrue'}).trigger('onClick');
+    wrapper.find('button', {id: 'forceTrue'})!.trigger('onClick');
     expect(wrapper).toContainReactText('Value: true');
   });
 
@@ -53,10 +53,10 @@ describe('useToggle', () => {
     const wrapper = mount(<MockComponent initialValueIsTrue />);
     expect(wrapper).toContainReactText('Value: true');
 
-    wrapper.find('button', {id: 'forceFalse'}).trigger('onClick');
+    wrapper.find('button', {id: 'forceFalse'})!.trigger('onClick');
     expect(wrapper).toContainReactText('Value: false');
 
-    wrapper.find('button', {id: 'forceFalse'}).trigger('onClick');
+    wrapper.find('button', {id: 'forceFalse'})!.trigger('onClick');
     expect(wrapper).toContainReactText('Value: false');
   });
 });

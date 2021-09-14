@@ -351,7 +351,7 @@ function runBuild(configPath: string): Promise<any[]> {
       }
 
       const statsObject = stats.toJson();
-      resolve(statsObject.children);
+      resolve(statsObject.children!);
     });
   });
 }

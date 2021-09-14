@@ -5,9 +5,10 @@ import {createRequestIdLink} from '../request-id-link';
 describe('createRequestIdLink()', () => {
   it('create a link that add request id value to the header', () => {
     const mockRequestId = '06a2f67e-b080-446f-bffa-7851ddad3a45';
-    const requestIdLink = createRequestIdLink(mockRequestId);
+    createRequestIdLink(mockRequestId);
 
-    const mockLink = new ApolloLink((operation) => {
+    // eslint-disable-next-line no-new
+    new ApolloLink((operation) => {
       expect(operation.getContext().header['X-Initiated-By-Request-ID']).toBe(
         mockRequestId,
       );

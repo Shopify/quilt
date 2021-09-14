@@ -20,7 +20,7 @@ function generateTestKey(index) {
   return `key-${index}`;
 }
 
-function TestApp({headers = []}) {
+function TestApp({headers = []}: {headers: string[]}) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const headerValues = headers.map((header) => useRequestHeader(header));
 
@@ -120,8 +120,7 @@ describe('NetworkUniversalProvider', () => {
         'x-some-header-2': 'header-value-2',
       };
       const htmlManager = new HtmlManager();
-
-      await extract(null, {
+      await extract(<div />, {
         decorate: (element: React.ReactNode) => (
           <HtmlContext.Provider value={htmlManager}>
             <NetworkContext.Provider value={new NetworkManager({headers})}>

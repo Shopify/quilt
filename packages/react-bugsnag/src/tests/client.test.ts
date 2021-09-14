@@ -1,5 +1,3 @@
-import ReactPlugin from '@bugsnag/plugin-react';
-
 import {createBugsnagClient} from '../client';
 
 jest.mock('@bugsnag/js', () => ({
