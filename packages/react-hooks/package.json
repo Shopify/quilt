@@ -43,5 +43,8 @@
       "require": "./index.js",
       "esnext": "./index.esnext"
     }
+  },
+  "devDependencies": {
+    "@shopify/react-testing": "^3.2.4"
   }
 }
