@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Enable type checking in tests and fix type errors. [[#2034](https://github.com/Shopify/quilt/pull/2034)]
 - Fixed an issue with the SSR link when an error is thrown. [[#2036](https://github.com/Shopify/quilt/pull/2036)]
 
 ## 7.1.6 - 2021-08-30

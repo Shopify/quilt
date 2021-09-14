@@ -467,7 +467,9 @@ describe('@shopify/react-testing', () => {
         return <div>{message}</div>;
       }
 
-      const wrapperPromise = mountWithContext(<ContextMessage />);
+      const wrapperPromise = mountWithContext(<ContextMessage />, {
+        message: 'an unused message',
+      });
       const wrapper = await wrapperPromise;
       expect(wrapper.context.message).toBe('a different message');
       expect(wrapper.html()).toBe(`<div>${wrapper.context.message}</div>`);

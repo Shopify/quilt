@@ -33,7 +33,9 @@ describe('createRender', () => {
     const renderFunction = createRender(() => <>{myCoolApp}</>);
     await renderFunction(ctx, noop);
 
-    expect(await readStream(ctx.body)).toContain(myCoolApp);
+    expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
+      myCoolApp,
+    );
   });
 
   it.each([
@@ -55,7 +57,7 @@ describe('createRender', () => {
     ],
   ])(
     'response contains data passed in through htmlProps (%s)',
-    async (style, htmlProps) => {
+    async (_style, htmlProps) => {
       const myCoolApp = 'My cool app';
       const ctx = createMockContext();
 
@@ -64,7 +66,7 @@ describe('createRender', () => {
       });
       await renderFunction(ctx, noop);
 
-      const bodyResult = await readStream(ctx.body);
+      const bodyResult = await readStream(ctx.body as NodeJS.ReadableStream);
 
       // Assets from manifest are still present
       expect(bodyResult).toContain(
@@ -99,7 +101,7 @@ describe('createRender', () => {
     const renderFunction = createRender(() => <>{myCoolApp}</>);
     await renderFunction(ctx, noop);
 
-    const response = await readStream(ctx.body);
+    const response = await readStream(ctx.body as NodeJS.ReadableStream);
     expect(response).toContain('quilt-data');
     expect(response).toContain(JSON.stringify(data));
   });
@@ -111,7 +113,9 @@ describe('createRender', () => {
     const renderFunction = createRender((ctx) => <>{ctx.get('some-header')}</>);
     await renderFunction(ctx, noop);
 
-    expect(await readStream(ctx.body)).toContain(headerValue);
+    expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
+      headerValue,
+    );
   });
 
   it('calls the sewing-kit-koa middleware with the passed in assetPrefix', async () => {
@@ -165,8 +169,12 @@ describe('createRender', () => {
         const renderFunction = createRender(() => <BrokenApp />);
         await renderFunction(ctx, noop);
 
-        expect(await readStream(ctx.body)).toContain(error.message);
-        expect(await readStream(ctx.body)).toContain(error.stack);
+        expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
+          error.message,
+        );
+        expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
+          error.stack,
+        );
       });
     });
 

@@ -73,7 +73,7 @@ describe('useDynamicList', () => {
 
       const sort1 = wrapper
         .findAll('li')
-        .map((i) => i.find(TextField).props.value);
+        .map((i) => i.find(TextField)!.props.value);
 
       expect(sort1).toStrictEqual(['A', 'C', 'B']);
     });
@@ -235,7 +235,9 @@ describe('useDynamicList', () => {
       });
 
       it('handles dirty state when adding a field and resetting it', () => {
-        const wrapper = mount(<DynamicListComponent list={randomVariants()} />);
+        const wrapper = mount(
+          <DynamicListComponent list={randomVariants(1)} />,
+        );
 
         expect(wrapper).toContainReactText('Dirty: false');
 
@@ -372,7 +374,7 @@ describe('useDynamicList', () => {
             </>
           ))}
 
-          <button type="button" onClick={onNewDefault}>
+          <button type="button" onClick={onNewDefault as any}>
             Default
           </button>
           <button type="button" onClick={() => addItem()}>
@@ -430,7 +432,7 @@ describe('useDynamicList', () => {
           optionName: newDefaultOption,
           optionValue: newDefaultOptionValue,
         },
-      ]);
+      ] as any);
 
       expect(wrapper).toContainReactText(`Default: ${newDefaultPrice}`);
       expect(wrapper).toContainReactText(`Default: ${newDefaultOption}`);

@@ -248,7 +248,7 @@ describe('createMount()', () => {
       const options = {foo: 'bar'};
 
       const afterMountSpy = jest.fn();
-      const additionalAfterMountSpy = jest.fn(
+      const additionalAfterMountSpy = jest.fn<any, any>(
         () => new Promise((resolve) => setTimeout(resolve, 1)),
       );
 

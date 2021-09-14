@@ -61,6 +61,6 @@ function createAsyncComponentType({
   return AsyncComponent as any;
 }
 
-function noop() {
-  return undefined;
+function noop(_?: {}) {
+  return () => {};
 }

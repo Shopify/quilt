@@ -276,12 +276,12 @@ describe('useField', () => {
         wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
         wrapper.find('input')!.trigger('onBlur', blurEvent());
 
-        const allErrorsFirstValidation = wrapper.find('p').props.children;
+        const allErrorsFirstValidation = wrapper.find('p')!.props.children;
 
         wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
         wrapper.find('input')!.trigger('onBlur', blurEvent());
 
-        const allErrorsSecondValidation = wrapper.find('p').props.children;
+        const allErrorsSecondValidation = wrapper.find('p')!.props.children;
 
         expect(allErrorsFirstValidation).toStrictEqual(
           allErrorsSecondValidation,
@@ -318,17 +318,17 @@ describe('useField', () => {
         const wrapper = mount(<TestField config={fieldConfig} />);
         const newValue = faker.commerce.product();
 
-        expect(wrapper.find('p').props.children).toStrictEqual([]);
+        expect(wrapper.find('p')!.props.children).toStrictEqual([]);
 
         wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
         wrapper.find('input')!.trigger('onBlur', blurEvent());
 
-        const allErrorsFirstValidation = wrapper.find('p').props.children;
+        const allErrorsFirstValidation = wrapper.find('p')!.props.children;
 
         wrapper.find('input')!.trigger('onChange', changeEvent(newValue));
         wrapper.find('input')!.trigger('onBlur', blurEvent());
 
-        const allErrorsSecondValidation = wrapper.find('p').props.children;
+        const allErrorsSecondValidation = wrapper.find('p')!.props.children;
 
         expect(allErrorsFirstValidation).toBe(allErrorsSecondValidation);
       });

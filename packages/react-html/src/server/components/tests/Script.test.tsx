@@ -30,7 +30,7 @@ describe('<Script />', () => {
         type: 'text/javascript',
       });
       expect(script).not.toContainReactComponent('script', {
-        nomodule: expect.anything(),
+        noModule: expect.anything(),
       });
     });
 

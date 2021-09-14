@@ -797,7 +797,7 @@ describe('useBaseList', () => {
             </>
           ))}
 
-          <button type="button" onClick={onNewDefault} />
+          <button type="button" onClick={onNewDefault as any} />
         </>
       );
     }
@@ -847,7 +847,7 @@ describe('useBaseList', () => {
           optionName: newDefaultOption,
           optionValue: newDefaultOptionValue,
         },
-      ]);
+      ] as any);
 
       expect(wrapper).toContainReactText(`Default: ${newDefaultPrice}`);
       expect(wrapper).toContainReactText(`Default: ${newDefaultOption}`);
@@ -881,7 +881,7 @@ describe('useBaseList', () => {
           optionName: newDefaultOption,
           optionValue: newDefaultOptionValue,
         },
-      ]);
+      ] as any);
 
       expect(wrapper).toContainReactText(
         `Default: ${newDefaultPrice}Default: ${newDefaultOption}Default: ${newDefaultOptionValue}`,
