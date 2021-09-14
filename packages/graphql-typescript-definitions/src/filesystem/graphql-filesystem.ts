@@ -62,7 +62,7 @@ export abstract class AbstractGraphQLFilesystem extends EventEmitter {
     config: GraphQLProjectConfig,
   ): boolean;
 
-  emit(event: 'change:schema', path: string): boolean;
+  emit(event: 'change:schema', input: string | string[]): boolean;
   emit(event: string, ...args: any[]): boolean {
     return super.emit(event, ...args);
   }

@@ -5,6 +5,7 @@ import {
   DocumentNode,
   DefinitionNode,
   FragmentDefinitionNode,
+  GraphQLSchema,
   OperationDefinitionNode,
   parse,
   Source,
@@ -92,6 +93,8 @@ export class Builder extends EventEmitter {
   >();
 
   private filesystem: GraphQLFilesystem | undefined;
+  private readonly schemaCache = new Map<string, Promise<GraphQLSchema>>();
+  private activeDocumentTypesJobId = 0;
 
   constructor({cwd, ...options}: BuilderOptions) {
     super();
@@ -220,10 +223,14 @@ export class Builder extends EventEmitter {
     await this.generateDocumentTypes();
   };
 
-  private handleSchemaUpdate = async (schemaPath: string) => {
+  private handleSchemaUpdate = async (input: string | string[]) => {
+    const schemaPaths = typeof input === 'string' ? [input] : input;
+
     try {
       this.emit('start:schema');
-      await this.generateSchemaTypes(schemaPath);
+      await Promise.all(
+        schemaPaths.map((schemaPath) => this.generateSchemaTypes(schemaPath)),
+      );
       this.emit('end:schema');
 
       await this.generateDocumentTypes();
@@ -239,7 +246,7 @@ export class Builder extends EventEmitter {
     );
     const schemaTypesPath = getSchemaTypesPath(projectConfig, this.options);
     const definitions = generateSchemaTypes(
-      await projectConfig.getSchema(),
+      await this.getSchema(projectConfig),
       this.options,
     );
     await mkdirp(schemaTypesPath);
@@ -254,7 +261,33 @@ export class Builder extends EventEmitter {
     });
   }
 
+  private isDocumentTypesJobCancelled(jobId: number) {
+    return this.activeDocumentTypesJobId !== jobId;
+  }
+
   private async generateDocumentTypes() {
+    // Document generation can be called often via:
+    // – Projects with small + large schemas calling `handleSchemaUpdate`
+    //   during schema refreshes
+    // - Projects with many .graphql files triggering multiple
+    //  `handleDocumentUpdate` calls during pulls (or rebases)
+    //
+    // The above scenarios do not provide a predictable debounce window that
+    // would prevent multiple document generation jobs running, so generation
+    // is allowed to immediately proceed, but each "job" checks itself often to
+    // see if it should stop.
+    const jobId = ++this.activeDocumentTypesJobId;
+    return new Promise<void>((resolve, reject) => {
+      this.once('end:docs', () => {
+        resolve();
+      });
+      this.once('error', () => reject());
+
+      this._generateDocumentTypes(jobId).catch((err) => reject(err));
+    });
+  }
+
+  private async _generateDocumentTypes(jobId: number) {
     this.emit('start:docs');
 
     this.checkForDuplicateOperations();
@@ -267,9 +300,12 @@ export class Builder extends EventEmitter {
         this.generateDocumentTypesForProject(
           this.config.getProject(projectName),
           documents,
+          jobId,
         ),
       ),
     );
+
+    if (this.isDocumentTypesJobCancelled(jobId)) return;
 
     this.emit('end:docs');
   }
@@ -313,25 +349,28 @@ export class Builder extends EventEmitter {
   private async generateDocumentTypesForProject(
     projectConfig: GraphQLProjectConfig,
     documents: Map<string, DocumentNode>,
+    jobId: number,
   ) {
     let ast: AST;
+    if (this.isDocumentTypesJobCancelled(jobId)) return;
 
     try {
       ast = compile(
-        await projectConfig.getSchema(),
+        await this.getSchema(projectConfig),
         concatAST(Array.from(documents.values())),
       );
     } catch (error) {
       this.emit('error', error);
       return;
     }
+    if (this.isDocumentTypesJobCancelled(jobId)) return;
 
     try {
-      await Promise.all(
-        Array.from(
-          groupOperationsAndFragmentsByFile(ast).values(),
-        ).map((file) => this.writeDocumentFile(file, ast, projectConfig)),
-      );
+      for (const file of groupOperationsAndFragmentsByFile(ast).values()) {
+        if (this.isDocumentTypesJobCancelled(jobId)) return;
+
+        await this.writeDocumentFile(file, ast, projectConfig);
+      }
     } catch (error) {
       // intentional noop
     }
@@ -422,6 +461,16 @@ export class Builder extends EventEmitter {
     documents.set(filePath, document);
 
     return document;
+  }
+
+  private getSchema(projectConfig: GraphQLProjectConfig) {
+    const {name} = projectConfig;
+    if (!this.schemaCache.has(name)) {
+      const schemaPromise = projectConfig.getSchema();
+      this.schemaCache.set(name, schemaPromise);
+    }
+
+    return this.schemaCache.get(name)!;
   }
 }
 
