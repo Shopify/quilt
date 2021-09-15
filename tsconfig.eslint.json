@@ -2,7 +2,7 @@
   "extends": "./config/typescript/tsconfig.base.json",
   "compilerOptions": {"noEmit": true},
   "include": [
-    "./sewing-kit.config.ts",
+    "./loom.config.ts",
     "./config/**/*.ts",
     "./tests/**/*.ts",
     "./packages/**/*.ts",

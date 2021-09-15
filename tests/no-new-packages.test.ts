@@ -78,7 +78,6 @@ describe('no new packages', () => {
       'rpc',
       'semaphore',
       'sewing-kit-koa',
-      'sewing-kit-plugin-quilt',
       'statsd',
       'storybook-a11y-test',
       'useful-types',
