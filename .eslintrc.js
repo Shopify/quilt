@@ -63,11 +63,7 @@ module.exports = {
       },
     },
     {
-      files: [
-        '**/tests/**/*.ts',
-        '**/tests/**/*.tsx',
-        '**/sewing-kit.config.ts',
-      ],
+      files: ['**/tests/**/*.ts', '**/tests/**/*.tsx', '**/loom.config.ts'],
       rules: {
         // We disable `import/no-extraneous-dependencies` for test files because it
         // would force releases of `@shopify/react-testing` (and similar devDependencies)

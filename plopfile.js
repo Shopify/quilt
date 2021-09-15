@@ -67,8 +67,8 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'packages/{{name}}/sewing-kit.config.ts',
-        templateFile: 'templates/sewing-kit.templateconfig.hbs.ts',
+        path: 'packages/{{name}}/loom.config.ts',
+        templateFile: 'templates/loom.templateconfig.hbs.ts',
       },
       {
         type: 'modify',
@@ -154,10 +154,7 @@ module.exports = function (plop) {
 };
 
 function getJsPackages() {
-  const packagesPath = path.join(
-    __dirname,
-    'packages',
-  );
+  const packagesPath = path.join(__dirname, 'packages');
 
   return readdirSync(packagesPath).reduce((acc, packageName) => {
     const packageJSONPath = path.join(
@@ -182,10 +179,7 @@ function getJsPackages() {
 }
 
 function getRubyPackages() {
-  const packagesPath = path.join(
-    __dirname,
-    'gems',
-  );
+  const packagesPath = path.join(__dirname, 'gems');
 
   return readdirSync(packagesPath).reduce((acc, packageName) => {
     const gemSpecPath = path.join(
