@@ -58,7 +58,7 @@ const EnhancedComponent = compose(
 
 ## Differences from other `compose` implementations
 
-[Apollo](https://www.apollographql.com/docs/react/api/react-apollo.html#compose), [Redux](https://redux.js.org/api-reference/compose), and [Recompose](https://github.com/acdlite/recompose/blob/master/docs/API.md) also export their own `compose` function. This can be perfectly fine for many usecases, however, this implementation has some advantages (in our opinions).
+[Apollo](https://www.apollographql.com/docs/react/api/react/hoc/), [Redux](https://redux.js.org/api-reference/compose), and [Recompose](https://github.com/acdlite/recompose/blob/master/docs/API.md) also export their own `compose` function. This can be perfectly fine for many usecases, however, this implementation has some advantages (in our opinions).
 
 ### Standalone
 

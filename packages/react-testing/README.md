@@ -162,7 +162,7 @@ The custom mount for this situation would be built as demonstrated below.
 
 ```tsx
 import React from 'react';
-import {ApolloProvider} from 'react-apollo';
+import {ApolloProvider} from '@apollo/client';
 import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
 

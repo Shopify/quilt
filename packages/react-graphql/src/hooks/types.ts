@@ -1,15 +1,13 @@
 import {
   ApolloClient,
   MutationOptions as ClientMutationOptions,
-} from 'apollo-client';
-import {
   QueryResult,
-  ExecutionResult,
   OperationVariables,
-} from '@apollo/react-common';
-import {QueryOptions, MutationOptions} from '@apollo/react-hooks';
+  QueryOptions,
+  MutationOptions
+} from '@apollo/client';
+import {ExecutionResult} from 'graphql';
 import {Omit, IfAllNullableKeys} from '@shopify/useful-types';
-
 import {VariableOptions} from '../types';
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<

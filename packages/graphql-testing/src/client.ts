@@ -4,7 +4,7 @@ import {
   WatchQueryOptions,
   ApolloClientOptions,
   ObservableQuery,
-} from 'apollo-client';
+} from '@apollo/client';
 
 type GetCurrentQueryResult = ApolloClient<
   any

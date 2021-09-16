@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import useMutation from '../mutation';

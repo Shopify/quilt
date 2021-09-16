@@ -1,10 +1,5 @@
-import {ApolloLink, GraphQLRequest} from 'apollo-link';
-import {
-  ApolloReducerConfig,
-  InMemoryCache,
-  IntrospectionFragmentMatcher,
-} from 'apollo-cache-inmemory';
-import {ApolloClient} from 'apollo-client';
+import {ApolloClient, ApolloLink, GraphQLRequest} from '@apollo/client';
+import {ApolloReducerConfig, InMemoryCache} from '@apollo/client/cache';
 
 import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
@@ -33,14 +28,18 @@ export class GraphQL {
     mock: GraphQLMock | undefined,
     {unionOrIntersectionTypes = [], cacheOptions = {}}: Options = {},
   ) {
+    const possibleTypes = {};
+
+    unionOrIntersectionTypes.forEach((supertype) => {
+      if (supertype.possibleTypes) {
+        possibleTypes[supertype.name] = supertype.possibleTypes.map(
+          (subtype) => subtype.name,
+        );
+      }
+    });
+
     const cache = new InMemoryCache({
-      fragmentMatcher: new IntrospectionFragmentMatcher({
-        introspectionQueryResultData: {
-          __schema: {
-            types: unionOrIntersectionTypes,
-          },
-        },
-      }),
+      possibleTypes,
       ...cacheOptions,
     });
 
