@@ -8,3 +8,4 @@ export {
 } from './translate';
 
 export type {TranslateOptions} from './translate';
+export {convertFirstSpaceToNonBreakingSpace} from './string';

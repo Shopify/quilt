@@ -45,6 +45,7 @@ import {
   TranslateOptions as RootTranslateOptions,
   memoizedNumberFormatter,
   memoizedPluralRules,
+  convertFirstSpaceToNonBreakingSpace,
 } from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
@@ -601,9 +602,12 @@ export class I18n {
       minute: '2-digit',
     }).toLocaleLowerCase();
 
-    return timeZoneName === 'short'
-      ? `${formattedTime} ${this.getTimeZone(date, options)}`
-      : formattedTime;
+    const time =
+      timeZoneName === 'short'
+        ? `${formattedTime} ${this.getTimeZone(date, options)}`
+        : formattedTime;
+
+    return convertFirstSpaceToNonBreakingSpace(time);
   }
 
   private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
