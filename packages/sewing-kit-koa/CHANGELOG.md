@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Migrate from `sewing-kit-next` to `loom` for building - package build output remains identical. [[#2039](https://github.com/Shopify/quilt/pull/2039)]
+- Update `browserslist-useragent` to `v3.0.3`. [[#2043](https://github.com/Shopify/quilt/pull/2043)]
 
 ## 7.0.5 - 2021-08-24
 
