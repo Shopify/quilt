@@ -177,15 +177,11 @@ const testPage = (
             window.axe.configure(config);
           }
 
-          return window.axe
-            .run(element as ElementContext, options)
-            .then((results) => {
-              return results;
-            })
-            .catch((err) => err);
+          return window.axe.run(element as ElementContext, options);
         },
         id,
       );
+
       await page.close();
 
       if (result.violations && result.violations.length) {
