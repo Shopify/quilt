@@ -26,7 +26,16 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "p-map": "^4.0.0",
-    "puppeteer": "^7.1.0"
+    "puppeteer": "^10.4.0"
+  },
+  "devDependencies": {
+    "@storybook/client-api": "^6.3.8",
+    "@storybook/addon-a11y": "^6.3.8",
+    "axe-core": "4.3.3"
+  },
+  "peerDependencies": {
+    "@storybook/addon-a11y": ">=6.2.0",
+    "@storybook/addons": ">=6.2.0"
   },
   "files": [
     "build/",

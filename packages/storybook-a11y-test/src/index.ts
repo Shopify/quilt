@@ -4,11 +4,13 @@ import os from 'os';
 import puppeteer from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
+import {StoryStore} from '@storybook/client-api';
+import axeCore from 'axe-core';
 
 declare global {
   interface Window {
-    __STORYBOOK_STORY_STORE__: any;
-    axe: any;
+    __STORYBOOK_STORY_STORE__: StoryStore;
+    axe: typeof axeCore;
   }
 }
 
@@ -66,20 +68,21 @@ export const getCurrentStoryIds = async ({
   return stories.reduce(removeSkippedStories(skippedStoryIds), []);
 };
 
-const formatFailureNodes = (nodes) => {
+const formatFailureNodes = (nodes: axeCore.NodeResult[]) => {
   return `${FORMATTING_SPACER}${nodes
     .map((node) => node.html)
     .join(`\n${FORMATTING_SPACER}`)}`;
 };
 
-const formatMessage = (id, violations) => {
+const formatMessage = (id: string, violations: axeCore.Result[]) => {
   return violations
     .map((fail) => {
-      return `- FAIL: ${id}\n  Error: ${
-        fail.help
-      }\n  Violating node(s):\n${formatFailureNodes(
-        fail.nodes,
-      )}\n  For help resolving this see: ${fail.helpUrl}`;
+      return `
+- Story ID: ${id}
+  Error: ${fail.help} (${fail.id})
+  Affected node(s):
+${formatFailureNodes(fail.nodes)}
+  For help resolving this see: ${fail.helpUrl}`.trim();
     })
     .join('\n');
 };
@@ -88,7 +91,7 @@ const formatMessage = (id, violations) => {
 // https://bugs.chromium.org/p/chromium/issues/detail?id=468153
 // This is necessary to prevent autocomplete in chrome and fails the axe test
 // Do not disable accessibility tests if you notice a failure please fix the issue
-const isAutcompleteNope = (violation) => {
+const isAutocompleteNope = (violation: axeCore.Result) => {
   const isAutocompleteAttribute = violation.id === 'autocomplete-valid';
   const hasNope = violation.nodes.every((node) =>
     node.html.includes('autocomplete="nope"'),
@@ -96,8 +99,13 @@ const isAutcompleteNope = (violation) => {
   return isAutocompleteAttribute && hasNope;
 };
 
-const testPage = (iframePath, browser, timeout, disableAnimation) => {
-  return async (id) => {
+const testPage = (
+  iframePath: string,
+  browser: puppeteer.Browser,
+  timeout: number,
+  disableAnimation: boolean,
+) => {
+  return async (id: string) => {
     console.log(` - ${id}`);
 
     try {
@@ -115,22 +123,43 @@ const testPage = (iframePath, browser, timeout, disableAnimation) => {
             }`,
         });
       }
-      const result = await page.evaluate(() =>
-        window.axe.run(document.getElementById('root'), {}),
-      );
+      const result: axeCore.AxeResults = await page.evaluate((id) => {
+        const story = window.__STORYBOOK_STORY_STORE__.fromId(id)!;
+
+        // optional selector which element to inspect
+        const axeElement: axeCore.ElementContext | undefined =
+          story.parameters.a11y && story.parameters.a11y.element;
+
+        // axe-core configurationOptions (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#parameters-1)
+        const axeConfig: axeCore.Spec =
+          (story.parameters.a11y && story.parameters.a11y.config) || {};
+
+        // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
+        const axeOptions: axeCore.RunOptions =
+          (story.parameters.a11y && story.parameters.a11y.options) || {};
+
+        window.axe.configure(axeConfig);
+
+        return window.axe
+          .run(axeElement || document.getElementById('root')!, axeOptions)
+          .then((results) => {
+            return results;
+          })
+          .catch((err) => err);
+      }, id);
       await page.close();
 
-      if (result.violations.length) {
+      if (result.violations && result.violations.length) {
         const filteredViolations = result.violations.filter(
-          (violation) => !isAutcompleteNope(violation),
+          (violation) => !isAutocompleteNope(violation),
         );
 
         return formatMessage(id, filteredViolations);
       }
 
       return null;
-    } catch (error) {
-      return `please retry => ${id}:\n - ${error.message}`;
+    } catch (err) {
+      return `please retry => ${id}:\n - ${err.message}`;
     }
   };
 };
@@ -139,7 +168,7 @@ export const testPages = async ({
   iframePath,
   storyIds = [],
   concurrentCount = os.cpus().length,
-  timeout = 3000,
+  timeout = 30000,
   disableAnimation = false,
 }: {
   iframePath: string;
@@ -149,7 +178,7 @@ export const testPages = async ({
   disableAnimation?: boolean;
 }) => {
   try {
-    console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in chromium`));
+    console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in Chromium`));
     const browser = await getBrowser();
 
     console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
