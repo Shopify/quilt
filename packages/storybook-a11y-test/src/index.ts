@@ -4,8 +4,11 @@ import os from 'os';
 import puppeteer from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
-import {StoryStore} from '@storybook/client-api';
+import type {StoryStore} from '@storybook/client-api';
+import type {StoryId} from '@storybook/addons';
+import type {A11yParameters} from '@storybook/addon-a11y/dist/ts3.9/params';
 import axeCore from 'axe-core';
+import type {ElementContext} from 'axe-core';
 
 declare global {
   interface Window {
@@ -13,6 +16,9 @@ declare global {
     axe: typeof axeCore;
   }
 }
+
+// Until https://github.com/dequelabs/axe-core/pull/3161 is fixed
+type A11yParametersElement = A11yParameters['element'] | NodeList;
 
 const FORMATTING_SPACER = '    ';
 
@@ -44,8 +50,8 @@ export const getStoryIds = async (iframePath: string) => {
   return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
 };
 
-const removeSkippedStories = (skippedStoryIds: string[]) => {
-  return (selectedStories: string[] = [], storyId = '') => {
+const removeSkippedStories = (skippedStoryIds: StoryId[]) => {
+  return (selectedStories: StoryId[] = [], storyId = '') => {
     if (skippedStoryIds.every((skipId) => !storyId.includes(skipId))) {
       return [...selectedStories, storyId];
     }
@@ -58,7 +64,7 @@ export const getCurrentStoryIds = async ({
   skippedStoryIds = [],
 }: {
   iframePath: string;
-  skippedStoryIds: string[];
+  skippedStoryIds: StoryId[];
 }) => {
   const stories =
     process.argv[2] == null
@@ -74,7 +80,10 @@ const formatFailureNodes = (nodes: axeCore.NodeResult[]) => {
     .join(`\n${FORMATTING_SPACER}`)}`;
 };
 
-const formatMessage = (id: string, violations: axeCore.Result[]) => {
+const formatMessage = (
+  id: axeCore.Result['id'],
+  violations: axeCore.Result[],
+) => {
   return violations
     .map((fail) => {
       return `
@@ -105,7 +114,7 @@ const testPage = (
   timeout: number,
   disableAnimation: boolean,
 ) => {
-  return async (id: string) => {
+  return async (id: StoryId) => {
     console.log(` - ${id}`);
 
     try {
@@ -123,30 +132,60 @@ const testPage = (
             }`,
         });
       }
-      const result: axeCore.AxeResults = await page.evaluate((id) => {
-        const story = window.__STORYBOOK_STORY_STORE__.fromId(id)!;
+      const result: axeCore.AxeResults = await page.evaluate(
+        async (id: StoryId) => {
+          // Implementation matching
+          const getElement = (): A11yParametersElement => {
+            const storyRoot = document.getElementById('story-root');
+            return storyRoot
+              ? storyRoot.childNodes
+              : document.getElementById('root')!;
+          };
 
-        // optional selector which element to inspect
-        const axeElement: axeCore.ElementContext | undefined =
-          story.parameters.a11y && story.parameters.a11y.element;
+          // Returns story parameters or default ones.
+          // Originally inspired by:
+          // https://github.com/storybookjs/storybook/blob/78c580eac4c91231b5966116492e34de0a0df66f/addons/a11y/src/a11yRunner.ts#L69-L80
+          const getA11yParams = (storyId: StoryId): A11yParameters => {
+            const {parameters} = window.__STORYBOOK_STORY_STORE__.fromId(
+              storyId,
+            )!;
 
-        // axe-core configurationOptions (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#parameters-1)
-        const axeConfig: axeCore.Spec =
-          (story.parameters.a11y && story.parameters.a11y.config) || {};
+            return (
+              parameters.a11y || {
+                config: {},
+                options: {
+                  restoreScroll: true,
+                },
+              }
+            );
+          };
 
-        // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
-        const axeOptions: axeCore.RunOptions =
-          (story.parameters.a11y && story.parameters.a11y.options) || {};
+          const storyA11yParams = getA11yParams(id);
+          const {
+            // Context for axe to analyze
+            // https://www.deque.com/axe/core-documentation/api-documentation/#context-parameter
+            element = getElement(),
+            // axe-core configurationOptions (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#parameters-1)
+            config,
+            // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
+            options = {},
+          } = storyA11yParams;
 
-        window.axe.configure(axeConfig);
+          window.axe.reset();
 
-        return window.axe
-          .run(axeElement || document.getElementById('root')!, axeOptions)
-          .then((results) => {
-            return results;
-          })
-          .catch((err) => err);
-      }, id);
+          if (config) {
+            window.axe.configure(config);
+          }
+
+          return window.axe
+            .run(element as ElementContext, options)
+            .then((results) => {
+              return results;
+            })
+            .catch((err) => err);
+        },
+        id,
+      );
       await page.close();
 
       if (result.violations && result.violations.length) {
@@ -172,7 +211,7 @@ export const testPages = async ({
   disableAnimation = false,
 }: {
   iframePath: string;
-  storyIds: string[];
+  storyIds: StoryId[];
   concurrentCount?: number;
   timeout?: number;
   disableAnimation?: boolean;
