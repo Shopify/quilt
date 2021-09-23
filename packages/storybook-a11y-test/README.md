@@ -85,35 +85,108 @@ const {testPages, getCurrentStoryIds} = require('@shopify/storybook-a11y-test');
 })();
 ```
 
-### Ignoring specific violations in a Story
+### Ignoring violations in a Story
+
+When is it okay to ignore accessibility violations?
+
+- False positives
+- Work in progress, early stages of building a component
+- Playgrounds, prototypes, work in progress…
 
 ```js
 MyStory.parameters = {
   a11y: {
-    // Don't do this!
-    disable: true,
+    // 🙅‍♀️ Don't do this!
+    disable: true, // 💩💩💩
+    // It disables all accessibility checks for the story,
+    // and we won't know when we introduce regressions.
+    //
+    // 🙌 Instead, override single rules on specific elements.
+    // 👇 see guidelines below
 
-    // Instead, use one of these 👇
     // @see axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
     options: {
       rules: [
         {
-          // Exclude some elements
-          // <explain why here>
-          id: 'autocomplete-valid',
-          selector: '*:not([autocomplete="nope"])',
+          // False positives on specific elements
+          //
+          // You can exclude some elements from raising errors for a specific rule.
+          id: 'failing-rule-id',
+          selector: '*:not(<selector triggering violation>)',
         },
         {
-          // When there's a false positive, it's okay to disable a specific rule, for example:
-          // Color contrast ratio doesn't need to meet 4.5:1, as elements are disabled
-          // @link https://dequeuniversity.com/rules/axe/4.1/color-contrast?application=axeAPI
-          id: 'color-contrast',
+          // False positive on an entire component
+          //
+          // In certain cases (like a disabled button), it's okay to disable a rule.
+          id: 'failing-rule-id',
           enabled: false,
         },
         {
-          // You may also want to
-          // This needs to be fixed in the future
-          // <explain why it was set to reviewOnFail>
+          // Temporary override (failure "needs review")
+          //
+          // `reviewOnFail: true` overrides the result of a rule to return
+          // "Needs Review" rather than "Violation" if the rule fails.
+          //
+          // Useful when merging unfinished or early stage work.
+          id: 'failing-rule-id',
+          reviewOnFail: true,
+        },
+      ],
+    },
+  },
+};
+```
+
+### Ignoring violations: examples
+
+```ts
+AutocompleteField.parameters = {
+  a11y: {
+    options: {
+      rules: [
+        {
+          // Add support for `autocomplete="nope"`, a workaround to prevent autocomplete in Chrome
+          //
+          // @link https://bugs.chromium.org/p/chromium/issues/detail?id=468153
+          // @link https://development.shopify.io/engineering/developing_at_Shopify/accessibility/forms/autocomplete
+          id: 'autocomplete-valid',
+          selector: '*:not([autocomplete="nope"])',
+        },
+      ],
+    },
+  },
+};
+```
+
+```ts
+DisabledButton.parameters = {
+  a11y: {
+    options: {
+      rules: [
+        {
+          // Color contrast ratio doesn't need to meet 4.5:1, as the element is disabled
+          //
+          // @link https://dequeuniversity.com/rules/axe/4.3/color-contrast
+          id: 'color-contrast',
+          enabled: false,
+        },
+      ],
+    },
+  },
+};
+```
+
+```ts
+PrototypeComponent.parameters = {
+  a11y: {
+    options: {
+      rules: [
+        {
+          // Page-level semantics cause a violation and need to be reworked.
+          // Currently discussing solutions with the accessibility team.
+          //
+          // @link https://github.com/Shopify/shopify/issues/123
+          // @link https://dequeuniversity.com/rules/axe/4.3/landmark-complementary-is-top-level
           id: 'landmark-complementary-is-top-level',
           reviewOnFail: true,
         },
@@ -152,3 +225,7 @@ The number of tabs to open in Chromium. The default option is based off the numb
 #### timeout `number` (optional)
 
 The goto timeout for the provided url. Defaults to `30000` (puppeteer's default)
+
+```
+
+```
