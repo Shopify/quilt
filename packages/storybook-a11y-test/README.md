@@ -224,8 +224,4 @@ The number of tabs to open in Chromium. The default option is based off the numb
 
 #### timeout `number` (optional)
 
-The goto timeout for the provided url. Defaults to `30000` (puppeteer's default)
-
-```
-
-```
+The goto timeout for the provided url. Defaults to `3000`

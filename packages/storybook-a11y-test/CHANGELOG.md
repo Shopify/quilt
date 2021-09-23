@@ -18,10 +18,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 - Improved error messages to provide the ID of the violation [[#2045](https://github.com/Shopify/quilt/pull/2045)]
 - Updated puppeteer to the latest version [[#2045](https://github.com/Shopify/quilt/pull/2045)]
 
-### Fixed
-
-- Fixed default timeout to 30,000ms (30s) to match Puppeteer's default [[#2045](https://github.com/Shopify/quilt/pull/2045)]
-
 ## 0.2.4 - 2021-08-24
 
 ### Changed

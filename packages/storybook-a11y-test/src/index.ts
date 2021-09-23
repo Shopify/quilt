@@ -203,7 +203,7 @@ export const testPages = async ({
   iframePath,
   storyIds = [],
   concurrentCount = os.cpus().length,
-  timeout = 30000,
+  timeout = 3000,
   disableAnimation = false,
 }: {
   iframePath: string;
