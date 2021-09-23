@@ -7,9 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Added
+
+- Added ability to disable very specific rules to any single Story, using the same best practices as the ones described in <https://storybook.js.org/addons/@storybook/addon-a11y/> [[#2045](https://github.com/Shopify/quilt/pull/2045)]
+
 ### Changed
 
 - Migrate from `sewing-kit-next` to `loom` for building - package build output remains identical. [[#2039](https://github.com/Shopify/quilt/pull/2039)]
+- Improved documentation and code quality [[#2045](https://github.com/Shopify/quilt/pull/2045)]
+- Improved error messages to provide the ID of the violation [[#2045](https://github.com/Shopify/quilt/pull/2045)]
+- Updated puppeteer to the latest version [[#2045](https://github.com/Shopify/quilt/pull/2045)]
 
 ## 0.2.4 - 2021-08-24
 
