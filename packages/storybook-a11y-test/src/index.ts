@@ -22,13 +22,13 @@ type A11yParametersElement = A11yParameters['element'] | NodeList;
 
 const FORMATTING_SPACER = '    ';
 
-const getBrowser = () => {
+function getBrowser() {
   return puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
-};
+}
 
-export const getStoryIds = async (iframePath: string) => {
+export async function getStoryIds(iframePath: string) {
   const browser = await getBrowser();
   const page = await browser.newPage();
   await page.goto(iframePath);
@@ -48,42 +48,39 @@ export const getStoryIds = async (iframePath: string) => {
   await browser.close();
 
   return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
-};
+}
 
-const removeSkippedStories = (skippedStoryIds: StoryId[]) => {
+function removeSkippedStories(skippedStoryIds: StoryId[]) {
   return (selectedStories: StoryId[] = [], storyId = '') => {
     if (skippedStoryIds.every((skipId) => !storyId.includes(skipId))) {
       return [...selectedStories, storyId];
     }
     return selectedStories;
   };
-};
+}
 
-export const getCurrentStoryIds = async ({
+export async function getCurrentStoryIds({
   iframePath,
   skippedStoryIds = [],
 }: {
   iframePath: string;
   skippedStoryIds: StoryId[];
-}) => {
+}) {
   const stories =
     process.argv[2] == null
       ? await getStoryIds(iframePath)
       : process.argv[2].split('|');
 
   return stories.reduce(removeSkippedStories(skippedStoryIds), []);
-};
+}
 
-const formatFailureNodes = (nodes: axeCore.NodeResult[]) => {
+function formatFailureNodes(nodes: axeCore.NodeResult[]) {
   return `${FORMATTING_SPACER}${nodes
     .map((node) => node.html)
     .join(`\n${FORMATTING_SPACER}`)}`;
-};
+}
 
-const formatMessage = (
-  id: axeCore.Result['id'],
-  violations: axeCore.Result[],
-) => {
+function formatMessage(id: axeCore.Result['id'], violations: axeCore.Result[]) {
   return violations
     .map((fail) => {
       return `
@@ -94,27 +91,27 @@ ${formatFailureNodes(fail.nodes)}
   For help resolving this see: ${fail.helpUrl}`.trim();
     })
     .join('\n');
-};
+}
 
 // This check is added specifically for autocomplete="nope"
 // https://bugs.chromium.org/p/chromium/issues/detail?id=468153
 // This is necessary to prevent autocomplete in chrome and fails the axe test
 // Do not disable accessibility tests if you notice a failure please fix the issue
-const isAutocompleteNope = (violation: axeCore.Result) => {
+function isAutocompleteNope(violation: axeCore.Result) {
   const isAutocompleteAttribute = violation.id === 'autocomplete-valid';
   const hasNope = violation.nodes.every((node) =>
     node.html.includes('autocomplete="nope"'),
   );
   return isAutocompleteAttribute && hasNope;
-};
+}
 
-const testPage = (
+function testPage(
   iframePath: string,
   browser: puppeteer.Browser,
   timeout: number,
   disableAnimation: boolean,
-) => {
-  return async (id: StoryId) => {
+) {
+  return async function (id: StoryId) {
     console.log(` - ${id}`);
 
     try {
@@ -135,17 +132,17 @@ const testPage = (
       const result: axeCore.AxeResults = await page.evaluate(
         async (id: StoryId) => {
           // Implementation matching
-          const getElement = (): A11yParametersElement => {
+          function getElement(): A11yParametersElement {
             const storyRoot = document.getElementById('story-root');
             return storyRoot
               ? storyRoot.childNodes
               : document.getElementById('root')!;
-          };
+          }
 
           // Returns story parameters or default ones.
           // Originally inspired by:
           // https://github.com/storybookjs/storybook/blob/78c580eac4c91231b5966116492e34de0a0df66f/addons/a11y/src/a11yRunner.ts#L69-L80
-          const getA11yParams = (storyId: StoryId): A11yParameters => {
+          function getA11yParams(storyId: StoryId): A11yParameters {
             const {parameters} = window.__STORYBOOK_STORY_STORE__.fromId(
               storyId,
             )!;
@@ -158,9 +155,10 @@ const testPage = (
                 },
               }
             );
-          };
+          }
 
           const storyA11yParams = getA11yParams(id);
+
           const {
             // Context for axe to analyze
             // https://www.deque.com/axe/core-documentation/api-documentation/#context-parameter
@@ -197,9 +195,9 @@ const testPage = (
       return `please retry => ${id}:\n - ${err.message}`;
     }
   };
-};
+}
 
-export const testPages = async ({
+export async function testPages({
   iframePath,
   storyIds = [],
   concurrentCount = os.cpus().length,
@@ -211,7 +209,7 @@ export const testPages = async ({
   concurrentCount?: number;
   timeout?: number;
   disableAnimation?: boolean;
-}) => {
+}) {
   try {
     console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in Chromium`));
     const browser = await getBrowser();
@@ -232,4 +230,4 @@ export const testPages = async ({
     console.error(error.message);
     process.exit(1);
   }
-};
+}
