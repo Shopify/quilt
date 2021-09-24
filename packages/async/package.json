@@ -1,6 +1,6 @@
 {
   "name": "@shopify/async",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously",
   "main": "index.js",

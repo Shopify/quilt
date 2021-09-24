@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
@@ -40,7 +40,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/rpc": "^2.0.4",
+    "@shopify/rpc": "^2.0.5",
     "loader-utils": "^1.0.0",
     "webpack-virtual-modules": "^0.4.3"
   },

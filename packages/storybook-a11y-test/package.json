@@ -1,6 +1,6 @@
 {
   "name": "@shopify/storybook-a11y-test",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "Test storybook pages with axe and puppeteer",
   "main": "index.js",
@@ -29,8 +29,8 @@
     "puppeteer": "^10.4.0"
   },
   "devDependencies": {
-    "@storybook/client-api": "^6.3.8",
     "@storybook/addon-a11y": "^6.3.8",
+    "@storybook/client-api": "^6.3.8",
     "axe-core": "4.3.3"
   },
   "peerDependencies": {

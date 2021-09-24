@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-csrf-universal-provider",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "license": "MIT",
   "description": "A self-serializing/deserializing CSRF token provider that works for isomorphic applications",
   "main": "index.js",
@@ -24,15 +24,15 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/react-csrf": "^2.1.5",
-    "@shopify/react-html": "^11.1.7",
-    "@shopify/react-universal-provider": "^2.1.7"
+    "@shopify/react-csrf": "^2.1.6",
+    "@shopify/react-html": "^11.1.8",
+    "@shopify/react-universal-provider": "^2.1.8"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"
   },
   "devDependencies": {
-    "@shopify/react-effect": "^4.1.4",
+    "@shopify/react-effect": "^4.1.5",
     "faker": "^4.1.0"
   },
   "files": [

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-koa-mocks",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "license": "MIT",
   "description": "Utilities to easily stub Koa context and cookies",
   "main": "index.js",
