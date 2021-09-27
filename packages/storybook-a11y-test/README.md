@@ -104,8 +104,8 @@ MyStory.parameters = {
     // 🙌 Instead, override single rules on specific elements.
     // 👇 see guidelines below
 
-    // @see axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
-    options: {
+    // @see axe-core configParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#parameters-1)
+    config: {
       rules: [
         {
           // False positives on specific elements
@@ -142,7 +142,7 @@ MyStory.parameters = {
 ```ts
 AutocompleteField.parameters = {
   a11y: {
-    options: {
+    config: {
       rules: [
         {
           // Add support for `autocomplete="nope"`, a workaround to prevent autocomplete in Chrome
@@ -161,7 +161,7 @@ AutocompleteField.parameters = {
 ```ts
 DisabledButton.parameters = {
   a11y: {
-    options: {
+    config: {
       rules: [
         {
           // Color contrast ratio doesn't need to meet 4.5:1, as the element is disabled
@@ -179,7 +179,7 @@ DisabledButton.parameters = {
 ```ts
 PrototypeComponent.parameters = {
   a11y: {
-    options: {
+    config: {
       rules: [
         {
           // Page-level semantics cause a violation and need to be reworked.
