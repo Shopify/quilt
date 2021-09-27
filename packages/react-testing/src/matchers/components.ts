@@ -1,4 +1,3 @@
-import {ComponentType} from 'react';
 import {
   matcherHint,
   printExpected,
@@ -16,9 +15,7 @@ import {
   printType,
 } from './utilities';
 
-export function toContainReactComponent<
-  Type extends string | ComponentType<any>
->(
+export function toContainReactComponent<Type extends React.ElementType>(
   this: jest.MatcherUtils,
   node: Node<unknown>,
   type: Type,
@@ -80,9 +77,7 @@ export function toContainReactComponent<
   return {pass, message};
 }
 
-export function toContainReactComponentTimes<
-  Type extends string | ComponentType<any>
->(
+export function toContainReactComponentTimes<Type extends React.ElementType>(
   this: jest.MatcherUtils,
   node: Node<unknown>,
   type: Type,

@@ -151,13 +151,13 @@ export class Element<Props> implements Node<Props> {
     );
   }
 
-  is<Type extends React.ComponentType<any> | string>(
+  is<Type extends React.ElementType>(
     type: Type,
   ): this is Element<PropsFor<Type>> {
     return isMatchingType(this.type, type);
   }
 
-  find<Type extends React.ComponentType<any> | string>(
+  find<Type extends React.ElementType>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ): Element<PropsFor<Type>> | null {
@@ -168,7 +168,7 @@ export class Element<Props> implements Node<Props> {
     ) || null) as Element<PropsFor<Type>> | null;
   }
 
-  findAll<Type extends React.ComponentType<any> | string>(
+  findAll<Type extends React.ElementType>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ): Element<PropsFor<Type>>[] {
@@ -179,16 +179,16 @@ export class Element<Props> implements Node<Props> {
     ) as Element<PropsFor<Type>>[];
   }
 
-  findWhere<Type extends React.ComponentType<any> | string | unknown = unknown>(
+  findWhere<Type extends React.ElementType | unknown = unknown>(
     predicate: Predicate,
   ): Element<UnknowablePropsFor<Type>> | null {
     return (this.elementDescendants.find((element) => predicate(element)) ||
       null) as Element<UnknowablePropsFor<Type>> | null;
   }
 
-  findAllWhere<
-    Type extends React.ComponentType<any> | string | unknown = unknown
-  >(predicate: Predicate): Element<UnknowablePropsFor<Type>>[] {
+  findAllWhere<Type extends React.ElementType | unknown = unknown>(
+    predicate: Predicate,
+  ): Element<UnknowablePropsFor<Type>>[] {
     return this.elementDescendants.filter((element) =>
       predicate(element),
     ) as Element<UnknowablePropsFor<Type>>[];

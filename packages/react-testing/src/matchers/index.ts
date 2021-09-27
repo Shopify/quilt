@@ -1,4 +1,4 @@
-import {ComponentType, Context as ReactContext} from 'react';
+import {Context as ReactContext} from 'react';
 
 import {Node, PropsFor} from '../types';
 
@@ -18,11 +18,11 @@ declare global {
     interface Matchers<R, T = {}> {
       toHaveReactProps(props: Partial<PropsFromNode<T>>): void;
       toHaveReactDataProps(data: {[key: string]: string}): void;
-      toContainReactComponent<Type extends string | ComponentType<any>>(
+      toContainReactComponent<Type extends React.ElementType>(
         type: Type,
         props?: Partial<PropsFor<Type>>,
       ): void;
-      toContainReactComponentTimes<Type extends string | ComponentType<any>>(
+      toContainReactComponentTimes<Type extends React.ElementType>(
         type: Type,
         times: number,
         props?: Partial<PropsFor<Type>>,

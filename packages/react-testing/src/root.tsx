@@ -136,9 +136,7 @@ export class Root<Props> implements Node<Props> {
     return this.withRoot((root) => root.text());
   }
 
-  is<Type extends React.ComponentType<any> | string>(
-    type: Type,
-  ): this is Root<PropsFor<Type>> {
+  is<Type extends React.ElementType>(type: Type): this is Root<PropsFor<Type>> {
     return this.withRoot((root) => root.is(type));
   }
 
@@ -150,29 +148,29 @@ export class Root<Props> implements Node<Props> {
     return this.withRoot((root) => root.data(key));
   }
 
-  find<Type extends React.ComponentType<any> | string>(
+  find<Type extends React.ElementType>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot((root) => root.find(type, props));
   }
 
-  findAll<Type extends React.ComponentType<any> | string>(
+  findAll<Type extends React.ElementType>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ) {
     return this.withRoot((root) => root.findAll(type, props));
   }
 
-  findWhere<Type extends React.ComponentType<any> | string | unknown = unknown>(
+  findWhere<Type extends React.ElementType | unknown = unknown>(
     predicate: Predicate,
   ) {
     return this.withRoot((root) => root.findWhere<Type>(predicate));
   }
 
-  findAllWhere<
-    Type extends React.ComponentType<any> | string | unknown = unknown
-  >(predicate: Predicate) {
+  findAllWhere<Type extends React.ElementType | unknown = unknown>(
+    predicate: Predicate,
+  ) {
     return this.withRoot((root) => root.findAllWhere<Type>(predicate));
   }
 

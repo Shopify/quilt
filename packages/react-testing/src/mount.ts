@@ -117,7 +117,7 @@ export function createMount<
   Async
 > {
   function mount<Props>(
-    element: React.ReactElement<Props>,
+    element: React.ReactElement<Props, React.ElementType>,
     options: MountOptions = {} as any,
   ) {
     const context = createContext(options);

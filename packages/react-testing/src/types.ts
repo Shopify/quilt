@@ -2,18 +2,12 @@ import React from 'react';
 import {Arguments, MaybeFunctionReturnType} from '@shopify/useful-types';
 
 export type PropsFor<
-  T extends string | React.ComponentType<any>
-> = T extends string
-  ? T extends keyof JSX.IntrinsicElements
-    ? JSX.IntrinsicElements[T]
-    : React.HTMLAttributes<T>
-  : T extends React.ComponentType<any>
-  ? React.ComponentPropsWithoutRef<T>
-  : never;
+  T extends React.ElementType
+> = React.ComponentPropsWithoutRef<T>;
 
 export type UnknowablePropsFor<
-  T extends string | React.ComponentType<any> | unknown
-> = T extends string | React.ComponentType<any> ? PropsFor<T> : unknown;
+  T extends React.ElementType | unknown
+> = T extends React.ElementType ? PropsFor<T> : unknown;
 
 export type FunctionKeys<T> = {
   [K in keyof T]-?: NonNullable<T[K]> extends (...args: any[]) => any
@@ -101,15 +95,13 @@ export interface Node<Props> {
   text(): string;
   html(): string;
 
-  is<Type extends React.ComponentType<any> | string>(
-    type: Type,
-  ): this is Node<PropsFor<Type>>;
+  is<Type extends React.ElementType>(type: Type): this is Node<PropsFor<Type>>;
 
-  find<Type extends React.ComponentType<any> | string>(
+  find<Type extends React.ElementType>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ): Node<PropsFor<Type>> | null;
-  findAll<Type extends React.ComponentType<any> | string>(
+  findAll<Type extends React.ElementType>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ): Node<PropsFor<Type>>[];
