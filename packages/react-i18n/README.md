@@ -148,6 +148,9 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `ordinal()`: formats a number as an ordinal according to the locale, e.g. `1st`, `2nd`, `3rd`, `4th`
 - `hasEasternNameOrderFormatter()`: returns true when an eastern name order formatter corresponding to the locale/language exists.
 - `numberSymbols()`: returns an object specifying the current locale's decimal and thousand symbols. Example: For the `es-ES` locale the output would be `{ decimalSymbol: ',', thousandSymbol: '.' }`
+- `hasTwelveHourClockFormat()`: Returns true if the locale uses 12-hour clock format. Uses the current locale if no locale is passed.
+  - `hasTwelveHourClockFormat('en-US')` will return true
+  - `hasTwelveHourClockFormat('fr-CA')` will return false
 
 Most notably, you will frequently use `i18n`’s `translate()` method. This method looks up a key in translation files that you supply based on the provided locale. This method is discussed in detail in the next section.
 

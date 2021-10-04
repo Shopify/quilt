@@ -377,6 +377,19 @@ export class I18n {
     return Boolean(easternNameOrderFormatter);
   }
 
+  hasTwelveHourClockFormat(locale?: string) {
+    const afternoonDateTime = new Date(2020, 1, 1, 13);
+    try {
+      const dateParts = new Intl.DateTimeFormat(locale || this.locale, {
+        hour: 'numeric',
+      }).formatToParts(afternoonDateTime);
+      const hourValue = dateParts.find((part) => part.type === 'hour')?.value;
+      return Number(hourValue) < 13;
+    } catch {
+      return false;
+    }
+  }
+
   @memoize()
   numberSymbols() {
     const formattedNumber = this.formatNumber(123456.7, {

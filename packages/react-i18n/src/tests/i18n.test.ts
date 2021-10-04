@@ -2115,4 +2115,46 @@ describe('I18n', () => {
       expect(i18n.hasEasternNameOrderFormatter()).toStrictEqual(false);
     });
   });
+
+  describe('#hasTwelveHourClockFormat', () => {
+    it('returns true for en-CA locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en-CA'});
+
+      expect(i18n.hasTwelveHourClockFormat()).toStrictEqual(true);
+    });
+
+    it('returns true for en-US locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en-US'});
+
+      expect(i18n.hasTwelveHourClockFormat()).toStrictEqual(true);
+    });
+
+    it('returns true for en-AU locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en-AU'});
+
+      expect(i18n.hasTwelveHourClockFormat()).toStrictEqual(true);
+    });
+
+    it('returns false for fr-CA locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'fr-CA'});
+
+      expect(i18n.hasTwelveHourClockFormat()).toStrictEqual(false);
+    });
+
+    it('returns false for de locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'de'});
+
+      expect(i18n.hasTwelveHourClockFormat()).toStrictEqual(false);
+    });
+
+    it('defaults to false for invalid locale', () => {
+      const i18n = new I18n(defaultTranslations, {locale: ''});
+      expect(i18n.hasTwelveHourClockFormat()).toStrictEqual(false);
+    });
+
+    it('uses locale function argument when provided', () => {
+      const i18n = new I18n(defaultTranslations, {locale: ''});
+      expect(i18n.hasTwelveHourClockFormat('en-US')).toStrictEqual(true);
+    });
+  });
 });
