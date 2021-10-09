@@ -31,7 +31,7 @@ afterEach(() => {
 });
 ```
 
-this will ensure that appropriate error messages are shown if a DOM object is mocked without beign restored for the next test.
+this will ensure that appropriate error messages are shown if a DOM object is mocked without being restored for the next test.
 
 ### `installMockStorage`
 
