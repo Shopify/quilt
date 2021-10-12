@@ -39,5 +39,3 @@ if (typeof window !== 'undefined') {
   extendedWindow.cancelIdleCallback =
     extendedWindow.cancelIdleCallback || (window as any).clearImmediate;
 }
-
-export {};

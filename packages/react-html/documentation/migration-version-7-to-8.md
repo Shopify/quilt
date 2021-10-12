@@ -48,7 +48,7 @@ export default async function middleware(ctx) {
 
   await extract(app, {
     // Or, sometimes, `htmlManager` was provided as a prop to `<App />`
-    decorate: app => <Provider manager={manager}>{app}</Provider>,
+    decorate: (app) => <Provider manager={manager}>{app}</Provider>,
   });
 
   ctx.body = render(<Html manager={manager}>{app}</Html>);
@@ -71,7 +71,7 @@ export default async function middleware(ctx) {
   const htmlManager = new HtmlManager();
 
   await extract(app, {
-    decorate: app => (
+    decorate: (app) => (
       <HtmlContext.Provider manager={htmlManager}>{app}</HtmlContext.Provider>
     ),
   });

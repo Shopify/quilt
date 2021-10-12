@@ -1,12 +1,16 @@
 {
   "name": "@shopify/react-async",
-  "version": "3.1.23",
+  "version": "4.1.8",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "testing": [
+        "./build/ts/testing.d.ts"
+      ]
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -22,21 +26,46 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-async/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-async/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/async": "^2.1.5",
-    "@shopify/react-effect": "^3.2.12",
-    "@shopify/react-hooks": "^1.11.1",
-    "@shopify/react-hydrate": "^1.1.26",
-    "@shopify/react-idle": "^1.0.19",
-    "@shopify/react-intersection-observer": "^2.0.15",
-    "@shopify/useful-types": "^2.2.0"
+    "@shopify/async": "^3.0.5",
+    "@shopify/react-effect": "^4.1.5",
+    "@shopify/react-hooks": "^2.1.6",
+    "@shopify/react-hydrate": "^2.1.7",
+    "@shopify/react-idle": "^2.1.4",
+    "@shopify/react-intersection-observer": "^3.1.6",
+    "@shopify/useful-types": "^3.0.5"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <17.0.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "testing.js",
+    "testing.mjs",
+    "testing.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./testing": {
+      "import": "./testing.mjs",
+      "require": "./testing.js",
+      "esnext": "./testing.esnext"
+    }
+  }
 }

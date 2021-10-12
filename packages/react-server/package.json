@@ -1,12 +1,16 @@
 {
   "name": "@shopify/react-server",
-  "version": "0.18.2",
+  "version": "1.2.8",
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "webpack-plugin": [
+        "./build/ts/webpack-plugin/index.d.ts"
+      ]
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -22,47 +26,72 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-server/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-server/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/network": "^1.5.0",
-    "@shopify/react-async": "^3.1.23",
-    "@shopify/react-cookie": "^0.0.34",
-    "@shopify/react-effect": "^3.2.12",
-    "@shopify/react-html": "^9.3.16",
-    "@shopify/react-hydrate": "^1.1.26",
-    "@shopify/react-network": "^3.5.5",
-    "@shopify/sewing-kit-koa": "^6.3.5",
-    "@shopify/useful-types": "^2.2.0",
+    "@shopify/network": "^2.0.4",
+    "@shopify/react-async": "^4.1.8",
+    "@shopify/react-cookie": "^1.1.8",
+    "@shopify/react-effect": "^4.1.5",
+    "@shopify/react-html": "^11.1.8",
+    "@shopify/react-hydrate": "^2.1.7",
+    "@shopify/react-network": "^4.1.8",
+    "@shopify/sewing-kit-koa": "^7.0.6",
+    "@shopify/useful-types": "^3.0.5",
     "chalk": "^2.4.2",
     "koa": "^2.5.0",
     "koa-compose": ">=3.0.0 <4.0.0",
     "koa-mount": "^4.0.0"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.2.3",
-    "@shopify/react-testing": "^2.1.3",
-    "@shopify/with-env": "^1.1.9",
+    "@shopify/jest-koa-mocks": "^3.0.5",
+    "@shopify/react-testing": "^3.2.7",
+    "@shopify/with-env": "^2.0.4",
     "@types/koa": "^2.0.0",
     "@types/webpack-virtual-modules": "^0.1.0",
     "get-port": "^5.0.0",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "saddle-up": "^0.5.1",
-    "webpack": ">4.25.1, <=4.5.0"
+    "node-loader": "^1.0.0",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2",
+    "saddle-up": "^0.5.4",
+    "setimmediate": "^1.0.5",
+    "webpack": "^4.25.1"
   },
   "peerDependencies": {
     "cross-fetch": ">=3.0.0",
-    "react": ">=16.8.0 <17.0.0",
-    "react-dom": ">=16.8.0 <17.0.0"
+    "react": ">=16.8.0 <18.0.0",
+    "react-dom": ">=16.8.0 <18.0.0"
   },
   "optionalDependencies": {
     "@babel/types": ">=7.0.0",
-    "webpack-virtual-modules": "^0.2.2"
+    "webpack-virtual-modules": "^0.4.3"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo",
-    "webpack-plugin.d.ts",
-    "webpack-plugin.js"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "webpack-plugin.js",
+    "webpack-plugin.mjs",
+    "webpack-plugin.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./webpack-plugin": {
+      "import": "./webpack-plugin.mjs",
+      "require": "./webpack-plugin.js",
+      "esnext": "./webpack-plugin.esnext"
+    }
+  }
 }

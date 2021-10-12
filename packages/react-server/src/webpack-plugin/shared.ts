@@ -37,5 +37,5 @@ export function noSourceExists(
   // otherwise we look for explicit files in the folder
   const dirFiles = readdirSync(basePath);
   const filenameRegex = new RegExp(`^${entry}.[jt]sx?$`);
-  return dirFiles.find(file => filenameRegex.test(file)) == null;
+  return dirFiles.find((file) => filenameRegex.test(file)) == null;
 }

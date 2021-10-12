@@ -1,12 +1,16 @@
 {
   "name": "@shopify/react-network",
-  "version": "3.5.5",
+  "version": "4.1.8",
   "license": "MIT",
   "description": "A collection of components that allow you to set common HTTP headers from within your React application",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "server": [
+        "./build/ts/server.d.ts"
+      ]
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -22,30 +26,52 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-network/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-network/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/network": "^1.5.0",
-    "@shopify/react-effect": "^3.2.12",
-    "@shopify/react-hooks": "^1.11.1",
-    "@shopify/react-universal-provider": "^1.1.21",
+    "@shopify/network": "^2.0.4",
+    "@shopify/react-effect": "^4.1.5",
+    "@shopify/react-hooks": "^2.1.6",
+    "@shopify/react-universal-provider": "^2.1.8",
     "@types/accept-language-parser": "1.5.0",
     "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.0",
     "accept-language-parser": "1.5.0",
-    "cookie": "^0.4.0",
-    "tslib": "^1.9.3"
+    "cookie": "^0.4.0"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.2.3"
+    "@shopify/jest-koa-mocks": "^3.0.5"
   },
   "peerDependencies": {
     "koa": "^2.5.0",
-    "react": "^16.9.0"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo",
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
     "server.js",
-    "server.d.ts"
-  ]
+    "server.mjs",
+    "server.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./server": {
+      "import": "./server.mjs",
+      "require": "./server.js",
+      "esnext": "./server.esnext"
+    }
+  }
 }

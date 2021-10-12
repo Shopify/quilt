@@ -1,13 +1,10 @@
 {
   "name": "@shopify/react-bugsnag",
-  "version": "1.0.1",
+  "version": "2.2.6",
   "license": "MIT",
   "description": "An opinionated wrapper for Bugsnag's React plugin",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -22,16 +19,33 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/react-bugsnag/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-bugsnag/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "@bugsnag/js": "^7.1.1",
     "@bugsnag/plugin-react": "^7.1.1"
   },
   "peerDependencies": {
-    "react": "^16.8.1"
+    "react": ">=16.8.0 <18.0.0"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

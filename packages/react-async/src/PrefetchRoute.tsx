@@ -34,7 +34,7 @@ class ConnectedPrefetchRoute extends React.Component<Props> {
 export function PrefetchRoute(props: Omit<Props, 'manager'>) {
   return (
     <PrefetchContext.Consumer>
-      {manager => (
+      {(manager) => (
         <ConnectedPrefetchRoute manager={manager} {...(props as any)} />
       )}
     </PrefetchContext.Consumer>

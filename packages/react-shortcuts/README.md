@@ -1,6 +1,7 @@
 # `@shopify/react-shortcuts`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg)](https://badge.fury.io/js/%40shopify%2Freact-shortcuts) ![bundle size badge](https://img.shields.io/bundlephobia/minzip/@shopify/react-shortcuts.svg)
 
 Declarative and performant library for matching shortcut combinations in React applications.
@@ -151,7 +152,7 @@ class MyComponent extends React.Component {
     const {fooNode} = this.state;
     return (
       <div>
-        <button ref={node => this.setState({fooNode: node})} />
+        <button ref={(node) => this.setState({fooNode: node})} />
         <Shortcut
           node={fooNode}
           ordered={['f', 'o', 'o']}
@@ -221,13 +222,13 @@ export default function MyComponent() {
 }
 ```
 
-you might want to add a `ShortcutManager` to it's context in an enzyme test to prevent errors
+you might want to add a `ShortcutManager` to it's context in an `@shopify/react-testing` test to prevent errors
 
 ```ts
 // MyComponent.test.tsx
 
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount} from '@shopify/react-testing';
 import {ShortcutManager, Shortcut} from '@shopify/react-shortcuts';
 
 import MyComponent from './MyComponent';

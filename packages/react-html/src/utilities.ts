@@ -45,11 +45,40 @@ export function showPage(): Promise<void> {
   // eslint-disable-next-line no-process-env
   return process.env.NODE_ENV === 'development' &&
     typeof document !== 'undefined'
-    ? new Promise(resolve => {
+    ? new Promise((resolve) => {
         setTimeout(() => {
           document.body.style.visibility = '';
           resolve();
         }, 0);
       })
     : Promise.resolve();
+}
+
+export function removeDuplicate(metas: React.HTMLProps<HTMLMetaElement>[]) {
+  const names = new Set();
+  const properties = new Set();
+
+  const metasWithoutDuplicates = metas.reverse().filter((meta) => {
+    const {name, property} = meta;
+
+    if (name) {
+      if (names.has(name)) {
+        return false;
+      }
+      names.add(name);
+      return true;
+    }
+
+    if (property) {
+      if (properties.has(property)) {
+        return false;
+      }
+      properties.add(property);
+      return true;
+    }
+
+    return true;
+  });
+
+  return metasWithoutDuplicates.reverse();
 }

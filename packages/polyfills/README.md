@@ -1,6 +1,7 @@
 # `@shopify/polyfills`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fpolyfills.svg)](https://badge.fury.io/js/%40shopify%2Fpolyfills.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/polyfills.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/polyfills.svg)
 
 Blessed polyfills for web platform features. Exports browser, Node, and Jest/jsdom polyfills where appropriate.
@@ -14,8 +15,6 @@ The following polyfills are currently provided:
 - `intersection-observer`: Ensures [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) is available globally (browser/ JSDom only).
 - `intl`: Ensures `Intl.PluralRules` is defined.
 - `mutation-observer`: Ensures `MutationObserver` is available globally (browser/ JSDom only).
-- `unhandled-rejection`: Ensures that `unhandledRejection` events are triggered (browser only).
-- `url`: Ensures `URL` and `URLSearchParams` are available globally.
 
 ## Installation
 
@@ -30,7 +29,6 @@ All you need to do is import the polyfills you use in your application:
 ```typescript
 import '@shopify/polyfills/base';
 import '@shopify/polyfills/fetch';
-import '@shopify/polyfills/url';
 ```
 
 In apps rendered on the client and server, we recommend importing these polyfills only once, in your top-level app component. Because this component is likely to be imported first by both the server and client bundles, the polyfills will be available throughout the application code. However, you may also need to import these files earlier in the execution of a Node server (if your server code uses features like `fetch` outside of the application). You will also likely need to import these in your test setup files, as most tests will not import the root app component.

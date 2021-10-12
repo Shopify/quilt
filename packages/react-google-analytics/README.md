@@ -1,6 +1,7 @@
 # `@shopify/react-google-analytics`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg)](https://badge.fury.io/js/%40shopify%2Freact-google-analytics.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-google-analytics.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-google-analytics.svg)
 
 Allows React apps to easily embed Google Analytics scripts.
@@ -60,7 +61,7 @@ const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
 <Universal
   account={UNIVERSAL_GA_ACCOUNT_ID}
   domain={shopDomain}
-  onLoad={ga => {
+  onLoad={(ga) => {
     this.ga = ga;
   }}
 />;
@@ -86,7 +87,7 @@ const UNIVERSAL_GA_ACCOUNT_ID = 'UA-xxxx-xx';
 <Universal
   account={UNIVERSAL_GA_ACCOUNT_ID}
   domain={shopDomain}
-  onError={error => {
+  onError={(error) => {
     // do something with error
   }}
 />;
@@ -140,7 +141,7 @@ const GA_JS_ACCOUNT_ID = 'UA-xxxx-xx';
 <GaJS
   account={GA_JS_ACCOUNT_ID}
   domain={shopDomain}
-  onLoad={_gaq => {
+  onLoad={(_gaq) => {
     this._gaq = _gaq;
   }}
 />;

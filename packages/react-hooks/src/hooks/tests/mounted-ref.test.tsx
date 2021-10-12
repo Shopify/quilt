@@ -5,7 +5,7 @@ import {useMountedRef} from '../mounted-ref';
 
 describe('useMountedRef()', () => {
   it('returns a ref with current value as true when the component is mounted', () => {
-    const spy = jest.fn(() => {});
+    const spy = jest.fn((_: boolean) => {});
 
     function MockComponent() {
       const mounted = useMountedRef();
@@ -19,7 +19,7 @@ describe('useMountedRef()', () => {
 
   it('returns a ref with current value as false when the component is un-mounted', async () => {
     const promise = createResolvablePromise(null);
-    const spy = jest.fn(() => {});
+    const spy = jest.fn((_: boolean) => {});
 
     function MockComponent() {
       const mounted = useMountedRef();
@@ -63,7 +63,7 @@ function createResolvablePromise<T>(value: T) {
       const value = await resolver();
       // If we just resolve, the tick that actually processes the promise
       // has not finished yet.
-      await new Promise(resolve => process.nextTick(resolve));
+      await new Promise((resolve) => process.nextTick(resolve));
       return value;
     },
     reject: rejecter,

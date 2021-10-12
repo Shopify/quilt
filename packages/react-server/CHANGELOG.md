@@ -5,15 +5,122 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## [Unreleased] -->
+<!-- ## Unreleased -->
 
-## [0.18.0] - 2019-08-18
+## 1.2.8 - 2021-09-24
+
+### Changed
+
+- Migrate from `sewing-kit-next` to `loom` for building - package build output remains identical. [[#2039](https://github.com/Shopify/quilt/pull/2039)]
+
+## 1.2.7 - 2021-09-14
+
+- No updates. Transitive dependency bump.
+
+## 1.2.6 - 2021-09-14
+
+### Changed
+
+- Enable type checking in tests and fix type errors. [[#2034](https://github.com/Shopify/quilt/pull/2034)]
+
+## 1.2.5 - 2021-08-30
+
+- No updates. Transitive dependency bump.
+
+## 1.2.4 - 2021-08-24
+
+### Changed
+
+- Added file exclusion for tests to package.json. [[#2005](https://github.com/Shopify/quilt/pull/2005)]
+- Rename test/ to tests/ [[#2005](https://github.com/Shopify/quilt/pull/2005)]
+
+## 1.2.3 - 2021-08-13
+
+### Changed
+
+- Updated build tooling, types are now compiled with TypeScript 4.3. [[#1997](https://github.com/Shopify/quilt/pull/1997)]
+
+## 1.2.2 - 2021-08-04
+
+### Changed
+
+- Ensure `tsconfig.tsbuildinfo` file is not uploaded to the npm registry. [[#1982](https://github.com/Shopify/quilt/pull/1982)]
+
+## 1.2.1 - 2021-08-03
+
+### Changed
+
+- Update to latest sewing-kit-next for build. Update `types`/`typesVersions` fields to point directly into the build folder [[#1980](https://github.com/Shopify/quilt/pull/1980)]
+
+## 1.2.0 - 2021-07-13
+
+### Added
+
+- Officially supports React `17.x` [1969](https://github.com/Shopify/quilt/pull/1969/files)
+
+## 1.1.3 - 2021-06-29
+
+- No updates. Transitive dependency bump.
+
+## 1.1.2 - 2021-06-22
+
+### Changed
+
+- Include `setImmediate` in tests. [#1948](https://github.com/Shopify/quilt/pull/1948)
+
+## 1.1.0 - 2021-06-08
+
+### Changed
+
+- Update `webpack-virtual-modules` to 0.4.3 which support webpack 5
+
+## 1.0.0 - 2021-05-21
+
+### Breaking Change
+
+- Update minimum supported node version to 12.14.0. Add engines field to help enforce usage of this version. [#1906](https://github.com/Shopify/quilt/pull/1906)
+
+## 0.21.8 - 2021-04-13
+
+### Changed
+
+- Removed dependency on tslib, as we no-longer compile with `tsc`. [#1829](https://github.com/Shopify/quilt/pull/1829)
+
+## 0.21.4 - 2021-03-03
+
+### Fixed
+
+- Updated multi-build outputs to include mandatory extensions to fix "Module not found" issues reported by ESM supported bundlers [#1759](https://github.com/Shopify/quilt/pull/1759)
+
+## 0.21.0 - 2020-12-18
+
+### Added
+
+- Add new build outputs (CommonJS, ESM, esnext, Node) for greater tree-shakability [#1698](https://github.com/Shopify/quilt/pull/1698)
+
+## 0.20.1 - 2020-12-03
+
+- Assign `ctx.state.quiltError` to exception caught after server error. ([#1667](https://github.com/Shopify/quilt/pull/1667))
+
+## 0.20.0 - 2020-11-04
+
+- Added `renderRawErrorMessage` to the options for `createRender` and `createServer`, controls rendering of raw stack or custom error page for SSR errors. Defaults to old behaviour, which is raw stack for development only.
+
+## 0.19.0 - 2020-10-26
+
+- Added `htmlProps` to the options for `createRender` and `createServer`, these props will be passed into the call to `@shopify/react-html`'s `<Html>` component ([#1661](https://github.com/Shopify/quilt/pull/1661))
+
+## 0.18.4 - 2020-10-20
+
+- Added `tslib@^1.14.1` in the list of dependencies. [#1657](https://github.com/Shopify/quilt/pull/1657)
+
+## 0.18.0 - 2019-08-18
 
 ### Changed
 
 - Allow `proxy` option to be specified by webpack plugin config (and forwarded to `createServer`). ([#1598](https://github.com/Shopify/quilt/pull/1598))
 
-## [0.17.0] - 2019-08-18
+## 0.17.0 - 2019-08-18
 
 ### Added
 
@@ -25,19 +132,19 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Allow `proxy` and `app` options to be passed to `createServer`. ([#1591](https://github.com/Shopify/quilt/pull/1591))
 
-## [0.16.0] - 2020-06-16
+## 0.16.0 - 2020-06-16
 
 ### Changed
 
 - Move default options from webpack plugin into react-server. ([#1514](https://github.com/Shopify/quilt/pull/1514))
 
-## [0.15.0] - 2020-06-06
+## 0.15.0 - 2020-06-06
 
 ### Changed
 
 - 🛑 Replace `isomorphic-fetch` with `cross-fetch` as peer dependency. Consumer project should install `cross-fetch` in their project or use `@shopify/sewing-kit >= v0.131.0` ([#1497](https://github.com/Shopify/quilt/pull/1497))
 
-## [0.14.0] - 2020-06-06
+## 0.14.0 - 2020-06-06
 
 ### Added
 
@@ -47,19 +154,19 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [webpack-plugin] Utilizes an `error` component if it exists at the root of `app/ui`. This component will be imported in the server source and passed to `@shopify/react-server`'s `renderError` option when creating a server. This will also create a virtual client entrypoint for the `error` component.
 
-## [0.13.0] - 2020-06-04
+## 0.13.0 - 2020-06-04
 
 ### Changed
 
 - Move `react-server-webpack-plugin` into `react-server` and expose it from `@shopify/react-server/webpack-plugin` ([#1489](https://github.com/Shopify/quilt/pull/1489))
 
-## [0.12.0] - 2020-05-12
+## 0.12.0 - 2020-05-12
 
 ### Changed
 
 - The `x-quilt-data` header is now serialized under the ID `quilt-data` rather than `x-quilt-data`
 
-## [0.11.0] - 2020-05-04
+## 0.11.0 - 2020-05-04
 
 ### Changed
 
@@ -67,31 +174,31 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Add: Serialize `x-quilt-data` received from the Rails server for use on the client ([#1411](https://github.com/Shopify/quilt/pull/1411))
 
-## [0.10.0] - 2020-03-23
+## 0.10.0 - 2020-03-23
 
 - Allow `assetName` to take a function for apps which need to serve multiple sub-apps based on path [[#1332]](https://github.com/Shopify/quilt/pull/1332)
 
-## [0.9.0]
+## 0.9.0
 
 - Added `assetName` option to allow the `name` to be passed and default to `main`
 
-## [0.8.5] - 2019-11-29
+## 0.8.5 - 2019-11-29
 
 - Updated dependency: `@shopify/sewing-kit-koa@6.2.0`
 
-## [0.8.0] - 2019-10-30
+## 0.8.0 - 2019-10-30
 
 - `createRender` now includes automatic sewing-kit-koa set-up. The `createRender` middleware now accepts an `assetPrefix` that is passed to `sewingKitKoa`'s middleware. [[#1160](https://github.com/Shopify/quilt/pull/1160)]
 
-## [0.7.3] - 2019-09-30
+## 0.7.3 - 2019-09-30
 
 - Added missing `@shopify/react-cookie` dependency
 
-## [0.7.0] - 2019-09-12
+## 0.7.0 - 2019-09-12
 
 - Added universal cookies support using `@shopify/react-cookie`. [#1002](https://github.com/Shopify/quilt/pull/1002)
 
-## [0.6.0] - 2019-09-12
+## 0.6.0 - 2019-09-12
 
 - Sets a `Server-Timing` response header with the duration of a request [#990](https://github.com/Shopify/quilt/pull/990)
 
@@ -105,17 +212,17 @@ This function return a set of providers based on a given the of options.
 
 A single component that renders all of the providers required within a typical React application.
 
-## [0.5.1] - 2019-09-11
+## 0.5.1 - 2019-09-11
 
 - Add spacing between "[React Server]" prefix and logs [#984](https://github.com/Shopify/quilt/pull/984)
 
-## [0.5.0] - 2019-09-11
+## 0.5.0 - 2019-09-11
 
 ### Added
 
 - Improved logger to provide more readable production logs in Splunk [#978](https://github.com/Shopify/quilt/pull/978)
 
-## [0.4.0] - 2019-09-06
+## 0.4.0 - 2019-09-06
 
 ### Fixed
 
@@ -125,39 +232,39 @@ A single component that renders all of the providers required within a typical R
 
 - Add rendering of `HydrationContext` by default [#969](https://github.com/Shopify/quilt/pull/969)
 
-## [0.3.1] - 2019-08-29
+## 0.3.1 - 2019-08-29
 
 ### Fixed
 
 - Now includes the full error stack as well as the error message when presenting SSR errors in development [#901](https://github.com/Shopify/quilt/pull/901)
 
-## [0.3.0] - 2019-08-28
+## 0.3.0 - 2019-08-28
 
 ### Added
 
 - Added `Options` object as the second argument to `createRender()` allowing passed in values for `afterEachPass` and `betweenEachPass` [#911](https://github.com/Shopify/quilt/pull/911)
 
-## [0.2.0]
+## 0.2.0
 
 ### Changed
 
 - `createRender` now passses the unchanged `Koa.Context` object.
 
-## [0.1.6] - 2019-08-20
+## 0.1.6 - 2019-08-20
 
 - actually passes in the headers from koa context into `NetworkManager`
 
-## [0.1.5] - 2019-08-18
+## 0.1.5 - 2019-08-18
 
 - logger middleware will fallback to `console` in render middleware
 
-## [0.1.3]
+## 0.1.3
 
 ### Changed
 
 - Improve error experience in development when server rendering fails [#850](https://github.com/Shopify/quilt/pull/850)
 
-## [0.1.0]
+## 0.1.0
 
 ### Added
 

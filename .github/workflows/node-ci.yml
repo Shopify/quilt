@@ -1,0 +1,54 @@
+name: Node-CI
+
+on:
+  pull_request:
+    branches: ['**']
+  push:
+    branches: [main]
+
+jobs:
+  node-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['12.14', '14.x']
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+
+      - uses: actions/setup-node@v2
+        name: Use Node.js ${{ matrix.node-version }}
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - uses: actions/cache@v2
+        id: sewing-kit-cache
+        name: Restore sewing-kit cache
+        with:
+          path: |
+            .loom
+            packages/*/build/ts
+            packages/*/build/*.tsbuildinfo
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v1-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-node${{ matrix.node-version }}-sewing-kit-v1-
+
+      - name: 📦 Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: 🔨 Build
+        run: yarn build
+
+      - name: 💅🏼 Lint
+        run: |
+          yarn lint
+          yarn ci:lint-docs
+
+      - name: Unit tests
+        run: yarn test "^(?:(?!(address|react-server)).)*$"
+
+      - name: E2E tests
+        run: yarn test --debug "(address|react-server)"

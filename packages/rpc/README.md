@@ -1,6 +1,7 @@
 # `@shopify/rpc`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Frpc.svg)](https://badge.fury.io/js/%40shopify%2Frpc.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/rpc.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/rpc.svg)
 
 Utilities for `postMessage`-based remote procedure calls.
@@ -74,7 +75,7 @@ The `endpoint.call` object allows you to call methods that were exposed on the s
 const endpoint = createEndpoint(messenger);
 
 // Logs "Hello, Michelle!"
-endpoint.call.greet('Michelle').then(result => console.log(result));
+endpoint.call.greet('Michelle').then((result) => console.log(result));
 ```
 
 This example also demonstrates that, because this function call is implemented using messages, it will always return a promise for the result, even if the source function returned synchronously.

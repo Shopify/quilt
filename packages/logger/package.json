@@ -1,13 +1,10 @@
 {
   "name": "@shopify/logger",
-  "version": "0.1.12",
+  "version": "1.0.5",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -21,16 +18,32 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/logger/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/logger/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "chalk": "^2.4.1",
     "log-symbols": "^2.2.0",
-    "pretty-ms": "^3.2.0",
-    "tslib": "^1.9.3"
+    "pretty-ms": "^3.2.0"
   },
   "sideEffects": false,
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

@@ -53,7 +53,7 @@ export interface NumberFormatOptions extends Intl.NumberFormatOptions {
 }
 
 export interface CurrencyFormatOptions extends NumberFormatOptions {
-  form?: 'auto' | 'short' | 'explicit';
+  form?: 'auto' | 'short' | 'explicit' | 'none';
 }
 
 export interface TranslateOptions {
@@ -258,6 +258,8 @@ export class I18n {
         return this.formatCurrencyExplicit(amount, options);
       case 'short':
         return this.formatCurrencyShort(amount, options);
+      case 'none':
+        return this.formatCurrencyNone(amount, options);
     }
 
     return this.formatNumber(amount, {as: 'currency', ...options});
@@ -302,7 +304,7 @@ export class I18n {
 
     if (style) {
       return style === DateStyle.Humanize
-        ? this.humanizeDate(date, formatOptions)
+        ? this.humanizeDate(date, {...formatOptions, timeZone})
         : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
     }
 
@@ -341,7 +343,11 @@ export class I18n {
     return getCurrencySymbol(locale, {currency});
   }
 
-  formatName(firstName: string, lastName?: string, options?: {full?: boolean}) {
+  formatName(
+    firstName?: string,
+    lastName?: string,
+    options?: {full?: boolean},
+  ) {
     if (!firstName) {
       return lastName || '';
     }
@@ -369,6 +375,23 @@ export class I18n {
       EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
       EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
     return Boolean(easternNameOrderFormatter);
+  }
+
+  @memoize()
+  numberSymbols() {
+    const formattedNumber = this.formatNumber(123456.7, {
+      maximumFractionDigits: 1,
+      minimumFractionDigits: 1,
+    });
+    let thousandSymbol;
+    let decimalSymbol;
+    for (const char of formattedNumber) {
+      if (isNaN(parseInt(char, 10))) {
+        if (thousandSymbol) decimalSymbol = char;
+        else thousandSymbol = char;
+      }
+    }
+    return {thousandSymbol, decimalSymbol};
   }
 
   private formatCurrencyAuto(
@@ -404,27 +427,35 @@ export class I18n {
     amount: number,
     options: NumberFormatOptions = {},
   ): string {
-    const {locale} = this;
+    const formattedAmount = this.formatCurrencyNone(amount, options);
     const shortSymbol = this.getShortCurrencySymbol(options.currency);
-    let adjustedPrecision = options.precision;
-    if (adjustedPrecision === undefined) {
-      const currency = options.currency || this.defaultCurrency || '';
-      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
-    }
-    const formattedAmount = memoizedNumberFormatter(locale, {
-      style: 'decimal',
-      minimumFractionDigits: adjustedPrecision,
-      maximumFractionDigits: adjustedPrecision,
-      ...options,
-    }).format(amount);
 
     const formattedWithSymbol = shortSymbol.prefixed
       ? `${shortSymbol.symbol}${formattedAmount}`
       : `${formattedAmount}${shortSymbol.symbol}`;
 
     return amount < 0
-      ? `-${formattedWithSymbol.replace('-', '')}`
+      ? `-${formattedWithSymbol.replace(/[-−]/, '')}`
       : formattedWithSymbol;
+  }
+
+  private formatCurrencyNone(
+    amount: number,
+    options: NumberFormatOptions = {},
+  ): string {
+    const {locale} = this;
+    let adjustedPrecision = options.precision;
+    if (adjustedPrecision === undefined) {
+      const currency = options.currency || this.defaultCurrency || '';
+      adjustedPrecision = currencyDecimalPlaces.get(currency.toUpperCase());
+    }
+
+    return memoizedNumberFormatter(locale, {
+      style: 'decimal',
+      minimumFractionDigits: adjustedPrecision,
+      maximumFractionDigits: adjustedPrecision,
+      ...options,
+    }).format(amount);
   }
 
   // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
@@ -470,11 +501,7 @@ export class I18n {
     }
 
     const timeZone = options?.timeZone;
-    const time = this.formatDate(date, {
-      ...options,
-      hour: 'numeric',
-      minute: '2-digit',
-    }).toLocaleLowerCase();
+    const time = this.getTimeFromDate(date, options);
 
     if (isToday(date, timeZone)) {
       return time;
@@ -485,10 +512,7 @@ export class I18n {
     }
 
     if (isLessThanOneWeekAgo(date)) {
-      const weekday = this.formatDate(date, {
-        ...options,
-        weekday: 'long',
-      });
+      const weekday = this.getWeekdayFromDate(date, options);
       return this.translate('date.humanize.lessThanOneWeekAgo', {
         weekday,
         time,
@@ -496,11 +520,7 @@ export class I18n {
     }
 
     if (isLessThanOneYearAgo(date)) {
-      const monthDay = this.formatDate(date, {
-        ...options,
-        month: 'short',
-        day: 'numeric',
-      });
+      const monthDay = this.getMonthDayFromDate(date, options);
       return this.translate('date.humanize.lessThanOneYearAgo', {
         date: monthDay,
         time,
@@ -515,11 +535,7 @@ export class I18n {
 
   private humanizeFutureDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     const timeZone = options?.timeZone;
-    const time = this.formatDate(date, {
-      ...options,
-      hour: 'numeric',
-      minute: '2-digit',
-    }).toLocaleLowerCase();
+    const time = this.getTimeFromDate(date, options);
 
     if (isToday(date, timeZone)) {
       return this.translate('date.humanize.today', {time});
@@ -530,10 +546,7 @@ export class I18n {
     }
 
     if (isLessThanOneWeekAway(date)) {
-      const weekday = this.formatDate(date, {
-        ...options,
-        weekday: 'long',
-      });
+      const weekday = this.getWeekdayFromDate(date, options);
       return this.translate('date.humanize.lessThanOneWeekAway', {
         weekday,
         time,
@@ -541,11 +554,7 @@ export class I18n {
     }
 
     if (isLessThanOneYearAway(date)) {
-      const monthDay = this.formatDate(date, {
-        ...options,
-        month: 'short',
-        day: 'numeric',
-      });
+      const monthDay = this.getMonthDayFromDate(date, options);
       return this.translate('date.humanize.lessThanOneYearAway', {
         date: monthDay,
         time,
@@ -558,35 +567,80 @@ export class I18n {
     });
   }
 
-  private currencyDecimalSymbol(currencyCode: string) {
-    const digitOrSpace = /\s|\d/g;
-    const {symbol} = this.getCurrencySymbolLocalized(this.locale, currencyCode);
+  private getTimeZone(
+    date: Date,
+    options?: Intl.DateTimeFormatOptions,
+  ): string {
+    const {localeMatcher, formatMatcher, timeZone} = options || {};
 
-    const templatedInput = 1;
-    const decimal = this.formatCurrency(templatedInput, {
-      currency: currencyCode,
-    })
-      .replace(symbol, '')
-      .replace(digitOrSpace, '');
+    const hourZone = this.formatDate(date, {
+      localeMatcher,
+      formatMatcher,
+      timeZone,
+      hour12: false,
+      timeZoneName: 'short',
+      hour: 'numeric',
+    });
 
-    return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
+    const zoneMatchGroup = /\s(\w*$)/i.exec(hourZone);
+
+    return zoneMatchGroup ? zoneMatchGroup[1] : '';
   }
 
-  @memoize()
-  private numberSymbols() {
-    const formattedNumber = this.formatNumber(123456.7, {
-      maximumFractionDigits: 1,
-      minimumFractionDigits: 1,
+  private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const {localeMatcher, formatMatcher, hour12, timeZone, timeZoneName} =
+      options || {};
+
+    const formattedTime = this.formatDate(date, {
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
+      timeZoneName: timeZoneName === 'short' ? undefined : timeZoneName,
+      hour: 'numeric',
+      minute: '2-digit',
+    }).toLocaleLowerCase();
+
+    return timeZoneName === 'short'
+      ? `${formattedTime} ${this.getTimeZone(date, options)}`
+      : formattedTime;
+  }
+
+  private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
+    return this.formatDate(date, {
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
+      weekday: 'long',
     });
-    let thousandSymbol;
-    let decimalSymbol;
-    for (const char of formattedNumber) {
-      if (isNaN(parseInt(char, 10))) {
-        if (thousandSymbol) decimalSymbol = char;
-        else thousandSymbol = char;
-      }
-    }
-    return {thousandSymbol, decimalSymbol};
+  }
+
+  private getMonthDayFromDate(
+    date: Date,
+    options?: Intl.DateTimeFormatOptions,
+  ) {
+    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
+    return this.formatDate(date, {
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
+      month: 'short',
+      day: 'numeric',
+    });
+  }
+
+  private currencyDecimalSymbol(currencyCode: string) {
+    const digitOrSpace = /\s|\d/g;
+    const templatedInput = 1;
+
+    const decimal = this.formatCurrencyNone(templatedInput, {
+      currency: currencyCode,
+    }).replace(digitOrSpace, '');
+
+    return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
   }
 }
 
@@ -615,8 +669,11 @@ function normalizedNumber(
     .substring(lastDecimalIndex + 1)
     .replace(nonDigits, '');
 
+  const isNegative = input.trim().startsWith('-');
+  const negativeSign = isNegative ? '-' : '';
+
   const normalizedDecimal = lastDecimalIndex === -1 ? '' : PERIOD;
-  const normalizedValue = `${integerValue}${normalizedDecimal}${decimalValue}`;
+  const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;
 
   return normalizedValue === '' || normalizedValue === PERIOD
     ? ''

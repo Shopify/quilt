@@ -1,13 +1,10 @@
 {
   "name": "@shopify/i18n",
-  "version": "0.1.11",
+  "version": "1.0.5",
   "license": "MIT",
   "description": "Generic i18n-related utilities",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -21,13 +18,27 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/i18n/README.md",
-  "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.3"
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/i18n/README.md",
+  "engines": {
+    "node": ">=12.14.0"
   },
+  "sideEffects": false,
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

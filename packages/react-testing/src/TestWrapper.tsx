@@ -14,6 +14,8 @@ export class TestWrapper<ChildProps> extends React.Component<
   State<ChildProps>
 > {
   state: State<ChildProps> = {};
+  // eslint-disable-next-line @shopify/react-prefer-private-members
+  rootRef: React.Component | null = null;
 
   // eslint-disable-next-line @shopify/react-prefer-private-members
   setProps(props: Partial<ChildProps>) {
@@ -23,6 +25,22 @@ export class TestWrapper<ChildProps> extends React.Component<
   render() {
     const {props} = this.state;
     const {children, render} = this.props;
-    return render(props ? React.cloneElement(children, props) : children);
+    const rootElement = props ? React.cloneElement(children, props) : children;
+
+    return render(
+      <TestInnerWrapper ref={this.setRef}>{rootElement}</TestInnerWrapper>,
+    );
+  }
+
+  private setRef = (ref: any) => {
+    this.rootRef = ref;
+  };
+}
+
+class TestInnerWrapper extends React.Component<{
+  children: React.ReactElement<any>;
+}> {
+  render() {
+    return this.props.children;
   }
 }

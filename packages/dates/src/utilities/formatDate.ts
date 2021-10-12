@@ -16,11 +16,20 @@ const browserFeatureDetectionDate = Intl.DateTimeFormat('en', {
   hour: 'numeric',
 });
 
+// hourCycle to Intl.DateTimeFormatOptions was added in TS 4.2, so we could
+// remove this, but that would require consumers to update to at least TS 4.2
+// and be including the libs for es2020
 interface FormatDateOptions extends Intl.DateTimeFormatOptions {
-  hourCycle?: string;
+  hourCycle?: 'h11' | 'h12' | 'h23' | 'h24';
 }
 
-const resolvedOptions: FormatDateOptions | undefined =
+// hourcycle is not yet added to Intl.ResolvedDateTimeFormatOptions. This seems
+// to be an omission in TS, see https://github.com/microsoft/TypeScript/issues/45420
+interface ResolvedFormatDateOptions extends Intl.ResolvedDateTimeFormatOptions {
+  hourCycle?: 'h11' | 'h12' | 'h23' | 'h24';
+}
+
+const resolvedOptions: ResolvedFormatDateOptions | undefined =
   typeof browserFeatureDetectionDate.resolvedOptions === 'undefined'
     ? undefined
     : browserFeatureDetectionDate.resolvedOptions();

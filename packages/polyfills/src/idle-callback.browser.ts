@@ -36,5 +36,3 @@ extendedWindow.requestIdleCallback =
 
 extendedWindow.cancelIdleCallback =
   extendedWindow.cancelIdleCallback || (window as any).clearImmediate;
-
-export {};

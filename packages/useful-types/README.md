@@ -1,6 +1,7 @@
 # `@shopify/useful-types`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fuseful-types.svg)](https://badge.fury.io/js/%40shopify%2Fuseful-types.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/useful-types.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/useful-types.svg)
 
 A few handy TypeScript types.
@@ -104,4 +105,30 @@ The following type aliases are provided by this library:
   function render<T>(items: T[], renderItem: (item: NoInfer<T>) => string) {
     /* implementation */
   }
+  ```
+
+- `DeepOmit<T, K>` Recursively maps over all properties in a type and omits those matching `K`.
+
+```ts
+interface Obj {
+  __typename: string;
+  foo: string;
+  bar: {
+    __typename: string;
+    baz: string;
+  };
+}
+
+type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: string}}
+```
+
+- `DeepOmitArray<T extends any[], K>` Iterate over all properties in an array of types and omits those matching `K`.
+
+  ```ts
+  interface Obj {
+    __typename: string;
+    foo: string;
+  }
+
+  type SelectiveObj = DeepOmitArray<Obj[], '__typename'>; // {foo: string}[]
   ```

@@ -2,26 +2,37 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 
-import {Script, Style} from '../../components';
 import {HtmlManager} from '../../manager';
 import {HtmlContext} from '../../context';
-import {MANAGED_ATTRIBUTE} from '../../utilities';
+import {MANAGED_ATTRIBUTE, removeDuplicate} from '../../utilities';
 
+import {Script} from './Script';
 import Serialize from './Serialize';
+import {Stylesheet} from './Stylesheet';
+import {InlineStyle} from './InlineStyle';
 
 export interface Asset {
   path: string;
   integrity?: string;
 }
 
-export interface Props {
+export interface ScriptAsset extends Asset {
+  type?: 'module' | 'nomodule' | 'script';
+}
+
+export interface InlineStyle {
+  content: string;
+}
+
+export interface HtmlProps {
   manager?: HtmlManager;
   hydrationManager?: HydrationManager;
-  children: React.ReactElement<any> | string;
+  children?: React.ReactElement<any> | string;
   locale?: string;
   styles?: Asset[];
-  scripts?: Asset[];
-  blockingScripts?: Asset[];
+  inlineStyles?: InlineStyle[];
+  scripts?: ScriptAsset[];
+  blockingScripts?: ScriptAsset[];
   preloadAssets?: Asset[];
   headMarkup?: React.ReactNode;
   bodyMarkup?: React.ReactNode;
@@ -30,15 +41,16 @@ export interface Props {
 export default function Html({
   manager,
   hydrationManager,
-  children,
+  children = '',
   locale = 'en',
   blockingScripts = [],
   scripts = [],
   styles = [],
+  inlineStyles = [],
   preloadAssets = [],
   headMarkup = null,
   bodyMarkup = null,
-}: Props) {
+}: HtmlProps) {
   const markup =
     typeof children === 'string'
       ? children
@@ -60,7 +72,7 @@ export default function Html({
     ) : null;
 
   const metaMarkup = extracted
-    ? extracted.metas.map((metaProps, index) => (
+    ? removeDuplicate(extracted.metas).map((metaProps, index) => (
         // This is never re-rendered, since it is the initial HTML document,
         // so index keys are acceptable.
         // eslint-disable-next-line react/no-array-index-key
@@ -77,9 +89,9 @@ export default function Html({
       ))
     : null;
 
-  const stylesMarkup = styles.map(style => {
+  const stylesheetMarkup = styles.map((style) => {
     return (
-      <Style
+      <Stylesheet
         key={style.path}
         href={style.path}
         integrity={style.integrity}
@@ -88,30 +100,38 @@ export default function Html({
     );
   });
 
-  const blockingScriptsMarkup = blockingScripts.map(script => {
+  const inlineStylesMarkup = inlineStyles.map((inlineStyle) => {
+    return (
+      <InlineStyle key={inlineStyle.content}>{inlineStyle.content}</InlineStyle>
+    );
+  });
+
+  const blockingScriptsMarkup = blockingScripts.map((script) => {
     return (
       <Script
         key={script.path}
         src={script.path}
         integrity={script.integrity}
+        type={script.type}
         crossOrigin="anonymous"
       />
     );
   });
 
-  const deferredScriptsMarkup = scripts.map(script => {
+  const deferredScriptsMarkup = scripts.map((script) => {
     return (
       <Script
         key={script.path}
         src={script.path}
         integrity={script.integrity}
+        type={script.type}
         crossOrigin="anonymous"
         defer
       />
     );
   });
 
-  const preloadAssetsMarkup = preloadAssets.map(asset => (
+  const preloadAssetsMarkup = preloadAssets.map((asset) => (
     <link key={asset.path} rel="prefetch" href={asset.path} />
   ));
 
@@ -137,7 +157,8 @@ export default function Html({
         {metaMarkup}
         {linkMarkup}
 
-        {stylesMarkup}
+        {stylesheetMarkup}
+        {inlineStylesMarkup}
         {headMarkup}
         {blockingScriptsMarkup}
         {deferredScriptsMarkup}

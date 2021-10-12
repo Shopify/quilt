@@ -1,6 +1,7 @@
 # `@shopify/react-web-worker`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg)](https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-web-worker.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-web-worker.svg)
 
 A hook for using web workers in React applications.
@@ -13,7 +14,7 @@ $ yarn add @shopify/react-web-worker
 
 ## Usage
 
-This package provides a `useWorker` hook to leverage web workers in React. For convenience, it also re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/master/packages/web-worker), so you only need to install this package to get access to those additional exports.
+This package provides a `useWorker` hook to leverage web workers in React. For convenience, it also re-exports the entirety of [`@shopify/web-worker`](https://github.com/Shopify/quilt/tree/main/packages/web-worker), so you only need to install this package to get access to those additional exports.
 
 ### `useWorker()`
 

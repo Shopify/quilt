@@ -4,7 +4,7 @@ export function createRequestIdLink(requestId: string) {
   return setContext((_, {headers}) => ({
     headers: {
       ...headers,
-      'X-Request-ID': requestId,
+      'X-Initiated-By-Request-ID': requestId,
     },
   }));
 }

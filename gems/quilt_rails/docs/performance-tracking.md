@@ -10,7 +10,7 @@
 
 ## Performance tracking a React app
 
-Using [`Quilt::Performance::Reportable`](#performanceReportable) and [@shopify/react-performance](https://www.npmjs.com/package/@shopify/react-performance) it's easy to add performance tracking to apps using[`sewing_kit`](https://github.com/Shopify/sewing-kit/tree/master/gems/sewing_kit#sewing_kit-) gem for client-side-rendering or `quilt_rails` for server-side-rendering.
+Using [`Quilt::Performance::Reportable`](#performanceReportable) and [@shopify/react-performance](https://www.npmjs.com/package/@shopify/react-performance) it's easy to add performance tracking to apps using[`sewing_kit`](https://github.com/Shopify/sewing-kit/tree/main/gems/sewing_kit#sewing_kit-) gem for client-side-rendering or `quilt_rails` for server-side-rendering.
 
 ### Install dependencies
 
@@ -30,7 +30,7 @@ yarn add @shopify/react-performance
 
 If your application is not using `Quilt::Engine`, you will need to manually configure the server-side portion of performance tracking. If it _is_ using the engine, the following will be done automatically.
 
-1. Add a `PerformanceController` and the corresponding routes to your Rails app.
+1. Add a `PerformanceReportController` and the corresponding routes to your Rails app.
 
 ```ruby
 # app/controllers/performance_report_controller.rb
@@ -61,7 +61,7 @@ post '/performance_report', to: 'performance_report#create'
 
 ### Add annotations
 
-Add a [`usePerformanceMark`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#useperformancemark) call to each of your route-level components.
+Add a [`usePerformanceMark`](https://github.com/Shopify/quilt/tree/main/packages/react-performance#useperformancemark) call to each of your route-level components.
 
 ```tsx
 // app/ui/features/Home/Home.tsx
@@ -77,7 +77,7 @@ export function Home() {
 
 ### Send the report
 
-Add a [`usePerformanceReport`](https://github.com/Shopify/quilt/tree/master/packages/react-performance#usePerformanceReport) call to your top-level `<App />` component.
+Add a [`usePerformanceReport`](https://github.com/Shopify/quilt/tree/main/packages/react-performance#usePerformanceReport) call to your top-level `<App />` component.
 
 ```tsx
 // app/ui/foundation/App/App.tsx
@@ -91,7 +91,7 @@ export function App() {
 }
 ```
 
-For more details on how to use the APIs from `@shopify/react-performance` check out its [documentation](https://github.com/Shopify/quilt/tree/master/packages/react-performance).
+For more details on how to use the APIs from `@shopify/react-performance` check out its [documentation](https://github.com/Shopify/quilt/tree/main/packages/react-performance).
 
 ### Verify in development
 

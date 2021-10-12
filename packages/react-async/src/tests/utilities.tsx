@@ -12,7 +12,7 @@ export function createResolvablePromise<T>(value: T) {
   let promiseResolve!: (value: T) => void;
   let resolved = false;
 
-  const promise = new Promise<T>(resolve => {
+  const promise = new Promise<T>((resolve) => {
     promiseResolve = resolve;
   });
 

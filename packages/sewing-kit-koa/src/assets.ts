@@ -6,7 +6,7 @@ import appRoot from 'app-root-path';
 import {Manifest} from './types';
 import {Manifests} from './manifests';
 
-export {Asset} from './types';
+export type {Asset} from './types';
 
 interface Options {
   assetPrefix: string;
@@ -122,7 +122,7 @@ function loadGraphQLManifest() {
 
   graphQLManifestPromise = readJson(
     join(appRoot.path, 'build/client/graphql.json'),
-  ).then(result => new Map<string, string>(Object.entries(result)));
+  ).then((result) => new Map<string, string>(Object.entries(result)));
 
   return graphQLManifestPromise;
 }
@@ -169,7 +169,7 @@ function getAssetsFromManifest(
 
   const bundleTester = new RegExp(`\\b${name}[^\\.]*\\.${kind}`);
 
-  const nonVendorEntrypointIndex = entrypointAssets.findIndex(bundle =>
+  const nonVendorEntrypointIndex = entrypointAssets.findIndex((bundle) =>
     bundleTester.test(bundle.path),
   );
 

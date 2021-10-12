@@ -32,6 +32,7 @@ describe('<Provider />', () => {
     const title = 'Shopify';
     const meta = {content: 'foo'};
     const link = {src: 'bar'};
+    const style = {children: '.foo{color:red;}'};
     const manager = new HtmlManager();
 
     mountWithManager(<HtmlUpdater />, manager);
@@ -39,6 +40,7 @@ describe('<Provider />', () => {
     manager.addTitle(title);
     manager.addLink(link);
     manager.addMeta(meta);
+    manager.addInlineStyle(style);
 
     expect(document.querySelectorAll(`[${MANAGED_ATTRIBUTE}]`)).toHaveLength(0);
 
@@ -53,6 +55,11 @@ describe('<Provider />', () => {
     expect(
       document.querySelector(`link[${MANAGED_ATTRIBUTE}]`)!.getAttribute('src'),
     ).toBe(link.src);
+
+    expect(
+      document.querySelector<HTMLStyleElement>(`style[${MANAGED_ATTRIBUTE}]`)!
+        .textContent,
+    ).toBe(style.children);
 
     expect(
       document.querySelector(`title[${MANAGED_ATTRIBUTE}]`)!.textContent,
@@ -83,6 +90,35 @@ describe('<Provider />', () => {
     expect(allLinks[1].getAttribute('src')).toBe(linkTwo.src);
   });
 
+  it('does not remove matching style elements on subsequent changes', () => {
+    const styleOne = {children: '.foo{color:red}'};
+    const styleTwo = {children: '.bar{color:blue}'};
+
+    const manager = new HtmlManager();
+
+    mountWithManager(<HtmlUpdater />, manager);
+
+    manager.addInlineStyle(styleOne);
+    animationFrame.runFrame();
+
+    const styleElement = document.querySelector<HTMLStyleElement>(
+      `style[${MANAGED_ATTRIBUTE}]`,
+    )!;
+
+    manager.addInlineStyle(styleTwo);
+    animationFrame.runFrame();
+
+    const allStyles = Array.from(
+      document.querySelectorAll<HTMLStyleElement>(
+        `style[${MANAGED_ATTRIBUTE}]`,
+      ),
+    );
+
+    expect(styleElement.textContent).toBe(styleOne.children);
+    expect(styleElement).toBe(allStyles[0]);
+    expect(allStyles[1].textContent).toBe(styleTwo.children);
+  });
+
   it('does not remove matching meta elements on subsequent changes', () => {
     const metaOne = {content: 'foo'};
     const metaTwo = {content: 'bar'};
@@ -105,5 +141,39 @@ describe('<Provider />', () => {
     expect(metaElement.getAttribute('content')).toBe(metaOne.content);
     expect(metaElement).toBe(allMetas[0]);
     expect(allMetas[1].getAttribute('content')).toBe(metaTwo.content);
+  });
+
+  it('only keeps the last added meta based on name or property', () => {
+    const globalDescription = 'global description';
+    const pageDescription = 'page description';
+
+    const latestDescription = {name: 'description', content: pageDescription};
+    const latestOgDescription = {
+      property: 'og:description',
+      content: pageDescription,
+    };
+
+    const manager = new HtmlManager();
+    mountWithManager(<HtmlUpdater />, manager);
+
+    manager.addMeta({name: 'description', content: globalDescription});
+    manager.addMeta({property: 'og:description', content: globalDescription});
+    manager.addMeta(latestDescription);
+    manager.addMeta(latestOgDescription);
+    animationFrame.runFrame();
+
+    const allMetas = Array.from(
+      document.querySelectorAll(`meta[${MANAGED_ATTRIBUTE}]`),
+    );
+
+    expect(allMetas).toHaveLength(2);
+    expect(allMetas[0].getAttribute('name')).toBe(latestDescription.name);
+    expect(allMetas[0].getAttribute('content')).toBe(latestDescription.content);
+    expect(allMetas[1].getAttribute('property')).toBe(
+      latestOgDescription.property,
+    );
+    expect(allMetas[1].getAttribute('content')).toBe(
+      latestOgDescription.content,
+    );
   });
 });

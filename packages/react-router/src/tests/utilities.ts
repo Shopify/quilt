@@ -7,22 +7,23 @@ export interface PartialRouterContext {
     match?: Partial<RouterChildContext<any>['router']['route']['match']>;
   };
 }
-
 export function createDefaultHistory(): RouterChildContext<
   any
 >['router']['history'] {
   return {
-    length: 0,
-    action: 'POP',
-    location: createDefaultLocation(),
+    listenBefore: jest.fn(),
+    listen: jest.fn(),
+    transitionTo: jest.fn(),
     push: jest.fn(),
     replace: jest.fn(),
     go: jest.fn(),
     goBack: jest.fn(),
     goForward: jest.fn(),
-    block: jest.fn(),
-    listen: jest.fn(),
+    createKey: jest.fn(),
+    createPath: jest.fn(),
     createHref: jest.fn(),
+    createLocation: jest.fn(),
+    getCurrentLocation: createDefaultLocation,
   };
 }
 
@@ -40,6 +41,9 @@ export function createDefaultLocation(): RouterChildContext<
     search: '',
     state: '',
     hash: '',
+    action: 'POP',
+    key: '',
+    query: {key: ''},
   };
 }
 

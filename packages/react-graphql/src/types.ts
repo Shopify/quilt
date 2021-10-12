@@ -19,7 +19,12 @@ import {AsyncComponentType, AsyncHookTarget} from '@shopify/react-async';
 
 import {QueryHookOptions} from './hooks';
 
-export {GraphQLData, GraphQLVariables, GraphQLDeepPartial, GraphQLOperation};
+export type {
+  GraphQLData,
+  GraphQLVariables,
+  GraphQLDeepPartial,
+  GraphQLOperation,
+};
 
 export type VariableOptions<Variables> = IfEmptyObject<
   Variables,
@@ -38,7 +43,7 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
   displayName?: string;
   skip?: boolean;
   client?: ApolloClient<object>;
-  context?: Record<string, any>;
+  context?: {[key: string]: any};
   partialRefetch?: boolean;
   onCompleted?: (data: Data | {}) => void;
   onError?: (error: ApolloError) => void;

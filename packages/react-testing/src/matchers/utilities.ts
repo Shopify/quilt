@@ -146,9 +146,9 @@ function getObjectSubset(object: any, subset: any): any {
   ) {
     const trimmed: any = {};
     Object.keys(subset)
-      .filter(key => Reflect.has(object, key))
+      .filter((key) => Reflect.has(object, key))
       .forEach(
-        key => (trimmed[key] = getObjectSubset(object[key], subset[key])),
+        (key) => (trimmed[key] = getObjectSubset(object[key], subset[key])),
       );
 
     if (Object.keys(trimmed).length > 0) {

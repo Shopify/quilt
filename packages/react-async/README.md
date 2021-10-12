@@ -1,6 +1,7 @@
 # `@shopify/react-async`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-async.svg)](https://badge.fury.io/js/%40shopify%2Freact-async.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-async.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-async.svg)
 
 Tools for creating powerful, asynchronously-loaded React components.
@@ -205,6 +206,7 @@ const MyComponent = createAsyncComponent({
 ```
 
 #### Dont use .Preload .Prefetch components with defer
+
 It is not advisable to use .Preload or .Prefetch with the defer property. This is because it will be ignored by
 the `<MyComponent.Preload />` and `<MyComponent.Prefetch />` components.
 
@@ -303,7 +305,7 @@ This component might be rendered when the URL matches `/products/:id`. If we wan
 ```tsx
 <PrefetchRoute
   path={/^\/products\/(\d+)$/}
-  render={url => {
+  render={(url) => {
     const id = url.pathname.split('/').pop();
     return <ProductDetails.Prefetch id={id} />;
   }}
@@ -377,7 +379,7 @@ const ExpensiveFileContext = createAsyncContext({
 // and use the consumer to access the value:
 
 <ExpensiveFileContext.Consumer>
-  {file => (file ? <CsvViewer file={file} /> : null)}
+  {(file) => (file ? <CsvViewer file={file} /> : null)}
 </ExpensiveFileContext.Consumer>;
 ```
 

@@ -1,44 +1,36 @@
+type WindowLocation = typeof window.location;
+
 export default class Location {
-  private isUsingMockLocation = false;
-  private assignSpy?: jest.SpyInstance;
-  private reloadSpy?: jest.SpyInstance;
-  private replaceSpy?: jest.SpyInstance;
+  private locationSpy?: jest.SpyInstance<WindowLocation> | null;
 
   mock() {
-    if (this.isUsingMockLocation) {
+    if (this.locationSpy) {
       throw new Error(
         'You tried to mock window.location when it was already mocked.',
       );
     }
 
-    // required to make it possible to write to location.search in tests
-    // https://github.com/facebook/jest/issues/890
-    Reflect.defineProperty(window.location, 'search', {
-      writable: true,
-      value: '',
+    this.locationSpy = jest.spyOn(window, 'location', 'get');
+    this.locationSpy.mockReturnValue({
+      ...window.location,
+      assign: jest.fn((..._args) => {}),
+      reload: jest.fn(() => {}),
+      replace: jest.fn((..._args) => {}),
     });
-
-    this.assignSpy = jest.spyOn(window.location, 'assign');
-    this.reloadSpy = jest.spyOn(window.location, 'reload');
-    this.replaceSpy = jest.spyOn(window.location, 'replace');
-    this.isUsingMockLocation = true;
   }
 
   restore() {
-    if (!this.isUsingMockLocation) {
+    if (!this.locationSpy) {
       throw new Error(
         'You tried to restore window.location when it was already restored.',
       );
     }
 
-    location.search = '';
-    this.assignSpy!.mockRestore();
-    this.reloadSpy!.mockRestore();
-    this.replaceSpy!.mockRestore();
-    this.isUsingMockLocation = false;
+    this.locationSpy!.mockRestore();
+    this.locationSpy = null;
   }
 
   isMocked() {
-    return this.isUsingMockLocation;
+    return Boolean(this.locationSpy);
   }
 }

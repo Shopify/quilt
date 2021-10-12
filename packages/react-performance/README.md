@@ -1,6 +1,7 @@
 # `@shopify/react-performance`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-performance.svg)](https://badge.fury.io/js/%40shopify%2Freact-performance.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-performance.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-performance.svg)
 
 Primitives to measure your React application's performance using `@shopify/performance`.
@@ -71,7 +72,7 @@ export function LastNavigationDetails() {
   const [lastNavigation, setLastNavigation] = useState<Navigation | null>(null);
 
   // listen for subsequent client-side navigations and update our state
-  useNavigationListener(navigation => {
+  useNavigationListener((navigation) => {
     setLastNavigation(navigation);
   });
 
@@ -155,7 +156,7 @@ For Node services based on `Koa`, we provide [@shopify/koa-performance](https://
 
 #### Using Rails (`quilt_rails`)
 
-For Rails services we provide [quilt_rails](https://github.com/Shopify/quilt/tree/master/gems/quilt_rails#performance-tracking-a-react-app)'s `Quilt::Performance::Reportable` mixin for parsing `PerformanceReport` payloads and sending them forward to a [StatsD](https://github.com/statsd/statsd) endpoint as `distribution`s.
+For Rails services we provide [quilt_rails](https://github.com/Shopify/quilt/tree/main/gems/quilt_rails#performance-tracking-a-react-app)'s `Quilt::Performance::Reportable` mixin for parsing `PerformanceReport` payloads and sending them forward to a [StatsD](https://github.com/statsd/statsd) endpoint as `distribution`s.
 
 ## API
 
@@ -169,7 +170,7 @@ A custom hook which takes in callback to invoke whenever the `Performance` conte
 import {useLifecycleEventListener} from '@shopify/react-performance';
 
 function SomeComponent() {
-  useLifecycleEventListener(event => {
+  useLifecycleEventListener((event) => {
     console.log(event);
   });
 
@@ -185,7 +186,7 @@ A custom hook which takes in a callback to invoke whenever a navigation takes pl
 import {useNavigationListener} from '@shopify/react-performance';
 
 function SomeComponent() {
-  useNavigationListener(navigation => {
+  useNavigationListener((navigation) => {
     console.log(navigation);
   });
 

@@ -15,7 +15,7 @@ const mockSpies = [
 const restoreSpy = jest.spyOn(fetchMock, 'restore') as any;
 
 function isMocked() {
-  const wasMocked = mockSpies.some(spy => spy.mock.calls.length > 0);
+  const wasMocked = mockSpies.some((spy) => spy.mock.calls.length > 0);
 
   const wasRestored = restoreSpy.mock.calls.length > 0;
 

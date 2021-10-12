@@ -1,0 +1,14 @@
+{
+  "extends": "@shopify/typescript-configs/library.json",
+  "compilerOptions": {
+    "composite": true,
+    "emitDeclarationOnly": true,
+    // Strict mode enables these strict* and noImplicit* options.
+    // Disable them temporarily while we fix up problematic behaviour from
+    // the time before we wanted strict mode
+    "strictBindCallApply": false,
+    "strictFunctionTypes": false,
+    "noImplicitAny": false,
+    "typeRoots": ["../../node_modules/@types"]
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import ApolloClient, {ApolloClientOptions} from 'apollo-client';
+import {ApolloClient, ApolloClientOptions} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
 import {InMemoryCache, NormalizedCacheObject} from 'apollo-cache-inmemory';
 import {useSerialized} from '@shopify/react-html';
@@ -8,26 +8,33 @@ import {useLazyRef} from '@shopify/react-hooks';
 import {useRequestHeader} from '@shopify/react-network';
 
 import {isServer} from './utilities';
-import {csrfLink} from './csrf-link';
+import {createCsrfLink} from './csrf-link';
 import {createRequestIdLink} from './request-id-link';
 
 interface Props<TCacheShape extends NormalizedCacheObject> {
+  id?: string;
   children?: React.ReactNode;
+  quiltRails?: boolean;
+  addRequestId?: boolean;
   createClientOptions(): Partial<ApolloClientOptions<TCacheShape>>;
 }
 
 export function GraphQLUniversalProvider<
   TCacheShape extends NormalizedCacheObject
->({children, createClientOptions}: Props<TCacheShape>) {
-  const [initialData, Serialize] = useSerialized<TCacheShape | undefined>(
-    'apollo',
-  );
+>({
+  id = 'apollo',
+  quiltRails = true,
+  addRequestId = true,
+  children,
+  createClientOptions,
+}: Props<TCacheShape>) {
+  const [initialData, Serialize] = useSerialized<TCacheShape | undefined>(id);
   const requestID = useRequestHeader('X-Request-ID');
 
   const [client, ssrLink] = useLazyRef<
     [
       import('apollo-client').ApolloClient<any>,
-      ReturnType<typeof createSsrExtractableLink>,
+      ReturnType<typeof createSsrExtractableLink> | undefined,
     ]
   >(() => {
     const server = isServer();
@@ -39,15 +46,15 @@ export function GraphQLUniversalProvider<
     };
 
     const clientOptions = createClientOptions();
-    const ssrLink = createSsrExtractableLink();
-    const requestIdLink = requestID
-      ? createRequestIdLink(requestID)
-      : undefined;
+    const ssrLink = server ? createSsrExtractableLink() : undefined;
+    const csrfLink = quiltRails ? createCsrfLink() : undefined;
+    const requestIdLink =
+      addRequestId && requestID ? createRequestIdLink(requestID) : undefined;
     const finalLink = clientOptions.link || undefined;
 
     const link = ApolloLink.from([
-      ssrLink,
-      csrfLink,
+      ...(ssrLink ? [ssrLink] : []),
+      ...(csrfLink ? [csrfLink] : []),
       ...(requestIdLink ? [requestIdLink] : []),
       ...(finalLink ? [finalLink] : []),
     ]);
@@ -69,7 +76,11 @@ export function GraphQLUniversalProvider<
   return (
     <>
       <ApolloProvider client={client}>{children}</ApolloProvider>
-      <Serialize data={() => ssrLink.resolveAll(() => client.extract())} />
+      <Serialize
+        data={() =>
+          ssrLink ? ssrLink.resolveAll(() => client.extract()) : undefined
+        }
+      />
     </>
   );
 }

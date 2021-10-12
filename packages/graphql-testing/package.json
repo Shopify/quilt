@@ -1,12 +1,16 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "4.2.0",
+  "version": "5.1.1",
   "license": "MIT",
   "description": "Utilities to create mock GraphQL factories",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "matchers": [
+        "./build/ts/matchers/index.d.ts"
+      ]
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -22,22 +26,45 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/graphql-testing/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-testing/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "graphql": "^14.0.0",
-    "jest-matcher-utils": "^25.3.0"
+    "graphql": ">=14.5.0 <16.0.0",
+    "jest-matcher-utils": "^26.6.2"
   },
   "devDependencies": {
-    "@shopify/useful-types": "^2.2.0",
-    "graphql-typed": "^0.5.0"
+    "@shopify/useful-types": "^3.0.5",
+    "graphql-typed": "^1.1.1"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo",
-    "matchers.d.ts",
-    "matchers.js"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "matchers.js",
+    "matchers.mjs",
+    "matchers.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./matchers": {
+      "import": "./matchers.mjs",
+      "require": "./matchers.js",
+      "esnext": "./matchers.esnext"
+    }
+  }
 }

@@ -16,7 +16,7 @@ There are many ways to contribute to Quilt, some of which are:
 - Hacking away on an issue from our [backlog](https://github.com/Shopify/quilt/issues)
 - Improving tests or documentation
 
-Want to contribute, but not sure how? Find us on Slack in `#web-foundation-tech`.
+Want to contribute, but not sure how? Find us on Slack in `#web-foundations`.
 
 ## Development
 
@@ -31,7 +31,7 @@ dev up
 
 ### Getting productive
 
-We are adding documentation as we go in the [Web Foundation repo](https://github.com/Shopify/web-foundation). There you will find our [decision records](https://github.com/Shopify/web-foundation/tree/main/handbook/Decision%20records), [principles](https://github.com/Shopify/web-foundation/tree/main/handbook/Principles), [best practices](https://github.com/Shopify/web-foundation/tree/main/handbook/Best%20practices) and [styleguides](https://github.com/Shopify/web-foundation/blob/main/handbook/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundation/blob/main/handbook/Best%20practices/Testing.md) different kinds of components.
+We are adding documentation as we go in the [Web Foundations repo](https://github.com/Shopify/web-foundations). There you will find our [decision records](https://github.com/Shopify/web-foundations/tree/main/handbook/Decision%20Records), [principles](https://github.com/Shopify/web-foundations/tree/main/handbook/Principles), [best practices](https://github.com/Shopify/web-foundations/tree/main/handbook/Best%20Practices) and [styleguides](https://github.com/Shopify/web-foundations/blob/main/handbook/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundations/blob/main/handbook/Best%20Practices/Testing.md) different kinds of components.
 
 The [documentation](../documentation) directory in this repo covers the more granular technical aspects of this project. Of particular note for new folks are the following:
 
@@ -40,15 +40,25 @@ The [documentation](../documentation) directory in this repo covers the more gra
 - [Resources](../documentation/resources.md): good resources for understanding this project’s tech stack.
 - [Getting started](../documentation/getting-started.md): some tools we recommend for getting the most out of this project.
 
-## Testing your changes in a local project
+## 🎩 in a local project
 
-To try out your changes in another locally cloned project, you can use `yarn tophat <package-name-without-@shopify-prefix> <relative-path-to-project>`. Using this command rather than `yarn link` will set up a watcher let you make changes without needing to rerun any commands.
+You can use [`yalc`](https://github.com/wclr/yalc) to publish the package and [`nodemon`](https://nodemon.io/) to watch the file changes.
 
-Example: To test my changes to `@shopify/react-form-state` in my local project named `cool-proj`, I would run `yarn tophat react-form-state ../path/to/cool-proj`.
+This had been added as a `tophat` script to allow for faster iteration.
 
-Notes: If the package you are testing has dependencies inside Quilt itself, you will need to run `dev build` first. If you are using a build system in the consumer of the package, you may need to clear your build folder.
+In quilt:
 
-More usage instructions on the `tophat` command can be [found here](https://github.com/Shopify/webgen/blob/master/docs/TOPHAT.md).
+```bash
+ PKG_NAME=<package-folder-name> yarn tophat #PKG_NAME=react-server yarn tophat
+```
+
+In consuming repo:
+
+```bash
+yalc link --no-pure <package-name-in-package.json>  #yalc link --no-pure @shopify/react-server
+```
+
+You may also want to add `.yalc` and `yalc.lock` to `.gitignore` to remove some of the noise.
 
 ### Emoji commits
 
@@ -77,11 +87,11 @@ If your changes are complete in functionality, but you're not quite happy with a
 
 #### Feature branches
 
-Another option, if you'd like to break work down into reviewable chunks, is to use a feature branch. This would be an initially empty branch that contains the entirety of your feature. Additional units of work can be distributed across several PRs into the feature branch, merged independently, and then the feature branch can be merged as a complete unit into the master branch, when it's ready.
+Another option, if you'd like to break work down into reviewable chunks, is to use a feature branch. This would be an initially empty branch that contains the entirety of your feature. Additional units of work can be distributed across several PRs into the feature branch, merged independently, and then the feature branch can be merged as a complete unit into the main branch, when it's ready.
 
 ## Releasing
 
-The release process currently involves some manual steps to complete. Please ping Web Foundations ATC in the `#web-foundation-tech` Slack channel when you're ready to merge a new PR into `master`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
+The release process currently involves some manual steps to complete. Please ping Web Foundations ATC in the `#web-foundations` Slack channel when you're ready to merge a new PR into `main`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
 
 **Note** Version numbers in `package.json` files should never be altered manually. This will be done via scripts as part of the release process.
 

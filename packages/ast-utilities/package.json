@@ -1,12 +1,19 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "0.1.0",
+  "version": "1.0.7",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "javascript": [
+        "./build/ts/javascript/index.d.ts"
+      ],
+      "markdown": [
+        "./build/ts/markdown/index.d.ts"
+      ]
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -22,7 +29,10 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/ast-utilities/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/ast-utilities/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "devDependencies": {
     "@babel/core": ">=7.0.0",
     "@babel/plugin-transform-react-jsx": ">=7.0.0",
@@ -32,17 +42,47 @@
     "@types/unist": "^2.0.3"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "javascript.js",
+    "javascript.mjs",
+    "javascript.esnext",
+    "markdown.js",
+    "markdown.mjs",
+    "markdown.esnext"
   ],
   "dependencies": {
-    "@babel/template": "^7.6.0",
+    "@babel/template": "^7.14.5",
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
-    "jest-matcher-utils": "^25.3.0",
-    "remark-parse": "^7.0.1",
+    "jest-matcher-utils": "^26.6.2",
+    "remark-parse": "^9.0.0",
     "remark-stringify": "^7.0.3",
     "unified": "^8.4.0",
     "unist-builder": "^1.0.4"
+  },
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./javascript": {
+      "import": "./javascript.mjs",
+      "require": "./javascript.js",
+      "esnext": "./javascript.esnext"
+    },
+    "./markdown": {
+      "import": "./markdown.mjs",
+      "require": "./markdown.js",
+      "esnext": "./markdown.esnext"
+    }
   }
 }

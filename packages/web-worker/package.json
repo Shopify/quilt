@@ -1,12 +1,25 @@
 {
   "name": "@shopify/web-worker",
-  "version": "1.4.1",
+  "version": "2.1.5",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "babel": [
+        "./build/ts/babel-plugin.d.ts"
+      ],
+      "webpack": [
+        "./build/ts/webpack-parts/index.d.ts"
+      ],
+      "webpack-loader": [
+        "./build/ts/webpack-parts/loader.d.ts"
+      ],
+      "worker": [
+        "./build/ts/worker.d.ts"
+      ]
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -22,11 +35,14 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/web-worker/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/web-worker/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/rpc": "^1.0.7",
+    "@shopify/rpc": "^2.0.5",
     "loader-utils": "^1.0.0",
-    "webpack-virtual-modules": "^0.2.2"
+    "webpack-virtual-modules": "^0.4.3"
   },
   "devDependencies": {
     "@babel/types": ">=7.0.0",
@@ -39,17 +55,49 @@
     "koa-mount": "^3.0.0"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo",
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
     "babel.js",
-    "babel.d.ts",
+    "babel.mjs",
+    "babel.esnext",
     "webpack.js",
-    "webpack.d.ts",
+    "webpack.mjs",
+    "webpack.esnext",
     "worker.js",
-    "worker.d.ts"
+    "worker.mjs",
+    "worker.esnext"
   ],
   "optionalDependencies": {
     "@babel/core": "^7.0.0",
-    "webpack": ">4.25.1, <=4.5.0"
+    "webpack": "^4.25.1"
+  },
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./babel": {
+      "import": "./babel.mjs",
+      "require": "./babel.js",
+      "esnext": "./babel.esnext"
+    },
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    },
+    "./webpack": {
+      "import": "./webpack.mjs",
+      "require": "./webpack.js",
+      "esnext": "./webpack.esnext"
+    },
+    "./worker": {
+      "import": "./worker.mjs",
+      "require": "./worker.js",
+      "esnext": "./worker.esnext"
+    }
   }
 }

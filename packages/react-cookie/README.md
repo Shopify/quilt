@@ -1,6 +1,7 @@
 # `@shopify/react-cookie`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-cookie.svg)](https://badge.fury.io/js/%40shopify%2Freact-cookie.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-cookie.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-cookie.svg)
 
 Cookies in React for the server and client.
@@ -17,7 +18,7 @@ $ yarn add @shopify/react-cookie
 
 To extract cookies during the server-side render of your application, your component needs to have access to the `NetworkManager` from `@shopify/react-network`. You can pass the initial server cookie value when the manager is instantiated within your server-side middleware.
 
-For full details on setting up `@shopify/react-network`, [see the readme for that package](https://github.com/Shopify/quilt/tree/master/packages/react-network#server).
+For full details on setting up `@shopify/react-network`, [see the readme for that package](https://github.com/Shopify/quilt/tree/main/packages/react-network#server).
 
 _Koa Server Example_
 
@@ -41,7 +42,7 @@ export default function renderApp(ctx: Context) {
   const app = <App />;
 
   await extract(app, {
-    decorate: element => (
+    decorate: (element) => (
       <NetworkContext.Provider value={networkManager}>
         {element}
       </NetworkContext.Provider>
@@ -94,7 +95,7 @@ import {useCookie} from '@shopify/react-cookie';
 
 function SomeComponent() {
   const [cookie, setCookie] = useCookie('fooCookie');
-  const handleChange = event => setCookie(event.target.value);
+  const handleChange = (event) => setCookie(event.target.value);
   const removeCookie = () => setCookie();
 
   return (

@@ -9,6 +9,7 @@ import {
 import {CacheMissBehavior} from './shared';
 
 interface Options {
+  alwaysIncludeQuery?: boolean;
   idFromOperation?(operation: Operation): string | undefined | null;
 }
 
@@ -31,8 +32,11 @@ export class PersistedLink extends ApolloLink {
       throw new Error('Persisted link can’t be a terminating link.');
     }
 
-    return new Observable(observer => {
-      const {idFromOperation = defaultIdFromOperation} = this.options;
+    return new Observable((observer) => {
+      const {
+        alwaysIncludeQuery = false,
+        idFromOperation = defaultIdFromOperation,
+      } = this.options;
       const id = idFromOperation(operation);
 
       if (typeof id !== 'string' || this.sendAlwaysIds.has(id)) {
@@ -46,7 +50,7 @@ export class PersistedLink extends ApolloLink {
 
       operation.setContext({
         http: {
-          includeQuery: false,
+          includeQuery: alwaysIncludeQuery,
           includeExtensions: true,
         },
       });
@@ -56,7 +60,7 @@ export class PersistedLink extends ApolloLink {
       > | null = null;
 
       subscription = forward(operation).subscribe({
-        next: response => {
+        next: (response) => {
           const errors = (response && response.errors) || [];
 
           if (

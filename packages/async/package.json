@@ -1,12 +1,16 @@
 {
   "name": "@shopify/async",
-  "version": "2.1.5",
+  "version": "3.0.5",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "babel": [
+        "./build/ts/babel-plugin.d.ts"
+      ]
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -22,7 +26,10 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/async/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/async/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "devDependencies": {
     "@babel/core": ">=7.0.0",
     "@babel/plugin-syntax-dynamic-import": ">=7.0.0",
@@ -33,9 +40,29 @@
     "@types/webpack": "^4.0.0"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo",
-    "babel.d.ts",
-    "babel.js"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "babel.js",
+    "babel.mjs",
+    "babel.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    "./babel": {
+      "import": "./babel.mjs",
+      "require": "./babel.js",
+      "esnext": "./babel.esnext"
+    },
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

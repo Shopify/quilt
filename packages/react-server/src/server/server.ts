@@ -5,11 +5,10 @@ import Koa, {Context} from 'koa';
 import compose from 'koa-compose';
 import mount from 'koa-mount';
 
-import {createRender, RenderFunction} from '../render';
+import {createRender, RenderFunction, RenderOptions} from '../render';
 import {requestLogger} from '../logger';
 import {metricsMiddleware as metrics} from '../metrics';
 import {ping} from '../ping';
-import {ValueFromContext} from '../types';
 
 const logger = console;
 
@@ -18,10 +17,12 @@ interface Options {
   port?: number;
   assetPrefix?: string;
   proxy?: boolean;
-  assetName?: string | ValueFromContext<string>;
+  assetName?: RenderOptions['assetName'];
+  htmlProps?: RenderOptions['htmlProps'];
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
-  renderError?: RenderFunction;
+  renderError?: RenderOptions['renderError'];
+  renderRawErrorMessage?: boolean;
   app?: Koa;
 }
 
@@ -45,11 +46,13 @@ export function createServer(options: Options): Server {
     assetPrefix = process.env.CDN_URL && process.env.CDN_URL !== 'undefined'
       ? process.env.CDN_URL
       : undefined,
-    /* eslint-enable no-process-env */
     render,
     renderError,
+    renderRawErrorMessage = process.env.NODE_ENV === 'development',
+    /* eslint-enable no-process-env */
     serverMiddleware,
     assetName,
+    htmlProps,
     proxy = false,
     app = new Koa(),
   } = options;
@@ -65,7 +68,15 @@ export function createServer(options: Options): Server {
     app.use(compose(serverMiddleware));
   }
 
-  app.use(createRender(render, {assetPrefix, assetName, renderError}));
+  app.use(
+    createRender(render, {
+      assetPrefix,
+      assetName,
+      renderError,
+      renderRawErrorMessage,
+      htmlProps,
+    }),
+  );
 
   return app.listen(port, ip, () => {
     logger.log(`started react-server on ${ip}:${port}`);

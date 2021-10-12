@@ -30,7 +30,7 @@ export class SsrExtractableLink extends ApolloLink {
 
     let operationDone: Function;
 
-    const promise = new Promise<void>(resolve => {
+    const promise = new Promise<void>((resolve) => {
       operationDone = () => {
         this.operations.delete(promise);
         resolve();
@@ -39,14 +39,14 @@ export class SsrExtractableLink extends ApolloLink {
 
     this.operations.add(promise);
 
-    return new Observable<FetchResult>(observer => {
+    return new Observable<FetchResult>((observer) => {
       return nextLink(operation).subscribe({
         complete() {
           observer.complete();
           operationDone();
         },
         next: observer.next.bind(observer),
-        error: observer.next.bind(observer),
+        error: observer.error.bind(observer),
       });
     });
   }

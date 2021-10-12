@@ -3,15 +3,12 @@ module.exports = {
     'plugin:@shopify/typescript',
     'plugin:@shopify/typescript-type-checking',
     'plugin:@shopify/react',
+    'plugin:@shopify/graphql',
     'plugin:@shopify/jest',
     'plugin:@shopify/prettier',
   ],
   parserOptions: {
-    project: [
-      'packages/tsconfig.json',
-      'packages/tsconfig_base.json',
-      'test/tsconfig.eslint.json',
-    ],
+    project: ['./tsconfig.eslint.json'],
   },
   rules: {
     'jest/valid-expect-in-promise': 'off',
@@ -34,23 +31,62 @@ module.exports = {
     '@typescript-eslint/unbound-method': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/await-thenable': 'off',
-    '@typescript-eslint/no-misused-promises': 'off',
     'import/no-extraneous-dependencies': 'error',
   },
   overrides: [
     {
-      files: [
-        '**/test/**/*.ts',
-        '**/test/**/*.tsx',
-        '**/tests/**/*.ts',
-        '**/tests/**/*.tsx',
-      ],
+      files: ['**/*.ts', '**/*.tsx'],
+      rules: {
+        // Enforce camelCase naming convention and PascalCase class and interface names
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: 'default',
+            format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+            leadingUnderscore: 'allow',
+            trailingUnderscore: 'allow',
+          },
+          {
+            selector: 'default',
+            filter: {
+              match: true,
+              // Allow double underscores and React UNSAFE_ (for lifecycle hooks that are to be deprecated)
+              regex: '^(__|UNSAFE_).+$',
+            },
+            format: null,
+          },
+          {
+            selector: 'typeLike',
+            format: ['PascalCase'],
+          },
+        ],
+      },
+    },
+    {
+      files: ['**/tests/**/*.ts', '**/tests/**/*.tsx', '**/loom.config.ts'],
       rules: {
         // We disable `import/no-extraneous-dependencies` for test files because it
         // would force releases of `@shopify/react-testing` (and similar devDependencies)
         // to cause unnecessary package bumps in every package that consumes them.
         // Test files with extraneous dependencies won't cause runtime errors in production.
         'import/no-extraneous-dependencies': 'off',
+        'react/jsx-no-constructed-context-values': 'off',
+        'react/jsx-key': 'off',
+      },
+    },
+    {
+      files: ['**/tests/fixtures/**/*.*'],
+      rules: {
+        '@shopify/typescript/prefer-pascal-case-enums': 'off',
+        'babel/object-curly-spacing': 'off',
+        'prettier/prettier': 'off',
+        'import/newline-after-import': 'off',
+      },
+    },
+    {
+      files: ['**/loom.config.ts', 'config/loom/index.ts'],
+      rules: {
+        'babel/no-unused-expressions': 'off',
       },
     },
   ],

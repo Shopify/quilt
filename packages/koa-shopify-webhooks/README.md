@@ -1,6 +1,7 @@
 # `@shopify/koa-shopify-webhooks`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg)
 
 Register and receive webhooks from Shopify with ease. This package was created primarily for use with `@shopify/koa-shopify-auth` and friends.
@@ -77,7 +78,7 @@ app.use(
         topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
-        ApiVersion.Unstable
+        apiVersion: 'unstable',
       });
 
       if (registration.success) {
@@ -105,7 +106,7 @@ app.use(
 
 app.use(verifyRequest());
 
-app.use(ctx => {
+app.use((ctx) => {
   /* app code */
 });
 ```
@@ -143,7 +144,7 @@ app.use(
         topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
-        ApiVersion.Unstable
+        apiVersion: 'unstable',
       });
 
       await registerWebhook({
@@ -151,7 +152,7 @@ app.use(
         topic: 'ORDERS_CREATE',
         accessToken,
         shop,
-        ApiVersion.Unstable
+        apiVersion: 'unstable',
       });
 
       ctx.redirect('/');

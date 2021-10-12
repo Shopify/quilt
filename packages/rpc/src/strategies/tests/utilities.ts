@@ -45,7 +45,7 @@ function functionStrategyFromMessagePort<T>(
       const transferables: Transferable[] = [];
 
       if (Array.isArray(value)) {
-        const result = value.map(item => {
+        const result = value.map((item) => {
           const [result, nestedTransferables = []] = toWire(item);
           transferables.push(...nestedTransferables);
           return result;
@@ -78,7 +78,7 @@ function functionStrategyFromMessagePort<T>(
       }
 
       if (Array.isArray(value)) {
-        return value.map(value => fromWire(value, retainedBy));
+        return value.map((value) => fromWire(value, retainedBy));
       }
 
       if (value[FUNCTION]) {
@@ -99,7 +99,7 @@ export function createResolvablePromise<T>(value: T) {
   let promiseResolve!: (value: T) => void;
   let resolved = false;
 
-  const promise = new Promise<T>(resolve => {
+  const promise = new Promise<T>((resolve) => {
     promiseResolve = resolve;
   });
 

@@ -1,6 +1,7 @@
 # `@shopify/react-graphql-universal-provider`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-graphql-universal-provider.svg)](https://badge.fury.io/js/%40shopify%2Freact-graphql-universal-provider.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-graphql-universal-provider.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-graphql-universal-provider.svg)
 
 A self-serializing/deserializing GraphQL provider that works for isomorphic applications.
@@ -161,6 +162,43 @@ function GraphQL({url, children}: {url: URL; children?: React.ReactNode}) {
 
   return (
     <GraphQLUniversalProvider createClientOptions={createClientOptions}>
+      {children}
+    </GraphQLUniversalProvider>
+  );
+}
+```
+
+#### Customizing the serialized id
+
+```tsx
+// GraphQL.tsx
+import React from 'react';
+import fetch from 'cross-fetch';
+import {createHttpLink} from 'apollo-link-http';
+import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
+
+export function GraphQL({
+  url,
+  children,
+}: {
+  url: URL;
+  children?: React.ReactNode;
+}) {
+  const createClientOptions = () => {
+    const link = createHttpLink({
+      // make sure to use absolute URL on the server
+      uri: `${url.origin}/graphql`,
+      fetch,
+    });
+
+    return {link};
+  };
+
+  return (
+    <GraphQLUniversalProvider
+      id="graphql-cache"
+      createClientOptions={createClientOptions}
+    >
       {children}
     </GraphQLUniversalProvider>
   );

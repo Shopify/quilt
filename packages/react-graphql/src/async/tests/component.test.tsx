@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import {random, name} from 'faker';
 import gql from 'graphql-tag';
-import ApolloClient from 'apollo-client';
+import {ApolloClient} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {getUsedAssets as baseGetUsedAssets} from '@shopify/react-async/testing';
@@ -251,7 +251,7 @@ function createResolvablePromise<T>(value: T) {
   let promiseResolve!: (value: T) => void;
   let resolved = false;
 
-  const promise = new Promise<T>(resolve => {
+  const promise = new Promise<T>((resolve) => {
     promiseResolve = resolve;
   });
 

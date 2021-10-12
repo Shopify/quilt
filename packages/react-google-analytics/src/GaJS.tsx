@@ -72,7 +72,7 @@ export default function GaJSGoogleAnalytics({
       allowHash,
       onLoad,
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      ...setVariables.map(setArray => setArray.join()),
+      ...setVariables.map((setArray) => setArray.join()),
     ],
   );
 

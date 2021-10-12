@@ -21,18 +21,12 @@ export const polyfills: {[polyfill: string]: PolyfillDescriptor} = {
   'mutation-observer': {
     featureTest: 'mutationobserver',
   },
-  'unhandled-rejection': {
-    featureTest: 'unhandledrejection',
-  },
-  url: {
-    featureTest: 'urlsearchparams',
-  },
 };
 
 export function mappedPolyfillsForEnv(
   env: 'node' | 'jest' | string[],
 ): {[key: string]: string} {
-  const prefix = `@shopify/polyfills/dist/src`;
+  const prefix = `@shopify/polyfills`;
   const noop = `${prefix}/noop`;
 
   return Object.entries(polyfills).reduce(

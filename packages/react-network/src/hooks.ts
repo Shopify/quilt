@@ -23,7 +23,7 @@ export function useCspDirective(
   directive: CspDirective,
   source: string | string[] | boolean,
 ) {
-  useNetworkEffect(network => network.addCspDirective(directive, source));
+  useNetworkEffect((network) => network.addCspDirective(directive, source));
 }
 
 export function useRequestHeader(header: string) {
@@ -45,7 +45,7 @@ export function useRequestHeader(header: string) {
 }
 
 export function useHeader(header: string, value: string) {
-  useNetworkEffect(network => network.setHeader(header, value));
+  useNetworkEffect((network) => network.setHeader(header, value));
 }
 
 export function useNetworkManager() {
@@ -53,11 +53,11 @@ export function useNetworkManager() {
 }
 
 export function useStatus(code: StatusCode) {
-  useNetworkEffect(network => network.addStatusCode(code));
+  useNetworkEffect((network) => network.addStatusCode(code));
 }
 
 export function useRedirect(url: string, status?: StatusCode) {
-  useNetworkEffect(network => network.redirectTo(url, status));
+  useNetworkEffect((network) => network.redirectTo(url, status));
 }
 
 export function useAcceptLanguage(

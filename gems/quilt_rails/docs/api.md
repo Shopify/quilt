@@ -31,7 +31,7 @@ The `Quilt::Performance::Reportable` mixin is intended to be used in Rails contr
 > **Note** `Quilt::Performance::Reportable` does not require you to use the `React::Renderable` mixin, React-Server, or even any server-side-rendering solution at all. It should work perfectly fine for applications using something like `sewing_kit_script_tag` based client-side-rendering.
 
 ```ruby
-class PerformanceController < ApplicationController
+class PerformanceReportController < ApplicationController
   include Quilt::Performance::Reportable
 
   def create
@@ -228,6 +228,16 @@ The `configure` method allows customization of the address the service will prox
   Quilt.configure do |config|
     config.react_server_host = "localhost:3000"
     config.react_server_protocol = 'https'
+  end
+```
+
+You can also disable `DoNotIntegrationTestError` error when running rails in `test` environment by setting
+`allow_integration_test` config value to `true`
+
+```ruby
+  # config/initializers/quilt.rb
+  Quilt.configure do |config|
+    config.allow_integration_test = true
   end
 ```
 

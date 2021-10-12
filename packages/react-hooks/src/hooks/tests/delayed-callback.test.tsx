@@ -32,7 +32,7 @@ describe('useDelayedCallback', () => {
       <FakeComponent callback={callbackSpy} delay={delay} />,
     );
 
-    fakeComponent.find('button').trigger('onClick');
+    fakeComponent.find('button')!.trigger('onClick');
 
     expect(callbackSpy).not.toHaveBeenCalled();
   });
@@ -45,7 +45,7 @@ describe('useDelayedCallback', () => {
       <FakeComponent callback={callbackSpy} delay={delay} />,
     );
 
-    fakeComponent.find('button').trigger('onClick');
+    fakeComponent.find('button')!.trigger('onClick');
 
     fakeComponent.act(() => {
       clock.tick(delay);
@@ -62,13 +62,13 @@ describe('useDelayedCallback', () => {
       <FakeComponent callback={callbackSpy} delay={delay} />,
     );
 
-    fakeComponent.find('button').trigger('onClick');
+    fakeComponent.find('button')!.trigger('onClick');
 
     fakeComponent.act(() => {
       clock.tick(delay);
     });
 
-    fakeComponent.find('button').trigger('onClick');
+    fakeComponent.find('button')!.trigger('onClick');
 
     fakeComponent.act(() => {
       clock.tick(delay);
@@ -85,7 +85,7 @@ describe('useDelayedCallback', () => {
       <FakeComponent callback={callbackSpy} delay={delay} />,
     );
 
-    fakeComponent.find('button').trigger('onClick');
+    fakeComponent.find('button')!.trigger('onClick');
 
     fakeComponent.unmount();
 

@@ -12,7 +12,7 @@ interface State {
   url?: URL;
 }
 
-interface NavigatorWithConnection {
+interface NavigatorWithConnection extends Navigator {
   connection: {saveData: boolean};
 }
 
@@ -167,7 +167,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
 export function Prefetcher(props: Omit<Props, 'manager'>) {
   return (
     <PrefetchContext.Consumer>
-      {manager => <ConnectedPrefetcher {...props} manager={manager} />}
+      {(manager) => <ConnectedPrefetcher {...props} manager={manager} />}
     </PrefetchContext.Consumer>
   );
 }

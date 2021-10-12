@@ -1,6 +1,7 @@
 # `@shopify/koa-shopify-graphql-proxy`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg)](https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy)
 
 A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app.
@@ -24,7 +25,7 @@ Attaching the middleware will proxy any requests sent to `/graphql` on your app 
 import koa from 'koa';
 import session from 'koa-session';
 import createShopifyAuth from '@shopify/koa-shopify-auth';
-import proxy, {ApiVersion} from '@shopify/koa-shopify-graphql-proxy';
+import proxy from '@shopify/koa-shopify-graphql-proxy';
 
 const app = koa();
 
@@ -36,7 +37,7 @@ app.use(
   }),
 );
 
-app.use(proxy({version: ApiVersion.Unstable}));
+app.use(proxy({version: 'unstable'}));
 ```
 
 This allows client-side scripts to query a logged-in merchant's shop without needing to know the user's access token.
@@ -55,7 +56,7 @@ import mount from 'koa-mount';
 
 //....
 
-app.use(mount('/shopify', proxy({version: ApiVersion.Unstable}));
+app.use(mount('/shopify', proxy({version: 'unstable'}));
 ```
 
 ```javascript
@@ -71,7 +72,7 @@ If you have a [private shopify app](https://help.shopify.com/en/manual/apps/priv
 // server/index.js
 import koa from 'koa';
 import session from 'koa-session';
-import proxy, {ApiVersion} from '@shopify/koa-shopify-graphql-proxy';
+import proxy from '@shopify/koa-shopify-graphql-proxy';
 
 const app = koa();
 
@@ -79,7 +80,7 @@ app.use(session());
 
 app.use(
   proxy({
-    version: ApiVersion.Unstable,
+    version: 'unstable',
     shop: '<my-shop-name>.myshopify.com',
     password: '<your-app-password>',
   }),

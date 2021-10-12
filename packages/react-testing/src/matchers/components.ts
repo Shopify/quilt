@@ -38,8 +38,8 @@ export function toContainReactComponent<
   const foundByProps =
     props == null
       ? foundByType
-      : foundByType.filter(element =>
-          Object.keys(props).every(key =>
+      : foundByType.filter((element) =>
+          Object.keys(props).every((key) =>
             this.equals(props[key], element.props[key]),
           ),
         );
@@ -103,8 +103,8 @@ export function toContainReactComponentTimes<
   const foundByProps =
     props == null
       ? foundByType
-      : foundByType.filter(element =>
-          Object.keys(props).every(key =>
+      : foundByType.filter((element) =>
+          Object.keys(props).every((key) =>
             this.equals(props[key], element.props[key]),
           ),
         );

@@ -1,6 +1,7 @@
 # `@shopify/graphql-testing`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fgraphql-testing.svg)](https://badge.fury.io/js/%40shopify%2Fgraphql-testing.svg)
 
 This package provides utilities to help in the following testing scenarios:
@@ -63,11 +64,46 @@ The `wrap()` method allows you to wrap all GraphQL resolutions in a function cal
 const myComponent = mount(<MyComponent />);
 const graphQL = createGraphQL(mocks);
 
-graphQL.wrap(resolve => myComponent.act(resolve));
+graphQL.wrap((resolve) => myComponent.act(resolve));
 
 // Before, calling this could cause warnings about state updates happening outside
 // of act(). Now, all GraphQL resolutions are safely wrapped in myComponent.act().
 await graphQL.resolveAll();
+```
+
+#### `update()`
+
+The `update()` method updates mocks after they have been initialized:
+
+```tsx
+const myComponent = mount(<MyComponent />);
+const newName = 'Garfield2';
+const graphQL = createGraphQL({
+  Pet: {
+    pet: {
+      __typename: 'Cat',
+      name: 'Garfield',
+    },
+  },
+});
+
+graphQL.wrap((resolve) => myComponent.act(resolve));
+await graphQL.resolveAll();
+
+graphQL.update({
+  Pet: {
+    pet: {
+      __typename: 'Cat',
+      name: newName,
+    },
+  },
+});
+
+const click = myComponent.find('button').trigger('onClick');
+await graphQL.resolveAll();
+await click;
+
+expect(myComponent).toContainReactText(newName);
 ```
 
 #### `#operations`

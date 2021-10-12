@@ -2,7 +2,6 @@ import React from 'react';
 import {extract} from '@shopify/react-effect/server';
 
 import {render, Html} from '../server';
-
 import {useSerialized, HtmlContext, HtmlManager} from '..';
 
 describe('useSerialized', () => {
@@ -15,7 +14,7 @@ describe('useSerialized', () => {
     const manager = new HtmlManager();
     const app = <MockComponent />;
     await extract(app, {
-      decorate: element => (
+      decorate: (element) => (
         <HtmlContext.Provider value={manager}>{element}</HtmlContext.Provider>
       ),
     });

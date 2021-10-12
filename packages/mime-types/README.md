@@ -1,6 +1,7 @@
 # `@shopify/mime-types`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fmime-types.svg)](https://badge.fury.io/js/%40shopify%2Fmime-types.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/mime-types.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/mime-types.svg)
 
 MIME type consistency.
@@ -26,6 +27,7 @@ The types of files currently supported are:
   'video/quicktime',
   'model/gltf-binary',
   'application/x-mpegURL',
+  'model/vnd.usdz+zip',
 ```
 
 This helps keeping MIME types and file extensions consistent.
@@ -35,7 +37,7 @@ This helps keeping MIME types and file extensions consistent.
 Takes in a file name string and returns a `MimeType`.
 
 ```ts
-import {getMimeTypeFromFilename} from '@shopify/files';
+import {getMimeTypeFromFilename} from '@shopify/mime-types';
 
 getMimeTypeFromFilename('image.jpg'); // image/jpeg
 ```
@@ -45,7 +47,7 @@ getMimeTypeFromFilename('image.jpg'); // image/jpeg
 Takes in a `MimeType` and returns a string filename extension that matches the inputted `MimeType`.
 
 ```ts
-import {getExtensionFromMimeType, MimeType} from '@shopify/files';
+import {getExtensionFromMimeType, MimeType} from '@shopify/mime-types';
 
 getExtensionFromMimeType(MimeType.Pdf); // .pdf
 ```

@@ -7,7 +7,9 @@ module Quilt
     include ReverseProxy::Controller
 
     def render_react(headers: {}, data: {})
-      raise DoNotIntegrationTestError if Rails.env.test?
+      if Rails.env.test? && !Quilt.configuration.allow_integration_test
+        raise DoNotIntegrationTestError
+      end
 
       # Allow concurrent loading to prevent this thread from blocking class
       # loading in controllers called by the Node server.
@@ -20,7 +22,8 @@ module Quilt
 
     def call_proxy(headers, data)
       if defined? ShopifySecurityBase
-        ShopifySecurityBase::HTTPHostRestriction.whitelist([Quilt.configuration.react_server_host]) do
+        allowlist = ShopifySecurityBase::HTTPHostRestriction.respond_to?(:allowlist) ? :allowlist : :whitelist
+        ShopifySecurityBase::HTTPHostRestriction.send(allowlist, [Quilt.configuration.react_server_host]) do
           proxy(headers, data)
         end
       else
@@ -53,8 +56,8 @@ module Quilt
     class ReactServerNoResponseError < StandardError
       def initialize(url)
         super(<<~MSG.squish)
-          Errno::ECONNREFUSED: Waiting for React server to boot up.
-          If this error persists verify that @shopify/react-server is configured on #{url}"
+          Connection refused while waiting for React server to boot up.
+          If this error persists, verify that @shopify/react-server is configured on #{url}.
         MSG
       end
     end
@@ -62,8 +65,10 @@ module Quilt
     class DoNotIntegrationTestError < StandardError
       def initialize
         super(<<~MSG.squish)
-          Do not try to use Rails integration tests on your quilt_rails app.
-          Instead use Jest and @shopify/react-testing to test your React application directly."
+          Please don't test React views with Ruby.
+          Jest and @shopify/react-testing should be used to test React components.
+
+          If you meant to query your Rails application, please check your integration test for errors.
         MSG
       end
     end

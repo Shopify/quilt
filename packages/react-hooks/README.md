@@ -1,6 +1,7 @@
 # `@shopify/react-hooks`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-hooks.svg)](https://badge.fury.io/js/%40shopify%2Freact-hooks.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-hooks.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-hooks.svg)
 
 A collection of primitive React hooks.
@@ -17,6 +18,7 @@ $ yarn add @shopify/react-hooks
 - [useDelayedCallback()](#usedelayedcallback)
 - [useForceUpdate()](#useforceupdate)
 - [useInterval()](#useinterval)
+- [useIsomorphicLayoutEffect()](#useisomorphiclayouteffect)
 - [useLazyRef()](#uselazyref)
 - [useMedia() & useMediaLayout()](#usemedia--usemedialayout)
 - [useMountedRef()](#usemountedref)
@@ -152,6 +154,12 @@ function MyComponent() {
 ```
 
 This is a TypeScript implementation of @gaeron's `useInterval` hook from the [Overreacted blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/#just-show-me-the-code).
+
+### `useIsomorphicLayoutEffect()`
+
+This hook is a drop-in replacement for `useLayoutEffect` that can be used safely in a server-side rendered app. It resolves to `useEffect` on the server and `useLayoutEffect` on the client (since `useLayoutEffect` cannot be used in a server-side environment).
+
+Refer to the [`useLayoutEffect` documentation to learn more](https://reactjs.org/docs/hooks-reference.html#uselayouteffect).
 
 ### `useLazyRef()`
 

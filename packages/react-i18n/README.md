@@ -1,6 +1,7 @@
 # `@shopify/react-i18n`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-i18n.svg)](https://badge.fury.io/js/%40shopify%2Freact-i18n.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-i18n.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-i18n.svg)
 
 i18n utilities for React handling translations, formatting, and more.
@@ -12,6 +13,8 @@ $ yarn add @shopify/react-i18n
 ```
 
 ## Usage
+
+[Code Sand Box of below example](https://codesandbox.io/api/v1/sandboxes/define?parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgFYLIgDGA9qgC4yVIgD0dABAAJwAWpADhGAJ50AnGAENiFALQQAjAA5UjAKJZhAW06wAOqgaNxe_QcNHjJ02fN7GWnQGE2w1AHMYjCmxdRSxYbEakBjACucC4OvH5gru6M0nKMnAKkAG4QmOiMYIGoYhDkcIwA7hBuaNZMbi4AcqQUAGKkWelkauTUFDhlZYz1AcKMUBBwFBGMPlCjScLQwgBGvpnZFLmo-SlwxVbaTGwUFJxwiAyOxWyBMzjNdADKHNx8dACOgdAUdBRCMHQqU9qcogDWwmccEEIjEklkqC0WggLQEwwASmDhmBEiorCAhKIKBoQABuGFwxHIgAiAHkALIZNEYrHg9CkFS4gmoWGcfzDYCMACCnE4AAVEilMAEAL7UxkY1i3Hj8dlQYQCQbMwns-GMLkASUhNnIVCwFAANIxtXIKQ4gTAxRL0bjpVxZaDsRC5CqoayiTy-TaMTg6LzOG7VRypewHfd5YrBnR0INXkNeLA4Bc4HAg1tGMR7E4XCV8p5vL4KKQMajcThGNUlsQXBwClEXGRKNhhoFOOhhFQuu8II5nAJ8mMYpCcO8HHAFVQYisKA4a_li4xY3B1MJwhVqdQs10m1RKB1snlhgWfC4ALwY6huptDYdmi39xgX1Aweum1Dm1CWgQACmAWkYfovFPQ0AL8VAFAERJfytaCAEoNTAwCb1IWAcFg_wfwwgQ4JZQDRS0UVcOhVAkWxckKRwIQMCtH8wIAHgDQVklSK0GxUGAz2ALkyE8AQrizGAOMQDEBkcHZcUYUVRQAPiQxh6PfXVmwNHBmOFNjJigQJOOAWIPwfK1ZPkwDGO9Og5PkQCFLoJS9RbNShVYgRLNM_0-XU5yZNAqyGWIQIOP3ZwKAUWBAooAAhXhNXQOjMVIGpcTgrRcM2azrJAUVDRAAN8EIUBdzaWhg3VMixB9XE6RxfESuGKt6kaCqQD9eqGgwdNsDVYZMDAYRAigFEshycgvU4H8EP_KyhAoQIBHkOirNM2Mklc9KFNaxqLPk-iYwgFawOI1BxTWk6TMYTLso2jA8qQAr7JoRAQFqxgypRGlKuRN02RDLkFDUCheCuWcp3FVFJTtMM7jlVCozTGqPS6xhqCav1qDy8gvs9VEUboVF0aheHvvVLlghgd8pKa-0oadcF9I6rBEZ6vqBoyIalhGq7YomsCb2GABtfSAF0nyCEJ3z_eTUhE3FOdxHz0t6qAoBmAEROoeXrLHFZJ2WOAfxPWBucW6yeEYfXgN8M8rcvAmjZOwDptm-RqDwtbxRgKAQhiSJzcLc9rdxMsQDt-3Hbm6lXfSgjjej_DDodmAZvDhb0vov7OABoHOxgM73GEWMnC4_TRwEcdJxgOLOZwPOC8cJLY7W7Fli4nj7ooETi61ids8rmoGuupuMeD41ZqgaX6Ek6T5NW1POBkvSRy78ve7qNr0AuNv652uftrodPM-BmBVsOhv0rOi6QDRghyFukg2-K1BJsAmW-7X3ERKf6zcRrtA66QDF-SWkYKgGoGQ34gA1s_EAg8CbjwigCOW8lcSFUoO_DEAAVaIfxnCMF4A0QoVoPAJX-L_MBAQyD9XSCA4YMwXBgDXhWfksBhBe0EsQf4DYCEzFGOgdAQhUxkKRlBfwg4MCuAEOEIEPwOhPSstHY6Z9jaAQvnja-qBb4oIoA_T-L9V6NDQZ_KBP8nBoNxIAnBID5DvAaEkAAlznCBSDoHDVgbSRODQBCIONsgze_9cQABk-jYJcE8FwSQGj5CEIJAQgkABeSNbxoGsYESYcwYAVgAGowGeErGA8S7FKkgGxKAAByfO_CvYAHUYDcPZLNfo8AhFCFmvkROjABD2NTGuK0MiwLyPtmlNaF80CYFwDsFQUANH30evRZaMR0BnkqglaqMkdrLRkhfP47DLT4ymc2B6oBMCcGoJgbIEB4C3ypo6SMSpCAgHLkMCBIArkRhhrcyQN5aAPK0dlF5_AqounUY9AAbDgAADOCp5VUvnZ0edlAFDIVAwqoI86SaKgA)
 
 ### `<I18nContext.Provider />` and `I18nManager`
 
@@ -120,14 +123,17 @@ export default withI18n()(NotFound);
 
 #### `i18n`
 
-The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
+The provided `i18n` object exposes many useful methods for internationalizing your apps. You can see the full details in the [`i18n` source file](https://github.com/Shopify/quilt/blob/main/packages/react-i18n/src/i18n.ts), but you will commonly need the following:
 
 - `formatNumber()`: formats a number according to the locale. You can optionally pass an `as` option to format the number as a currency or percentage; in the case of currency, the `defaultCurrency` supplied to the i18n `I18nContext.Provider` component will be used where no custom currency code is passed.
+- `unformatNumber()`: converts a localized number string to a number string parseable by JavaScript. Example: `123.456,45 => 123456.45`
 - `formatCurrency()`: formats a number as a currency according to the locale. Its behaviour depends on the `form:` option.
-  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1,25`, `€ 1,25 EUR`, `OMR 1.250`, `$ 1.25 USD`
+  - if `form: 'short'` is given, then a possibly-ambiguous short form is used, consisting of the bare symbol if the currency has a symbol, or the ISO 4217 code if there is no symbol for that currency. Examples: `CHF 1.25`, `€1.25`, `OMR 1.250`, `$1.25`
+  - if `form: 'none'` is given, the number will be formatted with currency rules but will not include a currency symbol or ISO code in the string. Examples: `1,234.56`, `1 234,56`
   - if `form: 'explicit'` is given, then the result will be the same as for `short`, but will append the ISO 4217 code if it is not already present
   - if `form: 'auto'` is given, then `explicit` will be selected if the `currency` option does not match the `defaultCurrency`, otherwise `short` is selected. If either `currency` or `defaultCurrency` is not defined then `short` is selected.
   - if `form:` is not given, then behaviour reverts to the legacy (deprecated) `formatCurrency()`, which is a convenience function that simply _auto-assigns_ the `as` option to `currency` and calls `formatNumber()`. Note that this will resemble `form: 'short'`, but will sometimes extend the symbol with extra information depending on the browser's implementation of `Intl.NumberFormat` and the locale in use. For example, `formatCurrency(1.25, {currency: 'CAD'})` may return `$ 1.25`, or it might return `CA$ 1.25`.
+- `unformatCurrency()`: converts a localized currency string to a currency string parseable by JavaScript. Example: `€ 1,25 => 1.25`
 - `formatPercentage()`: formats a number as a percentage according to the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
@@ -141,21 +147,24 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
   - `formatName('John', 'Smith', {full: true})` will return `John Smith` in Germany and `SmithJohn` in Japan
 - `ordinal()`: formats a number as an ordinal according to the locale, e.g. `1st`, `2nd`, `3rd`, `4th`
 - `hasEasternNameOrderFormatter()`: returns true when an eastern name order formatter corresponding to the locale/language exists.
+- `numberSymbols()`: returns an object specifying the current locale's decimal and thousand symbols. Example: For the `es-ES` locale the output would be `{ decimalSymbol: ',', thousandSymbol: '.' }`
 
 Most notably, you will frequently use `i18n`’s `translate()` method. This method looks up a key in translation files that you supply based on the provided locale. This method is discussed in detail in the next section.
 
 #### Translations
 
-The most commonly-used feature of the `@shopify/react-i18n` library is looking up translations. In this library, translations are provided **for the component that need them**, and are **available for ancestors of the component**. This allows applications to grow while keeping translations manageable, makes it clearer where to add new translations, and follows Shopify’s principle of [isolation over integration](https://github.com/Shopify/web-foundation/blob/master/Principles/4%20-%20Isolation%20over%20integration.md) by collocating translations with all other component assets.
+The most commonly-used feature of the `@shopify/react-i18n` library is looking up translations. In this library, translations are provided **for the component that need them**, and are **available for ancestors of the component**. This allows applications to grow while keeping translations manageable, makes it clearer where to add new translations, and follows Shopify’s principle of [isolation over integration](https://github.com/Shopify/web-foundations/blob/main/handbook/Principles/4%20-%20Isolation%20over%20integration.md) by collocating translations with all other component assets.
+
+Translations are serialized into files according to [the React I18n schema](./docs/react_i18n_schema.md).
 
 Translations are provided using two keys in the `withI18n` decorator:
 
 - `fallback`: a translation file to use when translation keys are not found in the locale-specific translation files. These will usually be your English translations, as they are typically the most complete.
 - `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. The `translations` function can also throw and `react-i18n` will handle the situation gracefully. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries.
 
-We recommend that you colocate your translation files in a `./translations` directory and that you include an `en.json` file in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](#Babel) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
+We recommend that you co-locate your translation files in a `./translations` directory and that you include an `en.json` file ([schema specification](docs/react_i18n_schema.md)) in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](./babel-plugin.md) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
 
-If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary. If you're using the [babel plugin](#Babel), this `id` will the automatically generated based on the relative path to your component from your project's root directory.
+If you provide any of the above options, you must also provide an `id` key, which gives the library a way to store the translation dictionary. If you're using the [babel plugin](./babel-plugin.md), this `id` will the automatically generated based on the relative path to your component from your project's root directory.
 
 Here’s the example above with component-specific translations:
 
@@ -262,7 +271,7 @@ if (keyExists) {
 
 ##### Pluralization
 
-`@shopify/react-i18n` handles pluralization similarly to [Rails’ default i18n utility](https://guides.rubyonrails.org/i18n.html#pluralization). The key is to provide the plural-dependent value as a `count` variable. `react-i18n` then looks up the plural form using [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules) and, within the keypath you have specified for the translation, will look up a nested translation matching the plural form:
+`@shopify/react-i18n` handles pluralization similarly to [Rails’ default i18n utility](https://guides.rubyonrails.org/i18n.html#pluralization) ([with some minor differences](docs/react_i18n_schema.md#pluralization-1)). The key is to provide the plural-dependent value as a `count` variable. `react-i18n` then looks up the plural form using [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules) and, within the keypath you have specified for the translation, will look up a nested translation matching the plural form:
 
 ```ts
 // Assuming a dictionary like:
@@ -278,7 +287,7 @@ if (keyExists) {
 i18n.translate('MyComponent.searchResult', {count: searchResults});
 ```
 
-As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/master/packages/polyfills).
+As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/main/packages/polyfills).
 We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
 
 By default, `{count}` will be automatically formatted as a number. If you want to format the variable differently, you can simply pass it in another variable.
@@ -329,7 +338,7 @@ i18n.getTranslationTree('MyComponent.countries');
 
 When rendering internationalized React apps on the server, you will want to extract the translations and rehydrate them on the client if any translations are loaded asynchronously. Not doing so would cause the server and client markup to differ, resulting in a full re-render.
 
-We recommend you to use [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/master/packages/react-html) with [`@shopify/react-i18n-universal-provider`](https://github.com/Shopify/quilt/tree/master/packages/react-i18n-universal-provider) to serialize the extracted translations and rehydrate them on the client.
+We recommend you to use [`@shopify/react-html`](https://github.com/Shopify/quilt/tree/main/packages/react-html) with [`@shopify/react-i18n-universal-provider`](https://github.com/Shopify/quilt/tree/main/packages/react-i18n-universal-provider) to serialize the extracted translations and rehydrate them on the client.
 
 ```tsx
 import {
@@ -342,15 +351,14 @@ import {
 import {I18nManager} from '@shopify/react-i18n';
 import {extract} from '@shopify/react-effect/server';
 
-
 function App({locale}: {locale?: string}) {
   return (
     <I18nUniversalProvider locale={locale}>
       {/* App contents */}
-    </I18nContext.Provider>
+    </I18nUniversalProvider>
   );
 }
-const app = <App locale='en' />;
+const app = <App locale="en" />;
 
 const htmlManager = new HtmlManager();
 await extract(element, {
@@ -361,143 +369,7 @@ await extract(element, {
   },
 });
 
-const html = render(
-  <Html manager={htmlManager}>
-    {app}
-  </Html>,
-);
-```
-
-### Babel
-
-This package includes a plugin for Babel that auto-fills `useI18n`'s or `withI18n`'s arguments from an adjacent translations folder. The Babel plugin is exported from the `@shopify/react-i18n/babel` entrypoint:
-
-```js
-// babel.config.js
-{
-  plugins: [
-    ['@shopify/react-i18n/babel'],
-  ],
-}
-```
-
-This plugin will look for an adjacent translations folder containing, at minimum, an `en.json` file (the default locale). It will then iterate over each reference to the `useI18n` hook or `withI18n` decorator and, if the reference is a call expression with no arguments, and inject the appropriate arguments.
-
-```js
-// Within MyComponent.tsx:
-
-useI18n();
-
-// Becomes:
-
-import _en from './translations/en.json';
-
-useI18n({
-  id: 'MyComponent_<hash>',
-  fallback: _en,
-  async translations(locale) {
-    const dictionary = await import(
-      /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
-    );
-    return dictionary;
-  },
-});
-```
-
-#### Integration with babel-loader
-
-Because `babel-loader`'s cache is based on a component's source content hash, newly added translation files will not invalidate the component's Babel cache. To combat this, run the `generateTranslationIndexes` function before building, and configure the plugin to use its `from-generated-index` mode.
-
-The generator will look for any `translations` folders and generate an array of local ids in `translations/index.js` based on the `{locale}.json` files found. We recommend that you add `**/translations/index.js` to `.gitignore` to make sure the generated files are not checked-in.
-
-```js
-// webpack.config.js
-module.exports = {
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              plugins: [
-                '@babel/plugin-syntax-dynamic-import',
-                ['@shopify/react-i18n/babel', {mode: 'from-generated-index'}],
-              ],
-            },
-          },
-        ],
-      },
-    ],
-  },
-};
-```
-
-```js
-// generate-translations.js
-const {
-  generateTranslationIndexes,
-} = require('@shopify/react-i18n/generate-index');
-
-generateTranslationIndexes();
-webpack(require(./webpack.config.js));
-```
-
-#### Statically embedding locale-specific translations
-
-For large applications, even asynchronously loaded translations can significantly degrade the user experience:
-
-- Bundlers like webpack have to embed kilobytes of data to track each translation import
-- Users not using the "default" language have to download kilobytes of translations for every language
-
-To avoid this, it is possible to build versions of app with specific locale translations embedded directly in JavaScript. To achieve this, run the Babel plugin in `from-dictionary-index` mode:
-
-```js
-// webpack.config.js
-{
-  plugins: [
-    ['@shopify/react-i18n/babel', {mode: 'from-dictionary-index'}],
-  ],
-}
-```
-
-Then generate `translations/index.js` files containing specific locale data using the `@shopify/react-i18n/generate-dictionaries` helper. e.g., the following code generates three versions of an application with English, French, and German content using webpack.
-
-```js
-// generate-translations.js
-const {
-  generateTranslationDictionaries,
-} = require('@shopify/react-i18n/generate-dictionaries');
-
-// Build English app.
-await generateTranslationDictionaries(['en']);
-webpack(require(./webpack.config.js));
-
-// Build French app.
-await generateTranslationDictionaries(['fr'], {fallbackLocale: 'en'});
-webpack(require(./webpack.config.js));
-
-// Build German app.
-await generateTranslationDictionaries(['de'], {fallbackLocale: 'en'});
-webpack(require(./webpack.config.js));
-
-```
-
-#### Setting the default locale to something other than `en`
-
-If you want your default locale to be something else than English because it's not your primary locale, you can pass the `defaultLocale` option to the babel plugin:
-
-```
-// webpack.config.js
-{
-  plugins: [
-    ['@shopify/react-i18n/babel', {defaultLocale: 'fr'}],
-  ],
-}
+const html = render(<Html manager={htmlManager}>{app}</Html>);
 ```
 
 ## FAQ
@@ -511,13 +383,17 @@ These libraries are excellent, and we may well use parts of them under the hood 
 - An API for translations that feels consistent with Rails’ default i18n utilities.
 - Exposing currency and datetime formatting utilities that automatically follow the [Polaris conventions](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses).
 
-Additional details on why we built our own package, and on specifics of parts of this package’s API, are available in the [original proposal](https://github.com/Shopify/web-foundation/pull/3).
+Additional details on why we built our own package, and on specifics of parts of this package’s API, are available in the [original proposal](https://github.com/Shopify/web-configs/pull/3).
 
 ### How do I get this i18n library to work with React Native?
 
-[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations. As of version [2.3.0](https://github.com/Shopify/quilt/blob/master/packages/react-i18n/CHANGELOG.md#230---2019-11-29), you can update the mode to `from-dictionary-index` so that imports happen synchronously. This allows React Native support for the library. To read more about `from-dictionary-index`, go to [Statically embedding locale-specific translations](#statically-embedding-locale-specific-translations).
+[React Native does not support dynamic imports](https://github.com/facebook/metro/issues/52). By default, this library uses dynamic imports to asynchronously load translations.
 
-**Note**: You will need a script to generate `index` files:
+You set the mode for the plugin to `with-explicit-paths` in order to enable asynchronous translation loading for React Native. This will signify to the plugin that explicit imports should be used instead of dynamic imports. You should use this mode if your application has a large amount of translations and locales. To read more about `with-explicit-paths`, go to [`with-explicit-paths`](./babel-plugin.md#with-explicit-paths).
+
+You can also set the mode to `from-dictionary-index` so that imports happen synchronously. You should use this mode if your application has minimal translations in which asynchronously importing them using the `with-explicit-paths` mode can be more costly. To read more about `from-dictionary-index`, go to [`from-dictionary-index`](./babel-plugin.md#from-dictionary-index).
+
+**Note**: For `from-dictionary-index`, you will need a script to generate `index` files:
 
 ```javascript
 const {

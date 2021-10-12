@@ -1,13 +1,10 @@
 {
   "name": "@shopify/sewing-kit-koa",
-  "version": "6.3.5",
+  "version": "7.0.6",
   "license": "MIT",
   "description": "Easily access Sewing Kit assets from a Koa server",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -22,30 +19,46 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/sewing-kit-koa/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/sewing-kit-koa/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/network": "^1.5.0",
+    "@shopify/network": "^2.0.4",
     "@types/koa-mount": "^4.0.0",
     "@types/koa-static": "^4.0.0",
     "app-root-path": "^2.1.0",
     "browserslist-useragent": "^2.0.1",
-    "fs-extra": "^7.0.1",
+    "fs-extra": "^9.1.0",
     "koa": "^2.5.0",
     "koa-compose": ">=3.0.0 <4.0.0",
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
-    "node-gzip": "^1.1.2",
-    "tslib": "^1.9.3"
+    "node-gzip": "^1.1.2"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^2.2.3",
-    "@shopify/with-env": "^1.1.9",
+    "@shopify/jest-koa-mocks": "^3.0.5",
+    "@shopify/with-env": "^2.0.4",
     "@types/app-root-path": "^1.2.4",
-    "@types/fs-extra": "^5.0.4",
+    "@types/fs-extra": "^9.0.11",
     "@types/node-gzip": "^1.1.0"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

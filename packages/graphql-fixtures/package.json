@@ -1,0 +1,54 @@
+{
+  "name": "graphql-fixtures",
+  "version": "1.1.3",
+  "license": "MIT",
+  "description": "Utilities for generating fixture objects from GraphQL documents.",
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/graphql-fixtures"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-fixtures/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
+  "dependencies": {
+    "@shopify/useful-types": "^3.0.5",
+    "@types/faker": "^4.1.2",
+    "faker": "^4.1.0",
+    "graphql": ">=14.5.0 <16.0.0",
+    "graphql-tool-utilities": "^2.1.2"
+  },
+  "peerDependencies": {
+    "graphql-typed": ">=0.6.1 <2.0.0"
+  },
+  "files": [
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
+}

@@ -12,6 +12,7 @@ import {
   FunctionKeys,
   DeepPartialArguments,
   PropsFor,
+  UnknowablePropsFor,
   DebugOptions,
 } from './types';
 
@@ -45,6 +46,24 @@ export class Element<Props> implements Node<Props> {
     return this.elementChildren;
   }
 
+  private get elementDescendants() {
+    if (!this.descendantsCache) {
+      this.descendantsCache = getDescendants(this);
+    }
+
+    return this.descendantsCache;
+  }
+
+  private get elementChildren() {
+    if (!this.elementChildrenCache) {
+      this.elementChildrenCache = this.allChildren.filter(
+        (element) => typeof element !== 'string',
+      ) as Element<unknown>[];
+    }
+
+    return this.elementChildrenCache;
+  }
+
   get descendants() {
     return this.elementDescendants;
   }
@@ -55,8 +74,8 @@ export class Element<Props> implements Node<Props> {
     }
 
     return this.elementChildren
-      .filter(element => element.isDOM)
-      .map(element => element.instance);
+      .filter((element) => element.isDOM)
+      .map((element) => element.instance);
   }
 
   get domNode(): HTMLElement | null {
@@ -71,23 +90,14 @@ export class Element<Props> implements Node<Props> {
     return domNodes[0] || null;
   }
 
-  private readonly elementChildren: Element<unknown>[];
-  private readonly elementDescendants: Element<unknown>[];
+  private descendantsCache: Element<unknown>[] | null = null;
+  private elementChildrenCache: Element<unknown>[] | null = null;
 
   constructor(
     private readonly tree: Tree<Props>,
     private readonly allChildren: (Element<unknown> | string)[],
-    allDescendants: (Element<unknown> | string)[],
     public readonly root: Root,
-  ) {
-    this.elementChildren = allChildren.filter(
-      element => typeof element !== 'string',
-    ) as Element<unknown>[];
-
-    this.elementDescendants = allDescendants.filter(
-      element => typeof element !== 'string',
-    ) as Element<unknown>[];
-  }
+  ) {}
 
   data(key: string): string | undefined {
     return this.props[key.startsWith('data-') ? key : `data-${key}`];
@@ -152,7 +162,7 @@ export class Element<Props> implements Node<Props> {
     props?: Partial<PropsFor<Type>>,
   ): Element<PropsFor<Type>> | null {
     return (this.elementDescendants.find(
-      element =>
+      (element) =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) || null) as Element<PropsFor<Type>> | null;
@@ -163,18 +173,25 @@ export class Element<Props> implements Node<Props> {
     props?: Partial<PropsFor<Type>>,
   ): Element<PropsFor<Type>>[] {
     return this.elementDescendants.filter(
-      element =>
+      (element) =>
         isMatchingType(element.type, type) &&
         (props == null || equalSubset(props, element.props as object)),
     ) as Element<PropsFor<Type>>[];
   }
 
-  findWhere(predicate: Predicate): Element<unknown> | null {
-    return this.elementDescendants.find(element => predicate(element)) || null;
+  findWhere<Type extends React.ComponentType<any> | string | unknown = unknown>(
+    predicate: Predicate,
+  ): Element<UnknowablePropsFor<Type>> | null {
+    return (this.elementDescendants.find((element) => predicate(element)) ||
+      null) as Element<UnknowablePropsFor<Type>> | null;
   }
 
-  findAllWhere(predicate: Predicate): Element<unknown>[] {
-    return this.elementDescendants.filter(element => predicate(element));
+  findAllWhere<
+    Type extends React.ComponentType<any> | string | unknown = unknown
+  >(predicate: Predicate): Element<UnknowablePropsFor<Type>>[] {
+    return this.elementDescendants.filter((element) =>
+      predicate(element),
+    ) as Element<UnknowablePropsFor<Type>>[];
   }
 
   trigger<K extends FunctionKeys<Props>>(
@@ -249,6 +266,21 @@ function isMatchingType(
 
 function equalSubset(subset: object, full: object) {
   return Object.keys(subset).every(
-    key => key in full && full[key] === subset[key],
+    (key) => key in full && full[key] === subset[key],
   );
+}
+
+function getDescendants(element: any) {
+  const descendants: Element<unknown>[] = [];
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
+  for (let i = 0; i < element.allChildren.length; i++) {
+    const child = element.allChildren[i];
+    if (typeof child !== 'string') {
+      descendants.push(child);
+      // eslint-disable-next-line prefer-spread
+      descendants.push.apply(descendants, child.elementDescendants);
+    }
+  }
+
+  return descendants;
 }

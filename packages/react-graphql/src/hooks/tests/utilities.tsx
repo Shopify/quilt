@@ -25,7 +25,7 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
   async afterMount(root, {skipInitialGraphQL}) {
     const {graphQL} = root.context;
 
-    graphQL.wrap(perform => root.act(perform));
+    graphQL.wrap((perform) => root.act(perform));
 
     if (skipInitialGraphQL) {
       return;
@@ -52,7 +52,7 @@ export function createResolvablePromise<T>(value: T) {
       const value = await resolver();
       // If we just resolve, the tick that actually processes the promise
       // has not finished yet.
-      await new Promise(resolve => process.nextTick(resolve));
+      await new Promise((resolve) => process.nextTick(resolve));
       return value;
     },
     reject: rejecter,

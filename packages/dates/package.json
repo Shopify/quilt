@@ -1,13 +1,10 @@
 {
   "name": "@shopify/dates",
-  "version": "0.4.1",
+  "version": "1.0.8",
   "license": "MIT",
   "description": "Lightweight date operations library",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "scripts": {
-    "build": "tsc --p tsconfig.json"
-  },
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
@@ -22,16 +19,32 @@
   "bugs": {
     "url": "https://github.com/Shopify/quilt/issues"
   },
-  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/dates/README.md",
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/dates/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
-    "@shopify/decorators": "^1.1.12",
-    "tslib": "^1.9.3"
+    "@shopify/decorators": "^2.0.4"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.9.1"
+    "@shopify/jest-dom-mocks": "^3.0.7"
   },
   "files": [
-    "dist/*",
-    "!tsconfig.tsbuildinfo"
-  ]
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
 }

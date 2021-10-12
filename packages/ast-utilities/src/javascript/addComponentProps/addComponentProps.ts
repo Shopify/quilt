@@ -13,7 +13,7 @@ export default function addComponentProps(
         t.isJSXIdentifier(openingElement.name) &&
         openingElement.name.name === component
       ) {
-        props.forEach(prop => {
+        props.forEach((prop) => {
           const value = t.isStringLiteral(prop.value)
             ? prop.value
             : t.jsxExpressionContainer(prop.value);

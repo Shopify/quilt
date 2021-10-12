@@ -1,6 +1,7 @@
 # `@shopify/jest-koa-mocks`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg)](https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks)
 
 Utilities to easily stub Koa context and cookies. The utilities are designed to help you write unit tests for your Koa middleware without needing to set up any kind of actual server in your test environment. When test writing is easy and fun you'll want to write more tests. ✨😎
@@ -120,7 +121,7 @@ describe('oauthStart', () => {
 
 #### Testing apps using common koa libraries
 
-`createContext` allows you to pass a `body` and `session` key by default, so you should be able to test applications using the common body parsing or session libraries simply and quickly.
+`createMockContext` allows you to pass a `requestBody` and `session` key by default, so you should be able to test applications using the common body parsing or session libraries simply and quickly.
 
 ```javascript
 import login from '../login';
@@ -130,7 +131,7 @@ describe('password-validator', () => {
   it('sets session.user if body contains a valid password and username', async () => {
     const ctx = createMockContext({
       url: '/login',
-      body: {
+      requestBody: {
         username: 'valid',
         password: 'valid',
       },

@@ -27,3 +27,7 @@ export interface ValueMapper<Value> {
 export type FieldStates<Fields> = {
   [FieldPath in keyof Fields]: FieldState<Fields[FieldPath]>;
 };
+
+export interface StringMapper {
+  (input: string): any;
+}

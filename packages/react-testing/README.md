@@ -1,9 +1,10 @@
 # `@shopify/react-testing`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)](https://badge.fury.io/js/%40shopify%2Freact-testing.svg)
 
-A library for testing React components according to [Shopify conventions](https://github.com/Shopify/web-foundation/blob/main/handbook/Best%20practices/Testing.md).
+A library for testing React components according to Shopify conventions.
 
 ## Table of contents
 
@@ -18,13 +19,13 @@ A library for testing React components according to [Shopify conventions](https:
     - [`Root`](#root)
     - [`Element`](#element)
     - [`debug()`](#debug)
-    - ['toHaveReactProps()'](#toHaveReactProps)
-    - ['toHaveReactDataProps()'](#toHaveReactDataProps)
-    - ['toContainReactComponent()'](#toContainReactComponent)
-    - ['toContainReactComponentTimes()'](#toContainReactComponentTimes)
-    - ['toProvideReactContext()'](#toProvideReactContext)
-    - ['toContainReactText()'](#toContainReactText)
-    - ['toContainReactHtml()'](#toContainReactHtml)
+    - [`toHaveReactProps()`](#toHaveReactProps)
+    - [`toHaveReactDataProps()`](#toHaveReactDataProps)
+    - [`toContainReactComponent()`](#toContainReactComponent)
+    - [`toContainReactComponentTimes()`](#toContainReactComponentTimes)
+    - [`toProvideReactContext()`](#toProvideReactContext)
+    - [`toContainReactText()`](#toContainReactText)
+    - [`toContainReactHtml()`](#toContainReactHtml)
 - [FAQ](#faq)
 
 ## Installation
@@ -199,7 +200,7 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
     // This makes it so any GraphQL resolution is wrapped in
     // an act() block, which prevents setting state outside of
     // act().
-    graphQL.wrap(perform => root.act(perform));
+    graphQL.wrap((perform) => root.act(perform));
 
     if (skipInitialGraphQL) {
       return;
@@ -234,14 +235,14 @@ interface ExtendedOptions {
 }
 
 const mount = createMount<Options, Options>({
-  context: options => options,
+  context: (options) => options,
   render: (element, {pathname}) => (
     <Router pathname={pathname}>{element}</Router>
   ),
 });
 
 const extendedMount = mount.extend<ExtendedOptions, ExtendedOptions>({
-  context: options => options,
+  context: (options) => options,
   render: (element, {graphQLResult}) => (
     <GraphQLMock mock={graphQLResult}>{element}</GraphQLMock>
   ),
@@ -307,14 +308,11 @@ Performs an action in the context of a react [`act() block`](https://github.com/
 function MyComponent() {
   const [clicked, setClicked] = useState(false);
 
-  useEffect(
-    () => {
-      const handler = () => setClicked(true);
-      document.body.addEventListener('click', handler);
-      return () => document.body.removeEventListener('click', handler);
-    },
-    [setClicked],
-  );
+  useEffect(() => {
+    const handler = () => setClicked(true);
+    document.body.addEventListener('click', handler);
+    return () => document.body.removeEventListener('click', handler);
+  }, [setClicked]);
 
   return clicked ? <div>I’ve been clicked!</div> : <div>Nothing yet</div>;
 }
@@ -325,7 +323,7 @@ const myComponent = mount(<MyComponent />);
 // will fail
 myComponent.act(() => simulateClickOnBody());
 
-expect(myComponent.text()).toContain been clicked!');
+expect(myComponent.text()).toContain('been clicked!');
 ```
 
 ##### <a name="destroy"></a> `destroy()`
@@ -470,11 +468,40 @@ expect(wrapper.find(MyComponent, {name: 'Gord'})!.props).toMatchObject({
 
 Like `find()`, but returns all matches as an array.
 
-##### <a name="findWhere"></a> `findWhere(predicate: (element: Element<unknown>) => boolean): Element<unknown> | null`
+##### <a name="findWhere"></a> `findWhere<Type = unknown>(predicate: (element: Element<unknown>) => boolean): Element<PropsForComponent<Type>> | null`
 
 Finds the first descendant component matching the passed function. The function is called with each `Element` from [`descendants`](#descendants) until a match is found. If no match is found, `null` is returned.
 
-##### <a name="findAllWhere"></a> `findAllWhere(predicate: (element: Element<unknown>) => boolean): Element<unknown>[]`
+`findWhere` accepts an optional generic argument that can be used to specify the type of the returned element. This argument is either a string or a React component, the same as the first argument on `.find`. If the generic argument is omitted then the returned element will have unknown props and thus calling `.props` and `.trigger` on it will cause type errors as those functions won't know what props are valid on your element:
+
+```tsx
+function MyComponent({name}: {name: string}) {
+  return <div>Hello, {name}!</div>;
+}
+
+function Wrapper() {
+  return (
+    <>
+      <div id="Michelle" />
+      <MyComponent name="Gord" />
+    </>
+  );
+}
+
+const wrapper = mount(<Wrapper />);
+const divElement = wrapper.findWhere<'div'>(
+  (node) => node.is('div') && node.prop('id').startsWith('M'),
+);
+
+const componentElement = wrapper.findWhere<typeof MyComponent>(
+  (node) => node.is(MyComponent) && node.prop('name').startsWith('G'),
+);
+
+expect(divElement.prop('id')).toBe('Michelle');
+expect(componentElement.prop('name')).toBe('Gord');
+```
+
+##### <a name="findAllWhere"></a> `findAllWhere<Type = unknown>(predicate: (element: Element<unknown>) => boolean): Element<PropsForComponent<Type>>[]`
 
 Like `findWhere`, but returns all matches as an array.
 
@@ -567,7 +594,7 @@ console.log(wrapper.find(Container)!.debug({depth: 1}));
 // find button by name and print all children with verbose props details
 console.log(
   wrapper
-    .findWhere(type => type && type.name === 'button')!
+    .findWhere((type) => type && type.name === 'button')!
     .debug({verbosity: 9}),
 );
 ```
@@ -660,12 +687,16 @@ expect(myComponent).toContainReactHtml('<span>Hello world!</span>');
 Enzyme is a very popular testing library that heavily inspired the approach this library takes. However, our experience with Enzyme has not been ideal:
 
 - It has frequently taken a long time to support new react features.
-- It has a very large API surface area, much of which does not conform to Shopify’s [testing conventions](https://github.com/Shopify/web-foundation/blob/main/handbook/Best%20practices/React/Testing.md). For example, Enzyme provides APIs like `setState` which encourage reaching in to implementation details of your components.
+- It has a very large API surface area, much of which does not conform to Shopify’s testing conventions. For example, Enzyme provides APIs like `setState` which encourage reaching in to implementation details of your components.
 - Enzyme is unlikely to add features we use or need in a testing library, such as automatic unmounting and a built-in version `trigger()`.
 
 ### Why not use [react-testing-library](https://github.com/testing-library/react-testing-library) instead?
 
 While the premise of writing tests that mirror user actions is compelling, basing all tests off the raw DOM being produced becomes unmanageable for larger apps.
+
+### What versions of React does this support?
+
+The React versions this library supports are spelled out via a [peer dependency in the package.json](https://github.com/Shopify/quilt/blob/main/packages/react-testing/package.json#L47-L47)
 
 ### Does this library work with Preact?
 

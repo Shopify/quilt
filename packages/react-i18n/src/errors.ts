@@ -14,7 +14,7 @@ export class MissingReplacementError extends Error {
       errorMessage = `No replacement found for key '${replacement}' (and no replacements were passed in).`;
     } else {
       errorMessage = `No replacement found for key '${replacement}'. The following replacements were passed: ${replacementKeys
-        .map(key => `'${key}'`)
+        .map((key) => `'${key}'`)
         .join(', ')}`;
     }
 

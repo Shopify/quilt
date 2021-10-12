@@ -1,6 +1,7 @@
 # `@shopify/react-html`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-html.svg)](https://badge.fury.io/js/%40shopify%2Freact-html)
 
 A collection of utilities for constructing an HTML document.
 
@@ -55,7 +56,7 @@ export default async function middleware(ctx) {
   const app = <App />;
 
   await extract(app, {
-    decorate: element => (
+    decorate: (element) => (
       <HtmlContext.Provider value={manager}>{element}</HtmlContext.Provider>
     ),
   });
@@ -147,7 +148,7 @@ export default function I18n({locale, children}: Props) {
 }
 ```
 
-The rationale for this approach to handling serialization is available in [our original proposal](https://github.com/Shopify/web-foundation/blob/master/Proposals/02%20-%20Serialization%20in%20application%20code.md).
+The rationale for this approach to handling serialization is available in [our original proposal](https://github.com/Shopify/web-foundations/blob/main/handbook/Proposals/02%20-%20Serialization%20in%20application%20code.md).
 
 ## API reference
 
@@ -166,10 +167,11 @@ The `<Html>` component serves as a top level wrapper for a React application, al
 - `manager`: a `Manager` instance. When provided, the `Html` component will extract all the information from this object and place it in an appropriate place in the document.
 - `children`: the application. It will be rendered to a string and placed inside a `div` with an ID of `app`.
 - `locale`: the language to use for the HTML `lang` attribute.
-- `styles`: descriptors for any style tags you want to include in the HEAD of the document.
+- `styles`: descriptors for any stylesheet link tags you want to include in the HEAD of the document.
+- `inlineStyles`: descriptors for any style tags you want to include in the HEAD of the document.
 - `scripts`: descriptors for any script tags you want to include in your document. All scripts passed to this property will be deferred by appending them to the end of the document. We encourage this as a default because it improves the initial rendering performance of your page.
 - `blockingScripts`: descriptors for any script tags you want to include in the HEAD of the document. These will block HTML parsing until they are evaluated, so use them carefully.
-- `headMarkup`: additional JSX to be embedded in the head of the document (after styles, but before blocking scripts).
+- `headMarkup`: additional JSX to be embedded in the head of the document (after stylesheets and inline styles, but before blocking scripts).
 - `bodyMarkup`: additional JSX to be embedded in the body of the document (before serialization markup and deferred scripts).
 
 ```tsx
@@ -186,18 +188,29 @@ const html = (
 );
 ```
 
-### `<Style />`
+### `<Stylesheet />`
 
-The `<Style />` component lets you render `<link>` tags in your document dynamically as part of your react app. It supports all of the props of a basic `link` tag, but forces some properties to be the values needed for a stylesheet. In general, prefer the `styles` prop of the `Html` component instead of using this component explicitly.
+The `<Stylesheet />` component lets you render `<link>` tags in your document dynamically as part of your react app. It supports all of the props of a basic `link` tag, but forces some properties to be the values needed for a stylesheet. In general, prefer the `styles` prop of the `Html` component instead of using this component explicitly.
 
 ```tsx
-import {Style} from '@shopify/react-html';
+import {Stylesheet} from '@shopify/react-html/server';
 
-<Style
+<Stylesheet
   href="./some-style.css"
   integrity="some-integrity-hash"
   crossOrigin="anonymous"
 />;
+```
+
+### `<InlineStyle />`
+
+The `<InlineStyle />` component lets you render `<style>` tags in your document dynamically as part of your react app. It supports all of the props of a basic `style` tag, but forces some properties to be the values needed for an inline style. In general, prefer the `inlineStyles` prop of the `Html` component instead of using this component explicitly.
+
+```tsx
+import {InlineStyle} from '@shopify/react-html/server';
+
+const css = '.foo {color: red}';
+<InlineStyle>{css}</InlineStyle>;
 ```
 
 ### `<Script />`
@@ -205,7 +218,7 @@ import {Style} from '@shopify/react-html';
 The `<Script />` component lets you render `<script>` tags in your document dynamically as part of your react app. It supports all the props of a basic `script` tag. In general, prefer the `scripts` prop of the `Html` component instead of using this component explicitly.
 
 ```tsx
-import {Script} from '@shopify/react-html';
+import {Script} from '@shopify/react-html/server';
 
 <Script
   src="./some-script.js"
@@ -216,13 +229,19 @@ import {Script} from '@shopify/react-html';
 
 ### `<HtmlUpdater />`
 
-The `<HtmlUpdater />` component is responsible for updating the head in response to `link`, `meta`, and `title` changes. It also renders a `HydrationTracker` from [`@shopify/react-hydrate`](../react-hydrate). You should only render one of these in your entire app.
+The `<HtmlUpdater />` component is responsible for updating the head in response to `link`, `style`, `meta`, and `title` changes. It also renders a `HydrationTracker` from [`@shopify/react-hydrate`](../react-hydrate). You should only render one of these in your entire app.
 
 ### `useLink()` and `<Link />`
 
 Renders a `<link />` tag in the head with the specified attributes. On the server, links are recorded in the `Manager` and automatically applied to the `Html` component. On the client, the `<link />` tags are updated in a deferred callback to minimize DOM manipulations.
 
 Both the hook and component versions accept any properties you would supply to a `<link />` tag. If you are using this component to create a favicon, use the [`useFavicon()`/ `<Favicon />` component](#usefavicon-and-favicon-) instead.
+
+### `useInlineStyle()` and `<InlineStyle />`
+
+Renders an inline `<style />` tag in the head of the document with the specified attributes. On the server, links are recorded in the `Manager` and automatically applied to the `Html` component. On the client, the `<style />` tags are updated in a deferred callback to minimize DOM manipulations.
+
+Both the hook and component versions accept any properties you would supply to an inline `<style />` tag.
 
 ### `useMeta()` and `<Meta />`
 

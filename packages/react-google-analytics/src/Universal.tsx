@@ -80,7 +80,7 @@ export default function UniversalGoogleAnalytics({
       disableTracking,
       onLoad,
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      ...Object.entries(setVariables).map(setVariable => setVariable.join()),
+      ...Object.entries(setVariables).map((setVariable) => setVariable.join()),
     ],
   );
 

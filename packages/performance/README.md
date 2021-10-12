@@ -1,6 +1,7 @@
 # `@shopify/performance`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fperformance.svg)](https://badge.fury.io/js/%40shopify%2Fperformance.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/performance.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/performance.svg)
 
 Primitives for collecting browser performance metrics.
@@ -30,7 +31,7 @@ If you want to listen for events, you can use the `on` method. There are three e
 ```ts
 // Listen for completed navigations. If you call this after the initial load
 // "navigation", your handler will immediately be invoked with that object.
-performance.on('navigation', navigation => {});
+performance.on('navigation', (navigation) => {});
 
 // Listen for the start of new navigations.
 performance.on('inflightNavigation', () => {});
@@ -41,7 +42,7 @@ performance.on('inflightNavigation', () => {});
 // the full set of possible events. If you add your listener after some of these
 // events have been triggered, it will immediately be invoked once for each
 // previously-triggered event.
-performance.on('lifecycleEvent', event => {});
+performance.on('lifecycleEvent', (event) => {});
 ```
 
 The `on` method returns a clean-up function that you can invoke when you're done listening on the event:
@@ -49,7 +50,7 @@ The `on` method returns a clean-up function that you can invoke when you're done
 ```ts
 const cleanupNavigationListener = performance.on(
   'navigation',
-  navigation => {},
+  (navigation) => {},
 );
 
 cleanupNavigationListener();

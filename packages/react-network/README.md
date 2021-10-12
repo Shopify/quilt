@@ -1,6 +1,7 @@
 # `@shopify/react-network`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-network.svg)](https://badge.fury.io/js/%40shopify%2Freact-network.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-network.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-network.svg)
 
 A collection of components that allow you to set common HTTP headers from within your React application.
@@ -13,7 +14,7 @@ $ yarn add @shopify/react-network
 
 ## Usage
 
-This package uses [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/master/packages/react-effect) to allow your application to communicate various HTTP-related details to the Node server doing React rendering. It also provides a utility function for easily applying these details to a Koa context object.
+This package uses [`@shopify/react-effect`](https://github.com/Shopify/quilt/tree/main/packages/react-effect) to allow your application to communicate various HTTP-related details to the Node server doing React rendering. It also provides a utility function for easily applying these details to a Koa context object.
 
 ### Application
 
@@ -205,7 +206,7 @@ export default function renderApp(ctx: Context) {
   const app = <App />;
 
   await extract(app, {
-    decorate: element => (
+    decorate: (element) => (
       <NetworkContext.Provider value={networkManager}>
         {element}
       </NetworkContext.Provider>
@@ -225,4 +226,4 @@ export default function renderApp(ctx: Context) {
 
 ### Other utilities
 
-This library re-exports the entirety of [`@shopify/network`](https://github.com/Shopify/quilt/tree/master/packages/network), so you do not need to install both.
+This library re-exports the entirety of [`@shopify/network`](https://github.com/Shopify/quilt/tree/main/packages/network), so you do not need to install both.

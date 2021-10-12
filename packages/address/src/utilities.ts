@@ -32,7 +32,7 @@ export function renderLineTemplate(
   }
 
   let lineIsEmpty = true;
-  result.forEach(key => {
+  result.forEach((key) => {
     const addressKey = key.replace('{', '').replace('}', '') as FieldName;
 
     if (address[addressKey]) {
@@ -63,7 +63,7 @@ export function renderLineTemplate(
 
 function getZone(zones: Zone[], zoneCode: string): Zone {
   return (
-    zones.find(zone => zone.code === zoneCode) || {
+    zones.find((zone) => zone.code === zoneCode) || {
       name: '',
       code: '',
     }

@@ -87,7 +87,7 @@ query OrderListEmptyState {
 
 No field exists explicitly for this purpose, but we can query the first order and, if there are no orders, we will be able to see an empty list in its place.
 
-Now, we want to use this query during the initial load to bail out of "full" rendering early and render the empty state if our smaller query resolves to an empty array. We’ll use [`@shopify/react-graphql`](https://github.com/Shopify/quilt/tree/master/packages/react-graphql) to create these GraphQL queries as asynchronous components (more on that in a second).
+Now, we want to use this query during the initial load to bail out of "full" rendering early and render the empty state if our smaller query resolves to an empty array. We’ll use [`@shopify/react-graphql`](https://github.com/Shopify/quilt/tree/main/packages/react-graphql) to create these GraphQL queries as asynchronous components (more on that in a second).
 
 ```ts
 // in /app/sections/Orders/OrderList/components/OrderListQuery.tsx
@@ -140,7 +140,7 @@ export default function OrderList() {
 }
 ```
 
-We’ve now done most of the necessary work. However, we still have a problem. When this component is initially mounted, it will still have a loading state, because the query only starts running on mount. We can’t create a guaranteed fix to this problem, but we can use [`@shopify/react-async`’s prefetching](https://github.com/Shopify/quilt/tree/master/packages/react-async#prefetchroute-and-prefetcher) to use the delay when a user is hovering over their destination to start running our GraphQL queries early. Given the small query we’ve built, there is a high likelihood that it will resolve before the user actually navigates.
+We’ve now done most of the necessary work. However, we still have a problem. When this component is initially mounted, it will still have a loading state, because the query only starts running on mount. We can’t create a guaranteed fix to this problem, but we can use [`@shopify/react-async`’s prefetching](https://github.com/Shopify/quilt/tree/main/packages/react-async#prefetchroute-and-prefetcher) to use the delay when a user is hovering over their destination to start running our GraphQL queries early. Given the small query we’ve built, there is a high likelihood that it will resolve before the user actually navigates.
 
 First, we create the async component for our order list. This component will prefetch both GraphQL queries.
 
@@ -186,7 +186,7 @@ export default createAsyncComponent({
 });
 ```
 
-Finally, follow the [`@shopify/react-async` route prefetching guide](https://github.com/Shopify/quilt/tree/master/packages/react-async#prefetchroute-and-prefetcher) to register this asynchronous component for a URL, or render the `OrderList.Prefetch` component manually before you expect the user to navigate to a page where this component is rendered, or use `usePrefetch(OrderList)` to get a function that will preload the scripts and data on demand.
+Finally, follow the [`@shopify/react-async` route prefetching guide](https://github.com/Shopify/quilt/tree/main/packages/react-async#prefetchroute-and-prefetcher) to register this asynchronous component for a URL, or render the `OrderList.Prefetch` component manually before you expect the user to navigate to a page where this component is rendered, or use `usePrefetch(OrderList)` to get a function that will preload the scripts and data on demand.
 
 ## UI that is initially hidden
 

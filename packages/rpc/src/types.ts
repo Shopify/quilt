@@ -27,7 +27,7 @@ type ForcePromise<T> = T extends Promise<any>
   ? T
   : T extends (...args: infer Args) => infer TypeReturned
   ? (...args: Args) => Promise<ForcePromiseWrapped<TypeReturned>>
-  : T extends Array<infer ArrayElement>
+  : T extends (infer ArrayElement)[]
   ? ForcePromiseArray<ArrayElement>
   : T extends object
   ? {[K in keyof T]: ForcePromiseWrapped<T[K]>}
@@ -41,7 +41,7 @@ export type SafeRpcArgument<T> = T extends (
   ? TypeReturned extends Promise<any>
     ? (...args: Args) => TypeReturned
     : (...args: Args) => TypeReturned | Promise<TypeReturned>
-  : T extends Array<infer ArrayElement>
+  : T extends (infer ArrayElement)[]
   ? SafeRpcArgumentArray<ArrayElement>
   : T extends object
   ? {[K in keyof T]: SafeRpcArgument<T[K]>}

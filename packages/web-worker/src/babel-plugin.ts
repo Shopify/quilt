@@ -79,7 +79,11 @@ export default function workerBabelPlugin({
             continue;
           }
 
-          const importedName = specifier.get('imported').node.name;
+          const imported: any = specifier.get('imported');
+
+          const importedName = (imported.node as {
+            name: string;
+          }).name;
           const processableImport = processImports.find(
             ({name}) => name === importedName,
           );
@@ -89,7 +93,7 @@ export default function workerBabelPlugin({
           }
 
           const binding = specifier.scope.getBinding(
-            specifier.get('imported').node.name,
+            (imported.node as {name: string}).name,
           );
 
           if (binding == null) {
@@ -110,7 +114,7 @@ export default function workerBabelPlugin({
     const {program, opts: options = {}} = state;
     const {noop = false} = options;
 
-    const callingReferences = binding.referencePaths.filter(referencePath =>
+    const callingReferences = binding.referencePaths.filter((referencePath) =>
       referencePath.parentPath.isCallExpression(),
     );
 
@@ -210,7 +214,7 @@ function normalize(packages: NonNullable<Options['packages']>) {
   return Object.keys(packages).reduce<{[key: string]: ProcessableImport[]}>(
     (all, pkg) => ({
       ...all,
-      [pkg]: packages[pkg].map(anImport =>
+      [pkg]: packages[pkg].map((anImport) =>
         typeof anImport === 'string'
           ? {name: anImport, plain: false}
           : anImport,

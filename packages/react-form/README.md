@@ -1,6 +1,7 @@
 # `@shopify/react-form`
 
-[![Build Status](https://travis-ci.org/Shopify/quilt.svg?branch=master)](https://travis-ci.org/Shopify/quilt)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-form.svg)](https://badge.fury.io/js/%40shopify%2Freact-form.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-form.svg)
 
 Manage React forms tersely and safely-typed with no magic using React hooks. Build up your form logic by combining hooks yourself, or take advantage of the smart defaults provided by the powerful `useForm` hook.
@@ -16,6 +17,7 @@ Manage React forms tersely and safely-typed with no magic using React hooks. Bui
       1. [useField](#usefield)
       1. [useChoiceField](#usechoicefield)
       1. [useList](#uselist)
+      1. [useDynamicList](#usedynamiclist)
       1. [useForm](#useform)
       1. [useDirty](#usedirty)
       1. [useReset](#usereset)
@@ -68,7 +70,7 @@ function MyComponent() {
     fields: {
       title: useField('some default title'),
     },
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -256,7 +258,7 @@ export default function MyComponent() {
 
   // handle submission state
   const {submit, submitting, errors, setErrors} = useSubmit(
-    async fieldValues => {
+    async (fieldValues) => {
       const remoteErrors = []; // your API call goes here
       if (remoteErrors.length > 0) {
         return {status: 'fail', errors: remoteErrors};
@@ -359,7 +361,7 @@ You can also pass a more complex configuration object specifying a validation fu
 ```tsx
 const field = useField({
   value: someRemoteData.title,
-  validates: title => {
+  validates: (title) => {
     if (title.length > 3) {
       return 'Title must be longer than three characters';
     }
@@ -373,12 +375,12 @@ You may also pass multiple validators.
 const field = useField({
   value: someRemoteData.title,
   validates: [
-    title => {
+    (title) => {
       if (title.length > 3) {
         return 'Title must be longer than three characters';
       }
     },
-    title => {
+    (title) => {
       if (!title.includes('radical')) {
         return 'Only radical items are allowed';
       }
@@ -524,7 +526,7 @@ const fields = useList(config, validationDependencies);
 
 ###### Return value:
 
-A list of dictionaries of `Field` objects representing the state of your input. It also includes functions to manipulate that state. Generally, you will want to pass these callbacks down to the component or components representing yournput.
+A list of dictionaries of `Field` objects representing the state of your input. It also includes functions to manipulate that state. Generally, you will want to pass these callbacks down to the component or components representing your input.
 
 ##### Examples
 
@@ -546,12 +548,12 @@ const field = useList({
     {title: '', description: ''},
   ],
   validates: {
-    title: title => {
+    title: (title) => {
       if (title.length > 3) {
         return 'Title must be longer than three characters';
       }
     },
-    description: description => {
+    description: (description) => {
       if (description === '') {
         return 'Description is required!';
       }
@@ -634,6 +636,203 @@ function MyComponent() {
 
 **Imperative methods:** The returned `Field` objects contains a number of methods used to imperatively alter their state. These should only be used as escape hatches where the existing hooks and components do not make your life easy, or to build new abstractions in the same vein as `useForm`, `useSubmit` and friends.
 
+#### `useDynamicList()`
+
+A custom hook that adds on `useList` the ability to dynamically add, move and remove list items.
+
+##### Using `useDynamicList`
+
+Let's simulate a user interface that allows you add as many credit cards as you wish.
+
+You can initialize `useDynamicList` the following way:
+
+```tsx
+interface Card {
+  id: string;
+  cardNumber: string;
+  cvv: string;
+}
+
+const emptyCardFactory = (): Card => ({
+  id: Date.now().toString(),
+  cardNumber: '',
+  cvv: '',
+});
+
+const {
+  fields,
+  addItem,
+  removeItem,
+  moveItem,
+  reset,
+  dirty,
+  value,
+  newDefaultValue,
+  defaultValue,
+} = useDynamicList([], emptyCardFactory);
+```
+
+You can also have a factory that produces multiple cards such as:
+
+```tsx
+function generateId() {
+  return Date.now().toString();
+}
+
+const emptyCardFactory = (): Card[] => {
+  return [
+    {id: generateId(), cardNumber: '', cvv: ''},
+    {id: generateId(), cardNumber: '', cvv: ''},
+  ];
+};
+
+const {
+  fields,
+  addItem,
+  removeItem,
+  moveItem,
+  reset,
+  dirty,
+  value,
+  newDefaultValue,
+  defaultValue,
+} = useDynamicList([], emptyCardFactory);
+```
+
+AddItem can accept an argument which will be passed to the factory. In this case, the factory could look like:
+
+```tsx
+const emptyCardFactory = ({id, cardNumber, cvv}: Partial<Card>): Card => ({
+  id: id || Date.now().toString(),
+  cardNumber: cardNumber || '',
+  cvv: cvv || '',
+});
+
+// somwhere else you could call
+addItem({cardNumber: '3131 3131 3131 3131'});
+```
+
+You can choose to initialize the list with no card (same as above) or with existing cards e.g. coming from your database:
+
+```tsx
+const loadedCards = [
+  {id: '123456', cardNumber: '4242 4242 4242 4242', cvv: '000'},
+];
+
+const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
+  loadedCards,
+  emptyCardFactory,
+);
+```
+
+You can also pass a more complex configuration object specifying a validation dictionary like in `useList`.
+
+Rendering your dynamic list would look like this:
+
+```tsx
+<FormLayout>
+  {fields.map((field, index) => (
+    <div key={field.id}>
+      <TextField
+        placeholder="Card Number"
+        label="Card Number"
+        value={field.cardNumber.value}
+        onChange={field.cardNumber.onChange}
+      />
+      <TextField
+        placeholder="CVV"
+        label="CVV"
+        value={field.cvv.value}
+        onChange={field.cvv.onChange}
+      />
+      <Button onClick={() => removeItem(index)}>Remove</Button>
+      <Button disabled={index === 0} onClick={() => moveItem(index, index - 1)}>
+        Move Item Up
+      </Button>
+      <Button
+        disabled={index === fields.length - 1}
+        onClick={() => moveItem(index, index + 1)}
+      >
+        Move Item Down
+      </Button>
+      <hr />
+    </div>
+  ))}
+  <Button onClick={() => addItem()}>Add Card</Button>
+  <Button disabled={!dirty} onClick={reset}>
+    Reset
+  </Button>
+</FormLayout>
+```
+
+You can use the newDefaultValue function to change the defaultValue of the dynamicList. This will also set the value and defaultValue property of the dynamicList to the newValue passed in.
+
+```tsx
+const newValue = [
+  {id: '123456', cardNumber: '4242 4242 4242 4242', cvv: '000'},
+];
+newDefaultValue(newValue);
+```
+
+You can iterate through the values and defaultValues of the dynamicList
+
+```tsx
+value.map((card) => (
+  <div>
+    <p>Card number: {card.cardNumber}</p>
+    <p>CVV : {card.cvv}</p>
+  </div>
+));
+
+defaultValue.map((card) => (
+  <div>
+    <p>Card number: {card.cardNumber}</p>
+    <p>CVV : {card.cvv}</p>
+  </div>
+));
+```
+
+##### How to use it with `useForm`
+
+You can use `useDynamicList` with `useForm` in two ways:
+
+You can directly pass one or several dynamic lists within `fields`. But note that the `reset` function returned by `useForm` won't reset the dynamic list to its initial value. It will only reset the value of each field for each item. So, if you remove an item, clicking on reset won't re-add it. Plus, adding or removing a field won't make the form dirty. The form will only be dirty if you edit the value of an item's field.
+
+```tsx
+const {fields} = useDynamicList<Card>([], emptyCardFactory);
+
+const form = useForm({
+  fields: {
+    customerCards: fields,
+  },
+  onSubmit: async (fieldValues) => {
+    console.log(fieldValues);
+    return submitSuccess();
+  },
+});
+```
+
+Or you can pass your dynamic lists within `dynamicLists`. This way the form `reset` and `dirty` will work as expected. Note that you still need to have one "classic field", `fields` cannot be optional at the moment. If you use TypeScript, you might want to pass generic types to `useForm` to make sure TypeScript infers the `fieldValues` types correctly within `onSubmit`.
+
+```tsx
+const fields = {
+  title: useField(''),
+};
+
+const customerCards = useDynamicList<Card>([], emptyCardFactory);
+
+const form = useForm<typeof fields, typeof customerCards>({
+  fields,
+  dynamicLists: {
+    customerCards,
+  },
+  onSubmit: async (fieldValues) => {
+    console.log(fieldValues);
+    return submitSuccess();
+  },
+});
+```
+
 #### `useForm()`
 
 A custom hook for managing the state of an entire form. `useForm` wraps up many of the other hooks in this package in one API, and when combined with `useField` and `useList`, allows you to easily build complex forms with smart defaults for common cases.
@@ -649,6 +848,7 @@ const form = useForm(config);
 - `config`, An object has the following fields:
 
   - `fields`, A dictionary of `Field` objects, dictionaries of `Field` objects, and lists of dictionaries of `Field` objects. Generally, you'll want these to be generated by the other hooks in this package, either `useField` or `useList`. This will be returned back out as the `fields` property of the return value.
+  - `useDynamicList`, optional dictionaries of `DynamicList`.
   - `onSubmit`, An async function to handle submission of the form. If this function returns an object of `{status: 'fail', error: FormError[]}` then the submission is considered a failure. Otherwise, it should return an object with `{status: 'success'}` and the submission will be considered a success. `useForm` will also call all client-side validation methods for the fields passed to it. The `onSubmit` handler will not be called if client validations fails.
   - `makeCleanAfterSubmit`, A boolean flag (defaults to `false`) indicating whether the form should "undirty" itself after a successful submission. If `true`, then the form fields' default values will be set to their submitted values after a successful submission. This is useful in the case where you'd want to submit the same form multiple times while "saving" the most recent submission as the new default state.
 
@@ -677,7 +877,7 @@ function MyComponent() {
     fields: {
       title: useField('some default title'),
     },
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -750,7 +950,7 @@ function MyComponent() {
       title: useField('some default title'),
       description: useField('some default description'),
     },
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -834,7 +1034,7 @@ function MyComponent() {
   const price = useField(
     {
       value: '0.00',
-      validates: value => {
+      validates: (value) => {
         if (title.value.includes('expensive') && parseFloat(value) < 1000) {
           return 'Expensive items must cost more than 1000 dollars';
         }
@@ -845,7 +1045,7 @@ function MyComponent() {
 
   const {submit, submitting, dirty, reset, submitErrors, makeClean} = useForm({
     fields: {title, description},
-    onSubmit: async fieldValues => {
+    onSubmit: async (fieldValues) => {
       return {status: 'fail', errors: [{message: 'bad form data'}]};
     },
   });
@@ -1070,7 +1270,7 @@ const {
   submit,
 } = useForm({
   fields,
-  onSubmit: async values => {
+  onSubmit: async (values) => {
     console.log('You submitted the form!', values);
     if (someCondition) {
       makeCleanFields(fields); // set form state to 'clean'
@@ -1084,7 +1284,7 @@ const {
 ## FAQ
 
 **Q: Why yet another form library? Why not just include a hook version in `@shopify/react-form-state`?**
-**A:** It turns out that hooks enable a much more extensible and composable paradigm than render props did. they also have some limitations that the render prop API does not. As such its difficult to build the best API we can for a hooks world and still have it match up to the old monolithic `<FormState />` model. Since we use `<FormState />` in production and will need to keep it around in maintenance mode for the foreseeable future, it makes sense to have this library available as its own import. Apart from the clean composability of hooks, the rationale otherwise remains much the same as [`<FormState />`'s](https://github.com/Shopify/quilt/blob/master/packages/react-form-state/docs/FAQ.md)
+**A:** It turns out that hooks enable a much more extensible and composable paradigm than render props did. they also have some limitations that the render prop API does not. As such its difficult to build the best API we can for a hooks world and still have it match up to the old monolithic `<FormState />` model. Since we use `<FormState />` in production and will need to keep it around in maintenance mode for the foreseeable future, it makes sense to have this library available as its own import. Apart from the clean composability of hooks, the rationale otherwise remains much the same as [`<FormState />`'s](https://github.com/Shopify/quilt/blob/main/packages/react-form-state/docs/FAQ.md)
 
 **Q: When should I use `<FormState />` from `@shopify/react-form-state` instead of this?**
 **A:** `@shopify/react-form-state` is now in maintenance mode only as of the release of this library. That means you're encouraged to use this library for any new work.
@@ -1105,7 +1305,7 @@ function MyForm() {
   const price = useField(
     {
       value: '2.00',
-      validates: value => {
+      validates: (value) => {
         if (title.value.includes('expensive') && parseFloat(value) < 1000) {
           return 'Expensive items must be at least 1000 dollars.';
         }

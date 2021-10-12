@@ -8,7 +8,7 @@ export interface Logger {
 }
 
 type Tags =
-  | Record<string, string | number | boolean | null | undefined>
+  | {[key: string]: string | number | boolean | null | undefined}
   | string[];
 
 export interface Options extends ClientOptions {
@@ -43,7 +43,7 @@ export class StatsDClient {
   }
 
   distribution(stat: string | string[], value: number, tags?: Tags) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.distribution(
         stat,
         value,
@@ -53,8 +53,19 @@ export class StatsDClient {
     });
   }
 
+  timing(stat: string | string[], value: number, tags?: Tags) {
+    return new Promise<void>((resolve) => {
+      this.statsd.timing(
+        stat,
+        value,
+        this.normalizeTags(tags),
+        this.createCallback(resolve),
+      );
+    });
+  }
+
   gauge(stat: string | string[], value: number, tags?: Tags) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.gauge(
         stat,
         value,
@@ -65,7 +76,7 @@ export class StatsDClient {
   }
 
   increment(stat: string | string[], tags?: Tags) {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.increment(
         stat,
         1,
@@ -76,7 +87,7 @@ export class StatsDClient {
   }
 
   close() {
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.statsd.close(this.createCallback(resolve));
     });
   }
@@ -102,7 +113,7 @@ export class StatsDClient {
       return tags;
     }
 
-    const output: Record<string, string> = {};
+    const output: {[key: string]: string} = {};
 
     for (const [key, value] of Object.entries(tags)) {
       const newValue = value == null ? UNKNOWN : String(value);

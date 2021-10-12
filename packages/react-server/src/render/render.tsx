@@ -6,6 +6,7 @@ import {Context} from 'koa';
 import compose from 'koa-compose';
 import {
   Html,
+  HtmlProps,
   HtmlManager,
   HtmlContext,
   stream,
@@ -37,7 +38,7 @@ import {ValueFromContext} from '../types';
 
 import {fallbackErrorMarkup} from './error';
 
-export {Context};
+export type {Context};
 export interface RenderFunction {
   (ctx: Context): React.ReactElement<any>;
 }
@@ -46,13 +47,15 @@ interface Data {
   value: {[key: string]: any} | undefined;
 }
 
-type Options = Pick<
+export type RenderOptions = Pick<
   NonNullable<ArgumentAtIndex<typeof extract, 1>>,
   'afterEachPass' | 'betweenEachPass'
 > & {
   assetPrefix?: string;
   assetName?: string | ValueFromContext<string>;
   renderError?: RenderFunction;
+  renderRawErrorMessage?: boolean;
+  htmlProps?: HtmlProps | ValueFromContext<HtmlProps>;
 };
 
 /**
@@ -60,12 +63,17 @@ type Options = Pick<
  * @param render
  * @param options
  */
-export function createRender(render: RenderFunction, options: Options = {}) {
+export function createRender(
+  render: RenderFunction,
+  options: RenderOptions = {},
+) {
   const manifestPath = getManifestPath(process.cwd());
   const {
     assetPrefix,
     assetName: assetNameInput = 'main',
     renderError,
+    renderRawErrorMessage,
+    htmlProps: htmlPropsInput = {},
   } = options;
 
   async function renderFunction(ctx: Context) {
@@ -74,11 +82,20 @@ export function createRender(render: RenderFunction, options: Options = {}) {
         ? assetNameInput(ctx)
         : assetNameInput;
 
+    const {
+      scripts: additionalScripts = [],
+      styles: additionalStyles = [],
+      ...additionalHtmlProps
+    } =
+      typeof htmlPropsInput === 'function'
+        ? htmlPropsInput(ctx)
+        : htmlPropsInput;
+
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);
 
     const networkManager = new NetworkManager({
-      headers: ctx.headers,
+      headers: ctx.headers as {[key: string]: string},
       cookies: ctx.request.headers.cookie || '',
     });
     const htmlManager = new HtmlManager();
@@ -133,8 +150,16 @@ export function createRender(render: RenderFunction, options: Options = {}) {
         assets.scripts({name: assetName, asyncAssets: immediateAsyncAssets}),
       ]);
 
+      styles.push(...additionalStyles);
+      scripts.push(...additionalScripts);
+
       const response = stream(
-        <Html manager={htmlManager} styles={styles} scripts={scripts}>
+        <Html
+          {...additionalHtmlProps}
+          manager={htmlManager}
+          styles={styles}
+          scripts={scripts}
+        >
           <Providers>{app}</Providers>
         </Html>,
       );
@@ -148,9 +173,9 @@ export function createRender(render: RenderFunction, options: Options = {}) {
 
       logger.log(errorMessage);
       ctx.status = StatusCode.InternalServerError;
+      ctx.state.quiltError = error;
 
-      // eslint-disable-next-line no-process-env
-      if (process.env.NODE_ENV === 'development') {
+      if (renderRawErrorMessage) {
         ctx.body = errorMessage;
       } else {
         if (renderError) {

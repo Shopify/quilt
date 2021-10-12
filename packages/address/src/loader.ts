@@ -54,7 +54,7 @@ export const loadCountry: (
       }),
     });
 
-    const country: LoadCountryResponse = await response.json();
+    const country: LoadCountryResponse | ResponseError = await response.json();
 
     if (!('data' in country) && 'errors' in country) {
       throw new CountryLoaderError(country);
@@ -66,7 +66,7 @@ export const loadCountry: (
 
 class CountryLoaderError extends Error {
   constructor(errors: ResponseError) {
-    const errorMessage = errors.errors.map(error => error.message).join('; ');
+    const errorMessage = errors.errors.map((error) => error.message).join('; ');
     super(errorMessage);
   }
 }
@@ -76,7 +76,7 @@ interface Cache {
   [key: string]: Promise<any>;
 }
 
-function memoizeAsync(asyncFunction: AsyncFunc) {
+function memoizeAsync(this: unknown, asyncFunction: AsyncFunc) {
   const cache: Cache = {};
 
   return (...args: any[]) => {

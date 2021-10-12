@@ -1,1 +1,2 @@
-export {StatsDClient, Logger, Options} from './client';
+export {StatsDClient} from './client';
+export type {Logger, Options} from './client';

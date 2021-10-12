@@ -237,7 +237,7 @@ describe('ShortcutManager', () => {
       );
 
       keydown('/', document, {
-        getModifierState: key => held.includes(key),
+        getModifierState: (key) => held.includes(key),
       });
 
       expect(fooSpy).toHaveBeenCalled();
@@ -255,7 +255,7 @@ describe('ShortcutManager', () => {
       );
 
       keydown('/', document, {
-        getModifierState: key => heldGroup.includes(key),
+        getModifierState: (key) => heldGroup.includes(key),
       });
 
       expect(fooSpy).toHaveBeenCalled();
@@ -274,7 +274,7 @@ describe('ShortcutManager', () => {
       const heldPressed: HeldKey = ['Control', 'Shift', 'Hyper'];
 
       keydown('/', document, {
-        getModifierState: key => heldPressed.includes(key),
+        getModifierState: (key) => heldPressed.includes(key),
       });
 
       expect(fooSpy).not.toHaveBeenCalled();
@@ -292,10 +292,26 @@ describe('ShortcutManager', () => {
       );
 
       keydown('/', document, {
-        getModifierState: key => ['Control'].includes(key),
+        getModifierState: (key) => ['Control'].includes(key),
       });
 
       expect(fooSpy).not.toHaveBeenCalled();
+    });
+
+    it('doesn’t fire on non-keyboard events', () => {
+      const matchSpy = jest.fn();
+      const heldGroup: ModifierKey[] = ['Control', 'Shift'];
+      const heldToCheck: HeldKey = [[...heldGroup], ['Alt', 'Meta']];
+
+      mount(
+        <ShortcutProvider>
+          <Shortcut held={heldToCheck} ordered={['/']} onMatch={matchSpy} />
+        </ShortcutProvider>,
+      );
+
+      document.dispatchEvent(new UIEvent('keydown'));
+
+      expect(matchSpy).not.toHaveBeenCalled();
     });
   });
 });

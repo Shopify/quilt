@@ -10,6 +10,17 @@ describe('Root', () => {
     destroyAll();
   });
 
+  it('works with react 16 style nodes', () => {
+    const root = new Root(<div />);
+
+    // in React 17 _reactInternalFiber is renamed to _reactInternals
+    const rootRef = (root as any).wrapper.rootRef;
+    rootRef._reactInternalFiber = rootRef._reactInternals;
+    delete rootRef._reactInternals;
+
+    expect(() => root.act(() => {})).not.toThrow();
+  });
+
   it('delegates calls to the root element', () => {
     const root = new Root(<div />);
 
@@ -22,7 +33,6 @@ describe('Root', () => {
         props: {},
         instance: childInstance,
       },
-      [],
       [],
       root,
     );
@@ -39,7 +49,6 @@ describe('Root', () => {
         },
         instance,
       },
-      [childElement],
       [childElement],
       root,
     );
@@ -66,12 +75,12 @@ describe('Root', () => {
     expect(root.prop('aria-label')).toBe(element.prop('aria-label'));
     expect(root.find('div')).toBe(element.find('div'));
     expect(root.findAll('div')).toStrictEqual(element.findAll('div'));
-    expect(root.findWhere(element => element.type === 'div')).toBe(
-      element.findWhere(element => element.type === 'div'),
+    expect(root.findWhere((element) => element.type === 'div')).toBe(
+      element.findWhere((element) => element.type === 'div'),
     );
-    expect(root.findAllWhere(element => element.type === 'div')).toStrictEqual(
-      element.findAllWhere(element => element.type === 'div'),
-    );
+    expect(
+      root.findAllWhere((element) => element.type === 'div'),
+    ).toStrictEqual(element.findAllWhere((element) => element.type === 'div'));
     expect(root.trigger('onClick', 'Gord')).toStrictEqual(
       element.trigger('onClick', 'Gord'),
     );
@@ -210,11 +219,13 @@ describe('Root', () => {
       function MyComponent() {
         const [renderThrower, setRenderThrower] = React.useState(false);
 
+        /* eslint-disable jest/no-if */
         return renderThrower ? (
           <Thrower />
         ) : (
           <button type="button" onClick={() => setRenderThrower(true)} />
         );
+        /* eslint-enable jest/no-if */
       }
 
       const root = new Root(<MyComponent />);

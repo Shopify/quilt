@@ -2,7 +2,9 @@ import React from 'react';
 import withEnv from '@shopify/with-env';
 import {mount} from '@shopify/react-testing';
 
-import {Script, Style} from '../../../components';
+import {Script} from '../Script';
+import {Stylesheet} from '../Stylesheet';
+import {InlineStyle} from '../InlineStyle';
 import {HtmlManager} from '../../../manager';
 import {MANAGED_ATTRIBUTE} from '../../../utilities';
 import Html from '../Html';
@@ -81,6 +83,16 @@ describe('<Html />', () => {
         });
       }
     });
+
+    it('includes `type` attributes', () => {
+      const script = {path: 'foo.js', type: 'nomodule' as const};
+      const html = mount(<Html {...mockProps} scripts={[script]} />);
+      const head = html.find('head')!;
+
+      expect(head).toContainReactComponent(Script, {
+        type: 'nomodule',
+      });
+    });
   });
 
   describe('blockingScripts', () => {
@@ -95,6 +107,16 @@ describe('<Html />', () => {
         });
       }
     });
+
+    it('includes `type` attributes', () => {
+      const script = {path: 'foo.js', type: 'module' as const};
+      const html = mount(<Html {...mockProps} blockingScripts={[script]} />);
+      const head = html.find('head')!;
+
+      expect(head).toContainReactComponent(Script, {
+        type: 'module',
+      });
+    });
   });
 
   describe('styles', () => {
@@ -104,8 +126,25 @@ describe('<Html />', () => {
       const head = html.find('head')!;
 
       for (const style of styles) {
-        expect(head).toContainReactComponent(Style, {
+        expect(head).toContainReactComponent(Stylesheet, {
           href: style.path,
+        });
+      }
+    });
+  });
+
+  describe('inlineStyles', () => {
+    it('generates a style tag in the head', () => {
+      const inlineStyles = [
+        {content: '.foo{color:blue;}'},
+        {content: '.bar{color:red;}'},
+      ];
+      const html = mount(<Html {...mockProps} inlineStyles={inlineStyles} />);
+      const head = html.find('head')!;
+
+      for (const inlineStyle of inlineStyles) {
+        expect(head).toContainReactComponent(InlineStyle, {
+          children: inlineStyle.content,
         });
       }
     });
@@ -134,11 +173,11 @@ describe('<Html />', () => {
       );
       const headContents = html.find('head')!.descendants;
 
-      const serializerIndex = headContents.findIndex(element =>
+      const serializerIndex = headContents.findIndex((element) =>
         element.is(Serialize),
       );
 
-      const scriptsIndex = headContents.findIndex(element =>
+      const scriptsIndex = headContents.findIndex((element) =>
         element.is(Script),
       );
 
@@ -157,12 +196,12 @@ describe('<Html />', () => {
       );
       const headContents = html.find('head')!.descendants;
 
-      const syncScriptsIndex = headContents.findIndex(element => {
+      const syncScriptsIndex = headContents.findIndex((element) => {
         return element.is(Script) && !element.prop('defer');
       });
 
       const deferredScriptsIndex = headContents.findIndex(
-        element => element.is(Script) && Boolean(element.prop('defer')),
+        (element) => element.is(Script) && Boolean(element.prop('defer')),
       );
 
       expect(syncScriptsIndex).toBeLessThan(deferredScriptsIndex);
@@ -222,11 +261,37 @@ describe('<Html />', () => {
       const html = mount(<Html {...mockProps} manager={manager} />);
       const metas = html
         .findAll('meta')
-        .filter(meta => meta.data(MANAGED_ATTRIBUTE));
+        .filter((meta) => meta.data(MANAGED_ATTRIBUTE));
 
       expect(metas).toHaveLength(2);
       expect(metas[0]).toHaveReactProps(metaOne);
       expect(metas[1]).toHaveReactProps(metaTwo);
+    });
+
+    it('only keeps the last added meta based on name or property', () => {
+      const globalDescription = 'global description';
+      const pageDescription = 'page description';
+
+      const latestDescription = {name: 'description', content: pageDescription};
+      const latestOgDescription = {
+        property: 'og:description',
+        content: pageDescription,
+      };
+
+      const manager = new HtmlManager();
+      manager.addMeta({name: 'description', content: globalDescription});
+      manager.addMeta({property: 'og:description', content: globalDescription});
+      manager.addMeta(latestDescription);
+      manager.addMeta(latestOgDescription);
+
+      const html = mount(<Html {...mockProps} manager={manager} />);
+      const metas = html
+        .findAll('meta')
+        .filter((meta) => meta.data(MANAGED_ATTRIBUTE));
+
+      expect(metas).toHaveLength(2);
+      expect(metas[0]).toHaveReactProps(latestDescription);
+      expect(metas[1]).toHaveReactProps(latestOgDescription);
     });
 
     it('renders link tags with the managed attribute', () => {
@@ -240,7 +305,7 @@ describe('<Html />', () => {
       const html = mount(<Html {...mockProps} manager={manager} />);
       const links = html
         .findAll('link')
-        .filter(link => link.data(MANAGED_ATTRIBUTE));
+        .filter((link) => link.data(MANAGED_ATTRIBUTE));
 
       expect(links).toHaveLength(2);
       expect(links[0]).toHaveReactProps(linkOne);
