@@ -1,5 +1,5 @@
 import React from 'react';
-import ApolloClient, {ApolloClientOptions} from 'apollo-client';
+import {ApolloClient, ApolloClientOptions} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
 import {InMemoryCache, NormalizedCacheObject} from 'apollo-cache-inmemory';
 import {useSerialized} from '@shopify/react-html';

@@ -28,7 +28,7 @@ Before using the hooks and other utilities provided by this package, you must wr
 import React from 'react';
 import {render} from 'react-dom';
 
-import ApolloClient from 'apollo-client';
+import {ApolloClient} from 'apollo-client';
 import {ApolloProvider} from '@shopify/react-graphql';
 
 const client = new ApolloClient();

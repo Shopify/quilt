@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 4.3.2 - 2021-10-08
+
+### Changed
+
+- Use the named import of ApolloClient [[#2052](https://github.com/Shopify/quilt/pull/2052)]
+
 ## 4.3.1 - 2021-09-24
 
 ### Changed
