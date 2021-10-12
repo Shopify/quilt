@@ -1,8 +1,6 @@
 # `@shopify/storybook-a11y-test`
 
-[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
-[![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fstorybook-a11y-test.svg)](https://badge.fury.io/js/%40shopify%2Fstorybook-a11y-test.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/storybook-a11y-test.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/storybook-a11y-test.svg)
+[![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/Shopify/quilt/blob/main/LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fstorybook-a11y-test.svg)](https://www.npmjs.com/package/@shopify/storybook-a11y-test) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/storybook-a11y-test.svg)](https://bundlephobia.com/package/@shopify/storybook-a11y-test)
 
 Test [Storybook](https://storybook.js.org/) stories with [axe®](https://github.com/dequelabs/axe-core) and [Puppeteer](https://developers.google.com/web/tools/puppeteer).
 
