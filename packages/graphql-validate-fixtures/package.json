@@ -22,14 +22,14 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-validate-fixtures/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "chalk": "^4.0.0",
     "fs-extra": "^9.1.0",
     "glob": "^7.1.2",
     "graphql": ">=14.5.0 <16.0.0",
-    "graphql-config": "^3.2.0",
+    "graphql-config": "^4.0.2",
     "graphql-config-utilities": "^3.0.5",
     "graphql-tool-utilities": "^2.1.2",
     "yargs": "^15.3.1"

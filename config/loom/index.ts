@@ -28,8 +28,8 @@ export function quiltPackage({
       },
     }),
     packageBuild({
-      nodeTargets: 'node 12.14.0',
-      browserTargets: 'extends @shopify/browserslist-config',
+      nodeTargets: 'node 12.22.0',
+      browserTargets: 'extends @shopify/browserslist-config, ios >= 12',
     }),
     createProjectTestPlugin('Quilt.PackageTest', ({hooks}) => {
       hooks.configure.hook((hooks) => {

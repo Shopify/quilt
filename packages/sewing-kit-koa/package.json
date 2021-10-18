@@ -21,14 +21,14 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/sewing-kit-koa/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@shopify/network": "^2.0.4",
     "@types/koa-mount": "^4.0.0",
     "@types/koa-static": "^4.0.0",
     "app-root-path": "^2.1.0",
-    "browserslist-useragent": "^2.0.1",
+    "browserslist-useragent": "^3.0.3",
     "fs-extra": "^9.1.0",
     "koa": "^2.5.0",
     "koa-compose": ">=3.0.0 <4.0.0",
