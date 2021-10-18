@@ -68,7 +68,6 @@
     {"path": "./packages/react-tracking-pixel"},
     {"path": "./packages/react-universal-provider"},
     {"path": "./packages/react-web-worker"},
-    {"path": "./packages/rpc"},
     {"path": "./packages/semaphore"},
     {"path": "./packages/sewing-kit-koa"},
     {"path": "./packages/statsd"},
