@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+Replaced this package with the contents of [`@remote-ui/web-workers`](https://github.com/Shopify/remote-ui/tree/main/packages/web-workers) as of version `1.5.7`. This change was made in order to deprecate `@remote-ui/web-workers`; anyone who was previously using that package should move to depending on this one (`@shopify/web-worker`) instead.
+
 ## 2.1.5 - 2021-09-24
 
 ### Changed

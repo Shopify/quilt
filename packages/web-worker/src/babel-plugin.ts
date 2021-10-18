@@ -1,22 +1,21 @@
 import {resolve} from 'path';
 import {runInNewContext} from 'vm';
 
-const DEFAULT_PACKAGES_TO_PROCESS = {
-  '@shopify/web-worker': [
-    {name: 'createWorkerFactory', plain: false},
-    {name: 'createPlainWorkerFactory', plain: true},
-  ],
-  '@shopify/react-web-worker': [
-    {name: 'createWorkerFactory', plain: false},
-    {name: 'createPlainWorkerFactory', plain: true},
-  ],
+export const DEFAULT_PACKAGES_TO_PROCESS = {
+  '@remote-ui/web-workers': [
+    {name: 'createPlainWorkerFactory'},
+    {
+      name: 'createWorkerFactory',
+      wrapperModule: resolve(__dirname, 'wrappers/expose.js.raw'),
+    },
+  ] as ProcessableImport[],
 };
 
 const loader = resolve(__dirname, 'webpack-parts/loader');
 
-interface ProcessableImport {
+export interface ProcessableImport {
   name: string;
-  plain: boolean;
+  wrapperModule?: string;
 }
 
 export interface Options {
@@ -26,7 +25,9 @@ export interface Options {
 
 interface State {
   process: Map<string, ProcessableImport[]>;
-  program: import('@babel/traverse').NodePath<import('@babel/types').Program>;
+  program: import('@babel/traverse').NodePath<
+    import('@babel/core').types.Program
+  >;
   opts?: Options;
 }
 
@@ -34,7 +35,7 @@ export default function workerBabelPlugin({
   types: t,
   template,
 }: {
-  types: typeof import('@babel/types');
+  types: typeof import('@babel/core').types;
   template: typeof import('@babel/template').default;
 }): import('@babel/core').PluginObj<State> {
   const noopBinding = (template(
@@ -51,17 +52,16 @@ export default function workerBabelPlugin({
       )
     );`,
     {sourceType: 'module'},
-  ) as unknown) as () => import('@babel/types').ArrowFunctionExpression;
+  ) as unknown) as () => import('@babel/core').types.ArrowFunctionExpression;
 
   return {
     visitor: {
       Program(program, state) {
         state.program = program;
 
-        const packages =
-          state.opts && state.opts.packages
-            ? normalize(state.opts.packages)
-            : DEFAULT_PACKAGES_TO_PROCESS;
+        const packages = state.opts?.packages
+          ? normalize(state.opts.packages)
+          : DEFAULT_PACKAGES_TO_PROCESS;
 
         state.process = new Map(Object.entries(packages));
       },
@@ -75,15 +75,14 @@ export default function workerBabelPlugin({
         }
 
         for (const specifier of importDeclaration.get('specifiers')) {
-          if (!specifier.isImportSpecifier()) {
+          if (
+            !specifier.isImportSpecifier() ||
+            specifier.node.imported.type !== 'Identifier'
+          ) {
             continue;
           }
 
-          const imported: any = specifier.get('imported');
-
-          const importedName = (imported.node as {
-            name: string;
-          }).name;
+          const importedName = specifier.node.imported.name;
           const processableImport = processImports.find(
             ({name}) => name === importedName,
           );
@@ -93,7 +92,7 @@ export default function workerBabelPlugin({
           }
 
           const binding = specifier.scope.getBinding(
-            (imported.node as {name: string}).name,
+            specifier.node.imported.name,
           );
 
           if (binding == null) {
@@ -119,14 +118,16 @@ export default function workerBabelPlugin({
     );
 
     type CallExpressionNodePath = import('@babel/traverse').NodePath<
-      import('@babel/types').CallExpression
+      import('@babel/core').types.CallExpression
     >;
 
     for (const referencePath of callingReferences) {
       const callExpression: CallExpressionNodePath = referencePath.parentPath as any;
       const dynamicImports = new Set<CallExpressionNodePath>();
 
-      callExpression.traverse({
+      const firstArgument = callExpression.get('arguments')[0];
+
+      firstArgument.traverse({
         Import({parentPath}) {
           if (parentPath.isCallExpression()) {
             dynamicImports.add(parentPath);
@@ -154,14 +155,14 @@ export default function workerBabelPlugin({
       }
 
       if (noop) {
-        callExpression.replaceWith(noopBinding());
+        firstArgument.replaceWith(noopBinding());
         return;
       }
 
       const {leadingComments} = dynamicallyImported.node;
       const options = {
         ...getLoaderOptions(leadingComments || []),
-        plain: importOptions.plain,
+        wrapperModule: importOptions.wrapperModule,
       };
 
       const importId = callExpression.scope.generateUidIdentifier('worker');
@@ -175,9 +176,7 @@ export default function workerBabelPlugin({
           ),
         );
 
-      callExpression.replaceWith(
-        t.callExpression(callExpression.get('callee').node, [importId]),
-      );
+      firstArgument.replaceWith(importId);
     }
   }
 }
@@ -215,9 +214,7 @@ function normalize(packages: NonNullable<Options['packages']>) {
     (all, pkg) => ({
       ...all,
       [pkg]: packages[pkg].map((anImport) =>
-        typeof anImport === 'string'
-          ? {name: anImport, plain: false}
-          : anImport,
+        typeof anImport === 'string' ? {name: anImport} : anImport,
       ),
     }),
     {},

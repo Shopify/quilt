@@ -10,12 +10,12 @@ export class AppBrowser {
 
     page.on('error', (error) => {
       // eslint-disable-next-line no-console
-      console.error(error);
+      console.log(error);
     });
 
     page.on('pageerror', (error) => {
       // eslint-disable-next-line no-console
-      console.error(error);
+      console.log(error);
     });
 
     page.on('console', (consoleMessage) => {
@@ -33,6 +33,11 @@ export class AppBrowser {
 }
 
 export async function createBrowser({url}: {url: URL}) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    // eslint-disable-next-line no-process-env
+    executablePath: process.env.CI ? 'google-chrome-stable' : undefined,
+    args: ['--no-sandbox'],
+  });
   return new AppBrowser(browser, url);
 }
