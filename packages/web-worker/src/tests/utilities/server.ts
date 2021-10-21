@@ -2,7 +2,7 @@ import {Server} from 'http';
 import {AddressInfo} from 'net';
 import {URL} from 'url';
 
-import Koa, {Middleware} from 'koa';
+import Koa, {Middleware, Context} from 'koa';
 import serve from 'koa-static';
 import mount from 'koa-mount';
 import getPort from 'get-port';
@@ -67,7 +67,7 @@ export async function createServer({serve: servePath}: {serve: string}) {
 
   app.use(mount('/assets', serve(servePath)));
   app.use(
-    mount('/', (ctx) => {
+    mount('/', (ctx: Context) => {
       ctx.body = `
         <html>
           <body><script type="text/javascript" src="/assets/main.js"></script></body>
