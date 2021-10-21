@@ -202,8 +202,8 @@ import {createWorkerFactory, terminate} from '@shopify/web-worker';
 
 // Note: only webpackChunkName is currently supported. Don’t try to use
 // other magic webpack comments.
-const createWorker = createWorkerFactory(
-  () => import(/* webpackChunkName: 'myWorker' */ './worker'),
+const createWorker = createWorkerFactory(() =>
+  import(/* webpackChunkName: 'myWorker' */ './worker'),
 );
 ```
 
@@ -212,8 +212,8 @@ This name will be used as the prefix for the worker file. The worker will always
 ```ts
 import {createWorkerFactory, terminate} from '@shopify/web-worker';
 
-const createWorker = createWorkerFactory(
-  () => import(/* webpackChunkName: 'myWorker' */ './worker'),
+const createWorker = createWorkerFactory(() =>
+  import(/* webpackChunkName: 'myWorker' */ './worker'),
 );
 
 // Something like `new URL(__webpack_public_path__ + 'myWorker.worker.js')`
