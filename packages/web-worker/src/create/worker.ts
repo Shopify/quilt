@@ -93,6 +93,7 @@ export function expose(
 ) {
   const endpoint = getEndpoint(caller);
 
+  // eslint-disable-next-line babel/no-unused-expressions
   endpoint?.expose(api);
 
   return endpoint != null;
@@ -101,6 +102,7 @@ export function expose(
 export function terminate(caller: any) {
   const endpoint = getEndpoint(caller);
 
+  // eslint-disable-next-line babel/no-unused-expressions
   endpoint?.terminate();
   workerEndpointCache.delete(caller);
 
