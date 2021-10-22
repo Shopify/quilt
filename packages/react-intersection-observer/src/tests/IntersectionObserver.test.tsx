@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {mount} from '@shopify/react-testing';
 import {intersectionObserver as intersectionObserverMock} from '@shopify/jest-dom-mocks';
 
@@ -218,6 +218,42 @@ describe('<IntersectionObserver />', () => {
       });
 
       expect(spy).toHaveBeenCalledWith(expect.objectContaining(entry));
+    });
+
+    it('allows consumers to set state in response to callback', () => {
+      isSupported.mockReturnValue(true);
+      const entry = {isIntersecting: true};
+      const consoleSpy = jest.spyOn(console, 'error');
+
+      const Card = () => {
+        const [visible, setVisible] = useState(false);
+        const handleVisible = (entry: IntersectionObserverEntry) => {
+          setVisible(entry.isIntersecting);
+        };
+
+        return (
+          <IntersectionObserver
+            threshold={0.5}
+            onIntersectionChange={handleVisible}
+          >
+            <div>{visible.toString()}</div>
+          </IntersectionObserver>
+        );
+      };
+
+      const wrapper = mount(<Card />);
+
+      wrapper.act(() => {
+        intersectionObserverMock.simulate(entry);
+      });
+
+      expect(wrapper.text()).toBe('true');
+
+      // Prior to fixing https://github.com/Shopify/quilt/issues/2058, React will
+      // generate a warning because IntersectionObserver is updating state during
+      // a render. Checking `console.error` for that warning is the best way to
+      // check if the issue has been fixed.
+      expect(consoleSpy).not.toHaveBeenCalled();
     });
   });
 
