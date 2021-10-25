@@ -138,9 +138,11 @@ export function useValueTracking<T>(
   const tracked = useRef(value);
   const oldValue = tracked.current;
 
-  if (value !== oldValue) {
-    tracked.current = value;
-    onChange(value, oldValue);
-  }
+  useEffect(() => {
+    if (value !== oldValue) {
+      tracked.current = value;
+      onChange(value, oldValue);
+    }
+  }, [onChange, value, oldValue]);
 }
 /* eslint-enable react-hooks/exhaustive-deps */
