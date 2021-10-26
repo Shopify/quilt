@@ -1,7 +1,6 @@
 import {ApolloClient, ApolloLink, GraphQLRequest} from '@apollo/client';
 import {ApolloReducerConfig, InMemoryCache} from '@apollo/client/cache';
 
-import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
@@ -52,7 +51,7 @@ export class GraphQL {
       this.mockLink,
     ]);
 
-    this.client = new TestingApolloClient({
+    this.client = new ApolloClient({
       link,
       cache,
     });
