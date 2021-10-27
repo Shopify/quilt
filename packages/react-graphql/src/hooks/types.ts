@@ -4,24 +4,34 @@ import {
   QueryResult,
   OperationVariables,
   QueryOptions,
-  MutationOptions
+  MutationOptions,
+  WatchQueryFetchPolicy,
+  NormalizedCacheObject,
+  FetchResult,
 } from '@apollo/client';
-import {ExecutionResult} from 'graphql';
 import {Omit, IfAllNullableKeys} from '@shopify/useful-types';
+
 import {VariableOptions} from '../types';
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
   QueryOptions<Data, Variables>,
-  'query' | 'partialRefetch' | 'children' | 'variables'
+  'query' | 'partialRefetch' | 'variables' | 'fetchPolicy'
 > &
   VariableOptions<Variables> & {
+    client?: ApolloClient<NormalizedCacheObject>;
+    fetchPolicy?: WatchQueryFetchPolicy;
     skip?: boolean;
+    ssr?: boolean;
   };
 
 export interface QueryHookResult<Data, Variables>
-  extends Omit<QueryResult<Data, Variables>, 'networkStatus' | 'variables'> {
+  extends Omit<
+    QueryResult<Data, Variables>,
+    'networkStatus' | 'variables' | 'called'
+  > {
   networkStatus: QueryResult<Data, Variables>['networkStatus'] | undefined;
   variables: QueryResult<Data, Variables>['variables'] | undefined;
+  called: QueryResult<Data, Variables>['called'] | false;
 }
 
 export type MutationHookOptions<
@@ -42,4 +52,4 @@ export type MutationHookResult<Data, Variables> = (
     [MutationHookOptions<Data, Variables>?],
     [MutationHookOptions<Data, Variables>]
   >
-) => Promise<ExecutionResult<Data>>;
+) => Promise<FetchResult<Data>>;
