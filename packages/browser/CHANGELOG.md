@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Changed
+
+- Updated ua-parser-js dependency to `^0.7.30` [[#2061](https://github.com/Shopify/quilt/pull/2061)]
 
 ## 2.0.4 - 2021-09-24
 
