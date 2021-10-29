@@ -7,7 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-- updated ua-parser-js dependency to `^0.7.30` [[#2061](https://github.com/Shopify/quilt/pull/2061)]
+### Changed
+
+- Updated ua-parser-js dependency to `^0.7.30` [[#2061](https://github.com/Shopify/quilt/pull/2061)]
 
 ## 2.0.4 - 2021-09-24
 
