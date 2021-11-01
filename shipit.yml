@@ -2,6 +2,7 @@ ci:
   require:
     - node-tests (12.14)
     - node-tests (14.x)
+    - node-tests (16.x)
 dependencies:
   post:
     - npm config set @shopify:registry https://registry.npmjs.org

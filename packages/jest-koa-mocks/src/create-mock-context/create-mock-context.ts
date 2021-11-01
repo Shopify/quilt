@@ -111,5 +111,7 @@ export default function createContext<
   // ctx.request.body is a common enough custom property for middleware to add that it's handy to just support it by default
   context.request.body = requestBody;
   context.request.rawBody = rawBody;
+
+  context.set = () => {};
   return context as Context;
 }

@@ -1,3 +1,5 @@
+import {Writable} from 'stream';
+
 import React from 'react';
 import {Effect} from '@shopify/react-effect/server';
 import {middleware as sewingKitKoaMiddleware} from '@shopify/sewing-kit-koa';
@@ -164,17 +166,22 @@ describe('createRender', () => {
 
     it('returns a body with a meaningful error message in development', () => {
       withEnv('development', async () => {
-        const ctx = {...createMockContext(), locale: ''};
+        const ctx = {
+          ...createMockContext({
+            requestBody: new Writable(),
+          }),
+          locale: '',
+        };
 
         const renderFunction = createRender(() => <BrokenApp />);
         await renderFunction(ctx, noop);
 
-        expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
-          error.message,
-        );
-        expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
-          error.stack,
-        );
+        expect(
+          await readStream(ctx.request.body as NodeJS.ReadableStream),
+        ).toContain(error.message);
+        expect(
+          await readStream(ctx.request.body as NodeJS.ReadableStream),
+        ).toContain(error.stack);
       });
     });
 
@@ -187,6 +194,7 @@ describe('createRender', () => {
           .mockImplementation(noopSpy as any);
 
         const renderFunction = createRender(() => <BrokenApp />);
+
         await renderFunction(ctx, noop);
 
         expect(throwSpy).toHaveBeenCalledWith(500, new Error(error.message));
