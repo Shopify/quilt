@@ -3,7 +3,7 @@ type: node
 up:
   - node:
       version: v16.13.0
-      yarn: v1.22.5
+      yarn: v1.22.15
 commands:
   __default__: start
   build: yarnpkg build
