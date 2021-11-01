@@ -1,3 +1,5 @@
+import {Writable} from 'stream';
+
 import React from 'react';
 import {Effect} from '@shopify/react-effect/server';
 import {middleware as sewingKitKoaMiddleware} from '@shopify/sewing-kit-koa';
@@ -162,21 +164,26 @@ describe('createRender', () => {
       throw error;
     };
 
-    // it('returns a body with a meaningful error message in development', () => {
-    //   withEnv('development', async () => {
-    //     const ctx = {...createMockContext(), locale: ''};
+    it('returns a body with a meaningful error message in development', () => {
+      withEnv('development', async () => {
+        const ctx = {
+          ...createMockContext({
+            requestBody: new Writable(),
+          }),
+          locale: '',
+        };
 
-    //     const renderFunction = createRender(() => <BrokenApp />);
-    //     await renderFunction(ctx, noop);
+        const renderFunction = createRender(() => <BrokenApp />);
+        await renderFunction(ctx, noop);
 
-    //     expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
-    //       error.message,
-    //     );
-    //     expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
-    //       error.stack,
-    //     );
-    //   });
-    // });
+        expect(
+          await readStream(ctx.request.body as NodeJS.ReadableStream),
+        ).toContain(error.message);
+        expect(
+          await readStream(ctx.request.body as NodeJS.ReadableStream),
+        ).toContain(error.stack);
+      });
+    });
 
     it('throws a 500 with a meaningful error message in production', () => {
       withEnv('production', async () => {
