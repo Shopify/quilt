@@ -1083,10 +1083,9 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
 
-      const submissionPromise = submit();
       form.unmount();
       expect(async () => {
-        await submissionPromise();
+        await submit();
       }).not.toThrow();
     });
 
