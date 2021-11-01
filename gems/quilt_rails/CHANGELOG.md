@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Changed
+
+- Always `require "statsd-instrument"` so that apps don't need to do so.
+
 ## 3.5.1 - 2021-08-30
 
 ### Security
