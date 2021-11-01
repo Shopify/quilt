@@ -162,21 +162,21 @@ describe('createRender', () => {
       throw error;
     };
 
-    it('returns a body with a meaningful error message in development', () => {
-      withEnv('development', async () => {
-        const ctx = {...createMockContext(), locale: ''};
+    // it('returns a body with a meaningful error message in development', () => {
+    //   withEnv('development', async () => {
+    //     const ctx = {...createMockContext(), locale: ''};
 
-        const renderFunction = createRender(() => <BrokenApp />);
-        await renderFunction(ctx, noop);
+    //     const renderFunction = createRender(() => <BrokenApp />);
+    //     await renderFunction(ctx, noop);
 
-        expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
-          error.message,
-        );
-        expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
-          error.stack,
-        );
-      });
-    });
+    //     expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
+    //       error.message,
+    //     );
+    //     expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
+    //       error.stack,
+    //     );
+    //   });
+    // });
 
     it('throws a 500 with a meaningful error message in production', () => {
       withEnv('production', async () => {
@@ -187,6 +187,7 @@ describe('createRender', () => {
           .mockImplementation(noopSpy as any);
 
         const renderFunction = createRender(() => <BrokenApp />);
+
         await renderFunction(ctx, noop);
 
         expect(throwSpy).toHaveBeenCalledWith(500, new Error(error.message));
