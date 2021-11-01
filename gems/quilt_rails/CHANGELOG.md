@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Always `require "statsd-instrument"` so that apps don't need to do so.
+- Always `require "statsd-instrument"` so that apps don't need to do so. ([#2064](https://github.com/Shopify/quilt/pull/2064))
 
 ## 3.5.1 - 2021-08-30
 
