@@ -2,7 +2,7 @@ import {resolve} from 'path';
 import {runInNewContext} from 'vm';
 
 export const DEFAULT_PACKAGES_TO_PROCESS = {
-  '@remote-ui/web-workers': [
+  '@shopify/web-worker': [
     {name: 'createPlainWorkerFactory'},
     {
       name: 'createWorkerFactory',

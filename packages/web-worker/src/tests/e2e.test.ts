@@ -72,7 +72,7 @@ describe('web-worker', () => {
     const testId = 'WorkerResult';
 
     await withContext('thrown-error', async (context) => {
-      const {workspace, browser, server} = context;
+      const {workspace, browser} = context;
 
       await workspace.write(
         mainFile,
@@ -117,7 +117,6 @@ describe('web-worker', () => {
       );
 
       expect(textContent).toContain(errorMessage);
-      expect(textContent).toContain(server.assetUrl('0.worker.js').href);
     });
   });
 
