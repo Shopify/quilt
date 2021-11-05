@@ -4,6 +4,7 @@ import {readFileSync, readJSONSync} from 'fs-extra';
 import glob from 'glob';
 
 import {shouldSkipShopifyPrefix} from './skip-shopify-prefix';
+import {EXCLUDED_PACKAGES} from './utilities';
 
 const KNOWN_TEMPLATE_KEYS = [
   'author',
@@ -168,10 +169,13 @@ packages.forEach(
 function readPackages() {
   return glob
     .sync(join(packagesPath, '*', 'package.json'))
-    .map((absolutePackageJSONPath) => {
+    .flatMap((absolutePackageJSONPath) => {
       const packageName = dirname(
         relative(packagesPath, absolutePackageJSONPath),
       );
+
+      if (EXCLUDED_PACKAGES.includes(packageName)) return [];
+
       const packageJSONPath = relative(ROOT_PATH, absolutePackageJSONPath);
       const packageJSON = readJSONSync(absolutePackageJSONPath);
       const expectedPackageJSON = compileTemplate({name: packageName});

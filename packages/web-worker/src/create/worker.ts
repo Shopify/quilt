@@ -1,16 +1,21 @@
-import {createEndpoint, Endpoint, MessageEndpoint} from '@shopify/rpc';
+import {
+  createEndpoint,
+  Endpoint,
+  MessageEndpoint,
+  CreateEndpointOptions,
+} from '@remote-ui/rpc';
 
 import {createWorkerMessenger} from '../messenger';
 
 import {createScriptUrl, FileOrModuleResolver} from './utilities';
 
-export interface CreateWorkerOptions {
+export interface CreateWorkerOptions<T> extends CreateEndpointOptions<T> {
   createMessenger?(url: URL): MessageEndpoint;
 }
 
 export interface WorkerCreator<T> {
   readonly url?: URL;
-  (options?: CreateWorkerOptions): Endpoint<T>['call'];
+  (options?: CreateWorkerOptions<T>): Endpoint<T>['call'];
 }
 
 const workerEndpointCache = new WeakMap<Endpoint<any>['call'], Endpoint<any>>();
@@ -22,9 +27,13 @@ export function createWorkerFactory<T = unknown>(
 
   function createWorker({
     createMessenger = createWorkerMessenger,
-  }: CreateWorkerOptions = {}): Endpoint<T>['call'] {
+    ...endpointOptions
+  }: CreateWorkerOptions<T> = {}): Endpoint<T>['call'] {
     if (scriptUrl) {
-      const endpoint = createEndpoint(createMessenger(scriptUrl));
+      const endpoint = createEndpoint(
+        createMessenger(scriptUrl),
+        endpointOptions,
+      );
       const {call: caller} = endpoint;
 
       workerEndpointCache.set(caller, endpoint);
@@ -80,21 +89,26 @@ export function createWorkerFactory<T = unknown>(
 
 export function expose(
   caller: any,
-  api: {[key: string]: Function | undefined},
+  api: {[key: string]: (...args: any[]) => any},
 ) {
   const endpoint = getEndpoint(caller);
-  return endpoint && endpoint.expose(api);
+
+  // eslint-disable-next-line babel/no-unused-expressions
+  endpoint?.expose(api);
+
+  return endpoint != null;
 }
 
 export function terminate(caller: any) {
   const endpoint = getEndpoint(caller);
-  if (endpoint) {
-    endpoint.terminate();
-  }
 
+  // eslint-disable-next-line babel/no-unused-expressions
+  endpoint?.terminate();
   workerEndpointCache.delete(caller);
+
+  return endpoint != null;
 }
 
-export function getEndpoint(caller: any) {
+export function getEndpoint<T = unknown>(caller: any): Endpoint<T> | undefined {
   return workerEndpointCache.get(caller);
 }

@@ -1,2 +1,6 @@
 export {createWorkerMessenger} from './worker';
-export {createIframeWorkerMessenger} from './iframe';
+export {
+  createNullOriginIframeMessenger as createIframeWorkerMessenger,
+  createNullOriginIframeMessenger,
+  createRemoteOriginIframeMessengerFactory,
+} from './iframe';

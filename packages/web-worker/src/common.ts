@@ -1,1 +1,1 @@
-export const PLUGIN = Symbol('workerize.plugin');
+export const PLUGIN = Symbol.for('WebWorker.Plugin');

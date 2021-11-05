@@ -1,5 +1,5 @@
-export {retain, release} from '@shopify/rpc';
-export type {SafeRpcArgument as SafeWorkerArgument} from '@shopify/rpc';
+export {retain, release} from '@remote-ui/rpc';
+export type {SafeRpcArgument as SafeWorkerArgument} from '@remote-ui/rpc';
 export {
   expose,
   terminate,
@@ -11,4 +11,9 @@ export type {
   CreateWorkerOptions,
   PlainWorkerCreator,
 } from './create';
-export {createWorkerMessenger, createIframeWorkerMessenger} from './messenger';
+export {
+  createWorkerMessenger,
+  createIframeWorkerMessenger,
+  createNullOriginIframeMessenger,
+  createRemoteOriginIframeMessengerFactory,
+} from './messenger';
