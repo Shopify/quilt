@@ -12,7 +12,7 @@ export default createPackage((pkg) => {
 
   // The library references the worker "wrapper" files as relative paths from
   // the source code. Because they aren’t in the dependency graph, Rollup
-  // does not bundle them. This sewing-kit plugin adds a copy rollup plugin
+  // does not bundle them. This Loom plugin adds a copy rollup plugin
   // that manually moves them into the right build directory.
   pkg.use(
     createProjectBuildPlugin('WebWorker.CopyWrappers', ({hooks, project}) => {
