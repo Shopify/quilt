@@ -13,7 +13,6 @@ const BUILD_TIMEOUT = 10000;
 
 const DEFAULT_SERVER_FILE_EPATH = `${Entrypoint.Server}.js`;
 const DEFAULT_CLIENT_FILE_PATH = `${Entrypoint.Client}.js`;
-const DEFAULT_ERROR_FILE_PATH = `${Entrypoint.Error}.entry.client.js`;
 
 describe('webpack-plugin', () => {
   describe('node', () => {
