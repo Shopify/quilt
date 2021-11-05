@@ -1,5 +1,10 @@
 import {resolve, sep} from 'path';
 
+export const EXCLUDED_PACKAGES = [
+  // This library is deprecated and will be removed.
+  'rpc',
+];
+
 const rootDirectory = `${resolve(__dirname, '..')}${sep}`;
 const regex = new RegExp(rootDirectory, 'g');
 const lineNumberRegex = /(\.\w+):\d+:\d+/g;

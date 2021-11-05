@@ -9,9 +9,11 @@ import {WebWorkerPlugin} from './plugin';
 
 const NAME = 'WebWorker';
 
+const moduleWrapperCache = new Map<string, string | false>();
+
 export interface Options {
   name?: string;
-  plain?: boolean;
+  wrapperModule?: string;
 }
 
 export function pitch(
@@ -29,11 +31,12 @@ export function pitch(
   } = this;
 
   if (compiler.options.output!.globalObject !== 'self') {
-    return callback!(
+    callback!(
       new Error(
-        'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @shopify/web-worker babel plugin.',
+        'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @remote-ui/web-workers babel plugin.',
       ),
     );
+    return;
   }
 
   const plugin: WebWorkerPlugin = (compiler.options.plugins || []).find(
@@ -42,34 +45,47 @@ export function pitch(
 
   if (plugin == null) {
     throw new Error(
-      'You must also include the WebWorkerPlugin from `@shopify/web-worker` when using the Babel plugin.',
+      'You must also include the WebWorkerPlugin from `@remote-ui/web-workers` when using the Babel plugin.',
     );
   }
 
   const options: Options = getOptions(this) || {};
-  const {name = String(plugin.workerId++), plain = false} = options;
+  const {name = String(plugin.workerId++), wrapperModule} = options;
 
   const virtualModule = path.join(
     path.dirname(resourcePath),
     `${path.basename(resourcePath, path.extname(resourcePath))}.worker.js`,
   );
 
-  if (!plain) {
+  let wrapperContent: string | undefined;
+
+  if (wrapperModule) {
+    this.addDependency(wrapperModule);
+    const cachedContent = moduleWrapperCache.get(wrapperModule);
+
+    if (typeof cachedContent === 'string') {
+      wrapperContent = cachedContent;
+    } else if (cachedContent == null) {
+      try {
+        wrapperContent = this.fs.readFileSync(wrapperModule).toString();
+        moduleWrapperCache.set(wrapperModule, wrapperContent ?? false);
+      } catch (error) {
+        moduleWrapperCache.set(wrapperModule, false);
+      }
+    }
+  }
+
+  if (wrapperContent) {
     plugin.virtualModules.writeModule(
       virtualModule,
-      `
-        import * as api from ${JSON.stringify(request)};
-        import {expose} from '@shopify/web-worker/worker';
-
-        expose(api);
-      `,
+      wrapperContent.replace('{{WORKER_MODULE}}', JSON.stringify(request)),
     );
   }
 
   const workerOptions = {
-    filename: addWorkerSubExtension(
-      compiler.options.output!.filename as string,
-    ),
+    filename:
+      plugin.options.filename ??
+      addWorkerSubExtension(compiler.options.output!.filename as string),
     chunkFilename: addWorkerSubExtension(
       compiler.options.output!.chunkFilename!,
     ),
@@ -88,9 +104,11 @@ export function pitch(
   new FetchCompileWasmTemplatePlugin({
     mangleImports: (compiler.options.optimization! as any).mangleWasmImports,
   }).apply(workerCompiler);
-  new SingleEntryPlugin(context, plain ? request : virtualModule, name).apply(
-    workerCompiler,
-  );
+  new SingleEntryPlugin(
+    context,
+    wrapperContent == null ? request : virtualModule,
+    name,
+  ).apply(workerCompiler);
 
   for (const aPlugin of plugin.options.plugins || []) {
     aPlugin.apply(workerCompiler);
@@ -139,7 +157,9 @@ export function pitch(
 }
 
 function addWorkerSubExtension(file: string) {
-  return file.replace(/\.([a-z]+)$/i, '.worker.$1');
+  return file.includes('[name]')
+    ? file.replace(/\.([a-z]+)$/i, '.worker.$1')
+    : file.replace(/\.([a-z]+)$/i, '.[name].worker.$1');
 }
 
 const loader = {

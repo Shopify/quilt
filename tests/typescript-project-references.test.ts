@@ -5,6 +5,7 @@ import glob from 'glob';
 import {readJSONSync} from 'fs-extra';
 
 import {shouldSkipShopifyPrefix} from './skip-shopify-prefix';
+import {EXCLUDED_PACKAGES} from './utilities';
 
 const ROOT = resolve(__dirname, '..');
 const basePackagePath = resolve(ROOT, 'packages');
@@ -25,7 +26,8 @@ describe('typescript project references', () => {
           /quilt\/packages\/(?<packageName>[\w._-]+)\/package\.json$/i.exec(
             packageJsonPath,
           ).groups.packageName,
-      );
+      )
+      .filter((packageName) => !EXCLUDED_PACKAGES.includes(packageName));
 
     expect(packages.sort()).toStrictEqual(references.sort());
   });

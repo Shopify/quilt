@@ -22,33 +22,43 @@ export function runWebpack(
           ...extraConfig.output,
         },
         resolve: {
-          extensions: ['.js', '.ts', '.json'],
+          extensions: ['.esnext', '.js', '.ts', '.tsx', '.json'],
           alias: {
-            '@shopify/rpc': rpcSrcRoot,
             '@shopify/web-worker': srcRoot,
             '@shopify/web-worker/worker': path.join(srcRoot, 'worker'),
           },
         },
         resolveLoader: {
-          extensions: ['.js', '.ts', '.json'],
+          extensions: ['.js', '.ts', '.tsx', '.json'],
         },
         module: {
           rules: [
             {
-              test: /\.ts$/,
-              include: {or: [srcRoot, rpcSrcRoot]},
-              loaders: [
+              include: [srcRoot, rpcSrcRoot],
+              exclude: /fixtures/,
+              use: [
                 {
                   loader: 'babel-loader',
                   options: {
-                    babelrc: false,
-                    browsers: 'last 1 chrome version',
-                    presets: [['@shopify/babel-preset', {typescript: true}]],
+                    configFile: false,
+                    presets: [
+                      [
+                        '@babel/preset-env',
+                        {targets: {node: true}, modules: false, loose: true},
+                      ],
+                      '@babel/preset-typescript',
+                    ],
+                    plugins: [
+                      [
+                        '@babel/plugin-proposal-class-properties',
+                        {loose: true},
+                      ],
+                    ],
                   },
                 },
               ],
             },
-            ...((extraConfig.module && extraConfig.module.rules) || []),
+            ...(extraConfig.module?.rules ?? []),
           ],
         },
       },

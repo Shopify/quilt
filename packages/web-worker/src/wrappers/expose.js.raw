@@ -1,0 +1,4 @@
+import {endpoint} from '@shopify/web-worker/worker';
+import * as api from {{WORKER_MODULE}};
+
+endpoint.expose(api);

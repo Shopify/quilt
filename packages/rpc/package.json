@@ -3,9 +3,6 @@
   "version": "2.0.5",
   "license": "MIT",
   "description": "Utilities for `postMessage`-based remote procedure calls",
-  "main": "index.js",
-  "types": "./build/ts/index.d.ts",
-  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -20,29 +17,5 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/rpc/README.md",
-  "engines": {
-    "node": ">=12.14.0"
-  },
-  "files": [
-    "build/",
-    "!build/*.tsbuildinfo",
-    "!build/ts/**/tests/",
-    "index.js",
-    "index.mjs",
-    "index.esnext"
-  ],
-  "devDependencies": {
-    "@types/uuid": "^3.4.6",
-    "uuid": "^3.3.3"
-  },
-  "module": "index.mjs",
-  "esnext": "index.esnext",
-  "exports": {
-    "./": "./",
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
-    }
-  }
+  "files": []
 }

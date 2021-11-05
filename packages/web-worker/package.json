@@ -4,6 +4,8 @@
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
+  "module": "index.mjs",
+  "esnext": "index.esnext",
   "types": "./build/ts/index.d.ts",
   "typesVersions": {
     "*": {
@@ -13,12 +15,32 @@
       "webpack": [
         "./build/ts/webpack-parts/index.d.ts"
       ],
-      "webpack-loader": [
-        "./build/ts/webpack-parts/loader.d.ts"
-      ],
       "worker": [
         "./build/ts/worker.d.ts"
       ]
+    }
+  },
+  "exports": {
+    ".": {
+      "esnext": "./index.esnext",
+      "import": "./index.mjs",
+      "require": "./index.js"
+    },
+    "./": "./",
+    "./babel": {
+      "esnext": "./babel.esnext",
+      "import": "./babel.mjs",
+      "require": "./babel.js"
+    },
+    "./webpack": {
+      "esnext": "./webpack.esnext",
+      "import": "./webpack.mjs",
+      "require": "./webpack.js"
+    },
+    "./worker": {
+      "esnext": "./worker.esnext",
+      "import": "./worker.mjs",
+      "require": "./worker.js"
     }
   },
   "sideEffects": false,
@@ -39,21 +61,6 @@
   "engines": {
     "node": ">=12.14.0"
   },
-  "dependencies": {
-    "@shopify/rpc": "^2.0.5",
-    "loader-utils": "^1.0.0",
-    "webpack-virtual-modules": "^0.4.3"
-  },
-  "devDependencies": {
-    "@babel/types": ">=7.0.0",
-    "@types/babel__core": ">=7.0.0",
-    "@types/babel__traverse": ">=7.0.0",
-    "@types/koa-mount": "^3.0.1",
-    "@types/loader-utils": "^1.0.0",
-    "@types/webpack": "^4.0.0",
-    "@types/webpack-virtual-modules": "^0.1.0",
-    "koa-mount": "^3.0.0"
-  },
   "files": [
     "build/",
     "!build/*.tsbuildinfo",
@@ -71,33 +78,51 @@
     "worker.mjs",
     "worker.esnext"
   ],
-  "optionalDependencies": {
-    "@babel/core": "^7.0.0",
-    "webpack": "^4.25.1"
+  "dependencies": {
+    "@remote-ui/rpc": "^1.2.5"
   },
-  "module": "index.mjs",
-  "esnext": "index.esnext",
-  "exports": {
-    "./": "./",
-    "./babel": {
-      "import": "./babel.mjs",
-      "require": "./babel.js",
-      "esnext": "./babel.esnext"
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/get-port": "^4.2.0",
+    "@types/koa": "^2.11.3",
+    "@types/koa-mount": "^4.0.0",
+    "@types/koa-static": "^4.0.1",
+    "@types/loader-utils": "^2.0.0",
+    "@types/webpack": ">=4 <5",
+    "@types/webpack-virtual-modules": "^0.1.0",
+    "babel-loader": "^8.2.0",
+    "fs-extra": "^9.0.0",
+    "get-port": "^5.1.0",
+    "koa": "^2.11.0",
+    "koa-mount": "^4.0.0",
+    "koa-static": "^5.0.0",
+    "loader-utils": "^2.0.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "webpack": ">=4 <5",
+    "webpack-virtual-modules": "^0.4.0"
+  },
+  "peerDependencies": {
+    "@babel/core": "^7.0.0",
+    "@types/webpack": ">=4 <5",
+    "loader-utils": "^2.0.0",
+    "webpack": ">=4 <5",
+    "webpack-virtual-modules": "^0.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@babel/core": {
+      "optional": true
     },
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+    "@types/webpack": {
+      "optional": true
     },
-    "./webpack": {
-      "import": "./webpack.mjs",
-      "require": "./webpack.js",
-      "esnext": "./webpack.esnext"
+    "loader-utils": {
+      "optional": true
     },
-    "./worker": {
-      "import": "./worker.mjs",
-      "require": "./worker.js",
-      "esnext": "./worker.esnext"
+    "webpack-virtual-modules": {
+      "optional": true
+    },
+    "webpack": {
+      "optional": true
     }
   }
 }
