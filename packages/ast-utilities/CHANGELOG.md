@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Fixed
+
 - Fix: missing dependency errors on babel-plugins [[#2072](https://github.com/Shopify/quilt/pull/2072)]
 
 ## 1.0.7 - 2021-09-24
