@@ -83,4 +83,43 @@ describe('addComponentProps', () => {
 
     expect(result).toBeFormated(expected);
   });
+
+  it('does not add a prop to a component if the prop already exists', async () => {
+    const initial = `
+      <Test someProp={someValue} />
+    `;
+
+    const result = await transform(
+      initial,
+      addComponentProps(
+        [{name: 'someProp', value: t.identifier('someValue')}],
+        'Test',
+      ),
+    );
+
+    expect(result).toStrictEqual(
+      expect.stringMatching(/<Test someProp={someValue} \/>/),
+    );
+  });
+
+  it('allows duplicate props when the noDuplicates option is false', async () => {
+    const initial = `
+      <Test someProp={someValue} />
+    `;
+
+    const result = await transform(
+      initial,
+      addComponentProps(
+        [{name: 'someProp', value: t.identifier('someValue')}],
+        'Test',
+        {noDuplicates: false},
+      ),
+    );
+
+    expect(result).toStrictEqual(
+      expect.stringMatching(
+        /<Test someProp={someValue} someProp={someValue} \/>/,
+      ),
+    );
+  });
 });
