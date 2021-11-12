@@ -105,3 +105,31 @@ export type DeepOmit<T, K> = T extends Primitive
 export type DeepOmitArray<T extends any[], K> = {
   [P in keyof T]: DeepOmit<T[P], K>;
 };
+
+/**
+ * Applies `NonNullable` recursively
+ *
+ * @example
+ * ```ts
+ * type MyType = DeepNonNullable<{ firstName: string | null; preferences: { theme: 'light' | 'dark' | null } }>
+ *  // { firstName: string; preferences: { theme: 'light' | 'dark' } }
+ * ```
+ * */
+export type DeepNonNullable<T> = T extends Primitive
+  ? NonNullable<T>
+  : {[K in keyof T]: DeepNonNullable<T[K]>};
+
+/**
+ * Applies `Required` recursively
+ *
+ * @example
+ * ```ts
+ * type MyType = DeepRequired<{ firstName?: string; preferences?: { theme?: 'light' | 'dark' } }>
+ *  // { firstName: string; preferences: { theme: 'light' | 'dark' } }
+ * ```
+ * */
+export type DeepRequired<T> = T extends Primitive
+  ? T
+  : T extends {}
+  ? {[K in keyof T]-?: DeepRequired<T[K]>}
+  : Required<T>;

@@ -109,18 +109,18 @@ The following type aliases are provided by this library:
 
 - `DeepOmit<T, K>` Recursively maps over all properties in a type and omits those matching `K`.
 
-```ts
-interface Obj {
-  __typename: string;
-  foo: string;
-  bar: {
+  ```ts
+  interface Obj {
     __typename: string;
-    baz: string;
-  };
-}
+    foo: string;
+    bar: {
+      __typename: string;
+      baz: string;
+    };
+  }
 
-type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: string}}
-```
+  type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: string}}
+  ```
 
 - `DeepOmitArray<T extends any[], K>` Iterate over all properties in an array of types and omits those matching `K`.
 
@@ -131,4 +131,26 @@ type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: str
   }
 
   type SelectiveObj = DeepOmitArray<Obj[], '__typename'>; // {foo: string}[]
+  ```
+
+- `DeepNonNullable<T>` Recursively maps over properties making null values non-nullable
+
+  ```tsx
+  type User = {
+    firstName: string | null;
+    preferences: {theme: 'light' | 'dark' | null};
+  };
+
+  type MyType = DeepNonNullable<{User}>; // { firstName: string; preferences: { theme: 'light' | 'dark' } }
+  ```
+
+- `DeepRequired<T>` Recursively maps over properties making optional values required
+
+  ```tsx
+  type User = {
+    firstName?: string;
+    preferences?: {theme?: 'light' | 'dark'};
+  };
+
+  type MyType = DeepRequired<User>; // { firstName: string; preferences: { theme: 'light' | 'dark' } }
   ```
