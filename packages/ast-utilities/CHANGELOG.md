@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+<!-- ## Unreleased -->
+
+## 1.1.0 - 2021-11-15
 
 ### Added
 
-- Options object with `noDuplicates` boolean to third argument in `addComponentProps()` (true by default)
+- Options object with `noDuplicates` boolean to third argument in `addComponentProps()` (true by default) [[#2075](https://github.com/Shopify/quilt/pull/2075)]
 
 ### Fixed
 
