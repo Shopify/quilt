@@ -235,7 +235,7 @@ Replacements can be provided as key-value pairs following the translation key. Y
 i18n.translate('MyComponent.details', {link: <Link />});
 ```
 
-Replacements can by plain strings or React elements. When a React element is found, the resulting value will be a `ReactNode`, which can be used as the children of other React components.
+Replacements can be plain strings or React elements. When a React element is found, the resulting value will be a `ReactNode`, which can be used as the children of other React components.
 
 ##### Dynamic translation keys
 
