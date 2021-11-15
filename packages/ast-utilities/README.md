@@ -27,9 +27,9 @@ Each language provides a `transform` function with the same signature. The first
 
 `@shopify/ast-transforms/javascript`
 
-### `addComponentProps(props, componentName)`
+### `addComponentProps(props, componentName, options)`
 
-Takes the first argument array of props and adds them to any component name that match the given second argument string.
+Takes the first argument array of props and adds them to any component name that matches the given second argument string. Use the optional third arguments object to enable duplicate props.
 
 ```tsx
 import {transform, addComponentProps} from '@shopify/ast-transforms/javascript';
@@ -45,6 +45,25 @@ const result = await transform(
 );
 
 console.log(result); // <Foo someProp={someValue} />
+```
+
+```tsx
+import {transform, addComponentProps} from '@shopify/ast-transforms/javascript';
+
+const initial = `<Foo someProp={someValue} />`;
+
+const result = await transform(
+  initial,
+  addComponentProps(
+    [{name: 'someProp', value: t.identifier('someValue')}],
+    'Foo',
+    {
+      noDuplicates: false, // true by default
+    },
+  ),
+);
+
+console.log(result); // <Foo someProp={someValue} someProp={someValue} />
 ```
 
 ### `addImportSpecifier(importSource, newSpecifier)`

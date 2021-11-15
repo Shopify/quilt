@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Added
+
+- Options object with `noDuplicates` boolean to third argument in `addComponentProps()` (true by default)
+
 ### Fixed
 
 - Fix: missing dependency errors on babel-plugins [[#2072](https://github.com/Shopify/quilt/pull/2072)]
