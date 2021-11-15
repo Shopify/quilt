@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+
+- Fully escape JSON in HTTP header when `data` passed to `react_render` contains Unicode characters. ([#2079](https://github.com/Shopify/quilt/pull/2079))
+
 ## 3.5.1 - 2021-08-30
 
 ### Security
