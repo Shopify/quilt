@@ -582,7 +582,7 @@ export class I18n {
       hour: 'numeric',
     });
 
-    const zoneMatchGroup = /\s(\w*$)/i.exec(hourZone);
+    const zoneMatchGroup = /\s([\w()+\-:.]+$)/.exec(hourZone);
 
     return zoneMatchGroup ? zoneMatchGroup[1] : '';
   }

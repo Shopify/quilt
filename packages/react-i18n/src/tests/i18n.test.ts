@@ -1428,6 +1428,60 @@ describe('I18n', () => {
         );
       });
 
+      it('formats short timezone when it does not have an abbreviation in the locale', () => {
+        const today = new Date('2012-12-20T05:00:00-00:00');
+        clock.mock(today);
+
+        const date = new Date('2012-12-18T05:00:00-00:00');
+        const defaultTimezone = 'Europe/Berlin';
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone: defaultTimezone,
+        });
+
+        i18n.formatDate(date, {
+          timeZoneName: 'short',
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'date.humanize.lessThanOneWeekAgo',
+          {
+            pseudotranslate: false,
+            replacements: {weekday: 'Tuesday', time: '6:00 a.m. GMT+1'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
+      it('formats short timezone when there is a decimal offset from GMT', () => {
+        const today = new Date('2012-12-20T05:00:00-00:00');
+        clock.mock(today);
+
+        const date = new Date('2012-12-18T05:00:00-00:00');
+        const defaultTimezone = 'Asia/Tehran';
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          timezone: defaultTimezone,
+        });
+
+        i18n.formatDate(date, {
+          timeZoneName: 'short',
+          style: DateStyle.Humanize,
+        });
+
+        expect(translate).toHaveBeenCalledWith(
+          'date.humanize.lessThanOneWeekAgo',
+          {
+            pseudotranslate: false,
+            replacements: {weekday: 'Tuesday', time: '8:30 a.m. GMT+3:30'},
+          },
+          defaultTranslations,
+          i18n.locale,
+        );
+      });
+
       it('formats a date with a full timezone name in lowercase', () => {
         const today = new Date('2012-12-20T05:00:00-00:00');
         clock.mock(today);
