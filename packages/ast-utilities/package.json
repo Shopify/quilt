@@ -1,6 +1,6 @@
 {
   "name": "@shopify/ast-utilities",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "Utilities for working with Abstract Syntax Trees (ASTs)",
   "main": "index.js",
@@ -54,11 +54,11 @@
     "markdown.esnext"
   ],
   "dependencies": {
+    "@babel/plugin-transform-react-jsx": ">=7.0.0",
+    "@babel/plugin-transform-typescript": ">=7.0.0",
     "@babel/template": "^7.14.5",
     "@babel/traverse": ">=7.0.0",
     "@babel/types": ">=7.0.0",
-    "@babel/plugin-transform-react-jsx": ">=7.0.0",
-    "@babel/plugin-transform-typescript": ">=7.0.0",
     "jest-matcher-utils": "^26.6.2",
     "remark-parse": "^9.0.0",
     "remark-stringify": "^7.0.3",
