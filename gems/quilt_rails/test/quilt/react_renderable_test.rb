@@ -11,7 +11,7 @@ module Quilt
         render_react,
         reverse_proxy(
           url,
-          headers: { 'X-Request-ID': request.request_id, 'X-Quilt-Data': {}.to_json }
+          headers: { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{}' }
         )
       )
     end
@@ -24,7 +24,7 @@ module Quilt
       headers = {
         'x-custom-header': 'test',
         'X-Request-ID': request.request_id,
-        'X-Quilt-Data': {}.to_json,
+        'X-Quilt-Data': '{}',
       }
       proxy_result = reverse_proxy(url, headers: headers)
 
@@ -35,9 +35,20 @@ module Quilt
       Rails.env.stubs(:test?).returns(false)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': { 'X-Foo': 'bar' }.to_json }
+      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{"X-Foo":"bar"}' }
       assert_equal(
         render_react(data: { 'X-Foo': 'bar' }),
+        reverse_proxy(url, headers: headers)
+      )
+    end
+
+    def test_render_react_calls_reverse_proxy_with_header_data_that_contains_unicode_characters
+      Rails.env.stubs(:test?).returns(false)
+      url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
+
+      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{"X-Foo":"Ate\u015f"}' }
+      assert_equal(
+        render_react(data: { 'X-Foo': 'Ateş' }),
         reverse_proxy(url, headers: headers)
       )
     end
@@ -65,7 +76,7 @@ module Quilt
 
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': { 'X-Foo': 'bar' }.to_json }
+      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{"X-Foo":"bar"}' }
       assert_equal(
         render_react(data: { 'X-Foo': 'bar' }),
         reverse_proxy(url, headers: headers)
