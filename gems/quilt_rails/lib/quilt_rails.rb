@@ -2,6 +2,8 @@
 module Quilt
 end
 
+require "statsd-instrument"
+
 require "quilt_rails/version"
 require "quilt_rails/logger"
 require "quilt_rails/configuration"

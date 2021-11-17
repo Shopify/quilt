@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'test_helper'
-require 'statsd-instrument'
 
 module Quilt
   class PerformanceReportableTest < Minitest::Test
