@@ -19,5 +19,19 @@ export default function addImportStatement(statement: string | string[]) {
         path.node.body.unshift(ast);
       });
     },
+    File(path: traverse.NodePath<t.Program>) {
+      if (path.node.body.length === 0) {
+        path.node.body = [...path.node.body, ...addImports(statements)];
+      }
+    },
   };
+}
+
+function addImports(statements: string[]) {
+  return statements.map((statement) => {
+    const ast = astFrom(`${statement}
+    `);
+
+    return ast!;
+  });
 }
