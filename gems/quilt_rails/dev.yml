@@ -1,7 +1,6 @@
-name: react-server
+name: quilt-rails
 up:
-  - ruby: 2.6.3
-  - bundler
+  - ruby: 2.7.4
 
 commands:
   test: bundle exec rake test
