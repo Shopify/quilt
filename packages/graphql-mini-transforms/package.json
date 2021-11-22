@@ -1,6 +1,6 @@
 {
   "name": "graphql-mini-transforms",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "license": "MIT",
   "description": "Transformers for importing .graphql files in various build tools.",
   "main": "index.js",
