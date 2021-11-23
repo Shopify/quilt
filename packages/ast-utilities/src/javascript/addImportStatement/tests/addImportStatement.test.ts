@@ -2,7 +2,7 @@ import {transform} from '../../transform';
 import addImportStatement from '../addImportStatement';
 
 describe('addImportStatement', () => {
-  it('adds an import statement before an exisiting import statement', async () => {
+  it('adds an import statement before an existing import statement', async () => {
     const initial = `
       import {foo} from './bar'
     `;
@@ -20,7 +20,7 @@ describe('addImportStatement', () => {
     expect(result).toBeFormated(expected);
   });
 
-  it('adds multiple import statements before an exisiting import statement', async () => {
+  it('adds multiple import statements before an existing import statement', async () => {
     const initial = `
       import {foo} from './bar'
     `;
