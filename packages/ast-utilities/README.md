@@ -190,6 +190,22 @@ const result = await transform(
 console.log(result);
 ```
 
+### `wrapJsxChildren(wrapper, parent)`
+
+Given the wrapper JSX string, will find and wrap a tree of JSX, beginning with the parent element that maches the second argument, string.
+
+```tsx
+import {transform, wrapJsxChildren} from '@shopify/ast-transforms/javascript';
+
+const initial = `
+  <Foo>{qux}</Foo>
+`;
+
+const result = await transform(initial, wrapJsxChildren(`<Bar></Bar>`, 'Foo'));
+
+console.log(result); // <Foo><Bar>{qux}</Bar></Foo>;
+```
+
 ## Markdown
 
 ### `addReleaseToChangelog(object)`
