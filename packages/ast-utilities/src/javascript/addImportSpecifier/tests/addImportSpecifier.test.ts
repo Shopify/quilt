@@ -45,4 +45,20 @@ describe('addImportSpecifier', () => {
 		`;
     expect(result).toBeFormated(expected);
   });
+
+  it('doesn’t allow duplicate specifiers', async () => {
+    const initial = `
+      import {foo} from './bar';
+    `;
+
+    const result = await transform(
+      initial,
+      addImportSpecifier('./bar', ['foo']),
+    );
+
+    const expected = `
+			import {foo} from './bar';
+		`;
+    expect(result).toBeFormated(expected);
+  });
 });
