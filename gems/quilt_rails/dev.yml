@@ -1,6 +1,7 @@
 name: quilt-rails
 up:
   - ruby: 2.7.4
+  - bundler
 
 commands:
   test: bundle exec rake test
