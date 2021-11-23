@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 11.1.10 - 2021-11-23
+
+- No updates. Transitive dependency bump.
+
+## 11.1.9 - 2021-11-22
+
+### Changed
+
+- Fixed babel helpers file being generated with incorrect filename in esm build. [[#2082](https://github.com/Shopify/quilt/pull/2082)]
+
 ## 11.1.8 - 2021-09-24
 
 ### Changed
