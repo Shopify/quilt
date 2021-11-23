@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n",
-  "version": "6.2.5",
+  "version": "6.2.6",
   "license": "MIT",
   "description": "i18n utilities for React handling translations, formatting, and more",
   "main": "index.js",
@@ -46,12 +46,12 @@
     "intl-pluralrules": "^0.2.1"
   },
   "dependencies": {
-    "@shopify/dates": "^1.0.9",
+    "@shopify/dates": "^1.0.10",
     "@shopify/decorators": "^2.0.4",
     "@shopify/function-enhancers": "^2.0.4",
     "@shopify/i18n": "^1.0.5",
-    "@shopify/react-effect": "^4.1.6",
-    "@shopify/react-hooks": "^2.1.7",
+    "@shopify/react-effect": "^4.1.7",
+    "@shopify/react-hooks": "^2.1.8",
     "@shopify/useful-types": "^3.0.5",
     "@types/hoist-non-react-statics": "^3.0.1",
     "change-case": "^4.1.2",

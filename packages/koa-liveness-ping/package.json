@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-liveness-ping",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "description": "A package for creating liveness ping middleware for use with Koa",
   "main": "index.js",
@@ -23,7 +23,7 @@
     "node": ">=12.14.0"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^3.0.7",
+    "@shopify/jest-koa-mocks": "^3.0.8",
     "@types/koa": "^2.0.0",
     "@types/koa-mount": "^4.0.0",
     "koa": "^2.5.0",
