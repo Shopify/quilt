@@ -5,10 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+<!-- ## Unreleased -->
+
+## 1.2.0 - 2021-11-24
+
+### Added
+
+- New transform `wrapJsxChildren()` that wraps a JSX node’s children with a given JSX Element
 
 ### Fixed
 
+- `replaceJsxBody()` support for when parent node is root [[#2085])](https://github.com/Shopify/quilt/pull/2085)]
 - `addImportSpecifier()` doesn't allow duplicate specifiers [[#2081)](https://github.com/Shopify/quilt/pull/2081)]
 
 ## 1.1.2 - 2021-11-23

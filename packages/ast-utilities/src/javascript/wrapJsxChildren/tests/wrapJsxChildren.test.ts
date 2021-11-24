@@ -1,7 +1,7 @@
 import {transform} from '../../transform';
-import replaceJsxBody from '../replaceJsxBody';
+import wrapJsxChildren from '../wrapJsxChildren';
 
-describe('replaceJsxBody', () => {
+describe('wrapJsxChildren', () => {
   it('wraps a child JSX element with a parent', async () => {
     const initial = `
       <Foo><Baz>{qux}</Baz></Foo>
@@ -9,7 +9,7 @@ describe('replaceJsxBody', () => {
 
     const result = await transform(
       initial,
-      replaceJsxBody(`<Bar></Bar>`, 'Baz'),
+      wrapJsxChildren(`<Bar></Bar>`, 'Foo'),
     );
 
     const expected = `<Foo><Bar><Baz>{qux}</Baz></Bar></Foo>;`;
@@ -24,10 +24,10 @@ describe('replaceJsxBody', () => {
 
     const result = await transform(
       initial,
-      replaceJsxBody(`<Bar></Bar>`, 'Baz'),
+      wrapJsxChildren(`<Bar></Bar>`, 'Baz'),
     );
 
-    const expected = `<Bar><Baz>{qux}</Baz></Bar>;`;
+    const expected = `<Baz><Bar>{qux}</Bar></Baz>;`;
 
     expect(result).toBeFormated(expected);
   });

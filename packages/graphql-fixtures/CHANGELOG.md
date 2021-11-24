@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 1.1.5 - 2021-11-24
+
+### Changed
+
+- Adjusted DeepThunk type in response to breaking changes in Typescript 4.5 [[#2087](https://github.com/Shopify/quilt/pull/2087)]
+
 ## 1.1.4 - 2021-11-22
 
 ### Changed
