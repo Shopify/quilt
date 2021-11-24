@@ -16,4 +16,19 @@ describe('replaceJsxBody', () => {
 
     expect(result).toBeFormated(expected);
   });
+
+  it('wraps a root node', async () => {
+    const initial = `
+      <Baz>{qux}</Baz>
+    `;
+
+    const result = await transform(
+      initial,
+      replaceJsxBody(`<Bar></Bar>`, 'Baz'),
+    );
+
+    const expected = `<Bar><Baz>{qux}</Baz></Bar>;`;
+
+    expect(result).toBeFormated(expected);
+  });
 });

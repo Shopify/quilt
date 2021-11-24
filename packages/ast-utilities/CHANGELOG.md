@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- `replaceJsxBody()` support for when parent node is root [[#2085])](https://github.com/Shopify/quilt/pull/2085)]
 - `addImportSpecifier()` doesn't allow duplicate specifiers [[#2081)](https://github.com/Shopify/quilt/pull/2081)]
 
 ## 1.1.2 - 2021-11-23
