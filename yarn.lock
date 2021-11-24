@@ -2745,10 +2745,10 @@
     fs-extra "^9.0.0"
     glob "^7.1.6"
 
-"@shopify/sewing-kit-koa@^7.0.7":
-  version "7.0.7"
-  resolved "https://registry.yarnpkg.com/@shopify/sewing-kit-koa/-/sewing-kit-koa-7.0.7.tgz#a3ed7355efcda93626c25b5aab9f4914d888984a"
-  integrity sha512-e2T4q0HFUSvgBhr+SOFrBU9etu2pnjchJgJJ8JQ6rqLk+toVUPMQHVxnqHbpZMvmX5tKuWiBAn0h4DOchs62VQ==
+"@shopify/sewing-kit-koa@^7.0.9":
+  version "7.0.9"
+  resolved "https://registry.yarnpkg.com/@shopify/sewing-kit-koa/-/sewing-kit-koa-7.0.9.tgz#b1871a23543a6c2c5e5f807f2fb57372fa5b337d"
+  integrity sha512-yYGwM9Et+ieBaDqlYB9jX6/ZC7KB6b0aUFmd/IC9oZnHXPsA0oJQrQdL8te+mMGSLZzGce8wQps7bkcLPwGciQ==
   dependencies:
     "@shopify/network" "^2.0.4"
     "@types/koa-mount" "^4.0.0"
@@ -3379,14 +3379,6 @@
     "@types/koa-compose" "*"
     "@types/node" "*"
 
-"@types/loader-utils@^1.1.3":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@types/loader-utils/-/loader-utils-1.1.6.tgz#41a6e6750ad1938e0498394d23459f9a62c5c73a"
-  integrity sha512-0U4S5kLpm3Cu9YkO46JrmujS2abL2tWsxA1SR8km6X0a1E96tfPu34zRdQSZsJ6dfRYwQpmuKmy9Mx2Od7AXag==
-  dependencies:
-    "@types/node" "*"
-    "@types/webpack" "^4"
-
 "@types/lolex@^2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@types/lolex/-/lolex-2.1.3.tgz#793557c9b8ad319b4c8e4c6548b90893f4aa5f69"
@@ -3616,30 +3608,6 @@
     "@types/node" "*"
     tapable "^2.2.0"
     webpack "^5"
-
-"@types/webpack@>=4 <5":
-  version "4.41.31"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.31.tgz#c35f252a3559ddf9c85c0d8b0b42019025e581aa"
-  integrity sha512-/i0J7sepXFIp1ZT7FjUGi1eXMCg8HCCzLJEQkKsOtbJFontsJLolBcDC+3qxn5pPwiCt1G0ZdRmYRzNBtvpuGQ==
-  dependencies:
-    "@types/node" "*"
-    "@types/tapable" "^1"
-    "@types/uglify-js" "*"
-    "@types/webpack-sources" "*"
-    anymatch "^3.0.0"
-    source-map "^0.6.0"
-
-"@types/webpack@^4":
-  version "4.41.30"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.30.tgz#fd3db6d0d41e145a8eeeafcd3c4a7ccde9068ddc"
-  integrity sha512-GUHyY+pfuQ6haAfzu4S14F+R5iGRwN6b2FRNJY7U0NilmFAqbsOfK6j1HwuLBAqwRIT+pVdNDJGJ6e8rpp0KHA==
-  dependencies:
-    "@types/node" "*"
-    "@types/tapable" "^1"
-    "@types/uglify-js" "*"
-    "@types/webpack-sources" "*"
-    anymatch "^3.0.0"
-    source-map "^0.6.0"
 
 "@types/webpack@^4.0.0":
   version "4.41.27"
