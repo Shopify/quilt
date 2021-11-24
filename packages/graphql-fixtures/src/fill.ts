@@ -53,40 +53,45 @@ export type Thunk<T, Data, Variables, DeepPartial> =
   | T
   | Resolver<T, Data, Variables, DeepPartial>;
 
-export type DeepThunk<T, Data, Variables, DeepPartial> = T extends object
-  ? {
-      [P in keyof T]: Thunk<
-        T[P] extends (infer U)[] | null | undefined
-          ?
-              | Thunk<
-                  DeepThunk<U, Data, Variables, DeepPartial>,
-                  Data,
-                  Variables,
-                  DeepPartial
-                >[]
-              | null
-              | undefined
-          : T[P] extends ReadonlyArray<infer U> | null | undefined
-          ?
-              | ReadonlyArray<
-                  Thunk<
+export type DeepThunk<T, Data, Variables, DeepPartial> =
+  | (T extends object
+      ? {
+          [P in keyof T]: Thunk<
+            | (T[P] extends (infer U)[]
+                ? Thunk<
                     DeepThunk<U, Data, Variables, DeepPartial>,
                     Data,
                     Variables,
                     DeepPartial
-                  >
-                >
-              | null
-              | undefined
-          : T[P] extends infer U | null | undefined
-          ? DeepThunk<U, Data, Variables, DeepPartial> | null | undefined
-          : T[P],
-        Data,
-        Variables,
-        DeepPartial
-      >;
-    }
-  : T;
+                  >[]
+                :
+                    | (T[P] extends ReadonlyArray<infer U>
+                        ? ReadonlyArray<
+                            Thunk<
+                              DeepThunk<U, Data, Variables, DeepPartial>,
+                              Data,
+                              Variables,
+                              DeepPartial
+                            >
+                          >
+                        :
+                            | (T[P] extends infer U
+                                ? DeepThunk<U, Data, Variables, DeepPartial>
+                                : T[P])
+                            | null
+                            | undefined)
+                    | null
+                    | undefined)
+            | null
+            | undefined,
+            Data,
+            Variables,
+            DeepPartial
+          >;
+        }
+      : T)
+  | null
+  | undefined;
 
 export type GraphQLFillerData<
   Operation extends GraphQLOperation
