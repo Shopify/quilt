@@ -1,6 +1,6 @@
-name: react-server
+name: quilt-rails
 up:
-  - ruby: 2.6.3
+  - ruby: 2.7.4
   - bundler
 
 commands:
