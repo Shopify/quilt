@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Added
+
+- New transform `wrapJsxChildren()` that wraps a JSX node’s children with a given JSX Element
+
 ### Fixed
 
 - `replaceJsxBody()` support for when parent node is root [[#2085])](https://github.com/Shopify/quilt/pull/2085)]
