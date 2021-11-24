@@ -33,7 +33,7 @@ export function pitch(
   if (compiler.options.output!.globalObject !== 'self') {
     callback!(
       new Error(
-        'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @remote-ui/web-workers babel plugin.',
+        'webpackConfig.output.globalObject is not set to "self", which will cause chunk loading in the worker to fail. Please change the value to "self" for any builds targeting the browser, or set the {noop: true} option on the @shopify/web-worker babel plugin.',
       ),
     );
     return;
@@ -45,7 +45,7 @@ export function pitch(
 
   if (plugin == null) {
     throw new Error(
-      'You must also include the WebWorkerPlugin from `@remote-ui/web-workers` when using the Babel plugin.',
+      'You must also include the WebWorkerPlugin from `@shopify/web-worker` when using the Babel plugin.',
     );
   }
 
