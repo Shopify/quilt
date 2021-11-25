@@ -8,6 +8,21 @@ import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {AppBridgeUniversalProvider} from '../AppBridgeUniversalProvider';
 
 describe('<AppBridgeUniversalProvider />', () => {
+  const assign = window.location.assign;
+
+  beforeAll(() => {
+    Object.defineProperty(window, 'location', {
+      value: {
+        ...window.location,
+        assign: jest.fn(),
+      },
+    });
+  });
+
+  afterAll(() => {
+    window.location.assign = assign;
+  });
+
   it('renders an AppBridgeProvider with app bridge config from the prop', () => {
     const config = {
       apiKey: faker.lorem.word(),
