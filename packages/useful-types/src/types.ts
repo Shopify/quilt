@@ -15,13 +15,13 @@ export type ArrayElement<T> = T extends (infer U)[] ? U : never;
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
-    : DeepPartial<T[P]>;
-};
+export type DeepPartial<T> = T extends Function
+  ? T
+  : T extends object
+  ? T extends unknown[]
+    ? DeepPartial<T[number]>[]
+    : {[P in keyof T]?: DeepPartial<T[P]>}
+  : T;
 
 export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
   length: 0;
