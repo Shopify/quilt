@@ -42,7 +42,7 @@ export function withEntriesOfType<T extends keyof EntryMap>(
     });
 
     observer.observe({
-      entryTypes: [type],
+      type,
       buffered: true,
     });
   } catch (error) {
