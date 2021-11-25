@@ -109,7 +109,7 @@ export function pitch(this: LoaderContext<Options>, request: string) {
   }).apply(workerCompiler);
   new EntryPlugin(
     context,
-    wrapperContent === null ? request : virtualModule,
+    wrapperContent === undefined ? request : virtualModule,
     name,
   ).apply(workerCompiler);
 
