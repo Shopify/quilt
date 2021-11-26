@@ -58,6 +58,14 @@ describe('resolvePathRelativeToConfig()', () => {
 });
 
 describe('resolveProjectName()', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('resolves a named project name', () => {
     expect(resolveProjectName(projectConfig.getProject('project-one'))).toBe(
       'project-one',
