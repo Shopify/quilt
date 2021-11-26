@@ -28,7 +28,11 @@ export function withEntriesOfType<T extends keyof EntryMap>(
   handler: (entry: EntryMap[T]) => void,
 ) {
   try {
-    const initialEntries = performance.getEntriesByType(type);
+    // Can't use getEntriesByType() without causing deprecation warnings on
+    // Chrome with some types, so we get all and filter it ourselves
+    const initialEntries = performance
+      .getEntries()
+      .filter((entry) => entry.entryType === type);
     initialEntries.forEach((entry) => handler(entry as EntryMap[T]));
 
     if (!hasGlobal('PerformanceObserver')) {
