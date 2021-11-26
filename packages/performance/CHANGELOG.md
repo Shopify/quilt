@@ -11,6 +11,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Fixed the "Deprecated API for given entry type." warnings [[#2093](https://github.com/Shopify/quilt/pull/2093)]
 - Fixed the "The PerformanceObserver does not support buffered flag with the entryTypes argument" warnings [[#2089](https://github.com/Shopify/quilt/pull/2089)]
 
 ## 2.0.8 - 2021-11-23
