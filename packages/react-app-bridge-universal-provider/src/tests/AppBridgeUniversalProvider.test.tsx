@@ -4,10 +4,19 @@ import {Provider as AppBridgeProvider} from '@shopify/app-bridge-react';
 import {extract} from '@shopify/react-effect/server';
 import {mount} from '@shopify/react-testing';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
+import {location} from '@shopify/jest-dom-mocks';
 
 import {AppBridgeUniversalProvider} from '../AppBridgeUniversalProvider';
 
 describe('<AppBridgeUniversalProvider />', () => {
+  beforeAll(() => {
+    location.mock();
+  });
+
+  afterAll(() => {
+    location.restore();
+  });
+
   it('renders an AppBridgeProvider with app bridge config from the prop', () => {
     const config = {
       apiKey: faker.lorem.word(),
