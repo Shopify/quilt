@@ -16,6 +16,7 @@ export interface Options {
 
 export function pitch(this: LoaderContext<Options>, request: string) {
   const callback = this.async();
+  this.cacheable(false);
 
   const {
     context,
