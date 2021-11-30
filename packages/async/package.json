@@ -1,6 +1,6 @@
 {
   "name": "@shopify/async",
-  "version": "4.0.0-wp5-beta.1",
+  "version": "3.0.7",
   "license": "MIT",
   "description": "Primitives for loading parts of an application asynchronously",
   "main": "index.js",
