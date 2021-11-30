@@ -3,9 +3,6 @@
   "version": "1.2.6",
   "license": "MIT",
   "description": "A webpack plugin that automatically sets up entrypoints from filename conventions",
-  "main": "index.js",
-  "types": "./build/ts/index.d.ts",
-  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -20,37 +17,4 @@
     "url": "https://github.com/Shopify/quilt/issues"
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/magic-entries-webpack-plugin/README.md",
-  "engines": {
-    "node": ">=12.14.0"
-  },
-  "dependencies": {
-    "glob": "^7.1.6",
-    "glob-to-regexp": "^0.4.1"
-  },
-  "peerDependencies": {
-    "webpack": "^4.25.1"
-  },
-  "files": [
-    "build/",
-    "!build/*.tsbuildinfo",
-    "!build/ts/**/tests/",
-    "index.js",
-    "index.mjs",
-    "index.esnext"
-  ],
-  "devDependencies": {
-    "@types/webpack-virtual-modules": "^0.1.0",
-    "setimmediate": "^1.0.5",
-    "webpack-virtual-modules": "^0.4.3"
-  },
-  "module": "index.mjs",
-  "esnext": "index.esnext",
-  "exports": {
-    "./": "./",
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
-    }
-  }
 }
