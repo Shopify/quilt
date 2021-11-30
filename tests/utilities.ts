@@ -3,6 +3,7 @@ import {resolve, sep} from 'path';
 export const EXCLUDED_PACKAGES = [
   // This library is deprecated and will be removed.
   'rpc',
+  'magic-entries-webpack-plugin',
 ];
 
 const rootDirectory = `${resolve(__dirname, '..')}${sep}`;

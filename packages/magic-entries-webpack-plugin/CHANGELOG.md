@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Breaking Change
+
+This package has been deprecated. We recommend that you update your webpack configuration to specify your [entrypoints](https://webpack.js.org/concepts/entry-points/).
 
 ## 1.2.6 - 2021-09-24
 
