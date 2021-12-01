@@ -11,7 +11,7 @@ import {withWorkspace} from './utilities/workspace';
 
 const BUILD_TIMEOUT = 10000;
 
-const DEFAULT_SERVER_FILE_EPATH = `${Entrypoint.Server}.js`;
+const DEFAULT_SERVER_FILE_PATH = `${Entrypoint.Server}.js`;
 const DEFAULT_CLIENT_FILE_PATH = `${Entrypoint.Client}.js`;
 
 describe('webpack-plugin', () => {
@@ -27,7 +27,7 @@ describe('webpack-plugin', () => {
 
           const [client, server] = await runBuild(name, [
             DEFAULT_CLIENT_FILE_PATH,
-            DEFAULT_SERVER_FILE_EPATH,
+            DEFAULT_SERVER_FILE_PATH,
           ]);
 
           expect(client).toBeDefined();
@@ -54,7 +54,7 @@ describe('webpack-plugin', () => {
 
           const [client, server] = await runBuild(name, [
             DEFAULT_CLIENT_FILE_PATH,
-            DEFAULT_SERVER_FILE_EPATH,
+            DEFAULT_SERVER_FILE_PATH,
           ]);
 
           expect(server).toMatch(HEADER);
@@ -77,7 +77,7 @@ describe('webpack-plugin', () => {
           const [client, clientIndex, server] = await runBuild(name, [
             DEFAULT_CLIENT_FILE_PATH,
             'client/index.js',
-            DEFAULT_SERVER_FILE_EPATH,
+            DEFAULT_SERVER_FILE_PATH,
           ]);
 
           expect(server).toMatch(HEADER);
@@ -101,7 +101,7 @@ describe('webpack-plugin', () => {
 
           const [client, server] = await runBuild(name, [
             DEFAULT_CLIENT_FILE_PATH,
-            DEFAULT_SERVER_FILE_EPATH,
+            DEFAULT_SERVER_FILE_PATH,
           ]);
 
           expect(server).toMatch(HEADER);
@@ -124,7 +124,7 @@ describe('webpack-plugin', () => {
 
           const [client, server] = await runBuild(name, [
             DEFAULT_CLIENT_FILE_PATH,
-            DEFAULT_SERVER_FILE_EPATH,
+            DEFAULT_SERVER_FILE_PATH,
           ]);
 
           expect(server).not.toMatch(HEADER);
@@ -147,7 +147,7 @@ describe('webpack-plugin', () => {
 
           const [client, server, serverIndex] = await runBuild(name, [
             DEFAULT_CLIENT_FILE_PATH,
-            DEFAULT_SERVER_FILE_EPATH,
+            DEFAULT_SERVER_FILE_PATH,
             'server/index.js',
           ]);
 
@@ -176,7 +176,7 @@ describe('webpack-plugin', () => {
 
           const [client, server] = await runBuild(name, [
             `${basePath}/${DEFAULT_CLIENT_FILE_PATH}`,
-            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+            `${basePath}/${DEFAULT_SERVER_FILE_PATH}`,
           ]);
 
           expect(server).toMatch(HEADER);
@@ -204,7 +204,7 @@ describe('webpack-plugin', () => {
             createWebpackConfig(customConfig),
           );
 
-          const [server] = await runBuild(name, [DEFAULT_SERVER_FILE_EPATH]);
+          const [server] = await runBuild(name, [DEFAULT_SERVER_FILE_PATH]);
 
           expect(server).toMatch('proxy: false');
         });
@@ -231,7 +231,7 @@ describe('webpack-plugin', () => {
             createWebpackConfig(customConfig),
           );
 
-          const [server] = await runBuild(name, [DEFAULT_SERVER_FILE_EPATH]);
+          const [server] = await runBuild(name, [DEFAULT_SERVER_FILE_PATH]);
 
           expect(server).toMatch(`port: ${customConfig.port}`);
           expect(server).toMatch(`ip: "${customConfig.host}"`);
@@ -263,7 +263,7 @@ describe('webpack-plugin', () => {
           );
 
           const [server] = await runBuild(name, [
-            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+            `${basePath}/${DEFAULT_SERVER_FILE_PATH}`,
           ]);
 
           expect(server).toMatch("import Error from 'error';");
@@ -287,7 +287,7 @@ describe('webpack-plugin', () => {
           );
 
           const [server] = await runBuild(name, [
-            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+            `${basePath}/${DEFAULT_SERVER_FILE_PATH}`,
           ]);
 
           expect(server).not.toMatch("import Error from 'error';");
@@ -315,7 +315,7 @@ describe('webpack-plugin', () => {
           );
 
           const [server] = await runBuild(name, [
-            `${basePath}/${DEFAULT_SERVER_FILE_EPATH}`,
+            `${basePath}/${DEFAULT_SERVER_FILE_PATH}`,
           ]);
 
           expect(server).toMatch("import Error from 'error';");
