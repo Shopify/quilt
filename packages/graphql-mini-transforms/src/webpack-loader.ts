@@ -1,23 +1,21 @@
 import {dirname} from 'path';
 
-import type {loader} from 'webpack';
+import type {LoaderContext} from 'webpack';
 import {parse, DocumentNode} from 'graphql';
-import {getOptions} from 'loader-utils';
 
 import {cleanDocument, extractImports, toSimpleDocument} from './document';
 
 interface Options {
   simple?: boolean;
 }
-
 export default async function graphQLLoader(
-  this: loader.LoaderContext,
+  this: LoaderContext<Options>,
   source: string | Buffer,
 ) {
   this.cacheable();
 
   const done = this.async();
-  const {simple = false} = getOptions(this) as Options;
+  const {simple = false} = this.getOptions();
 
   if (done == null) {
     throw new Error(
@@ -43,7 +41,7 @@ export default async function graphQLLoader(
 async function loadDocument(
   rawSource: string | Buffer,
   resolveContext: string,
-  loader: loader.LoaderContext,
+  loader: LoaderContext<Options>,
 ): Promise<DocumentNode> {
   const normalizedSource =
     typeof rawSource === 'string' ? rawSource : rawSource.toString();
@@ -61,9 +59,12 @@ async function loadDocument(
         loader.resolve(resolveContext, imported, (error, result) => {
           if (error) {
             reject(error);
-          } else {
+          } else if (result) {
             loader.addDependency(result);
             resolve(result);
+          } else {
+            const notFoundError = new Error(`Could not resolve ${imported}.`);
+            reject(notFoundError);
           }
         });
       });

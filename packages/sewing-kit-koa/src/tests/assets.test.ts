@@ -119,31 +119,6 @@ describe('Assets', () => {
         assets.scripts({name: 'non-existent'}),
       ).rejects.toBeInstanceOf(Error);
     });
-
-    it('prefixes the list with the vendor DLL in development', async () => {
-      const js = '/style.js';
-      const assetPrefix = '/sewing-kit-assets/';
-
-      setManifest(
-        mockManifest({
-          entrypoints: {
-            custom: mockEntrypoint({
-              scripts: [mockAsset(js)],
-            }),
-          },
-        }),
-      );
-
-      const assets = new Assets({...defaultOptions, assetPrefix});
-      const scripts = await withEnv('development', () =>
-        assets.scripts({name: 'custom'}),
-      );
-
-      expect(scripts).toStrictEqual([
-        {path: `${assetPrefix}dll/vendor.js`},
-        {path: js},
-      ]);
-    });
   });
 
   describe('styles', () => {
