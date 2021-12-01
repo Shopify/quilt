@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Breaking Change
 
-- Added support for webpack 5 and removed support for webpack 4 [[#2013](https://github.com/Shopify/quilt/pull/2013)]
+- Added support for webpack 5 and removed support for webpack 4 and removed support for the vendor dll. [[#2013](https://github.com/Shopify/quilt/pull/2013)]
 
 ## 7.0.9 - 2021-11-23
 
