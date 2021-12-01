@@ -62,6 +62,9 @@ async function loadDocument(
           } else if (result) {
             loader.addDependency(result);
             resolve(result);
+          } else {
+            const notFoundError = new Error(`Could not resolve ${imported}.`);
+            reject(notFoundError);
           }
         });
       });
