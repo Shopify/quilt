@@ -15,7 +15,7 @@ import {
 } from 'graphql';
 import type {DocumentNode, GraphQLOperation} from 'graphql-typed';
 import type {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
-import type {Field, InlineFragment, Operation} from 'graphql-tool-utilities';
+import type {Field, Operation, InlineFragment} from 'graphql-tool-utilities';
 import {compile} from 'graphql-tool-utilities';
 
 import {randomFromArray, chooseNull} from './utilities';
@@ -92,7 +92,6 @@ export type DeepThunk<T, Data, Variables, DeepPartial> =
       : T)
   | null
   | undefined;
-
 // The `undefined extends Variables ? {} : Variables` dance is needed to coerce
 // variables that are undefined to an empty object, so that it matches the shape
 // of `GraphQLOperation`, because that has a default value of `{}` on the
@@ -142,6 +141,9 @@ const defaultResolvers = {
   ID: () => faker.datatype.uuid(),
 };
 
+/**
+ * @deprecated You should use `createFillers` instead.
+ **/
 export function createFiller(
   schema: GraphQLSchema,
   {resolvers: customResolvers = {}}: Options = {},
@@ -187,6 +189,48 @@ export function createFiller(
         context,
       ) as Data;
     };
+  };
+}
+
+export function createFillers(schema: GraphQLSchema, options: Options = {}) {
+  const {resolvers: customResolvers = {}} = options;
+  const resolvers = new Map(
+    Object.entries({
+      ...defaultResolvers,
+      ...customResolvers,
+    }),
+  );
+
+  const context = {schema, resolvers};
+
+  return {
+    fillFragment<Data extends {}, Variables extends {}, PartialData extends {}>(
+      type: DocumentNode<Data, Variables, PartialData>,
+      data?: GraphQLFillerData<GraphQLOperation<Data, Variables, PartialData>>,
+    ): Data {
+      const fragment = Object.values(
+        compile(schema, normalizeDocument(type)).fragments,
+      )[0];
+
+      const randomTypeIndex = Math.floor(
+        Math.random() * (fragment.possibleTypes.length - 1),
+      );
+
+      return fillObject(
+        fragment.possibleTypes[randomTypeIndex],
+        fragment.possibleTypes[randomTypeIndex],
+        // the root type is kind of weird, since there is no "field" that
+        // would be used in a resolver. For simplicity in the common case
+        // we just hack this type to make it conform.
+        [fragment as any],
+        data,
+        // Since we are filling a fragment outside of a query or mutation, there
+        // is no concept of a request in this context.
+        null as any,
+        context,
+      ) as Data;
+    },
+    fillOperation: createFiller(schema, options),
   };
 }
 
@@ -266,7 +310,8 @@ function fillObject(
             parentFields: normalizedParentFields,
           }),
         type,
-        Object.prototype.hasOwnProperty.call(ownField, 'operationType')
+        Object.prototype.hasOwnProperty.call(ownField, 'operationType') ||
+          Object.prototype.hasOwnProperty.call(ownField, 'fragmentName')
           ? []
           : parentFields,
         request,
@@ -301,14 +346,24 @@ function keyPathElement(responseName: string, fieldIndex: number | undefined) {
 // we need to set a seedOffset when filling fields that are indexed leafs in the
 // graph, for indexed objects in the graph their key path will use the parent
 // field index instead.
-function withRandom<T>(keypath: FieldDetails[], func: () => T, seedOffset = 0) {
-  faker.seed(
-    seedFromKeypath(
-      keypath.map(({fieldIndex, responseName}) =>
-        keyPathElement(responseName, fieldIndex),
-      ),
-    ) + seedOffset,
-  );
+function withRandom<T>(
+  request: GraphQLRequest<any, any, any> | null,
+  keypath: FieldDetails[],
+  func: () => T,
+  seedOffset = 0,
+) {
+  // The request null when we are filling a fragment using fillFragment.
+  // In this case, we want random values for every fillFragment call.
+  if (request != null) {
+    faker.seed(
+      seedFromKeypath(
+        keypath.map(({fieldIndex, responseName}) =>
+          keyPathElement(responseName, fieldIndex),
+        ),
+      ) + seedOffset,
+    );
+  }
+
   return func();
 }
 
@@ -319,6 +374,7 @@ function createValue<T>(
   details: ResolveDetails,
 ) {
   return withRandom(
+    request,
     details.parentFields,
     () => {
       if (partialValue === undefined) {
@@ -430,7 +486,7 @@ function fillType<Data, Variables, DeepPartial>(
 
     const resolvedType = typename
       ? possibleTypes.find(({name}) => name === typename)
-      : withRandom([...parentFields, field], () =>
+      : withRandom(request, [...parentFields, field], () =>
           randomFromArray(context.schema.getPossibleTypes(unwrappedType)),
         );
 
