@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Added getDateDiff and isPastDate functions [[#2099](https://github.com/Shopify/quilt/pull/2099)]
 
 ## 1.0.11 - 2021-12-01
 
