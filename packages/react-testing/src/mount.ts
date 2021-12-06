@@ -41,6 +41,10 @@ type ContextOption<
   }
 >;
 
+interface Cleanup<MountOptions extends object, Context extends object> {
+  cleanup?(wrapper: CustomRoot<unknown, Context>, options: MountOptions): void;
+}
+
 export type CustomMountOptions<
   MountOptions extends object = {},
   CreateContext extends object = {},
@@ -53,7 +57,8 @@ export type CustomMountOptions<
     options: MountOptions,
   ): React.ReactElement<any>;
 } & ContextOption<MountOptions, CreateContext> &
-  AfterMountOption<MountOptions, Context, Async>;
+  AfterMountOption<MountOptions, Context, Async> &
+  Cleanup<MountOptions, Context>;
 
 export interface CustomMount<
   MountOptions extends object,
@@ -111,6 +116,7 @@ export function createMount<
   render,
   context: createContext = defaultContext,
   afterMount = defaultAfterMount,
+  cleanup,
 }: CustomMountOptions<MountOptions, Context, Context, Async>): CustomMount<
   MountOptions,
   Context,
@@ -126,6 +132,14 @@ export function createMount<
       render: (element) => render(element, context, options),
       resolveRoot: (root) => root.find(element.type),
     });
+
+    if (cleanup) {
+      const originalDestroy = wrapper.destroy.bind(wrapper);
+      wrapper.destroy = () => {
+        cleanup(wrapper, options);
+        originalDestroy();
+      };
+    }
 
     const afterMountResult = afterMount(wrapper, options);
 
