@@ -148,6 +148,10 @@ This function allows you to perform additional logic after a component has been 
 
 If this option returns a `Promise`, the result of calling `mount()` will become a promise that resolves to the custom `Root` instance. Otherwise, it will synchronously return the `Root` instance. If you specify the `Async` generic argument as `true`, you **must** pass this option.
 
+##### `cleanup(root: CustomRoot, options: MountOptions): void`
+
+This function allows you to perform additional cleanup when a wrapper is destroyed. It gets called with a special [`Root`](#root) instance that has one additional property: `context`, the object with the context you created in `context()` (or an empty object). You can use this hook to clean up any dangling promises or other operations when your test suite is being discarded.
+
 ##### Complete example
 
 We usually want to create a mocked version of the GraphQL infrastructure for our app to prevent relying on real API calls. We provide the [`@shopify/graphql-testing` library](../graphql-testing) to create a mock GraphQL source and Apollo client that uses it.
@@ -209,6 +213,10 @@ export const mountWithGraphQL = createMount<Options, Context, true>({
     // Here's the important bit: resolve the GraphQL so our first queries are
     // in use for the component under test
     await graphQL.resolveAll();
+  },
+
+  cleanup(root, {graphQL}) {
+    graphQL.client.stop();
   },
 });
 ```

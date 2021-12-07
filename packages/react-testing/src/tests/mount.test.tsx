@@ -130,6 +130,23 @@ describe('createMount()', () => {
     expect(await div).toBeInstanceOf(Root);
   });
 
+  it('calls cleanup with the wrapper and options when the wrapper is destroyed', () => {
+    const spy = jest.fn();
+    const options = {foo: 'bar'};
+
+    const customMount = createMount<typeof options>({
+      render: (element) => element,
+      cleanup: spy,
+    });
+
+    const div = customMount(<div />, options);
+
+    expect(spy).not.toHaveBeenCalledWith(div, options);
+
+    div.destroy();
+    expect(spy).toHaveBeenCalledWith(div, options);
+  });
+
   describe('extend', () => {
     it('calls context with the merged options', () => {
       const spy = jest.fn(identity);

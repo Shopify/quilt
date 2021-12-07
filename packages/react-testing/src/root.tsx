@@ -86,7 +86,6 @@ export class Root<Props> implements Node<Props> {
   ) {
     this.render = render;
     this.resolveRoot = resolveRoot;
-
     this.mount();
   }
 
