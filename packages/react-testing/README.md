@@ -150,7 +150,7 @@ If this option returns a `Promise`, the result of calling `mount()` will become 
 
 ##### `cleanup(root: CustomRoot, options: MountOptions): void`
 
-This function allows you to perform additional cleanup when a wrapper is destroyed It gets called with a special [`Root`](#root) instance that has one additional property: `context`, the object with the context you created in `context()` (or an empty object). You can use this hook to clean up any dangling promises or other operations when your test suite is being discarded.
+This function allows you to perform additional cleanup when a wrapper is destroyed. It gets called with a special [`Root`](#root) instance that has one additional property: `context`, the object with the context you created in `context()` (or an empty object). You can use this hook to clean up any dangling promises or other operations when your test suite is being discarded.
 
 ##### Complete example
 
