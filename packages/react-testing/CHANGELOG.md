@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Added new `cleanup` option to `createMount`
+- Added new `cleanup` option to `createMount` [[#2102](https://github.com/Shopify/quilt/pull/2102)]
 
 ## 3.2.9 - 2021-11-23
 
