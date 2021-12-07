@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- ## Unreleased -->
 
+### Changed
+
+- quilt_rails: Make performance report always success and process in background ([3226](https://github.com/Shopify/shopstatus/pull/3226))
+
 ## 3.5.4 - 2021-11-22
 
 ### Fixed
