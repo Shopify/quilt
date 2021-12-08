@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- New transform `addBaseLinkUrl()` that transforms relative links to absolute
+- New transform `addBaseLinkUrl()` add a base URL string to web links [[#2105])](https://github.com/Shopify/quilt/pull/2105)]
 
 ## 1.2.0 - 2021-11-24
 
