@@ -208,4 +208,18 @@ console.log(result); // <Foo><Bar>{qux}</Bar></Foo>;
 
 ## Markdown
 
+### `addBaseLinkUrl(base: string)`
+
+Use this transform to add a base URL string to web links beginning with a slash (`/`).
+
+```tsx
+import {transform, addBaseLinkUrl} from '@shopify/ast-transforms/markdown';
+
+const initial = `This is a sentence [this is a link](/path/to/dir).`;
+
+const result = await transform(initial, addBaseLinkUrl('https://shopify.dev'));
+
+console.log(result); // This is a sentence [this is a link](https://shopify.dev/path/to/dir).
+```
+
 ### `addReleaseToChangelog(object)`
