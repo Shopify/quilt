@@ -68,6 +68,13 @@
   dependencies:
     tslib "~2.0.1"
 
+"@axe-core/puppeteer@4.3.2":
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@axe-core/puppeteer/-/puppeteer-4.3.2.tgz#196748648ce1c5bcf537395441f4ae3b8d9190e9"
+  integrity sha512-/0Od30pNxUr00cO20pndz2n/b5DyYrkAKBBXlpTAbAMPuLtz6JnavR9A1oQMDyBeoQDNbKr7B97FRYSNPPgI9Q==
+  dependencies:
+    axe-core "^4.3.3"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.14.5":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.14.5.tgz#23b08d740e83f49c5e59945fbf1b43e80bbf4edb"
@@ -4347,6 +4354,11 @@ axe-core@4.3.3, axe-core@^4.0.2, axe-core@^4.2.0:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.3.3.tgz#b55cd8e8ddf659fe89b064680e1c6a4dceab0325"
   integrity sha512-/lqqLAmuIPi79WYfRpy2i8z+x+vxU3zX2uAm0gs1q52qTuKwolOj1P8XbufpXcsydrpKx2yGn2wzAnxCMV86QA==
+
+axe-core@^4.3.3:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.3.5.tgz#78d6911ba317a8262bfee292aeafcc1e04b49cc5"
+  integrity sha512-WKTW1+xAzhMS5dJsxWkliixlO/PqC4VhmO9T4juNYcaTg9jzWiJsou6m5pxWYGfigWbwzJWeFY6z47a+4neRXA==
 
 axobject-query@^2.2.0:
   version "2.2.0"

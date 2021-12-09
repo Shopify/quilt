@@ -6,19 +6,14 @@ import pMap from 'p-map';
 import chalk from 'chalk';
 import type {StoryStore} from '@storybook/client-api';
 import type {StoryId} from '@storybook/addons';
-import type {A11yParameters} from '@storybook/addon-a11y/dist/ts3.9/params';
 import axeCore from 'axe-core';
-import type {ElementContext} from 'axe-core';
+import {AxePuppeteer} from '@axe-core/puppeteer';
 
 declare global {
   interface Window {
     __STORYBOOK_STORY_STORE__: StoryStore;
-    axe: typeof axeCore;
   }
 }
-
-// Until https://github.com/dequelabs/axe-core/pull/3161 is fixed
-type A11yParametersElement = A11yParameters['element'] | NodeList;
 
 const FORMATTING_SPACER = '    ';
 
@@ -57,6 +52,29 @@ function removeSkippedStories(skippedStoryIds: StoryId[]) {
     }
     return selectedStories;
   };
+}
+
+async function getA11yParams(storyId: StoryId, iframePath: string) {
+  const browser = await getBrowser();
+  const page = await browser.newPage();
+  await page.goto(iframePath);
+
+  const parameters = await page.evaluate((storyId) => {
+    const {parameters} = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
+    return parameters;
+  }, storyId);
+
+  await page.close();
+  await browser.close();
+
+  return (
+    parameters.a11y || {
+      config: {},
+      options: {
+        restoreScroll: true,
+      },
+    }
+  );
 }
 
 export async function getCurrentStoryIds({
@@ -114,8 +132,14 @@ function testPage(
   return async function (id: StoryId) {
     console.log(` - ${id}`);
 
+    const a11yParams = await getA11yParams(id, iframePath);
+
+    const config = a11yParams.config ? a11yParams.config : {};
+    const options = a11yParams.options ? a11yParams.options : {};
+
     try {
       const page = await browser.newPage();
+
       await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
       if (disableAnimation) {
         await page.addStyleTag({
@@ -129,61 +153,17 @@ function testPage(
             }`,
         });
       }
-      const result: axeCore.AxeResults = await page.evaluate(
-        async (id: StoryId) => {
-          // Implementation matching
-          function getElement(): A11yParametersElement {
-            const storyRoot = document.getElementById('story-root');
-            return storyRoot
-              ? storyRoot.childNodes
-              : document.getElementById('root')!;
-          }
 
-          // Returns story parameters or default ones.
-          // Originally inspired by:
-          // https://github.com/storybookjs/storybook/blob/78c580eac4c91231b5966116492e34de0a0df66f/addons/a11y/src/a11yRunner.ts#L69-L80
-          function getA11yParams(storyId: StoryId): A11yParameters {
-            const {parameters} = window.__STORYBOOK_STORY_STORE__.fromId(
-              storyId,
-            )!;
-
-            return (
-              parameters.a11y || {
-                config: {},
-                options: {
-                  restoreScroll: true,
-                },
-              }
-            );
-          }
-
-          const storyA11yParams = getA11yParams(id);
-
-          const {
-            // Context for axe to analyze
-            // https://www.deque.com/axe/core-documentation/api-documentation/#context-parameter
-            element = getElement(),
-            // axe-core configurationOptions (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#parameters-1)
-            config,
-            // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
-            options = {},
-          } = storyA11yParams;
-
-          window.axe.reset();
-
-          if (config) {
-            window.axe.configure(config);
-          }
-
-          return window.axe.run(element as ElementContext, options);
-        },
-        id,
-      );
+      const results = await new AxePuppeteer(page)
+        .include('#root')
+        .configure(config)
+        .options(options)
+        .analyze();
 
       await page.close();
 
-      if (result.violations && result.violations.length) {
-        const filteredViolations = result.violations.filter(
+      if (results.violations && results.violations.length) {
+        const filteredViolations = results.violations.filter(
           (violation) => !isAutocompleteNope(violation),
         );
 
