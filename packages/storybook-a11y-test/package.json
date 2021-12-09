@@ -31,7 +31,8 @@
   "devDependencies": {
     "@storybook/addon-a11y": "^6.3.8",
     "@storybook/client-api": "^6.3.8",
-    "axe-core": "4.3.3"
+    "axe-core": "4.3.3",
+    "@axe-core/puppeteer": "4.3.2"
   },
   "peerDependencies": {
     "@storybook/addon-a11y": ">=6.2.0",
