@@ -11,6 +11,10 @@ export default class Storage {
     [key: string]: string;
   } = Object.create(null);
 
+  get length() {
+    return Object.keys(this.store).length;
+  }
+
   restore() {
     this.getItem.mockClear();
     this.getItem.mockImplementation(this.unmockedGetItem);
