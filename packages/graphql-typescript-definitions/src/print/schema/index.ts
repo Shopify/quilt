@@ -1,16 +1,21 @@
 import * as t from '@babel/types';
 import {pascalCase, camelCase, snakeCase} from 'change-case';
+import {ArgumentAtIndex} from '@shopify/useful-types';
 import {
   GraphQLSchema,
-  isEnumType,
-  GraphQLEnumType,
-  isInputType,
   GraphQLScalarType,
+  GraphQLObjectType,
+  GraphQLNamedType,
+  GraphQLType,
   isScalarType,
-  GraphQLInputObjectType,
   isNonNullType,
-  GraphQLInputType,
+  isEnumType,
   isListType,
+  isUnionType,
+  isInterfaceType,
+  isInputType,
+  isObjectType,
+  isInputObjectType,
 } from 'graphql';
 
 import {scalarTypeMap} from '../utilities';
@@ -24,186 +29,315 @@ export interface ScalarDefinition {
   package?: string;
 }
 
+interface CustomScalars {
+  [key: string]: ScalarDefinition;
+}
+
 export interface Options {
   enumFormat?: EnumFormat;
-  customScalars?: {[key: string]: ScalarDefinition};
+  customScalars?: CustomScalars;
+  addTypename?: boolean;
 }
+
+const RootOperationTypes = ['Query', 'Mutation', 'Subscription'];
 
 export function generateSchemaTypes(
   schema: GraphQLSchema,
-  options: Options = {},
+  options: Options = {addTypename: true},
 ) {
-  const importFileBody: t.Statement[] = [];
-  const exportFileBody: t.Statement[] = [];
+  const importFileBody = new Map<string, t.Statement>();
+  const exportFileBody = new Map<string, t.Statement>();
   const definitions = new Map<string, string>();
 
-  for (const type of Object.values(schema.getTypeMap())) {
-    if (!isInputType(type) || type.name.startsWith('__')) {
-      continue;
+  const uniqueTypes = new Set<GraphQLType>();
+
+  function addDefinition(path: string, body: t.Statement[]) {
+    return definitions.set(
+      path,
+      generate(t.file(t.program(body), [], [])).code,
+    );
+  }
+
+  function addImport(
+    name: string,
+    specifiers: ArgumentAtIndex<typeof t.importDeclaration, 0>,
+    source: ArgumentAtIndex<typeof t.importDeclaration, 1>,
+  ) {
+    importFileBody.set(name, t.importDeclaration(specifiers, source));
+  }
+
+  function addExport(
+    name: string,
+    declaration: ArgumentAtIndex<typeof t.exportNamedDeclaration, 0>,
+    specifiers: ArgumentAtIndex<typeof t.exportNamedDeclaration, 1>,
+  ) {
+    exportFileBody.set(name, t.exportNamedDeclaration(declaration, specifiers));
+  }
+
+  function wrapNonNullType(
+    tsType: t.TSType,
+    type: GraphQLType,
+    nullable: boolean,
+  ): t.TSType {
+    return !nullable || isNonNullType(type)
+      ? tsType
+      : t.tsUnionType([tsType, t.tsNullKeyword()]);
+  }
+
+  function getNamedTypeReference(
+    type: GraphQLType,
+  ):
+    | t.TSTypeReference
+    | t.TSBooleanKeyword
+    | t.TSNumberKeyword
+    | t.TSStringKeyword {
+    if (isNonNullType(type) || isListType(type)) {
+      return getNamedTypeReference(type.ofType);
     }
-
-    if (
-      isScalarType(type) &&
-      Object.prototype.hasOwnProperty.call(scalarTypeMap, type.name)
-    ) {
-      continue;
+    if (Object.prototype.hasOwnProperty.call(scalarTypeMap, type.name)) {
+      return scalarTypeMap[type.name];
     }
+    return t.tsTypeReference(t.identifier(type.name));
+  }
 
-    if (isEnumType(type)) {
-      const enumType = tsEnumForType(type, options);
+  function getType(type: GraphQLNamedType, nullable = true): t.TSType {
+    const unwrappedType = isNonNullType(type) ? type.ofType : type;
 
-      definitions.set(
-        `${enumType.id.name}.ts`,
-        generate(
-          t.file(t.program([t.exportNamedDeclaration(enumType, [])]), [], []),
-        ).code,
-      );
-
-      importFileBody.unshift(
-        t.importDeclaration(
-          [t.importSpecifier(enumType.id, enumType.id)],
-          t.stringLiteral(`./${enumType.id.name}`),
+    // preserve list types
+    if (isListType(unwrappedType)) {
+      const tsTypeOfContainedType = getType(unwrappedType.ofType);
+      return wrapNonNullType(
+        t.tsArrayType(
+          t.isTSUnionType(tsTypeOfContainedType)
+            ? t.tsParenthesizedType(tsTypeOfContainedType)
+            : tsTypeOfContainedType,
         ),
+        type,
+        nullable,
       );
+    }
 
-      exportFileBody.unshift(
-        t.exportNamedDeclaration(null, [
-          t.exportSpecifier(enumType.id, enumType.id),
-        ]),
-      );
-    } else if (isScalarType(type)) {
+    // return primitive scalar types as native ts types
+    if (
+      Object.prototype.hasOwnProperty.call(scalarTypeMap, unwrappedType.name)
+    ) {
+      return wrapNonNullType(scalarTypeMap[unwrappedType.name], type, nullable);
+    }
+
+    // return reference to already named types
+    if (uniqueTypes.has(unwrappedType)) {
+      return wrapNonNullType(getNamedTypeReference(type), type, nullable);
+    }
+
+    uniqueTypes.add(unwrappedType);
+
+    // add type references based on graphql type
+    if (isScalarType(unwrappedType)) {
+      // handle custom scalars with imports
       const {customScalars = {}} = options;
-      const customScalarDefinition = customScalars[type.name];
-      const scalarType = tsScalarForType(type, customScalarDefinition);
+      const customScalarDefinition = customScalars[unwrappedType.name];
 
       if (customScalarDefinition && customScalarDefinition.package) {
-        importFileBody.unshift(
-          t.importDeclaration(
-            [
-              t.importSpecifier(
-                t.identifier(
-                  makeCustomScalarImportNameSafe(
-                    customScalarDefinition.name,
-                    type.name,
-                  ),
+        addImport(
+          unwrappedType.name,
+          [
+            t.importSpecifier(
+              t.identifier(
+                makeCustomScalarImportNameSafe(
+                  customScalarDefinition.name,
+                  unwrappedType.name,
                 ),
-                t.identifier(customScalarDefinition.name),
               ),
-            ],
-            t.stringLiteral(customScalarDefinition.package),
+              t.identifier(customScalarDefinition.name),
+            ),
+          ],
+          t.stringLiteral(customScalarDefinition.package),
+        );
+      }
+
+      // define ts type for scalar
+      const typeAnnotation =
+        getCustomScalalarType(unwrappedType, customScalarDefinition) ||
+        t.tsStringKeyword();
+
+      // add export of custom scalar type
+      addExport(
+        unwrappedType.name,
+        t.tsTypeAliasDeclaration(
+          t.identifier(unwrappedType.name),
+          null,
+          typeAnnotation,
+        ),
+        [],
+      );
+    } else if (isUnionType(unwrappedType)) {
+      // get all union type options
+      const unionOptions = unwrappedType
+        .getTypes()
+        .map((item) => getType(item, false));
+
+      const unionType = t.tsUnionType(unionOptions.filter(Boolean));
+
+      addExport(
+        unwrappedType.name,
+        t.tsTypeAliasDeclaration(
+          t.identifier(unwrappedType.name),
+          null,
+          unionType,
+        ),
+        [],
+      );
+    } else if (isEnumType(unwrappedType)) {
+      const enumType = t.tsEnumDeclaration(
+        t.identifier(unwrappedType.name),
+        unwrappedType
+          .getValues()
+          .map((value) =>
+            t.tsEnumMember(
+              t.identifier(enumMemberName(value.name, options.enumFormat)),
+              t.stringLiteral(value.name),
+            ),
+          ),
+      );
+
+      addDefinition(`${enumType.id.name}.ts`, [
+        t.exportNamedDeclaration(enumType, []),
+      ]);
+
+      addImport(
+        unwrappedType.name,
+        [t.importSpecifier(enumType.id, enumType.id)],
+        t.stringLiteral(`./${enumType.id.name}`),
+      );
+
+      addExport(unwrappedType.name, null, [
+        t.exportSpecifier(enumType.id, enumType.id),
+      ]);
+    } else if (
+      isObjectType(unwrappedType) ||
+      isInputObjectType(unwrappedType) ||
+      isInterfaceType(unwrappedType)
+    ) {
+      let extensions: t.TSExpressionWithTypeArguments[] = [];
+
+      if (!isInputType(unwrappedType)) {
+        extensions = unwrappedType.getInterfaces().map((extendsType) => {
+          // @TODO: should we do anything with this value?
+          getType(extendsType);
+          return t.tsExpressionWithTypeArguments(
+            t.identifier(extendsType.name),
+          );
+        });
+      }
+
+      const fields = Object.entries(unwrappedType.getFields()).map(
+        ([name, field]) => {
+          const infered = getType(field.type);
+
+          const property = t.tsPropertySignature(
+            t.identifier(name),
+            t.tsTypeAnnotation(infered),
+          );
+          property.optional = !isNonNullType(field.type);
+
+          (field?.args ?? []).forEach((arg) => {
+            getType(arg.type);
+          });
+
+          return property;
+        },
+      );
+
+      if (
+        !isInputType(unwrappedType) &&
+        !isInterfaceType(unwrappedType) &&
+        options.addTypename &&
+        !['Query', 'Mutation', 'Subscription'].includes(unwrappedType.name)
+      ) {
+        fields.unshift(
+          t.tsPropertySignature(
+            t.identifier('__typename'),
+            t.tsTypeAnnotation(
+              t.tsLiteralType(t.stringLiteral(unwrappedType.name)),
+            ),
           ),
         );
-
-        exportFileBody.unshift(t.exportNamedDeclaration(scalarType, []));
-      } else {
-        exportFileBody.push(t.exportNamedDeclaration(scalarType, []));
       }
-    } else {
-      exportFileBody.push(
-        t.exportNamedDeclaration(tsInputObjectForType(type), []),
+
+      const interfaceType = t.tsInterfaceDeclaration(
+        t.identifier(unwrappedType.name),
+        null,
+        extensions,
+        t.tsInterfaceBody(fields),
       );
+
+      if (isInterfaceType(unwrappedType)) {
+        exportFileBody.set(unwrappedType.name, interfaceType);
+      } else {
+        addExport(unwrappedType.name, interfaceType, []);
+      }
     }
+
+    // unwrap type reference
+    return getType(type, nullable);
   }
+
+  [
+    schema.getQueryType(),
+    schema.getMutationType(),
+    schema.getSubscriptionType(),
+  ]
+    .filter((type): type is GraphQLObjectType => Boolean(type))
+    .filter((type) => Object.values(type.getFields()).length > 0)
+    .forEach((type) => getType(type));
 
   // A blank file is ambiguous - its not clear if it is a script or a module.
   // If the file would be blank then give it an empty `export {}` to make in
   // unambiguously an es module file.
   // This ensures the generated files passes TypeScript type checking in
   // "isolatedModules" mode.
-  if (exportFileBody.length === 0) {
-    exportFileBody.push(t.exportNamedDeclaration(null, []));
+  if (exportFileBody.size === 0) {
+    addExport('null', null, []);
   }
 
-  return definitions.set(
-    'index.ts',
-    generate(t.file(t.program(importFileBody.concat(exportFileBody)), [], []))
-      .code,
-  );
+  const exports = Array.from(exportFileBody.keys())
+    .sort((alpha, beta) => {
+      const isImport = (name: string) => (importFileBody.has(name) ? 1 : 0);
+
+      return isImport(beta) - isImport(alpha);
+    })
+    .sort((alpha, beta) => {
+      const isRoot = (name: string) =>
+        RootOperationTypes.includes(name) ? 1 : 0;
+
+      return isRoot(alpha) - isRoot(beta);
+    })
+    .map((key) => exportFileBody.get(key)!);
+
+  const imports = Array.from(importFileBody.values());
+
+  return addDefinition('index.ts', [...imports, ...exports]);
 }
 
-function tsTypeForInputType(type: GraphQLInputType): t.TSType {
-  const unwrappedType = isNonNullType(type) ? type.ofType : type;
-
-  let tsType: t.TSType;
-
-  if (isListType(unwrappedType)) {
-    const tsTypeOfContainedType = tsTypeForInputType(unwrappedType.ofType);
-    tsType = t.tsArrayType(
-      t.isTSUnionType(tsTypeOfContainedType)
-        ? t.tsParenthesizedType(tsTypeOfContainedType)
-        : tsTypeOfContainedType,
-    );
-  } else if (isScalarType(unwrappedType)) {
-    tsType =
-      scalarTypeMap[unwrappedType.name] ||
-      t.tsTypeReference(t.identifier(unwrappedType.name));
-  } else {
-    tsType = t.tsTypeReference(t.identifier(unwrappedType.name));
-  }
-
-  return isNonNullType(type)
-    ? tsType
-    : t.tsUnionType([tsType, t.tsNullKeyword()]);
-}
-
-function tsInputObjectForType(type: GraphQLInputObjectType) {
-  const fields = Object.entries(type.getFields()).map(([name, field]) => {
-    const property = t.tsPropertySignature(
-      t.identifier(name),
-      t.tsTypeAnnotation(tsTypeForInputType(field.type)),
-    );
-    property.optional = !isNonNullType(field.type);
-    return property;
-  });
-
-  return t.tsInterfaceDeclaration(
-    t.identifier(type.name),
-    null,
-    null,
-    t.tsInterfaceBody(fields),
-  );
-}
-
-function tsScalarForType(
-  type: GraphQLScalarType,
+function getCustomScalalarType(
+  type: GraphQLScalarType | GraphQLObjectType,
   customScalarDefinition?: ScalarDefinition,
-) {
-  let alias;
-
+): t.TSTypeReference | undefined {
   if (customScalarDefinition && customScalarDefinition.package) {
-    alias = t.tsTypeReference(
+    return t.tsTypeReference(
       t.identifier(
         makeCustomScalarImportNameSafe(customScalarDefinition.name, type.name),
       ),
     );
-  } else if (customScalarDefinition) {
-    alias = t.tsTypeReference(t.identifier(customScalarDefinition.name));
-  } else {
-    alias = t.tsStringKeyword();
   }
 
-  return t.tsTypeAliasDeclaration(t.identifier(type.name), null, alias);
+  if (customScalarDefinition) {
+    return t.tsTypeReference(t.identifier(customScalarDefinition.name));
+  }
 }
 
 function makeCustomScalarImportNameSafe(importName: string, typeName: string) {
   return `__${typeName}__${importName}`;
-}
-
-function tsEnumForType(
-  type: GraphQLEnumType,
-  {enumFormat}: Pick<Options, 'enumFormat'>,
-) {
-  return t.tsEnumDeclaration(
-    t.identifier(type.name),
-    type
-      .getValues()
-      .map((value) =>
-        t.tsEnumMember(
-          t.identifier(enumMemberName(value.name, enumFormat)),
-          t.stringLiteral(value.name),
-        ),
-      ),
-  );
 }
 
 function enumMemberName(name: string, format?: EnumFormat) {

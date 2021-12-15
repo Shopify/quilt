@@ -13,6 +13,7 @@
   "references": [
     {"path": "../graphql-typed"},
     {"path": "../graphql-config-utilities"},
-    {"path": "../graphql-tool-utilities"}
+    {"path": "../graphql-tool-utilities"},
+    {"path": "../useful-types"}
   ]
 }
