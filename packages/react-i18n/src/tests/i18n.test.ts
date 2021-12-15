@@ -6,6 +6,7 @@ import {I18n} from '../i18n';
 import {LanguageDirection} from '../types';
 import {DateStyle, Weekday} from '../constants';
 import {MissingTranslationError} from '../errors';
+import {convertFirstSpaceToNonBreakingSpace} from '../utilities';
 
 jest.mock('../utilities', () => ({
   ...jest.requireActual('../utilities'),
@@ -1340,7 +1341,10 @@ describe('I18n', () => {
           'date.humanize.lessThanOneYearAgo',
           {
             pseudotranslate: false,
-            replacements: {date: 'Nov. 20', time: '12:00 a.m. EST'},
+            replacements: {
+              date: 'Nov. 20',
+              time: `${convertFirstSpaceToNonBreakingSpace('12:00 a.m.')} EST`,
+            },
           },
           defaultTranslations,
           i18n.locale,
@@ -1367,7 +1371,10 @@ describe('I18n', () => {
           'date.humanize.lessThanOneWeekAgo',
           {
             pseudotranslate: false,
-            replacements: {weekday: 'Tuesday', time: '12:00 a.m. EST'},
+            replacements: {
+              weekday: 'Tuesday',
+              time: `${convertFirstSpaceToNonBreakingSpace('12:00 a.m.')} EST`,
+            },
           },
           defaultTranslations,
           i18n.locale,
@@ -1394,7 +1401,9 @@ describe('I18n', () => {
           'date.humanize.yesterday',
           {
             pseudotranslate: false,
-            replacements: {time: '12:00 a.m. EST'},
+            replacements: {
+              time: `${convertFirstSpaceToNonBreakingSpace('12:00 a.m.')} EST`,
+            },
           },
           defaultTranslations,
           i18n.locale,
@@ -1421,7 +1430,9 @@ describe('I18n', () => {
           'date.humanize.today',
           {
             pseudotranslate: false,
-            replacements: {time: '1:00 a.m. EST'},
+            replacements: {
+              time: `${convertFirstSpaceToNonBreakingSpace('1:00 a.m.')} EST`,
+            },
           },
           defaultTranslations,
           i18n.locale,
@@ -1448,7 +1459,10 @@ describe('I18n', () => {
           'date.humanize.lessThanOneWeekAgo',
           {
             pseudotranslate: false,
-            replacements: {weekday: 'Tuesday', time: '6:00 a.m. GMT+1'},
+            replacements: {
+              weekday: 'Tuesday',
+              time: `${convertFirstSpaceToNonBreakingSpace('6:00 a.m.')} GMT+1`,
+            },
           },
           defaultTranslations,
           i18n.locale,
@@ -1475,7 +1489,12 @@ describe('I18n', () => {
           'date.humanize.lessThanOneWeekAgo',
           {
             pseudotranslate: false,
-            replacements: {weekday: 'Tuesday', time: '8:30 a.m. GMT+3:30'},
+            replacements: {
+              weekday: 'Tuesday',
+              time: `${convertFirstSpaceToNonBreakingSpace(
+                '8:30 a.m.',
+              )} GMT+3:30`,
+            },
           },
           defaultTranslations,
           i18n.locale,
@@ -1502,7 +1521,11 @@ describe('I18n', () => {
           'date.humanize.today',
           {
             pseudotranslate: false,
-            replacements: {time: '1:00 a.m. eastern standard time'},
+            replacements: {
+              time: `${convertFirstSpaceToNonBreakingSpace(
+                '1:00 a.m.',
+              )} eastern standard time`,
+            },
           },
           defaultTranslations,
           i18n.locale,
@@ -1567,7 +1590,7 @@ describe('I18n', () => {
 
             expect(
               i18n.formatDate(moreThanOneHourAgo, {style: DateStyle.Humanize}),
-            ).toBe('5:00 a.m.');
+            ).toBe(convertFirstSpaceToNonBreakingSpace('5:00 a.m.'));
           });
 
           it('formats a date from yesterday', () => {
@@ -1582,7 +1605,12 @@ describe('I18n', () => {
             i18n.formatDate(yesterday, {style: DateStyle.Humanize});
             expect(translate).toHaveBeenCalledWith(
               'date.humanize.yesterday',
-              {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+              {
+                pseudotranslate: false,
+                replacements: {
+                  time: convertFirstSpaceToNonBreakingSpace('11:00 a.m.'),
+                },
+              },
               defaultTranslations,
               i18n.locale,
             );
@@ -1613,7 +1641,7 @@ describe('I18n', () => {
                 style: DateStyle.Humanize,
                 timeZone: timezone,
               }),
-            ).toBe('1:00 p.m.');
+            ).toBe(convertFirstSpaceToNonBreakingSpace('1:00 p.m.'));
           });
 
           it('formats a date for yesterday if it is yesterday relative to the locale time zone', () => {
@@ -1636,7 +1664,12 @@ describe('I18n', () => {
 
             expect(translate).toHaveBeenCalledWith(
               'date.humanize.yesterday',
-              {pseudotranslate: false, replacements: {time: '9:00 p.m.'}},
+              {
+                pseudotranslate: false,
+                replacements: {
+                  time: convertFirstSpaceToNonBreakingSpace('9:00 p.m.'),
+                },
+              },
               defaultTranslations,
               i18n.locale,
             );
@@ -1662,7 +1695,10 @@ describe('I18n', () => {
             'date.humanize.lessThanOneWeekAgo',
             {
               pseudotranslate: false,
-              replacements: {weekday: 'Saturday', time: '11:00 a.m.'},
+              replacements: {
+                weekday: 'Saturday',
+                time: convertFirstSpaceToNonBreakingSpace('11:00 a.m.'),
+              },
             },
             defaultTranslations,
             i18n.locale,
@@ -1691,7 +1727,10 @@ describe('I18n', () => {
             'date.humanize.lessThanOneYearAgo',
             {
               pseudotranslate: false,
-              replacements: {date: 'Jul. 20', time: '10:00 a.m.'},
+              replacements: {
+                date: 'Jul. 20',
+                time: convertFirstSpaceToNonBreakingSpace('10:00 a.m.'),
+              },
             },
             defaultTranslations,
             i18n.locale,
@@ -1713,7 +1752,12 @@ describe('I18n', () => {
             i18n.formatDate(tomorrow, {style: DateStyle.Humanize});
             expect(translate).toHaveBeenCalledWith(
               'date.humanize.tomorrow',
-              {pseudotranslate: false, replacements: {time: '11:00 a.m.'}},
+              {
+                pseudotranslate: false,
+                replacements: {
+                  time: convertFirstSpaceToNonBreakingSpace('11:00 a.m.'),
+                },
+              },
               defaultTranslations,
               i18n.locale,
             );
@@ -1733,7 +1777,12 @@ describe('I18n', () => {
             i18n.formatDate(todayInTheFuture, {style: DateStyle.Humanize});
             expect(translate).toHaveBeenCalledWith(
               'date.humanize.today',
-              {pseudotranslate: false, replacements: {time: '4:00 p.m.'}},
+              {
+                pseudotranslate: false,
+                replacements: {
+                  time: convertFirstSpaceToNonBreakingSpace('4:00 p.m.'),
+                },
+              },
               defaultTranslations,
               i18n.locale,
             );
@@ -1761,7 +1810,12 @@ describe('I18n', () => {
 
             expect(translate).toHaveBeenCalledWith(
               'date.humanize.today',
-              {pseudotranslate: false, replacements: {time: '3:00 p.m.'}},
+              {
+                pseudotranslate: false,
+                replacements: {
+                  time: convertFirstSpaceToNonBreakingSpace('3:00 p.m.'),
+                },
+              },
               defaultTranslations,
               i18n.locale,
             );
@@ -1787,7 +1841,12 @@ describe('I18n', () => {
 
             expect(translate).toHaveBeenCalledWith(
               'date.humanize.tomorrow',
-              {pseudotranslate: false, replacements: {time: '5:00 a.m.'}},
+              {
+                pseudotranslate: false,
+                replacements: {
+                  time: convertFirstSpaceToNonBreakingSpace('5:00 a.m.'),
+                },
+              },
               defaultTranslations,
               i18n.locale,
             );
@@ -1813,7 +1872,10 @@ describe('I18n', () => {
             'date.humanize.lessThanOneWeekAway',
             {
               pseudotranslate: false,
-              replacements: {weekday: 'Tuesday', time: '11:00 a.m.'},
+              replacements: {
+                weekday: 'Tuesday',
+                time: convertFirstSpaceToNonBreakingSpace('11:00 a.m.'),
+              },
             },
             defaultTranslations,
             i18n.locale,
@@ -1842,7 +1904,10 @@ describe('I18n', () => {
             'date.humanize.lessThanOneYearAway',
             {
               pseudotranslate: false,
-              replacements: {date: 'May 22', time: '10:00 a.m.'},
+              replacements: {
+                date: 'May 22',
+                time: convertFirstSpaceToNonBreakingSpace('10:00 a.m.'),
+              },
             },
             defaultTranslations,
             i18n.locale,
