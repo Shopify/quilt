@@ -30,6 +30,10 @@ resolver.resolved;
 // reflected here
 resolver.id;
 
+// Access to an error encountered during the tryRequire
+// reflected here
+resolver.requireError;
+
 // Force the module to resolve. Returns a promise for the resolved value.
 resolver.resolve();
 ```

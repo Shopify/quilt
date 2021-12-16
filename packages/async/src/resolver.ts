@@ -3,6 +3,7 @@ import {Import} from './types';
 export interface Resolver<T> {
   readonly id?: string;
   readonly resolved: T | null;
+  readonly requireError?: RequireError;
   resolve(): Promise<T>;
 }
 
@@ -11,20 +12,39 @@ export interface ResolverOptions<T> {
   load(): Promise<Import<T>>;
 }
 
+type CaptureRequireErrorType = (id: string, error: Error) => void;
+interface RequireError {
+  id: string;
+  error: Error;
+}
+
 export function createResolver<T>({id, load}: ResolverOptions<T>): Resolver<T> {
   let resolved: T | null = null;
   let resolvePromise: Promise<T> | null = null;
   let hasTriedSyncResolve = false;
+  let requireError: RequireError | undefined;
   const resolvedId = id && id();
 
+  const captureRequireError: CaptureRequireErrorType = (
+    id: string,
+    error: Error,
+  ) => {
+    requireError = {id, error};
+  };
+
   return {
+    get requireError() {
+      return requireError;
+    },
     get id() {
       return resolvedId;
     },
     get resolved() {
       if (resolved == null && !hasTriedSyncResolve) {
         hasTriedSyncResolve = true;
-        resolved = resolvedId ? trySynchronousResolve(resolvedId) : null;
+        resolved = resolvedId
+          ? trySynchronousResolve(resolvedId, captureRequireError)
+          : null;
       }
 
       return resolved;
@@ -81,7 +101,7 @@ const nodeRequire =
 // to resolve the module. If those don’t exist, we know we aren’t
 // inside of a Webpack bundle, so we try to use Node’s native resolution
 // (which will work in environments like Jest’s test runner).
-function tryRequire(id: string) {
+function tryRequire(id: string, captureRequireError: CaptureRequireErrorType) {
   if (
     typeof __webpack_require__ === 'function' &&
     typeof __webpack_modules__ === 'object' &&
@@ -89,20 +109,23 @@ function tryRequire(id: string) {
   ) {
     try {
       return normalize(__webpack_require__(id));
-    } catch {
-      // Just ignore failures
+    } catch (error) {
+      captureRequireError(id, error);
     }
   } else if (typeof nodeRequire === 'function') {
     try {
       return normalize(nodeRequire(id));
-    } catch {
-      // Just ignore failures
+    } catch (error) {
+      captureRequireError(id, error);
     }
   }
 
   return undefined;
 }
 
-function trySynchronousResolve<T>(id: string): T | null {
-  return tryRequire(id) || null;
+function trySynchronousResolve<T>(
+  id: string,
+  captureRequireError: CaptureRequireErrorType,
+): T | null {
+  return tryRequire(id, captureRequireError) || null;
 }

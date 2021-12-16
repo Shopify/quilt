@@ -80,6 +80,10 @@ export function useAsync<T>(
     try {
       const resolved = await resolver.resolve();
 
+      if (resolver.requireError) {
+        throw resolver.requireError.error;
+      }
+
       if (mounted.current) {
         // It's important to use the function form of setValue here.
         // Resolved is going to be a function in most cases, since it's

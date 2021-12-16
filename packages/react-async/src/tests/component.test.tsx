@@ -42,16 +42,27 @@ function Loading() {
   return <>Loading…</>;
 }
 
+jest.mock('@shopify/async', () => {
+  return {
+    ...jest.requireActual('@shopify/async'),
+    createResolver: jest.fn(),
+  };
+});
+
+const mockCreateResolver = jest.requireMock('@shopify/async').createResolver;
+
 describe('createAsyncComponent()', () => {
   beforeEach(() => {
     requestIdleCallback.mock();
     intersectionObserver.mock();
+    mockCreateResolver.mockImplementation(jest.requireActual('@shopify/async').createResolver)
   });
 
   afterEach(() => {
     requestIdleCallback.cancelIdleCallbacks();
     requestIdleCallback.restore();
     intersectionObserver.restore();
+    mockCreateResolver.mockRestore();
   });
 
   describe('rendering', () => {
@@ -132,6 +143,31 @@ describe('createAsyncComponent()', () => {
         await asyncComponent.act(() => rejectable.reject());
 
         expect(renderError).toHaveBeenCalledWith(error);
+        expect(asyncComponent).toContainReactText(errorContent);
+      });
+
+      it('calls a custom renderError with the error and renders the result when there is an requireError', async () => {
+        const actualCreateResolver = jest.requireActual('@shopify/async').createResolver;
+        const errorContent = 'oh no!';
+        const tryRequireError = new Error(errorContent);
+        const renderError = jest.fn(() => <div>{errorContent}</div>);
+        mockCreateResolver.mockImplementation((params) => {
+          const resolver = actualCreateResolver(params);
+          jest.spyOn(resolver, 'requireError', 'get').mockReturnValue({id: 'bad', error: tryRequireError})
+          return resolver;
+        })
+        const resolvable = createResolvablePromise(ResolvedComponent);
+
+        const AsyncComponent = createAsyncComponent({
+          load: () => resolvable.promise,
+          renderError,
+        });
+
+        const asyncComponent = mount(<AsyncComponent />);
+
+        await asyncComponent.act(() => resolvable.resolve());
+
+        // expect(renderError).toHaveBeenCalledWith(error);
         expect(asyncComponent).toContainReactText(errorContent);
       });
     });
