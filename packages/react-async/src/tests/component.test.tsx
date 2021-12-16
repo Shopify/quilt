@@ -19,6 +19,9 @@ import {
   createResolvablePromise,
   createRejectablePromise,
   getUsedAssets,
+  withIgnoredReactErrorLogs,
+  IGNORE_ERRORS,
+  createCatcher,
 } from './utilities';
 
 const mount = createMount<{hydrated?: boolean}>({
@@ -42,29 +45,16 @@ function Loading() {
   return <>Loading…</>;
 }
 
-jest.mock('@shopify/async', () => {
-  return {
-    ...jest.requireActual('@shopify/async'),
-    createResolver: jest.fn(),
-  };
-});
-
-const mockCreateResolver = jest.requireMock('@shopify/async').createResolver;
-
 describe('createAsyncComponent()', () => {
   beforeEach(() => {
     requestIdleCallback.mock();
     intersectionObserver.mock();
-    mockCreateResolver.mockImplementation(
-      jest.requireActual('@shopify/async').createResolver,
-    );
   });
 
   afterEach(() => {
     requestIdleCallback.cancelIdleCallbacks();
     requestIdleCallback.restore();
     intersectionObserver.restore();
-    mockCreateResolver.mockRestore();
   });
 
   describe('rendering', () => {
@@ -145,34 +135,6 @@ describe('createAsyncComponent()', () => {
         await asyncComponent.act(() => rejectable.reject());
 
         expect(renderError).toHaveBeenCalledWith(error);
-        expect(asyncComponent).toContainReactText(errorContent);
-      });
-
-      it('calls a custom renderError with the error and renders the result when there is an requireError', async () => {
-        const actualCreateResolver = jest.requireActual('@shopify/async')
-          .createResolver;
-        const errorContent = 'oh no!';
-        const tryRequireError = new Error(errorContent);
-        const renderError = jest.fn(() => <div>{errorContent}</div>);
-        mockCreateResolver.mockImplementation((params) => {
-          const resolver = actualCreateResolver(params);
-          jest
-            .spyOn(resolver, 'requireError', 'get')
-            .mockReturnValue({id: 'bad', error: tryRequireError});
-          return resolver;
-        });
-        const resolvable = createResolvablePromise(ResolvedComponent);
-
-        const AsyncComponent = createAsyncComponent({
-          load: () => resolvable.promise,
-          renderError,
-        });
-
-        const asyncComponent = mount(<AsyncComponent />);
-
-        await asyncComponent.act(() => resolvable.resolve());
-
-        // expect(renderError).toHaveBeenCalledWith(error);
         expect(asyncComponent).toContainReactText(errorContent);
       });
     });
@@ -845,69 +807,3 @@ describe('createAsyncComponent()', () => {
     });
   });
 });
-
-function createCatcher(callback: (error: Error) => void) {
-  return class Catcher extends Component<{}, {error?: Error}> {
-    static getDerivedStateFromError(error: Error) {
-      return {error};
-    }
-
-    state: {error?: Error} = {};
-
-    componentDidCatch(error: Error) {
-      callback(error);
-    }
-
-    render() {
-      return this.state.error ? null : this.props.children;
-    }
-  };
-}
-
-const IGNORE_ERRORS = [
-  /The above error occurred in the <.*> component/,
-  /at Object.invokeGuardedCallbackDev/,
-];
-
-/* eslint-disable no-console */
-function withIgnoredReactErrorLogs(perform: () => unknown) {
-  const originalConsoleError = console.error;
-
-  console.error = (...args) => {
-    if (
-      typeof args[0] === 'string' &&
-      IGNORE_ERRORS.some((regex) => regex.test(args[0]))
-    ) {
-      return;
-    }
-
-    return originalConsoleError(...args);
-  };
-
-  const cleanup = () => {
-    console.error = originalConsoleError;
-  };
-
-  const result = perform();
-
-  if (
-    typeof result === 'object' &&
-    result != null &&
-    'then' in result &&
-    'catch' in result
-  ) {
-    return (result as Promise<unknown>)
-      .then((resolvedResult) => {
-        cleanup();
-        return resolvedResult;
-      })
-      .catch((error) => {
-        cleanup();
-        return error;
-      });
-  }
-
-  cleanup();
-  return result;
-}
-/* eslint-enable no-console */
