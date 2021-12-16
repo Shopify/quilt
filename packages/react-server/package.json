@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-server",
-  "version": "2.0.1",
+  "version": "2.0.1-tryrequire-beta.1",
   "license": "MIT",
   "description": "Utilities for React server-side rendering",
   "main": "index.js",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@shopify/network": "^2.0.4",
-    "@shopify/react-async": "^4.1.13",
+    "@shopify/react-async": "^4.1.13-tryrequire-beta.1",
     "@shopify/react-cookie": "^1.1.12",
     "@shopify/react-effect": "^4.1.7",
     "@shopify/react-html": "^11.1.11",
