@@ -1,28 +1,14 @@
-import React, {Component} from 'react';
-import {random, name} from 'faker';
-import {DeferTiming} from '@shopify/async';
+import React from 'react';
 import {createMount} from '@shopify/react-testing';
-import {
-  Hydrator,
-  HydrationContext,
-  HydrationManager,
-} from '@shopify/react-hydrate';
+import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 import {
   requestIdleCallback,
   intersectionObserver,
 } from '@shopify/jest-dom-mocks';
 
-import {AssetTiming} from '../types';
 import {createAsyncComponent} from '../component';
 
-import {
-  createResolvablePromise,
-  createRejectablePromise,
-  getUsedAssets,
-  withIgnoredReactErrorLogs,
-  IGNORE_ERRORS,
-  createCatcher,
-} from './utilities';
+import {createResolvablePromise} from './utilities';
 
 const mount = createMount<{hydrated?: boolean}>({
   render(element, _, {hydrated = false}) {
@@ -39,10 +25,6 @@ const mount = createMount<{hydrated?: boolean}>({
 
 function ResolvedComponent({name = 'friend'}: {name?: string}) {
   return <>Hello, {name}!</>;
-}
-
-function Loading() {
-  return <>Loading…</>;
 }
 
 jest.mock('@shopify/async', () => {

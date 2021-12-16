@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {random, name} from 'faker';
 import {DeferTiming} from '@shopify/async';
 import {createMount} from '@shopify/react-testing';
@@ -20,7 +20,6 @@ import {
   createRejectablePromise,
   getUsedAssets,
   withIgnoredReactErrorLogs,
-  IGNORE_ERRORS,
   createCatcher,
 } from './utilities';
 
