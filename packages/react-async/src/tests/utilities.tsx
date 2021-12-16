@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import {PrefetchManager, Registration} from '../context/prefetch';
 
 export * from '../testing';
