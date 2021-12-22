@@ -1,4 +1,5 @@
 import React from 'react';
+import type {} from 'react-dom/next';
 import {createRoot, unmountComponentAtNode} from 'react-dom';
 import {act} from 'react-dom/test-utils';
 import {
