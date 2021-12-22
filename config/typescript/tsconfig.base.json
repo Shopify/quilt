@@ -9,6 +9,7 @@
     "strictBindCallApply": false,
     "strictFunctionTypes": false,
     "noImplicitAny": false,
-    "typeRoots": ["../../node_modules/@types"]
+    "typeRoots": ["../../node_modules/@types"],
+    "types": ["react/next", "react-dom/next"]
   }
 }

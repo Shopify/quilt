@@ -51,8 +51,8 @@
     "@shopify/loom-plugin-typescript": "^0.8.0",
     "@shopify/typescript-configs": "^5.0.0",
     "@types/faker": "^4.1.5",
-    "@types/react": "17.0.13",
-    "@types/react-dom": "^17.0.8",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
     "apollo-cache-inmemory": "^1.3.6",
     "apollo-client": "^2.3.8",
     "babel-loader": "^8.0.6",
@@ -79,8 +79,6 @@
     "yalc": "^1.0.0-pre.50"
   },
   "resolutions": {
-    "@types/react": "17.0.13",
-    "@types/react-dom": "17.0.8",
     "get-port": "^5.1.0"
   }
 }
