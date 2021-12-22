@@ -30,9 +30,6 @@
   "engines": {
     "node": ">=12.14.0"
   },
-  "devDependencies": {
-    "@types/react-dom": "^16.0.11"
-  },
   "files": [
     "build/",
     "!build/*.tsbuildinfo",
