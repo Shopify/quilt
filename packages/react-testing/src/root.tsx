@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, unmountComponentAtNode} from 'react-dom';
+import {createRoot, unmountComponentAtNode} from 'react-dom';
 import {act} from 'react-dom/test-utils';
 import {
   Arguments,
@@ -197,7 +197,8 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.act(() => {
-      render(
+      const root = createRoot(this.element);
+      root.render(
         <TestWrapper<Props>
           render={this.render}
           ref={(wrapper) => {
@@ -206,7 +207,6 @@ export class Root<Props> implements Node<Props> {
         >
           {this.tree}
         </TestWrapper>,
-        this.element,
       );
     });
   }
