@@ -1,6 +1,6 @@
 import React from 'react';
 import type {} from 'react-dom/next';
-import {createRoot, unmountComponentAtNode} from 'react-dom';
+import ReactDOM from 'react-dom';
 import {act} from 'react-dom/test-utils';
 import {
   Arguments,
@@ -197,8 +197,22 @@ export class Root<Props> implements Node<Props> {
       connected.add(this);
     }
 
-    this.act(() => {
-      const root = createRoot(this.element);
+    if (typeof ReactDOM.createRoot === 'undefined') {
+      this.act(() => {
+        ReactDOM.render(
+          <TestWrapper<Props>
+            render={this.render}
+            ref={(wrapper) => {
+              this.wrapper = wrapper;
+            }}
+          >
+            {this.tree}
+          </TestWrapper>,
+          this.element,
+        );
+      });
+    } else {
+      const root = ReactDOM.createRoot(this.element);
       root.render(
         <TestWrapper<Props>
           render={this.render}
@@ -209,7 +223,7 @@ export class Root<Props> implements Node<Props> {
           {this.tree}
         </TestWrapper>,
       );
-    });
+    }
   }
 
   unmount() {
@@ -220,7 +234,7 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => unmountComponentAtNode(this.element));
+    this.act(() => ReactDOM.unmountComponentAtNode(this.element));
   }
 
   destroy() {
