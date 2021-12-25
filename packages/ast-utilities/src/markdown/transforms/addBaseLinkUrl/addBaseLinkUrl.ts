@@ -15,7 +15,7 @@ const transformLinks = (base) => (node) => {
     node.children = node.children.map(transformLinks(base)).filter((x) => x);
   }
 
-  if (node.type === 'link' && !isWebLink(node.url) && isAbsolute(node.url)) {
+  if (node.type === 'link' && !hasProtocol(node.url) && isAbsolute(node.url)) {
     const newLinkNode = build('link', {
       ...node,
       url: `${base}${node.url}`,
@@ -27,7 +27,8 @@ const transformLinks = (base) => (node) => {
   return node;
 };
 
-const isWebLink = (url) => {
-  const regex = new RegExp('^(?:[a-z]+:)?//', 'i');
-  return regex.test(url);
+const PROTOCOL_REGEX = /^(?:[a-z]+:)?\/\//i;
+
+const hasProtocol = (url) => {
+  return PROTOCOL_REGEX.test(url);
 };
