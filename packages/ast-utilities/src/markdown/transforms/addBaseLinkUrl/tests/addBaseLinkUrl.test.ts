@@ -22,7 +22,7 @@ describe('addBaseLinkUrl', () => {
     expect(strip(result.toString())).toBe(strip(initial));
   });
 
-  it('does not transform a relative paths', async () => {
+  it('does not transform relative paths', async () => {
     const base = 'https://shopify.dev';
     const initial = `This is a sentence [this is a relative link with leading dot dots](../../path/to/dir).`;
     const result = await transform(initial, addBaseLinkUrl(base));
