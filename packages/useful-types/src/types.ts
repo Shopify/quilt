@@ -15,13 +15,17 @@ export type ArrayElement<T> = T extends (infer U)[] ? U : never;
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
-    : DeepPartial<T[P]>;
-};
+export type DeepPartial<T> = T extends {}
+  ? {
+      [K in keyof T]?: T[K] extends infer TK
+        ? TK extends any[]
+          ? DeepPartialArray<TK>
+          : NonEmptyObject<TK> extends true
+          ? DeepPartial<TK>
+          : TK
+        : never;
+    }
+  : T | undefined;
 
 export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
   length: 0;
@@ -89,8 +93,43 @@ type Primitive =
   | Symbol
   | undefined
   | null;
-type DeepOmitHelper<T, K extends keyof T> = {
-  [P in K]: T[P] extends infer TP
+
+export type NonEmptyObject<T> = T extends {}
+  ? T extends Primitive
+    ? false
+    : keyof T extends never
+    ? false
+    : true
+  : false;
+
+export type DeepOmitOptionalArray<T extends any[]> = {
+  [P in keyof T]: DeepOmitOptional<T[P]>;
+};
+
+export type DeepOmitOptional<T> = T extends {}
+  ? {
+      [K in keyof T]: {} extends Pick<T, K>
+        ? never
+        : T[K] extends infer TK
+        ? TK extends any[]
+          ? DeepOmitOptionalArray<TK>
+          : NonEmptyObject<TK> extends true
+          ? DeepOmitOptional<TK>
+          : TK
+        : never;
+    }
+  : T;
+
+export type DeepPartialArray<T extends any[]> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};
+
+export type DeepOmitArray<T extends any[], K> = {
+  [P in keyof T]: DeepOmit<T[P], K>;
+};
+
+export type DeepOmit<T, K> = {
+  [P in Exclude<keyof T, K>]: T[P] extends infer TP
     ? TP extends Primitive
       ? TP
       : TP extends any[]
@@ -98,10 +137,5 @@ type DeepOmitHelper<T, K extends keyof T> = {
       : DeepOmit<TP, K>
     : never;
 };
-export type DeepOmit<T, K> = T extends Primitive
-  ? T
-  : DeepOmitHelper<T, Exclude<keyof T, K>>;
 
-export type DeepOmitArray<T extends any[], K> = {
-  [P in keyof T]: DeepOmit<T[P], K>;
-};
+export type Thunk<T, A = never> = ((arg: A) => T) | T;

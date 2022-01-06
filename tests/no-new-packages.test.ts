@@ -41,6 +41,7 @@ describe('no new packages', () => {
       'logger',
       'magic-entries-webpack-plugin',
       'mime-types',
+      'mock-factory',
       'network',
       'performance',
       'polyfills',
