@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-app-bridge-universal-provider",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "license": "MIT",
   "description": "A self-serializing/deserializing `app-bridge-react` provider that works for isomorphic applications",
   "main": "index.js",
@@ -31,7 +31,7 @@
     "react": ">=16.8.0 <18.0.0"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^3.0.10",
+    "@shopify/jest-dom-mocks": "^3.0.11",
     "faker": "^4.1.0"
   },
   "files": [
