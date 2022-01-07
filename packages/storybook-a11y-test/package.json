@@ -24,15 +24,14 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
+    "@axe-core/puppeteer": "^4.3.2",
     "chalk": "^4.1.0",
     "p-map": "^4.0.0",
     "puppeteer": "^10.4.0"
   },
   "devDependencies": {
-    "@axe-core/puppeteer": "4.3.2",
     "@storybook/addon-a11y": "^6.3.8",
-    "@storybook/client-api": "^6.3.8",
-    "axe-core": "4.3.3"
+    "@storybook/client-api": "^6.3.8"
   },
   "peerDependencies": {
     "@storybook/addon-a11y": ">=6.2.0",
