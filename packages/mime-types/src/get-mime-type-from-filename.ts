@@ -35,6 +35,10 @@ export function getMimeTypeFromFilename(filename: string) {
       return MimeType.Usdz;
     case 'zip':
       return MimeType.Zip;
+    case 'webp':
+      return MimeType.Webp;
+    case 'heic':
+      return MimeType.Heic;
   }
 }
 
