@@ -14,4 +14,6 @@ export enum MimeType {
   Text = 'text/plain',
   Usdz = 'model/vnd.usdz+zip',
   Zip = 'application/zip',
+  Webp = 'image/webp',
+  Heic = 'image/heic',
 }

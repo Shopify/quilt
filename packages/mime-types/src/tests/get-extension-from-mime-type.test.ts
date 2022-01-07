@@ -17,6 +17,8 @@ describe('getExtensionFromMimeType', () => {
   assertExtensionForMimeType('.txt', MimeType.Text);
   assertExtensionForMimeType('.usdz', MimeType.Usdz);
   assertExtensionForMimeType('.zip', MimeType.Zip);
+  assertExtensionForMimeType('.webp', MimeType.Webp);
+  assertExtensionForMimeType('.heic', MimeType.Heic);
 });
 
 function assertExtensionForMimeType(extension: string, mimeType: MimeType) {

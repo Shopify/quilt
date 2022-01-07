@@ -32,6 +32,10 @@ export function getExtensionFromMimeType(mimeType: MimeType) {
       return '.usdz';
     case MimeType.Zip:
       return '.zip';
+    case MimeType.Webp:
+      return '.webp';
+    case MimeType.Heic:
+      return '.heic';
   }
 
   const nope: never = mimeType;
