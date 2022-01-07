@@ -6,8 +6,19 @@ import pMap from 'p-map';
 import chalk from 'chalk';
 import type {StoryStore} from '@storybook/client-api';
 import type {StoryId} from '@storybook/addons';
-import axeCore from 'axe-core';
 import {AxePuppeteer} from '@axe-core/puppeteer';
+
+// unwraps a promise
+type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
+// unwraps an array
+type Unpacked<T> = T extends (infer U)[] ? U : T;
+
+// This is rather silly but it allows us to get at the axe.Result type, without
+// adding a direct dependency upon axe-core
+// It'd be nice if @axe-core/puppeteer reexported axe.AxeResults / axe.Result
+// so we didn't have to do this
+type AxeResults = NonNullable<Awaited<ReturnType<AxePuppeteer['analyze']>>>;
+type ViolationResult = Unpacked<AxeResults['violations']>;
 
 declare global {
   interface Window {
@@ -92,13 +103,16 @@ export async function getCurrentStoryIds({
   return stories.reduce(removeSkippedStories(skippedStoryIds), []);
 }
 
-function formatFailureNodes(nodes: axeCore.NodeResult[]) {
+function formatFailureNodes(nodes: ViolationResult['nodes']) {
   return `${FORMATTING_SPACER}${nodes
     .map((node) => node.html)
     .join(`\n${FORMATTING_SPACER}`)}`;
 }
 
-function formatMessage(id: axeCore.Result['id'], violations: axeCore.Result[]) {
+function formatMessage(
+  id: ViolationResult['id'],
+  violations: ViolationResult[],
+) {
   return violations
     .map((fail) => {
       return `
@@ -115,7 +129,7 @@ ${formatFailureNodes(fail.nodes)}
 // https://bugs.chromium.org/p/chromium/issues/detail?id=468153
 // This is necessary to prevent autocomplete in chrome and fails the axe test
 // Do not disable accessibility tests if you notice a failure please fix the issue
-function isAutocompleteNope(violation: axeCore.Result) {
+function isAutocompleteNope(violation: ViolationResult) {
   const isAutocompleteAttribute = violation.id === 'autocomplete-valid';
   const hasNope = violation.nodes.every((node) =>
     node.html.includes('autocomplete="nope"'),
