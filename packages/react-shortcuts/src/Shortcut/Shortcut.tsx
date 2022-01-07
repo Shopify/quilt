@@ -7,6 +7,7 @@ export interface Props {
   held?: HeldKey;
   node?: HTMLElement | null;
   ignoreInput?: boolean;
+  ignoreTags?: HTMLElement['tagName'][];
   onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault?: boolean;
 }

@@ -7,9 +7,12 @@ export interface Data {
   ordered: Key[];
   held?: HeldKey;
   ignoreInput: boolean;
+  ignoreTags?: HTMLElement['tagName'][];
   onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault: boolean;
 }
+
+const DEFAULT_IGNORE_TAGS = ['INPUT', 'SELECT', 'TEXTAREA']
 
 export default class ShortcutManager {
   private keysPressed: Key[] = [];
@@ -83,8 +86,8 @@ export default class ShortcutManager {
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
     this.shortcutsMatched = shortcuts.filter(
-      ({ordered, held, node, ignoreInput}) => {
-        if (isFocusedInput() && !ignoreInput) {
+      ({ordered, held, node, ignoreInput, ignoreTags = DEFAULT_IGNORE_TAGS}) => {
+        if (isFocusedInput(ignoreTags) && !ignoreInput) {
           return false;
         }
 
@@ -131,7 +134,7 @@ export default class ShortcutManager {
   }
 }
 
-function isFocusedInput() {
+function isFocusedInput(ignoreTags) {
   const target = document.activeElement;
 
   if (target == null || target.tagName == null) {
@@ -139,9 +142,7 @@ function isFocusedInput() {
   }
 
   return (
-    target.tagName === 'INPUT' ||
-    target.tagName === 'SELECT' ||
-    target.tagName === 'TEXTAREA' ||
+    ignoreTags.contains(target.tagName) ||
     target.hasAttribute('contenteditable')
   );
 }
