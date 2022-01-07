@@ -270,10 +270,26 @@ export class I18n {
     // This decimal symbol will always be '.' regardless of the locale
     // since it's our internal representation of the string
     const decimalSymbol = this.currencyDecimalSymbol(currencyCode);
+
+    //const expectedDecimalSymbol =
+    //  decimalSymbol === DECIMAL_NOT_SUPPORTED ? PERIOD : decimalSymbol;
+
+    const {thousandSymbol} = this.numberSymbols();
     const expectedDecimalSymbol =
       decimalSymbol === DECIMAL_NOT_SUPPORTED ? PERIOD : decimalSymbol;
 
-    const normalizedValue = normalizedNumber(input, expectedDecimalSymbol);
+    //  const isThousandSymbolPeriod = decimalSymbol === DECIMAL_NOT_SUPPORTED ? thousandSymbol === PERIOD : decimalSymbol !== PERIOD
+     const isThousandSymbolPeriod = (!input.includes(decimalSymbol) && decimalSymbol !== DECIMAL_NOT_SUPPORTED) || thousandSymbol === PERIOD
+
+
+
+      const normalizedValue = normalizedNumber(
+        input,
+        expectedDecimalSymbol,
+        isThousandSymbolPeriod,
+      );
+
+    //const normalizedValue = normalizedNumber(input, expectedDecimalSymbol);
 
     if (normalizedValue === '') {
       return '';

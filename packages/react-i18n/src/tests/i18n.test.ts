@@ -1121,6 +1121,14 @@ describe('I18n', () => {
         expect(i18n.unformatCurrency('1,233.45', 'EUR')).toBe('1233.45');
       });
 
+      it('handles VND currency with vi-VI locales', () => {
+        const i18n = new I18n(defaultTranslations, {
+          ...defaultDetails,
+          locale: 'vi-VN',
+        });
+        expect(i18n.unformatCurrency('2.000.000₫', 'VND')).toBe('2000000.00');
+      });
+
       describe('fr locale', () => {
         it('treats , as the decimal symbol', () => {
           formatCurrency.mockImplementationOnce(() => '1,00 $');
