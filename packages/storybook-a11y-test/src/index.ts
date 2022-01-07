@@ -70,10 +70,11 @@ async function getA11yParams(storyId: StoryId, iframePath: string) {
   const page = await browser.newPage();
   await page.goto(iframePath);
 
-  const parameters = await page.evaluate((storyId) => {
-    const {parameters} = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
-    return parameters;
-  }, storyId);
+  const parameters =
+    (await page.evaluate((storyId) => {
+      const {parameters} = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
+      return parameters;
+    }, storyId)) || {};
 
   await page.close();
   await browser.close();
@@ -221,7 +222,7 @@ export async function testPages({
 
     return results.filter((x) => x);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     process.exit(1);
   }
 }
