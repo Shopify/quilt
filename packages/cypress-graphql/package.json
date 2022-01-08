@@ -1,0 +1,47 @@
+{
+  "name": "@shopify/cypress-graphql",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Cypress commands for stubbing, intercepting and testing graphql endpoints",
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/cypress-graphql"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/cypress-graphql/README.md",
+  "engines": {
+    "node": ">=12.14.0"
+  },
+  "devDependencies": {
+    "cypress": "^7.0.0"
+  },
+  "files": [
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext"
+  ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./": "./",
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "esnext": "./index.esnext"
+    }
+  }
+}

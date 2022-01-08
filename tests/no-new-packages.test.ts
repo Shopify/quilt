@@ -18,6 +18,7 @@ describe('no new packages', () => {
       'browser',
       'csrf-token-fetcher',
       'css-utilities',
+      'cypress-graphql',
       'dates',
       'decorators',
       'function-enhancers',
