@@ -31,10 +31,13 @@ Cypress.Commands.add(
           : undefined;
         if (hasOperationName(req, operationName)) {
           // NOTE: cannot use cy.log in here due to circular logic
+          // eslint-disable-next-line no-console
           console.log(`Request fired for @${operationName}:`, req);
-          req.alias = operationName; // practical usage: cy.wait('@QueryName')
+          // set an alias automatically for practical use e.g. cy.wait('@QueryName')
+          req.alias = operationName;
           // Override the response with mock data, if provided
           if (typeof responseInterceptor !== 'undefined') {
+            // eslint-disable-next-line no-console
             console.warn(
               `Response intercepted for ${operationName}:`,
               responseInterceptor,
