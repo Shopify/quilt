@@ -156,15 +156,18 @@ function testPage(
       const page = await browser.newPage();
 
       await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
+
       if (disableAnimation) {
         await page.addStyleTag({
           content: `*,
             *::after,
             *::before {
-              transition-delay: 0.0001s !important;
-              transition-duration: 0.0001s !important;
-              animation-delay: -0.0001s !important;
-              animation-duration: 0.0001s !important;
+              transition: none !important;
+              transition-delay: 0s !important;
+              transition-duration: 0s !important;
+              animation: none !important;
+              animation-delay: 0s !important;
+              animation-duration: 0s !important;
             }`,
         });
       }
@@ -186,8 +189,8 @@ function testPage(
       }
 
       return null;
-    } catch (err) {
-      return `please retry => ${id}:\n - ${err.message}`;
+    } catch (error) {
+      return `please retry => ${id}:\n - ${error.message}`;
     }
   };
 }

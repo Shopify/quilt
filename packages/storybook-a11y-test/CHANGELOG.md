@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Fixed
+
+- Fixed a bug where animation wasn't getting totally cancelled out ([#2124](https://github.com/Shopify/quilt/pull/2124))
+
 ## 0.4.2 - 2022-01-07
 
 ### Fixed
