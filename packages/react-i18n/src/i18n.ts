@@ -30,7 +30,6 @@ import {
   RTL_LANGUAGES,
   Weekday,
   currencyDecimalPlaces,
-  DEFAULT_DECIMAL_PLACES,
   EASTERN_NAME_ORDER_FORMATTERS,
 } from './constants';
 import {
@@ -62,8 +61,8 @@ export interface TranslateOptions {
 }
 
 // Used for currecies that don't use fractional units (eg. JPY)
-const DECIMAL_NOT_SUPPORTED = 'N/A';
 const PERIOD = '.';
+const COMMA = ',';
 const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 
 export class I18n {
@@ -176,7 +175,7 @@ export class I18n {
     try {
       return translate(id, normalizedOptions, this.translations, this.locale);
     } catch (error) {
-      this.onError(error);
+      this.onError(error as I18nError);
       return '';
     }
   }
@@ -198,7 +197,7 @@ export class I18n {
         replacements,
       );
     } catch (error) {
-      this.onError(error);
+      this.onError(error as I18nError);
       return '';
     }
   }
@@ -242,7 +241,7 @@ export class I18n {
     const normalizedValue = normalizedNumber(
       input,
       decimalSymbol,
-      thousandSymbol === PERIOD,
+      thousandSymbol,
     );
 
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
@@ -267,26 +266,24 @@ export class I18n {
   }
 
   unformatCurrency(input: string, currencyCode: string): string {
-    // This decimal symbol will always be '.' regardless of the locale
-    // since it's our internal representation of the string
-    const decimalSymbol = this.currencyDecimalSymbol(currencyCode);
-    const expectedDecimalSymbol =
-      decimalSymbol === DECIMAL_NOT_SUPPORTED ? PERIOD : decimalSymbol;
+    const {thousandSymbol, decimalSymbol} = this.numberSymbols();
 
-    const normalizedValue = normalizedNumber(input, expectedDecimalSymbol);
+    const normalizedValue = normalizedNumber(
+      input,
+      decimalSymbol,
+      thousandSymbol,
+    );
 
     if (normalizedValue === '') {
       return '';
     }
 
-    if (decimalSymbol === DECIMAL_NOT_SUPPORTED) {
+    const decimalPlaces = currencyDecimalPlaces.get(currencyCode.toUpperCase());
+    if (decimalPlaces === 0) {
       const roundedAmount = parseFloat(normalizedValue).toFixed(0);
       return `${roundedAmount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
     }
 
-    const decimalPlaces =
-      currencyDecimalPlaces.get(currencyCode.toUpperCase()) ||
-      DEFAULT_DECIMAL_PLACES;
     return parseFloat(normalizedValue).toFixed(decimalPlaces);
   }
 
@@ -635,48 +632,48 @@ export class I18n {
       day: 'numeric',
     });
   }
-
-  private currencyDecimalSymbol(currencyCode: string) {
-    const digitOrSpace = /\s|\d/g;
-    const templatedInput = 1;
-
-    const decimal = this.formatCurrencyNone(templatedInput, {
-      currency: currencyCode,
-    }).replace(digitOrSpace, '');
-
-    return decimal.length === 0 ? DECIMAL_NOT_SUPPORTED : decimal;
-  }
 }
 
 function normalizedNumber(
   input: string,
-  expectedDecimal: string,
-  usesPeriodThousandSymbol?: boolean,
+  decimalSymbol: string,
+  thousandSymbol: string,
 ) {
-  const nonDigits = /\D/g;
+  const lastIndexOfNominalDecimal = input.lastIndexOf(decimalSymbol);
+  const lastIndexOfComma = input.lastIndexOf(COMMA);
+  const lastIndexOfPeriod = input.lastIndexOf(PERIOD);
 
-  // For locales that use non-period symbols as the decimal symbol, users may still input a period
+  let lastIndexOfRealDecimal = lastIndexOfNominalDecimal;
+
+  // For locales that do not use period as the decimal symbol, users may still input a period
   // and expect it to be treated as the decimal symbol for their locale.
-  const hasExpectedDecimalSymbol = input.lastIndexOf(expectedDecimal) !== -1;
-  const hasPeriodAsDecimal = input.lastIndexOf(PERIOD) !== -1;
-  const usesPeriodDecimal =
-    !usesPeriodThousandSymbol &&
-    !hasExpectedDecimalSymbol &&
-    hasPeriodAsDecimal;
-  const decimalSymbolToUse = usesPeriodDecimal ? PERIOD : expectedDecimal;
-  const lastDecimalIndex = input.lastIndexOf(decimalSymbolToUse);
+  if (
+    decimalSymbol !== PERIOD &&
+    // where the thousand symbol is not a period
+    // and a period appears after the decimal symbol (or there is no decimal symbol)
+    ((thousandSymbol !== PERIOD &&
+      lastIndexOfPeriod > lastIndexOfNominalDecimal) ||
+      // where the thousand symbol is a period and a comma appears before a period
+      (thousandSymbol === PERIOD &&
+        lastIndexOfComma > -1 &&
+        lastIndexOfPeriod > -1 &&
+        lastIndexOfPeriod > lastIndexOfComma))
+  ) {
+    lastIndexOfRealDecimal = lastIndexOfPeriod;
+  }
 
+  const nonDigits = /\D/g;
   const integerValue = input
-    .substring(0, lastDecimalIndex)
+    .substring(0, lastIndexOfRealDecimal)
     .replace(nonDigits, '');
   const decimalValue = input
-    .substring(lastDecimalIndex + 1)
+    .substring(lastIndexOfRealDecimal + 1)
     .replace(nonDigits, '');
 
   const isNegative = input.trim().startsWith('-');
   const negativeSign = isNegative ? '-' : '';
 
-  const normalizedDecimal = lastDecimalIndex === -1 ? '' : PERIOD;
+  const normalizedDecimal = lastIndexOfRealDecimal === -1 ? '' : PERIOD;
   const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;
 
   return normalizedValue === '' || normalizedValue === PERIOD
