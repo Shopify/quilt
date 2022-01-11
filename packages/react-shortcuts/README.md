@@ -65,6 +65,10 @@ export interface Props {
     a boolean that lets you opt out of swallowing the key event and let it propagate
   */
   allowDefault?: boolean;
+  /*
+    an array of DefaultIgnoredTag allowing you to flag which default ignored tags you want to bypass (textarea, input, select)
+  */
+  acceptedDefaultIgnoredTags?: DefaultIgnoredTag[];
 }
 ```
 

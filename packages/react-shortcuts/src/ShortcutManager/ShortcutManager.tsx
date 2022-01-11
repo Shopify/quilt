@@ -1,4 +1,5 @@
 import Key, {HeldKey, ModifierKey} from '../keys';
+import {DefaultIgnoredTag} from '../Shortcut';
 
 const ON_MATCH_DELAY = 500;
 
@@ -7,8 +8,9 @@ export interface Data {
   ordered: Key[];
   held?: HeldKey;
   ignoreInput: boolean;
-  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
+  ignoredTags: DefaultIgnoredTag[];
   allowDefault: boolean;
+  onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
 }
 
 export default class ShortcutManager {
@@ -83,8 +85,8 @@ export default class ShortcutManager {
       this.shortcutsMatched.length > 0 ? this.shortcutsMatched : this.shortcuts;
 
     this.shortcutsMatched = shortcuts.filter(
-      ({ordered, held, node, ignoreInput}) => {
-        if (isFocusedInput() && !ignoreInput) {
+      ({ordered, held, node, ignoreInput, ignoredTags}) => {
+        if (isFocusedInput(ignoredTags) && !ignoreInput) {
           return false;
         }
 
@@ -131,7 +133,7 @@ export default class ShortcutManager {
   }
 }
 
-function isFocusedInput() {
+function isFocusedInput(ignoredTags: string[]) {
   const target = document.activeElement;
 
   if (target == null || target.tagName == null) {
@@ -139,9 +141,7 @@ function isFocusedInput() {
   }
 
   return (
-    target.tagName === 'INPUT' ||
-    target.tagName === 'SELECT' ||
-    target.tagName === 'TEXTAREA' ||
+    ignoredTags.includes(target.tagName) ||
     target.hasAttribute('contenteditable')
   );
 }

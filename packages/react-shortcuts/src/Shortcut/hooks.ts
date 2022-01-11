@@ -3,6 +3,10 @@ import React from 'react';
 import {ShortcutContext} from '../ShortcutProvider';
 import Key, {HeldKey} from '../keys';
 
+const DEFAULT_IGNORED_TAGS = ['INPUT', 'SELECT', 'TEXTAREA'] as const;
+
+export type DefaultIgnoredTag = typeof DEFAULT_IGNORED_TAGS[number];
+
 export interface Subscription {
   unsubscribe(): void;
 }
@@ -11,6 +15,7 @@ export interface Options {
   held?: HeldKey;
   node?: HTMLElement | null;
   ignoreInput?: boolean;
+  acceptedDefaultIgnoredTags?: DefaultIgnoredTag[];
   allowDefault?: boolean;
 }
 
@@ -21,13 +26,15 @@ export default function useShortcut(
 ) {
   const shortcutManager = React.useContext(ShortcutContext);
   const subscription = React.useRef<Subscription | null>(null);
-  const {node, held, ignoreInput, allowDefault} = options;
+  const {
+    node,
+    held,
+    ignoreInput,
+    acceptedDefaultIgnoredTags,
+    allowDefault,
+  } = options;
 
   React.useEffect(() => {
-    if (node != null) {
-      return;
-    }
-
     if (shortcutManager == null) {
       return;
     }
@@ -38,6 +45,7 @@ export default function useShortcut(
       node,
       held,
       ignoreInput: ignoreInput || false,
+      ignoredTags: getIgnoredTags(acceptedDefaultIgnoredTags),
       allowDefault: allowDefault || false,
     });
 
@@ -51,10 +59,21 @@ export default function useShortcut(
   }, [
     node,
     ordered,
-    onMatch,
     held,
     ignoreInput,
+    acceptedDefaultIgnoredTags,
     allowDefault,
     shortcutManager,
+    onMatch,
   ]);
+}
+
+function getIgnoredTags(acceptedDefaultIgnoredTags?: DefaultIgnoredTag[]) {
+  if (!acceptedDefaultIgnoredTags?.length) {
+    return (DEFAULT_IGNORED_TAGS as unknown) as DefaultIgnoredTag[];
+  }
+
+  return DEFAULT_IGNORED_TAGS.filter(
+    (tag) => !acceptedDefaultIgnoredTags.includes(tag),
+  );
 }
