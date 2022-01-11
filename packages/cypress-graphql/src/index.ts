@@ -1,7 +1,9 @@
-import {
-  StaticResponse,
-  HttpResponseInterceptor,
-} from 'cypress/types/net-stubbing';
+// eslint-disable-next-line no-warning-comments
+// TODO: fix tsconfig setup so the following can be imported
+// import {
+//   StaticResponse,
+//   HttpResponseInterceptor,
+// } from 'cypress/types/net-stubbing';
 
 // Import custom commands
 import {interceptGql} from './commands/intereceptGql';
@@ -39,7 +41,8 @@ declare global {
         graphqlApiUrl: string,
         knownOperations: (
           | string
-          | [string, StaticResponse | HttpResponseInterceptor]
+          // | [string, StaticResponse | HttpResponseInterceptor]
+          | [string, any | any]
         )[],
       ): Chainable<undefined>;
     }

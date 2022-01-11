@@ -1,7 +1,7 @@
-import {
-  HttpResponseInterceptor,
-  StaticResponse,
-} from 'cypress/types/net-stubbing';
+// import {
+//   HttpResponseInterceptor,
+//   StaticResponse,
+// } from 'cypress/types/net-stubbing';
 
 import {hasOperationName} from '../utils/hasOperationName';
 
@@ -9,7 +9,8 @@ export const interceptGql = (
   graphqlApiUrl: string,
   knownOperations: (
     | string
-    | [string, StaticResponse | HttpResponseInterceptor]
+    // | [string, StaticResponse | HttpResponseInterceptor]
+    | [string, any | any]
   )[],
 ) => {
   // Create a single cypress route to intercept GQL queries to graphqlApiUrl
