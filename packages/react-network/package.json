@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-network",
-  "version": "4.1.12",
+  "version": "4.1.13",
   "license": "MIT",
   "description": "A collection of components that allow you to set common HTTP headers from within your React application",
   "main": "index.js",
