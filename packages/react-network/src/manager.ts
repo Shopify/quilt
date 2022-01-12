@@ -1,3 +1,5 @@
+import {IncomingHttpHeaders} from 'http';
+
 import {StatusCode, CspDirective, Header} from '@shopify/network';
 import {EffectKind} from '@shopify/react-effect';
 
@@ -8,7 +10,7 @@ export {NetworkContext} from './context';
 export const EFFECT_ID = Symbol('network');
 
 interface Options {
-  headers?: {[key: string]: string};
+  headers?: {[key: string]: string} | IncomingHttpHeaders;
   cookies?: Cookie | string;
 }
 
@@ -113,7 +115,9 @@ export class NetworkManager {
   }
 }
 
-function normalizeHeaders(headers: undefined | {[key: string]: string}) {
+function normalizeHeaders(
+  headers: undefined | {[key: string]: string} | IncomingHttpHeaders,
+) {
   if (!headers) {
     return {};
   }
