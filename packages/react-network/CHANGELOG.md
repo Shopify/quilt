@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Updated types to support nodes http IncomingHttpHeaders types [[#2082](https://github.com/Shopify/quilt/pull/2082)]
+- Updated types to support nodes http IncomingHttpHeaders types [[#2127](https://github.com/Shopify/quilt/pull/2127)]
 
 ## 4.1.12 - 2021-12-07
 
