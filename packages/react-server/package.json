@@ -42,7 +42,7 @@
     "@shopify/useful-types": "^3.0.5",
     "chalk": "^2.4.2",
     "koa": "^2.13.4",
-    "koa-compose": "^4.1.0",
+    "koa-compose": ">=4.0.0 <5.0.0",
     "koa-mount": "^4.0.0"
   },
   "devDependencies": {
