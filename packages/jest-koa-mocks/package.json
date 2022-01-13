@@ -23,7 +23,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "koa": "^2.5.0",
+    "koa": "^2.13.4",
     "node-mocks-http": "^1.5.8"
   },
   "devDependencies": {
