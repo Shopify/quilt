@@ -1,5 +1,5 @@
 import React from 'react';
-import {random} from 'faker';
+import faker from '@faker-js/faker';
 import {mount} from '@shopify/react-testing';
 import {requestIdleCallback} from '@shopify/jest-dom-mocks';
 
@@ -37,7 +37,7 @@ describe('createAsyncContext()', () => {
     });
 
     it('marks the asset as used', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const resolvable = createResolvablePromise({});
 
       const AsyncContext = createAsyncContext({
@@ -92,7 +92,7 @@ describe('createAsyncContext()', () => {
     });
 
     it('marks the asset as used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const resolvable = createResolvablePromise({});
 
       const AsyncContext = createAsyncContext({
@@ -121,7 +121,7 @@ describe('createAsyncContext()', () => {
     });
 
     it('marks the asset as used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const resolvable = createResolvablePromise({});
 
       const AsyncContext = createAsyncContext({
@@ -156,7 +156,7 @@ describe('createAsyncContext()', () => {
     });
 
     it('marks the asset as used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const resolvable = createResolvablePromise({});
 
       const AsyncContext = createAsyncContext({

@@ -1,5 +1,5 @@
 import React from 'react';
-import {random} from 'faker';
+import faker from '@faker-js/faker';
 import {createMount} from '@shopify/react-testing';
 
 import {Hydrator} from '../Hydrator';
@@ -28,7 +28,7 @@ const mount = createMount<
 
 describe('react-hydrate', () => {
   it('renders a wrapping element with a hydration ID but no innerHTML when there are children', () => {
-    const hydrator = mount(<Hydrator>{random.words()}</Hydrator>);
+    const hydrator = mount(<Hydrator>{faker.random.words()}</Hydrator>);
     const wrapper = hydrator.find('div')!;
 
     expect(wrapper).toHaveReactDataProps({
@@ -41,14 +41,14 @@ describe('react-hydrate', () => {
   });
 
   it('includes the original content when children are passed', () => {
-    const content = random.words();
+    const content = faker.random.words();
     const hydrator = mount(<Hydrator>{content}</Hydrator>);
     expect(hydrator.find('div')).toContainReactText(content);
   });
 
   it('uses an explicit ID as part of the hydration attribute when provided', () => {
-    const id = random.uuid();
-    const hydrator = mount(<Hydrator id={id}>{random.words()}</Hydrator>);
+    const id = faker.datatype.uuid();
+    const hydrator = mount(<Hydrator id={id}>{faker.random.words()}</Hydrator>);
     expect(hydrator.find('div')).toHaveReactDataProps({
       [HYDRATION_ATTRIBUTE]: expect.stringContaining(id),
     });
@@ -58,8 +58,8 @@ describe('react-hydrate', () => {
     const [hydratorOne, hydratorTwo] = mount(
       // eslint-disable-next-line @shopify/jsx-prefer-fragment-wrappers
       <div>
-        <Hydrator>{random.words()}</Hydrator>
-        <Hydrator>{random.words()}</Hydrator>
+        <Hydrator>{faker.random.words()}</Hydrator>
+        <Hydrator>{faker.random.words()}</Hydrator>
       </div>,
     ).findAll(Hydrator);
 
@@ -69,7 +69,7 @@ describe('react-hydrate', () => {
   });
 
   it('uses the content from a matching hydration element when mounting without children', () => {
-    const content = random.words();
+    const content = faker.random.words();
 
     // This simulates the server render
     const serverHydrator = mount(<Hydrator>{content}</Hydrator>);

@@ -24,9 +24,9 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
+    "@faker-js/faker": "^5.5.3",
     "@shopify/useful-types": "^3.0.5",
-    "@types/faker": "^4.1.2",
-    "faker": "^4.1.0",
+    "@types/faker": "^5.5.9",
     "graphql": ">=14.5.0 <16.0.0",
     "graphql-tool-utilities": "^2.1.2"
   },

@@ -1,5 +1,5 @@
 import React from 'react';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import {mount} from '@shopify/react-testing';
 
 import {validateList} from '../validators';
@@ -829,7 +829,7 @@ describe('<FormState />', () => {
         <FormState
           initialValues={{
             product: faker.commerce.productName(),
-            sku: faker.random.uuid(),
+            sku: faker.datatype.uuid(),
           }}
           validators={{
             product: () => undefined,
@@ -858,7 +858,7 @@ describe('<FormState />', () => {
         <FormState
           initialValues={{
             product: faker.commerce.productName(),
-            sku: faker.random.uuid(),
+            sku: faker.datatype.uuid(),
           }}
           validators={{
             product: () => undefined,
@@ -1129,7 +1129,7 @@ describe('<FormState />', () => {
           validateOnSubmit
           initialValues={{
             product: faker.commerce.productName,
-            sku: faker.random.uuid,
+            sku: faker.datatype.uuid,
           }}
           validators={{
             product: productValidatorSpy,
@@ -1216,7 +1216,7 @@ describe('<FormState />', () => {
           validateOnSubmit={false}
           initialValues={{
             product: faker.commerce.productName,
-            sku: faker.random.uuid,
+            sku: faker.datatype.uuid,
           }}
           validators={{
             product: productValidatorSpy,
@@ -1671,7 +1671,7 @@ describe('<FormState />', () => {
         <FormState
           initialValues={{
             product: faker.commerce.productName,
-            sku: faker.random.uuid,
+            sku: faker.datatype.uuid,
           }}
           validators={{
             product: productValidatorSpy,

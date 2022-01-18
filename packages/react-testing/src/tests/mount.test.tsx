@@ -1,5 +1,5 @@
 import React from 'react';
-import {random} from 'faker';
+import faker from '@faker-js/faker';
 
 import {Root} from '../root';
 import {mount, createMount} from '../mount';
@@ -94,8 +94,8 @@ describe('createMount()', () => {
       render: (element) => <Wrapper>{element}</Wrapper>,
     });
 
-    const originalWords = random.words();
-    const updatedWords = random.words();
+    const originalWords = faker.random.words();
+    const updatedWords = faker.random.words();
     const testComponent = customMount(<TestComponent words={originalWords} />);
 
     testComponent.setProps({words: updatedWords});

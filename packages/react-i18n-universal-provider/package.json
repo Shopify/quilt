@@ -32,8 +32,7 @@
     "react": ">=16.8.0 <18.0.0"
   },
   "devDependencies": {
-    "@shopify/react-effect": "^4.1.7",
-    "faker": "^4.1.0"
+    "@shopify/react-effect": "^4.1.7"
   },
   "files": [
     "build/",

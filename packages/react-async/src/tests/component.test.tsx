@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {random, name} from 'faker';
+import faker from '@faker-js/faker';
 import {DeferTiming} from '@shopify/async';
 import {createMount} from '@shopify/react-testing';
 import {
@@ -57,7 +57,7 @@ describe('createAsyncComponent()', () => {
   describe('rendering', () => {
     describe('loading', () => {
       it('calls a custom renderLoading with the component props and renders the result', () => {
-        const props = {name: name.firstName()};
+        const props = {name: faker.name.firstName()};
         const renderLoading = jest.fn(() => <Loading />);
         const resolvable = createResolvablePromise(ResolvedComponent);
 
@@ -73,7 +73,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('does not render loading content when the component has resolved', async () => {
-        const props = {name: name.firstName()};
+        const props = {name: faker.name.firstName()};
         const renderLoading = jest.fn(() => <Loading />);
         const resolvable = createResolvablePromise(ResolvedComponent);
 
@@ -138,7 +138,7 @@ describe('createAsyncComponent()', () => {
 
     describe('resolved', () => {
       it('renders the resolved component with the original props', async () => {
-        const props = {name: name.firstName()};
+        const props = {name: faker.name.firstName()};
         const resolvable = createResolvablePromise(ResolvedComponent);
         const AsyncComponent = createAsyncComponent({
           load: () => resolvable.promise,
@@ -172,7 +172,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('marks the assets as being used immediately', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -186,7 +186,7 @@ describe('createAsyncComponent()', () => {
 
     describe('function', () => {
       it('is called with the props of the component', () => {
-        const props = {name: name.firstName()};
+        const props = {name: faker.name.firstName()};
         const defer = jest.fn(() => false);
 
         const AsyncComponent = createAsyncComponent({
@@ -226,14 +226,14 @@ describe('createAsyncComponent()', () => {
         const asyncComponent = mount(<AsyncComponent />);
 
         defer.mockReturnValue(true);
-        asyncComponent.setProps({name: name.firstName()});
+        asyncComponent.setProps({name: faker.name.firstName()});
 
         expect(defer).toHaveBeenCalledTimes(2);
         expect(load).toHaveBeenCalled();
       });
 
       it('marks the assets as being used on the current page', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -264,7 +264,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('marks the assets as being used on the current page', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -298,7 +298,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('marks the assets as being used on the current page', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -353,7 +353,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('marks the assets as being used on the current page', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -369,7 +369,7 @@ describe('createAsyncComponent()', () => {
 
   describe('deferHydration', () => {
     it('renders a Hydrator with the provided ID instead of the loading state', () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const renderLoading = jest.fn(() => <Loading />);
       const resolvable = createResolvablePromise(ResolvedComponent);
 
@@ -387,7 +387,7 @@ describe('createAsyncComponent()', () => {
     });
 
     it('wraps the rendered component in a Hydrator with the provided ID on the server', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const resolvable = createResolvablePromise(ResolvedComponent);
 
       const AsyncComponent = createAsyncComponent({
@@ -466,7 +466,7 @@ describe('createAsyncComponent()', () => {
 
     describe('function', () => {
       it('is called with the props of the component', () => {
-        const props = {name: name.firstName()};
+        const props = {name: faker.name.firstName()};
         const deferHydration = jest.fn(() => false);
 
         const AsyncComponent = createAsyncComponent({
@@ -506,14 +506,14 @@ describe('createAsyncComponent()', () => {
         const asyncComponent = mount(<AsyncComponent />);
 
         deferHydration.mockReturnValue(true);
-        asyncComponent.setProps({name: name.firstName()});
+        asyncComponent.setProps({name: faker.name.firstName()});
 
         expect(deferHydration).toHaveBeenCalledTimes(2);
         expect(load).toHaveBeenCalled();
       });
 
       it('marks the scripts as being used on the current page, and styles as being used immediately', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -548,7 +548,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('marks the scripts as being used on the current page, and styles as being used immediately', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -586,7 +586,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('marks the scripts as being used on the current page, and styles as being used immediately', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -645,7 +645,7 @@ describe('createAsyncComponent()', () => {
       });
 
       it('marks the scripts as being used on the current page, and styles as being used immediately', async () => {
-        const id = random.uuid();
+        const id = faker.datatype.uuid();
         const AsyncComponent = createAsyncComponent({
           id: () => id,
           load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -702,7 +702,7 @@ describe('createAsyncComponent()', () => {
     });
 
     it('marks the assets as being used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const AsyncComponent = createAsyncComponent({
         id: () => id,
         load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -741,7 +741,7 @@ describe('createAsyncComponent()', () => {
     });
 
     it('marks the assets as being used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const AsyncComponent = createAsyncComponent({
         id: () => id,
         load: () => createResolvablePromise(ResolvedComponent).promise,
@@ -792,7 +792,7 @@ describe('createAsyncComponent()', () => {
     });
 
     it('marks the assets as being used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const AsyncComponent = createAsyncComponent({
         id: () => id,
         load: () => createResolvablePromise(ResolvedComponent).promise,

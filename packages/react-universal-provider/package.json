@@ -30,9 +30,6 @@
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"
   },
-  "devDependencies": {
-    "faker": "^4.1.0"
-  },
   "files": [
     "build/",
     "!build/*.tsbuildinfo",

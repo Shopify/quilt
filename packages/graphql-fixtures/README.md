@@ -130,6 +130,6 @@ When a single number is provided as the first argument, an array of that size wi
 // assuming `widgets` in a list of Widget objects
 
 const fixture = fill(widgetQuery, {
-  widgets: list([2, 4], {id: () => faker.random.uuid()}),
+  widgets: list([2, 4], {id: () => faker.datatype.uuid()}),
 });
 ```

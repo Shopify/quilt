@@ -1,4 +1,4 @@
-import faker from 'faker';
+import faker from '@faker-js/faker';
 // eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema} from 'graphql';
 import {parse, DocumentNode} from 'graphql-typed';
@@ -1105,7 +1105,7 @@ describe('createFiller()', () => {
           {
             resolvers: {
               Person: () => ({
-                age: faker.random.number({precision: 1}),
+                age: faker.datatype.number({precision: 1}),
                 name: faker.name.firstName(),
               }),
             },

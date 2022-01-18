@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import {random, name} from 'faker';
+import faker from '@faker-js/faker';
 import gql from 'graphql-tag';
 import {ApolloClient} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
@@ -108,7 +108,7 @@ describe('createAsyncQueryComponent()', () => {
     });
 
     it('marks the assets as being used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const AsyncQuery = createAsyncQueryComponent({
         id: () => id,
         load: () => createResolvablePromise(query).promise,
@@ -147,7 +147,7 @@ describe('createAsyncQueryComponent()', () => {
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
       watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
 
-      const variables = {name: name.firstName()};
+      const variables = {name: faker.name.firstName()};
       const asyncQuery = mount(<AsyncQuery.Prefetch variables={variables} />, {
         client,
       });
@@ -167,7 +167,7 @@ describe('createAsyncQueryComponent()', () => {
     });
 
     it('marks the assets as being used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const AsyncQuery = createAsyncQueryComponent({
         id: () => id,
         load: () => createResolvablePromise(query).promise,
@@ -206,7 +206,7 @@ describe('createAsyncQueryComponent()', () => {
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
       watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
 
-      const variables = {name: name.firstName()};
+      const variables = {name: faker.name.firstName()};
       const asyncQuery = mount(<AsyncQuery.KeepFresh variables={variables} />, {
         client,
       });
@@ -227,7 +227,7 @@ describe('createAsyncQueryComponent()', () => {
     });
 
     it('marks the assets as being used on the next page', async () => {
-      const id = random.uuid();
+      const id = faker.datatype.uuid();
       const AsyncQuery = createAsyncQueryComponent({
         id: () => id,
         load: () => createResolvablePromise(query).promise,
