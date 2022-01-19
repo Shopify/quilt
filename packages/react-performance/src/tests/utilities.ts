@@ -1,4 +1,4 @@
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import {
   Navigation,
   NavigationResult,
@@ -78,8 +78,8 @@ export function mockPerformance(
 export function mockLifecycleEvent(): LifecycleEvent {
   return {
     type: randomLifecycleEventType(),
-    start: faker.random.number(),
-    duration: faker.random.number(),
+    start: faker.datatype.number(),
+    duration: faker.datatype.number(),
   } as any;
 }
 
@@ -99,14 +99,14 @@ export function randomLifecycleEventType() {
 export function mockNavigation() {
   return new Navigation(
     {
-      start: faker.random.number({min: 0, max: 100000}),
-      duration: faker.random.number({min: 0, max: 100000}),
+      start: faker.datatype.number({min: 0, max: 100000}),
+      duration: faker.datatype.number({min: 0, max: 100000}),
       target: faker.internet.url(),
       events: [],
       result: randomNavigationResult(),
     },
     {
-      index: faker.random.number(),
+      index: faker.datatype.number(),
       supportsDetailedEvents: faker.random.boolean(),
       supportsDetailedTime: faker.random.boolean(),
     },
@@ -129,10 +129,10 @@ export function randomConnection() {
   const effectiveTypes = ['2g', '3g', '4g'];
 
   return {
-    downlink: faker.random.number(),
+    downlink: faker.datatype.number(),
     effectiveType: faker.random.arrayElement(effectiveTypes),
     onchange: null,
-    rtt: faker.random.number(),
+    rtt: faker.datatype.number(),
     saveData: faker.random.boolean(),
   };
 }

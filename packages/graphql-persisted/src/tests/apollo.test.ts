@@ -1,4 +1,4 @@
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import gql from 'graphql-tag';
 import {ApolloLink} from 'apollo-link';
 
@@ -9,7 +9,7 @@ import {executeOnce, SimpleLink} from './utilities';
 
 describe('PersistedLink', () => {
   it('includes the persisted ID extension when an ID is provided', async () => {
-    const id = faker.random.uuid();
+    const id = faker.datatype.uuid();
 
     const {operation} = await executeOnce(
       ApolloLink.from([createPersistedLink(), new SimpleLink()]),
@@ -23,7 +23,7 @@ describe('PersistedLink', () => {
   });
 
   it('includes the persisted ID extension when idFromOperation returns an ID', async () => {
-    const id = faker.random.uuid();
+    const id = faker.datatype.uuid();
 
     const {operation} = await executeOnce(
       ApolloLink.from([
@@ -54,7 +54,7 @@ describe('PersistedLink', () => {
   });
 
   it('forwards the results of subsequent links', async () => {
-    const id = faker.random.uuid();
+    const id = faker.datatype.uuid();
     const expected = {data: {shop: {name: 'Snowdevil'}}};
 
     const {result} = await executeOnce(
@@ -67,7 +67,7 @@ describe('PersistedLink', () => {
 
   describe('CacheMissBehavior.Error', () => {
     it('resolves to the error', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const error = {errors: [{message: CacheMissBehavior.SendAndStore}]};
 
       const {result} = await executeOnce(
@@ -79,7 +79,7 @@ describe('PersistedLink', () => {
     });
 
     it('still tries to send persisted queries on subsequent calls with the same ID', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const error = {errors: [{message: CacheMissBehavior.Error}]};
       const data = {data: {shop: {name: 'Snowdevil'}}};
       const persistedLink = createPersistedLink();
@@ -104,7 +104,7 @@ describe('PersistedLink', () => {
 
   describe('CacheMissBehavior.SendAndStore', () => {
     it('sends the full query when an error occurs', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const error = {errors: [{message: CacheMissBehavior.SendAndStore}]};
       const data = {data: {shop: {name: 'Snowdevil'}}};
 
@@ -121,7 +121,7 @@ describe('PersistedLink', () => {
     });
 
     it('sends only the persisted ID on subsequent calls', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const error = {errors: [{message: CacheMissBehavior.SendAndStore}]};
       const data = {data: {shop: {name: 'Snowdevil'}}};
       const persistedLink = createPersistedLink();
@@ -146,7 +146,7 @@ describe('PersistedLink', () => {
 
   describe('CacheMissBehavior.SendAlways', () => {
     it('sends the full query when an error occurs', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const error = {errors: [{message: CacheMissBehavior.SendAlways}]};
       const data = {data: {shop: {name: 'Snowdevil'}}};
 
@@ -163,7 +163,7 @@ describe('PersistedLink', () => {
     });
 
     it('sends the full query on subsequent calls with the same ID', async () => {
-      const id = faker.random.uuid();
+      const id = faker.datatype.uuid();
       const error = {errors: [{message: CacheMissBehavior.SendAlways}]};
       const data = {data: {shop: {name: 'Snowdevil'}}};
       const persistedLink = createPersistedLink();

@@ -1,4 +1,4 @@
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import {Root} from '@shopify/react-testing';
 
 import {SimpleProduct, TextField} from './components';
@@ -55,7 +55,7 @@ export function fakeProduct(): SimpleProduct {
       optionValue: faker.commerce.productMaterial(),
     },
     variants: Array.from({length: 2}).map(() => ({
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       price: faker.commerce.price(),
       optionName: faker.lorem.word(),
       optionValue: faker.commerce.productMaterial(),

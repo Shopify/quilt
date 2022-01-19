@@ -1,4 +1,4 @@
-import faker from 'faker';
+import faker from '@faker-js/faker';
 
 export function chooseNull() {
   return faker.random.boolean();
@@ -6,6 +6,6 @@ export function chooseNull() {
 
 export function randomFromArray<T>(array: T[] | ReadonlyArray<T>) {
   return array[
-    faker.random.number({min: 0, max: array.length - 1, precision: 1})
+    faker.datatype.number({min: 0, max: array.length - 1, precision: 1})
   ];
 }

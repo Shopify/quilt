@@ -22,3 +22,12 @@ declare module 'browserslist-useragent' {
 
   export function matchesUA(ua: string, options?: Options): boolean;
 }
+
+// Necessary for @faker-js/faker v5.x
+// Once we upgrade to faker 6, this can likely be removed
+// because the library will be rewritten into TypeScript.
+declare module '@faker-js/faker' {
+  import faker from 'faker';
+
+  export default faker;
+}

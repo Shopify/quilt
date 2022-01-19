@@ -35,9 +35,6 @@
     "jest-matcher-utils": "^26.6.2",
     "react-reconciler": "^0.26.2"
   },
-  "devDependencies": {
-    "faker": "^4.1.0"
-  },
   "files": [
     "build/",
     "!build/*.tsbuildinfo",

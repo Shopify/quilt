@@ -1,4 +1,4 @@
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import {
   GraphQLSchema,
   GraphQLType,
@@ -128,10 +128,10 @@ export type GraphQLRequest<Data, Variables, PartialData> = {
 
 const defaultResolvers = {
   String: () => faker.random.word(),
-  Int: () => faker.random.number({precision: 1}),
-  Float: () => faker.random.number({precision: 0.01}),
+  Int: () => faker.datatype.number({precision: 1}),
+  Float: () => faker.datatype.number({precision: 0.01}),
   Boolean: () => faker.random.boolean(),
-  ID: () => faker.random.uuid(),
+  ID: () => faker.datatype.uuid(),
 };
 
 export function createFiller(

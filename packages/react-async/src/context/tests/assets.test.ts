@@ -1,4 +1,4 @@
-import {random} from 'faker';
+import faker from '@faker-js/faker';
 
 import {AssetTiming} from '../../types';
 import {AsyncAssetManager} from '../assets';
@@ -6,7 +6,7 @@ import {AsyncAssetManager} from '../assets';
 describe('AsyncAssetManager', () => {
   it('returns async assets', () => {
     const asyncAssets = new AsyncAssetManager();
-    const id = random.uuid();
+    const id = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(id);
 
@@ -17,7 +17,7 @@ describe('AsyncAssetManager', () => {
 
   it('de-duplicates assets that are marked as used multiple times', () => {
     const asyncAssets = new AsyncAssetManager();
-    const id = random.uuid();
+    const id = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(id);
     asyncAssets.markAsUsed(id);
@@ -27,8 +27,8 @@ describe('AsyncAssetManager', () => {
 
   it('only returns assets with the specified timing', () => {
     const asyncAssets = new AsyncAssetManager();
-    const currentPageId = random.uuid();
-    const nextPageId = random.uuid();
+    const currentPageId = faker.datatype.uuid();
+    const nextPageId = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(currentPageId, AssetTiming.CurrentPage);
     asyncAssets.markAsUsed(nextPageId, AssetTiming.NextPage);
@@ -44,8 +44,8 @@ describe('AsyncAssetManager', () => {
 
   it('returns assets from multiple timings', () => {
     const asyncAssets = new AsyncAssetManager();
-    const currentPageId = random.uuid();
-    const nextPageId = random.uuid();
+    const currentPageId = faker.datatype.uuid();
+    const nextPageId = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(currentPageId, AssetTiming.CurrentPage);
     asyncAssets.markAsUsed(nextPageId, AssetTiming.NextPage);
@@ -60,8 +60,8 @@ describe('AsyncAssetManager', () => {
 
   it('stores information about whether to include the styles and scripts individually', () => {
     const asyncAssets = new AsyncAssetManager();
-    const idOne = random.uuid();
-    const idTwo = random.uuid();
+    const idOne = faker.datatype.uuid();
+    const idTwo = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(idOne, {styles: AssetTiming.NextPage});
     asyncAssets.markAsUsed(idTwo, {scripts: AssetTiming.NextPage});
@@ -79,7 +79,7 @@ describe('AsyncAssetManager', () => {
 
   it('includes styles if one use of an ID uses them, but another does not', () => {
     const asyncAssets = new AsyncAssetManager();
-    const id = random.uuid();
+    const id = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(id, {styles: AssetTiming.NextPage});
     asyncAssets.markAsUsed(id);
@@ -93,7 +93,7 @@ describe('AsyncAssetManager', () => {
 
   it('only stores the earliest asset timing for a given asset', () => {
     const asyncAssets = new AsyncAssetManager();
-    const id = random.uuid();
+    const id = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(id, AssetTiming.NextPage);
     asyncAssets.markAsUsed(id, AssetTiming.CurrentPage);
@@ -114,7 +114,7 @@ describe('AsyncAssetManager', () => {
 
   it('clears all assets between each pass in an effect', () => {
     const asyncAssets = new AsyncAssetManager();
-    const id = random.uuid();
+    const id = faker.datatype.uuid();
 
     asyncAssets.markAsUsed(id);
     asyncAssets.effect.betweenEachPass!({
