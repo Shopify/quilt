@@ -4,7 +4,7 @@
 [![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fi18n.svg)](https://badge.fury.io/js/%40shopify%2Fi18n.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/i18n.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/i18n.svg)
 
-Generic i18n-related utilities. TEST
+Generic i18n-related utilities. TEST123
 
 ## Installation
 
