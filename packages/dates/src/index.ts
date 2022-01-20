@@ -24,3 +24,4 @@ export * from './sanitise-date-string';
 export * from './unapply-time-zone-offset';
 export * from './map-deprecated-timezones';
 export * from './utilities';
+export * from './format';

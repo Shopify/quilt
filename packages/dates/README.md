@@ -31,6 +31,45 @@ const timeZone2 = 'America/Toronto';
 const newDate = applyTimeZoneOffset(date, timeZone1, timeZone2); //'2018-06-01T02:00:00.000Z'
 ```
 
+### `format`
+
+Lighter replacement for [`format()` from the `moment` library](https://momentjs.com/docs/#/displaying/format/).
+Can output to any given locale / timezone (defaults to the system's locale & timezone).
+Handles a subset of the tokens `moment().format()` handles, namely the following:
+
+|              |      |                                        |
+| -----------: | ---- | -------------------------------------- |
+|        Month | M    | 1 2 ... 11 12                          |
+|              | MM   | 01 02 ... 11 12                        |
+|              | MMM  | Jan Feb ... Nov Dec                    |
+|              | MMMM | January February ... November December |
+| Day of Month | D    | 1 2 ... 30 31                          |
+|              | DD   | 01 02 ... 30 31                        |
+|  Day of Week | ddd  | Sun Mon ... Fri Sat                    |
+|              | dddd | Sunday Monday ... Friday Saturday      |
+|         Year | YY   | 70 71 ... 29 30                        |
+|              | YYYY | 1970 1971 ... 2029 2030                |
+|         Hour | H    | 0 1 ... 22 23                          |
+|              | HH   | 00 01 ... 22 23                        |
+|              | h    | 1 2 ... 11 12                          |
+|              | hh   | 01 02 ... 11 12                        |
+|       Minute | m    | 0 1 ... 58 59                          |
+|              | mm   | 00 01 ... 58 59                        |
+|       Second | s    | 0 1 ... 58 59                          |
+|              | ss   | 00 01 ... 58 59                        |
+|        AM/PM | A    | AM PM                                  |
+|              | a    | am pm                                  |
+
+```ts
+import {format} from '@shopify/dates';
+
+const date = new Date(2021, 0, 14, 13, 2, 3);
+const dateStr = format(date, 'YYYY-MM-DD h:mm:ss A'); // 2021-01-14 1:02:03 PM
+
+const date2 = new Date(Date.UTC(2021, 1, 1));
+const dateStr2 = format(date, 'M/D/YY', 'UTC', 'en-US'); // 1/1/21
+```
+
 ### `formatDate`
 
 Takes in a date object and two additional parameters, the locale and an optional options object. Returns a new date string with the applied locale and options.

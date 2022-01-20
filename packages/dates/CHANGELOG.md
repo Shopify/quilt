@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Added `format()` function, matching `moment().format`. [[#2135](https://github.com/Shopify/quilt/pull/2135)]
 
 ## 1.0.13 - 2022-01-06
 
