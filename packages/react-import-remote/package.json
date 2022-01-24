@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-import-remote",
-  "version": "2.1.14",
+  "version": "2.1.14-mock-factory-beta.0",
   "license": "MIT",
   "description": "Asynchronous script loading for React",
   "main": "index.js",
@@ -24,10 +24,10 @@
   },
   "dependencies": {
     "@shopify/async": "^3.1.0",
-    "@shopify/react-hooks": "^2.1.10",
-    "@shopify/react-html": "^11.1.12",
+    "@shopify/react-hooks": "^2.1.10-mock-factory-beta.0",
+    "@shopify/react-html": "^11.1.12-mock-factory-beta.0",
     "@shopify/react-intersection-observer": "^3.1.7",
-    "@shopify/useful-types": "^3.0.5"
+    "@shopify/useful-types": "^3.0.5-mock-factory-beta.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"

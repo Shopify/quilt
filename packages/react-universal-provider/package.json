@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-universal-provider",
-  "version": "2.1.12",
+  "version": "2.1.12-mock-factory-beta.0",
   "license": "MIT",
   "description": "Factory function and utilities to create self-serializing/deserializing providers that work for isomorphic applications",
   "main": "index.js",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@shopify/react-effect": "^4.1.7",
-    "@shopify/react-html": "^11.1.12"
+    "@shopify/react-html": "^11.1.12-mock-factory-beta.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"
