@@ -1,6 +1,6 @@
 {
   "name": "@shopify/useful-types",
-  "version": "3.0.5-mock-factory-beta.0",
+  "version": "3.0.5-mock-factory-beta.1",
   "license": "MIT",
   "description": "A few handy TypeScript types",
   "main": "index.js",

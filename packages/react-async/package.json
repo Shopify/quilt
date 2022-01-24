@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-async",
-  "version": "4.1.14-mock-factory-beta.0",
+  "version": "4.1.14-mock-factory-beta.1",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components",
   "main": "index.js",
@@ -33,11 +33,11 @@
   "dependencies": {
     "@shopify/async": "^3.1.0",
     "@shopify/react-effect": "^4.1.7",
-    "@shopify/react-hooks": "^2.1.10-mock-factory-beta.0",
-    "@shopify/react-hydrate": "^2.1.11-mock-factory-beta.0",
-    "@shopify/react-idle": "^2.1.7-mock-factory-beta.0",
+    "@shopify/react-hooks": "^2.1.10-mock-factory-beta.1",
+    "@shopify/react-hydrate": "^2.1.11-mock-factory-beta.1",
+    "@shopify/react-idle": "^2.1.7-mock-factory-beta.1",
     "@shopify/react-intersection-observer": "^3.1.7",
-    "@shopify/useful-types": "^3.0.5-mock-factory-beta.0"
+    "@shopify/useful-types": "^3.0.5-mock-factory-beta.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"
