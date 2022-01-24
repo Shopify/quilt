@@ -718,12 +718,13 @@ describe('I18n', () => {
         expect(i18n.unformatNumber('1.234.567,56')).toBe('1234567.56');
       });
 
-      it('does not treat . as the decimal symbol if , is not used as a decimal symbol', () => {
+      it('treats . as the decimal symbol if . is used as a decimal symbol', () => {
         const i18n = new I18n(defaultTranslations, {
           ...defaultDetails,
           locale: 'it',
         });
-        expect(i18n.unformatNumber('1234.50')).toBe('123450');
+        expect(i18n.unformatNumber('1234.50')).toBe('1234.5');
+        expect(i18n.unformatNumber('1234.5')).toBe('1234.5');
       });
     });
 
@@ -738,12 +739,13 @@ describe('I18n', () => {
         expect(i18n.unformatNumber('1.234,56')).toBe('1234.56');
       });
 
-      it('does not treat . as the decimal symbol if , is not used as a decimal symbol', () => {
+      it('treats . as the decimal symbol if . is used as a decimal symbol', () => {
         const i18n = new I18n(defaultTranslations, {
           ...defaultDetails,
           locale: 'vi',
         });
-        expect(i18n.unformatNumber('1234.50')).toBe('123450');
+        expect(i18n.unformatNumber('1234.50')).toBe('1234.5');
+        expect(i18n.unformatNumber('1234.5')).toBe('1234.5');
       });
     });
   });
@@ -1175,12 +1177,13 @@ describe('I18n', () => {
           );
         });
 
-        it('does not treat . as the decimal symbol if , is not used as a thousand symbol and . is used as a decimal symbol', () => {
+        it('treats . as the decimal symbol if , is not used as a thousand symbol and . is used as a decimal symbol', () => {
           const i18n = new I18n(defaultTranslations, {
             ...defaultDetails,
             locale: 'it',
           });
-          expect(i18n.unformatCurrency('1234.50', 'USD')).toBe('123450.00');
+          expect(i18n.unformatCurrency('1234.50', 'USD')).toBe('1234.50');
+          expect(i18n.unformatCurrency('1234.5', 'USD')).toBe('1234.50');
         });
 
         it('treats . as the decimal symbol if , is used as a thousand symbol and . is used as a decimal symbol', () => {
@@ -1202,14 +1205,17 @@ describe('I18n', () => {
           expect(i18n.unformatCurrency('123.456.789', 'VND')).toBe(
             '123456789.00',
           );
+          expect(i18n.unformatCurrency('1.234.56', 'VND')).toBe('123456.00');
         });
 
-        it('does not treat . as the decimal symbol if , is not used as a thousand symbol and . is used as a decimal symbol', () => {
+        it('treats . as the decimal symbol if . is used as a decimal symbol', () => {
           const i18n = new I18n(defaultTranslations, {
             ...defaultDetails,
             locale: 'vi',
           });
-          expect(i18n.unformatCurrency('234.56', 'VND')).toBe('23456.00');
+          expect(i18n.unformatCurrency('234.56', 'VND')).toBe('235.00');
+          expect(i18n.unformatCurrency('1234.56', 'VND')).toBe('1235.00');
+          expect(i18n.unformatCurrency('23.5', 'VND')).toBe('24.00');
         });
 
         it('treats . as the decimal symbol if , is used as a thousand symbol and . is used as a decimal symbol', () => {
