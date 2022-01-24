@@ -3,7 +3,7 @@ import {mount} from '@shopify/react-testing';
 import {timer} from '@shopify/jest-dom-mocks';
 
 import Key, {HeldKey, ModifierKey} from '../keys';
-import Shortcut from '../Shortcut';
+import Shortcut, {DefaultIgnoredTag} from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 
 import ShortcutWithFocus from './ShortcutWithRef';
@@ -120,13 +120,24 @@ describe('ShortcutManager', () => {
   it('calls shortcuts that are scoped to a specific node only when that node is focused', () => {
     const spy = jest.fn();
 
-    const app = mount(
+    const ShortcutWithFocusAndProvider = ({spy, focusNode}) => (
       <ShortcutProvider>
-        <ShortcutWithFocus spy={spy} />
-      </ShortcutProvider>,
+        <ShortcutWithFocus spy={spy} focusNode={focusNode} />
+      </ShortcutProvider>
     );
 
-    app.forceUpdate();
+    const app = mount(
+      <ShortcutWithFocusAndProvider spy={spy} focusNode={false} />,
+    );
+
+    keydown('z');
+
+    expect(spy).not.toHaveBeenCalled();
+
+    app.setProps({
+      focusNode: true,
+    });
+
     keydown('z');
 
     expect(spy).toHaveBeenCalled();
@@ -224,6 +235,71 @@ describe('ShortcutManager', () => {
     expect(spy).toHaveBeenCalledTimes(1);
     expect(event.preventDefault).toHaveBeenCalled();
   });
+
+  it.each(['textarea', 'input', 'select'])(
+    'does not call shortcuts on %s when node is provided and focused',
+    (tagName) => {
+      const spy = jest.fn();
+
+      mount(
+        <ShortcutProvider>
+          <ShortcutWithFocus spy={spy} tagName={tagName} focusNode />
+        </ShortcutProvider>,
+      );
+
+      keydown('z');
+
+      expect(spy).not.toHaveBeenCalled();
+    },
+  );
+
+  it.each(['textarea', 'input', 'select'])(
+    'call shortcuts on %s when acceptedDefaultIgnoredTags overrides default ignored tags and node is focused',
+    (tagName) => {
+      const spy = jest.fn();
+
+      mount(
+        <ShortcutProvider>
+          <ShortcutWithFocus
+            spy={spy}
+            tagName={tagName}
+            acceptedDefaultIgnoredTags={[
+              tagName.toUpperCase() as DefaultIgnoredTag,
+            ]}
+            focusNode
+          />
+        </ShortcutProvider>,
+      );
+
+      keydown('z');
+
+      expect(spy).toHaveBeenCalled();
+    },
+  );
+
+  it.each(['textarea', 'input', 'select'])(
+    'does not call shortcuts on %s when acceptedDefaultIgnoredTags overrides default ignored tags and node is not focused',
+    (tagName) => {
+      const spy = jest.fn();
+
+      mount(
+        <ShortcutProvider>
+          <ShortcutWithFocus
+            spy={spy}
+            tagName={tagName}
+            acceptedDefaultIgnoredTags={[
+              tagName.toUpperCase() as DefaultIgnoredTag,
+            ]}
+            focusNode={false}
+          />
+        </ShortcutProvider>,
+      );
+
+      keydown('z');
+
+      expect(spy).not.toHaveBeenCalled();
+    },
+  );
 
   describe('modifier keys', () => {
     it('matches shortcut when all modifier keys are pressed', () => {

@@ -1,12 +1,13 @@
 import Key, {HeldKey} from '../keys';
 
-import useShortcut from './hooks';
+import useShortcut, {DefaultIgnoredTag} from './hooks';
 
 export interface Props {
   ordered: Key[];
   held?: HeldKey;
   node?: HTMLElement | null;
   ignoreInput?: boolean;
+  acceptedDefaultIgnoredTags?: DefaultIgnoredTag[];
   onMatch(matched: {ordered: Key[]; held?: HeldKey}): void;
   allowDefault?: boolean;
 }

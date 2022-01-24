@@ -1,26 +1,44 @@
 import React from 'react';
 
-import Shortcut from '../Shortcut';
+import Shortcut, {DefaultIgnoredTag} from '../Shortcut';
 
 interface Props {
   spy: jest.Mock<{}>;
+  focusNode?: boolean;
+  tagName?: HTMLElement['tagName'];
+  acceptedDefaultIgnoredTags?: DefaultIgnoredTag[];
 }
 
-export default function ShortcutWithFocus(props: Props) {
-  const {spy} = props;
-  const node = React.useRef<HTMLButtonElement | null>(null);
+export default function ShortcutWithFocus({
+  spy,
+  focusNode = true,
+  tagName = 'button',
+  acceptedDefaultIgnoredTags,
+}: Props) {
+  const [node, setNode] = React.useState<HTMLElement | null>(null);
+  const elementWithFocus = React.createElement(tagName, {
+    ref: (element: HTMLElement) => setNode(element),
+  });
 
   React.useEffect(() => {
-    if (!node || !node.current) {
+    if (!node) {
       return;
     }
 
-    node.current.focus();
-  }, [node]);
+    if (focusNode) {
+      node.focus();
+    }
+  }, [node, focusNode]);
+
   return (
     <div className="app">
-      <button type="button" ref={node} />
-      <Shortcut ordered={['z']} onMatch={spy} node={node.current} />
+      {elementWithFocus}
+      <Shortcut
+        ordered={['z']}
+        onMatch={spy}
+        node={node}
+        acceptedDefaultIgnoredTags={acceptedDefaultIgnoredTags}
+      />
     </div>
   );
 }

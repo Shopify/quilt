@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- **Minor** Expose `acceptedDefaultIgnoredTags` to flag which default ignored tags you want to bypass (textarea, select, input) [#2125](https://github.com/Shopify/quilt/pull/2125)
+
+### Fixed
+
+- Fix issue with shortcuts not triggered when `node` is provided and focused [#2125](https://github.com/Shopify/quilt/pull/2125)
 
 ## 4.1.7 - 2021-11-23
 
