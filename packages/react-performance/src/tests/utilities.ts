@@ -107,8 +107,8 @@ export function mockNavigation() {
     },
     {
       index: faker.datatype.number(),
-      supportsDetailedEvents: faker.random.boolean(),
-      supportsDetailedTime: faker.random.boolean(),
+      supportsDetailedEvents: faker.datatype.boolean(),
+      supportsDetailedTime: faker.datatype.boolean(),
     },
   );
 }
@@ -133,6 +133,6 @@ export function randomConnection() {
     effectiveType: faker.random.arrayElement(effectiveTypes),
     onchange: null,
     rtt: faker.datatype.number(),
-    saveData: faker.random.boolean(),
+    saveData: faker.datatype.boolean(),
   };
 }
