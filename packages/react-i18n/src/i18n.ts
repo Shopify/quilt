@@ -30,6 +30,7 @@ import {
   RTL_LANGUAGES,
   Weekday,
   currencyDecimalPlaces,
+  DEFAULT_DECIMAL_PLACES,
   EASTERN_NAME_ORDER_FORMATTERS,
 } from './constants';
 import {
@@ -62,7 +63,6 @@ export interface TranslateOptions {
 
 // Used for currecies that don't use fractional units (eg. JPY)
 const PERIOD = '.';
-const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
 const REGEX_NON_DIGITS = /\D/g;
 const REGEX_PERIODS = /\./g;
 
@@ -264,17 +264,21 @@ export class I18n {
 
   unformatCurrency(input: string, currencyCode: string): string {
     const {decimalSymbol} = this.numberSymbols();
+    const decimalPlaces = currencyDecimalPlaces.get(currencyCode.toUpperCase());
 
-    const normalizedValue = this.normalizedNumber(input, decimalSymbol);
+    const normalizedValue = this.normalizedNumber(
+      input,
+      decimalSymbol,
+      decimalPlaces,
+    );
 
     if (normalizedValue === '') {
       return '';
     }
 
-    const decimalPlaces = currencyDecimalPlaces.get(currencyCode.toUpperCase());
     if (decimalPlaces === 0) {
       const roundedAmount = parseFloat(normalizedValue).toFixed(0);
-      return `${roundedAmount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
+      return `${roundedAmount}.${'0'.repeat(DEFAULT_DECIMAL_PLACES)}`;
     }
 
     return parseFloat(normalizedValue).toFixed(decimalPlaces);
@@ -626,7 +630,15 @@ export class I18n {
     });
   }
 
-  private normalizedNumber(input: string, decimalSymbol: string) {
+  private normalizedNumber(
+    input: string,
+    decimalSymbol: string,
+    decimalPlaces: number = DEFAULT_DECIMAL_PLACES,
+  ) {
+    const maximumDecimalPlaces = Math.max(
+      decimalPlaces,
+      DEFAULT_DECIMAL_PLACES,
+    );
     const lastIndexOfPeriod = input.lastIndexOf(PERIOD);
     let lastIndexOflDecimal = input.lastIndexOf(decimalSymbol);
 
@@ -635,7 +647,7 @@ export class I18n {
     if (
       decimalSymbol !== PERIOD &&
       (input.match(REGEX_PERIODS) || []).length === 1 &&
-      this.decimalValue(input, lastIndexOfPeriod).length <= 2
+      this.decimalValue(input, lastIndexOfPeriod).length <= maximumDecimalPlaces
     ) {
       lastIndexOflDecimal = lastIndexOfPeriod;
     }

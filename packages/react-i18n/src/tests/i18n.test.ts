@@ -1123,11 +1123,16 @@ describe('I18n', () => {
       it('handles currencies with 3 decimal places', () => {
         const i18n = new I18n(defaultTranslations, {...defaultDetails});
         expect(i18n.unformatCurrency('JOD 123.34', 'JOD')).toBe('123.340');
+        expect(i18n.unformatCurrency('JOD 123.345', 'JOD')).toBe('123.345');
+        expect(i18n.unformatCurrency('JOD 67,123.345', 'JOD')).toBe(
+          '67123.345',
+        );
       });
 
       it('rounds currencies with 3 decimal places', () => {
         const i18n = new I18n(defaultTranslations, {...defaultDetails});
         expect(i18n.unformatCurrency('123.9999', 'JOD')).toBe('124.000');
+        expect(i18n.unformatCurrency('123.4567', 'JOD')).toBe('123.457');
       });
 
       it('handles EUR currency with fr locale', () => {
@@ -1192,6 +1197,54 @@ describe('I18n', () => {
             locale: 'it',
           });
           expect(i18n.unformatCurrency('1,234.50', 'USD')).toBe('1234.50');
+        });
+
+        it('treats . as the decimal symbol if the currency has 3 decimal places and 3 or fewer decimal places are used', () => {
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'it',
+          });
+          expect(i18n.unformatCurrency('JOD 123.4', 'JOD')).toBe('123.400');
+          expect(i18n.unformatCurrency('JOD 123.34', 'JOD')).toBe('123.340');
+          expect(i18n.unformatCurrency('JOD 123.345', 'JOD')).toBe('123.345');
+          expect(i18n.unformatCurrency('JOD 67,123.345', 'JOD')).toBe(
+            '67123.345',
+          );
+        });
+
+        it('treats , as the decimal symbol if the currency has 3 decimal places and 4 or more decimal places are used', () => {
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'it',
+          });
+          expect(i18n.unformatCurrency('JOD 123.4567', 'JOD')).toBe(
+            '1234567.000',
+          );
+          expect(i18n.unformatCurrency('JOD 123.345678', 'JOD')).toBe(
+            '123345678.000',
+          );
+        });
+
+        it('treats , as the decimal symbol when , is used as the decimal separator and currency has 3 decimal places', () => {
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'it',
+          });
+          expect(i18n.unformatCurrency('JOD 123,34', 'JOD')).toBe('123.340');
+          expect(i18n.unformatCurrency('JOD 123,345', 'JOD')).toBe('123.345');
+          expect(i18n.unformatCurrency('JOD 67.123,345', 'JOD')).toBe(
+            '67123.345',
+          );
+          expect(i18n.unformatCurrency('JOD 7.123,34', 'JOD')).toBe('7123.340');
+        });
+
+        it('rounds currencies with 3 decimal places when , is used as the decuaml symbol', () => {
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'it',
+          });
+          expect(i18n.unformatCurrency('123,9999', 'JOD')).toBe('124.000');
+          expect(i18n.unformatCurrency('123,4567', 'JOD')).toBe('123.457');
         });
       });
 
