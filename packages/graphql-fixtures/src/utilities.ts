@@ -1,7 +1,7 @@
 import faker from '@faker-js/faker';
 
 export function chooseNull() {
-  return faker.random.boolean();
+  return faker.datatype.boolean();
 }
 
 export function randomFromArray<T>(array: T[] | ReadonlyArray<T>) {
