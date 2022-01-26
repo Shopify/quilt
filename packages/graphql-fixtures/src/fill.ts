@@ -130,7 +130,7 @@ const defaultResolvers = {
   String: () => faker.random.word(),
   Int: () => faker.datatype.number({precision: 1}),
   Float: () => faker.datatype.number({precision: 0.01}),
-  Boolean: () => faker.random.boolean(),
+  Boolean: () => faker.datatype.boolean(),
   ID: () => faker.datatype.uuid(),
 };
 
