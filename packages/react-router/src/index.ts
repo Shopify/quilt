@@ -10,6 +10,7 @@ export {
 } from 'react-router-dom';
 export type {
   SwitchProps,
+  RouteProps,
   RouteComponentProps,
   RouterChildContext,
 } from 'react-router-dom';
