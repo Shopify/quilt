@@ -30,6 +30,7 @@ import {
   RTL_LANGUAGES,
   Weekday,
   currencyDecimalPlaces,
+  DEFAULT_DECIMAL_PLACES,
   EASTERN_NAME_ORDER_FORMATTERS,
 } from './constants';
 import {
@@ -62,8 +63,8 @@ export interface TranslateOptions {
 
 // Used for currecies that don't use fractional units (eg. JPY)
 const PERIOD = '.';
-const COMMA = ',';
-const DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS = '00';
+const REGEX_NON_DIGITS = /\D/g;
+const REGEX_PERIODS = /\./g;
 
 export class I18n {
   readonly locale: string;
@@ -120,7 +121,7 @@ export class I18n {
     this.defaultCurrency = currency;
     this.defaultTimezone = timezone;
     this.pseudolocalize = pseudolocalize;
-    this.onError = onError || defaultOnError;
+    this.onError = onError || this.defaultOnError;
     this.loading = loading || false;
   }
 
@@ -159,7 +160,7 @@ export class I18n {
 
     if (optionsOrReplacements == null) {
       normalizedOptions = {pseudotranslate: pseudolocalize};
-    } else if (isTranslateOptions(optionsOrReplacements)) {
+    } else if (this.isTranslateOptions(optionsOrReplacements)) {
       normalizedOptions = {
         ...optionsOrReplacements,
         replacements,
@@ -236,13 +237,9 @@ export class I18n {
   }
 
   unformatNumber(input: string): string {
-    const {thousandSymbol, decimalSymbol} = this.numberSymbols();
+    const {decimalSymbol} = this.numberSymbols();
 
-    const normalizedValue = normalizedNumber(
-      input,
-      decimalSymbol,
-      thousandSymbol,
-    );
+    const normalizedValue = this.normalizedNumber(input, decimalSymbol);
 
     return normalizedValue === '' ? '' : parseFloat(normalizedValue).toString();
   }
@@ -266,22 +263,22 @@ export class I18n {
   }
 
   unformatCurrency(input: string, currencyCode: string): string {
-    const {thousandSymbol, decimalSymbol} = this.numberSymbols();
+    const {decimalSymbol} = this.numberSymbols();
+    const decimalPlaces = currencyDecimalPlaces.get(currencyCode.toUpperCase());
 
-    const normalizedValue = normalizedNumber(
+    const normalizedValue = this.normalizedNumber(
       input,
       decimalSymbol,
-      thousandSymbol,
+      decimalPlaces,
     );
 
     if (normalizedValue === '') {
       return '';
     }
 
-    const decimalPlaces = currencyDecimalPlaces.get(currencyCode.toUpperCase());
     if (decimalPlaces === 0) {
       const roundedAmount = parseFloat(normalizedValue).toFixed(0);
-      return `${roundedAmount}.${DECIMAL_VALUE_FOR_CURRENCIES_WITHOUT_DECIMALS}`;
+      return `${roundedAmount}.${'0'.repeat(DEFAULT_DECIMAL_PLACES)}`;
     }
 
     return parseFloat(normalizedValue).toFixed(decimalPlaces);
@@ -632,64 +629,63 @@ export class I18n {
       day: 'numeric',
     });
   }
-}
 
-function normalizedNumber(
-  input: string,
-  decimalSymbol: string,
-  thousandSymbol: string,
-) {
-  const lastIndexOfNominalDecimal = input.lastIndexOf(decimalSymbol);
-  const lastIndexOfComma = input.lastIndexOf(COMMA);
-  const lastIndexOfPeriod = input.lastIndexOf(PERIOD);
-
-  let lastIndexOfRealDecimal = lastIndexOfNominalDecimal;
-
-  // For locales that do not use period as the decimal symbol, users may still input a period
-  // and expect it to be treated as the decimal symbol for their locale.
-  if (
-    decimalSymbol !== PERIOD &&
-    // where the thousand symbol is not a period
-    // and a period appears after the decimal symbol (or there is no decimal symbol)
-    ((thousandSymbol !== PERIOD &&
-      lastIndexOfPeriod > lastIndexOfNominalDecimal) ||
-      // where the thousand symbol is a period and a comma appears before a period
-      (thousandSymbol === PERIOD &&
-        lastIndexOfComma > -1 &&
-        lastIndexOfPeriod > -1 &&
-        lastIndexOfPeriod > lastIndexOfComma))
+  private normalizedNumber(
+    input: string,
+    decimalSymbol: string,
+    decimalPlaces: number = DEFAULT_DECIMAL_PLACES,
   ) {
-    lastIndexOfRealDecimal = lastIndexOfPeriod;
+    const maximumDecimalPlaces = Math.max(
+      decimalPlaces,
+      DEFAULT_DECIMAL_PLACES,
+    );
+    const lastIndexOfPeriod = input.lastIndexOf(PERIOD);
+    let lastIndexOflDecimal = input.lastIndexOf(decimalSymbol);
+
+    // For locales that do not use period as the decimal symbol, users may still input a period
+    // and expect it to be treated as the decimal symbol for their locale.
+    if (
+      decimalSymbol !== PERIOD &&
+      (input.match(REGEX_PERIODS) || []).length === 1 &&
+      this.decimalValue(input, lastIndexOfPeriod).length <= maximumDecimalPlaces
+    ) {
+      lastIndexOflDecimal = lastIndexOfPeriod;
+    }
+
+    const integerValue = this.integerValue(input, lastIndexOflDecimal);
+    const decimalValue = this.decimalValue(input, lastIndexOflDecimal);
+
+    const isNegative = input.trim().startsWith('-');
+    const negativeSign = isNegative ? '-' : '';
+
+    const normalizedDecimal = lastIndexOflDecimal === -1 ? '' : PERIOD;
+    const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;
+
+    return normalizedValue === '' || normalizedValue === PERIOD
+      ? ''
+      : normalizedValue;
   }
 
-  const nonDigits = /\D/g;
-  const integerValue = input
-    .substring(0, lastIndexOfRealDecimal)
-    .replace(nonDigits, '');
-  const decimalValue = input
-    .substring(lastIndexOfRealDecimal + 1)
-    .replace(nonDigits, '');
+  private integerValue(input: string, lastIndexOfDecimal: number) {
+    return input.substring(0, lastIndexOfDecimal).replace(REGEX_NON_DIGITS, '');
+  }
 
-  const isNegative = input.trim().startsWith('-');
-  const negativeSign = isNegative ? '-' : '';
+  private decimalValue(input: string, lastIndexOfDecimal: number) {
+    return input
+      .substring(lastIndexOfDecimal + 1)
+      .replace(REGEX_NON_DIGITS, '');
+  }
 
-  const normalizedDecimal = lastIndexOfRealDecimal === -1 ? '' : PERIOD;
-  const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;
+  private isTranslateOptions(
+    object:
+      | TranslateOptions
+      | PrimitiveReplacementDictionary
+      | ComplexReplacementDictionary,
+  ): object is TranslateOptions {
+    return 'scope' in object;
+  }
 
-  return normalizedValue === '' || normalizedValue === PERIOD
-    ? ''
-    : normalizedValue;
-}
-
-function isTranslateOptions(
-  object:
-    | TranslateOptions
-    | PrimitiveReplacementDictionary
-    | ComplexReplacementDictionary,
-): object is TranslateOptions {
-  return 'scope' in object;
-}
-
-function defaultOnError(error: I18nError) {
-  throw error;
+  private defaultOnError(error: I18nError) {
+    throw error;
+  }
 }
