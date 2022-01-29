@@ -1,15 +1,18 @@
 import {createWorkspace, createWorkspaceTestPlugin} from '@shopify/loom';
+import {
+  buildLibrary,
+  buildLibraryWorkspace,
+} from '@shopify/loom-plugin-build-library';
 import {eslint} from '@shopify/loom-plugin-eslint';
-import {jest} from '@shopify/loom-plugin-jest';
 import {prettier} from '@shopify/loom-plugin-prettier';
-import {workspaceTypeScript} from '@shopify/loom-plugin-typescript';
+
+import type {} from '@shopify/loom-plugin-jest';
 
 export default createWorkspace((workspace) => {
   workspace.use(
+    buildLibraryWorkspace(),
     eslint(),
     prettier({files: '**/*.{md,json,yaml,yml}'}),
-    jest(),
-    workspaceTypeScript(),
     runWorkspaceTests(),
   );
 });
