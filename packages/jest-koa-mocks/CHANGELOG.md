@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Changed
+
+- Restore behavior of `ctx.set` that was removed in 3.0.6 [[#2148](https://github.com/Shopify/quilt/pull/2148)]
+
 ## 3.1.0 - 2022-01-13
 
 ### Changed
