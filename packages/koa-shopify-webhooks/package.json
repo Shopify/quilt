@@ -51,9 +51,9 @@
   "exports": {
     "./": "./",
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     }
   }
 }

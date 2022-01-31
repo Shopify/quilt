@@ -62,14 +62,14 @@
   "exports": {
     "./": "./",
     "./apollo": {
+      "esnext": "./apollo.esnext",
       "import": "./apollo.mjs",
-      "require": "./apollo.js",
-      "esnext": "./apollo.esnext"
+      "require": "./apollo.js"
     },
     "./koa": {
+      "esnext": "./koa.esnext",
       "import": "./koa.mjs",
-      "require": "./koa.js",
-      "esnext": "./koa.esnext"
+      "require": "./koa.js"
     }
   }
 }

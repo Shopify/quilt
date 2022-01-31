@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Reorder exports map to prioritize the `esnext` condition. [[#2148](https://github.com/Shopify/quilt/pull/2148)]
 - Clean test output. [[#2091](https://github.com/Shopify/quilt/pull/2091)]
 
 ## 3.0.6 - 2021-11-22
