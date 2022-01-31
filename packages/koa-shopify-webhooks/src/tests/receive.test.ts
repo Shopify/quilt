@@ -171,7 +171,7 @@ describe('receiveWebhook', () => {
       expect(onReceived).not.toHaveBeenCalled();
     });
 
-    it('returns the Forbidden status code', async () => {
+    it('returns the Unauthorized status code', async () => {
       const onReceived = jest.fn();
       const middleware = receiveWebhook({secret, onReceived});
 
@@ -182,7 +182,7 @@ describe('receiveWebhook', () => {
 
       await middleware(context, noop);
 
-      expect(context.status).toBe(StatusCode.Forbidden);
+      expect(context.status).toBe(StatusCode.Unauthorized);
     });
   });
 });
