@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Updated puppeteer to 13.1.3 ([#2149](https://github.com/Shopify/quilt/pull/2149))
+- Reorder exports map to prioritize the `esnext` condition. [[#2148](https://github.com/Shopify/quilt/pull/2148)]
 
 ## 0.4.3 - 2022-01-10
 

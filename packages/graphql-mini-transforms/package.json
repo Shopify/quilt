@@ -77,24 +77,24 @@
   "exports": {
     "./": "./",
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     },
     "./jest": {
+      "esnext": "./jest.esnext",
       "import": "./jest.mjs",
-      "require": "./jest.js",
-      "esnext": "./jest.esnext"
+      "require": "./jest.js"
     },
     "./jest-simple": {
+      "esnext": "./jest-simple.esnext",
       "import": "./jest-simple.mjs",
-      "require": "./jest-simple.js",
-      "esnext": "./jest-simple.esnext"
+      "require": "./jest-simple.js"
     },
     "./webpack": {
+      "esnext": "./webpack-loader.esnext",
       "import": "./webpack-loader.mjs",
-      "require": "./webpack-loader.js",
-      "esnext": "./webpack-loader.esnext"
+      "require": "./webpack-loader.js"
     }
   },
   "tags": [
