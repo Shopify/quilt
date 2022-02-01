@@ -6,6 +6,7 @@ import {
 import {eslint} from '@shopify/loom-plugin-eslint';
 import {prettier} from '@shopify/loom-plugin-prettier';
 
+// Needed so TS realises what configuration hooks are provided by Jest
 import type {} from '@shopify/loom-plugin-jest';
 
 export default createWorkspace((workspace) => {

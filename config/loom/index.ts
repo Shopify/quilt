@@ -4,6 +4,8 @@ import {
   createProjectTestPlugin,
 } from '@shopify/loom';
 import {buildLibrary, babel} from '@shopify/loom-plugin-build-library';
+
+// Needed so TS realises what configuration hooks are provided by Jest
 import type {} from '@shopify/loom-plugin-jest';
 
 export function quiltPackage({
