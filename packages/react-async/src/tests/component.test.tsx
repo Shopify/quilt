@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import {DeferTiming} from '@shopify/async';
 import {createMount} from '@shopify/react-testing';
 import {

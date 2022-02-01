@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 
 import {AssetTiming} from '../../types';
 import {AsyncAssetManager} from '../assets';
