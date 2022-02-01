@@ -1,5 +1,5 @@
 import React from 'react';
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import {Provider as AppBridgeProvider} from '@shopify/app-bridge-react';
 import {extract} from '@shopify/react-effect/server';
 import {mount} from '@shopify/react-testing';

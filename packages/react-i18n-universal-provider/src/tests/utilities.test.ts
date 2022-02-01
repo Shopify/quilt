@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 
 import {combinedI18nDetails} from '../utilities';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import {mount} from '@shopify/react-testing';
 
 import {CsrfTokenContext} from '../context';

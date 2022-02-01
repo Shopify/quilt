@@ -1,5 +1,5 @@
 import React from 'react';
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import {mount} from '@shopify/react-testing';
 import {fetch, timer, connection} from '@shopify/jest-dom-mocks';
 import {Method, Header} from '@shopify/network';
