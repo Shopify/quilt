@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-consts",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "license": "MIT",
   "description": "Constants and types relating to `@shopify/address`",
   "main": "index.js",

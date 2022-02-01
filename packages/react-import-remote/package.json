@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-import-remote",
-  "version": "2.1.15",
+  "version": "2.1.16",
   "license": "MIT",
   "description": "Asynchronous script loading for React",
   "main": "index.js",
@@ -23,11 +23,11 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/async": "^3.1.1",
-    "@shopify/react-hooks": "^2.1.11",
-    "@shopify/react-html": "^11.1.13",
-    "@shopify/react-intersection-observer": "^3.1.8",
-    "@shopify/useful-types": "^3.0.6"
+    "@shopify/async": "^3.1.2",
+    "@shopify/react-hooks": "^2.1.12",
+    "@shopify/react-html": "^11.1.14",
+    "@shopify/react-intersection-observer": "^3.1.9",
+    "@shopify/useful-types": "^3.0.7"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"
