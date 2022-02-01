@@ -102,12 +102,14 @@ export function translate(
   options: TranslateOptions<PrimitiveReplacementDictionary>,
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
+  namespace?: string,
 ): string;
 export function translate(
   id: string,
   options: TranslateOptions<ComplexReplacementDictionary>,
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
+  namespace?: string,
 ): (string | React.ReactElement<any>)[];
 export function translate(
   id: string,
@@ -116,6 +118,7 @@ export function translate(
   >,
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
+  namespace?: string,
 ): any {
   const {scope, replacements, pseudotranslate} = options;
 
@@ -123,7 +126,7 @@ export function translate(
     ? translations
     : [translations];
 
-  const normalizedId = normalizeIdentifier(id, scope);
+  const normalizedId = normalizeIdentifier(id, scope, namespace);
 
   for (const translationDictionary of normalizedTranslations) {
     const result = translateWithDictionary(
@@ -283,14 +286,27 @@ function updateStringWithReplacements(
   }
 }
 
-function normalizeIdentifier(id: string, scope?: string | string[]) {
-  if (scope == null) {
+function prependNamespace(id: string, namespace?: string) {
+  if (namespace === undefined) {
     return id;
   }
+  return `${namespace}${SEPARATOR}${id}`;
+}
 
-  return `${
+function normalizeIdentifier(
+  id: string,
+  scope?: string | string[],
+  namespace?: string,
+) {
+  if (scope == null) {
+    return prependNamespace(id, namespace);
+  }
+
+  const normalizedId = `${
     typeof scope === 'string' ? scope : scope.join(SEPARATOR)
   }${SEPARATOR}${id}`;
+
+  return prependNamespace(normalizedId, namespace);
 }
 
 function updateTreeWithReplacements(

@@ -25,7 +25,6 @@ describe('translations', () => {
         <WithI18nComponent />
       </I18nContext.Provider>,
     );
-
     expect(component.text()).toBe(frTranslations.hello);
   });
 
@@ -56,5 +55,34 @@ describe('translations', () => {
     );
 
     expect(component.text()).toBe(enTranslations.hello);
+  });
+
+  describe('namespace', () => {
+    const translationWithNamespace = {
+      Namespace: {
+        hello: 'Hello',
+      },
+    };
+
+    it('uses namespace and translation map', () => {
+      function WithI18nComponent() {
+        const [i18n] = useI18n({
+          id: 'MyComponent',
+          translations: {en: translationWithNamespace},
+          namespace: 'Namespace',
+        });
+
+        return <div>{i18n.translate('hello')}</div>;
+      }
+
+      const manager = new I18nManager({locale: 'en'});
+      const component = mount(
+        <I18nContext.Provider value={manager}>
+          <WithI18nComponent />
+        </I18nContext.Provider>,
+      );
+
+      expect(component.text()).toBe(translationWithNamespace.Namespace.hello);
+    });
   });
 });

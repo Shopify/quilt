@@ -9,3 +9,4 @@ export {
 
 export type {TranslateOptions} from './translate';
 export {convertFirstSpaceToNonBreakingSpace} from './string';
+export {isObjectEmpty} from './object';

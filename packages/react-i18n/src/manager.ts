@@ -20,6 +20,10 @@ export interface RegisterOptions {
   fallback?: TranslationDictionary;
 }
 
+export interface I18nOptions extends RegisterOptions {
+  namespace?: string;
+}
+
 interface TranslationState {
   loading: boolean;
   translations: TranslationDictionary[];

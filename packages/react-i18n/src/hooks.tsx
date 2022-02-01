@@ -1,13 +1,14 @@
 import React from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
 
+import {isObjectEmpty} from './utilities';
 import {I18n} from './i18n';
-import {I18nManager, RegisterOptions} from './manager';
+import {I18nManager, I18nOptions, RegisterOptions} from './manager';
 import {I18nContext, I18nIdsContext, I18nParentContext} from './context';
 
 type Result = [I18n, React.ComponentType<{children: React.ReactNode}>];
 
-export function useI18n(options?: Partial<RegisterOptions>): Result {
+export function useI18n(options: Partial<I18nOptions> = {}): Result {
   const manager = React.useContext(I18nContext);
 
   if (manager == null) {
@@ -15,23 +16,23 @@ export function useI18n(options?: Partial<RegisterOptions>): Result {
       'Missing i18n manager. Make sure to use an <I18nContext.Provider /> somewhere in your React tree.',
     );
   }
+  const {namespace, ...registerOptions} = options;
+  const registerOptionsRef = React.useRef(registerOptions);
 
-  const registerOptions = React.useRef(options);
-
-  if (shouldRegister(registerOptions.current) !== shouldRegister(options)) {
+  if (
+    shouldRegister(registerOptionsRef.current) !==
+    shouldRegister(registerOptions)
+  ) {
     throw new Error(
       'You switched between providing registration options and not providing them, which is not supported.',
     );
   }
 
-  // Yes, this would usually be dangerous. But just above this line, we check to make
-  // sure that they never switch from the case where `options == null` to `options != null`,
-  // so we know that a given use of this hook will only ever hit one of these two cases.
   /* eslint-disable react-hooks/rules-of-hooks */
-  if (options == null) {
-    return useSimpleI18n(manager);
+  if (isObjectEmpty(registerOptions)) {
+    return useSimpleI18n(manager, namespace);
   } else {
-    return useComplexI18n(options, manager);
+    return useComplexI18n(options, manager, namespace);
   }
   /* eslint-enable react-hooks/rules-of-hooks */
 }
@@ -39,6 +40,7 @@ export function useI18n(options?: Partial<RegisterOptions>): Result {
 function useComplexI18n(
   {id, fallback, translations}: Partial<RegisterOptions>,
   manager: I18nManager,
+  namespace?: string,
 ): Result {
   const managerRef = React.useRef<I18nManager | null>(null);
   const unsubscribeRef = React.useRef<ReturnType<I18nManager['subscribe']>>(
@@ -81,7 +83,7 @@ function useComplexI18n(
   const [i18n, setI18n] = React.useState(() => {
     const managerState = manager.state(ids.current);
     const {translations, loading} = managerState;
-    return new I18n(translations, {...manager.details, loading});
+    return new I18n(translations, {...manager.details, loading}, namespace);
   });
 
   const i18nRef = React.useRef(i18n);
@@ -114,9 +116,10 @@ function useComplexI18n(
   return [i18n, shareTranslationsComponent.current];
 }
 
-function useSimpleI18n(manager: I18nManager): Result {
+function useSimpleI18n(manager: I18nManager, namespace?: string): Result {
   const i18n =
-    React.useContext(I18nParentContext) || new I18n([], manager.details);
+    React.useContext(I18nParentContext) ||
+    new I18n([], manager.details, namespace);
 
   return [i18n, IdentityComponent];
 }

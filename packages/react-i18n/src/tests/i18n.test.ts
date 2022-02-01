@@ -243,6 +243,7 @@ describe('I18n', () => {
         {scope: 'ordinal', replacements: {amount: 0}, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
 
       i18n.ordinal(1);
@@ -251,6 +252,7 @@ describe('I18n', () => {
         {scope: 'ordinal', replacements: {amount: 1}, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
 
       i18n.ordinal(2);
@@ -259,6 +261,7 @@ describe('I18n', () => {
         {scope: 'ordinal', replacements: {amount: 2}, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
 
       i18n.ordinal(3);
@@ -267,6 +270,7 @@ describe('I18n', () => {
         {scope: 'ordinal', replacements: {amount: 3}, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
 
       i18n.ordinal(4);
@@ -275,6 +279,7 @@ describe('I18n', () => {
         {scope: 'ordinal', replacements: {amount: 4}, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
 
       i18n.ordinal(42);
@@ -283,6 +288,7 @@ describe('I18n', () => {
         {scope: 'ordinal', replacements: {amount: 42}, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
     });
   });
@@ -303,6 +309,7 @@ describe('I18n', () => {
         {...scope, replacements, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
     });
 
@@ -320,6 +327,7 @@ describe('I18n', () => {
         {replacements, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
     });
 
@@ -337,6 +345,7 @@ describe('I18n', () => {
         {...scope, pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
     });
 
@@ -353,6 +362,7 @@ describe('I18n', () => {
         {pseudotranslate: false},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
     });
 
@@ -372,6 +382,7 @@ describe('I18n', () => {
         {pseudotranslate: true},
         defaultTranslations,
         i18n.locale,
+        undefined,
       );
     });
 
@@ -1447,6 +1458,7 @@ describe('I18n', () => {
           },
           defaultTranslations,
           i18n.locale,
+          undefined,
         );
       });
 
@@ -1477,6 +1489,7 @@ describe('I18n', () => {
           },
           defaultTranslations,
           i18n.locale,
+          undefined,
         );
       });
 
@@ -1506,6 +1519,7 @@ describe('I18n', () => {
           },
           defaultTranslations,
           i18n.locale,
+          undefined,
         );
       });
 
@@ -1535,6 +1549,7 @@ describe('I18n', () => {
           },
           defaultTranslations,
           i18n.locale,
+          undefined,
         );
       });
 
@@ -1565,6 +1580,7 @@ describe('I18n', () => {
           },
           defaultTranslations,
           i18n.locale,
+          undefined,
         );
       });
 
@@ -1597,6 +1613,7 @@ describe('I18n', () => {
           },
           defaultTranslations,
           i18n.locale,
+          undefined,
         );
       });
 
@@ -1628,6 +1645,7 @@ describe('I18n', () => {
           },
           defaultTranslations,
           i18n.locale,
+          undefined,
         );
       });
 
@@ -1650,6 +1668,7 @@ describe('I18n', () => {
             {pseudotranslate: false},
             defaultTranslations,
             i18n.locale,
+            undefined,
           );
         });
 
@@ -1672,6 +1691,7 @@ describe('I18n', () => {
             {pseudotranslate: false, replacements: {count: minutesAgo}},
             defaultTranslations,
             i18n.locale,
+            undefined,
           );
         });
 
@@ -1712,6 +1732,7 @@ describe('I18n', () => {
               },
               defaultTranslations,
               i18n.locale,
+              undefined,
             );
           });
         });
@@ -1771,6 +1792,7 @@ describe('I18n', () => {
               },
               defaultTranslations,
               i18n.locale,
+              undefined,
             );
           });
         });
@@ -1801,6 +1823,7 @@ describe('I18n', () => {
             },
             defaultTranslations,
             i18n.locale,
+            undefined,
           );
         });
 
@@ -1833,6 +1856,7 @@ describe('I18n', () => {
             },
             defaultTranslations,
             i18n.locale,
+            undefined,
           );
         });
       });
@@ -1859,6 +1883,7 @@ describe('I18n', () => {
               },
               defaultTranslations,
               i18n.locale,
+              undefined,
             );
           });
 
@@ -1884,6 +1909,7 @@ describe('I18n', () => {
               },
               defaultTranslations,
               i18n.locale,
+              undefined,
             );
           });
         });
@@ -1917,6 +1943,7 @@ describe('I18n', () => {
               },
               defaultTranslations,
               i18n.locale,
+              undefined,
             );
           });
 
@@ -1948,6 +1975,7 @@ describe('I18n', () => {
               },
               defaultTranslations,
               i18n.locale,
+              undefined,
             );
           });
         });
@@ -1978,6 +2006,7 @@ describe('I18n', () => {
             },
             defaultTranslations,
             i18n.locale,
+            undefined,
           );
         });
 
@@ -2010,6 +2039,7 @@ describe('I18n', () => {
             },
             defaultTranslations,
             i18n.locale,
+            undefined,
           );
         });
 
@@ -2331,6 +2361,37 @@ describe('I18n', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
       expect(i18n.hasEasternNameOrderFormatter()).toStrictEqual(false);
+    });
+  });
+
+  describe('#namespace', () => {
+    const translationWithNamespace = [
+      {
+        Namespace: {
+          foo: 'bar',
+        },
+      },
+    ];
+
+    it('call translate() with namespace Namespace', () => {
+      const mockResult = 'translated string';
+      translate.mockReturnValue(mockResult);
+
+      const i18n = new I18n(
+        translationWithNamespace,
+        {locale: 'en'},
+        'Namespace',
+      );
+      const result = i18n.translate('foo');
+
+      expect(result).toBe(mockResult);
+      expect(translate).toHaveBeenCalledWith(
+        'foo',
+        {pseudotranslate: false},
+        translationWithNamespace,
+        i18n.locale,
+        'Namespace',
+      );
     });
   });
 });

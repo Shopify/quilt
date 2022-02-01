@@ -265,6 +265,50 @@ describe('translate()', () => {
     });
   });
 
+  describe('namespace', () => {
+    it('looks up a translation with a namespace', () => {
+      expect(
+        translate('foo', {}, {Namespace: {foo: 'bar'}}, locale, 'Namespace'),
+      ).toBe('bar');
+    });
+
+    it('looks up a translation with a namespace and a keypath', () => {
+      expect(
+        translate(
+          'foo.bar',
+          {},
+          {Namespace: {foo: {bar: 'baz'}}},
+          locale,
+          'Namespace',
+        ),
+      ).toBe('baz');
+    });
+
+    it('looks up a translation with a namespace and a scope', () => {
+      expect(
+        translate(
+          'bar',
+          {scope: 'foo'},
+          {Namespace: {foo: {bar: 'baz'}}},
+          locale,
+          'Namespace',
+        ),
+      ).toBe('baz');
+    });
+
+    it('looks up a translation with a namespace and an array scope', () => {
+      expect(
+        translate(
+          'baz',
+          {scope: ['foo', 'bar']},
+          {Namespace: {foo: {bar: {baz: 'qux'}}}},
+          locale,
+          'Namespace',
+        ),
+      ).toBe('qux');
+    });
+  });
+
   it('looks through an array of translation dictionaries', () => {
     const dictionaries: any[] = [{foo: {baz: 'one'}}, {foo: {bar: 'two'}}];
     expect(translate('foo.bar', {}, dictionaries, locale)).toBe('two');
