@@ -1,6 +1,6 @@
 {
   "name": "@shopify/browser",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "license": "MIT",
   "description": "Utilities for extracting browser information from user-agents",
   "main": "index.js",
