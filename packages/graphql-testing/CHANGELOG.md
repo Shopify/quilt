@@ -7,6 +7,19 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 5.1.5 - 2022-02-01
+
+### Changed
+
+- Rerelease after failed publish. No code changes.
+
+## 5.1.4 - 2022-02-01
+
+### Changed
+
+- Reorder exports map to prioritize the `esnext` condition. [[#2148](https://github.com/Shopify/quilt/pull/2148)]
+- Update Loom build config. [[#2150](https://github.com/Shopify/quilt/pull/2150)]
+
 ## 5.1.3 - 2021-11-23
 
 - No updates. Transitive dependency bump.

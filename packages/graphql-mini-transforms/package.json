@@ -1,6 +1,6 @@
 {
   "name": "graphql-mini-transforms",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "license": "MIT",
   "description": "Transformers for importing .graphql files in various build tools.",
   "main": "index.js",
@@ -40,7 +40,7 @@
     "@jest/transform": "^27.0.2",
     "fs-extra": "^9.1.0",
     "graphql": ">=14.5.0 <16.0.0",
-    "graphql-typed": "^1.1.1"
+    "graphql-typed": "^1.1.3"
   },
   "devDependencies": {
     "@types/common-tags": "^1.8.0",
@@ -77,24 +77,24 @@
   "exports": {
     "./": "./",
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     },
     "./jest": {
+      "esnext": "./jest.esnext",
       "import": "./jest.mjs",
-      "require": "./jest.js",
-      "esnext": "./jest.esnext"
+      "require": "./jest.js"
     },
     "./jest-simple": {
+      "esnext": "./jest-simple.esnext",
       "import": "./jest-simple.mjs",
-      "require": "./jest-simple.js",
-      "esnext": "./jest-simple.esnext"
+      "require": "./jest-simple.js"
     },
     "./webpack": {
+      "esnext": "./webpack-loader.esnext",
       "import": "./webpack-loader.mjs",
-      "require": "./webpack-loader.js",
-      "esnext": "./webpack-loader.esnext"
+      "require": "./webpack-loader.js"
     }
   },
   "tags": [

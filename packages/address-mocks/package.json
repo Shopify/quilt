@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address-mocks",
-  "version": "2.0.13",
+  "version": "2.0.15",
   "license": "MIT",
   "description": "Address mocks for `@shopify/address`",
   "main": "index.js",
@@ -27,8 +27,8 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@shopify/address-consts": "^3.0.6",
-    "@shopify/jest-dom-mocks": "^3.0.11"
+    "@shopify/address-consts": "^3.0.8",
+    "@shopify/jest-dom-mocks": "^3.0.13"
   },
   "files": [
     "build/",
@@ -43,9 +43,9 @@
   "exports": {
     "./": "./",
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     }
   }
 }

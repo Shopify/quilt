@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hooks",
-  "version": "2.1.10",
+  "version": "2.1.12",
   "license": "MIT",
   "description": "A collection of primitive React hooks",
   "main": "index.js",
@@ -39,12 +39,12 @@
   "exports": {
     "./": "./",
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     }
   },
   "devDependencies": {
-    "@shopify/react-testing": "^3.3.1"
+    "@shopify/react-testing": "^3.3.3"
   }
 }

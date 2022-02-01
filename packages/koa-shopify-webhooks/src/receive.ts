@@ -53,7 +53,7 @@ export function receiveWebhook({
       await onReceived(ctx);
       await next();
     } else {
-      ctx.res.statusCode = StatusCode.Forbidden;
+      ctx.res.statusCode = StatusCode.Unauthorized;
     }
   }
 

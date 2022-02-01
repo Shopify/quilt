@@ -139,6 +139,18 @@ packages.forEach(
           it('specifies the expected types', () => {
             expect(packageJSON.types).toBe(expectedPackageJSON.types);
           });
+
+          it('specifies esnext, import, and require as the ordered keys in the exports map', () => {
+            Object.keys(packageJSON.exports)
+              .filter((key) => key !== './')
+              .forEach((key) => {
+                expect(Object.keys(packageJSON.exports[key])).toStrictEqual([
+                  'esnext',
+                  'import',
+                  'require',
+                ]);
+              });
+          });
         }
       });
 

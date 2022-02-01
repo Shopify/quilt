@@ -11,6 +11,19 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Restore behavior of `ctx.set` that was removed in 3.0.6 [[#2148](https://github.com/Shopify/quilt/pull/2148)]
 
+## 3.1.2 - 2022-02-01
+
+### Changed
+
+- Rerelease after failed publish. No code changes.
+
+## 3.1.1 - 2022-02-01
+
+### Changed
+
+- Reorder exports map to prioritize the `esnext` condition. [[#2148](https://github.com/Shopify/quilt/pull/2148)]
+- Update Loom build config. [[#2150](https://github.com/Shopify/quilt/pull/2150)]
+
 ## 3.1.0 - 2022-01-13
 
 ### Changed

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/logger",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "license": "MIT",
   "description": "Opinionated logger for production-scale applications",
   "main": "index.js",
@@ -41,9 +41,9 @@
   "exports": {
     "./": "./",
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     }
   }
 }

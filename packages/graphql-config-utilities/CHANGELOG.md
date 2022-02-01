@@ -5,10 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+<!-- ## Unreleased -->
+
+## 3.0.8 - 2022-02-01
 
 ### Changed
 
+- Rerelease after failed publish. No code changes.
+
+## 3.0.7 - 2022-02-01
+
+### Changed
+
+- Reorder exports map to prioritize the `esnext` condition. [[#2148](https://github.com/Shopify/quilt/pull/2148)]
+- Update Loom build config. [[#2150](https://github.com/Shopify/quilt/pull/2150)]
 - Clean test output. [[#2091](https://github.com/Shopify/quilt/pull/2091)]
 
 ## 3.0.6 - 2021-11-22

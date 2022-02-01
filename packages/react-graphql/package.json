@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "7.1.16",
+  "version": "7.1.18",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React",
   "main": "index.js",
@@ -26,19 +26,19 @@
   "dependencies": {
     "@apollo/react-common": ">=3.0.0 <4.0.0",
     "@apollo/react-hooks": ">=3.0.0 <4.0.0",
-    "@shopify/async": "^3.1.0",
-    "@shopify/react-async": "^4.1.14",
-    "@shopify/react-effect": "^4.1.7",
-    "@shopify/react-hooks": "^2.1.10",
-    "@shopify/react-idle": "^2.1.7",
-    "@shopify/useful-types": "^3.0.5",
+    "@shopify/async": "^3.1.2",
+    "@shopify/react-async": "^4.1.16",
+    "@shopify/react-effect": "^4.1.9",
+    "@shopify/react-hooks": "^2.1.12",
+    "@shopify/react-idle": "^2.1.9",
+    "@shopify/useful-types": "^3.0.7",
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
     "apollo-client": ">=2.0.0 <3.0.0",
     "apollo-link": ">=1.0.0 <2.0.0",
-    "graphql-typed": "^1.1.1"
+    "graphql-typed": "^1.1.3"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^3.3.1"
+    "@shopify/react-testing": "^3.3.3"
   },
   "files": [
     "build/",
@@ -56,9 +56,9 @@
   "exports": {
     "./": "./",
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     }
   }
 }

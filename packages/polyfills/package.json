@@ -1,6 +1,6 @@
 {
   "name": "@shopify/polyfills",
-  "version": "3.1.5",
+  "version": "3.1.7",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features",
   "sideEffects": true,
@@ -88,7 +88,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/useful-types": "^3.0.5",
+    "@shopify/useful-types": "^3.0.7",
     "caniuse-api": "^3.0.0",
     "core-js": "^3.13.0",
     "formdata-polyfill": "^3.0.20",
@@ -175,109 +175,109 @@
   "exports": {
     "./": "./",
     "./base": {
+      "esnext": "./base.esnext",
       "import": "./base.mjs",
-      "require": "./base.js",
-      "esnext": "./base.esnext"
+      "require": "./base.js"
     },
     "./fetch.browser": {
+      "esnext": "./fetch.browser.esnext",
       "import": "./fetch.browser.mjs",
-      "require": "./fetch.browser.js",
-      "esnext": "./fetch.browser.esnext"
+      "require": "./fetch.browser.js"
     },
     "./fetch.jest": {
+      "esnext": "./fetch.jest.esnext",
       "import": "./fetch.jest.mjs",
-      "require": "./fetch.jest.js",
-      "esnext": "./fetch.jest.esnext"
+      "require": "./fetch.jest.js"
     },
     "./fetch.node": {
+      "esnext": "./fetch.node.esnext",
       "import": "./fetch.node.mjs",
-      "require": "./fetch.node.js",
-      "esnext": "./fetch.node.esnext"
+      "require": "./fetch.node.js"
     },
     "./formdata.browser": {
+      "esnext": "./formdata.browser.esnext",
       "import": "./formdata.browser.mjs",
-      "require": "./formdata.browser.js",
-      "esnext": "./formdata.browser.esnext"
+      "require": "./formdata.browser.js"
     },
     "./formdata.jest": {
+      "esnext": "./formdata.jest.esnext",
       "import": "./formdata.jest.mjs",
-      "require": "./formdata.jest.js",
-      "esnext": "./formdata.jest.esnext"
+      "require": "./formdata.jest.js"
     },
     "./formdata.node": {
+      "esnext": "./formdata.node.esnext",
       "import": "./formdata.node.mjs",
-      "require": "./formdata.node.js",
-      "esnext": "./formdata.node.esnext"
+      "require": "./formdata.node.js"
     },
     "./idle-callback.browser": {
+      "esnext": "./idle-callback.browser.esnext",
       "import": "./idle-callback.browser.mjs",
-      "require": "./idle-callback.browser.js",
-      "esnext": "./idle-callback.browser.esnext"
+      "require": "./idle-callback.browser.js"
     },
     "./idle-callback.jest": {
+      "esnext": "./idle-callback.jest.esnext",
       "import": "./idle-callback.jest.mjs",
-      "require": "./idle-callback.jest.js",
-      "esnext": "./idle-callback.jest.esnext"
+      "require": "./idle-callback.jest.js"
     },
     "./idle-callback.node": {
+      "esnext": "./idle-callback.node.esnext",
       "import": "./idle-callback.node.mjs",
-      "require": "./idle-callback.node.js",
-      "esnext": "./idle-callback.node.esnext"
+      "require": "./idle-callback.node.js"
     },
     ".": {
+      "esnext": "./index.esnext",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "esnext": "./index.esnext"
+      "require": "./index.js"
     },
     "./intersection-observer.browser": {
+      "esnext": "./intersection-observer.browser.esnext",
       "import": "./intersection-observer.browser.mjs",
-      "require": "./intersection-observer.browser.js",
-      "esnext": "./intersection-observer.browser.esnext"
+      "require": "./intersection-observer.browser.js"
     },
     "./intersection-observer.jest": {
+      "esnext": "./intersection-observer.jest.esnext",
       "import": "./intersection-observer.jest.mjs",
-      "require": "./intersection-observer.jest.js",
-      "esnext": "./intersection-observer.jest.esnext"
+      "require": "./intersection-observer.jest.js"
     },
     "./intersection-observer.node": {
+      "esnext": "./intersection-observer.node.esnext",
       "import": "./intersection-observer.node.mjs",
-      "require": "./intersection-observer.node.js",
-      "esnext": "./intersection-observer.node.esnext"
+      "require": "./intersection-observer.node.js"
     },
     "./intl.browser": {
+      "esnext": "./intl.browser.esnext",
       "import": "./intl.browser.mjs",
-      "require": "./intl.browser.js",
-      "esnext": "./intl.browser.esnext"
+      "require": "./intl.browser.js"
     },
     "./intl.jest": {
+      "esnext": "./intl.jest.esnext",
       "import": "./intl.jest.mjs",
-      "require": "./intl.jest.js",
-      "esnext": "./intl.jest.esnext"
+      "require": "./intl.jest.js"
     },
     "./intl.node": {
+      "esnext": "./intl.node.esnext",
       "import": "./intl.node.mjs",
-      "require": "./intl.node.js",
-      "esnext": "./intl.node.esnext"
+      "require": "./intl.node.js"
     },
     "./mutation-observer.browser": {
+      "esnext": "./mutation-observer.browser.esnext",
       "import": "./mutation-observer.browser.mjs",
-      "require": "./mutation-observer.browser.js",
-      "esnext": "./mutation-observer.browser.esnext"
+      "require": "./mutation-observer.browser.js"
     },
     "./mutation-observer.jest": {
+      "esnext": "./mutation-observer.jest.esnext",
       "import": "./mutation-observer.jest.mjs",
-      "require": "./mutation-observer.jest.js",
-      "esnext": "./mutation-observer.jest.esnext"
+      "require": "./mutation-observer.jest.js"
     },
     "./mutation-observer.node": {
+      "esnext": "./mutation-observer.node.esnext",
       "import": "./mutation-observer.node.mjs",
-      "require": "./mutation-observer.node.js",
-      "esnext": "./mutation-observer.node.esnext"
+      "require": "./mutation-observer.node.js"
     },
     "./noop": {
+      "esnext": "./noop.esnext",
       "import": "./noop.mjs",
-      "require": "./noop.js",
-      "esnext": "./noop.esnext"
+      "require": "./noop.js"
     }
   }
 }
