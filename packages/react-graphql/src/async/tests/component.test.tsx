@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import gql from 'graphql-tag';
 import {ApolloClient} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';

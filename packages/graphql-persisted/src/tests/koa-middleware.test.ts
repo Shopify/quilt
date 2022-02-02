@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import {Header} from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {setAssets} from '@shopify/sewing-kit-koa';
