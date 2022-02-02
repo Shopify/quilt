@@ -44,12 +44,12 @@ export default class AddressFormatter {
   /* Returns the address ordered in an array based based on the country code
    * Eg.:
    *   [
-   *     'Shopify',
    *     'First Name Last Name',
+   *     'Shopify',
    *     'Address 1',
    *     'address2',
-   *     'Montréal',
-   *     'Canada Quebec H2J 4B7',
+   *     'Montréal Quebec H2J 4B7',
+   *     'Canada',
    *     '514 444 3333'
    *   ]
    */
