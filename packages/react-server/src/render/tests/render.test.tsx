@@ -166,12 +166,12 @@ describe('createRender', () => {
 
     it('returns a body with a meaningful error message in development', () => {
       withEnv('development', async () => {
-        const ctx = {
-          ...createMockContext({
+        const ctx = Object.assign(
+          createMockContext({
             requestBody: new Writable(),
           }),
-          locale: '',
-        };
+          {locale: ''},
+        );
 
         const renderFunction = createRender(() => <BrokenApp />);
         await renderFunction(ctx, noop);
@@ -187,7 +187,7 @@ describe('createRender', () => {
 
     it('throws a 500 with a meaningful error message in production', () => {
       withEnv('production', async () => {
-        const ctx = {...createMockContext(), locale: ''};
+        const ctx = Object.assign(createMockContext(), {locale: ''});
         const noopSpy = () => {};
         const throwSpy = jest
           .spyOn(ctx, 'throw')
