@@ -105,3 +105,8 @@ export type DeepOmit<T, K> = T extends Primitive
 export type DeepOmitArray<T extends any[], K> = {
   [P in keyof T]: DeepOmit<T[P], K>;
 };
+
+export type PartialSome<T, K extends keyof T> = Omit<T, K> &
+  Partial<Pick<T, K>>;
+export type RequireSome<T, K extends keyof T> = Omit<T, K> &
+  Required<Pick<T, K>>;
