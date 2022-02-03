@@ -14,7 +14,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 74 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 72 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -51,7 +51,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/koa-shopify-graphql-proxy](packages/koa-shopify-graphql-proxy) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg" width="200px" /></a> | A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app |
 | [@shopify/koa-shopify-webhooks](packages/koa-shopify-webhooks) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg" width="200px" /></a> | Receive webhooks from Shopify with ease |
 | [@shopify/logger](packages/logger) | <a href="https://badge.fury.io/js/%40shopify%2Flogger"><img src="https://badge.fury.io/js/%40shopify%2Flogger.svg" width="200px" /></a> | Opinionated logger for production-scale applications |
-| [@shopify/magic-entries-webpack-plugin](packages/magic-entries-webpack-plugin) | <a href="https://badge.fury.io/js/%40shopify%2Fmagic-entries-webpack-plugin"><img src="https://badge.fury.io/js/%40shopify%2Fmagic-entries-webpack-plugin.svg" width="200px" /></a> | A webpack plugin that automatically sets up entrypoints from filename conventions |
 | [@shopify/mime-types](packages/mime-types) | <a href="https://badge.fury.io/js/%40shopify%2Fmime-types"><img src="https://badge.fury.io/js/%40shopify%2Fmime-types.svg" width="200px" /></a> | MIME type consistency |
 | [@shopify/network](packages/network) | <a href="https://badge.fury.io/js/%40shopify%2Fnetwork"><img src="https://badge.fury.io/js/%40shopify%2Fnetwork.svg" width="200px" /></a> | Common values related to dealing with the network |
 | [@shopify/performance](packages/performance) | <a href="https://badge.fury.io/js/%40shopify%2Fperformance"><img src="https://badge.fury.io/js/%40shopify%2Fperformance.svg" width="200px" /></a> | Primitives for collecting browser performance metrics |
@@ -87,7 +86,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/react-tracking-pixel](packages/react-tracking-pixel) | <a href="https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel"><img src="https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel.svg" width="200px" /></a> | Allows React apps to easily embed tracking pixel iframes |
 | [@shopify/react-universal-provider](packages/react-universal-provider) | <a href="https://badge.fury.io/js/%40shopify%2Freact-universal-provider"><img src="https://badge.fury.io/js/%40shopify%2Freact-universal-provider.svg" width="200px" /></a> | Factory function and utilities to create self-serializing/deserializing providers that work for isomorphic applications |
 | [@shopify/react-web-worker](packages/react-web-worker) | <a href="https://badge.fury.io/js/%40shopify%2Freact-web-worker"><img src="https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg" width="200px" /></a> | A hook for using web workers in React applications |
-| [@shopify/rpc](packages/rpc) | <a href="https://badge.fury.io/js/%40shopify%2Frpc"><img src="https://badge.fury.io/js/%40shopify%2Frpc.svg" width="200px" /></a> | Utilities for `postMessage`-based remote procedure calls |
 | [@shopify/semaphore](packages/semaphore) | <a href="https://badge.fury.io/js/%40shopify%2Fsemaphore"><img src="https://badge.fury.io/js/%40shopify%2Fsemaphore.svg" width="200px" /></a> | Counting semaphore |
 | [@shopify/sewing-kit-koa](packages/sewing-kit-koa) | <a href="https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa"><img src="https://badge.fury.io/js/%40shopify%2Fsewing-kit-koa.svg" width="200px" /></a> | Easily access Sewing Kit assets from a Koa server |
 | [@shopify/statsd](packages/statsd) | <a href="https://badge.fury.io/js/%40shopify%2Fstatsd"><img src="https://badge.fury.io/js/%40shopify%2Fstatsd.svg" width="200px" /></a> | An opinionated StatsD client for Shopify Node.js servers and other StatsD utilities |
