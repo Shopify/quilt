@@ -180,15 +180,16 @@ function getAsyncAssetsFromManifest(
 ) {
   return [...ids]
     .reduce((all, id) => {
-      console.log('reduce id:', id);
-      console.log('typeof id:', typeof id);
-
       const assetsMatchingId = isAssetSelector(id)
         ? getAsyncAssetsById(id.id, manifest)
         : getAsyncAssetsById(id, manifest);
-      console.log('assetsMatchingId', assetsMatchingId);
-      console.log('typeof assetsMatchingId', typeof assetsMatchingId);
 
+      console.log({
+        'reduce id': id,
+        'typeof id': typeof id,
+        assetsMatchingId,
+        'typeof assetsMatchingId': typeof assetsMatchingId,
+      });
       const normalizedKind =
         kind || (isAssetSelector(id) && kindFromAssetSelector(id)) || null;
       console.log('normalizedKind', normalizedKind);
@@ -233,7 +234,9 @@ function kindFromAssetSelector({styles = true, scripts = true}: AssetSelector) {
 }
 
 function isAssetSelector(selector: unknown): selector is AssetSelector {
-  console.log('selector:', selector);
-  console.log('typeof selector:', typeof selector);
+  console.log({
+    'selector:': selector,
+    'typeof selector:': typeof selector,
+  });
   return typeof selector === 'object' && selector != null && 'id' in selector;
 }
