@@ -299,9 +299,7 @@ function withRandom<T>(keypath: FieldDetails[], func: () => T, seedOffset = 0) {
       ),
     ) + seedOffset,
   );
-  const value = func();
-  faker.seed(Math.random() * 10000);
-  return value;
+  return func();
 }
 
 function createValue<T>(
