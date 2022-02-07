@@ -1,5 +1,4 @@
 import React from 'react';
-import {Arguments, MaybeFunctionReturnType} from '@shopify/useful-types';
 
 export type PropsFor<
   T extends string | React.ComponentType<any>
@@ -118,8 +117,10 @@ export interface Node<Props> {
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
-    ...args: DeepPartialArguments<Arguments<Props[K]>>
-  ): MaybeFunctionReturnType<NonNullable<Props[K]>>;
+    ...args: DeepPartialArguments<Props[K]>
+  ): ReturnType<
+    NonNullable<Props[K] extends (...args: any[]) => any ? Props[K] : never>
+  >;
   triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T;
 
   debug(options?: DebugOptions): string;

@@ -32,7 +32,6 @@
   "dependencies": {
     "@shopify/react-effect": "^4.1.9",
     "@shopify/react-hydrate": "^2.1.14",
-    "@shopify/useful-types": "^3.1.0",
     "@types/multistream": "^2.1.1",
     "multistream": "^2.1.1",
     "serialize-javascript": "^3.0.0"

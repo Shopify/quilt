@@ -11,5 +11,5 @@
     "./src/**/*.tsx"
   ],
   "exclude": ["**/test/**/*", "**/tests/**/*"],
-  "references": [{"path": "../graphql-typed"}, {"path": "../useful-types"}]
+  "references": [{"path": "../graphql-typed"}]
 }

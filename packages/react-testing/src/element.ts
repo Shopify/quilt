@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  Arguments,
-  MaybeFunctionReturnType as ReturnType,
-} from '@shopify/useful-types';
 
 import {nodeName, toReactString} from './toReactString';
 import {
@@ -196,8 +192,10 @@ export class Element<Props> implements Node<Props> {
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
-    ...args: DeepPartialArguments<Arguments<Props[K]>>
-  ): ReturnType<NonNullable<Props[K]>> {
+    ...args: DeepPartialArguments<Props[K]>
+  ): ReturnType<
+    NonNullable<Props[K] extends (...args: any[]) => any ? Props[K] : never>
+  > {
     return this.root.act(() => {
       const propValue = this.props[prop];
 
