@@ -1,19 +1,4 @@
-export type ThenType<T> = T extends Promise<infer U> ? U : T;
-
-export type Arguments<T> = T extends (...args: infer U) => any ? U : never;
-export type ArgumentAtIndex<
-  Func,
-  Index extends keyof Arguments<Func>
-> = Arguments<Func>[Index];
-export type FirstArgument<T> = ArgumentAtIndex<T, 0>;
-
-export type MaybeFunctionReturnType<T> = T extends (...args: any[]) => infer U
-  ? U
-  : never;
-
 export type ArrayElement<T> = T extends (infer U)[] ? U : never;
-
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]
@@ -66,19 +51,6 @@ type ReactStatics =
 export type NonReactStatics<T> = Pick<T, Exclude<keyof T, ReactStatics>>;
 
 export type ExtendedWindow<T> = Window & typeof globalThis & T;
-
-export type ConstructorArguments<T> = T extends {
-  new (...args: infer U): any;
-}
-  ? U
-  : never;
-
-export type ConstructorArgumentAtIndex<
-  T,
-  I extends keyof ConstructorArguments<T>
-> = ConstructorArguments<T>[I];
-
-export type FirstConstructorArgument<T> = ConstructorArgumentAtIndex<T, 0>;
 
 // Reference https://stackoverflow.com/questions/55539387/deep-omit-with-typescript
 type Primitive =

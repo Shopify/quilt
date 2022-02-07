@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Breaking Change
+
+- `Omit` has been removed. Remove any `import { Omit } from '@shopify/useful-types';` and use the built-in [`Omit`](https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys) type
+- `ThenType` has been removed. You should use the built-in `Awaited` type instead
+- `Arguments`, `ArgumentsAtIndex` and `FirstArgument` have been removed. Replace usage of `Arguments` with the built-in [`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype) type. Replace usage of `ArgumentAtIndex` with `Parameters<T>[i]` and `FirstArgument<T>` with `Parameters<T>[0]`.
+- `ConstructorArguments`, `ConstructorArgumentAtIndex` and `FirstConstructorArgument` have been removed. Replace usage of `ConstructorArguments` with the built-in [`ConstructorParameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#constructorparameterstype) type. Replace usage of `ConstructorArgumentAtIndex` with `ConstructorParameters<T>[i]` and `FirstConstructorArgument<T>` with `ConstructorParameters<T>[0]`
+- `MaybeFunctionReturnType` has been removed. Replace usage of `MaybeFunctionReturnType` with the built-in `ReturnType` type
 
 ## 3.1.0 - 2022-02-09
 
