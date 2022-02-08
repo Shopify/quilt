@@ -1,9 +1,9 @@
-import faker from '@faker-js/faker';
 // eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema} from 'graphql';
 import {parse, DocumentNode} from 'graphql-typed';
+import originalFaker from '@faker-js/faker/locale/en';
 
-import {createFiller, list, Options} from '../fill';
+import {createFiller, list, Options, faker} from '../fill';
 
 jest.mock('../utilities', () => {
   const utilities = jest.requireActual('../utilities');
@@ -1324,6 +1324,12 @@ describe('createFiller()', () => {
         people: [{name: expect.any(String)}, {name: 'Chris'}],
       });
     });
+  });
+});
+
+describe('faker', () => {
+  it('re-exports faker for use by consumers', () => {
+    expect(faker).toStrictEqual(originalFaker);
   });
 });
 

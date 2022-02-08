@@ -7,6 +7,18 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 1.4.0 - 2022-02-02
+
+### Changed
+
+- Re-export the instance of faker used in graphql-fixtures so that it can be leveraged easily by consumers [[#2155]](https://github.com/Shopify/quilt/pull/2155)
+
+## 1.3.0 - 2022-02-01
+
+### Changed
+
+- Load a single locale of faker (en) instead of loading all locales. [[#2152](https://github.com/Shopify/quilt/pull/2152)]
+
 ## 1.2.3 - 2022-02-01
 
 ### Changed

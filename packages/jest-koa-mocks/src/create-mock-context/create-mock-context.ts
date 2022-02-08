@@ -112,6 +112,5 @@ export default function createContext<
   context.request.body = requestBody;
   context.request.rawBody = rawBody;
 
-  context.set = () => {};
   return context as Context;
 }

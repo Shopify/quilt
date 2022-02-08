@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import {
   GraphQLSchema,
   GraphQLType,
@@ -22,6 +22,8 @@ import {
 
 import {randomFromArray, chooseNull} from './utilities';
 
+// Re-export faker so that the exact version can be used by consumers
+export {faker};
 export interface FieldMetadata {
   fieldIndex?: number;
   fieldName: string;

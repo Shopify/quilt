@@ -132,3 +132,25 @@ type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: str
 
   type SelectiveObj = DeepOmitArray<Obj[], '__typename'>; // {foo: string}[]
   ```
+
+- `PartialSome<T, K extends keyof T>` Make specified keys K of T optional.
+
+  ```ts
+  interface Obj {
+    foo: string;
+    bar: string;
+  }
+
+  type HalfPartialObj = PartialSome<Obj, 'foo'>; // {foo?: string, bar: string}
+  ```
+
+- `RequireSome<T, K extends keyof T>` Make specified keys K of T required.
+
+  ```ts
+  interface Obj {
+    foo?: string;
+    bar?: string;
+  }
+
+  type HalfRequiredObj = RequireSome<Obj, 'foo'>; // {foo: string, bar?: string}
+  ```

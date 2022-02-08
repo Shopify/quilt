@@ -32,6 +32,21 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/await-thenable': 'off',
     'import/no-extraneous-dependencies': 'error',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: '@faker-js/faker',
+            message: "Please use '@faker-js/faker/locale/en' instead",
+          },
+          {
+            name: 'faker',
+            message: "Please use 'faker/locale/en' instead",
+          },
+        ],
+      },
+    ],
   },
   overrides: [
     {

@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 import React from 'react';
 
 export interface Variant {

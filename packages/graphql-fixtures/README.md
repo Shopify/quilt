@@ -57,6 +57,20 @@ If you need to have the filled object immediately, you can invoke `fill` as foll
 const data = fill(myQuery, data)({query: myQuery});
 ```
 
+#### Using faker
+
+When using `faker` to provide fake data within your filler function, you should use the `faker` instance that is exported by this library in order to avoid data mismatches. Rather than `import faker from '@faker-js/faker'` instead use:
+
+```ts
+import {createFiller, faker} from 'graphql-fixtures';
+
+const fill = createFiller(schema, {
+  resolvers: {
+    ID: (_, {parent}) => `gid://${parent.name}/${faker.datatype.number()}`,
+  },
+});
+```
+
 #### Interfaces and Unions
 
 When attempting to fill data for a union or interface type, the filler will default to selecting a random type that implements the interface/ is a member of the union. If you would like to ensure a particular type is selected, but leave all the other fields to be filled by resolvers, you can provide a `__typename` field in the `data` argument for that field that selects the type you wish to be filled.
@@ -89,7 +103,7 @@ query MyQuery {
 We can create a simpler filler globally, and use it every time we wish to generate a fixture:
 
 ```ts
-import {createFiller} from 'graphql-fixtures';
+import {createFiller, faker} from 'graphql-fixtures';
 import schema from './schema';
 import myQuery from './MyQuery.graphql';
 
@@ -101,6 +115,11 @@ const fillMyQueryOne = fill(myQuery);
 // will result in {self: {__typename: 'Person', name: 'Chris'}}
 const fillMyQueryTwo = fill(myQuery, {self: {name: 'Chris'}});
 const fillMyQueryThree = fill(myQuery, {self: () => ({name: 'Chris'})});
+
+// will result in an object with a random name
+const fillMyQueryThree = fill(myQuery, {
+  self: () => ({name: faker.name.firstName()}),
+});
 ```
 
 As noted above, individual fields can be a function that takes the current GraphQL request and details about the field, and returns the partial data. You can even do this for the entire partial object, allowing you to completely switch out what partial data is used for an invocation based on things like the variables to the current query:
@@ -128,6 +147,11 @@ When a single number is provided as the first argument, an array of that size wi
 
 ```ts
 // assuming `widgets` in a list of Widget objects
+import {createFiller, faker} from 'graphql-fixtures';
+import schema from './schema';
+import widgetQuery from './WidgetQuery.graphql';
+
+const fill = createFiller(schema);
 
 const fixture = fill(widgetQuery, {
   widgets: list([2, 4], {id: () => faker.datatype.uuid()}),

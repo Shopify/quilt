@@ -1,5 +1,5 @@
 import React from 'react';
-import faker from '@faker-js/faker';
+import faker from '@faker-js/faker/locale/en';
 
 import {Root} from '../root';
 import {mount, createMount} from '../mount';

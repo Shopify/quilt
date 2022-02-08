@@ -163,6 +163,12 @@ describe('create-mock-context', () => {
     expect(context.get('test')).toBe('value');
   });
 
+  it('sets response headers through ctx.set', () => {
+    const context = createContext();
+    context.set('test', 'value');
+    expect(context.response.headers.test).toBe('value');
+  });
+
   it('includes custom state', () => {
     const state = {
       productName: 'Fabulous robot',
