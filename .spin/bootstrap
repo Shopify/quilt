@@ -1,0 +1,8 @@
+# install packages
+yarn install
+# prime build caches
+yarn build || true
+# prime the lint cache
+yarn lint || true
+# prime the jest cache
+CI=1 yarn test --no-watch || true
