@@ -8,7 +8,7 @@ import {
   OperationVariables,
 } from '@apollo/react-common';
 import {QueryOptions, MutationOptions} from '@apollo/react-hooks';
-import {Omit, IfAllNullableKeys} from '@shopify/useful-types';
+import {IfAllNullableKeys} from '@shopify/useful-types';
 
 import {VariableOptions} from '../types';
 

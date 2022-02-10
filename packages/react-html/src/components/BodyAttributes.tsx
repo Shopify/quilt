@@ -1,8 +1,6 @@
-import {FirstArgument} from '@shopify/useful-types';
-
 import {useBodyAttributes} from '../hooks';
 
-type Props = FirstArgument<typeof useBodyAttributes>;
+type Props = Parameters<typeof useBodyAttributes>[0];
 
 export function BodyAttributes(props: Props) {
   useBodyAttributes(props);

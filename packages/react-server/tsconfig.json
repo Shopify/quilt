@@ -19,7 +19,6 @@
     {"path": "../react-cookie"},
     {"path": "../with-env"},
     {"path": "../react-html"},
-    {"path": "../useful-types"},
     {"path": "../react-hydrate"},
     {"path": "../react-effect"},
     {"path": "../react-testing"}

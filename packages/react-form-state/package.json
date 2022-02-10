@@ -29,9 +29,6 @@
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"
   },
-  "devDependencies": {
-    "@shopify/useful-types": "^3.1.0"
-  },
   "sideEffects": false,
   "files": [
     "build/",

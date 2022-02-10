@@ -1,7 +1,6 @@
 import {useEffect, useRef, useCallback} from 'react';
 import {DocumentNode} from 'graphql-typed';
 import {WatchQueryOptions} from 'apollo-client';
-import {Omit} from '@shopify/useful-types';
 
 import useApolloClient from './apollo-client';
 

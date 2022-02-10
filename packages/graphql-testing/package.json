@@ -38,7 +38,6 @@
     "jest-matcher-utils": "^26.6.2"
   },
   "devDependencies": {
-    "@shopify/useful-types": "^3.1.0",
     "graphql-typed": "^1.1.3"
   },
   "files": [

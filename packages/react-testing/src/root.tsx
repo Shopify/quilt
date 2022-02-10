@@ -1,10 +1,6 @@
 import React from 'react';
 import {render, unmountComponentAtNode} from 'react-dom';
 import {act} from 'react-dom/test-utils';
-import {
-  Arguments,
-  MaybeFunctionReturnType as ReturnType,
-} from '@shopify/useful-types';
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
@@ -177,8 +173,10 @@ export class Root<Props> implements Node<Props> {
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
-    ...args: DeepPartialArguments<Arguments<Props[K]>>
-  ): ReturnType<NonNullable<Props[K]>> {
+    ...args: DeepPartialArguments<Props[K]>
+  ): ReturnType<
+    NonNullable<Props[K] extends (...args: any[]) => any ? Props[K] : never>
+  > {
     return this.withRoot((root) => root.trigger(prop, ...(args as any)));
   }
 

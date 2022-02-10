@@ -10,5 +10,5 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "references": [{"path": "../predicates"}, {"path": "../useful-types"}]
+  "references": [{"path": "../predicates"}]
 }

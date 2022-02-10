@@ -1,10 +1,8 @@
-import {FirstArgument} from '@shopify/useful-types';
-
 import {Performance} from '../performance';
 import {Navigation} from '../navigation';
 import {EventType} from '../types';
 
-type FirstInputDelayCallback = FirstArgument<PerfMetrics['onFirstInputDelay']>;
+type FirstInputDelayCallback = Parameters<PerfMetrics['onFirstInputDelay']>[0];
 
 describe('Performance', () => {
   // We are not adding all the required tests here until we have time

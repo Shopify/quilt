@@ -1,5 +1,4 @@
 import React from 'react';
-import {Omit} from '@shopify/useful-types';
 
 export interface Props {
   onChange?(value: string): void;

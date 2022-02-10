@@ -1,6 +1,5 @@
 import {useEffect, useContext} from 'react';
 import {useServerEffect} from '@shopify/react-effect';
-import {FirstArgument} from '@shopify/useful-types';
 
 import {HtmlContext} from './context';
 import {HtmlManager} from './manager';
@@ -65,7 +64,7 @@ export function useLocale(locale: string) {
 }
 
 export function useHtmlAttributes(
-  htmlAttributes: FirstArgument<HtmlManager['addHtmlAttributes']>,
+  htmlAttributes: Parameters<HtmlManager['addHtmlAttributes']>[0],
 ) {
   useDomEffect((manager) => manager.addHtmlAttributes(htmlAttributes), [
     JSON.stringify(htmlAttributes),
@@ -73,7 +72,7 @@ export function useHtmlAttributes(
 }
 
 export function useBodyAttributes(
-  bodyAttributes: FirstArgument<HtmlManager['addBodyAttributes']>,
+  bodyAttributes: Parameters<HtmlManager['addBodyAttributes']>[0],
 ) {
   useDomEffect((manager) => manager.addBodyAttributes(bodyAttributes), [
     JSON.stringify(bodyAttributes),

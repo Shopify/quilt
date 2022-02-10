@@ -513,7 +513,7 @@ expect(componentElement.prop('name')).toBe('Gord');
 
 Like `findWhere`, but returns all matches as an array.
 
-##### <a name="trigger"></a> `trigger<K extends FunctionKeys<Props>>(prop: K, ...args: Arguments<Props<K>>): ReturnType<Props<K>>`
+##### <a name="trigger"></a> `trigger<K extends FunctionKeys<Props>>(prop: K, ...args: Parameters<Props<K>>): ReturnType<Props<K>>`
 
 Simulates a function prop being called on your component. This is usually the key to effective tests: after you have mounted your component, you simulate a change in a subcomponent, and assert that the resulting react tree is in the expected shape. This method automatically uses [`Root#act`](#act) when calling the prop, so updates will automatically be applied to the root component.
 

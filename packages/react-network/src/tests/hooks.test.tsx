@@ -1,7 +1,6 @@
 import React from 'react';
 import {createMount} from '@shopify/react-testing';
 import {Header} from '@shopify/network';
-import {FirstArgument} from '@shopify/useful-types';
 
 import {NetworkManager} from '../manager';
 import {NetworkContext} from '../context';
@@ -11,7 +10,7 @@ describe('useAcceptLanguage()', () => {
   function MockComponent({
     fallback,
   }: {
-    fallback?: FirstArgument<typeof useAcceptLanguage>;
+    fallback?: Parameters<typeof useAcceptLanguage>[0];
   }) {
     const locales = useAcceptLanguage(fallback);
 

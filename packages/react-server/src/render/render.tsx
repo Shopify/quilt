@@ -18,7 +18,6 @@ import {
   NetworkContext,
   NetworkManager,
 } from '@shopify/react-network/server';
-import {ArgumentAtIndex} from '@shopify/useful-types';
 import {extract} from '@shopify/react-effect/server';
 import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 import {
@@ -48,7 +47,7 @@ interface Data {
 }
 
 export type RenderOptions = Pick<
-  NonNullable<ArgumentAtIndex<typeof extract, 1>>,
+  NonNullable<Parameters<typeof extract>[1]>,
   'afterEachPass' | 'betweenEachPass'
 > & {
   assetPrefix?: string;
