@@ -11,7 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['12.22', '14.x', '16.x']
+        # Node 14.19 and 16.14 contain updates to ICU, which affects how date
+        # formatting occurs. This change won't be backported onto the 12.x
+        # branch so we're in a fun state where latest 12.x gives different
+        # output to 14.x and 16.x, so for now lock to the last version in 14
+        # and 16 before the ICU change.
+        # Once we drop support for node 12 we can consider using 14.x and 16.x
+        node-version: ['12.22', '14.18', '16.13']
     timeout-minutes: 15
 
     steps:
