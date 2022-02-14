@@ -2699,10 +2699,10 @@
     "@types/babel__core" "^7.1.7"
     core-js "^3.14.0"
 
-"@shopify/loom-plugin-build-library@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@shopify/loom-plugin-build-library/-/loom-plugin-build-library-1.0.1.tgz#02e81cce4a5bbbaa43501b9bff8ec51116e88f75"
-  integrity sha512-uLnkK6mpKJW4jO7rtycxOFyoE7QM1wDYz6RKO3n8KKLAqflfbOkxM3sMh+JwEVPfIxPAeVdNgga2F0uE9jOeGA==
+"@shopify/loom-plugin-build-library@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@shopify/loom-plugin-build-library/-/loom-plugin-build-library-1.0.2.tgz#fa91eb0dd9d074a5895505dd83d193672b70ca7d"
+  integrity sha512-E83qdeXQoWMmdJylA0DdfWTd2rl0rLhguLvOiZfKXhjAbW34DgB2n00wBAAGPykEbW9MB/ptsJR7R0aYoQWr/Q==
   dependencies:
     "@rollup/plugin-babel" "^5.3.0"
     "@rollup/plugin-commonjs" "^19.0.0"

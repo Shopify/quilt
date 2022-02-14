@@ -44,7 +44,7 @@
     "@shopify/eslint-plugin": "^40.2.3",
     "@shopify/loom": "^1.0.1",
     "@shopify/loom-cli": "^1.0.1",
-    "@shopify/loom-plugin-build-library": "^1.0.1",
+    "@shopify/loom-plugin-build-library": "^1.0.2",
     "@shopify/loom-plugin-eslint": "^2.0.0",
     "@shopify/loom-plugin-prettier": "^2.0.0",
     "@shopify/typescript-configs": "^5.0.0",
