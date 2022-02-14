@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "license": "MIT",
   "description": "Manage React forms tersely and safely-typed with no magic using React hooks",
   "main": "index.js",
@@ -36,7 +36,7 @@
   ],
   "dependencies": {
     "@shopify/predicates": "^2.0.6",
-    "@shopify/react-hooks": "^2.1.13",
+    "@shopify/react-hooks": "^2.1.14",
     "fast-deep-equal": "^3.1.3",
     "get-value": "^3.0.1"
   },
