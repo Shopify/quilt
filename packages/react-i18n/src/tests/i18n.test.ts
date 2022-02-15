@@ -622,6 +622,7 @@ describe('I18n', () => {
     it('handles values starting with -', () => {
       const i18n = new I18n(defaultTranslations, defaultDetails);
       expect(i18n.unformatNumber('-12')).toBe('-12');
+      expect(i18n.unformatNumber('-')).toBe('');
     });
 
     describe('en-ca locale', () => {
@@ -1099,6 +1100,7 @@ describe('I18n', () => {
     it('handles values starting with -', () => {
       const i18n = new I18n(defaultTranslations, defaultDetails);
       expect(i18n.unformatCurrency('-12', 'USD')).toBe('-12.00');
+      expect(i18n.unformatCurrency('-', 'USD')).toBe('');
     });
 
     describe('unique currencies or locales', () => {
