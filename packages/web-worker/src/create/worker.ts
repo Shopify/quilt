@@ -42,8 +42,8 @@ export function createWorkerFactory<T = unknown>(
     }
 
     // The babel plugin that comes with this package actually turns the argument
-    // into a string (the public path of the worker script). If it’s a function,
-    // it’s because we’re in an environment where we didn’t transform it into a
+    // into a string (the public path of the worker script). If it's a function,
+    // it's because we're in an environment where we didn't transform it into a
     // worker. In that case, we can use the fact that we will get access to the
     // real module and pretend to be a worker that way.
     if (typeof script === 'function') {
@@ -60,7 +60,7 @@ export function createWorkerFactory<T = unknown>(
       ) as any;
     }
 
-    // If we aren’t in an environment that supports Workers, just bail out
+    // If we aren't in an environment that supports Workers, just bail out
     // with a dummy worker that throws for every method call.
     if (typeof window === 'undefined') {
       return new Proxy(
@@ -93,7 +93,6 @@ export function expose(
 ) {
   const endpoint = getEndpoint(caller);
 
-  // eslint-disable-next-line babel/no-unused-expressions
   endpoint?.expose(api);
 
   return endpoint != null;
@@ -102,7 +101,6 @@ export function expose(
 export function terminate(caller: any) {
   const endpoint = getEndpoint(caller);
 
-  // eslint-disable-next-line babel/no-unused-expressions
   endpoint?.terminate();
   workerEndpointCache.delete(caller);
 

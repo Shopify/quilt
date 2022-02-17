@@ -87,6 +87,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'react/jsx-no-constructed-context-values': 'off',
         'react/jsx-key': 'off',
+        '@shopify/react-require-autocomplete': 'off'
       },
     },
     {

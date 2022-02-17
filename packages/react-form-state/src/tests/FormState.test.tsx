@@ -1401,7 +1401,7 @@ describe('<FormState />', () => {
         errors: updatedErrors,
       } = lastCallArgs(renderPropSpy);
 
-      expect(updatedError).toStrictEqual('product bad');
+      expect(updatedError).toBe('product bad');
       expect(updatedErrors).toStrictEqual([]);
     });
 

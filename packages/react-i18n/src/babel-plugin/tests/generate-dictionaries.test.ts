@@ -52,7 +52,7 @@ describe('generate-dictionaries', () => {
 
     const dictionary = await readFile(`${rootDir}/index.js`);
 
-    expect(dictionary.toString()).toStrictEqual(
+    expect(dictionary.toString()).toBe(
       `export default JSON.parse("{\\"en\\":{\\"Foo\\":\\"foo_en\\",\\"Bar\\":\\"bar_en\\"}}")`,
     );
   });

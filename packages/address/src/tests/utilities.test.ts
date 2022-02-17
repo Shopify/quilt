@@ -20,7 +20,7 @@ const address = {
 describe('renderLineTemplate()', () => {
   it('replaces the fields by address fields for Japan', () => {
     const template = '{country} - {city} {zip} {province}';
-    expect(renderLineTemplate(Canada, template, address)).toStrictEqual(
+    expect(renderLineTemplate(Canada, template, address)).toBe(
       'Canada - 目黒区 100-8994',
     );
   });
@@ -32,24 +32,24 @@ describe('renderLineTemplate()', () => {
         ...address,
         province: 'lol',
       }),
-    ).toStrictEqual('Canada - 目黒区 100-8994');
+    ).toBe('Canada - 目黒区 100-8994');
   });
 
   it('replaces unexisting field by empty if does not exist', () => {
     const template = '{country} - {city} {zip} {province} {what}';
-    expect(renderLineTemplate(Canada, template, address)).toStrictEqual(
+    expect(renderLineTemplate(Canada, template, address)).toBe(
       'Canada - 目黒区 100-8994',
     );
   });
 
   it('returns empty string if nothing is replaced', () => {
     const template = '{firstName} - {lastName}';
-    expect(renderLineTemplate(Canada, template, address)).toStrictEqual('');
+    expect(renderLineTemplate(Canada, template, address)).toBe('');
   });
 
   it('returns empty string if template does not match', () => {
     const template = '[Nope]';
-    expect(renderLineTemplate(Canada, template, address)).toStrictEqual('');
+    expect(renderLineTemplate(Canada, template, address)).toBe('');
   });
 
   it('returns empty string for province if country does not have zones', () => {
@@ -59,6 +59,6 @@ describe('renderLineTemplate()', () => {
         ...address,
         province: 'NOPE',
       }),
-    ).toStrictEqual('');
+    ).toBe('');
   });
 });

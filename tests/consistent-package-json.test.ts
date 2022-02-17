@@ -64,7 +64,7 @@ packages.forEach(
         });
 
         it('specifies a description', () => {
-          expect(packageJSON.description).not.toBeUndefined();
+          expect(packageJSON.description).toBeDefined();
         });
 
         if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {

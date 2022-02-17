@@ -27,12 +27,12 @@ describe('AddressFormatter', () => {
       const addressFormatter = new AddressFormatter('ja');
       let country = await addressFormatter.getCountry('CA');
 
-      expect(country.name).toStrictEqual('カナダ');
+      expect(country.name).toBe('カナダ');
 
       addressFormatter.updateLocale('en');
       country = await addressFormatter.getCountry('CA');
 
-      expect(country.name).toStrictEqual('Canada');
+      expect(country.name).toBe('Canada');
     });
   });
 
@@ -59,7 +59,7 @@ describe('AddressFormatter', () => {
       const addressFormatter = new AddressFormatter('af');
       const country = await addressFormatter.getCountry('CA');
 
-      expect(country.name).toStrictEqual('Canada');
+      expect(country.name).toBe('Canada');
     });
 
     it('does not call the API again for the same country if the locale is the same', async () => {
@@ -113,7 +113,7 @@ describe('AddressFormatter', () => {
       const addressFormatter = new AddressFormatter('af');
       const loadedCountries = await addressFormatter.getCountries();
 
-      expect(loadedCountries[0].name).toStrictEqual('Afghanistan');
+      expect(loadedCountries[0].name).toBe('Afghanistan');
     });
 
     it('does not call the API again for the countries if the locale is the same.', async () => {

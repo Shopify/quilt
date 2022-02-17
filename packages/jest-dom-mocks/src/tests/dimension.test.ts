@@ -106,7 +106,7 @@ describe('Dimension mocks', () => {
       const testEl = document.createElement('div');
 
       const originalScrollWidth = testEl.scrollWidth;
-      expect(originalScrollWidth).not.toBeUndefined();
+      expect(originalScrollWidth).toBeDefined();
 
       dimension.mock({
         scrollWidth: 200,
