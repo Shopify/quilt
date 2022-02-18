@@ -93,6 +93,7 @@ function serverSource(options: Options, compiler: Compiler) {
       return React.createElement(App, {
         url: ctx.request.URL,
         data: ctx.state.quiltData,
+        isServer: true,
       });
     }
 
