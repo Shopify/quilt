@@ -7,6 +7,7 @@ export {
   useParams,
   useLocation,
   useHistory,
+  generatePath,
 } from 'react-router-dom';
 export type {
   SwitchProps,
