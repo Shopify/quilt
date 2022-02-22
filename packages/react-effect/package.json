@@ -51,16 +51,16 @@
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {
-    "./": "./",
+    "./server": {
+      "esnext": "./server.esnext",
+      "import": "./server.mjs",
+      "require": "./server.js"
+    },
     ".": {
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
     },
-    "./server": {
-      "esnext": "./server.esnext",
-      "import": "./server.mjs",
-      "require": "./server.js"
-    }
+    "./*": "./"
   }
 }
