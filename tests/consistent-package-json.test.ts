@@ -28,6 +28,8 @@ const KNOWN_TEMPLATE_KEYS = [
   'version',
 ];
 
+const GLOB_PATH = './*';
+
 const SINGLE_ENTRYPOINT_EXCEPTIONS = ['graphql-persisted'];
 
 const ROOT_PATH = resolve(__dirname, '..');
@@ -142,7 +144,7 @@ packages.forEach(
 
           it('specifies esnext, import, and require as the ordered keys in the exports map', () => {
             Object.keys(packageJSON.exports)
-              .filter((key) => key !== './')
+              .filter((key) => key !== GLOB_PATH)
               .forEach((key) => {
                 expect(Object.keys(packageJSON.exports[key])).toStrictEqual([
                   'esnext',
