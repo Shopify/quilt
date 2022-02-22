@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Minor: Add generatePath export to be able to use it in projects. [[#2183](https://github.com/Shopify/quilt/pull/2183)]
+- Add generatePath export. [[#2183](https://github.com/Shopify/quilt/pull/2183)]
 
 ## 1.4.5 - 2022-02-14
 
