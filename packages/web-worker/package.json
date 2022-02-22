@@ -21,12 +21,6 @@
     }
   },
   "exports": {
-    ".": {
-      "esnext": "./index.esnext",
-      "import": "./index.mjs",
-      "require": "./index.js"
-    },
-    "./": "./",
     "./babel": {
       "esnext": "./babel.esnext",
       "import": "./babel.mjs",
@@ -41,7 +35,13 @@
       "esnext": "./worker.esnext",
       "import": "./worker.mjs",
       "require": "./worker.js"
-    }
+    },
+    ".": {
+      "esnext": "./index.esnext",
+      "import": "./index.mjs",
+      "require": "./index.js"
+    },
+    "./*": "./"
   },
   "sideEffects": false,
   "publishConfig": {
