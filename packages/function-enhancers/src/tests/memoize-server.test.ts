@@ -14,8 +14,8 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toStrictEqual(2);
-      expect(addOneMemoized(2)).toStrictEqual(3);
+      expect(addOneMemoized(1)).toBe(2);
+      expect(addOneMemoized(2)).toBe(3);
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
@@ -27,8 +27,8 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toStrictEqual(2);
-      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(addOneMemoized(1)).toBe(2);
+      expect(addOneMemoized(1)).toBe(2);
       expect(spy).toHaveBeenCalledTimes(2);
     });
   });

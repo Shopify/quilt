@@ -17,8 +17,8 @@ describe('memoize()', () => {
 
     const myClass = new MyClass();
 
-    expect(myClass.addOne(1)).toStrictEqual(2);
-    expect(myClass.addOne(1)).toStrictEqual(2);
+    expect(myClass.addOne(1)).toBe(2);
+    expect(myClass.addOne(1)).toBe(2);
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
@@ -34,8 +34,8 @@ describe('memoize()', () => {
 
     const myClass = new MyClass();
 
-    expect(myClass.getName('Lisa', '1')).toStrictEqual('Lisa');
-    expect(myClass.getName('Lisa', '1')).toStrictEqual('Lisa');
+    expect(myClass.getName('Lisa', '1')).toBe('Lisa');
+    expect(myClass.getName('Lisa', '1')).toBe('Lisa');
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
@@ -55,10 +55,10 @@ describe('memoize()', () => {
     }
 
     const myClass1 = new MyClass(1);
-    expect(myClass1.addExtraNumber(1)).toStrictEqual(3);
+    expect(myClass1.addExtraNumber(1)).toBe(3);
 
     const myClass2 = new MyClass(3);
-    expect(myClass2.addExtraNumber(1)).toStrictEqual(5);
+    expect(myClass2.addExtraNumber(1)).toBe(5);
 
     expect(spy).toHaveBeenCalledTimes(2);
   });

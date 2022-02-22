@@ -83,21 +83,21 @@ describe('Browser', () => {
       const userAgent =
         'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13G36 Safari/601.1';
 
-      expect(new Browser({userAgent}).isMobile).toStrictEqual(true);
+      expect(new Browser({userAgent}).isMobile).toBe(true);
     });
 
     it('returns true when device type is tablet', () => {
       const userAgent =
         'Mozilla/5.0 (iPad; CPU OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E230 Safari/601.1';
 
-      expect(new Browser({userAgent}).isMobile).toStrictEqual(true);
+      expect(new Browser({userAgent}).isMobile).toBe(true);
     });
 
     it('returns false when device is a desktop', () => {
       const userAgent =
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:69.0) Gecko/20100101 Firefox/69.0';
 
-      expect(new Browser({userAgent}).isMobile).toStrictEqual(false);
+      expect(new Browser({userAgent}).isMobile).toBe(false);
     });
   });
 
@@ -106,77 +106,77 @@ describe('Browser', () => {
       const userAgent =
         'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13G36 Safari/601.1';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns true on Mobile Shopify when iOS version is 9 and app version is not 9', () => {
       const userAgent =
         'Shopify Mobile/iOS/5.3.1 (iPad8,1 Simulator/com.shopify.ShopifyInternal/9.1.2)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns true on Mobile Shopify when iOS version is 9 and app version is 9', () => {
       const userAgent =
         'Shopify Mobile/iOS/9.3.1 (iPad8,1 Simulator/com.shopify.ShopifyInternal/9.1.2)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns false on Mobile Shopify when iOS version is not 9 but app version is 9', () => {
       const userAgent =
         'Shopify Mobile/iOS/9.3.1 (iPad8,1 Simulator/com.shopify.ShopifyInternal/10.1.2)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns true on POS when iOS version is 9 and app version is not 9', () => {
       const userAgent =
         'com.jadedpixel.pos Shopify POS/5.11.0 (iPad; iOS 9.3; Scale/2.00)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns true on POS when iOS version is 9 and app version is 9', () => {
       const userAgent =
         'com.jadedpixel.pos Shopify POS/9.11.0 (iPad; iOS 9.3; Scale/2.00)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns false on POS when iOS version is not 9 but app version is 9', () => {
       const userAgent =
         'com.jadedpixel.pos Shopify POS/9.11.0 (iPad; iOS 10.3; Scale/2.00)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns true on Shopify Ping when iOS version is 9 and app version is not 9', () => {
       const userAgent =
         'Shopify Ping/iOS/5.3.1 (iPad8,1 Simulator/com.shopify.ShopifyInternal/9.1.2)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns true on Shopify Ping when iOS version is 9 and app version is 9', () => {
       const userAgent =
         'Shopify Ping/iOS/9.3.1 (iPad8,1 Simulator/com.shopify.ShopifyInternal/9.1.2)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns false on Shopify Ping when iOS version is not 9 but app version is 9', () => {
       const userAgent =
         'Shopify Ping/iOS/9.3.1 (iPad8,1 Simulator/com.shopify.ShopifyInternal/10.1.2)';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(true);
+      expect(new Browser({userAgent}).isIOS).toBe(true);
     });
 
     it('returns false for an Android browser', () => {
       const userAgent =
         'Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/67.0.3396.87 Mobile Safari/537.36';
 
-      expect(new Browser({userAgent}).isIOS).toStrictEqual(false);
+      expect(new Browser({userAgent}).isIOS).toBe(false);
     });
   });
 

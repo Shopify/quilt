@@ -2142,141 +2142,123 @@ describe('I18n', () => {
   describe('#formatName()', () => {
     it('returns an empty string when nothing is defined', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
-      expect(i18n.formatName()).toStrictEqual('');
+      expect(i18n.formatName()).toBe('');
     });
 
     it('returns only the firstName when lastName is missing', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName('first')).toStrictEqual('first');
-      expect(i18n.formatName('first', '')).toStrictEqual('first');
+      expect(i18n.formatName('first')).toBe('first');
+      expect(i18n.formatName('first', '')).toBe('first');
     });
 
     it('returns only the lastName when firstName is missing', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName('', 'last')).toStrictEqual('last');
+      expect(i18n.formatName('', 'last')).toBe('last');
     });
 
     it('defaults to firstName for unknown locale', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'unknown'});
 
-      expect(i18n.formatName('first', 'last')).toStrictEqual('first');
+      expect(i18n.formatName('first', 'last')).toBe('first');
     });
 
     it('uses fallback locale value for locale without custom formatter', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'fr-CA'});
 
-      expect(i18n.formatName('first', 'last')).toStrictEqual('first');
+      expect(i18n.formatName('first', 'last')).toBe('first');
     });
 
     it('returns firstName for English', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName('first', 'last')).toStrictEqual('first');
+      expect(i18n.formatName('first', 'last')).toBe('first');
     });
 
     it('returns custom name for Japanese', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'ja'});
 
-      expect(i18n.formatName('first', 'last')).toStrictEqual('last様');
+      expect(i18n.formatName('first', 'last')).toBe('last様');
     });
 
     it('returns lastName only, for zh-CN', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'zh-CN'});
 
-      expect(i18n.formatName('first', 'last')).toStrictEqual('last');
+      expect(i18n.formatName('first', 'last')).toBe('last');
     });
 
     it('returns lastName only, for zh-TW', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'zh-TW'});
 
-      expect(i18n.formatName('first', 'last')).toStrictEqual('last');
+      expect(i18n.formatName('first', 'last')).toBe('last');
     });
 
     it('returns only the firstName when lastName is missing using full', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName('first', '', {full: true})).toStrictEqual('first');
-      expect(i18n.formatName('first', undefined, {full: true})).toStrictEqual(
-        'first',
-      );
+      expect(i18n.formatName('first', '', {full: true})).toBe('first');
+      expect(i18n.formatName('first', undefined, {full: true})).toBe('first');
     });
 
     it('returns only the lastName when firstName is missing using full', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName('', 'last', {full: true})).toStrictEqual('last');
+      expect(i18n.formatName('', 'last', {full: true})).toBe('last');
     });
 
     it('returns a string when lastName is undefined using full', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName('', undefined, {full: true})).toStrictEqual('');
+      expect(i18n.formatName('', undefined, {full: true})).toBe('');
     });
 
     it('returns a string when first and lastName are missing using full', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName(undefined, undefined, {full: true})).toStrictEqual(
-        '',
-      );
+      expect(i18n.formatName(undefined, undefined, {full: true})).toBe('');
     });
 
     it('defaults to firstName lastName for unknown locale', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'unknown'});
 
-      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
-        'first last',
-      );
+      expect(i18n.formatName('first', 'last', {full: true})).toBe('first last');
     });
 
     it('uses fallback locale value for locale without custom formatter using full', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'fr-CA'});
 
-      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
-        'first last',
-      );
+      expect(i18n.formatName('first', 'last', {full: true})).toBe('first last');
     });
 
     it('returns firstName first for English', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
-        'first last',
-      );
+      expect(i18n.formatName('first', 'last', {full: true})).toBe('first last');
     });
 
     it('returns lastName first and no space for Japanese', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'ja'});
 
-      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
-        'lastfirst',
-      );
+      expect(i18n.formatName('first', 'last', {full: true})).toBe('lastfirst');
     });
 
     it('returns lastName first and no space for Korean', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'ko'});
 
-      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
-        'lastfirst',
-      );
+      expect(i18n.formatName('first', 'last', {full: true})).toBe('lastfirst');
     });
 
     it('returns lastName first and no space for zh-CN', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'zh-CN'});
 
-      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
-        'lastfirst',
-      );
+      expect(i18n.formatName('first', 'last', {full: true})).toBe('lastfirst');
     });
 
     it('returns lastName first and no space for zh-TW', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'zh-TW'});
 
-      expect(i18n.formatName('first', 'last', {full: true})).toStrictEqual(
-        'lastfirst',
-      );
+      expect(i18n.formatName('first', 'last', {full: true})).toBe('lastfirst');
     });
   });
 
@@ -2324,13 +2306,13 @@ describe('I18n', () => {
     it('returns true if easternNameOrderFormatter exists', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'ja'});
 
-      expect(i18n.hasEasternNameOrderFormatter()).toStrictEqual(true);
+      expect(i18n.hasEasternNameOrderFormatter()).toBe(true);
     });
 
     it('returns false if custom name formatter does not exist', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
 
-      expect(i18n.hasEasternNameOrderFormatter()).toStrictEqual(false);
+      expect(i18n.hasEasternNameOrderFormatter()).toBe(false);
     });
   });
 });

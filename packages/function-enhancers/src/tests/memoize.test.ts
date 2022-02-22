@@ -14,8 +14,8 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toStrictEqual(2);
-      expect(addOneMemoized(2)).toStrictEqual(3);
+      expect(addOneMemoized(1)).toBe(2);
+      expect(addOneMemoized(2)).toBe(3);
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
@@ -27,8 +27,8 @@ describe('memoize()', () => {
       };
       const addOneMemoized = memoize(addOne);
 
-      expect(addOneMemoized(1)).toStrictEqual(2);
-      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(addOneMemoized(1)).toBe(2);
+      expect(addOneMemoized(1)).toBe(2);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -41,21 +41,19 @@ describe('memoize()', () => {
       const addOneMemoized = memoize(addOne);
 
       for (let i = 0; i < MAX_MAP_ENTRIES; i++) {
-        expect(addOneMemoized(i)).toStrictEqual(i + 1);
+        expect(addOneMemoized(i)).toBe(i + 1);
       }
 
       // 0 is in the cache
-      expect(addOneMemoized(0)).toStrictEqual(1);
-      expect(addOneMemoized(1)).toStrictEqual(2);
+      expect(addOneMemoized(0)).toBe(1);
+      expect(addOneMemoized(1)).toBe(2);
       expect(spy).toHaveBeenCalledTimes(MAX_MAP_ENTRIES);
 
-      expect(addOneMemoized(MAX_MAP_ENTRIES)).toStrictEqual(
-        MAX_MAP_ENTRIES + 1,
-      );
+      expect(addOneMemoized(MAX_MAP_ENTRIES)).toBe(MAX_MAP_ENTRIES + 1);
       expect(spy).toHaveBeenCalledTimes(MAX_MAP_ENTRIES + 1);
 
       // 0 is no longer in the cache
-      expect(addOneMemoized(0)).toStrictEqual(1);
+      expect(addOneMemoized(0)).toBe(1);
       expect(spy).toHaveBeenCalledTimes(MAX_MAP_ENTRIES + 2);
     });
   });
@@ -118,8 +116,8 @@ describe('memoize()', () => {
         (_name: string, id: string) => id,
       );
 
-      expect(getNameMemoized('Lisa', '1')).toStrictEqual('Lisa');
-      expect(getNameMemoized('Lisa', '2')).toStrictEqual('Lisa');
+      expect(getNameMemoized('Lisa', '1')).toBe('Lisa');
+      expect(getNameMemoized('Lisa', '2')).toBe('Lisa');
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
@@ -134,8 +132,8 @@ describe('memoize()', () => {
         (_name: string, id: string) => id,
       );
 
-      expect(getNameMemoized('Lisa', '1')).toStrictEqual('Lisa');
-      expect(getNameMemoized('Lisa', '1')).toStrictEqual('Lisa');
+      expect(getNameMemoized('Lisa', '1')).toBe('Lisa');
+      expect(getNameMemoized('Lisa', '1')).toBe('Lisa');
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

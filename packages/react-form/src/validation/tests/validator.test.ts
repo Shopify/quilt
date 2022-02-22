@@ -10,7 +10,7 @@ describe('validator', () => {
 
     const input = faker.lorem.word();
     expect(alwaysPassValidator(input)).toBeUndefined();
-    expect(alwaysFailValidator(input)).not.toBeUndefined();
+    expect(alwaysFailValidator(input)).toBeDefined();
   });
 
   it('returns a function that returns the errorContent when matcher returns true on its input', () => {
@@ -56,7 +56,7 @@ describe('validator', () => {
         faker.lorem.words(),
       );
 
-      expect(alwaysFailValidator('')).not.toBeUndefined();
+      expect(alwaysFailValidator('')).toBeDefined();
     });
   });
 });

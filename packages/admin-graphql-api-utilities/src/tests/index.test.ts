@@ -40,37 +40,37 @@ describe('admin-graphql-api-utilities', () => {
     });
 
     it('returns the id portion of an unprefixed gid', () => {
-      ['1', '1a', v4()].forEach((id) => expect(parseGid(id)).toStrictEqual(id));
+      ['1', '1a', v4()].forEach((id) => expect(parseGid(id)).toBe(id));
     });
 
     it('returns the id portion of a gid for integer ids', () => {
       const id = '12';
       const gid = `gid://shopify/Section/${id}`;
-      expect(parseGid(gid)).toStrictEqual(id);
+      expect(parseGid(gid)).toBe(id);
     });
 
     it('returns the id portion of a gid for uuids', () => {
       const id = v4();
       const gid = `gid://shopify/Section/${id}`;
-      expect(parseGid(gid)).toStrictEqual(id);
+      expect(parseGid(gid)).toBe(id);
     });
 
     it('returns the id portion of a gid with a query parameter', () => {
       const id = v4();
       const gid = `gid://shopify/Section/${id}?foo=bar`;
-      expect(parseGid(gid)).toStrictEqual(id);
+      expect(parseGid(gid)).toBe(id);
     });
 
     it('returns the id portion of a gid with multiple query parameters', () => {
       const id = v4();
       const gid = `gid://shopify/Section/${id}?foo=bar&baz=0`;
-      expect(parseGid(gid)).toStrictEqual(id);
+      expect(parseGid(gid)).toBe(id);
     });
 
     it('returns the id portion of a gid with a query parameter with extended character set', () => {
       const id = v4();
       const gid = `gid://shopify/Section/${id}?foo-a=bar_baz`;
-      expect(parseGid(gid)).toStrictEqual(id);
+      expect(parseGid(gid)).toBe(id);
     });
   });
 
@@ -101,26 +101,26 @@ describe('admin-graphql-api-utilities', () => {
     it('returns the composed Gid using key and number id', () => {
       const id = 123;
       const key = 'Section';
-      expect(composeGid(key, id)).toStrictEqual(`gid://shopify/${key}/${id}`);
+      expect(composeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and string id', () => {
       const id = '456';
       const key = 'Section';
-      expect(composeGid(key, id)).toStrictEqual(`gid://shopify/${key}/${id}`);
+      expect(composeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and uuid', () => {
       const id = v4();
       const key = 'Section';
-      expect(composeGid(key, id)).toStrictEqual(`gid://shopify/${key}/${id}`);
+      expect(composeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid with params', () => {
       const id = 'button';
       const key = 'Section';
       const params = {foo: 'bar', hello: 'world'};
-      expect(composeGid(key, id, params)).toStrictEqual(
+      expect(composeGid(key, id, params)).toBe(
         `gid://shopify/${key}/${id}?foo=bar&hello=world`,
       );
     });
@@ -131,18 +131,14 @@ describe('admin-graphql-api-utilities', () => {
       const customComposeGid = composeGidFactory('shopify');
       const id = 123;
       const key = 'Section';
-      expect(customComposeGid(key, id)).toStrictEqual(
-        `gid://shopify/${key}/${id}`,
-      );
+      expect(customComposeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns a function to compose "custom" gid', () => {
       const customComposeGid = composeGidFactory('custom-app');
       const id = 123;
       const key = 'Section';
-      expect(customComposeGid(key, id)).toStrictEqual(
-        `gid://custom-app/${key}/${id}`,
-      );
+      expect(customComposeGid(key, id)).toBe(`gid://custom-app/${key}/${id}`);
     });
 
     it('returns the composed Gid with params', () => {
@@ -150,7 +146,7 @@ describe('admin-graphql-api-utilities', () => {
       const id = 'button';
       const key = 'Section';
       const params = {foo: 'bar', hello: 'world'};
-      expect(customComposeGid(key, id, params)).toStrictEqual(
+      expect(customComposeGid(key, id, params)).toBe(
         `gid://custom-app/${key}/${id}?foo=bar&hello=world`,
       );
     });
