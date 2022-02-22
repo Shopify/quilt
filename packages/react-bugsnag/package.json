@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-bugsnag",
-  "version": "2.2.10",
+  "version": "2.2.10-export-beta.0",
   "license": "MIT",
   "description": "An opinionated wrapper for Bugsnag's React plugin",
   "main": "index.js",
