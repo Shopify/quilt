@@ -61,8 +61,10 @@ export interface TranslateOptions {
   scope: RootTranslateOptions<any>['scope'];
 }
 
-// Used for currecies that don't use fractional units (eg. JPY)
+// Used for currencies that don't use fractional units (eg. JPY)
 const PERIOD = '.';
+const NEGATIVE_SIGN = '-';
+const REGEX_DIGITS = /\d/g;
 const REGEX_NON_DIGITS = /\D/g;
 const REGEX_PERIODS = /\./g;
 
@@ -640,7 +642,7 @@ export class I18n {
       DEFAULT_DECIMAL_PLACES,
     );
     const lastIndexOfPeriod = input.lastIndexOf(PERIOD);
-    let lastIndexOflDecimal = input.lastIndexOf(decimalSymbol);
+    let lastIndexOfDecimal = input.lastIndexOf(decimalSymbol);
 
     // For locales that do not use period as the decimal symbol, users may still input a period
     // and expect it to be treated as the decimal symbol for their locale.
@@ -649,21 +651,19 @@ export class I18n {
       (input.match(REGEX_PERIODS) || []).length === 1 &&
       this.decimalValue(input, lastIndexOfPeriod).length <= maximumDecimalPlaces
     ) {
-      lastIndexOflDecimal = lastIndexOfPeriod;
+      lastIndexOfDecimal = lastIndexOfPeriod;
     }
 
-    const integerValue = this.integerValue(input, lastIndexOflDecimal);
-    const decimalValue = this.decimalValue(input, lastIndexOflDecimal);
+    const integerValue = this.integerValue(input, lastIndexOfDecimal);
+    const decimalValue = this.decimalValue(input, lastIndexOfDecimal);
 
-    const isNegative = input.trim().startsWith('-');
-    const negativeSign = isNegative ? '-' : '';
+    const isNegative = input.trim().startsWith(NEGATIVE_SIGN);
+    const negativeSign = isNegative ? NEGATIVE_SIGN : '';
 
-    const normalizedDecimal = lastIndexOflDecimal === -1 ? '' : PERIOD;
+    const normalizedDecimal = lastIndexOfDecimal === -1 ? '' : PERIOD;
     const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;
 
-    return normalizedValue === '' || normalizedValue === PERIOD
-      ? ''
-      : normalizedValue;
+    return normalizedValue.match(REGEX_DIGITS) ? normalizedValue : '';
   }
 
   private integerValue(input: string, lastIndexOfDecimal: number) {
