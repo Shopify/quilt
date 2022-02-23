@@ -64,7 +64,7 @@ export interface TranslateOptions {
 // Used for currencies that don't use fractional units (eg. JPY)
 const PERIOD = '.';
 const NEGATIVE_SIGN = '-';
-const REGEX_DECIMALS = /^-?([0-9]\d*(\.\d+)?|(\.\d+)+)$/g;
+const REGEX_DIGITS = /\d/g;
 const REGEX_NON_DIGITS = /\D/g;
 const REGEX_PERIODS = /\./g;
 
@@ -663,9 +663,7 @@ export class I18n {
     const normalizedDecimal = lastIndexOfDecimal === -1 ? '' : PERIOD;
     const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;
 
-    return (normalizedValue.match(REGEX_DECIMALS) || []).length === 1
-      ? normalizedValue
-      : '';
+    return normalizedValue.match(REGEX_DIGITS) ? normalizedValue : '';
   }
 
   private integerValue(input: string, lastIndexOfDecimal: number) {
