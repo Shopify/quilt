@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Updated list of currency decimal places according to [ISO 4217 standards](https://www.six-group.com/en/products-services/financial-information/data-standards.html#scrollTo=maintenance-agency) [[#2187](https://github.com/Shopify/quilt/pull/2187)]
 - Fixed `unformatNumber` and `unformatCurrency` to return `''` when only non-digits are provided in the input string. [[#2176](https://github.com/Shopify/quilt/pull/2176)]
 
 ## 6.3.8 - 2022-02-14
