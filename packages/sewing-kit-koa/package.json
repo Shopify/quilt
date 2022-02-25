@@ -54,11 +54,11 @@
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {
-    "./": "./",
     ".": {
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
-    }
+    },
+    "./*": "./"
   }
 }

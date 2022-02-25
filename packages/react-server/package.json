@@ -82,16 +82,16 @@
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {
-    "./": "./",
+    "./webpack-plugin": {
+      "esnext": "./webpack-plugin.esnext",
+      "import": "./webpack-plugin.mjs",
+      "require": "./webpack-plugin.js"
+    },
     ".": {
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
     },
-    "./webpack-plugin": {
-      "esnext": "./webpack-plugin.esnext",
-      "import": "./webpack-plugin.mjs",
-      "require": "./webpack-plugin.js"
-    }
+    "./*": "./"
   }
 }

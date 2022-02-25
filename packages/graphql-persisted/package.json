@@ -60,7 +60,6 @@
     "koa": ">=2.0.0"
   },
   "exports": {
-    "./": "./",
     "./apollo": {
       "esnext": "./apollo.esnext",
       "import": "./apollo.mjs",
@@ -70,6 +69,7 @@
       "esnext": "./koa.esnext",
       "import": "./koa.mjs",
       "require": "./koa.js"
-    }
+    },
+    "./*": "./"
   }
 }
