@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Changed
+
+- Use `./*` instead of `./` in package.json exports to fix deprecation warning. [[#2184](https://github.com/Shopify/quilt/pull/2184)]
+
 ### Fixed
 
 - Updated list of currency decimal places according to [ISO 4217 standards](https://www.six-group.com/en/products-services/financial-information/data-standards.html#scrollTo=maintenance-agency) [[#2187](https://github.com/Shopify/quilt/pull/2187)]

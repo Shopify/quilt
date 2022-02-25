@@ -15,6 +15,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 - `ConstructorArguments`, `ConstructorArgumentAtIndex` and `FirstConstructorArgument` have been removed. Replace usage of `ConstructorArguments` with the built-in [`ConstructorParameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#constructorparameterstype) type. Replace usage of `ConstructorArgumentAtIndex` with `ConstructorParameters<T>[i]` and `FirstConstructorArgument<T>` with `ConstructorParameters<T>[0]`
 - `MaybeFunctionReturnType` has been removed. Replace usage of `MaybeFunctionReturnType` with the built-in `ReturnType` type
 
+### Changed
+
+- Use `./*` instead of `./` in package.json exports to fix deprecation warning. [[#2184](https://github.com/Shopify/quilt/pull/2184)]
+
 ## 3.1.0 - 2022-02-09
 
 ### Added
