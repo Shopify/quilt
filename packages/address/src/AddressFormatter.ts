@@ -3,11 +3,17 @@ import {Address, FieldName, Country} from '@shopify/address-consts';
 import {formatAddress, buildOrderedFields} from './format';
 import {loadCountry, loadCountries} from './loader';
 
-const ORDERED_COUNTRIES_CACHE: {
-  [locale: string]: Country[];
-} = {};
+const ORDERED_COUNTRIES_CACHE = new Map<string, Country[]>();
 
 export default class AddressFormatter {
+  /**
+   * Useful in tests or any situation where the cache has undesirable
+   * side-effects.
+   */
+  static resetCache() {
+    ORDERED_COUNTRIES_CACHE.clear();
+  }
+
   constructor(private locale: string) {
     this.locale = locale;
   }
@@ -17,19 +23,15 @@ export default class AddressFormatter {
   }
 
   async getCountry(countryCode: string): Promise<Country> {
-    let country = this.loadCountryFromCache(countryCode);
-    if (country) {
-      return country;
-    }
+    const country = this.loadCountryFromCache(countryCode);
+    if (country) return country;
 
-    country = await loadCountry(this.locale, countryCode);
-
-    return country;
+    return loadCountry(this.locale, countryCode);
   }
 
   async getCountries(): Promise<Country[]> {
     const countries = await loadCountries(this.locale);
-    ORDERED_COUNTRIES_CACHE[this.locale] = countries;
+    ORDERED_COUNTRIES_CACHE.set(this.locale, countries);
 
     return countries;
   }
@@ -69,15 +71,12 @@ export default class AddressFormatter {
     return buildOrderedFields(country);
   }
 
-  private loadCountryFromCache(
-    countryCode: string,
-  ): Country | undefined | null {
-    if (ORDERED_COUNTRIES_CACHE[this.locale]) {
-      return ORDERED_COUNTRIES_CACHE[this.locale].find((country) => {
-        return country.code === countryCode;
-      });
-    }
+  private loadCountryFromCache(countryCode: string) {
+    const cachedCountries = ORDERED_COUNTRIES_CACHE.get(this.locale);
+    if (!cachedCountries) return null;
 
-    return null;
+    return cachedCountries.find((country) => {
+      return country.code === countryCode;
+    });
   }
 }

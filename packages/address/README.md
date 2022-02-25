@@ -84,6 +84,10 @@ Returns how to order address fields for a country code. Fetches the country if n
 
 Given an address, returns the address ordered for multiline rendering. Uses the `formatAddress` sync API in the background.
 
+#### `AddressFormatter.resetCache(): void`
+
+Resets the internal cache. Useful to avoid side-effects in test suite.
+
 ### Sync API
 
 If you already have the input data ready, like a `Country` object, you can use the sync API to get the result right away.
