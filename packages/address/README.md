@@ -21,7 +21,7 @@ $ yarn add @shopify/address
 
 Show an address:
 
-```typescript
+```ts
 import AddressFormatter from '@shopify/address';
 
 const address = {
@@ -124,11 +124,15 @@ Eg.:
 
 If your component uses this package and you want to test it with mock API calls you can use the following:
 
-```
+```ts
 import {fetch} from '@shopify/jest-dom-mocks';
 import {mockCountryRequests} from '@shopify/address/tests';
+import AddressFormatter from '@shopify/address';
 
-beforeEach(mockCountryRequests);
+beforeEach(() => {
+  AddressFormatter.resetCache(); // to avoid side-effects.
+  mockCountryRequests();
+});
 afterEach(fetch.restore);
 ```
 

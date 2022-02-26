@@ -17,7 +17,7 @@ $ yarn add @shopify/address-mocks
 
 If your component uses the @shopify/address package and you want to mock API calls, you can use the following:
 
-```
+```ts
 import {fetch} from '@shopify/jest-dom-mocks';
 import {mockCountryRequests} from '@shopify/address-mocks';
 

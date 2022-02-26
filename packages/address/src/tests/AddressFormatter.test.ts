@@ -18,7 +18,11 @@ const address: Address = {
 };
 
 describe('AddressFormatter', () => {
-  beforeEach(() => mockCountryRequests());
+  beforeEach(() => {
+    // Ensures no side-effects caused by the cache during each tests.
+    AddressFormatter.resetCache();
+    mockCountryRequests();
+  });
 
   afterEach(() => fetch.restore());
 

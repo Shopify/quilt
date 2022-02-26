@@ -1,4 +1,6 @@
-const data = {
+import {LoadCountryResponse} from '@shopify/address-consts';
+
+const data: LoadCountryResponse = {
   data: {
     country: {
       name: 'Canada',

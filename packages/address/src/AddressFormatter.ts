@@ -30,6 +30,9 @@ export default class AddressFormatter {
   }
 
   async getCountries(): Promise<Country[]> {
+    const cachedCountries = ORDERED_COUNTRIES_CACHE.get(this.locale);
+    if (cachedCountries) return cachedCountries;
+
     const countries = await loadCountries(this.locale);
     ORDERED_COUNTRIES_CACHE.set(this.locale, countries);
 
@@ -75,8 +78,6 @@ export default class AddressFormatter {
     const cachedCountries = ORDERED_COUNTRIES_CACHE.get(this.locale);
     if (!cachedCountries) return null;
 
-    return cachedCountries.find((country) => {
-      return country.code === countryCode;
-    });
+    return cachedCountries.find(({code}) => code === countryCode);
   }
 }
