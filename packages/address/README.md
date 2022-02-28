@@ -17,49 +17,7 @@ $ yarn add @shopify/address
 
 - `country` field in Address is expected to be of format ISO 3166-1 alpha-2, eg. CA / FR / JP
 
-#### `constructor(private locale: string)`
-
-Instantiate the AddressFormatter by passing it a locale.
-
-#### `updateLocale(locale: string)`
-
-Update the current locale of the formatter. Following requests will be in the given locale.
-
-#### `async .getCountry(countryCode: string): Promise<Country>`
-
-Loads and returns data about a given country in the current locale. Country and province names are localized. Province names are sorted based on the locale.
-
-#### `async .getCountries(): Promise<Country[]>`
-
-Loads and returns data for all countries in the current locale. Countries are sorted based on the locale. Zones are also ordered based on the locale.
-
-#### `async .getOrderedFields(countryCode): FieldName[][]`
-
-Returns how to order address fields.
-
-Eg.:
-
-```typescript
-[
-  ['firstName', 'lastName'],
-  ['company'],
-  ['address1'],
-  ['address2'],
-  ['city'],
-  ['country', 'province', 'zip'],
-  ['phone'],
-];
-```
-
-#### `async .format(address: Address): string[]`
-
-Given an address, returns the address ordered for multiline rendering. e.g.:
-
-```typescript
-['Shopify', 'Lindenstraße 9-14', '10969 Berlin', 'Germany'];
-```
-
-#### Example Usage
+### `AddressFormatter` class
 
 Show an address:
 
@@ -100,6 +58,62 @@ await addressFormatter.getOrderedFields('CA');
     ['phone']
   ]
  */
+```
+
+#### `constructor(private locale: string)`
+
+Instantiate the AddressFormatter by passing it a locale.
+
+#### `updateLocale(locale: string)`
+
+Update the current locale of the formatter. Following requests will be in the given locale.
+
+#### `async .getCountry(countryCode: string): Promise<Country>`
+
+Loads and returns data about a given country in the current locale. Country and province names are localized. Province names are sorted based on the locale.
+
+#### `async .getCountries(): Promise<Country[]>`
+
+Loads and returns data for all countries in the current locale. Countries are sorted based on the locale. Zones are also ordered based on the locale.
+
+#### `async .getOrderedFields(countryCode): Promise<FieldName[][]>`
+
+Returns how to order address fields for a country code. Fetches the country if not already cached.
+
+#### `async .format(address: Address): Promise<string[]>`
+
+Given an address, returns the address ordered for multiline rendering. Uses the `formatAddress` sync API in the background.
+
+### Sync API
+
+If you already have the input data ready, like a `Country` object, you can use the sync API to get the result right away.
+
+The following functions can be imported as stand-alone utilities.
+
+#### `formatAddress(address: Address, country: Country): string[]`
+
+Given an address and a country, returns the address ordered for multiline rendering. e.g.:
+
+```typescript
+['Shopify', 'Lindenstraße 9-14', '10969 Berlin', 'Germany'];
+```
+
+#### `buildOrderedFields(country: Country): FieldName[][]`
+
+Returns how to order address fields for a specific country.
+
+Eg.:
+
+```typescript
+[
+  ['firstName', 'lastName'],
+  ['company'],
+  ['address1'],
+  ['address2'],
+  ['city'],
+  ['country', 'province', 'zip'],
+  ['phone'],
+];
 ```
 
 ## Testing

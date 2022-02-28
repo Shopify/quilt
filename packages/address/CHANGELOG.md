@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Exposes `formatAddress`, `buildOrderedFields` formatting functions publicly so they can be used synchronously [[#2178](https://github.com/Shopify/quilt/pull/2178)]
 
 ## 3.0.16 - 2022-02-25
 
