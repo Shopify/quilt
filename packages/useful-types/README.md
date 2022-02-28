@@ -154,3 +154,30 @@ type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: str
 
   type HalfRequiredObj = RequireSome<Obj, 'foo'>; // {foo: string, bar?: string}
   ```
+
+  ## Testing
+
+  Test your type, add a test file to ./src/tests. It will automatically run all assertion using jest and [tsd](https://github.com/SamVerschueren/tsd).
+
+  Useful tests to run would include verifying that a value of type X is assignable to type N.
+
+  ```tsx
+  // loose checks assignment
+  expectAssignable<string>('foo');
+
+  function hello(input: string): string {
+    return `hello ${input}`;
+  }
+
+  // strict checks actual type
+  expectType<string>(hello('world!'));
+  ```
+
+  Also check that values which do not match your type are not assignable, especially when you include conditional logic in a generic type.
+
+  ```tsx
+  export type ArrayElement<T> = T extends (infer U)[] ? U : never;
+
+  // string is not a member of an array, so we should not be able to assign anything to it.
+  expectNotAssignable<ArrayElement<string>>('string');
+  ```

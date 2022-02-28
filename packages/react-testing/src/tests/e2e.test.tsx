@@ -452,7 +452,7 @@ describe('@shopify/react-testing', () => {
           );
         },
         afterMount: async (root) => {
-          return new Promise((resolve) => {
+          return new Promise<void>((resolve) => {
             setTimeout(() => {
               root.context.message = 'a different message';
               root.forceUpdate();
