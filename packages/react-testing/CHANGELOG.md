@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Fix `Node.trigger()` not resolving values that can be `undefined`
+- Fix `Node.trigger()` not resolving values that can be `undefined`. [[#2192](https://github.com/Shopify/quilt/pull/2192)]
 
 ## 3.3.6 - 2022-02-25
 
