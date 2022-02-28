@@ -175,7 +175,9 @@ export class Root<Props> implements Node<Props> {
     prop: K,
     ...args: DeepPartialArguments<Props[K]>
   ): ReturnType<
-    NonNullable<Props[K] extends (...args: any[]) => any ? Props[K] : never>
+    NonNullable<
+      Props[K] extends ((...args: any[]) => any) | undefined ? Props[K] : never
+    >
   > {
     return this.withRoot((root) => root.trigger(prop, ...(args as any)));
   }
