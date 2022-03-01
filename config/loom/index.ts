@@ -1,7 +1,11 @@
+import {existsSync} from 'fs';
+
 import {
   Package,
   createComposedProjectPlugin,
+  createProjectBuildPlugin,
   createProjectTestPlugin,
+  DiagnosticError,
 } from '@shopify/loom';
 import {buildLibrary, babel} from '@shopify/loom-plugin-build-library';
 
@@ -56,5 +60,44 @@ export function quiltPackage({
         ]);
       });
     }),
+    runTsd(),
   ]);
+}
+
+/**
+ * TSD allows us to run assertions against the types that are generated as part of the build.
+ * This is ran as a build step because the tests assert against the compiled types
+ * in `packages/PACKAGENAME/build/ts` (i.e. build output) rather than source code.
+ */
+function runTsd() {
+  return createProjectBuildPlugin('tsd', ({hooks, api, project}) => {
+    if (!existsSync(`${project.root}/test-d`)) {
+      return;
+    }
+
+    hooks.target.hook(({target, hooks}) => {
+      const isDefaultBuild = Object.keys(target.options).length === 0;
+      if (!isDefaultBuild) {
+        return;
+      }
+
+      hooks.steps.hook((steps) => [
+        ...steps,
+        api.createStep({id: 'tsd', label: 'Run TSD'}, async (step) => {
+          try {
+            await step.exec('tsd', [project.root], {
+              preferLocal: true,
+              all: true,
+              env: {FORCE_COLOR: '1'},
+            });
+          } catch (error) {
+            throw new DiagnosticError({
+              title: 'TSD found errors.',
+              content: error.all,
+            });
+          }
+        }),
+      ]);
+    });
+  });
 }
