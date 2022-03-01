@@ -53,9 +53,7 @@
   "esnext": "index.esnext",
   "exports": {
     "./babel": {
-      "esnext": "./babel.esnext",
-      "import": "./babel.mjs",
-      "require": "./babel.js"
+      "default": "./babel.js"
     },
     ".": {
       "esnext": "./index.esnext",

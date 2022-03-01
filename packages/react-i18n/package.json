@@ -91,9 +91,7 @@
   "esnext": "index.esnext",
   "exports": {
     "./babel": {
-      "esnext": "./babel.esnext",
-      "import": "./babel.mjs",
-      "require": "./babel.js"
+      "default": "./babel.js"
     },
     "./generate-dictionaries": {
       "esnext": "./generate-dictionaries.esnext",

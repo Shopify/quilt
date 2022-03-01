@@ -76,19 +76,13 @@
   "esnext": "index.esnext",
   "exports": {
     "./jest": {
-      "esnext": "./jest.esnext",
-      "import": "./jest.mjs",
-      "require": "./jest.js"
+      "default": "./jest.js"
     },
     "./jest-simple": {
-      "esnext": "./jest-simple.esnext",
-      "import": "./jest-simple.mjs",
-      "require": "./jest-simple.js"
+      "default": "./jest-simple.js"
     },
     "./webpack": {
-      "esnext": "./webpack-loader.esnext",
-      "import": "./webpack-loader.mjs",
-      "require": "./webpack-loader.js"
+      "default": "./webpack-loader.js"
     },
     ".": {
       "esnext": "./index.esnext",

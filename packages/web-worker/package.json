@@ -22,14 +22,10 @@
   },
   "exports": {
     "./babel": {
-      "esnext": "./babel.esnext",
-      "import": "./babel.mjs",
-      "require": "./babel.js"
+      "default": "./babel.js"
     },
     "./webpack": {
-      "esnext": "./webpack.esnext",
-      "import": "./webpack.mjs",
-      "require": "./webpack.js"
+      "default": "./webpack.js"
     },
     "./worker": {
       "esnext": "./worker.esnext",
