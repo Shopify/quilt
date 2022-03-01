@@ -22,7 +22,7 @@ type ViolationResult = Unpacked<AxeResults['violations']>;
 
 declare global {
   interface Window {
-    __STORYBOOK_STORY_STORE__: StoryStore;
+    __STORYBOOK_STORY_STORE__: StoryStore<any>;
   }
 }
 
@@ -71,8 +71,10 @@ async function getA11yParams(storyId: StoryId, iframePath: string) {
   await page.goto(iframePath);
 
   const parameters =
-    (await page.evaluate((storyId) => {
-      const {parameters} = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
+    (await page.evaluate(async (storyId) => {
+      const {parameters} = await window.__STORYBOOK_STORY_STORE__.loadStory(
+        storyId,
+      )!;
       return parameters;
     }, storyId)) || {};
 

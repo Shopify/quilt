@@ -30,12 +30,12 @@
     "puppeteer": "^13.2.0"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^6.3.8",
-    "@storybook/client-api": "^6.3.8"
+    "@storybook/addon-a11y": "^6.4.19",
+    "@storybook/client-api": "^6.4.19"
   },
   "peerDependencies": {
-    "@storybook/addon-a11y": ">=6.2.0",
-    "@storybook/addons": ">=6.2.0"
+    "@storybook/addon-a11y": ">=6.4.0",
+    "@storybook/addons": ">=6.4.0"
   },
   "files": [
     "build/",
