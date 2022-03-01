@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## Unreleased
+
+### Changed
+
+- Update storybook addon deps and remove use of fromId() in favor of loadStory(). [[#2194](https://github.com/Shopify/quilt/pull/2194)]
+
 ## 0.4.8 - 2022-03-09
 
 ### Changed
