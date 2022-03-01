@@ -39,6 +39,10 @@ export async function getStoryIds(iframePath: string) {
   const page = await browser.newPage();
   await page.goto(iframePath);
 
+  await page.evaluate(() =>
+    window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles(),
+  );
+
   const storyIds = await page.evaluate(() =>
     Object.keys(window.__STORYBOOK_STORY_STORE__.extract()),
   );
