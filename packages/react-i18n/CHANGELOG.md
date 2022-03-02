@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Changed
+
+- Export cjs by default for `babel`. [[#2193](https://github.com/Shopify/quilt/pull/2193)]
 
 ## 6.3.10 - 2022-02-28
 

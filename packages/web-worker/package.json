@@ -21,16 +21,8 @@
     }
   },
   "exports": {
-    "./babel": {
-      "esnext": "./babel.esnext",
-      "import": "./babel.mjs",
-      "require": "./babel.js"
-    },
-    "./webpack": {
-      "esnext": "./webpack.esnext",
-      "import": "./webpack.mjs",
-      "require": "./webpack.js"
-    },
+    "./babel": "./babel.js",
+    "./webpack": "./webpack.js",
     "./worker": {
       "esnext": "./worker.esnext",
       "import": "./worker.mjs",

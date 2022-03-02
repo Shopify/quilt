@@ -90,11 +90,7 @@
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {
-    "./babel": {
-      "esnext": "./babel.esnext",
-      "import": "./babel.mjs",
-      "require": "./babel.js"
-    },
+    "./babel": "./babel.js",
     "./generate-dictionaries": {
       "esnext": "./generate-dictionaries.esnext",
       "import": "./generate-dictionaries.mjs",
