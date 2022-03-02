@@ -52,7 +52,7 @@
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {
-    "./babel":"./babel.js",
+    "./babel": "./babel.js",
     ".": {
       "esnext": "./index.esnext",
       "import": "./index.mjs",
