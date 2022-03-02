@@ -1,6 +1,11 @@
-import {expectType, expectAssignable, expectNotAssignable} from 'tsd';
+import {
+  expectType,
+  expectAssignable,
+  expectNotAssignable,
+  expectNotType,
+} from 'tsd';
 
-import {ArrayElement, DeepPartial} from '../build/ts/types';
+import {ArrayElement, DeepPartial, IfEmptyObject} from '../build/ts/types';
 
 interface Person {
   firstName: string;
@@ -58,3 +63,13 @@ expectAssignable<DeepPartial<ReadOnlyListObj>>({
 });
 
 expectAssignable<DeepPartial<string>>('test');
+
+/**
+ * IfEmptyObject<T>
+ */
+
+expectType<IfEmptyObject<{}, true>>(true);
+expectType<IfEmptyObject<{foo: string}, never, false>>(false);
+
+expectNotType<IfEmptyObject<{foo: string}, true>>(true);
+expectNotType<IfEmptyObject<boolean, true>>(true);
