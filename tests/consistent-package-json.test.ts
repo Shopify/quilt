@@ -29,7 +29,6 @@ const KNOWN_TEMPLATE_KEYS = [
 ];
 
 const GLOB_PATH = './*';
-const CJS_EXPORT_KEYS = ['webpack', 'jest', 'jest-simple', 'babel'];
 
 const SINGLE_ENTRYPOINT_EXCEPTIONS = ['graphql-persisted'];
 
@@ -146,7 +145,7 @@ packages.forEach(
           it('specifies esnext, import, and require as the ordered keys in the exports map', () => {
             Object.keys(packageJSON.exports)
               .filter((key) => key !== GLOB_PATH)
-              .filter((key) => CJS_EXPORT_KEYS.includes(key))
+              .filter((key) => typeof packageJSON.exports[key] === 'object')
               .forEach((key) => {
                 expect(Object.keys(packageJSON.exports[key])).toStrictEqual([
                   'esnext',

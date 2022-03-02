@@ -21,12 +21,8 @@
     }
   },
   "exports": {
-    "./babel": {
-      "default": "./babel.js"
-    },
-    "./webpack": {
-      "default": "./webpack.js"
-    },
+    "./babel": "./babel.js",
+    "./webpack": "./webpack.js",
     "./worker": {
       "esnext": "./worker.esnext",
       "import": "./worker.mjs",

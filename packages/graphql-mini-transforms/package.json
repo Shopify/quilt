@@ -75,15 +75,9 @@
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {
-    "./jest": {
-      "default": "./jest.js"
-    },
-    "./jest-simple": {
-      "default": "./jest-simple.js"
-    },
-    "./webpack": {
-      "default": "./webpack-loader.js"
-    },
+    "./jest": "./jest.js",
+    "./jest-simple": "./jest-simple.js",
+    "./webpack": "./webpack-loader.js",
     ".": {
       "esnext": "./index.esnext",
       "import": "./index.mjs",
