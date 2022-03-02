@@ -5,7 +5,12 @@ import {
   expectNotType,
 } from 'tsd';
 
-import {ArrayElement, DeepPartial, IfEmptyObject} from '../build/ts/types';
+import {
+  ArrayElement,
+  DeepPartial,
+  IfEmptyObject,
+  DeepOmit,
+} from '../build/ts/types';
 
 interface Person {
   firstName: string;
@@ -73,3 +78,90 @@ expectType<IfEmptyObject<{foo: string}, never, false>>(false);
 
 expectNotType<IfEmptyObject<{foo: string}, true>>(true);
 expectNotType<IfEmptyObject<boolean, true>>(true);
+
+/**
+ * IfAllOptionalKeys
+ */
+
+/**
+ * IfAllNullableKeys
+ */
+
+/**
+ * NonOptionalKeys
+ */
+
+/**
+ * NonNullableKeys
+ */
+
+/**
+ * NoInfer
+ */
+
+/**
+ * NonReactStatics
+ */
+
+/**
+ * ExtendedWindow
+ */
+
+/**
+ * DeepOmit
+ */
+
+expectAssignable<DeepOmit<string, 'test'>>('string');
+
+interface Obj {
+  __typename: string;
+  foo: string;
+  bar?: {
+    __typename: string;
+    baz: string;
+  };
+  list?: Obj[];
+}
+
+expectAssignable<DeepOmit<Obj, '__typename'>>({
+  foo: 'string',
+  bar: {
+    /**
+     * This should error:
+     * DeepOmit does not seem to be recursing on nested types
+     */
+    __typename: 'Nested',
+    baz: 'string',
+  },
+});
+
+expectNotAssignable<DeepOmit<Obj, '__typename'>>({
+  foo: 'string',
+  list: [
+    {
+      /**
+       * this should NOT error:
+       * DeepOmit also seems to not respect existing optional properties
+       */
+      bar: undefined,
+      list: undefined,
+    },
+  ],
+});
+
+expectNotType<DeepOmit<Obj, '__typename'>>({
+  __typename: 'string',
+  foo: 'string',
+});
+
+/**
+ * DeepOmitArray
+ */
+
+/**
+ * PartialSome
+ */
+
+/**
+ * RequireSome
+ */
