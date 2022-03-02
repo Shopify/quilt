@@ -1,6 +1,6 @@
 import {expectType, expectAssignable, expectNotAssignable} from 'tsd';
 
-import {ArrayElement} from '../build/ts/types';
+import {ArrayElement, DeepPartial} from '../build/ts/types';
 
 interface Person {
   firstName: string;
@@ -18,3 +18,43 @@ expectAssignable<ArrayElement<(string | boolean)[]>>(false);
 expectAssignable<ArrayElement<string>>('string' as never);
 
 expectNotAssignable<ArrayElement<string>>('string');
+
+/**
+ * DeepPartial<T>
+ */
+
+interface Base {
+  required: string;
+  optional?: string;
+  nested?: Base;
+}
+
+expectAssignable<DeepPartial<Base>>({});
+expectAssignable<DeepPartial<Base>>({optional: 'test'});
+expectAssignable<DeepPartial<Base>>({required: undefined});
+expectAssignable<DeepPartial<Base>>({
+  nested: {nested: {nested: {required: 'test'}}},
+});
+
+interface ListObj {
+  list: Base[];
+}
+
+expectAssignable<DeepPartial<ListObj>>({list: []});
+expectAssignable<DeepPartial<ListObj>>({list: undefined});
+expectAssignable<DeepPartial<ListObj>>({
+  list: [{nested: {required: undefined}}],
+});
+
+interface ReadOnlyListObj {
+  list: ReadonlyArray<Base>;
+}
+
+expectAssignable<DeepPartial<ReadOnlyListObj>>({list: []});
+expectAssignable<DeepPartial<ReadOnlyListObj>>({list: undefined});
+
+expectAssignable<DeepPartial<ReadOnlyListObj>>({
+  list: [{}],
+});
+
+expectAssignable<DeepPartial<string>>('test');
