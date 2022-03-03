@@ -1,11 +1,11 @@
 export type ArrayElement<T> = T extends (infer U)[] ? U : never;
 
 export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
-    : DeepPartial<T[P]>;
+  [P in keyof T]?: T[P] extends infer TP
+    ? TP extends (infer U)[]
+      ? DeepPartial<U>[]
+      : DeepPartial<T[P]>
+    : T[P];
 };
 
 export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
