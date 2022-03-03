@@ -16,6 +16,16 @@ export interface Options extends ClientOptions {
   snakeCase?: boolean;
 }
 
+// eslint-disable-next-line no-process-env
+const defaultStatsDTags = process.env.STATSD_DEFAULT_TAGS || '';
+
+const globalTags =
+  defaultStatsDTags === ''
+    ? {}
+    : Object.fromEntries(
+        defaultStatsDTags.split(',').map((tag) => tag.split(';')),
+      );
+
 export class StatsDClient {
   private statsd: StatsD;
   private logger: Logger = console;
@@ -28,6 +38,10 @@ export class StatsDClient {
 
     this.options = {
       ...options,
+      globalTags: {
+        ...globalTags,
+        ...options.globalTags,
+      },
       errorHandler: options.errorHandler
         ? options.errorHandler
         : (error: Error) => {
