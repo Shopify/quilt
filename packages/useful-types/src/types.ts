@@ -61,18 +61,19 @@ type Primitive =
   | Symbol
   | undefined
   | null;
-type DeepOmitHelper<T, K extends keyof T> = {
-  [P in K]: T[P] extends infer TP
+type DeepOmitHelper<T, K> = {
+  [P in keyof T]: T[P] extends infer TP
     ? TP extends Primitive
       ? TP
-      : TP extends any[]
-      ? DeepOmitArray<TP, K>
+      : TP extends (infer U)[]
+      ? DeepOmit<U, K>[]
       : DeepOmit<TP, K>
-    : never;
+    : T[P];
 };
-export type DeepOmit<T, K> = T extends Primitive
-  ? T
-  : DeepOmitHelper<T, Exclude<keyof T, K>>;
+
+export type DeepOmit<T, K> = K extends keyof T
+  ? Omit<DeepOmitHelper<T, K>, K>
+  : DeepOmitHelper<T, K>;
 
 export type DeepOmitArray<T extends any[], K> = {
   [P in keyof T]: DeepOmit<T[P], K>;
