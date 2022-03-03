@@ -69,6 +69,27 @@ expectAssignable<DeepPartial<ReadOnlyListObj>>({
 
 expectAssignable<DeepPartial<string>>('test');
 
+interface RespectArrayElements {
+  list: (string | number)[] | null;
+}
+
+/**
+ * valid types ar null or any array with string, number, or both
+ */
+expectAssignable<DeepPartial<RespectArrayElements>>({list: null});
+expectAssignable<DeepPartial<RespectArrayElements>>({list: []});
+expectAssignable<DeepPartial<RespectArrayElements>>({list: ['string']});
+expectAssignable<DeepPartial<RespectArrayElements>>({list: [2]});
+expectAssignable<DeepPartial<RespectArrayElements>>({list: ['string', 2]});
+
+/**
+ * should not be able to add undefined, need to fix this
+ */
+expectAssignable<DeepPartial<RespectArrayElements>>({
+  // this should error, undefined is not a valid type for list
+  list: [undefined, 'stable', 2],
+});
+
 /**
  * IfEmptyObject<T>
  */
