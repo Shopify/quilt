@@ -85,7 +85,7 @@ expectAssignable<DeepPartial<RespectArrayElements>>({list: ['string', 2]});
 /**
  * should not be able to add undefined, need to fix this
  */
-expectAssignable<DeepPartial<RespectArrayElements>>({
+expectNotAssignable<DeepPartial<RespectArrayElements>>({
   // this should error, undefined is not a valid type for list
   list: [undefined, 'stable', 2],
 });
