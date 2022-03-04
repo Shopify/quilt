@@ -9,9 +9,9 @@ import {
   QueryOptions,
   WatchQueryFetchPolicy
 } from '@apollo/client';
-import { IfAllNullableKeys } from '@shopify/useful-types';
+import {IfAllNullableKeys} from '@shopify/useful-types';
 
-import { VariableOptions } from '../types';
+import {VariableOptions} from '../types';
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
   QueryOptions<Data, Variables>,
@@ -37,10 +37,10 @@ export interface QueryHookResult<Data, Variables>
 export type MutationHookOptions<
   Data = any,
   Variables = OperationVariables
-  > = Omit<
-    MutationOptions<Data, Variables>,
-    'variables' | 'mutation' | 'fetchPolicy'
-  > &
+> = Omit<
+  MutationOptions<Data, Variables>,
+  'variables' | 'mutation' | 'fetchPolicy'
+> &
   VariableOptions<Variables> &
   Pick<ClientMutationOptions<Data, Variables>, 'fetchPolicy'> & {
     client?: ApolloClient<object>;
