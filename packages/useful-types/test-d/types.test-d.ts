@@ -67,6 +67,10 @@ expectAssignable<DeepPartial<ReadOnlyListObj>>({
   list: [{}],
 });
 
+expectNotAssignable<DeepPartial<ReadOnlyListObj>>({
+  list: [undefined],
+});
+
 expectAssignable<DeepPartial<string>>('test');
 
 interface RespectArrayElements {
@@ -81,6 +85,54 @@ expectAssignable<DeepPartial<RespectArrayElements>>({list: []});
 expectAssignable<DeepPartial<RespectArrayElements>>({list: ['string']});
 expectAssignable<DeepPartial<RespectArrayElements>>({list: [2]});
 expectAssignable<DeepPartial<RespectArrayElements>>({list: ['string', 2]});
+
+/**
+ * handles ReadOnly objects
+ */
+
+type PresetOption = Readonly<{
+  name?: string;
+  id: string;
+}>;
+
+type Preset = Readonly<{
+  options: ReadonlyArray<PresetOption>;
+  editableOptions: PresetOption[];
+}>;
+
+type PresetState = Readonly<{
+  list?: ReadonlyArray<Preset>;
+}>;
+type State = Readonly<{
+  preset: PresetState;
+}>;
+
+expectAssignable<DeepPartial<State>>({});
+expectAssignable<DeepPartial<State>>({
+  preset: {
+    list: [{options: [{name: 'string'}]}],
+  },
+});
+expectAssignable<DeepPartial<State>>({
+  preset: undefined,
+});
+
+expectNotAssignable<DeepPartial<State>>({
+  preset: {
+    list: [undefined],
+  },
+});
+
+expectNotAssignable<DeepPartial<State>>({
+  preset: {
+    list: [{options: [undefined]}],
+  },
+});
+expectNotAssignable<DeepPartial<State>>({
+  preset: {
+    list: [{editableOptions: [undefined]}],
+  },
+});
 
 /**
  * should not be able to add undefined, need to fix this
@@ -136,8 +188,22 @@ expectNotType<IfEmptyObject<boolean, true>>(true);
  * should return primitives unaltered
  */
 expectAssignable<DeepOmit<string, '__typename'>>('string');
-expectNotAssignable<DeepOmit<string, 'string'>>(undefined);
 expectAssignable<DeepOmit<string, string>>('string');
+expectAssignable<DeepOmit<() => void, 'toString'>>(() => {});
+expectAssignable<DeepOmit<number, 'toString'>>(2);
+expectAssignable<DeepOmit<boolean, 'valueOf'>>(Boolean(0));
+expectAssignable<DeepOmit<undefined, 'toString'>>(undefined);
+expectAssignable<DeepOmit<null, 'toString'>>(null);
+expectAssignable<DeepOmit<Symbol, 'toString'>>(Symbol('string'));
+
+/**
+ * does not omit on primitive types
+ */
+const test: DeepOmit<number, 'toString'> = Number(2);
+expectType<typeof test.toString>((_radix?: number) => '');
+
+expectNotAssignable<DeepOmit<string, 'string'>>(undefined);
+
 interface Obj {
   __typename: string;
   foo: string;
@@ -220,6 +286,27 @@ expectNotAssignable<NullableUnionArray>({bar: [undefined]});
 expectNotAssignable<NullableUnionArray>({bar: [null]});
 
 expectNotAssignable<NullableUnionArray>({bar: undefined});
+
+/**
+ * handles readonly arrays
+ */
+
+interface Node {
+  __typename: 'string';
+  title: string;
+}
+
+type ReadOnlyNullableUnionArray = DeepOmit<
+  {bar: ReadonlyArray<Node>; __typename: string},
+  '__typename'
+>;
+
+expectNotAssignable<ReadOnlyNullableUnionArray>({
+  bar: [undefined],
+});
+expectNotAssignable<ReadOnlyNullableUnionArray>({
+  bar: [{__typename: 'string'}],
+});
 
 /**
  * DeepOmit of type {bar: (string| number)[]}
