@@ -7,7 +7,7 @@ import {
   ApolloError,
   WatchQueryOptions,
   ObservableQuery,
-} from 'apollo-client';
+} from '@apollo/client';
 import {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
 import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
