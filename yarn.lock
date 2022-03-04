@@ -28,7 +28,7 @@
     apollo-graphql "^0.9.3"
     lodash.xorby "^4.7.0"
 
-"@apollo/react-common@^3.1.3", "@apollo/react-common@^3.1.4":
+"@apollo/react-common@>=3.0.0 <4.0.0", "@apollo/react-common@^3.1.3", "@apollo/react-common@^3.1.4":
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/@apollo/react-common/-/react-common-3.1.4.tgz#ec13c985be23ea8e799c9ea18e696eccc97be345"
   integrity sha512-X5Kyro73bthWSCBJUC5XYQqMnG0dLWuDZmVkzog9dynovhfiVCV4kPSdgSIkqnb++cwCzOVuQ4rDKVwo2XRzQA==
@@ -36,7 +36,7 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-hooks@^3.1.3":
+"@apollo/react-hooks@>=3.0.0 <4.0.0", "@apollo/react-hooks@^3.1.3":
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-3.1.5.tgz#7e710be52461255ae7fc0b3b9c2ece64299c10e6"
   integrity sha512-y0CJ393DLxIIkksRup4nt+vSjxalbZBXnnXxYbviq/woj+zKa431zy0yT4LqyRKpFy9ahMIwxBnBwfwIoupqLQ==
@@ -2838,6 +2838,24 @@
     change-case "^4.1.0"
     fs-extra "^9.0.0"
     glob "^7.1.6"
+
+"@shopify/react-graphql@^7.1.24":
+  version "7.1.24"
+  resolved "https://registry.yarnpkg.com/@shopify/react-graphql/-/react-graphql-7.1.24.tgz#fff4f7e2c6b6f5048519a411771569840041c06e"
+  integrity sha512-4N9+T5TPGynjN7yb9sECv2vDzAlyGVtGEz2sX9zOGSw/gGOrNmgSX3B6bJBh6BIsiH3RwBOZ67kalkpEk17PTg==
+  dependencies:
+    "@apollo/react-common" ">=3.0.0 <4.0.0"
+    "@apollo/react-hooks" ">=3.0.0 <4.0.0"
+    "@shopify/async" "^3.1.5"
+    "@shopify/react-async" "^4.1.22"
+    "@shopify/react-effect" "^4.1.11"
+    "@shopify/react-hooks" "^2.1.18"
+    "@shopify/react-idle" "^2.1.13"
+    "@shopify/useful-types" "^4.0.2"
+    apollo-cache-inmemory ">=1.0.0 <2.0.0"
+    apollo-client ">=2.0.0 <3.0.0"
+    apollo-link ">=1.0.0 <2.0.0"
+    graphql-typed "^1.1.5"
 
 "@shopify/typescript-configs@^5.0.0":
   version "5.0.0"
