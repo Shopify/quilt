@@ -1,6 +1,6 @@
 {
   "name": "@shopify/address",
-  "version": "3.0.17-mf-beta.0",
+  "version": "3.0.17-mf-beta.1",
   "license": "MIT",
   "description": "Address utilities for formatting addresses",
   "main": "index.js",
@@ -23,8 +23,8 @@
     "node": ">=12.14.0"
   },
   "devDependencies": {
-    "@shopify/address-mocks": "^2.0.17-mf-beta.0",
-    "@shopify/jest-dom-mocks": "^3.0.15-mf-beta.0"
+    "@shopify/address-mocks": "^2.0.17-mf-beta.1",
+    "@shopify/jest-dom-mocks": "^3.0.15-mf-beta.1"
   },
   "sideEffects": false,
   "dependencies": {
