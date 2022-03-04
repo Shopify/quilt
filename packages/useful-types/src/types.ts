@@ -4,6 +4,8 @@ export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends infer TP
     ? TP extends (infer U)[]
       ? DeepPartial<U>[]
+      : TP extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
       : DeepPartial<T[P]>
     : T[P];
 };
@@ -52,6 +54,14 @@ export type NonReactStatics<T> = Pick<T, Exclude<keyof T, ReactStatics>>;
 
 export type ExtendedWindow<T> = Window & typeof globalThis & T;
 
+type DeepOmitHelper<T, K> = {
+  [P in keyof T]: T[P] extends infer TP
+    ? TP extends (infer U)[]
+      ? DeepOmit<U, K>[]
+      : DeepOmit<TP, K>
+    : T[P];
+};
+
 // Reference https://stackoverflow.com/questions/55539387/deep-omit-with-typescript
 type Primitive =
   | string
@@ -61,17 +71,10 @@ type Primitive =
   | Symbol
   | undefined
   | null;
-type DeepOmitHelper<T, K> = {
-  [P in keyof T]: T[P] extends infer TP
-    ? TP extends Primitive
-      ? TP
-      : TP extends (infer U)[]
-      ? DeepOmit<U, K>[]
-      : DeepOmit<TP, K>
-    : T[P];
-};
 
-export type DeepOmit<T, K> = K extends keyof T
+export type DeepOmit<T, K> = T extends Primitive
+  ? T
+  : K extends keyof T
   ? Omit<DeepOmitHelper<T, K>, K>
   : DeepOmitHelper<T, K>;
 
