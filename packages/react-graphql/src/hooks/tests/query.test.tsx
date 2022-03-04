@@ -1,11 +1,11 @@
 import React from 'react';
-import { ApolloClient, ApolloLink, NetworkStatus, InMemoryCache, gql } from '@apollo/client';
-import { createGraphQLFactory } from '@shopify/graphql-testing';
+import {ApolloClient, ApolloLink, NetworkStatus, InMemoryCache, gql} from '@apollo/client';
+import {createGraphQLFactory} from '@shopify/graphql-testing';
 
-import { createAsyncQueryComponent } from '../../async';
+import {createAsyncQueryComponent} from '../../async';
 import useQuery from '../query';
 
-import { mountWithGraphQL, createResolvablePromise } from './utilities';
+import {mountWithGraphQL, createResolvablePromise} from './utilities';
 
 const petQuery = gql`
   query PetQuery {
@@ -28,12 +28,12 @@ const mockData = {
 describe('useQuery', () => {
   describe('document', () => {
     it('returns loading=true and networkStatus=loading during the loading of query', async () => {
-      function MockQuery({ children }) {
+      function MockQuery({children}) {
         const results = useQuery(petQuery);
         return children(results);
       }
 
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
       await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
@@ -50,12 +50,12 @@ describe('useQuery', () => {
     });
 
     it('returns loading=true and networkStatus=loading during the loading of query when ssr option is false', async () => {
-      function MockQuery({ children }) {
-        const results = useQuery(petQuery, { ssr: false });
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {ssr: false});
         return children(results);
       }
 
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
       await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
@@ -72,20 +72,20 @@ describe('useQuery', () => {
     });
 
     it('return loading=false, networkStatus and the data once the query resolved', async () => {
-      function MockQuery({ children }) {
+      function MockQuery({children}) {
         const results = useQuery(petQuery);
         return children(results);
       }
 
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
       await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
         graphQL,
       });
 
-      const lastQuery = graphQL.operations.last({ operationName: 'PetQuery' });
-      expect(lastQuery).toMatchObject({ operationName: 'PetQuery' });
+      const lastQuery = graphQL.operations.last({operationName: 'PetQuery'});
+      expect(lastQuery).toMatchObject({operationName: 'PetQuery'});
 
       expect(renderPropSpy).toHaveBeenLastCalledWith(
         expect.objectContaining({
@@ -106,13 +106,13 @@ describe('useQuery', () => {
         ) => React.ReactElement | null;
         variables?: object;
       }) {
-        const results = useQuery(petQuery, { variables });
+        const results = useQuery(petQuery, {variables});
         return children(results);
       }
 
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
-      const variables = { foo: 'bar' };
+      const variables = {foo: 'bar'};
 
       const mockQuery = await mountWithGraphQL(
         <MockQuery variables={variables}>{renderPropSpy}</MockQuery>,
@@ -121,7 +121,7 @@ describe('useQuery', () => {
         },
       );
 
-      mockQuery.setProps({ variables: { ...variables } });
+      mockQuery.setProps({variables: {...variables}});
 
       expect(graphQL.operations.all()).toHaveLength(1);
 
@@ -139,11 +139,11 @@ describe('useQuery', () => {
       mockClient.watchQuery = watchQuerySpy;
 
       function MockQuery() {
-        useQuery(petQuery, { client: mockClient, skip: true });
+        useQuery(petQuery, {client: mockClient, skip: true});
         return null;
       }
 
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       await mountWithGraphQL(<MockQuery />, {
         graphQL,
       });
@@ -152,12 +152,12 @@ describe('useQuery', () => {
     });
 
     it('returns previous data if the fetchPolicy=no-cache and the current query has error', async () => {
-      function MockQuery({ children }) {
-        const results = useQuery(petQuery, { fetchPolicy: 'no-cache' });
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {fetchPolicy: 'no-cache'});
         return children(results);
       }
 
-      const graphQL = createGraphQL({ PetQuery: new Error() });
+      const graphQL = createGraphQL({PetQuery: new Error()});
       const renderPropSpy = jest.fn(() => null);
 
       await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
@@ -178,11 +178,11 @@ describe('useQuery', () => {
       const MockQueryComponent = createAsyncQueryComponent({
         load: () => resolvableQuery.promise,
       });
-      function MockQuery({ children }) {
+      function MockQuery({children}) {
         const results = useQuery(MockQueryComponent);
         return children(results);
       }
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
       await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
         graphQL,
@@ -202,11 +202,11 @@ describe('useQuery', () => {
         load: () => Promise.resolve(petQuery),
       });
 
-      function MockQuery({ children }) {
+      function MockQuery({children}) {
         const results = useQuery(MockQueryComponent);
         return children(results);
       }
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
       const wrapper = await mountWithGraphQL(
@@ -234,11 +234,11 @@ describe('useQuery', () => {
         load: () => Promise.resolve(petQuery),
       });
 
-      function MockQuery({ children }) {
-        const results = useQuery(MockQueryComponent, { ssr: false });
+      function MockQuery({children}) {
+        const results = useQuery(MockQueryComponent, {ssr: false});
         return children(results);
       }
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
       const wrapper = await mountWithGraphQL(
@@ -266,11 +266,11 @@ describe('useQuery', () => {
         load: () => Promise.resolve(petQuery),
       });
 
-      function MockQuery({ children }) {
+      function MockQuery({children}) {
         const results = useQuery(MockQueryComponent);
         return children(results);
       }
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       const renderPropSpy = jest.fn(() => null);
 
       const wrapper = await mountWithGraphQL(
@@ -304,11 +304,11 @@ describe('useQuery', () => {
       });
 
       function MockQuery() {
-        useQuery(MockQueryComponent, { client: mockClient, skip: true });
+        useQuery(MockQueryComponent, {client: mockClient, skip: true});
         return null;
       }
 
-      const graphQL = createGraphQL({ PetQuery: mockData });
+      const graphQL = createGraphQL({PetQuery: mockData});
       await mountWithGraphQL(<MockQuery />, {
         graphQL,
       });
