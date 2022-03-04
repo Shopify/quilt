@@ -1,8 +1,8 @@
-import { IfAllNullableKeys, NoInfer } from '@shopify/useful-types';
-import { OperationVariables } from '@apollo/client';
-import { DocumentNode } from 'graphql-typed';
+import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
+import {OperationVariables} from '@apollo/client';
+import {DocumentNode} from 'graphql-typed';
 
-import { useQuery, QueryHookResult, QueryHookOptions } from './hooks';
+import {useQuery, QueryHookResult, QueryHookOptions} from './hooks';
 
 interface QueryComponentOptions<Data, Variables> extends QueryHookOptions {
   children: (result: QueryHookResult<Data, Variables>) => JSX.Element | null;
