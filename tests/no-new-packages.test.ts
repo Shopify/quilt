@@ -40,6 +40,7 @@ describe('no new packages', () => {
       'koa-shopify-webhooks',
       'logger',
       'mime-types',
+      'mock-factory',
       'network',
       'performance',
       'polyfills',
