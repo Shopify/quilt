@@ -25,10 +25,10 @@ export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
   };
 
 export interface QueryHookResult<Data, Variables>
-  extends Omit<
-    QueryResult<Data, Variables>,
-    'networkStatus' | 'variables' | 'called'
-  > {
+extends Omit<
+  QueryResult<Data, Variables>,
+  'networkStatus' | 'variables' | 'called'
+> {
   networkStatus: QueryResult<Data, Variables>['networkStatus'] | undefined;
   variables: QueryResult<Data, Variables>['variables'] | undefined;
   called: QueryResult<Data, Variables>['called'] | false;
