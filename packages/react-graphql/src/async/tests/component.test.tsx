@@ -1,9 +1,7 @@
 import React, {ReactElement} from 'react';
 import faker from '@faker-js/faker/locale/en';
-import gql from 'graphql-tag';
-import {ApolloClient} from 'apollo-client';
-import {ApolloLink} from 'apollo-link';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import {ApolloClient, ApolloLink, gql} from '@apollo/client';
+import {InMemoryCache} from '@apollo/client/cache';
 import {getUsedAssets as baseGetUsedAssets} from '@shopify/react-async/testing';
 import {createMount} from '@shopify/react-testing';
 import {
@@ -145,7 +143,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const client = createMockApolloClient();
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
-      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
+      watchQuerySpy.mockImplementation(() => ({subscribe() {} } as any));
 
       const variables = {name: faker.name.firstName()};
       const asyncQuery = mount(<AsyncQuery.Prefetch variables={variables} />, {
@@ -204,7 +202,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const client = createMockApolloClient();
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
-      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
+      watchQuerySpy.mockImplementation(() => ({subscribe() {} } as any));
 
       const variables = {name: faker.name.firstName()};
       const asyncQuery = mount(<AsyncQuery.KeepFresh variables={variables} />, {
