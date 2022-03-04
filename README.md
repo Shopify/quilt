@@ -14,7 +14,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 72 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 73 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -52,6 +52,7 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/koa-shopify-webhooks](packages/koa-shopify-webhooks) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg" width="200px" /></a> | Receive webhooks from Shopify with ease |
 | [@shopify/logger](packages/logger) | <a href="https://badge.fury.io/js/%40shopify%2Flogger"><img src="https://badge.fury.io/js/%40shopify%2Flogger.svg" width="200px" /></a> | Opinionated logger for production-scale applications |
 | [@shopify/mime-types](packages/mime-types) | <a href="https://badge.fury.io/js/%40shopify%2Fmime-types"><img src="https://badge.fury.io/js/%40shopify%2Fmime-types.svg" width="200px" /></a> | MIME type consistency |
+| [@shopify/mock-factory](packages/mock-factory) | <a href="https://badge.fury.io/js/%40shopify%2Fmock-factory"><img src="https://badge.fury.io/js/%40shopify%2Fmock-factory.svg" width="200px" /></a> | create typesafe mock data objects |
 | [@shopify/network](packages/network) | <a href="https://badge.fury.io/js/%40shopify%2Fnetwork"><img src="https://badge.fury.io/js/%40shopify%2Fnetwork.svg" width="200px" /></a> | Common values related to dealing with the network |
 | [@shopify/performance](packages/performance) | <a href="https://badge.fury.io/js/%40shopify%2Fperformance"><img src="https://badge.fury.io/js/%40shopify%2Fperformance.svg" width="200px" /></a> | Primitives for collecting browser performance metrics |
 | [@shopify/polyfills](packages/polyfills) | <a href="https://badge.fury.io/js/%40shopify%2Fpolyfills"><img src="https://badge.fury.io/js/%40shopify%2Fpolyfills.svg" width="200px" /></a> | Blessed polyfills for web platform features |

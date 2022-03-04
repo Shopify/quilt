@@ -33,6 +33,7 @@
     {"path": "./packages/koa-shopify-webhooks"},
     {"path": "./packages/logger"},
     {"path": "./packages/mime-types"},
+    {"path": "./packages/mock-factory"},
     {"path": "./packages/network"},
     {"path": "./packages/performance"},
     {"path": "./packages/polyfills"},
