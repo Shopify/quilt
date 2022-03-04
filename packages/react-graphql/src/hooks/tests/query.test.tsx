@@ -1,5 +1,6 @@
 import React from 'react';
-import {ApolloClient, ApolloLink, NetworkStatus, InMemoryCache, gql} from '@apollo/client';
+import {ApolloClient, ApolloLink, NetworkStatus, gql} from '@apollo/client';
+import {InMemoryCache} from '@apollo/client/cache';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';
