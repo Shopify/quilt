@@ -1,3 +1,3 @@
-export {createMockFactory, mergeMocks} from './createMockFactory';
+export {createMockFactory} from './createMockFactory';
 
 export * from './types';
