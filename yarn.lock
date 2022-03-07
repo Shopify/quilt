@@ -4231,7 +4231,7 @@ apollo-language-server@^1.26.4:
     vscode-languageserver "^5.1.0"
     vscode-uri "1.0.6"
 
-"apollo-link-context@>=1.0.0 <2.0.0", apollo-link-context@^1.0.9:
+apollo-link-context@^1.0.9:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/apollo-link-context/-/apollo-link-context-1.0.20.tgz#1939ac5dc65d6dff0c855ee53521150053c24676"
   integrity sha512-MLLPYvhzNb8AglNsk2NcL9AvhO/Vc9hn2ZZuegbhRHGet3oGr0YH9s30NS9+ieoM0sGT11p7oZ6oAILM/kiRBA==
