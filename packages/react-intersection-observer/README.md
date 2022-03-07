@@ -52,7 +52,9 @@ Unlike the `useIntersection` hook, this component will create its own DOM node t
     root={this.parentElement.current}
     rootMargin="10px 10%"
     threshold={1}
-    onIntersecting={(entry) => console.log('intersectionRatio > 0', entry)}
+    onIntersectionChange={(entry) =>
+      console.log('intersectionRatio > 0', entry)
+    }
     onNotIntersecting={(entry) => console.log('intersectionRatio = 0', entry)}
   />
 </div>
