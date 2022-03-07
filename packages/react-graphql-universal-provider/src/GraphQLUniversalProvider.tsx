@@ -1,7 +1,6 @@
 import React from 'react';
-import {ApolloClient, ApolloClientOptions} from 'apollo-client';
-import {ApolloLink} from 'apollo-link';
-import {InMemoryCache, NormalizedCacheObject} from 'apollo-cache-inmemory';
+import {ApolloClient, ApolloClientOptions, ApolloLink} from '@apollo/client';
+import {InMemoryCache, NormalizedCacheObject} from '@apollo/client/cache';
 import {useSerialized} from '@shopify/react-html';
 import {ApolloProvider, createSsrExtractableLink} from '@shopify/react-graphql';
 import {useLazyRef} from '@shopify/react-hooks';
@@ -32,10 +31,7 @@ export function GraphQLUniversalProvider<
   const requestID = useRequestHeader('X-Request-ID');
 
   const [client, ssrLink] = useLazyRef<
-    [
-      import('apollo-client').ApolloClient<any>,
-      ReturnType<typeof createSsrExtractableLink> | undefined,
-    ]
+    [ApolloClient<any>, ReturnType<typeof createSsrExtractableLink> | undefined]
   >(() => {
     const server = isServer();
 

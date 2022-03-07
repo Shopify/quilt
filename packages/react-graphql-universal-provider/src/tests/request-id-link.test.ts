@@ -1,4 +1,4 @@
-import {ApolloLink, Observable} from 'apollo-link';
+import {ApolloLink, Observable} from '@apollo/client';
 
 import {createRequestIdLink} from '../request-id-link';
 
