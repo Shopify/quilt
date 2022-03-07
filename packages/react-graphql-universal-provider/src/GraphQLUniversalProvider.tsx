@@ -31,7 +31,14 @@ export function GraphQLUniversalProvider<
   const requestID = useRequestHeader('X-Request-ID');
 
   const [client, ssrLink] = useLazyRef<
+<<<<<<< HEAD
     [ApolloClient<any>, ReturnType<typeof createSsrExtractableLink> | undefined]
+=======
+    [
+      import('@apollo/client').ApolloClient<any>,
+      ReturnType<typeof createSsrExtractableLink> | undefined,
+    ]
+>>>>>>> 93efd47a6 (update react-graphql-universal-provider to Apollo)
   >(() => {
     const server = isServer();
 
