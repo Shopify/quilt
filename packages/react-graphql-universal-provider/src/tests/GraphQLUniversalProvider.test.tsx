@@ -1,6 +1,6 @@
 import React from 'react';
-import {InMemoryCache} from 'apollo-cache-inmemory';
-import {ApolloLink} from 'apollo-link';
+import {ApolloLink} from '@apollo/client';
+import {InMemoryCache} from '@apollo/client/cache';
 import {extract} from '@shopify/react-effect/server';
 import {mount} from '@shopify/react-testing';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
@@ -9,12 +9,12 @@ import {NetworkContext, NetworkManager} from '@shopify/react-network';
 
 import {GraphQLUniversalProvider} from '../GraphQLUniversalProvider';
 
-jest.mock('apollo-client', () => {
-  const ApolloClient = jest.requireActual('apollo-client').ApolloClient;
+jest.mock('@apollo/client', () => {
+  const ApolloClient = jest.requireActual('@apollo/client').ApolloClient;
   const mockApolloClient = jest.fn((options) => new ApolloClient(options));
 
   return {
-    ...jest.requireActual('apollo-client'),
+    ...jest.requireActual('@apollo/client'),
     default: mockApolloClient,
     ApolloClient: mockApolloClient,
   };
@@ -38,7 +38,7 @@ jest.mock('../csrf-link', () => ({
 }));
 const {createCsrfLink} = jest.requireMock('../csrf-link');
 
-const ApolloClient = jest.requireMock('apollo-client').default;
+const ApolloClient = jest.requireMock('@apollo/client').default;
 
 describe('<GraphQLUniversalProvider />', () => {
   beforeEach(() => {
@@ -58,7 +58,7 @@ describe('<GraphQLUniversalProvider />', () => {
     );
 
     expect(graphQL).toContainReactComponent(ApolloProvider, {
-      client: expect.any(jest.requireActual('apollo-client').ApolloClient),
+      client: expect.any(jest.requireActual('@apollo/client').ApolloClient),
     });
   });
 
