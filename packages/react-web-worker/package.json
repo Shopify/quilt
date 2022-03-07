@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-web-worker",
-  "version": "4.0.8",
+  "version": "4.0.9",
   "license": "MIT",
   "description": "A hook for using web workers in React applications",
   "main": "index.js",
@@ -24,9 +24,9 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/react-hooks": "^2.1.16",
-    "@shopify/useful-types": "^4.0.0",
-    "@shopify/web-worker": "^4.0.3"
+    "@shopify/react-hooks": "^2.1.17",
+    "@shopify/useful-types": "^4.0.1",
+    "@shopify/web-worker": "^4.0.4"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0",
