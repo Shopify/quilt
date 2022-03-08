@@ -7,7 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-### Changed
+### Added
 
 - Add NetworkStatus type export. [[#2196](https://github.com/Shopify/quilt/pull/2196)]
 
