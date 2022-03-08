@@ -4,22 +4,35 @@ A turn-key solution for integrating [Quilt](https://github.com/Shopify/quilt) cl
 
 ## Table of Contents
 
-- [Server-side-rendering](#server-side-rendering)
-  - [Quick start](#quick-start)
-    - [Generate Rails boilerplate](#generate-rails-boilerplate)
-    - [Add Ruby dependencies](#add-ruby-dependencies)
-    - [Generate app boilerplate](#generate-app-boilerplate)
-    - [Try it out](#try-it-out)
-  - [Manual Install](#manual-installation)
-  - [Application Layout](#application-layout)
-  - [Advanced Use](#advanced-use)
-    - [Testing](#testing)
-    - [Interacting with the request and response in React code](#interacting-with-the-request-and-response-in-react-code)
-    - [Dealing with isomorphic state](#dealing-with-isomorphic-state)
-    - [Customizing the Node server](#customizing-the-node-server)
-    - [Fixing rejected CSRF tokens for new user sessions](#fixing-rejected-csrf-tokens-for-new-user-sessions)
-- [Performance tracking a React app](#performance-tracking-a-react-app)
-- [API](#api)
+- [quilt_rails](#quilt_rails)
+  - [Table of Contents](#table-of-contents)
+  - [Server-side-rendering](#server-side-rendering)
+    - [Quick start](#quick-start)
+      - [Generate Rails boilerplate](#generate-rails-boilerplate)
+      - [Add Ruby dependencies](#add-ruby-dependencies)
+      - [Generate app boilerplate](#generate-app-boilerplate)
+      - [Try it out](#try-it-out)
+    - [Manual installation](#manual-installation)
+    - [Advanced use](#advanced-use)
+      - [Testing](#testing)
+        - [Example](#example)
+        - [Customizing the test environment](#customizing-the-test-environment)
+        - [Interacting with the request and response in React code](#interacting-with-the-request-and-response-in-react-code)
+        - [Example: getting headers](#example-getting-headers)
+        - [Example: sending custom headers from Rails controller](#example-sending-custom-headers-from-rails-controller)
+        - [Example: sending custom data from Rails controller](#example-sending-custom-data-from-rails-controller)
+        - [Example: redirecting](#example-redirecting)
+      - [Isomorphic state](#isomorphic-state)
+      - [Customizing the Node server](#customizing-the-node-server)
+      - [Fixing rejected CSRF tokens for new user sessions](#fixing-rejected-csrf-tokens-for-new-user-sessions)
+        - [Example](#example-1)
+        - [Example](#example-2)
+      - [Exception monitoring with Bugsnag](#exception-monitoring-with-bugsnag)
+        - [Example](#example-3)
+  - [Performance tracking a React app](#performance-tracking-a-react-app)
+  - [API](#api)
+  - [Shopify embedded app](#shopify-embedded-app)
+  - [FAQ](#faq)
 
 ## Server-side-rendering
 
@@ -314,6 +327,20 @@ Follow details guide [here](./docs/performance-tracking.md).
 ## API
 
 Find all features this gem offer in this [API doc](./docs/api.md).
+
+## Shopify embedded app
+
+[See here for Dev Docs for Apps](https://shopify.dev/apps). Make sure to add the line: `include ShopifyApp::EmbeddedApp` if you are using Quilt for server-side rendering of React for an embedded application:
+```ruby
+class ReactController < ApplicationController
+  include ShopifyApp::EmbeddedApp
+  include Quilt::ReactRenderable
+
+  def index
+    render_react
+  end
+end
+```
 
 ## FAQ
 
