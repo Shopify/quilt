@@ -90,38 +90,18 @@ function updateChangelogForPackage(packageLocation) {
 
     const newContent = changelogContent.replace(
       '\n## Unreleased\n',
-      `\n## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-\n\n${headingFormat(newVersion)}\n`,
+      `\n<!-- ## Unreleased -->\n\n${headingFormat(newVersion)}\n`,
     );
     writeFileSync(changelogPath, newContent);
     return changelogPath;
   }
 
-  if (changelogContent.includes('\n## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-\n')) {
+  if (changelogContent.includes('\n<!-- ## Unreleased -->\n')) {
     console.log(`- ${relativeChangelogPath}: Adding ${newVersion} header`);
 
     const newContent = changelogContent.replace(
-      '\n## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-\n',
-      `\n## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-\n\n${headingFormat(
+      '\n<!-- ## Unreleased -->\n',
+      `\n<!-- ## Unreleased -->\n\n${headingFormat(
         newVersion,
       )}\n\n- No updates. Transitive dependency bump.\n`,
     );
