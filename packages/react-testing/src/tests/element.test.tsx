@@ -354,6 +354,58 @@ describe('Element', () => {
       expect(element.find('div', {className: span.props.className})).toBeNull();
     });
 
+    it('finds elements with React components as props', () => {
+      const divOne = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'foo'},
+          type: 'div',
+          tag: Tag.HostComponent,
+          instance: document.createElement('div'),
+        },
+        [],
+        defaultRoot,
+      );
+
+      const divTwo = new Element(
+        {
+          ...defaultTree,
+          props: {children: <div id="test-div" />},
+          type: 'div',
+          tag: Tag.HostComponent,
+          instance: document.createElement('div'),
+        },
+        [],
+        defaultRoot,
+      );
+
+      const span = new Element(
+        {
+          ...defaultTree,
+          props: {className: 'baz'},
+          type: 'span',
+          tag: Tag.HostComponent,
+          instance: document.createElement('span'),
+        },
+        [],
+        defaultRoot,
+      );
+
+      const element = new Element(
+        defaultTree,
+        [divOne, divTwo, span],
+        defaultRoot,
+      );
+
+      expect(element.find('div', {children: <div id="test-div" />})).toBe(
+        divTwo,
+      );
+
+      expect(
+        element.find('div', {children: <div id="wrong-div" />}),
+      ).toBeNull();
+    });
+
     it('returns null when no match is found', () => {
       const element = new Element(defaultTree, [], defaultRoot);
       expect(element.find(DummyComponent)).toBeNull();

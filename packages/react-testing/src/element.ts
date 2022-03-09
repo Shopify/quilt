@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactIs from 'react-is';
 
 import {nodeName, toReactString} from './toReactString';
 import {
@@ -264,9 +265,22 @@ function isMatchingType(
   return (test as any).type != null && isMatchingType(type, (test as any).type);
 }
 
+function isEqualReactElement(elementA: object, elementB: object) {
+  return (
+    ReactIs.isElement(elementA) &&
+    ReactIs.isElement(elementB) &&
+    equalSubset(
+      (elementA as React.ReactElement).props,
+      (elementB as React.ReactElement).props,
+    )
+  );
+}
+
 function equalSubset(subset: object, full: object) {
   return Object.keys(subset).every(
-    (key) => key in full && full[key] === subset[key],
+    (key) =>
+      (key in full && full[key] === subset[key]) ||
+      isEqualReactElement(subset[key], full[key]),
   );
 }
 
