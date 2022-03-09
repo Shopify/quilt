@@ -1,6 +1,6 @@
 {
   "name": "graphql-typed",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "license": "MIT",
   "description": "A more strongly typed version of GraphQL's DocumentNode.",
   "main": "index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/koa-shopify-webhooks",
-  "version": "4.4.3",
+  "version": "4.4.4",
   "license": "MIT",
   "description": "Receive webhooks from Shopify with ease",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/network": "^2.0.7",
+    "@shopify/network": "^2.0.8",
     "@types/koa": "^2.0.0",
     "koa-bodyparser": ">=4.0.0 <5.0.0",
     "koa-compose": ">=4.0.0 <5.0.0",
