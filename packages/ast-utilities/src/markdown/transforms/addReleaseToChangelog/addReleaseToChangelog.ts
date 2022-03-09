@@ -11,12 +11,7 @@ interface Options {
 export default function addReleaseToChangelog({version, date, notes}: Options) {
   return function addReleaseToChangelogPlugin() {
     const commentedUnreleasedNode = build('html', {
-      value: '## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-',
+      value: '<!-- ## Unreleased -->',
     });
     const releaseVersionNode = build(
       'heading',
@@ -63,10 +58,5 @@ function isUnreleasdHeading(node) {
 
 function isUnreleasdComment(node) {
   const {type, value} = node;
-  return type === 'html' && value === '## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-';
+  return type === 'html' && value === '<!-- ## Unreleased -->';
 }

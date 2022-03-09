@@ -15,12 +15,7 @@ describe('addReleaseToChangelog', () => {
     `;
 
     const expected = `
-## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-
+<!-- ## Unreleased -->
 
 ## ${newVersion} - ${newDate}
 
@@ -51,12 +46,7 @@ describe('addReleaseToChangelog', () => {
     `;
 
     const expected = `
-## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-
+<!-- ## Unreleased -->
 
 ## ${version} - ${date}
 
@@ -92,12 +82,7 @@ ${notes}
     `;
 
     const expected = `
-## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-
+<!-- ## Unreleased -->
 
 ## ${version} - ${date}
 
@@ -121,12 +106,7 @@ ${notes}
     const newDate = '2019-09-16';
 
     const initial = `
-## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-
+<!-- ## Unreleased -->
 
 ## 0.0.2 - 2019-08-17
 
@@ -138,12 +118,7 @@ ${notes}
     `;
 
     const expected = `
-## Unreleased
-
-### Changed
-
-- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
-
+<!-- ## Unreleased -->
 
 ## ${newVersion} - ${newDate}
 
