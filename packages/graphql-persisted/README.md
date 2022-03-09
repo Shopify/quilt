@@ -24,9 +24,7 @@ This package includes two parts, both of which must be used together in order to
 The `@shopify/graphql-persisted/apollo` entrypoint exports a `createPersistedLink` function. This function returns an [Apollo link](https://www.apollographql.com/docs/link/) which should be added _before_ the HTTP link:
 
 ```tsx
-import {ApolloClient} from 'apollo-client';
-import {ApolloLink} from 'apollo-link';
-import {createHttpLink} from 'apollo-link-http';
+import {ApolloClient, ApolloLink, createHttpLink} from '@apollo/client';
 import {createPersistedLink} from '@shopify/graphql-persisted/apollo';
 
 const client = new ApolloClient({
