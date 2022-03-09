@@ -32,7 +32,7 @@ export function GraphQLUniversalProvider<
 
   const [client, ssrLink] = useLazyRef<
     [
-      import('@apollo/client').ApolloClient<any>,
+      ApolloClient<any>,
       ReturnType<typeof createSsrExtractableLink> | undefined,
     ]
   >(() => {
