@@ -8,6 +8,7 @@ packages/*/build
 **/*.esnext
 **/*.mjs
 **/tests/fixtures/**/default-types/*.ts
+**/tests/fixtures/**/*.d.ts
 
 # Don't lint fixture graphql files as they include schemas
 packages/graphql-config-utilities/src/tests/fixtures/**/*.graphql
