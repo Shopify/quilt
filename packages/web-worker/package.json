@@ -33,7 +33,7 @@
       "import": "./index.mjs",
       "require": "./index.js"
     },
-    "./*": "./"
+    "./*": "./*"
   },
   "sideEffects": false,
   "publishConfig": {
