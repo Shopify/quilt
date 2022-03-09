@@ -35,7 +35,7 @@ export function GraphQLUniversalProvider<
     [ApolloClient<any>, ReturnType<typeof createSsrExtractableLink> | undefined]
 =======
     [
-      import('@apollo/client').ApolloClient<any>,
+      ApolloClient<any>,
       ReturnType<typeof createSsrExtractableLink> | undefined,
     ]
 >>>>>>> 93efd47a6 (update react-graphql-universal-provider to Apollo)
