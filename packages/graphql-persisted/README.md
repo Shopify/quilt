@@ -25,6 +25,7 @@ The `@shopify/graphql-persisted/apollo` entrypoint exports a `createPersistedLin
 
 ```tsx
 import {ApolloClient, ApolloLink, createHttpLink} from '@apollo/client';
+import {createPersistedLink} from '@shopify/graphql-persisted/apollo';
 
 const client = new ApolloClient({
   /* other options, like the cache */
