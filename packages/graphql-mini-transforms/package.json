@@ -83,7 +83,7 @@
       "import": "./index.mjs",
       "require": "./index.js"
     },
-    "./*": "./"
+    "./*": "./*"
   },
   "tags": [
     "graphql",

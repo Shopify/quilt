@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Changed
+
+- Correct wildcard export to `./*` [[#2209](https://github.com/Shopify/quilt/pull/2209)]
+
 ### Added
 
 - Add NetworkStatus type export. [[#2196](https://github.com/Shopify/quilt/pull/2196)]

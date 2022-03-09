@@ -47,6 +47,6 @@
       "import": "./index.mjs",
       "require": "./index.js"
     },
-    "./*": "./"
+    "./*": "./*"
   }
 }
