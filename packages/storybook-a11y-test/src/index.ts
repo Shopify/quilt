@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import os from 'os';
 
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
-import type {StoryStore} from '@storybook/client-api';
-import type {StoryId} from '@storybook/addons';
-import {AxePuppeteer} from '@axe-core/puppeteer';
+import type { StoryStore } from '@storybook/client-api';
+import type { StoryId } from '@storybook/addons';
+import { AxePuppeteer } from '@axe-core/puppeteer';
 
 // unwraps a promise
 type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
@@ -39,9 +39,11 @@ export async function getStoryIds(iframePath: string) {
   const page = await browser.newPage();
   await page.goto(iframePath);
 
-  await page.evaluate(() =>
-    window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles(),
-  );
+  await page.evaluate(async () => {
+    if (typeof window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles === 'function') {
+      await window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles()
+    }
+  });
 
   const storyIds = await page.evaluate(() =>
     Object.keys(window.__STORYBOOK_STORY_STORE__.extract()),
@@ -69,21 +71,24 @@ function removeSkippedStories(skippedStoryIds: StoryId[]) {
   };
 }
 
-async function getA11yParams(storyId: StoryId, iframePath: string) {
-  const browser = await getBrowser();
+async function getA11yParams(storyId: StoryId, browser: Browser, iframePath: string) {
   const page = await browser.newPage();
   await page.goto(iframePath);
 
   const parameters =
     (await page.evaluate(async (storyId) => {
-      const {parameters} = await window.__STORYBOOK_STORY_STORE__.loadStory(
-        storyId,
-      )!;
-      return parameters;
+      if (typeof window.__STORYBOOK_STORY_STORE__.loadStory === 'function') {
+        const story = await window.__STORYBOOK_STORY_STORE__.loadStory(
+          storyId,
+        )!;
+        return story.parameters;
+      } else {
+        const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
+        return story.parameters;
+      }
     }, storyId)) || {};
 
   await page.close();
-  await browser.close();
 
   return (
     parameters.a11y || {
@@ -151,9 +156,14 @@ function testPage(
   disableAnimation: boolean,
 ) {
   return async function (id: StoryId) {
-    console.log(` - ${id}`);
 
-    const a11yParams = await getA11yParams(id, iframePath);
+    const a11yParams = await getA11yParams(id, browser, iframePath);
+
+    if (a11yParams?.disable) {
+      console.log(` - ${id}: Skipped (a11y.disable)`);
+    } else {
+      console.log(` - ${id}`);
+    }
 
     const config = a11yParams.config ? a11yParams.config : {};
     const options = a11yParams.options ? a11yParams.options : {};
@@ -161,7 +171,7 @@ function testPage(
     try {
       const page = await browser.newPage();
 
-      await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
+      await page.goto(`${iframePath}?id=${id}`, { waitUntil: 'load', timeout });
 
       if (disableAnimation) {
         await page.addStyleTag({
