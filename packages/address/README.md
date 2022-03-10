@@ -21,7 +21,7 @@ $ yarn add @shopify/address
 
 Show an address:
 
-```typescript
+```ts
 import AddressFormatter from '@shopify/address';
 
 const address = {
@@ -84,6 +84,10 @@ Returns how to order address fields for a country code. Fetches the country if n
 
 Given an address, returns the address ordered for multiline rendering. Uses the `formatAddress` sync API in the background.
 
+#### `AddressFormatter.resetCache(): void`
+
+Resets the internal cache. Useful to avoid side-effects in test suite.
+
 ### Sync API
 
 If you already have the input data ready, like a `Country` object, you can use the sync API to get the result right away.
@@ -120,11 +124,15 @@ Eg.:
 
 If your component uses this package and you want to test it with mock API calls you can use the following:
 
-```
+```ts
 import {fetch} from '@shopify/jest-dom-mocks';
 import {mockCountryRequests} from '@shopify/address/tests';
+import AddressFormatter from '@shopify/address';
 
-beforeEach(mockCountryRequests);
+beforeEach(() => {
+  AddressFormatter.resetCache(); // to avoid side-effects.
+  mockCountryRequests();
+});
 afterEach(fetch.restore);
 ```
 
