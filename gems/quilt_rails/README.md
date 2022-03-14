@@ -335,7 +335,6 @@ Find all features this gem offer in this [API doc](./docs/api.md).
 class ReactController < ApplicationController
   include ShopifyApp::EmbeddedApp
   include Quilt::ReactRenderable
-
   def index
     render_react
   end
