@@ -9,6 +9,7 @@ export type {
   GraphQLVariables,
   GraphQLDeepPartial,
   QueryProps,
+  NetworkStatus,
 } from './types';
 
 export {ApolloProvider} from './ApolloProvider';
