@@ -1,21 +1,4 @@
 export const possibleTypes = {
-    ConfigField: [
-        'ArrayConfigField',
-        'BooleanConfigField',
-        'CollectionsConfigField',
-        'CommerceObjectConfigField',
-        'DurationConfigField',
-        'FloatConfigField',
-        'IntegerConfigField',
-        'MapConfigField',
-        'MarketingActivityConfigField',
-        'RecurrenceConfigField',
-        'SelectConfigField',
-        'ShippingCarrierServicesConfigField',
-        'ShippingPackageConfigField',
-        'TextConfigField',
-        'WeightConfigField'
-    ],
     EnvironmentTypeDefinition: [
         'EnvironmentEnumDefinition',
         'EnvironmentInterfaceDefinition',
