@@ -1,4 +1,4 @@
-import {Operation} from 'apollo-link';
+import {Operation} from '@apollo/client';
 
 import {operationNameFromFindOptions} from './utilities';
 import {FindOptions} from './types';
