@@ -11,10 +11,12 @@ function generatePossibleTypes(schema) {
             }
         });
     } catch (err) {
-        console.error(err);
+        throw new PossibleTypesError(err);
     }
 
     return possibleTypes;
 }
+
+export class PossibleTypesError extends Error { };
 
 export default generatePossibleTypes;
