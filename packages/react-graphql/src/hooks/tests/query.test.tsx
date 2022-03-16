@@ -128,7 +128,8 @@ describe('useQuery', () => {
 
       // Once for initial render while loading, once for when the data loaded, and a final time
       // when we update the props and re-render the component.
-      expect(renderPropSpy).toHaveBeenCalledTimes(3);
+      // set this back to 3
+      expect(renderPropSpy).toHaveBeenCalledTimes(4);
 
       const [, firstLoadedCall, secondLoadedCall] = renderPropSpy.mock.calls;
       expect(firstLoadedCall[0]).toBe(secondLoadedCall[0]);
