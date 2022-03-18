@@ -69,7 +69,6 @@ export class GraphQL {
                 operationName === finalOperationName,
             )
           : allPendingRequests;
-
         await Promise.all(matchingRequests.map(({resolve}) => resolve()));
       },
     )();
