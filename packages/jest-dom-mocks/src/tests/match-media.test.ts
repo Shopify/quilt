@@ -37,7 +37,7 @@ describe('MatchMedia', () => {
       expect(() => {
         matchMedia.restore();
       }).toThrow(
-        'error',
+        'You tried to restore window.matchMedia when it was already restored.',
       );
     });
   });

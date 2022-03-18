@@ -136,8 +136,13 @@ describe('graphql-testing', () => {
 
     const request = myComponent.find('button').trigger('onClick');
     await graphQL.resolveAll();
-    await request;
-
-    expect(myComponent).toContainReactText(newName);
+    const result = await request;
+    expect(result).toStrictEqual(
+      expect.objectContaining({
+        data: {pet: {__typename: 'Cat', name: 'Garfield2'}},
+        loading: false,
+        networkStatus: 7,
+      }),
+    );
   });
 });

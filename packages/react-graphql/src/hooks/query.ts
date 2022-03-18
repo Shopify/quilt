@@ -112,15 +112,15 @@ export default function useQuery<
     [queryObservable, client, serializedVariables],
   );
 
-  const [responseId, setResponseId] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (skip || !queryObservable) {
       return;
     }
 
-    const invalidateCurrentResult = () => {
-      setResponseId((x) => x + 1);
+    const invalidateCurrentResult = ({loading}) => {
+      setIsLoading(loading);
     };
     const subscription = queryObservable.subscribe(
       invalidateCurrentResult,
@@ -156,7 +156,7 @@ export default function useQuery<
 
     const hasError = result.errors && result.errors.length > 0;
     let data: QueryHookResult<Data, Variables>['data'] = result.data;
-    if (result.loading) {
+    if (isLoading) {
       data =
         previousData.current || (result && result.data)
           ? {
@@ -184,9 +184,7 @@ export default function useQuery<
       networkStatus: result.networkStatus,
       loading: result.loading,
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [responseId, skip, queryObservable, defaultResult, previousData]);
+  }, [isLoading, skip, queryObservable, defaultResult, previousData]);
 
   return currentResult;
 }
