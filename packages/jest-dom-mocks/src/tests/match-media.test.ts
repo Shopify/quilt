@@ -36,9 +36,7 @@ describe('MatchMedia', () => {
 
       expect(() => {
         matchMedia.restore();
-      }).toThrow(
-        'error',
-      );
+      }).toThrow('error');
     });
   });
 });
