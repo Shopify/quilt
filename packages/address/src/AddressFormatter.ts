@@ -39,6 +39,17 @@ export default class AddressFormatter {
     return countries;
   }
 
+  async getSignupCountries(): Promise<Country[]> {
+    const cachedCountries = ORDERED_COUNTRIES_CACHE.get(this.locale);
+    if (cachedCountries) return cachedCountries;
+
+    const signupOnly = true;
+    const countries = await loadCountries(this.locale, signupOnly);
+    ORDERED_COUNTRIES_CACHE.set(this.locale, countries);
+
+    return countries;
+  }
+
   /* Returns the address ordered in an array based based on the country code
    * Eg.:
    *   [
