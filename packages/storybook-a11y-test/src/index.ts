@@ -53,7 +53,7 @@ export class A11yTestRunner {
     this.iframePath = `http://127.0.0.1:${address.port}/iframe.html`;
   }
 
-  async testPages({
+  async testStories({
     storyIds = [],
     concurrentCount = os.cpus().length,
     timeout = 3000,
@@ -88,7 +88,11 @@ export class A11yTestRunner {
     return Object.keys(storiesJSON.stories);
   }
 
-  async collectEnabledStoryIdsFromIFrame() {
+  async collectEnabledStoryIdsFromIFrame({
+    skippedStoryIds = [],
+  }: {
+    skippedStoryIds?: string[];
+  }) {
     const browser = await this.getBrowser();
     const page = await browser.newPage();
     await page.goto(this.iframePath);
@@ -116,7 +120,11 @@ export class A11yTestRunner {
 
     await page.close();
 
-    return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
+    return storyIds.filter(
+      (storyId) =>
+        !skippedStoryIds.includes(storyId) ||
+        !disabledStoryIds.includes(storyId),
+    );
   }
 
   async teardown() {
