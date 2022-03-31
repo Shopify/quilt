@@ -11,21 +11,21 @@ describe('can test a story', () => {
   afterAll(() => testRunner.teardown());
 
   it('primary should have no errors', async () => {
-    const result = await testRunner.testPages({
+    const result = await testRunner.testStories({
       storyIds: ['example-button--primary'],
     });
     expect(result.length).toBe(0);
   });
 
   it('secondary should have a11y errors', async () => {
-    const result = await testRunner.testPages({
+    const result = await testRunner.testStories({
       storyIds: ['example-button--secondary'],
     });
     expect(result.length).toBe(1);
   });
 
   it('a11y disabled should be skipped', async () => {
-    const result = await testRunner.testPages({
+    const result = await testRunner.testStories({
       storyIds: ['example-button--a-11-y-disabled'],
     });
     expect(result.length).toBe(0);

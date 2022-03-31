@@ -49,36 +49,39 @@ For optimal test performance, break the build and accessibility testing steps in
 Make sure you have built your Storybook instance and there is an `iframe.html` file that you can point the test towards.
 
 ```js
-const {testPages, getCurrentStoryIds} = require('@shopify/storybook-a11y-test');
+const {A11yTestRunner} = require('@shopify/storybook-a11y-test');
 
 (async () => {
   // Custom URL or file path to Storybook’s iframe
-  const iframePath = `file://${__dirname}/../build/storybook/static/iframe.html`;
+  const buildDir = `file://${__dirname}/../build/storybook/static`;
 
-  // Grab all Story IDs
-  const storyIds = await getCurrentStoryIds({
-    iframePath,
+  const testRunner = new A11yTestRunner(iframePath);
 
-    // Optional, IDs of stories that shouldn’t be tested (for example: playgrounds)
-    skippedStoryIds: [],
-  });
+  try {
+    // Grab all Story IDs
+    const storyIds = await testRunner.collectEnabledStoryIdsFromIFrame({
+      // Optional, IDs of stories that shouldn’t be tested (for example: playgrounds)
+      skippedStoryIds: [],
+    });
 
-  // Run tests on all stories in `storyIds`
-  const results = await testPages({
-    iframePath,
-    storyIds,
+    // Run tests on all stories in `storyIds`
+    const results = await testRunner.testStories({
+      storyIds,
 
-    // Optional: maximum time in milliseconds to wait for the browser instance to start.
-    // Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
-    timeout: 30000,
-  });
+      // Optional: maximum time in milliseconds to wait for the browser instance to start.
+      // Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
+      timeout: 30000,
+    });
 
-  if (results.length) {
-    console.error(`‼️  Accessibility violations found`);
-    console.log(results.join('\n'));
-    process.exit(1);
-  } else {
-    console.log('🧚  Accessibility tests passed');
+    if (results.length) {
+      console.error(`‼️  Accessibility violations found`);
+      console.log(results.join('\n'));
+      process.exit(1);
+    } else {
+      console.log('🧚  Accessibility tests passed');
+    }
+  } finally {
+    await testRunner.teardown();
   }
 })();
 ```
@@ -194,27 +197,33 @@ PrototypeComponent.parameters = {
 };
 ```
 
-## API
+## API for A11yTests class
 
-### getCurrentStoryIds(options)
+### constructor
 
-#### iframePath `string`
+#### buildPath `string`
 
-The location of the built Storybook `iframe.html` file.
+The location of the built Storybook
+
+### collectStoryIdsFromStoriesJSON
+
+Returns all the stories from Storybook the story book JSON. If you are using storyStoreV7 in your storybook config this method can provide speed gains.
+
+### collectEnabledStoryIdsFromIFrame(options)
+
+Returns a filtered list of stories ids. This needs to load all the stories and could be slow depending on the amount of stories.
 
 #### skippedStoryIds `array` (optional)
 
 An array of Storybook Story IDs to skip.
 
-### testPages(options)
+### testStories(options)
 
-#### iframePath `string`
-
-The location of the built Storybook `iframe.html` file.
+Returns the result of testing the stories. Stories that have a11y disabled are skipped.
 
 #### storyIds
 
-An array of Storybook IDs to run. These can be retrieved via the `getCurrentStoryIds()` function.
+An array of Storybook IDs to run. These can be retrieved via the `currentStoryIds()` function.
 
 #### concurrentCount `number` (optional)
 
