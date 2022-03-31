@@ -83,9 +83,12 @@ export class A11yTestRunner {
     return results.filter(Boolean);
   }
 
-  async collectStoryIdsFromStoriesJSON() {}
+  async collectStoryIdsFromStoriesJSON() {
+    const storiesJSON = require(`${this.buildDir}/stories.json`);
+    return Object.keys(storiesJSON.stories);
+  }
 
-  async collectAllStoryIdsFromIFrame() {
+  async collectEnabledStoryIdsFromIFrame() {
     const browser = await this.getBrowser();
     const page = await browser.newPage();
     await page.goto(this.iframePath);
