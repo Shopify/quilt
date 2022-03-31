@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import os from 'os';
+import fs from 'fs';
 
 import puppeteer, {Browser} from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
 import Koa from 'koa';
 import serve from 'koa-static';
-
 import type {StoryStore} from '@storybook/client-api';
 import type {StoryId} from '@storybook/addons';
 import {AxePuppeteer} from '@axe-core/puppeteer';
@@ -84,7 +84,11 @@ export class A11yTestRunner {
   }
 
   async collectStoryIdsFromStoriesJSON() {
-    const storiesJSON = require(`${this.buildDir}/stories.json`);
+    const storiesJSON = JSON.parse(
+      await fs.promises.readFile(`${this.buildDir}/stories.json`, {
+        encoding: 'utf-8',
+      }),
+    );
     return Object.keys(storiesJSON.stories);
   }
 
@@ -92,7 +96,7 @@ export class A11yTestRunner {
     skippedStoryIds = [],
   }: {
     skippedStoryIds?: string[];
-  }) {
+  } = {}) {
     const browser = await this.getBrowser();
     const page = await browser.newPage();
     await page.goto(this.iframePath);
