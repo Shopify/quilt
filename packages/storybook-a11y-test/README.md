@@ -55,7 +55,7 @@ const {A11yTestRunner} = require('@shopify/storybook-a11y-test');
   // Custom URL or file path to Storybook’s iframe
   const buildDir = `file://${__dirname}/../build/storybook/static`;
 
-  const testRunner = new A11yTestRunner(iframePath);
+  const testRunner = new A11yTestRunner(buildDir);
 
   try {
     // Grab all Story IDs
