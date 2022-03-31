@@ -7,7 +7,7 @@
   "types": "./build/ts/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "build-storybook": "build-storybook --modern --output-dir=build/storybook/static"
+    "build-storybook": "build-storybook --modern --output-dir=tests/fixtures/storybook"
   },
   "publishConfig": {
     "access": "public",
@@ -52,7 +52,6 @@
     "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/tests/",
-    "!build/storybook/",
     "!stories/",
     "!.storybook",
     "index.js",

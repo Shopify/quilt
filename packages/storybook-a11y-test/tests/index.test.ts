@@ -3,12 +3,10 @@
 import {A11yTestRunner} from '../src/index';
 import path from 'path';
 
-const stories = require('../build/storybook/static/stories.json');
-
-const iframePath = path.join(__dirname, '../build/storybook/static');
+const buildDir = path.join(__dirname, './fixtures/storybook');
 
 describe('can test a story', () => {
-  const testRunner = new A11yTestRunner(iframePath);
+  const testRunner = new A11yTestRunner(buildDir);
 
   afterAll(() => testRunner.teardown());
 
