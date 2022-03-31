@@ -30,4 +30,16 @@ describe('can test a story', () => {
     });
     expect(result.length).toBe(0);
   });
+
+  it('can collect story ids from stories.json', async () => {
+    const stories = await testRunner.collectStoryIdsFromStoriesJSON();
+
+    expect(stories.length).toBe(3);
+  });
+
+  it('can collect enabled stories from iFrame', async () => {
+    const stories = await testRunner.collectEnabledStoryIdsFromIFrame();
+
+    expect(stories.length).toBe(2);
+  });
 });
