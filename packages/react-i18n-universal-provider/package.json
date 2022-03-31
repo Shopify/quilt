@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-i18n-universal-provider",
-  "version": "2.1.32",
+  "version": "2.1.33",
   "license": "MIT",
   "description": "A self-serializing/deserializing i18n provider that works for isomorphic applications",
   "main": "index.js",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@shopify/react-hooks": "^2.1.18",
-    "@shopify/react-html": "^11.1.21",
+    "@shopify/react-html": "^11.1.22",
     "@shopify/react-i18n": "^6.3.13"
   },
   "peerDependencies": {
