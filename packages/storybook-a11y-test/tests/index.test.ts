@@ -1,7 +1,7 @@
 /* eslint-env node */
+import path from 'path';
 
 import {A11yTestRunner} from '../src/index';
-import path from 'path';
 
 const buildDir = path.join(__dirname, './fixtures/storybook');
 
@@ -10,36 +10,36 @@ describe('can test a story', () => {
 
   afterAll(() => testRunner.teardown());
 
-  it('primary should have no errors', async () => {
+  it('primary does not have no errors', async () => {
     const result = await testRunner.testStories({
       storyIds: ['example-button--primary'],
     });
-    expect(result.length).toBe(0);
+    expect(result).toHaveLength(0);
   });
 
-  it('secondary should have a11y errors', async () => {
+  it('secondary has a11y errors', async () => {
     const result = await testRunner.testStories({
       storyIds: ['example-button--secondary'],
     });
-    expect(result.length).toBe(1);
+    expect(result).toHaveLength(1);
   });
 
-  it('a11y disabled should be skipped', async () => {
+  it('a11y disabled is skipped', async () => {
     const result = await testRunner.testStories({
       storyIds: ['example-button--a-11-y-disabled'],
     });
-    expect(result.length).toBe(0);
+    expect(result).toHaveLength(0);
   });
 
   it('can collect story ids from stories.json', async () => {
     const stories = await testRunner.collectStoryIdsFromStoriesJSON();
 
-    expect(stories.length).toBe(3);
+    expect(stories).toHaveLength(3);
   });
 
   it('can collect enabled stories from iFrame', async () => {
     const stories = await testRunner.collectEnabledStoryIdsFromIFrame();
 
-    expect(stories.length).toBe(2);
+    expect(stories).toHaveLength(2);
   });
 });
