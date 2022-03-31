@@ -64,63 +64,6 @@ export async function getStoryIds(iframePath: string) {
   return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
 }
 
-function removeSkippedStories(skippedStoryIds: StoryId[]) {
-  return (selectedStories: StoryId[] = [], storyId = '') => {
-    if (skippedStoryIds.every((skipId) => !storyId.includes(skipId))) {
-      return [...selectedStories, storyId];
-    }
-    return selectedStories;
-  };
-}
-
-async function getA11yParams(
-  storyId: StoryId,
-  browser: Browser,
-  iframePath: string,
-) {
-  const page = await browser.newPage();
-  await page.goto(iframePath);
-
-  const parameters =
-    (await page.evaluate(async (storyId) => {
-      if (typeof window.__STORYBOOK_STORY_STORE__.loadStory === 'function') {
-        const story = await window.__STORYBOOK_STORY_STORE__.loadStory(
-          storyId,
-        )!;
-        return story.parameters;
-      } else {
-        const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
-        return story.parameters;
-      }
-    }, storyId)) || {};
-
-  await page.close();
-
-  return (
-    parameters.a11y || {
-      config: {},
-      options: {
-        restoreScroll: true,
-      },
-    }
-  );
-}
-
-export async function getCurrentStoryIds({
-  iframePath,
-  skippedStoryIds = [],
-}: {
-  iframePath: string;
-  skippedStoryIds: StoryId[];
-}) {
-  const stories =
-    process.argv[2] == null
-      ? await getStoryIds(iframePath)
-      : process.argv[2].split('|');
-
-  return stories.reduce(removeSkippedStories(skippedStoryIds), []);
-}
-
 function formatFailureNodes(nodes: ViolationResult['nodes']) {
   return `${FORMATTING_SPACER}${nodes
     .map((node) => node.html)
@@ -162,21 +105,32 @@ function testPage(
   disableAnimation: boolean,
 ) {
   return async function (id: StoryId) {
-    const a11yParams = await getA11yParams(id, browser, iframePath);
-
-    if (a11yParams?.disable) {
-      console.log(` - ${id}: Skipped (a11y.disable)`);
-    } else {
-      console.log(` - ${id}`);
-    }
-
-    const config = a11yParams.config ? a11yParams.config : {};
-    const options = a11yParams.options ? a11yParams.options : {};
-
+    const page = await browser.newPage();
     try {
-      const page = await browser.newPage();
-
       await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
+
+      console.log(page.url())
+
+      const parameters =
+        (await page.evaluate(async (storyId) => {
+          if (typeof window.__STORYBOOK_STORY_STORE__.loadStory === 'function') {
+            const story = await window.__STORYBOOK_STORY_STORE__.loadStory({storyId})!;
+            return story.parameters;
+          } else {
+            const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
+            return story.parameters;
+          }
+        }, id)) || {};
+
+      if (parameters.a11y?.disable) {
+        console.log(` - ${id}: Skipped (a11y.disable)`);
+        return null;
+      } else {
+        console.log(` - ${id}`);
+      }
+
+      const config = a11yParams.config ? a11yParams.config : {};
+      const options = a11yParams.options ? a11yParams.options : {};
 
       if (disableAnimation) {
         await page.addStyleTag({
@@ -199,8 +153,6 @@ function testPage(
         .options(options)
         .analyze();
 
-      await page.close();
-
       if (results.violations && results.violations.length) {
         const filteredViolations = results.violations.filter(
           (violation) => !isAutocompleteNope(violation),
@@ -212,6 +164,8 @@ function testPage(
       return null;
     } catch (error) {
       return `please retry => ${id}:\n - ${error.message}`;
+    } finally {
+      await page.close();
     }
   };
 }
@@ -229,24 +183,19 @@ export async function testPages({
   timeout?: number;
   disableAnimation?: boolean;
 }) {
-  try {
-    console.log(chalk.bold(`🌐 Opening ${concurrentCount} tabs in Chromium`));
-    const browser = await getBrowser();
+  console.log(chalk.bold(`🌐 Opening ${Math.min(concurrentCount, storyIds.length)} tabs in Chromium`));
+  const browser = await getBrowser();
 
-    console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
-    const results = await pMap(
-      storyIds,
-      testPage(iframePath, browser, timeout, disableAnimation),
-      {
-        concurrency: concurrentCount,
-      },
-    );
+  console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
+  const results = await pMap(
+    storyIds,
+    testPage(iframePath, browser, timeout, disableAnimation),
+    {
+      concurrency: concurrentCount,
+    },
+  );
 
-    await browser.close();
+  await browser.close();
 
-    return results.filter((x) => x);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
+  return results.filter((x) => x);
 }
