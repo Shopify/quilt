@@ -29,16 +29,19 @@
   "dependencies": {
     "@axe-core/puppeteer": "^4.3.2",
     "chalk": "^4.1.0",
+    "koa": "^2.13.4",
+    "koa-static": "^5.0.0",
     "p-map": "^4.0.0",
     "puppeteer": "^13.2.0"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^6.4.15",
-    "@storybook/client-api": "^6.4.15",
     "@storybook/addon-actions": "^6.4.15",
     "@storybook/addon-essentials": "^6.4.15",
     "@storybook/addon-interactions": "^6.4.15",
     "@storybook/addon-links": "^6.4.15",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/client-api": "^6.4.15",
     "@storybook/react": "^6.4.15"
   },
   "peerDependencies": {

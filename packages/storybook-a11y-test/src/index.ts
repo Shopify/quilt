@@ -4,6 +4,9 @@ import os from 'os';
 import puppeteer, {Browser} from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
+import Koa from 'koa';
+import serve from 'koa-static';
+
 import type {StoryStore} from '@storybook/client-api';
 import type {StoryId} from '@storybook/addons';
 import {AxePuppeteer} from '@axe-core/puppeteer';
@@ -28,40 +31,186 @@ declare global {
 
 const FORMATTING_SPACER = '    ';
 
-function getBrowser() {
-  return puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
-}
+export class A11yTestRunner {
+  #browser: Browser | undefined;
 
-export async function getStoryIds(iframePath: string) {
-  const browser = await getBrowser();
-  const page = await browser.newPage();
-  await page.goto(iframePath);
+  buildDir: string;
+  app: Koa;
+  iframePath: string;
+  server: ReturnType<Koa['listen']>;
 
-  await page.evaluate(async () => {
-    if (
-      typeof window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles === 'function'
-    ) {
-      await window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles();
+  constructor(buildDir: string) {
+    this.buildDir = buildDir;
+    this.app = new Koa();
+    this.app.use(serve(buildDir));
+    this.server = this.app.listen();
+    const address = this.server.address();
+
+    if (!address || typeof address === 'string') {
+      throw new Error('Unable to start local server');
     }
-  });
 
-  const storyIds = await page.evaluate(() =>
-    Object.keys(window.__STORYBOOK_STORY_STORE__.extract()),
-  );
+    this.iframePath = `http://127.0.0.1:${address.port}/iframe.html`;
+  }
 
-  const disabledStoryIds = await page.evaluate(() =>
-    window.__STORYBOOK_STORY_STORE__
-      .raw()
-      .filter((story) => story.parameters.a11y && story.parameters.a11y.disable)
-      .map((story) => story.id),
-  );
+  async testPages({
+    storyIds = [],
+    concurrentCount = os.cpus().length,
+    timeout = 3000,
+    disableAnimation = false,
+  }: {
+    storyIds: StoryId[];
+    concurrentCount?: number;
+    timeout?: number;
+    disableAnimation?: boolean;
+  }) {
+    console.log(
+      chalk.bold(
+        `🌐 Opening ${Math.min(
+          concurrentCount,
+          storyIds.length,
+        )} tabs in Chromium`,
+      ),
+    );
+    console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
+    const results = await pMap(
+      storyIds,
+      this.generateTestStoryFunction(timeout, disableAnimation),
+      {
+        concurrency: concurrentCount,
+      },
+    );
+    return results.filter(Boolean);
+  }
 
-  await page.close();
-  await browser.close();
+  async collectStoryIdsFromStoriesJSON() {}
 
-  return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
+  async collectAllStoryIdsFromIFrame() {
+    const browser = await this.getBrowser();
+    const page = await browser.newPage();
+    await page.goto(this.iframePath);
+
+    await page.evaluate(async () => {
+      if (
+        typeof window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles === 'function'
+      ) {
+        await window.__STORYBOOK_STORY_STORE__.cacheAllCSFFiles();
+      }
+    });
+
+    const storyIds = await page.evaluate(() =>
+      Object.keys(window.__STORYBOOK_STORY_STORE__.extract()),
+    );
+
+    const disabledStoryIds = await page.evaluate(() =>
+      window.__STORYBOOK_STORY_STORE__
+        .raw()
+        .filter(
+          (story) => story.parameters.a11y && story.parameters.a11y.disable,
+        )
+        .map((story) => story.id),
+    );
+
+    await page.close();
+
+    return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
+  }
+
+  async teardown() {
+    if (this.#browser && this.#browser.isConnected) {
+      await this.#browser.close();
+    }
+    if (this.server.listening) {
+      this.server.close();
+    }
+  }
+
+  private async getBrowser() {
+    if (!this.#browser) {
+      this.#browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
+    }
+    return this.#browser;
+  }
+
+  private generateTestStoryFunction(
+    timeout: number,
+    disableAnimation: boolean,
+  ) {
+    return async (id: StoryId) => {
+      const browser = await this.getBrowser();
+      const page = await browser.newPage();
+
+      await page.goto(`${this.iframePath}?id=${id}`, {
+        waitUntil: 'load',
+        timeout,
+      });
+
+      const parameters =
+        (await page.evaluate(async (storyId) => {
+          if (
+            typeof window.__STORYBOOK_STORY_STORE__.loadStory === 'function'
+          ) {
+            const story = await window.__STORYBOOK_STORY_STORE__.loadStory({
+              storyId,
+            })!;
+            return story.parameters;
+          } else {
+            const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
+            return story.parameters;
+          }
+        }, id)) || {};
+
+      if (parameters.a11y?.disable) {
+        console.log(` - ${id}: Skipped (a11y.disable)`);
+        return null;
+      } else {
+        console.log(` - ${id}`);
+      }
+
+      const config = parameters.config ?? {};
+      const options = parameters.options ?? {restoreScrool: true};
+
+      try {
+        if (disableAnimation) {
+          await page.addStyleTag({
+            content: `*,
+              *::after,
+              *::before {
+                transition: none !important;
+                transition-delay: 0s !important;
+                transition-duration: 0s !important;
+                animation: none !important;
+                animation-delay: 0s !important;
+                animation-duration: 0s !important;
+              }`,
+          });
+        }
+
+        const results = await new AxePuppeteer(page)
+          .include('#root')
+          .configure(config)
+          .options(options)
+          .analyze();
+
+        if (results.violations && results.violations.length) {
+          const filteredViolations = results.violations.filter(
+            (violation) => !isAutocompleteNope(violation),
+          );
+
+          return formatMessage(id, filteredViolations);
+        }
+
+        return null;
+      } catch (error) {
+        return `please retry => ${id}:\n - ${error.message}`;
+      } finally {
+        await page.close();
+      }
+    };
+  }
 }
 
 function formatFailureNodes(nodes: ViolationResult['nodes']) {
@@ -96,106 +245,4 @@ function isAutocompleteNope(violation: ViolationResult) {
     node.html.includes('autocomplete="nope"'),
   );
   return isAutocompleteAttribute && hasNope;
-}
-
-function testPage(
-  iframePath: string,
-  browser: puppeteer.Browser,
-  timeout: number,
-  disableAnimation: boolean,
-) {
-  return async function (id: StoryId) {
-    const page = await browser.newPage();
-    try {
-      await page.goto(`${iframePath}?id=${id}`, {waitUntil: 'load', timeout});
-
-      console.log(page.url())
-
-      const parameters =
-        (await page.evaluate(async (storyId) => {
-          if (typeof window.__STORYBOOK_STORY_STORE__.loadStory === 'function') {
-            const story = await window.__STORYBOOK_STORY_STORE__.loadStory({storyId})!;
-            return story.parameters;
-          } else {
-            const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
-            return story.parameters;
-          }
-        }, id)) || {};
-
-      if (parameters.a11y?.disable) {
-        console.log(` - ${id}: Skipped (a11y.disable)`);
-        return null;
-      } else {
-        console.log(` - ${id}`);
-      }
-
-      const config = a11yParams.config ? a11yParams.config : {};
-      const options = a11yParams.options ? a11yParams.options : {};
-
-      if (disableAnimation) {
-        await page.addStyleTag({
-          content: `*,
-            *::after,
-            *::before {
-              transition: none !important;
-              transition-delay: 0s !important;
-              transition-duration: 0s !important;
-              animation: none !important;
-              animation-delay: 0s !important;
-              animation-duration: 0s !important;
-            }`,
-        });
-      }
-
-      const results = await new AxePuppeteer(page)
-        .include('#root')
-        .configure(config)
-        .options(options)
-        .analyze();
-
-      if (results.violations && results.violations.length) {
-        const filteredViolations = results.violations.filter(
-          (violation) => !isAutocompleteNope(violation),
-        );
-
-        return formatMessage(id, filteredViolations);
-      }
-
-      return null;
-    } catch (error) {
-      return `please retry => ${id}:\n - ${error.message}`;
-    } finally {
-      await page.close();
-    }
-  };
-}
-
-export async function testPages({
-  iframePath,
-  storyIds = [],
-  concurrentCount = os.cpus().length,
-  timeout = 3000,
-  disableAnimation = false,
-}: {
-  iframePath: string;
-  storyIds: StoryId[];
-  concurrentCount?: number;
-  timeout?: number;
-  disableAnimation?: boolean;
-}) {
-  console.log(chalk.bold(`🌐 Opening ${Math.min(concurrentCount, storyIds.length)} tabs in Chromium`));
-  const browser = await getBrowser();
-
-  console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
-  const results = await pMap(
-    storyIds,
-    testPage(iframePath, browser, timeout, disableAnimation),
-    {
-      concurrency: concurrentCount,
-    },
-  );
-
-  await browser.close();
-
-  return results.filter((x) => x);
 }
