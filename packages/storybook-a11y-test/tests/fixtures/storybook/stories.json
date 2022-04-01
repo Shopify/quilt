@@ -18,6 +18,12 @@
       "title": "Example/Button",
       "name": "A 11 Y Disabled",
       "importPath": "./stories/Button.stories.tsx"
+    },
+    "example-button--a-11-y-ignored": {
+      "id": "example-button--a-11-y-ignored",
+      "title": "Example/Button",
+      "name": "A 11 Y Ignored",
+      "importPath": "./stories/Button.stories.tsx"
     }
   }
 }

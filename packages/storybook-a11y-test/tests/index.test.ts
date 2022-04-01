@@ -31,15 +31,22 @@ describe('can test a story', () => {
     expect(result).toHaveLength(0);
   });
 
+  it('a11y ignored error passes', async () => {
+    const result = await testRunner.testStories({
+      storyIds: ['example-button--a-11-y-ignored'],
+    });
+    expect(result).toHaveLength(0);
+  });
+
   it('can collect story ids from stories.json', async () => {
     const stories = await testRunner.collectStoryIdsFromStoriesJSON();
 
-    expect(stories).toHaveLength(3);
+    expect(stories).toHaveLength(4);
   });
 
   it('can collect enabled stories from iFrame', async () => {
     const stories = await testRunner.collectEnabledStoryIdsFromIFrame();
 
-    expect(stories).toHaveLength(2);
+    expect(stories).toHaveLength(3);
   });
 });

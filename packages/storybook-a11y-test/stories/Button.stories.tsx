@@ -34,3 +34,20 @@ A11yDisabled.parameters = {
     disable: true,
   },
 };
+
+export const A11yIgnored = Template.bind({});
+A11yIgnored.args = {
+  label: 'Button',
+};
+A11yIgnored.parameters = {
+  a11y: {
+    config: {
+      rules: [
+        {
+          id: 'color-contrast',
+          enabled: false,
+        },
+      ],
+    },
+  },
+};

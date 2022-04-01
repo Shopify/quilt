@@ -161,10 +161,10 @@ export class A11yTestRunner {
           ) {
             const story = await window.__STORYBOOK_STORY_STORE__.loadStory({
               storyId,
-            })!;
+            });
             return story.parameters;
           } else {
-            const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId)!;
+            const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId);
             return story.parameters;
           }
         }, id)) || {};
@@ -176,8 +176,10 @@ export class A11yTestRunner {
         console.log(` - ${id}`);
       }
 
-      const config = parameters.config ?? {};
-      const options = parameters.options ?? {restoreScrool: true};
+      const config = parameters.a11y?.config ?? {};
+      const options = parameters.a11y.options ?? {restoreScrool: true};
+
+      console.log({config});
 
       try {
         if (disableAnimation) {
