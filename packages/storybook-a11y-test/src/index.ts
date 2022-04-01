@@ -32,7 +32,7 @@ declare global {
 const FORMATTING_SPACER = '    ';
 
 export class A11yTestRunner {
-  #browser: Browser | undefined;
+  #browserPromise: Promise<Browser> | undefined;
 
   buildDir: string;
   app: Koa;
@@ -124,21 +124,24 @@ export class A11yTestRunner {
   }
 
   async teardown() {
-    if (this.#browser && this.#browser.isConnected) {
-      await this.#browser.close();
+    if (this.#browserPromise) {
+      const browser = await this.#browserPromise;
+      if (browser.isConnected()) {
+        await browser.close();
+      }
     }
     if (this.server.listening) {
       this.server.close();
     }
   }
 
-  private async getBrowser() {
-    if (!this.#browser) {
-      this.#browser = await puppeteer.launch({
+  private getBrowser() {
+    if (!this.#browserPromise) {
+      this.#browserPromise = puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
     }
-    return this.#browser;
+    return this.#browserPromise;
   }
 
   private generateTestStoryFunction(
