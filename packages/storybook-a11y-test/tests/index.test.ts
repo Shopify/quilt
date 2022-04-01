@@ -38,10 +38,17 @@ describe('can test a story', () => {
     expect(result).toHaveLength(0);
   });
 
+  it('default a11y disabled is skipped', async () => {
+    const result = await testRunner.testStories({
+      storyIds: ['a11ydisabled-button--a-11-y-disabled-primary'],
+    });
+    expect(result).toHaveLength(0);
+  });
+
   it('can collect story ids from stories.json', async () => {
     const stories = await testRunner.collectStoryIdsFromStoriesJSON();
 
-    expect(stories).toHaveLength(4);
+    expect(stories).toHaveLength(5);
   });
 
   it('can collect enabled stories from iFrame', async () => {
