@@ -1,5 +1,6 @@
 import React from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
+import {TranslationDictionary} from 'types';
 
 import {I18n} from './i18n';
 import {I18nManager, RegisterOptions} from './manager';
@@ -67,7 +68,8 @@ function useComplexI18n(
     unsubscribeRef.current = manager.subscribe(
       ids.current,
       ({translations, loading}, details) => {
-        const newI18n = new I18n(translations, {...details, loading});
+        const bestTranslations = translations.map((t) => flowify(t));
+        const newI18n = new I18n(bestTranslations, {...details, loading});
         i18nRef.current = newI18n;
         setI18n(newI18n);
       },
@@ -81,7 +83,10 @@ function useComplexI18n(
   const [i18n, setI18n] = React.useState(() => {
     const managerState = manager.state(ids.current);
     const {translations, loading} = managerState;
-    return new I18n(translations, {...manager.details, loading});
+    return new I18n(
+      translations.map((t) => flowify(t)),
+      {...manager.details, loading},
+    );
   });
 
   const i18nRef = React.useRef(i18n);
@@ -130,6 +135,35 @@ function shouldRegister({
   translations,
 }: Partial<RegisterOptions> = {}) {
   return fallback != null || translations != null;
+}
+
+function flowify(translation: TranslationDictionary): TranslationDictionary {
+  const dict: TranslationDictionary = {};
+
+  Object.entries(translation).forEach(([key, value]) => {
+    if (typeof value === 'string') {
+      dict[key] = fl(value);
+    } else {
+      dict[key] = flowify(value);
+    }
+  });
+
+  return dict;
+}
+
+function fl(str: string): string {
+  const words = str.split(' ');
+
+  const flords = words.map((word) => {
+    const startWithVowel = /^[aieouAIEOU].*/;
+    if (startWithVowel.exec(word)) {
+      return `fl${word}`;
+    }
+    return `fl${word.substring(1)}`;
+  });
+
+  flords[0] = `F${flords[0].toLocaleLowerCase().substring(1)}`;
+  return flords.join(' ');
 }
 
 function noop() {}
