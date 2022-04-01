@@ -152,37 +152,12 @@ export class A11yTestRunner {
       const browser = await this.getBrowser();
       const page = await browser.newPage();
 
-      await page.goto(`${this.iframePath}?id=${id}`, {
-        waitUntil: 'load',
-        timeout,
-      });
-
-      const parameters =
-        (await page.evaluate(async (storyId) => {
-          if (
-            typeof window.__STORYBOOK_STORY_STORE__.loadStory === 'function'
-          ) {
-            const story = await window.__STORYBOOK_STORY_STORE__.loadStory({
-              storyId,
-            });
-            return story.parameters;
-          } else {
-            const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId);
-            return story.parameters;
-          }
-        }, id)) || {};
-
-      if (parameters.a11y?.disable) {
-        console.log(` - ${id}: Skipped (a11y.disable)`);
-        return null;
-      } else {
-        console.log(` - ${id}`);
-      }
-
-      const config = parameters.a11y?.config ?? {};
-      const options = parameters.a11y?.options ?? {restoreScrool: true};
-
       try {
+        await page.goto(`${this.iframePath}?id=${id}`, {
+          waitUntil: 'load',
+          timeout,
+        });
+
         if (disableAnimation) {
           await page.addStyleTag({
             content: `*,
@@ -197,6 +172,31 @@ export class A11yTestRunner {
               }`,
           });
         }
+
+        const a11yParameters =
+          (await page.evaluate(async (storyId) => {
+            if (
+              typeof window.__STORYBOOK_STORY_STORE__.loadStory === 'function'
+            ) {
+              const story = await window.__STORYBOOK_STORY_STORE__.loadStory({
+                storyId,
+              });
+              return story.parameters?.a11y;
+            } else {
+              const story = window.__STORYBOOK_STORY_STORE__.fromId(storyId);
+              return story.parameters?.a11y;
+            }
+          }, id)) || {};
+
+        if (a11yParameters.disable) {
+          console.log(` - ${id}: Skipped (a11y.disable)`);
+          return null;
+        } else {
+          console.log(` - ${id}`);
+        }
+
+        const config = a11yParameters.config ?? {};
+        const options = a11yParameters.options ?? {restoreScrool: true};
 
         const results = await new AxePuppeteer(page)
           .include('#root')
