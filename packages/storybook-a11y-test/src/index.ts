@@ -92,11 +92,7 @@ export class A11yTestRunner {
     return Object.keys(storiesJSON.stories);
   }
 
-  async collectEnabledStoryIdsFromIFrame({
-    skippedStoryIds = [],
-  }: {
-    skippedStoryIds?: string[];
-  } = {}) {
+  async collectEnabledStoryIdsFromIFrame() {
     const browser = await this.getBrowser();
     const page = await browser.newPage();
     await page.goto(this.iframePath);
@@ -124,11 +120,7 @@ export class A11yTestRunner {
 
     await page.close();
 
-    return storyIds.filter(
-      (storyId) =>
-        !skippedStoryIds.includes(storyId) ||
-        !disabledStoryIds.includes(storyId),
-    );
+    return storyIds.filter((storyId) => !disabledStoryIds.includes(storyId));
   }
 
   async teardown() {
