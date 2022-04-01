@@ -46,23 +46,20 @@ For optimal test performance, break the build and accessibility testing steps in
 
 ## Usage
 
-Make sure you have built your Storybook instance and there is an `iframe.html` file that you can point the test towards.
+Make sure you have built your Storybook that you can point the test towards.
 
 ```js
 const {A11yTestRunner} = require('@shopify/storybook-a11y-test');
 
 (async () => {
-  // Custom URL or file path to Storybook’s iframe
-  const buildDir = `file://${__dirname}/../build/storybook/static`;
+  // Full path to your static storybook build
+  const buildDir = path.join(__dirname, '../build/storybook/static');
 
   const testRunner = new A11yTestRunner(buildDir);
 
   try {
     // Grab all Story IDs
-    const storyIds = await testRunner.collectEnabledStoryIdsFromIFrame({
-      // Optional, IDs of stories that shouldn’t be tested (for example: playgrounds)
-      skippedStoryIds: [],
-    });
+    const storyIds = await testRunner.collectEnabledStoryIdsFromIFrame();
 
     // Run tests on all stories in `storyIds`
     const results = await testRunner.testStories({
