@@ -177,7 +177,7 @@ export class A11yTestRunner {
       }
 
       const config = parameters.a11y?.config ?? {};
-      const options = parameters.a11y.options ?? {restoreScrool: true};
+      const options = parameters.a11y?.options ?? {restoreScrool: true};
 
       console.log({config});
 
