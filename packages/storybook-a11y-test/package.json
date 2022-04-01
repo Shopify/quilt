@@ -53,8 +53,6 @@
     "build/",
     "!build/*.tsbuildinfo",
     "!build/ts/**/tests/",
-    "!stories/",
-    "!.storybook",
     "index.js",
     "index.mjs",
     "index.esnext"
