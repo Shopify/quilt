@@ -1,6 +1,6 @@
 {
   "name": "@shopify/storybook-a11y-test",
-  "version": "0.4.9-a11y-test-class-beta.6",
+  "version": "0.4.9-a11y-test-class-beta.7",
   "license": "MIT",
   "description": "Test storybook pages with axe and puppeteer",
   "main": "index.js",
