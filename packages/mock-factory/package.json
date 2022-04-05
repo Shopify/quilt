@@ -1,6 +1,6 @@
 {
   "name": "@shopify/mock-factory",
-  "version": "0.0.0-mock-factory-beta.8",
+  "version": "0.0.0-mock-factory-beta.9",
   "license": "MIT",
   "description": "create typesafe mock data objects",
   "main": "index.js",
