@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## Unreleased
+
+### Changed
+
+- Now requires storybook >6.4.0. Add support for storyStoreV7 mode. Reuse open browser instances instead of opening new browsers every time, which reduces memory pressure and makes the tests faster. [[#2194](https://github.com/Shopify/quilt/pull/2194)]
+
 ## 0.4.8 - 2022-03-09
 
 ### Changed

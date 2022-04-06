@@ -51,3 +51,7 @@ packages/*/*.js
 !packages/*/.eslintrc.js
 
 .package-build-cache
+
+
+# Generated data
+packages/storybook-a11y-test/tests/fixtures/storybook
