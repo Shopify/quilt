@@ -6,6 +6,6 @@ module.exports = {
     storyStoreV7: true,
   },
   babel: (config) => {
-    return {targets: 'last 3 chrome versions', ...config};
+    return {...config, targets: 'last 3 chrome versions'};
   },
 };
