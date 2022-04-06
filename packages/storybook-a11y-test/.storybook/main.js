@@ -1,17 +1,6 @@
-require('core-js/stable');
-require('regenerator-runtime/runtime');
-
 module.exports = {
-  stories: [
-    '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-postcss',
-  ],
+  stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-postcss'],
   framework: '@storybook/react',
   features: {
     storyStoreV7: true,
