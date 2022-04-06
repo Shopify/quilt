@@ -35,8 +35,6 @@
     "puppeteer": "^13.2.0"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^6.4.15",
-    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.4.15",
     "react": "^17.0.0"
   },
