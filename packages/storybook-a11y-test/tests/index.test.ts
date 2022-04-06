@@ -2,8 +2,6 @@
 import path from 'path';
 import {exec} from 'child_process';
 
-import {stripFullFilePaths} from '../../../tests/utilities';
-
 import {A11yTestRunner} from '../src/index';
 
 const buildDir = path.join(__dirname, './fixtures/storybook');
@@ -20,7 +18,7 @@ describe('can test a story', () => {
         },
         (error) => {
           if (error) {
-            reject('Unable to build storybook');
+            reject(new Error(`Unable to build storybook. ${error}`));
           } else {
             resolve();
           }

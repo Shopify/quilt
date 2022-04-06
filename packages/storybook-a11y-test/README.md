@@ -73,7 +73,7 @@ const {A11yTestRunner} = require('@shopify/storybook-a11y-test');
     if (results.length) {
       console.error(`‼️  Accessibility violations found`);
       console.log(results.join('\n'));
-      process.exit(1);
+      process.exitCode = 1;
     } else {
       console.log('🧚  Accessibility tests passed');
     }

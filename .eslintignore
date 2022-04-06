@@ -13,3 +13,6 @@ packages/*/build
 packages/graphql-config-utilities/src/tests/fixtures/**/*.graphql
 packages/graphql-typescript-definitions/tests/fixtures/**/*.graphql
 packages/graphql-validate-fixtures/tests/fixtures/**/*.graphql
+
+# Don't lint storybook-a11y-fixtures
+packages/storybook-a11y-test/tests/fixtures/storybook
