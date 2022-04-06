@@ -1,14 +1,37 @@
 /* eslint-env node */
 import path from 'path';
+import {exec} from 'child_process';
+
+import {stripFullFilePaths} from '../../../tests/utilities';
 
 import {A11yTestRunner} from '../src/index';
 
 const buildDir = path.join(__dirname, './fixtures/storybook');
 
+jest.setTimeout(180000);
+
 describe('can test a story', () => {
-  const testRunner = new A11yTestRunner(buildDir);
+  beforeAll(() => {
+    return new Promise((resolve, reject) => {
+      exec(
+        'yarn run build-storybook',
+        {
+          cwd: path.resolve(__dirname, '../'),
+        },
+        (error) => {
+          if (error) {
+            reject('Unable to build storybook');
+          } else {
+            resolve();
+          }
+        },
+      );
+    });
+  });
 
   afterAll(() => testRunner.teardown());
+
+  const testRunner = new A11yTestRunner(buildDir);
 
   it('primary does not have no errors', async () => {
     const result = await testRunner.testStories({
