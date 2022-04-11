@@ -320,6 +320,7 @@ Find all features this gem offer in this [API doc](./docs/api.md).
 ## Shopify embedded app
 
 [See here for Dev Docs for Apps](https://shopify.dev/apps). Make sure to add the line: `include ShopifyApp::EmbeddedApp` if you are using Quilt for server-side rendering of React for an embedded application:
+
 ```ruby
 class ReactController < ApplicationController
   include ShopifyApp::EmbeddedApp
