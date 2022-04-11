@@ -20,6 +20,8 @@ A turn-key solution for integrating [Quilt](https://github.com/Shopify/quilt) cl
     - [Fixing rejected CSRF tokens for new user sessions](#fixing-rejected-csrf-tokens-for-new-user-sessions)
 - [Performance tracking a React app](#performance-tracking-a-react-app)
 - [API](#api)
+- [Shopify embedded app](#shopify-embedded-app)
+- [FAQ](#faq)
 
 ## Server-side-rendering
 
@@ -314,6 +316,20 @@ Follow details guide [here](./docs/performance-tracking.md).
 ## API
 
 Find all features this gem offer in this [API doc](./docs/api.md).
+
+## Shopify embedded app
+
+[See here for Dev Docs for Apps](https://shopify.dev/apps). Make sure to add the line: `include ShopifyApp::EmbeddedApp` if you are using Quilt for server-side rendering of React for an embedded application:
+
+```ruby
+class ReactController < ApplicationController
+  include ShopifyApp::EmbeddedApp
+  include Quilt::ReactRenderable
+  def index
+    render_react
+  end
+end
+```
 
 ## FAQ
 
