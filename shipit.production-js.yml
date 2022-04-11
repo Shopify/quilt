@@ -1,0 +1,10 @@
+ci:
+  require:
+    - node-tests (12.22)
+    - node-tests (14.18)
+    - node-tests (16.13)
+dependencies:
+  post:
+    - npm config set @shopify:registry https://registry.npmjs.org
+    - npm config set registry https://registry.npmjs.org
+    - yarn run build: {timeout: 1800}

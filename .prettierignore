@@ -9,3 +9,6 @@ templates/*.md
 # Deliberatly invalid code that prettier can not process
 packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/**/*.graphql
 packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/**/*.json
+
+# Don't lint storybook-a11y-fixtures
+packages/storybook-a11y-test/tests/fixtures/storybook

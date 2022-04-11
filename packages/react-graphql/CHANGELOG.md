@@ -11,6 +11,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Fix NetworkStatus type export. [[#2216](https://github.com/Shopify/quilt/pull/2216)]
 
+## 7.1.25 - 2022-03-15
+
+- No updates. Transitive dependency bump.
+
 ## 7.1.24 - 2022-03-09
 
 ### Changed

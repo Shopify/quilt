@@ -7,6 +7,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 11.1.22 - 2022-03-31
+
+### Changed
+
+- Export missed server components [[#2228](https://github.com/Shopify/quilt/pull/2228)]
+
+## 11.1.21 - 2022-03-15
+
+- No updates. Transitive dependency bump.
+
 ## 11.1.20 - 2022-03-09
 
 ### Changed

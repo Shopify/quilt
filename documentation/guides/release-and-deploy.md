@@ -49,7 +49,7 @@ git push origin main --follow-tags
   **Note:** Ensure your version includes the `-beta` suffix. This is how [Shipit dictates](https://github.com/Shopify/shipit-engine/blob/master/lib/snippets/publish-lerna-independent-packages#L7-L12) a beta release.
 
 - Push your branch to GitHub with the newly created tags using `git push origin <branch> --follow-tags`
-- Create a temporary stack in Shipit that points to your dev branch. Set the Branch to your PR/feature branch and update the Environment to something specific to your feature (e.g. test-cool-feature)
+- Create a temporary stack in Shipit that points to your dev branch. Set the Branch to your PR/feature branch and update the Environment to `beta-js` (to match the `shipit.beta-js.yml` file in this repo)
   ![Create Shipit Stack](../images/shipit-stack.png)
 
 - Hit the Deploy button on your Publish commit in Shipit to publish your beta release to npm
