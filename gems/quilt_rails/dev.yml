@@ -1,6 +1,6 @@
 name: quilt-rails
 up:
-  - ruby: 2.7.6
+  - ruby: 3.0.4
   - bundler
 
 commands:
