@@ -249,3 +249,7 @@ describe('my-component', () => {
   });
 });
 ```
+
+#### Manually checking a matching shortcut
+
+`ShortcutManager` uses the `allModifiersAreHeld` class function in order to determine if a group of keys are found within a keyboard event. If you need to manually check a keyboard event against a group of keys, you can call this function directly on an instance of `ShortcutManager`.

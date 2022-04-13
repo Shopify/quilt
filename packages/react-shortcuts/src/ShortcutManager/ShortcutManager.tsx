@@ -38,6 +38,23 @@ export default class ShortcutManager {
     };
   }
 
+  allModifiersAreHeld(heldKeys: HeldKey, event: KeyboardEvent) {
+    function hasKeyGroups(groups: HeldKey): groups is HeldKey {
+      return groups.every((key) => Array.isArray(key));
+    }
+
+    function keyGroupIsHeld(keyGroup: ModifierKey[]) {
+      return keyGroup.every(
+        (key: ModifierKey) =>
+          event.getModifierState && event.getModifierState(key),
+      );
+    }
+
+    return hasKeyGroups(heldKeys)
+      ? heldKeys.some(keyGroupIsHeld)
+      : keyGroupIsHeld(heldKeys);
+  }
+
   private resetKeys() {
     this.keysPressed = [];
     this.shortcutsMatched = [];
@@ -62,23 +79,6 @@ export default class ShortcutManager {
         }, ON_MATCH_DELAY);
     }
   };
-
-  private allModifiersAreHeld(heldKeys: HeldKey, event: KeyboardEvent) {
-    function hasKeyGroups(groups: HeldKey): groups is HeldKey {
-      return groups.every((key) => Array.isArray(key));
-    }
-
-    function keyGroupIsHeld(keyGroup: ModifierKey[]) {
-      return keyGroup.every(
-        (key: ModifierKey) =>
-          event.getModifierState && event.getModifierState(key),
-      );
-    }
-
-    return hasKeyGroups(heldKeys)
-      ? heldKeys.some(keyGroupIsHeld)
-      : keyGroupIsHeld(heldKeys);
-  }
 
   private updateMatchingShortcuts(event: KeyboardEvent) {
     const shortcuts =
