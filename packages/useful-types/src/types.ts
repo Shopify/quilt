@@ -1,11 +1,13 @@
 export type ArrayElement<T> = T extends (infer U)[] ? U : never;
 
 export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
-    : DeepPartial<T[P]>;
+  [P in keyof T]?: T[P] extends infer TP
+    ? TP extends (infer U)[]
+      ? DeepPartial<U>[]
+      : TP extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : DeepPartial<T[P]>
+    : T[P];
 };
 
 export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
@@ -52,6 +54,14 @@ export type NonReactStatics<T> = Pick<T, Exclude<keyof T, ReactStatics>>;
 
 export type ExtendedWindow<T> = Window & typeof globalThis & T;
 
+type DeepOmitHelper<T, K> = {
+  [P in keyof T]: T[P] extends infer TP
+    ? TP extends (infer U)[]
+      ? DeepOmit<U, K>[]
+      : DeepOmit<TP, K>
+    : T[P];
+};
+
 // Reference https://stackoverflow.com/questions/55539387/deep-omit-with-typescript
 type Primitive =
   | string
@@ -61,18 +71,12 @@ type Primitive =
   | Symbol
   | undefined
   | null;
-type DeepOmitHelper<T, K extends keyof T> = {
-  [P in K]: T[P] extends infer TP
-    ? TP extends Primitive
-      ? TP
-      : TP extends any[]
-      ? DeepOmitArray<TP, K>
-      : DeepOmit<TP, K>
-    : never;
-};
+
 export type DeepOmit<T, K> = T extends Primitive
   ? T
-  : DeepOmitHelper<T, Exclude<keyof T, K>>;
+  : K extends keyof T
+  ? Omit<DeepOmitHelper<T, K>, K>
+  : DeepOmitHelper<T, K>;
 
 export type DeepOmitArray<T extends any[], K> = {
   [P in keyof T]: DeepOmit<T[P], K>;
