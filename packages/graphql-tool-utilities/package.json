@@ -24,7 +24,7 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "apollo-codegen-core": "0.40.4",
+    "apollo-codegen-core": "^0.40.4",
     "graphql": ">=14.5.0 <16.0.0"
   },
   "files": [

@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+### Changed
+
+- Relax constraints on `apollo-codegen-core` [#2238](https://github.com/Shopify/quilt/pull/2238)
+
 ## 2.1.6 - 2022-03-09
 
 ### Changed
