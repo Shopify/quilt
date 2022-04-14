@@ -4933,7 +4933,7 @@ apollo-cache@1.3.4, apollo-cache@^1.3.4:
     tslib "^1.10.0"
     zen-observable "^0.8.0"
 
-apollo-codegen-core@0.40.4:
+apollo-codegen-core@^0.40.4:
   version "0.40.4"
   resolved "https://registry.yarnpkg.com/apollo-codegen-core/-/apollo-codegen-core-0.40.4.tgz#b17e515a893e9a5d006570258828f20ac4ffa63f"
   integrity sha512-FAgPwfI78QK8/mDQqUZgAe+URrG7RNDh9wdGRG7snQF2PaV9NynhqVoplka/DAywcnTDEqh4q0zz8qul0e1Azg==
