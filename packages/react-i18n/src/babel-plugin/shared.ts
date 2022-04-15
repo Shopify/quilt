@@ -29,7 +29,8 @@ export function findTranslationBuckets(rootDir) {
   // `find` is used here instead of Node's glob because it performs much faster
   // (20s vs 1s in web with ~750 translation folders and 21 langs)
   const files = execSync(
-    `find ${rootDir} -type d \\( -path ./node_modules -o -path ./build -o -path ./tmp -o -path ./.git -o -path ./public \\) -prune -o -name '*.json' -print | grep /${TRANSLATION_DIRECTORY_NAME}/`,
+    `find ${rootDir} -type d \\( -path ${rootDir}/node_modules -o -path ${rootDir}/build -o -path ${rootDir}/tmp -o -path ${rootDir}/.git -o -path ${rootDir}/public \\) -prune -o -name '*.json' -print | grep /${TRANSLATION_DIRECTORY_NAME}/`,
+    {maxBuffer: 1_000_000 * 10},
   )
     .toString()
     .trim()
