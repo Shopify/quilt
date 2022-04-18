@@ -7,9 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-### Changed
+### Added
 
-- `generateTranslationIndexes` is now asynchronous (for most use cases, callers should now `await` its result)
+- Minor - `generateTranslationIndexes` now parses jsonc files (when they have a `.json` extension) [[#2239](https://github.com/Shopify/quilt/pull/2239)]
 
 ### Fixed
 

@@ -3,6 +3,7 @@ import {join} from 'path';
 import fs from 'fs-extra';
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
+import stripJsonComments from 'strip-json-comments';
 
 import {DEFAULT_FALLBACK_LOCALE, findTranslationBuckets} from './shared';
 
@@ -70,5 +71,7 @@ async function readLocaleTranslations(
     filePath.endsWith(`/${locale}.json`),
   );
 
-  return translationPath ? fs.readJson(translationPath) : {};
+  return translationPath
+    ? JSON.parse(stripJsonComments(await fs.readFile(translationPath, 'utf-8')))
+    : {};
 }

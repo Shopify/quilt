@@ -56,4 +56,27 @@ describe('generate-dictionaries', () => {
       `export default JSON.parse("{\\"en\\":{\\"Foo\\":\\"foo_en\\",\\"Bar\\":\\"bar_en\\"}}")`,
     );
   });
+
+  describe('jsonc', () => {
+    const jsoncTranslationsRootDir = path.join(
+      __dirname,
+      'fixtures',
+      'jsoncDictionaryTranslations',
+      'translations',
+    );
+
+    afterEach(() => remove(path.join(jsoncTranslationsRootDir, 'index.js')));
+
+    it('parses jsonc comments in json files', async () => {
+      await generateTranslationDictionaries(['en'], {
+        rootDir: jsoncTranslationsRootDir,
+      });
+
+      const dictionary = await readFile(`${jsoncTranslationsRootDir}/index.js`);
+
+      expect(dictionary.toString()).toBe(
+        `export default JSON.parse("{\\"en\\":{\\"Foo\\":\\"foo_commented\\",\\"Bar\\":\\"bar_commented\\"}}")`,
+      );
+    });
+  });
 });
