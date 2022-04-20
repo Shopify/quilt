@@ -1,0 +1,11 @@
+// Pre-JSON comment
+{
+  // A single line comment
+  "Foo": "foo_commented", // Line end comment
+  /* Single line comment */
+  /*
+   * Multi line comment
+   */
+  "Bar": "bar_commented"
+}
+/* Post JSON comment */

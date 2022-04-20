@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Minor - `generateTranslationIndexes` now parses jsonc files (when they have a `.json` extension) [[#2239](https://github.com/Shopify/quilt/pull/2239)]
+
+### Fixed
+
+- Patch - `generateTranslationIndexes` no longer fails with `ENOBUFS` errors in projects with many thousands of translation files [[#2239](https://github.com/Shopify/quilt/pull/2239)]
+- Patch - `generateTranslationIndexes` now ignores these directories: `.git`; `build`; `node_modules`; `public`; `tmp` [[#2239](https://github.com/Shopify/quilt/pull/2239)]
 
 ## 6.3.13 - 2022-03-15
 
