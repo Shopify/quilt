@@ -74,6 +74,7 @@ module Quilt
         events_with_size.reduce(nil) do |total, current|
           current_size = current.metadata.size
           return current_size + total unless total.nil?
+
           current_size
         end
       end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'test_helper'
+
+require "test_helper"
 
 module Quilt
   class HeaderCsrfStrategyTest < Minitest::Test
@@ -14,7 +15,7 @@ module Quilt
 
     def test_raises_an_exception_if_the_samesite_header_has_an_unexpected_value
       headers = {}
-      headers[HeaderCsrfStrategy::HEADER] = 'hi hello this is not the value you are looking for'
+      headers[HeaderCsrfStrategy::HEADER] = "hi hello this is not the value you are looking for"
       DummyRequest.any_instance.stubs(:headers).returns(headers)
       strategy = HeaderCsrfStrategy.new(DummyController.new)
 

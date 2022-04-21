@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Quilt
   class ReactRenderableTest < Minitest::Test
     include Quilt::ReactRenderable
@@ -11,7 +12,7 @@ module Quilt
         render_react,
         reverse_proxy(
           url,
-          headers: { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{}' }
+          headers: { "X-Request-ID": request.request_id, "X-Quilt-Data": "{}" }
         )
       )
     end
@@ -20,11 +21,11 @@ module Quilt
       Rails.env.stubs(:test?).returns(false)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      render_result = render_react(headers: { 'x-custom-header': 'test' })
+      render_result = render_react(headers: { "x-custom-header": "test" })
       headers = {
-        'x-custom-header': 'test',
-        'X-Request-ID': request.request_id,
-        'X-Quilt-Data': '{}',
+        "x-custom-header": "test",
+        "X-Request-ID": request.request_id,
+        "X-Quilt-Data": "{}",
       }
       proxy_result = reverse_proxy(url, headers: headers)
 
@@ -35,9 +36,9 @@ module Quilt
       Rails.env.stubs(:test?).returns(false)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{"X-Foo":"bar"}' }
+      headers = { "X-Request-ID": request.request_id, "X-Quilt-Data": '{"X-Foo":"bar"}' }
       assert_equal(
-        render_react(data: { 'X-Foo': 'bar' }),
+        render_react(data: { "X-Foo": "bar" }),
         reverse_proxy(url, headers: headers)
       )
     end
@@ -46,9 +47,9 @@ module Quilt
       Rails.env.stubs(:test?).returns(false)
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{"X-Foo":"Ate\u015f"}' }
+      headers = { "X-Request-ID": request.request_id, "X-Quilt-Data": '{"X-Foo":"Ate\u015f"}' }
       assert_equal(
-        render_react(data: { 'X-Foo': 'Ateş' }),
+        render_react(data: { "X-Foo": "Ateş" }),
         reverse_proxy(url, headers: headers)
       )
     end
@@ -76,9 +77,9 @@ module Quilt
 
       url = "#{Quilt.configuration.react_server_protocol}://#{Quilt.configuration.react_server_host}"
 
-      headers = { 'X-Request-ID': request.request_id, 'X-Quilt-Data': '{"X-Foo":"bar"}' }
+      headers = { "X-Request-ID": request.request_id, "X-Quilt-Data": '{"X-Foo":"bar"}' }
       assert_equal(
-        render_react(data: { 'X-Foo': 'bar' }),
+        render_react(data: { "X-Foo": "bar" }),
         reverse_proxy(url, headers: headers)
       )
 
@@ -110,7 +111,7 @@ module Quilt
 
     # Stubbing this method the mixin calls
     def form_authenticity_token
-      'foo'
+      "foo"
     end
 
     # Stubbing request that exist in a controller

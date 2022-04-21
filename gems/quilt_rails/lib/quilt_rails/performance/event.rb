@@ -4,17 +4,17 @@ module Quilt
   module Performance
     class Event
       TYPE = {
-        time_to_first_byte: 'ttfb',
-        time_to_first_paint: 'ttfp',
-        time_to_first_contentful_paint: 'ttfcp',
-        dom_content_loaded: 'dcl',
-        first_input_delay: 'fid',
-        load: 'load',
-        long_task: 'longtask',
-        usable: 'usable',
-        graphql: 'graphql',
-        script_download: 'script',
-        style_download: 'style',
+        time_to_first_byte: "ttfb",
+        time_to_first_paint: "ttfp",
+        time_to_first_contentful_paint: "ttfcp",
+        dom_content_loaded: "dcl",
+        first_input_delay: "fid",
+        load: "load",
+        long_task: "longtask",
+        usable: "usable",
+        graphql: "graphql",
+        script_download: "script",
+        style_download: "style",
       }
 
       attr_accessor :type

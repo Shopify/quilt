@@ -13,7 +13,7 @@ module Quilt
     initializer(:mount_quilt, before: :add_builtin_route) do |app|
       if config.quilt.mount?
         app.routes.append do
-          mount(Quilt::Engine, at: '/') unless has_named_route?(:quilt)
+          mount(Quilt::Engine, at: "/") unless has_named_route?(:quilt)
         end
       end
     end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'test_helper'
+
+require "test_helper"
 
 module Quilt
   class ConfigurationTest < Minitest::Test
@@ -13,11 +14,11 @@ module Quilt
     end
 
     def test_react_server_host_default
-      assert_equal('localhost:8081', Quilt.configuration.react_server_host)
+      assert_equal("localhost:8081", Quilt.configuration.react_server_host)
     end
 
     def test_react_server_host_configured
-      url = 'localhost:2222'
+      url = "localhost:2222"
 
       Quilt.configure do |config|
         config.react_server_host = url
@@ -27,11 +28,11 @@ module Quilt
     end
 
     def test_react_server_protocol_default
-      assert_equal('http', Quilt.configuration.react_server_protocol)
+      assert_equal("http", Quilt.configuration.react_server_protocol)
     end
 
     def test_react_server_protocol_configured
-      protocol = 'https'
+      protocol = "https"
 
       Quilt.configure do |config|
         config.react_server_protocol = protocol

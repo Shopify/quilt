@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails'
+require "rails"
 # Import specific frameworks we want
-require 'action_controller/railtie'
-require 'action_mailer/railtie'
-require 'active_storage/engine'
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_storage/engine"
 
 Bundler.require(*Rails.groups)
 require "quilt_rails"
@@ -14,7 +14,7 @@ require "quilt_rails"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    # config.load_defaults 6.0
+    config.load_defaults(7.0)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

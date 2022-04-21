@@ -2,7 +2,7 @@
 
 module Quilt
   class ReactAppGenerator < Rails::Generators::Base
-    source_root File.expand_path('templates', __dir__)
+    source_root File.expand_path("templates", __dir__)
 
     desc "This generator adds a React app."
 

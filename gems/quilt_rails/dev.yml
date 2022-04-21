@@ -1,11 +1,11 @@
 name: quilt-rails
 up:
-  - ruby: 2.7.4
+  - ruby: 3.1.2
   - bundler
 
 commands:
   test: bundle exec rake test
-  lint: bundle exec rubocop --fail-fast
+  lint: bundle exec rubocop
   format: bundle exec rubocop --auto-correct
   cop:
     run: bundle exec rubocop -F --auto-correct

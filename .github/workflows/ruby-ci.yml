@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby-version: [2.6, 2.7]
+        ruby-version: ['3.1.2']
 
     steps:
       - uses: actions/checkout@v2
@@ -31,7 +31,7 @@ jobs:
         working-directory: ./gems/quilt_rails
 
       - name: 💅🏼 Lint
-        run: bundle exec rubocop --fail-fast
+        run: bundle exec rubocop
         working-directory: ./gems/quilt_rails
 
       - name: Test

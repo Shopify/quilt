@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'rails/generators'
-require 'generators/quilt/react_app/react_app_generator'
+require "test_helper"
+require "rails/generators"
+require "generators/quilt/react_app/react_app_generator"
 
 class QuiltReactAppGeneratorTest < Rails::Generators::TestCase
   tests Quilt::ReactAppGenerator

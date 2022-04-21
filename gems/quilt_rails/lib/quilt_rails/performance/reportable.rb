@@ -10,7 +10,7 @@ module Quilt
       private
 
       def normalized_params
-        return params unless request.content_type == 'text/plain'
+        return params unless request.content_type == "text/plain"
 
         ActionController::Parameters.new(JSON.parse(request.body.read))
       end

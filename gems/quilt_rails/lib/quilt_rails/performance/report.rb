@@ -10,7 +10,7 @@ module Quilt
       class << self
         def from_params(params)
           params.transform_keys! { |key| key.underscore.to_sym }
-          params[:connection] = { effectiveType: 'unknown' } if params[:connection].blank?
+          params[:connection] = { effectiveType: "unknown" } if params[:connection].blank?
 
           connection = Connection.from_params(params[:connection])
 
