@@ -11,8 +11,9 @@ require "active_support/testing/deprecation"
 require_relative "./support/generator_test_helpers"
 
 Quilt.configuration.logger = Logger.new(nil)
-
-class ActiveSupport::TestCase
-  include GeneratorTestHelpers
-  include ActiveSupport::Testing::Deprecation
+module ActiveSupport
+  class TestCase
+    include GeneratorTestHelpers
+    include ActiveSupport::Testing::Deprecation
+  end
 end

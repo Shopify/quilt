@@ -22,7 +22,9 @@ module Quilt
 
     def call_proxy(headers, data)
       if defined? ShopifySecurityBase
+        # rubocop:disable Naming/InclusiveLanguage
         allowlist = ShopifySecurityBase::HTTPHostRestriction.respond_to?(:allowlist) ? :allowlist : :whitelist
+        # rubocop:enable Naming/InclusiveLanguage
         ShopifySecurityBase::HTTPHostRestriction.send(allowlist, [Quilt.configuration.react_server_host]) do
           proxy(headers, data)
         end
