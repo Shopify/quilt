@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'rails'
+
+require "rails"
 
 # The default ActiveSupport::Reloader memoizes `@should_reload` for the
 # lifetime of each request. This is a problem for quilt_rails apps because:

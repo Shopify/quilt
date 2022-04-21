@@ -32,7 +32,7 @@ module QuiltRails
       boot_dummy
 
       Rails.application.routes.draw do
-        mount(::Quilt::Engine, at: '/quilt')
+        mount(::Quilt::Engine, at: "/quilt")
       end
 
       assert_recognizes(
@@ -54,9 +54,9 @@ module QuiltRails
       boot_dummy
 
       Rails.application.routes.draw do
-        post '/performance_report', to: 'quilt_rails/routing_test/performance_report#create'
-        get '/*path', to: 'quilt_rails/routing_test/ui#index'
-        root 'quilt_rails/routing_test/ui#index'
+        post "/performance_report", to: "quilt_rails/routing_test/performance_report#create"
+        get "/*path", to: "quilt_rails/routing_test/ui#index"
+        root "quilt_rails/routing_test/ui#index"
       end
 
       assert_recognizes(

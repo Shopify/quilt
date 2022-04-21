@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails-reverse-proxy'
+require "rails-reverse-proxy"
 
 module Quilt
   module ReactRenderable
@@ -43,7 +43,7 @@ module Quilt
         data_json = JSON.generate(data.as_json, ascii_only: true)
         reverse_proxy(
           url,
-          headers: headers.merge('X-Request-ID': request.request_id, 'X-Quilt-Data': data_json)
+          headers: headers.merge("X-Request-ID": request.request_id, "X-Quilt-Data": data_json)
         ) do |callbacks|
           callbacks.on_response do |status_code, _response|
             Quilt.logger.info("[ReactRenderable] #{url} returned #{status_code}")

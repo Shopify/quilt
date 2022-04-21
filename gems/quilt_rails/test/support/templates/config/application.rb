@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails'
+require "rails"
 # Import specific frameworks we want
-require 'action_controller/railtie'
-require 'action_mailer/railtie'
-require 'active_storage/engine'
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_storage/engine"
 
 Bundler.require(*Rails.groups)
 require "quilt_rails"

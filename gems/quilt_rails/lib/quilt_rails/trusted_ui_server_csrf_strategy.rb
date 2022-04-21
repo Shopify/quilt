@@ -15,7 +15,7 @@ module Quilt
     private
 
     def node_server_side_render?
-      @controller.request.headers['x-shopify-server-side-rendered'] == '1'
+      @controller.request.headers["x-shopify-server-side-rendered"] == "1"
     end
 
     def fallback_handler

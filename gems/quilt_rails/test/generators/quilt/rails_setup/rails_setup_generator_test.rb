@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'rails/generators'
-require 'generators/quilt/rails_setup/rails_setup_generator'
+require "test_helper"
+require "rails/generators"
+require "generators/quilt/rails_setup/rails_setup_generator"
 
 class QuiltRailsSetupGeneratorTest < Rails::Generators::TestCase
   tests Quilt::RailsSetupGenerator
