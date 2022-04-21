@@ -1,7 +1,6 @@
 ci:
   require:
-    - ruby-tests (2.6)
-    - ruby-tests (2.7)
+    - ruby-tests (3.1)
 dependencies:
   override:
     - echo "nothing to see here"
