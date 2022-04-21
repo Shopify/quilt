@@ -23,7 +23,7 @@
     "node": ">=12.14.0"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <18.0.0"
+    "react": ">=16.8.0"
   },
   "sideEffects": false,
   "files": [

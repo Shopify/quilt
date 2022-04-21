@@ -26,7 +26,7 @@
     "@shopify/react-html": "^11.1.23"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <18.0.0"
+    "react": ">=16.8.0"
   },
   "files": [
     "build/",

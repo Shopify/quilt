@@ -29,7 +29,7 @@
     "@shopify/react-universal-provider": "^2.1.23"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <18.0.0"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
     "@shopify/react-effect": "^4.1.12"

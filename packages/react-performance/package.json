@@ -27,7 +27,7 @@
     "@shopify/performance": "^2.0.14"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <18.0.0"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
     "@shopify/network": "^2.0.8"

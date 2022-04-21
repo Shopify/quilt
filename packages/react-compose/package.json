@@ -27,7 +27,7 @@
     "hoist-non-react-statics": "^3.0.1"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <18.0.0"
+    "react": ">=16.8.0"
   },
   "sideEffects": false,
   "files": [
