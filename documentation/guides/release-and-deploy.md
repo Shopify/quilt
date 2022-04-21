@@ -44,7 +44,7 @@ git push origin main --follow-tags
 
 ### Step 1 - Publish a `beta` release for testing
 
-- In your branch, run `yarn run release`. Lerna will launch its CLI to select a version for the changed packages. Select the `Custom` option and enter a version with a `-beta.X` suffix (e.g. `0.29.10-my-feature-beta.1`). Many Quilt packages reference others. If you are prompted to version other packages, it is safe to do so (make sure these are also tagged with `-beta.X`).
+- In your branch, run `yarn run version-bump`. Lerna will launch its CLI to select a version for the changed packages. Select the `Custom` option and enter a version with a `-beta.X` suffix (e.g. `0.29.10-my-feature-beta.1`). Many Quilt packages reference others. If you are prompted to version other packages, it is safe to do so (make sure these are also tagged with `-beta.X`).
 
   **Note:** Ensure your version includes the `-beta` suffix. This is how [Shipit dictates](https://github.com/Shopify/shipit-engine/blob/master/lib/snippets/publish-lerna-independent-packages#L7-L12) a beta release.
 
