@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
-## 4.0.0 - 2022-04-13
+### Chore
 
-- Upgrade to Rails 7.x and Ruby 3.0. Drop support for Ruby <=2.7. ([#2235](https://github.com/Shopify/quilt/pull/2235))
+- Update test suite to use Ruby 3.1 and Rails 7. No code logic changes were required so we currently sill support older versions of both on a best-effort basis. ([#2235](https://github.com/Shopify/quilt/pull/2235))
 
 ## 3.5.5 - 2022-01-07
 
