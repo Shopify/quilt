@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails-reverse-proxy', '~> 0.9.0'
   spec.add_dependency 'statsd-instrument', '>= 2.8.0'
 
-  spec.add_development_dependency 'rubocop', '~> 0.74'
+  spec.add_development_dependency 'rubocop', '~> 1.28'
   spec.add_development_dependency 'rubocop-git', '~> 0.1.3'
+  spec.add_development_dependency 'rubocop-shopify', '~> 2.5'
 end

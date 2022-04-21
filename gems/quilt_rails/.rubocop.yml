@@ -1,15 +1,14 @@
-# This file strictly follows the rules defined in the Ruby style guide:
-#   http://shopify.github.io/ruby-style-guide/
-# Before updating anything please sync-up with #ruby-style-guide on Slack.
 inherit_gem:
   rubocop-shopify: rubocop.yml
 
 AllCops:
-  TargetRubyVersion: 2.6.3
+  TargetRubyVersion: 3.1
   Exclude:
     - 'node_modules/**/*'
     - 'test/**/node_modules/**/*'
     - 'vendor/**/*'
+    - config/**/*
+    - bin/*
     - '*.gemspec'
 
 Metrics/PerceivedComplexity:
