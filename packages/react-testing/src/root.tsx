@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, unmountComponentAtNode} from 'react-dom';
+import {createRoot, Root as ReactRoot} from 'react-dom/client';
 import {act} from 'react-dom/test-utils';
 
 import {TestWrapper} from './TestWrapper';
@@ -66,6 +66,7 @@ export class Root<Props> implements Node<Props> {
 
   private wrapper: TestWrapper<Props> | null = null;
   private element = document.createElement('div');
+  private reactRoot: ReactRoot | null = null;
   private root: Element<Props> | null = null;
   private acting = false;
 
@@ -196,8 +197,10 @@ export class Root<Props> implements Node<Props> {
       connected.add(this);
     }
 
+    this.reactRoot = createRoot(this.element);
+
     this.act(() => {
-      render(
+      this.reactRoot!.render(
         <TestWrapper<Props>
           render={this.render}
           ref={(wrapper) => {
@@ -206,7 +209,6 @@ export class Root<Props> implements Node<Props> {
         >
           {this.tree}
         </TestWrapper>,
-        this.element,
       );
     });
   }
@@ -219,7 +221,7 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => unmountComponentAtNode(this.element));
+    this.act(() => this.reactRoot!.unmount());
   }
 
   destroy() {
