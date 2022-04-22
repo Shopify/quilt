@@ -33,7 +33,7 @@
   "dependencies": {
     "@shopify/useful-types": "^5.0.0",
     "jest-matcher-utils": "^26.6.2",
-    "react-reconciler": "^0.26.2"
+    "react-reconciler": "^0.28.0"
   },
   "files": [
     "build/",
