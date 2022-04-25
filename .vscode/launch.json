@@ -2,30 +2,34 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug All Tests (loom)",
       "type": "node",
       "request": "launch",
-      "name": "Jest All",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["--runInBand"],
+      "program": "${workspaceFolder}/node_modules/.bin/loom",
+      "args": ["test", "--debug", "--no-watch", "."],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "windows": {
-        "program": "${workspaceFolder}/node_modules/jest/bin/jest"
-      }
+      "disableOptimisticBPs": true
     },
     {
+      "name": "Debug Changed Tests (loom)",
       "type": "node",
       "request": "launch",
-      "name": "Jest Current File",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["${fileBasenameNoExtension}", "--config", "jest.config.js"],
+      "program": "${workspaceFolder}/node_modules/.bin/loom",
+      "args": ["test", "--debug", "--no-watch"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "windows": {
-        "program": "${workspaceFolder}/node_modules/jest/bin/jest"
-      }
+      "disableOptimisticBPs": true
+    },
+    {
+      "name": "Debug current test (loom)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/loom",
+      "args": ["test", "--debug", "--no-watch", "${relativeFile}"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
     }
   ]
 }
