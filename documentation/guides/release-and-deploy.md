@@ -36,7 +36,7 @@ git push origin main --follow-tags
 
 ## 4. Deploying to npm
 
-- Log in to [Shipit](https://shipit.shopify.io/shopify/quilt/production)
+- Log in to [Shipit](https://shipit.shopify.io/shopify/quilt/production-js)
 
 - When CI is 🍏 on the commit titled `Publish`, press `Deploy` to update packages on npm.
 
