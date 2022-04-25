@@ -42,7 +42,8 @@ const transformer: Transformer = {
       )
       .join('\n');
 
-    return `
+    return {
+      code: `
         ${utilityImports}
         ${importSource}
 
@@ -51,7 +52,8 @@ const transformer: Transformer = {
         ${appendDefinitionsSource}
 
         module.exports = toSimpleDocument(cleanDocument(document, {removeUnused: false}));
-      `;
+      `,
+    };
   },
 };
 export default transformer;

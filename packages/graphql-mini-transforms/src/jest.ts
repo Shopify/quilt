@@ -42,16 +42,18 @@ const transformer: Transformer = {
       )
       .join('\n');
 
-    return `
-      ${utilityImports}
-      ${importSource}
+    return {
+      code: `
+        ${utilityImports}
+        ${importSource}
 
-      var document = ${JSON.stringify(parse(source))};
+        var document = ${JSON.stringify(parse(source))};
 
-      ${appendDefinitionsSource}
+        ${appendDefinitionsSource}
 
-      module.exports = cleanDocument(document, {removeUnused: false});
-    `;
+        module.exports = cleanDocument(document, {removeUnused: false});
+      `,
+    };
   },
 };
 
