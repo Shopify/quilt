@@ -138,7 +138,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
   - `DateStyle.Short`: e.g., `Dec 20, 2012`
-  - `DateStyle.Humanize`: Adheres to [Polaris guidelines for dates with times](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-addresses), e.g., `Just now`, `3 minutes ago`, `4 hours ago`, `10:35 am`, `Yesterday at 10:35 am`, `Friday at 10:35 am`, or `Dec 20 at 10:35 am`, or `Dec 20, 2012`
+  - `DateStyle.Humanize`: Adheres to [Polaris guidelines for dates with times](https://polaris.shopify.com/content/grammar-and-mechanics#section-dates-numbers-and-measurements), e.g., `Just now`, `3 minutes ago`, `4 hours ago`, `10:35 am`, `Yesterday at 10:35 am`, `Friday at 10:35 am`, or `Dec 20 at 10:35 am`, or `Dec 20, 2012`
   - `DateStyle.Time`: e.g., `11:00 AM`
 - `weekStartDay()`: returns start day of the week according to the country.
 - `getCurrencySymbol()`: returns the currency symbol according to the currency code and locale.
