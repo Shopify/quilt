@@ -8,7 +8,6 @@ import {
   WatchQueryOptions,
   ObservableQuery,
 } from '@apollo/client';
-import {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
 import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 
@@ -23,9 +22,7 @@ export default function useQuery<
   Variables = OperationVariables,
   DeepPartial = {}
 >(
-  queryOrAsyncQuery:
-    | DocumentNode<Data, Variables, DeepPartial>
-    | AsyncDocumentNode<Data, Variables, DeepPartial>,
+  queryOrAsyncQuery: AsyncDocumentNode<Data, Variables, DeepPartial>,
   ...optionsPart: IfAllNullableKeys<
     Variables,
     [QueryHookOptions<Data, NoInfer<Variables>>?],

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  DocumentNode,
   GraphQLOperation,
   GraphQLData,
   GraphQLVariables,
   GraphQLDeepPartial,
 } from 'graphql-typed';
 import {
+  DocumentNode,
   ErrorPolicy,
   OperationVariables,
   ApolloError,
@@ -40,7 +40,7 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
   errorPolicy?: ErrorPolicy;
   notifyOnNetworkStatusChange?: boolean;
   pollInterval?: number;
-  query: DocumentNode<Data, Variables>;
+  query: DocumentNode;
   ssr?: boolean;
   displayName?: string;
   skip?: boolean;
@@ -54,7 +54,7 @@ export type QueryProps<Data = any, Variables = OperationVariables> = {
 export interface AsyncDocumentNode<Data, Variables, DeepPartial>
   extends GraphQLOperation<Data, Variables, DeepPartial>,
     AsyncHookTarget<
-      DocumentNode<Data, Variables, DeepPartial>,
+      DocumentNode,
       {},
       VariableOptions<Variables>,
       VariableOptions<Variables> &
@@ -64,7 +64,7 @@ export interface AsyncDocumentNode<Data, Variables, DeepPartial>
 export interface AsyncQueryComponentType<Data, Variables, DeepPartial>
   extends GraphQLOperation<Data, Variables, DeepPartial>,
     AsyncComponentType<
-      DocumentNode<Data, Variables, DeepPartial>,
+      DocumentNode,
       QueryHookOptions<Data, Variables> &
         Pick<QueryProps<Data, Variables>, 'children'>,
       {},

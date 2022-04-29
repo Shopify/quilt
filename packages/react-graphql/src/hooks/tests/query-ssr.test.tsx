@@ -4,12 +4,11 @@
 
 import React from 'react';
 import {renderToString} from 'react-dom/server';
-import {FetchPolicy, gql} from '@apollo/client';
+import {FetchPolicy, gql, ApolloProvider} from '@apollo/client';
 import {extract} from '@shopify/react-effect/server';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
-import useQuery from '../query';
-import {ApolloProvider} from '../../ApolloProvider';
+import {useQuery} from '../index';
 
 const petQuery = gql`
   query PetQuery {

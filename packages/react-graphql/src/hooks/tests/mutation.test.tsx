@@ -1,8 +1,9 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
+import type {FetchResult} from '@apollo/client';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
-import useMutation from '../mutation';
+import {useMutation} from '../index';
 
 import {mountWithGraphQL} from './utilities';
 
@@ -17,8 +18,8 @@ const updatePetMutation = gql`
 const createGraphQL = createGraphQLFactory();
 
 function MockMutation({children}: {children: Function}) {
-  const mutate = useMutation(updatePetMutation);
-  const [response, setResponse] = React.useState();
+  const [mutate] = useMutation(updatePetMutation);
+  const [response, setResponse] = React.useState<FetchResult>();
 
   async function runMutation() {
     const response = await mutate();
