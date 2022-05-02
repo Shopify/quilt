@@ -61,8 +61,9 @@ interface BaseSchemaValidator {
   message?: string;
 }
 
-export type SchemaValidator<T extends ObjectMap = ObjectMap> =
-  BaseSchemaValidator & T;
+export type SchemaValidator<
+  T extends ObjectMap = ObjectMap
+> = BaseSchemaValidator & T;
 
 export interface SchemaNodeServerDefinition {
   type?: NodeKind | NodeKind[] | {polymorphic: string[]};
@@ -110,7 +111,7 @@ export interface NodeProps<T extends NodeValue = NodeValue> {
 export interface SharedContext extends ObjectMap {
   focusedNode?: string;
   debug?: boolean;
-  _debug_next_reaction?: boolean;
+  debugNextReaction?: boolean;
   errors?: ContextErrors;
 }
 
@@ -223,7 +224,7 @@ export type SpecialProps<
   T extends Noop,
   E extends
     | GenericExcludedComponentProps
-    | string = GenericExcludedComponentProps,
+    | string = GenericExcludedComponentProps
 > = Omit<GetProps<T>, keyof NodeProps | E>;
 
 /**
@@ -491,7 +492,7 @@ export class SchemaNode<T extends NodeValue = NodeValue> {
    * {@link SchemaNode.clone} method.
    */
   public isClone(namespace = CLONED_SYMBOL) {
-    return !!this.path.segments.find((s) => s.key === namespace);
+    return Boolean(this.path.segments.find(({key}) => key === namespace));
   }
 
   /**
@@ -505,7 +506,7 @@ export class SchemaNode<T extends NodeValue = NodeValue> {
     if (!this.isClone(namespace)) throw new Error('This node is not a clone');
     const path = new Path(
       '',
-      this.path.segments.filter((s) => s.key !== namespace),
+      this.path.segments.filter(({key}) => key !== namespace),
     );
     return this.getNodeByPath(path.toString());
   }
@@ -534,6 +535,7 @@ export class SchemaNode<T extends NodeValue = NodeValue> {
    */
   public remove(namespace = CLONED_SYMBOL) {
     if (!this.isClone(namespace)) {
+      // eslint-disable-next-line no-console
       console.warn(`Removing a node that is not a clone and likely part of the server schema.
       This might be a code smell.
       SchemaNode path is "${this.path}"
@@ -947,6 +949,7 @@ export class SchemaNode<T extends NodeValue = NodeValue> {
       const {nodePathCollision} = this.context.features;
       const message = `node created at ${namespace} already exists`;
       if (nodePathCollision === 'throw') throw new Error(message);
+      // eslint-disable-next-line no-console
       if (nodePathCollision === 'warn') console.warn(message);
     }
     this.context.nodes.set(namespace, this);

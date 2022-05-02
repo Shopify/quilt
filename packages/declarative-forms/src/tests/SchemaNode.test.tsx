@@ -6,18 +6,18 @@ import {
 } from '../DeclarativeFormContext';
 import {ValidationError} from '../classes/ValidationError';
 import {
-  defaultSchema,
-  expectedValues,
-  expectedValuesWithNewSchema,
-  newSchema,
-} from './fixtures';
-
-import {
   presenceValidator,
   formatValidator,
   lengthValidator,
   rangeValidator,
 } from '../utilities/validators';
+
+import {
+  defaultSchema,
+  expectedValues,
+  expectedValuesWithNewSchema,
+  newSchema,
+} from './fixtures';
 
 interface SetupProps extends DeclarativeFormContext {
   decorate: DecorateFunction;
@@ -57,12 +57,12 @@ describe('SchemaNode', () => {
     const {root} = setup({
       schema: {
         node1: {
-          type: {polymorphic: ['a', 'b']},
-          attributes: {a: {}, b: {}},
+          type: {polymorphic: ['aaa', 'bbb']},
+          attributes: {aaa: {}, bbb: {}},
         },
         node2: {
           type: 'polymorphic',
-          attributes: {c: {}, d: {}},
+          attributes: {ccc: {}, ddd: {}},
         },
       },
       values: {},
@@ -70,11 +70,11 @@ describe('SchemaNode', () => {
     const {node1, node2} = root.children;
     expect(node1.isVariant).toBe(true);
     expect(node2.isVariant).toBe(true);
-    expect(node1.attributes).toStrictEqual(['a', 'b']);
-    expect(node2.attributes).toStrictEqual(['c', 'd']);
+    expect(node1.attributes).toStrictEqual(['aaa', 'bbb']);
+    expect(node2.attributes).toStrictEqual(['ccc', 'ddd']);
   });
 
-  it('parses the new schema with default values relative to each nodes', () => {
+  it('parses the new schema with default values relative to each nodes for lists', () => {
     const expectedData = [
       {
         someNameNode: 'John',
@@ -192,8 +192,13 @@ describe('SchemaNode', () => {
 
     expect(root.name).toBe('');
 
-    const {someGroup, someNumber, someString, someBool, someVariant} =
-      root.children;
+    const {
+      someGroup,
+      someNumber,
+      someString,
+      someBool,
+      someVariant,
+    } = root.children;
 
     expect(someGroup.name).toBe('someGroup');
     expect(someNumber.name).toBe('someNumber');
@@ -373,8 +378,8 @@ describe('SchemaNode', () => {
       const {someNumberNested, someStringNested} = someGroup.children;
 
       expect(someGroup.value).toStrictEqual(values);
-      expect(someNumberNested.value).toStrictEqual(0);
-      expect(someStringNested.value).toStrictEqual('');
+      expect(someNumberNested.value).toBe(0);
+      expect(someStringNested.value).toBe('');
 
       someGroup.onChange({
         someNumberNested: 123,
@@ -392,8 +397,8 @@ describe('SchemaNode', () => {
 
       expect(root.value).toStrictEqual(expected);
       expect(someGroup.value).toStrictEqual(expected.someGroup);
-      expect(someNumberNested.value).toStrictEqual(123);
-      expect(someStringNested.value).toStrictEqual('abc');
+      expect(someNumberNested.value).toBe(123);
+      expect(someStringNested.value).toBe('abc');
     });
   });
 
@@ -825,13 +830,13 @@ describe('SchemaNode', () => {
     it('sharedContext is shared between clones and originals', () => {
       const {clonedNode, originalNode} = setupClones();
 
-      originalNode.context.updateContext('a', 1);
-      expect(originalNode.context.sharedContext.a).toBe(1);
-      expect(clonedNode.context.sharedContext.a).toBe(1);
+      originalNode.context.updateContext('aaa', 1);
+      expect(originalNode.context.sharedContext.aaa).toBe(1);
+      expect(clonedNode.context.sharedContext.aaa).toBe(1);
 
-      clonedNode.context.updateContext({a: 3});
-      expect(clonedNode.context.sharedContext.a).toBe(3);
-      expect(originalNode.context.sharedContext.a).toBe(3);
+      clonedNode.context.updateContext({aaa: 3});
+      expect(clonedNode.context.sharedContext.aaa).toBe(3);
+      expect(originalNode.context.sharedContext.aaa).toBe(3);
     });
   });
 
@@ -1017,10 +1022,10 @@ describe('validateAll()', () => {
 
       const {isValid, errors} = form.validateAll();
 
-      expect(isValid).toStrictEqual(false);
+      expect(isValid).toBe(false);
       expect(errors).toHaveLength(1);
-      expect(errors[0].type).toStrictEqual('Presence');
-      expect(errors[0].data?.message).toStrictEqual('One is required');
+      expect(errors[0].type).toBe('Presence');
+      expect(errors[0].data?.message).toBe('One is required');
     });
 
     it('still validates all non-descendants', () => {
@@ -1070,7 +1075,7 @@ describe('validateAll()', () => {
 
       const form = root.children.form;
       const {isValid, errors} = form.validateAll();
-      expect(isValid).toStrictEqual(false);
+      expect(isValid).toBe(false);
       expect(errors).toHaveLength(3);
 
       const messages = errors.map((error) => error.data?.message ?? '');

@@ -1,4 +1,5 @@
 import {createPackage} from '@shopify/loom';
+
 import {quiltPackage} from '../../config/loom';
 
 export default createPackage((pkg) => {

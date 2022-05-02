@@ -22,8 +22,7 @@ export const defaultSharedContext: SharedContext = {
  * so it's accessible at every level.
  */
 export class DeclarativeFormContext<T extends SharedContext = SharedContext>
-  implements FormContext
-{
+  implements FormContext {
   /**
    * Here is where we pass validators used for the frontend validation process.
    * by nature a validator returns instantly a validation error or null but since
@@ -99,7 +98,7 @@ export class DeclarativeFormContext<T extends SharedContext = SharedContext>
     }
   }
 
-  public focusField(nodePath: string = '') {
+  public focusField(nodePath = '') {
     this.sharedContext.focusedNode = nodePath;
   }
 

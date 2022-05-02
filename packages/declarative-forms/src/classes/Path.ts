@@ -5,8 +5,8 @@ import {PathSegment} from './PathSegment';
  * to lazy evaluate some attributes
  */
 export class Path {
-  public head: string = '';
-  public tail: string = '';
+  public head = '';
+  public tail = '';
 
   constructor(
     name = '',

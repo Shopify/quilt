@@ -148,8 +148,10 @@ describe('renderNodes / renderNode / useNode', () => {
       item1.find('button')!.trigger('onClick');
     }
 
-    deleteFirstItem(); // item[0]
-    deleteFirstItem(); // item[1]
+    // item[0]
+    deleteFirstItem();
+    // item[1]
+    deleteFirstItem();
 
     expect(wrapper).toContainReactComponentTimes('div', 1, {
       className: 'list-item',

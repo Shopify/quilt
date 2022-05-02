@@ -1,5 +1,6 @@
 import {SchemaNode} from '../../types';
 import {ValidationError} from '../../classes/ValidationError';
+
 import {rangeValidator} from './rangeValidator';
 
 describe('rangeValidator', () => {

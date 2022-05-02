@@ -3,10 +3,10 @@ import {autorun, trace} from 'mobx';
 
 import {NodeValue, SchemaNode, SharedContext, CLONED_SYMBOL} from '../types';
 import {Path} from '../classes/Path';
-
-import {isSchemaNode} from './compatibility';
 import {DeclarativeFormContext} from '../DeclarativeFormContext';
 import {ValidationError} from '../classes/ValidationError';
+
+import {isSchemaNode} from './compatibility';
 
 interface Features {
   forceSelection?: boolean;
@@ -22,9 +22,9 @@ interface Features {
  */
 export function useNode<
   T extends NodeValue = NodeValue,
-  C extends SharedContext = SharedContext,
+  C extends SharedContext = SharedContext
 >(
-  node: SchemaNode<T>,
+  detectNode: SchemaNode<T>,
   {
     forceSelection,
     allowUndefined = false,
@@ -33,6 +33,7 @@ export function useNode<
   }: Features = {},
 ) {
   let exists = true;
+  let node = detectNode;
   if (!isSchemaNode<T>(node)) {
     if (allowUndefined) {
       node = new SchemaNode<T>(new DeclarativeFormContext({}), {});
@@ -68,7 +69,7 @@ export function useNode<
   });
 
   useEffect(forceInitialSelectionEffect, [forceSelection, node]);
-  useEffect(refreshStateFromObservableEffect, [node]);
+  useEffect(refreshStateFromObservableEffect, [node, contextOnly]);
 
   useEffect(
     function maybeUpdateErrorsFromContext() {
@@ -76,17 +77,21 @@ export function useNode<
         const remoteErrors = node.context.sharedContext.errors;
 
         if (remoteErrors) {
-          const serverPath = new Path('', node.path.segments.filter(({key}) => key !== cloneName)).toFullWithoutVariants()
+          const serverPath = new Path(
+            '',
+            node.path.segments.filter(({key}) => key !== cloneName),
+          ).toFullWithoutVariants();
           const serverErrorsTarget = remoteErrors
             ? remoteErrors[serverPath]
             : null;
-          const externalErrors =
-            mapContextErrorsToValidationErrors(serverErrorsTarget);
+          const externalErrors = mapContextErrorsToValidationErrors(
+            serverErrorsTarget,
+          );
           node.setErrors(externalErrors);
         }
       });
     },
-    [node, state.remoteErrors],
+    [node, state.remoteErrors, cloneName],
   );
 
   useEffect(
@@ -123,7 +128,7 @@ export function useNode<
   function refreshStateFromObservableEffect() {
     return autorun(() => {
       // this triggers a debugger on the next reaction
-      if (node.context.sharedContext._debug_next_reaction) trace(true);
+      if (node.context.sharedContext.debugNextReaction) trace(true);
 
       const serverPath = node.path.toFullWithoutVariants();
       const focused = node.context.sharedContext.focusedNode === serverPath;

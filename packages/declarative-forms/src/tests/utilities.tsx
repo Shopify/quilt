@@ -54,13 +54,13 @@ export function ListNode({node}: NodeProps) {
 
 export function ItemDeleteButton({node}: NodeProps) {
   return (
-    <button name={node.name} onClick={handleDelete}>
+    <button type="button" name={node.name} onClick={handleDelete}>
       Delete
     </button>
   );
 
   function handleDelete() {
-    const index = +node.name;
+    const index = Number(node.name);
     node.parentNode()?.removeListItem(index);
   }
 }
@@ -95,6 +95,8 @@ export function StringNode({node, type}: TextNodeProps) {
     inputElement.current[focused ? 'focus' : 'blur']();
   }, [focused]);
 
+  const errorJsx = errorMessage ? <strong>{errorMessage}</strong> : null;
+
   return (
     <>
       <input
@@ -103,7 +105,7 @@ export function StringNode({node, type}: TextNodeProps) {
         onChange={handleChange}
         type={type}
       />
-      {errorMessage ? <strong>{errorMessage}</strong> : null}
+      {errorJsx}
     </>
   );
 

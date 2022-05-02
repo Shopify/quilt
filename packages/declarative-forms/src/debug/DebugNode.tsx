@@ -16,6 +16,7 @@ export function DebugNode({children, node}: DebugProps) {
   const ref = useRef<HTMLDivElement>();
   const [visible, setVisible] = useState(false);
   const [rect, setRect] = useState<Partial<DOMRect>>({});
+  const rootValue = node.getNodeByPath('')!.value;
   useEffect(() => {
     const to = setTimeout(calculateBoundRect, 0);
     addEventListener('resize', calculateBoundRect);
@@ -23,7 +24,7 @@ export function DebugNode({children, node}: DebugProps) {
       clearTimeout(to);
       removeEventListener('resize', calculateBoundRect);
     };
-  }, [node.getNodeByPath('')!.value]);
+  }, [rootValue]);
   const color = getColor(node.depth);
   const overlayStyle = {
     boxShadow: `inset 0 0 3px 1px ${color}, inset -.5em 0 2em -.5em ${color}44, 0 0 1em 1px ${color}44`,
@@ -52,6 +53,7 @@ export function DebugNode({children, node}: DebugProps) {
     >
       {visible && (
         <>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <div
             style={{
               ...overlayStyle,
@@ -63,7 +65,10 @@ export function DebugNode({children, node}: DebugProps) {
               padding: '.5em',
               overflowX: 'auto',
             }}
-            onClick={() => console.info(node.path.toString(), node)}
+            onClick={() => {
+              // eslint-disable-next-line no-console
+              console.info(node.path.toString(), node);
+            }}
           >
             <DebugAttribute name="label" value={node.translate('label')} />
             {(['type', 'name', 'depth'] as const).map((key) => (
@@ -83,7 +88,7 @@ export function DebugNode({children, node}: DebugProps) {
               position: 'absolute',
               pointerEvents: 'none',
             }}
-          ></div>
+          />
         </>
       )}
       {children}
