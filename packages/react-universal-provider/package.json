@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-universal-provider",
-  "version": "2.1.23",
+  "version": "2.1.23-react-18-react-testing-beta.0",
   "license": "MIT",
   "description": "Factory function and utilities to create self-serializing/deserializing providers that work for isomorphic applications",
   "main": "index.js",
@@ -24,8 +24,8 @@
     "node": ">=12.14.0"
   },
   "dependencies": {
-    "@shopify/react-effect": "^4.1.12",
-    "@shopify/react-html": "^11.1.23"
+    "@shopify/react-effect": "^4.1.12-react-18-react-testing-beta.0",
+    "@shopify/react-html": "^11.1.23-react-18-react-testing-beta.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
