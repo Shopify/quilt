@@ -1,0 +1,81 @@
+{
+  "name": "@shopify/declarative-forms",
+  "version": "1.5.18",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.mjs",
+  "esnext": "build/esnext/index.esnext",
+  "types": "build/ts/src/index.d.ts",
+  "repository": "https://github.com/Shopify/declarative-forms.git",
+  "author": "Olivier Rousseau-Guyot <olivier.rousseauguyot@shopify.com>",
+  "description": "React package to generate forms based on a schema",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "files": [
+    "build/",
+    "!build/ts/config/",
+    "!build/ts/stories/",
+    "!build/ts/test/",
+    "!build/**/*.test.*",
+    "jest-preset.js"
+  ],
+  "browserslist": [
+    "last 3 chrome versions",
+    "last 3 chromeandroid versions",
+    "last 3 firefox versions",
+    "last 3 opera versions",
+    "last 2 edge versions",
+    "safari >= 10",
+    "ios >= 9"
+  ],
+  "scripts": {
+    "start": "serve ./docs",
+    "prestart": "yarn build:doc",
+    "lint": "loom lint",
+    "type-check": "loom type-check",
+    "format": "loom lint --fix",
+    "test": "loom test",
+    "test:coverage": "yarn test --coverage",
+    "build": "loom build",
+    "not_prebuild": "rimraf dist docs",
+    "build:doc": "typedoc --excludePrivate ./src/index.ts",
+    "build:local": "yarn build && cp -r ./build/* ../web/node_modules/@shopify/declarative-forms/build && restart shopify--web",
+    "publish:docs": "yarn build:doc && sh ./doc-site.sh && rimraf docs",
+    "deploy": "yarn run build && yarn test --watch=false && yarn version && git push --follow-tags",
+    "changelog": "node ./scripts/changelog.js",
+    "buildkite:ci:test": "yarn && loom lint && loom type-check && loom test --watch false",
+    "buildkite:ci": "yarn && yarn build"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@shopify/browserslist-config": "^3.0.0",
+    "@shopify/eslint-plugin": "^41.2.1",
+    "@shopify/loom-cli": "^1.0.1",
+    "@shopify/loom-plugin-build-library": "^1.0.2",
+    "@shopify/loom-plugin-eslint": "^2.0.0",
+    "@shopify/loom-plugin-prettier": "^2.0.0",
+    "@shopify/loom-plugin-stylelint": "^2.0.0",
+    "@shopify/react-i18n": "^6.2.3",
+    "@shopify/react-testing": "^3.3.10",
+    "@shopify/typescript-configs": "^5.1.0",
+    "@types/lodash": "^4.14.180",
+    "eslint": "^8.10.0",
+    "jest-extended": "^1.2.0",
+    "serve": "^13.0.2",
+    "typedoc": "^0.22.11"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "mobx": "^6.3.6"
+  },
+  "optionalDependencies": {
+    "@shopify/jest-dom-mocks": "^3.0.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
