@@ -1,4 +1,4 @@
-# Declarative-forms [![Build status](https://badge.buildkite.com/76d3807aa03edfb7900ded8d8fad87ce3cefb8a3294040794b.svg)](https://buildkite.com/shopify/declarative-forms)
+# Declarative-forms
 
 A library helper to generate complex forms and offer a system to decorate them.
 

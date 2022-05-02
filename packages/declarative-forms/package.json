@@ -1,16 +1,27 @@
 {
   "name": "@shopify/declarative-forms",
   "version": "1.5.18",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.mjs",
-  "esnext": "build/esnext/index.esnext",
-  "types": "build/ts/src/index.d.ts",
-  "repository": "https://github.com/Shopify/declarative-forms.git",
-  "author": "Olivier Rousseau-Guyot <olivier.rousseauguyot@shopify.com>",
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
   "description": "React package to generate forms based on a schema",
+  "sideEffects": false,
   "license": "MIT",
   "publishConfig": {
-    "access": "restricted"
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/react-async"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/declarative-forms/README.md",
+  "engines": {
+    "node": ">=12.14.0"
   },
   "files": [
     "build/",
@@ -29,6 +40,16 @@
     "safari >= 10",
     "ios >= 9"
   ],
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    ".": {
+      "esnext": "./index.esnext",
+      "import": "./index.mjs",
+      "require": "./index.js"
+    },
+    "./*": "./*"
+  },
   "scripts": {
     "start": "serve ./docs",
     "prestart": "yarn build:doc",
@@ -48,19 +69,7 @@
     "buildkite:ci": "yarn && yarn build"
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.16.0",
-    "@shopify/browserslist-config": "^3.0.0",
-    "@shopify/eslint-plugin": "^41.2.1",
-    "@shopify/loom-cli": "^1.0.1",
-    "@shopify/loom-plugin-build-library": "^1.0.2",
-    "@shopify/loom-plugin-eslint": "^2.0.0",
-    "@shopify/loom-plugin-prettier": "^2.0.0",
-    "@shopify/loom-plugin-stylelint": "^2.0.0",
-    "@shopify/react-i18n": "^6.2.3",
-    "@shopify/react-testing": "^3.3.10",
-    "@shopify/typescript-configs": "^5.1.0",
     "@types/lodash": "^4.14.180",
-    "eslint": "^8.10.0",
     "jest-extended": "^1.2.0",
     "serve": "^13.0.2",
     "typedoc": "^0.22.11"
