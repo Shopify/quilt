@@ -25,10 +25,15 @@ export interface Options {
   statsdPort?: number;
   anomalousNavigationDurationThreshold?: number;
   logger?: Logger;
-  additionalTags?(metricsBody: Metrics, userAgent: string): Tags;
-  additionalNavigationTags?(navigation: Navigation): Tags;
+  additionalTags?(
+    metricsBody: Metrics,
+    userAgent: string,
+    context?: Context,
+  ): Tags;
+  additionalNavigationTags?(navigation: Navigation, context?: Context): Tags;
   additionalNavigationMetrics?(
     navigation: Navigation,
+    context?: Context,
   ): {
     name: string;
     value: any;
@@ -88,7 +93,7 @@ export function clientPerformanceMetrics({
       }[] = [];
 
       const additionalTags = getAdditionalTags
-        ? getAdditionalTags(body, userAgent)
+        ? getAdditionalTags(body, userAgent, ctx)
         : {};
 
       const tags = {
@@ -116,7 +121,7 @@ export function clientPerformanceMetrics({
         const navigation = new Navigation(details, metadata);
 
         const additionalNavigationTags = getAdditionalNavigationTags
-          ? getAdditionalNavigationTags(navigation)
+          ? getAdditionalNavigationTags(navigation, ctx)
           : {};
 
         const anomalousNavigationDurationTag = anomalousNavigationDurationThreshold
@@ -168,7 +173,7 @@ export function clientPerformanceMetrics({
 
         if (getAdditionalNavigationMetrics) {
           metrics.push(
-            ...getAdditionalNavigationMetrics(navigation).map(
+            ...getAdditionalNavigationMetrics(navigation, ctx).map(
               ({name, value, tags = {}}) => ({
                 name,
                 value,

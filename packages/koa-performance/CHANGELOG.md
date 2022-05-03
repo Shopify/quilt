@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- additionalTags, additionalNavigationTags, and additionalNavigationMetrics
+  callbacks are now passed a context argument.
 
 ## 2.1.4 - 2022-03-09
 
