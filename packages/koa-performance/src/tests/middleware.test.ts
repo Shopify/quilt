@@ -157,6 +157,7 @@ describe('client metrics middleware', () => {
       expect(additionalTagsSpy).toHaveBeenCalledWith(
         body,
         context.get(Header.UserAgent),
+        context,
       );
     });
 
@@ -427,7 +428,7 @@ describe('client metrics middleware', () => {
         })(context, () => Promise.resolve());
       });
 
-      expect(spy).toHaveBeenCalledWith(expect.any(Navigation));
+      expect(spy).toHaveBeenCalledWith(expect.any(Navigation), context);
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'navigation_complete',
         expect.any(Number),
@@ -454,7 +455,7 @@ describe('client metrics middleware', () => {
         })(context, () => Promise.resolve());
       });
 
-      expect(spy).toHaveBeenCalledWith(expect.any(Navigation));
+      expect(spy).toHaveBeenCalledWith(expect.any(Navigation), context);
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         additionalMetric.name,
         additionalMetric.value,
