@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-async",
-  "version": "4.1.24-react-18-react-testing-beta.1",
+  "version": "4.1.24-react-18-react-testing-beta.2",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components",
   "main": "index.js",
