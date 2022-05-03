@@ -1,4 +1,3 @@
-// Test comment to republish beta
 import React, {
   useEffect,
   useRef,
