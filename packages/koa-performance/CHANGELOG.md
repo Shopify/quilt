@@ -10,7 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - additionalTags, additionalNavigationTags, and additionalNavigationMetrics
-  callbacks are now passed a context argument.
+  callbacks are now passed a context argument. [[#2262](https://github.com/Shopify/quilt/pull/2262)]
 
 ## 2.1.4 - 2022-03-09
 
