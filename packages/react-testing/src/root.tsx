@@ -1,3 +1,4 @@
+// Test comment to republish beta version
 import React from 'react';
 import {createRoot, Root as ReactRoot} from 'react-dom/client';
 import {act} from 'react-dom/test-utils';
