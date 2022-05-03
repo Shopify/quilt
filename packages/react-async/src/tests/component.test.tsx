@@ -806,7 +806,10 @@ describe('createAsyncComponent()', () => {
 });
 
 function createCatcher(callback: (error: Error) => void) {
-  return class Catcher extends Component<{}, {error?: Error}> {
+  return class Catcher extends Component<
+    {children: React.ReactNode},
+    {error?: Error}
+  > {
     static getDerivedStateFromError(error: Error) {
       return {error};
     }
