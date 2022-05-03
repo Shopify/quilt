@@ -19,6 +19,7 @@ describe('no new packages', () => {
       'csrf-token-fetcher',
       'css-utilities',
       'dates',
+      'declarative-forms',
       'decorators',
       'function-enhancers',
       'graphql-config-utilities',

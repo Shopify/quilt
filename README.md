@@ -14,7 +14,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 72 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 73 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -31,6 +31,7 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/csrf-token-fetcher](packages/csrf-token-fetcher) | <a href="https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher"><img src="https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher.svg" width="200px" /></a> | JavaScript utility function to fetch the CSRF token required to make requests to a Rails server |
 | [@shopify/css-utilities](packages/css-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fcss-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fcss-utilities.svg" width="200px" /></a> | A set of CSS styling-related utilities |
 | [@shopify/dates](packages/dates) | <a href="https://badge.fury.io/js/%40shopify%2Fdates"><img src="https://badge.fury.io/js/%40shopify%2Fdates.svg" width="200px" /></a> | Lightweight date operations library |
+| [@shopify/declarative-forms](packages/declarative-forms) | <a href="https://badge.fury.io/js/%40shopify%2Fdeclarative-forms"><img src="https://badge.fury.io/js/%40shopify%2Fdeclarative-forms.svg" width="200px" /></a> | React package to generate forms based on a schema |
 | [@shopify/decorators](packages/decorators) | <a href="https://badge.fury.io/js/%40shopify%2Fdecorators"><img src="https://badge.fury.io/js/%40shopify%2Fdecorators.svg" width="200px" /></a> | A set of decorators to aid your JavaScript journey |
 | [@shopify/function-enhancers](packages/function-enhancers) | <a href="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers"><img src="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg" width="200px" /></a> | A set of helpers to enhance functions |
 | [graphql-config-utilities](packages/graphql-config-utilities) | <a href="https://badge.fury.io/js/graphql-config-utilities"><img src="https://badge.fury.io/js/graphql-config-utilities.svg" width="200px" /></a> | Common utilities for graphql-config |

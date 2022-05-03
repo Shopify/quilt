@@ -12,6 +12,7 @@
     {"path": "./packages/csrf-token-fetcher"},
     {"path": "./packages/css-utilities"},
     {"path": "./packages/dates"},
+    {"path": "./packages/declarative-forms"},
     {"path": "./packages/decorators"},
     {"path": "./packages/function-enhancers"},
     {"path": "./packages/graphql-config-utilities"},
