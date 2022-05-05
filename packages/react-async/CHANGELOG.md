@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Fixed
+
+- Explicitly type children in a component defined in a test [[#2266](https://github.com/Shopify/quilt/pull/2266)]
 
 ## 4.1.24 - 2022-04-25
 

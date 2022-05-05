@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, ReactNode} from 'react';
 import faker from '@faker-js/faker/locale/en';
 import {DeferTiming} from '@shopify/async';
 import {createMount} from '@shopify/react-testing';
@@ -806,7 +806,10 @@ describe('createAsyncComponent()', () => {
 });
 
 function createCatcher(callback: (error: Error) => void) {
-  return class Catcher extends Component<{}, {error?: Error}> {
+  return class Catcher extends Component<
+    {children?: ReactNode},
+    {error?: Error}
+  > {
     static getDerivedStateFromError(error: Error) {
       return {error};
     }
