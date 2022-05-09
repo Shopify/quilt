@@ -13,6 +13,7 @@ export interface I18nDetails {
   pseudolocalize?: boolean;
   fallbackLocale?: string;
   onError?(error: I18nError): void;
+  interpolate?: RegExp;
 }
 
 export interface TranslationDictionary {

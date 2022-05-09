@@ -7,6 +7,8 @@ import {
   getCurrencySymbol,
   memoizedNumberFormatter,
   memoizedPluralRules,
+  ERB_INTERPOLATION,
+  MUSTACHE_INTERPOLATION,
 } from '../utilities';
 
 const {pseudotranslate} = jest.requireMock('@shopify/i18n') as {
@@ -287,6 +289,31 @@ describe('translate()', () => {
       ).toBe('bar: true');
     });
 
+    it('performs replacements with custom interpolation', () => {
+      expect(
+        translate(
+          'foo',
+          {
+            replacements: {bar: 'true'},
+            interpolate: ERB_INTERPOLATION,
+          },
+          {foo: 'bar: <%= bar %>'},
+          locale,
+        ),
+      ).toBe('bar: true');
+      expect(
+        translate(
+          'foo',
+          {
+            replacements: {bar: 'true'},
+            interpolate: MUSTACHE_INTERPOLATION,
+          },
+          {foo: 'bar: {{ bar }}'},
+          locale,
+        ),
+      ).toBe('bar: true');
+    });
+
     it('performs replacements with JSX by creating an array and cloning elements with unique keys', () => {
       function CustomComponent() {
         return null;
@@ -303,6 +330,36 @@ describe('translate()', () => {
           },
         },
         {foo: '{bar} {baz} '},
+        locale,
+      );
+
+      expect(translated).toBeInstanceOf(Array);
+      expect(translated).toHaveLength(4);
+      expect(translated).toMatchObject([
+        React.cloneElement(bar, {key: 1}),
+        ' ',
+        React.cloneElement(baz, {key: 2}),
+        ' ',
+      ]);
+    });
+
+    it('performs replacements with JSX by creating an array and cloning elements with unique keys using custom interpolation', () => {
+      function CustomComponent() {
+        return null;
+      }
+
+      const bar = <div>Content</div>;
+      const baz = <CustomComponent />;
+      const translated = translate(
+        'foo',
+        {
+          replacements: {
+            bar,
+            baz,
+          },
+          interpolate: MUSTACHE_INTERPOLATION,
+        },
+        {foo: '{{bar}} {{baz}} '},
         locale,
       );
 
