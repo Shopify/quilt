@@ -37,8 +37,8 @@
     "serialize-javascript": "^3.0.0"
   },
   "peerDependencies": {
-    "react": ">=16.8.0 <18.0.0",
-    "react-dom": ">=16.8.0 <18.0.0"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "devDependencies": {
     "@shopify/react-testing": "^3.3.10",
@@ -70,5 +70,8 @@
       "require": "./index.js"
     },
     "./*": "./*"
+  },
+  "scripts": {
+    "dev": "npx nodemon --watch 'src/**/*' --exec 'loom build --env development --source-maps' --ext ts,tsx"
   }
 }

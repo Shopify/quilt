@@ -1,5 +1,5 @@
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+// import {renderToString} from 'react-dom/server';
 import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 
 import {HtmlManager} from '../../manager';
@@ -51,10 +51,12 @@ export default function Html({
   headMarkup = null,
   bodyMarkup = null,
 }: HtmlProps) {
-  const markup =
-    typeof children === 'string'
-      ? children
-      : render(children, {htmlManager: manager, hydrationManager});
+  console.log('Linked <Html> with children');
+
+  // const markup =
+  //   typeof children === 'string'
+  //     ? children
+  //     : render(children, {htmlManager: manager, hydrationManager});
 
   const extracted = manager && manager.extract();
 
@@ -166,7 +168,7 @@ export default function Html({
       </head>
 
       <body {...bodyAttributes}>
-        <div id="app" dangerouslySetInnerHTML={{__html: markup}} />
+        <div id="app">{children}</div>
 
         {bodyMarkup}
         {serializationMarkup}
@@ -199,5 +201,5 @@ function render(
       </HtmlContext.Provider>
     );
 
-  return renderToString(content);
+  return content;
 }
