@@ -27,6 +27,7 @@ This library requires a provider component which supplies i18n details to the re
 - `currency`: the default currency to use for currency-aware formatting.
 - `pseudolocalize`: whether to perform [pseudolocalization](https://github.com/Shopify/pseudolocalization) on your translations.
 - `onError`: a callback to use when recoverable i18n-related errors happen. If not provided, these errors will be re-thrown wherever they occur. If it is provided and it does not re-throw the passed error, the translation or formatting that caused the error will return an empty string. This function will be called with the error object.
+- `interpolate`: a regular expression to be used for interpolation of custom variable placeholder formats.
 
 ```tsx
 import {I18nContext, I18nManager} from '@shopify/react-i18n';

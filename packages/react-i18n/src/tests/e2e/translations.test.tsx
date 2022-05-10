@@ -1,6 +1,7 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
+import {MUSTACHE_INTERPOLATION} from '../../utilities';
 import {I18nManager} from '../../manager';
 import {useI18n} from '../../hooks';
 import {I18nContext} from '../../context';
@@ -56,5 +57,30 @@ describe('translations', () => {
     );
 
     expect(component.text()).toBe(enTranslations.hello);
+  });
+
+  it('uses custom interpolation', () => {
+    function WithI18nComponent() {
+      const [i18n] = useI18n({
+        id: 'MyComponent',
+        fallback: {hello: 'Hello {{name}} {{ surname }}!'},
+      });
+
+      return (
+        <div>{i18n.translate('hello', {name: 'foo', surname: 'bar'})}</div>
+      );
+    }
+
+    const manager = new I18nManager({
+      locale: 'en',
+      interpolate: MUSTACHE_INTERPOLATION,
+    });
+    const component = mount(
+      <I18nContext.Provider value={manager}>
+        <WithI18nComponent />
+      </I18nContext.Provider>,
+    );
+
+    expect(component.text()).toBe('Hello foo bar!');
   });
 });
