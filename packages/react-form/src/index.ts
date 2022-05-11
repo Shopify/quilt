@@ -19,6 +19,7 @@ export type {ChoiceField, FieldConfig} from './hooks';
 export {
   fieldsToArray,
   getValues,
+  getDirtyValues,
   propagateErrors,
   validateAll,
   reduceFields,
