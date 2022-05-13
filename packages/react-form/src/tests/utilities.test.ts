@@ -121,7 +121,9 @@ describe('getDirtyValues()', () => {
       ],
     };
 
-    expect(getDirtyValues(fieldBag)).toStrictEqual({ username: formValue.username});
+    expect(getDirtyValues(fieldBag)).toStrictEqual({
+      username: formValue.username,
+    });
   });
 });
 

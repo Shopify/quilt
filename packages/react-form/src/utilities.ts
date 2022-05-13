@@ -174,14 +174,15 @@ export function getValues<T extends FieldBag>(fieldBag: T) {
 }
 
 export function getDirtyValues<T extends FieldBag>(fieldBag: T) {
-  return Object.entries(
-    fieldBag,
-  ).reduce((acc, [fieldName, field]: [string, Field<any>]) => {
-    return {
-      ...acc,
-      ...(field.dirty ? {[fieldName]: field.value} : {}),
-    };
-  }, {});
+  return Object.entries(fieldBag).reduce(
+    (acc, [fieldName, field]: [string, Field<any>]) => {
+      return {
+        ...acc,
+        ...(field.dirty ? {[fieldName]: field.value} : {}),
+      };
+    },
+    {},
+  );
 }
 
 export function noop() {}
