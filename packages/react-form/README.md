@@ -1129,16 +1129,17 @@ Takes `FieldBag` and returns object with only dirty field values, similar to the
 
 ##### Signature
 
-```ts
+```tsx
 function getDirtyValues<T extends FieldBag>(fieldBag: T) {
-  return Object.entries(
-    fieldBag,
-  ).reduce((acc, [fieldName, field]: [string, Field<any>]) => {
-    return {
-      ...acc,
-      ...(field.dirty ? {[fieldName]: field.value} : {}),
-    };
-  }, {});
+  return Object.entries(fieldBag).reduce(
+    (acc, [fieldName, field]: [string, Field<any>]) => {
+      return {
+        ...acc,
+        ...(field.dirty ? {[fieldName]: field.value} : {}),
+      };
+    },
+    {},
+  );
 }
 ```
 
