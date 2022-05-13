@@ -2,6 +2,7 @@ import {
   shallowArrayComparison,
   isChangeEvent,
   getValues,
+  getDirtyValues,
   noop,
   validateAll,
   fieldsToArray,
@@ -92,6 +93,35 @@ describe('getValues()', () => {
     };
 
     expect(getValues(fieldBag)).toStrictEqual(formValue);
+  });
+});
+
+describe('getDirtyValues()', () => {
+  it('returns dirty form values', () => {
+    const formValue = {
+      username: 'myUsername',
+      name: {
+        firstName: 'myFirstName',
+      },
+      emails: [
+        {
+          work: 'work@example.com',
+        },
+      ],
+    };
+    const fieldBag = {
+      username: {...mockField(formValue.username), dirty: true},
+      name: {
+        firstName: mockField(formValue.name.firstName),
+      },
+      emails: [
+        {
+          work: mockField(formValue.emails[0].work),
+        },
+      ],
+    };
+
+    expect(getDirtyValues(fieldBag)).toStrictEqual({ username: formValue.username});
   });
 });
 
