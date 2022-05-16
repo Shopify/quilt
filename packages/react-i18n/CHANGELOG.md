@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - Patch - `generateTranslationIndexes` no longer fails with `ENOBUFS` errors in projects with tens of thousands of translation files [[#2269](https://github.com/Shopify/quilt/pull/2269)]
+- Patch - Updated list of currency decimal places according to [ISO 4217 standards](https://www.six-group.com/en/products-services/financial-information/data-standards.html#scrollTo=maintenance-agency) [[#2260](https://github.com/Shopify/quilt/pull/2260)]
 
 ## 6.4.0 - 2022-04-25
 
