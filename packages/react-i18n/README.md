@@ -238,6 +238,31 @@ i18n.translate('MyComponent.details', {link: <Link />});
 
 Replacements can be plain strings or React elements. When a React element is found, the resulting value will be a `ReactNode`, which can be used as the children of other React components.
 
+##### Custom replacements format
+
+If the translation source uses a different placeholder format, like Shopify's themes locale files, use the `interpolate` options of the `I18nManager` to enable the format you need, using either one of the provided regular expression like `MUSTACHE_FORMAT` or providing your own custom one.
+
+```jsonc
+{
+  "general": {
+    "details": "See {{ link }}" // Mustache format
+  }
+}
+```
+
+```ts
+import {I18nManager, MUSTACHE_FORMAT} from '@shopify/react-i18n';
+
+const i18nManager = new I18nManager({
+  interpolate: MUSTACHE_FORMAT, // enable the custom format
+  // ...and other options
+});
+```
+
+```ts
+i18n.translate('general.details', {link: <Link />});
+```
+
 ##### Dynamic translation keys
 
 For dynamically-generated translation keys, you can use the `scope` option to specify a partial keypath against which the key is looked up:

@@ -13,9 +13,9 @@ export type {WithI18nProps} from './decorator';
 export {
   memoizedNumberFormatter,
   translate,
-  DEFAULT_INTERPOLATION,
-  MUSTACHE_INTERPOLATION,
-  ERB_INTERPOLATION,
+  DEFAULT_FORMAT,
+  MUSTACHE_FORMAT,
+  ERB_FORMAT,
 } from './utilities';
 export type {TranslateOptions as RootTranslateOptions} from './utilities';
 export {LanguageDirection, CurrencyCode} from './types';

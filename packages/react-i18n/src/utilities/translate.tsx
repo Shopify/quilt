@@ -12,7 +12,7 @@ import {
 } from '../types';
 import {MissingTranslationError, MissingReplacementError} from '../errors';
 
-import {DEFAULT_INTERPOLATION} from './interpolate';
+import {DEFAULT_FORMAT} from './interpolate';
 
 const MISSING_TRANSLATION = Symbol('Missing translation');
 const PLURALIZATION_KEY_NAME = 'count';
@@ -248,7 +248,7 @@ function updateStringWithReplacements(
 ): any {
   const pieces: (string | React.ReactElement<any>)[] = [];
 
-  const replaceFinder = new RegExp(interpolate || DEFAULT_INTERPOLATION, 'g');
+  const replaceFinder = new RegExp(interpolate || DEFAULT_FORMAT, 'g');
 
   let matchIndex = 0;
   let lastOffset = 0;
@@ -256,12 +256,7 @@ function updateStringWithReplacements(
   // Uses replace callback, but not its return value
   str.replace(
     replaceFinder,
-    (
-      match,
-      _fullPlaceholder: string,
-      replacementKey: string,
-      offset: number,
-    ) => {
+    (match, replacementKey: string, offset: number) => {
       if (!replacementKey) return '';
 
       if (!Object.prototype.hasOwnProperty.call(replacements, replacementKey)) {

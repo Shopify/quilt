@@ -7,8 +7,8 @@ import {
   getCurrencySymbol,
   memoizedNumberFormatter,
   memoizedPluralRules,
-  ERB_INTERPOLATION,
-  MUSTACHE_INTERPOLATION,
+  ERB_FORMAT,
+  MUSTACHE_FORMAT,
 } from '../utilities';
 
 const {pseudotranslate} = jest.requireMock('@shopify/i18n') as {
@@ -295,7 +295,7 @@ describe('translate()', () => {
           'foo',
           {
             replacements: {bar: 'true'},
-            interpolate: ERB_INTERPOLATION,
+            interpolate: ERB_FORMAT,
           },
           {foo: 'bar: <%= bar %>'},
           locale,
@@ -306,7 +306,7 @@ describe('translate()', () => {
           'foo',
           {
             replacements: {bar: 'true'},
-            interpolate: MUSTACHE_INTERPOLATION,
+            interpolate: MUSTACHE_FORMAT,
           },
           {foo: 'bar: {{ bar }}'},
           locale,
@@ -357,7 +357,7 @@ describe('translate()', () => {
             bar,
             baz,
           },
-          interpolate: MUSTACHE_INTERPOLATION,
+          interpolate: MUSTACHE_FORMAT,
         },
         {foo: '{{bar}} {{baz}} '},
         locale,

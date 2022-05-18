@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {MUSTACHE_INTERPOLATION} from '../../utilities';
+import {MUSTACHE_FORMAT} from '../../utilities';
 import {I18nManager} from '../../manager';
 import {useI18n} from '../../hooks';
 import {I18nContext} from '../../context';
@@ -73,7 +73,7 @@ describe('translations', () => {
 
     const manager = new I18nManager({
       locale: 'en',
-      interpolate: MUSTACHE_INTERPOLATION,
+      interpolate: MUSTACHE_FORMAT,
     });
     const component = mount(
       <I18nContext.Provider value={manager}>

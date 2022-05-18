@@ -9,8 +9,4 @@ export {
 
 export type {TranslateOptions} from './translate';
 export {convertFirstSpaceToNonBreakingSpace} from './string';
-export {
-  DEFAULT_INTERPOLATION,
-  ERB_INTERPOLATION,
-  MUSTACHE_INTERPOLATION,
-} from './interpolate';
+export {DEFAULT_FORMAT, ERB_FORMAT, MUSTACHE_FORMAT} from './interpolate';
