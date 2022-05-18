@@ -289,6 +289,23 @@ describe('translate()', () => {
       ).toBe('bar: true');
     });
 
+    it('throws when missing a replacement key', () => {
+      expect(() =>
+        translate(
+          'foo',
+          {
+            replacements: {bar: 'true'},
+            // Permissive custom format
+            interpolate: /{\s*(.*)\s*}/g,
+          },
+          {foo: 'bar: { }'},
+          locale,
+        ),
+      ).toThrow(
+        'Invalid replacement key. The interpolatation format RegExp is possibly too permissive.',
+      );
+    });
+
     it('performs replacements with custom interpolation', () => {
       expect(
         translate(

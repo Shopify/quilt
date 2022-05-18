@@ -257,7 +257,11 @@ function updateStringWithReplacements(
   str.replace(
     replaceFinder,
     (match, replacementKey: string, offset: number) => {
-      if (!replacementKey) return '';
+      if (!replacementKey) {
+        throw new Error(
+          'Invalid replacement key. The interpolatation format RegExp is possibly too permissive.',
+        );
+      }
 
       if (!Object.prototype.hasOwnProperty.call(replacements, replacementKey)) {
         throw new MissingReplacementError(replacementKey, replacements);
