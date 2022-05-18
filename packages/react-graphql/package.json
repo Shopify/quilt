@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-graphql/README.md",
   "engines": {
-    "node": ">=14.18.0"
+    "node": ">=^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@apollo/react-common": ">=3.0.0 <4.0.0",
