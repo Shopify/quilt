@@ -2979,10 +2979,10 @@
     babel-plugin-react-test-id "^1.0.2"
     babel-plugin-transform-inline-environment-variables "^0.4.3"
 
-"@shopify/browserslist-config@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@shopify/browserslist-config/-/browserslist-config-2.2.4.tgz#fcb0d1b7e3fab70a6d3cead21c6ceeb7b10fe53f"
-  integrity sha512-jtg92Qj4s6Nh4/Y7+ITkyoh6mcS4rmQFo55OY6B52KO5hs7ORw40Ayj5pbThmcNyvfxFmU4yi2wV2fuwuanoOA==
+"@shopify/browserslist-config@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/browserslist-config/-/browserslist-config-3.0.0.tgz#fedfef0dedc97155a60432c152eff50df88e13d2"
+  integrity sha512-NzZTZ8EEG6xmM1ApSsQFDqW6C5CmByNhXyLxwWjVX08GzHxkhMc10MSY7WGvTCzd1lQuZEp8Ko/jOCBTQQsEGg==
 
 "@shopify/eslint-plugin@^41.1.0":
   version "41.1.0"
@@ -6236,9 +6236,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001317:
-  version "1.0.30001323"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001323.tgz#a451ff80dec7033016843f532efda18f02eec011"
-  integrity sha512-e4BF2RlCVELKx8+RmklSEIVub1TWrmdhvA5kEUueummz1XyySW0DVk+3x9HyhU9MuWTa2BhqLgEuEmUwASAdCA==
+  version "1.0.30001341"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001341.tgz#59590c8ffa8b5939cf4161f00827b8873ad72498"
+  integrity sha512-2SodVrFFtvGENGCv0ChVJIDQ0KPaS1cg7/qtfMaICgeMolDdo/Z2OD32F0Aq9yl6F4YFwGPBS5AaPqNYiW4PoA==
 
 capital-case@^1.0.4:
   version "1.0.4"
