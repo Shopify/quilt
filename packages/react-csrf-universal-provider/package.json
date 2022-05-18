@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-csrf-universal-provider/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": ">=14.17.4"
   },
   "dependencies": {
     "@shopify/react-csrf": "^2.1.10",

@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-i18n/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": ">=14.17.4"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

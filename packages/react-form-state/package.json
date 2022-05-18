@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-form-state/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": ">=14.17.4"
   },
   "dependencies": {
     "@shopify/predicates": "^2.0.8",

@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-liveness-ping/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": ">=14.17.4"
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^3.1.5",

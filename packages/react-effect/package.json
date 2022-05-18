@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-effect/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": ">=14.17.4"
   },
   "files": [
     "build/",

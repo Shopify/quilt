@@ -1,6 +1,5 @@
 ci:
   require:
-    - node-tests (12.22)
     - node-tests (14.18)
     - node-tests (16.13)
 dependencies:
