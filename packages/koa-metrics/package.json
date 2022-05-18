@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/koa-metrics/README.md",
   "engines": {
-    "node": ">=^14.17.0 || >=16.0.0"
+    "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@shopify/statsd": "^3.0.12"

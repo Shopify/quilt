@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-html/README.md",
   "engines": {
-    "node": ">=^14.17.0 || >=16.0.0"
+    "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@shopify/react-effect": "^4.1.12",
