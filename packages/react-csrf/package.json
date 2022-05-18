@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-csrf/README.md",
   "engines": {
-    "node": ">=14.17.4"
+    "node": ">=14.18.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"

@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-router/README.md",
   "engines": {
-    "node": ">=14.17.4"
+    "node": ">=14.18.0"
   },
   "dependencies": {
     "@shopify/react-network": "^4.2.13",

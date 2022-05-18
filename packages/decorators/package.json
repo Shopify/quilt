@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/decorators/README.md",
   "engines": {
-    "node": ">=14.17.4"
+    "node": ">=14.18.0"
   },
   "files": [
     "build/",

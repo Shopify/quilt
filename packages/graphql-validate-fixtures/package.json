@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-validate-fixtures/README.md",
   "engines": {
-    "node": ">=14.17.4"
+    "node": ">=14.18.0"
   },
   "dependencies": {
     "chalk": "^4.0.0",

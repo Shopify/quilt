@@ -23,8 +23,8 @@ export function quiltPackage({
   const polyfillOptions = polyfill ? {} : {useBuiltIns: false, corejs: false};
 
   const targets = isIsomorphic
-    ? 'extends @shopify/browserslist-config, node 14.17.4'
-    : 'node 14.17.4';
+    ? 'extends @shopify/browserslist-config, node 14.18.0'
+    : 'node 14.18.0';
 
   return createComposedProjectPlugin<Package>('Quilt.Package', [
     buildLibrary({
