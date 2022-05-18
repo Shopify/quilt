@@ -25,12 +25,14 @@ export function changeTitle(wrapper, newTitle) {
   wrapper.find(TextField, {label: 'title'})!.trigger('onChange', newTitle);
 }
 
-export function hitSubmit(wrapper) {
-  wrapper.find('button', {type: 'submit'})!.trigger('onClick', clickEvent());
+export function hitSubmit(wrapper): Promise<void> {
+  return wrapper
+    .find('button', {type: 'submit'})!
+    .trigger('onClick', clickEvent());
 }
 
 export async function waitForSubmit(wrapper, successPromise) {
-  hitSubmit(wrapper);
+  await hitSubmit(wrapper);
 
   await wrapper.act(async () => {
     await successPromise;
