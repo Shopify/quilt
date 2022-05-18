@@ -105,14 +105,6 @@ export class Root<Props> implements Node<Props> {
 
     const promise = act(() => {
       result = action();
-
-      // This condition checks the returned value is an actual Promise and returns it
-      // to React’s `act()` call, otherwise we just want to return `undefined`
-      if (isPromise(result)) {
-        return (result as unknown) as Promise<void>;
-      }
-
-      return (undefined as unknown) as Promise<void>;
     });
 
     if (isPromise(result)) {
