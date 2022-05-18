@@ -279,14 +279,16 @@ describe('translate()', () => {
 
   describe('replacements', () => {
     it('performs replacements with strings', () => {
+      // Ensure it works with multi-bytes characters.
+      const multiBytesString = '🇺🇸🆃🥐𝌆';
       expect(
         translate(
           'foo',
           {replacements: {bar: 'true'}},
-          {foo: 'bar: {bar}'},
+          {foo: `bar: ${multiBytesString} {bar} ${multiBytesString}`},
           locale,
         ),
-      ).toBe('bar: true');
+      ).toBe(`bar: ${multiBytesString} true ${multiBytesString}`);
     });
 
     it('throws when missing a replacement key', () => {
