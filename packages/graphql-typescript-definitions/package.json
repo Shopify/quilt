@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-typescript-definitions/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@babel/generator": "^7.14.5",
@@ -64,7 +64,6 @@
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
-    },
-    "./*": "./*"
+    }
   }
 }

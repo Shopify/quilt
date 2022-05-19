@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/react-web-worker/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@shopify/react-hooks": "^2.1.19",
@@ -47,7 +47,6 @@
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
-    },
-    "./*": "./*"
+    }
   }
 }

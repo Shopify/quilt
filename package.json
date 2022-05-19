@@ -40,7 +40,7 @@
     "@faker-js/faker": "^5.5.3",
     "@shopify/app-bridge": "^2.0.3",
     "@shopify/babel-preset": "^24.1.4",
-    "@shopify/browserslist-config": "^2.2.4",
+    "@shopify/browserslist-config": "^3.0.0",
     "@shopify/eslint-plugin": "^41.1.0",
     "@shopify/loom": "^1.0.1",
     "@shopify/loom-cli": "^1.0.1",

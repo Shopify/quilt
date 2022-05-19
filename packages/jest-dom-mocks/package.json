@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/jest-dom-mocks/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@shopify/async": "^3.1.5",
@@ -46,7 +46,6 @@
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
-    },
-    "./*": "./*"
+    }
   }
 }

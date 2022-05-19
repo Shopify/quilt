@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Shopify/quilt/blob/main/packages/graphql-fixtures/README.md",
   "engines": {
-    "node": ">=12.14.0"
+    "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
     "@faker-js/faker": "^5.5.3",
@@ -48,7 +48,6 @@
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
-    },
-    "./*": "./*"
+    }
   }
 }
