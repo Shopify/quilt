@@ -74,6 +74,7 @@ export class I18n {
   readonly defaultCountry?: string;
   readonly defaultCurrency?: string;
   readonly defaultTimezone?: string;
+  readonly defaultInterpolate?: RegExp;
   readonly onError: NonNullable<I18nDetails['onError']>;
   readonly loading: boolean;
 
@@ -116,6 +117,7 @@ export class I18n {
       pseudolocalize = false,
       onError,
       loading,
+      interpolate,
     }: I18nDetails & {loading?: boolean},
   ) {
     this.locale = locale;
@@ -123,6 +125,7 @@ export class I18n {
     this.defaultCurrency = currency;
     this.defaultTimezone = timezone;
     this.pseudolocalize = pseudolocalize;
+    this.defaultInterpolate = interpolate;
     this.onError = onError || this.defaultOnError;
     this.loading = loading || false;
   }
@@ -155,23 +158,28 @@ export class I18n {
       | PrimitiveReplacementDictionary
       | ComplexReplacementDictionary,
   ): any {
-    const {pseudolocalize} = this;
+    const {pseudolocalize, defaultInterpolate} = this;
     let normalizedOptions: RootTranslateOptions<
       PrimitiveReplacementDictionary | ComplexReplacementDictionary
     >;
 
+    const defaultOptions: RootTranslateOptions = {
+      pseudotranslate: pseudolocalize,
+      interpolate: defaultInterpolate,
+    };
+
     if (optionsOrReplacements == null) {
-      normalizedOptions = {pseudotranslate: pseudolocalize};
+      normalizedOptions = defaultOptions;
     } else if (this.isTranslateOptions(optionsOrReplacements)) {
       normalizedOptions = {
+        ...defaultOptions,
         ...optionsOrReplacements,
         replacements,
-        pseudotranslate: pseudolocalize,
       };
     } else {
       normalizedOptions = {
+        ...defaultOptions,
         replacements: optionsOrReplacements,
-        pseudotranslate: pseudolocalize,
       };
     }
 

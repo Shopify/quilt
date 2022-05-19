@@ -7,6 +7,8 @@ import {
   getCurrencySymbol,
   memoizedNumberFormatter,
   memoizedPluralRules,
+  ERB_FORMAT,
+  MUSTACHE_FORMAT,
 } from '../utilities';
 
 const {pseudotranslate} = jest.requireMock('@shopify/i18n') as {
@@ -277,11 +279,55 @@ describe('translate()', () => {
 
   describe('replacements', () => {
     it('performs replacements with strings', () => {
+      // Ensure it works with multi-bytes characters.
+      const multiBytesString = '🇺🇸🆃🥐𝌆';
       expect(
         translate(
           'foo',
           {replacements: {bar: 'true'}},
-          {foo: 'bar: {bar}'},
+          {foo: `bar: ${multiBytesString} {bar} ${multiBytesString}`},
+          locale,
+        ),
+      ).toBe(`bar: ${multiBytesString} true ${multiBytesString}`);
+    });
+
+    it('throws when missing a replacement key', () => {
+      expect(() =>
+        translate(
+          'foo',
+          {
+            replacements: {bar: 'true'},
+            // Permissive custom format
+            interpolate: /{\s*(.*)\s*}/g,
+          },
+          {foo: 'bar: { }'},
+          locale,
+        ),
+      ).toThrow(
+        'Invalid replacement key. The interpolatation format RegExp is possibly too permissive.',
+      );
+    });
+
+    it('performs replacements with custom interpolation', () => {
+      expect(
+        translate(
+          'foo',
+          {
+            replacements: {bar: 'true'},
+            interpolate: ERB_FORMAT,
+          },
+          {foo: 'bar: <%= bar %>'},
+          locale,
+        ),
+      ).toBe('bar: true');
+      expect(
+        translate(
+          'foo',
+          {
+            replacements: {bar: 'true'},
+            interpolate: MUSTACHE_FORMAT,
+          },
+          {foo: 'bar: {{ bar }}'},
           locale,
         ),
       ).toBe('bar: true');
@@ -303,6 +349,36 @@ describe('translate()', () => {
           },
         },
         {foo: '{bar} {baz} '},
+        locale,
+      );
+
+      expect(translated).toBeInstanceOf(Array);
+      expect(translated).toHaveLength(4);
+      expect(translated).toMatchObject([
+        React.cloneElement(bar, {key: 1}),
+        ' ',
+        React.cloneElement(baz, {key: 2}),
+        ' ',
+      ]);
+    });
+
+    it('performs replacements with JSX by creating an array and cloning elements with unique keys using custom interpolation', () => {
+      function CustomComponent() {
+        return null;
+      }
+
+      const bar = <div>Content</div>;
+      const baz = <CustomComponent />;
+      const translated = translate(
+        'foo',
+        {
+          replacements: {
+            bar,
+            baz,
+          },
+          interpolate: MUSTACHE_FORMAT,
+        },
+        {foo: '{{bar}} {{baz}} '},
         locale,
       );
 

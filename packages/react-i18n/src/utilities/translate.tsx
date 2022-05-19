@@ -12,10 +12,13 @@ import {
 } from '../types';
 import {MissingTranslationError, MissingReplacementError} from '../errors';
 
-const REPLACE_REGEX = /{([^}]*)}/g;
+import {DEFAULT_FORMAT} from './interpolate';
+
 const MISSING_TRANSLATION = Symbol('Missing translation');
 const PLURALIZATION_KEY_NAME = 'count';
 const SEPARATOR = '.';
+
+const isString = (value: any): value is string => typeof value === 'string';
 
 const numberFormats = new Map<string, Intl.NumberFormat>();
 export function memoizedNumberFormatter(
@@ -42,6 +45,7 @@ export interface TranslateOptions<Replacements = {}> {
   scope?: string | string[];
   replacements?: Replacements;
   pseudotranslate?: boolean | string;
+  interpolate?: RegExp;
 }
 
 export function numberFormatCacheKey(
@@ -85,7 +89,7 @@ export function getTranslationTree(
 
     if (result) {
       if (replacements) {
-        return typeof result === 'string'
+        return isString(result)
           ? updateStringWithReplacements(result, replacements)
           : updateTreeWithReplacements(result, locale, replacements);
       }
@@ -117,7 +121,7 @@ export function translate(
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
 ): any {
-  const {scope, replacements, pseudotranslate} = options;
+  const {scope, replacements, pseudotranslate, interpolate} = options;
 
   const normalizedTranslations = Array.isArray(translations)
     ? translations
@@ -131,7 +135,7 @@ export function translate(
       translationDictionary,
       locale,
       replacements,
-      {pseudotranslate},
+      {pseudotranslate, interpolate},
     );
 
     if (result !== MISSING_TRANSLATION) {
@@ -142,26 +146,31 @@ export function translate(
   throw new MissingTranslationError(normalizedId, locale);
 }
 
+type TranslateWithDictionaryOptions = Pick<
+  TranslateOptions,
+  'pseudotranslate' | 'interpolate'
+>;
+
 function translateWithDictionary(
   id: string,
   translations: TranslationDictionary,
   locale: string,
   replacements?: PrimitiveReplacementDictionary,
-  options?: Pick<TranslateOptions, 'pseudotranslate'>,
+  options?: TranslateWithDictionaryOptions,
 ): string | typeof MISSING_TRANSLATION;
 function translateWithDictionary(
   id: string,
   translations: TranslationDictionary,
   locale: string,
   replacements?: ComplexReplacementDictionary,
-  options?: Pick<TranslateOptions, 'pseudotranslate'>,
+  options?: TranslateWithDictionaryOptions,
 ): React.ReactElement<any> | typeof MISSING_TRANSLATION;
 function translateWithDictionary(
   id: string,
   translations: TranslationDictionary,
   locale: string,
   replacements?: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
-  {pseudotranslate = false}: Pick<TranslateOptions, 'pseudotranslate'> = {},
+  {pseudotranslate = false, interpolate}: TranslateWithDictionaryOptions = {},
 ): any {
   let result: string | TranslationDictionary = translations;
 
@@ -193,7 +202,7 @@ function translateWithDictionary(
   }
 
   const processedString =
-    typeof result === 'string' && pseudotranslate
+    isString(result) && pseudotranslate
       ? pseudotranslateString(result, {
           ...PSEUDOTRANSLATE_OPTIONS,
           toLocale:
@@ -201,86 +210,89 @@ function translateWithDictionary(
         })
       : result;
 
-  if (typeof processedString === 'string') {
-    return updateStringWithReplacements(processedString, {
-      ...replacements,
-      ...additionalReplacements,
-    });
-  } else {
+  if (!isString(processedString)) {
     return MISSING_TRANSLATION;
   }
+
+  return updateStringWithReplacements(
+    processedString,
+    {
+      ...replacements,
+      ...additionalReplacements,
+    },
+    {interpolate},
+  );
 }
+
+type UpdateStringWithReplacementsOptions = Pick<
+  TranslateOptions,
+  'interpolate'
+>;
 
 function updateStringWithReplacements(
   str: string,
   replacements?: ComplexReplacementDictionary,
+  options?: UpdateStringWithReplacementsOptions,
 ): React.ReactElement<any>;
 function updateStringWithReplacements(
   str: string,
   replacements?: PrimitiveReplacementDictionary,
+  options?: UpdateStringWithReplacementsOptions,
 ): string;
 function updateStringWithReplacements(
   str: string,
   replacements:
     | ComplexReplacementDictionary
     | PrimitiveReplacementDictionary = {},
+  {interpolate}: UpdateStringWithReplacementsOptions = {},
 ): any {
-  const replaceFinder = /([^{]*)({([^}]*)})?/g;
-  const allReplacementsArePrimitives = Object.keys(replacements).every(
-    (key) => typeof replacements[key] !== 'object',
+  const pieces: (string | React.ReactElement<any>)[] = [];
+
+  const replaceFinder = new RegExp(interpolate || DEFAULT_FORMAT, 'g');
+
+  let matchIndex = 0;
+  let lastOffset = 0;
+
+  // Uses replace callback, but not its return value
+  str.replace(
+    replaceFinder,
+    (match, replacementKey: string, offset: number) => {
+      if (!replacementKey) {
+        throw new Error(
+          'Invalid replacement key. The interpolatation format RegExp is possibly too permissive.',
+        );
+      }
+
+      if (!Object.prototype.hasOwnProperty.call(replacements, replacementKey)) {
+        throw new MissingReplacementError(replacementKey, replacements);
+      }
+
+      matchIndex += 1;
+
+      const replacementValue = replacements[replacementKey];
+      const finalReplacement =
+        replacementValue && React.isValidElement(replacementValue)
+          ? React.cloneElement(replacementValue, {key: matchIndex})
+          : (replacementValue as string);
+
+      // Push the previous part if it exists
+      const previousString = str.substring(lastOffset, offset);
+      if (previousString) pieces.push(previousString);
+
+      // Push the new part with the replacement
+      pieces.push(finalReplacement);
+
+      lastOffset = offset + match.length;
+
+      // to satisfy the typechecker
+      return '';
+    },
   );
 
-  if (allReplacementsArePrimitives) {
-    return str.replace(REPLACE_REGEX, (match) => {
-      const replacement = match.substring(1, match.length - 1);
+  // Push the last part of the source string
+  pieces.push(str.substr(lastOffset));
 
-      if (!Object.prototype.hasOwnProperty.call(replacements, replacement)) {
-        throw new MissingReplacementError(replacement, replacements);
-      }
-
-      return replacements[replacement] as string;
-    });
-  } else {
-    const pieces: (string | React.ReactElement<any>)[] = [];
-
-    let match = replaceFinder.exec(str);
-    let matchIndex = 0;
-
-    while (match) {
-      const regularText = match[1];
-      const replacement = match[3];
-
-      if (match.index >= str.length) {
-        break;
-      }
-
-      if (regularText) {
-        pieces.push(regularText);
-      }
-
-      if (replacement) {
-        if (!Object.prototype.hasOwnProperty.call(replacements, replacement)) {
-          throw new MissingReplacementError(replacement, replacements);
-        }
-
-        matchIndex += 1;
-        const finalReplacement = React.isValidElement(replacements[replacement])
-          ? React.cloneElement(
-              replacements[replacement] as React.ReactElement<any>,
-              {key: matchIndex},
-            )
-          : (replacements[replacement] as string);
-
-        pieces.push(finalReplacement);
-      }
-
-      match = replaceFinder.exec(str);
-    }
-
-    replaceFinder.lastIndex = 0;
-
-    return pieces;
-  }
+  return pieces.every(isString) ? pieces.join('') : pieces;
 }
 
 function normalizeIdentifier(id: string, scope?: string | string[]) {
@@ -288,9 +300,7 @@ function normalizeIdentifier(id: string, scope?: string | string[]) {
     return id;
   }
 
-  return `${
-    typeof scope === 'string' ? scope : scope.join(SEPARATOR)
-  }${SEPARATOR}${id}`;
+  return `${isString(scope) ? scope : scope.join(SEPARATOR)}${SEPARATOR}${id}`;
 }
 
 function updateTreeWithReplacements(
@@ -305,7 +315,7 @@ function updateTreeWithReplacements(
 
     if (typeof count === 'number') {
       const group = memoizedPluralRules(locale).select(count);
-      if (typeof translationTree[group] === 'string') {
+      if (isString(translationTree[group])) {
         return updateStringWithReplacements(translationTree[group] as string, {
           ...replacements,
           PLURALIZATION_KEY_NAME: memoizedNumberFormatter(locale).format(count),
@@ -317,17 +327,16 @@ function updateTreeWithReplacements(
   return Object.keys(translationTree).reduce(
     (acc, key) => ({
       ...acc,
-      [key]:
-        typeof translationTree[key] === 'string'
-          ? updateStringWithReplacements(
-              translationTree[key] as string,
-              replacements,
-            )
-          : updateTreeWithReplacements(
-              translationTree[key] as TranslationDictionary,
-              locale,
-              replacements,
-            ),
+      [key]: isString(translationTree[key])
+        ? updateStringWithReplacements(
+            translationTree[key] as string,
+            replacements,
+          )
+        : updateTreeWithReplacements(
+            translationTree[key] as TranslationDictionary,
+            locale,
+            replacements,
+          ),
     }),
     {},
   );

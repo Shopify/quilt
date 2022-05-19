@@ -10,7 +10,13 @@ export type {
 export {useI18n} from './hooks';
 export {withI18n} from './decorator';
 export type {WithI18nProps} from './decorator';
-export {memoizedNumberFormatter, translate} from './utilities';
+export {
+  memoizedNumberFormatter,
+  translate,
+  DEFAULT_FORMAT,
+  MUSTACHE_FORMAT,
+  ERB_FORMAT,
+} from './utilities';
 export type {TranslateOptions as RootTranslateOptions} from './utilities';
 export {LanguageDirection, CurrencyCode} from './types';
 export type {I18nDetails, Replacements, TranslationDictionary} from './types';
