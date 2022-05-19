@@ -1,6 +1,6 @@
 {
   "name": "graphql-typescript-definitions",
-  "version": "2.1.11",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "Generate TypeScript definition files from .graphql documents",
   "main": "index.js",
@@ -36,8 +36,8 @@
     "fs-extra": "^9.1.0",
     "graphql": ">=14.5.0 <16.0.0",
     "graphql-config": "^3.2.0",
-    "graphql-config-utilities": "^3.0.10",
-    "graphql-tool-utilities": "^2.1.7",
+    "graphql-config-utilities": "^4.0.0",
+    "graphql-tool-utilities": "^3.0.0",
     "yargs": "^15.3.1"
   },
   "devDependencies": {

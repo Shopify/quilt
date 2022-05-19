@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-router",
-  "version": "1.5.6",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "A universal router for React",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/react-network": "^4.2.13",
+    "@shopify/react-network": "^5.0.0",
     "@types/react-router-dom": "*",
     "react-router-dom": ">=5.1.0 <6.0.0"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hydrate",
-  "version": "2.1.21",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "Utilities for hydrating server-rendered React apps",
   "main": "index.js",
@@ -24,8 +24,8 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/react-effect": "^4.1.12",
-    "@shopify/react-hooks": "^2.1.19"
+    "@shopify/react-effect": "^5.0.0",
+    "@shopify/react-hooks": "^3.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <18.0.0"

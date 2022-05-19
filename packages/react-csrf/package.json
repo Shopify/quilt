@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-csrf",
-  "version": "2.1.10",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "Share CSRF tokens throughout a React application",
   "main": "index.js",

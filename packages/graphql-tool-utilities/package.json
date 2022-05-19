@@ -1,6 +1,6 @@
 {
   "name": "graphql-tool-utilities",
-  "version": "2.1.7",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "Common utilities for GraphQL developer tools",
   "main": "index.js",
