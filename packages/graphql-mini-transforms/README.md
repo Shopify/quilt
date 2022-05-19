@@ -26,7 +26,7 @@ module.exports = {
     rules: [
       {
         test: /\.(graphql|gql)$/,
-        use: 'graphql-mini-transforms/webpack',
+        use: 'graphql-mini-transforms/webpack-loader',
         exclude: /node_modules/,
       },
     ],
@@ -67,7 +67,7 @@ module.exports = {
     rules: [
       {
         test: /\.(graphql|gql)$/,
-        use: 'graphql-mini-transforms/webpack',
+        use: 'graphql-mini-transforms/webpack-loader',
         exclude: /node_modules/,
         options: {simple: true},
       },
