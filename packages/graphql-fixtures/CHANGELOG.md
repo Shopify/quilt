@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Breaking Change
 
 - Drop support for node 12 and Safari 10, 11 and 12. Remove wildcard export in exports field. [[#2277](https://github.com/Shopify/quilt/pull/2277)]
+- Updated faker dependency to v6.3.1. [[#2231](https://github.com/Shopify/quilt/pull/2231)]
 
 ## 1.4.6 - 2022-04-25
 

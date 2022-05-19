@@ -93,7 +93,7 @@ export function randomLifecycleEventType() {
     EventType.Load,
   ];
 
-  return faker.random.arrayElement(types) as LifecycleEvent['type'];
+  return faker.helpers.arrayElement(types) as LifecycleEvent['type'];
 }
 
 export function mockNavigation() {
@@ -120,7 +120,7 @@ export function randomNavigationResult() {
     NavigationResult.TimedOut,
   ];
 
-  return faker.random.arrayElement(resultTypes);
+  return faker.helpers.arrayElement(resultTypes);
 }
 
 export function noop() {}
@@ -130,7 +130,7 @@ export function randomConnection() {
 
   return {
     downlink: faker.datatype.number(),
-    effectiveType: faker.random.arrayElement(effectiveTypes),
+    effectiveType: faker.helpers.arrayElement(effectiveTypes),
     onchange: null,
     rtt: faker.datatype.number(),
     saveData: faker.datatype.boolean(),
