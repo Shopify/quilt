@@ -7,7 +7,7 @@
     "lint": "loom lint",
     "type-check": "loom type-check",
     "ci:lint-docs": "yarn generate docs && ./scripts/check-docs.sh",
-    "test": "loom test",
+    "test": "NODE_ICU_DATA=node_modules/full-icu loom test",
     "check": "lerna run check",
     "version-bump": "lerna version --no-push --include-merged-tags",
     "version": "node scripts/update-changelogs-on-version.js",
