@@ -1376,7 +1376,7 @@ describe('I18n', () => {
       });
 
       expect(i18n.formatDate(date, {style: DateStyle.Short})).toBe(
-        'Dec. 9, 2012',
+        'Dec 9, 2012',
       );
     });
 
@@ -1389,7 +1389,7 @@ describe('I18n', () => {
         });
 
         expect(i18n.formatDate(date, {style: DateStyle.Humanize})).toBe(
-          'Dec. 20, 2012',
+          'Dec 20, 2012',
         );
       });
 
@@ -1402,7 +1402,7 @@ describe('I18n', () => {
             style: DateStyle.Humanize,
             timeZone: timezone,
           }),
-        ).toBe('Dec. 20, 2012');
+        ).toBe('Dec 20, 2012');
       });
 
       it('formats a date from last month with date and timezone name', () => {
@@ -1426,7 +1426,7 @@ describe('I18n', () => {
           {
             pseudotranslate: false,
             replacements: {
-              date: 'Nov. 20',
+              date: 'Nov 20',
               time: `${convertFirstSpaceToNonBreakingSpace('12:00 a.m.')} EST`,
             },
           },
@@ -1575,9 +1575,7 @@ describe('I18n', () => {
             pseudotranslate: false,
             replacements: {
               weekday: 'Tuesday',
-              time: `${convertFirstSpaceToNonBreakingSpace(
-                '8:30 a.m.',
-              )} GMT+3:30`,
+              time: `${convertFirstSpaceToNonBreakingSpace('8:30 a.m.')} IRST`,
             },
           },
           defaultTranslations,
@@ -1812,7 +1810,7 @@ describe('I18n', () => {
             {
               pseudotranslate: false,
               replacements: {
-                date: 'Jul. 20',
+                date: 'Jul 20',
                 time: convertFirstSpaceToNonBreakingSpace('10:00 a.m.'),
               },
             },
@@ -2009,7 +2007,7 @@ describe('I18n', () => {
           });
 
           expect(i18n.formatDate(futureDate, {style: DateStyle.Humanize})).toBe(
-            'Dec. 20, 2013',
+            'Dec 20, 2013',
           );
         });
       });

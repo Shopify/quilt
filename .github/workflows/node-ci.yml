@@ -11,13 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Node 14.19 and 16.14 contain updates to ICU, which affects how date
-        # formatting occurs. This change won't be backported onto the 12.x
-        # branch so we're in a fun state where latest 12.x gives different
-        # output to 14.x and 16.x, so for now lock to the last version in 14
-        # and 16 before the ICU change.
-        # Once we drop support for node 12 we can consider using 14.x and 16.x
-        node-version: ['14.18', '16.13']
+        # The action will first check the local cache for a semver match.
+        # If unable to find a specific version in the cache,
+        # the action will attempt to download a version of Node.js.
+        # It will pull LTS versions from node-versions releases and on miss
+        # or failure will fall back to the previous behavior of downloading
+        # directly from node dist.
+        # https://github.com/actions/setup-node
+        node-version: ['14', '16']
     timeout-minutes: 15
 
     steps:
