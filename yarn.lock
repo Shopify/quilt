@@ -1514,10 +1514,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faker-js/faker@^5.5.3":
-  version "5.5.3"
-  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-5.5.3.tgz#18e3af6b8eae7984072bbeb0c0858474d7c4cefe"
-  integrity sha512-R11tGE6yIFwqpaIqcfkcg7AICXzFg14+5h5v0TfF/9+RMDL6jhzCy/pxHVOfbALGdtVYdt6JdR21tuxEgl34dw==
+"@faker-js/faker@^6.3.1":
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-6.3.1.tgz#1ae963dd40405450a2945408cba553e1afa3e0fb"
+  integrity sha512-8YXBE2ZcU/pImVOHX7MWrSR/X5up7t6rPWZlk34RwZEcdr3ua6X+32pSd6XuOQRN+vbuvYNfA6iey8NbrjuMFQ==
 
 "@graphql-tools/batch-execute@^7.1.0":
   version "7.1.0"
@@ -3900,11 +3900,6 @@
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
-
-"@types/faker@^5.5.9":
-  version "5.5.9"
-  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.5.9.tgz#588ede92186dc557bff8341d294335d50d255f0c"
-  integrity sha512-uCx6mP3UY5SIO14XlspxsGjgaemrxpssJI0Ol+GfhxtcKpv9pgRZYsS4eeKeHVLje6Qtc8lGszuBI461+gVZBA==
 
 "@types/fetch-mock@^7.3.3":
   version "7.3.3"

@@ -40,10 +40,6 @@ module.exports = {
             name: '@faker-js/faker',
             message: "Please use '@faker-js/faker/locale/en' instead",
           },
-          {
-            name: 'faker',
-            message: "Please use 'faker/locale/en' instead",
-          },
         ],
       },
     ],
@@ -78,7 +74,13 @@ module.exports = {
       },
     },
     {
-      files: ['**/tests/**/*.ts', '**/tests/**/*.tsx', '**/loom.config.ts', '**/*.test-d.ts', '**/*.test-d.tsx'],
+      files: [
+        '**/tests/**/*.ts',
+        '**/tests/**/*.tsx',
+        '**/loom.config.ts',
+        '**/*.test-d.ts',
+        '**/*.test-d.tsx',
+      ],
       rules: {
         // We disable `import/no-extraneous-dependencies` for test files because it
         // would force releases of `@shopify/react-testing` (and similar devDependencies)
@@ -87,7 +89,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'react/jsx-no-constructed-context-values': 'off',
         'react/jsx-key': 'off',
-        '@shopify/react-require-autocomplete': 'off'
+        '@shopify/react-require-autocomplete': 'off',
       },
     },
     {
