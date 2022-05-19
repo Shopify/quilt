@@ -1797,7 +1797,7 @@
     tslib "~2.4.0"
     unixify "^1.0.0"
 
-"@graphql-tools/import@6.6.14":
+"@graphql-tools/import@6.6.14", "@graphql-tools/import@^6.2.6":
   version "6.6.14"
   resolved "https://registry.yarnpkg.com/@graphql-tools/import/-/import-6.6.14.tgz#d5bcbc23abc1563346081155afec003f4eb8e47b"
   integrity sha512-XN6swtMdUxd9czmdNIK6yJ0w5t4FOUWSoSkYP0+to8j44r8zdM3nsAppoA0OLmsUY+JnTBgkW3jGlOFvqC3HWg==
@@ -1805,14 +1805,6 @@
     "@graphql-tools/utils" "8.6.10"
     resolve-from "5.0.0"
     tslib "~2.4.0"
-
-"@graphql-tools/import@^6.2.6":
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/import/-/import-6.3.1.tgz#731c47ab6c6ac9f7994d75c76b6c2fa127d2d483"
-  integrity sha512-1szR19JI6WPibjYurMLdadHKZoG9C//8I/FZ0Dt4vJSbrMdVNp8WFxg4QnZrDeMG4MzZc90etsyF5ofKjcC+jw==
-  dependencies:
-    resolve-from "5.0.0"
-    tslib "~2.2.0"
 
 "@graphql-tools/json-file-loader@^6.0.0":
   version "6.2.6"
