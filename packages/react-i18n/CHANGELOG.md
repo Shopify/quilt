@@ -15,6 +15,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## 7.0.0 - 2022-05-19
 
+### Breaking Change
+
+- Drop support for node 12 and Safari 10, 11 and 12. Remove wildcard export in exports field. [[#2277](https://github.com/Shopify/quilt/pull/2277)]
+
 ### Fixed
 
 - Patch - `generateTranslationIndexes` no longer fails with `ENOBUFS` errors in projects with tens of thousands of translation files [[#2269](https://github.com/Shopify/quilt/pull/2269)]
