@@ -33,6 +33,7 @@
   "dependencies": {
     "@shopify/network": "^3.0.0",
     "@shopify/react-async": "^5.0.0",
+    "node-fetch": "^3.2.4",
     "@shopify/react-cookie": "^2.0.0",
     "@shopify/react-effect": "^5.0.0",
     "@shopify/react-html": "^12.0.0",
@@ -60,7 +61,7 @@
     "webpack": "^5.38.0"
   },
   "peerDependencies": {
-    "cross-fetch": ">=3.0.0",
+    "@shopify/polyfills": ">=4.0.0",
     "react": ">=16.8.0 <18.0.0",
     "react-dom": ">=16.8.0 <18.0.0"
   },

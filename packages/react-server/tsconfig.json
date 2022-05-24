@@ -19,6 +19,7 @@
     {"path": "../react-cookie"},
     {"path": "../with-env"},
     {"path": "../react-html"},
+    {"path": "../polyfills"},
     {"path": "../react-hydrate"},
     {"path": "../react-effect"},
     {"path": "../react-testing"}

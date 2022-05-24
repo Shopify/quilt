@@ -1,4 +1,4 @@
-import 'cross-fetch';
+import './fetch-polyfill';
 import {Server} from 'http';
 
 import Koa, {Context} from 'koa';

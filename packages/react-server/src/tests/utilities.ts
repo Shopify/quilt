@@ -1,6 +1,6 @@
 import {Server} from 'http';
 
-import fetch from 'cross-fetch';
+import fetch from 'node-fetch';
 import {Context} from 'koa';
 import getPort from 'get-port';
 

@@ -1,5 +1,5 @@
 import './console-wrapper';
-import 'cross-fetch';
+import 'whatwg-fetch';
 
 if (Intl.PluralRules == null) {
   require('intl-pluralrules');
