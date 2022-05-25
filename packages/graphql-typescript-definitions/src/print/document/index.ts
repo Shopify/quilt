@@ -119,16 +119,46 @@ export function printDocument(
   const {namespace} = context;
   const {namespace: partialNamespace} = partialContext;
   const {exportFormat = ExportFormat.Document} = options;
-  const documentType =
-    exportFormat === ExportFormat.Document ? 'DocumentNode' : 'SimpleDocument';
+  const documentType = [
+    ExportFormat.Document,
+    ExportFormat.DocumentWithTypedDocumentNode,
+  ].includes(exportFormat)
+    ? 'DocumentNode'
+    : 'SimpleDocument';
 
-  const documentNodeImport = t.importDeclaration(
-    [t.importSpecifier(t.identifier(documentType), t.identifier(documentType))],
-    t.stringLiteral('graphql-typed'),
-  );
+  const includeTypedDocumentNode =
+    exportFormat === ExportFormat.DocumentWithTypedDocumentNode;
 
-  const documentNodeDeclaratorIdentifier = t.identifier('document');
-  documentNodeDeclaratorIdentifier.typeAnnotation = t.tsTypeAnnotation(
+  const documentNodeImport = () => {
+    const identifier = t.identifier(documentType);
+    return t.importDeclaration(
+      [t.importSpecifier(identifier, identifier)],
+      t.stringLiteral('graphql-typed'),
+    );
+  };
+
+  const typedDocumentNodeImport = () => {
+    const identifier = t.identifier('TypedDocumentNode');
+    return t.importDeclaration(
+      [t.importSpecifier(identifier, identifier)],
+      t.stringLiteral('@graphql-typed-document-node/core'),
+    );
+  };
+
+  const emptyObjectTypeLiteral = () =>
+    t.tsTypeLiteral([
+      t.tsIndexSignature(
+        [
+          {
+            ...t.identifier('key'),
+            typeAnnotation: t.tsTypeAnnotation(t.tsStringKeyword()),
+          },
+        ],
+        t.tsTypeAnnotation(t.tsNeverKeyword()),
+      ),
+    ]);
+
+  const graphqlTypedTypeReference = () =>
     t.tsTypeReference(
       t.identifier(documentType),
       t.tsTypeParameterInstantiation([
@@ -136,8 +166,37 @@ export function printDocument(
         variables || t.tsNeverKeyword(),
         t.tsTypeReference(t.identifier(partialContext.typeName)),
       ]),
+    );
+
+  // `@graphql-codegen`'s typed-document-node plugin states that when no
+  // variables are present they should be typed as an "empty object" -
+  // `TypedDocumentNode<Result, {[key: string]: never;}>`
+  // This differs from the behaviour of graphql-typed which uses never for
+  // absent variables - `DocumentNode<Result, never, PartialData>`.
+  // "empty object" is slightly more lax - it allows doing
+  // `useQuery(myQuery, {variables: {}})`. I think this is more intuitive as it
+  // says "Variables are always an object, it might not have any keys though"
+  // See www.graphql-code-generator.com/plugins/typed-document-node
+  const graphqlTypedDocumentNodeReference = () =>
+    t.tsTypeReference(
+      t.identifier('TypedDocumentNode'),
+      t.tsTypeParameterInstantiation([
+        t.tsTypeReference(t.identifier(context.typeName)),
+        variables || emptyObjectTypeLiteral(),
+      ]),
+    );
+
+  const documentNodeDeclaratorIdentifier = {
+    ...t.identifier('document'),
+    typeAnnotation: t.tsTypeAnnotation(
+      includeTypedDocumentNode
+        ? t.tsIntersectionType([
+            graphqlTypedTypeReference(),
+            graphqlTypedDocumentNodeReference(),
+          ])
+        : graphqlTypedTypeReference(),
     ),
-  );
+  };
 
   const documentNodeDeclaration = t.variableDeclaration('const', [
     t.variableDeclarator(documentNodeDeclaratorIdentifier),
@@ -149,7 +208,11 @@ export function printDocument(
     t.identifier('document'),
   );
 
-  const fileBody: t.Statement[] = [documentNodeImport];
+  const fileBody: t.Statement[] = [documentNodeImport()];
+
+  if (includeTypedDocumentNode) {
+    fileBody.push(typedDocumentNodeImport());
+  }
 
   if (schemaImports) {
     fileBody.push(schemaImports);

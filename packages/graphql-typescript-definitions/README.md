@@ -205,7 +205,7 @@ As noted above, the configuration of your schema and GraphQL documents is done v
 - `--cwd`: run tool for `.graphqlconfig` located in this directory (default = `process.cwd()`)
 - `--add-typename`: adds a `__typename` field to every object type (default = `true`)
 - `--export-format`: species the shape of values exported from `.graphql` files (default = `document`)
-  - Options: `document` (exports a `graphql-typed` `DocumentNode`), `simple` (exports a `graphql-typed` `SimpleDocument`)
+  - Options: `document` (exports a `graphql-typed` `DocumentNode`), `documentWithTypedDocumentNode` (exports a union of a `graphql-typed` `DocumentNode` and a `@graphql-typed-document-node/core` `TypedDocumentNode` ),`simple` (exports a `graphql-typed` `SimpleDocument`),
 - `--enum-format`: specifies output format for enum types (default = `undefined`)
   - Options: `camel-case`, `pascal-case`, `snake-case`, `screaming-snake-case`
   - `undefined` results in using the unchanged name from the schema (verbatim)
