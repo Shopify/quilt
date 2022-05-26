@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Added `--export-format=documentWithTypedDocumentNode` export format, which generates types that include the shape of `TypedDocumentNode` from `@graphql-typed-document-node/core`. This enables strict type inferrence when using these documents in `@apollo/client`'s `useQuery` and `useMutation`. [[#2289](https://github.com/Shopify/quilt/pull/2289)]
 
 ## 3.0.0 - 2022-05-19
 
