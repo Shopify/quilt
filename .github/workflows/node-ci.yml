@@ -18,7 +18,7 @@ jobs:
         # or failure will fall back to the previous behavior of downloading
         # directly from node dist.
         # https://github.com/actions/setup-node
-        node-version: ['14.19.3', '16']
+        node-version: ['14', '16']
     timeout-minutes: 15
 
     steps:
