@@ -37,7 +37,11 @@ const argv = yargs
   .option('export-format', {
     required: false,
     describe: 'The format to use for values exported from GraphQL documents',
-    choices: [ExportFormat.Document, ExportFormat.Simple],
+    choices: [
+      ExportFormat.Document,
+      ExportFormat.DocumentWithTypedDocumentNode,
+      ExportFormat.Simple,
+    ],
   })
   .option('enum-format', {
     required: false,

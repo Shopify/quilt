@@ -1773,6 +1773,63 @@ describe('printDocument()', () => {
     });
   });
 
+  describe('documentWithTypedDocumentNode', () => {
+    const typedDocumentNodeOptions = {
+      printOptions: {
+        exportFormat: ExportFormat.DocumentWithTypedDocumentNode,
+      },
+    };
+
+    it('imports DocumentNode from graphql-typed and TypedDocumentName from @graphql-typed-document-node/core', () => {
+      const schema = buildSchema(`
+        type Query {
+          name: String!
+        }
+      `);
+
+      expect(
+        print('query Details { name }', schema, typedDocumentNodeOptions),
+      ).toContain(
+        'import { DocumentNode } from "graphql-typed";\nimport { TypedDocumentNode } from "@graphql-typed-document-node/core";',
+      );
+    });
+
+    it('exports a DocumentNode and TypedDocumentNode union as the default export with the operation data type annotation', () => {
+      const schema = buildSchema(`
+        type Query {
+          name: String!
+        }
+      `);
+
+      expect(print('query Details { name }', schema, typedDocumentNodeOptions))
+        .toContain(stripIndent`
+        declare const document: DocumentNode<DetailsQueryData, never, DetailsQueryPartialData> & TypedDocumentNode<DetailsQueryData, {
+          [key: string]: never;
+        }>;
+        export default document;
+      `);
+    });
+
+    it('exports a DocumentNode and TypedDocumentNode union as the default export with the operation data type annotation and variables', () => {
+      const schema = buildSchema(`
+        type Query {
+          identity(aString: String!): String!
+        }
+      `);
+
+      expect(
+        print(
+          'query Details($aString: String!) { identity(aString: $string) }',
+          schema,
+          typedDocumentNodeOptions,
+        ),
+      ).toContain(stripIndent`
+        declare const document: DocumentNode<DetailsQueryData, DetailsQueryData.Variables, DetailsQueryPartialData> & TypedDocumentNode<DetailsQueryData, DetailsQueryData.Variables>;
+        export default document;
+      `);
+    });
+  });
+
   describe('simple', () => {
     it('imports a SimpleDocument from graphql-typed', () => {
       const schema = buildSchema(`
