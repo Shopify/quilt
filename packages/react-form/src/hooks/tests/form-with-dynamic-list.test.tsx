@@ -98,6 +98,7 @@ describe('useForm with dynamic list', () => {
       );
 
       await waitForSubmit(wrapper, promise);
+      wrapper.forceUpdate();
 
       expect(wrapper).toContainReactComponent(TextField, {
         error: errors[0].message,
