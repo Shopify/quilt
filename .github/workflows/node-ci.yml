@@ -30,6 +30,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
+          check-latest: true
 
       - uses: actions/cache@v2
         name: Restore loom cache
