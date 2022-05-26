@@ -65,7 +65,7 @@
     "intl-pluralrules": "^0.2.1",
     "jest-extended": "^0.11.5",
     "jest-transform-graphql": "^2.1.0",
-    "lerna": "^4.0.0",
+    "lerna": "^5.0.0",
     "plop": "^2.6.0",
     "prettier": "~2.0.4",
     "puppeteer": "^13.2.0",
