@@ -59,7 +59,7 @@ describe('useForm with dynamic list', () => {
   });
 
   describe('submit', () => {
-    it('validates dynamic list fields with their latest values before submitting and bails out if any fail', () => {
+    it('validates dynamic list fields with their latest values before submitting and bails out if any fail', async () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = fakeProduct();
       const wrapper = mount(
@@ -69,7 +69,7 @@ describe('useForm with dynamic list', () => {
       const textFields = wrapper.findAll(TextField, {label: 'option'});
 
       textFields.forEach((textField) => textField.trigger('onChange', ''));
-      hitSubmit(wrapper);
+      await hitSubmit(wrapper);
 
       expect(submitSpy).not.toHaveBeenCalled();
 
@@ -98,6 +98,7 @@ describe('useForm with dynamic list', () => {
       );
 
       await waitForSubmit(wrapper, promise);
+      wrapper.forceUpdate();
 
       expect(wrapper).toContainReactComponent(TextField, {
         error: errors[0].message,

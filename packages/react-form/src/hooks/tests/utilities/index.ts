@@ -26,11 +26,13 @@ export function changeTitle(wrapper, newTitle) {
 }
 
 export function hitSubmit(wrapper) {
-  wrapper.find('button', {type: 'submit'})!.trigger('onClick', clickEvent());
+  return wrapper
+    .find('button', {type: 'submit'})!
+    .trigger('onClick', clickEvent());
 }
 
 export async function waitForSubmit(wrapper, successPromise) {
-  hitSubmit(wrapper);
+  await hitSubmit(wrapper);
 
   await wrapper.act(async () => {
     await successPromise;
