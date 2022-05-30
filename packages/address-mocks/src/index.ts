@@ -44,9 +44,7 @@ export function mockCountryRequests() {
       const countries = fixtures.countries[locale];
       if (operationName === 'countries') return countries;
 
-      const country = countries.data.countries.find(
-        ({code}) => code === countryCode,
-      );
+      const country = fixtures.country[locale].data.country;
       if (!country)
         return {
           errors: [
