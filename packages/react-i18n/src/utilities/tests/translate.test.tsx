@@ -1,4 +1,6 @@
-import {numberFormatCacheKey} from '../translate';
+import React from 'react';
+
+import {numberFormatCacheKey, translate} from '../translate';
 
 describe('numberFormatCacheKey()', () => {
   const locale = 'en-CA';
@@ -43,4 +45,38 @@ describe('numberFormatCacheKey()', () => {
       `${locale}-${otherLocale}-{}`,
     );
   });
+});
+
+describe('translate()', () => {
+  const id = 'test';
+  const translations = {
+    [id]: 'foo {bar}',
+  };
+  const locale = 'en-CA';
+
+  it('returns an array when a complex replacement is used', () => {
+    const bar = <span>bar</span>;
+    const replacements = {bar};
+    const translation = translate('test', {replacements}, translations, locale);
+
+    expect(translation).toMatchObject([
+      'foo ',
+      React.cloneElement(bar, {key: 1}),
+    ]);
+  });
+
+  it.each([2, 'bar', true, false, null, undefined, NaN])(
+    'returns a string when a simple replacement is used',
+    (replacementValue) => {
+      const replacements = {bar: replacementValue};
+      const translation = translate(
+        'test',
+        {replacements},
+        translations,
+        locale,
+      );
+
+      expect(translation).toBe(`foo ${replacementValue}`);
+    },
+  );
 });

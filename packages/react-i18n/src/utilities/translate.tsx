@@ -273,7 +273,7 @@ function updateStringWithReplacements(
       const finalReplacement =
         replacementValue && React.isValidElement(replacementValue)
           ? React.cloneElement(replacementValue, {key: matchIndex})
-          : (replacementValue as string);
+          : String(replacementValue);
 
       // Push the previous part if it exists
       const previousString = str.substring(lastOffset, offset);
@@ -290,7 +290,8 @@ function updateStringWithReplacements(
   );
 
   // Push the last part of the source string
-  pieces.push(str.substr(lastOffset));
+  const lastPart = str.substring(lastOffset);
+  if (lastPart) pieces.push(lastPart);
 
   return pieces.every(isString) ? pieces.join('') : pieces;
 }
