@@ -246,7 +246,7 @@ function updateStringWithReplacements(
     | PrimitiveReplacementDictionary = {},
   {interpolate}: UpdateStringWithReplacementsOptions = {},
 ): any {
-  const pieces: (string | React.ReactElement<any>)[] = [];
+  const pieces: (string | React.ReactNode)[] = [];
 
   const replaceFinder = new RegExp(interpolate || DEFAULT_FORMAT, 'g');
 
@@ -269,20 +269,22 @@ function updateStringWithReplacements(
 
       matchIndex += 1;
 
-      const replacementValue = replacements[replacementKey];
-      const finalReplacement =
-        replacementValue && React.isValidElement(replacementValue)
-          ? React.cloneElement(replacementValue, {key: matchIndex})
-          : String(replacementValue);
-
       // Push the previous part if it exists
       const previousString = str.substring(lastOffset, offset);
       if (previousString) pieces.push(previousString);
 
-      // Push the new part with the replacement
-      pieces.push(finalReplacement);
-
       lastOffset = offset + match.length;
+
+      // Push the new part with the replacement
+      const replacementValue = replacements[replacementKey];
+
+      if (React.isValidElement(replacementValue)) {
+        pieces.push(React.cloneElement(replacementValue, {key: matchIndex}));
+      } else if (typeof replacementValue === 'object') {
+        pieces.push(replacementValue);
+      } else {
+        pieces.push(String(replacementValue));
+      }
 
       // to satisfy the typechecker
       return '';
