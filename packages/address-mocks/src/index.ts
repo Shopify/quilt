@@ -44,10 +44,10 @@ export function mockCountryRequests() {
       const countries = fixtures.countries[locale];
       if (operationName === 'countries') return countries;
 
-      const country =
-        countryCode === 'CA'
-          ? fixtures.country[locale].data.country
-          : countries.data.countries.find(({code}) => code === countryCode);
+      const country = countries.data.countries.find(
+        ({code}) => code === countryCode,
+      );
+
       if (!country)
         return {
           errors: [

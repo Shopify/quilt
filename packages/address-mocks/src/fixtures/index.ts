@@ -10,6 +10,7 @@ import countryCAAf from './country_ca_af';
 import countriesEn from './countries_en';
 import countriesJa from './countries_ja';
 import countriesAF from './countries_af';
+import countriesFR from './countries_fr';
 
 interface Fixtures {
   countries: {
@@ -27,7 +28,7 @@ export const fixtures: Fixtures = {
     DE: countriesEn,
     EN: countriesEn,
     ES: countriesEn,
-    FR: countriesEn,
+    FR: countriesFR,
     IT: countriesEn,
     JA: countriesJa,
     NL: countriesEn,
