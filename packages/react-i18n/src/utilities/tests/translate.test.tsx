@@ -50,11 +50,12 @@ describe('numberFormatCacheKey()', () => {
 describe('translate()', () => {
   const id = 'test';
   const translations = {
-    [id]: 'foo {bar}',
+    // Lots of spaces to make sure we're taking the whole match length into account.
+    [id]: 'foo {    bar     } baz',
   };
   const locale = 'en-CA';
 
-  it('returns an array when a complex replacement is used', () => {
+  it('returns an array when a React node replacement is used', () => {
     const bar = <span>bar</span>;
     const replacements = {bar};
     const translation = translate('test', {replacements}, translations, locale);
@@ -62,10 +63,30 @@ describe('translate()', () => {
     expect(translation).toMatchObject([
       'foo ',
       React.cloneElement(bar, {key: 1}),
+      ' baz',
     ]);
   });
 
-  it.each([2, 'bar', true, false, null, undefined, NaN])(
+  it('returns an array when a complex replacement is used', () => {
+    const bar = [<span>bar</span>];
+    const replacements = {bar};
+    const translation = translate('test', {replacements}, translations, locale);
+
+    expect(translation).toMatchObject(['foo ', bar, ' baz']);
+  });
+
+  it('returns an array when null is used as a replacement value', () => {
+    const translation = translate(
+      'test',
+      {replacements: {bar: null}},
+      translations,
+      locale,
+    );
+
+    expect(translation).toMatchObject(['foo ', null, ' baz']);
+  });
+
+  it.each([2, 'bar', true, false, undefined, NaN])(
     'returns a string when a simple replacement is used',
     (replacementValue) => {
       const replacements = {bar: replacementValue};
@@ -76,7 +97,7 @@ describe('translate()', () => {
         locale,
       );
 
-      expect(translation).toBe(`foo ${replacementValue}`);
+      expect(translation).toBe(`foo ${replacementValue} baz`);
     },
   );
 });
