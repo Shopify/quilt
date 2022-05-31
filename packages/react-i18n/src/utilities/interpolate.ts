@@ -14,4 +14,4 @@ export const MUSTACHE_FORMAT = /{{\s*(\w+)\s*}}/g;
  * Similar to Ruby ERB templating system.
  * `<%= key %>` will be replaced with `replacements[key]`.
  */
-export const ERB_FORMAT = /<%=\s*(\w+)\s*%>/g;
+export const ERB_FORMAT = /<%=\s+(\w+)\s+%>/g;
