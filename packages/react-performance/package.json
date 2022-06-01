@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-performance",
-  "version": "3.0.0",
+  "version": "3.0.1-react-18-react-testing-beta.0",
   "license": "MIT",
   "description": "Primitives to measure your React application's performance using `@shopify/performance`",
   "main": "index.js",
