@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## Unreleased -->
 
+## 2.1.0 - 2022-05-20
+
+### Added
+
+- Add `getDirtyValues` utility function [#2270](https://github.com/Shopify/quilt/pull/2270)
+
 ## 2.0.0 - 2022-05-19
 
 ### Breaking Change

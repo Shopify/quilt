@@ -31,6 +31,7 @@ Manage React forms tersely and safely-typed with no magic using React hooks. Bui
    1. [Utilities](#utilities)
       1. [reduceFields](#utilities)
       1. [getValues](#utilities)
+      1. [getDirtyValues](#utilities)
       1. [fieldsToArray](#utilities)
       1. [makeCleanFields](#utilities)
 1. [FAQ](#faq)
@@ -1121,6 +1122,26 @@ Docs for these standalone hooks are coming soon. For now check out the `.d.ts` f
 Detailed validation docs are coming soon. For now check out the `.d.ts` files for the API.
 
 ### Utilities
+
+#### getDirtyValues
+
+Takes `FieldBag` and returns object with only dirty field values, similar to the `FormMapping` argument passed to `onSubmit`.
+
+##### Signature
+
+```tsx
+function getDirtyValues<T extends FieldBag>(fieldBag: T) {
+  return Object.entries(fieldBag).reduce(
+    (acc, [fieldName, field]: [string, Field<any>]) => {
+      return {
+        ...acc,
+        ...(field.dirty ? {[fieldName]: field.value} : {}),
+      };
+    },
+    {},
+  );
+}
+```
 
 #### reduceFields
 
