@@ -145,7 +145,7 @@ describe('<FormState.List />', () => {
 
     const renderSpy = jest.fn(() => null);
 
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{products}}>
         {({fields}) => {
           return (
@@ -160,7 +160,7 @@ describe('<FormState.List />', () => {
     );
 
     const {title} = lastCallArgs(renderSpy);
-    title.onChange(newTitle);
+    wrapper.act(() => title.onChange(newTitle));
 
     const updatedFields = lastCallArgs(renderSpy);
     expect(updatedFields.title.dirty).toBe(true);
@@ -235,15 +235,19 @@ describe('<FormState.List />', () => {
       );
     });
 
-    mount(<FormState initialValues={{products}}>{renderPropSpy}</FormState>);
+    const wrapper = mount(
+      <FormState initialValues={{products}}>{renderPropSpy}</FormState>,
+    );
 
     const {title, department} = lastCallArgs(renderSpy);
 
     const newTitle = faker.commerce.productName();
     const newDepartment = faker.commerce.department();
 
-    title.onChange(newTitle);
-    department.onChange(newDepartment);
+    wrapper.act(() => {
+      title.onChange(newTitle);
+      department.onChange(newDepartment);
+    });
 
     const updatedFields = lastCallArgs(renderSpy);
 
@@ -272,7 +276,7 @@ describe('<FormState.List />', () => {
       );
     });
 
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{variants}}>
         {({fields}) => (
           <FormState.List field={fields.variants}>
@@ -291,8 +295,10 @@ describe('<FormState.List />', () => {
     const newTitle = faker.commerce.productName();
     const newDepartment = faker.commerce.department();
 
-    title.onChange(newTitle);
-    department.onChange(newDepartment);
+    wrapper.act(() => {
+      title.onChange(newTitle);
+      department.onChange(newDepartment);
+    });
 
     const updatedFields = lastCallArgs(renderSpy);
 
@@ -319,7 +325,7 @@ describe('<FormState.List />', () => {
       );
     });
 
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{variants}}>
         {({fields}) => (
           <FormState.Nested field={fields.variants}>
@@ -338,8 +344,10 @@ describe('<FormState.List />', () => {
     const newTitle = faker.commerce.productName();
     const newDepartment = faker.commerce.department();
 
-    title.onChange(newTitle);
-    department.onChange(newDepartment);
+    wrapper.act(() => {
+      title.onChange(newTitle);
+      department.onChange(newDepartment);
+    });
 
     const updatedFields = lastCallArgs(renderSpy);
 
@@ -364,7 +372,7 @@ describe('<FormState.List />', () => {
     });
 
     let productsRef: FieldDescriptor<any>;
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{products}}>
         {({fields}) => {
           productsRef = fields.products;
@@ -382,7 +390,9 @@ describe('<FormState.List />', () => {
     );
 
     const newProducts = [...products, newProduct()];
-    productsRef!.onChange(newProducts);
+    wrapper.act(() => {
+      productsRef!.onChange(newProducts);
+    });
     const calls = renderSpy.mock.calls;
     const originalRenderCount = 1;
     const rerenderedCount = 2;
@@ -403,7 +413,7 @@ describe('<FormState.List />', () => {
     });
 
     let variantsRef: FieldDescriptor<any>;
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{variants}}>
         {({fields}) => {
           variantsRef = fields.variants;
@@ -427,7 +437,7 @@ describe('<FormState.List />', () => {
         title: 'newProduct',
       },
     });
-    variantsRef!.onChange(newVariants);
+    wrapper.act(() => variantsRef!.onChange(newVariants));
     const calls = renderSpy.mock.calls;
     const originalRenderCount = variants.length;
     const rerenderedCount = originalRenderCount + 1;
