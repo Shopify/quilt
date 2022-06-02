@@ -80,7 +80,7 @@ describe('<Nested />', () => {
 
     const renderSpy = jest.fn(() => null);
 
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{product}}>
         {({fields}) => {
           return (
@@ -93,7 +93,7 @@ describe('<Nested />', () => {
     );
 
     const {title} = lastCallArgs(renderSpy);
-    title.onChange(newTitle);
+    wrapper.act(() => title.onChange(newTitle));
 
     const updatedFields = lastCallArgs(renderSpy);
     expect(updatedFields.title.dirty).toBe(true);
@@ -143,7 +143,7 @@ describe('<Nested />', () => {
       );
     });
 
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{product}}>
         {({fields}) => {
           return (
@@ -160,8 +160,10 @@ describe('<Nested />', () => {
     const newTitle = faker.commerce.productName();
     const newDepartment = faker.commerce.department();
 
-    title.onChange(newTitle);
-    department.onChange(newDepartment);
+    wrapper.act(() => {
+      title.onChange(newTitle);
+      department.onChange(newDepartment);
+    });
 
     const updatedFields = lastCallArgs(renderSpy);
 
@@ -186,7 +188,7 @@ describe('<Nested />', () => {
       );
     });
 
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{product}}>
         {({fields}) => {
           return (
@@ -207,8 +209,10 @@ describe('<Nested />', () => {
     const newTitle = faker.commerce.productName();
     const newDepartment = faker.commerce.department();
 
-    title.onChange(newTitle);
-    department.onChange(newDepartment);
+    wrapper.act(() => {
+      title.onChange(newTitle);
+      department.onChange(newDepartment);
+    });
 
     const updatedFields = lastCallArgs(renderSpy);
 
@@ -235,7 +239,7 @@ describe('<Nested />', () => {
       );
     });
 
-    mount(
+    const wrapper = mount(
       <FormState initialValues={{product}}>
         {({fields}) => {
           return (
@@ -256,8 +260,10 @@ describe('<Nested />', () => {
     const newTitle = faker.commerce.productName();
     const newDepartment = faker.commerce.department();
 
-    title.onChange(newTitle);
-    department.onChange(newDepartment);
+    wrapper.act(() => {
+      title.onChange(newTitle);
+      department.onChange(newDepartment);
+    });
 
     const updatedFields = lastCallArgs(renderSpy);
 

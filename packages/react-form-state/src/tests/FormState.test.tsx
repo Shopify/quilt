@@ -436,7 +436,7 @@ describe('<FormState />', () => {
         return Promise.resolve(submitErrors);
       }
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{product}}
           externalErrors={externalErrors}
@@ -447,7 +447,10 @@ describe('<FormState />', () => {
       );
 
       const {submit} = lastCallArgs(renderPropSpy);
-      await submit();
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
 
       const {errors} = lastCallArgs(renderPropSpy);
       expect(errors).toStrictEqual([...submitErrors, ...externalErrors]);
@@ -457,7 +460,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const errorMessage = faker.lorem.sentence();
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{
             product: faker.commerce.productName,
@@ -471,9 +474,8 @@ describe('<FormState />', () => {
       );
 
       const {fields} = lastCallArgs(renderPropSpy);
-      fields.product.onChange(faker.commerce.productName);
-      fields.product.onBlur();
-
+      wrapper.act(() => fields.product.onChange(faker.commerce.productName));
+      wrapper.act(() => fields.product.onBlur());
       const {fields: updatedFields} = lastCallArgs(renderPropSpy);
 
       expect(updatedFields.product.error).toStrictEqual(errorMessage);
@@ -555,14 +557,14 @@ describe('<FormState />', () => {
       const color = faker.commerce.color();
       const date = faker.date.recent();
 
-      mount(
+      const wrapper = mount(
         <FormState initialValues={{product, color, date}}>
           {renderPropSpy}
         </FormState>,
       );
 
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.date.onChange(faker.date.recent());
+      wrapper.act(() => formDetails.fields.date.onChange(faker.date.recent()));
 
       const {dirty} = lastCallArgs(renderPropSpy);
       expect(dirty).toBe(true);
@@ -574,11 +576,13 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
+      const wrapper = mount(
+        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+      );
 
       const formDetails = lastCallArgs(renderPropSpy);
       const otherProduct = faker.commerce.productName();
-      formDetails.fields.product.onChange(otherProduct);
+      wrapper.act(() => formDetails.fields.product.onChange(otherProduct));
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.value).toBe(otherProduct);
@@ -601,10 +605,14 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
+      const wrapper = mount(
+        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+      );
 
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.productName());
+      wrapper.act(() =>
+        formDetails.fields.product.onChange(faker.commerce.productName()),
+      );
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.dirty).toBe(true);
@@ -627,10 +635,14 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
 
-      mount(<FormState initialValues={{product}}>{renderPropSpy}</FormState>);
+      const wrapper = mount(
+        <FormState initialValues={{product}}>{renderPropSpy}</FormState>,
+      );
 
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.productName());
+      wrapper.act(() =>
+        formDetails.fields.product.onChange(faker.commerce.productName()),
+      );
 
       const {dirty} = lastCallArgs(renderPropSpy);
       expect(dirty).toBe(true);
@@ -680,7 +692,7 @@ describe('<FormState />', () => {
       const productValidatorSpy = jest.fn();
       const product = faker.commerce.productName();
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{
             product,
@@ -693,7 +705,7 @@ describe('<FormState />', () => {
 
       const newProduct = faker.commerce.productName();
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(newProduct);
+      wrapper.act(() => formDetails.fields.product.onChange(newProduct));
       formDetails.fields.product.onBlur();
 
       expect(productValidatorSpy).toHaveBeenCalledTimes(1);
@@ -730,7 +742,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const validatorSpy = jest.fn(() => faker.lorem.sentence());
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           validators={{product: validatorSpy}}
@@ -740,9 +752,14 @@ describe('<FormState />', () => {
       );
 
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.productName());
+
+      wrapper.act(() =>
+        formDetails.fields.product.onChange(faker.commerce.productName()),
+      );
       formDetails.fields.product.onBlur();
-      formDetails.fields.product.onChange(faker.commerce.productName());
+      wrapper.act(() =>
+        formDetails.fields.product.onChange(faker.commerce.productName()),
+      );
 
       expect(validatorSpy).toHaveBeenCalledTimes(2);
     });
@@ -752,7 +769,7 @@ describe('<FormState />', () => {
       const error = faker.lorem.sentence();
       const validatorSpy = jest.fn(() => error);
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           validators={{product: validatorSpy}}
@@ -763,9 +780,8 @@ describe('<FormState />', () => {
 
       const product = faker.commerce.productName();
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(product);
-
-      formDetails.fields.product.onBlur();
+      wrapper.act(() => formDetails.fields.product.onChange(product));
+      wrapper.act(() => formDetails.fields.product.onBlur());
 
       const updatedFormDetails = lastCallArgs(renderPropSpy);
       expect(updatedFormDetails.fields.product.error).toBe(error);
@@ -778,7 +794,7 @@ describe('<FormState />', () => {
       const validatorSpy = jest.fn(() => error);
       const otherValidatorSpy = jest.fn(() => otherError);
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           validators={{product: [validatorSpy, otherValidatorSpy]}}
@@ -789,9 +805,9 @@ describe('<FormState />', () => {
 
       const product = faker.commerce.productName();
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(product);
 
-      formDetails.fields.product.onBlur();
+      wrapper.act(() => formDetails.fields.product.onChange(product));
+      wrapper.act(() => formDetails.fields.product.onBlur());
 
       const updatedFormDetails = lastCallArgs(renderPropSpy);
       expect(updatedFormDetails.fields.product.error).toStrictEqual([
@@ -825,7 +841,7 @@ describe('<FormState />', () => {
     it('sets valid to false when any field fails validation', () => {
       const renderPropSpy = jest.fn(() => null);
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{
             product: faker.commerce.productName(),
@@ -842,10 +858,11 @@ describe('<FormState />', () => {
 
       const formDetails = lastCallArgs(renderPropSpy);
       formDetails.fields.product.onChange(faker.commerce.productName());
-      formDetails.fields.sku.onChange(faker.commerce.product());
-
+      wrapper.act(() =>
+        formDetails.fields.sku.onChange(faker.commerce.product()),
+      );
       formDetails.fields.product.onBlur();
-      formDetails.fields.sku.onBlur();
+      wrapper.act(() => formDetails.fields.sku.onBlur());
 
       const {valid} = lastCallArgs(renderPropSpy);
       expect(valid).toBe(false);
@@ -909,16 +926,18 @@ describe('<FormState />', () => {
         return Promise.resolve();
       }
 
-      mount(
+      const wrapper = mount(
         <FormState initialValues={{product}} onSubmit={onSubmit}>
           {renderPropSpy}
         </FormState>,
       );
 
       const {submit} = lastCallArgs(renderPropSpy);
-      submit();
-
+      wrapper.act(() => {
+        submit();
+      });
       const {submitting} = lastCallArgs(renderPropSpy);
+
       expect(submitting).toBe(true);
     });
 
@@ -984,7 +1003,7 @@ describe('<FormState />', () => {
         return Promise.resolve(submitErrors);
       }
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{product: faker.commerce.productName()}}
           onSubmit={onSubmit}
@@ -994,7 +1013,10 @@ describe('<FormState />', () => {
       );
 
       const {submit} = lastCallArgs(renderPropSpy);
-      await submit();
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.error).toBe(message);
@@ -1180,7 +1202,7 @@ describe('<FormState />', () => {
     it('resets submitting state when validation on submit fails', async () => {
       const renderPropSpy = jest.fn(() => null);
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1199,7 +1221,10 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
 
-      await submit();
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
 
       const {submitting} = lastCallArgs(renderPropSpy);
 
@@ -1242,7 +1267,7 @@ describe('<FormState />', () => {
       const renderPropSpy = jest.fn(() => null);
       const remoteErrors = [{message: 'submit failed'}];
 
-      mount(
+      const wrapper = mount(
         <FormState
           initialValues={{
             product: faker.commerce.productName,
@@ -1260,8 +1285,9 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
 
-      await submit();
-
+      await wrapper.act(async () => {
+        await submit();
+      });
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual(remoteErrors);
@@ -1273,7 +1299,7 @@ describe('<FormState />', () => {
         message: 'product bad',
       };
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1294,8 +1320,10 @@ describe('<FormState />', () => {
 
       expect(errors).toStrictEqual([]);
 
-      await submit();
-
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
       const {errors: updatedErrors} = lastCallArgs(renderPropSpy);
 
       expect(updatedErrors).toStrictEqual([clientValidationError]);
@@ -1309,7 +1337,7 @@ describe('<FormState />', () => {
         message: 'product bad',
       };
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1329,8 +1357,10 @@ describe('<FormState />', () => {
       );
 
       const {submit} = lastCallArgs(renderPropSpy);
-
-      await submit();
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
 
       const {
         fields: {
@@ -1342,7 +1372,7 @@ describe('<FormState />', () => {
       expect(error).toStrictEqual(clientValidationError.message);
       expect(errors).toStrictEqual([clientValidationError]);
 
-      onChange(goodProductName);
+      wrapper.act(() => onChange(goodProductName));
 
       const {
         fields: {
@@ -1360,7 +1390,7 @@ describe('<FormState />', () => {
       const goodProductName = 'Good Product';
       const badProductName = 'Bad Product';
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1378,7 +1408,6 @@ describe('<FormState />', () => {
       );
 
       const {submit} = lastCallArgs(renderPropSpy);
-
       await submit();
 
       const {
@@ -1391,8 +1420,8 @@ describe('<FormState />', () => {
       expect(error).toBeUndefined();
       expect(errors).toStrictEqual([]);
 
-      onChange(badProductName);
-      onBlur();
+      wrapper.act(() => onChange(badProductName));
+      wrapper.act(() => onBlur());
 
       const {
         fields: {
@@ -1413,7 +1442,7 @@ describe('<FormState />', () => {
         message: 'product bad',
       };
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1439,15 +1468,19 @@ describe('<FormState />', () => {
         },
       } = lastCallArgs(renderPropSpy);
 
-      await submit();
-
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual([clientValidationError]);
 
       onChange(goodProductName);
-      await submit();
-
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
       const {errors: updatedErrors} = lastCallArgs(renderPropSpy);
 
       expect(updatedErrors).toStrictEqual([]);
@@ -1463,7 +1496,7 @@ describe('<FormState />', () => {
         {message: 'Bad Variant Size 2'},
       ];
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1495,9 +1528,10 @@ describe('<FormState />', () => {
       );
 
       const {submit} = lastCallArgs(renderPropSpy);
-
-      await submit();
-
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual(expectedSubmitErrors);
@@ -1512,7 +1546,7 @@ describe('<FormState />', () => {
         {message: 'Bad Size'},
       ];
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1533,8 +1567,10 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
 
-      await submit();
-
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual(expectedSubmitErrors);
@@ -1554,7 +1590,7 @@ describe('<FormState />', () => {
         {message: 'nested list error 2'},
       ];
 
-      mount(
+      const wrapper = mount(
         <FormState
           validateOnSubmit
           initialValues={{
@@ -1593,8 +1629,10 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
 
-      await submit();
-
+      await wrapper.act(async () => {
+        await submit();
+      });
+      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual(expectedSubmitErrors);
@@ -1766,14 +1804,16 @@ describe('<FormState />', () => {
         </>
       ));
 
-      mount(
+      const wrapper = mount(
         <FormState initialValues={{product, description: ''}}>
           {renderPropSpy}
         </FormState>,
       );
 
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.product());
+      wrapper.act(() =>
+        formDetails.fields.product.onChange(faker.commerce.product()),
+      );
 
       expect(renderPropSpy).toHaveBeenCalledTimes(2);
       expect(onRenderSpy).toHaveBeenCalledTimes(1);
@@ -1790,14 +1830,16 @@ describe('<FormState />', () => {
         </>
       ));
 
-      mount(
+      const wrapper = mount(
         <FormState initialValues={{product, description: ''}}>
           {renderPropSpy}
         </FormState>,
       );
 
       const formDetails = lastCallArgs(renderPropSpy);
-      formDetails.fields.product.onChange(faker.commerce.product());
+      wrapper.act(() =>
+        formDetails.fields.product.onChange(faker.commerce.product()),
+      );
 
       expect(renderPropSpy).toHaveBeenCalledTimes(2);
       expect(onRenderSpy).toHaveBeenCalledTimes(1);
