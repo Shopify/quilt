@@ -1,4 +1,4 @@
-import { UAParser } from 'ua-parser-js';
+import {UAParser} from 'ua-parser-js';
 
 const MOBILE_DEVICE_TYPES = ['mobile', 'tablet'];
 
@@ -22,7 +22,7 @@ export class Browser {
   }
 
   get majorVersion() {
-    const { version } = this;
+    const {version} = this;
 
     if (version === '') {
       return undefined;
@@ -72,6 +72,11 @@ export class Browser {
     return this.ua.getUA().includes('Android') && this.name.includes('Chrome');
   }
 
+  get isAndroid() {
+    const os = this.ua.getOS();
+    return os.name && os.name.includes('Android');
+  }
+
   get isFirefox() {
     return this.name === 'Firefox';
   }
@@ -84,11 +89,6 @@ export class Browser {
     return this.name === 'Edge';
   }
 
-  get isAndroid() {
-    const os = this.ua.getOS();
-    return os.name && os.name.includes('Android');
-  }
-
   get isIOS() {
     const os = this.ua.getOS();
     const isStandardiOS = os.name && os.name.includes('iOS');
@@ -98,7 +98,7 @@ export class Browser {
     return isStandardiOS || isShopifyiOS;
   }
 
-  constructor({ userAgent, supported = true }: Options) {
+  constructor({userAgent, supported = true}: Options) {
     this.userAgent = userAgent;
     this.supported = supported;
     this.ua = new UAParser(userAgent);
