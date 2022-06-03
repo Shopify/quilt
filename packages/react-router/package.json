@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-router",
-  "version": "2.0.1-react-18-react-testing-beta.1",
+  "version": "2.0.1-react-18-react-testing-beta.2",
   "license": "MIT",
   "description": "A universal router for React",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/react-network": "^5.0.1-react-18-react-testing-beta.1",
+    "@shopify/react-network": "^5.0.1-react-18-react-testing-beta.2",
     "@types/react-router-dom": "*",
     "react-router-dom": ">=5.1.0 <6.0.0"
   },
