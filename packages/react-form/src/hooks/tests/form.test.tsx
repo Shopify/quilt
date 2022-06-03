@@ -1,5 +1,6 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
+import {flushSync} from 'react-dom';
 
 import {submitSuccess, submitFail} from '..';
 
@@ -43,20 +44,27 @@ describe('useForm', () => {
   });
 
   describe('submit', () => {
-    it('sets submitting to true during submission', () => {
+    it('sets submitting to true during submission', async () => {
+      jest.useFakeTimers();
+      const submitPromise = new Promise<ReturnType<typeof submitSuccess>>(
+        (resolve) => {
+          setTimeout(() => resolve(submitSuccess()), 10_000);
+        },
+      );
       const wrapper = mount(
-        <ProductForm
-          data={fakeProduct()}
-          onSubmit={() => new Promise(() => {})}
-        />,
+        <ProductForm data={fakeProduct()} onSubmit={() => submitPromise} />,
       );
 
       changeTitle(wrapper, 'tortoritos, the chip for turtles!');
-      hitSubmit(wrapper);
+      flushSync(() => hitSubmit(wrapper));
+      wrapper.forceUpdate();
 
       expect(wrapper).toContainReactComponent('p', {
         children: 'loading...',
       });
+
+      jest.advanceTimersByTime(10_000 + 1);
+      await submitPromise;
     });
 
     it('sets submitting to false when submission ends', async () => {
@@ -74,7 +82,7 @@ describe('useForm', () => {
       });
     });
 
-    it('validates all fields with their latest values before submitting and bails out if any fail', () => {
+    it('validates all fields with their latest values before submitting and bails out if any fail', async () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = {
         ...fakeProduct(),
@@ -85,7 +93,9 @@ describe('useForm', () => {
       );
 
       changeTitle(wrapper, '');
-      hitSubmit(wrapper);
+      await flushSync(async () => {
+        await hitSubmit(wrapper);
+      });
 
       expect(submitSpy).not.toHaveBeenCalled();
       expect(wrapper).toContainReactComponent('p', {
@@ -93,7 +103,7 @@ describe('useForm', () => {
       });
     });
 
-    it('validates list fields with their latest values before submitting and bails out if any fail', () => {
+    it('validates list fields with their latest values before submitting and bails out if any fail', async () => {
       const submitSpy = jest.fn(() => Promise.resolve(submitSuccess()));
       const product = fakeProduct();
       const wrapper = mount(
@@ -103,7 +113,9 @@ describe('useForm', () => {
       wrapper
         .findAll(TextField, {label: 'price'})[1]
         .trigger('onChange', 'not a valid price');
-      hitSubmit(wrapper);
+      await flushSync(async () => {
+        await hitSubmit(wrapper);
+      });
 
       expect(submitSpy).not.toHaveBeenCalled();
       expect(wrapper).toContainReactComponent('p', {

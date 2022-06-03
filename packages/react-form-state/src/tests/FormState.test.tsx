@@ -1,6 +1,7 @@
 import React from 'react';
 import faker from '@faker-js/faker/locale/en';
 import {mount} from '@shopify/react-testing';
+import {flushSync} from 'react-dom';
 
 import {validateList} from '../validators';
 import FormState, {validate, validateNested} from '..';
@@ -448,9 +449,10 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
 
       const {errors} = lastCallArgs(renderPropSpy);
       expect(errors).toStrictEqual([...submitErrors, ...externalErrors]);
@@ -1014,9 +1016,10 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
 
       const {fields} = lastCallArgs(renderPropSpy);
       expect(fields.product.error).toBe(message);
@@ -1222,9 +1225,10 @@ describe('<FormState />', () => {
       const {submit} = lastCallArgs(renderPropSpy);
 
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
 
       const {submitting} = lastCallArgs(renderPropSpy);
 
@@ -1286,7 +1290,9 @@ describe('<FormState />', () => {
       const {submit} = lastCallArgs(renderPropSpy);
 
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
       const {errors} = lastCallArgs(renderPropSpy);
 
@@ -1321,9 +1327,10 @@ describe('<FormState />', () => {
       expect(errors).toStrictEqual([]);
 
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
       const {errors: updatedErrors} = lastCallArgs(renderPropSpy);
 
       expect(updatedErrors).toStrictEqual([clientValidationError]);
@@ -1358,9 +1365,10 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
 
       const {
         fields: {
@@ -1469,18 +1477,20 @@ describe('<FormState />', () => {
       } = lastCallArgs(renderPropSpy);
 
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual([clientValidationError]);
 
-      onChange(goodProductName);
+      wrapper.act(() => onChange(goodProductName));
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
       const {errors: updatedErrors} = lastCallArgs(renderPropSpy);
 
       expect(updatedErrors).toStrictEqual([]);
@@ -1529,9 +1539,10 @@ describe('<FormState />', () => {
 
       const {submit} = lastCallArgs(renderPropSpy);
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual(expectedSubmitErrors);
@@ -1568,9 +1579,10 @@ describe('<FormState />', () => {
       const {submit} = lastCallArgs(renderPropSpy);
 
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual(expectedSubmitErrors);
@@ -1630,9 +1642,10 @@ describe('<FormState />', () => {
       const {submit} = lastCallArgs(renderPropSpy);
 
       await wrapper.act(async () => {
-        await submit();
+        await flushSync(async () => {
+          await submit();
+        });
       });
-      wrapper.forceUpdate();
       const {errors} = lastCallArgs(renderPropSpy);
 
       expect(errors).toStrictEqual(expectedSubmitErrors);
