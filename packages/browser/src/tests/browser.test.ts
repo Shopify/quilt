@@ -189,7 +189,8 @@ describe('Browser', () => {
     });
 
     it('returns true with a standard Android Firefox browser', () => {
-      const userAgent = 'Mozilla/5.0 (Android 12; Mobile; rv:94.0) Gecko/94.0 Firefox/94.0';
+      const userAgent =
+        'Mozilla/5.0 (Android 12; Mobile; rv:94.0) Gecko/94.0 Firefox/94.0';
 
       expect(new Browser({userAgent}).isAndroid).toBe(true);
     });
