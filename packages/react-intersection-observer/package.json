@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-intersection-observer",
-  "version": "4.0.1-react-18-react-testing-beta.2",
+  "version": "4.0.1-react-18-react-testing-beta.3",
   "license": "MIT",
   "description": "A React wrapper around the Intersection Observer API",
   "main": "index.js",

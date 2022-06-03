@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-import-remote",
-  "version": "3.0.1-react-18-react-testing-beta.2",
+  "version": "3.0.1-react-18-react-testing-beta.3",
   "license": "MIT",
   "description": "Asynchronous script loading for React",
   "main": "index.js",
@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@shopify/async": "^4.0.0",
-    "@shopify/react-hooks": "^3.0.1-react-18-react-testing-beta.2",
-    "@shopify/react-html": "^12.0.1-react-18-react-testing-beta.2",
-    "@shopify/react-intersection-observer": "^4.0.1-react-18-react-testing-beta.2",
+    "@shopify/react-hooks": "^3.0.1-react-18-react-testing-beta.3",
+    "@shopify/react-html": "^12.0.1-react-18-react-testing-beta.3",
+    "@shopify/react-intersection-observer": "^4.0.1-react-18-react-testing-beta.3",
     "@shopify/useful-types": "^5.0.0"
   },
   "peerDependencies": {
