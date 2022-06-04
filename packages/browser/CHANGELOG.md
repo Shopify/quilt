@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## 3.1.0 - 2022-06-03
 
 ### Changed
+
 - Added new method `isAndroid` to correctly identify Android devices [[#2299](https://github.com/Shopify/quilt/pull/2299)]
 
 ## 3.0.0 - 2022-05-19
