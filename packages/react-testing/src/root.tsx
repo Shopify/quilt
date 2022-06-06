@@ -113,7 +113,9 @@ export class Root<Props> implements Node<Props> {
     // check the return value of result to determine if it needs awaiting so that it can
     // properly flush updates.
     const possiblyAwaitableAct = act(() => {
-      result = action();
+      flushSync(() => {
+        result = action();
+      });
       return result as any;
     });
 
@@ -216,18 +218,16 @@ export class Root<Props> implements Node<Props> {
     this.reactRoot = createRoot(this.element);
 
     this.act(() => {
-      flushSync(() => {
-        this.reactRoot!.render(
-          <TestWrapper<Props>
-            render={this.render}
-            ref={(wrapper) => {
-              this.wrapper = wrapper;
-            }}
-          >
-            {this.tree}
-          </TestWrapper>,
-        );
-      });
+      this.reactRoot!.render(
+        <TestWrapper<Props>
+          render={this.render}
+          ref={(wrapper) => {
+            this.wrapper = wrapper;
+          }}
+        >
+          {this.tree}
+        </TestWrapper>,
+      );
     });
   }
 
@@ -239,7 +239,7 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => flushSync(() => this.reactRoot!.unmount()));
+    this.act(() => this.reactRoot!.unmount());
   }
 
   destroy() {
