@@ -1,5 +1,6 @@
 import React from 'react';
 import {createRoot, Root as ReactRoot} from 'react-dom/client';
+import {flushSync} from 'react-dom';
 import {act} from 'react-dom/test-utils';
 
 import {TestWrapper} from './TestWrapper';
@@ -213,16 +214,18 @@ export class Root<Props> implements Node<Props> {
     this.reactRoot = createRoot(this.element);
 
     this.act(() => {
-      this.reactRoot!.render(
-        <TestWrapper<Props>
-          render={this.render}
-          ref={(wrapper) => {
-            this.wrapper = wrapper;
-          }}
-        >
-          {this.tree}
-        </TestWrapper>,
-      );
+      flushSync(() => {
+        this.reactRoot!.render(
+          <TestWrapper<Props>
+            render={this.render}
+            ref={(wrapper) => {
+              this.wrapper = wrapper;
+            }}
+          >
+            {this.tree}
+          </TestWrapper>,
+        );
+      });
     });
   }
 
