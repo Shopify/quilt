@@ -239,7 +239,7 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => this.reactRoot!.unmount());
+    this.act(() => flushSync(() => this.reactRoot!.unmount()));
   }
 
   destroy() {
