@@ -72,6 +72,11 @@ export class Browser {
     return this.ua.getUA().includes('Android') && this.name.includes('Chrome');
   }
 
+  get isAndroid() {
+    const os = this.ua.getOS();
+    return os.name && os.name.includes('Android');
+  }
+
   get isFirefox() {
     return this.name === 'Firefox';
   }

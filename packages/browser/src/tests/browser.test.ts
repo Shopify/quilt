@@ -180,6 +180,29 @@ describe('Browser', () => {
     });
   });
 
+  describe('isAndroid', () => {
+    it('returns true with a standard Android Chrome browser', () => {
+      const userAgent =
+        'Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/67.0.3396.87 Mobile Safari/537.36';
+
+      expect(new Browser({userAgent}).isAndroid).toBe(true);
+    });
+
+    it('returns true with a standard Android Firefox browser', () => {
+      const userAgent =
+        'Mozilla/5.0 (Android 12; Mobile; rv:94.0) Gecko/94.0 Firefox/94.0';
+
+      expect(new Browser({userAgent}).isAndroid).toBe(true);
+    });
+
+    it('returns false with an iOS device browser', () => {
+      const userAgent =
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13G36 Safari/601.1';
+
+      expect(new Browser({userAgent}).isAndroid).toBe(false);
+    });
+  });
+
   describe('asPlainObject', () => {
     it('outputs userAgent details as a plain object', () => {
       const userAgent =
