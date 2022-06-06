@@ -92,7 +92,9 @@ export class Root<Props> implements Node<Props> {
     let result!: T;
 
     if (this.acting) {
-      return action();
+      result = action();
+      updateWrapper();
+      return result;
     }
 
     this.acting = true;
