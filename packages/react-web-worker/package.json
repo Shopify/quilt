@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-web-worker",
-  "version": "5.0.1-react-18-react-testing-beta.3",
+  "version": "5.0.1-react-18-react-testing-beta.4",
   "license": "MIT",
   "description": "A hook for using web workers in React applications",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/react-hooks": "^3.0.1-react-18-react-testing-beta.3",
+    "@shopify/react-hooks": "^3.0.1-react-18-react-testing-beta.4",
     "@shopify/useful-types": "^5.0.0",
     "@shopify/web-worker": "^5.0.0"
   },
