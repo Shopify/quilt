@@ -56,7 +56,6 @@ describe('useForm', () => {
 
       changeTitle(wrapper, 'tortoritos, the chip for turtles!');
       hitSubmit(wrapper);
-      wrapper.forceUpdate();
 
       expect(wrapper).toContainReactComponent('p', {
         children: 'loading...',
@@ -74,7 +73,6 @@ describe('useForm', () => {
 
       changeTitle(wrapper, 'tortoritos, the chip for turtles!');
       await waitForSubmit(wrapper, promise);
-      wrapper.forceUpdate();
 
       expect(wrapper).not.toContainReactComponent('p', {
         children: 'loading...',
@@ -126,7 +124,6 @@ describe('useForm', () => {
       );
 
       await waitForSubmit(wrapper, promise);
-      wrapper.forceUpdate();
 
       expect(wrapper).toContainReactComponent('p', {
         children: error.message,
@@ -146,7 +143,6 @@ describe('useForm', () => {
       );
 
       await waitForSubmit(wrapper, promise);
-      wrapper.forceUpdate();
 
       expect(wrapper).toContainReactComponent(TextField, {
         error: errors[0].message,
@@ -166,7 +162,6 @@ describe('useForm', () => {
       );
 
       await waitForSubmit(wrapper, promise);
-      wrapper.forceUpdate();
 
       expect(wrapper).toContainReactComponent('p', {
         children: errors[0].message,
