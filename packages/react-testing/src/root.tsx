@@ -99,19 +99,20 @@ export class Root<Props> implements Node<Props> {
 
     this.acting = true;
 
-    // act has two versions, act(() => void) or await act(async () => void)
-    // The async version will wrap the inner async function so that it maintains an act
-    // scope while it completes it's work asynchronously, and flushes updates to the
-    // wrapper at the end.
-    //
-    // The non-async version will invoke the inner function synchronously and will flush
-    // updates synchronously at the end.
-    //
-    // Typically the developer invokes act directly and knows which of these to use, but
-    // since this is a generic act within Root it may get called with _either_ a synchronous
-    // or asynchronous action. As a result, we can't naively await it, and instead have to
-    // check the return value of result to determine if it needs awaiting so that it can
-    // properly flush updates.
+    /* act has two versions, act(() => void) or await act(async () => void)
+     * The async version will wrap the inner async function so that it maintains an act
+     * scope while it completes it's work asynchronously, and flushes updates to the
+     * wrapper at the end.
+     *
+     * The non-async version will invoke the inner function synchronously and will flush
+     * updates synchronously at the end.
+     *
+     * Typically the developer invokes act directly and knows which of these to use, but
+     * since this is a generic act within Root it may get called with _either_ a synchronous
+     * or asynchronous action. As a result, we can't naively await it, and instead have to
+     * check the return value of result to determine if it needs awaiting so that it can
+     * properly flush updates.
+     */
     const possiblyAwaitableAct = act(() => {
       flushSync(() => {
         result = action();
@@ -127,10 +128,11 @@ export class Root<Props> implements Node<Props> {
     updateWrapper();
 
     if (isPromise(result)) {
-      // If the result has returned a promise, then we must first await the thenable object that
-      // act returned (in order to clear the act scope and flush promises). Second, we must await
-      // the result itself which is the purpose of this function - to perform act and return the
-      // underlying result. Third, we must update the wrapper itself so that it remains consistent.
+      /* If the result has returned a promise, then we must first await the thenable object that
+       * act returned (in order to clear the act scope and flush promises). Second, we must await
+       * the result itself which is the purpose of this function - to perform act and return the
+       * underlying result. Third, we must update the wrapper itself so that it remains consistent.
+       */
       const getResultAsync = async () => {
         await possiblyAwaitableAct;
         const resolvedResultValue = await result;
@@ -140,8 +142,9 @@ export class Root<Props> implements Node<Props> {
       };
       return getResultAsync() as any;
     } else {
-      // If the result didn't return a promise, then the synchronous behaviour has already completed
-      // and the synchronous version of act has too. Therefore it is safe to return the result directly.
+      /* If the result didn't return a promise, then the synchronous behaviour has already completed
+       * and the synchronous version of act has too. Therefore it is safe to return the result directly.
+       */
       this.acting = false;
       return result;
     }
