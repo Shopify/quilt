@@ -1,4 +1,4 @@
-import {ApolloLink, Operation, NextLink} from 'apollo-link';
+import {ApolloLink, Operation, NextLink} from '@apollo/client';
 
 export function createSsrExtractableLink() {
   return new SsrExtractableLink();
