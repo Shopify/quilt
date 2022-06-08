@@ -1,10 +1,11 @@
 import React from 'react';
-import {render, unmountComponentAtNode} from 'react-dom';
+import {flushSync} from 'react-dom';
+import type {Root as ReactRoot} from 'react-dom/client';
 import {act} from 'react-dom/test-utils';
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
-import {getInternals} from './compat';
+import {createRoot, getInternals} from './compat';
 import {
   Tag,
   Fiber,
@@ -66,6 +67,7 @@ export class Root<Props> implements Node<Props> {
 
   private wrapper: TestWrapper<Props> | null = null;
   private element = document.createElement('div');
+  private reactRoot: ReactRoot | null = null;
   private root: Element<Props> | null = null;
   private acting = false;
 
@@ -90,23 +92,32 @@ export class Root<Props> implements Node<Props> {
     let result!: T;
 
     if (this.acting) {
-      return action();
+      result = action();
+      updateWrapper();
+      return result;
     }
 
     this.acting = true;
 
-    const afterResolve = () => {
-      updateWrapper();
-      this.acting = false;
+    /* act has two versions, act(() => void) or await act(async () => void)
+     * The async version will wrap the inner async function so that it maintains an act
+     * scope while it completes it's work asynchronously, and flushes updates to the
+     * wrapper at the end.
+     *
+     * The non-async version will invoke the inner function synchronously and will flush
+     * updates synchronously at the end.
+     *
+     * Typically the developer invokes act directly and knows which of these to use, but
+     * since this is a generic act within Root it may get called with _either_ a synchronous
+     * or asynchronous action. As a result, we can't naively await it, and instead have to
+     * check the return value of result to determine if it needs awaiting so that it can
+     * properly flush updates.
+     */
+    const possiblyAwaitableAct = act(() => {
+      flushSync(() => {
+        result = action();
+      });
 
-      return result;
-    };
-
-    const promise = act(() => {
-      result = action();
-
-      // This condition checks the returned value is an actual Promise and returns it
-      // to React’s `act()` call, otherwise we just want to return `undefined`
       if (isPromise(result)) {
         return (result as unknown) as Promise<void>;
       }
@@ -114,13 +125,29 @@ export class Root<Props> implements Node<Props> {
       return (undefined as unknown) as Promise<void>;
     });
 
+    updateWrapper();
+
     if (isPromise(result)) {
-      updateWrapper();
-
-      return Promise.resolve(promise).then(afterResolve) as any;
+      /* If the result has returned a promise, then we must first await the thenable object that
+       * act returned (in order to clear the act scope and flush promises). Second, we must await
+       * the result itself which is the purpose of this function - to perform act and return the
+       * underlying result. Third, we must update the wrapper itself so that it remains consistent.
+       */
+      const getResultAsync = async () => {
+        await possiblyAwaitableAct;
+        const resolvedResultValue = await result;
+        updateWrapper();
+        this.acting = false;
+        return resolvedResultValue;
+      };
+      return getResultAsync() as any;
+    } else {
+      /* If the result didn't return a promise, then the synchronous behaviour has already completed
+       * and the synchronous version of act has too. Therefore it is safe to return the result directly.
+       */
+      this.acting = false;
+      return result;
     }
-
-    return afterResolve();
   }
 
   html() {
@@ -196,8 +223,10 @@ export class Root<Props> implements Node<Props> {
       connected.add(this);
     }
 
+    this.reactRoot = createRoot(this.element);
+
     this.act(() => {
-      render(
+      this.reactRoot!.render(
         <TestWrapper<Props>
           render={this.render}
           ref={(wrapper) => {
@@ -206,7 +235,6 @@ export class Root<Props> implements Node<Props> {
         >
           {this.tree}
         </TestWrapper>,
-        this.element,
       );
     });
   }
@@ -219,7 +247,7 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => unmountComponentAtNode(this.element));
+    this.act(() => this.reactRoot!.unmount());
   }
 
   destroy() {
@@ -324,9 +352,11 @@ function childrenToTree(fiber: Fiber | null, root: Root<unknown>) {
   return children;
 }
 
-function isPromise<T>(promise: T | Promise<T>): promise is Promise<T> {
+function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
   return (
-    promise != null && typeof promise === 'object' && 'then' in (promise as any)
+    value != null &&
+    typeof value === 'object' &&
+    typeof (value as any).then === 'function'
   );
 }
 

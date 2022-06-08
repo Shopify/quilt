@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-<!-- ## Unreleased -->
+## Unreleased
+
+### Added
+
+- Support for React 18 and backwards compatibility for React 17 [[#2248](https://github.com/Shopify/quilt/pull/2248)]
+- Matrix testing of React 17 & 18 versions in CI [[#2248](https://github.com/Shopify/quilt/pull/2248)]
 
 ## 4.0.0 - 2022-05-19
 
