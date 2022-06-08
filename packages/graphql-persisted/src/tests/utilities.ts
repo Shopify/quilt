@@ -5,7 +5,7 @@ import {
   Observable,
   FetchResult,
   NextLink,
-} from 'apollo-link';
+} from '@apollo/client';
 import {DocumentNode} from 'graphql-typed';
 
 interface ExecuteOnceOutcome {

@@ -1,8 +1,11 @@
 import React from 'react';
-import gql from 'graphql-tag';
-import {ApolloClient, NetworkStatus} from '@apollo/client';
-import {ApolloLink} from 'apollo-link';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import {
+  ApolloClient,
+  NetworkStatus,
+  ApolloLink,
+  InMemoryCache,
+  gql,
+} from '@apollo/client';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';

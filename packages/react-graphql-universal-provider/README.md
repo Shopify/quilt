@@ -89,7 +89,7 @@ export function App({url}: {url: URL}) {
 // GraphQL.tsx
 import React from 'react';
 import fetch from 'cross-fetch';
-import {createHttpLink} from 'apollo-link-http';
+import {createHttpLink} from '@apollo/client';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
 export function GraphQL({
@@ -140,7 +140,7 @@ export function App({url}: {url: URL}) {
 // GraphQL.tsx
 import React from 'react';
 import fetch from 'cross-fetch';
-import {createHttpLink} from 'apollo-link-http';
+import {createHttpLink} from '@apollo/client';
 import {useRequestHeader} from '@shopify/react-network';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
@@ -174,7 +174,7 @@ function GraphQL({url, children}: {url: URL; children?: React.ReactNode}) {
 // GraphQL.tsx
 import React from 'react';
 import fetch from 'cross-fetch';
-import {createHttpLink} from 'apollo-link-http';
+import {createHttpLink} from '@apollo/client';
 import {GraphQLUniversalProvider} from '@shopify/react-graphql-universal-provider';
 
 export function GraphQL({
