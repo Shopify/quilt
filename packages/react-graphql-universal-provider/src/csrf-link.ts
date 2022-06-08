@@ -1,4 +1,4 @@
-import {setContext} from 'apollo-link-context';
+import {setContext} from '@apollo/client/link/context';
 
 export const SAME_SITE_HEADER = 'x-shopify-react-xhr';
 export const SAME_SITE_VALUE = '1';
