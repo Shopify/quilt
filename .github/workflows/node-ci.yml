@@ -19,6 +19,7 @@ jobs:
         # directly from node dist.
         # https://github.com/actions/setup-node
         node-version: ['14', '16']
+        react-version: ['17', '18']
     timeout-minutes: 15
 
     steps:
@@ -56,6 +57,10 @@ jobs:
 
       - name: Unit tests
         run: yarn test "^(?:(?!(address|react-server)).)*$"
+        env:
+          REACT_VERSION: ${{ matrix.react-version}}
 
       - name: E2E tests
         run: yarn test --debug "(address|react-server)"
+        env:
+          REACT_VERSION: ${{ matrix.react-version}}
