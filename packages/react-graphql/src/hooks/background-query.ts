@@ -1,12 +1,12 @@
 import {useEffect, useRef, useCallback} from 'react';
 import {DocumentNode} from 'graphql-typed';
-import {WatchQueryOptions} from 'apollo-client';
+import {WatchQueryOptions} from '@apollo/client';
 
 import useApolloClient from './apollo-client';
 
 type Subscription = ReturnType<
   ReturnType<
-    import('apollo-client').default<unknown>['watchQuery']
+    import('@apollo/client').ApolloClient<unknown>['watchQuery']
   >['subscribe']
 >;
 

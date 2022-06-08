@@ -6,14 +6,14 @@ import {
   GraphQLVariables,
   GraphQLDeepPartial,
 } from 'graphql-typed';
-import {QueryResult} from '@apollo/react-common';
 import {
+  QueryResult,
   ErrorPolicy,
   OperationVariables,
   ApolloError,
   ApolloClient,
   WatchQueryFetchPolicy,
-} from 'apollo-client';
+} from '@apollo/client';
 import {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {AsyncComponentType, AsyncHookTarget} from '@shopify/react-async';
 

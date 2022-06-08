@@ -28,10 +28,7 @@
     "@shopify/react-hooks": "^3.0.2",
     "@shopify/react-html": "^12.0.6",
     "@shopify/react-network": "^5.0.8",
-    "apollo-cache-inmemory": ">=1.0.0 <2.0.0",
-    "apollo-client": ">=2.0.0 <3.0.0",
-    "apollo-link": ">=1.0.0 <2.0.0",
-    "apollo-link-context": ">=1.0.0 <2.0.0"
+    "@apollo/client": "^3.5.8"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <19.0.0"

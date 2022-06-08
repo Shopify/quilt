@@ -1,4 +1,4 @@
-import {OperationVariables} from 'apollo-client';
+import {OperationVariables} from '@apollo/client';
 import {DocumentNode} from 'graphql-typed';
 import {useCallback} from 'react';
 import {NoInfer} from '@shopify/useful-types';
