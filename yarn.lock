@@ -5306,7 +5306,7 @@ apollo-language-server@^1.26.8:
     vscode-languageserver-textdocument "^1.0.4"
     vscode-uri "1.0.6"
 
-"apollo-link-context@>=1.0.0 <2.0.0", apollo-link-context@^1.0.9:
+apollo-link-context@^1.0.9:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/apollo-link-context/-/apollo-link-context-1.0.20.tgz#1939ac5dc65d6dff0c855ee53521150053c24676"
   integrity sha512-MLLPYvhzNb8AglNsk2NcL9AvhO/Vc9hn2ZZuegbhRHGet3oGr0YH9s30NS9+ieoM0sGT11p7oZ6oAILM/kiRBA==
@@ -14254,6 +14254,7 @@ react-docgen@^5.0.0:
     strip-indent "^3.0.0"
 
 "react-dom17@npm:react-dom@^17.0.2", react-dom@17.0.2:
+  name react-dom17
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
   integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
@@ -14409,6 +14410,7 @@ react-textarea-autosize@^8.3.0:
     use-latest "^1.0.0"
 
 "react17@npm:react@^17.0.2", react@^17.0.2:
+  name react17
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
