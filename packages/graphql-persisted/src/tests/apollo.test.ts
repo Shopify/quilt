@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker/locale/en';
 import gql from 'graphql-tag';
-import {ApolloLink} from 'apollo-link';
+import {ApolloLink} from '@apollo/client';
 
 import {createPersistedLink} from '../apollo';
 import {CacheMissBehavior} from '../shared';
