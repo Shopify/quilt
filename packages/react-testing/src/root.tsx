@@ -116,7 +116,12 @@ export class Root<Props> implements Node<Props> {
       flushSync(() => {
         result = action();
       });
-      return result as any;
+
+      if (isPromise(result)) {
+        return (result as unknown) as Promise<void>;
+      }
+
+      return (undefined as unknown) as Promise<void>;
     });
 
     updateWrapper();
