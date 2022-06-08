@@ -1,11 +1,11 @@
 import React from 'react';
-import {createRoot, Root as ReactRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
+import type {Root as ReactRoot} from 'react-dom/client';
 import {act} from 'react-dom/test-utils';
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
-import {getInternals} from './compat';
+import {createRoot, getInternals} from './compat';
 import {
   Tag,
   Fiber,
