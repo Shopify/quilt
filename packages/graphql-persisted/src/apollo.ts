@@ -4,7 +4,7 @@ import {
   NextLink,
   Observable,
   FetchResult,
-} from 'apollo-link';
+} from '@apollo/client';
 
 import {CacheMissBehavior} from './shared';
 
