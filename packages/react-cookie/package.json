@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-cookie",
-  "version": "2.0.0",
+  "version": "2.0.1-react-18-react-testing-beta.10.0",
   "license": "MIT",
   "description": "Cookies in React for the server and client",
   "main": "index.js",
@@ -24,8 +24,8 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/react-hooks": "^3.0.0",
-    "@shopify/react-network": "^5.0.0",
+    "@shopify/react-hooks": "^3.0.1-react-18-react-testing-beta.10.0",
+    "@shopify/react-network": "^5.0.1-react-18-react-testing-beta.10.0",
     "cookie": "^0.4.0"
   },
   "peerDependencies": {

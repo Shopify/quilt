@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-hooks",
-  "version": "3.0.0",
+  "version": "3.0.1-react-18-react-testing-beta.10.0",
   "license": "MIT",
   "description": "A collection of primitive React hooks",
   "main": "index.js",
@@ -44,6 +44,6 @@
     }
   },
   "devDependencies": {
-    "@shopify/react-testing": "^4.0.0"
+    "@shopify/react-testing": "^4.0.1-react-18-react-testing-beta.10.0"
   }
 }

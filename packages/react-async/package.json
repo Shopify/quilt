@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-async",
-  "version": "5.0.0",
+  "version": "5.0.1-react-18-react-testing-beta.10.0",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components",
   "main": "index.js",
@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "@shopify/async": "^4.0.0",
-    "@shopify/react-effect": "^5.0.0",
-    "@shopify/react-hooks": "^3.0.0",
-    "@shopify/react-hydrate": "^3.0.0",
-    "@shopify/react-idle": "^3.0.0",
-    "@shopify/react-intersection-observer": "^4.0.0",
+    "@shopify/react-effect": "^5.0.1-react-18-react-testing-beta.10.0",
+    "@shopify/react-hooks": "^3.0.1-react-18-react-testing-beta.10.0",
+    "@shopify/react-hydrate": "^3.0.1-react-18-react-testing-beta.10.0",
+    "@shopify/react-idle": "^3.0.1-react-18-react-testing-beta.10.0",
+    "@shopify/react-intersection-observer": "^4.0.1-react-18-react-testing-beta.10.0",
     "@shopify/useful-types": "^5.0.0"
   },
   "peerDependencies": {
