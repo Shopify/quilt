@@ -12,6 +12,10 @@ import {buildLibrary, babel} from '@shopify/loom-plugin-build-library';
 // Needed so TS realises what configuration hooks are provided by Jest
 import type {} from '@shopify/loom-plugin-jest';
 
+/** Optional value that can be provided to override the version of React used in tests */
+// eslint-disable-next-line no-process-env
+const REACT_VERSION = process.env.REACT_VERSION ?? '';
+
 export function quiltPackage({
   isIsomorphic = true,
   jestEnv = 'jsdom',
@@ -58,6 +62,12 @@ export function quiltPackage({
           ...patterns,
           '<rootDir>/.*/tests?/.*fixtures',
         ]);
+
+        hooks.jestModuleNameMapper?.hook((moduleNames) => ({
+          ...moduleNames,
+          '^react-dom((/.*)?)$': `react-dom${REACT_VERSION}$1`,
+          '^react((/.*)?)$': `react${REACT_VERSION}$1`,
+        }));
       });
     }),
     runTsd(),
