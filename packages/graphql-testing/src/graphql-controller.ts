@@ -1,19 +1,19 @@
-import {ApolloLink} from 'apollo-link';
 import {
-  InMemoryCache,
-  IntrospectionFragmentMatcher,
+  ApolloClient,
+  ApolloLink,
   InMemoryCacheConfig,
-} from 'apollo-cache-inmemory';
-import {ApolloClient} from 'apollo-client';
+  InMemoryCache,
+  PossibleTypesMap,
+} from '@apollo/client';
 
-import {TestingApolloClient} from './client';
+// import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
 import {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
-  unionOrIntersectionTypes?: any[];
+  possibleTypes?: PossibleTypesMap;
   cacheOptions?: InMemoryCacheConfig;
   links?: ApolloLink[];
   assumeImmutableResults?: boolean;
@@ -37,21 +37,10 @@ export class GraphQL {
 
   constructor(
     mock: GraphQLMock = {},
-    {
-      unionOrIntersectionTypes = [],
-      cacheOptions = {},
-      links = [],
-      assumeImmutableResults = false,
-    }: Options = {},
+    {possibleTypes = {}, cacheOptions = {}, links = []}: Options = {},
   ) {
     const cache = new InMemoryCache({
-      fragmentMatcher: new IntrospectionFragmentMatcher({
-        introspectionQueryResultData: {
-          __schema: {
-            types: unionOrIntersectionTypes,
-          },
-        },
-      }),
+      possibleTypes,
       ...cacheOptions,
     });
 
@@ -65,8 +54,7 @@ export class GraphQL {
       this.mockLink,
     ]);
 
-    this.client = new TestingApolloClient({
-      assumeImmutableResults,
+    this.client = new ApolloClient({
       link,
       cache,
     });
