@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 import {DocumentNode} from 'graphql-typed';
 import {mount} from '@shopify/react-testing';
 import {ApolloProvider, useQuery} from '@shopify/react-graphql';
