@@ -1,5 +1,5 @@
 import {DocumentNode} from 'graphql';
-import {GraphQLRequest, Operation} from 'apollo-link';
+import {GraphQLRequest, Operation} from '@apollo/client';
 
 export interface FindOptions {
   query?: DocumentNode | {resolver: {resolved?: DocumentNode}};

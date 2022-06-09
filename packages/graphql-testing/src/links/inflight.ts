@@ -4,7 +4,7 @@ import {
   Operation,
   NextLink,
   FetchResult,
-} from 'apollo-link';
+} from '@apollo/client';
 
 import {MockRequest} from '../types';
 
