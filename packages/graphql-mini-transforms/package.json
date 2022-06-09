@@ -1,6 +1,6 @@
 {
   "name": "graphql-mini-transforms",
-  "version": "5.0.1",
+  "version": "6.0.0-a3-beta.1",
   "license": "MIT",
   "description": "Transformers for importing .graphql files in various build tools.",
   "main": "index.js",
@@ -40,7 +40,7 @@
     "@jest/transform": ">= 27 <29",
     "fs-extra": "^9.1.0",
     "graphql": ">=14.5.0 <16.0.0",
-    "graphql-typed": "^2.0.0"
+    "graphql-typed": "^3.0.0-a3-beta.1"
   },
   "devDependencies": {
     "@types/common-tags": "^1.8.0",
