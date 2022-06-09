@@ -4,7 +4,7 @@ import {
   EXPECTED_COLOR as expectedColor,
 } from 'jest-matcher-utils';
 import {GraphQLOperation, DocumentNode} from 'graphql-typed';
-import {Operation} from 'apollo-link';
+import {Operation} from '@apollo/client';
 
 import {GraphQL} from '../graphql-controller';
 import {
