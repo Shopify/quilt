@@ -1028,6 +1028,17 @@ describe('I18n', () => {
       expect(mismatchI18n.unformatCurrency(formatted, 'CAD')).toBe('12.34');
     });
 
+    it('handles locale/currency mismatch for locale US and currency USD', () => {
+      const formatted = '5,99';
+      const mismatchI18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        locale: 'us',
+        currency: 'usd',
+      });
+
+      expect(mismatchI18n.unformatCurrency(formatted, 'USD')).toBe('5.99');
+    });
+
     it('handles formatted USD input', () => {
       const i18n = new I18n(defaultTranslations, defaultDetails);
       expect(i18n.unformatCurrency('1,234.50', 'USD')).toBe('1234.50');
