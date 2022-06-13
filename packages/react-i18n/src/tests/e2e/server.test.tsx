@@ -12,9 +12,9 @@ import {I18nManager} from '../../manager';
 import {useI18n} from '../../hooks';
 import {I18nContext} from '../../context';
 
-const fallbackTranslations = {MyComponent: {hello: 'Hello'}};
-const frTranslations = {MyComponent: {hello: 'Bonjour'}};
-const frCATranslations = {MyComponent: {hello: 'Allo Bonjour'}};
+const fallbackTranslations = {MyComponent: {hello: 'Hello', MyOtherComponent: {bye: 'Bye'}}};
+const frTranslations = {MyComponent: {hello: 'Bonjour', MyOtherComponent: {bye: 'Au Revoir'}}};
+const frCATranslations = {MyComponent: {hello: 'Allo Bonjour', MyOtherComponent: {bye: 'Au Revoir, eh'}}};
 
 function WithI18nComponent({children}: {children?: React.ReactNode}) {
   const [i18n, ShareTranslations] = useI18n({
@@ -35,6 +35,56 @@ function WithI18nComponent({children}: {children?: React.ReactNode}) {
   return (
     <>
       {i18n.translate('MyComponent.hello')}
+      <ShareTranslations>{children}</ShareTranslations>
+    </>
+  );
+}
+
+function WithI18nScopedComponent({children}: {children?: React.ReactNode}) {
+  const [i18n, ShareTranslations] = useI18n({
+    id: 'MyComponent',
+    fallback: fallbackTranslations,
+    scope: 'MyComponent',
+    translations(locale) {
+      switch (locale) {
+        case 'fr-CA':
+          return frCATranslations;
+        case 'fr':
+          return frTranslations;
+        default:
+          return undefined;
+      }
+    },
+  });
+
+  return (
+    <>
+      {i18n.translate('hello')}
+      <ShareTranslations>{children}</ShareTranslations>
+    </>
+  );
+}
+
+function WithI18nNestedScopedComponent({children}: {children?: React.ReactNode}) {
+  const [i18n, ShareTranslations] = useI18n({
+    id: 'MyComponent',
+    fallback: fallbackTranslations,
+    scope: ['MyComponent', 'MyOtherComponent'],
+    translations(locale) {
+      switch (locale) {
+        case 'fr-CA':
+          return frCATranslations;
+        case 'fr':
+          return frTranslations;
+        default:
+          return undefined;
+      }
+    },
+  });
+
+  return (
+    <>
+      {i18n.translate('bye')}
       <ShareTranslations>{children}</ShareTranslations>
     </>
   );
@@ -84,6 +134,26 @@ describe('server', () => {
       </I18nContext.Provider>,
     );
     expect(markup).toBe(`${frCATranslations.MyComponent.hello}`);
+  });
+
+  it('allows for synchronously rendering with simple scope', () => {
+    const manager = new I18nManager({locale: 'fr-CA'});
+    const markup = renderToStaticMarkup(
+      <I18nContext.Provider value={manager}>
+        <WithI18nScopedComponent />
+      </I18nContext.Provider>,
+    );
+    expect(markup).toBe(`${frCATranslations.MyComponent.hello}`);
+  });
+
+  it('allows for synchronously rendering with nested scopes', () => {
+    const manager = new I18nManager({locale: 'fr-CA'});
+    const markup = renderToStaticMarkup(
+      <I18nContext.Provider value={manager}>
+        <WithI18nNestedScopedComponent />
+      </I18nContext.Provider>,
+    );
+    expect(markup).toBe(`${frCATranslations.MyComponent.MyOtherComponent.bye}`);
   });
 
   it('extracts async translations', async () => {
