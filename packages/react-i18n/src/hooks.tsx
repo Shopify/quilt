@@ -6,8 +6,21 @@ import {I18nManager, RegisterOptions} from './manager';
 import {I18nContext, I18nIdsContext, I18nParentContext} from './context';
 
 type Result = [I18n, React.ComponentType<{children: React.ReactNode}>];
+type Scope = string | string[];
 
-export function useI18n(options?: Partial<RegisterOptions>): Result {
+interface HookOptions extends Partial<RegisterOptions> {
+  scope?: Scope;
+}
+
+function isScope(options?: Scope | HookOptions): options is Scope {
+  return typeof options === 'string' || Array.isArray(options);
+}
+
+function normalizeOptions(options?: Scope | HookOptions): HookOptions | undefined {
+  return isScope(options) ? {scope: options} : options;
+}
+
+export function useI18n(options?: Scope | HookOptions): Result {
   const manager = React.useContext(I18nContext);
 
   if (manager == null) {
@@ -16,9 +29,11 @@ export function useI18n(options?: Partial<RegisterOptions>): Result {
     );
   }
 
-  const registerOptions = React.useRef(options);
+  const normalizedOptions = normalizeOptions(options);
 
-  if (shouldRegister(registerOptions.current) !== shouldRegister(options)) {
+  const registerOptions = React.useRef(normalizedOptions);
+
+  if (shouldRegister(registerOptions.current) !== shouldRegister(normalizedOptions)) {
     throw new Error(
       'You switched between providing registration options and not providing them, which is not supported.',
     );
@@ -28,16 +43,16 @@ export function useI18n(options?: Partial<RegisterOptions>): Result {
   // sure that they never switch from the case where `options == null` to `options != null`,
   // so we know that a given use of this hook will only ever hit one of these two cases.
   /* eslint-disable react-hooks/rules-of-hooks */
-  if (options == null) {
+  if (normalizedOptions == null) {
     return useSimpleI18n(manager);
   } else {
-    return useComplexI18n(options, manager);
+    return useComplexI18n(normalizedOptions, manager);
   }
   /* eslint-enable react-hooks/rules-of-hooks */
 }
 
 function useComplexI18n(
-  {id, fallback, translations}: Partial<RegisterOptions>,
+  {id, fallback, translations, scope}: HookOptions,
   manager: I18nManager,
 ): Result {
   const managerRef = React.useRef<I18nManager | null>(null);
@@ -67,7 +82,7 @@ function useComplexI18n(
     unsubscribeRef.current = manager.subscribe(
       ids.current,
       ({translations, loading}, details) => {
-        const newI18n = new I18n(translations, {...details, loading});
+        const newI18n = new I18n(translations, {...details, loading}, scope);
         i18nRef.current = newI18n;
         setI18n(newI18n);
       },
@@ -81,7 +96,7 @@ function useComplexI18n(
   const [i18n, setI18n] = React.useState(() => {
     const managerState = manager.state(ids.current);
     const {translations, loading} = managerState;
-    return new I18n(translations, {...manager.details, loading});
+    return new I18n(translations, {...manager.details, loading}, scope);
   });
 
   const i18nRef = React.useRef(i18n);

@@ -77,6 +77,7 @@ export class I18n {
   readonly defaultInterpolate?: RegExp;
   readonly onError: NonNullable<I18nDetails['onError']>;
   readonly loading: boolean;
+  readonly scope?: RootTranslateOptions<any>['scope'];
 
   get language() {
     return languageFromLocale(this.locale);
@@ -119,6 +120,7 @@ export class I18n {
       loading,
       interpolate,
     }: I18nDetails & {loading?: boolean},
+    scope?: RootTranslateOptions<any>['scope']
   ) {
     this.locale = locale;
     this.defaultCountry = country;
@@ -128,6 +130,7 @@ export class I18n {
     this.defaultInterpolate = interpolate;
     this.onError = onError || this.defaultOnError;
     this.loading = loading || false;
+    this.scope = scope;
   }
 
   translate(
@@ -166,6 +169,7 @@ export class I18n {
     const defaultOptions: RootTranslateOptions = {
       pseudotranslate: pseudolocalize,
       interpolate: defaultInterpolate,
+      scope: this.scope,
     };
 
     if (optionsOrReplacements == null) {
