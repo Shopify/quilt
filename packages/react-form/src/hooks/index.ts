@@ -1,4 +1,4 @@
-export {asChoiceField, useChoiceField, useField} from './field';
+export {asChoiceField, asChoiceList, useChoiceField, useField} from './field';
 export type {ChoiceField, FieldConfig} from './field';
 export {useList, useDynamicList} from './list';
 export {useForm} from './form';
