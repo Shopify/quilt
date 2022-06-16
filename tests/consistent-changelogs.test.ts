@@ -6,21 +6,10 @@ import glob from 'glob';
 const ROOT_PATH = resolve(__dirname, '..');
 
 const HEADER_START_REGEX = /^## /;
-const CHANGELOG_INTRO = `# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).`;
+const CHANGELOG_INTRO = `# Changelog\n`;
 
 readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
   describe(`changelog consistency for ${packageChangelogPath}`, () => {
-    it('begins with the "Keep a Changelog" intro section', () => {
-      const actualIntro = packageChangelog.substring(0, CHANGELOG_INTRO.length);
-
-      expect(actualIntro).toBe(CHANGELOG_INTRO);
-    });
-
     it('contains only known headers', () => {
       const headerLines = packageChangelog
         .split('\n')
@@ -48,18 +37,8 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
       );
     });
 
-    it('contains an Unreleased header with content, or a commented out Unreleased header with no content', () => {
-      // One of the following must be present
-      // - An Unreleased header, that is immediatly preceded by a level 3 heading ("Changed" etc)
-      // - A commented out Unreleased header, that is immediatly preceded by a level 2 heading (A version info)
-
-      const unrelasedHeaderWithContent = /^## Unreleased\n\n### /gm;
-      const commentedUnreleasedHeaderWithNoContent = /^<!-- ## Unreleased -->\n\n## /gm;
-
-      expect([
-        unrelasedHeaderWithContent.test(packageChangelog),
-        commentedUnreleasedHeaderWithNoContent.test(packageChangelog),
-      ]).toContain(true);
+    it('does not contain an Unreleased header', () => {
+      expect(packageChangelog).not.toContain('## Unreleased');
     });
 
     it('does not contain duplicate headers', () => {
@@ -80,10 +59,14 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
 
 const allowedHeaders = [
   '# Changelog',
-  '## Unreleased',
   /^## \d+\.\d+\.\d+ - \d\d\d\d-\d\d-\d\d$/,
   // We should backfill dates using commit timestamps
   /^## \d+\.\d+\.\d+$/,
+  // Provided by changesets
+  '### Major Changes',
+  '### Minor Changes',
+  '### Patch Changes',
+  // Headings from before we adopted changesets
   '### Fixed',
   '### Added',
   '### Changed',
