@@ -30,7 +30,7 @@
     "graphql-tool-utilities": "^3.0.0"
   },
   "peerDependencies": {
-    "graphql-typed": ">=0.6.1 <2.0.0"
+    "graphql-typed": "^0.6.1 || ^0.7.0 || ^1.0.0 || ^2.0.0"
   },
   "files": [
     "build/",

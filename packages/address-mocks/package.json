@@ -22,9 +22,6 @@
   "engines": {
     "node": "^14.17.0 || >=16.0.0"
   },
-  "devDependencies": {
-    "@shopify/jest-dom-mocks": "^2.11.5"
-  },
   "sideEffects": false,
   "dependencies": {
     "@shopify/address-consts": "^4.1.0",

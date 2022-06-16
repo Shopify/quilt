@@ -47,7 +47,7 @@
   },
   "peerDependencies": {
     "@graphql-typed-document-node/core": "^3.1.1",
-    "graphql-typed": ">=0.4.0 <2.0.0"
+    "graphql-typed": "^0.6.1 || ^0.7.0 || ^1.0.0 || ^2.0.0"
   },
   "peerDependenciesMeta": {
     "@graphql-typed-document-node/core": {
