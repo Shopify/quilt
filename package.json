@@ -11,6 +11,7 @@
     "check": "lerna run check",
     "version-bump": "lerna version --no-push --include-merged-tags",
     "version": "node scripts/update-changelogs-on-version.js",
+    "release": "loom build && changeset publish",
     "clean": "rimraf ./packages/*/build ./packages/*/*.{d.ts,js,esnext,mjs} .loom",
     "generate": "plop",
     "generate:package": "plop package && yarn plop docs",
@@ -37,6 +38,7 @@
     "@apollo/react-common": "^3.1.3",
     "@apollo/react-hooks": "^3.1.3",
     "@babel/core": "^7.14.6",
+    "@changesets/cli": "^2.22.0",
     "@faker-js/faker": "^6.3.1",
     "@shopify/app-bridge": "^2.0.3",
     "@shopify/babel-preset": "^24.1.4",
@@ -82,8 +84,5 @@
   },
   "resolutions": {
     "cross-fetch": "3.1.5"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.22.0"
   }
 }
