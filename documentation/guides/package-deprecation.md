@@ -12,7 +12,7 @@ Showing prominently
 ## 2. Delete most files in `packages/{deprecate-package-name}`
 
 Leaving only `README.md` and `CHANGELOG.md`
-(It is important to delete `package.json` so lerna will no longer pick it up for future release.)
+(It is important to delete `package.json` so changesets will no longer pick it up for future release.)
 
 ## 3. Delete TS package project reference
 

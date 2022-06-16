@@ -25,9 +25,6 @@ node_modules
 npm-debug.log
 **/npm-debug.log
 
-# Debug log from lerna
-lerna-debug.log
-
 # Debug logs from yarn
 **/yarn-error.log
 
