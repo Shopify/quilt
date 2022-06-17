@@ -3,7 +3,7 @@ name: Node-CI
 on:
   pull_request: ~
   push:
-    branches: [main]
+    branches: [main, changeset-release/*]
 
 jobs:
   node-tests:
