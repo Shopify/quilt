@@ -495,14 +495,14 @@ function randomEnumValue(enumType: GraphQLEnumType) {
 }
 
 function seedFromKeypath(keypath: string[]) {
-  return keypath.reduce<number>((sum, key) => sum + seedFromKey(key), 0);
+  return keypath.reduce<number>((sum, key) => hashCode(key, sum), 0);
 }
 
-function seedFromKey(key: string) {
-  return [...key].reduce<number>(
-    (sum, character) => sum + character.charCodeAt(0),
-    0,
-  );
+function hashCode(data: string, initialHash = 0) {
+  let newHash = initialHash;
+  for (let i = 0; i < data.length; i++)
+    newHash = (Math.imul(31, newHash) + data.charCodeAt(i)) | 0;
+  return newHash;
 }
 
 export function list<T = {}, Data = {}, Variables = {}, DeepPartial = {}>(

@@ -1354,22 +1354,17 @@ describe('createFiller()', () => {
       `);
 
       const result = fill(document, {
-        people: [{pets: [{}, {}]}, {pets: [{}, {}]}],
+        people: Array.from(Array(100)).map(() => ({
+          pets: Array.from(Array(100)).map(() => ({})),
+        })),
       }) as any;
 
       const allIds = result.people
         .flatMap((person) => person.pets)
         .map((pet) => pet.id);
 
-      const collisions = allIds.reduce((collisions, id) => {
-        const matchingIds = allIds.filter((otherId) => otherId === id);
-        if (matchingIds.length > 1) {
-          collisions.push(id);
-        }
-        return collisions;
-      }, []);
-
-      expect(collisions).toHaveLength(0);
+      const allIdSet = new Set(allIds);
+      expect(allIdSet.size).toBe(allIds.length);
     });
   });
 });
