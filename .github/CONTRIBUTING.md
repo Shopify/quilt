@@ -111,7 +111,6 @@ Install the project's dependencies (make sure you first have [yarn](https://yarn
 
 ```
 yarn
-yarn lerna bootstrap
 ```
 
 ### What is dev?
