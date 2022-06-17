@@ -1324,6 +1324,53 @@ describe('createFiller()', () => {
         people: [{name: expect.any(String)}, {name: 'Chris'}],
       });
     });
+
+    it('has no duplicate ids in nested fields', () => {
+      const fill = createFillerForSchema(`
+        type Pet {
+          id: ID!
+        }
+
+        type Person {
+          pets: [Pet]!
+        }
+
+        type Query {
+          people: [Person!]!
+        }
+      `);
+
+      const document = createDocument<
+        {people: {name: string}[]},
+        {people?: {name?: string | null}[] | null}
+      >(`
+        query Details {
+          people {
+            pets {
+              id
+            }
+          }
+        }
+      `);
+
+      const result = fill(document, {
+        people: [{pets: [{}, {}]}, {pets: [{}, {}]}],
+      }) as any;
+
+      const allIds = result.people
+        .flatMap((person) => person.pets)
+        .map((pet) => pet.id);
+
+      const collisions = allIds.reduce((collisions, id) => {
+        const matchingIds = allIds.filter((otherId) => otherId === id);
+        if (matchingIds.length > 1) {
+          collisions.push(id);
+        }
+        return collisions;
+      }, []);
+
+      expect(collisions).toHaveLength(0);
+    });
   });
 });
 
