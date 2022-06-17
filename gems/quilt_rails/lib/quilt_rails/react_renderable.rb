@@ -46,11 +46,7 @@ module Quilt
         reverse_proxy(
           url,
           headers: headers.merge("X-Request-ID": request.request_id, "X-Quilt-Data": data_json)
-        ) do |callbacks|
-          callbacks.on_response do |status_code, _response|
-            Quilt.logger.info("[ReactRenderable] #{url} returned #{status_code}")
-          end
-        end
+        )
       rescue Errno::ECONNREFUSED
         raise ReactServerNoResponseError, url
       end
