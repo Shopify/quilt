@@ -1,4 +1,4 @@
-import {ApolloReducerConfig, InMemoryCache} from '@apollo/client/cache';
+import {InMemoryCache, InMemoryCacheConfig} from '@apollo/client/cache';
 import {ApolloClient, ApolloLink, GraphQLRequest} from '@apollo/client';
 
 import {MockLink, InflightLink} from './links';
@@ -8,7 +8,7 @@ import {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
   possibleTypes?: any;
-  cacheOptions?: ApolloReducerConfig;
+  cacheOptions?: InMemoryCacheConfig;
 }
 
 interface Wrapper {
