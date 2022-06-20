@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## 3.5.6 - 2022-06-20
+
+### Fixed
+
 - Fixed an issue where headers set by a React application would not have it's headers propogated to the client.
 
 ### Chore
