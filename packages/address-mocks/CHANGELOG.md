@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`0b3737b7d`](https://github.com/Shopify/quilt/commit/0b3737b7dc7531055b5cba7239a8210bb5e95f22)]:
+  - @shopify/address-consts@4.1.1
+
 ## 3.1.1 - 2022-06-16
 
 ### Fixed

@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.1
+
+### Patch Changes
+
+- [`0b3737b7d`](https://github.com/Shopify/quilt/commit/0b3737b7dc7531055b5cba7239a8210bb5e95f22) Thanks [@BPScott](https://github.com/BPScott)! - No changes, this release is to test the new release process
+
 ## 4.1.0 - 2022-05-27
 
 ### Changed
