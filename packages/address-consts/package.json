@@ -2,7 +2,7 @@
   "name": "@shopify/address-consts",
   "version": "4.1.1",
   "license": "MIT",
-  "description": "Constants and types relating to `@shopify/address`",
+  "description": "Constants and types relating to `@shopify/address!`",
   "main": "index.js",
   "types": "./build/ts/index.d.ts",
   "sideEffects": false,
