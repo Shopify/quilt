@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+- Fixed an issue where headers set by a React application would not have it's headers propogated to the client.
+
 ### Chore
 
 - Update test suite to use Ruby 3.1 and Rails 7. No code logic changes were required so we currently sill support older versions of both on a best-effort basis. ([#2235](https://github.com/Shopify/quilt/pull/2235))
