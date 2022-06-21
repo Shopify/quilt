@@ -119,7 +119,9 @@ export default function useQuery<
       return;
     }
 
-    let subscription: ZenObservable.Subscription | undefined;
+    let subscription:
+      | ReturnType<typeof queryObservable['subscribe']>
+      | undefined;
 
     const invalidateCurrentResult = () => {
       setResponseId((x) => x + 1);

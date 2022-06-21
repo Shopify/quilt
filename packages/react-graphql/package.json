@@ -38,8 +38,7 @@
     "graphql-typed": "^2.0.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^4.1.0",
-    "@types/zen-observable": "^0.8.3"
+    "@shopify/react-testing": "^4.1.0"
   },
   "files": [
     "build/",
