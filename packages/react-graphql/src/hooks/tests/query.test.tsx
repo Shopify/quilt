@@ -374,7 +374,6 @@ describe('useQuery', () => {
           <p>{data.people[0].name}</p>
         ) : null;
 
-      console.log('data', data, error);
       const handleButtonClick = React.useCallback(
         () => refetch().catch((_) => {}),
         [refetch],
@@ -394,7 +393,7 @@ describe('useQuery', () => {
       );
     }
 
-    it.only('something something darkside', async () => {
+    it('recovers and renders from a network error', async () => {
       const graphQL = createGraphQL({People: lukeMock});
 
       const wrapper = await mountWithGraphQL(<MyComponent />, {
@@ -426,7 +425,7 @@ describe('useQuery', () => {
       expect(wrapper).toContainReactText('Luke');
     });
 
-    it.only('updates the component when response changes', async () => {
+    it('updates the component when response changes', async () => {
       const graphQL = createGraphQL({People: lukeMock});
 
       const wrapper = await mountWithGraphQL(<MyComponent />, {
