@@ -55,8 +55,10 @@ export enum StatusCode {
   HttpVersionNotSupported = 505,
 }
 
+// Keep this sorted
 export enum Header {
   Accept = 'Accept',
+  AcceptEncoding = 'Accept-Encoding',
   AcceptLanguage = 'Accept-Language',
   AccessControlAllowCredentials = 'Access-Control-Allow-Credentials',
   AccessControlAllowHeaders = 'Access-Control-Allow-Headers',
@@ -66,24 +68,59 @@ export enum Header {
   AccessControlMaxAge = 'Access-Control-Max-Age',
   AccessControlRequestHeaders = 'Access-Control-Request-Headers',
   AccessControlRequestMethod = 'Access-Control-Request-Method',
+  Authorization = 'Authorization',
   CacheControl = 'Cache-Control',
+  CacheStatus = 'Cache-Status',
+  Connection = 'Connection',
   ContentDisposition = 'Content-Disposition',
+  ContentEncoding = 'Content-Encoding',
+  ContentLength = 'Content-Length',
   ContentSecurityPolicy = 'Content-Security-Policy',
   ContentSecurityPolicyReportOnly = 'Content-Security-Policy-Report-Only',
   ContentType = 'Content-Type',
+  /** @deprecated Use XContentTypeOptions instead. */
   ContentTypeOptions = 'X-Content-Type-Options',
+  Cookie = 'Cookie',
+  /** @deprecated Use XDownloadOptions instead. */
   DownloadOptions = 'X-Download-Options',
+  ETag = 'ETag',
   Forwarded = 'Forwarded',
+  /** @deprecated Use XForwardedFor instead. */
   ForwardedFor = 'X-Forwarded-For',
+  /** @deprecated Use XForwardedHost instead. */
   ForwardedHost = 'X-Forwarded-Host',
+  /** @deprecated Use XForwardedProto instead. */
   ForwardedProtocol = 'X-Forwarded-Proto',
+  /** @deprecated Use XFrameOptions instead. */
   FrameOptions = 'X-Frame-Options',
+  Host = 'Host',
+  IfNoneMatch = 'If-None-Match',
+  Location = 'Location',
+  Origin = 'Origin',
   ReferrerPolicy = 'Referrer-Policy',
+  ServerTiming = 'Server-Timing',
   StrictTransportSecurity = 'Strict-Transport-Security',
+  TimingAllowOrigin = 'Timing-Allow-Origin',
+  Trailer = 'Trailer',
+  TransferEncoding = 'Transfer-Encoding',
   UserAgent = 'User-Agent',
+  WwwAuthenticate = 'WWW-Authenticate',
+  /** @deprecated Use XXhrRedirectedTo instead. */
   XhrRedirectedTo = 'X-XHR-Redirected-To',
+  /** @deprecated Use XXhrReferer instead. */
   XhrReferer = 'X-XHR-Referer',
+  /** @deprecated Use XXssProtecton instead. */
   XssProtecton = 'X-XSS-Protection',
+  // X- headers
+  XContentTypeOptions = 'X-Content-Type-Options',
+  XDownloadOptions = 'X-Download-Options',
+  XForwardedFor = 'X-Forwarded-For',
+  XForwardedHost = 'X-Forwarded-Host',
+  XForwardedProto = 'X-Forwarded-Proto',
+  XFrameOptions = 'X-Frame-Options',
+  XXhrRedirectedTo = 'X-XHR-Redirected-To',
+  XXhrReferer = 'X-XHR-Referer',
+  XXssProtecton = 'X-XSS-Protection',
 }
 
 export enum CspDirective {
