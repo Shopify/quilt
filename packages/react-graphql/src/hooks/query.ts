@@ -119,17 +119,42 @@ export default function useQuery<
       return;
     }
 
+    let subscription: ZenObservable.Subscription | undefined;
+
     const invalidateCurrentResult = () => {
       setResponseId((x) => x + 1);
     };
-    const subscription = queryObservable.subscribe(
-      invalidateCurrentResult,
-      invalidateCurrentResult,
-    );
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    // from: https://github.com/apollographql/react-apollo/blob/v2.2.0/src/Query.tsx#L343
+    // after a error on refetch, without this fix, refetch never works again
+    function invalidateErrorResult() {
+      unsubscribe();
+
+      const lastError = queryObservable!.getLastError();
+      const lastResult = queryObservable!.getLastResult();
+      queryObservable!.resetLastResults();
+      subscribe();
+      Object.assign(queryObservable, {lastError, lastResult});
+
+      invalidateCurrentResult();
+    }
+
+    function subscribe() {
+      subscription = queryObservable!.subscribe(
+        invalidateCurrentResult,
+        invalidateErrorResult,
+      );
+    }
+
+    function unsubscribe() {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+      subscription = undefined;
+    }
+
+    subscribe();
+    return unsubscribe;
   }, [skip, queryObservable]);
 
   const previousData = useRef<QueryHookResult<Data, Variables>['data']>(

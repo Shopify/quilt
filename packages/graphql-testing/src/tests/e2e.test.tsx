@@ -24,6 +24,10 @@ function MyComponent({id = '1'} = {}) {
   const {data, loading, error, refetch} = useQuery(petQuery, {variables: {id}});
 
   const errorMarkup = error ? <p>Error</p> : null;
+  const networkErrorMarkup =
+    error && error.networkError ? <p>NetworkError</p> : null;
+  const graphqlErrorMarkup =
+    error && error.graphQLErrors.length ? <p>GraphQLError</p> : null;
   const loadingMarkup = loading ? <p>Loading</p> : null;
   const petsMarkup =
     data != null && data.pet != null ? <p>{data.pet.name}</p> : null;
@@ -34,6 +38,8 @@ function MyComponent({id = '1'} = {}) {
       {loadingMarkup}
       {petsMarkup}
       {errorMarkup}
+      {networkErrorMarkup}
+      {graphqlErrorMarkup}
       <button onClick={handleButtonClick} type="button">
         Refetch!
       </button>
@@ -76,6 +82,48 @@ describe('graphql-testing', () => {
 
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
     expect(myComponent).toContainReactText('Error');
+  });
+
+  it('resolves to an network error when an error is thrown', async () => {
+    const graphQL = createGraphQL({
+      Pet: () => {
+        throw new Error('Connection');
+      },
+    });
+
+    const myComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent />
+      </ApolloProvider>,
+    );
+
+    graphQL.wrap((resolve) => myComponent.act(resolve));
+    await graphQL.resolveAll();
+
+    expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
+    expect(myComponent).toContainReactText('Error');
+    expect(myComponent).toContainReactText('NetworkError');
+    expect(myComponent).not.toContainReactText('GraphQLError');
+  });
+
+  it('resolves to an graphql error when an error is thrown', async () => {
+    const graphQL = createGraphQL({
+      Pet: new Error('GraphQL'),
+    });
+
+    const myComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent />
+      </ApolloProvider>,
+    );
+
+    graphQL.wrap((resolve) => myComponent.act(resolve));
+    await graphQL.resolveAll();
+
+    expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
+    expect(myComponent).toContainReactText('Error');
+    expect(myComponent).toContainReactText('GraphQLError');
+    expect(myComponent).not.toContainReactText('NetworkError');
   });
 
   it('resolves a query with a provided mock', async () => {

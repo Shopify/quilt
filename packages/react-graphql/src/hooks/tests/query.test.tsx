@@ -1,5 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
+import {DocumentNode} from 'graphql-typed';
 import {ApolloClient, NetworkStatus} from 'apollo-client';
 import {ApolloLink} from 'apollo-link';
 import {InMemoryCache} from 'apollo-cache-inmemory';
@@ -15,6 +16,22 @@ const petQuery = gql`
     pets {
       name
     }
+  }
+`;
+
+const peopleQuery: DocumentNode<
+  {people?: {name: string; friends?: {name: string}[] | null} | null},
+  {id: string}
+> = gql`
+  query People($id: ID!) {
+    people(id: $id) {
+      ...PeopleInfo
+    }
+  }
+
+  fragment PeopleInfo on People {
+    name
+    friends
   }
 `;
 
@@ -317,6 +334,129 @@ describe('useQuery', () => {
       });
 
       expect(watchQuerySpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('refetch', () => {
+    const lukeMock = {
+      people: [
+        {
+          __typename: 'People',
+          name: 'Luke',
+          friends: [],
+        },
+      ],
+    };
+
+    const hanMock = {
+      people: [
+        {
+          __typename: 'People',
+          name: 'Han',
+          friends: [],
+        },
+      ],
+    };
+
+    function MyComponent({id = '1'} = {}) {
+      const {data, loading, error, refetch} = useQuery(peopleQuery, {
+        variables: {id},
+      });
+
+      const errorMarkup = error ? <p>Error</p> : null;
+      const networkErrorMarkup =
+        error && error.networkError ? <p>NetworkError</p> : null;
+      const graphqlErrorMarkup =
+        error && error.graphQLErrors.length ? <p>GraphQLError</p> : null;
+      const loadingMarkup = loading ? <p>Loading</p> : null;
+      const peopleMarkup =
+        data != null && data.people != null ? (
+          <p>{data.people[0].name}</p>
+        ) : null;
+
+      // apollo will surpress thrown ApolloErrors except
+      // when fetchPolicy is network-only which is what
+      // refetch uses, so for the test we catch and ignore
+      // the thrown error, the error is still returned
+      const handleButtonClick = React.useCallback(
+        () => refetch().catch((_) => {}),
+        [refetch],
+      );
+
+      return (
+        <>
+          {loadingMarkup}
+          {peopleMarkup}
+          {errorMarkup}
+          {networkErrorMarkup}
+          {graphqlErrorMarkup}
+          <button onClick={handleButtonClick} type="button">
+            Refetch!
+          </button>
+        </>
+      );
+    }
+
+    it('recovers and renders from a network error', async () => {
+      const graphQL = createGraphQL({People: lukeMock});
+
+      const wrapper = await mountWithGraphQL(<MyComponent />, {
+        graphQL,
+      });
+
+      expect(wrapper).toContainReactText('Luke');
+
+      graphQL.update({
+        People: () => {
+          throw new Error('Connection');
+        },
+      });
+
+      const firstClick = wrapper.find('button').trigger('onClick');
+      await graphQL.resolveAll();
+      await firstClick;
+
+      expect(wrapper).toContainReactText('NetworkError');
+
+      graphQL.update({
+        People: lukeMock,
+      });
+
+      const secondClick = wrapper.find('button').trigger('onClick');
+      await graphQL.resolveAll();
+      await secondClick;
+
+      expect(wrapper).toContainReactText('Luke');
+    });
+
+    it('updates the component when response changes', async () => {
+      const graphQL = createGraphQL({People: lukeMock});
+
+      const wrapper = await mountWithGraphQL(<MyComponent />, {
+        graphQL,
+      });
+
+      expect(wrapper).toContainReactText('Luke');
+
+      graphQL.update({
+        People: hanMock,
+      });
+
+      const firstClick = wrapper.find('button').trigger('onClick');
+      await graphQL.resolveAll();
+      await firstClick;
+
+      expect(wrapper).toContainReactText('Han');
+
+      graphQL.update({
+        People: lukeMock,
+      });
+
+      const secondClick = wrapper.find('button').trigger('onClick');
+      await graphQL.resolveAll();
+      await secondClick;
+
+      expect(wrapper).toContainReactText('Luke');
     });
   });
 });

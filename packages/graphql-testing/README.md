@@ -128,6 +128,39 @@ graphQL.operations.all({mutation: addPetMutation});
 
 The `query` and `mutation` options both accept either a regular `DocumentNode`, or an async GraphQL component created with [`@shopify/react-graphql`’s `createAsyncQueryComponent` function](../react-graphql).
 
+### Errors
+
+You can use `createGraphQL` to test error states.
+
+#### Network Errors
+
+You can test network errors by throwing an `Error`.
+
+```tsx
+const graphQL = createGraphQL({
+  Pet: () => {
+    throw new Error('Network Error');
+  },
+});
+```
+
+#### GraphQL Errors
+
+You can test the graphql api returning an error state by returning an `Error` or `GraphQLError`.
+
+```tsx
+const graphQL = createGraphQL({
+  Pet: new Error('Error message'),
+});
+```
+
+```tsx
+import {GraphQLError} from 'graphql';
+const graphQL = createGraphQL({
+  Pet: new GraphQLError('Error message'),
+});
+```
+
 ### Matchers
 
 This library provides a [Jest matcher](https://jestjs.io/docs/en/using-matchers). To use this matcher, you’ll need to include `@shopify/graphql-testing/matchers` in your Jest setup file. The following matcher will then be available:
