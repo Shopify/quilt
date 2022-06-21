@@ -374,6 +374,10 @@ describe('useQuery', () => {
           <p>{data.people[0].name}</p>
         ) : null;
 
+      // apollo will surpress thrown ApolloErrors except
+      // when fetchPolicy is network-only which is what
+      // refetch uses, so for the test we catch and ignore
+      // the thrown error, the error is still returned
       const handleButtonClick = React.useCallback(
         () => refetch().catch((_) => {}),
         [refetch],
