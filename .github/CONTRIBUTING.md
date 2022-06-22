@@ -93,7 +93,7 @@ Another option, if you'd like to break work down into reviewable chunks, is to u
 
 The release process currently involves some manual steps to complete. Please ping Admin Web Foundations ATC in the `#help-admin-web-foundations` Slack channel when you're ready to merge a new PR into `main`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
 
-**Note** Version numbers in `package.json` files should never be altered manually. This will be done via scripts as part of the release process.
+**Note** Version numbers in `package.json` files and `CHANGELOG.md` files should never be altered manually. This will be done via scripts as part of the release process.
 
 ## External Contributors
 

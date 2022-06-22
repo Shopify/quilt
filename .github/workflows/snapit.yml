@@ -31,10 +31,12 @@ jobs:
               const isPermitted = ['write', 'admin'].includes(actorPermission)
 
               if (!isPermitted) {
+                const errorMessage = 'Only users with write permission to the respository can run /snapit'
+
                 await github.rest.issues.createComment({
                   ...context.repo,
                   issue_number: context.issue.number,
-                  body: "Only users with write permission to the respository can run /snapit",
+                  body: errorMessage,
                 })
 
                 core.setFailed(errorMessage)
@@ -99,9 +101,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
-            await exec.exec('yarn run changeset version --snapshot snapshot-release')
+            await exec.exec('yarn run changeset version --snapshot snapshot')
 
-            const {stdout} = await exec.getExecOutput('yarn run release -- --no-git-tags --snapshot --tag snapshot-release')
+            const {stdout} = await exec.getExecOutput('yarn run release -- --no-git-tags --snapshot --tag snapshot')
             const newTags = Array
               .from(stdout.matchAll(/New tag:\s+([^\s\n]+)/g))
               .map(([_, tag]) => tag)

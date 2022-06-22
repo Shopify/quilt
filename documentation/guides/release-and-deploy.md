@@ -1,63 +1,30 @@
 # Creating Releases
 
-**Note🗒️** The following steps require admin access to the Shopify/quilt GitHub repo.
+Changelogs and releases are managed using [`changesets`](https://github.com/changesets/changesets).
 
-## 1. Preparing local environment
+## Performing a mainline release
 
-- Ensure you have the latest `main` branch including all tags:
+We have a [GitHub Action](https://github.com/Shopify/quilt/blob/main/.github/workflows/release.yml) that leverages [`changesets/action`](https://github.com/changesets/action) to handle the release process.
 
-```sh
-git checkout main && git pull
-```
+Upon merging PRs with a changeset entry, it shall create a "Version Packages" PR ([example](https://github.com/Shopify/quilt/pull/2309)) that shall contain any changeset changes since the last release.
 
-**Note🗒️** `git pull` should be used instead of `git pull origin main` to ensure that tags are pulled as well.
+To perform a release:
 
-## 2. Versioning and Tagging
+- Find the [currently open "Version Packages" PR](https://github.com/Shopify/quilt/pulls?q=is%3Apr+is%3Aopen+author%3Aapp%2Fgithub-actions+%22Version+Packages%22)
+- Note that by default all required CI checks are absent. This is expected as the pull request and commit are created using the default GITHUB_TOKEN access token, which [skips downstream events to prevent infinite loops](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow).
+- Merge the PR by checking the `Merge without waiting for requirements to be met (administrators only)` checkbox and choosing `Squash and merge`. We consider skipping the required checks to be acceptable as we are confident that these automated updates of `package.json` and `CHANGELOG.md` would not cause CI to fail.
 
-- Begin the release process:
+The `Release` action shall run on the merge commit on the `main` branch, and shall publish the npm packages and create a GitHub tag and release for each package that is referenced in the PR. You can find the action log by looking at the release commit status on the merge commit.
 
-```sh
-yarn version-bump
-```
+## Performing a snapshot release
 
-- Follow the prompts to choose a version for each package. If you are releasing a new package, we encourage you to version it `1.0.0` to start with.
+[Snapshot releases](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md) publish the state of a single PR. This lets you rapidly test a PR in a consuming project without dealing with `yalc` and its occasional weirdness.
 
-**Note🗒️** Quilt packages adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+To perform a snapshot release:
 
-This command will update all CHANGELOGs to add headings for the new versions you selected.
+- Ensure your PR contains at least one changeset entry.
+- Comment `/snapit` on your PR.
 
-## 3. Pushing Changes
+The `Snapit` action shall run, and shall publish a new version of the packages in your PR's changeset entry with the `snapshot` dist tag. On sucessful publication a comment shall be posted in the issue detailing the published packages and details on how to use them in your consuming project.
 
-The following will push the changes and new tags to GitHub:
-
-```sh
-git push origin main --follow-tags
-```
-
-## 4. Deploying to npm
-
-- Log in to [Shipit](https://shipit.shopify.io/shopify/quilt/production-js)
-
-- When CI is 🍏 on the commit titled `Publish`, press `Deploy` to update packages on npm.
-
-# Releases for 🎩ing changes?
-
-### Step 1 - Publish a `beta` release for testing
-
-- In your branch, run `yarn run version-bump`. Lerna will launch its CLI to select a version for the changed packages. Select the `Custom` option and enter a version with a `-beta.X` suffix (e.g. `0.29.10-my-feature-beta.1`). Many Quilt packages reference others. If you are prompted to version other packages, it is safe to do so (make sure these are also tagged with `-beta.X`).
-
-  **Note:** Ensure your version includes the `-beta` suffix. This is how [Shipit dictates](https://github.com/Shopify/shipit-engine/blob/master/lib/snippets/publish-lerna-independent-packages#L7-L12) a beta release.
-
-- Push your branch to GitHub with the newly created tags using `git push origin <branch> --follow-tags`
-- Create a temporary stack in Shipit that points to your dev branch. Set the Branch to your PR/feature branch and update the Environment to `beta-js` (to match the `shipit.beta-js.yml` file in this repo)
-  ![Create Shipit Stack](../images/shipit-stack.png)
-
-- Hit the Deploy button on your Publish commit in Shipit to publish your beta release to npm
-
-### Step 2 - Consume the release
-
-- Add your release to a repository that uses the package you are testing:
-
-```sh
-yarn add --dev @shopify/my-package@0.29.10-my-feature-beta.1
-```
+This functionality is only available in PRs that point to a branch in the `Shopify/quilt` repository - PRs from forks are not supported.
