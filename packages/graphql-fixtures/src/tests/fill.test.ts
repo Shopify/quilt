@@ -1341,8 +1341,8 @@ describe('createFiller()', () => {
       `);
 
       const document = createDocument<
-        {people: {name: string}[]},
-        {people?: {name?: string | null}[] | null}
+        {people: {pets: {id: string}[]}[]},
+        {people?: {pets?: {id?: string | null}[] | null}[] | null}
       >(`
         query Details {
           people {
@@ -1357,7 +1357,7 @@ describe('createFiller()', () => {
         people: Array.from(Array(100)).map(() => ({
           pets: Array.from(Array(100)).map(() => ({})),
         })),
-      }) as any;
+      });
 
       const allIds = result.people
         .flatMap((person) => person.pets)
