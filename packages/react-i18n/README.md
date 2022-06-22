@@ -161,7 +161,7 @@ Translations are serialized into files according to [the React I18n schema](./do
 Translations are provided using two keys in the `withI18n` decorator:
 
 - `fallback`: a translation file to use when translation keys are not found in the locale-specific translation files. These will usually be your English translations, as they are typically the most complete.
-- `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. The `translations` function can also throw and `react-i18n` will handle the situation gracefully. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries.
+- `translations`: a function which takes the locale and returns one of: nothing (no translations for the locale), a dictionary of key-value translation pairs, or a promise of one of the above. The `translations` function can also throw and `react-i18n` will handle the situation gracefully. Alternatively, you can pass an object where the keys are locales, and the values are either translation dictionaries, or promises for translation dictionaries. In situations where `translations` throws or is not provided, the translations from `fallback` will be used.
 
 We recommend that you co-locate your translation files in a `./translations` directory and that you include an `en.json` file ([schema specification](docs/react_i18n_schema.md)) in that directory as your fallback. We give preferential treatment to this structure via a [babel plugin](./babel-plugin.md) that will automatically fill in the arguments to `useI18n`/ `withI18n` for you.
 
