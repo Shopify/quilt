@@ -31,10 +31,12 @@ jobs:
               const isPermitted = ['write', 'admin'].includes(actorPermission)
 
               if (!isPermitted) {
+                const errorMessage = 'Only users with write permission to the respository can run /snapit'
+
                 await github.rest.issues.createComment({
                   ...context.repo,
                   issue_number: context.issue.number,
-                  body: "Only users with write permission to the respository can run /snapit",
+                  body: errorMessage,
                 })
 
                 core.setFailed(errorMessage)
