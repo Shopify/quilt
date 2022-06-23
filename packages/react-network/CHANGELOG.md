@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`44eb34763`](https://github.com/Shopify/quilt/commit/44eb347633a86f4407f6f794f16c75e68e25c11d)]:
+  - @shopify/network@3.1.0
+
 ## 5.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.

@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2282](https://github.com/Shopify/quilt/pull/2282) [`6fee77510`](https://github.com/Shopify/quilt/commit/6fee775105044d061973e8731b39c439c7ce950f) Thanks [@vsumner](https://github.com/vsumner)! - Update graphql-config to 4
+
+### Patch Changes
+
+- Updated dependencies [[`6fee77510`](https://github.com/Shopify/quilt/commit/6fee775105044d061973e8731b39c439c7ce950f)]:
+  - graphql-config-utilities@4.1.0
+
 ## 3.1.1 - 2022-06-16
 
 ### Fixed

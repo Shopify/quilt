@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.0.2
+
+### Patch Changes
+
+- [#2323](https://github.com/Shopify/quilt/pull/2323) [`44eb34763`](https://github.com/Shopify/quilt/commit/44eb347633a86f4407f6f794f16c75e68e25c11d) Thanks [@atesgoral](https://github.com/atesgoral)! - Add additional headers and standardize X-prefixed ones
+
+* [#2320](https://github.com/Shopify/quilt/pull/2320) [`f70a02825`](https://github.com/Shopify/quilt/commit/f70a02825f7c9942f63a4db0050f28733f695061) Thanks [@vsumner](https://github.com/vsumner)! - Update useQuery refetch so that it can recover from a network error. Add more tests.
+
 ## 8.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.

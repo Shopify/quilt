@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-network@5.0.2
+
 ## 2.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.
