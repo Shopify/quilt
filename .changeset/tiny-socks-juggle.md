@@ -1,7 +1,7 @@
 ---
-'graphql-config-utilities': major
-'graphql-typescript-definitions': major
-'graphql-validate-fixtures': major
+'graphql-config-utilities': minor
+'graphql-typescript-definitions': minor
+'graphql-validate-fixtures': minor
 ---
 
 Update graphql-config to 4
