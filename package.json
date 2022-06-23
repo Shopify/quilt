@@ -35,7 +35,7 @@
     "@apollo/react-hooks": "^3.1.3",
     "@babel/core": "^7.14.6",
     "@changesets/changelog-github": "^0.4.5",
-    "@changesets/cli": "^2.22.0",
+    "@changesets/cli": "^2.23.0",
     "@faker-js/faker": "^6.3.1",
     "@shopify/app-bridge": "^2.0.3",
     "@shopify/babel-preset": "^24.1.4",
