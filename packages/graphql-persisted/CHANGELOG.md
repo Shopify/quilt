@@ -1,5 +1,7 @@
 # Changelog
 
+## 4.0.1
+
 ## 4.0.0 - 2022-05-19
 
 ### Breaking Change
