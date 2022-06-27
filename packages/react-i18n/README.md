@@ -144,6 +144,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
   - `DateStyle.DateTime`: Formats date and time separately and uses the translation string `date.humanize.lessThanOneYearAway` to format it according to this [Polaris guideline](https://polaris.shopify.com/foundations/content/grammar-and-mechanics#date), e.g. `Jun 12, 2022 at 10:34 pm`.
 - `weekStartDay()`: returns start day of the week according to the country.
 - `getCurrencySymbol()`: returns the currency symbol according to the currency code and locale.
+- `getShortCurrencySymbol()`: returns the short currency symbol according to the currency code and locale.
 - `formatName()`: formats a name (first name and/or last name) according to the locale. e,g
   - `formatName('John', 'Smith')` will return `John` in Germany and `Smith様` in Japan
   - `formatName('John', 'Smith', {full: true})` will return `John Smith` in Germany and `SmithJohn` in Japan
