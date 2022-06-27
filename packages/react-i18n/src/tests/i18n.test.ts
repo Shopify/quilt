@@ -2141,8 +2141,7 @@ describe('I18n', () => {
       'returns $shortSymbol for $currency in $locale',
       ({currency, locale, expectedPrefixed, expectedSymbol}) => {
         const i18n = new I18n(defaultTranslations, {locale});
-        // eslint-disable-next-line dot-notation
-        const {symbol, prefixed} = i18n['getShortCurrencySymbol'](currency);
+        const {symbol, prefixed} = i18n.getShortCurrencySymbol(currency);
         expect(prefixed).toStrictEqual(expectedPrefixed);
         expect(sanitizeSpaces(symbol)).toStrictEqual(expectedSymbol);
       },
