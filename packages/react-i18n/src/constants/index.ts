@@ -3,6 +3,7 @@ export enum DateStyle {
   Short = 'Short',
   Humanize = 'Humanize',
   Time = 'Time',
+  DateTime = 'DateTime',
 }
 
 export const dateStyle = {
@@ -25,6 +26,13 @@ export const dateStyle = {
   [DateStyle.Time]: {
     hour: '2-digit',
     minute: '2-digit',
+  },
+  [DateStyle.DateTime]: {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
   },
 } as const;
 

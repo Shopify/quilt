@@ -308,9 +308,18 @@ export class I18n {
     const {style = undefined, ...formatOptions} = options || {};
 
     if (style) {
-      return style === DateStyle.Humanize
-        ? this.humanizeDate(date, {...formatOptions, timeZone})
-        : this.formatDate(date, {...formatOptions, ...dateStyle[style]});
+      switch (style) {
+        case DateStyle.Humanize:
+          return this.humanizeDate(date, {...formatOptions, timeZone});
+        case DateStyle.DateTime:
+          return this.formatDateTime(date, {
+            ...formatOptions,
+            timeZone,
+            ...dateStyle[style],
+          });
+        default:
+          return this.formatDate(date, {...formatOptions, ...dateStyle[style]});
+      }
     }
 
     return formatDate(date, locale, {...formatOptions, timeZone});
@@ -490,6 +499,25 @@ export class I18n {
     }
   }
 
+  private formatDateTime(
+    date: Date,
+    options: Intl.DateTimeFormatOptions,
+  ): string {
+    const {defaultTimezone} = this;
+    const {timeZone = defaultTimezone} = options;
+
+    return this.translate('date.humanize.lessThanOneYearAway', {
+      date: this.getDateFromDate(date, {
+        ...options,
+        timeZone,
+      }),
+      time: this.getTimeFromDate(date, {
+        ...options,
+        timeZone,
+      }),
+    });
+  }
+
   private humanizePastDate(date: Date, options?: Intl.DateTimeFormatOptions) {
     if (isLessThanOneMinuteAgo(date)) {
       return this.translate('date.humanize.lessThanOneMinuteAgo');
@@ -590,6 +618,34 @@ export class I18n {
     const zoneMatchGroup = /\s([\w()+\-:.]+$)/.exec(hourZone);
 
     return zoneMatchGroup ? zoneMatchGroup[1] : '';
+  }
+
+  private getDateFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
+    const {
+      localeMatcher,
+      formatMatcher,
+      weekday,
+      day,
+      month,
+      year,
+      era,
+      timeZone,
+      timeZoneName,
+    } = options || {};
+
+    const formattedDate = this.formatDate(date, {
+      localeMatcher,
+      formatMatcher,
+      weekday,
+      day,
+      month,
+      year,
+      era,
+      timeZone,
+      timeZoneName: timeZoneName === 'short' ? undefined : timeZoneName,
+    });
+
+    return formattedDate;
   }
 
   private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
