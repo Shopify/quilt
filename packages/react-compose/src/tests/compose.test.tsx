@@ -101,14 +101,17 @@ describe('react-compose-enhancers', () => {
 });
 
 interface FooProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   foo: string;
 }
 
 interface BarProps {
+  // eslint-disable-next-line react/no-unused-prop-types
   bar: string;
 }
 
 interface Props {
+  // eslint-disable-next-line react/no-unused-prop-types
   baz: string;
 }
 
