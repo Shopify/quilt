@@ -8,6 +8,7 @@ import {
   WatchQueryOptions,
   ObservableQuery,
 } from 'apollo-client';
+import isEqual from 'fast-deep-equal';
 import {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
 import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
@@ -17,6 +18,10 @@ import {AsyncDocumentNode} from '../types';
 import {QueryHookOptions, QueryHookResult} from './types';
 import useApolloClient from './apollo-client';
 import useGraphQLDocument from './graphql-document';
+
+const {
+  prototype: {hasOwnProperty},
+} = Object;
 
 export default function useQuery<
   Data = any,
@@ -123,28 +128,48 @@ export default function useQuery<
       | ReturnType<typeof queryObservable['subscribe']>
       | undefined;
 
+    let previousError;
+
     const invalidateCurrentResult = () => {
       setResponseId((x) => x + 1);
     };
 
     // from: https://github.com/apollographql/react-apollo/blob/v2.2.0/src/Query.tsx#L343
     // after a error on refetch, without this fix, refetch never works again
-    function invalidateErrorResult() {
-      unsubscribe();
-
+    function invalidateErrorResult(error: Error) {
       const lastError = queryObservable!.getLastError();
       const lastResult = queryObservable!.getLastResult();
-      queryObservable!.resetLastResults();
-      subscribe();
-      Object.assign(queryObservable, {lastError, lastResult});
 
-      invalidateCurrentResult();
+      unsubscribe();
+
+      try {
+        queryObservable.resetLastResults();
+        subscribe();
+      } finally {
+        Object.assign(queryObservable, {lastError, lastResult});
+      }
+
+      if (!hasOwnProperty.call(error, 'graphQLErrors')) {
+        // The error is not a GraphQL error
+        throw error;
+      }
+
+      if (!previousError || !isEqual(error, previousError)) {
+        invalidateCurrentResult();
+      }
+
+      previousError = error;
     }
 
     function subscribe() {
       subscription = queryObservable!.subscribe(
-        invalidateCurrentResult,
-        invalidateErrorResult,
+        () => {
+          previousError = undefined;
+          invalidateCurrentResult();
+        },
+        (error) => {
+          invalidateErrorResult(error);
+        },
       );
     }
 
