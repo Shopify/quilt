@@ -143,7 +143,7 @@ export default function useQuery<
       unsubscribe();
 
       try {
-        queryObservable.resetLastResults();
+        queryObservable?.resetLastResults();
         subscribe();
       } finally {
         Object.assign(queryObservable, {lastError, lastResult});
