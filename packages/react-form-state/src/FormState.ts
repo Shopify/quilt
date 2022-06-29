@@ -51,6 +51,7 @@ interface Props<Fields> {
   validators?: Partial<ValidatorDictionary<Fields>>;
   onSubmit?: SubmitHandler<Fields>;
   validateOnSubmit?: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   onInitialValuesChange?: 'reset-all' | 'reset-where-changed' | 'ignore';
   externalErrors?: RemoteError[];
 }
