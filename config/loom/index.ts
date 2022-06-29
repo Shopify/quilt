@@ -16,6 +16,9 @@ import type {} from '@shopify/loom-plugin-jest';
 // eslint-disable-next-line no-process-env
 const REACT_VERSION = process.env.REACT_VERSION ?? '';
 
+// eslint-disable-next-line no-process-env
+const GRAPHQL_VERSION = process.env.GRAPHQL_VERSION ?? '';
+
 export function quiltPackage({
   isIsomorphic = true,
   jestEnv = 'jsdom',
@@ -67,6 +70,7 @@ export function quiltPackage({
           ...moduleNames,
           '^react-dom((/.*)?)$': `react-dom${REACT_VERSION}$1`,
           '^react((/.*)?)$': `react${REACT_VERSION}$1`,
+          '^graphql((/.*)?)$': `react-dom${GRAPHQL_VERSION}$1`,
         }));
       });
     }),
