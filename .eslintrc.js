@@ -3,7 +3,6 @@ module.exports = {
     'plugin:@shopify/typescript',
     'plugin:@shopify/typescript-type-checking',
     'plugin:@shopify/react',
-    'plugin:@shopify/graphql',
     'plugin:@shopify/jest',
     'plugin:@shopify/prettier',
   ],
@@ -93,12 +92,15 @@ module.exports = {
       },
     },
     {
-      files: ['**/tests/fixtures/**/*.*'],
+      files: ['**/tests/fixtures/**/*'],
       rules: {
         '@shopify/typescript/prefer-pascal-case-enums': 'off',
+        '@typescript-eslint/no-namespace': 'off',
+        '@typescript-eslint/no-unnecessary-qualifier': 'off',
         'babel/object-curly-spacing': 'off',
         'prettier/prettier': 'off',
         'import/newline-after-import': 'off',
+        'import/order': 'off',
       },
     },
     {
