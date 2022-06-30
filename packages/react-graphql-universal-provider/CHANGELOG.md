@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-network@5.0.3
+
 ## 5.0.3
 
 ### Patch Changes

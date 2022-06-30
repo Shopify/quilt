@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`30005950b`](https://github.com/Shopify/quilt/commit/30005950baa33cf0ae7eda6d4fe1cc81fdb2ef70)]:
+  - @shopify/network@3.2.0
+  - @shopify/react-network@5.0.3
+  - @shopify/sewing-kit-koa@9.0.2
+  - @shopify/react-cookie@2.0.3
+
 ## 3.0.2
 
 ### Patch Changes
