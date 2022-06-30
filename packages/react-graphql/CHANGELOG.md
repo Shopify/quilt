@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.0.3
+
+### Patch Changes
+
+- [#2333](https://github.com/Shopify/quilt/pull/2333) [`24a104e16`](https://github.com/Shopify/quilt/commit/24a104e16094d7599c9493390a9841e3475cef45) Thanks [@vsumner](https://github.com/vsumner)! - Handle duplicate error on resubscription causing re-render
+
 ## 8.0.2
 
 ### Patch Changes
