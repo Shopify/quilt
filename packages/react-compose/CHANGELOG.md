@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.2
+
+### Patch Changes
+
+- [#2334](https://github.com/Shopify/quilt/pull/2334) [`683c17dad`](https://github.com/Shopify/quilt/commit/683c17dadcef3c7e385c0e4d6f721265ebe0ed93) Thanks [@BPScott](https://github.com/BPScott)! - Adding ignore comments to satisfy updated eslint configs
+
 ## 3.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.

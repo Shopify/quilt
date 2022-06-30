@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`24a104e16`](https://github.com/Shopify/quilt/commit/24a104e16094d7599c9493390a9841e3475cef45)]:
+  - @shopify/react-graphql@8.0.3
+
 ## 5.0.2
 
 ### Patch Changes
