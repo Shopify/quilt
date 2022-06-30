@@ -190,6 +190,28 @@ describe('useQuery', () => {
         }),
       );
     });
+
+    it('renders twice, loading=true, followed by error', async () => {
+      function MockQuery({children}) {
+        const results = useQuery(petQuery);
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: new Error()});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+      });
+
+      // expect loading and error renders only
+      expect(renderPropSpy).toHaveBeenCalledTimes(2);
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          data: undefined,
+        }),
+      );
+    });
   });
 
   describe('async query component', () => {
