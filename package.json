@@ -40,7 +40,7 @@
     "@shopify/app-bridge": "^2.0.3",
     "@shopify/babel-preset": "^24.1.4",
     "@shopify/browserslist-config": "^3.0.0",
-    "@shopify/eslint-plugin": "^41.1.0",
+    "@shopify/eslint-plugin": "^42.0.1",
     "@shopify/loom": "^1.0.1",
     "@shopify/loom-cli": "^1.0.1",
     "@shopify/loom-plugin-build-library": "^1.0.2",
@@ -77,8 +77,5 @@
     "tsd": "^0.19.1",
     "typescript": "^4.3.5",
     "yalc": "^1.0.0-pre.50"
-  },
-  "resolutions": {
-    "cross-fetch": "3.1.5"
   }
 }

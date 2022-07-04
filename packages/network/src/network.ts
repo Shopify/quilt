@@ -109,7 +109,7 @@ export enum Header {
   XhrRedirectedTo = 'X-XHR-Redirected-To',
   /** @deprecated Use XXhrReferer instead. */
   XhrReferer = 'X-XHR-Referer',
-  /** @deprecated Use XXssProtecton instead. */
+  /** @deprecated Use XXssProtection instead. */
   XssProtecton = 'X-XSS-Protection',
   // X- headers
   XContentTypeOptions = 'X-Content-Type-Options',
@@ -120,7 +120,9 @@ export enum Header {
   XFrameOptions = 'X-Frame-Options',
   XXhrRedirectedTo = 'X-XHR-Redirected-To',
   XXhrReferer = 'X-XHR-Referer',
+  /** @deprecated Use XXssProtection instead. */
   XXssProtecton = 'X-XSS-Protection',
+  XXssProtection = 'X-XSS-Protection',
 }
 
 export enum CspDirective {
