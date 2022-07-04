@@ -86,3 +86,34 @@ export type PartialSome<T, K extends keyof T> = Omit<T, K> &
   Partial<Pick<T, K>>;
 export type RequireSome<T, K extends keyof T> = Omit<T, K> &
   Required<Pick<T, K>>;
+
+// Reference https://github.com/ts-essentials/ts-essentials/blob/5aa1f264e77fb36bb3f673c49f00927c7c181a7f/lib/types.ts
+type IsAny<T> = 0 extends 1 & T ? true : false;
+
+type IsUnknown<T> = IsAny<T> extends true
+  ? false
+  : unknown extends T
+  ? true
+  : false;
+
+export type DeepReadonly<T> = T extends Primitive
+  ? T
+  : T extends Map<infer K, infer V>
+  ? ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>>
+  : T extends ReadonlyMap<infer K, infer V>
+  ? ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>>
+  : T extends WeakMap<infer K, infer V>
+  ? WeakMap<DeepReadonly<K>, DeepReadonly<V>>
+  : T extends Set<infer U>
+  ? ReadonlySet<DeepReadonly<U>>
+  : T extends ReadonlySet<infer U>
+  ? ReadonlySet<DeepReadonly<U>>
+  : T extends WeakSet<infer U>
+  ? WeakSet<DeepReadonly<U>>
+  : T extends Promise<infer U>
+  ? Promise<DeepReadonly<U>>
+  : T extends {}
+  ? {readonly [K in keyof T]: DeepReadonly<T[K]>}
+  : IsUnknown<T> extends true
+  ? unknown
+  : Readonly<T>;
