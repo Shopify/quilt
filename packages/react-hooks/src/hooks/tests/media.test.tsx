@@ -5,8 +5,11 @@ import {mount} from '@shopify/react-testing';
 import {useMedia, useMediaLayout} from '../media';
 
 describe('useMedia and useMediaLayout', () => {
+  let matches: boolean[] = [];
+
   beforeEach(() => {
     matchMedia.mock();
+    matches = [];
   });
 
   afterEach(() => {
@@ -17,8 +20,15 @@ describe('useMedia and useMediaLayout', () => {
     ['useMedia', useMedia],
     ['useMediaLayout', useMediaLayout],
   ])('%s', (_, useEffectHook) => {
-    function MockComponent({mediaQuery}: {mediaQuery: string}) {
-      const matchedQuery = useEffectHook(mediaQuery);
+    function MockComponent({
+      mediaQuery,
+      initialValue,
+    }: {
+      mediaQuery: string;
+      initialValue?: boolean;
+    }) {
+      const matchedQuery = useEffectHook(mediaQuery, {initialValue});
+      matches.push(matchedQuery);
       const message = matchedQuery ? 'matched' : 'did not match';
       return <div>{message}</div>;
     }
@@ -66,6 +76,35 @@ describe('useMedia and useMediaLayout', () => {
       );
 
       const mockComponent = mount(<MockComponent mediaQuery="print" />);
+      expect(matches).toStrictEqual([true]);
+      expect(mockComponent.text()).toContain('matched');
+    });
+
+    it('initial render with initialValue true', () => {
+      matchMedia.setMedia(() =>
+        mediaQueryList({
+          matches: true,
+        }),
+      );
+
+      const mockComponent = mount(
+        <MockComponent mediaQuery="print" initialValue />,
+      );
+      expect(matches).toStrictEqual([true]);
+      expect(mockComponent.text()).toContain('matched');
+    });
+
+    it('initial render with initialValue false', () => {
+      matchMedia.setMedia(() =>
+        mediaQueryList({
+          matches: true,
+        }),
+      );
+
+      const mockComponent = mount(
+        <MockComponent mediaQuery="print" initialValue={false} />,
+      );
+      expect(matches).toStrictEqual([false, true]);
       expect(mockComponent.text()).toContain('matched');
     });
 
@@ -77,6 +116,7 @@ describe('useMedia and useMediaLayout', () => {
       );
 
       const mockComponent = mount(<MockComponent mediaQuery="print" />);
+      expect(matches).toStrictEqual([false]);
       expect(mockComponent.text()).toContain('did not match');
     });
 
