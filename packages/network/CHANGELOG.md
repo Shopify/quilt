@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2338](https://github.com/Shopify/quilt/pull/2338) [`30005950b`](https://github.com/Shopify/quilt/commit/30005950baa33cf0ae7eda6d4fe1cc81fdb2ef70) Thanks [@atesgoral](https://github.com/atesgoral)! - Deprecate enum with typo, introduce correct version
+
 ## 3.1.0
 
 ### Minor Changes

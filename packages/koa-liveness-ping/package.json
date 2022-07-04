@@ -23,7 +23,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^4.0.0",
+    "@shopify/jest-koa-mocks": "^5.0.0",
     "@types/koa": "^2.0.0",
     "@types/koa-mount": "^4.0.0",
     "koa": "^2.13.4",

@@ -26,7 +26,7 @@
     "@shopify/statsd": "^4.0.0"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^4.0.0",
+    "@shopify/jest-koa-mocks": "^5.0.0",
     "@shopify/with-env": "^3.0.0",
     "@types/koa": "^2.0.0",
     "koa": "^2.5.0"

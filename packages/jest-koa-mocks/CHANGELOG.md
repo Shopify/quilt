@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- [#2337](https://github.com/Shopify/quilt/pull/2337) [`e61e9a1e0`](https://github.com/Shopify/quilt/commit/e61e9a1e0aa6efd51ea79e7edf6b08d33503ff63) Thanks [@atesgoral](https://github.com/atesgoral)! - Update node-mocks-http, fixing response.getHeaders() behaviour
+
+  response.getHeaders() had a flawed implementation where it exposed the
+  underlying headers object, allowing it to be mutated in tests directly.
+  https://github.com/howardabrams/node-mocks-http/pull/217 fixes that issue by
+  returning a shallow copy so that the underlying headers object cannot be
+  directly mutated.
+
 ## 4.0.0 - 2022-05-19
 
 ### Breaking Change

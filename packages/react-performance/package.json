@@ -30,7 +30,7 @@
     "react": ">=16.8.0 <19.0.0"
   },
   "devDependencies": {
-    "@shopify/network": "^3.1.0"
+    "@shopify/network": "^3.2.0"
   },
   "files": [
     "build/",
