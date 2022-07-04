@@ -5,8 +5,11 @@ import {mount} from '@shopify/react-testing';
 import {useMedia, useMediaLayout} from '../media';
 
 describe('useMedia and useMediaLayout', () => {
+  let matches: boolean[] = [];
+
   beforeEach(() => {
     matchMedia.mock();
+    matches = [];
   });
 
   afterEach(() => {
@@ -19,6 +22,7 @@ describe('useMedia and useMediaLayout', () => {
   ])('%s', (_, useEffectHook) => {
     function MockComponent({mediaQuery}: {mediaQuery: string}) {
       const matchedQuery = useEffectHook(mediaQuery);
+      matches.push(matchedQuery);
       const message = matchedQuery ? 'matched' : 'did not match';
       return <div>{message}</div>;
     }
@@ -66,6 +70,7 @@ describe('useMedia and useMediaLayout', () => {
       );
 
       const mockComponent = mount(<MockComponent mediaQuery="print" />);
+      expect(matches).toStrictEqual([true]);
       expect(mockComponent.text()).toContain('matched');
     });
 
@@ -77,6 +82,7 @@ describe('useMedia and useMediaLayout', () => {
       );
 
       const mockComponent = mount(<MockComponent mediaQuery="print" />);
+      expect(matches).toStrictEqual([false]);
       expect(mockComponent.text()).toContain('did not match');
     });
 
