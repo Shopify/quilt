@@ -138,8 +138,8 @@ export default function useQuery<
     // from: https://github.com/apollographql/react-apollo/blob/v2.2.0/src/Query.tsx#L343
     // after a error on refetch, without this fix, refetch never works again
     function invalidateErrorResult(error: Error) {
-      const lastError = queryObservable!.getLastError();
-      const lastResult = queryObservable!.getLastResult();
+      // @ts-expect-error access last
+      const lastResult = queryObservable?.last;
 
       unsubscribe();
 
@@ -147,7 +147,8 @@ export default function useQuery<
         queryObservable?.resetLastResults();
         subscribe();
       } finally {
-        Object.assign(queryObservable || {}, {lastError, lastResult});
+        // @ts-expect-error override last
+        queryObservable.last = lastResult;
       }
 
       if (!hasOwnProperty.call(error, 'graphQLErrors')) {
@@ -164,8 +165,17 @@ export default function useQuery<
 
     function subscribe() {
       subscription = queryObservable!.subscribe(
-        () => {
+        (status) => {
           previousError = undefined;
+          // apollo 3 calls this when 2 didn't prevent
+          // the extra render
+          if (
+            currentResult.loading === status.loading &&
+            currentResult.networkStatus === status.networkStatus &&
+            status.partial
+          ) {
+            return;
+          }
           invalidateCurrentResult();
         },
         (error) => {
