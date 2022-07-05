@@ -8200,6 +8200,11 @@ graphql-tag@^2.12.6:
   dependencies:
     tslib "^2.1.0"
 
+graphql-typed@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-2.0.0.tgz#a50a1c72196a90a9a1507acd047887126045cd46"
+  integrity sha512-KQdKSvLKfCEFSI9FQmSYNkFT5wUvug0vjJKizk4gy53DlKBPyUaZrSsCnKQTbc4SVxPztukTpDhbpii0//WPFQ==
+
 graphql-ws@^5.4.1:
   version "5.8.2"
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.8.2.tgz#800184b1addb20b3010dc06cb70877703a5fff20"
