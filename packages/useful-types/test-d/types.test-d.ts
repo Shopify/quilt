@@ -380,14 +380,10 @@ delete readOnly.prop;
 // @ts-expect-error read only property
 readOnly.prop = 'newValue';
 
-// @ts-expect-error read only object
-readOnly.innerObj.prop = 'newValue';
+expectType<{readonly prop: string}>(readOnly.innerObj!);
 
-// @ts-expect-error read only array
-readOnly.array.push('newValue');
+expectType<ReadonlyArray<string>>(readOnly.array!);
 
-// @ts-expect-error read only map
-readOnly.map.delete('newValue');
+expectType<ReadonlyMap<string, string>>(readOnly.map!);
 
-// @ts-expect-error read only set
-readOnly.set.add('newValue');
+expectType<ReadonlySet<string>>(readOnly.set!);
