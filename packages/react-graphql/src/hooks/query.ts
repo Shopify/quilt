@@ -193,6 +193,7 @@ export default function useQuery<
 
     subscribe();
     return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skip, queryObservable]);
 
   const previousData =
