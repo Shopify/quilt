@@ -389,7 +389,6 @@ describe('useQuery', () => {
       const {data, loading, error, refetch} = useQuery(peopleQuery, {
         variables: {id},
       });
-
       const errorMarkup = error ? <p>Error</p> : null;
       const networkErrorMarkup =
         error && error.networkError ? <p>NetworkError</p> : null;
