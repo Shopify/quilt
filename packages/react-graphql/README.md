@@ -164,7 +164,7 @@ Read [ApolloClient class](https://www.apollographql.com/docs/react/api/apollo-cl
 
 ```tsx
 import React from 'react';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 import {useApolloClient} from '@shopify/react-graphql';
 import {Button} from '@shopify/polaris';
 
