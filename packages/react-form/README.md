@@ -510,6 +510,45 @@ return (
 );
 ```
 
+#### `asChoiceList()`
+
+A utility to convert a `Field<Value>` into a derivative that is compatible with `<ChoiceList />` from `@shopify/polaris`. The `value` member will be replaced by a new `selected` member, and the `onChange` will be replaced with a choice list compatible callback.
+
+_Note: this only works for radio button groups, not checkbox groups; `allowMultiple` will be set to false._
+
+##### Signature
+
+`asChoiceList` consumes an existing `Field<Value>`.
+
+```tsx
+enum Color {
+  Red = 'red',
+  Green = 'green',
+}
+const color = useField(Color.Red);
+
+const choiceListProps = asChoiceList(color);
+```
+
+##### Examples
+
+`asChoiceList` is used as a helper to expand an existing field into a choice component (`<ChoiceList />`).
+
+```tsx
+enum Color {
+  Red = 'red',
+  Green = 'green',
+}
+
+const choices = [
+  {label: 'Red', value: Color.Red},
+  {label: 'Green', value: Color.Green},
+];
+
+const color = useField(Color.Red);
+return <ChoiceList {...asChoiceList(color)} title="Color" choices={choices} />;
+```
+
 #### `useList()`
 
 A custom hook for handling the state and validations of fields for a list of objects.

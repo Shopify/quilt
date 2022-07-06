@@ -246,6 +246,43 @@ export function asChoiceField<Value>(
 }
 
 /**
+ * Converts a standard `Field<Value>` into a form that is compatible
+ * with the `<ChoiceList />` component in `@shopify/polaris`.
+ *
+ * For fields that are used by both choice components and other components, it
+ * can be beneficial to retain the original `Field<Value>` shape and convert
+ * the field on the fly for the choice component.
+ *
+ * It only works with Radio buttons (single selection), not checkboxes.
+ *
+ * ```typescript
+ * enum Color { Red = "red", Green = "green" }
+ *
+ * const choices = [
+ *   { label: "Red", value: Color.Red },
+ *   { label: "Green", value: Color.Green },
+ * ]
+ *
+ * const color = useField(Color.Red);
+ * return (<ChoiceList {...asChoiceList(color)} title="Color" choices={choices} />);
+ * ```
+ */
+export function asChoiceList<Value extends string | undefined | null>({
+  value,
+  onChange,
+  ...fieldData
+}: Field<Value>) {
+  return {
+    ...fieldData,
+    selected: value === undefined || value === null ? [] : [value],
+    onChange: (selected: Exclude<Value, null | undefined>[]) => {
+      onChange(selected[0]);
+    },
+    allowMultiple: false,
+  };
+}
+
+/**
  * A simplification to `useField` that returns a `ChoiceField` by automatically
  * converting a boolean field using `asChoiceField` for direct use in choice
  * components.

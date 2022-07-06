@@ -2,7 +2,13 @@ import React from 'react';
 import faker from '@faker-js/faker/locale/en';
 import {mount} from '@shopify/react-testing';
 
-import {asChoiceField, useChoiceField, useField, FieldConfig} from '../field';
+import {
+  asChoiceField,
+  useChoiceField,
+  useField,
+  FieldConfig,
+  asChoiceList,
+} from '../field';
 import {FieldState} from '../../../types';
 import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
 
@@ -823,6 +829,40 @@ describe('asChoiceField', () => {
     choiceField.onChange(false);
 
     expect(onChange).toHaveBeenCalledWith(false);
+  });
+});
+
+describe('asChoiceList', () => {
+  it('replaces value with selected array', () => {
+    expect(asChoiceList({value: 'red'} as any)).toMatchObject({
+      selected: ['red'],
+    });
+  });
+
+  it('replaces undefined with empty selected array', () => {
+    expect(
+      asChoiceList<string | undefined>({value: undefined} as any),
+    ).toMatchObject({
+      selected: [],
+    });
+  });
+
+  it('replaces null with empty selected array', () => {
+    expect(
+      asChoiceList<string | null>({value: null} as any),
+    ).toMatchObject({
+      selected: [],
+    });
+  });
+
+  it('handles the <ChoiceList /> onChange which passes an array', () => {
+    const onChange = jest.fn();
+    const checkedValue = 'A';
+    const choiceField = asChoiceList({value: 'B', onChange} as any);
+
+    choiceField.onChange([checkedValue]);
+
+    expect(onChange).toHaveBeenCalledWith(checkedValue);
   });
 });
 

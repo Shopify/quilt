@@ -3,6 +3,7 @@ export * from './validation';
 
 export {
   asChoiceField,
+  asChoiceList,
   useChoiceField,
   useField,
   useList,
