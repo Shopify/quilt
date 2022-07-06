@@ -15,6 +15,7 @@ import {GraphQLMock, MockRequest, FindOptions} from './types';
 export interface Options {
   unionOrIntersectionTypes?: any[];
   cacheOptions?: ApolloReducerConfig;
+  links?: ApolloLink[];
 }
 
 interface Wrapper {
@@ -31,7 +32,11 @@ export class GraphQL {
 
   constructor(
     mock: GraphQLMock | undefined,
-    {unionOrIntersectionTypes = [], cacheOptions = {}}: Options = {},
+    {
+      unionOrIntersectionTypes = [],
+      cacheOptions = {},
+      links = [],
+    }: Options = {},
   ) {
     const cache = new InMemoryCache({
       fragmentMatcher: new IntrospectionFragmentMatcher({
@@ -46,6 +51,7 @@ export class GraphQL {
 
     this.mockLink = new MockLink(mock || defaultGraphQLMock);
     const link = ApolloLink.from([
+      ...links,
       new InflightLink({
         onCreated: this.handleCreate,
         onResolved: this.handleResolve,
