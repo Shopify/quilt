@@ -10,6 +10,7 @@ import {
   DeepPartial,
   IfEmptyObject,
   DeepOmit,
+  DeepReadonly,
 } from '../build/ts/types';
 
 interface Person {
@@ -356,3 +357,33 @@ expectNotAssignable<DeepOmit<RespectOptionalProps, '__typename'>>({
 /**
  * RequireSome
  */
+
+/**
+ * DeepReadonly
+ */
+
+interface ObjectInterface {
+  prop?: string;
+  innerObj?: {
+    prop: string;
+  };
+  array?: string[];
+  map?: Map<string, string>;
+  set?: Set<string>;
+}
+
+const readOnly = {} as DeepReadonly<ObjectInterface>;
+
+// @ts-expect-error can't delete from read only
+delete readOnly.prop;
+
+// @ts-expect-error read only property
+readOnly.prop = 'newValue';
+
+expectType<{readonly prop: string}>(readOnly.innerObj!);
+
+expectType<ReadonlyArray<string>>(readOnly.array!);
+
+expectType<ReadonlyMap<string, string>>(readOnly.map!);
+
+expectType<ReadonlySet<string>>(readOnly.set!);

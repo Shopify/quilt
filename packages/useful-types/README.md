@@ -85,7 +85,7 @@ The following type aliases are provided by this library:
   type SelectiveObj = Omit<Obj, 'foo' | 'bar'>; // {baz: number}
   ```
 
-- `DeepPartial<T>`: Recusively maps over all properties in a type and transforms them to be optional. Useful when you need to make optional all of the properties (and nested properties) of an existing type.
+- `DeepPartial<T>`: Recursively maps over all properties in a type and transforms them to be optional. Useful when you need to make optional all of the properties (and nested properties) of an existing type.
 
   ```ts
   interface Obj {
@@ -153,4 +153,17 @@ type SelectiveObj = DeepOmit<Obj, '__typename'>; // {foo: string; bar: {baz: str
   }
 
   type HalfRequiredObj = RequireSome<Obj, 'foo'>; // {foo: string, bar?: string}
+  ```
+
+- `DeepReadonly<T>`: Recursively maps over all properties in a type and transforms them to be read-only.
+
+  ```ts
+  interface Obj {
+    foo: string;
+    bar: {
+      baz: boolean;
+    };
+  }
+
+  type DeepReadonlyObj = DeepReadonly<Obj>; // {readonly foo: string; readonly bar: { readonly baz: boolean }}
   ```
