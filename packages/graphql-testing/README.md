@@ -17,7 +17,7 @@ $ yarn add @shopify/graphql-testing
 
 ## Usage
 
-The default utility exported by this library is `createGraphQLFactory`. This factory accepts an optional options argument that allows you to pass a `unionOrIntersectionTypes` array and/ or additional `cacheOptions` that will be used to construct an Apollo in-memory cache.
+The default utility exported by this library is `createGraphQLFactory`. This factory accepts an optional options argument that allows you to pass a `unionOrIntersectionTypes` array and/ or additional `cacheOptions` that will be used to construct an Apollo in-memory cache and/ or `links` which can contain `ApolloLink`s that will be passed to the apollo client links.
 
 ```js
 const createGraphQL = createGraphQLFactory({
