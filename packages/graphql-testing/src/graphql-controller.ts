@@ -7,7 +7,6 @@ import {
   PossibleTypesMap,
 } from '@apollo/client';
 
-// import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
