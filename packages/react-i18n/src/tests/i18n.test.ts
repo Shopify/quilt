@@ -2055,6 +2055,49 @@ describe('I18n', () => {
         }),
       ).toBe(expectedWithNewTimezone);
     });
+
+    describe('#with DateStyle.DateTime()', () => {
+      const date = new Date('2022-06-12T16:34:56Z');
+
+      const tests: [string, string, string, string, string][] = [
+        // [timezone, locale, country, expected date, expected time]
+        ['Europe/Amsterdam', 'en-US', 'US', 'Jun 12, 2022', '6:34 pm'],
+        ['Europe/Amsterdam', 'en-CA', 'CA', 'Jun 12, 2022', '6:34 p.m.'],
+        ['Europe/Amsterdam', 'es', 'ES', '12 jun 2022', '18:34'],
+        ['Europe/Amsterdam', 'fr', 'FR', '12 juin 2022', '18:34'],
+        ['Europe/Amsterdam', 'nl-NL', 'NL', '12 jun. 2022', '18:34'],
+        ['Europe/London', 'en-GB', 'GB', '12 Jun 2022', '17:34'],
+      ];
+
+      it.each(tests)(
+        'format DateTime with timezone %s and locale %s and country %s',
+        (timezone, locale, country, outputDate, outputTime) => {
+          const i18n = new I18n(defaultTranslations, {
+            locale,
+            country,
+            timezone,
+          });
+
+          i18n.formatDate(date, {
+            style: DateStyle.DateTime,
+            timeZone: timezone,
+          });
+
+          expect(translate).toHaveBeenCalledWith(
+            'date.humanize.lessThanOneYearAway',
+            {
+              pseudotranslate: false,
+              replacements: {
+                date: outputDate,
+                time: outputTime,
+              },
+            },
+            defaultTranslations,
+            i18n.locale,
+          );
+        },
+      );
+    });
   });
 
   describe('#weekStartDay()', () => {
