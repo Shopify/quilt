@@ -84,6 +84,36 @@ describe('<Html />', () => {
       }
     });
 
+    it('generates a script tag in the head with crossOrigin anonymous by default', () => {
+      const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
+      const html = mount(<Html {...mockProps} scripts={scripts} />);
+      const head = html.find('head')!;
+
+      for (const script of scripts) {
+        expect(head).toContainReactComponent(Script, {
+          src: script.path,
+          crossOrigin: 'anonymous',
+        });
+      }
+    });
+
+    it('generates a script tag in the head without crossOrigin when disabled', () => {
+      const scripts = [
+        {path: 'foo.js', disableCrossOrigin: true},
+        {path: 'bar.js', disableCrossOrigin: true},
+      ];
+
+      const html = mount(<Html {...mockProps} scripts={scripts} />);
+      const head = html.find('head')!;
+
+      for (const script of scripts) {
+        expect(head).toContainReactComponent(Script, {
+          src: script.path,
+          crossOrigin: undefined,
+        });
+      }
+    });
+
     it('includes `type` attributes', () => {
       const script = {path: 'foo.js', type: 'nomodule' as const};
       const html = mount(<Html {...mockProps} scripts={[script]} />);
@@ -91,6 +121,29 @@ describe('<Html />', () => {
 
       expect(head).toContainReactComponent(Script, {
         type: 'nomodule',
+      });
+    });
+
+    it('does not include async attribute by default', () => {
+      const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
+      const html = mount(<Html {...mockProps} scripts={scripts} />);
+      const head = html.find('head')!;
+
+      expect(head).not.toContainReactComponent(Script, {
+        async: true,
+      });
+    });
+
+    it('includes async attribute when enabled', () => {
+      const scripts = [
+        {path: 'foo.js', async: true},
+        {path: 'bar.js', async: true},
+      ];
+      const html = mount(<Html {...mockProps} scripts={scripts} />);
+      const head = html.find('head')!;
+
+      expect(head).toContainReactComponent(Script, {
+        async: true,
       });
     });
   });
@@ -104,6 +157,36 @@ describe('<Html />', () => {
       for (const script of scripts) {
         expect(head).toContainReactComponent(Script, {
           src: script.path,
+        });
+      }
+    });
+
+    it('generates a script tag in the head with crossOrigin anonymous by default', () => {
+      const scripts = [{path: 'foo.js'}, {path: 'bar.js'}];
+      const html = mount(<Html {...mockProps} blockingScripts={scripts} />);
+      const head = html.find('head')!;
+
+      for (const script of scripts) {
+        expect(head).toContainReactComponent(Script, {
+          src: script.path,
+          crossOrigin: 'anonymous',
+        });
+      }
+    });
+
+    it('generates a script tag in the head without crossOrigin when disabled', () => {
+      const scripts = [
+        {path: 'foo.js', disableCrossOrigin: true},
+        {path: 'bar.js', disableCrossOrigin: true},
+      ];
+
+      const html = mount(<Html {...mockProps} blockingScripts={scripts} />);
+      const head = html.find('head')!;
+
+      for (const script of scripts) {
+        expect(head).toContainReactComponent(Script, {
+          src: script.path,
+          crossOrigin: undefined,
         });
       }
     });

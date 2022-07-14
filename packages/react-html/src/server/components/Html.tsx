@@ -18,6 +18,8 @@ export interface Asset {
 
 export interface ScriptAsset extends Asset {
   type?: 'module' | 'nomodule' | 'script';
+  disableCrossOrigin?: boolean;
+  async?: boolean | undefined;
 }
 
 export interface InlineStyle {
@@ -107,25 +109,31 @@ export default function Html({
   });
 
   const blockingScriptsMarkup = blockingScripts.map((script) => {
+    const crossOrigin = script.disableCrossOrigin ? undefined : 'anonymous';
+
     return (
       <Script
         key={script.path}
         src={script.path}
         integrity={script.integrity}
         type={script.type}
-        crossOrigin="anonymous"
+        crossOrigin={crossOrigin}
+        async={script.async}
       />
     );
   });
 
   const deferredScriptsMarkup = scripts.map((script) => {
+    const crossOrigin = script.disableCrossOrigin ? undefined : 'anonymous';
+
     return (
       <Script
         key={script.path}
         src={script.path}
         integrity={script.integrity}
         type={script.type}
-        crossOrigin="anonymous"
+        crossOrigin={crossOrigin}
+        async={script.async}
         defer
       />
     );
