@@ -12,9 +12,9 @@ describe('Root', () => {
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     consoleErrorSpy.mockRestore();
-    destroyAll();
+    await destroyAll();
   });
 
   it('works with react 16 style nodes', () => {
