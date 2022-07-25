@@ -9,6 +9,16 @@ const buildDir = path.join(__dirname, './fixtures/storybook');
 jest.setTimeout(180000);
 
 describe('can test a story', () => {
+  let consoleLogSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleLogSpy.mockRestore();
+  });
+
   beforeAll(() => {
     return new Promise((resolve, reject) => {
       const icuDataPath = path.dirname(require.resolve('full-icu'));
